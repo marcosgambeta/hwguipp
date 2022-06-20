@@ -1,0 +1,25 @@
+#
+# $Id: designer.hbp 3049 2022-01-23 13:47:16Z df7be $
+#
+
+-n -w
+
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+-L../../
+hwgui.hbc
+
+-o./designer
+
+designer.prg
+hctrl.prg
+hformgen.prg
+inspect.prg
+editor.prg
+
+{win}designer.rc
+
+# ============== EOF of designer.hbp ====================

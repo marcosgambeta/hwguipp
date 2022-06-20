@@ -1,0 +1,20 @@
+#
+# $Id: memdump.hbp 3070 2022-05-03 08:53:46Z df7be $
+#
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+../../hwgui.hbc
+
+-n
+# -w
+
+-omemdump
+
+memdump.prg
+
+# ==================== EOF of memdump.prg ===============

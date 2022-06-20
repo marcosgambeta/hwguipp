@@ -1,0 +1,30 @@
+#
+# $Id: dbchw.hbp 2995 2021-05-19 13:10:14Z df7be $
+#
+
+
+-n -w
+
+# The macro for unix has also effect on LINUX
+{unix}-lm
+{unix}-static
+{unix}-d__LINUX__
+{unix}-d__GTK__
+
+-L../..
+hwgui.hbc
+
+-o../../bin/dbchw
+
+dbchw.prg
+commands.prg
+modistru.prg
+move.prg
+view.prg
+procs_c.c
+{win}dbchw.rc
+
+
+# =================== EOF of dbchw.hbp ===============
+ 
+

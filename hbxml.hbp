@@ -1,0 +1,22 @@
+#
+# $Id: hbxml.hbp 2943 2021-02-20 17:32:38Z df7be $
+#
+
+hwgui.hbc
+
+-hblib
+
+-olib/hbxml
+
+-w
+
+# Uncomment these two lines to build HwGUI in Unicode mode
+#-prgflag=-DUNICODE
+#-cflag=-DUNICODE
+
+#-cflag=-DHWG_USE_POINTER_ITEM
+source/common/xml/*.c
+source/common/xml/*.prg
+
+# ============================ EOF of hbxml.hbp ======================================
+

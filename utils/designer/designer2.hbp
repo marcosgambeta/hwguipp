@@ -1,0 +1,15 @@
+#
+# $Id: designer.hbp 1985 2012-12-28 09:32:09Z omm $
+#
+
+..\..\hwgui.hbc
+-n -w
+designer.prg
+hctrl.prg
+hformgen.prg
+inspect.prg
+editor.prg
+
+{win}designer2.rc
+
+# ============================= EOF of designer2.hbp  ===================================

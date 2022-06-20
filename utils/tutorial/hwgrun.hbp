@@ -1,0 +1,22 @@
+#Initial of hwgrun.hbp
+#
+# $Id: hwgrun_linux.hbp 2861 2020-07-04 10:49:11Z df7be $
+#
+
+-n -w
+
+# The macro for unix has also effect on LINUX
+{unix}-lm
+{unix}-static
+{unix}-d__LINUX__
+{unix}-d__GTK__
+
+-L../..
+hwgui.hbc
+
+# -o../../bin/hwgrun
+-o./hwgrun
+
+hwgrun.prg
+
+# ===================== EOF of hwgrun.hbp ===============

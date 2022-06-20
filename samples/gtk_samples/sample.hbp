@@ -1,0 +1,23 @@
+#
+# $Id: sample.hbp 2957 2021-03-08 23:32:43Z df7be $
+#
+
+# Modify "sample" ( 2 x ) to the name of program to compile
+
+#-b
+-stop={win}
+
+-n -w
+
+#-L../..
+-L..
+-lm
+hwgui.hbc
+
+-osample
+
+sample.prg
+
+
+# ===================== EOF of sample.hbp ====================
+

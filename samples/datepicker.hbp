@@ -1,0 +1,22 @@
+#
+# $Id: datepicker.hbp 3050 2022-01-26 22:45:52Z df7be $
+#
+
+# -stop={linux}
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+../hwgui.hbc
+
+-n
+-w
+
+-odatepicker
+
+datepicker.prg
+
+# ==================== EOF of datepicker.hbp ===============

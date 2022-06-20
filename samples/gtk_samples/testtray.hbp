@@ -1,0 +1,21 @@
+#
+# $Id: testtray.hbp 3039 2022-01-02 16:33:57Z df7be $
+#
+
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+../../hwgui.hbc
+
+-n
+-w
+
+-otesttray
+
+testtray.prg
+
+# ==================== EOF of testtray.hbp ===============

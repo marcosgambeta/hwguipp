@@ -1,0 +1,19 @@
+#
+# $Id: dbview.hbp 2962 2021-03-14 14:34:08Z df7be $
+#
+
+-stop={win}
+
+../../hwgui.hbc
+
+-n
+-w
+-lm
+-static
+-d__LINUX__ -d__GTK__
+
+-odbview
+
+dbview.prg
+
+# ==================== EOF of dbview.hbp ===============

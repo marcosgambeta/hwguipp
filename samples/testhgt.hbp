@@ -1,0 +1,26 @@
+#
+# Compile script for test program with gtwvg
+# $Id: testhgt.hbp 2961 2021-03-14 10:25:21Z df7be $
+
+
+# Harbour GTWVG is Windows only
+
+-stop={linux}
+
+# {linux}-static
+# {linux}-d__LINUX__
+# {linux}-d__GTK__
+-dWVTWINLG_CH
+
+-mt
+-n -w
+testhgt.prg
+
+#-L..\..\lib
+#-L..\..
+-L..
+hwgui.hbc
+hbwin.hbc
+-lgtwvg
+
+# ============= EOF of test.hbp ====================

@@ -1,0 +1,17 @@
+#
+# $Id$
+#
+
+-stop={linux}
+
+../../hwgui.hbc
+
+-w0
+
+-ohwmake
+
+hwmake.prg
+
+xhb.hbc
+
+# ============== EOF of hwmake.hbp =============

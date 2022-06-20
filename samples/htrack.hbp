@@ -1,0 +1,21 @@
+#
+# $Id: htrack.hbp 2966 2021-04-08 07:57:12Z df7be $
+#
+
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+../hwgui.hbc
+
+-n
+#-w
+
+-ohtrack
+
+htrack.prg
+
+# ==================== EOF of htrack.hbp ===============

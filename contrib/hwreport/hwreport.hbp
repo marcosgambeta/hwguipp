@@ -1,0 +1,27 @@
+#
+# $Id: $
+#
+
+#-stop={linux}
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+-n -w
+
+-ohwreport
+
+
+
+hwreport.prg
+opensave.prg
+propert.prg
+printrpt.prg
+repexec.prg
+
+../../hwgui.hbc
+
+# ================ EOF of hwreport.hbp ================

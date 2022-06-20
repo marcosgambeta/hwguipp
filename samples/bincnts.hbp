@@ -1,0 +1,24 @@
+#
+# $Id: bincnts.hbp 3047 2022-01-20 13:55:27Z df7be $
+#
+
+# -stop={linux}
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+../hwgui.hbc
+
+-n
+-w
+
+-obincnts
+
+
+bincnts.prg
+{win}bincnts.rc
+
+# ==================== EOF of bincnts.hbp ===============

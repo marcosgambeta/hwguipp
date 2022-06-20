@@ -1,0 +1,16 @@
+#
+# $Id: Ticket27.hbp 2888 2020-09-29 21:14:14Z df7be $
+#
+
+
+-mt
+-n -w
+
+-oTicket27
+
+Ticket27.prg
+
+..\hwgui.hbc
+
+# ===================== EOF of Ticket27.hbp ====================
+

@@ -1,0 +1,19 @@
+#
+# $Id: bincnt.hbp 2964 2021-03-15 09:00:37Z df7be $
+#
+
+-n -w
+
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+-L../..
+hwgui.hbc
+
+-o../../bin/bincnt
+
+bincnt.prg
+
+# ============== EOF of bincnt.hbp =============

@@ -1,0 +1,21 @@
+#
+# $Id: escrita.hbp 3057 2022-02-13 22:09:57Z df7be $
+#
+
+# -stop={win}
+
+-n -w
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+../hwgui.hbc
+
+-oescrita
+
+escrita.prg
+
+# ==================== EOF of escrita.hbp ===============

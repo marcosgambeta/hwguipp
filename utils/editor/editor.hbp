@@ -1,0 +1,26 @@
+#
+# $Id: editor.hbp 2964 2021-03-15 09:00:37Z df7be $
+#
+
+# Make script for HWGUI editor using hbmk2 utility
+
+..\..\hwgui.hbc
+
+hbct.hbc
+
+-n -w
+
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+{linux}-lm
+
+-o./editor
+
+editor.prg
+hcediext.prg
+calc.prg
+
+
+# --------------------- EOF of editor.hbp -------------------------
+

@@ -1,0 +1,20 @@
+#
+# $Id: nice.hbp 2960 2021-03-12 09:56:33Z df7be $
+#
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+../hwgui.hbc
+
+-n
+-w
+
+-onice
+
+nice.prg
+
+# ==================== EOF of a.hbp ===============

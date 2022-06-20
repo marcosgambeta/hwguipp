@@ -1,0 +1,22 @@
+#
+# $Id: sample.hbp 2962 2021-03-14 14:34:08Z df7be $
+#
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
+
+-b
+-n
+-w
+
+-osample
+
+sample.prg
+
+..\..\hwgui.hbc
+
+# ===================== EOF of sample.hbp ====================
+

@@ -1,0 +1,158 @@
+#
+# allhbp.hbp
+#
+# $Id$
+#
+# File for hbmk2 utility for building:
+# - HWGUI
+# - Utils 
+# - All sample programs and contrib's
+#
+
+-hbcontainer
+
+#
+# Basic HWGUI libraries
+#
+../hwgui.hbp
+../procmisc.hbp
+../hbxml.hbp
+../hwgdebug.hbp
+#
+# Only for MinGW and Borland C compiler
+../hwguidyn.hbp
+#
+# Contrib
+#
+../contrib/hwg_misc.hbp
+#
+# ----- Out of support , not for Windows 7 and higher , outdated -----
+# See Readme.txt in directory "samples"
+# - MS Agent
+#   Not contained in Windows 7 and higher, support ended
+#../contrib/hbactivex.hbp
+#../contrib/hwg_extctrl.hbp
+#
+# Be shure, that QHTM is installed before build -- Windows only --
+#../contrib/hwg_qhtm.hbp
+#
+../contrib/hwmake/hwmake.hbp
+
+# Under construction, MinGW OK, LINUX/GTK port needed ! 
+../contrib/hwreport/hwreport.hbp
+# Sample program freezes after start printing
+#../contrib/hwreport/example.hbp
+#
+# Samples WinAPI and LINUX/GTK
+#
+../samples/arraybrowse.prg
+../samples/bincnts.prg
+../samples/colrbloc.prg
+../samples/datepicker.prg
+../samples/dbview.prg
+../samples/demodbf.prg
+../samples/demohlistsub.prg
+../samples/fileselect.prg
+../samples/getupdown.prg
+../samples/GetWinVers.prg
+../samples/graph.prg
+../samples/helpstatic.prg
+../samples/hexbincnt.prg
+../samples/htrack.prg
+../samples/icons.prg
+../samples/icons2.prg
+../samples/menumod.prg
+../samples/modtitle.prg
+../samples/progbars.prg
+../samples/pseudocm.prg
+../samples/simpleedit.prg
+../samples/stretch.prg
+../samples/tab.prg
+../samples/testfunc.prg
+../samples/testhmonth.prg
+../samples/testimage.prg
+../samples/testsdi.prg
+../samples/testspli.prg
+../samples/testtree.prg
+../samples/testxml.prg
+../samples/trackbar.prg
+../samples/tstcombo.prg
+../samples/TwoLstSub.prg
+../samples/winprn.prg
+../samples/xmltree.prg
+#
+# Samples WinAPI only
+#
+../samples/a.prg
+../samples/buildpelles.prg
+../samples/demohlist.prg
+../samples/grid_1.prg
+../samples/grid_4.prg
+../samples/grid_5.prg
+../samples/hello.prg
+../samples/nice.prg
+../samples/shadebtn.prg
+../samples/test_bot.prg
+../samples/Testado.prg
+../samples/testalert.prg
+../samples/testbrw.prg
+../samples/testget1.prg
+../samples/testget2.prg
+../samples/testini.prg
+../samples/testmenubitmap.prg
+../samples/testrtf.prg
+../samples/tstscrlbar.prg
+../samples/tstsplash.prg
+../samples/TwoListbox.prg
+#
+# Programs not runable
+# ../samples/nice2.prg
+# ../samples/propsh.prg
+# ../samples/testchild.prg
+#../samples/testtray.prg
+#
+# use Postgres Library, you need to link libpq.lib and libhbpg.lib
+# ../samples/grid_2.prg
+# ../samples/grid_3.prg
+#
+# --- Outdated --- 
+# ../samples/helpdemo.prg
+# ../samples/hole.prg
+# ../samples/iesample.hbp
+# ../samples/tstprdos.prg
+#
+../samples/testhgt.hbp
+#
+# Samples LINUX/GTK
+#
+../samples/gtk_samples/a.hbp
+../samples/gtk_samples/dbview.hbp
+../samples/gtk_samples/escrita.hbp
+../samples/gtk_samples/example.hbp
+../samples/gtk_samples/GetWinVers.hbp
+../samples/gtk_samples/graph.hbp
+../samples/gtk_samples/progbars.hbp
+../samples/gtk_samples/pseudocm.hbp
+# Only as template !
+#../samples/gtk_samples/sample.hbp
+../samples/gtk_samples/testget2.hbp
+../samples/gtk_samples/winprn.hbp
+#
+# Utils
+#
+../utils/bincnt/bincnt.hbp
+../utils/bincnt/file2hex.hbp
+../utils/dbc/dbchw.hbp
+../utils/debugger/hwgdebug.hbp
+../utils/debugger/sample.hbp
+../utils/designer/designer.hbp
+#../utils/designer/designer2.hbp ==> only for BCC
+# harbour 3.4 do not have codepage DE858/DEWIN
+# It is very important for Euro currency sign !
+# use recent code snapshot of Harbour for editor
+../utils/editor/editor.hbp
+../utils/tutorial/hwgrun.hbp
+../utils/tutorial/tutor.hbp
+
+# =========================== EOF of allhbp.hbp =================================
+

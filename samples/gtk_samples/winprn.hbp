@@ -1,0 +1,15 @@
+#
+# $Id: winprn.hbp 2957 2021-03-08 23:32:43Z df7be $
+#
+
+-stop={win}
+winprn.prg
+-owinprn
+-n -w
+-lm
+-static
+-d__LINUX__ -d__GTK__
+
+../../hwgui.hbc
+
+# ==================== EOF of winprn.hbp ===============
