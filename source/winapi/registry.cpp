@@ -26,11 +26,11 @@
 
 HB_FUNC( HWG_REGCREATEKEY )
 {
-   HKEY hkResult = NULL;
+   HKEY hkResult = nullptr;
    DWORD dwDisposition;
 
-   if( RegCreateKeyEx( (HKEY)hb_parnl(1), hb_parc(2), 0, NULL, 0, KEY_ALL_ACCESS, 
-          NULL, &hkResult, &dwDisposition ) == ERROR_SUCCESS )
+   if( RegCreateKeyEx( (HKEY)hb_parnl(1), hb_parc(2), 0, nullptr, 0, KEY_ALL_ACCESS, 
+          nullptr, &hkResult, &dwDisposition ) == ERROR_SUCCESS )
    {
       hb_retnl( (ULONG) hkResult );
    }
@@ -44,7 +44,7 @@ HB_FUNC( HWG_REGCREATEKEY )
 
 HB_FUNC( HWG_REGOPENKEY )
 {
-   HKEY hkResult = NULL;
+   HKEY hkResult = nullptr;
 
    if( RegOpenKeyEx( (HKEY)hb_parnl(1), hb_parc(2), 0, KEY_ALL_ACCESS, 
                 &hkResult ) == ERROR_SUCCESS )
@@ -95,11 +95,11 @@ HB_FUNC( HWG_REGGETVALUE )
    DWORD lpcbData;
    int length;
 
-   if( RegQueryValueEx( hKey, lpValueName, NULL,NULL,NULL,&lpcbData ) == ERROR_SUCCESS )
+   if( RegQueryValueEx( hKey, lpValueName, nullptr,nullptr,nullptr,&lpcbData ) == ERROR_SUCCESS )
    {
       length = (int) lpcbData;
       lpData = (LPBYTE)hb_xgrab( length+1 );
-      if( RegQueryValueEx( hKey, lpValueName, NULL,&lpType,lpData,&lpcbData ) == ERROR_SUCCESS )
+      if( RegQueryValueEx( hKey, lpValueName, nullptr,&lpType,lpData,&lpcbData ) == ERROR_SUCCESS )
       {
          hb_retclen( (char*)lpData,(lpType==REG_SZ || lpType==REG_MULTI_SZ || lpType==REG_EXPAND_SZ)? length-1:length );
          if( hb_pcount() > 2 )

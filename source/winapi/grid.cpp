@@ -35,7 +35,7 @@
   (BOOL)SNDMSG((hwndLV), LVM_SORTITEMSEX, (WPARAM)(LPARAM)(_lPrm), (LPARAM)(PFNLVCOMPARE)(_pfnCompare))
 #endif
 
-//static HWND hListSort=NULL;
+//static HWND hListSort=nullptr;
 
 typedef struct tagSortInfo
 {
@@ -62,10 +62,10 @@ HB_FUNC( HWG_LISTVIEW_CREATE )
       style = style | LVS_NOSCROLL;
    }
 
-   handle = CreateWindowEx( WS_EX_CLIENTEDGE, WC_LISTVIEW, NULL,
+   handle = CreateWindowEx( WS_EX_CLIENTEDGE, WC_LISTVIEW, nullptr,
          style,
          hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
-         hwnd, ( HMENU )(UINT_PTR) hb_parni(2), GetModuleHandle( NULL ), NULL );
+         hwnd, ( HMENU )(UINT_PTR) hb_parni(2), GetModuleHandle( nullptr ), nullptr );
 
    HB_RETHANDLE( handle );
 }
@@ -100,7 +100,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
 
    COL.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT | LVCF_SUBITEM;
    COL.cx = hb_parni(3);
-   COL.pszText = ( LPTSTR ) HB_PARSTRDEF( 4, &hText, NULL );
+   COL.pszText = ( LPTSTR ) HB_PARSTRDEF( 4, &hText, nullptr );
    COL.iSubItem = hb_parni(2) - 1;
    COL.fmt = hb_parni(5);
    if( iImage > 0 )
@@ -114,7 +114,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
    ListView_InsertColumn( ( HWND ) HB_PARHANDLE(1), hb_parni(2) - 1,
          &COL );
 
-   RedrawWindow( ( HWND ) HB_PARHANDLE(1), NULL, NULL,
+   RedrawWindow( ( HWND ) HB_PARHANDLE(1), nullptr, nullptr,
          RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
          RDW_UPDATENOW );
    hb_strfree( hText );
@@ -123,7 +123,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
 HB_FUNC( HWG_LISTVIEW_DELETECOLUMN )
 {
    ListView_DeleteColumn( ( HWND ) HB_PARHANDLE(1), hb_parni(2) - 1 );
-   RedrawWindow( ( HWND ) HB_PARHANDLE(1), NULL, NULL,
+   RedrawWindow( ( HWND ) HB_PARHANDLE(1), nullptr, nullptr,
          RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
          RDW_UPDATENOW );
 }
@@ -272,7 +272,7 @@ HB_FUNC( HWG_LISTVIEW_SETVIEW )
    {
       SetWindowLongPtr( hWndListView,
             GWL_STYLE, ( dwStyle & ~LVS_TYPEMASK ) | dwView );
-      //  RedrawWindow( (HWND) HB_PARHANDLE(1), NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
+      //  RedrawWindow( (HWND) HB_PARHANDLE(1), nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
    }
 }
 
@@ -293,7 +293,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    else
       lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_WIDTH;
 
-   lvcolumn.pszText = ( LPTSTR ) HB_PARSTR( 3, &hText, NULL );
+   lvcolumn.pszText = ( LPTSTR ) HB_PARSTR( 3, &hText, nullptr );
    lvcolumn.iSubItem = lCol;
    lvcolumn.cx = hb_parni(4);
    lvcolumn.fmt = hb_parni(5);
@@ -305,7 +305,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    else
       iResult = 1;
 
-   RedrawWindow( hwndListView, NULL, NULL,
+   RedrawWindow( hwndListView, nullptr, nullptr,
          RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
          RDW_UPDATENOW );
 
@@ -337,7 +337,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    lvi.iImage = iBitMap >= 0 ? lCol : -1;
    lvi.state = 0;
    lvi.stateMask = 0;
-   lvi.pszText = ( LPTSTR ) HB_PARSTR( 4, &hText, NULL );
+   lvi.pszText = ( LPTSTR ) HB_PARSTR( 4, &hText, nullptr );
    lvi.iItem = lLin;
    lvi.iSubItem = lCol;
 
@@ -360,7 +360,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
          break;
    }
 
-// RedrawWindow( hwndListView, NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
+// RedrawWindow( hwndListView, nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
    InvalidateRect( hwndListView, &rect, TRUE );
    hb_retni( iResult );
    hb_strfree( hText );
@@ -453,7 +453,7 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    if( ListView_GetItem( hList, &Item ) )
       HB_RETSTR( Buffer );
    else
-      hb_retc( NULL );
+      hb_retc( nullptr );
 }
 
 int CALLBACK CompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort )
@@ -494,7 +494,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFONEW )
 
    if( p )
    {
-      p->pListControl = NULL;
+      p->pListControl = nullptr;
       p->nColumnNo = -1;
       p->nAscendingSortOrder = FALSE;
    }

@@ -53,7 +53,7 @@ HB_FUNC( HWG__ADDMENUITEM )
       uFlags |= MFS_DISABLED;
    }
 
-   lpNewItem = HB_PARSTR( 2, &hNewItem, NULL );
+   lpNewItem = HB_PARSTR( 2, &hNewItem, nullptr );
    if( lpNewItem )
    {
       BOOL lString = 0;
@@ -121,7 +121,7 @@ HB_FUNC( HWG__ADDMENUITEM )
    mii.wID = hb_parni(5);
    if( HB_ISCHAR(2) )
    {
-      mii.dwTypeData = ( LPTSTR ) HB_PARSTR( 2, &hData, NULL );
+      mii.dwTypeData = ( LPTSTR ) HB_PARSTR( 2, &hData, nullptr );
       mii.cch = strlen( mii.dwTypeData );
       mii.fType = MFT_STRING;
    }
@@ -152,7 +152,7 @@ HB_FUNC( HWG__CREATESUBMENU )
                &mii ) )
       HB_RETHANDLE( hSubMenu );
    else
-      HB_RETHANDLE( NULL );
+      HB_RETHANDLE( nullptr );
 }
 
 /*
@@ -331,7 +331,7 @@ HB_FUNC( HWG_TRACKMENU )
                hb_parni(3),   // vertical position, in screen coordinates
                0,               // reserved, must be zero
                hWnd,            // handle of owner window
-               NULL ) );
+               nullptr ) );
    PostMessage( hWnd, 0, 0, 0 );
 
 }
@@ -464,7 +464,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
       mii.cbSize = sizeof( MENUITEMINFO );
       mii.fMask = MIIM_TYPE;
       mii.fType = MFT_STRING;
-      mii.dwTypeData = ( LPTSTR ) HB_PARSTR( 3, &hData, NULL );
+      mii.dwTypeData = ( LPTSTR ) HB_PARSTR( 3, &hData, nullptr );
 
       if( SetMenuItemInfo( hMenu, hb_parni(2), 0, &mii ) )
          hb_retl(1);
@@ -537,7 +537,7 @@ HB_FUNC( HWG_CHANGEMENU )
 {
    void *hStr;
    hb_retl( ChangeMenu( ( HMENU ) HB_PARHANDLE(1), ( UINT ) hb_parni(2),
-               HB_PARSTR( 3, &hStr, NULL ), ( UINT ) hb_parni(4),
+               HB_PARSTR( 3, &hStr, nullptr ), ( UINT ) hb_parni(4),
                ( UINT ) hb_parni(5) ) );
    hb_strfree( hStr );
 }
@@ -547,7 +547,7 @@ HB_FUNC( HWG_MODIFYMENU )
    void *hStr;
    hb_retl( ModifyMenu( ( HMENU ) HB_PARHANDLE(1), ( UINT ) hb_parni(2),
                ( UINT ) hb_parni(3), ( UINT ) hb_parni(4),
-               HB_PARSTR( 5, &hStr, NULL ) ) );
+               HB_PARSTR( 5, &hStr, nullptr ) ) );
    hb_strfree( hStr );
 }
 
@@ -599,7 +599,7 @@ HB_FUNC( HWG_SETMENUBACKCOLOR )
    {
       hbrush = hb_pcount(  ) > 1 &&
             !HB_ISNIL(2) ? CreateSolidBrush( ( COLORREF ) hb_parnl(2) ) :
-            NULL;
+            nullptr;
       mi.cbSize = sizeof( mi );
       mi.fMask = MIM_BACKGROUND | ( (HB_ISLOG(3) && !hb_parl(3))? 0 : MIM_APPLYTOSUBMENUS );
       mi.hbrBack = hbrush;

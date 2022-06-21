@@ -157,7 +157,7 @@ void wrlog( const char * sFile, const char * sTraceMsg, ... )
 {
    FILE *hFile;
 
-   if( sFile == NULL )
+   if( sFile == nullptr )
    {
       hFile = hb_fopen( "trace.log", "a" );
    }
@@ -229,18 +229,18 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
    if( !font->iWidth )
    {
       pango_layout_set_text( layout, "aA", 2 );
-      pango_layout_get_pixel_extents( layout, &rc, NULL );
+      pango_layout_get_pixel_extents( layout, &rc, nullptr );
       font->iWidth = rc.width / 2;
       font->iHeight = PANGO_DESCENT( rc );
 
       pango_layout_set_text( layout, "a", 1 );
-      pango_layout_get_pixel_extents( layout, &rc, NULL );
+      pango_layout_get_pixel_extents( layout, &rc, nullptr );
       font->ixAdd = PANGO_LBEARING(rc);
       font->iSpace = PANGO_RBEARING(rc);
-      //wrlog( NULL, "a lBear = %d rBear= %d width= %d\r\n",PANGO_LBEARING(rc),PANGO_RBEARING(rc), rc.width );
+      //wrlog( nullptr, "a lBear = %d rBear= %d width= %d\r\n",PANGO_LBEARING(rc),PANGO_RBEARING(rc), rc.width );
 
       pango_layout_set_text( layout, "  a", 3 );
-      pango_layout_get_pixel_extents( layout, &rc, NULL );
+      pango_layout_get_pixel_extents( layout, &rc, nullptr );
       font->iSpace = (PANGO_RBEARING(rc) - font->iSpace)/2;
    }
 
@@ -249,7 +249,7 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
       iReal = *iRealLen;
 
    pango_layout_set_text( layout, szText, hced_utf8bytes( szText, iReal ) );
-   pango_layout_get_pixel_extents( layout, &rc, NULL );
+   pango_layout_get_pixel_extents( layout, &rc, nullptr );
    iTextWidth = PANGO_RBEARING(rc) + font->ixAdd;
 
    if( iTextWidth > iWidth )
@@ -272,7 +272,7 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
             }
          }
          pango_layout_set_text( layout, szText, hced_utf8bytes( szText, i ) );
-         pango_layout_get_pixel_extents( layout, &rc, NULL );
+         pango_layout_get_pixel_extents( layout, &rc, nullptr );
          iTextWidth = PANGO_RBEARING(rc) + font->ixAdd;
          if( iTextWidth <= iWidth )
             break;
@@ -306,7 +306,7 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
             }
          }
          pango_layout_set_text( layout, szText, hced_utf8bytes( szText, i ) );
-         pango_layout_get_pixel_extents( layout, &rc, NULL );
+         pango_layout_get_pixel_extents( layout, &rc, nullptr );
          iTextWidth = PANGO_RBEARING(rc) + font->ixAdd;
          if( iTextWidth > iWidth )
             break;
@@ -366,7 +366,7 @@ int ted_TextOut( TEDIT * pted, int xpos, int ypos, int iHeight,
    if( font->hwg_font->attrs )
       pango_layout_set_attributes( hDC->layout, font->hwg_font->attrs );
    else
-      pango_layout_set_attributes( hDC->layout, NULL );
+      pango_layout_set_attributes( hDC->layout, nullptr );
 
    fg = ( pattr->fg == pattr->bg )? pted->fg : pattr->fg;
    bg = ( pattr->fg == pattr->bg )? pted->bg : pattr->bg;
@@ -385,7 +385,7 @@ int ted_TextOut( TEDIT * pted, int xpos, int ypos, int iHeight,
    pango_layout_set_text( hDC->layout, szText, hced_utf8bytes( szText, iLen ) );
    /* Wrap mode off */
    pango_layout_set_width( hDC->layout, -1 );
-   pango_layout_get_pixel_extents( hDC->layout, &rc, NULL );
+   pango_layout_get_pixel_extents( hDC->layout, &rc, nullptr );
    iWidth = PANGO_RBEARING(rc) + font->ixAdd;
 
    if( hDC->bcolor != -1 )
@@ -411,7 +411,7 @@ int ted_LineOut( TEDIT * pted, int x1, int ypos, char *szText, int iPrinted, int
    int iMaxAscent = 0;
    char * ptr;
 
-   //wrlog( NULL, "Lineout-1\r\n" );
+   //wrlog( nullptr, "Lineout-1\r\n" );
 
    if( pted->hDCPrn )
       x1 = (int) ( x1 * pted->dKoeff );
@@ -429,7 +429,7 @@ int ted_LineOut( TEDIT * pted, int x1, int ypos, char *szText, int iPrinted, int
                iReqLen = i - lasti;
             else
                iReqLen = iPrinted - lasti;
-            //wrlog( NULL, "x1 = %u ypos= %u len = %u \r\n", x1, ypos, iReqLen );
+            //wrlog( nullptr, "x1 = %u ypos= %u len = %u \r\n", x1, ypos, iReqLen );
             ptr = szText + hced_utf8bytes( szText, lasti );
             while( ptr > szText && *(g_utf8_prev_char(ptr)) == ' ' )
             {
@@ -438,7 +438,7 @@ int ted_LineOut( TEDIT * pted, int x1, int ypos, char *szText, int iPrinted, int
             iRealLen = iReqLen;
             x1 += ted_TextOut( pted, x1, ypos, iHeight, iMaxAscent,
                         ptr, pattr + lasti, iRealLen );
-            // wrlog( NULL, "x1 = %u \r\n", x1 );
+            // wrlog( nullptr, "x1 = %u \r\n", x1 );
             if( iRealLen != iReqLen )
                break;
             lasti = i;
@@ -513,7 +513,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
       vscroll = gtk_vscrollbar_new( GTK_ADJUSTMENT( adjV ) );
       gtk_box_pack_end( GTK_BOX( hbox ), vscroll, FALSE, FALSE, 0 );
 
-      temp = HB_PUTHANDLE( NULL, adjV );
+      temp = HB_PUTHANDLE( nullptr, adjV );
       SetObjectVar( pObject, "_HSCROLLV", temp );
       hb_itemRelease( temp );
 
@@ -533,7 +533,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
       hscroll = gtk_hscrollbar_new( GTK_ADJUSTMENT( adjH ) );
       gtk_box_pack_end( GTK_BOX( vbox ), hscroll, FALSE, FALSE, 0 );
 
-      temp = HB_PUTHANDLE( NULL, adjH );
+      temp = HB_PUTHANDLE( nullptr, adjH );
       SetObjectVar( pObject, "_HSCROLLH", temp );
       hb_itemRelease( temp );
 
@@ -546,7 +546,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
       gtk_fixed_put( box, hbox, nLeft, nTop );
    gtk_widget_set_size_request( hbox, nWidth, nHeight );
 
-   temp = HB_PUTHANDLE( NULL, area );
+   temp = HB_PUTHANDLE( nullptr, area );
    SetObjectVar( pObject, "_AREA", temp );
    hb_itemRelease( temp );
 
@@ -562,7 +562,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    gtk_widget_add_events( area, GDK_BUTTON_PRESS_MASK |
          GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK |
          GDK_POINTER_MOTION_MASK | GDK_SCROLL_MASK | GDK_FOCUS_CHANGE_MASK );
-   g_signal_connect( area, "size-allocate", G_CALLBACK (cb_signal_size), NULL );
+   g_signal_connect( area, "size-allocate", G_CALLBACK (cb_signal_size), nullptr );
    set_event( ( gpointer ) area, "focus_in_event", 0, 0, 0 );
    set_event( ( gpointer ) area, "focus_out_event", 0, 0, 0 );
    set_event( ( gpointer ) area, "button_press_event", 0, 0, 0 );
@@ -702,8 +702,8 @@ HB_FUNC( HCED_SETPAINT )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE( 1 );
 
-   pted->hDCScr = (HB_ISNIL(2))? NULL : (PHWGUI_HDC) HB_PARHANDLE( 2 );
-   pted->hDCPrn = (HB_ISNIL(3))? NULL : (PHWGUI_HDC) HB_PARHANDLE( 3 );
+   pted->hDCScr = (HB_ISNIL(2))? nullptr : (PHWGUI_HDC) HB_PARHANDLE( 2 );
+   pted->hDCPrn = (HB_ISNIL(3))? nullptr : (PHWGUI_HDC) HB_PARHANDLE( 3 );
 
    if( !HB_ISNIL(4) )
       pted->iWidth = hb_parni( 4 );
@@ -845,7 +845,7 @@ HB_FUNC( HCED_EXACTCARETPOS )
          {
             ptr = szText + hced_utf8bytes( szText,iPrinted );
             pango_layout_set_text( layout, ptr, hced_utf8bytes( ptr,1 ) );
-            pango_layout_get_pixel_extents( layout, &rc, NULL );
+            pango_layout_get_pixel_extents( layout, &rc, nullptr );
             iTextWidth = PANGO_RBEARING(rc) + (pted->pFontsScr + (pattr + iPrinted)->iFont)->ixAdd;
             if( (x1 + iTextWidth - xpos) < ( xpos - x1 ) )
             {

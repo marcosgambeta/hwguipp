@@ -23,7 +23,7 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
    void * hString;
 
    SendMessage( ( HWND ) HB_PARHANDLE(1), LB_ADDSTRING, 0,
-                ( LPARAM ) HB_PARSTR( 2, &hString, NULL ) );
+                ( LPARAM ) HB_PARSTR( 2, &hString, nullptr ) );
    hb_strfree( hString );
 }
 
@@ -45,8 +45,8 @@ HB_FUNC( HWG_CREATELISTBOX )
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          ( HWND ) HB_PARHANDLE(1),    /* parent window    */
          ( HMENU )(UINT_PTR) hb_parni(2),       /* listbox ID      */
-         GetModuleHandle( NULL ),
-         NULL );
+         GetModuleHandle( nullptr ),
+         nullptr );
 
    HB_RETHANDLE( hListbox );
 }

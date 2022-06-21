@@ -111,35 +111,35 @@ HB_FUNC( HWG_GETTEXTMETRIC )
          &tm                    // address of text metrics structure
           );
 
-   temp = hb_itemPutNL( NULL, tm.tmHeight );
+   temp = hb_itemPutNL( nullptr, tm.tmHeight );
    hb_itemArrayPut( aMetr, 1, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, tm.tmAveCharWidth );
+   temp = hb_itemPutNL( nullptr, tm.tmAveCharWidth );
    hb_itemArrayPut( aMetr, 2, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, tm.tmMaxCharWidth );
+   temp = hb_itemPutNL( nullptr, tm.tmMaxCharWidth );
    hb_itemArrayPut( aMetr, 3, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, tm.tmExternalLeading );
+   temp = hb_itemPutNL( nullptr, tm.tmExternalLeading );
    hb_itemArrayPut( aMetr, 4, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, tm.tmInternalLeading );
+   temp = hb_itemPutNL( nullptr, tm.tmInternalLeading );
    hb_itemArrayPut( aMetr, 5, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, tm.tmAscent );
+   temp = hb_itemPutNL( nullptr, tm.tmAscent );
    hb_itemArrayPut( aMetr, 6, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, tm.tmDescent );
+   temp = hb_itemPutNL( nullptr, tm.tmDescent );
    hb_itemArrayPut( aMetr, 7, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, tm.tmWeight );
+   temp = hb_itemPutNL( nullptr, tm.tmWeight );
    hb_itemArrayPut( aMetr, 8, temp );
    hb_itemRelease( temp );
 
@@ -160,11 +160,11 @@ HB_FUNC( HWG_GETTEXTSIZE )
    GetTextExtentPoint32( ( HDC ) HB_PARHANDLE(1), lpText, nLen, &sz );
    hb_strfree( hText );
 
-   temp = hb_itemPutNL( NULL, sz.cx );
+   temp = hb_itemPutNL( nullptr, sz.cx );
    hb_itemArrayPut( aMetr, 1, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, sz.cy );
+   temp = hb_itemPutNL( nullptr, sz.cy );
    hb_itemArrayPut( aMetr, 2, temp );
    hb_itemRelease( temp );
 
@@ -180,19 +180,19 @@ HB_FUNC( HWG_GETCLIENTRECT )
 
    GetClientRect( ( HWND ) HB_PARHANDLE(1), &rc );
 
-   temp = hb_itemPutNL( NULL, rc.left );
+   temp = hb_itemPutNL( nullptr, rc.left );
    hb_itemArrayPut( aMetr, 1, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, rc.top );
+   temp = hb_itemPutNL( nullptr, rc.top );
    hb_itemArrayPut( aMetr, 2, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, rc.right );
+   temp = hb_itemPutNL( nullptr, rc.right );
    hb_itemArrayPut( aMetr, 3, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, rc.bottom );
+   temp = hb_itemPutNL( nullptr, rc.bottom );
    hb_itemArrayPut( aMetr, 4, temp );
    hb_itemRelease( temp );
 
@@ -208,19 +208,19 @@ HB_FUNC( HWG_GETWINDOWRECT )
 
    GetWindowRect( ( HWND ) HB_PARHANDLE(1), &rc );
 
-   temp = hb_itemPutNL( NULL, rc.left );
+   temp = hb_itemPutNL( nullptr, rc.left );
    hb_itemArrayPut( aMetr, 1, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, rc.top );
+   temp = hb_itemPutNL( nullptr, rc.top );
    hb_itemArrayPut( aMetr, 2, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, rc.right );
+   temp = hb_itemPutNL( nullptr, rc.right );
    hb_itemArrayPut( aMetr, 3, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, rc.bottom );
+   temp = hb_itemPutNL( nullptr, rc.bottom );
    hb_itemArrayPut( aMetr, 4, temp );
    hb_itemRelease( temp );
 
@@ -234,19 +234,19 @@ HB_FUNC( HWG_GETCLIENTAREA )
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
-   temp = hb_itemPutNL( NULL, pps->rcPaint.left );
+   temp = hb_itemPutNL( nullptr, pps->rcPaint.left );
    hb_itemArrayPut( aMetr, 1, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, pps->rcPaint.top );
+   temp = hb_itemPutNL( nullptr, pps->rcPaint.top );
    hb_itemArrayPut( aMetr, 2, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, pps->rcPaint.right );
+   temp = hb_itemPutNL( nullptr, pps->rcPaint.right );
    hb_itemArrayPut( aMetr, 3, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, pps->rcPaint.bottom );
+   temp = hb_itemPutNL( nullptr, pps->rcPaint.bottom );
    hb_itemArrayPut( aMetr, 4, temp );
    hb_itemRelease( temp );
 
@@ -297,18 +297,18 @@ HB_FUNC( HWG_GETTEXTSIZE )
    PHB_ITEM temp;
    void * hString;
 
-   GetTextExtentPoint32( hdc, HB_PARSTR( 2, &hString, NULL ),
+   GetTextExtentPoint32( hdc, HB_PARSTR( 2, &hString, nullptr ),
       lpString,         // address of text string
       strlen(cbString), // number of characters in string
       &size            // address of structure for string size
    );
    hb_strfree( hString );
 
-   temp = hb_itemPutNI( NULL, size.cx );
+   temp = hb_itemPutNI( nullptr, size.cx );
    hb_itemArrayPut( aMetr, 1, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNI( NULL, size.cy );
+   temp = hb_itemPutNI( nullptr, size.cy );
    hb_itemArrayPut( aMetr, 2, temp );
    hb_itemRelease( temp );
 
@@ -338,7 +338,7 @@ HB_FUNC( HWG_EXTTEXTOUT )
          &rc,                   // optional clipping and/or opaquing rectangle
          lpText,                // points to string
          nLen,                  // number of characters in string
-         NULL                   // pointer to array of intercharacter spacing values
+         nullptr                   // pointer to array of intercharacter spacing values
           );
    hb_strfree( hText );
 }
@@ -347,7 +347,7 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    void *hString;
    SendMessage( ( HWND ) HB_PARHANDLE(1), SB_SETTEXT, hb_parni(2),
-         ( LPARAM ) HB_PARSTR( 3, &hString, NULL ) );
+         ( LPARAM ) HB_PARSTR( 3, &hString, nullptr ) );
    hb_strfree( hString );
 }
 
@@ -382,7 +382,7 @@ HB_FUNC( HWG_CREATEFONT )
          0,                     // clipping precision
          0,                     // output quality
          0,                     // pitch and family
-         HB_PARSTR( 1, &hString, NULL ) // pointer to typeface name string
+         HB_PARSTR( 1, &hString, nullptr ) // pointer to typeface name string
           );
    hb_strfree( hString );
    HB_RETHANDLE( hFont );
@@ -478,8 +478,8 @@ HB_FUNC( HWG_GETFONTSLIST )
    memset(&lf, 0, sizeof(lf));
    lf.lfCharSet = DEFAULT_CHARSET;
    aFontsList = hb_itemArrayNew( 0 );
-   pFontsItem = hb_itemPutC( NULL, "" );
-   pFontsItemLast = hb_itemPutC( NULL, "" );
+   pFontsItem = hb_itemPutC( nullptr, "" );
+   pFontsItemLast = hb_itemPutC( nullptr, "" );
 
    EnumFontFamiliesEx( hDC, &lf, (FONTENUMPROC)GetFontsCallback, 0, 0 );
 

@@ -33,7 +33,7 @@ static LRESULT CALLBACK s_PSPProcRelease( HWND, UINT, LPPROPSHEETPAGE );
 #define	WND_DLG_RESOURCE       10
 #define	WND_DLG_NORESOURCE     11
 
-HWND *aDialogs = NULL;
+HWND *aDialogs = nullptr;
 static int s_nDialogs = 0;
 int iDialogs = 0;
 
@@ -42,7 +42,7 @@ HB_FUNC( HWG_DIALOGBOX )
    PHB_ITEM pObject = hb_param( 2, HB_IT_OBJECT );
    PHB_ITEM pData = GetObjectVar( pObject, "XRESOURCEID" );
    void *hResource;
-   LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, NULL );
+   LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, nullptr );
 
    if( !lpResource && HB_IS_NUMERIC( pData ) )
       lpResource = MAKEINTRESOURCE( hb_itemGetNI( pData ) );
@@ -63,7 +63,7 @@ HB_FUNC( HWG_CREATEDIALOG )
    HWND hDlg;
    PHB_ITEM pData = GetObjectVar( pObject, "XRESOURCEID" );
    void *hResource;
-   LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, NULL );
+   LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, nullptr );
 
    if( !lpResource && HB_IS_NUMERIC( pData ) )
       lpResource = MAKEINTRESOURCE( hb_itemGetNI( pData ) );
@@ -101,7 +101,7 @@ HB_FUNC( HWG_SETDLGITEMTEXT )
 
    SetDlgItemText( ( HWND ) HB_PARHANDLE(1),  // handle of dialog box
          hb_parni(2),         // identifier of control
-         HB_PARSTR( 3, &hText, NULL )   // text to set
+         HB_PARSTR( 3, &hText, nullptr )   // text to set
           );
    hb_strfree( hText );
 }
@@ -176,7 +176,7 @@ HB_FUNC( HWG_COMBOADDSTRING )
    void *hText;
 
    SendMessage( ( HWND ) HB_PARHANDLE(1), CB_ADDSTRING, 0,
-         ( LPARAM ) HB_PARSTR( 2, &hText, NULL ) );
+         ( LPARAM ) HB_PARSTR( 2, &hText, nullptr ) );
    hb_strfree( hText );
 }
 
@@ -185,7 +185,7 @@ HB_FUNC( HWG_COMBOINSERTSTRING )
    void *hText;
 
    SendMessage( ( HWND ) HB_PARHANDLE(1), CB_INSERTSTRING,
-         ( WPARAM ) hb_parni(2), ( LPARAM ) HB_PARSTR( 3, &hText, NULL ) );
+         ( WPARAM ) hb_parni(2), ( LPARAM ) HB_PARSTR( 3, &hText, nullptr ) );
    hb_strfree( hText );
 }
 
@@ -227,10 +227,10 @@ static HB_SIZE s_nCopyAnsiToWideChar( LPWORD lpWCStr, PHB_ITEM pItem,
 static int s_nWideStringLen( PHB_ITEM pItem )
 {
 #if defined( HB_HAS_STR_FUNC )
-   return hb_itemCopyStrU16( pItem, HB_CDP_ENDIAN_NATIVE, NULL, 0 ) + 1;
+   return hb_itemCopyStrU16( pItem, HB_CDP_ENDIAN_NATIVE, nullptr, 0 ) + 1;
 #else
    return MultiByteToWideChar( GetACP(  ), 0, hb_itemGetCPtr( pItem ), -1,
-         NULL, 0 );
+         nullptr, 0 );
 #endif
 }
 
@@ -273,7 +273,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
 
    hgbl = GlobalAlloc( GMEM_ZEROINIT, lTemplateSize * sizeof( WORD ) );
    if( !hgbl )
-      return NULL;
+      return nullptr;
 
    p = ( PWORD ) GlobalLock( hgbl );
    pend = p + lTemplateSize;
@@ -301,7 +301,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
    {
       pControl = hb_arrayGetItemPtr( pControls, ul );
 
-      temp = HB_PUTHANDLE( NULL, -1 );
+      temp = HB_PUTHANDLE( nullptr, -1 );
       SetObjectVar( pControl, "_HANDLE", temp );
       hb_itemRelease( temp );
 
@@ -378,15 +378,15 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
 {
    PROPSHEETPAGE psp;
    PHB_ITEM pObj = hb_param( 1, HB_IT_OBJECT ), temp;
-   void *hTitle = NULL;
+   void *hTitle = nullptr;
    LPDLGTEMPLATE pdlgtemplate;
    HPROPSHEETPAGE h;
 
    memset( ( void * ) &psp, 0, sizeof( PROPSHEETPAGE ) );
 
    psp.dwSize = sizeof( PROPSHEETPAGE );
-   psp.hInstance = ( HINSTANCE ) NULL;
-   psp.pszTitle = NULL;
+   psp.hInstance = ( HINSTANCE ) nullptr;
+   psp.pszTitle = nullptr;
    psp.pfnDlgProc = ( DLGPROC ) s_PSPProc;
    psp.lParam = ( LPARAM ) hb_itemNew( pObj );
    psp.pfnCallback = ( LPFNPSPCALLBACK ) s_PSPProcRelease;
@@ -405,11 +405,11 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
 
       temp = GetObjectVar( pObj, "XRESOURCEID" );
       if( HB_IS_STRING( temp ) )
-         lpTitle = HB_ITEMGETSTR( temp, &hTitle, NULL );
+         lpTitle = HB_ITEMGETSTR( temp, &hTitle, nullptr );
       else if( HB_IS_NUMERIC( temp ) )
          lpTitle = MAKEINTRESOURCE( hb_itemGetNL( temp ) );
       else
-         lpTitle = NULL;
+         lpTitle = nullptr;
 #if !defined(__BORLANDC__) ||  (__BORLANDC__ > 1424)
       psp.pszTemplate = lpTitle;
 #else
@@ -459,13 +459,13 @@ HB_FUNC( HWG__PROPERTYSHEET )
    psh.dwSize = sizeof( PROPSHEETHEADER );
    psh.dwFlags = dwFlags;
    psh.hwndParent = ( HWND ) HB_PARHANDLE(1);
-   psh.hInstance = ( HINSTANCE ) NULL;
+   psh.hInstance = ( HINSTANCE ) nullptr;
 #if !defined(__BORLANDC__) ||  (__BORLANDC__ > 1424)
-   psh.pszIcon = NULL;
+   psh.pszIcon = nullptr;
 #else
-   psh.DUMMYUNIONNAME.pszIcon = NULL;
+   psh.DUMMYUNIONNAME.pszIcon = nullptr;
 #endif
-   psh.pszCaption = HB_PARSTR( 4, &hCaption, NULL );
+   psh.pszCaption = HB_PARSTR( 4, &hCaption, nullptr );
    psh.nPages = nPages;
 #if !defined(__BORLANDC__)||  (__BORLANDC__ > 1424)
    psh.nStartPage = 0;
@@ -474,7 +474,7 @@ HB_FUNC( HWG__PROPERTYSHEET )
    psh.DUMMYUNIONNAME2.nStartPage = 0;
    psh.DUMMYUNIONNAME3.phpage = psp;
 #endif
-   psh.pfnCallback = NULL;
+   psh.pfnCallback = nullptr;
 
    HB_RETHANDLE( PropertySheet( &psh ) );
    hb_strfree( hCaption );
@@ -543,11 +543,11 @@ static LRESULT CALLBACK s_ModalDlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
    {
       PHB_ITEM temp;
 
-      temp = hb_itemPutNL( NULL, 1 );
+      temp = hb_itemPutNL( nullptr, 1 );
       SetObjectVar( ( PHB_ITEM ) lParam, "_NHOLDER", temp );
       hb_itemRelease( temp );
 
-      temp = HB_PUTHANDLE( NULL, hDlg );
+      temp = HB_PUTHANDLE( nullptr, hDlg );
       SetObjectVar( ( PHB_ITEM ) lParam, "_HANDLE", temp );
       hb_itemRelease( temp );
 
@@ -594,11 +594,11 @@ static LRESULT CALLBACK s_DlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
    {
       PHB_ITEM temp;
 
-      temp = hb_itemPutNL( NULL, 1 );
+      temp = hb_itemPutNL( nullptr, 1 );
       SetObjectVar( ( PHB_ITEM ) lParam, "_NHOLDER", temp );
       hb_itemRelease( temp );
 
-      temp = HB_PUTHANDLE( NULL, hDlg );
+      temp = HB_PUTHANDLE( nullptr, hDlg );
       SetObjectVar( ( PHB_ITEM ) lParam, "_HANDLE", temp );
       hb_itemRelease( temp );
 
@@ -670,11 +670,11 @@ static LRESULT CALLBACK s_PSPProc( HWND hDlg, UINT uMsg, WPARAM wParam,
 
       pObj = ( PHB_ITEM ) ( ( ( PROPSHEETPAGE * ) lParam )->lParam );
 
-      temp = hb_itemPutNL( NULL, 1 );
+      temp = hb_itemPutNL( nullptr, 1 );
       SetObjectVar( pObj, "_NHOLDER", temp );
       hb_itemRelease( temp );
 
-      temp = HB_PUTHANDLE( NULL, hDlg );
+      temp = HB_PUTHANDLE( nullptr, hDlg );
       SetObjectVar( pObj, "_HANDLE", temp );
       hb_itemRelease( temp );
 

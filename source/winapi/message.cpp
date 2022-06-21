@@ -18,8 +18,8 @@ static int s_msgbox( UINT uType )
    int iResult;
 
    iResult = MessageBox( GetActiveWindow(  ),
-         HB_PARSTR( 1, &hText, NULL ),
-         HB_PARSTRDEF( 2, &hTitle, NULL ), uType );
+         HB_PARSTR( 1, &hText, nullptr ),
+         HB_PARSTRDEF( 2, &hTitle, nullptr ), uType );
    hb_strfree( hText );
    hb_strfree( hTitle );
 

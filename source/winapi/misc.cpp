@@ -40,7 +40,7 @@ void hwg_writelog( const char * sFile, const char * sTraceMsg, ... )
 {
    FILE *hFile;
 
-   if( sFile == NULL )
+   if( sFile == nullptr )
    {
       hFile = hb_fopen( "ac.log", "a" );
    }
@@ -92,7 +92,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 
       lpStr = HB_PARSTRDEF( 1, &hStr, &nLen );
       hglbCopy = GlobalAlloc( GMEM_DDESHARE, ( nLen + 1 ) * sizeof( TCHAR ) );
-      if( hglbCopy != NULL )
+      if( hglbCopy != nullptr )
       {
          // Lock the handle and copy the text to the buffer.
          lptstrCopy = ( char * ) GlobalLock( hglbCopy );
@@ -115,7 +115,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 HB_FUNC( HWG_GETCLIPBOARDTEXT )
 {
    HWND hWnd = ( HWND ) hb_parnl(1);
-   LPTSTR lpText = NULL;
+   LPTSTR lpText = nullptr;
 
    if( OpenClipboard( hWnd ) )
    {
@@ -212,11 +212,11 @@ HB_FUNC( HWG_CLIENTTOSCREEN )
    pt.y = hb_parnl(3);
    ClientToScreen( ( HWND ) HB_PARHANDLE(1), &pt );
 
-   temp = hb_itemPutNL( NULL, pt.x );
+   temp = hb_itemPutNL( nullptr, pt.x );
    hb_itemArrayPut( aPoint, 1, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, pt.y );
+   temp = hb_itemPutNL( nullptr, pt.y );
    hb_itemArrayPut( aPoint, 2, temp );
    hb_itemRelease( temp );
 
@@ -248,11 +248,11 @@ HB_FUNC( HWG_SCREENTOCLIENT )
       return;
    }
 
-   temp = hb_itemPutNL( NULL, pt.x );
+   temp = hb_itemPutNL( nullptr, pt.x );
    hb_itemArrayPut( aPoint, 1, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, pt.y );
+   temp = hb_itemPutNL( nullptr, pt.y );
    hb_itemArrayPut( aPoint, 2, temp );
    hb_itemRelease( temp );
 
@@ -268,11 +268,11 @@ HB_FUNC( HWG_GETCURSORPOS )
    PHB_ITEM temp;
 
    GetCursorPos( &pt );
-   temp = hb_itemPutNL( NULL, pt.x );
+   temp = hb_itemPutNL( nullptr, pt.x );
    hb_itemArrayPut( aPoint, 1, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( NULL, pt.y );
+   temp = hb_itemPutNL( nullptr, pt.y );
    hb_itemArrayPut( aPoint, 2, temp );
    hb_itemRelease( temp );
 
@@ -329,10 +329,10 @@ HB_FUNC( HWG_GETKEYNAMETEXT )
 HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
 {
    void *hLayout;
-   LPCTSTR lpLayout = HB_PARSTR( 1, &hLayout, NULL );
+   LPCTSTR lpLayout = HB_PARSTR( 1, &hLayout, nullptr );
    HKL curr = GetKeyboardLayout( 0 );
    TCHAR sBuff[KL_NAMELENGTH];
-   UINT num = GetKeyboardLayoutList( 0, NULL ), i = 0;
+   UINT num = GetKeyboardLayoutList( 0, nullptr ), i = 0;
 
    do
    {
@@ -367,7 +367,7 @@ HB_FUNC( HWG_PTS2PIX )
       lDC = 0;
    }
    else
-      hDC = CreateDC( TEXT( "DISPLAY" ), NULL, NULL, NULL );
+      hDC = CreateDC( TEXT( "DISPLAY" ), nullptr, nullptr, nullptr );
 
    hb_retni( MulDiv( hb_parni(1), GetDeviceCaps( hDC, LOGPIXELSY ), 72 ) );
    if( lDC )
@@ -414,9 +414,9 @@ HB_FUNC( HWG_SHELLABOUT )
    void *hStr1, *hStr2;
 
    hb_retni( ShellAbout( 0,
-               HB_PARSTRDEF( 1, &hStr1, NULL ),
-               HB_PARSTRDEF( 2, &hStr2, NULL ),
-               ( HB_ISNIL(3) ? NULL : ( HICON ) HB_PARHANDLE(3) ) ) );
+               HB_PARSTRDEF( 1, &hStr1, nullptr ),
+               HB_PARSTRDEF( 2, &hStr2, nullptr ),
+               ( HB_ISNIL(3) ? nullptr : ( HICON ) HB_PARHANDLE(3) ) ) );
    hb_strfree( hStr1 );
    hb_strfree( hStr2 );
 }
@@ -465,7 +465,7 @@ HB_FUNC( HWG_WINHELP )
          context = 0;
    }
 
-   hb_retni( WinHelp( ( HWND ) HB_PARHANDLE(1), HB_PARSTR( 2, &hStr, NULL ),
+   hb_retni( WinHelp( ( HWND ) HB_PARHANDLE(1), HB_PARSTR( 2, &hStr, nullptr ),
                style, context ) );
    hb_strfree( hStr );
 }
@@ -592,7 +592,7 @@ HB_FUNC( HWG_SHOWSCROLLBAR )
 HB_FUNC( HWG_SCROLLWINDOW )
 {
    ScrollWindow( ( HWND ) HB_PARHANDLE(1), hb_parni(2), hb_parni(3),
-         NULL, NULL );
+         nullptr, nullptr );
 }
 
 
@@ -616,42 +616,42 @@ HB_FUNC( HWG_ISSCROLLLOCKACTIVE )
 HB_FUNC( HWG_CREATEDIRECTORY )
 {
    void *hStr;
-   CreateDirectory( HB_PARSTR( 1, &hStr, NULL ), NULL );
+   CreateDirectory( HB_PARSTR( 1, &hStr, nullptr ), nullptr );
    hb_strfree( hStr );
 }
 
 HB_FUNC( HWG_REMOVEDIRECTORY )
 {
    void *hStr;
-   hb_retl( RemoveDirectory( HB_PARSTR( 1, &hStr, NULL ) ) );
+   hb_retl( RemoveDirectory( HB_PARSTR( 1, &hStr, nullptr ) ) );
    hb_strfree( hStr );
 }
 
 HB_FUNC( HWG_SETCURRENTDIRECTORY )
 {
    void *hStr;
-   SetCurrentDirectory( HB_PARSTR( 1, &hStr, NULL ) );
+   SetCurrentDirectory( HB_PARSTR( 1, &hStr, nullptr ) );
    hb_strfree( hStr );
 }
 
 HB_FUNC( HWG_DELETEFILE )
 {
    void *hStr;
-   hb_retl( DeleteFile( HB_PARSTR( 1, &hStr, NULL ) ) );
+   hb_retl( DeleteFile( HB_PARSTR( 1, &hStr, nullptr ) ) );
    hb_strfree( hStr );
 }
 
 HB_FUNC( HWG_GETFILEATTRIBUTES )
 {
    void *hStr;
-   hb_retnl( ( LONG ) GetFileAttributes( HB_PARSTR( 1, &hStr, NULL ) ) );
+   hb_retnl( ( LONG ) GetFileAttributes( HB_PARSTR( 1, &hStr, nullptr ) ) );
    hb_strfree( hStr );
 }
 
 HB_FUNC( HWG_SETFILEATTRIBUTES )
 {
    void *hStr;
-   hb_retl( SetFileAttributes( HB_PARSTR( 1, &hStr, NULL ),
+   hb_retl( SetFileAttributes( HB_PARSTR( 1, &hStr, nullptr ),
                ( DWORD ) hb_parnl(2) ) );
    hb_strfree( hStr );
 }
@@ -682,7 +682,7 @@ HB_FUNC( HWG_EDIT1UPDATECTRL )
 {
    HWND hChild = ( HWND ) HB_PARHANDLE(1);
    HWND hParent = ( HWND ) HB_PARHANDLE(2);
-   RECT *rect = NULL;
+   RECT *rect = nullptr;
 
    GetWindowRect( hChild, rect );
    ScreenToClient( hParent, ( LPPOINT ) rect );
@@ -696,7 +696,7 @@ HB_FUNC( HWG_BUTTON1GETSCREENCLIENT )
 {
    HWND hChild = ( HWND ) HB_PARHANDLE(1);
    HWND hParent = ( HWND ) HB_PARHANDLE(2);
-   RECT *rect = NULL;
+   RECT *rect = nullptr;
 
    GetWindowRect( hChild, rect );
    ScreenToClient( hParent, ( LPPOINT ) rect );
@@ -741,7 +741,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
       SetBkColor( hdc, ( COLORREF ) i );
    }
 
-   temp = HB_PUTHANDLE( NULL, hBrush );
+   temp = HB_PUTHANDLE( nullptr, hBrush );
    SetObjectVar( pObject, "_M_BRUSH", temp );
    hb_itemRelease( temp );
 
@@ -776,7 +776,7 @@ HB_FUNC( HWG_ISPTREQ )
 HB_FUNC( HWG_OUTPUTDEBUGSTRING )
 {
    void *hStr;
-   OutputDebugString( HB_PARSTRDEF( 1, &hStr, NULL ) );
+   OutputDebugString( HB_PARSTRDEF( 1, &hStr, nullptr ) );
    hb_strfree( hStr );
 }
 
@@ -835,14 +835,14 @@ HB_FUNC( HWG_PROCESSRUN )
     ZeroMemory( &pi, sizeof(pi) );
 
     // Start the child process. 
-    if( !CreateProcess( NULL,   // No module name (use command line)
+    if( !CreateProcess( nullptr,   // No module name (use command line)
         hb_parc(1),        // Command line
-        NULL,           // Process handle not inheritable
-        NULL,           // Thread handle not inheritable
+        nullptr,           // Process handle not inheritable
+        nullptr,           // Thread handle not inheritable
         FALSE,          // Set handle inheritance to FALSE
         CREATE_NEW_CONSOLE,   // No creation flags
-        NULL,           // Use parent's environment block
-        NULL,           // Use parent's starting directory 
+        nullptr,           // Use parent's environment block
+        nullptr,           // Use parent's starting directory 
         &si,            // Pointer to STARTUPINFO structure
         &pi )           // Pointer to PROCESS_INFORMATION structure
     ) 
@@ -870,10 +870,10 @@ HB_FUNC( HWG_PROCESSRUN )
    void * hStr;
 
    sa.nLength = sizeof(SECURITY_ATTRIBUTES);
-   sa.lpSecurityDescriptor = NULL;
+   sa.lpSecurityDescriptor = nullptr;
    sa.bInheritHandle = TRUE;
 
-   hOut = CreateFile( HB_PARSTR( 1, &hStr, NULL ), GENERIC_WRITE, 0, &sa,
+   hOut = CreateFile( HB_PARSTR( 1, &hStr, nullptr ), GENERIC_WRITE, 0, &sa,
       CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0 );
 
    hb_strfree( hStr );
@@ -886,14 +886,14 @@ HB_FUNC( HWG_PROCESSRUN )
    ZeroMemory( &pi, sizeof(pi) );
 
    // Start the child process. 
-   if( !CreateProcess( NULL,   // No module name (use command line)
-       (LPTSTR)HB_PARSTR( 1, &hStr, NULL ),  // Command line
-       NULL,           // Process handle not inheritable
-       NULL,           // Thread handle not inheritable
+   if( !CreateProcess( nullptr,   // No module name (use command line)
+       (LPTSTR)HB_PARSTR( 1, &hStr, nullptr ),  // Command line
+       nullptr,           // Process handle not inheritable
+       nullptr,           // Thread handle not inheritable
        TRUE,          // Set handle inheritance to FALSE
        CREATE_NEW_CONSOLE,   // No creation flags
-       NULL,           // Use parent's environment block
-       NULL,           // Use parent's starting directory 
+       nullptr,           // Use parent's environment block
+       nullptr,           // Use parent's starting directory 
        &si,            // Pointer to STARTUPINFO structure
        &pi )           // Pointer to PROCESS_INFORMATION structure
    )
@@ -919,20 +919,20 @@ HB_FUNC( HWG_PROCESSRUN )
 HB_FUNC( HWG_RUNCONSOLEAPP )
 {
    SECURITY_ATTRIBUTES sa; 
-   HANDLE g_hChildStd_OUT_Rd = NULL;
-   HANDLE g_hChildStd_OUT_Wr = NULL;
+   HANDLE g_hChildStd_OUT_Rd = nullptr;
+   HANDLE g_hChildStd_OUT_Wr = nullptr;
    PROCESS_INFORMATION pi;
    STARTUPINFO si;
    BOOL bSuccess;
 
    DWORD dwRead, dwWritten, dwExitCode;
    CHAR chBuf[BUFSIZE]; 
-   HANDLE hOut = NULL;
+   HANDLE hOut = nullptr;
    void * hStr;
 
    sa.nLength = sizeof(SECURITY_ATTRIBUTES); 
    sa.bInheritHandle = TRUE; 
-   sa.lpSecurityDescriptor = NULL; 
+   sa.lpSecurityDescriptor = nullptr; 
 
    // Create a pipe for the child process's STDOUT. 
    if( ! CreatePipe( &g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &sa, 0 ) )
@@ -960,8 +960,8 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    si.hStdOutput = g_hChildStd_OUT_Wr;
    si.hStdError = g_hChildStd_OUT_Wr;
 
-   bSuccess = CreateProcess( NULL, (LPTSTR)HB_PARSTR( 1, &hStr, NULL ), NULL, NULL,
-      TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi);
+   bSuccess = CreateProcess( nullptr, (LPTSTR)HB_PARSTR( 1, &hStr, nullptr ), nullptr, nullptr,
+      TRUE, CREATE_NEW_CONSOLE, nullptr, nullptr, &si, &pi);
    hb_strfree( hStr );
    
    if ( ! bSuccess ) 
@@ -978,18 +978,18 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 
    if( !HB_ISNIL(2) )
    {
-      hOut = CreateFile( HB_PARSTR( 2, &hStr, NULL ), GENERIC_WRITE, 0, 0,
+      hOut = CreateFile( HB_PARSTR( 2, &hStr, nullptr ), GENERIC_WRITE, 0, 0,
              CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0 );
       hb_strfree( hStr );
    }
-   while( 1 ) 
+   while( 1 )
    { 
-      bSuccess = ReadFile( g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, NULL );
+      bSuccess = ReadFile( g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, nullptr );
       if( ! bSuccess || dwRead == 0 ) break; 
 
       if( !HB_ISNIL(2) )
       {
-         bSuccess = WriteFile( hOut, chBuf, dwRead, &dwWritten, NULL );
+         bSuccess = WriteFile( hOut, chBuf, dwRead, &dwWritten, nullptr );
          if( ! bSuccess ) break; 
       }
    } 
@@ -1017,14 +1017,14 @@ HB_FUNC( HWG_RUNAPP )
       si.dwFlags = STARTF_USESHOWWINDOW;
       ZeroMemory( &pi, sizeof(pi) );
 
-      CreateProcess( NULL,   // No module name (use command line)
-          (LPTSTR)HB_PARSTR( 1, &hStr, NULL ),  // Command line
-          NULL,           // Process handle not inheritable
-          NULL,           // Thread handle not inheritable
+      CreateProcess( nullptr,   // No module name (use command line)
+          (LPTSTR)HB_PARSTR( 1, &hStr, nullptr ),  // Command line
+          nullptr,           // Process handle not inheritable
+          nullptr,           // Thread handle not inheritable
           FALSE,          // Set handle inheritance to FALSE
           CREATE_NEW_CONSOLE,   // No creation flags
-          NULL,           // Use parent's environment block
-          NULL,           // Use parent's starting directory 
+          nullptr,           // Use parent's environment block
+          nullptr,           // Use parent's starting directory 
           &si,            // Pointer to STARTUPINFO structure
           &pi );          // Pointer to PROCESS_INFORMATION structure
       hb_strfree( hStr );
@@ -1160,7 +1160,7 @@ HB_FUNC( HWG_STOD )
 {
    PHB_ITEM pDateString = hb_param( 1, HB_IT_STRING );
 
-   hb_retds( hb_itemGetCLen( pDateString ) >= 7 ? hb_itemGetCPtr( pDateString ) : NULL );
+   hb_retds( hb_itemGetCLen( pDateString ) >= 7 ? hb_itemGetCPtr( pDateString ) : nullptr );
 }
 
 int hwg_hexbin(int cha)
@@ -1288,13 +1288,13 @@ HB_FUNC( HWG_BIN2DC )
 
     name = hb_parc(1);
 
-    // hwg_writelog(NULL,name);
+    // hwg_writelog(nullptr,name);
  
     memcpy(&szHex,name,16);
 
     szHex[16] = '\0';
  
-    // hwg_writelog(NULL,szHex);
+    // hwg_writelog(nullptr,szHex);
 
     /* Convert hex to bin */
 
@@ -1341,7 +1341,7 @@ HB_FUNC( HWG_BIN2DC )
           }
         }  
 
-    // hwg_writelog(NULL,szHex);
+    // hwg_writelog(nullptr,szHex);
    
     /* Convert buffer to double */
 
