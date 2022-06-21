@@ -6,7 +6,7 @@ hwguipp.hbc
 
 -hblib
 
--olib/hwgdebug
+-olib/${hb_plat}/${hb_comp}/hwgdebug
 
 -w
 

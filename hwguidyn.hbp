@@ -12,7 +12,7 @@ hwguipp.hbc
 
 -o{bcc}lib/hwguidyn-bcc
 
--o{!bcc}lib/hwguidyn
+-o{!bcc}lib/${hb_plat}/${hb_comp}/hwguidyn
 
 -w
 

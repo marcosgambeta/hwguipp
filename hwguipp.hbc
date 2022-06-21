@@ -3,10 +3,10 @@
 #
 
 # Include this file in hbmk2 command line to build an app:
-#   'hbmk2 hwgui.hbc test.prg'
+#   'hbmk2 hwguipp.hbc test.prg'
 
 incpaths=include
-libpaths=lib
+libpaths=lib/${hb_plat}/${hb_comp}
 
 {win}gt=gtgui
 

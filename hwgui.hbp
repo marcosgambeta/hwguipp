@@ -11,7 +11,7 @@ hwguipp.hbc
 
 -hblib
 
--olib/hwgui
+-olib/${hb_plat}/${hb_comp}/hwgui
 
 -w
 
