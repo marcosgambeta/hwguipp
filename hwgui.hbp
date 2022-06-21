@@ -23,6 +23,3 @@ hwguipp.hbc
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
 @hwgui.hbm
-
-# ============== EOF of hwgui.hbp ====================
-

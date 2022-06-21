@@ -18,5 +18,3 @@ hwguipp.hbc
 
 source/common/debug/*.cpp
 source/common/debug/*.prg
-
-# ==================== EOF of hwgdebug.hbp =====================================

@@ -17,6 +17,3 @@ hwguipp.hbc
 #-cflag=-DHWG_USE_POINTER_ITEM
 source/common/xml/*.cpp
 source/common/xml/*.prg
-
-# ============================ EOF of hbxml.hbp ======================================
-

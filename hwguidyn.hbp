@@ -22,7 +22,3 @@ hwguipp.hbc
 -cflag=-D__EXPORT__
 
 @hwgui.hbm
-
-
-# ============================== EOF of hwguidyn.hbp ===================================
-

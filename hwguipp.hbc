@@ -32,6 +32,3 @@ PRGFLAGS=-q -m -n -es2
 # Always done in "warnings.h" as PRAGMA declaration
 
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
-
-# =============================== EOF of hwgui.hbc ====================================
-

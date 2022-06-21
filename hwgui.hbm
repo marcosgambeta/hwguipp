@@ -130,6 +130,3 @@
 {unix}source/gtk/hmisc.prg
 {unix}source/gtk/initools.prg
 {unix}source/gtk/menu.prg
-
-# ---------------- EOF of hwgui.hbm ------------------------------
-
