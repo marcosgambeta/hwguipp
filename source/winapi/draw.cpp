@@ -151,7 +151,7 @@ HB_FUNC( HWG_GETPPSERASE )
 
 HB_FUNC( HWG_GETUPDATERECT )
 {
-   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
    BOOL fErase;
    fErase = GetUpdateRect( hWnd, nullptr, 0 );
    hb_retni( fErase );
@@ -169,7 +169,7 @@ HB_FUNC( HWG_INVALIDATERECT )
       rc.bottom = hb_parni(6);
    }
 
-   InvalidateRect( ( HWND ) HB_PARHANDLE(1),  // handle of window with changed update region
+   InvalidateRect( static_cast<HWND>(HB_PARHANDLE(1)),  // handle of window with changed update region
          ( hb_pcount(  ) > 2 ) ? &rc : nullptr,    // address of rectangle coordinates
          hb_parni(2)          // erase-background flag
           );
@@ -330,7 +330,7 @@ HB_FUNC( HWG_REDRAWWINDOW )
       rc.right = x + w + 1;
       rc.bottom = y + h + 1;
    }
-   RedrawWindow( ( HWND ) HB_PARHANDLE(1),    // handle of window
+   RedrawWindow( static_cast<HWND>(HB_PARHANDLE(1)),    // handle of window
          ( hb_pcount(  ) > 3 ) ? &rc : nullptr,    // address of structure with update rectangle
          nullptr,                  // handle of update region
          ( UINT ) hb_parni(2) // array of redraw flags
@@ -448,7 +448,7 @@ HB_FUNC( HWG_LOADBITMAP )
  */
 HB_FUNC( HWG_WINDOW2BITMAP )
 {
-   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
    //BOOL lFull = ( HB_ISNIL(2) ) ? 0 : ( BOOL ) hb_parl(2);
    //HDC hDC = ( lFull ) ? GetWindowDC( hWnd ) : GetDC( hWnd );
    HDC hDC = GetWindowDC( hWnd );
@@ -652,7 +652,7 @@ HB_FUNC( HWG_CENTERBITMAP )
 
    SelectObject( hDCmem, hBitmap );
    GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
-   GetClientRect( ( HWND ) HB_PARHANDLE(2), &rc );
+   GetClientRect( static_cast<HWND>(HB_PARHANDLE(2)), &rc );
 
    FillRect( hDC, &rc, hBrush );
    BitBlt( hDC, ( rc.right - bitmap.bmWidth ) / 2,
@@ -975,12 +975,12 @@ HB_FUNC( HWG_DELETEOBJECT )
 
 HB_FUNC( HWG_GETDC )
 {
-   HB_RETHANDLE( GetDC( ( HWND ) HB_PARHANDLE(1) ) );
+   HB_RETHANDLE( GetDC( static_cast<HWND>(HB_PARHANDLE(1)) ) );
 }
 
 HB_FUNC( HWG_RELEASEDC )
 {
-   HB_RETHANDLE( ReleaseDC( ( HWND ) HB_PARHANDLE(1),
+   HB_RETHANDLE( ReleaseDC( static_cast<HWND>(HB_PARHANDLE(1)),
                ( HDC ) HB_PARHANDLE(2) ) );
 }
 
@@ -1418,15 +1418,15 @@ HB_FUNC( HWG_COPYRECT )
 
 HB_FUNC( HWG_GETWINDOWDC )
 {
-   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
    HDC hDC = GetWindowDC( hWnd );
    HB_RETHANDLE( hDC );
 }
 
 HB_FUNC( HWG_MODIFYSTYLE )
 {
-   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
-   DWORD dwStyle = GetWindowLongPtr( ( HWND ) hWnd, GWL_STYLE );
+   HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
+   DWORD dwStyle = GetWindowLongPtr( static_cast<HWND>(hWnd), GWL_STYLE );
    DWORD a = hb_parnl(2);
    DWORD b = hb_parnl(3);
    DWORD dwNewStyle = ( dwStyle & ~a ) | b;

@@ -56,7 +56,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
          WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
          hb_parni(4), hb_parni(5),  /* x, y   */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
-         ( HWND ) HB_PARHANDLE(1),    /* parent window    */
+         static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
          ( HMENU )(UINT_PTR) hb_parni(2),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
 
@@ -74,7 +74,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
  */
 HB_FUNC( HWG_RE_SETCHARFORMAT )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
+   HWND hCtrl = static_cast<HWND>(HB_PARHANDLE(1));
    CHARRANGE chrOld, chrNew;
    CHARFORMAT2 cf;
    PHB_ITEM pArr;
@@ -237,7 +237,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
  */
 HB_FUNC( HWG_RE_SETDEFAULT )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
+   HWND hCtrl = static_cast<HWND>(HB_PARHANDLE(1));
    CHARFORMAT2 cf;
 
    memset( &cf, 0, sizeof( CHARFORMAT2 ) );
@@ -292,7 +292,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
  */
 HB_FUNC( HWG_RE_CHARFROMPOS )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
+   HWND hCtrl = static_cast<HWND>(HB_PARHANDLE(1));
    int x = hb_parni(2);
    int y = hb_parni(3);
    ULONG ul;
@@ -309,7 +309,7 @@ HB_FUNC( HWG_RE_CHARFROMPOS )
  */
 HB_FUNC( HWG_RE_GETTEXTRANGE )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
+   HWND hCtrl = static_cast<HWND>(HB_PARHANDLE(1));
    TEXTRANGE tr;
    ULONG ul;
 
@@ -329,7 +329,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
  */
 HB_FUNC( HWG_RE_GETLINE )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
+   HWND hCtrl = static_cast<HWND>(HB_PARHANDLE(1));
    int nLine = hb_parni(2);
    ULONG uLineIndex = SendMessage( hCtrl, EM_LINEINDEX, ( WPARAM ) nLine, 0 );
    ULONG ul = SendMessage( hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0 );
@@ -344,7 +344,7 @@ HB_FUNC( HWG_RE_GETLINE )
 HB_FUNC( HWG_RE_INSERTTEXT )
 {
    void *hString;
-   SendMessage( ( HWND ) HB_PARHANDLE(1), EM_REPLACESEL, 0,
+   SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), EM_REPLACESEL, 0,
          ( LPARAM ) HB_PARSTR( 2, &hString, nullptr ) );
    hb_strfree( hString );
 }
@@ -354,7 +354,7 @@ HB_FUNC( HWG_RE_INSERTTEXT )
  */
 HB_FUNC( HWG_RE_FINDTEXT )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
+   HWND hCtrl = static_cast<HWND>(HB_PARHANDLE(1));
    FINDTEXTEX ft;
    LONG lPos;
    LONG lFlag = ( ( HB_ISNIL(4) || !hb_parl(4) ) ? 0 : FR_MATCHCASE ) |
@@ -374,7 +374,7 @@ HB_FUNC( HWG_RE_FINDTEXT )
 
 HB_FUNC( HWG_RE_SETZOOM )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hwnd = static_cast<HWND>(HB_PARHANDLE(1));
    int nNum = hb_parni(2);
    int nDen = hb_parni(3);
    hb_retnl( ( BOOL ) SendMessage( hwnd, EM_SETZOOM, nNum, nDen ) );
@@ -383,13 +383,13 @@ HB_FUNC( HWG_RE_SETZOOM )
 
 HB_FUNC( HWG_RE_ZOOMOFF )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hwnd = static_cast<HWND>(HB_PARHANDLE(1));
    hb_retnl( ( BOOL ) SendMessage( hwnd, EM_SETZOOM, 0, 0L ) );
 }
 
 HB_FUNC( HWG_RE_GETZOOM )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hwnd = static_cast<HWND>(HB_PARHANDLE(1));
    int nNum = hb_parni(2);
    int nDen = hb_parni(3);
    hb_retnl( ( BOOL ) SendMessage( hwnd, EM_GETZOOM, ( WPARAM ) & nNum,
@@ -400,7 +400,7 @@ HB_FUNC( HWG_RE_GETZOOM )
 
 HB_FUNC( HWG_PRINTRTF )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hwnd = static_cast<HWND>(HB_PARHANDLE(1));
    HDC hdc = ( HDC ) HB_PARHANDLE(2);
    FORMATRANGE fr;
    BOOL fSuccess = TRUE;
@@ -444,7 +444,7 @@ HB_FUNC( HWG_PRINTRTF )
 
 HB_FUNC( HWG_INITRICHPROC )
 {
-   wpOrigRichProc = ( WNDPROC ) SetWindowLongPtr( ( HWND ) HB_PARHANDLE(1),
+   wpOrigRichProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
          GWLP_WNDPROC, ( LONG_PTR ) RichSubclassProc );
 }
 
@@ -501,7 +501,7 @@ static DWORD CALLBACK EditStreamCallback( DWORD_PTR dwCookie, LPBYTE lpBuff,
 HB_FUNC( HWG_SAVERICHEDIT )
 {
 
-   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
    HANDLE hFile;
    EDITSTREAM es;
    void *hFileName;
@@ -529,7 +529,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
 HB_FUNC( HWG_LOADRICHEDIT )
 {
 
-   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
    HANDLE hFile;
    EDITSTREAM es;
    void *hFileName;

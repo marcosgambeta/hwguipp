@@ -47,7 +47,7 @@ HB_FUNC( HWG_SELECTFONT )
    }
 
    cf.lStructSize = sizeof( CHOOSEFONT );
-   cf.hwndOwner = ( HWND ) nullptr;
+   cf.hwndOwner = static_cast<HWND>(nullptr);
    cf.hDC = ( HDC ) nullptr;
    cf.lpLogFont = &lf;
    cf.iPointSize = 0;
@@ -502,7 +502,7 @@ HB_FUNC( HWG_GETOPENFILENAME )
    ofn.hInstance = GetModuleHandle( nullptr );
    ofn.lStructSize = sizeof( ofn );
    ofn.hwndOwner =
-         ( HB_ISNIL(1) ? GetActiveWindow(  ) : ( HWND ) HB_PARHANDLE(1) );
+         ( HB_ISNIL(1) ? GetActiveWindow(  ) : static_cast<HWND>(HB_PARHANDLE(1)) );
    ofn.lpstrTitle = HB_PARSTR( 3, &hTitle, nullptr );
    ofn.lpstrFilter = HB_PARSTR( 4, &hFilter, nullptr );
    ofn.Flags = OFN_EXPLORER | OFN_ALLOWMULTISELECT;

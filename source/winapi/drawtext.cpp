@@ -27,14 +27,14 @@ HB_FUNC( HWG_DEFINEPAINTSTRU )
 HB_FUNC( HWG_BEGINPAINT )
 {
    PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(2);
-   HDC hDC = BeginPaint( ( HWND ) HB_PARHANDLE(1), pps );
+   HDC hDC = BeginPaint( static_cast<HWND>(HB_PARHANDLE(1)), pps );
    HB_RETHANDLE( hDC );
 }
 
 HB_FUNC( HWG_ENDPAINT )
 {
    PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(2);
-   EndPaint( ( HWND ) HB_PARHANDLE(1), pps );
+   EndPaint( static_cast<HWND>(HB_PARHANDLE(1)), pps );
    hb_xfree( pps );
 }
 
@@ -178,7 +178,7 @@ HB_FUNC( HWG_GETCLIENTRECT )
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
-   GetClientRect( ( HWND ) HB_PARHANDLE(1), &rc );
+   GetClientRect( static_cast<HWND>(HB_PARHANDLE(1)), &rc );
 
    temp = hb_itemPutNL( nullptr, rc.left );
    hb_itemArrayPut( aMetr, 1, temp );
@@ -206,7 +206,7 @@ HB_FUNC( HWG_GETWINDOWRECT )
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
-   GetWindowRect( ( HWND ) HB_PARHANDLE(1), &rc );
+   GetWindowRect( static_cast<HWND>(HB_PARHANDLE(1)), &rc );
 
    temp = hb_itemPutNL( nullptr, rc.left );
    hb_itemArrayPut( aMetr, 1, temp );
@@ -346,7 +346,7 @@ HB_FUNC( HWG_EXTTEXTOUT )
 HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    void *hString;
-   SendMessage( ( HWND ) HB_PARHANDLE(1), SB_SETTEXT, hb_parni(2),
+   SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), SB_SETTEXT, hb_parni(2),
          ( LPARAM ) HB_PARSTR( 3, &hString, nullptr ) );
    hb_strfree( hString );
 }
@@ -393,7 +393,7 @@ HB_FUNC( HWG_CREATEFONT )
 */
 HB_FUNC( HWG_SETCTRLFONT )
 {
-   SendDlgItemMessage( ( HWND ) HB_PARHANDLE(1), hb_parni(2), WM_SETFONT,
+   SendDlgItemMessage( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), WM_SETFONT,
          ( WPARAM ) HB_PARHANDLE(3), 0L );
 }
 
