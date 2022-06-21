@@ -1600,7 +1600,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
          if( ( isV && stop_y[0] > y1 ) || ( isH && stop_x[0] > x1 ) )
          {
             hPen = CreatePen( PS_SOLID, 1, RGB(red[0], green[0], blue[0]) );
-            hPenOld = SelectObject( hDC_mem, hPen );
+            hPenOld = static_cast<HPEN>(SelectObject( hDC_mem, hPen ));
             hBrush = CreateSolidBrush( RGB(red[0], green[0], blue[0]) );
             SelectObject( hDC_mem, hBrush );
             if ( isV )
@@ -1615,7 +1615,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
          if ( ( isV && stop_y[colors_num-1] < y2 + 1 ) || ( isH && stop_x[colors_num-1] < x2 + 1 ) )
          {
             hPen = CreatePen( PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
-            hPenOld = SelectObject( hDC_mem, hPen );
+            hPenOld = static_cast<HPEN>(SelectObject( hDC_mem, hPen ));
             hBrush = CreateSolidBrush( RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
             SelectObject( hDC_mem, hBrush );
             if ( isV )
@@ -1650,7 +1650,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
                cur_green = floor( green[i-1] + k * green_step + 0.5 );
                cur_blue = floor( blue[i-1] + k * blue_step + 0.5 );
                hPen = CreatePen( PS_SOLID, 1, RGB( cur_red, cur_green, cur_blue ) );
-               hPenOld = SelectObject( hDC_mem, hPen );
+               hPenOld = static_cast<HPEN>(SelectObject( hDC_mem, hPen ));
 
                MoveToEx( hDC_mem, j, (is_5_6)?y1:y2, NULL );
                LineTo( hDC_mem, j + x2-x1+1, (is_5_6)?y2:y1 );
@@ -1666,7 +1666,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
          if ( stop_x[0] > 2*x1-x2-1 ) // on the left
          {
             hPen = CreatePen( PS_SOLID, 1, RGB(red[0], green[0], blue[0]) );
-            hPenOld = SelectObject( hDC_mem, hPen );
+            hPenOld = static_cast<HPEN>(SelectObject( hDC_mem, hPen ));
             hBrush = CreateSolidBrush( RGB(red[0], green[0], blue[0]) );
             SelectObject( hDC_mem, hBrush );
 
@@ -1688,7 +1688,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
          if ( stop_x[colors_num-1] < x2 ) // on the right
          {
             hPen = CreatePen( PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
-            hPenOld = SelectObject( hDC_mem, hPen );
+            hPenOld = static_cast<HPEN>(SelectObject( hDC_mem, hPen ));
             hBrush = CreateSolidBrush( RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
             SelectObject( hDC_mem, hBrush );
 
@@ -1720,7 +1720,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
          if ( stop_x[colors_num-1] < gr_radius )
          {
             hPen = CreatePen( PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
-            hPenOld = SelectObject( hDC_mem, hPen );
+            hPenOld = static_cast<HPEN>(SelectObject( hDC_mem, hPen ));
             hBrush = CreateSolidBrush( RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
             SelectObject( hDC_mem, hBrush );
             
@@ -1743,7 +1743,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
                cur_green = floor( green[i] + k * green_step + 0.5 );
                cur_blue = floor( blue[i] + k * blue_step + 0.5 );
                hPen = CreatePen( PS_SOLID, 1, RGB( cur_red, cur_green, cur_blue ) );
-               hPenOld = SelectObject( hDC_mem, hPen );
+               hPenOld = static_cast<HPEN>(SelectObject( hDC_mem, hPen ));
                hBrush = CreateSolidBrush( RGB( cur_red, cur_green, cur_blue ) );
                SelectObject( hDC_mem, hBrush );
 
@@ -1866,8 +1866,8 @@ HB_FUNC( HWG_DRAWGRADIENT )
       hPen = CreatePen( PS_SOLID, 1, color );
       hBrush = CreateSolidBrush( color );
    }
-   
-   hPenOld = SelectObject( hDC, hPen );
+
+   hPenOld = static_cast<HPEN>(SelectObject( hDC, hPen ));
    SelectObject( hDC, hBrush );
    Polygon( hDC, polygon, polygon_len );
    
