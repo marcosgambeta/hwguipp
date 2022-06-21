@@ -16,7 +16,7 @@ hwgui.hbc
 # -cflag=-DHWG_USE_POINTER_ITEM
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
-source/common/debug/*.c
+source/common/debug/*.cpp
 source/common/debug/*.prg
 
 # ==================== EOF of hwgdebug.hbp =====================================

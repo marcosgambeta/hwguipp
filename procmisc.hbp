@@ -15,10 +15,10 @@ hwgui.hbc
 # -cflag=-DHWG_USE_POINTER_ITEM
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
-source/common/procmisc/*.c
+source/common/procmisc/*.cpp
 source/common/procmisc/*.prg
-{win}source/common/editor/hcedit_w.c
-{unix}source/common/editor/hcedit_l.c
+{win}source/common/editor/hcedit_w.cpp
+{unix}source/common/editor/hcedit_l.cpp
 source/common/editor/*.prg
 
 # ======================= EOF of procmisc.hbp ====================================

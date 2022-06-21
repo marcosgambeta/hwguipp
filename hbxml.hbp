@@ -15,7 +15,7 @@ hwgui.hbc
 #-cflag=-DUNICODE
 
 #-cflag=-DHWG_USE_POINTER_ITEM
-source/common/xml/*.c
+source/common/xml/*.cpp
 source/common/xml/*.prg
 
 # ============================ EOF of hbxml.hbp ======================================
