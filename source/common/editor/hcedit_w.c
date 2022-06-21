@@ -130,7 +130,7 @@ typedef struct
 #define  TEDATTR_MAX    1024
 #define  TEDATTRF_MAX     32
 
-char * szDelimiters = " .,-";
+const char * szDelimiters = " .,-";
 
 /*
 int hced_utf8bytes( char * szText, int iLen )
@@ -848,8 +848,8 @@ HB_FUNC( HCED_LINEOUT )
       iFont = *( pted->pattrf + i );
       font = ( (pted->hDCPrn)? pted->pFontsPrn : pted->pFontsScr ) + 
             (iFont? iFont-1 : 0) ;
-      iHeight = max( iHeight, font->tm.tmHeight + font->tm.tmExternalLeading ) + 1;
-      iMaxAscent = max( iMaxAscent, font->tm.tmAscent );
+      iHeight = HB_MAX( iHeight, font->tm.tmHeight + font->tm.tmExternalLeading ) + 1;
+      iMaxAscent = HB_MAX( iMaxAscent, font->tm.tmAscent );
       if( ! *( pted->pattrf+i ) )
          break;
       i ++;
