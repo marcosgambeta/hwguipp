@@ -1,11 +1,11 @@
 /*
   $Id: incomp_pointer.h 2922 2020-12-31 15:51:41Z df7be $
-  
+
   incomp_pointer.h
-  
+
   Suppress warning if a function pointer is cast to an incompatible function pointer
   for GCC >= 8.1.x (MinGW64 )
-  
+
 */
 
 #ifndef _INCOMP_POINTER_WARNING
@@ -16,8 +16,8 @@
 #pragma GCC diagnostic ignored "-Wcast-function-type"
 #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-#pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
-#pragma GCC diagnostic ignored "-Wabsolute-value"
+//#pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
+//#pragma GCC diagnostic ignored "-Wabsolute-value"
 #endif
 #endif
 
