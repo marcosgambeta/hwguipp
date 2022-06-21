@@ -65,7 +65,7 @@ __inline long PtrToLong( const void *p )
 
 HB_FUNC( HWG_REGCLOSEKEY )
 {
-   HKEY hwHandle = ( HKEY ) hb_parnl( 1 );
+   HKEY hwHandle = ( HKEY ) hb_parnl(1);
 
    if( RegCloseKey( hwHandle ) == ERROR_SUCCESS )
    {
@@ -79,7 +79,7 @@ HB_FUNC( HWG_REGCLOSEKEY )
 
 HB_FUNC( HWG_REGOPENKEYEX )
 {
-   HKEY hwKey = ( ( HKEY ) hb_parnl( 1 ) );
+   HKEY hwKey = ( ( HKEY ) hb_parnl(1) );
    void * hValue;
    LPCTSTR lpValue = HB_PARSTRDEF( 2, &hValue, NULL );
    LONG lError;
@@ -101,9 +101,9 @@ HB_FUNC( HWG_REGOPENKEYEX )
 
 HB_FUNC( HWG_REGQUERYVALUEEX )
 {
-   HKEY hwKey = ( ( HKEY ) hb_parnl( 1 ) );
+   HKEY hwKey = ( ( HKEY ) hb_parnl(1) );
    LONG lError;
-   DWORD lpType = hb_parnl( 4 );
+   DWORD lpType = hb_parnl(4);
    DWORD lpcbData = 0;
    void * hValue;
    LPCTSTR lpValue = HB_PARSTRDEF( 2, &hValue, NULL );
@@ -140,7 +140,7 @@ HB_FUNC( HWG_REGENUMKEYEX )
    TCHAR Class[255];
    DWORD dwClass = 255;
 
-   nErr = RegEnumKeyEx( ( HKEY ) hb_parnl( 1 ), hb_parnl( 2 ), Buffer,
+   nErr = RegEnumKeyEx( ( HKEY ) hb_parnl(1), hb_parnl(2), Buffer,
                         &dwBuffSize, NULL, Class, &dwClass, &ft );
 
    if( nErr == ERROR_SUCCESS )
@@ -158,10 +158,10 @@ HB_FUNC( HWG_REGSETVALUEEX )
 {
    void * hValue;
 
-   hb_retnl( RegSetValueEx( ( HKEY ) hb_parnl( 1 ),
+   hb_retnl( RegSetValueEx( ( HKEY ) hb_parnl(1),
                             HB_PARSTRDEF( 2, &hValue, NULL ), 0,
-                            hb_parnl( 4 ), ( const BYTE * ) hb_parcx( 5 ),
-                            hb_parclen( 5 ) + 1 ) );
+                            hb_parnl(4), ( const BYTE * ) hb_parcx(5),
+                            hb_parclen(5) + 1 ) );
    hb_strfree( hValue );
 }
 
@@ -171,7 +171,7 @@ HB_FUNC( HWG_REGCREATEKEY )
    LONG nErr;
    void * hValue;
 
-   nErr = RegCreateKey( ( HKEY ) hb_parnl( 1 ),
+   nErr = RegCreateKey( ( HKEY ) hb_parnl(1),
                         HB_PARSTRDEF( 2, &hValue, NULL ), &hKey );
    if( nErr == ERROR_SUCCESS )
    {
@@ -206,15 +206,15 @@ HB_FUNC( HWG_REGCREATEKEYEX )
    SECURITY_ATTRIBUTES *sa = NULL;
    void * hValue, * hClass;
 
-   if( HB_ISCHAR( 7 ) )
-      sa = ( SECURITY_ATTRIBUTES * ) hb_parc( 7 );
+   if( HB_ISCHAR(7) )
+      sa = ( SECURITY_ATTRIBUTES * ) hb_parc(7);
 
-   nErr = RegCreateKeyEx( ( HKEY ) hb_parnl( 1 ),
+   nErr = RegCreateKeyEx( ( HKEY ) hb_parnl(1),
                           HB_PARSTRDEF( 2, &hValue, NULL ),
                           ( DWORD ) 0,
                           ( LPTSTR ) HB_PARSTRDEF( 4, &hClass, NULL ),
-                          ( DWORD ) hb_parnl( 5 ),
-                          ( DWORD ) hb_parnl( 6 ),
+                          ( DWORD ) hb_parnl(5),
+                          ( DWORD ) hb_parnl(6),
                           sa, &hkResult, &dwDisposition );
 
    if( nErr == ERROR_SUCCESS )
@@ -232,7 +232,7 @@ HB_FUNC( HWG_REGDELETEKEY )
 {
    void * hValue;
 
-   hb_retni( RegDeleteKey( ( HKEY ) hb_parnl( 1 ),
+   hb_retni( RegDeleteKey( ( HKEY ) hb_parnl(1),
                HB_PARSTRDEF( 2, &hValue, NULL ) ) == ERROR_SUCCESS ? 0 : -1 );
    hb_strfree( hValue );
 }
@@ -244,7 +244,7 @@ HB_FUNC( HWG_REGDELETEVALUE )
 {
    void * hValue;
 
-   hb_retni( RegDeleteValue( ( HKEY ) hb_parnl( 1 ),
+   hb_retni( RegDeleteValue( ( HKEY ) hb_parnl(1),
                HB_PARSTRDEF( 2, &hValue, NULL ) ) == ERROR_SUCCESS ? 0 : -1 );
    hb_strfree( hValue );
 }

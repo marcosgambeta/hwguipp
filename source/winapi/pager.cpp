@@ -11,8 +11,8 @@
 
 HB_FUNC( HWG_PAGERSETCHILD )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
-   HWND hWnd = ( HWND ) HB_PARHANDLE( 2 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hWnd = ( HWND ) HB_PARHANDLE(2);
 
 #ifndef __GNUC__
    Pager_SetChild( m_hWnd, hWnd );
@@ -23,7 +23,7 @@ HB_FUNC( HWG_PAGERSETCHILD )
 
 HB_FUNC( HWG_PAGERRECALCSIZE )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
 
 #ifndef __GNUC__
    Pager_RecalcSize( m_hWnd );
@@ -34,8 +34,8 @@ HB_FUNC( HWG_PAGERRECALCSIZE )
 
 HB_FUNC( HWG_PAGERFORWARDMOUSE )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
-   BOOL bForward = hb_parl( 2 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
+   BOOL bForward = hb_parl(2);
 
 #ifndef __GNUC__
    Pager_ForwardMouse( m_hWnd, bForward );
@@ -46,8 +46,8 @@ HB_FUNC( HWG_PAGERFORWARDMOUSE )
 
 HB_FUNC( HWG_PAGERSETBKCOLOR )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
-   COLORREF clr = ( COLORREF ) hb_parnl( 2 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
+   COLORREF clr = ( COLORREF ) hb_parnl(2);
 
 #ifndef __GNUC__
    hb_retnl( ( LONG ) Pager_SetBkColor( m_hWnd, clr ) );
@@ -59,7 +59,7 @@ HB_FUNC( HWG_PAGERSETBKCOLOR )
 
 HB_FUNC( HWG_PAGERGETBKCOLOR )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
 
 #ifndef __GNUC__
    hb_retnl( ( LONG ) Pager_GetBkColor( m_hWnd ) );
@@ -70,8 +70,8 @@ HB_FUNC( HWG_PAGERGETBKCOLOR )
 
 HB_FUNC( HWG_PAGERSETBORDER )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
-   int iBorder = hb_parni( 2 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
+   int iBorder = hb_parni(2);
 
 #ifndef __GNUC__
    hb_retni( Pager_SetBorder( m_hWnd, iBorder ) );
@@ -82,7 +82,7 @@ HB_FUNC( HWG_PAGERSETBORDER )
 
 HB_FUNC( HWG_PAGERGETBORDER )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
 
 #ifndef __GNUC__
    hb_retni( Pager_GetBorder( m_hWnd ) );
@@ -93,8 +93,8 @@ HB_FUNC( HWG_PAGERGETBORDER )
 
 HB_FUNC( HWG_PAGERSETPOS )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
-   int iPos = hb_parni( 2 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
+   int iPos = hb_parni(2);
 
 #ifndef __GNUC__
    hb_retni( Pager_SetPos( m_hWnd, iPos ) );
@@ -105,7 +105,7 @@ HB_FUNC( HWG_PAGERSETPOS )
 
 HB_FUNC( HWG_PAGERGETPOS )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
 
 #ifndef __GNUC__
    hb_retni( Pager_GetPos( m_hWnd ) );
@@ -116,8 +116,8 @@ HB_FUNC( HWG_PAGERGETPOS )
 
 HB_FUNC( HWG_PAGERSETBUTTONSIZE )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
-   int iSize = hb_parni( 2 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
+   int iSize = hb_parni(2);
 
 #ifndef __GNUC__
    hb_retni( Pager_SetButtonSize( m_hWnd, iSize ) );
@@ -128,7 +128,7 @@ HB_FUNC( HWG_PAGERSETBUTTONSIZE )
 
 HB_FUNC( HWG_PAGERGETBUTTONSIZE )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
 
 #ifndef __GNUC__
    hb_retni( Pager_GetButtonSize( m_hWnd ) );
@@ -139,8 +139,8 @@ HB_FUNC( HWG_PAGERGETBUTTONSIZE )
 
 HB_FUNC( HWG_PAGERGETBUTTONSTATE )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
-   int iButton = hb_parni( 1 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
+   int iButton = hb_parni(1);
 
 #ifndef __GNUC__
    hb_retnl( Pager_GetButtonState( m_hWnd, iButton ) );
@@ -152,8 +152,8 @@ HB_FUNC( HWG_PAGERGETBUTTONSTATE )
 
 HB_FUNC( HWG_PAGERONPAGERCALCSIZE )
 {
-   LPNMPGCALCSIZE pNMPGCalcSize = ( LPNMPGCALCSIZE ) HB_PARHANDLE( 1 );
-   HWND hwndToolbar = ( HWND ) HB_PARHANDLE( 2 );
+   LPNMPGCALCSIZE pNMPGCalcSize = ( LPNMPGCALCSIZE ) HB_PARHANDLE(1);
+   HWND hwndToolbar = ( HWND ) HB_PARHANDLE(2);
    SIZE size;
 
    SendMessage( hwndToolbar, TB_GETMAXSIZE, 0, ( LPARAM ) & size );
@@ -174,7 +174,7 @@ HB_FUNC( HWG_PAGERONPAGERCALCSIZE )
 
 HB_FUNC( HWG_PAGERONPAGERSCROLL )
 {
-   LPNMPGSCROLL pNMPGScroll = ( LPNMPGSCROLL ) HB_PARHANDLE( 1 );
+   LPNMPGSCROLL pNMPGScroll = ( LPNMPGSCROLL ) HB_PARHANDLE(1);
 
    switch ( pNMPGScroll->iDir )
    {

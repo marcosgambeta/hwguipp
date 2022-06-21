@@ -25,12 +25,12 @@ HB_FUNC( HWG_PLAYSOUND )
    HMODULE hmod = NULL;
    DWORD fdwSound = SND_NODEFAULT | SND_FILENAME;
 
-   if( hb_parl( 2 ) )
+   if( hb_parl(2) )
       fdwSound |= SND_SYNC;
    else
       fdwSound |= SND_ASYNC;
 
-   if( hb_parl( 3 ) )
+   if( hb_parl(3) )
       fdwSound |= SND_LOOP;
    if( !lpSound )
       fdwSound |= SND_PURGE;
@@ -46,9 +46,9 @@ HB_FUNC( HWG_MCISENDSTRING )
 
    hb_retnl( ( LONG ) mciSendString( HB_PARSTR( 1, &hCommand, NULL ),
                cBuffer, HB_SIZEOFARRAY( cBuffer ),
-               ( HB_ISNIL( 3 ) ) ? GetActiveWindow(  ) :
-               ( HWND ) HB_PARHANDLE( 3 ) ) );
-   if( !HB_ISNIL( 2 ) )
+               ( HB_ISNIL(3) ) ? GetActiveWindow(  ) :
+               ( HWND ) HB_PARHANDLE(3) ) );
+   if( !HB_ISNIL(2) )
       HB_STORSTR( cBuffer, 2 );
    hb_strfree( hCommand );
 }
@@ -59,10 +59,10 @@ HB_FUNC( HWG_MCISENDSTRING )
 
 HB_FUNC( HWG_MCISENDCOMMAND )
 {
-   hb_retnl( mciSendCommand( hb_parni( 1 ),     // Device ID
-               hb_parni( 2 ),   // Command Message
-               hb_parnl( 3 ),   // Flags
-               ( DWORD_PTR ) hb_parc( 4 ) ) );      // Parameter Block
+   hb_retnl( mciSendCommand( hb_parni(1),     // Device ID
+               hb_parni(2),   // Command Message
+               hb_parnl(3),   // Flags
+               ( DWORD_PTR ) hb_parc(4) ) );      // Parameter Block
 }
 
 //----------------------------------------------------------------------------//
@@ -72,7 +72,7 @@ HB_FUNC( HWG_MCIGETERRORSTRING )
 {
    TCHAR cBuffer[256] = { 0 };
 
-   hb_retl( mciGetErrorString( hb_parnl( 1 ),   // Error Code
+   hb_retl( mciGetErrorString( hb_parnl(1),   // Error Code
                cBuffer, HB_SIZEOFARRAY( cBuffer ) ) );
    HB_STORSTR( cBuffer, 2 );
 }
@@ -109,13 +109,13 @@ HB_FUNC( HWG_NMCIPLAY )
 
    memset( &mciPlayParms, 0, sizeof( mciPlayParms ) );
 
-   if( ( mciPlayParms.dwFrom = hb_parnl( 2 ) ) != 0 )
+   if( ( mciPlayParms.dwFrom = hb_parnl(2) ) != 0 )
       dwFlags |= MCI_FROM;
 
-   if( ( mciPlayParms.dwTo = hb_parnl( 3 ) ) != 0 )
+   if( ( mciPlayParms.dwTo = hb_parnl(3) ) != 0 )
       dwFlags |= MCI_TO;
 
-   hb_retnl( mciSendCommand( hb_parni( 1 ),     // Device ID
+   hb_retnl( mciSendCommand( hb_parni(1),     // Device ID
                MCI_PLAY, dwFlags,
                ( DWORD_PTR ) ( LPMCI_PLAY_PARMS ) & mciPlayParms ) );
 }
@@ -125,11 +125,11 @@ HB_FUNC( HWG_NMCIPLAY )
 HB_FUNC( HWG_NMCIWINDOW )
 {
    MCI_ANIM_WINDOW_PARMS mciWindowParms;
-   HWND hWnd = ( HWND ) HB_PARHANDLE( 2 );
+   HWND hWnd = ( HWND ) HB_PARHANDLE(2);
 
    mciWindowParms.hWnd = hWnd;
 
-   hb_retnl( mciSendCommand( hb_parni( 1 ), MCI_WINDOW,
+   hb_retnl( mciSendCommand( hb_parni(1), MCI_WINDOW,
                MCI_ANIM_WINDOW_HWND | MCI_ANIM_WINDOW_DISABLE_STRETCH,
                ( DWORD_PTR ) ( LPMCI_ANIM_WINDOW_PARMS ) & mciWindowParms ) );
 }

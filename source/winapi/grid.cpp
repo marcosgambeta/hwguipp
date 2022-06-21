@@ -48,24 +48,24 @@ LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pColor );
 
 HB_FUNC( HWG_LISTVIEW_CREATE )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
    HWND handle;
-   int style = LVS_SHOWSELALWAYS | hb_parni( 7 );
+   int style = LVS_SHOWSELALWAYS | hb_parni(7);
 
-   if( hb_parl( 8 ) )
+   if( hb_parl(8) )
    {
       style = style | LVS_NOCOLUMNHEADER;
    }
 
-   if( hb_parl( 9 ) )
+   if( hb_parl(9) )
    {
       style = style | LVS_NOSCROLL;
    }
 
    handle = CreateWindowEx( WS_EX_CLIENTEDGE, WC_LISTVIEW, NULL,
          style,
-         hb_parni( 3 ), hb_parni( 4 ), hb_parni( 5 ), hb_parni( 6 ),
-         hwnd, ( HMENU )(UINT_PTR) hb_parni( 2 ), GetModuleHandle( NULL ), NULL );
+         hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
+         hwnd, ( HMENU )(UINT_PTR) hb_parni(2), GetModuleHandle( NULL ), NULL );
 
    HB_RETHANDLE( handle );
 }
@@ -74,47 +74,47 @@ HB_FUNC( HWG_LISTVIEW_INIT )
 {
    int style = 0;
 
-   if( !hb_parl( 3 ) )
+   if( !hb_parl(3) )
    {
       style = style | LVS_EX_GRIDLINES;
    }
 
-   SendMessage( ( HWND ) HB_PARHANDLE( 1 ),
+   SendMessage( ( HWND ) HB_PARHANDLE(1),
          LVM_SETEXTENDEDLISTVIEWSTYLE, 0,
          LVS_EX_FULLROWSELECT |
          LVS_EX_HEADERDRAGDROP | LVS_EX_FLATSB | style );
 
-   ListView_SetItemCount( ( HWND ) HB_PARHANDLE( 1 ), hb_parnl( 2 ) );
+   ListView_SetItemCount( ( HWND ) HB_PARHANDLE(1), hb_parnl(2) );
 }
 
 HB_FUNC( HWG_LISTVIEW_SETITEMCOUNT )
 {
-   ListView_SetItemCount( ( HWND ) HB_PARHANDLE( 1 ), hb_parni( 2 ) );
+   ListView_SetItemCount( ( HWND ) HB_PARHANDLE(1), hb_parni(2) );
 }
 
 HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
 {
    LV_COLUMN COL;
-   int iImage = hb_parni( 6 );
+   int iImage = hb_parni(6);
    void *hText;
 
    COL.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT | LVCF_SUBITEM;
-   COL.cx = hb_parni( 3 );
+   COL.cx = hb_parni(3);
    COL.pszText = ( LPTSTR ) HB_PARSTRDEF( 4, &hText, NULL );
-   COL.iSubItem = hb_parni( 2 ) - 1;
-   COL.fmt = hb_parni( 5 );
+   COL.iSubItem = hb_parni(2) - 1;
+   COL.fmt = hb_parni(5);
    if( iImage > 0 )
    {
       COL.mask = COL.mask | LVCF_IMAGE;
-      COL.iImage = hb_parni( 2 ) - 1;
+      COL.iImage = hb_parni(2) - 1;
    }
    else
       COL.iImage = -1;
 
-   ListView_InsertColumn( ( HWND ) HB_PARHANDLE( 1 ), hb_parni( 2 ) - 1,
+   ListView_InsertColumn( ( HWND ) HB_PARHANDLE(1), hb_parni(2) - 1,
          &COL );
 
-   RedrawWindow( ( HWND ) HB_PARHANDLE( 1 ), NULL, NULL,
+   RedrawWindow( ( HWND ) HB_PARHANDLE(1), NULL, NULL,
          RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
          RDW_UPDATENOW );
    hb_strfree( hText );
@@ -122,51 +122,51 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
 
 HB_FUNC( HWG_LISTVIEW_DELETECOLUMN )
 {
-   ListView_DeleteColumn( ( HWND ) HB_PARHANDLE( 1 ), hb_parni( 2 ) - 1 );
-   RedrawWindow( ( HWND ) HB_PARHANDLE( 1 ), NULL, NULL,
+   ListView_DeleteColumn( ( HWND ) HB_PARHANDLE(1), hb_parni(2) - 1 );
+   RedrawWindow( ( HWND ) HB_PARHANDLE(1), NULL, NULL,
          RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
          RDW_UPDATENOW );
 }
 
 HB_FUNC( HWG_LISTVIEW_SETBKCOLOR )
 {
-   ListView_SetBkColor( ( HWND ) HB_PARHANDLE( 1 ),
-         ( COLORREF ) hb_parni( 2 ) );
+   ListView_SetBkColor( ( HWND ) HB_PARHANDLE(1),
+         ( COLORREF ) hb_parni(2) );
 }
 
 HB_FUNC( HWG_LISTVIEW_SETTEXTBKCOLOR )
 {
-   ListView_SetTextBkColor( ( HWND ) HB_PARHANDLE( 1 ),
-         ( COLORREF ) hb_parni( 2 ) );
+   ListView_SetTextBkColor( ( HWND ) HB_PARHANDLE(1),
+         ( COLORREF ) hb_parni(2) );
 }
 
 HB_FUNC( HWG_LISTVIEW_SETTEXTCOLOR )
 {
-   ListView_SetTextColor( ( HWND ) HB_PARHANDLE( 1 ),
-         ( COLORREF ) hb_parni( 2 ) );
+   ListView_SetTextColor( ( HWND ) HB_PARHANDLE(1),
+         ( COLORREF ) hb_parni(2) );
 }
 
 HB_FUNC( HWG_LISTVIEW_GETFIRSTITEM )
 {
-   hb_retni( ListView_GetNextItem( ( HWND ) HB_PARHANDLE( 1 ), -1,
+   hb_retni( ListView_GetNextItem( ( HWND ) HB_PARHANDLE(1), -1,
                LVNI_ALL | LVNI_SELECTED ) + 1 );
 }
 
 HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
 {
-   LV_DISPINFO *pDispInfo = ( LV_DISPINFO * ) HB_PARHANDLE( 1 );
+   LV_DISPINFO *pDispInfo = ( LV_DISPINFO * ) HB_PARHANDLE(1);
 
    int iItem = pDispInfo->item.iItem;
    int iSubItem = pDispInfo->item.iSubItem;
 
-   hb_reta( 2 );
+   hb_reta(2);
    hb_storvni( iItem + 1, -1, 1 );
    hb_storvni( iSubItem + 1, -1, 2 );
 }
 
 HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
 {
-   LV_DISPINFO *pDispInfo = ( LV_DISPINFO * ) HB_PARHANDLE( 1 );
+   LV_DISPINFO *pDispInfo = ( LV_DISPINFO * ) HB_PARHANDLE(1);
 
    if( pDispInfo->item.mask & LVIF_TEXT )
    {
@@ -191,30 +191,30 @@ HB_FUNC( HWG_LISTVIEW_GETGRIDKEY )
 
 HB_FUNC( HWG_LISTVIEW_GETTOPINDEX )
 {
-   hb_retnl( ListView_GetTopIndex( ( HWND ) HB_PARHANDLE( 1 ) ) );
+   hb_retnl( ListView_GetTopIndex( ( HWND ) HB_PARHANDLE(1) ) );
 }
 
 HB_FUNC( HWG_LISTVIEW_REDRAWITEMS )
 {
-   hb_retnl( ListView_RedrawItems( ( HWND ) HB_PARHANDLE( 1 ), hb_parni( 2 ),
-               hb_parni( 3 ) ) );
+   hb_retnl( ListView_RedrawItems( ( HWND ) HB_PARHANDLE(1), hb_parni(2),
+               hb_parni(3) ) );
 }
 
 HB_FUNC( HWG_LISTVIEW_GETCOUNTPERPAGE )
 {
-   hb_retnl( ListView_GetCountPerPage( ( HWND ) HB_PARHANDLE( 1 ) ) );
+   hb_retnl( ListView_GetCountPerPage( ( HWND ) HB_PARHANDLE(1) ) );
 }
 
 HB_FUNC( HWG_LISTVIEW_UPDATE )
 {
-   ListView_Update( ( HWND ) HB_PARHANDLE( 1 ), hb_parni( 2 ) - 1 );
+   ListView_Update( ( HWND ) HB_PARHANDLE(1), hb_parni(2) - 1 );
 
 }
 
 HB_FUNC( HWG_LISTVIEW_SCROLL )
 {
-   ListView_Scroll( ( HWND ) HB_PARHANDLE( 1 ), hb_parni( 2 ) - 1,
-         hb_parni( 3 ) - 1 );
+   ListView_Scroll( ( HWND ) HB_PARHANDLE(1), hb_parni(2) - 1,
+         hb_parni(3) - 1 );
 }
 
 HB_FUNC( HWG_LISTVIEW_HITTEST )
@@ -222,22 +222,22 @@ HB_FUNC( HWG_LISTVIEW_HITTEST )
    POINT point;
    LVHITTESTINFO lvhti;
 
-   point.y = hb_parni( 2 );
-   point.x = hb_parni( 3 );
+   point.y = hb_parni(2);
+   point.x = hb_parni(3);
 
    lvhti.pt = point;
 
-   ListView_SubItemHitTest( ( HWND ) HB_PARHANDLE( 1 ), &lvhti );
+   ListView_SubItemHitTest( ( HWND ) HB_PARHANDLE(1), &lvhti );
 
    if( lvhti.flags & LVHT_ONITEM )
    {
-      hb_reta( 2 );
+      hb_reta(2);
       hb_storvni( lvhti.iItem + 1, -1, 1 );
       hb_storvni( lvhti.iSubItem + 1, -1, 2 );
    }
    else
    {
-      hb_reta( 2 );
+      hb_reta(2);
       hb_storvni( 0, -1, 1 );
       hb_storvni( 0, -1, 2 );
    }
@@ -245,8 +245,8 @@ HB_FUNC( HWG_LISTVIEW_HITTEST )
 
 HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
 {
-   HWND hList = ( HWND ) HB_PARHANDLE( 1 );
-   HIMAGELIST p = ( HIMAGELIST ) HB_PARHANDLE( 2 );
+   HWND hList = ( HWND ) HB_PARHANDLE(1);
+   HIMAGELIST p = ( HIMAGELIST ) HB_PARHANDLE(2);
 
 // #ifdef __BORLANDC__
 #if 1
@@ -262,8 +262,8 @@ HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
 
 HB_FUNC( HWG_LISTVIEW_SETVIEW )
 {
-   HWND hWndListView = ( HWND ) HB_PARHANDLE( 1 );
-   DWORD dwView = hb_parnl( 2 );
+   HWND hWndListView = ( HWND ) HB_PARHANDLE(1);
+   DWORD dwView = hb_parnl(2);
 
    DWORD dwStyle = GetWindowLong( hWndListView, GWL_STYLE );
 
@@ -272,16 +272,16 @@ HB_FUNC( HWG_LISTVIEW_SETVIEW )
    {
       SetWindowLongPtr( hWndListView,
             GWL_STYLE, ( dwStyle & ~LVS_TYPEMASK ) | dwView );
-      //  RedrawWindow( (HWND) HB_PARHANDLE( 1 ), NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
+      //  RedrawWindow( (HWND) HB_PARHANDLE(1), NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
    }
 }
 
 HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
 {
-   HWND hwndListView = ( HWND ) HB_PARHANDLE( 1 );
-   LONG lCol = hb_parnl( 2 ) - 1;
+   HWND hwndListView = ( HWND ) HB_PARHANDLE(1);
+   LONG lCol = hb_parnl(2) - 1;
    void *hText;
-   int iImage = hb_parni( 6 );
+   int iImage = hb_parni(6);
    LVCOLUMN lvcolumn;
    int iResult;
 
@@ -295,8 +295,8 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
 
    lvcolumn.pszText = ( LPTSTR ) HB_PARSTR( 3, &hText, NULL );
    lvcolumn.iSubItem = lCol;
-   lvcolumn.cx = hb_parni( 4 );
-   lvcolumn.fmt = hb_parni( 5 );
+   lvcolumn.cx = hb_parni(4);
+   lvcolumn.fmt = hb_parni(5);
    lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
    if( SendMessage( ( HWND ) hwndListView, ( UINT ) LVM_INSERTCOLUMN,
@@ -315,12 +315,12 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
 
 HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 {
-   HWND hwndListView = ( HWND ) HB_PARHANDLE( 1 );
-   LONG lLin = hb_parnl( 2 ) - 1;
-   LONG lCol = hb_parnl( 3 ) - 1;
+   HWND hwndListView = ( HWND ) HB_PARHANDLE(1);
+   LONG lLin = hb_parnl(2) - 1;
+   LONG lCol = hb_parnl(3) - 1;
    int iSubItemYesNo = lCol == 0 ? 0 : 1;
    void *hText;
-   int iBitMap = hb_parni( 5 );
+   int iBitMap = hb_parni(5);
    LVITEM lvi;
    int iResult = 0;
    RECT rect;
@@ -368,17 +368,17 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 
 HB_FUNC( HWG_LISTVIEWSELECTALL )
 {
-   HWND hList = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hList = ( HWND ) HB_PARHANDLE(1);
 
    ListView_SetItemState( hList, -1, 0, LVIS_SELECTED );
    SendMessage( hList, LVM_ENSUREVISIBLE, ( WPARAM ) - 1, FALSE );
    ListView_SetItemState( hList, -1, LVIS_SELECTED, LVIS_SELECTED );
-   hb_retl( 1 );
+   hb_retl(1);
 }
 
 HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
 {
-   HWND hList = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hList = ( HWND ) HB_PARHANDLE(1);
    int items;
 
    items = SendMessage( hList, LVM_GETITEMCOUNT, ( WPARAM ) 0, ( LPARAM ) 0 );
@@ -387,7 +387,7 @@ HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
    SendMessage( hList, LVM_ENSUREVISIBLE, ( WPARAM ) items, FALSE );
    ListView_SetItemState( hList, items, LVIS_SELECTED, LVIS_SELECTED );
    ListView_SetItemState( hList, items, LVIS_FOCUSED, LVIS_FOCUSED );
-   hb_retl( 1 );
+   hb_retl(1);
 }
 
 LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
@@ -427,8 +427,8 @@ LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
 
 HB_FUNC( HWG_PROCESSCUSTU )
 {
-   /* HWND hWnd = ( HWND ) HB_PARHANDLE( 1 ) ; */
-   LPARAM lParam = ( LPARAM ) HB_PARHANDLE( 2 );
+   /* HWND hWnd = ( HWND ) HB_PARHANDLE(1) ; */
+   LPARAM lParam = ( LPARAM ) HB_PARHANDLE(2);
    PHB_ITEM pColor = hb_param( 3, HB_IT_ARRAY );
 
    hb_retnl( ( LONG ) ProcessCustomDraw( lParam, pColor ) );
@@ -436,9 +436,9 @@ HB_FUNC( HWG_PROCESSCUSTU )
 
 HB_FUNC( HWG_LISTVIEWGETITEM )
 {
-   HWND hList = ( HWND ) HB_PARHANDLE( 1 );
-   int Index = hb_parni( 2 );
-   int Index2 = hb_parni( 3 );
+   HWND hList = ( HWND ) HB_PARHANDLE(1);
+   int Index = hb_parni(2);
+   int Index2 = hb_parni(3);
    LVITEM Item;
    TCHAR Buffer[256] = { 0 };
 
@@ -482,10 +482,10 @@ int CALLBACK CompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort )
 HB_FUNC( HWG_LISTVIEWSORTINFONEW )
 {
    //PSORTINFO p = (PSORTINFO) hb_xgrab(sizeof(SortInfo));
-   //LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) hb_parnl( 1 ) ;
+   //LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) hb_parnl(1) ;
    PSORTINFO p;
 
-   if( HB_ISPOINTER( 2 ) )
+   if( HB_ISPOINTER(2) )
    {
       return;
    }
@@ -503,7 +503,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFONEW )
 
 HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
 {
-   PSORTINFO p = ( PSORTINFO ) hb_parptr( 3 );
+   PSORTINFO p = ( PSORTINFO ) hb_parptr(3);
 
    if( p )
       hb_xfree( p );
@@ -511,8 +511,8 @@ HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
 
 HB_FUNC( HWG_LISTVIEWSORT )
 {
-   PSORTINFO p = ( PSORTINFO ) hb_parptr( 3 );
-   LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) HB_PARHANDLE( 2 );
+   PSORTINFO p = ( PSORTINFO ) hb_parptr(3);
+   LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) HB_PARHANDLE(2);
 
    if( phdNotify->iSubItem == p->nColumnNo )
       p->nAscendingSortOrder = !p->nAscendingSortOrder;
@@ -521,8 +521,8 @@ HB_FUNC( HWG_LISTVIEWSORT )
 
 // p->nColumnNo = phdNotify->iItem;
    p->nColumnNo = phdNotify->iSubItem;
-   p->pListControl = ( HWND ) HB_PARHANDLE( 1 );
-   ListView_SortItemsEx( ( HWND ) HB_PARHANDLE( 1 ), CompareFunc, p );
+   p->pListControl = ( HWND ) HB_PARHANDLE(1);
+   ListView_SortItemsEx( ( HWND ) HB_PARHANDLE(1), CompareFunc, p );
 }
 
 /* ========================= EOF of grid.c ======================== */

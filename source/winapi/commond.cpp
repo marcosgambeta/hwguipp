@@ -19,9 +19,9 @@ HB_FUNC( HWG_SELECTFONT )
    CHOOSEFONT cf;
    LOGFONT lf;
    HFONT hfont;
-   PHB_ITEM pObj = ( HB_ISNIL( 1 ) ) ? NULL : hb_param( 1, HB_IT_OBJECT );
+   PHB_ITEM pObj = ( HB_ISNIL(1) ) ? NULL : hb_param( 1, HB_IT_OBJECT );
    PHB_ITEM temp1;
-   PHB_ITEM aMetr = hb_itemArrayNew( 9 ), temp;
+   PHB_ITEM aMetr = hb_itemArrayNew(9), temp;
 
    /* Initialize members of the CHOOSEFONT structure. */
    if( pObj )
@@ -118,7 +118,7 @@ HB_FUNC( HWG_SELECTFILE )
    LPTSTR lpFilter;
    void *hTitle, *hInitDir;
 
-   if( HB_ISCHAR( 1 ) && HB_ISCHAR( 2 ) )
+   if( HB_ISCHAR(1) && HB_ISCHAR(2) )
    {
       void *hStr1, *hStr2;
       LPCTSTR lpStr1, lpStr2;
@@ -136,7 +136,7 @@ HB_FUNC( HWG_SELECTFILE )
       hb_strfree( hStr1 );
       hb_strfree( hStr2 );
    }
-   else if( HB_ISARRAY( 1 ) && HB_ISARRAY( 2 ) )
+   else if( HB_ISARRAY(1) && HB_ISARRAY(2) )
    {
       struct _hb_arrStr
       {
@@ -248,7 +248,7 @@ HB_FUNC( HWG_SAVEFILE )
    ofn.lpstrInitialDir = HB_PARSTR( 4, &hInitDir, NULL );
    ofn.lpstrTitle = HB_PARSTR( 5, &hTitle, NULL );
    ofn.Flags = OFN_FILEMUSTEXIST | OFN_EXPLORER;
-   if( HB_ISLOG( 6 ) && hb_parl( 6 ) )
+   if( HB_ISLOG(6) && hb_parl(6) )
       ofn.Flags = ofn.Flags | OFN_OVERWRITEPROMPT;
 
    if( GetSaveFileName( &ofn ) )
@@ -310,16 +310,16 @@ HB_FUNC( HWG_CHOOSECOLOR )
 {
    CHOOSECOLOR cc;
    COLORREF rgb[16];
-   DWORD nStyle = ( HB_ISLOG( 2 ) && hb_parl( 2 ) ) ? CC_FULLOPEN : 0;
+   DWORD nStyle = ( HB_ISLOG(2) && hb_parl(2) ) ? CC_FULLOPEN : 0;
 
    memset( ( void * ) &cc, 0, sizeof( CHOOSECOLOR ) );
 
    cc.lStructSize = sizeof( CHOOSECOLOR );
    cc.hwndOwner = GetActiveWindow(  );
    cc.lpCustColors = rgb;
-   if( HB_ISNUM( 1 ) )
+   if( HB_ISNUM(1) )
    {
-      cc.rgbResult = ( COLORREF ) hb_parnl( 1 );
+      cc.rgbResult = ( COLORREF ) hb_parnl(1);
       nStyle |= CC_RGBINIT;
    }
    cc.Flags = nStyle;
@@ -502,13 +502,13 @@ HB_FUNC( HWG_GETOPENFILENAME )
    ofn.hInstance = GetModuleHandle( NULL );
    ofn.lStructSize = sizeof( ofn );
    ofn.hwndOwner =
-         ( HB_ISNIL( 1 ) ? GetActiveWindow(  ) : ( HWND ) HB_PARHANDLE( 1 ) );
+         ( HB_ISNIL(1) ? GetActiveWindow(  ) : ( HWND ) HB_PARHANDLE(1) );
    ofn.lpstrTitle = HB_PARSTR( 3, &hTitle, NULL );
    ofn.lpstrFilter = HB_PARSTR( 4, &hFilter, NULL );
    ofn.Flags = OFN_EXPLORER | OFN_ALLOWMULTISELECT;
    ofn.lpstrInitialDir = HB_PARSTR( 6, &hInitDir, NULL );
    ofn.lpstrDefExt = HB_PARSTR( 7, &hDefExt, NULL );
-   ofn.nFilterIndex = hb_parni( 8 );
+   ofn.nFilterIndex = hb_parni(8);
    ofn.lpstrFile = lpFileBuff;
    ofn.nMaxFile = nSize;
 

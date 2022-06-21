@@ -53,11 +53,11 @@ HB_FUNC( HWG_CREATERICHEDIT )
          TEXT( "RichEdit20A" ), /* predefined class  */
 #endif
          NULL,                  /* title   */
-         WS_CHILD | WS_VISIBLE | hb_parnl( 3 ), /* style  */
-         hb_parni( 4 ), hb_parni( 5 ),  /* x, y   */
-         hb_parni( 6 ), hb_parni( 7 ),  /* nWidth, nHeight */
-         ( HWND ) HB_PARHANDLE( 1 ),    /* parent window    */
-         ( HMENU )(UINT_PTR) hb_parni( 2 ),       /* control ID  */
+         WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
+         hb_parni(4), hb_parni(5),  /* x, y   */
+         hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
+         ( HWND ) HB_PARHANDLE(1),    /* parent window    */
+         ( HMENU )(UINT_PTR) hb_parni(2),       /* control ID  */
          GetModuleHandle( NULL ), NULL );
 
    lpText = HB_PARSTR( 8, &hText, NULL );
@@ -74,7 +74,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
  */
 HB_FUNC( HWG_RE_SETCHARFORMAT )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
    CHARRANGE chrOld, chrNew;
    CHARFORMAT2 cf;
    PHB_ITEM pArr;
@@ -82,7 +82,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
    SendMessage( hCtrl, EM_EXGETSEL, 0, ( LPARAM ) & chrOld );
    SendMessage( hCtrl, EM_HIDESELECTION, 1, 0 );
 
-   if( HB_ISARRAY( 2 ) )
+   if( HB_ISARRAY(2) )
    {
       ULONG ul, ulLen, ulLen1;
       PHB_ITEM pArr1;
@@ -165,59 +165,59 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
    else
    {
       /*   Set new selection   */
-      chrNew.cpMin = hb_parnl( 2 ) - 1;
-      chrNew.cpMax = hb_parnl( 3 ) - 1;
+      chrNew.cpMin = hb_parnl(2) - 1;
+      chrNew.cpMax = hb_parnl(3) - 1;
       SendMessage( hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew );
 
       memset( &cf, 0, sizeof( CHARFORMAT2 ) );
       cf.cbSize = sizeof( CHARFORMAT2 );
 
-      if( !HB_ISNIL( 4 ) )
+      if( !HB_ISNIL(4) )
       {
-         cf.crTextColor = ( COLORREF ) hb_parnl( 4 );
+         cf.crTextColor = ( COLORREF ) hb_parnl(4);
          cf.dwMask |= CFM_COLOR;
       }
-      if( !HB_ISNIL( 5 ) )
+      if( !HB_ISNIL(5) )
       {
          HB_ITEMCOPYSTR( hb_param( 5, HB_IT_ANY ),
                cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ) );
          cf.szFaceName[HB_SIZEOFARRAY( cf.szFaceName ) - 1] = '\0';
          cf.dwMask |= CFM_FACE;
       }
-      if( !HB_ISNIL( 6 ) )
+      if( !HB_ISNIL(6) )
       {
-         cf.yHeight = hb_parnl( 6 );
+         cf.yHeight = hb_parnl(6);
          cf.dwMask |= CFM_SIZE;
       }
-      if( !HB_ISNIL( 7 ) )
+      if( !HB_ISNIL(7) )
       {
-         cf.dwEffects |= ( hb_parl( 7 ) ) ? CFE_BOLD : 0;
+         cf.dwEffects |= ( hb_parl(7) ) ? CFE_BOLD : 0;
          cf.dwMask |= CFM_BOLD;
       }
-      if( !HB_ISNIL( 8 ) )
+      if( !HB_ISNIL(8) )
       {
-         cf.dwEffects |= ( hb_parl( 8 ) ) ? CFE_ITALIC : 0;
+         cf.dwEffects |= ( hb_parl(8) ) ? CFE_ITALIC : 0;
          cf.dwMask |= CFM_ITALIC;
       }
-      if( !HB_ISNIL( 9 ) )
+      if( !HB_ISNIL(9) )
       {
-         cf.dwEffects |= ( hb_parl( 9 ) ) ? CFE_UNDERLINE : 0;
+         cf.dwEffects |= ( hb_parl(9) ) ? CFE_UNDERLINE : 0;
          cf.dwMask |= CFM_UNDERLINE;
       }
-      if( !HB_ISNIL( 10 ) )
+      if( !HB_ISNIL(10) )
       {
-         cf.bCharSet = ( BYTE ) hb_parnl( 10 );
+         cf.bCharSet = ( BYTE ) hb_parnl(10);
          cf.dwMask |= CFM_CHARSET;
       }
-      if( !HB_ISNIL( 11 ) )
+      if( !HB_ISNIL(11) )
       {
-         if( hb_parl( 9 ) )
+         if( hb_parl(9) )
             cf.dwEffects |= CFE_SUPERSCRIPT;
          else
             cf.dwEffects |= CFE_SUBSCRIPT;
          cf.dwMask |= CFM_SUPERSCRIPT;
       }
-      if( !HB_ISNIL( 12 ) )
+      if( !HB_ISNIL(12) )
       {
          cf.dwEffects |= CFE_PROTECTED;
          cf.dwMask |= CFM_PROTECTED;
@@ -237,18 +237,18 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
  */
 HB_FUNC( HWG_RE_SETDEFAULT )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
    CHARFORMAT2 cf;
 
    memset( &cf, 0, sizeof( CHARFORMAT2 ) );
    cf.cbSize = sizeof( CHARFORMAT2 );
 
-   if( HB_ISNUM( 2 ) )
+   if( HB_ISNUM(2) )
    {
-      cf.crTextColor = ( COLORREF ) hb_parnl( 2 );
+      cf.crTextColor = ( COLORREF ) hb_parnl(2);
       cf.dwMask |= CFM_COLOR;
    }
-   if( HB_ISCHAR( 3 ) )
+   if( HB_ISCHAR(3) )
    {
       HB_ITEMCOPYSTR( hb_param( 3, HB_IT_ANY ),
             cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ) );
@@ -256,28 +256,28 @@ HB_FUNC( HWG_RE_SETDEFAULT )
       cf.dwMask |= CFM_FACE;
    }
 
-   if( HB_ISNUM( 4 ) )
+   if( HB_ISNUM(4) )
    {
-      cf.yHeight = hb_parnl( 4 );
+      cf.yHeight = hb_parnl(4);
       cf.dwMask |= CFM_SIZE;
    }
 
-   if( !HB_ISNIL( 5 ) )
+   if( !HB_ISNIL(5) )
    {
-      cf.dwEffects |= ( hb_parl( 5 ) ) ? CFE_BOLD : 0;
+      cf.dwEffects |= ( hb_parl(5) ) ? CFE_BOLD : 0;
    }
-   if( !HB_ISNIL( 6 ) )
+   if( !HB_ISNIL(6) )
    {
-      cf.dwEffects |= ( hb_parl( 6 ) ) ? CFE_ITALIC : 0;
+      cf.dwEffects |= ( hb_parl(6) ) ? CFE_ITALIC : 0;
    }
-   if( !HB_ISNIL( 7 ) )
+   if( !HB_ISNIL(7) )
    {
-      cf.dwEffects |= ( hb_parl( 7 ) ) ? CFE_UNDERLINE : 0;
+      cf.dwEffects |= ( hb_parl(7) ) ? CFE_UNDERLINE : 0;
    }
 
-   if( HB_ISNUM( 8 ) )
+   if( HB_ISNUM(8) )
    {
-      cf.bCharSet = ( BYTE ) hb_parnl( 8 );
+      cf.bCharSet = ( BYTE ) hb_parnl(8);
       cf.dwMask |= CFM_CHARSET;
    }
 
@@ -292,9 +292,9 @@ HB_FUNC( HWG_RE_SETDEFAULT )
  */
 HB_FUNC( HWG_RE_CHARFROMPOS )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE( 1 );
-   int x = hb_parni( 2 );
-   int y = hb_parni( 3 );
+   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
+   int x = hb_parni(2);
+   int y = hb_parni(3);
    ULONG ul;
    POINTL pp;
 
@@ -309,12 +309,12 @@ HB_FUNC( HWG_RE_CHARFROMPOS )
  */
 HB_FUNC( HWG_RE_GETTEXTRANGE )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
    TEXTRANGE tr;
    ULONG ul;
 
-   tr.chrg.cpMin = hb_parnl( 2 ) - 1;
-   tr.chrg.cpMax = hb_parnl( 3 ) - 1;
+   tr.chrg.cpMin = hb_parnl(2) - 1;
+   tr.chrg.cpMax = hb_parnl(3) - 1;
 
    tr.lpstrText = ( LPTSTR ) hb_xgrab( ( tr.chrg.cpMax - tr.chrg.cpMin + 2 ) *
          sizeof( TCHAR ) );
@@ -329,8 +329,8 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
  */
 HB_FUNC( HWG_RE_GETLINE )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE( 1 );
-   int nLine = hb_parni( 2 );
+   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
+   int nLine = hb_parni(2);
    ULONG uLineIndex = SendMessage( hCtrl, EM_LINEINDEX, ( WPARAM ) nLine, 0 );
    ULONG ul = SendMessage( hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0 );
    LPTSTR lpBuf = ( LPTSTR ) hb_xgrab( ( ul + 4 ) * sizeof( TCHAR ) );
@@ -344,7 +344,7 @@ HB_FUNC( HWG_RE_GETLINE )
 HB_FUNC( HWG_RE_INSERTTEXT )
 {
    void *hString;
-   SendMessage( ( HWND ) HB_PARHANDLE( 1 ), EM_REPLACESEL, 0,
+   SendMessage( ( HWND ) HB_PARHANDLE(1), EM_REPLACESEL, 0,
          ( LPARAM ) HB_PARSTR( 2, &hString, NULL ) );
    hb_strfree( hString );
 }
@@ -354,15 +354,15 @@ HB_FUNC( HWG_RE_INSERTTEXT )
  */
 HB_FUNC( HWG_RE_FINDTEXT )
 {
-   HWND hCtrl = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
    FINDTEXTEX ft;
    LONG lPos;
-   LONG lFlag = ( ( HB_ISNIL( 4 ) || !hb_parl( 4 ) ) ? 0 : FR_MATCHCASE ) |
-         ( ( HB_ISNIL( 5 ) || !hb_parl( 5 ) ) ? 0 : FR_WHOLEWORD ) |
-         ( ( HB_ISNIL( 6 ) || !hb_parl( 6 ) ) ? FR_DOWN : 0 );
+   LONG lFlag = ( ( HB_ISNIL(4) || !hb_parl(4) ) ? 0 : FR_MATCHCASE ) |
+         ( ( HB_ISNIL(5) || !hb_parl(5) ) ? 0 : FR_WHOLEWORD ) |
+         ( ( HB_ISNIL(6) || !hb_parl(6) ) ? FR_DOWN : 0 );
    void *hString;
 
-   ft.chrg.cpMin = ( HB_ISNIL( 3 ) ) ? 0 : hb_parnl( 3 );
+   ft.chrg.cpMin = ( HB_ISNIL(3) ) ? 0 : hb_parnl(3);
    ft.chrg.cpMax = -1;
    ft.lpstrText = ( LPTSTR ) HB_PARSTR( 2, &hString, NULL );
 
@@ -374,24 +374,24 @@ HB_FUNC( HWG_RE_FINDTEXT )
 
 HB_FUNC( HWG_RE_SETZOOM )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE( 1 );
-   int nNum = hb_parni( 2 );
-   int nDen = hb_parni( 3 );
+   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
+   int nNum = hb_parni(2);
+   int nDen = hb_parni(3);
    hb_retnl( ( BOOL ) SendMessage( hwnd, EM_SETZOOM, nNum, nDen ) );
 }
 
 
 HB_FUNC( HWG_RE_ZOOMOFF )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
    hb_retnl( ( BOOL ) SendMessage( hwnd, EM_SETZOOM, 0, 0L ) );
 }
 
 HB_FUNC( HWG_RE_GETZOOM )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE( 1 );
-   int nNum = hb_parni( 2 );
-   int nDen = hb_parni( 3 );
+   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
+   int nNum = hb_parni(2);
+   int nDen = hb_parni(3);
    hb_retnl( ( BOOL ) SendMessage( hwnd, EM_GETZOOM, ( WPARAM ) & nNum,
                ( LPARAM ) & nDen ) );
    hb_storni( nNum, 2 );
@@ -400,8 +400,8 @@ HB_FUNC( HWG_RE_GETZOOM )
 
 HB_FUNC( HWG_PRINTRTF )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE( 1 );
-   HDC hdc = ( HDC ) HB_PARHANDLE( 2 );
+   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
+   HDC hdc = ( HDC ) HB_PARHANDLE(2);
    FORMATRANGE fr;
    BOOL fSuccess = TRUE;
    int cxPhysOffset = GetDeviceCaps( hdc, PHYSICALOFFSETX );
@@ -444,7 +444,7 @@ HB_FUNC( HWG_PRINTRTF )
 
 HB_FUNC( HWG_INITRICHPROC )
 {
-   wpOrigRichProc = ( WNDPROC ) SetWindowLongPtr( ( HWND ) HB_PARHANDLE( 1 ),
+   wpOrigRichProc = ( WNDPROC ) SetWindowLongPtr( ( HWND ) HB_PARHANDLE(1),
          GWLP_WNDPROC, ( LONG_PTR ) RichSubclassProc );
 }
 
@@ -464,7 +464,7 @@ LRESULT APIENTRY RichSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong( ( LONG ) message );
       hb_vmPushLong( ( LONG ) wParam );
       hb_vmPushLong( ( LONG ) lParam );
-      hb_vmSend( 3 );
+      hb_vmSend(3);
       res = hb_parnl( -1 );
       if( res == -1 )
          return ( CallWindowProc( wpOrigRichProc, hWnd, message, wParam,
@@ -501,7 +501,7 @@ static DWORD CALLBACK EditStreamCallback( DWORD_PTR dwCookie, LPBYTE lpBuff,
 HB_FUNC( HWG_SAVERICHEDIT )
 {
 
-   HWND hWnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
    HANDLE hFile;
    EDITSTREAM es;
    void *hFileName;
@@ -529,7 +529,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
 HB_FUNC( HWG_LOADRICHEDIT )
 {
 
-   HWND hWnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
    HANDLE hFile;
    EDITSTREAM es;
    void *hFileName;

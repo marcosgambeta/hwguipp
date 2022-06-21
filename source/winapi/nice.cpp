@@ -147,7 +147,7 @@ LRESULT CALLBACK NiceButtProc( HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong( ( LONG ) message );
       hb_vmPushLong( ( LONG ) wParam );
       hb_vmPushLong( ( LONG ) lParam );
-      hb_vmDo( 4 );             /* where iArgCount is the number of pushed parameters */
+      hb_vmDo(4);             /* where iArgCount is the number of pushed parameters */
       res = hb_parl( -1 );
       if( res )
          return 0;
@@ -161,16 +161,16 @@ LRESULT CALLBACK NiceButtProc( HWND hWnd, UINT message, WPARAM wParam,
 
 HB_FUNC( HWG_CREATEROUNDRECTRGN )
 {
-   HRGN Res = CreateRoundRectRgn( hb_parni( 1 ), hb_parni( 2 ), hb_parni( 3 ),
-         hb_parni( 4 ), hb_parni( 5 ), hb_parni( 6 ) );
+   HRGN Res = CreateRoundRectRgn( hb_parni(1), hb_parni(2), hb_parni(3),
+         hb_parni(4), hb_parni(5), hb_parni(6) );
    HB_RETHANDLE( Res );
 }
 
 
 HB_FUNC( HWG_SETWINDOWRGN )
 {
-   hb_retni( SetWindowRgn( ( HWND ) HB_PARHANDLE( 1 ), ( HRGN ) hb_parnl( 2 ),
-               hb_parl( 3 ) ) );
+   hb_retni( SetWindowRgn( ( HWND ) HB_PARHANDLE(1), ( HRGN ) hb_parnl(2),
+               hb_parl(3) ) );
 }
 
 HB_FUNC( HWG_REGNICE )
@@ -209,16 +209,16 @@ HB_FUNC( HWG_CREATENICEBTN )
 {
    HWND hWndPanel;
    ULONG ulStyle =
-         HB_ISNUM( 3 ) ? hb_parnl( 3 ) : WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
+         HB_ISNUM(3) ? hb_parnl(3) : WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
    void *hTitle;
 
-   hWndPanel = CreateWindowEx( hb_parni( 8 ), TEXT( "NICEBUTT" ),       /* predefined class  */
+   hWndPanel = CreateWindowEx( hb_parni(8), TEXT( "NICEBUTT" ),       /* predefined class  */
          HB_PARSTR( 9, &hTitle, NULL ), /* no window title   */
          WS_CHILD | WS_VISIBLE | ulStyle,       /* style  */
-         hb_parni( 4 ), hb_parni( 5 ),  /* x, y       */
-         hb_parni( 6 ), hb_parni( 7 ),  /* nWidth, nHeight */
-         ( HWND ) HB_PARHANDLE( 1 ),    /* parent window    */
-         ( HMENU )(UINT_PTR) hb_parni( 2 ),       /* control ID  */
+         hb_parni(4), hb_parni(5),  /* x, y       */
+         hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
+         ( HWND ) HB_PARHANDLE(1),    /* parent window    */
+         ( HMENU )(UINT_PTR) hb_parni(2),       /* control ID  */
          GetModuleHandle( NULL ), NULL );
    hb_strfree( hTitle );
 
@@ -229,16 +229,16 @@ HB_FUNC( HWG_ISMOUSEOVER )
 {
    RECT Rect;
    POINT Pt;
-   GetWindowRect( ( HWND ) HB_PARHANDLE( 1 ), &Rect );
+   GetWindowRect( ( HWND ) HB_PARHANDLE(1), &Rect );
    GetCursorPos( &Pt );
    hb_retl( PtInRect( &Rect, Pt ) );
 }
 
 HB_FUNC( HWG_DRAW_GRADIENT )
 {
-   Draw_Gradient( ( HDC ) HB_PARHANDLE( 1 ), hb_parni( 2 ), hb_parni( 3 ),
-         hb_parni( 4 ), hb_parni( 5 ), hb_parni( 6 ), hb_parni( 7 ),
-         hb_parni( 8 ) );
+   Draw_Gradient( ( HDC ) HB_PARHANDLE(1), hb_parni(2), hb_parni(3),
+         hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
+         hb_parni(8) );
 }
 
 HB_FUNC( HWG_GRADIENT )
@@ -249,28 +249,28 @@ HB_FUNC( HWG_GRADIENT )
             "GradientFill" );
    //void Gradient( HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode )
 
-   Gradient( ( HDC ) HB_PARHANDLE( 1 ), hb_parni( 2 ), hb_parni( 3 ),
-         hb_parni( 4 ), hb_parni( 5 ),
-         ( hb_pcount(  ) > 5 && !HB_ISNIL( 6 ) ) ? hb_parni( 6 ) : 16777215,
-         ( hb_pcount(  ) > 6 && !HB_ISNIL( 7 ) ) ? hb_parni( 7 ) : 16777215,
-         ( hb_pcount(  ) > 7 && !HB_ISNIL( 8 ) ) ? hb_parni( 8 ) : 0 );
+   Gradient( ( HDC ) HB_PARHANDLE(1), hb_parni(2), hb_parni(3),
+         hb_parni(4), hb_parni(5),
+         ( hb_pcount(  ) > 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 16777215,
+         ( hb_pcount(  ) > 6 && !HB_ISNIL(7) ) ? hb_parni(7) : 16777215,
+         ( hb_pcount(  ) > 7 && !HB_ISNIL(8) ) ? hb_parni(8) : 0 );
 }
 
 HB_FUNC( HWG_MAKELONG )
 {
-   hb_retnl( ( LONG ) MAKELONG( ( WORD ) hb_parnl( 1 ),
-               ( WORD ) hb_parnl( 2 ) ) );
+   hb_retnl( ( LONG ) MAKELONG( ( WORD ) hb_parnl(1),
+               ( WORD ) hb_parnl(2) ) );
 }
 
 
 HB_FUNC( HWG_GETWINDOWLONG )
 {
-   hb_retnl( GetWindowLong( ( HWND ) HB_PARHANDLE( 1 ), hb_parni( 2 ) ) );
+   hb_retnl( GetWindowLong( ( HWND ) HB_PARHANDLE(1), hb_parni(2) ) );
 }
 
 HB_FUNC( HWG_SETBKMODE )
 {
-   hb_retni( SetBkMode( ( HDC ) HB_PARHANDLE( 1 ), hb_parni( 2 ) ) );
+   hb_retni( SetBkMode( ( HDC ) HB_PARHANDLE(1), hb_parni(2) ) );
 }
 
 /* =========================== EOF of nice.c ========================== */
