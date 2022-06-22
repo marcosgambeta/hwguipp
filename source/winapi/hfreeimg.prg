@@ -1,6 +1,4 @@
 /*
- * $Id: hfreeimg.prg 2300 2014-12-01 10:19:12Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HFreeImage - Image handling class
  *

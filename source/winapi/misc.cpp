@@ -1,6 +1,4 @@
 /*
- * $Id: misc.c 3073 2022-05-18 21:37:51Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * Miscellaneous functions
  *

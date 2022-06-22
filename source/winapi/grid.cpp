@@ -1,6 +1,4 @@
  /*
-  * $Id: grid.c 2852 2020-06-08 07:31:17Z df7be $
-  *
   * HWGUI - Harbour Win32 GUI library source code:
   * HGrid class
   *

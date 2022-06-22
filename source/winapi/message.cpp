@@ -1,6 +1,4 @@
 /*
- *$Id: message.c 3042 2022-01-15 17:13:37Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level messages functions
  *

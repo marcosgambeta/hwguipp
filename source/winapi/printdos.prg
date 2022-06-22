@@ -1,6 +1,4 @@
 /*
- * $Id: printdos.prg 2838 2020-05-11 17:41:41Z df7be $
- *
  * CLASS PrintDos
  *
  * Copyright (c) Sandro Freire <sandrorrfreire@yahoo.com.br>

@@ -1,6 +1,4 @@
 /*
- * $Id: winreg.c 2085 2013-06-23 12:37:39Z alkresin $
- *
  * Harbour Project source code:
  * Registry functions for Harbour
  *

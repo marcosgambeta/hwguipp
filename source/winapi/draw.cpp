@@ -1,6 +1,4 @@
 /*
- * $Id: draw.c 2971 2021-04-19 08:53:30Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level painting functions
  *

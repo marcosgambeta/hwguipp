@@ -1,6 +1,4 @@
 /*
- *$Id: hcwindow.prg 2968 2021-04-09 06:13:17Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HCustomWindow class
  *

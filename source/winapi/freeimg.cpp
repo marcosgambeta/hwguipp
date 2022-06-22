@@ -1,6 +1,4 @@
 /*
- * $Id: freeimg.c 2921 2020-12-24 07:31:20Z df7be $
- *
  * FreeImage wrappers for Harbour/HwGUI
  *
  * Copyright 2003 Alexander S.Kresin <alex@kresin.ru>

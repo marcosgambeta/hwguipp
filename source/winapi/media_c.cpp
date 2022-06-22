@@ -1,6 +1,4 @@
 /*
- * $Id: media_c.c 2840 2020-05-12 23:38:20Z lculik $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level media functions
  *

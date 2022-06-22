@@ -1,6 +1,4 @@
 /*
- * $Id: animat.c 2845 2020-05-29 07:20:13Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C functions for HAnimation class
  *

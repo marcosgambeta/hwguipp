@@ -1,5 +1,4 @@
 /*
- * $Id: hlenta.prg 2977 2021-04-23 13:53:42Z alkresin $
  * HWGUI - Harbour Win32 GUI library source code:
  * HLenta class
  *

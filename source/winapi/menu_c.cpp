@@ -1,6 +1,4 @@
 /*
- * $Id: menu_c.c 2856 2020-06-19 10:41:43Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level menu functions
  *

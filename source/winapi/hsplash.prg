@@ -1,6 +1,4 @@
 /*
- * $Id: hsplash.prg 2845 2020-05-29 07:20:13Z df7be $
- *
  * HwGUI Harbour Win32 Gui Copyright (c) Alexander Kresin
  *
  * HwGUI HSplash Class

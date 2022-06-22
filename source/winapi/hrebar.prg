@@ -1,6 +1,4 @@
 /*
- * $Id: hrebar.prg 2154 2013-07-18 09:58:34Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  *
  *

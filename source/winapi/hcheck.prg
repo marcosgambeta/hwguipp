@@ -1,6 +1,4 @@
 /*
- * $Id: hcheck.prg 2939 2021-02-17 22:26:26Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HCheckButton class
  *

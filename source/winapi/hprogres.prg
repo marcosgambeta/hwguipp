@@ -1,6 +1,4 @@
 /*
- * $Id: hprogres.prg 3024 2021-10-28 14:24:59Z josequintas $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HProgressBar class
  *

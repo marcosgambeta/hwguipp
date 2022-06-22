@@ -1,6 +1,4 @@
 /*
- * $Id: control.c 2950 2021-03-01 10:06:39Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level controls functions
  *

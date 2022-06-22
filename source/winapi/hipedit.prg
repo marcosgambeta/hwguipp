@@ -1,6 +1,4 @@
 /*
- * $Id: hipedit.prg 2355 2015-01-21 10:58:27Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HTab class
  *

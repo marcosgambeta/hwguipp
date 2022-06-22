@@ -1,6 +1,4 @@
 /*
- * $Id: htool.prg 2454 2015-06-24 09:03:48Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  *
  *

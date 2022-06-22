@@ -1,6 +1,4 @@
 /*
- * $Id: hriched.prg 2584 2016-09-06 08:44:36Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HRichEdit class
  *

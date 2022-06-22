@@ -1,6 +1,4 @@
 /*
- *$Id: hwindow.prg 3028 2021-10-31 07:53:02Z josequintas $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HWindow class
  *

@@ -1,6 +1,4 @@
 /*
- * $Id: hrect.prg 2940 2021-02-19 09:02:11Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level class HRect (Panel)
  *

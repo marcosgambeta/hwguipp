@@ -1,7 +1,3 @@
-/*
- * $Id: pager.c 2098 2013-06-24 19:00:46Z mlacecilia $
-*/
-
 #include "hwingui.h"
 #include <commctrl.h>
 

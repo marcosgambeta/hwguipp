@@ -1,6 +1,4 @@
 /*
- * $Id: richedit.c 2921 2020-12-24 07:31:20Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level richedit control functions
  *

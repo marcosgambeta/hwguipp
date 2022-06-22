@@ -1,6 +1,4 @@
 /*
- * $Id: hownbtn.prg 2997 2021-05-25 12:21:42Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HOwnButton class, which implements owner drawn buttons
  *

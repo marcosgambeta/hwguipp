@@ -1,6 +1,4 @@
 /*
- * $Id: tmci.prg 2086 2013-06-23 12:57:56Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * Windows errorsys replacement
  *

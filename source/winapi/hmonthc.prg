@@ -1,6 +1,4 @@
 /*
- * $Id: hmonthc.prg 3050 2022-01-26 22:45:52Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HMonthCalendar class
  *

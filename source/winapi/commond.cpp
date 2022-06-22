@@ -1,6 +1,4 @@
 /*
- * $Id: commond.c 2798 2019-12-10 10:41:43Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level common dialogs functions
  *

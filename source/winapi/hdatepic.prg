@@ -1,6 +1,4 @@
 /*
- * $Id: hdatepic.prg 3027 2021-10-31 07:41:30Z josequintas $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HDatePicker class
  *

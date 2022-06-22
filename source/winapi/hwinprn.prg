@@ -1,6 +1,4 @@
 /*
- * $Id: hwinprn.prg 3081 2022-06-19 20:10:53Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HWinPrn class
  *

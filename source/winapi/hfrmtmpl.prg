@@ -1,6 +1,4 @@
 /*
- * $Id: hfrmtmpl.prg,v 1.49 2007/04/17 05:43:32 alkresin Exp $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HFormTmpl Class
  *

@@ -1,6 +1,4 @@
 /*
- * $Id: drawtext.c 2715 2018-12-03 10:15:14Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level text functions
  *

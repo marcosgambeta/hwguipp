@@ -1,6 +1,4 @@
 /*
- * $Id: herrsys.prg 2224 2014-04-03 07:45:33Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * Windows errorsys replacement
  *

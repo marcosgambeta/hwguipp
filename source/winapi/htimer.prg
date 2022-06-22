@@ -1,6 +1,4 @@
 /*
- * $Id: htimer.prg 2996 2021-05-21 07:15:25Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HTimer class
  *
