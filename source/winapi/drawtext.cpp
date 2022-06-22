@@ -21,14 +21,14 @@ static PHB_ITEM pFontsItemLast, pFontsItem;
 HB_FUNC( HWG_DEFINEPAINTSTRU )
 {
    PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof(PAINTSTRUCT));
-   HB_RETHANDLE( pps );
+   HB_RETHANDLE(pps);
 }
 
 HB_FUNC( HWG_BEGINPAINT )
 {
    PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(2);
    HDC hDC = BeginPaint( static_cast<HWND>(HB_PARHANDLE(1)), pps );
-   HB_RETHANDLE( hDC );
+   HB_RETHANDLE(hDC);
 }
 
 HB_FUNC( HWG_ENDPAINT )
@@ -45,7 +45,7 @@ HB_FUNC( HWG_DELETEDC )
 
 HB_FUNC( HWG_TEXTOUT )
 {
-   void *hText;
+   void * hText;
    HB_SIZE nLen;
    LPCTSTR lpText = HB_PARSTR(4, &hText, &nLen);
 
@@ -60,7 +60,7 @@ HB_FUNC( HWG_TEXTOUT )
 
 HB_FUNC( HWG_DRAWTEXT )
 {
-   void *hText;
+   void * hText;
    HB_SIZE nLen;
    LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
    RECT rc;
@@ -150,7 +150,7 @@ HB_FUNC( HWG_GETTEXTMETRIC )
 HB_FUNC( HWG_GETTEXTSIZE )
 {
 
-   void *hText;
+   void * hText;
    HB_SIZE nLen;
    LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
    SIZE sz;
@@ -274,7 +274,7 @@ HB_FUNC( HWG_SETTRANSPARENTMODE )
 {
    int iMode = SetBkMode( static_cast<HDC>(HB_PARHANDLE(1)),    // handle of device context
          ( hb_parl(2) ) ? TRANSPARENT : OPAQUE );
-   hb_retl( iMode == TRANSPARENT );
+   hb_retl(iMode == TRANSPARENT);
 }
 
 HB_FUNC( HWG_GETTEXTCOLOR )
@@ -322,7 +322,7 @@ HB_FUNC( HWG_EXTTEXTOUT )
 {
 
    RECT rc;
-   void *hText;
+   void * hText;
    HB_SIZE nLen;
    LPCTSTR lpText = HB_PARSTR(8, &hText, &nLen);
 
@@ -345,15 +345,14 @@ HB_FUNC( HWG_EXTTEXTOUT )
 
 HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
-   void *hString;
-   SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), SB_SETTEXT, hb_parni(2),
-         ( LPARAM ) HB_PARSTR(3, &hString, nullptr) );
+   void * hString;
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), SB_SETTEXT, hb_parni(2), ( LPARAM ) HB_PARSTR(3, &hString, nullptr));
    hb_strfree(hString);
 }
 
 HB_FUNC( HWG_WINDOWFROMDC )
 {
-   HB_RETHANDLE( WindowFromDC( static_cast<HDC>(HB_PARHANDLE(1)) ) );
+   HB_RETHANDLE(WindowFromDC(static_cast<HDC>(HB_PARHANDLE(1))));
 }
 
 /* CreateFont( fontName, nWidth, hHeight [,fnWeight] [,fdwCharSet],
@@ -367,7 +366,7 @@ HB_FUNC( HWG_CREATEFONT )
    DWORD fdwItalic = ( HB_ISNIL(6) ) ? 0 : hb_parni(6);
    DWORD fdwUnderline = ( HB_ISNIL(7) ) ? 0 : hb_parni(7);
    DWORD fdwStrikeOut = ( HB_ISNIL(8) ) ? 0 : hb_parni(8);
-   void *hString;
+   void * hString;
 
    hFont = CreateFont( hb_parni(3),   // logical height of font
          hb_parni(2),         // logical average character width
@@ -385,7 +384,7 @@ HB_FUNC( HWG_CREATEFONT )
          HB_PARSTR(1, &hString, nullptr) // pointer to typeface name string
           );
    hb_strfree(hString);
-   HB_RETHANDLE( hFont );
+   HB_RETHANDLE(hFont);
 }
 
 /*
@@ -404,7 +403,7 @@ HB_FUNC( HWG_CREATERECTRGN )
    reg = CreateRectRgn( hb_parni(1), hb_parni(2), hb_parni(3),
          hb_parni(4) );
 
-   HB_RETHANDLE( reg );
+   HB_RETHANDLE(reg);
 }
 
 
@@ -419,7 +418,7 @@ HB_FUNC( HWG_CREATERECTRGNINDIRECT )
    rc.bottom = hb_parni(5);
 
    reg = CreateRectRgnIndirect( &rc );
-   HB_RETHANDLE( reg );
+   HB_RETHANDLE(reg);
 }
 
 
@@ -449,7 +448,7 @@ HB_FUNC( HWG_CREATEFONTINDIRECT )
    lf.lfFaceName[HB_SIZEOFARRAY( lf.lfFaceName ) - 1] = '\0';
 
    f = CreateFontIndirect( &lf );
-   HB_RETHANDLE( f );
+   HB_RETHANDLE(f);
 }
 
 #if __HARBOUR__ - 0 > 0x030000

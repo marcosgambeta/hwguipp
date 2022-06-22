@@ -22,15 +22,13 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
 {
    void * hString;
 
-   SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), LB_ADDSTRING, 0,
-                ( LPARAM ) HB_PARSTR(2, &hString, nullptr) );
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), LB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR(2, &hString, nullptr));
    hb_strfree(hString);
 }
 
 HB_FUNC( HWG_LISTBOXSETSTRING )
 {
-   SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), LB_SETCURSEL,
-         ( WPARAM ) hb_parni(2) - 1, 0 );
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), LB_SETCURSEL, ( WPARAM ) hb_parni(2) - 1, 0);
 }
 
 /*
@@ -48,12 +46,12 @@ HB_FUNC( HWG_CREATELISTBOX )
          GetModuleHandle( nullptr ),
          nullptr );
 
-   HB_RETHANDLE( hListbox );
+   HB_RETHANDLE(hListbox);
 }
 
 HB_FUNC( HWG_LISTBOXDELETESTRING )
 {
-   SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), LB_DELETESTRING, 0, ( LPARAM ) 0 );
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), LB_DELETESTRING, 0, ( LPARAM ) 0);
 }
 
 /* ============================ EOF of listbox.c =============================== */

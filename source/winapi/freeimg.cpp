@@ -179,7 +179,7 @@ static FARPROC s_getFunction( FARPROC h, LPCSTR funcname )
 
 HB_FUNC( HWG_FI_INIT )
 {
-   hb_retl( s_freeImgInit() );
+   hb_retl(s_freeImgInit());
 }
 
 HB_FUNC( HWG_FI_END )
@@ -296,12 +296,10 @@ HB_FUNC( HWG_FI_SAVE )
    if( pGetfiffromfile && pSave )
    {
       const char *name = hb_parc(2);
-      hb_retl( ( BOOL ) pSave( pGetfiffromfile( name ),
-                  ( FIBITMAP * ) hb_parnl(1), name,
-                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0 ) );
+      hb_retl(( BOOL ) pSave( pGetfiffromfile(name), ( FIBITMAP * ) hb_parnl(1), name, (hb_pcount() > 2) ? hb_parni(3) : 0));
    }
    else
-      hb_retl( FALSE );
+      hb_retl(FALSE);
 }
 
 /* 24/03/2006 - <maurilio.longo@libero.it>
@@ -316,12 +314,10 @@ HB_FUNC( HWG_FI_SAVETYPE )
    if( pSave )
    {
       const char *name = hb_parc(3);
-      hb_retl( ( BOOL ) pSave( ( enum FREE_IMAGE_FORMAT ) hb_parni(1),
-                  ( FIBITMAP * ) hb_parnl(2), name,
-                  ( hb_pcount() > 3 ) ? hb_parni(4) : 0 ) );
+      hb_retl(( BOOL ) pSave(( enum FREE_IMAGE_FORMAT ) hb_parni(1), ( FIBITMAP * ) hb_parnl(2), name, (hb_pcount() > 3) ? hb_parni(4) : 0));
    }
    else
-      hb_retl( FALSE );
+      hb_retl(FALSE);
 }
 
 HB_FUNC( HWG_FI_GETWIDTH )
@@ -824,13 +820,12 @@ HB_FUNC( HWG_FI_REMOVECHANNEL )
 
    if( dib8 )
    {
-      hb_retl( pSetChannel( dib, dib8,
-                  ( FREE_IMAGE_COLOR_CHANNEL ) hb_parni(2) ) );
+      hb_retl(pSetChannel(dib, dib8, ( FREE_IMAGE_COLOR_CHANNEL ) hb_parni(2)));
       pUnload( dib8 );
    }
    else
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 
@@ -1000,11 +995,11 @@ HB_FUNC( HWG_FI_PASTE )
          ( FREEIMAGE_PASTE ) s_getFunction( ( FARPROC ) pPaste,
          "_FreeImage_Paste@20" );
 
-   hb_retl( pPaste( ( FIBITMAP * ) hb_parnl(1),       // dest
+   hb_retl(pPaste(( FIBITMAP * ) hb_parnl(1),       // dest
                ( FIBITMAP * ) hb_parnl(2),    // src
                hb_parnl(3),   // top
                hb_parnl(4),   // left
-               hb_parnl(5) ) );       // alpha
+               hb_parnl(5)));       // alpha
 }
 
 HB_FUNC( HWG_FI_COPY )
@@ -1029,7 +1024,7 @@ HB_FUNC( HWG_FI_SETBACKGROUNDCOLOR )
          ( FREEIMAGE_SETBACKGROUNDCOLOR ) s_getFunction( ( FARPROC )
          pSetBackgroundColor, "_FreeImage_SetBackgroundColor@8" );
 
-   hb_retl( pSetBackgroundColor( ( FIBITMAP * ) hb_parnl(1), &rgbquad ) );
+   hb_retl(pSetBackgroundColor(( FIBITMAP * ) hb_parnl(1), &rgbquad));
 }
 
 HB_FUNC( HWG_FI_INVERT )
@@ -1038,7 +1033,7 @@ HB_FUNC( HWG_FI_INVERT )
          ( FREEIMAGE_INVERT ) s_getFunction( ( FARPROC ) pInvert,
          "_FreeImage_Invert@4" );
 
-   hb_retl( pInvert( ( FIBITMAP * ) hb_parnl(1) ) );
+   hb_retl(pInvert(( FIBITMAP * ) hb_parnl(1)));
 }
 
 HB_FUNC( HWG_FI_GETBITS )
@@ -1084,7 +1079,7 @@ HB_FUNC( HWG_FI_FLIPVERTICAL )
          ( FREEIMAGE_FLIPVERTICAL ) s_getFunction( ( FARPROC ) pFlipVertical,
          "_FreeImage_FlipVertical@4" );
 
-   hb_retl( pFlipVertical( ( FIBITMAP * ) hb_parnl(1) ) );
+   hb_retl(pFlipVertical(( FIBITMAP * ) hb_parnl(1)));
 }
 
 HB_FUNC( HWG_FI_GETPIXELINDEX )
@@ -1101,7 +1096,7 @@ HB_FUNC( HWG_FI_GETPIXELINDEX )
    if( lRes )
       hb_stornl( ( ULONG ) value, 4 );
 
-   hb_retl( lRes );
+   hb_retl(lRes);
 }
 
 HB_FUNC( HWG_FI_SETPIXELINDEX )
@@ -1111,8 +1106,7 @@ HB_FUNC( HWG_FI_SETPIXELINDEX )
          ( FREEIMAGE_SETPIXELINDEX ) s_getFunction( ( FARPROC )
          pSetPixelIndex, "_FreeImage_SetPixelIndex@16" );
 
-   hb_retl( pSetPixelIndex( ( FIBITMAP * ) hb_parnl(1), hb_parni(2),
-               hb_parni(3), &value ) );
+   hb_retl(pSetPixelIndex(( FIBITMAP * ) hb_parnl(1), hb_parni(2), hb_parni(3), &value));
 }
 
 /* todo

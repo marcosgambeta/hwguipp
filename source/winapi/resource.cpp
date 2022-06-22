@@ -83,10 +83,10 @@ HB_FUNC( HWG_FINDRESOURCE )
       hHRSRC = FindResource( ( HMODULE ) hModule,
                              MAKEINTRESOURCE( iName ),
                              MAKEINTRESOURCE( iType ) );
-      HB_RETHANDLE( hHRSRC );
+      HB_RETHANDLE(hHRSRC);
    }
    else
-      HB_RETHANDLE( 0 );
+      HB_RETHANDLE(0);
 }
 
 /* =============================== EOF of resource.c ==================================== */

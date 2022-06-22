@@ -76,7 +76,7 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
 
       hb_xfree( pinfo4 );
    }
-   HB_RETHANDLE( hDC );
+   HB_RETHANDLE(hDC);
 }
 
 
@@ -200,7 +200,7 @@ HB_FUNC( HWG_GETPRINTERS )
 
 HB_FUNC( HWG_SETPRINTERMODE )
 {
-   void *hPrinterName;
+   void * hPrinterName;
    LPCTSTR lpPrinterName = HB_PARSTR(1, &hPrinterName, nullptr);
    HANDLE hPrinter =
          ( HB_ISNIL(2) ) ? ( HANDLE ) nullptr : ( HANDLE ) HB_PARHANDLE(2);
@@ -239,7 +239,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
             pdm, pdm, DM_OUT_BUFFER | DM_IN_BUFFER );
 
       // создадим контекст устройства принтера
-      HB_RETHANDLE( CreateDC( nullptr, lpPrinterName, nullptr, pdm ) );
+      HB_RETHANDLE(CreateDC(nullptr, lpPrinterName, nullptr, pdm));
       HB_STOREHANDLE( hPrinter, 2 );
       GlobalFree( pdm );
    }
@@ -255,7 +255,7 @@ HB_FUNC( HWG_CLOSEPRINTER )
 
 HB_FUNC( HWG_STARTDOC )
 {
-   void *hText;
+   void * hText;
    DOCINFO di;
 
    di.cbSize = sizeof(DOCINFO);
@@ -355,7 +355,7 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
 {
    HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
    HDC hDCref = GetDC( hWnd ), hDCmeta;
-   void *hFileName;
+   void * hFileName;
    int iWidthMM, iHeightMM, iWidthPels, iHeightPels;
    RECT rc;
    // char cres[80];
@@ -397,14 +397,14 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
 
    hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR(2, &hFileName, nullptr), &rc, nullptr);
    ReleaseDC( hWnd, hDCref );
-   HB_RETHANDLE( hDCmeta );
+   HB_RETHANDLE(hDCmeta);
    hb_strfree(hFileName);
 }
 
 HB_FUNC( HWG_CREATEMETAFILE )
 {
    HDC hDCref = static_cast<HDC>(HB_PARHANDLE(1)), hDCmeta;
-   void *hFileName;
+   void * hFileName;
    int iWidthMM, iHeightMM;
    RECT rc;
 
@@ -489,7 +489,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
    if( hDC )
    {
       HANDLE hPrinter;
-      void *hPrinterName;
+      void * hPrinterName;
       LPCTSTR lpPrinterName = HB_PARSTR(2, &hPrinterName, nullptr);
 
       if( OpenPrinter( ( LPTSTR ) lpPrinterName, &hPrinter, nullptr ) )
@@ -528,7 +528,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
                   {
                      if( !bW9X )
                      {
-                        void *hFormName;
+                        void * hFormName;
                         HB_SIZE len;
                         LPCTSTR lpFormName = HB_PARSTR(3, &hFormName, &len);
 
@@ -648,7 +648,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
       }
       hb_strfree(hPrinterName);
    }
-   hb_retl( Result );
+   hb_retl(Result);
 }
 
 /* ======================== EOF of wprint.c ============================= */

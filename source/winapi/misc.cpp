@@ -75,7 +75,7 @@ HB_FUNC( HWG_SETCAPTURE )
 
 HB_FUNC( HWG_RELEASECAPTURE )
 {
-   hb_retl( ReleaseCapture() );
+   hb_retl(ReleaseCapture());
 }
 
 HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
@@ -84,7 +84,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
    {
       HGLOBAL hglbCopy;
       char *lptstrCopy;
-      void *hStr;
+      void * hStr;
       HB_SIZE nLen;
       LPCTSTR lpStr;
 
@@ -148,7 +148,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
 
 HB_FUNC( HWG_GETSTOCKOBJECT )
 {
-   HB_RETHANDLE( GetStockObject( hb_parni(1) ) );
+   HB_RETHANDLE(GetStockObject(hb_parni(1)));
 }
 
 HB_FUNC( HWG_LOWORD )
@@ -189,7 +189,7 @@ HB_FUNC( HWG_SETBIT )
 
 HB_FUNC( HWG_CHECKBIT )
 {
-   hb_retl( hb_parnl(1) & ( 1 << ( hb_parni(2) - 1 ) ) );
+   hb_retl(hb_parnl(1) & (1 << (hb_parni(2) - 1)));
 }
 
 HB_FUNC( HWG_SIN )
@@ -328,7 +328,7 @@ HB_FUNC( HWG_GETKEYNAMETEXT )
 
 HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
 {
-   void *hLayout;
+   void * hLayout;
    LPCTSTR lpLayout = HB_PARSTR(1, &hLayout, nullptr);
    HKL curr = GetKeyboardLayout( 0 );
    TCHAR sBuff[KL_NAMELENGTH];
@@ -411,7 +411,7 @@ Contributed by Rodrigo Moreno rodrigo_moreno@yahoo.com base upon code minigui
 
 HB_FUNC( HWG_SHELLABOUT )
 {
-   void *hStr1, *hStr2;
+   void * hStr1, *hStr2;
 
    hb_retni( ShellAbout( 0,
                HB_PARSTRDEF( 1, &hStr1, nullptr ),
@@ -434,14 +434,14 @@ HB_FUNC( HWG_GETDESKTOPHEIGHT )
 
 HB_FUNC( HWG_GETHELPDATA )
 {
-   HB_RETHANDLE( ( LONG ) ( ( ( HELPINFO FAR * ) HB_PARHANDLE(1) )->hItemHandle ) );
+   HB_RETHANDLE(( LONG ) ((( HELPINFO FAR * ) HB_PARHANDLE(1))->hItemHandle));
 }
 
 HB_FUNC( HWG_WINHELP )
 {
    DWORD context;
    UINT style;
-   void *hStr;
+   void * hStr;
 
    switch ( hb_parni(3) )
    {
@@ -472,8 +472,7 @@ HB_FUNC( HWG_WINHELP )
 
 HB_FUNC( HWG_GETNEXTDLGTABITEM )
 {
-   HB_RETHANDLE( GetNextDlgTabItem( static_cast<HWND>(HB_PARHANDLE(1)),
-               static_cast<HWND>(HB_PARHANDLE(2)), hb_parl(3) ) );
+   HB_RETHANDLE(GetNextDlgTabItem(static_cast<HWND>(HB_PARHANDLE(1)), static_cast<HWND>(HB_PARHANDLE(2)), hb_parl(3)));
 }
 
 HB_FUNC( HWG_SLEEP )
@@ -562,8 +561,7 @@ HB_FUNC( HWG_GETSCROLLRANGE )
 
 HB_FUNC( HWG_SETSCROLLRANGE )
 {
-   hb_retl( SetScrollRange( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2),
-               hb_parni(3), hb_parni(4), hb_parl(5) ) );
+   hb_retl(SetScrollRange(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5)));
 }
 
 
@@ -598,61 +596,60 @@ HB_FUNC( HWG_SCROLLWINDOW )
 
 HB_FUNC( HWG_ISCAPSLOCKACTIVE )
 {
-   hb_retl( GetKeyState( VK_CAPITAL ) );
+   hb_retl(GetKeyState(VK_CAPITAL));
 }
 
 HB_FUNC( HWG_ISNUMLOCKACTIVE )
 {
-   hb_retl( GetKeyState( VK_NUMLOCK ) );
+   hb_retl(GetKeyState(VK_NUMLOCK));
 }
 
 HB_FUNC( HWG_ISSCROLLLOCKACTIVE )
 {
-   hb_retl( GetKeyState( VK_SCROLL ) );
+   hb_retl(GetKeyState(VK_SCROLL));
 }
 
 /* Added By Sandro Freire sandrorrfreire_nospam_yahoo.com.br*/
 
 HB_FUNC( HWG_CREATEDIRECTORY )
 {
-   void *hStr;
+   void * hStr;
    CreateDirectory( HB_PARSTR(1, &hStr, nullptr), nullptr );
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_REMOVEDIRECTORY )
 {
-   void *hStr;
-   hb_retl( RemoveDirectory( HB_PARSTR(1, &hStr, nullptr) ) );
+   void * hStr;
+   hb_retl(RemoveDirectory(HB_PARSTR(1, &hStr, nullptr)));
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_SETCURRENTDIRECTORY )
 {
-   void *hStr;
+   void * hStr;
    SetCurrentDirectory( HB_PARSTR(1, &hStr, nullptr) );
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_DELETEFILE )
 {
-   void *hStr;
-   hb_retl( DeleteFile( HB_PARSTR(1, &hStr, nullptr) ) );
+   void * hStr;
+   hb_retl(DeleteFile(HB_PARSTR(1, &hStr, nullptr)));
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_GETFILEATTRIBUTES )
 {
-   void *hStr;
+   void * hStr;
    hb_retnl( ( LONG ) GetFileAttributes( HB_PARSTR(1, &hStr, nullptr) ) );
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_SETFILEATTRIBUTES )
 {
-   void *hStr;
-   hb_retl( SetFileAttributes( HB_PARSTR(1, &hStr, nullptr),
-               static_cast<DWORD>(hb_parnl(2)) ) );
+   void * hStr;
+   hb_retl(SetFileAttributes(HB_PARSTR(1, &hStr, nullptr), static_cast<DWORD>(hb_parnl(2))));
    hb_strfree(hStr);
 }
 
@@ -746,7 +743,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    hb_itemRelease( temp );
 
    SetTextColor( hdc, cColor );
-   HB_RETHANDLE( hBrush );
+   HB_RETHANDLE(hBrush);
 }
 
 HB_FUNC( HWG_GETKEYBOARDCOUNT )
@@ -758,8 +755,7 @@ HB_FUNC( HWG_GETKEYBOARDCOUNT )
 
 HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
 {
-   HB_RETHANDLE( GetNextDlgGroupItem( static_cast<HWND>(HB_PARHANDLE(1)),
-               static_cast<HWND>(HB_PARHANDLE(2)), hb_parl(3) ) );
+   HB_RETHANDLE(GetNextDlgGroupItem(static_cast<HWND>(HB_PARHANDLE(1)), static_cast<HWND>(HB_PARHANDLE(2)), hb_parl(3)));
 }
 
 HB_FUNC( HWG_PTRTOULONG )
@@ -770,12 +766,12 @@ HB_FUNC( HWG_PTRTOULONG )
 
 HB_FUNC( HWG_ISPTREQ )
 {
-   hb_retl( HB_PARHANDLE(1) == HB_PARHANDLE(2) );
+   hb_retl(HB_PARHANDLE(1) == HB_PARHANDLE(2));
 }
 
 HB_FUNC( HWG_OUTPUTDEBUGSTRING )
 {
-   void *hStr;
+   void * hStr;
    OutputDebugString( HB_PARSTRDEF( 1, &hStr, nullptr ) );
    hb_strfree(hStr);
 }
@@ -809,7 +805,7 @@ HB_FUNC( HWG_ISWIN7 )
    ovi.dwMajorVersion = 0;
    ovi.dwMinorVersion = 0;
    GetVersionEx( &ovi );
-   hb_retl( ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion == 1 );
+   hb_retl(ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion == 1);
 }
 
 HB_FUNC( HWG_COLORRGB2N )
@@ -1103,7 +1099,7 @@ HB_FUNC( HWG_ISWIN10 )
    ovi.dwMajorVersion = 0;
    ovi.dwMinorVersion = 0;
    GetVersionEx( &ovi );
-   hb_retl( ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion == 2 );
+   hb_retl(ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion == 2);
 }
 
 HB_FUNC( HWG_GETWINMAJORVERS )

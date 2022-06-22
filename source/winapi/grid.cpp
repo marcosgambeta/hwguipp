@@ -67,7 +67,7 @@ HB_FUNC( HWG_LISTVIEW_CREATE )
          hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
          hwnd, reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle( nullptr ), nullptr );
 
-   HB_RETHANDLE( handle );
+   HB_RETHANDLE(handle);
 }
 
 HB_FUNC( HWG_LISTVIEW_INIT )
@@ -79,10 +79,7 @@ HB_FUNC( HWG_LISTVIEW_INIT )
       style = style | LVS_EX_GRIDLINES;
    }
 
-   SendMessage( static_cast<HWND>(HB_PARHANDLE(1)),
-         LVM_SETEXTENDEDLISTVIEWSTYLE, 0,
-         LVS_EX_FULLROWSELECT |
-         LVS_EX_HEADERDRAGDROP | LVS_EX_FLATSB | style );
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), LVM_SETEXTENDEDLISTVIEWSTYLE, 0, LVS_EX_FULLROWSELECT | LVS_EX_HEADERDRAGDROP | LVS_EX_FLATSB | style);
 
    ListView_SetItemCount( static_cast<HWND>(HB_PARHANDLE(1)), hb_parnl(2) );
 }
@@ -96,7 +93,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
 {
    LV_COLUMN COL;
    int iImage = hb_parni(6);
-   void *hText;
+   void * hText;
 
    COL.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT | LVCF_SUBITEM;
    COL.cx = hb_parni(3);
@@ -250,10 +247,8 @@ HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
 
 // #ifdef __BORLANDC__
 #if 1
-   SendMessage( hList, LVM_SETIMAGELIST, ( WPARAM ) p,
-         ( LPARAM ) LVSIL_NORMAL );
-   SendMessage( hList, LVM_SETIMAGELIST, ( WPARAM ) p,
-         ( LPARAM ) LVSIL_SMALL );
+   SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p, ( LPARAM ) LVSIL_NORMAL);
+   SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p, ( LPARAM ) LVSIL_SMALL);
 #else
    ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_NORMAL );
    ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_SMALL );
@@ -280,7 +275,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
 {
    HWND hwndListView = static_cast<HWND>(HB_PARHANDLE(1));
    LONG lCol = hb_parnl(2) - 1;
-   void *hText;
+   void * hText;
    int iImage = hb_parni(6);
    LVCOLUMN lvcolumn;
    int iResult;
@@ -299,8 +294,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    lvcolumn.fmt = hb_parni(5);
    lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
-   if( SendMessage( static_cast<HWND>(hwndListView), ( UINT ) LVM_INSERTCOLUMN,
-               ( WPARAM ) ( int ) lCol, ( LPARAM ) & lvcolumn ) == -1 )
+   if( SendMessage(static_cast<HWND>(hwndListView), ( UINT ) LVM_INSERTCOLUMN, ( WPARAM ) ( int ) lCol, ( LPARAM ) &lvcolumn) == -1 )
       iResult = 0;
    else
       iResult = 1;
@@ -319,7 +313,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    LONG lLin = hb_parnl(2) - 1;
    LONG lCol = hb_parnl(3) - 1;
    int iSubItemYesNo = lCol == 0 ? 0 : 1;
-   void *hText;
+   void * hText;
    int iBitMap = hb_parni(5);
    LVITEM lvi;
    int iResult = 0;
@@ -344,16 +338,14 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    switch ( iSubItemYesNo )
    {
       case 0:
-         if( SendMessage( static_cast<HWND>(hwndListView), ( UINT ) LVM_INSERTITEM,
-                     ( WPARAM ) 0, ( LPARAM ) & lvi ) == -1 )
+         if( SendMessage(static_cast<HWND>(hwndListView), ( UINT ) LVM_INSERTITEM, ( WPARAM ) 0, ( LPARAM ) &lvi) == -1 )
             iResult = 0;
          else
             iResult = 1;
          break;
 
       case 1:
-         if( SendMessage( static_cast<HWND>(hwndListView), ( UINT ) LVM_SETITEM,
-                     ( WPARAM ) 0, ( LPARAM ) & lvi ) == FALSE )
+         if( SendMessage(static_cast<HWND>(hwndListView), ( UINT ) LVM_SETITEM, ( WPARAM ) 0, ( LPARAM ) &lvi ) == FALSE )
             iResult = 0;
          else
             iResult = 1;
@@ -371,7 +363,7 @@ HB_FUNC( HWG_LISTVIEWSELECTALL )
    HWND hList = static_cast<HWND>(HB_PARHANDLE(1));
 
    ListView_SetItemState( hList, -1, 0, LVIS_SELECTED );
-   SendMessage( hList, LVM_ENSUREVISIBLE, ( WPARAM ) - 1, FALSE );
+   SendMessage(hList, LVM_ENSUREVISIBLE, ( WPARAM ) -1, FALSE);
    ListView_SetItemState( hList, -1, LVIS_SELECTED, LVIS_SELECTED );
    hb_retl(1);
 }
@@ -381,10 +373,10 @@ HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
    HWND hList = static_cast<HWND>(HB_PARHANDLE(1));
    int items;
 
-   items = SendMessage( hList, LVM_GETITEMCOUNT, ( WPARAM ) 0, ( LPARAM ) 0 );
+   items = SendMessage(hList, LVM_GETITEMCOUNT, ( WPARAM ) 0, ( LPARAM ) 0);
    items--;
    ListView_SetItemState( hList, -1, 0, LVIS_SELECTED );
-   SendMessage( hList, LVM_ENSUREVISIBLE, ( WPARAM ) items, FALSE );
+   SendMessage(hList, LVM_ENSUREVISIBLE, ( WPARAM ) items, FALSE);
    ListView_SetItemState( hList, items, LVIS_SELECTED, LVIS_SELECTED );
    ListView_SetItemState( hList, items, LVIS_FOCUSED, LVIS_FOCUSED );
    hb_retl(1);

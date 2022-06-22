@@ -90,7 +90,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
    HANDLE hInstance = GetModuleHandle( nullptr );
    DWORD ExStyle = 0;
    PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT ), temp;
-   void *hAppName, *hTitle, *hMenu;
+   void * hAppName, * hTitle, * hMenu;
    LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, nullptr);
    LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, nullptr);
    LPCTSTR lpMenu = HB_PARSTR(4, &hMenu, nullptr);
@@ -141,7 +141,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
    hb_strfree(hTitle);
    hb_strfree(hMenu);
 
-   HB_RETHANDLE( hWnd );
+   HB_RETHANDLE(hWnd);
 }
 
 HB_FUNC( HWG_CENTERWINDOW )
@@ -248,7 +248,7 @@ HB_FUNC( HWG_PROCESSMESSAGE )
       hb_retl(1);
    }
    else
-      hb_retl( 0 );
+      hb_retl(0);
 
    SleepEx( nSleep, TRUE );
 }
@@ -261,10 +261,10 @@ HB_FUNC( HWG_PEEKMESSAGE )
 {
    MSG msg;
 
-   hb_retl( PeekMessage( &msg, static_cast<HWND>(HB_PARHANDLE(1)),      // handle of window whose message queue will be searched
+   hb_retl(PeekMessage(&msg, static_cast<HWND>(HB_PARHANDLE(1)),      // handle of window whose message queue will be searched
                ( UINT ) hb_parni(2),  // wMsgFilterMin,
                ( UINT ) hb_parni(3),  // wMsgFilterMax,
-               PM_NOREMOVE ) );
+               PM_NOREMOVE));
 }
 
 HB_FUNC( HWG_INITCHILDWINDOW )
@@ -273,7 +273,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
    WNDCLASS wndclass;
    HMODULE /*HANDLE*/ hInstance = GetModuleHandle( nullptr );
    PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT ), temp;
-   void *hAppName, *hTitle, *hMenu;
+   void * hAppName, * hTitle, * hMenu;
    LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, nullptr);
    LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, nullptr);
    LPCTSTR lpMenu = HB_PARSTR(4, &hMenu, nullptr);
@@ -335,7 +335,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       SetWindowObject( hWnd, pObject );
    }
 
-   HB_RETHANDLE( hWnd );
+   HB_RETHANDLE(hWnd);
 
    hb_strfree(hAppName);
    hb_strfree(hTitle);
@@ -359,7 +359,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
    WNDCLASS wndclass, wc;
    HANDLE hInstance = GetModuleHandle( nullptr );
    PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT ), temp;
-   void *hAppName, *hTitle, *hMenu;
+   void * hAppName, * hTitle, * hMenu;
    LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, nullptr);
    LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, nullptr);
    LPCTSTR lpMenu = HB_PARSTR(4, &hMenu, nullptr);
@@ -434,7 +434,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
                SetWindowObject( hWnd, pObject );
 
                aWindows[0] = hWnd;
-               HB_RETHANDLE( hWnd );
+               HB_RETHANDLE(hWnd);
             }
          }
       }
@@ -464,7 +464,7 @@ HB_FUNC( HWG_INITCLIENTWINDOW )
          aWindows[0], nullptr, GetModuleHandle( nullptr ), ( LPVOID ) & ccs );
 
    aWindows[1] = hWnd;
-   HB_RETHANDLE( hWnd );
+   HB_RETHANDLE(hWnd);
 }
 
 HB_FUNC( HWG_ACTIVATEMDIWINDOW )
@@ -503,7 +503,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
    int x = ( int ) hb_itemGetNL( GetObjectVar( pObj, "NLEFT" ) );
    int width = ( int ) hb_itemGetNL( GetObjectVar( pObj, "NWIDTH" ) );
    int height = ( int ) hb_itemGetNL( GetObjectVar( pObj, "NHEIGHT" ) );
-   void *hTitle;
+   void * hTitle;
    LPCTSTR lpTitle =
          HB_ITEMGETSTR( GetObjectVar( pObj, "TITLE" ), &hTitle, nullptr );
 
@@ -532,33 +532,33 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
             ( LPARAM ) & pObj   // application-defined value
              );
    }
-   HB_RETHANDLE( hWnd );
+   HB_RETHANDLE(hWnd);
    hb_strfree(hTitle);
 }
 
 HB_FUNC( HWG_SENDMESSAGE )
 {
-   void *hText;
+   void * hText;
    LPCTSTR lpText = HB_PARSTR(4, &hText, nullptr);
 
-   hb_retnl( ( LONG ) SendMessage( static_cast<HWND>(HB_PARHANDLE(1)),  // handle of destination window
+   hb_retnl(( LONG ) SendMessage(static_cast<HWND>(HB_PARHANDLE(1)),  // handle of destination window
                ( UINT ) hb_parni(2),  // message to send
                HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
-               lpText ? ( LPARAM ) lpText : ( HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : ( LPARAM ) hb_parnl(4) )
-          ) );
+               lpText ? ( LPARAM ) lpText : (HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : ( LPARAM ) hb_parnl(4))
+          ));
    hb_strfree(hText);
 }
 
 HB_FUNC( HWG_SENDMESSPTR )
 {
-   void *hText;
+   void * hText;
    LPCTSTR lpText = HB_PARSTR(4, &hText, nullptr);
 
-   HB_RETHANDLE( SendMessage( static_cast<HWND>(HB_PARHANDLE(1)),  // handle of destination window
+   HB_RETHANDLE(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)),  // handle of destination window
                ( UINT ) hb_parni(2),  // message to send
                HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
-               lpText ? ( LPARAM ) lpText : ( HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : ( LPARAM ) hb_parnl(4) )
-          ) );
+               lpText ? ( LPARAM ) lpText : (HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : ( LPARAM ) hb_parnl(4))
+          ));
    hb_strfree(hText);
 }
 
@@ -575,19 +575,19 @@ HB_FUNC( HWG_POSTMESSAGE )
 
 HB_FUNC( HWG_SETFOCUS )
 {
-   HB_RETHANDLE( SetFocus( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   HB_RETHANDLE(SetFocus(static_cast<HWND>(HB_PARHANDLE(1))));
 }
 
 HB_FUNC( HWG_GETFOCUS )
 {
-   HB_RETHANDLE( GetFocus() );
+   HB_RETHANDLE(GetFocus());
 }
 
 HB_FUNC( HWG_SELFFOCUS )
 {
    HWND hWnd =
          HB_ISNIL(2) ? static_cast<HWND>(GetFocus()) : static_cast<HWND>(HB_PARHANDLE(2));
-   hb_retl( static_cast<HWND>(HB_PARHANDLE(1)) == hWnd );
+   hb_retl(static_cast<HWND>(HB_PARHANDLE(1)) == hWnd);
 }
 
 HB_FUNC( HWG_SETWINDOWOBJECT )
@@ -609,7 +609,7 @@ HB_FUNC( HWG_GETWINDOWOBJECT )
 
 HB_FUNC( HWG_SETWINDOWTEXT )
 {
-   void *hText;
+   void * hText;
 
    SetWindowText( static_cast<HWND>(HB_PARHANDLE(1)), HB_PARSTR(2, &hText, nullptr) );
    hb_strfree(hText);
@@ -618,11 +618,10 @@ HB_FUNC( HWG_SETWINDOWTEXT )
 HB_FUNC( HWG_GETWINDOWTEXT )
 {
    HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
-   ULONG ulLen = ( ULONG ) SendMessage( hWnd, WM_GETTEXTLENGTH, 0, 0 );
+   ULONG ulLen = ( ULONG ) SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0);
    LPTSTR cText = ( TCHAR * ) hb_xgrab((ulLen + 1) * sizeof(TCHAR));
 
-   ulLen = ( ULONG ) SendMessage( hWnd, WM_GETTEXT, ( WPARAM ) ( ulLen + 1 ),
-         ( LPARAM ) cText );
+   ulLen = ( ULONG ) SendMessage(hWnd, WM_GETTEXT, ( WPARAM ) (ulLen + 1), ( LPARAM ) cText);
 
    HB_RETSTRLEN( cText, ulLen );
    hb_xfree( cText );
@@ -630,9 +629,9 @@ HB_FUNC( HWG_GETWINDOWTEXT )
 
 HB_FUNC( HWG_SETWINDOWFONT )
 {
-   SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), WM_SETFONT,
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), WM_SETFONT,
          HB_ISPOINTER(2) ? ( WPARAM ) HB_PARHANDLE(2) : ( WPARAM ) hb_parnl(2),
-         MAKELPARAM( (( HB_ISNIL(3) ) ? 0 : hb_parl(3)), 0 ) );
+         MAKELPARAM(((HB_ISNIL(3)) ? 0 : hb_parl(3)), 0));
 }
 
 HB_FUNC( HWG_GETLASTERROR )
@@ -674,22 +673,22 @@ HB_FUNC( HWG_RESTOREWINDOW )
 
 HB_FUNC( HWG_ISICONIC )
 {
-   hb_retl( IsIconic( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   hb_retl(IsIconic(static_cast<HWND>(HB_PARHANDLE(1))));
 }
 
 HB_FUNC( HWG_ISWINDOWENABLED )
 {
-   hb_retl( IsWindowEnabled( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   hb_retl(IsWindowEnabled(static_cast<HWND>(HB_PARHANDLE(1))));
 }
 
 HB_FUNC( HWG_ISWINDOWVISIBLE )
 {
-   hb_retl( IsWindowVisible( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   hb_retl(IsWindowVisible(static_cast<HWND>(HB_PARHANDLE(1))));
 }
 
 HB_FUNC( HWG_GETACTIVEWINDOW )
 {
-   HB_RETHANDLE( GetActiveWindow() );
+   HB_RETHANDLE(GetActiveWindow());
 }
 
 HB_FUNC( HWG_GETINSTANCE )
@@ -721,7 +720,7 @@ HB_FUNC( HWG_GETWINDOWEXSTYLE )
 
 HB_FUNC( HWG_FINDWINDOW )
 {
-   void *hClassName, *hWindowName;
+   void * hClassName, * hWindowName;
 
    HB_RETHANDLE(FindWindow(HB_PARSTR(1, &hClassName, nullptr), HB_PARSTR(2, &hWindowName, nullptr)));
    hb_strfree(hClassName);
@@ -730,7 +729,7 @@ HB_FUNC( HWG_FINDWINDOW )
 
 HB_FUNC( HWG_SETFOREGROUNDWINDOW )
 {
-   hb_retl( SetForegroundWindow( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   hb_retl(SetForegroundWindow(static_cast<HWND>(HB_PARHANDLE(1))));
 }
 
 //HB_FUNC( HWG_SETACTIVEWINDOW )
@@ -969,7 +968,7 @@ char *hwg_strunshare( void **phStr, const char *pStr, HB_SIZE nLen )
    return ( char * ) pStr;
 }
 
-void hwg_strfree( void *hString )
+void hwg_strfree(void * hString)
 {
    if( hString && hString != ( void * ) s_szConstStr )
       hb_xfree( hString );
@@ -1120,7 +1119,7 @@ wchar_t *hwg_wstrunshare( void **phStr, const wchar_t * pStr, HB_SIZE nLen )
    return ( wchar_t * ) pStr;
 }
 
-void hwg_wstrfree( void *hString )
+void hwg_wstrfree(void * hString)
 {
    if( hString && hString != ( void * ) s_wszConstStr )
       hb_xfree( hString );
@@ -1173,7 +1172,7 @@ HB_FUNC( HWG_SETTOPMOST )
          SetWindowPos( static_cast<HWND>(HB_PARHANDLE(1)), HWND_TOPMOST, 0, 0, 0, 0,
          SWP_NOMOVE | SWP_NOSIZE );
 
-   hb_retl( i );
+   hb_retl(i);
 }
 
 HB_FUNC( HWG_REMOVETOPMOST )
@@ -1182,7 +1181,7 @@ HB_FUNC( HWG_REMOVETOPMOST )
          SetWindowPos( static_cast<HWND>(HB_PARHANDLE(1)), HWND_NOTOPMOST, 0, 0, 0, 0,
          SWP_NOMOVE | SWP_NOSIZE );
 
-   hb_retl( i );
+   hb_retl(i);
 }
 
 HB_FUNC( HWG_CHILDWINDOWFROMPOINT )
@@ -1195,7 +1194,7 @@ HB_FUNC( HWG_CHILDWINDOWFROMPOINT )
    pt.y = hb_parnl(3);
    child = ChildWindowFromPoint( hWnd, pt );
 
-   HB_RETHANDLE( child );
+   HB_RETHANDLE(child);
 }
 
 HB_FUNC( HWG_WINDOWFROMPOINT )
@@ -1209,7 +1208,7 @@ HB_FUNC( HWG_WINDOWFROMPOINT )
    ClientToScreen( hWnd, &pt );
    child = WindowFromPoint( pt );
 
-   HB_RETHANDLE( child );
+   HB_RETHANDLE(child);
 }
 
 HB_FUNC( HWG_MAKEWPARAM )
@@ -1225,7 +1224,7 @@ HB_FUNC( HWG_MAKELPARAM )
    LPARAM p;
 
    p = MAKELPARAM( (( WORD ) hb_parnl(1)), (( WORD ) hb_parnl(2)) );
-   HB_RETHANDLE( p );
+   HB_RETHANDLE(p);
 }
 
 HB_FUNC( HWG_SETWINDOWPOS )
@@ -1243,7 +1242,7 @@ HB_FUNC( HWG_SETWINDOWPOS )
 
    res = SetWindowPos( hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags );
 
-   hb_retl( res );
+   hb_retl(res);
 }
 
 HB_FUNC( HWG_SETASTYLE )
@@ -1279,7 +1278,7 @@ HB_FUNC( HWG_BRINGTOTOP )
    if( IsIconic( hWnd ) )
    {
       ShowWindow( hWnd, SW_RESTORE );
-      hb_retl( TRUE );
+      hb_retl(TRUE);
       return;
    }
 
@@ -1337,8 +1336,7 @@ LONG GetFontDialogUnits( HWND h, HFONT f )
 
 HB_FUNC( HWG_GETFONTDIALOGUNITS )
 {
-   hb_retnl( GetFontDialogUnits( static_cast<HWND>(HB_PARHANDLE(1)),
-               ( HFONT ) HB_PARHANDLE(2) ) );
+   hb_retnl(GetFontDialogUnits(static_cast<HWND>(HB_PARHANDLE(1)), ( HFONT ) HB_PARHANDLE(2)));
 }
 
 HB_FUNC( HWG_GETTOOLBARID )
@@ -1347,8 +1345,7 @@ HB_FUNC( HWG_GETTOOLBARID )
    WPARAM wp = ( WPARAM ) hb_parnl(2);
    UINT uId;
 
-   if( SendMessage( hMytoolMenu, TB_MAPACCELERATOR, ( WPARAM ) wp,
-               ( LPARAM ) & uId ) != 0 )
+   if( SendMessage(hMytoolMenu, TB_MAPACCELERATOR, ( WPARAM ) wp, ( LPARAM ) &uId) != 0 )
       hb_retnl( uId );
    else
       hb_retnl( -1 );
@@ -1356,7 +1353,7 @@ HB_FUNC( HWG_GETTOOLBARID )
 
 HB_FUNC( HWG_ISWINDOW )
 {
-   hb_retl( IsWindow( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   hb_retl(IsWindow(static_cast<HWND>(HB_PARHANDLE(1))));
 }
 
 HB_FUNC( HWG_MINMAXWINDOW )
@@ -1403,7 +1400,7 @@ HB_FUNC( HWG_FLASHWINDOW )
 
 HB_FUNC( HWG_ANSITOUNICODE )
 {
-   void *hText = ( TCHAR * ) hb_xgrab((1024 + 1) * sizeof(TCHAR));
+   void * hText = ( TCHAR * ) hb_xgrab((1024 + 1) * sizeof(TCHAR));
 #if !defined(__XHARBOUR__)
    hb_parstr_u16( 1, HB_CDP_ENDIAN_NATIVE, &hText, nullptr );
 #else
@@ -1435,7 +1432,7 @@ HB_FUNC( HWG_PAINTWINDOW )
 
 HB_FUNC( HWG_GETBACKBRUSH )
 {
-   HB_RETHANDLE( GetCurrentObject( GetDC( static_cast<HWND>(HB_PARHANDLE(1)) ), OBJ_BRUSH ) );
+   HB_RETHANDLE(GetCurrentObject(GetDC(static_cast<HWND>(HB_PARHANDLE(1))), OBJ_BRUSH));
 }
 
 HB_FUNC( HWG_WINDOWSETRESIZE )
@@ -1479,7 +1476,7 @@ HB_FUNC( HWG__ISUNICODE )
 #ifdef UNICODE
    hb_retl(1);
 #else
-   hb_retl( 0 );
+   hb_retl(0);
 #endif
 }
 

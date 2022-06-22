@@ -163,7 +163,7 @@ HB_FUNC( HWG_CREATEROUNDRECTRGN )
 {
    HRGN Res = CreateRoundRectRgn( hb_parni(1), hb_parni(2), hb_parni(3),
          hb_parni(4), hb_parni(5), hb_parni(6) );
-   HB_RETHANDLE( Res );
+   HB_RETHANDLE(Res);
 }
 
 
@@ -210,7 +210,7 @@ HB_FUNC( HWG_CREATENICEBTN )
    HWND hWndPanel;
    ULONG ulStyle =
          HB_ISNUM(3) ? hb_parnl(3) : WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
-   void *hTitle;
+   void * hTitle;
 
    hWndPanel = CreateWindowEx( hb_parni(8), TEXT( "NICEBUTT" ),       /* predefined class  */
          HB_PARSTR(9, &hTitle, nullptr), /* no window title   */
@@ -222,7 +222,7 @@ HB_FUNC( HWG_CREATENICEBTN )
          GetModuleHandle( nullptr ), nullptr );
    hb_strfree(hTitle);
 
-   HB_RETHANDLE( hWndPanel );
+   HB_RETHANDLE(hWndPanel);
 }
 
 HB_FUNC( HWG_ISMOUSEOVER )
@@ -231,7 +231,7 @@ HB_FUNC( HWG_ISMOUSEOVER )
    POINT Pt;
    GetWindowRect( static_cast<HWND>(HB_PARHANDLE(1)), &Rect );
    GetCursorPos( &Pt );
-   hb_retl( PtInRect( &Rect, Pt ) );
+   hb_retl(PtInRect(&Rect, Pt));
 }
 
 HB_FUNC( HWG_DRAW_GRADIENT )

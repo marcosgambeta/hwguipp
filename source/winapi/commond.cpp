@@ -116,11 +116,11 @@ HB_FUNC( HWG_SELECTFILE )
    OPENFILENAME ofn;
    TCHAR buffer[1024];
    LPTSTR lpFilter;
-   void *hTitle, *hInitDir;
+   void * hTitle, * hInitDir;
 
    if( HB_ISCHAR(1) && HB_ISCHAR(2) )
    {
-      void *hStr1, *hStr2;
+      void * hStr1, * hStr2;
       LPCTSTR lpStr1, lpStr2;
       HB_SIZE nLen1, nLen2;
 
@@ -140,10 +140,10 @@ HB_FUNC( HWG_SELECTFILE )
    {
       struct _hb_arrStr
       {
-         void *hStr1;
+         void * hStr1;
          LPCTSTR lpStr1;
          HB_SIZE nLen1;
-         void *hStr2;
+         void * hStr2;
          LPCTSTR lpStr2;
          HB_SIZE nLen2;
       } *pArrStr;
@@ -211,7 +211,7 @@ HB_FUNC( HWG_SAVEFILE )
 {
    OPENFILENAME ofn;
    TCHAR buffer[1024];
-   void *hFileName, *hStr1, *hStr2, *hTitle, *hInitDir;
+   void * hFileName, * hStr1, * hStr2, * hTitle, * hInitDir;
    LPCTSTR lpFileName, lpStr1, lpStr2;
    HB_SIZE nSize, nLen1, nLen2;
    LPTSTR lpFilter, lpFileBuff;
@@ -300,10 +300,10 @@ HB_FUNC( HWG_PRINTSETUP )
          GlobalFree( pd.hDevNames );
          GlobalFree( pd.hDevMode );
       }
-      HB_RETHANDLE( pd.hDC );
+      HB_RETHANDLE(pd.hDC);
    }
    else
-      HB_RETHANDLE( 0 );
+      HB_RETHANDLE(0);
 }
 
 HB_FUNC( HWG_CHOOSECOLOR )
@@ -342,7 +342,7 @@ static unsigned long Get_SerialNumber( LPCTSTR RootPathName )
 
 HB_FUNC( HWG_HDGETSERIAL )
 {
-   void *hStr;
+   void * hStr;
    hb_retnl( Get_SerialNumber( HB_PARSTR(1, &hStr, nullptr) ) );
    hb_strfree(hStr);
 }
@@ -359,7 +359,7 @@ HB_FUNC( HWG_GETPRIVATEPROFILESTRING )
 {
    TCHAR buffer[1024];
    DWORD dwLen;
-   void *hSection, *hEntry, *hDefault, *hFileName;
+   void * hSection, * hEntry, * hDefault, * hFileName;
    LPCTSTR lpDefault = HB_PARSTR(3, &hDefault, nullptr);
 
    dwLen = GetPrivateProfileString(HB_PARSTR(1, &hSection, nullptr), HB_PARSTR(2, &hEntry, nullptr), lpDefault, buffer,
@@ -377,7 +377,7 @@ HB_FUNC( HWG_GETPRIVATEPROFILESTRING )
 
 HB_FUNC( HWG_WRITEPRIVATEPROFILESTRING )
 {
-   void *hSection, *hEntry, *hData, *hFileName;
+   void * hSection, * hEntry, * hData, * hFileName;
 
    hb_retl(WritePrivateProfileString(HB_PARSTR(1, &hSection, nullptr), HB_PARSTR(2, &hEntry, nullptr), HB_PARSTR(3, &hData, nullptr),
                                      HB_PARSTR(4, &hFileName, nullptr)) ? TRUE : FALSE);
@@ -444,12 +444,12 @@ HB_FUNC( HWG_PRINTSETUPDOS )
       hb_stornl( s_pd.nFromPage, 1 );
       hb_stornl( s_pd.nToPage, 2 );
       hb_stornl( s_pd.nCopies, 3 );
-      HB_RETHANDLE( s_pd.hDC );
+      HB_RETHANDLE(s_pd.hDC);
    }
    else
    {
       s_fPName = TRUE;
-      HB_RETHANDLE( 0 );
+      HB_RETHANDLE(0);
    }
 }
 
@@ -479,7 +479,7 @@ HB_FUNC( HWG_GETOPENFILENAME )
 {
    OPENFILENAME ofn;
    TCHAR buffer[1024];
-   void *hFileName, *hTitle, *hFilter, *hInitDir, *hDefExt;
+   void * hFileName, * hTitle, * hFilter, * hInitDir, * hDefExt;
    HB_SIZE nSize;
    LPCTSTR lpFileName = HB_PARSTR(2, &hFileName, &nSize);
    LPTSTR lpFileBuff;

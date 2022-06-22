@@ -20,7 +20,7 @@
  */
 HB_FUNC( HWG_PLAYSOUND )
 {
-   void *hSound;
+   void * hSound;
    LPCTSTR lpSound = HB_PARSTR(1, &hSound, nullptr);
    HMODULE hmod = nullptr;
    DWORD fdwSound = SND_NODEFAULT | SND_FILENAME;
@@ -35,14 +35,14 @@ HB_FUNC( HWG_PLAYSOUND )
    if( !lpSound )
       fdwSound |= SND_PURGE;
 
-   hb_retl( PlaySound( lpSound, hmod, fdwSound ) != 0 );
+   hb_retl(PlaySound(lpSound, hmod, fdwSound) != 0);
    hb_strfree(hSound);
 }
 
 HB_FUNC( HWG_MCISENDSTRING )
 {
    TCHAR cBuffer[256] = { 0 };
-   void *hCommand;
+   void * hCommand;
 
    hb_retnl( ( LONG ) mciSendString( HB_PARSTR(1, &hCommand, nullptr),
                cBuffer, HB_SIZEOFARRAY( cBuffer ),
@@ -72,9 +72,9 @@ HB_FUNC( HWG_MCIGETERRORSTRING )
 {
    TCHAR cBuffer[256] = { 0 };
 
-   hb_retl( mciGetErrorString( hb_parnl(1),   // Error Code
-               cBuffer, HB_SIZEOFARRAY( cBuffer ) ) );
-   HB_STORSTR( cBuffer, 2 );
+   hb_retl(mciGetErrorString(hb_parnl(1),   // Error Code
+               cBuffer, HB_SIZEOFARRAY(cBuffer)));
+   HB_STORSTR(cBuffer, 2);
 }
 
 //----------------------------------------------------------------------------//
@@ -83,7 +83,7 @@ HB_FUNC( HWG_NMCIOPEN )
 {
    MCI_OPEN_PARMS mciOpenParms;
    DWORD dwFlags = MCI_OPEN_ELEMENT;
-   void *hDevice, *hName;
+   void * hDevice, * hName;
 
    memset(&mciOpenParms, 0, sizeof(mciOpenParms));
 

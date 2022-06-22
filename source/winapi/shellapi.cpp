@@ -41,7 +41,7 @@ static int ( CALLBACK BrowseCallbackProc ) ( HWND hwnd, UINT uMsg,
       {
          if( lpData != ( LPARAM ) nullptr )
          {
-            SendMessage( hwnd, BFFM_SETSELECTION, lParam, lpData );
+            SendMessage(hwnd, BFFM_SETSELECTION, lParam, lpData);
          }
       }
    }
@@ -58,8 +58,8 @@ HB_FUNC( HWG_SELECTFOLDER )
    TCHAR lpBuffer[MAX_PATH];
    LPCTSTR lpResult = nullptr;
    LPITEMIDLIST pidlBrowse;     // PIDL selected by user 
-   void *hTitle;
-   void *hFolderName;
+   void * hTitle;
+   void * hFolderName;
    LPCTSTR lpFolderName;
 
    lpFolderName = HB_PARSTR(2, &hFolderName, nullptr);
@@ -145,10 +145,10 @@ HB_FUNC( HWG_SHELLEXECUTE )
 #if defined( HB_OS_WIN_CE )
    hb_retni( -1 );
 #else
-   void *hOperation;
-   void *hFile;
-   void *hParameters;
-   void *hDirectory;
+   void * hOperation;
+   void * hFile;
+   void * hParameters;
+   void * hDirectory;
    LPCTSTR lpDirectory;
 
    lpDirectory = HB_PARSTR(4, &hDirectory, nullptr);
