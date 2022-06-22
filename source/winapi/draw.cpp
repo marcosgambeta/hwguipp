@@ -161,7 +161,7 @@ HB_FUNC( HWG_INVALIDATERECT )
 {
    RECT rc;
 
-   if( hb_pcount(  ) > 2 )
+   if( hb_pcount() > 2 )
    {
       rc.left = hb_parni(3);
       rc.top = hb_parni(4);
@@ -170,7 +170,7 @@ HB_FUNC( HWG_INVALIDATERECT )
    }
 
    InvalidateRect( static_cast<HWND>(HB_PARHANDLE(1)),  // handle of window with changed update region
-         ( hb_pcount(  ) > 2 ) ? &rc : nullptr,    // address of rectangle coordinates
+         ( hb_pcount() > 2 ) ? &rc : nullptr,    // address of rectangle coordinates
          hb_parni(2)          // erase-background flag
           );
 }
@@ -230,7 +230,7 @@ HB_FUNC( HWG_PIE )
          hb_parni(9)          // y-coord. of second radial's endpoint
           );
 
-   hb_retnl( res ? 0 : ( LONG ) GetLastError(  ) );
+   hb_retnl( res ? 0 : ( LONG ) GetLastError() );
 }
 
 HB_FUNC( HWG_ELLIPSE )
@@ -242,7 +242,7 @@ HB_FUNC( HWG_ELLIPSE )
          hb_parni(5)          // y-coord. bounding rectangle's f lower-right corner
           );
 
-   hb_retnl( res ? 0 : ( LONG ) GetLastError(  ) );
+   hb_retnl( res ? 0 : ( LONG ) GetLastError() );
 }
 
 HB_FUNC( HWG_DRAWGRID )
@@ -319,19 +319,19 @@ HB_FUNC( HWG_REDRAWWINDOW )
 {
    RECT rc;
 
-   if( hb_pcount(  ) > 3 )
+   if( hb_pcount() > 3 )
    {
-      int x = ( hb_pcount(  ) > 3 && !HB_ISNIL(3) ) ? hb_parni(3) : 0;
-      int y = ( hb_pcount(  ) >= 4 && !HB_ISNIL(4) ) ? hb_parni(4) : 0;
-      int w = ( hb_pcount(  ) >= 5 && !HB_ISNIL(5) ) ? hb_parni(5) : 0;
-      int h = ( hb_pcount(  ) >= 6 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
+      int x = ( hb_pcount() > 3 && !HB_ISNIL(3) ) ? hb_parni(3) : 0;
+      int y = ( hb_pcount() >= 4 && !HB_ISNIL(4) ) ? hb_parni(4) : 0;
+      int w = ( hb_pcount() >= 5 && !HB_ISNIL(5) ) ? hb_parni(5) : 0;
+      int h = ( hb_pcount() >= 6 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
       rc.left = x - 1;
       rc.top = y - 1;
       rc.right = x + w + 1;
       rc.bottom = y + h + 1;
    }
    RedrawWindow( static_cast<HWND>(HB_PARHANDLE(1)),    // handle of window
-         ( hb_pcount(  ) > 3 ) ? &rc : nullptr,    // address of structure with update rectangle
+         ( hb_pcount() > 3 ) ? &rc : nullptr,    // address of structure with update rectangle
          nullptr,                  // handle of update region
          ( UINT ) hb_parni(2) // array of redraw flags
           );
@@ -404,9 +404,8 @@ HB_FUNC( HWG_LOADICON )
    else
    {
       void *hString;
-      HB_RETHANDLE( LoadIcon( GetModuleHandle( nullptr ), HB_PARSTR( 1, &hString,
-                        nullptr ) ) );
-      hb_strfree( hString );
+      HB_RETHANDLE( LoadIcon( GetModuleHandle( nullptr ), HB_PARSTR(1, &hString, nullptr) ) );
+      hb_strfree(hString);
    }
 }
 
@@ -415,13 +414,13 @@ HB_FUNC( HWG_LOADIMAGE )
    void *hString = nullptr;
 
    HB_RETHANDLE( LoadImage( HB_ISNIL(1) ? GetModuleHandle( nullptr ) : ( HINSTANCE ) hb_parnl(1),      // handle of the instance that contains the image
-               HB_ISNUM(2) ? MAKEINTRESOURCE( hb_parni(2) ) : HB_PARSTR( 2, &hString, nullptr ),       // name or identifier of image
+               HB_ISNUM(2) ? MAKEINTRESOURCE( hb_parni(2) ) : HB_PARSTR(2, &hString, nullptr),       // name or identifier of image
                ( UINT ) hb_parni(3),  // type of image
                hb_parni(4),   // desired width
                hb_parni(5),   // desired height
                ( UINT ) hb_parni(6)   // load flags
           ) );
-   hb_strfree( hString );
+   hb_strfree(hString);
 }
 
 HB_FUNC( HWG_LOADBITMAP )
@@ -437,9 +436,8 @@ HB_FUNC( HWG_LOADBITMAP )
    else
    {
       void *hString;
-      HB_RETHANDLE( LoadBitmap( GetModuleHandle( nullptr ), HB_PARSTR( 1,
-                        &hString, nullptr ) ) );
-      hb_strfree( hString );
+      HB_RETHANDLE( LoadBitmap( GetModuleHandle( nullptr ), HB_PARSTR(1, &hString, nullptr) ) );
+      hb_strfree(hString);
    }
 }
 
@@ -492,13 +490,13 @@ HB_FUNC( HWG_DRAWBITMAP )
    DWORD dwraster = ( HB_ISNIL(3) ) ? SRCCOPY : static_cast<DWORD>(hb_parnl(3));
    HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
    BITMAP bitmap;
-   int nWidthDest = ( hb_pcount(  ) >= 5 &&
+   int nWidthDest = ( hb_pcount() >= 5 &&
          !HB_ISNIL(6) ) ? hb_parni(6) : 0;
-   int nHeightDest = ( hb_pcount(  ) >= 6 &&
+   int nHeightDest = ( hb_pcount() >= 6 &&
          !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
    SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    if( nWidthDest && ( nWidthDest != bitmap.bmWidth ||
                nHeightDest != bitmap.bmHeight ) )
    {
@@ -532,9 +530,9 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    HDC dcImage, dcTrans;
    int x = hb_parni(3);
    int y = hb_parni(4);
-   int nWidthDest = ( hb_pcount(  ) >= 5 &&
+   int nWidthDest = ( hb_pcount() >= 5 &&
          !HB_ISNIL(6) ) ? hb_parni(6) : 0;
-   int nHeightDest = ( hb_pcount(  ) >= 6 &&
+   int nHeightDest = ( hb_pcount() >= 6 &&
          !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
    // Create two memory dcs for the image and the mask
@@ -542,7 +540,7 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    dcTrans = CreateCompatibleDC( hDC );
    // Select the image into the appropriate dc
    pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    // Create the mask bitmap
    bitmapTrans = CreateBitmap( bitmap.bmWidth, bitmap.bmHeight, 1, 1, nullptr );
    // Select the mask bitmap into the appropriate dc
@@ -613,7 +611,7 @@ HB_FUNC( HWG_SPREADBITMAP )
    rc.bottom = (HB_ISNUM(6))? hb_parni(6) : 0;
 
    SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    if( rc.left == 0 && rc.right == 0 )
       GetClientRect( WindowFromDC( hDC ), &rc );
 
@@ -651,7 +649,7 @@ HB_FUNC( HWG_CENTERBITMAP )
          1 ) : ( HBRUSH ) HB_PARHANDLE(5);
 
    SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    GetClientRect( static_cast<HWND>(HB_PARHANDLE(2)), &rc );
 
    FillRect( hDC, &rc, hBrush );
@@ -670,7 +668,7 @@ HB_FUNC( HWG_GETBITMAPSIZE )
    PHB_ITEM temp;
    int nret;
 
-   nret = GetObject( ( HBITMAP ) HB_PARHANDLE(1), sizeof( BITMAP ),
+   nret = GetObject( ( HBITMAP ) HB_PARHANDLE(1), sizeof(BITMAP),
          ( LPVOID ) & bitmap );
 
    temp = hb_itemPutNL( nullptr, bitmap.bmWidth );
@@ -734,30 +732,30 @@ HB_FUNC( HWG_OPENBITMAP )
    LPVOID lpvBits;
    HGLOBAL hmem1, hmem2;
    HBITMAP hbm;
-   HDC hDC = ( hb_pcount(  ) > 1 && !HB_ISNIL(2) ) ?
+   HDC hDC = ( hb_pcount() > 1 && !HB_ISNIL(2) ) ?
          static_cast<HDC>(HB_PARHANDLE(2)) : nullptr;
    void *hString;
    HANDLE hfbm;
 
-   hfbm = CreateFile( HB_PARSTR( 1, &hString, nullptr ), GENERIC_READ,
+   hfbm = CreateFile( HB_PARSTR(1, &hString, nullptr), GENERIC_READ,
          FILE_SHARE_READ, ( LPSECURITY_ATTRIBUTES ) nullptr, OPEN_EXISTING,
          FILE_ATTRIBUTE_READONLY, ( HANDLE ) nullptr );
-   hb_strfree( hString );
+   hb_strfree(hString);
    if( ( ( long int ) hfbm ) <= 0 )
    {
       HB_RETHANDLE( nullptr );
       return;
    }
    /* Retrieve the BITMAPFILEHEADER structure. */
-   ReadFile( hfbm, &bmfh, sizeof( BITMAPFILEHEADER ), &dwRead, nullptr );
+   ReadFile( hfbm, &bmfh, sizeof(BITMAPFILEHEADER), &dwRead, nullptr );
 
    /* Retrieve the BITMAPFILEHEADER structure. */
-   ReadFile( hfbm, &bmih, sizeof( BITMAPINFOHEADER ), &dwRead, nullptr );
+   ReadFile( hfbm, &bmih, sizeof(BITMAPINFOHEADER), &dwRead, nullptr );
 
    /* Allocate memory for the BITMAPINFO structure. */
 
-   hmem1 = GlobalAlloc( GHND, sizeof( BITMAPINFOHEADER ) +
-         ( ( 1 << bmih.biBitCount ) * sizeof( RGBQUAD ) ) );
+   hmem1 = GlobalAlloc( GHND, sizeof(BITMAPINFOHEADER) +
+         ( ( 1 << bmih.biBitCount ) * sizeof(RGBQUAD) ) );
    lpbmi = ( LPBITMAPINFO ) GlobalLock( hmem1 );
 
    /*  Load BITMAPINFOHEADER into the BITMAPINFO  structure. */
@@ -783,7 +781,7 @@ HB_FUNC( HWG_OPENBITMAP )
       case 4:
       case 8:
          ReadFile( hfbm, lpbmi->bmiColors,
-               ( ( 1 << bmih.biBitCount ) * sizeof( RGBQUAD ) ),
+               ( ( 1 << bmih.biBitCount ) * sizeof(RGBQUAD) ),
                &dwRead, ( LPOVERLAPPED ) nullptr );
          break;
 
@@ -791,7 +789,7 @@ HB_FUNC( HWG_OPENBITMAP )
       case 32:
          if( bmih.biCompression == BI_BITFIELDS )
             ReadFile( hfbm, lpbmi->bmiColors,
-                  ( 3 * sizeof( RGBQUAD ) ), &dwRead, ( LPOVERLAPPED ) nullptr );
+                  ( 3 * sizeof(RGBQUAD) ), &dwRead, ( LPOVERLAPPED ) nullptr );
          break;
 
       case 24:
@@ -813,7 +811,7 @@ HB_FUNC( HWG_OPENBITMAP )
    hbm = CreateDIBitmap( hDC, &bmih, CBM_INIT, lpvBits, lpbmi,
          DIB_RGB_COLORS );
 
-   if( hb_pcount(  ) < 2 || HB_ISNIL(2) )
+   if( hb_pcount() < 2 || HB_ISNIL(2) )
       ReleaseDC( 0, hDC );
 
    /* Unlock the global memory objects and close the .BMP file. */
@@ -855,8 +853,8 @@ HB_FUNC( HWG_SAVEBITMAP )
       wBitCount = 8;
    else
       wBitCount = 24;
-   GetObject( hBitmap, sizeof( Bitmap0 ), ( LPSTR ) & Bitmap0 );
-   bi.biSize = sizeof( BITMAPINFOHEADER );
+   GetObject( hBitmap, sizeof(Bitmap0), ( LPSTR ) & Bitmap0 );
+   bi.biSize = sizeof(BITMAPINFOHEADER);
    bi.biWidth = Bitmap0.bmWidth;
    bi.biHeight = -Bitmap0.bmHeight;
    bi.biPlanes = 1;
@@ -870,7 +868,7 @@ HB_FUNC( HWG_SAVEBITMAP )
    dwBmBitsSize = ( ( Bitmap0.bmWidth * wBitCount + 31 ) & ~31 ) / 8
          * Bitmap0.bmHeight;
    hDib = GlobalAlloc( GHND,
-         dwBmBitsSize + dwPaletteSize + sizeof( BITMAPINFOHEADER ) );
+         dwBmBitsSize + dwPaletteSize + sizeof(BITMAPINFOHEADER) );
    lpbi = ( LPBITMAPINFOHEADER ) GlobalLock( hDib );
    *lpbi = bi;
 
@@ -883,7 +881,7 @@ HB_FUNC( HWG_SAVEBITMAP )
    }
 
    GetDIBits( hDC, hBitmap, 0, ( UINT ) Bitmap0.bmHeight,
-         ( LPSTR ) lpbi + sizeof( BITMAPINFOHEADER ) + dwPaletteSize,
+         ( LPSTR ) lpbi + sizeof(BITMAPINFOHEADER) + dwPaletteSize,
          ( BITMAPINFO * ) lpbi, DIB_RGB_COLORS );
 
    if( hOldPal2 )
@@ -893,9 +891,9 @@ HB_FUNC( HWG_SAVEBITMAP )
       ReleaseDC( nullptr, hDC );
    }
 
-   fh = CreateFile( HB_PARSTR( 1, &hString, nullptr ), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+   fh = CreateFile( HB_PARSTR(1, &hString, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
          FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr );
-   hb_strfree( hString );
+   hb_strfree(hString);
 
    if( fh == INVALID_HANDLE_VALUE )
    {
@@ -905,16 +903,16 @@ HB_FUNC( HWG_SAVEBITMAP )
 
    bmfHdr.bfType = 0x4D42;      // "BM"
    dwDIBSize =
-         sizeof( BITMAPFILEHEADER ) + sizeof( BITMAPINFOHEADER ) +
+         sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) +
          dwPaletteSize + dwBmBitsSize;
    bmfHdr.bfSize = dwDIBSize;
    bmfHdr.bfReserved1 = 0;
    bmfHdr.bfReserved2 = 0;
    bmfHdr.bfOffBits =
-         static_cast<DWORD>(sizeof( BITMAPFILEHEADER )) +
-         static_cast<DWORD>(sizeof( BITMAPINFOHEADER )) + dwPaletteSize;
+         static_cast<DWORD>(sizeof(BITMAPFILEHEADER)) +
+         static_cast<DWORD>(sizeof(BITMAPINFOHEADER)) + dwPaletteSize;
 
-   WriteFile( fh, ( LPSTR ) & bmfHdr, sizeof( BITMAPFILEHEADER ), &dwWritten,
+   WriteFile( fh, ( LPSTR ) & bmfHdr, sizeof(BITMAPFILEHEADER), &dwWritten,
          nullptr );
 
    WriteFile( fh, ( LPSTR ) lpbi, dwDIBSize, &dwWritten, nullptr );
@@ -1053,7 +1051,7 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    dcTrans = CreateCompatibleDC( hDC );
    // Select the image into the appropriate dc
    pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    // Create the mask bitmap
    bitmapgray = CreateBitmap( bitmap.bmWidth, bitmap.bmHeight, 1, 1, nullptr );
    // Select the mask bitmap into the appropriate dc
@@ -1104,7 +1102,7 @@ HB_FUNC( HWG_OPENIMAGE )
          HB_RETHANDLE( 0 );
          return;
       }
-      memcpy( ( void * ) hG, ( void * ) cFileName, iFileSize );
+      memcpy(( void * ) hG, ( void * ) cFileName, iFileSize);
    }
    else
    {
@@ -1140,7 +1138,7 @@ HB_FUNC( HWG_OPENIMAGE )
 
 #if defined(__cplusplus)
    OleLoadPicture( pStream, 0, 0, IID_IPicture, ( void ** ) &pPic );
-   pStream->Release(  );
+   pStream->Release();
 #else
    OleLoadPicture( pStream, 0, 0, &IID_IPicture,
          ( void ** ) ( void * ) &pPic );
@@ -1190,7 +1188,7 @@ HB_FUNC( HWG_OPENIMAGE )
    }
 
 #if defined(__cplusplus)
-   pPic->Release(  );
+   pPic->Release();
 #else
    pPic->lpVtbl->Release( pPic );
 #endif

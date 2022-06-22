@@ -21,7 +21,7 @@
 HB_FUNC( HWG_PLAYSOUND )
 {
    void *hSound;
-   LPCTSTR lpSound = HB_PARSTR( 1, &hSound, nullptr );
+   LPCTSTR lpSound = HB_PARSTR(1, &hSound, nullptr);
    HMODULE hmod = nullptr;
    DWORD fdwSound = SND_NODEFAULT | SND_FILENAME;
 
@@ -36,7 +36,7 @@ HB_FUNC( HWG_PLAYSOUND )
       fdwSound |= SND_PURGE;
 
    hb_retl( PlaySound( lpSound, hmod, fdwSound ) != 0 );
-   hb_strfree( hSound );
+   hb_strfree(hSound);
 }
 
 HB_FUNC( HWG_MCISENDSTRING )
@@ -44,13 +44,13 @@ HB_FUNC( HWG_MCISENDSTRING )
    TCHAR cBuffer[256] = { 0 };
    void *hCommand;
 
-   hb_retnl( ( LONG ) mciSendString( HB_PARSTR( 1, &hCommand, nullptr ),
+   hb_retnl( ( LONG ) mciSendString( HB_PARSTR(1, &hCommand, nullptr),
                cBuffer, HB_SIZEOFARRAY( cBuffer ),
-               ( HB_ISNIL(3) ) ? GetActiveWindow(  ) :
+               ( HB_ISNIL(3) ) ? GetActiveWindow() :
                static_cast<HWND>(HB_PARHANDLE(3)) ) );
    if( !HB_ISNIL(2) )
       HB_STORSTR( cBuffer, 2 );
-   hb_strfree( hCommand );
+   hb_strfree(hCommand);
 }
 
 
@@ -85,10 +85,10 @@ HB_FUNC( HWG_NMCIOPEN )
    DWORD dwFlags = MCI_OPEN_ELEMENT;
    void *hDevice, *hName;
 
-   memset( &mciOpenParms, 0, sizeof( mciOpenParms ) );
+   memset(&mciOpenParms, 0, sizeof(mciOpenParms));
 
-   mciOpenParms.lpstrDeviceType = HB_PARSTR( 1, &hDevice, nullptr );
-   mciOpenParms.lpstrElementName = HB_PARSTR( 2, &hName, nullptr );
+   mciOpenParms.lpstrDeviceType = HB_PARSTR(1, &hDevice, nullptr);
+   mciOpenParms.lpstrElementName = HB_PARSTR(2, &hName, nullptr);
    if( mciOpenParms.lpstrElementName )
       dwFlags |= MCI_OPEN_TYPE;
 
@@ -96,8 +96,8 @@ HB_FUNC( HWG_NMCIOPEN )
                ( DWORD_PTR ) ( LPMCI_OPEN_PARMS ) & mciOpenParms ) );
 
    hb_storni( mciOpenParms.wDeviceID, 3 );
-   hb_strfree( hDevice );
-   hb_strfree( hName );
+   hb_strfree(hDevice);
+   hb_strfree(hName);
 }
 
 //----------------------------------------------------------------------------//
@@ -107,7 +107,7 @@ HB_FUNC( HWG_NMCIPLAY )
    MCI_PLAY_PARMS mciPlayParms;
    DWORD dwFlags = 0;
 
-   memset( &mciPlayParms, 0, sizeof( mciPlayParms ) );
+   memset(&mciPlayParms, 0, sizeof(mciPlayParms));
 
    if( ( mciPlayParms.dwFrom = hb_parnl(2) ) != 0 )
       dwFlags |= MCI_FROM;

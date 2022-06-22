@@ -117,7 +117,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
    RedrawWindow( static_cast<HWND>(HB_PARHANDLE(1)), nullptr, nullptr,
          RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
          RDW_UPDATENOW );
-   hb_strfree( hText );
+   hb_strfree(hText);
 }
 
 HB_FUNC( HWG_LISTVIEW_DELETECOLUMN )
@@ -285,7 +285,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    LVCOLUMN lvcolumn;
    int iResult;
 
-   memset( &lvcolumn, 0, sizeof( lvcolumn ) );
+   memset(&lvcolumn, 0, sizeof(lvcolumn));
 
    if( iImage > 0 )
       lvcolumn.mask =
@@ -293,7 +293,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    else
       lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_WIDTH;
 
-   lvcolumn.pszText = ( LPTSTR ) HB_PARSTR( 3, &hText, nullptr );
+   lvcolumn.pszText = ( LPTSTR ) HB_PARSTR(3, &hText, nullptr);
    lvcolumn.iSubItem = lCol;
    lvcolumn.cx = hb_parni(4);
    lvcolumn.fmt = hb_parni(5);
@@ -310,7 +310,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
          RDW_UPDATENOW );
 
    hb_retnl( iResult );
-   hb_strfree( hText );
+   hb_strfree(hText);
 }
 
 HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
@@ -327,7 +327,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 
    GetClientRect( hwndListView, &rect );
 
-   memset( &lvi, 0, sizeof( lvi ) );
+   memset(&lvi, 0, sizeof(lvi));
 
    if( iBitMap >= 0 )
       lvi.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
@@ -337,7 +337,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    lvi.iImage = iBitMap >= 0 ? lCol : -1;
    lvi.state = 0;
    lvi.stateMask = 0;
-   lvi.pszText = ( LPTSTR ) HB_PARSTR( 4, &hText, nullptr );
+   lvi.pszText = ( LPTSTR ) HB_PARSTR(4, &hText, nullptr);
    lvi.iItem = lLin;
    lvi.iSubItem = lCol;
 
@@ -363,7 +363,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 // RedrawWindow( hwndListView, nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
    InvalidateRect( hwndListView, &rect, TRUE );
    hb_retni( iResult );
-   hb_strfree( hText );
+   hb_strfree(hText);
 }
 
 HB_FUNC( HWG_LISTVIEWSELECTALL )
@@ -442,7 +442,7 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    LVITEM Item;
    TCHAR Buffer[256] = { 0 };
 
-   memset( &Item, '\0', sizeof( Item ) );
+   memset(&Item, '\0', sizeof(Item));
 
    Item.mask = LVIF_TEXT | LVIF_PARAM;
    Item.iItem = Index;
@@ -490,7 +490,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFONEW )
       return;
    }
 
-   p = ( PSORTINFO ) hb_xgrab( sizeof( SortInfo ) );
+   p = ( PSORTINFO ) hb_xgrab(sizeof(SortInfo));
 
    if( p )
    {

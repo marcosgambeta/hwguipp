@@ -96,7 +96,7 @@ HB_FUNC( HWG_REGOPENKEYEX )
       hb_stornl( PtrToLong( phwHandle ), 5 );
       hb_retni( 0 );
    }
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 HB_FUNC( HWG_REGQUERYVALUEEX )
@@ -111,8 +111,7 @@ HB_FUNC( HWG_REGQUERYVALUEEX )
    lError = RegQueryValueEx( hwKey, lpValue, nullptr, &lpType, nullptr, &lpcbData );
    if( lError == ERROR_SUCCESS )
    {
-      BYTE *lpData = ( BYTE * )
-                     memset( hb_xgrab( lpcbData + 1 ), 0, lpcbData + 1 );
+      BYTE *lpData = ( BYTE * ) memset(hb_xgrab(lpcbData + 1), 0, lpcbData + 1);
       lError = RegQueryValueEx( hwKey, lpValue, nullptr, &lpType,
                                 lpData, &lpcbData );
       if( lError > 0 )
@@ -127,7 +126,7 @@ HB_FUNC( HWG_REGQUERYVALUEEX )
 
       hb_xfree( lpData );
    }
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 
@@ -162,7 +161,7 @@ HB_FUNC( HWG_REGSETVALUEEX )
                             HB_PARSTRDEF( 2, &hValue, nullptr ), 0,
                             hb_parnl(4), ( const BYTE * ) hb_parcx(5),
                             hb_parclen(5) + 1 ) );
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 HB_FUNC( HWG_REGCREATEKEY )
@@ -178,7 +177,7 @@ HB_FUNC( HWG_REGCREATEKEY )
       hb_stornl( PtrToLong( hKey ), 3 );
    }
    hb_retnl( nErr );
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 //-------------------------------------------------------
@@ -223,8 +222,8 @@ HB_FUNC( HWG_REGCREATEKEYEX )
       hb_stornl( ( LONG ) dwDisposition, 9 );
    }
    hb_retnl( nErr );
-   hb_strfree( hValue );
-   hb_strfree( hClass );
+   hb_strfree(hValue);
+   hb_strfree(hClass);
 }
 
 
@@ -234,7 +233,7 @@ HB_FUNC( HWG_REGDELETEKEY )
 
    hb_retni( RegDeleteKey( ( HKEY ) hb_parnl(1),
                HB_PARSTRDEF( 2, &hValue, nullptr ) ) == ERROR_SUCCESS ? 0 : -1 );
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 //  For strange reasons this function is not working properly
@@ -246,5 +245,5 @@ HB_FUNC( HWG_REGDELETEVALUE )
 
    hb_retni( RegDeleteValue( ( HKEY ) hb_parnl(1),
                HB_PARSTRDEF( 2, &hValue, nullptr ) ) == ERROR_SUCCESS ? 0 : -1 );
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }

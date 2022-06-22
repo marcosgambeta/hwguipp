@@ -75,12 +75,12 @@ HB_FUNC( HWG_SETCAPTURE )
 
 HB_FUNC( HWG_RELEASECAPTURE )
 {
-   hb_retl( ReleaseCapture(  ) );
+   hb_retl( ReleaseCapture() );
 }
 
 HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 {
-   if( OpenClipboard( GetActiveWindow(  ) ) )
+   if( OpenClipboard( GetActiveWindow() ) )
    {
       HGLOBAL hglbCopy;
       char *lptstrCopy;
@@ -88,18 +88,18 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
       HB_SIZE nLen;
       LPCTSTR lpStr;
 
-      EmptyClipboard(  );
+      EmptyClipboard();
 
       lpStr = HB_PARSTRDEF( 1, &hStr, &nLen );
-      hglbCopy = GlobalAlloc( GMEM_DDESHARE, ( nLen + 1 ) * sizeof( TCHAR ) );
+      hglbCopy = GlobalAlloc( GMEM_DDESHARE, ( nLen + 1 ) * sizeof(TCHAR) );
       if( hglbCopy != nullptr )
       {
          // Lock the handle and copy the text to the buffer.
          lptstrCopy = ( char * ) GlobalLock( hglbCopy );
-         memcpy( lptstrCopy, lpStr, nLen * sizeof( TCHAR ) );
-         lptstrCopy[nLen * sizeof( TCHAR )] = 0;
+         memcpy(lptstrCopy, lpStr, nLen * sizeof(TCHAR));
+         lptstrCopy[nLen * sizeof(TCHAR)] = 0;
          GlobalUnlock( hglbCopy );
-         hb_strfree( hStr );
+         hb_strfree(hStr);
 
          // Place the handle on the clipboard.
 #ifdef UNICODE
@@ -108,7 +108,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
          SetClipboardData( CF_TEXT, hglbCopy );
 #endif
       }
-      CloseClipboard(  );
+      CloseClipboard();
    }
 }
 
@@ -132,14 +132,14 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
             HB_SIZE nSize = ( HB_SIZE ) GlobalSize( hglb );
             if( nSize )
             {
-               lpText = ( LPTSTR ) hb_xgrab( nSize + 1 );
-               memcpy( lpText, lpMem, nSize );
+               lpText = ( LPTSTR ) hb_xgrab(nSize + 1);
+               memcpy(lpText, lpMem, nSize);
                ((char*)lpText)[nSize] = 0;
             }
             ( void ) GlobalUnlock( hglb );
          }
       }
-      CloseClipboard(  );
+      CloseClipboard();
    }
    HB_RETSTR( lpText );
    if( lpText )
@@ -181,7 +181,7 @@ HB_FUNC( HWG_BITANDINVERSE )
 
 HB_FUNC( HWG_SETBIT )
 {
-   if( hb_pcount(  ) < 3 || hb_parni(3) )
+   if( hb_pcount() < 3 || hb_parni(3) )
       hb_retnl( hb_parnl(1) | ( 1 << ( hb_parni(2) - 1 ) ) );
    else
       hb_retnl( hb_parnl(1) & ~( 1 << ( hb_parni(2) - 1 ) ) );
@@ -231,7 +231,7 @@ HB_FUNC( HWG_SCREENTOCLIENT )
    PHB_ITEM aPoint = hb_itemArrayNew(2);
    PHB_ITEM temp;
 
-   if( hb_pcount(  ) > 2 )
+   if( hb_pcount() > 2 )
    {
       pt.x = hb_parnl(2);
       pt.y = hb_parnl(3);
@@ -329,7 +329,7 @@ HB_FUNC( HWG_GETKEYNAMETEXT )
 HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
 {
    void *hLayout;
-   LPCTSTR lpLayout = HB_PARSTR( 1, &hLayout, nullptr );
+   LPCTSTR lpLayout = HB_PARSTR(1, &hLayout, nullptr);
    HKL curr = GetKeyboardLayout( 0 );
    TCHAR sBuff[KL_NAMELENGTH];
    UINT num = GetKeyboardLayoutList( 0, nullptr ), i = 0;
@@ -347,7 +347,7 @@ HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
    if( i >= num )
       ActivateKeyboardLayout( curr, 0 );
 
-   hb_strfree( hLayout );
+   hb_strfree(hLayout);
 }
 
 /*
@@ -361,7 +361,7 @@ HB_FUNC( HWG_PTS2PIX )
    HDC hDC;
    BOOL lDC = 1;
 
-   if( hb_pcount(  ) > 1 && !HB_ISNIL(1) )
+   if( hb_pcount() > 1 && !HB_ISNIL(1) )
    {
       hDC = static_cast<HDC>(HB_PARHANDLE(2));
       lDC = 0;
@@ -417,8 +417,8 @@ HB_FUNC( HWG_SHELLABOUT )
                HB_PARSTRDEF( 1, &hStr1, nullptr ),
                HB_PARSTRDEF( 2, &hStr2, nullptr ),
                ( HB_ISNIL(3) ? nullptr : ( HICON ) HB_PARHANDLE(3) ) ) );
-   hb_strfree( hStr1 );
-   hb_strfree( hStr2 );
+   hb_strfree(hStr1);
+   hb_strfree(hStr2);
 }
 
 
@@ -465,9 +465,9 @@ HB_FUNC( HWG_WINHELP )
          context = 0;
    }
 
-   hb_retni( WinHelp( static_cast<HWND>(HB_PARHANDLE(1)), HB_PARSTR( 2, &hStr, nullptr ),
+   hb_retni( WinHelp( static_cast<HWND>(HB_PARHANDLE(1)), HB_PARSTR(2, &hStr, nullptr),
                style, context ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_GETNEXTDLGTABITEM )
@@ -513,28 +513,28 @@ HB_FUNC( HWG_KEYB_EVENT )
 HB_FUNC( HWG_SETSCROLLINFO )
 {
    SCROLLINFO si;
-   UINT fMask = ( hb_pcount(  ) < 4 ) ? SIF_DISABLENOSCROLL : 0;
+   UINT fMask = ( hb_pcount() < 4 ) ? SIF_DISABLENOSCROLL : 0;
 
-   if( hb_pcount(  ) > 3 && !HB_ISNIL(4) )
+   if( hb_pcount() > 3 && !HB_ISNIL(4) )
    {
       si.nPos = hb_parni(4);
       fMask |= SIF_POS;
    }
 
-   if( hb_pcount(  ) > 4 && !HB_ISNIL(5) )
+   if( hb_pcount() > 4 && !HB_ISNIL(5) )
    {
       si.nPage = hb_parni(5);
       fMask |= SIF_PAGE;
    }
 
-   if( hb_pcount(  ) > 5 && !HB_ISNIL(6) )
+   if( hb_pcount() > 5 && !HB_ISNIL(6) )
    {
       si.nMin = 0;
       si.nMax = hb_parni(6);
       fMask |= SIF_RANGE;
    }
 
-   si.cbSize = sizeof( SCROLLINFO );
+   si.cbSize = sizeof(SCROLLINFO);
    si.fMask = fMask;
 
    SetScrollInfo( static_cast<HWND>(HB_PARHANDLE(1)),   // handle of window with scroll bar
@@ -552,7 +552,7 @@ HB_FUNC( HWG_GETSCROLLRANGE )
          &MinPos,               // address of variable that receives minimum position
          &MaxPos                // address of variable that receives maximum position
           );
-   if( hb_pcount(  ) > 2 )
+   if( hb_pcount() > 2 )
    {
       hb_storni( MinPos, 3 );
       hb_storni( MaxPos, 4 );
@@ -616,44 +616,44 @@ HB_FUNC( HWG_ISSCROLLLOCKACTIVE )
 HB_FUNC( HWG_CREATEDIRECTORY )
 {
    void *hStr;
-   CreateDirectory( HB_PARSTR( 1, &hStr, nullptr ), nullptr );
-   hb_strfree( hStr );
+   CreateDirectory( HB_PARSTR(1, &hStr, nullptr), nullptr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_REMOVEDIRECTORY )
 {
    void *hStr;
-   hb_retl( RemoveDirectory( HB_PARSTR( 1, &hStr, nullptr ) ) );
-   hb_strfree( hStr );
+   hb_retl( RemoveDirectory( HB_PARSTR(1, &hStr, nullptr) ) );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_SETCURRENTDIRECTORY )
 {
    void *hStr;
-   SetCurrentDirectory( HB_PARSTR( 1, &hStr, nullptr ) );
-   hb_strfree( hStr );
+   SetCurrentDirectory( HB_PARSTR(1, &hStr, nullptr) );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_DELETEFILE )
 {
    void *hStr;
-   hb_retl( DeleteFile( HB_PARSTR( 1, &hStr, nullptr ) ) );
-   hb_strfree( hStr );
+   hb_retl( DeleteFile( HB_PARSTR(1, &hStr, nullptr) ) );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_GETFILEATTRIBUTES )
 {
    void *hStr;
-   hb_retnl( ( LONG ) GetFileAttributes( HB_PARSTR( 1, &hStr, nullptr ) ) );
-   hb_strfree( hStr );
+   hb_retnl( ( LONG ) GetFileAttributes( HB_PARSTR(1, &hStr, nullptr) ) );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_SETFILEATTRIBUTES )
 {
    void *hStr;
-   hb_retl( SetFileAttributes( HB_PARSTR( 1, &hStr, nullptr ),
+   hb_retl( SetFileAttributes( HB_PARSTR(1, &hStr, nullptr),
                static_cast<DWORD>(hb_parnl(2)) ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 /* Add by Richard Roesnadi (based on What32) */
@@ -777,7 +777,7 @@ HB_FUNC( HWG_OUTPUTDEBUGSTRING )
 {
    void *hStr;
    OutputDebugString( HB_PARSTRDEF( 1, &hStr, nullptr ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_GETSYSTEMMETRICS )
@@ -873,10 +873,10 @@ HB_FUNC( HWG_PROCESSRUN )
    sa.lpSecurityDescriptor = nullptr;
    sa.bInheritHandle = TRUE;
 
-   hOut = CreateFile( HB_PARSTR( 1, &hStr, nullptr ), GENERIC_WRITE, 0, &sa,
+   hOut = CreateFile( HB_PARSTR(1, &hStr, nullptr), GENERIC_WRITE, 0, &sa,
       CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0 );
 
-   hb_strfree( hStr );
+   hb_strfree(hStr);
    ZeroMemory( &si, sizeof(si) );
    si.cb = sizeof(si);
    si.wShowWindow = SW_HIDE;
@@ -887,7 +887,7 @@ HB_FUNC( HWG_PROCESSRUN )
 
    // Start the child process. 
    if( !CreateProcess( nullptr,   // No module name (use command line)
-       (LPTSTR)HB_PARSTR( 1, &hStr, nullptr ),  // Command line
+       (LPTSTR)HB_PARSTR(1, &hStr, nullptr),  // Command line
        nullptr,           // Process handle not inheritable
        nullptr,           // Thread handle not inheritable
        TRUE,          // Set handle inheritance to FALSE
@@ -898,12 +898,12 @@ HB_FUNC( HWG_PROCESSRUN )
        &pi )           // Pointer to PROCESS_INFORMATION structure
    )
    {
-       hb_strfree( hStr );
+       hb_strfree(hStr);
        hb_ret();
        return;
    }
 
-   hb_strfree( hStr );
+   hb_strfree(hStr);
    // Wait until child process exits.
    WaitForSingleObject( pi.hProcess, INFINITE );
 
@@ -960,9 +960,9 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    si.hStdOutput = g_hChildStd_OUT_Wr;
    si.hStdError = g_hChildStd_OUT_Wr;
 
-   bSuccess = CreateProcess( nullptr, (LPTSTR)HB_PARSTR( 1, &hStr, nullptr ), nullptr, nullptr,
+   bSuccess = CreateProcess( nullptr, (LPTSTR)HB_PARSTR(1, &hStr, nullptr), nullptr, nullptr,
       TRUE, CREATE_NEW_CONSOLE, nullptr, nullptr, &si, &pi);
-   hb_strfree( hStr );
+   hb_strfree(hStr);
    
    if ( ! bSuccess ) 
    {
@@ -978,9 +978,9 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 
    if( !HB_ISNIL(2) )
    {
-      hOut = CreateFile( HB_PARSTR( 2, &hStr, nullptr ), GENERIC_WRITE, 0, 0,
+      hOut = CreateFile( HB_PARSTR(2, &hStr, nullptr), GENERIC_WRITE, 0, 0,
              CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0 );
-      hb_strfree( hStr );
+      hb_strfree(hStr);
    }
    while( 1 )
    { 
@@ -1018,7 +1018,7 @@ HB_FUNC( HWG_RUNAPP )
       ZeroMemory( &pi, sizeof(pi) );
 
       CreateProcess( nullptr,   // No module name (use command line)
-          (LPTSTR)HB_PARSTR( 1, &hStr, nullptr ),  // Command line
+          (LPTSTR)HB_PARSTR(1, &hStr, nullptr),  // Command line
           nullptr,           // Process handle not inheritable
           nullptr,           // Thread handle not inheritable
           FALSE,          // Set handle inheritance to FALSE
@@ -1027,7 +1027,7 @@ HB_FUNC( HWG_RUNAPP )
           nullptr,           // Use parent's starting directory 
           &si,            // Pointer to STARTUPINFO structure
           &pi );          // Pointer to PROCESS_INFORMATION structure
-      hb_strfree( hStr );
+      hb_strfree(hStr);
    }
 }
 

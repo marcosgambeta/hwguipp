@@ -20,7 +20,7 @@ static PHB_ITEM pFontsItemLast, pFontsItem;
 
 HB_FUNC( HWG_DEFINEPAINTSTRU )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab( sizeof( PAINTSTRUCT ) );
+   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof(PAINTSTRUCT));
    HB_RETHANDLE( pps );
 }
 
@@ -47,7 +47,7 @@ HB_FUNC( HWG_TEXTOUT )
 {
    void *hText;
    HB_SIZE nLen;
-   LPCTSTR lpText = HB_PARSTR( 4, &hText, &nLen );
+   LPCTSTR lpText = HB_PARSTR(4, &hText, &nLen);
 
    TextOut( static_cast<HDC>(HB_PARHANDLE(1)),  // handle of device context
          hb_parni(2),         // x-coordinate of starting position
@@ -55,20 +55,20 @@ HB_FUNC( HWG_TEXTOUT )
          lpText,                // address of string
          nLen                   // number of characters in string
           );
-   hb_strfree( hText );
+   hb_strfree(hText);
 }
 
 HB_FUNC( HWG_DRAWTEXT )
 {
    void *hText;
    HB_SIZE nLen;
-   LPCTSTR lpText = HB_PARSTR( 2, &hText, &nLen );
+   LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
    RECT rc;
-   UINT uFormat = ( hb_pcount(  ) == 4 ? hb_parni(4) : hb_parni(7) );
-   // int uiPos = ( hb_pcount(  ) == 4 ? 3 : hb_parni(8) );
+   UINT uFormat = ( hb_pcount() == 4 ? hb_parni(4) : hb_parni(7) );
+   // int uiPos = ( hb_pcount() == 4 ? 3 : hb_parni(8) );
    int heigh;
 
-   if( hb_pcount(  ) > 4 )
+   if( hb_pcount() > 4 )
    {
 
       rc.left = hb_parni(3);
@@ -87,7 +87,7 @@ HB_FUNC( HWG_DRAWTEXT )
          lpText,                // address of string
          nLen,                  // number of characters in string
          &rc, uFormat );
-   hb_strfree( hText );
+   hb_strfree(hText);
 
    //if( HB_ISBYREF( uiPos ) )
    if( HB_ISARRAY(8) )
@@ -152,13 +152,13 @@ HB_FUNC( HWG_GETTEXTSIZE )
 
    void *hText;
    HB_SIZE nLen;
-   LPCTSTR lpText = HB_PARSTR( 2, &hText, &nLen );
+   LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
    SIZE sz;
    PHB_ITEM aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;
 
    GetTextExtentPoint32( static_cast<HDC>(HB_PARHANDLE(1)), lpText, nLen, &sz );
-   hb_strfree( hText );
+   hb_strfree(hText);
 
    temp = hb_itemPutNL( nullptr, sz.cx );
    hb_itemArrayPut( aMetr, 1, temp );
@@ -297,12 +297,12 @@ HB_FUNC( HWG_GETTEXTSIZE )
    PHB_ITEM temp;
    void * hString;
 
-   GetTextExtentPoint32( hdc, HB_PARSTR( 2, &hString, nullptr ),
+   GetTextExtentPoint32( hdc, HB_PARSTR(2, &hString, nullptr),
       lpString,         // address of text string
       strlen(cbString), // number of characters in string
       &size            // address of structure for string size
    );
-   hb_strfree( hString );
+   hb_strfree(hString);
 
    temp = hb_itemPutNI( nullptr, size.cx );
    hb_itemArrayPut( aMetr, 1, temp );
@@ -324,7 +324,7 @@ HB_FUNC( HWG_EXTTEXTOUT )
    RECT rc;
    void *hText;
    HB_SIZE nLen;
-   LPCTSTR lpText = HB_PARSTR( 8, &hText, &nLen );
+   LPCTSTR lpText = HB_PARSTR(8, &hText, &nLen);
 
    rc.left = hb_parni(4);
    rc.top = hb_parni(5);
@@ -340,15 +340,15 @@ HB_FUNC( HWG_EXTTEXTOUT )
          nLen,                  // number of characters in string
          nullptr                   // pointer to array of intercharacter spacing values
           );
-   hb_strfree( hText );
+   hb_strfree(hText);
 }
 
 HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    void *hString;
    SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), SB_SETTEXT, hb_parni(2),
-         ( LPARAM ) HB_PARSTR( 3, &hString, nullptr ) );
-   hb_strfree( hString );
+         ( LPARAM ) HB_PARSTR(3, &hString, nullptr) );
+   hb_strfree(hString);
 }
 
 HB_FUNC( HWG_WINDOWFROMDC )
@@ -382,9 +382,9 @@ HB_FUNC( HWG_CREATEFONT )
          0,                     // clipping precision
          0,                     // output quality
          0,                     // pitch and family
-         HB_PARSTR( 1, &hString, nullptr ) // pointer to typeface name string
+         HB_PARSTR(1, &hString, nullptr) // pointer to typeface name string
           );
-   hb_strfree( hString );
+   hb_strfree(hString);
    HB_RETHANDLE( hFont );
 }
 
@@ -440,7 +440,7 @@ HB_FUNC( HWG_CREATEFONTINDIRECT )
 {
    LOGFONT lf;
    HFONT f;
-   memset( &lf, 0, sizeof( LOGFONT ) );
+   memset(&lf, 0, sizeof(LOGFONT));
    lf.lfQuality = hb_parni(4);
    lf.lfHeight = hb_parni(3);
    lf.lfWeight = hb_parni(2);

@@ -135,13 +135,13 @@ void cxdib_Clone( PCXDIB pdib, PCXDIB src )
 {
    cxdib_Create( pdib, src->m_bi.biWidth,src->m_bi.biHeight,src->m_bi.biBitCount );
    if( pdib->hDib )
-      memcpy( pdib->hDib, src->hDib, cxdib_GetSize( pdib ) );
+      memcpy(pdib->hDib, src->hDib, cxdib_GetSize(pdib));
 }
 
 void cxdib_Clear( PCXDIB pdib, BYTE bval )
 {
    if( pdib->hDib )
-      memset( cxdib_GetBits( pdib ), bval, pdib->m_bi.biSizeImage );
+      memset(cxdib_GetBits(pdib), bval, pdib->m_bi.biSizeImage);
 }
 
 HDIB cxdib_Create( PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount )
@@ -301,7 +301,7 @@ PCXSHADE cxshade_New( RECT * prect, BOOL lFlat )
 {
    PCXSHADE pshade = (PCXSHADE) malloc( sizeof(CXSHADE) );
 
-   memset( pshade, 0, sizeof(CXSHADE) );
+   memset(pshade, 0, sizeof(CXSHADE));
    SetRect( &(pshade->m_rect), prect->left, prect->top, prect->right, prect->bottom );
    pshade->m_Border = 1;                   //draw 3D border
    pshade->m_FocusRectMargin = 4;          //focus dotted rect margin

@@ -62,8 +62,8 @@ HB_FUNC( HWG_SELECTFOLDER )
    void *hFolderName;
    LPCTSTR lpFolderName;
 
-   lpFolderName = HB_PARSTR( 2, &hFolderName, nullptr );
-   bi.hwndOwner = GetActiveWindow(  );
+   lpFolderName = HB_PARSTR(2, &hFolderName, nullptr);
+   bi.hwndOwner = GetActiveWindow();
    bi.pidlRoot = nullptr;
    bi.pszDisplayName = lpBuffer;
    bi.lpszTitle = HB_PARSTRDEF( 1, &hTitle, nullptr );
@@ -81,8 +81,8 @@ HB_FUNC( HWG_SELECTFOLDER )
       CoTaskMemFree( pidlBrowse );
    }
    HB_RETSTR( lpResult );
-   hb_strfree( hTitle );
-   hb_strfree( hFolderName );
+   hb_strfree(hTitle);
+   hb_strfree(hFolderName);
 }
 
 /*
@@ -93,9 +93,9 @@ HB_FUNC( HWG_SHELLNOTIFYICON )
 {
    NOTIFYICONDATA tnid;
 
-   memset( ( void * ) &tnid, 0, sizeof( NOTIFYICONDATA ) );
+   memset(( void * ) &tnid, 0, sizeof(NOTIFYICONDATA));
 
-   tnid.cbSize = sizeof( NOTIFYICONDATA );
+   tnid.cbSize = sizeof(NOTIFYICONDATA);
    tnid.hWnd = static_cast<HWND>(HB_PARHANDLE(2));
    tnid.uID = ID_NOTIFYICON;
    tnid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
@@ -118,9 +118,9 @@ HB_FUNC( HWG_SHELLMODIFYICON )
 {
    NOTIFYICONDATA tnid;
 
-   memset( ( void * ) &tnid, 0, sizeof( NOTIFYICONDATA ) );
+   memset(( void * ) &tnid, 0, sizeof(NOTIFYICONDATA));
 
-   tnid.cbSize = sizeof( NOTIFYICONDATA );
+   tnid.cbSize = sizeof(NOTIFYICONDATA);
    tnid.hWnd = static_cast<HWND>(HB_PARHANDLE(1));
    tnid.uID = ID_NOTIFYICON;
    if( HB_ISNUM(2) || HB_ISPOINTER(2) )
@@ -151,20 +151,20 @@ HB_FUNC( HWG_SHELLEXECUTE )
    void *hDirectory;
    LPCTSTR lpDirectory;
 
-   lpDirectory = HB_PARSTR( 4, &hDirectory, nullptr );
+   lpDirectory = HB_PARSTR(4, &hDirectory, nullptr);
    if( lpDirectory == nullptr )
       lpDirectory = TEXT( "C:\\" );
 
-   hb_retnl( ( LONG ) ShellExecute( GetActiveWindow(  ),
+   hb_retnl( ( LONG ) ShellExecute( GetActiveWindow(),
                HB_PARSTRDEF( 2, &hOperation, nullptr ),
-               HB_PARSTR( 1, &hFile, nullptr ),
-               HB_PARSTR( 3, &hParameters, nullptr ),
+               HB_PARSTR(1, &hFile, nullptr),
+               HB_PARSTR(3, &hParameters, nullptr),
                lpDirectory, HB_ISNUM(5) ? hb_parni(5) : SW_SHOWNORMAL ) );
 
-   hb_strfree( hOperation );
-   hb_strfree( hFile );
-   hb_strfree( hParameters );
-   hb_strfree( hDirectory );
+   hb_strfree(hOperation);
+   hb_strfree(hFile);
+   hb_strfree(hParameters);
+   hb_strfree(hDirectory);
 #endif
 }
 

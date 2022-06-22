@@ -23,8 +23,8 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
    void * hString;
 
    SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), LB_ADDSTRING, 0,
-                ( LPARAM ) HB_PARSTR( 2, &hString, nullptr ) );
-   hb_strfree( hString );
+                ( LPARAM ) HB_PARSTR(2, &hString, nullptr) );
+   hb_strfree(hString);
 }
 
 HB_FUNC( HWG_LISTBOXSETSTRING )

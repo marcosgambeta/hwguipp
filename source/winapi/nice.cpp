@@ -141,7 +141,7 @@ LRESULT CALLBACK NiceButtProc( HWND hWnd, UINT message, WPARAM wParam,
    if( ( pSymTest = hb_dynsymFind( "HWG_NICEBUTTPROC" ) ) != nullptr )
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSymTest ) );
-      hb_vmPushNil(  );         /* places NIL at self */
+      hb_vmPushNil();         /* places NIL at self */
       //hb_vmPushLong( ( LONG ) hWnd );   /* pushes parameters on to the hvm stack */
       HB_PUSHITEM( hWnd );
       hb_vmPushLong( ( LONG ) message );
@@ -213,14 +213,14 @@ HB_FUNC( HWG_CREATENICEBTN )
    void *hTitle;
 
    hWndPanel = CreateWindowEx( hb_parni(8), TEXT( "NICEBUTT" ),       /* predefined class  */
-         HB_PARSTR( 9, &hTitle, nullptr ), /* no window title   */
+         HB_PARSTR(9, &hTitle, nullptr), /* no window title   */
          WS_CHILD | WS_VISIBLE | ulStyle,       /* style  */
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
-   hb_strfree( hTitle );
+   hb_strfree(hTitle);
 
    HB_RETHANDLE( hWndPanel );
 }
@@ -251,9 +251,9 @@ HB_FUNC( HWG_GRADIENT )
 
    Gradient( static_cast<HDC>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3),
          hb_parni(4), hb_parni(5),
-         ( hb_pcount(  ) > 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 16777215,
-         ( hb_pcount(  ) > 6 && !HB_ISNIL(7) ) ? hb_parni(7) : 16777215,
-         ( hb_pcount(  ) > 7 && !HB_ISNIL(8) ) ? hb_parni(8) : 0 );
+         ( hb_pcount() > 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 16777215,
+         ( hb_pcount() > 6 && !HB_ISNIL(7) ) ? hb_parni(7) : 16777215,
+         ( hb_pcount() > 7 && !HB_ISNIL(8) ) ? hb_parni(8) : 0 );
 }
 
 HB_FUNC( HWG_MAKELONG )

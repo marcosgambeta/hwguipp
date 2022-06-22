@@ -156,7 +156,7 @@ BOOL s_freeImgInit( void )
       hFreeImageDll = LoadLibrary( TEXT( "FreeImage.dll" ) );
       if( !hFreeImageDll )
       {
-         MessageBox( GetActiveWindow(  ), TEXT( "Library not loaded" ),
+         MessageBox( GetActiveWindow(), TEXT( "Library not loaded" ),
                TEXT( "FreeImage.dll" ), MB_OK | MB_ICONSTOP );
          return 0;
       }
@@ -168,7 +168,7 @@ static FARPROC s_getFunction( FARPROC h, LPCSTR funcname )
 {
    if( !h )
    {
-      if( !hFreeImageDll && !s_freeImgInit(  ) )
+      if( !hFreeImageDll && !s_freeImgInit() )
          return ( FARPROC ) nullptr;
       else
          return GetProcAddress( hFreeImageDll, funcname );
@@ -179,7 +179,7 @@ static FARPROC s_getFunction( FARPROC h, LPCSTR funcname )
 
 HB_FUNC( HWG_FI_INIT )
 {
-   hb_retl( s_freeImgInit(  ) );
+   hb_retl( s_freeImgInit() );
 }
 
 HB_FUNC( HWG_FI_END )
@@ -233,7 +233,7 @@ HB_FUNC( HWG_FI_VERSION )
    FREEIMAGE_GETVERSION pFunc = ( FREEIMAGE_GETVERSION ) s_getFunction( nullptr,
          "_FreeImage_GetVersion@0" );
 
-   hb_retc( ( pFunc ) ? pFunc(  ) : "" );
+   hb_retc( ( pFunc ) ? pFunc() : "" );
 }
 
 HB_FUNC( HWG_FI_UNLOAD )
@@ -259,7 +259,7 @@ HB_FUNC( HWG_FI_LOAD )
    {
       const char *name = hb_parc(1);
       hb_retnl( ( ULONG ) pLoad( pGetfiffromfile( name ), name,
-                  ( hb_pcount(  ) > 1 ) ? hb_parni(2) : 0 ) );
+                  ( hb_pcount() > 1 ) ? hb_parni(2) : 0 ) );
    }
    else
       hb_retnl( 0 );
@@ -278,7 +278,7 @@ HB_FUNC( HWG_FI_LOADTYPE )
    {
       const char *name = hb_parc(2);
       hb_retnl( ( ULONG ) pLoad( ( enum FREE_IMAGE_FORMAT ) hb_parni(1),
-                  name, ( hb_pcount(  ) > 2 ) ? hb_parni(3) : 0 ) );
+                  name, ( hb_pcount() > 2 ) ? hb_parni(3) : 0 ) );
    }
    else
       hb_retnl( 0 );
@@ -298,7 +298,7 @@ HB_FUNC( HWG_FI_SAVE )
       const char *name = hb_parc(2);
       hb_retl( ( BOOL ) pSave( pGetfiffromfile( name ),
                   ( FIBITMAP * ) hb_parnl(1), name,
-                  ( hb_pcount(  ) > 2 ) ? hb_parni(3) : 0 ) );
+                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0 ) );
    }
    else
       hb_retl( FALSE );
@@ -318,7 +318,7 @@ HB_FUNC( HWG_FI_SAVETYPE )
       const char *name = hb_parc(3);
       hb_retl( ( BOOL ) pSave( ( enum FREE_IMAGE_FORMAT ) hb_parni(1),
                   ( FIBITMAP * ) hb_parnl(2), name,
-                  ( hb_pcount(  ) > 3 ) ? hb_parni(4) : 0 ) );
+                  ( hb_pcount() > 3 ) ? hb_parni(4) : 0 ) );
    }
    else
       hb_retl( FALSE );
@@ -408,7 +408,7 @@ static HANDLE CreateDIB( DWORD dwWidth, DWORD dwHeight, WORD wBitCount )
       wBitCount = 4;            // set default value to 4 if parameter is bogus
 
    // initialize BITMAPINFOHEADER
-   bi.biSize = sizeof( BITMAPINFOHEADER );
+   bi.biSize = sizeof(BITMAPINFOHEADER);
    bi.biWidth = dwWidth;        // fill in width from parameter
    bi.biHeight = dwHeight;      // fill in height from parameter
    bi.biPlanes = 1;             // must be 1
@@ -490,8 +490,7 @@ HB_FUNC( HWG_FI_FI2DIB )
    {
       /* int scan_width = pGetPitch( dib ); unused */
       LPBITMAPINFO lpbi = ( LPBITMAPINFO ) GlobalLock( hdib );
-      memcpy( ( LPBYTE ) ( ( BYTE * ) lpbi ) + lpbi->bmiHeader.biSize,
-            pGetbits( dib ), lpbi->bmiHeader.biSizeImage );
+      memcpy(( LPBYTE )(( BYTE * ) lpbi) + lpbi->bmiHeader.biSize, pGetbits(dib), lpbi->bmiHeader.biSizeImage);
       GlobalUnlock( hdib );
       hb_retnl( ( LONG ) hdib );
    }
@@ -555,42 +554,42 @@ HB_FUNC( HWG_FI_FI2DIBEX )
    if( _dib )
    {
       // Get equivalent DIB size
-      long dib_size = sizeof( BITMAPINFOHEADER );
+      long dib_size = sizeof(BITMAPINFOHEADER);
       BYTE *dib;
       BYTE *p_dib, *bits;
       BITMAPINFOHEADER *bih;
       RGBQUAD *pal;
 
-      dib_size += pGetColorsUsed( _dib ) * sizeof( RGBQUAD );
+      dib_size += pGetColorsUsed( _dib ) * sizeof(RGBQUAD);
       dib_size += pGetPitch( _dib ) * pGetheight( _dib );
 
       // Allocate a DIB
       hMem = GlobalAlloc( GHND, dib_size );
       dib = ( BYTE * ) GlobalLock( hMem );
 
-      memset( dib, 0, dib_size );
+      memset(dib, 0, dib_size);
 
       p_dib = ( BYTE * ) dib;
 
       // Copy the BITMAPINFOHEADER
       bih = pGetinfoHead( _dib );
-      memcpy( p_dib, bih, sizeof( BITMAPINFOHEADER ) );
+      memcpy(p_dib, bih, sizeof(BITMAPINFOHEADER));
 
       if( pGetImageType( _dib ) != 1 /*FIT_BITMAP */  )
       {
          // this hack is used to store the bitmap type in the biCompression member of the BITMAPINFOHEADER
          SET_FREEIMAGE_MARKER( ( BITMAPINFOHEADER * ) p_dib, _dib );
       }
-      p_dib += sizeof( BITMAPINFOHEADER );
+      p_dib += sizeof(BITMAPINFOHEADER);
 
       // Copy the palette
       pal = pGetPalette( _dib );
-      memcpy( p_dib, pal, pGetColorsUsed( _dib ) * sizeof( RGBQUAD ) );
-      p_dib += pGetColorsUsed( _dib ) * sizeof( RGBQUAD );
+      memcpy(p_dib, pal, pGetColorsUsed(_dib) * sizeof(RGBQUAD));
+      p_dib += pGetColorsUsed( _dib ) * sizeof(RGBQUAD);
 
       // Copy the bitmap
       bits = pGetbits( _dib );
-      memcpy( p_dib, bits, pGetPitch( _dib ) * pGetheight( _dib ) );
+      memcpy(p_dib, bits, pGetPitch(_dib) * pGetheight(_dib));
 
       GlobalUnlock( hMem );
    }
@@ -608,7 +607,7 @@ HB_FUNC( HWG_FI_DRAW )
    // char cres[40];
    // BOOL l;
 
-   if( hb_pcount(  ) > 6 && !HB_ISNIL(7) )
+   if( hb_pcount() > 6 && !HB_ISNIL(7) )
    {
       nDestWidth = hb_parni(7);
       nDestHeight = hb_parni(8);
@@ -671,7 +670,7 @@ HB_FUNC( HWG_FI_BMP2FI )
       {
          HDC hDC = GetDC( nullptr );
 
-         GetObject( hbmp, sizeof( BITMAP ), ( LPVOID ) & bm );
+         GetObject( hbmp, sizeof(BITMAP), ( LPVOID ) & bm );
          dib = pAllocate( bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0 );
          GetDIBits( hDC, hbmp, 0, pGetheight( dib ),
                pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS );
@@ -691,7 +690,7 @@ static int ColorCount( int bpp )
 
 static int BmiColorCount( LPBITMAPINFOHEADER lpbi )
 {
-   if( lpbi->biSize == sizeof( BITMAPCOREHEADER ) )
+   if( lpbi->biSize == sizeof(BITMAPCOREHEADER) )
    {
       LPBITMAPCOREHEADER lpbc = ( ( LPBITMAPCOREHEADER ) lpbi );
       return 1 << lpbc->bcBitCount;
@@ -715,7 +714,7 @@ static LPBYTE DibBits( LPBITMAPINFOHEADER lpdib )
 // Given a pointer to a locked DIB, return a pointer to the actual bits (pixels)
 {
    DWORD dwColorTableSize =
-         static_cast<DWORD>( DibNumColors( lpdib ) * sizeof( RGBQUAD ) );
+         static_cast<DWORD>( DibNumColors( lpdib ) * sizeof(RGBQUAD) );
    LPBYTE lpBits = ( LPBYTE ) lpdib + lpdib->biSize + dwColorTableSize;
 
    return lpBits;
@@ -848,7 +847,7 @@ unsigned DLL_CALLCONV _ReadProc( void *buffer, unsigned size, unsigned count,
 
    for( u = 0; u < count; u++ )
    {
-      memcpy( tmp, g_load_address, size );
+      memcpy(tmp, g_load_address, size);
       g_load_address = ( BYTE * ) g_load_address + size;
       tmp += size;
    }
@@ -920,7 +919,7 @@ HB_FUNC( HWG_FI_LOADFROMMEM )
 
       g_load_address = ( fi_handle ) image;
       hb_retnl( ( LONG ) pLoadFromHandle( fif, &io, ( fi_handle ) image,
-                  ( hb_pcount(  ) > 2 ) ? hb_parni(3) : 0 ) );
+                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0 ) );
    }
    else
       hb_retnl( 0 );
@@ -965,7 +964,7 @@ HB_FUNC( HWG_FI_SETDOTSPERMETERX )
    if( pSetDotsPerMeterX )
       pSetDotsPerMeterX( ( FIBITMAP * ) hb_parnl(1), hb_parnl(2) );
 
-   hb_ret(  );
+   hb_ret();
 }
 
 HB_FUNC( HWG_FI_SETDOTSPERMETERY )
@@ -977,7 +976,7 @@ HB_FUNC( HWG_FI_SETDOTSPERMETERY )
    if( pSetDotsPerMeterY )
       pSetDotsPerMeterY( ( FIBITMAP * ) hb_parnl(1), hb_parnl(2) );
 
-   hb_ret(  );
+   hb_ret();
 }
 
 

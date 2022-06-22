@@ -60,10 +60,10 @@ HB_FUNC( HWG_CREATERICHEDIT )
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
 
-   lpText = HB_PARSTR( 8, &hText, nullptr );
+   lpText = HB_PARSTR(8, &hText, nullptr);
    if( lpText )
       SendMessage( hCtrl, WM_SETTEXT, 0, ( LPARAM ) lpText );
-   hb_strfree( hText );
+   hb_strfree(hText);
 
    HB_RETHANDLE( hCtrl );
 }
@@ -96,8 +96,8 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          chrNew.cpMax = hb_arrayGetNL( pArr1, 2 ) - 1;
          SendMessage( hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew );
 
-         memset( &cf, 0, sizeof( CHARFORMAT2 ) );
-         cf.cbSize = sizeof( CHARFORMAT2 );
+         memset(&cf, 0, sizeof(CHARFORMAT2));
+         cf.cbSize = sizeof(CHARFORMAT2);
          if( hb_itemType( hb_arrayGetItemPtr( pArr1, 3 ) ) != HB_IT_NIL )
          {
             cf.crTextColor = ( COLORREF ) hb_arrayGetNL( pArr1, 3 );
@@ -169,8 +169,8 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       chrNew.cpMax = hb_parnl(3) - 1;
       SendMessage( hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew );
 
-      memset( &cf, 0, sizeof( CHARFORMAT2 ) );
-      cf.cbSize = sizeof( CHARFORMAT2 );
+      memset(&cf, 0, sizeof(CHARFORMAT2));
+      cf.cbSize = sizeof(CHARFORMAT2);
 
       if( !HB_ISNIL(4) )
       {
@@ -240,8 +240,8 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    HWND hCtrl = static_cast<HWND>(HB_PARHANDLE(1));
    CHARFORMAT2 cf;
 
-   memset( &cf, 0, sizeof( CHARFORMAT2 ) );
-   cf.cbSize = sizeof( CHARFORMAT2 );
+   memset(&cf, 0, sizeof(CHARFORMAT2));
+   cf.cbSize = sizeof(CHARFORMAT2);
 
    if( HB_ISNUM(2) )
    {
@@ -316,8 +316,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
    tr.chrg.cpMin = hb_parnl(2) - 1;
    tr.chrg.cpMax = hb_parnl(3) - 1;
 
-   tr.lpstrText = ( LPTSTR ) hb_xgrab( ( tr.chrg.cpMax - tr.chrg.cpMin + 2 ) *
-         sizeof( TCHAR ) );
+   tr.lpstrText = ( LPTSTR ) hb_xgrab((tr.chrg.cpMax - tr.chrg.cpMin + 2) * sizeof(TCHAR));
    ul = SendMessage( hCtrl, EM_GETTEXTRANGE, 0, ( LPARAM ) & tr );
    HB_RETSTRLEN( tr.lpstrText, ul );
    hb_xfree( tr.lpstrText );
@@ -333,7 +332,7 @@ HB_FUNC( HWG_RE_GETLINE )
    int nLine = hb_parni(2);
    ULONG uLineIndex = SendMessage( hCtrl, EM_LINEINDEX, ( WPARAM ) nLine, 0 );
    ULONG ul = SendMessage( hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0 );
-   LPTSTR lpBuf = ( LPTSTR ) hb_xgrab( ( ul + 4 ) * sizeof( TCHAR ) );
+   LPTSTR lpBuf = ( LPTSTR ) hb_xgrab((ul + 4) * sizeof(TCHAR));
 
    *( ( ULONG * ) lpBuf ) = ul;
    ul = SendMessage( hCtrl, EM_GETLINE, nLine, ( LPARAM ) lpBuf );
@@ -345,8 +344,8 @@ HB_FUNC( HWG_RE_INSERTTEXT )
 {
    void *hString;
    SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), EM_REPLACESEL, 0,
-         ( LPARAM ) HB_PARSTR( 2, &hString, nullptr ) );
-   hb_strfree( hString );
+         ( LPARAM ) HB_PARSTR(2, &hString, nullptr) );
+   hb_strfree(hString);
 }
 
 /*
@@ -364,11 +363,11 @@ HB_FUNC( HWG_RE_FINDTEXT )
 
    ft.chrg.cpMin = ( HB_ISNIL(3) ) ? 0 : hb_parnl(3);
    ft.chrg.cpMax = -1;
-   ft.lpstrText = ( LPTSTR ) HB_PARSTR( 2, &hString, nullptr );
+   ft.lpstrText = ( LPTSTR ) HB_PARSTR(2, &hString, nullptr);
 
    lPos = ( LONG ) SendMessage( hCtrl, EM_FINDTEXTEX, ( WPARAM ) lFlag,
          ( LPARAM ) & ft );
-   hb_strfree( hString );
+   hb_strfree(hString);
    hb_retnl( lPos );
 }
 
@@ -508,7 +507,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
    LPCTSTR lpFileName;
    HB_SIZE nSize;
 
-   lpFileName = HB_PARSTR( 2, &hFileName, &nSize );
+   lpFileName = HB_PARSTR(2, &hFileName, &nSize);
    hFile =
          CreateFile( lpFileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
          FILE_ATTRIBUTE_NORMAL, nullptr );
@@ -536,7 +535,7 @@ HB_FUNC( HWG_LOADRICHEDIT )
    LPCTSTR lpFileName;
    HB_SIZE nSize;
 
-   lpFileName = HB_PARSTR( 2, &hFileName, &nSize );
+   lpFileName = HB_PARSTR(2, &hFileName, &nSize);
    hFile =
          CreateFile( lpFileName, GENERIC_READ, FILE_SHARE_READ, 0,
          OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, nullptr );
