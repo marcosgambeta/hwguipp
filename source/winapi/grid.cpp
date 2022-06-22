@@ -13,9 +13,6 @@
 
 #include "hwingui.h"
 #include <commctrl.h>
-#if defined(__POCC__) || defined(__XCC__)
-#include <unknwn.h>
-#endif
 #include <shlobj.h>
 #if defined(__DMC__)
 #include "missing.h"

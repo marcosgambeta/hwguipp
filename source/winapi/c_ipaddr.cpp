@@ -44,9 +44,6 @@
 
 #include "hwingui.h"
 
-#if defined(__POCC__) || defined(__XCC__)
-#include <unknwn.h>
-#endif
 #include <shlobj.h>
 
 #include "winreg.h"

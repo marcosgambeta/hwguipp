@@ -515,7 +515,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
    if( aWindows[0] )
    {
       hWnd = CreateMDIWindow(
-#if (((defined(_MSC_VER)&&(_MSC_VER<=1200))||defined(__DMC__))&&!defined(__XCC__)&&!defined(__POCC__))
+#if (((defined(_MSC_VER)&&(_MSC_VER<=1200))||defined(__DMC__)))
             ( LPSTR ) s_szChild,        // pointer to registered child class name
             ( LPSTR ) lpTitle,  // pointer to window name
 #else
