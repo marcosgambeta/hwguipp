@@ -48,7 +48,7 @@ HB_FUNC( HWG_SELECTFONT )
 
    cf.lStructSize = sizeof( CHOOSEFONT );
    cf.hwndOwner = static_cast<HWND>(nullptr);
-   cf.hDC = ( HDC ) nullptr;
+   cf.hDC = static_cast<HDC>(nullptr);
    cf.lpLogFont = &lf;
    cf.iPointSize = 0;
    cf.Flags = CF_SCREENFONTS | ( ( pObj ) ? CF_INITTOLOGFONTSTRUCT : 0 );
@@ -272,7 +272,7 @@ HB_FUNC( HWG_PRINTSETUP )
    // pd.hDevNames = (HANDLE) nullptr; 
    pd.Flags = PD_RETURNDC;
    pd.hwndOwner = GetActiveWindow(  );
-   // pd.hDC = (HDC) nullptr; 
+   // pd.hDC = static_cast<HDC>(nullptr); 
    pd.nFromPage = 1;
    pd.nToPage = 1;
    // pd.nMinPage = 0; 

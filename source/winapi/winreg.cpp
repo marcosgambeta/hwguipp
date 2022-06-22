@@ -211,10 +211,10 @@ HB_FUNC( HWG_REGCREATEKEYEX )
 
    nErr = RegCreateKeyEx( ( HKEY ) hb_parnl(1),
                           HB_PARSTRDEF( 2, &hValue, nullptr ),
-                          ( DWORD ) 0,
+                          static_cast<DWORD>(0),
                           ( LPTSTR ) HB_PARSTRDEF( 4, &hClass, nullptr ),
-                          ( DWORD ) hb_parnl(5),
-                          ( DWORD ) hb_parnl(6),
+                          static_cast<DWORD>(hb_parnl(5)),
+                          static_cast<DWORD>(hb_parnl(6)),
                           sa, &hkResult, &dwDisposition );
 
    if( nErr == ERROR_SUCCESS )

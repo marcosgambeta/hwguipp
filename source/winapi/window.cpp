@@ -498,7 +498,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
 {
    HWND hWnd = nullptr;
    PHB_ITEM pObj = hb_param( 1, HB_IT_OBJECT );
-   DWORD style = ( DWORD ) hb_itemGetNL( GetObjectVar( pObj, "STYLE" ) );
+   DWORD style = static_cast<DWORD>(hb_itemGetNL( GetObjectVar( pObj, "STYLE" ) ));
    int y = ( int ) hb_itemGetNL( GetObjectVar( pObj, "NTOP" ) );
    int x = ( int ) hb_itemGetNL( GetObjectVar( pObj, "NLEFT" ) );
    int width = ( int ) hb_itemGetNL( GetObjectVar( pObj, "NWIDTH" ) );

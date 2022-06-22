@@ -363,7 +363,7 @@ HB_FUNC( HWG_PTS2PIX )
 
    if( hb_pcount(  ) > 1 && !HB_ISNIL(1) )
    {
-      hDC = ( HDC ) HB_PARHANDLE(2);
+      hDC = static_cast<HDC>(HB_PARHANDLE(2));
       lDC = 0;
    }
    else
@@ -497,8 +497,8 @@ HB_FUNC( HWG_KEYB_EVENT )
    if( bAlt )
       keybd_event( VK_MENU, 0, 0, 0 );
 
-   keybd_event( ( BYTE ) hb_parni(1), 0, dwFlags, 0 );
-   keybd_event( ( BYTE ) hb_parni(1), 0, dwFlags | KEYEVENTF_KEYUP, 0 );
+   keybd_event( static_cast<BYTE>(hb_parni(1)), 0, dwFlags, 0 );
+   keybd_event( static_cast<BYTE>(hb_parni(1)), 0, dwFlags | KEYEVENTF_KEYUP, 0 );
 
    if( bShift )
       keybd_event( VK_SHIFT, 0, KEYEVENTF_KEYUP, 0 );
@@ -652,7 +652,7 @@ HB_FUNC( HWG_SETFILEATTRIBUTES )
 {
    void *hStr;
    hb_retl( SetFileAttributes( HB_PARSTR( 1, &hStr, nullptr ),
-               ( DWORD ) hb_parnl(2) ) );
+               static_cast<DWORD>(hb_parnl(2)) ) );
    hb_strfree( hStr );
 }
 
@@ -706,7 +706,7 @@ HB_FUNC( HWG_BUTTON1GETSCREENCLIENT )
 
 HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 {
-   HDC hdc = ( HDC ) HB_PARHANDLE(1);
+   HDC hdc = static_cast<HDC>(HB_PARHANDLE(1));
    //UINT h = hb_parni(2) ;
    PHB_ITEM pObject = hb_param( 3, HB_IT_OBJECT );
    PHB_ITEM p, p1, p2, temp;

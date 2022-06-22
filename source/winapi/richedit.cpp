@@ -57,7 +57,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
          hb_parni(4), hb_parni(5),  /* x, y   */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )(UINT_PTR) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
 
    lpText = HB_PARSTR( 8, &hText, nullptr );
@@ -138,7 +138,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          if( ulLen1 > 8 &&
                hb_itemType( hb_arrayGetItemPtr( pArr1, 9 ) ) != HB_IT_NIL )
          {
-            cf.bCharSet = ( BYTE ) hb_arrayGetNL( pArr1, 9 );
+            cf.bCharSet = static_cast<BYTE>(hb_arrayGetNL( pArr1, 9 ));
             cf.dwMask |= CFM_CHARSET;
          }
          if( ulLen1 > 9 &&
@@ -206,7 +206,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       }
       if( !HB_ISNIL(10) )
       {
-         cf.bCharSet = ( BYTE ) hb_parnl(10);
+         cf.bCharSet = static_cast<BYTE>(hb_parnl(10));
          cf.dwMask |= CFM_CHARSET;
       }
       if( !HB_ISNIL(11) )
@@ -277,7 +277,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
 
    if( HB_ISNUM(8) )
    {
-      cf.bCharSet = ( BYTE ) hb_parnl(8);
+      cf.bCharSet = static_cast<BYTE>(hb_parnl(8));
       cf.dwMask |= CFM_CHARSET;
    }
 
@@ -401,7 +401,7 @@ HB_FUNC( HWG_RE_GETZOOM )
 HB_FUNC( HWG_PRINTRTF )
 {
    HWND hwnd = static_cast<HWND>(HB_PARHANDLE(1));
-   HDC hdc = ( HDC ) HB_PARHANDLE(2);
+   HDC hdc = static_cast<HDC>(HB_PARHANDLE(2));
    FORMATRANGE fr;
    BOOL fSuccess = TRUE;
    int cxPhysOffset = GetDeviceCaps( hdc, PHYSICALOFFSETX );
@@ -517,7 +517,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
       hb_retni( 0 );
       return;
    }
-   es.dwCookie = ( DWORD ) hFile;
+   es.dwCookie = reinterpret_cast<DWORD>(hFile);
    es.pfnCallback = RichStreamOutCallback;
 
    SendMessage( hWnd, EM_STREAMOUT, ( WPARAM ) SF_RTF, ( LPARAM ) & es );

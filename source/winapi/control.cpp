@@ -148,7 +148,7 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
          y1,                    /* y */
          nwidth, nheight,       /* nWidth, nHeight */
          hParentWindow,         /* parent window    */
-         ( HMENU ) nullptr, GetModuleHandle( nullptr ), nullptr );
+         static_cast<HMENU>(nullptr), GetModuleHandle( nullptr ), nullptr );
 
    SendMessage( hPBar, PBM_SETRANGE, 0, MAKELPARAM( 0, hb_parni(2) ) );
    SendMessage( hPBar, PBM_SETSTEP, ( WPARAM ) 1, 0 );
@@ -202,7 +202,7 @@ HB_FUNC( HWG_CREATEPANEL )
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
 
    HB_RETHANDLE( hWndPanel );
@@ -221,7 +221,7 @@ HB_FUNC( HWG_CREATEOWNBTN )
          hb_parni(3), hb_parni(4),  /* x, y       */
          hb_parni(5), hb_parni(6),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
 
    HB_RETHANDLE( hWndPanel );
@@ -243,7 +243,7 @@ HB_FUNC( HWG_CREATESTATIC )
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ),
          nullptr );
 
@@ -277,7 +277,7 @@ HB_FUNC( HWG_CREATEBUTTON )
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* button       ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* button       ID  */
          GetModuleHandle( nullptr ),
          nullptr );
    hb_strfree( hStr );
@@ -305,7 +305,7 @@ HB_FUNC( HWG_CREATEEDIT )
          hb_parni(4), hb_parni(5),
          hb_parni(6), hb_parni(7),
          static_cast<HWND>(HB_PARHANDLE(1)),
-         ( HMENU )( UINT_PTR ) hb_parni(2), GetModuleHandle( nullptr ), nullptr );
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle( nullptr ), nullptr );
 
    if( hb_pcount() > 7 )
    {
@@ -332,7 +332,7 @@ HB_FUNC( HWG_CREATECOMBO )
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* combobox ID      */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* combobox ID      */
          GetModuleHandle( nullptr ),
          nullptr );
 
@@ -358,7 +358,7 @@ HB_FUNC( HWG_CREATEBROWSE )
          hb_parni(4), hb_parni(5),  /* x, y  */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
    hb_strfree( hStr );
 
@@ -390,7 +390,7 @@ HB_FUNC( HWG_CREATESTATUSWINDOW )
          WS_CHILD | WS_VISIBLE | WS_OVERLAPPED | WS_CLIPSIBLINGS,       // creates a child window
          0, 0, 0, 0,            // ignores size and position
          hwndParent,            // handle to parent window
-         ( HMENU )( UINT_PTR ) hb_parni(2),       // child window identifier
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       // child window identifier
          GetModuleHandle( nullptr ),       // handle to application instance
          nullptr );                // no window creation data
 
@@ -467,7 +467,7 @@ HB_FUNC( HWG_ADDTOOLTIP )
    if( !hWndTT )
       hWndTT = CreateWindow( TOOLTIPS_CLASS, nullptr, WS_POPUP | TTS_ALWAYSTIP | iStyle,
             CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-            nullptr, ( HMENU ) nullptr, GetModuleHandle( nullptr ), nullptr );
+            nullptr, static_cast<HMENU>(nullptr), GetModuleHandle( nullptr ), nullptr );
    if( !hWndTT )
    {
       hb_retl( 0 );
@@ -477,7 +477,7 @@ HB_FUNC( HWG_ADDTOOLTIP )
    ti.cbSize = sizeof( TOOLINFO );
    ti.uFlags = TTF_SUBCLASS | TTF_IDISHWND;
    ti.hwnd = GetParent( static_cast<HWND>(hWnd) );
-   ti.uId = ( UINT_PTR ) hWnd;
+   ti.uId = reinterpret_cast<UINT_PTR>(hWnd);
    ti.hinst = GetModuleHandle( nullptr );
    ti.lpszText = ( LPTSTR ) HB_PARSTR( 2, &hStr, nullptr );
 
@@ -497,7 +497,7 @@ HB_FUNC( HWG_DELTOOLTIP )
       ti.cbSize = sizeof( TOOLINFO );
       ti.uFlags = TTF_IDISHWND;
       ti.hwnd = GetParent( static_cast<HWND>(hWnd) );
-      ti.uId = ( UINT_PTR ) hWnd;
+      ti.uId = reinterpret_cast<UINT_PTR>(hWnd);
       ti.hinst = GetModuleHandle( nullptr );
 
       SendMessage( hWndTT, TTM_DELTOOL, 0, ( LPARAM ) ( LPTOOLINFO ) & ti );
@@ -516,7 +516,7 @@ HB_FUNC( HWG_SETTOOLTIPTITLE )
       ti.cbSize = sizeof( TOOLINFO );
       ti.uFlags = TTF_IDISHWND;
       ti.hwnd = GetParent( static_cast<HWND>(hWnd) );
-      ti.uId = ( UINT_PTR ) hWnd;
+      ti.uId = reinterpret_cast<UINT_PTR>(hWnd);
       ti.hinst = GetModuleHandle( nullptr );
       //ti.lpszText = ( LPTSTR ) HB_PARSTR( 3, &hStr, nullptr );
       ti.lpszText = ( LPTSTR ) HB_PARSTR( 2, &hStr, nullptr );
@@ -572,7 +572,7 @@ HB_FUNC( HWG_CREATEDATEPICKER )
          hb_parni(3), hb_parni(4),  /* x, y       */
          hb_parni(5), hb_parni(6),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
 
    HB_RETHANDLE( hCtrl );
@@ -683,7 +683,7 @@ HB_FUNC( HWG_CREATETABCONTROL )
 
    hTab = CreateWindow( WC_TABCONTROL, nullptr, WS_CHILD | WS_VISIBLE | hb_parnl(3),     /* style  */
          hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7), static_cast<HWND>(HB_PARHANDLE(1)),        /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
 
    HB_RETHANDLE( hTab );
@@ -813,7 +813,7 @@ HB_FUNC( HWG_CREATETREE )
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
 
    if( !HB_ISNIL(8) )
@@ -869,10 +869,10 @@ HB_FUNC( HWG_TREEADDNODE )
 
    if( tvi.mask & TVIF_IMAGE )
       if ( tvi.iImage )
-         DeleteObject( ( HGDIOBJ ) ( UINT_PTR ) tvi.iImage );
+         DeleteObject( ( HGDIOBJ ) static_cast<UINT_PTR>(tvi.iImage) );
    if( tvi.mask & TVIF_SELECTEDIMAGE )
       if ( tvi.iSelectedImage )
-         DeleteObject( ( HGDIOBJ ) ( UINT_PTR ) tvi.iSelectedImage );
+         DeleteObject( ( HGDIOBJ ) static_cast<UINT_PTR>(tvi.iSelectedImage) );
 
    hb_strfree( hStr );
 }
@@ -1136,7 +1136,7 @@ HB_FUNC( HWG_SETTIMER )
 {
    SetTimer( static_cast<HWND>(HB_PARHANDLE(1)), ( UINT ) hb_parni(2),
              ( UINT ) hb_parni(3),
-             hb_pcount() == 3 ?  ( TIMERPROC ) ( UINT_PTR ) s_timerProc : ( TIMERPROC ) ( UINT_PTR )  nullptr );
+             hb_pcount() == 3 ?  ( TIMERPROC ) reinterpret_cast<UINT_PTR>(s_timerProc) : ( TIMERPROC ) reinterpret_cast<UINT_PTR>(nullptr) );
 }
 
 /*
@@ -1794,7 +1794,7 @@ HB_FUNC( HWG_CREATETOOLBAR )
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ),
          nullptr );
 
@@ -1839,8 +1839,8 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
       else
          tb[ulCount].iBitmap = ulID - 1;   //ulID > 0 ? ( int ) ulCount : -1 ;
       tb[ulCount].idCommand = hb_arrayGetNI( pTemp, 2 );
-      tb[ulCount].fsState = (BYTE)hb_arrayGetNI( pTemp, 3 );
-      tb[ulCount].fsStyle = (BYTE)hb_arrayGetNI( pTemp, 4 );
+      tb[ulCount].fsState = static_cast<BYTE>(hb_arrayGetNI( pTemp, 3 ));
+      tb[ulCount].fsStyle = static_cast<BYTE>(hb_arrayGetNI( pTemp, 4 ));
       tb[ulCount].dwData = hb_arrayGetNI( pTemp, 5 );
       tb[ulCount].iString =
             hb_arrayGetCLen( pTemp, 6 ) > 0 ? ( INT_PTR ) hb_arrayGetCPtr( pTemp,
@@ -1879,9 +1879,9 @@ HB_FUNC( HWG_TOOLBAR_LOADIMAGE )
 
    tbab.hInst = nullptr;
    if ( HB_ISPOINTER(2) )
-      tbab.nID = ( UINT_PTR ) hb_parptr(2);
+      tbab.nID = reinterpret_cast<UINT_PTR>(hb_parptr(2));
    else
-      tbab.nID = ( UINT_PTR ) hb_parni(2);
+      tbab.nID = static_cast<UINT_PTR>(hb_parni(2));
 
    SendMessage( hWndCtrl, TB_ADDBITMAP, 0, ( LPARAM ) & tbab );
 }
@@ -1999,7 +1999,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
    LPNMTOOLBAR lpnmTB = ( LPNMTOOLBAR ) HB_PARHANDLE(1);
    RECT rc = { 0, 0, 0, 0 };
    TPMPARAMS tpm;
-   HMENU hPopupMenu = ( HMENU ) HB_PARHANDLE(2);
+   HMENU hPopupMenu = static_cast<HMENU>(HB_PARHANDLE(2));
    HWND g_hwndMain = static_cast<HWND>(HB_PARHANDLE(3));
 
    SendMessage( lpnmTB->hdr.hwndFrom, TB_GETRECT,
@@ -2037,7 +2037,7 @@ HB_FUNC( HWG_CREATEPAGER )
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
 
    HB_RETHANDLE( hWndPanel );
@@ -2057,7 +2057,7 @@ HB_FUNC( HWG_CREATEREBAR )
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
-         ( HMENU )( UINT_PTR ) hb_parni(2),       /* control ID  */
+         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ),
          nullptr );
 

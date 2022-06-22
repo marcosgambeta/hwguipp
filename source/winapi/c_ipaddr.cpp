@@ -69,7 +69,7 @@ HB_FUNC( HWG_INITIPADDRESS )
    hIpAddress = CreateWindowEx( WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT( "" ),
          hb_parni(3),
          hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
-         static_cast<HWND>(HB_PARHANDLE(1)), ( HMENU )(UINT_PTR) hb_parni(2),
+         static_cast<HWND>(HB_PARHANDLE(1)), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
          GetModuleHandle( nullptr ), nullptr );
 
    HB_RETHANDLE( hIpAddress );
@@ -79,10 +79,10 @@ HB_FUNC( HWG_SETIPADDRESS )
 {
    BYTE v1, v2, v3, v4;
 
-   v1 = ( BYTE ) hb_parni(2);
-   v2 = ( BYTE ) hb_parni(3);
-   v3 = ( BYTE ) hb_parni(4);
-   v4 = ( BYTE ) hb_parni(5);
+   v1 = static_cast<BYTE>(hb_parni(2));
+   v2 = static_cast<BYTE>(hb_parni(3));
+   v3 = static_cast<BYTE>(hb_parni(4));
+   v4 = static_cast<BYTE>(hb_parni(5));
 
    SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), IPM_SETADDRESS, 0,
          MAKEIPADDRESS( v1, v2, v3, v4 ) );
@@ -96,10 +96,10 @@ HB_FUNC( HWG_GETIPADDRESS )
    SendMessage( static_cast<HWND>(HB_PARHANDLE(1)), IPM_GETADDRESS, 0,
          ( LPARAM ) ( LPDWORD ) & pdwAddr );
 
-   v1 = ( BYTE ) FIRST_IPADDRESS( pdwAddr );
-   v2 = ( BYTE ) SECOND_IPADDRESS( pdwAddr );
-   v3 = ( BYTE ) THIRD_IPADDRESS( pdwAddr );
-   v4 = ( BYTE ) FOURTH_IPADDRESS( pdwAddr );
+   v1 = static_cast<BYTE>(FIRST_IPADDRESS( pdwAddr ));
+   v2 = static_cast<BYTE>(SECOND_IPADDRESS( pdwAddr ));
+   v3 = static_cast<BYTE>(THIRD_IPADDRESS( pdwAddr ));
+   v4 = static_cast<BYTE>(FOURTH_IPADDRESS( pdwAddr ));
 
    hb_reta(4);
    hb_storvni( ( INT ) v1, -1, 1 );

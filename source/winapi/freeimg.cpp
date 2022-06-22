@@ -601,7 +601,7 @@ HB_FUNC( HWG_FI_FI2DIBEX )
 HB_FUNC( HWG_FI_DRAW )
 {
    FIBITMAP *dib = ( FIBITMAP * ) hb_parnl(1);
-   HDC hDC = ( HDC ) HB_PARHANDLE(2);
+   HDC hDC = static_cast<HDC>(HB_PARHANDLE(2));
    int nWidth = ( int ) hb_parnl(3), nHeight = ( int ) hb_parnl(4);
    int nDestWidth, nDestHeight;
    POINT pp[2];
@@ -715,7 +715,7 @@ static LPBYTE DibBits( LPBITMAPINFOHEADER lpdib )
 // Given a pointer to a locked DIB, return a pointer to the actual bits (pixels)
 {
    DWORD dwColorTableSize =
-         ( DWORD ) ( DibNumColors( lpdib ) * sizeof( RGBQUAD ) );
+         static_cast<DWORD>( DibNumColors( lpdib ) * sizeof( RGBQUAD ) );
    LPBYTE lpBits = ( LPBYTE ) lpdib + lpdib->biSize + dwColorTableSize;
 
    return lpBits;
@@ -1076,7 +1076,7 @@ HB_FUNC( HWG_FI_THRESHOLD )
          "_FreeImage_Threshold@8" );
 
    hb_retnl( ( LONG ) pThreshold( ( FIBITMAP * ) hb_parnl(1),
-               ( BYTE ) hb_parnl(2) ) );
+               static_cast<BYTE>(hb_parnl(2)) ) );
 }
 
 HB_FUNC( HWG_FI_FLIPVERTICAL )
@@ -1090,7 +1090,7 @@ HB_FUNC( HWG_FI_FLIPVERTICAL )
 
 HB_FUNC( HWG_FI_GETPIXELINDEX )
 {
-   BYTE value = ( BYTE ) - 1;
+   BYTE value = static_cast<BYTE>(-1);
    BOOL lRes;
    pGetPixelIndex =
          ( FREEIMAGE_GETPIXELINDEX ) s_getFunction( ( FARPROC )

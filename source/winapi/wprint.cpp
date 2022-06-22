@@ -264,28 +264,28 @@ HB_FUNC( HWG_STARTDOC )
    di.lpszDatatype = nullptr;
    di.fwType = 0;
 
-   hb_retnl( ( LONG ) StartDoc( ( HDC ) HB_PARHANDLE(1), &di ) );
+   hb_retnl( ( LONG ) StartDoc( static_cast<HDC>(HB_PARHANDLE(1)), &di ) );
    hb_strfree( hText );
 }
 
 HB_FUNC( HWG_ENDDOC )
 {
-   hb_retnl( ( LONG ) EndDoc( ( HDC ) HB_PARHANDLE(1) ) );
+   hb_retnl( ( LONG ) EndDoc( static_cast<HDC>(HB_PARHANDLE(1)) ) );
 }
 
 HB_FUNC( HWG_ABORTDOC )
 {
-   AbortDoc( ( HDC ) HB_PARHANDLE(1) );
+   AbortDoc( static_cast<HDC>(HB_PARHANDLE(1)) );
 }
 
 HB_FUNC( HWG_STARTPAGE )
 {
-   hb_retnl( ( LONG ) StartPage( ( HDC ) HB_PARHANDLE(1) ) );
+   hb_retnl( ( LONG ) StartPage( static_cast<HDC>(HB_PARHANDLE(1)) ) );
 }
 
 HB_FUNC( HWG_ENDPAGE )
 {
-   hb_retnl( ( LONG ) EndPage( ( HDC ) HB_PARHANDLE(1) ) );
+   hb_retnl( ( LONG ) EndPage( static_cast<HDC>(HB_PARHANDLE(1)) ) );
 }
 
 /*
@@ -299,7 +299,7 @@ HB_FUNC( HWG_ENDPAGE )
  */
 HB_FUNC( HWG_GETDEVICEAREA )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HDC hDC = static_cast<HDC>(HB_PARHANDLE(1));
    PHB_ITEM temp;
    PHB_ITEM aMetr = hb_itemArrayNew(11);
 
@@ -404,7 +404,7 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
 
 HB_FUNC( HWG_CREATEMETAFILE )
 {
-   HDC hDCref = ( HDC ) HB_PARHANDLE(1), hDCmeta;
+   HDC hDCref = static_cast<HDC>(HB_PARHANDLE(1)), hDCmeta;
    void *hFileName;
    int iWidthMM, iHeightMM;
    RECT rc;
@@ -440,7 +440,7 @@ HB_FUNC( HWG_CREATEMETAFILE )
 
 HB_FUNC( HWG_CLOSEENHMETAFILE )
 {
-   HB_RETHANDLE( CloseEnhMetaFile( ( HDC ) HB_PARHANDLE(1) ) );
+   HB_RETHANDLE( CloseEnhMetaFile( static_cast<HDC>(HB_PARHANDLE(1)) ) );
 }
 
 HB_FUNC( HWG_DELETEENHMETAFILE )
@@ -451,7 +451,7 @@ HB_FUNC( HWG_DELETEENHMETAFILE )
 
 HB_FUNC( HWG_PLAYENHMETAFILE )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HDC hDC = static_cast<HDC>(HB_PARHANDLE(1));
    RECT rc;
 
    if( hb_pcount(  ) > 2 )
@@ -469,7 +469,7 @@ HB_FUNC( HWG_PLAYENHMETAFILE )
 
 HB_FUNC( HWG_PRINTENHMETAFILE )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HDC hDC = static_cast<HDC>(HB_PARHANDLE(1));
    RECT rc;
 
    SetRect( &rc, 0, 0, GetDeviceCaps( hDC, HORZRES ), GetDeviceCaps( hDC,
@@ -484,7 +484,7 @@ HB_FUNC( HWG_PRINTENHMETAFILE )
 HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 {
    BOOL bW9X, Result = FALSE;
-   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HDC hDC = static_cast<HDC>(HB_PARHANDLE(1));
    OSVERSIONINFO osvi;
    osvi.dwOSVersionInfoSize = sizeof( OSVERSIONINFO );
    GetVersionEx( &osvi );
