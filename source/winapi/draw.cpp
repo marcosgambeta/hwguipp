@@ -230,7 +230,7 @@ HB_FUNC( HWG_PIE )
          hb_parni(9)          // y-coord. of second radial's endpoint
           );
 
-   hb_retnl( res ? 0 : ( LONG ) GetLastError() );
+   hb_retnl(res ? 0 : static_cast<LONG>(GetLastError()));
 }
 
 HB_FUNC( HWG_ELLIPSE )
@@ -242,7 +242,7 @@ HB_FUNC( HWG_ELLIPSE )
          hb_parni(5)          // y-coord. bounding rectangle's f lower-right corner
           );
 
-   hb_retnl( res ? 0 : ( LONG ) GetLastError() );
+   hb_retnl(res ? 0 : static_cast<LONG>(GetLastError()));
 }
 
 HB_FUNC( HWG_DRAWGRID )
@@ -250,7 +250,7 @@ HB_FUNC( HWG_DRAWGRID )
    HDC hDC = static_cast<HDC>(HB_PARHANDLE(1));
    int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
    int n = ( HB_ISNIL(6) ) ? 4 : hb_parni(6);
-   COLORREF lColor = ( HB_ISNIL(7) ) ? 0 : ( COLORREF ) hb_parnl(7);
+   COLORREF lColor = ( HB_ISNIL(7) ) ? 0 : static_cast<COLORREF>(hb_parnl(7));
    int i, j;
 
    for( i = x1+n; i < x2; i+=n )
@@ -520,7 +520,7 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    HDC hDC = static_cast<HDC>(HB_PARHANDLE(1));
    HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
    COLORREF trColor =
-         ( HB_ISNIL(5) ) ? 0x00FFFFFF : ( COLORREF ) hb_parnl(5);
+         ( HB_ISNIL(5) ) ? 0x00FFFFFF : static_cast<COLORREF>(hb_parnl(5));
    COLORREF crOldBack = SetBkColor( hDC, 0x00FFFFFF );
    COLORREF crOldText = SetTextColor( hDC, 0 );
    HBITMAP bitmapTrans;
@@ -740,7 +740,7 @@ HB_FUNC( HWG_OPENBITMAP )
          FILE_SHARE_READ, ( LPSECURITY_ATTRIBUTES ) nullptr, OPEN_EXISTING,
          FILE_ATTRIBUTE_READONLY, ( HANDLE ) nullptr );
    hb_strfree(hString);
-   if( ( ( long int ) hfbm ) <= 0 )
+   if( (reinterpret_cast<long int>(hfbm)) <= 0 )
    {
       HB_RETHANDLE(nullptr);
       return;
@@ -929,7 +929,7 @@ HB_FUNC( HWG_DRAWICON )
 
 HB_FUNC( HWG_GETSYSCOLOR )
 {
-   hb_retnl( ( LONG ) GetSysColor( hb_parni(1) ) );
+   hb_retnl(static_cast<LONG>(GetSysColor(hb_parni(1))));
 }
 
 HB_FUNC( HWG_GETSYSCOLORBRUSH )
@@ -941,19 +941,19 @@ HB_FUNC( HWG_CREATEPEN )
 {
    HB_RETHANDLE(CreatePen(hb_parni(1),      // pen style
                hb_parni(2),   // pen width
-               ( COLORREF ) hb_parnl(3)       // pen color
+               static_cast<COLORREF>(hb_parnl(3))       // pen color
           ));
 }
 
 HB_FUNC( HWG_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE(CreateSolidBrush(( COLORREF ) hb_parnl(1)   // brush color
+   HB_RETHANDLE(CreateSolidBrush(static_cast<COLORREF>(hb_parnl(1))   // brush color
           ));
 }
 
 HB_FUNC( HWG_CREATEHATCHBRUSH )
 {
-   HB_RETHANDLE(CreateHatchBrush(hb_parni(1), ( COLORREF ) hb_parnl(2)));
+   HB_RETHANDLE(CreateHatchBrush(hb_parni(1), static_cast<COLORREF>(hb_parnl(2))));
 }
 
 HB_FUNC( HWG_SELECTOBJECT )
@@ -1014,11 +1014,11 @@ HB_FUNC( HWG_GETDRAWITEMINFO )
    hb_itemArrayPut( aMetr, 7, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( nullptr, ( LONG ) lpdis->hwndItem );
+   temp = hb_itemPutNL( nullptr, reinterpret_cast<LONG>(lpdis->hwndItem) );
    hb_itemArrayPut( aMetr, 8, temp );
    hb_itemRelease( temp );
 
-   temp = hb_itemPutNL( nullptr, ( LONG ) lpdis->itemState );
+   temp = hb_itemPutNL( nullptr, static_cast<LONG>(lpdis->itemState) );
    hb_itemArrayPut( aMetr, 9, temp );
    hb_itemRelease( temp );
 
@@ -1500,7 +1500,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
          isR = 1;
          x_center = (x2 - x1) / 2 + x1;
          y_center = (y2 - y1) / 2 + y1;
-         gr_radius = sqrt( pow((long double)(x2-x1),2) + pow((long double)(y2-y1),2) ) / 2;
+         gr_radius = sqrt(pow(static_cast<long double>(x2 - x1), 2) + pow(static_cast<long double>(y2 - y1), 2)) / 2;
       }
 
       // calculate stops and colors for our gradient
@@ -1815,8 +1815,8 @@ HB_FUNC( HWG_DRAWGRADIENT )
                min_delta = 1000000;
                for( k = 0; k < 4; k++ )
                {
-                  delta = abs( pow( (long double)(candidates[k].x), 2 ) + pow( (long double)(candidates[k].y), 2 ) -
-                     pow( (long double)(radius[i]), 2 ) );
+                  delta = abs(pow(static_cast<long double>(candidates[k].x), 2) + pow(static_cast<long double>(candidates[k].y), 2) -
+                     pow(static_cast<long double>(radius[i]), 2));
                   if ( delta < min_delta )
                   {
                      nearest_coord = k;

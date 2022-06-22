@@ -125,8 +125,8 @@ HB_FUNC( HWG_INITMAINWINDOW )
          hWnd = CreateWindowEx( ExStyle, lpAppName, lpTitle,
                nStyle,
                x, y,
-               ( !width ) ? ( LONG ) CW_USEDEFAULT : width,
-               ( !height ) ? ( LONG ) CW_USEDEFAULT : height,
+               ( !width ) ? static_cast<LONG>(CW_USEDEFAULT) : width,
+               ( !height ) ? static_cast<LONG>(CW_USEDEFAULT) : height,
                nullptr, nullptr, ( HINSTANCE ) hInstance, nullptr );
 
          temp = hb_itemPutNL( nullptr, 1 );
@@ -325,8 +325,8 @@ HB_FUNC( HWG_INITCHILDWINDOW )
    {
       hWnd = CreateWindowEx( WS_EX_MDICHILD, lpAppName, lpTitle,
             WS_OVERLAPPEDWINDOW | nStyle, x, y,
-            ( !width ) ? ( LONG ) CW_USEDEFAULT : width,
-            ( !height ) ? ( LONG ) CW_USEDEFAULT : height,
+            ( !width ) ? static_cast<LONG>(CW_USEDEFAULT) : width,
+            ( !height ) ? static_cast<LONG>(CW_USEDEFAULT) : height,
             hParent, nullptr, ( HINSTANCE ) hInstance, nullptr );
 
       temp = hb_itemPutNL( nullptr, 1 );
@@ -419,8 +419,8 @@ HB_FUNC( HWG_INITMDIWINDOW )
             hWnd = CreateWindow( lpAppName, lpTitle,
                   WS_OVERLAPPEDWINDOW,
                   x, y,
-                  ( !width ) ? ( LONG ) CW_USEDEFAULT : width,
-                  ( !height ) ? ( LONG ) CW_USEDEFAULT : height,
+                  ( !width ) ? static_cast<LONG>(CW_USEDEFAULT) : width,
+                  ( !height ) ? static_cast<LONG>(CW_USEDEFAULT) : height,
                   nullptr, nullptr, ( HINSTANCE ) hInstance, nullptr );
             if( !hWnd )
             {
@@ -541,11 +541,11 @@ HB_FUNC( HWG_SENDMESSAGE )
    void * hText;
    LPCTSTR lpText = HB_PARSTR(4, &hText, nullptr);
 
-   hb_retnl(( LONG ) SendMessage(static_cast<HWND>(HB_PARHANDLE(1)),  // handle of destination window
+   hb_retnl(static_cast<LONG>(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)),  // handle of destination window
                ( UINT ) hb_parni(2),  // message to send
                HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
                lpText ? ( LPARAM ) lpText : (HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : ( LPARAM ) hb_parnl(4))
-          ));
+          )));
    hb_strfree(hText);
 }
 
@@ -565,11 +565,11 @@ HB_FUNC( HWG_SENDMESSPTR )
 HB_FUNC( HWG_POSTMESSAGE )
 {
 
-   hb_retnl( ( LONG ) PostMessage( static_cast<HWND>(HB_PARHANDLE(1)),  // handle of destination window
+   hb_retnl(static_cast<LONG>(PostMessage(static_cast<HWND>(HB_PARHANDLE(1)),  // handle of destination window
                ( UINT ) hb_parni(2),  // message to send
                HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
                HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : ( LPARAM ) hb_parnl(4)
-          ) );
+          )));
 
 }
 
@@ -618,13 +618,13 @@ HB_FUNC( HWG_SETWINDOWTEXT )
 HB_FUNC( HWG_GETWINDOWTEXT )
 {
    HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
-   ULONG ulLen = ( ULONG ) SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0);
+   ULONG ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0));
    LPTSTR cText = ( TCHAR * ) hb_xgrab((ulLen + 1) * sizeof(TCHAR));
 
-   ulLen = ( ULONG ) SendMessage(hWnd, WM_GETTEXT, ( WPARAM ) (ulLen + 1), ( LPARAM ) cText);
+   ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXT, ( WPARAM ) (ulLen + 1), ( LPARAM ) cText));
 
    HB_RETSTRLEN( cText, ulLen );
-   hb_xfree( cText );
+   hb_xfree(cText);
 }
 
 HB_FUNC( HWG_SETWINDOWFONT )
@@ -636,7 +636,7 @@ HB_FUNC( HWG_SETWINDOWFONT )
 
 HB_FUNC( HWG_GETLASTERROR )
 {
-   hb_retnl( ( LONG ) GetLastError() );
+   hb_retnl(static_cast<LONG>(GetLastError()));
 }
 
 HB_FUNC( HWG_ENABLEWINDOW )
@@ -693,7 +693,7 @@ HB_FUNC( HWG_GETACTIVEWINDOW )
 
 HB_FUNC( HWG_GETINSTANCE )
 {
-   hb_retnl( ( LONG ) GetModuleHandle( nullptr ) );
+   hb_retnl(reinterpret_cast<LONG>(GetModuleHandle(nullptr)));
 }
 
 HB_FUNC( HWG_SETWINDOWSTYLE )
@@ -764,9 +764,9 @@ static LRESULT CALLBACK s_MainWndProc( HWND hWnd, UINT message,
 
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -798,9 +798,9 @@ static LRESULT CALLBACK s_FrameWndProc( HWND hWnd, UINT message,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -853,9 +853,9 @@ static LRESULT CALLBACK s_MDIChildWndProc( HWND hWnd, UINT message,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -971,7 +971,7 @@ char *hwg_strunshare( void **phStr, const char *pStr, HB_SIZE nLen )
 void hwg_strfree(void * hString)
 {
    if( hString && hString != ( void * ) s_szConstStr )
-      hb_xfree( hString );
+      hb_xfree(hString);
 }
 #endif /* !HB_HAS_STR_FUNC */
 
@@ -1122,7 +1122,7 @@ wchar_t *hwg_wstrunshare( void **phStr, const wchar_t * pStr, HB_SIZE nLen )
 void hwg_wstrfree(void * hString)
 {
    if( hString && hString != ( void * ) s_wszConstStr )
-      hb_xfree( hString );
+      hb_xfree(hString);
 }
 
 #endif /* HB_EMULATE_STR_API */
@@ -1215,15 +1215,15 @@ HB_FUNC( HWG_MAKEWPARAM )
 {
    WPARAM p;
 
-   p = MAKEWPARAM( (( WORD ) hb_parnl(1)), (( WORD ) hb_parnl(2)) );
-   hb_retnl( ( LONG ) p );
+   p = MAKEWPARAM((static_cast<WORD>(hb_parnl(1))), (static_cast<WORD>(hb_parnl(2))));
+   hb_retnl(static_cast<LONG>(p));
 }
 
 HB_FUNC( HWG_MAKELPARAM )
 {
    LPARAM p;
 
-   p = MAKELPARAM( (( WORD ) hb_parnl(1)), (( WORD ) hb_parnl(2)) );
+   p = MAKELPARAM((static_cast<WORD>(hb_parnl(1))), (static_cast<WORD>(hb_parnl(2))));
    HB_RETHANDLE(p);
 }
 
@@ -1427,7 +1427,7 @@ HB_FUNC( HWG_PAINTWINDOW )
       FillRect( hDC, &rc, hBrush );
 
    EndPaint( static_cast<HWND>(HB_PARHANDLE(1)), pps );
-   hb_xfree( pps );
+   hb_xfree(pps);
 }
 
 HB_FUNC( HWG_GETBACKBRUSH )
@@ -1463,7 +1463,7 @@ LRESULT CALLBACK KeybHook( int code, WPARAM wp, LPARAM lp )
       {
          hb_vmPushSymbol( hb_dynsymSymbol( pSym_keylist ) );
          hb_vmPush( pObject );
-         hb_vmPushLong( ( LONG ) wp );
+         hb_vmPushLong(static_cast<LONG>(wp));
          hb_vmSend(1);
       }
    }
@@ -1488,7 +1488,7 @@ HB_FUNC( HWG_INITPROC )
 HB_FUNC( HWG_EXITPROC )
 {
    if( aDialogs )
-      hb_xfree( aDialogs );
+      hb_xfree(aDialogs);
 
    if( s_KeybHook )
    {

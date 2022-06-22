@@ -64,13 +64,12 @@ void hwg_writelog( const char * sFile, const char * sTraceMsg, ... )
 
 HB_FUNC( HWG_SETDLGRESULT )
 {
-   SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)), DWLP_MSGRESULT,
-         hb_parni(2) );
+   SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), DWLP_MSGRESULT, hb_parni(2));
 }
 
 HB_FUNC( HWG_SETCAPTURE )
 {
-   hb_retnl( ( LONG ) SetCapture( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   hb_retnl(reinterpret_cast<LONG>(SetCapture(static_cast<HWND>(HB_PARHANDLE(1)))));
 }
 
 HB_FUNC( HWG_RELEASECAPTURE )
@@ -143,7 +142,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
    }
    HB_RETSTR( lpText );
    if( lpText )
-      hb_xfree( lpText );
+      hb_xfree(lpText);
 }
 
 HB_FUNC( HWG_GETSTOCKOBJECT )
@@ -155,13 +154,13 @@ HB_FUNC( HWG_LOWORD )
 {
    hb_retni( ( int ) ( ( HB_ISPOINTER(1) ? 
    PtrToUlong( hb_parptr(1) ) :
-                              ( ULONG ) hb_parnl(1) ) & 0xFFFF ) );
+                              static_cast<ULONG>(hb_parnl(1)) ) & 0xFFFF ) );
 }
 
 HB_FUNC( HWG_HIWORD )
 {
    hb_retni( ( int ) ( ( ( HB_ISPOINTER(1) ? PtrToUlong( hb_parptr(1) ) :
-                              ( ULONG ) hb_parnl(1) ) >> 16 ) & 0xFFFF ) );
+                              static_cast<ULONG>(hb_parnl(1)) ) >> 16 ) & 0xFFFF ) );
 }
 
 HB_FUNC( HWG_BITOR )
@@ -434,7 +433,7 @@ HB_FUNC( HWG_GETDESKTOPHEIGHT )
 
 HB_FUNC( HWG_GETHELPDATA )
 {
-   HB_RETHANDLE(( LONG ) ((( HELPINFO FAR * ) HB_PARHANDLE(1))->hItemHandle));
+   HB_RETHANDLE(reinterpret_cast<LONG>(((static_cast<HELPINFO FAR*>(HB_PARHANDLE(1)))->hItemHandle)));
 }
 
 HB_FUNC( HWG_WINHELP )
@@ -642,7 +641,7 @@ HB_FUNC( HWG_DELETEFILE )
 HB_FUNC( HWG_GETFILEATTRIBUTES )
 {
    void * hStr;
-   hb_retnl( ( LONG ) GetFileAttributes( HB_PARSTR(1, &hStr, nullptr) ) );
+   hb_retnl(static_cast<LONG>(GetFileAttributes(HB_PARSTR(1, &hStr, nullptr))));
    hb_strfree(hStr);
 }
 
@@ -713,14 +712,14 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 
    if( !pObject )
    {
-      hb_retnl( ( LONG ) GetStockObject( HOLLOW_BRUSH ) );
-      SetBkMode( hdc, TRANSPARENT );
+      hb_retnl(reinterpret_cast<LONG>(GetStockObject(HOLLOW_BRUSH)));
+      SetBkMode(hdc, TRANSPARENT);
       return;
    }
 
    p = GetObjectVar( pObject, "M_BRUSH" );
    p2 = GetObjectVar( pObject, "M_TEXTCOLOR" );
-   cColor = ( COLORREF ) hb_itemGetNL( p2 );
+   cColor = static_cast<COLORREF>(hb_itemGetNL(p2));
    hBrush = ( HBRUSH ) HB_GETHANDLE( p );
 
    DeleteObject( hBrush );
@@ -734,8 +733,8 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    }
    else
    {
-      hBrush = CreateSolidBrush( ( COLORREF ) i );
-      SetBkColor( hdc, ( COLORREF ) i );
+      hBrush = CreateSolidBrush(static_cast<COLORREF>(i));
+      SetBkColor(hdc, static_cast<COLORREF>(i));
    }
 
    temp = HB_PUTHANDLE( nullptr, hBrush );
@@ -750,7 +749,7 @@ HB_FUNC( HWG_GETKEYBOARDCOUNT )
 {
    LPARAM lParam = ( LPARAM ) hb_parnl(1);
 
-   hb_retni( ( WORD ) lParam );
+   hb_retni(static_cast<WORD>(lParam));
 }
 
 HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
@@ -760,8 +759,7 @@ HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
 
 HB_FUNC( HWG_PTRTOULONG )
 {
-   hb_retnl( HB_ISPOINTER(1) ? ( LONG ) PtrToUlong( hb_parptr(1) ) :
-         hb_parnl(1) );
+   hb_retnl(HB_ISPOINTER(1) ? static_cast<LONG>(PtrToUlong(hb_parptr(1))) : hb_parnl(1));
 }
 
 HB_FUNC( HWG_ISPTREQ )

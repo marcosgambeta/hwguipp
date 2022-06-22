@@ -127,20 +127,17 @@ HB_FUNC( HWG_LISTVIEW_DELETECOLUMN )
 
 HB_FUNC( HWG_LISTVIEW_SETBKCOLOR )
 {
-   ListView_SetBkColor( static_cast<HWND>(HB_PARHANDLE(1)),
-         ( COLORREF ) hb_parni(2) );
+   ListView_SetBkColor(static_cast<HWND>(HB_PARHANDLE(1)), static_cast<COLORREF>(hb_parni(2)));
 }
 
 HB_FUNC( HWG_LISTVIEW_SETTEXTBKCOLOR )
 {
-   ListView_SetTextBkColor( static_cast<HWND>(HB_PARHANDLE(1)),
-         ( COLORREF ) hb_parni(2) );
+   ListView_SetTextBkColor(static_cast<HWND>(HB_PARHANDLE(1)), static_cast<COLORREF>(hb_parni(2)));
 }
 
 HB_FUNC( HWG_LISTVIEW_SETTEXTCOLOR )
 {
-   ListView_SetTextColor( static_cast<HWND>(HB_PARHANDLE(1)),
-         ( COLORREF ) hb_parni(2) );
+   ListView_SetTextColor(static_cast<HWND>(HB_PARHANDLE(1)), static_cast<COLORREF>(hb_parni(2)));
 }
 
 HB_FUNC( HWG_LISTVIEW_GETFIRSTITEM )
@@ -406,8 +403,8 @@ LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
          COLORREF ColorBack;
 
          pColor = hb_arrayGetItemPtr( pArray, lplvcd->iSubItem + 1 );
-         ColorText = ( COLORREF ) hb_arrayGetNL( pColor, 1 );
-         ColorBack = ( COLORREF ) hb_arrayGetNL( pColor, 2 );
+         ColorText = static_cast<COLORREF>(hb_arrayGetNL(pColor, 1));
+         ColorBack = static_cast<COLORREF>(hb_arrayGetNL(pColor, 2));
          lplvcd->clrText = ColorText;
          lplvcd->clrTextBk = ColorBack;
 
@@ -423,7 +420,7 @@ HB_FUNC( HWG_PROCESSCUSTU )
    LPARAM lParam = ( LPARAM ) HB_PARHANDLE(2);
    PHB_ITEM pColor = hb_param( 3, HB_IT_ARRAY );
 
-   hb_retnl( ( LONG ) ProcessCustomDraw( lParam, pColor ) );
+   hb_retnl(static_cast<LONG>(ProcessCustomDraw(lParam, pColor)));
 }
 
 HB_FUNC( HWG_LISTVIEWGETITEM )
@@ -498,7 +495,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
    PSORTINFO p = ( PSORTINFO ) hb_parptr(3);
 
    if( p )
-      hb_xfree( p );
+      hb_xfree(p);
 }
 
 HB_FUNC( HWG_LISTVIEWSORT )

@@ -35,7 +35,7 @@ HB_FUNC( HWG_ENDPAINT )
 {
    PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(2);
    EndPaint( static_cast<HWND>(HB_PARHANDLE(1)), pps );
-   hb_xfree( pps );
+   hb_xfree(pps);
 }
 
 HB_FUNC( HWG_DELETEDC )
@@ -257,17 +257,17 @@ HB_FUNC( HWG_GETCLIENTAREA )
 HB_FUNC( HWG_SETTEXTCOLOR )
 {
    COLORREF crColor = SetTextColor( static_cast<HDC>(HB_PARHANDLE(1)),  // handle of device context
-         ( COLORREF ) hb_parnl(2)     // text color
+         static_cast<COLORREF>(hb_parnl(2))     // text color
           );
-   hb_retnl( ( LONG ) crColor );
+   hb_retnl(static_cast<LONG>(crColor));
 }
 
 HB_FUNC( HWG_SETBKCOLOR )
 {
    COLORREF crColor = SetBkColor( static_cast<HDC>(HB_PARHANDLE(1)),    // handle of device context
-         ( COLORREF ) hb_parnl(2)     // text color
+         static_cast<COLORREF>(hb_parnl(2))     // text color
           );
-   hb_retnl( ( LONG ) crColor );
+   hb_retnl(static_cast<LONG>(crColor));
 }
 
 HB_FUNC( HWG_SETTRANSPARENTMODE )
@@ -279,12 +279,12 @@ HB_FUNC( HWG_SETTRANSPARENTMODE )
 
 HB_FUNC( HWG_GETTEXTCOLOR )
 {
-   hb_retnl( ( LONG ) GetTextColor( static_cast<HDC>(HB_PARHANDLE(1)) ) );
+   hb_retnl(static_cast<LONG>(GetTextColor(static_cast<HDC>(HB_PARHANDLE(1)))));
 }
 
 HB_FUNC( HWG_GETBKCOLOR )
 {
-   hb_retnl( ( LONG ) GetBkColor( static_cast<HDC>(HB_PARHANDLE(1)) ) );
+   hb_retnl(static_cast<LONG>(GetBkColor(static_cast<HDC>(HB_PARHANDLE(1)))));
 }
 
 /*

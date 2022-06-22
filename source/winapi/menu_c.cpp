@@ -353,14 +353,13 @@ HB_FUNC( HWG_CREATEACCELERATORTABLE )
    for( ul = 1; ul <= ulEntries; ul++ )
    {
       pSubArr = hb_arrayGetItemPtr( pArray, ul );
-      lpaccl[ul - 1].fVirt =
-            static_cast<BYTE>(hb_arrayGetNL( pSubArr, 1 )) | FNOINVERT | FVIRTKEY;
-      lpaccl[ul - 1].key = ( WORD ) hb_arrayGetNL( pSubArr, 2 );
-      lpaccl[ul - 1].cmd = ( WORD ) hb_arrayGetNL( pSubArr, 3 );
+      lpaccl[ul - 1].fVirt = static_cast<BYTE>(hb_arrayGetNL(pSubArr, 1)) | FNOINVERT | FVIRTKEY;
+      lpaccl[ul - 1].key = static_cast<WORD>(hb_arrayGetNL(pSubArr, 2));
+      lpaccl[ul - 1].cmd = static_cast<WORD>(hb_arrayGetNL(pSubArr, 3));
    }
    h = CreateAcceleratorTable( lpaccl, ( int ) ulEntries );
 
-   hb_xfree( lpaccl );
+   hb_xfree(lpaccl);
    HB_RETHANDLE(h);
 }
 
@@ -423,7 +422,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
          HB_RETSTR( mii.dwTypeData );
       else
          hb_retc( "Error" );
-      hb_xfree( lpBuffer );
+      hb_xfree(lpBuffer);
    }
 }
 
@@ -478,7 +477,7 @@ HB_FUNC( HWG__SETMENUITEMBITMAPS )
 
 HB_FUNC( HWG_GETMENUCHECKMARKDIMENSIONS )
 {
-   hb_retnl( ( LONG ) GetMenuCheckMarkDimensions() );
+   hb_retnl(static_cast<LONG>(GetMenuCheckMarkDimensions()));
 }
 
 
@@ -524,7 +523,7 @@ HB_FUNC( HWG__INSERTBITMAPMENU )
    mii.fMask = MIIM_ID | MIIM_BITMAP | MIIM_DATA;
    mii.hbmpItem = ( HBITMAP ) HB_PARHANDLE(3);
 
-   hb_retl(( LONG ) SetMenuItemInfo(static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(2), 0, &mii));
+   hb_retl(static_cast<LONG>(SetMenuItemInfo(static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(2), 0, &mii)));
 }
 
 HB_FUNC( HWG_CHANGEMENU )
@@ -587,9 +586,7 @@ HB_FUNC( HWG_SETMENUBACKCOLOR )
       hMenu = static_cast<HMENU>(HB_PARHANDLE(1));
    if( hMenu )
    {
-      hbrush = hb_pcount() > 1 &&
-            !HB_ISNIL(2) ? CreateSolidBrush( ( COLORREF ) hb_parnl(2) ) :
-            nullptr;
+      hbrush = hb_pcount() > 1 && !HB_ISNIL(2) ? CreateSolidBrush(static_cast<COLORREF>(hb_parnl(2))) : nullptr;
       mi.cbSize = sizeof(mi);
       mi.fMask = MIM_BACKGROUND | ( (HB_ISLOG(3) && !hb_parl(3))? 0 : MIM_APPLYTOSUBMENUS );
       mi.hbrBack = hbrush;

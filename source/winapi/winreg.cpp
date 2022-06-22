@@ -59,7 +59,7 @@
 #if defined(__DMC__)
 __inline long PtrToLong( const void *p )
 {
-   return ( ( long ) p );
+   return (static_cast<long>(p));
 }
 #endif
 
@@ -124,7 +124,7 @@ HB_FUNC( HWG_REGQUERYVALUEEX )
          hb_retni( 0 );
       }
 
-      hb_xfree( lpData );
+      hb_xfree(lpData);
    }
    hb_strfree(hValue);
 }
@@ -145,9 +145,9 @@ HB_FUNC( HWG_REGENUMKEYEX )
    if( nErr == ERROR_SUCCESS )
    {
       HB_STORSTR( Buffer, 3 );
-      hb_stornl( ( long ) dwBuffSize, 4 );
+      hb_stornl(static_cast<long>(dwBuffSize), 4);
       HB_STORSTR( Class, 6 );
-      hb_stornl( ( long ) dwClass, 7 );
+      hb_stornl(static_cast<long>(dwClass), 7);
    }
    hb_retnl( nErr );
 }
@@ -218,8 +218,8 @@ HB_FUNC( HWG_REGCREATEKEYEX )
 
    if( nErr == ERROR_SUCCESS )
    {
-      hb_stornl( ( LONG ) hkResult, 8 );
-      hb_stornl( ( LONG ) dwDisposition, 9 );
+      hb_stornl(static_cast<LONG>(hkResult), 8);
+      hb_stornl(static_cast<LONG>(dwDisposition), 9);
    }
    hb_retnl( nErr );
    hb_strfree(hValue);

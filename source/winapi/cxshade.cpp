@@ -473,7 +473,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granula
    cxdib_BlendPalette( &(pshade->m_dNormal), color, coloring );  //color the palette
 
    iDst = cxdib_GetBits( &(pshade->m_dh) );   //build the horiz. dotted focus bitmap
-   j = (long) pshade->m_dh.m_bi.biWidth;
+   j = static_cast<long>(pshade->m_dh.m_bi.biWidth);
    for( i=0;i<j;i++ )
    {
       // iDst[i]=64+127*(i%2);	//soft
@@ -481,7 +481,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granula
    }
 
    iDst = cxdib_GetBits( &(pshade->m_dv) );   //build the vert. dotted focus bitmap
-   j = (long) pshade->m_dv.m_bi.biWidth;
+   j = static_cast<long>(pshade->m_dv.m_bi.biWidth);
    for( i=0;i<j;i++ )
    {
       // *iDst=64+127*(i%2);		//soft
@@ -713,7 +713,7 @@ HB_FUNC( HWG_SHADE_SET )
    BYTE granularity = (HB_ISNIL(4))? 8 : static_cast<BYTE>(hb_parni(4));
    BYTE highlight = (HB_ISNIL(5))? 10 : static_cast<BYTE>(hb_parni(5));
    BYTE coloring = (HB_ISNIL(6))? 0 : static_cast<BYTE>(hb_parni(6));
-   COLORREF color = (HB_ISNIL(7))? 0 : (COLORREF)hb_parnl(7);
+   COLORREF color = (HB_ISNIL(7))? 0 : static_cast<COLORREF>(hb_parnl(7));
    RECT rect;
 
    if( !HB_ISNIL(7) )

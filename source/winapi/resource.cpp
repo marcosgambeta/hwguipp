@@ -25,7 +25,7 @@ HMODULE hModule;
 
 HB_FUNC( HWG_GETRESOURCES )
 {
-   hb_retnl( ( LONG ) hModule );
+   hb_retnl(reinterpret_cast<LONG>(hModule));
 }
 
 HB_FUNC( HWG_LOADSTRING )

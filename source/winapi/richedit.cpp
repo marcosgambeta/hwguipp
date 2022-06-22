@@ -100,7 +100,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          cf.cbSize = sizeof(CHARFORMAT2);
          if( hb_itemType( hb_arrayGetItemPtr( pArr1, 3 ) ) != HB_IT_NIL )
          {
-            cf.crTextColor = ( COLORREF ) hb_arrayGetNL( pArr1, 3 );
+            cf.crTextColor = static_cast<COLORREF>(hb_arrayGetNL(pArr1, 3));
             cf.dwMask |= CFM_COLOR;
          }
          if( ulLen1 > 3 &&
@@ -173,7 +173,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
 
       if( !HB_ISNIL(4) )
       {
-         cf.crTextColor = ( COLORREF ) hb_parnl(4);
+         cf.crTextColor = static_cast<COLORREF>(hb_parnl(4));
          cf.dwMask |= CFM_COLOR;
       }
       if( !HB_ISNIL(5) )
@@ -244,7 +244,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
 
    if( HB_ISNUM(2) )
    {
-      cf.crTextColor = ( COLORREF ) hb_parnl(2);
+      cf.crTextColor = static_cast<COLORREF>(hb_parnl(2));
       cf.dwMask |= CFM_COLOR;
    }
    if( HB_ISCHAR(3) )
@@ -318,7 +318,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
    tr.lpstrText = ( LPTSTR ) hb_xgrab((tr.chrg.cpMax - tr.chrg.cpMin + 2) * sizeof(TCHAR));
    ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, ( LPARAM ) &tr);
    HB_RETSTRLEN( tr.lpstrText, ul );
-   hb_xfree( tr.lpstrText );
+   hb_xfree(tr.lpstrText);
 
 }
 
@@ -333,10 +333,10 @@ HB_FUNC( HWG_RE_GETLINE )
    ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0);
    LPTSTR lpBuf = ( LPTSTR ) hb_xgrab((ul + 4) * sizeof(TCHAR));
 
-   *( ( ULONG * ) lpBuf ) = ul;
+   *(reinterpret_cast<ULONG*>(lpBuf)) = ul;
    ul = SendMessage(hCtrl, EM_GETLINE, nLine, ( LPARAM ) lpBuf);
    HB_RETSTRLEN( lpBuf, ul );
-   hb_xfree( lpBuf );
+   hb_xfree(lpBuf);
 }
 
 HB_FUNC( HWG_RE_INSERTTEXT )
@@ -363,7 +363,7 @@ HB_FUNC( HWG_RE_FINDTEXT )
    ft.chrg.cpMax = -1;
    ft.lpstrText = ( LPTSTR ) HB_PARSTR(2, &hString, nullptr);
 
-   lPos = ( LONG ) SendMessage(hCtrl, EM_FINDTEXTEX, ( WPARAM ) lFlag, ( LPARAM ) &ft);
+   lPos = static_cast<LONG>(SendMessage(hCtrl, EM_FINDTEXTEX, ( WPARAM ) lFlag, ( LPARAM ) &ft));
    hb_strfree(hString);
    hb_retnl( lPos );
 }
@@ -439,12 +439,10 @@ HB_FUNC( HWG_PRINTRTF )
 
 HB_FUNC( HWG_INITRICHPROC )
 {
-   wpOrigRichProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) RichSubclassProc );
+   wpOrigRichProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(RichSubclassProc)));
 }
 
-LRESULT APIENTRY RichSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
-      LPARAM lParam )
+LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -456,24 +454,21 @@ LRESULT APIENTRY RichSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-      hb_vmPushLong( ( LONG ) wParam );
-      hb_vmPushLong( ( LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+      hb_vmPushLong(static_cast<LONG>(wParam));
+      hb_vmPushLong(static_cast<LONG>(lParam));
       hb_vmSend(3);
       res = hb_parnl( -1 );
       if( res == -1 )
-         return ( CallWindowProc( wpOrigRichProc, hWnd, message, wParam,
-                     lParam ) );
+         return (CallWindowProc(wpOrigRichProc, hWnd, message, wParam, lParam));
       else
          return res;
    }
    else
-      return ( CallWindowProc( wpOrigRichProc, hWnd, message, wParam,
-                  lParam ) );
+      return (CallWindowProc(wpOrigRichProc, hWnd, message, wParam, lParam));
 }
 
-static DWORD CALLBACK RichStreamOutCallback( DWORD_PTR dwCookie, LPBYTE pbBuff,
-      LONG cb, LONG * pcb )
+static DWORD CALLBACK RichStreamOutCallback(DWORD_PTR dwCookie, LPBYTE pbBuff, LONG cb, LONG * pcb)
 {
    HANDLE pFile = ( HANDLE ) dwCookie;
    DWORD dwW;
@@ -486,11 +481,10 @@ static DWORD CALLBACK RichStreamOutCallback( DWORD_PTR dwCookie, LPBYTE pbBuff,
    return 0;
 }
 
-static DWORD CALLBACK EditStreamCallback( DWORD_PTR dwCookie, LPBYTE lpBuff,
-      LONG cb, PLONG pcb )
+static DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb)
 {
-   HANDLE hFile = ( HANDLE ) dwCookie;
-   return !ReadFile( hFile, lpBuff, cb, ( DWORD * ) pcb, nullptr );
+   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
+   return !ReadFile(hFile, lpBuff, cb, reinterpret_cast<DWORD*>(pcb), nullptr);
 }
 
 HB_FUNC( HWG_SAVERICHEDIT )
@@ -540,7 +534,7 @@ HB_FUNC( HWG_LOADRICHEDIT )
       hb_retni( 0 );
       return;
    }
-   es.dwCookie = ( DWORD_PTR ) hFile;
+   es.dwCookie = reinterpret_cast<DWORD_PTR>(hFile);
    es.pfnCallback = EditStreamCallback;
    SendMessage(hWnd, EM_STREAMIN, ( WPARAM ) SF_RTF, ( LPARAM ) &es);
    CloseHandle( hFile );

@@ -426,10 +426,10 @@ HB_FUNC( HWG_INITSTATUS )
    {
       ULONG ul;
       nWidth = 0;
-      for( ul = 1; ul <= ( ULONG ) nParts; ul++ )
+      for( ul = 1; ul <= static_cast<ULONG>(nParts); ul++ )
       {
          j = hb_arrayGetNI( pArray, ul );
-         if( ul == ( ULONG ) nParts && j == 0 )
+         if( ul == static_cast<ULONG>(nParts) && j == 0 )
             nWidth = -1;
          else
             nWidth += j;
@@ -447,7 +447,7 @@ HB_FUNC( HWG_INITSTATUS )
 
 HB_FUNC( HWG_GETNOTIFYSBPARTS )
 {
-   hb_retnl( ( LONG ) ((( NMMOUSE * ) HB_PARHANDLE(1))->dwItemSpec ) );
+   hb_retnl(static_cast<LONG>(((static_cast<NMMOUSE*>(HB_PARHANDLE(1)))->dwItemSpec)));
 }
 
 HB_FUNC( HWG_ADDTOOLTIP )
@@ -553,9 +553,9 @@ HB_FUNC( HWG_GETNOTIFYDELTAPOS )
 {
    int iItem = hb_parnl(2) ;
    if ( iItem < 2 )
-      hb_retni( (LONG) (((NMUPDOWN *) HB_PARHANDLE(1) )->iPos ) );
+      hb_retni(static_cast<LONG>((static_cast<NMUPDOWN*>(HB_PARHANDLE(1)))->iPos));
    else
-      hb_retni( (LONG) (((NMUPDOWN *) HB_PARHANDLE(1) )->iDelta ) );
+      hb_retni(static_cast<LONG>((static_cast<NMUPDOWN*>(HB_PARHANDLE(1)))->iDelta));
 }
 
 HB_FUNC( HWG_CREATEDATEPICKER )
@@ -613,9 +613,9 @@ HB_FUNC( HWG_SETDATEPICKER )
             ulLen = strlen( szTime );
             if( ulLen >= 4 )
             {
-               lSeconds = (LONG) hb_strVal( szTime, 2 ) * 3600 * 1000 +
-                          (LONG) hb_strVal( szTime + 2, 2 ) * 60 * 1000 +
-                          (LONG)(hb_strVal( szTime + 4, ulLen - 4 ) * 1000 );
+               lSeconds = static_cast<LONG>(hb_strVal(szTime, 2)) * 3600 * 1000 +
+                          static_cast<LONG>(hb_strVal(szTime + 2, 2)) * 60 * 1000 +
+                          static_cast<LONG>(hb_strVal(szTime + 4, ulLen - 4) * 1000);
             }
          }
          #ifdef __XHARBOUR__
@@ -631,7 +631,7 @@ HB_FUNC( HWG_SETDATEPICKER )
       sysTime.wDayOfWeek = 0;
       sysTime.wHour = ( unsigned short ) lHour;
       sysTime.wMinute = ( unsigned short ) lMinute;
-      sysTime.wSecond = (WORD)lSecond;
+      sysTime.wSecond = static_cast<WORD>(lSecond);
       sysTime.wMilliseconds = ( unsigned short ) lMilliseconds;
 
       SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime);
@@ -792,7 +792,7 @@ HB_FUNC( HWG_TAB_HITTEST )
 
 HB_FUNC( HWG_GETNOTIFYKEYDOWN )
 {
-   hb_retni( ( WORD ) ( ( ( TC_KEYDOWN * ) HB_PARHANDLE(1) )->wVKey ) );
+   hb_retni( static_cast<WORD>( ( ( TC_KEYDOWN * ) HB_PARHANDLE(1) )->wVKey ) );
 }
 
 HB_FUNC( HWG_CREATETREE )
@@ -1097,7 +1097,7 @@ HB_FUNC( HWG_IMAGELIST_ADD )
 HB_FUNC( HWG_IMAGELIST_ADDMASKED )
 {
    hb_retnl( ImageList_AddMasked( ( HIMAGELIST ) HB_PARHANDLE(1),
-               ( HBITMAP ) HB_PARHANDLE(2), ( COLORREF ) hb_parnl(3) ) );
+               ( HBITMAP ) HB_PARHANDLE(2), static_cast<COLORREF>(hb_parnl(3)) ) );
 }
 
 HB_FUNC( HWG_DESTROYIMAGELIST )
@@ -1286,10 +1286,10 @@ static void CALLBACK s_timerProc( HWND hWnd, UINT message, UINT idTimer, DWORD d
    {
       hb_vmPushDynSym( s_pSymTest );
       hb_vmPushNil();   /* places NIL at self */
-//      hb_vmPushLong( (LONG ) hWnd );    /* pushes parameters on to the hvm stack */
+//      hb_vmPushLong(static_cast<LONG>(hWnd));    /* pushes parameters on to the hvm stack */
       HB_PUSHITEM( hWnd );
-      hb_vmPushLong( ( LONG ) idTimer );
-      //hb_vmPushLong( ( LONG ) dwTime );
+      hb_vmPushLong(static_cast<LONG>(idTimer));
+      //hb_vmPushLong(static_cast<LONG>(dwTime));
       hb_vmDo(2);             /* where iArgCount is the number of pushed parameters */
    }
 }
@@ -1313,8 +1313,7 @@ BOOL RegisterWinCtrl( void )    // Added by jamaj - Used by WinCtrl
 
 HB_FUNC( HWG_INITTREEVIEW )
 {
-   wpOrigTreeViewProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) TreeViewSubclassProc );
+   wpOrigTreeViewProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TreeViewSubclassProc) );
 }
 
 LRESULT APIENTRY TreeViewSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
@@ -1330,9 +1329,9 @@ LRESULT APIENTRY TreeViewSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1342,25 +1341,21 @@ LRESULT APIENTRY TreeViewSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
       {
          res = hb_parnl( -1 );
          if( res == -1 )
-            return ( CallWindowProc( wpOrigTreeViewProc, hWnd, message, wParam,
-                        lParam ) );
+            return (CallWindowProc(wpOrigTreeViewProc, hWnd, message, wParam, lParam));
          else
             return res;
       }
    }
    else
-      return ( CallWindowProc( wpOrigTreeViewProc, hWnd, message, wParam,
-                  lParam ) );
+      return (CallWindowProc(wpOrigTreeViewProc, hWnd, message, wParam, lParam));
 }
 
 HB_FUNC( HWG_INITWINCTRL )
 {
-   SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) WinCtrlProc );
+   SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(WinCtrlProc));
 }
 
-LRESULT CALLBACK WinCtrlProc( HWND hWnd, UINT message, WPARAM wParam,
-      LPARAM lParam )
+LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -1372,9 +1367,9 @@ LRESULT CALLBACK WinCtrlProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1395,8 +1390,7 @@ LRESULT CALLBACK WinCtrlProc( HWND hWnd, UINT message, WPARAM wParam,
 
 HB_FUNC( HWG_INITSTATICPROC )
 {
-   wpOrigStaticProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) StaticSubclassProc );
+   wpOrigStaticProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(StaticSubclassProc)));
 }
 
 LRESULT APIENTRY StaticSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
@@ -1412,9 +1406,9 @@ LRESULT APIENTRY StaticSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1424,22 +1418,19 @@ LRESULT APIENTRY StaticSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
       {
          res = hb_parnl( -1 );
          if( res == -1 )
-            return ( CallWindowProc( wpOrigStaticProc, hWnd, message, wParam,
-                        lParam ) );
+            return (CallWindowProc(wpOrigStaticProc, hWnd, message, wParam, lParam));
          else
             return res;
       }
    }
    else
-      return ( CallWindowProc( wpOrigStaticProc, hWnd, message, wParam,
-                  lParam ) );
+      return (CallWindowProc(wpOrigStaticProc, hWnd, message, wParam, lParam));
 }
 
 
 HB_FUNC( HWG_INITEDITPROC )
 {
-   wpOrigEditProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) EditSubclassProc );
+   wpOrigEditProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(EditSubclassProc)));
 }
 
 LRESULT APIENTRY EditSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
@@ -1455,9 +1446,9 @@ LRESULT APIENTRY EditSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1467,29 +1458,22 @@ LRESULT APIENTRY EditSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
       {
          res = hb_parnl( -1 );
          if( res == -1 )
-            return ( CallWindowProc( wpOrigEditProc, hWnd, message, wParam,
-                        lParam ) );
+            return (CallWindowProc(wpOrigEditProc, hWnd, message, wParam, lParam));
          else
             return res;
       }
    }
    else
-      return ( CallWindowProc( wpOrigEditProc, hWnd, message, wParam,
-                  lParam ) );
+      return (CallWindowProc(wpOrigEditProc, hWnd, message, wParam, lParam));
 }
 
 HB_FUNC( HWG_INITBUTTONPROC )
 {
-//   wpOrigButtonProc = (WNDPROC) SetWindowLong( (HWND) HB_PARHANDLE(1),
-//                                 GWL_WNDPROC, (LONG) ButtonSubclassProc );
-   wpOrigButtonProc =
-         ( LONG_PTR ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) ButtonSubclassProc );
-
+//   wpOrigButtonProc = (WNDPROC) SetWindowLong( (HWND) HB_PARHANDLE(1), GWL_WNDPROC, static_cast<LONG>(ButtonSubclassProc));
+   wpOrigButtonProc = static_cast<LONG_PTR>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ButtonSubclassProc)));
 }
 
-LRESULT APIENTRY ButtonSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
-      LPARAM lParam )
+LRESULT APIENTRY ButtonSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -1501,9 +1485,9 @@ LRESULT APIENTRY ButtonSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1537,9 +1521,9 @@ LRESULT APIENTRY ListSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1562,19 +1546,16 @@ LRESULT APIENTRY ListSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
 
 HB_FUNC( HWG_INITLISTPROC )
 {
-   wpOrigListProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) ListSubclassProc );
+   wpOrigListProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ListSubclassProc)));
 }
 
 
 HB_FUNC( HWG_INITUPDOWNPROC )
 {
-   wpOrigUpDownProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) UpDownSubclassProc );
+   wpOrigUpDownProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(UpDownSubclassProc)));
 }
 
-LRESULT APIENTRY UpDownSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
-      LPARAM lParam )
+LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -1586,9 +1567,9 @@ LRESULT APIENTRY UpDownSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1598,8 +1579,7 @@ LRESULT APIENTRY UpDownSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
       {
          res = hb_parnl( -1 );
          if( res == -1 )
-            return ( CallWindowProc( wpOrigUpDownProc, hWnd, message, wParam,
-                        lParam ) );
+            return (CallWindowProc(wpOrigUpDownProc, hWnd, message, wParam, lParam));
          else
             return res;
       }
@@ -1611,13 +1591,10 @@ LRESULT APIENTRY UpDownSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
 
 HB_FUNC( HWG_INITDATEPICKERPROC )
 {
-   wpOrigDatePickerProc =
-         ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC,
-         ( LONG_PTR ) DatePickerSubclassProc );
+   wpOrigDatePickerProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(DatePickerSubclassProc)));
 }
 
-LRESULT APIENTRY DatePickerSubclassProc( HWND hWnd, UINT message,
-      WPARAM wParam, LPARAM lParam )
+LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -1629,9 +1606,9 @@ LRESULT APIENTRY DatePickerSubclassProc( HWND hWnd, UINT message,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1641,25 +1618,21 @@ LRESULT APIENTRY DatePickerSubclassProc( HWND hWnd, UINT message,
       {
          res = hb_parnl( -1 );
          if( res == -1 )
-            return ( CallWindowProc( wpOrigDatePickerProc, hWnd, message, wParam,
-                        lParam ) );
+            return (CallWindowProc(wpOrigDatePickerProc, hWnd, message, wParam, lParam));
          else
             return res;
       }
    }
    else
-      return ( CallWindowProc( wpOrigDatePickerProc, hWnd, message, wParam,
-                  lParam ) );
+      return (CallWindowProc(wpOrigDatePickerProc, hWnd, message, wParam, lParam));
 }
 
 HB_FUNC( HWG_INITTRACKPROC )
 {
-   wpOrigTrackProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) TrackSubclassProc );
+   wpOrigTrackProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TrackSubclassProc)));
 }
 
-LRESULT APIENTRY TrackSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
-      LPARAM lParam )
+LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -1671,9 +1644,9 @@ LRESULT APIENTRY TrackSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1683,25 +1656,21 @@ LRESULT APIENTRY TrackSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
       {
          res = hb_parnl( -1 );
          if( res == -1 )
-            return ( CallWindowProc( wpOrigTrackProc, hWnd, message, wParam,
-                        lParam ) );
+            return (CallWindowProc(wpOrigTrackProc, hWnd, message, wParam, lParam));
          else
             return res;
       }
    }
    else
-      return ( CallWindowProc( wpOrigTrackProc, hWnd, message, wParam,
-                  lParam ) );
+      return (CallWindowProc(wpOrigTrackProc, hWnd, message, wParam, lParam));
 }
 
 HB_FUNC( HWG_INITTABPROC )
 {
-   wpOrigTabProc = ( WNDPROC ) SetWindowLongPtr( static_cast<HWND>(HB_PARHANDLE(1)),
-         GWLP_WNDPROC, ( LONG_PTR ) TabSubclassProc );
+   wpOrigTabProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabSubclassProc)));
 }
 
-LRESULT APIENTRY TabSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
-      LPARAM lParam )
+LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -1713,9 +1682,9 @@ LRESULT APIENTRY TabSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -1725,15 +1694,13 @@ LRESULT APIENTRY TabSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
       {
          res = hb_parnl( -1 );
          if( res == -1 )
-            return ( CallWindowProc( wpOrigTabProc, hWnd, message, wParam,
-                        lParam ) );
+            return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
          else
             return res;
       }
    }
    else
-      return ( CallWindowProc( wpOrigTabProc, hWnd, message, wParam,
-                  lParam ) );
+      return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
 }
 
 #if ( defined(__MINGW32__) || defined(__MINGW64__) ) && !defined(LPNMTBGETINFOTIP)
@@ -1835,7 +1802,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
    SendMessage(hWndCtrl, TB_ADDBUTTONS, ( WPARAM ) iButtons, ( LPARAM ) ( LPTBBUTTON ) tb);
    SendMessage(hWndCtrl, TB_AUTOSIZE, 0, 0);
 
-   hb_xfree( tb );
+   hb_xfree(tb);
 }
 
 
@@ -2005,7 +1972,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEXGETID )
 {
 
    LPNMTOOLBAR lpnmTB = ( LPNMTOOLBAR ) HB_PARHANDLE(1);
-   hb_retnl( ( LONG ) lpnmTB->iItem );
+   hb_retnl(static_cast<LONG>(lpnmTB->iItem));
 }
 
 HB_FUNC( HWG_CREATEPAGER )
@@ -2139,8 +2106,8 @@ HB_FUNC( HWG_ADDBARCOLORS )
 {
    HWND pParent = static_cast<HWND>(HB_PARHANDLE(1));
    HWND pBar = static_cast<HWND>(HB_PARHANDLE(2));
-   COLORREF clrFore = ( COLORREF ) hb_parnl(3);
-   COLORREF clrBack = ( COLORREF ) hb_parnl(4);
+   COLORREF clrFore = static_cast<COLORREF>(hb_parnl(3));
+   COLORREF clrBack = static_cast<COLORREF>(hb_parnl(4));
    void * hStr;
    LPCTSTR pszText = HB_PARSTR(5, &hStr, nullptr);
    DWORD dwStyle = hb_parnl(6);
@@ -2164,7 +2131,7 @@ HB_FUNC( HWG_COMBOBOXGETITEMDATA )
    HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
    int nIndex = hb_parnl(2);
    DWORD_PTR p;
-   p = ( DWORD_PTR ) SendMessage(static_cast<HWND>(hWnd), CB_GETITEMDATA, nIndex, 0);
+   p = static_cast<DWORD_PTR>(SendMessage(static_cast<HWND>(hWnd), CB_GETITEMDATA, nIndex, 0));
    hb_retnl( p );
 
 }
@@ -2173,7 +2140,7 @@ HB_FUNC( HWG_COMBOBOXSETITEMDATA )
 {
    HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
    int nIndex = hb_parnl(2);
-   DWORD_PTR dwItemData = ( DWORD_PTR ) hb_parnl(3);
+   DWORD_PTR dwItemData = static_cast<DWORD_PTR>(hb_parnl(3));
    hb_retnl( SendMessage(static_cast<HWND>(hWnd), CB_SETITEMDATA, nIndex, ( LPARAM ) dwItemData));
 }
 
@@ -2209,7 +2176,7 @@ HB_FUNC( HWG_DEFWINDOWPROC )
 
 HB_FUNC( HWG_CALLWINDOWPROC )
 {
-   WNDPROC wpProc = ( WNDPROC ) ( ULONG_PTR ) hb_parnl(1);
+   WNDPROC wpProc = reinterpret_cast<WNDPROC>(static_cast<ULONG_PTR>(hb_parnl(1)));
    HWND hWnd = static_cast<HWND>(HB_PARHANDLE(2));
    LONG message = hb_parnl(3);
    WPARAM wParam = ( WPARAM ) hb_parnl(4);

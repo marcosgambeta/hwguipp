@@ -178,7 +178,7 @@ HB_FUNC( HWG_SELECTFILE )
       }
       *ptr++ = 0;
       *ptr = 0;
-      hb_xfree( pArrStr );
+      hb_xfree(pArrStr);
    }
    else
    {
@@ -201,7 +201,7 @@ HB_FUNC( HWG_SELECTFILE )
       HB_RETSTR( ofn.lpstrFile );
    else
       hb_retc( nullptr );
-   hb_xfree( lpFilter );
+   hb_xfree(lpFilter);
 
    hb_strfree(hInitDir);
    hb_strfree(hTitle);
@@ -255,7 +255,7 @@ HB_FUNC( HWG_SAVEFILE )
       HB_RETSTR( ofn.lpstrFile );
    else
       hb_retc( nullptr );
-   hb_xfree( lpFilter );
+   hb_xfree(lpFilter);
 
    hb_strfree(hFileName);
    hb_strfree(hInitDir);
@@ -319,13 +319,13 @@ HB_FUNC( HWG_CHOOSECOLOR )
    cc.lpCustColors = rgb;
    if( HB_ISNUM(1) )
    {
-      cc.rgbResult = ( COLORREF ) hb_parnl(1);
+      cc.rgbResult = static_cast<COLORREF>(hb_parnl(1));
       nStyle |= CC_RGBINIT;
    }
    cc.Flags = nStyle;
 
    if( ChooseColor( &cc ) )
-      hb_retnl( ( LONG ) cc.rgbResult );
+      hb_retnl(static_cast<LONG>(cc.rgbResult));
    else
       hb_ret();
 }

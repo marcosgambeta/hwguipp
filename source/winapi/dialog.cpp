@@ -125,7 +125,7 @@ HB_FUNC( HWG_GETDLGITEMTEXT )
          uiLen                  // maximum size of string
           );
    HB_RETSTR( lpText );
-   hb_xfree( lpText );
+   hb_xfree(lpText);
 }
 
 HB_FUNC( HWG_GETEDITTEXT )
@@ -141,7 +141,7 @@ HB_FUNC( HWG_GETEDITTEXT )
          uiLen + 1              // maximum size of string
           );
    HB_RETSTR( lpText );
-   hb_xfree( lpText );
+   hb_xfree(lpText);
 }
 
 HB_FUNC( HWG_CHECKDLGBUTTON )
@@ -193,14 +193,14 @@ HB_FUNC( HWG_COMBOSETSTRING )
 
 HB_FUNC( HWG_GETNOTIFYCODE )
 {
-   hb_retnl( ( LONG ) ( ( ( NMHDR * ) HB_PARHANDLE(1) )->code ) );
+   hb_retnl(static_cast<LONG>((static_cast<NMHDR*>(HB_PARHANDLE(1)))->code));
 }
 
 static LPWORD s_lpwAlign( LPWORD lpIn )
 {
    ULONG ul;
 
-   ul = ( ULONG ) lpIn;
+   ul = reinterpret_cast<ULONG>(lpIn);
    ul += 3;
    ul >>= 2;
    ul <<= 2;
@@ -302,7 +302,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
 
       p = s_lpwAlign( p );
 
-      ulStyle = ( ULONG ) hb_itemGetNL( GetObjectVar( pControl, "STYLE" ) );
+      ulStyle = static_cast<ULONG>(hb_itemGetNL(GetObjectVar(pControl, "STYLE")));
       lExtStyle = hb_itemGetNL( GetObjectVar( pControl, "EXTSTYLE" ) );
       x1 = ( hb_itemGetNI( GetObjectVar( pControl,
                         "NLEFT" ) ) * 4 ) / baseunitX;
@@ -356,9 +356,7 @@ static void s_ReleaseDlgTemplate( LPDLGTEMPLATE pdlgtemplate )
 
 HB_FUNC( HWG_CREATEDLGTEMPLATE )
 {
-   hb_retnl( ( LONG ) s_CreateDlgTemplate( hb_param( 1, HB_IT_OBJECT ),
-               hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
-               ( ULONG ) hb_parnd(6) ) );
+   hb_retnl(reinterpret_cast<LONG>(s_CreateDlgTemplate(hb_param(1, HB_IT_OBJECT), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), static_cast<ULONG>(hb_parnd(6)))));
 }
 
 HB_FUNC( HWG_RELEASEDLGTEMPLATE )
@@ -488,7 +486,7 @@ HB_FUNC( HWG_CREATEDLGINDIRECT )
       pdlgtemplate = ( LPDLGTEMPLATE ) hb_parnl(8);
    else
    {
-      ULONG ulStyle = ( ( hb_pcount() > 6 && !HB_ISNIL(7) ) ? ( ULONG ) hb_parnd(7) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_SIZEBOX );     // | DS_SETFONT;
+      ULONG ulStyle = ( ( hb_pcount() > 6 && !HB_ISNIL(7) ) ? static_cast<ULONG>(hb_parnd(7)) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_SIZEBOX );     // | DS_SETFONT;
 
       pdlgtemplate =
             s_CreateDlgTemplate( pObject, hb_parni(3), hb_parni(4),
@@ -510,7 +508,7 @@ HB_FUNC( HWG_CREATEDLGINDIRECT )
 HB_FUNC( HWG_DLGBOXINDIRECT )
 {
    PHB_ITEM pObject = hb_param( 2, HB_IT_OBJECT );
-   ULONG ulStyle = ( ( hb_pcount() > 6 && !HB_ISNIL(7) ) ? ( ULONG ) hb_parnd(7) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU );     // | DS_SETFONT;
+   ULONG ulStyle = ( ( hb_pcount() > 6 && !HB_ISNIL(7) ) ? static_cast<ULONG>(hb_parnd(7)) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU );     // | DS_SETFONT;
    int x1 = hb_parni(3), y1 = hb_parni(4),
          dwidth = hb_parni(5), dheight = hb_parni(6);
    LPDLGTEMPLATE pdlgtemplate =
@@ -557,9 +555,9 @@ static LRESULT CALLBACK s_ModalDlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) uMsg );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG )  lParam );
+      hb_vmPushLong(static_cast<LONG>(uMsg));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -631,9 +629,9 @@ static LRESULT CALLBACK s_DlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) uMsg );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(uMsg));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -710,9 +708,9 @@ static LRESULT CALLBACK s_PSPProc( HWND hDlg, UINT uMsg, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) uMsg );
-//      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(static_cast<LONG>(uMsg));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
@@ -750,12 +748,12 @@ static LRESULT CALLBACK s_PSPProcRelease( HWND hwnd, UINT uMsg,
 
 HB_FUNC( HWG_GETNOTIFYCODEFROM )
 {
-   HB_RETHANDLE(((( NMHDR * ) HB_PARHANDLE(1))->hwndFrom));
+   HB_RETHANDLE(((static_cast<NMHDR*>(HB_PARHANDLE(1)))->hwndFrom));
 }
 
 HB_FUNC( HWG_GETNOTIFYIDFROM )
 {
-   hb_retnl( ( LONG ) ( ( ( NMHDR * ) HB_PARHANDLE(1) )->idFrom ) );
+   hb_retnl(static_cast<LONG>((static_cast<NMHDR*>(HB_PARHANDLE(1)))->idFrom));
 }
 
 /* ========================== EOF of dialog.c ====================== */

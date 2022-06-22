@@ -29,13 +29,12 @@ HB_FUNC( HWG_REGCREATEKEY )
    HKEY hkResult = nullptr;
    DWORD dwDisposition;
 
-   if( RegCreateKeyEx( (HKEY)hb_parnl(1), hb_parc(2), 0, nullptr, 0, KEY_ALL_ACCESS, 
-          nullptr, &hkResult, &dwDisposition ) == ERROR_SUCCESS )
+   if( RegCreateKeyEx(( HKEY ) hb_parnl(1), hb_parc(2), 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hkResult, &dwDisposition) == ERROR_SUCCESS )
    {
-      hb_retnl( (ULONG) hkResult );
+      hb_retnl(reinterpret_cast<ULONG>(hkResult));
    }
    else
-      hb_retnl( -1 );
+      hb_retnl(-1);
 }
 
 /*
@@ -46,13 +45,12 @@ HB_FUNC( HWG_REGOPENKEY )
 {
    HKEY hkResult = nullptr;
 
-   if( RegOpenKeyEx( (HKEY)hb_parnl(1), hb_parc(2), 0, KEY_ALL_ACCESS, 
-                &hkResult ) == ERROR_SUCCESS )
+   if( RegOpenKeyEx(( HKEY ) hb_parnl(1), hb_parc(2), 0, KEY_ALL_ACCESS, &hkResult) == ERROR_SUCCESS )
    {
-      hb_retnl( (ULONG) hkResult );
+      hb_retnl(reinterpret_cast<ULONG>(hkResult));
    }
    else
-      hb_retnl( -1 );
+      hb_retnl(-1);
 }
 
 /*
@@ -103,11 +101,11 @@ HB_FUNC( HWG_REGGETVALUE )
       {
          hb_retclen( (char*)lpData,(lpType==REG_SZ || lpType==REG_MULTI_SZ || lpType==REG_EXPAND_SZ)? length-1:length );
          if( hb_pcount() > 2 )
-            hb_stornl( (LONG) lpType,3 );
+            hb_stornl(static_cast<LONG>(lpType), 3);
       }
       else
          hb_ret();
-      hb_xfree( lpData );
+      hb_xfree(lpData);
    }
    else
       hb_ret();
