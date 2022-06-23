@@ -9,7 +9,7 @@
 // #define OEMRESOURCE
 #include "hwingui.h"
 
-#if defined(__MINGW32__) || defined(__MINGW64__) || defined(__WATCOMC__)
+#if defined(__MINGW32__) || defined(__MINGW64__)
 #include <prsht.h>
 #endif
 

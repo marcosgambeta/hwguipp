@@ -25,7 +25,7 @@
 #include "incomp_pointer.h"
 #include "warnings.h"
 
-#if defined(__BORLANDC__) || (defined(_MSC_VER) || defined(__WATCOMC__))
+#if defined(__BORLANDC__) || defined(_MSC_VER)
 HB_EXTERN_BEGIN
 WINUSERAPI HWND WINAPI GetAncestor( HWND hwnd, UINT gaFlags );
 HB_EXTERN_END

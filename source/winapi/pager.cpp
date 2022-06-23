@@ -1,10 +1,6 @@
 #include "hwingui.h"
 #include <commctrl.h>
 
-#if ( defined(__WATCOMC__) )
-#include "missing.h"
-#endif
-
 HB_FUNC( HWG_PAGERSETCHILD )
 {
    HWND m_hWnd = static_cast<HWND>(HB_PARHANDLE(1));
