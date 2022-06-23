@@ -54,13 +54,6 @@
 #include "hbapiitm.h"
 #include "winreg.h"
 
-#if defined(__DMC__)
-__inline long PtrToLong( const void *p )
-{
-   return (static_cast<long>(p));
-}
-#endif
-
 HB_FUNC( HWG_REGCLOSEKEY )
 {
    HKEY hwHandle = ( HKEY ) hb_parnl(1);

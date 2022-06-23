@@ -13,9 +13,6 @@
 #include <commctrl.h>
 #define _RICHEDIT_VER	0x0200
 #include <richedit.h>
-#if defined(__DMC__)
-#define GetWindowLongPtr GetWindowLong
-#endif
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "hbstack.h"

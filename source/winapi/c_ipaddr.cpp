@@ -47,10 +47,6 @@
 #include "hbstack.h"
 #include "hbapiitm.h"
 
-#if defined(__DMC__)
-#include "missing.h"
-#endif
-
 HB_FUNC_EXTERN( HWG_INITCOMMONCONTROLSEX );
 
 HB_FUNC( HWG_INITIPADDRESS )

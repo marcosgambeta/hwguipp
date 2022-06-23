@@ -19,10 +19,6 @@
 #include "hbapiitm.h"
 #include "hbdate.h"
 
-#if defined(__DMC__)
-#include "missing.h"
-#endif
-
 HB_FUNC( HWG_INITMONTHCALENDAR )
 {
    HWND hMC;

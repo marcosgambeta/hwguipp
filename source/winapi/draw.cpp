@@ -7,9 +7,6 @@
 */
 
 #define OEMRESOURCE
-#ifdef __DMC__
-#define __DRAW_C__
-#endif
 #include "hwingui.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
@@ -55,18 +52,6 @@ typedef struct _GRADIENT_RECT
    ULONG UpperLeft;
    ULONG LowerRight;
 } GRADIENT_RECT;
-#endif
-
-#if defined(__DMC__)
-typedef struct _TRIVERTEX
-{
-   LONG x;
-   LONG y;
-   USHORT Red;
-   USHORT Green;
-   USHORT Blue;
-   USHORT Alpha;
-} TRIVERTEX, *PTRIVERTEX;
 #endif
 
 #endif

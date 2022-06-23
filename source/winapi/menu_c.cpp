@@ -9,9 +9,6 @@
 #define OEMRESOURCE
 #include "hwingui.h"
 #include <commctrl.h>
-#ifdef __DMC__
-#define MIIM_BITMAP     0x00000080
-#endif
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "hbstack.h"

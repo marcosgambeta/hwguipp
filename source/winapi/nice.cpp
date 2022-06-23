@@ -28,18 +28,6 @@ typedef struct _GRADIENT_RECT
 } GRADIENT_RECT, *PGRADIENT_RECT, *LPGRADIENT_RECT;
 #endif
 
-#if defined(__DMC__)
-typedef struct _TRIVERTEX
-{
-   LONG x;
-   LONG y;
-   USHORT Red;
-   USHORT Green;
-   USHORT Blue;
-   USHORT Alpha;
-} TRIVERTEX, *PTRIVERTEX, *LPTRIVERTEX;
-#endif
-
 #endif
 
 typedef int ( _stdcall * GRADIENTFILL ) ( HDC, PTRIVERTEX, int, PVOID, int,

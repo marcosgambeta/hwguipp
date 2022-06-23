@@ -9,9 +9,6 @@
 #define OEMRESOURCE
 #include "hwingui.h"
 #include <commctrl.h>
-#if defined(__DMC__)
-#include "missing.h"
-#endif
 
 #include "hbapifs.h"
 #include "hbapiitm.h"
@@ -513,7 +510,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
    if( aWindows[0] )
    {
       hWnd = CreateMDIWindow(
-#if (((defined(_MSC_VER)&&(_MSC_VER<=1200))||defined(__DMC__)))
+#if (((defined(_MSC_VER)&&(_MSC_VER<=1200))))
             ( LPSTR ) s_szChild,        // pointer to registered child class name
             ( LPSTR ) lpTitle,  // pointer to window name
 #else

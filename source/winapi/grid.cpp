@@ -12,9 +12,6 @@
 #include "hwingui.h"
 #include <commctrl.h>
 #include <shlobj.h>
-#if defined(__DMC__)
-#include "missing.h"
-#endif
 #include "hbapiitm.h"
 
 #if ( defined(__MINGW32__) || defined(__MINGW64__) ) && !defined(CDRF_NOTIFYSUBITEMDRAW)

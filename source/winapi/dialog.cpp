@@ -12,9 +12,6 @@
 #if defined(__MINGW32__) || defined(__MINGW64__) || defined(__WATCOMC__)
 #include <prsht.h>
 #endif
-#if defined(__DMC__)
-#define GetWindowLongPtr GetWindowLong
-#endif
 
 #include "hbapiitm.h"
 #include "hbvm.h"

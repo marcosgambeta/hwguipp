@@ -12,9 +12,6 @@
 #include "hwingui.h"
 #include <commctrl.h>
 #include <winuser.h>
-#if defined(__DMC__)
-#include "missing.h"
-#endif
 
 #include "hbapiitm.h"
 #include "hbvm.h"
@@ -28,7 +25,7 @@
 #include "incomp_pointer.h"
 #include "warnings.h"
 
-#if defined(__BORLANDC__) || (defined(_MSC_VER) || defined(__WATCOMC__) || defined(__DMC__) )
+#if defined(__BORLANDC__) || (defined(_MSC_VER) || defined(__WATCOMC__))
 HB_EXTERN_BEGIN
 WINUSERAPI HWND WINAPI GetAncestor( HWND hwnd, UINT gaFlags );
 HB_EXTERN_END

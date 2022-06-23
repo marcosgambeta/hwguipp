@@ -19,16 +19,6 @@
 
 #include "incomp_pointer.h"
 
-#if !defined( GetDefaultPrinter ) && defined( __DMC__ )
-BOOL WINAPI GetDefaultPrinterA( LPSTR, LPDWORD );
-BOOL WINAPI GetDefaultPrinterW( LPWSTR, LPDWORD );
-#  ifdef UNICODE
-#     define GetDefaultPrinter GetDefaultPrinterW
-#  else
-#     define GetDefaultPrinter GetDefaultPrinterA
-#  endif
-#endif
-
 HB_FUNC( HWG_OPENPRINTER )
 {
    void * hText;
