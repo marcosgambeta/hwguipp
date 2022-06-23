@@ -25,6 +25,7 @@
 {win}source/winapi/resource.cpp
 {win}source/winapi/richedit.cpp
 {win}source/winapi/shellapi.cpp
+{win}source/winapi/trackbar.cpp
 {win}source/winapi/window.cpp
 {win}source/winapi/wprint.cpp
 {win}source/winapi/c_ipaddr.cpp
@@ -54,6 +55,7 @@
 {win}source/winapi/hlistbox.prg
 {win}source/winapi/htool.prg
 {win}source/winapi/hmonthc.prg
+{win}source/winapi/htrack.prg
 {win}source/winapi/htrackbar.prg
 {win}source/winapi/hanimat.prg
 {win}source/winapi/hnice.prg
