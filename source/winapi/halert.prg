@@ -511,6 +511,3 @@ FUNCTION HWG_Alert_CenterWindow( hWnd )
     Hwg_MoveWindow(hWnd, aPoint[ 1 ], aPoint[ 2 ], nCWidth, nCHeight, .F.)
 
 RETURN Nil
-
-
-* ==================== EOF of alert.prg ======================

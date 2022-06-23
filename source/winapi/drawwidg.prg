@@ -1057,6 +1057,3 @@ LOCAL cTmp , hCursor
  hCursor := hwg_LoadCursorFromFile( cTmp ) && for GTK add parameters nx, ny
  FERASE(cTmp)
 RETURN hCursor
-
-* ======================== EOF of drawwidg.prg =========================
-

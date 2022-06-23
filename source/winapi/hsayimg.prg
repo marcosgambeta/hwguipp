@@ -289,6 +289,3 @@ METHOD Init() CLASS HSayIcon
    aBmpSize  := hwg_Getbitmapsize( handle )
    
    RETURN aBmpSize[1]   
-
-* ======================== EOF of hsayimg.prg =========================
-

@@ -97,5 +97,3 @@ METHOD Close() CLASS HAnimation
 METHOD Destroy() CLASS HAnimation
    hwg_Animate_Destroy( ::handle )
    RETURN Nil
-
-* ========================= EOF of hanimat.prg ===============================

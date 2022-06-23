@@ -538,6 +538,3 @@ HB_FUNC( HWG_LOADRICHEDIT )
    CloseHandle( hFile );
    HB_RETHANDLE(hFile);
 }
-
-/* =============================== EOF of richedit.c ================================ */
-

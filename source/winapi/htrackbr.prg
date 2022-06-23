@@ -418,5 +418,3 @@ HB_FUNC( HWG_TRACKBARSETRANGE )
 }
 
 #pragma ENDDUMP
-
-* ========================== EOF of htrackbr.prg =============================

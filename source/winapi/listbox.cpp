@@ -51,6 +51,3 @@ HB_FUNC( HWG_LISTBOXDELETESTRING )
 {
    SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), LB_DELETESTRING, 0, ( LPARAM ) 0);
 }
-
-/* ============================ EOF of listbox.c =============================== */
-

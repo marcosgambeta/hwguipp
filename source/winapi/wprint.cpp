@@ -645,5 +645,3 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
    }
    hb_retl(Result);
 }
-
-/* ======================== EOF of wprint.c ============================= */

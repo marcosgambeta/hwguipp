@@ -208,6 +208,3 @@ METHOD DragAll( xPos, yPos ) CLASS HSplitter
    ::lMoved := .F.
 
    RETURN Nil
-
- * ======================== EOF of hsplit.prg ================================
- 

@@ -340,6 +340,3 @@ FUNCTION hwg_SetNiceBtnSelected( oBtn )
    ENDIF
 
    RETURN otmp
-
-* =============================== EOF of hnice.prg ===================
-

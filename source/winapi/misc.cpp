@@ -1377,5 +1377,3 @@ HB_FUNC( HWG_FILEMODTIME )
 {
  GetFileMtime( ( const char * ) hb_parc(1) );
 }
-
-/* ========= EOF of misc.c ============ */

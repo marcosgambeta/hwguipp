@@ -623,4 +623,3 @@ STATIC FUNCTION onSysCommand( oDlg, wParam )
    ENDIF
 
    RETURN - 1
-

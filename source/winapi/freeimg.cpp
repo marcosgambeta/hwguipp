@@ -1098,5 +1098,3 @@ HB_FUNC( HWG_FI_SETPIXELINDEX )
 typedef BOOL ( WINAPI *FREEIMAGE_GETPIXELCOLOR )(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
 typedef BOOL ( WINAPI *FREEIMAGE_SETPIXELCOLOR )(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
 */
-
-/* ======================== EOF of freeimg.c ========================== */

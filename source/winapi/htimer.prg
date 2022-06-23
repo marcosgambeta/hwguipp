@@ -103,6 +103,3 @@ EXIT PROCEDURE CleanTimers
    hwg_ReleaseTimers()
 
    RETURN
-
-* ====================================== EOF of htimer.prg =========================================
-   

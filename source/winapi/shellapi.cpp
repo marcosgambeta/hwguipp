@@ -162,5 +162,3 @@ HB_FUNC( HWG_SHELLEXECUTE )
    hb_strfree(hDirectory);
 #endif
 }
-
-/* ======================== EOF of shellapi.c ========================= */

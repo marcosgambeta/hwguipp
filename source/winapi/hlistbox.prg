@@ -300,5 +300,3 @@ METHOD Valid( oCtrl ) CLASS HListBox
        hwg_GetSkip( ::oParent, ::handle, 1 )
    ENDIF
    RETURN .T.
-
-* ======================= EOF of hlistbox.prg ==================================

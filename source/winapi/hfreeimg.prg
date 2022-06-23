@@ -206,4 +206,3 @@ METHOD Paint( lpdis ) CLASS HSayFImage
    hwg_Fi_end()
 
    RETURN
-

@@ -1054,6 +1054,3 @@ IF nposi == 0
  fna := fna + "." + cext
 ENDIF 
 RETURN fna
-
-* ============== EOF of hmisc.prg =================
-

@@ -2288,6 +2288,3 @@ HB_FUNC( HWG_SHOWCURSOR )
 {
   hb_retni(ShowCursor(hb_parl(1) ) );
 }
-
-/* ====================== EOF of control.c ======================= */
-

@@ -72,7 +72,3 @@ METHOD CountSeconds( oTime, oDlg )
    SET TIMER ::oTimer OF oDlg VALUE oTime  ACTION { || hwg_EndDialog( hwg_GetModalHandle() ) }
 
    RETURN Nil
-
-
-
-* ====================== EOF of hsplash.prg =======================

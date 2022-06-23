@@ -220,5 +220,3 @@ FUNCTION hwg_ListViewNotify( oCtrl, lParam )
 
    ENDIF
    RETURN 0
-
-

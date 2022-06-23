@@ -114,6 +114,3 @@ METHOD Notify( lParam ) CLASS HPager
    ENDIF
 
    RETURN 0
-
-* ================================= EOF of hpager.prg ==================================
-

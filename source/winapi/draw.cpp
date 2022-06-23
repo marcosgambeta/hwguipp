@@ -1879,6 +1879,3 @@ HB_FUNC( HWG_DRAWGRADIENT )
    DeleteObject( hBrush );
 
 }
-
-/* ============================== EOF of draw.c ================================ */
-

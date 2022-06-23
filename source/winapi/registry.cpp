@@ -110,6 +110,3 @@ HB_FUNC( HWG_REGGETVALUE )
    else
       hb_ret();
 }
-
-/* ============================== EOF of registry.c ============================ */
-

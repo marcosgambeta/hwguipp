@@ -639,6 +639,3 @@ STATIC FUNCTION fPaintBtn( oBtn )
    hwg_Endpaint( oBtn:handle, pps )
 
    RETURN Nil
-
-* =================================== EOF of hpanel.prg ======================================
-   

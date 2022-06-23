@@ -269,6 +269,3 @@ HB_FUNC( HWG_SETBKMODE )
 {
    hb_retni( SetBkMode( static_cast<HDC>(HB_PARHANDLE(1)), hb_parni(2) ) );
 }
-
-/* =========================== EOF of nice.c ========================== */
-

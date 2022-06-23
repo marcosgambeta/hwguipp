@@ -319,5 +319,3 @@ FUNCTION hwg_DeleteMenuItem( oWnd, nId )
       hwg_DeleteMenu( hwg_Getmenuhandle( oWnd:handle ), nId )
    ENDIF
    RETURN Nil
-
-* ============================= EOF of menu.prg =============================

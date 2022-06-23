@@ -309,5 +309,3 @@ METHOD END () CLASS HCLIENTDC
    ::m_hAttribDC := NIL
 
    RETURN NIL
-
-* ================================= EOF of hdc.prg ====================================

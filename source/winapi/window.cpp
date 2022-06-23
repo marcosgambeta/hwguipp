@@ -1504,6 +1504,3 @@ HB_FUNC( HWG_EXITPROC )
 HB_FUNC( HWG_SETAPPLOCALE )
 {
 }
-
-/*  ----------------------- EOF of window.c ------------------------ */
-

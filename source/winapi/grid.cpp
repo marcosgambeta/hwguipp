@@ -508,6 +508,3 @@ HB_FUNC( HWG_LISTVIEWSORT )
    p->pListControl = static_cast<HWND>(HB_PARHANDLE(1));
    ListView_SortItemsEx( static_cast<HWND>(HB_PARHANDLE(1)), CompareFunc, p );
 }
-
-/* ========================= EOF of grid.c ======================== */
-

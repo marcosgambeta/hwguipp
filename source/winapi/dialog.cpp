@@ -753,6 +753,3 @@ HB_FUNC( HWG_GETNOTIFYIDFROM )
 {
    hb_retnl(static_cast<LONG>((static_cast<NMHDR*>(HB_PARHANDLE(1)))->idFrom));
 }
-
-/* ========================== EOF of dialog.c ====================== */
-

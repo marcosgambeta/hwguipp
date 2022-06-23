@@ -335,5 +335,3 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
 
    RETURN Self
-
-* ============================ EOF of htab.prg ===========================
