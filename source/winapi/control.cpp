@@ -52,7 +52,6 @@ LRESULT CALLBACK WinCtrlProc(HWND, UINT, WPARAM, LPARAM);
 LRESULT APIENTRY SplitterProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY StaticSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY EditSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-LRESULT APIENTRY ButtonSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY ListSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY TrackSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY TreeViewSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -61,8 +60,7 @@ static void CALLBACK s_timerProc(HWND, UINT, UINT, DWORD);
 static HWND s_hWndTT = nullptr;
 static bool s_lInitCmnCtrl = false;
 static bool s_lToolTipBalloon = false;
-static WNDPROC wpOrigEditProc, wpOrigTrackProc, wpOrigStaticProc, wpOrigListProc, wpOrigTreeViewProc;     //wpOrigButtonProc
-static LONG_PTR wpOrigButtonProc;
+static WNDPROC wpOrigEditProc, wpOrigTrackProc, wpOrigStaticProc, wpOrigListProc, wpOrigTreeViewProc;
 
 /*
 HWG_INITCOMMONCONTROLSEX() --> NIL
@@ -224,24 +222,6 @@ HB_FUNC( HWG_CREATESTATIC )
     */
 
    HB_RETHANDLE(hWndCtrl);
-}
-
-/*
-   CreateButton(hParentWIndow, nButtonID, nStyle, x, y, nWidth, nHeight, cCaption)
-*/
-HB_FUNC( HWG_CREATEBUTTON )
-{
-   void * hStr;
-   HWND hBtn = CreateWindow(TEXT("BUTTON"),  /* predefined class  */
-         HB_PARSTR(8, &hStr, nullptr),           /* button text   */
-         WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
-         hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
-         static_cast<HWND>(HB_PARHANDLE(1)),
-         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-         GetModuleHandle(nullptr),
-         nullptr);
-   hb_strfree(hStr);
-   HB_RETHANDLE(hBtn);
 }
 
 /*
@@ -1197,55 +1177,6 @@ LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
    else
    {
       return (CallWindowProc(wpOrigEditProc, hWnd, message, wParam, lParam));
-   }
-}
-
-HB_FUNC( HWG_INITBUTTONPROC )
-{
-//   wpOrigButtonProc = static_cast<WNDPROC>(SetWindowLong(static_cast<HWND>(HB_PARHANDLE(1)), GWL_WNDPROC, static_cast<LONG>(ButtonSubclassProc)));
-   wpOrigButtonProc = static_cast<LONG_PTR>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ButtonSubclassProc)));
-}
-
-LRESULT APIENTRY ButtonSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-   long int res;
-   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-
-   if( !pSym_onEvent )
-   {
-      pSym_onEvent = hb_dynsymFindName("ONEVENT");
-   }
-
-   if( pSym_onEvent && pObject )
-   {
-      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
-      hb_vmPush(pObject);
-      hb_vmPushLong(static_cast<LONG>(message));
-//      hb_vmPushLong(static_cast<LONG>(wParam));
-//      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
-      hb_vmSend(3);
-      if( HB_ISPOINTER(-1) )
-      {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
-      }
-      else
-      {
-         res = hb_parnl(-1);
-         if( res == -1 )
-         {
-            return (CallWindowProc(reinterpret_cast<WNDPROC>(wpOrigButtonProc), hWnd, message, wParam, lParam));
-         }
-         else
-         {
-            return res;
-         }
-      }
-   }
-   else
-   {
-      return (CallWindowProc(reinterpret_cast<WNDPROC>(wpOrigButtonProc), hWnd, message, wParam, lParam));
    }
 }
 

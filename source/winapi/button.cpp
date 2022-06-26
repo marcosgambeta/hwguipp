@@ -1,0 +1,99 @@
+/*
+ * HWGUI - Harbour Win32 GUI library source code:
+ * C level controls functions
+ *
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * www - http://www.kresin.ru
+*/
+
+#define HB_OS_WIN_32_USED
+
+#define OEMRESOURCE
+#include "hwingui.h"
+#include <commctrl.h>
+#include <winuser.h>
+
+#include "hbapiitm.h"
+#include "hbvm.h"
+#include "hbdate.h"
+#include "hbtrace.h"
+
+/* Suppress compiler warnings */
+#include "incomp_pointer.h"
+#include "warnings.h"
+
+LRESULT APIENTRY ButtonSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+// static WNDPROC wpOrigButtonProc;
+static LONG_PTR wpOrigButtonProc;
+
+/*
+HWG_CREATEBUTTON(hParentWIndow, nButtonID, nStyle, nX, nY, nWidth, nHeight, cCaption) --> hButton
+*/
+HB_FUNC( HWG_CREATEBUTTON )
+{
+   void * hStr;
+   HWND hBtn = CreateWindow(TEXT("BUTTON"),
+                            HB_PARSTR(8, &hStr, nullptr),
+                            WS_CHILD | WS_VISIBLE | hb_parnl(3),
+                            hb_parni(4),
+                            hb_parni(5),
+                            hb_parni(6),
+                            hb_parni(7),
+                            static_cast<HWND>(HB_PARHANDLE(1)),
+                            reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+                            GetModuleHandle(nullptr),
+                            nullptr
+                            );
+   hb_strfree(hStr);
+   HB_RETHANDLE(hBtn);
+}
+
+HB_FUNC( HWG_INITBUTTONPROC )
+{
+//   wpOrigButtonProc = static_cast<WNDPROC>(SetWindowLong(static_cast<HWND>(HB_PARHANDLE(1)), GWL_WNDPROC, static_cast<LONG>(ButtonSubclassProc)));
+   wpOrigButtonProc = static_cast<LONG_PTR>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ButtonSubclassProc)));
+}
+
+LRESULT APIENTRY ButtonSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+   long int res;
+   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+
+   if( !pSym_onEvent )
+   {
+      pSym_onEvent = hb_dynsymFindName("ONEVENT");
+   }
+
+   if( pSym_onEvent && pObject )
+   {
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
+      hb_vmPushLong(static_cast<LONG>(message));
+//      hb_vmPushLong(static_cast<LONG>(wParam));
+//      hb_vmPushLong(static_cast<LONG>(lParam));
+      HB_PUSHITEM(wParam);
+      HB_PUSHITEM(lParam);
+      hb_vmSend(3);
+      if( HB_ISPOINTER(-1) )
+      {
+         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+      }
+      else
+      {
+         res = hb_parnl(-1);
+         if( res == -1 )
+         {
+            return (CallWindowProc(reinterpret_cast<WNDPROC>(wpOrigButtonProc), hWnd, message, wParam, lParam));
+         }
+         else
+         {
+            return res;
+         }
+      }
+   }
+   else
+   {
+      return (CallWindowProc(reinterpret_cast<WNDPROC>(wpOrigButtonProc), hWnd, message, wParam, lParam));
+   }
+}
