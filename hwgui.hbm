@@ -63,7 +63,7 @@
 {win}source/winapi/hownbutton.prg
 {win}source/winapi/hpanel.prg
 {win}source/winapi/hprinter.prg
-{win}source/winapi/hprogres.prg
+{win}source/winapi/hprogressbar.prg
 {win}source/winapi/hradio.prg
 {win}source/winapi/hpager.prg
 {win}source/winapi/hrebar.prg
