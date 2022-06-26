@@ -54,7 +54,7 @@
 {win}source/winapi/hgraph.prg
 {win}source/winapi/hgrid.prg
 {win}source/winapi/hlistbox.prg
-{win}source/winapi/htool.prg
+{win}source/winapi/htoolbar.prg
 {win}source/winapi/hmonthcalendar.prg
 {win}source/winapi/htrack.prg
 {win}source/winapi/htrackbar.prg
