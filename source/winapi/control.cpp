@@ -276,19 +276,6 @@ HB_FUNC( HWG_CREATEEDIT )
 }
 
 /*
-   CreateCombo(hParentWIndow, nComboID, nStyle, x, y, nWidth, nHeight, cInitialString)
-*/
-HB_FUNC( HWG_CREATECOMBO )
-{
-   HWND hCombo = CreateWindow(TEXT("COMBOBOX"), TEXT(""), WS_CHILD | WS_VISIBLE | hb_parnl(3),
-      hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
-      static_cast<HWND>(HB_PARHANDLE(1)), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-      GetModuleHandle(nullptr), nullptr);
-
-   HB_RETHANDLE(hCombo);
-}
-
-/*
    CreateBrowse(hParentWIndow, nControlID, nStyle, x, y, nWidth, nHeight, cTitle)
 */
 HB_FUNC( HWG_CREATEBROWSE )
@@ -1568,29 +1555,11 @@ HB_FUNC( HWG_COMBOGETITEMRECT )
    hb_itemRelease(hb_itemReturn(Rect2Array(&rcItem)));
 }
 
-HB_FUNC( HWG_COMBOBOXGETITEMDATA )
-{
-   hb_retnl(static_cast<DWORD_PTR>(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_GETITEMDATA, hb_parnl(2), 0)));
-}
-
-HB_FUNC( HWG_COMBOBOXSETITEMDATA )
-{
-   DWORD_PTR dwItemData = static_cast<DWORD_PTR>(hb_parnl(3));
-   hb_retnl(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_SETITEMDATA, hb_parnl(2), static_cast<LPARAM>(dwItemData)));
-}
-
 HB_FUNC( HWG_GETLOCALEINFO )
 {
    TCHAR szBuffer[10] = { 0 };
    GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SLIST, szBuffer, HB_SIZEOFARRAY(szBuffer));
    HB_RETSTR(szBuffer);
-}
-
-HB_FUNC( HWG_COMBOBOXGETLBTEXT )
-{
-   TCHAR lpszText[255] = { 0 };
-   hb_retni(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_GETLBTEXT, hb_parnl(2), reinterpret_cast<LPARAM>(lpszText)));
-   HB_STORSTR(lpszText, 3);
 }
 
 HB_FUNC( HWG_DEFWINDOWPROC )

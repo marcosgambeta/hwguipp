@@ -164,33 +164,6 @@ HB_FUNC( HWG_ISDLGBUTTONCHECKED )
    hb_retl(IsDlgButtonChecked(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2)) == BST_CHECKED);
 }
 
-/*
-HWG_COMBOADDSTRING(hWnd, cString) --> NIL
-*/
-HB_FUNC( HWG_COMBOADDSTRING )
-{
-   void * hText;
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR(2, &hText, nullptr));
-   hb_strfree(hText);
-}
-
-/*
-HWG_COMBOINSERTSTRING(hWnd, nPar2, cString) --> NIL
-*/
-HB_FUNC( HWG_COMBOINSERTSTRING )
-{
-   void * hText;
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_INSERTSTRING, ( WPARAM ) hb_parni(2), ( LPARAM ) HB_PARSTR(3, &hText, nullptr));
-   hb_strfree(hText);
-}
-
-/*
-HWG_COMBOSETSTRING(hWnd, nPar2) --> NIL
-*/
-HB_FUNC( HWG_COMBOSETSTRING )
-{
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_SETCURSEL, ( WPARAM ) hb_parni(2) - 1, 0);
-}
 
 HB_FUNC( HWG_GETNOTIFYCODE )
 {
