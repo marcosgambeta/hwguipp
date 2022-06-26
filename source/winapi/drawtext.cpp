@@ -62,8 +62,8 @@ HB_FUNC( HWG_DRAWTEXT )
    HB_SIZE nLen;
    LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
    RECT rc;
-   UINT uFormat = ( hb_pcount() == 4 ? hb_parni(4) : hb_parni(7) );
-   // int uiPos = ( hb_pcount() == 4 ? 3 : hb_parni(8) );
+   UINT uFormat = (hb_pcount() == 4 ? hb_parni(4) : hb_parni(7));
+   // int uiPos = (hb_pcount() == 4 ? 3 : hb_parni(8));
    int heigh;
 
    if( hb_pcount() > 4 )
@@ -77,7 +77,7 @@ HB_FUNC( HWG_DRAWTEXT )
    }
    else
    {
-      Array2Rect( hb_param( 3, HB_IT_ARRAY ), &rc );
+      Array2Rect(hb_param(3, HB_IT_ARRAY), &rc);
    }
 
 
@@ -87,7 +87,7 @@ HB_FUNC( HWG_DRAWTEXT )
          &rc, uFormat );
    hb_strfree(hText);
 
-   //if( HB_ISBYREF( uiPos ) )
+   //if( HB_ISBYREF(uiPos) )
    if( HB_ISARRAY(8) )
    {
       hb_storvni( rc.left, 8, 1 );
@@ -95,7 +95,7 @@ HB_FUNC( HWG_DRAWTEXT )
       hb_storvni( rc.right, 8, 3 );
       hb_storvni( rc.bottom, 8, 4 );
    }
-   hb_retni( heigh );
+   hb_retni(heigh);
 
 }
 
@@ -252,34 +252,41 @@ HB_FUNC( HWG_GETCLIENTAREA )
    hb_itemRelease( aMetr );
 }
 
+/*
+HWG_SETTEXTCOLOR(hDC, nColor) --> numeric
+*/
 HB_FUNC( HWG_SETTEXTCOLOR )
 {
-   COLORREF crColor = SetTextColor( static_cast<HDC>(HB_PARHANDLE(1)),  // handle of device context
-         static_cast<COLORREF>(hb_parnl(2))     // text color
-          );
-   hb_retnl(static_cast<LONG>(crColor));
+   hb_retnl(static_cast<LONG>(SetTextColor(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<COLORREF>(hb_parnl(2)))));
 }
 
+/*
+HWG_SETBKCOLOR(hDC, nColor) --> numeric
+*/
 HB_FUNC( HWG_SETBKCOLOR )
 {
-   COLORREF crColor = SetBkColor( static_cast<HDC>(HB_PARHANDLE(1)),    // handle of device context
-         static_cast<COLORREF>(hb_parnl(2))     // text color
-          );
-   hb_retnl(static_cast<LONG>(crColor));
+   hb_retnl(static_cast<LONG>(SetBkColor(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<COLORREF>(hb_parnl(2)))));
 }
 
+/*
+HWG_SETTRANSPARENTMODE(hDC, lPar) --> logical
+*/
 HB_FUNC( HWG_SETTRANSPARENTMODE )
 {
-   int iMode = SetBkMode( static_cast<HDC>(HB_PARHANDLE(1)),    // handle of device context
-         ( hb_parl(2) ) ? TRANSPARENT : OPAQUE );
-   hb_retl(iMode == TRANSPARENT);
+   hb_retl(SetBkMode(static_cast<HDC>(HB_PARHANDLE(1)), hb_parl(2) ? TRANSPARENT : OPAQUE) == TRANSPARENT);
 }
 
+/*
+HWG_GETTEXTCOLOR(hDC) --> numeric
+*/
 HB_FUNC( HWG_GETTEXTCOLOR )
 {
    hb_retnl(static_cast<LONG>(GetTextColor(static_cast<HDC>(HB_PARHANDLE(1)))));
 }
 
+/*
+HWG_GETBKCOLOR(hDC) --> numeric
+*/
 HB_FUNC( HWG_GETBKCOLOR )
 {
    hb_retnl(static_cast<LONG>(GetBkColor(static_cast<HDC>(HB_PARHANDLE(1)))));
@@ -288,14 +295,13 @@ HB_FUNC( HWG_GETBKCOLOR )
 /*
 HB_FUNC( HWG_GETTEXTSIZE )
 {
-
-   HDC hdc = GetDC( (HWND)HB_PARHANDLE(1) );
+   HDC hdc = GetDC(static_cast<HWND>(HB_PARHANDLE(1)));
    SIZE size;
    PHB_ITEM aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;
    void * hString;
 
-   GetTextExtentPoint32( hdc, HB_PARSTR(2, &hString, nullptr),
+   GetTextExtentPoint32(hdc, HB_PARSTR(2, &hString, nullptr),
       lpString,         // address of text string
       strlen(cbString), // number of characters in string
       &size            // address of structure for string size
@@ -312,13 +318,14 @@ HB_FUNC( HWG_GETTEXTSIZE )
 
    hb_itemReturn( aMetr );
    hb_itemRelease( aMetr );
-
 }
 */
 
+/*
+HWG_EXTTEXTOUT(hDC, nX, nY, nLeft, nTop, nRight, nBottom) --> NIL
+*/
 HB_FUNC( HWG_EXTTEXTOUT )
 {
-
    RECT rc;
    void * hText;
    HB_SIZE nLen;
@@ -341,6 +348,9 @@ HB_FUNC( HWG_EXTTEXTOUT )
    hb_strfree(hText);
 }
 
+/*
+HWG_WRITESTATUSWINDOW(hWnd, nPar2, cString) --> NIL
+*/
 HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    void * hString;
@@ -348,25 +358,28 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
    hb_strfree(hString);
 }
 
+/*
+HWG_WINDOWFROMDC(hDC) --> hWnd
+*/
 HB_FUNC( HWG_WINDOWFROMDC )
 {
    HB_RETHANDLE(WindowFromDC(static_cast<HDC>(HB_PARHANDLE(1))));
 }
 
-/* CreateFont( fontName, nWidth, hHeight [,fnWeight] [,fdwCharSet],
-               [,fdwItalic] [,fdwUnderline] [,fdwStrikeOut]  )
+/*
+CreateFont(fontName, nWidth, hHeight [,fnWeight] [,fdwCharSet], [,fdwItalic] [,fdwUnderline] [,fdwStrikeOut])
 */
 HB_FUNC( HWG_CREATEFONT )
 {
    HFONT hFont;
-   int fnWeight = ( HB_ISNIL(4) ) ? 0 : hb_parni(4);
-   DWORD fdwCharSet = ( HB_ISNIL(5) ) ? 0 : hb_parni(5);
-   DWORD fdwItalic = ( HB_ISNIL(6) ) ? 0 : hb_parni(6);
-   DWORD fdwUnderline = ( HB_ISNIL(7) ) ? 0 : hb_parni(7);
-   DWORD fdwStrikeOut = ( HB_ISNIL(8) ) ? 0 : hb_parni(8);
+   int fnWeight = (HB_ISNIL(4)) ? 0 : hb_parni(4);
+   DWORD fdwCharSet = (HB_ISNIL(5)) ? 0 : hb_parni(5);
+   DWORD fdwItalic = (HB_ISNIL(6)) ? 0 : hb_parni(6);
+   DWORD fdwUnderline = (HB_ISNIL(7)) ? 0 : hb_parni(7);
+   DWORD fdwStrikeOut = (HB_ISNIL(8)) ? 0 : hb_parni(8);
    void * hString;
 
-   hFont = CreateFont( hb_parni(3),   // logical height of font
+   hFont = CreateFont(hb_parni(3),   // logical height of font
          hb_parni(2),         // logical average character width
          0,                     // angle of escapement
          0,                     // base-line orientation angle
@@ -390,24 +403,19 @@ HB_FUNC( HWG_CREATEFONT )
 */
 HB_FUNC( HWG_SETCTRLFONT )
 {
-   SendDlgItemMessage( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), WM_SETFONT,
-         ( WPARAM ) HB_PARHANDLE(3), 0L );
+   SendDlgItemMessage(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), WM_SETFONT, ( WPARAM ) HB_PARHANDLE(3), 0L);
 }
 
 HB_FUNC( HWG_CREATERECTRGN )
 {
-   HRGN reg;
-
-   reg = CreateRectRgn( hb_parni(1), hb_parni(2), hb_parni(3),
-         hb_parni(4) );
-
-   HB_RETHANDLE(reg);
+   HB_RETHANDLE(CreateRectRgn(hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4)));
 }
 
-
+/*
+HWG_CREATERECTRGNINDIRECT(NIL, nLeft, nTop, nRight, nBottom) -> hRgn
+*/
 HB_FUNC( HWG_CREATERECTRGNINDIRECT )
 {
-   HRGN reg;
    RECT rc;
 
    rc.left = hb_parni(2);
@@ -415,50 +423,41 @@ HB_FUNC( HWG_CREATERECTRGNINDIRECT )
    rc.right = hb_parni(4);
    rc.bottom = hb_parni(5);
 
-   reg = CreateRectRgnIndirect( &rc );
-   HB_RETHANDLE(reg);
+   HB_RETHANDLE(CreateRectRgnIndirect(&rc));
 }
-
 
 HB_FUNC( HWG_EXTSELECTCLIPRGN )
 {
-   hb_retni( ExtSelectClipRgn( static_cast<HDC>(HB_PARHANDLE(1)),
-               ( HRGN ) HB_PARHANDLE(2), hb_parni(3) ) );
+   hb_retni(ExtSelectClipRgn(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<HRGN>(HB_PARHANDLE(2)), hb_parni(3)));
 }
 
 HB_FUNC( HWG_SELECTCLIPRGN )
 {
-   hb_retni( SelectClipRgn( static_cast<HDC>(HB_PARHANDLE(1)),
-               ( HRGN ) HB_PARHANDLE(2) ) );
+   hb_retni(SelectClipRgn(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<HRGN>(HB_PARHANDLE(2))));
 }
-
 
 HB_FUNC( HWG_CREATEFONTINDIRECT )
 {
    LOGFONT lf;
-   HFONT f;
    memset(&lf, 0, sizeof(LOGFONT));
    lf.lfQuality = hb_parni(4);
    lf.lfHeight = hb_parni(3);
    lf.lfWeight = hb_parni(2);
-   HB_ITEMCOPYSTR( hb_param( 1, HB_IT_ANY ), lf.lfFaceName,
-         HB_SIZEOFARRAY( lf.lfFaceName ) );
-   lf.lfFaceName[HB_SIZEOFARRAY( lf.lfFaceName ) - 1] = '\0';
+   HB_ITEMCOPYSTR(hb_param(1, HB_IT_ANY), lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
+   lf.lfFaceName[HB_SIZEOFARRAY(lf.lfFaceName) - 1] = '\0';
 
-   f = CreateFontIndirect( &lf );
-   HB_RETHANDLE(f);
+   HB_RETHANDLE(CreateFontIndirect(&lf));
 }
 
 #if __HARBOUR__ - 0 > 0x030000
-int CALLBACK GetFontsCallback( ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme,
-      DWORD FontType, LPARAM lParam )
+int CALLBACK GetFontsCallback( ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DWORD FontType, LPARAM lParam )
 {
    HB_SYMBOL_UNUSED( lpntme );
    HB_SYMBOL_UNUSED( FontType );
    HB_SYMBOL_UNUSED( lParam );
 
    HB_ITEMPUTSTR( pFontsItem, (LPCTSTR)lpelfe->elfFullName );
-   if( !hb_itemEqual( pFontsItem, pFontsItemLast ) )
+   if( !hb_itemEqual(pFontsItem, pFontsItemLast) )
    {
       HB_ITEMPUTSTR( pFontsItemLast, (LPCTSTR)lpelfe->elfFullName );
       hb_arrayAdd( aFontsList, pFontsItem );
@@ -470,7 +469,7 @@ HB_FUNC( HWG_GETFONTSLIST )
 {
    LOGFONT lf;
    HWND hwnd=GetDesktopWindow();
-   HDC hDC = GetDC( hwnd );
+   HDC hDC = GetDC(hwnd);
 
    memset(&lf, 0, sizeof(lf));
    lf.lfCharSet = DEFAULT_CHARSET;
@@ -478,7 +477,7 @@ HB_FUNC( HWG_GETFONTSLIST )
    pFontsItem = hb_itemPutC( nullptr, "" );
    pFontsItemLast = hb_itemPutC( nullptr, "" );
 
-   EnumFontFamiliesEx( hDC, &lf, (FONTENUMPROC)GetFontsCallback, 0, 0 );
+   EnumFontFamiliesEx(hDC, &lf, (FONTENUMPROC)GetFontsCallback, 0, 0);
 
    hb_itemRelease( pFontsItem );
    hb_itemRelease( pFontsItemLast );

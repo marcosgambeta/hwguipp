@@ -13,9 +13,6 @@
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "hbstack.h"
-#ifdef __XHARBOUR__
-#include "hbfast.h"
-#endif
 
 #include "incomp_pointer.h"
 
@@ -35,38 +32,37 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
 
    if( GetVersion() & 0x80000000 )    // Windows 98
    {
-      EnumPrinters( PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr,
-            0, &dwNeeded, &dwReturned );
+      EnumPrinters( PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr, 0, &dwNeeded, &dwReturned );
 
       pinfo5 = ( PRINTER_INFO_5 * ) hb_xgrab(dwNeeded);
 
-      EnumPrinters( PRINTER_ENUM_DEFAULT, nullptr, 5, ( PBYTE ) pinfo5,
-            dwNeeded, &dwNeeded, &dwReturned );
+      EnumPrinters( PRINTER_ENUM_DEFAULT, nullptr, 5, ( PBYTE ) pinfo5, dwNeeded, &dwNeeded, &dwReturned );
 
       hDC = CreateDC( nullptr, pinfo5->pPrinterName, nullptr, nullptr );
       if( hb_pcount() > 0 )
+      {
          HB_STORSTR( pinfo5->pPrinterName, 1 );
+      }
 
       hb_xfree(pinfo5);
    }
    else                         // Windows NT
    {
-      EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, nullptr,
-            0, &dwNeeded, &dwReturned );
+      EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, nullptr, 0, &dwNeeded, &dwReturned );
 
       pinfo4 = ( PRINTER_INFO_4 * ) hb_xgrab(dwNeeded);
 
-      EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, ( PBYTE ) pinfo4,
-            dwNeeded, &dwNeeded, &dwReturned );
+      EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, ( PBYTE ) pinfo4, dwNeeded, &dwNeeded, &dwReturned );
       hDC = CreateDC( nullptr, pinfo4->pPrinterName, nullptr, nullptr );
       if( hb_pcount() > 0 )
+      {
          HB_STORSTR( pinfo4->pPrinterName, 1 );
+      }
 
       hb_xfree(pinfo4);
    }
    HB_RETHANDLE(hDC);
 }
-
 
 HB_FUNC( HWG_GETDEFAULTPRINTER )
 {
@@ -82,13 +78,11 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS )        // Windows 98
    {
-      EnumPrinters( PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr,
-            0, &dwNeeded, &dwReturned );
+      EnumPrinters( PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr, 0, &dwNeeded, &dwReturned );
 
       pinfo5 = ( PRINTER_INFO_5 * ) hb_xgrab(dwNeeded);
 
-      EnumPrinters( PRINTER_ENUM_DEFAULT, nullptr, 5, ( LPBYTE ) pinfo5,
-            dwNeeded, &dwNeeded, &dwReturned );
+      EnumPrinters( PRINTER_ENUM_DEFAULT, nullptr, 5, ( LPBYTE ) pinfo5, dwNeeded, &dwNeeded, &dwReturned );
 
       HB_RETSTR( pinfo5->pPrinterName );
       hb_xfree(pinfo5);
@@ -106,13 +100,11 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
       }
       else                      // Windows NT
       {
-         EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, nullptr,
-               0, &dwNeeded, &dwReturned );
+         EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, nullptr, 0, &dwNeeded, &dwReturned );
 
          pinfo4 = ( PRINTER_INFO_4 * ) hb_xgrab(dwNeeded);
 
-         EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, ( PBYTE ) pinfo4,
-               dwNeeded, &dwNeeded, &dwReturned );
+         EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, ( PBYTE ) pinfo4, dwNeeded, &dwNeeded, &dwReturned );
 
          HB_RETSTR( pinfo4->pPrinterName );
          hb_xfree(pinfo4);
@@ -129,29 +121,24 @@ HB_FUNC( HWG_GETPRINTERS )
 
    PHB_ITEM aMetr, temp;
 
-
    if( GetVersion() & 0x80000000 )    // Windows 98
    {
-      EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 5, nullptr,
-            0, &dwNeeded, &dwReturned );
+      EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 5, nullptr, 0, &dwNeeded, &dwReturned );
       if( dwNeeded )
       {
          pBuffer = ( PBYTE ) hb_xgrab(dwNeeded);
          pinfo5 = ( PRINTER_INFO_5 * ) pBuffer;
-         EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 5, pBuffer,
-               dwNeeded, &dwNeeded, &dwReturned );
+         EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 5, pBuffer, dwNeeded, &dwNeeded, &dwReturned );
       }
    }
    else                         // Windows NT
    {
-      EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, nullptr,
-            0, &dwNeeded, &dwReturned );
+      EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, nullptr, 0, &dwNeeded, &dwReturned );
       if( dwNeeded )
       {
          pBuffer = ( PBYTE ) hb_xgrab(dwNeeded);
          pinfo4 = ( PRINTER_INFO_4 * ) pBuffer;
-         EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, pBuffer,
-               dwNeeded, &dwNeeded, &dwReturned );
+         EnumPrinters( PRINTER_ENUM_LOCAL, nullptr, 4, pBuffer, dwNeeded, &dwNeeded, &dwReturned );
       }
    }
    if( dwReturned )
@@ -179,36 +166,38 @@ HB_FUNC( HWG_GETPRINTERS )
       hb_itemRelease( aMetr );
    }
    else
+   {
       hb_ret();
+   }
 
    if( pBuffer )
+   {
       hb_xfree(pBuffer);
-
+   }
 }
 
 HB_FUNC( HWG_SETPRINTERMODE )
 {
    void * hPrinterName;
    LPCTSTR lpPrinterName = HB_PARSTR(1, &hPrinterName, nullptr);
-   HANDLE hPrinter =
-         ( HB_ISNIL(2) ) ? ( HANDLE ) nullptr : ( HANDLE ) HB_PARHANDLE(2);
+   HANDLE hPrinter = (HB_ISNIL(2)) ? static_cast<HANDLE>(nullptr) : static_cast<HANDLE>(HB_PARHANDLE(2));
    long int nSize;
    PDEVMODE pdm;
 
    if( !hPrinter )
+   {
       OpenPrinter( ( LPTSTR ) lpPrinterName, &hPrinter, nullptr );
+   }
 
    if( hPrinter )
    {
       /* Determine the size of DEVMODE structure */
       nSize =
-            DocumentProperties( nullptr, hPrinter, ( LPTSTR ) lpPrinterName,
-            nullptr, nullptr, 0 );
+            DocumentProperties( nullptr, hPrinter, ( LPTSTR ) lpPrinterName, nullptr, nullptr, 0 );
       pdm = ( PDEVMODE ) GlobalAlloc( GPTR, nSize );
 
       /* Get the printer mode */
-      DocumentProperties( nullptr, hPrinter, ( LPTSTR ) lpPrinterName, pdm, nullptr,
-            DM_OUT_BUFFER );
+      DocumentProperties( nullptr, hPrinter, ( LPTSTR ) lpPrinterName, pdm, nullptr, DM_OUT_BUFFER );
 
       /* Changing of values */
       if( !HB_ISNIL(3) )
@@ -223,8 +212,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
       }
 
       // Call DocumentProperties() to change the values
-      DocumentProperties( nullptr, hPrinter, ( LPTSTR ) lpPrinterName,
-            pdm, pdm, DM_OUT_BUFFER | DM_IN_BUFFER );
+      DocumentProperties( nullptr, hPrinter, ( LPTSTR ) lpPrinterName, pdm, pdm, DM_OUT_BUFFER | DM_IN_BUFFER );
 
       // создадим контекст устройства принтера
       HB_RETHANDLE(CreateDC(nullptr, lpPrinterName, nullptr, pdm));
@@ -237,8 +225,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
 
 HB_FUNC( HWG_CLOSEPRINTER )
 {
-   HANDLE hPrinter = ( HANDLE ) HB_PARHANDLE(1);
-   ClosePrinter( hPrinter );
+   ClosePrinter(static_cast<HANDLE>(HB_PARHANDLE(1)));
 }
 
 HB_FUNC( HWG_STARTDOC )
@@ -342,17 +329,17 @@ HB_FUNC( HWG_GETDEVICEAREA )
 HB_FUNC( HWG_CREATEENHMETAFILE )
 {
    HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
-   HDC hDCref = GetDC( hWnd ), hDCmeta;
+   HDC hDCref = GetDC(hWnd), hDCmeta;
    void * hFileName;
    int iWidthMM, iHeightMM, iWidthPels, iHeightPels;
    RECT rc;
    // char cres[80];
 
-   /* Determine the picture frame dimensions. 
-    * iWidthMM is the display width in millimeters. 
-    * iHeightMM is the display height in millimeters. 
-    * iWidthPels is the display width in pixels. 
-    * iHeightPels is the display height in pixels 
+   /* Determine the picture frame dimensions.
+    * iWidthMM is the display width in millimeters.
+    * iHeightMM is the display height in millimeters.
+    * iWidthPels is the display width in pixels.
+    * iHeightPels is the display height in pixels
     */
 
    iWidthMM = GetDeviceCaps( hDCref, HORZSIZE );
@@ -361,21 +348,21 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
    iHeightPels = GetDeviceCaps( hDCref, VERTRES );
 
 
-   /* 
-    * Retrieve the coordinates of the client 
-    * rectangle, in pixels. 
+   /*
+    * Retrieve the coordinates of the client
+    * rectangle, in pixels.
     */
 
    GetClientRect( hWnd, &rc );
    // sprintf( cres,"%d %d %d %d %d %d %d %d",iWidthMM, iHeightMM, iWidthPels, iHeightPels,rc.left,rc.top,rc.right,rc.bottom );
    // MessageBox( GetActiveWindow(), cres, "", MB_OK | MB_ICONINFORMATION );
 
-   /* 
-    * Convert client coordinates to .01-mm units. 
-    * Use iWidthMM, iWidthPels, iHeightMM, and 
-    * iHeightPels to determine the number of 
-    * .01-millimeter units per pixel in the x- 
-    *  and y-directions. 
+   /*
+    * Convert client coordinates to .01-mm units.
+    * Use iWidthMM, iWidthPels, iHeightMM, and
+    * iHeightPels to determine the number of
+    * .01-millimeter units per pixel in the x-
+    *  and y-directions.
     */
 
    rc.left = ( rc.left * iWidthMM * 100 ) / iWidthPels;
@@ -396,22 +383,22 @@ HB_FUNC( HWG_CREATEMETAFILE )
    int iWidthMM, iHeightMM;
    RECT rc;
 
-   /* Determine the picture frame dimensions. 
-    * iWidthMM is the display width in millimeters. 
-    * iHeightMM is the display height in millimeters. 
-    * iWidthPels is the display width in pixels. 
-    * iHeightPels is the display height in pixels 
+   /* Determine the picture frame dimensions.
+    * iWidthMM is the display width in millimeters.
+    * iHeightMM is the display height in millimeters.
+    * iWidthPels is the display width in pixels.
+    * iHeightPels is the display height in pixels
     */
 
    iWidthMM = GetDeviceCaps( hDCref, HORZSIZE );
    iHeightMM = GetDeviceCaps( hDCref, VERTSIZE );
 
-   /* 
-    * Convert client coordinates to .01-mm units. 
-    * Use iWidthMM, iWidthPels, iHeightMM, and 
-    * iHeightPels to determine the number of 
-    * .01-millimeter units per pixel in the x- 
-    *  and y-directions. 
+   /*
+    * Convert client coordinates to .01-mm units.
+    * Use iWidthMM, iWidthPels, iHeightMM, and
+    * iHeightPels to determine the number of
+    * .01-millimeter units per pixel in the x-
+    *  and y-directions.
     */
 
    rc.left = 0;
@@ -447,7 +434,9 @@ HB_FUNC( HWG_PLAYENHMETAFILE )
       rc.bottom = hb_parni(6);
    }
    else
-      GetClientRect( WindowFromDC( hDC ), &rc );
+   {
+      GetClientRect( WindowFromDC(hDC), &rc );
+   }
    hb_retnl(static_cast<LONG>(PlayEnhMetaFile(hDC, static_cast<HENHMETAFILE>(HB_PARHANDLE(2)), &rc)));
 }
 
@@ -458,9 +447,9 @@ HB_FUNC( HWG_PRINTENHMETAFILE )
 
    SetRect( &rc, 0, 0, GetDeviceCaps( hDC, HORZRES ), GetDeviceCaps( hDC, VERTRES ) );
 
-   StartPage( hDC );
+   StartPage(hDC);
    hb_retnl(static_cast<LONG>(PlayEnhMetaFile(hDC, static_cast<HENHMETAFILE>(HB_PARHANDLE(2)), &rc)));
-   EndPage( hDC );
+   EndPage(hDC);
 }
 
 HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
@@ -481,9 +470,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
       {
 
          PDEVMODE pDevMode = nullptr;
-         LONG lSize =
-               DocumentProperties( 0, hPrinter, ( LPTSTR ) lpPrinterName,
-               pDevMode, pDevMode, 0 );
+         LONG lSize = DocumentProperties( 0, hPrinter, ( LPTSTR ) lpPrinterName, pDevMode, pDevMode, 0 );
 
          if( lSize > 0 )
          {
@@ -494,7 +481,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
                BOOL bAskUser = HB_ISBYREF(3) || HB_ISBYREF(4) || HB_ISBYREF(5) || HB_ISBYREF(6) || HB_ISBYREF(7) || HB_ISBYREF(8) || HB_ISBYREF(9) || HB_ISBYREF(10);   //x 20070421
                DWORD dInit = 0; //x 20070421
                DWORD fMode;
-               BOOL bCustomFormSize = ( HB_ISNUM(9) && hb_parnl(9) > 0 ) && ( HB_ISNUM(10) && hb_parnl(10) > 0 );       // Must set both Length & Width
+               BOOL bCustomFormSize = (HB_ISNUM(9) && hb_parnl(9) > 0) && (HB_ISNUM(10) && hb_parnl(10) > 0);       // Must set both Length & Width
 
                if( bCustomFormSize )
                {
@@ -534,8 +521,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 
                if( HB_ISLOG(4) )
                {
-                  pDevMode->dmOrientation =
-                        ( short ) ( hb_parl(4) ? 2 : 1 );
+                  pDevMode->dmOrientation = ( short ) ( hb_parl(4) ? 2 : 1 );
                   dInit |= DM_ORIENTATION;
                }
 
@@ -577,8 +563,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
                   Therefore, we ignore the return value in Win9x, and assume user clicks OK.
                   IOW, DocumentProperties is not cancelable in Win9X.
                 */
-               if( DocumentProperties( 0, hPrinter, ( LPTSTR ) lpPrinterName,
-                           pDevMode, pDevMode, fMode ) == IDOK || bW9X )
+               if( DocumentProperties( 0, hPrinter, ( LPTSTR ) lpPrinterName, pDevMode, pDevMode, fMode ) == IDOK || bW9X )
                {
                   if( HB_ISBYREF(3) && !bCustomFormSize )
                   {
@@ -623,13 +608,13 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
                      hb_stornl(static_cast<LONG>(pDevMode->dmPaperWidth), 10);
                   }
 
-                  Result = ( BOOL ) ResetDC( hDC, pDevMode );
+                  Result = ( BOOL ) ResetDC(hDC, pDevMode);
                }
 
                hb_xfree(pDevMode);
             }
          }
-         ClosePrinter( hPrinter );
+         ClosePrinter(hPrinter);
       }
       hb_strfree(hPrinterName);
    }

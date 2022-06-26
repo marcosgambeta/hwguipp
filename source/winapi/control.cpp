@@ -954,7 +954,7 @@ HB_FUNC( HWG_TREEGETNOTIFY )
 }
 
 /*
- * Tree_Hittest( hTree, x, y ) --> oNode
+ * Tree_Hittest(hTree, x, y) --> oNode
  */
 HB_FUNC( HWG_TREEHITTEST )
 {

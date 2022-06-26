@@ -27,8 +27,7 @@
 #define BIF_EDITBOX            0x0010   // Add an editbox to the dialog
 #endif
 
-static int ( CALLBACK BrowseCallbackProc ) ( HWND hwnd, UINT uMsg,
-      LPARAM lParam, LPARAM lpData )
+static int (CALLBACK BrowseCallbackProc)(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
    // If the BFFM_INITIALIZED message is received
    // set the path to the start path.
@@ -75,7 +74,9 @@ HB_FUNC( HWG_SELECTFOLDER )
    if( pidlBrowse != nullptr )
    {
       if( SHGetPathFromIDList( pidlBrowse, lpBuffer ) )
+      {
          lpResult = lpBuffer;
+      }
       CoTaskMemFree( pidlBrowse );
    }
    HB_RETSTR( lpResult );
@@ -98,14 +99,18 @@ HB_FUNC( HWG_SHELLNOTIFYICON )
    tnid.uID = ID_NOTIFYICON;
    tnid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
    tnid.uCallbackMessage = WM_NOTIFYICON;
-   tnid.hIcon = ( HICON ) HB_PARHANDLE(3);
+   tnid.hIcon = static_cast<HICON>(HB_PARHANDLE(3));
    HB_ITEMCOPYSTR( hb_param( 4, HB_IT_ANY ), tnid.szTip,
          HB_SIZEOFARRAY( tnid.szTip ) );
 
    if( ( BOOL ) hb_parl(1) )
+   {
       Shell_NotifyIcon( NIM_ADD, &tnid );
+   }
    else
+   {
       Shell_NotifyIcon( NIM_DELETE, &tnid );
+   }
 }
 
 /*
@@ -124,10 +129,9 @@ HB_FUNC( HWG_SHELLMODIFYICON )
    if( HB_ISNUM(2) || HB_ISPOINTER(2) )
    {
       tnid.uFlags |= NIF_ICON;
-      tnid.hIcon = ( HICON ) HB_PARHANDLE(2);
+      tnid.hIcon = static_cast<HICON>(HB_PARHANDLE(2));
    }
-   if( HB_ITEMCOPYSTR( hb_param( 3, HB_IT_ANY ),
-               tnid.szTip, HB_SIZEOFARRAY( tnid.szTip ) ) > 0 )
+   if( HB_ITEMCOPYSTR( hb_param( 3, HB_IT_ANY ), tnid.szTip, HB_SIZEOFARRAY( tnid.szTip ) ) > 0 )
    {
       tnid.uFlags |= NIF_TIP;
    }
@@ -140,8 +144,8 @@ HB_FUNC( HWG_SHELLMODIFYICON )
  */
 HB_FUNC( HWG_SHELLEXECUTE )
 {
-#if defined( HB_OS_WIN_CE )
-   hb_retni( -1 );
+#if defined(HB_OS_WIN_CE)
+   hb_retni(-1);
 #else
    void * hOperation;
    void * hFile;
@@ -151,7 +155,9 @@ HB_FUNC( HWG_SHELLEXECUTE )
 
    lpDirectory = HB_PARSTR(4, &hDirectory, nullptr);
    if( lpDirectory == nullptr )
+   {
       lpDirectory = TEXT( "C:\\" );
+   }
 
    hb_retnl(reinterpret_cast<LONG>(ShellExecute( GetActiveWindow(), HB_PARSTRDEF(2, &hOperation, nullptr), HB_PARSTR(1, &hFile, nullptr),
       HB_PARSTR(3, &hParameters, nullptr), lpDirectory, HB_ISNUM(5) ? hb_parni(5) : SW_SHOWNORMAL)));

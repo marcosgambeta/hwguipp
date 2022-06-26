@@ -65,7 +65,7 @@ HB_FUNC( HWG_PAGERSETBORDER )
    int iBorder = hb_parni(2);
 
 #ifndef __GNUC__
-   hb_retni( Pager_SetBorder( m_hWnd, iBorder ) );
+   hb_retni(Pager_SetBorder(m_hWnd, iBorder));
 #else
    hb_retni(SendMessage(m_hWnd, PGM_SETBORDER, 0, ( LPARAM ) iBorder));
 #endif
@@ -76,7 +76,7 @@ HB_FUNC( HWG_PAGERGETBORDER )
    HWND m_hWnd = static_cast<HWND>(HB_PARHANDLE(1));
 
 #ifndef __GNUC__
-   hb_retni( Pager_GetBorder( m_hWnd ) );
+   hb_retni(Pager_GetBorder(m_hWnd));
 #else
    hb_retni(SendMessage(m_hWnd, PGM_GETBORDER, 0, 0));
 #endif
@@ -88,7 +88,7 @@ HB_FUNC( HWG_PAGERSETPOS )
    int iPos = hb_parni(2);
 
 #ifndef __GNUC__
-   hb_retni( Pager_SetPos( m_hWnd, iPos ) );
+   hb_retni(Pager_SetPos(m_hWnd, iPos));
 #else
    hb_retni(SendMessage(m_hWnd, PGM_SETPOS, 0, ( LPARAM ) iPos));
 #endif
@@ -99,7 +99,7 @@ HB_FUNC( HWG_PAGERGETPOS )
    HWND m_hWnd = static_cast<HWND>(HB_PARHANDLE(1));
 
 #ifndef __GNUC__
-   hb_retni( Pager_GetPos( m_hWnd ) );
+   hb_retni(Pager_GetPos(m_hWnd));
 #else
    hb_retni(SendMessage(m_hWnd, PGM_GETPOS, 0, 0));
 #endif
@@ -111,7 +111,7 @@ HB_FUNC( HWG_PAGERSETBUTTONSIZE )
    int iSize = hb_parni(2);
 
 #ifndef __GNUC__
-   hb_retni( Pager_SetButtonSize( m_hWnd, iSize ) );
+   hb_retni(Pager_SetButtonSize(m_hWnd, iSize));
 #else
    hb_retni(SendMessage(m_hWnd, PGM_SETBUTTONSIZE, 0, ( LPARAM ) iSize));
 #endif
@@ -122,7 +122,7 @@ HB_FUNC( HWG_PAGERGETBUTTONSIZE )
    HWND m_hWnd = static_cast<HWND>(HB_PARHANDLE(1));
 
 #ifndef __GNUC__
-   hb_retni( Pager_GetButtonSize( m_hWnd ) );
+   hb_retni(Pager_GetButtonSize(m_hWnd));
 #else
    hb_retni(SendMessage(m_hWnd, PGM_GETBUTTONSIZE, 0, 0));
 #endif
@@ -159,7 +159,7 @@ HB_FUNC( HWG_PAGERONPAGERCALCSIZE )
          break;
    }
 
-   hb_retnl( 0 );
+   hb_retnl(0);
 }
 
 HB_FUNC( HWG_PAGERONPAGERSCROLL )
@@ -177,5 +177,5 @@ HB_FUNC( HWG_PAGERONPAGERSCROLL )
          break;
    }
 
-   hb_retnl( 0 );
+   hb_retnl(0);
 }

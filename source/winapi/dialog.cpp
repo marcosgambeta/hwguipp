@@ -20,10 +20,10 @@
 
 #define  WM_PSPNOTIFY         WM_USER+1010
 
-static LRESULT CALLBACK s_ModalDlgProc( HWND, UINT, WPARAM, LPARAM );
-static LRESULT CALLBACK s_DlgProc( HWND, UINT, WPARAM, LPARAM );
-static LRESULT CALLBACK s_PSPProc( HWND, UINT, WPARAM, LPARAM );
-static LRESULT CALLBACK s_PSPProcRelease( HWND, UINT, LPPROPSHEETPAGE );
+static LRESULT CALLBACK s_ModalDlgProc(HWND, UINT, WPARAM, LPARAM);
+static LRESULT CALLBACK s_DlgProc(HWND, UINT, WPARAM, LPARAM);
+static LRESULT CALLBACK s_PSPProc(HWND, UINT, WPARAM, LPARAM);
+static LRESULT CALLBACK s_PSPProcRelease(HWND, UINT, LPPROPSHEETPAGE);
 
 #define	WND_DLG_RESOURCE       10
 #define	WND_DLG_NORESOURCE     11
@@ -39,18 +39,18 @@ HB_FUNC( HWG_DIALOGBOX )
    void * hResource;
    LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, nullptr );
 
-   if( !lpResource && HB_IS_NUMERIC( pData ) )
-      lpResource = MAKEINTRESOURCE( hb_itemGetNI( pData ) );
-
-   DialogBoxParam( hModule, lpResource,
-         static_cast<HWND>(HB_PARHANDLE(1)), ( DLGPROC ) s_ModalDlgProc,
-         ( LPARAM ) pObject );
+   if( !lpResource && HB_IS_NUMERIC(pData) )
+   {
+      lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
+   }
+   
+   DialogBoxParam(hModule, lpResource, static_cast<HWND>(HB_PARHANDLE(1)), ( DLGPROC ) s_ModalDlgProc, ( LPARAM ) pObject);
 
    hb_strfree(hResource);
 }
 
 /*  Creates modeless dialog
-    CreateDialog( hParentWindow, aDialog )
+    CreateDialog(hParentWindow, aDialog)
 */
 HB_FUNC( HWG_CREATEDIALOG )
 {
@@ -60,15 +60,15 @@ HB_FUNC( HWG_CREATEDIALOG )
    void * hResource;
    LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, nullptr );
 
-   if( !lpResource && HB_IS_NUMERIC( pData ) )
-      lpResource = MAKEINTRESOURCE( hb_itemGetNI( pData ) );
-
-   hDlg = CreateDialogParam( hModule, lpResource,
-         static_cast<HWND>(HB_PARHANDLE(1)), ( DLGPROC ) s_DlgProc,
-         ( LPARAM ) pObject );
+   if( !lpResource && HB_IS_NUMERIC(pData) )
+   {
+      lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
+   }
+   
+   hDlg = CreateDialogParam(hModule, lpResource, static_cast<HWND>(HB_PARHANDLE(1)), ( DLGPROC ) s_DlgProc, ( LPARAM ) pObject);
    hb_strfree(hResource);
 
-   ShowWindow( hDlg, SW_SHOW );
+   ShowWindow(hDlg, SW_SHOW);
    HB_RETHANDLE(hDlg);
 }
 
@@ -87,7 +87,7 @@ HB_FUNC( HWG_GETDLGITEM )
 
 HB_FUNC( HWG_GETDLGCTRLID )
 {
-   hb_retni( GetDlgCtrlID( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   hb_retni(GetDlgCtrlID(static_cast<HWND>(HB_PARHANDLE(1))));
 }
 
 HB_FUNC( HWG_SETDLGITEMTEXT )
@@ -103,10 +103,10 @@ HB_FUNC( HWG_SETDLGITEMTEXT )
 
 HB_FUNC( HWG_SETDLGITEMINT )
 {
-   SetDlgItemInt( static_cast<HWND>(HB_PARHANDLE(1)),   // handle of dialog box
+   SetDlgItemInt(static_cast<HWND>(HB_PARHANDLE(1)),   // handle of dialog box
          hb_parni(2),         // identifier of control
          ( UINT ) hb_parni(3),        // text to set
-         ( hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4) ) ? 0 : 1 );
+         (hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4)) ? 0 : 1);
 }
 
 HB_FUNC( HWG_GETDLGITEMTEXT )
@@ -130,20 +130,20 @@ HB_FUNC( HWG_GETEDITTEXT )
    USHORT uiLen = ( USHORT ) SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0);
    LPTSTR lpText = ( LPTSTR ) hb_xgrab((uiLen + 2) * sizeof(TCHAR));
 
-   GetDlgItemText( hDlg,        // handle of dialog box
+   GetDlgItemText(hDlg,        // handle of dialog box
          id,                    // identifier of control
          lpText,                // address of buffer for text
          uiLen + 1              // maximum size of string
           );
-   HB_RETSTR( lpText );
+   HB_RETSTR(lpText);
    hb_xfree(lpText);
 }
 
 HB_FUNC( HWG_CHECKDLGBUTTON )
 {
-   CheckDlgButton( static_cast<HWND>(HB_PARHANDLE(1)),  // handle of dialog box
+   CheckDlgButton(static_cast<HWND>(HB_PARHANDLE(1)),  // handle of dialog box
          hb_parni(2),         // identifier of control
-         ( hb_parl(3) ) ? BST_CHECKED : BST_UNCHECKED // value to set
+         (hb_parl(3)) ? BST_CHECKED : BST_UNCHECKED // value to set
           );
 }
 
@@ -156,31 +156,37 @@ HB_FUNC( HWG_CHECKRADIOBUTTON )
           );
 }
 
+/*
+HWG_ISDLGBUTTONCHECKED(hWnd, nId) --> logical
+*/
 HB_FUNC( HWG_ISDLGBUTTONCHECKED )
 {
-   UINT nRes = IsDlgButtonChecked( static_cast<HWND>(HB_PARHANDLE(1)),  // handle of dialog box
-         hb_parni(2)          // button identifier
-          );
-   hb_retl(nRes == BST_CHECKED);
+   hb_retl(IsDlgButtonChecked(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2)) == BST_CHECKED);
 }
 
+/*
+HWG_COMBOADDSTRING(hWnd, cString) --> NIL
+*/
 HB_FUNC( HWG_COMBOADDSTRING )
 {
    void * hText;
-
    SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR(2, &hText, nullptr));
    hb_strfree(hText);
 }
 
+/*
+HWG_COMBOINSERTSTRING(hWnd, nPar2, cString) --> NIL
+*/
 HB_FUNC( HWG_COMBOINSERTSTRING )
 {
    void * hText;
-
    SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_INSERTSTRING, ( WPARAM ) hb_parni(2), ( LPARAM ) HB_PARSTR(3, &hText, nullptr));
    hb_strfree(hText);
 }
 
-
+/*
+HWG_COMBOSETSTRING(hWnd, nPar2) --> NIL
+*/
 HB_FUNC( HWG_COMBOSETSTRING )
 {
    SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_SETCURSEL, ( WPARAM ) hb_parni(2) - 1, 0);
@@ -202,15 +208,12 @@ static LPWORD s_lpwAlign( LPWORD lpIn )
    return ( LPWORD ) ul;
 }
 
-static HB_SIZE s_nCopyAnsiToWideChar( LPWORD lpWCStr, PHB_ITEM pItem,
-      HB_SIZE size )
+static HB_SIZE s_nCopyAnsiToWideChar( LPWORD lpWCStr, PHB_ITEM pItem, HB_SIZE size )
 {
 #if defined( HB_HAS_STR_FUNC )
-   return hb_itemCopyStrU16( pItem, HB_CDP_ENDIAN_NATIVE,
-         ( HB_WCHAR * ) lpWCStr, size ) + 1;
+   return hb_itemCopyStrU16( pItem, HB_CDP_ENDIAN_NATIVE, ( HB_WCHAR * ) lpWCStr, size ) + 1;
 #else
-   return MultiByteToWideChar( GetACP(), 0, hb_itemGetCPtr( pItem ), -1,
-         ( LPWSTR ) lpWCStr, size );
+   return MultiByteToWideChar( GetACP(), 0, hb_itemGetCPtr( pItem ), -1, ( LPWSTR ) lpWCStr, size );
 #endif
 }
 
@@ -219,13 +222,11 @@ static int s_nWideStringLen( PHB_ITEM pItem )
 #if defined( HB_HAS_STR_FUNC )
    return hb_itemCopyStrU16( pItem, HB_CDP_ENDIAN_NATIVE, nullptr, 0 ) + 1;
 #else
-   return MultiByteToWideChar( GetACP(), 0, hb_itemGetCPtr( pItem ), -1,
-         nullptr, 0 );
+   return MultiByteToWideChar( GetACP(), 0, hb_itemGetCPtr( pItem ), -1, nullptr, 0 );
 #endif
 }
 
-static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
-      int dwidth, int dheight, ULONG ulStyle )
+static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1, int dwidth, int dheight, ULONG ulStyle )
 {
    HGLOBAL hgbl;
    PWORD p, pend;
@@ -254,8 +255,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
    {
       pControl = hb_arrayGetItemPtr( pControls, ul );
       lTemplateSize += 13;
-      lTemplateSize +=
-            s_nWideStringLen( GetObjectVar( pControl, "WINCLASS" ) );
+      lTemplateSize += s_nWideStringLen( GetObjectVar( pControl, "WINCLASS" ) );
       lTemplateSize += s_nWideStringLen( GetObjectVar( pControl, "TITLE" ) );
       lTemplateSize += lTemplateSize & 1;
    }
@@ -263,9 +263,11 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
 
    hgbl = GlobalAlloc( GMEM_ZEROINIT, lTemplateSize * sizeof(WORD) );
    if( !hgbl )
+   {
       return nullptr;
+   }
 
-   p = ( PWORD ) GlobalLock( hgbl );
+   p = ( PWORD ) GlobalLock(hgbl);
    pend = p + lTemplateSize;
 
    *p++ = 1;                    // DlgVer
@@ -299,16 +301,10 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
 
       ulStyle = static_cast<ULONG>(hb_itemGetNL(GetObjectVar(pControl, "STYLE")));
       lExtStyle = hb_itemGetNL( GetObjectVar( pControl, "EXTSTYLE" ) );
-      x1 = ( hb_itemGetNI( GetObjectVar( pControl,
-                        "NLEFT" ) ) * 4 ) / baseunitX;
-      dwidth =
-            ( hb_itemGetNI( GetObjectVar( pControl,
-                        "NWIDTH" ) ) * 4 ) / baseunitX;
-      y1 = ( hb_itemGetNI( GetObjectVar( pControl,
-                        "NTOP" ) ) * 8 ) / baseunitY;
-      dheight =
-            ( hb_itemGetNI( GetObjectVar( pControl,
-                        "NHEIGHT" ) ) * 8 ) / baseunitY;
+      x1 = (hb_itemGetNI(GetObjectVar(pControl, "NLEFT")) * 4) / baseunitX;
+      dwidth = (hb_itemGetNI(GetObjectVar(pControl, "NWIDTH")) * 4) / baseunitX;
+      y1 = (hb_itemGetNI(GetObjectVar(pControl, "NTOP")) * 8) / baseunitY;
+      dheight = (hb_itemGetNI(GetObjectVar(pControl, "NHEIGHT")) * 8) / baseunitY;
 
       *p++ = 0;                 // LOWORD (lHelpID)
       *p++ = 0;                 // HIWORD (lHelpID)
@@ -339,14 +335,14 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
 
    hb_itemRelease( pControls );
 
-   GlobalUnlock( hgbl );
+   GlobalUnlock(hgbl);
 
    return ( LPDLGTEMPLATE ) hgbl;
 }
 
 static void s_ReleaseDlgTemplate( LPDLGTEMPLATE pdlgtemplate )
 {
-   GlobalFree( ( HGLOBAL ) pdlgtemplate );
+   GlobalFree(static_cast<HGLOBAL>(pdlgtemplate));
 }
 
 HB_FUNC( HWG_CREATEDLGTEMPLATE )
@@ -373,7 +369,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
    memset(( void * ) &psp, 0, sizeof(PROPSHEETPAGE));
 
    psp.dwSize = sizeof(PROPSHEETPAGE);
-   psp.hInstance = ( HINSTANCE ) nullptr;
+   psp.hInstance = static_cast<HINSTANCE>(nullptr);
    psp.pszTitle = nullptr;
    psp.pfnDlgProc = ( DLGPROC ) s_PSPProc;
    psp.lParam = ( LPARAM ) hb_itemNew( pObj );
@@ -385,19 +381,25 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
    psp.DUMMYUNIONNAME2.hIcon = 0;
 #endif
 
-   if( hb_itemGetNI( GetObjectVar( pObj, "TYPE" ) ) == WND_DLG_RESOURCE )
+   if( hb_itemGetNI(GetObjectVar(pObj, "TYPE")) == WND_DLG_RESOURCE )
    {
       LPCTSTR lpTitle;
 
       psp.dwFlags = 0 | PSP_USECALLBACK;
 
       temp = GetObjectVar( pObj, "XRESOURCEID" );
-      if( HB_IS_STRING( temp ) )
+      if( HB_IS_STRING(temp) )
+      {
          lpTitle = HB_ITEMGETSTR( temp, &hTitle, nullptr );
-      else if( HB_IS_NUMERIC( temp ) )
-         lpTitle = MAKEINTRESOURCE( hb_itemGetNL( temp ) );
+      }
+      else if( HB_IS_NUMERIC(temp) )
+      {
+         lpTitle = MAKEINTRESOURCE(hb_itemGetNL(temp));
+      }
       else
+      {
          lpTitle = nullptr;
+      }   
 #if !defined(__BORLANDC__) ||  (__BORLANDC__ > 1424)
       psp.pszTemplate = lpTitle;
 #else
@@ -419,13 +421,14 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
    h = CreatePropertySheetPage( &psp );
    HB_RETHANDLE(h);
    //if( pdlgtemplate )
+   //{
    //   s_ReleaseDlgTemplate( pdlgtemplate );
+   //}
    hb_strfree(hTitle);
 }
 
 /*
- * _PropertySheet( hWndParent, aPageHandles, nPageHandles, cTitle, 
- *                [ lModeless ], [ lNoApply ], [ lWizard ] ) --> hPropertySheet
+ * _PropertySheet(hWndParent, aPageHandles, nPageHandles, cTitle, [lModeless], [lNoApply], [lWizard]) --> hPropertySheet
  */
 HB_FUNC( HWG__PROPERTYSHEET )
 {
@@ -434,20 +437,25 @@ HB_FUNC( HWG__PROPERTYSHEET )
    HPROPSHEETPAGE psp[10];
    PROPSHEETHEADER psh;
    void * hCaption;
-   DWORD dwFlags = ( hb_pcount() < 5 || HB_ISNIL(5) ||
-         !hb_parl(5) ) ? 0 : PSH_MODELESS;
+   DWORD dwFlags = (hb_pcount() < 5 || HB_ISNIL(5) || !hb_parl(5)) ? 0 : PSH_MODELESS;
 
    if( hb_pcount() > 5 && !HB_ISNIL(6) && hb_parl(6) )
+   {
       dwFlags |= PSH_NOAPPLYNOW;
+   }
    if( hb_pcount() > 6 && !HB_ISNIL(7) && hb_parl(7) )
+   {
       dwFlags |= PSH_WIZARD;
+   }
    for( i = 0; i < nPages; i++ )
-      psp[i] = ( HPROPSHEETPAGE ) hb_arrayGetNL( pArr, i + 1 );
+   {
+      psp[i] = reinterpret_cast<HPROPSHEETPAGE>(hb_arrayGetNL(pArr, i + 1));
+   }
 
    psh.dwSize = sizeof(PROPSHEETHEADER);
    psh.dwFlags = dwFlags;
    psh.hwndParent = static_cast<HWND>(HB_PARHANDLE(1));
-   psh.hInstance = ( HINSTANCE ) nullptr;
+   psh.hInstance = static_cast<HINSTANCE>(nullptr);
 #if !defined(__BORLANDC__) ||  (__BORLANDC__ > 1424)
    psh.pszIcon = nullptr;
 #else
@@ -468,7 +476,7 @@ HB_FUNC( HWG__PROPERTYSHEET )
    hb_strfree(hCaption);
 }
 
-/* Hwg_CreateDlgIndirect( hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle )
+/* Hwg_CreateDlgIndirect(hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle)
 */
 
 HB_FUNC( HWG_CREATEDLGINDIRECT )
@@ -478,50 +486,44 @@ HB_FUNC( HWG_CREATEDLGINDIRECT )
    BOOL fFree = FALSE;
 
    if( hb_pcount() > 7 && !HB_ISNIL(8) )
+   {
       pdlgtemplate = ( LPDLGTEMPLATE ) hb_parnl(8);
+   }
    else
    {
-      ULONG ulStyle = ( ( hb_pcount() > 6 && !HB_ISNIL(7) ) ? static_cast<ULONG>(hb_parnd(7)) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_SIZEBOX );     // | DS_SETFONT;
+      ULONG ulStyle = ((hb_pcount() > 6 && !HB_ISNIL(7)) ? static_cast<ULONG>(hb_parnd(7)) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_SIZEBOX); // | DS_SETFONT;
 
-      pdlgtemplate =
-            s_CreateDlgTemplate( pObject, hb_parni(3), hb_parni(4),
-            hb_parni(5), hb_parni(6), ulStyle );
+      pdlgtemplate = s_CreateDlgTemplate(pObject, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), ulStyle);
       fFree = TRUE;
    }
 
-   CreateDialogIndirectParam( hModule, pdlgtemplate,
-         static_cast<HWND>(HB_PARHANDLE(1)), ( DLGPROC ) s_DlgProc,
-         ( LPARAM ) pObject );
+   CreateDialogIndirectParam(hModule, pdlgtemplate, static_cast<HWND>(HB_PARHANDLE(1)), ( DLGPROC ) s_DlgProc, ( LPARAM ) pObject);
 
    if( fFree )
-      s_ReleaseDlgTemplate( pdlgtemplate );
+   {
+      s_ReleaseDlgTemplate(pdlgtemplate);
+   }
 }
 
-/* Hwg_DlgBoxIndirect( hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle )
+/*
+Hwg_DlgBoxIndirect(hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle)
 */
-
 HB_FUNC( HWG_DLGBOXINDIRECT )
 {
    PHB_ITEM pObject = hb_param( 2, HB_IT_OBJECT );
-   ULONG ulStyle = ( ( hb_pcount() > 6 && !HB_ISNIL(7) ) ? static_cast<ULONG>(hb_parnd(7)) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU );     // | DS_SETFONT;
-   int x1 = hb_parni(3), y1 = hb_parni(4),
-         dwidth = hb_parni(5), dheight = hb_parni(6);
-   LPDLGTEMPLATE pdlgtemplate =
-         s_CreateDlgTemplate( pObject, x1, y1, dwidth, dheight, ulStyle );
-
-   DialogBoxIndirectParam( hModule, pdlgtemplate,
-         static_cast<HWND>(HB_PARHANDLE(1)), ( DLGPROC ) s_ModalDlgProc,
-         ( LPARAM ) pObject );
-   s_ReleaseDlgTemplate( pdlgtemplate );
+   ULONG ulStyle = ((hb_pcount() > 6 && !HB_ISNIL(7)) ? static_cast<ULONG>(hb_parnd(7)) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU); // | DS_SETFONT;
+   int x1 = hb_parni(3), y1 = hb_parni(4), dwidth = hb_parni(5), dheight = hb_parni(6);
+   LPDLGTEMPLATE pdlgtemplate = s_CreateDlgTemplate(pObject, x1, y1, dwidth, dheight, ulStyle);
+   DialogBoxIndirectParam( hModule, pdlgtemplate, static_cast<HWND>(HB_PARHANDLE(1)), ( DLGPROC ) s_ModalDlgProc, ( LPARAM ) pObject);
+   s_ReleaseDlgTemplate(pdlgtemplate);
 }
 
 HB_FUNC( HWG_DIALOGBASEUNITS )
 {
-   hb_retnl( GetDialogBaseUnits() );
+   hb_retnl(GetDialogBaseUnits());
 }
 
-static LRESULT CALLBACK s_ModalDlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
-      LPARAM lParam )
+static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
    // PHB_DYNS pSymTest;
    long int res;
@@ -539,41 +541,49 @@ static LRESULT CALLBACK s_ModalDlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
       SetObjectVar( ( PHB_ITEM ) lParam, "_HANDLE", temp );
       hb_itemRelease( temp );
 
-      SetWindowObject( hDlg, ( PHB_ITEM ) lParam );
+      SetWindowObject(hDlg, ( PHB_ITEM ) lParam);
    }
-   pObject = ( PHB_ITEM ) GetWindowLongPtr( hDlg, GWLP_USERDATA );
+   pObject = ( PHB_ITEM ) GetWindowLongPtr(hDlg, GWLP_USERDATA);
 
    if( !pSym_onEvent )
-      pSym_onEvent = hb_dynsymFindName( "ONEVENT" );
+   {
+      pSym_onEvent = hb_dynsymFindName("ONEVENT");
+   }
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(static_cast<LONG>(uMsg));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM( wParam );
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(wParam);
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
-      if( HB_ISPOINTER( -1 ) )
-         return (LRESULT) HB_PARHANDLE( -1 );
+      if( HB_ISPOINTER(-1) )
+      {
+         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+      }
       else
       {
-         res = hb_parnl( -1 );
+         res = hb_parnl(-1);
          if( res == -1 )
+         {
             return FALSE;
+         }
          else
+         {
             return res;
+         }
       }
    }
    else
+   {
       return FALSE;
-
+   }
 }
 
-static LRESULT CALLBACK s_DlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
-      LPARAM lParam )
+static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject;
@@ -590,17 +600,19 @@ static LRESULT CALLBACK s_DlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
       SetObjectVar( ( PHB_ITEM ) lParam, "_HANDLE", temp );
       hb_itemRelease( temp );
 
-      SetWindowObject( hDlg, ( PHB_ITEM ) lParam );
+      SetWindowObject(hDlg, ( PHB_ITEM ) lParam);
 
       if( iDialogs == s_nDialogs )
       {
          s_nDialogs += 16;
          if( s_nDialogs == 16 )
-            aDialogs = ( HWND * ) hb_xgrab(sizeof(HWND) * s_nDialogs);
+         {
+            aDialogs = static_cast<HWND*>(hb_xgrab(sizeof(HWND) * s_nDialogs));
+         }
          else
-            aDialogs =
-                  ( HWND * ) hb_xrealloc( aDialogs,
-                  sizeof(HWND) * s_nDialogs );
+         {
+            aDialogs = static_cast<HWND*>(hb_xrealloc(aDialogs, sizeof(HWND) * s_nDialogs));
+         }
       }
       aDialogs[iDialogs++] = hDlg;
    }
@@ -608,21 +620,29 @@ static LRESULT CALLBACK s_DlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
    {
       int i;
       for( i = 0; i < iDialogs; i++ )
+      {
          if( aDialogs[i] == hDlg )
+         {
             break;
+         }
+      }
       iDialogs--;
       for( ; i < iDialogs; i++ )
+      {
          aDialogs[i] = aDialogs[i + 1];
+      }   
    }
 
-   pObject = ( PHB_ITEM ) GetWindowLongPtr( hDlg, GWLP_USERDATA );
+   pObject = ( PHB_ITEM ) GetWindowLongPtr(hDlg, GWLP_USERDATA);
 
    if( !pSym_onEvent )
-      pSym_onEvent = hb_dynsymFindName( "ONEVENT" );
-
+   {
+      pSym_onEvent = hb_dynsymFindName("ONEVENT");
+   }
+   
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush( pObject );
       hb_vmPushLong(static_cast<LONG>(uMsg));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
@@ -630,24 +650,31 @@ static LRESULT CALLBACK s_DlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
-      if( HB_ISPOINTER( -1 ) )
+      if( HB_ISPOINTER(-1) )
+      {
          return (LRESULT) HB_PARHANDLE( -1 );
+      }
       else
       {
          res = hb_parnl( -1 );
          if( res == -1 )
+         {
             return FALSE;
+         }
          else
+         {
             return res;
+         }
       }
    }
    else
+   {
       return FALSE;
+   }
 
 }
 
-static LRESULT CALLBACK s_PSPProc( HWND hDlg, UINT uMsg, WPARAM wParam,
-      LPARAM lParam )
+static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject;
@@ -666,42 +693,54 @@ static LRESULT CALLBACK s_PSPProc( HWND hDlg, UINT uMsg, WPARAM wParam,
       SetObjectVar( pObj, "_HANDLE", temp );
       hb_itemRelease( temp );
 
-      SetWindowObject( hDlg, pObj );
+      SetWindowObject(hDlg, pObj);
 
       if( iDialogs == s_nDialogs )
       {
          s_nDialogs += 16;
          if( s_nDialogs == 16 )
-            aDialogs = ( HWND * ) hb_xgrab(sizeof(HWND) * s_nDialogs);
+         {
+            aDialogs = static_cast<HWND*>(hb_xgrab(sizeof(HWND) * s_nDialogs));
+         }
          else
-            aDialogs =
-                  ( HWND * ) hb_xrealloc( aDialogs,
-                  sizeof(HWND) * s_nDialogs );
+         {
+            aDialogs = static_cast<HWND*>(hb_xrealloc(aDialogs, sizeof(HWND) * s_nDialogs));
+         }
       }
       aDialogs[iDialogs++] = hDlg;
       // hb_itemRelease( pObj );
    }
    else if( uMsg == WM_NOTIFY )
+   {
       uMsg = WM_PSPNOTIFY;
+   }
    else if( uMsg == WM_DESTROY )
    {
       int i;
       for( i = 0; i < iDialogs; i++ )
+      {
          if( aDialogs[i] == hDlg )
+         {
             break;
+         }
+      }
       iDialogs--;
       for( ; i < iDialogs; i++ )
+      {
          aDialogs[i] = aDialogs[i + 1];
+      }
    }
 
-   pObject = ( PHB_ITEM ) GetWindowLongPtr( hDlg, GWLP_USERDATA );
+   pObject = ( PHB_ITEM ) GetWindowLongPtr(hDlg, GWLP_USERDATA);
 
    if( !pSym_onEvent )
-      pSym_onEvent = hb_dynsymFindName( "ONEVENT" );
+   {
+      pSym_onEvent = hb_dynsymFindName("ONEVENT");
+   }
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush( pObject );
       hb_vmPushLong(static_cast<LONG>(uMsg));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
@@ -709,26 +748,33 @@ static LRESULT CALLBACK s_PSPProc( HWND hDlg, UINT uMsg, WPARAM wParam,
       HB_PUSHITEM( wParam );
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
-      if( HB_ISPOINTER( -1 ) )
+      if( HB_ISPOINTER(-1) )
+      {
          return (LRESULT) HB_PARHANDLE( -1 );
+      }
       else
       {
          res = hb_parnl( -1 );
          if( res == -1 )
+         {
             return FALSE;
+         }
          else
+         {
             return res;
+         }
       }
    }
    else
+   {
       return FALSE;
+   }
 
 }
 
-static LRESULT CALLBACK s_PSPProcRelease( HWND hwnd, UINT uMsg,
-      LPPROPSHEETPAGE ppsp )
+static LRESULT CALLBACK s_PSPProcRelease(HWND hwnd, UINT uMsg, LPPROPSHEETPAGE ppsp)
 {
-   HB_SYMBOL_UNUSED( hwnd );
+   HB_SYMBOL_UNUSED(hwnd);
    if( PSPCB_CREATE == uMsg )
    {
       return 1;

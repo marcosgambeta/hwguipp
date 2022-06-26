@@ -21,54 +21,43 @@
 
 HB_FUNC( HWG_INITMONTHCALENDAR )
 {
-   HWND hMC;
    RECT rc;
 
-   hMC = CreateWindowEx( 0,
-                         MONTHCAL_CLASS,
-                         "",
-                         (LONG) hb_parnl(3), /* 0,0,0,0, */
-                         hb_parni(4), hb_parni(5),      /* x, y       */
-                         hb_parni(6), hb_parni(7),      /* nWidth, nHeight */
-                         (HWND) HB_PARHANDLE(1),
-                         (HMENU) ( UINT_PTR ) hb_parni(2),
-                         GetModuleHandle(NULL),
-                         NULL );
+   HWND hMC = CreateWindowEx(0, MONTHCAL_CLASS, "", static_cast<LONG>(hb_parnl(3)),
+      hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
+      static_cast<HWND>(HB_PARHANDLE(1)),
+      reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+      GetModuleHandle(nullptr), nullptr);
 
-   MonthCal_GetMinReqRect( hMC, &rc );
+   MonthCal_GetMinReqRect(hMC, &rc);
 
-   //Setwindowpos( hMC, NULL, hb_parni(4), hb_parni(5), rc.right, rc.bottom, SWP_NOZORDER );
-   SetWindowPos( hMC, NULL, hb_parni(4), hb_parni(5), hb_parni(6),hb_parni(7), SWP_NOZORDER );
+   //Setwindowpos(hMC, nullptr, hb_parni(4), hb_parni(5), rc.right, rc.bottom, SWP_NOZORDER);
+   SetWindowPos(hMC, nullptr, hb_parni(4), hb_parni(5), hb_parni(6),hb_parni(7), SWP_NOZORDER);
 
-    HB_RETHANDLE(  hMC );
+   HB_RETHANDLE(hMC);
 }
 
 HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file Control.c
 {
-   PHB_ITEM pDate = hb_param( 2, HB_IT_DATE );
+   PHB_ITEM pDate = hb_param(2, HB_IT_DATE);
 
    if( pDate )
    {
       SYSTEMTIME sysTime;
-      #ifndef HARBOUR_OLD_VERSION
       int lYear, lMonth, lDay;
-      #else
-      long lYear, lMonth, lDay;
-      #endif
 
-      hb_dateDecode( hb_itemGetDL( pDate ), &lYear, &lMonth, &lDay );
+      hb_dateDecode(hb_itemGetDL(pDate), &lYear, &lMonth, &lDay);
 
-      sysTime.wYear = (unsigned short) lYear;
-      sysTime.wMonth = (unsigned short) lMonth;
-      sysTime.wDay = (unsigned short) lDay;
+      sysTime.wYear = static_cast<unsigned short>(lYear);
+      sysTime.wMonth = static_cast<unsigned short>(lMonth);
+      sysTime.wDay = static_cast<unsigned short>(lDay);
       sysTime.wDayOfWeek = 0;
       sysTime.wHour = 0;
       sysTime.wMinute = 0;
       sysTime.wSecond = 0;
       sysTime.wMilliseconds = 0;
 
-      MonthCal_SetCurSel( (HWND) HB_PARHANDLE (1), &sysTime);
-
+      MonthCal_SetCurSel(static_cast<HWND>(HB_PARHANDLE(1)), &sysTime);
    }
 }
 
@@ -77,9 +66,9 @@ HB_FUNC( HWG_GETMONTHCALENDARDATE ) // adaptation of hwg_Getdatepicker of file C
    SYSTEMTIME st;
    char szDate[9];
 
-   SendMessage( (HWND) HB_PARHANDLE (1), MCM_GETCURSEL, 0, (LPARAM) &st);
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
 
-   hb_dateStrPut( szDate, st.wYear, st.wMonth, st.wDay );
+   hb_dateStrPut(szDate, st.wYear, st.wMonth, st.wDay);
    szDate[8] = 0;
-   hb_retds( szDate );
+   hb_retds(szDate);
 }

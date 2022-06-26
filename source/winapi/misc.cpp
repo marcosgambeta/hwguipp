@@ -77,7 +77,7 @@ HB_FUNC( HWG_RELEASECAPTURE )
 
 HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 {
-   if( OpenClipboard( GetActiveWindow() ) )
+   if( OpenClipboard(GetActiveWindow()) )
    {
       HGLOBAL hglbCopy;
       char *lptstrCopy;
@@ -114,7 +114,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
    HWND hWnd = reinterpret_cast<HWND>(hb_parnl(1)); // TODO: HB_PARHANDLE ?
    LPTSTR lpText = nullptr;
 
-   if( OpenClipboard( hWnd ) )
+   if( OpenClipboard(hWnd) )
    {
 #ifdef UNICODE
       HGLOBAL hglb = GetClipboardData( CF_UNICODETEXT );
@@ -126,7 +126,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
          LPVOID lpMem = GlobalLock( hglb );
          if( lpMem )
          {
-            HB_SIZE nSize = ( HB_SIZE ) GlobalSize( hglb );
+            HB_SIZE nSize = static_cast<HB_SIZE>(GlobalSize(hglb));
             if( nSize )
             {
                lpText = ( LPTSTR ) hb_xgrab(nSize + 1);
@@ -140,7 +140,9 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
    }
    HB_RETSTR( lpText );
    if( lpText )
+   {
       hb_xfree(lpText);
+   }   
 }
 
 HB_FUNC( HWG_GETSTOCKOBJECT )
@@ -150,38 +152,39 @@ HB_FUNC( HWG_GETSTOCKOBJECT )
 
 HB_FUNC( HWG_LOWORD )
 {
-   hb_retni( ( int ) ( ( HB_ISPOINTER(1) ? 
-   PtrToUlong( hb_parptr(1) ) :
-                              static_cast<ULONG>(hb_parnl(1)) ) & 0xFFFF ) );
+   hb_retni(( int ) ((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) & 0xFFFF));
 }
 
 HB_FUNC( HWG_HIWORD )
 {
-   hb_retni( ( int ) ( ( ( HB_ISPOINTER(1) ? PtrToUlong( hb_parptr(1) ) :
-                              static_cast<ULONG>(hb_parnl(1)) ) >> 16 ) & 0xFFFF ) );
+   hb_retni(( int ) (((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) >> 16) & 0xFFFF));
 }
 
 HB_FUNC( HWG_BITOR )
 {
-   hb_retnl( ( hb_parnl(1) | hb_parnl(2) ) );
+   hb_retnl((hb_parnl(1) | hb_parnl(2)));
 }
 
 HB_FUNC( HWG_BITAND )
 {
-   hb_retnl( hb_parnl(1) & hb_parnl(2) );
+   hb_retnl(hb_parnl(1) & hb_parnl(2));
 }
 
 HB_FUNC( HWG_BITANDINVERSE )
 {
-   hb_retnl( hb_parnl(1) & ( ~hb_parnl(2) ) );
+   hb_retnl(hb_parnl(1) & (~hb_parnl(2)));
 }
 
 HB_FUNC( HWG_SETBIT )
 {
    if( hb_pcount() < 3 || hb_parni(3) )
-      hb_retnl( hb_parnl(1) | ( 1 << ( hb_parni(2) - 1 ) ) );
+   {
+      hb_retnl(hb_parnl(1) | (1 << (hb_parni(2) - 1)));
+   }
    else
-      hb_retnl( hb_parnl(1) & ~( 1 << ( hb_parni(2) - 1 ) ) );
+   {
+      hb_retnl(hb_parnl(1) & ~(1 << (hb_parni(2) - 1)));
+   }   
 }
 
 HB_FUNC( HWG_CHECKBIT )
@@ -191,12 +194,12 @@ HB_FUNC( HWG_CHECKBIT )
 
 HB_FUNC( HWG_SIN )
 {
-   hb_retnd( sin( hb_parnd(1) ) );
+   hb_retnd(sin(hb_parnd(1)));
 }
 
 HB_FUNC( HWG_COS )
 {
-   hb_retnd( cos( hb_parnd(1) ) );
+   hb_retnd(cos(hb_parnd(1)));
 }
 
 HB_FUNC( HWG_CLIENTTOSCREEN )
@@ -239,8 +242,7 @@ HB_FUNC( HWG_SCREENTOCLIENT )
    {
       Array2Rect( hb_param( 2, HB_IT_ARRAY ), &R );
       ScreenToClient( static_cast<HWND>(HB_PARHANDLE(1)), ( LPPOINT ) ( void * ) &R );
-      ScreenToClient( static_cast<HWND>(HB_PARHANDLE(1)),
-            ( ( LPPOINT ) ( void * ) &R ) + 1 );
+      ScreenToClient( static_cast<HWND>(HB_PARHANDLE(1)), ( ( LPPOINT ) ( void * ) &R ) + 1 );
       hb_itemRelease( hb_itemReturn( Rect2Array( &R ) ) );
       return;
    }
@@ -291,14 +293,13 @@ HB_FUNC( HWG_SETCURSORPOS )
 HB_FUNC( HWG_GETCURRENTDIR )
 {
    TCHAR buffer[HB_PATH_MAX];
-
-   GetCurrentDirectory( HB_PATH_MAX, buffer );
+   GetCurrentDirectory(HB_PATH_MAX, buffer);
    HB_RETSTR( buffer );
 }
 
 HB_FUNC( HWG_WINEXEC )
 {
-   hb_retni( WinExec( hb_parc(1), ( UINT ) hb_parni(2) ) );
+   hb_retni(WinExec(hb_parc(1), ( UINT ) hb_parni(2)));
 }
 
 HB_FUNC( HWG_GETKEYBOARDSTATE )
@@ -311,7 +312,7 @@ HB_FUNC( HWG_GETKEYBOARDSTATE )
 
 HB_FUNC( HWG_GETKEYSTATE )
 {
-   hb_retni( GetKeyState( hb_parni(1) ) );
+   hb_retni(GetKeyState(hb_parni(1)));
 }
 
 HB_FUNC( HWG_GETKEYNAMETEXT )
@@ -320,7 +321,9 @@ HB_FUNC( HWG_GETKEYNAMETEXT )
    int iRet = GetKeyNameText( hb_parnl(1), cText, MAX_PATH );
 
    if( iRet )
+   {
       HB_RETSTRLEN( cText, iRet );
+   }   
 }
 
 HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
@@ -335,15 +338,19 @@ HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
    {
       GetKeyboardLayoutName( sBuff );
       if( !lstrcmp( sBuff, lpLayout ) )
+      {
          break;
+      }
       ActivateKeyboardLayout( 0, 0 );
       i++;
    }
-
    while( i < num );
+   
    if( i >= num )
+   {
       ActivateKeyboardLayout( curr, 0 );
-
+   }
+   
    hb_strfree(hLayout);
 }
 
@@ -364,11 +371,15 @@ HB_FUNC( HWG_PTS2PIX )
       lDC = 0;
    }
    else
+   {
       hDC = CreateDC( TEXT( "DISPLAY" ), nullptr, nullptr, nullptr );
-
-   hb_retni( MulDiv( hb_parni(1), GetDeviceCaps( hDC, LOGPIXELSY ), 72 ) );
+   }
+   
+   hb_retni(MulDiv(hb_parni(1), GetDeviceCaps(hDC, LOGPIXELSY), 72));
    if( lDC )
-      DeleteDC( hDC );
+   {
+      DeleteDC(hDC);
+   }
 }
 
 /* Functions Contributed  By Luiz Rafael Culik Guimaraes( culikr@uol.com.br) */
@@ -408,25 +419,21 @@ Contributed by Rodrigo Moreno rodrigo_moreno@yahoo.com base upon code minigui
 
 HB_FUNC( HWG_SHELLABOUT )
 {
-   void * hStr1, *hStr2;
-
-   hb_retni( ShellAbout( 0,
-               HB_PARSTRDEF( 1, &hStr1, nullptr ),
-               HB_PARSTRDEF( 2, &hStr2, nullptr ),
-               ( HB_ISNIL(3) ? nullptr : ( HICON ) HB_PARHANDLE(3) ) ) );
+   void * hStr1;
+   void * hStr2;
+   hb_retni(ShellAbout(0, HB_PARSTRDEF(1, &hStr1, nullptr), HB_PARSTRDEF(2, &hStr2, nullptr), (HB_ISNIL(3) ? nullptr : static_cast<HICON>(HB_PARHANDLE(3)))));
    hb_strfree(hStr1);
    hb_strfree(hStr2);
 }
 
-
 HB_FUNC( HWG_GETDESKTOPWIDTH )
 {
-   hb_retni( GetSystemMetrics( SM_CXSCREEN ) );
+   hb_retni(GetSystemMetrics(SM_CXSCREEN));
 }
 
 HB_FUNC( HWG_GETDESKTOPHEIGHT )
 {
-   hb_retni( GetSystemMetrics( SM_CYSCREEN ) );
+   hb_retni(GetSystemMetrics(SM_CYSCREEN));
 }
 
 HB_FUNC( HWG_GETHELPDATA )
@@ -462,8 +469,7 @@ HB_FUNC( HWG_WINHELP )
          context = 0;
    }
 
-   hb_retni( WinHelp( static_cast<HWND>(HB_PARHANDLE(1)), HB_PARSTR(2, &hStr, nullptr),
-               style, context ) );
+   hb_retni(WinHelp(static_cast<HWND>(HB_PARHANDLE(1)), HB_PARSTR(2, &hStr, nullptr), style, context));
    hb_strfree(hStr);
 }
 
@@ -475,33 +481,46 @@ HB_FUNC( HWG_GETNEXTDLGTABITEM )
 HB_FUNC( HWG_SLEEP )
 {
    if( hb_parinfo(1) )
+   {
       Sleep( hb_parnl(1) );
+   }
 }
 
 HB_FUNC( HWG_KEYB_EVENT )
 {
-   DWORD dwFlags = ( !( HB_ISNIL(2) ) &&
-         hb_parl(2) ) ? KEYEVENTF_EXTENDEDKEY : 0;
-   int bShift = ( !( HB_ISNIL(3) ) && hb_parl(3) ) ? TRUE : FALSE;
-   int bCtrl = ( !( HB_ISNIL(4) ) && hb_parl(4) ) ? TRUE : FALSE;
-   int bAlt = ( !( HB_ISNIL(5) ) && hb_parl(5) ) ? TRUE : FALSE;
+   DWORD dwFlags = ( !(HB_ISNIL(2)) && hb_parl(2) ) ? KEYEVENTF_EXTENDEDKEY : 0;
+   int bShift = ( !(HB_ISNIL(3)) && hb_parl(3) ) ? TRUE : FALSE;
+   int bCtrl = ( !(HB_ISNIL(4)) && hb_parl(4) ) ? TRUE : FALSE;
+   int bAlt = ( !(HB_ISNIL(5)) && hb_parl(5) ) ? TRUE : FALSE;
 
    if( bShift )
+   {
       keybd_event( VK_SHIFT, 0, 0, 0 );
+   }
    if( bCtrl )
+   {
       keybd_event( VK_CONTROL, 0, 0, 0 );
+   }
    if( bAlt )
+   {
       keybd_event( VK_MENU, 0, 0, 0 );
+   }
 
    keybd_event( static_cast<BYTE>(hb_parni(1)), 0, dwFlags, 0 );
    keybd_event( static_cast<BYTE>(hb_parni(1)), 0, dwFlags | KEYEVENTF_KEYUP, 0 );
 
    if( bShift )
+   {
       keybd_event( VK_SHIFT, 0, KEYEVENTF_KEYUP, 0 );
+   }
    if( bCtrl )
+   {
       keybd_event( VK_CONTROL, 0, KEYEVENTF_KEYUP, 0 );
+   }
    if( bAlt )
+   {
       keybd_event( VK_MENU, 0, KEYEVENTF_KEYUP, 0 );
+   }
 }
 
 /* SetScrollInfo( hWnd, nType, nRedraw, nPos, nPage, nmax )
@@ -553,7 +572,7 @@ HB_FUNC( HWG_GETSCROLLRANGE )
       hb_storni( MinPos, 3 );
       hb_storni( MaxPos, 4 );
    }
-   hb_retni( MaxPos - MinPos );
+   hb_retni(MaxPos - MinPos);
 }
 
 HB_FUNC( HWG_SETSCROLLRANGE )
@@ -561,35 +580,39 @@ HB_FUNC( HWG_SETSCROLLRANGE )
    hb_retl(SetScrollRange(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5)));
 }
 
-
+/*
+HWG_GETSCROLLPOS(hWnd, nFlags) --> numeric
+hWnd = handle of window with scroll bar
+nFlags = scroll bar flags
+*/
 HB_FUNC( HWG_GETSCROLLPOS )
 {
-   hb_retni( GetScrollPos( static_cast<HWND>(HB_PARHANDLE(1)),  // handle of window with scroll bar
-               hb_parni(2)    // scroll bar flags
-          ) );
+   hb_retni(GetScrollPos(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2)));
 }
 
+/*
+HWG_SETSCROLLPOS(hWnd, nPar2, lPar3) --> NIL
+*/
 HB_FUNC( HWG_SETSCROLLPOS )
 {
-   SetScrollPos( static_cast<HWND>(HB_PARHANDLE(1)),    // handle of window with scroll bar
-         hb_parni(2),         // scroll bar flags
-         hb_parni(3), TRUE );
+   SetScrollPos(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3), TRUE);
 }
 
+/*
+HWG_SHOWSCROLLBAR(hWnd, nPar2, lPar3) --> NIL
+*/
 HB_FUNC( HWG_SHOWSCROLLBAR )
 {
-   ShowScrollBar( static_cast<HWND>(HB_PARHANDLE(1)),   // handle of window with scroll bar
-         hb_parni(2),         // scroll bar flags
-         hb_parl(3)           // scroll bar visibility
-          );
+   ShowScrollBar(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), hb_parl(3));
 }
 
+/*
+HWG_SCROLLWINDOW(hWnd, nPar2, nPar3) --> NIL
+*/
 HB_FUNC( HWG_SCROLLWINDOW )
 {
-   ScrollWindow( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3),
-         nullptr, nullptr );
+   ScrollWindow(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3), nullptr, nullptr);
 }
-
 
 HB_FUNC( HWG_ISCAPSLOCKACTIVE )
 {
@@ -611,7 +634,7 @@ HB_FUNC( HWG_ISSCROLLLOCKACTIVE )
 HB_FUNC( HWG_CREATEDIRECTORY )
 {
    void * hStr;
-   CreateDirectory( HB_PARSTR(1, &hStr, nullptr), nullptr );
+   CreateDirectory(HB_PARSTR(1, &hStr, nullptr), nullptr);
    hb_strfree(hStr);
 }
 
@@ -625,7 +648,7 @@ HB_FUNC( HWG_REMOVEDIRECTORY )
 HB_FUNC( HWG_SETCURRENTDIRECTORY )
 {
    void * hStr;
-   SetCurrentDirectory( HB_PARSTR(1, &hStr, nullptr) );
+   SetCurrentDirectory(HB_PARSTR(1, &hStr, nullptr));
    hb_strfree(hStr);
 }
 
@@ -701,7 +724,7 @@ HB_FUNC( HWG_BUTTON1GETSCREENCLIENT )
 HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 {
    HDC hdc = static_cast<HDC>(HB_PARHANDLE(1));
-   //UINT h = hb_parni(2) ;
+   //UINT h = hb_parni(2);
    PHB_ITEM pObject = hb_param( 3, HB_IT_OBJECT );
    PHB_ITEM p, p1, p2, temp;
    LONG i;
@@ -718,15 +741,15 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    p = GetObjectVar( pObject, "M_BRUSH" );
    p2 = GetObjectVar( pObject, "M_TEXTCOLOR" );
    cColor = static_cast<COLORREF>(hb_itemGetNL(p2));
-   hBrush = ( HBRUSH ) HB_GETHANDLE( p );
+   hBrush = static_cast<HBRUSH>(HB_GETHANDLE(p));
 
-   DeleteObject( hBrush );
+   DeleteObject(hBrush);
 
    p1 = GetObjectVar( pObject, "M_BACKCOLOR" );
    i = hb_itemGetNL( p1 );
    if( i == -1 )
    {
-      hBrush = ( HBRUSH ) GetStockObject( HOLLOW_BRUSH );
+      hBrush = static_cast<HBRUSH>(GetStockObject(HOLLOW_BRUSH));
       SetBkMode( hdc, TRANSPARENT );
    }
    else
@@ -768,13 +791,13 @@ HB_FUNC( HWG_ISPTREQ )
 HB_FUNC( HWG_OUTPUTDEBUGSTRING )
 {
    void * hStr;
-   OutputDebugString( HB_PARSTRDEF( 1, &hStr, nullptr ) );
+   OutputDebugString(HB_PARSTRDEF(1, &hStr, nullptr));
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_GETSYSTEMMETRICS )
 {
-   hb_retni( GetSystemMetrics( hb_parni(1) ) );
+   hb_retni(GetSystemMetrics(hb_parni(1)));
 }
 
 // nando
@@ -786,12 +809,14 @@ HB_FUNC( HWG_LASTKEY )
    GetKeyboardState( kbBuffer );
 
    for( i = 0; i < 256; i++ )
+   {
       if( kbBuffer[i] & 0x80 )
       {
-         hb_retni( i );
+         hb_retni(i);
          return;
       }
-   hb_retni( 0 );
+   }
+   hb_retni(0);
 }
 
 HB_FUNC( HWG_ISWIN7 )
@@ -806,7 +831,7 @@ HB_FUNC( HWG_ISWIN7 )
 
 HB_FUNC( HWG_COLORRGB2N )
 {
-   hb_retnl( hb_parni(1) + hb_parni(2) * 256 + hb_parni(3) * 65536 );
+   hb_retnl(hb_parni(1) + hb_parni(2) * 256 + hb_parni(3) * 65536);
 }
 
 /*
@@ -865,8 +890,7 @@ HB_FUNC( HWG_PROCESSRUN )
    sa.lpSecurityDescriptor = nullptr;
    sa.bInheritHandle = TRUE;
 
-   hOut = CreateFile( HB_PARSTR(1, &hStr, nullptr), GENERIC_WRITE, 0, &sa,
-      CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0 );
+   hOut = CreateFile(HB_PARSTR(1, &hStr, nullptr), GENERIC_WRITE, 0, &sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
 
    hb_strfree(hStr);
    ZeroMemory( &si, sizeof(si) );
@@ -910,7 +934,7 @@ HB_FUNC( HWG_PROCESSRUN )
 
 HB_FUNC( HWG_RUNCONSOLEAPP )
 {
-   SECURITY_ATTRIBUTES sa; 
+   SECURITY_ATTRIBUTES sa;
    HANDLE g_hChildStd_OUT_Rd = nullptr;
    HANDLE g_hChildStd_OUT_Wr = nullptr;
    PROCESS_INFORMATION pi;
@@ -918,15 +942,15 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    BOOL bSuccess;
 
    DWORD dwRead, dwWritten, dwExitCode;
-   CHAR chBuf[BUFSIZE]; 
+   CHAR chBuf[BUFSIZE];
    HANDLE hOut = nullptr;
    void * hStr;
 
-   sa.nLength = sizeof(SECURITY_ATTRIBUTES); 
-   sa.bInheritHandle = TRUE; 
-   sa.lpSecurityDescriptor = nullptr; 
+   sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+   sa.bInheritHandle = TRUE;
+   sa.lpSecurityDescriptor = nullptr;
 
-   // Create a pipe for the child process's STDOUT. 
+   // Create a pipe for the child process's STDOUT.
    if( ! CreatePipe( &g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &sa, 0 ) )
    {
       hb_retni(1);
@@ -940,10 +964,10 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
       return;
    }
 
-   // Set up members of the PROCESS_INFORMATION structure. 
+   // Set up members of the PROCESS_INFORMATION structure.
    ZeroMemory( &pi, sizeof(PROCESS_INFORMATION) );
- 
-   // Set up members of the STARTUPINFO structure. 
+
+   // Set up members of the STARTUPINFO structure.
    // This structure specifies the STDIN and STDOUT handles for redirection.
    ZeroMemory( &si, sizeof(si) );
    si.cb = sizeof(si);
@@ -955,8 +979,8 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    bSuccess = CreateProcess( nullptr, (LPTSTR)HB_PARSTR(1, &hStr, nullptr), nullptr, nullptr,
       TRUE, CREATE_NEW_CONSOLE, nullptr, nullptr, &si, &pi);
    hb_strfree(hStr);
-   
-   if ( ! bSuccess ) 
+
+   if( ! bSuccess )
    {
       hb_retni(3);
       return;
@@ -970,33 +994,43 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 
    if( !HB_ISNIL(2) )
    {
-      hOut = CreateFile( HB_PARSTR(2, &hStr, nullptr), GENERIC_WRITE, 0, 0,
-             CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0 );
+      hOut = CreateFile(HB_PARSTR(2, &hStr, nullptr), GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
       hb_strfree(hStr);
    }
+
    while( 1 )
-   { 
+   {
       bSuccess = ReadFile( g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, nullptr );
-      if( ! bSuccess || dwRead == 0 ) break; 
+      if( ! bSuccess || dwRead == 0 )
+      {
+         break;
+      }
 
       if( !HB_ISNIL(2) )
       {
          bSuccess = WriteFile( hOut, chBuf, dwRead, &dwWritten, nullptr );
-         if( ! bSuccess ) break; 
+         if( ! bSuccess )
+         {
+            break;
+         }
       }
-   } 
+   }
 
    if( !HB_ISNIL(2) )
+   {
       CloseHandle( hOut );
+   }
    CloseHandle( g_hChildStd_OUT_Rd );
 
-   hb_retni( (int) dwExitCode);
+   hb_retni((int) dwExitCode);
 }
 
 HB_FUNC( HWG_RUNAPP )
 {
    if( HB_ISNIL(3) || !hb_parl(3) )
-      hb_retni( WinExec( hb_parc(1), (HB_ISNIL(2))? SW_SHOW : ( UINT ) hb_parni(2) ) );
+   {
+      hb_retni(WinExec(hb_parc(1), (HB_ISNIL(2))? SW_SHOW : ( UINT ) hb_parni(2)));
+   }
    else
    {
       STARTUPINFO si;
@@ -1016,13 +1050,12 @@ HB_FUNC( HWG_RUNAPP )
           FALSE,          // Set handle inheritance to FALSE
           CREATE_NEW_CONSOLE,   // No creation flags
           nullptr,           // Use parent's environment block
-          nullptr,           // Use parent's starting directory 
+          nullptr,           // Use parent's starting directory
           &si,            // Pointer to STARTUPINFO structure
           &pi );          // Pointer to PROCESS_INFORMATION structure
       hb_strfree(hStr);
    }
 }
-
 
 #if defined( __XHARBOUR__)
 BOOL hb_itemEqual( PHB_ITEM pItem1, PHB_ITEM pItem2 )
@@ -1032,50 +1065,60 @@ BOOL hb_itemEqual( PHB_ITEM pItem1, PHB_ITEM pItem2 )
    if( HB_IS_NUMERIC( pItem1 ) )
    {
       if( HB_IS_NUMINT( pItem1 ) && HB_IS_NUMINT( pItem2 ) )
+      {
          fResult = HB_ITEM_GET_NUMINTRAW( pItem1 ) == HB_ITEM_GET_NUMINTRAW( pItem2 );
+      }
       else
-         fResult = HB_IS_NUMERIC( pItem2 ) &&
-                   hb_itemGetND( pItem1 ) == hb_itemGetND( pItem2 );
+      {
+         fResult = HB_IS_NUMERIC( pItem2 ) && hb_itemGetND( pItem1 ) == hb_itemGetND( pItem2 );
+      }
    }
    else if( HB_IS_STRING( pItem1 ) )
+   {
       fResult = HB_IS_STRING( pItem2 ) &&
                 pItem1->item.asString.length == pItem2->item.asString.length &&
                 memcmp( pItem1->item.asString.value,
                         pItem2->item.asString.value,
                         pItem1->item.asString.length ) == 0;
-
+   }
    else if( HB_IS_NIL( pItem1 ) )
+   {
       fResult = HB_IS_NIL( pItem2 );
-
+   }
    else if( HB_IS_DATETIME( pItem1 ) )
+   {
       if( HB_IS_TIMEFLAG( pItem1 ) && HB_IS_TIMEFLAG( pItem2 ) )
-      fResult = HB_IS_DATETIME( pItem2 ) &&
+      {
+         fResult = HB_IS_DATETIME( pItem2 ) &&
                 pItem1->item.asDate.value == pItem2->item.asDate.value &&
                 pItem1->item.asDate.time == pItem2->item.asDate.time;
+      }
       else
-      fResult = HB_IS_DATE( pItem2 ) &&
-                pItem1->item.asDate.value == pItem2->item.asDate.value ;
-                
+      {
+         fResult = HB_IS_DATE( pItem2 ) && pItem1->item.asDate.value == pItem2->item.asDate.value;
+      }
 
+   }
    else if( HB_IS_LOGICAL( pItem1 ) )
-      fResult = HB_IS_LOGICAL( pItem2 ) && ( pItem1->item.asLogical.value ?
-                pItem2->item.asLogical.value : ! pItem2->item.asLogical.value );
-
+   {
+      fResult = HB_IS_LOGICAL( pItem2 ) && ( pItem1->item.asLogical.value ? pItem2->item.asLogical.value : ! pItem2->item.asLogical.value );
+   }
    else if( HB_IS_ARRAY( pItem1 ) )
-      fResult = HB_IS_ARRAY( pItem2 ) &&
-                pItem1->item.asArray.value == pItem2->item.asArray.value;
-
+   {
+      fResult = HB_IS_ARRAY( pItem2 ) && pItem1->item.asArray.value == pItem2->item.asArray.value;
+   }
    else if( HB_IS_HASH( pItem1 ) )
-      fResult = HB_IS_HASH( pItem2 ) &&
-                pItem1->item.asHash.value == pItem2->item.asHash.value;
-
+   {
+      fResult = HB_IS_HASH( pItem2 ) && pItem1->item.asHash.value == pItem2->item.asHash.value;
+   }
    else if( HB_IS_POINTER( pItem1 ) )
-      fResult = HB_IS_POINTER( pItem2 ) &&
-                pItem1->item.asPointer.value == pItem2->item.asPointer.value;
-
+   {
+      fResult = HB_IS_POINTER( pItem2 ) && pItem1->item.asPointer.value == pItem2->item.asPointer.value;
+   }
    else if( HB_IS_BLOCK( pItem1 ) )
-      fResult = HB_IS_BLOCK( pItem2 ) &&
-                pItem1->item.asBlock.value == pItem2->item.asBlock.value;
+   {
+      fResult = HB_IS_BLOCK( pItem2 ) && pItem1->item.asBlock.value == pItem2->item.asBlock.value;
+   }
 
    return fResult;
 }
@@ -1083,10 +1126,8 @@ BOOL hb_itemEqual( PHB_ITEM pItem1, PHB_ITEM pItem2 )
 
 HB_FUNC( HWG_GETCENTURY )
 {
-  HB_BOOL centset = hb_setGetCentury();
-  hb_retl(centset);
+  hb_retl(hb_setGetCentury());
 }
-
 
 HB_FUNC( HWG_ISWIN10 )
 {
@@ -1105,7 +1146,7 @@ HB_FUNC( HWG_GETWINMAJORVERS )
    ovi.dwMajorVersion = 0;
    ovi.dwMinorVersion = 0;
    GetVersionEx( &ovi );
-   hb_retni( ovi.dwMajorVersion );
+   hb_retni(ovi.dwMajorVersion);
 }
 
 HB_FUNC( HWG_GETWINMINORVERS )
@@ -1115,20 +1156,19 @@ HB_FUNC( HWG_GETWINMINORVERS )
    ovi.dwMajorVersion = 0;
    ovi.dwMinorVersion = 0;
    GetVersionEx( &ovi );
-   hb_retni( ovi.dwMinorVersion );
+   hb_retni(ovi.dwMinorVersion);
 }
 
 HB_FUNC( HWG_ALERT_DISABLECLOSEBUTTON )
 {
-    DeleteMenu( GetSystemMenu( (HWND) hb_parptr(1), FALSE ), SC_CLOSE, MF_BYCOMMAND );
-    DrawMenuBar( (HWND) hb_parptr(1) );
+    DeleteMenu(GetSystemMenu(static_cast<HWND>(hb_parptr(1)), FALSE), SC_CLOSE, MF_BYCOMMAND);
+    DrawMenuBar(static_cast<HWND>(hb_parptr(1)));
 }
-
 
 HB_FUNC( HWG_ALERT_GETWINDOW )
 // Was former static
 {
-   hb_retptr( (HWND) GetWindow( (HWND) hb_parptr(1), (UINT) hb_parni(2) ) );
+   hb_retptr(static_cast<HWND>(GetWindow(static_cast<HWND>(hb_parptr(1)), (UINT) hb_parni(2))));
 }
 
 /*
@@ -1187,7 +1227,7 @@ int hwg_hexbin(int cha)
      o = 6;
      break;	 
      case 55:  /* 7 */
-     o = 7	 ;
+     o = 7;
      break;
      case 56:  /* 8 */
      o = 8;
@@ -1271,11 +1311,11 @@ HB_FUNC( HWG_BIN2DC )
 
     // Internal I2BIN for Len
 
-    uiWidth = ( HB_USHORT ) hb_parni(2);
+    uiWidth = static_cast<HB_USHORT>(hb_parni(2));
 
     // Internal I2BIN for Dec
 
-    uiDec = ( HB_USHORT ) hb_parni(3);
+    uiDec = static_cast<HB_USHORT>(hb_parni(3));
 
 
     name = hb_parc(1);
@@ -1290,16 +1330,16 @@ HB_FUNC( HWG_BIN2DC )
 
     /* Convert hex to bin */
 
-    for ( i = 0 ; i < 16; i++ )
+    for( i = 0; i < 16; i++ )
      {
  
           c = hwg_hexbin(szHex[i]);
           /* ignore, if not in 0 ... 1, A ... F */
-          if ( c  != -1 )
+          if( c  != -1 )
           {
            /* must be a pair of char,
               other values between the pairs of hex values are ignored */
-            if ( od == 1 )
+            if( od == 1 )
             {
                 od = 0;
             }
@@ -1308,7 +1348,7 @@ HB_FUNC( HWG_BIN2DC )
                 od = 1;
             }
             /* 1. Halbbyte zwischenspeichern / Store first half byte */
-            if ( od == 1)
+            if( od == 1)
             {
               p = c;
             }

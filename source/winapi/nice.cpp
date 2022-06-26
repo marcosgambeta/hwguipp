@@ -30,13 +30,12 @@ typedef struct _GRADIENT_RECT
 
 #endif
 
-typedef int ( _stdcall * GRADIENTFILL ) ( HDC, PTRIVERTEX, int, PVOID, int,
-      int );
-LRESULT CALLBACK NiceButtProc( HWND, UINT, WPARAM, LPARAM );
+typedef int (_stdcall * GRADIENTFILL)(HDC, PTRIVERTEX, int, PVOID, int, int);
+LRESULT CALLBACK NiceButtProc(HWND, UINT, WPARAM, LPARAM);
 
 static GRADIENTFILL s_pGradientfill = nullptr;
 
-void Draw_Gradient( HDC hdc, int x, int y, int w, int h, int r, int g, int b )
+void Draw_Gradient(HDC hdc, int x, int y, int w, int h, int r, int g, int b)
 {
    TRIVERTEX Vert[2];
    GRADIENT_RECT Rect;
@@ -82,7 +81,7 @@ void Draw_Gradient( HDC hdc, int x, int y, int w, int h, int r, int g, int b )
    s_pGradientfill( hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V );
 }
 
-void Gradient( HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode ) //int , int g, int b, int nMode )
+void Gradient(HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode) // int , int g, int b, int nMode)
 {
    TRIVERTEX Vert[2];
    GRADIENT_RECT Rect;
@@ -119,8 +118,7 @@ void Gradient( HDC hdc, int x, int y, int w, int h, int color1, int color2, int 
    s_pGradientfill( hdc, Vert, 2, &Rect, 1, nmode );    //GRADIENT_FILL_RECT_H );
 }
 
-LRESULT CALLBACK NiceButtProc( HWND hWnd, UINT message, WPARAM wParam,
-      LPARAM lParam )
+LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_DYNS pSymTest;
@@ -129,34 +127,36 @@ LRESULT CALLBACK NiceButtProc( HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushSymbol( hb_dynsymSymbol( pSymTest ) );
       hb_vmPushNil();         /* places NIL at self */
       //hb_vmPushLong(static_cast<LONG>(hWnd));   /* pushes parameters on to the hvm stack */
-      HB_PUSHITEM( hWnd );
+      HB_PUSHITEM(hWnd);
       hb_vmPushLong(static_cast<LONG>(message));
       hb_vmPushLong(static_cast<LONG>(wParam));
       hb_vmPushLong(static_cast<LONG>(lParam));
       hb_vmDo(4);             /* where iArgCount is the number of pushed parameters */
       res = hb_parl( -1 );
       if( res )
+      {
          return 0;
+      }
       else
+      {
          return ( DefWindowProc( hWnd, message, wParam, lParam ) );
+      }
    }
    else
+   {
       return ( DefWindowProc( hWnd, message, wParam, lParam ) );
+   }
 }
-
 
 HB_FUNC( HWG_CREATEROUNDRECTRGN )
 {
-   HRGN Res = CreateRoundRectRgn( hb_parni(1), hb_parni(2), hb_parni(3),
-         hb_parni(4), hb_parni(5), hb_parni(6) );
+   HRGN Res = CreateRoundRectRgn(hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6));
    HB_RETHANDLE(Res);
 }
 
-
-HB_FUNC( HWG_SETWINDOWRGN )
+HB_FUNC( HWG_SETWINDOWRGN ) // TODO: reinterpret_cast<HRGN>(hb_parnl(2)) ?
 {
-   hb_retni( SetWindowRgn( static_cast<HWND>(HB_PARHANDLE(1)), ( HRGN ) hb_parnl(2),
-               hb_parl(3) ) );
+   hb_retni(SetWindowRgn(static_cast<HWND>(HB_PARHANDLE(1)), reinterpret_cast<HRGN>(hb_parnl(2)), hb_parl(3)));
 }
 
 HB_FUNC( HWG_REGNICE )
@@ -165,18 +165,18 @@ HB_FUNC( HWG_REGNICE )
    static LPCTSTR s_szAppName = TEXT( "NICEBUTT" );
    static BOOL s_bRegistered = 0;
 
-   s_pGradientfill = ( GRADIENTFILL )
-         GetProcAddress( LoadLibrary( TEXT( "MSIMG32.DLL" ) ),
-         "GradientFill" );
-//    if (Gradientfill == nullptr)
+   s_pGradientfill = ( GRADIENTFILL ) GetProcAddress( LoadLibrary( TEXT( "MSIMG32.DLL" ) ), "GradientFill" );
+//    if( Gradientfill == nullptr )
+//    {
 //        return FALSE;
+//    }
    if( !s_bRegistered )
    {
       WNDCLASS wc;
 
       wc.style = CS_HREDRAW | CS_VREDRAW | CS_GLOBALCLASS;
       wc.hInstance = GetModuleHandle( 0 );
-      wc.hbrBackground = ( HBRUSH ) ( COLOR_BTNFACE + 1 );
+      wc.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1);
       wc.lpszClassName = s_szAppName;
       wc.lpfnWndProc = NiceButtProc;
       wc.cbClsExtra = 0;
@@ -222,18 +222,16 @@ HB_FUNC( HWG_ISMOUSEOVER )
 
 HB_FUNC( HWG_DRAW_GRADIENT )
 {
-   Draw_Gradient( static_cast<HDC>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3),
-         hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
-         hb_parni(8) );
+   Draw_Gradient(static_cast<HDC>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7), hb_parni(8));
 }
 
 HB_FUNC( HWG_GRADIENT )
 {
    if( s_pGradientfill == nullptr )
-      s_pGradientfill = ( GRADIENTFILL )
-            GetProcAddress( LoadLibrary( TEXT( "MSIMG32.DLL" ) ),
-            "GradientFill" );
-   //void Gradient( HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode )
+   {
+      s_pGradientfill = ( GRADIENTFILL ) GetProcAddress(LoadLibrary(TEXT("MSIMG32.DLL")), "GradientFill");
+   }
+   //void Gradient(HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode)
 
    Gradient( static_cast<HDC>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3),
          hb_parni(4), hb_parni(5),
@@ -247,7 +245,6 @@ HB_FUNC( HWG_MAKELONG )
    hb_retnl(static_cast<LONG>(MAKELONG(static_cast<WORD>(hb_parnl(1)), static_cast<WORD>(hb_parnl(2)))));
 }
 
-
 HB_FUNC( HWG_GETWINDOWLONG )
 {
    hb_retnl( GetWindowLong( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) ) );
@@ -255,5 +252,5 @@ HB_FUNC( HWG_GETWINDOWLONG )
 
 HB_FUNC( HWG_SETBKMODE )
 {
-   hb_retni( SetBkMode( static_cast<HDC>(HB_PARHANDLE(1)), hb_parni(2) ) );
+   hb_retni(SetBkMode(static_cast<HDC>(HB_PARHANDLE(1)), hb_parni(2)));
 }

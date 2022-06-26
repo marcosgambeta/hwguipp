@@ -217,9 +217,7 @@ RegDeleteKey(nKey, cValue) --> numeric
 HB_FUNC( HWG_REGDELETEKEY )
 {
    void * hValue;
-
    hb_retni(RegDeleteKey(static_cast<HKEY>(hb_parnl(1)), HB_PARSTRDEF(2, &hValue, nullptr)) == ERROR_SUCCESS ? 0 : -1);
-
    hb_strfree(hValue);
 }
 
@@ -233,8 +231,6 @@ RegDeleteValue(nKey, cValue) --> numeric
 HB_FUNC( HWG_REGDELETEVALUE )
 {
    void * hValue;
-
    hb_retni(RegDeleteValue(static_cast<HKEY>(hb_parnl(1)), HB_PARSTRDEF(2, &hValue, nullptr)) == ERROR_SUCCESS ? 0 : -1);
-
    hb_strfree(hValue);
 }

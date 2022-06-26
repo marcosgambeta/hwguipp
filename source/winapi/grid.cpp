@@ -14,7 +14,7 @@
 #include <shlobj.h>
 #include "hbapiitm.h"
 
-#if ( defined(__MINGW32__) || defined(__MINGW64__) ) && !defined(CDRF_NOTIFYSUBITEMDRAW)
+#if (defined(__MINGW32__) || defined(__MINGW64__)) && !defined(CDRF_NOTIFYSUBITEMDRAW)
 #define CDRF_NOTIFYSUBITEMDRAW  0x00000020
 #endif
 
@@ -98,10 +98,11 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
       COL.iImage = hb_parni(2) - 1;
    }
    else
+   {
       COL.iImage = -1;
+   }
 
-   ListView_InsertColumn( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) - 1,
-         &COL );
+   ListView_InsertColumn( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) - 1, &COL );
 
    RedrawWindow( static_cast<HWND>(HB_PARHANDLE(1)), nullptr, nullptr,
          RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
@@ -111,10 +112,8 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
 
 HB_FUNC( HWG_LISTVIEW_DELETECOLUMN )
 {
-   ListView_DeleteColumn( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) - 1 );
-   RedrawWindow( static_cast<HWND>(HB_PARHANDLE(1)), nullptr, nullptr,
-         RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
-         RDW_UPDATENOW );
+   ListView_DeleteColumn(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) - 1);
+   RedrawWindow(static_cast<HWND>(HB_PARHANDLE(1)), nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
 HB_FUNC( HWG_LISTVIEW_SETBKCOLOR )
@@ -134,8 +133,7 @@ HB_FUNC( HWG_LISTVIEW_SETTEXTCOLOR )
 
 HB_FUNC( HWG_LISTVIEW_GETFIRSTITEM )
 {
-   hb_retni( ListView_GetNextItem( static_cast<HWND>(HB_PARHANDLE(1)), -1,
-               LVNI_ALL | LVNI_SELECTED ) + 1 );
+   hb_retni(ListView_GetNextItem(static_cast<HWND>(HB_PARHANDLE(1)), -1, LVNI_ALL | LVNI_SELECTED) + 1);
 }
 
 HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
@@ -156,51 +154,50 @@ HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
 
    if( pDispInfo->item.mask & LVIF_TEXT )
    {
-      HB_ITEMCOPYSTR( hb_param( 2, HB_IT_ANY ), pDispInfo->item.pszText,
-            pDispInfo->item.cchTextMax );
+      HB_ITEMCOPYSTR(hb_param(2, HB_IT_ANY), pDispInfo->item.pszText, pDispInfo->item.cchTextMax);
       pDispInfo->item.pszText[pDispInfo->item.cchTextMax - 1] = 0;
    }
    // it seems these lines below are not strictly necessary for text cells
    // since we don't get a LVIF_STATE message !
    if( pDispInfo->item.iSubItem == 0 )
+   {
       pDispInfo->item.state = 2;
+   }   
 }
 
 HB_FUNC( HWG_LISTVIEW_GETGRIDKEY )
 {
 #define pnm ((LV_KEYDOWN *) HB_PARHANDLE(1) )
 
-   hb_retnl( ( LPARAM ) ( pnm->wVKey ) );
+   hb_retnl(( LPARAM ) (pnm->wVKey));
 
 #undef pnm
 }
 
 HB_FUNC( HWG_LISTVIEW_GETTOPINDEX )
 {
-   hb_retnl( ListView_GetTopIndex( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   hb_retnl(ListView_GetTopIndex(static_cast<HWND>(HB_PARHANDLE(1))));
 }
 
 HB_FUNC( HWG_LISTVIEW_REDRAWITEMS )
 {
-   hb_retnl( ListView_RedrawItems( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2),
-               hb_parni(3) ) );
+   hb_retnl(ListView_RedrawItems(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3)));
 }
 
 HB_FUNC( HWG_LISTVIEW_GETCOUNTPERPAGE )
 {
-   hb_retnl( ListView_GetCountPerPage( static_cast<HWND>(HB_PARHANDLE(1)) ) );
+   hb_retnl(ListView_GetCountPerPage(static_cast<HWND>(HB_PARHANDLE(1))));
 }
 
 HB_FUNC( HWG_LISTVIEW_UPDATE )
 {
-   ListView_Update( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) - 1 );
+   ListView_Update(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) - 1);
 
 }
 
 HB_FUNC( HWG_LISTVIEW_SCROLL )
 {
-   ListView_Scroll( static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) - 1,
-         hb_parni(3) - 1 );
+   ListView_Scroll(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) - 1, hb_parni(3) - 1);
 }
 
 HB_FUNC( HWG_LISTVIEW_HITTEST )
@@ -232,15 +229,15 @@ HB_FUNC( HWG_LISTVIEW_HITTEST )
 HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
 {
    HWND hList = static_cast<HWND>(HB_PARHANDLE(1));
-   HIMAGELIST p = ( HIMAGELIST ) HB_PARHANDLE(2);
+   HIMAGELIST p = static_cast<HIMAGELIST>(HB_PARHANDLE(2));
 
 // #ifdef __BORLANDC__
 #if 1
    SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p, ( LPARAM ) LVSIL_NORMAL);
    SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p, ( LPARAM ) LVSIL_SMALL);
 #else
-   ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_NORMAL );
-   ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_SMALL );
+   ListView_SetImageList( hList, static_cast<HIMAGELIST>(p), LVSIL_NORMAL );
+   ListView_SetImageList( hList, static_cast<HIMAGELIST>(p), LVSIL_SMALL );
 #endif
 }
 
@@ -249,14 +246,13 @@ HB_FUNC( HWG_LISTVIEW_SETVIEW )
    HWND hWndListView = static_cast<HWND>(HB_PARHANDLE(1));
    DWORD dwView = hb_parnl(2);
 
-   DWORD dwStyle = GetWindowLong( hWndListView, GWL_STYLE );
+   DWORD dwStyle = GetWindowLong(hWndListView, GWL_STYLE);
 
    // Only set the window style if the view bits have changed.
-   if( ( dwStyle & LVS_TYPEMASK ) != dwView )
+   if( (dwStyle & LVS_TYPEMASK) != dwView )
    {
-      SetWindowLongPtr( hWndListView,
-            GWL_STYLE, ( dwStyle & ~LVS_TYPEMASK ) | dwView );
-      //  RedrawWindow( (HWND) HB_PARHANDLE(1), nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
+      SetWindowLongPtr(hWndListView, GWL_STYLE, (dwStyle & ~LVS_TYPEMASK) | dwView);
+      //  RedrawWindow( static_cast<HWND>(HB_PARHANDLE(1)), nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW );
    }
 }
 
@@ -272,10 +268,13 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    memset(&lvcolumn, 0, sizeof(lvcolumn));
 
    if( iImage > 0 )
-      lvcolumn.mask =
-            LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_IMAGE | LVCF_WIDTH;
+   {
+      lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_IMAGE | LVCF_WIDTH;
+   }
    else
+   {
       lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_WIDTH;
+   }
 
    lvcolumn.pszText = ( LPTSTR ) HB_PARSTR(3, &hText, nullptr);
    lvcolumn.iSubItem = lCol;
@@ -284,15 +283,17 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
    if( SendMessage(static_cast<HWND>(hwndListView), ( UINT ) LVM_INSERTCOLUMN, ( WPARAM ) ( int ) lCol, ( LPARAM ) &lvcolumn) == -1 )
+   {
       iResult = 0;
+   }
    else
+   {
       iResult = 1;
+   }
 
-   RedrawWindow( hwndListView, nullptr, nullptr,
-         RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
-         RDW_UPDATENOW );
+   RedrawWindow(hwndListView, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 
-   hb_retnl( iResult );
+   hb_retnl(iResult);
    hb_strfree(hText);
 }
 
@@ -308,15 +309,19 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    int iResult = 0;
    RECT rect;
 
-   GetClientRect( hwndListView, &rect );
+   GetClientRect(hwndListView, &rect);
 
    memset(&lvi, 0, sizeof(lvi));
 
    if( iBitMap >= 0 )
+   {
       lvi.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
+   }
    else
+   {
       lvi.mask = LVIF_TEXT | LVIF_STATE;
-
+   }
+   
    lvi.iImage = iBitMap >= 0 ? lCol : -1;
    lvi.state = 0;
    lvi.stateMask = 0;
@@ -328,47 +333,52 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    {
       case 0:
          if( SendMessage(static_cast<HWND>(hwndListView), ( UINT ) LVM_INSERTITEM, ( WPARAM ) 0, ( LPARAM ) &lvi) == -1 )
+         {
             iResult = 0;
+         }
          else
+         {
             iResult = 1;
+         }
          break;
 
       case 1:
          if( SendMessage(static_cast<HWND>(hwndListView), ( UINT ) LVM_SETITEM, ( WPARAM ) 0, ( LPARAM ) &lvi ) == FALSE )
+         {
             iResult = 0;
+         }
          else
+         {
             iResult = 1;
+         }
          break;
    }
 
-// RedrawWindow( hwndListView, nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
-   InvalidateRect( hwndListView, &rect, TRUE );
-   hb_retni( iResult );
+// RedrawWindow(hwndListView, nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+   InvalidateRect(hwndListView, &rect, TRUE);
+   hb_retni(iResult);
    hb_strfree(hText);
 }
 
 HB_FUNC( HWG_LISTVIEWSELECTALL )
 {
    HWND hList = static_cast<HWND>(HB_PARHANDLE(1));
-
-   ListView_SetItemState( hList, -1, 0, LVIS_SELECTED );
+   ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
    SendMessage(hList, LVM_ENSUREVISIBLE, ( WPARAM ) -1, FALSE);
-   ListView_SetItemState( hList, -1, LVIS_SELECTED, LVIS_SELECTED );
-   hb_retl(1);
+   ListView_SetItemState(hList, -1, LVIS_SELECTED, LVIS_SELECTED);
+   hb_retl(true);
 }
 
 HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
 {
    HWND hList = static_cast<HWND>(HB_PARHANDLE(1));
-   int items;
-
-   items = SendMessage(hList, LVM_GETITEMCOUNT, ( WPARAM ) 0, ( LPARAM ) 0);
+   int items = SendMessage(hList, LVM_GETITEMCOUNT, ( WPARAM ) 0, ( LPARAM ) 0);
    items--;
-   ListView_SetItemState( hList, -1, 0, LVIS_SELECTED );
+   ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
    SendMessage(hList, LVM_ENSUREVISIBLE, ( WPARAM ) items, FALSE);
-   ListView_SetItemState( hList, items, LVIS_SELECTED, LVIS_SELECTED );
-   ListView_SetItemState( hList, items, LVIS_FOCUSED, LVIS_FOCUSED );
-   hb_retl(1);
+   ListView_SetItemState(hList, items, LVIS_SELECTED, LVIS_SELECTED);
+   ListView_SetItemState(hList, items, LVIS_FOCUSED, LVIS_FOCUSED);
+   hb_retl(true);
 }
 
 LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
@@ -390,7 +400,7 @@ LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
 
       case CDDS_SUBITEM | CDDS_ITEMPREPAINT:
       {
-         // LONG ptemp ;
+         // LONG ptemp;
          COLORREF ColorText;
          COLORREF ColorBack;
 
@@ -408,7 +418,7 @@ LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
 
 HB_FUNC( HWG_PROCESSCUSTU )
 {
-   /* HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1)) ; */
+   /* HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1)); */
    LPARAM lParam = ( LPARAM ) HB_PARHANDLE(2);
    PHB_ITEM pColor = hb_param( 3, HB_IT_ARRAY );
 
@@ -431,10 +441,14 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    Item.pszText = Buffer;
    Item.cchTextMax = HB_SIZEOFARRAY( Buffer );
 
-   if( ListView_GetItem( hList, &Item ) )
+   if( ListView_GetItem(hList, &Item) )
+   {
       HB_RETSTR( Buffer );
+   }
    else
+   {
       hb_retc( nullptr );
+   }   
 }
 
 int CALLBACK CompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort )
@@ -455,15 +469,17 @@ int CALLBACK CompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort )
 
    rc = lstrcmp( szA, szB );
    if( !nAscendingSortOrder )
+   {
       rc = -rc;
-
+   }
+   
    return rc;
 }
 
 HB_FUNC( HWG_LISTVIEWSORTINFONEW )
 {
    //PSORTINFO p = (PSORTINFO) hb_xgrab(sizeof(SortInfo));
-   //LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) hb_parnl(1) ;
+   //LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) hb_parnl(1);
    PSORTINFO p;
 
    if( HB_ISPOINTER(2) )
@@ -487,7 +503,9 @@ HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
    PSORTINFO p = ( PSORTINFO ) hb_parptr(3);
 
    if( p )
+   {
       hb_xfree(p);
+   }   
 }
 
 HB_FUNC( HWG_LISTVIEWSORT )
@@ -496,9 +514,13 @@ HB_FUNC( HWG_LISTVIEWSORT )
    LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) HB_PARHANDLE(2);
 
    if( phdNotify->iSubItem == p->nColumnNo )
+   {
       p->nAscendingSortOrder = !p->nAscendingSortOrder;
+   }
    else
+   {
       p->nAscendingSortOrder = TRUE;
+   }
 
 // p->nColumnNo = phdNotify->iItem;
    p->nColumnNo = phdNotify->iSubItem;

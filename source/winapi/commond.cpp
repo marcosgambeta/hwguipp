@@ -17,7 +17,7 @@ HB_FUNC( HWG_SELECTFONT )
    CHOOSEFONT cf;
    LOGFONT lf;
    HFONT hfont;
-   PHB_ITEM pObj = ( HB_ISNIL(1) ) ? nullptr : hb_param( 1, HB_IT_OBJECT );
+   PHB_ITEM pObj = (HB_ISNIL(1)) ? nullptr : hb_param( 1, HB_IT_OBJECT );
    PHB_ITEM temp1;
    PHB_ITEM aMetr = hb_itemArrayNew(9), temp;
 
@@ -55,7 +55,7 @@ HB_FUNC( HWG_SELECTFONT )
    cf.lpfnHook = ( LPCFHOOKPROC ) nullptr;
    cf.lpTemplateName = nullptr;
 
-   cf.hInstance = ( HINSTANCE ) nullptr;
+   cf.hInstance = static_cast<HINSTANCE>(nullptr);
    cf.lpszStyle = nullptr;
    cf.nFontType = SCREEN_FONTTYPE;
    cf.nSizeMin = 0;
@@ -63,7 +63,7 @@ HB_FUNC( HWG_SELECTFONT )
 
    /* Display the CHOOSEFONT common-dialog box. */
 
-   if( !ChooseFont( &cf ) )
+   if( !ChooseFont(&cf) )
    {
       hb_itemRelease( aMetr );
       hb_ret();
@@ -105,7 +105,7 @@ HB_FUNC( HWG_SELECTFONT )
 
    hb_itemRelease( temp );
 
-   hb_itemRelease( hb_itemReturn( aMetr ) );
+   hb_itemRelease(hb_itemReturn(aMetr));
 
 }
 
@@ -150,15 +150,12 @@ HB_FUNC( HWG_SELECTFILE )
       HB_SIZE n, nArrLen = hb_arrayLen( pArr1 ), nSize;
       LPTSTR ptr;
 
-      pArrStr = ( struct _hb_arrStr * )
-            hb_xgrab(nArrLen * sizeof(struct _hb_arrStr));
+      pArrStr = ( struct _hb_arrStr * ) hb_xgrab(nArrLen * sizeof(struct _hb_arrStr));
       nSize = 4;
       for( n = 0; n < nArrLen; n++ )
       {
-         pArrStr[n].lpStr1 = HB_ARRAYGETSTR( pArr1, n + 1,
-               &pArrStr[n].hStr1, &pArrStr[n].nLen1 );
-         pArrStr[n].lpStr2 = HB_ARRAYGETSTR( pArr2, n + 1,
-               &pArrStr[n].hStr2, &pArrStr[n].nLen2 );
+         pArrStr[n].lpStr1 = HB_ARRAYGETSTR( pArr1, n + 1, &pArrStr[n].hStr1, &pArrStr[n].nLen1 );
+         pArrStr[n].lpStr2 = HB_ARRAYGETSTR( pArr2, n + 1, &pArrStr[n].hStr2, &pArrStr[n].nLen2 );
          nSize += pArrStr[n].nLen1 + pArrStr[n].nLen2 + 2;
       }
       lpFilter = ( LPTSTR ) hb_xgrab(nSize * sizeof(TCHAR));
@@ -195,10 +192,14 @@ HB_FUNC( HWG_SELECTFILE )
    ofn.lpstrTitle = HB_PARSTR(4, &hTitle, nullptr);
    ofn.Flags = OFN_FILEMUSTEXIST | OFN_EXPLORER;
 
-   if( GetOpenFileName( &ofn ) )
+   if( GetOpenFileName(&ofn) )
+   {
       HB_RETSTR( ofn.lpstrFile );
+   }
    else
+   {
       hb_retc( nullptr );
+   }
    hb_xfree(lpFilter);
 
    hb_strfree(hInitDir);
@@ -223,8 +224,9 @@ HB_FUNC( HWG_SAVEFILE )
       nSize = 1024;
    }
    else
+   {
       lpFileBuff = HB_STRUNSHARE( &hFileName, lpFileName, nSize );
-
+   }
 
    lpStr1 = HB_PARSTRDEF( 2, &hStr1, &nLen1 );
    lpStr2 = HB_PARSTRDEF( 3, &hStr2, &nLen2 );
@@ -247,12 +249,18 @@ HB_FUNC( HWG_SAVEFILE )
    ofn.lpstrTitle = HB_PARSTR(5, &hTitle, nullptr);
    ofn.Flags = OFN_FILEMUSTEXIST | OFN_EXPLORER;
    if( HB_ISLOG(6) && hb_parl(6) )
+   {
       ofn.Flags = ofn.Flags | OFN_OVERWRITEPROMPT;
+   }
 
-   if( GetSaveFileName( &ofn ) )
+   if( GetSaveFileName(&ofn) )
+   {
       HB_RETSTR( ofn.lpstrFile );
+   }
    else
+   {
       hb_retc( nullptr );
+   }
    hb_xfree(lpFilter);
 
    hb_strfree(hFileName);
@@ -285,7 +293,7 @@ HB_FUNC( HWG_PRINTSETUP )
    // pd.hPrintTemplate = (HANDLE) nullptr; 
    // pd.hSetupTemplate = (HANDLE) nullptr; 
 
-   if( PrintDlg( &pd ) )
+   if( PrintDlg(&pd) )
    {
       if( pd.hDevNames )
       {
@@ -301,14 +309,16 @@ HB_FUNC( HWG_PRINTSETUP )
       HB_RETHANDLE(pd.hDC);
    }
    else
+   {
       HB_RETHANDLE(0);
+   }   
 }
 
 HB_FUNC( HWG_CHOOSECOLOR )
 {
    CHOOSECOLOR cc;
    COLORREF rgb[16];
-   DWORD nStyle = ( HB_ISLOG(2) && hb_parl(2) ) ? CC_FULLOPEN : 0;
+   DWORD nStyle = (HB_ISLOG(2) && hb_parl(2)) ? CC_FULLOPEN : 0;
 
    memset(( void * ) &cc, 0, sizeof(CHOOSECOLOR));
 
@@ -322,26 +332,28 @@ HB_FUNC( HWG_CHOOSECOLOR )
    }
    cc.Flags = nStyle;
 
-   if( ChooseColor( &cc ) )
+   if( ChooseColor(&cc) )
+   {
       hb_retnl(static_cast<LONG>(cc.rgbResult));
+   }
    else
+   {
       hb_ret();
+   }   
 }
 
 
 static unsigned long Get_SerialNumber( LPCTSTR RootPathName )
 {
    unsigned long SerialNumber;
-
-   GetVolumeInformation( RootPathName, nullptr, 0, &SerialNumber,
-         nullptr, nullptr, nullptr, 0 );
+   GetVolumeInformation(RootPathName, nullptr, 0, &SerialNumber, nullptr, nullptr, nullptr, 0);
    return SerialNumber;
 }
 
 HB_FUNC( HWG_HDGETSERIAL )
 {
    void * hStr;
-   hb_retnl( Get_SerialNumber( HB_PARSTR(1, &hStr, nullptr) ) );
+   hb_retnl(Get_SerialNumber(HB_PARSTR(1, &hStr, nullptr)));
    hb_strfree(hStr);
 }
 
@@ -363,9 +375,13 @@ HB_FUNC( HWG_GETPRIVATEPROFILESTRING )
    dwLen = GetPrivateProfileString(HB_PARSTR(1, &hSection, nullptr), HB_PARSTR(2, &hEntry, nullptr), lpDefault, buffer,
                                    HB_SIZEOFARRAY(buffer), HB_PARSTR(4, &hFileName, nullptr));
    if( dwLen )
+   {
       HB_RETSTRLEN( buffer, dwLen );
+   }
    else
+   {
       HB_RETSTR( lpDefault );
+   }
 
    hb_strfree(hSection);
    hb_strfree(hEntry);
@@ -436,7 +452,7 @@ HB_FUNC( HWG_PRINTSETUPDOS )
    s_pd.nMaxPage = 0xFFFF;
    s_pd.nCopies = 1;
 
-   if( PrintDlg( &s_pd ) )
+   if( PrintDlg(&s_pd) )
    {
       s_fPName = FALSE;
       hb_stornl( s_pd.nFromPage, 1 );
@@ -465,7 +481,7 @@ HB_FUNC( HWG_PRINTSETUPEX )
    pd.nToPage = 1;
    pd.nCopies = 1;
 
-   if( PrintDlg( &pd ) )
+   if( PrintDlg(&pd) )
    {
       pDevMode = ( LPDEVMODE ) GlobalLock( pd.hDevMode );
       HB_RETSTR( ( LPCTSTR ) pDevMode->dmDeviceName );
@@ -490,13 +506,14 @@ HB_FUNC( HWG_GETOPENFILENAME )
       nSize = 1024;
    }
    else
+   {
       lpFileBuff = HB_STRUNSHARE( &hFileName, lpFileName, nSize );
-
+   }
+   
    ZeroMemory( &ofn, sizeof(ofn) );
    ofn.hInstance = GetModuleHandle( nullptr );
    ofn.lStructSize = sizeof(ofn);
-   ofn.hwndOwner =
-         ( HB_ISNIL(1) ? GetActiveWindow() : static_cast<HWND>(HB_PARHANDLE(1)) );
+   ofn.hwndOwner = (HB_ISNIL(1) ? GetActiveWindow() : static_cast<HWND>(HB_PARHANDLE(1)));
    ofn.lpstrTitle = HB_PARSTR(3, &hTitle, nullptr);
    ofn.lpstrFilter = HB_PARSTR(4, &hFilter, nullptr);
    ofn.Flags = OFN_EXPLORER | OFN_ALLOWMULTISELECT;
@@ -506,14 +523,16 @@ HB_FUNC( HWG_GETOPENFILENAME )
    ofn.lpstrFile = lpFileBuff;
    ofn.nMaxFile = nSize;
 
-   if( GetOpenFileName( &ofn ) )
+   if( GetOpenFileName(&ofn) )
    {
       hb_stornl( ofn.nFilterIndex, 8 );
       HB_STORSTRLEN( lpFileBuff, nSize, 2 );
       HB_RETSTR( ofn.lpstrFile );
    }
    else
+   {
       hb_retc( nullptr );
+   }
 
    hb_strfree(hFileName);
    hb_strfree(hTitle);
