@@ -98,6 +98,8 @@
 {win}source/winapi/hstatic.prg
 {win}source/winapi/hgroup.prg
 {win}source/winapi/hline.prg
+{win}source/winapi/hobject.prg
+{win}source/winapi/hscrollarea.prg
 
 # GTK
 {unix}source/gtk/commond.cpp
