@@ -94,6 +94,10 @@
 {win}source/winapi/hmisc.prg
 {win}source/winapi/halert.prg
 {win}source/winapi/hbutton.prg
+{win}source/winapi/hstatus.prg
+{win}source/winapi/hstatic.prg
+{win}source/winapi/hgroup.prg
+{win}source/winapi/hline.prg
 
 # GTK
 {unix}source/gtk/commond.cpp
