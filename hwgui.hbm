@@ -92,6 +92,7 @@
 {win}source/winapi/hlenta.prg
 {win}source/winapi/hmisc.prg
 {win}source/winapi/halert.prg
+{win}source/winapi/hbutton.prg
 
 # GTK
 {unix}source/gtk/commond.cpp
