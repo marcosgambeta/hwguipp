@@ -69,7 +69,7 @@
 {win}source/winapi/hrebar.prg
 {win}source/winapi/hrichedit.prg
 {win}source/winapi/hsayimg.prg
-{win}source/winapi/hshbtn.prg
+{win}source/winapi/hshadebutton.prg
 {win}source/winapi/hsplash.prg
 {win}source/winapi/hsplit.prg
 {win}source/winapi/htab.prg
