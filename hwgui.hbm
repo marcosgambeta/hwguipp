@@ -58,7 +58,7 @@
 {win}source/winapi/hmonthcalendar.prg
 {win}source/winapi/htrack.prg
 {win}source/winapi/htrackbar.prg
-{win}source/winapi/hanimat.prg
+{win}source/winapi/hanimation.prg
 {win}source/winapi/hnice.prg
 {win}source/winapi/hownbtn.prg
 {win}source/winapi/hpanel.prg
