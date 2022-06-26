@@ -60,7 +60,7 @@
 {win}source/winapi/htrackbar.prg
 {win}source/winapi/hanimation.prg
 {win}source/winapi/hnicebutton.prg
-{win}source/winapi/hownbtn.prg
+{win}source/winapi/hownbutton.prg
 {win}source/winapi/hpanel.prg
 {win}source/winapi/hprinter.prg
 {win}source/winapi/hprogres.prg
