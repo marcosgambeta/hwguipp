@@ -71,7 +71,7 @@
 {win}source/winapi/hsayimg.prg
 {win}source/winapi/hshadebutton.prg
 {win}source/winapi/hsplash.prg
-{win}source/winapi/hsplit.prg
+{win}source/winapi/hsplitter.prg
 {win}source/winapi/htab.prg
 {win}source/winapi/htimer.prg
 {win}source/winapi/htree.prg
