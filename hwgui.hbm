@@ -12,6 +12,7 @@
 {win}source/winapi/dialog.cpp
 {win}source/winapi/draw.cpp
 {win}source/winapi/drawtext.cpp
+{win}source/winapi/edit.cpp
 {win}source/winapi/freeimg.cpp
 {win}source/winapi/grid.cpp
 {win}source/winapi/ipaddress.cpp
