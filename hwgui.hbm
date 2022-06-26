@@ -45,7 +45,7 @@
 {win}source/winapi/hcheckbutton.prg
 {win}source/winapi/hcombobox.prg
 {win}source/winapi/hcontrol.prg
-{win}source/winapi/hcwindow.prg
+{win}source/winapi/hcustomwindow.prg
 {win}source/winapi/hdatepic.prg
 {win}source/winapi/hdialog.prg
 {win}source/winapi/hedit.prg
