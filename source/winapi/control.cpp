@@ -54,7 +54,6 @@ LRESULT APIENTRY StaticSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
 LRESULT APIENTRY EditSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY ButtonSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY ListSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-LRESULT APIENTRY UpDownSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY TrackSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY TreeViewSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 static void CALLBACK s_timerProc(HWND, UINT, UINT, DWORD);
@@ -62,7 +61,7 @@ static void CALLBACK s_timerProc(HWND, UINT, UINT, DWORD);
 static HWND s_hWndTT = nullptr;
 static bool s_lInitCmnCtrl = false;
 static bool s_lToolTipBalloon = false;
-static WNDPROC wpOrigEditProc, wpOrigTrackProc, wpOrigStaticProc, wpOrigListProc, wpOrigUpDownProc, wpOrigTreeViewProc;     //wpOrigButtonProc
+static WNDPROC wpOrigEditProc, wpOrigTrackProc, wpOrigStaticProc, wpOrigListProc, wpOrigTreeViewProc;     //wpOrigButtonProc
 static LONG_PTR wpOrigButtonProc;
 
 /*
@@ -450,44 +449,6 @@ HB_FUNC( HWG_SETTOOLTIPTITLE )
 
       hb_retl(SendMessage(s_hWndTT, TTM_SETTOOLINFO, 0, reinterpret_cast<LPARAM>(static_cast<LPTOOLINFO>(&ti))));
       hb_strfree(hStr);
-   }
-}
-
-
-HB_FUNC( HWG_CREATEUPDOWNCONTROL )
-{
-   HB_RETHANDLE(CreateUpDownControl(WS_CHILD | WS_BORDER | WS_VISIBLE |
-                hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
-                hb_parni(7), static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2),
-                GetModuleHandle(nullptr), static_cast<HWND>(HB_PARHANDLE(8)),
-                hb_parni(9), hb_parni(10), hb_parni(11)));
-}
-
-HB_FUNC( HWG_SETUPDOWN )
-{
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), UDM_SETPOS, 0, hb_parnl(2));
-}
-
-HB_FUNC( HWG_GETUPDOWN )
-{
-   hb_retnl(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), UDM_GETPOS, 0, 0));
-}
-
-HB_FUNC( HWG_SETRANGEUPDOWN )
-{
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), UDM_SETRANGE32, hb_parnl(2), hb_parnl(3));
-}
-
-HB_FUNC( HWG_GETNOTIFYDELTAPOS )
-{
-   int iItem = hb_parnl(2);
-   if( iItem < 2 )
-   {
-      hb_retni(static_cast<LONG>((static_cast<NMUPDOWN*>(HB_PARHANDLE(1)))->iPos));
-   }
-   else
-   {
-      hb_retni(static_cast<LONG>((static_cast<NMUPDOWN*>(HB_PARHANDLE(1)))->iDelta));
    }
 }
 
@@ -1335,55 +1296,6 @@ HB_FUNC( HWG_INITLISTPROC )
 {
    wpOrigListProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ListSubclassProc)));
 }
-
-HB_FUNC( HWG_INITUPDOWNPROC )
-{
-   wpOrigUpDownProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(UpDownSubclassProc)));
-}
-
-LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-   long int res;
-   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-
-   if( !pSym_onEvent )
-   {
-      pSym_onEvent = hb_dynsymFindName("ONEVENT");
-   }
-
-   if( pSym_onEvent && pObject )
-   {
-      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
-      hb_vmPush(pObject);
-      hb_vmPushLong(static_cast<LONG>(message));
-//      hb_vmPushLong(static_cast<LONG>(wParam));
-//      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
-      hb_vmSend(3);
-      if( HB_ISPOINTER(-1) )
-      {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
-      }
-      else
-      {
-         res = hb_parnl(-1);
-         if( res == -1 )
-         {
-            return (CallWindowProc(wpOrigUpDownProc, hWnd, message, wParam, lParam));
-         }
-         else
-         {
-            return res;
-         }
-      }
-   }
-   else
-   {
-      return (CallWindowProc(wpOrigUpDownProc, hWnd, message, wParam, lParam));
-   }
-}
-
 
 HB_FUNC( HWG_INITTRACKPROC )
 {

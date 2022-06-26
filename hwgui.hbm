@@ -36,6 +36,7 @@
 {win}source/winapi/tab.cpp
 {win}source/winapi/datepicker.cpp
 {win}source/winapi/combobox.cpp
+{win}source/winapi/updown.cpp
 
 {win}source/winapi/herrsys.prg
 
