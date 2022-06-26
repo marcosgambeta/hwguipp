@@ -55,7 +55,6 @@ LRESULT APIENTRY EditSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 LRESULT APIENTRY ButtonSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY ListSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY UpDownSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-LRESULT APIENTRY DatePickerSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY TrackSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY TreeViewSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 static void CALLBACK s_timerProc(HWND, UINT, UINT, DWORD);
@@ -63,7 +62,7 @@ static void CALLBACK s_timerProc(HWND, UINT, UINT, DWORD);
 static HWND s_hWndTT = nullptr;
 static bool s_lInitCmnCtrl = false;
 static bool s_lToolTipBalloon = false;
-static WNDPROC wpOrigEditProc, wpOrigTrackProc, wpOrigStaticProc, wpOrigListProc, wpOrigUpDownProc, wpOrigDatePickerProc,  wpOrigTreeViewProc;     //wpOrigButtonProc
+static WNDPROC wpOrigEditProc, wpOrigTrackProc, wpOrigStaticProc, wpOrigListProc, wpOrigUpDownProc, wpOrigTreeViewProc;     //wpOrigButtonProc
 static LONG_PTR wpOrigButtonProc;
 
 /*
@@ -502,91 +501,6 @@ HB_FUNC( HWG_GETNOTIFYDELTAPOS )
    else
    {
       hb_retni(static_cast<LONG>((static_cast<NMUPDOWN*>(HB_PARHANDLE(1)))->iDelta));
-   }
-}
-
-HB_FUNC( HWG_CREATEDATEPICKER )
-{
-   LONG nStyle = hb_parnl(7) | WS_CHILD | WS_VISIBLE | WS_TABSTOP;
-
-   HWND hCtrl = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("SYSDATETIMEPICK32"), nullptr, nStyle,
-      hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
-      static_cast<HWND>(HB_PARHANDLE(1)), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-      GetModuleHandle(nullptr), nullptr);
-
-   HB_RETHANDLE(hCtrl);
-}
-
-HB_FUNC( HWG_SETDATEPICKER )
-{
-   PHB_ITEM pDate = hb_param(2, HB_IT_DATE);
-   ULONG ulLen;
-   long lSeconds = 0;
-
-   if( pDate )
-   {
-      SYSTEMTIME sysTime, st;
-      int lYear, lMonth, lDay;
-      int lHour, lMinute;
-      int lMilliseconds = 0;
-      int lSecond;
-
-      hb_dateDecode(hb_itemGetDL(pDate), &lYear, &lMonth, &lDay);
-      if( hb_pcount() < 3 )
-      {
-         GetLocalTime(&st);
-         lHour = st.wHour;
-         lMinute = st.wMinute;
-         lSecond = st.wSecond;
-      }
-      else
-      {
-         const char * szTime =  hb_parc(3);
-         if( szTime )
-         {
-            ulLen = strlen(szTime);
-            if( ulLen >= 4 )
-            {
-               lSeconds = static_cast<LONG>(hb_strVal(szTime, 2)) * 3600 * 1000 +
-                          static_cast<LONG>(hb_strVal(szTime + 2, 2)) * 60 * 1000 +
-                          static_cast<LONG>(hb_strVal(szTime + 4, ulLen - 4) * 1000);
-            }
-         }
-         hb_timeDecode(lSeconds, &lHour, &lMinute, &lSecond, &lMilliseconds);
-      }
-
-      sysTime.wYear = static_cast<unsigned short>(lYear);
-      sysTime.wMonth = static_cast<unsigned short>(lMonth);
-      sysTime.wDay = static_cast<unsigned short>(lDay);
-      sysTime.wDayOfWeek = 0;
-      sysTime.wHour = static_cast<unsigned short>(lHour);
-      sysTime.wMinute = static_cast<unsigned short>(lMinute);
-      sysTime.wSecond = static_cast<WORD>(lSecond);
-      sysTime.wMilliseconds = static_cast<unsigned short>(lMilliseconds);
-
-      SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime));
-   }
-}
-
-HB_FUNC( HWG_SETDATEPICKERNULL )
-{
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), DTM_SETSYSTEMTIME, GDT_NONE, static_cast<LPARAM>(0));
-}
-
-HB_FUNC( HWG_GETDATEPICKER )
-{
-   SYSTEMTIME st;
-   int iret;
-   WPARAM wParam = (hb_pcount() > 1) ? hb_parnl(2) : GDT_VALID;
-
-   iret = SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), DTM_GETSYSTEMTIME, wParam, reinterpret_cast<LPARAM>(&st));
-   if( wParam == GDT_VALID )
-   {
-      hb_retd(st.wYear, st.wMonth, st.wDay);
-   }
-   else
-   {
-      hb_retni(iret);
    }
 }
 
@@ -1483,53 +1397,6 @@ LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
    }
 }
 
-HB_FUNC( HWG_INITDATEPICKERPROC )
-{
-   wpOrigDatePickerProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(DatePickerSubclassProc)));
-}
-
-LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-   long int res;
-   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-
-   if( !pSym_onEvent )
-   {
-      pSym_onEvent = hb_dynsymFindName("ONEVENT");
-   }
-
-   if( pSym_onEvent && pObject )
-   {
-      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
-      hb_vmPush(pObject);
-      hb_vmPushLong(static_cast<LONG>(message));
-//      hb_vmPushLong(static_cast<LONG>(wParam));
-//      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
-      hb_vmSend(3);
-      if( HB_ISPOINTER(-1) )
-      {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
-      }
-      else
-      {
-         res = hb_parnl(-1);
-         if( res == -1 )
-         {
-            return (CallWindowProc(wpOrigDatePickerProc, hWnd, message, wParam, lParam));
-         }
-         else
-         {
-            return res;
-         }
-      }
-   }
-   else
-   {
-      return (CallWindowProc(wpOrigDatePickerProc, hWnd, message, wParam, lParam));
-   }
-}
 
 HB_FUNC( HWG_INITTRACKPROC )
 {
