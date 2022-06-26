@@ -10,7 +10,6 @@
 #include "guilib.ch"
 #include "windows.ch"
 
-
 //#DEFINE __DEVELOP__
 
 #ifdef __DEVELOP__
@@ -33,7 +32,6 @@
    #define MATRIX25        16
    #define MATRIX25CHECK   17
 
-
    #xcommand DEFAULT < v1 > := < x1 >  => IF < v1 > == NIL ; < v1 > := < x1 > ; END
 
 #xcommand @ < nTop >, < nLeft > BARCODE < oBC >   ;
@@ -55,15 +53,12 @@ Type < nBCodeType >              ;
 //------------------------------------------------------------------------------
 #xcommand SHOWBARCODE < oBC > => < oBC > :ShowBarcode()
 
-
 FUNCTION main
-
 
    LOCAL oMainWindow, oFont, oEdit1, oEdit2
    LOCAL oBC
    LOCAL nTop, nLeft, nWidth, nHeight, nBCodeType
    LOCAL nColText, nColPane, lHorz, lTransparent, nPinWidth
-
 
    PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT - 13
 
@@ -72,7 +67,6 @@ FUNCTION main
         At 200, 0 SIZE 420, 300                       ;
         FONT oFont ;
         ON PAINT { || oBC:showBarcode() }
-
 
    @ 20, 113 EDITBOX oEdit2 CAPTION "Example"  SIZE 24, 130
 
@@ -100,7 +94,6 @@ FUNCTION main
    ACTIVATE WINDOW oMainWindow
 
    RETURN nil
-
 
 #endif
 
@@ -328,7 +321,6 @@ METHOD CreateBarcode( cCode ) CLASS BarCode
    hwg_Deleteobject( hBrush )
 
    RETURN ( NIL )
-
 
 *-- METHOD -------------------------------------------------------------------
 *         Name: InitCode39
@@ -911,36 +903,36 @@ METHOD InitMatrix25( lCheck ) CLASS BarCode
 
 #include "hwingui.h"
 
+/*
+RICH_RECTANGLE(hDC, nLeft, nTop, nRight, nBottom) --> .T.|.F.
+*/
 HB_FUNC_STATIC( RICH_RECTANGLE )
 {
-   hb_retl( Rectangle( (HDC) HB_PARHANDLE( 1 ),
-                       hb_parni( 2 )      ,
-                       hb_parni( 3 )      ,
-                       hb_parni( 4 )      ,
-                       hb_parni( 5 )
-                       ) ) ;
+   hb_retl(Rectangle(static_cast<HDC>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5)));
 }
 
-
+/*
+RICH_CREATEPEN(nStyle, nWidth, nColor) --> hPen
+*/
 HB_FUNC_STATIC( RICH_CREATEPEN )
 {
-   HB_RETHANDLE( CreatePen( hb_parni( 1 ),   // pen style
-                            hb_parni( 2 ),   // pen width
-                            (COLORREF) hb_parnl( 3 )    // pen color
-                           ) );
+   HB_RETHANDLE(CreatePen(hb_parni(1), hb_parni(2), static_cast<COLORREF>(hb_parnl(3))));
 }
 
-
+/*
+RICH_SELECTOBJECT(hDC, hGdiObj) --> hGdiObj
+*/
 HB_FUNC_STATIC( RICH_SELECTOBJECT )
 {
-   HB_RETHANDLE( SelectObject( (HDC) HB_PARHANDLE( 1 ), (HGDIOBJ) HB_PARHANDLE( 2 ) ) ) ;
+   HB_RETHANDLE(SelectObject(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<HGDIOBJ>(HB_PARHANDLE(2))));
 }
 
-
-
+/*
+RICH_CREATESOLIDBRUSH(nColor) --> hBrush
+*/
 HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE( CreateSolidBrush( (COLORREF) hb_parnl( 1 ) ) ) ;    // brush color
+   HB_RETHANDLE(CreateSolidBrush(static_cast<COLORREF>(hb_parnl(1))));
 }
 
 #pragma ENDDUMP
