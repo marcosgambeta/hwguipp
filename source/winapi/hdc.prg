@@ -1,6 +1,6 @@
 /*
  * HWGUI - Harbour Win32 GUI library source code:
- * HPAINTDC and HDC Classes
+ * HDC Class
  *
  * Copyright 2005 Luiz Rafael Culik Guimaraes <culikr@brtrubo.com>
  * www - http://sites.uol.com.br/culikr/
@@ -8,35 +8,6 @@
 
 #include "hbclass.ch"
 #include "hwgui.ch"
-
-CLASS HPAINTDC FROM HDC
-
-   DATA m_ps
-
-   METHOD NEW( nWnd )
-   METHOD END ()
-
-   HIDDEN:
-   DATA m_hWnd
-
-ENDCLASS
-
-METHOD NEW( nWnd ) CLASS HPAINTDC
-
-   ::Super:new()
-   ::m_ps   := hwg_Definepaintstru()
-   ::m_hWnd := nWnd
-   ::Attach( hwg_Beginpaint( ::m_hWnd, ::m_ps ) )
-
-   RETURN Self
-
-METHOD END () CLASS HPAINTDC
-
-   hwg_Endpaint( ::m_hWnd, ::m_ps )
-   ::m_hDC       := NIL
-   ::m_hAttribDC := NIL
-
-   RETURN NIL
 
 CLASS HDC
 
@@ -69,9 +40,9 @@ CLASS HDC
    METHOD Gettextmetric() INLINE hwg_Gettextmetric( ::m_hDC )
    METHOD Setrop2( nDrawMode )
    METHOD Bitblt( x,  y,  nWidth,  nHeight,  pSrcDC,  xSrc, ySrc,  dwRop ) INLINE    hwg_Bitblt( ::m_hDc, x, y, nWidth, nHeight,  pSrcDC,       xSrc,  ySrc,  dwRop )
-
    METHOD Pie( arect, apt1, apt2 )
    METHOD Deletedc()
+
 ENDCLASS
 
 METHOD NEW( ) CLASS HDC
@@ -156,7 +127,6 @@ METHOD Fillrect( lpRect, clr ) CLASS HDC
 
    RETURN NIL
 
-
 METHOD Createcompatibledc( x ) CLASS HDC
    RETURN ::Attach( hwg_Createcompatibledc( x ) )
 
@@ -196,10 +166,7 @@ METHOD Setmapmode( nMapMode ) CLASS HDC
    ENDIF
    RETURN nRetVal
 
-
-
 METHOD SetWindowOrg( x, y ) CLASS HDC
-
 
    LOCAL point
 
@@ -211,9 +178,7 @@ METHOD SetWindowOrg( x, y ) CLASS HDC
    ENDIF
    RETURN point
 
-
 METHOD SetWindowExt( x, y ) CLASS HDC
-
 
    LOCAL point
 
@@ -225,9 +190,7 @@ METHOD SetWindowExt( x, y ) CLASS HDC
    ENDIF
    RETURN point
 
-
 METHOD SetViewportOrg( x, y ) CLASS HDC
-
 
    LOCAL point
 
@@ -238,7 +201,6 @@ METHOD SetViewportOrg( x, y ) CLASS HDC
       hwg_Setviewportorgex( ::m_hAttribDC, x, y, @point )
    ENDIF
    RETURN point
-
 
 METHOD SetViewportExt( x, y ) CLASS HDC
 
@@ -252,9 +214,7 @@ METHOD SetViewportExt( x, y ) CLASS HDC
    ENDIF
    RETURN point
 
-
 METHOD Setarcdirection( nArcDirection )
-
 
    LOCAL nResult := 0
    IF ( ::m_hDC != ::m_hAttribDC )
@@ -265,12 +225,10 @@ METHOD Setarcdirection( nArcDirection )
    ENDIF
    RETURN nResult
 
-
 METHOD Pie( arect, apt1, apt2 )
    RETURN hwg_Pie( ::m_hdc, arect[ 1 ], arect[ 2 ], arect[ 3 ], arect[ 4 ], apt1[ 1 ], apt1[ 2 ], apt2[ 1 ], apt2[ 2 ] )
 
 METHOD Setrop2( nDrawMode )
-
 
    LOCAL nRetVal := 0
 
@@ -281,31 +239,3 @@ METHOD Setrop2( nDrawMode )
       nRetVal := hwg_Setrop2( ::m_hAttribDC, nDrawMode )
    ENDIF
    RETURN nRetVal
-
-
-
-CLASS HCLIENTDC FROM HDC
-
-   METHOD NEW( nWnd )
-   METHOD END ()
-
-   HIDDEN:
-   DATA m_hWnd
-
-ENDCLASS
-
-METHOD NEW( nWnd ) CLASS HCLIENTDC
-
-   ::Super:new()
-   ::m_hWnd := nWnd
-   ::Attach( hwg_Getdc( ::m_hWnd ) )
-
-   RETURN Self
-
-METHOD END () CLASS HCLIENTDC
-
-   hwg_Releasedc( ::m_hWnd, ::m_hDC )
-   ::m_hDC       := NIL
-   ::m_hAttribDC := NIL
-
-   RETURN NIL

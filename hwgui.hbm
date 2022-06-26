@@ -44,6 +44,7 @@
 {win}source/winapi/hbrwflt.prg
 {win}source/winapi/hbutton.prg
 {win}source/winapi/hcheckbutton.prg
+{win}source/winapi/hclientdc.prg
 {win}source/winapi/hcombobox.prg
 {win}source/winapi/hcontrol.prg
 {win}source/winapi/hcustomwindow.prg
@@ -68,6 +69,7 @@
 {win}source/winapi/hobject.prg
 {win}source/winapi/hownbutton.prg
 {win}source/winapi/hpager.prg
+{win}source/winapi/hpaintdc.prg
 {win}source/winapi/hpanel.prg
 {win}source/winapi/hprinter.prg
 {win}source/winapi/hprogressbar.prg
