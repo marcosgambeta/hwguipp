@@ -33,6 +33,7 @@
 {win}source/winapi/listbox.cpp
 {win}source/winapi/pager.cpp
 {win}source/winapi/toolbar.cpp
+{win}source/winapi/tab.cpp
 
 {win}source/winapi/herrsys.prg
 
