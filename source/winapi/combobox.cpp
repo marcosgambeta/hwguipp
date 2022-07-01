@@ -38,23 +38,30 @@ HB_FUNC( HWG_CREATECOMBO )
                               static_cast<HWND>(HB_PARHANDLE(1)),
                               reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
                               GetModuleHandle(nullptr),
-                              nullptr
-                              );
+                              nullptr);
 
    HB_RETHANDLE(hCombo);
 }
 
+/*
+HWG_COMBOBOXGETITEMDATA(hWnd, nPar2) --> numeric
+*/
 HB_FUNC( HWG_COMBOBOXGETITEMDATA )
 {
    hb_retnl(static_cast<DWORD_PTR>(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_GETITEMDATA, hb_parnl(2), 0)));
 }
 
+/*
+HWG_COMBOBOXSETITEMDATA(hWnd, nPar2, nPar3) --> numeric
+*/
 HB_FUNC( HWG_COMBOBOXSETITEMDATA )
 {
-   DWORD_PTR dwItemData = static_cast<DWORD_PTR>(hb_parnl(3));
-   hb_retnl(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_SETITEMDATA, hb_parnl(2), static_cast<LPARAM>(dwItemData)));
+   hb_retnl(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_SETITEMDATA, hb_parnl(2), static_cast<LPARAM>(static_cast<DWORD_PTR>(hb_parnl(3)))));
 }
 
+/*
+HWG_COMBOBOXGETLBTEXT(hWnd, nPar2, @cPar3) --> numeric
+*/
 HB_FUNC( HWG_COMBOBOXGETLBTEXT )
 {
    TCHAR lpszText[255] = { 0 };
@@ -68,7 +75,7 @@ HWG_COMBOADDSTRING(hWnd, cString) --> NIL
 HB_FUNC( HWG_COMBOADDSTRING )
 {
    void * hText;
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR(2, &hText, nullptr));
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &hText, nullptr)));
    hb_strfree(hText);
 }
 
@@ -78,7 +85,7 @@ HWG_COMBOINSERTSTRING(hWnd, nPar2, cString) --> NIL
 HB_FUNC( HWG_COMBOINSERTSTRING )
 {
    void * hText;
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_INSERTSTRING, ( WPARAM ) hb_parni(2), ( LPARAM ) HB_PARSTR(3, &hText, nullptr));
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_INSERTSTRING, static_cast<WPARAM>(hb_parni(2)), reinterpret_cast<LPARAM>(HB_PARSTR(3, &hText, nullptr)));
    hb_strfree(hText);
 }
 
@@ -87,5 +94,5 @@ HWG_COMBOSETSTRING(hWnd, nPar2) --> NIL
 */
 HB_FUNC( HWG_COMBOSETSTRING )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_SETCURSEL, ( WPARAM ) hb_parni(2) - 1, 0);
+   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), CB_SETCURSEL, static_cast<WPARAM>(hb_parni(2)) - 1, 0);
 }
