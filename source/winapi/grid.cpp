@@ -56,7 +56,7 @@ HB_FUNC( HWG_LISTVIEW_CREATE )
 
    handle = CreateWindowEx( WS_EX_CLIENTEDGE, WC_LISTVIEW, nullptr,
          style,
-         hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
+         hwg_par_int(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6),
          hwnd, reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle( nullptr ), nullptr );
 
    HB_RETHANDLE(handle);

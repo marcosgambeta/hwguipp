@@ -99,7 +99,7 @@ HB_FUNC( HWG_CREATEPANEL )
    HWND hWndPanel = CreateWindow(TEXT("PANEL"),   /* predefined class  */
          nullptr,                  /* no window title   */
          WS_CHILD | WS_VISIBLE | SS_GRAYRECT | SS_OWNERDRAW | CCS_TOP | hb_parnl(3),
-         hb_parni(4), hb_parni(5),  hb_parni(6), hb_parni(7),
+         hwg_par_int(4), hwg_par_int(5),  hwg_par_int(6), hwg_par_int(7),
          hwg_par_HWND(1),
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
          GetModuleHandle(nullptr), nullptr);
@@ -115,7 +115,7 @@ HB_FUNC( HWG_CREATEOWNBTN )
    HWND hWndPanel = CreateWindow(TEXT("OWNBTN"),  /* predefined class  */
          nullptr,                  /* no window title   */
          WS_CHILD | WS_VISIBLE | SS_GRAYRECT | SS_OWNERDRAW,
-         hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
+         hwg_par_int(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6),
          hwg_par_HWND(1),
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
          GetModuleHandle(nullptr), nullptr);
@@ -132,7 +132,7 @@ HB_FUNC( HWG_CREATESTATIC )
    HWND hWndCtrl = CreateWindowEx(ulExStyle, TEXT("STATIC"),      /* predefined class  */
          nullptr,                  /* title   */
          WS_CHILD | WS_VISIBLE | ulStyle,
-         hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
+         hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7),
          hwg_par_HWND(1),
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
          GetModuleHandle(nullptr),
@@ -163,7 +163,7 @@ HB_FUNC( HWG_CREATEBROWSE )
    void * hStr;
    HWND hWndBrw = CreateWindowEx((dwStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0,
       TEXT("BROWSE"), HB_PARSTR(8, &hStr, nullptr), WS_CHILD | WS_VISIBLE | dwStyle,
-      hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
+      hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7),
       hwg_par_HWND(1), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
       GetModuleHandle(nullptr), nullptr);
    hb_strfree(hStr);
@@ -355,7 +355,7 @@ HWG_CREATETREE(hParent, nControlId, nStyle, nX, nY, nWidth, nHeight) --> nCtrl
 HB_FUNC( HWG_CREATETREE )
 {
    HWND hCtrl = CreateWindowEx(WS_EX_CLIENTEDGE, WC_TREEVIEW, 0, WS_CHILD | WS_VISIBLE | WS_TABSTOP | hb_parnl(3),
-      hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
+      hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7),
       hwg_par_HWND(1), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
       GetModuleHandle(nullptr), nullptr);
 
@@ -1133,8 +1133,8 @@ HB_FUNC( HWG_CREATEPAGER )
    HWND hWndPanel = CreateWindow(WC_PAGESCROLLER,   /* predefined class  */
          nullptr,                  /* no window title   */
          WS_CHILD | WS_VISIBLE | bVert ? PGS_VERT : PGS_HORZ | hb_parnl(3),   /* style  */
-         hb_parni(4), hb_parni(5),  /* x, y       */
-         hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
+         hwg_par_int(4), hwg_par_int(5),  /* x, y       */
+         hwg_par_int(6), hwg_par_int(7),  /* nWidth, nHeight */
          hwg_par_HWND(1),    /* parent window    */
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle(nullptr), nullptr);
@@ -1149,8 +1149,8 @@ HB_FUNC( HWG_CREATEREBAR )
          REBARCLASSNAME,        /* predefined class  */
          nullptr,                  /* title   */
          WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_VARHEIGHT | CCS_NODIVIDER | ulStyle,   /* style  */
-         hb_parni(4), hb_parni(5),  /* x, y       */
-         hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
+         hwg_par_int(4), hwg_par_int(5),  /* x, y       */
+         hwg_par_int(6), hwg_par_int(7),  /* nWidth, nHeight */
          hwg_par_HWND(1),    /* parent window    */
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle(nullptr),

@@ -201,8 +201,8 @@ HB_FUNC( HWG_CREATENICEBTN )
    hWndPanel = CreateWindowEx( hb_parni(8), TEXT( "NICEBUTT" ),       /* predefined class  */
          HB_PARSTR(9, &hTitle, nullptr), /* no window title   */
          WS_CHILD | WS_VISIBLE | ulStyle,       /* style  */
-         hb_parni(4), hb_parni(5),  /* x, y       */
-         hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
+         hwg_par_int(4), hwg_par_int(5),  /* x, y       */
+         hwg_par_int(6), hwg_par_int(7),  /* nWidth, nHeight */
          hwg_par_HWND(1),    /* parent window    */
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle( nullptr ), nullptr );
