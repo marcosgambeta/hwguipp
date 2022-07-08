@@ -25,7 +25,7 @@ HB_FUNC( HWG_INITMONTHCALENDAR )
 
    HWND hMC = CreateWindowEx(0, MONTHCAL_CLASS, "", static_cast<LONG>(hb_parnl(3)),
       hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
-      static_cast<HWND>(HB_PARHANDLE(1)),
+      hwg_par_HWND(1),
       reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
       GetModuleHandle(nullptr), nullptr);
 
@@ -57,7 +57,7 @@ HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file C
       sysTime.wSecond = 0;
       sysTime.wMilliseconds = 0;
 
-      MonthCal_SetCurSel(static_cast<HWND>(HB_PARHANDLE(1)), &sysTime);
+      MonthCal_SetCurSel(hwg_par_HWND(1), &sysTime);
    }
 }
 
@@ -66,7 +66,7 @@ HB_FUNC( HWG_GETMONTHCALENDARDATE ) // adaptation of hwg_Getdatepicker of file C
    SYSTEMTIME st;
    char szDate[9];
 
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
+   SendMessage(hwg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
 
    hb_dateStrPut(szDate, st.wYear, st.wMonth, st.wDay);
    szDate[8] = 0;

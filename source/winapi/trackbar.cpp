@@ -30,7 +30,7 @@ HB_FUNC( HWG_INITTRACKBAR )
                                  hb_parni(5),
                                  hb_parni(6),
                                  hb_parni(7),
-                                 static_cast<HWND>(HB_PARHANDLE(1)),
+                                 hwg_par_HWND(1),
                                  reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
                                  GetModuleHandle(nullptr),
                                  nullptr);
@@ -40,5 +40,5 @@ HB_FUNC( HWG_INITTRACKBAR )
 
 HB_FUNC( HWG_TRACKBARSETRANGE )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), TBM_SETRANGE, TRUE, MAKELONG(hb_parni(2), hb_parni(3)));
+   SendMessage(hwg_par_HWND(1), TBM_SETRANGE, TRUE, MAKELONG(hb_parni(2), hb_parni(3)));
 }

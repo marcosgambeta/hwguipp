@@ -159,12 +159,12 @@ HB_FUNC( HWG__CREATESUBMENU )
  */
 HB_FUNC( HWG__SETMENU )
 {
-   hb_retl(SetMenu(static_cast<HWND>(HB_PARHANDLE(1)), static_cast<HMENU>(HB_PARHANDLE(2))));
+   hb_retl(SetMenu(hwg_par_HWND(1), static_cast<HMENU>(HB_PARHANDLE(2))));
 }
 
 HB_FUNC( HWG_GETMENUHANDLE )
 {
-   HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? static_cast<HWND>(HB_PARHANDLE(1)) : aWindows[0];
+   HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? hwg_par_HWND(1) : aWindows[0];
    HB_RETHANDLE(GetMenu(handle));
 }
 
@@ -182,7 +182,7 @@ HB_FUNC( HWG_CHECKMENUITEM )
    }
    else
    {
-      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( static_cast<HWND>(HB_PARHANDLE(1)) ) : aWindows[0];
+      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( hwg_par_HWND(1) ) : aWindows[0];
       hMenu = GetMenu( handle );
    }
    if( !hMenu )
@@ -216,7 +216,7 @@ HB_FUNC( HWG_ISCHECKEDMENUITEM )
    }
    else
    {
-      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( static_cast<HWND>(HB_PARHANDLE(1)) ) : aWindows[0];
+      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( hwg_par_HWND(1) ) : aWindows[0];
       hMenu = GetMenu( handle );
    }
    if( !hMenu )
@@ -253,7 +253,7 @@ HB_FUNC( HWG_ENABLEMENUITEM )
    }
    else
    {
-      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( static_cast<HWND>(HB_PARHANDLE(1)) ) : aWindows[0];
+      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( hwg_par_HWND(1) ) : aWindows[0];
       hMenu = GetMenu( handle );
    }
    if( !hMenu )
@@ -290,7 +290,7 @@ HB_FUNC( HWG_ISENABLEDMENUITEM )
    }
    else
    {
-      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( static_cast<HWND>(HB_PARHANDLE(1)) ) : aWindows[0];
+      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( hwg_par_HWND(1) ) : aWindows[0];
       hMenu = GetMenu( handle );
    }
    if( !hMenu )
@@ -329,7 +329,7 @@ HB_FUNC( HWG_DELETEMENU )
 
 HB_FUNC( HWG_TRACKMENU )
 {
-   HWND hWnd = static_cast<HWND>(HB_PARHANDLE(4));
+   HWND hWnd = hwg_par_HWND(4);
    SetForegroundWindow(hWnd);
    hb_retl(TrackPopupMenu(static_cast<HMENU>(HB_PARHANDLE(1)),        // handle of shortcut menu
                HB_ISNIL(5) ? TPM_RIGHTALIGN : hb_parni(5),  // screen-position and mouse-button flags
@@ -382,7 +382,7 @@ HB_FUNC( HWG_DESTROYACCELERATORTABLE )
 
 HB_FUNC( HWG_DRAWMENUBAR )
 {
-   hb_retl(( BOOL ) DrawMenuBar(static_cast<HWND>(HB_PARHANDLE(1))));
+   hb_retl(( BOOL ) DrawMenuBar(hwg_par_HWND(1)));
 }
 
 /*
@@ -400,7 +400,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
    }
    else
    {
-      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( static_cast<HWND>(HB_PARHANDLE(1)) ) : aWindows[0];
+      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( hwg_par_HWND(1) ) : aWindows[0];
       hMenu = GetMenu( handle );
    }
    if( !hMenu )
@@ -454,7 +454,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
    }
    else
    {
-      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( static_cast<HWND>(HB_PARHANDLE(1)) ) : aWindows[0];
+      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( hwg_par_HWND(1) ) : aWindows[0];
       hMenu = GetMenu( handle );
    }
    if( !hMenu )
@@ -564,7 +564,7 @@ HB_FUNC( HWG_ENABLEMENUSYSTEMITEM )
    UINT uEnable = ( hb_pcount() < 3 || !HB_ISLOG(3) || hb_parl(3) ) ? MF_ENABLED : MF_GRAYED;
    UINT uFlag = ( hb_pcount() < 4 || !HB_ISLOG(4) || hb_parl(4) ) ? MF_BYCOMMAND : MF_BYPOSITION;
 
-   hMenu = static_cast<HMENU>(GetSystemMenu( static_cast<HWND>(HB_PARHANDLE(1)), 0 ));
+   hMenu = static_cast<HMENU>(GetSystemMenu( hwg_par_HWND(1), 0 ));
    if( !hMenu )
    {
       hb_retl(false);
@@ -591,7 +591,7 @@ HB_FUNC( HWG_SETMENUBACKCOLOR )
    }
    else
    {
-      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( static_cast<HWND>(HB_PARHANDLE(1)) ) : aWindows[0];
+      HWND handle = ( hb_pcount() > 0 && !HB_ISNIL(1) ) ? ( hwg_par_HWND(1) ) : aWindows[0];
       hMenu = GetMenu( handle );
    }
    if( !hMenu )

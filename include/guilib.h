@@ -99,5 +99,8 @@
 #endif
 #endif
 
+// macros for parameters
+#define hwg_par_HWND(n) static_cast<HWND>(HB_PARHANDLE(n))
+
 /* ================================== EOF of guilib.h ============================== */
 

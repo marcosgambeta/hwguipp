@@ -27,7 +27,7 @@ HWG_CREATEPROGRESSBAR(hParentWindow, nRange, ...)
 */
 HB_FUNC( HWG_CREATEPROGRESSBAR )
 {
-   HWND hPBar, hParentWindow = static_cast<HWND>(HB_PARHANDLE(1));
+   HWND hPBar, hParentWindow = hwg_par_HWND(1);
    RECT rcClient;
    ULONG ulStyle;
    int cyVScroll = GetSystemMetrics(SM_CYVSCROLL);
@@ -76,7 +76,7 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
 */
 HB_FUNC( HWG_UPDATEPROGRESSBAR )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), PBM_STEPIT, 0, 0);
+   SendMessage(hwg_par_HWND(1), PBM_STEPIT, 0, 0);
 }
 
 /*
@@ -85,7 +85,7 @@ HB_FUNC( HWG_UPDATEPROGRESSBAR )
 */
 HB_FUNC( HWG_RESETPROGRESSBAR )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), PBM_SETPOS, static_cast<WPARAM>(0) , 0);
+   SendMessage(hwg_par_HWND(1), PBM_SETPOS, static_cast<WPARAM>(0) , 0);
 }
 
 /*
@@ -93,11 +93,11 @@ HB_FUNC( HWG_RESETPROGRESSBAR )
 */
 HB_FUNC( HWG_SETPROGRESSBAR )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), PBM_SETPOS, static_cast<WPARAM>(hb_parni(2)), 0);
+   SendMessage(hwg_par_HWND(1), PBM_SETPOS, static_cast<WPARAM>(hb_parni(2)), 0);
 }
 
 HB_FUNC( HWG_SETRANGEPROGRESSBAR )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), PBM_SETRANGE, 0, MAKELPARAM(0, hb_parni(2)));
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), PBM_SETSTEP, 1, 0);
+   SendMessage(hwg_par_HWND(1), PBM_SETRANGE, 0, MAKELPARAM(0, hb_parni(2)));
+   SendMessage(hwg_par_HWND(1), PBM_SETSTEP, 1, 0);
 }

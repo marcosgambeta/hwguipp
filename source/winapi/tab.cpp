@@ -38,7 +38,7 @@ HB_FUNC( HWG_CREATETABCONTROL )
                             hb_parni(5),
                             hb_parni(6),
                             hb_parni(7),
-                            static_cast<HWND>(HB_PARHANDLE(1)),
+                            hwg_par_HWND(1),
                             reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
                             GetModuleHandle(nullptr),
                             nullptr
@@ -48,7 +48,7 @@ HB_FUNC( HWG_CREATETABCONTROL )
 
 HB_FUNC( HWG_INITTABCONTROL )
 {
-   HWND hTab = static_cast<HWND>(HB_PARHANDLE(1));
+   HWND hTab = hwg_par_HWND(1);
    PHB_ITEM pArr = hb_param(2, HB_IT_ARRAY);
    int iItems = hb_parnl(3);
    TC_ITEM tie;
@@ -88,7 +88,7 @@ HB_FUNC( HWG_ADDTAB )
    tie.mask = TCIF_TEXT | TCIF_IMAGE;
    tie.iImage = -1;
    tie.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
-   TabCtrl_InsertItem(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), &tie);
+   TabCtrl_InsertItem(hwg_par_HWND(1), hb_parni(2), &tie);
    hb_strfree(hStr);
 }
 
@@ -96,29 +96,29 @@ HB_FUNC( HWG_ADDTABDIALOG )
 {
    TC_ITEM tie;
    void * hStr;
-   HWND pWnd = static_cast<HWND>(HB_PARHANDLE(4));
+   HWND pWnd = hwg_par_HWND(4);
 
    tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
    tie.lParam = reinterpret_cast<LPARAM>(pWnd);
    tie.iImage = -1;
    tie.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
-   TabCtrl_InsertItem(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), &tie);
+   TabCtrl_InsertItem(hwg_par_HWND(1), hb_parni(2), &tie);
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_DELETETAB )
 {
-   TabCtrl_DeleteItem(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2));
+   TabCtrl_DeleteItem(hwg_par_HWND(1), hb_parni(2));
 }
 
 HB_FUNC( HWG_GETCURRENTTAB )
 {
-   hb_retni(TabCtrl_GetCurSel( static_cast<HWND>(HB_PARHANDLE(1)) ) + 1);
+   hb_retni(TabCtrl_GetCurSel( hwg_par_HWND(1) ) + 1);
 }
 
 HB_FUNC( HWG_SETTABSIZE )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), TCM_SETITEMSIZE, 0, MAKELPARAM(hb_parni(2), hb_parni(3)));
+   SendMessage(hwg_par_HWND(1), TCM_SETITEMSIZE, 0, MAKELPARAM(hb_parni(2), hb_parni(3)));
 }
 
 HB_FUNC( HWG_SETTABNAME )
@@ -127,14 +127,14 @@ HB_FUNC( HWG_SETTABNAME )
    void * hStr;
    tie.mask = TCIF_TEXT;
    tie.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
-   TabCtrl_SetItem(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2)-1, &tie);
+   TabCtrl_SetItem(hwg_par_HWND(1), hb_parni(2)-1, &tie);
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_TAB_HITTEST )
 {
    TC_HITTESTINFO ht;
-   HWND hTab = static_cast<HWND>(HB_PARHANDLE(1));
+   HWND hTab = hwg_par_HWND(1);
    int res;
 
    if( hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3) )
@@ -157,7 +157,7 @@ HB_FUNC( HWG_TAB_HITTEST )
 HB_FUNC( HWG_TABITEMPOS )
 {
    RECT pRect;
-   TabCtrl_GetItemRect(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2), &pRect);
+   TabCtrl_GetItemRect(hwg_par_HWND(1), hb_parni(2), &pRect);
    hb_itemRelease(hb_itemReturn(Rect2Array(&pRect)));
 }
 
@@ -169,13 +169,13 @@ HB_FUNC( HWG_GETTABNAME )
    tie.mask = TCIF_TEXT;
    tie.cchTextMax = HB_SIZEOFARRAY(d) - 1;
    tie.pszText = d;
-   TabCtrl_GetItem(static_cast<HWND>(HB_PARHANDLE(1)), hb_parni(2) - 1, static_cast<LPTCITEM>(&tie));
+   TabCtrl_GetItem(hwg_par_HWND(1), hb_parni(2) - 1, static_cast<LPTCITEM>(&tie));
    HB_RETSTR(tie.pszText);
 }
 
 HB_FUNC( HWG_INITTABPROC )
 {
-   wpOrigTabProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabSubclassProc)));
+   wpOrigTabProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hwg_par_HWND(1), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabSubclassProc)));
 }
 
 LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

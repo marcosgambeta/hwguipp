@@ -40,7 +40,7 @@ HB_FUNC( HWG_CREATEBUTTON )
                             hb_parni(5),
                             hb_parni(6),
                             hb_parni(7),
-                            static_cast<HWND>(HB_PARHANDLE(1)),
+                            hwg_par_HWND(1),
                             reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
                             GetModuleHandle(nullptr),
                             nullptr
@@ -51,8 +51,8 @@ HB_FUNC( HWG_CREATEBUTTON )
 
 HB_FUNC( HWG_INITBUTTONPROC )
 {
-//   wpOrigButtonProc = static_cast<WNDPROC>(SetWindowLong(static_cast<HWND>(HB_PARHANDLE(1)), GWL_WNDPROC, static_cast<LONG>(ButtonSubclassProc)));
-   wpOrigButtonProc = static_cast<LONG_PTR>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ButtonSubclassProc)));
+//   wpOrigButtonProc = static_cast<WNDPROC>(SetWindowLong(hwg_par_HWND(1), GWL_WNDPROC, static_cast<LONG>(ButtonSubclassProc)));
+   wpOrigButtonProc = static_cast<LONG_PTR>(SetWindowLongPtr(hwg_par_HWND(1), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ButtonSubclassProc)));
 }
 
 LRESULT APIENTRY ButtonSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

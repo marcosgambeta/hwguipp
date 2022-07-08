@@ -54,7 +54,7 @@ HB_FUNC( HWG_INITIPADDRESS )
    HB_FUNC_EXEC( HWG_INITCOMMONCONTROLSEX );
 
    HWND hIpAddress = CreateWindowEx(WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT(""), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
-      static_cast<HWND>(HB_PARHANDLE(1)), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);
+      hwg_par_HWND(1), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);
 
    HB_RETHANDLE(hIpAddress);
 }
@@ -66,14 +66,14 @@ HB_FUNC( HWG_SETIPADDRESS )
    BYTE v3 = static_cast<BYTE>(hb_parni(4));
    BYTE v4 = static_cast<BYTE>(hb_parni(5));
 
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), IPM_SETADDRESS, 0, MAKEIPADDRESS(v1, v2, v3, v4));
+   SendMessage(hwg_par_HWND(1), IPM_SETADDRESS, 0, MAKEIPADDRESS(v1, v2, v3, v4));
 }
 
 HB_FUNC( HWG_GETIPADDRESS )
 {
    DWORD pdwAddr;
 
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(static_cast<LPDWORD>(&pdwAddr)));
+   SendMessage(hwg_par_HWND(1), IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(static_cast<LPDWORD>(&pdwAddr)));
 
    BYTE v1 = static_cast<BYTE>(FIRST_IPADDRESS(pdwAddr));
    BYTE v2 = static_cast<BYTE>(SECOND_IPADDRESS(pdwAddr));
@@ -89,5 +89,5 @@ HB_FUNC( HWG_GETIPADDRESS )
 
 HB_FUNC( HWG_CLEARIPADDRESS )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), IPM_CLEARADDRESS, 0, 0);
+   SendMessage(hwg_par_HWND(1), IPM_CLEARADDRESS, 0, 0);
 }

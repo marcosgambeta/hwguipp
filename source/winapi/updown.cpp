@@ -36,10 +36,10 @@ HB_FUNC( HWG_CREATEUPDOWNCONTROL ) // TODO: CreateUpDownControl is obsolet
                                     hb_parni(5),
                                     hb_parni(6),
                                     hb_parni(7),
-                                    static_cast<HWND>(HB_PARHANDLE(1)),
+                                    hwg_par_HWND(1),
                                     hb_parni(2),
                                     GetModuleHandle(nullptr),
-                                    static_cast<HWND>(HB_PARHANDLE(8)),
+                                    hwg_par_HWND(8),
                                     hb_parni(9),
                                     hb_parni(10),
                                     hb_parni(11)
@@ -48,17 +48,17 @@ HB_FUNC( HWG_CREATEUPDOWNCONTROL ) // TODO: CreateUpDownControl is obsolet
 
 HB_FUNC( HWG_SETUPDOWN )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), UDM_SETPOS, 0, hb_parnl(2));
+   SendMessage(hwg_par_HWND(1), UDM_SETPOS, 0, hb_parnl(2));
 }
 
 HB_FUNC( HWG_GETUPDOWN )
 {
-   hb_retnl(SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), UDM_GETPOS, 0, 0));
+   hb_retnl(SendMessage(hwg_par_HWND(1), UDM_GETPOS, 0, 0));
 }
 
 HB_FUNC( HWG_SETRANGEUPDOWN )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), UDM_SETRANGE32, hb_parnl(2), hb_parnl(3));
+   SendMessage(hwg_par_HWND(1), UDM_SETRANGE32, hb_parnl(2), hb_parnl(3));
 }
 
 HB_FUNC( HWG_GETNOTIFYDELTAPOS )
@@ -76,7 +76,7 @@ HB_FUNC( HWG_GETNOTIFYDELTAPOS )
 
 HB_FUNC( HWG_INITUPDOWNPROC )
 {
-   wpOrigUpDownProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(UpDownSubclassProc)));
+   wpOrigUpDownProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hwg_par_HWND(1), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(UpDownSubclassProc)));
 }
 
 LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

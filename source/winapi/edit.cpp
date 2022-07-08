@@ -48,7 +48,7 @@ HB_FUNC( HWG_CREATEEDIT )
                              hb_parni(5),
                              hb_parni(6),
                              hb_parni(7),
-                             static_cast<HWND>(HB_PARHANDLE(1)),
+                             hwg_par_HWND(1),
                              reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
                              GetModuleHandle(nullptr),
                              nullptr
@@ -70,7 +70,7 @@ HB_FUNC( HWG_CREATEEDIT )
 
 HB_FUNC( HWG_INITEDITPROC )
 {
-   wpOrigEditProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(EditSubclassProc)));
+   wpOrigEditProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hwg_par_HWND(1), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(EditSubclassProc)));
 }
 
 LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

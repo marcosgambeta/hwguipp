@@ -73,7 +73,7 @@ HB_FUNC( HWG_CREATETOOLBAR )
          WS_CHILD | WS_OVERLAPPED | WS_VISIBLE | TBSTYLE_ALTDRAG | TBSTYLE_TOOLTIPS |  TBSTYLE_WRAPABLE | CCS_TOP | CCS_NORESIZE | ulStyle, /* style  */
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
-         static_cast<HWND>(HB_PARHANDLE(1)),    /* parent window    */
+         hwg_par_HWND(1),    /* parent window    */
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle(nullptr),
          nullptr);
@@ -88,8 +88,8 @@ HB_FUNC( HWG_CREATETOOLBAR )
 
 HB_FUNC( HWG_TOOLBARADDBUTTONS )
 {
-   HWND hWndCtrl = static_cast<HWND>(HB_PARHANDLE(1));
-   /* HWND hToolTip = static_cast<HWND>(HB_PARHANDLE(4)); */
+   HWND hWndCtrl = hwg_par_HWND(1);
+   /* HWND hToolTip = hwg_par_HWND(4); */
    PHB_ITEM pArray = hb_param(2, HB_IT_ARRAY);
    int iButtons = hb_parni(3);
    TBBUTTON * tb = static_cast<struct _TBBUTTON*>(hb_xgrab(iButtons * sizeof(TBBUTTON)));
@@ -139,7 +139,7 @@ HB_FUNC( HWG_TOOLBAR_SETBUTTONINFO )
    tb.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
    //tb.cchText = 1000;
 
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), TB_SETBUTTONINFO, hb_parni(2), reinterpret_cast<LPARAM>(&tb));
+   SendMessage(hwg_par_HWND(1), TB_SETBUTTONINFO, hb_parni(2), reinterpret_cast<LPARAM>(&tb));
 }
 
 HB_FUNC( HWG_TOOLBAR_LOADIMAGE )
@@ -156,13 +156,13 @@ HB_FUNC( HWG_TOOLBAR_LOADIMAGE )
       tbab.nID = static_cast<UINT_PTR>(hb_parni(2));
    }
 
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), TB_ADDBITMAP, 0, reinterpret_cast<LPARAM>(&tbab));
+   SendMessage(hwg_par_HWND(1), TB_ADDBITMAP, 0, reinterpret_cast<LPARAM>(&tbab));
 }
 
 HB_FUNC( HWG_TOOLBAR_LOADSTANDARTIMAGE )
 {
    TBADDBITMAP tbab;
-   HWND hWndCtrl = static_cast<HWND>(HB_PARHANDLE(1));
+   HWND hWndCtrl = hwg_par_HWND(1);
    int iIDB = hb_parni(2);
    HIMAGELIST himl;
 
@@ -237,7 +237,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENU )
    TPMPARAMS tpm;
    HMENU hPopupMenu;
    HMENU hMenuLoaded;
-   HWND g_hwndMain = static_cast<HWND>(HB_PARHANDLE(3));
+   HWND g_hwndMain = hwg_par_HWND(3);
    HANDLE g_hinst = GetModuleHandle(0);
 
    SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmTB->iItem), reinterpret_cast<LPARAM>(&rc));
@@ -265,7 +265,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
    RECT rc = { 0, 0, 0, 0 };
    TPMPARAMS tpm;
    HMENU hPopupMenu = static_cast<HMENU>(HB_PARHANDLE(2));
-   HWND g_hwndMain = static_cast<HWND>(HB_PARHANDLE(3));
+   HWND g_hwndMain = hwg_par_HWND(3);
 
    SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmTB->iItem), reinterpret_cast<LPARAM>(&rc));
 

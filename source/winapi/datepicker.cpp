@@ -36,7 +36,7 @@ HB_FUNC( HWG_CREATEDATEPICKER )
                                hb_parni(4),
                                hb_parni(5),
                                hb_parni(6),
-                               static_cast<HWND>(HB_PARHANDLE(1)),
+                               hwg_par_HWND(1),
                                reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
                                GetModuleHandle(nullptr),
                                nullptr
@@ -92,13 +92,13 @@ HB_FUNC( HWG_SETDATEPICKER )
       sysTime.wSecond = static_cast<WORD>(lSecond);
       sysTime.wMilliseconds = static_cast<unsigned short>(lMilliseconds);
 
-      SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime));
+      SendMessage(hwg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime));
    }
 }
 
 HB_FUNC( HWG_SETDATEPICKERNULL )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), DTM_SETSYSTEMTIME, GDT_NONE, static_cast<LPARAM>(0));
+   SendMessage(hwg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_NONE, static_cast<LPARAM>(0));
 }
 
 HB_FUNC( HWG_GETDATEPICKER )
@@ -107,7 +107,7 @@ HB_FUNC( HWG_GETDATEPICKER )
    int iret;
    WPARAM wParam = (hb_pcount() > 1) ? hb_parnl(2) : GDT_VALID;
 
-   iret = SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), DTM_GETSYSTEMTIME, wParam, reinterpret_cast<LPARAM>(&st));
+   iret = SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME, wParam, reinterpret_cast<LPARAM>(&st));
    if( wParam == GDT_VALID )
    {
       hb_retd(st.wYear, st.wMonth, st.wDay);
@@ -120,7 +120,7 @@ HB_FUNC( HWG_GETDATEPICKER )
 
 HB_FUNC( HWG_INITDATEPICKERPROC )
 {
-   wpOrigDatePickerProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(static_cast<HWND>(HB_PARHANDLE(1)), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(DatePickerSubclassProc)));
+   wpOrigDatePickerProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hwg_par_HWND(1), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(DatePickerSubclassProc)));
 }
 
 LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

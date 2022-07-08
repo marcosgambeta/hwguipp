@@ -328,7 +328,7 @@ HB_FUNC( HWG_GETDEVICEAREA )
 
 HB_FUNC( HWG_CREATEENHMETAFILE )
 {
-   HWND hWnd = static_cast<HWND>(HB_PARHANDLE(1));
+   HWND hWnd = hwg_par_HWND(1);
    HDC hDCref = GetDC(hWnd), hDCmeta;
    void * hFileName;
    int iWidthMM, iHeightMM, iWidthPels, iHeightPels;
