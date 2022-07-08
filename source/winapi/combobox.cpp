@@ -85,7 +85,7 @@ HWG_COMBOINSERTSTRING(hWnd, nPar2, cString) --> NIL
 HB_FUNC( HWG_COMBOINSERTSTRING )
 {
    void * hText;
-   SendMessage(hwg_par_HWND(1), CB_INSERTSTRING, static_cast<WPARAM>(hb_parni(2)), reinterpret_cast<LPARAM>(HB_PARSTR(3, &hText, nullptr)));
+   SendMessage(hwg_par_HWND(1), CB_INSERTSTRING, hwg_par_WPARAM(2), reinterpret_cast<LPARAM>(HB_PARSTR(3, &hText, nullptr)));
    hb_strfree(hText);
 }
 
@@ -94,5 +94,5 @@ HWG_COMBOSETSTRING(hWnd, nPar2) --> NIL
 */
 HB_FUNC( HWG_COMBOSETSTRING )
 {
-   SendMessage(hwg_par_HWND(1), CB_SETCURSEL, static_cast<WPARAM>(hb_parni(2)) - 1, 0);
+   SendMessage(hwg_par_HWND(1), CB_SETCURSEL, hwg_par_WPARAM(2) - 1, 0);
 }

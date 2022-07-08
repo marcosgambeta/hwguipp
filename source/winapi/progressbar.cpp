@@ -93,7 +93,7 @@ HB_FUNC( HWG_RESETPROGRESSBAR )
 */
 HB_FUNC( HWG_SETPROGRESSBAR )
 {
-   SendMessage(hwg_par_HWND(1), PBM_SETPOS, static_cast<WPARAM>(hb_parni(2)), 0);
+   SendMessage(hwg_par_HWND(1), PBM_SETPOS, hwg_par_WPARAM(2), 0);
 }
 
 HB_FUNC( HWG_SETRANGEPROGRESSBAR )

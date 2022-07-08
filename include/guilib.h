@@ -101,6 +101,7 @@
 
 // macros for parameters
 #define hwg_par_HWND(n) static_cast<HWND>(HB_PARHANDLE(n))
+#define hwg_par_WPARAM(n) static_cast<WPARAM>(hb_parni(n))
 
 /* ================================== EOF of guilib.h ============================== */
 

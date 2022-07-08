@@ -26,7 +26,7 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
 
 HB_FUNC( HWG_LISTBOXSETSTRING )
 {
-   SendMessage(hwg_par_HWND(1), LB_SETCURSEL, ( WPARAM ) hb_parni(2) - 1, 0);
+   SendMessage(hwg_par_HWND(1), LB_SETCURSEL, hwg_par_WPARAM(2) - 1, 0);
 }
 
 /*
