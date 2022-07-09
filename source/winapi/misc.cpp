@@ -768,7 +768,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 
 HB_FUNC( HWG_GETKEYBOARDCOUNT )
 {
-   LPARAM lParam = ( LPARAM ) hb_parnl(1);
+   LPARAM lParam = hwg_par_LPARAM(1);
 
    hb_retni(static_cast<WORD>(lParam));
 }

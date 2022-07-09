@@ -361,11 +361,11 @@ HB_FUNC( HWG_CREATETREE )
 
    if( !HB_ISNIL(8) )
    {
-      SendMessage(hCtrl, TVM_SETTEXTCOLOR, 0, static_cast<LPARAM>(hb_parnl(8)));
+      SendMessage(hCtrl, TVM_SETTEXTCOLOR, 0, hwg_par_LPARAM(8));
    }
    if( !HB_ISNIL(9) )
    {
-      SendMessage(hCtrl, TVM_SETBKCOLOR, 0, static_cast<LPARAM>(hb_parnl(9)));
+      SendMessage(hCtrl, TVM_SETBKCOLOR, 0, hwg_par_LPARAM(9));
    }
 
    HB_RETHANDLE(hCtrl);
@@ -1259,13 +1259,13 @@ HB_FUNC( HWG_GETLOCALEINFO )
 HB_FUNC( HWG_DEFWINDOWPROC )
 {
 //   WNDPROC wpProc = static_cast<WNDPROC>(hb_parnl(1));
-   hb_retnl(DefWindowProc(hwg_par_HWND(1), hb_parnl(2), static_cast<WPARAM>(hb_parnl(3)), static_cast<LPARAM>(hb_parnl(4))));
+   hb_retnl(DefWindowProc(hwg_par_HWND(1), hb_parnl(2), static_cast<WPARAM>(hb_parnl(3)), hwg_par_LPARAM(4)));
 }
 
 HB_FUNC( HWG_CALLWINDOWPROC )
 {
    WNDPROC wpProc = reinterpret_cast<WNDPROC>(static_cast<ULONG_PTR>(hb_parnl(1)));
-   hb_retnl(CallWindowProc(wpProc, hwg_par_HWND(2), hb_parnl(3), static_cast<WPARAM>(hb_parnl(4)), static_cast<LPARAM>(hb_parnl(5))));
+   hb_retnl(CallWindowProc(wpProc, hwg_par_HWND(2), hb_parnl(3), static_cast<WPARAM>(hb_parnl(4)), hwg_par_LPARAM(5)));
 }
 
 HB_FUNC( HWG_BUTTONGETDLGCODE )
