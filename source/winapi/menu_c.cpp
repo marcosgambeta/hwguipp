@@ -491,7 +491,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
 
 HB_FUNC( HWG__SETMENUITEMBITMAPS )
 {
-   hb_retl(SetMenuItemBitmaps(static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(2), MF_BYCOMMAND, static_cast<HBITMAP>(HB_PARHANDLE(3)), static_cast<HBITMAP>(HB_PARHANDLE(4))));
+   hb_retl(SetMenuItemBitmaps(static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(2), MF_BYCOMMAND, hwg_par_HBITMAP(3), hwg_par_HBITMAP(4)));
 }
 
 HB_FUNC( HWG_GETMENUCHECKMARKDIMENSIONS )
@@ -539,7 +539,7 @@ HB_FUNC( HWG__INSERTBITMAPMENU )
 
    mii.cbSize = sizeof(MENUITEMINFO);
    mii.fMask = MIIM_ID | MIIM_BITMAP | MIIM_DATA;
-   mii.hbmpItem = static_cast<HBITMAP>(HB_PARHANDLE(3));
+   mii.hbmpItem = hwg_par_HBITMAP(3);
 
    hb_retl(static_cast<LONG>(SetMenuItemInfo(static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(2), 0, &mii)));
 }

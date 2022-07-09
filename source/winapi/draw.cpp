@@ -456,7 +456,7 @@ HB_FUNC( HWG_DRAWBITMAP )
    HDC hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = (HB_ISNIL(3)) ? SRCCOPY : static_cast<DWORD>(hb_parnl(3));
-   HBITMAP hBitmap = static_cast<HBITMAP>(HB_PARHANDLE(2));
+   HBITMAP hBitmap = hwg_par_HBITMAP(2);
    BITMAP bitmap;
    int nWidthDest = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
    int nHeightDest = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : 0;
@@ -482,7 +482,7 @@ HB_FUNC( HWG_DRAWBITMAP )
 HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 {
    HDC hDC = hwg_par_HDC(1);
-   HBITMAP hBitmap = static_cast<HBITMAP>(HB_PARHANDLE(2));
+   HBITMAP hBitmap = hwg_par_HBITMAP(2);
    COLORREF trColor = (HB_ISNIL(5)) ? 0x00FFFFFF : static_cast<COLORREF>(hb_parnl(5));
    COLORREF crOldBack = SetBkColor(hDC, 0x00FFFFFF);
    COLORREF crOldText = SetTextColor(hDC, 0);
@@ -549,7 +549,7 @@ HB_FUNC( HWG_SPREADBITMAP )
    HDC hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    //DWORD dwraster = (HB_ISNIL(3)) ? SRCCOPY : static_cast<DWORD>(hb_parnl(3));
-   HBITMAP hBitmap = static_cast<HBITMAP>(HB_PARHANDLE(2));
+   HBITMAP hBitmap = hwg_par_HBITMAP(2);
    BITMAP bitmap;
    RECT rc;
    int nLeft, nWidth, nHeight;
@@ -591,7 +591,7 @@ HB_FUNC( HWG_CENTERBITMAP )
    HDC hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = (HB_ISNIL(4)) ? SRCCOPY : static_cast<DWORD>(hb_parnl(4));
-   HBITMAP hBitmap = static_cast<HBITMAP>(HB_PARHANDLE(3));
+   HBITMAP hBitmap = hwg_par_HBITMAP(3);
    BITMAP bitmap;
    RECT rc;
    HBRUSH hBrush = (HB_ISNIL(5)) ? reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1) : hwg_par_HBRUSH(5);
@@ -613,7 +613,7 @@ HB_FUNC( HWG_GETBITMAPSIZE )
    PHB_ITEM temp;
    int nret;
 
-   nret = GetObject(static_cast<HBITMAP>(HB_PARHANDLE(1)), sizeof(BITMAP), ( LPVOID ) &bitmap);
+   nret = GetObject(hwg_par_HBITMAP(1), sizeof(BITMAP), ( LPVOID ) &bitmap);
 
    temp = hb_itemPutNL(nullptr, bitmap.bmWidth);
    hb_itemArrayPut(aMetr, 1, temp);
@@ -773,7 +773,7 @@ HB_FUNC( HWG_OPENBITMAP )
  */
 HB_FUNC( HWG_SAVEBITMAP )
 {
-   HBITMAP hBitmap = static_cast<HBITMAP>(HB_PARHANDLE(2));
+   HBITMAP hBitmap = hwg_par_HBITMAP(2);
    HDC hDC;
    int iBits;
    WORD wBitCount;
@@ -986,7 +986,7 @@ HB_FUNC( HWG_GETDRAWITEMINFO )
 HB_FUNC( HWG_DRAWGRAYBITMAP )
 {
    HDC hDC = hwg_par_HDC(1);
-   HBITMAP hBitmap = static_cast<HBITMAP>(HB_PARHANDLE(2));
+   HBITMAP hBitmap = hwg_par_HBITMAP(2);
    HBITMAP bitmapgray;
    HBITMAP pOldBitmapImage, pOldbitmapgray;
    BITMAP bitmap;

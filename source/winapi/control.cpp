@@ -660,12 +660,12 @@ HB_FUNC( HWG_CREATEIMAGELIST )
 
 HB_FUNC( HWG_IMAGELIST_ADD )
 {
-   hb_retnl(ImageList_Add(static_cast<HIMAGELIST>(HB_PARHANDLE(1)), static_cast<HBITMAP>(HB_PARHANDLE(2)), static_cast<HBITMAP>(nullptr)));
+   hb_retnl(ImageList_Add(static_cast<HIMAGELIST>(HB_PARHANDLE(1)), hwg_par_HBITMAP(2), static_cast<HBITMAP>(nullptr)));
 }
 
 HB_FUNC( HWG_IMAGELIST_ADDMASKED )
 {
-   hb_retnl(ImageList_AddMasked(static_cast<HIMAGELIST>(HB_PARHANDLE(1)), static_cast<HBITMAP>(HB_PARHANDLE(2)), static_cast<COLORREF>(hb_parnl(3))));
+   hb_retnl(ImageList_AddMasked(static_cast<HIMAGELIST>(HB_PARHANDLE(1)), hwg_par_HBITMAP(2), static_cast<COLORREF>(hb_parnl(3))));
 }
 
 HB_FUNC( HWG_DESTROYIMAGELIST )
@@ -1231,7 +1231,7 @@ static BOOL AddBar1(HWND pParent, HWND pBar, COLORREF clrFore, COLORREF clrBack,
 HB_FUNC( HWG_ADDBARBITMAP )
 {
    void * hStr;
-   hb_retl(AddBar(hwg_par_HWND(1), hwg_par_HWND(2), HB_PARSTR(3, &hStr, nullptr), static_cast<HBITMAP>(HB_PARHANDLE(4)), hb_parnl(5)));
+   hb_retl(AddBar(hwg_par_HWND(1), hwg_par_HWND(2), HB_PARSTR(3, &hStr, nullptr), hwg_par_HBITMAP(4), hb_parnl(5)));
    hb_strfree(hStr);
 }
 
