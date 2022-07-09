@@ -428,12 +428,12 @@ HB_FUNC( HWG_CREATERECTRGNINDIRECT )
 
 HB_FUNC( HWG_EXTSELECTCLIPRGN )
 {
-   hb_retni(ExtSelectClipRgn(hwg_par_HDC(1), static_cast<HRGN>(HB_PARHANDLE(2)), hb_parni(3)));
+   hb_retni(ExtSelectClipRgn(hwg_par_HDC(1), hwg_par_HRGN(2), hb_parni(3)));
 }
 
 HB_FUNC( HWG_SELECTCLIPRGN )
 {
-   hb_retni(SelectClipRgn(hwg_par_HDC(1), static_cast<HRGN>(HB_PARHANDLE(2))));
+   hb_retni(SelectClipRgn(hwg_par_HDC(1), hwg_par_HRGN(2)));
 }
 
 HB_FUNC( HWG_CREATEFONTINDIRECT )
