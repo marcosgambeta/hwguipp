@@ -660,17 +660,17 @@ HB_FUNC( HWG_CREATEIMAGELIST )
 
 HB_FUNC( HWG_IMAGELIST_ADD )
 {
-   hb_retnl(ImageList_Add(static_cast<HIMAGELIST>(HB_PARHANDLE(1)), hwg_par_HBITMAP(2), static_cast<HBITMAP>(nullptr)));
+   hb_retnl(ImageList_Add(hwg_par_HIMAGELIST(1), hwg_par_HBITMAP(2), static_cast<HBITMAP>(nullptr)));
 }
 
 HB_FUNC( HWG_IMAGELIST_ADDMASKED )
 {
-   hb_retnl(ImageList_AddMasked(static_cast<HIMAGELIST>(HB_PARHANDLE(1)), hwg_par_HBITMAP(2), static_cast<COLORREF>(hb_parnl(3))));
+   hb_retnl(ImageList_AddMasked(hwg_par_HIMAGELIST(1), hwg_par_HBITMAP(2), static_cast<COLORREF>(hb_parnl(3))));
 }
 
 HB_FUNC( HWG_DESTROYIMAGELIST )
 {
-   ImageList_Destroy(static_cast<HIMAGELIST>(HB_PARHANDLE(1)));
+   ImageList_Destroy(hwg_par_HIMAGELIST(1));
 }
 
 /*
@@ -1160,7 +1160,7 @@ HB_FUNC( HWG_CREATEREBAR )
 
 HB_FUNC( HWG_REBARSETIMAGELIST )
 {
-   HIMAGELIST p = (HB_ISNUM(2) || HB_ISPOINTER(2)) ? static_cast<HIMAGELIST>(HB_PARHANDLE(2)) : nullptr;
+   HIMAGELIST p = (HB_ISNUM(2) || HB_ISPOINTER(2)) ? hwg_par_HIMAGELIST(2) : nullptr;
    REBARINFO rbi;
    memset(&rbi, '\0', sizeof(rbi));
    rbi.cbSize = sizeof(REBARINFO);

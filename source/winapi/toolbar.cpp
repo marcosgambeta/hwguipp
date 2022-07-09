@@ -176,7 +176,7 @@ HB_FUNC( HWG_TOOLBAR_LOADSTANDARTIMAGE )
 
 HB_FUNC( HWG_IMAGELIST_GETIMAGECOUNT )
 {
-   hb_retni(ImageList_GetImageCount(static_cast<HIMAGELIST>(HB_PARHANDLE(1))));
+   hb_retni(ImageList_GetImageCount(hwg_par_HIMAGELIST(1)));
 }
 
 HB_FUNC( HWG_TOOLBAR_SETDISPINFO )
