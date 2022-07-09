@@ -299,7 +299,7 @@ HB_FUNC( HWG_GETCURRENTDIR )
 
 HB_FUNC( HWG_WINEXEC )
 {
-   hb_retni(WinExec(hb_parc(1), ( UINT ) hb_parni(2)));
+   hb_retni(WinExec(hb_parc(1), hwg_par_UINT(2)));
 }
 
 HB_FUNC( HWG_GETKEYBOARDSTATE )
@@ -1029,7 +1029,7 @@ HB_FUNC( HWG_RUNAPP )
 {
    if( HB_ISNIL(3) || !hb_parl(3) )
    {
-      hb_retni(WinExec(hb_parc(1), (HB_ISNIL(2))? SW_SHOW : ( UINT ) hb_parni(2)));
+      hb_retni(WinExec(hb_parc(1), (HB_ISNIL(2))? SW_SHOW : hwg_par_UINT(2)));
    }
    else
    {
@@ -1168,7 +1168,7 @@ HB_FUNC( HWG_ALERT_DISABLECLOSEBUTTON )
 HB_FUNC( HWG_ALERT_GETWINDOW )
 // Was former static
 {
-   hb_retptr(static_cast<HWND>(GetWindow(static_cast<HWND>(hb_parptr(1)), (UINT) hb_parni(2))));
+   hb_retptr(static_cast<HWND>(GetWindow(static_cast<HWND>(hb_parptr(1)), hwg_par_UINT(2))));
 }
 
 /*

@@ -244,7 +244,7 @@ HWG_PEEKMESSAGE(hWnd, wMsgFilterMin, wMsgFilterMax) --> .T.|.F.
 HB_FUNC( HWG_PEEKMESSAGE )
 {
    MSG msg;
-   hb_retl(PeekMessage(&msg, hwg_par_HWND(1), ( UINT ) hb_parni(2), ( UINT ) hb_parni(3), PM_NOREMOVE));
+   hb_retl(PeekMessage(&msg, hwg_par_HWND(1), hwg_par_UINT(2), hwg_par_UINT(3), PM_NOREMOVE));
 }
 
 HB_FUNC( HWG_INITCHILDWINDOW )
@@ -506,7 +506,7 @@ HB_FUNC( HWG_SENDMESSAGE )
    LPCTSTR lpText = HB_PARSTR(4, &hText, nullptr);
 
    hb_retnl(static_cast<LONG>(SendMessage(hwg_par_HWND(1),  // handle of destination window
-            ( UINT ) hb_parni(2),  // message to send
+            hwg_par_UINT(2),  // message to send
             HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
             lpText ? ( LPARAM ) lpText : (HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : hwg_par_LPARAM(4))
           )));
@@ -519,7 +519,7 @@ HB_FUNC( HWG_SENDMESSPTR )
    LPCTSTR lpText = HB_PARSTR(4, &hText, nullptr);
 
    HB_RETHANDLE(SendMessage(hwg_par_HWND(1),  // handle of destination window
-               ( UINT ) hb_parni(2),  // message to send
+               hwg_par_UINT(2),  // message to send
                HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
                lpText ? ( LPARAM ) lpText : (HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : hwg_par_LPARAM(4))
           ));
@@ -529,7 +529,7 @@ HB_FUNC( HWG_SENDMESSPTR )
 HB_FUNC( HWG_POSTMESSAGE )
 {
    hb_retnl(static_cast<LONG>(PostMessage(hwg_par_HWND(1),  // handle of destination window
-               ( UINT ) hb_parni(2),  // message to send
+               hwg_par_UINT(2),  // message to send
                HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
                HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : hwg_par_LPARAM(4)
           )));
