@@ -12,7 +12,7 @@
 
 -lhwg_misc
 
-../hwgui.hbc
+../hwguipp.hbc
 
 -n
 -w

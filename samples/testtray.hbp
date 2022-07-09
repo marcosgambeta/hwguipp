@@ -10,7 +10,7 @@
 {linux}-d__LINUX__
 {linux}-d__GTK__
 
-../hwgui.hbc
+../hwguipp.hbc
 
 -n
 -w

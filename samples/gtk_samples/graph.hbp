@@ -4,7 +4,7 @@
 
 -stop={win}
 
-../../hwgui.hbc
+../../hwguipp.hbc
 
 -n -w
 -lm

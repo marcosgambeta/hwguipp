@@ -8,8 +8,8 @@
 {linux}-d__LINUX__
 {linux}-d__GTK__
 
-../hwgui.hbc
-#../../hwgui.hbc
+../hwguipp.hbc
+#../../hwguipp.hbc
 
 -n
 -w

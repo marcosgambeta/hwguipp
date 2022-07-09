@@ -10,6 +10,6 @@ winprn.prg
 -static
 -d__LINUX__ -d__GTK__
 
-../../hwgui.hbc
+../../hwguipp.hbc
 
 # ==================== EOF of winprn.hbp ===============
