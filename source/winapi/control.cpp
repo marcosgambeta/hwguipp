@@ -665,7 +665,7 @@ HB_FUNC( HWG_IMAGELIST_ADD )
 
 HB_FUNC( HWG_IMAGELIST_ADDMASKED )
 {
-   hb_retnl(ImageList_AddMasked(hwg_par_HIMAGELIST(1), hwg_par_HBITMAP(2), static_cast<COLORREF>(hb_parnl(3))));
+   hb_retnl(ImageList_AddMasked(hwg_par_HIMAGELIST(1), hwg_par_HBITMAP(2), hwg_par_COLORREF(3)));
 }
 
 HB_FUNC( HWG_DESTROYIMAGELIST )
@@ -1238,7 +1238,7 @@ HB_FUNC( HWG_ADDBARBITMAP )
 HB_FUNC( HWG_ADDBARCOLORS )
 {
    void * hStr;
-   hb_retl(AddBar1(hwg_par_HWND(1), hwg_par_HWND(2), static_cast<COLORREF>(hb_parnl(3)), static_cast<COLORREF>(hb_parnl(4)), HB_PARSTR(5, &hStr, nullptr), hb_parnl(6)));
+   hb_retl(AddBar1(hwg_par_HWND(1), hwg_par_HWND(2), hwg_par_COLORREF(3), hwg_par_COLORREF(4), HB_PARSTR(5, &hStr, nullptr), hb_parnl(6)));
    hb_strfree(hStr);
 }
 

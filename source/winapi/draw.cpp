@@ -215,7 +215,7 @@ HB_FUNC( HWG_DRAWGRID )
    HDC hDC = hwg_par_HDC(1);
    int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
    int n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
-   COLORREF lColor = (HB_ISNIL(7)) ? 0 : static_cast<COLORREF>(hb_parnl(7));
+   COLORREF lColor = (HB_ISNIL(7)) ? 0 : hwg_par_COLORREF(7);
    int j;
 
    for( int i = x1 + n; i < x2; i += n )
@@ -483,7 +483,7 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 {
    HDC hDC = hwg_par_HDC(1);
    HBITMAP hBitmap = hwg_par_HBITMAP(2);
-   COLORREF trColor = (HB_ISNIL(5)) ? 0x00FFFFFF : static_cast<COLORREF>(hb_parnl(5));
+   COLORREF trColor = (HB_ISNIL(5)) ? 0x00FFFFFF : hwg_par_COLORREF(5);
    COLORREF crOldBack = SetBkColor(hDC, 0x00FFFFFF);
    COLORREF crOldText = SetTextColor(hDC, 0);
    HBITMAP bitmapTrans;
@@ -883,7 +883,7 @@ HWG_CREATEPEN(nStyle, nWidth, nColor) --> hPen
 */
 HB_FUNC( HWG_CREATEPEN )
 {
-   HB_RETHANDLE(CreatePen(hb_parni(1), hb_parni(2), static_cast<COLORREF>(hb_parnl(3))));
+   HB_RETHANDLE(CreatePen(hb_parni(1), hb_parni(2), hwg_par_COLORREF(3)));
 }
 
 /*
@@ -891,7 +891,7 @@ HWG_CREATESOLIDBRUSH(nColor) --> hBrush
 */
 HB_FUNC( HWG_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE(CreateSolidBrush(static_cast<COLORREF>(hb_parnl(1))));
+   HB_RETHANDLE(CreateSolidBrush(hwg_par_COLORREF(1)));
 }
 
 /*
@@ -899,7 +899,7 @@ HWG_CREATEHATCHBRUSH(nPar1, nColor) --> nBrush
 */
 HB_FUNC( HWG_CREATEHATCHBRUSH )
 {
-   HB_RETHANDLE(CreateHatchBrush(hb_parni(1), static_cast<COLORREF>(hb_parnl(2))));
+   HB_RETHANDLE(CreateHatchBrush(hb_parni(1), hwg_par_COLORREF(2)));
 }
 
 /*

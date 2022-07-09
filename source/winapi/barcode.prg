@@ -916,7 +916,7 @@ RICH_CREATEPEN(nStyle, nWidth, nColor) --> hPen
 */
 HB_FUNC_STATIC( RICH_CREATEPEN )
 {
-   HB_RETHANDLE(CreatePen(hb_parni(1), hb_parni(2), static_cast<COLORREF>(hb_parnl(3))));
+   HB_RETHANDLE(CreatePen(hb_parni(1), hb_parni(2), hwg_par_COLORREF(3)));
 }
 
 /*
@@ -932,7 +932,7 @@ RICH_CREATESOLIDBRUSH(nColor) --> hBrush
 */
 HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE(CreateSolidBrush(static_cast<COLORREF>(hb_parnl(1))));
+   HB_RETHANDLE(CreateSolidBrush(hwg_par_COLORREF(1)));
 }
 
 #pragma ENDDUMP

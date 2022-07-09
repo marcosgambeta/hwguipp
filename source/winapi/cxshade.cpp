@@ -749,7 +749,7 @@ HB_FUNC( HWG_SHADE_SET )
    BYTE granularity = HB_ISNIL(4) ? 8 : static_cast<BYTE>(hb_parni(4));
    BYTE highlight = HB_ISNIL(5) ? 10 : static_cast<BYTE>(hb_parni(5));
    BYTE coloring = HB_ISNIL(6) ? 0 : static_cast<BYTE>(hb_parni(6));
-   COLORREF color = HB_ISNIL(7) ? 0 : static_cast<COLORREF>(hb_parnl(7));
+   COLORREF color = HB_ISNIL(7) ? 0 : hwg_par_COLORREF(7);
    RECT rect;
 
    if( !HB_ISNIL(7) )

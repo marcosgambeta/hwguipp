@@ -600,7 +600,7 @@ HB_FUNC( HWG_SETMENUBACKCOLOR )
    }
    if( hMenu )
    {
-      hbrush = hb_pcount() > 1 && !HB_ISNIL(2) ? CreateSolidBrush(static_cast<COLORREF>(hb_parnl(2))) : nullptr;
+      hbrush = hb_pcount() > 1 && !HB_ISNIL(2) ? CreateSolidBrush(hwg_par_COLORREF(2)) : nullptr;
       mi.cbSize = sizeof(mi);
       mi.fMask = MIM_BACKGROUND | ( (HB_ISLOG(3) && !hb_parl(3))? 0 : MIM_APPLYTOSUBMENUS );
       mi.hbrBack = hbrush;

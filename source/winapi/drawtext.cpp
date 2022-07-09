@@ -257,7 +257,7 @@ HWG_SETTEXTCOLOR(hDC, nColor) --> numeric
 */
 HB_FUNC( HWG_SETTEXTCOLOR )
 {
-   hb_retnl(static_cast<LONG>(SetTextColor(hwg_par_HDC(1), static_cast<COLORREF>(hb_parnl(2)))));
+   hb_retnl(static_cast<LONG>(SetTextColor(hwg_par_HDC(1), hwg_par_COLORREF(2))));
 }
 
 /*
@@ -265,7 +265,7 @@ HWG_SETBKCOLOR(hDC, nColor) --> numeric
 */
 HB_FUNC( HWG_SETBKCOLOR )
 {
-   hb_retnl(static_cast<LONG>(SetBkColor(hwg_par_HDC(1), static_cast<COLORREF>(hb_parnl(2)))));
+   hb_retnl(static_cast<LONG>(SetBkColor(hwg_par_HDC(1), hwg_par_COLORREF(2))));
 }
 
 /*

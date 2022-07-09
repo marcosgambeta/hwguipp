@@ -118,17 +118,17 @@ HB_FUNC( HWG_LISTVIEW_DELETECOLUMN )
 
 HB_FUNC( HWG_LISTVIEW_SETBKCOLOR )
 {
-   ListView_SetBkColor(hwg_par_HWND(1), static_cast<COLORREF>(hb_parni(2)));
+   ListView_SetBkColor(hwg_par_HWND(1), hwg_par_COLORREF(2));
 }
 
 HB_FUNC( HWG_LISTVIEW_SETTEXTBKCOLOR )
 {
-   ListView_SetTextBkColor(hwg_par_HWND(1), static_cast<COLORREF>(hb_parni(2)));
+   ListView_SetTextBkColor(hwg_par_HWND(1), hwg_par_COLORREF(2));
 }
 
 HB_FUNC( HWG_LISTVIEW_SETTEXTCOLOR )
 {
-   ListView_SetTextColor(hwg_par_HWND(1), static_cast<COLORREF>(hb_parni(2)));
+   ListView_SetTextColor(hwg_par_HWND(1), hwg_par_COLORREF(2));
 }
 
 HB_FUNC( HWG_LISTVIEW_GETFIRSTITEM )
