@@ -111,6 +111,7 @@
 #define hwg_par_HBITMAP(n) static_cast<HBITMAP>(HB_PARHANDLE(n))
 #define hwg_par_HIMAGELIST(n) static_cast<HIMAGELIST>(HB_PARHANDLE(n))
 #define hwg_par_UINT(n) static_cast<UINT>(hb_parni(n))
+#define hwg_par_DWORD(n) static_cast<DWORD>(hb_parnl(n))
 
 /* ================================== EOF of guilib.h ============================== */
 

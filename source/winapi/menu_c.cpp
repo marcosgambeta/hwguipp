@@ -529,7 +529,7 @@ HB_FUNC( HWG_STRETCHBLT )
                hwg_par_HDC(6),
                hb_parni(7),
                hb_parni(8),
-               hb_parni(9), hb_parni(10), static_cast<DWORD>(hb_parnl(11))));
+               hb_parni(9), hb_parni(10), hwg_par_DWORD(11)));
 }
 
 

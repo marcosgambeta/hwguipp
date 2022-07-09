@@ -194,8 +194,8 @@ HB_FUNC( HWG_REGCREATEKEYEX )
                               HB_PARSTRDEF(2, &hValue, nullptr),
                               static_cast<DWORD>(0),
                               static_cast<LPTSTR>(HB_PARSTRDEF(4, &hClass, nullptr)),
-                              static_cast<DWORD>(hb_parnl(5)),
-                              static_cast<DWORD>(hb_parnl(6)),
+                              hwg_par_DWORD(5),
+                              hwg_par_DWORD(6),
                               sa,
                               &hkResult,
                               &dwDisposition);
