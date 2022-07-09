@@ -63,11 +63,6 @@ typedef struct _GRADIENT_RECT
 #define M_PI_4           0.78539816339744830962
 #endif
 
-
-typedef int (_stdcall * GRADIENTFILL)(HDC, PTRIVERTEX, int, PVOID, int, int);
-
-static GRADIENTFILL FuncGradientFill = nullptr;
-
 void TransparentBmp(HDC hDC, int x, int y, int nWidthDest, int nHeightDest, HDC dcImage, int bmWidth, int bmHeight, int trColor)
 {
    TransparentBlt(hDC, x, y, nWidthDest, nHeightDest, dcImage, 0, 0, bmWidth, bmHeight, trColor);
@@ -1547,17 +1542,10 @@ HB_FUNC( HWG_DRAWGRADIENT )
             gRect[i-1].LowerRight = (i-1)*2+1;
          }
                
-         if( FuncGradientFill == nullptr )
-         {
-            FuncGradientFill = ( GRADIENTFILL )
-               GetProcAddress( LoadLibrary( TEXT( "MSIMG32.DLL" ) ),
-                  "GradientFill" );
-         }
-         
          fill_type = ( isV ) ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H;
 
          // drawing gradient on the bitmap in the memory device context
-         FuncGradientFill(hDC_mem, vertex, (colors_num - 1) * 2, gRect, (colors_num - 1), fill_type);
+         GradientFill(hDC_mem, vertex, (colors_num - 1) * 2, gRect, (colors_num - 1), fill_type);
 
          // shifts of edges
          if( (isV && stop_y[0] > y1) || (isH && stop_x[0] > x1) )
