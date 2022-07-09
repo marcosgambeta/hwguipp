@@ -30,10 +30,7 @@ typedef struct _GRADIENT_RECT
 
 #endif
 
-typedef int (_stdcall * GRADIENTFILL)(HDC, PTRIVERTEX, int, PVOID, int, int);
 LRESULT CALLBACK NiceButtProc(HWND, UINT, WPARAM, LPARAM);
-
-static GRADIENTFILL s_pGradientfill = nullptr;
 
 void Draw_Gradient(HDC hdc, int x, int y, int w, int h, int r, int g, int b)
 {
@@ -59,7 +56,7 @@ void Draw_Gradient(HDC hdc, int x, int y, int w, int h, int r, int g, int b)
    Rect.UpperLeft = 0;
    Rect.LowerRight = 1;
    // ******************************************************
-   s_pGradientfill( hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V );
+   GradientFill( hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V );
    // ******************************************************
    Vert[0].x = 0;
    Vert[0].y = h / 2;
@@ -78,7 +75,7 @@ void Draw_Gradient(HDC hdc, int x, int y, int w, int h, int r, int g, int b)
    Rect.UpperLeft = 0;
    Rect.LowerRight = 1;
    // ******************************************************
-   s_pGradientfill( hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V );
+   GradientFill( hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V );
 }
 
 void Gradient(HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode) // int , int g, int b, int nMode)
@@ -115,7 +112,7 @@ void Gradient(HDC hdc, int x, int y, int w, int h, int color1, int color2, int n
    Rect.UpperLeft = 0;
    Rect.LowerRight = 1;
    // ******************************************************
-   s_pGradientfill( hdc, Vert, 2, &Rect, 1, nmode );    //GRADIENT_FILL_RECT_H );
+   GradientFill( hdc, Vert, 2, &Rect, 1, nmode );    //GRADIENT_FILL_RECT_H );
 }
 
 LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -165,11 +162,6 @@ HB_FUNC( HWG_REGNICE )
    static LPCTSTR s_szAppName = TEXT( "NICEBUTT" );
    static BOOL s_bRegistered = 0;
 
-   s_pGradientfill = ( GRADIENTFILL ) GetProcAddress( LoadLibrary( TEXT( "MSIMG32.DLL" ) ), "GradientFill" );
-//    if( Gradientfill == nullptr )
-//    {
-//        return FALSE;
-//    }
    if( !s_bRegistered )
    {
       WNDCLASS wc;
@@ -227,10 +219,6 @@ HB_FUNC( HWG_DRAW_GRADIENT )
 
 HB_FUNC( HWG_GRADIENT )
 {
-   if( s_pGradientfill == nullptr )
-   {
-      s_pGradientfill = ( GRADIENTFILL ) GetProcAddress(LoadLibrary(TEXT("MSIMG32.DLL")), "GradientFill");
-   }
    //void Gradient(HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode)
 
    Gradient( hwg_par_HDC(1), hb_parni(2), hb_parni(3),
