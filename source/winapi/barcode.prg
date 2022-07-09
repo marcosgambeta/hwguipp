@@ -908,7 +908,7 @@ RICH_RECTANGLE(hDC, nLeft, nTop, nRight, nBottom) --> .T.|.F.
 */
 HB_FUNC_STATIC( RICH_RECTANGLE )
 {
-   hb_retl(Rectangle(static_cast<HDC>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5)));
+   hb_retl(Rectangle(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5)));
 }
 
 /*
@@ -924,7 +924,7 @@ RICH_SELECTOBJECT(hDC, hGdiObj) --> hGdiObj
 */
 HB_FUNC_STATIC( RICH_SELECTOBJECT )
 {
-   HB_RETHANDLE(SelectObject(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<HGDIOBJ>(HB_PARHANDLE(2))));
+   HB_RETHANDLE(SelectObject(hwg_par_HDC(1), static_cast<HGDIOBJ>(HB_PARHANDLE(2))));
 }
 
 /*

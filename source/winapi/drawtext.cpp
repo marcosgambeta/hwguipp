@@ -38,7 +38,7 @@ HB_FUNC( HWG_ENDPAINT )
 
 HB_FUNC( HWG_DELETEDC )
 {
-   DeleteDC( static_cast<HDC>(HB_PARHANDLE(1)) );
+   DeleteDC( hwg_par_HDC(1) );
 }
 
 HB_FUNC( HWG_TEXTOUT )
@@ -47,7 +47,7 @@ HB_FUNC( HWG_TEXTOUT )
    HB_SIZE nLen;
    LPCTSTR lpText = HB_PARSTR(4, &hText, &nLen);
 
-   TextOut( static_cast<HDC>(HB_PARHANDLE(1)),  // handle of device context
+   TextOut( hwg_par_HDC(1),  // handle of device context
          hb_parni(2),         // x-coordinate of starting position
          hb_parni(3),         // y-coordinate of starting position
          lpText,                // address of string
@@ -81,7 +81,7 @@ HB_FUNC( HWG_DRAWTEXT )
    }
 
 
-   heigh = DrawText( static_cast<HDC>(HB_PARHANDLE(1)), // handle of device context
+   heigh = DrawText( hwg_par_HDC(1), // handle of device context
          lpText,                // address of string
          nLen,                  // number of characters in string
          &rc, uFormat );
@@ -105,7 +105,7 @@ HB_FUNC( HWG_GETTEXTMETRIC )
    PHB_ITEM aMetr = hb_itemArrayNew(8);
    PHB_ITEM temp;
 
-   GetTextMetrics( static_cast<HDC>(HB_PARHANDLE(1)),   // handle of device context
+   GetTextMetrics( hwg_par_HDC(1),   // handle of device context
          &tm                    // address of text metrics structure
           );
 
@@ -155,7 +155,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
    PHB_ITEM aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;
 
-   GetTextExtentPoint32( static_cast<HDC>(HB_PARHANDLE(1)), lpText, nLen, &sz );
+   GetTextExtentPoint32( hwg_par_HDC(1), lpText, nLen, &sz );
    hb_strfree(hText);
 
    temp = hb_itemPutNL( nullptr, sz.cx );
@@ -257,7 +257,7 @@ HWG_SETTEXTCOLOR(hDC, nColor) --> numeric
 */
 HB_FUNC( HWG_SETTEXTCOLOR )
 {
-   hb_retnl(static_cast<LONG>(SetTextColor(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<COLORREF>(hb_parnl(2)))));
+   hb_retnl(static_cast<LONG>(SetTextColor(hwg_par_HDC(1), static_cast<COLORREF>(hb_parnl(2)))));
 }
 
 /*
@@ -265,7 +265,7 @@ HWG_SETBKCOLOR(hDC, nColor) --> numeric
 */
 HB_FUNC( HWG_SETBKCOLOR )
 {
-   hb_retnl(static_cast<LONG>(SetBkColor(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<COLORREF>(hb_parnl(2)))));
+   hb_retnl(static_cast<LONG>(SetBkColor(hwg_par_HDC(1), static_cast<COLORREF>(hb_parnl(2)))));
 }
 
 /*
@@ -273,7 +273,7 @@ HWG_SETTRANSPARENTMODE(hDC, lPar) --> logical
 */
 HB_FUNC( HWG_SETTRANSPARENTMODE )
 {
-   hb_retl(SetBkMode(static_cast<HDC>(HB_PARHANDLE(1)), hb_parl(2) ? TRANSPARENT : OPAQUE) == TRANSPARENT);
+   hb_retl(SetBkMode(hwg_par_HDC(1), hb_parl(2) ? TRANSPARENT : OPAQUE) == TRANSPARENT);
 }
 
 /*
@@ -281,7 +281,7 @@ HWG_GETTEXTCOLOR(hDC) --> numeric
 */
 HB_FUNC( HWG_GETTEXTCOLOR )
 {
-   hb_retnl(static_cast<LONG>(GetTextColor(static_cast<HDC>(HB_PARHANDLE(1)))));
+   hb_retnl(static_cast<LONG>(GetTextColor(hwg_par_HDC(1))));
 }
 
 /*
@@ -289,7 +289,7 @@ HWG_GETBKCOLOR(hDC) --> numeric
 */
 HB_FUNC( HWG_GETBKCOLOR )
 {
-   hb_retnl(static_cast<LONG>(GetBkColor(static_cast<HDC>(HB_PARHANDLE(1)))));
+   hb_retnl(static_cast<LONG>(GetBkColor(hwg_par_HDC(1))));
 }
 
 /*
@@ -336,7 +336,7 @@ HB_FUNC( HWG_EXTTEXTOUT )
    rc.right = hb_parni(6);
    rc.bottom = hb_parni(7);
 
-   ExtTextOut( static_cast<HDC>(HB_PARHANDLE(1)),       // handle to device context
+   ExtTextOut( hwg_par_HDC(1),       // handle to device context
          hb_parni(2),         // x-coordinate of reference point
          hb_parni(3),         // y-coordinate of reference point
          ETO_OPAQUE,            // text-output options
@@ -363,7 +363,7 @@ HWG_WINDOWFROMDC(hDC) --> hWnd
 */
 HB_FUNC( HWG_WINDOWFROMDC )
 {
-   HB_RETHANDLE(WindowFromDC(static_cast<HDC>(HB_PARHANDLE(1))));
+   HB_RETHANDLE(WindowFromDC(hwg_par_HDC(1)));
 }
 
 /*
@@ -428,12 +428,12 @@ HB_FUNC( HWG_CREATERECTRGNINDIRECT )
 
 HB_FUNC( HWG_EXTSELECTCLIPRGN )
 {
-   hb_retni(ExtSelectClipRgn(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<HRGN>(HB_PARHANDLE(2)), hb_parni(3)));
+   hb_retni(ExtSelectClipRgn(hwg_par_HDC(1), static_cast<HRGN>(HB_PARHANDLE(2)), hb_parni(3)));
 }
 
 HB_FUNC( HWG_SELECTCLIPRGN )
 {
-   hb_retni(SelectClipRgn(static_cast<HDC>(HB_PARHANDLE(1)), static_cast<HRGN>(HB_PARHANDLE(2))));
+   hb_retni(SelectClipRgn(hwg_par_HDC(1), static_cast<HRGN>(HB_PARHANDLE(2))));
 }
 
 HB_FUNC( HWG_CREATEFONTINDIRECT )

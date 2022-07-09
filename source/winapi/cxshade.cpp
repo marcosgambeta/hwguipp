@@ -765,5 +765,5 @@ HWG_SHADE_DRAW(pshade, hDC, nState) --> NIL
 */
 HB_FUNC( HWG_SHADE_DRAW )
 {
-   cxshade_Draw(static_cast<PCXSHADE>(HB_PARHANDLE(1)), static_cast<HDC>(HB_PARHANDLE(2)), hb_parni(3));
+   cxshade_Draw(static_cast<PCXSHADE>(HB_PARHANDLE(1)), hwg_par_HDC(2), hb_parni(3));
 }
