@@ -113,6 +113,7 @@
 #define hwg_par_UINT(n) static_cast<UINT>(hb_parni(n))
 #define hwg_par_DWORD(n) static_cast<DWORD>(hb_parnl(n))
 #define hwg_par_COLORREF(n) static_cast<COLORREF>(hb_parnl(n))
+#define hwg_par_HMENU(n) static_cast<HMENU>(HB_PARHANDLE(n))
 
 /* ================================== EOF of guilib.h ============================== */
 

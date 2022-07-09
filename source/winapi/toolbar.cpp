@@ -264,7 +264,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
    LPNMTOOLBAR lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
    RECT rc = { 0, 0, 0, 0 };
    TPMPARAMS tpm;
-   HMENU hPopupMenu = static_cast<HMENU>(HB_PARHANDLE(2));
+   HMENU hPopupMenu = hwg_par_HMENU(2);
    HWND g_hwndMain = hwg_par_HWND(3);
 
    SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmTB->iItem), reinterpret_cast<LPARAM>(&rc));

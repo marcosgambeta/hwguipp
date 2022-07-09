@@ -75,7 +75,7 @@ HB_FUNC( HWG__ADDMENUITEM )
       HMENU hSubMenu = CreateMenu();
 
       uFlags |= MF_POPUP;
-      InsertMenu( static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(3), uFlags,   // menu item flags
+      InsertMenu( hwg_par_HMENU(1), hb_parni(3), uFlags,   // menu item flags
             reinterpret_cast<UINT_PTR>(hSubMenu),  // menu item identifier or handle of drop-down menu or submenu
             lpNewItem           // menu item content
              );
@@ -83,18 +83,18 @@ HB_FUNC( HWG__ADDMENUITEM )
 
       // Code to set the ID of submenus, the API seems to assume that you wouldn't really want to,
       // but if you are used to getting help via IDs for popups in 16bit, then this will help you.
-      nPos = GetMenuItemCount( static_cast<HMENU>(HB_PARHANDLE(1)) );
+      nPos = GetMenuItemCount( hwg_par_HMENU(1) );
       mii.cbSize = sizeof(MENUITEMINFO);
       mii.fMask = MIIM_ID;
-      if( GetMenuItemInfo(static_cast<HMENU>(HB_PARHANDLE(1)), nPos - 1, TRUE, &mii) )
+      if( GetMenuItemInfo(hwg_par_HMENU(1), nPos - 1, TRUE, &mii) )
       {
          mii.wID = hb_parni(5);
-         SetMenuItemInfo( static_cast<HMENU>(HB_PARHANDLE(1)), nPos - 1, TRUE, &mii );
+         SetMenuItemInfo( hwg_par_HMENU(1), nPos - 1, TRUE, &mii );
       }
    }
    else
    {
-      InsertMenu( static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(3), uFlags,   // menu item flags
+      InsertMenu( hwg_par_HMENU(1), hb_parni(3), uFlags,   // menu item flags
             static_cast<UINT_PTR>(hb_parni(5)),      // menu item identifier or handle of drop-down menu or submenu
             lpNewItem           // menu item content
              );
@@ -126,7 +126,7 @@ HB_FUNC( HWG__ADDMENUITEM )
       mii.fType = MFT_SEPARATOR;
    }
 
-   hb_retl(InsertMenuItem(static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(3), fByPosition, &mii));
+   hb_retl(InsertMenuItem(hwg_par_HMENU(1), hb_parni(3), fByPosition, &mii));
    hb_strfree(hData);
 }
 */
@@ -144,7 +144,7 @@ HB_FUNC( HWG__CREATESUBMENU )
    mii.fMask = MIIM_SUBMENU;
    mii.hSubMenu = hSubMenu;
 
-   if( SetMenuItemInfo(static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(2), 0, &mii) )
+   if( SetMenuItemInfo(hwg_par_HMENU(1), hb_parni(2), 0, &mii) )
    {
       HB_RETHANDLE(hSubMenu);
    }
@@ -159,7 +159,7 @@ HB_FUNC( HWG__CREATESUBMENU )
  */
 HB_FUNC( HWG__SETMENU )
 {
-   hb_retl(SetMenu(hwg_par_HWND(1), static_cast<HMENU>(HB_PARHANDLE(2))));
+   hb_retl(SetMenu(hwg_par_HWND(1), hwg_par_HMENU(2)));
 }
 
 HB_FUNC( HWG_GETMENUHANDLE )
@@ -187,7 +187,7 @@ HB_FUNC( HWG_CHECKMENUITEM )
    }
    if( !hMenu )
    {
-      hMenu = static_cast<HMENU>(HB_PARHANDLE(1));
+      hMenu = hwg_par_HMENU(1);
    }
 
    if( !hMenu )
@@ -221,7 +221,7 @@ HB_FUNC( HWG_ISCHECKEDMENUITEM )
    }
    if( !hMenu )
    {
-      hMenu = static_cast<HMENU>(HB_PARHANDLE(1));
+      hMenu = hwg_par_HMENU(1);
    }
 
    if( !hMenu )
@@ -258,7 +258,7 @@ HB_FUNC( HWG_ENABLEMENUITEM )
    }
    if( !hMenu )
    {
-      hMenu = static_cast<HMENU>(HB_PARHANDLE(1));
+      hMenu = hwg_par_HMENU(1);
    }
 
    if( !hMenu )
@@ -295,7 +295,7 @@ HB_FUNC( HWG_ISENABLEDMENUITEM )
    }
    if( !hMenu )
    {
-      hMenu = static_cast<HMENU>(HB_PARHANDLE(1));
+      hMenu = hwg_par_HMENU(1);
    }
 
    if( !hMenu )
@@ -315,7 +315,7 @@ HB_FUNC( HWG_ISENABLEDMENUITEM )
 HB_FUNC( HWG_DELETEMENU )
 {
    HMENU hMenu = ( hb_pcount() > 0 &&
-         !HB_ISNIL(1) ) ? ( static_cast<HMENU>(HB_PARHANDLE(1)) ) :
+         !HB_ISNIL(1) ) ? ( hwg_par_HMENU(1) ) :
          GetMenu( aWindows[0] );
 
    if( hMenu )
@@ -331,7 +331,7 @@ HB_FUNC( HWG_TRACKMENU )
 {
    HWND hWnd = hwg_par_HWND(4);
    SetForegroundWindow(hWnd);
-   hb_retl(TrackPopupMenu(static_cast<HMENU>(HB_PARHANDLE(1)),        // handle of shortcut menu
+   hb_retl(TrackPopupMenu(hwg_par_HMENU(1),        // handle of shortcut menu
                HB_ISNIL(5) ? TPM_RIGHTALIGN : hb_parni(5),  // screen-position and mouse-button flags
                hb_parni(2),   // horizontal position, in screen coordinates
                hb_parni(3),   // vertical position, in screen coordinates
@@ -344,7 +344,7 @@ HB_FUNC( HWG_TRACKMENU )
 
 HB_FUNC( HWG_DESTROYMENU )
 {
-   hb_retl(DestroyMenu(static_cast<HMENU>(HB_PARHANDLE(1))));
+   hb_retl(DestroyMenu(hwg_par_HMENU(1)));
 }
 
 /*
@@ -405,7 +405,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
    }
    if( !hMenu )
    {
-      hMenu = static_cast<HMENU>(HB_PARHANDLE(1));
+      hMenu = hwg_par_HMENU(1);
    }
 
    if( !hMenu )
@@ -459,7 +459,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
    }
    if( !hMenu )
    {
-      hMenu = static_cast<HMENU>(HB_PARHANDLE(1));
+      hMenu = hwg_par_HMENU(1);
    }
 
    if( !hMenu )
@@ -491,7 +491,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
 
 HB_FUNC( HWG__SETMENUITEMBITMAPS )
 {
-   hb_retl(SetMenuItemBitmaps(static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(2), MF_BYCOMMAND, hwg_par_HBITMAP(3), hwg_par_HBITMAP(4)));
+   hb_retl(SetMenuItemBitmaps(hwg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, hwg_par_HBITMAP(3), hwg_par_HBITMAP(4)));
 }
 
 HB_FUNC( HWG_GETMENUCHECKMARKDIMENSIONS )
@@ -541,20 +541,20 @@ HB_FUNC( HWG__INSERTBITMAPMENU )
    mii.fMask = MIIM_ID | MIIM_BITMAP | MIIM_DATA;
    mii.hbmpItem = hwg_par_HBITMAP(3);
 
-   hb_retl(static_cast<LONG>(SetMenuItemInfo(static_cast<HMENU>(HB_PARHANDLE(1)), hb_parni(2), 0, &mii)));
+   hb_retl(static_cast<LONG>(SetMenuItemInfo(hwg_par_HMENU(1), hb_parni(2), 0, &mii)));
 }
 
 HB_FUNC( HWG_CHANGEMENU )
 {
    void * hStr;
-   hb_retl(ChangeMenu(static_cast<HMENU>(HB_PARHANDLE(1)), hwg_par_UINT(2), HB_PARSTR(3, &hStr, nullptr), hwg_par_UINT(4), hwg_par_UINT(5)));
+   hb_retl(ChangeMenu(hwg_par_HMENU(1), hwg_par_UINT(2), HB_PARSTR(3, &hStr, nullptr), hwg_par_UINT(4), hwg_par_UINT(5)));
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_MODIFYMENU )
 {
    void * hStr;
-   hb_retl(ModifyMenu(static_cast<HMENU>(HB_PARHANDLE(1)), hwg_par_UINT(2), hwg_par_UINT(3), hwg_par_UINT(4), HB_PARSTR(5, &hStr, nullptr)));
+   hb_retl(ModifyMenu(hwg_par_HMENU(1), hwg_par_UINT(2), hwg_par_UINT(3), hwg_par_UINT(4), HB_PARSTR(5, &hStr, nullptr)));
    hb_strfree(hStr);
 }
 
@@ -596,7 +596,7 @@ HB_FUNC( HWG_SETMENUBACKCOLOR )
    }
    if( !hMenu )
    {
-      hMenu = static_cast<HMENU>(HB_PARHANDLE(1));
+      hMenu = hwg_par_HMENU(1);
    }
    if( hMenu )
    {
