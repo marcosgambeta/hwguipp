@@ -98,7 +98,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
       wndclass.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
       wndclass.hCursor = LoadCursor(nullptr, IDC_ARROW);
       wndclass.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? ((hb_parnl(6) == -1) ? static_cast<HBRUSH>(nullptr) :
-         (HB_ISPOINTER(6) ? static_cast<HBRUSH>(HB_PARHANDLE(6)) : reinterpret_cast<HBRUSH>(hb_parnl(6)))) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
+         (HB_ISPOINTER(6) ? hwg_par_HBRUSH(6) : reinterpret_cast<HBRUSH>(hb_parnl(6)))) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1); // TODO: é realmente preciso checar o tipo ?
       wndclass.lpszMenuName  = lpMenu;
       wndclass.lpszClassName = lpAppName;
 
@@ -274,7 +274,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       wndclass.hInstance = static_cast<HINSTANCE>(hInstance);
       wndclass.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
       wndclass.hCursor = LoadCursor(nullptr, IDC_ARROW);
-      wndclass.hbrBackground = (((hb_pcount() > 5 && !HB_ISNIL(6)) ? ((hb_parnl(6) == -1) ? static_cast<HBRUSH>(nullptr) : static_cast<HBRUSH>(HB_PARHANDLE(6))) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1)));
+      wndclass.hbrBackground = (((hb_pcount() > 5 && !HB_ISNIL(6)) ? ((hb_parnl(6) == -1) ? static_cast<HBRUSH>(nullptr) : hwg_par_HBRUSH(6)) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1)));
       /*
          wndclass.hbrBackground = ( ( (hb_pcount()>5 && !HB_ISNIL(6))?
          ( (hb_parnl(6)==-1)? static_cast<HBRUSH>(COLOR_WINDOW + 1) :
@@ -368,7 +368,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
          // Register client window
          wc.lpfnWndProc = ( WNDPROC ) s_MDIChildWndProc;
          wc.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
-         wc.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? static_cast<HBRUSH>(HB_PARHANDLE(6)) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
+         wc.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? hwg_par_HBRUSH(6) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
          wc.lpszMenuName = nullptr;
          wc.cbWndExtra = 0;
          wc.lpszClassName = s_szChild;
@@ -1415,7 +1415,7 @@ HB_FUNC( HWG_PAINTWINDOW )
    HDC hDC = BeginPaint( hwg_par_HWND(1), pps );
    BOOL fErase = pps->fErase;
    RECT rc = pps->rcPaint;
-   HBRUSH hBrush = (HB_ISNIL(2)) ? reinterpret_cast<HBRUSH>(COLOR_3DFACE + 1) : static_cast<HBRUSH>(HB_PARHANDLE(2));
+   HBRUSH hBrush = (HB_ISNIL(2)) ? reinterpret_cast<HBRUSH>(COLOR_3DFACE + 1) : hwg_par_HBRUSH(2);
    if( fErase == 1 )
    {
       FillRect( hDC, &rc, hBrush );

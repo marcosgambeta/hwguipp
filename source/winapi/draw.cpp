@@ -236,7 +236,7 @@ HB_FUNC( HWG_FILLRECT )
    rc.right = hb_parni(4);
    rc.bottom = hb_parni(5);
 
-   FillRect(hwg_par_HDC(1), &rc, HB_ISPOINTER(6) ? static_cast<HBRUSH>(HB_PARHANDLE(6)) : reinterpret_cast<HBRUSH>(hb_parnl(6)));
+   FillRect(hwg_par_HDC(1), &rc, HB_ISPOINTER(6) ? hwg_par_HBRUSH(6) : reinterpret_cast<HBRUSH>(hb_parnl(6))); // TODO: é realmente preciso checar o tipo ?
 }
 
 /*
@@ -594,7 +594,7 @@ HB_FUNC( HWG_CENTERBITMAP )
    HBITMAP hBitmap = static_cast<HBITMAP>(HB_PARHANDLE(3));
    BITMAP bitmap;
    RECT rc;
-   HBRUSH hBrush = (HB_ISNIL(5)) ? reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1) : static_cast<HBRUSH>(HB_PARHANDLE(5));
+   HBRUSH hBrush = (HB_ISNIL(5)) ? reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1) : hwg_par_HBRUSH(5);
 
    SelectObject(hDCmem, hBitmap);
    GetObject(hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap);
@@ -1242,7 +1242,7 @@ HB_FUNC( HWG_FRAMERECT )
       Array2Rect(hb_param(2, HB_IT_ARRAY), &pRect);
    }
 
-   hb_retni(FrameRect(hwg_par_HDC(1), &pRect, static_cast<HBRUSH>(HB_PARHANDLE(3))));
+   hb_retni(FrameRect(hwg_par_HDC(1), &pRect, hwg_par_HBRUSH(3)));
 }
 
 HB_FUNC( HWG_DRAWFRAMECONTROL )

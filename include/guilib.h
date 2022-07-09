@@ -107,6 +107,7 @@
 #define hwg_par_HICON(n) static_cast<HICON>(HB_PARHANDLE(n))
 #define hwg_par_HDC(n) static_cast<HDC>(HB_PARHANDLE(n))
 #define hwg_par_HRGN(n) static_cast<HRGN>(HB_PARHANDLE(n))
+#define hwg_par_HBRUSH(n) static_cast<HBRUSH>(HB_PARHANDLE(n))
 
 /* ================================== EOF of guilib.h ============================== */
 
