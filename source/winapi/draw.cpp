@@ -34,10 +34,6 @@ extern "C"
 #endif
 #endif
 
-typedef int (_stdcall * TRANSPARENTBLT)(HDC, int, int, int, int, HDC, int, int, int, int, int);
-
-static TRANSPARENTBLT s_pTransparentBlt = nullptr;
-
 #define GRADIENT_MAX_COLORS 16
 
 #ifndef GRADIENT_FILL_RECT_H
@@ -74,14 +70,7 @@ static GRADIENTFILL FuncGradientFill = nullptr;
 
 void TransparentBmp(HDC hDC, int x, int y, int nWidthDest, int nHeightDest, HDC dcImage, int bmWidth, int bmHeight, int trColor)
 {
-   if( s_pTransparentBlt == nullptr )
-   {
-      s_pTransparentBlt =
-            ( TRANSPARENTBLT )
-            GetProcAddress( LoadLibrary( TEXT( "MSIMG32.DLL" ) ),
-            "TransparentBlt" );
-   }
-   s_pTransparentBlt(hDC, x, y, nWidthDest, nHeightDest, dcImage, 0, 0, bmWidth, bmHeight, trColor);
+   TransparentBlt(hDC, x, y, nWidthDest, nHeightDest, dcImage, 0, 0, bmWidth, bmHeight, trColor);
 }
 
 BOOL Array2Rect( PHB_ITEM aRect, RECT * rc )
