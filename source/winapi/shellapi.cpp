@@ -99,7 +99,7 @@ HB_FUNC( HWG_SHELLNOTIFYICON )
    tnid.uID = ID_NOTIFYICON;
    tnid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
    tnid.uCallbackMessage = WM_NOTIFYICON;
-   tnid.hIcon = static_cast<HICON>(HB_PARHANDLE(3));
+   tnid.hIcon = hwg_par_HICON(3);
    HB_ITEMCOPYSTR( hb_param( 4, HB_IT_ANY ), tnid.szTip,
          HB_SIZEOFARRAY( tnid.szTip ) );
 
@@ -129,7 +129,7 @@ HB_FUNC( HWG_SHELLMODIFYICON )
    if( HB_ISNUM(2) || HB_ISPOINTER(2) )
    {
       tnid.uFlags |= NIF_ICON;
-      tnid.hIcon = static_cast<HICON>(HB_PARHANDLE(2));
+      tnid.hIcon = hwg_par_HICON(2);
    }
    if( HB_ITEMCOPYSTR( hb_param( 3, HB_IT_ANY ), tnid.szTip, HB_SIZEOFARRAY( tnid.szTip ) ) > 0 )
    {

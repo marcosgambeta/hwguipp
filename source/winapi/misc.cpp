@@ -421,7 +421,7 @@ HB_FUNC( HWG_SHELLABOUT )
 {
    void * hStr1;
    void * hStr2;
-   hb_retni(ShellAbout(0, HB_PARSTRDEF(1, &hStr1, nullptr), HB_PARSTRDEF(2, &hStr2, nullptr), (HB_ISNIL(3) ? nullptr : static_cast<HICON>(HB_PARHANDLE(3)))));
+   hb_retni(ShellAbout(0, HB_PARSTRDEF(1, &hStr1, nullptr), HB_PARSTRDEF(2, &hStr2, nullptr), (HB_ISNIL(3) ? nullptr : hwg_par_HICON(3))));
    hb_strfree(hStr1);
    hb_strfree(hStr2);
 }

@@ -104,6 +104,7 @@
 #define hwg_par_WPARAM(n) static_cast<WPARAM>(hb_parni(n))
 #define hwg_par_int(n) static_cast<int>(hb_parni(n))
 #define hwg_par_LPARAM(n) static_cast<LPARAM>(hb_parnl(n))
+#define hwg_par_HICON(n) static_cast<HICON>(HB_PARHANDLE(n))
 
 /* ================================== EOF of guilib.h ============================== */
 

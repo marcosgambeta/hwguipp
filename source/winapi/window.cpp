@@ -95,7 +95,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
       wndclass.cbClsExtra = 0;
       wndclass.cbWndExtra = 0;
       wndclass.hInstance = static_cast<HINSTANCE>(hInstance);
-      wndclass.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? static_cast<HICON>(HB_PARHANDLE(5)) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
+      wndclass.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
       wndclass.hCursor = LoadCursor(nullptr, IDC_ARROW);
       wndclass.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? ((hb_parnl(6) == -1) ? static_cast<HBRUSH>(nullptr) :
          (HB_ISPOINTER(6) ? static_cast<HBRUSH>(HB_PARHANDLE(6)) : reinterpret_cast<HBRUSH>(hb_parnl(6)))) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
@@ -272,7 +272,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       wndclass.cbClsExtra = 0;
       wndclass.cbWndExtra = 0;
       wndclass.hInstance = static_cast<HINSTANCE>(hInstance);
-      wndclass.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? static_cast<HICON>(HB_PARHANDLE(5)) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
+      wndclass.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
       wndclass.hCursor = LoadCursor(nullptr, IDC_ARROW);
       wndclass.hbrBackground = (((hb_pcount() > 5 && !HB_ISNIL(6)) ? ((hb_parnl(6) == -1) ? static_cast<HBRUSH>(nullptr) : static_cast<HBRUSH>(HB_PARHANDLE(6))) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1)));
       /*
@@ -352,7 +352,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
       wndclass.cbWndExtra = 0;
       wndclass.hInstance = static_cast<HINSTANCE>(hInstance);
       wndclass.hIcon = ( hb_pcount() > 4 &&
-            !HB_ISNIL(5) ) ? static_cast<HICON>(HB_PARHANDLE(5)) :
+            !HB_ISNIL(5) ) ? hwg_par_HICON(5) :
             LoadIcon( static_cast<HINSTANCE>(hInstance), TEXT( "" ) );
       wndclass.hCursor = LoadCursor( nullptr, IDC_ARROW );
       wndclass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
@@ -367,7 +367,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
       {
          // Register client window
          wc.lpfnWndProc = ( WNDPROC ) s_MDIChildWndProc;
-         wc.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? static_cast<HICON>(HB_PARHANDLE(5)) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
+         wc.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
          wc.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? static_cast<HBRUSH>(HB_PARHANDLE(6)) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
          wc.lpszMenuName = nullptr;
          wc.cbWndExtra = 0;
