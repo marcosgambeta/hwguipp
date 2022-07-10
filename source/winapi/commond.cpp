@@ -284,7 +284,7 @@ HB_FUNC( HWG_PRINTSETUP )
    memset(static_cast<void*>(&pd), 0, sizeof(PRINTDLG));
 
    pd.lStructSize = sizeof(PRINTDLG);
-   // pd.hDevNames = (HANDLE) nullptr;
+   // pd.hDevNames = nullptr;
    pd.Flags = PD_RETURNDC;
    pd.hwndOwner = GetActiveWindow();
    // pd.hDC = nullptr;
@@ -293,14 +293,14 @@ HB_FUNC( HWG_PRINTSETUP )
    // pd.nMinPage = 0;
    // pd.nMaxPage = 0;
    pd.nCopies = 1;
-   // pd.hInstance = (HANDLE) nullptr;
+   // pd.hInstance = nullptr;
    // pd.lCustData = 0L;
-   // pd.lpfnPrintHook = (LPPRINTHOOKPROC) nullptr;
-   // pd.lpfnSetupHook = (LPSETUPHOOKPROC) nullptr;
+   // pd.lpfnPrintHook = nullptr;
+   // pd.lpfnSetupHook = nullptr;
    // pd.lpPrintTemplateName = nullptr;
    // pd.lpSetupTemplateName = nullptr;
-   // pd.hPrintTemplate = (HANDLE) nullptr;
-   // pd.hSetupTemplate = (HANDLE) nullptr;
+   // pd.hPrintTemplate = nullptr;
+   // pd.hSetupTemplate = nullptr;
 
    if( PrintDlg(&pd) )
    {

@@ -258,7 +258,7 @@ HB_FUNC( HWG_ARC )
 
    x1 = xc + radius * cos(iAngle2 * M_PI / 180);
    y1 = yc - radius * sin(iAngle2 * M_PI / 180);
-   MoveToEx(hDC, x1, y1, ( LPPOINT ) nullptr);
+   MoveToEx(hDC, x1, y1, nullptr);
    AngleArc(hDC, xc, yc, static_cast<DWORD>(radius), static_cast<FLOAT>(iAngle2), static_cast<FLOAT>(iAngle1));
 }
 
@@ -681,7 +681,7 @@ HB_FUNC( HWG_OPENBITMAP )
    HANDLE hfbm;
 
    hfbm = CreateFile(HB_PARSTR(1, &hString, nullptr), GENERIC_READ,
-         FILE_SHARE_READ, ( LPSECURITY_ATTRIBUTES ) nullptr, OPEN_EXISTING,
+         FILE_SHARE_READ, nullptr, OPEN_EXISTING,
          FILE_ATTRIBUTE_READONLY, nullptr);
    hb_strfree(hString);
    if( (reinterpret_cast<long int>(hfbm)) <= 0 )
