@@ -506,8 +506,8 @@ HB_FUNC( HWG_KEYB_EVENT )
       keybd_event( VK_MENU, 0, 0, 0 );
    }
 
-   keybd_event( static_cast<BYTE>(hb_parni(1)), 0, dwFlags, 0 );
-   keybd_event( static_cast<BYTE>(hb_parni(1)), 0, dwFlags | KEYEVENTF_KEYUP, 0 );
+   keybd_event( hwg_par_BYTE(1), 0, dwFlags, 0 );
+   keybd_event( hwg_par_BYTE(1), 0, dwFlags | KEYEVENTF_KEYUP, 0 );
 
    if( bShift )
    {

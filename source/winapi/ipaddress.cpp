@@ -61,10 +61,10 @@ HB_FUNC( HWG_INITIPADDRESS )
 
 HB_FUNC( HWG_SETIPADDRESS )
 {
-   BYTE v1 = static_cast<BYTE>(hb_parni(2));
-   BYTE v2 = static_cast<BYTE>(hb_parni(3));
-   BYTE v3 = static_cast<BYTE>(hb_parni(4));
-   BYTE v4 = static_cast<BYTE>(hb_parni(5));
+   BYTE v1 = hwg_par_BYTE(2);
+   BYTE v2 = hwg_par_BYTE(3);
+   BYTE v3 = hwg_par_BYTE(4);
+   BYTE v4 = hwg_par_BYTE(5);
 
    SendMessage(hwg_par_HWND(1), IPM_SETADDRESS, 0, MAKEIPADDRESS(v1, v2, v3, v4));
 }

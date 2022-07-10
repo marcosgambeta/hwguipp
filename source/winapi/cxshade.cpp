@@ -745,10 +745,10 @@ HB_FUNC( HWG_SHADE_SET )
 {
    PCXSHADE pshade = static_cast<PCXSHADE>(HB_PARHANDLE(1));
    UINT shadeID = HB_ISNIL(2) ? SHS_SOFTBUMP : hb_parni(2);
-   BYTE palette = HB_ISNIL(3) ? 0 : static_cast<BYTE>(hb_parni(3));
-   BYTE granularity = HB_ISNIL(4) ? 8 : static_cast<BYTE>(hb_parni(4));
-   BYTE highlight = HB_ISNIL(5) ? 10 : static_cast<BYTE>(hb_parni(5));
-   BYTE coloring = HB_ISNIL(6) ? 0 : static_cast<BYTE>(hb_parni(6));
+   BYTE palette = HB_ISNIL(3) ? 0 : hwg_par_BYTE(3);
+   BYTE granularity = HB_ISNIL(4) ? 8 : hwg_par_BYTE(4);
+   BYTE highlight = HB_ISNIL(5) ? 10 : hwg_par_BYTE(5);
+   BYTE coloring = HB_ISNIL(6) ? 0 : hwg_par_BYTE(6);
    COLORREF color = HB_ISNIL(7) ? 0 : hwg_par_COLORREF(7);
    RECT rect;
 

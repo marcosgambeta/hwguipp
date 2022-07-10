@@ -194,7 +194,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       }
       if( !HB_ISNIL(10) )
       {
-         cf.bCharSet = static_cast<BYTE>(hb_parnl(10));
+         cf.bCharSet = hwg_par_BYTE(10);
          cf.dwMask |= CFM_CHARSET;
       }
       if( !HB_ISNIL(11) )
@@ -268,7 +268,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
 
    if( HB_ISNUM(8) )
    {
-      cf.bCharSet = static_cast<BYTE>(hb_parnl(8));
+      cf.bCharSet = hwg_par_BYTE(8);
       cf.dwMask |= CFM_CHARSET;
    }
 

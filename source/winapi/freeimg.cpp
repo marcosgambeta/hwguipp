@@ -914,7 +914,7 @@ HB_FUNC( HWG_FI_THRESHOLD )
 {
    pThreshold = ( FREEIMAGE_THRESHOLD ) s_getFunction(( FARPROC ) pThreshold, "_FreeImage_Threshold@8");
 
-   hb_retnl(reinterpret_cast<LONG>(pThreshold(( FIBITMAP * ) hb_parnl(1), static_cast<BYTE>(hb_parnl(2)))));
+   hb_retnl(reinterpret_cast<LONG>(pThreshold(( FIBITMAP * ) hb_parnl(1), hwg_par_BYTE(2))));
 }
 
 HB_FUNC( HWG_FI_FLIPVERTICAL )
