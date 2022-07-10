@@ -180,7 +180,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
 {
    void * hPrinterName;
    LPCTSTR lpPrinterName = HB_PARSTR(1, &hPrinterName, nullptr);
-   HANDLE hPrinter = (HB_ISNIL(2)) ? static_cast<HANDLE>(nullptr) : static_cast<HANDLE>(HB_PARHANDLE(2));
+   HANDLE hPrinter = (HB_ISNIL(2)) ? nullptr : static_cast<HANDLE>(HB_PARHANDLE(2));
    long int nSize;
    PDEVMODE pdm;
 

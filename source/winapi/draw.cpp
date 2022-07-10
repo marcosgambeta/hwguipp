@@ -682,7 +682,7 @@ HB_FUNC( HWG_OPENBITMAP )
 
    hfbm = CreateFile(HB_PARSTR(1, &hString, nullptr), GENERIC_READ,
          FILE_SHARE_READ, ( LPSECURITY_ATTRIBUTES ) nullptr, OPEN_EXISTING,
-         FILE_ATTRIBUTE_READONLY, static_cast<HANDLE>(nullptr));
+         FILE_ATTRIBUTE_READONLY, nullptr);
    hb_strfree(hString);
    if( (reinterpret_cast<long int>(hfbm)) <= 0 )
    {
@@ -722,14 +722,14 @@ HB_FUNC( HWG_OPENBITMAP )
       case 1:
       case 4:
       case 8:
-         ReadFile(hfbm, lpbmi->bmiColors, ((1 << bmih.biBitCount) * sizeof(RGBQUAD)), &dwRead, static_cast<LPOVERLAPPED>(nullptr));
+         ReadFile(hfbm, lpbmi->bmiColors, ((1 << bmih.biBitCount) * sizeof(RGBQUAD)), &dwRead, nullptr);
          break;
 
       case 16:
       case 32:
          if( bmih.biCompression == BI_BITFIELDS )
          {
-            ReadFile(hfbm, lpbmi->bmiColors, (3 * sizeof(RGBQUAD)), &dwRead, static_cast<LPOVERLAPPED>(nullptr));
+            ReadFile(hfbm, lpbmi->bmiColors, (3 * sizeof(RGBQUAD)), &dwRead, nullptr);
          }
          break;
 

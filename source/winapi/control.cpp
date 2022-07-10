@@ -273,7 +273,7 @@ HB_FUNC( HWG_ADDTOOLTIP )
    {
       s_hWndTT = CreateWindow(TOOLTIPS_CLASS, nullptr, WS_POPUP | TTS_ALWAYSTIP | iStyle,
          CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-         nullptr, static_cast<HMENU>(nullptr), GetModuleHandle(nullptr), nullptr);
+         nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
    }
    if( !s_hWndTT )
    {
@@ -651,7 +651,7 @@ HB_FUNC( HWG_CREATEIMAGELIST )
    for( ULONG ul = 1; ul <= ulLen; ul++ )
    {
       hbmp = static_cast<HBITMAP>(HB_GETPTRHANDLE(pArray, ul));
-      ImageList_Add(himl, hbmp, static_cast<HBITMAP>(nullptr));
+      ImageList_Add(himl, hbmp, nullptr);
       DeleteObject(hbmp);
    }
 
@@ -660,7 +660,7 @@ HB_FUNC( HWG_CREATEIMAGELIST )
 
 HB_FUNC( HWG_IMAGELIST_ADD )
 {
-   hb_retnl(ImageList_Add(hwg_par_HIMAGELIST(1), hwg_par_HBITMAP(2), static_cast<HBITMAP>(nullptr)));
+   hb_retnl(ImageList_Add(hwg_par_HIMAGELIST(1), hwg_par_HBITMAP(2), nullptr));
 }
 
 HB_FUNC( HWG_IMAGELIST_ADDMASKED )
@@ -686,7 +686,7 @@ HB_FUNC( HWG_SETTIMER )
 {
    SetTimer(hwg_par_HWND(1), static_cast<UINT>(hb_parni(2)),
             static_cast<UINT>(hb_parni(3)),
-            hb_pcount() == 3 ?  reinterpret_cast<TIMERPROC>(reinterpret_cast<UINT_PTR>(s_timerProc)) : static_cast<TIMERPROC>(reinterpret_cast<UINT_PTR>(nullptr)));
+            hb_pcount() == 3 ?  reinterpret_cast<TIMERPROC>(reinterpret_cast<UINT_PTR>(s_timerProc)) : nullptr);
 }
 
 /*
@@ -1165,7 +1165,7 @@ HB_FUNC( HWG_REBARSETIMAGELIST )
    memset(&rbi, '\0', sizeof(rbi));
    rbi.cbSize = sizeof(REBARINFO);
    rbi.fMask = (HB_ISNUM(2) || HB_ISPOINTER(2)) ? RBIM_IMAGELIST : 0;
-   rbi.himl = (HB_ISNUM(2) || HB_ISPOINTER(2)) ? static_cast<HIMAGELIST>(p) : static_cast<HIMAGELIST>(nullptr);
+   rbi.himl = (HB_ISNUM(2) || HB_ISPOINTER(2)) ? static_cast<HIMAGELIST>(p) : nullptr;
    SendMessage(hwg_par_HWND(1), RB_SETBARINFO, 0, reinterpret_cast<LPARAM>(&rbi));
 }
 

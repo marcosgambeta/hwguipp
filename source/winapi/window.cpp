@@ -42,7 +42,7 @@ void hwg_doEvents(void)
 {
    MSG msg;
 
-   while( PeekMessage(&msg, static_cast<HWND>(nullptr), 0, 0, PM_REMOVE) )
+   while( PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) )
    {
       TranslateMessage(&msg);
       DispatchMessage(&msg);
@@ -54,9 +54,9 @@ static void s_ClearKeyboard(void)
    MSG msg;
 
    // For keyboard
-   while( PeekMessage(&msg, static_cast<HWND>(nullptr), WM_KEYFIRST, WM_KEYLAST, PM_REMOVE) );
+   while( PeekMessage(&msg, nullptr, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE) );
    // For Mouse
-   while( PeekMessage(&msg, static_cast<HWND>(nullptr), WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE) );
+   while( PeekMessage(&msg, nullptr, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE) );
 }
 
 /* Consume all queued events, useful to update all the controls... I split in 2 parts because I feel
@@ -97,7 +97,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
       wndclass.hInstance = static_cast<HINSTANCE>(hInstance);
       wndclass.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
       wndclass.hCursor = LoadCursor(nullptr, IDC_ARROW);
-      wndclass.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? ((hb_parnl(6) == -1) ? static_cast<HBRUSH>(nullptr) :
+      wndclass.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? ((hb_parnl(6) == -1) ? nullptr :
          (HB_ISPOINTER(6) ? hwg_par_HBRUSH(6) : reinterpret_cast<HBRUSH>(hb_parnl(6)))) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1); // TODO: é realmente preciso checar o tipo ?
       wndclass.lpszMenuName  = lpMenu;
       wndclass.lpszClassName = lpAppName;
@@ -274,7 +274,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       wndclass.hInstance = static_cast<HINSTANCE>(hInstance);
       wndclass.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
       wndclass.hCursor = LoadCursor(nullptr, IDC_ARROW);
-      wndclass.hbrBackground = (((hb_pcount() > 5 && !HB_ISNIL(6)) ? ((hb_parnl(6) == -1) ? static_cast<HBRUSH>(nullptr) : hwg_par_HBRUSH(6)) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1)));
+      wndclass.hbrBackground = (((hb_pcount() > 5 && !HB_ISNIL(6)) ? ((hb_parnl(6) == -1) ? nullptr : hwg_par_HBRUSH(6)) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1)));
       /*
          wndclass.hbrBackground = ( ( (hb_pcount()>5 && !HB_ISNIL(6))?
          ( (hb_parnl(6)==-1)? static_cast<HBRUSH>(COLOR_WINDOW + 1) :

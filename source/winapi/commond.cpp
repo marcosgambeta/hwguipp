@@ -47,17 +47,17 @@ HB_FUNC( HWG_SELECTFONT )
    }
 
    cf.lStructSize = sizeof(CHOOSEFONT);
-   cf.hwndOwner = static_cast<HWND>(nullptr);
-   cf.hDC = static_cast<HDC>(nullptr);
+   cf.hwndOwner = nullptr;
+   cf.hDC = nullptr;
    cf.lpLogFont = &lf;
    cf.iPointSize = 0;
    cf.Flags = CF_SCREENFONTS | (pObj ? CF_INITTOLOGFONTSTRUCT : 0);
    cf.rgbColors = RGB(0, 0, 0);
    cf.lCustData = 0L;
-   cf.lpfnHook = static_cast<LPCFHOOKPROC>(nullptr);
+   cf.lpfnHook = nullptr;
    cf.lpTemplateName = nullptr;
 
-   cf.hInstance = static_cast<HINSTANCE>(nullptr);
+   cf.hInstance = nullptr;
    cf.lpszStyle = nullptr;
    cf.nFontType = SCREEN_FONTTYPE;
    cf.nSizeMin = 0;
@@ -287,7 +287,7 @@ HB_FUNC( HWG_PRINTSETUP )
    // pd.hDevNames = (HANDLE) nullptr;
    pd.Flags = PD_RETURNDC;
    pd.hwndOwner = GetActiveWindow();
-   // pd.hDC = static_cast<HDC>(nullptr);
+   // pd.hDC = nullptr;
    pd.nFromPage = 1;
    pd.nToPage = 1;
    // pd.nMinPage = 0;

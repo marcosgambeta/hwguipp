@@ -60,7 +60,7 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
                           nwidth,
                           nheight,
                           hParentWindow,
-                          static_cast<HMENU>(nullptr),
+                          nullptr,
                           GetModuleHandle(nullptr),
                           nullptr
                           );
