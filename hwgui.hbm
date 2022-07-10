@@ -43,6 +43,7 @@
 {win}source/winapi/hanimation.prg
 {win}source/winapi/hbincnt.prg
 {win}source/winapi/hbrowse.prg
+{win}source/winapi/hbrush.prg
 {win}source/winapi/hbrwflt.prg
 {win}source/winapi/hbutton.prg
 {win}source/winapi/hcheckbutton.prg
@@ -55,6 +56,7 @@
 {win}source/winapi/hdialog.prg
 {win}source/winapi/hedit.prg
 {win}source/winapi/herrsys.prg
+{win}source/winapi/hfont.prg
 {win}source/winapi/hfreeimg.prg
 {win}source/winapi/hfrmtmpl.prg
 {win}source/winapi/hgraph.prg
@@ -73,6 +75,7 @@
 {win}source/winapi/hpager.prg
 {win}source/winapi/hpaintdc.prg
 {win}source/winapi/hpanel.prg
+{win}source/winapi/hpen.prg
 {win}source/winapi/hprinter.prg
 {win}source/winapi/hprogressbar.prg
 {win}source/winapi/hradio.prg
@@ -86,6 +89,7 @@
 {win}source/winapi/hsplitter.prg
 {win}source/winapi/hstatic.prg
 {win}source/winapi/hstatus.prg
+{win}source/winapi/hstyle.prg
 {win}source/winapi/htab.prg
 {win}source/winapi/htimer.prg
 {win}source/winapi/htoolbar.prg

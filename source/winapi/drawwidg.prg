@@ -12,348 +12,7 @@
 
 Static oResCnt
 
-   //- HFont
-
-CLASS HFont INHERIT HObject
-
-   CLASS VAR aFonts   INIT { }
-   DATA handle
-   DATA name, width, height , weight
-   DATA charset, italic, Underline, StrikeOut
-   DATA nCounter   INIT 1
-
-   METHOD Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle )
-   METHOD SELECT( oFont, nCharSet )
-   METHOD RELEASE()
-   METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight )
-   METHOD PrintFont()
-   METHOD Props2Arr()
-   // METHOD AddC( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle )
-
-ENDCLASS
-
-METHOD Add( fontName, nWidth, nHeight , fnWeight, ;
-      fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle ) CLASS HFont
-
-   LOCAL i, nlen := Len( ::aFonts )
-
-   nHeight  := iif( nHeight == Nil, - 13, nHeight )
-   fnWeight := iif( fnWeight == Nil, 0, fnWeight )
-   fdwCharSet := iif( fdwCharSet == Nil, 0, fdwCharSet )
-   fdwItalic := iif( fdwItalic == Nil, 0, fdwItalic )
-   fdwUnderline := iif( fdwUnderline == Nil, 0, fdwUnderline )
-   fdwStrikeOut := iif( fdwStrikeOut == Nil, 0, fdwStrikeOut )
-
-   FOR i := 1 TO nlen
-      IF ::aFonts[i]:name == fontName .AND.             ;
-            ( ( Empty(::aFonts[i]:width) .AND. Empty(nWidth) ) ;
-            .OR. ::aFonts[i]:width == nWidth ) .AND.    ;
-            ::aFonts[i]:height == nHeight .AND.         ;
-            ::aFonts[i]:weight == fnWeight .AND.        ;
-            ::aFonts[i]:CharSet == fdwCharSet .AND.     ;
-            ::aFonts[i]:Italic == fdwItalic .AND.       ;
-            ::aFonts[i]:Underline == fdwUnderline .AND. ;
-            ::aFonts[i]:StrikeOut == fdwStrikeOut
-
-         ::aFonts[ i ]:nCounter ++
-         IF nHandle != Nil
-            hwg_Deleteobject( nHandle )
-         ENDIF
-         RETURN ::aFonts[ i ]
-      ENDIF
-   NEXT
-
-   IF nHandle == Nil
-      ::handle := hwg_Createfont( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut )
-   ELSE
-      ::handle := nHandle
-   ENDIF
-
-   ::name      := fontName
-   ::width     := nWidth
-   ::height    := nHeight
-   ::weight    := fnWeight
-   ::CharSet   := fdwCharSet
-   ::Italic    := fdwItalic
-   ::Underline := fdwUnderline
-   ::StrikeOut := fdwStrikeOut
-
-   AAdd( ::aFonts, Self )
-
-   RETURN Self
-
-METHOD SELECT( oFont, nCharSet  ) CLASS HFont
-   LOCAL af := hwg_Selectfont( oFont )
-
-   IF af == Nil
-      RETURN Nil
-   ENDIF
-
-   RETURN ::Add( af[ 2 ], af[ 3 ], af[ 4 ], af[ 5 ], iif( Empty( nCharSet ), af[ 6 ], nCharSet ), af[ 7 ], af[ 8 ], af[ 9 ], af[ 1 ] )
-
-METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight ) CLASS HFont
-   LOCAL  weight, Italic, Underline, StrikeOut
-
-   IF lBold != Nil
-      weight = iif( lBold, FW_BOLD, FW_REGULAR )
-   ELSE
-      weight := ::weight
-   ENDIF
-   Italic    := iif( lItalic = Nil, ::Italic, iif( lItalic, 1, 0 ) )
-   Underline := iif( lUnder  = Nil, ::Underline, iif( lUnder , 1, 0 ) )
-   StrikeOut := iif( lStrike = Nil, ::StrikeOut, iif( lStrike , 1, 0 ) )
-   nheight   := iif( nheight = Nil, ::height, nheight )
-   nCharSet  := iif( nCharSet = Nil, ::CharSet, nCharSet )
-
-   RETURN HFont():Add( ::name, ::width, nheight, weight, ;
-      nCharSet, Italic, Underline, StrikeOut ) // ::handle )
-
-METHOD RELEASE() CLASS HFont
-   LOCAL i, nlen := Len( ::aFonts )
-
-   ::nCounter --
-   IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      FOR EACH i IN ::aFonts
-         IF i:handle == ::handle
-            hwg_Deleteobject( ::handle )
-            ADel( ::aFonts, hb_enumindex() )
-            ASize( ::aFonts, nlen - 1 )
-            EXIT
-         ENDIF
-      NEXT
-#else
-      FOR i := 1 TO nlen
-         IF ::aFonts[ i ]:handle == ::handle
-            hwg_Deleteobject( ::handle )
-            ADel( ::aFonts, i )
-            ASize( ::aFonts, nlen - 1 )
-            EXIT
-         ENDIF
-      NEXT
-#endif
-   ENDIF
-
-   RETURN Nil
-
-/* DF7BE: For debugging purposes */
-METHOD PrintFont()  CLASS HFont
-//        fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
-// Type:  C         N       N         N         N           N          N             N
-// - 9999 means NIL
-
-   LOCAL fontName , nWidth , nHeight , fnWeight , fdwCharSet , fdwItalic , fdwUnderline , fdwStrikeOut
-
-   fontName     := iif( ::name == NIL , "<Empty>", ::name )
-   nWidth       := iif( ::width == Nil, - 9999 , ::width )
-   nHeight      := iif( ::height == NIL , - 9999 , ::height )
-   fnWeight     := iif( ::weight == Nil, - 9999 , ::weight )
-   fdwCharSet   := iif( ::CharSet == Nil, - 9999 , ::CharSet )
-   fdwItalic    := iif( ::Italic == Nil, - 9999 , ::Italic )
-   fdwUnderline := iif( ::Underline == Nil, - 9999 , ::Underline )
-   fdwStrikeOut := iif( ::StrikeOut == Nil, - 9999 , ::StrikeOut )
-
-
-
-
-RETURN "Font Name=" + fontName + " Width=" + ALLTRIM(STR(nWidth)) + " Height=" + ALLTRIM(STR(nHeight)) + ;
-       " Weight=" + ALLTRIM(STR(fnWeight)) + " CharSet=" + ALLTRIM(STR(fdwCharSet)) + ;
-       " Italic=" + ALLTRIM(STR(fdwItalic)) + " Underline=" + ALLTRIM(STR(fdwUnderline)) + ;
-       " StrikeOut=" + ALLTRIM(STR(fdwStrikeOut))
-
-
-/*
-  Returns an array with font properties (for creating a copy of a font entry)
-  Copy sample
-   apffrarr := oFont1:Props2Arr()
-   oFont2 := HFont():Add( apffrarr[1], apffrarr[2], apffrarr[3], apffrarr[4], apffrarr[5], ;
-                apffrarr[6], apffrarr[7], apffrarr[8] )
- */
-METHOD Props2Arr() CLASS HFont
-//        fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
-//        1         2       3         4         5           6          7             8
-   LOCAL fontName , nWidth , nHeight , fnWeight , fdwCharSet , fdwItalic , fdwUnderline , fdwStrikeOut
-   LOCAL aFontprops := {}
-
-   fontName     := iif( ::name == NIL , "<Empty>", ::name )
-   nWidth       := iif( ::width == Nil, - 9999 , ::width )
-   nHeight      := iif( ::height == NIL , - 9999 , ::height )
-   fnWeight     := iif( ::weight == Nil, - 9999 , ::weight )
-   fdwCharSet   := iif( ::CharSet == Nil, - 9999 , ::CharSet )
-   fdwItalic    := iif( ::Italic == Nil, - 9999 , ::Italic )
-   fdwUnderline := iif( ::Underline == Nil, - 9999 , ::Underline )
-   fdwStrikeOut := iif( ::StrikeOut == Nil, - 9999 , ::StrikeOut )
-
-   AADD (aFontprops, fontName)  && C
-   AADD (aFontprops, nWidth)    && all other of type N
-   AADD (aFontprops, nHeight)
-   AADD (aFontprops, fnWeight)
-   AADD (aFontprops, fdwCharSet)
-   AADD (aFontprops, fdwItalic)
-   AADD (aFontprops, fdwUnderline)
-   AADD (aFontprops, fdwStrikeOut)
-
- RETURN aFontprops
-
-   //- HPen
-
-CLASS HPen INHERIT HObject
-
-   CLASS VAR aPens   INIT { }
-   DATA handle
-   DATA style, width, color
-   DATA nCounter   INIT 1
-
-   METHOD Add( nStyle, nWidth, nColor )
-   METHOD Get( nStyle, nWidth, nColor )
-   METHOD RELEASE()
-
-ENDCLASS
-
-METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
-   LOCAL i
-
-   nStyle := iif( nStyle == Nil, BS_SOLID, nStyle )
-   nWidth := iif( nWidth == Nil, 1, nWidth )
-   IF nStyle != BS_SOLID
-      nWidth := 1
-   ENDIF
-   nColor := iif( nColor == Nil, 0, nColor )
-
-   FOR EACH i IN ::aPens
-      IF i:style == nStyle .AND. ;
-            i:width == nWidth .AND. ;
-            i:color == nColor
-
-         i:nCounter ++
-         RETURN i
-      ENDIF
-   NEXT
-
-   ::handle := hwg_Createpen( nStyle, nWidth, nColor )
-   ::style  := nStyle
-   ::width  := nWidth
-   ::color  := nColor
-   AAdd( ::aPens, Self )
-
-   RETURN Self
-
-METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
-   LOCAL i
-
-   nStyle := iif( nStyle == Nil, PS_SOLID, nStyle )
-   nWidth := iif( nWidth == Nil, 1, nWidth )
-   IF nStyle != BS_SOLID
-      nWidth := 1
-   ENDIF
-   nColor := iif( nColor == Nil, 0, nColor )
-
-   FOR EACH i IN ::aPens
-      IF i:style == nStyle .AND. ;
-            i:width == nWidth .AND. ;
-            i:color == nColor
-
-         RETURN i
-      ENDIF
-   NEXT
-
-   RETURN Nil
-
-METHOD RELEASE() CLASS HPen
-   LOCAL i, nlen := Len( ::aPens )
-
-   ::nCounter --
-   IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      FOR EACH i  IN ::aPens
-         IF i:handle == ::handle
-            hwg_Deleteobject( ::handle )
-            ADel( ::aPens, hb_EnumIndex() )
-            ASize( ::aPens, nlen - 1 )
-            EXIT
-         ENDIF
-      NEXT
-#else
-      FOR i := 1 TO nlen
-         IF ::aPens[ i ]:handle == ::handle
-            hwg_Deleteobject( ::handle )
-            ADel( ::aPens, i )
-            ASize( ::aPens, nlen - 1 )
-            EXIT
-         ENDIF
-      NEXT
-#endif
-   ENDIF
-
-   RETURN Nil
-
-   //- HBrush
-
-CLASS HBrush INHERIT HObject
-
-   CLASS VAR aBrushes   INIT { }
-   DATA handle
-   DATA COLOR
-   DATA nHatch   INIT 99
-   DATA nCounter INIT 1
-
-   METHOD Add( nColor, nHatch )
-   METHOD RELEASE()
-
-ENDCLASS
-
-METHOD Add( nColor, nHatch ) CLASS HBrush
-   LOCAL i
-
-   IF nHatch == Nil
-      nHatch := 99
-   ENDIF
-
-   FOR EACH i IN ::aBrushes
-
-      IF i:color == nColor .AND. i:nHatch == nHatch
-         i:nCounter ++
-         RETURN i
-      ENDIF
-   NEXT
-
-   IF nHatch != 99
-      ::handle := hwg_Createhatchbrush( nHatch, nColor )
-   ELSE
-      ::handle := hwg_Createsolidbrush( nColor )
-   ENDIF
-   ::color  := nColor
-   AAdd( ::aBrushes, Self )
-
-   RETURN Self
-
-METHOD RELEASE() CLASS HBrush
-   LOCAL i, nlen := Len( ::aBrushes )
-
-   ::nCounter --
-   IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      FOR EACH i IN ::aBrushes
-         IF i:handle == ::handle
-            hwg_Deleteobject( ::handle )
-            ADel( ::aBrushes, hb_enumindex() )
-            ASize( ::aBrushes, nlen - 1 )
-            EXIT
-         ENDIF
-      NEXT
-#else
-      FOR i := 1 TO nlen
-         IF ::aBrushes[ i ]:handle == ::handle
-            hwg_Deleteobject( ::handle )
-            ADel( ::aBrushes, i )
-            ASize( ::aBrushes, nlen - 1 )
-            EXIT
-         ENDIF
-      NEXT
-#endif
-   ENDIF
-
-   RETURN Nil
+// TODO: mover classes para arquivos individuais
 
    //- HBitmap
 
@@ -773,80 +432,6 @@ METHOD RELEASE() CLASS HIcon
 
    RETURN Nil
 
-CLASS HStyle INHERIT HObject
-
-   CLASS VAR aStyles   INIT { }
-
-   DATA id
-   DATA nOrient
-   DATA aColors
-   DATA oBitmap
-   DATA nBorder
-   DATA tColor
-   DATA oPen
-   DATA aCorners
-
-   METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap )
-   METHOD Draw( hDC, nLeft, nTop, nRight, nBottom )
-ENDCLASS
-
-METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
-
-   LOCAL i, nlen := Len( ::aStyles )
-
-   nBorder := Iif( nBorder == Nil, 0, nBorder )
-   tColor := Iif( tColor == Nil, 0, tColor )
-   nOrient := Iif( nOrient == Nil .OR. nOrient > 9, 1, nOrient )
-
-   FOR i := 1 TO nlen
-      IF hwg_aCompare( ::aStyles[i]:aColors, aColors ) .AND. ;
-         hwg_aCompare( ::aStyles[i]:aCorners, aCorners ) .AND. ;
-         Valtype(::aStyles[i]:tColor) == Valtype(tColor) .AND. ;
-         ::aStyles[i]:nBorder == nBorder .AND. ;
-         ::aStyles[i]:tColor == tColor .AND. ;
-         ::aStyles[i]:nOrient == nOrient .AND. ;
-         ( ( ::aStyles[i]:oBitmap == Nil .AND. oBitmap == Nil ) .OR. ;
-         ( ::aStyles[i]:oBitmap != Nil .AND. oBitmap != Nil .AND. ::aStyles[i]:oBitmap:name == oBitmap:name ) )
-
-         RETURN ::aStyles[ i ]
-      ENDIF
-   NEXT
-
-   ::aColors  := aColors
-   ::nOrient  := nOrient
-   ::nBorder  := nBorder
-   ::tColor   := tColor
-   ::aCorners := aCorners
-   ::oBitmap := oBitmap
-   IF nBorder > 0
-      ::oPen := HPen():Add( BS_SOLID, nBorder, tColor )
-   ENDIF
-
-   AAdd( ::aStyles, Self )
-   ::id := Len( ::aStyles )
-
-   RETURN Self
-
-METHOD Draw( hDC, nLeft, nTop, nRight, nBottom ) CLASS HStyle
-
-   LOCAL n1, n2
-   IF ::oBitmap == Nil
-      hwg_drawGradient( hDC, nLeft, nTop, nRight, nBottom, ::nOrient, ::aColors,, ::aCorners )
-   ELSE
-      hwg_SpreadBitmap( hDC, ::oBitmap:handle, nLeft, nTop, nRight, nBottom )
-   ENDIF
-   IF !Empty( ::oPen )
-      n2 := ::nBorder/2
-      n1 := Int( n2 )
-      IF n2 - n1 > 0.1
-         n2 := n1 + 1
-      ENDIF
-      hwg_Selectobject( hDC, ::oPen:handle )
-      hwg_Rectangle( hDC, nLeft+n1, nTop+n1, nRight-n2, nBottom-n2 )
-   ENDIF
-
-   RETURN Nil
-
 FUNCTION hwg_aCompare( arr1, arr2 )
 
    LOCAL i, nLen
@@ -879,16 +464,16 @@ FUNCTION hwg_BmpFromRes( cBmp )
 
    RETURN handle
 
-/* 
+/*
 
  Functions for Binary Container handling
- List of array elements: 
+ List of array elements:
  OBJ_NAME      1
  OBJ_TYPE      2
  OBJ_VAL       3
  OBJ_SIZE      4
  OBJ_ADDR      5
-*/   
+*/
 
 FUNCTION hwg_SetResContainer( cName )
 * Returns .T., if container is opened successfully
@@ -904,14 +489,14 @@ FUNCTION hwg_SetResContainer( cName )
       ENDIF
    ENDIF
    RETURN .T.
-   
+
 FUNCTION hwg_GetResContainerOpen()
 * Returns .T., if a container is open
 IF !Empty( oResCnt )
  RETURN .T.
 ENDIF
-RETURN .F.   
-   
+RETURN .F.
+
 FUNCTION hwg_GetResContainer()
 * Returns the object of opened container,
 * otherwise NIL
@@ -957,7 +542,7 @@ FUNCTION hwg_ResContItemPosition(cname)
 LOCAL i := 0
 IF hwg_GetResContainerOpen()
  i := oResCnt:GetPos( cname )
-ENDIF 
+ENDIF
 RETURN i
 
 FUNCTION hwg_Bitmap2tmpfile(objBitmap , cname , cfextn)
