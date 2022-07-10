@@ -3,8 +3,6 @@ Special Instructions for Digital-Mars C compiler
 
 Created by DF7BE
 
-   $Id$
-
 
 
 Tested with Windows 10, 64 bit (x86_64).

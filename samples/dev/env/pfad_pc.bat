@@ -2,8 +2,6 @@
 REM
 REM pfad_pc.bat
 REM
-REM $Id: pfad_pc.bat 2932 2021-01-25 16:19:50Z df7be $
-REM
 REM Set environment for Pelles C (32 bit) Compiler
 REM
 REM Modify values to your own needs

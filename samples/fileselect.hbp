@@ -1,7 +1,3 @@
-#
-# $Id: fileselect.hbp 2961 2021-03-14 10:25:21Z df7be $
-#
-
 # Special parameters for LINUX/GTK
 {linux}-lm
 {linux}-static

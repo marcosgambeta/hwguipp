@@ -1,8 +1,3 @@
-#
-# $Id: iesample.hbp 2927 2021-01-12 09:04:12Z df7be $
-#
-
-
 # Only for compile of sample program
 # iesample.hbp
 # needed additional contrib library

@@ -1,6 +1,4 @@
 /*
- *$Id$
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  * tstsplash.prg - Splash sample, displays image at start as logo for n millisecs
  *

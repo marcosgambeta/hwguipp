@@ -2,8 +2,6 @@
 REM
 REM bldmingw.bat
 REM
-REM $Id: bldmingw.bat 2927 2021-01-12 09:04:12Z df7be $
-REM
 REM Batch file compiling single sample prg with HWGUI
 REM by DF7BE
 REM

@@ -1,6 +1,4 @@
 /*
- * $Id: testtree.prg,v 1.2 2005/09/19 10:00:35 alkresin Exp $
- *
  * This sample demonstrates the using of a TREE control
  * 
  */

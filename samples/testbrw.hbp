@@ -1,7 +1,3 @@
-#
-# $Id: testbrw.hbp 3048 2022-01-22 21:13:04Z df7be $
-#
-
 # -stop={linux}
 
 # Special parameters for LINUX/GTK

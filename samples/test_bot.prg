@@ -2,8 +2,6 @@
  * test_bot.prg
  *
  * HWGUI sample display key codes
- * 
- *  $Id$
  *
  * Status:
  *  WinAPI   :  Yes

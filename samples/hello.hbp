@@ -1,7 +1,3 @@
-#
-# $Id: hello.hbp 3043 2022-01-16 11:34:51Z df7be $
-#
-
 # -stop={linux}
 
 # Special parameters for LINUX/GTK

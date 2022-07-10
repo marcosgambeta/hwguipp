@@ -1,6 +1,4 @@
 /*
- * $Id: bincnts.prg 3064 2022-02-23 15:00:18Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  *  bincnts.prg

@@ -1,6 +1,4 @@
 /*
- * $Id: testxml.prg,v 1.2 2007/04/07 16:33:18 alkresin Exp $
- *
  * This sample demonstrates reading/writing XML file and handling menu items
  * while run-time.
  */

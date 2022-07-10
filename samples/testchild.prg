@@ -1,7 +1,5 @@
 /*
  * HWGUI using sample
- * 
- * $Id$
  *
  * Jose Augusto M de Andrade Jr - jamaj@terra.com.br
  * 

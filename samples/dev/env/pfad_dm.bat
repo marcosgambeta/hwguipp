@@ -2,8 +2,6 @@
 REM
 REM pfad_dm.bat
 REM
-REM $Id: pfad_dm.bat 2851 2020-06-06 11:19:27Z df7be $
-REM
 REM Set environment for Digital Mars C (32 bit) Compiler
 REM
 REM Modify values to your own needs

@@ -2,8 +2,6 @@
  * HWGUI using sample
  * Property sheet
  *
- * $Id$
- *
  * Copyright 2001 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su
  *

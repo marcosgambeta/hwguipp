@@ -1,7 +1,5 @@
 Cross develop environment on Windows for GTK
 ============================================
-
-  $Id: Readme.txt 2820 2020-03-28 22:19:15Z df7be $
   
 Created by DF7BE  
 

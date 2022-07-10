@@ -5,8 +5,6 @@
 # Harbour Project source code:
 # Header file to allow colors in qout()
 
-# $Id: colors.sh 2930 2021-01-17 14:55:54Z df7be $
-
 # Shell script setting and exporting shell variables with
 # color definitions.
 #

@@ -1,7 +1,5 @@
-* 
-* Readme.txt
 *
-* $Id: Readme.txt 2851 2020-06-06 11:19:27Z df7be $
+* Readme.txt
 *
 * 
 Sample batches for environment settings for several compilers:

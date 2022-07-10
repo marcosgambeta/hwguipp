@@ -2,8 +2,6 @@
 REM
 REM pfad_wc.bat
 REM
-REM $Id: pfad_wc.bat 2849 2020-06-01 11:47:34Z df7be $
-REM
 REM Set environment for Open Watcom C (64 bit) Compiler
 REM
 REM Modify values to your own needs

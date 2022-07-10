@@ -1,7 +1,4 @@
 /*
- *
- * $Id: hexres.ch 2891 2020-10-10 22:00:28Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  * hexres.ch

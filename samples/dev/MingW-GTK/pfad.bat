@@ -1,7 +1,4 @@
 @echo off
-REM
-REM $Id: pfad.bat 2814 2020-03-11 17:06:45Z df7be $
-REM
 REM HWGUI source code
 REM Set path for MingW + Harbour
 REM Pfad fuer MingW + Harbour setzen

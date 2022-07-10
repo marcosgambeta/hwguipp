@@ -2,8 +2,6 @@
 REM
 REM hbmk64.bat
 REM
-REM $Id: hbmk64.bat 2845 2020-05-29 07:20:13Z df7be $
-REM
 REM Compile a sample with hbmk2 utility with MinGW64
 REM Call script "pfad64.bat" for setting environment variables before usage.
 REM

@@ -3,8 +3,6 @@ Special Instructions for Borland C compiler (32 bit)
 
 Created by DF7BE
 
-   $Id: Borland-C.txt 2849 2020-06-01 11:47:34Z df7be $
-
 Valid for Version :
 Borland C++ 5.82 for Win32
 

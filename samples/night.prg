@@ -2,8 +2,6 @@
  *
  * night.prg
  *
- * $Id: night.prg 3063 2022-02-22 22:55:43Z df7be $
- *
  * HWGUI - Harbour Win32 GUI and GTK library source code:
  * Sample for "ADD HEADER PANEL" for a night mode application
  *

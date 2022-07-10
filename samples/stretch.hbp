@@ -1,7 +1,3 @@
-#
-# $Id: stretch.hbp 3053 2022-02-08 23:58:25Z df7be $
-#
-
 # -stop={linux}
 
 # Special parameters for LINUX/GTK

@@ -1,9 +1,7 @@
 *
-* $Id$
-*
 * HWGUI test tray sample for WinAPI and GTK/LINUX
 *
-* Copyright 2022 Wilfried Brunken, DF7BE 
+* Copyright 2022 Wilfried Brunken, DF7BE
 * https://sourceforge.net/projects/cllog/
 *
 * License:

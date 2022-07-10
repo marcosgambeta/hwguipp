@@ -1,6 +1,4 @@
 /*
- * $Id: TwoListbox.prg 2961 2021-03-14 10:25:21Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  *  TwoListbox.prg
@@ -37,7 +35,8 @@
    #include "ttable.ch"
 #endif
 
-MEMVAR  oItems1w, oItems2w
+
+MEMVAR  oItems1w, oItems2w
 
 * --------------------------------------------
 Function Main

@@ -3,8 +3,6 @@
  * testimage.prg
  *
  * Test program sample for displaying images and usage of FreeImage library.
- * 
- * $Id: testimage.prg 3053 2022-02-08 23:58:25Z df7be $
  *
  * Copyright 2005 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su

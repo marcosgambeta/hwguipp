@@ -1,7 +1,3 @@
-#
-# $Id: readme2.txt 3002 2021-08-01 17:00:48Z josequintas $
-#
-
 # Use this as a template for building your application with HWGUI
 # and the hbmk2 utility of Harbour.
 # Remove comment lines (#), if you want

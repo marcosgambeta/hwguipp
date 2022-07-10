@@ -1,7 +1,6 @@
 /*
- * $Id: shadebtn.prg,v 1.1 2006/12/29 10:18:55 alkresin Exp $
  * Shade buttons sample
- * 
+ *
 */
 
 #include "hwgui.ch"

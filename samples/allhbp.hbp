@@ -1,11 +1,9 @@
 #
 # allhbp.hbp
 #
-# $Id$
-#
 # File for hbmk2 utility for building:
 # - HWGUI
-# - Utils 
+# - Utils
 # - All sample programs and contrib's
 #
 

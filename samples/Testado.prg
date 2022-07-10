@@ -3,8 +3,6 @@
  * Testado.prg
  *
  * Test program sample for ADO Browse.
- * 
- * $Id: Testado.prg 2883 2020-09-19 07:42:30Z df7be $
  *
  * Copyright 2005 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su

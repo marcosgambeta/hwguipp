@@ -1,6 +1,4 @@
 /*
- * $Id: icons.prg 2865 2020-08-04 07:14:02Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  *  icons.prg

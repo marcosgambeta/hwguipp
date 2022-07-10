@@ -2,8 +2,6 @@
 #
 # build.sh
 # 
-# $Id: build.sh 2891 2020-10-10 22:00:28Z df7be $
-#
 # Shell script building HWGUI samples for LINUX/GTK
 #
 # Modify path to Harbour to your own needs

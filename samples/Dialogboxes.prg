@@ -1,6 +1,4 @@
 /*
- * $Id: Dialogboxes.prg 2969 2021-04-09 08:40:38Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  * This sample demonstrates few ready to use dialog boxes

@@ -2,8 +2,6 @@
 REM
 REM pfad_bc.bat
 REM
-REM $Id: pfad_bc.bat 2849 2020-06-01 11:47:34Z df7be $
-REM
 REM Set environment for Borland C (32 bit) Compiler
 REM
 REM Modify values to your own needs

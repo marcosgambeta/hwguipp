@@ -1,11 +1,9 @@
 /*
  * hello.prg
  *
- * $Id$
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
- * Sample program for 
+ * Sample program for
  * some elements: Edit field, tabs, tree view, combobox, ...
  *
  * Copyright 2005-2022 Alexander S.Kresin <alex@kresin.ru>

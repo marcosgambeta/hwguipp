@@ -1,6 +1,4 @@
 /*
- * $Id: qoutcolor.prg 2930 2021-01-17 14:55:54Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  * Sample program allow colors in qout()
  *

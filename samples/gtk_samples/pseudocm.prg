@@ -1,7 +1,6 @@
-/* 
+/*
   pseudocm.prg
 
-  $Id: pseudocm.prg 2962 2021-03-14 14:34:08Z df7be $
   HWGUI example
   Pseudo context menu (mouse right click) for BRWOSE.
   

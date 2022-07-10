@@ -1,6 +1,4 @@
 /*
- * $Id: progbars.prg,v 1.2 2006/06/15 06:06:06 alkresin Exp $
- *
  * HWGUI - Harbour Win32 GUI library
  * Sample of using HProgressBar class
  *

@@ -1,6 +1,4 @@
 /*
- * $Id: demohlistsub.prg 2832 2020-04-28 21:09:12Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  *  demohlistsub.prg

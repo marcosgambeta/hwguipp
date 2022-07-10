@@ -2,8 +2,6 @@
  *
  * testspli.prg
  *
- * $Id$
- *
  * HWGUI - Harbour Win32 GUI and GTK library source code:
  * Sample for split windows
  *

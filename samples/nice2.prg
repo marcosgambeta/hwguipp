@@ -1,8 +1,6 @@
 /*
  * nice2.prg
  *
- * $Id$
- *
  * HWGUI - Harbour Win32 GUI library
  *
  *  nice2.prg

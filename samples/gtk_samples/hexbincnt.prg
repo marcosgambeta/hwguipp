@@ -1,6 +1,4 @@
 /*
- * $Id: hexbincnt.prg 2877 2020-09-06 22:14:24Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  *  hexbincnt.prg

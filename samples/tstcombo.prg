@@ -1,6 +1,4 @@
 /*
- * $Id: tstcombo.prg,v 1.2 2004/05/13 12:46:20 rodrigo_moreno Exp $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HGrid class
  *

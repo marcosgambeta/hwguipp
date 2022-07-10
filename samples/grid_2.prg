@@ -1,6 +1,4 @@
 /*
- * $Id: grid_2.prg,v 1.1 2004/04/05 14:16:35 rodrigo_moreno Exp $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HGrid class
  *
@@ -63,25 +61,42 @@ Function Test()
 Return Nil
 
 Function ConnectGrid()
-    Local cHost := 'Localhost'
-    Local cDatabase := 'test'
-    Local cUser := 'Rodrigo'
-    Local cPass := 'moreno'
-    Local oRow, i
-    
-    oServer := TPQServer():New(cHost, cDatabase, cUser, cPass)
-
-    if oServer:NetErr()
-        ? oServer:Error()
-        quit
-    end
+    Local cHost := 'Localhost'
+
+    Local cDatabase := 'test'
+
+    Local cUser := 'Rodrigo'
+
+    Local cPass := 'moreno'
+
+    Local oRow, i
+
     
-    if oServer:TableExists('test')
+
+    oServer := TPQServer():New(cHost, cDatabase, cUser, cPass)
+
+
+
+    if oServer:NetErr()
+
+        ? oServer:Error()
+
+        quit
+
+    end
+
+    
+    if oServer:TableExists('test')
+
         oServer:DeleteTable('Test')
-    endif        
-    
-    oServer:CreateTable('Test', {{'col1', 'N', 6, 0},;
-                                 {'col2', 'C', 40,0},;
+    endif        
+
+    
+
+    oServer:CreateTable('Test', {{'col1', 'N', 6, 0},;
+
+                                 {'col2', 'C', 40,0},;
+
                                  {'col3', 'D', 8, 0}})
         
     oQuery := oServer:Query('SELECT * FROM test')

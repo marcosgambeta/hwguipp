@@ -1,8 +1,6 @@
 List of HWGUI sample programs for WinAPI
 ========================================
 
-$Id: Readme.txt 3064 2022-02-23 15:00:18Z df7be $
-
 Created by DF7BE
 
 1.) Learn more about HWGUI with this sample programs.

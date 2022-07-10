@@ -1,8 +1,6 @@
 List of HWGUI sample programs for GTK
 =====================================
 
-$Id: Readme.txt 2929 2021-01-14 12:14:20Z df7be $
-
 Created by DF7BE
 
 1.) Learn more about HWGUI with this sample programs.

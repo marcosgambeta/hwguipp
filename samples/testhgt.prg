@@ -1,8 +1,6 @@
 /*
 
  testhgt.prg
- 
- $Id: testhgt.prg 2911 2020-12-06 21:27:52Z df7be $
 
  HWGUI Sample program for usage of 
  class HGT for combined usage of HWGUI control elements in 

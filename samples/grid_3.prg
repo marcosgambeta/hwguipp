@@ -1,6 +1,4 @@
 /*
- * $Id: grid_3.prg,v 1.1 2004/04/05 14:16:35 rodrigo_moreno Exp $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HGrid class
  *
@@ -40,8 +38,10 @@ Function Main()
         res := PQexec(conn, 'CLOSE cursor_1')
         PQclear(res)    
         
-        res = PQexec(conn, "END")
-        PQclear(res)
+        res = PQexec(conn, "END")
+
+        PQclear(res)
+
 
         PQClose(conn)
         
@@ -151,10 +151,12 @@ Function CriaBase()
             quit
         endif
 
-        res := PQexec(conn, "drop table test")
+        res := PQexec(conn, "drop table test")
+
         PQclear(res)    
 
-        res := PQexec(conn, "create table test (code numeric(10), creation date, descr char(40))")
+        res := PQexec(conn, "create table test (code numeric(10), creation date, descr char(40))")
+
         PQclear(res)    
 
         For i := 1 to 100
@@ -162,7 +164,8 @@ Function CriaBase()
             PQclear(res)    
         Next  
         
-        res = PQexec(conn, "BEGIN")
+        res = PQexec(conn, "BEGIN")
+
         PQclear(res)    
 
         res := PQexec(conn, 'DECLARE cursor_1 NO SCROLL CURSOR WITH HOLD FOR SELECT * FROM test')        

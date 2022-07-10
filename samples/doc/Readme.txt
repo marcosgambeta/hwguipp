@@ -1,8 +1,5 @@
-
-  $Id: Readme.txt 3057 2022-02-13 22:09:57Z df7be $
-
 Extra information about HWGUI sample programs
-=============================================  
+=============================================
   
 This directory contains additional information about
 sample programs.

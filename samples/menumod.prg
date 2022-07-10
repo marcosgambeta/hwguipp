@@ -1,6 +1,4 @@
 /*
- * $Id: menumod.prg 2961 2021-03-14 10:25:21Z df7be $
- *
  * This sample demonstrates handling menu items
  * while run-time in dialogs.
  */

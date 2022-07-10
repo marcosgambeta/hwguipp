@@ -1,6 +1,4 @@
 /*
- * $Id: stretch.prg 3056 2022-02-11 09:48:24Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  *  stretch.prg

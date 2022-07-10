@@ -2,8 +2,6 @@
  *
  * colrbloc.prg
  *
- * $Id$
- *
  * Demo by HwGUI Alexander Kresin
  *  http://kresin.belgorod.su/
  *

@@ -1,7 +1,5 @@
 /*
  * HWinPrn using sample
- * 
- * $Id: winprn.prg 2962 2021-03-14 14:34:08Z df7be $
  *
  * Copyright 2005 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su

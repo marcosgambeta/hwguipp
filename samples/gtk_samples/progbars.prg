@@ -1,6 +1,4 @@
 /*
- * $Id: progbars.prg 2962 2021-03-14 14:34:08Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library
  * Sample of using HProgressBar class
  *

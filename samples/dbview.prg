@@ -1,6 +1,4 @@
 /*
- *$Id: dbview.prg 3051 2022-01-29 21:16:21Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  * dbview.prg - dbf browsing sample
  *

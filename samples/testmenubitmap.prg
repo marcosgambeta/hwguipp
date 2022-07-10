@@ -1,6 +1,4 @@
 /*
- * $Id: TestMenuBitmap.prg,v 1.6 2004/05/05 18:27:14 sandrorrfreire Exp $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level menu functions
  *
@@ -11,7 +9,7 @@
  *
  * Modified by DF7BE:
  * See ticket #31: This example crashes
- * To avoid crash: 
+ * To avoid crash:
  * - use ralative paths for bitmap files
  * - Check, if bitmap file really exits
  *
@@ -21,7 +19,7 @@
  * Called from source\winapi/menu.prg->HWG_DEFINEMENUITEM(250)
  * Called from testmenubitmap.prg->MAIN(48)
 
- * For GTK test copy sample program to directory samples\gtk_samples 
+ * For GTK test copy sample program to directory samples\gtk_samples
 */
 
     * Status:
@@ -31,28 +29,28 @@
 
 *   Need to port functions HWG_INSERTBITMAPMENU() and
 *   HWG__INSERTBITMAPMENU() to GTK
-*   Source files : menu_c.c and menu.prg 
+*   Source files : menu_c.c and menu.prg
 *   (source\winapi\menu.prg)
 
 
 #include "windows.ch"
 #include "guilib.ch"
 
- 
+
 Function Main
 Local oMain
 Local cbmpexit, cbmpnew, cbmpopen, cbmplogo, bbmperror , cimagepath
 Private oMenu
 
  bbmperror := .F.
- 
+
 
  * Use relative paths
 #ifdef __GTK__
   cimagepath := ".." + hwg_GetDirSep() + ".." + hwg_GetDirSep() + "image" + hwg_GetDirSep()
 #else
   cimagepath := "..\image\"
-#endif 
+#endif
  cbmpexit := cimagepath + "exit_m.bmp"
  cbmpnew  := cimagepath + "new_m.bmp"
  cbmpopen := cimagepath + "open_m.bmp"
@@ -73,12 +71,12 @@ Private oMenu
   IF .NOT. FILE(cbmplogo)
   hwg_MsgStop("Error: File not exists: " + cbmplogo, "Bitmap error")
   bbmperror := .T.
- ENDIF 
+ ENDIF
  * Exit, if bitmap error
  IF bbmperror
-  RETURN NIL 
+  RETURN NIL
  ENDIF
- 
+
         INIT WINDOW oMain MAIN TITLE "Teste" ;
              AT 0,0 ;//BACKGROUND BITMAP OBMP;
              SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28

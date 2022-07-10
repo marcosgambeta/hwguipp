@@ -1,6 +1,4 @@
 /*
- * $Id: modtitle.prg 2961 2021-03-14 10:25:21Z df7be $
- *
  * Sample for modifying a main window title in HWGUI
  * ( Harbour + HWGUI )
  *

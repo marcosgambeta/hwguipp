@@ -1,6 +1,4 @@
 /*
- * $Id: simpleedit.prg 2927 2021-01-12 09:04:12Z df7be $
- *
  * HWGUI - Harbour GUI library source code:
  * Simple texxt editor demonstrating hwg_Memoedit() and hwg_MemoCmp()
  *

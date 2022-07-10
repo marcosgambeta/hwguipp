@@ -1,6 +1,4 @@
 /*
- * $Id: testsdi.prg,v 1.2 2005/09/19 16:32:44 lf_sfnet Exp $
- *
  * This sample demonstrates the using of a TREE control
  * 
  */

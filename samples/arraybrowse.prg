@@ -2,8 +2,6 @@
  *
  * arraybrowse.prg
  *
- * $Id: arraybrowse.prg 3071 2022-05-05 21:34:03Z df7be $
- *
  * HWGUI - Harbour Win32 GUI and GTK library source code:
  * Sample for HBROWSE class for arrays
  *

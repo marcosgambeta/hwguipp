@@ -1,7 +1,5 @@
 *
 * escrita.prg
-* 
-* $Id: escrita.prg 3058 2022-02-15 08:44:11Z df7be $
 *
 * HWGUI sample program:
 * Tool buttons with bitmaps

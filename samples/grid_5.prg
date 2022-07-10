@@ -1,6 +1,4 @@
 /*
- * $Id: grid_5.prg,v 1.1 2004/04/05 14:16:35 rodrigo_moreno Exp $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HGrid class
  *

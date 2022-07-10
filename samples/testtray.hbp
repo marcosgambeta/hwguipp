@@ -1,7 +1,3 @@
-#
-# $Id: testtray.hbp 2961 2021-03-14 10:25:21Z df7be $
-#
-
 -stop={linux}
 
 # Special parameters for LINUX/GTK

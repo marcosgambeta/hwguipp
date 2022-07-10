@@ -1,6 +1,4 @@
 /*
- *$Id: buildpelles.prg,v 1.5 2006/09/13 15:47:24 alkresin Exp $
- *
  * HWGUI - Harbour Win32 GUI library 
  * 
  * File to Build APP using Pelles C Compiler

@@ -1,6 +1,4 @@
 /*
- *$Id$
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  * testbrw.prg - another browsing sample (array)
  *

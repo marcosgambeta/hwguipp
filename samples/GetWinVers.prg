@@ -1,8 +1,6 @@
 /*
  * GetWinVers.prg
  *
- * $Id: GetWinVers.prg 2831 2020-04-24 16:29:38Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * Sample for getting windows version identifiers
  *

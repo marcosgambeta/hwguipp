@@ -1,6 +1,4 @@
 /*
- * $Id: icons2.prg 2961 2021-03-14 10:25:21Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  *  icons2.prg

@@ -2,8 +2,6 @@
  *
  * datepicker.prg
  *
- * $Id: datepicker.prg 3050 2022-01-26 22:45:52Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  * This sample demonstrates:

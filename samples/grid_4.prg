@@ -1,6 +1,4 @@
 /*
- * $Id: grid_4.prg,v 1.1 2004/04/05 14:16:35 rodrigo_moreno Exp $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HGrid class
  *
@@ -82,7 +80,8 @@ Function FileOpen()
         fname := hwg_Selectfile( "Select File", "*.*")
   
         Zap
-        APPEND FROM (fname) SDF
+        APPEND FROM (fname) SDF
+
 Return Test()
 
 

@@ -2,8 +2,6 @@
  *
  * testget1.prg
  *
- * $Id$
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  * This sample demonstrates:

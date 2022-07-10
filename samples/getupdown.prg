@@ -1,11 +1,9 @@
 /*
  * HWGUI sample demonstrates usage of @ <x> <y> GET UPDOWN ..
- * See ticket #19 from 
+ * See ticket #19 from
  *
  * Copyright 2020 Wilfried Brunken, DF7BE
  *
- * $Id: getupdown.prg 2961 2021-03-14 10:25:21Z df7be $
- *  
  * [hwgui:support-requests] #19 how to set updown value
  * 
  * Status:

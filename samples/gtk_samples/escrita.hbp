@@ -1,7 +1,3 @@
-#
-# $Id: escrita.hbp 2957 2021-03-08 23:32:43Z df7be $
-#
-
 -stop={win}
 
 ../../hwguipp.hbc

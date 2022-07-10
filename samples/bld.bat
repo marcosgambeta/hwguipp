@@ -2,9 +2,6 @@
 REM
 REM Build script HWGUI sample for Borland C Compiler
 REM
-REM $Id$
-REM
-REM
 REM Before usage, start environment script:
 REM ..\..\samples\dev\env\pfad_bc.bat
 REM Modify this to your own needs

@@ -3,8 +3,6 @@
  * testfunc.prg
  *
  * Test program sample for HWGUI (hwg_*) standalone functions
- * 
- * $Id: testfunc.prg 3073 2022-05-18 21:37:51Z df7be $
  *
  * Copyright 2005 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su

@@ -1,6 +1,4 @@
 /*
- * $Id: testrtf.prg,v 1.2 2004/03/18 09:20:25 alkresin Exp $
- *
  * The sample implemented by Sandro Freire <sandrorrfreire@yahoo.com.br>
  */
 

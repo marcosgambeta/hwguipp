@@ -2,8 +2,6 @@ REM @echo off
 REM
 REM hbmk.bat
 REM
-REM $Id$
-REM
 REM Compile sample program with hbmk2 utility.
 REM
 rem set path=c:\hb30\bin;c:\hb30\comp\mingw\bin

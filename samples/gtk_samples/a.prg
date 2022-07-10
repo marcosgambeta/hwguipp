@@ -1,7 +1,6 @@
 /*
- * $Id: a.prg 2957 2021-03-08 23:32:43Z df7be $
  * HWGUI using sample
- * 
+ *
  *
  * Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
  * www - http://www.kresin.ru

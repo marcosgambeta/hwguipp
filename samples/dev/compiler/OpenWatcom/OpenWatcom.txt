@@ -3,8 +3,6 @@ Special Instructions for OpenWatcom C compiler
 
 Created by DF7BE
 
-   $Id: OpenWatcom.txt 3038 2021-12-30 22:54:34Z df7be $
-
 
 Valid for Version :
 -------------------
