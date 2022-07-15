@@ -722,7 +722,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    LOCAL nCtrl := Ascan( aClass, oCtrlTmpl:cClass ), xInitValue, cInitName, cVarName
    LOCAL i
    * Not used variables
-   * block 
+   * block
 
    MEMVAR oPrnt, nId, nInitValue, cInitValue, dInitValue, nStyle, nLeft, nTop, oStyle, aStyles
    MEMVAR onInit, onSize, onPaint, onEnter, onGetfocus, onLostfocus, lNoVScroll, lAppend, lAutoedit, bUpdate, onKeyDown, onPosChg
@@ -850,7 +850,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
             cVarName := xProperty
             bSetGet := &( "{|v|Iif(v==Nil,HFormTmpl():F("+LTrim(Str(oForm:id))+"):" + xProperty + ",HFormTmpl():F("+LTrim(Str(oForm:id))+"):" + xProperty + ":=v)}" )
             IF __objSendMsg( oForm, xProperty ) == Nil
-               __objSendMsg( oForm, '_'+xProperty, xInitValue )
+               __objSendMsg( oForm, "_"+xProperty, xInitValue )
             ELSEIF cInitName != Nil
                __mvPut( cInitName, __objSendMsg( oForm, xProperty ) )
             ENDIF
@@ -999,7 +999,7 @@ FUNCTION hwg_hfrm_FontFromXML( oXmlNode, lReport )
       width := Val( width )
    ENDIF
    IF height != Nil
-      IF !Empty( lReport ) .AND. ( i := At( 'M',height ) ) != 0
+      IF !Empty( lReport ) .AND. ( i := At( "M",height ) ) != 0
          IF Empty( nVertRes )
             hDC := hwg_Getdc( hWnd := hwg_Getactivewindow() )
             aMetr  := hwg_Getdevicearea( hDC )
@@ -1076,9 +1076,9 @@ FUNCTION hwg_hfrm_Str2Arr( stroka )
 
    IF Len( stroka ) > 2
       DO WHILE pos2 > 0
-         DO WHILE SubStr( stroka, pos1, 1 ) <= ' ' ; pos1 ++ ; ENDDO
-         pos2 := hb_At( ',', stroka, pos1 )
-         AAdd( arr, Trim( SubStr( stroka,pos1,Iif( pos2 > 0,pos2 - pos1,hb_At('}',stroka,pos1 ) - pos1 ) ) ) )
+         DO WHILE SubStr( stroka, pos1, 1 ) <= " " ; pos1 ++ ; ENDDO
+         pos2 := hb_At( ",", stroka, pos1 )
+         AAdd( arr, Trim( SubStr( stroka,pos1,Iif( pos2 > 0,pos2 - pos1,hb_At("}",stroka,pos1 ) - pos1 ) ) ) )
          pos1 := pos2 + 1
       ENDDO
    ENDIF
@@ -1738,7 +1738,7 @@ STATIC FUNCTION hrep_FontFromXML( oPrinter, oXmlNode, nKoeff, nFontH )
 
    IF !Empty( nFontH )
       height := nFontH * nKoeff
-   ELSEIF ( nPos := At( 'M',height ) ) != 0
+   ELSEIF ( nPos := At( "M",height ) ) != 0
       height := - Round( Val( SubStr(height,nPos + 1 ) ) * nKoeff, 0 )
    ELSE
       height := Val( height ) * nKoeff

@@ -799,7 +799,7 @@ STATIC FUNCTION onMdiNcActivate( oWnd, wParam )
 
 STATIC FUNCTION onCloseQuery( o )
 
-   IF ValType( o:bCloseQuery ) = 'B'
+   IF ValType( o:bCloseQuery ) = "B"
       IF Eval( o:bCloseQuery )
          hwg_ReleaseAllWindows( o:handle )
       end

@@ -52,10 +52,10 @@ CLASS PrintDos
    // After call of Init method, you can update the array with messages in your
    // desired language.
    // Sample: Preview( , , aLangTexts, )
-   // Structure of array look at 
+   // Structure of array look at
    // hwg_HPrinter_LangArray_EN() in file hprinter.prg
    // Copy your own language message array direct after
-   // call of METHOD ::New()   
+   // call of METHOD ::New()
 
    METHOD New( oPorta ) CONSTRUCTOR
    

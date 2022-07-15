@@ -348,7 +348,7 @@ FUNCTION hwg_HdSerial( cDrive )
 
    LOCAL cHex := hb_Numtohex( hwg_Hdgetserial( cDrive ) )
 
-   RETURN SubStr( cHex, 1, 4 ) + '-' + SubStr( cHex, 5, 4 )
+   RETURN SubStr( cHex, 1, 4 ) + "-" + SubStr( cHex, 5, 4 )
 
 FUNCTION Hwg_GetIni( cSection, cEntry, cDefault, cFile )
 
@@ -410,7 +410,7 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
       FOR i := 1 TO Len( cFile ) //EACH cChar IN cFile
          cChar := cFile[i]
          IF cChar == 0
-            AAdd( aFiles, StrTran( cPath, Chr(0 ), "" ) + '\' + cItem )
+            AAdd( aFiles, StrTran( cPath, Chr(0 ), "" ) + "\" + cItem )
             cItem := ""
             LOOP
          ENDIF

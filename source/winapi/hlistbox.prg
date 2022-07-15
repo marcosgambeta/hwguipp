@@ -156,7 +156,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
       IF wParam = VK_TAB //.AND. nType < WND_DLG_RESOURCE
          hwg_GetSkip( ::oParent, ::handle, , iif( hwg_IsCtrlShift(.f., .t.), -1, 1) )
       ENDIF
-         IF ::bKeyDown != Nil .and. ValType( ::bKeyDown ) == 'B'
+         IF ::bKeyDown != Nil .and. ValType( ::bKeyDown ) == "B"
          nEval := Eval( ::bKeyDown, Self, wParam )
          IF (VALTYPE( nEval ) == "L" .AND. ! nEval ) .OR. ( nEval != -1 .AND. nEval != Nil )
             RETURN 0
@@ -256,7 +256,7 @@ METHOD When( oCtrl ) CLASS HListBox
    HB_SYMBOL_UNUSED( oCtrl )
 
 *    nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .or. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
-*    Warning W0027  Meaningless use of expression 'Numeric'   
+*    Warning W0027  Meaningless use of expression "Numeric"   
 *   IIf( hwg_Getkeystate( VK_UP ) < 0 .or. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
 
    IF ::bSetGet != Nil

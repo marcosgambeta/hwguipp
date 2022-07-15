@@ -1188,10 +1188,10 @@ METHOD PrintDlg(aTooltips) CLASS HPrinter
          ::PrintDoc( ::nCurrPage )
       ELSEIF !Empty( cpages )
          arr := {}
-         arrt := hb_aTokens( cpages, ',' )
+         arrt := hb_aTokens( cpages, "," )
          FOR i := 1 TO Len( arrt )
             Aadd( arr, n1 := Val( Ltrim( arrt[i] ) ) )
-            IF ( nPos := At( '-', arrt[i] ) ) != 0
+            IF ( nPos := At( "-", arrt[i] ) ) != 0
                n2 := Val( Ltrim( Substr( arrt[i],nPos+1 ) ) )
                FOR j := n1+1 TO n2
                   Aadd( arr, j )
