@@ -97,8 +97,8 @@ METHOD AddResource( name, nFlags, lOEM, nWidth, nHeight ) CLASS HBitmap
    ENDIF
    ::name    := name
    aBmpSize  := hwg_Getbitmapsize( ::handle )
-   ::nWidth  := aBmpSize[ 1 ]
-   ::nHeight := aBmpSize[ 2 ]
+   ::nWidth  := aBmpSize[1]
+   ::nHeight := aBmpSize[2]
    ::nFlags  :=  nFlags
    AAdd( ::aBitmaps, Self )
 
@@ -120,8 +120,8 @@ METHOD AddStandard( nId ) CLASS HBitmap
    ENDIF
    ::name   := name
    aBmpSize  := hwg_Getbitmapsize( ::handle )
-   ::nWidth  := aBmpSize[ 1 ]
-   ::nHeight := aBmpSize[ 2 ]
+   ::nWidth  := aBmpSize[1]
+   ::nHeight := aBmpSize[2]
    AAdd( ::aBitmaps, Self )
 
    RETURN Self
@@ -169,8 +169,8 @@ METHOD AddFile( name, hDC, lTransparent, nWidth, nHeight ) CLASS HBitmap
    ENDIF
    ::name := cname
    aBmpSize  := hwg_Getbitmapsize( ::handle )
-   ::nWidth  := aBmpSize[ 1 ]
-   ::nHeight := aBmpSize[ 2 ]
+   ::nWidth  := aBmpSize[1]
+   ::nHeight := aBmpSize[2]
    AAdd( ::aBitmaps, Self )
 
    RETURN Self
@@ -215,8 +215,8 @@ METHOD AddWindow( oWnd, x1, y1, width, height ) CLASS HBitmap
    ::handle := hwg_Window2bitmap( oWnd:handle, x1, y1, width, height )
    ::name := LTrim( hb_valToStr( oWnd:handle ) )
    aBmpSize  := hwg_Getbitmapsize( ::handle )
-   ::nWidth  := aBmpSize[ 1 ]
-   ::nHeight := aBmpSize[ 2 ]
+   ::nWidth  := aBmpSize[1]
+   ::nHeight := aBmpSize[2]
    AAdd( ::aBitmaps, Self )
 
    RETURN Self
@@ -247,7 +247,7 @@ METHOD RELEASE() CLASS HBitmap
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aBitmaps[ i ]:handle == ::handle
+         IF ::aBitmaps[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aBitmaps, i )
             ASize( ::aBitmaps, nlen - 1 )
@@ -320,8 +320,8 @@ METHOD AddResource( name, nWidth, nHeight, nFlags, lOEM ) CLASS HIcon
    ENDIF
    ::name   := name
    aIconSize := hwg_Geticonsize( ::handle )
-   ::nWidth  := aIconSize[ 1 ]
-   ::nHeight := aIconSize[ 2 ]
+   ::nWidth  := aIconSize[1]
+   ::nHeight := aIconSize[2]
    //hwg_writelog( Str(::nWidth)+"/"+str(::nHeight) )
 
    AAdd( ::aIcons, Self )
@@ -351,8 +351,8 @@ METHOD AddString( name, cVal , nWidth, nHeight) CLASS HIcon
  ::handle := hwg_Loadimage( 0, cTmp, IMAGE_ICON, nWidth, nHeight, LR_DEFAULTSIZE + LR_LOADFROMFILE + LR_SHARED )
  ::name := name
   aIconSize := hwg_Geticonsize( ::handle )
- ::nWidth  := aIconSize[ 1 ]
- ::nHeight := aIconSize[ 2 ]
+ ::nWidth  := aIconSize[1]
+ ::nHeight := aIconSize[2]
 
    AAdd( ::aIcons, Self )
 
@@ -397,8 +397,8 @@ METHOD AddFile( name, nWidth, nHeight ) CLASS HIcon
    ::handle := hwg_Loadimage( 0, name, IMAGE_ICON, nWidth, nHeight, LR_DEFAULTSIZE + LR_LOADFROMFILE + LR_SHARED )
    ::name := cname
    aIconSize := hwg_Geticonsize( ::handle )
-   ::nWidth  := aIconSize[ 1 ]
-   ::nHeight := aIconSize[ 2 ]
+   ::nWidth  := aIconSize[1]
+   ::nHeight := aIconSize[2]
 
    AAdd( ::aIcons, Self )
 
@@ -420,7 +420,7 @@ METHOD RELEASE() CLASS HIcon
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aIcons[ i ]:handle == ::handle
+         IF ::aIcons[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aIcons, i )
             ASize( ::aIcons, nlen - 1 )
@@ -591,19 +591,19 @@ EXIT PROCEDURE CleanDrawWidg
    LOCAL i
 
    FOR i := 1 TO Len( HPen():aPens )
-      hwg_Deleteobject( HPen():aPens[ i ]:handle )
+      hwg_Deleteobject( HPen():aPens[i]:handle )
    NEXT
    FOR i := 1 TO Len( HBrush():aBrushes )
-      hwg_Deleteobject( HBrush():aBrushes[ i ]:handle )
+      hwg_Deleteobject( HBrush():aBrushes[i]:handle )
    NEXT
    FOR i := 1 TO Len( HFont():aFonts )
-      hwg_Deleteobject( HFont():aFonts[ i ]:handle )
+      hwg_Deleteobject( HFont():aFonts[i]:handle )
    NEXT
    FOR i := 1 TO Len( HBitmap():aBitmaps )
-      hwg_Deleteobject( HBitmap():aBitmaps[ i ]:handle )
+      hwg_Deleteobject( HBitmap():aBitmaps[i]:handle )
    NEXT
    FOR i := 1 TO Len( HIcon():aIcons )
-      hwg_Deleteobject( HIcon():aIcons[ i ]:handle )
+      hwg_Deleteobject( HIcon():aIcons[i]:handle )
    NEXT
    IF !Empty( oResCnt )
       oResCnt:Close()
@@ -625,7 +625,7 @@ FUNCTION hwg_FontSetCharset ( oFont, nCharSet  )
    oFont:charset := nCharSet
 
  FOR i := 1 TO nlen
-        oFont:aFonts[ i ]:CharSet := nCharSet
+        oFont:aFonts[i]:CharSet := nCharSet
  NEXT
 
 RETURN oFont

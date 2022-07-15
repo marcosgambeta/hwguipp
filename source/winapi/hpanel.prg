@@ -58,12 +58,12 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::lResizeY := ( ::nHeight == 0 )
    IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:Type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
-         ::oParent:aOffset[ 2 ] := ::nHeight
+         ::oParent:aOffset[2] := ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[ 1 ] := ::nWidth
+            ::oParent:aOffset[1] := ::nWidth
          ELSE
-            ::oParent:aOffset[ 3 ] := ::nWidth
+            ::oParent:aOffset[3] := ::nWidth
          ENDIF
       ENDIF
    ENDIF
@@ -220,12 +220,12 @@ METHOD Release() CLASS HPanel
 
    IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
-         ::oParent:aOffset[ 2 ] -= ::nHeight
+         ::oParent:aOffset[2] -= ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[ 1 ] -= ::nWidth
+            ::oParent:aOffset[1] -= ::nWidth
          ELSE
-            ::oParent:aOffset[ 3 ] -= ::nWidth
+            ::oParent:aOffset[3] -= ::nWidth
          ENDIF
       ENDIF
       hwg_Invalidaterect( ::oParent:handle, 0, ::nLeft, ::nTop, ::nWidth, ::nHeight )
@@ -243,19 +243,19 @@ METHOD Hide() CLASS HPanel
    ENDIF
    IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
-         ::oParent:aOffset[ 2 ] -= ::nHeight
+         ::oParent:aOffset[2] -= ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[ 1 ] -= ::nWidth
+            ::oParent:aOffset[1] -= ::nWidth
          ELSE
-            ::oParent:aOffset[ 3 ] -= ::nWidth
+            ::oParent:aOffset[3] -= ::nWidth
          ENDIF
       ENDIF
       hwg_Invalidaterect( ::oParent:handle, 0, ::nLeft, ::nTop, ::nWidth, ::nHeight )
    ENDIF
    ::nSize := ::nWidth
    FOR i := 1 TO Len( ::acontrols )
-      ::acontrols[ i ]:hide()
+      ::acontrols[i]:hide()
    NEXT
    ::super:hide()
    hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, 0 )
@@ -270,12 +270,12 @@ METHOD Show() CLASS HPanel
    ENDIF
    IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
-         ::oParent:aOffset[ 2 ] += ::nHeight
+         ::oParent:aOffset[2] += ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[ 1 ] += ::nWidth
+            ::oParent:aOffset[1] += ::nWidth
          ELSE
-            ::oParent:aOffset[ 3 ] += ::nWidth
+            ::oParent:aOffset[3] += ::nWidth
          ENDIF
       ENDIF
       hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop, ::nWidth, ::nHeight )
@@ -284,7 +284,7 @@ METHOD Show() CLASS HPanel
    hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, 0 )
    ::super:Show()
    FOR i := 1 TO Len( ::aControls )
-      ::aControls[ i ]:Show()
+      ::aControls[i]:Show()
    NEXT
    hwg_Movewindow( ::Handle, ::nLeft, ::nTop, ::nWidth, ::nHeight )
 

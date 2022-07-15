@@ -366,7 +366,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
             iParHigh := hwg_Hiword( wParam )
             iParLow  := hwg_Loword( wParam )
             IF ( nPos := Ascan( ::aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-               Eval( ::aEvents[ nPos,3 ], Self, iParLow )
+               Eval( ::aEvents[nPos, 3], Self, iParLow )
             ENDIF
          ENDIF
 
@@ -506,7 +506,7 @@ METHOD InsColumn( oColumn, nPos ) CLASS HBrowse
    ENDIF
    AAdd( ::aColumns, Nil )
    AIns( ::aColumns, nPos )
-   ::aColumns[ nPos ] := oColumn
+   ::aColumns[nPos] := oColumn
    ::lChanged := .T.
    InitColumn( Self, oColumn, nPos )
 
@@ -730,10 +730,10 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
 
    ::height := iif( ::nRowHeight > 0, ::nRowHeight, ;
       Max( ::nRowTextHeight, ::minHeight ) + 1 + ::aPadding[2] + ::aPadding[4] )
-   ::x1 := aCoors[ 1 ]
-   ::y1 := aCoors[ 2 ] + iif( ::lDispHead, ::nRowTextHeight * ::nHeadRows + ::aHeadPadding[2] + ::aHeadPadding[4], 0 )
-   ::x2 := aCoors[ 3 ]
-   ::y2 := aCoors[ 4 ]
+   ::x1 := aCoors[1]
+   ::y1 := aCoors[2] + iif( ::lDispHead, ::nRowTextHeight * ::nHeadRows + ::aHeadPadding[2] + ::aHeadPadding[4], 0 )
+   ::x2 := aCoors[3]
+   ::y2 := aCoors[4]
 
    ::nRecords := Eval( ::bRcou, Self )
    IF ::nCurrent > ::nRecords .AND. ::nRecords > 0
@@ -749,7 +749,7 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
       ::hBitmap := Nil
    ENDIF
    IF ::lBuffering .AND. !Empty( ::hBitmap )
-      hwg_DrawBitmap( hDCReal, ::hBitmap, , aCoors[ 1 ], aCoors[ 2 ], aCoors[ 3 ] - aCoors[ 1 ] , aCoors[ 4 ] - aCoors[ 2 ] )
+      hwg_DrawBitmap( hDCReal, ::hBitmap, , aCoors[1], aCoors[2], aCoors[3] - aCoors[1] , aCoors[4] - aCoors[2] )
       hwg_Endpaint( ::handle, pps )
    ELSE
       IF ::lBuffering
@@ -1695,8 +1695,8 @@ METHOD ButtonRDown( lParam ) CLASS HBrowse
    x1  := ::x1
    fif := iif( ::freeze > 0, 1, ::nLeftCol )
 
-   DO WHILE fif < ( ::nLeftCol + ::nColumns ) .AND. x1 + ::aColumns[ fif ]:width < xm
-      x1 += ::aColumns[ fif ]:width
+   DO WHILE fif < ( ::nLeftCol + ::nColumns ) .AND. x1 + ::aColumns[fif]:width < xm
+      x1 += ::aColumns[fif]:width
       fif := iif( fif == ::freeze, ::nLeftCol, fif + 1 )
    ENDDO
 
@@ -2205,7 +2205,7 @@ FUNCTION hwg_CREATEARLIST( oBrw, arr )
             oBrw:AddColumn( { , hwg_ColumnArBlock() } )
          NEXT
       ELSE
-         oBrw:AddColumn( { , { |value,o| (value), o:aArray[ o:nCurrent ] } } )
+         oBrw:AddColumn( { , { |value,o| (value), o:aArray[o:nCurrent] } } )
       ENDIF
    ENDIF
    Eval( oBrw:bGoTop, oBrw )
@@ -2302,7 +2302,7 @@ FUNCTION hwg_HScrollPos( oBrw, nType, lEof, nPos )
       i := oBrw:nLeftCol - 1
 
       WHILE nColPixel > nSize .AND. i < Len( oBrw:aColumns )
-         nSize += oBrw:aColumns[ ++i ]:width
+         nSize += oBrw:aColumns[++i]:width
       ENDDO
 
       // colpos is relative to leftmost column, as it seems, so I subtract leftmost column number

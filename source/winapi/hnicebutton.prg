@@ -165,10 +165,10 @@ METHOD Create( ) CLASS HNICEButton
 *   LOCAL y
    
    Rct    := hwg_Getclientrect( ::handle )
-*   x      := Rct[ 1 ]
-*   y      := Rct[ 2 ]
-   w      := Rct[ 3 ] - Rct[ 1 ]
-   h      := Rct[ 4 ] - Rct[ 2 ]
+*   x      := Rct[1]
+*   y      := Rct[2]
+   w      := Rct[3] - Rct[1]
+   h      := Rct[4] - Rct[2]
    Region := hwg_Createroundrectrgn( 0, 0, w, h, h * 0.90, h * 0.90 )
    hwg_Setwindowrgn( ::Handle, Region, .T. )
    hwg_Invalidaterect( ::Handle, 0, 0 )
@@ -220,7 +220,7 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
       IF ::state == OBTN_NORMAL
          ::state := OBTN_MOUSOVER
 
-         // aBtn[ CTRL_HANDLE ] := hBtn
+         // aBtn[CTRL_HANDLE] := hBtn
          hwg_Invalidaterect( ::handle, 0 )
          hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
          hwg_SetNiceBtnSelected( Self )
@@ -283,12 +283,12 @@ METHOD PAINT() CLASS HNICEButton
 *
 
    Rct  := hwg_Getclientrect( ::Handle )
-   x    := Rct[ 1 ]
-   y    := Rct[ 2 ]
-   w    := Rct[ 3 ] - Rct[ 1 ]
-   h    := Rct[ 4 ] - Rct[ 2 ]
-   XCtr := ( Rct[ 1 ] + Rct[ 3 ] ) / 2
-   YCtr := ( Rct[ 2 ] + Rct[ 4 ] ) / 2
+   x    := Rct[1]
+   y    := Rct[2]
+   w    := Rct[3] - Rct[1]
+   h    := Rct[4] - Rct[2]
+   XCtr := ( Rct[1] + Rct[3] ) / 2
+   YCtr := ( Rct[2] + Rct[4] ) / 2
    T    := hwg_Getwindowtext( ::Handle )
    // **********************************
    //         Draw our control
@@ -306,11 +306,11 @@ METHOD PAINT() CLASS HNICEButton
    IF ( ::State == OBTN_MOUSOVER )
 *      p := hwg_Settextcolor( hDC, hwg_ColorC2N( "FF0000" ) )
       hwg_Settextcolor( hDC, hwg_ColorC2N( "FF0000" ) )
-      hwg_Textout( hDC, XCtr - ( Size[ 1 ] / 2 ) + 1, YCtr - ( Size[ 2 ] / 2 ) + 1, T )
+      hwg_Textout( hDC, XCtr - ( Size[1] / 2 ) + 1, YCtr - ( Size[2] / 2 ) + 1, T )
    ELSE
 *      p := hwg_Settextcolor( hDC, hwg_ColorC2N( "0000FF" ) )
       hwg_Settextcolor( hDC, hwg_ColorC2N( "0000FF" ) )
-      hwg_Textout( hDC, XCtr - Size[ 1 ] / 2, YCtr - Size[ 2 ] / 2, T )
+      hwg_Textout( hDC, XCtr - Size[1] / 2, YCtr - Size[2] / 2, T )
    ENDIF
 
    hwg_Endpaint( ::Handle, ps )

@@ -90,31 +90,31 @@ METHOD CalcMinMax() CLASS HGraph
       ::ymin := ::yminSet
    ENDIF
    FOR i := 1 TO ::nGraphs
-      nLen := Len( ::aValues[ i ] )
-      l1 := ( Valtype(::aValues[ i,1 ] ) == "N" )
+      nLen := Len( ::aValues[i] )
+      l1 := ( Valtype(::aValues[i, 1] ) == "N" )
       IF ::nType == 1
          FOR j := 1 TO nLen
             IF l1
-               ::ymax := Max( ::ymax, ::aValues[ i,j ] )
-               ::ymin := Min( ::ymin, ::aValues[ i,j ] )
+               ::ymax := Max( ::ymax, ::aValues[i, j] )
+               ::ymin := Min( ::ymin, ::aValues[i, j] )
             ELSE
-               ::xmax := Max( ::xmax, ::aValues[ i,j,1 ] )
-               ::xmin := Min( ::xmin, ::aValues[ i,j,1 ] )
-               ::ymax := Max( ::ymax, ::aValues[ i,j,2 ] )
-               ::ymin := Min( ::ymin, ::aValues[ i,j,2 ] )
+               ::xmax := Max( ::xmax, ::aValues[i, j, 1] )
+               ::xmin := Min( ::xmin, ::aValues[i, j, 1] )
+               ::ymax := Max( ::ymax, ::aValues[i, j, 2] )
+               ::ymin := Min( ::ymin, ::aValues[i, j, 2] )
             ENDIF
          NEXT
       ELSEIF ::nType == 2
          FOR j := 1 TO nLen
             IF l1
-               IF ::aValues[ i,j ] != Nil
-                  ::ymax := Max( ::ymax, ::aValues[ i,j ] )
-                  ::ymin := Min( ::ymin, ::aValues[ i,j ] )
+               IF ::aValues[i, j] != Nil
+                  ::ymax := Max( ::ymax, ::aValues[i, j] )
+                  ::ymin := Min( ::ymin, ::aValues[i, j] )
                ENDIF
             ELSE
-               IF ::aValues[ i,j,2 ] != Nil
-                 ::ymax := Max( ::ymax, ::aValues[ i,j,2 ] )
-                 ::ymin := Min( ::ymin, ::aValues[ i,j,2 ] )
+               IF ::aValues[i, j, 2] != Nil
+                 ::ymax := Max( ::ymax, ::aValues[i, j, 2] )
+                 ::ymin := Min( ::ymin, ::aValues[i, j, 2] )
                ENDIF
             ENDIF
          NEXT
@@ -122,9 +122,9 @@ METHOD CalcMinMax() CLASS HGraph
       ELSEIF ::nType == 3
          FOR j := 1 TO nLen
             IF l1
-               ::ymax := Max( ::ymax, ::aValues[ i,j ] )
+               ::ymax := Max( ::ymax, ::aValues[i, j] )
             ELSE
-               ::ymax += ::aValues[ i, j, 2 ]
+               ::ymax += ::aValues[i, j, 2]
             ENDIF
          NEXT
       ENDIF
@@ -138,7 +138,7 @@ METHOD CalcMinMax() CLASS HGraph
 METHOD Paint( lpdis ) CLASS HGraph
 
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
-   LOCAL hDC := drawInfo[ 3 ]
+   LOCAL hDC := drawInfo[3]
    LOCAL x1 := 0, y1 := 0, x2 := ::nWidth, y2 := ::nHeight, scaleX, scaleY
    LOCAL i, j, nLen, l1
    LOCAL x0, y0, px1, px2, py1, py2, nWidth
@@ -191,14 +191,14 @@ METHOD Paint( lpdis ) CLASS HGraph
          ELSE
             hwg_Selectobject( hDC, ::aPens[i]:handle )
          ENDIF
-         nLen := Len( ::aValues[ i ] )
-         l1 := ( Valtype(::aValues[ i,1 ] ) == "N" )
+         nLen := Len( ::aValues[i] )
+         l1 := ( Valtype(::aValues[i, 1] ) == "N" )
          IF ::nType == 1
             FOR j := 2 TO nLen
-               px1 := Round( x1 + ( Iif( l1, j-1, ::aValues[ i,j-1,1 ] ) - ::xmin ) / scaleX, 0 )
-               py1 := Round( y2 - ( Iif( l1, ::aValues[ i,j-1], ::aValues[ i,j-1,2 ] ) - ::ymin ) / scaleY, 0 )
-               px2 := Round( x1 + ( Iif( l1, j, ::aValues[ i,j,1 ] ) - ::xmin ) / scaleX, 0 )
-               py2 := Round( y2 - ( Iif( l1, ::aValues[ i,j ], ::aValues[ i,j,2 ] ) - ::ymin ) / scaleY, 0 )
+               px1 := Round( x1 + ( Iif( l1, j-1, ::aValues[i, j - 1, 1] ) - ::xmin ) / scaleX, 0 )
+               py1 := Round( y2 - ( Iif( l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2] ) - ::ymin ) / scaleY, 0 )
+               px2 := Round( x1 + ( Iif( l1, j, ::aValues[i, j, 1] ) - ::xmin ) / scaleX, 0 )
+               py2 := Round( y2 - ( Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) - ::ymin ) / scaleY, 0 )
                IF px2 != px1
                   IF ::nLineType == 0
                      hwg_Rectangle( hDC, px1, py1, px1+::nPointSize-1, py1+::nPointSize-1 )
@@ -217,9 +217,9 @@ METHOD Paint( lpdis ) CLASS HGraph
             ENDIF
             nWidth := Round( ( x2 - x1 ) / ( nLen ), 0 )
             FOR j := 1 TO nLen
-               IF Iif( l1, ::aValues[ i,j ], ::aValues[ i,j,2 ] ) != Nil
+               IF Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) != Nil
                   px1 := Round( x1 + nWidth * ( j - 1 ) + 1, 0 )
-                  py1 := Round( y2 - 2 - ( Iif( l1, ::aValues[ i,j ], ::aValues[ i,j,2 ] ) - ::ymin ) / scaleY, 0 )
+                  py1 := Round( y2 - 2 - ( Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) - ::ymin ) / scaleY, 0 )
                   hwg_Fillrect( hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle )
                ENDIF
             NEXT
@@ -241,10 +241,10 @@ METHOD Paint( lpdis ) CLASS HGraph
       ENDIF
       hwg_Settextcolor( hDC, ::colorCoor )
       FOR i := 1 TO Len( ::aSignY )
-         py1 := Round( y2 - 2 - ( ::aSignY[ i,1 ] - ::ymin ) / scaleY, 0 )
+         py1 := Round( y2 - 2 - ( ::aSignY[i, 1] - ::ymin ) / scaleY, 0 )
          IF py1 > y1 .AND. py1 < y2
             hwg_Drawline( hDC, x0-4, py1, x0+1, py1 )
-            IF ::aSignY[ i,2 ] != Nil
+            IF ::aSignY[i, 2] != Nil
                hwg_Drawtext( hDC, Iif( Valtype(::aSignY[i,2])=="C",::aSignY[i,2], ;
                      Ltrim(Str(::aSignY[i,2]))), 0, py1-8, x0-4, py1+8, DT_RIGHT )
                IF ::lGridY
@@ -260,9 +260,9 @@ METHOD Paint( lpdis ) CLASS HGraph
       ENDIF
       hwg_Settextcolor( hDC, ::colorCoor )
       FOR i := 1 TO Len( ::aSignX )
-         px1 := Round( x1 + ( ::aSignX[ i,1 ] - ::xmin ) / scaleX + Iif( ::nType==2.AND.::lGridXMid,nWidth/2,0 ), 0 )
+         px1 := Round( x1 + ( ::aSignX[i, 1] - ::xmin ) / scaleX + Iif( ::nType==2.AND.::lGridXMid,nWidth/2,0 ), 0 )
          hwg_Drawline( hDC, px1, y0+4, px1, y0-1 )
-         IF ::aSignX[ i,2 ] != Nil
+         IF ::aSignX[i, 2] != Nil
             hwg_Drawtext( hDC, Iif( Valtype(::aSignX[i,2])=="C",::aSignX[i,2], ;
                   Ltrim(Str(::aSignX[i,2]))), px1-40, y0+4, px1+40, y0+20, DT_CENTER )
             IF ::lGridX

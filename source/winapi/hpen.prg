@@ -88,7 +88,7 @@ METHOD RELEASE() CLASS HPen
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aPens[ i ]:handle == ::handle
+         IF ::aPens[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aPens, i )
             ASize( ::aPens, nlen - 1 )

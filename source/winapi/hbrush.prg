@@ -64,7 +64,7 @@ METHOD RELEASE() CLASS HBrush
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aBrushes[ i ]:handle == ::handle
+         IF ::aBrushes[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aBrushes, i )
             ASize( ::aBrushes, nlen - 1 )

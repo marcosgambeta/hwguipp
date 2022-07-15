@@ -217,7 +217,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
 
          nPos := ascan( ::aControls, { |x| x:className() == "HTAB" } )
          IF nPos > 0
-            oTab := ::aControls[ nPos ]
+            oTab := ::aControls[nPos]
             IF Len( oTab:aPages ) > 0
                Eval( aMessModalDlg[i,2], oTab:aPages[oTab:GetActivePage(),1], wParam, lParam )
                RETURN Eval( aMessModalDlg[i,2], Self, wParam, lParam )
@@ -398,7 +398,7 @@ FUNCTION onDlgCommand( oDlg, wParam, lParam )
 
    IF oDlg:aEvents != Nil .AND. ;
          ( i := Ascan( oDlg:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      Eval( oDlg:aEvents[ i,3 ], oDlg, iParLow )
+      Eval( oDlg:aEvents[i, 3], oDlg, iParLow )
    ELSEIF iParHigh == 0 .AND. ( ;
          ( iParLow == IDOK .AND. oDlg:FindControl( IDOK ) != Nil ) .OR. ;
          iParLow == IDCANCEL )
@@ -411,16 +411,16 @@ FUNCTION onDlgCommand( oDlg, wParam, lParam )
       ENDIF
    ELSEIF __ObjHasMsg( oDlg, "MENU" ) .AND. ValType( oDlg:menu ) == "A" .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:menu,iParLow,@i ) ) != Nil
-      IF Hwg_BitAnd( aMenu[ 1,i,4 ], FLAG_CHECK ) > 0
-         hwg_Checkmenuitem( , aMenu[1,i,3], !hwg_Ischeckedmenuitem( ,aMenu[1,i,3] ) )
+      IF Hwg_BitAnd( aMenu[1, i, 4], FLAG_CHECK ) > 0
+         hwg_Checkmenuitem( , aMenu[1, i, 3], !hwg_Ischeckedmenuitem( ,aMenu[1, i, 3] ) )
       ENDIF
-      IF aMenu[ 1,i,1 ] != Nil
-         Eval( aMenu[ 1,i,1 ] )
+      IF aMenu[1, i, 1] != Nil
+         Eval( aMenu[1, i, 1] )
       ENDIF
    ELSEIF __ObjHasMsg( oDlg, "OPOPUP" ) .AND. oDlg:oPopup != Nil .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:oPopup:aMenu,iParLow,@i ) ) != Nil ;
-         .AND. aMenu[ 1,i,1 ] != Nil
-      Eval( aMenu[ 1,i,1 ] )
+         .AND. aMenu[1, i, 1] != Nil
+      Eval( aMenu[1, i, 1] )
    ENDIF
 
    RETURN 1

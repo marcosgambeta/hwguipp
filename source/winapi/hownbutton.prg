@@ -292,7 +292,7 @@ METHOD DrawItems( hDC ) CLASS HOwnButton
 
    aCoors := hwg_Getclientrect( ::handle )
    IF !Empty( ::brush )
-      hwg_Fillrect( hDC, aCoors[ 1 ] + 2, aCoors[ 2 ] + 2, aCoors[ 3 ] - 2, aCoors[ 4 ] - 2, ::brush:handle )
+      hwg_Fillrect( hDC, aCoors[1] + 2, aCoors[2] + 2, aCoors[3] - 2, aCoors[4] - 2, ::brush:handle )
    ENDIF
 
    IF ::oBitmap != Nil

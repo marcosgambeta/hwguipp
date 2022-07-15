@@ -207,7 +207,7 @@ METHOD Read( fname, cId ) CLASS HFormTmpl
                ppScript( cPre )
             NEXT
             AAdd( aMethods, { cName, CompileMethod( aItems[i]:aItems[1]:aItems[1],Self,,cName ) } )
-            ::aFuncs := ::aMethods[ Len(aMethods),2,2 ]
+            ::aFuncs := ::aMethods[Len(aMethods), 2, 2]
          ELSE
             AAdd( aMethods, { cName, CompileMethod( aItems[i]:aItems[1]:aItems[1],Self,,cName ) } )
          ENDIF
@@ -244,71 +244,71 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
    nStyle := Iif( nMode==1, WS_OVERLAPPEDWINDOW, WS_VISIBLE + WS_SYSMENU + WS_SIZEBOX + WS_CAPTION )
 
    FOR i := 1 TO Len( ::aProp )
-      xProperty := hwg_hfrm_GetProperty( ::aProp[ i,2 ] )
+      xProperty := hwg_hfrm_GetProperty( ::aProp[i, 2] )
 
-      IF ::aProp[ i,1 ] == "geometry"
+      IF ::aProp[i, 1] == "geometry"
          nLeft   := Val( xProperty[1] )
          nTop    := Val( xProperty[2] )
          nWidth  := Val( xProperty[3] )
          nHeight := Val( xProperty[4] )
-      ELSEIF ::aProp[ i,1 ] == "caption"
+      ELSEIF ::aProp[i, 1] == "caption"
          cTitle := xProperty
-      ELSEIF ::aProp[ i,1 ] == "font"
+      ELSEIF ::aProp[i, 1] == "font"
          oFont := hwg_hfrm_FontFromXML( xProperty )
-      ELSEIF ::aProp[ i,1 ] == "lclipper"
+      ELSEIF ::aProp[i, 1] == "lclipper"
          lClipper := xProperty
-      ELSEIF ::aProp[ i,1 ] == "lexitonenter"
+      ELSEIF ::aProp[i, 1] == "lexitonenter"
          lExitOnEnter := xProperty
-      ELSEIF ::aProp[ i,1 ] == "exstyle"
+      ELSEIF ::aProp[i, 1] == "exstyle"
          nStyle := xProperty
-      ELSEIF ::aProp[ i,1 ] == "formtype"
+      ELSEIF ::aProp[i, 1] == "formtype"
          IF nMode == Nil
             lMdi := At( "mdimain", Lower( xProperty ) ) > 0
             lMdiChild := At( "mdichild", Lower( xProperty ) ) > 0
             nMode := Iif( Left( xProperty,3 ) == "dlg", 2, 1 )
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "variables"
+      ELSEIF ::aProp[i, 1] == "variables"
          FOR j := 1 TO Len( xProperty )
             Aadd( ::aVars, Lower( xProperty[j] ) )
          NEXT
          // Styles below
-      ELSEIF ::aProp[ i,1 ] == "systemMenu"
+      ELSEIF ::aProp[i, 1] == "systemMenu"
          IF !xProperty
             nStyle := hwg_bitandinverse( nStyle, WS_SYSMENU )
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "minimizebox"
+      ELSEIF ::aProp[i, 1] == "minimizebox"
          IF xProperty
             nExclude += WS_MINIMIZEBOX
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "maximizebox"
+      ELSEIF ::aProp[i, 1] == "maximizebox"
          IF xProperty
             nExclude += WS_MAXIMIZEBOX
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "absalignent"
+      ELSEIF ::aProp[i, 1] == "absalignent"
          IF !xProperty
             nStyle := hwg_bitandinverse( nStyle, DS_ABSALIGN )
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "sizeBox"
+      ELSEIF ::aProp[i, 1] == "sizeBox"
          IF !xProperty
             nStyle := hwg_bitandinverse( nStyle, WS_SIZEBOX )
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "visible"
+      ELSEIF ::aProp[i, 1] == "visible"
          IF !xProperty
             nStyle := hwg_bitandinverse( nStyle, WS_VISIBLE )
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "3dLook"
+      ELSEIF ::aProp[i, 1] == "3dLook"
          IF xProperty
             nStyle += DS_3DLOOK
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "clipsiblings"
+      ELSEIF ::aProp[i, 1] == "clipsiblings"
          IF xProperty
             nStyle += WS_CLIPSIBLINGS
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "clipchildren"
+      ELSEIF ::aProp[i, 1] == "clipchildren"
          IF xProperty
             nStyle += WS_CLIPCHILDREN
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "fromstyle"
+      ELSEIF ::aProp[i, 1] == "fromstyle"
          IF nMode != 1
             IF Lower( xProperty ) == "popup"
                nStyle := hwg_bitor( nStyle, WS_POPUP )
@@ -316,11 +316,11 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
                nStyle := hwg_bitor( nStyle, WS_CHILD )
             ENDIF
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "bitmap"
+      ELSEIF ::aProp[i, 1] == "bitmap"
          cBitmap := xProperty
-      ELSEIF ::aProp[ i,1 ] == "icon"
+      ELSEIF ::aProp[i, 1] == "icon"
          oIcon := HIcon():Addfile(xProperty)
-      ELSEIF ::aProp[ i,1 ] == "backcolor"
+      ELSEIF ::aProp[i, 1] == "backcolor"
          bColor := xProperty
       ENDIF
    NEXT
@@ -393,26 +393,26 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
    ::oDlg:bDestroy := &( "{|o|hwg_hfrm_Exit(o," + Ltrim(Str(::id)) + ")}" )
 
    FOR i := 1 TO Len( ::aMethods )
-      IF ( cType := ValType( ::aMethods[ i,2 ] ) ) == "B"
-         block := ::aMethods[ i,2 ]
+      IF ( cType := ValType( ::aMethods[i, 2] ) ) == "B"
+         block := ::aMethods[i, 2]
       ELSEIF cType == "A"
-         block := ::aMethods[ i,2,1 ]
+         block := ::aMethods[i, 2, 1]
       ENDIF
-      IF ::aMethods[ i,1 ] == "ondlginit"
+      IF ::aMethods[i, 1] == "ondlginit"
          IF nMode == 1
             Eval( block, Self )
          ELSE
             ::oDlg:bInit := block
          ENDIF
-      ELSEIF ::aMethods[ i,1 ] == "ondlgactivate"
+      ELSEIF ::aMethods[i, 1] == "ondlgactivate"
          ::oDlg:bActivate := block
-      ELSEIF ::aMethods[ i,1 ] == "onforminit"
+      ELSEIF ::aMethods[i, 1] == "onforminit"
          Eval( block, Self, p1, p2, p3 )
-      ELSEIF ::aMethods[ i,1 ] == "onpaint"
+      ELSEIF ::aMethods[i, 1] == "onpaint"
          ::oDlg:bPaint := block
-      ELSEIF ::aMethods[ i,1 ] == "ondlgexit"
+      ELSEIF ::aMethods[i, 1] == "ondlgexit"
          ::bDlgExit := block
-      ELSEIF ::aMethods[ i,1 ] == "onformexit"
+      ELSEIF ::aMethods[i, 1] == "onformexit"
          ::bFormExit := block
       ENDIF
    NEXT
@@ -565,7 +565,7 @@ STATIC FUNCTION ReadTree( oForm, aParent, oDesc )
             Val( oNode:GetAttribute( "id" ) ), .T. } )
          IF !Empty( oNode:aItems )
             IF ( subarr := ReadTree( oForm,aTail( aTree ),oNode ) ) != Nil
-               aTree[ Len(aTree),1 ] := subarr
+               aTree[Len(aTree), 1] := subarr
             ENDIF
          ENDIF
       ENDIF
@@ -736,7 +736,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          tmp_nSheet ++
          oParent:StartPage( Tabs[tmp_nSheet] )
          FOR i := 1 TO Len( oCtrlTmpl:aControls )
-            CreateCtrl( oParent, oCtrlTmpl:aControls[ i ], oForm )
+            CreateCtrl( oParent, oCtrlTmpl:aControls[i], oForm )
          NEXT
          oParent:EndPage()
       ENDIF
@@ -771,8 +771,8 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    nStyle := 0
 
    FOR i := 1 TO Len( oCtrlTmpl:aProp )
-      xProperty := hwg_hfrm_GetProperty( oCtrlTmpl:aProp[ i , 2 ] )
-      cPName := oCtrlTmpl:aProp[ i , 1 ]
+      xProperty := hwg_hfrm_GetProperty( oCtrlTmpl:aProp[i, 2] )
+      cPName := oCtrlTmpl:aProp[i, 1]
       IF cPName == "geometry"
          nLeft   := Val( xProperty[1] )
          nTop    := Val( xProperty[2] )
@@ -800,7 +800,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       ELSEIF cPName == "styles"
          aStyles := {}
          FOR j := 1 TO Len( xProperty )
-            Aadd( aStyles, hwg_HstyleFromXML( xProperty[ j ] ) )
+            Aadd( aStyles, hwg_HstyleFromXML( xProperty[j] ) )
          NEXT
       ELSEIF cPName == "border"
          IF xProperty
@@ -861,21 +861,21 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    NEXT
 
    FOR i := 1 TO Len( oCtrlTmpl:aMethods )
-      IF ( cType := ValType( oCtrlTmpl:aMethods[ i , 2 ] ) ) == "B"
-         __mvPut( oCtrlTmpl:aMethods[ i , 1 ], oCtrlTmpl:aMethods[ i , 2 ] )
+      IF ( cType := ValType( oCtrlTmpl:aMethods[i, 2] ) ) == "B"
+         __mvPut( oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2] )
       ELSEIF cType == "A"
-         __mvPut( oCtrlTmpl:aMethods[ i , 1 ], oCtrlTmpl:aMethods[ i , 2 , 1 ] )
+         __mvPut( oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2, 1] )
       ENDIF
    NEXT
 
    IF oCtrlTmpl:cClass == "combobox"
 #ifndef __GTK__
-      IF ( Ascan( oCtrlTmpl:aProp,{ |a|Lower(a[ 1 ] ) == "nmaxlines" } ) ) > 0
+      IF ( Ascan( oCtrlTmpl:aProp,{ |a|Lower(a[1] ) == "nmaxlines" } ) ) > 0
    /* 
     Warning W0032  Variable 'I' is assigned but not used in function 'CREATECTRL(874)'
     1700
     but "i" is really common used
-       IF ( i := Ascan( oCtrlTmpl:aProp,{ |a|Lower(a[ 1 ] ) == "nmaxlines" } ) ) > 0
+       IF ( i := Ascan( oCtrlTmpl:aProp,{ |a|Lower(a[1] ) == "nmaxlines" } ) ) > 0
    */
          nHeight := nHeight * nMaxLines
       ELSE
@@ -904,7 +904,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    ELSEIF oCtrlTmpl:cClass == "status" .OR. oCtrlTmpl:cClass == "toolbarbot"
       IF aParts != Nil
          FOR i := 1 TO Len( aParts )
-            aParts[ i ] := Val( aParts[ i ] )
+            aParts[i] := Val( aParts[i] )
          NEXT
       ENDIF
       onInit := { |o|o:Move( , , o:nWidth - 1 ) }
@@ -935,7 +935,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          __mvPut( "tmp_nSheet", 0 )
       ENDIF
       FOR i := 1 TO Len( oCtrlTmpl:aControls )
-         CreateCtrl( Iif( oCtrlTmpl:cClass == "group" .OR. oCtrlTmpl:cClass == "radiogroup",oParent,oCtrl ), oCtrlTmpl:aControls[ i ], oForm )
+         CreateCtrl( Iif( oCtrlTmpl:cClass == "group" .OR. oCtrlTmpl:cClass == "radiogroup",oParent,oCtrl ), oCtrlTmpl:aControls[i], oForm )
       NEXT
       IF oCtrlTmpl:cClass == "radiogroup"
          HRadioGroup():EndGroup()
@@ -1225,8 +1225,8 @@ METHOD READ( fname, cId ) CLASS HRepTmpl
          NEXT
       ELSEIF aItems[i]:title == "method"
          AAdd( aMethods, { cName := Lower( aItems[i]:GetAttribute("name" ) ), RdScript( ,aItems[i]:aItems[1]:aItems[1],, .T. ,cName ) } )
-         IF aMethods[ (j := Len(aMethods)),1 ] == "common"
-            ::aFuncs := ::aMethods[ j,2 ]
+         IF aMethods[(j := Len(aMethods)), 1] == "common"
+            ::aFuncs := ::aMethods[j, 2]
             FOR j := 1 TO Len( ::aFuncs[2] )
                cPre := "#xtranslate " + ::aFuncs[2,j,1] + ;
                   "( <params,...> ) => callfunc('"  + ;
@@ -1260,7 +1260,7 @@ METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
    SetDebugger( ::lDebug )
 
    FOR i := 1 TO Len( ::aProp )
-      IF ::aProp[ i,1 ] == "paper size"
+      IF ::aProp[i, 1] == "paper size"
          IF Lower( ::aProp[i,2] ) == "a4"
             nPWidth  := 210
             nPHeight := 297
@@ -1268,14 +1268,14 @@ METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
             nPWidth  := 297
             nPHeight := 420
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "orientation"
+      ELSEIF ::aProp[i, 1] == "orientation"
          IF Lower( ::aProp[i,2] ) != "portrait"
             xTemp    := nPWidth
             nPWidth  := nPHeight
             nPHeight := xTemp
             nOrientation := 2
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "duplex"
+      ELSEIF ::aProp[i, 1] == "duplex"
          IF Lower( ::aProp[i,2] ) == "no"
             nDuplex := 1
          ELSEIF Lower( ::aProp[i,2] ) == "vertical"
@@ -1283,9 +1283,9 @@ METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
          ELSE
             nDuplex := 3
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "font"
+      ELSEIF ::aProp[i, 1] == "font"
          xProperty := ::aProp[i,2]
-      ELSEIF ::aProp[ i,1 ] == "variables"
+      ELSEIF ::aProp[i, 1] == "variables"
          FOR j := 1 TO Len( ::aProp[i,2] )
             __mvPrivate( ::aProp[i,2][j] )
          NEXT
@@ -1353,7 +1353,7 @@ METHOD PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 ) CLASS HRe
    SetDebugger( ::lDebug )
 
    FOR i := 1 TO Len( ::aProp )
-      IF ::aProp[ i,1 ] == "paper size"
+      IF ::aProp[i, 1] == "paper size"
          IF Lower( ::aProp[i,2] ) == "a4"
             nPWidth  := 210
             nPHeight := 297
@@ -1361,14 +1361,14 @@ METHOD PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 ) CLASS HRe
             nPWidth  := 297
             nPHeight := 420
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "orientation"
+      ELSEIF ::aProp[i, 1] == "orientation"
          IF Lower( ::aProp[i,2] ) != "portrait"
             xTemp    := nPWidth
             nPWidth  := nPHeight
             nPHeight := xTemp
             nOrientation := 2
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "duplex"
+      ELSEIF ::aProp[i, 1] == "duplex"
          IF Lower( ::aProp[i,2] ) == "no"
             nDuplex := 1
          ELSEIF Lower( ::aProp[i,2] ) == "vertical"
@@ -1376,9 +1376,9 @@ METHOD PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 ) CLASS HRe
          ELSE
             nDuplex := 3
          ENDIF
-      ELSEIF ::aProp[ i,1 ] == "font"
+      ELSEIF ::aProp[i, 1] == "font"
          xProperty := ::aProp[i,2]
-      ELSEIF ::aProp[ i,1 ] == "variables"
+      ELSEIF ::aProp[i, 1] == "variables"
          FOR j := 1 TO Len( ::aProp[i,2] )
             __mvPrivate( ::aProp[i,2][j] )
          NEXT
@@ -1732,7 +1732,7 @@ STATIC FUNCTION hrep_FontFromXML( oPrinter, oXmlNode, nKoeff, nFontH )
 
    IF ValType( HRepTmpl():aFontTable ) == "A"
       IF ( i := Ascan( HRepTmpl():aFontTable,{ |a|Lower(a[1] ) == Lower(name ) } ) ) != 0
-         name := HRepTmpl():aFontTable[ i,2 ]
+         name := HRepTmpl():aFontTable[i, 2]
       ENDIF
    ENDIF
 

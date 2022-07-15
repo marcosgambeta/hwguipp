@@ -77,7 +77,7 @@ METHOD Init() CLASS HIPedit
 
    IF ! ::lInit
       ::Super:Init()
-      hwg_Setipaddress( ::handle , ::aValue[ 1 ], ::aValue[ 2 ], ::aValue[ 3 ], ::aValue[ 4 ] )
+      hwg_Setipaddress( ::handle , ::aValue[1], ::aValue[2], ::aValue[3], ::aValue[4] )
       ::lInit := .t.
    ENDIF
 
@@ -86,7 +86,7 @@ METHOD Init() CLASS HIPedit
 METHOD Value( aValue ) CLASS HIPedit
 
    IF aValue != Nil
-      hwg_Setipaddress( ::handle , aValue[ 1 ], aValue[ 2 ], aValue[ 3 ], aValue[ 4 ] )
+      hwg_Setipaddress( ::handle , aValue[1], aValue[2], aValue[3], aValue[4] )
       ::aValue := aValue
    ELSE
       ::aValue := hwg_Getipaddress( ::handle )

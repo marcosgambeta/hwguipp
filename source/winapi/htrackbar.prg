@@ -96,8 +96,8 @@ LOCAL aCoors
    ELSEIF msg == WM_ERASEBKGND
       IF ::brush != NIL
          aCoors := hwg_Getclientrect( ::handle )
-         hwg_Fillrect( wParam, aCoors[ 1 ], aCoors[ 2 ], aCoors[ 3 ] + 1, ;
-                   aCoors[ 4 ] + 1, ::brush:handle )
+         hwg_Fillrect( wParam, aCoors[1], aCoors[2], aCoors[3] + 1, ;
+                   aCoors[4] + 1, ::brush:handle )
          RETURN 1
       ENDIF
 

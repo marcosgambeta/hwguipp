@@ -48,7 +48,7 @@ METHOD Activate() CLASS HStatus
       ::Init()
       IF __ObjHasMsg( ::oParent, "AOFFSET" )
          aCoors := hwg_Getwindowrect( ::handle )
-         ::oParent:aOffset[ 4 ] := aCoors[ 4 ] - aCoors[ 2 ]
+         ::oParent:aOffset[4] := aCoors[4] - aCoors[2]
       ENDIF
    ENDIF
 

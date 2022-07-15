@@ -101,7 +101,7 @@ METHOD Activate() CLASS HRect_Line
 //---------------------------------------------------------------------------
 METHOD Paint( lpdis ) CLASS HRect_Line
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
-   LOCAL hDC := drawInfo[ 3 ], x1 := drawInfo[ 4 ], y1 := drawInfo[ 5 ], x2 := drawInfo[ 6 ], y2 := drawInfo[ 7 ]
+   LOCAL hDC := drawInfo[3], x1 := drawInfo[4], y1 := drawInfo[5], x2 := drawInfo[6], y2 := drawInfo[7]
 
 
    hwg_Selectobject( hDC, ::oPen:handle )
@@ -255,9 +255,9 @@ METHOD Curvature( nCurvature ) CLASS HDrawShape
 //---------------------------------------------------------------------------
 METHOD Paint( lpdis ) CLASS HDrawShape
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
-   LOCAL hDC := drawInfo[ 3 ], oBrush
-   LOCAL  x1 := drawInfo[ 4 ], y1 := drawInfo[ 5 ]
-   LOCAL  x2 := drawInfo[ 6 ], y2 := drawInfo[ 7 ]
+   LOCAL hDC := drawInfo[3], oBrush
+   LOCAL  x1 := drawInfo[4], y1 := drawInfo[5]
+   LOCAL  x2 := drawInfo[6], y2 := drawInfo[7]
 
    hwg_Selectobject( hDC, ::oPen:handle )
    IF ::ncStyle != Nil

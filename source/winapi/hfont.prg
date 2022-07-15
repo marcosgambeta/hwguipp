@@ -51,11 +51,11 @@ METHOD Add( fontName, nWidth, nHeight , fnWeight, ;
             ::aFonts[i]:Underline == fdwUnderline .AND. ;
             ::aFonts[i]:StrikeOut == fdwStrikeOut
 
-         ::aFonts[ i ]:nCounter ++
+         ::aFonts[i]:nCounter ++
          IF nHandle != Nil
             hwg_Deleteobject( nHandle )
          ENDIF
-         RETURN ::aFonts[ i ]
+         RETURN ::aFonts[i]
       ENDIF
    NEXT
 
@@ -85,7 +85,7 @@ METHOD SELECT( oFont, nCharSet  ) CLASS HFont
       RETURN Nil
    ENDIF
 
-   RETURN ::Add( af[ 2 ], af[ 3 ], af[ 4 ], af[ 5 ], iif( Empty( nCharSet ), af[ 6 ], nCharSet ), af[ 7 ], af[ 8 ], af[ 9 ], af[ 1 ] )
+   RETURN ::Add( af[2], af[3], af[4], af[5], iif( Empty( nCharSet ), af[6], nCharSet ), af[7], af[8], af[9], af[1] )
 
 METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight ) CLASS HFont
    LOCAL  weight, Italic, Underline, StrikeOut
@@ -120,7 +120,7 @@ METHOD RELEASE() CLASS HFont
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aFonts[ i ]:handle == ::handle
+         IF ::aFonts[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aFonts, i )
             ASize( ::aFonts, nlen - 1 )

@@ -97,14 +97,14 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFo
       ENDIF
    ENDIF
    IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI .AND. ;
-         ::oParent:aOffset[ 2 ] + ::oParent:aOffset[ 3 ] = 0
+         ::oParent:aOffset[2] + ::oParent:aOffset[3] = 0
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
-         ::oParent:aOffset[ 2 ] += ::nHeight
+         ::oParent:aOffset[2] += ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[ 1 ] += ::nWidth
+            ::oParent:aOffset[1] += ::nWidth
          ELSE
-            ::oParent:aOffset[ 3 ] += ::nWidth
+            ::oParent:aOffset[3] += ::nWidth
          ENDIF
       ENDIF
    ENDIF
@@ -179,7 +179,7 @@ METHOD CREATETOOL() CLASS hToolBar
       ENDIF
    ELSE
       FOR n = 1 TO Len( ::aitem )
-         ::AddButton( ::aitem[ n, 1 ], ::aitem[ n, 2 ], ::aitem[ n, 3 ], ::aitem[ n, 4 ], ::aitem[ n, 6 ], ::aitem[ n, 7 ], ::aitem[ n, 8 ], ::aitem[ n, 9 ], , n )
+         ::AddButton( ::aitem[n, 1], ::aitem[n, 2], ::aitem[n, 3], ::aitem[n, 4], ::aitem[n, 6], ::aitem[n, 7], ::aitem[n, 8], ::aitem[n, 9], , n )
       NEXT
    ENDIF
 
@@ -195,54 +195,54 @@ METHOD CREATETOOL() CLASS hToolBar
    ENDIF
 
    FOR n := 1 TO Len( ::aItem )
-      IF ValType( ::aItem[ n, 7 ] ) == "B"
-         //::oParent:AddEvent( BN_CLICKED, ::aItem[ n, 2 ], ::aItem[ n , 7 ] )
+      IF ValType( ::aItem[n, 7] ) == "B"
+         //::oParent:AddEvent( BN_CLICKED, ::aItem[n, 2], ::aItem[n, 7] )
       ENDIF
-      IF ValType( ::aItem[ n, 9 ] ) == "A"
-         ::aItem[ n, 10 ] := hwg__CreatePopupMenu()
-         ::aItem[ n, 11 ]:hMenu := ::aItem[ n, 10 ]
-         aTemp := ::aItem[ n, 9 ]
+      IF ValType( ::aItem[n, 9] ) == "A"
+         ::aItem[n, 10] := hwg__CreatePopupMenu()
+         ::aItem[n, 11]:hMenu := ::aItem[n, 10]
+         aTemp := ::aItem[n, 9]
 
          FOR n1 := 1 TO Len( aTemp )
-            aTemp[ n1, 1 ] := iif( aTemp[ n1, 1 ] = "-", NIL, aTemp[ n1, 1 ] )
-            hwg__AddMenuItem( ::aItem[ n, 10 ], aTemp[ n1, 1 ], - 1, .F. , aTemp[ n1, 2 ], , .F. )
-            ::oParent:AddEvent( BN_CLICKED, aTemp[ n1, 2 ], aTemp[ n1, 3 ] )
+            aTemp[n1, 1] := iif( aTemp[n1, 1] = "-", NIL, aTemp[n1, 1] )
+            hwg__AddMenuItem( ::aItem[n, 10], aTemp[n1, 1], - 1, .F. , aTemp[n1, 2], , .F. )
+            ::oParent:AddEvent( BN_CLICKED, aTemp[n1, 2], aTemp[n1, 3] )
          NEXT
       ENDIF
-      IF ::aItem[ n, 4 ] = BTNS_SEP
+      IF ::aItem[n, 4] = BTNS_SEP
          LOOP
       ENDIF
-      nDrop := Max( nDrop, iif( Hwg_Bitand(::aItem[ n, 4 ], BTNS_WHOLEDROPDOWN ) != 0, 0, ;
-         iif( Hwg_Bitand( ::aItem[ n, 4 ], BTNS_DROPDOWN ) != 0, 8, 0 ) ) )
+      nDrop := Max( nDrop, iif( Hwg_Bitand(::aItem[n, 4], BTNS_WHOLEDROPDOWN ) != 0, 0, ;
+         iif( Hwg_Bitand( ::aItem[n, 4], BTNS_DROPDOWN ) != 0, 8, 0 ) ) )
 
-      IF ValType( ::aItem[ n, 1 ] )  == "C" .OR. ::aItem[ n, 1 ] > 1
-         IF ValType( ::aItem[ n, 1 ] )  == "C" .AND. At( ".", ::aitem[ n, 1 ] ) != 0
-            IF !File( ::aitem[ n, 1 ] )
+      IF ValType( ::aItem[n, 1] )  == "C" .OR. ::aItem[n, 1] > 1
+         IF ValType( ::aItem[n, 1] )  == "C" .AND. At( ".", ::aitem[n, 1] ) != 0
+            IF !File( ::aitem[n, 1] )
                LOOP
             ENDIF
-            //AAdd( aButton, hwg_Loadimage( , ::aitem[ n, 1 ] , IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION+ LR_LOADFROMFILE ) )
-            hImage := HBITMAP():AddFile( ::aitem[ n, 1 ], , .T. , ::nwSize, ::nhSize ):handle
+            //AAdd( aButton, hwg_Loadimage( , ::aitem[n, 1] , IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION+ LR_LOADFROMFILE ) )
+            hImage := HBITMAP():AddFile( ::aitem[n, 1], , .T. , ::nwSize, ::nhSize ):handle
          ELSE
-            // AAdd( aButton, HBitmap():AddResource( ::aitem[ n, 1 ] ):handle )
-            hImage := HBitmap():AddResource( ::aitem[ n, 1 ], LR_LOADTRANSPARENT + LR_LOADMAP3DCOLORS, , ::nwSize, ::nhSize ):handle
+            // AAdd( aButton, HBitmap():AddResource( ::aitem[n, 1] ):handle )
+            hImage := HBitmap():AddResource( ::aitem[n, 1], LR_LOADTRANSPARENT + LR_LOADMAP3DCOLORS, , ::nwSize, ::nhSize ):handle
          ENDIF
          IF ( img := Ascan( aButton, hImage ) ) = 0
             AAdd( aButton, hImage )
             img := Len( aButton )
          ENDIF
-         ::aItem[ n ,1 ] := img + nlistimg //n
+         ::aItem[n, 1] := img + nlistimg //n
          IF ! ::lResource
-            hwg_Toolbar_loadimage( ::Handle, aButton[ img ] )
+            hwg_Toolbar_loadimage( ::Handle, aButton[img] )
          ENDIF
       ELSE
       ENDIF
    NEXT
    IF Len( aButton ) > 0 .AND. ::lResource
-      aBmpSize := hwg_Getbitmapsize( aButton[ 1 ] )
-      hIm := hwg_Createimagelist( {} , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLORDDB + ILC_MASK )
+      aBmpSize := hwg_Getbitmapsize( aButton[1] )
+      hIm := hwg_Createimagelist( {} , aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
       FOR nPos := 1 TO Len( aButton )
 
-         hwg_Imagelist_add( hIm, aButton[ nPos ] )
+         hwg_Imagelist_add( hIm, aButton[nPos] )
       NEXT
       hwg_Sendmessage( ::Handle, TB_SETIMAGELIST, 0, hIm )
    ELSEIF Len( aButton ) = 0
@@ -286,26 +286,26 @@ METHOD Notify( lParam ) CLASS hToolBar
    IF nCode == TTN_GETDISPINFO
 
       nButton := hwg_Toolbar_getdispinfoid( lParam )
-      nPos := AScan( ::aItem,  { | x | x[ 2 ] == nButton } )
-      hwg_Toolbar_setdispinfo( lParam, ::aItem[ nPos, 8 ] )
+      nPos := AScan( ::aItem,  { | x | x[2] == nButton } )
+      hwg_Toolbar_setdispinfo( lParam, ::aItem[nPos, 8] )
 
    ELSEIF nCode == TBN_GETINFOTIP
 
       nId := hwg_Toolbar_getinfotipid( lParam )
-      nPos := AScan( ::aItem,  { | x | x[ 2 ] == nId } )
-      hwg_Toolbar_getinfotip( lParam, ::aItem[ nPos, 8 ] )
+      nPos := AScan( ::aItem,  { | x | x[2] == nId } )
+      hwg_Toolbar_getinfotip( lParam, ::aItem[nPos, 8] )
 
    ELSEIF nCode == TBN_DROPDOWN
       nId := hwg_Toolbar_submenuexgetid( lParam )
       IF nId > 0
-         nPos := AScan( ::aItem,  { | x | x[ 2 ] == nId } )
-         hwg_Toolbar_submenuex( lParam, ::aItem[ nPos, 10 ], ::oParent:handle )
+         nPos := AScan( ::aItem,  { | x | x[2] == nId } )
+         hwg_Toolbar_submenuex( lParam, ::aItem[nPos, 10], ::oParent:handle )
       ELSE
          hwg_Toolbar_submenu( lParam, 1, ::oParent:handle )
       ENDIF
    ELSEIF nCode == NM_CLICK
       nId := hwg_Toolbar_idclick( lParam )
-      nPos := AScan( ::aItem,  { | x | x[ 2 ] == nId } )
+      nPos := AScan( ::aItem,  { | x | x[2] == nId } )
       IF nPos > 0 .AND. ::aItem[nPos,7] != NIL
          Eval( ::aItem[nPos,7], ::aItem[nPos,11], nId )
       ENDIF
@@ -341,7 +341,7 @@ METHOD AddButton( nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, n
    IF ! ::lResource
       AAdd( ::aItem , { nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, oButton } )
    ELSE
-      ::aItem[ nIndex ] := { nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, oButton }
+      ::aItem[nIndex] := { nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, oButton }
    ENDIF
 
    RETURN oButton

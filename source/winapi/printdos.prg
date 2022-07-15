@@ -105,11 +105,11 @@ METHOD New( oPorta ) CLASS PrintDos
    
    ::DefaultLang()
 
-   ::cCompr   := oCompress[ ::oPrintStyle ]
-   ::cNormal  := oNormal[ ::oPrintStyle ]
-   ::cDouble  := oDouble[ ::oPrintStyle ]
-   ::cBold    := oBold[ ::oPrintStyle ]       //Added by  por Fernando Athayde
-   ::cUnBold  := oUnBold[ ::oPrintStyle ]       //Added by  por Fernando Athayde
+   ::cCompr   := oCompress[::oPrintStyle]
+   ::cNormal  := oNormal[::oPrintStyle]
+   ::cDouble  := oDouble[::oPrintStyle]
+   ::cBold    := oBold[::oPrintStyle]       //Added by  por Fernando Athayde
+   ::cUnBold  := oUnBold[::oPrintStyle]       //Added by  por Fernando Athayde
    ::cEject   := oFORMFEED
    ::nProw    := 0
    ::nPcol    := 0
@@ -160,7 +160,7 @@ METHOD New( oPorta ) CLASS PrintDos
    IF oPorta == "GRAPHIC" .or. oPorta == "PREVIEW"
       ::gText := ""
    ELSE
-      // tracelog([          ::gText:=fCreate(::oPorta)])
+      // tracelog([::gText:=fCreate(::oPorta)])
       ::gText := FCreate( ::oPorta )
       //tracelog([depois           ::gText:=fCreate(::oPorta)],::gtext)
       IF ::gText < 0
@@ -462,9 +462,9 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
             EXIT
          ENDIF
          IF ::oAns2Oem
-            oText[ oPage ] += hwg_WIN_Ansitooem( stroka ) + Chr( 13 ) + Chr( 10 )
+            oText[oPage] += hwg_WIN_Ansitooem( stroka ) + Chr( 13 ) + Chr( 10 )
          ELSE
-            oText[ oPage ] += stroka + Chr( 13 ) + Chr( 10 )
+            oText[oPage] += stroka + Chr( 13 ) + Chr( 10 )
          ENDIF
          IF Left( stroka, 1 ) == Chr( 12 )
             AAdd( oText, "" )
@@ -478,11 +478,11 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
       RETURN .F.
    ENDIF
 
-   oEdit := SUBS( oText[ nPage ], 2 )  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
+   oEdit := SUBS( oText[nPage], 2 )  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
 
    IF ! Empty( ::colorpreview )
-      oColor1 := ::colorpreview[ 1 ]
-      oColor2 := ::colorpreview[ 2 ]
+      oColor1 := ::colorpreview[1]
+      oColor2 := ::colorpreview[2]
    ELSE
       oColor1 := 16777088
       oColor2 := 0
@@ -522,7 +522,7 @@ STATIC FUNCTION PrintDosPrint( oText, oPrt )
    LOCAL i
    LOCAL nText := FCreate( oPrt )
    FOR i := 1 TO Len( oText )
-      FWrite( nText, oText[ i ] )
+      FWrite( nText, oText[i] )
    NEXT
    FClose( nText )
    RETURN Nil
@@ -533,9 +533,9 @@ STATIC FUNCTION PrintDosAnt( nPage, oText )
    nPage := -- nPage
    IF nPage < 1 ; nPage := 1 ; ENDIF
    IF nPage = 1  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
-      hwg_Setdlgitemtext( oDlg, 1001, SUBS( oText[ nPage ], 2 ) )  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
+      hwg_Setdlgitemtext( oDlg, 1001, SUBS( oText[nPage], 2 ) )  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
    ELSE
-      hwg_Setdlgitemtext( oDlg, 1001, oText[ nPage ] )
+      hwg_Setdlgitemtext( oDlg, 1001, oText[nPage] )
    ENDIF
    RETURN nPage
 
@@ -543,7 +543,7 @@ STATIC FUNCTION PrintDosNext( oPage, nPage, oText )
    LOCAL oDlg := hwg_GetModalHandle()
    nPage := ++ nPage
    IF nPage > oPage ; nPage := oPage ; ENDIF
-   hwg_Setdlgitemtext( oDlg, 1001, oText[ nPage ] )
+   hwg_Setdlgitemtext( oDlg, 1001, oText[nPage] )
    RETURN nPage
 
 FUNCTION hwg_regenfile( o, new )
@@ -557,7 +557,7 @@ FUNCTION hwg_regenfile( o, new )
 
    FOR i := 1 TO Len( aText )
 
-      stroka := aText[ i ]
+      stroka := aText[i]
       nChr12 := At( Chr( 12 ), stroka )
 
       IF nChr12 > 0

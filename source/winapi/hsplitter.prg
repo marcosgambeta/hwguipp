@@ -126,10 +126,10 @@ METHOD Paint() CLASS HSplitter
       aCoors := hwg_Getclientrect( ::handle )
 
       IF ::oStyle == Nil
-         x1 := aCoors[ 1 ] + IIf( ::lVertical, 1, 5 )
-         y1 := aCoors[ 2 ] + IIf( ::lVertical, 5, 1 )
-         x2 := aCoors[ 3 ] - IIf( ::lVertical, 0, 5 )
-         y2 := aCoors[ 4 ] - IIf( ::lVertical, 5, 0 )
+         x1 := aCoors[1] + IIf( ::lVertical, 1, 5 )
+         y1 := aCoors[2] + IIf( ::lVertical, 5, 1 )
+         x2 := aCoors[3] - IIf( ::lVertical, 0, 5 )
+         y2 := aCoors[4] - IIf( ::lVertical, 5, 0 )
          hwg_Drawedge( hDC, x1, y1, x2, y2, EDGE_ETCHED, IIf( ::lVertical, BF_LEFT, BF_TOP ) )
       ELSE
          ::oStyle:Draw( hDC, 0, 0, aCoors[3], aCoors[4] )
@@ -172,7 +172,7 @@ METHOD DragAll( xPos, yPos ) CLASS HSplitter
       ::Drag( xPos, yPos )
    ENDIF
    FOR i := 1 TO Len( ::aRight )
-      oCtrl := ::aRight[ i ]
+      oCtrl := ::aRight[i]
       nLeft := oCtrl:nLeft
       nTop := oCtrl:nTop
       nWidth := wold := oCtrl:nWidth
@@ -190,7 +190,7 @@ METHOD DragAll( xPos, yPos ) CLASS HSplitter
       hwg_onAnchor( oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight )
    NEXT
    FOR i := 1 TO Len( ::aLeft )
-      oCtrl := ::aLeft[ i ]
+      oCtrl := ::aLeft[i]
       nLeft := oCtrl:nLeft
       nTop := oCtrl:nTop
       nWidth := wold := oCtrl:nWidth

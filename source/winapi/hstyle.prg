@@ -45,7 +45,7 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
          ( ( ::aStyles[i]:oBitmap == Nil .AND. oBitmap == Nil ) .OR. ;
          ( ::aStyles[i]:oBitmap != Nil .AND. oBitmap != Nil .AND. ::aStyles[i]:oBitmap:name == oBitmap:name ) )
 
-         RETURN ::aStyles[ i ]
+         RETURN ::aStyles[i]
       ENDIF
    NEXT
 

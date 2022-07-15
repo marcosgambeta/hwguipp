@@ -281,13 +281,13 @@ METHOD EvalKeyList( nKey, bPressed ) CLASS HWindow
 
    IF !Empty( ::KeyList )
       IF ( nPos := Ascan( ::KeyList,{ |a|a[1] == nctrl .AND. a[2] == nKey } ) ) > 0
-         Eval( ::KeyList[ nPos,3 ], ::FindControl( ,hwg_Getfocus() ) )
+         Eval( ::KeyList[nPos, 3], ::FindControl( ,hwg_Getfocus() ) )
          RETURN .T.
       ENDIF
    ENDIF
    IF !Empty( ::aKeysGlobal )
       IF ( nPos := Ascan( ::aKeysGlobal,{ |a|a[1] == nctrl .AND. a[2] == nKey } ) ) > 0
-         Eval( ::aKeysGlobal[ nPos,3 ], ::FindControl( ,hwg_Getfocus() ) )
+         Eval( ::aKeysGlobal[nPos, 3], ::FindControl( ,hwg_Getfocus() ) )
       ENDIF
    ENDIF
 
@@ -648,23 +648,23 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
    iParLow := hwg_Loword( wParam )
    IF oWnd:aEvents != Nil .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      Eval( oWnd:aEvents[ iItem,3 ], oWnd, iParLow )
+      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
    ELSEIF ValType( oWnd:menu ) == "A" .AND. ;
          ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != Nil
-      IF Hwg_BitAnd( aMenu[ 1,iCont,4 ], FLAG_CHECK ) > 0
-         hwg_Checkmenuitem( , aMenu[1,iCont,3], !hwg_Ischeckedmenuitem( ,aMenu[1,iCont,3] ) )
+      IF Hwg_BitAnd( aMenu[1, iCont, 4], FLAG_CHECK ) > 0
+         hwg_Checkmenuitem( , aMenu[1, iCont, 3], !hwg_Ischeckedmenuitem( ,aMenu[1, iCont, 3] ) )
       ENDIF
-      IF aMenu[ 1,iCont,1 ] != Nil
-         Eval( aMenu[ 1,iCont,1 ] )
+      IF aMenu[1, iCont, 1] != Nil
+         Eval( aMenu[1, iCont, 1] )
       ENDIF
    ELSEIF oWnd:oPopup != Nil .AND. ;
          ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu,wParam,@iCont ) ) != Nil ;
-         .AND. aMenu[ 1,iCont,1 ] != Nil
-      Eval( aMenu[ 1,iCont,1 ] )
+         .AND. aMenu[1, iCont, 1] != Nil
+      Eval( aMenu[1, iCont, 1] )
    ELSEIF oWnd:oNotifyMenu != Nil .AND. ;
          ( aMenu := Hwg_FindMenuItem( oWnd:oNotifyMenu:aMenu,wParam,@iCont ) ) != Nil ;
-         .AND. aMenu[ 1,iCont,1 ] != Nil
-      Eval( aMenu[ 1,iCont,1 ] )
+         .AND. aMenu[1, iCont, 1] != Nil
+      Eval( aMenu[1, iCont, 1] )
    ENDIF
 
    RETURN 0
@@ -779,7 +779,7 @@ STATIC FUNCTION onMdiCommand( oWnd, wParam )
    iParLow := hwg_Loword( wParam )
    IF oWnd:aEvents != Nil .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      Eval( oWnd:aEvents[ iItem,3 ], oWnd, iParLow )
+      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
    ENDIF
 
    RETURN 0

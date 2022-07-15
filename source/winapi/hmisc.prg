@@ -291,7 +291,7 @@ LOCAL n1, n2
    n1 := nascchar / 16 
    n2 := nascchar % 16
    * combine return value
-RETURN chexchars[ n1 + 1 ] + chexchars[ n2 + 1 ]
+RETURN chexchars[n1 + 1] + chexchars[n2 + 1]
 
 * ================================= *
 FUNCTION hwg_EOLStyle

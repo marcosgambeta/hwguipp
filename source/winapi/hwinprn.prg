@@ -225,7 +225,7 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
       IF ::lCond ; nMode += 2 ; ENDIF
       //hwg_writelog( "nStdHeight: "+Ltrim(str(::nStdHeight))+"/"+Ltrim(str(nStdHeight))+" ::nLineMax: "+Ltrim(str(::nLineMax))+"  nStdLineW: "+Ltrim(str(nStdLineW)) )
 
-      ::nLineHeight := ( nStdHeight / aKoef[ nMode + 1 ] ) * ::oPrinter:nVRes
+      ::nLineHeight := ( nStdHeight / aKoef[nMode + 1] ) * ::oPrinter:nVRes
       ::nLined := ( 25.4 * ::oPrinter:nVRes ) / ::nLineInch - ::nLineHeight
 
       oFont := ::oPrinter:AddFont( cFont, ::nLineHeight, ::lBold, ::lItalic, ::lUnder, ::nCharset ) && ::nCharset 204 = Russian
@@ -562,9 +562,9 @@ METHOD PutCode( cLine ) CLASS HWinPrn
          RETURN 2
       ELSE
          FOR i := 1 TO sLen
-            IF Left( aCodes[ i, 1 ], 1 ) == c .AND. At( aCodes[ i, 1 ], Left( cLine, 3 ) ) == 1
-               ::InitValues( aCodes[ i, 2 ], aCodes[ i, 3 ], aCodes[ i, 4 ], aCodes[ i, 5 ], aCodes[ i, 6 ], aCodes[ i, 7 ]  )
-               RETURN Len( aCodes[ i, 1 ] )
+            IF Left( aCodes[i, 1], 1 ) == c .AND. At( aCodes[i, 1], Left( cLine, 3 ) ) == 1
+               ::InitValues( aCodes[i, 2], aCodes[i, 3], aCodes[i, 4], aCodes[i, 5], aCodes[i, 6], aCodes[i, 7]  )
+               RETURN Len( aCodes[i, 1] )
             ENDIF
          NEXT
       ENDIF

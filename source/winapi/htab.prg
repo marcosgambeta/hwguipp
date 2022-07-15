@@ -121,7 +121,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTab
          iParHigh := hwg_Hiword( wParam )
          iParLow  := hwg_Loword( wParam )
          IF ( nPos := Ascan( ::aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-            Eval( ::aEvents[ nPos,3 ], Self, iParLow )
+            Eval( ::aEvents[nPos, 3], Self, iParLow )
          ENDIF
       ENDIF
    ENDIF
@@ -158,7 +158,7 @@ METHOD StartPage( cname, oDlg ) CLASS HTab
 METHOD EndPage() CLASS HTab
 
    IF !::lResourceTab
-      ::aPages[ ::nActive,2 ] := Len( ::aControls ) - ::aPages[ ::nActive,1 ]
+      ::aPages[::nActive, 2] := Len( ::aControls ) - ::aPages[::nActive, 1]
       IF !Empty( ::handle )
          hwg_Addtab( ::handle, ::nActive, ::aTabs[::nActive] )
       ENDIF
@@ -202,8 +202,8 @@ METHOD HidePage( nPage ) CLASS HTab
    LOCAL i, nFirst, nEnd
 
    IF !::lResourceTab
-      nFirst := ::aPages[ nPage,1 ] + 1
-      nEnd   := ::aPages[ nPage,1 ] + ::aPages[ nPage,2 ]
+      nFirst := ::aPages[nPage, 1] + 1
+      nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
       FOR i := nFirst TO nEnd
          ::aControls[i]:Hide()
       NEXT
@@ -217,8 +217,8 @@ METHOD ShowPage( nPage ) CLASS HTab
    LOCAL i, nFirst, nEnd
 
    IF !::lResourceTab
-      nFirst := ::aPages[ nPage,1 ] + 1
-      nEnd   := ::aPages[ nPage,1 ] + ::aPages[ nPage,2 ]
+      nFirst := ::aPages[nPage, 1] + 1
+      nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
       FOR i := nFirst TO nEnd
          ::aControls[i]:Show()
       NEXT
@@ -244,8 +244,8 @@ METHOD GetActivePage( nFirst, nEnd ) CLASS HTab
 
    IF !::lResourceTab
       IF !Empty( ::aPages )
-         nFirst := ::aPages[ ::nActive,1 ] + 1
-         nEnd   := ::aPages[ ::nActive,1 ] + ::aPages[ ::nActive,2 ]
+         nFirst := ::aPages[::nActive, 1] + 1
+         nEnd   := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
       ELSE
          nFirst := 1
          nEnd   := Len( ::aControls )
@@ -264,13 +264,13 @@ Local nFirst, nEnd, i
 
    ELSE
 
-      nFirst := ::aPages[ nPage,1 ] + 1
-      nEnd   := ::aPages[ nPage,1 ] + ::aPages[ nPage,2 ]
+      nFirst := ::aPages[nPage, 1] + 1
+      nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
       FOR i := nEnd TO nFirst STEP -1
          ::DelControl( ::aControls[i] )
       NEXT
       FOR i := nPage + 1 TO Len( ::aPages )
-         ::aPages[ i,1 ] -= ( nEnd-nFirst+1 )
+         ::aPages[i, 1] -= ( nEnd-nFirst+1 )
       NEXT
 
       hwg_Deletetab( ::handle, nPage - 1 )

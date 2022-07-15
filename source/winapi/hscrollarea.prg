@@ -58,15 +58,15 @@ METHOD SetupScrollbars() CLASS HScrollArea
    aMenu := iif( __objHasData( Self, "MENU" ), ::menu, Nil )
    // Calculate how many scrolling increments for the client area
    IF ::Type = WND_MDICHILD //.AND. ::aRectSave != Nil
-      nwMax := Max( ::ncurWidth, tempRect[ 3 ] ) //::maxWidth
-      nhMax := Max( ::ncurHeight , tempRect[ 4 ] ) //::maxHeight
-      ::nHorzInc := Int( ( nwMax - tempRect[ 3 ] ) / HORZ_PTS )
-      ::nVertInc := Int( ( nhMax - tempRect[ 4 ] ) / VERT_PTS )
+      nwMax := Max( ::ncurWidth, tempRect[3] ) //::maxWidth
+      nhMax := Max( ::ncurHeight , tempRect[4] ) //::maxHeight
+      ::nHorzInc := Int( ( nwMax - tempRect[3] ) / HORZ_PTS )
+      ::nVertInc := Int( ( nhMax - tempRect[4] ) / VERT_PTS )
    ELSE
-      nwMax := Max( ::ncurWidth, ::Rect[ 3 ] )
-      nhMax := Max( ::ncurHeight, ::Rect[ 4 ] )
-      ::nHorzInc := Int( ( nwMax - tempRect[ 3 ] ) / HORZ_PTS + HORZ_PTS )
-      ::nVertInc := Int( ( nhMax - tempRect[ 4 ] ) / VERT_PTS + VERT_PTS - ;
+      nwMax := Max( ::ncurWidth, ::Rect[3] )
+      nhMax := Max( ::ncurHeight, ::Rect[4] )
+      ::nHorzInc := Int( ( nwMax - tempRect[3] ) / HORZ_PTS + HORZ_PTS )
+      ::nVertInc := Int( ( nhMax - tempRect[4] ) / VERT_PTS + VERT_PTS - ;
          iif( amenu != Nil, hwg_Getsystemmetrics( SM_CYMENU ), 0 ) )  // MENU
    ENDIF
    // Set the vertical and horizontal scrolling info

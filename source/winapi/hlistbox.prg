@@ -136,7 +136,7 @@ METHOD Init() CLASS HListBox
          ENDIF
          hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0 )
          FOR i := 1 TO Len( ::aItems )
-            hwg_Listboxaddstring( ::handle, ::aItems[ i ] )
+            hwg_Listboxaddstring( ::handle, ::aItems[i] )
          NEXT
          hwg_Listboxsetstring( ::handle, ::value )
       ENDIF

@@ -352,7 +352,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
     IF nOptions > 0
            @ nButtonLeft, nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
                 BUTTON acOptions[1] ID 100 SIZE nButtonWidth, 1.7 * nFontHeight ;
-                ON CLICK { |oCtl| HB_SYMBOL_UNUSED(oCtl) , ::nChoice := 1, Iif(::OptionActions != Nil, eval(::OptionActions[ 1 ] ), ), Hwg_EndDialog(::oDlg:handle) } ;
+                ON CLICK { |oCtl| HB_SYMBOL_UNUSED(oCtl) , ::nChoice := 1, Iif(::OptionActions != Nil, eval(::OptionActions[1] ), ), Hwg_EndDialog(::oDlg:handle) } ;
                 STYLE WS_TABSTOP + BS_DEFPUSHBUTTON
         for i := 2 to nOptions
             @ nButtonLeft + (i - 1) * (nButtonWidth + nFontWidth), nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
@@ -482,13 +482,13 @@ FUNCTION HWG_Alert_CenterWindow( hWnd )
   LOCAL hWndParent   // handle to the Parent Window
   LOCAL nCWidth      // Width of Child Window
   LOCAL nCHeight     // Height of Child Window
-  LOCAL aParent      // Logical Coordinates of Parent Window  && [ 4 ]
-  LOCAL aPoint       // Multiple Uses                         && [ 2 ]
-  LOCAL aChild       // Screen Coordinates of Child Window    && [ 4 ]
+  LOCAL aParent      // Logical Coordinates of Parent Window  && [4]
+  LOCAL aPoint       // Multiple Uses                         && [2]
+  LOCAL aChild       // Screen Coordinates of Child Window    && [4]
   
   aChild   := Hwg_GetWindowRect( hWnd )
-  nCWidth  := aChild[ 3 ] - aChild[ 1 ]
-  nCHeight := aChild[ 4 ] - aChild[ 2 ]
+  nCWidth  := aChild[3] - aChild[1]
+  nCHeight := aChild[4] - aChild[2]
 
   hWndParent := hwg_Alert_GetWindow(hWnd, GW_OWNER)
   IF EMPTY(hWndParent)
@@ -500,14 +500,14 @@ FUNCTION HWG_Alert_CenterWindow( hWnd )
   ENDIF
 
   aParent := Hwg_GetClientRect(hWndParent)
-  aPoint := Hwg_ClientToScreen(hWndParent, aParent[ 3 ] / 2 , aParent[ 4 ] / 2)
+  aPoint := Hwg_ClientToScreen(hWndParent, aParent[3] / 2 , aParent[4] / 2)
   aPoint[1] -= (nCWidth  / 2)
   aPoint[2] -= (nCHeight / 2)
-  aPoint := Hwg_ScreenToClient(hWndParent, aPoint[ 1 ], aPoint[ 2 ] )
-  aPoint[1] := MAX(0, aPoint[ 1 ] )
-  aPoint[2] := MAX(0, aPoint[ 2 ] )
+  aPoint := Hwg_ScreenToClient(hWndParent, aPoint[1], aPoint[2] )
+  aPoint[1] := MAX(0, aPoint[1] )
+  aPoint[2] := MAX(0, aPoint[2] )
   aPoint := Hwg_ClientToScreen(hWndParent, aPoint[1], aPoint[2])
 
-    Hwg_MoveWindow(hWnd, aPoint[ 1 ], aPoint[ 2 ], nCWidth, nCHeight, .F.)
+    Hwg_MoveWindow(hWnd, aPoint[1], aPoint[2], nCWidth, nCHeight, .F.)
 
 RETURN Nil

@@ -28,7 +28,7 @@ FUNCTION hwg_InitControls( oWnd, lNoActivate )
             pArray[i]:Activate()
             pArray[i]:lInit := lInit
          ENDIF
-         IF IIF( ValType( pArray[ i ]:handle ) == "P", hwg_Ptrtoulong( pArray[ i ]:handle ), pArray[ i ]:handle ) <= 0
+         IF IIF( ValType( pArray[i]:handle ) == "P", hwg_Ptrtoulong( pArray[i]:handle ), pArray[i]:handle ) <= 0
          //IF Empty( pArray[i]:handle ) .OR. hwg_isPtrneg1( pArray[i]:handle )
             pArray[i]:handle := hwg_Getdlgitem( oWnd:handle, pArray[i]:id )
             // writelog( "InitControl2"+str(pArray[i]:handle)+"/"+pArray[i]:classname )
@@ -246,9 +246,9 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       @ addX/2, 10 BROWSE oBrw ARRAY SIZE width - addX, height - addY
       oBrw:aArray := arr
       IF ValType( arr[1] ) == "A"
-         oBrw:AddColumn( HColumn():New( ,{ | value, o | ( value ), o:aArray[ o:nCurrent, 1 ] }, "C", nLen ) )
+         oBrw:AddColumn( HColumn():New( ,{ | value, o | ( value ), o:aArray[o:nCurrent, 1] }, "C", nLen ) )
       ELSE
-         oBrw:AddColumn( HColumn():New( ,{ | value, o | ( value ), o:aArray[ o:nCurrent ] }, "C", nLen ) )
+         oBrw:AddColumn( HColumn():New( ,{ | value, o | ( value ), o:aArray[o:nCurrent] }, "C", nLen ) )
       ENDIF
    ELSE
       @ addX/2, 10 BROWSE oBrw DATABASE SIZE width - addX, height - addY

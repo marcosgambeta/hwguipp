@@ -101,7 +101,7 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
 
    h := 0
    FOR i := Len( ::aEvents ) TO 1 STEP - 1
-      IF ::aEvents[ i, 2 ] == id
+      IF ::aEvents[i, 2] == id
          ADel( ::aEvents, i )
          h ++
       ENDIF
@@ -113,7 +113,7 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
 
    h := 0
    FOR i := Len( ::aNotify ) TO 1 STEP - 1
-      IF ::aNotify[ i, 2 ] == id
+      IF ::aNotify[i, 2] == id
          ADel( ::aNotify, i )
          h ++
       ENDIF
@@ -182,8 +182,8 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HCustomWindow
       hb_gcStep()
    ENDIF
 
-   IF ( i := Ascan( aCustomEvents[ EVENTS_MESSAGES ], msg ) ) != 0
-      RETURN Eval( aCustomEvents[ EVENTS_ACTIONS, i ], Self, wParam, lParam )
+   IF ( i := Ascan( aCustomEvents[EVENTS_MESSAGES], msg ) ) != 0
+      RETURN Eval( aCustomEvents[EVENTS_ACTIONS, i], Self, wParam, lParam )
 
    ELSEIF ::bOther != NIL
 
@@ -202,7 +202,7 @@ METHOD End()  CLASS HCustomWindow
       aControls := ::aControls
       nLen := Len( aControls )
       FOR i := 1 TO nLen
-         aControls[ i ]:End()
+         aControls[i]:End()
       NEXT
    ENDIF
 
@@ -248,7 +248,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
    wParam := hwg_PtrToUlong( wParam )
    IF Empty( oCtrl := oWnd:FindControl( wParam ) )
       FOR n := 1 TO Len( oWnd:aControls )
-         oCtrl := oWnd:aControls[ n ]:FindControl( wParam )
+         oCtrl := oWnd:aControls[n]:FindControl( wParam )
          IF oCtrl != NIL
             EXIT
          ENDIF
@@ -264,9 +264,9 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
          IF nCode == EN_PROTECTED
             RETURN 1
          ELSEIF oWnd:aNotify != NIL .AND. ;
-               ( iItem := Ascan( oWnd:aNotify, { |a| a[ 1 ] == nCode .AND. ;
-               a[ 2 ] == wParam } ) ) > 0
-            IF ( res := Eval( oWnd:aNotify[ iItem, 3 ], oWnd, wParam ) ) != NIL
+               ( iItem := Ascan( oWnd:aNotify, { |a| a[1] == nCode .AND. ;
+               a[2] == wParam } ) ) > 0
+            IF ( res := Eval( oWnd:aNotify[iItem, 3], oWnd, wParam ) ) != NIL
                RETURN res
             ENDIF
          ENDIF
@@ -280,7 +280,7 @@ STATIC FUNCTION onDestroy( oWnd )
    LOCAL i, nLen   := Len( aControls )
 
    FOR i := 1 TO nLen
-      aControls[ i ]:End()
+      aControls[i]:End()
    NEXT
    oWnd:End()
 
@@ -327,10 +327,10 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
    HB_SYMBOL_UNUSED(lParam)
 
    IF oWnd:aEvents != NIL .AND. ;
-         ( iItem := Ascan( oWnd:aEvents, { |a| a[ 1 ] == iParHigh .AND. ;
-         a[ 2 ] == iParLow } ) ) > 0
+         ( iItem := Ascan( oWnd:aEvents, { |a| a[1] == iParHigh .AND. ;
+         a[2] == iParLow } ) ) > 0
 
-      Eval( oWnd:aEvents[ iItem, 3 ], oWnd, iParLow )
+      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
 
    ENDIF
 
