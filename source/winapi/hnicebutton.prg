@@ -40,9 +40,9 @@ CLASS HNiceButton INHERIT HControl
 
    METHOD Activate()
    METHOD INIT()
-   METHOD Create( )
-   METHOD Size( )
-   METHOD Moving( )
+   METHOD Create()
+   METHOD Size()
+   METHOD Moving()
    METHOD Paint()
    METHOD MouseMove( wParam, lParam )
    METHOD MDown()
@@ -62,9 +62,9 @@ METHOD New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
    DEFAULT b := ::b
 
    DEFAULT r := ::r
-   ::lFlat  := .t.
+   ::lFlat  := .T.
    ::bClick := bClick
-   ::nOrder  := IIf( oWndParent == nil, 0, Len( oWndParent:aControls ) )
+   ::nOrder  := IIf( oWndParent == nil, 0, Len(oWndParent:aControls) )
 
    ::ExStyle := nStyleEx
    ::text    := cText
@@ -92,7 +92,7 @@ METHOD Redefine( oWndParent, nId, nStyleEx, ;
    DEFAULT b := ::b
    DEFAULT r := ::r
 
-   ::lFlat  := .t.
+   ::lFlat  := .T.
 
    ::bClick := bClick
 
@@ -108,16 +108,15 @@ METHOD Redefine( oWndParent, nId, nStyleEx, ;
 
 METHOD Activate() CLASS HNiceButton
 
-   IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createnicebtn( ::oParent:handle, ::id, ;
-                                 ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::ExStyle, ::Text )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createnicebtn(::oParent:handle, ::id, ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::ExStyle, ::Text)
       ::Init()
    ENDIF
    RETURN Nil
 
 METHOD INIT() CLASS HNiceButton
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       ::Create()
    ENDIF
@@ -128,7 +127,7 @@ FUNCTION hwg_NICEBUTTPROC( hBtn, msg, wParam, lParam )
 
    LOCAL oBtn
    IF msg != WM_CREATE
-      IF AScan( { WM_MOUSEMOVE, WM_PAINT, WM_LBUTTONDOWN, WM_LBUTTONUP, WM_LBUTTONDBLCLK, WM_DESTROY, WM_MOVING, WM_SIZE }, msg ) > 0
+      IF AScan({WM_MOUSEMOVE, WM_PAINT, WM_LBUTTONDOWN, WM_LBUTTONUP, WM_LBUTTONDBLCLK, WM_DESTROY, WM_MOVING, WM_SIZE}, msg ) > 0
          IF ( oBtn := hwg_FindSelf( hBtn ) ) == Nil
             RETURN .F.
          ENDIF
@@ -142,7 +141,7 @@ FUNCTION hwg_NICEBUTTPROC( hBtn, msg, wParam, lParam )
          ELSEIF msg == WM_MOUSEMOVE
             oBtn:MouseMove( wParam, lParam )
          ELSEIF msg == WM_SIZE
-            oBtn:Size( )
+            oBtn:Size()
 
          ELSEIF msg == WM_DESTROY
             oBtn:END()
@@ -153,7 +152,7 @@ FUNCTION hwg_NICEBUTTPROC( hBtn, msg, wParam, lParam )
    ENDIF
    RETURN .F.
 
-METHOD Create( ) CLASS HNICEButton
+METHOD Create() CLASS HNICEButton
 
    LOCAL Region
    LOCAL Rct
@@ -175,16 +174,16 @@ METHOD Create( ) CLASS HNICEButton
 
    RETURN Self
 
-METHOD Size( ) CLASS HNICEButton
+METHOD Size() CLASS HNICEButton
 
    ::State := OBTN_NORMAL
    hwg_Invalidaterect( ::Handle, 0, 0 )
 
    RETURN Self
 
-METHOD Moving( ) CLASS HNICEButton
+METHOD Moving() CLASS HNICEButton
 
-   ::State := .f.
+   ::State := .F.
    hwg_Invalidaterect( ::Handle, 0, 0 )
 
    RETURN Self
@@ -200,13 +199,13 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
 *     LOCAL yPos   
 
 * Not used parameters   
-   HB_SYMBOL_UNUSED( wParam )
-   HB_SYMBOL_UNUSED( lParam )
+   HB_SYMBOL_UNUSED(wParam)
+   HB_SYMBOL_UNUSED(lParam)
 
    IF ::lFlat .AND. ::state != OBTN_INIT
       otmp := hwg_SetNiceBtnSelected()
 
-      IF otmp != Nil .AND. otmp:id != ::id .AND. ! otmp:lPress
+      IF otmp != Nil .AND. otmp:id != ::id .AND. !otmp:lPress
          otmp:state := OBTN_NORMAL
          hwg_Invalidaterect( otmp:handle, 0 )
          hwg_Postmessage( otmp:handle, WM_PAINT, 0, 0 )
@@ -229,19 +228,19 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
 
    RETURN Self
 
-METHOD MUp( ) CLASS HNICEButton
+METHOD MUp() CLASS HNICEButton
 
    IF ::state == OBTN_PRESSED
-      IF ! ::lPress
+      IF !::lPress
          ::state := IIf( ::lFlat, OBTN_MOUSOVER, OBTN_NORMAL )
          hwg_Invalidaterect( ::handle, 0 )
          hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
       ENDIF
-      IF ! ::lFlat
+      IF !::lFlat
          hwg_SetNiceBtnSelected( Nil )
       ENDIF
       IF ::bClick != Nil
-         Eval( ::bClick, ::oParent, ::id )
+         Eval(::bClick, ::oParent, ::id)
       ENDIF
    ENDIF
 

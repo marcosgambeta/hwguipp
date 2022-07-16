@@ -40,8 +40,8 @@ CLASS HRichEdit INHERIT HControl
    METHOD Init()
    METHOD When()
    METHOD Valid()
-   METHOD UpdatePos( )
-   METHOD onChange( )
+   METHOD UpdatePos()
+   METHOD onChange()
    METHOD ReadOnly( lreadOnly ) SETGET
    METHOD Setcolor( tColor, bColor, lRedraw )
 
@@ -52,7 +52,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
       tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder ) CLASS HRichEdit
 
    nStyle := Hwg_BitOr( iif( nStyle == Nil, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
-         iif( lNoBorder = Nil .OR. ! lNoBorder, WS_BORDER, 0 ) )
+         iif( lNoBorder = Nil .OR. !lNoBorder, WS_BORDER, 0 ) )
 
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
       bSize,, ctooltip, tcolor, iif( bcolor == Nil, hwg_Getsyscolor( COLOR_BTNHIGHLIGHT ), bcolor ) )
@@ -60,7 +60,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::title  := vari
    ::bOther := bOther
    ::bChange := bChange
-   ::lAllowTabs := iif( Empty( lAllowTabs ), ::lAllowTabs, lAllowTabs )
+   ::lAllowTabs := iif( Empty(lAllowTabs), ::lAllowTabs, lAllowTabs )
    ::lReadOnly := Hwg_BitAnd( nStyle, ES_READONLY ) != 0
 
    hwg_InitRichEdit()
@@ -80,9 +80,8 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HRichEdit
 
-   IF !Empty( ::oParent:handle )
-      ::handle := hwg_Createrichedit( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createrichedit( ::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       ::Init()
    ENDIF
 
@@ -109,7 +108,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
    LOCAL nDelta
 
    IF ::bOther != Nil
-      nDelta := Eval( ::bOther, Self, msg, wParam, lParam )
+      nDelta := Eval(::bOther, Self, msg, wParam, lParam)
       IF ValType( nDelta ) != "N" .OR. nDelta > - 1
          RETURN nDelta
       ENDIF
@@ -119,7 +118,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
    ELSEIF msg == WM_CHAR
       wParam := hwg_PtrToUlong( wParam )
       IF wParam = VK_TAB
-         IF  ( hwg_IsCtrlShift( .T. , .F. ) .OR. ! ::lAllowTabs )
+         IF ( hwg_IsCtrlShift( .T. , .F. ) .OR. !::lAllowTabs )
             RETURN 0
          ENDIF
       ENDIF
@@ -128,12 +127,11 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
       ENDIF
    ELSEIF msg == WM_KEYDOWN
       wParam := hwg_PtrToUlong( wParam )
-      IF wParam = VK_TAB .AND. ( hwg_IsCtrlShift( .T. , .F. ) .OR. ! ::lAllowTabs )
-         hwg_GetSkip( ::oParent, ::handle, ;
-            iif( hwg_IsCtrlShift( .F. , .T. ), - 1, 1 ) )
+      IF wParam = VK_TAB .AND. ( hwg_IsCtrlShift( .T. , .F. ) .OR. !::lAllowTabs )
+         hwg_GetSkip( ::oParent, ::handle, iif( hwg_IsCtrlShift( .F. , .T. ), - 1, 1 ) )
          RETURN 0
       ELSEIF wParam = VK_TAB
-         hwg_Re_inserttext( ::handle, Chr( VK_TAB ) )
+         hwg_Re_inserttext( ::handle, Chr(VK_TAB) )
          RETURN 0
       ELSEIF wParam == 27 // ESC
          IF hwg_Getparent( ::oParent:handle ) != Nil
@@ -170,14 +168,14 @@ METHOD Setcolor( tColor, bColor, lRedraw )  CLASS HRichEdit
 METHOD ReadOnly( lreadOnly )
 
    IF lreadOnly != Nil
-      IF ! Empty( hwg_Sendmessage( ::handle,  EM_SETREADONLY, iif( lReadOnly, 1, 0 ), 0 ) )
+      IF !Empty(hwg_Sendmessage(::handle,  EM_SETREADONLY, iif(lReadOnly, 1, 0), 0))
          ::lReadOnly := lReadOnly
       ENDIF
    ENDIF
 
    RETURN ::lReadOnly
 
-METHOD UpdatePos( ) CLASS HRichEdit
+METHOD UpdatePos() CLASS HRichEdit
 
    LOCAL npos := hwg_Sendmessage( ::handle, EM_GETSEL, 0, 0 )
    LOCAL pos1 := hwg_Loword( npos ) + 1,   pos2 := hwg_Hiword( npos ) + 1
@@ -191,24 +189,24 @@ METHOD UpdatePos( ) CLASS HRichEdit
 
    RETURN nPos
 
-METHOD onChange( ) CLASS HRichEdit
+METHOD onChange() CLASS HRichEdit
 
    IF ::bChange != Nil
-      Eval( ::bChange, ::gettext(), Self  )
+      Eval(::bChange, ::gettext(), Self)
    ENDIF
 
    RETURN Nil
 
-METHOD When( ) CLASS HRichEdit
+METHOD When() CLASS HRichEdit
 
    ::title := ::GetText()
-   Eval( ::bGetFocus, ::title, Self )
+   Eval(::bGetFocus, ::title, Self)
 
    RETURN .T.
 
-METHOD Valid( ) CLASS HRichEdit
+METHOD Valid() CLASS HRichEdit
 
    ::title := ::GetText()
-   Eval( ::bLostFocus, ::title, Self )
+   Eval(::bLostFocus, ::title, Self)
 
    RETURN .T.

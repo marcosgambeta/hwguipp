@@ -17,7 +17,7 @@ STATIC lErrOn := .F.
 PROCEDURE hwg_ErrSys
 
    ErrorBlock( { | oError | DefError( oError ) } )
-   LogInitialPath := "\" + CurDir() + IIf( Empty( CurDir() ), "", "\" )
+   LogInitialPath := "\" + CurDir() + IIf( Empty(CurDir()), "", "\" )
 
    RETURN
 
@@ -33,41 +33,38 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    // Set NetErr() of there was a database open error
-   IF oError:genCode == EG_OPEN .AND. ;
-      oError:osCode == 32 .AND. ;
-      oError:canDefault
+   IF oError:genCode == EG_OPEN .AND. oError:osCode == 32 .AND. oError:canDefault
       NetErr( .T. )
       RETURN .F.
    ENDIF
 
    // Set NetErr() if there was a lock error on dbAppend()
-   IF oError:genCode == EG_APPENDLOCK .AND. ;
-      oError:canDefault
+   IF oError:genCode == EG_APPENDLOCK .AND. oError:canDefault
       NetErr( .T. )
       RETURN .F.
    ENDIF
 
    cMessage := hwg_ErrMsg( oError )
-   IF ! Empty( oError:osCode )
+   IF !Empty(oError:osCode)
       cDOSError := "(DOS Error " + LTrim( Str( oError:osCode ) ) + ")"
    ENDIF
 
-   IF ! Empty( oError:osCode )
+   IF !Empty(oError:osCode)
       cMessage += " " + cDOSError
    ENDIF
 
    n := 2
-   WHILE ! Empty( ProcName( n ) )
-      cMessage += Chr( 13 ) + Chr( 10 ) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
+   WHILE !Empty(ProcName(n))
+      cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
    ENDDO
 
    //included aditional informations
 
-   cMessage += Chr( 13 ) + Chr( 10 )
+   cMessage += Chr(13) + Chr(10)
 
-   cMessage += Chr( 13 ) + Chr( 10 ) + hwg_version()
-   cMessage += Chr( 13 ) + Chr( 10 ) + "Date:" + DToC( Date() )
-   cMessage += Chr( 13 ) + Chr( 10 ) + "Time:" + Time()
+   cMessage += Chr(13) + Chr(10) + hwg_version()
+   cMessage += Chr(13) + Chr(10) + "Date:" + DToC( Date() )
+   cMessage += Chr(13) + Chr(10) + "Time:" + Time()
 
 
    hwg_ReleaseTimers()
@@ -110,14 +107,14 @@ FUNCTION hwg_ErrMsg( oError )
 
    // add either filename or operation
    DO CASE
-   CASE ! Empty( oError:filename )
+   CASE !Empty(oError:filename)
       cMessage += ": " + oError:filename
-   CASE ! Empty( oError:operation )
+   CASE !Empty(oError:operation)
       cMessage += ": " + oError:operation
    ENDCASE
 
    /*
-   IF ! Empty( oError:Args )
+   IF !Empty(oError:Args)
       cMessage += "Arguments: " + ValToPrgExp( oError:Args )
    ENDIF
    */
@@ -128,13 +125,13 @@ FUNCTION hwg_WriteLog( cText, fname )
    LOCAL nHand
 
    fname := LogInitialPath + IIf( fname == Nil, "a.log", fname )
-   IF ! File( fname )
+   IF !File( fname )
       nHand := FCreate( fname )
    ELSE
       nHand := FOpen( fname, 1 )
    ENDIF
    FSeek( nHand, 0, 2 )
-   FWrite( nHand, cText + Chr( 10 ) )
+   FWrite( nHand, cText + Chr(10) )
    FClose( nHand )
 
    RETURN nil
@@ -142,8 +139,7 @@ FUNCTION hwg_WriteLog( cText, fname )
 STATIC FUNCTION ErrorPreview( cMess )
    LOCAL oDlg, oEdit
 
-   INIT DIALOG oDlg TITLE "Error.log" ;
-        At 92, 61 SIZE 500, 500
+   INIT DIALOG oDlg TITLE "Error.log" At 92, 61 SIZE 500, 500
 
    @ 10, 10 EDITBOX oEdit CAPTION cMess SIZE 480, 440 STYLE WS_VSCROLL + WS_HSCROLL + ES_MULTILINE + ES_READONLY ;
       COLOR 16777088 BACKCOLOR 0 ;

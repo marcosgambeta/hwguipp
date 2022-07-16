@@ -25,8 +25,7 @@ ENDCLASS
 
 METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize ) CLASS HLine
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, , , , , ;
-      bSize, { |o, lp| o:Paint( lp ) } )
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, , , , , bSize, {|o, lp|o:Paint(lp)})
 
    ::title := ""
    ::lVert := iif( lVert == NIL, .F. , lVert )
@@ -38,8 +37,8 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize ) CLASS HLine
       ::nHeight := 10
    ENDIF
 
-   ::oPenLight := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
-   ::oPenGray  := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW  ) )
+   ::oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
+   ::oPenGray  := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
 
    ::Activate()
 
@@ -47,9 +46,8 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize ) CLASS HLine
 
 METHOD Activate() CLASS HLine
 
-   IF !Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ::style, ;
-         ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 

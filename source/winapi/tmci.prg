@@ -26,15 +26,12 @@ CLASS TMci
 
    METHOD lOpen()
 
-   METHOD Play( nFrom, nTo, hWnd ) INLINE ;
-   ::nError := hwg_Nmciplay( ::nId, nFrom, nTo, hWnd )
+   METHOD Play( nFrom, nTo, hWnd ) INLINE ::nError := hwg_Nmciplay( ::nId, nFrom, nTo, hWnd )
 
    METHOD cGetError()
 
 
-   METHOD SetWindow( oWnd ) INLINE ;
-   ::oWnd := oWnd, ;
-   ::nError := hwg_Nmciwindow( ::nId, oWnd:handle )
+   METHOD SetWindow( oWnd ) INLINE ::oWnd := oWnd, ::nError := hwg_Nmciwindow( ::nId, oWnd:handle )
 
    METHOD SendStr( cMciStr )
 

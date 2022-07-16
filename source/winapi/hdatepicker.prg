@@ -24,8 +24,7 @@ CLASS HDatePicker INHERIT HControl
    DATA dValue
    DATA bChange
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor )
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor)
    METHOD Activate()
    METHOD Init()
    METHOD Refresh()
@@ -37,8 +36,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor ) CLASS HDatePicker
 
    nStyle := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-      , , ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, , , ctooltip, tcolor, bcolor)
 
    ::dValue  := iif( vari == Nil .OR. ValType( vari ) != "D", CToD( Space(8 ) ), vari )
    ::bSetGet := bSetGet
@@ -65,9 +63,8 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
 METHOD Activate() CLASS HDatePicker
 
-   IF !Empty( ::oParent:handle )
-      ::handle := hwg_Createdatepicker( ::oParent:handle, ::id, ;
-         ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createdatepicker(::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
       ::Init()
    ENDIF
 
@@ -77,7 +74,7 @@ METHOD Init() CLASS HDatePicker
 
    IF !::lInit
       ::Super:Init()
-      IF Empty( ::dValue )
+      IF Empty(::dValue)
          hwg_Setdatepickernull( ::handle )
       ELSE
          hwg_Setdatepicker( ::handle, ::dValue )
@@ -89,10 +86,10 @@ METHOD Init() CLASS HDatePicker
 METHOD Refresh() CLASS HDatePicker
 
    IF ::bSetGet != Nil
-      ::dValue := Eval( ::bSetGet,, Self )
+      ::dValue := Eval(::bSetGet, , Self)
    ENDIF
 
-   IF Empty( ::dValue )
+   IF Empty(::dValue)
       hwg_Setdatepickernull( ::handle )
    ELSE
       hwg_Setdatepicker( ::handle, ::dValue )
@@ -107,7 +104,7 @@ METHOD Value( dValue ) CLASS HDatePicker
          hwg_Setdatepicker( ::handle, dValue )
          ::dValue := dValue
          IF ::bSetGet != Nil
-            Eval( ::bSetGet, dValue, Self )
+            Eval(::bSetGet, dValue, Self)
          ENDIF
       ENDIF
    ELSE
@@ -118,15 +115,13 @@ METHOD Value( dValue ) CLASS HDatePicker
 
 STATIC FUNCTION __Change( oCtrl, nMess )
 
-   IF ( nMess == DTN_DATETIMECHANGE .AND. ;
-         hwg_Sendmessage( oCtrl:handle, DTM_GETMONTHCAL, 0, 0 ) == 0 ) .OR. ;
-         nMess == DTN_CLOSEUP
+   IF (nMess == DTN_DATETIMECHANGE .AND. hwg_Sendmessage(oCtrl:handle, DTM_GETMONTHCAL, 0, 0) == 0) .OR. nMess == DTN_CLOSEUP
       oCtrl:dValue := hwg_Getdatepicker( oCtrl:handle )
       IF oCtrl:bSetGet != Nil
-         Eval( oCtrl:bSetGet, oCtrl:dValue, oCtrl )
+         Eval(oCtrl:bSetGet, oCtrl:dValue, oCtrl)
       ENDIF
       IF oCtrl:bChange != Nil
-         Eval( oCtrl:bChange, oCtrl:dValue, oCtrl )
+         Eval(oCtrl:bChange, oCtrl:dValue, oCtrl)
       ENDIF
    ENDIF
 
@@ -136,9 +131,9 @@ STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:dValue := hwg_Getdatepicker( oCtrl:handle )
    IF oCtrl:bSetGet != Nil
-      Eval( oCtrl:bSetGet, oCtrl:dValue, oCtrl )
+      Eval(oCtrl:bSetGet, oCtrl:dValue, oCtrl)
    ENDIF
-   IF oCtrl:bLostFocus != Nil .AND. !Eval( oCtrl:bLostFocus, oCtrl:dValue, oCtrl )
+   IF oCtrl:bLostFocus != Nil .AND. !Eval(oCtrl:bLostFocus, oCtrl:dValue, oCtrl)
       RETURN .F.
    ENDIF
 

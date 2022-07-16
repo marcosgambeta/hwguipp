@@ -20,12 +20,11 @@ CLASS TVideo FROM hControl
    DATA   oMci
    DATA   cAviFile
 
-   METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, ;
-               lNoBorder, nid ) CONSTRUCTOR
+   METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CONSTRUCTOR
 
    METHOD ReDefine( nId, cFileName, oDlg, bWhen, bValid ) CONSTRUCTOR
 
-   METHOD Initiate( )
+   METHOD Initiate()
 
    METHOD Play( nFrom, nTo ) INLINE  ::oMci:Play( nFrom, nTo, ::oparent:handle )
 
@@ -36,14 +35,13 @@ ENDCLASS
 /*  removed: bWhen , bValid */
 METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CLASS TVideo
 
-   DEFAULT nWidth TO 200, nHeight TO 200, cFileName TO "", ;
-   lNoBorder TO .f.
+   DEFAULT nWidth TO 200, nHeight TO 200, cFileName TO "", lNoBorder TO .F.
 
    ::nTop      := nRow *  VID_CHARPIX_H  // 8
    ::nLeft     := nCol * VID_CHARPIX_W   // 14
    ::nHeight   := ::nTop  + nHeight - 1
    ::nWidth    := ::nLeft + nWidth + 1
-   ::Style     := hwg_bitOR( WS_CHILD + WS_VISIBLE + WS_TABSTOP, IF( ! lNoBorder, WS_BORDER, 0 ) )
+   ::Style     := hwg_bitOR( WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0) )
 
    ::oParent   := IIf( oWnd == Nil, ::oDefaultParent, oWnd )
    ::id        := IIf( nid == Nil, ::NewId(), nid )
@@ -51,7 +49,7 @@ METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CLASS
    ::oMci      := TMci():New( "avivideo", cFileName )
    ::Initiate()
 
-   IF ! Empty( ::oparent:handle )
+   IF !Empty(::oparent:handle)
       ::oMci:lOpen()
       ::oMci:SetWindow( Self )
    ELSE
@@ -77,9 +75,9 @@ METHOD ReDefine( nId, cFileName, oDlg, bWhen, bValid ) CLASS TVideo
 
 //----------------------------------------------------------------------------//
 
-METHOD Initiate( ) CLASS TVideo
+METHOD Initiate() CLASS TVideo
 
-   ::Super:Init(  )
+   ::Super:Init()
    ::oMci:lOpen()
    ::oMci:SetWindow( Self )
 

@@ -76,7 +76,7 @@ METHOD Caption( cText )  CLASS HToolButton
 METHOD onClick()  CLASS HToolButton
 
    IF ::bClick != Nil
-      Eval( ::bClick, self, ::id )
+      Eval(::bClick, self, ::id)
    ENDIF
 
    RETURN Nil
@@ -99,8 +99,7 @@ METHOD Pressed( lPressed ) CLASS HToolButton
 
    IF lPressed != Nil
       nState := hwg_Sendmessage( ::oParent:handle, TB_GETSTATE, Int( ::id ), 0 )
-      hwg_Sendmessage( ::oParent:handle, TB_SETSTATE, Int( ::id ), ;
-         hwg_Makelong( iif( lPressed, HWG_BITOR( nState, TBSTATE_PRESSED ), nState - HWG_BITAND( nState, TBSTATE_PRESSED ) ), 0 ) )
+      hwg_Sendmessage( ::oParent:handle, TB_SETSTATE, Int( ::id ), hwg_Makelong( iif( lPressed, HWG_BITOR( nState, TBSTATE_PRESSED ), nState - HWG_BITAND( nState, TBSTATE_PRESSED ) ), 0 ) )
       ::lPressed := lPressed
    ENDIF
 
@@ -111,8 +110,7 @@ METHOD Checked( lcheck ) CLASS HToolButton
 
    IF lCheck != Nil
       nState := hwg_Sendmessage( ::oParent:handle, TB_GETSTATE, Int( ::id ), 0 )
-      hwg_Sendmessage( ::oParent:handle, TB_SETSTATE, Int( ::id ), ;
-         hwg_Makelong( iif( lCheck, HWG_BITOR( nState, TBSTATE_CHECKED ), nState - HWG_BITAND( nState, TBSTATE_CHECKED ) ), 0 ) )
+      hwg_Sendmessage( ::oParent:handle, TB_SETSTATE, Int( ::id ), hwg_Makelong( iif( lCheck, HWG_BITOR( nState, TBSTATE_CHECKED ), nState - HWG_BITAND( nState, TBSTATE_CHECKED ) ), 0 ) )
       ::lChecked := lCheck
    ENDIF
 

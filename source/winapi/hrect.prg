@@ -38,18 +38,18 @@ METHOD New( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle ) CLASS HRe
 
    DO CASE
    CASE nStyle = 1
-      ::oLine1 = HRect_Line():New( oWndParent, , .f., nLeft,  nTop,    nRight - nLeft, , nCor1 )
-      ::oLine3 = HRect_Line():New( oWndParent, , .f., nLeft,  nBottom, nRight - nLeft, , nCor2 )
+      ::oLine1 = HRect_Line():New( oWndParent, , .F., nLeft,  nTop,    nRight - nLeft, , nCor1 )
+      ::oLine3 = HRect_Line():New( oWndParent, , .F., nLeft,  nBottom, nRight - nLeft, , nCor2 )
 
    CASE nStyle = 2
-      ::oLine2 = HRect_Line():New( oWndParent, , .t., nLeft,  nTop,    nBottom - nTop, , nCor1 )
-      ::oLine4 = HRect_Line():New( oWndParent, , .t., nRight, nTop,    nBottom - nTop, , nCor2 )
+      ::oLine2 = HRect_Line():New( oWndParent, , .T., nLeft,  nTop,    nBottom - nTop, , nCor1 )
+      ::oLine4 = HRect_Line():New( oWndParent, , .T., nRight, nTop,    nBottom - nTop, , nCor2 )
 
    OTHERWISE
-      ::oLine1 = HRect_Line():New( oWndParent, , .f., nLeft,  nTop,    nRight - nLeft, , nCor1 )
-      ::oLine2 = HRect_Line():New( oWndParent, , .t., nLeft,  nTop,    nBottom - nTop, , nCor1 )
-      ::oLine3 = HRect_Line():New( oWndParent, , .f., nLeft,  nBottom, nRight - nLeft, , nCor2 )
-      ::oLine4 = HRect_Line():New( oWndParent, , .t., nRight, nTop,    nBottom - nTop, , nCor2 )
+      ::oLine1 = HRect_Line():New( oWndParent, , .F., nLeft,  nTop,    nRight - nLeft, , nCor1 )
+      ::oLine2 = HRect_Line():New( oWndParent, , .T., nLeft,  nTop,    nBottom - nTop, , nCor1 )
+      ::oLine3 = HRect_Line():New( oWndParent, , .F., nLeft,  nBottom, nRight - nLeft, , nCor2 )
+      ::oLine4 = HRect_Line():New( oWndParent, , .T., nRight, nTop,    nBottom - nTop, , nCor2 )
    ENDCASE
 
    RETURN Self
@@ -83,7 +83,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor ) CLASS 
       ::nWidth  := IIf( nLength == Nil, 20, nLength )
       ::nHeight := 10
    ENDIF
-   ::oPen := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( nColor ) )
+   ::oPen := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(nColor))
 
    ::Activate()
 
@@ -91,9 +91,8 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor ) CLASS 
 
 //---------------------------------------------------------------------------
 METHOD Activate() CLASS HRect_Line
-   IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-                                ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN Nil
@@ -120,13 +119,11 @@ METHOD Paint( lpdis ) CLASS HRect_Line
 
 CLASS HShape INHERIT HControl
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, ;
-               nbStyle, nfStyle, tcolor, bcolor, bSize, bInit )  //, bClick, bDblClick)
+   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, nbStyle, nfStyle, tcolor, bcolor, bSize, bInit )  //, bClick, bDblClick)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, ;
-            nbStyle, nfStyle, tcolor, bcolor, bSize, bInit ) CLASS HShape
+METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, nbStyle, nfStyle, tcolor, bcolor, bSize, bInit ) CLASS HShape
 
    /* Variable Self is reserved and cannot be overwritten ! */
    LOCAL oSelf
@@ -137,8 +134,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, 
    nCurvature := nCurvature
 
    /* old : Self := ... */
-   oSelf := HDrawShape():New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bcolor,,, ;
-                             nBorder, nCurvature, nbStyle, nfStyle, bInit )
+   oSelf := HDrawShape():New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bcolor,,, nBorder, nCurvature, nbStyle, nfStyle, bInit )
 
    RETURN oSelf
 
@@ -175,8 +171,7 @@ CLASS VAR winclass   INIT "STATIC"
    DATA ntColor, nbColor
    DATA bClick, bDblClick
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle, ;
-               lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit )
+   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle, lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit )
 
    METHOD Activate()
    METHOD Paint(lpdis)
@@ -211,18 +206,17 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor
    ::nbcolor := bColor
    ::ntColor := tcolor
    IF ncStyle == Nil
-      ::oPen := HPen():Add( ::nbStyle, ::nBorder, tcolor )
+      ::oPen := HPen():Add(::nbStyle, ::nBorder, tcolor)
    ELSE  // CONTAINER
-      ::oPen := HPen():Add( PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
+      ::oPen := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
    ENDIF
 
    RETURN Self
 
 //---------------------------------------------------------------------------
 METHOD Activate() CLASS HDrawShape
-   IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-                                ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN Nil
@@ -279,12 +273,12 @@ METHOD Paint( lpdis ) CLASS HDrawShape
       ENDIF
    ELSE
       hwg_Setbkmode( hDC, 1 )
-      oBrush := HBrush():Add( ::nbColor )
+      oBrush := HBrush():Add(::nbColor)
       hwg_Selectobject( hDC, oBrush:handle )
       hwg_Roundrect( hDC, x1, y1, x2, y2 , ::nCurvature, ::nCurvature )
       IF ::nfStyle != BS_TRANSPARENT
          hwg_Setbkmode( hDC, 0 )
-         oBrush := HBrush():Add( ::ntColor, ::nfstyle )
+         oBrush := HBrush():Add(::ntColor, ::nfstyle)
          hwg_Selectobject( hDC, oBrush:handle )
          hwg_Roundrect( hDC, x1, y1, x2, y2 , ::nCurvature, ::nCurvature )
       ENDIF
@@ -299,7 +293,7 @@ FUNCTION hwg_Rect( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST )
 
 
    IF lPress = NIL
-      lPress := .f.
+      lPress := .F.
    ENDIF
 
    RETURN  HRect():New( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST )

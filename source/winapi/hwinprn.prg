@@ -139,7 +139,7 @@ METHOD New( cPrinter, cpFrom, cpTo, nFormType , nCharset ) CLASS HWinPrn
    ::cpFrom := cpFrom
    ::cpTo   := cpTo
 #ifdef __GTK__
-   IF !Empty( cpTo )
+   IF !Empty(cpTo)
       ::oPrinter:cdpIn := cpTo
    ENDIF
 #endif
@@ -218,7 +218,7 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
          oFont:Release()
       ENDIF
 
-      nStdLineW  := Iif( ::nFormType==8, Iif(::oPrinter:nOrient==2,160,113), Iif(::oPrinter:nOrient==2,113,80) )
+      nStdLineW  := Iif( ::nFormType==8, Iif(::oPrinter:nOrient==2, 160, 113), Iif(::oPrinter:nOrient==2, 113, 80) )
       nStdHeight := Iif( !Empty(::nLineMax), ::nStdHeight / ( ::nLineMax/nStdLineW ), ::nStdHeight )
 
       IF ::lElite ; nMode ++ ; ENDIF
@@ -287,7 +287,7 @@ METHOD StartDoc( lPreview, cMetaName , lprbutton ) CLASS HWinPrn
 
 METHOD NextPage() CLASS HWinPrn
 
-   IF ! ::lDocStart
+   IF !::lDocStart
       RETURN Nil
    ENDIF
    IF ::lPageStart
@@ -331,7 +331,7 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
    * Variables not used
    * LOCAL oBitmap
 
-   IF ! ::lDocStart
+   IF !::lDocStart
       ::StartDoc()
    ENDIF
    
@@ -343,9 +343,9 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
    
    IF VALTYPE( xBitmap ) == "C" && does not work on GTK
      * from file
-     IF ! hb_fileexists( xBitmap )
+     IF !hb_fileexists( xBitmap )
        RETURN NIL
-     ENDIF  
+     ENDIF
      hBitmap := hwg_Openbitmap( xBitmap, ::oPrinter:hDC )
      // hwg_msginfo(hb_valtostr(hBitmap))
      IF hb_ValToStr(hBitmap) == "0x00000000"
@@ -393,8 +393,8 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
         
    i := aBmpSize[2] - ::nLineHeight
    IF i > 0
-     ::Y +=  i 
-   ENDIF  
+      ::Y +=  i
+   ENDIF
 
    // hwg_WriteLog(STR(::x) + CHR(10) + STR(::y) + CHR(10) ;
    // + STR(aBmpSize[1]) + CHR(10) +  STR(aBmpSize[2]) + CHR(10) +  STR(i) )
@@ -415,7 +415,7 @@ METHOD NewLine()  CLASS HWinPrn
 METHOD PrintLine( cLine, lNewLine ) CLASS HWinPrn
    LOCAL i, i0, j, slen, c
 
-   IF ! ::lDocStart
+   IF !::lDocStart
       ::StartDoc()
    ENDIF
 
@@ -452,8 +452,8 @@ IF cLine != Nil .AND. VALTYPE(cLine) == "N"
       ::y += ::nLineHeight + ::nLined
    ENDIF
 
-   IF cLine != Nil .AND. ! Empty( cLine )
-      slen := Len( cLine )
+   IF cLine != Nil .AND. !Empty(cLine)
+      slen := Len(cLine)
       i := 1
       i0 := 0
       DO WHILE i <= slen
@@ -534,37 +534,37 @@ METHOD PrintText( cText ) CLASS HWinPrn
    ENDIF
    ::oPrinter:Say( IIf( ::cpFrom != ::cpTo, hb_Translate( cText, ::cpFrom, ::cpTo ), cText ), ;
          ::x, ::y, ::oPrinter:nWidth, ::y + ::nLineHeight + ::nLined )
-   ::x += ( ::nCharW * Len( cText ) )
+   ::x += ( ::nCharW * Len(cText) )
 
 
    RETURN Nil
 
 METHOD PutCode( cLine ) CLASS HWinPrn
    STATIC aCodes := {   ;
-          { Chr( 27 ) + "@", .f., .f., 6, .f., .f., .f. },  ;     /* Reset */
-          { Chr( 27 ) + "M", .t.,,,,, },  ;     /* Elite */
-          { Chr( 15 ),, .t.,,,, },      ;     /* Cond */
-          { Chr( 18 ),, .f.,,,, },      ;     /* Cancel Cond */
-          { Chr( 27 ) + "0",,, 8,,, },    ;     /* 8 lines per inch */
-          { Chr( 27 ) + "2",,, 6,,, },    ;     /* 6 lines per inch ( standard ) */
-          { Chr( 27 ) + "-1",,,,,, .t. }, ;     /* underline */
-          { Chr( 27 ) + "-0",,,,,, .f. }, ;     /* cancel underline */
-          { Chr( 27 ) + "4",,,,, .t., },  ;     /* italic */
-          { Chr( 27 ) + "5",,,,, .f., },  ;     /* cancel italic */
-          { Chr( 27 ) + "G",,,, .t.,, },  ;     /* bold */
-          { Chr( 27 ) + "H",,,, .f.,, }   ;     /* cancel bold */
+          { Chr(27) + "@", .F., .F., 6, .F., .F., .F. },  ;     /* Reset */
+          { Chr(27) + "M", .T.,,,,, },  ;     /* Elite */
+          { Chr(15),, .T.,,,, },      ;     /* Cond */
+          { Chr(18),, .F.,,,, },      ;     /* Cancel Cond */
+          { Chr(27) + "0",,, 8,,, },    ;     /* 8 lines per inch */
+          { Chr(27) + "2",,, 6,,, },    ;     /* 6 lines per inch ( standard ) */
+          { Chr(27) + "-1",,,,,, .T. }, ;     /* underline */
+          { Chr(27) + "-0",,,,,, .F. }, ;     /* cancel underline */
+          { Chr(27) + "4",,,,, .T., },  ;     /* italic */
+          { Chr(27) + "5",,,,, .F., },  ;     /* cancel italic */
+          { Chr(27) + "G",,,, .T.,, },  ;     /* bold */
+          { Chr(27) + "H",,,, .F.,, }   ;     /* cancel bold */
         }
-   LOCAL i, sLen := Len( aCodes ), c := Left( cLine, 1 )
+   LOCAL i, sLen := Len(aCodes), c := Left(cLine, 1)
 
-   IF !Empty( c ) .AND. c < " "
+   IF !Empty(c) .AND. c < " "
       IF Asc( c ) == 31
-         ::InitValues( ,,,,,, Asc(Substr(cLine,2,1)) )
+         ::InitValues( ,,,,,, Asc(Substr(cLine, 2, 1)) )
          RETURN 2
       ELSE
          FOR i := 1 TO sLen
-            IF Left( aCodes[i, 1], 1 ) == c .AND. At( aCodes[i, 1], Left( cLine, 3 ) ) == 1
+            IF Left(aCodes[i, 1], 1) == c .AND. At( aCodes[i, 1], Left(cLine, 3) ) == 1
                ::InitValues( aCodes[i, 2], aCodes[i, 3], aCodes[i, 4], aCodes[i, 5], aCodes[i, 6], aCodes[i, 7]  )
-               RETURN Len( aCodes[i, 1] )
+               RETURN Len(aCodes[i, 1])
             ENDIF
          NEXT
       ENDIF

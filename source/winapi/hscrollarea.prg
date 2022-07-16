@@ -35,15 +35,13 @@ METHOD RedefineScrollbars() CLASS HScrollArea
 
    ::rect := hwg_Getclientrect( ::handle )
    IF ::nScrollBars > - 1 .AND. ::bScroll = Nil
-      IF  ::nVscrollPos = 0
+      IF ::nVscrollPos = 0
          ::ncurHeight := 0                                                              //* 4
-         AEval( ::aControls, { | o | ::ncurHeight := Int( Max( o:nTop + o:nHeight + VERT_PTS * 1, ;
-            ::ncurHeight ) ) } )
+         AEval(::aControls, { | o | ::ncurHeight := Int( Max( o:nTop + o:nHeight + VERT_PTS * 1, ::ncurHeight ) ) })
       ENDIF
-      IF  ::nHscrollPos = 0
+      IF ::nHscrollPos = 0
          ::ncurWidth  := 0                                                           // * 4
-         AEval( ::aControls, { | o | ::ncurWidth := Int( Max( o:nLeft + o:nWidth  + HORZ_PTS * 1, ;
-            ::ncurWidth ) ) } )
+         AEval(::aControls, { | o | ::ncurWidth := Int( Max( o:nLeft + o:nWidth  + HORZ_PTS * 1, ::ncurWidth ) ) })
       ENDIF
       ::ResetScrollbars()
       ::SetupScrollbars()
@@ -66,8 +64,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
       nwMax := Max( ::ncurWidth, ::Rect[3] )
       nhMax := Max( ::ncurHeight, ::Rect[4] )
       ::nHorzInc := Int( ( nwMax - tempRect[3] ) / HORZ_PTS + HORZ_PTS )
-      ::nVertInc := Int( ( nhMax - tempRect[4] ) / VERT_PTS + VERT_PTS - ;
-         iif( amenu != Nil, hwg_Getsystemmetrics( SM_CYMENU ), 0 ) )  // MENU
+      ::nVertInc := Int( ( nhMax - tempRect[4] ) / VERT_PTS + VERT_PTS - iif( amenu != Nil, hwg_Getsystemmetrics( SM_CYMENU ), 0 ) )  // MENU
    ENDIF
    // Set the vertical and horizontal scrolling info
    IF ::nScrollBars = 0 .OR. ::nScrollBars = 2

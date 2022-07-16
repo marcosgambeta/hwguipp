@@ -35,10 +35,8 @@ CLASS HStaticLink FROM HSTATIC
 
    CLASS VAR winclass INIT "STATIC"
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor )
-   METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
+   METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
    METHOD Activate()
    METHOD Init()
    METHOD onEvent( msg, wParam, lParam )
@@ -55,13 +53,11 @@ CLASS HStaticLink FROM HSTATIC
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor ) CLASS HStaticLink
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor) CLASS HStaticLink
 
    LOCAL oPrevFont, n
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp)
 
    DEFAULT vColor TO hwg_ColorRgb2N( 5, 34, 143 )
    DEFAULT lColor TO hwg_ColorRgb2N( 0, 0, 255 )
@@ -77,17 +73,15 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    // Test The Font the underline must be 1
    IF ::oFont == NIL
       IF ::oParent:oFont != NIL
-         ::oFont := HFONT():Add( ::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
-            ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut )
+         ::oFont := HFONT():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut)
       ELSE
-         ::oFont := HFONT():Add( "Arial", 0, -12,,,, 1, )
+         ::oFont := HFONT():Add("Arial", 0, -12, , , , 1,)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0
          oPrevFont := ::oFont
          ::oFont:Release()
-         ::oFont := HFONT():Add( oPrevFont:name, oPrevFont:width, oPrevFont:height, ;
-            oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut )
+         ::oFont := HFONT():Add(oPrevFont:name, oPrevFont:width, oPrevFont:height, oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut)
       ENDIF
    ENDIF
 
@@ -112,16 +106,14 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    RETURN Self
 
 /* added: cCaption */
-METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor )  CLASS HStaticLink
+METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)  CLASS HStaticLink
 
    LOCAL oPrevFont
 
     * Parameters not used
     HB_SYMBOL_UNUSED(lTransp)
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    DEFAULT vColor TO hwg_ColorRgb2N( 5, 34, 143 )
    DEFAULT lColor TO hwg_ColorRgb2N( 0, 0, 255 )
@@ -134,15 +126,13 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 
    IF ::oFont == NIL
       IF ::oParent:oFont != NIL
-         ::oFont := HFONT():Add( ::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
-            ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut )
+         ::oFont := HFONT():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0
          oPrevFont := ::oFont
          ::oFont:Release()
-         ::oFont := HFONT():Add( oPrevFont:name, oPrevFont:width, oPrevFont:height, ;
-            oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut )
+         ::oFont := HFONT():Add(oPrevFont:name, oPrevFont:width, oPrevFont:height, oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut)
       ENDIF
    ENDIF
 
@@ -154,17 +144,15 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
    RETURN Self
 
 METHOD Activate() CLASS HStaticLink
-   IF !Empty( ::oParent:handle )
-      ::handle := hwg_Createownbtn( ::oParent:handle, ::id, ;
-                                ::nLeft, ::nTop, ::nWidth, ::nHeight )
-
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createownbtn(::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 RETURN NIL
 
 METHOD Init() CLASS HStaticLink
 
-   IF ! ::lInit
+   IF !::lInit
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
       Hwg_InitWinCtrl( ::handle )
@@ -258,7 +246,7 @@ METHOD SetLinkColor( sLinkColor ) CLASS HStaticLink
 
 METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
 
-   HB_SYMBOL_UNUSED( nFlags )
+   HB_SYMBOL_UNUSED(nFlags)
 
    //hwg_writelog( str(hwg_Loword(lParam))+" "+str(hwg_Hiword(lParam)) )
    IF ::state != LBL_INIT
@@ -295,10 +283,9 @@ METHOD Paint() CLASS HStaticLink
    hDC := hwg_Beginpaint( ::handle, pps )
    aCoors := hwg_Getclientrect( ::handle )
 
-   hwg_Setbkmode( hDC, TRANSPARENT )
-   hwg_Selectobject( hDC, ::oFont:handle )
-   hwg_Settextcolor( hDC, Iif( ::state == LBL_NORMAL, ;
-         Iif( ::m_bVisited, ::m_sVisitedColor, ::m_sLinkColor ), ::m_sHoverColor ) )
+   hwg_Setbkmode(hDC, TRANSPARENT)
+   hwg_Selectobject(hDC, ::oFont:handle)
+   hwg_Settextcolor(hDC, Iif(::state == LBL_NORMAL, Iif(::m_bVisited, ::m_sVisitedColor, ::m_sLinkColor), ::m_sHoverColor))
 
    hwg_Drawtext( hDC, ::Title, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::dwFlags )
 

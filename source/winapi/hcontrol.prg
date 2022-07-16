@@ -17,8 +17,7 @@ CLASS HControl INHERIT HCustomWindow
    DATA   lInit      INIT .F.
    DATA   Anchor     INIT 0
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 
    METHOD NewId()
    METHOD Init()
@@ -26,8 +25,7 @@ CLASS HControl INHERIT HCustomWindow
    METHOD Disable()
    METHOD Enable()
    METHOD Enabled( lEnabled ) SETGET
-   METHOD Setfocus()    INLINE ( hwg_Sendmessage( ::oParent:handle, WM_NEXTDLGCTL, ;
-      ::handle, 1 ), hwg_Setfocus( ::handle  ) )
+   METHOD Setfocus()    INLINE (hwg_Sendmessage(::oParent:handle, WM_NEXTDLGCTL, ::handle, 1), hwg_Setfocus(::handle))
    METHOD GetText()     INLINE hwg_Getwindowtext( ::handle )
    METHOD SetText( c )  INLINE hwg_Setwindowtext( ::Handle, ::title := c )
    METHOD End()
@@ -35,13 +33,11 @@ CLASS HControl INHERIT HCustomWindow
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
-      bInit, bSize, bPaint, cTooltip, tcolor, bColor ) CLASS HControl
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor) CLASS HControl
 
    ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
    ::id      := iif( nId == NIL, ::NewId(), nId )
-   ::style   := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), ;
-      WS_VISIBLE + WS_CHILD )
+   ::style   := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_VISIBLE + WS_CHILD)
    ::oFont   := oFont
    ::nLeft   := nLeft
    ::nTop    := nTop
@@ -79,7 +75,7 @@ METHOD INIT() CLASS HControl
          hwg_Setctrlfont( ::oParent:handle, ::id, ::oParent:oFont:handle )
       ENDIF
       IF HB_ISBLOCK( ::bInit )
-         Eval( ::bInit, Self )
+         Eval(::bInit, Self)
       ENDIF
       ::lInit := .T.
    ENDIF
@@ -227,7 +223,7 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
 FUNCTION hwg_SetCtrlName( oCtrl, cName )
    LOCAL nPos
 
-   IF !Empty( cName ) .AND. ValType( cName ) == "C" .AND. ! ( "[" $ cName )
+   IF !Empty(cName) .AND. ValType( cName ) == "C" .AND. !( "[" $ cName )
       IF ( nPos :=  RAt( ":", cName ) ) > 0 .OR. ( nPos :=  RAt( ">", cName ) ) > 0
          cName := SubStr( cName, nPos + 1 )
       ENDIF

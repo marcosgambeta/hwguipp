@@ -60,8 +60,7 @@ METHOD Redefine( oWndParent, nId,  maxPos, nRange, bInit, bSize, bPaint, ctoolti
    * Parameters not used
    HB_SYMBOL_UNUSED(lVertical)
 
-   ::Super:New( oWndParent,nId,0,0,0,0,0,,bInit, ;
-                  bSize,bPaint,ctooltip,, )
+   ::Super:New( oWndParent,nId,0,0,0,0,0,,bInit, bSize,bPaint,ctooltip,, )
    HWG_InitCommonControlsEx()
    //::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    ::maxPos      := iif( maxPos == Nil, 20, maxPos )
@@ -98,8 +97,7 @@ METHOD NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPer
       At nLeft, nTop SIZE nWidth, nHeight   ;
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + /* WS_SYSMENU + */ WS_SIZEBOX + iif( nTop == 0, DS_CENTER, 0 ) + /* DS_SYSMODAL + */ DS_SETFOREGROUND + MB_USERICON
 
-   @ ::nLeft, nTop + 5 SAY ::LabelBox CAPTION iif( Empty( lPercent ), "", "%" )  SIZE ::nWidth, 19 ;
-      STYLE SS_CENTER
+   @ ::nLeft, nTop + 5 SAY ::LabelBox CAPTION iif( Empty(lPercent), "", "%" )  SIZE ::nWidth, 19 STYLE SS_CENTER
 
    IF bExit != Nil
       ::oParent:bDestroy := bExit
@@ -115,9 +113,8 @@ METHOD NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPer
 
 METHOD Activate() CLASS HProgressBar
 
-   IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createprogressbar( ::oParent:handle, ::maxPos, ::style, ;
-         ::nLeft, ::nTop, ::nWidth, iif( ::nHeight = 0, Nil, ::nHeight ) )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createprogressbar( ::oParent:handle, ::maxPos, ::style, ::nLeft, ::nTop, ::nWidth, iif( ::nHeight = 0, Nil, ::nHeight ) )
       ::Init()
    ENDIF
 
@@ -125,7 +122,7 @@ METHOD Activate() CLASS HProgressBar
 
 METHOD Init()  CLASS HProgressBar
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       //hwg_Sendmessage( ::handle, PBM_SETRANGE, 0, hwg_Makelparam( 0, ::nRange ) )
       //hwg_Sendmessage( ::handle, PBM_SETSTEP, ::maxPos, 0 )
@@ -144,7 +141,7 @@ METHOD STEP( cTitle )
       ::nCount := 0
       hwg_Updateprogressbar( ::handle )
       ::Set( cTitle )
-      IF ! Empty( ::lPercent )
+      IF !Empty(::lPercent)
          ::nPercent += ::maxPos  //::nLimit
          ::setLabel( LTrim( Str( ::nPercent, 3 ) ) + " %" )
       ENDIF

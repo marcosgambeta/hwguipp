@@ -42,13 +42,13 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       bSize, bPaint, ctooltip, tcolor, bcolor )
 
    ::idUpDown := ::NewId()
-   IF Empty( vari )
+   IF Empty(vari)
       vari := 0
    ENDIF
    IF vari != Nil
       IF ValType( vari ) != "N"
          vari := 0
-         Eval( bSetGet, vari )
+         Eval(bSetGet, vari)
       ENDIF
       ::title := Str( vari )
    ENDIF
@@ -80,9 +80,8 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
 METHOD Activate() CLASS HUpDown
 
-   IF !Empty( ::oParent:handle )
-      ::handle := hwg_Createedit( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createedit(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
 
@@ -93,7 +92,7 @@ METHOD Init()  CLASS HUpDown
    IF !::lInit
       ::Super:Init()
       ::hUpDown := hwg_Createupdowncontrol( ::oParent:handle, ::idUpDown, ;
-         ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, ::nUpper, ::nLower, Val( ::title ) )
+         ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, ::nUpper, ::nLower, Val(::title) )
    ENDIF
 
    RETURN Nil
@@ -105,11 +104,11 @@ METHOD Value( nValue ) CLASS HUpDown
          hwg_SetUpdown( ::hUpDown, nValue )
          ::nValue := nValue
          IF ::bSetGet != NIL
-            Eval( ::bSetGet, nValue, Self )
+            Eval(::bSetGet, nValue, Self)
          ENDIF
       ENDIF
    ELSE
-      //::nValue := Val( LTrim( ::title := hwg_Getedittext( ::oParent:handle, ::id ) ) )
+      //::nValue := Val(LTrim(::title := hwg_Getedittext(::oParent:handle, ::id)))
       ::nValue := hwg_GetUpdown( ::hUpDown )
    ENDIF
 
@@ -121,13 +120,13 @@ METHOD Refresh()  CLASS HUpDown
    * LOCAL vari
 
    IF ::bSetGet != Nil
-      ::nValue := Eval( ::bSetGet )
+      ::nValue := Eval(::bSetGet)
       IF Str( ::nValue ) != ::title
          ::title := Str( ::nValue )
          hwg_Setupdown( ::hUpDown, ::nValue )
       ENDIF
    ELSE
-      hwg_Setupdown( ::hUpDown, Val( ::title ) )
+      hwg_Setupdown( ::hUpDown, Val(::title) )
    ENDIF
 
    RETURN Nil
@@ -136,7 +135,7 @@ STATIC FUNCTION __When( oCtrl )
 
    oCtrl:Refresh()
    IF oCtrl:bGetFocus != Nil
-      RETURN Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet ), oCtrl )
+      RETURN Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet), oCtrl)
    ENDIF
 
    RETURN .T.
@@ -145,9 +144,9 @@ STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:nValue := oCtrl:Value
    IF oCtrl:bSetGet != Nil
-      Eval( oCtrl:bSetGet, oCtrl:nValue )
+      Eval(oCtrl:bSetGet, oCtrl:nValue)
    ENDIF
-   IF oCtrl:bLostFocus != Nil .AND. !Eval( oCtrl:bLostFocus, oCtrl:nValue, oCtrl ) .OR. ;
+   IF oCtrl:bLostFocus != Nil .AND. !Eval(oCtrl:bLostFocus, oCtrl:nValue, oCtrl) .OR. ;
          oCtrl:nValue > oCtrl:nUpper .OR. oCtrl:nValue < oCtrl:nLower
       hwg_Setfocus( oCtrl:handle )
    ENDIF

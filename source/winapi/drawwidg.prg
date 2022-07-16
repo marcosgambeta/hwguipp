@@ -75,24 +75,22 @@ METHOD AddResource( name, nFlags, lOEM, nWidth, nHeight ) CLASS HBitmap
       lPreDefined := .T.
    ENDIF
    FOR EACH i IN ::aBitmaps
-      IF i:name == name .AND. i:nFlags == nFlags .AND. ;
-            ( ( nWidth == nil .OR. nHeight == nil ) .OR. ;
-            ( i:nWidth == nWidth .AND. i:nHeight == nHeight ) )
+      IF i:name == name .AND. i:nFlags == nFlags .AND. ((nWidth == nil .OR. nHeight == nil) .OR. (i:nWidth == nWidth .AND. i:nHeight == nHeight))
          i:nCounter ++
          RETURN i
       ENDIF
    NEXT
 
-   IF !Empty( oResCnt )
-      IF !Empty( i := oResCnt:Get( name ) )
+   IF !Empty(oResCnt)
+      IF !Empty(i := oResCnt:Get(name))
          ::handle := hwg_OpenImage( i, .T. )
       ENDIF
    ELSEIF lOEM
-      ::handle := hwg_Loadimage( 0, Val( name ), IMAGE_BITMAP, nil, nil, Hwg_bitor( nFlags, LR_SHARED ) )
+      ::handle := hwg_Loadimage( 0, Val(name), IMAGE_BITMAP, nil, nil, Hwg_bitor( nFlags, LR_SHARED ) )
    ELSE
-      ::handle := hwg_Loadimage( nil, iif( lPreDefined, Val( name ), name ), IMAGE_BITMAP, nWidth, nHeight, nFlags )
+      ::handle := hwg_Loadimage( nil, iif( lPreDefined, Val(name), name ), IMAGE_BITMAP, nWidth, nHeight, nFlags )
    ENDIF
-   IF Empty( ::handle )
+   IF Empty(::handle)
       RETURN Nil
    ENDIF
    ::name    := name
@@ -100,7 +98,7 @@ METHOD AddResource( name, nFlags, lOEM, nWidth, nHeight ) CLASS HBitmap
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
    ::nFlags  :=  nFlags
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -115,14 +113,14 @@ METHOD AddStandard( nId ) CLASS HBitmap
    NEXT
 
    ::handle := hwg_Loadbitmap( nId, .T. )
-   IF Empty( ::handle )
+   IF Empty(::handle)
       RETURN Nil
    ENDIF
    ::name   := name
    aBmpSize  := hwg_Getbitmapsize( ::handle )
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -144,15 +142,15 @@ METHOD AddFile( name, hDC, lTransparent, nWidth, nHeight ) CLASS HBitmap
    NEXT
 
    name := AddPath( name, ::cPath )
-   name := iif( ! File( name ) .AND. File( cname ), cname, name )
+   name := iif( !File( name ) .AND. File( cname ), cname, name )
    IF ::lSelFile .AND. !File( name )
       cCurDir  := DiskName() + ":\" + CurDir()
       name := hwg_Selectfile( "Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath( name ), FilePath( name ), "Locate " + name ) //"*.jpg;*.gif;*.bmp;*.ico"
       DirChange( cCurDir )
    ENDIF
 
-   IF Lower( Right( name, 4 ) ) != ".bmp" .OR. ( nWidth == nil .AND. nHeight == nil .AND. lTransparent == Nil )
-      IF Lower( Right( name, 4 ) ) == ".bmp"
+   IF Lower( Right(name, 4) ) != ".bmp" .OR. ( nWidth == nil .AND. nHeight == nil .AND. lTransparent == Nil )
+      IF Lower( Right(name, 4) ) == ".bmp"
          ::handle := hwg_Openbitmap( name, hDC )
       ELSE
          ::handle := hwg_Openimage( name )
@@ -164,14 +162,14 @@ METHOD AddFile( name, hDC, lTransparent, nWidth, nHeight ) CLASS HBitmap
          ::handle := hwg_Loadimage( nil, name, IMAGE_BITMAP, nWidth, nHeight, LR_LOADFROMFILE )
       ENDIF
    ENDIF
-   IF Empty( ::handle )
+   IF Empty(::handle)
       RETURN Nil
    ENDIF
    ::name := cname
    aBmpSize  := hwg_Getbitmapsize( ::handle )
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -193,12 +191,12 @@ METHOD AddString( name, cVal , nWidth, nHeight ) CLASS HBitmap
    NEXT
 
    ::handle := hwg_Openimage( cVal, .T. )
-   IF !Empty( ::handle )
+   IF !Empty(::handle)
       ::name := name
       aBmpSize  := hwg_Getbitmapsize( ::handle )
       ::nWidth  := aBmpSize[1]
       ::nHeight := aBmpSize[2]
-      AAdd( ::aBitmaps, Self )
+      AAdd(::aBitmaps, Self)
    ELSE
       RETURN Nil
    ENDIF
@@ -217,7 +215,7 @@ METHOD AddWindow( oWnd, x1, y1, width, height ) CLASS HBitmap
    aBmpSize  := hwg_Getbitmapsize( ::handle )
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -232,7 +230,7 @@ METHOD Draw( hDC, x1, y1, width, height ) CLASS HBitmap
    RETURN Nil
 
 METHOD RELEASE() CLASS HBitmap
-   LOCAL i, nlen := Len( ::aBitmaps )
+   LOCAL i, nlen := Len(::aBitmaps)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -240,8 +238,8 @@ METHOD RELEASE() CLASS HBitmap
       FOR EACH i IN ::aBitmaps
          IF i:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aBitmaps, hB_enumIndex() )
-            ASize( ::aBitmaps, nlen - 1 )
+            ADel(::aBitmaps, hB_enumIndex())
+            ASize(::aBitmaps, nlen - 1)
             EXIT
          ENDIF
       NEXT
@@ -249,8 +247,8 @@ METHOD RELEASE() CLASS HBitmap
       FOR i := 1 TO nlen
          IF ::aBitmaps[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aBitmaps, i )
-            ASize( ::aBitmaps, nlen - 1 )
+            ADel(::aBitmaps, i)
+            ASize(::aBitmaps, nlen - 1)
             EXIT
          ENDIF
       NEXT
@@ -305,17 +303,17 @@ METHOD AddResource( name, nWidth, nHeight, nFlags, lOEM ) CLASS HIcon
          RETURN i
       ENDIF
    NEXT
-   IF !Empty( oResCnt )
-      IF !Empty( i := oResCnt:Get( name ) )
+   IF !Empty(oResCnt)
+      IF !Empty(i := oResCnt:Get(name))
          ::handle := hwg_OpenImage( i, .T., IMAGE_CURSOR )
          //hwg_writelog( Str(Len(i))+"/"+Iif(Empty(::handle),"Err","Ok") )
       ENDIF
    ELSEIF lOEM // LR_SHARED is required for OEM images
-      ::handle := hwg_Loadimage( 0, Val( name ), IMAGE_ICON, nWidth, nHeight, Hwg_bitor( nFlags, LR_SHARED ) )
+      ::handle := hwg_Loadimage( 0, Val(name), IMAGE_ICON, nWidth, nHeight, Hwg_bitor( nFlags, LR_SHARED ) )
    ELSE
-      ::handle := hwg_Loadimage( nil, iif( lPreDefined, Val( name ), name ), IMAGE_ICON, nWidth, nHeight, nFlags )
+      ::handle := hwg_Loadimage( nil, iif( lPreDefined, Val(name), name ), IMAGE_ICON, nWidth, nHeight, nFlags )
    ENDIF
-   IF Empty( ::handle )
+   IF Empty(::handle)
       RETURN Nil
    ENDIF
    ::name   := name
@@ -324,7 +322,7 @@ METHOD AddResource( name, nWidth, nHeight, nFlags, lOEM ) CLASS HIcon
    ::nHeight := aIconSize[2]
    //hwg_writelog( Str(::nWidth)+"/"+str(::nHeight) )
 
-   AAdd( ::aIcons, Self )
+   AAdd(::aIcons, Self)
 
    RETURN Self
 
@@ -354,7 +352,7 @@ METHOD AddString( name, cVal , nWidth, nHeight) CLASS HIcon
  ::nWidth  := aIconSize[1]
  ::nHeight := aIconSize[2]
 
-   AAdd( ::aIcons, Self )
+   AAdd(::aIcons, Self)
 
   * oreturn := ::AddFile( name )
  FERASE(cTmp)
@@ -372,15 +370,14 @@ METHOD AddFile( name, nWidth, nHeight ) CLASS HIcon
       nHeight := 0
    ENDIF
    FOR EACH i IN  ::aIcons
-      IF i:name == cname .AND. ( nWidth == Nil .OR. i:nWidth == nWidth ) ;
-         .AND. ( nHeight == Nil .OR. i:nHeight == nHeight )
+      IF i:name == cname .AND. (nWidth == Nil .OR. i:nWidth == nWidth) .AND. (nHeight == Nil .OR. i:nHeight == nHeight)
          i:nCounter ++
          RETURN i
       ENDIF
    NEXT
 
    name := AddPath( name, ::cPath )
-   name := iif( ! File( name ) .AND. File( cname ), cname, name )
+   name := iif( !File( name ) .AND. File( cname ), cname, name )
    IF ::lSelFile .AND. !File( name )
       cCurDir  := DiskName() + ":\" + CurDir()
       name := hwg_Selectfile( "Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath( name ), FilePath( name ), "Locate " + name ) //"*.jpg;*.gif;*.bmp;*.ico"
@@ -388,9 +385,9 @@ METHOD AddFile( name, nWidth, nHeight ) CLASS HIcon
    ENDIF
    #ifdef __XHARBOUR__
    hb_FNameSplit( name,, , @cFext )
-   IF Empty( cFext )
+   IF Empty(cFext)
    #else
-   IF Empty( hb_fNameExt( name ) )
+   IF Empty(hb_fNameExt(name))
    #endif
       name += ".ico"
    ENDIF
@@ -400,12 +397,12 @@ METHOD AddFile( name, nWidth, nHeight ) CLASS HIcon
    ::nWidth  := aIconSize[1]
    ::nHeight := aIconSize[2]
 
-   AAdd( ::aIcons, Self )
+   AAdd(::aIcons, Self)
 
    RETURN Self
 
 METHOD RELEASE() CLASS HIcon
-   LOCAL i, nlen := Len( ::aIcons )
+   LOCAL i, nlen := Len(::aIcons)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -413,8 +410,8 @@ METHOD RELEASE() CLASS HIcon
       FOR EACH i IN ::aIcons
          IF i:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aIcons, hb_enumindex() )
-            ASize( ::aIcons, nlen - 1 )
+            ADel(::aIcons, hb_enumindex())
+            ASize(::aIcons, nlen - 1)
             EXIT
          ENDIF
       NEXT
@@ -422,8 +419,8 @@ METHOD RELEASE() CLASS HIcon
       FOR i := 1 TO nlen
          IF ::aIcons[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aIcons, i )
-            ASize( ::aIcons, nlen - 1 )
+            ADel(::aIcons, i)
+            ASize(::aIcons, nlen - 1)
             EXIT
          ENDIF
       NEXT
@@ -438,8 +435,7 @@ FUNCTION hwg_aCompare( arr1, arr2 )
 
    IF arr1 == Nil .AND. arr2 == Nil
       RETURN .T.
-   ELSEIF Valtype( arr1 ) == Valtype( arr2 ) .AND. Valtype( arr1 ) == "A" ;
-         .AND. ( nLen := Len( arr1 ) ) == Len( arr2 )
+   ELSEIF Valtype(arr1) == Valtype(arr2) .AND. Valtype(arr1) == "A" .AND. (nLen := Len(arr1)) == Len(arr2)
       FOR i := 1 TO nLen
          IF !( Valtype(arr1[i]) == Valtype(arr2[i]) ) .OR. !( arr1[i] == arr2[i] )
             RETURN .F.
@@ -454,8 +450,8 @@ FUNCTION hwg_BmpFromRes( cBmp )
 
    LOCAL handle, cBuff
 
-   IF !Empty( oResCnt )
-      IF !Empty( cBuff := oResCnt:Get( cBmp ) )
+   IF !Empty(oResCnt)
+      IF !Empty(cBuff := oResCnt:Get(cBmp))
          handle := hwg_OpenImage( cBuff, .T. )
       ENDIF
    ELSE
@@ -478,13 +474,13 @@ FUNCTION hwg_BmpFromRes( cBmp )
 FUNCTION hwg_SetResContainer( cName )
 * Returns .T., if container is opened successfully
 
-   IF Empty( cName )
-      IF !Empty( oResCnt )
+   IF Empty(cName)
+      IF !Empty(oResCnt)
          oResCnt:Close()
          oResCnt := Nil
       ENDIF
    ELSE
-      IF Empty( oResCnt := HBinC():Open( cName ) )
+      IF Empty(oResCnt := HBinC():Open(cName))
          RETURN .F.
       ENDIF
    ENDIF
@@ -492,7 +488,7 @@ FUNCTION hwg_SetResContainer( cName )
 
 FUNCTION hwg_GetResContainerOpen()
 * Returns .T., if a container is open
-IF !Empty( oResCnt )
+IF !Empty(oResCnt)
  RETURN .T.
 ENDIF
 RETURN .F.
@@ -501,7 +497,7 @@ FUNCTION hwg_GetResContainer()
 * Returns the object of opened container,
 * otherwise NIL
 * (because the object variable is static)
-IF !Empty( oResCnt )
+IF !Empty(oResCnt)
  RETURN oResCnt
 ENDIF
 RETURN NIL
@@ -516,7 +512,7 @@ FUNCTION hwg_ExtractResContItem2file(cfilename,cname)
 LOCAL n
 n := hwg_ResContItemPosition(cname)
 IF n > 0
-    hb_MemoWrit( cfilename, oResCnt:Get( oResCnt:aObjects[n,1] ) )
+    hb_MemoWrit( cfilename, oResCnt:Get( oResCnt:aObjects[n, 1] ) )
     RETURN .T.
 ENDIF
 RETURN .F.
@@ -590,22 +586,22 @@ RETURN ctmpfilename
 EXIT PROCEDURE CleanDrawWidg
    LOCAL i
 
-   FOR i := 1 TO Len( HPen():aPens )
+   FOR i := 1 TO Len(HPen():aPens)
       hwg_Deleteobject( HPen():aPens[i]:handle )
    NEXT
-   FOR i := 1 TO Len( HBrush():aBrushes )
+   FOR i := 1 TO Len(HBrush():aBrushes)
       hwg_Deleteobject( HBrush():aBrushes[i]:handle )
    NEXT
-   FOR i := 1 TO Len( HFont():aFonts )
+   FOR i := 1 TO Len(HFont():aFonts)
       hwg_Deleteobject( HFont():aFonts[i]:handle )
    NEXT
-   FOR i := 1 TO Len( HBitmap():aBitmaps )
+   FOR i := 1 TO Len(HBitmap():aBitmaps)
       hwg_Deleteobject( HBitmap():aBitmaps[i]:handle )
    NEXT
-   FOR i := 1 TO Len( HIcon():aIcons )
+   FOR i := 1 TO Len(HIcon():aIcons)
       hwg_Deleteobject( HIcon():aIcons[i]:handle )
    NEXT
-   IF !Empty( oResCnt )
+   IF !Empty(oResCnt)
       oResCnt:Close()
    ENDIF
 
@@ -616,7 +612,7 @@ EXIT PROCEDURE CleanDrawWidg
    All other attributes are not modified.
  */
 FUNCTION hwg_FontSetCharset ( oFont, nCharSet  )
-   LOCAL i, nlen := Len( oFont:aFonts )
+   LOCAL i, nlen := Len(oFont:aFonts)
 
    IF nCharSet == NIL .OR. nCharSet == -1
     RETURN oFont
@@ -633,8 +629,8 @@ RETURN oFont
 FUNCTION hwg_LoadCursorFromString(cVal, nx , ny)
 LOCAL cTmp , hCursor
 * Parameter x and y not used on WinApi
- HB_SYMBOL_UNUSED( nx )
- HB_SYMBOL_UNUSED( ny )
+ HB_SYMBOL_UNUSED(nx)
+ HB_SYMBOL_UNUSED(ny)
 
  * Write contents into temporary file
  hb_memowrit( cTmp := hwg_CreateTempfileName( , ".cur") , cVal )

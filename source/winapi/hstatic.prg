@@ -35,7 +35,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    IF lTransp != NIL .AND. lTransp
       ::extStyle += WS_EX_TRANSPARENT
-      ::nStyleDraw := iif( Empty( nStyle ), 0, nStyle )
+      ::nStyleDraw := iif( Empty(nStyle), 0, nStyle )
       nStyle := SS_OWNERDRAW
       bPaint := { |o, p| o:paint( p ) }
    ENDIF
@@ -84,10 +84,8 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 
 METHOD Activate() CLASS HStatic
 
-   IF !Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ::style, ;
-         ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
-         ::extStyle )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle)
       ::Init()
    ENDIF
 

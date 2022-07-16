@@ -33,8 +33,7 @@ CLASS VAR winclass INIT "STATIC"
    DATA bEndDrag
    DATA bChange
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
-               bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis )
+   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
@@ -45,13 +44,11 @@ CLASS VAR winclass INIT "STATIC"
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
-            bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis ) CLASS HTrack
+METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis ) CLASS HTrack
 
    color := Iif( color == Nil, CLR_BLACK, color )
    bColor := Iif( bColor == Nil, CLR_WHITE, bColor )
-   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight,,, ;
-              bSize, bPaint,, color, bcolor )
+   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight,,, bSize, bPaint,, color, bcolor )
 
    ::title  := ""
    ::lVertical := ( ::nHeight > ::nWidth )
@@ -62,23 +59,22 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
    ::oStyleBar := oStyleBar
    ::oStyleSlider := oStyleSlider
    ::lAxis := ( lAxis == Nil .OR. lAxis )
-   ::oPen1 := HPen():Add( PS_SOLID, 1, color )
+   ::oPen1 := HPen():Add(PS_SOLID, 1, color)
 
    ::Activate()
 
    RETURN Self
 
 METHOD Activate() CLASS HTrack
-   IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-                                ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN Nil
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HTrack
 
-   HB_SYMBOL_UNUSED( wParam )
+   HB_SYMBOL_UNUSED(wParam)
 
    IF msg == WM_MOUSEMOVE
       IF ::lCaptured
@@ -103,7 +99,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrack
       ::lCaptured := .F.
       hwg_Releasecapture()
       IF ::bEndDrag != Nil
-         Eval( ::bEndDrag, Self )
+         Eval(::bEndDrag, Self)
       ENDIF
       hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW )
 
@@ -115,7 +111,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrack
 
 METHOD Init() CLASS HTrack
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       hwg_Setwindowobject( ::handle, Self )
 #ifndef __GTK__
@@ -133,11 +129,11 @@ METHOD Paint() CLASS HTrack
    LOCAL hDC := hwg_Beginpaint( ::handle, pps )
 
    IF ::tColor2 != Nil .AND. ::oPen2 == Nil
-      ::oPen2 := HPen():Add( PS_SOLID, 1, ::tColor2 )
+      ::oPen2 := HPen():Add(PS_SOLID, 1, ::tColor2)
    ENDIF
 
    IF ::bPaint != Nil
-      Eval( ::bPaint, Self, hDC )
+      Eval(::bPaint, Self, hDC)
    ELSE
 
       IF ::oStyleBar == Nil
@@ -214,7 +210,7 @@ METHOD Drag( xPos, yPos ) CLASS HTrack
    ENDIF
    hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW )
    IF nCurr != ::nCurr .AND. ::bChange != Nil
-      Eval( ::bChange, Self, ::Value )
+      Eval(::bChange, Self, ::Value)
    ENDIF
 
    RETURN Nil
@@ -226,11 +222,11 @@ METHOD Move( x1, y1, width, height ) CLASS HTrack
    HB_SYMBOL_UNUSED(x1)
    HB_SYMBOL_UNUSED(y1)
 
-   IF ::lVertical .AND. !Empty( height ) .AND. height != ::nHeight
+   IF ::lVertical .AND. !Empty(height) .AND. height != ::nHeight
       ::nFrom  := Int(::nSize/2)
       ::nTo    := height-1-Int(::nSize/2)
       ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom
-   ELSEIF !::lVertical .AND. !Empty( width ) .AND. width != ::nWidth
+   ELSEIF !::lVertical .AND. !Empty(width) .AND. width != ::nWidth
       ::nFrom  := Int(::nSize/2)
       ::nTo    := width-1-Int(::nSize/2)
       ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom

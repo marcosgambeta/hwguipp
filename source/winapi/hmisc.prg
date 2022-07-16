@@ -138,7 +138,7 @@ FOR ncount := 1 TO LEN(chexstr)
      cbin := cbin + CHR(nvalue)
      * nvalue := 0
     ENDIF
-   ENDIF  && IF 0..9,A..F 
+   ENDIF && IF 0..9,A..F 
   NEXT
   * if odd, return error
   IF ( nodd % 2 ) != 0
@@ -207,7 +207,7 @@ LOCAL nlength, coutfield,  nindexcnt , cccchar, nccchar, ccchex, nlinepos, cccpr
   FOR nindexcnt := 1 TO nlength
     nlinepos := nlinepos + 1
     * extract single character to convert
-    cccchar := SUBSTR(cinfield,nindexcnt,1)
+    cccchar := SUBSTR(cinfield, nindexcnt, 1)
     * convert single character to number
     nccchar := ASC(cccchar)
     * is printable character below 0x80 (pure ASCII)
@@ -255,12 +255,12 @@ LOCAL nlength, coutfield,  nindexcnt , cccchar, nccchar, ccchex, nlinepos, cccpr
   * complete as last line, if rest of recent line existing
   * HEX line 16 * 3 = 48
   * line with printable chars: 16 * 2 = 32
-  IF  .NOT. EMPTY(ccchexline)  && nlinepos < 16
+  IF .NOT. EMPTY(ccchexline)  && nlinepos < 16
    DO CASE
       CASE nmode == 0
        coutfield := coutfield + ccchexline
       CASE nmode == 1
-       coutfield := coutfield + PADR(ccchexline,48) + ">> " +  PADR(cccprline,32) + hwg_EOLStyle()
+       coutfield := coutfield + PADR(ccchexline, 48) + ">> " +  PADR(cccprline, 32) + hwg_EOLStyle()
       CASE nmode == 2
        coutfield := coutfield + ccchexline + CHR(34) +  hwg_EOLStyle()
       CASE nmode == 3
@@ -361,16 +361,16 @@ FUNCTION hwg_Dirname ( pFullpath )
     sFilePath := cseparator
  ELSE
      IF nPosidirna != 0
-       sFilePath := SUBSTR(sFullpath,1,nPosidirna - 1)
+       sFilePath := SUBSTR(sFullpath, 1, nPosidirna - 1)
      ELSE
        * Special case:
        * recent directory (only filename)
        * or only drive letter
        * for example C:name
        * ==> set directory with "cd".   
-       IF SUBSTR(sFullpath,2,1) == ":"
+       IF SUBSTR(sFullpath, 2, 1) == ":"
          * Only drive letter with ":" (for example C: )
-         sFilePath := SUBSTR(sFullpath,1,2)
+         sFilePath := SUBSTR(sFullpath, 1, 2)
        ELSE
         sFilePath = "."
        ENDIF
@@ -421,7 +421,7 @@ IF nlen1 != nlen2
  RETURN .F.
 ENDIF
 DO WHILE ( nnum <= nlen1 ) .AND. lende
- IF SUBSTR(mmemo1,nnum,1) != SUBSTR(mmemo2,nnum,1) 
+ IF SUBSTR(mmemo1, nnum, 1) != SUBSTR(mmemo2, nnum, 1) 
    lende := .F.
  ENDIF
  nnum := nnum + 1
@@ -685,7 +685,7 @@ ENDIF
    @ 1,3 GET oheget VAR cHelptxt SIZE 772,384 NOBORDER ;
       STYLE WS_VSCROLL + ES_AUTOHSCROLL + ES_MULTILINE + ES_READONLY + WS_BORDER + ES_NOHIDESEL
 
-   @ 322,402 BUTTON cClose SIZE 100,32 ; 
+   @ 322,402 BUTTON cClose SIZE 100,32 ;
     ON CLICK {||oDlg:Close() }
 
    IF blmodus  
@@ -809,8 +809,8 @@ lstop := .F.
   ENDIF
   FOR vni := 1 TO LEN(ce)
    IF .NOT. lstop  
-     if SUBSTR(e1,vni,1) == " "
-      e1 := STUFF(e1,vni,1,"0")  && modify character at position vni to "0"
+     if SUBSTR(e1, vni, 1) == " "
+      e1 := STUFF(e1, vni, 1, "0")  && modify character at position vni to "0"
      ELSE
       lstop := .T.               && Stop search, if no blank appeared
      ENDIF
@@ -822,7 +822,7 @@ RETURN crvalue
 
 FUNCTION hwg_Bin2D(chex,nlen,ndec)
 // hwg_msginfo(chex)
-RETURN hwg_Bin2DC(SUBSTR(STRTRAN(SUBSTR(chex,1,23) ," ","") ,1,16) ,nlen,ndec)
+RETURN hwg_Bin2DC(SUBSTR(STRTRAN(SUBSTR(chex, 1, 23) ," ",""), 1, 16) ,nlen,ndec)
 
 
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -881,18 +881,18 @@ nday   := DAY(dDate)
     IF nmonth <= 2
        nmonth := nmonth + 12
        nyear :=  nyear - 1
-    ENDIF 
+    ENDIF
 
    ngreg :=  ( nyear / 400 ) - ( nyear / 100 ) + ( nyear / 4 )  && Gregorian calendar
 
 RETURN 2400000.5 + 365 * nyear - 679004 + ngreg ;
            + INT(30.6001 * ( nmonth + 1 )) + nday + ( nhour / 24 ) ;
            + ( nminutes / 1440 ) + ( nseconds / 86400 )
-   
-   
+
+
 * =================================
 FUNCTION hwg_JulianDay2Date(z)
-* Converts julian date of mem files into 
+* Converts julian date of mem files into
 * String , Format YYYYMMDD (ANSI)
 * z: double (of type N)
 * Returns string
@@ -903,110 +903,110 @@ FUNCTION hwg_JulianDay2Date(z)
 * =================================
 LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  cMonth , cday
 
- njoff := 4712                  && const year offset
- nFour := ( z + 13 ) / 1461     && 1461 = 3*365+366  period of 4 years  (valid 1901 ... 2099)
- nRound_4 := INT(nFour)
- nYear := nRound_4 * 4
- nRound_4 := (nRound_4 * 1461) - 13
- d  := z - nRound_4
- i  := 1
- d1 := 0
-   DO WHILE (d1 >= 0) .AND. (i < 5) 
-      IF i == 1 
-       jz := 366
+   njoff := 4712                  && const year offset
+   nFour := ( z + 13 ) / 1461     && 1461 = 3*365+366  period of 4 years  (valid 1901 ... 2099)
+   nRound_4 := INT(nFour)
+   nYear := nRound_4 * 4
+   nRound_4 := (nRound_4 * 1461) - 13
+   d  := z - nRound_4
+   i  := 1
+   d1 := 0
+   DO WHILE (d1 >= 0) .AND. (i < 5)
+      IF i == 1
+         jz := 366
       ELSE
-       jz := 365
+         jz := 365
       ENDIF
       d1 := d - jz
-      IF d1 >= 0 
-        d := d1
-        nYear := nYear + 1
+      IF d1 >= 0
+         d := d1
+         nYear := nYear + 1
       ENDIF
-     i := i + 1
-    ENDDO
-    nYear := nYear - njoff
-    cYear := STR( nYear , 4 , 0 )   
+      i := i + 1
+   ENDDO
+   nYear := nYear - njoff
+   cYear := STR( nYear , 4 , 0 )
 
-    cYear := hwg_leading0(cYear)
-    * Check for valid year range
-    IF (nYear < 1901 ) .OR. (nYear > 2099)
-       RETURN ""
-    ENDIF
+   cYear := hwg_leading0(cYear)
+   * Check for valid year range
+   IF (nYear < 1901 ) .OR. (nYear > 2099)
+      RETURN ""
+   ENDIF
 
-    d := d + 1;     && 0 .. 364 => 1 .. 365 
-   
-    IF ( nYear % 4 ) == 0   && Leap year 1901 ... 2099
+   d := d + 1;     && 0 .. 364 => 1 .. 365
+
+   IF ( nYear % 4 ) == 0   && Leap year 1901 ... 2099
       sz := -1
-    ELSE
+   ELSE
       sz := 0
-    ENDIF
-    IF (sz = -1) .AND. (d = 60)
-         * 29th February
+   ENDIF
+   IF (sz = -1) .AND. (d = 60)
+      * 29th February
+      cMonth := "02"
+      cday := "29"
+   ELSE
+      * All other days
+      IF (d > 60) .AND. (sz == -1)
+         d := d - 1
+      ENDIF && Correction Leap Year
+      cMonth := "  "
+      IF d > 0
+         cMonth := "01"
+         k := 0
+      ENDIF
+      IF d > 31
          cMonth := "02"
-         cday := "29"
-    ELSE
-         * All other days 
-         IF (d > 60) .AND. (sz == -1)
-           d := d - 1
-         ENDIF  && Correction Leap Year
-         cMonth := "  "
-         IF  d > 0
-             cMonth := "01"
-             k := 0
-         ENDIF
-         IF  d > 31
-             cMonth := "02"
-             k := 31
-         ENDIF
-         IF  d > 59
-             cMonth := "03"
-             k := 59
-         ENDIF
-         IF  d > 90
-             cMonth := "04"
-             k := 90
-         ENDIF
-         IF  d > 120
-             cMonth := "05"
-             k := 120
-         ENDIF
-         IF  d > 151
-             cMonth := "06"
-             k := 151
-         ENDIF
-         IF  d > 181
-             cMonth := "07"
-             k := 181
-         ENDIF
-         IF  d > 212
-             cMonth := "08"
-             k := 212
-         ENDIF
-         IF  d > 243
-             cMonth := "09"
-             k := 243
-         ENDIF
-         IF  d > 273
-             cMonth := "10"
-             k := 273
-         ENDIF
-         if  d > 304
-             cMonth := "11"
-             k := 304
-         ENDIF
-         IF  d > 334
-             cMonth := "12"
-             k := 334
-         ENDIF
-         d := d - k
-         cday := STR( d , 2 ,0 ) 
-        ENDIF
+         k := 31
+      ENDIF
+      IF d > 59
+         cMonth := "03"
+         k := 59
+      ENDIF
+      IF d > 90
+         cMonth := "04"
+         k := 90
+      ENDIF
+      IF d > 120
+         cMonth := "05"
+         k := 120
+      ENDIF
+      IF d > 151
+         cMonth := "06"
+         k := 151
+      ENDIF
+      IF d > 181
+         cMonth := "07"
+         k := 181
+      ENDIF
+      IF d > 212
+         cMonth := "08"
+         k := 212
+      ENDIF
+      IF d > 243
+         cMonth := "09"
+         k := 243
+      ENDIF
+      IF d > 273
+         cMonth := "10"
+         k := 273
+      ENDIF
+      if d > 304
+         cMonth := "11"
+         k := 304
+      ENDIF
+      IF d > 334
+         cMonth := "12"
+         k := 334
+      ENDIF
+      d := d - k
+      cday := STR( d , 2 ,0 )
+   ENDIF
    cday := hwg_leading0(cday)
-   
-   * Check for Errors 
-   * Could be for example "20991232". 
+
+   * Check for Errors
+   * Could be for example "20991232".
    IF .NOT. hwg_checkANSIDate(cYear + cMonth + cday)
-    RETURN ""
+      RETURN ""
    ENDIF
 
 RETURN cYear + cMonth + cday
@@ -1014,9 +1014,9 @@ RETURN cYear + cMonth + cday
 
 FUNCTION HWG_GET_TIME_SHIFT()
 LOCAL nhUTC , nhLocal
-nhUTC := VAL(SUBSTR(HWG_GETUTCTIMEDATE(),12,2  ))
+nhUTC := VAL(SUBSTR(HWG_GETUTCTIMEDATE(), 12, 2))
 * Format: W,YYYYMMDD-HH:MM:SS
-nhLocal := VAL(SUBSTR(TIME(),1,2))
+nhLocal := VAL(SUBSTR(TIME(), 1, 2))
 RETURN nhLocal - nhUTC
 
 FUNCTION hwg_Has_Win_Euro_Support()

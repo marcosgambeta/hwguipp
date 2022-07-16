@@ -47,9 +47,9 @@ METHOD Create( cFile, oTime, oResource ) CLASS HSplash
    LOCAL aWidth, aHeigth
    LOCAL bitmap, oDlg
 
-   IIf( Empty( oTime ) .or. oTime == Nil, oTime := 2000, oTime := oTime )
+   IIf( Empty(oTime) .or. oTime == Nil, oTime := 2000, oTime := oTime )
 
-   IF oResource == Nil .or. ! oResource
+   IF oResource == Nil .or. !oResource
       bitmap  := HBitmap():AddFile( cFile )
    ELSE
       bitmap  := HBitmap():AddResource( cFile )

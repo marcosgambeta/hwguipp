@@ -76,20 +76,16 @@ FUNCTION main
    nTop := 15
    nLeft := 5
    nBCodeType := 8
-   lHorz := .t.
-   lTransparent := .f.
+   lHorz := .T.
+   lTransparent := .F.
    nPinWidth := 1
 
    nWidth    := 200
    nHeight   := 40
 
-   oBC := Barcode():New( hwg_Getdc( oMainWindow:handle ) , "993198042124", nTop, nLeft, ;
-                         nWidth, nHeight, nBCodeType, ;
-                         nColText, nColPane, lHorz, ;
-                         lTransparent, nPinWidth )
+   oBC := Barcode():New(hwg_Getdc(oMainWindow:handle), "993198042124", nTop, nLeft, nWidth, nHeight, nBCodeType, nColText, nColPane, lHorz, lTransparent, nPinWidth)
 
-
-   @ 163, 10 EDITBOX oEdit1 CAPTION oBC:InitEAN13()  SIZE 100, 20
+   @ 163, 10 EDITBOX oEdit1 CAPTION oBC:InitEAN13() SIZE 100, 20
 
    ACTIVATE WINDOW oMainWindow
 
@@ -133,8 +129,7 @@ CLASS Barcode
    //  16 = Matrix 2 of 5
    //  17 = Matrix 2 of 5 check digit
 
-   METHOD New( hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
-               nColText, nColPane, lHorz, lTransparent,  nPinWidth ) CONSTRUCTOR
+   METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, nColText, nColPane, lHorz, lTransparent, nPinWidth) CONSTRUCTOR
    METHOD ShowBarcode()
    METHOD CreateBarcode( cCode )
    METHOD InitCode39( lCheck )
@@ -155,8 +150,7 @@ ENDCLASS
 *  Description:
 *-----------------------------------------------------------------------------
 
-METHOD New( hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
-            nColText, nColPane, lHorz, lTransparent, nPinWidth ) CLASS Barcode
+METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, nColText, nColPane, lHorz, lTransparent, nPinWidth) CLASS Barcode
 
    DEFAULT nWidth       := 200
    DEFAULT nHeight      := 20
@@ -261,9 +255,9 @@ METHOD CreateBarcode( cCode ) CLASS BarCode
    IF ::lTransparent = .F. .AND. ::nColPane != hwg_ColorRgb2N( 255, 255, 255 )
 
       IF ::lHorizontal = .F.
-         RICH_Rectangle( ::hDC, nX, nY, nX + ::nHeight, nY + Min( Len( cCode ) * ::nPinWidth, ::nWidth ) )
+         RICH_Rectangle( ::hDC, nX, nY, nX + ::nHeight, nY + Min( Len(cCode) * ::nPinWidth, ::nWidth ) )
       ELSE
-         RICH_Rectangle( ::hDC, nX, nY, nX +  Min( Len( cCode ) * ::nPinWidth, ::nWidth ), nY +  ::nHeight )
+         RICH_Rectangle( ::hDC, nX, nY, nX +  Min( Len(cCode) * ::nPinWidth, ::nWidth ), nY +  ::nHeight )
       ENDIF
 
    ENDIF
@@ -275,7 +269,7 @@ METHOD CreateBarcode( cCode ) CLASS BarCode
 
    IIf( ::nPinWidth < 1, ::nPinWidth := 1, )
 
-   FOR i := 1 TO Len( cCode )
+   FOR i := 1 TO Len(cCode)
 
       IF SubStr( cCode, i, 1 ) = "1"
          IF ::lHorizontal = .F.
@@ -296,7 +290,7 @@ METHOD CreateBarcode( cCode ) CLASS BarCode
    NEXT
 
    /*
-   FOR i := 1 TO LEN( cCode )
+   FOR i := 1 TO LEN(cCode)
 
       IF SUBSTR( cCode, i, 1 ) = "1"
          IF ::lHorizontal = .T.
@@ -328,52 +322,52 @@ METHOD CreateBarcode( cCode ) CLASS BarCode
 *-----------------------------------------------------------------------------
 METHOD InitCode39( lCheck ) CLASS BarCode
 
-   LOCAL cCars   := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *$/+%"
-   LOCAL aBarras := { "1110100010101110", ;
-         "1011100010101110", ;
-         "1110111000101010", ;
-         "1010001110101110", ;
-         "1110100011101010", ;
-         "1011100011101010", ;
-         "1010001011101110", ;
-         "1110100010111010", ;
-         "1011100010111010", ;
-         "1010001110111010", ;
-         "1110101000101110", ;
-         "1011101000101110", ;
-         "1110111010001010", ;
-         "1010111000101110", ;
-         "1110101110001010", ;    //E
-         "1011101110001010", ;
-         "1010100011101110", ;
-         "1110101000111010", ;
-         "1011101000111010", ;
-         "1010111000111010", ;
-         "1110101010001110", ;    //K
-         "1011101010001110", ;
-         "1110111010100010", ;
-         "1010111010001110", ;
-         "1110101110100010", ;
-         "1011101110100010", ;    //p
-         "1010101110001110", ;
-         "1110101011100010", ;
-         "1011101011100010", ;
-         "1010111011100010", ;
-         "1110001010101110", ;
-         "1000111010101110", ;
-         "1110001110101010", ;
-         "1000101110101110", ;
-         "1110001011101010", ;
-         "1000111011101010", ;    //Z
-         "1000101011101110", ;
-         "1110001010111010", ;
-         "1000111010111010", ;    // " "
-         "1000101110111010", ;
-         "1000100010100010", ;
-         "1000100010100010", ;
-         "1000101000100010", ;
-         "1010001000100010" }
-
+   LOCAL cCars := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *$/+%"
+   LOCAL aBarras := { ;
+      "1110100010101110", ; // 1
+      "1011100010101110", ; // 2
+      "1110111000101010", ; // 3
+      "1010001110101110", ; // 4
+      "1110100011101010", ; // 5
+      "1011100011101010", ; // 6
+      "1010001011101110", ; // 7
+      "1110100010111010", ; // 8
+      "1011100010111010", ; // 9
+      "1010001110111010", ; // 0
+      "1110101000101110", ; // A
+      "1011101000101110", ; // B
+      "1110111010001010", ; // C
+      "1010111000101110", ; // D
+      "1110101110001010", ; // E
+      "1011101110001010", ; // F
+      "1010100011101110", ; // G
+      "1110101000111010", ; // H
+      "1011101000111010", ; // I
+      "1010111000111010", ; // J
+      "1110101010001110", ; // K
+      "1011101010001110", ; // L
+      "1110111010100010", ; // M
+      "1010111010001110", ; // N
+      "1110101110100010", ; // O
+      "1011101110100010", ; // p
+      "1010101110001110", ; // Q
+      "1110101011100010", ; // R
+      "1011101011100010", ; // S
+      "1010111011100010", ; // T
+      "1110001010101110", ; // U
+      "1000111010101110", ; // V
+      "1110001110101010", ; // W
+      "1000101110101110", ; // X
+      "1110001011101010", ; // Y
+      "1000111011101010", ; // Z
+      "1000101011101110", ; // -
+      "1110001010111010", ; // .
+      "1000111010111010", ; // " "
+      "1000101110111010", ; // *
+      "1000100010100010", ; // $
+      "1000100010100010", ; // /
+      "1000101000100010", ; // +
+      "1010001000100010" }  // %
    LOCAL cCar, m, n
    LOCAL cBarra := ""
    LOCAL cCode  := ::cText
@@ -383,13 +377,13 @@ METHOD InitCode39( lCheck ) CLASS BarCode
 
    cCode := Upper( cCode )
 
-   IF Len( cCode ) > 32
-      cCode := Left( cCode, 32 )
+   IF Len(cCode) > 32
+      cCode := Left(cCode, 32)
    ENDIF
 
    cCode := "*" + cCode + "*"
 
-   FOR n := 1 TO Len( cCode )
+   FOR n := 1 TO Len(cCode)
       cCar := SubStr( cCode, n, 1 )
       m    := At( cCar, cCars )
       IF n > 0
@@ -443,7 +437,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
       RETURN NIL
    ENDIF
 
-   IF .NOT. Empty( cMode )
+   IF .NOT. Empty(cMode)
       IF ValType( cMode ) = "C" .AND. Upper( cMode ) $ "ABC"
          cMode := Upper( cMode )
       ELSE
@@ -451,17 +445,17 @@ METHOD InitCode128( cMode ) CLASS BarCode
       ENDIF
    ENDIF
 
-   IF Empty( cMode )
+   IF Empty(cMode)
       // autodetect mode
-      IF Str( Val( cCode ), Len( cCode ) ) = cCode
+      IF Str( Val(cCode), Len(cCode) ) = cCode
          lCodeC := .T.
          cTemp  := aCode[106]
          nSum   := 105
       ELSE
-         FOR n := 1 TO Len( cCode )
+         FOR n := 1 TO Len(cCode)
             nCount += IIF( Asc( SubStr( cCode, n, 1 ) ) > 31, 1, 0 ) // no cars. de control
          NEXT
-         IF nCount < Len( cCode ) / 2
+         IF nCount < Len(cCode) / 2
             lCodeA := .T.
             cTemp  := aCode[104]
             nSum   := 103
@@ -488,17 +482,17 @@ METHOD InitCode128( cMode ) CLASS BarCode
    // caracter registrado
    nCount := 0
 
-   FOR n := 1 TO Len( cCode )
+   FOR n := 1 TO Len(cCode)
 
       nCount ++
       cCar := SubStr( cCode, n, 1 )
 
       IF lCodeC
-         IF Len( cCode ) = n                        // ultimo caracter
+         IF Len(cCode) = n                        // ultimo caracter
             cTemp += aCode[101]                 // SHIFT Code B
             nCar := Asc( cCar ) - 31
          ELSE
-            nCar := Val( SubStr( cCode, n, 2 ) ) + 1
+            nCar := Val(SubStr( cCode, n, 2 )) + 1
             n ++
          ENDIF
       ELSEIF lCodeA
@@ -528,9 +522,9 @@ METHOD InitCode128( cMode ) CLASS BarCode
    cTemp := cTemp + aCode[nSum] + aCode[107]
    cBarra := ""
 
-   FOR n := 1 TO Len( cTemp ) STEP 2
-      cBarra += Replicate( "1", Val( SubStr( cTemp, n, 1 ) ) )
-      cBarra += Replicate( "0", Val( SubStr( cTemp, n + 1, 1 ) ) )
+   FOR n := 1 TO Len(cTemp) STEP 2
+      cBarra += Replicate( "1", Val(SubStr( cTemp, n, 1 )) )
+      cBarra += Replicate( "0", Val(SubStr( cTemp, n + 1, 1 )) )
    NEXT
 
    RETURN ( cBarra )
@@ -551,7 +545,7 @@ METHOD InitEAN13() CLASS BarCode
    LOCAL Izda, Dcha, String, Mascara, k
    LOCAL cCode := ::cText
 
-   k := Left( AllTrim( cCode ) + "000000000000", 12 ) // padding with "0"
+   k := Left(AllTrim( cCode ) + "000000000000", 12) // padding with "0"
 
    // calculo del digito de control
    // suma de impares
@@ -560,8 +554,8 @@ METHOD InitEAN13() CLASS BarCode
    s2 := 0
 
    FOR n := 1 TO 6
-      s1 := s1 + Val( SubStr( k, ( n * 2 ) - 1, 1 ) )
-      s2 := s2 + Val( SubStr( k, ( n * 2 ), 1 ) )
+      s1 := s1 + Val(SubStr( k, ( n * 2 ) - 1, 1 ))
+      s2 := s2 + Val(SubStr( k, ( n * 2 ), 1 ))
    NEXT
 
    control := ( s2 * 3 ) + s1
@@ -577,14 +571,14 @@ METHOD InitEAN13() CLASS BarCode
 
    Dcha := SubStr( k, 8, 6 )
    Izda := SubStr( k, 2, 6 )
-   Mascara := SubStr( primero, ( Val( SubStr( k, 1, 1 ) ) * 6 ) + 1, 6 )
+   Mascara := SubStr( primero, ( Val(SubStr( k, 1, 1 )) * 6 ) + 1, 6 )
 
    // barra de delimitacion
    cadena := [101]
 
    // parte izda
    FOR n := 1 TO 6
-      Numero := Val( SubStr( Izda, n, 1 ) )
+      Numero := Val(SubStr( Izda, n, 1 ))
       IF SubStr( Mascara, n, 1 ) = [o]
          String := SubStr( izda1, Numero * 7 + 1, 7 )
       ELSE
@@ -597,7 +591,7 @@ METHOD InitEAN13() CLASS BarCode
 
    // Lado derecho
    FOR n := 1 TO 6
-      Numero := Val( SubStr( Dcha, n, 1 ) )
+      Numero := Val(SubStr( Dcha, n, 1 ))
       String := SubStr( derecha, Numero * 7 + 1, 7 )
       cadena := cadena + String
    NEXT
@@ -621,7 +615,7 @@ METHOD InitUPC( nLen ) CLASS BarCode
    LOCAL cCode := ::cText
 
    // valid values for nLen are 11,7
-   k := Left( AllTrim( cCode ) + "000000000000", nLen ) // padding with "0"
+   k := Left(AllTrim( cCode ) + "000000000000", nLen) // padding with "0"
    // calculo del digito de control
    // suma de impares
    s1 := 0
@@ -629,8 +623,8 @@ METHOD InitUPC( nLen ) CLASS BarCode
    s2 := 0
 
    FOR n := 1 TO nLen STEP 2
-      s1 := s1 + Val( SubStr( k, n, 1 ) )
-      s2 := s2 + Val( SubStr( k, n + 1, 1 ) )
+      s1 := s1 + Val(SubStr( k, n, 1 ))
+      s2 := s2 + Val(SubStr( k, n + 1, 1 ))
    NEXT
 
    control := ( s1 * 3 ) + s2
@@ -645,22 +639,22 @@ METHOD InitUPC( nLen ) CLASS BarCode
 
    // preparacion de la cadena de impresion
    cadena := []
-   Dcha := Right( k, nLen / 2 )
-   Izda := Left( k, nLen / 2 )
+   Dcha := Right(k, nLen / 2)
+   Izda := Left(k, nLen / 2)
 
    // barra de delimitacion
    cadena := [101]
    // parte izda
    FOR n := 1 TO nLen / 2
-      Numero := Val( SubStr( Izda, n, 1 ) )
+      Numero := Val(SubStr( Izda, n, 1 ))
       cadena += SubStr( izda1, Numero * 7 + 1, 7 )
    NEXT
 
    cadena := cadena + [01010]
 
    // Lado derecho
-   FOR n := n TO Len( k )
-      Numero := Val( SubStr( Dcha, n, 1 ) )
+   FOR n := n TO Len(k)
+      Numero := Val(SubStr( Dcha, n, 1 ))
       cadena += SubStr( derecha, Numero * 7 + 1, 7 )
    NEXT
 
@@ -700,7 +694,7 @@ METHOD InitCodabar() CLASS BarCode
    LOCAL cBarra := ""
    LOCAL cCode := Upper( ::cText )
 
-   FOR n := 1 TO Len( cCode )
+   FOR n := 1 TO Len(cCode)
       IF ( nCar := At( SubStr( cCode, n, 1 ), cChar ) ) > 0
          cBarra += abar[nCar]
       ENDIF
@@ -724,15 +718,15 @@ METHOD InitSub5() CLASS BarCode
    LOCAL cCode   := ::cText
    LOCAL cBarras := "1011"
 
-   k := Left( AllTrim( cCode ) + "00000", 5 ) // padding with "0"
+   k := Left(AllTrim( cCode ) + "00000", 5) // padding with "0"
 
-   control := Right( Str( Val( SubStr( k, 1, 1 ) ) * 3 + Val( SubStr( k, 3, 1 ) ) * 3 + ;
-                          Val( SubStr( k, 5, 1 ) ) * 3 + Val( SubStr( k, 2, 1 ) ) * 9 + ;
-                          Val( SubStr( k, 4, 1 ) ) * 9, 5, 0 ), 1 )
-   control := SubStr( primero, Val( control ) * 6 + 2, 5 )
+   control := Right(Str(Val(SubStr(k, 1, 1)) * 3 + Val(SubStr(k, 3, 1)) * 3 + ;
+                        Val(SubStr(k, 5, 1)) * 3 + Val(SubStr(k, 2, 1)) * 9 + ;
+                        Val(SubStr(k, 4, 1)) * 9, 5, 0), 1)
+   control := SubStr( primero, Val(control) * 6 + 2, 5 )
 
    FOR n := 1 TO 5
-      nCar := Val( SubStr( k, n, 1 ) )
+      nCar := Val(SubStr( k, n, 1 ))
       IF SubStr( control, n, 1 ) = "o"
          cBarras += SubStr( izda2, nCar * 7 + 1, 7 )
       ELSE
@@ -753,8 +747,7 @@ METHOD InitSub5() CLASS BarCode
 METHOD InitIndustrial25( lCheck ) CLASS BarCode
 
    LOCAL n
-   LOCAL aBar     := { "00110", "10001", "01001", "11000", "00101", ;
-         "10100", "01100", "00011", "10010", "01010" }
+   LOCAL aBar     := {"00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010"}
    LOCAL cInStart := "110" // industrial 2 of 5 start
    LOCAL cInStop  := "101" // industrial 2 of 5 stop
    LOCAL cBar     := ""
@@ -765,21 +758,21 @@ METHOD InitIndustrial25( lCheck ) CLASS BarCode
    DEFAULT lCheck := .F.
 
    IF lCheck
-      FOR n := 1 TO Len( cCode ) STEP 2
-         nCheck += Val( SubStr( cCode, n, 1 ) ) * 3 + Val( SubStr( cCode, n + 1, 1 ) )
+      FOR n := 1 TO Len(cCode) STEP 2
+         nCheck += Val(SubStr( cCode, n, 1 )) * 3 + Val(SubStr( cCode, n + 1, 1 ))
       NEXT
-      cCode += Right( Str( nCheck, 10, 0 ), 1 )
+      cCode += Right(Str( nCheck, 10, 0 ), 1)
    ENDIF
 
    cBar := cInStart
 
-   FOR n := 1 TO Len( cCode )
-      cBar += aBar[Val( SubStr( cCode, n, 1 ) ) + 1] + "0"
+   FOR n := 1 TO Len(cCode)
+      cBar += aBar[Val(SubStr( cCode, n, 1 )) + 1] + "0"
    NEXT
 
    cBar += cInStop
 
-   FOR n := 1 TO Len( cBar )
+   FOR n := 1 TO Len(cBar)
       IF SubStr( cBar, n, 1 ) = "1"
          cBarra += "1110"
       ELSE
@@ -797,8 +790,7 @@ METHOD InitIndustrial25( lCheck ) CLASS BarCode
 METHOD InitInterleave25( lMode ) CLASS BarCode
 
    LOCAL n, m
-   LOCAL aBar   := { "00110", "10001", "01001", "11000", "00101", ;
-                     "10100", "01100", "00011", "10010", "01010" }
+   LOCAL aBar   := {"00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010"}
    LOCAL cStart := "0000"
    LOCAL cStop  := "100"
    LOCAL cBar   := ""
@@ -811,24 +803,24 @@ METHOD InitInterleave25( lMode ) CLASS BarCode
 
    DEFAULT lMode := .F.
 
-   nLen   := Len( cCode )
-   IF ( nLen % 2 = 1 .AND. ! lMode )
+   nLen   := Len(cCode)
+   IF ( nLen % 2 = 1 .AND. !lMode )
       nLen ++
       cCode += "0"
    ENDIF
    IF lMode
-      FOR n := 1 TO Len( cCode ) STEP 2
-         nCheck += Val( SubStr( cCode, n, 1 ) ) * 3 + Val( SubStr( cCode, n + 1, 1 ) )
+      FOR n := 1 TO Len(cCode) STEP 2
+         nCheck += Val(SubStr( cCode, n, 1 )) * 3 + Val(SubStr( cCode, n + 1, 1 ))
       NEXT
-      cCode += Right( Str( nCheck, 10, 0 ), 1 )
+      cCode += Right(Str( nCheck, 10, 0 ), 1)
    ENDIF
 
    cBarra := cStart
 
    // preencoding .. interlaving
    FOR n := 1 TO nLen STEP 2
-      cIz  := aBar[Val( SubStr( cCode, n, 1 ) ) + 1]
-      cDer := aBar[Val( SubStr( cCode, n + 1, 1 ) ) + 1]
+      cIz  := aBar[Val(SubStr( cCode, n, 1 )) + 1]
+      cDer := aBar[Val(SubStr( cCode, n + 1, 1 )) + 1]
       FOR m := 1 TO 5
          cBarra += SubStr( cIz, m, 1 ) + SubStr( cDer, m, 1 )
       NEXT
@@ -836,7 +828,7 @@ METHOD InitInterleave25( lMode ) CLASS BarCode
 
    cBarra += cStop
 
-   FOR n := 1 TO Len( cBarra ) STEP 2
+   FOR n := 1 TO Len(cBarra) STEP 2
       IF SubStr( cBarra, n, 1 ) = "1"
          cBar += "111"
       ELSE
@@ -859,8 +851,7 @@ METHOD InitInterleave25( lMode ) CLASS BarCode
 METHOD InitMatrix25( lCheck ) CLASS BarCode
 
    LOCAL n
-   LOCAL aBar   := { "00110", "10001", "01001", "11000", "00101", ;
-                     "10100", "01100", "00011", "10010", "01010" }
+   LOCAL aBar   := {"00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010"}
    LOCAL cMtSt  := "10000" // matrix start/stop
    LOCAL cBar   := ""
    LOCAL cBarra := ""
@@ -870,21 +861,21 @@ METHOD InitMatrix25( lCheck ) CLASS BarCode
    DEFAULT lCheck := .F.
 
    IF lCheck
-      FOR n := 1 TO Len( cCode ) STEP 2
-         nCheck += Val( SubStr( cCode, n, 1 ) ) * 3 + Val( SubStr( cCode, n + 1, 1 ) )
+      FOR n := 1 TO Len(cCode) STEP 2
+         nCheck += Val(SubStr( cCode, n, 1 )) * 3 + Val(SubStr( cCode, n + 1, 1 ))
       NEXT
-      cCode += Right( Str( nCheck, 10, 0 ), 1 )
+      cCode += Right(Str( nCheck, 10, 0 ), 1)
    ENDIF
 
    cBar := cMtSt
 
-   FOR n := 1 TO Len( cCode )
-      cBar += aBar[Val( SubStr( cCode, n, 1 ) ) + 1] + "0"
+   FOR n := 1 TO Len(cCode)
+      cBar += aBar[Val(SubStr( cCode, n, 1 )) + 1] + "0"
    NEXT
 
    cBar += cMtSt
 
-   FOR n := 1 TO Len( cBar ) STEP 2
+   FOR n := 1 TO Len(cBar) STEP 2
       IF SubStr( cBar, n, 1 ) = "1"
          cBarra += "111"
       ELSE

@@ -57,9 +57,8 @@ METHOD Redefine( oWndParent, nId, bInit, bSize, ctooltip ) CLASS HSayImage
 
 METHOD Activate() CLASS HSayImage
 
-   IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -68,7 +67,7 @@ METHOD Activate() CLASS HSayImage
 METHOD onClick()  CLASS HSayImage
 
    IF ::bClick != NIL
-      Eval( ::bClick, Self )
+      Eval(::bClick, Self)
    ENDIF
 
    RETURN Nil
@@ -76,7 +75,7 @@ METHOD onClick()  CLASS HSayImage
 METHOD onDblClick()  CLASS HSayImage
 
    IF ::bDblClick != NIL
-      Eval( ::bDblClick, Self )
+      Eval(::bDblClick, Self)
    ENDIF
 
    RETURN Nil
@@ -114,7 +113,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    ::nBorder := 0
    ::tColor := 0
 
-   IF Image != Nil .AND. ! Empty( Image )
+   IF Image != Nil .AND. !Empty(Image)
       IF lRes == Nil ; lRes := .F. ; ENDIF
       ::oImage := Iif( lRes .OR. ValType( Image ) == "N",     ;
          HBitmap():AddResource( Image ), ;
@@ -150,7 +149,7 @@ METHOD Init() CLASS HSayBmp
 
    IF !::lInit
       ::Super:Init()
-      IF ::oImage != Nil .AND. !Empty( ::oImage:Handle )
+      IF ::oImage != Nil .AND. !Empty(::oImage:Handle)
          hwg_Sendmessage( ::handle, STM_SETIMAGE, IMAGE_BITMAP, ::oImage:handle )
       ENDIF
    ENDIF
@@ -163,7 +162,7 @@ METHOD Paint( lpdis ) CLASS HSayBmp
    IF ::brush != Nil
       hwg_Fillrect( drawInfo[3], drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7], ::brush:handle )
    ENDIF
-   IF ::oImage != Nil .AND. !Empty( ::oImage:Handle )
+   IF ::oImage != Nil .AND. !Empty(::oImage:Handle)
       IF ::nZoom == Nil
          IF ::lTransp
             IF ::nStretch = 1  // isometric
@@ -195,7 +194,7 @@ METHOD Paint( lpdis ) CLASS HSayBmp
    ENDIF
    IF ::nBorder > 0
       IF ::oPen == Nil
-         ::oPen := HPen():Add( BS_SOLID, ::nBorder, ::tColor )
+         ::oPen := HPen():Add(BS_SOLID, ::nBorder, ::tColor)
       ENDIF
       hwg_Selectobject( drawInfo[3], ::oPen:handle )
       n := Int( ::nBorder/2 )
@@ -210,12 +209,9 @@ METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
       ::oImage:Release()
       ::oImage := Nil
    ENDIF
-   IF !Empty( Image )
+   IF !Empty(Image)
       IF lRes == Nil ; lRes := .F. ; ENDIF
-      ::oImage := iif( lRes .OR. ValType( Image ) == "N",     ;
-         HBitmap():AddResource( Image ), ;
-         iif( ValType( Image ) == "C",     ;
-         HBitmap():AddFile( Image ), Image ) )
+      ::oImage := iif(lRes .OR. ValType(Image) == "N", HBitmap():AddResource(Image), iif(ValType(Image) == "C", HBitmap():AddFile(Image), Image))
    ENDIF
 
    RETURN Nil
@@ -269,7 +265,7 @@ METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip ) CLASS H
 
 METHOD Init() CLASS HSayIcon
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       hwg_Sendmessage( ::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle )
    ENDIF

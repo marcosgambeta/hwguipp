@@ -77,7 +77,7 @@ METHOD Paint() CLASS HShadeButton
 METHOD END() CLASS HShadeButton
 
    ::Super:END()
-   IF !Empty( ::hShade )
+   IF !Empty(::hShade)
       hwg_Shade_release( ::hShade )
       ::hShade := Nil
    ENDIF

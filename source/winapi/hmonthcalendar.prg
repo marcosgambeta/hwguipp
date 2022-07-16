@@ -43,13 +43,13 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
             lWeekNumbers ) CLASS HMonthCalendar
 
    nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP )
-   nStyle   += IIf( lNoToday == Nil.OR. ! lNoToday, 0, MCS_NOTODAY )
-   nStyle   += IIf( lNoTodayCircle == Nil.OR. ! lNoTodayCircle, 0, MCS_NOTODAYCIRCLE )
-   nStyle   += IIf( lWeekNumbers == Nil.OR. ! lWeekNumbers, 0, MCS_WEEKNUMBERS )
+   nStyle   += IIf( lNoToday == Nil.OR. !lNoToday, 0, MCS_NOTODAY )
+   nStyle   += IIf( lNoTodayCircle == Nil.OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE )
+   nStyle   += IIf( lWeekNumbers == Nil.OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               ,, cTooltip )
 
-   ::dValue   := IIf( ValType( vari ) == "D" .And. ! Empty( vari ), vari, Date() )
+   ::dValue   := IIf( ValType( vari ) == "D" .And. !Empty(vari), vari, Date() )
 
    ::bChange := bChange
 
@@ -68,9 +68,8 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HMonthCalendar
 
-   IF ! Empty( ::oParent:handle )
-      ::handle := hwg_initmonthcalendar ( ::oParent:handle, ::id, ::style, ;
-                                      ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_initmonthcalendar(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -80,9 +79,9 @@ METHOD Activate() CLASS HMonthCalendar
 
 METHOD Init() CLASS HMonthCalendar
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
-      IF ! Empty( ::dValue )
+      IF !Empty(::dValue)
          hwg_setmonthcalendardate( ::handle , ::dValue )
       ENDIF
    ENDIF
@@ -94,7 +93,7 @@ METHOD Init() CLASS HMonthCalendar
 METHOD Value( dValue ) CLASS HMonthCalendar
 
    IF dValue != Nil
-      IF ValType( dValue ) == "D" .And. ! Empty( dValue )
+      IF ValType( dValue ) == "D" .And. !Empty(dValue)
          hwg_setmonthcalendardate( ::handle, dValue )
          ::dValue := dValue
       ENDIF

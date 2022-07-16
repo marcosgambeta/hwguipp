@@ -22,8 +22,7 @@ CLASS HIPedit INHERIT HControl
    DATA bKillFocus
    DATA bGetFocus
 
-   METHOD New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-               oFont, bGetFocus, bKillFocus )
+   METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bGetFocus, bKillFocus)
    METHOD Activate()
    METHOD Init()
    METHOD Value( aValue ) SETGET
@@ -35,8 +34,7 @@ CLASS HIPedit INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-            oFont, bGetFocus, bKillFocus ) CLASS HIPedit
+METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bGetFocus, bKillFocus) CLASS HIPedit
 
    nStyle   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont )
@@ -54,7 +52,7 @@ METHOD New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeig
 
 
    IF bKillFocus != Nil
-      ::oParent:AddEvent( IPN_FIELDCHANGED, ::id, ::bKillFocus, .t., "onChange" )
+      ::oParent:AddEvent( IPN_FIELDCHANGED, ::id, ::bKillFocus, .T., "onChange" )
    ENDIF
   * ENDIF
 
@@ -66,19 +64,18 @@ METHOD New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeig
    RETURN Self
 
 METHOD Activate() CLASS HIPedit
-   IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Initipaddress ( ::oParent:handle, ::id, ::style , ;
-                                  ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Initipaddress(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN Nil
 
 METHOD Init() CLASS HIPedit
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       hwg_Setipaddress( ::handle , ::aValue[1], ::aValue[2], ::aValue[3], ::aValue[4] )
-      ::lInit := .t.
+      ::lInit := .T.
    ENDIF
 
    RETURN Nil
@@ -95,7 +92,7 @@ METHOD Value( aValue ) CLASS HIPedit
    RETURN ::aValue
 
 
-METHOD Clear( ) CLASS HIPedit
+METHOD Clear() CLASS HIPedit
    hwg_Clearipaddress( ::handle )
    ::aValue := { 0, 0, 0, 0 }
    RETURN ( ::aValue )
@@ -113,7 +110,7 @@ STATIC FUNCTION __GetFocus( oCtrl )
    LOCAL xRet
 
    IF ValType( oCtrl:bGetFocus ) == "B"
-      xRet := Eval( oCtrl:bGetFocus, oCtrl )
+      xRet := Eval(oCtrl:bGetFocus, oCtrl)
    ENDIF
 
    RETURN xRet
@@ -123,7 +120,7 @@ STATIC FUNCTION __KillFocus( oCtrl )
    LOCAL xRet
 
    IF ValType( oCtrl:bKillFocus ) == "B"
-      xRet := Eval( oCtrl:bKillFocus, oCtrl )
+      xRet := Eval(oCtrl:bKillFocus, oCtrl)
    ENDIF
 
    RETURN xRet

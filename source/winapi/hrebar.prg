@@ -26,10 +26,8 @@ CLASS hrebar INHERIT HControl
    DATA m_nWidth, m_nHeight
    DATA aBands INIT  {}
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
-         bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
-   METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-         bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
+   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
+   METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
    METHOD Activate()
    METHOD INIT()
    METHOD ADDBARColor( pBar, clrFore, clrBack, pszText, dwStyle ) INLINE hwg_Addbarcolors( ::handle, pBar, clrFore, clrBack, pszText, dwStyle )
@@ -39,15 +37,13 @@ CLASS hrebar INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lvert ) CLASS hrebar
+METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lvert ) CLASS hrebar
 
-   HB_SYMBOL_UNUSED( cCaption )
+   HB_SYMBOL_UNUSED(cCaption)
 
-   DEFAULT  lvert  TO .f.
+   DEFAULT  lvert  TO .F.
    nStyle := Hwg_BitOr( IIf( nStyle == NIL, 0,  RBS_BANDBORDERS ), WS_CHILD )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-         bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
    ::Title := ""
    HWG_InitCommonControlsEx()
 
@@ -55,14 +51,12 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ;
-      ctooltip, tcolor, bcolor, lVert )  CLASS hrebar
+METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert )  CLASS hrebar
 
-   HB_SYMBOL_UNUSED( cCaption )
+   HB_SYMBOL_UNUSED(cCaption)
 
-   DEFAULT  lVert TO .f.
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ;
-         ctooltip, tcolor, bcolor )
+   DEFAULT  lVert TO .F.
+   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
    HWG_InitCommonControlsEx()
 
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
@@ -71,9 +65,8 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ;
 
 METHOD Activate() CLASS hrebar
 
-   IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createrebar( ::oParent:handle, ::id, ;
-            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createrebar(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -81,7 +74,7 @@ METHOD Activate() CLASS hrebar
 
 METHOD INIT() CLASS hrebar
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       ::CreateBands()
    ENDIF
@@ -92,16 +85,16 @@ METHOD CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) CLASS hreba
    LOCAL i
 
    IF pBar != NIL
-      AADD( ::aBands, { pBar, pszText, clrFore, clrBack, pbmp, dwStyle } )
+      AADD(::aBands, {pBar, pszText, clrFore, clrBack, pbmp, dwStyle})
    ENDIF
-   IF ! ::lInit
+   IF !::lInit
        RETURN NIL
    ENDIF
    dwStyle := RBBS_GRIPPERALWAYS + RBBS_USECHEVRON
-   FOR i = 1 TO LEN( ::aBands )
+   FOR i = 1 TO LEN(::aBands)
       ::aBands[i, 4] := IIF( ::aBands[i, 4] = NIL, hwg_Getsyscolor( COLOR_3DFACE ), ::aBands[i, 4] )
       ::aBands[i, 6] := IIF( ::aBands[i, 6] = NIL, dwStyle, ::aBands[i, 6] )
-      IF ! Empty( ::aBands[i, 1] )
+      IF !Empty(::aBands[i, 1])
          ::aBands[i, 1] := IIF( ValType( ::aBands[i, 1] ) = "C", &( ::aBands[i, 1] ), ::aBands[i, 1] )
          IF ( ::aBands[i, 5] != NIL )
             hwg_Addbarbitmap( ::handle, ::aBands[i, 1]:handle, ::aBands[i, 2], ::aBands[i, 5], ::aBands[i, 6] )

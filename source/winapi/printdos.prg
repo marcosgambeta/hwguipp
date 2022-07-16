@@ -114,11 +114,11 @@ METHOD New( oPorta ) CLASS PrintDos
    ::nProw    := 0
    ::nPcol    := 0
    ::oTopMar  := 0
-   ::oAns2Oem := .t.
+   ::oAns2Oem := .T.
    ::oLeftMar := 0
    ::oText    := ""
 
-   IF Empty( oPorta ) //
+   IF Empty(oPorta) //
       ::oPorta       := "LPT1"
    ELSE
       IF oPorta == "DEFAULT"
@@ -147,7 +147,7 @@ METHOD New( oPorta ) CLASS PrintDos
             ELSE
                oPtrName := AllTrim( oPtrName )
                IF SubStr( oPtrName, 1, 3 ) == "LPT"
-                  oPtrName := Left( oPtrName, Len( oPtrName ) - 1 )
+                  oPtrName := Left(oPtrName, Len(oPtrName) - 1)
                ENDIF
                ::oPorta := oPtrName
             ENDIF
@@ -182,17 +182,17 @@ METHOD Comando( oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
 
    LOCAL oStr := oComm1
 
-   oStr := Chr( Val ( oComm1 ) )
+   oStr := Chr(Val(oComm1))
 
-   IF oComm2  != NIL ;  oStr += Chr( Val( oComm2 ) ) ;   ENDIF
-   IF oComm3  != NIL ;  oStr += Chr( Val( oComm3 ) ) ;   ENDIF
-   IF oComm4  != NIL ;  oStr += Chr( Val( oComm4 ) ) ;   ENDIF
-   IF oComm5  != NIL ;  oStr += Chr( Val( oComm5 ) ) ;   ENDIF
-   IF oComm6  != NIL ;  oStr += Chr( Val( oComm6 ) ) ;   ENDIF
-   IF oComm7  != NIL ;  oStr += Chr( Val( oComm7 ) ) ;   ENDIF
-   IF oComm8  != NIL ;  oStr += Chr( Val( oComm8 ) ) ;   ENDIF
-   IF oComm9  != NIL ;  oStr += Chr( Val( oComm9 ) ) ;   ENDIF
-   IF oComm10 != NIL ;  oStr += Chr( Val( oComm10 ) ) ;   ENDIF
+   IF oComm2  != NIL ;  oStr += Chr(Val(oComm2)) ;   ENDIF
+   IF oComm3  != NIL ;  oStr += Chr(Val(oComm3)) ;   ENDIF
+   IF oComm4  != NIL ;  oStr += Chr(Val(oComm4)) ;   ENDIF
+   IF oComm5  != NIL ;  oStr += Chr(Val(oComm5)) ;   ENDIF
+   IF oComm6  != NIL ;  oStr += Chr(Val(oComm6)) ;   ENDIF
+   IF oComm7  != NIL ;  oStr += Chr(Val(oComm7)) ;   ENDIF
+   IF oComm8  != NIL ;  oStr += Chr(Val(oComm8)) ;   ENDIF
+   IF oComm9  != NIL ;  oStr += Chr(Val(oComm9)) ;   ENDIF
+   IF oComm10 != NIL ;  oStr += Chr(Val(oComm10)) ;   ENDIF
 
 
    IF ::oAns2Oem
@@ -209,10 +209,10 @@ METHOD gWrite( oText )  CLASS PrintDos
    //tracelog(otext)
    IF ::oAns2Oem
       ::oText += hwg_WIN_Ansitooem( oText )
-      ::nPcol += Len( hwg_WIN_Ansitooem( oText ) )
+      ::nPcol += Len(hwg_WIN_Ansitooem( oText ))
    ELSE
       ::oText += oText
-      ::nPcol += Len( oText )
+      ::nPcol += Len(oText)
    ENDIF
    //tracelog(otext)
 
@@ -224,11 +224,11 @@ METHOD Eject()   CLASS PrintDos
    FWrite( ::gText, ::oText )
 
    IF ::oAns2Oem
-      FWrite( ::gText, hwg_WIN_Ansitooem( Chr( 13 ) + Chr( 10 ) + Chr( Val( ::cEject ) ) ) )
-      FWrite( ::gText, hwg_WIN_Ansitooem( Chr( 13 ) + Chr( 10 ) ) )
+      FWrite( ::gText, hwg_WIN_Ansitooem( Chr(13) + Chr(10) + Chr(Val(::cEject)) ) )
+      FWrite( ::gText, hwg_WIN_Ansitooem( Chr(13) + Chr(10) ) )
    ELSE
-      FWrite( ::gText, Chr( 13 ) + Chr( 10 ) + Chr( Val( ::cEject ) ) )
-      FWrite( ::gText, Chr( 13 ) + Chr( 10 ) )
+      FWrite( ::gText, Chr(13) + Chr(10) + Chr(Val(::cEject)) )
+      FWrite( ::gText, Chr(13) + Chr(10) )
    ENDIF
 
    ::oText := ""
@@ -273,9 +273,9 @@ METHOD UnBold() CLASS PrintDos
 METHOD NewLine() CLASS PrintDos
 
    IF ::oAns2Oem
-      ::oText += hwg_WIN_Ansitooem( Chr( 13 ) + Chr( 10 ) )
+      ::oText += hwg_WIN_Ansitooem( Chr(13) + Chr(10) )
    ELSE
-      ::oText += Chr( 13 ) + Chr( 10 )
+      ::oText += Chr(13) + Chr(10)
    ENDIF
    ::nPcol := 0
    RETURN Nil
@@ -284,7 +284,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
    // tracelog(oProw, oPcol, oTexto, oPicture)
    IF ValType( oTexto ) == "N"
 
-      IF ! Empty( oPicture ) .or. oPicture <> Nil
+      IF !Empty(oPicture) .or. oPicture <> Nil
          oTexto := Transform( oTexto, oPicture )
       ELSE
          oTexto := Str( oTexto )
@@ -293,7 +293,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
    ELSEIF ValType( oTexto ) == "D"
       oTexto := DToC( oTexto )
    ELSE
-      IF ! Empty( oPicture ) .or. oPicture <> Nil
+      IF !Empty(oPicture) .or. oPicture <> Nil
          oTexto := Transform( oTexto, oPicture )
       ENDIF
    ENDIF
@@ -343,7 +343,7 @@ METHOD PrinterFile( fname ) CLASS PrintDos
    LOCAL strbuf := Space( PF_BUFFERS )
    LOCAL han, nRead
 
-   IF ! File( fname )
+   IF !File( fname )
       hwg_Msgstop( "Error open file " + fname, "Error" )
       RETURN .F.
    ENDIF
@@ -352,13 +352,13 @@ METHOD PrinterFile( fname ) CLASS PrintDos
 
    IF han <> - 1
 
-      DO WHILE .t.
+      DO WHILE .T.
 
          nRead := FRead( han, @strbuf, PF_BUFFERS )
 
          IF nRead = 0 ; EXIT ; ENDIF
 
-         IF FWrite( ::gText, Left( strbuf, nRead ) ) < nRead
+         IF FWrite( ::gText, Left(strbuf, nRead) ) < nRead
             ::ErrosAnt := FError()
             FClose( han )
             RETURN .F.
@@ -399,7 +399,7 @@ METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
    INIT PRINTER oPrinter // HPrinter():New()
 // added by Giuseppe Mastrangelo
    IF oPrinter == nil
-      RETURN .f.
+      RETURN .F.
    ENDIF
 // end of added code
    oFont := oPrinter:AddFont( "Courier New", osize )
@@ -412,7 +412,7 @@ METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
    IF han <> - 1
       DO WHILE .T.
          stroka := RDSTR( han, @strbuf, @poz, 2052 )
-         IF Len( stroka ) = 0
+         IF Len(stroka) = 0
             EXIT
          ENDIF
          IF osize < 0
@@ -423,7 +423,7 @@ METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
             oCol := oCol + ( osize + 2 )   //Added by  Por Fernando Athayde
          ENDIF
 
-         IF Left( stroka, 1 ) == Chr( 12 )
+         IF Left(stroka, 1) == Chr(12)
             oPrinter:EndPage()
             oPrinter:StartPage()
             ++ oPage
@@ -449,25 +449,25 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    LOCAL strbuf := Space( 2052 ), poz := 2052, stroka
    LOCAL han := FOpen( fName, FO_READ + FO_SHARED )
    LOCAL oCol := 10, oPage := 1, nPage := 1
-   LOCAL oFont := HFont():Add( "Courier New", 0, - 13 )
+   LOCAL oFont := HFont():Add("Courier New", 0, -13)
    LOCAL oText := { "" }
    LOCAL oDlg, oColor1, oColor2
    LOCAL oEdit
-   LOCAL oPrt := IIf( Empty( ::oPorta ) .or. ::oPorta == "PREVIEW", "LPT1", ::oPorta )
+   LOCAL oPrt := IIf( Empty(::oPorta) .or. ::oPorta == "PREVIEW", "LPT1", ::oPorta )
 
    IF han <> - 1
       DO WHILE .T.
          stroka := RDSTR( han, @strbuf, @poz, 2052 )
-         IF Len( stroka ) = 0
+         IF Len(stroka) = 0
             EXIT
          ENDIF
          IF ::oAns2Oem
-            oText[oPage] += hwg_WIN_Ansitooem( stroka ) + Chr( 13 ) + Chr( 10 )
+            oText[oPage] += hwg_WIN_Ansitooem( stroka ) + Chr(13) + Chr(10)
          ELSE
-            oText[oPage] += stroka + Chr( 13 ) + Chr( 10 )
+            oText[oPage] += stroka + Chr(13) + Chr(10)
          ENDIF
-         IF Left( stroka, 1 ) == Chr( 12 )
-            AAdd( oText, "" )
+         IF Left(stroka, 1) == Chr(12)
+            AAdd(oText, "")
             ++ oPage
          ENDIF
          oCol := oCol + 30
@@ -480,7 +480,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
 
    oEdit := SUBS( oText[nPage], 2 )  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
 
-   IF ! Empty( ::colorpreview )
+   IF !Empty(::colorpreview)
       oColor1 := ::colorpreview[1]
       oColor2 := ::colorpreview[2]
    ELSE
@@ -508,10 +508,10 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
 //   @ 88,19 EDITBOX oEdit ID 1001 SIZE 548,465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
 //        COLOR oColor1 BACKCOLOR oColor2 FONT oFont //Blue to Black  //Added by  por Fernando Athayde
 //       COLOR 16711680 BACKCOLOR 16777215  //Black to Write
-   @ 6, 30 BUTTON "<<"    ON CLICK { || nPage := PrintDosAnt( nPage, oText ) } SIZE 69, 32  STYLE IF( nPage = 1, WS_DISABLED, 0 )
-   @ 6, 80 BUTTON ">>"    ON CLICK { || nPage := PrintDosNext( oPage, nPage, oText ) } SIZE 69, 32 STYLE IF( nPage = 1, WS_DISABLED, 0 )
+   @ 6, 30 BUTTON "<<"    ON CLICK { || nPage := PrintDosAnt( nPage, oText ) } SIZE 69, 32  STYLE IIF(nPage = 1, WS_DISABLED, 0)
+   @ 6, 80 BUTTON ">>"    ON CLICK { || nPage := PrintDosNext( oPage, nPage, oText ) } SIZE 69, 32 STYLE IIF(nPage = 1, WS_DISABLED, 0)
    @ 6, 130 BUTTON "Imprimir" ON CLICK { || PrintDosPrint( oText, oPrt ) } SIZE 69, 32
-//   @ 6,180 BUTTON "Grafico" on Click {||hwg_EndDialog(),oDos2:TxttoGraphic(fName,2,.t.),oDos2:end()} SIZE 69,32
+//   @ 6,180 BUTTON "Grafico" on Click {||hwg_EndDialog(),oDos2:TxttoGraphic(fName, 2, .T.),oDos2:end()} SIZE 69,32
    @ 6, 230 BUTTON "Fechar" ON CLICK { || hwg_EndDialog() } SIZE 69, 32
 
    oDlg:Activate()
@@ -521,7 +521,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
 STATIC FUNCTION PrintDosPrint( oText, oPrt )
    LOCAL i
    LOCAL nText := FCreate( oPrt )
-   FOR i := 1 TO Len( oText )
+   FOR i := 1 TO Len(oText)
       FWrite( nText, oText[i] )
    NEXT
    FClose( nText )
@@ -555,10 +555,10 @@ FUNCTION hwg_regenfile( o, new )
    LOCAL nChr12 := 0
    LOCAL i
 
-   FOR i := 1 TO Len( aText )
+   FOR i := 1 TO Len(aText)
 
       stroka := aText[i]
-      nChr12 := At( Chr( 12 ), stroka )
+      nChr12 := At( Chr(12), stroka )
 
       IF nChr12 > 0
          stroka := SubStr( stroka, 1, nChr12 - 1 )

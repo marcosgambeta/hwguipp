@@ -14,7 +14,7 @@ CLASS HDC
    DATA m_hDC
    DATA m_hAttribDC
 
-   METHOD NEW( )
+   METHOD NEW()
    METHOD SetAttribDC( hDC )
    METHOD ATTACH( hDc )
    METHOD Moveto( x1, y1 )
@@ -45,7 +45,7 @@ CLASS HDC
 
 ENDCLASS
 
-METHOD NEW( ) CLASS HDC
+METHOD NEW() CLASS HDC
 
    ::m_hDC       := NIL
    ::m_hAttribDC := NIL
@@ -62,7 +62,7 @@ METHOD Lineto( x1, y1 ) CLASS HDC
 
 METHOD Attach( hDC ) CLASS HDC
 
-   IF Empty( hDC )
+   IF Empty(hDC)
       RETURN .F.
    ENDIF
 
@@ -71,7 +71,7 @@ METHOD Attach( hDC ) CLASS HDC
    ::SetAttribDC( ::m_hDC )
    return.T.
 
-METHOD Deletedc(  ) CLASS HDC
+METHOD Deletedc() CLASS HDC
    hwg_Deletedc( ::m_hDC )
    ::m_hDC := nil
    ::m_hAttribDC := nil
@@ -90,7 +90,7 @@ METHOD Selectcliprgn( pRgn ) CLASS HDC
       nRetVal := hwg_Selectcliprgn( ::m_hDC, pRgn )
    ENDIF
 
-   IF ! Empty( ::m_hAttribDC  )
+   IF !Empty(::m_hAttribDC)
       nRetVal := hwg_Selectcliprgn( ::m_hAttribDC, pRgn )
    ENDIF
 
@@ -133,7 +133,7 @@ METHOD Createcompatibledc( x ) CLASS HDC
 METHOD Savedc() CLASS HDC
    LOCAL nRetVal := 0
 
-   IF ( ! Empty( ::m_hAttribDC ) )
+   IF ( !Empty(::m_hAttribDC) )
       nRetVal := hwg_Savedc( ::m_hAttribDC )
    ENDIF
    IF ( ::m_hDC != ::m_hAttribDC .and. hwg_Savedc( ::m_hDC ) != 0 )
@@ -149,7 +149,7 @@ METHOD Restoredc( nSavedDC ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       bRetVal := hwg_Restoredc( ::m_hDC, nSavedDC )
    ENDIF
-   IF ( ! Empty( ::m_hAttribDC ) )
+   IF ( !Empty(::m_hAttribDC) )
       bRetVal := ( bRetVal .and. hwg_Restoredc( ::m_hAttribDC, nSavedDC ) )
    ENDIF
    RETURN bRetVal
@@ -161,7 +161,7 @@ METHOD Setmapmode( nMapMode ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       nRetVal := ::Setmapmode( ::m_hDC, nMapMode )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty(::m_hAttribDC)
       nRetVal := hwg_Setmapmode( ::m_hAttribDC, nMapMode )
    ENDIF
    RETURN nRetVal
@@ -173,7 +173,7 @@ METHOD SetWindowOrg( x, y ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       hwg_Setwindoworgex( ::m_hDC, x, y, @point )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty(::m_hAttribDC)
       hwg_Setwindoworgex( ::m_hAttribDC, x, y, @point )
    ENDIF
    RETURN point
@@ -185,7 +185,7 @@ METHOD SetWindowExt( x, y ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       hwg_Setwindowextex( ::m_hDC, x, y, @point )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty(::m_hAttribDC)
       hwg_Setwindowextex( ::m_hAttribDC, x, y, @point )
    ENDIF
    RETURN point
@@ -197,7 +197,7 @@ METHOD SetViewportOrg( x, y ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       hwg_Setviewportorgex( ::m_hDC, x, y, @point )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty(::m_hAttribDC)
       hwg_Setviewportorgex( ::m_hAttribDC, x, y, @point )
    ENDIF
    RETURN point
@@ -209,7 +209,7 @@ METHOD SetViewportExt( x, y ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       hwg_Setviewportextex( ::m_hDC, x, y, @point )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty(::m_hAttribDC)
       hwg_Setviewportextex( ::m_hAttribDC, x, y, @point )
    ENDIF
    RETURN point
@@ -220,7 +220,7 @@ METHOD Setarcdirection( nArcDirection )
    IF ( ::m_hDC != ::m_hAttribDC )
       nResult = hwg_Setarcdirection( ::m_hDC, nArcDirection )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty(::m_hAttribDC)
       nResult = hwg_Setarcdirection( ::m_hAttribDC, nArcDirection )
    ENDIF
    RETURN nResult
@@ -235,7 +235,7 @@ METHOD Setrop2( nDrawMode )
    IF ( ::m_hDC != ::m_hAttribDC )
       nRetVal := hwg_Setrop2( ::m_hDC, nDrawMode )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty(::m_hAttribDC)
       nRetVal := hwg_Setrop2( ::m_hAttribDC, nDrawMode )
    ENDIF
    RETURN nRetVal

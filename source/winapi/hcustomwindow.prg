@@ -19,7 +19,7 @@ STATIC aCustomEvents := { ;
       WM_COMMAND, WM_DRAWITEM, WM_SIZE, WM_DESTROY }, ;
       { ;
       { |o, w, l| onNotify( o, w, l ) }                                 , ;
-      { |o, w|   iif( o:bPaint != NIL, Eval( o:bPaint, o, w ), - 1 ) }  , ;
+      { |o, w|   iif( o:bPaint != NIL, Eval(o:bPaint, o, w), - 1 ) }  , ;
       { |o, w, l| onCtlColor( o, w, l ) }                               , ;
       { |o, w, l| onCtlColor( o, w, l ) }                               , ;
       { |o, w, l| onCtlColor( o, w, l ) }                               , ;
@@ -58,12 +58,9 @@ CLASS HCustomWindow INHERIT HObject
    DATA nHolder       INIT 0
    DATA nChildId      INIT 34000
 
-   METHOD AddControl( oCtrl ) INLINE AAdd( ::aControls, oCtrl )
+   METHOD AddControl( oCtrl ) INLINE AAdd(::aControls, oCtrl)
    METHOD DelControl( oCtrl )
-   METHOD AddEvent( nEvent, nId, bAction, lNotify ) ;
-      INLINE AAdd( iif( lNotify == NIL .OR. !lNotify, ;
-      ::aEvents, ::aNotify ), ;
-      { nEvent, nId, bAction } )
+   METHOD AddEvent(nEvent, nId, bAction, lNotify) INLINE AAdd(iif(lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify), {nEvent, nId, bAction})
    METHOD FindControl( nId, nHandle )
    METHOD Hide()              INLINE ( ::lHide := .T. , hwg_Hidewindow( ::handle ) )
    METHOD Show()              INLINE ( ::lHide := .F. , hwg_Showwindow( ::handle ) )
@@ -83,44 +80,43 @@ METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
       nId := Upper( nId )
       RETURN hwg_GetItemByName( ::aControls, nId )
    ELSE
-      i := Iif( nId != Nil, Ascan( ::aControls,{|o|o:id == nId } ), ;
-         Ascan( ::aControls, {|o| hwg_Isptreq( o:handle,nHandle) } ) )
+      i := Iif( nId != Nil, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|hwg_Isptreq(o:handle, nHandle)}) )
    ENDIF
 
    RETURN Iif( i == 0, Nil, ::aControls[i] )
 
 METHOD DelControl( oCtrl ) CLASS HCustomWindow
    LOCAL h := oCtrl:handle, id := oCtrl:id
-   LOCAL i := Ascan( ::aControls, { |o| hwg_Isptreq( o:handle,h ) } )
+   LOCAL i := Ascan(::aControls, {|o|hwg_Isptreq(o:handle, h)})
 
    hwg_Sendmessage( h, WM_CLOSE, 0, 0 )
    IF i != 0
-      ADel( ::aControls, i )
-      ASize( ::aControls, Len( ::aControls ) - 1 )
+      ADel(::aControls, i)
+      ASize(::aControls, Len(::aControls) - 1)
    ENDIF
 
    h := 0
-   FOR i := Len( ::aEvents ) TO 1 STEP - 1
+   FOR i := Len(::aEvents) TO 1 STEP - 1
       IF ::aEvents[i, 2] == id
-         ADel( ::aEvents, i )
+         ADel(::aEvents, i)
          h ++
       ENDIF
    NEXT
 
    IF h > 0
-      ASize( ::aEvents, Len( ::aEvents ) - h )
+      ASize(::aEvents, Len(::aEvents) - h)
    ENDIF
 
    h := 0
-   FOR i := Len( ::aNotify ) TO 1 STEP - 1
+   FOR i := Len(::aNotify) TO 1 STEP - 1
       IF ::aNotify[i, 2] == id
-         ADel( ::aNotify, i )
+         ADel(::aNotify, i)
          h ++
       ENDIF
    NEXT
 
    IF h > 0
-      ASize( ::aNotify, Len( ::aNotify ) - h )
+      ASize(::aNotify, Len(::aNotify) - h)
    ENDIF
 
    RETURN NIL
@@ -163,7 +159,7 @@ METHOD SetColor( tcolor, bColor, lRepaint ) CLASS HCustomWindow
       IF ::brush != NIL
          ::brush:Release()
       ENDIF
-      ::brush := HBrush():Add( bColor )
+      ::brush := HBrush():Add(bColor)
    ENDIF
 
    IF lRepaint != NIL .AND. lRepaint
@@ -182,12 +178,12 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HCustomWindow
       hb_gcStep()
    ENDIF
 
-   IF ( i := Ascan( aCustomEvents[EVENTS_MESSAGES], msg ) ) != 0
-      RETURN Eval( aCustomEvents[EVENTS_ACTIONS, i], Self, wParam, lParam )
+   IF ( i := Ascan(aCustomEvents[EVENTS_MESSAGES], msg) ) != 0
+      RETURN Eval(aCustomEvents[EVENTS_ACTIONS, i], Self, wParam, lParam)
 
    ELSEIF ::bOther != NIL
 
-      RETURN Eval( ::bOther, Self, msg, wParam, lParam )
+      RETURN Eval(::bOther, Self, msg, wParam, lParam)
 
    ENDIF
 
@@ -200,7 +196,7 @@ METHOD End()  CLASS HCustomWindow
       ::nHolder := 0
       hwg_DecreaseHolders( ::handle )
       aControls := ::aControls
-      nLen := Len( aControls )
+      nLen := Len(aControls)
       FOR i := 1 TO nLen
          aControls[i]:End()
       NEXT
@@ -214,11 +210,11 @@ METHOD OnError() CLASS HCustomWindow
    LOCAL oError
    LOCAL oItem
 
-   IF !Empty( oItem := hwg_GetItemByName( ::aControls, cMsg ) )
+   IF !Empty(oItem := hwg_GetItemByName(::aControls, cMsg))
       RETURN oItem
    ENDIF
    FOR EACH oItem IN HTimer():aTimers
-      IF !Empty( oItem:objname ) .AND. oItem:objname == cMsg .AND. hwg_Isptreq( ::handle,oItem:oParent:handle )
+      IF !Empty(oItem:objname) .AND. oItem:objname == cMsg .AND. hwg_Isptreq( ::handle,oItem:oParent:handle )
          RETURN oItem
       ENDIF
    NEXT
@@ -234,7 +230,7 @@ METHOD OnError() CLASS HCustomWindow
    oError:fileName    := ""
    oError:osCode      := 0
 
-   Eval( ErrorBlock(), oError )
+   Eval(ErrorBlock(), oError)
    __errInHandler()
 
    RETURN NIL
@@ -246,8 +242,8 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
    // (lParam)
 
    wParam := hwg_PtrToUlong( wParam )
-   IF Empty( oCtrl := oWnd:FindControl( wParam ) )
-      FOR n := 1 TO Len( oWnd:aControls )
+   IF Empty(oCtrl := oWnd:FindControl(wParam))
+      FOR n := 1 TO Len(oWnd:aControls)
          oCtrl := oWnd:aControls[n]:FindControl( wParam )
          IF oCtrl != NIL
             EXIT
@@ -263,10 +259,8 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
          nCode := hwg_Getnotifycode( lParam )
          IF nCode == EN_PROTECTED
             RETURN 1
-         ELSEIF oWnd:aNotify != NIL .AND. ;
-               ( iItem := Ascan( oWnd:aNotify, { |a| a[1] == nCode .AND. ;
-               a[2] == wParam } ) ) > 0
-            IF ( res := Eval( oWnd:aNotify[iItem, 3], oWnd, wParam ) ) != NIL
+         ELSEIF oWnd:aNotify != NIL .AND. ( iItem := Ascan(oWnd:aNotify, {|a|a[1] == nCode .AND. a[2] == wParam}) ) > 0
+            IF ( res := Eval(oWnd:aNotify[iItem, 3], oWnd, wParam) ) != NIL
                RETURN res
             ENDIF
          ENDIF
@@ -277,7 +271,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
 
 STATIC FUNCTION onDestroy( oWnd )
    LOCAL aControls := oWnd:aControls
-   LOCAL i, nLen   := Len( aControls )
+   LOCAL i, nLen   := Len(aControls)
 
    FOR i := 1 TO nLen
       aControls[i]:End()
@@ -312,9 +306,8 @@ STATIC FUNCTION onDrawItem( oWnd, wParam, lParam )
    LOCAL oCtrl
 
    wParam := hwg_PtrToUlong( wParam )
-   IF wParam != 0 .AND. ( oCtrl := oWnd:FindControl( wParam ) ) != NIL .AND. ;
-         oCtrl:bPaint != NIL
-      Eval( oCtrl:bPaint, oCtrl, lParam )
+   IF wParam != 0 .AND. (oCtrl := oWnd:FindControl(wParam)) != NIL .AND. oCtrl:bPaint != NIL
+      Eval(oCtrl:bPaint, oCtrl, lParam)
       RETURN 1
 
    ENDIF
@@ -326,11 +319,9 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
    
    HB_SYMBOL_UNUSED(lParam)
 
-   IF oWnd:aEvents != NIL .AND. ;
-         ( iItem := Ascan( oWnd:aEvents, { |a| a[1] == iParHigh .AND. ;
-         a[2] == iParLow } ) ) > 0
+   IF oWnd:aEvents != NIL .AND. ( iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
 
-      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
+      Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
 
    ENDIF
 
@@ -345,47 +336,43 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
    FOR EACH oItem IN aControls
       IF oItem:bSize != NIL
          *  { |o, w, l| onSize( o, w, l ) }
-         Eval( oItem:bSize, oItem, hwg_Loword( lParam ), hwg_Hiword( lParam ) )
+         Eval(oItem:bSize, oItem, hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
    NEXT
 
    RETURN - 1
 
-FUNCTION hwg_onTrackScroll( oWnd, msg, wParam, lParam )
+FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
 
-   LOCAL oCtrl := oWnd:FindControl( , lParam )
-   
+   LOCAL oCtrl := oWnd:FindControl(, lParam)
 
    IF oCtrl != NIL
-      msg := hwg_Loword( wParam )
+      msg := hwg_Loword(wParam)
       IF msg == TB_ENDTRACK
-         IF HB_ISBLOCK( oCtrl:bChange )
-            Eval( oCtrl:bChange, oCtrl )
+         IF HB_ISBLOCK(oCtrl:bChange)
+            Eval(oCtrl:bChange, oCtrl)
             RETURN 0
          ENDIF
-      ELSEIF msg == TB_THUMBTRACK .OR. ;
-            msg == TB_PAGEUP     .OR. ;
-            msg == TB_PAGEDOWN
-
-         IF HB_ISBLOCK( oCtrl:bThumbDrag )
-            Eval( oCtrl:bThumbDrag, oCtrl )
+      ELSEIF msg == TB_THUMBTRACK .OR. msg == TB_PAGEUP .OR. msg == TB_PAGEDOWN
+         IF HB_ISBLOCK(oCtrl:bThumbDrag)
+            Eval(oCtrl:bThumbDrag, oCtrl)
             RETURN 0
          ENDIF
       ENDIF
    ELSE
-      IF HB_ISBLOCK( oWnd:bScroll )
-         Eval( oWnd:bScroll, oWnd, msg, wParam, lParam )
+      IF HB_ISBLOCK(oWnd:bScroll)
+         Eval(oWnd:bScroll, oWnd, msg, wParam, lParam)
          RETURN 0
       ENDIF
    ENDIF
 
-   RETURN - 1
+   RETURN -1
 
 FUNCTION hwg_GetItemByName( arr, cName )
 
    LOCAL oItem
    FOR EACH oItem IN arr
-      IF !Empty( oItem:objname ) .AND. oItem:objname == cName
+      IF !Empty(oItem:objname) .AND. oItem:objname == cName
          RETURN oItem
       ENDIF
    NEXT

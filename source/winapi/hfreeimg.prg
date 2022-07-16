@@ -43,32 +43,32 @@ METHOD AddFile( name ) CLASS HFreeImage
          ENDIF
       NEXT
    #else
-      FOR i := 1 TO Len( ::aImages )
+      FOR i := 1 TO Len(::aImages)
          IF ::aImages[i]:name == name
             ::aImages[i]:nCounter ++
             RETURN ::aImages[i]
          ENDIF
       NEXT
    #endif
-   IF Empty( ::handle := hwg_Fi_load( name ) )
+   IF Empty(::handle := hwg_Fi_load(name))
       RETURN Nil
    ENDIF
    ::name := name
    ::nWidth  := hwg_Fi_getwidth( ::handle )
    ::nHeight := hwg_Fi_getheight( ::handle )
-   AAdd( ::aImages, Self )
+   AAdd(::aImages, Self)
 
    RETURN Self
 
 METHOD AddFromVar( cImage, cType ) CLASS HFreeImage
 
-   IF Empty( ::handle := hwg_Fi_loadfrommem( cImage, cType ) )
+   IF Empty(::handle := hwg_Fi_loadfrommem(cImage, cType))
       RETURN Nil
    ENDIF
    ::name := LTrim( Str( ::handle ) )
    ::nWidth  := hwg_Fi_getwidth( ::handle )
    ::nHeight := hwg_Fi_getheight( ::handle )
-   AAdd( ::aImages, Self )
+   AAdd(::aImages, Self)
 
    RETURN Self
 
@@ -78,7 +78,7 @@ METHOD FromBitmap( oBitmap ) CLASS HFreeImage
    ::name := LTrim( Str( oBitmap:handle ) )
    ::nWidth  := hwg_Fi_getwidth( ::handle )
    ::nHeight := hwg_Fi_getheight( ::handle )
-   AAdd( ::aImages, Self )
+   AAdd(::aImages, Self)
 
    RETURN Self
 
@@ -89,7 +89,7 @@ METHOD Draw( hDC, nLeft, nTop, nWidth, nHeight ) CLASS HFreeImage
    RETURN Nil
 
 METHOD Release() CLASS HFreeImage
-   LOCAL i, nlen := Len( ::aImages )
+   LOCAL i, nlen := Len(::aImages)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -100,8 +100,8 @@ METHOD Release() CLASS HFreeImage
                IF ::hBitmap != Nil
                   hwg_Deleteobject( ::hBitmap )
                ENDIF
-               ADel( ::aImages, hB_enumIndex() )
-               ASize( ::aImages, nlen - 1 )
+               ADel(::aImages, hB_enumIndex())
+               ASize(::aImages, nlen - 1)
                EXIT
             ENDIF
          NEXT
@@ -112,8 +112,8 @@ METHOD Release() CLASS HFreeImage
                IF ::hBitmap != Nil
                   hwg_Deleteobject( ::hBitmap )
                ENDIF
-               ADel( ::aImages, i )
-               ASize( ::aImages, nlen - 1 )
+               ADel(::aImages, i)
+               ASize(::aImages, nlen - 1)
                EXIT
             ENDIF
          NEXT
@@ -129,8 +129,7 @@ CLASS HSayFImage INHERIT HSayImage
    DATA nOffsetH  INIT 0
    DATA nZoom
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, ;
-               bSize, ctooltip, cType )
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, ctooltip, cType)
    METHOD Redefine( oWndParent, nId, Image, bInit, bSize, ctooltip )
    METHOD ReplaceImage( Image, cType )
    METHOD Paint( lpdis )
@@ -138,12 +137,10 @@ CLASS HSayFImage INHERIT HSayImage
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, ;
-            bSize, ctooltip, cType ) CLASS HSayFImage
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, ctooltip, cType) CLASS HSayFImage
 
    IF Image != Nil
-      ::oImage := IIf( ValType( Image ) == "C", ;
-                       IIf( cType != Nil, HFreeImage():AddFromVar( Image, cType ), HFreeImage():AddFile( Image ) ), Image )
+      ::oImage := IIf(ValType(Image) == "C", IIf(cType != Nil, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image)), Image)
       IF nWidth == Nil
          nWidth  := ::oImage:nWidth
          nHeight := ::oImage:nHeight
@@ -174,8 +171,7 @@ METHOD ReplaceImage( Image, cType )
    IF ::oImage != Nil
       ::oImage:Release()
    ENDIF
-   ::oImage := IIf( ValType( Image ) == "C", ;
-                    IIf( cType != Nil, HFreeImage():AddFromVar( Image, cType ), HFreeImage():AddFile( Image ) ), Image )
+   ::oImage := IIf(ValType(Image) == "C", IIf(cType != Nil, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image)), Image)
 
    RETURN Nil
 
@@ -197,7 +193,7 @@ METHOD Paint( lpdis ) CLASS HSayFImage
    EXIT PROCEDURE CleanImages
    LOCAL i
 
-   FOR i := 1 TO Len( HFreeImage():aImages )
+   FOR i := 1 TO Len(HFreeImage():aImages)
       hwg_Fi_unload( HFreeImage():aImages[i]:handle )
       IF HFreeImage():aImages[i]:hBitmap != Nil
          hwg_Deleteobject( HFreeImage():aImages[i]:hBitmap )

@@ -111,9 +111,9 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
    ENDIF
    IF nLines > 0
       FOR n := 1 TO nLines
-         SKIP IF( lDesc, - 1, + 1 )
-         WHILE ! Eof() .AND. Eval( oBrw:bWhile ) .AND. ! Eval( oBrw:bFor )
-            SKIP IF( lDesc, - 1, + 1 )
+         SKIP IIF(lDesc, -1, +1)
+         WHILE !Eof() .AND. Eval(oBrw:bWhile) .AND. !Eval(oBrw:bFor)
+            SKIP IIF(lDesc, -1, +1)
          ENDDO
       NEXT
    ELSEIF nLines < 0
@@ -125,10 +125,10 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
                FltGoBottom( oBrw )
             ENDIF
          ELSE
-            SKIP IF( lDesc, + 1, - 1 )
+            SKIP IIF(lDesc, +1, -1)
          ENDIF
-         WHILE ! Bof() .AND. Eval( oBrw:bWhile ) .AND. ! Eval( oBrw:bFor )
-            SKIP IF( lDesc, + 1, - 1 )
+         WHILE !Bof() .AND. Eval(oBrw:bWhile) .AND. !Eval(oBrw:bFor)
+            SKIP IIF(lDesc, +1, -1)
          ENDDO
       NEXT
    ENDIF
@@ -138,9 +138,9 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
 STATIC FUNCTION FltGoTop( oBrw )
 
    IF oBrw:nFirstRecordFilter == 0
-      Eval( oBrw:bFirst )
-      IF ! Eof()
-         WHILE ! Eof() .AND. ! ( Eval( oBrw:bWhile ) .AND. Eval( oBrw:bFor ) )
+      Eval(oBrw:bFirst)
+      IF !Eof()
+         WHILE !Eof() .AND. !( Eval(oBrw:bWhile) .AND. Eval(oBrw:bFor) )
             dbSkip()
          ENDDO
          oBrw:nFirstRecordFilter := FltRecNo( oBrw )
@@ -156,12 +156,12 @@ STATIC FUNCTION FltGoTop( oBrw )
 STATIC FUNCTION FltGoBottom( oBrw )
 
    IF oBrw:nLastRecordFilter == 0
-      Eval( oBrw:bLast )
-      IF ! Eval( oBrw:bWhile ) .OR. ! Eval( oBrw:bFor )
-         WHILE ! Bof() .AND. ! Eval( oBrw:bWhile )
+      Eval(oBrw:bLast)
+      IF !Eval(oBrw:bWhile) .OR. !Eval(oBrw:bFor)
+         WHILE !Bof() .AND. !Eval(oBrw:bWhile)
             dbSkip( - 1 )
          ENDDO
-         WHILE ! Bof() .AND. Eval( oBrw:bWhile ) .AND. ! Eval( oBrw:bFor )
+         WHILE !Bof() .AND. Eval(oBrw:bWhile) .AND. !Eval(oBrw:bFor)
             dbSkip( - 1 )
          ENDDO
       ENDIF
@@ -231,8 +231,8 @@ STATIC FUNCTION FltRecCount( oBrw )
 
    nRecord := FltRecNo( oBrw )
    FltGoTop( oBrw )
-   WHILE ! Eof() .AND. Eval( oBrw:bWhile )
-      IF Eval( oBrw:bFor )
+   WHILE !Eof() .AND. Eval(oBrw:bWhile)
+      IF Eval(oBrw:bFor)
          nCount ++
       ENDIF
       dbSkip()

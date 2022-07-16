@@ -46,13 +46,16 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,;
             bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh,;
             lVertical, TickStyle, TickMarks ) CLASS HTrackBar
 
-   IF TickStyle == NIL ; TickStyle := TBS_AUTOTICKS ; ENDIF
-   IF TickMarks == NIL ; TickMarks := 0 ; ENDIF
+   IF TickStyle == NIL
+      TickStyle := TBS_AUTOTICKS
+   ENDIF
+   IF TickMarks == NIL
+      TickMarks := 0
+   ENDIF
    IF bPaint != NIL
       TickStyle := Hwg_BitOr( TickStyle, TBS_AUTOTICKS )
    ENDIF
-   nstyle   := Hwg_BitOr( IIF( nStyle==NIL, 0, nStyle ), ;
-                          WS_CHILD + WS_VISIBLE + WS_TABSTOP )
+   nstyle   := Hwg_BitOr( IIF( nStyle==NIL, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP )
    nstyle   += IIF( lVertical != NIL .AND. lVertical, TBS_VERT, 0 )
    nstyle   += TickStyle + TickMarks
 
@@ -71,10 +74,8 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,;
 RETURN Self
 
 METHOD Activate() CLASS HTrackBar
-   IF !Empty( ::oParent:handle )
-      ::handle := hwg_inittrackbar ( ::oParent:handle, ::id, ::style, ;
-                                 ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
-                                 ::nLow, ::nHigh )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_inittrackbar(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::nLow, ::nHigh)
       ::Init()
    ENDIF
 RETURN NIL
@@ -84,7 +85,7 @@ LOCAL aCoors
 
    IF msg == WM_PAINT
       IF ::bPaint != NIL
-         Eval( ::bPaint, Self )
+         Eval(::bPaint, Self)
          RETURN 0
       ENDIF
 
@@ -96,8 +97,7 @@ LOCAL aCoors
    ELSEIF msg == WM_ERASEBKGND
       IF ::brush != NIL
          aCoors := hwg_Getclientrect( ::handle )
-         hwg_Fillrect( wParam, aCoors[1], aCoors[2], aCoors[3] + 1, ;
-                   aCoors[4] + 1, ::brush:handle )
+         hwg_Fillrect( wParam, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, ::brush:handle )
          RETURN 1
       ENDIF
 
@@ -105,7 +105,7 @@ LOCAL aCoors
       ::End()
 
    ELSEIF ::bOther != NIL
-      RETURN Eval( ::bOther, Self, msg, wParam, lParam )
+      RETURN Eval(::bOther, Self, msg, wParam, lParam)
 
    ENDIF
 

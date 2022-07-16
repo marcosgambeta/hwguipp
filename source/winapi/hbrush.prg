@@ -18,12 +18,12 @@ CLASS HBrush INHERIT HObject
    DATA nHatch   INIT 99
    DATA nCounter INIT 1
 
-   METHOD Add( nColor, nHatch )
+   METHOD Add(nColor, nHatch)
    METHOD RELEASE()
 
 ENDCLASS
 
-METHOD Add( nColor, nHatch ) CLASS HBrush
+METHOD Add(nColor, nHatch) CLASS HBrush
    LOCAL i
 
    IF nHatch == Nil
@@ -44,12 +44,12 @@ METHOD Add( nColor, nHatch ) CLASS HBrush
       ::handle := hwg_Createsolidbrush( nColor )
    ENDIF
    ::color  := nColor
-   AAdd( ::aBrushes, Self )
+   AAdd(::aBrushes, Self)
 
    RETURN Self
 
 METHOD RELEASE() CLASS HBrush
-   LOCAL i, nlen := Len( ::aBrushes )
+   LOCAL i, nlen := Len(::aBrushes)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -57,8 +57,8 @@ METHOD RELEASE() CLASS HBrush
       FOR EACH i IN ::aBrushes
          IF i:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aBrushes, hb_enumindex() )
-            ASize( ::aBrushes, nlen - 1 )
+            ADel(::aBrushes, hb_enumindex())
+            ASize(::aBrushes, nlen - 1)
             EXIT
          ENDIF
       NEXT
@@ -66,8 +66,8 @@ METHOD RELEASE() CLASS HBrush
       FOR i := 1 TO nlen
          IF ::aBrushes[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aBrushes, i )
-            ASize( ::aBrushes, nlen - 1 )
+            ADel(::aBrushes, i)
+            ASize(::aBrushes, nlen - 1)
             EXIT
          ENDIF
       NEXT

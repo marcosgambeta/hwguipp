@@ -29,7 +29,7 @@ ENDCLASS
 
 METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
 
-   LOCAL i, nlen := Len( ::aStyles )
+   LOCAL i, nlen := Len(::aStyles)
 
    nBorder := Iif( nBorder == Nil, 0, nBorder )
    tColor := Iif( tColor == Nil, 0, tColor )
@@ -56,11 +56,11 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
    ::aCorners := aCorners
    ::oBitmap := oBitmap
    IF nBorder > 0
-      ::oPen := HPen():Add( BS_SOLID, nBorder, tColor )
+      ::oPen := HPen():Add(BS_SOLID, nBorder, tColor)
    ENDIF
 
-   AAdd( ::aStyles, Self )
-   ::id := Len( ::aStyles )
+   AAdd(::aStyles, Self)
+   ::id := Len(::aStyles)
 
    RETURN Self
 
@@ -72,7 +72,7 @@ METHOD Draw( hDC, nLeft, nTop, nRight, nBottom ) CLASS HStyle
    ELSE
       hwg_SpreadBitmap( hDC, ::oBitmap:handle, nLeft, nTop, nRight, nBottom )
    ENDIF
-   IF !Empty( ::oPen )
+   IF !Empty(::oPen)
       n2 := ::nBorder/2
       n1 := Int( n2 )
       IF n2 - n1 > 0.1

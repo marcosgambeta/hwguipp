@@ -32,12 +32,11 @@ ENDCLASS
 METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lTransp, bLFocus ) CLASS HCheckButton
 
-   IF !Empty( lTransp )
+   IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
    nStyle   := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), BS_AUTO3STATE + WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::title   := cCaption
    ::lValue   := iif( vari == Nil .OR. ValType( vari ) != "L", .F. , vari )
@@ -61,9 +60,8 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
 METHOD Activate() CLASS HCheckButton
 
-   IF !Empty( ::oParent:handle )
-      ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+   IF !Empty(::oParent:handle)
+      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
 
@@ -71,8 +69,7 @@ METHOD Activate() CLASS HCheckButton
 
 METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus ) CLASS HCheckButton
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::lValue  := iif( vari == Nil .OR. ValType( vari ) != "L", .F. , vari )
    ::bSetGet := bSetGet
@@ -101,11 +98,11 @@ METHOD Refresh() CLASS HCheckButton
    LOCAL var
 
    IF ::bSetGet != Nil
-      var := Eval( ::bSetGet, , nil )
+      var := Eval(::bSetGet, , nil)
       ::lValue := iif( var == Nil, .F. , var )
    ENDIF
 
-   hwg_Sendmessage( ::handle, BM_SETCHECK, iif( ::lValue,1,0 ), 0 )
+   hwg_Sendmessage( ::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0 )
 
    RETURN Nil
 
@@ -119,7 +116,7 @@ METHOD Disable() CLASS HCheckButton
 METHOD Enable() CLASS HCheckButton
 
    ::Super:Enable()
-   hwg_Sendmessage( ::handle, BM_SETCHECK, iif( ::lValue,1,0 ), 0 )
+   hwg_Sendmessage( ::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0 )
 
    RETURN Nil
 
@@ -129,9 +126,9 @@ METHOD Value( lValue ) CLASS HCheckButton
       IF ValType( lValue ) != "L"
          lValue := .F.
       ENDIF
-      hwg_Sendmessage( ::handle, BM_SETCHECK, iif( lValue,1,0 ), 0 )
+      hwg_Sendmessage( ::handle, BM_SETCHECK, iif(lValue, 1, 0), 0 )
       IF ::bSetGet != NIL
-         Eval( ::bSetGet, lValue, Self )
+         Eval(::bSetGet, lValue, Self)
       ENDIF
       RETURN ( ::lValue := lValue )
    ENDIF
@@ -150,9 +147,9 @@ STATIC FUNCTION __Valid( oCtrl )
    ENDIF
 
    IF oCtrl:bSetGet != Nil
-      Eval( oCtrl:bSetGet, oCtrl:lValue, oCtrl )
+      Eval(oCtrl:bSetGet, oCtrl:lValue, oCtrl)
    ENDIF
-   IF oCtrl:bClick != Nil .AND. !Eval( oCtrl:bClick, oCtrl, oCtrl:lValue )
+   IF oCtrl:bClick != Nil .AND. !Eval(oCtrl:bClick, oCtrl, oCtrl:lValue)
       hwg_Setfocus( oCtrl:handle )
    ENDIF
 
@@ -164,7 +161,7 @@ STATIC FUNCTION __When( oCtrl )
    oCtrl:Refresh()
 
    IF oCtrl:bGetFocus != Nil
-      res := Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet,, oCtrl ), oCtrl )
+      res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, , oCtrl), oCtrl)
       IF !res
          hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )
       ENDIF
