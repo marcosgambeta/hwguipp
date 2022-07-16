@@ -24,6 +24,7 @@
 {win}source/winapi/monthcalendar.cpp
 {win}source/winapi/nice.cpp
 {win}source/winapi/pager.cpp
+{win}source/winapi/printdos_cpp.cpp
 {win}source/winapi/progressbar.cpp
 {win}source/winapi/registry.cpp
 {win}source/winapi/resource.cpp
