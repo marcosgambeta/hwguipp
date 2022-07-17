@@ -28,13 +28,13 @@ CLASS HPanel INHERIT HControl
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
-   METHOD Redefine( oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor )
+   METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor)
    METHOD DrawItems(hDC, aCoors)
    METHOD Paint()
    METHOD BackColor( bcolor ) INLINE ::Setcolor( , bcolor, .T. )
    METHOD Hide()
    METHOD Show()
-   METHOD SetPaintCB( nId, block, cId )
+   METHOD SetPaintCB(nId, block, cId)
    METHOD Drag( xPos, yPos )
    METHOD Release()
 
@@ -54,9 +54,9 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ENDIF
    ::oStyle := oStyle
    ::bPaint   := bPaint
-   ::lResizeX := ( ::nWidth == 0 )
-   ::lResizeY := ( ::nHeight == 0 )
-   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:Type == WND_MDI
+   ::lResizeX := (::nWidth == 0)
+   ::lResizeY := (::nHeight == 0)
+   IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:Type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] := ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -113,7 +113,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
          IF ::hCursor == Nil
             ::hCursor := hwg_Loadcursor( IDC_HAND )
          ENDIF
-         Hwg_SetCursor( ::hCursor )
+         Hwg_SetCursor(::hCursor)
          hwg_Setcapture(::handle)
          ::lCaptured := .T.
          ::nOldX := hwg_Loword(lParam)
@@ -134,10 +134,10 @@ METHOD Init() CLASS HPanel
 
    IF !::lInit
       IF ::bSize == Nil .AND. Empty(::Anchor)
-         ::bSize := { | o, x, y | o:Move( iif( ::nLeft > 0, x - ::nLeft, 0 ), ;
-            iif( ::nTop > 0, y - ::nHeight, 0 ), ;
-            iif( ::nWidth == 0 .OR. ::lResizeX, x, ::nWidth ), ;
-            iif( ::nHeight == 0 .OR. ::lResizeY, y, ::nHeight ) ) }
+         ::bSize := { | o, x, y | o:Move(iif(::nLeft > 0, x - ::nLeft, 0), ;
+            iif(::nTop > 0, y - ::nHeight, 0), ;
+            iif(::nWidth == 0 .OR. ::lResizeX, x, ::nWidth), ;
+            iif(::nHeight == 0 .OR. ::lResizeY, y, ::nHeight)) }
       ENDIF
 
       ::Super:Init()
@@ -148,7 +148,7 @@ METHOD Init() CLASS HPanel
 
    RETURN Nil
 
-METHOD Redefine( oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor ) CLASS HPanel
+METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor) CLASS HPanel
    LOCAL oParent := iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
 
    ::Super:New( oWndParent, nId, 0, 0, 0, iif( nWidth == Nil, 0, nWidth ), ;
@@ -161,8 +161,8 @@ METHOD Redefine( oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor 
    ENDIF
 
    ::bPaint   := bPaint
-   ::lResizeX := ( ::nWidth == 0 )
-   ::lResizeY := ( ::nHeight == 0 )
+   ::lResizeX := (::nWidth == 0)
+   ::lResizeY := (::nHeight == 0)
    hwg_RegPanel()
 
    RETURN Self
@@ -217,7 +217,7 @@ METHOD Paint() CLASS HPanel
 
 METHOD Release() CLASS HPanel
 
-   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
+   IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] -= ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -227,9 +227,9 @@ METHOD Release() CLASS HPanel
             ::oParent:aOffset[3] -= ::nWidth
          ENDIF
       ENDIF
-      hwg_Invalidaterect( ::oParent:handle, 0, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      hwg_Invalidaterect(::oParent:handle, 0, ::nLeft, ::nTop, ::nWidth, ::nHeight)
    ENDIF
-   hwg_Sendmessage( ::oParent:handle, WM_SIZE, 0, 0 )
+   hwg_Sendmessage(::oParent:handle, WM_SIZE, 0, 0)
    ::oParent:DelControl( Self )
 
    RETURN Nil
@@ -240,7 +240,7 @@ METHOD Hide() CLASS HPanel
    IF ::lHide
       RETURN Nil
    ENDIF
-   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
+   IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] -= ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -250,14 +250,14 @@ METHOD Hide() CLASS HPanel
             ::oParent:aOffset[3] -= ::nWidth
          ENDIF
       ENDIF
-      hwg_Invalidaterect( ::oParent:handle, 0, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      hwg_Invalidaterect(::oParent:handle, 0, ::nLeft, ::nTop, ::nWidth, ::nHeight)
    ENDIF
    ::nSize := ::nWidth
    FOR i := 1 TO Len(::acontrols)
       ::acontrols[i]:hide()
    NEXT
    ::super:hide()
-   hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, 0 )
+   hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, 0)
 
    RETURN Nil
 
@@ -267,7 +267,7 @@ METHOD Show() CLASS HPanel
    IF !::lHide
       RETURN Nil
    ENDIF
-   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
+   IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] += ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -277,10 +277,10 @@ METHOD Show() CLASS HPanel
             ::oParent:aOffset[3] += ::nWidth
          ENDIF
       ENDIF
-      hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nWidth, ::nHeight)
    ENDIF
    ::nWidth := ::nsize
-   hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, 0 )
+   hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, 0)
    ::super:Show()
    FOR i := 1 TO Len(::aControls)
       ::aControls[i]:Show()
@@ -289,7 +289,7 @@ METHOD Show() CLASS HPanel
 
    RETURN Nil
 
-METHOD SetPaintCB( nId, block, cId ) CLASS HPanel
+METHOD SetPaintCB(nId, block, cId) CLASS HPanel
 
    LOCAL i, nLen
 
@@ -332,7 +332,7 @@ METHOD Drag( xPos, yPos ) CLASS HPanel
    ENDIF
 
    IF Abs(xPos-::nOldX) > 1 .OR. Abs(yPos-::nOldY) > 1
-      oWnd:Move( oWnd:nLeft + (xPos-::nOldX), oWnd:nTop + (yPos-::nOldY) )
+      oWnd:Move(oWnd:nLeft + (xPos - ::nOldX), oWnd:nTop + (yPos - ::nOldY))
    ENDIF
 
    RETURN Nil
@@ -343,8 +343,8 @@ CLASS HPanelStS INHERIT HPANEL
    DATA aText
 
    METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts )
-   METHOD Write( cText, nPart, lRedraw )
-   METHOD SetText( cText )    INLINE ::Write( cText,, .T. )
+   METHOD Write(cText, nPart, lRedraw)
+   METHOD SetText( cText )    INLINE ::Write(cText, , .T.)
    METHOD PaintText(hDC)
    METHOD Paint()
 
@@ -359,12 +359,12 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPar
 
 /*   
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, 0, oWndParent:nHeight - nHeight, ;
-      oWndParent:nWidth, nHeight, bInit, { |o, w, h|o:Move( 0, h - o:nHeight ) }, bPaint, bcolor )
+      oWndParent:nWidth, nHeight, bInit, { |o, w, h|o:Move(0, h - o:nHeight) }, bPaint, bcolor )
     Block reverted to old value with HB_SYMBOL_UNUSED(w)  
 */
   
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, 0, oWndParent:nHeight - nHeight, ;
-      oWndParent:nWidth, nHeight, bInit, { |o, w, h| HB_SYMBOL_UNUSED(w) ,  o:Move( 0, h - o:nHeight ) }, bPaint, bcolor )
+      oWndParent:nWidth, nHeight, bInit, { |o, w, h| HB_SYMBOL_UNUSED(w) ,  o:Move(0, h - o:nHeight) }, bPaint, bcolor )
    ::Anchor := ANCHOR_LEFTABS+ANCHOR_RIGHTABS
 
    ::oFont := Iif( oFont == Nil, ::oParent:oFont, oFont )
@@ -375,11 +375,11 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPar
       ::aParts := {0}
    ENDIF
    ::aText := Array(Len(::aParts))
-   AFill( ::aText, "" )
+   AFill(::aText, "")
 
    RETURN Self
 
-METHOD Write( cText, nPart, lRedraw ) CLASS HPanelStS
+METHOD Write(cText, nPart, lRedraw) CLASS HPanelStS
 
    ::aText[Iif(nPart==Nil, 1, nPart)] := cText
    IF Valtype(lRedraw) != "L" .OR. lRedraw
@@ -523,7 +523,7 @@ LOCAL pps, hDC
 
   hwg_Endpaint(::handle, pps)
   
-   // hwg_Sendmessage( ::oParent:handle, WM_SIZE , 0, 0 )  && Does not refresh
+   // hwg_Sendmessage(::oParent:handle, WM_SIZE, 0, 0)  && Does not refresh
    hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
   
  ENDIF 
@@ -562,8 +562,8 @@ METHOD PaintText(hDC) CLASS HPanelHea
       ENDIF
       hwg_Settransparentmode(hDC, .T.)
       oldTColor := hwg_Settextcolor(hDC, ::tcolor)
-      x1 := Iif( ::xt==Nil, 4, ::xt )
-      y1 := Iif( ::yt==Nil, 4, ::yt )
+      x1 := Iif(::xt == Nil, 4, ::xt)
+      y1 := Iif(::yt == Nil, 4, ::yt)
       hwg_Drawtext(hDC, ::title, x1, y1, ::nWidth - 4, ::nHeight - 4, DT_LEFT + DT_VCENTER)
       hwg_Settextcolor(hDC, oldTColor)
       hwg_Settransparentmode(hDC, .F.)
@@ -594,7 +594,7 @@ METHOD Paint() CLASS HPanelHea
 
    hwg_Endpaint(::handle, pps)
    FOR i := 1 TO Len(::aControls)
-      hwg_Invalidaterect( ::aControls[i]:handle, 0 )
+      hwg_Invalidaterect(::aControls[i]:handle, 0)
    NEXT
 
    RETURN Nil

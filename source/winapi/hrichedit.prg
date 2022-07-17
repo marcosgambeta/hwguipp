@@ -113,6 +113,8 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
          RETURN nDelta
       ENDIF
    ENDIF
+   
+   // TODO: usar SWITCH
    IF msg = WM_KEYUP .OR. msg == WM_LBUTTONDOWN .OR. msg == WM_LBUTTONUP // msg = WM_NOTIFY .OR.
       ::updatePos()
    ELSEIF msg == WM_CHAR
@@ -135,7 +137,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
          RETURN 0
       ELSEIF wParam == 27 // ESC
          IF hwg_Getparent(::oParent:handle) != Nil
-            hwg_Sendmessage( hwg_Getparent(::oParent:handle), WM_CLOSE, 0, 0 )
+            hwg_Sendmessage(hwg_Getparent(::oParent:handle), WM_CLOSE, 0, 0)
          ENDIF
       ENDIF
 

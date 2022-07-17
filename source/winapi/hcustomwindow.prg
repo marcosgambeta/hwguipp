@@ -23,7 +23,7 @@ STATIC aCustomEvents := { ;
       { |o, w, l| onCtlColor( o, w, l ) }                               , ;
       { |o, w, l| onCtlColor( o, w, l ) }                               , ;
       { |o, w, l| onCtlColor( o, w, l ) }                               , ;
-      { |o, w, l| onCommand( o, w , l ) }                               , ;
+      { |o, w, l| onCommand(o, w, l) }                               , ;
       { |o, w, l| onDrawItem( o, w, l ) }                               , ;
       { |o, w, l| onSize(o, w, l) }                                   , ;
       { |o|     onDestroy( o ) }                                       ;
@@ -65,7 +65,7 @@ CLASS HCustomWindow INHERIT HObject
    METHOD Hide()              INLINE (::lHide := .T., hwg_Hidewindow(::handle))
    METHOD Show()              INLINE (::lHide := .F., hwg_Showwindow(::handle))
    METHOD Refresh()
-   METHOD Move( x1, y1, width, height )
+   METHOD Move(x1, y1, width, height)
    METHOD SetColor( tcolor, bColor, lRepaint )
    METHOD onEvent( msg, wParam, lParam )
    METHOD End()
@@ -89,7 +89,7 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
    LOCAL h := oCtrl:handle, id := oCtrl:id
    LOCAL i := Ascan(::aControls, {|o|hwg_Isptreq(o:handle, h)})
 
-   hwg_Sendmessage( h, WM_CLOSE, 0, 0 )
+   hwg_Sendmessage(h, WM_CLOSE, 0, 0)
    IF i != 0
       ADel(::aControls, i)
       ASize(::aControls, Len(::aControls) - 1)
@@ -121,7 +121,7 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD Move( x1, y1, width, height ) CLASS HCustomWindow
+METHOD Move(x1, y1, width, height) CLASS HCustomWindow
 
    IF x1     != NIL
       ::nLeft   := x1
@@ -256,7 +256,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
       IF __ObjHasMsg( oCtrl, "NOTIFY" )
          RETURN oCtrl:Notify( lParam )
       ELSE
-         nCode := hwg_Getnotifycode( lParam )
+         nCode := hwg_Getnotifycode(lParam)
          IF nCode == EN_PROTECTED
             RETURN 1
          ELSEIF oWnd:aNotify != NIL .AND. ( iItem := Ascan(oWnd:aNotify, {|a|a[1] == nCode .AND. a[2] == wParam}) ) > 0
@@ -290,7 +290,7 @@ STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
 
       //hwg_writelog( octrl:classname )
       IF hwg_bitand(oCtrl:extStyle, WS_EX_TRANSPARENT) != 0
-         hwg_SetTransparentMode( wParam, .T. )
+         hwg_SetTransparentMode(wParam, .T.)
          RETURN 0  //hwg_getBackBrush( oWnd:handle )
       ELSE
          IF oCtrl:bcolor != NIL
@@ -314,7 +314,7 @@ STATIC FUNCTION onDrawItem( oWnd, wParam, lParam )
 
    RETURN - 1
 
-STATIC FUNCTION onCommand( oWnd, wParam, lParam )
+STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    LOCAL iItem, iParHigh := hwg_Hiword(wParam), iParLow := hwg_Loword(wParam)
    
    HB_SYMBOL_UNUSED(lParam)
@@ -368,7 +368,7 @@ FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
 
    RETURN -1
 
-FUNCTION hwg_GetItemByName( arr, cName )
+FUNCTION hwg_GetItemByName(arr, cName)
 
    LOCAL oItem
    FOR EACH oItem IN arr

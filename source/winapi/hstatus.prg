@@ -19,14 +19,14 @@ CLASS HStatus INHERIT HControl
    METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint )
    METHOD Activate()
    METHOD Init()
-   METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts )
+   METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts)
    METHOD SetText( cText, nPart ) INLINE  hwg_WriteStatus(::oParent, nPart, cText)
 
 ENDCLASS
 
 METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint ) CLASS HStatus
 
-   bSize  := iif( bSize != NIL, bSize, { |o, x, y| o:Move( 0, y - 20, x, 20 ) } )
+   bSize  := iif( bSize != NIL, bSize, { |o, x, y| o:Move(0, y - 20, x, 20) } )
    nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS)
    ::Super:New( oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
 
@@ -61,7 +61,7 @@ METHOD Init() CLASS HStatus
 
    RETURN  NIL
 
-METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts )  CLASS hStatus
+METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts)  CLASS hStatus
 
    // Not used variables
    ( cCaption )

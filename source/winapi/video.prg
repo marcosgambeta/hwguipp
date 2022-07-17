@@ -22,7 +22,7 @@ CLASS TVideo FROM hControl
 
    METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CONSTRUCTOR
 
-   METHOD ReDefine( nId, cFileName, oDlg, bWhen, bValid ) CONSTRUCTOR
+   METHOD ReDefine(nId, cFileName, oDlg, bWhen, bValid) CONSTRUCTOR
 
    METHOD Initiate()
 
@@ -60,7 +60,7 @@ METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CLASS
 
 //----------------------------------------------------------------------------//
 
-METHOD ReDefine( nId, cFileName, oDlg, bWhen, bValid ) CLASS TVideo
+METHOD ReDefine(nId, cFileName, oDlg, bWhen, bValid) CLASS TVideo
 
    ::nId      = nId
    ::cAviFile = cFileName

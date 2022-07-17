@@ -39,13 +39,10 @@ CLASS HOwnButton INHERIT HControl
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
-   METHOD Redefine( oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
-      cText, color, font, xt, yt, widtht, heightt,     ;
-      bmp, lResour, xb, yb, widthb, heightb, lTr,      ;
-      cTooltip, lEnabled, lCheck )
+   METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, cText, color, font, xt, yt, widtht, heightt, bmp, lResour, xb, yb, widthb, heightb, lTr, cTooltip, lEnabled, lCheck)
    METHOD Paint()
    METHOD DrawItems(hDC)
-   METHOD MouseMove( wParam, lParam )
+   METHOD MouseMove(wParam, lParam)
    METHOD MDown()
    METHOD MUp()
    METHOD Press()   INLINE (::lPress := .T., ::MDown())
@@ -97,9 +94,7 @@ METHOD New( oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight,   ;
          * Valid bitmap object
          ::oBitmap := bmp
       ELSE
-         ::oBitmap := iif( ( lResour != Nil .AND. lResour ) .OR. ValType(bmp) == "N", ;
-            HBitmap():AddResource( bmp ), ;
-            HBitmap():AddFile( iif(::cPath != Nil, ::cPath + bmp, bmp) ) )
+         ::oBitmap := iif((lResour != Nil .AND. lResour) .OR. ValType(bmp) == "N", HBitmap():AddResource(bmp), HBitmap():AddFile(iif(::cPath != Nil, ::cPath + bmp, bmp)))
       ENDIF
    ENDIF
    ::xb      := xb
@@ -144,7 +139,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
    ELSEIF msg == WM_ERASEBKGND
       RETURN 1
    ELSEIF msg == WM_MOUSEMOVE
-      IF ::MouseMove( wParam, lParam ) .AND. !Empty(h)
+      IF ::MouseMove(wParam, lParam) .AND. !Empty(h)
          hwg_Setfocus( h )
          h := Nil
       ENDIF
@@ -193,10 +188,10 @@ METHOD Init() CLASS HOwnButton
 
    RETURN Nil
 
-METHOD Redefine( oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
+METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
       cText, color, font, xt, yt, widtht, heightt,     ;
       bmp, lResour, xb, yb, widthb, heightb, lTr,      ;
-      cTooltip, lEnabled, lCheck ) CLASS HOwnButton
+      cTooltip, lEnabled, lCheck) CLASS HOwnButton
 
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, , bInit, bSize, bPaint, cTooltip )
 
@@ -226,7 +221,7 @@ METHOD Redefine( oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
       IF ValType(bmp) == "O"
          ::oBitmap := bmp
       ELSE
-         ::oBitmap := iif( lResour, HBitmap():AddResource( bmp ), HBitmap():AddFile( bmp ) )
+         ::oBitmap := iif( lResour, HBitmap():AddResource(bmp), HBitmap():AddFile(bmp) )
       ENDIF
    ENDIF
    ::xb      := xb
@@ -334,7 +329,7 @@ METHOD DrawItems(hDC) CLASS HOwnButton
 
    RETURN Nil
 
-METHOD MouseMove( wParam, lParam )  CLASS HOwnButton
+METHOD MouseMove(wParam, lParam)  CLASS HOwnButton
    LOCAL xPos, yPos
    LOCAL res := .F.
 
@@ -347,7 +342,7 @@ METHOD MouseMove( wParam, lParam )  CLASS HOwnButton
       IF xPos > ::nWidth .OR. yPos > ::nHeight
          hwg_Releasecapture()
          IF !Empty(::oTimer)
-            OwnBtnTimerProc( Self, 2 )
+            OwnBtnTimerProc(Self, 2)
             ::oTimer:End()
             ::oTimer := Nil
          ENDIF
@@ -376,7 +371,7 @@ METHOD MDown()  CLASS HOwnButton
       hwg_Invalidaterect(::handle, 0)
       IF ::nPeriod > 0
          ::oTimer := HTimer():New( Self,, ::nPeriod, {|o|OwnBtnTimerProc(o, 1)} )
-         OwnBtnTimerProc( Self, 0 )
+         OwnBtnTimerProc(Self, 0)
       ENDIF
    ENDIF
 
@@ -397,7 +392,7 @@ METHOD MUp() CLASS HOwnButton
       ENDIF
       IF !Empty(::oTimer)
          hwg_Releasecapture()
-         OwnBtnTimerProc( Self, 2 )
+         OwnBtnTimerProc(Self, 2)
          ::oTimer:End()
          ::oTimer := Nil
       ELSE
@@ -415,7 +410,7 @@ METHOD SetTimer( nPeriod )  CLASS HOwnButton
 
    IF nPeriod == Nil
       IF !Empty(::oTimer)
-         OwnBtnTimerProc( Self, 2 )
+         OwnBtnTimerProc(Self, 2)
          ::oTimer:End()
          ::oTimer := Nil
       ENDIF
@@ -470,7 +465,7 @@ METHOD Disable() CLASS HOwnButton
 
    RETURN Nil
 
-STATIC FUNCTION OwnBtnTimerProc( oBtn, nType )
+STATIC FUNCTION OwnBtnTimerProc(oBtn, nType)
 
    IF oBtn:bClick != Nil
       Eval(oBtn:bClick, oBtn, nType)

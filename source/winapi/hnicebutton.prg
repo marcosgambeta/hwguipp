@@ -34,9 +34,7 @@ CLASS HNiceButton INHERIT HControl
                bInit, bClick, ;
                cText, cTooltip, r, g, b )
 
-   METHOD Redefine( oWndParent, nId, nStyleEx, ;
-                    bInit, bClick, ;
-                    cText, cTooltip, r, g, b )
+   METHOD Redefine(oWndParent, nId, nStyleEx, bInit, bClick, cText, cTooltip, r, g, b)
 
    METHOD Activate()
    METHOD INIT()
@@ -44,7 +42,7 @@ CLASS HNiceButton INHERIT HControl
    METHOD Size()
    METHOD Moving()
    METHOD Paint()
-   METHOD MouseMove( wParam, lParam )
+   METHOD MouseMove(wParam, lParam)
    METHOD MDown()
    METHOD MUp()
    METHOD Press() INLINE(::lPress := .T., ::MDown())
@@ -82,9 +80,7 @@ METHOD New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
    RETURN Self
 
 
-METHOD Redefine( oWndParent, nId, nStyleEx, ;
-                 bInit, bClick, ;
-                 cText, cTooltip, r, g, b ) CLASS HNiceButton
+METHOD Redefine(oWndParent, nId, nStyleEx, bInit, bClick, cText, cTooltip, r, g, b) CLASS HNiceButton
 
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0,, bInit,,, cTooltip )
 
@@ -122,7 +118,7 @@ METHOD INIT() CLASS HNiceButton
    ENDIF
    RETURN Nil
 
-FUNCTION hwg_NICEBUTTPROC( hBtn, msg, wParam, lParam )
+FUNCTION hwg_NICEBUTTPROC(hBtn, msg, wParam, lParam)
 
 
    LOCAL oBtn
@@ -139,7 +135,7 @@ FUNCTION hwg_NICEBUTTPROC( hBtn, msg, wParam, lParam )
          ELSEIF msg == WM_LBUTTONDOWN
             oBtn:MDown()
          ELSEIF msg == WM_MOUSEMOVE
-            oBtn:MouseMove( wParam, lParam )
+            oBtn:MouseMove(wParam, lParam)
          ELSEIF msg == WM_SIZE
             oBtn:Size()
 
@@ -188,7 +184,7 @@ METHOD Moving() CLASS HNICEButton
 
    RETURN Self
 
-METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
+METHOD MouseMove(wParam, lParam) CLASS HNICEButton
 
 
    LOCAL otmp
@@ -208,7 +204,7 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
       IF otmp != Nil .AND. otmp:id != ::id .AND. !otmp:lPress
          otmp:state := OBTN_NORMAL
          hwg_Invalidaterect( otmp:handle, 0 )
-         hwg_Postmessage( otmp:handle, WM_PAINT, 0, 0 )
+         hwg_Postmessage(otmp:handle, WM_PAINT, 0, 0)
          hwg_SetNiceBtnSelected(Nil)
       ENDIF
 

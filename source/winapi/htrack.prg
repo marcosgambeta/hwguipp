@@ -39,7 +39,7 @@ CLASS VAR winclass INIT "STATIC"
    METHOD Init()
    METHOD Paint()
    METHOD Drag( xPos, yPos )
-   METHOD Move( x1, y1, width, height )
+   METHOD Move(x1, y1, width, height)
    METHOD Value ( xValue ) SETGET
 
 ENDCLASS
@@ -215,7 +215,7 @@ METHOD Drag( xPos, yPos ) CLASS HTrack
 
    RETURN Nil
 
-METHOD Move( x1, y1, width, height ) CLASS HTrack
+METHOD Move(x1, y1, width, height) CLASS HTrack
 
    LOCAL xValue := (::nCurr - ::nFrom) / (::nTo - ::nFrom)
 
@@ -232,7 +232,7 @@ METHOD Move( x1, y1, width, height ) CLASS HTrack
       ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom
    ENDIF
 
-   ::Super:Move( x1, y1, width, height )
+   ::Super:Move(x1, y1, width, height)
 
    RETURN Nil
 

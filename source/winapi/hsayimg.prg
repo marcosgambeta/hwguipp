@@ -22,7 +22,7 @@ CLASS HSayImage INHERIT HControl
 
    METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
       bSize, ctooltip, bClick, bDblClick, bColor )
-   METHOD Redefine( oWndParent, nId, bInit, bSize, ctooltip )
+   METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    METHOD Activate()
    METHOD END()  INLINE (::Super:END(), iif(::oImage <> Nil, ::oImage:Release(), ::oImage := Nil), ::oImage := Nil)
    METHOD onClick()
@@ -46,7 +46,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, 
    RETURN Self
 
 /* Parameters bClick, bDblClick were removed a long time ago */   
-METHOD Redefine( oWndParent, nId, bInit, bSize, ctooltip ) CLASS HSayImage
+METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip) CLASS HSayImage
 
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0,, bInit, bSize,, ctooltip )
 
@@ -90,7 +90,7 @@ CLASS HSayBmp INHERIT HSayImage
 
    METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, trcolor, bColor )
-   METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp )
+   METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp)
    METHOD Init()
    METHOD Paint(lpdis)
    METHOD ReplaceBitmap( Image, lRes )
@@ -114,10 +114,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       IF lRes == Nil
          lRes := .F.
       ENDIF
-      ::oImage := Iif( lRes .OR. ValType(Image) == "N",     ;
-         HBitmap():AddResource( Image ), ;
-         iif( ValType(Image) == "C",     ;
-         HBitmap():AddFile( Image ), Image ) )
+      ::oImage := Iif(lRes .OR. ValType(Image) == "N", HBitmap():AddResource(Image), iif(ValType(Image) == "C", HBitmap():AddFile(Image), Image))
       IF ::oImage != Nil .AND. ( nWidth == Nil .OR. nHeight == Nil )
          ::nWidth  := ::oImage:nWidth
          ::nHeight := ::oImage:nHeight
@@ -129,9 +126,9 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    RETURN Self
 
 /* Image ==> xImage */   
-METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp ) CLASS HSayBmp
+METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) CLASS HSayBmp
 
-   ::Super:Redefine( oWndParent, nId, bInit, bSize, ctooltip )
+   ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    ::bPaint := { | o, lpdis | o:Paint(lpdis) }
    ::lTransp := iif( lTransp = Nil, .F. , lTransp )
    ::nBorder := 0
@@ -139,10 +136,7 @@ METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp 
    IF lRes == Nil
       lRes := .F.
    ENDIF
-   ::oImage := iif( lRes .OR. ValType(xImage) == "N",     ;
-      HBitmap():AddResource( xImage ), ;
-      iif( ValType(xImage) == "C",     ;
-      HBitmap():AddFile( xImage ), xImage ) )
+   ::oImage := iif(lRes .OR. ValType(xImage) == "N", HBitmap():AddResource(xImage), iif(ValType(xImage) == "C", HBitmap():AddFile(xImage), xImage))
 
    RETURN Self
 
@@ -199,7 +193,7 @@ METHOD Paint(lpdis) CLASS HSayBmp
       ENDIF
       hwg_Selectobject(drawInfo[3], ::oPen:handle)
       n := Int(::nBorder / 2)
-      hwg_Rectangle( drawInfo[3], ::nOffsetH+n, ::nOffsetV+n, ::nOffsetH+::nWidth-n, ::nOffsetV+::nHeight-n )
+      hwg_Rectangle(drawInfo[3], ::nOffsetH+n, ::nOffsetV+n, ::nOffsetH + ::nWidth - n, ::nOffsetV + ::nHeight - n)
    ENDIF
 
    RETURN Nil
@@ -225,7 +219,7 @@ CLASS HSayIcon INHERIT HSayImage
 
    METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       bSize, ctooltip, lOEM, bClick, bDblClick )
-   METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip )
+   METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip)
    METHOD Init()
    METHOD REFRESH() INLINE hwg_Sendmessage(::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle)
 
@@ -246,9 +240,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       * Ticket #60
       // hwg_writelog( "::oImage == nil" + Str(nWidth) + "/" + str(nHeight) )
       ::oImage := iif( lRes .OR. ValType(Image) == "N",  ;
-         HIcon():AddResource( Image, nWidth , nHeight , , lOEM ),  ;
-         iif( ValType(Image) == "C",    ;
-         HIcon():AddFile( Image , nWidth , nHeight  ), Image ) )
+         HIcon():AddResource(Image, nWidth, nHeight, , lOEM), iif(ValType(Image) == "C", HIcon():AddFile(Image, nWidth, nHeight), Image))
    ENDIF
    ::Activate()
 
@@ -256,9 +248,9 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
 
 
 /* Image ==> xImage */   
-METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip ) CLASS HSayIcon
+METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip) CLASS HSayIcon
 
-   ::Super:Redefine( oWndParent, nId, bInit, bSize, ctooltip )
+   ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
 
    IF lRes == Nil
       lRes := .F.

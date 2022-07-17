@@ -86,12 +86,12 @@ FUNCTION hwg_WriteStatus( oWnd, nPart, cText, lRedraw )
    ENDIF
    aControls := oWnd:aControls
    IF (i := Ascan(aControls, {|o|o:ClassName() = "HSTATUS"})) > 0
-      hwg_SendMessage( aControls[i]:handle, SB_SETTEXT, Iif(nPart==Nil,0,nPart-1), cText )
+      hwg_SendMessage(aControls[i]:handle, SB_SETTEXT, Iif(nPart == Nil, 0, nPart - 1), cText)
       IF lRedraw != Nil .AND. lRedraw
          hwg_Redrawwindow(aControls[i]:handle, RDW_ERASE + RDW_INVALIDATE)
       ENDIF
    ELSEIF (i := Ascan(aControls, {|o|o:ClassName() = "HPANELSTS"})) > 0
-      aControls[i]:Write( cText, nPart, lRedraw )
+      aControls[i]:Write(cText, nPart, lRedraw)
    ENDIF
 
    RETURN Nil
@@ -126,7 +126,7 @@ FUNCTION hwg_ColorC2N( cColor )
 
    RETURN res
 
-FUNCTION hwg_ColorN2C( nColor )
+FUNCTION hwg_ColorN2C(nColor)
 
    LOCAL s := "", n1, n2, i
 
@@ -138,7 +138,7 @@ FUNCTION hwg_ColorN2C( nColor )
 
    RETURN s
 
-FUNCTION hwg_ColorN2RGB( nColor, nr, ng, nb )
+FUNCTION hwg_ColorN2RGB(nColor, nr, ng, nb)
 
    nr := nColor % 256
    ng := Int(nColor / 256) % 256
@@ -181,7 +181,7 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cRes )
 
    RETURN cRes
 
-FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBSel, cOk, cCancel )
+FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBSel, cOk, cCancel)
 
    LOCAL oDlg, oBrw, nChoice := 0, lArray := .T. , nField, lNewFont := .F.
    LOCAL i, aLen, nLen := 0, addX := 20, addY := 20, minWidth := 0, x1
@@ -232,12 +232,12 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       ENDIF
    ENDIF
 
-   hDC := hwg_Getdc( hwg_Getactivewindow() )
+   hDC := hwg_Getdc(hwg_Getactivewindow())
    hwg_Selectobject(hDC, ofont:handle)
    aMetr := hwg_Gettextmetric(hDC)
    aArea := hwg_Getdevicearea(hDC)
    aRect := hwg_Getwindowrect(hwg_Getactivewindow())
-   hwg_Releasedc( hwg_Getactivewindow(), hDC )
+   hwg_Releasedc(hwg_Getactivewindow(), hDC)
    height := ( aMetr[1] + 5 ) * aLen + 4 + addY + 8
    IF height > aArea[2] - aRect[2] - nTop - 60
       height := aArea[2] - aRect[2] - nTop - 60
@@ -265,7 +265,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    ENDIF
 
    oBrw:oFont  := oFont
-   oBrw:bSize  := { |o, x, y|o:Move( ,, x - addX, y - addY ) }
+   oBrw:bSize  := { |o, x, y|o:Move(, , x - addX, y - addY) }
    oBrw:bEnter := { |o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle) }
    oBrw:bKeyDown := { | o, key | ( o ), iif( key == 27, ( hwg_EndDialog(oDlg:handle), .F. ), .T. ) }
 
@@ -285,9 +285,9 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
 
    IF cOk != Nil
       x1 := Int(width / 2) - iif(cCancel != Nil, 90, 40)
-      @ x1, height - 36 BUTTON cOk SIZE 80, 28 ON CLICK { ||nChoice := oBrw:nCurrent, hwg_EndDialog(oDlg:handle) } ON SIZE { | o, x, y | ( x ), o:Move( , y - 36 ) }
+      @ x1, height - 36 BUTTON cOk SIZE 80, 28 ON CLICK { ||nChoice := oBrw:nCurrent, hwg_EndDialog(oDlg:handle) } ON SIZE { | o, x, y | ( x ), o:Move(, y - 36) }
       IF cCancel != Nil
-         @ x1 + 100, height - 36 BUTTON cCancel SIZE 80, 28 ON CLICK { ||hwg_EndDialog(oDlg:handle) } ON SIZE {|o,x,y|o:Move( x-100,y-36 ) }
+         @ x1 + 100, height - 36 BUTTON cCancel SIZE 80, 28 ON CLICK { ||hwg_EndDialog(oDlg:handle) } ON SIZE {|o,x,y|o:Move(x - 100, y - 36) }
       ENDIF
    ENDIF
 
@@ -346,7 +346,7 @@ FUNCTION hwg_ShowProgress( nStep, maxPos, nRange, cTitle, oWnd, x1, y1, width, h
 FUNCTION hwg_EndWindow()
 
    IF HWindow():GetMain() != Nil
-      hwg_Sendmessage( HWindow():aWindows[1]:handle, WM_SYSCOMMAND, SC_CLOSE, 0 )
+      hwg_Sendmessage(HWindow():aWindows[1]:handle, WM_SYSCOMMAND, SC_CLOSE, 0)
    ENDIF
 
    RETURN Nil
@@ -394,7 +394,7 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
 
    cFile := Space(32000)
 
-   /* cRet := */ hwg_getopenfilename( hWnd, @cFile, cTitle, cFilter, nFlags, cIniDir, Nil, @nIndex )
+   /* cRet := */ hwg_getopenfilename(hWnd, @cFile, cTitle, cFilter, nFlags, cIniDir, Nil, @nIndex)
 
    nAt := At(Chr(0) + Chr(0), cFile)
 
@@ -468,7 +468,7 @@ FUNCTION hwg_TxtRect( cTxt, oWin, oFont )
 
    oFont := iif( oFont != Nil, oFont, oWin:oFont )
 
-   hDC := hwg_Getdc( oWin:handle )
+   hDC := hwg_Getdc(oWin:handle)
    IF oFont == Nil .AND. oWin:oParent != Nil
       oFont := oWin:oParent:oFont
    ENDIF
@@ -479,7 +479,7 @@ FUNCTION hwg_TxtRect( cTxt, oWin, oFont )
    IF oFont != Nil
       hwg_Selectobject(hDC, hFont)
    ENDIF
-   hwg_Releasedc( oWin:handle, hDC )
+   hwg_Releasedc(oWin:handle, hDC)
 
    RETURN aSize
 

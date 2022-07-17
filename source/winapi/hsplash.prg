@@ -38,21 +38,21 @@ CLASS HSplash
 
    DATA oTimer
 
-   METHOD Create( cFile, oTime, oResource ) CONSTRUCTOR
+   METHOD Create(cFile, oTime, oResource) CONSTRUCTOR
    METHOD CountSeconds( oTime, oDlg )
 
 ENDCLASS
 
-METHOD Create( cFile, oTime, oResource ) CLASS HSplash
+METHOD Create(cFile, oTime, oResource) CLASS HSplash
    LOCAL aWidth, aHeigth
    LOCAL bitmap, oDlg
 
    IIf( Empty(oTime) .OR. oTime == Nil, oTime := 2000, oTime := oTime )
 
    IF oResource == Nil .OR. !oResource
-      bitmap  := HBitmap():AddFile( cFile )
+      bitmap  := HBitmap():AddFile(cFile)
    ELSE
-      bitmap  := HBitmap():AddResource( cFile )
+      bitmap  := HBitmap():AddResource(cFile)
    ENDIF
 
    aWidth := bitmap:nWidth

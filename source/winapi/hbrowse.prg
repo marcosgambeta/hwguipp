@@ -96,7 +96,7 @@ CLASS HColumn INHERIT HObject
    //      {textColor, backColor, textColorSel, backColorSel} , ;
    //      {textColor, backColor, textColorSel, backColorSel} ) }
    METHOD New( cHeading, block, type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick )
-   METHOD SetPaintCB( nId, block, cId )
+   METHOD SetPaintCB(nId, block, cId)
 
 ENDCLASS
 
@@ -119,7 +119,7 @@ METHOD New( cHeading, block, type, length, dec, lEditable, nJusHead, nJusLin, cP
 
    RETURN Self
 
-METHOD SetPaintCB( nId, block, cId ) CLASS HColumn
+METHOD SetPaintCB(nId, block, cId) CLASS HColumn
 
    LOCAL i, nLen
 
@@ -236,7 +236,7 @@ CLASS HBrowse INHERIT HControl
    METHOD Init()
    METHOD DefaultLang()         // Reset of messages to default value English
    METHOD onEvent( msg, wParam, lParam )
-   METHOD Redefine( lType, oWndParent, nId, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus )
+   METHOD Redefine(lType, oWndParent, nId, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus)
    METHOD AddColumn( oColumn )
    METHOD InsColumn( oColumn, nPos )
    METHOD DelColumn( nPos )
@@ -259,7 +259,7 @@ CLASS HBrowse INHERIT HControl
    METHOD ButtonRDown( lParam )
    METHOD ButtonUp( lParam )
    METHOD ButtonDbl( lParam )
-   METHOD MouseMove( wParam, lParam )
+   METHOD MouseMove(wParam, lParam)
    METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos )
    METHOD Edit( wParam, lParam )
    METHOD APPEND() INLINE (::Bottom(.F.), ::LineDown() )
@@ -435,7 +435,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
          ::ButtonUp( lParam )
 
       ELSEIF msg == WM_MOUSEMOVE
-         ::MouseMove( wParam, lParam )
+         ::MouseMove(wParam, lParam)
 
       ELSEIF msg == WM_MOUSEWHEEL
          ::MouseWheel(hwg_Loword(wParam), IIf(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam)), hwg_Loword(lParam), hwg_Hiword(lParam))
@@ -459,7 +459,7 @@ METHOD Init() CLASS HBrowse
 
    RETURN Nil
 
-METHOD Redefine( lType, oWndParent, nId, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus ) CLASS HBrowse
+METHOD Redefine(lType, oWndParent, nId, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus) CLASS HBrowse
 
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
 
@@ -729,7 +729,7 @@ METHOD Paint(lLostFocus)  CLASS HBrowse
    ENDIF
 
    IF ::brush == Nil .OR. ::lChanged
-      ::Rebuild( hDCReal )
+      ::Rebuild(hDCReal)
    ENDIF
    IF ::oPenSep:color != ::sepColor
       ::oPenSep:Release()
@@ -761,7 +761,7 @@ METHOD Paint(lLostFocus)  CLASS HBrowse
       hwg_Endpaint(::handle, pps)
    ELSE
       IF ::lBuffering
-         hDC := hwg_CreateCompatibleDC( hDCReal )
+         hDC := hwg_CreateCompatibleDC(hDCReal)
          ::hBitmap := hwg_CreateCompatibleBitmap(hDCReal, aCoors[3] - aCoors[1], aCoors[4] - aCoors[2])
          hwg_Selectobject(hDC, ::hBitmap)
       ELSE
@@ -1297,8 +1297,9 @@ METHOD DoVScroll( wParam ) CLASS HBrowse
 
    LOCAL nScrollCode := hwg_Loword(wParam)
 
+   // TODO: usar SWITCH
    IF nScrollCode == SB_LINEDOWN
-      ::LINEDOWN( .T. )
+      ::LINEDOWN(.T.)
    ELSEIF nScrollCode == SB_LINEUP
       ::LINEUP()
    ELSEIF nScrollCode == SB_BOTTOM
@@ -1309,7 +1310,6 @@ METHOD DoVScroll( wParam ) CLASS HBrowse
       ::PAGEDOWN()
    ELSEIF nScrollCode == SB_PAGEUP
       ::PAGEUP()
-
    ELSEIF nScrollCode == SB_THUMBPOSITION
       IF ::bScrollPos != Nil
          Eval(::bScrollPos, Self, SB_THUMBPOSITION, .F., hwg_Hiword(wParam))
@@ -1332,6 +1332,7 @@ METHOD DoHScroll( wParam ) CLASS HBrowse
    hwg_Getscrollrange(::handle, SB_HORZ, @minPos, @maxPos)
    //nPos := hwg_Getscrollpos(::handle, SB_HORZ)
 
+   // TODO: usar SWITCH
    IF nScrollCode == SB_LINELEFT .OR. nScrollCode == SB_PAGELEFT
       LineLeft(Self)
 
@@ -1523,7 +1524,7 @@ METHOD PAGEUP() CLASS HBrowse
       hwg_Setscrollpos(::handle, SB_VERT, nPos)
    ENDIF
 
-   ::Refresh( .F. )
+   ::Refresh(.F.)
    hwg_Setfocus(::handle)
 
    RETURN Nil
@@ -1552,7 +1553,7 @@ METHOD PAGEDOWN() CLASS HBrowse
 
    ENDIF
 
-   ::Refresh( .F. )
+   ::Refresh(.F.)
    hwg_Setfocus(::handle)
 
    RETURN Nil
@@ -1630,7 +1631,7 @@ METHOD ButtonDown( lParam ) CLASS HBrowse
             IF ::bScrollPos != Nil
                Eval(::bScrollPos, Self, step, .F.)
             ELSEIF ::nRecords > 1
-               hwg_Getscrollrange( hBrw, SB_VERT, @minPos, @maxPos )
+               hwg_Getscrollrange(hBrw, SB_VERT, @minPos, @maxPos)
                nPos := hwg_Getscrollpos(hBrw, SB_VERT)
                nPos := Min(nPos + Int((maxPos - minPos) * step / (::nRecords - 1)), maxPos)
                hwg_Setscrollpos(hBrw, SB_VERT, nPos)
@@ -1646,7 +1647,7 @@ METHOD ButtonDown( lParam ) CLASS HBrowse
 
             // Colpos should not go beyond last column or I get bound errors on ::Edit()
             ::colpos := Min(::nColumns + 1, fif - ::nLeftCol + 1 + ::freeze)
-            hwg_Getscrollrange( hBrw, SB_HORZ, @minPos, @maxPos )
+            hwg_Getscrollrange(hBrw, SB_HORZ, @minPos, @maxPos)
 
             nPos := iif(fif == 1, minPos, iif(fif == Len(::aColumns), maxpos, Int((maxPos - minPos + 1) * fif / Len(::aColumns))))
 
@@ -1661,7 +1662,7 @@ METHOD ButtonDown( lParam ) CLASS HBrowse
          ::lRefrBmp := .T.
          hwg_Invalidaterect( hBrw, 0, ::x1, ::y1 + (::height + 1) * ::rowPosOld - ::height, ::x2, ::y1 + (::height + 1) * ::rowPosOld )
          hwg_Invalidaterect( hBrw, 0, ::x1, ::y1 + (::height + 1) * ::rowPos - ::height, ::x2, ::y1 + (::height + 1) * ::rowPos )
-         hwg_Sendmessage( hBrw, WM_PAINT, 0, 0 )
+         hwg_Sendmessage(hBrw, WM_PAINT, 0, 0)
       ENDIF
 
    ELSEIF nLine == 0 .AND. hwg_isPtrEq( oCursor, ColSizeCursor )
@@ -1723,7 +1724,7 @@ METHOD ButtonUp( lParam ) CLASS HBrowse
          ::lResizing := .F.
          ::lRefrBmp := .T.
          hwg_Invalidaterect( hBrw, 0 )
-         hwg_Postmessage( hBrw, WM_PAINT, 0, 0 )
+         hwg_Postmessage(hBrw, WM_PAINT, 0, 0)
       ENDIF
    ELSEIF ::aSelected != Nil
       IF ::lCtrlPress
@@ -1757,7 +1758,7 @@ METHOD ButtonDbl( lParam ) CLASS HBrowse
 
    RETURN Nil
 
-METHOD MouseMove( wParam, lParam ) CLASS HBrowse
+METHOD MouseMove(wParam, lParam) CLASS HBrowse
 
    LOCAL xPos := hwg_Loword(lParam), yPos := hwg_Hiword(lParam)
    LOCAL x := ::x1, i, res := .F. , nLen
@@ -1870,7 +1871,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowse
          IF oColumn:bWhen = Nil .OR. Eval(oColumn:bWhen)
             IF ::lAppMode
                IF type == "D"
-                  ::varbuf := CToD( "" )
+                  ::varbuf := CToD("")
                ELSEIF type == "N"
                   ::varbuf := 0
                ELSEIF type == "L"
@@ -1901,7 +1902,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowse
 
          lReadExit := Set( _SET_EXIT, .T. )
          bInit := iif( wParam == Nil, { |o|hwg_Movewindow(o:handle, x1, y1, nWidth, o:nHeight + 1)}, ;
-            { |o|hwg_Movewindow(o:handle, x1, y1, nWidth, o:nHeight + 1), hwg_Postmessage( o:aControls[1]:handle, WM_KEYDOWN, wParam, lParam ) } )
+            { |o|hwg_Movewindow(o:handle, x1, y1, nWidth, o:nHeight + 1), hwg_Postmessage(o:aControls[1]:handle, WM_KEYDOWN, wParam, lParam) } )
 
          IF type <> "M"
             INIT DIALOG oModDlg;
@@ -2122,8 +2123,8 @@ STATIC FUNCTION FldStr(oBrw, numf)
                cRes := Ltrim(Str(vartmp, 24, oBrw:aColumns[numf]:dec))
             ENDIF
          ELSEIF type == "D"
-            //cRes := PadR( Dtoc( vartmp ), oBrw:aColumns[numf]:length )
-            cRes := Dtoc( vartmp )
+            //cRes := PadR( Dtoc(vartmp), oBrw:aColumns[numf]:length )
+            cRes := Dtoc(vartmp)
          ELSEIF type == "T"
 #ifdef __XHARBOUR__
             cRes := Space(23)
@@ -2222,8 +2223,8 @@ FUNCTION hwg_CreateList( oBrw, lEditable )
 
    oBrw:aColumns := {}
    FOR i := 1 TO kolf
-      oBrw:AddColumn( { FieldName( i ),         ;
-         FieldWBlock( FieldName( i ), nArea ), ;
+      oBrw:AddColumn( { FieldName(i),         ;
+         FieldWBlock( FieldName(i), nArea ), ;
          dbFieldInfo( DBS_TYPE, i ),         ;
          iif( dbFieldInfo( DBS_TYPE,i ) == "D" .AND. __SetCentury(), 10, dbFieldInfo( DBS_LEN,i ) ), ;
          dbFieldInfo( DBS_DEC, i ),          ;
@@ -2238,7 +2239,7 @@ FUNCTION hwg_VScrollPos(oBrw, nType, lEof, nPos)
 
    LOCAL minPos, maxPos, oldRecno, newRecno
 
-   hwg_Getscrollrange( oBrw:handle, SB_VERT, @minPos, @maxPos )
+   hwg_Getscrollrange(oBrw:handle, SB_VERT, @minPos, @maxPos)
    IF nPos == Nil
       IF nType > 0 .AND. lEof
          Eval(oBrw:bSkip, oBrw, -1)
@@ -2264,7 +2265,7 @@ FUNCTION hwg_VScrollPos(oBrw, nType, lEof, nPos)
          IF oBrw:rowPos > newRecno
             oBrw:rowPos := newRecno
          ENDIF
-         oBrw:Refresh( .F. )
+         oBrw:Refresh(.F.)
       ENDIF
    ENDIF
 
@@ -2276,7 +2277,7 @@ FUNCTION hwg_HScrollPos(oBrw, nType, lEof, nPos)
    LOCAL nBWidth := oBrw:nWidth // :width is _not_ browse width
 
    (lEof)
-   hwg_Getscrollrange( oBrw:handle, SB_HORZ, @minPos, @maxPos )
+   hwg_Getscrollrange(oBrw:handle, SB_HORZ, @minPos, @maxPos)
 
    IF nType == SB_THUMBPOSITION
 
@@ -2330,7 +2331,7 @@ STATIC FUNCTION CountToken( cStr, nMaxLen, nCount )
 
    RETURN cStr
 
-FUNCTION hwg_getPaintCB( arr, nId )
+FUNCTION hwg_getPaintCB(arr, nId)
 
    LOCAL i, nLen, aRes
 

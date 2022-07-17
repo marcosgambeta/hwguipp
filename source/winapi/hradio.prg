@@ -106,7 +106,7 @@ CLASS HRadioButton INHERIT HControl
    METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp )
    METHOD Activate()
-   METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor )
+   METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor)
    METHOD Value(lValue) SETGET
 
 ENDCLASS
@@ -153,7 +153,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ENDIF
    IF ::oGroup != Nil
       AAdd(::oGroup:aButtons, Self)
-      ::oParent:AddEvent( BN_CLICKED, ::id, { |o,id|__Valid( o:FindControl(id) ) } )
+      ::oParent:AddEvent( BN_CLICKED, ::id, { |o,id|__Valid(o:FindControl(id)) } )
    ENDIF
 
    RETURN Self
@@ -168,7 +168,7 @@ METHOD Activate() CLASS HRadioButton
    RETURN Nil
 
 /* Parameter lInit was removed a long time ago */
-METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor ) CLASS HRadioButton
+METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor) CLASS HRadioButton
 
    ::oParent := iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
    ::id      := nId
@@ -199,7 +199,7 @@ METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip,
    ENDIF
    IF ::oGroup != Nil
       AAdd(::oGroup:aButtons, Self)
-      ::oParent:AddEvent( BN_CLICKED, ::id, { |o,id|__Valid( o:FindControl(id) ) } )
+      ::oParent:AddEvent( BN_CLICKED, ::id, { |o,id|__Valid(o:FindControl(id)) } )
    ENDIF
 
    RETURN Self
@@ -210,7 +210,7 @@ METHOD Value(lValue) CLASS HRadioButton
    ENDIF
    RETURN (hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1)
 
-STATIC FUNCTION __Valid( oCtrl )
+STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:oGroup:nValue := Ascan(oCtrl:oGroup:aButtons, {|o|o:id == oCtrl:id})
    IF oCtrl:oGroup:bSetGet != Nil

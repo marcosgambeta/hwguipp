@@ -182,7 +182,7 @@ METHOD DragAll( xPos, yPos ) CLASS HSplitter
          nTop += nDiff
          nHeight -= nDiff
       ENDIF
-      oCtrl:Move( nLeft, nTop, nWidth, nHeight )
+      oCtrl:Move(nLeft, nTop, nWidth, nHeight)
       hwg_onAnchor( oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight )
    NEXT
    FOR i := 1 TO Len(::aLeft)
@@ -198,7 +198,7 @@ METHOD DragAll( xPos, yPos ) CLASS HSplitter
          nDiff := ::nTop - ( oCtrl:nTop + oCtrl:nHeight )
          nHeight += nDiff
       ENDIF
-      oCtrl:Move( nLeft, nTop, nWidth, nHeight )
+      oCtrl:Move(nLeft, nTop, nWidth, nHeight)
       hwg_onAnchor( oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight )
    NEXT
    ::lMoved := .F.

@@ -16,14 +16,12 @@
 #include "guilib.ch"
 
 * ================================= *
-FUNCTION hwg_IsLeapYear ( nyear )
+FUNCTION hwg_IsLeapYear(nyear)
 * nyear : a year to check for leap year
 * returns:
 * .T. a leap year
 * ================================= *
-RETURN ( ( (nyear % 4)  == 0 );
-       .AND. ( ( nyear % 100 ) != 0 ) ;
-       .OR.  ( ( nyear % 400 ) == 0 ) )
+RETURN (((nyear % 4) == 0) .AND. ((nyear % 100) != 0) .OR. ((nyear % 400) == 0))
 
 FUNCTION hwg_isWindows()
 #ifndef __PLATFORM__WINDOWS
@@ -32,19 +30,19 @@ FUNCTION hwg_isWindows()
  RETURN .T.
 #endif
 
-FUNCTION hwg_CompleteFullPath( cPath )
+FUNCTION hwg_CompleteFullPath(cPath)
  LOCAL  cDirSep := hwg_GetDirSep()
-  IF RIGHT(cPath , 1 ) != cDirSep
+  IF RIGHT(cPath , 1) != cDirSep
    cPath := cPath + cDirSep
   ENDIF
 RETURN cPath
 
-FUNCTION hwg_CreateTempfileName( cPrefix , cSuffix )
+FUNCTION hwg_CreateTempfileName(cPrefix, cSuffix)
  LOCAL cPre , cSuff
   
-  cPre  := IIF( cPrefix == NIL , "e" , cPrefix )
-  cSuff := IIF( cSuffix == NIL , ".tmp" , cSuffix )
-  RETURN hwg_CompleteFullPath( hwg_GetTempDir() ) + cPre + Ltrim(Str(Int(Seconds()*100))) + cSuff
+  cPre  := IIF(cPrefix == NIL, "e", cPrefix)
+  cSuff := IIF(cSuffix == NIL, ".tmp", cSuffix)
+  RETURN hwg_CompleteFullPath(hwg_GetTempDir()) + cPre + Ltrim(Str(Int(Seconds()*100))) + cSuff
   
 FUNCTION hwg_CurDrive
 #ifdef __PLATFORM__WINDOWS
@@ -62,11 +60,11 @@ RETURN "/" + CurDir()
 
 FUNCTION hwg_GetUTCDateANSI
 * Format: YYYYMMDD, based on UTC
-RETURN SUBSTR(hwg_GetUTCTimeDate(), 3 , 8 )
+RETURN SUBSTR(hwg_GetUTCTimeDate(), 3, 8)
 
 FUNCTION hwg_GetUTCTime
 * Format: HH:MM:SS
-RETURN SUBSTR(hwg_GetUTCTimeDate(), 12 , 8 ) 
+RETURN SUBSTR(hwg_GetUTCTimeDate(), 12, 8) 
 
 * ================================= * 
 FUNCTION hwg_cHex2Bin (chexstr)
@@ -90,7 +88,7 @@ IF (chexstr == NIL)
 ENDIF 
 chexstr := UPPER(chexstr)
 FOR ncount := 1 TO LEN(chexstr)
- chs := SUBSTR(chexstr, ncount, 1 )
+ chs := SUBSTR(chexstr, ncount, 1)
  IF chs $ "0123456789ABCDEF"
   nodd := nodd + 1  && Count valid chars for odd/even check
   DO CASE
@@ -141,7 +139,7 @@ FOR ncount := 1 TO LEN(chexstr)
    ENDIF && IF 0..9,A..F 
   NEXT
   * if odd, return error
-  IF ( nodd % 2 ) != 0
+  IF (nodd % 2) != 0
    RETURN ""
   ENDIF   
 RETURN cbin
@@ -186,8 +184,8 @@ FUNCTION hwg_HEX_DUMP (cinfield, npmode, cpVarName)
 * ================================= *  
 LOCAL nlength, coutfield,  nindexcnt , cccchar, nccchar, ccchex, nlinepos, cccprint, ;
    cccprline, ccchexline, nmode , cVarName
- IIF(npmode == NIL , nmode := 2 , nmode := npmode )
- IIF(cpVarName == NIL , cVarName := "cVar" , cVarName := cpVarName )
+ IIF(npmode == NIL, nmode := 2, nmode := npmode)
+ IIF(cpVarName == NIL, cVarName := "cVar", cVarName := cpVarName)
  * get length of field to be dumped
  nlength := LEN(cinfield)
  * if empty, nothing to dump
@@ -312,7 +310,7 @@ FUNCTION hwg_EOLStyle
 #endif
 
 * ================================= *
-FUNCTION hwg_BaseName ( pFullpath )
+FUNCTION hwg_BaseName(pFullpath)
 * ================================= *
  LOCAL nPosifilna , cFilename , cseparator
  * avoid crash
@@ -337,7 +335,7 @@ FUNCTION hwg_BaseName ( pFullpath )
  RETURN ALLTRIM(cFilename)
  
 * ================================= *
-FUNCTION hwg_Dirname ( pFullpath )
+FUNCTION hwg_Dirname(pFullpath)
 * ================================= *
  LOCAL nPosidirna , sFilePath , cseparator , sFullpath
  * avoid crash
@@ -369,7 +367,7 @@ FUNCTION hwg_Dirname ( pFullpath )
        * for example C:name
        * ==> set directory with "cd".   
        IF SUBSTR(sFullpath, 2, 1) == ":"
-         * Only drive letter with ":" (for example C: )
+         * Only drive letter with ":" (for example C:)
          sFilePath := SUBSTR(sFullpath, 1, 2)
        ELSE
         sFilePath = "."
@@ -379,7 +377,7 @@ FUNCTION hwg_Dirname ( pFullpath )
  RETURN sFilePath
 
 * ================================= *
-FUNCTION hwg_CleanPathname ( pSwithdbl )
+FUNCTION hwg_CleanPathname(pSwithdbl)
 * ================================= *
  LOCAL sSwithdbl , bready , cseparator
  * avoid crash
@@ -409,7 +407,7 @@ FUNCTION hwg_Array_Len(ato_check)
 IF ato_check == NIL
  RETURN 0
 ENDIF 
-RETURN IIF(EMPTY(ato_check), 0 , LEN(ato_check)  )
+RETURN IIF(EMPTY(ato_check), 0, LEN(ato_check))
 
 FUNCTION hwg_MemoCmp(mmemo1,mmemo2)
 LOCAL nnum , nlen1 , nlen2 , lende
@@ -420,7 +418,7 @@ nlen2 := LEN(mmemo2)
 IF nlen1 != nlen2
  RETURN .F.
 ENDIF
-DO WHILE ( nnum <= nlen1 ) .AND. lende
+DO WHILE (nnum <= nlen1) .AND. lende
  IF SUBSTR(mmemo1, nnum, 1) != SUBSTR(mmemo2, nnum, 1) 
    lende := .F.
  ENDIF
@@ -430,8 +428,7 @@ ENDDO
 RETURN lende
 
 
-FUNCTION hwg_MemoEdit(mpmemo , cTextTitME , cTextSave ,  cTextClose , ;
- cTTSave , cTTClose , oHCfont )
+FUNCTION hwg_MemoEdit(mpmemo, cTextTitME, cTextSave, cTextClose, cTTSave, cTTClose, oHCfont)
 
 LOCAL mvarbuff , varbuf , oModDlg , oEdit , owb1 , owb2 , bMemoMod
 
@@ -493,65 +490,65 @@ RETURN varbuf
 
 * ===== Temperature conversions ==============
 
-FUNCTION hwg_TEMP_C2F( T )
+FUNCTION hwg_TEMP_C2F(T)
 RETURN (T * 1.8) + 32.0
 
-FUNCTION hwg_TEMP_C2K( T )
+FUNCTION hwg_TEMP_C2K(T)
 RETURN T + 273.15
 
-FUNCTION hwg_TEMP_C2RA( T )
+FUNCTION hwg_TEMP_C2RA(T)
 RETURN (T * 1.8) + 32.0 + 459.67
 
-FUNCTION hwg_TEMP_C2R( T )
+FUNCTION hwg_TEMP_C2R(T)
 RETURN T * 0.8
 
-FUNCTION hwg_TEMP_K2C( T )
+FUNCTION hwg_TEMP_K2C(T)
 RETURN T - 273.15
 
-FUNCTION hwg_TEMP_K2F( T )
+FUNCTION hwg_TEMP_K2F(T)
 RETURN (T * 1.8) - 459.67
 
-FUNCTION hwg_TEMP_K2RA( T )
+FUNCTION hwg_TEMP_K2RA(T)
 RETURN T * 1.8
 
-FUNCTION hwg_TEMP_K2R( T )
-RETURN ( T - 273.15 ) * 0.8
+FUNCTION hwg_TEMP_K2R(T)
+RETURN (T - 273.15) * 0.8
 
-FUNCTION hwg_TEMP_F2C( T )
-RETURN ( T - 32.0) / 1.8
+FUNCTION hwg_TEMP_F2C(T)
+RETURN (T - 32.0) / 1.8
 
-FUNCTION hwg_TEMP_F2K( T )
-RETURN ( T + 459.67) / 1.8
+FUNCTION hwg_TEMP_F2K(T)
+RETURN (T + 459.67) / 1.8
 
-FUNCTION hwg_TEMP_F2RA( T )
+FUNCTION hwg_TEMP_F2RA(T)
 RETURN T + 459.67
 
-FUNCTION hwg_TEMP_F2R( T )
-RETURN ( T - 32.0 ) / 2.25
+FUNCTION hwg_TEMP_F2R(T)
+RETURN (T - 32.0) / 2.25
 
-FUNCTION hwg_TEMP_RA2C( T )
-RETURN ( T - 32.0 - 459.67) / 1.8
+FUNCTION hwg_TEMP_RA2C(T)
+RETURN (T - 32.0 - 459.67) / 1.8
 
-FUNCTION hwg_TEMP_RA2F( T )
+FUNCTION hwg_TEMP_RA2F(T)
 RETURN  T - 459.67
 
-FUNCTION hwg_TEMP_RA2K( T )
+FUNCTION hwg_TEMP_RA2K(T)
 RETURN T / 1.8
 
-FUNCTION hwg_TEMP_RA2R( T )
-RETURN ( T - 32.0 -459.67 ) / 2.25
+FUNCTION hwg_TEMP_RA2R(T)
+RETURN (T - 32.0 -459.67) / 2.25
 
-FUNCTION hwg_TEMP_R2C( T )
+FUNCTION hwg_TEMP_R2C(T)
 RETURN T * 1.25
 
-FUNCTION hwg_TEMP_R2F( T )
-RETURN ( T * 2.25 ) + 32.0
+FUNCTION hwg_TEMP_R2F(T)
+RETURN (T * 2.25) + 32.0
 
-FUNCTION hwg_TEMP_R2K( T )
-RETURN ( T * 1.25 ) + 273.15
+FUNCTION hwg_TEMP_R2K(T)
+RETURN (T * 1.25) + 273.15
 
-FUNCTION hwg_TEMP_R2RA( T )
-RETURN ( T * 2.25 ) + 32.0 + 459.67
+FUNCTION hwg_TEMP_R2RA(T)
+RETURN (T * 2.25) + 32.0 + 459.67
 
 * ===== End of temperature conversions ==============
 
@@ -559,74 +556,74 @@ RETURN ( T * 2.25 ) + 32.0 + 459.67
 
 * in / cm
 
-FUNCTION hwg_INCH2CM( I )
+FUNCTION hwg_INCH2CM(I)
 RETURN I * 2.54
 
-FUNCTION hwg_CM2INCH( cm )
+FUNCTION hwg_CM2INCH(cm)
 RETURN cm * 0.3937
 
 * feet / m
 
-FUNCTION  hwg_FT2METER( ft )
+FUNCTION  hwg_FT2METER(ft)
 RETURN ft * 0.3048
 
-FUNCTION hwg_METER2FT( m )  
+FUNCTION hwg_METER2FT(m)
 RETURN m * 3.2808
 
 * mile / km
 
-FUNCTION hwg_MILES2KM( mi ) 
+FUNCTION hwg_MILES2KM(mi)
 RETURN mi * 1.6093
 
-FUNCTION hwg_KM2MILES( km )
+FUNCTION hwg_KM2MILES(km)
 RETURN  km * 0.6214
 
 * sqin / sq cm
 
-FUNCTION hwg_SQIN2SQCM( sqin )
+FUNCTION hwg_SQIN2SQCM(sqin)
 RETURN sqin * 6.4516
 
-FUNCTION hwg_SQCM2SQIN( sqcm ) 
+FUNCTION hwg_SQCM2SQIN(sqcm)
 RETURN sqcm * 0.155
 
 * sqft / sq m
 
-FUNCTION hwg_SQFT2SQM( sqft ) 
+FUNCTION hwg_SQFT2SQM(sqft)
 RETURN sqft * 0.0929
 
-FUNCTION hwg_SQM2SQFT( sqm ) 
+FUNCTION hwg_SQM2SQFT(sqm)
 RETURN sqm * 10.7642
 
 * usoz / c.c. (Cubic cm)
 
-FUNCTION hwg_USOZ2CC( usoz )
+FUNCTION hwg_USOZ2CC(usoz)
 RETURN usoz * 29.574
 
-FUNCTION hwg_CC2USOZ( cc ) 
+FUNCTION hwg_CC2USOZ(cc)
 RETURN cc * 0.0338
 
 * usgal / liter
 
-FUNCTION hwg_USGAL2L( usgal ) 
+FUNCTION hwg_USGAL2L(usgal)
 RETURN usgal * 3.7854
 
-FUNCTION hwg_L2USGAL( l ) 
+FUNCTION hwg_L2USGAL(l)
 RETURN l * 0.2642
 
 * lb / kg
 
-FUNCTION  hwg_LB2KG( lb )
+FUNCTION  hwg_LB2KG(lb)
 RETURN lb * 0.4536
 
-FUNCTION hwg_KG2LB( kg ) 
+FUNCTION hwg_KG2LB(kg)
 RETURN kg * 2.2046
 
 * oz / g
 
-FUNCTION hwg_OZ2GR( oz ) 
+FUNCTION hwg_OZ2GR(oz) 
 RETURN oz * 28.35
 
-FUNCTION hwg_GR2OZ( gr )
+FUNCTION hwg_GR2OZ(gr)
 RETURN gr * 0.0353
 
 * Nautical mile / km
@@ -737,14 +734,14 @@ FUNCTION hwg_IsNIL(xpara)
 * =======================================================
 FUNCTION hwg_MsgIsNIL(xpara,ctitle)
 * Sample call:
-* hwg_MsgIsNIL(hwg_Getactivewindow() )
+* hwg_MsgIsNIL(hwg_Getactivewindow())
 * Only for debugging
 * =======================================================
 
 LOCAL lrvalue
 
 
-lrvalue := hwg_Isnil( xpara )
+lrvalue := hwg_Isnil(xpara)
 
 IF ctitle == NIL
    IF lrvalue
@@ -883,11 +880,9 @@ nday   := DAY(dDate)
        nyear :=  nyear - 1
     ENDIF
 
-   ngreg :=  ( nyear / 400 ) - ( nyear / 100 ) + ( nyear / 4 )  && Gregorian calendar
+   ngreg :=  (nyear / 400) - (nyear / 100) + (nyear / 4)  && Gregorian calendar
 
-RETURN 2400000.5 + 365 * nyear - 679004 + ngreg ;
-           + INT(30.6001 * ( nmonth + 1 )) + nday + ( nhour / 24 ) ;
-           + ( nminutes / 1440 ) + ( nseconds / 86400 )
+RETURN 2400000.5 + 365 * nyear - 679004 + ngreg + INT(30.6001 * (nmonth + 1)) + nday + (nhour / 24) + (nminutes / 1440) + (nseconds / 86400)
 
 
 * =================================
@@ -904,7 +899,7 @@ FUNCTION hwg_JulianDay2Date(z)
 LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  cMonth , cday
 
    njoff := 4712                  && const year offset
-   nFour := ( z + 13 ) / 1461     && 1461 = 3*365+366  period of 4 years  (valid 1901 ... 2099)
+   nFour := (z + 13) / 1461     && 1461 = 3*365+366  period of 4 years  (valid 1901 ... 2099)
    nRound_4 := INT(nFour)
    nYear := nRound_4 * 4
    nRound_4 := (nRound_4 * 1461) - 13
@@ -929,13 +924,13 @@ LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  
 
    cYear := hwg_leading0(cYear)
    * Check for valid year range
-   IF (nYear < 1901 ) .OR. (nYear > 2099)
+   IF (nYear < 1901) .OR. (nYear > 2099)
       RETURN ""
    ENDIF
 
    d := d + 1;     && 0 .. 364 => 1 .. 365
 
-   IF ( nYear % 4 ) == 0   && Leap year 1901 ... 2099
+   IF (nYear % 4) == 0   && Leap year 1901 ... 2099
       sz := -1
    ELSE
       sz := 0
@@ -1020,7 +1015,7 @@ nhLocal := VAL(SUBSTR(TIME(), 1, 2))
 RETURN nhLocal - nhUTC
 
 FUNCTION hwg_Has_Win_Euro_Support()
-#if ( HB_VER_REVID - 0 ) >= 2002101634
+#if (HB_VER_REVID - 0) >= 2002101634
 RETURN .T.
 #else
 RETURN .F.

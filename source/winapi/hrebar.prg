@@ -27,7 +27,7 @@ CLASS hrebar INHERIT HControl
    DATA aBands INIT  {}
 
    METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
-   METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
+   METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
    METHOD Activate()
    METHOD INIT()
    METHOD ADDBARColor( pBar, clrFore, clrBack, pszText, dwStyle ) INLINE hwg_Addbarcolors(::handle, pBar, clrFore, clrBack, pszText, dwStyle)
@@ -51,7 +51,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert )  CLASS hrebar
+METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)  CLASS hrebar
 
    HB_SYMBOL_UNUSED(cCaption)
 

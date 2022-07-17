@@ -214,13 +214,13 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    ENDIF
    // REDRAW AND INVALIDATE SCREEN
    IF ( x1 != X9 .OR. y1 != y9 .OR. w1 != w9 .OR. h1 != h9 )
-      ::Move( x1, y1, w1, h1 )
+      ::Move(x1, y1, w1, h1)
       RETURN .T.
    ENDIF
 
    RETURN .F.
 
-FUNCTION hwg_SetCtrlName( oCtrl, cName )
+FUNCTION hwg_SetCtrlName(oCtrl, cName)
    LOCAL nPos
 
    IF !Empty(cName) .AND. ValType(cName) == "C" .AND. !( "[" $ cName )

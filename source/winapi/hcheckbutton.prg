@@ -20,7 +20,7 @@ CLASS HCheckButton INHERIT HControl
    METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lTransp, bLFocus )
    METHOD Activate()
-   METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus )
+   METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus)
    METHOD Init()
    METHOD Refresh()
    METHOD Disable()
@@ -48,7 +48,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ::bLostFocus := bLFocus
    ::bGetFocus  := bGFocus
                                                                       
-   ::oParent:AddEvent( BN_CLICKED, ::id, { |o, id|__Valid( o:FindControl(id ) ) } )
+   ::oParent:AddEvent( BN_CLICKED, ::id, { |o, id|__Valid(o:FindControl(id)) } )
    IF bGFocus != Nil
       ::oParent:AddEvent( BN_SETFOCUS, ::id, { |o, id|__When( o:FindControl(id ) ) } )
    ENDIF
@@ -67,7 +67,7 @@ METHOD Activate() CLASS HCheckButton
 
    RETURN Nil
 
-METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus ) CLASS HCheckButton
+METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus) CLASS HCheckButton
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
@@ -76,7 +76,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bC
 
    ::bClick := bClick
    ::bGetFocus  := bGFocus
-   ::oParent:AddEvent( BN_CLICKED, ::id, { |o, id|__Valid( o:FindControl(id ) ) } )
+   ::oParent:AddEvent( BN_CLICKED, ::id, { |o, id|__Valid(o:FindControl(id)) } )
    IF bGFocus != Nil
       ::oParent:AddEvent( BN_SETFOCUS, ::id, { |o, id|__When( o:FindControl(id ) ) } )
    ENDIF
@@ -135,12 +135,12 @@ METHOD Value(lValue) CLASS HCheckButton
 
    RETURN (::lValue := (hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1))
 
-STATIC FUNCTION __Valid( oCtrl )
-   LOCAL l := hwg_Sendmessage( oCtrl:handle, BM_GETCHECK, 0, 0 )
+STATIC FUNCTION __Valid(oCtrl)
+   LOCAL l := hwg_Sendmessage(oCtrl:handle, BM_GETCHECK, 0, 0)
 
    IF l == BST_INDETERMINATE
       hwg_Checkdlgbutton( oCtrl:oParent:handle, oCtrl:id, .F. )
-      hwg_Sendmessage( oCtrl:handle, BM_SETCHECK, 0, 0 )
+      hwg_Sendmessage(oCtrl:handle, BM_SETCHECK, 0, 0)
       oCtrl:lValue := .F.
    ELSE
       oCtrl:lValue := ( l == 1 )

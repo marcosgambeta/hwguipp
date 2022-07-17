@@ -38,7 +38,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    nStyle := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, , , ctooltip, tcolor, bcolor)
 
-   ::dValue  := iif( vari == Nil .OR. ValType(vari) != "D", CToD( Space(8 ) ), vari )
+   ::dValue  := iif( vari == Nil .OR. ValType(vari) != "D", CToD(Space(8)), vari )
    ::bSetGet := bSetGet
    ::bChange := bChange
 
@@ -48,11 +48,11 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    IF bGfocus != Nil
       ::oParent:AddEvent( NM_SETFOCUS, ::id, bGfocus, .T. )
    ENDIF
-   ::oParent:AddEvent( DTN_DATETIMECHANGE, ::id, { |o, id|__Change( o:FindControl(id ),DTN_DATETIMECHANGE ) }, .T. )
-   ::oParent:AddEvent( DTN_CLOSEUP, ::id, { |o, id|__Change( o:FindControl(id ),DTN_CLOSEUP ) }, .T. )
+   ::oParent:AddEvent( DTN_DATETIMECHANGE, ::id, { |o, id|__Change(o:FindControl(id ), DTN_DATETIMECHANGE) }, .T. )
+   ::oParent:AddEvent( DTN_CLOSEUP, ::id, { |o, id|__Change(o:FindControl(id ), DTN_CLOSEUP) }, .T. )
    IF bSetGet != Nil
       ::bLostFocus := bLFocus
-      ::oParent:AddEvent( NM_KILLFOCUS, ::id, { |o, id|__Valid( o:FindControl(id ) ) }, .T. )
+      ::oParent:AddEvent( NM_KILLFOCUS, ::id, { |o, id|__Valid(o:FindControl(id)) }, .T. )
    ELSE
       IF bLfocus != Nil
          ::oParent:AddEvent( NM_KILLFOCUS, ::id, bLfocus, .T. )
@@ -113,7 +113,7 @@ METHOD Value(dValue) CLASS HDatePicker
 
    RETURN ::dValue
 
-STATIC FUNCTION __Change( oCtrl, nMess )
+STATIC FUNCTION __Change(oCtrl, nMess)
 
    IF (nMess == DTN_DATETIMECHANGE .AND. hwg_Sendmessage(oCtrl:handle, DTM_GETMONTHCAL, 0, 0) == 0) .OR. nMess == DTN_CLOSEUP
       oCtrl:dValue := hwg_Getdatepicker( oCtrl:handle )
@@ -127,7 +127,7 @@ STATIC FUNCTION __Change( oCtrl, nMess )
 
    RETURN .T.
 
-STATIC FUNCTION __Valid( oCtrl )
+STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:dValue := hwg_Getdatepicker( oCtrl:handle )
    IF oCtrl:bSetGet != Nil

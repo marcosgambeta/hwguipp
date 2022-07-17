@@ -18,7 +18,7 @@
 
 CLASS HToolBar INHERIT HControl
 
-   CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource( , 1 , RT_MANIFEST ) ) SHARED
+   CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(, 1, RT_MANIFEST)) SHARED
    DATA winclass INIT "ToolbarWindow32"
    DATA TEXT, id, nTop, nLeft, nwidth, nheight
    CLASSDATA oSelected INIT Nil
@@ -46,8 +46,7 @@ CLASS HToolBar INHERIT HControl
 
    METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical , aItem, nWSize, nHSize, nIndent, nIDB )
-   METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem )
+   METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
 
    METHOD Activate()
    METHOD INIT()
@@ -115,8 +114,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFo
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem )  CLASS hToolBar
+METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)  CLASS hToolBar
 
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)
@@ -272,26 +270,27 @@ METHOD CREATETOOL() CLASS hToolBar
 
 METHOD Notify( lParam ) CLASS hToolBar
 
-   LOCAL nCode :=  hwg_Getnotifycode( lParam )
+   LOCAL nCode :=  hwg_Getnotifycode(lParam)
    LOCAL nId
 
    LOCAL nButton
    LOCAL nPos
 
+   // TODO: usar SWITCH
    IF nCode == TTN_GETDISPINFO
 
-      nButton := hwg_Toolbar_getdispinfoid( lParam )
+      nButton := hwg_Toolbar_getdispinfoid(lParam)
       nPos := AScan(::aItem, {|x|x[2] == nButton})
       hwg_Toolbar_setdispinfo( lParam, ::aItem[nPos, 8] )
 
    ELSEIF nCode == TBN_GETINFOTIP
 
-      nId := hwg_Toolbar_getinfotipid( lParam )
+      nId := hwg_Toolbar_getinfotipid(lParam)
       nPos := AScan(::aItem, {|x|x[2] == nId})
       hwg_Toolbar_getinfotip( lParam, ::aItem[nPos, 8] )
 
    ELSEIF nCode == TBN_DROPDOWN
-      nId := hwg_Toolbar_submenuexgetid( lParam )
+      nId := hwg_Toolbar_submenuexgetid(lParam)
       IF nId > 0
          nPos := AScan(::aItem, {|x|x[2] == nId})
          hwg_Toolbar_submenuex( lParam, ::aItem[nPos, 10], ::oParent:handle )

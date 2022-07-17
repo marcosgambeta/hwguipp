@@ -65,7 +65,7 @@ CLASS PrintDos
 
    METHOD SetCols( nRow, nCol )
 
-   METHOD gWrite( oText )
+   METHOD gWrite(oText)
 
    METHOD NewLine()
 
@@ -83,11 +83,11 @@ CLASS PrintDos
 
    METHOD Comando()
 
-   METHOD SetPrc( x, y )
+   METHOD SetPrc(x, y)
 
-   METHOD PrinterFile( oFile )
+   METHOD PrinterFile(oFile)
 
-   METHOD TxttoGraphic( oFile, osize, oPreview )
+   METHOD TxttoGraphic(oFile, osize, oPreview)
 
    METHOD Preview( fname, cTitle )
 
@@ -204,7 +204,7 @@ METHOD Comando( oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
    RETURN Nil
 
 
-METHOD gWrite( oText )  CLASS PrintDos
+METHOD gWrite(oText)  CLASS PrintDos
 
    //tracelog(otext)
    IF ::oAns2Oem
@@ -291,7 +291,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
       ENDIF
 
    ELSEIF ValType(oTexto) == "D"
-      oTexto := DToC( oTexto )
+      oTexto := DToC(oTexto)
    ELSE
       IF !Empty(oPicture) .OR. oPicture <> Nil
          oTexto := Transform(oTexto, oPicture)
@@ -300,7 +300,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
    //tracelog([antes     ::SetCols(oProw, oPcol)])
    ::SetCols( oProw, oPcol )
    //tracelog([depois de ::SetCols(oProw, oPcol) e  antes         ::gWrite(oTexto))])
-   ::gWrite( oTexto )
+   ::gWrite(oTexto)
 
    RETURN Nil
 
@@ -322,12 +322,12 @@ METHOD SetCols( nProw, nPcol ) CLASS PrintDos
    ENDIF
 
    IF nPcol > ::nPcol
-      ::gWrite( Space(nPcol - ::nPcol) )
+      ::gWrite(Space(nPcol - ::nPcol))
    ENDIF
 
    RETURN Nil
 
-METHOD SetPrc( x, y ) CLASS PrintDos
+METHOD SetPrc(x, y) CLASS PrintDos
    ::nProw := x
    ::nPCol := y
    RETURN Nil
@@ -339,22 +339,22 @@ METHOD END() CLASS PrintDos
 
    RETURN Nil
 
-METHOD PrinterFile( fname ) CLASS PrintDos
+METHOD PrinterFile(fname) CLASS PrintDos
    LOCAL strbuf := Space(PF_BUFFERS)
    LOCAL han, nRead
 
-   IF !File( fname )
+   IF !File(fname)
       hwg_Msgstop( "Error open file " + fname, "Error" )
       RETURN .F.
    ENDIF
 
-   han := FOpen( fname, FO_READWRITE + FO_EXCLUSIVE )
+   han := FOpen(fname, FO_READWRITE + FO_EXCLUSIVE)
 
    IF han <> - 1
 
       DO WHILE .T.
 
-         nRead := FRead( han, @strbuf, PF_BUFFERS )
+         nRead := FRead(han, @strbuf, PF_BUFFERS)
 
          IF nRead = 0
             EXIT
@@ -362,7 +362,7 @@ METHOD PrinterFile( fname ) CLASS PrintDos
 
          IF FWrite(::gText, Left(strbuf, nRead)) < nRead
             ::ErrosAnt := FError()
-            FClose( han )
+            FClose(han)
             RETURN .F.
          ENDIF
 
@@ -371,7 +371,7 @@ METHOD PrinterFile( fname ) CLASS PrintDos
    ELSE
 
       hwg_Msgstop( "Can't Open port" )
-      FClose( han )
+      FClose(han)
 
    ENDIF
 
@@ -385,15 +385,15 @@ FUNCTION hwg_wPCol( oPrinter )
 
    RETURN oPrinter:nPcol
 
-FUNCTION hwg_wSetPrc( x, y, oPrinter )
+FUNCTION hwg_wSetPrc(x, y, oPrinter)
 
-   oPrinter:SetPrc( x, y )
+   oPrinter:SetPrc(x, y)
    RETURN Nil
 
-METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
+METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
 
    LOCAL strbuf := Space(2052), poz := 2052, stroka
-   LOCAL han := FOpen( fName, FO_READ + FO_SHARED )
+   LOCAL han := FOpen(fName, FO_READ + FO_SHARED)
    LOCAL oCol := 0, oPage := 1  //Added by  Por Fernando Athayde
    LOCAL oPrinter
    LOCAL oFont
@@ -406,7 +406,7 @@ METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
 // end of added code
    oFont := oPrinter:AddFont( "Courier New", osize )
 
-   oPrinter:StartDoc( oPreview  )
+   oPrinter:StartDoc(oPreview)
    oPrinter:StartPage()
 
    hwg_Selectobject(oPrinter:hDC, oFont:handle)
@@ -433,7 +433,7 @@ METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
          ENDIF
 
       ENDDO
-      FClose( han )
+      FClose(han)
    ELSE
       hwg_Msgstop( "Can't open " + fName )
       RETURN .F.
@@ -449,7 +449,7 @@ METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
 METHOD Preview( fName, cTitle ) CLASS PrintDos
    LOCAL oedit1
    LOCAL strbuf := Space(2052), poz := 2052, stroka
-   LOCAL han := FOpen( fName, FO_READ + FO_SHARED )
+   LOCAL han := FOpen(fName, FO_READ + FO_SHARED)
    LOCAL oCol := 10, oPage := 1, nPage := 1
    LOCAL oFont := HFont():Add("Courier New", 0, -13)
    LOCAL oText := { "" }
@@ -474,7 +474,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
          ENDIF
          oCol := oCol + 30
       ENDDO
-      FClose( han )
+      FClose(han)
    ELSE
       hwg_Msgstop( "Can't open " + fName )
       RETURN .F.
@@ -493,7 +493,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    IIf( cTitle == Nil, cTitle := "Print Preview", cTitle := cTitle )
 
    INIT DIALOG oDlg TITLE cTitle ;
-        At 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() on init { || hwg_Sendmessage( oedit1:handle, WM_VSCROLL  , SB_TOP, 0 ) }
+        At 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() on init { || hwg_Sendmessage(oedit1:handle, WM_VSCROLL, SB_TOP, 0) }
 
 
 
@@ -522,11 +522,11 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
 
 STATIC FUNCTION PrintDosPrint(oText, oPrt)
    LOCAL i
-   LOCAL nText := FCreate( oPrt )
+   LOCAL nText := FCreate(oPrt)
    FOR i := 1 TO Len(oText)
-      FWrite( nText, oText[i] )
+      FWrite(nText, oText[i])
    NEXT
-   FClose( nText )
+   FClose(nText)
    RETURN Nil
 
 
@@ -552,7 +552,7 @@ STATIC FUNCTION PrintDosNext( oPage, nPage, oText )
    hwg_Setdlgitemtext( oDlg, 1001, oText[nPage] )
    RETURN nPage
 
-FUNCTION hwg_regenfile( o, new )
+FUNCTION hwg_regenfile(o, new)
 
    LOCAL aText := AFillText( o )
    LOCAL stroka

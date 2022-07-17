@@ -19,8 +19,7 @@ CLASS HStatic INHERIT HControl
    METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
       bColor, lTransp )
-   METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, cTooltip, tcolor, bColor, lTransp )
+   METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
    METHOD Activate()
    METHOD Init()
    METHOD Paint(lpDis)
@@ -58,15 +57,13 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, cTooltip, tcolor, bColor, lTransp ) CLASS HStatic
+METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
 
    // Variables not used
    ( cCaption )
    ( lTransp )
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint, cTooltip, tcolor, bColor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 
    ::title := cCaption
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0

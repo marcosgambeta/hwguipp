@@ -14,13 +14,13 @@
 
 STATIC aSheet := Nil
 STATIC aMessModalDlg := { ;
-      { WM_COMMAND, { |o,w,l|onDlgCommand( o,w,l ) } },       ;
-      { WM_SYSCOMMAND, { |o,w,l| onSysCommand( o, w, l ) } }, ;
+      { WM_COMMAND, { |o,w,l|onDlgCommand(o, w, l) } },       ;
+      { WM_SYSCOMMAND, { |o,w,l| onSysCommand(o, w, l) } }, ;
       { WM_SIZE, { |o,w,l|hwg_onWndSize(o, w, l) } },         ;
       { WM_ERASEBKGND, { |o,w|onEraseBk( o,w ) } },           ;
       { WM_PSPNOTIFY, { |o,w,l|onPspNotify( o,w,l ) } },      ;
       { WM_HELP, { |o,w,l|onHelp( o,w,l ) } },                ;
-      { WM_ACTIVATE, { |o,w,l|onActivate( o,w,l ) } },        ;
+      { WM_ACTIVATE, { |o,w,l|onActivate(o, w, l) } },        ;
       { WM_INITDIALOG, { |o,w,l|InitModalDlg( o,w,l ) } },    ;
       { WM_DESTROY, { |o|hwg_onDestroy( o ) } }               ;
       }
@@ -63,7 +63,7 @@ CLASS HDialog INHERIT HWindow
 
    METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
       bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable )
-   METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate )
+   METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
    METHOD onEvent( msg, wParam, lParam )
    METHOD AddItem() INLINE AAdd(Iif(::lModal, ::aModalDialogs, ::aDialogs), Self)
    METHOD DelItem()
@@ -135,7 +135,7 @@ METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
 
    RETURN Self
 
-METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS HDialog
+METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HDialog
 
    LOCAL oWnd, hParent
    //LOCAL aCoors, aRect
@@ -191,7 +191,7 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
          ::nAdjust := 2
          aCoors := hwg_Getwindowrect(::handle)
          aRect := hwg_GetClientRect(::handle)
-         ::Move( ,, ::nWidth + (aCoors[3]-aCoors[1]-(aRect[3]-aRect[1])), ::nHeight + (aCoors[4]-aCoors[2]-(aRect[4]-aRect[2])) )
+         ::Move(, , ::nWidth + (aCoors[3] - aCoors[1] - (aRect[3] - aRect[1])), ::nHeight + (aCoors[4] - aCoors[2] - (aRect[4] - aRect[2])))
       ENDIF
       */
       IF ::bActivate != Nil
@@ -283,13 +283,13 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
    ENDIF
    hwg_InitControls( oDlg, .T. )
    IF oDlg:oIcon != Nil
-      hwg_Sendmessage( oDlg:handle, WM_SETICON, 1, oDlg:oIcon:handle )
+      hwg_Sendmessage(oDlg:handle, WM_SETICON, 1, oDlg:oIcon:handle)
    ENDIF
    IF oDlg:Title != NIL
       hwg_Setwindowtext( oDlg:Handle, oDlg:Title )
    ENDIF
    IF oDlg:oFont != Nil
-      hwg_Sendmessage( oDlg:handle, WM_SETFONT, oDlg:oFont:handle, 0 )
+      hwg_Sendmessage(oDlg:handle, WM_SETFONT, oDlg:oFont:handle, 0)
    ENDIF
    IF !oDlg:lClosable
       hwg_Enablemenusystemitem( oDlg:handle, SC_CLOSE, .F. )
@@ -315,7 +315,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
       aCoors := hwg_Getwindowrect( oDlg:handle )
       aRect := hwg_GetClientRect( oDlg:handle )
       hwg_writelog( str(oDlg:nHeight) + "/" + str(aCoors[4]-aCoors[2]) + "/" + str(aRect[4]) )
-      oDlg:Move( ,, oDlg:nWidth + (aCoors[3]-aCoors[1]-aRect[3]), oDlg:nHeight + (aCoors[4]-aCoors[2]-aRect[4]) )
+      oDlg:Move(, , oDlg:nWidth + (aCoors[3] - aCoors[1] - aRect[3]), oDlg:nHeight + (aCoors[4] - aCoors[2] - aRect[4]))
    ELSE
 */
       aCoors := hwg_Getwindowrect( oDlg:handle )
@@ -350,7 +350,7 @@ STATIC FUNCTION onEraseBk( oDlg, hDC )
 
 #define  FLAG_CHECK      2
 
-FUNCTION onDlgCommand( oDlg, wParam, lParam )
+FUNCTION onDlgCommand(oDlg, wParam, lParam)
 
 
    LOCAL iParHigh := hwg_Hiword(wParam), iParLow := hwg_Loword(wParam)
@@ -399,7 +399,7 @@ FUNCTION onDlgCommand( oDlg, wParam, lParam )
          oDlg:lResult := .T.
       ENDIF
       //Replaced by Sandro
-      IF oDlg:lExitOnEsc .OR. hwg_Getkeystate( VK_ESCAPE ) >= 0
+      IF oDlg:lExitOnEsc .OR. hwg_Getkeystate(VK_ESCAPE) >= 0
          hwg_EndDialog(oDlg:handle)
       ENDIF
    ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. ValType(oDlg:menu) == "A" .AND. (aMenu := Hwg_FindMenuItem(oDlg:menu, iParLow, @i)) != Nil
@@ -417,7 +417,7 @@ FUNCTION onDlgCommand( oDlg, wParam, lParam )
 
    RETURN 1
 
-STATIC FUNCTION onActivate( oDlg, wParam, lParam )
+STATIC FUNCTION onActivate(oDlg, wParam, lParam)
 
    LOCAL iParLow := hwg_Loword(wParam), b
 
@@ -449,7 +449,7 @@ STATIC FUNCTION onHelp( oDlg, wParam, lParam )
 
 
    IF !Empty(hwg_SetHelpFileName())
-      oCtrl := oDlg:FindControl( nil, hwg_Gethelpdata( lParam ) )
+      oCtrl := oDlg:FindControl( nil, hwg_Gethelpdata(lParam) )
       IF oCtrl != nil
          nHelpId := oCtrl:HelpId
          IF Empty(nHelpId)
@@ -466,7 +466,7 @@ STATIC FUNCTION onHelp( oDlg, wParam, lParam )
 
 STATIC FUNCTION onPspNotify( oDlg, wParam, lParam )
 
-   LOCAL nCode := hwg_Getnotifycode( lParam ), res := .T.
+   LOCAL nCode := hwg_Getnotifycode(lParam), res := .T.
 
      * Parameters not used
     HB_SYMBOL_UNUSED(wParam)
@@ -515,17 +515,17 @@ FUNCTION hwg_PropertySheet(hParentWindow, aPages, cTitle, x1, y1, width, height,
    aSheet := Array(Len(aPages))
    FOR i := 1 TO Len(aPages)
       IF aPages[i]:type == WND_DLG_RESOURCE
-         aHandles[i] := hwg__createpropertysheetpage( aPages[i] )
+         aHandles[i] := hwg__createpropertysheetpage(aPages[i])
       ELSE
-         aTemplates[i] := hwg_Createdlgtemplate( aPages[i], x1, y1, width, height, WS_CHILD + WS_VISIBLE + WS_BORDER )
-         aHandles[i] := hwg__createpropertysheetpage( aPages[i], aTemplates[i] )
+         aTemplates[i] := hwg_Createdlgtemplate(aPages[i], x1, y1, width, height, WS_CHILD + WS_VISIBLE + WS_BORDER)
+         aHandles[i] := hwg__createpropertysheetpage(aPages[i], aTemplates[i])
       ENDIF
       aSheet[i] := { aHandles[i], aPages[i] }
    NEXT
    hSheet := hwg__propertysheet(hParentWindow, aHandles, Len(aHandles), cTitle, lModeless, lNoApply, lWizard)
    FOR i := 1 TO Len(aPages)
       IF aPages[i]:type != WND_DLG_RESOURCE
-         hwg_Releasedlgtemplate( aTemplates[i] )
+         hwg_Releasedlgtemplate(aTemplates[i])
       ENDIF
    NEXT
 
@@ -605,7 +605,7 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block, lGlobal )
 
    RETURN .T.
 
-STATIC FUNCTION onSysCommand( oDlg, wParam )
+STATIC FUNCTION onSysCommand(oDlg, wParam)
 
    wParam := hwg_PtrToUlong(wParam)
    IF wParam == SC_CLOSE

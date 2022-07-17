@@ -131,11 +131,11 @@ CLASS Barcode
 
    METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, nColText, nColPane, lHorz, lTransparent, nPinWidth) CONSTRUCTOR
    METHOD ShowBarcode()
-   METHOD CreateBarcode( cCode )
+   METHOD CreateBarcode(cCode)
    METHOD InitCode39( lCheck )
    METHOD InitCode128( cMode )
    METHOD InitEAN13()
-   METHOD InitUPC( nLen )
+   METHOD InitUPC(nLen)
    METHOD InitE13BL( nLen )
    METHOD InitCodabar()
    METHOD InitSub5()
@@ -188,51 +188,52 @@ METHOD ShowBarcode() CLASS BarCode
 
    LOCAL cCode, cCode2
 
+   // TODO: usar SWITCH
    DO CASE
    CASE ::nBCodeType = 1
-      cCode := ::InitCode39( .F. )
+      cCode := ::InitCode39(.F.)
    CASE ::nBCodeType = 2
-      cCode := ::InitCode39( .T. )
+      cCode := ::InitCode39(.T.)
    CASE ::nBCodeType = 3
-      cCode := ::InitCode128( "" )
+      cCode := ::InitCode128("")
    CASE ::nBCodeType = 4
-      cCode := ::InitCode128( "A" )
+      cCode := ::InitCode128("A")
    CASE ::nBCodeType = 5
-      cCode := ::InitCode128( "B" )
+      cCode := ::InitCode128("B")
    CASE ::nBCodeType = 6
-      cCode := ::InitCode128( "C" )
+      cCode := ::InitCode128("C")
    CASE ::nBCodeType = 7
-      cCode  := ::InitUPC( 7 )
-      cCode2 := ::InitE13BL( 8 )
+      cCode  := ::InitUPC(7)
+      cCode2 := ::InitE13BL(8)
    CASE ::nBCodeType = 8
       cCode := ::InitEAN13()
    CASE ::nBCodeType = 9
-      cCode  := ::InitUPC( 11 )
-      cCode2 := ::InitE13BL( 12 )
+      cCode  := ::InitUPC(11)
+      cCode2 := ::InitE13BL(12)
    CASE ::nBCodeType = 10
       cCode  := ::InitCodabar()
    CASE ::nBCodeType = 11
       cCode  := ::InitSub5()
    CASE ::nBCodeType = 12
-      cCode  := ::InitIndustrial25( .F. )
+      cCode  := ::InitIndustrial25(.F.)
    CASE ::nBCodeType = 13
-      cCode  := ::InitIndustrial25( .T. )
+      cCode  := ::InitIndustrial25(.T.)
    CASE ::nBCodeType = 14
-      cCode  := ::InitInterleave25( .F. )
+      cCode  := ::InitInterleave25(.F.)
    CASE ::nBCodeType = 15
-      cCode  := ::InitInterleave25( .T. )
+      cCode  := ::InitInterleave25(.T.)
    CASE ::nBCodeType = 16
-      cCode  := ::InitMatrix25( .F. )
+      cCode  := ::InitMatrix25(.F.)
    CASE ::nBCodeType = 17
-      cCode  := ::InitMatrix25( .T. )
+      cCode  := ::InitMatrix25(.T.)
    OTHERWISE
-      cCode := ::InitCode39( .T. )
+      cCode := ::InitCode39(.T.)
    ENDCASE
 
-   ::CreateBarcode( cCode )
+   ::CreateBarcode(cCode)
 
    IF ::nBCodeType = 7 .OR. ::nBCodeType = 9
-      ::CreateBarcode( cCode2 )
+      ::CreateBarcode(cCode2)
    ENDIF
 
    RETURN ( NIL )
@@ -242,7 +243,7 @@ METHOD ShowBarcode() CLASS BarCode
 *         Name: CreateBarcode
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD CreateBarcode( cCode ) CLASS BarCode
+METHOD CreateBarcode(cCode) CLASS BarCode
 
    LOCAL i, hPen, hOldPen, hBrush, hOldBrush
 
@@ -523,8 +524,8 @@ METHOD InitCode128( cMode ) CLASS BarCode
    cBarra := ""
 
    FOR n := 1 TO Len(cTemp) STEP 2
-      cBarra += Replicate( "1", Val(SubStr(cTemp, n, 1)) )
-      cBarra += Replicate( "0", Val(SubStr(cTemp, n + 1, 1)) )
+      cBarra += Replicate("1", Val(SubStr(cTemp, n, 1)))
+      cBarra += Replicate("0", Val(SubStr(cTemp, n + 1, 1)))
    NEXT
 
    RETURN ( cBarra )
@@ -605,7 +606,7 @@ METHOD InitEAN13() CLASS BarCode
 *         Name: InitUPC
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitUPC( nLen ) CLASS BarCode
+METHOD InitUPC(nLen) CLASS BarCode
 
    LOCAL derecha := [1110010110011011011001000010101110010011101010000100010010010001110100]
    LOCAL izda1   := [0001101001100100100110111101010001101100010101111011101101101110001011]
@@ -671,7 +672,7 @@ METHOD InitE13BL( nLen ) CLASS BarCode
 
    nLen := Int(nLen / 2)
 
-   RETURN "101" + Replicate( "0", nLen * 7 ) + "01010" + Replicate( "0", nLen * 7 ) + "101"
+   RETURN "101" + Replicate("0", nLen * 7) + "01010" + Replicate("0", nLen * 7) + "101"
 
 
 *-- METHOD -------------------------------------------------------------------

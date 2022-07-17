@@ -80,9 +80,9 @@ CLASS HTreeNode INHERIT HObject
    DATA bClick
 
    METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
-   METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages )
+   METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
    METHOD Delete(lInternal)
-   METHOD FindChild( h )
+   METHOD FindChild(h)
    METHOD GetText()  INLINE hwg_Treegetnodetext(::oTree:handle, ::handle)
    METHOD SetText( cText ) INLINE hwg_Treesetitem(::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText)
 
@@ -138,9 +138,7 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
          nPos := 1
       ENDIF
    ENDIF
-   ::handle := hwg_Treeaddnode( Self, oTree:handle,               ;
-                            IIf( oParent == Nil, Nil, oParent:handle ), ;
-                            IIf( oPrev == Nil, Nil, oPrev:handle ), nPos, cTitle, im1, im2 )
+   ::handle := hwg_Treeaddnode(Self, oTree:handle, IIf(oParent == Nil, Nil, oParent:handle), IIf(oPrev == Nil, Nil, oPrev:handle), nPos, cTitle, im1, im2)
 
    aItems := IIf( oParent == Nil, oTree:aItems, oParent:aItems )
    IF nPos == 2
@@ -162,19 +160,19 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
 
    RETURN Self
 
-METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages ) CLASS HTreeNode
+METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages) CLASS HTreeNode
    LOCAL oParent := Self
    LOCAL oNode := HTreeNode():New(::oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
 
    RETURN oNode
 
-METHOD Delete( lInternal ) CLASS HTreeNode
+METHOD Delete(lInternal) CLASS HTreeNode
    LOCAL h := ::handle, j, alen, aItems
 
    IF !Empty(::aItems)
       alen := Len(::aItems)
       FOR j := 1 TO alen
-         ::aItems[j]:Delete( .T. )
+         ::aItems[j]:Delete(.T.)
          ::aItems[j] := Nil
       NEXT
    ENDIF
@@ -190,13 +188,13 @@ METHOD Delete( lInternal ) CLASS HTreeNode
 
    RETURN Nil
 
-METHOD FindChild( h ) CLASS HTreeNode
+METHOD FindChild(h) CLASS HTreeNode
    LOCAL aItems := ::aItems, i, alen := Len(aItems), oNode
    FOR i := 1 TO alen
       IF aItems[i]:handle == h
          RETURN aItems[i]
       ELSEIF !Empty(aItems[i]:aItems)
-         IF ( oNode := aItems[i]:FindChild( h ) ) != Nil
+         IF ( oNode := aItems[i]:FindChild(h) ) != Nil
             RETURN oNode
          ENDIF
       ENDIF
@@ -218,11 +216,11 @@ CLASS VAR winclass   INIT "SysTreeView32"
                bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC )
    METHOD Init()
    METHOD Activate()
-   METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages )
-   METHOD FindChild( h )
+   METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
+   METHOD FindChild(h)
    METHOD GetSelected()   INLINE hwg_Treegetselected(::handle)
    METHOD EditLabel( oNode ) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle) }
-   METHOD Expand( oNode ) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle) }
+   METHOD Expand(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle) }
    METHOD Select( oNode ) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle) }
    METHOD Clean()
    METHOD Notify( lParam )
@@ -280,18 +278,18 @@ METHOD Activate() CLASS HTree
 
    RETURN Nil
 
-METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages ) CLASS HTree
+METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages) CLASS HTree
    LOCAL oNode := HTreeNode():New( Self, Nil, oPrev, oNext, cTitle, bClick, aImages )
    ::lEmpty := .F.
    RETURN oNode
 
-METHOD FindChild( h ) CLASS HTree
+METHOD FindChild(h) CLASS HTree
    LOCAL aItems := ::aItems, i, alen := Len(aItems), oNode
    FOR i := 1 TO alen
       IF aItems[i]:handle == h
          RETURN aItems[i]
       ELSEIF !Empty(aItems[i]:aItems)
-         IF ( oNode := aItems[i]:FindChild( h ) ) != Nil
+         IF ( oNode := aItems[i]:FindChild(h) ) != Nil
             RETURN oNode
          ENDIF
       ENDIF
@@ -308,7 +306,7 @@ METHOD Clean() CLASS HTree
    RETURN Nil
 
 METHOD Notify( lParam )  CLASS HTree
-   LOCAL nCode := hwg_Getnotifycode( lParam ), oItem, cText, nAct
+   LOCAL nCode := hwg_Getnotifycode(lParam), oItem, cText, nAct
 
    IF nCode == TVN_SELCHANGED .OR. nCode == TVN_SELCHANGEDW
       oItem := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_PARAM )
@@ -363,12 +361,12 @@ METHOD End() CLASS HTree
 
    RETURN Nil
 
-STATIC PROCEDURE ReleaseTree( aItems )
+STATIC PROCEDURE ReleaseTree(aItems)
    LOCAL i, iLen := Len(aItems)
 
    FOR i := 1 TO iLen
-      hwg_Treereleasenode( aItems[i]:oTree:handle, aItems[i]:handle )
-      ReleaseTree( aItems[i]:aItems )
+      hwg_Treereleasenode(aItems[i]:oTree:handle, aItems[i]:handle)
+      ReleaseTree(aItems[i]:aItems)
    NEXT
 
    RETURN

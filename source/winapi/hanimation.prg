@@ -20,9 +20,9 @@ CLASS VAR winclass   INIT "SysAnimate32"
    METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cFilename, lAutoPlay, lCenter, lTransparent, xResID)
    METHOD Activate()
    METHOD Init()
-   METHOD Open( cFileName )
+   METHOD Open(cFileName)
    METHOD Play( nFrom, nTo, nRep )
-   METHOD Seek( nFrame )
+   METHOD Seek(nFrame)
    METHOD Stop()
    METHOD Close()
    METHOD Destroy()
@@ -64,7 +64,7 @@ METHOD Init() CLASS HAnimation
    ENDIF
    RETURN Nil
 
-METHOD Open( cFileName ) CLASS HAnimation
+METHOD Open(cFileName) CLASS HAnimation
    IF cFileName <> Nil
       ::cFileName := cFileName
       hwg_Animate_Open(::handle, ::cFileName)
@@ -78,7 +78,7 @@ METHOD Play( nFrom, nTo, nRep ) CLASS HAnimation
    hwg_Animate_Play(::handle, nFrom, nTo, nRep)
    RETURN Self
 
-METHOD Seek( nFrame ) CLASS HAnimation
+METHOD Seek(nFrame) CLASS HAnimation
    nFrame := IIf( nFrame == Nil, 0, nFrame )
    hwg_Animate_Seek(::handle, nFrame)
    RETURN Self

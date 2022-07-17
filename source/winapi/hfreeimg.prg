@@ -24,7 +24,7 @@ CLASS VAR aImages   INIT { }
    DATA nWidth, nHeight
    DATA nCounter   INIT 1
 
-   METHOD AddFile( name )
+   METHOD AddFile(name)
    METHOD AddFromVar( cImage, cType )
    METHOD FromBitmap( oBitmap )
    METHOD Draw(hDC, nLeft, nTop, nWidth, nHeight)
@@ -32,7 +32,7 @@ CLASS VAR aImages   INIT { }
 
 ENDCLASS
 
-METHOD AddFile( name ) CLASS HFreeImage
+METHOD AddFile(name) CLASS HFreeImage
    LOCAL i
 
    #ifdef __XHARBOUR__
@@ -130,8 +130,8 @@ CLASS HSayFImage INHERIT HSayImage
    DATA nZoom
 
    METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, ctooltip, cType)
-   METHOD Redefine( oWndParent, nId, Image, bInit, bSize, ctooltip )
-   METHOD ReplaceImage( Image, cType )
+   METHOD Redefine(oWndParent, nId, Image, bInit, bSize, ctooltip)
+   METHOD ReplaceImage(Image, cType)
    METHOD Paint(lpdis)
    METHOD Refresh() INLINE hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_UPDATENOW)
 
@@ -155,18 +155,18 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, c
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, Image, bInit, bSize, ctooltip ) CLASS HSayFImage
+METHOD Redefine(oWndParent, nId, Image, bInit, bSize, ctooltip) CLASS HSayFImage
 
-   ::oImage := IIf( ValType(Image) == "C", HFreeImage():AddFile( Image ), Image )
+   ::oImage := IIf( ValType(Image) == "C", HFreeImage():AddFile(Image), Image )
 
-   ::Super:Redefine( oWndParent, nId, bInit, bSize, ctooltip )
+   ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    // ::classname:= "HSAYFIMAGE"
 
    ::bPaint  := { | o, lpdis | o:Paint(lpdis) }
 
    RETURN Self
 
-METHOD ReplaceImage( Image, cType )
+METHOD ReplaceImage(Image, cType)
 
    IF ::oImage != Nil
       ::oImage:Release()
@@ -194,7 +194,7 @@ METHOD Paint(lpdis) CLASS HSayFImage
    LOCAL i
 
    FOR i := 1 TO Len(HFreeImage():aImages)
-      hwg_Fi_unload( HFreeImage():aImages[i]:handle )
+      hwg_Fi_unload(HFreeImage():aImages[i]:handle)
       IF HFreeImage():aImages[i]:hBitmap != Nil
          hwg_Deleteobject(HFreeImage():aImages[i]:hBitmap)
       ENDIF

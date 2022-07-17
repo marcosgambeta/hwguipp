@@ -48,8 +48,8 @@ CLASS HBinC
 
    DATA   aObjects
 
-   METHOD Create( cName, n )
-   METHOD Open( cName, lWr )
+   METHOD Create(cName, n)
+   METHOD Open(cName, lWr)
    METHOD Close()
    METHOD Add(cObjName, cType, cVal)
    METHOD Del( cObjName )
@@ -57,11 +57,11 @@ CLASS HBinC
    METHOD Exist( cObjName )
    METHOD Get( cObjName )
    METHOD GetPos(cObjName)
-   METHOD GetType( cObjName )   
+   METHOD GetType(cObjName)   
 
 ENDCLASS
 
-METHOD Create( cName, n ) CLASS HBinC
+METHOD Create(cName, n) CLASS HBinC
    
    IF n == Nil
       n := 16
@@ -84,7 +84,7 @@ METHOD Create( cName, n ) CLASS HBinC
 
    RETURN Self
 
-METHOD Open( cName, lWr ) CLASS HBinC
+METHOD Open(cName, lWr) CLASS HBinC
    LOCAL cBuf, i, nLen, arr, nAddr := 0
 
    ::cName := cName
@@ -207,7 +207,7 @@ METHOD Pack() CLASS HBinC
    ENDIF
 
    cTempName := ::cName + ".new"
-   IF ( handle := FCreate( cTempName ) ) == -1
+   IF ( handle := FCreate(cTempName) ) == -1
       RETURN .F.
    ENDIF
 
@@ -229,22 +229,22 @@ METHOD Pack() CLASS HBinC
       ENDIF
    NEXT
 
-   FWrite( handle, s )
-   FWrite( handle, Replicate( Chr(0), ::nCntBlocks*2048 - Len(s) ) )
+   FWrite(handle, s)
+   FWrite(handle, Replicate(Chr(0), ::nCntBlocks * 2048 - Len(s)))
 
    FOR i := 1 TO Len(::aObjects)
       IF !Empty(::aObjects[i, OBJ_NAME])
          s := Space(::aObjects[i, OBJ_SIZE])
          FSeek(::handle, ::aObjects[i, OBJ_VAL], FS_SET)
          FRead(::handle, @s, ::aObjects[i, OBJ_SIZE])
-         FWrite( handle, s, ::aObjects[i, OBJ_SIZE] )
+         FWrite(handle, s, ::aObjects[i, OBJ_SIZE])
       ENDIF
    NEXT
 
-   FClose( handle )
+   FClose(handle)
    FClose(::handle)
    FErase(::cName)
-   FRename( cTempName, ::cName )
+   FRename(cTempName, ::cName)
 
    IF ::Open(::cName, ::lWriteAble) == Nil
       ::nItems := 0
@@ -279,7 +279,7 @@ METHOD GetPos(cObjName)  CLASS HBinC
   RETURN Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName}) 
   
   
-METHOD GetType( cObjName )
+METHOD GetType(cObjName)
 
   LOCAL n, crettype := ""
 

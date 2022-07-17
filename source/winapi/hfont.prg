@@ -21,10 +21,10 @@ CLASS HFont INHERIT HObject
    METHOD Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle)
    METHOD SELECT( oFont, nCharSet )
    METHOD RELEASE()
-   METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight )
+   METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight)
    METHOD PrintFont()
    METHOD Props2Arr()
-   // METHOD AddC( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle )
+   // METHOD AddC(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle)
 
 ENDCLASS
 
@@ -86,7 +86,7 @@ METHOD SELECT( oFont, nCharSet  ) CLASS HFont
 
    RETURN ::Add(af[2], af[3], af[4], af[5], iif(Empty(nCharSet), af[6], nCharSet), af[7], af[8], af[9], af[1])
 
-METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight ) CLASS HFont
+METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight) CLASS HFont
    LOCAL  weight, Italic, Underline, StrikeOut
 
    IF lBold != Nil

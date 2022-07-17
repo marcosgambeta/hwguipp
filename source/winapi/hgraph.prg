@@ -42,7 +42,7 @@ CLASS VAR winclass   INIT "STATIC"
    METHOD Init()
    METHOD CalcMinMax()
    METHOD Paint(lpdis)
-   METHOD Rebuild( aValues ,nType, nLineType, nPointSize )
+   METHOD Rebuild(aValues, nType, nLineType, nPointSize)
 
 ENDCLASS
 
@@ -269,7 +269,7 @@ METHOD Paint(lpdis) CLASS HGraph
 
    RETURN Nil
 
-METHOD Rebuild( aValues, nType, nLineType, nPointSize ) CLASS HGraph
+METHOD Rebuild(aValues, nType, nLineType, nPointSize) CLASS HGraph
 
    ::aValues := aValues
    IF nType != Nil

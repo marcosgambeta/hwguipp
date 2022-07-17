@@ -23,15 +23,15 @@ CLASS HDC
    METHOD Fillrect( lpRect, clr )
    METHOD Selectcliprgn( pRgn )
    METHOD Settextcolor( xColor )
-   METHOD Setbkmode( xMode )
+   METHOD Setbkmode(xMode)
    METHOD Setbkcolor(  clr ) INLINE    hwg_Setbkcolor(::m_hDC, clr)
    METHOD Selectobject(xMode) && xObject
    METHOD Drawtext( strText, Rect, dwFlags )
-   METHOD Createcompatibledc( x )
+   METHOD Createcompatibledc(x)
    METHOD Patblt( a, s, d, f, g ) INLINE hwg_Patblt(::m_hDc, a, s, d, f, g)
    METHOD Savedc()
-   METHOD Restoredc( nSavedDC )
-   METHOD Setmapmode( nMapMode )
+   METHOD Restoredc(nSavedDC)
+   METHOD Setmapmode(nMapMode)
    METHOD SetWindowOrg( x, y )
    METHOD SetWindowExt( x, y )
    METHOD SetViewportOrg( x, y )
@@ -40,7 +40,7 @@ CLASS HDC
    METHOD Gettextmetric() INLINE hwg_Gettextmetric(::m_hDC)
    METHOD Setrop2( nDrawMode )
    METHOD Bitblt(x, y, nWidth, nHeight, pSrcDC, xSrc, ySrc, dwRop) INLINE hwg_Bitblt(::m_hDc, x, y, nWidth, nHeight, pSrcDC, xSrc, ySrc, dwRop)
-   METHOD Pie( arect, apt1, apt2 )
+   METHOD Pie(arect, apt1, apt2)
    METHOD Deletedc()
 
 ENDCLASS
@@ -107,7 +107,7 @@ METHOD Settextcolor( xColor ) CLASS HDC
 
    RETURN hwg_Settextcolor(::m_hDc, xColor)
 
-METHOD Setbkmode( xMode ) CLASS HDC
+METHOD Setbkmode(xMode) CLASS HDC
 
    RETURN hwg_Setbkmode(::m_hDc, xMode)
 
@@ -127,8 +127,8 @@ METHOD Fillrect( lpRect, clr ) CLASS HDC
 
    RETURN NIL
 
-METHOD Createcompatibledc( x ) CLASS HDC
-   RETURN ::Attach( hwg_Createcompatibledc( x ) )
+METHOD Createcompatibledc(x) CLASS HDC
+   RETURN ::Attach( hwg_Createcompatibledc(x) )
 
 METHOD Savedc() CLASS HDC
    LOCAL nRetVal := 0
@@ -141,7 +141,7 @@ METHOD Savedc() CLASS HDC
    ENDIF
    RETURN nRetVal
 
-METHOD Restoredc( nSavedDC ) CLASS HDC
+METHOD Restoredc(nSavedDC) CLASS HDC
 
    // if two distinct DCs, nSavedDC can only be -1
 
@@ -154,7 +154,7 @@ METHOD Restoredc( nSavedDC ) CLASS HDC
    ENDIF
    RETURN bRetVal
 
-METHOD Setmapmode( nMapMode ) CLASS HDC
+METHOD Setmapmode(nMapMode) CLASS HDC
 
    LOCAL nRetVal := 0
 
@@ -225,7 +225,7 @@ METHOD Setarcdirection( nArcDirection )
    ENDIF
    RETURN nResult
 
-METHOD Pie( arect, apt1, apt2 )
+METHOD Pie(arect, apt1, apt2)
    RETURN hwg_Pie(::m_hdc, arect[1], arect[2], arect[3], arect[4], apt1[1], apt1[2], apt2[1], apt2[2])
 
 METHOD Setrop2( nDrawMode )

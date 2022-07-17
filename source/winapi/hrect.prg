@@ -176,7 +176,7 @@ CLASS VAR winclass   INIT "STATIC"
    METHOD Activate()
    METHOD Paint(lpdis)
    METHOD SetColor( tcolor, bcolor )
-   METHOD Curvature( nCurvature )
+   METHOD Curvature(nCurvature)
    // METHOD onClick()
    // METHOD onDblClick()
 
@@ -237,7 +237,7 @@ METHOD SetColor( tcolor, bColor ) CLASS HDrawShape
 
    RETURN Nil
 
-METHOD Curvature( nCurvature ) CLASS HDrawShape
+METHOD Curvature(nCurvature) CLASS HDrawShape
 
    IF nCurvature != NIL
       ::nCurvature := nCurvature

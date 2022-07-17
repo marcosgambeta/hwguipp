@@ -45,11 +45,11 @@ CLASS HStaticLink FROM HSTATIC
    METHOD GetLinkUrl()
    METHOD SetVisitedColor( sVisitedColor )
    METHOD SetHoverColor( cHoverColor )
-   METHOD SetFireChild( lFlag )  INLINE ::m_bFireChild := lFlag
+   METHOD SetFireChild(lFlag)  INLINE ::m_bFireChild := lFlag
    METHOD OnClicked()
    METHOD SetLinkColor( sLinkColor )
    METHOD Paint()
-   METHOD OnMouseMove( nFlags, lParam )  && point
+   METHOD OnMouseMove(nFlags, lParam)  && point
 
 ENDCLASS
 
@@ -168,7 +168,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
       RETURN 1
    ELSEIF msg == WM_MOUSEMOVE
       hwg_SetCursor(::m_hHyperCursor)
-      ::OnMouseMove( wParam, lParam )
+      ::OnMouseMove(wParam, lParam)
    ELSEIF msg == WM_SETCURSOR
       hwg_SetCursor(::m_hHyperCursor)
    ELSEIF msg == WM_LBUTTONDOWN
@@ -187,7 +187,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
 
 METHOD GoToLinkUrl( csLink ) CLASS HStaticLink
 
-   LOCAL hInstance := hwg_Shellexecute( csLink, "open", NIL, NIL, 2 )
+   LOCAL hInstance := hwg_Shellexecute(csLink, "open", NIL, NIL, 2)
 
    IF hInstance < 33
       RETURN .F.
@@ -244,7 +244,7 @@ METHOD SetLinkColor( sLinkColor ) CLASS HStaticLink
 
    RETURN NIL
 
-METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
+METHOD OnMouseMove(nFlags, lParam) CLASS HStaticLink
 
    HB_SYMBOL_UNUSED(nFlags)
 

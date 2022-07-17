@@ -81,9 +81,9 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       ::bValid := bValid
    ENDIF
    ::bChangeSel := bChange
-   ::oParent:AddEvent( CBN_KILLFOCUS, ::id, { |o, id|__Valid( o:FindControl(id ) ) } )
+   ::oParent:AddEvent( CBN_KILLFOCUS, ::id, { |o, id|__Valid(o:FindControl(id)) } )
    IF ::bChangeSel != Nil
-      ::oParent:AddEvent( CBN_SELCHANGE, ::id, { |o, id|__Valid( o:FindControl(id ) ) } )
+      ::oParent:AddEvent( CBN_SELCHANGE, ::id, { |o, id|__Valid(o:FindControl(id)) } )
    ENDIF
 
    IF bGFocus != Nil
@@ -119,12 +119,12 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
       ::bChangeSel := bChange
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
       IF ::bChangeSel != Nil
-         ::oParent:AddEvent( CBN_SELCHANGE, ::id, { |o, id|__Valid( o:FindControl(id ) ) } )
+         ::oParent:AddEvent( CBN_SELCHANGE, ::id, { |o, id|__Valid(o:FindControl(id)) } )
       ENDIF
    ELSEIF bChange != Nil
       ::oParent:AddEvent( CBN_SELCHANGE, ::id, bChange )
    ENDIF
-   ::oParent:AddEvent( CBN_KILLFOCUS, ::id, { |o, id|__Valid( o:FindControl(id ) ) } )
+   ::oParent:AddEvent( CBN_KILLFOCUS, ::id, { |o, id|__Valid(o:FindControl(id)) } )
    ::Refresh() // By Luiz Henrique dos Santos
 
    RETURN Self
@@ -258,7 +258,7 @@ METHOD Value ( xValue ) CLASS HComboBox
 
    RETURN ::GetValue()
 
-STATIC FUNCTION __Valid( oCtrl )
+STATIC FUNCTION __Valid(oCtrl)
    LOCAL nPos
    LOCAL lESC
 
@@ -272,7 +272,7 @@ STATIC FUNCTION __Valid( oCtrl )
    end
    // end by sauli
    IF lESC // "if" by Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
-      nPos := hwg_Sendmessage( oCtrl:handle, CB_GETCURSEL, 0, 0 ) + 1
+      nPos := hwg_Sendmessage(oCtrl:handle, CB_GETCURSEL, 0, 0) + 1
 
       IF nPos > 0 .AND. nPos <= Len(oCtrl:aItems)
          IF oCtrl:lEdit
