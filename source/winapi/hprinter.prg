@@ -77,10 +77,10 @@ CLASS HPrinter INHERIT HObject
    METHOD DefaultLang()
    METHOD SetMode( nOrientation, nDuplex )
    METHOD AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset )
-   METHOD SetFont( oFont )  INLINE (::oFont := oFont, hwg_Selectobject( ::hDC, oFont:handle ) )
-   METHOD Settextcolor( nColor )  INLINE hwg_Settextcolor( ::hDC, nColor )
-   METHOD SetTBkColor( nColor )   INLINE hwg_Setbkcolor( ::hDC, nColor )
-   METHOD Setbkmode( lmode )   INLINE hwg_Setbkmode( ::hDC, IIF(lmode, 1, 0) )
+   METHOD SetFont( oFont )  INLINE (::oFont := oFont, hwg_Selectobject(::hDC, oFont:handle) )
+   METHOD Settextcolor( nColor )  INLINE hwg_Settextcolor(::hDC, nColor)
+   METHOD SetTBkColor( nColor )   INLINE hwg_Setbkcolor(::hDC, nColor)
+   METHOD Setbkmode( lmode )   INLINE hwg_Setbkmode(::hDC, IIF(lmode, 1, 0))
    METHOD Recalc( x1, y1, x2, y2 )
    METHOD StartDoc( lPreview, cScriptFile , lprbutton )
    METHOD EndDoc()
@@ -92,7 +92,7 @@ CLASS HPrinter INHERIT HObject
    METHOD PaintDoc( oWnd )
    METHOD PrintDoc( nPage )
    METHOD PrintDlg(aTooltips)
-   METHOD PrintScript( hDC, nPage, x1, y1, x2, y2 )
+   METHOD PrintScript(hDC, nPage, x1, y1, x2, y2)
    METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser )
    METHOD End()
    METHOD ReleaseRes()
@@ -145,24 +145,24 @@ METHOD New( cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, 
 
    ::DefaultLang()
    
-   IF ValType( nFormType ) == "N"
+   IF ValType(nFormType) == "N"
       // A3 - DMPAPER_A3, A4 - DMPAPER_A4
       ::FormType := nFormType
    ELSE
       nFormType := DMPAPER_A4
    ENDIF
-   IF ValType( nBin ) == "N"
+   IF ValType(nBin) == "N"
       ::BinNumber := nBin
    ENDIF
-   IF ValType( lLandScape ) == "L"
+   IF ValType(lLandScape) == "L"
       ::nOrient := Iif( lLandScape, 2, 1 )
    ENDIF
-   IF ValType( nCopies ) == "N"
+   IF ValType(nCopies) == "N"
       IF nCopies > 0
          ::Copies := nCopies
       ENDIF
    ENDIF
-   IF ValType( lProprierties ) <> "L"
+   IF ValType(lProprierties) <> "L"
       lProprierties := .T.
    ENDIF
 
@@ -195,20 +195,20 @@ METHOD New( cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, 
       RETURN Nil
    ELSE
       IF !Empty(lProprierties) .AND. !::lBuffPrn
-         IF !Hwg_SetDocumentProperties( ::hDCPrn, ::cPrinterName, ::FormType, ::nOrient == 2, ::Copies, ::BinNumber, ::fDuplexType, ::fPrintQuality, ::PaperLength, ::PaperWidth )
+         IF !Hwg_SetDocumentProperties(::hDCPrn, ::cPrinterName, ::FormType, ::nOrient == 2, ::Copies, ::BinNumber, ::fDuplexType, ::fPrintQuality, ::PaperLength, ::PaperWidth)
             RETURN NIL
          ENDIF
       ENDIF
 
-      aPrnCoors := hwg_Getdevicearea( ::hDCPrn )
+      aPrnCoors := hwg_Getdevicearea(::hDCPrn)
       ::nHRes   := aPrnCoors[1] / aPrnCoors[3]
       ::nVRes   := aPrnCoors[2] / aPrnCoors[4]
       IF ::lBuffPrn
          ::nWidth  := Iif( nFormType==DMPAPER_A3, 297, 210 )
          ::nHeight := Iif( nFormType==DMPAPER_A3, 420, 297 )
          IF !::lmm
-            ::nWidth  := Round( ::nHRes * ::nWidth, 0 )
-            ::nHeight := Round( ::nVRes * ::nHeight, 0 )
+            ::nWidth  := Round(::nHRes * ::nWidth, 0)
+            ::nHeight := Round(::nVRes * ::nHeight, 0)
          ENDIF
          IF ::nOrient == 2
             nTemp := ::nHeight
@@ -247,11 +247,11 @@ METHOD SetMode( nOrientation, nDuplex ) CLASS HPrinter
       hDC := hwg_Setprintermode( ::cPrinterName, @hPrinter, nOrientation, nDuplex )
       IF hDC != Nil
          IF !Empty(::hDCPrn)
-            hwg_Deletedc( ::hDCPrn )
+            hwg_Deletedc(::hDCPrn)
          ENDIF
          ::hDCPrn := hDC
          ::hPrinter := hPrinter
-         aPrnCoors := hwg_Getdevicearea( ::hDCPrn )
+         aPrnCoors := hwg_Getdevicearea(::hDCPrn)
          ::nWidth  := Iif( ::lmm, aPrnCoors[3], aPrnCoors[1] )
          ::nHeight := Iif( ::lmm, aPrnCoors[4], aPrnCoors[2] )
          ::nPWidth  := Iif( ::lmm, aPrnCoors[8], aPrnCoors[1] )
@@ -268,7 +268,7 @@ METHOD AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset ) CLASS
    LOCAL oFont
 
    IF ::lmm .AND. nHeight != Nil
-      nHeight := Round( nHeight * ::nVRes, 0 )
+      nHeight := Round(nHeight * ::nVRes, 0)
    ENDIF
    oFont := HFont():Add(fontName, , nHeight, ;
       Iif( lBold != Nil .AND. lBold, 700, 400 ), nCharset, ;
@@ -281,7 +281,7 @@ METHOD End() CLASS HPrinter
       IF ::lBuffPrn
          hwg_Releasedc( hwg_Getactivewindow(), ::hDCPrn )
       ELSE
-         hwg_Deletedc( ::hDCPrn )
+         hwg_Deletedc(::hDCPrn)
       ENDIF
       ::hDCPrn := Nil
    ENDIF
@@ -311,7 +311,7 @@ METHOD ReleaseRes() CLASS HPrinter
    IF !Empty(::aBitmaps)
       FOR i := 1 TO Len(::aBitmaps)
          IF !::aBitmaps[i, 3]
-            hwg_Deleteobject( ::aBitmaps[i, 2] )
+            hwg_Deleteobject(::aBitmaps[i, 2])
          ENDIF
       NEXT
       ::aBitmaps := Nil
@@ -322,10 +322,10 @@ METHOD ReleaseRes() CLASS HPrinter
 METHOD Recalc( x1, y1, x2, y2 ) CLASS HPrinter
 
    IF ::lmm
-      x1 := Round( x1 * ::nHRes, 1 )
-      x2 := Round( x2 * ::nHRes, 1 )
-      y1 := Round( y1 * ::nVRes, 1 )
-      y2 := Round( y2 * ::nVRes, 1 )
+      x1 := Round(x1 * ::nHRes, 1)
+      x2 := Round(x2 * ::nHRes, 1)
+      y1 := Round(y1 * ::nVRes, 1)
+      y2 := Round(y2 * ::nVRes, 1)
    ENDIF
 
    RETURN Nil
@@ -339,22 +339,22 @@ METHOD Box( x1, y1, x2, y2, oPen, oBrush ) CLASS HPrinter
          IF Empty(::lastPen) .OR. oPen:width != ::lastPen:width .OR. ;
                oPen:style != ::lastPen:style .OR. oPen:color != ::lastPen:color
             ::lastPen := oPen
-            ::aPages[::nPage] += "pen," + LTrim( Str( oPen:width ) ) + "," + ;
-               LTrim( Str( oPen:style ) ) + "," + LTrim( Str( oPen:color ) ) + "," + crlf
+            ::aPages[::nPage] += "pen," + LTrim(Str(oPen:width)) + "," + ;
+               LTrim(Str(oPen:style)) + "," + LTrim(Str(oPen:color)) + "," + crlf
          ENDIF
       ENDIF
 
-      ::aPages[::nPage] += "box," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-         LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + crlf
+      ::aPages[::nPage] += "box," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+         LTrim(Str(x2)) + "," + LTrim(Str(y2)) + crlf
    ELSE
       IF oPen != Nil
-         hwg_Selectobject( ::hDC, oPen:handle )
+         hwg_Selectobject(::hDC, oPen:handle)
       ENDIF
       IF oBrush != Nil
-         hwg_Selectobject( ::hDC, oBrush:handle )
+         hwg_Selectobject(::hDC, oBrush:handle)
       ENDIF
 
-      hwg_Rectangle( ::hDC, x1, y1, x2, y2 )
+      hwg_Rectangle(::hDC, x1, y1, x2, y2)
    ENDIF
 
    RETURN Nil
@@ -368,18 +368,18 @@ METHOD Line( x1, y1, x2, y2, oPen ) CLASS HPrinter
          IF Empty(::lastPen) .OR. oPen:width != ::lastPen:width .OR. ;
                oPen:style != ::lastPen:style .OR. oPen:color != ::lastPen:color
             ::lastPen := oPen
-            ::aPages[::nPage] += "pen," + LTrim( Str( oPen:width ) ) + "," + ;
-               LTrim( Str( oPen:style ) ) + "," + LTrim( Str( oPen:color ) ) + "," + crlf
+            ::aPages[::nPage] += "pen," + LTrim(Str(oPen:width)) + "," + ;
+               LTrim(Str(oPen:style)) + "," + LTrim(Str(oPen:color)) + "," + crlf
          ENDIF
       ENDIF
 
-      ::aPages[::nPage] += "lin," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-         LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + "," + crlf
+      ::aPages[::nPage] += "lin," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+         LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + crlf
    ELSE
       IF oPen != Nil
-         hwg_Selectobject( ::hDC, oPen:handle )
+         hwg_Selectobject(::hDC, oPen:handle)
       ENDIF
-      hwg_Drawline( ::hDC, x1, y1, x2, y2 )
+      hwg_Drawline(::hDC, x1, y1, x2, y2)
    ENDIF
 
    RETURN Nil
@@ -401,38 +401,38 @@ METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor ) CLASS H
                ::lastFont:Italic == oFont:Italic .AND. ;
                ::lastFont:Underline == oFont:Underline ) )
             ::lastFont := oFont
-            ::aPages[::nPage] += "fnt," + oFont:name + "," + LTrim( Str( oFont:height ) ) + "," + ;
-               LTrim( Str( oFont:weight ) ) + "," + LTrim( Str( oFont:Italic ) ) + "," + ;
-               LTrim( Str( oFont:Underline ) ) + "," + LTrim( Str( oFont:Charset ) ) + crlf
+            ::aPages[::nPage] += "fnt," + oFont:name + "," + LTrim(Str(oFont:height)) + "," + ;
+               LTrim(Str(oFont:weight)) + "," + LTrim(Str(oFont:Italic)) + "," + ;
+               LTrim(Str(oFont:Underline)) + "," + LTrim(Str(oFont:Charset)) + crlf
          ENDIF
       ENDIF
 
-      ::aPages[::nPage] += "txt," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-         LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + "," + ;
-         Iif( nOpt == Nil, ",", LTrim( Str(nOpt ) ) + "," ) + cString + crlf
+      ::aPages[::nPage] += "txt," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+         LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + ;
+         Iif( nOpt == Nil, ",", LTrim(Str(nOpt)) + "," ) + cString + crlf
    ELSE
       IF oFont != Nil
-         hFont := hwg_Selectobject( ::hDC, oFont:handle )
+         hFont := hwg_Selectobject(::hDC, oFont:handle)
       ENDIF
       IF nTextColor != Nil
-         nOldTC := hwg_Settextcolor( ::hDC, nTextColor )
+         nOldTC := hwg_Settextcolor(::hDC, nTextColor)
       ENDIF
       IF nBkColor != Nil
-         nOldBC := hwg_Setbkcolor( ::hDC, nBkColor )
+         nOldBC := hwg_Setbkcolor(::hDC, nBkColor)
       ENDIF
 
-      lTr := hwg_Settransparentmode( ::hDC, .T. )
-      hwg_Drawtext( ::hDC, cString, x1, y1, x2, y2, Iif( nOpt == Nil, DT_LEFT, nOpt ) )
-      hwg_Settransparentmode( ::hDC, lTr )
+      lTr := hwg_Settransparentmode(::hDC, .T.)
+      hwg_Drawtext(::hDC, cString, x1, y1, x2, y2, Iif(nOpt == Nil, DT_LEFT, nOpt))
+      hwg_Settransparentmode(::hDC, lTr)
 
       IF oFont != Nil
-         hwg_Selectobject( ::hDC, hFont )
+         hwg_Selectobject(::hDC, hFont)
       ENDIF
       IF nTextColor != Nil
-         hwg_Settextcolor( ::hDC, nOldTC )
+         hwg_Settextcolor(::hDC, nOldTC)
       ENDIF
       IF nBkColor != Nil
-         hwg_Setbkcolor( ::hDC, nOldBC )
+         hwg_Setbkcolor(::hDC, nOldBC)
       ENDIF
 
    ENDIF
@@ -444,14 +444,14 @@ METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap, cImageName ) CLASS HPrinter
    ::Recalc( @x1, @y1, @x2, @y2 )
 
    IF !::lUseMeta .AND. ::lPreview
-      ::aPages[::nPage] += "img," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-         LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + "," + ;
-         Iif( nOpt == Nil, ",", LTrim( Str(nOpt ) ) + "," ) + cImageName + crlf
+      ::aPages[::nPage] += "img," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+         LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + ;
+         Iif( nOpt == Nil, ",", LTrim(Str(nOpt)) + "," ) + cImageName + crlf
       IF !Empty(hBitmap) .AND. Ascan(::aBitmaps, {|a|a[1]==cImageName}) == 0
          Aadd(::aBitmaps, {cImageName, hBitmap, .T.})
       ENDIF
    ELSE
-      hwg_Drawbitmap( ::hDC, hBitmap, Iif( nOpt == Nil, SRCAND, nOpt ), x1, y1, x2 - x1 + 1, y2 - y1 + 1 )
+      hwg_Drawbitmap(::hDC, hBitmap, Iif(nOpt == Nil, SRCAND, nOpt), x1, y1, x2 - x1 + 1, y2 - y1 + 1)
    ENDIF
 
    RETURN Nil
@@ -461,14 +461,14 @@ METHOD GetTextWidth( cString, oFont ) CLASS HPrinter
    LOCAL arr, hFont, hDC := Iif( ::lUseMeta, ::hDC, ::hDCPrn )
 
    IF oFont != Nil
-      hFont := hwg_Selectobject( hDC, oFont:handle )
+      hFont := hwg_Selectobject(hDC, oFont:handle)
    ENDIF
-   arr := hwg_Gettextsize( hDC, cString )
+   arr := hwg_Gettextsize(hDC, cString)
    IF oFont != Nil
-      hwg_Selectobject( hDC, hFont )
+      hwg_Selectobject(hDC, hFont)
    ENDIF
 
-   RETURN Iif( ::lmm, Int( arr[1] / ::nHRes ), arr[1] )
+   RETURN Iif( ::lmm, Int(arr[1] / ::nHRes), arr[1] )
 
 METHOD StartDoc( lPreview, cScriptFile , lprbutton ) CLASS HPrinter
 
@@ -485,8 +485,8 @@ METHOD StartDoc( lPreview, cScriptFile , lprbutton ) CLASS HPrinter
       IF ::lUseMeta
          ::ReleaseMeta()
       ENDIF
-      ::aJob := { , LTrim( Str(Iif(::lmm,::nWidth*::nHRes,::nWidth) ) ), ;
-            LTrim( Str(Iif(::lmm,::nHeight*::nVRes,::nHeight) ) ), LTrim(Str(::nHRes, 11, 4)), LTrim(Str(::nVRes, 11, 4)) }
+      ::aJob := { , LTrim(Str(Iif(::lmm, ::nWidth * ::nHRes, ::nWidth))), ;
+            LTrim(Str(Iif(::lmm, ::nHeight * ::nVRes, ::nHeight))), LTrim(Str(::nHRes, 11, 4)), LTrim(Str(::nVRes, 11, 4)) }
       ::ReleaseRes()
       ::aPages := {}
       ::aFonts := {}
@@ -496,7 +496,7 @@ METHOD StartDoc( lPreview, cScriptFile , lprbutton ) CLASS HPrinter
    ELSE
       ::lPreview := .F.
       ::hDC := ::hDCPrn
-      nRes := Hwg_StartDoc( ::hDC, "HwGUIPrint" )
+      nRes := Hwg_StartDoc(::hDC, "HwGUIPrint")
    ENDIF
    ::nPage := 0
 
@@ -514,7 +514,7 @@ METHOD EndDoc() CLASS HPrinter
    ENDIF
 
    IF !::lPreview
-      nRes := Hwg_EndDoc( ::hDC )
+      nRes := Hwg_EndDoc(::hDC)
    ENDIF
 
    RETURN nRes
@@ -526,7 +526,7 @@ METHOD StartPage() CLASS HPrinter
    * Variables not used
    * fname 
 
-   ::nPage ++
+   ::nPage++
    IF ::lPreview
       IF ::lUseMeta
          AAdd(::aPages, hwg_Createmetafile(::hDCPrn, Nil))
@@ -535,7 +535,7 @@ METHOD StartPage() CLASS HPrinter
          AAdd(::aPages, "page," + LTrim(Str(::nPage)) + "," + Iif( ::lmm, "mm,", "px," ) + Iif( ::nOrient == 1, "p", "l" ) + crlf )
       ENDIF
    ELSE
-      nRes := Hwg_StartPage( ::hDC )
+      nRes := Hwg_StartPage(::hDC)
    ENDIF
 
    RETURN nRes
@@ -551,7 +551,7 @@ METHOD EndPage() CLASS HPrinter
          ::hDC := 0
       ENDIF
    ELSE
-      nRes := Hwg_EndPage( ::hDC )
+      nRes := Hwg_EndPage(::hDC)
    ENDIF
 
    RETURN nRes
@@ -599,9 +599,9 @@ METHOD SaveScript( cScriptFile ) CLASS HPrinter
    IF !Empty(cScriptFile)
       han := FCreate( cScriptFile )
       FWrite( han, "job," + ;
-            LTrim( Str(Iif(::lmm,::nWidth*::nHRes,::nWidth) ) ) + "," + ;
-            LTrim( Str(Iif(::lmm,::nHeight*::nVRes,::nHeight) ) ) + "," + ;
-            LTrim( Str(::nHRes, 11, 4) ) + "," + LTrim(Str(::nVRes, 11, 4)) + "," + hb_cdpSelect() + crlf )
+            LTrim(Str(Iif(::lmm, ::nWidth * ::nHRes, ::nWidth))) + "," + ;
+            LTrim(Str(Iif(::lmm, ::nHeight * ::nVRes, ::nHeight))) + "," + ;
+            LTrim(Str(::nHRes, 11, 4)) + "," + LTrim(Str(::nVRes, 11, 4)) + "," + hb_cdpSelect() + crlf )
       FOR i := 1 TO Len(::aPages)
          FWrite( han, ::aPages[i] + crlf )
       NEXT
@@ -648,7 +648,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    aPage := Array(Len(::aPages))
    FOR i := 1 TO Len(aPage)
-      aPage[i] := Str( i, 4 ) + ":" + Str( Len(aPage), 4 )
+      aPage[i] := Str(i, 4) + ":" + Str(Len(aPage), 4)
    NEXT
 
    // Button and title default captions
@@ -842,19 +842,19 @@ METHOD ChangePage( oCanvas, oSayPage, n, nPage ) CLASS hPrinter
       ELSEIF n == 2
          ::nCurrPage := Len(::aPages)
       ELSEIF n == 1 .AND. ::nCurrPage < Len(::aPages)
-         ::nCurrPage ++
+         ::nCurrPage++
       ELSEIF n == - 1 .AND. ::nCurrPage > 1
-         ::nCurrPage --
+         ::nCurrPage--
       ENDIF
       oSayPage:SetItem( ::nCurrPage )
    ELSE
       ::nCurrPage := nPage
    ENDIF
    ::NeedsRedraw := .T.
-   hwg_Setscrollpos( oCanvas:handle, SB_VERT, 1 )
-   hwg_Setscrollpos( oCanvas:handle, SB_HORZ, 1 )
+   hwg_Setscrollpos(oCanvas:handle, SB_VERT, 1)
+   hwg_Setscrollpos(oCanvas:handle, SB_HORZ, 1)
    ::ResizePreviewDlg( oCanvas,, 0 )
-   //hwg_Redrawwindow( oCanvas:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE )
+   //hwg_Redrawwindow(oCanvas:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE)
 
    RETURN Nil
 
@@ -874,14 +874,14 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
 
    HB_SYMBOL_UNUSED(lParam)
 
-   nPosVert := hwg_Getscrollpos( oCanvas:handle, SB_VERT )
-   nPosHorz := hwg_Getscrollpos( oCanvas:handle, SB_HORZ )
+   nPosVert := hwg_Getscrollpos(oCanvas:handle, SB_VERT)
+   nPosHorz := hwg_Getscrollpos(oCanvas:handle, SB_HORZ)
 
    IF msg = WM_VSCROLL
       hwg_Setscrollrange( oCanvas:handle, SB_VERT, 1, 20 )
-      wmsg := hwg_Loword( wParam )
+      wmsg := hwg_Loword(wParam)
       IF wmsg = SB_THUMBPOSITION .OR. wmsg = SB_THUMBTRACK
-         nPosVert := hwg_Hiword( wParam )
+         nPosVert := hwg_Hiword(wParam)
       ELSEIF wmsg = SB_LINEUP
          nPosVert := nPosVert - 1
          IF nPosVert < 1
@@ -903,15 +903,15 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
             nPosVert = 1
          ENDIF
       ENDIF
-      hwg_Setscrollpos( oCanvas:handle, SB_VERT, nPosVert )
+      hwg_Setscrollpos(oCanvas:handle, SB_VERT, nPosVert)
       ::NeedsRedraw := .T.
    ENDIF
 
    IF msg = WM_HSCROLL
       hwg_Setscrollrange( oCanvas:handle, SB_HORZ, 1, 20 )
-      wmsg := hwg_Loword( wParam )
+      wmsg := hwg_Loword(wParam)
       IF wmsg = SB_THUMBPOSITION .OR. wmsg = SB_THUMBTRACK
-         nPosHorz := hwg_Hiword( wParam )
+         nPosHorz := hwg_Hiword(wParam)
       ELSEIF wmsg = SB_LINEUP
          nPosHorz := nPosHorz - 1
          IF nPosHorz < 1
@@ -933,22 +933,22 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
             nPosHorz = 1
          ENDIF
       ENDIF
-      hwg_Setscrollpos( oCanvas:handle, SB_HORZ, nPosHorz )
+      hwg_Setscrollpos(oCanvas:handle, SB_HORZ, nPosHorz)
       ::NeedsRedraw := .T.
    ENDIF
 
    IF msg == WM_MOUSEWHEEL
       hwg_Setscrollrange( oCanvas:handle, SB_VERT, 1, 20 )
-      IF hwg_Hiword( wParam ) > 32678
-         IF ++ nPosVert > 20
+      IF hwg_Hiword(wParam) > 32678
+         IF ++nPosVert > 20
             nPosVert := 20
          ENDIF
       ELSE
-         IF -- nPosVert < 1
+         IF --nPosVert < 1
             nPosVert := 1
          ENDIF
       ENDIF
-      hwg_Setscrollpos( oCanvas:handle, SB_VERT, nPosVert )
+      hwg_Setscrollpos(oCanvas:handle, SB_VERT, nPosVert)
       ::NeedsRedraw := .T.
    ENDIF
 
@@ -965,60 +965,60 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
 
    IF ::nWidth > ::nHeight
       nWidth := x - 20
-      nHeight := Round( nWidth * k2, 0 )
+      nHeight := Round(nWidth * k2, 0)
       IF nHeight > y - 20
          nHeight := y - 20
-         nWidth := Round( nHeight * k1, 0 )
+         nWidth := Round(nHeight * k1, 0)
       ENDIF
       ::NeedsRedraw := .T.
    ELSE
       nHeight := y - 10
-      nWidth := Round( nHeight * k1, 0 )
+      nWidth := Round(nHeight * k1, 0)
       IF nWidth > x - 20
          nWidth := x - 20
-         nHeight := Round( nWidth * k2, 0 )
+         nHeight := Round(nWidth * k2, 0)
       ENDIF
       ::NeedsRedraw := .T.
    ENDIF
 
    IF ::nZoom > 0
       FOR i := 1 TO ::nZoom
-         nWidth := Round( nWidth * 1.5, 0 )
-         nHeight := Round( nHeight * 1.5, 0 )
+         nWidth := Round(nWidth * 1.5, 0)
+         nHeight := Round(nHeight * 1.5, 0)
       NEXT
       ::NeedsRedraw := .T.
    ELSEIF ::nZoom == 0
-      nWidth := Round( nWidth * 0.93, 0 )
-      nHeight := Round( nHeight * 0.93, 0 )
+      nWidth := Round(nWidth * 0.93, 0)
+      nHeight := Round(nHeight * 0.93, 0)
    ENDIF
 
    ::xOffset := ::yOffset := 0
    IF nHeight > y
       nPos := nPosVert
       IF nPos > 0
-         ::yOffset := Round( ( ( nPos - 1 ) / 18 ) * ( nHeight - y + 10 ), 0 )
+         ::yOffset := Round(((nPos - 1) / 18) * (nHeight - y + 10), 0)
       ENDIF
    ELSE
-      hwg_Setscrollpos( oCanvas:handle, SB_VERT, 0 )
+      hwg_Setscrollpos(oCanvas:handle, SB_VERT, 0)
    ENDIF
 
    IF nWidth > x
       nPos := nPosHorz
       IF nPos > 0
          nPos := ( nPos - 1 ) / 18
-         ::xOffset := Round( nPos * ( nWidth - x + 10 ), 0 )
+         ::xOffset := Round(nPos * (nWidth - x + 10), 0)
       ENDIF
    ELSE
-      hwg_Setscrollpos( oCanvas:handle, SB_HORZ, 0 )
+      hwg_Setscrollpos(oCanvas:handle, SB_HORZ, 0)
    ENDIF
 
-   ::x1 := Iif( nWidth < x, Round( ( x - nWidth ) / 2, 0 ), 10 ) - ::xOffset
+   ::x1 := Iif(nWidth < x, Round((x - nWidth) / 2, 0), 10) - ::xOffset
    ::x2 := ::x1 + nWidth - 1
-   ::y1 := Iif( nHeight < y, Round( ( y - nHeight ) / 2, 0 ), 10 ) - ::yOffset
+   ::y1 := Iif(nHeight < y, Round((y - nHeight) / 2, 0), 10) - ::yOffset
    ::y2 := ::y1 + nHeight - 1
 
    IF nZoom != Nil .OR. msg != Nil
-      hwg_Redrawwindow( oCanvas:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE )  // Force a complete redraw
+      hwg_Redrawwindow(oCanvas:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE)  // Force a complete redraw
    ENDIF
    //hwg_writelog( str(::x1)+" "+str(::y1)+" "+str(::x2)+" "+str(::y2)+" "+str(::xoffset)+" "+str(::yoffset) )
 
@@ -1041,13 +1041,13 @@ METHOD PaintDoc( oWnd ) CLASS HPrinter
    ENDIF
 
    pps := hwg_Definepaintstru()
-   hDC := hwg_Beginpaint( oWnd:handle, pps )
+   hDC := hwg_Beginpaint(oWnd:handle, pps)
 
-   IF ValType( ::memDC ) == "U"
+   IF ValType(::memDC) == "U"
       ::memDC := hDC():New()
-      ::memDC:Createcompatibledc( hDC )
-      ::memBitmap := hwg_Createcompatiblebitmap( hDC, Rect[3] - Rect[1], Rect[4] - Rect[2] )
-      ::memDC:Selectobject( ::memBitmap )
+      ::memDC:Createcompatibledc(hDC)
+      ::memBitmap := hwg_Createcompatiblebitmap(hDC, Rect[3] - Rect[1], Rect[4] - Rect[2])
+      ::memDC:Selectobject(::memBitmap)
       Brush           := HBrush():Add(hwg_Getsyscolor(COLOR_3DHILIGHT + 1)):handle
       BrushWhite      := HBrush():Add(hwg_ColorRgb2N(255, 255, 255)):handle
       BrushBlack      := HBrush():Add(hwg_ColorRgb2N(0, 0, 0)):handle
@@ -1083,9 +1083,9 @@ METHOD PaintDoc( oWnd ) CLASS HPrinter
       hwg_Fillrect( ::memDC:m_hDC, ::x1 + 2, ::y2 + 2, ::x2 + 2, ::y2 + 3, BrushShadow )
       ::NeedsRedraw := .F.
    ENDIF
-   hwg_Bitblt( hDC, rect[1], rect[2], rect[3], rect[4], ::memDC:m_hDC, 0, 0, SRCCOPY )
+   hwg_Bitblt(hDC, rect[1], rect[2], rect[3], rect[4], ::memDC:m_hDC, 0, 0, SRCCOPY)
 
-   hwg_Endpaint( oWnd:handle, pps )
+   hwg_Endpaint(oWnd:handle, pps)
 
    RETURN Nil
 
@@ -1102,7 +1102,7 @@ METHOD PrintDoc( nPage ) CLASS HPrinter
          ::cPrinterName := cTemp
 
          nWidth := ::nWidth; nHeight := ::nHeight; nHres := ::nHres; nVres := ::nVres
-         aPrnCoors := hwg_Getdevicearea( ::hDCPrn )
+         aPrnCoors := hwg_Getdevicearea(::hDCPrn)
          ::nHRes   := aPrnCoors[1] / aPrnCoors[3]
          ::nVRes   := aPrnCoors[2] / aPrnCoors[4]
          ::nWidth  := Iif( ::lmm, aPrnCoors[3], aPrnCoors[1] )
@@ -1115,36 +1115,36 @@ METHOD PrintDoc( nPage ) CLASS HPrinter
       IF nPage == Nil
          FOR nPage := 1 TO Len(::aPages)
             IF ::lUseMeta
-               hwg_Printenhmetafile( ::hDCPrn, ::aPages[nPage] )
+               hwg_Printenhmetafile(::hDCPrn, ::aPages[nPage])
             ELSE
-               Hwg_StartPage( ::hDCPrn )
-               ::PrintScript( ::hDCPrn, nPage )
-               Hwg_EndPage( ::hDCPrn )
+               Hwg_StartPage(::hDCPrn)
+               ::PrintScript(::hDCPrn, nPage)
+               Hwg_EndPage(::hDCPrn)
             ENDIF
          NEXT
-      ELSEIF Valtype( nPage ) == "A"
+      ELSEIF Valtype(nPage) == "A"
          arr := nPage
          FOR nPage := 1 TO Len(arr)
             IF ::lUseMeta
-               hwg_Printenhmetafile( ::hDCPrn, ::aPages[arr[nPage]] )
+               hwg_Printenhmetafile(::hDCPrn, ::aPages[arr[nPage]])
             ELSE
-               Hwg_StartPage( ::hDCPrn )
-               ::PrintScript( ::hDCPrn, arr[nPage] )
-               Hwg_EndPage( ::hDCPrn )
+               Hwg_StartPage(::hDCPrn)
+               ::PrintScript(::hDCPrn, arr[nPage])
+               Hwg_EndPage(::hDCPrn)
             ENDIF
          NEXT
       ELSE
          IF ::lUseMeta
-            hwg_Printenhmetafile( ::hDCPrn, ::aPages[nPage] )
+            hwg_Printenhmetafile(::hDCPrn, ::aPages[nPage])
          ELSE
-            Hwg_StartPage( ::hDCPrn )
-            ::PrintScript( ::hDCPrn, nPage )
-            Hwg_EndPage( ::hDCPrn )
+            Hwg_StartPage(::hDCPrn)
+            ::PrintScript(::hDCPrn, nPage)
+            Hwg_EndPage(::hDCPrn)
          ENDIF
       ENDIF
       ::EndDoc()
       IF lBuffPrn
-         hwg_Deletedc( ::hDCPrn )
+         hwg_Deletedc(::hDCPrn)
          ::hDCPrn := hDCBuff
          ::cPrinterName := cPrinterName
          ::nWidth := nWidth; ::nHeight := nHeight; ::nHres := nHres; ::nVres := nVres
@@ -1190,7 +1190,7 @@ METHOD PrintDlg(aTooltips) CLASS HPrinter
          arrt := hb_aTokens( cpages, "," )
          FOR i := 1 TO Len(arrt)
             Aadd(arr, n1 := Val(Ltrim(arrt[i])))
-            IF ( nPos := At( "-", arrt[i] ) ) != 0
+            IF ( nPos := At("-", arrt[i]) ) != 0
                n2 := Val(Ltrim(Substr(arrt[i], nPos + 1)))
                FOR j := n1+1 TO n2
                   Aadd(arr, j)
@@ -1203,7 +1203,7 @@ METHOD PrintDlg(aTooltips) CLASS HPrinter
 
    RETURN Nil
 
-METHOD PrintScript( hDC, nPage, x1, y1, x2, y2 ) CLASS HPrinter
+METHOD PrintScript(hDC, nPage, x1, y1, x2, y2) CLASS HPrinter
 
    LOCAL i, j, arr, nPos, sCom
    LOCAL nOpt, cTemp
@@ -1237,27 +1237,27 @@ METHOD PrintScript( hDC, nPage, x1, y1, x2, y2 ) CLASS HPrinter
       nPos := 0
       sCom := hb_TokenPtr( arr[i], @nPos, "," )
       IF sCom $ "txt;lin;box;img"
-         x1 := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nHResNew / nHres, 0 ) + xOff
-         y1 := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nVResNew / nVres, 0 ) + yOff
-         x2 := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nHResNew / nHres, 0 ) + xOff
-         y2 := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nVResNew / nVres, 0 ) + yOff
+         x1 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nHResNew / nHres, 0) + xOff
+         y1 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nVResNew / nVres, 0) + yOff
+         x2 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nHResNew / nHres, 0) + xOff
+         y2 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nVResNew / nVres, 0) + yOff
 
          IF sCom == "txt"
             nOpt := Val(hb_TokenPtr( arr[i], @nPos, "," ))
-            cTemp := SubStr( arr[i], nPos+1 )
-            j := hwg_Settransparentmode( hDC, .T. )
-            hwg_Drawtext( hDC, cTemp, x1, y1, x2, y2, nOpt )
-            hwg_Settransparentmode( hDC, j )
+            cTemp := SubStr(arr[i], nPos + 1)
+            j := hwg_Settransparentmode(hDC, .T.)
+            hwg_Drawtext(hDC, cTemp, x1, y1, x2, y2, nOpt)
+            hwg_Settransparentmode(hDC, j)
 
          ELSEIF sCom == "lin"
-            hwg_Drawline( hDC, x1, y1, x2, y2 )
+            hwg_Drawline(hDC, x1, y1, x2, y2)
 
          ELSEIF sCom == "box"
-            hwg_Rectangle( hDC, x1, y1, x2, y2 )
+            hwg_Rectangle(hDC, x1, y1, x2, y2)
 
          ELSEIF sCom == "img"
             nOpt := Val(hb_TokenPtr( arr[i], @nPos, "," ))
-            cTemp := SubStr( arr[i], nPos+1 )
+            cTemp := SubStr(arr[i], nPos + 1)
 
             IF ( j := Ascan(::aBitmaps, {|a|a[1]==cTemp}) ) == 0
                hBitmap := hwg_Openbitmap( cTemp, hDC )
@@ -1265,12 +1265,12 @@ METHOD PrintScript( hDC, nPage, x1, y1, x2, y2 ) CLASS HPrinter
             ELSE
                hBitmap := ::aBitmaps[j, 2]
             ENDIF
-            hwg_Drawbitmap( hDC, hBitmap, Iif( Empty(nOpt), SRCAND, nOpt ), x1, y1, x2 - x1 + 1, y2 - y1 + 1 )
+            hwg_Drawbitmap(hDC, hBitmap, Iif(Empty(nOpt), SRCAND, nOpt), x1, y1, x2 - x1 + 1, y2 - y1 + 1)
          ENDIF
 
       ELSEIF sCom == "fnt"
          name := hb_TokenPtr( arr[i], @nPos, "," )
-         height := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nVResNew / nVres, 0 )
+         height := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nVResNew / nVres, 0)
          weight := Val(hb_TokenPtr( arr[i], @nPos, "," ))
          italic := Val(hb_TokenPtr( arr[i], @nPos, "," ))
          underline := Val(hb_TokenPtr( arr[i], @nPos, "," ))
@@ -1288,10 +1288,10 @@ METHOD PrintScript( hDC, nPage, x1, y1, x2, y2 ) CLASS HPrinter
          ELSE
             oFont := ::aFonts[j]
          ENDIF
-         hwg_Selectobject( hDC, oFont:handle )
+         hwg_Selectobject(hDC, oFont:handle)
 
       ELSEIF sCom == "pen"
-         width := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nVResNew / nVres, 0 )
+         width := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nVResNew / nVres, 0)
          style := Val(hb_TokenPtr( arr[i], @nPos, "," ))
          color := Val(hb_TokenPtr( arr[i], @nPos, "," ))
          FOR j := 1 TO Len(::aPens)
@@ -1305,7 +1305,7 @@ METHOD PrintScript( hDC, nPage, x1, y1, x2, y2 ) CLASS HPrinter
          ELSE
             oPen := ::aPens[j]
          ENDIF
-         hwg_Selectobject( hDC, oPen:handle )
+         hwg_Selectobject(hDC, oPen:handle)
       ENDIF
    NEXT
 
@@ -1315,8 +1315,8 @@ Static Function MessProc( oPrinter, oPanel, lParam )
    LOCAL xPos, yPos, nPage := oPrinter:nCurrPage, arr, i, j, nPos, x1, y1, x2, y2, cTemp
    LOCAL nHRes, nVRes
 
-   xPos := hwg_Loword( lParam )
-   yPos := hwg_Hiword( lParam )
+   xPos := hwg_Loword(lParam)
+   yPos := hwg_Hiword(lParam)
 
    nHRes := (oPrinter:x2-oPrinter:x1)/Iif( oPrinter:lmm, oPrinter:nWidth, oPrinter:nWidth/oPrinter:nHRes )
    nVRes := (oPrinter:y2-oPrinter:y1)/Iif( oPrinter:lmm, oPrinter:nHeight, oPrinter:nHeight/oPrinter:nVRes )
@@ -1325,10 +1325,10 @@ Static Function MessProc( oPrinter, oPanel, lParam )
    FOR i := 1 TO Len(arr)
       nPos := 0
       IF hb_TokenPtr( arr[i], @nPos, "," ) == "txt"
-         x1 := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nHRes / oPrinter:nHres, 0 ) + oPrinter:x1
-         y1 := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nVRes / oPrinter:nVres, 0 ) + oPrinter:y1
-         x2 := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nHRes / oPrinter:nHres, 0 ) + oPrinter:x1
-         y2 := Round( Val(hb_TokenPtr( arr[i], @nPos, "," )) * nVRes / oPrinter:nVres, 0 ) + oPrinter:y1
+         x1 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nHRes / oPrinter:nHres, 0) + oPrinter:x1
+         y1 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nVRes / oPrinter:nVres, 0) + oPrinter:y1
+         x2 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nHRes / oPrinter:nHres, 0) + oPrinter:x1
+         y2 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nVRes / oPrinter:nVres, 0) + oPrinter:y1
          IF xPos >= x1 .AND. xPos <= x2 .AND. yPos >= y1 .AND. yPos <= y2
             EXIT
          ENDIF
@@ -1336,7 +1336,7 @@ Static Function MessProc( oPrinter, oPanel, lParam )
    NEXT
    IF i <= Len(arr)
       hb_TokenPtr( arr[i], @nPos, "," )
-      IF !Empty(cTemp := hwg_MsgGet("",,ES_AUTOHSCROLL,,,DS_CENTER,SubStr( arr[i], nPos+1 ) )) .AND. !( cTemp == SubStr(arr[i],nPos+1) )
+      IF !Empty(cTemp := hwg_MsgGet("",,ES_AUTOHSCROLL,,,DS_CENTER,SubStr(arr[i], nPos + 1) )) .AND. !( cTemp == SubStr(arr[i],nPos+1) )
          oPrinter:aPages[nPage] := ""
          FOR j := 1 TO Len(arr)
             IF j != i
@@ -1346,7 +1346,7 @@ Static Function MessProc( oPrinter, oPanel, lParam )
             ENDIF
          NEXT
          oPrinter:NeedsRedraw := .T.
-         hwg_Redrawwindow( oPanel:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE )
+         hwg_Redrawwindow(oPanel:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE)
       ENDIF
    ENDIF
 

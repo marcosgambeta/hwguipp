@@ -47,9 +47,9 @@ METHOD Create( cFile, oTime, oResource ) CLASS HSplash
    LOCAL aWidth, aHeigth
    LOCAL bitmap, oDlg
 
-   IIf( Empty(oTime) .or. oTime == Nil, oTime := 2000, oTime := oTime )
+   IIf( Empty(oTime) .OR. oTime == Nil, oTime := 2000, oTime := oTime )
 
-   IF oResource == Nil .or. !oResource
+   IF oResource == Nil .OR. !oResource
       bitmap  := HBitmap():AddFile( cFile )
    ELSE
       bitmap  := HBitmap():AddResource( cFile )
@@ -69,6 +69,6 @@ METHOD Create( cFile, oTime, oResource ) CLASS HSplash
 
 METHOD CountSeconds( oTime, oDlg )
 
-   SET TIMER ::oTimer OF oDlg VALUE oTime  ACTION { || hwg_EndDialog( hwg_GetModalHandle() ) }
+   SET TIMER ::oTimer OF oDlg VALUE oTime  ACTION { || hwg_EndDialog(hwg_GetModalHandle()) }
 
    RETURN Nil

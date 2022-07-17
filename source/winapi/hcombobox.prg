@@ -31,7 +31,7 @@ CLASS HComboBox INHERIT HControl
    METHOD Init()
    METHOD Refresh( xVal )
    METHOD Setitem( nPos )
-   METHOD GetValue( nItem )
+   METHOD GetValue(nItem)
    METHOD Value ( xValue ) SETGET
 
 ENDCLASS
@@ -47,9 +47,9 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       lText := .F.
    ENDIF
 
-   nStyle := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), iif( lEdit,CBS_DROPDOWN,CBS_DROPDOWNLIST ) + WS_TABSTOP )
+   nStyle := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), iif(lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST) + WS_TABSTOP)
    IF !Empty(nDisplay)
-      nStyle := Hwg_BitOr( nStyle, CBS_NOINTEGRALHEIGHT + WS_VSCROLL )
+      nStyle := Hwg_BitOr(nStyle, CBS_NOINTEGRALHEIGHT + WS_VSCROLL)
       ::nDisplay := nDisplay
    ENDIF
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
@@ -62,9 +62,9 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ENDIF
 
    IF ::lText
-      ::xValue := iif( vari == Nil .OR. ValType( vari ) != "C", "", Trim( vari ) )
+      ::xValue := iif( vari == Nil .OR. ValType(vari) != "C", "", Trim(vari) )
    ELSE
-      ::xValue := iif( vari == Nil .OR. ValType( vari ) != "N", 1, vari )
+      ::xValue := iif( vari == Nil .OR. ValType(vari) != "N", 1, vari )
    ENDIF
 
    IF bSetGet != Nil
@@ -108,9 +108,9 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip )
 
    IF ::lText
-      ::xValue := iif( vari == Nil .OR. ValType( vari ) != "C", "", Trim( vari ) )
+      ::xValue := iif( vari == Nil .OR. ValType(vari) != "C", "", Trim(vari) )
    ELSE
-      ::xValue := iif( vari == Nil .OR. ValType( vari ) != "N", 1, vari )
+      ::xValue := iif( vari == Nil .OR. ValType(vari) != "N", 1, vari )
    ENDIF
    ::bSetGet := bSetGet
    ::aItems  := aItems
@@ -137,31 +137,31 @@ METHOD Init() CLASS HComboBox
       IF !Empty(::aItems)
          IF Empty(::xValue)
             IF ::lText
-               ::xValue := iif( ValType( ::aItems[1] ) == "A", ::aItems[1, 1], ::aItems[1] )
+               ::xValue := iif( ValType(::aItems[1]) == "A", ::aItems[1, 1], ::aItems[1] )
             ELSE
                ::xValue := 1
             ENDIF
          ENDIF
-         hwg_Sendmessage( ::handle, CB_RESETCONTENT, 0, 0 )
+         hwg_Sendmessage(::handle, CB_RESETCONTENT, 0, 0)
          FOR i := 1 TO Len(::aItems)
-            hwg_Comboaddstring( ::handle, iif( ValType(::aItems[i] ) == "A", ::aItems[i, 1], ::aItems[i] ) )
+            hwg_Comboaddstring(::handle, iif(ValType(::aItems[i] ) == "A", ::aItems[i, 1], ::aItems[i]))
          NEXT
          IF ::lText
 #ifdef __XHARBOUR__
-            i := Iif( ValType( ::aItems[1] ) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}) )
+            i := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}) )
 #else
-            i := Iif( ValType( ::aItems[1] ) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, , , .T.) )
+            i := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, , , .T.) )
 #endif
-            hwg_Combosetstring( ::handle, i )
+            hwg_Combosetstring(::handle, i)
          ELSE
-            hwg_Combosetstring( ::handle, ::xValue )
+            hwg_Combosetstring(::handle, ::xValue)
          ENDIF
       ENDIF
       IF !Empty(::nDisplay)
-         nHeightBox := hwg_Sendmessage( ::handle, CB_GETITEMHEIGHT, - 1, 0 )
-         nHeightItem := hwg_Sendmessage( ::handle, CB_GETITEMHEIGHT, - 1, 0 )
-         ::nHeight := nHeightBox + nHeightItem * ( ::nDisplay )
-         hwg_Movewindow( ::handle, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         nHeightBox := hwg_Sendmessage(::handle, CB_GETITEMHEIGHT, -1, 0)
+         nHeightItem := hwg_Sendmessage(::handle, CB_GETITEMHEIGHT, -1, 0)
+         ::nHeight := nHeightBox + nHeightItem * (::nDisplay)
+         hwg_Movewindow(::handle, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ENDIF
    ENDIF
 
@@ -176,28 +176,28 @@ METHOD Refresh( xVal ) CLASS HComboBox
       ELSEIF ::bSetGet != Nil
          vari := Eval(::bSetGet, , Self)
          IF ::lText
-            ::xValue := iif( vari == Nil .OR. ValType( vari ) != "C", "", Trim( vari ) )
+            ::xValue := iif( vari == Nil .OR. ValType(vari) != "C", "", Trim(vari) )
          ELSE
-            ::xValue := iif( vari == Nil .OR. ValType( vari ) != "N", 1, vari )
+            ::xValue := iif( vari == Nil .OR. ValType(vari) != "N", 1, vari )
          ENDIF
       ENDIF
 
-      hwg_Sendmessage( ::handle, CB_RESETCONTENT, 0, 0 )
+      hwg_Sendmessage(::handle, CB_RESETCONTENT, 0, 0)
 
       FOR i := 1 TO Len(::aItems)
-         hwg_Comboaddstring( ::handle, iif( ValType(::aItems[i] ) == "A", ::aItems[i, 1], ::aItems[i] ) )
+         hwg_Comboaddstring(::handle, iif(ValType(::aItems[i] ) == "A", ::aItems[i, 1], ::aItems[i]))
       NEXT
 
       IF ::lText
 #ifdef __XHARBOUR__
-         i := Iif( ValType( ::aItems[1] ) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}) )
+         i := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}) )
 #else
-         i := Iif( ValType( ::aItems[1] ) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, , , .T.) )
+         i := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, , , .T.) )
 #endif
-         hwg_Combosetstring( ::handle, i )
+         hwg_Combosetstring(::handle, i)
       ELSE
-         hwg_Combosetstring( ::handle, ::xValue )
-         ::SetItem( ::xValue )
+         hwg_Combosetstring(::handle, ::xValue)
+         ::SetItem(::xValue)
       ENDIF
    ENDIF
 
@@ -206,12 +206,12 @@ METHOD Refresh( xVal ) CLASS HComboBox
 METHOD SetItem( nPos ) CLASS HComboBox
 
    IF ::lText
-      ::xValue := iif( ValType( ::aItems[nPos] ) == "A", ::aItems[nPos, 1], ::aItems[nPos] )
+      ::xValue := iif( ValType(::aItems[nPos]) == "A", ::aItems[nPos, 1], ::aItems[nPos] )
    ELSE
       ::xValue := nPos
    ENDIF
 
-   hwg_Sendmessage( ::handle, CB_SETCURSEL, nPos - 1, 0 )
+   hwg_Sendmessage(::handle, CB_SETCURSEL, nPos - 1, 0)
 
    IF ::bSetGet != Nil
       Eval(::bSetGet, ::xValue, self)
@@ -223,16 +223,16 @@ METHOD SetItem( nPos ) CLASS HComboBox
 
    RETURN Nil
 
-METHOD GetValue( nItem ) CLASS HComboBox
+METHOD GetValue(nItem) CLASS HComboBox
    LOCAL nPos, l := .F.
 
    IF ::lEdit
       ::xValue := ::GetText()
    ELSE
-      nPos := hwg_Sendmessage( ::handle, CB_GETCURSEL, 0, 0 ) + 1
+      nPos := hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0) + 1
       IF nPos > 0 .AND. nPos <= Len(::aItems)
-         l := ValType( ::aItems[nPos] ) == "A"
-         ::xValue := Iif( ::lText, Iif( l, ::aItems[nPos, 1], ::aItems[nPos] ), nPos )
+         l := ValType(::aItems[nPos]) == "A"
+         ::xValue := Iif(::lText, Iif(l, ::aItems[nPos, 1], ::aItems[nPos]), nPos)
       ENDIF
    ENDIF
    IF ::bSetGet != Nil
@@ -244,11 +244,11 @@ METHOD GetValue( nItem ) CLASS HComboBox
 METHOD Value ( xValue ) CLASS HComboBox
 
    IF xValue != Nil
-      IF ValType( xValue ) == "C"
+      IF ValType(xValue) == "C"
 #ifdef __XHARBOUR__
-         xValue := Iif( ValType( ::aItems[1] ) == "A", AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}) )
+         xValue := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}) )
 #else
-         xValue := Iif( ValType( ::aItems[1] ) == "A", AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, , , .T.) )
+         xValue := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, , , .T.) )
 #endif
       ENDIF
       ::SetItem( xValue )

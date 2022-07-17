@@ -42,23 +42,21 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
             oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
             lWeekNumbers ) CLASS HMonthCalendar
 
-   nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP )
-   nStyle   += IIf( lNoToday == Nil.OR. !lNoToday, 0, MCS_NOTODAY )
-   nStyle   += IIf( lNoTodayCircle == Nil.OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE )
-   nStyle   += IIf( lWeekNumbers == Nil.OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-              ,, cTooltip )
+   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP)
+   nStyle += IIf(lNoToday == Nil .OR. !lNoToday, 0, MCS_NOTODAY)
+   nStyle += IIf(lNoTodayCircle == Nil .OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE)
+   nStyle += IIf(lWeekNumbers == Nil .OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS)
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, , , cTooltip)
 
-   ::dValue   := IIf( ValType( vari ) == "D" .And. !Empty(vari), vari, Date() )
+   ::dValue := IIf(ValType(vari) == "D" .And. !Empty(vari), vari, Date())
 
    ::bChange := bChange
 
    HWG_InitCommonControlsEx()
 
-
    IF bChange != Nil
-      ::oParent:AddEvent( MCN_SELECT, ::id, bChange, .T., "onChange" )
-      ::oParent:AddEvent( MCN_SELCHANGE, ::id, bChange, .T., "onChange" )
+      ::oParent:AddEvent(MCN_SELECT, ::id, bChange, .T., "onChange")
+      ::oParent:AddEvent(MCN_SELCHANGE, ::id, bChange, .T., "onChange")
    ENDIF
 
    ::Activate()
@@ -82,7 +80,7 @@ METHOD Init() CLASS HMonthCalendar
    IF !::lInit
       ::Super:Init()
       IF !Empty(::dValue)
-         hwg_setmonthcalendardate( ::handle , ::dValue )
+         hwg_setmonthcalendardate(::handle, ::dValue)
       ENDIF
    ENDIF
 
@@ -90,15 +88,15 @@ METHOD Init() CLASS HMonthCalendar
 
 //--------------------------------------------------------------------------//
 
-METHOD Value( dValue ) CLASS HMonthCalendar
+METHOD Value(dValue) CLASS HMonthCalendar
 
    IF dValue != Nil
-      IF ValType( dValue ) == "D" .And. !Empty(dValue)
-         hwg_setmonthcalendardate( ::handle, dValue )
+      IF ValType(dValue) == "D" .And. !Empty(dValue)
+         hwg_setmonthcalendardate(::handle, dValue)
          ::dValue := dValue
       ENDIF
    ELSE
-      ::dValue := hwg_getmonthcalendardate( ::handle )
+      ::dValue := hwg_getmonthcalendardate(::handle)
    ENDIF
    RETURN ::dValue
 

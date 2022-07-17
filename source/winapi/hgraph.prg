@@ -49,7 +49,7 @@ ENDCLASS
 METHOD New(oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor) CLASS HGraph
 
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont,, ;
-              bSize, { | o, lpdis | o:Paint( lpdis ) }, ctooltip, ;
+              bSize, { | o, lpdis | o:Paint(lpdis) }, ctooltip, ;
               IIf( tcolor == Nil, hwg_ColorC2N( "FFFFFF" ), tcolor ), IIf( bcolor == Nil, 0, bcolor ) )
 
    ::aValues := aValues
@@ -92,26 +92,26 @@ METHOD CalcMinMax() CLASS HGraph
       IF ::nType == 1
          FOR j := 1 TO nLen
             IF l1
-               ::ymax := Max( ::ymax, ::aValues[i, j] )
-               ::ymin := Min( ::ymin, ::aValues[i, j] )
+               ::ymax := Max(::ymax, ::aValues[i, j])
+               ::ymin := Min(::ymin, ::aValues[i, j])
             ELSE
-               ::xmax := Max( ::xmax, ::aValues[i, j, 1] )
-               ::xmin := Min( ::xmin, ::aValues[i, j, 1] )
-               ::ymax := Max( ::ymax, ::aValues[i, j, 2] )
-               ::ymin := Min( ::ymin, ::aValues[i, j, 2] )
+               ::xmax := Max(::xmax, ::aValues[i, j, 1])
+               ::xmin := Min(::xmin, ::aValues[i, j, 1])
+               ::ymax := Max(::ymax, ::aValues[i, j, 2])
+               ::ymin := Min(::ymin, ::aValues[i, j, 2])
             ENDIF
          NEXT
       ELSEIF ::nType == 2
          FOR j := 1 TO nLen
             IF l1
                IF ::aValues[i, j] != Nil
-                  ::ymax := Max( ::ymax, ::aValues[i, j] )
-                  ::ymin := Min( ::ymin, ::aValues[i, j] )
+                  ::ymax := Max(::ymax, ::aValues[i, j])
+                  ::ymin := Min(::ymin, ::aValues[i, j])
                ENDIF
             ELSE
                IF ::aValues[i, j, 2] != Nil
-                 ::ymax := Max( ::ymax, ::aValues[i, j, 2] )
-                 ::ymin := Min( ::ymin, ::aValues[i, j, 2] )
+                 ::ymax := Max(::ymax, ::aValues[i, j, 2])
+                 ::ymin := Min(::ymin, ::aValues[i, j, 2])
                ENDIF
             ENDIF
          NEXT
@@ -119,7 +119,7 @@ METHOD CalcMinMax() CLASS HGraph
       ELSEIF ::nType == 3
          FOR j := 1 TO nLen
             IF l1
-               ::ymax := Max( ::ymax, ::aValues[i, j] )
+               ::ymax := Max(::ymax, ::aValues[i, j])
             ELSE
                ::ymax += ::aValues[i, j, 2]
             ENDIF
@@ -132,7 +132,7 @@ METHOD CalcMinMax() CLASS HGraph
 
    RETURN Nil
 
-METHOD Paint( lpdis ) CLASS HGraph
+METHOD Paint(lpdis) CLASS HGraph
 
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
    LOCAL hDC := drawInfo[3]
@@ -153,8 +153,8 @@ METHOD Paint( lpdis ) CLASS HGraph
    y2 -= ::y2Def
 
    IF ::nType < 3
-      scaleX := ( ::xmax - ::xmin ) / ( x2 - x1 )
-      scaleY := ( ::ymax - ::ymin ) / ( y2 - y1 )
+      scaleX := (::xmax - ::xmin) / (x2 - x1)
+      scaleY := (::ymax - ::ymin) / (y2 - y1)
    ELSE
       scaleX := scaleY := 1
    ENDIF
@@ -172,39 +172,39 @@ METHOD Paint( lpdis ) CLASS HGraph
       NEXT
    ENDIF
    x0 := x1 + ( 0 - ::xmin ) / scaleX
-   y0 := Iif( ::lPositive, y2, y2 - ( 0 - ::ymin ) / scaleY )
+   y0 := Iif(::lPositive, y2, y2 - (0 - ::ymin) / scaleY)
 
-   hwg_Fillrect( hDC, 0, 0, ::nWidth, ::nHeight, ::brush:handle )
+   hwg_Fillrect(hDC, 0, 0, ::nWidth, ::nHeight, ::brush:handle)
    IF ::nType != 3
-      hwg_Selectobject( hDC, ::oPenGrid:handle )
-      hwg_Drawline( hDC, x0, 3, x0, ::nHeight - 3 )
-      hwg_Drawline( hDC, 3, y0, ::nWidth - 3, y0 )
+      hwg_Selectobject(hDC, ::oPenGrid:handle)
+      hwg_Drawline(hDC, x0, 3, x0, ::nHeight - 3)
+      hwg_Drawline(hDC, 3, y0, ::nWidth - 3, y0)
    ENDIF
 
    IF ::ymax != ::ymin .OR. ::ymax != 0
       FOR i := 1 TO ::nGraphs
          IF ::aPens == Nil .OR. i > Len(::aPens)
-            hwg_Selectobject( hDC, ::oPen:handle )
+            hwg_Selectobject(hDC, ::oPen:handle)
          ELSE
-            hwg_Selectobject( hDC, ::aPens[i]:handle )
+            hwg_Selectobject(hDC, ::aPens[i]:handle)
          ENDIF
          nLen := Len(::aValues[i])
          l1 := ( Valtype(::aValues[i, 1] ) == "N" )
          IF ::nType == 1
             FOR j := 2 TO nLen
-               px1 := Round( x1 + ( Iif( l1, j-1, ::aValues[i, j - 1, 1] ) - ::xmin ) / scaleX, 0 )
-               py1 := Round( y2 - ( Iif( l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2] ) - ::ymin ) / scaleY, 0 )
-               px2 := Round( x1 + ( Iif( l1, j, ::aValues[i, j, 1] ) - ::xmin ) / scaleX, 0 )
-               py2 := Round( y2 - ( Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) - ::ymin ) / scaleY, 0 )
+               px1 := Round(x1 + ( Iif( l1, j-1, ::aValues[i, j - 1, 1] ) - ::xmin ) / scaleX, 0)
+               py1 := Round(y2 - ( Iif( l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2] ) - ::ymin ) / scaleY, 0)
+               px2 := Round(x1 + ( Iif( l1, j, ::aValues[i, j, 1] ) - ::xmin ) / scaleX, 0)
+               py2 := Round(y2 - ( Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) - ::ymin ) / scaleY, 0)
                IF px2 != px1
                   IF ::nLineType == 0
-                     hwg_Rectangle( hDC, px1, py1, px1+::nPointSize-1, py1+::nPointSize-1 )
-                     hwg_Rectangle( hDC, px2, py2, px2+::nPointSize-1, py2+::nPointSize-1 )
+                     hwg_Rectangle(hDC, px1, py1, px1 + ::nPointSize - 1, py1 + ::nPointSize - 1)
+                     hwg_Rectangle(hDC, px2, py2, px2 + ::nPointSize - 1, py2 + ::nPointSize - 1)
                   ELSEIF ::nLineType == 1
-                     hwg_Drawline( hDC, px1, py1, px2, py2 )
+                     hwg_Drawline(hDC, px1, py1, px2, py2)
                   ELSEIF ::nLineType == 2
-                     hwg_Drawline( hDC, px1, y0, px1, py1 )
-                     hwg_Drawline( hDC, px2, y0, px2, py2 )
+                     hwg_Drawline(hDC, px1, y0, px1, py1)
+                     hwg_Drawline(hDC, px2, y0, px2, py2)
                   ENDIF
                ENDIF
             NEXT
@@ -212,39 +212,39 @@ METHOD Paint( lpdis ) CLASS HGraph
             IF ::tbrush == Nil
                ::tbrush := HBrush():Add(::tcolor)
             ENDIF
-            nWidth := Round( ( x2 - x1 ) / ( nLen ), 0 )
+            nWidth := Round(( x2 - x1 ) / ( nLen ), 0)
             FOR j := 1 TO nLen
                IF Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) != Nil
-                  px1 := Round( x1 + nWidth * ( j - 1 ) + 1, 0 )
-                  py1 := Round( y2 - 2 - ( Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) - ::ymin ) / scaleY, 0 )
-                  hwg_Fillrect( hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle )
+                  px1 := Round(x1 + nWidth * ( j - 1 ) + 1, 0)
+                  py1 := Round(y2 - 2 - ( Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) - ::ymin ) / scaleY, 0)
+                  hwg_Fillrect(hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle)
                ENDIF
             NEXT
          ELSEIF ::nType == 3
             IF ::tbrush == Nil
                ::tbrush := HBrush():Add(::tcolor)
             ENDIF
-            hwg_Selectobject( hDC, ::oPenGrid:handle )
-            hwg_Selectobject( hDC, ::tbrush:handle )
-            hwg_Pie( hDC, x1 + 10, y1 + 10, x2 - 10, y2 - 10, x1, Round( y1 + ( y2 - y1 ) / 2, 0 ), Round( x1 + ( x2 - x1 ) / 2, 0 ), y1 )
+            hwg_Selectobject(hDC, ::oPenGrid:handle)
+            hwg_Selectobject(hDC, ::tbrush:handle)
+            hwg_Pie(hDC, x1 + 10, y1 + 10, x2 - 10, y2 - 10, x1, Round(y1 + (y2 - y1) / 2, 0), Round(x1 + (x2 - x1) / 2, 0), y1)
          ENDIF
       NEXT
    ENDIF
 
-   hwg_Selectobject( hDC, ::oPenGrid:handle )
+   hwg_Selectobject(hDC, ::oPenGrid:handle)
    IF !Empty(::aSignY)
       IF ::oFont != Nil
-         hwg_Selectobject( hDC, ::oFont:handle )
+         hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
-      hwg_Settextcolor( hDC, ::colorCoor )
+      hwg_Settextcolor(hDC, ::colorCoor)
       FOR i := 1 TO Len(::aSignY)
-         py1 := Round( y2 - 2 - ( ::aSignY[i, 1] - ::ymin ) / scaleY, 0 )
+         py1 := Round(y2 - 2 - (::aSignY[i, 1] - ::ymin) / scaleY, 0)
          IF py1 > y1 .AND. py1 < y2
-            hwg_Drawline( hDC, x0-4, py1, x0+1, py1 )
+            hwg_Drawline(hDC, x0 - 4, py1, x0 + 1, py1)
             IF ::aSignY[i, 2] != Nil
                hwg_Drawtext(hDC, Iif(Valtype(::aSignY[i, 2]) == "C", ::aSignY[i, 2], Ltrim(Str(::aSignY[i, 2]))), 0, py1 - 8, x0 - 4, py1 + 8, DT_RIGHT)
                IF ::lGridY
-                  hwg_Drawline( hDC, x0+1, py1, x2, py1 )
+                  hwg_Drawline(hDC, x0 + 1, py1, x2, py1)
                ENDIF
             ENDIF
          ENDIF
@@ -252,16 +252,16 @@ METHOD Paint( lpdis ) CLASS HGraph
    ENDIF
    IF !Empty(::aSignX)
       IF ::oFont != Nil
-         hwg_Selectobject( hDC, ::oFont:handle )
+         hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
-      hwg_Settextcolor( hDC, ::colorCoor )
+      hwg_Settextcolor(hDC, ::colorCoor)
       FOR i := 1 TO Len(::aSignX)
-         px1 := Round( x1 + ( ::aSignX[i, 1] - ::xmin ) / scaleX + Iif( ::nType==2.AND.::lGridXMid,nWidth/2,0 ), 0 )
-         hwg_Drawline( hDC, px1, y0+4, px1, y0-1 )
+         px1 := Round(x1 + (::aSignX[i, 1] - ::xmin) / scaleX + Iif(::nType == 2 .AND. ::lGridXMid, nWidth / 2,0), 0)
+         hwg_Drawline(hDC, px1, y0 + 4, px1, y0 - 1)
          IF ::aSignX[i, 2] != Nil
             hwg_Drawtext(hDC, Iif(Valtype(::aSignX[i, 2]) == "C", ::aSignX[i, 2], Ltrim(Str(::aSignX[i, 2]))), px1 - 40, y0 + 4, px1 + 40, y0 + 20, DT_CENTER)
             IF ::lGridX
-               hwg_Drawline( hDC, px1, y0-1, px1, y1 )
+               hwg_Drawline(hDC, px1, y0 - 1, px1, y1)
             ENDIF
          ENDIF
       NEXT
@@ -284,6 +284,6 @@ METHOD Rebuild( aValues, nType, nLineType, nPointSize ) CLASS HGraph
    IF ::nType != 0
       ::CalcMinMax()
    ENDIF
-   hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW )
+   hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
 
    RETURN Nil

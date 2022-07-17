@@ -25,7 +25,7 @@ CLASS HCheckButton INHERIT HControl
    METHOD Refresh()
    METHOD Disable()
    METHOD Enable()
-   METHOD Value( lValue ) SETGET
+   METHOD Value(lValue) SETGET
 
 ENDCLASS
 
@@ -35,11 +35,11 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
-   nStyle   := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), BS_AUTO3STATE + WS_TABSTOP )
+   nStyle   := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::title   := cCaption
-   ::lValue   := iif( vari == Nil .OR. ValType( vari ) != "L", .F. , vari )
+   ::lValue   := iif( vari == Nil .OR. ValType(vari) != "L", .F. , vari )
    ::bSetGet := bSetGet
 
    ::Activate()
@@ -71,7 +71,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bC
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   ::lValue  := iif( vari == Nil .OR. ValType( vari ) != "L", .F. , vari )
+   ::lValue  := iif( vari == Nil .OR. ValType(vari) != "L", .F. , vari )
    ::bSetGet := bSetGet
 
    ::bClick := bClick
@@ -88,7 +88,7 @@ METHOD Init() CLASS HCheckButton
    IF !::lInit
       ::Super:Init()
       IF ::lValue
-         hwg_Sendmessage( ::handle, BM_SETCHECK, 1, 0 )
+         hwg_Sendmessage(::handle, BM_SETCHECK, 1, 0)
       ENDIF
    ENDIF
 
@@ -102,38 +102,38 @@ METHOD Refresh() CLASS HCheckButton
       ::lValue := iif( var == Nil, .F. , var )
    ENDIF
 
-   hwg_Sendmessage( ::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0 )
+   hwg_Sendmessage(::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0)
 
    RETURN Nil
 
 METHOD Disable() CLASS HCheckButton
 
    ::Super:Disable()
-   hwg_Sendmessage( ::handle, BM_SETCHECK, BST_INDETERMINATE, 0 )
+   hwg_Sendmessage(::handle, BM_SETCHECK, BST_INDETERMINATE, 0)
 
    RETURN Nil
 
 METHOD Enable() CLASS HCheckButton
 
    ::Super:Enable()
-   hwg_Sendmessage( ::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0 )
+   hwg_Sendmessage(::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0)
 
    RETURN Nil
 
-METHOD Value( lValue ) CLASS HCheckButton
+METHOD Value(lValue) CLASS HCheckButton
 
    IF lValue != Nil
-      IF ValType( lValue ) != "L"
+      IF ValType(lValue) != "L"
          lValue := .F.
       ENDIF
-      hwg_Sendmessage( ::handle, BM_SETCHECK, iif(lValue, 1, 0), 0 )
+      hwg_Sendmessage(::handle, BM_SETCHECK, iif(lValue, 1, 0), 0)
       IF ::bSetGet != NIL
          Eval(::bSetGet, lValue, Self)
       ENDIF
-      RETURN ( ::lValue := lValue )
+      RETURN (::lValue := lValue)
    ENDIF
 
-   RETURN ( ::lValue := ( hwg_Sendmessage( ::handle, BM_GETCHECK, 0, 0 ) == 1 ) )
+   RETURN (::lValue := (hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1))
 
 STATIC FUNCTION __Valid( oCtrl )
    LOCAL l := hwg_Sendmessage( oCtrl:handle, BM_GETCHECK, 0, 0 )

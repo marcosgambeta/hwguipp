@@ -45,7 +45,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
               cTooltip, lEnabled )
 
    ::hShade := hwg_Shade_new( 0, 0, nWidth, nHeight, lFlat )
-   hwg_Shade_set( ::hShade, shadeID, palette, granularity, highlight, coloring, shcolor )
+   hwg_Shade_set(::hShade, shadeID, palette, granularity, highlight, coloring, shcolor)
    RETURN Self
 
 METHOD Paint() CLASS HShadeButton
@@ -53,32 +53,30 @@ METHOD Paint() CLASS HShadeButton
    LOCAL nState
 
    pps := hwg_Definepaintstru()
-   hDC := hwg_Beginpaint( ::handle, pps )
+   hDC := hwg_Beginpaint(::handle, pps)
 
    IF ::state == OBTN_INIT
       ::state := OBTN_NORMAL
    ENDIF
 
    IF ::lEnabled
-      nState := IIf( ::state == OBTN_PRESSED, STATE_SELECTED, STATE_DEFAULT + ;
-                     IIf( ::state == OBTN_MOUSOVER, STATE_OVER, 0 ) ) + ;
-                IIf( hwg_Getfocus() == ::handle, STATE_FOCUS, 0 )
+      nState := IIf(::state == OBTN_PRESSED, STATE_SELECTED, STATE_DEFAULT + IIf(::state == OBTN_MOUSOVER, STATE_OVER, 0)) + IIf(hwg_Getfocus() == ::handle, STATE_FOCUS, 0)
    ELSE
       nState := STATE_DISABLED
    ENDIF
 
-   hwg_Shade_draw( ::hShade, hDC, nState )
+   hwg_Shade_draw(::hShade, hDC, nState)
 
-   ::DrawItems( hDC )
+   ::DrawItems(hDC)
 
-   hwg_Endpaint( ::handle, pps )
+   hwg_Endpaint(::handle, pps)
    RETURN Nil
 
 METHOD END() CLASS HShadeButton
 
    ::Super:END()
    IF !Empty(::hShade)
-      hwg_Shade_release( ::hShade )
+      hwg_Shade_release(::hShade)
       ::hShade := Nil
    ENDIF
    RETURN Nil

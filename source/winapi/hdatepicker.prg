@@ -35,10 +35,10 @@ ENDCLASS
 METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor ) CLASS HDatePicker
 
-   nStyle := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), WS_TABSTOP )
+   nStyle := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, , , ctooltip, tcolor, bcolor)
 
-   ::dValue  := iif( vari == Nil .OR. ValType( vari ) != "D", CToD( Space(8 ) ), vari )
+   ::dValue  := iif( vari == Nil .OR. ValType(vari) != "D", CToD( Space(8 ) ), vari )
    ::bSetGet := bSetGet
    ::bChange := bChange
 
@@ -75,9 +75,9 @@ METHOD Init() CLASS HDatePicker
    IF !::lInit
       ::Super:Init()
       IF Empty(::dValue)
-         hwg_Setdatepickernull( ::handle )
+         hwg_Setdatepickernull(::handle)
       ELSE
-         hwg_Setdatepicker( ::handle, ::dValue )
+         hwg_Setdatepicker(::handle, ::dValue)
       ENDIF
    ENDIF
 
@@ -90,25 +90,25 @@ METHOD Refresh() CLASS HDatePicker
    ENDIF
 
    IF Empty(::dValue)
-      hwg_Setdatepickernull( ::handle )
+      hwg_Setdatepickernull(::handle)
    ELSE
-      hwg_Setdatepicker( ::handle, ::dValue )
+      hwg_Setdatepicker(::handle, ::dValue)
    ENDIF
 
    RETURN Nil
 
-METHOD Value( dValue ) CLASS HDatePicker
+METHOD Value(dValue) CLASS HDatePicker
 
    IF dValue != Nil
-      IF ValType( dValue ) == "D"
-         hwg_Setdatepicker( ::handle, dValue )
+      IF ValType(dValue) == "D"
+         hwg_Setdatepicker(::handle, dValue)
          ::dValue := dValue
          IF ::bSetGet != Nil
             Eval(::bSetGet, dValue, Self)
          ENDIF
       ENDIF
    ELSE
-      ::dValue := hwg_Getdatepicker( ::handle )
+      ::dValue := hwg_Getdatepicker(::handle)
    ENDIF
 
    RETURN ::dValue

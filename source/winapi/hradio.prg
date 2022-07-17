@@ -22,8 +22,8 @@ CLASS HRadioGroup INHERIT HObject
    METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, tcolor, bColor )
    METHOD EndGroup( nSelected )
-   METHOD Value( nValue ) SETGET
-   METHOD Refresh()   INLINE iif( ::bSetGet != Nil, ::Value := Eval(::bSetGet ), .T. )
+   METHOD Value(nValue) SETGET
+   METHOD Refresh()   INLINE iif(::bSetGet != Nil, ::Value := Eval(::bSetGet), .T.)
 
 ENDCLASS
 
@@ -33,7 +33,7 @@ METHOD New( vari, bSetGet ) CLASS HRadioGroup
    ::aButtons := {}
 
    IF vari != Nil
-      IF ValType( vari ) == "N"
+      IF ValType(vari) == "N"
          ::nValue := vari
       ENDIF
       ::bSetGet := bSetGet
@@ -51,7 +51,7 @@ METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeig
          oFont, bInit, bSize, , tcolor, bColor )
 
    IF vari != NIL
-      IF Valtype( vari ) == "N"
+      IF Valtype(vari) == "N"
          ::nValue := vari
       ENDIF
       ::bSetGet := bSetGet
@@ -68,16 +68,13 @@ METHOD EndGroup( nSelected )  CLASS HRadioGroup
          nSelected, ::oGroupCurrent:nValue )
       IF nSelected != 0 .AND. nSelected <= nlen
          IF !Empty(::oGroupCurrent:aButtons[nlen]:handle)
-            hwg_Checkradiobutton( ::oGroupCurrent:aButtons[nlen]:oParent:handle, ;
-               ::oGroupCurrent:aButtons[1]:id,    ;
-               ::oGroupCurrent:aButtons[nLen]:id, ;
-               ::oGroupCurrent:aButtons[nSelected]:id )
+            hwg_Checkradiobutton(::oGroupCurrent:aButtons[nlen]:oParent:handle, ::oGroupCurrent:aButtons[1]:id, ;
+               ::oGroupCurrent:aButtons[nLen]:id, ::oGroupCurrent:aButtons[nSelected]:id)
          ELSE
-            ::oGroupCurrent:aButtons[nLen]:bInit :=                      ;
-               &( "{|o|hwg_Checkradiobutton(o:oParent:handle," +         ;
-               LTrim( Str( ::oGroupCurrent:aButtons[1]:id ) ) + "," +    ;
-               LTrim( Str( ::oGroupCurrent:aButtons[nLen]:id ) ) + "," + ;
-               LTrim( Str( ::oGroupCurrent:aButtons[nSelected]:id ) ) + ")}" )
+            ::oGroupCurrent:aButtons[nLen]:bInit := &("{|o|hwg_Checkradiobutton(o:oParent:handle," + ;
+               LTrim(Str(::oGroupCurrent:aButtons[1]:id)) + "," + ;
+               LTrim(Str(::oGroupCurrent:aButtons[nLen]:id)) + "," + ;
+               LTrim(Str(::oGroupCurrent:aButtons[nSelected]:id)) + ")}")
          ENDIF
       ENDIF
    ENDIF
@@ -85,15 +82,12 @@ METHOD EndGroup( nSelected )  CLASS HRadioGroup
 
    RETURN Nil
 
-METHOD Value( nValue ) CLASS HRadioGroup
+METHOD Value(nValue) CLASS HRadioGroup
    LOCAL nLen
 
    IF nValue != Nil
       IF ( nLen := Len(::aButtons) ) > 0 .AND. nValue > 0 .AND. nValue <= nLen
-         hwg_Checkradiobutton( ::aButtons[nlen]:oParent:handle, ;
-            ::aButtons[1]:id,    ;
-            ::aButtons[nLen]:id, ;
-            ::aButtons[nValue]:id )
+         hwg_Checkradiobutton(::aButtons[nlen]:oParent:handle, ::aButtons[1]:id, ::aButtons[nLen]:id, ::aButtons[nValue]:id)
          ::nValue := nValue
          IF ::bSetGet != NIL
             Eval(::bSetGet, nValue, Self)
@@ -113,7 +107,7 @@ CLASS HRadioButton INHERIT HControl
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp )
    METHOD Activate()
    METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor )
-   METHOD Value( lValue ) SETGET
+   METHOD Value(lValue) SETGET
 
 ENDCLASS
 
@@ -127,16 +121,15 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
-   ::style   := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), BS_AUTORADIOBUTTON + ;
-      WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
-      iif( ::oGroup != Nil .AND. Empty(::oGroup:aButtons), WS_GROUP, 0 ) )
+   ::style   := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
+      iif(::oGroup != Nil .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
    ::oFont   := oFont
    ::nLeft   := nLeft
    ::nTop    := nTop
    ::nWidth  := nWidth
    ::nHeight := nHeight
    ::bInit   := bInit
-   IF ValType( bSize ) == "N"
+   IF ValType(bSize) == "N"
       ::Anchor := bSize
    ELSE
       ::bSize  := bSize
@@ -155,7 +148,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::bClick := bClick
    ::Activate()
    ::oParent:AddControl( Self )
-   IF bClick != Nil .AND. ( ::oGroup == Nil .OR. ::oGroup:bSetGet == Nil )
+   IF bClick != Nil .AND. (::oGroup == Nil .OR. ::oGroup:bSetGet == Nil)
       ::oParent:AddEvent( 0, ::id, {|o,id| onClick(o,id)} )
    ENDIF
    IF ::oGroup != Nil
@@ -168,8 +161,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 METHOD Activate() CLASS HRadioButton
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
 
@@ -184,7 +176,7 @@ METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip,
    ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    ::oFont   := oFont
    ::bInit   := bInit
-   IF ValType( bSize ) == "N"
+   IF ValType(bSize) == "N"
       ::Anchor := bSize
    ELSE
       ::bSize  := bSize
@@ -202,7 +194,7 @@ METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip,
 
    ::bClick := bClick
    ::oParent:AddControl( Self )
-   IF bClick != Nil .AND. ( ::oGroup == Nil .OR. ::oGroup:bSetGet == Nil )
+   IF bClick != Nil .AND. (::oGroup == Nil .OR. ::oGroup:bSetGet == Nil)
       ::oParent:AddEvent( 0, ::id, {|o,id| onClick(o,id)} )
    ENDIF
    IF ::oGroup != Nil
@@ -212,11 +204,11 @@ METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip,
 
    RETURN Self
 
-METHOD Value( lValue ) CLASS HRadioButton
+METHOD Value(lValue) CLASS HRadioButton
    IF lValue != Nil
-      hwg_Sendmessage( ::handle, BM_SETCHECK, Iif(lValue,BST_CHECKED,BST_UNCHECKED), 0 )
+      hwg_Sendmessage(::handle, BM_SETCHECK, Iif(lValue, BST_CHECKED, BST_UNCHECKED), 0)
    ENDIF
-   RETURN ( hwg_Sendmessage( ::handle,BM_GETCHECK,0,0 ) == 1 )
+   RETURN (hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1)
 
 STATIC FUNCTION __Valid( oCtrl )
 

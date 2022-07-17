@@ -22,7 +22,7 @@ CLASS HTimer INHERIT HObject
    DATA bAction
    /*
    ACCESS Interval     INLINE ::value
-   ASSIGN Interval(x)  INLINE ::value := x, Iif( x == 0, ::End(), hwg_SetTimer( ::oParent:handle,::id,x ) )
+   ASSIGN Interval(x)  INLINE ::value := x, Iif( x == 0, ::End(), hwg_SetTimer(::oParent:handle, ::id, x) )
    */
    METHOD Interval(n) SETGET
    METHOD New( oParent, nId, value, bAction, lOnce )
@@ -38,7 +38,7 @@ METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
    ::bAction := bAction
    ::lOnce := !Empty(lOnce)
 
-   hwg_Settimer( ::oParent:handle, ::id, ::value )
+   hwg_Settimer(::oParent:handle, ::id, ::value)
    AAdd(::aTimers, Self)
 
    RETURN Self
@@ -51,7 +51,7 @@ METHOD Interval(n) CLASS HTimer
       IF n == 0
          ::End()
       ELSE
-         hwg_SetTimer( ::oParent:handle, ::id, ::value := n )
+         hwg_SetTimer(::oParent:handle, ::id, ::value := n)
       ENDIF
    ENDIF
 
@@ -60,7 +60,7 @@ METHOD Interval(n) CLASS HTimer
 METHOD End() CLASS HTimer
    LOCAL i
 
-   hwg_Killtimer( ::oParent:handle, ::id )
+   hwg_Killtimer(::oParent:handle, ::id)
    i := Ascan(::aTimers, {|o|o:id == ::id})
    IF i != 0
       ADel(::aTimers, i)

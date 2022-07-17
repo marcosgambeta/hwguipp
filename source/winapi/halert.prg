@@ -297,7 +297,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
    LOCAL nDialogWidth
 
    // We can't do more than one non-modal alert
-   IF ::oDlg != Nil .and. !::Modal
+   IF ::oDlg != Nil .AND. !::Modal
       RETURN 0
    ENDIF
 

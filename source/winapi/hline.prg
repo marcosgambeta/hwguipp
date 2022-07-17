@@ -19,7 +19,7 @@ CLASS HLine INHERIT HControl
 
    METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize )
    METHOD Activate()
-   METHOD Paint( lpdis )
+   METHOD Paint(lpdis)
 
 ENDCLASS
 
@@ -53,26 +53,26 @@ METHOD Activate() CLASS HLine
 
    RETURN NIL
 
-METHOD Paint( lpdis ) CLASS HLine
+METHOD Paint(lpdis) CLASS HLine
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
    LOCAL hDC := drawInfo[3]
    LOCAL x1  := drawInfo[4], y1 := drawInfo[5]
    LOCAL x2  := drawInfo[6], y2 := drawInfo[7]
 
-   hwg_Selectobject( hDC, ::oPenLight:handle )
+   hwg_Selectobject(hDC, ::oPenLight:handle)
    IF ::lVert
-      // hwg_Drawedge( hDC,x1,y1,x1+2,y2,EDGE_SUNKEN,BF_RIGHT )
-      hwg_Drawline( hDC, x1 + 1, y1, x1 + 1, y2 )
+      // hwg_Drawedge(hDC, x1, y1, x1 + 2, y2, EDGE_SUNKEN, BF_RIGHT)
+      hwg_Drawline(hDC, x1 + 1, y1, x1 + 1, y2)
    ELSE
-      // hwg_Drawedge( hDC,x1,y1,x2,y1+2,EDGE_SUNKEN,BF_RIGHT )
-      hwg_Drawline( hDC, x1 , y1 + 1, x2, y1 + 1 )
+      // hwg_Drawedge(hDC, x1, y1, x2, y1 + 2, EDGE_SUNKEN, BF_RIGHT)
+      hwg_Drawline(hDC, x1, y1 + 1, x2, y1 + 1)
    ENDIF
 
-   hwg_Selectobject( hDC, ::oPenGray:handle )
+   hwg_Selectobject(hDC, ::oPenGray:handle)
    IF ::lVert
-      hwg_Drawline( hDC, x1, y1, x1, y2 )
+      hwg_Drawline(hDC, x1, y1, x1, y2)
    ELSE
-      hwg_Drawline( hDC, x1, y1, x2, y1 )
+      hwg_Drawline(hDC, x1, y1, x2, y1)
    ENDIF
 
    RETURN NIL

@@ -33,7 +33,7 @@ METHOD Add(nColor, nHatch) CLASS HBrush
    FOR EACH i IN ::aBrushes
 
       IF i:color == nColor .AND. i:nHatch == nHatch
-         i:nCounter ++
+         i:nCounter++
          RETURN i
       ENDIF
    NEXT
@@ -51,12 +51,12 @@ METHOD Add(nColor, nHatch) CLASS HBrush
 METHOD RELEASE() CLASS HBrush
    LOCAL i, nlen := Len(::aBrushes)
 
-   ::nCounter --
+   ::nCounter--
    IF ::nCounter == 0
 #ifdef __XHARBOUR__
       FOR EACH i IN ::aBrushes
          IF i:handle == ::handle
-            hwg_Deleteobject( ::handle )
+            hwg_Deleteobject(::handle)
             ADel(::aBrushes, hb_enumindex())
             ASize(::aBrushes, nlen - 1)
             EXIT
@@ -65,7 +65,7 @@ METHOD RELEASE() CLASS HBrush
 #else
       FOR i := 1 TO nlen
          IF ::aBrushes[i]:handle == ::handle
-            hwg_Deleteobject( ::handle )
+            hwg_Deleteobject(::handle)
             ADel(::aBrushes, i)
             ASize(::aBrushes, nlen - 1)
             EXIT

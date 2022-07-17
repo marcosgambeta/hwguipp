@@ -68,21 +68,21 @@ METHOD InitBrw()  CLASS HBrwFlt
    IF ::lFilter
       ::nLastRecordFilter  := ::nFirstRecordFilter := 0
       IF ::lDescend
-         ::bSkip     := { |o, n| ( ::alias ) -> ( FltSkip( o, n, .T. ) ) }
-         ::bGoTop    := { |o| ( ::alias ) -> ( FltGoBottom( o ) ) }
-         ::bGoBot    := { |o| ( ::alias ) -> ( FltGoTop( o ) ) }
-         ::bEof      := { |o| ( ::alias ) -> ( FltBOF( o ) ) }
-         ::bBof      := { |o| ( ::alias ) -> ( FltEOF( o ) ) }
+         ::bSkip     := { |o, n| (::alias) -> ( FltSkip( o, n, .T. ) ) }
+         ::bGoTop    := { |o| (::alias) -> ( FltGoBottom( o ) ) }
+         ::bGoBot    := { |o| (::alias) -> ( FltGoTop( o ) ) }
+         ::bEof      := { |o| (::alias) -> ( FltBOF( o ) ) }
+         ::bBof      := { |o| (::alias) -> ( FltEOF( o ) ) }
       ELSE
-         ::bSkip     := { |o, n| ( ::alias ) -> ( FltSkip( o, n, .F. ) ) }
-         ::bGoTop    := { |o| ( ::alias ) -> ( FltGoTop( o ) ) }
-         ::bGoBot    := { |o| ( ::alias ) -> ( FltGoBottom( o ) ) }
-         ::bEof      := { |o| ( ::alias ) -> ( FltEOF( o ) ) }
-         ::bBof      := { |o| ( ::alias ) -> ( FltBOF( o ) ) }
+         ::bSkip     := { |o, n| (::alias) -> ( FltSkip( o, n, .F. ) ) }
+         ::bGoTop    := { |o| (::alias) -> ( FltGoTop( o ) ) }
+         ::bGoBot    := { |o| (::alias) -> ( FltGoBottom( o ) ) }
+         ::bEof      := { |o| (::alias) -> ( FltEOF( o ) ) }
+         ::bBof      := { |o| (::alias) -> ( FltBOF( o ) ) }
       ENDIF
-      ::bRcou     := { |o| ( ::alias ) -> ( FltRecCount( o ) ) }
-      ::bRecnoLog := ::bRecno := { |o| ( ::alias ) -> ( FltRecNo( o ) ) }
-      ::bGoTo     := { |o, n|( ::alias ) -> ( FltGoTo( o, n ) ) }
+      ::bRcou     := { |o| (::alias) -> ( FltRecCount( o ) ) }
+      ::bRecnoLog := ::bRecno := { |o| (::alias) -> ( FltRecNo( o ) ) }
+      ::bGoTo     := { |o, n|(::alias) -> ( FltGoTo( o, n ) ) }
    ENDIF
 
    RETURN Nil
@@ -233,7 +233,7 @@ STATIC FUNCTION FltRecCount( oBrw )
    FltGoTop( oBrw )
    WHILE !Eof() .AND. Eval(oBrw:bWhile)
       IF Eval(oBrw:bFor)
-         nCount ++
+         nCount++
       ENDIF
       dbSkip()
    ENDDO

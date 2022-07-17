@@ -25,7 +25,7 @@ CLASS HIPedit INHERIT HControl
    METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bGetFocus, bKillFocus)
    METHOD Activate()
    METHOD Init()
-   METHOD Value( aValue ) SETGET
+   METHOD Value(aValue) SETGET
    METHOD Clear()
    METHOD END()
 
@@ -36,7 +36,7 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bGetFocus, bKillFocus) CLASS HIPedit
 
-   nStyle   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP )
+   nStyle   := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP)
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont )
 
    ::title   := ""
@@ -74,28 +74,28 @@ METHOD Init() CLASS HIPedit
 
    IF !::lInit
       ::Super:Init()
-      hwg_Setipaddress( ::handle , ::aValue[1], ::aValue[2], ::aValue[3], ::aValue[4] )
+      hwg_Setipaddress(::handle, ::aValue[1], ::aValue[2], ::aValue[3], ::aValue[4])
       ::lInit := .T.
    ENDIF
 
    RETURN Nil
 
-METHOD Value( aValue ) CLASS HIPedit
+METHOD Value(aValue) CLASS HIPedit
 
    IF aValue != Nil
-      hwg_Setipaddress( ::handle , aValue[1], aValue[2], aValue[3], aValue[4] )
+      hwg_Setipaddress(::handle, aValue[1], aValue[2], aValue[3], aValue[4])
       ::aValue := aValue
    ELSE
-      ::aValue := hwg_Getipaddress( ::handle )
+      ::aValue := hwg_Getipaddress(::handle)
    ENDIF
 
    RETURN ::aValue
 
 
 METHOD Clear() CLASS HIPedit
-   hwg_Clearipaddress( ::handle )
+   hwg_Clearipaddress(::handle)
    ::aValue := { 0, 0, 0, 0 }
-   RETURN ( ::aValue )
+   RETURN (::aValue)
 
 
 METHOD END() CLASS HIPedit
@@ -109,7 +109,7 @@ METHOD END() CLASS HIPedit
 STATIC FUNCTION __GetFocus( oCtrl )
    LOCAL xRet
 
-   IF ValType( oCtrl:bGetFocus ) == "B"
+   IF ValType(oCtrl:bGetFocus) == "B"
       xRet := Eval(oCtrl:bGetFocus, oCtrl)
    ENDIF
 
@@ -119,7 +119,7 @@ STATIC FUNCTION __GetFocus( oCtrl )
 STATIC FUNCTION __KillFocus( oCtrl )
    LOCAL xRet
 
-   IF ValType( oCtrl:bKillFocus ) == "B"
+   IF ValType(oCtrl:bKillFocus) == "B"
       xRet := Eval(oCtrl:bKillFocus, oCtrl)
    ENDIF
 

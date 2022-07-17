@@ -37,8 +37,8 @@ CLASS HTrackBar INHERIT HControl
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
-   METHOD Value( nValue ) SETGET
-   METHOD GetNumTics()  INLINE hwg_Sendmessage( ::handle, TBM_GETNUMTICS, 0, 0 )
+   METHOD Value(nValue) SETGET
+   METHOD GetNumTics()  INLINE hwg_Sendmessage(::handle, TBM_GETNUMTICS, 0, 0)
 
 ENDCLASS
 
@@ -53,9 +53,9 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,;
       TickMarks := 0
    ENDIF
    IF bPaint != NIL
-      TickStyle := Hwg_BitOr( TickStyle, TBS_AUTOTICKS )
+      TickStyle := Hwg_BitOr(TickStyle, TBS_AUTOTICKS)
    ENDIF
-   nstyle   := Hwg_BitOr( IIF( nStyle==NIL, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP )
+   nstyle   := Hwg_BitOr(IIF(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
    nstyle   += IIF( lVertical != NIL .AND. lVertical, TBS_VERT, 0 )
    nstyle   += TickStyle + TickMarks
 
@@ -91,12 +91,12 @@ LOCAL aCoors
 
    ELSEIF msg == WM_MOUSEMOVE
       IF ::hCursor != NIL
-         Hwg_SetCursor( ::hCursor )
+         Hwg_SetCursor(::hCursor)
       ENDIF
 
    ELSEIF msg == WM_ERASEBKGND
       IF ::brush != NIL
-         aCoors := hwg_Getclientrect( ::handle )
+         aCoors := hwg_Getclientrect(::handle)
          hwg_Fillrect( wParam, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, ::brush:handle )
          RETURN 1
       ENDIF
@@ -115,27 +115,27 @@ METHOD Init() CLASS HTrackBar
 
    IF !::lInit
       ::Super:Init()
-      hwg_trackbarsetrange( ::handle, ::nLow, ::nHigh )
-      hwg_Sendmessage( ::handle, TBM_SETPOS, 1, ::nValue )
+      hwg_trackbarsetrange(::handle, ::nLow, ::nHigh)
+      hwg_Sendmessage(::handle, TBM_SETPOS, 1, ::nValue)
 
       IF ::bPaint != NIL
          ::nHolder := 1
-         hwg_Setwindowobject( ::handle, Self )
-         Hwg_InitTrackProc( ::handle )
+         hwg_Setwindowobject(::handle, Self)
+         Hwg_InitTrackProc(::handle)
       ENDIF
    ENDIF
 
    RETURN NIL
 
-METHOD Value( nValue ) CLASS HTrackBar
+METHOD Value(nValue) CLASS HTrackBar
 
    IF nValue != Nil
-      IF Valtype( nValue ) == "N"
-         hwg_Sendmessage( ::handle, TBM_SETPOS, 1, nValue )
+      IF Valtype(nValue) == "N"
+         hwg_Sendmessage(::handle, TBM_SETPOS, 1, nValue)
          ::nValue := nValue
       ENDIF
    ELSE
-      ::nValue := hwg_Sendmessage( ::handle, TBM_GETPOS, 0, 0 )
+      ::nValue := hwg_Sendmessage(::handle, TBM_GETPOS, 0, 0)
    ENDIF
 
    RETURN ::nValue

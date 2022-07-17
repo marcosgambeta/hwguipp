@@ -24,7 +24,7 @@ CLASS HStyle INHERIT HObject
    DATA aCorners
 
    METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap )
-   METHOD Draw( hDC, nLeft, nTop, nRight, nBottom )
+   METHOD Draw(hDC, nLeft, nTop, nRight, nBottom)
 ENDCLASS
 
 METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
@@ -36,15 +36,14 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
    nOrient := Iif( nOrient == Nil .OR. nOrient > 9, 1, nOrient )
 
    FOR i := 1 TO nlen
-      IF hwg_aCompare( ::aStyles[i]:aColors, aColors ) .AND. ;
-         hwg_aCompare( ::aStyles[i]:aCorners, aCorners ) .AND. ;
+      IF hwg_aCompare(::aStyles[i]:aColors, aColors) .AND. ;
+         hwg_aCompare(::aStyles[i]:aCorners, aCorners) .AND. ;
          Valtype(::aStyles[i]:tColor) == Valtype(tColor) .AND. ;
          ::aStyles[i]:nBorder == nBorder .AND. ;
          ::aStyles[i]:tColor == tColor .AND. ;
          ::aStyles[i]:nOrient == nOrient .AND. ;
-         ( ( ::aStyles[i]:oBitmap == Nil .AND. oBitmap == Nil ) .OR. ;
-         ( ::aStyles[i]:oBitmap != Nil .AND. oBitmap != Nil .AND. ::aStyles[i]:oBitmap:name == oBitmap:name ) )
-
+         ((::aStyles[i]:oBitmap == Nil .AND. oBitmap == Nil) .OR. ;
+         (::aStyles[i]:oBitmap != Nil .AND. oBitmap != Nil .AND. ::aStyles[i]:oBitmap:name == oBitmap:name))
          RETURN ::aStyles[i]
       ENDIF
    NEXT
@@ -64,22 +63,22 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
 
    RETURN Self
 
-METHOD Draw( hDC, nLeft, nTop, nRight, nBottom ) CLASS HStyle
+METHOD Draw(hDC, nLeft, nTop, nRight, nBottom) CLASS HStyle
 
    LOCAL n1, n2
    IF ::oBitmap == Nil
-      hwg_drawGradient( hDC, nLeft, nTop, nRight, nBottom, ::nOrient, ::aColors,, ::aCorners )
+      hwg_drawGradient(hDC, nLeft, nTop, nRight, nBottom, ::nOrient, ::aColors, , ::aCorners)
    ELSE
-      hwg_SpreadBitmap( hDC, ::oBitmap:handle, nLeft, nTop, nRight, nBottom )
+      hwg_SpreadBitmap(hDC, ::oBitmap:handle, nLeft, nTop, nRight, nBottom)
    ENDIF
    IF !Empty(::oPen)
       n2 := ::nBorder/2
-      n1 := Int( n2 )
+      n1 := Int(n2)
       IF n2 - n1 > 0.1
          n2 := n1 + 1
       ENDIF
-      hwg_Selectobject( hDC, ::oPen:handle )
-      hwg_Rectangle( hDC, nLeft+n1, nTop+n1, nRight-n2, nBottom-n2 )
+      hwg_Selectobject(hDC, ::oPen:handle)
+      hwg_Rectangle(hDC, nLeft + n1, nTop + n1, nRight - n2, nBottom - n2)
    ENDIF
 
    RETURN Nil

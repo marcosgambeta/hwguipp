@@ -27,7 +27,7 @@ CLASS VAR aImages   INIT { }
    METHOD AddFile( name )
    METHOD AddFromVar( cImage, cType )
    METHOD FromBitmap( oBitmap )
-   METHOD Draw( hDC, nLeft, nTop, nWidth, nHeight )
+   METHOD Draw(hDC, nLeft, nTop, nWidth, nHeight)
    METHOD Release()
 
 ENDCLASS
@@ -38,14 +38,14 @@ METHOD AddFile( name ) CLASS HFreeImage
    #ifdef __XHARBOUR__
       FOR EACH i IN ::aImages
          IF i:name == name
-            i:nCounter ++
+            i:nCounter++
             RETURN i
          ENDIF
       NEXT
    #else
       FOR i := 1 TO Len(::aImages)
          IF ::aImages[i]:name == name
-            ::aImages[i]:nCounter ++
+            ::aImages[i]:nCounter++
             RETURN ::aImages[i]
          ENDIF
       NEXT
@@ -54,8 +54,8 @@ METHOD AddFile( name ) CLASS HFreeImage
       RETURN Nil
    ENDIF
    ::name := name
-   ::nWidth  := hwg_Fi_getwidth( ::handle )
-   ::nHeight := hwg_Fi_getheight( ::handle )
+   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
    RETURN Self
@@ -65,9 +65,9 @@ METHOD AddFromVar( cImage, cType ) CLASS HFreeImage
    IF Empty(::handle := hwg_Fi_loadfrommem(cImage, cType))
       RETURN Nil
    ENDIF
-   ::name := LTrim( Str( ::handle ) )
-   ::nWidth  := hwg_Fi_getwidth( ::handle )
-   ::nHeight := hwg_Fi_getheight( ::handle )
+   ::name := LTrim(Str(::handle))
+   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
    RETURN Self
@@ -75,30 +75,30 @@ METHOD AddFromVar( cImage, cType ) CLASS HFreeImage
 METHOD FromBitmap( oBitmap ) CLASS HFreeImage
 
    ::handle := hwg_Fi_bmp2fi( oBitmap:handle )
-   ::name := LTrim( Str( oBitmap:handle ) )
-   ::nWidth  := hwg_Fi_getwidth( ::handle )
-   ::nHeight := hwg_Fi_getheight( ::handle )
+   ::name := LTrim(Str(oBitmap:handle))
+   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
    RETURN Self
 
-METHOD Draw( hDC, nLeft, nTop, nWidth, nHeight ) CLASS HFreeImage
+METHOD Draw(hDC, nLeft, nTop, nWidth, nHeight) CLASS HFreeImage
 
-   hwg_Fi_draw( ::handle, hDC, ::nWidth, ::nHeight, nLeft, nTop, nWidth, nHeight )
-   // hwg_Drawbitmap( hDC, ::hBitmap,, nLeft, nTop, ::nWidth, ::nHeight )
+   hwg_Fi_draw(::handle, hDC, ::nWidth, ::nHeight, nLeft, nTop, nWidth, nHeight)
+   // hwg_Drawbitmap(hDC, ::hBitmap,, nLeft, nTop, ::nWidth, ::nHeight)
    RETURN Nil
 
 METHOD Release() CLASS HFreeImage
    LOCAL i, nlen := Len(::aImages)
 
-   ::nCounter --
+   ::nCounter--
    IF ::nCounter == 0
       #ifdef __XHARBOUR__
          FOR EACH i IN ::aImages
             IF i:handle == ::handle
-               hwg_Fi_unload( ::handle )
+               hwg_Fi_unload(::handle)
                IF ::hBitmap != Nil
-                  hwg_Deleteobject( ::hBitmap )
+                  hwg_Deleteobject(::hBitmap)
                ENDIF
                ADel(::aImages, hB_enumIndex())
                ASize(::aImages, nlen - 1)
@@ -108,9 +108,9 @@ METHOD Release() CLASS HFreeImage
       #else
          FOR i := 1 TO nlen
             IF ::aImages[i]:handle == ::handle
-               hwg_Fi_unload( ::handle )
+               hwg_Fi_unload(::handle)
                IF ::hBitmap != Nil
-                  hwg_Deleteobject( ::hBitmap )
+                  hwg_Deleteobject(::hBitmap)
                ENDIF
                ADel(::aImages, i)
                ASize(::aImages, nlen - 1)
@@ -132,8 +132,8 @@ CLASS HSayFImage INHERIT HSayImage
    METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, ctooltip, cType)
    METHOD Redefine( oWndParent, nId, Image, bInit, bSize, ctooltip )
    METHOD ReplaceImage( Image, cType )
-   METHOD Paint( lpdis )
-   METHOD Refresh() INLINE hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_UPDATENOW )   
+   METHOD Paint(lpdis)
+   METHOD Refresh() INLINE hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_UPDATENOW)
 
 ENDCLASS
 
@@ -149,7 +149,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, c
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip )
    // ::classname:= "HSAYFIMAGE"
 
-   ::bPaint  := { | o, lpdis | o:Paint( lpdis ) }
+   ::bPaint  := { | o, lpdis | o:Paint(lpdis) }
 
    ::Activate()
 
@@ -157,12 +157,12 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, c
 
 METHOD Redefine( oWndParent, nId, Image, bInit, bSize, ctooltip ) CLASS HSayFImage
 
-   ::oImage := IIf( ValType( Image ) == "C", HFreeImage():AddFile( Image ), Image )
+   ::oImage := IIf( ValType(Image) == "C", HFreeImage():AddFile( Image ), Image )
 
    ::Super:Redefine( oWndParent, nId, bInit, bSize, ctooltip )
    // ::classname:= "HSAYFIMAGE"
 
-   ::bPaint  := { | o, lpdis | o:Paint( lpdis ) }
+   ::bPaint  := { | o, lpdis | o:Paint(lpdis) }
 
    RETURN Self
 
@@ -175,15 +175,15 @@ METHOD ReplaceImage( Image, cType )
 
    RETURN Nil
 
-METHOD Paint( lpdis ) CLASS HSayFImage
+METHOD Paint(lpdis) CLASS HSayFImage
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
    LOCAL hDC := drawInfo[3] // , x1 := drawInfo[4], y1 := drawInfo[5], x2 := drawInfo[6], y2 := drawInfo[7]
 
    IF ::oImage != Nil
       IF ::nZoom == Nil
-         ::oImage:Draw( hDC, ::nOffsetH, ::nOffsetV, ::oImage:nWidth, ::oImage:nHeight )
+         ::oImage:Draw(hDC, ::nOffsetH, ::nOffsetV, ::oImage:nWidth, ::oImage:nHeight)
       ELSE
-         ::oImage:Draw( hDC, ::nOffsetH, ::nOffsetV, ::oImage:nWidth * ::nZoom, ::oImage:nHeight * ::nZoom )
+         ::oImage:Draw(hDC, ::nOffsetH, ::nOffsetV, ::oImage:nWidth * ::nZoom, ::oImage:nHeight * ::nZoom)
       ENDIF
    ENDIF
 
@@ -196,7 +196,7 @@ METHOD Paint( lpdis ) CLASS HSayFImage
    FOR i := 1 TO Len(HFreeImage():aImages)
       hwg_Fi_unload( HFreeImage():aImages[i]:handle )
       IF HFreeImage():aImages[i]:hBitmap != Nil
-         hwg_Deleteobject( HFreeImage():aImages[i]:hBitmap )
+         hwg_Deleteobject(HFreeImage():aImages[i]:hBitmap)
       ENDIF
    NEXT
    hwg_Fi_end()

@@ -30,8 +30,8 @@ CLASS hrebar INHERIT HControl
    METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
    METHOD Activate()
    METHOD INIT()
-   METHOD ADDBARColor( pBar, clrFore, clrBack, pszText, dwStyle ) INLINE hwg_Addbarcolors( ::handle, pBar, clrFore, clrBack, pszText, dwStyle )
-   METHOD Addbarbitmap( pBar, pszText, pbmp, dwStyle ) INLINE hwg_Addbarbitmap( ::handle, pBar, pszText, pbmp, dwStyle )
+   METHOD ADDBARColor( pBar, clrFore, clrBack, pszText, dwStyle ) INLINE hwg_Addbarcolors(::handle, pBar, clrFore, clrBack, pszText, dwStyle)
+   METHOD Addbarbitmap( pBar, pszText, pbmp, dwStyle ) INLINE hwg_Addbarbitmap(::handle, pBar, pszText, pbmp, dwStyle)
    METHOD RebarBandNew( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) INLINE ::CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle )
    METHOD CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle )
 
@@ -42,7 +42,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    HB_SYMBOL_UNUSED(cCaption)
 
    DEFAULT  lvert  TO .F.
-   nStyle := Hwg_BitOr( IIf( nStyle == NIL, 0,  RBS_BANDBORDERS ), WS_CHILD )
+   nStyle := Hwg_BitOr(IIf(nStyle == NIL, 0,  RBS_BANDBORDERS), WS_CHILD)
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
    ::Title := ""
    HWG_InitCommonControlsEx()
@@ -92,14 +92,14 @@ METHOD CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) CLASS hreba
    ENDIF
    dwStyle := RBBS_GRIPPERALWAYS + RBBS_USECHEVRON
    FOR i = 1 TO LEN(::aBands)
-      ::aBands[i, 4] := IIF( ::aBands[i, 4] = NIL, hwg_Getsyscolor( COLOR_3DFACE ), ::aBands[i, 4] )
-      ::aBands[i, 6] := IIF( ::aBands[i, 6] = NIL, dwStyle, ::aBands[i, 6] )
+      ::aBands[i, 4] := IIF(::aBands[i, 4] = NIL, hwg_Getsyscolor(COLOR_3DFACE), ::aBands[i, 4])
+      ::aBands[i, 6] := IIF(::aBands[i, 6] = NIL, dwStyle, ::aBands[i, 6])
       IF !Empty(::aBands[i, 1])
-         ::aBands[i, 1] := IIF( ValType( ::aBands[i, 1] ) = "C", &( ::aBands[i, 1] ), ::aBands[i, 1] )
-         IF ( ::aBands[i, 5] != NIL )
-            hwg_Addbarbitmap( ::handle, ::aBands[i, 1]:handle, ::aBands[i, 2], ::aBands[i, 5], ::aBands[i, 6] )
+         ::aBands[i, 1] := IIF( ValType(::aBands[i, 1]) = "C", &(::aBands[i, 1]), ::aBands[i, 1])
+         IF (::aBands[i, 5] != NIL)
+            hwg_Addbarbitmap(::handle, ::aBands[i, 1]:handle, ::aBands[i, 2], ::aBands[i, 5], ::aBands[i, 6])
          ELSE
-            hwg_Addbarcolors( ::handle, ::aBands[i, 1]:handle, ::aBands[i, 3], ::aBands[i, 4], ::aBands[i, 2], ::aBands[i, 6]  )
+            hwg_Addbarcolors(::handle, ::aBands[i, 1]:handle, ::aBands[i, 3], ::aBands[i, 4], ::aBands[i, 2], ::aBands[i, 6])
          ENDIF
       ENDIF
    NEXT

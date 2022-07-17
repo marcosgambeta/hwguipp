@@ -48,7 +48,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus  ) CLASS HTab
    LOCAL i, aBmpSize
 
-   nStyle   := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP )
+   nStyle   := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint )
 
    ::title   := ""
@@ -67,7 +67,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
          AAdd(::aImages, Upper(aImages[i]))
          aImages[i] := iif( lResour, hwg_Loadbitmap( aImages[i] ), hwg_Openbitmap( aImages[i] ) )
       NEXT
-      aBmpSize := hwg_Getbitmapsize( aImages[1] )
+      aBmpSize := hwg_Getbitmapsize(aImages[1])
       ::himl := hwg_Createimagelist( aImages, aBmpSize[1], aBmpSize[2], 12, nBC )
       ::Image1 := 0
       IF Len(aImages) > 1
@@ -93,18 +93,18 @@ METHOD Init() CLASS HTab
 
    IF !::lInit
       ::Super:Init()
-      hwg_Inittabcontrol( ::handle, ::aTabs, IIF(::himl != Nil, ::himl, 0) )
+      hwg_Inittabcontrol(::handle, ::aTabs, IIF(::himl != Nil, ::himl, 0))
       ::nHolder := 1
-      hwg_Setwindowobject( ::handle, Self )
+      hwg_Setwindowobject(::handle, Self)
 
       IF ::himl != Nil
-         hwg_Sendmessage( ::handle, TCM_SETIMAGELIST, 0, ::himl )
+         hwg_Sendmessage(::handle, TCM_SETIMAGELIST, 0, ::himl)
       ENDIF
 
       FOR i := 2 TO Len(::aPages)
          ::HidePage( i )
       NEXT
-      Hwg_InitTabProc( ::handle )
+      Hwg_InitTabProc(::handle)
    ENDIF
 
    RETURN Nil
@@ -115,8 +115,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTab
 
    IF msg == WM_COMMAND
       IF ::aEvents != Nil
-         iParHigh := hwg_Hiword( wParam )
-         iParLow  := hwg_Loword( wParam )
+         iParHigh := hwg_Hiword(wParam)
+         iParLow  := hwg_Loword(wParam)
          IF ( nPos := Ascan(::aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
             Eval(::aEvents[nPos, 3], Self, iParLow)
          ENDIF
@@ -127,7 +127,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTab
 */
 METHOD SetTab( n ) CLASS HTab
 
-   hwg_Sendmessage( ::handle, TCM_SETCURFOCUS, n - 1, 0 )
+   hwg_Sendmessage(::handle, TCM_SETCURFOCUS, n - 1, 0)
 
    RETURN Nil
 
@@ -146,7 +146,7 @@ METHOD StartPage( cname, oDlg ) CLASS HTab
       AAdd(::aPages, {Len(::aControls), 0})
    ENDIF
    IF ::nActive > 1 .AND. !Empty(::handle)
-      ::HidePage( ::nActive )
+      ::HidePage(::nActive)
    ENDIF
    ::nActive := Len(::aPages)
 
@@ -157,16 +157,16 @@ METHOD EndPage() CLASS HTab
    IF !::lResourceTab
       ::aPages[::nActive, 2] := Len(::aControls) - ::aPages[::nActive, 1]
       IF !Empty(::handle)
-         hwg_Addtab( ::handle, ::nActive, ::aTabs[::nActive] )
+         hwg_Addtab(::handle, ::nActive, ::aTabs[::nActive])
       ENDIF
    ELSE
       IF !Empty(::handle != Nil)
-         hwg_Addtabdialog( ::handle, ::nActive, ::aTabs[::nActive], ::aPages[::nactive, 1]:handle )
+         hwg_Addtabdialog(::handle, ::nActive, ::aTabs[::nActive], ::aPages[::nactive, 1]:handle)
       ENDIF
    ENDIF
 
    IF ::nActive > 1 .AND. !Empty(::handle)
-      ::HidePage( ::nActive )
+      ::HidePage(::nActive)
    ENDIF
    ::nActive := 1
 
@@ -181,11 +181,11 @@ METHOD ChangePage( nPage ) CLASS HTab
 
    IF !Empty(::aPages)
 
-      ::HidePage( ::nActive )
+      ::HidePage(::nActive)
 
       ::nActive := nPage
 
-      ::ShowPage( ::nActive )
+      ::ShowPage(::nActive)
 
    ENDIF
 
@@ -220,16 +220,16 @@ METHOD ShowPage( nPage ) CLASS HTab
          ::aControls[i]:Show()
       NEXT
       FOR i := nFirst TO nEnd
-         IF __ObjHasMsg( ::aControls[i], "BSETGET" ) .AND. ::aControls[i]:bSetGet != Nil
-            hwg_Setfocus( ::aControls[i]:handle )
+         IF __ObjHasMsg(::aControls[i], "BSETGET") .AND. ::aControls[i]:bSetGet != Nil
+            hwg_Setfocus(::aControls[i]:handle)
             EXIT
          ENDIF
       NEXT
    ELSE
       ::aPages[nPage, 1]:Show()
       FOR i := 1  TO Len(::aPages[nPage, 1]:aControls)
-         IF __ObjHasMsg( ::aPages[nPage, 1]:aControls[i], "BSETGET" ) .AND. ::aPages[nPage, 1]:aControls[i]:bSetGet != Nil
-            hwg_Setfocus( ::aPages[nPage, 1]:aControls[i]:handle )
+         IF __ObjHasMsg(::aPages[nPage, 1]:aControls[i], "BSETGET") .AND. ::aPages[nPage, 1]:aControls[i]:bSetGet != Nil
+            hwg_Setfocus(::aPages[nPage, 1]:aControls[i]:handle)
             EXIT
          ENDIF
       NEXT
@@ -256,7 +256,7 @@ Local nFirst, nEnd, i
 
    if ::lResourceTab
       ADel(::m_arrayStatusTab, nPage, , .T.)
-      hwg_Deletetab( ::handle, nPage )
+      hwg_Deletetab(::handle, nPage)
       ::nActive := nPage - 1
 
    ELSE
@@ -264,13 +264,13 @@ Local nFirst, nEnd, i
       nFirst := ::aPages[nPage, 1] + 1
       nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
       FOR i := nEnd TO nFirst STEP -1
-         ::DelControl( ::aControls[i] )
+         ::DelControl(::aControls[i])
       NEXT
       FOR i := nPage + 1 TO Len(::aPages)
          ::aPages[i, 1] -= ( nEnd-nFirst+1 )
       NEXT
 
-      hwg_Deletetab( ::handle, nPage - 1 )
+      hwg_Deletetab(::handle, nPage - 1)
 
       ADel(::aPages, nPage)
       ASize(::aPages, Len(::aPages) - 1)
@@ -280,7 +280,7 @@ Local nFirst, nEnd, i
 
       IF nPage > 1
          ::nActive := nPage - 1
-         ::SetTab( ::nActive )
+         ::SetTab(::nActive)
       ELSEIF Len(::aPages) > 0
          ::nActive := 1
          ::SetTab( 1 )
@@ -296,19 +296,19 @@ METHOD Notify( lParam ) CLASS HTab
    DO CASE
    CASE nCode == TCN_SELCHANGE
       IF ::bChange != Nil
-         Eval(::bChange, Self, hwg_Getcurrenttab( ::handle ))
+         Eval(::bChange, Self, hwg_Getcurrenttab(::handle))
       ENDIF
    CASE nCode == TCN_CLICK
       IF ::bAction != Nil
-         Eval(::bAction, Self, hwg_Getcurrenttab( ::handle ))
+         Eval(::bAction, Self, hwg_Getcurrenttab(::handle))
       ENDIF
    CASE nCode == TCN_SETFOCUS
       IF ::bGetFocus != NIL
-         Eval(::bGetFocus, Self, hwg_Getcurrenttab( ::handle ))
+         Eval(::bGetFocus, Self, hwg_Getcurrenttab(::handle))
       ENDIF
    CASE nCode == TCN_KILLFOCUS
       IF ::bLostFocus != NIL
-         Eval(::bLostFocus, Self, hwg_Getcurrenttab( ::handle ))
+         Eval(::bLostFocus, Self, hwg_Getcurrenttab(::handle))
       ENDIF
    ENDCASE
 

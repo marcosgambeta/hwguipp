@@ -25,11 +25,11 @@ CLASS HUpDown INHERIT HControl
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, nUpDWidth, nLower, nUpper )
    METHOD Activate()
    METHOD Init()
-   METHOD Value( nValue ) SETGET
-   METHOD SetRange(n1,n2)  INLINE hwg_SetRangeUpdown( ::hUpDown, n1, n2 )
+   METHOD Value(nValue) SETGET
+   METHOD SetRange(n1, n2)  INLINE hwg_SetRangeUpdown(::hUpDown, n1, n2)
    METHOD Refresh()
-   METHOD Hide()          INLINE ( hwg_Hidewindow( ::hUpDown ), ::Super:Hide() )
-   METHOD Show()          INLINE ( hwg_Showwindow( ::hUpDown ), ::Super:Show() )
+   METHOD Hide()          INLINE ( hwg_Hidewindow(::hUpDown), ::Super:Hide() )
+   METHOD Show()          INLINE ( hwg_Showwindow(::hUpDown), ::Super:Show() )
 
 ENDCLASS
 
@@ -37,28 +37,33 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor,   ;
       nUpDWidth, nLower, nUpper ) CLASS HUpDown
 
-   nStyle   := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor )
+   nStyle := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_TABSTOP)
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::idUpDown := ::NewId()
    IF Empty(vari)
       vari := 0
    ENDIF
    IF vari != Nil
-      IF ValType( vari ) != "N"
+      IF ValType(vari) != "N"
          vari := 0
          Eval(bSetGet, vari)
       ENDIF
-      ::title := Str( vari )
+      ::title := Str(vari)
    ENDIF
    ::bSetGet := bSetGet
 
    ::styleUpDown := UDS_SETBUDDYINT + UDS_ALIGNRIGHT
 
-   IF nLower != Nil ; ::nLower := nLower ; ENDIF
-   IF nUpper != Nil ; ::nUpper := nUpper ; ENDIF
-   IF nUpDWidth != Nil ; ::nUpDownWidth := nUpDWidth ; ENDIF
+   IF nLower != Nil
+      ::nLower := nLower
+   ENDIF
+   IF nUpper != Nil
+      ::nUpper := nUpper
+   ENDIF
+   IF nUpDWidth != Nil
+      ::nUpDownWidth := nUpDWidth
+   ENDIF
 
    ::Activate()
 
@@ -91,17 +96,16 @@ METHOD Init()  CLASS HUpDown
 
    IF !::lInit
       ::Super:Init()
-      ::hUpDown := hwg_Createupdowncontrol( ::oParent:handle, ::idUpDown, ;
-         ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, ::nUpper, ::nLower, Val(::title) )
+      ::hUpDown := hwg_Createupdowncontrol(::oParent:handle, ::idUpDown, ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, ::nUpper, ::nLower, Val(::title))
    ENDIF
 
    RETURN Nil
 
-METHOD Value( nValue ) CLASS HUpDown
+METHOD Value(nValue) CLASS HUpDown
 
    IF nValue != Nil
-      IF Valtype( nValue ) == "N"
-         hwg_SetUpdown( ::hUpDown, nValue )
+      IF Valtype(nValue) == "N"
+         hwg_SetUpdown(::hUpDown, nValue)
          ::nValue := nValue
          IF ::bSetGet != NIL
             Eval(::bSetGet, nValue, Self)
@@ -109,7 +113,7 @@ METHOD Value( nValue ) CLASS HUpDown
       ENDIF
    ELSE
       //::nValue := Val(LTrim(::title := hwg_Getedittext(::oParent:handle, ::id)))
-      ::nValue := hwg_GetUpdown( ::hUpDown )
+      ::nValue := hwg_GetUpdown(::hUpDown)
    ENDIF
 
    RETURN ::nValue
@@ -121,12 +125,12 @@ METHOD Refresh()  CLASS HUpDown
 
    IF ::bSetGet != Nil
       ::nValue := Eval(::bSetGet)
-      IF Str( ::nValue ) != ::title
-         ::title := Str( ::nValue )
-         hwg_Setupdown( ::hUpDown, ::nValue )
+      IF Str(::nValue) != ::title
+         ::title := Str(::nValue)
+         hwg_Setupdown(::hUpDown, ::nValue)
       ENDIF
    ELSE
-      hwg_Setupdown( ::hUpDown, Val(::title) )
+      hwg_Setupdown(::hUpDown, Val(::title))
    ENDIF
 
    RETURN Nil

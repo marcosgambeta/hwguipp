@@ -41,7 +41,7 @@ METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CLASS
    ::nLeft     := nCol * VID_CHARPIX_W   // 14
    ::nHeight   := ::nTop  + nHeight - 1
    ::nWidth    := ::nLeft + nWidth + 1
-   ::Style     := hwg_bitOR( WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0) )
+   ::Style     := hwg_bitOR(WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0))
 
    ::oParent   := IIf( oWnd == Nil, ::oDefaultParent, oWnd )
    ::id        := IIf( nid == Nil, ::NewId(), nid )
@@ -51,7 +51,7 @@ METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CLASS
 
    IF !Empty(::oparent:handle)
       ::oMci:lOpen()
-      ::oMci:SetWindow( Self )
+      ::oMci:SetWindow(Self)
    ELSE
       ::oparent:AddControl( Self )
    ENDIF
@@ -79,7 +79,7 @@ METHOD Initiate() CLASS TVideo
 
    ::Super:Init()
    ::oMci:lOpen()
-   ::oMci:SetWindow( Self )
+   ::oMci:SetWindow(Self)
 
    RETURN nil
 

@@ -89,14 +89,14 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
       ::extStyle += WS_EX_TRANSPARENT
    ENDIF
 
-   IF ( n := hwg_bitAnd( ::style, SS_TYPEMASK ) ) == SS_RIGHT
-      ::dwFlags := hwg_bitOr( DT_RIGHT, DT_WORDBREAK )
+   IF ( n := hwg_bitAnd(::style, SS_TYPEMASK) ) == SS_RIGHT
+      ::dwFlags := hwg_bitOr(DT_RIGHT, DT_WORDBREAK)
    ELSEIF n == SS_CENTER
-      ::dwFlags := hwg_bitOr( SS_CENTER, DT_WORDBREAK )
+      ::dwFlags := hwg_bitOr(SS_CENTER, DT_WORDBREAK)
    ELSEIF n == SS_LEFTNOWORDWRAP
       ::dwFlags := DT_LEFT
    ELSE
-      ::dwFlags := hwg_bitOr( DT_LEFT, DT_WORDBREAK )
+      ::dwFlags := hwg_bitOr(DT_LEFT, DT_WORDBREAK)
    ENDIF
    ::dwFlags  += ( DT_VCENTER + DT_END_ELLIPSIS )
 
@@ -154,8 +154,8 @@ METHOD Init() CLASS HStaticLink
 
    IF !::lInit
       ::nHolder := 1
-      hwg_Setwindowobject( ::handle, Self )
-      Hwg_InitWinCtrl( ::handle )
+      hwg_Setwindowobject(::handle, Self)
+      Hwg_InitWinCtrl(::handle)
    ENDIF
 
    RETURN NIL
@@ -167,19 +167,19 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
    ELSEIF msg == WM_ERASEBKGND
       RETURN 1
    ELSEIF msg == WM_MOUSEMOVE
-      hwg_SetCursor( ::m_hHyperCursor )
+      hwg_SetCursor(::m_hHyperCursor)
       ::OnMouseMove( wParam, lParam )
    ELSEIF msg == WM_SETCURSOR
-      hwg_SetCursor( ::m_hHyperCursor )
+      hwg_SetCursor(::m_hHyperCursor)
    ELSEIF msg == WM_LBUTTONDOWN
-      hwg_SetCursor( ::m_hHyperCursor )
+      hwg_SetCursor(::m_hHyperCursor)
    ELSEIF msg == WM_LBUTTONUP
       ::OnClicked()
    ELSEIF msg == WM_KILLFOCUS
       IF ::state == LBL_MOUSEOVER
          ::state := LBL_NORMAL
          hwg_Releasecapture()
-         hwg_Invalidaterect( ::handle, 0 )
+         hwg_Invalidaterect(::handle, 0)
       ENDIF
    ENDIF
 
@@ -221,20 +221,20 @@ METHOD OnClicked() CLASS HStaticLink
 
    LOCAL nCtrlID
 
-   IF ( ::m_bFireChild )
+   IF (::m_bFireChild)
       nCtrlID := ::id
-      ::Sendmessage( ::oparent:Handle, _HYPERLINK_EVENT, nCtrlID, 0 )
+      ::Sendmessage(::oparent:Handle, _HYPERLINK_EVENT, nCtrlID, 0)
    ELSE
-      ::GoToLinkUrl( ::m_csUrl )
+      ::GoToLinkUrl(::m_csUrl)
    ENDIF
 
    ::m_bVisited := .T.
    hwg_Releasecapture()
 
    ::state := LBL_NORMAL
-   hwg_Invalidaterect( ::handle, 0 )
-   hwg_Setfocus( ::handle )
-   //hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
+   hwg_Invalidaterect(::handle, 0)
+   hwg_Setfocus(::handle)
+   //hwg_Postmessage(::handle, WM_PAINT, 0, 0)
 
    RETURN NIL
 
@@ -251,20 +251,20 @@ METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
    //hwg_writelog( str(hwg_Loword(lParam))+" "+str(hwg_Hiword(lParam)) )
    IF ::state != LBL_INIT
 
-      IF hwg_Loword( lParam ) > ::nWidth .OR. hwg_Hiword( lParam ) > ::nHeight
+      IF hwg_Loword(lParam) > ::nWidth .OR. hwg_Hiword(lParam) > ::nHeight
 
          //hwg_writelog( "release" )
          hwg_Releasecapture()
          ::state := LBL_NORMAL
-         hwg_Invalidaterect( ::handle, 0 )
-         //hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
+         hwg_Invalidaterect(::handle, 0)
+         //hwg_Postmessage(::handle, WM_PAINT, 0, 0)
       ELSEIF ::state == LBL_NORMAL
 
          ::state := LBL_MOUSEOVER
-         hwg_Invalidaterect( ::handle, 0 )
-         //hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
-         //HWG_SETFOREGROUNDWINDOW( ::handle )
-         hwg_Setcapture( ::handle )
+         hwg_Invalidaterect(::handle, 0)
+         //hwg_Postmessage(::handle, WM_PAINT, 0, 0)
+         //HWG_SETFOREGROUNDWINDOW(::handle)
+         hwg_Setcapture(::handle)
       ENDIF
 
    ENDIF
@@ -280,15 +280,15 @@ METHOD Paint() CLASS HStaticLink
    ENDIF
 
    pps := hwg_Definepaintstru()
-   hDC := hwg_Beginpaint( ::handle, pps )
-   aCoors := hwg_Getclientrect( ::handle )
+   hDC := hwg_Beginpaint(::handle, pps)
+   aCoors := hwg_Getclientrect(::handle)
 
    hwg_Setbkmode(hDC, TRANSPARENT)
    hwg_Selectobject(hDC, ::oFont:handle)
    hwg_Settextcolor(hDC, Iif(::state == LBL_NORMAL, Iif(::m_bVisited, ::m_sVisitedColor, ::m_sLinkColor), ::m_sHoverColor))
 
-   hwg_Drawtext( hDC, ::Title, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::dwFlags )
+   hwg_Drawtext(hDC, ::Title, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::dwFlags)
 
-   hwg_Endpaint( ::handle, pps )
+   hwg_Endpaint(::handle, pps)
 
    RETURN 0

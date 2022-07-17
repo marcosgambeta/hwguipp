@@ -44,7 +44,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, bDraw, color, 
    ::title  := ""
    ::aLeft  := IIf( aLeft == Nil, { }, aLeft )
    ::aRight := IIf( aRight == Nil, { }, aRight )
-   ::lVertical := ( ::nHeight > ::nWidth )
+   ::lVertical := (::nHeight > ::nWidth)
    ::nFrom  := nFrom
    ::nTo    := nTo
    ::oStyle := oStyle
@@ -66,14 +66,14 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
 
    IF msg == WM_MOUSEMOVE
       IF ::hCursor == Nil
-         ::hCursor := hwg_Loadcursor( IIf( ::lVertical, IDC_SIZEWE, IDC_SIZENS ) )
+         ::hCursor := hwg_Loadcursor(IIf(::lVertical, IDC_SIZEWE, IDC_SIZENS))
       ENDIF
-      Hwg_SetCursor( ::hCursor )
+      Hwg_SetCursor(::hCursor)
       IF ::lCaptured
          IF ::lRepaint
-            ::DragAll( hwg_Loword( lParam ), hwg_Hiword( lParam ) )
+            ::DragAll( hwg_Loword(lParam), hwg_Hiword(lParam) )
          ELSE
-            ::Drag( hwg_Loword( lParam ), hwg_Hiword( lParam ) )
+            ::Drag( hwg_Loword(lParam), hwg_Hiword(lParam) )
          ENDIF
       ENDIF
    ELSEIF msg == WM_PAINT
@@ -84,8 +84,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
          RETURN 1
       ENDIF
    ELSEIF msg == WM_LBUTTONDOWN
-      Hwg_SetCursor( ::hCursor )
-      hwg_Setcapture( ::handle )
+      Hwg_SetCursor(::hCursor)
+      hwg_Setcapture(::handle)
       ::lCaptured := .T.
    ELSEIF msg == WM_LBUTTONUP
       hwg_Releasecapture()
@@ -105,8 +105,8 @@ METHOD Init() CLASS HSplitter
    IF !::lInit
       ::Super:Init()
       ::nHolder := 1
-      hwg_Setwindowobject( ::handle, Self )
-      Hwg_InitWinCtrl( ::handle )
+      hwg_Setwindowobject(::handle, Self)
+      Hwg_InitWinCtrl(::handle)
    ENDIF
 
    RETURN Nil
@@ -118,19 +118,19 @@ METHOD Paint() CLASS HSplitter
       Eval(::bPaint, Self)
    ELSE
       pps := hwg_Definepaintstru()
-      hDC := hwg_Beginpaint( ::handle, pps )
-      aCoors := hwg_Getclientrect( ::handle )
+      hDC := hwg_Beginpaint(::handle, pps)
+      aCoors := hwg_Getclientrect(::handle)
 
       IF ::oStyle == Nil
-         x1 := aCoors[1] + IIf( ::lVertical, 1, 5 )
-         y1 := aCoors[2] + IIf( ::lVertical, 5, 1 )
-         x2 := aCoors[3] - IIf( ::lVertical, 0, 5 )
-         y2 := aCoors[4] - IIf( ::lVertical, 5, 0 )
-         hwg_Drawedge( hDC, x1, y1, x2, y2, EDGE_ETCHED, IIf( ::lVertical, BF_LEFT, BF_TOP ) )
+         x1 := aCoors[1] + IIf(::lVertical, 1, 5)
+         y1 := aCoors[2] + IIf(::lVertical, 5, 1)
+         x2 := aCoors[3] - IIf(::lVertical, 0, 5)
+         y2 := aCoors[4] - IIf(::lVertical, 5, 0)
+         hwg_Drawedge(hDC, x1, y1, x2, y2, EDGE_ETCHED, IIf(::lVertical, BF_LEFT, BF_TOP))
       ELSE
-         ::oStyle:Draw( hDC, 0, 0, aCoors[3], aCoors[4] )
+         ::oStyle:Draw(hDC, 0, 0, aCoors[3], aCoors[4])
       ENDIF
-      hwg_Endpaint( ::handle, pps )
+      hwg_Endpaint(::handle, pps)
    ENDIF
 
    RETURN Nil
@@ -138,24 +138,24 @@ METHOD Paint() CLASS HSplitter
 METHOD Drag( xPos, yPos ) CLASS HSplitter
    LOCAL nFrom, nTo
 
-   nFrom := Iif( ::nFrom == Nil, 1, ::nFrom )
-   nTo := Iif( ::nTo == Nil, Iif(::lVertical,::oParent:nWidth-1,::oParent:nHeight-1), ::nTo )
+   nFrom := Iif(::nFrom == Nil, 1, ::nFrom)
+   nTo := Iif(::nTo == Nil, Iif(::lVertical, ::oParent:nWidth - 1, ::oParent:nHeight - 1), ::nTo)
    IF ::lVertical
       IF xPos > 32000
          xPos -= 65535
       ENDIF
-      IF ( xPos := ( ::nLeft + xPos ) ) >= nFrom .AND. xPos <= nTo
+      IF (xPos := (::nLeft + xPos)) >= nFrom .AND. xPos <= nTo
          ::nLeft := xPos
       ENDIF
    ELSE
       IF yPos > 32000
          yPos -= 65535
       ENDIF
-      IF ( yPos := ( ::nTop + yPos ) ) >= nFrom .AND. yPos <= nTo
+      IF (yPos := (::nTop + yPos)) >= nFrom .AND. yPos <= nTo
          ::nTop := yPos
       ENDIF
    ENDIF
-   hwg_MoveWindow( ::handle, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   hwg_MoveWindow(::handle, ::nLeft, ::nTop, ::nWidth, ::nHeight)
    ::lMoved := .T.
 
    RETURN Nil
