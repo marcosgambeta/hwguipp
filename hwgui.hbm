@@ -68,6 +68,7 @@
 {win}source/winapi/hlenta.prg
 {win}source/winapi/hline.prg
 {win}source/winapi/hlistbox.prg
+{win}source/winapi/hmenu.prg
 {win}source/winapi/hmisc.prg
 {win}source/winapi/hmonthcalendar.prg
 {win}source/winapi/hnicebutton.prg
@@ -102,7 +103,6 @@
 {win}source/winapi/hupdown.prg
 {win}source/winapi/hwindow.prg
 {win}source/winapi/hwinprn.prg
-{win}source/winapi/menu.prg
 {win}source/winapi/printdos.prg
 
 # GTK
