@@ -18,7 +18,7 @@
 {win}source/winapi/ipaddress.cpp
 {win}source/winapi/listbox.cpp
 {win}source/winapi/media_c.cpp
-{win}source/winapi/menu_c.cpp
+{win}source/winapi/menu.cpp
 {win}source/winapi/message.cpp
 {win}source/winapi/misc.cpp
 {win}source/winapi/monthcalendar.cpp
