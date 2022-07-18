@@ -266,7 +266,7 @@ METHOD PAINT() CLASS HNICEButton
    LOCAL y
    LOCAL w
    LOCAL h
-   LOCAL T       &&  := Space(2048)
+   LOCAL T       //  := Space(2048)
    //  *******************
 
 * Variables not used

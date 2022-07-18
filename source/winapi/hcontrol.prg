@@ -123,7 +123,7 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    LOCAL nAnchor, nXincRelative, nYincRelative, nXincAbsolute, nYincAbsolute
    LOCAL x1, y1, w1, h1, x9, y9, w9, h9
 
-   // LOCAL nCxv, nCyh   && not used variables
+   // LOCAL nCxv, nCyh   // not used variables
 
    // hwg_writelog( "onAnchor "+::classname()+str(x)+"/"+str(y)+"/"+str(w)+"/"+str(h) )
    nAnchor := ::anchor

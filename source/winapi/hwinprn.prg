@@ -93,7 +93,7 @@ CLASS HWinPrn
    DATA   nLeft     INIT 5
    DATA   nRight    INIT 5
    
-   DATA   nCharset  INIT 0   &&  Charset (N) Default: 0  , 204 = Russian
+   DATA   nCharset  INIT 0   //  Charset (N) Default: 0  , 204 = Russian
 
    // --- International Language Support for internal dialogs --
    DATA aTooltips   INIT {}  // Array with tooltips messages for print preview dialog
@@ -109,11 +109,11 @@ CLASS HWinPrn
    METHOD NextPage()
    METHOD NewLine()
    METHOD PrintLine(cLine, lNewLine)
-   METHOD PrintBitmap( xBitmap, nAlign , cBitmapName )  && cImageName
+   METHOD PrintBitmap( xBitmap, nAlign , cBitmapName )  // cImageName
    METHOD PrintText( cText )
    METHOD SetX( nYvalue )
    METHOD SetY( nYvalue )
-   METHOD PutCode(cLine)   && cText
+   METHOD PutCode(cLine)   // cText
    METHOD EndDoc()
    METHOD END()
 
@@ -250,7 +250,7 @@ METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nChar
       ::nLineHeight := ( nStdHeight / aKoef[nMode + 1] ) * ::oPrinter:nVRes
       ::nLined := ( 25.4 * ::oPrinter:nVRes ) / ::nLineInch - ::nLineHeight
 
-      oFont := ::oPrinter:AddFont( cFont, ::nLineHeight, ::lBold, ::lItalic, ::lUnder, ::nCharset ) && ::nCharset 204 = Russian
+      oFont := ::oPrinter:AddFont( cFont, ::nLineHeight, ::lBold, ::lItalic, ::lUnder, ::nCharset ) // ::nCharset 204 = Russian
 
       IF ::oFont != Nil
          ::oFont:Release()
@@ -363,7 +363,7 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
 
    cTmp := hwg_CreateTempfileName(, ".bmp")   
    
-   IF VALTYPE(xBitmap) == "C" && does not work on GTK
+   IF VALTYPE(xBitmap) == "C" // does not work on GTK
      * from file
      IF !hb_fileexists( xBitmap )
        RETURN NIL

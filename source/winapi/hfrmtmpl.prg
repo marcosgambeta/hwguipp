@@ -126,7 +126,7 @@ CLASS HFormTmpl
 
    METHOD DefaultLang()   
    METHOD Read(fname, cId)
-   METHOD Show( nMode, p1, p2, p3 )  && p1 ... p3 : params
+   METHOD Show( nMode, p1, p2, p3 )  // p1 ... p3 : params
    METHOD ShowMain( params )   INLINE ::Show( 1, params )
    METHOD ShowModal( params )  INLINE ::Show( 2, params )
    METHOD Close()
@@ -160,10 +160,10 @@ METHOD Read(fname, cId) CLASS HFormTmpl
    ENDIF
 
    IF Empty(oDoc:aItems)
-      hwg_Msgstop(::cTextCantOpenF + " " + fname)   && "Can't open "
+      hwg_Msgstop(::cTextCantOpenF + " " + fname)   // "Can't open "
       RETURN Nil
    ELSEIF oDoc:aItems[1]:title != "part" .OR. oDoc:aItems[1]:GetAttribute("class") != "form"
-      hwg_Msgstop(::cTextFrmRepDescnotF)  && "Form description isn't found"
+      hwg_Msgstop(::cTextFrmRepDescnotF)  // "Form description isn't found"
       RETURN Nil
    ENDIF
 
@@ -521,7 +521,7 @@ METHOD OnError( xValue ) CLASS HFormTmpl
    oError:genCode     := EG_LIMIT
    oError:subSystem   := "HFORMTMPL"
    oError:subCode     := 0
-   oError:description := ::cTextInvClMemb   &&  "Invalid class member"
+   oError:description := ::cTextInvClMemb   //  "Invalid class member"
    oError:canRetry    := .F.
    oError:canDefault  := .F.
    oError:fileName    := ""
@@ -1195,7 +1195,7 @@ METHOD READ(fname, cId) CLASS HRepTmpl
       hwg_Msgstop( "Can't open " + fname )
       RETURN Nil
    ELSEIF oDoc:aItems[1]:title != "part" .OR. oDoc:aItems[1]:GetAttribute("class") != "report"
-      hwg_Msgstop(::cTextFrmRepDescnotF) &&  "Report description isn't found"
+      hwg_Msgstop(::cTextFrmRepDescnotF) //  "Report description isn't found"
       RETURN Nil
    ENDIF
 

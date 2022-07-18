@@ -174,8 +174,8 @@ METHOD Props2Arr() CLASS HFont
    fdwUnderline := iif(::Underline == Nil, - 9999, ::Underline)
    fdwStrikeOut := iif(::StrikeOut == Nil, - 9999, ::StrikeOut)
 
-   AADD(aFontprops, fontName)  && C
-   AADD(aFontprops, nWidth)    && all other of type N
+   AADD(aFontprops, fontName)  // C
+   AADD(aFontprops, nWidth)    // all other of type N
    AADD(aFontprops, nHeight)
    AADD(aFontprops, fnWeight)
    AADD(aFontprops, fdwCharSet)

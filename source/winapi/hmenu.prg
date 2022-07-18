@@ -269,7 +269,7 @@ FUNCTION Hwg_DefineAccelItem( nId, bItem, accFlag, accKey )
 
 FUNCTION Hwg_SetMenuItemBitmaps( aMenu, nId, abmp1, abmp2 )
    LOCAL aSubMenu := Hwg_FindMenuItem( aMenu, nId )
-   LOCAL oMenu  && := aSubMenu
+   LOCAL oMenu  // := aSubMenu
 
    oMenu := IIf( aSubMenu == Nil, 0, aSubMenu[5] )
    hwg__Setmenuitembitmaps( oMenu, nId, abmp1, abmp2 )
@@ -278,7 +278,7 @@ FUNCTION Hwg_SetMenuItemBitmaps( aMenu, nId, abmp1, abmp2 )
 FUNCTION Hwg_InsertBitmapMenu( aMenu, nId, lBitmap, oResource )
    LOCAL aSubMenu := Hwg_FindMenuItem( aMenu, nId )
    LOCAL oBmp
-   LOCAL oMenu && := aSubMenu, oBmp
+   LOCAL oMenu // := aSubMenu, oBmp
 
    //Serge(seohic) sugest
    IF oResource == Nil .OR. !oResource

@@ -57,7 +57,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    nStyle := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_TABSTOP + iif(lNoBorder == Nil .OR. !lNoBorder, WS_BORDER, 0) + ;
       iif(lPassword == Nil .OR. !lPassword, 0, ES_PASSWORD))
 
-     && DF7BE: Crashes here , sample program grid_5.prg
+     // DF7BE: Crashes here , sample program grid_5.prg
       // iif( lPassword == Nil .OR. !lPassword, 0, ES_PASSWORD )  )
 
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;

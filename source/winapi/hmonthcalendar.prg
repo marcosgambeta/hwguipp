@@ -126,19 +126,19 @@ FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
   ENDIF
 
   IF nx == NIL
-   nx := 0  && old: 20
+   nx := 0  // old: 20
   ENDIF
   
   IF ny == NIL
-   ny := 0  && old: 20
+   ny := 0  // old: 20
   ENDIF
 
   IF wid == NIL
-   wid := 200 && old: 80
+   wid := 200 // old: 80
   ENDIF
 
   IF hei == NIL
-   hei := 160 && old: 20 
+   hei := 160 // old: 20 
   ENDIF
 
   oFont := hwg_DefaultFont()
@@ -149,11 +149,11 @@ FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
   dolddate := dstartdate
     
    INIT DIALOG oDlg TITLE cTitle ;
-      AT nx,ny SIZE  wid , hei + 23 && wid , hei , 22 = height of buttons
+      AT nx,ny SIZE  wid , hei + 23 // wid , hei , 22 = height of buttons
 
    @ 0,0 MONTHCALENDAR oMC ;
       SIZE wid - 1 , hei - 1 ;
-      INIT dstartdate ;   && Date(), if NIL 
+      INIT dstartdate ;   // Date(), if NIL 
       FONT oFont 
 
    @ 0 ,hei BUTTON cOK FONT oFont ;

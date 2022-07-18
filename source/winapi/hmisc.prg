@@ -64,14 +64,14 @@ RETURN SUBSTR(hwg_GetUTCTimeDate(), 3, 8)
 
 FUNCTION hwg_GetUTCTime
 * Format: HH:MM:SS
-RETURN SUBSTR(hwg_GetUTCTimeDate(), 12, 8) 
+RETURN SUBSTR(hwg_GetUTCTimeDate(), 12, 8)
 
-* ================================= * 
+* ================================= *
 FUNCTION hwg_cHex2Bin (chexstr)
 * Converts a hex string to binary
 * Returns empty string, if error
 * or number of hex characters is
-* odd. 
+* odd.
 * chexstr:
 * Valid characters:
 * 0 ... 9 , A ... F , a ... f
@@ -85,17 +85,17 @@ nvalue := 0
 nodd := 0
 IF (chexstr == NIL)
  RETURN ""
-ENDIF 
+ENDIF
 chexstr := UPPER(chexstr)
 FOR ncount := 1 TO LEN(chexstr)
  chs := SUBSTR(chexstr, ncount, 1)
  IF chs $ "0123456789ABCDEF"
-  nodd := nodd + 1  && Count valid chars for odd/even check
+  nodd := nodd + 1  // Count valid chars for odd/even check
   DO CASE
    CASE chs == "0"
-    nvalu := 0 
+    nvalu := 0
    CASE chs == "1"
-    nvalu := 1   
+    nvalu := 1
    CASE chs == "2"
     nvalu := 2
    CASE chs == "3"
@@ -123,12 +123,12 @@ FOR ncount := 1 TO LEN(chexstr)
    CASE chs == "E"
     nvalu := 14
    CASE chs == "F"
-    nvalu := 15    
+    nvalu := 15
    ENDCASE
     IF lpos
      * MSB
      nvalue := nvalu * 16
-     lpos := .F.  && Toggle MSB/LSB
+     lpos := .F.  // Toggle MSB/LSB
     ELSE
      * LSB
      nvalue := nvalue + nvalu
@@ -136,7 +136,7 @@ FOR ncount := 1 TO LEN(chexstr)
      cbin := cbin + CHR(nvalue)
      * nvalue := 0
     ENDIF
-   ENDIF && IF 0..9,A..F 
+   ENDIF // IF 0..9,A..F 
   NEXT
   * if odd, return error
   IF (nodd % 2) != 0
@@ -194,13 +194,13 @@ LOCAL nlength, coutfield,  nindexcnt , cccchar, nccchar, ccchex, nlinepos, cccpr
  ENDIF
   nlinepos := 0
   IF nmode == 2
-   coutfield := cVarName + " := " + CHR(34)  && collects out line, start with variable name
+   coutfield := cVarName + " := " + CHR(34)  // collects out line, start with variable name
   ELSE
-   coutfield := ""  && collects out line
+   coutfield := ""  // collects out line
   ENDIF 
-  // cccprint := ""   && collects printable char
-  cccprline := ""  && collects printable chars
-  ccchexline := "" && collects hex chars
+  // cccprint := ""   // collects printable char
+  cccprline := ""  // collects printable chars
+  ccchexline := "" // collects hex chars
   * loop over every byte in field
   FOR nindexcnt := 1 TO nlength
     nlinepos := nlinepos + 1
@@ -244,7 +244,7 @@ LOCAL nlength, coutfield,  nindexcnt , cccchar, nccchar, ccchex, nlinepos, cccpr
       nlinepos := 0
       cccprline := ""
       IF nmode == 2
-       ccchexline := CHR(34) && start new line with double quote
+       ccchexline := CHR(34) // start new line with double quote
       ELSE  
        ccchexline := ""
       ENDIF
@@ -253,7 +253,7 @@ LOCAL nlength, coutfield,  nindexcnt , cccchar, nccchar, ccchex, nlinepos, cccpr
   * complete as last line, if rest of recent line existing
   * HEX line 16 * 3 = 48
   * line with printable chars: 16 * 2 = 32
-  IF .NOT. EMPTY(ccchexline)  && nlinepos < 16
+  IF .NOT. EMPTY(ccchexline)  // nlinepos < 16
    DO CASE
       CASE nmode == 0
        coutfield := coutfield + ccchexline
@@ -779,7 +779,7 @@ FUNCTION hwg_deb_is_object(oObj)
 * =======================================================
 LOCAL lret
 
-       IF Valtype(oObj) == "O" && Debug
+       IF Valtype(oObj) == "O" // Debug
          hwg_MsgInfo("Is object")
          lret := .T.
         ELSE
@@ -807,9 +807,9 @@ lstop := .F.
   FOR vni := 1 TO LEN(ce)
    IF .NOT. lstop  
      if SUBSTR(e1, vni, 1) == " "
-      e1 := STUFF(e1, vni, 1, "0")  && modify character at position vni to "0"
+      e1 := STUFF(e1, vni, 1, "0")  // modify character at position vni to "0"
      ELSE
-      lstop := .T.               && Stop search, if no blank appeared
+      lstop := .T.               // Stop search, if no blank appeared
      ENDIF
    ENDIF
   NEXT
@@ -880,7 +880,7 @@ nday   := DAY(dDate)
        nyear :=  nyear - 1
     ENDIF
 
-   ngreg :=  (nyear / 400) - (nyear / 100) + (nyear / 4)  && Gregorian calendar
+   ngreg :=  (nyear / 400) - (nyear / 100) + (nyear / 4)  // Gregorian calendar
 
 RETURN 2400000.5 + 365 * nyear - 679004 + ngreg + INT(30.6001 * (nmonth + 1)) + nday + (nhour / 24) + (nminutes / 1440) + (nseconds / 86400)
 
@@ -898,8 +898,8 @@ FUNCTION hwg_JulianDay2Date(z)
 * =================================
 LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  cMonth , cday
 
-   njoff := 4712                  && const year offset
-   nFour := (z + 13) / 1461     && 1461 = 3*365+366  period of 4 years  (valid 1901 ... 2099)
+   njoff := 4712                  // const year offset
+   nFour := (z + 13) / 1461     // 1461 = 3*365+366  period of 4 years  (valid 1901 ... 2099)
    nRound_4 := INT(nFour)
    nYear := nRound_4 * 4
    nRound_4 := (nRound_4 * 1461) - 13
@@ -928,9 +928,9 @@ LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  
       RETURN ""
    ENDIF
 
-   d := d + 1;     && 0 .. 364 => 1 .. 365
+   d := d + 1;     // 0 .. 364 => 1 .. 365
 
-   IF (nYear % 4) == 0   && Leap year 1901 ... 2099
+   IF (nYear % 4) == 0   // Leap year 1901 ... 2099
       sz := -1
    ELSE
       sz := 0
@@ -943,7 +943,7 @@ LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  
       * All other days
       IF (d > 60) .AND. (sz == -1)
          d := d - 1
-      ENDIF && Correction Leap Year
+      ENDIF // Correction Leap Year
       cMonth := "  "
       IF d > 0
          cMonth := "01"

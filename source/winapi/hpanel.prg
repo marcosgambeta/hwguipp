@@ -446,7 +446,7 @@ CLASS HPanelHea INHERIT HPANEL
 
    METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyle, ;
       cText, xt, yt, lBtnClose, lBtnMax, lBtnMin )
-   METHOD SetText( c , lrefresh )  && INLINE (::title := c)
+   METHOD SetText( c , lrefresh )  // INLINE (::title := c)
    METHOD SetSysbtnColor( tColor, bColor )
    METHOD PaintText(hDC)
    METHOD Paint()
@@ -523,7 +523,7 @@ LOCAL pps, hDC
 
   hwg_Endpaint(::handle, pps)
   
-   // hwg_Sendmessage(::oParent:handle, WM_SIZE, 0, 0)  && Does not refresh
+   // hwg_Sendmessage(::oParent:handle, WM_SIZE, 0, 0)  // Does not refresh
    hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
   
  ENDIF 

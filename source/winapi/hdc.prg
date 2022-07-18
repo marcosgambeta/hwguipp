@@ -25,7 +25,7 @@ CLASS HDC
    METHOD Settextcolor( xColor )
    METHOD Setbkmode(xMode)
    METHOD Setbkcolor(  clr ) INLINE    hwg_Setbkcolor(::m_hDC, clr)
-   METHOD Selectobject(xMode) && xObject
+   METHOD Selectobject(xMode) // xObject
    METHOD Drawtext( strText, Rect, dwFlags )
    METHOD Createcompatibledc(x)
    METHOD Patblt( a, s, d, f, g ) INLINE hwg_Patblt(::m_hDc, a, s, d, f, g)

@@ -336,7 +336,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
  cVal : Binary contents of *.ico file
  */
 METHOD AddString( name, cVal , nWidth, nHeight) CLASS HIcon
- LOCAL cTmp    && , oreturn
+ LOCAL cTmp    // , oreturn
  LOCAL aIconSize
 
    IF nWidth == nil
@@ -360,7 +360,7 @@ METHOD AddString( name, cVal , nWidth, nHeight) CLASS HIcon
   * oreturn := ::AddFile(name)
  FERASE(cTmp)
 
-RETURN  Self   && oreturn
+RETURN  Self   // oreturn
 
 
 METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
@@ -638,6 +638,6 @@ LOCAL cTmp , hCursor
  * Write contents into temporary file
  hb_memowrit( cTmp := hwg_CreateTempfileName(, ".cur"), cVal)
  * Load cursor from temporary file
- hCursor := hwg_LoadCursorFromFile(cTmp) && for GTK add parameters nx, ny
+ hCursor := hwg_LoadCursorFromFile(cTmp) // for GTK add parameters nx, ny
  FERASE(cTmp)
 RETURN hCursor

@@ -123,19 +123,19 @@ FUNCTION hwg_HPrinter_LangArray_EN()
   /* 8  */ AAdd(aTooltips,"Zoom in")
   /* 9  */ AAdd(aTooltips,"Print dialog") 
   // added (Titles and other Buttons)
-  /* 10 */ AAdd(aTooltips,"Print preview -") && Title
-  /* 11 */ AAdd(aTooltips,"Print")           && Button
-  /* 12 */ AAdd(aTooltips,"Exit")            && Button
-  /* 13 */ AAdd(aTooltips,"Dialog")          && Button
-  /* 14 */ AAdd(aTooltips,"User Button")     && aBootUser[3], Tooltip
-  /* 15 */ AAdd(aTooltips,"User Button")     && aBootUser[4]
+  /* 10 */ AAdd(aTooltips,"Print preview -") // Title
+  /* 11 */ AAdd(aTooltips,"Print")           // Button
+  /* 12 */ AAdd(aTooltips,"Exit")            // Button
+  /* 13 */ AAdd(aTooltips,"Dialog")          // Button
+  /* 14 */ AAdd(aTooltips,"User Button")     // aBootUser[3], Tooltip
+  /* 15 */ AAdd(aTooltips,"User Button")     // aBootUser[4]
   // Subdialog "Printer Dialog"
-  /* 16 */ AAdd(aTooltips,"All")             && Radio Button              "All"
-  /* 17 */ AAdd(aTooltips,"Current")         && Radio Button              "Current"
-  /* 18 */ AAdd(aTooltips,"Pages")           && Radio Button              "Pages"
-  /* 19 */ AAdd(aTooltips,"Print")           && Button                    "Print"
-  /* 20 */ AAdd(aTooltips,"Cancel")          && Button                    "Cancel"
-  /* 21 */ AAdd(aTooltips,"Enter range of pages") && Tooltip              "Enter range of pages"  
+  /* 16 */ AAdd(aTooltips,"All")             // Radio Button              "All"
+  /* 17 */ AAdd(aTooltips,"Current")         // Radio Button              "Current"
+  /* 18 */ AAdd(aTooltips,"Pages")           // Radio Button              "Pages"
+  /* 19 */ AAdd(aTooltips,"Print")           // Button                    "Print"
+  /* 20 */ AAdd(aTooltips,"Cancel")          // Button                    "Cancel"
+  /* 21 */ AAdd(aTooltips,"Enter range of pages") // Tooltip              "Enter range of pages"  
   
 RETURN aTooltips  
 
@@ -639,7 +639,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 */
 
    LOCAL cmExit, cmPrint, cmDialog, cmTitle
-   LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, i, aPage && := { }
+   LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, i, aPage // := { }
    LOCAL oFont := HFont():Add("Times New Roman", 0, -13, 700)
    LOCAL lTransp := ( aBitmaps != Nil .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != Nil .AND. aBitmaps[10] )
 
@@ -709,7 +709,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    oCanvas:brush := 0
 
    @ 3, 2 OWNERBUTTON oBtn OF oToolBar ON CLICK { || hwg_EndDialog() } ;
-      SIZE oToolBar:nWidth - 6, 24 TEXT cmExit FONT oFont              ;  && "Exit"
+      SIZE oToolBar:nWidth - 6, 24 TEXT cmExit FONT oFont              ;  // "Exit"
       TOOLTIP Iif( aTooltips != Nil, aTooltips[1], "Exit Preview" )
    IF aBitmaps != Nil .AND. Len(aBitmaps) > 1 .AND. aBitmaps[2] != Nil
       oBtn:oBitmap  := Iif( aBitmaps[1], HBitmap():AddResource(aBitmaps[2]), HBitmap():AddFile(aBitmaps[2]) )
@@ -721,7 +721,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
   IF ::lprbutton  
    @ 3, 36 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::PrintDoc() } ;
-      SIZE oToolBar:nWidth - 6, 24 TEXT cmPrint FONT oFont           ;  && "Print"
+      SIZE oToolBar:nWidth - 6, 24 TEXT cmPrint FONT oFont           ;  // "Print"
       TOOLTIP Iif( aTooltips != Nil, aTooltips[2], "Print file" )
   ENDIF
 
@@ -733,7 +733,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    ENDIF
 
    @ 3, 66 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::PrintDlg(aTooltips) } ;
-      SIZE oToolBar:nWidth - 6, 24 TEXT cmDialog FONT oFont          ;  && "Dialog"
+      SIZE oToolBar:nWidth - 6, 24 TEXT cmDialog FONT oFont          ;  // "Dialog"
       TOOLTIP Iif( aTooltips!=Nil .AND. Len(aTooltips)>8, aTooltips[9], "Print dialog" )
    IF aBitmaps != Nil .AND. Len(aBitmaps) > 8 .AND. aBitmaps[9] != Nil
       oBtn:oBitmap := Iif( aBitmaps[1], HBitmap():AddResource(aBitmaps[9]), HBitmap():AddFile(aBitmaps[9]) )
@@ -1163,21 +1163,21 @@ METHOD PrintDlg(aTooltips) CLASS HPrinter
     aTooltips := ::aLangTexts
    ENDIF
    
-   INIT DIALOG oDlg TITLE aTooltips[9]  ; && "Print dialog"
+   INIT DIALOG oDlg TITLE aTooltips[9]  ; // "Print dialog"
       At 40, 10 SIZE 220, 230 STYLE DS_CENTER
 
    GET RADIOGROUP nChoic
-   @ 20,20 RADIOBUTTON aTooltips[16] SIZE 150, 22 ON CLICK {||oGet:Disable()}  && "All"
-   @ 20,46 RADIOBUTTON aTooltips[17] SIZE 150, 22 ON CLICK {||oGet:Disable()}  && "Current"
-   @ 20,70 RADIOBUTTON aTooltips[18] SIZE 150, 22 ON CLICK {||oGet:Enable()}   && "Pages", former ""
+   @ 20,20 RADIOBUTTON aTooltips[16] SIZE 150, 22 ON CLICK {||oGet:Disable()}  // "All"
+   @ 20,46 RADIOBUTTON aTooltips[17] SIZE 150, 22 ON CLICK {||oGet:Disable()}  // "Current"
+   @ 20,70 RADIOBUTTON aTooltips[18] SIZE 150, 22 ON CLICK {||oGet:Enable()}   // "Pages", former ""
    END RADIOGROUP
 
    @ 40,100 GET oGet VAR cpages SIZE 160, 24 ;
-   TOOLTIP aTooltips[21]   && "Enter range of pages"
+   TOOLTIP aTooltips[21]   // "Enter range of pages"
    oGet:Disable()
 
-   @  20, 150  BUTTON aTooltips[19] SIZE 80, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }  && "Print"
-   @ 120, 150  BUTTON aTooltips[20] ID IDCANCEL SIZE 80, 32   && "Cancel"
+   @  20, 150  BUTTON aTooltips[19] SIZE 80, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }  // "Print"
+   @ 120, 150  BUTTON aTooltips[20] ID IDCANCEL SIZE 80, 32   // "Cancel"
 
    ACTIVATE DIALOG oDlg
 

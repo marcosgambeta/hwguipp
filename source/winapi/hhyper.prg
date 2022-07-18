@@ -49,7 +49,7 @@ CLASS HStaticLink FROM HSTATIC
    METHOD OnClicked()
    METHOD SetLinkColor( sLinkColor )
    METHOD Paint()
-   METHOD OnMouseMove(nFlags, lParam)  && point
+   METHOD OnMouseMove(nFlags, lParam)  // point
 
 ENDCLASS
 
