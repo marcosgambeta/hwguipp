@@ -79,6 +79,7 @@
 {win}source/winapi/hpen.prg
 {win}source/winapi/hprinter.prg
 {win}source/winapi/hprogressbar.prg
+{win}source/winapi/hradiobutton.prg
 {win}source/winapi/hradiogroup.prg
 {win}source/winapi/hrebar.prg
 {win}source/winapi/hrect.prg
