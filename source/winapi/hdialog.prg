@@ -274,7 +274,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
    LOCAL nReturn := 1
    LOCAL aCoors //, aRect
 
-  * Parameters not used
+  // Parameters not used
     HB_SYMBOL_UNUSED(wParam)
     HB_SYMBOL_UNUSED(lParam)
 
@@ -356,7 +356,7 @@ FUNCTION onDlgCommand(oDlg, wParam, lParam)
    LOCAL iParHigh := hwg_Hiword(wParam), iParLow := hwg_Loword(wParam)
    LOCAL aMenu, i, hCtrl
 
-    * Parameters not used
+    // Parameters not used
     HB_SYMBOL_UNUSED(lParam)
 
    // WriteLog( Str(iParHigh, 10)+"|"+Str(iParLow, 10)+"|"+Str(wParam, 10)+"|"+Str(lParam, 10) )
@@ -421,10 +421,10 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
 
    LOCAL iParLow := hwg_Loword(wParam), b
 
-    * Parameters not used
+    // Parameters not used
     HB_SYMBOL_UNUSED(lParam)
 
-     * Parameters not used
+     // Parameters not used
     HB_SYMBOL_UNUSED(lParam)
 
    IF oDlg:bActivate != Nil
@@ -444,7 +444,7 @@ STATIC FUNCTION onHelp( oDlg, wParam, lParam )
 
    LOCAL oCtrl, nHelpId, oParent
 
-     * Parameters not used
+     // Parameters not used
     HB_SYMBOL_UNUSED(wParam)
 
 
@@ -468,7 +468,7 @@ STATIC FUNCTION onPspNotify( oDlg, wParam, lParam )
 
    LOCAL nCode := hwg_Getnotifycode(lParam), res := .T.
 
-     * Parameters not used
+     // Parameters not used
     HB_SYMBOL_UNUSED(wParam)
 
 

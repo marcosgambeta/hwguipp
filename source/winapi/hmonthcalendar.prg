@@ -104,8 +104,8 @@ METHOD Value(dValue) CLASS HMonthCalendar
 //--------------------------------------------------------------------------//
 
 FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
-* Date picker command for all platforms in the design of original
-* Windows only DATEPICKER command
+// Date picker command for all platforms in the design of original
+// Windows only DATEPICKER command
 
    LOCAL oDlg, oMC , oFont , dolddate , dnewdate,  lcancel 
 
@@ -145,7 +145,7 @@ FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
 
   lcancel := .T.
 
-  * Remember old date
+  // Remember old date
   dolddate := dstartdate
     
    INIT DIALOG oDlg TITLE cTitle ;
@@ -153,7 +153,7 @@ FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
 
    @ 0,0 MONTHCALENDAR oMC ;
       SIZE wid - 1 , hei - 1 ;
-      INIT dstartdate ;   // Date(), if NIL 
+      INIT dstartdate ;   // Date(), if NIL
       FONT oFont 
 
    @ 0 ,hei BUTTON cOK FONT oFont ;
@@ -171,12 +171,12 @@ FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
      
    RETURN dnewdate
 
-  * --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
 FUNCTION hwg_oDatepicker_bmp()
-* Returns the bimap object of image Datepick_Button2.bmp
-* (size 11 x 11 )
-* for the multi platform datepicker based on HMONTHCALENDAR class
+// Returns the bimap object of image Datepick_Button2.bmp
+// (size 11 x 11 )
+// for the multi platform datepicker based on HMONTHCALENDAR class
 
 
 RETURN HBitmap():AddString("Datepick_Button", hwg_cHex2Bin(;

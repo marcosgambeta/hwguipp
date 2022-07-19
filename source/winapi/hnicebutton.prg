@@ -155,13 +155,13 @@ METHOD Create() CLASS HNICEButton
    LOCAL w
    LOCAL h
    
-* Not used variables
-*   LOCAL x
-*   LOCAL y
-   
+// Not used variables
+//   LOCAL x
+//   LOCAL y
+
    Rct    := hwg_Getclientrect(::handle)
-*   x      := Rct[1]
-*   y      := Rct[2]
+//   x      := Rct[1]
+//   y      := Rct[2]
    w      := Rct[3] - Rct[1]
    h      := Rct[4] - Rct[2]
    Region := hwg_Createroundrectrgn( 0, 0, w, h, h * 0.90, h * 0.90 )
@@ -189,12 +189,12 @@ METHOD MouseMove(wParam, lParam) CLASS HNICEButton
 
    LOCAL otmp
 
-* Not used variables
-*     LOCAL aCoors
-*     LOCAL xPos
-*     LOCAL yPos   
+// Not used variables
+//     LOCAL aCoors
+//     LOCAL xPos
+//     LOCAL yPos
 
-* Not used parameters   
+// Not used parameters
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
@@ -208,9 +208,9 @@ METHOD MouseMove(wParam, lParam) CLASS HNICEButton
          hwg_SetNiceBtnSelected(Nil)
       ENDIF
 
-*      aCoors := hwg_Getclientrect(::handle)
-*      xPos   := hwg_Loword(lParam)
-*      yPos   := hwg_Hiword(lParam)
+//      aCoors := hwg_Getclientrect(::handle)
+//      xPos   := hwg_Loword(lParam)
+//      yPos   := hwg_Hiword(lParam)
 
       IF ::state == OBTN_NORMAL
          ::state := OBTN_MOUSOVER
@@ -269,13 +269,13 @@ METHOD PAINT() CLASS HNICEButton
    LOCAL T       //  := Space(2048)
    //  *******************
 
-* Variables not used
-*
-*    LOCAL p
-* Preset of variable T with SPACE(2048)
-* produces:
-* Warning W0032  Variable 'T' is assigned but not used in function 'HNICEBUTTON_PAINT(276)'
-*
+// Variables not used
+//
+//    LOCAL p
+// Preset of variable T with SPACE(2048)
+// produces:
+// Warning W0032  Variable 'T' is assigned but not used in function 'HNICEBUTTON_PAINT(276)'
+//
 
    Rct  := hwg_Getclientrect(::Handle)
    x    := Rct[1]
@@ -299,11 +299,11 @@ METHOD PAINT() CLASS HNICEButton
    hwg_Setbkmode(hDC, TRANSPARENT)
 
    IF (::State == OBTN_MOUSOVER)
-*      p := hwg_Settextcolor(hDC, hwg_ColorC2N("FF0000"))
+//      p := hwg_Settextcolor(hDC, hwg_ColorC2N("FF0000"))
       hwg_Settextcolor(hDC, hwg_ColorC2N("FF0000"))
       hwg_Textout(hDC, XCtr - (Size[1] / 2) + 1, YCtr - (Size[2] / 2) + 1, T)
    ELSE
-*      p := hwg_Settextcolor(hDC, hwg_ColorC2N("0000FF"))
+//      p := hwg_Settextcolor(hDC, hwg_ColorC2N("0000FF"))
       hwg_Settextcolor(hDC, hwg_ColorC2N("0000FF"))
       hwg_Textout(hDC, XCtr - Size[1] / 2, YCtr - Size[2] / 2, T)
    ENDIF

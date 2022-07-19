@@ -91,7 +91,7 @@ METHOD New( oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight,   ;
    ENDIF
    IF bmp != Nil
       IF ValType(bmp) == "O"
-         * Valid bitmap object
+         // Valid bitmap object
          ::oBitmap := bmp
       ELSE
          ::oBitmap := iif((lResour != Nil .AND. lResour) .OR. ValType(bmp) == "N", HBitmap():AddResource(bmp), HBitmap():AddFile(iif(::cPath != Nil, ::cPath + bmp, bmp)))

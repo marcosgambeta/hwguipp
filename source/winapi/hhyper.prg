@@ -110,7 +110,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
 
    LOCAL oPrevFont
 
-    * Parameters not used
+    // Parameters not used
     HB_SYMBOL_UNUSED(lTransp)
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)

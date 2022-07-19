@@ -93,10 +93,10 @@ FUNCTION main
 
 #endif
 
-*-- CLASS DEFINITION ---------------------------------------------------------
-*         Name: Barcode
-*  Description:
-*-----------------------------------------------------------------------------
+//-- CLASS DEFINITION ---------------------------------------------------------
+//         Name: Barcode
+//  Description:
+//-----------------------------------------------------------------------------
 CLASS Barcode
 
    DATA hDC           // handle of the window, dialog or printer object
@@ -145,10 +145,10 @@ CLASS Barcode
 
 ENDCLASS
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: New
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: New
+//  Description:
+//-----------------------------------------------------------------------------
 
 METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, nColText, nColPane, lHorz, lTransparent, nPinWidth) CLASS Barcode
 
@@ -180,10 +180,10 @@ METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, nColText, nColP
    RETURN ( Self )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: ShowBarcode
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: ShowBarcode
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD ShowBarcode() CLASS BarCode
 
    LOCAL cCode, cCode2
@@ -239,10 +239,10 @@ METHOD ShowBarcode() CLASS BarCode
    RETURN ( NIL )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: CreateBarcode
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: CreateBarcode
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD CreateBarcode(cCode) CLASS BarCode
 
    LOCAL i, hPen, hOldPen, hBrush, hOldBrush
@@ -275,9 +275,9 @@ METHOD CreateBarcode(cCode) CLASS BarCode
       IF SubStr(cCode, i, 1) = "1"
          IF ::lHorizontal = .F.
             RICH_Rectangle(::hDC, nX, nY, nX + ::nHeight, (nY += ::nPinWidth))
-            *RICH_Rectangle(::hDC, nX, nY, nX + ::nWidth, (nY += ::nPinWidth))
+            // RICH_Rectangle(::hDC, nX, nY, nX + ::nWidth, (nY += ::nPinWidth))
          ELSE
-            *RICH_Rectangle(::hDC, nX, nY, (nX += ::nPinWidth), nY + ::nWidth)
+            // RICH_Rectangle(::hDC, nX, nY, (nX += ::nPinWidth), nY + ::nWidth)
             RICH_Rectangle(::hDC, nX, nY, (nX += ::nPinWidth), nY + ::nHeight)
          ENDIF
       ELSE
@@ -317,10 +317,10 @@ METHOD CreateBarcode(cCode) CLASS BarCode
 
    RETURN ( NIL )
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitCode39
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitCode39
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitCode39( lCheck ) CLASS BarCode
 
    LOCAL cCars := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *$/+%"
@@ -400,10 +400,10 @@ METHOD InitCode39( lCheck ) CLASS BarCode
    RETURN ( cBarra )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitCode128
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitCode128
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitCode128( cMode ) CLASS BarCode
 
    LOCAL aCode := { "212222", "222122", "222221", "121223", "121322", "131222", ;
@@ -531,10 +531,10 @@ METHOD InitCode128( cMode ) CLASS BarCode
    RETURN ( cBarra )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitEAN13
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitEAN13
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitEAN13() CLASS BarCode
 
    LOCAL derecha := [1110010110011011011001000010101110010011101010000100010010010001110100]
@@ -602,10 +602,10 @@ METHOD InitEAN13() CLASS BarCode
    RETURN ( cadena )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitUPC
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitUPC
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitUPC(nLen) CLASS BarCode
 
    LOCAL derecha := [1110010110011011011001000010101110010011101010000100010010010001110100]
@@ -664,10 +664,10 @@ METHOD InitUPC(nLen) CLASS BarCode
    RETURN ( cadena )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitE13BL
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitE13BL
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitE13BL( nLen ) CLASS BarCode
 
    nLen := Int(nLen / 2)
@@ -675,10 +675,10 @@ METHOD InitE13BL( nLen ) CLASS BarCode
    RETURN "101" + Replicate("0", nLen * 7) + "01010" + Replicate("0", nLen * 7) + "101"
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitCodabar
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitCodabar
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitCodabar() CLASS BarCode
 
    //this system not test the start/end code
@@ -704,10 +704,10 @@ METHOD InitCodabar() CLASS BarCode
    RETURN ( cBarra )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitSup5
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitSup5
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitSub5() CLASS BarCode
 
    LOCAL izda1   := [0001101001100100100110111101010001101100010101111011101101101110001011]
@@ -741,10 +741,10 @@ METHOD InitSub5() CLASS BarCode
    RETURN ( cBarras )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitIndustrial25
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitIndustrial25
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitIndustrial25( lCheck ) CLASS BarCode
 
    LOCAL n
@@ -784,10 +784,10 @@ METHOD InitIndustrial25( lCheck ) CLASS BarCode
    RETURN ( cBarra )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitInterleave25
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitInterleave25
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitInterleave25( lMode ) CLASS BarCode
 
    LOCAL n, m
@@ -845,10 +845,10 @@ METHOD InitInterleave25( lMode ) CLASS BarCode
    RETURN ( cBar )
 
 
-*-- METHOD -------------------------------------------------------------------
-*         Name: InitIndust25
-*  Description:
-*-----------------------------------------------------------------------------
+//-- METHOD -------------------------------------------------------------------
+//         Name: InitIndust25
+//  Description:
+//-----------------------------------------------------------------------------
 METHOD InitMatrix25( lCheck ) CLASS BarCode
 
    LOCAL n

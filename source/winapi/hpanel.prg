@@ -357,10 +357,10 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPar
       bColor := 0xeeeeee
    ENDIF
 
-/*   
+/*
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, 0, oWndParent:nHeight - nHeight, ;
       oWndParent:nWidth, nHeight, bInit, { |o, w, h|o:Move(0, h - o:nHeight) }, bPaint, bcolor )
-    Block reverted to old value with HB_SYMBOL_UNUSED(w)  
+    Block reverted to old value with HB_SYMBOL_UNUSED(w)
 */
   
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, 0, oWndParent:nHeight - nHeight, ;
@@ -504,15 +504,15 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oSty
    RETURN Self
    
 METHOD SetText( c , lrefresh) CLASS HPanelHea
-* DF7BE: Set lrefresh to .T. for refreshing the header text
-* (compatibility to INLINE definition)
+// DF7BE: Set lrefresh to .T. for refreshing the header text
+// (compatibility to INLINE definition)
 
 LOCAL pps, hDC
- 
+
  IF lrefresh == NIL
    lrefresh := .F.
  ENDIF
- 
+
  ::title := c
 
  IF lrefresh
@@ -522,13 +522,13 @@ LOCAL pps, hDC
   ::PaintText(hDC)
 
   hwg_Endpaint(::handle, pps)
-  
+
    // hwg_Sendmessage(::oParent:handle, WM_SIZE, 0, 0)  // Does not refresh
    hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
-  
- ENDIF 
-  
-RETURN NIL   
+
+ ENDIF
+
+RETURN NIL
 
 METHOD SetSysbtnColor( tColor, bColor )
 

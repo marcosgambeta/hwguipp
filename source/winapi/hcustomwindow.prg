@@ -238,7 +238,7 @@ METHOD OnError() CLASS HCustomWindow
 STATIC FUNCTION onNotify( oWnd, wParam, lParam )
    LOCAL iItem, oCtrl, nCode, res, n
    
-   * Not used parameter
+   // Not used parameter
    // (lParam)
 
    wParam := hwg_PtrToUlong(wParam)
@@ -330,12 +330,12 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 STATIC FUNCTION onSize(oWnd, wParam, lParam)
    LOCAL aControls := oWnd:aControls, oItem
    
-    * Not used parameter
+   // Not used parameter
    (wParam)   
 
    FOR EACH oItem IN aControls
       IF oItem:bSize != NIL
-         *  { |o, w, l| onSize(o, w, l) }
+         //  { |o, w, l| onSize(o, w, l) }
          Eval(oItem:bSize, oItem, hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
    NEXT

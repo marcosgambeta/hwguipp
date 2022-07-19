@@ -57,7 +57,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit
 
 METHOD Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
 
-   * Parameters not used
+   // Parameters not used
    HB_SYMBOL_UNUSED(lVertical)
 
    ::Super:New( oWndParent,nId,0,0,0,0,0,,bInit, bSize,bPaint,ctooltip,, )
@@ -149,7 +149,7 @@ METHOD STEP( cTitle )
 
    RETURN Nil
 
-* Added by DF7BE
+// Added by DF7BE
 METHOD RESET( cTitle )
 
    IF cTitle != Nil

@@ -54,7 +54,7 @@ METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeigh
    IF bKillFocus != Nil
       ::oParent:AddEvent( IPN_FIELDCHANGED, ::id, ::bKillFocus, .T., "onChange" )
    ENDIF
-  * ENDIF
+  // ENDIF
 
    // Notificacoes de Ganho e perda de foco
    ::oParent:AddEvent( EN_SETFOCUS , ::id, { | o, id | __GetFocus( o:FindControl( id ) ) },, "onGotFocus" )

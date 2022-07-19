@@ -138,8 +138,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
    LOCAL oParent := ::oParent, nPos, cClipboardText
    LOCAL nexthandle
    
-   * Not used variables
-   * nctrl, cKeyb
+   // Not used variables
+   // nctrl, cKeyb
 
    IF ::bOther != Nil .AND. ( nPos := Eval(::bOther, Self, msg, wParam, lParam) ) != - 1
       RETURN nPos
@@ -570,8 +570,8 @@ STATIC FUNCTION IsEditable(oEdit, nPos)
 
 STATIC FUNCTION KeyRight(oEdit, nPos)
    LOCAL masklen, newpos
-   * Not used variables
-   * i, vari
+   // Not used variables
+   // i, vari
 
    IF oEdit == Nil
       Return - 1
@@ -605,8 +605,8 @@ STATIC FUNCTION KeyRight(oEdit, nPos)
 
 STATIC FUNCTION KeyLeft(oEdit, nPos)
    
-   * Not used
-   * LOCAL i
+   // Not used
+   // LOCAL i
 
    IF oEdit == Nil
       Return - 1
@@ -721,8 +721,8 @@ STATIC FUNCTION GetApplyKey( oEdit, cKey )
    LOCAL nPos, nGetLen, nLen, vari, x, newPos, oParent
    LOCAL nDecimals, xTmp, lMinus := .F.
    
-   * Not used variables
-   * i
+   // Not used variables
+   // i
 
    x := hwg_Sendmessage(oEdit:handle, EM_GETSEL, 0, 0)
    IF hwg_Hiword(x) != hwg_Loword(x)

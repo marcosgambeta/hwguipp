@@ -121,7 +121,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
   /* 6  */ AAdd(aTooltips,"Last page")
   /* 7  */ AAdd(aTooltips,"Zoom out")
   /* 8  */ AAdd(aTooltips,"Zoom in")
-  /* 9  */ AAdd(aTooltips,"Print dialog") 
+  /* 9  */ AAdd(aTooltips,"Print dialog")
   // added (Titles and other Buttons)
   /* 10 */ AAdd(aTooltips,"Print preview -") // Title
   /* 11 */ AAdd(aTooltips,"Print")           // Button
@@ -135,16 +135,16 @@ FUNCTION hwg_HPrinter_LangArray_EN()
   /* 18 */ AAdd(aTooltips,"Pages")           // Radio Button              "Pages"
   /* 19 */ AAdd(aTooltips,"Print")           // Button                    "Print"
   /* 20 */ AAdd(aTooltips,"Cancel")          // Button                    "Cancel"
-  /* 21 */ AAdd(aTooltips,"Enter range of pages") // Tooltip              "Enter range of pages"  
-  
-RETURN aTooltips  
+  /* 21 */ AAdd(aTooltips,"Enter range of pages") // Tooltip              "Enter range of pages"
+
+RETURN aTooltips
 
 METHOD New( cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn ) CLASS HPrinter
 
    LOCAL aPrnCoors, cPrinterName, nTemp
 
    ::DefaultLang()
-   
+
    IF ValType(nFormType) == "N"
       // A3 - DMPAPER_A3, A4 - DMPAPER_A4
       ::FormType := nFormType
@@ -506,8 +506,8 @@ METHOD EndDoc() CLASS HPrinter
 
    LOCAL  nRes := 0
    
-   * Variables not used
-   * i, han
+   // Variables not used
+   // i, han
 
    IF !::lUseMeta .AND. ::lPreview .AND. !Empty(::cScriptFile)
       ::SaveScript()
@@ -523,8 +523,8 @@ METHOD StartPage() CLASS HPrinter
 
    LOCAL nRes := 0
    
-   * Variables not used
-   * fname 
+   // Variables not used
+   // fname 
 
    ::nPage++
    IF ::lPreview
@@ -643,8 +643,8 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    LOCAL oFont := HFont():Add("Times New Roman", 0, -13, 700)
    LOCAL lTransp := ( aBitmaps != Nil .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != Nil .AND. aBitmaps[10] )
 
-   * Variables not used   
-   * cBootUser3, cBootUser4
+   // Variables not used
+   // cBootUser3, cBootUser4
 
    aPage := Array(Len(::aPages))
    FOR i := 1 TO Len(aPage)
@@ -656,27 +656,27 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    cmExit         := "Exit"
    cmPrint        := "Print"
    cmDialog       := "Dialog"
-*   cBootUser3     := "User Button"
-*   cBootUser4     := "User Button"
+//   cBootUser3     := "User Button"
+//   cBootUser4     := "User Button"
    cmTitle        := "Print preview - " + ::cPrinterName
-   
+
    /* Parameter cTitle preferred */
    IF cTitle == Nil
-    cTitle := cmTitle  
-    IF aTooltips != Nil  
+    cTitle := cmTitle
+    IF aTooltips != Nil
       cTitle := aTooltips[10] + " " + ::cPrinterName
     ENDIF
    ELSE
-    cTitle := cmTitle     
+    cTitle := cmTitle
    ENDIF
    IF aTooltips != Nil
       cmPrint    := aTooltips[11]
       cmExit     := aTooltips[12]
       cmDialog   := aTooltips[13]
- *     cBootUser3 := aTooltips[14]
- *     cBootUser4 := aTooltips[15]
+ //     cBootUser3 := aTooltips[14]
+ //     cBootUser4 := aTooltips[15]
    ENDIF
- 
+
    ::nZoom := 0
    ::nCurrPage := 1
 

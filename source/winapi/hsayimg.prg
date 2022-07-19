@@ -237,7 +237,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       lOEM := .F.
    ENDIF
    IF ::oImage == nil
-      * Ticket #60
+      // Ticket #60
       // hwg_writelog( "::oImage == nil" + Str(nWidth) + "/" + str(nHeight) )
       ::oImage := iif( lRes .OR. ValType(Image) == "N",  ;
          HIcon():AddResource(Image, nWidth, nHeight, , lOEM), iif(ValType(Image) == "C", HIcon():AddFile(Image, nWidth, nHeight), Image))

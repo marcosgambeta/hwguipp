@@ -233,8 +233,8 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
    LOCAL oBmp := NIL
    LOCAL bGetFo := { |o| HFormTmpl():oActive := o }
    
-   * Not used variables
-   * LOCAL lval := .F.
+   // Not used variables
+   // LOCAL lval := .F.
 
    MEMVAR oDlg
    PRIVATE oDlg
@@ -720,8 +720,8 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    LOCAL j, oCtrl, stroka, varname, xProperty,  cType, cPName, cCtrlName
    LOCAL nCtrl := Ascan(aClass, oCtrlTmpl:cClass), xInitValue, cInitName, cVarName
    LOCAL i
-   * Not used variables
-   * block
+   // Not used variables
+   // block
 
    MEMVAR oPrnt, nId, nInitValue, cInitValue, dInitValue, nStyle, nLeft, nTop, oStyle, aStyles
    MEMVAR onInit, onSize, onPaint, onEnter, onGetfocus, onLostfocus, lNoVScroll, lAppend, lAutoedit, bUpdate, onKeyDown, onPosChg
@@ -1672,8 +1672,8 @@ STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
    LOCAL oCtrl := HRepItem():New( oContainer )
    LOCAL i, j, o, cName, aProp := {}, aMethods := {}, aItems := oCtrlDesc:aItems, xProperty
    
-   * Not used variables
-   * LOCAL nPenWidth, nPenType
+   // Not used variables
+   // LOCAL nPenWidth, nPenType
 
    oCtrl:cClass   := oCtrlDesc:GetAttribute("class")
    oCtrl:aProp    := aProp

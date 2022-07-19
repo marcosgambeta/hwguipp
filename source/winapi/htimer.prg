@@ -73,7 +73,7 @@ FUNCTION hwg_TimerProc(hWnd, idTimer) //, time )
 
    LOCAL i := Ascan(HTimer():aTimers, {|o|o:id == idTimer}), b, oParent
 
-    * Parameters not used
+    // Parameters not used
     HB_SYMBOL_UNUSED(hWnd)
 
    IF i != 0

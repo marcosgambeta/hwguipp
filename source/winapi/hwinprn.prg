@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
  *
  * Modifications by DF7BE:
- * - New parameter "nCharset" for 
+ * - New parameter "nCharset" for
  *   selecting international charachter sets
  *   Data and methods for National Language Support
  *
@@ -156,19 +156,19 @@ METHOD New( cPrinter, cpFrom, cpTo, nFormType , nCharset ) CLASS HWinPrn
 
 
 METHOD SetLanguage(apTooltips, apBootUser) CLASS HWinPrn
-* NLS: Sets the message and control texts to print preview dialog
-* Are stored in arrays:   ::aTooltips[], ::aBootUser[]
+// NLS: Sets the message and control texts to print preview dialog
+// Are stored in arrays:   ::aTooltips[], ::aBootUser[]
 
-* Parameters not used
+// Parameters not used
  HB_SYMBOL_UNUSED(apBootUser)
 
-* Default settings (English)
+// Default settings (English)
   ::aTooltips := hwg_HPrinter_LangArray_EN()
-* Overwrite default, if array with own language served 
+// Overwrite default, if array with own language served
    IF apTooltips != NIL
       ::aTooltips := apTooltips
    ENDIF
-/* Activate, if necessary */   
+/* Activate, if necessary */
 //   IF apBootUser != NIL ; ::aBootUser := apBootUser ; ENDIF
 RETURN Nil
 
@@ -226,7 +226,7 @@ METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nChar
          ELSEIF ::nFormType == 8 .AND. ( nPWidth > 300 .OR. nPWidth < 280 )
             nPWidth := 290
          ENDIF
-         
+
          oFont := ::oPrinter:AddFont( cFont, ::nStdHeight * ::oPrinter:nVRes )
 
          nWidth := ::oPrinter:GetTextWidth( Replicate("A", Iif(::nFormType == 8, 113, 80)), oFont ) / ::oPrinter:nHRes
@@ -270,7 +270,7 @@ METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nChar
   Added by DF7BE:
   Should act like a "printer reset"
   (Set back to default values).
-*/   
+*/
 METHOD SetDefaultMode() CLASS HWinPrn
 
    ::SetMode(.F., .F., 6, .F., .F., .F., 0, 0)
@@ -298,7 +298,7 @@ METHOD SetY( nYvalue ) CLASS HWinPrn
 
 
 METHOD StartDoc(lPreview, cMetaName, lprbutton) CLASS HWinPrn
-* Set lprbutton to .F., if preview dialog not shows the print button
+// Set lprbutton to .F., if preview dialog not shows the print button
 
 
    ::lDocStart := .T.
@@ -340,18 +340,18 @@ METHOD NextPage() CLASS HWinPrn
    Recovered from r2536 2016-06-16
    added support for bitmap object
 
-   xBitmap     : Name and path to bitmap file 
+   xBitmap     : Name and path to bitmap file
                  or bitmap object variable
    nAlign      : 0 - left, 1 - center, 2 - right, default = 0
    cBitmapName  : Name of resource, if xBitmap is bitmap object
- */   
+ */
 METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
 
    LOCAL i , cTmp
    LOCAL hBitmap, aBmpSize , cImageName
    
-   * Variables not used
-   * LOCAL oBitmap
+   // Variables not used
+   // LOCAL oBitmap
 
    IF !::lDocStart
       ::StartDoc()
@@ -364,7 +364,7 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
    cTmp := hwg_CreateTempfileName(, ".bmp")   
    
    IF VALTYPE(xBitmap) == "C" // does not work on GTK
-     * from file
+     // from file
      IF !hb_fileexists( xBitmap )
        RETURN NIL
      ENDIF
@@ -376,9 +376,9 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
      cImageName := IIF(EMPTY (cBitmapName), xBitmap, cBitmapName)
      aBmpSize  := hwg_Getbitmapsize(hBitmap)
    ELSE
-     * xBitmap is a bitmap object
+     // xBitmap is a bitmap object
      cImageName := IIF(EMPTY (cBitmapName), "" , cBitmapName)
-     * Store into a temporary file
+     // Store into a temporary file
      xBitmap:OBMP2FILE(cTmp, cBitmapName)
      hBitmap := hwg_Openbitmap( cTmp , ::oPrinter:hDC )
      // hwg_msginfo(hb_valtostr(hBitmap))
@@ -389,7 +389,7 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
      FERASE(cTmp)
    ENDIF
    
-/* Page size overflow  ? ==> next page */ 
+/* Page size overflow  ? ==> next page */
 #ifdef __GTK__
    IF ::y + aBmpSize[2] + ::nLined > ::oPrinter:nHeight
 #else
@@ -403,14 +403,14 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
 
    IF nAlign == 1 .AND. ::x + aBmpSize[2] < ::oPrinter:nWidth 
      ::x += ROUND((::oPrinter:nWidth - ::x - aBmpSize[1]) / 2, 0)
-   * HKrzak 2020-10-27 
+   // HKrzak 2020-10-27 
    ELSEIF nAlign == 2
      ::x += ROUND((::oPrinter:nWidth - ::x - aBmpSize[1]), 0)
    ENDIF
    IF ::lFirstLine
       ::lFirstLine := .F.
    ENDIF
-   * Paint bitmap
+   // Paint bitmap
    ::oPrinter:Bitmap(::x, ::y, ::x + aBmpSize[1], ::y + aBmpSize[2], , hBitmap, cImageName)
         
    i := aBmpSize[2] - ::nLineHeight
@@ -441,15 +441,15 @@ METHOD PrintLine(cLine, lNewLine) CLASS HWinPrn
       ::StartDoc()
    ENDIF
 
-* HKrzak.Start 2020-10-25
-* Bug Ticket #64
+// HKrzak.Start 2020-10-25
+// Bug Ticket #64
 IF cLine != Nil .AND. VALTYPE(cLine) == "N"
      ::y += ::nLineHeight * cLine
      IF ::y < 0
        ::y := 0
      ENDIF
    ENDIF
-* HKrzak.End   
+// HKrzak.End   
    
 
 #ifdef __GTK__
@@ -460,12 +460,12 @@ IF cLine != Nil .AND. VALTYPE(cLine) == "N"
       ::NextPage()
    ENDIF
 
-* HKrzak.Start 2020-10-25
-* Bug Ticket #64
+// HKrzak.Start 2020-10-25
+// Bug Ticket #64
    IF cLine != Nil .AND. VALTYPE(cLine) == "N"
      RETURN NIL
    ENDIF
-* HKrzak.End
+// HKrzak.End
 
    ::x := ::nLeft * ::oPrinter:nHRes
    IF ::lFirstLine

@@ -317,7 +317,7 @@ METHOD Notify( lParam ) CLASS HTab
 /* aItem and cCaption added */
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem) CLASS hTab
 
-     * Parameters not used
+     // Parameters not used
     HB_SYMBOL_UNUSED(cCaption)
     HB_SYMBOL_UNUSED(lTransp)
     HB_SYMBOL_UNUSED(aItem)

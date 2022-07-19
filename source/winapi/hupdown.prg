@@ -120,8 +120,8 @@ METHOD Value(nValue) CLASS HUpDown
 
 METHOD Refresh()  CLASS HUpDown
 
-   * Variables not used
-   * LOCAL vari
+   // Variables not used
+   // LOCAL vari
 
    IF ::bSetGet != Nil
       ::nValue := Eval(::bSetGet)
