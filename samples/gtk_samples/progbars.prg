@@ -98,7 +98,7 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
 
              do case
                 case included == NIL .or. included == "ManExt" .or.included == "AutoExt"
-                     @ 290, 395 BUTTON oCreate CAPTION 'Create Bar' SIZE 85,25 ;
+                     @ 290, 395 BUTTON oCreate CAPTION "Create Bar" SIZE 85,25 ;
                         ON CLICK {|| oBar := HProgressBar():NewBox( "Testing ...",,,,, 20, 100 ),iif(included == "AutoExt",SetTimer(oForm,@oTimer),),oCreate:hide()}
                      * Attention !
                      * To bypass the hidden toolbar, use wmctrl to place the toolbar on top ...
@@ -108,7 +108,7 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
                 case included == "ManInt" .or. included == "AutoInt" 
                      @ 150,110 say "Testing ..." SIZE 200,32
                      @ 150,150 PROGRESSBAR oBar SIZE 100, 20 BARWIDTH 10 QUANTITY 100
-                     @ 290, 395 BUTTON oCreate CAPTION 'Create Bar' SIZE 85,25 ;
+                     @ 290, 395 BUTTON oCreate CAPTION "Create Bar" SIZE 85,25 ;
                        ON CLICK {||oBar:show(),oCreate:hide(),iif(included == "AutoInt",SetTimer(oForm,@oTimer),"")}
                      oCreate:hide()
                      if included == "AutoInt"
@@ -116,21 +116,21 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
                      endif
              endcase
 
-             @ 380, 395 BUTTON 'Step Bar'   SIZE 75,25 ;
+             @ 380, 395 BUTTON "Step Bar"   SIZE 75,25 ;
                 ON CLICK {|| n+=100,Iif(oBar==Nil,hwg_Msgstop(cMsgErr),oBar:Set(,n/100)),hb_run("wmctrl -a 'Testing ...'"),iif(n/100 == 100,RES_PROGBAR ( obar ), ) }
 
-             @ 460, 395 BUTTON 'Reset Bar'   SIZE 75,25 ;
+             @ 460, 395 BUTTON "Reset Bar"   SIZE 75,25 ;
                 ON CLICK {|| IIF(oBar == NIL , , RES_PROGBAR(oBar) ) , n:=0 }
              // IIF(oBar == NIL , .T. , RES_PROGBAR(oBar) )
 
              if right(included,3) == "Ext"
-                @ 540, 395 BUTTON 'Close Bar'  SIZE 75,25 ;
+                @ 540, 395 BUTTON "Close Bar"  SIZE 75,25 ;
                    ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),(iif(left(included,4)== "Auto",oTimer:End(), ),oBar:close(),oBar:=Nil,n:=0,oCreate:show())) }
              else
-                @ 540, 395 BUTTON 'Close Bar'  SIZE 75,25 ;
+                @ 540, 395 BUTTON "Close Bar"  SIZE 75,25 ;
                    ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),(iif(left(included,4)== "Auto",oTimer:End(), ),RES_PROGBAR(oBar),oBar:hide(),n:=0,oCreate:show())) }
              endif
-             @ 620, 395 BUTTON 'Close'      SIZE 75,25 ON CLICK {|| isdemo:=.f.,oForm:Close() }
+             @ 620, 395 BUTTON "Close"      SIZE 75,25 ON CLICK {|| isdemo:=.f.,oForm:Close() }
 
         ACTIVATE DIALOG oForm
         if left(included,4)== "Auto"

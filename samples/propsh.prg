@@ -125,7 +125,7 @@ Local oFont
 /*
     oBrowse1:aColumns := {}
     oBrowse1:aArray := {}
-    oBrowse1:AddColumn( HColumn():New( ,{|v,o|Iif(v!=Nil,o:aArray[o:nCurrent]:=v,o:aArray[o:nCurrent])},'C',100,0))
+    oBrowse1:AddColumn( HColumn():New( ,{|v,o|Iif(v!=Nil,o:aArray[o:nCurrent]:=v,o:aArray[o:nCurrent])},"C",100,0))
     *- FIM DE oBrowse1
 */
 
@@ -140,7 +140,7 @@ Local oFont
 /*
     oBrowse2:aColumns := {}
     oBrowse2:aArray := {}
-    oBrowse2:AddColumn( HColumn():New( ,{|v,o|Iif(v!=Nil,o:aArray[o:nCurrent]:=v,o:aArray[o:nCurrent])},'C',100,0))
+    oBrowse2:AddColumn( HColumn():New( ,{|v,o|Iif(v!=Nil,o:aArray[o:nCurrent]:=v,o:aArray[o:nCurrent])},"C",100,0))
     *- FIM DE oBrowse2
 */
 

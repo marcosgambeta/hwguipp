@@ -199,11 +199,11 @@ Local cSQL
       If lSQL
 
          cSQL := "INSERT INTO contacts (name) values ('" + cName + "')"
-         If rddInfo( RDDI_EXECUTE, cSQL  )   
+         If rddInfo( RDDI_EXECUTE, cSQL  )
             ctc->(dbCloseArea())  //Close table contact
             dbUseArea( .T., , "SELECT * FROM contacts", "ctc" ) //need open contacts table becouse new data.
          Else   
-            hwg_msginfo('Fail to add data')
+            hwg_msginfo("Fail to add data")
          EndIF
 
       Else
@@ -230,7 +230,7 @@ Local cSQL
    If lSQL
       If lAdd
       Else
-         cSQL := "UPDATE contacts SET name = '" + cName + "' WHERE idcontact = " + hb_ntos(ctc->idcontact) 
+         cSQL := "UPDATE contacts SET name = '" + cName + "' WHERE idcontact = " + hb_ntos(ctc->idcontact)
          If rddInfo( RDDI_EXECUTE, cSQL  )   
             Hwg_MsgInfo("contact: " + hb_ntos(ctc->idcontact) + " updated.")
             ctc->(dbCloseArea())
@@ -278,7 +278,7 @@ Function Contacts_MariaDB
        Hwg_msginfo("Fail to conect on database test of MariaDB")
     EndIF
 
-    dbUseArea( , , "SELECT COUNT(*) as nTot FROM information_schema.tables WHERE table_schema = 'test' AND table_name = 'contacts' ",'RS' )
+    dbUseArea( , , "SELECT COUNT(*) as nTot FROM information_schema.tables WHERE table_schema = 'test' AND table_name = 'contacts' ","RS" )
     nTab := rs->nTot
     rs->(dbCloseArea())
 

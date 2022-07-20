@@ -38,9 +38,9 @@ PRIVATE oBrowse4
 
 Private oDirec:=DiskName()+":\"+CurDir()+"\"
 If !File(oDirec+"BuildPelles.Ini")
-  Hwg_WriteIni( 'Config', 'Dir_HwGUI', "C:\HwGUI", oDirec+"BuildPelles.Ini" )
-  Hwg_WriteIni( 'Config', 'Dir_HARBOUR', "C:\xHARBOUR", oDirec+"BuildPelles.Ini" )
-  Hwg_WriteIni( 'Config', 'Dir_PELLES', "C:\POCC", oDirec+"BuildPelles.Ini" )
+  Hwg_WriteIni( "Config", "Dir_HwGUI", "C:\HwGUI", oDirec+"BuildPelles.Ini" )
+  Hwg_WriteIni( "Config", "Dir_HARBOUR", "C:\xHARBOUR", oDirec+"BuildPelles.Ini" )
+  Hwg_WriteIni( "Config", "Dir_PELLES", "C:\POCC", oDirec+"BuildPelles.Ini" )
 EndIf
  
 Private lSaved:=.F.
@@ -86,7 +86,7 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
       obrowse1:acolumns[1]:heading := "File Names"
       obrowse1:acolumns[1]:length := 50
       oBrowse1:bcolorSel := hwg_ColorC2N( "800080" )
-      oBrowse1:ofont := HFont():Add( 'Arial',0,-12 )
+      oBrowse1:ofont := HFont():Add( "Arial",0,-12 )
       @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse1, "*.prg")}  
       @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse1:aArray, oBrowse1:nCurrent),oBrowse1:Refresh()}
 
@@ -98,7 +98,7 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
       obrowse2:acolumns[1]:heading := "File Names"
       obrowse2:acolumns[1]:length := 50
       oBrowse2:bcolorSel := hwg_ColorC2N( "800080" )
-      oBrowse2:ofont := HFont():Add( 'Arial',0,-12 )
+      oBrowse2:ofont := HFont():Add( "Arial",0,-12 )
       @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse2, "*.c")}  
       @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse1:aArray, oBrowse2:nCurrent),oBrowse2:Refresh()}
    END PAGE of oTAB
@@ -109,7 +109,7 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
       obrowse3:acolumns[1]:heading := "File Names"
       obrowse3:acolumns[1]:length := 50
       oBrowse3:bcolorSel := hwg_ColorC2N( "800080" )
-      oBrowse3:ofont := HFont():Add( 'Arial',0,-12 )
+      oBrowse3:ofont := HFont():Add( "Arial",0,-12 )
       @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse3, "*.lib")}  
       @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse3:aArray, oBrowse3:nCurrent),oBrowse3:Refresh()}
    END PAGE of oTAB
@@ -120,7 +120,7 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
       obrowse4:acolumns[1]:heading := "File Names"
       obrowse4:acolumns[1]:length := 50
       oBrowse4:bcolorSel := hwg_ColorC2N( "800080" )
-      oBrowse4:ofont := HFont():Add( 'Arial',0,-12 )
+      oBrowse4:ofont := HFont():Add( "Arial",0,-12 )
       @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse4, "*.rc")}  
       @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse4:aArray, oBrowse4:nCurrent),oBrowse4:Refresh()}
    END PAGE of oTAB
@@ -172,15 +172,15 @@ Local oFolderFile:=hwg_Selectfile("HwGUI File Build (*.bld)", "*.bld" )
  
 if empty(oFolderFile); Return Nil; Endif
    
-oExeName:SetText( Hwg_GetIni( 'Config', 'ExeName' , , oFolderFile ))
-oLibFolder:SetText(Hwg_GetIni( 'Config', 'LibFolder' , , oFolderFile ))
-oIncFolder:SetText(Hwg_GetIni( 'Config', 'IncludeFolder' , , oFolderFile ))
-oPrgFlag:SetText(Hwg_GetIni( 'Config', 'PrgFlags' , , oFolderFile ))
-oCFlag:SetText(Hwg_GetIni( 'Config', 'CFlags' , , oFolderFile ))
-oMainPrg:SetText(Hwg_GetIni( 'Config', 'PrgMain' , , oFolderFile ))
+oExeName:SetText( Hwg_GetIni( "Config", "ExeName" , , oFolderFile ))
+oLibFolder:SetText(Hwg_GetIni( "Config", "LibFolder" , , oFolderFile ))
+oIncFolder:SetText(Hwg_GetIni( "Config", "IncludeFolder" , , oFolderFile ))
+oPrgFlag:SetText(Hwg_GetIni( "Config", "PrgFlags" , , oFolderFile ))
+oCFlag:SetText(Hwg_GetIni( "Config", "CFlags" , , oFolderFile ))
+oMainPrg:SetText(Hwg_GetIni( "Config", "PrgMain" , , oFolderFile ))
 
 For i:=1 to 300
-    oSel1:=Hwg_GetIni( 'FilesPRG', Alltrim(Str(i)) , , oFolderFile )
+    oSel1:=Hwg_GetIni( "FilesPRG", Alltrim(Str(i)) , , oFolderFile )
     if !empty(oSel1) //.or. oSel1#Nil
         AADD(oBr1, oSel1)
     EndIf
@@ -188,21 +188,21 @@ Next
     
   
 For i:=1 to 300
-    oSel2:=Hwg_GetIni( 'FilesC', Alltrim(Str(i)) , , oFolderFile )
+    oSel2:=Hwg_GetIni( "FilesC", Alltrim(Str(i)) , , oFolderFile )
     if !empty(oSel2) //.or. oSel2#Nil
         AADD(oBr2, oSel2)
     EndIf
 Next
 
 For i:=1 to 300
-    oSel3:=Hwg_GetIni( 'FilesLIB', Alltrim(Str(i)) , , oFolderFile )
+    oSel3:=Hwg_GetIni( "FilesLIB", Alltrim(Str(i)) , , oFolderFile )
     if !empty(oSel3) //.or. oSel3#Nil
         AADD(oBr3, oSel3)
     EndIf
 Next
 
 For i:=1 to 300
-    oSel4:=Hwg_GetIni( 'FilesRES', Alltrim(Str(i)) , , oFolderFile )
+    oSel4:=Hwg_GetIni( "FilesRES", Alltrim(Str(i)) , , oFolderFile )
     if !empty(oSel4) //.or. oSel4#Nil
         AADD(oBr4, oSel4)
     EndIf
@@ -231,12 +231,12 @@ if file(oFolderFile)
      Return Nil
    EndIf
 EndIf     
-Hwg_WriteIni( 'Config', 'ExeName'       ,oExeName:GetText(), oFolderFile )
-Hwg_WriteIni( 'Config', 'LibFolder'     ,oLibFolder:GetText(), oFolderFile )
-Hwg_WriteIni( 'Config', 'IncludeFolder' ,oIncFolder:GetText(), oFolderFile )
-Hwg_WriteIni( 'Config', 'PrgFlags'      ,oPrgFlag:GetText(), oFolderFile )
-Hwg_WriteIni( 'Config', 'CFlags'        ,oCFlag:GetText(), oFolderFile )
-Hwg_WriteIni( 'Config', 'PrgMain'       ,oMainPrg:GetText(), oFolderFile )
+Hwg_WriteIni( "Config", "ExeName"       ,oExeName:GetText(), oFolderFile )
+Hwg_WriteIni( "Config", "LibFolder"     ,oLibFolder:GetText(), oFolderFile )
+Hwg_WriteIni( "Config", "IncludeFolder" ,oIncFolder:GetText(), oFolderFile )
+Hwg_WriteIni( "Config", "PrgFlags"      ,oPrgFlag:GetText(), oFolderFile )
+Hwg_WriteIni( "Config", "CFlags"        ,oCFlag:GetText(), oFolderFile )
+Hwg_WriteIni( "Config", "PrgMain"       ,oMainPrg:GetText(), oFolderFile )
 oNome:=""
 
 if Len(oBrowse1:aArray)>=1
@@ -244,7 +244,7 @@ if Len(oBrowse1:aArray)>=1
 
       if !empty(oBrowse1:aArray[i])
  
-         Hwg_WriteIni( 'FilesPRG', Alltrim(Str(i)),oBrowse1:aArray[i], oFolderFile )
+         Hwg_WriteIni( "FilesPRG", Alltrim(Str(i)),oBrowse1:aArray[i], oFolderFile )
    
       EndIf    
       
@@ -256,7 +256,7 @@ endif
 if Len(oBrowse2:aArray)>=1
    for i:=1 to Len(oBrowse2:aArray)
       if !empty(oBrowse2:aArray[i])
-         Hwg_WriteIni( 'FilesC', Alltrim(Str(i)),oBrowse2:aArray[i], oFolderFile )
+         Hwg_WriteIni( "FilesC", Alltrim(Str(i)),oBrowse2:aArray[i], oFolderFile )
      endif    
    Next     
 endif
@@ -264,7 +264,7 @@ endif
 if Len(oBrowse3:aArray)>=1
    for i:=1 to Len(oBrowse3:aArray)
       if !empty(oBrowse3:aArray[i])
-         Hwg_WriteIni( 'FilesLIB', Alltrim(Str(i)),oBrowse3:aArray[i], oFolderFile )
+         Hwg_WriteIni( "FilesLIB", Alltrim(Str(i)),oBrowse3:aArray[i], oFolderFile )
       endif   
    Next     
 endif   
@@ -272,7 +272,7 @@ endif
 if Len(oBrowse4:aArray)>=1
    for i:=1 to Len(oBrowse4:aArray)
       if !empty(oBrowse4:aArray[i])
-         Hwg_WriteIni( 'FilesRES', Alltrim(Str(i)),oBrowse4:aArray[i], oFolderFile )
+         Hwg_WriteIni( "FilesRES", Alltrim(Str(i)),oBrowse4:aArray[i], oFolderFile )
      endif   
    Next     
 endif   
@@ -299,9 +299,9 @@ LOCAL voLibFiles
 LOCAL g
 
 If File(oDirec+"BuildPelles.Ini")
-   vHwGUI:=Hwg_GetIni( 'Config', 'DIR_HwGUI' , , oDirec+"BuildPelles.Ini" )
-   vHarbour:=Hwg_GetIni( 'Config', 'DIR_HARBOUR' , , oDirec+"BuildPelles.Ini")
-   vPelles:=Hwg_GetIni( 'Config', 'DIR_PELLES' , , oDirec+"BuildPelles.Ini" )
+   vHwGUI:=Hwg_GetIni( "Config", "DIR_HwGUI" , , oDirec+"BuildPelles.Ini" )
+   vHarbour:=Hwg_GetIni( "Config", "DIR_HARBOUR" , , oDirec+"BuildPelles.Ini")
+   vPelles:=Hwg_GetIni( "Config", "DIR_PELLES" , , oDirec+"BuildPelles.Ini" )
 Else 
    vHwGUI:="C:\HWGUI"
    vHarbour:="C:\Harbour"
@@ -415,71 +415,71 @@ for i:=1 to Len(voPrgFiles)
        fwrite(oArq,vHarbour+"\BIN\HARBOUR "+voPrgFiles[i]+;
        " -o"+oName+;
        " -i"+vPelles+"\INCLUDE;"+vHarbour+"\INCLUDE;"+vHwGUI+"\INCLUDE"+iif(!empty(voIncFolder),";","")+voIncFolder+" "+voPrgFlag+" -n -q0 -es2 -gc0"+CRF)
-   ENDIF    
+   ENDIF
 Next
 endif
 
 oName:=Substr(voPrgMain,1,Len(voPrgMain)-4)
-fwrite(oArq,vPelles+'\bin\pocc '+oName+'.c '+voCFlag+' /Ze /D"NEED_DUMMY_RETURN" /D"__XCC__" /I"INCLUDE" /I"'+vHarbour+'\INCLUDE" /I"'+vPelles+'\INCLUDE" /I"'+vPelles+'\INCLUDE\WIN" /I"'+vPelles+'\INCLUDE\MSVC" /D"HB_STATIC_STARTUP" /c'+CRF)
+fwrite(oArq,vPelles+"\bin\pocc "+oName+".c "+voCFlag+" /Ze /D"+chr(34)+"NEED_DUMMY_RETURN"+chr(34)+" /D"+chr(34)+"__XCC__"+chr(34)+" /I"+chr(34)+"INCLUDE"+chr(34)+" /I"+chr(34)+vHarbour+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\WIN"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\MSVC"+chr(34)+" /D"+chr(34)+"HB_STATIC_STARTUP"+chr(34)+" /c"+CRF)
 
 
-if Len(voPrgFiles)>0 
+if Len(voPrgFiles)>0
 for i:=1 to Len(voPrgFiles)
    if !empty( voPrgFiles[i] )
-      oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4) 
-      fwrite(oArq,vPelles+'\bin\pocc '+oName+'.c '+voCFlag+' /Ze /D"NEED_DUMMY_RETURN" /D"__XCC__" /I"INCLUDE" /I"'+vHarbour+'\INCLUDE" /I"'+vPelles+'\INCLUDE" /I"'+vPelles+'\INCLUDE\WIN" /I"'+vPelles+'\INCLUDE\MSVC" /D"HB_STATIC_STARTUP" /c'+CRF)
-  endif  
+      oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
+      fwrite(oArq,vPelles+"\bin\pocc "+oName+".c "+voCFlag+" /Ze /D"+chr(34)+"NEED_DUMMY_RETURN"+chr(34)+" /D"+chr(34)+"__XCC__"+chr(34)+" /I"+chr(34)+"INCLUDE"+chr(34)+" /I"+chr(34)+vHarbour+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\WIN"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\MSVC"+chr(34)+" /D"+chr(34)+"HB_STATIC_STARTUP"+chr(34)+" /c"+CRF)
+  endif
 next
-endif 
+endif
 
-if Len(voCFiles)>0 
+if Len(voCFiles)>0
 oInc:=""
 for i:=1 to Len(voCFiles)
     if !empty(voCFiles[i])
        if !empty(oIncFolder)
-          oInc:='/I"'+voIncFolder+'"'
-       endif   
-       fwrite(oArq,vPelles+'\bin\pocc '+voCFiles[i]+' /Ze /D"NEED_DUMMY_RETURN" /D"__XCC__" /I"INCLUDE" /I""+vHarbour+"\INCLUDE" /I""+vPelles+"\INCLUDE" /I""+vPelles+"\INCLUDE\WIN" /I"'+vPelles+'\INCLUDE\MSVC" '+oInc+' /D"HB_STATIC_STARTUP" /c'+CRF)
-    endif   
+          oInc:="/I"+chr(34)+voIncFolder+chr(34)
+       endif
+       fwrite(oArq,vPelles+"\bin\pocc "+voCFiles[i]+" /Ze /D"+chr(34)+"NEED_DUMMY_RETURN"+chr(34)+" /D"+chr(34)+"__XCC__"+chr(34)+" /I"+chr(34)+"INCLUDE"+chr(34)+" /I"+chr(34)+vHarbour+chr(34)+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\WIN"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\MSVC"+chr(34)+" "+oInc+" /D"+chr(34)+"HB_STATIC_STARTUP"+chr(34)+" /c"+CRF)
+    endif
 Next
 Endif
 
-if Len(voResFiles)>0 
+if Len(voResFiles)>0
 oInc:=""
 for i:=1 to Len(voResFiles)
   if !Empty(voResFiles[i])
-     fwrite(oArq,vPelles+'\BIN\porc -r '+voResFiles[i]+' -foobj\'+voExeName+CRF)
-  EndIf   
+     fwrite(oArq,vPelles+"\BIN\porc -r "+voResFiles[i]+" -foobj\"+voExeName+CRF)
+  EndIf
 Next
-EndIf 
+EndIf
 
-fwrite(oArq,vPelles+'\bin\POLINK /LIBPATH:'+vPelles+'\lib /OUT:'+voExeName+'.EXE /MACHINE:IX86 /OPT:WIN98 /SUBSYSTEM:WINDOWS /FORCE:MULTIPLE @make.tmp >error.log'+CRF)
-fwrite(oArq,'DEL make.tmp'+CRF)
+fwrite(oArq,vPelles+"\bin\POLINK /LIBPATH:"+vPelles+"\lib /OUT:"+voExeName+".EXE /MACHINE:IX86 /OPT:WIN98 /SUBSYSTEM:WINDOWS /FORCE:MULTIPLE @make.tmp >error.log"+CRF)
+fwrite(oArq,"DEL make.tmp"+CRF)
 
-oName:=Substr(voPrgMain,1,Len(voPrgMain)-4) 
+oName:=Substr(voPrgMain,1,Len(voPrgMain)-4)
 /*
-fwrite(oArq,'Del '+oName+'.c '+CRF)
-fwrite(oArq,'Del '+oName+'.map'+CRF)
-fwrite(oArq,'Del '+oName+'.obj'+CRF)
+fwrite(oArq,"Del "+oName+".c "+CRF)
+fwrite(oArq,"Del "+oName+".map"+CRF)
+fwrite(oArq,"Del "+oName+".obj"+CRF)
 
 for i:=1 to Len(voPrgFiles)
    if !empty( voPrgFiles[i] )
-      oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4) 
-      fwrite(oArq,'Del '+oName+'.c '+CRF)
-      fwrite(oArq,'Del '+oName+'.map'+CRF)
-      fwrite(oArq,'Del '+oName+'.obj'+CRF)
-  endif  
+      oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
+      fwrite(oArq,"Del "+oName+".c "+CRF)
+      fwrite(oArq,"Del "+oName+".map"+CRF)
+      fwrite(oArq,"Del "+oName+".obj"+CRF)
+  endif
 next
-*/ 
+*/
 fClose(oArq)
 
 __Run("Hwg_Build.bat>Error.log")
 
 if file(voExeName+".exe")
    hwg_Msginfo("File "+ voExeName+".exe Build correct")
-Else 
-   hwg_Shellexecute("NotePad error.log")   
-Endif   
+Else
+   hwg_Shellexecute("NotePad error.log")
+Endif
 Return Nil
 
 Function BuildPoMake()
@@ -490,9 +490,9 @@ LOCAL voLibFiles
 
 
 If File(oDirec+"BuildPelles.Ini")
-   vHwGUI:=Hwg_GetIni( 'Config', 'DIR_HwGUI' , , oDirec+"BuildPelles.Ini" )
-   vHarbour:=Hwg_GetIni( 'Config', 'DIR_HARBOUR' , , oDirec+"BuildPelles.Ini")
-   vPelles:=Hwg_GetIni( 'Config', 'DIR_PELLES' , , oDirec+"BuildPelles.Ini" )
+   vHwGUI:=Hwg_GetIni( "Config", "DIR_HwGUI" , , oDirec+"BuildPelles.Ini" )
+   vHarbour:=Hwg_GetIni( "Config", "DIR_HARBOUR" , , oDirec+"BuildPelles.Ini")
+   vPelles:=Hwg_GetIni( "Config", "DIR_PELLES" , , oDirec+"BuildPelles.Ini" )
 Else 
    vHwGUI:="C:\HWGUI"
    vHarbour:="C:\Harbour"
@@ -529,35 +529,35 @@ fwrite(oArq,"HARBOUR_EXE = HARBOUR "+CRF)
 fwrite(oArq,"CC_EXE = $(POCCMAIN)\BIN\POCC.EXE "+CRF)
 fwrite(oArq,"LIB_EXE = $(POCCMAIN)\BIN\POLINK.EXE "+CRF)
 fwrite(oArq,"HARBOURFLAGS = -i$(INCLUDE_DIR) -n1 -q0 -w -es2 -gc0"+CRF)
-fwrite(oArq,'CFLAGS = /Ze /I"INCLUDE" /I"$(HRB_DIR)\INCLUDE" /I"$(POCCMAIN)\INCLUDE" /I"$(POCCMAIN)\INCLUDE\WIN" /I"$(POCCMAIN)\INCLUDE\MSVC" /D"HB_STATIC_STARTUP" /c'+CRF)
+fwrite(oArq,"CFLAGS = /Ze /I"+chr(34)+"INCLUDE"+chr(34)+" /I"+chr(34)+"$(HRB_DIR)\INCLUDE"+chr(34)+" /I"+chr(34)+"$(POCCMAIN)\INCLUDE"+chr(34)+" /I"+chr(34)+"$(POCCMAIN)\INCLUDE\WIN"+chr(34)+" /I"+chr(34)+"$(POCCMAIN)\INCLUDE\MSVC"+chr(34)+" /D"+chr(34)+"HB_STATIC_STARTUP"+chr(34)+" /c"+CRF)
 
 //# Please Note that /Op and /Go requires POCC version 2.80 or later
-fwrite(oArq,'CFLAGS = $(CFLAGS) /Op /Go'+CRF)
+fwrite(oArq,"CFLAGS = $(CFLAGS) /Op /Go"+CRF)
 
-fwrite(oArq,'!ifdef __XHARBOUR__ '+CRF)
-fwrite(oArq,'CFLAGS = $(CFLAGS) /D"XHBCVS" '+CRF)
-fwrite(oArq,'!endif '+CRF)
+fwrite(oArq,"!ifdef __XHARBOUR__ "+CRF)
+fwrite(oArq,"CFLAGS = $(CFLAGS) /D"+chr(34)+"XHBCVS"+chr(34)+" "+CRF)
+fwrite(oArq,"!endif "+CRF)
 
-fwrite(oArq,'!ifndef ECHO'+CRF)
-fwrite(oArq,'ECHO = echo.'+CRF)
-fwrite(oArq,'!endif'+CRF)
-fwrite(oArq,'!ifndef DEL'+CRF)
-fwrite(oArq,'DEL = del'+CRF)
-fwrite(oArq,'!endif'+CRF+CRF)
+fwrite(oArq,"!ifndef ECHO"+CRF)
+fwrite(oArq,"ECHO = echo."+CRF)
+fwrite(oArq,"!endif"+CRF)
+fwrite(oArq,"!ifndef DEL"+CRF)
+fwrite(oArq,"DEL = del"+CRF)
+fwrite(oArq,"!endif"+CRF+CRF)
 
-fwrite(oArq,'HWGUI_LIB = $(LIB_DIR)\hwgui.lib'+CRF)
-fwrite(oArq,'PROCMISC_LIB = $(LIB_DIR)\procmisc.lib'+CRF)
-fwrite(oArq,'XML_LIB = $(LIB_DIR)\hbxml.lib'+CRF)
-fwrite(oArq,'QHTM_LIB = $(LIB_DIR)\hwg_qhtm.lib'+CRF+CRF)
+fwrite(oArq,"HWGUI_LIB = $(LIB_DIR)\hwgui.lib"+CRF)
+fwrite(oArq,"PROCMISC_LIB = $(LIB_DIR)\procmisc.lib"+CRF)
+fwrite(oArq,"XML_LIB = $(LIB_DIR)\hbxml.lib"+CRF)
+fwrite(oArq,"QHTM_LIB = $(LIB_DIR)\hwg_qhtm.lib"+CRF+CRF)
 
-fwrite(oArq,'all: \'+CRF)
-fwrite(oArq,'   $(HWGUI_LIB) \'+CRF)
-fwrite(oArq,'   $(PROCMISC_LIB) \'+CRF)
-fwrite(oArq,'   $(XML_LIB) \'+CRF)
-fwrite(oArq,'   $(QHTM_LIB)'+CRF+CRF)
+fwrite(oArq,"all: \"+CRF)
+fwrite(oArq,"   $(HWGUI_LIB) \"+CRF)
+fwrite(oArq,"   $(PROCMISC_LIB) \"+CRF)
+fwrite(oArq,"   $(XML_LIB) \"+CRF)
+fwrite(oArq,"   $(QHTM_LIB)"+CRF+CRF)
 
  
-fwrite(oArq,'FILE_OBJS = \'+CRF)
+fwrite(oArq,"FILE_OBJS = \"+CRF)
 oName:=Substr(voPrgMain,1,Len(voPrgMain)-4)
 /*lName:=""
 for i:=1 to Len(oName)
@@ -644,14 +644,14 @@ oInc:=""
 for i:=1 to Len(voCFiles)
     if !empty(voCFiles[i])
        if !empty(oIncFolder)
-          oInc:='/I"'+voIncFolder+'"'
-       endif   
-       oName:=Substr(voCFiles[i],1,Len(voCFiles[i])-4) 
+          oInc:="/I"+chr(34)+voIncFolder+"+chr(34)
+       endif
+       oName:=Substr(voCFiles[i],1,Len(voCFiles[i])-4)
 
        fwrite(oArq,oName+".obj : "+voCFiles[i]+CRF)
        fwrite(oArq, "   $(CC_EXE) $(CFLAGS) /Fo$@ $** "+CRF)
 
-    endif   
+    endif
 Next
 Endif
  

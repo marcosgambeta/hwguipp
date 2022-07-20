@@ -55,7 +55,7 @@ Function Test()
     
     PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
         
-    Ferase('temp.dbf')
+    Ferase("temp.dbf")
 
     DBCreate("temp.dbf", {{"field_1", "N", 10, 0} , ;
                   {"field_2", "C", 30, 0} , ;
@@ -70,16 +70,16 @@ Function Test()
     For i := 1 to 100
         append blank
         REPLACE field_1 WITH i
-        REPLACE field_2 WITH 'Test ' + str(i)
+        REPLACE field_2 WITH "Test " + str(i)
         REPLACE field_3 WITH mod( i, 10) == 0
         REPLACE field_4 WITH Date() + i
-        REPLACE field_5 WITH 'Memo Test'
+        REPLACE field_5 WITH "Memo Test"
     Next        
         
     commit
 
 
-    ADD COLUMN TO GRIDEDIT aItems FIELD "Field_1" LABEL "Number" LIST {'List 1', 'List 2'}
+    ADD COLUMN TO GRIDEDIT aItems FIELD "Field_1" LABEL "Number" LIST {"List 1", "List 2"}
     ADD COLUMN TO GRIDEDIT aItems FIELD "Field_2" LABEL "Char" PICTURE "@!" //READONLY
     ADD COLUMN TO GRIDEDIT aItems FIELD "Field_3" LABEL "Bool" 
     ADD COLUMN TO GRIDEDIT aItems FIELD "Field_4" LABEL "Date" 
@@ -104,11 +104,11 @@ Function Test()
         ADD COLUMN TO GRID oGrid HEADER "Date"   WIDTH 100
         ADD COLUMN TO GRID oGrid HEADER "Memo"   WIDTH 200        
                                  
-        @  10, 395 BUTTON 'Insert' SIZE 75,25 ON CLICK {|| OnKey( oGrid, VK_INSERT, aItems ) }                            
-        @  90, 395 BUTTON 'Change' SIZE 75,25 ON CLICK {|| OnClick( oGrid, aItems ) }                            
-        @ 170, 395 BUTTON 'Delete' SIZE 75,25 ON CLICK {|| OnKey( oGrid, VK_DELETE, aItems ) }                            
+        @  10, 395 BUTTON "Insert" SIZE 75,25 ON CLICK {|| OnKey( oGrid, VK_INSERT, aItems ) }                            
+        @  90, 395 BUTTON "Change" SIZE 75,25 ON CLICK {|| OnClick( oGrid, aItems ) }                            
+        @ 170, 395 BUTTON "Delete" SIZE 75,25 ON CLICK {|| OnKey( oGrid, VK_DELETE, aItems ) }                            
 
-        @ 620, 395 BUTTON 'Close' SIZE 75,25 ON CLICK {|| oForm:close() }                            
+        @ 620, 395 BUTTON "Close" SIZE 75,25 ON CLICK {|| oForm:close() }                            
 
 
     ACTIVATE DIALOG oForm                
@@ -215,7 +215,7 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
                             {|value, oCtrl| __valid(value, oCtrl, aFields, bChange) },;
                             NIL)
 
-            elseif cType == 'L'
+            elseif cType == "L"
 
                 aFields[i, GET_OBJECT] := HCheckButton():New( oForm,;
                             3000 + i,;
@@ -226,7 +226,7 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
                             nRow,;
                             aFields[i, GET_LEN] * nGetSize,;
                             aFields[i, GET_HEIGHT],;
-                            '',;
+                            "",;
                             NIL, ;
                             NIL,;
                             NIL,;
@@ -237,7 +237,7 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
                             NIL)
 
 
-            elseif cType = 'D' 
+            elseif cType = "D" 
 
                 aFields[i, GET_OBJECT] := HDatePicker():New( oForm,;
                             3000 + i,;
@@ -349,7 +349,7 @@ static Function __valid(value, oCtrl, aFields, bChange)
 Return result
 
 Static Function OnDispInfo( oCtrl, nRow, nCol )
-    Local result := ''
+    Local result := ""
     DBGoto(nRow)
 
     if nCol == 1
@@ -357,7 +357,7 @@ Static Function OnDispInfo( oCtrl, nRow, nCol )
     elseif nCol == 2
         result := field->field_2
     elseif nCol == 3
-        result := iif( field->field_3, 'Y', 'N' )
+        result := iif( field->field_3, "Y", "N" )
     elseif nCol == 4
         result := DtoC( field->field_4 )
     elseif nCol == 5
@@ -367,7 +367,7 @@ Return result
 
 Static Function OnKey( o, k, aItems , oGrid )
     if k == VK_INSERT
-        if GridEdit('temp', aItems, .T., {|oCtrl, colpos| myblock(oCtrl, colpos)})
+        if GridEdit("temp", aItems, .T., {|oCtrl, colpos| myblock(oCtrl, colpos)})
             o:SetItemCount(lastrec())
         else
             MyDelete(oGrid)
@@ -378,12 +378,12 @@ Static Function OnKey( o, k, aItems , oGrid )
 return nil    
 
 Static function OnClick( o, aItems )
-    GridEdit('temp', aItems, .F., {|oCtrl, colpos| myblock(oCtrl, colpos)})
+    GridEdit("temp", aItems, .F., {|oCtrl, colpos| myblock(oCtrl, colpos)})
 return nil    
 
 Static function myblock( oCtrl, colpos )
     if colpos == 3
-        replace field_5 with 'hello'
+        replace field_5 with "hello"
     endif            
 return nil    
     

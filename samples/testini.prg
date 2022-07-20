@@ -14,9 +14,9 @@ Function Main
    //Create the inifile
    if !file( cIniFile )
 
-      Hwg_WriteIni( 'Config', 'WallParer' , "No Paper", cIniFile )
-      Hwg_WriteIni( 'Config', 'DirHwGUima', "C:\HwGUI" , cIniFile )
-      Hwg_WriteIni( 'Print',  'Spoll'   ,   "Epson LX 80" , cIniFile )
+      Hwg_WriteIni( "Config", "WallParer" , "No Paper", cIniFile )
+      Hwg_WriteIni( "Config", "DirHwGUima", "C:\HwGUI" , cIniFile )
+      Hwg_WriteIni( "Print",  "Spoll"   ,   "Epson LX 80" , cIniFile )
 
     endif 
 
@@ -34,7 +34,7 @@ Return Nil
 
 Function ReadIni()
 Local cIniFile:="HwGui.ini"
-hwg_Msginfo( Hwg_GetIni( 'Config', 'WallParer' ,, cIniFile ) )
-hwg_Msginfo( Hwg_GetIni( 'Config', 'DirHwGUima',, cIniFile ) )
-hwg_Msginfo( Hwg_GetIni( 'Print',  'Spoll'     ,, cIniFile ) )
+hwg_Msginfo( Hwg_GetIni( "Config", "WallParer" ,, cIniFile ) )
+hwg_Msginfo( Hwg_GetIni( "Config", "DirHwGUima",, cIniFile ) )
+hwg_Msginfo( Hwg_GetIni( "Print",  "Spoll"     ,, cIniFile ) )
 Return Nil

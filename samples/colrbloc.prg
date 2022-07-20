@@ -93,7 +93,7 @@ END
 
 INIT WINDOW oWinMain MAIN  ;
      TITLE "Teste" AT 0, 0 SIZE 600,400;
-    FONT HFont():Add( 'Arial',0,-13,400,,,) ;
+    FONT HFont():Add( "Arial",0,-13,400,,,) ;
     STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
 
@@ -134,7 +134,7 @@ LOCAL nI , oDlg , oTbar1 , oLbl1 , oLbl2 , oBtn1
 
   INIT DIALOG oDlg TITLE "Browse DataBase" ;
         AT 0,0 SIZE 600, 500 NOEXIT ;
-        FONT HFont():Add( 'Arial',0,-13,400,,,) ;
+        FONT HFont():Add( "Arial",0,-13,400,,,) ;
         STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
   IF lEdit
@@ -188,7 +188,7 @@ LOCAL nI , oDlg , oTbar1 , oLbl1 , oLbl2 , oBtn1
         TOOLTIP "Last Record"
 
         oBrwDb:bcolorSel := x_DARKBLUE
-        oBrwDb:alias := 'TSTB'
+        oBrwDb:alias := "TSTB"
         oBrwDb:AddColumn( HColumn():New( "Field1" , FieldBlock(Fieldname(1)),"N", 10,02) )
         oBrwDb:AddColumn( HColumn():New( "Field2" , FieldBlock(Fieldname(2)),"C", 11,00) )
         oBrwDb:AddColumn( HColumn():New( "Field3" , FieldBlock(Fieldname(3)),"D", 10,00) )
@@ -343,7 +343,7 @@ LOCAL nI , oDlg , oBtn1 , oLbl1 , oLbl2 , oTbar1
   lZebra := IF(lZebra == NIL, .F., lZebra)
   INIT DIALOG oDlg TITLE "Browse Array" ;
         AT 0,0 SIZE 600, 500 NOEXIT ;
-        FONT HFont():Add( 'Arial',0,-13,400,,,) ;
+        FONT HFont():Add( "Arial",0,-13,400,,,) ;
         STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
   IF lEdit

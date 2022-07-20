@@ -75,10 +75,10 @@ Return NIL
 Static Function FindInGoogle( cQuery,oIE,oEdit )
 Local cUrl := "http://www.google.com/search?q=", cItem
 
-   IF !Empty( cItem := NextItem( cQuery,.T.,' ' ) )
+   IF !Empty( cItem := NextItem( cQuery,.T.," " ) )
       cUrl += cItem
-      DO WHILE !Empty( cItem := NextItem( cQuery,,' ' ) )
-         cUrl += '+' + cItem
+      DO WHILE !Empty( cItem := NextItem( cQuery,," " ) )
+         cUrl += "+" + cItem
       ENDDO
       oEdit:SetText( cUrl )
       oIE:DisplayPage( cUrl )

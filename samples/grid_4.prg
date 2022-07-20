@@ -20,8 +20,8 @@
 Static oMain, oForm, oFont, oGrid
 
 Function Main()
-        IF File('temp.dbf')
-            FErase('temp.dbf')
+        IF File("temp.dbf")
+            FErase("temp.dbf")
         END
                     
         DBCreate( "temp.dbf", {{"LINE", "C", 300, 0}} )
@@ -61,13 +61,13 @@ Function Test()
 
              ADD COLUMN TO GRID oGrid HEADER "" WIDTH  800
                                                               
-             @ 620, 395 BUTTON 'Close' SIZE 75,25 ON CLICK {|| oForm:Close() }                            
+             @ 620, 395 BUTTON "Close" SIZE 75,25 ON CLICK {|| oForm:Close() }                            
              
         ACTIVATE DIALOG oForm
 Return Nil
 
 Function OnDispInfo( o, x, y )    
-    Local result := ''
+    Local result := ""
     
     DBGoto(x)
     

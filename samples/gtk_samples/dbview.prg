@@ -188,7 +188,7 @@ Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
       hwg_CreateList( oBrw,.T. )
       Aadd( oBrw:aColumns,Nil )
       Ains( oBrw:aColumns,1 )
-      oBrw:aColumns[1] := HColumn():New( "*",{|v,o|Iif(Deleted(),'*',' ')},"C",1,0 )
+      oBrw:aColumns[1] := HColumn():New( "*",{|v,o|Iif(Deleted(),"*"," ")},"C",1,0 )
       oBrw:active := .T.
       oBrw:Refresh()
       oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )

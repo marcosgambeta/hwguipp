@@ -45,9 +45,9 @@ Return Nil
 
 Function Test()
         Local nCombo := 1
-        Local cCombo := 'Four'
-        Local xCombo := 'Test'
-        Local aItems := {'First', 'Second', 'Third', 'Four'}
+        Local cCombo := "Four"
+        Local xCombo := "Test"
+        Local aItems := {"First", "Second", "Third", "Four"}
         Local cEdit  := Space(50)
         Local oCombo1, oCombo2, oCombo3, oCombo4, oCombo5, oCombo6
 * DF7BE: xSizes with 150 are too big for GTK
@@ -72,7 +72,7 @@ Function Test()
             @ 20, 50 GET COMBOBOX oCombo2 VAR cCombo ITEMS aItems SIZE 100, xSizeC TEXT && 150
 * EDIT not supported by GTK
 #ifndef __GTK__
-            @ 20, 80 GET COMBOBOX oCombo3 VAR xCombo ITEMS aItems SIZE 100, xSizeC EDIT TOOLTIP 'Type any thing here'
+            @ 20, 80 GET COMBOBOX oCombo3 VAR xCombo ITEMS aItems SIZE 100, xSizeC EDIT TOOLTIP "Type any thing here"
 #endif            
             @ 20,110 COMBOBOX oCombo4 ITEMS aItems SIZE 100, xSizeC && 150
             @ 20,140 COMBOBOX oCombo5 ITEMS aItems SIZE 100, xSizeC TEXT && 150
@@ -83,13 +83,13 @@ Function Test()
 
 #ifdef __GTK__
 * oCombo3:refresh() removed, because Combobox not initialized
-            @ 380, 395 BUTTON 'Test'    SIZE 75,25 ON CLICK {|| xCombo := 'Temp', nCombo := 2, oCombo1:refresh(), oCombo2:SetItem(3), oCombo4:SetItem(3), oCombo5:value := 'Third', oCombo5:refresh(), oCombo6:SetItem(2) }
+            @ 380, 395 BUTTON "Test"    SIZE 75,25 ON CLICK {|| xCombo := "Temp", nCombo := 2, oCombo1:refresh(), oCombo2:SetItem(3), oCombo4:SetItem(3), oCombo5:value := "Third", oCombo5:refresh(), oCombo6:SetItem(2) }
 #else
-            @ 380, 395 BUTTON 'Test'    SIZE 75,25 ON CLICK {|| xCombo := 'Temp', oCombo3:refresh(), nCombo := 2, oCombo1:refresh(), oCombo2:SetItem(3), oCombo4:SetItem(3), oCombo5:value := 'Third', oCombo5:refresh(), oCombo6:SetItem(2) }
+            @ 380, 395 BUTTON "Test"    SIZE 75,25 ON CLICK {|| xCombo := "Temp", oCombo3:refresh(), nCombo := 2, oCombo1:refresh(), oCombo2:SetItem(3), oCombo4:SetItem(3), oCombo5:value := "Third", oCombo5:refresh(), oCombo6:SetItem(2) }
 #endif
-            @ 460, 395 BUTTON 'Combo 1' SIZE 75,25 ON CLICK {|| hwg_Msginfo(str(nCombo)) }
-            @ 540, 395 BUTTON 'Combo 2' SIZE 75,25 ON CLICK {|| hwg_Msginfo(cCombo, xCombo) }
-            @ 620, 395 BUTTON 'Close'   SIZE 75,25 ON CLICK {|| oForm:Close() }
+            @ 460, 395 BUTTON "Combo 1" SIZE 75,25 ON CLICK {|| hwg_Msginfo(str(nCombo)) }
+            @ 540, 395 BUTTON "Combo 2" SIZE 75,25 ON CLICK {|| hwg_Msginfo(cCombo, xCombo) }
+            @ 620, 395 BUTTON "Close"   SIZE 75,25 ON CLICK {|| oForm:Close() }
 
         ACTIVATE DIALOG oForm
 Return Nil

@@ -133,8 +133,8 @@ FUNCTION DlgDBF()
 
    @ 500,540 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} SIZE 180,36 FLAT TEXT "Close" COLOR hwg_ColorC2N("0000FF")
 
-   Add column FieldBlock("NAME")   to oBrw Header 'Name'   Length 30 justify Line DT_LEFT
-   Add column FieldBlock("ADRESS") to oBrw Header 'Adress' Length 30 justify Line DT_LEFT
+   Add column FieldBlock("NAME")   to oBrw Header "Name"   Length 30 justify Line DT_LEFT
+   Add column FieldBlock("ADRESS") to oBrw Header "Adress" Length 30 justify Line DT_LEFT
 
    ACTIVATE DIALOG oModDlg
    close database

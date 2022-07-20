@@ -41,14 +41,14 @@ Function Test()
                      ON POSCHANGE {|oCtrl, nRow| OnPoschange(oCtrl, nRow) } ;
                      ON CLICK {|oCtrl| OnClick(oCtrl) } ;
                      ON DISPINFO {|oCtrl, nRow, nCol| OnDispInfo( oCtrl, nRow, nCol ) } ;
-                     COLOR hwg_ColorC2N('D3D3D3');
-                     BACKCOLOR hwg_ColorC2N('BEBEBE') 
+                     COLOR hwg_ColorC2N("D3D3D3");
+                     BACKCOLOR hwg_ColorC2N("BEBEBE") 
 
              ADD COLUMN TO GRID oGrid HEADER "Column 1" WIDTH 150
              ADD COLUMN TO GRID oGrid HEADER "Column 2" WIDTH 150
              ADD COLUMN TO GRID oGrid HEADER "Column 3" WIDTH 150
                                                               
-             @ 620, 395 BUTTON 'Close' SIZE 75,25 ON CLICK {|| oForm:Close() }                            
+             @ 620, 395 BUTTON "Close" SIZE 75,25 ON CLICK {|| oForm:Close() }                            
              
         ACTIVATE DIALOG oForm
                 
@@ -63,9 +63,9 @@ Function OnPosChange( o, row )
 return nil    
 
 Function OnClick( o )
-//    hwg_Msginfo( 'click' )
+//    hwg_Msginfo( "click" )
 return nil    
 
 Function OnDispInfo( o, x, y )
-return 'Row: ' + ltrim(str(x)) + ' Col: ' + ltrim(str(y))
+return "Row: " + ltrim(str(x)) + " Col: " + ltrim(str(y))
 

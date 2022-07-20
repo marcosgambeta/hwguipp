@@ -41,19 +41,19 @@ Local cMsgErr := "Bar doesn't exist"
              STYLE DS_CENTER + WS_VISIBLE + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU ;
              ON EXIT {||Iif(oBar==Nil,.T.,(oBar:Close(),.T.))}
 
-             @ 300, 395 BUTTON 'Reset Bar'  SIZE 75,25 ;
+             @ 300, 395 BUTTON "Reset Bar"  SIZE 75,25 ;
                ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),oBar:Reset()) }
 
-             @ 380, 395 BUTTON 'Step Bar'   SIZE 75,25 ;
+             @ 380, 395 BUTTON "Step Bar"   SIZE 75,25 ;
                ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),oBar:Step()) }
 
-             @ 460, 395 BUTTON 'Create Bar' SIZE 75,25 ;
+             @ 460, 395 BUTTON "Create Bar" SIZE 75,25 ;
                ON CLICK {|| oBar := HProgressBar():NewBox( "Testing ...",,,,, 10, 100 ) }
 
-             @ 540, 395 BUTTON 'Close Bar'  SIZE 75,25 ;
+             @ 540, 395 BUTTON "Close Bar"  SIZE 75,25 ;
                ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),(oBar:Close(),oBar:=Nil)) }
 
-             @ 620, 395 BUTTON 'Close'      SIZE 75,25 ;
+             @ 620, 395 BUTTON "Close"      SIZE 75,25 ;
                ON CLICK {|| oForm:Close() }
 
         ACTIVATE DIALOG oForm
