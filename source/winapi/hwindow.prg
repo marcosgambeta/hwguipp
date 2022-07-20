@@ -84,10 +84,6 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
 
    LOCAL iParLow := hwg_Loword(wParam)
 
-   // Variables not used
-   // b
-
-   // Parameters not used
    HB_SYMBOL_UNUSED(lParam)
 
    IF iParLow > 0 .AND. oDlg:bGetFocus != Nil
@@ -186,10 +182,9 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
       cAppName, oBmp, cHelp, nHelpId, bColor) CLASS HWindow
 
-    // Parameters not used
-    HB_SYMBOL_UNUSED(clr)
-    HB_SYMBOL_UNUSED(cMenu)
-    HB_SYMBOL_UNUSED(cHelp)
+   HB_SYMBOL_UNUSED(clr)
+   HB_SYMBOL_UNUSED(cMenu)
+   HB_SYMBOL_UNUSED(cHelp)
 
    ::oDefaultParent := Self
    ::title    := cTitle
@@ -267,8 +262,7 @@ METHOD GetMain() CLASS HWindow
 METHOD EvalKeyList(nKey, bPressed) CLASS HWindow
    LOCAL cKeyb, nctrl, nPos
 
-    // Parameters not used
-    HB_SYMBOL_UNUSED(bPressed)
+   HB_SYMBOL_UNUSED(bPressed)
 
    cKeyb := hwg_Getkeyboardstate()
    nctrl := Iif(Asc(SubStr(cKeyb, VK_CONTROL + 1, 1)) >= 128, FCONTROL, Iif(Asc(SubStr(cKeyb, VK_SHIFT + 1, 1)) >= 128, FSHIFT, ;
@@ -469,10 +463,9 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
 
 METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMDIChildWindow
 
-    // Parameters not used
-    HB_SYMBOL_UNUSED(lShow)
-    HB_SYMBOL_UNUSED(lMaximized)
-    HB_SYMBOL_UNUSED(lMinimized)
+   HB_SYMBOL_UNUSED(lShow)
+   HB_SYMBOL_UNUSED(lMaximized)
+   HB_SYMBOL_UNUSED(lMinimized)
 
    hwg_CreateGetList(Self)
    // Hwg_CreateMdiChildWindow(Self)
@@ -612,8 +605,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 
    LOCAL iItem, iCont, aMenu, iParHigh, iParLow, nHandle
 
-    // Parameters not used
-    HB_SYMBOL_UNUSED(lParam)
+   HB_SYMBOL_UNUSED(lParam)
 
    wParam := hwg_PtrToUlong(wParam)
    IF wParam == SC_CLOSE
@@ -741,8 +733,7 @@ STATIC FUNCTION onNotifyIcon(oWnd, wParam, lParam)
 
 STATIC FUNCTION onMdiCreate(oWnd, lParam)
 
-    // Parameters not used
-    HB_SYMBOL_UNUSED(lParam)
+   HB_SYMBOL_UNUSED(lParam)
 
    hwg_InitControls(oWnd)
    IF oWnd:bInit != Nil

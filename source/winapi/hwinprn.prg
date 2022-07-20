@@ -159,8 +159,7 @@ METHOD SetLanguage(apTooltips, apBootUser) CLASS HWinPrn
 // NLS: Sets the message and control texts to print preview dialog
 // Are stored in arrays:   ::aTooltips[], ::aBootUser[]
 
-// Parameters not used
- HB_SYMBOL_UNUSED(apBootUser)
+   HB_SYMBOL_UNUSED(apBootUser)
 
 // Default settings (English)
   ::aTooltips := hwg_HPrinter_LangArray_EN()
@@ -350,9 +349,6 @@ METHOD PrintBitmap(xBitmap, nAlign, cBitmapName) CLASS HWinPrn
    LOCAL i, cTmp
    LOCAL hBitmap, aBmpSize, cImageName
    
-   // Variables not used
-   // LOCAL oBitmap
-
    IF !::lDocStart
       ::StartDoc()
    ENDIF

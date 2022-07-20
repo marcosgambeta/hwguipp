@@ -315,11 +315,9 @@ METHOD Notify(lParam) CLASS HTab
 /* aItem and cCaption added */
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem) CLASS hTab
 
-     // Parameters not used
-    HB_SYMBOL_UNUSED(cCaption)
-    HB_SYMBOL_UNUSED(lTransp)
-    HB_SYMBOL_UNUSED(aItem)
-  
+   HB_SYMBOL_UNUSED(cCaption)
+   HB_SYMBOL_UNUSED(lTransp)
+   HB_SYMBOL_UNUSED(aItem)
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
