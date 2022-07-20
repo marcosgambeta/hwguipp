@@ -20,20 +20,20 @@ CLASS TVideo FROM hControl
    DATA   oMci
    DATA   cAviFile
 
-   METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CONSTRUCTOR
+   METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CONSTRUCTOR
 
    METHOD ReDefine(nId, cFileName, oDlg, bWhen, bValid) CONSTRUCTOR
 
    METHOD Initiate()
 
-   METHOD Play( nFrom, nTo ) INLINE  ::oMci:Play( nFrom, nTo, ::oparent:handle )
+   METHOD Play(nFrom, nTo) INLINE ::oMci:Play(nFrom, nTo, ::oparent:handle)
 
 ENDCLASS
 
 //----------------------------------------------------------------------------//
 
-/*  removed: bWhen , bValid */
-METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CLASS TVideo
+/*  removed: bWhen, bValid */
+METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CLASS TVideo
 
    DEFAULT nWidth TO 200, nHeight TO 200, cFileName TO "", lNoBorder TO .F.
 
@@ -43,17 +43,17 @@ METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CLASS
    ::nWidth    := ::nLeft + nWidth + 1
    ::Style     := hwg_bitOR(WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0))
 
-   ::oParent   := IIf( oWnd == Nil, ::oDefaultParent, oWnd )
-   ::id        := IIf( nid == Nil, ::NewId(), nid )
+   ::oParent   := IIf(oWnd == Nil, ::oDefaultParent, oWnd)
+   ::id        := IIf(nid == Nil, ::NewId(), nid)
    ::cAviFile  := cFileName
-   ::oMci      := TMci():New( "avivideo", cFileName )
+   ::oMci      := TMci():New("avivideo", cFileName)
    ::Initiate()
 
    IF !Empty(::oparent:handle)
       ::oMci:lOpen()
       ::oMci:SetWindow(Self)
    ELSE
-      ::oparent:AddControl( Self )
+      ::oparent:AddControl(Self)
    ENDIF
 
    RETURN Self
@@ -67,9 +67,9 @@ METHOD ReDefine(nId, cFileName, oDlg, bWhen, bValid) CLASS TVideo
    ::bWhen    = bWhen
    ::bValid   = bValid
    ::oWnd     = oDlg
-   ::oMci     = TMci():New( "avivideo", cFileName )
+   ::oMci     = TMci():New("avivideo", cFileName)
 
-   oDlg:AddControl( Self )
+   oDlg:AddControl(Self)
 
    RETURN Self
 

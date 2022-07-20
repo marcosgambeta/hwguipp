@@ -23,28 +23,28 @@ CLASS HProgressBar INHERIT HControl
    DATA  nPercent INIT 0
    DATA  lPercent INIT .F.
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical )
-   METHOD NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent )
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
+   METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent)
    METHOD Init()
    METHOD Activate()
    METHOD Increment() INLINE hwg_Updateprogressbar(::handle)
    METHOD STEP(cTitle)
-   METHOD RESET( cTitle )
-   METHOD SET( cTitle, nPos )
-   METHOD SetLabel( cCaption )
+   METHOD RESET(cTitle)
+   METHOD SET(cTitle, nPos)
+   METHOD SetLabel(cCaption)
    METHOD CLOSE()
    METHOD End() INLINE hwg_Destroywindow(::handle)
    METHOD Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical ) CLASS HProgressBar
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical) CLASS HProgressBar
 
-   ::Style := iif( lvertical != Nil .AND. lVertical, PBS_VERTICAL, 0 )
-   ::Style += iif( nAnimation != Nil .AND. nAnimation > 0, PBS_MARQUEE, 0 )
+   ::Style := iif(lvertical != Nil .AND. lVertical, PBS_VERTICAL, 0)
+   ::Style += iif(nAnimation != Nil .AND. nAnimation > 0, PBS_MARQUEE, 0)
    ::nAnimation := nAnimation
 
-   ::Super:New( oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight, , bInit, bSize, bPaint, ctooltip )
+   ::Super:New(oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight, NIL, bInit, bSize, bPaint, ctooltip)
 
    ::maxPos  := iif(maxPos == Nil, 20, maxPos)
    ::lNewBox := .F.
@@ -60,44 +60,44 @@ METHOD Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPaint, ctooltip,
    // Parameters not used
    HB_SYMBOL_UNUSED(lVertical)
 
-   ::Super:New( oWndParent,nId,0,0,0,0,0,,bInit, bSize,bPaint,ctooltip,, )
+   ::Super:New(oWndParent,nId, 0, 0, 0, 0, 0, NIL, bInit, bSize, bPaint, ctooltip, NIL, NIL)
    HWG_InitCommonControlsEx()
    //::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
-   ::maxPos      := iif( maxPos == Nil, 20, maxPos )
+   ::maxPos      := iif(maxPos == Nil, 20, maxPos)
    ::lNewBox     := .F.
-   ::nRange      := iif( nRange != Nil .AND. nRange != 0, nRange, 100 )
-   ::nLimit      := iif( nRange != Nil, Int(::nRange / ::maxPos), 1 )
+   ::nRange      := iif(nRange != Nil .AND. nRange != 0, nRange, 100)
+   ::nLimit      := iif(nRange != Nil, Int(::nRange / ::maxPos), 1)
    ::nAnimation  := nAnimation
 
    RETURN Self
 
 /*
   Former definition was:
-  METHOD NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, bInit, bSize, bPaint, ctooltip )
+  METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, bInit, bSize, bPaint, ctooltip)
 */
 
-METHOD NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent ) CLASS HProgressBar
+METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent) CLASS HProgressBar
 
    // ::classname:= "HPROGRESSBAR"
    ::style    := WS_CHILD + WS_VISIBLE
-   nWidth     := iif( nWidth == Nil, 220, nWidth )
-   nHeight    := iif( nHeight == Nil, 55, nHeight )
-   nLeft      := iif( nLeft == Nil, 0, nLeft )
-   nTop       := iif( nTop == Nil, 0, nTop )
+   nWidth     := iif(nWidth == Nil, 220, nWidth)
+   nHeight    := iif(nHeight == Nil, 55, nHeight)
+   nLeft      := iif(nLeft == Nil, 0, nLeft)
+   nTop       := iif(nTop == Nil, 0, nTop)
    ::nLeft    := 20
    ::nTop     := 25
    ::nWidth   := nWidth - 40
-   ::maxPos   := iif( maxPos == Nil, 20, maxPos )
+   ::maxPos   := iif(maxPos == Nil, 20, maxPos)
    ::lNewBox  := .T.
-   ::nRange   := iif( nRange != Nil .AND. nRange != 0, nRange, 100 )
-   ::nLimit   := iif( nRange != Nil, Int(::nRange / ::maxPos), 1 )
+   ::nRange   := iif(nRange != Nil .AND. nRange != 0, nRange, 100)
+   ::nLimit   := iif(nRange != Nil, Int(::nRange / ::maxPos), 1)
    ::lPercent := lPercent
 
    INIT DIALOG ::oParent TITLE cTitle       ;
       At nLeft, nTop SIZE nWidth, nHeight   ;
-      STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + /* WS_SYSMENU + */ WS_SIZEBOX + iif( nTop == 0, DS_CENTER, 0 ) + /* DS_SYSMODAL + */ DS_SETFOREGROUND + MB_USERICON
+      STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + /* WS_SYSMENU + */ WS_SIZEBOX + iif(nTop == 0, DS_CENTER, 0) + /* DS_SYSMODAL + */ DS_SETFOREGROUND + MB_USERICON
 
-   @ ::nLeft, nTop + 5 SAY ::LabelBox CAPTION iif( Empty(lPercent), "", "%" )  SIZE ::nWidth, 19 STYLE SS_CENTER
+   @ ::nLeft, nTop + 5 SAY ::LabelBox CAPTION iif(Empty(lPercent), "", "%")  SIZE ::nWidth, 19 STYLE SS_CENTER
 
    IF bExit != Nil
       ::oParent:bDestroy := bExit
@@ -107,7 +107,7 @@ METHOD NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPer
 
    ::id := ::NewId()
    ::Activate()
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
 
    RETURN Self
 
@@ -134,23 +134,23 @@ METHOD Init()  CLASS HProgressBar
 
    RETURN Nil
 
-METHOD STEP( cTitle )
+METHOD STEP(cTitle)
 
    ::nCount++
    IF ::nCount == ::nLimit
       ::nCount := 0
       hwg_Updateprogressbar(::handle)
-      ::Set( cTitle )
+      ::Set(cTitle)
       IF !Empty(::lPercent)
          ::nPercent += ::maxPos  //::nLimit
-         ::setLabel( LTrim(Str(::nPercent, 3)) + " %" )
+         ::setLabel(LTrim(Str(::nPercent, 3)) + " %")
       ENDIF
    ENDIF
 
    RETURN Nil
 
 // Added by DF7BE
-METHOD RESET( cTitle )
+METHOD RESET(cTitle)
 
    IF cTitle != Nil
       hwg_Setwindowtext(::oParent:handle, cTitle)
@@ -159,7 +159,7 @@ METHOD RESET( cTitle )
 
    RETURN Nil
 
-METHOD SET( cTitle, nPos ) CLASS HProgressBar
+METHOD SET(cTitle, nPos) CLASS HProgressBar
 
    IF cTitle != Nil
       hwg_Setwindowtext(::oParent:handle, cTitle)
@@ -170,10 +170,10 @@ METHOD SET( cTitle, nPos ) CLASS HProgressBar
 
    RETURN Nil
 
-METHOD SetLabel( cCaption ) CLASS HProgressBar
+METHOD SetLabel(cCaption) CLASS HProgressBar
 
    IF cCaption != Nil .AND. ::lNewBox
-      ::LabelBox:SetText( cCaption )
+      ::LabelBox:SetText(cCaption)
    ENDIF
 
    RETURN Nil

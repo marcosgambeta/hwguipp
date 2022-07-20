@@ -18,16 +18,15 @@ CLASS HRadioGroup INHERIT HObject
    DATA bSetGet
    DATA oHGroup
 
-   METHOD New( vari, bSetGet )
-   METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, tcolor, bColor )
-   METHOD EndGroup( nSelected )
+   METHOD New(vari, bSetGet)
+   METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor)
+   METHOD EndGroup(nSelected)
    METHOD Value(nValue) SETGET
    METHOD Refresh()   INLINE iif(::bSetGet != Nil, ::Value := Eval(::bSetGet), .T.)
 
 ENDCLASS
 
-METHOD New( vari, bSetGet ) CLASS HRadioGroup
+METHOD New(vari, bSetGet) CLASS HRadioGroup
 
    ::oGroupCurrent := Self
    ::aButtons := {}
@@ -41,14 +40,12 @@ METHOD New( vari, bSetGet ) CLASS HRadioGroup
 
    RETURN Self
 
-METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, tcolor, bColor ) CLASS HRadioGroup
+METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor) CLASS HRadioGroup
 
    ::oGroupCurrent := Self
    ::aButtons := {}
 
-   ::oHGroup := HGroup():New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
-         oFont, bInit, bSize, , tcolor, bColor )
+   ::oHGroup := HGroup():New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, NIL, tcolor, bColor)
 
    IF vari != NIL
       IF Valtype(vari) == "N"
@@ -59,13 +56,12 @@ METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeig
 
    RETURN Self
 
-METHOD EndGroup( nSelected )  CLASS HRadioGroup
+METHOD EndGroup(nSelected)  CLASS HRadioGroup
    LOCAL nLen
 
    IF ::oGroupCurrent != Nil .AND. ( nLen := Len(::oGroupCurrent:aButtons) ) > 0
 
-      nSelected := iif( nSelected != Nil .AND. nSelected <= nLen .AND. nSelected > 0, ;
-         nSelected, ::oGroupCurrent:nValue )
+      nSelected := iif(nSelected != Nil .AND. nSelected <= nLen .AND. nSelected > 0, nSelected, ::oGroupCurrent:nValue)
       IF nSelected != 0 .AND. nSelected <= nlen
          IF !Empty(::oGroupCurrent:aButtons[nlen]:handle)
             hwg_Checkradiobutton(::oGroupCurrent:aButtons[nlen]:oParent:handle, ::oGroupCurrent:aButtons[1]:id, ;

@@ -23,22 +23,22 @@ CLASS HComboBox INHERIT HControl
    DATA  lText    INIT .F.
    DATA  lEdit    INIT .F.
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, ;
-      bGFocus, tcolor, bcolor, bValid, nDisplay )
+      bGFocus, tcolor, bcolor, bValid, nDisplay)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus)
    METHOD Init()
-   METHOD Refresh( xVal )
-   METHOD Setitem( nPos )
+   METHOD Refresh(xVal)
+   METHOD Setitem(nPos)
    METHOD GetValue(nItem)
    METHOD Value ( xValue ) SETGET
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, ;
-      bGFocus, tcolor, bcolor, bValid, nDisplay ) CLASS HComboBox
+      bGFocus, tcolor, bcolor, bValid, nDisplay) CLASS HComboBox
 
    IF lEdit == Nil
       lEdit := .F.
@@ -52,7 +52,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       nStyle := Hwg_BitOr(nStyle, CBS_NOINTEGRALHEIGHT + WS_VSCROLL)
       ::nDisplay := nDisplay
    ENDIF
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::lEdit := lEdit
    ::lText := lText
@@ -62,9 +62,9 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ENDIF
 
    IF ::lText
-      ::xValue := iif( vari == Nil .OR. ValType(vari) != "C", "", Trim(vari) )
+      ::xValue := iif(vari == Nil .OR. ValType(vari) != "C", "", Trim(vari))
    ELSE
-      ::xValue := iif( vari == Nil .OR. ValType(vari) != "N", 1, vari )
+      ::xValue := iif(vari == Nil .OR. ValType(vari) != "N", 1, vari)
    ENDIF
 
    IF bSetGet != Nil
@@ -81,14 +81,14 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       ::bValid := bValid
    ENDIF
    ::bChangeSel := bChange
-   ::oParent:AddEvent( CBN_KILLFOCUS, ::id, { |o, id|__Valid(o:FindControl(id)) } )
+   ::oParent:AddEvent(CBN_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))})
    IF ::bChangeSel != Nil
-      ::oParent:AddEvent( CBN_SELCHANGE, ::id, { |o, id|__Valid(o:FindControl(id)) } )
+      ::oParent:AddEvent(CBN_SELCHANGE, ::id, {|o, id|__Valid(o:FindControl(id))})
    ENDIF
 
    IF bGFocus != Nil
       ::bGetFocus := bGFocus
-      ::oParent:AddEvent( CBN_SETFOCUS, ::id, { |o, id|__When( o:FindControl(id ) ) } )
+      ::oParent:AddEvent(CBN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})
    ENDIF
 
    RETURN Self
@@ -105,12 +105,12 @@ METHOD Activate() CLASS HComboBox
 METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus) CLASS HComboBox
 
    (bGFocus)
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip)
 
    IF ::lText
-      ::xValue := iif( vari == Nil .OR. ValType(vari) != "C", "", Trim(vari) )
+      ::xValue := iif(vari == Nil .OR. ValType(vari) != "C", "", Trim(vari))
    ELSE
-      ::xValue := iif( vari == Nil .OR. ValType(vari) != "N", 1, vari )
+      ::xValue := iif(vari == Nil .OR. ValType(vari) != "N", 1, vari)
    ENDIF
    ::bSetGet := bSetGet
    ::aItems  := aItems
@@ -119,12 +119,12 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
       ::bChangeSel := bChange
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
       IF ::bChangeSel != Nil
-         ::oParent:AddEvent( CBN_SELCHANGE, ::id, { |o, id|__Valid(o:FindControl(id)) } )
+         ::oParent:AddEvent(CBN_SELCHANGE, ::id, {|o, id|__Valid(o:FindControl(id))})
       ENDIF
    ELSEIF bChange != Nil
-      ::oParent:AddEvent( CBN_SELCHANGE, ::id, bChange )
+      ::oParent:AddEvent(CBN_SELCHANGE, ::id, bChange)
    ENDIF
-   ::oParent:AddEvent( CBN_KILLFOCUS, ::id, { |o, id|__Valid(o:FindControl(id)) } )
+   ::oParent:AddEvent(CBN_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))})
    ::Refresh() // By Luiz Henrique dos Santos
 
    RETURN Self
@@ -137,7 +137,7 @@ METHOD Init() CLASS HComboBox
       IF !Empty(::aItems)
          IF Empty(::xValue)
             IF ::lText
-               ::xValue := iif( ValType(::aItems[1]) == "A", ::aItems[1, 1], ::aItems[1] )
+               ::xValue := iif(ValType(::aItems[1]) == "A", ::aItems[1, 1], ::aItems[1])
             ELSE
                ::xValue := 1
             ENDIF
@@ -148,9 +148,9 @@ METHOD Init() CLASS HComboBox
          NEXT
          IF ::lText
 #ifdef __XHARBOUR__
-            i := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}) )
+            i := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}))
 #else
-            i := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, , , .T.) )
+            i := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
 #endif
             hwg_Combosetstring(::handle, i)
          ELSE
@@ -167,18 +167,18 @@ METHOD Init() CLASS HComboBox
 
    RETURN Nil
 
-METHOD Refresh( xVal ) CLASS HComboBox
+METHOD Refresh(xVal) CLASS HComboBox
    LOCAL vari, i
 
    IF !Empty(::aItems)
       IF xVal != Nil
          ::xValue := xVal
       ELSEIF ::bSetGet != Nil
-         vari := Eval(::bSetGet, , Self)
+         vari := Eval(::bSetGet, NIL, Self)
          IF ::lText
-            ::xValue := iif( vari == Nil .OR. ValType(vari) != "C", "", Trim(vari) )
+            ::xValue := iif(vari == Nil .OR. ValType(vari) != "C", "", Trim(vari))
          ELSE
-            ::xValue := iif( vari == Nil .OR. ValType(vari) != "N", 1, vari )
+            ::xValue := iif(vari == Nil .OR. ValType(vari) != "N", 1, vari)
          ENDIF
       ENDIF
 
@@ -190,9 +190,9 @@ METHOD Refresh( xVal ) CLASS HComboBox
 
       IF ::lText
 #ifdef __XHARBOUR__
-         i := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}) )
+         i := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}))
 #else
-         i := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, , , .T.) )
+         i := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
 #endif
          hwg_Combosetstring(::handle, i)
       ELSE
@@ -203,10 +203,10 @@ METHOD Refresh( xVal ) CLASS HComboBox
 
    RETURN Nil
 
-METHOD SetItem( nPos ) CLASS HComboBox
+METHOD SetItem(nPos) CLASS HComboBox
 
    IF ::lText
-      ::xValue := iif( ValType(::aItems[nPos]) == "A", ::aItems[nPos, 1], ::aItems[nPos] )
+      ::xValue := iif(ValType(::aItems[nPos]) == "A", ::aItems[nPos, 1], ::aItems[nPos])
    ELSE
       ::xValue := nPos
    ENDIF
@@ -239,19 +239,19 @@ METHOD GetValue(nItem) CLASS HComboBox
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
 
-   RETURN iif( l .AND. nItem != Nil, Iif( nItem > 0 .AND. nItem <= Len(::aItems[nPos] ), ::aItems[nPos,nItem], Nil ), ::xValue )
+   RETURN iif(l .AND. nItem != Nil, Iif(nItem > 0 .AND. nItem <= Len(::aItems[nPos]), ::aItems[nPos,nItem], Nil), ::xValue)
 
 METHOD Value ( xValue ) CLASS HComboBox
 
    IF xValue != Nil
       IF ValType(xValue) == "C"
 #ifdef __XHARBOUR__
-         xValue := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}) )
+         xValue := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}))
 #else
-         xValue := Iif( ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, , , .T.) )
+         xValue := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
 #endif
       ENDIF
-      ::SetItem( xValue )
+      ::SetItem(xValue)
 
       RETURN ::xValue
    ENDIF
@@ -263,7 +263,7 @@ STATIC FUNCTION __Valid(oCtrl)
    LOCAL lESC
 
    // by sauli
-   IF __ObjHasMsg( oCtrl:oParent, "nLastKey" )
+   IF __ObjHasMsg(oCtrl:oParent, "nLastKey")
       // caso o PARENT seja HDIALOG
       lESC := oCtrl:oParent:nLastKey <> 27
    ELSE
@@ -278,7 +278,7 @@ STATIC FUNCTION __Valid(oCtrl)
          IF oCtrl:lEdit
             oCtrl:xValue := oCtrl:GetText()
          ELSE
-            oCtrl:xValue := iif( oCtrl:lText, iif( ValType(oCtrl:aItems[nPos] ) == "A", oCtrl:aItems[nPos, 1], oCtrl:aItems[nPos] ), nPos )
+            oCtrl:xValue := iif(oCtrl:lText, iif(ValType(oCtrl:aItems[nPos]) == "A", oCtrl:aItems[nPos, 1], oCtrl:aItems[nPos]), nPos)
          ENDIF
          IF oCtrl:bSetGet != Nil
             Eval(oCtrl:bSetGet, oCtrl:xValue, oCtrl)
@@ -290,7 +290,7 @@ STATIC FUNCTION __Valid(oCtrl)
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com.br) 03/06/2006
       IF oCtrl:bValid != Nil
          IF !Eval(oCtrl:bValid, oCtrl)
-            hwg_Setfocus( oCtrl:handle )
+            hwg_Setfocus(oCtrl:handle)
             RETURN .F.
          ENDIF
       ENDIF
@@ -298,7 +298,7 @@ STATIC FUNCTION __Valid(oCtrl)
 
    RETURN .T.
 
-STATIC FUNCTION __When( oCtrl )
+STATIC FUNCTION __When(oCtrl)
    LOCAL res
 
    //oCtrl:Refresh()
@@ -307,9 +307,9 @@ STATIC FUNCTION __When( oCtrl )
       IF oCtrl:bSetGet == Nil
          res := Eval(oCtrl:bGetFocus, oCtrl:xValue, oCtrl)
       ELSE
-         res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, , oCtrl), oCtrl)
+         res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, NIL, oCtrl), oCtrl)
          IF !res
-            hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )
+            hwg_GetSkip(oCtrl:oParent, oCtrl:handle, 1)
          ENDIF
       ENDIF
       RETURN res

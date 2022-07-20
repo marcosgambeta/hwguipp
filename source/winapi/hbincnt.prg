@@ -52,10 +52,10 @@ CLASS HBinC
    METHOD Open(cName, lWr)
    METHOD Close()
    METHOD Add(cObjName, cType, cVal)
-   METHOD Del( cObjName )
+   METHOD Del(cObjName)
    METHOD Pack()
-   METHOD Exist( cObjName )
-   METHOD Get( cObjName )
+   METHOD Exist(cObjName)
+   METHOD Get(cObjName)
    METHOD GetPos(cObjName)
    METHOD GetType(cObjName)   
 
@@ -141,14 +141,14 @@ METHOD Add(cObjName, cType, cVal) CLASS HBinC
       RETURN .F.
    ENDIF
    cObjName := Lower(cObjName)
-   cType := Padr( Lower(Left(cType, 4)), 4 )
+   cType := Padr(Lower(Left(cType, 4)), 4)
    IF Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName}) > 0
       RETURN .F.
    ENDIF
 
    nAddress := ::nFileLen
    nSize := Len(cVal)
-   nAddr := Iif( Empty(::aObjects), 0, ::aObjects[Len(::aObjects),OBJ_ADDR] + Len(::aObjects[Len(::aObjects),OBJ_NAME]) + CNT_FIX_LEN )
+   nAddr := Iif(Empty(::aObjects), 0, ::aObjects[Len(::aObjects),OBJ_ADDR] + Len(::aObjects[Len(::aObjects),OBJ_NAME]) + CNT_FIX_LEN)
    Aadd(::aObjects, {cObjName, cType, nAddress, nSize, nAddr})
 
    IF HEAD_LEN + ::nPassLen + ::nCntLen + Len(cObjName) + CNT_FIX_LEN > ::nCntBlocks*2048
@@ -175,7 +175,7 @@ METHOD Add(cObjName, cType, cVal) CLASS HBinC
 
    RETURN .T.
 
-METHOD Del( cObjName ) CLASS HBinC
+METHOD Del(cObjName) CLASS HBinC
    LOCAL n
 
    IF !::lWriteAble
@@ -253,7 +253,7 @@ METHOD Pack() CLASS HBinC
 
    RETURN .T.
 
-METHOD Get( cObjName ) CLASS HBinC
+METHOD Get(cObjName) CLASS HBinC
    LOCAL n, cBuf
 
    cObjName := Lower(cObjName)
@@ -267,7 +267,7 @@ METHOD Get( cObjName ) CLASS HBinC
 
    RETURN cBuf
 
-METHOD Exist( cObjName )  CLASS HBinC
+METHOD Exist(cObjName)  CLASS HBinC
 
    cObjName := Lower(cObjName)
    RETURN (Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})) != 0

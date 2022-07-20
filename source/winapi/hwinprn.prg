@@ -51,7 +51,7 @@
    the features of the Cairo graphic library.
    Function draw_page() interprets the values of the array and
    builds the pixbuffer for one page.
- 
+
 
 */
 
@@ -93,26 +93,26 @@ CLASS HWinPrn
    DATA   nLeft     INIT 5
    DATA   nRight    INIT 5
    
-   DATA   nCharset  INIT 0   //  Charset (N) Default: 0  , 204 = Russian
+   DATA   nCharset  INIT 0   //  Charset (N) Default: 0, 204 = Russian
 
    // --- International Language Support for internal dialogs --
    DATA aTooltips   INIT {}  // Array with tooltips messages for print preview dialog
    DATA aBootUser   INIT {}  // Array with control  messages for print preview dialog  (optional usage)
 
 
-   METHOD New( cPrinter, cpFrom, cpTo, nFormType, nCharset )
+   METHOD New(cPrinter, cpFrom, cpTo, nFormType, nCharset)
    METHOD SetLanguage(apTooltips, apBootUser)
-   METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset )
+   METHOD InitValues(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nCharset)
    METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nCharset)
    METHOD SetDefaultMode()
    METHOD StartDoc(lPreview, cMetaName, lprbutton)
    METHOD NextPage()
    METHOD NewLine()
    METHOD PrintLine(cLine, lNewLine)
-   METHOD PrintBitmap( xBitmap, nAlign , cBitmapName )  // cImageName
-   METHOD PrintText( cText )
-   METHOD SetX( nYvalue )
-   METHOD SetY( nYvalue )
+   METHOD PrintBitmap(xBitmap, nAlign, cBitmapName) // cImageName
+   METHOD PrintText(cText)
+   METHOD SetX(nYvalue)
+   METHOD SetY(nYvalue)
    METHOD PutCode(cLine)   // cText
    METHOD EndDoc()
    METHOD END()
@@ -128,11 +128,11 @@ CLASS HWinPrn
 
 ENDCLASS
 
-METHOD New( cPrinter, cpFrom, cpTo, nFormType , nCharset ) CLASS HWinPrn
+METHOD New(cPrinter, cpFrom, cpTo, nFormType, nCharset) CLASS HWinPrn
 
    ::SetLanguage() // Start with default english
 
-   ::oPrinter := HPrinter():New( cPrinter, .F., nFormType )
+   ::oPrinter := HPrinter():New(cPrinter, .F., nFormType)
    IF ::oPrinter == Nil
       RETURN Nil
    ENDIF
@@ -172,7 +172,7 @@ METHOD SetLanguage(apTooltips, apBootUser) CLASS HWinPrn
 //   IF apBootUser != NIL ; ::aBootUser := apBootUser ; ENDIF
 RETURN Nil
 
-METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset ) CLASS HWinPrn
+METHOD InitValues(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nCharset) CLASS HWinPrn
 
    IF lElite != Nil
       ::lElite := lElite
@@ -212,7 +212,7 @@ METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nChar
    LOCAL aKoef := { 1, 1.22, 1.71, 2 }
    LOCAL nMode := 0, oFont, nWidth, nPWidth, nStdHeight, nStdLineW
 
-   ::InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset )
+   ::InitValues(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nCharset)
 
    IF ::lPageStart
 
@@ -227,9 +227,9 @@ METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nChar
             nPWidth := 290
          ENDIF
 
-         oFont := ::oPrinter:AddFont( cFont, ::nStdHeight * ::oPrinter:nVRes )
+         oFont := ::oPrinter:AddFont(cFont, ::nStdHeight * ::oPrinter:nVRes)
 
-         nWidth := ::oPrinter:GetTextWidth( Replicate("A", Iif(::nFormType == 8, 113, 80)), oFont ) / ::oPrinter:nHRes
+         nWidth := ::oPrinter:GetTextWidth(Replicate("A", Iif(::nFormType == 8, 113, 80)), oFont) / ::oPrinter:nHRes
          IF nWidth > nPWidth + 2 .OR. nWidth < nPWidth - 15
             ::nStdHeight := ::nStdHeight * ( nPWidth / nWidth )
          ENDIF
@@ -245,12 +245,12 @@ METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nChar
       IF ::lCond
          nMode += 2
       ENDIF
-      //hwg_writelog( "nStdHeight: "+Ltrim(str(::nStdHeight))+"/"+Ltrim(str(nStdHeight))+" ::nLineMax: "+Ltrim(str(::nLineMax))+"  nStdLineW: "+Ltrim(str(nStdLineW)) )
+      //hwg_writelog("nStdHeight: " + Ltrim(str(::nStdHeight)) + "/" + Ltrim(str(nStdHeight)) + " ::nLineMax: " + Ltrim(str(::nLineMax)) + "  nStdLineW: " + Ltrim(str(nStdLineW)))
 
       ::nLineHeight := ( nStdHeight / aKoef[nMode + 1] ) * ::oPrinter:nVRes
       ::nLined := ( 25.4 * ::oPrinter:nVRes ) / ::nLineInch - ::nLineHeight
 
-      oFont := ::oPrinter:AddFont( cFont, ::nLineHeight, ::lBold, ::lItalic, ::lUnder, ::nCharset ) // ::nCharset 204 = Russian
+      oFont := ::oPrinter:AddFont(cFont, ::nLineHeight, ::lBold, ::lItalic, ::lUnder, ::nCharset) // ::nCharset 204 = Russian
 
       IF ::oFont != Nil
          ::oFont:Release()
@@ -259,7 +259,7 @@ METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nChar
       ::oFont := oFont
 
       ::oPrinter:SetFont(::oFont)
-      ::nCharW := ::oPrinter:GetTextWidth( "ABCDEFGHIJ", oFont ) / 10
+      ::nCharW := ::oPrinter:GetTextWidth("ABCDEFGHIJ", oFont) / 10
       ::lChanged := .F.
 
    ENDIF
@@ -278,7 +278,7 @@ METHOD SetDefaultMode() CLASS HWinPrn
    RETURN Nil
 
 
-METHOD SetY( nYvalue ) CLASS HWinPrn
+METHOD SetY(nYvalue) CLASS HWinPrn
 
   IF nYvalue == NIL
    nYvalue := 0
@@ -287,7 +287,7 @@ METHOD SetY( nYvalue ) CLASS HWinPrn
   
  RETURN nYvalue
  
- METHOD SetX( nYvalue ) CLASS HWinPrn
+ METHOD SetX(nYvalue) CLASS HWinPrn
 
   IF nYvalue == NIL
    nYvalue := 0
@@ -345,10 +345,10 @@ METHOD NextPage() CLASS HWinPrn
    nAlign      : 0 - left, 1 - center, 2 - right, default = 0
    cBitmapName  : Name of resource, if xBitmap is bitmap object
  */
-METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
+METHOD PrintBitmap(xBitmap, nAlign, cBitmapName) CLASS HWinPrn
 
-   LOCAL i , cTmp
-   LOCAL hBitmap, aBmpSize , cImageName
+   LOCAL i, cTmp
+   LOCAL hBitmap, aBmpSize, cImageName
    
    // Variables not used
    // LOCAL oBitmap
@@ -361,14 +361,14 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
      nAlign := 0  // 0 - left, 1 - center, 2 - right
    ENDIF
 
-   cTmp := hwg_CreateTempfileName(, ".bmp")   
+   cTmp := hwg_CreateTempfileName(NIL, ".bmp")   
    
    IF VALTYPE(xBitmap) == "C" // does not work on GTK
      // from file
-     IF !hb_fileexists( xBitmap )
+     IF !hb_fileexists(xBitmap)
        RETURN NIL
      ENDIF
-     hBitmap := hwg_Openbitmap( xBitmap, ::oPrinter:hDC )
+     hBitmap := hwg_Openbitmap(xBitmap, ::oPrinter:hDC)
      // hwg_msginfo(hb_valtostr(hBitmap))
      IF hb_ValToStr(hBitmap) == "0x00000000"
        RETURN NIL
@@ -377,10 +377,10 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
      aBmpSize  := hwg_Getbitmapsize(hBitmap)
    ELSE
      // xBitmap is a bitmap object
-     cImageName := IIF(EMPTY (cBitmapName), "" , cBitmapName)
+     cImageName := IIF(EMPTY (cBitmapName), "", cBitmapName)
      // Store into a temporary file
      xBitmap:OBMP2FILE(cTmp, cBitmapName)
-     hBitmap := hwg_Openbitmap( cTmp , ::oPrinter:hDC )
+     hBitmap := hwg_Openbitmap(cTmp, ::oPrinter:hDC)
      // hwg_msginfo(hb_valtostr(hBitmap))
      IF hb_ValToStr(hBitmap) == "0x00000000"
        RETURN NIL
@@ -411,7 +411,7 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
       ::lFirstLine := .F.
    ENDIF
    // Paint bitmap
-   ::oPrinter:Bitmap(::x, ::y, ::x + aBmpSize[1], ::y + aBmpSize[2], , hBitmap, cImageName)
+   ::oPrinter:Bitmap(::x, ::y, ::x + aBmpSize[1], ::y + aBmpSize[2], NIL, hBitmap, cImageName)
         
    i := aBmpSize[2] - ::nLineHeight
    IF i > 0
@@ -481,14 +481,14 @@ IF cLine != Nil .AND. VALTYPE(cLine) == "N"
       DO WHILE i <= slen
          IF ( c := SubStr(cLine, i, 1) ) < " "
             IF i0 != 0
-               ::PrintText( SubStr(cLine, i0, i - i0) )
+               ::PrintText(SubStr(cLine, i0, i - i0))
                i0 := 0
             ENDIF
             i += ::PutCode(SubStr(cLine, i))
             LOOP
          ELSEIF ( j := At(c, ::cPseudo) ) != 0
             IF i0 != 0
-               ::PrintText( SubStr(cLine, i0, i - i0) )
+               ::PrintText(SubStr(cLine, i0, i - i0))
                i0 := 0
             ENDIF
             IF j < 3            // Horisontal line ÄÍ
@@ -543,13 +543,13 @@ IF cLine != Nil .AND. VALTYPE(cLine) == "N"
       IF i0 != 0
        // hwg_writelog(STR(::x) + CHR(10) + STR(::y) + CHR(10) + STR(i0) + CHR(10) + STR(i) + ;
        //  CHR(10) + STR(::nLineHeight) )
-         ::PrintText( SubStr(cLine, i0, i - i0) )
+         ::PrintText(SubStr(cLine, i0, i - i0))
       ENDIF
    ENDIF
 
    RETURN Nil
 
-METHOD PrintText( cText ) CLASS HWinPrn
+METHOD PrintText(cText) CLASS HWinPrn
 
    IF ::lChanged
       ::SetMode()
@@ -562,29 +562,29 @@ METHOD PrintText( cText ) CLASS HWinPrn
 
 METHOD PutCode(cLine) CLASS HWinPrn
    STATIC aCodes := {   ;
-          { Chr(27) + "@", .F., .F., 6, .F., .F., .F. },  ;     /* Reset */
-          { Chr(27) + "M", .T.,,,,, },  ;     /* Elite */
-          { Chr(15),, .T.,,,, },      ;     /* Cond */
-          { Chr(18),, .F.,,,, },      ;     /* Cancel Cond */
-          { Chr(27) + "0",,, 8,,, },    ;     /* 8 lines per inch */
-          { Chr(27) + "2",,, 6,,, },    ;     /* 6 lines per inch ( standard ) */
-          { Chr(27) + "-1",,,,,, .T. }, ;     /* underline */
-          { Chr(27) + "-0",,,,,, .F. }, ;     /* cancel underline */
-          { Chr(27) + "4",,,,, .T., },  ;     /* italic */
-          { Chr(27) + "5",,,,, .F., },  ;     /* cancel italic */
-          { Chr(27) + "G",,,, .T.,, },  ;     /* bold */
-          { Chr(27) + "H",,,, .F.,, }   ;     /* cancel bold */
+          { Chr(27) + "@", .F., .F., 6, .F., .F., .F. }, ;     /* Reset */
+          { Chr(27) + "M", .T., NIL, NIL, NIL, NIL, NIL }, ;     /* Elite */
+          { Chr(15), NIL, .T., NIL, NIL, NIL, NIL }, ;     /* Cond */
+          { Chr(18), NIL, .F., NIL, NIL, NIL, NIL }, ;     /* Cancel Cond */
+          { Chr(27) + "0", NIL, NIL, 8, NIL, NIL, NIL }, ;     /* 8 lines per inch */
+          { Chr(27) + "2", NIL, NIL, 6, NIL, NIL, NIL }, ;     /* 6 lines per inch ( standard ) */
+          { Chr(27) + "-1", NIL, NIL, NIL, NIL, NIL, .T. }, ;     /* underline */
+          { Chr(27) + "-0", NIL, NIL, NIL, NIL, NIL, .F. }, ;     /* cancel underline */
+          { Chr(27) + "4", NIL, NIL, NIL, NIL, .T., NIL }, ;     /* italic */
+          { Chr(27) + "5", NIL, NIL, NIL, NIL, .F., NIL }, ;     /* cancel italic */
+          { Chr(27) + "G", NIL, NIL, NIL, .T., NIL, NIL }, ;     /* bold */
+          { Chr(27) + "H", NIL, NIL, NIL, .F., NIL, NIL } ;     /* cancel bold */
         }
    LOCAL i, sLen := Len(aCodes), c := Left(cLine, 1)
 
    IF !Empty(c) .AND. c < " "
       IF Asc(c) == 31
-         ::InitValues( ,,,,,, Asc(Substr(cLine, 2, 1)) )
+         ::InitValues(NIL, NIL, NIL, NIL, NIL, NIL, Asc(Substr(cLine, 2, 1)))
          RETURN 2
       ELSE
          FOR i := 1 TO sLen
             IF Left(aCodes[i, 1], 1) == c .AND. At(aCodes[i, 1], Left(cLine, 3)) == 1
-               ::InitValues( aCodes[i, 2], aCodes[i, 3], aCodes[i, 4], aCodes[i, 5], aCodes[i, 6], aCodes[i, 7]  )
+               ::InitValues(aCodes[i, 2], aCodes[i, 3], aCodes[i, 4], aCodes[i, 5], aCodes[i, 6], aCodes[i, 7])
                RETURN Len(aCodes[i, 1])
             ENDIF
          NEXT
@@ -603,7 +603,7 @@ METHOD EndDoc() CLASS HWinPrn
       ::oPrinter:EndDoc()
       ::lDocStart := .F.
       IF __ObjHasMsg(::oPrinter, "PREVIEW") .AND. ::oPrinter:lPreview
-         ::oPrinter:Preview( , , ::aTooltips,)
+         ::oPrinter:Preview(NIL, NIL, ::aTooltips, NIL)
       ENDIF
    ENDIF
 

@@ -17,29 +17,23 @@
 
 CLASS TMci
 
-   DATA   nError, nId
-   DATA   cType, cFileName
-   DATA   oWnd
-   DATA   cBuffer
+   DATA nError, nId
+   DATA cType, cFileName
+   DATA oWnd
+   DATA cBuffer
 
-   METHOD New( cDevice, cFileName )  CONSTRUCTOR
-
+   METHOD New(cDevice, cFileName)  CONSTRUCTOR
    METHOD lOpen()
-
-   METHOD Play( nFrom, nTo, hWnd ) INLINE ::nError := hwg_Nmciplay(::nId, nFrom, nTo, hWnd)
-
+   METHOD Play(nFrom, nTo, hWnd) INLINE ::nError := hwg_Nmciplay(::nId, nFrom, nTo, hWnd)
    METHOD cGetError()
-
-
    METHOD SetWindow(oWnd) INLINE ::oWnd := oWnd, ::nError := hwg_Nmciwindow(::nId, oWnd:handle)
-
    METHOD SendStr(cMciStr)
 
 ENDCLASS
 
 //----------------------------------------------------------------------------//
 
-METHOD New( cDevice, cFileName ) CLASS TMci
+METHOD New(cDevice, cFileName) CLASS TMci
 
    DEFAULT cDevice TO ""
 
@@ -57,7 +51,7 @@ METHOD SendStr(cMciStr) CLASS TMci
 
    LOCAL cBuffer := ::cBuffer
 
-   hwg_Mcisendstring( cMciStr, @cBuffer, ::oWnd:hWnd )
+   hwg_Mcisendstring(cMciStr, @cBuffer, ::oWnd:hWnd)
    ::cBuffer = cBuffer
 
    RETURN nil

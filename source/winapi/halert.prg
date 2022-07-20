@@ -313,7 +313,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
 
    hDC := Hwg_GetDC(0)
 
-   ::oFont := HFont():Add(::Font, 0, Hwg_Pts2Pix(-::FontSize), , ::nCharSet)
+   ::oFont := HFont():Add(::Font, 0, Hwg_Pts2Pix(-::FontSize), NIL, ::nCharSet)
    hOldFont := Hwg_SelectObject(hDC, ::oFont:handle)
 
    // All dimensions of the dialog are in multiples of the Font height and width
@@ -331,7 +331,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
    Hwg_SelectObject(hDC, hOldFont)
    Hwg_ReleaseDC(0, hDC)
 
-   ::oIcon := HIcon():AddResource(::Icon, , , , .T.)
+   ::oIcon := HIcon():AddResource(::Icon, NIL, NIL, NIL, .T.)
 
    // 1.7 seems to give the closest to MessageBox results
    nDialogHeight := nFontHeight + max(nIconHeight, nMessageHeight) + Iif(nOptions > 0, nFontHeight + 1.7 * nFontHeight, 0) + nFontHeight
@@ -353,7 +353,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
       STYLE ALERTSTYLE ;
       FONT ::oFont ;
       ON INIT { |oWin| Hwg_Alert_CenterWindow(oWin:handle), Iif(!::lCloseButton, hwg_Alert_DisableCloseButton(oWin:handle), ), Iif(::Time > 0, ::SetupTimer(), ) } ;
-      ON EXIT { |oWin| HB_SYMBOL_UNUSED(oWin) , Iif(!::Modal, ::ReleaseNonModalAlert(.F.), .T.) }
+      ON EXIT { |oWin| HB_SYMBOL_UNUSED(oWin), Iif(!::Modal, ::ReleaseNonModalAlert(.F.), .T.) }
 
    @ 2 * nFontWidth, nFontHeight ICON ::oIcon
 
@@ -362,7 +362,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
    IF nOptions > 0
       @ nButtonLeft, nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
          BUTTON acOptions[1] ID 100 SIZE nButtonWidth, 1.7 * nFontHeight ;
-         ON CLICK { |oCtl| HB_SYMBOL_UNUSED(oCtl) , ::nChoice := 1, Iif(::OptionActions != Nil, eval(::OptionActions[1] ), ), Hwg_EndDialog(::oDlg:handle) } ;
+         ON CLICK { |oCtl| HB_SYMBOL_UNUSED(oCtl), ::nChoice := 1, Iif(::OptionActions != Nil, eval(::OptionActions[1] ), ), Hwg_EndDialog(::oDlg:handle) } ;
          STYLE WS_TABSTOP + BS_DEFPUSHBUTTON
       FOR i := 2 TO nOptions
          @ nButtonLeft + (i - 1) * (nButtonWidth + nFontWidth), nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
@@ -498,7 +498,7 @@ FUNCTION HWG_Alert_CenterWindow(hWnd)
    ENDIF
 
    aParent := Hwg_GetClientRect(hWndParent)
-   aPoint := Hwg_ClientToScreen(hWndParent, aParent[3] / 2 , aParent[4] / 2)
+   aPoint := Hwg_ClientToScreen(hWndParent, aParent[3] / 2, aParent[4] / 2)
    aPoint[1] -= (nCWidth  / 2)
    aPoint[2] -= (nCHeight / 2)
    aPoint := Hwg_ScreenToClient(hWndParent, aPoint[1], aPoint[2] )

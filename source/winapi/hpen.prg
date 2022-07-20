@@ -26,12 +26,12 @@ ENDCLASS
 METHOD Add(nStyle, nWidth, nColor) CLASS HPen
    LOCAL i
 
-   nStyle := iif( nStyle == Nil, BS_SOLID, nStyle )
-   nWidth := iif( nWidth == Nil, 1, nWidth )
+   nStyle := iif(nStyle == Nil, BS_SOLID, nStyle)
+   nWidth := iif(nWidth == Nil, 1, nWidth)
    IF nStyle != BS_SOLID
       nWidth := 1
    ENDIF
-   nColor := iif( nColor == Nil, 0, nColor )
+   nColor := iif(nColor == Nil, 0, nColor)
 
    FOR EACH i IN ::aPens
       IF i:style == nStyle .AND. i:width == nWidth .AND. i:color == nColor
@@ -40,7 +40,7 @@ METHOD Add(nStyle, nWidth, nColor) CLASS HPen
       ENDIF
    NEXT
 
-   ::handle := hwg_Createpen( nStyle, nWidth, nColor )
+   ::handle := hwg_Createpen(nStyle, nWidth, nColor)
    ::style  := nStyle
    ::width  := nWidth
    ::color  := nColor
@@ -48,15 +48,15 @@ METHOD Add(nStyle, nWidth, nColor) CLASS HPen
 
    RETURN Self
 
-METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
+METHOD Get(nStyle, nWidth, nColor) CLASS HPen
    LOCAL i
 
-   nStyle := iif( nStyle == Nil, PS_SOLID, nStyle )
-   nWidth := iif( nWidth == Nil, 1, nWidth )
+   nStyle := iif(nStyle == Nil, PS_SOLID, nStyle)
+   nWidth := iif(nWidth == Nil, 1, nWidth)
    IF nStyle != BS_SOLID
       nWidth := 1
    ENDIF
-   nColor := iif( nColor == Nil, 0, nColor )
+   nColor := iif(nColor == Nil, 0, nColor)
 
    FOR EACH i IN ::aPens
       IF i:style == nStyle .AND. i:width == nWidth .AND. i:color == nColor

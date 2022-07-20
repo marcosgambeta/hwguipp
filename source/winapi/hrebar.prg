@@ -26,24 +26,24 @@ CLASS hrebar INHERIT HControl
    DATA m_nWidth, m_nHeight
    DATA aBands INIT  {}
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
    METHOD Activate()
    METHOD INIT()
-   METHOD ADDBARColor( pBar, clrFore, clrBack, pszText, dwStyle ) INLINE hwg_Addbarcolors(::handle, pBar, clrFore, clrBack, pszText, dwStyle)
-   METHOD Addbarbitmap( pBar, pszText, pbmp, dwStyle ) INLINE hwg_Addbarbitmap(::handle, pBar, pszText, pbmp, dwStyle)
-   METHOD RebarBandNew( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) INLINE ::CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle )
-   METHOD CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle )
+   METHOD ADDBARColor(pBar, clrFore, clrBack, pszText, dwStyle) INLINE hwg_Addbarcolors(::handle, pBar, clrFore, clrBack, pszText, dwStyle)
+   METHOD Addbarbitmap(pBar, pszText, pbmp, dwStyle) INLINE hwg_Addbarbitmap(::handle, pBar, pszText, pbmp, dwStyle)
+   METHOD RebarBandNew(pBar, pszText, clrFore, clrBack, pbmp, dwStyle) INLINE ::CreateBands(pBar, pszText, clrFore, clrBack, pbmp, dwStyle)
+   METHOD CreateBands(pBar, pszText, clrFore, clrBack, pbmp, dwStyle)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lvert ) CLASS hrebar
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lvert) CLASS hrebar
 
    HB_SYMBOL_UNUSED(cCaption)
 
    DEFAULT  lvert  TO .F.
-   nStyle := Hwg_BitOr(IIf(nStyle == NIL, 0,  RBS_BANDBORDERS), WS_CHILD)
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
+   nStyle := Hwg_BitOr(IIf(nStyle == NIL, 0, RBS_BANDBORDERS), WS_CHILD)
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    ::Title := ""
    HWG_InitCommonControlsEx()
 
@@ -56,7 +56,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
    HB_SYMBOL_UNUSED(cCaption)
 
    DEFAULT  lVert TO .F.
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
 
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
@@ -81,7 +81,7 @@ METHOD INIT() CLASS hrebar
 
    RETURN NIL
 
-METHOD CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) CLASS hrebar
+METHOD CreateBands(pBar, pszText, clrFore, clrBack, pbmp, dwStyle) CLASS hrebar
    LOCAL i
 
    IF pBar != NIL
@@ -95,7 +95,7 @@ METHOD CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) CLASS hreba
       ::aBands[i, 4] := IIF(::aBands[i, 4] = NIL, hwg_Getsyscolor(COLOR_3DFACE), ::aBands[i, 4])
       ::aBands[i, 6] := IIF(::aBands[i, 6] = NIL, dwStyle, ::aBands[i, 6])
       IF !Empty(::aBands[i, 1])
-         ::aBands[i, 1] := IIF( ValType(::aBands[i, 1]) = "C", &(::aBands[i, 1]), ::aBands[i, 1])
+         ::aBands[i, 1] := IIF(ValType(::aBands[i, 1]) = "C", &(::aBands[i, 1]), ::aBands[i, 1])
          IF (::aBands[i, 5] != NIL)
             hwg_Addbarbitmap(::handle, ::aBands[i, 1]:handle, ::aBands[i, 2], ::aBands[i, 5], ::aBands[i, 6])
          ELSE

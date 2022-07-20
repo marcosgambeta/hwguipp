@@ -31,20 +31,20 @@ CLASS HTrackBar INHERIT HControl
    DATA nHigh
    DATA hCursor
 
-   METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,;
-               bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh,;
-               lVertical, TickStyle, TickMarks )
+   METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+              bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
+              lVertical, TickStyle, TickMarks)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
    METHOD Value(nValue) SETGET
    METHOD GetNumTics()  INLINE hwg_Sendmessage(::handle, TBM_GETNUMTICS, 0, 0)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,;
-            bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh,;
-            lVertical, TickStyle, TickMarks ) CLASS HTrackBar
+METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+           bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
+           lVertical, TickStyle, TickMarks) CLASS HTrackBar
 
    IF TickStyle == NIL
       TickStyle := TBS_AUTOTICKS
@@ -56,17 +56,16 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,;
       TickStyle := Hwg_BitOr(TickStyle, TBS_AUTOTICKS)
    ENDIF
    nstyle   := Hwg_BitOr(IIF(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
-   nstyle   += IIF( lVertical != NIL .AND. lVertical, TBS_VERT, 0 )
+   nstyle   += IIF(lVertical != NIL .AND. lVertical, TBS_VERT, 0)
    nstyle   += TickStyle + TickMarks
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,,;
-              bInit, bSize, bPaint, cTooltip )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, NIL, bInit, bSize, bPaint, cTooltip)
 
-   ::nValue     := IIF( Valtype(vari)=="N", vari, 0 )
+   ::nValue     := IIF(Valtype(vari) == "N", vari, 0)
    ::bChange    := bChange
    ::bThumbDrag := bDrag
-   ::nLow       := IIF( nLow==NIL, 0, nLow )
-   ::nHigh      := IIF( nHigh==NIL, 100, nHigh )
+   ::nLow       := IIF(nLow == NIL, 0, nLow)
+   ::nHigh      := IIF(nHigh == NIL, 100, nHigh)
 
    HWG_InitCommonControlsEx()
    ::Activate()
@@ -80,7 +79,7 @@ METHOD Activate() CLASS HTrackBar
    ENDIF
 RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
+METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
 LOCAL aCoors
 
    IF msg == WM_PAINT
@@ -97,7 +96,7 @@ LOCAL aCoors
    ELSEIF msg == WM_ERASEBKGND
       IF ::brush != NIL
          aCoors := hwg_Getclientrect(::handle)
-         hwg_Fillrect( wParam, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, ::brush:handle )
+         hwg_Fillrect(wParam, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, ::brush:handle)
          RETURN 1
       ENDIF
 

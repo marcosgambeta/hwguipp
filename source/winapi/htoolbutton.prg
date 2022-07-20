@@ -34,7 +34,7 @@ CLASS HToolButton INHERIT HObject
    DATA oParent
    //DATA oFont   // not implemented
 
-   METHOD New( oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu )
+   METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu)
    METHOD Enable() INLINE ::oParent:EnableButton(::id, .T.)
    METHOD Disable() INLINE ::oParent:EnableButton(::id, .F.)
    METHOD Show() INLINE hwg_Sendmessage(::oParent:handle, TB_HIDEBUTTON, Int(::id), hwg_Makelong(0, 0))
@@ -43,11 +43,11 @@ CLASS HToolButton INHERIT HObject
    METHOD Checked(lCheck) SETGET
    METHOD Pressed(lPressed) SETGET
    METHOD onClick()
-   METHOD Caption( cText ) SETGET
+   METHOD Caption(cText) SETGET
 
 ENDCLASS
 
-METHOD New( oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu ) CLASS  HToolButton
+METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu) CLASS  HToolButton
 
    ::Name := cName
    ::iD := nId
@@ -64,7 +64,7 @@ METHOD New( oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aM
 
    RETURN Self
 
-METHOD Caption( cText )  CLASS HToolButton
+METHOD Caption(cText)  CLASS HToolButton
 
    IF cText != Nil
       ::Title := cText

@@ -22,44 +22,44 @@ CLASS HBrwflt INHERIT HBrowse
    DATA nLastRecordFilter INIT 0       // Save the last record of filter.
    DATA nFirstRecordFilter INIT 0      // Save the first record of filter.
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
-      lDescend, bWhile, bFirst, bLast, bFor, bRClick )
+      lDescend, bWhile, bFirst, bLast, bFor, bRClick)
 
    METHOD InitBrw()
-   METHOD Refresh( lFull )
+   METHOD Refresh(lFull)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
-      lDescend, bWhile, bFirst, bLast, bFor, bRClick ) CLASS HBrwflt
+      lDescend, bWhile, bFirst, bLast, bFor, bRClick) CLASS HBrwflt
 
-   ::lDescend := Iif( lDescend == Nil, .F. , lDescend )
+   ::lDescend := Iif(lDescend == Nil, .F., lDescend)
 
-   IF HB_ISBLOCK( bFirst ) .OR. HB_ISBLOCK( bFor ) .OR. HB_ISBLOCK( bWhile )
+   IF HB_ISBLOCK(bFirst) .OR. HB_ISBLOCK(bFor) .OR. HB_ISBLOCK(bWhile)
       ::lFilter := .T.
-      IF HB_ISBLOCK( bFirst )
+      IF HB_ISBLOCK(bFirst)
          ::bFirst  := bFirst
       ENDIF
-      IF HB_ISBLOCK( bLast )
+      IF HB_ISBLOCK(bLast)
          ::bLast   := bLast
       ENDIF
-      IF HB_ISBLOCK( bWhile )
+      IF HB_ISBLOCK(bWhile)
          ::bWhile  := bWhile
       ENDIF
-      IF HB_ISBLOCK( bFor )
+      IF HB_ISBLOCK(bFor)
          ::bFor    := bFor
       ENDIF
    ELSE
       ::lFilter := .F.
    ENDIF
 
-   RETURN ::Super:New( BRW_DATABASE, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+   RETURN ::Super:New(BRW_DATABASE, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, lNoBorder, ;
-      lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick )
+      lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick)
 
 METHOD InitBrw()  CLASS HBrwFlt
 
@@ -68,38 +68,38 @@ METHOD InitBrw()  CLASS HBrwFlt
    IF ::lFilter
       ::nLastRecordFilter  := ::nFirstRecordFilter := 0
       IF ::lDescend
-         ::bSkip     := { |o, n| (::alias) -> ( FltSkip( o, n, .T. ) ) }
-         ::bGoTop    := { |o| (::alias) -> ( FltGoBottom( o ) ) }
-         ::bGoBot    := { |o| (::alias) -> ( FltGoTop( o ) ) }
-         ::bEof      := { |o| (::alias) -> ( FltBOF( o ) ) }
-         ::bBof      := { |o| (::alias) -> ( FltEOF( o ) ) }
+         ::bSkip     := { |o, n| (::alias) -> ( FltSkip(o, n, .T.) ) }
+         ::bGoTop    := { |o| (::alias) -> ( FltGoBottom(o) ) }
+         ::bGoBot    := { |o| (::alias) -> ( FltGoTop(o) ) }
+         ::bEof      := { |o| (::alias) -> ( FltBOF(o) ) }
+         ::bBof      := { |o| (::alias) -> ( FltEOF(o) ) }
       ELSE
-         ::bSkip     := { |o, n| (::alias) -> ( FltSkip( o, n, .F. ) ) }
-         ::bGoTop    := { |o| (::alias) -> ( FltGoTop( o ) ) }
-         ::bGoBot    := { |o| (::alias) -> ( FltGoBottom( o ) ) }
-         ::bEof      := { |o| (::alias) -> ( FltEOF( o ) ) }
-         ::bBof      := { |o| (::alias) -> ( FltBOF( o ) ) }
+         ::bSkip     := { |o, n| (::alias) -> ( FltSkip(o, n, .F.) ) }
+         ::bGoTop    := { |o| (::alias) -> ( FltGoTop(o) ) }
+         ::bGoBot    := { |o| (::alias) -> ( FltGoBottom(o) ) }
+         ::bEof      := { |o| (::alias) -> ( FltEOF(o) ) }
+         ::bBof      := { |o| (::alias) -> ( FltBOF(o) ) }
       ENDIF
-      ::bRcou     := { |o| (::alias) -> ( FltRecCount( o ) ) }
-      ::bRecnoLog := ::bRecno := { |o| (::alias) -> ( FltRecNo( o ) ) }
-      ::bGoTo     := { |o, n|(::alias) -> ( FltGoTo( o, n ) ) }
+      ::bRcou     := { |o| (::alias) -> ( FltRecCount(o) ) }
+      ::bRecnoLog := ::bRecno := { |o| (::alias) -> ( FltRecNo(o) ) }
+      ::bGoTo     := { |o, n|(::alias) -> ( FltGoTo(o, n) ) }
    ENDIF
 
    RETURN Nil
 
-METHOD Refresh( lFull ) CLASS HBrwFlt
+METHOD Refresh(lFull) CLASS HBrwFlt
 
    IF lFull == Nil .OR. lFull
       IF ::lFilter
          ::nLastRecordFilter := 0
          ::nFirstRecordFilter := 0
-         FltGoTop( Self )
+         FltGoTop(Self)
       ENDIF
    ENDIF
 
-   RETURN ::Super:Refresh( lFull )
+   RETURN ::Super:Refresh(lFull)
 
-STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
+STATIC FUNCTION FltSkip(oBrw, nLines, lDesc)
 
    LOCAL n
 
@@ -120,9 +120,9 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
       FOR n := 1 TO ( nLines * ( - 1 ) )
          IF Eof()
             IF lDesc
-               FltGoTop( oBrw )
+               FltGoTop(oBrw)
             ELSE
-               FltGoBottom( oBrw )
+               FltGoBottom(oBrw)
             ENDIF
          ELSE
             SKIP IIF(lDesc, +1, -1)
@@ -135,7 +135,7 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
 
    RETURN NIL
 
-STATIC FUNCTION FltGoTop( oBrw )
+STATIC FUNCTION FltGoTop(oBrw)
 
    IF oBrw:nFirstRecordFilter == 0
       Eval(oBrw:bFirst)
@@ -143,111 +143,111 @@ STATIC FUNCTION FltGoTop( oBrw )
          WHILE !Eof() .AND. !( Eval(oBrw:bWhile) .AND. Eval(oBrw:bFor) )
             dbSkip()
          ENDDO
-         oBrw:nFirstRecordFilter := FltRecNo( oBrw )
+         oBrw:nFirstRecordFilter := FltRecNo(oBrw)
       ELSE
          oBrw:nFirstRecordFilter := 0
       ENDIF
    ELSE
-      FltGoTo( oBrw, oBrw:nFirstRecordFilter )
+      FltGoTo(oBrw, oBrw:nFirstRecordFilter)
    ENDIF
 
    RETURN NIL
 
-STATIC FUNCTION FltGoBottom( oBrw )
+STATIC FUNCTION FltGoBottom(oBrw)
 
    IF oBrw:nLastRecordFilter == 0
       Eval(oBrw:bLast)
       IF !Eval(oBrw:bWhile) .OR. !Eval(oBrw:bFor)
          WHILE !Bof() .AND. !Eval(oBrw:bWhile)
-            dbSkip( - 1 )
+            dbSkip(-1)
          ENDDO
          WHILE !Bof() .AND. Eval(oBrw:bWhile) .AND. !Eval(oBrw:bFor)
-            dbSkip( - 1 )
+            dbSkip(-1)
          ENDDO
       ENDIF
-      oBrw:nLastRecordFilter := FltRecNo( oBrw )
+      oBrw:nLastRecordFilter := FltRecNo(oBrw)
    ELSE
-      FltGoTo( oBrw, oBrw:nLastRecordFilter )
+      FltGoTo(oBrw, oBrw:nLastRecordFilter)
    ENDIF
 
    RETURN NIL
 
-STATIC FUNCTION FltBOF( oBrw )
+STATIC FUNCTION FltBOF(oBrw)
 
-   LOCAL lRet := .F. , nRecord
+   LOCAL lRet := .F., nRecord
    LOCAL xValue, xFirstValue
 
    IF Bof()
       lRet := .T.
    ELSE
       // cKey  := IndexKey()
-      nRecord := FltRecNo( oBrw )
+      nRecord := FltRecNo(oBrw)
 
       xValue := OrdKeyNo() //&(cKey)
 
-      FltGoTop( oBrw )
+      FltGoTop(oBrw)
       xFirstValue := OrdKeyNo()//&(cKey)
 
       IF xValue < xFirstValue
          lRet := .T.
-         FltGoTop( oBrw )
+         FltGoTop(oBrw)
       ELSE
-         FltGoTo( oBrw, nRecord )
+         FltGoTo(oBrw, nRecord)
       ENDIF
    ENDIF
 
    RETURN lRet
 
-STATIC FUNCTION FltEOF( oBrw )
+STATIC FUNCTION FltEOF(oBrw)
 
-   LOCAL lRet := .F. , nRecord
+   LOCAL lRet := .F., nRecord
    LOCAL xValue, xLastValue
 
    IF Eof()
       lRet := .T.
    ELSE
       // cKey := IndexKey()
-      nRecord := FltRecNo( oBrw )
+      nRecord := FltRecNo(oBrw)
 
       xValue := OrdKeyNo()
 
-      FltGoBottom( oBrw )
+      FltGoBottom(oBrw)
       xLastValue := OrdKeyNo()
 
       IF xValue > xLastValue
          lRet := .T.
-         FltGoBottom( oBrw )
+         FltGoBottom(oBrw)
          dbSkip()
       ELSE
-         FltGoTo( oBrw, nRecord )
+         FltGoTo(oBrw, nRecord)
       ENDIF
    ENDIF
 
    RETURN lRet
 
-STATIC FUNCTION FltRecCount( oBrw )
+STATIC FUNCTION FltRecCount(oBrw)
 
    LOCAL nRecord, nCount := 0
 
-   nRecord := FltRecNo( oBrw )
-   FltGoTop( oBrw )
+   nRecord := FltRecNo(oBrw)
+   FltGoTop(oBrw)
    WHILE !Eof() .AND. Eval(oBrw:bWhile)
       IF Eval(oBrw:bFor)
          nCount++
       ENDIF
       dbSkip()
    ENDDO
-   FltGoTo( oBrw, nRecord )
+   FltGoTo(oBrw, nRecord)
 
    RETURN nCount
 
-STATIC FUNCTION FltGoTo( oBrw, nRecord )
+STATIC FUNCTION FltGoTo(oBrw, nRecord)
 
    HB_SYMBOL_UNUSED(oBrw)
 
-   RETURN dbGoto( nRecord )
+   RETURN dbGoto(nRecord)
 
-STATIC FUNCTION FltRecNo( oBrw )
+STATIC FUNCTION FltRecNo(oBrw)
 
    HB_SYMBOL_UNUSED(oBrw)
 

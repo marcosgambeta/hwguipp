@@ -37,7 +37,7 @@ ENDCLASS
 METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bGetFocus, bKillFocus) CLASS HIPedit
 
    nStyle   := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP)
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont)
 
    ::title   := ""
 
@@ -52,13 +52,13 @@ METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeigh
 
 
    IF bKillFocus != Nil
-      ::oParent:AddEvent( IPN_FIELDCHANGED, ::id, ::bKillFocus, .T., "onChange" )
+      ::oParent:AddEvent(IPN_FIELDCHANGED, ::id, ::bKillFocus, .T., "onChange")
    ENDIF
   // ENDIF
 
    // Notificacoes de Ganho e perda de foco
-   ::oParent:AddEvent( EN_SETFOCUS , ::id, { | o, id | __GetFocus( o:FindControl( id ) ) },, "onGotFocus" )
-   ::oParent:AddEvent( EN_KILLFOCUS, ::id, { | o, id | __KillFocus( o:FindControl( id ) ) },, "onLostFocus" )
+   ::oParent:AddEvent(EN_SETFOCUS, ::id, {|o, id|__GetFocus(o:FindControl(id))}, NIL, "onGotFocus")
+   ::oParent:AddEvent(EN_KILLFOCUS, ::id, {|o, id|__KillFocus(o:FindControl(id))}, NIL, "onLostFocus")
 
 
    RETURN Self
@@ -106,7 +106,7 @@ METHOD END() CLASS HIPedit
    RETURN Nil
 
 
-STATIC FUNCTION __GetFocus( oCtrl )
+STATIC FUNCTION __GetFocus(oCtrl)
    LOCAL xRet
 
    IF ValType(oCtrl:bGetFocus) == "B"
@@ -116,7 +116,7 @@ STATIC FUNCTION __GetFocus( oCtrl )
    RETURN xRet
 
 
-STATIC FUNCTION __KillFocus( oCtrl )
+STATIC FUNCTION __KillFocus(oCtrl)
    LOCAL xRet
 
    IF ValType(oCtrl:bKillFocus) == "B"

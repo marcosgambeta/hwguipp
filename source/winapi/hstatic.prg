@@ -16,25 +16,21 @@ CLASS HStatic INHERIT HControl
 
    DATA   nStyleDraw
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
-      bColor, lTransp )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
    METHOD Activate()
    METHOD Init()
    METHOD Paint(lpDis)
-   METHOD SetText( c )
+   METHOD SetText(c)
    METHOD Refresh()
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
-      bColor, lTransp ) CLASS HStatic
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
 
    IF lTransp != NIL .AND. lTransp
       ::extStyle += WS_EX_TRANSPARENT
-      ::nStyleDraw := iif( Empty(nStyle), 0, nStyle )
+      ::nStyleDraw := iif(Empty(nStyle), 0, nStyle)
       nStyle := SS_OWNERDRAW
       bPaint := { |o, p| o:paint(p) }
    ENDIF
@@ -48,8 +44,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       ENDIF
    ENDIF
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
-      bInit, bSize, bPaint, cTooltip, tcolor, bColor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 
    ::title := cCaption
 
@@ -100,7 +95,7 @@ METHOD Init() CLASS HStatic
    RETURN  NIL
 
 METHOD Paint(lpDis) CLASS HStatic
-   LOCAL drawInfo := hwg_Getdrawiteminfo( lpDis )
+   LOCAL drawInfo := hwg_Getdrawiteminfo(lpDis)
    LOCAL hDC := drawInfo[3], x1 := drawInfo[4], y1 := drawInfo[5], x2 := drawInfo[6], y2 := drawInfo[7]
 
    IF ::oFont != Nil
@@ -116,9 +111,9 @@ METHOD Paint(lpDis) CLASS HStatic
 
    RETURN NIL
 
-METHOD SetText( c ) CLASS HStatic
+METHOD SetText(c) CLASS HStatic
 
-   ::Super:SetText( c )
+   ::Super:SetText(c)
    IF hwg_bitand(::extStyle, WS_EX_TRANSPARENT) != 0
       hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
       hwg_Sendmessage(::oParent:handle, WM_PAINT, 0, 0)

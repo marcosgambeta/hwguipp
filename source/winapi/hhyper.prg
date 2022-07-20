@@ -21,7 +21,7 @@ CLASS HStaticLink FROM HSTATIC
    DATA state
    DATA m_bFireChild INIT .F.
 
-   DATA m_hHyperCursor INIT hwg_Loadcursor( 32649 )
+   DATA m_hHyperCursor INIT hwg_Loadcursor(32649)
 
    DATA m_bMouseOver INIT .F.
    DATA m_bVisited   INIT .F.
@@ -39,15 +39,15 @@ CLASS HStaticLink FROM HSTATIC
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
    METHOD Activate()
    METHOD Init()
-   METHOD onEvent( msg, wParam, lParam )
-   METHOD GoToLinkUrl( csLink )
-   METHOD SetLinkUrl( csUrl )
+   METHOD onEvent(msg, wParam, lParam)
+   METHOD GoToLinkUrl(csLink)
+   METHOD SetLinkUrl(csUrl)
    METHOD GetLinkUrl()
-   METHOD SetVisitedColor( sVisitedColor )
-   METHOD SetHoverColor( cHoverColor )
+   METHOD SetVisitedColor(sVisitedColor)
+   METHOD SetHoverColor(cHoverColor)
    METHOD SetFireChild(lFlag)  INLINE ::m_bFireChild := lFlag
    METHOD OnClicked()
-   METHOD SetLinkColor( sLinkColor )
+   METHOD SetLinkColor(sLinkColor)
    METHOD Paint()
    METHOD OnMouseMove(nFlags, lParam)  // point
 
@@ -59,23 +59,23 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp)
 
-   DEFAULT vColor TO hwg_ColorRgb2N( 5, 34, 143 )
-   DEFAULT lColor TO hwg_ColorRgb2N( 0, 0, 255 )
-   DEFAULT hColor TO hwg_ColorRgb2N( 255, 0, 0 )
+   DEFAULT vColor TO hwg_ColorRgb2N(5, 34, 143)
+   DEFAULT lColor TO hwg_ColorRgb2N(0, 0, 255)
+   DEFAULT hColor TO hwg_ColorRgb2N(255, 0, 0)
    ::m_csUrl := cLink
    ::m_sHoverColor   := hColor
    ::m_sLinkColor    := lColor
    ::m_sVisitedColor := vColor
 
    ::state := LBL_INIT
-   ::title := iif( cCaption == Nil, "", cCaption )
+   ::title := iif(cCaption == Nil, "", cCaption)
 
    // Test The Font the underline must be 1
    IF ::oFont == NIL
       IF ::oParent:oFont != NIL
          ::oFont := HFONT():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut)
       ELSE
-         ::oFont := HFONT():Add("Arial", 0, -12, , , , 1,)
+         ::oFont := HFONT():Add("Arial", 0, -12, NIL, NIL, NIL, 1, NIL)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0
@@ -115,9 +115,9 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   DEFAULT vColor TO hwg_ColorRgb2N( 5, 34, 143 )
-   DEFAULT lColor TO hwg_ColorRgb2N( 0, 0, 255 )
-   DEFAULT hColor TO hwg_ColorRgb2N( 255, 0, 0 )
+   DEFAULT vColor TO hwg_ColorRgb2N(5, 34, 143)
+   DEFAULT lColor TO hwg_ColorRgb2N(0, 0, 255)
+   DEFAULT hColor TO hwg_ColorRgb2N(255, 0, 0)
    ::state := LBL_INIT
    ::m_csUrl := cLink
    ::m_sHoverColor   := hColor
@@ -160,7 +160,7 @@ METHOD Init() CLASS HStaticLink
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
+METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
 
    IF msg == WM_PAINT
       ::Paint()
@@ -185,7 +185,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
 
    RETURN - 1
 
-METHOD GoToLinkUrl( csLink ) CLASS HStaticLink
+METHOD GoToLinkUrl(csLink) CLASS HStaticLink
 
    LOCAL hInstance := hwg_Shellexecute(csLink, "open", NIL, NIL, 2)
 
@@ -195,7 +195,7 @@ METHOD GoToLinkUrl( csLink ) CLASS HStaticLink
 
    RETURN .T.
 
-METHOD SetLinkUrl( csUrl ) CLASS HStaticLink
+METHOD SetLinkUrl(csUrl) CLASS HStaticLink
 
    ::m_csUrl := csUrl
 
@@ -205,13 +205,13 @@ METHOD GetLinkUrl() CLASS HStaticLink
 
    RETURN ::m_csUrl
 
-METHOD SetVisitedColor( sVisitedColor ) CLASS HStaticLink
+METHOD SetVisitedColor(sVisitedColor) CLASS HStaticLink
 
    ::m_sVisitedColor := sVisitedColor
 
    RETURN NIL
 
-METHOD SetHoverColor( cHoverColor ) CLASS HStaticLink
+METHOD SetHoverColor(cHoverColor) CLASS HStaticLink
 
    ::m_sHoverColor := cHoverColor
 
@@ -238,7 +238,7 @@ METHOD OnClicked() CLASS HStaticLink
 
    RETURN NIL
 
-METHOD SetLinkColor( sLinkColor ) CLASS HStaticLink
+METHOD SetLinkColor(sLinkColor) CLASS HStaticLink
 
    ::m_sLinkColor := sLinkColor
 
@@ -248,12 +248,12 @@ METHOD OnMouseMove(nFlags, lParam) CLASS HStaticLink
 
    HB_SYMBOL_UNUSED(nFlags)
 
-   //hwg_writelog( str(hwg_Loword(lParam))+" "+str(hwg_Hiword(lParam)) )
+   //hwg_writelog(str(hwg_Loword(lParam)) + " " + str(hwg_Hiword(lParam)))
    IF ::state != LBL_INIT
 
       IF hwg_Loword(lParam) > ::nWidth .OR. hwg_Hiword(lParam) > ::nHeight
 
-         //hwg_writelog( "release" )
+         //hwg_writelog("release")
          hwg_Releasecapture()
          ::state := LBL_NORMAL
          hwg_Invalidaterect(::handle, 0)

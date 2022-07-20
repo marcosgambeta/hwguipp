@@ -48,9 +48,9 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor) CLASS HGraph
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont,, ;
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont, NIL, ;
               bSize, { | o, lpdis | o:Paint(lpdis) }, ctooltip, ;
-              IIf( tcolor == Nil, hwg_ColorC2N( "FFFFFF" ), tcolor ), IIf( bcolor == Nil, 0, bcolor ) )
+              IIf(tcolor == Nil, hwg_ColorC2N("FFFFFF"), tcolor), IIf(bcolor == Nil, 0, bcolor))
 
    ::aValues := aValues
    ::nType   := 1
@@ -134,7 +134,7 @@ METHOD CalcMinMax() CLASS HGraph
 
 METHOD Paint(lpdis) CLASS HGraph
 
-   LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
+   LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
    LOCAL hDC := drawInfo[3]
    LOCAL x1 := 0, y1 := 0, x2 := ::nWidth, y2 := ::nHeight, scaleX, scaleY
    LOCAL i, j, nLen, l1
@@ -192,10 +192,10 @@ METHOD Paint(lpdis) CLASS HGraph
          l1 := ( Valtype(::aValues[i, 1] ) == "N" )
          IF ::nType == 1
             FOR j := 2 TO nLen
-               px1 := Round(x1 + ( Iif( l1, j-1, ::aValues[i, j - 1, 1] ) - ::xmin ) / scaleX, 0)
-               py1 := Round(y2 - ( Iif( l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2] ) - ::ymin ) / scaleY, 0)
-               px2 := Round(x1 + ( Iif( l1, j, ::aValues[i, j, 1] ) - ::xmin ) / scaleX, 0)
-               py2 := Round(y2 - ( Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) - ::ymin ) / scaleY, 0)
+               px1 := Round(x1 + (Iif(l1, j - 1, ::aValues[i, j - 1, 1]) - ::xmin) / scaleX, 0)
+               py1 := Round(y2 - (Iif(l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2]) - ::ymin) / scaleY, 0)
+               px2 := Round(x1 + (Iif(l1, j, ::aValues[i, j, 1]) - ::xmin) / scaleX, 0)
+               py2 := Round(y2 - (Iif(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin) / scaleY, 0)
                IF px2 != px1
                   IF ::nLineType == 0
                      hwg_Rectangle(hDC, px1, py1, px1 + ::nPointSize - 1, py1 + ::nPointSize - 1)
@@ -214,9 +214,9 @@ METHOD Paint(lpdis) CLASS HGraph
             ENDIF
             nWidth := Round(( x2 - x1 ) / ( nLen ), 0)
             FOR j := 1 TO nLen
-               IF Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) != Nil
+               IF Iif(l1, ::aValues[i, j], ::aValues[i, j, 2]) != Nil
                   px1 := Round(x1 + nWidth * ( j - 1 ) + 1, 0)
-                  py1 := Round(y2 - 2 - ( Iif( l1, ::aValues[i, j], ::aValues[i, j, 2] ) - ::ymin ) / scaleY, 0)
+                  py1 := Round(y2 - 2 - ( Iif(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin ) / scaleY, 0)
                   hwg_Fillrect(hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle)
                ENDIF
             NEXT

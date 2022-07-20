@@ -22,18 +22,18 @@ CLASS HTimer INHERIT HObject
    DATA bAction
    /*
    ACCESS Interval     INLINE ::value
-   ASSIGN Interval(x)  INLINE ::value := x, Iif( x == 0, ::End(), hwg_SetTimer(::oParent:handle, ::id, x) )
+   ASSIGN Interval(x)  INLINE ::value := x, Iif(x == 0, ::End(), hwg_SetTimer(::oParent:handle, ::id, x))
    */
    METHOD Interval(n) SETGET
-   METHOD New( oParent, nId, value, bAction, lOnce )
+   METHOD New(oParent, nId, value, bAction, lOnce)
    METHOD End()
 
 ENDCLASS
 
-METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
+METHOD New(oParent, nId, value, bAction, lOnce) CLASS HTimer
 
-   ::oParent := Iif( oParent == Nil, HWindow():GetMain(), oParent )
-   ::id := Iif( nId == Nil, TIMER_FIRST_ID + Len(::aTimers), nId )
+   ::oParent := Iif(oParent == Nil, HWindow():GetMain(), oParent)
+   ::id := Iif(nId == Nil, TIMER_FIRST_ID + Len(::aTimers), nId)
    ::value   := value
    ::bAction := bAction
    ::lOnce := !Empty(lOnce)
@@ -92,7 +92,7 @@ FUNCTION hwg_ReleaseTimers()
 
    For i := 1 TO Len(HTimer():aTimers)
       oTimer := HTimer():aTimers[i]
-      hwg_Killtimer( oTimer:oParent:handle, oTimer:id )
+      hwg_Killtimer(oTimer:oParent:handle, oTimer:id)
    NEXT
 
    RETURN Nil

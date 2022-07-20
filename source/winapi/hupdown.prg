@@ -21,8 +21,7 @@ CLASS HUpDown INHERIT HControl
    DATA nUpDownWidth INIT 12
    DATA lChanged    INIT .F.
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, nUpDWidth, nLower, nUpper )
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, nUpDWidth, nLower, nUpper)
    METHOD Activate()
    METHOD Init()
    METHOD Value(nValue) SETGET
@@ -33,9 +32,9 @@ CLASS HUpDown INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor,   ;
-      nUpDWidth, nLower, nUpper ) CLASS HUpDown
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+      oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, ;
+      nUpDWidth, nLower, nUpper) CLASS HUpDown
 
    nStyle := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
@@ -70,14 +69,14 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    IF bSetGet != Nil
       ::bGetFocus := bGFocus
       ::bLostFocus := bLFocus
-      ::oParent:AddEvent( EN_SETFOCUS, ::id, { |o, id|__When(o:FindControl(id)) } )
-      ::oParent:AddEvent( EN_KILLFOCUS, ::id, { |o, id|__Valid(o:FindControl(id)) } )
+      ::oParent:AddEvent(EN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})
+      ::oParent:AddEvent(EN_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))})
    ELSE
       IF bGfocus != Nil
-         ::oParent:AddEvent( EN_SETFOCUS, ::id, bGfocus )
+         ::oParent:AddEvent(EN_SETFOCUS, ::id, bGfocus)
       ENDIF
       IF bLfocus != Nil
-         ::oParent:AddEvent( EN_KILLFOCUS, ::id, bLfocus )
+         ::oParent:AddEvent(EN_KILLFOCUS, ::id, bLfocus)
       ENDIF
    ENDIF
 
@@ -135,7 +134,7 @@ METHOD Refresh()  CLASS HUpDown
 
    RETURN Nil
 
-STATIC FUNCTION __When( oCtrl )
+STATIC FUNCTION __When(oCtrl)
 
    oCtrl:Refresh()
    IF oCtrl:bGetFocus != Nil
@@ -152,7 +151,7 @@ STATIC FUNCTION __Valid(oCtrl)
    ENDIF
    IF oCtrl:bLostFocus != Nil .AND. !Eval(oCtrl:bLostFocus, oCtrl:nValue, oCtrl) .OR. ;
          oCtrl:nValue > oCtrl:nUpper .OR. oCtrl:nValue < oCtrl:nLower
-      hwg_Setfocus( oCtrl:handle )
+      hwg_Setfocus(oCtrl:handle)
    ENDIF
 
    RETURN .T.

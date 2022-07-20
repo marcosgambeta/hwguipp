@@ -27,16 +27,16 @@ CLASS HControl INHERIT HCustomWindow
    METHOD Enabled(lEnabled) SETGET
    METHOD Setfocus()    INLINE (hwg_Sendmessage(::oParent:handle, WM_NEXTDLGCTL, ::handle, 1), hwg_Setfocus(::handle))
    METHOD GetText()     INLINE hwg_Getwindowtext(::handle)
-   METHOD SetText( c )  INLINE hwg_Setwindowtext(::Handle, ::title := c)
+   METHOD SetText(c)  INLINE hwg_Setwindowtext(::Handle, ::title := c)
    METHOD End()
-   METHOD onAnchor( x, y, w, h )
+   METHOD onAnchor(x, y, w, h)
 
 ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor) CLASS HControl
 
-   ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
-   ::id      := iif( nId == NIL, ::NewId(), nId )
+   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::id      := iif(nId == NIL, ::NewId(), nId)
    ::style   := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_VISIBLE + WS_CHILD)
    ::oFont   := oFont
    ::nLeft   := nLeft
@@ -51,9 +51,9 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    ENDIF
    ::bPaint  := bPaint
    ::tooltip := cTooltip
-   ::Setcolor( tcolor, bColor )
+   ::Setcolor(tcolor, bColor)
 
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
 
    RETURN Self
 
@@ -119,21 +119,21 @@ METHOD End() CLASS HControl
 
    RETURN NIL
 
-METHOD onAnchor( x, y, w, h ) CLASS HControl
+METHOD onAnchor(x, y, w, h) CLASS HControl
    LOCAL nAnchor, nXincRelative, nYincRelative, nXincAbsolute, nYincAbsolute
    LOCAL x1, y1, w1, h1, x9, y9, w9, h9
 
    // LOCAL nCxv, nCyh   // not used variables
 
-   // hwg_writelog( "onAnchor "+::classname()+str(x)+"/"+str(y)+"/"+str(w)+"/"+str(h) )
+   // hwg_writelog("onAnchor " + ::classname() + str(x) + "/" + str(y) + "/" + str(w) + "/" + str(h))
    nAnchor := ::anchor
    x9 := x1 := ::nLeft
    y9 := y1 := ::nTop
    w9 := w1 := ::nWidth
    h9 := h1 := ::nHeight
    // *- calculo relativo
-   nXincRelative := iif( x > 0, w / x, 1 )
-   nYincRelative := iif( y > 0, h / y, 1 )
+   nXincRelative := iif(x > 0, w / x, 1)
+   nYincRelative := iif(y > 0, h / y, 1)
    // *- calculo ABSOLUTE
    nXincAbsolute := ( w - x )
    nYincAbsolute := ( h - y )

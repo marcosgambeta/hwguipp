@@ -18,15 +18,15 @@ STATIC aCustomEvents := { ;
       { WM_NOTIFY, WM_PAINT, WM_CTLCOLORSTATIC, WM_CTLCOLOREDIT, WM_CTLCOLORBTN, ;
       WM_COMMAND, WM_DRAWITEM, WM_SIZE, WM_DESTROY }, ;
       { ;
-      { |o, w, l| onNotify( o, w, l ) }                                 , ;
-      { |o, w|   iif( o:bPaint != NIL, Eval(o:bPaint, o, w), - 1 ) }  , ;
-      { |o, w, l| onCtlColor( o, w, l ) }                               , ;
-      { |o, w, l| onCtlColor( o, w, l ) }                               , ;
-      { |o, w, l| onCtlColor( o, w, l ) }                               , ;
-      { |o, w, l| onCommand(o, w, l) }                               , ;
-      { |o, w, l| onDrawItem( o, w, l ) }                               , ;
-      { |o, w, l| onSize(o, w, l) }                                   , ;
-      { |o|     onDestroy( o ) }                                       ;
+      { |o, w, l| onNotify(o, w, l) }, ;
+      { |o, w|   iif(o:bPaint != NIL, Eval(o:bPaint, o, w), -1) }, ;
+      { |o, w, l| onCtlColor(o, w, l) }, ;
+      { |o, w, l| onCtlColor(o, w, l) }, ;
+      { |o, w, l| onCtlColor(o, w, l) }, ;
+      { |o, w, l| onCommand(o, w, l) }, ;
+      { |o, w, l| onDrawItem(o, w, l) }, ;
+      { |o, w, l| onSize(o, w, l) }, ;
+      { |o|     onDestroy(o) }                                       ;
       } ;
       }
 
@@ -58,34 +58,34 @@ CLASS HCustomWindow INHERIT HObject
    DATA nHolder       INIT 0
    DATA nChildId      INIT 34000
 
-   METHOD AddControl( oCtrl ) INLINE AAdd(::aControls, oCtrl)
-   METHOD DelControl( oCtrl )
+   METHOD AddControl(oCtrl) INLINE AAdd(::aControls, oCtrl)
+   METHOD DelControl(oCtrl)
    METHOD AddEvent(nEvent, nId, bAction, lNotify) INLINE AAdd(iif(lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify), {nEvent, nId, bAction})
-   METHOD FindControl( nId, nHandle )
+   METHOD FindControl(nId, nHandle)
    METHOD Hide()              INLINE (::lHide := .T., hwg_Hidewindow(::handle))
    METHOD Show()              INLINE (::lHide := .F., hwg_Showwindow(::handle))
    METHOD Refresh()
    METHOD Move(x1, y1, width, height)
-   METHOD SetColor( tcolor, bColor, lRepaint )
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD SetColor(tcolor, bColor, lRepaint)
+   METHOD onEvent(msg, wParam, lParam)
    METHOD End()
    ERROR HANDLER OnError()
 
 ENDCLASS
 
-METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
+METHOD FindControl(nId, nHandle) CLASS HCustomWindow
    LOCAL i
 
    IF Valtype(nId) == "C"
       nId := Upper(nId)
       RETURN hwg_GetItemByName(::aControls, nId)
    ELSE
-      i := Iif( nId != Nil, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|hwg_Isptreq(o:handle, nHandle)}) )
+      i := Iif(nId != Nil, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|hwg_Isptreq(o:handle, nHandle)}))
    ENDIF
 
-   RETURN Iif( i == 0, Nil, ::aControls[i] )
+   RETURN Iif(i == 0, Nil, ::aControls[i])
 
-METHOD DelControl( oCtrl ) CLASS HCustomWindow
+METHOD DelControl(oCtrl) CLASS HCustomWindow
    LOCAL h := oCtrl:handle, id := oCtrl:id
    LOCAL i := Ascan(::aControls, {|o|hwg_Isptreq(o:handle, h)})
 
@@ -145,12 +145,12 @@ METHOD Refresh() CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD SetColor( tcolor, bColor, lRepaint ) CLASS HCustomWindow
+METHOD SetColor(tcolor, bColor, lRepaint) CLASS HCustomWindow
 
    IF tcolor != NIL
       ::tcolor := tcolor
       IF bColor == NIL .AND. ::bColor == NIL
-         bColor := hwg_Getsyscolor( COLOR_3DFACE )
+         bColor := hwg_Getsyscolor(COLOR_3DFACE)
       ENDIF
    ENDIF
 
@@ -169,7 +169,7 @@ METHOD SetColor( tcolor, bColor, lRepaint ) CLASS HCustomWindow
    RETURN NIL
 
 
-METHOD onEvent( msg, wParam, lParam )  CLASS HCustomWindow
+METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
    LOCAL i
    STATIC iCount := 0
 
@@ -235,7 +235,7 @@ METHOD OnError() CLASS HCustomWindow
 
    RETURN NIL
 
-STATIC FUNCTION onNotify( oWnd, wParam, lParam )
+STATIC FUNCTION onNotify(oWnd, wParam, lParam)
    LOCAL iItem, oCtrl, nCode, res, n
    
    // Not used parameter
@@ -244,7 +244,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
    wParam := hwg_PtrToUlong(wParam)
    IF Empty(oCtrl := oWnd:FindControl(wParam))
       FOR n := 1 TO Len(oWnd:aControls)
-         oCtrl := oWnd:aControls[n]:FindControl( wParam )
+         oCtrl := oWnd:aControls[n]:FindControl(wParam)
          IF oCtrl != NIL
             EXIT
          ENDIF
@@ -253,8 +253,8 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
 
    IF oCtrl != NIL
 
-      IF __ObjHasMsg( oCtrl, "NOTIFY" )
-         RETURN oCtrl:Notify( lParam )
+      IF __ObjHasMsg(oCtrl, "NOTIFY")
+         RETURN oCtrl:Notify(lParam)
       ELSE
          nCode := hwg_Getnotifycode(lParam)
          IF nCode == EN_PROTECTED
@@ -269,7 +269,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
 
    RETURN - 1
 
-STATIC FUNCTION onDestroy( oWnd )
+STATIC FUNCTION onDestroy(oWnd)
    LOCAL aControls := oWnd:aControls
    LOCAL i, nLen   := Len(aControls)
 
@@ -280,21 +280,21 @@ STATIC FUNCTION onDestroy( oWnd )
 
    RETURN 1
 
-STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
-   LOCAL oCtrl := oWnd:FindControl( , lParam )
+STATIC FUNCTION onCtlColor(oWnd, wParam, lParam)
+   LOCAL oCtrl := oWnd:FindControl(NIL, lParam)
 
    IF oCtrl != NIL
       IF oCtrl:tcolor != NIL
-         hwg_Settextcolor( wParam, oCtrl:tcolor )
+         hwg_Settextcolor(wParam, oCtrl:tcolor)
       ENDIF
 
-      //hwg_writelog( octrl:classname )
+      //hwg_writelog(octrl:classname)
       IF hwg_bitand(oCtrl:extStyle, WS_EX_TRANSPARENT) != 0
          hwg_SetTransparentMode(wParam, .T.)
-         RETURN 0  //hwg_getBackBrush( oWnd:handle )
+         RETURN 0  //hwg_getBackBrush(oWnd:handle)
       ELSE
          IF oCtrl:bcolor != NIL
-            hwg_Setbkcolor( wParam, oCtrl:bcolor )
+            hwg_Setbkcolor(wParam, oCtrl:bcolor)
             RETURN oCtrl:brush:handle
          ENDIF
       ENDIF
@@ -302,7 +302,7 @@ STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
 
    RETURN - 1
 
-STATIC FUNCTION onDrawItem( oWnd, wParam, lParam )
+STATIC FUNCTION onDrawItem(oWnd, wParam, lParam)
    LOCAL oCtrl
 
    wParam := hwg_PtrToUlong(wParam)
@@ -344,7 +344,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
 
 FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
 
-   LOCAL oCtrl := oWnd:FindControl(, lParam)
+   LOCAL oCtrl := oWnd:FindControl(NIL, lParam)
 
    IF oCtrl != NIL
       msg := hwg_Loword(wParam)

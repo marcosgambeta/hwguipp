@@ -25,8 +25,8 @@ CLASS VAR aImages   INIT { }
    DATA nCounter   INIT 1
 
    METHOD AddFile(name)
-   METHOD AddFromVar( cImage, cType )
-   METHOD FromBitmap( oBitmap )
+   METHOD AddFromVar(cImage, cType)
+   METHOD FromBitmap(oBitmap)
    METHOD Draw(hDC, nLeft, nTop, nWidth, nHeight)
    METHOD Release()
 
@@ -60,7 +60,7 @@ METHOD AddFile(name) CLASS HFreeImage
 
    RETURN Self
 
-METHOD AddFromVar( cImage, cType ) CLASS HFreeImage
+METHOD AddFromVar(cImage, cType) CLASS HFreeImage
 
    IF Empty(::handle := hwg_Fi_loadfrommem(cImage, cType))
       RETURN Nil
@@ -72,9 +72,9 @@ METHOD AddFromVar( cImage, cType ) CLASS HFreeImage
 
    RETURN Self
 
-METHOD FromBitmap( oBitmap ) CLASS HFreeImage
+METHOD FromBitmap(oBitmap) CLASS HFreeImage
 
-   ::handle := hwg_Fi_bmp2fi( oBitmap:handle )
+   ::handle := hwg_Fi_bmp2fi(oBitmap:handle)
    ::name := LTrim(Str(oBitmap:handle))
    ::nWidth  := hwg_Fi_getwidth(::handle)
    ::nHeight := hwg_Fi_getheight(::handle)
@@ -85,7 +85,7 @@ METHOD FromBitmap( oBitmap ) CLASS HFreeImage
 METHOD Draw(hDC, nLeft, nTop, nWidth, nHeight) CLASS HFreeImage
 
    hwg_Fi_draw(::handle, hDC, ::nWidth, ::nHeight, nLeft, nTop, nWidth, nHeight)
-   // hwg_Drawbitmap(hDC, ::hBitmap,, nLeft, nTop, ::nWidth, ::nHeight)
+   // hwg_Drawbitmap(hDC, ::hBitmap, NIL, nLeft, nTop, ::nWidth, ::nHeight)
    RETURN Nil
 
 METHOD Release() CLASS HFreeImage
@@ -146,7 +146,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, c
          nHeight := ::oImage:nHeight
       ENDIF
    ENDIF
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip )
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip)
    // ::classname:= "HSAYFIMAGE"
 
    ::bPaint  := { | o, lpdis | o:Paint(lpdis) }
@@ -157,7 +157,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, c
 
 METHOD Redefine(oWndParent, nId, Image, bInit, bSize, ctooltip) CLASS HSayFImage
 
-   ::oImage := IIf( ValType(Image) == "C", HFreeImage():AddFile(Image), Image )
+   ::oImage := IIf(ValType(Image) == "C", HFreeImage():AddFile(Image), Image)
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    // ::classname:= "HSAYFIMAGE"
@@ -176,8 +176,8 @@ METHOD ReplaceImage(Image, cType)
    RETURN Nil
 
 METHOD Paint(lpdis) CLASS HSayFImage
-   LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
-   LOCAL hDC := drawInfo[3] // , x1 := drawInfo[4], y1 := drawInfo[5], x2 := drawInfo[6], y2 := drawInfo[7]
+   LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
+   LOCAL hDC := drawInfo[3] //, x1 := drawInfo[4], y1 := drawInfo[5], x2 := drawInfo[6], y2 := drawInfo[7]
 
    IF ::oImage != Nil
       IF ::nZoom == Nil

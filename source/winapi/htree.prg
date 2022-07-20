@@ -79,16 +79,16 @@ CLASS HTreeNode INHERIT HObject
    DATA aItems INIT { }
    DATA bClick
 
-   METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
+   METHOD New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
    METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
    METHOD Delete(lInternal)
    METHOD FindChild(h)
    METHOD GetText()  INLINE hwg_Treegetnodetext(::oTree:handle, ::handle)
-   METHOD SetText( cText ) INLINE hwg_Treesetitem(::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText)
+   METHOD SetText(cText) INLINE hwg_Treesetitem(::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText)
 
 ENDCLASS
 
-METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeNode
+METHOD New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages) CLASS HTreeNode
    LOCAL aItems, i, h, im1, im2, cImage, op, nPos
 
    ::oTree := oTree
@@ -107,7 +107,7 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
          cImage := Upper(aImages[i])
          IF ( h := AScan(oTree:aImages, cImage) ) == 0
             AAdd(oTree:aImages, cImage)
-            aImages[i] := IIf( oTree:Type, hwg_BmpFromRes( aImages[i] ), hwg_Openbitmap( AddPath( aImages[i],HBitmap():cPath ) ) )
+            aImages[i] := IIf(oTree:Type, hwg_BmpFromRes(aImages[i]), hwg_Openbitmap(AddPath(aImages[i], HBitmap():cPath)))
             hwg_Imagelist_add(oTree:himl, aImages[i])
             h := Len(oTree:aImages)
          ENDIF
@@ -123,9 +123,9 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
       im2 := im1
    ENDIF
 
-   nPos := IIf( oPrev == Nil, 2, 0 )
+   nPos := IIf(oPrev == Nil, 2, 0)
    IF oPrev == Nil .AND. oNext != Nil
-      op := IIf( oNext:oParent == Nil, oNext:oTree, oNext:oParent )
+      op := IIf(oNext:oParent == Nil, oNext:oTree, oNext:oParent)
       FOR i := 1 TO Len(op:aItems)
          IF op:aItems[i]:handle == oNext:handle
             EXIT
@@ -140,12 +140,12 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
    ENDIF
    ::handle := hwg_Treeaddnode(Self, oTree:handle, IIf(oParent == Nil, Nil, oParent:handle), IIf(oPrev == Nil, Nil, oPrev:handle), nPos, cTitle, im1, im2)
 
-   aItems := IIf( oParent == Nil, oTree:aItems, oParent:aItems )
+   aItems := IIf(oParent == Nil, oTree:aItems, oParent:aItems)
    IF nPos == 2
       AAdd(aItems, Self)
    ELSEIF nPos == 1
       AAdd(aItems, Nil)
-      AIns( aItems, 1 )
+      AIns(aItems, 1)
       aItems[1] := Self
    ELSE
       AAdd(aItems, Nil)
@@ -153,7 +153,7 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
       IF ( i := AScan(aItems, {|o|o:handle == h}) ) == 0
          aItems[Len(aItems)] := Self
       ELSE
-         AIns( aItems, i + 1 )
+         AIns(aItems, i + 1)
          aItems[i + 1] := Self
       ENDIF
    ENDIF
@@ -212,42 +212,42 @@ CLASS VAR winclass   INIT "SysTreeView32"
    DATA bItemChange, bExpand, bRClick, bDblClick, bClick
    DATA lEmpty INIT .T.
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
-               bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+              bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC)
    METHOD Init()
    METHOD Activate()
    METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
    METHOD FindChild(h)
    METHOD GetSelected()   INLINE hwg_Treegetselected(::handle)
-   METHOD EditLabel( oNode ) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle) }
+   METHOD EditLabel(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle) }
    METHOD Expand(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle) }
-   METHOD Select( oNode ) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle) }
+   METHOD Select(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle) }
    METHOD Clean()
-   METHOD Notify( lParam )
+   METHOD Notify(lParam)
    METHOD END()
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
-            bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC ) CLASS HTree
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+           bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC) CLASS HTree
    LOCAL i, aBmpSize
 
    nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE + TVS_HASLINES + TVS_LINESATROOT + TVS_HASBUTTONS + TVS_SHOWSELALWAYS + ;
       IIf(lEditLabels == Nil .OR. !lEditLabels, 0, TVS_EDITLABELS))
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, , , color, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, NIL, NIL, color, bcolor)
 
    ::title   := ""
-   ::Type    := IIf( lResour == Nil, .F., lResour )
+   ::Type    := IIf(lResour == Nil, .F., lResour)
    ::bClick := bClick
 
    IF aImages != Nil .AND. !Empty(aImages)
       ::aImages := { }
       FOR i := 1 TO Len(aImages)
          AAdd(::aImages, Upper(aImages[i]))
-         aImages[i] := IIf( lResour <> NIL .AND. lResour, hwg_BmpFromRes( aImages[i] ), hwg_Openbitmap( AddPath( aImages[i],HBitmap():cPath ) ) )
+         aImages[i] := IIf(lResour <> NIL .AND. lResour, hwg_BmpFromRes(aImages[i]), hwg_Openbitmap(AddPath(aImages[i], HBitmap():cPath)))
       NEXT
       aBmpSize := hwg_Getbitmapsize(aImages[1])
-      ::himl := hwg_Createimagelist( aImages, aBmpSize[1], aBmpSize[2], 12, nBC )
+      ::himl := hwg_Createimagelist(aImages, aBmpSize[1], aBmpSize[2], 12, nBC)
       ::Image1 := 0
       IF Len(aImages) > 1
          ::Image2 := 1
@@ -279,7 +279,7 @@ METHOD Activate() CLASS HTree
    RETURN Nil
 
 METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages) CLASS HTree
-   LOCAL oNode := HTreeNode():New( Self, Nil, oPrev, oNext, cTitle, bClick, aImages )
+   LOCAL oNode := HTreeNode():New(Self, Nil, oPrev, oNext, cTitle, bClick, aImages)
    ::lEmpty := .F.
    RETURN oNode
 
@@ -305,11 +305,11 @@ METHOD Clean() CLASS HTree
 
    RETURN Nil
 
-METHOD Notify( lParam )  CLASS HTree
+METHOD Notify(lParam)  CLASS HTree
    LOCAL nCode := hwg_Getnotifycode(lParam), oItem, cText, nAct
 
    IF nCode == TVN_SELCHANGED .OR. nCode == TVN_SELCHANGEDW
-      oItem := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_PARAM )
+      oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_PARAM)
       IF ValType(oItem) == "O"
          oItem:oTree:oSelected := oItem
          IF !oItem:oTree:lEmpty
@@ -324,16 +324,16 @@ METHOD Notify( lParam )  CLASS HTree
       // Return 1
    ELSEIF nCode == TVN_ENDLABELEDIT .OR. nCode == TVN_ENDLABELEDITW
       IF !Empty(cText := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDIT))
-         oItem := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_EDITPARAM )
+         oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDITPARAM)
          IF ValType(oItem) == "O"
             IF cText != oItem:GetText() .AND. ;
                ( oItem:oTree:bItemChange == Nil .OR. Eval(oItem:oTree:bItemChange, oItem, cText) )
-               hwg_Treesetitem( oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText )
+               hwg_Treesetitem(oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText)
             ENDIF
          ENDIF
       ENDIF
    ELSEIF nCode == TVN_ITEMEXPANDING .OR. nCode == TVN_ITEMEXPANDINGW
-      oItem := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_PARAM )
+      oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_PARAM)
       IF ValType(oItem) == "O"
          IF ::bExpand != Nil
             RETURN IIf(Eval(oItem:oTree:bExpand, oItem, hwg_Checkbit(hwg_Treegetnotify(lParam, TREE_GETNOTIFY_ACTION), TVE_EXPAND)), 0, 1)
@@ -341,12 +341,12 @@ METHOD Notify( lParam )  CLASS HTree
       ENDIF
    ELSEIF nCode == - 3
       IF ::bDblClick != Nil
-         oItem  := hwg_Treehittest(::handle, , , @nAct)
+         oItem  := hwg_Treehittest(::handle, NIL, NIL, @nAct)
          Eval(::bDblClick, Self, oItem, nAct)
       ENDIF
    ELSEIF nCode == - 5
       IF ::bRClick != Nil
-         oItem  := hwg_Treehittest(::handle, , , @nAct)
+         oItem  := hwg_Treehittest(::handle, NIL, NIL, @nAct)
          Eval(::bRClick, Self, oItem, nAct)
       ENDIF
    ENDIF

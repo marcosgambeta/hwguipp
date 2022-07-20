@@ -14,12 +14,12 @@ CLASS HFont INHERIT HObject
 
    CLASS VAR aFonts   INIT { }
    DATA handle
-   DATA name, width, height , weight
+   DATA name, width, height, weight
    DATA charset, italic, Underline, StrikeOut
    DATA nCounter   INIT 1
 
    METHOD Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle)
-   METHOD SELECT( oFont, nCharSet )
+   METHOD SELECT(oFont, nCharSet)
    METHOD RELEASE()
    METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight)
    METHOD PrintFont()
@@ -32,12 +32,12 @@ METHOD Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderl
 
    LOCAL i, nlen := Len(::aFonts)
 
-   nHeight  := iif( nHeight == Nil, - 13, nHeight )
-   fnWeight := iif( fnWeight == Nil, 0, fnWeight )
-   fdwCharSet := iif( fdwCharSet == Nil, 0, fdwCharSet )
-   fdwItalic := iif( fdwItalic == Nil, 0, fdwItalic )
-   fdwUnderline := iif( fdwUnderline == Nil, 0, fdwUnderline )
-   fdwStrikeOut := iif( fdwStrikeOut == Nil, 0, fdwStrikeOut )
+   nHeight  := iif(nHeight == Nil, -13, nHeight)
+   fnWeight := iif(fnWeight == Nil, 0, fnWeight)
+   fdwCharSet := iif(fdwCharSet == Nil, 0, fdwCharSet)
+   fdwItalic := iif(fdwItalic == Nil, 0, fdwItalic)
+   fdwUnderline := iif(fdwUnderline == Nil, 0, fdwUnderline)
+   fdwStrikeOut := iif(fdwStrikeOut == Nil, 0, fdwStrikeOut)
 
    FOR i := 1 TO nlen
       IF ::aFonts[i]:name == fontName .AND.             ;
@@ -59,7 +59,7 @@ METHOD Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderl
    NEXT
 
    IF nHandle == Nil
-      ::handle := hwg_Createfont( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut )
+      ::handle := hwg_Createfont(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut)
    ELSE
       ::handle := nHandle
    ENDIF
@@ -77,8 +77,8 @@ METHOD Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderl
 
    RETURN Self
 
-METHOD SELECT( oFont, nCharSet  ) CLASS HFont
-   LOCAL af := hwg_Selectfont( oFont )
+METHOD SELECT(oFont, nCharSet) CLASS HFont
+   LOCAL af := hwg_Selectfont(oFont)
 
    IF af == Nil
       RETURN Nil
@@ -90,15 +90,15 @@ METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight) CLASS HF
    LOCAL  weight, Italic, Underline, StrikeOut
 
    IF lBold != Nil
-      weight = iif( lBold, FW_BOLD, FW_REGULAR )
+      weight = iif(lBold, FW_BOLD, FW_REGULAR)
    ELSE
       weight := ::weight
    ENDIF
-   Italic    := iif( lItalic = Nil, ::Italic, iif( lItalic, 1, 0 ) )
-   Underline := iif( lUnder  = Nil, ::Underline, iif( lUnder , 1, 0 ) )
-   StrikeOut := iif( lStrike = Nil, ::StrikeOut, iif( lStrike , 1, 0 ) )
-   nheight   := iif( nheight = Nil, ::height, nheight )
-   nCharSet  := iif( nCharSet = Nil, ::CharSet, nCharSet )
+   Italic    := iif(lItalic = Nil, ::Italic, iif(lItalic, 1, 0))
+   Underline := iif(lUnder  = Nil, ::Underline, iif(lUnder, 1, 0))
+   StrikeOut := iif(lStrike = Nil, ::StrikeOut, iif(lStrike, 1, 0))
+   nheight   := iif(nheight = Nil, ::height, nheight)
+   nCharSet  := iif(nCharSet = Nil, ::CharSet, nCharSet)
 
    RETURN HFont():Add(::name, ::width, nheight, weight, nCharSet, Italic, Underline, StrikeOut) // ::handle)
 
@@ -132,11 +132,11 @@ METHOD RELEASE() CLASS HFont
 
 /* DF7BE: For debugging purposes */
 METHOD PrintFont()  CLASS HFont
-//        fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
+//        fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
 // Type:  C         N       N         N         N           N          N             N
 // - 9999 means NIL
 
-   LOCAL fontName , nWidth , nHeight , fnWeight , fdwCharSet , fdwItalic , fdwUnderline , fdwStrikeOut
+   LOCAL fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
 
    fontName     := iif(::name == NIL, "<Empty>", ::name)
    nWidth       := iif(::width == Nil, - 9999, ::width)
@@ -160,9 +160,9 @@ RETURN "Font Name=" + fontName + " Width=" + ALLTRIM(STR(nWidth)) + " Height=" +
    oFont2 := HFont():Add(apffrarr[1], apffrarr[2], apffrarr[3], apffrarr[4], apffrarr[5], apffrarr[6], apffrarr[7], apffrarr[8])
  */
 METHOD Props2Arr() CLASS HFont
-//        fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
+//        fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
 //        1         2       3         4         5           6          7             8
-   LOCAL fontName , nWidth , nHeight , fnWeight , fdwCharSet , fdwItalic , fdwUnderline , fdwStrikeOut
+   LOCAL fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
    LOCAL aFontprops := {}
 
    fontName     := iif(::name == NIL, "<Empty>", ::name)

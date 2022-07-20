@@ -50,10 +50,10 @@ METHOD RedefineScrollbars() CLASS HScrollArea
    RETURN Nil
 
 METHOD SetupScrollbars() CLASS HScrollArea
-   LOCAL tempRect, nwMax, nhMax , aMenu, nPos
+   LOCAL tempRect, nwMax, nhMax, aMenu, nPos
 
    tempRect := hwg_Getclientrect(::handle)
-   aMenu := iif( __objHasData(Self, "MENU"), ::menu, Nil )
+   aMenu := iif(__objHasData(Self, "MENU"), ::menu, Nil)
    // Calculate how many scrolling increments for the client area
    IF ::Type = WND_MDICHILD //.AND. ::aRectSave != Nil
       nwMax := Max(::ncurWidth, tempRect[3]) //::maxWidth

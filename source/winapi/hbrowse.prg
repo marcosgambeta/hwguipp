@@ -537,18 +537,18 @@ METHOD InsColumn(oColumn, nPos) CLASS HBrowse
 STATIC FUNCTION InitColumn(oBrw, oColumn, n)
 
    IF oColumn:type == NIL
-      oColumn:type := ValType(Eval(oColumn:block, , oBrw, n))
+      oColumn:type := ValType(Eval(oColumn:block, NIL, oBrw, n))
    ENDIF
    IF oColumn:dec == NIL
-      IF oColumn:type == "N" .AND. At(".", Str(Eval(oColumn:block, , oBrw, n))) != 0
-         oColumn:dec := Len(SubStr(Str(Eval(oColumn:block, , oBrw, n)), At(".", Str(Eval(oColumn:block, , oBrw, n))) + 1))
+      IF oColumn:type == "N" .AND. At(".", Str(Eval(oColumn:block, NIL, oBrw, n))) != 0
+         oColumn:dec := Len(SubStr(Str(Eval(oColumn:block, NIL, oBrw, n)), At(".", Str(Eval(oColumn:block, NIL, oBrw, n))) + 1))
       ELSE
          oColumn:dec := 0
       ENDIF
    ENDIF
    IF oColumn:length == NIL
       IF oColumn:picture != NIL
-         oColumn:length := Len(Transform(Eval(oColumn:block, , oBrw, n), oColumn:picture))
+         oColumn:length := Len(Transform(Eval(oColumn:block, NIL, oBrw, n), oColumn:picture))
       ELSE
          oColumn:length := 10
       ENDIF
@@ -795,7 +795,7 @@ METHOD Paint(lLostFocus) CLASS HBrowse
       ::hBitmap := NIL
    ENDIF
    IF ::lBuffering .AND. !Empty(::hBitmap)
-      hwg_DrawBitmap(hDCReal, ::hBitmap, , aCoors[1], aCoors[2], aCoors[3] - aCoors[1] , aCoors[4] - aCoors[2])
+      hwg_DrawBitmap(hDCReal, ::hBitmap, NIL, aCoors[1], aCoors[2], aCoors[3] - aCoors[1], aCoors[4] - aCoors[2])
       hwg_Endpaint(::handle, pps)
    ELSE
       IF ::lBuffering
@@ -914,7 +914,7 @@ METHOD Paint(lLostFocus) CLASS HBrowse
       ::Edit()
    ENDIF
 
-   IF ::lInFocus .AND. ((tmp := hwg_Getfocus()) == ::oParent:handle .OR. ::oParent:FindControl(, tmp) != NIL)
+   IF ::lInFocus .AND. ((tmp := hwg_Getfocus()) == ::oParent:handle .OR. ::oParent:FindControl(NIL, tmp) != NIL)
       hwg_Setfocus(::handle)
    ENDIF
 
@@ -972,7 +972,7 @@ METHOD DrawHeader(hDC, nColumn, x1, y1, x2, y2) CLASS HBrowse
    ENDIF
    hwg_Settransparentmode(hDC, .T.)
    IF ValType(oColumn:heading) == "C"
-      hwg_Drawtext(hDC, oColumn:heading, x1 + 1 + ::aHeadPadding[1],    ;
+      hwg_Drawtext(hDC, oColumn:heading, x1 + 1 + ::aHeadPadding[1], ;
          y1 + 1 + ::aHeadPadding[2], x2 - ::aHeadPadding[3], ;
          y1 + nHeight + ::aHeadPadding[2], oColumn:nJusHead)
    ELSE
@@ -1235,12 +1235,12 @@ METHOD LineOut(nstroka, vybfld, hDC, lSelected, lClear) CLASS HBrowse
             IF !lClear
                IF oColumn:aBitmaps != NIL .AND. !Empty(oColumn:aBitmaps)
                   FOR j := 1 TO Len(oColumn:aBitmaps)
-                     IF Eval(oColumn:aBitmaps[j, 1], Eval(oColumn:block, , Self, nCol), lSelected)
+                     IF Eval(oColumn:aBitmaps[j, 1], Eval(oColumn:block, NIL, Self, nCol), lSelected)
                         IF !Empty(ob := oColumn:aBitmaps[j, 2])
                            IF ob:nHeight > ::height
                               bh := ::height
                               bw := Int(ob:nWidth * (ob:nHeight / ::height))
-                              hwg_Drawbitmap(hDC, ob:handle, , x + ::aPadding[1], y1 + ::aPadding[2], bw, bh)
+                              hwg_Drawbitmap(hDC, ob:handle, NIL, x + ::aPadding[1], y1 + ::aPadding[2], bw, bh)
                            ELSE
                               //bh := ob:nHeight
                               //bw := ob:nWidth
@@ -1465,7 +1465,7 @@ METHOD DoHScroll(wParam) CLASS HBrowse
       IF lMoveThumb
 
          fif := iif(::lEditable, ::colpos + ::nLeftCol - 1, ::nLeftCol)
-         nPos := iif(fif == 1, minPos,  iif(fif = Len(::aColumns), maxpos, Int((maxPos - minPos + 1) * fif / Len(::aColumns))))
+         nPos := iif(fif == 1, minPos, iif(fif = Len(::aColumns), maxpos, Int((maxPos - minPos + 1) * fif / Len(::aColumns))))
          hwg_Setscrollpos(::handle, SB_HORZ, nPos)
 
       ENDIF
@@ -1992,7 +1992,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
       nchrs := apffrarr[5]
      ENDIF
      oHCfont := HFont():Add(apffrarr[1], apffrarr[2], apffrarr[3], apffrarr[4], nchrs, apffrarr[6], apffrarr[7], apffrarr[8])
-//        fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
+//        fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
 //        1         2       3         4         5           6          7             8
    ENDIF
 
@@ -2007,9 +2007,9 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
          IF Dbinfo(DBI_ISREADONLY)
             RETURN NIL
          ENDIF
-         ::varbuf := (::alias) -> (Eval(oColumn:block, , Self, fipos))
+         ::varbuf := (::alias) -> (Eval(oColumn:block, NIL, Self, fipos))
       ELSE
-         ::varbuf := Eval(oColumn:block, , Self, fipos)
+         ::varbuf := Eval(oColumn:block, NIL, Self, fipos)
       ENDIF
       type := iif(oColumn:type == "U" .AND. ::varbuf != NIL, ValType(::varbuf), oColumn:type)
       IF type != "O"
@@ -2245,12 +2245,12 @@ STATIC FUNCTION FldStr(oBrw, numf)
 
       IF oBrw:type == BRW_DATABASE
          IF oBrw:aRelation
-            vartmp := (oBrw:aColAlias[numf]) -> (Eval(oBrw:aColumns[numf]:block, , oBrw,numf))
+            vartmp := (oBrw:aColAlias[numf]) -> (Eval(oBrw:aColumns[numf]:block, NIL, oBrw, numf))
          ELSE
-            vartmp := (oBrw:alias) -> (Eval(oBrw:aColumns[numf]:block, , oBrw, numf))
+            vartmp := (oBrw:alias) -> (Eval(oBrw:aColumns[numf]:block, NIL, oBrw, numf))
          ENDIF
       ELSE
-         vartmp := Eval(oBrw:aColumns[numf]:block, , oBrw, numf)
+         vartmp := Eval(oBrw:aColumns[numf]:block, NIL, oBrw, numf)
       ENDIF
 
       IF (pict := oBrw:aColumns[numf]:picture) != NIL
@@ -2373,11 +2373,11 @@ FUNCTION hwg_CreateList(oBrw, lEditable)
 
    oBrw:aColumns := {}
    FOR i := 1 TO kolf
-      oBrw:AddColumn({FieldName(i),         ;
+      oBrw:AddColumn({FieldName(i), ;
          FieldWBlock(FieldName(i), nArea), ;
-         dbFieldInfo(DBS_TYPE, i),         ;
+         dbFieldInfo(DBS_TYPE, i), ;
          iif(dbFieldInfo(DBS_TYPE, i) == "D" .AND. __SetCentury(), 10, dbFieldInfo(DBS_LEN, i)), ;
-         dbFieldInfo(DBS_DEC, i),          ;
+         dbFieldInfo(DBS_DEC, i), ;
          lEditable })
    NEXT
 

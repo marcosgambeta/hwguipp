@@ -11,7 +11,7 @@
 
 CLASS HCLIENTDC FROM HDC
 
-   METHOD NEW( nWnd )
+   METHOD NEW(nWnd)
    METHOD END ()
 
    HIDDEN:
@@ -19,11 +19,11 @@ CLASS HCLIENTDC FROM HDC
 
 ENDCLASS
 
-METHOD NEW( nWnd ) CLASS HCLIENTDC
+METHOD NEW(nWnd) CLASS HCLIENTDC
 
    ::Super:new()
    ::m_hWnd := nWnd
-   ::Attach( hwg_Getdc(::m_hWnd) )
+   ::Attach(hwg_Getdc(::m_hWnd))
 
    RETURN Self
 

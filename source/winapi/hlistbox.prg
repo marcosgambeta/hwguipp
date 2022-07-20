@@ -22,32 +22,32 @@ CLASS VAR winclass   INIT "LISTBOX"
    DATA  bkeydown, bDblclick
    DATA  bValid
 
-   METHOD New( oWndParent,nId,vari,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight, ;
-              aItems,oFont,bInit,bSize,bPaint,bChange,cTooltip,tColor,bcolor,bGFocus,bLFocus, bKeydown, bDblclick,bOther )
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+              aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, bKeydown, bOther)
    METHOD Init()
    METHOD Refresh()
    METHOD Requery()
-   METHOD Setitem( nPos )
-   METHOD AddItems( p )
-   METHOD DeleteItem( nPos )
+   METHOD Setitem(nPos)
+   METHOD AddItems(p)
+   METHOD DeleteItem(nPos)
    METHOD Valid(oCtrl)
-   METHOD When( oCtrl )
+   METHOD When(oCtrl)
    METHOD onChange(oCtrl)
    METHOD onDblClick()
    METHOD Clear()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
-            bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus,bKeydown, bDblclick,bOther )  CLASS HListBox
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
+           bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther)  CLASS HListBox
 
    nStyle   := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP + WS_VSCROLL + LBS_DISABLENOSCROLL + LBS_NOTIFY + LBS_NOINTEGRALHEIGHT + WS_BORDER)
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tColor, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tColor, bcolor)
 
-   ::value   := IIf( vari == Nil .OR. ValType(vari) != "N", 0, vari )
+   ::value   := IIf(vari == Nil .OR. ValType(vari) != "N", 0, vari)
    ::bSetGet := bSetGet
 
    IF aItems == Nil
@@ -67,21 +67,21 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
    IF bSetGet != Nil
       IF bGFocus != Nil
-         ::oParent:AddEvent( LBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
+         ::oParent:AddEvent(LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))})
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, ::id, { | o, id | ::Valid(o:FindControl(id)) } )
+      ::oParent:AddEvent(LBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))})
       ::bValid := { | o | ::Valid(o) }
    ELSE
       IF bGFocus != Nil
-         ::oParent:AddEvent( LBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
+         ::oParent:AddEvent(LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))})
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, ::id, { | o, id | ::Valid(o:FindControl(id)) } )
+      ::oParent:AddEvent(LBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))})
    ENDIF
    IF bChange != Nil .OR. bSetGet != Nil
-      ::oParent:AddEvent( LBN_SELCHANGE, ::id, { | o, id | ::onChange(o:FindControl(id)) } )
+      ::oParent:AddEvent(LBN_SELCHANGE, ::id, {|o, id|::onChange(o:FindControl(id))})
    ENDIF
    IF bDblclick != Nil
-      ::oParent:AddEvent( LBN_DBLCLK, ::id, {|| ::onDblClick() } )
+      ::oParent:AddEvent(LBN_DBLCLK, ::id, {||::onDblClick()})
    ENDIF
 
    RETURN Self
@@ -95,9 +95,9 @@ METHOD Activate() CLASS HListBox
 
 METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, bKeydown, bOther) CLASS HListBox
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip)
 
-   ::value   := IIf( vari == Nil .OR. ValType(vari) != "N", 1, vari )
+   ::value   := IIf(vari == Nil .OR. ValType(vari) != "N", 1, vari)
    ::bSetGet := bSetGet
    ::bKeydown := bKeydown
     ::bOther := bOther
@@ -110,7 +110,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
 
    IF bSetGet != Nil
       ::bChangeSel := bChange
-      ::oParent:AddEvent( LBN_SELCHANGE, Self, { | o, id | ::Valid(o:FindControl(id)) }, "onChange" )
+      ::oParent:AddEvent(LBN_SELCHANGE, Self, {|o, id|::Valid(o:FindControl(id))}, "onChange")
    ENDIF
    RETURN Self
 
@@ -138,7 +138,7 @@ METHOD Init() CLASS HListBox
    ENDIF
    RETURN Nil
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
+METHOD onEvent(msg, wParam, lParam) CLASS HListBox
  Local nEval
 
    IF ::bOther != Nil
@@ -149,7 +149,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
    wParam := hwg_PtrToUlong(wParam)
    IF msg == WM_KEYDOWN
       IF wParam = VK_TAB //.AND. nType < WND_DLG_RESOURCE
-         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, NIL, iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
       ENDIF
          IF ::bKeyDown != Nil .AND. ValType(::bKeyDown) == "B"
          nEval := Eval(::bKeyDown, Self, wParam)
@@ -180,11 +180,11 @@ METHOD Refresh() CLASS HListBox
       vari := Eval(::bSetGet)
    ENDIF
 
-   ::value := IIf( vari == Nil .OR. ValType(vari) != "N", 0, vari )
+   ::value := IIf(vari == Nil .OR. ValType(vari) != "N", 0, vari)
    ::SetItem(::value)
    RETURN Nil
 
-METHOD SetItem( nPos ) CLASS HListBox
+METHOD SetItem(nPos) CLASS HListBox
    ::value := nPos
    hwg_Sendmessage(::handle, LB_SETCURSEL, nPos - 1, 0)
 
@@ -203,14 +203,14 @@ METHOD onDblClick()  CLASS HListBox
    ENDIF
    RETURN Nil
 
-METHOD AddItems( p ) CLASS HListBox
+METHOD AddItems(p) CLASS HListBox
 
    AAdd(::aItems, p)
    hwg_Listboxaddstring(::handle, p)
    hwg_Listboxsetstring(::handle, ::value)
    RETURN Self
 
-METHOD DeleteItem( nPos ) CLASS HListBox
+METHOD DeleteItem(nPos) CLASS HListBox
 
    IF hwg_Sendmessage(::handle, LB_DELETESTRING, nPos - 1, 0) >= 0 // <= LEN(ocombo:aitems)
       ADel(::Aitems, nPos)
@@ -237,12 +237,12 @@ METHOD onChange(oCtrl) CLASS HListBox
    HB_SYMBOL_UNUSED(oCtrl)
 
    nPos := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
-   ::SetItem( nPos )
+   ::SetItem(nPos)
 
    RETURN Nil
 
 
-METHOD When( oCtrl ) CLASS HListBox
+METHOD When(oCtrl) CLASS HListBox
    LOCAL res := .T.
    
    // Variable not used
@@ -250,9 +250,9 @@ METHOD When( oCtrl ) CLASS HListBox
 
    HB_SYMBOL_UNUSED(oCtrl)
 
-//    nSkip := IIf( hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1 )
+//    nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
 //    Warning W0027  Meaningless use of expression "Numeric"
-//   IIf( hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1 )
+//   IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
 
    IF ::bSetGet != Nil
       Eval(::bSetGet, ::value, Self)
@@ -269,7 +269,7 @@ METHOD Valid(oCtrl) CLASS HListBox
 
    HB_SYMBOL_UNUSED(oCtrl)
 
-   IF ( oDlg := hwg_GetParentForm( Self ) ) == Nil .OR. oDlg:nLastKey != 27
+   IF ( oDlg := hwg_GetParentForm(Self) ) == Nil .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
       IF ::bSetGet != Nil
          Eval(::bSetGet, ::value, Self)

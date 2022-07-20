@@ -17,23 +17,23 @@ CLASS HLine INHERIT HControl
    DATA lVert
    DATA oPenLight, oPenGray
 
-   METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize )
+   METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize)
    METHOD Activate()
    METHOD Paint(lpdis)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize ) CLASS HLine
+METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize) CLASS HLine
 
-   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, , , , , bSize, {|o, lp|o:Paint(lp)})
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, NIL, NIL, NIL, NIL, bSize, {|o, lp|o:Paint(lp)})
 
    ::title := ""
-   ::lVert := iif( lVert == NIL, .F. , lVert )
+   ::lVert := iif(lVert == NIL, .F., lVert)
    IF ::lVert
       ::nWidth  := 10
-      ::nHeight := iif( nLength == NIL, 20, nLength )
+      ::nHeight := iif(nLength == NIL, 20, nLength)
    ELSE
-      ::nWidth  := iif( nLength == NIL, 20, nLength )
+      ::nWidth  := iif(nLength == NIL, 20, nLength)
       ::nHeight := 10
    ENDIF
 
@@ -54,7 +54,7 @@ METHOD Activate() CLASS HLine
    RETURN NIL
 
 METHOD Paint(lpdis) CLASS HLine
-   LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
+   LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
    LOCAL hDC := drawInfo[3]
    LOCAL x1  := drawInfo[4], y1 := drawInfo[5]
    LOCAL x2  := drawInfo[6], y2 := drawInfo[7]

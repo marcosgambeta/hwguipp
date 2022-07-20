@@ -23,17 +23,17 @@ CLASS HStyle INHERIT HObject
    DATA oPen
    DATA aCorners
 
-   METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap )
+   METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap)
    METHOD Draw(hDC, nLeft, nTop, nRight, nBottom)
 ENDCLASS
 
-METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
+METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap) CLASS HStyle
 
    LOCAL i, nlen := Len(::aStyles)
 
-   nBorder := Iif( nBorder == Nil, 0, nBorder )
-   tColor := Iif( tColor == Nil, 0, tColor )
-   nOrient := Iif( nOrient == Nil .OR. nOrient > 9, 1, nOrient )
+   nBorder := Iif(nBorder == Nil, 0, nBorder)
+   tColor := Iif(tColor == Nil, 0, tColor)
+   nOrient := Iif(nOrient == Nil .OR. nOrient > 9, 1, nOrient)
 
    FOR i := 1 TO nlen
       IF hwg_aCompare(::aStyles[i]:aColors, aColors) .AND. ;
@@ -67,7 +67,7 @@ METHOD Draw(hDC, nLeft, nTop, nRight, nBottom) CLASS HStyle
 
    LOCAL n1, n2
    IF ::oBitmap == Nil
-      hwg_drawGradient(hDC, nLeft, nTop, nRight, nBottom, ::nOrient, ::aColors, , ::aCorners)
+      hwg_drawGradient(hDC, nLeft, nTop, nRight, nBottom, ::nOrient, ::aColors, NIL, ::aCorners)
    ELSE
       hwg_SpreadBitmap(hDC, ::oBitmap:handle, nLeft, nTop, nRight, nBottom)
    ENDIF

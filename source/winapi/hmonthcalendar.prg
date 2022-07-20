@@ -27,9 +27,9 @@ CLASS VAR winclass   INIT "SysMonthCal32"
    DATA dValue
    DATA bChange
 
-   METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
-               oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
-               lWeekNumbers )
+   METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+              oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
+              lWeekNumbers)
    METHOD Activate()
    METHOD Init()
    METHOD Value ( dValue ) SETGET
@@ -38,15 +38,15 @@ ENDCLASS
 
 //--------------------------------------------------------------------------//
 
-METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
-            oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
-            lWeekNumbers ) CLASS HMonthCalendar
+METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+           oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
+           lWeekNumbers) CLASS HMonthCalendar
 
    nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP)
    nStyle += IIf(lNoToday == Nil .OR. !lNoToday, 0, MCS_NOTODAY)
    nStyle += IIf(lNoTodayCircle == Nil .OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE)
    nStyle += IIf(lWeekNumbers == Nil .OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, , , cTooltip)
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, NIL, NIL, cTooltip)
 
    ::dValue := IIf(ValType(vari) == "D" .And. !Empty(vari), vari, Date())
 
@@ -103,43 +103,43 @@ METHOD Value(dValue) CLASS HMonthCalendar
 
 //--------------------------------------------------------------------------//
 
-FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
+FUNCTION hwg_pCalendar(dstartdate, cTitle, cOK, cCancel, nx, ny, wid, hei )
 // Date picker command for all platforms in the design of original
 // Windows only DATEPICKER command
 
-   LOCAL oDlg, oMC , oFont , dolddate , dnewdate,  lcancel 
+   LOCAL oDlg, oMC, oFont, dolddate, dnewdate, lcancel
 
-  IF cTitle == NIL
-    cTitle := "Calendar"
-  ENDIF
+   IF cTitle == NIL
+      cTitle := "Calendar"
+   ENDIF
 
-  IF cOK == NIL
-     cOK := "OK"
-  ENDIF
+   IF cOK == NIL
+      cOK := "OK"
+   ENDIF
 
-  IF cCancel == NIL
-     cCancel := "Cancel"
-  ENDIF
+   IF cCancel == NIL
+      cCancel := "Cancel"
+   ENDIF
 
-  IF dstartdate == NIL
-   dstartdate := DATE()
-  ENDIF
+   IF dstartdate == NIL
+      dstartdate := DATE()
+   ENDIF
 
-  IF nx == NIL
-   nx := 0  // old: 20
-  ENDIF
-  
-  IF ny == NIL
-   ny := 0  // old: 20
-  ENDIF
+   IF nx == NIL
+      nx := 0  // old: 20
+   ENDIF
 
-  IF wid == NIL
-   wid := 200 // old: 80
-  ENDIF
+   IF ny == NIL
+      ny := 0  // old: 20
+   ENDIF
 
-  IF hei == NIL
-   hei := 160 // old: 20 
-  ENDIF
+   IF wid == NIL
+      wid := 200 // old: 80
+   ENDIF
+
+   IF hei == NIL
+      hei := 160 // old: 20
+   ENDIF
 
   oFont := hwg_DefaultFont()
 
@@ -147,28 +147,21 @@ FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
 
   // Remember old date
   dolddate := dstartdate
-    
-   INIT DIALOG oDlg TITLE cTitle ;
-      AT nx,ny SIZE  wid , hei + 23 // wid , hei , 22 = height of buttons
 
-   @ 0,0 MONTHCALENDAR oMC ;
-      SIZE wid - 1 , hei - 1 ;
-      INIT dstartdate ;   // Date(), if NIL
-      FONT oFont 
+   INIT DIALOG oDlg TITLE cTitle AT nx, ny SIZE wid, hei + 23 // wid, hei, 22 = height of buttons
 
-   @ 0 ,hei BUTTON cOK FONT oFont ;
-    ON CLICK {|| lcancel := .F., dnewdate := oMC:Value , oDlg:Close() } SIZE 80 , 22 
-   @ 81,hei BUTTON cCancel FONT oFont ;
-    ON CLICK {|| oDlg:Close() } SIZE 80, 22 
+   @ 0, 0 MONTHCALENDAR oMC SIZE wid - 1, hei - 1 INIT dstartdate ; // Date(), if NIL
+      FONT oFont
 
+   @ 0, hei BUTTON cOK FONT oFont ON CLICK {||lcancel := .F., dnewdate := oMC:Value, oDlg:Close()} SIZE 80, 22
+   @ 81, hei BUTTON cCancel FONT oFont ON CLICK {||oDlg:Close()} SIZE 80, 22
 
    ACTIVATE DIALOG oDlg
 
-   
    IF lcancel
-    dnewdate := dolddate
+      dnewdate := dolddate
    ENDIF
-     
+
    RETURN dnewdate
 
   // --------------------------------------------------------------------------

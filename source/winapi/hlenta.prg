@@ -37,21 +37,21 @@ CLASS VAR winclass INIT "PANEL"
    DATA xPos, yPos
    DATA bClick
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle )
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
    METHOD Paint()
-   METHOD Drag( xPos, yPos )
+   METHOD Drag(xPos, yPos)
    METHOD Value(nValue) SETGET
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle ) CLASS HLenta
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle) CLASS HLenta
 
-   color := Iif( color == Nil, CLR_BLACK, color )
-   bColor := Iif( bColor == Nil, CLR_WHITE, bColor )
-   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont,, bSize, bPaint,, color, bcolor )
+   color := Iif(color == Nil, CLR_BLACK, color)
+   bColor := Iif(bColor == Nil, CLR_WHITE, bColor)
+   ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont, NIL, bSize, bPaint, NIL, color, bcolor)
 
    ::title  := ""
    ::lVertical := (::nHeight > ::nWidth)
@@ -70,9 +70,9 @@ METHOD Activate() CLASS HLenta
 
    IF !Empty(handle)
 #ifdef __PLATFORM__UNIX
-      ::handle := hwg_Createpanel( Self, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createpanel(Self, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
 #else
-      ::handle := hwg_Createpanel( handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createpanel(handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
 #endif
       ::Init()
    ENDIF
@@ -93,7 +93,7 @@ METHOD Init() CLASS HLenta
 
    RETURN Nil
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HLenta
+METHOD onEvent(msg, wParam, lParam) CLASS HLenta
 
    LOCAL xPos, yPos, nPos, lRedraw := .F., y1
 
@@ -102,7 +102,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HLenta
    IF msg == WM_MOUSEMOVE
       hwg_SetCapture(::handle)
       xPos := hwg_Loword(lParam); yPos := hwg_Hiword(lParam)
-      //hwg_writelog( ltrim(str(xpos)) + " " + ltrim(str(ypos)) )
+      //hwg_writelog(ltrim(str(xpos)) + " " + ltrim(str(ypos)))
       IF xPos < 0 .OR. xPos > ::nWidth .OR. yPos < 0 .OR. yPos > ::nHeight
          ::lPressed := .F.
          ::nOver := 0
@@ -110,7 +110,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HLenta
          lRedraw := .T.
       ELSE
          IF ::lPressed
-            ::Drag( xPos, yPos )
+            ::Drag(xPos, yPos)
          ELSE
             y1 := Int(::nShift % ::nItemSize)
             IF y1 > 0
@@ -195,8 +195,8 @@ METHOD Paint() CLASS HLenta
          ENDIF
          i := 1
          DO WHILE y1 + nItemSize <= nLength .AND. ( nCurr := i + ::nFirst - 1 ) <= Len(::aItems)
-            oStyle := Iif( nCurr == ::nSelected .AND. lStyleSele, aItemStyle[2], Iif( nCurr == ::nOver .AND. lStyleOver, aItemStyle[3], aItemStyle[1] ) )
-            cText := Iif( l1,::aItems[nCurr, 1],::aItems[nCurr] )
+            oStyle := Iif(nCurr == ::nSelected .AND. lStyleSele, aItemStyle[2], Iif(nCurr == ::nOver .AND. lStyleOver, aItemStyle[3], aItemStyle[1]))
+            cText := Iif(l1, ::aItems[nCurr, 1], ::aItems[nCurr])
             IF lVertical
                oStyle:Draw(hDC, 0, y1, nW, y1 + nItemSize)
                IF !Empty(cText)
@@ -264,10 +264,10 @@ METHOD Paint() CLASS HLenta
 
    RETURN Nil
 
-METHOD Drag( xPos, yPos ) CLASS HLenta
+METHOD Drag(xPos, yPos) CLASS HLenta
 
    LOCAL nLength := Iif(::lVertical, ::nHeight, ::nWidth), nKolItems := Len(::aItems)
-   //hwg_Writelog( "   " + Ltrim(Str(yPos)) + " " + Ltrim(Str(::yPos)) + " " + Ltrim(Str(::nShift)) )
+   //hwg_Writelog("   " + Ltrim(Str(yPos)) + " " + Ltrim(Str(::yPos)) + " " + Ltrim(Str(::nShift)))
    IF nLength < ::nItemSize * nKolItems - 4 .AND. ((::lVertical .AND. Abs(yPos - ::yPos) > 2) .OR. (!::lVertical .AND. Abs(xPos - ::xPos) > 2))
       ::lMoved := .T.
       ::nOver := 0
@@ -280,7 +280,7 @@ METHOD Drag( xPos, yPos ) CLASS HLenta
       ENDIF
       ::nFirst := Int(::nShift/::nItemSize)
       ::nFirst += Iif(::nShift > ::nFirst * ::nItemSize, 2, 1)
-      //hwg_Writelog( Ltrim(Str(::nShift)) + " " + Ltrim(Str(::nFirst))  )
+      //hwg_Writelog(Ltrim(Str(::nShift)) + " " + Ltrim(Str(::nFirst)))
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
    ENDIF
 

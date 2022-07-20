@@ -30,9 +30,7 @@ CLASS HNiceButton INHERIT HControl
    DATA lFlat
    DATA nOrder
 
-   METHOD New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
-               bInit, bClick, ;
-               cText, cTooltip, r, g, b )
+   METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, bInit, bClick, cText, cTooltip, r, g, b)
 
    METHOD Redefine(oWndParent, nId, nStyleEx, bInit, bClick, cText, cTooltip, r, g, b)
 
@@ -51,18 +49,15 @@ CLASS HNiceButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
-            bInit, bClick, ;
-            cText, cTooltip, r, g, b ) CLASS HNiceButton
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,, bInit, ;
-              ,, cTooltip )
+METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, bInit, bClick, cText, cTooltip, r, g, b) CLASS HNiceButton
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, NIL, bInit, NIL, NIL, cTooltip)
    DEFAULT g := ::g
    DEFAULT b := ::b
 
    DEFAULT r := ::r
    ::lFlat  := .T.
    ::bClick := bClick
-   ::nOrder  := IIf( oWndParent == nil, 0, Len(oWndParent:aControls) )
+   ::nOrder  := IIf(oWndParent == nil, 0, Len(oWndParent:aControls))
 
    ::ExStyle := nStyleEx
    ::text    := cText
@@ -82,7 +77,7 @@ METHOD New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Redefine(oWndParent, nId, nStyleEx, bInit, bClick, cText, cTooltip, r, g, b) CLASS HNiceButton
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0,, bInit,,, cTooltip )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, NIL, bInit, NIL, NIL, cTooltip)
 
    DEFAULT g := ::g
    DEFAULT b := ::b
@@ -124,7 +119,7 @@ FUNCTION hwg_NICEBUTTPROC(hBtn, msg, wParam, lParam)
    LOCAL oBtn
    IF msg != WM_CREATE
       IF AScan({WM_MOUSEMOVE, WM_PAINT, WM_LBUTTONDOWN, WM_LBUTTONUP, WM_LBUTTONDBLCLK, WM_DESTROY, WM_MOVING, WM_SIZE}, msg ) > 0
-         IF ( oBtn := hwg_FindSelf( hBtn ) ) == Nil
+         IF ( oBtn := hwg_FindSelf(hBtn) ) == Nil
             RETURN .F.
          ENDIF
 
@@ -164,7 +159,7 @@ METHOD Create() CLASS HNICEButton
 //   y      := Rct[2]
    w      := Rct[3] - Rct[1]
    h      := Rct[4] - Rct[2]
-   Region := hwg_Createroundrectrgn( 0, 0, w, h, h * 0.90, h * 0.90 )
+   Region := hwg_Createroundrectrgn(0, 0, w, h, h * 0.90, h * 0.90)
    hwg_Setwindowrgn(::Handle, Region, .T.)
    hwg_Invalidaterect(::Handle, 0, 0)
 
@@ -203,7 +198,7 @@ METHOD MouseMove(wParam, lParam) CLASS HNICEButton
 
       IF otmp != Nil .AND. otmp:id != ::id .AND. !otmp:lPress
          otmp:state := OBTN_NORMAL
-         hwg_Invalidaterect( otmp:handle, 0 )
+         hwg_Invalidaterect(otmp:handle, 0)
          hwg_Postmessage(otmp:handle, WM_PAINT, 0, 0)
          hwg_SetNiceBtnSelected(Nil)
       ENDIF

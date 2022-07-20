@@ -16,19 +16,19 @@ CLASS HRadioButton INHERIT HControl
    DATA  oGroup
    DATA bClick
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
-      bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+              bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor)
    METHOD Value(lValue) SETGET
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
-      bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp ) CLASS HRadioButton
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+      bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp) CLASS HRadioButton
 
-   ::oParent := iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
-   ::id      := iif( nId == Nil, ::NewId(), nId )
+   ::oParent := iif(oWndParent == Nil, ::oDefaultParent, oWndParent)
+   ::id      := iif(nId == Nil, ::NewId(), nId)
    ::title   := cCaption
    ::oGroup  := HRadioGroup():oGroupCurrent
    IF !Empty(lTransp)
@@ -51,7 +51,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::tooltip := ctooltip
    ::tcolor  := tcolor
    IF tColor != Nil .AND. bColor == Nil
-      bColor := hwg_Getsyscolor( COLOR_3DFACE )
+      bColor := hwg_Getsyscolor(COLOR_3DFACE)
    ENDIF
    ::bcolor  := bcolor
    IF bColor != Nil
@@ -60,13 +60,13 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
    ::bClick := bClick
    ::Activate()
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
    IF bClick != Nil .AND. (::oGroup == Nil .OR. ::oGroup:bSetGet == Nil)
-      ::oParent:AddEvent( 0, ::id, {|o,id| onClick(o,id)} )
+      ::oParent:AddEvent(0, ::id, {|o,id|onClick(o,id)})
    ENDIF
    IF ::oGroup != Nil
       AAdd(::oGroup:aButtons, Self)
-      ::oParent:AddEvent( BN_CLICKED, ::id, { |o,id|__Valid(o:FindControl(id)) } )
+      ::oParent:AddEvent(BN_CLICKED, ::id, {|o,id|__Valid(o:FindControl(id))})
    ENDIF
 
    RETURN Self
@@ -83,7 +83,7 @@ METHOD Activate() CLASS HRadioButton
 /* Parameter lInit was removed a long time ago */
 METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor) CLASS HRadioButton
 
-   ::oParent := iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
+   ::oParent := iif(oWndParent == Nil, ::oDefaultParent, oWndParent)
    ::id      := nId
    ::oGroup  := HRadioGroup():oGroupCurrent
    ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
@@ -98,7 +98,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ::tooltip := ctooltip
    ::tcolor  := tcolor
    IF tColor != Nil .AND. bColor == Nil
-      bColor := hwg_Getsyscolor( COLOR_3DFACE )
+      bColor := hwg_Getsyscolor(COLOR_3DFACE)
    ENDIF
    ::bcolor  := bcolor
    IF bColor != Nil
@@ -106,13 +106,13 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ENDIF
 
    ::bClick := bClick
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
    IF bClick != Nil .AND. (::oGroup == Nil .OR. ::oGroup:bSetGet == Nil)
-      ::oParent:AddEvent( 0, ::id, {|o,id| onClick(o,id)} )
+      ::oParent:AddEvent(0, ::id, {|o, id|onClick(o,id)})
    ENDIF
    IF ::oGroup != Nil
       AAdd(::oGroup:aButtons, Self)
-      ::oParent:AddEvent( BN_CLICKED, ::id, { |o,id|__Valid(o:FindControl(id)) } )
+      ::oParent:AddEvent(BN_CLICKED, ::id, {|o, id|__Valid(o:FindControl(id))})
    ENDIF
 
    RETURN Self
@@ -135,9 +135,9 @@ STATIC FUNCTION __Valid(oCtrl)
 
    RETURN .T.
 
-STATIC FUNCTION onClick( oParent, id )
+STATIC FUNCTION onClick(oParent, id)
 
-   LOCAL oCtrl := oParent:FindControl( id )
+   LOCAL oCtrl := oParent:FindControl(id)
 
    IF !Empty(oCtrl)
       Eval(oCtrl:bClick, oCtrl)

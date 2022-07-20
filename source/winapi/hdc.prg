@@ -17,28 +17,28 @@ CLASS HDC
    METHOD NEW()
    METHOD SetAttribDC(hDC)
    METHOD ATTACH(hDc)
-   METHOD Moveto( x1, y1 )
-   METHOD Lineto( x1, y1 )
-   METHOD fillsolidrect( lpRect, clr )
-   METHOD Fillrect( lpRect, clr )
-   METHOD Selectcliprgn( pRgn )
-   METHOD Settextcolor( xColor )
+   METHOD Moveto(x1, y1)
+   METHOD Lineto(x1, y1)
+   METHOD fillsolidrect(lpRect, clr)
+   METHOD Fillrect(lpRect, clr)
+   METHOD Selectcliprgn(pRgn)
+   METHOD Settextcolor(xColor)
    METHOD Setbkmode(xMode)
-   METHOD Setbkcolor(  clr ) INLINE    hwg_Setbkcolor(::m_hDC, clr)
+   METHOD Setbkcolor(clr) INLINE    hwg_Setbkcolor(::m_hDC, clr)
    METHOD Selectobject(xMode) // xObject
-   METHOD Drawtext( strText, Rect, dwFlags )
+   METHOD Drawtext(strText, Rect, dwFlags)
    METHOD Createcompatibledc(x)
-   METHOD Patblt( a, s, d, f, g ) INLINE hwg_Patblt(::m_hDc, a, s, d, f, g)
+   METHOD Patblt(a, s, d, f, g) INLINE hwg_Patblt(::m_hDc, a, s, d, f, g)
    METHOD Savedc()
    METHOD Restoredc(nSavedDC)
    METHOD Setmapmode(nMapMode)
-   METHOD SetWindowOrg( x, y )
-   METHOD SetWindowExt( x, y )
-   METHOD SetViewportOrg( x, y )
-   METHOD SetViewportExt( x, y )
-   METHOD Setarcdirection( nArcDirection )
+   METHOD SetWindowOrg(x, y)
+   METHOD SetWindowExt(x, y)
+   METHOD SetViewportOrg(x, y)
+   METHOD SetViewportExt(x, y)
+   METHOD Setarcdirection(nArcDirection)
    METHOD Gettextmetric() INLINE hwg_Gettextmetric(::m_hDC)
-   METHOD Setrop2( nDrawMode )
+   METHOD Setrop2(nDrawMode)
    METHOD Bitblt(x, y, nWidth, nHeight, pSrcDC, xSrc, ySrc, dwRop) INLINE hwg_Bitblt(::m_hDc, x, y, nWidth, nHeight, pSrcDC, xSrc, ySrc, dwRop)
    METHOD Pie(arect, apt1, apt2)
    METHOD Deletedc()
@@ -52,11 +52,11 @@ METHOD NEW() CLASS HDC
 
    RETURN Self
 
-METHOD Moveto( x1, y1 ) CLASS HDC
+METHOD Moveto(x1, y1) CLASS HDC
    hwg_Moveto(::m_hDC, x1, y1)
    RETURN Self
 
-METHOD Lineto( x1, y1 ) CLASS HDC
+METHOD Lineto(x1, y1) CLASS HDC
    hwg_Lineto(::m_hDC, x1, y1)
    RETURN Self
 
@@ -82,7 +82,7 @@ METHOD SetAttribDC(hDC) CLASS HDC
    ::m_hAttribDC := hDC
    RETURN NIL
 
-METHOD Selectcliprgn( pRgn ) CLASS HDC
+METHOD Selectcliprgn(pRgn) CLASS HDC
 
    LOCAL nRetVal := - 1
 
@@ -96,14 +96,14 @@ METHOD Selectcliprgn( pRgn ) CLASS HDC
 
    RETURN nRetVal
 
-METHOD fillsolidrect( lpRect, clr ) CLASS HDC
+METHOD fillsolidrect(lpRect, clr) CLASS HDC
 
    hwg_Setbkcolor(::m_hDC, clr)
    hwg_Exttextout(::m_hDC, 0, 0, lpRect[1], lpRect[2], lpRect[3], lpRect[4], NIL)
 
    RETURN NIL
 
-METHOD Settextcolor( xColor ) CLASS HDC
+METHOD Settextcolor(xColor) CLASS HDC
 
    RETURN hwg_Settextcolor(::m_hDc, xColor)
 
@@ -115,20 +115,20 @@ METHOD Selectobject(xMode) CLASS HDC
 
    RETURN hwg_Selectobject(::m_hDc, xMode)
 
-METHOD Drawtext( strText, Rect, dwFlags ) CLASS HDC
+METHOD Drawtext(strText, Rect, dwFlags) CLASS HDC
 
    hwg_Drawtext(::m_hDC, strText, Rect[1], Rect[2], Rect[3], Rect[4], dwFlags)
 
    RETURN NIL
 
-METHOD Fillrect( lpRect, clr ) CLASS HDC
+METHOD Fillrect(lpRect, clr) CLASS HDC
 
    hwg_Fillrect(::m_hDC, lpRect[1], lpRect[2], lpRect[3], lpRect[4], clr)
 
    RETURN NIL
 
 METHOD Createcompatibledc(x) CLASS HDC
-   RETURN ::Attach( hwg_Createcompatibledc(x) )
+   RETURN ::Attach(hwg_Createcompatibledc(x))
 
 METHOD Savedc() CLASS HDC
    LOCAL nRetVal := 0
@@ -166,7 +166,7 @@ METHOD Setmapmode(nMapMode) CLASS HDC
    ENDIF
    RETURN nRetVal
 
-METHOD SetWindowOrg( x, y ) CLASS HDC
+METHOD SetWindowOrg(x, y) CLASS HDC
 
    LOCAL point
 
@@ -178,7 +178,7 @@ METHOD SetWindowOrg( x, y ) CLASS HDC
    ENDIF
    RETURN point
 
-METHOD SetWindowExt( x, y ) CLASS HDC
+METHOD SetWindowExt(x, y) CLASS HDC
 
    LOCAL point
 
@@ -190,7 +190,7 @@ METHOD SetWindowExt( x, y ) CLASS HDC
    ENDIF
    RETURN point
 
-METHOD SetViewportOrg( x, y ) CLASS HDC
+METHOD SetViewportOrg(x, y) CLASS HDC
 
    LOCAL point
 
@@ -202,7 +202,7 @@ METHOD SetViewportOrg( x, y ) CLASS HDC
    ENDIF
    RETURN point
 
-METHOD SetViewportExt( x, y ) CLASS HDC
+METHOD SetViewportExt(x, y) CLASS HDC
 
    LOCAL point
 
@@ -214,7 +214,7 @@ METHOD SetViewportExt( x, y ) CLASS HDC
    ENDIF
    RETURN point
 
-METHOD Setarcdirection( nArcDirection )
+METHOD Setarcdirection(nArcDirection)
 
    LOCAL nResult := 0
    IF (::m_hDC != ::m_hAttribDC)
@@ -228,7 +228,7 @@ METHOD Setarcdirection( nArcDirection )
 METHOD Pie(arect, apt1, apt2)
    RETURN hwg_Pie(::m_hdc, arect[1], arect[2], arect[3], arect[4], apt1[1], apt1[2], apt2[1], apt2[2])
 
-METHOD Setrop2( nDrawMode )
+METHOD Setrop2(nDrawMode)
 
    LOCAL nRetVal := 0
 

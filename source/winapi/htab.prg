@@ -22,12 +22,10 @@ CLASS HTab INHERIT HControl
    DATA  bAction
    DATA  lResourceTab INIT .F.
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, ;
-      bClick, bGetFocus, bLostFocus )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus)
    METHOD Activate()
    METHOD Init()
-   //METHOD onEvent( msg, wParam, lParam )
+   //METHOD onEvent(msg, wParam, lParam)
    METHOD SetTab(n)
    METHOD StartPage(cName, oDlg)
    METHOD EndPage()
@@ -36,7 +34,7 @@ CLASS HTab INHERIT HControl
    METHOD HidePage(nPage)
    METHOD ShowPage(nPage)
    METHOD GetActivePage(nFirst, nEnd)
-   METHOD Notify( lParam )
+   METHOD Notify(lParam)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
 
    HIDDEN:
@@ -44,31 +42,30 @@ CLASS HTab INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus  ) CLASS HTab
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus) CLASS HTab
    LOCAL i, aBmpSize
 
    nStyle   := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint)
 
    ::title   := ""
-   ::oFont   := iif( oFont == Nil, ::oParent:oFont, oFont )
-   ::aTabs   := iif( aTabs == Nil, {}, aTabs )
+   ::oFont   := iif(oFont == Nil, ::oParent:oFont, oFont)
+   ::aTabs   := iif(aTabs == Nil, {}, aTabs)
    ::bChange := bChange
    ::bChange2 := bChange
 
-   ::bGetFocus := iif( bGetFocus == Nil, Nil, bGetFocus )
-   ::bLostFocus := iif( bLostFocus == Nil, Nil, bLostFocus )
-   ::bAction   := iif( bClick == Nil, Nil, bClick )
+   ::bGetFocus := iif(bGetFocus == Nil, Nil, bGetFocus)
+   ::bLostFocus := iif(bLostFocus == Nil, Nil, bLostFocus)
+   ::bAction   := iif(bClick == Nil, Nil, bClick)
 
    IF aImages != Nil
       ::aImages := {}
       FOR i := 1 TO Len(aImages)
          AAdd(::aImages, Upper(aImages[i]))
-         aImages[i] := iif( lResour, hwg_Loadbitmap( aImages[i] ), hwg_Openbitmap( aImages[i] ) )
+         aImages[i] := iif(lResour, hwg_Loadbitmap(aImages[i]), hwg_Openbitmap(aImages[i]))
       NEXT
       aBmpSize := hwg_Getbitmapsize(aImages[1])
-      ::himl := hwg_Createimagelist( aImages, aBmpSize[1], aBmpSize[2], 12, nBC )
+      ::himl := hwg_Createimagelist(aImages, aBmpSize[1], aBmpSize[2], 12, nBC)
       ::Image1 := 0
       IF Len(aImages) > 1
          ::Image2 := 1
@@ -109,7 +106,7 @@ METHOD Init() CLASS HTab
 
    RETURN Nil
 /*
-METHOD onEvent( msg, wParam, lParam ) CLASS HTab
+METHOD onEvent(msg, wParam, lParam) CLASS HTab
 
    LOCAL iParHigh, iParLow, nPos
 
@@ -141,7 +138,7 @@ METHOD StartPage(cname, oDlg) CLASS HTab
    ENDIF
    AAdd(::aTabs, cname)
    if ::lResourceTab
-      AAdd(::aPages, {oDlg , 0})
+      AAdd(::aPages, {oDlg, 0})
    ELSE
       AAdd(::aPages, {Len(::aControls), 0})
    ENDIF
@@ -255,7 +252,7 @@ METHOD DeletePage(nPage) CLASS HTab
 Local nFirst, nEnd, i
 
    if ::lResourceTab
-      ADel(::m_arrayStatusTab, nPage, , .T.)
+      ADel(::m_arrayStatusTab, nPage, NIL, .T.)
       hwg_Deletetab(::handle, nPage)
       ::nActive := nPage - 1
 
@@ -289,10 +286,11 @@ Local nFirst, nEnd, i
 
    Return ::nActive
 
-METHOD Notify( lParam ) CLASS HTab
+METHOD Notify(lParam) CLASS HTab
    LOCAL nCode := hwg_Getnotifycode(lParam)
 
-   //hwg_writelog( str(ncode) )
+   //hwg_writelog(str(ncode))
+   // TODO: usar SWITCH
    DO CASE
    CASE nCode == TCN_SELCHANGE
       IF ::bChange != Nil
@@ -323,7 +321,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
     HB_SYMBOL_UNUSED(aItem)
   
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
    ::lResourceTab := .T.
    ::aTabs := {}
