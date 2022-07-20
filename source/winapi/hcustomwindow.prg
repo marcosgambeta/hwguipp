@@ -330,8 +330,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 STATIC FUNCTION onSize(oWnd, wParam, lParam)
    LOCAL aControls := oWnd:aControls, oItem
    
-   // Not used parameter
-   (wParam)   
+   HB_SYMBOL_UNUSED(wParam)
 
    FOR EACH oItem IN aControls
       IF oItem:bSize != NIL

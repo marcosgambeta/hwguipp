@@ -736,7 +736,7 @@ METHOD Paint(lLostFocus) CLASS HBrowse
    LOCAL hDC
    LOCAL hDCReal
 
-   (lLostFocus)
+   HB_SYMBOL_UNUSED(lLostFocus)
 
    IF ::tcolor == NIL
       ::tcolor := 0
@@ -1926,8 +1926,9 @@ METHOD MouseMove(wParam, lParam) CLASS HBrowse
 
 METHOD MouseWheel(nKeys, nDelta, nXPos, nYPos) CLASS HBrowse
 
-   (nXPos)
-   (nYPos)
+   HB_SYMBOL_UNUSED(nXPos)
+   HB_SYMBOL_UNUSED(nYPos)
+
    IF Hwg_BitAnd(nKeys, MK_MBUTTON) != 0
       IF nDelta > 0
          ::PageUp()
@@ -2433,7 +2434,8 @@ FUNCTION hwg_HScrollPos(oBrw, nType, lEof, nPos)
    LOCAL nColPixel
    LOCAL nBWidth := oBrw:nWidth // :width is _not_ browse width
 
-   (lEof)
+   HB_SYMBOL_UNUSED(lEof)
+
    hwg_Getscrollrange(oBrw:handle, SB_HORZ, @minPos, @maxPos)
 
    IF nType == SB_THUMBPOSITION

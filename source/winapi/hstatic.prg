@@ -54,9 +54,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
 
-   // Variables not used
-   ( cCaption )
-   ( lTransp )
+   HB_SYMBOL_UNUSED(cCaption) // TODO: verificar
+   HB_SYMBOL_UNUSED(lTransp)
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 

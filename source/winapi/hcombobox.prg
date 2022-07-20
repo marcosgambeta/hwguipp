@@ -104,7 +104,8 @@ METHOD Activate() CLASS HComboBox
 
 METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus) CLASS HComboBox
 
-   (bGFocus)
+   HB_SYMBOL_UNUSED(bGFocus)
+
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip)
 
    IF ::lText
