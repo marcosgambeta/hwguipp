@@ -23,11 +23,11 @@
 #I../include
 # The -I parameter declares the search path for include files (*.ch, *.h)
 # Some path values and other common parameters are declared in the common file
-# "hwgui.hbc" of HWGUI, so that this file could be very small.
+# "hwguipp.hbc" of HWGUI, so that this file could be very small.
 
 -L..
-hwgui.hbc
-#../hwgui.hbc
+hwguipp.hbc
+#../hwguipp.hbc
 # -L parameter is not necessary, if relative or absolute path values for files are declared.
 
 # ==== Name of exe file (on LINUX without any extension) ====

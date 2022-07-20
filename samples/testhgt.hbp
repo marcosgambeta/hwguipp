@@ -19,7 +19,7 @@ testhgt.prg
 #-L..\..\lib
 #-L..\..
 -L..
-hwgui.hbc
+hwguipp.hbc
 hbwin.hbc
 -lgtwvg
 

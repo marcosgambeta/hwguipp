@@ -4,7 +4,7 @@
 
 # Make script for HWGUI editor using hbmk2 utility
 
-..\..\hwgui.hbc
+..\..\hwguipp.hbc
 
 hbct.hbc
 

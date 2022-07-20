@@ -19,6 +19,6 @@
 example.prg
 repexec.prg
 
-../../hwgui.hbc
+../../hwguipp.hbc
 
 # ================ EOF of example.hbp ================

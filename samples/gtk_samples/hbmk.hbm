@@ -9,13 +9,13 @@
 #   hbmk2 a.prg
 # and HWGUI sample program a.prg will be build.
 #
- 
+
 -n -w
 
 -static
 # -strip
 -d__LINUX__ -d__GTK__
 
-../../hwgui.hbc
+../../hwguipp.hbc
 
 # ================ EOF of hbmk.hbm ===============

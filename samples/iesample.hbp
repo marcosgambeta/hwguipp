@@ -9,7 +9,7 @@
 -lhbactivex
 #-L../..
 -L..
-hwgui.hbc
+hwguipp.hbc
 
 -osample
 

@@ -10,7 +10,7 @@
 {linux}-d__GTK__
 
 -L../../
-hwgui.hbc
+hwguipp.hbc
 
 -ohwlbledt
 

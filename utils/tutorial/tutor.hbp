@@ -11,7 +11,7 @@
 {unix}-d__GTK__
 
 -L../..
-hwgui.hbc
+hwguipp.hbc
 
 #-o../../bin/tutor
 -o./tutor
