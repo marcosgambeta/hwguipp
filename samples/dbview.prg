@@ -66,7 +66,7 @@ Local oWndMain, oPanel
 
 Private oBrw, oSay1, oSay2, oFont, DataCP, currentCP, currFname , nBrwCharset
 
-nBrwCharset := 0  && Do not modify with UTF-8 on LINUX
+nBrwCharset := 0  // Do not modify with UTF-8 on LINUX
 
 * Best default index format is NTX
    RDDSETDEFAULT( "DBFNTX" )
@@ -122,14 +122,14 @@ nBrwCharset := 0  && Do not modify with UTF-8 on LINUX
 #endif
        ENDMENU
        MENU TITLE "&Data's codepage"
-          MENUITEMCHECK "EN"              ACTION  SetDtCP_EN()          && SetDataCP( "EN" )
-          MENUITEMCHECK "RUKOI8"          ACTION  SetDtCP_RUKOI8()      && SetDataCP( "RUKOI8" )
-          MENUITEMCHECK "RU1251"          ACTION  SetDtCP_RU1251()      && SetDataCP( "RU1251" )
-          MENUITEMCHECK "RU866"           ACTION  SetDtCP_RU866()       && SetDataCP( "RU866" )
-          MENUITEMCHECK "DEWIN"           ACTION  SetDtCP_DEWIN()       && SetDataCP( "DEWIN" ) 
-          MENUITEMCHECK "IBM858DE (Euro)" ACTION  SetDtCP_DE858()       && SetDataCP( "DE858" )
+          MENUITEMCHECK "EN"              ACTION  SetDtCP_EN()          // SetDataCP( "EN" )
+          MENUITEMCHECK "RUKOI8"          ACTION  SetDtCP_RUKOI8()      // SetDataCP( "RUKOI8" )
+          MENUITEMCHECK "RU1251"          ACTION  SetDtCP_RU1251()      // SetDataCP( "RU1251" )
+          MENUITEMCHECK "RU866"           ACTION  SetDtCP_RU866()       // SetDataCP( "RU866" )
+          MENUITEMCHECK "DEWIN"           ACTION  SetDtCP_DEWIN()       // SetDataCP( "DEWIN" )
+          MENUITEMCHECK "IBM858DE (Euro)" ACTION  SetDtCP_DE858()       // SetDataCP( "DE858" )
 #ifdef __LINUX__
-          MENUITEMCHECK "UTF-8"           ACTION SetDtCP_UTF8EX()       && SetDataCP( "UTF8EX" )
+          MENUITEMCHECK "UTF-8"           ACTION SetDtCP_UTF8EX()       // SetDataCP( "UTF8EX" )
 #endif
        ENDMENU
        MENU TITLE "Se&ttings"
@@ -161,7 +161,7 @@ nBrwCharset := 0  && Do not modify with UTF-8 on LINUX
       FONT oFont                     ;
       ON SIZE {|o,x,y|o:Move(,,x-1,y-28)}
 
-   oBrw:nHCCharset := nBrwCharset  && Set to 204 for Russian
+   oBrw:nHCCharset := nBrwCharset  // Set to 204 for Russian
       
    oBrw:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
 

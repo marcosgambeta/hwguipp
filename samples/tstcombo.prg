@@ -68,15 +68,15 @@ Function Test()
              STYLE DS_CENTER + WS_VISIBLE + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
 
             * 
-            @ 20, 20 GET COMBOBOX oCombo1 VAR nCombo ITEMS aItems SIZE 100, xSizeC && 150
-            @ 20, 50 GET COMBOBOX oCombo2 VAR cCombo ITEMS aItems SIZE 100, xSizeC TEXT && 150
+            @ 20, 20 GET COMBOBOX oCombo1 VAR nCombo ITEMS aItems SIZE 100, xSizeC // 150
+            @ 20, 50 GET COMBOBOX oCombo2 VAR cCombo ITEMS aItems SIZE 100, xSizeC TEXT // 150
 * EDIT not supported by GTK
 #ifndef __GTK__
             @ 20, 80 GET COMBOBOX oCombo3 VAR xCombo ITEMS aItems SIZE 100, xSizeC EDIT TOOLTIP "Type any thing here"
 #endif            
-            @ 20,110 COMBOBOX oCombo4 ITEMS aItems SIZE 100, xSizeC && 150
-            @ 20,140 COMBOBOX oCombo5 ITEMS aItems SIZE 100, xSizeC TEXT && 150
-            @ 20,170 COMBOBOX oCombo6 ITEMS aItems SIZE 100, xSizeC EDIT && 150
+            @ 20,110 COMBOBOX oCombo4 ITEMS aItems SIZE 100, xSizeC // 150
+            @ 20,140 COMBOBOX oCombo5 ITEMS aItems SIZE 100, xSizeC TEXT // 150
+            @ 20,170 COMBOBOX oCombo6 ITEMS aItems SIZE 100, xSizeC EDIT // 150
 
             @ 20,200 GET cEdit SIZE 150,23
  

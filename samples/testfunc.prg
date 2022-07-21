@@ -32,7 +32,7 @@
  Activate / Deactivate  Button
  hwg_CompleteFullPath()
  hwg_ShowCursor()
- hwg_GetCursorType() && GTK only
+ hwg_GetCursorType() // GTK only
  hwg_IsLeapYear ( nyear )
  
  hwg_Has_Win_Euro_Support()
@@ -78,22 +78,22 @@ bgtk := .F.
 bgtk := .T.
 #endif
 
-SET DATE ANSI  && YY(YY).MM.TT
+SET DATE ANSI  // YY(YY).MM.TT
 
 #ifdef __PLATFORM__WINDOWS
  nheight := 18
- PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -10 && vorher -13
+ PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -10 // vorher -13
 #else
  nheight := 25
- PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12 && vorher 13
+ PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12 // vorher 13
 #endif 
   
 * save default cursor style in a numeric variable for
 * later recovery after cursor hide action.  
 #ifdef __GTK__  
- ndefaultcsrtype := hwg_GetCursorType() && GTK only
+ ndefaultcsrtype := hwg_GetCursorType() // GTK only
 #else
- ndefaultcsrtype := 0  && not needed on WinAPI
+ ndefaultcsrtype := 0  // not needed on WinAPI
 #endif 
  
  // hwg_msginfo(Str(ndefaultcsrtype))
@@ -245,7 +245,7 @@ FUNCTION HIDE_CURSOR ( oFont , nheight , Testfunc )
    * Activate cursor before return to main window
    * crash on GTK, because handle is lost after leaving dialog.
    DO WHILE ncursor < 0
-      ncursor := hwg_ShowCursor(.T.)   && ,hmain,ndefaultcsrtype)  : crash 
+      ncursor := hwg_ShowCursor(.T.)  // ,hmain,ndefaultcsrtype)  : crash 
    ENDDO
 #endif   
    
@@ -341,7 +341,7 @@ LOCAL nyeart
 Local oTestLeapYear
 LOCAL oLabel1, oEditbox1, oButton1 , oButton2
 
-nyeart := YEAR( DATE() )  && Preset recent year
+nyeart := YEAR( DATE() )  // Preset recent year
 
  INIT DIALOG oTestLeapYear TITLE "hwg_IsLeapYear()" ;
     AT 738,134 SIZE 516,336 NOEXIT ;

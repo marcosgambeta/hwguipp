@@ -17,7 +17,7 @@ MEMVAR Gt_Cod, Gt_Name, Gt_Adress, Gt_Fone, Gt_e_Mail
 MEMVAR oCod, oName, oAdress, oFone, oe_Mail
 MEMVAR oOper
 MEMVAR oBotNew, oBotEdit,oBotRet, oBotNext, oBotSave, oBottop, oBotBott, oBotDelete, oBotClose, oBotPrint
-// MEMVAR COD  && contains a database name, but nowhere initialized ??
+// MEMVAR COD  // contains a database name, but nowhere initialized ??
 // why "demodbf.prg(313) Warning W0001  Ambiguous reference 'COD'" ??
 
 

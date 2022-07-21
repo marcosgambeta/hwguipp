@@ -78,7 +78,7 @@ FUNCTION display_Help(lmode)
 * cHelptxt,cTitle,cClose,opFont,blmodus
 * ==============================================
 IF lmode == NIL
- lmode := .T.  && not modal
+ lmode := .T.  // not modal
 ENDIF 
 
   hwg_ShowHelp(helptxt(),"Static Help text","Close",,lmode)
@@ -119,33 +119,33 @@ FUNCTION UML_GUI_INIT_DE
 LOCAL aUmlaute := {}
 #ifdef __LINUX__
 * Linux / UTF8
-CAGUML := "Ä"  && AE
-COGUML := "Ö"  && OE
-CUGUML := "Ü"  && UE
-CAKUML := "ä"  && AE
-COKUML := "ö"  && OE
-CUKUML := "ü"  && UE
-CSZUML := "ß"  && SZ
+CAGUML := "Ä"  // AE
+COGUML := "Ö"  // OE
+CUGUML := "Ü"  // UE
+CAKUML := "ä"  // AE
+COKUML := "ö"  // OE
+CUKUML := "ü"  // UE
+CSZUML := "ß"  // SZ
 EURO   := "€"
-#else 
+#else
 * Windows (WIN1252)
-CAGUML := CHR(196)  && AE
-COGUML := CHR(214)  && OE
-CUGUML := CHR(220)  && UE
-CAKUML := CHR(228)  && AE
-COKUML := CHR(246)  && OE
-CUKUML := CHR(252)  && UE
-CSZUML := CHR(223)  && SZ
+CAGUML := CHR(196)  // AE
+COGUML := CHR(214)  // OE
+CUGUML := CHR(220)  // UE
+CAKUML := CHR(228)  // AE
+COKUML := CHR(246)  // OE
+CUKUML := CHR(252)  // UE
+CSZUML := CHR(223)  // SZ
 EURO   := CHR(128)
 #endif
 
-AADD(aUmlaute, CAGUML )  && AE
-AADD(aUmlaute, COGUML )  && OE
-AADD(aUmlaute, CUGUML )  && UE
-AADD(aUmlaute, CAKUML )  && AE
-AADD(aUmlaute, COKUML )  && OE
-AADD(aUmlaute, CUKUML )  && UE
-AADD(aUmlaute, CSZUML )  && SZ
+AADD(aUmlaute, CAGUML )  // AE
+AADD(aUmlaute, COGUML )  // OE
+AADD(aUmlaute, CUGUML )  // UE
+AADD(aUmlaute, CAKUML )  // AE
+AADD(aUmlaute, COKUML )  // OE
+AADD(aUmlaute, CUKUML )  // UE
+AADD(aUmlaute, CSZUML )  // SZ
 AADD(aUmlaute, EURO )
 
 

@@ -68,27 +68,27 @@ FUNCTION Main
 
    @ 160,10 SPLITTER oSplitV SIZE 3,100 DIVIDE {oTree} FROM {oEdit1} LIMITS 100,300
 #ifdef __GTK__
-*   oSplitV:hCursor := hwg_Loadcursor( GDK_SB_H_DOUBLE_ARROW  )  && "VSPLIT"
-*   oSplitV:hCursor := hwg_LoadCursorFromFile("transistor.cur",7,7)   && Test
-*   oSplitV:hCursor := hwg_LoadCursorFromFile("splitv.cur",16,16) && Load from file
+*   oSplitV:hCursor := hwg_Loadcursor( GDK_SB_H_DOUBLE_ARROW  )  // "VSPLIT"
+*   oSplitV:hCursor := hwg_LoadCursorFromFile("transistor.cur",7,7)   // Test
+*   oSplitV:hCursor := hwg_LoadCursorFromFile("splitv.cur",16,16) // Load from file
 #else
-*   oSplitV:hCursor := hwg_Loadcursor( 32644 )  && IDC_SIZEWE from stock optional
-*   oSplitV:hCursor := hwg_LoadCursorFromFile("splitv.cur")  && Load from file
+*   oSplitV:hCursor := hwg_Loadcursor( 32644 )  // IDC_SIZEWE from stock optional
+*   oSplitV:hCursor := hwg_LoadCursorFromFile("splitv.cur")  // Load from file
 #endif
-   oSplitV:hCursor := hwg_LoadCursorFromString(cVal_Wcur1, 16 , 16 ) && From hex value
-*   oSplitV:hCursor := hwg_LoadCursorFromString(cVal_Wcur3, 16 , 16 ) && Test
+   oSplitV:hCursor := hwg_LoadCursorFromString(cVal_Wcur1, 16 , 16 ) // From hex value
+*   oSplitV:hCursor := hwg_LoadCursorFromString(cVal_Wcur3, 16 , 16 ) // Test
 
    @ 20,113 EDITBOX oEdit2 CAPTION "Example"  SIZE 344,130
 
    @ 20,110 SPLITTER oSplitH SIZE 344,3 DIVIDE {oTree,oEdit1,oSplitV} FROM {oEdit2} LIMITS ,220
 #ifdef __GTK__
-*   oSplitH:hCursor := hwg_Loadcursor( GDK_SB_V_DOUBLE_ARROW  )   && "HSPLIT"
-*   oSplitH:hCursor := hwg_LoadCursorFromFile("splith.cur",16,16)   && Load from file
+*   oSplitH:hCursor := hwg_Loadcursor( GDK_SB_V_DOUBLE_ARROW  )   // "HSPLIT"
+*   oSplitH:hCursor := hwg_LoadCursorFromFile("splith.cur",16,16)   // Load from file
 #else
-*   oSplitH:hCursor := hwg_Loadcursor( 32645 ) && IDC_SIZENS from stock optional
-*   oSplitH:hCursor := hwg_LoadCursorFromFile("splith.cur")  && Load from file
+*   oSplitH:hCursor := hwg_Loadcursor( 32645 ) // IDC_SIZENS from stock optional
+*   oSplitH:hCursor := hwg_LoadCursorFromFile("splith.cur")  // Load from file
 #endif
-   oSplitH:hCursor := hwg_LoadCursorFromString(cVal_Wcur2, 16 , 16 ) && From hex value
+   oSplitH:hCursor := hwg_LoadCursorFromString(cVal_Wcur2, 16 , 16 ) // From hex value
 
    ACTIVATE WINDOW oMainWindow
 

@@ -78,7 +78,7 @@ daltdatum := d1
 *    v==>  x = 160 + 81 (x value of GET + width of GET + 1 )
    @ 241, 170 OWNERBUTTON oDateOwb  ;
    ON CLICK { | | d1 := hwg_pCalendar(d1) , odGet:Value(d1) } ;
-   SIZE 12,12  ;            && Size of image + 1
+   SIZE 12,12  ;            // Size of image + 1
    BITMAP hwg_oDatepicker_bmp() ; 
    TRANSPARENT  COORDINATES 0,0,11,11 ; 
    TOOLTIP "Pick date from calendar"

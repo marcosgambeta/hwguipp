@@ -44,20 +44,20 @@ FUNCTION Main()
    
 #ifdef __GTK__
 * Use this for OWNERBUTTONS (for multi platform usage with GTK)
- nxowb := 24  && size x
- nyowb := 24  && size y
- nlowb := 32  && at x
+ nxowb := 24  // size x
+ nyowb := 24  // size y
+ nlowb := 32  // at x
 #else
 * But recent usage on Windows
- nxowb := 50  && size x
- nyowb := 60  && size y
- nlowb := 55  && at x
+ nxowb := 50  // size x
+ nyowb := 60  // size y
+ nlowb := 55  // at x
 #endif
 
 htab := 0
 nbut := 0   
 
-cTitle := "Teste da Acentuação"  && ==> "Accent Test"
+cTitle := "Teste da Acentuação"  // ==> "Accent Test"
 
 cbmppref := ".." + hwg_GetDirSep() + "image" + hwg_GetDirSep()
 // cbmppref := ".." + hwg_GetDirSep() + ".." + hwg_GetDirSep() + "image" + hwg_GetDirSep()

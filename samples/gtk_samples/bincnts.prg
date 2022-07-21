@@ -96,7 +96,7 @@ INIT WINDOW oMainW  ;
 * @ 0, 0 TOOLBAR oToolbar OF oMainW SIZE  299 , 50    
 *  @ 0,0 PANEL oToolbar OF oMainW SIZE 300 , 50 ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS 
 
-@ htab+(nbut*32), 3 OWNERBUTTON oFileOpen OF oMainW ; && OF oToolbar ;
+@ htab+(nbut*32), 3 OWNERBUTTON oFileOpen OF oMainW ; // OF oToolbar ;
    ON CLICK { | | FileOpen()} ;
    SIZE 28,24 FLAT ;
    BITMAP oBitmap ;

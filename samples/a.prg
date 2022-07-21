@@ -167,7 +167,7 @@ Return Nil
 function OpenAbout
 Local oModDlg, oFontBtn, oFontDlg, oBrw
 Local aSample := { {.t.,"Line 1",10}, {.t.,"Line 2",22}, {.f.,"Line 3",40} }
-Local oBmp, oIcon := HIcon():AddFile( ".." + cdirSep +  "image" + cdirSep + "exclmk_trsp.ico")   && PIM.ICO was deleted
+Local oBmp, oIcon := HIcon():AddFile( ".." + cdirSep +  "image" + cdirSep + "exclmk_trsp.ico")   // PIM.ICO was deleted
 Local oSay
 
    PREPARE FONT oFontDlg NAME "MS Sans Serif" WIDTH 0 HEIGHT -13

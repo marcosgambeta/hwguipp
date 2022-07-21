@@ -52,7 +52,7 @@ Local oList, oItemso := { { "Item01" } , { "Item02" } , { "Item03" } , { "Item04
 #ifdef __PLATFORM__WINDOWS
    PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
 #else
-   PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12 && vorher 13
+   PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12 // vorher 13
 #endif 
 
    INIT DIALOG oModDlg TITLE "Test"  ;

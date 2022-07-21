@@ -72,7 +72,7 @@ HB_LANGSELECT("DE")
 
    oXmlDoc := HXMLDoc():Read( "testxml.xml" )
 
-   PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -17 && CHARSET 0 && 204 = Russian
+   PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -17 // CHARSET 0 // 204 = Russian
 
    INIT WINDOW oMainWindow MAIN TITLE "XML Sample"  ;
      SYSCOLOR COLOR_3DLIGHT+1                       ;
@@ -140,7 +140,7 @@ Local oGet1, oGet2
    
 
    INIT DIALOG oDlg TITLE Iif( nItem==0,"New item","Change item" )  ;
-   AT 210,10  SIZE 700,150 FONT oFont  && old SIZE 300,150
+   AT 210,10  SIZE 700,150 FONT oFont  // old SIZE 300,150
 
    @ 20,20 SAY "Name:" SIZE 60, 22
    
@@ -148,14 +148,14 @@ Local oGet1, oGet2
    @ 80,20 GET cName SIZE 150, 26    STYLE WS_BORDER
    */    
    
-   @ 80,20 GET oGet1 VAR cName SIZE 500, 26 ;  && old SIZE 150, 26
+   @ 80,20 GET oGet1 VAR cName SIZE 500, 26 ;  // old SIZE 150, 26
      STYLE WS_BORDER
 
    * Old position: 240,20
    @ 600,15  BUTTON "Font" SIZE 40, 32 ON CLICK {||oFontNew:=HFont():Select(oItemFont)}
 
    @ 20,50 SAY "Info:" SIZE 60, 22
-   @ 80,50 GET oGet2 VAR cInfo SIZE 550, 26 ;  && old SIZE 150, 26
+   @ 80,50 GET oGet2 VAR cInfo SIZE 550, 26 ;  // old SIZE 150, 26
      STYLE WS_BORDER
 
    @ 20,110  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
@@ -276,11 +276,11 @@ FUNCTION p_about
  "while run-time" + ;
  "OS() = " + OS() )
 #else
- hwg_Shellabout("","")  && Windows only, shows the OS internal Win version display
-                      && For multi platform application use OS(), shows
-                      && in a short string the OS and it's version number.
-                      && Sample output for Windows 10: "Windows 8 6.2" (2020)
-#endif 
+ hwg_Shellabout("","")  // Windows only, shows the OS internal Win version display
+                      // For multi platform application use OS(), shows
+                      // in a short string the OS and it's version number.
+                      // Sample output for Windows 10: "Windows 8 6.2" (2020)
+#endif
 RETURN NIL
 
 

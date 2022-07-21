@@ -42,7 +42,7 @@ CHECK_FILE(cImageMain)
 oBmp := HBitmap():AddFile(cImageMain,,.F.,301,160)
 * 301 x 160 is the original size of the bitmap image.
 
-// hwg_deb_is_object(oBmp) && Debug
+// hwg_deb_is_object(oBmp) // Debug
 
  // Here default is resized image
  // But works only with WinAPI, not GTK.

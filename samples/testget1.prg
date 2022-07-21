@@ -62,7 +62,7 @@ Local cRes, oCombo, aCombo := { "First","Second" }
 Local oGet
 Local e1 := "Dialog from prg", c1 := .F., c2 := .T., r1 := 2, cm := 1
 Local upd := 12, d1 := Date()+1
-Local odGet, oDateOwb   && For DATEPICKER substitute
+Local odGet, oDateOwb   // For DATEPICKER substitute
 
 #ifdef __PLATFORM__WINDOWS
  PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
@@ -118,7 +118,7 @@ Local odGet, oDateOwb   && For DATEPICKER substitute
 *    v==>  x = 160 + 81 (x value of GET + width of GET + 1 )
    @ 241, 170 OWNERBUTTON oDateOwb  ;
    ON CLICK { | | d1 := hwg_pCalendar(d1) , odGet:Value(d1) } ;
-   SIZE 12,12  ;            && Size of image + 1
+   SIZE 12,12  ;            // Size of image + 1
    BITMAP hwg_oDatepicker_bmp() ; 
    TRANSPARENT  COORDINATES 0,0,11,11 ; 
    TOOLTIP "Pick date from calendar"
@@ -192,7 +192,7 @@ FUNCTION DLG_MONTHCALENDAR()
 
    @ 20,20 MONTHCALENDAR oMC ;
       SIZE 250,250 ;
-      INIT dheute ;   && Date() 
+      INIT dheute ;   // Date() 
       FONT oFont WEEKNUMBERS
 
     @ 300,60 BUTTON "Cancel" ON CLICK {|| oDlg:Close() } SIZE 100,40

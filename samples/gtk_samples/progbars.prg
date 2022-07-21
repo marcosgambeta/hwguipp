@@ -58,7 +58,7 @@ public isdemo:=.f.
          ENDMENU
         ENDMENU
 
-        ACTIVATE WINDOW oMain && MAXIMIZED && DF7BE: Progbar is otherwise hidden.
+        ACTIVATE WINDOW oMain // MAXIMIZED // DF7BE: Progbar is otherwise hidden.
 
 Return Nil
 

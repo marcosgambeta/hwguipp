@@ -98,8 +98,8 @@ INIT WINDOW oWinMain MAIN  ;
 
 
    MENU OF oWinMain
-      MENU TITLE "&File"   && "&Arquivo"
-          MENUITEM "&Exit"              ACTION hwg_EndWindow()  && "&Sair"
+      MENU TITLE "&File"   // "&Arquivo"
+          MENUITEM "&Exit"              ACTION hwg_EndWindow()  // "&Sair"
       ENDMENU
       MENU TITLE "&Browse"
          MENUITEM "&Database"           ACTION BrwDbs(.f.)
@@ -153,7 +153,7 @@ LOCAL nI , oDlg , oTbar1 , oLbl1 , oLbl2 , oBtn1
         ON POSCHANGE {|| BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs" ) }
   END
 
-   @ 260,410 BUTTON oBtn1 CAPTION "OK " SIZE 80,26 ; && "&OK " does not work correct on GTK
+   @ 260,410 BUTTON oBtn1 CAPTION "OK " SIZE 80,26 ; // "&OK " does not work correct on GTK
          ON CLICK {|| hwg_EndDialog()}
 
    @ 0, 445 PANEL oTbar1 SIZE 600, 26
@@ -161,12 +161,12 @@ LOCAL nI , oDlg , oTbar1 , oLbl1 , oLbl2 , oBtn1
    @ 17,10 SAY oLbl1 CAPTION "Records :" OF oTbar1 SIZE 70,22
 
    @ 85,5 OWNERBUTTON o_Obtn1 OF oTbar1 SIZE 20,20     ;
-        BITMAP cImgTop ;// TRANSPARENT COORDINATES 0,2,0,0 ;  && Home.bmp
+        BITMAP cImgTop ;// TRANSPARENT COORDINATES 0,2,0,0 ;  // Home.bmp
         ON CLICK {|| BrowseMove(oBrwDb, "Home", oEdGoto, "Dbs" ) };
         TOOLTIP "First Record"
 
    @ 105,5 OWNERBUTTON o_Obtn2 OF oTbar1 SIZE 20,20    ;
-        BITMAP cImgPrev ;// TRANSPARENT COORDINATES 0,2,0,0 ;  && Up.bmp
+        BITMAP cImgPrev ;// TRANSPARENT COORDINATES 0,2,0,0 ;  // Up.bmp
         ON CLICK {|| BrowseMove(oBrwDb, "Up", oEdGoto, "Dbs" ) } ;
         TOOLTIP "Prior"
 
@@ -178,12 +178,12 @@ LOCAL nI , oDlg , oTbar1 , oLbl1 , oLbl2 , oBtn1
    @ 270,7 SAY oLbl2 CAPTION " of  " + ALLTRIM(STR(nLast)) OF oTbar1 SIZE 70,22
 
    @ 215,5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20,20   ;
-        BITMAP cImgNext ;// TRANSPARENT COORDINATES 0,2,0,0 ; && Down.bmp
+        BITMAP cImgNext ;// TRANSPARENT COORDINATES 0,2,0,0 ; // Down.bmp
         ON CLICK {|| BrowseMove(oBrwDb, "Down", oEdGoto, "Dbs" ) } ;
         TOOLTIP "Next"
 
    @ 235,5 OWNERBUTTON o_Obtn4 OF oTbar1 SIZE 20,20   ;
-        BITMAP cImgBottom ;// TRANSPARENT COORDINATES 0,2,0,0 ; && End.bmp
+        BITMAP cImgBottom ;// TRANSPARENT COORDINATES 0,2,0,0 ; // End.bmp
         ON CLICK {|| BrowseMove(oBrwDb, "End", oEdGoto, "Dbs" ) } ;
         TOOLTIP "Last Record"
 
@@ -322,7 +322,7 @@ LOCAL nIncrement := 10
         END
         FIELD->FIELD2 := "Field2 " + STRZERO(i,4)
         FIELD->FIELD3 := DATE() + i
-        FIELD->FIELD4 := "jg" + CHR(231) + "pqy " + STRZERO(i, 23)  && 0xE7 = 231 &ccedil;
+        FIELD->FIELD4 := "jg" + CHR(231) + "pqy " + STRZERO(i, 23)  // 0xE7 = 231 &ccedil;
         FIELD->FIELD5 := STRZERO(i, 5)
   Next
 
@@ -362,7 +362,7 @@ LOCAL nI , oDlg , oBtn1 , oLbl1 , oLbl2 , oTbar1
         ON POSCHANGE {|| BrowseMove(oBrwArr, "NIL", oEdGoto, "Array" ) }
   END
 
-   @ 260,410 BUTTON oBtn1 CAPTION "OK " SIZE 80,26 ;  && "&OK " does not work correct on GTK
+   @ 260,410 BUTTON oBtn1 CAPTION "OK " SIZE 80,26 ;  // "&OK " does not work correct on GTK
          ON CLICK {|| hwg_EndDialog()}
 
    @ 0, 445 PANEL oTbar1 SIZE 600, 26
@@ -370,12 +370,12 @@ LOCAL nI , oDlg , oBtn1 , oLbl1 , oLbl2 , oTbar1
    @ 17,10 SAY oLbl1 CAPTION "Elements :" OF oTbar1 SIZE 70,22
 
    @ 85,5 OWNERBUTTON o_Obtn1 OF oTbar1 SIZE 20,20     ;
-        BITMAP cImgTop ;// TRANSPARENT COORDINATES 0,2,0,0 ; && Home.bmp
+        BITMAP cImgTop ;// TRANSPARENT COORDINATES 0,2,0,0 ; // Home.bmp
         ON CLICK {|| BrowseMove(oBrwArr, "Home", oEdGoto, "Array" ) };
         TOOLTIP "First Record"
 
    @ 105,5 OWNERBUTTON o_Obtn2 OF oTbar1 SIZE 20,20    ;
-        BITMAP cImgPrev ;// TRANSPARENT COORDINATES 0,2,0,0 ;  && Up.bmp
+        BITMAP cImgPrev ;// TRANSPARENT COORDINATES 0,2,0,0 ;  // Up.bmp
         ON CLICK {|| BrowseMove(oBrwArr, "Up", oEdGoto, "Array" ) } ;
         TOOLTIP "Prior"
 
@@ -387,12 +387,12 @@ LOCAL nI , oDlg , oBtn1 , oLbl1 , oLbl2 , oTbar1
    @ 270,7 SAY oLbl2 CAPTION " of  " + ALLTRIM(STR(nLast)) OF oTbar1 SIZE 70,22
 
    @ 215,5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20,20   ;
-        BITMAP cImgNext ;// TRANSPARENT COORDINATES 0,2,0,0 ;  && Down.bmp
+        BITMAP cImgNext ;// TRANSPARENT COORDINATES 0,2,0,0 ;  // Down.bmp
         ON CLICK {|| BrowseMove(oBrwArr, "Down", oEdGoto, "Array" ) } ;
         TOOLTIP "Next"
 
    @ 235,5 OWNERBUTTON o_Obtn4 OF oTbar1 SIZE 20,20   ;
-        BITMAP cImgBottom ;// TRANSPARENT COORDINATES 0,2,0,0 ; && End.bmp
+        BITMAP cImgBottom ;// TRANSPARENT COORDINATES 0,2,0,0 ; // End.bmp
         ON CLICK {|| BrowseMove(oBrwArr, "End", oEdGoto, "Array" ) } ;
         TOOLTIP "Last Record"
 

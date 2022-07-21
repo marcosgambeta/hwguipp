@@ -146,12 +146,12 @@ oTab:StartPage( "pagina2",aDlg2 ),    oTab:EndPage(),otab:changepage(1)
 
    @ 38,153 CHECKBOX "Checkbox" SIZE 80,22   
    
-   @ 165,81 BROWSE oBrw1 ARRAY SIZE 103,135 ;  && ID 104
+   @ 165,81 BROWSE oBrw1 ARRAY SIZE 103,135 ;  // ID 104
      STYLE WS_CHILD+WS_VISIBLE+WS_BORDER+WS_VSCROLL+WS_HSCROLL+WS_TABSTOP
 
     hwg_CREATEARLIST( oBrw1,aSample1 )
 
-   @ 300,81 BROWSE oBrw2 ARRAY SIZE 103,135 ; && ID 105
+   @ 300,81 BROWSE oBrw2 ARRAY SIZE 103,135 ; // ID 105
      STYLE WS_CHILD+WS_VISIBLE+WS_BORDER+WS_VSCROLL+WS_HSCROLL+WS_TABSTOP 
 
     hwg_CREATEARLIST( oBrw2,aSample2 )
@@ -183,7 +183,7 @@ for each n in aPage
    n:oParent := oTab
    n:activate(.t.)
    ind := ind + 1 
-   oTab:startpage(aTitle[ind],n)  && hb_enumindex()
+   oTab:startpage(aTitle[ind],n)  // hb_enumindex()
    otab:endpage()
    n:oParent := nil
 next

@@ -85,7 +85,7 @@ oImg_Dialog := HBitmap():AddString( "Dialog" , cVal_Dbmp )
 /* Does not work on Windows (Format *.ico) */
    @  50,60 BITMAP oObj_Window  
    @ 160,60 BITMAP oObj_Dialog
-   && --------------------
+   // --------------------
    @  30, 150 SAY "Window icon" SIZE 80,32
    @ 140, 150 SAY "Dialog icon" SIZE 80,32   
 #else 

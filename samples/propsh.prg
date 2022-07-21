@@ -61,7 +61,7 @@ Local oFont
 #else
  PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12
 #endif
-* oFont := HFont():Add( "MS Sans Serif",0,-11,400,,,) && 8, "MS Sans Serif"
+* oFont := HFont():Add( "MS Sans Serif",0,-11,400,,,) // 8, "MS Sans Serif"
 
    // INIT DIALOG aDlg1 FROM RESOURCE  "PAGE_1" ON EXIT {||hwg_Msginfo("Exit"),.T.}
    // REDEFINE GET e1 ID 103
@@ -69,8 +69,8 @@ Local oFont
 
 
     INIT DIALOG aDlg1 TITLE "Config1" ;
-    AT 10,10 SIZE 262,249 ;   && 210,297
-    STYLE  WS_VISIBLE + WS_BORDER ;   && WS_CHILD freezes program
+    AT 10,10 SIZE 262,249 ;   // 210,297
+    STYLE  WS_VISIBLE + WS_BORDER ;   // WS_CHILD freezes program
     FONT oFont ;
     ON EXIT {||hwg_Msginfo("Exit"),.T.}
 
@@ -95,7 +95,7 @@ Local oFont
    * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    // INIT DIALOG aDlg2 FROM RESOURCE  "PAGE_2" ON EXIT {||.T.}
      INIT DIALOG aDlg2 TITLE "Config2" ;
-     AT 282,10  SIZE 346,249 ;  && 295,329
+     AT 282,10  SIZE 346,249 ;  // 295,329
      STYLE WS_VISIBLE + WS_CAPTION ;
      FONT oFont ;
      ON EXIT {||.T.}

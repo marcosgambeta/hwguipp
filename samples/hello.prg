@@ -154,7 +154,7 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
 #ifndef __GTK__ 
            MENUITEM "Property sheet" ACTION ( hwg_MsgStop("The feature Property sheet is buggy yet ! " ;
            + CHR(10) + "We will fix as soon as possible","Sorry" ) )
-//         MENUITEM "Property sheet" ACTION Ps1(oMainWindow)  && old: Ps
+//         MENUITEM "Property sheet" ACTION Ps1(oMainWindow)  // old: Ps
 #endif         
          SEPARATOR
          MENUITEM "YYYYY" ACTION hwg_MsgGet( "Example","Input anything")
@@ -199,7 +199,7 @@ LOCAL hinst
  hwg_MsgStop("hwg_Shellexecute() does not work at this time" + ;
   CHR(10) + "We will fix as soon as possible","Sorry") 
   
- hinst := hwg_Shellexecute("Sample.txt")    && ,"open",NIL,NIL,2))
+ hinst := hwg_Shellexecute("Sample.txt")    // ,"open",NIL,NIL,2))
 *  ,hwg_Msginfo(str(oMainWindow:handle))
 *  ==> handles can not be converted by STR() (crashes)
 * hwg_Shellexecute() fails, use hwg_RunApp() for starting external apps.

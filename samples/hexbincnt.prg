@@ -54,8 +54,8 @@
 
 #include "hwgui.ch"
 
-MEMVAR cHexAstro , cHexok , cHexopen , cHexexit , cHexdoor , cHexnext    && Hex dumps 
-MEMVAR cValAstro , cValok , cValopen , cValexit , cValdoor , cValnext    && Resource contents
+MEMVAR cHexAstro , cHexok , cHexopen , cHexexit , cHexdoor , cHexnext    // Hex dumps
+MEMVAR cValAstro , cValok , cValopen , cValexit , cValdoor , cValnext    // Resource contents
 
 FUNCTION Main
 
@@ -63,8 +63,8 @@ LOCAL cImageDir, cppath , oIcon, oBitmap , oToolbar , oFileOpen , oQuit , oMainW
 LOCAL htab, nbut , oBMPExit , oPNGDoor , oBtnDoor , ojpeg , oBtnjpeg , oastropng
 LOCAL cDirSep := hwg_GetDirSep()
 
-PUBLIC cHexAstro , cHexok , cHexopen , cHexexit , cHexdoor , cHexnext    && Hex dumps 
-PUBLIC cValAstro , cValok , cValopen , cValexit , cValdoor , cValnext    && Resource contents
+PUBLIC cHexAstro , cHexok , cHexopen , cHexexit , cHexdoor , cHexnext    // Hex dumps
+PUBLIC cValAstro , cValok , cValopen , cValexit , cValdoor , cValnext    // Resource contents
 
 htab := 0
 nbut := 0

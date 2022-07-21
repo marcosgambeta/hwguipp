@@ -60,9 +60,9 @@ LOCAL nx1, ny1 , nx2, ny2
 
 
 #ifdef __GTK__
- nxowb := 24  && size x
- nyowb := 24  && size y
- nlowb := 32  && at x
+ nxowb := 24  // size x
+ nyowb := 24  // size y
+ nlowb := 32  // at x
 #else
  nxowb := 18
  nyowb := 24
@@ -99,16 +99,16 @@ IF cImageDir
 ENDIF
 
 * Load contents from container into image objects.
-* oIcon := HIcon():AddResource( "ok" )        && ico (old)
-oIcon := HIcon():AddResource( "hwgui_48x48" ) && ico
-* oIcon := HIcon():AddFile( "image" + cDirSep + "hwgui_32x32.ico" ) && icon from file (Test)
+* oIcon := HIcon():AddResource( "ok" )        // ico (old)
+oIcon := HIcon():AddResource( "hwgui_48x48" ) // ico
+* oIcon := HIcon():AddFile( "image" + cDirSep + "hwgui_32x32.ico" ) // icon from file (Test)
 *
-oBitmap := HBitmap():AddResource("open")      && bmp
-oBMPExit := HBitmap():AddResource("exit")     && bmp
-oPNGDoor := HBitmap():AddResource("door")     && png
-ojpeg  := HBitmap():AddResource("next")       && jpg
-oastropng := HBitmap():AddResource("astro")   && png
-oastrobmp := HBitmap():AddResource("astro2")  && bmp
+oBitmap := HBitmap():AddResource("open")      // bmp
+oBMPExit := HBitmap():AddResource("exit")     // bmp
+oPNGDoor := HBitmap():AddResource("door")     // png
+ojpeg  := HBitmap():AddResource("next")       // jpg
+oastropng := HBitmap():AddResource("astro")   // png
+oastrobmp := HBitmap():AddResource("astro2")  // bmp
 
 
 #ifdef __PLATFORM__WINDOWS
@@ -229,10 +229,10 @@ ny1 := hwg_GetBitmapHeight( oastropng:handle )
 * are on GTK mandatory, otherwise the image does not appear !
  
   @ 60 , 100 SAY "astro.png" SIZE 100, 20
-  @ 60 , 150 BITMAP oSayImg1 SHOW oastropng OF oMainW SIZE nx1, ny1 && 100, 20
+  @ 60 , 150 BITMAP oSayImg1 SHOW oastropng OF oMainW SIZE nx1, ny1 // 100, 20
   
   @ 60 , 300 SAY "astro2.bmp" SIZE 100, 20 
-  // @ 60 , 350 BITMAP oastrobmp && not displayed
+  // @ 60 , 350 BITMAP oastrobmp // not displayed
   @ 60 , 350 BITMAP oSayImg2 SHOW oastrobmp OF oMainW SIZE nx2, ny2
 #else
   

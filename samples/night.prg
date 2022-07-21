@@ -48,7 +48,7 @@ nNightOffset := 32
 IF inilNightDesign
    
    INIT WINDOW oDlg TITLE "" BACKCOLOR 0x3C3940 ;
-         AT 0, 0 SIZE 380, 400 STYLE WND_NOTITLE &&  + WND_NOSIZEBOX ;
+         AT 0, 0 SIZE 380, 400 STYLE WND_NOTITLE //  + WND_NOSIZEBOX ;
 		// MENUPOS 33
 
 		// Add a header panel with predefined buttons
@@ -79,7 +79,7 @@ ENDIF
 	 
 	 // Problem: Menu must be moved under the header
 	 // Hwg_BeginMenu( <oWnd>, <nId>, <cTitle> )
-	 && Show( oWnd, xPos, yPos, lWnd )
+	 // Show( oWnd, xPos, yPos, lWnd )
 	 
 IF inilNightDesign	 
 
@@ -106,7 +106,7 @@ LOCAL cTitle := "Header of dialog"
 al_DOKs :=  { {"1"} , {"2"} , {"3"} , {"4"} }
 
   INIT DIALOG oDlg TITLE "" BACKCOLOR 0x3C3940 ;
-         AT 200, 200 SIZE 380, 400 STYLE WND_NOTITLE &&  + WND_NOSIZEBOX ;
+         AT 200, 200 SIZE 380, 400 STYLE WND_NOTITLE //  + WND_NOSIZEBOX ;
 
 
 
@@ -138,7 +138,7 @@ ENDIF
 	 
 	 // Problem: Menu must be moved under the header
 	 // Hwg_BeginMenu( <oWnd>, <nId>, <cTitle> )
-	 && Show( oWnd, xPos, yPos, lWnd )
+	 // Show( oWnd, xPos, yPos, lWnd )
 
      * For you to do at your own needs : change colors of browse, 
      * see sample program "colrbloc.prg"

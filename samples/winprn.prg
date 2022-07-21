@@ -154,17 +154,17 @@ Function Main
  cImageDir := ".." + cDirSep + "image" + cDirSep
 #endif 
  
- CHECK_FILE(cImageDir + "hwgui.bmp")  && 301 x 160 pixel
+ CHECK_FILE(cImageDir + "hwgui.bmp")  // 301 x 160 pixel
  
  * Convert them all to binary.
  cValAstro := hwg_cHex2Bin ( cHexAstro )
 
  * Load contents from hex resources into image objects.
  * astro.bmp
- oBitmap1 := HBitmap():AddString( "astro", cValAstro )  && original size (Width x Height): 107 x 90 Pixel
+ oBitmap1 := HBitmap():AddString( "astro", cValAstro )  // original size (Width x Height): 107 x 90 Pixel
  
  // not working yet:
- // oBitmap2 := HBitmap():AddString( "astro", cValAstro , 428 , 360) && resized x 4
+ // oBitmap2 := HBitmap():AddString( "astro", cValAstro , 428 , 360) // resized x 4
  
  // Test
  // oBitmap1:OBMP2FILE( "test.bmp" , "astro" )
@@ -222,16 +222,16 @@ LOCAL ctest1,ctest2,ctest3,cEuroUTF8
 * Block grafic chars (CP850), single line
 LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
   cCross := CHR(197)
-  cvert  := CHR(196)  && Vertical line
-  chori  := CHR(179)  && Horizontal line
-  ctl    := CHR(218)  && Edge top left
-  ctr    := CHR(191)  && Edge top right
-  ctd    := CHR(194)  && T top down
-  clr    := CHR(195)  && T left right
-  crl    := CHR(180)  && T right left
-  cbo    := CHR(193)  && T bottom up
-  cbl    := CHR(192)  && Edge bottom left
-  cbr    := CHR(217)  && Edge bottom right
+  cvert  := CHR(196)  // Vertical line
+  chori  := CHR(179)  // Horizontal line
+  ctl    := CHR(218)  // Edge top left
+  ctr    := CHR(191)  // Edge top right
+  ctd    := CHR(194)  // T top down
+  clr    := CHR(195)  // T left right
+  crl    := CHR(180)  // T right left
+  cbo    := CHR(193)  // T bottom up
+  cbl    := CHR(192)  // Edge bottom left
+  cbr    := CHR(217)  // Edge bottom right
 
   IF lpreview == NIL
     lpreview := .F.
@@ -255,7 +255,7 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
   DO CASE
   
    * =============== German =================
-   CASE cname == "Deutsch"  && Germany @ Euro
+   CASE cname == "Deutsch"  // Germany @ Euro
 
 #ifndef __PLATFORM__WINDOWS
    oWinPrn := HWinPrn():New( ,"DE858","UTF8", , nPrCharset )
@@ -280,12 +280,12 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
 *  Hello Alexander, i think this is your job.   
   CASE cname == "Russian"
 #ifndef __PLATFORM__WINDOWS
-   oWinPrn := HWinPrn():New( ,"RU866","RUKOI8" , , nPrCharset ) && 204
+   oWinPrn := HWinPrn():New( ,"RU866","RUKOI8" , , nPrCharset ) // 204
       oWinPrn:aTooltips := hwg_HPrinter_LangArray_RU()
  *  oWinPrn:StartDoc( .T.,"temp_a2.ps" )
    oWinPrn:StartDoc( lpreview,"temp_a2.ps" , lprbutton )
 #else
-   oWinPrn := HWinPrn():New( ,"RU866","RU1251", , nPrCharset ) && 204
+   oWinPrn := HWinPrn():New( ,"RU866","RU1251", , nPrCharset ) // 204
    oWinPrn:aTooltips := hwg_HPrinter_LangArray_RU()
 //   Hwg_MsgInfo("nCharset=" + STR(oWinPrn:nCharset),"Russian" )
 *   oWinPrn:StartDoc( .T. )
@@ -473,8 +473,8 @@ FUNCTION NLS_SetLang(cname,omain)
 *  * UTF-8 (without BOM)
 *   ....
 *  ELSE  
-*   && Windows
-*   && Use CHR(n) function for encoding character
+*   // Windows
+*   // Use CHR(n) function for encoding character
 *   ....
 *  ENDIF 
   LOCAL bmn
@@ -483,7 +483,7 @@ FUNCTION NLS_SetLang(cname,omain)
     
 /* Add case block for every new language */
   DO CASE
-   CASE cname == "Deutsch"  && Germany @ Euro
+   CASE cname == "Deutsch"  // Germany @ Euro
       clangset := "Deutsch"
       aMainMenu := { "E&nde", "&Quit" , "&Drucken" , "&Druck starten" , "&Einstellungen" , ;
        "Drucker &Zeichensatz" , "&Sprache" , "&Dialog-Modus" }
@@ -496,7 +496,7 @@ FUNCTION NLS_SetLang(cname,omain)
       ENDIF
       * Set title of main windows
       IF bmn ; Set_Maintitle(omain,cTitle) ; ENDIF
-   CASE cname == "Deutsch-OE"  && Austria: German @ Euro
+   CASE cname == "Deutsch-OE"  // Austria: German @ Euro
       aMainMenu := { "E&nde", "&Quit" , "&Drucken" , "&Druck starten" , "&Einstellungen" , ;
        "Drucker &Zeichensatz" , "&Sprache" , "&Dialog-Modus" }
       clangset := "Deutsch"
@@ -507,7 +507,7 @@ FUNCTION NLS_SetLang(cname,omain)
         * Windows
         cTitle := "Demo f" + CHR(252) + "r Winprn-Klasse"
       ENDIF
-  OTHERWISE    && Default EN/USA
+  OTHERWISE    // Default EN/USA
      aMainMenu := { "&Exit", "&Quit" , "&Print" , "&Start printing" , "&Settings" , ;
       "&Printer Char Set" , "&Language" , "&Select dialog mode" }
      clangset := "English"
@@ -610,29 +610,29 @@ FUNCTION hwg_HPrinter_LangArray_DE()
    ENDIF
 
 
-  /* 1  */ AAdd(aTooltips,"Vorschau beenden")            && Exit Preview
-  /* 2  */ AAdd(aTooltips,"Datei drucken")               && Print file
-  /* 3  */ AAdd(aTooltips,"Erste Seite")                 && First page
-  /* 4  */ AAdd(aTooltips,"N" + CAKUML + "chste Seite")  && Next page
-  /* 5  */ AAdd(aTooltips,"Vorherige Seite")             && Previous page
-  /* 6  */ AAdd(aTooltips,"Letzte Seite")                && Last page
-  /* 7  */ AAdd(aTooltips,"Kleiner")                     && Zoom out
-  /* 8  */ AAdd(aTooltips,"Gr" + COKUML + CSZUML + "er") && Zoom in
-  /* 9  */ AAdd(aTooltips,"Druck-Optionen")              && Print dialog
+  /* 1  */ AAdd(aTooltips,"Vorschau beenden")            // Exit Preview
+  /* 2  */ AAdd(aTooltips,"Datei drucken")               // Print file
+  /* 3  */ AAdd(aTooltips,"Erste Seite")                 // First page
+  /* 4  */ AAdd(aTooltips,"N" + CAKUML + "chste Seite")  // Next page
+  /* 5  */ AAdd(aTooltips,"Vorherige Seite")             // Previous page
+  /* 6  */ AAdd(aTooltips,"Letzte Seite")                // Last page
+  /* 7  */ AAdd(aTooltips,"Kleiner")                     // Zoom out
+  /* 8  */ AAdd(aTooltips,"Gr" + COKUML + CSZUML + "er") // Zoom in
+  /* 9  */ AAdd(aTooltips,"Druck-Optionen")              // Print dialog
   // added (Titles and other Buttons)
-  /* 10 */ AAdd(aTooltips,"Druckvorschau -") && Title                     "Print preview -"
-  /* 11 */ AAdd(aTooltips,"Drucken")         && Button                    "Print"
-  /* 12 */ AAdd(aTooltips,"Schlie" + CSZUML + "en") && Button             "Exit"
-  /* 13 */ AAdd(aTooltips,"Optionen")        && Button                    "Dialog"
-  /* 14 */ AAdd(aTooltips,"Benutzer-Knopf")  && aBootUser[ 3 ], Tooltip   "User Button"
-  /* 15 */ AAdd(aTooltips,"Benutzer-Knopf")  && aBootUser[ 4 ]            "User Button"
+  /* 10 */ AAdd(aTooltips,"Druckvorschau -") // Title                     "Print preview -"
+  /* 11 */ AAdd(aTooltips,"Drucken")         // Button                    "Print"
+  /* 12 */ AAdd(aTooltips,"Schlie" + CSZUML + "en") // Button             "Exit"
+  /* 13 */ AAdd(aTooltips,"Optionen")        // Button                    "Dialog"
+  /* 14 */ AAdd(aTooltips,"Benutzer-Knopf")  // aBootUser[ 3 ], Tooltip   "User Button"
+  /* 15 */ AAdd(aTooltips,"Benutzer-Knopf")  // aBootUser[ 4 ]            "User Button"
   // Subdialog "Printer Dialog"
-  /* 16 */ AAdd(aTooltips,"Alles")           && Radio Button              "All"
-  /* 17 */ AAdd(aTooltips,"Aktuelle Seite")  && Radio Button              "Current"
-  /* 18 */ AAdd(aTooltips,"Seiten")          && Radio Button              "Pages"
-  /* 19 */ AAdd(aTooltips,"Drucken")         && Button                    "Print"
-  /* 20 */ AAdd(aTooltips,"Abbruch" )        && Button                    "Cancel"
-  /* 21 */ AAdd(aTooltips,"Seitenbereich(e) eingeben") && Tooltip         "Enter range of pages"
+  /* 16 */ AAdd(aTooltips,"Alles")           // Radio Button              "All"
+  /* 17 */ AAdd(aTooltips,"Aktuelle Seite")  // Radio Button              "Current"
+  /* 18 */ AAdd(aTooltips,"Seiten")          // Radio Button              "Pages"
+  /* 19 */ AAdd(aTooltips,"Drucken")         // Button                    "Print"
+  /* 20 */ AAdd(aTooltips,"Abbruch" )        // Button                    "Cancel"
+  /* 21 */ AAdd(aTooltips,"Seitenbereich(e) eingeben") // Tooltip         "Enter range of pages"
   
   
 RETURN aTooltips
@@ -751,7 +751,7 @@ IF (clangset == NIL) .OR. EMPTY(clangset)
    AAdd (aps, "0")
    AAdd (aps, "1")
    AAdd (aps, "2")
-   RETURN aps  && Avoid crash
+   RETURN aps  // Avoid crash
  ENDIF 
 
  IF clangset == "Deutsch"

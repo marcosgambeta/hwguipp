@@ -75,7 +75,7 @@ LOCAL al_DOKs  // The array to be edited
 #ifdef __PLATFORM__WINDOWS
  PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
 #else
- PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12 && vorher 13
+ PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12 // vorher 13
 #endif 
 
 /*
@@ -104,7 +104,7 @@ al_DOKs :=  { {"1"} , {"2"} , {"3"} , {"4"} }
       oBrwArr:acolumns[1]:length := 50
       oBrwArr:bcolorSel := hwg_ColorC2N( "800080" )
       * FONT setting is mandatory, otherwise crashes with "Not exported method PROPS2ARR" 
-      oBrwArr:ofont := oFont && HFont():Add( "Arial",0,-12 )
+      oBrwArr:ofont := oFont // HFont():Add( "Arial",0,-12 )
 
       @ 10,  410 BUTTON oBtn1 CAPTION "Edit"    SIZE 60,25  ON CLICK {|| BrwArrayEditElem(oBrwArr) } ;
         TOOLTIP "or ENTER: Edit element under cursor"
@@ -128,7 +128,7 @@ LOCAL nlaeng , cGetfield , cOldget , agetty
  nlaeng := oBrow:acolumns[1]:length
  * Should be an element with one dimension and one element
  agetty := oBrow:aArray[oBrow:nCurrent]
- cGetfield :=  PADR(agetty[1] , nlaeng )  && Trim variables for GET
+ cGetfield :=  PADR(agetty[1] , nlaeng )  // Trim variables for GET
  
  cOldget := cGetfield
  

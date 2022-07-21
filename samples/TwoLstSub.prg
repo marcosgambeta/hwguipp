@@ -104,7 +104,7 @@ LOCAL oItems1, oItems2
 #ifdef __PLATFORM__WINDOWS
  PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
 #else
- PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12 && vorher 13
+ PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12 // vorher 13
 #endif 
 
  * items
