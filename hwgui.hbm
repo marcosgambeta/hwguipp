@@ -85,7 +85,7 @@
 {win}source/winapi/hrebar.prg
 {win}source/winapi/hrect.prg
 {win}source/winapi/hrichedit.prg
-{win}source/winapi/hsayimg.prg
+{win}source/winapi/hsayimage.prg
 {win}source/winapi/hscrollarea.prg
 {win}source/winapi/hshadebutton.prg
 {win}source/winapi/hsplash.prg
