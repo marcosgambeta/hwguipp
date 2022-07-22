@@ -49,7 +49,7 @@ Local oMainWindow
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+Return NIL
 
 
 FUNCTION DlgDPick()
@@ -96,7 +96,7 @@ daltdatum := d1
 
     hwg_Msginfo(dtoc(d1))
 
-Return Nil
+Return NIL
 
 
 * =============================== EOF of datepicker.prg ==============================

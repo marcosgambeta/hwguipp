@@ -43,7 +43,7 @@ Function Main()
 
         ACTIVATE WINDOW oMain
         
-Return Nil
+Return NIL
 
 Function Test()
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
@@ -64,7 +64,7 @@ Function Test()
              @ 620, 395 BUTTON "Close" SIZE 75,25 ON CLICK {|| oForm:Close() }                            
              
         ACTIVATE DIALOG oForm
-Return Nil
+Return NIL
 
 Function OnDispInfo( o, x, y )    
     Local result := ""

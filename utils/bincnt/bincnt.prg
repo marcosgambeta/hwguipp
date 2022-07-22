@@ -34,7 +34,7 @@ FUNCTION Main( cContainer )
          ENDDO
       ENDIF
       oMenuBrw:Show( HWindow():GetMain() )
-      RETURN Nil
+      RETURN NIL
    }
 
 
@@ -93,7 +93,7 @@ FUNCTION Main( cContainer )
 
    hwg_Enablemenuitem( , 1001, .F. , .T. )
 
-   IF cContainer != Nil
+   IF cContainer != NIL
       CntOpen( cContainer )
    ENDIF
 
@@ -103,7 +103,7 @@ FUNCTION Main( cContainer )
       oContainer:Close()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CntCreate()
 
@@ -129,7 +129,7 @@ STATIC FUNCTION CntCreate()
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CntOpen( fname )
 
@@ -151,7 +151,7 @@ STATIC FUNCTION CntOpen( fname )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CntAdd()
    LOCAL oDlg, oEdit1, oEdit2, oEdit3, cFileName := "", cObjName := "", cType := ""
@@ -198,7 +198,7 @@ STATIC FUNCTION CntAdd()
 
    oDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CntDel()
    LOCAL n := oBrw:nCurrent
@@ -208,7 +208,7 @@ STATIC FUNCTION CntDel()
       oBrw:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CntSave()
    LOCAL n := oBrw:nCurrent
@@ -225,7 +225,7 @@ STATIC FUNCTION CntSave()
       hb_MemoWrit( fname, oContainer:Get( oContainer:aObjects[n,1] ) )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CntPack()
 
@@ -235,7 +235,7 @@ STATIC FUNCTION CntPack()
    oBrw:Top()
    oBrw:Refresh()
 
-   RETURN Nil
+   RETURN NIL
 
 #define  CLR_VDBLUE  10485760
 #define  CLR_LBLUE0  12164479
@@ -258,4 +258,4 @@ STATIC FUNCTION About()
 
    ACTIVATE DIALOG oDlg CENTER
 
-   RETURN Nil
+   RETURN NIL

@@ -62,7 +62,7 @@ Private cCaption, x, y, nWidth, nHeight, nStyle, lClipper, oFont, tColor, bColor
             ENDIF
          ELSE           
             itemName := CnvCtrlName( NextItem( stroka,.T. ) )
-            IF itemName == Nil
+            IF itemName == NIL
                hwg_Msgstop( "Wrong item name: " + NextItem( stroka,.T. ) )
                Return
             ENDIF
@@ -101,7 +101,7 @@ Private aControls := oForm:oDlg:aControls, alen := Len( aControls ), i
        + ";" + Ltrim( Str(oForm:oDlg:style) )    &&
        + ";" + Iif(oForm:lGet,"T","F")           &&
        + ";" + Iif(oForm:oDlg:lClipper,"T","F")  &&
-       + ";" + Iif(oForm:oDlg:oFont!=Nil,        &&
+       + ";" + Iif(oForm:oDlg:oFont!=NIL,        &&
        oForm:oDlg:oFont:name + "," + Ltrim(Str(oForm:oDlg:oFont:width)) &&
        + "," + Ltrim(Str(oForm:oDlg:oFont:height)) + "," + Ltrim(Str(oForm:oDlg:oFont:weight)) &&
        + "," + Ltrim(Str(oForm:oDlg:oFont:charset)) + "," + Ltrim(Str(oForm:oDlg:oFont:italic)) &&
@@ -118,14 +118,14 @@ Private aControls := oForm:oDlg:aControls, alen := Len( aControls ), i
           + ";" + Ltrim( Str(oCtrl:nWidth) )   &&
           + ";" + Ltrim( Str(oCtrl:nHeight ) ) &&
           + ";" + Ltrim( Str(oCtrl:style) )    &&
-          + ";" + Iif(oCtrl:oFont!=Nil,        &&
+          + ";" + Iif(oCtrl:oFont!=NIL,        &&
           oCtrl:oFont:name + "," + Ltrim(Str(oCtrl:oFont:width)) &&
           + "," + Ltrim(Str(oCtrl:oFont:height)) + "," + Ltrim(Str(oCtrl:oFont:weight)) &&
           + "," + Ltrim(Str(oCtrl:oFont:charset)) + "," + Ltrim(Str(oCtrl:oFont:italic)) &&
           + "," + Ltrim(Str(oCtrl:oFont:underline)) + "," + Ltrim(Str(oCtrl:oFont:strikeout)) &&
           ,"")  &&
-          + ";" + Iif(oCtrl:tcolor!=Nil.AND.oCtrl:tcolor!=0,Ltrim(Str(oCtrl:tcolor)),"") &&
-          + ";" + Iif(oCtrl:bcolor!=Nil,Ltrim(Str(oCtrl:bcolor)),"")
+          + ";" + Iif(oCtrl:tcolor!=NIL.AND.oCtrl:tcolor!=0,Ltrim(Str(oCtrl:tcolor)),"") &&
+          + ";" + Iif(oCtrl:bcolor!=NIL,Ltrim(Str(oCtrl:bcolor)),"")
       Fwrite( han, stroka + _Chr(10) )
       i++
    ENDDO

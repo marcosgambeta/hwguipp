@@ -39,7 +39,7 @@ LOCAL oMain
 
         ACTIVATE WINDOW oMain
         
-Return Nil
+Return NIL
 
 Function Test()
 
@@ -65,7 +65,7 @@ LOCAL oFont , mreturn
    ENDIF
  ENDIF
 
-Return Nil
+Return NIL
 
 Function FileOpen()
 

@@ -71,8 +71,8 @@
 
 CLASS HWinPrn
 
-   CLASS VAR nStdHeight SHARED  INIT Nil
-   CLASS VAR cPrinterName SHARED  INIT Nil
+   CLASS VAR nStdHeight SHARED  INIT NIL
+   CLASS VAR cPrinterName SHARED  INIT NIL
    DATA   oPrinter
    DATA   nFormType INIT 9
    DATA   oFont
@@ -135,8 +135,8 @@ METHOD New( cPrinter, cpFrom, cpTo, nFormType , nCharset ) CLASS HWinPrn
    ::SetLanguage() // Start with default english
 
    ::oPrinter := HPrinter():New( cPrinter, .F., nFormType )
-   IF ::oPrinter == Nil
-      RETURN Nil
+   IF ::oPrinter == NIL
+      RETURN NIL
    ENDIF
    ::cpFrom := cpFrom
    ::cpTo   := cpTo
@@ -145,11 +145,11 @@ METHOD New( cPrinter, cpFrom, cpTo, nFormType , nCharset ) CLASS HWinPrn
       ::oPrinter:cdpIn := cpTo
    ENDIF
 #endif
-   IF nFormType != Nil
+   IF nFormType != NIL
       ::nFormType := nFormType
    ENDIF
    
-   IF nCharset != Nil
+   IF nCharset != NIL
       :: nCharset := nCharset
    ENDIF
  
@@ -170,21 +170,21 @@ METHOD SetLanguage(apTooltips, apBootUser) CLASS HWinPrn
    IF apTooltips != NIL ; ::aTooltips := apTooltips ; ENDIF
 /* Activate, if necessary */   
 //   IF apBootUser != NIL ; ::aBootUser := apBootUser ; ENDIF  
-RETURN Nil
+RETURN NIL
 
 METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset ) CLASS HWinPrn
 
-   IF lElite != Nil ; ::lElite := lElite ;  ENDIF
-   IF lCond != Nil ; ::lCond := lCond ;  ENDIF
-   IF nLineInch != Nil ; ::nLineInch := nLineInch ;  ENDIF
-   IF lBold != Nil ; ::lBold := lBold ;  ENDIF
-   IF lItalic != Nil ; ::lItalic := lItalic ;  ENDIF
-   IF lUnder != Nil ; ::lUnder := lUnder ;  ENDIF
-   IF nLineMax != Nil ; ::nLineMax := nLineMax ;  ENDIF
-   IF nCharset != Nil ; ::nCharset := nCharset ;  ENDIF
+   IF lElite != NIL ; ::lElite := lElite ;  ENDIF
+   IF lCond != NIL ; ::lCond := lCond ;  ENDIF
+   IF nLineInch != NIL ; ::nLineInch := nLineInch ;  ENDIF
+   IF lBold != NIL ; ::lBold := lBold ;  ENDIF
+   IF lItalic != NIL ; ::lItalic := lItalic ;  ENDIF
+   IF lUnder != NIL ; ::lUnder := lUnder ;  ENDIF
+   IF nLineMax != NIL ; ::nLineMax := nLineMax ;  ENDIF
+   IF nCharset != NIL ; ::nCharset := nCharset ;  ENDIF
    ::lChanged := .T.
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset) CLASS HWinPrn
 
@@ -200,7 +200,7 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
 
    IF ::lPageStart
 
-      IF ::nStdHeight == Nil .OR. ::cPrinterName != ::oPrinter:cPrinterName
+      IF ::nStdHeight == NIL .OR. ::cPrinterName != ::oPrinter:cPrinterName
          ::nStdHeight := STD_HEIGHT
          ::cPrinterName := ::oPrinter:cPrinterName
          nPWidth := ::oPrinter:nWidth / ::oPrinter:nHRes - 10
@@ -232,7 +232,7 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
 
       oFont := ::oPrinter:AddFont( cFont, ::nLineHeight, ::lBold, ::lItalic, ::lUnder, ::nCharset ) && ::nCharset 204 = Russian
 
-      IF ::oFont != Nil
+      IF ::oFont != NIL
          ::oFont:Release()
       ENDIF
       
@@ -244,7 +244,7 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
 
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 /*
   Added by DF7BE:
@@ -255,7 +255,7 @@ METHOD SetDefaultMode() CLASS HWinPrn
 
    ::SetMode( .F., .F. , 6, .F. , .F. , .F. , 0 , 0 )
 
-   RETURN Nil
+   RETURN NIL
 
 
 METHOD SetY( nYvalue ) CLASS HWinPrn
@@ -285,12 +285,12 @@ METHOD StartDoc( lPreview, cMetaName , lprbutton ) CLASS HWinPrn
    ::oPrinter:StartDoc( lPreview, cMetaName , lprbutton )
    ::NextPage()
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD NextPage() CLASS HWinPrn
 
    IF ! ::lDocStart
-      RETURN Nil
+      RETURN NIL
    ENDIF
    IF ::lPageStart
       ::oPrinter:EndPage()
@@ -299,7 +299,7 @@ METHOD NextPage() CLASS HWinPrn
    ::lPageStart := .T.
    ::oPrinter:StartPage()
 
-   IF ::oFont == Nil
+   IF ::oFont == NIL
       ::SetMode()
    ELSE
       ::oPrinter:SetFont( ::oFont )
@@ -312,7 +312,7 @@ METHOD NextPage() CLASS HWinPrn
 #endif
    ::lFirstLine := .T.
 
-   RETURN Nil
+   RETURN NIL
 
    
 /*
@@ -423,7 +423,7 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
    // hwg_WriteLog(STR(::x) + CHR(10) + STR(::y) + CHR(10) ;
    // + STR(aBmpSize[1]) + CHR(10) +  STR(aBmpSize[2]) + CHR(10) +  STR(i) )
 
-  RETURN Nil
+  RETURN NIL
 
    
 METHOD NewLine()  CLASS HWinPrn
@@ -433,7 +433,7 @@ METHOD NewLine()  CLASS HWinPrn
      IF ::y < 0
        ::y := 0
      ENDIF
-   RETURN Nil   
+   RETURN NIL   
 
    
 METHOD PrintLine( cLine, lNewLine ) CLASS HWinPrn
@@ -443,13 +443,13 @@ METHOD PrintLine( cLine, lNewLine ) CLASS HWinPrn
       ::StartDoc()
    ENDIF
 
-   IF lNewLine == Nil
+   IF lNewLine == NIL
      lNewLine := .T.
    ENDIF
    
 * HKrzak.Start 2020-10-25
 * Bug Ticket #64
-IF cLine != Nil .AND. VALTYPE(cLine) == "N"
+IF cLine != NIL .AND. VALTYPE(cLine) == "N"
      ::y += ::nLineHeight * cLine
      IF ::y < 0
        ::y := 0
@@ -468,7 +468,7 @@ IF cLine != Nil .AND. VALTYPE(cLine) == "N"
 
 * HKrzak.Start 2020-10-25
 * Bug Ticket #64
-   IF cLine != Nil .AND. VALTYPE(cLine) == "N"
+   IF cLine != NIL .AND. VALTYPE(cLine) == "N"
      RETURN NIL
    ENDIF
 * HKrzak.End
@@ -480,7 +480,7 @@ IF cLine != Nil .AND. VALTYPE(cLine) == "N"
       ::y += ::nLineHeight + ::nLined
    ENDIF
 
-   IF cLine != Nil .AND. ! Empty( cLine )
+   IF cLine != NIL .AND. ! Empty( cLine )
       slen := Len( cLine )
       i := 1
       i0 := 0
@@ -553,7 +553,7 @@ IF cLine != Nil .AND. VALTYPE(cLine) == "N"
        ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD PrintText( cText ) CLASS HWinPrn
 
@@ -565,7 +565,7 @@ METHOD PrintText( cText ) CLASS HWinPrn
    ::x += ( ::nCharW * Len( cText ) )
 
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD PutCode( cLine ) CLASS HWinPrn
    STATIC aCodes := {   ;
@@ -614,7 +614,7 @@ METHOD EndDoc() CLASS HWinPrn
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD END() CLASS HWinPrn
 
@@ -622,6 +622,6 @@ METHOD END() CLASS HWinPrn
    ::oFont:Release()
    ::oPrinter:END()
 
-   RETURN Nil
+   RETURN NIL
    
 * ================================ EOF of hwinprn.prg ==========================   

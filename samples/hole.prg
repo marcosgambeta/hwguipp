@@ -46,7 +46,7 @@ Public oAgent, oTimer
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+Return NIL
 
 Static Function SpeakIt( oEdit )
 // Local aTop := hwg_Clienttoscreen( oMainWindow:handle,0,0 )
@@ -61,11 +61,11 @@ Static Function SpeakIt( oEdit )
    oChar:LanguageID := Iif( Asc(cText)>122,"&H0419","&H0409" )
 
    IF SpeakLine()
-      oReq := Nil
+      oReq := NIL
       oChar:Hide( 1 )
    ENDIF
 
-Return Nil
+Return NIL
 
 Static Function SpeakLine()
 Local cLine, lEnd := .F., cUpd := "10"
@@ -97,19 +97,19 @@ Static Function SetPause()
    ENDIF
    lPause := !lPause
 
-Return Nil
+Return NIL
 
 Static Function TimerFunc()
 Local nReq
 
    IF !lPause .AND. !Empty( oReq ) .AND. ( nReq := oReq:Status() ) != 2 .AND. nReq != 4
-      oReq := Nil
+      oReq := NIL
       IF SpeakLine()
          oChar:Hide( 1 )
       ENDIF
    ENDIF
 
-Return Nil
+Return NIL
 
 EXIT PROCEDURE EXI
 
@@ -119,4 +119,4 @@ EXIT PROCEDURE EXI
    ENDIF
    oTimer:End()
 
-Return Nil
+Return NIL

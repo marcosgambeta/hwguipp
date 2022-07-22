@@ -12,22 +12,22 @@
 
 #ifdef __GTK__
 FUNCTION HB_GT_CGI
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION HB_GT_CGI_DEFAULT
-   RETURN Nil
+   RETURN NIL
 #else
 FUNCTION HB_GT_GUI
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION HB_GT_GUI_DEFAULT
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION HB_GT_WIN
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION HB_GT_WIN_DEFAULT
-   RETURN Nil
+   RETURN NIL
 #endif
 
 FUNCTION gthwg_CreateMainWindow( cTitle, oFont )
@@ -40,7 +40,7 @@ FUNCTION gthwg_CreateMainWindow( cTitle, oFont )
       Iif( Empty(cTitle),"gt_HwGUI",cTitle ),,, oFont,, {||gthwg_CloseWindow()}, ;
       ,,,,,,,,,, WS_THICKFRAME )
 
-   gthwg_SetWindow( oWnd:handle, Iif( Empty(oFont), Nil, oFont:handle ) )
+   gthwg_SetWindow( oWnd:handle, Iif( Empty(oFont), NIL, oFont:handle ) )
 
    RETURN oWnd
 
@@ -79,7 +79,7 @@ FUNCTION gthwg_CreatePane( oWnd, nLeft, nTop, nWidth, nHeight, oFont, bSize )
 
    @ nLeft,nTop BROWSE oPane ARRAY OF oWnd SIZE nWidth, nHeight NO VSCROLL
 
-   gthwg_SetPanel( oPane:handle, oWnd:handle, Iif( Empty(oFont), Nil, oFont:handle ) )
+   gthwg_SetPanel( oPane:handle, oWnd:handle, Iif( Empty(oFont), NIL, oFont:handle ) )
 
    IF Empty( bSize )
       bSize := bSizeDef
@@ -100,4 +100,4 @@ FUNCTION gthwg_AddFont( cName, nHeight, nWidth, nWeight, nQuality, nCodepage )
       RETURN oFont:handle
    ENDIF
 
-   RETURN Nil
+   RETURN NIL

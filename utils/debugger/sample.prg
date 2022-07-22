@@ -68,7 +68,7 @@ Function Main
 
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+Return NIL
 
 FUNCTION Teste
    LOCAL oDlg
@@ -86,8 +86,8 @@ FUNCTION Teste
 
     ACTIVATE DIALOG oDlg
 
-  RETURN Nil
+  RETURN NIL
 
-Return Nil
+Return NIL
 
 * ================= EOF of sample.prg =================

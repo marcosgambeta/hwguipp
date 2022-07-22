@@ -46,6 +46,6 @@ csplashimg := ".." + cDirSep + "image" + cDirSep + "astro.jpg"
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+Return NIL
 
  

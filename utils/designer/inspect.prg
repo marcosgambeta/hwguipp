@@ -25,7 +25,7 @@ FUNCTION InspOpen
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SIZEBOX ;
       FONT oDesigner:oMainWnd:oFont                   ;
       ON INIT { ||hwg_Movewindow( oDesigner:oDlgInsp:handle, 0, 280, 230, 280 ) }   ;
-      ON EXIT { ||oDesigner:oDlgInsp := Nil, hwg_Checkmenuitem( oDesigner:oMainWnd:handle, MENU_OINSP, .F. ), .T. }
+      ON EXIT { ||oDesigner:oDlgInsp := NIL, hwg_Checkmenuitem( oDesigner:oMainWnd:handle, MENU_OINSP, .F. ), .T. }
 
    @ 0, 0 COMBOBOX oCombo ITEMS {} SIZE 220, 26 ;
       STYLE WS_VSCROLL                     ;
@@ -77,7 +77,7 @@ FUNCTION InspOpen
    oDesigner:oDlgInsp:AddEvent( 0, IDOK, { ||DlgOk() } )
    oDesigner:oDlgInsp:AddEvent( 0, IDCANCEL, { ||DlgCancel() } )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Edit1()
    LOCAL varbuf, x1, y1, nWidth, j, cName, aCtrlProp, oGet
@@ -87,7 +87,7 @@ STATIC FUNCTION Edit1()
    PRIVATE value, oCtrl := iif( oCombo:value == 1, HFormGen():oDlgSelected, GetCtrlSelected( HFormGen():oDlgSelected ) )
 
    IF oBrw1:SetColumn() == 1
-      RETURN Nil
+      RETURN NIL
    ENDIF
    oBrw1:cargo := Eval( oBrw1:bRecno, oBrw1 )
    IF oCombo:value == 1
@@ -100,44 +100,44 @@ STATIC FUNCTION Edit1()
    j := Ascan( aDataDef, { |a|a[1] == cName } )
    varbuf := Eval( oColumn:block, , oBrw1, 2 )
 
-   IF ( j != 0 .AND. aDataDef[ j,5 ] != Nil ) .OR. aCtrlProp[ oBrw1:cargo,3 ] == "A"
-      IF j != 0 .AND. aDataDef[ j,5 ] != Nil
+   IF ( j != 0 .AND. aDataDef[ j,5 ] != NIL ) .OR. aCtrlProp[ oBrw1:cargo,3 ] == "A"
+      IF j != 0 .AND. aDataDef[ j,5 ] != NIL
          IF aDataDef[ j,5 ] == "color"
             varbuf := Hwg_ChooseColor( Val( varbuf ), .F. )
-            IF varbuf != Nil
+            IF varbuf != NIL
                varbuf := LTrim( Str( varbuf ) )
                lRes := .T.
             ENDIF
          ELSEIF aDataDef[ j,5 ] == "font"
             varbuf := HFont():Select( varbuf )
-            IF varbuf != Nil
+            IF varbuf != NIL
                lRes := .T.
             ENDIF
          ELSEIF aDataDef[ j,5 ] == "file"
             varbuf := hwg_Selectfile( "All files ( *.* )", "*.*" )
-            IF varbuf != Nil
+            IF varbuf != NIL
                lRes := .T.
             ENDIF
          ELSEIF aDataDef[ j,5 ] == "anchor"
             varbuf := SelectAnchor( Val(varbuf) )
-            IF varbuf != Nil
+            IF varbuf != NIL
                varbuf := LTrim( Str( varbuf ) )
                lRes := .T.
             ENDIF
          ELSEIF Left( aDataDef[j,5],6 ) == "hstyle"
             varbuf := SelectStyle( varbuf )
-            IF varbuf != Nil
+            IF varbuf != NIL
                lRes := .T.
             ENDIF
          ELSEIF aDataDef[ j,5 ] == "styles"
             varbuf := SeleStyles( varbuf )
-            IF varbuf != Nil
+            IF varbuf != NIL
                lRes := .T.
             ENDIF
          ENDIF
       ELSE
          varbuf := EditArray( varbuf )
-         IF varbuf != Nil
+         IF varbuf != NIL
             lRes := .T.
          ENDIF
       ENDIF
@@ -147,9 +147,9 @@ STATIC FUNCTION Edit1()
          j := Ascan( aDataDef, { |a|a[1] == cName } )
          value := aProp[ oBrw1:cargo,2 ] := varbuf
          aCtrlProp[ oBrw1:cargo,2 ] := value
-         IF j != 0 .AND. aDataDef[ j,3 ] != Nil
+         IF j != 0 .AND. aDataDef[ j,3 ] != NIL
             EvalCode( aDataDef[ j,3 ] )
-            IF aDataDef[ j,4 ] != Nil
+            IF aDataDef[ j,4 ] != NIL
                EvalCode( aDataDef[ j,4 ] )
             ENDIF
          ENDIF
@@ -164,9 +164,9 @@ STATIC FUNCTION Edit1()
       nWidth := Min( oBrw1:aColumns[2]:width, oBrw1:x2 - x1 - 1 )
 
       ReadExit( .T. )
-      IF ( j != 0 .AND. aDataDef[ j,6 ] != Nil ) .OR. aCtrlProp[ oBrw1:cargo,3 ] == "L"
+      IF ( j != 0 .AND. aDataDef[ j,6 ] != NIL ) .OR. aCtrlProp[ oBrw1:cargo,3 ] == "L"
 
-         aItems := iif( j != 0 .AND. aDataDef[ j,6 ] != Nil, aDataDef[ j,6 ], { "True", "False" } )
+         aItems := iif( j != 0 .AND. aDataDef[ j,6 ] != NIL, aDataDef[ j,6 ], { "True", "False" } )
          varbuf := AllTrim( varbuf )
          nChoic := Ascan( aItems, varbuf )
 
@@ -194,16 +194,16 @@ STATIC FUNCTION Edit1()
       hwg_Setfocus( oGet:handle )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Edit2()
    LOCAL value, cargo
 
    IF oBrw2:SetColumn() == 1
-      RETURN Nil
+      RETURN NIL
    ENDIF
    cargo := oBrw2:cargo := Eval( oBrw2:bRecno, oBrw2 )
-   IF ( value := EditMethod( aMethods[cargo,1],aMethods[cargo,2] ) ) != Nil ;
+   IF ( value := EditMethod( aMethods[cargo,1],aMethods[cargo,2] ) ) != NIL ;
          .AND. !( aMethods[cargo,2] == value )
       aMethods[cargo,2] := value
       IF oCombo:value == 1
@@ -216,7 +216,7 @@ STATIC FUNCTION Edit2()
       oBrw2:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION VldBrwGet( oGet )
    LOCAL vari, j, cName, x1, x2, y1, y2
@@ -243,9 +243,9 @@ STATIC FUNCTION VldBrwGet( oGet )
    x1 := oCtrl:nLeft; y1 := oCtrl:nTop
    x2 := oCtrl:nLeft + oCtrl:nWidth; y2 := oCtrl:nTop + oCtrl:nHeight
 
-   IF j != 0 .AND. oDesigner:aDataDef[ j,3 ] != Nil
+   IF j != 0 .AND. oDesigner:aDataDef[ j,3 ] != NIL
       EvalCode( oDesigner:aDataDef[ j,3 ] )
-      IF oDesigner:aDataDef[ j,4 ] != Nil
+      IF oDesigner:aDataDef[ j,4 ] != NIL
          EvalCode( oDesigner:aDataDef[ j,4 ] )
       ENDIF
    ENDIF
@@ -274,13 +274,13 @@ STATIC FUNCTION DlgOk()
       VldBrwGet( oBrw1:aControls[1] )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION DlgCancel()
    LOCAL oDlg
 
    IF !Empty( oBrw1:aControls )
-      IF ( oDlg := hwg_ParentGetDialog( oBrw1:aControls[1] ) ) != Nil
+      IF ( oDlg := hwg_ParentGetDialog( oBrw1:aControls[1] ) ) != NIL
          oDlg:nLastKey := 0
       ENDIF
 
@@ -288,21 +288,21 @@ STATIC FUNCTION DlgCancel()
       oBrw1:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION InspSetCombo()
    LOCAL i, aControls, oCtrl, n := - 1, oDlg := HFormGen():oDlgSelected
 
    oCombo:aItems := {}
-   IF oDlg != Nil
+   IF oDlg != NIL
       n := 0
       AAdd( oCombo:aItems, "Form." + oDlg:title )
       oCtrl := GetCtrlSelected( oDlg )
       aControls := iif( oDesigner:lReport, oDlg:aControls[1]:aControls[1]:aControls, ;
          oDlg:aControls )
       FOR i := 1 TO Len( aControls )
-         AAdd( oCombo:aItems, aControls[i]:cClass + "." + iif( aControls[i]:title != Nil,Left(aControls[i]:title,15 ),LTrim(Str(aControls[i]:id ) ) ) )
-         IF oCtrl != Nil .AND. oCtrl:handle == aControls[i]:handle
+         AAdd( oCombo:aItems, aControls[i]:cClass + "." + iif( aControls[i]:title != NIL,Left(aControls[i]:title,15 ),LTrim(Str(aControls[i]:id ) ) ) )
+         IF oCtrl != NIL .AND. oCtrl:handle == aControls[i]:handle
             n := i
          ENDIF
       NEXT
@@ -311,7 +311,7 @@ FUNCTION InspSetCombo()
    //oCombo:value := n + 1
    InspSetBrowse()
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION InspUpdCombo( n )
    LOCAL aControls, i
@@ -322,7 +322,7 @@ FUNCTION InspUpdCombo( n )
          HFormGen():oDlgSelected:aControls )
       i := Len( aControls )
       IF i >= Len( oCombo:aItems )
-         AAdd( oCombo:aItems, aControls[i]:cClass + "." + iif( aControls[i]:title != Nil,Left(aControls[i]:title,15 ),LTrim(Str(aControls[i]:id ) ) ) )
+         AAdd( oCombo:aItems, aControls[i]:cClass + "." + iif( aControls[i]:title != NIL,Left(aControls[i]:title,15 ),LTrim(Str(aControls[i]:id ) ) ) )
       ELSEIF i + 1 < Len( oCombo:aItems )
          RETURN InspSetCombo()
       ENDIF
@@ -331,22 +331,22 @@ FUNCTION InspUpdCombo( n )
    //oCombo:value := n + 1
    InspSetBrowse()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ComboOnChg()
    LOCAL oDlg := HFormGen():oDlgSelected, oCtrl, n
    LOCAL aControls := iif( oDesigner:lReport, oDlg:aControls[1]:aControls[1]:aControls, oDlg:aControls )
 
    oCombo:GetValue()
-   IF oDlg != Nil
+   IF oDlg != NIL
       n := oCombo:xValue - 1
       oCtrl := GetCtrlSelected( oDlg )
       IF n == 0
-         IF oCtrl != Nil
+         IF oCtrl != NIL
             SetCtrlSelected( oDlg )
          ENDIF
       ELSEIF n > 0
-         IF oCtrl == Nil .OR. oCtrl:handle != aControls[n]:handle
+         IF oCtrl == NIL .OR. oCtrl:handle != aControls[n]:handle
             SetCtrlSelected( oDlg, aControls[n], n )
          ENDIF
       ENDIF
@@ -382,22 +382,22 @@ STATIC FUNCTION InspSetBrowse()
    oBrw1:Refresh()
    oBrw2:Refresh()
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION InspUpdBrowse()
    LOCAL i, j, lChg := .F.
    MEMVAR value, oCtrl
    PRIVATE value, oCtrl
 
-   IF oCombo == Nil
-      RETURN Nil
+   IF oCombo == NIL
+      RETURN NIL
    ENDIF
    oCtrl := iif( oCombo:value == 1, HFormGen():oDlgSelected, GetCtrlSelected( HFormGen():oDlgSelected ) )
-   IF oDesigner:oDlgInsp != Nil
+   IF oDesigner:oDlgInsp != NIL
       FOR i := 1 TO Len( aProp )
          value := iif( oCombo:value == 1, oCtrl:oParent:aProp[ i,2 ], oCtrl:aProp[ i,2 ] )
          IF ValType( aProp[ i,2 ] ) != "O" .AND. ValType( aProp[ i,2 ] ) != "A" ;
-               .AND. ( aProp[ i,2 ] == Nil .OR. !( aProp[ i,2 ] == value ) )
+               .AND. ( aProp[ i,2 ] == NIL .OR. !( aProp[ i,2 ] == value ) )
             aProp[ i,2 ] := value
             lChg := .T.
          ENDIF
@@ -407,7 +407,7 @@ FUNCTION InspUpdBrowse()
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION InspUpdProp( cName, xValue )
    LOCAL i
@@ -418,12 +418,12 @@ FUNCTION InspUpdProp( cName, xValue )
       oBrw1:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION EditArray( arr )
    LOCAL oDlg, oBrw, nRec := Eval( oBrw1:bRecno, oBrw1 ), i
 
-   IF arr == Nil
+   IF arr == NIL
       arr := {}
    ENDIF
    IF Empty( arr )
@@ -439,7 +439,7 @@ STATIC FUNCTION EditArray( arr )
    oBrw:bcolorSel := 0x008000
    oBrw:lAppable := .T.
    oBrw:aArray := arr
-   oBrw:AddColumn( HColumn():New( ,{ |v,o|iif(v != Nil,o:aArray[o:nCurrent] := v,o:aArray[o:nCurrent] ) },"C",100,0, .T. ,,,Replicate("X",100 ) ) )
+   oBrw:AddColumn( HColumn():New( ,{ |v,o|iif(v != NIL,o:aArray[o:nCurrent] := v,o:aArray[o:nCurrent] ) },"C",100,0, .T. ,,,Replicate("X",100 ) ) )
 
    @ 30, 265 BUTTON "Ok" SIZE 100, 32     ;
       ON SIZE { |o, x, y|o:Move( , y - 35, , ) }  ;
@@ -459,7 +459,7 @@ STATIC FUNCTION EditArray( arr )
       RETURN arr
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION SelectAnchor( nAnchor )
    LOCAL oDlg
@@ -519,7 +519,7 @@ FUNCTION SelectAnchor( nAnchor )
       RETURN nAnchor
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION SelectStyle( oStyle )
    LOCAL oDlg, oDemo, oDemoStyle := Hstyle():New()
@@ -527,7 +527,7 @@ FUNCTION SelectStyle( oStyle )
    LOCAL oGet1, cColors := "", i
    LOCAL bAddClr := {||
       LOCAL nColor := Hwg_ChooseColor(), cVal := Trim(oGet1:Value)
-      IF nColor != Nil
+      IF nColor != NIL
          oGet1:Value := cVal + Iif(!Empty(cVal).AND.Right(cVal,1)!= ',',',',"") + '#' + hwg_ColorN2C(nColor)
          oDemoStyle:aColors := hb_ATokens( AllTrim(cColors),',' )
          Cnv_aColors( oDemoStyle:aColors )
@@ -543,7 +543,7 @@ FUNCTION SelectStyle( oStyle )
    }
    LOCAL bValid := {||
       IF Empty( cColors )
-         oDemoStyle:aColors := Nil
+         oDemoStyle:aColors := NIL
       ELSE
          oDemoStyle:aColors := hb_ATokens( AllTrim(cColors),',' )
          Cnv_aColors( oDemoStyle:aColors )
@@ -554,10 +554,10 @@ FUNCTION SelectStyle( oStyle )
    LOCAL bUpd := {||
       IF oDemoStyle:nBorder != nBorder
          oDemoStyle:nBorder := nBorder
-         IF oDemoStyle:oPen != Nil
+         IF oDemoStyle:oPen != NIL
             oDemoStyle:oPen:Release()
          ENDIF
-         oDemoStyle:oPen := Nil
+         oDemoStyle:oPen := NIL
          IF nBorder != 0
             oDemoStyle:oPen := HPen():Add( BS_SOLID, nBorder, oDemoStyle:tColor )
          ENDIF
@@ -566,7 +566,7 @@ FUNCTION SelectStyle( oStyle )
       RETURN .T.
    }
    LOCAL bUpdC := {||
-      IF aCorners == Nil
+      IF aCorners == NIL
          aCorners := {0,0,0,0}
       ENDIF
       aCorners[1] := nUpLeft
@@ -579,12 +579,12 @@ FUNCTION SelectStyle( oStyle )
    }
    LOCAL bBorderClr := {||
       LOCAL nColor := Hwg_ChooseColor(oDemoStyle:tColor)
-      IF nColor != Nil .AND. oDemoStyle:tColor != nColor
+      IF nColor != NIL .AND. oDemoStyle:tColor != nColor
          oDemoStyle:tColor := nColor
-         IF oDemoStyle:oPen != Nil
+         IF oDemoStyle:oPen != NIL
             oDemoStyle:oPen:Release()
          ENDIF
-         oDemoStyle:oPen := Nil
+         oDemoStyle:oPen := NIL
          IF nBorder != 0
             oDemoStyle:oPen := HPen():Add( BS_SOLID, nBorder, oDemoStyle:tColor )
          ENDIF
@@ -593,7 +593,7 @@ FUNCTION SelectStyle( oStyle )
       RETURN .T.
    }
 
-   IF oStyle != Nil
+   IF oStyle != NIL
       IF !Empty( oStyle:aColors )
          cColors := hwg_hfrm_Arr2Str( oStyle:aColors )
          cColors := Substr( cColors,2,Len(cColors)-2 )
@@ -614,7 +614,7 @@ FUNCTION SelectStyle( oStyle )
 
    INIT DIALOG oDlg TITLE "Select style" ;
       AT 300, 120 SIZE 320, 400 FONT oDesigner:oMainWnd:oFont ;
-      ON INIT {||Iif(oStyle!=Nil,Demo( oDemo, oDemoStyle ),.t.)}
+      ON INIT {||Iif(oStyle!=NIL,Demo( oDemo, oDemoStyle ),.t.)}
 
    @ 20,16 GET oGet1 VAR cColors SIZE 200, 26 VALID bValid MAXLENGTH 36
    @ 220,16 BUTTON "Add" SIZE 40, 28 ON CLICK bAddClr
@@ -655,14 +655,14 @@ FUNCTION SelectStyle( oStyle )
       IF !Empty( cColors )
          aColors := hb_ATokens( AllTrim(cColors),',' )
          Cnv_aColors( aColors )
-         IF aCorners != Nil .AND. aCorners[1] == 0 .AND. aCorners[2] == 0 .AND. aCorners[3] == 0 .AND. aCorners[4] == 0 
-            aCorners := Nil
+         IF aCorners != NIL .AND. aCorners[1] == 0 .AND. aCorners[2] == 0 .AND. aCorners[3] == 0 .AND. aCorners[4] == 0 
+            aCorners := NIL
          ENDIF
          RETURN HStyle():New( aColors, nOrient, aCorners, nBorder, oDemoStyle:tColor )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Cnv_aColors( aColors )
    LOCAL i
@@ -673,24 +673,24 @@ STATIC FUNCTION Cnv_aColors( aColors )
          aColors[i] := Val(aColors[i])
       ELSE
          hwg_MsgStop( "Wrong colors string" )
-         RETURN Nil
+         RETURN NIL
       ENDIF
    NEXT
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Demo( oDemo, oStyle )
 
    oDemo:oStyle := oStyle
    hwg_Invalidaterect( oDemo:handle, 1 )
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION SeleStyles( aStyles )
    LOCAL oDlg, aDemo := Array(3)
    LOCAL bClick := {|o|
-      LOCAL oStyle := Iif( aStyles != Nil, aStyles[o:cargo], Nil )
+      LOCAL oStyle := Iif( aStyles != NIL, aStyles[o:cargo], NIL )
       IF !Empty( oStyle := SelectStyle( oStyle ) )
-         IF aStyles == Nil
+         IF aStyles == NIL
             aStyles := Array(3)
          ENDIF
          aStyles[o:cargo] := oStyle
@@ -720,7 +720,7 @@ FUNCTION SeleStyles( aStyles )
    @ 20, 200 BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
    @ 200, 200 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
 
-   IF aStyles != Nil
+   IF aStyles != NIL
       aDemo[1]:oStyle := aStyles[1]
       aDemo[2]:oStyle := aStyles[2]
       aDemo[3]:oStyle := aStyles[3]
@@ -731,4 +731,4 @@ FUNCTION SeleStyles( aStyles )
    IF oDlg:lResult
       RETURN aStyles
    ENDIF
-   RETURN Nil
+   RETURN NIL

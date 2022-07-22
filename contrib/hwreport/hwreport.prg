@@ -70,8 +70,8 @@ FUNCTION Main()
 
    PUBLIC cDirSep := hwg_GetDirSep()
    PUBLIC mypath := cDirSep + CurDir() + iif( Empty( CurDir() ), "", cDirSep )
-   PUBLIC aPaintRep := Nil
-   PUBLIC oPenBorder, oFontSmall, oFontStandard, oFontDlg , lastFont := Nil
+   PUBLIC aPaintRep := NIL
+   PUBLIC oPenBorder, oFontSmall, oFontStandard, oFontDlg , lastFont := NIL
    PUBLIC aItemTypes := { "TEXT", "HLINE", "VLINE", "BOX", "BITMAP", "MARKER" }
 
    // Icon from hex value "ICON_1"
@@ -169,7 +169,7 @@ FUNCTION Main()
 
    ACTIVATE WINDOW oMainWindow CENTER
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION About()
 
@@ -189,7 +189,7 @@ STATIC FUNCTION About()
 
    ACTIVATE DIALOG oDlg
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION FPreview()
 
@@ -201,7 +201,7 @@ STATIC FUNCTION FPreview()
    ENDIF
    Hwindow():GetMain():oPanel:Refresh()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION NewReport()
    LOCAL oDlg
@@ -223,13 +223,13 @@ STATIC FUNCTION NewReport()
 
    oDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION EndNewrep( oDlg )
 
    LOCAL oMainWindow := HWindow():GetMain()
 
-   aPaintRep := { 0, 0, 0, 0, 0, {}, "", "", .F. , 0, Nil }
+   aPaintRep := { 0, 0, 0, 0, 0, {}, "", "", .F. , 0, NIL }
    IF oDlg:oRb1:Value
       aPaintRep[FORM_WIDTH] := 210 ; aPaintRep[FORM_HEIGHT] := 297
    ELSE
@@ -244,7 +244,7 @@ STATIC FUNCTION EndNewrep( oDlg )
 
    oDlg:Close()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION PaintMain( oWnd )
    LOCAL hWnd := oWnd:handle
@@ -261,7 +261,7 @@ STATIC FUNCTION PaintMain( oWnd )
    LOCAL hDC := hwg_Beginpaint( hWnd, pps )
 #endif
 
-   IF aPaintRep == Nil
+   IF aPaintRep == NIL
 #ifdef __GTK__
      hwg_Releasedc( hWnd, hDC )
 #else
@@ -405,7 +405,7 @@ STATIC FUNCTION PaintItem( hDC, aItem, aCoors )
          hwg_Selectobject( hDC, aItem[ITEM_PEN]:handle )
          hwg_Rectangle( hDC, x1, y1, x2, y2 )
       ELSEIF aItem[ITEM_TYPE] == TYPE_BITMAP
-         IF aItem[ITEM_BITMAP] == Nil
+         IF aItem[ITEM_BITMAP] == NIL
             hwg_Fillrect( hDC, x1, y1, x2, y2, oBrushGray:handle )
          ELSE
             hwg_Drawbitmap( hDC, aItem[ITEM_BITMAP]:handle, SRCAND, x1, y1, x2 - x1 + 1, y2 - y1 + 1 )
@@ -418,7 +418,7 @@ STATIC FUNCTION PaintItem( hDC, aItem, aCoors )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION KeyActions( nKey )
 
@@ -578,14 +578,14 @@ STATIC FUNCTION VSCROLL( hWnd, nScrollCode, nNewPos )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION MouseMove( wParam, xPos, yPos )
    LOCAL x1 := LEFT_INDENT, y1 := TOP_INDENT, x2, y2
    LOCAL hWnd
    LOCAL aItem, i, dx, dy
 
-   IF aPaintRep == Nil .OR. lPreviewMode
+   IF aPaintRep == NIL .OR. lPreviewMode
       RETURN .T.
    ENDIF
    itemBorder := 0
@@ -597,7 +597,7 @@ STATIC FUNCTION MouseMove( wParam, xPos, yPos )
       ENDIF
    ELSEIF itemPressed > 0
       IF Abs( xPos - mPos[1] ) < 3 .AND. Abs( yPos - mPos[2] ) < 3
-         RETURN Nil
+         RETURN NIL
       ENDIF
       aItem := aPaintRep[FORM_ITEMS,itemPressed]
       IF hwg_Checkbit( wParam, MK_LBUTTON )
@@ -676,7 +676,7 @@ STATIC FUNCTION MouseMove( wParam, xPos, yPos )
       ENDIF
    ELSE
 #ifdef __GTK__
-      Hwg_SetCursor( Nil )
+      Hwg_SetCursor( NIL )
 #endif
       FOR i := Len( aPaintRep[FORM_ITEMS] ) TO 1 STEP - 1
          aItem := aPaintRep[FORM_ITEMS,i]
@@ -721,13 +721,13 @@ STATIC FUNCTION MouseMove( wParam, xPos, yPos )
       NEXT
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION LButtonDown( xPos, yPos )
    LOCAL i, aItem, res := .F.
    LOCAL hWnd := Hwindow():GetMain():handle
 
-   IF aPaintRep == Nil .OR. lPreviewMode
+   IF aPaintRep == NIL .OR. lPreviewMode
       RETURN .T.
    ENDIF
    IF nAddItem > 0
@@ -768,13 +768,13 @@ STATIC FUNCTION LButtonDown( xPos, yPos )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION LButtonUp( xPos, yPos )
    LOCAL x1 := LEFT_INDENT, y1 := TOP_INDENT, x2, y2, aItem
    LOCAL hWnd := Hwindow():GetMain():handle
 
-   IF aPaintRep == Nil .OR. lPreviewMode
+   IF aPaintRep == NIL .OR. lPreviewMode
       RETURN .T.
    ENDIF
    x2 := x1 + Round( aPaintRep[FORM_WIDTH] * aPaintRep[FORM_XKOEF], 0 ) - 1
@@ -782,13 +782,13 @@ STATIC FUNCTION LButtonUp( xPos, yPos )
    IF nAddItem > 0 .AND. xPos > x1 .AND. xPos < x2 .AND. yPos > y1 .AND. yPos < y2
       AAdd( aPaintRep[FORM_ITEMS], { nAddItem, "", xPos - x1, ;
          yPos - y1 + aPaintRep[FORM_Y], aInitialSize[nAddItem,1], ;
-         aInitialSize[nAddItem,2], 0, Nil, Nil, 0, 0, Nil, STATE_SELECTED } )
+         aInitialSize[nAddItem,2], 0, NIL, NIL, 0, 0, NIL, STATE_SELECTED } )
       aItem := Atail( aPaintRep[FORM_ITEMS] )
       IF nAddItem == TYPE_HLINE .OR. nAddItem == TYPE_VLINE .OR. nAddItem == TYPE_BOX
          aItem[ITEM_PEN] := HPen():Add()
       ELSEIF nAddItem == TYPE_TEXT
          aItem[ITEM_FONT] := ;
-            iif( lastFont == Nil, HFont():Add( "Arial",0, - 13 ), lastFont )
+            iif( lastFont == NIL, HFont():Add( "Arial",0, - 13 ), lastFont )
       ELSEIF nAddItem == TYPE_MARKER
          aItem[ITEM_X1] := - aInitialSize[nAddItem,1]
          aItem[ITEM_CAPTION] := aMarkers[ nMarkerType ]
@@ -821,7 +821,7 @@ STATIC FUNCTION LButtonUp( xPos, yPos )
    ENDIF
    itemPressed := itemSized := itemBorder := nAddItem := 0
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION DeleteItem()
    LOCAL hWnd := Hwindow():GetMain():handle
@@ -830,9 +830,9 @@ STATIC FUNCTION DeleteItem()
    FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
       IF aPaintRep[FORM_ITEMS,i,ITEM_STATE] == STATE_SELECTED
          aItem := aPaintRep[FORM_ITEMS,i]
-         IF aItem[ITEM_PEN] != Nil .AND. Valtype( aItem[ ITEM_PEN ] ) == "O"
+         IF aItem[ITEM_PEN] != NIL .AND. Valtype( aItem[ ITEM_PEN ] ) == "O"
             aItem[ITEM_PEN]:Release()
-            aItem[ITEM_PEN] := Nil
+            aItem[ITEM_PEN] := NIL
          ENDIF
          hwg_Invalidaterect( hWnd, 0, LEFT_INDENT + aItem[ITEM_X1] - 3, ;
             TOP_INDENT + aItem[ITEM_Y1] - aPaintRep[FORM_Y] - 3, ;
@@ -859,12 +859,12 @@ STATIC FUNCTION DeleteItem()
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION DeselectAll( iSelected )
    LOCAL i, iPrevSelected := 0
 
-   iSelected := iif( iSelected == Nil, 0, iSelected )
+   iSelected := iif( iSelected == NIL, 0, iSelected )
    FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
       IF aPaintRep[FORM_ITEMS,i,ITEM_STATE] == STATE_SELECTED .OR. ;
             aPaintRep[FORM_ITEMS,i,ITEM_STATE] == STATE_PRESSED
@@ -883,7 +883,7 @@ STATIC FUNCTION WriteItemInfo( aItem )
       + LTrim( Str( aItem[ITEM_Y1] ) ) + ", cx: " + LTrim( Str( aItem[ITEM_WIDTH] ) ) ;
       + ", cy: " + LTrim( Str( aItem[ITEM_HEIGHT] ) ) )
 
-   RETURN Nil
+   RETURN NIL
 
    // Returns the Hex value of icon
 

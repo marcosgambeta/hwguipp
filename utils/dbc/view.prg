@@ -93,7 +93,7 @@ FUNCTION RdView( fname )
       ENDIF
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 FUNCTION WrView()
 
@@ -105,7 +105,7 @@ FUNCTION WrView()
 #endif
 
    IF Empty( fname )
-      Return Nil
+      Return NIL
    ENDIF
 
    obl := SELECT()
@@ -137,4 +137,4 @@ FUNCTION WrView()
       Fclose( han )
    ENDIF
    SELECT( obl )
-RETURN Nil
+RETURN NIL

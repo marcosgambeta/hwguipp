@@ -133,7 +133,7 @@ LOCAL ctxt   := "icon displayed with @x,y Bitmap"
 
    ACTIVATE DIALOG oDialog
 
-  RETURN Nil
+  RETURN NIL
 
 * --------------------------------------------
 FUNCTION Init_Hexvars()

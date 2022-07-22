@@ -79,9 +79,9 @@ return NIL
 
 Function TestDosClass(oTest)
 
-If hwg_Msgyesno("Printing PrintDos Class to "+Iif(oTest==Nil,"LPT1",oTest),"PrintDos Class Demo")
+If hwg_Msgyesno("Printing PrintDos Class to "+Iif(oTest==NIL,"LPT1",oTest),"PrintDos Class Demo")
 
-   oPrint:=Printdos():New(oTest)   //oTest=Nil LPT1  
+   oPrint:=Printdos():New(oTest)   //oTest=NIL LPT1  
    
    oPrint:Say(0,  1,  "LINE 0 COL 1")
    oPrint:Say(10, 11, "LINE 10 COL 11")
@@ -109,12 +109,12 @@ If hwg_Msgyesno("Printing PrintDos Class to "+Iif(oTest==Nil,"LPT1",oTest),"Prin
    
 Endif
 
-Return Nil
+Return NIL
 
 Function TestDosClipper(oTest)
 Local oPrinter
 
-If hwg_Msgyesno("Printing style clipper to "+Iif(oTest==Nil,"LPT1",oTest),"PrintDos Class Demo")
+If hwg_Msgyesno("Printing style clipper to "+Iif(oTest==NIL,"LPT1",oTest),"PrintDos Class Demo")
 
    SET PRINTER TO oTest OF oPrinter
 
@@ -144,7 +144,7 @@ If hwg_Msgyesno("Printing style clipper to "+Iif(oTest==Nil,"LPT1",oTest),"Print
 
 Endif
 
-Return Nil
+Return NIL
 
 FUNCTION OpenRel(oText)
 LOCAL oDlg
@@ -168,13 +168,13 @@ Function TestPrinterFile(oTest)
 
 If hwg_Msgyesno("Printing File "+oTest)
 
-   oPrint:=Printdos():New()   //oTest=Nil LPT1  
+   oPrint:=Printdos():New()   //oTest=NIL LPT1  
    oPrint:PrinterFile(oTest)
    oPrint:End()
 
 EndIf
 
-Return Nil
+Return NIL
 
 Function TestGraphic()
 Local oPrint, oPrint1
@@ -213,7 +213,7 @@ oPrint1:=Printdos():New("GRAPHIC")
 oPrint1:txttoGraphic("Graphic.txt", -6,.T.) //Parameters Name graphic, Size, Preview
 
 oPrint1:End()
-Return Nil
+Return NIL
 
 Function TestPreview()
 Local oPrint, oPrint1
@@ -254,12 +254,12 @@ oPrint1:=Printdos():New("PREVIEW")
 oPrint1:Preview("Preview.txt")
 oPrint1:End()
 
-Return Nil
+Return NIL
 
 Function DeskJet(oTest)
 Local oPrinter
 
-If hwg_Msgyesno("Printing InkJet/DeskJet "+Iif(oTest==Nil,"LPT1",oTest),"PrintDos Class Demo")
+If hwg_Msgyesno("Printing InkJet/DeskJet "+Iif(oTest==NIL,"LPT1",oTest),"PrintDos Class Demo")
 
    SET PRINTER TO oTest OF oPrinter
    oPrinter:oPrintStyle:=3

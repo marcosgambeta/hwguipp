@@ -13,7 +13,7 @@ MEMVAR oMainWindow, oPanel , oFont , nColor, oBmp2 , cDir
 
 function Main
 Private oMainWindow, oPanel
-Private oFont := Nil, cDir := "\"+Curdir()+"\"
+Private oFont := NIL, cDir := "\"+Curdir()+"\"
 Private nColor, oBmp2
 
 
@@ -42,10 +42,10 @@ LOCAL cTexto
 
    cOutFile := hwg_Savefile( "*.rtf","RTF files( *.rtf )","*.rtf" )
    IF Empty( cOutFile )
-      Return Nil
+      Return NIL
    ENDIF
    IF File( cOutFile ) .AND. !hwg_Msgyesno( "Recreate it ?",cOutFile+" already exists!" )
-      Return Nil
+      Return NIL
    ENDIF
 
    //      Open the output file & set some defaults

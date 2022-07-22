@@ -57,7 +57,7 @@ FUNCTION _APPMAIN( cFileName, cPar1, cPar2, cPar3, cPar4, cPar5, cPar6, cPar7, c
          IF !Empty( hb_fnameDir( cFileName ) ) .OR. Empty( cMod_Dir ) .OR. ;
             !File( cFileName := hb_DirBase() + cMod_Dir + cFileName )
             hwg_Msgstop( "Can't find " + hb_fnameName( cFileName ) )
-            RETURN Nil
+            RETURN NIL
          ENDIF
       ENDIF
       cPath := hb_fnameDir( cFileName )
@@ -74,14 +74,14 @@ FUNCTION _APPMAIN( cFileName, cPar1, cPar2, cPar3, cPar4, cPar5, cPar6, cPar7, c
          IF lCompile
             IF Empty( cHwg_include_dir ) .OR. !File( cHwg_include_dir + DIR_SEP + "hwgui.ch" )
                hwg_MsgStop( "Set correct path to HwGUI headers in hwgrun.xml", "Hwgui.ch isn't found" )
-               RETURN Nil
+               RETURN NIL
             ENDIF
             cIncPath := cHwg_include_dir + Iif( Empty(cHrb_inc_dir), "", ;
                   hb_OsPathListSeparator() + cHrb_inc_dir )
 
             IF Empty( cHrb := hb_compileBuf( "harbour", cFileName, "/n","/I"+cIncPath ) )
                hwg_MsgStop( "Error while compiling " + cFileName )
-               RETURN Nil
+               RETURN NIL
             ENDIF
          ENDIF
 
@@ -113,7 +113,7 @@ STATIC FUNCTION ReadIni( cPath )
       NEXT
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 INIT PROCEDURE FInit
 

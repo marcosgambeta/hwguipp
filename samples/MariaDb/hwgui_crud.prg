@@ -40,7 +40,7 @@ Function Test
    
    ACTIVATE WINDOW oMain
   
-Return Nil
+Return NIL
 
 Function Contacts_DBF
    Local oDlg, oBrw, oTab, oFontDlg, oFontBrw //Controls of Dialog
@@ -353,4 +353,4 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts using SQLMIX and MariaDB" AT 0,0
 oDlg:Activate()
 
 ctc->( dbCloseArea() )
-Return NIL 
+Return NIL

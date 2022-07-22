@@ -163,7 +163,7 @@ Private oBrw, oSay1, oSay2, oFont, DataCP, currentCP, currFname
 
    ACTIVATE WINDOW oWndMain
 
-Return Nil
+Return NIL
 
 Static Function FileOpen( fname )
 Local mypath := "\" + CURDIR() + IIF( EMPTY( CURDIR() ), "", "\" )
@@ -175,7 +175,7 @@ Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
    IF !Empty( fname )
       close all
       
-      IF DataCP != Nil
+      IF DataCP != NIL
          use (fname) new codepage (DataCP)
          currentCP := DataCP
       ELSE
@@ -186,7 +186,7 @@ Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
       oBrw:InitBrw( 2 )
       oBrw:active := .F.
       hwg_CreateList( oBrw,.T. )
-      Aadd( oBrw:aColumns,Nil )
+      Aadd( oBrw:aColumns,NIL )
       Ains( oBrw:aColumns,1 )
       oBrw:aColumns[1] := HColumn():New( "*",{|v,o|Iif(Deleted(),"*"," ")},"C",1,0 )
       oBrw:active := .T.
@@ -203,26 +203,26 @@ Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
 
    ENDIF
    
-Return Nil
+Return NIL
 
 Static Function ChangeFont()
 Local oBrwFont
 Memvar oBrw, oFont
 
-   IF ( oBrwFont := HFont():Select(oFont) ) != Nil
+   IF ( oBrwFont := HFont():Select(oFont) ) != NIL
 
       oFont := oBrwFont
       oBrw:oFont := oFont
       oBrw:ReFresh()
    ENDIF
    
-Return Nil
+Return NIL
 
 Static Function SetDataCP( cp )
 Memvar DataCP
 
    DataCP := cp
-Return Nil
+Return NIL
 
 Static Function SelectIndex()
 Local aIndex := { { "None","   ","   " } }, i, indname, iLen := 0
@@ -230,7 +230,7 @@ Local oDlg, oBrowse, width, height, nChoice := 0, nOrder := OrdNumber()+1
 Memvar oBrw, oFont
 
    IF Len( oBrw:aColumns ) == 0
-      Return Nil
+      Return NIL
    ENDIF
    
    i := 1   
@@ -271,7 +271,7 @@ Memvar oBrw, oFont
       UpdBrowse()
    ENDIF
                            
-Return Nil
+Return NIL
 
 Static Function NewIndex()
 Local oDlg, of := HFont():Add( "Courier",0,-12 )
@@ -280,7 +280,7 @@ Local oMsg
 Memvar oBrw
 
    IF Len( oBrw:aColumns ) == 0
-      Return Nil
+      Return NIL
    ENDIF
 
    INIT DIALOG oDlg TITLE "Create Order" ;
@@ -313,17 +313,17 @@ Memvar oBrw
          oMsg = DlgWait("Indexing")
          IF lMulti
             IF EMPTY( cCond )
-               ORDCREATE( RTRIM(cName),RTRIM(cTag),RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,Nil) )
+               ORDCREATE( RTRIM(cName),RTRIM(cTag),RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
-               ORDCREATE( RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,Nil) )
+               ORDCREATE( RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ENDIF
          ELSE
             IF EMPTY( cCond )
-               dbCreateIndex( RTRIM(cName),RTRIM(cExpr),&("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,Nil) )
+               dbCreateIndex( RTRIM(cName),RTRIM(cExpr),&("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
-               ORDCREATE( RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,Nil) )
+               ORDCREATE( RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ENDIF
          ENDIF
          oMsg:Close()
@@ -332,7 +332,7 @@ Memvar oBrw
       ENDIF
    ENDIF
    
-Return Nil
+Return NIL
 
 Static Function OpenIndex()
 Local mypath := "\" + CURDIR() + IIF( EMPTY( CURDIR() ), "", "\" )
@@ -340,7 +340,7 @@ Local fname := hwg_Selectfile( "index files( *.ntx )", "*.ntx", mypath )
 Memvar oBrw
 
    IF Len( oBrw:aColumns ) == 0
-      Return Nil
+      Return NIL
    ENDIF
 
    IF !Empty( fname )
@@ -348,14 +348,14 @@ Memvar oBrw
       UpdBrowse()
    ENDIF
 
-Return Nil
+Return NIL
 
 Static Function ReIndex()
 Local oMsg
 Memvar oBrw
 
    IF Len( oBrw:aColumns ) == 0
-      Return Nil
+      Return NIL
    ENDIF
 
    oMsg = DlgWait("Reindexing")
@@ -363,20 +363,20 @@ Memvar oBrw
    oMsg:Close()
    oBrw:Refresh()
    
-Return Nil
+Return NIL
 
 Static Function CloseIndex()
 Memvar oBrw
 
    IF Len( oBrw:aColumns ) == 0
-      Return Nil
+      Return NIL
    ENDIF
    
    OrdListClear()
    Set Order To 0
    UpdBrowse()
    
-Return Nil
+Return NIL
 
 Static Function UpdBrowse()
 Memvar oBrw, oSay1
@@ -391,7 +391,7 @@ Memvar oBrw, oSay1
    oBrw:Refresh()
    oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )
    oSay2:SetText( "" )
-Return Nil
+Return NIL
 
 Static Function DlgWait( cTitle )
 Local oDlg
@@ -462,7 +462,7 @@ Memvar oBrw, currentCP, currFname
          CLOSE ALL
          fname := hwg_MsgGet("File creation","Input new file name")
          IF Empty( fname )
-            Return Nil
+            Return NIL
          ENDIF
          dbCreate( fname,af )
          FileOpen( fname )
@@ -475,7 +475,7 @@ Memvar oBrw, currentCP, currFname
          
          fname := "a0_new"
          dbCreate( fname,af )
-         IF currentCP != Nil
+         IF currentCP != NIL
             use (fname) new codepage (currentCP)
          ELSE
             use (fname) new
@@ -531,7 +531,7 @@ Memvar oBrw, currentCP, currFname
             Frename( "a0_new.fpt", currFname + ".fpt" )
          ENDIF
 
-         IF currentCP != Nil
+         IF currentCP != NIL
             use (currFname) new codepage (currentCP)
          ELSE
             use (currFname) new
@@ -546,7 +546,7 @@ Memvar oBrw, currentCP, currFname
 
    ENDIF
 
-Return Nil
+Return NIL
 
 Static Function brw_onPosChg( oBrowse, oGet1, oGet2, oGet3, oGet4 )
 
@@ -562,7 +562,7 @@ Static Function brw_onPosChg( oBrowse, oGet1, oGet2, oGet3, oGet4 )
    oGet4:SetGet( Ltrim(Str(oBrowse:aArray[oBrowse:nCurrent,4])) )
    oGet4:Refresh()
    
-Return Nil
+Return NIL
 
 Static Function UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
 Local cName, cType, nLen, nDec
@@ -582,7 +582,7 @@ Local cName, cType, nLen, nDec
          Aadd( oBrowse:aArray,{ cName,cType,nLen,nDec } )
       ELSE
          IF nOperation == 2
-            Aadd( oBrowse:aArray, Nil )
+            Aadd( oBrowse:aArray, NIL )
             Ains( oBrowse:aArray,oBrowse:nCurrent )
             oBrowse:aArray[oBrowse:nCurrent] := Array(4)
          ENDIF
@@ -594,7 +594,7 @@ Local cName, cType, nLen, nDec
    ENDIF
    oBrowse:Refresh()
    
-Return Nil
+Return NIL
 
 Static Function dbv_Goto()
 Local nRec := Val( GetData( Ltrim(Str(dbv_nRec)),"Go to ...","Input record number:" ) )
@@ -610,7 +610,7 @@ Memvar oBrw
       Eval( oBrw:bScrollPos,oBrw,0 )
    ENDIF
 
-Return Nil
+Return NIL
 
 Static Function dbv_Seek()
 Local cKey, nRec
@@ -634,7 +634,7 @@ Memvar oBrw, oSay2
       ENDIF
    ENDIF
 
-Return Nil
+Return NIL
 
 Static Function dbv_Locate()
 Local cLocate := dbv_cLocate
@@ -645,7 +645,7 @@ Memvar oBrw, oSay2
 
       cLocate := GetData( cLocate,"Locate","Input condition:" )
       IF Empty( cLocate )
-         Return Nil
+         Return NIL
       ENDIF
 
       bOldError := ERRORBLOCK( { | e | MacroError(e) } )
@@ -676,7 +676,7 @@ Memvar oBrw, oSay2
       Eval( oBrw:bGoTo, oBrw, nRec )
    ENDIF
 
-Return Nil
+Return NIL
 
 Static Function dbv_Continue()
 Local nRec
@@ -695,7 +695,7 @@ Memvar oBrw, oSay2
       ENDIF
    ENDIF
 
-Return Nil
+Return NIL
 
 Static Function GetData( cRes, cTitle, cText )
 Local oModDlg, oFont := HFont():Add( "MS Sans Serif",0,-13 )
@@ -748,7 +748,7 @@ Memvar oBrw, oSay1, oSay2
       oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )
       oSay2:SetText( "" )
    ENDIF
-Return Nil
+Return NIL
 
 Static Function dbv_Zap()
 Local oMsg, cTitle := "Zap database"
@@ -763,7 +763,7 @@ Memvar oBrw, oSay1, oSay2
       oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )
       oSay2:SetText( "" )
    ENDIF
-Return Nil
+Return NIL
 
 Static Function dbv_DelRec()
 Memvar oBrw
@@ -777,21 +777,21 @@ Memvar oBrw
       oBrw:RefreshLine()
    ENDIF
 
-Return Nil
+Return NIL
 
 FUNCTION FSET_CENT_GET
  LOCAL bC
  IIF( hwg_getCentury(), bC := "ON", bC := "OFF")
   hwg_MsgInfo("The current setting is: SET CENTURY " + bC, "Display Century Setting")
-RETURN Nil
+RETURN NIL
  
 FUNCTION FSET_CENT_ON
  SET CENTURY ON
-RETURN Nil
+RETURN NIL
 
 FUNCTION FSET_CENT_OFF
 SET CENTURY OFF
-RETURN Nil
+RETURN NIL
 
 
 FUNCTION SET_DATE_F(cc)
@@ -813,6 +813,6 @@ FUNCTION SET_DATE_F(cc)
     SET DATE AMERICAN
  ENDCASE
  
-RETURN Nil
+RETURN NIL
 
                                                  

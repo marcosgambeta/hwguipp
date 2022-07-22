@@ -100,7 +100,7 @@ CHECK_FILE(cbmppref + "cancel.ico")
    hwg_Msginfo( OEDITBOX:TITLE , "Title of OEDITBOX")
    hwg_Msginfo( mnome  , "Contents of variable mnome")
 
-   RETURN Nil
+   RETURN NIL
    
 FUNCTION CHECK_FILE ( cfi )
 * Check, if file exist, otherwise terminate program
@@ -108,7 +108,7 @@ FUNCTION CHECK_FILE ( cfi )
   Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
   QUIT
  ENDIF 
-RETURN Nil
+RETURN NIL
 
 * =================== EOF of escrita.prg ====================  
 

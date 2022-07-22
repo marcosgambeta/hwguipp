@@ -83,7 +83,7 @@ Local i, j, j1, cTheme, oTheme, oThemeXML, arr
          NEXT
       ENDIF
    NEXT
-Return Nil
+Return NIL
 
 Function SaveEdOptions()
 Local oIni := HXMLDoc():Read( cCurDir+cIniName )
@@ -91,12 +91,12 @@ Local i, j, oNode, nStart, oThemeDesc, aAttr
 
    oNode := oIni:aItems[1]
    nStart := 1
-   IF oNode:Find( "font",@nStart ) == Nil
+   IF oNode:Find( "font",@nStart ) == NIL
       oNode:Add( hwg_Font2XML( HDTheme():oFont ) )
    ELSE
       oNode:aItems[nStart] := hwg_Font2XML( HDTheme():oFont )
    ENDIF
-   IF oNode:Find( "themes",@nStart ) != Nil
+   IF oNode:Find( "themes",@nStart ) != NIL
       oNode := oNode:aItems[nStart]
       oNode:SetAttribute( "selected", HDTheme():aThemes[HDTheme():nSelected]:name )
       oNode:aItems := {}
@@ -156,15 +156,15 @@ Local i, j, oNode, nStart, oThemeDesc, aAttr
    ENDIF
    oIni:Save( cCurDir+cIniName )
 
-Return Nil
+Return NIL
 
 Function EditMethod( cMethName, cMethod )
 Local i
 Local oFont := HDTheme():oFont
 Local cParamString
 Local bKeyDown := {|o,nKey|
-   IF nKey == VK_ESCAPE .AND. oDlg != Nil
-      oDlg := Nil
+   IF nKey == VK_ESCAPE .AND. oDlg != NIL
+      oDlg := NIL
       o:oParent:Close()
       Return -1
    ENDIF
@@ -211,7 +211,7 @@ Local bKeyDown := {|o,nKey|
    IF !Empty( cMethod )
       oEdit:SetText( cMethod )
    ENDIF
-   cMethod := Nil
+   cMethod := NIL
 
    ACTIVATE DIALOG oDlg
 
@@ -220,7 +220,7 @@ Return cMethod
 Function ChangeTheme( nTheme )
 Local oTheme, oFont
 
-   IF HDTheme():nSelected != Nil
+   IF HDTheme():nSelected != NIL
       hwg_Checkmenuitem( oDlg:handle,1020+HDTheme():nSelected, .F. )
    ENDIF
    hwg_Checkmenuitem( oDlg:handle,1020+nTheme, .T. )
@@ -238,18 +238,18 @@ Local oTheme, oFont
          Iif( oTheme:comment[4], oFont:SetFontStyle(,,.T.), -1 ) ), oTheme:comment[1], oTheme:comment[2] )
 
    oEdit:Refresh()
-Return Nil
+Return NIL
 
 Static Function editChgFont()
 Local oFont
 
-   IF ( oFont := HFont():Select( oEdit:oFont ) ) != Nil
+   IF ( oFont := HFont():Select( oEdit:oFont ) ) != NIL
        oEdit:SetFont( oFont )
        oEdit:Refresh()
        HDTheme():oFont := oFont
        HDTheme():lChanged := .T.
    ENDIF
-Return Nil
+Return NIL
 
 
 Static Function EditColors()
@@ -299,10 +299,10 @@ Private nScheme, nType := 2, oTheme := HDTheme():New(), cScheme := ""
    @ 170,110 GROUPBOX "" SIZE 250,75
    @ 180,127 SAY "Text color" SIZE 100,24
    @ 280,125 SAY oSayT CAPTION "" SIZE 24,24
-   @ 305,127 BUTTON "..." SIZE 20,20 ON CLICK {||Iif((temp:=Hwg_ChooseColor(aSchemes[nScheme,nType][1],.F.))!=Nil,(aSchemes[nScheme,nType][1]:=temp,UpdSample()),.F.)}
+   @ 305,127 BUTTON "..." SIZE 20,20 ON CLICK {||Iif((temp:=Hwg_ChooseColor(aSchemes[nScheme,nType][1],.F.))!=NIL,(aSchemes[nScheme,nType][1]:=temp,UpdSample()),.F.)}
    @ 180,152 SAY "Background" SIZE 100,24
    @ 280,150 SAY oSayB CAPTION "" SIZE 24,24
-   @ 305,152 BUTTON oBtn2 CAPTION "..." SIZE 20,20 ON CLICK {||Iif((temp:=Hwg_ChooseColor(aSchemes[nScheme,nType][2],.F.))!=Nil,(aSchemes[nScheme,nType][2]:=temp,UpdSample()),.F.)}
+   @ 305,152 BUTTON oBtn2 CAPTION "..." SIZE 20,20 ON CLICK {||Iif((temp:=Hwg_ChooseColor(aSchemes[nScheme,nType][2],.F.))!=NIL,(aSchemes[nScheme,nType][2]:=temp,UpdSample()),.F.)}
    @ 350,125 CHECKBOX oCheckB CAPTION "Bold" SIZE 60,24 ON CLICK {||aSchemes[nScheme,nType][3]:=oCheckB:Value,UpdSample(),.t.}
    @ 350,150 CHECKBOX oCheckI CAPTION "Italic" SIZE 60,24 ON CLICK {||aSchemes[nScheme,nType][4]:=oCheckI:Value,UpdSample(),.t.}
 
@@ -337,18 +337,18 @@ Private nScheme, nType := 2, oTheme := HDTheme():New(), cScheme := ""
       HDTheme():lChanged := .T.
    ENDIF
 
-Return Nil
+Return NIL
 
 Static Function UpdSample( nAction, nT )
 Local oFont
 Memvar oBrw, oEditC, oSayT, oCheckB, oCheckI, oSayB, aSchemes
 Memvar nScheme, nType, oTheme, cScheme
 
-   IF nAction != Nil
+   IF nAction != NIL
       IF nAction == 1
          IF Len( aSchemes ) == 1
             hwg_Msgstop( "Can't delete the only theme !", "Designer" )
-            Return Nil
+            Return NIL
          ENDIF
          IF hwg_Msgyesno( "Really delete the '" + aSchemes[nScheme,1] + "' theme ?", "Designer" )
             Adel( aSchemes,nScheme )
@@ -356,12 +356,12 @@ Memvar nScheme, nType, oTheme, cScheme
             nScheme := oBrw:nCurrent := oBrw:rowPos := 1
             oBrw:Refresh()
          ELSE
-            Return Nil
+            Return NIL
          ENDIF
       ELSEIF nAction == 2
          IF Empty( cScheme )
             hwg_Msgstop( "You must specify the theme name !", "Designer" )
-            Return Nil
+            Return NIL
          ENDIF
          IF Ascan( aSchemes,{|a|Lower(a[1])==Lower(cScheme)} ) == 0
             Aadd( aSchemes,{ cScheme, AClone(aSchemes[nScheme,2]), ;
@@ -370,12 +370,12 @@ Memvar nScheme, nType, oTheme, cScheme
             oBrw:Refresh()
          ELSE
             hwg_Msgstop( "The " + cScheme + " theme exists already !", "Designer" )
-            Return Nil
+            Return NIL
          ENDIF
       ENDIF
    ENDIF
 
-   IF nT != Nil
+   IF nT != NIL
       nType := nT
    ENDIF
    oSayT:SetColor( ,aSchemes[nScheme,nType][1],.T. )
@@ -389,7 +389,7 @@ Memvar nScheme, nType, oTheme, cScheme
    oTheme:quote   := aSchemes[nScheme,5]
    oTheme:number  := aSchemes[nScheme,6]
 
-   IF nT == Nil
+   IF nT == NIL
       oFont := oEditC:oFont
       oEditC:tColor := oTheme:normal[1]
       oEditC:bColorCur := oEditC:bColor := oTheme:normal[2]
@@ -400,4 +400,4 @@ Memvar nScheme, nType, oTheme, cScheme
 
       oEditC:Refresh()
    ENDIF
-Return Nil
+Return NIL

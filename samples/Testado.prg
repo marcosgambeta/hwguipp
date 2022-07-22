@@ -32,7 +32,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+Return NIL
 
 FUNCTION DlgADO()
 
@@ -66,7 +66,7 @@ FUNCTION DlgADO()
    ACTIVATE DIALOG oModDlg
 
    cnSQL:Close()
-Return Nil
+Return NIL
 
 FUNCTION ADOSkipper( cnSQL, nSkip )
 
@@ -138,7 +138,7 @@ FUNCTION DlgDBF()
 
    ACTIVATE DIALOG oModDlg
    close database
-Return Nil
+Return NIL
 
 // --- DBF ---
 FUNCTION CreateDbf( cName )

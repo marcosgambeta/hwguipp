@@ -96,7 +96,7 @@ ENDIF
 
    ACTIVATE WINDOW oDlg
 
-Return Nil
+Return NIL
 
 FUNCTION TestDialog()
 LOCAL oPanel , oDlg, al_DOKs
@@ -155,7 +155,7 @@ ENDIF
       oBrwArr:ofont := oFont	 
 	 
 	 
-IF inilNightDesign	 
+IF inilNightDesign
 
    @ 200,260 OWNERBUTTON SIZE 100,32 TEXT "Close" COLOR 0xffffff ;
          HSTYLES oStyleNormal, oStylePressed, oStyleOver ;

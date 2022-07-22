@@ -14,7 +14,7 @@ Function Main()
             ENDMENU
 
     ACTIVATE WINDOW oMain
-Return Nil
+Return NIL
 
 Static Function Test()
     Local cVar := Space(30)
@@ -36,5 +36,5 @@ Static Function Test()
        oVar:helpid := 4
    
     ACTIVATE DIALOG oModDlg
-Return Nil
+Return NIL
 

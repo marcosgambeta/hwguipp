@@ -16,7 +16,7 @@ Private oFont := HFont():Add( "MS Sans Serif",0,-13 )
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+Return NIL
 
 Function DlgGet
 Local oDlg
@@ -25,10 +25,10 @@ Local fname := hwg_Selectfile( "All files( *.* )", "*.*" )
 Local oSplit, oSay
 
    IF Empty( fname )
-      Return Nil
+      Return NIL
    ENDIF
 
-   IF ( oXmlDoc := HXMLDoc():Read( fname ) ) = Nil
+   IF ( oXmlDoc := HXMLDoc():Read( fname ) ) = NIL
    ENDIF
 
    INIT DIALOG oDlg TITLE CutPath(fname)    ;
@@ -56,14 +56,14 @@ Local oSplit, oSay
 
    ACTIVATE DIALOG oDlg NOMODAL
 
-Return Nil
+Return NIL
 
 Function BuildTree( oParent,aItems,oSay )
 Local oNode, i, j, alen := Len(aItems), cText
 
    FOR i := 1 TO alen
       IF ValType( aItems[i] ) == "C"
-         IF ( cText := Utf82Ansi( aItems[i] ) ) != Nil
+         IF ( cText := Utf82Ansi( aItems[i] ) ) != NIL
             oParent:cargo += Chr(13)+Chr(10)+cText
          ELSE
             oParent:cargo += Chr(13)+Chr(10)+aItems[i]
@@ -72,7 +72,7 @@ Local oNode, i, j, alen := Len(aItems), cText
          INSERT NODE oNode CAPTION aItems[i]:title TO oParent ON CLICK {|o|NodeOut(o,oSay)}
          oNode:cargo := ""
          FOR j := 1 TO Len(aItems[i]:aAttr)
-            IF ( cText := Utf82Ansi( aItems[i]:aAttr[j,2] ) ) != Nil
+            IF ( cText := Utf82Ansi( aItems[i]:aAttr[j,2] ) ) != NIL
                oNode:cargo += aItems[i]:aAttr[j,1]+" = "+cText+Chr(13)+Chr(10)
             ELSE
                oNode:cargo += aItems[i]:aAttr[j,1]+" = "+aItems[i]:aAttr[j,2]+Chr(13)+Chr(10)
@@ -84,17 +84,17 @@ Local oNode, i, j, alen := Len(aItems), cText
       ENDIF
    NEXT
 
-Return Nil
+Return NIL
 
 Static Function NodeOut( o,oSay )
 
-   IF o == Nil
+   IF o == NIL
       oSay:SetText("")
    ELSE
       oSay:SetText(o:cargo)
    ENDIF
 
-Return Nil
+Return NIL
 
 #pragma BEGINDUMP
 

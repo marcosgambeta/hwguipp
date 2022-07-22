@@ -27,7 +27,7 @@ function Main
 PRIVATE cdirSep := hwg_GetDirSep()
 
 Private oMainWindow, oPanel
-Private oFont := Nil, cImageDir := ".." + cdirSep + "image" + cdirSep
+Private oFont := NIL, cImageDir := ".." + cdirSep + "image" + cdirSep
 Private nColor, oBmp2
 
    // hb_SetCodepage( "RU1251" )
@@ -50,7 +50,7 @@ Private nColor, oBmp2
          SEPARATOR
          MENUITEM "&Font" ACTION oFont:=HFont():Select(oFont)
          MENUITEM "&Color" ACTION (nColor:=Hwg_ChooseColor(nColor,.F.), ;
-                     hwg_Msginfo(Iif(nColor!=Nil,str(nColor),"--"),"Color value"))
+                     hwg_Msginfo(Iif(nColor!=NIL,str(nColor),"--"),"Color value"))
          MENUITEM "&Test" ACTION test1()
          SEPARATOR
          MENUITEM "&Move Main Window" ACTION oMainWindow:Move(50, 60, 200, 300)
@@ -151,7 +151,7 @@ Local e5 := 10320.54
 
    oChildWnd:Activate()
 
-Return Nil
+Return NIL
 
 function NoExit()
 Local oDlg, oGet, vGet:="Dialog if no close in ENTER or EXIT"
@@ -162,7 +162,7 @@ Local oDlg, oGet, vGet:="Dialog if no close in ENTER or EXIT"
    @ 20,190  BUTTON "Ok" SIZE 100, 32;
    ON CLICK {|| oDlg:Close()}
    oDlg:Activate()
-Return Nil
+Return NIL
 
 function OpenAbout
 Local oModDlg, oFontBtn, oFontDlg, oBrw
@@ -229,13 +229,13 @@ Local oSay
    ACTIVATE DIALOG oModDlg
    oIcon:Release()
 
-Return Nil
+Return NIL
 
 Static Function About2()
 
 LOCAL oModDlg
 
-   IF oBmp2 == Nil
+   IF oBmp2 == NIL
       Return NIL
    ENDIF
 
@@ -246,7 +246,7 @@ LOCAL oModDlg
 
    ACTIVATE DIALOG oModDlg
 
-Return Nil
+Return NIL
 
 Static Function BrwKey( oBrw, key )
    IF key == 32
@@ -284,14 +284,14 @@ Local nId
             ON GETFOCUS {|o|dbSelectArea(o:alias)}
       hwg_CreateList( oBrw,.T. )
       oBrw:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
-      IF oFont != Nil
+      IF oFont != NIL
          oBrw:ofont := oFont
       ENDIF
       AEval(oBrw:aColumns, {|o| o:bHeadClick := {|oB, n| hwg_Msginfo("Column number "+Str(n))}})
 
       ACTIVATE DIALOG oModDlg NOMODAL
    ENDIF
-Return Nil
+Return NIL
 
 Function FileClose( oDlg )
    Local oBrw := oDlg:FindControl( 111 )
@@ -315,8 +315,8 @@ Function PrnTest
 Local oPrinter, oFont
 
    INIT PRINTER oPrinter
-   IF oPrinter == Nil
-      Return Nil
+   IF oPrinter == NIL
+      Return NIL
    ENDIF
 
    oFont := oPrinter:AddFont( "Times New Roman",10 )
@@ -337,7 +337,7 @@ Local oPrinter, oFont
    oPrinter:Preview()
    oPrinter:End()
 
-Return Nil
+Return NIL
 
 Function DialogFromPrg( o )
 Local cTitle := "Dialog from prg", cText := "Input something"
@@ -346,7 +346,7 @@ Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
 // Local aTabs := { "Monday","Tuesday","Wednesday","Thursday","Friday" }
 LOCAL oTab
 
-   // o:bGetFocus := Nil
+   // o:bGetFocus := NIL
    INIT DIALOG oModDlg TITLE cTitle           ;
    AT 210,10  SIZE 300,300                    ;
    FONT oFont                                 ;
@@ -359,7 +359,7 @@ LOCAL oTab
 
    @ 20,70 CHECKBOX "Check 1" SIZE 90, 20
    @ 20,95 CHECKBOX "Check 2"  ;
-        SIZE 90, 20 COLOR Iif( nColor==Nil,0x0000FF,nColor )
+        SIZE 90, 20 COLOR Iif( nColor==NIL,0x0000FF,nColor )
 
    @ 160,70 GROUPBOX "RadioGroup"  SIZE 130, 75
 
@@ -395,7 +395,7 @@ LOCAL oTab
    ACTIVATE DIALOG oModDlg
    oFont:Release()
 
-Return Nil
+Return NIL
 
 #define DTM_SETFORMAT       4101
 Static Function CreateC( oDlg )
@@ -405,7 +405,7 @@ Static lFirst := .F., o
       lFirst := .T.
    ENDIF
    hwg_Sendmessage( o:handle,DTM_SETFORMAT,0,"dd':'MM':'yyyy" )
-Return Nil
+Return NIL
 
 Function Sendemail(endereco)
 hwg_Shellexecute("rundll32.exe", "open", ;
@@ -491,7 +491,7 @@ Do while ct<1001
    ostatus:step()
    ++ct
 EndDo
-Return Nil
+Return NIL
 
 
 function RRectangle()
@@ -528,7 +528,7 @@ Local hDC := hwg_Getdc( 0 ), aMetr, oFont
 
    hwg_Releasedc( 0,hDC )
 
-Return Nil
+Return NIL
 
 * ============================ EOF of a.prg =================================
 

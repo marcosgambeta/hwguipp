@@ -41,14 +41,14 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctoolt, tcolor, bcolor,   ;
       nUpDWidth, nLower, nUpper ) CLASS HUpDown
 
-   nStyle   := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), WS_TABSTOP )
+   nStyle   := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), WS_TABSTOP )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
    IF Empty( vari )
       vari := 0
    ENDIF
-   IF vari != Nil
+   IF vari != NIL
       IF ValType( vari ) != "N"
          vari := 0
          Eval( bSetGet, vari )
@@ -57,9 +57,9 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ENDIF
    ::bSetGet := bSetGet
 
-   IF nLower != Nil ; ::nLower := nLower ; ENDIF
-   IF nUpper != Nil ; ::nUpper := nUpper ; ENDIF
-   IF nUpDWidth != Nil ; ::nUpDownWidth := nUpDWidth ; ENDIF
+   IF nLower != NIL ; ::nLower := nLower ; ENDIF
+   IF nUpper != NIL ; ::nUpper := nUpper ; ENDIF
+   IF nUpDWidth != NIL ; ::nUpDownWidth := nUpDWidth ; ENDIF
 
    ::Activate()
 
@@ -79,7 +79,7 @@ METHOD Activate() CLASS HUpDown
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HUpDown
 
@@ -93,8 +93,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HUpDown
 
    //hwg_WriteLog( "UpDown: "+Str(msg,10)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
    IF msg == WM_SETFOCUS
-      IF ::bSetGet == Nil
-         IF ::bGetFocus != Nil
+      IF ::bSetGet == NIL
+         IF ::bGetFocus != NIL
             Eval( ::bGetFocus, ::nValue := hwg_GetUpDown( ::handle ), Self )
          ENDIF
       ELSE
@@ -110,7 +110,7 @@ METHOD Refresh()  CLASS HUpDown
    * Variables not used
    * LOCAL vari
 
-   IF ::bSetGet != Nil
+   IF ::bSetGet != NIL
       ::nValue := Eval( ::bSetGet )
       IF Str( ::nValue ) != ::title
          ::title := Str( ::nValue )
@@ -120,11 +120,11 @@ METHOD Refresh()  CLASS HUpDown
       hwg_SetUpDown( ::handle, Val( ::title ) )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value( nValue ) CLASS HUpDown
 
-   IF nValue != Nil
+   IF nValue != NIL
       IF ValType( nValue ) == "N"
          hwg_SetUpdown( ::handle, nValue )
          ::nValue := nValue
@@ -141,7 +141,7 @@ METHOD Value( nValue ) CLASS HUpDown
 STATIC FUNCTION __When( oCtrl )
 
    oCtrl:Refresh()
-   IF oCtrl:bGetFocus != Nil
+   IF oCtrl:bGetFocus != NIL
       RETURN Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet ), oCtrl )
    ENDIF
 
@@ -150,10 +150,10 @@ STATIC FUNCTION __When( oCtrl )
 STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:nValue := hwg_GetUpDown( oCtrl:handle )
-   IF oCtrl:bSetGet != Nil
+   IF oCtrl:bSetGet != NIL
       Eval( oCtrl:bSetGet, oCtrl:nValue )
    ENDIF
-   IF oCtrl:bLostFocus != Nil .AND. !Eval( oCtrl:bLostFocus, oCtrl:nValue, oCtrl ) .OR. ;
+   IF oCtrl:bLostFocus != NIL .AND. !Eval( oCtrl:bLostFocus, oCtrl:nValue, oCtrl ) .OR. ;
          oCtrl:nValue > oCtrl:nUpper .OR. oCtrl:nValue < oCtrl:nLower
       hwg_Setfocus( oCtrl:handle )
    ENDIF

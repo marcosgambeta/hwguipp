@@ -45,7 +45,7 @@ Function Main()
 
         PQClose(conn)
         
-Return Nil
+Return NIL
 
 Function Test()
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
@@ -77,7 +77,7 @@ Function Test()
              
         ACTIVATE DIALOG oForm
                 
-Return Nil
+Return NIL
 
 Function OnKey( o, k )
 //    hwg_Msginfo(str(k))
@@ -170,7 +170,7 @@ Function CriaBase()
 
         res := PQexec(conn, "DECLARE cursor_1 NO SCROLL CURSOR WITH HOLD FOR SELECT * FROM test")
         PQclear(res)    
-return NIL        
+return NIL
 
 
 Function MyVal( xValue, type )

@@ -528,16 +528,16 @@ METHOD ShowCodeLine( nProc ) CLASS HBDebugger
 
       IF ! Empty( cPrgName )
          hwg_dbg_SetActiveLine( cPrgName, nLine, ;
-            iif( ::lViewStack, SendStack(), Nil ),  ;
+            iif( ::lViewStack, SendStack(), NIL ),  ;
             iif( ::lShowLocals, SendLocal(), ;
             iif( ::lShowStatic, SendStatic(), ;
             iif( ::lShowPrivate, SendPrivate(), ;
-            iif( ::lShowPublic, SendPublic(), Nil ) ) ) ), ;
-            iif( ::lShowWatch .AND. ( ::nWatches > 0 ), SendWatch(), Nil ), ;
+            iif( ::lShowPublic, SendPublic(), NIL ) ) ) ), ;
+            iif( ::lShowWatch .AND. ( ::nWatches > 0 ), SendWatch(), NIL ), ;
             iif( ::lShowLocals, 1, ;
             iif( ::lShowPrivate, 2, ;
             iif( ::lShowPublic, 3, ;
-            iif( ::lShowStatic, 4, Nil ) ) ) ) )
+            iif( ::lShowStatic, 4, NIL ) ) ) ) )
       ENDIF
    ENDIF
 
@@ -906,7 +906,7 @@ STATIC FUNCTION strip_path( cFileName )
    LOCAL cName
    LOCAL cExt
 
-   IF cFileName == Nil; cFileName := ""; ENDIF
+   IF cFileName == NIL; cFileName := ""; ENDIF
 
    hb_FNameSplit( cFileName, NIL, @cName, @cExt )
 

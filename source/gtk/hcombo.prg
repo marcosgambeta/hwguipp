@@ -43,10 +43,10 @@ ENDCLASS
 METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid ) CLASS HComboBox
 
-   IF lEdit == Nil; lEdit := .F. ; ENDIF
-   IF lText == Nil; lText := .F. ; ENDIF
+   IF lEdit == NIL; lEdit := .F. ; ENDIF
+   IF lText == NIL; lText := .F. ; ENDIF
 
-   nStyle := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), iif( lEdit,CBS_DROPDOWN,CBS_DROPDOWNLIST ) + WS_TABSTOP )
+   nStyle := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), iif( lEdit,CBS_DROPDOWN,CBS_DROPDOWNLIST ) + WS_TABSTOP )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor )
 
    ::lEdit := lEdit
@@ -57,12 +57,12 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ENDIF
 
    IF ::lText
-      ::xValue := iif( vari == Nil .OR. ValType( vari ) != "C", "", vari )
+      ::xValue := iif( vari == NIL .OR. ValType( vari ) != "C", "", vari )
    ELSE
-      ::xValue := iif( vari == Nil .OR. ValType( vari ) != "N", 1, vari )
+      ::xValue := iif( vari == NIL .OR. ValType( vari ) != "N", 1, vari )
    ENDIF
 
-   IF bSetGet != Nil
+   IF bSetGet != NIL
       ::bSetGet := bSetGet
       Eval( ::bSetGet, ::xValue, self )
    ENDIF
@@ -93,7 +93,7 @@ METHOD Activate() CLASS HComboBox
       hwg_Setwindowobject( ::handle, Self )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
 
@@ -104,8 +104,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
    HB_SYMBOL_UNUSED(lParam)
 
    IF msg == EN_SETFOCUS
-      IF ::bSetGet == Nil
-         IF ::bGetFocus != Nil
+      IF ::bSetGet == NIL
+         IF ::bGetFocus != NIL
             i := hwg_ComboGet( ::handle )
             Eval( ::bGetFocus, iif( ValType(::aItems[1] ) == "A", ::aItems[i,1], ::aItems[i] ), Self )
          ENDIF
@@ -113,8 +113,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
          __When( Self )
       ENDIF
    ELSEIF msg == EN_KILLFOCUS
-      IF ::bSetGet == Nil
-         IF ::bLostFocus != Nil
+      IF ::bSetGet == NIL
+         IF ::bLostFocus != NIL
             i := hwg_ComboGet( ::handle )
             Eval( ::bLostFocus, iif( ValType(::aItems[1] ) == "A", ::aItems[i,1], ::aItems[i] ), Self )
          ENDIF
@@ -124,7 +124,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
 
    ELSEIF msg == CBN_SELCHANGE
       ::GetValue()
-      IF ::bChangeSel != Nil
+      IF ::bChangeSel != NIL
          Eval( ::bChangeSel, ::xValue, Self )
       ENDIF
 
@@ -147,26 +147,26 @@ METHOD Init() CLASS HComboBox
             ENDIF
          ENDIF
          ::Value := ::xValue
-         IF ::bSetGet != Nil
+         IF ::bSetGet != NIL
             Eval( ::bSetGet, ::xValue, Self )
          ENDIF
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Refresh( xVal ) CLASS HComboBox
 
    LOCAL vari
 
-   IF xVal != Nil
+   IF xVal != NIL
       ::xValue := xVal
-   ELSEIF ::bSetGet != Nil
+   ELSEIF ::bSetGet != NIL
       vari := Eval( ::bSetGet, , Self )
       IF ::lText
-         ::xValue := iif( vari == Nil .OR. ValType( vari ) != "C", "", vari )
+         ::xValue := iif( vari == NIL .OR. ValType( vari ) != "C", "", vari )
       ELSE
-         ::xValue := iif( vari == Nil .OR. ValType( vari ) != "N", 1, vari )
+         ::xValue := iif( vari == NIL .OR. ValType( vari ) != "N", 1, vari )
       ENDIF
    ENDIF
 
@@ -181,7 +181,7 @@ METHOD Refresh( xVal ) CLASS HComboBox
 
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD SetItem( nPos ) CLASS HComboBox
 
@@ -193,15 +193,15 @@ METHOD SetItem( nPos ) CLASS HComboBox
 
    hwg_ComboSet( ::handle, nPos )
 
-   IF ::bSetGet != Nil
+   IF ::bSetGet != NIL
       Eval( ::bSetGet, ::xValue, self )
    ENDIF
 
-   IF ::bChangeSel != Nil
+   IF ::bChangeSel != NIL
       Eval( ::bChangeSel, ::xValue, Self )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD GetValue( nItem ) CLASS HComboBox
    LOCAL nPos := hwg_ComboGet( ::handle )
@@ -210,15 +210,15 @@ METHOD GetValue( nItem ) CLASS HComboBox
    LOCAL l := nPos > 0 .AND. ValType( ::aItems[nPos] ) == "A"
 
    ::xValue := iif( ::lText, vari, nPos )
-   IF ::bSetGet != Nil
+   IF ::bSetGet != NIL
       Eval( ::bSetGet, ::xValue, Self )
    ENDIF
 
-   RETURN iif( l .AND. nItem != Nil, iif( nItem > 0 .AND. nItem <= Len(::aItems[nPos] ), ::aItems[nPos,nItem], Nil ), ::xValue )
+   RETURN iif( l .AND. nItem != NIL, iif( nItem > 0 .AND. nItem <= Len(::aItems[nPos] ), ::aItems[nPos,nItem], NIL ), ::xValue )
 
 METHOD Value ( xValue ) CLASS HComboBox
 
-   IF xValue != Nil
+   IF xValue != NIL
       IF ValType( xValue ) == "C"
 #ifdef __XHARBOUR__
          xValue := iif( ValType( ::aItems[1] ) == "A", AScan( ::aItems, { |a|a[1] == xValue } ), AScan( ::aItems, { |s|s == xValue } ) )
@@ -238,7 +238,7 @@ METHOD End() CLASS HComboBox
    hwg_ReleaseObject( ::handle )
    ::Super:End()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION __Valid( oCtrl )
 
@@ -255,7 +255,7 @@ STATIC FUNCTION __Valid( oCtrl )
 STATIC FUNCTION __When( oCtrl )
    LOCAL res
 
-   IF oCtrl:bGetFocus != Nil
+   IF oCtrl:bGetFocus != NIL
       res := Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet,, oCtrl ), oCtrl )
       IF !res
          hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )

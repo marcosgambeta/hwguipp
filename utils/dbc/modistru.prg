@@ -33,7 +33,7 @@ FUNCTION StruMan( lNew )
    oGet4:SetGet( LTrim( Str(o:aArray[o:nCurrent,4] ) ) )
    hwg_RefreshAllGets( oDlg )
 
-   RETURN Nil
+   RETURN NIL
 
    }
 
@@ -91,7 +91,7 @@ FUNCTION StruMan( lNew )
          CLOSE ALL
          fname := hwg_MsgGet( "File creation", "Input new file name" )
          IF Empty( fname )
-            RETURN Nil
+            RETURN NIL
          ENDIF
          dbCreate( fname, af )
          OpenDbf( fname )
@@ -104,7 +104,7 @@ FUNCTION StruMan( lNew )
 
          fname := "a0_new"
          dbCreate( fname, af )
-         IF currentCP != Nil
+         IF currentCP != NIL
             USE ( fname ) NEW codepage ( currentCP )
          ELSE
             USE ( fname ) new
@@ -172,7 +172,7 @@ FUNCTION StruMan( lNew )
 
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
    LOCAL cName, cType, nLen, nDec
@@ -189,7 +189,7 @@ STATIC FUNCTION UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
       ENDIF
    ELSE
       IF Empty( cName := oGet1:SetGet() )
-         RETURN Nil
+         RETURN NIL
       ENDIF
       cType := aFieldTypes[ Eval(oGet2:bSetGet,,oGet2) ]
       nLen  := Val( oGet3:SetGet() )
@@ -201,7 +201,7 @@ STATIC FUNCTION UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
          AAdd( oBrowse:aArray, { cName, cType, nLen, nDec } )
       ELSE
          IF nOperation == 2
-            AAdd( oBrowse:aArray, Nil )
+            AAdd( oBrowse:aArray, NIL )
             AIns( oBrowse:aArray, oBrowse:nCurrent )
             oBrowse:aArray[oBrowse:nCurrent] := { "", "", 0, 0 }
          ENDIF
@@ -213,4 +213,4 @@ STATIC FUNCTION UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
    ENDIF
    oBrowse:Refresh()
 
-   RETURN Nil
+   RETURN NIL

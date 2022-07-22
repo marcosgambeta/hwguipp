@@ -56,7 +56,7 @@ Function Main
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+Return NIL
 
 * --------------------------------------------
 FUNCTION ShowR(ar,bdebug)

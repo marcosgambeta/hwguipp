@@ -43,7 +43,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+Return NIL
 
 Function DlgGet
 LOCAL oBmp
@@ -89,7 +89,7 @@ Local cValTrue
        TEXT "Close" COLOR 0x0000FF
 
    ACTIVATE DIALOG oModDlg
-Return Nil
+Return NIL
 
 Static Function BrwKey( oBrw, key )
    IF key == 32

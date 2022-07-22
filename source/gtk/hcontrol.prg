@@ -35,7 +35,7 @@ Function hwg_SetCtrlName( oCtrl, cName )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //- HControl
 
@@ -65,9 +65,9 @@ ENDCLASS
 METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor ) CLASS HControl
 
-   ::oParent := iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
-   ::id      := iif( nId == Nil, ::NewId(), nId )
-   ::style   := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), WS_VISIBLE + WS_CHILD )
+   ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
+   ::id      := iif( nId == NIL, ::NewId(), nId )
+   ::style   := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), WS_VISIBLE + WS_CHILD )
    ::oFont   := oFont
    ::nLeft   := nLeft
    ::nTop    := nTop
@@ -99,9 +99,9 @@ METHOD INIT() CLASS HControl
    LOCAL o
 
    IF !::lInit
-      IF ::oFont != Nil
+      IF ::oFont != NIL
          hwg_SetCtrlFont( ::handle,, ::oFont:handle )
-      ELSEIF ::oParent:oFont != Nil
+      ELSEIF ::oParent:oFont != NIL
          ::oFont := ::oParent:oFont
          hwg_SetCtrlFont( ::handle,, ::oParent:oFont:handle )
       ENDIF
@@ -111,14 +111,14 @@ METHOD INIT() CLASS HControl
       ENDIF
       ::Setcolor( ::tcolor, ::bcolor )
 
-      IF ( o := hwg_getParentForm( Self ) ) != Nil .AND. o:lActivated
+      IF ( o := hwg_getParentForm( Self ) ) != NIL .AND. o:lActivated
          hwg_ShowAll( o:handle )
          hwg_HideHidden( o )
       ENDIF
       ::lInit := .T.
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Disable() CLASS HControl
 
@@ -132,7 +132,7 @@ RETURN NIL
 
 METHOD Enabled( lEnabled ) CLASS HControl
 
-   IF lEnabled != Nil
+   IF lEnabled != NIL
       IF lEnabled
          hwg_Enablewindow( ::handle, .T. )
          RETURN .T.
@@ -148,38 +148,38 @@ METHOD Enabled( lEnabled ) CLASS HControl
 METHOD Move( x1, y1, width, height, lMoveParent )  CLASS HControl
    LOCAL lMove := .F. , lSize := .F.
 
-   IF x1 != Nil .AND. x1 != ::nLeft
+   IF x1 != NIL .AND. x1 != ::nLeft
       ::nLeft := x1
       lMove := .T.
    ENDIF
-   IF y1 != Nil .AND. y1 != ::nTop
+   IF y1 != NIL .AND. y1 != ::nTop
       ::nTop := y1
       lMove := .T.
    ENDIF
-   IF width != Nil .AND. width != ::nWidth
+   IF width != NIL .AND. width != ::nWidth
       ::nWidth := width
       lSize := .T.
    ENDIF
-   IF height != Nil .AND. height != ::nHeight
+   IF height != NIL .AND. height != ::nHeight
       ::nHeight := height
       lSize := .T.
    ENDIF
    IF lMove .OR. lSize
-      hwg_MoveWidget( ::handle, iif( lMove,::nLeft,Nil ), iif( lMove,::nTop,Nil ), ;
-         iif( lSize, ::nWidth, Nil ), iif( lSize, ::nHeight, Nil ), lMoveParent )
+      hwg_MoveWidget( ::handle, iif( lMove,::nLeft,NIL ), iif( lMove,::nTop,NIL ), ;
+         iif( lSize, ::nWidth, NIL ), iif( lSize, ::nHeight, NIL ), lMoveParent )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD End() CLASS HControl
 
    ::Super:End()
-   IF ::tooltip != Nil
+   IF ::tooltip != NIL
       // DelToolTip( ::oParent:handle,::handle )
-      ::tooltip := Nil
+      ::tooltip := NIL
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onAnchor( x, y, w, h ) CLASS HControl
    LOCAL nAnchor, nXincRelative, nYincRelative, nXincAbsolute, nYincAbsolute
@@ -278,7 +278,7 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    ::nHeight := h1
    hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
 
-   RETURN Nil
+   RETURN NIL
 
    //- HStatus
 
@@ -295,7 +295,7 @@ ENDCLASS
 
 METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint ) CLASS HStatus
 
-   nStyle := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS )
+   nStyle := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS )
    ::Super:New( oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
 
    ::aParts  := aParts
@@ -314,7 +314,7 @@ METHOD Activate() CLASS HStatus
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HStatus
 
@@ -346,7 +346,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
    ::title   := cCaption
-   IF lTransp != Nil .AND. lTransp
+   IF lTransp != NIL .AND. lTransp
       ::extStyle += WS_EX_TRANSPARENT
    ENDIF
 
@@ -365,14 +365,14 @@ METHOD Activate() CLASS HStatic
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init()  CLASS HStatic
 
    IF !::lInit
       ::Super:Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
    //- HButton
 
@@ -393,9 +393,9 @@ ENDCLASS
 METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor ) CLASS HButton
 
-   nStyle := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), BS_PUSHBUTTON )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == Nil,90,nWidth ), ;
-      iif( nHeight == Nil, 30, nHeight ), oFont, bInit, ;
+   nStyle := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), BS_PUSHBUTTON )
+   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL,90,nWidth ), ;
+      iif( nHeight == NIL, 30, nHeight ), oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
    ::title   := cCaption
@@ -420,7 +420,7 @@ METHOD Activate() CLASS HButton
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam )  CLASS HButton
 
@@ -429,7 +429,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HButton
    HB_SYMBOL_UNUSED(lParam)
 
    IF msg == WM_LBUTTONUP
-      IF ::bClick != Nil
+      IF ::bClick != NIL
          Eval( ::bClick, Self )
       ENDIF
    ENDIF
@@ -484,7 +484,7 @@ METHOD Activate() CLASS HButtonEX
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //- HGroup
 
@@ -500,7 +500,7 @@ ENDCLASS
 METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
       oFont, bInit, bSize, bPaint, tcolor, bcolor ) CLASS HGroup
 
-   nStyle := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), BS_GROUPBOX )
+   nStyle := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), BS_GROUPBOX )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, , tcolor, bcolor )
 
@@ -517,7 +517,7 @@ METHOD Activate() CLASS HGroup
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    // hline
 
@@ -536,12 +536,12 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize ) CLASS HLine
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, , , , , bSize, { |o, lp|o:Paint( lp ) } )
 
    ::title := ""
-   ::lVert := iif( lVert == Nil, .F. , lVert )
+   ::lVert := iif( lVert == NIL, .F. , lVert )
    IF ::lVert
       ::nWidth  := 10
-      ::nHeight := iif( nLength == Nil, 20, nLength )
+      ::nHeight := iif( nLength == NIL, 20, nLength )
    ELSE
-      ::nWidth  := iif( nLength == Nil, 20, nLength )
+      ::nWidth  := iif( nLength == NIL, 20, nLength )
       ::nHeight := 10
    ENDIF
 
@@ -557,7 +557,7 @@ METHOD Activate() CLASS HLine
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 * ===================== EOF of hcontrol.prg ===================
 

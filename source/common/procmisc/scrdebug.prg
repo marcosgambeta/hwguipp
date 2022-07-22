@@ -10,7 +10,7 @@
 
 #include "hwgui.ch"
 
-STATIC oDlgDebug := Nil
+STATIC oDlgDebug := NIL
 STATIC oBrwData, oBrwScript, oSplit, oPanel, oEditExpr, oEditRes
 STATIC nDebugMode := 0
 STATIC i_scr := 0
@@ -29,17 +29,17 @@ FUNCTION hwg_scrDebug( aScript, iscr )
    IF Len( aScript ) < 3
       Return .F.
    ELSEIF Len( aScript ) == 3
-      Aadd( aScript, Nil )
+      Aadd( aScript, NIL )
    ENDIF
    IF Empty( aScript[4] )
       nScriptSch ++
       aScript[4] := nScriptSch
    ENDIF
-   IF aScriptCurr == Nil
+   IF aScriptCurr == NIL
       aScriptCurr := aScript
    ENDIF
 
-   IF oDlgDebug == Nil .AND. iscr > 0
+   IF oDlgDebug == NIL .AND. iscr > 0
 
       oDlgFont := HFont():Add( "Georgia",0,-15,,204 )
       oScrFont := HFont():Add( "Courier New",0,-15,,204 )
@@ -79,9 +79,9 @@ FUNCTION hwg_scrDebug( aScript, iscr )
       oBrwScript:aArray := aScript[3]
 #ifdef __GTK__
       oBrwScript:rowCount := 5
-      oBrwScript:AddColumn( HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,'>',Iif(aBreakPoints!=Nil.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,'*',' '))},"C",1,0 ) )
+      oBrwScript:AddColumn( HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,'>',Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,'*',' '))},"C",1,0 ) )
 #else
-      oBrwScript:AddColumn( HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,1,Iif(aBreakPoints!=Nil.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,2,0))},"N",1,0 ) )
+      oBrwScript:AddColumn( HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,1,Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,2,0))},"N",1,0 ) )
       oBrwScript:aColumns[1]:aBitmaps := { { {|n|n==1},oBmpCurr },{ {|n|n==2},oBmpPoint } }
 #endif
       oBrwScript:AddColumn( HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Left(o:aArray[o:nCurrent],4)},"C",4,0 ) )
@@ -113,7 +113,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
             Aadd( aBreaks, aBreakPoints )
          ENDIF
          IF ( i := Ascan( aBreaks, {|a|a[1]==aScript[4]} ) ) == 0
-            aBreakPoints := Nil
+            aBreakPoints := NIL
          ELSE
             aBreakPoints := aBreaks[i]
          ENDIF
@@ -127,7 +127,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
       nDebugMode := 0
       oBrwScript:Top()
    ELSE
-      IF aBreakPoints!=Nil .AND. Ascan(aBreakPoints[2],i_scr) != 0
+      IF aBreakPoints!=NIL .AND. Ascan(aBreakPoints[2],i_scr) != 0
          nDebugMode := 0
       ENDIF
       IF nDebugMode < 2
@@ -161,10 +161,10 @@ Return .T.
 
 STATIC FUNCTION dlgDebugClose()
 
-   oDlgDebug := Nil
+   oDlgDebug := NIL
    SetDebugger( .F. )
    SetDebugRun()
-   aBreakPoints := aScriptCurr := Nil
+   aBreakPoints := aScriptCurr := NIL
    aBreaks  := {}
    aWatches := {}
    oScrFont:Release()
@@ -179,7 +179,7 @@ Return .T.
 Static Function AddBreakPoint
 Local i
 
-   IF aBreakPoints == Nil
+   IF aBreakPoints == NIL
       aBreakPoints := { aScriptCurr[4], {} }
    ENDIF
    IF ( i := Ascan( aBreakPoints[2],oBrwScript:nCurrent ) ) == 0
@@ -218,7 +218,7 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
 
    IF lRes
       IF Ascan( aWatches, {|s|s[1] == xRes} ) == 0
-         Aadd( aWatches, { xRes,bCodeblock, Nil, Nil } )
+         Aadd( aWatches, { xRes,bCodeblock, NIL, NIL } )
          CalcWatch( Len(aWatches) )
       ENDIF
       IF oBrwData:nHeight < 20

@@ -39,7 +39,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+Return NIL
 
 Function Teste
 Local oModDlg, oFont, obrowsbox1, nPosi, cResult
@@ -81,7 +81,7 @@ Local oList, oItemso := { { "Item01" } , { "Item02" } , { "Item03" } , { "Item04
 
    IF oModDlg:lResult
     ENDIF
-Return Nil
+Return NIL
 
 * --------------------------------------------
 STATIC FUNCTION ConvItems( ap )

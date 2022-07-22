@@ -30,9 +30,9 @@ FUNCTION _hwr_FileDlg( lOpen )
 
    LOCAL oRb1, oRb2,  oEdit1, oLabel1, oEdit2
 
-   IF !lOpen .AND. ( aPaintRep == Nil .OR. Empty( aPaintRep[FORM_ITEMS] ) )
+   IF !lOpen .AND. ( aPaintRep == NIL .OR. Empty( aPaintRep[FORM_ITEMS] ) )
       hwg_Msgstop( "Nothing to save" )
-      RETURN Nil
+      RETURN NIL
    ELSEIF lOpen
       _hwr_CloseReport()
    ENDIF
@@ -62,7 +62,7 @@ FUNCTION _hwr_FileDlg( lOpen )
 
    oDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InitOpen( lOpen )
 
@@ -95,7 +95,7 @@ STATIC FUNCTION BrowFile( lOpen )
    oDlg:oEdit1:Value := fname
    hwg_Setfocus( oDlg:oEdit2:handle )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION EndOpen( lOpen )
    LOCAL fname, repName
@@ -112,7 +112,7 @@ STATIC FUNCTION EndOpen( lOpen )
             hwg_Enablemenuitem( ,1, .T., .F. )
             Hwindow():GetMain():Refresh()
          ELSE
-            aPaintRep := Nil
+            aPaintRep := NIL
             hwg_Enablemenuitem( ,IDM_VIEW1, .F., .T. )
             hwg_Enablemenuitem( ,1, .F., .F. )
          ENDIF
@@ -133,14 +133,14 @@ STATIC FUNCTION EndOpen( lOpen )
 
 FUNCTION _hwr_CloseReport
 
-   IF aPaintRep != Nil
+   IF aPaintRep != NIL
       IF aPaintRep[FORM_CHANGED] == .T.
          IF hwg_Msgyesno( "Report was changed. Are you want to save it ?" )
             _hwr_SaveReport()
          ENDIF
       ENDIF
       hwg_hwr_Close( aPaintRep )
-      aPaintRep := Nil
+      aPaintRep := NIL
       //hwg_Showscrollbar( Hwindow():GetMain():handle, SB_VERT, .F. )
       Hwindow():GetMain():Refresh()
       hwg_Enablemenuitem( , 1, .F. , .F. )
@@ -150,9 +150,9 @@ FUNCTION _hwr_CloseReport
 
 FUNCTION _hwr_SaveReport
 
-   IF ( aPaintRep == Nil .OR. Empty( aPaintRep[FORM_ITEMS] ) )
+   IF ( aPaintRep == NIL .OR. Empty( aPaintRep[FORM_ITEMS] ) )
       hwg_Msgstop( "Nothing to save" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    IF Empty( aPaintRep[FORM_FILENAME] )
       _hwr_FileDlg( .F. )
@@ -160,7 +160,7 @@ FUNCTION _hwr_SaveReport
       SaveRFile( aPaintRep[FORM_FILENAME], aPaintRep[FORM_REPNAME] )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION OpenFile( fname, repName )
    LOCAL strbuf := Space( 512 ), poz := 513, stroka, nMode := 0
@@ -214,7 +214,7 @@ STATIC FUNCTION OpenFile( fname, repName )
    ELSE
       aPaintRep := hwg_hwr_Open( fname, repName )
    ENDIF
-   IF aPaintRep == Nil .OR. Empty( aPaintRep[FORM_ITEMS] )
+   IF aPaintRep == NIL .OR. Empty( aPaintRep[FORM_ITEMS] )
       hwg_Msgstop( repname + " not found or empty!" )
       res := .F.
    ELSE
@@ -261,7 +261,7 @@ STATIC FUNCTION RecalcForm( aPaintRep, nFormWidth )
          aItem[ ITEM_HEIGHT ] := Round( aItem[ ITEM_HEIGHT ] * xKoef, 0 )
       NEXT
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SaveRFile( fname, repName )
    LOCAL strbuf := Space( 512 ), poz := 513, stroka, nMode := 0
@@ -393,7 +393,7 @@ STATIC FUNCTION WriteRep( han, repName )
    NEXT
    FWrite( han, "#ENDREP " + Chr( 10 ) )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION WriteToPrg( han, repName )
    LOCAL i, aItem, oPen, oFont, hDCwindow, aMetr, cItem, cQuote, crlf := Chr( 10 )
@@ -445,11 +445,11 @@ STATIC FUNCTION WriteToPrg( han, repName )
       ELSE
          cItem += ",0,0"
       ENDIF
-      //cItem += ",0,Nil,0"
+      //cItem += ",0,NIL,0"
       //FWrite( han, "   Aadd( aPaintRep[6], { " + cItem + " } )" + crlf )
       FWrite( han, "   hwg_Hwr_AddItem( aPaintRep, " + cItem + " )" + crlf )
 
-      IF aItem[ITEM_SCRIPT] != Nil .AND. !Empty( aItem[ITEM_SCRIPT] )
+      IF aItem[ITEM_SCRIPT] != NIL .AND. !Empty( aItem[ITEM_SCRIPT] )
          FWrite( han, "   aPaintRep[FORM_ITEMS,Len(aPaintRep[FORM_ITEMS]),12] := ;" + crlf )
          WriteScript( han, aItem[ITEM_SCRIPT], .T. )
       ENDIF
@@ -457,14 +457,14 @@ STATIC FUNCTION WriteToPrg( han, repName )
 
    FWrite( han, "RETURN aPaintRep" + crlf )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION WriteScript( han, cScript, lPrg )
    LOCAL poz := 0, stroka
    LOCAL lastC := Chr( 10 ), cQuote, lFirst := .T.
 
-   IF lPrg == Nil; lPrg := .F. ; ENDIF
-   IF cScript != Nil .AND. !Empty( cScript )
+   IF lPrg == NIL; lPrg := .F. ; ENDIF
+   IF cScript != NIL .AND. !Empty( cScript )
       IF !lPrg
          FWrite( han, "#SCRIPT" + Chr( 10 ) )
       ENDIF
@@ -494,6 +494,6 @@ STATIC FUNCTION WriteScript( han, cScript, lPrg )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    // ================================= EOF of opensave.prg ===================================

@@ -37,7 +37,7 @@ FUNCTION Main()
 
    oMainWindow:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Print1
 
@@ -48,7 +48,7 @@ STATIC FUNCTION Print1
       hwg_hwr_Close( aRep )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Print2
 
@@ -58,7 +58,7 @@ STATIC FUNCTION Print2
    hwg_hwr_Print( aRep,, .T. )
    hwg_hwr_Close( aRep )
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION MyReport
 

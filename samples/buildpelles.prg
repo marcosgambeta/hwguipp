@@ -137,7 +137,7 @@ Static Function SearchFile(oBrow, oFile)
 Local oTotReg:={}, i
 Local aSelect:=hwg_SelectMultipleFiles("xBase Files ("+oFile+")", oFile ) 
 if len(aSelect) ==0
-   return Nil
+   return NIL
 endif
 if LEN(oBrow:aArray) == 1 .and. obrow:aArray[1]=="" 
    obrow:aArray := {}
@@ -150,7 +150,7 @@ For i:=1 to Len(aSelect)
 Next
 obrow:aArray := oTotReg
 obrow:refresh()
-Return Nil
+Return NIL
 
 Static Function SearchFileName(nName, oGet, oFile)
 Local oTextAnt:=oGet:GetText()
@@ -162,7 +162,7 @@ endif
 oGet:SetText(fFile)
 oGet:Refresh()
 
-Return Nil
+Return NIL
 
 
 Function ReadBuildFile()
@@ -170,7 +170,7 @@ Local oLibFiles, oBr1:={}, oBr2:={}, oBr3:={}, oBr4:={}, oSel1, oSel2, oSel3, i,
 Local aPal:=""
 Local oFolderFile:=hwg_Selectfile("HwGUI File Build (*.bld)", "*.bld" )
  
-if empty(oFolderFile); Return Nil; Endif
+if empty(oFolderFile); Return NIL; Endif
    
 oExeName:SetText( Hwg_GetIni( "Config", "ExeName" , , oFolderFile ))
 oLibFolder:SetText(Hwg_GetIni( "Config", "LibFolder" , , oFolderFile ))
@@ -181,7 +181,7 @@ oMainPrg:SetText(Hwg_GetIni( "Config", "PrgMain" , , oFolderFile ))
 
 For i:=1 to 300
     oSel1:=Hwg_GetIni( "FilesPRG", Alltrim(Str(i)) , , oFolderFile )
-    if !empty(oSel1) //.or. oSel1#Nil
+    if !empty(oSel1) //.or. oSel1#NIL
         AADD(oBr1, oSel1)
     EndIf
 Next
@@ -189,21 +189,21 @@ Next
   
 For i:=1 to 300
     oSel2:=Hwg_GetIni( "FilesC", Alltrim(Str(i)) , , oFolderFile )
-    if !empty(oSel2) //.or. oSel2#Nil
+    if !empty(oSel2) //.or. oSel2#NIL
         AADD(oBr2, oSel2)
     EndIf
 Next
 
 For i:=1 to 300
     oSel3:=Hwg_GetIni( "FilesLIB", Alltrim(Str(i)) , , oFolderFile )
-    if !empty(oSel3) //.or. oSel3#Nil
+    if !empty(oSel3) //.or. oSel3#NIL
         AADD(oBr3, oSel3)
     EndIf
 Next
 
 For i:=1 to 300
     oSel4:=Hwg_GetIni( "FilesRES", Alltrim(Str(i)) , , oFolderFile )
-    if !empty(oSel4) //.or. oSel4#Nil
+    if !empty(oSel4) //.or. oSel4#NIL
         AADD(oBr4, oSel4)
     EndIf
 Next
@@ -217,18 +217,18 @@ oBrowse2:Refresh()
 oBrowse3:Refresh()
 oBrowse4:Refresh()
 
-Return Nil
+Return NIL
 
 Function SaveBuildFile()
 Local oLibFiles, i, oNome, g
 Local oFolderFile:=hwg_Savefile("*.bld", "HwGUI File Build (*.bld)", "*.bld" ) 
-if empty(oFolderFile); Return Nil; Endif
+if empty(oFolderFile); Return NIL; Endif
 if file(oFolderFile)
    If(hwg_Msgyesno("File "+oFolderFile+" EXIT ..Replace?"))
      Erase( oFolderFile )
    Else
      hwg_Msginfo("No file SAVED.")
-     Return Nil
+     Return NIL
    EndIf
 EndIf     
 Hwg_WriteIni( "Config", "ExeName"       ,oExeName:GetText(), oFolderFile )
@@ -278,7 +278,7 @@ if Len(oBrowse4:aArray)>=1
 endif   
 
 hwg_Msginfo("File "+oFolderFile+" saved","HwGUI Build")
-Return Nil
+Return NIL
 
 Function BuildApp()
 If hwg_Msgyesno("Yes Compile to BAT, No compile to PoMake")
@@ -480,7 +480,7 @@ if file(voExeName+".exe")
 Else
    hwg_Shellexecute("NotePad error.log")
 Endif
-Return Nil
+Return NIL
 
 Function BuildPoMake()
 Local voExeName, voLibFolder, voIncFolder, voPrgFlag, voCFlag, voPrgMain, voPrgFiles, voCFiles,voResFiles
@@ -657,4 +657,4 @@ Endif
  
 fClose(oName)
 
-Return Nil
+Return NIL

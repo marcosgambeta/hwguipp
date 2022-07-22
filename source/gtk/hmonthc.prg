@@ -72,7 +72,7 @@ METHOD Activate() CLASS HMonthCalendar
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //--------------------------------------------------------------------------//
 
@@ -85,13 +85,13 @@ METHOD Init() CLASS HMonthCalendar
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //--------------------------------------------------------------------------//
 
 METHOD Value( dValue ) CLASS HMonthCalendar
 
-   IF dValue != Nil
+   IF dValue != NIL
       IF ValType( dValue ) == "D" .AND. !Empty( dValue )
          hwg_Setmonthcalendardate( ::handle, dValue )
          ::dValue := dValue

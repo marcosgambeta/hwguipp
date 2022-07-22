@@ -41,7 +41,7 @@ Function Main()
                 ENDMENU
 
         ACTIVATE WINDOW oMain
-Return Nil
+Return NIL
 
 Function Test()
         Local nCombo := 1
@@ -92,7 +92,7 @@ Function Test()
             @ 620, 395 BUTTON "Close"   SIZE 75,25 ON CLICK {|| oForm:Close() }
 
         ACTIVATE DIALOG oForm
-Return Nil
+Return NIL
 
 * ========================== EOF of tstcombo.prg ===================================
 

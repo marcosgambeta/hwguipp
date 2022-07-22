@@ -23,7 +23,7 @@ FUNCTION Move( nMove )
    LOCAL cExpr := "", oBrw, nRec, key
 
    IF Empty( oBrw := GetBrwActive() )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    INIT DIALOG oDlg TITLE aTitle[nMove] ;
@@ -78,7 +78,7 @@ FUNCTION Move( nMove )
 
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION F_Locate( oBrw, cExpres )
    LOCAL nrec, i, res, block
@@ -113,7 +113,7 @@ FUNCTION F_Locate( oBrw, cExpres )
       hwg_Msginfo( "Wrong expression" )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION F_Filter( oBrw, cExpres )
    LOCAL i, nrec, cArr, lRes := .F.
@@ -156,7 +156,7 @@ FUNCTION F_Filter( oBrw, cExpres )
       ENDIF
    ENDIF
    IF !lRes
-      oBrw:aArray := Nil
+      oBrw:aArray := NIL
       aFiles[ improc,AF_LFLT ] := .F.
       SET FILTER TO
       oBrw:bSkip  := {|o,x|(o:alias)->(dbSkip(x))}
@@ -169,7 +169,7 @@ FUNCTION F_Filter( oBrw, cExpres )
       hwg_WriteStatus( HMainWindow():GetMdiActive(), 1, LTrim( Str(RecCount(),10 ) ) + " records" )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION FGOTOP( oBrw )
 
@@ -177,13 +177,13 @@ FUNCTION FGOTOP( oBrw )
       oBrw:nCurrent := 1
       GO carr_Get( oBrw:aArray, 1 )
    ENDIF
-RETURN Nil
+RETURN NIL
 
 FUNCTION FGOBOT( oBrw )
 
    oBrw:nCurrent := oBrw:nRecords
    GO carr_Get( oBrw:aArray, oBrw:nRecords )
-RETURN Nil
+RETURN NIL
 
 FUNCTION FGOTO( oBrw, nRec )
 
@@ -191,7 +191,7 @@ FUNCTION FGOTO( oBrw, nRec )
       oBrw:nCurrent := nRec
       GO carr_Get( oBrw:aArray, nRec )
    ENDIF
-RETURN Nil
+RETURN NIL
 
 PROCEDURE FSKIP( oBrw, kolskip )
 

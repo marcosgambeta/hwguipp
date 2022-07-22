@@ -105,7 +105,7 @@ FUNCTION Main()
    oTrayMenu:End()
 #endif   
 
-   RETURN Nil
+   RETURN NIL
    
 * ======================== EOF of testtray.prg =================================
 

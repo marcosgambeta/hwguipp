@@ -14,7 +14,7 @@ FUNCTION RDSTR( han, strbuf, poz, buflen )
    oldpoz := poz
    poz    := At( Chr( 10 ), SubStr( strbuf, poz ) )
    IF poz = 0
-      IF han <> Nil
+      IF han <> NIL
          stro += SubStr( strbuf, oldpoz )
          rez  := FRead( han, @strbuf, buflen )
          IF rez = 0
@@ -58,7 +58,7 @@ FUNCTION getNextVar( stroka, varValue )
       ENDIF
       ipos3    := Find_Z( Left( stroka, iPosEnd - 1 ), ':' )
       varName  := RTrim( LTrim( Left( stroka, iif( ipos3 = 0, iPosEnd, iPos3 ) - 1 ) ) )
-      varValue := iif( iPos3 <> 0, LTrim( SubStr( stroka, iPos3 + 2, iPosEnd - iPos3 - 2 ) ), Nil )
+      varValue := iif( iPos3 <> 0, LTrim( SubStr( stroka, iPos3 + 2, iPosEnd - iPos3 - 2 ) ), NIL )
       stroka   := SubStr( stroka, iPosEnd + 1 )
    ENDIF
 
@@ -68,7 +68,7 @@ FUNCTION FIND_Z( stroka, symb )
 
    LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0, 0 }
 
-   symb := iif( symb = Nil, ",", symb )
+   symb := iif( symb = NIL, ",", symb )
    DO WHILE .T.
       poz := At( symb, SubStr( stroka, poz1 ) )
       IF poz = 0
@@ -152,10 +152,10 @@ FUNCTION NextItem( stroka, lFirst, cSep )
    STATIC nPos
    LOCAL i, oldPos
 
-   IF ( lFirst != Nil .AND. lFirst ) .OR. nPos == Nil
+   IF ( lFirst != NIL .AND. lFirst ) .OR. nPos == NIL
       nPos := 1
    ENDIF
-   IF cSep == Nil
+   IF cSep == NIL
       cSep := ";"
    ENDIF
    IF nPos != 99999

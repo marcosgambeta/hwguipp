@@ -52,15 +52,15 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       bSize, bPaint )
 
    ::title   := ""
-   ::oFont   := iif( oFont == Nil, ::oParent:oFont, oFont )
-   ::aTabs   := iif( aTabs == Nil, {}, aTabs )
+   ::oFont   := iif( oFont == NIL, ::oParent:oFont, oFont )
+   ::aTabs   := iif( aTabs == NIL, {}, aTabs )
    ::bChange := bChange
 
    ::bChange2 := bChange
 
-   ::bGetFocus := iif( bGetFocus == Nil, Nil, bGetFocus )
-   ::bLostFocus := iif( bLostFocus == Nil, Nil, bLostFocus )
-   ::bAction   := iif( bClick == Nil, Nil, bClick )
+   ::bGetFocus := iif( bGetFocus == NIL, NIL, bGetFocus )
+   ::bLostFocus := iif( bLostFocus == NIL, NIL, bLostFocus )
+   ::bAction   := iif( bClick == NIL, NIL, bClick )
 
    ::Activate()
 
@@ -75,7 +75,7 @@ METHOD Activate() CLASS HTab
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HTab
    LOCAL i, h
@@ -90,7 +90,7 @@ METHOD Init() CLASS HTab
       hwg_Setwindowobject( ::handle, Self )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HTab
 
@@ -100,7 +100,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTab
 
    IF msg == WM_USER
       ::nActive := wParam
-      IF ::bChange2 != Nil .AND. ::aPages[ ::nActive,3 ]
+      IF ::bChange2 != NIL .AND. ::aPages[ ::nActive,3 ]
          Eval( ::bChange2, Self, wParam )
       ENDIF
    ENDIF
@@ -111,7 +111,7 @@ METHOD SetTab( n ) CLASS HTab
 
    hwg_SetCurrentTab( ::handle, n )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD StartPage( cname ) CLASS HTab
    LOCAL i
@@ -125,7 +125,7 @@ METHOD StartPage( cname ) CLASS HTab
    ::nActive := i
    ::aPages[ i,4 ] := hwg_Addtab( ::handle, ::aTabs[i] )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD EndPage() CLASS HTab
 
@@ -134,9 +134,9 @@ METHOD EndPage() CLASS HTab
    ::nActive := 1
 
    ::oDefaultParent := ::oTemp
-   ::oTemp := Nil
+   ::oTemp := NIL
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD GetActivePage( nFirst, nEnd ) CLASS HTab
    IF !Empty( ::aPages )

@@ -22,8 +22,8 @@ CLASS HPanel INHERIT HControl
    DATA lCaptured   INIT .F.
    DATA hCursor
    DATA nOldX, nOldY HIDDEN
-   DATA hScrollV  INIT Nil
-   DATA hScrollH  INIT Nil
+   DATA hScrollV  INIT NIL
+   DATA hScrollH  INIT NIL
    DATA nScrollV  INIT 0
    DATA nScrollH  INIT 0
    DATA bVScroll, bHScroll
@@ -43,12 +43,12 @@ ENDCLASS
 METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       bInit, bSize, bPaint, bColor, oStyle ) CLASS HPanel
 
-   LOCAL oParent := iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
+   LOCAL oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
 
-   IF !Empty( bPaint ) .OR. bColor != Nil .OR. oStyle != Nil
+   IF !Empty( bPaint ) .OR. bColor != NIL .OR. oStyle != NIL
       nStyle := Hwg_BitOr( nStyle, SS_OWNERDRAW )
    ENDIF
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == Nil,0,nWidth ), ;
+   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL,0,nWidth ), ;
       nHeight, oParent:oFont, bInit, ;
       bSize, bPaint, , , bColor )
    ::oStyle := oStyle
@@ -65,7 +65,7 @@ METHOD Activate() CLASS HPanel
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam )  CLASS HPanel
 
@@ -76,16 +76,16 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HPanel
    ELSEIF msg == WM_PAINT
       ::Paint()
    ELSEIF msg == WM_HSCROLL
-      IF ::bHScroll != Nil
+      IF ::bHScroll != NIL
          Eval( ::bHScroll, Self )
       ENDIF
    ELSEIF msg == WM_VSCROLL
-      IF ::bVScroll != Nil
+      IF ::bVScroll != NIL
          Eval( ::bVScroll, Self )
       ENDIF
    ELSEIF msg == WM_LBUTTONDOWN
       IF ::lDragWin
-         IF ::hCursor == Nil
+         IF ::hCursor == NIL
             ::hCursor := hwg_Loadcursor( GDK_HAND1 )
          ENDIF
          Hwg_SetCursor( ::hCursor, ::handle )
@@ -95,7 +95,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HPanel
       ENDIF
    ELSEIF msg == WM_LBUTTONUP
       ::lCaptured := .F.
-      Hwg_SetCursor( Nil, ::handle )
+      Hwg_SetCursor( NIL, ::handle )
    ENDIF
 
    RETURN ::Super:onEvent( msg, wParam, lParam )
@@ -103,7 +103,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HPanel
 METHOD Init() CLASS HPanel
 
    IF !::lInit
-      IF ::bSize == Nil .AND. Empty( ::Anchor )
+      IF ::bSize == NIL .AND. Empty( ::Anchor )
          IF ::nHeight != 0 .AND. ( ::nWidth > ::nHeight .OR. ::nWidth == 0 )
             ::bSize := { |o, x, y|o:Move( , iif( ::nTop > 0,y - ::nHeight,0 ), x, ::nHeight ) }
          ELSEIF ::nWidth != 0 .AND. ( ::nHeight > ::nWidth .OR. ::nHeight == 0 )
@@ -114,7 +114,7 @@ METHOD Init() CLASS HPanel
       hwg_Setwindowobject( ::handle, Self )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD DrawItems( hDC, aCoors ) CLASS HPanel
 
@@ -129,20 +129,20 @@ METHOD DrawItems( hDC, aCoors ) CLASS HPanel
       NEXT
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Paint() CLASS HPanel
 
    LOCAL hDC, aCoors, block
 
-   IF ::bPaint != Nil
+   IF ::bPaint != NIL
       RETURN Eval( ::bPaint, Self )
    ENDIF
    hDC := hwg_Getdc( ::handle )
    aCoors := hwg_Getclientrect( ::handle )
    IF !Empty( block := hwg_getPaintCB( ::aPaintCB, PAINT_BACK ) )
       Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
-   ELSEIF ::oStyle == Nil
+   ELSEIF ::oStyle == NIL
       hwg_Drawbutton( hDC, 0, 0, ::nWidth - 1, ::nHeight - 1, 5 )
    ELSE
       ::oStyle:Draw( hDC, 0, 0, aCoors[3], aCoors[4] )
@@ -150,38 +150,38 @@ METHOD Paint() CLASS HPanel
    ::DrawItems( hDC, aCoors )
    hwg_Releasedc( ::handle, hDC )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Move( x1, y1, width, height )  CLASS HPanel
 
    LOCAL lMove := .F. , lSize := .F.
 
-   IF x1 != Nil .AND. x1 != ::nLeft
+   IF x1 != NIL .AND. x1 != ::nLeft
       ::nLeft := x1
       lMove := .T.
    ENDIF
-   IF y1 != Nil .AND. y1 != ::nTop
+   IF y1 != NIL .AND. y1 != ::nTop
       ::nTop := y1
       lMove := .T.
    ENDIF
-   IF width != Nil .AND. width != ::nWidth
+   IF width != NIL .AND. width != ::nWidth
       ::nWidth := width
       lSize := .T.
    ENDIF
-   IF height != Nil .AND. height != ::nHeight
+   IF height != NIL .AND. height != ::nHeight
       ::nHeight := height
       lSize := .T.
    ENDIF
    IF lMove .OR. lSize
-      hwg_MoveWidget( ::hbox, iif( lMove,::nLeft,Nil ), iif( lMove,::nTop,Nil ), ;
-         iif( lSize, ::nWidth, Nil ), iif( lSize, ::nHeight, Nil ), .F. )
+      hwg_MoveWidget( ::hbox, iif( lMove,::nLeft,NIL ), iif( lMove,::nTop,NIL ), ;
+         iif( lSize, ::nWidth, NIL ), iif( lSize, ::nHeight, NIL ), .F. )
       IF lSize
-         hwg_MoveWidget( ::handle, Nil, Nil, ::nWidth, ::nHeight, .F. )
+         hwg_MoveWidget( ::handle, NIL, NIL, ::nWidth, ::nHeight, .F. )
          hwg_Redrawwindow( ::handle )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD SetPaintCB( nId, block, cId ) CLASS HPanel
 
@@ -208,7 +208,7 @@ METHOD SetPaintCB( nId, block, cId ) CLASS HPanel
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Drag( xPos, yPos ) CLASS HPanel
 
@@ -224,7 +224,7 @@ METHOD Drag( xPos, yPos ) CLASS HPanel
       oWnd:Move( oWnd:nLeft + ( xPos - ::nOldX ), oWnd:nTop + ( yPos - ::nOldY ) )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 CLASS HPanelStS INHERIT HPANEL
 
@@ -240,8 +240,8 @@ ENDCLASS
 
 METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts ) CLASS HPanelStS
 
-   oWndParent := iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
-   IF bColor == Nil
+   oWndParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
+   IF bColor == NIL
       bColor := 0xeeeeee
    ENDIF
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, 0, oWndParent:nHeight - nHeight, ;
@@ -250,7 +250,7 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPar
 *      oWndParent:nWidth, nHeight, bInit, { |o, w, h|o:Move( 0, h - o:nHeight ) }, bPaint, bcolor )
 
    ::Anchor := ANCHOR_LEFTABS + ANCHOR_RIGHTABS
-   ::oFont := iif( oFont == Nil, ::oParent:oFont, oFont )
+   ::oFont := iif( oFont == NIL, ::oParent:oFont, oFont )
    ::oStyle := oStyle
    IF !Empty( aParts )
       ::aParts := aParts
@@ -264,18 +264,18 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPar
 
 METHOD Write( cText, nPart, lRedraw ) CLASS HPanelStS
 
-   ::aText[Iif(nPart==Nil,1,nPart)] := cText
+   ::aText[Iif(nPart==NIL,1,nPart)] := cText
    IF ValType( lRedraw ) != "L" .OR. lRedraw
       hwg_Invalidaterect( ::handle, 0 )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD PaintText( hDC ) CLASS HPanelStS
 
    LOCAL i, x1, x2, nWidth := ::nWidth, oldTColor
 
-   IF ::oFont != Nil
+   IF ::oFont != NIL
       hwg_Selectobject( hDC, ::oFont:handle )
    ENDIF
    hwg_Settransparentmode( hDC, .T. )
@@ -295,13 +295,13 @@ METHOD PaintText( hDC ) CLASS HPanelStS
    hwg_Settextcolor( hDC, oldTColor )
    hwg_Settransparentmode( hDC, .F. )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Paint() CLASS HPanelStS
 
    LOCAL pps, hDC, block, aCoors
 
-   IF ::bPaint != Nil
+   IF ::bPaint != NIL
       RETURN Eval( ::bPaint, Self )
    ENDIF
    pps    := hwg_Definepaintstru()
@@ -317,7 +317,7 @@ METHOD Paint() CLASS HPanelStS
    ::DrawItems( hDC )
    hwg_Endpaint( ::handle, pps )
 
-   RETURN Nil
+   RETURN NIL
 
 CLASS HPanelHea INHERIT HPANEL
 
@@ -339,8 +339,8 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oSty
 
    LOCAL btnClose, btnMax, btnMin
 
-   oWndParent := iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
-   IF bColor == Nil
+   oWndParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
+   IF bColor == NIL
       bColor := 0xeeeeee
    ENDIF
 
@@ -351,9 +351,9 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oSty
    ::title := cText
    ::xt := xt
    ::yt := yt
-   ::oFont := Iif( oFont == Nil, ::oParent:oFont, oFont )
+   ::oFont := Iif( oFont == NIL, ::oParent:oFont, oFont )
    ::oStyle := oStyle
-   ::tColor := Iif( tcolor==Nil, 0, tcolor )
+   ::tColor := Iif( tcolor==NIL, 0, tcolor )
    ::lDragWin := .T.
    ::lPreDef := .F.
 
@@ -429,34 +429,34 @@ METHOD SetSysbtnColor( tColor, bColor )
       oBtn:SetColor( tColor, bColor )
       oBtn:oPen1 := oPen1; oBtn:oPen2 := oPen2
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD PaintText( hDC ) CLASS HPanelHea
 
    LOCAL x1, y1, oldTColor
 
-   IF ::title != Nil
+   IF ::title != NIL
 
-      IF ::oFont != Nil
+      IF ::oFont != NIL
          hwg_Selectobject( hDC, ::oFont:handle )
       ENDIF
       hwg_Settransparentmode( hDC, .T. )
       oldTColor := hwg_Settextcolor( hDC, ::tcolor )
-      x1 := Iif( ::xt==Nil, 4, ::xt )
-      y1 := Iif( ::yt==Nil, 4, ::yt )
+      x1 := Iif( ::xt==NIL, 4, ::xt )
+      y1 := Iif( ::yt==NIL, 4, ::yt )
       hwg_Drawtext( hDC, ::title, x1, y1, ::nWidth-4, ::nHeight-4, DT_LEFT + DT_VCENTER )
       hwg_Settextcolor( hDC, oldTColor )
       hwg_Settransparentmode( hDC, .F. )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Paint() CLASS HPanelHea
 
    LOCAL pps, hDC, block, aCoors
    LOCAL oBtn, nBtnSize, x1, y1
 
-   IF ::bPaint != Nil
+   IF ::bPaint != NIL
       RETURN Eval( ::bPaint, Self )
    ENDIF
 
@@ -500,14 +500,14 @@ METHOD Paint() CLASS HPanelHea
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION fPaintBtn( oBtn )
 
    LOCAL pps, hDC, aCoors
 
    IF oBtn:nWidth <= 1
-      RETURN Nil
+      RETURN NIL
    ENDIF
    pps := hwg_Definepaintstru()
    hDC := hwg_Beginpaint( oBtn:handle, pps )
@@ -539,7 +539,7 @@ STATIC FUNCTION fPaintBtn( oBtn )
 
    hwg_Endpaint( oBtn:handle, pps )
 
-   RETURN Nil
+   RETURN NIL
    
 * ================================ EOF of hpanel.prg ============================
       

@@ -80,7 +80,7 @@ FUNCTION CHECK_FILE ( cfi )
   Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
   QUIT
  ENDIF 
-RETURN Nil
+RETURN NIL
 
 * ================================= EOF of gtk_err93.prg =============================================
     

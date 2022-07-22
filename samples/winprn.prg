@@ -461,7 +461,7 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
 
    oWinPrn:End()
 
-Return Nil
+Return NIL
 
 * ---------------------------------------------
 FUNCTION NLS_SetLang(cname,omain)
@@ -833,6 +833,6 @@ FUNCTION CHECK_FILE ( cfi )
   Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
   QUIT
  ENDIF 
-RETURN Nil
+RETURN NIL
 
 * ============================= EOF of winprn.prg =========================================

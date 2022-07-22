@@ -54,7 +54,7 @@ Local oMainWindow
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+Return NIL
 
 Function DlgGet
 Local oModDlg, oFont
@@ -144,7 +144,7 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
                "DatePicker: "+Dtoc(d1)                                ;
                ,"Results:" )
    ENDIF
-Return Nil
+Return NIL
 
 FUNCTION Cal_Dialog()
 LOCAL ddatum, daltdatum, Ctext

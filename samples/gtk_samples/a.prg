@@ -15,12 +15,12 @@ MEMVAR oFont, cImageDir, nColor
 Function Main
 Local oMainWindow,oPanel
 * DF7BE: Causes Warning W0001  Ambiguous reference ...
-* Private oFont := Nil, cImageDir := "/"+Curdir()+"/../../image/"
+* Private oFont := NIL, cImageDir := "/"+Curdir()+"/../../image/"
 
 Private oBmp2
 
 * DF7BE: Init MEMVAR's, otherwise crash because of non existing variables
-  oFont := Nil
+  oFont := NIL
   cImageDir := "/"+Curdir()+"/../../image/"
   ncolor := NIL
 
@@ -39,7 +39,7 @@ Private oBmp2
          SEPARATOR
          MENUITEM "&Font" ACTION oFont:=HFont():Select(oFont)
          MENUITEM "&Color" ACTION (nColor:=Hwg_ChooseColor(nColor,.F.), ;
-                     hwg_Msginfo(Iif(nColor!=Nil,str(nColor),"--"),"Color value"))
+                     hwg_Msginfo(Iif(nColor!=NIL,str(nColor),"--"),"Color value"))
          SEPARATOR
          MENUITEM "&Move Main Window" ACTION oMainWindow:Move(50, 60, 200, 300)
          MENUITEM "&Exit" ACTION hwg_EndWindow()
@@ -103,14 +103,14 @@ fname := hwg_Selectfile("Dbf Files" , "*.dbf", mypath )
       hwg_CreateList( oBrw,.T. )
       oBrw:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
       oBrw:bRClick := {|o,nCol,nRow|hwg_MsgInfo(str(nCol)+"/"+str(nRow))}
-      IF oFont != Nil
+      IF oFont != NIL
          oBrw:ofont := oFont
       ENDIF
       AEval(oBrw:aColumns, {|o| o:bHeadClick := {|oB, n| hwg_Msginfo("Column number "+Str(n))}})
 
       ACTIVATE DIALOG oModDlg NOMODAL
    ENDIF
-Return Nil
+Return NIL
 
 Function FileClose( oDlg )
    Local oBrw := oDlg:FindControl( 111 )
@@ -149,7 +149,7 @@ Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
 
    @ 20,70 CHECKBOX "Check 1" SIZE 90, 20
    @ 20,95 CHECKBOX "Check 2"  ;
-        SIZE 90, 20 COLOR Iif( nColor==Nil,0x0000FF,nColor )
+        SIZE 90, 20 COLOR Iif( nColor==NIL,0x0000FF,nColor )
 
    @ 160,70 GROUPBOX "RadioGroup"  SIZE 130, 75
 
@@ -183,7 +183,7 @@ Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
    ACTIVATE DIALOG oModDlg
    oFont:Release()
 
-Return Nil
+Return NIL
 
 Function TestTab()
 
@@ -221,8 +221,8 @@ Function PrnTest
 Local oPrinter, oFont
 
    INIT PRINTER oPrinter
-   IF oPrinter == Nil      
-      Return Nil         
+   IF oPrinter == NIL      
+      Return NIL         
    ENDIF            
                               
    oFont := oPrinter:AddFont( "sans",10 )
@@ -243,7 +243,7 @@ Local oPrinter, oFont
    oPrinter:Preview()
    oPrinter:End()
 
-Return Nil
+Return NIL
 
 * ================== EOF of a.prg =====================
                                                                

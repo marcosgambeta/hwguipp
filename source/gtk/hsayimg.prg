@@ -22,7 +22,7 @@ CLASS HSayImage INHERIT HControl
    METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
       bSize, ctoolt, bClick, bDblClick, bColor )
    METHOD Activate()
-   METHOD END()  INLINE ( ::Super:END(), iif( ::oImage <> Nil,::oImage:Release(),::oImage := Nil ), ::oImage := Nil )
+   METHOD END()  INLINE ( ::Super:END(), iif( ::oImage <> NIL,::oImage:Release(),::oImage := NIL ), ::oImage := NIL )
 
 ENDCLASS
 
@@ -30,7 +30,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
       bSize, ctoolt, bClick, bDblClick, bColor ) CLASS HSayImage
 
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, ;
-      Iif( nWidth != Nil, nWidth, 0 ), iif( nHeight != Nil, nHeight, 0 ),, ;
+      Iif( nWidth != NIL, nWidth, 0 ), iif( nHeight != NIL, nHeight, 0 ),, ;
       bInit, bSize,, ctoolt,, bColor )
 
    ::title := ""
@@ -48,7 +48,7 @@ METHOD Activate() CLASS HSayImage
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //- HSayBmp
 
@@ -80,24 +80,24 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, ;
          bInit, bSize, ctoolt, bClick, bDblClick, bColor )
 
-   ::lTransp := Iif( lTransp = Nil, .F. , lTransp )
-   ::trcolor := Iif( trcolor = Nil, 16777215, trcolor )
+   ::lTransp := Iif( lTransp = NIL, .F. , lTransp )
+   ::trcolor := Iif( trcolor = NIL, 16777215, trcolor )
    ::nBorder := 0
    ::tColor := 0
 
-   IF Image != Nil
-      IF lRes == Nil ; lRes := .F. ; ENDIF
+   IF Image != NIL
+      IF lRes == NIL ; lRes := .F. ; ENDIF
       ::oImage := Iif( lRes .OR. ValType( Image ) == "N",     ;
          HBitmap():AddResource( Image ), ;
          iif( ValType( Image ) == "C",     ;
          HBitmap():AddFile( Image ), Image ) )
       IF !Empty( ::oImage )
-         IF nWidth == Nil .OR. nHeight == Nil
+         IF nWidth == NIL .OR. nHeight == NIL
             ::nWidth  := ::oImage:nWidth
             ::nHeight := ::oImage:nHeight
          ENDIF
       ELSE
-         RETURN Nil
+         RETURN NIL
       ENDIF
    ENDIF
    ::Activate()
@@ -111,7 +111,7 @@ METHOD INIT() CLASS HSayBmp
       hwg_Setwindowobject( ::handle, Self )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HSayBmp
 
@@ -128,11 +128,11 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSayBmp
 METHOD Paint() CLASS HSayBmp
    LOCAL hDC := hwg_Getdc( ::handle )
 
-   IF ::brush != Nil
+   IF ::brush != NIL
       hwg_Fillrect( hDC, ::nOffsetH, ::nOffsetV, ::nWidth, ::nHeight, ::brush:handle )
    ENDIF
-   IF ::oImage != Nil
-      IF ::nZoom == Nil
+   IF ::oImage != NIL
+      IF ::nZoom == NIL
          IF ::lTransp
             hwg_Drawtransparentbitmap( hDC, ::oImage:handle, ::nOffsetH, ;
                ::nOffsetV, ::trColor, ::nWidth, ::nHeight )
@@ -146,7 +146,7 @@ METHOD Paint() CLASS HSayBmp
       ENDIF
    ENDIF
    IF ::nBorder > 0
-      IF ::oPen == Nil
+      IF ::oPen == NIL
          ::oPen := HPen():Add( BS_SOLID, ::nBorder, ::tColor )
       ENDIF
       hwg_Selectobject( hDC, ::oPen:handle )
@@ -154,23 +154,23 @@ METHOD Paint() CLASS HSayBmp
    ENDIF
    hwg_Releasedc( ::handle, hDC )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
 
-   IF ::oImage != Nil
+   IF ::oImage != NIL
       ::oImage:Release()
-      ::oImage := Nil
+      ::oImage := NIL
    ENDIF
    IF !Empty( Image )
-      IF lRes == Nil ; lRes := .F. ; ENDIF
+      IF lRes == NIL ; lRes := .F. ; ENDIF
       ::oImage := iif( lRes .OR. ValType( Image ) == "N",  ;
          HBitmap():AddResource( Image ), ;
          iif( ValType( Image ) == "C",   ;
          HBitmap():AddFile( Image ), Image ) )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //- HSayIcon
 
@@ -186,7 +186,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
 
    ::Super:New( oWndParent, nId, SS_ICON, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctoolt )
 
-   IF lRes == Nil ; lRes := .F. ; ENDIF
+   IF lRes == NIL ; lRes := .F. ; ENDIF
    ::oImage := iif( lRes .OR. ValType( Image ) == "N", ;
       HIcon():AddResource( Image , nWidth, nHeight ),  ;
       iif( ValType( Image ) == "C",  ;

@@ -107,9 +107,9 @@ FUNCTION _hwr_PrintRpt
    FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
       IF aPaintRep[FORM_ITEMS,i,ITEM_TYPE] == TYPE_TEXT
          aPaintRep[FORM_ITEMS,i,ITEM_GROUP]:Release()
-         aPaintRep[FORM_ITEMS,i,ITEM_GROUP] := Nil
+         aPaintRep[FORM_ITEMS,i,ITEM_GROUP] := NIL
       ENDIF
    NEXT
-   aImgs := Nil
+   aImgs := NIL
 
-   RETURN Nil
+   RETURN NIL

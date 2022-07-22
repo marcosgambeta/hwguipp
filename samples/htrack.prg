@@ -53,7 +53,7 @@ Local bVolChange := {|o,n|
    ACTIVATE DIALOG oDlg
    oFont:Release()
 
-Return Nil
+Return NIL
 
    
 * ============================ EOF of htrack.prg ==============================

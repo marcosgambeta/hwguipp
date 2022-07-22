@@ -617,7 +617,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowseEx
       ELSEIF msg == WM_COMMAND
          IF hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
             hwg_GetParentForm( Self ):onEvent( msg, wparam, lparam )
-         ELSEIF ::aEvents != Nil
+         ELSEIF ::aEvents != NIL
             iParHigh := hwg_Hiword( wParam )
             iParLow  := hwg_Loword( wParam )           
             IF ( nPos := AScan( ::aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
@@ -880,8 +880,8 @@ METHOD AddColumn( oColumn ) CLASS HBrowseEx
    IF Valtype( oColumn ) == "A"
       arr := oColumn
       n := Len(arr)
-      oColumn := HColumnEx():New( Iif(n>0,arr[1],Nil), Iif(n>1,arr[2],Nil), ;
-         Iif(n>2,arr[3],Nil), Iif(n>3,arr[4],Nil), Iif(n>4,arr[5],Nil), Iif(n>5,arr[6],Nil) )
+      oColumn := HColumnEx():New( Iif(n>0,arr[1],NIL), Iif(n>1,arr[2],NIL), ;
+         Iif(n>2,arr[3],NIL), Iif(n>3,arr[4],NIL), Iif(n>4,arr[5],NIL), Iif(n>5,arr[6],NIL) )
    ENDIF
 
    AAdd( ::aColumns, oColumn )
@@ -899,8 +899,8 @@ METHOD InsColumn( oColumn, nPos ) CLASS HBrowseEx
    IF Valtype( oColumn ) == "A"
       arr := oColumn
       n := Len(arr)
-      oColumn := HColumnEx():New( Iif(n>0,arr[1],Nil), Iif(n>1,arr[2],Nil), ;
-         Iif(n>2,arr[3],Nil), Iif(n>3,arr[4],Nil), Iif(n>4,arr[5],Nil), Iif(n>5,arr[6],Nil) )
+      oColumn := HColumnEx():New( Iif(n>0,arr[1],NIL), Iif(n>1,arr[2],NIL), ;
+         Iif(n>2,arr[3],NIL), Iif(n>3,arr[4],NIL), Iif(n>4,arr[5],NIL), Iif(n>5,arr[6],NIL) )
    ENDIF
 
    AAdd( ::aColumns, NIL )
@@ -1009,7 +1009,7 @@ METHOD DeleteMark( lDeleteMark ) CLASS HBrowseEx
 METHOD ShowColToolTips( lParam ) CLASS HBrowseEx
    LOCAL pt, cTip := ""
 
-   IF Ascan( ::aColumns, { | c | c:Hint != .F. .OR. c:Tooltip != Nil } ) = 0
+   IF Ascan( ::aColumns, { | c | c:Hint != .F. .OR. c:Tooltip != NIL } ) = 0
       RETURN NIL
    ENDIF
    pt := ::ButtonDown( lParam, .T. )
@@ -1017,7 +1017,7 @@ METHOD ShowColToolTips( lParam ) CLASS HBrowseEx
       RETURN NIL
    ELSEIF pt[ 1 ] != 0 .AND. pt[ 2 ] != 0 .AND. ::aColumns[ pt[ 2 ] ]:Hint
       cTip := ::aColumns[ pt[ 2 ] ]:aHints[ pt[ 1 ] ]
-   ELSEIF pt[ 1 ] = 0 .AND. pt[ 2 ] != 0 .AND. ::aColumns[ pt[ 2 ] ]:ToolTip != Nil
+   ELSEIF pt[ 1 ] = 0 .AND. pt[ 2 ] != 0 .AND. ::aColumns[ pt[ 2 ] ]:ToolTip != NIL
       cTip := ::aColumns[ pt[ 2 ] ]:ToolTip
    ENDIF
    IF ! Empty( cTip ) .OR. ! Empty( xToolTip )
@@ -1117,14 +1117,14 @@ METHOD InitBrw( nType, lInit )  CLASS HBrowseEx
 
 METHOD LinkMaster( cLinkMaster ) CLASS HBrowseEx
 
-   IF cLinkMaster  != Nil
+   IF cLinkMaster  != NIL
       ::lFilter := iif( ! Empty( cLinkMaster ), .T. , ::lFilter )
       IF ! Empty( ::cLinkMaster ) .AND. Empty( cLinkMaster )
          ::bWhile    := { || .T. }
       ENDIF
       ::cLinkMaster := Trim( cLinkMaster )
       IF Empty( ::Alias )
-         RETURN Nil
+         RETURN NIL
       ENDIF
       ::Filter( ::lFilter )
       IF ! Empty( ::cLinkMaster )
@@ -1151,7 +1151,7 @@ METHOD LinkMaster( cLinkMaster ) CLASS HBrowseEx
 
 METHOD FILTER( lFilter ) CLASS HBrowseEx
 
-   IF lFilter != Nil .AND. ::Type == BRW_DATABASE
+   IF lFilter != NIL .AND. ::Type == BRW_DATABASE
       IF  Empty( ::Alias )
          ::Alias   := Alias()
       ENDIF
@@ -1191,7 +1191,7 @@ METHOD FILTER( lFilter ) CLASS HBrowseEx
          ::bFor      := { || .T. }
       ENDIF
       ::lFilter := lFilter
-   ELSEIF lFilter != Nil .AND. ::Type == BRW_ARRAY
+   ELSEIF lFilter != NIL .AND. ::Type == BRW_ARRAY
       IF lFilter
          ::nLastRecordFilter  := 0
          ::nFirstRecordFilter := 0
@@ -1617,7 +1617,7 @@ METHOD Paint( lLostFocus )  CLASS HBrowseEx
    ENDIF
 
    IF ::lInFocus .AND. ( ( tmp := hwg_Getfocus() ) == ::oParent:handle ;
-         .OR. ::oParent:FindControl(,tmp) != Nil )
+         .OR. ::oParent:FindControl(,tmp) != NIL )
       hwg_Setfocus( ::handle )
    ENDIF
 
@@ -3228,7 +3228,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowseEx
          IF ::nSetRefresh > 0
             ::oTimer:Interval := ::nSetRefresh
          ENDIF
-         ::oEditDlg := Nil
+         ::oEditDlg := NIL
 
       ELSEIF ::lEditable
          ::DoHScroll( SB_LINERIGHT )
@@ -3346,7 +3346,7 @@ METHOD ValidColumn( value, oGet, oBtn ) CLASS HBrowseEx
       res := Eval( oColumn:bValid, value, oGet )
       IF ValType( res ) = "L" .AND. ! res
          oGet:Setfocus()
-         hwg_Setfocus( Nil )
+         hwg_Setfocus( NIL )
       ENDIF
       //::oparent:lSuspendMsgsHandling := .F.
    ENDIF

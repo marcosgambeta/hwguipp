@@ -66,23 +66,23 @@ FUNCTION EditScr( oEdit, aStru )
 
    LOCAL oDlg, oEdiScr, arr
 
-   INIT DIALOG oDlg TITLE Iif( aStru==Nil, "Insert", "Edit" ) + " script" ;
+   INIT DIALOG oDlg TITLE Iif( aStru==NIL, "Insert", "Edit" ) + " script" ;
       AT 100,240  SIZE 600,300  FONT HWindow():Getmain():oFont ;
       STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_MAXIMIZEBOX+WS_SIZEBOX ;
       ON INIT {||hwg_Movewindow(oDlg:handle,100,240,600,310)}
 
    oEdiScr := HCEdit():New( ,,, 0, 0, 400, oDlg:nHeight, oDlg:oFont,, {|o,x,y|o:Move(,,x,y)} )
 
-   IF aStru != Nil .AND. !Empty( aStru[OB_HREF] )
+   IF aStru != NIL .AND. !Empty( aStru[OB_HREF] )
       oEdiScr:SetText( aStru[OB_HREF] )
    ENDIF
 
    ACTIVATE DIALOG oDlg
 
    IF oEdiScr:lUpdated .AND. hwg_Msgyesno( "Code was changed! Save it?" )
-      IF aStru != Nil
+      IF aStru != NIL
          aStru[OB_HREF] := oEdiScr:GetText()
-         aStru[OB_EXEC] := Nil
+         aStru[OB_EXEC] := NIL
       ELSE
          oEdit:InsSpan( "()", "fb", oEdiScr:GetText() )
          oEdit:SetCaretPos( SETC_LEFT )
@@ -90,7 +90,7 @@ FUNCTION EditScr( oEdit, aStru )
          IF !Empty( arr[3] )
             arr[3,OB_ACCESS] := hwg_setBit( hwg_setBit( 0, BIT_CLCSCR ), BIT_RDONLY )
             IF Len( arr[3] ) < OB_EXEC
-               Aadd( arr[3], Nil )
+               Aadd( arr[3], NIL )
             ENDIF
          ENDIF
       ENDIF
@@ -98,7 +98,7 @@ FUNCTION EditScr( oEdit, aStru )
 
    hced_Setfocus( oEdit:hEdit )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION PreProc( s )
 
@@ -164,7 +164,7 @@ STATIC FUNCTION CalcScr( aStru, nL, iTD, nL1 )
 
    LOCAL xRes, cRes, nPos2, c, nLen
 
-   IF aStru[OB_EXEC] == Nil
+   IF aStru[OB_EXEC] == NIL
       cRes := PreProc( aStru[OB_HREF] )
       //hwg_writelog( cRes )
       IF !( Chr(10) $ cRes )
@@ -176,7 +176,7 @@ STATIC FUNCTION CalcScr( aStru, nL, iTD, nL1 )
          aStru[OB_EXEC] := RdScript( , cRes )
       ENDIF
    ENDIF
-   IF ( xRes := Iif( Valtype(aStru[OB_EXEC])=="A", DoScript(aStru[OB_EXEC]), Eval(aStru[OB_EXEC]) ) ) != Nil
+   IF ( xRes := Iif( Valtype(aStru[OB_EXEC])=="A", DoScript(aStru[OB_EXEC]), Eval(aStru[OB_EXEC]) ) ) != NIL
       cRes := Trim( Transform( xReS, "@B" ) )
       IF Valtype( xRes ) == "N" .AND. Rat( ".", cRes ) > 0
         nPos2 := Len( cRes )
@@ -187,7 +187,7 @@ STATIC FUNCTION CalcScr( aStru, nL, iTD, nL1 )
         cRes := Left( cRes, nPos2 )
       ENDIF
       cRes := "(" + cRes + ")"
-      IF iTD != Nil
+      IF iTD != NIL
          oEdiCurr:LoadEnv( nL, iTD )
       ELSE
          nL1 := nL
@@ -197,13 +197,13 @@ STATIC FUNCTION CalcScr( aStru, nL, iTD, nL1 )
       oEdiCurr:DelText( { aStru[1] + hced_Len( oEdiCurr,cRes ), nL1 }, ;
             { aStru[1] + hced_Len( oEdiCurr,cRes ) + nLen, nL1 } , .F. )
       oEdiCurr:lUpdated := .T.
-      IF iTD != Nil
+      IF iTD != NIL
          oEdiCurr:RestoreEnv( nL, iTD )
       ENDIF
    ENDIF
    hced_Setfocus( oEdiCurr:hEdit )
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION CalcAll( oEdit )
 
@@ -244,7 +244,7 @@ FUNCTION CalcAll( oEdit )
 
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION Calc( oEdit, nL, iTD, nL1 )
 
@@ -254,7 +254,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
 
    oEdiCurr := oEdit
 
-   IF nL == Nil
+   IF nL == NIL
       lAll := .F.
       aCurrTD[1] := aCurrTD[2] := aCurrTD[3] := 0
       arr := oEdit:GetPosInfo()
@@ -273,7 +273,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
       ENDIF
    ENDIF
 
-   IF iTD != Nil
+   IF iTD != NIL
       oEdit:LoadEnv( nL, iTD )
    ELSE
       nL1 := nL
@@ -334,7 +334,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
 
    aStru := oEdit:aStru[nL1]
 
-   IF iTD != Nil
+   IF iTD != NIL
       oEdit:RestoreEnv( nL, iTD )
    ENDIF
 
@@ -343,14 +343,14 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
    BEGIN SEQUENCE
       xRes := &cExp
    RECOVER
-      xRes := Nil
+      xRes := NIL
    END SEQUENCE
    ErrorBlock( bOldError )
 
-   IF iTD != Nil
+   IF iTD != NIL
       oEdit:LoadEnv( nL, iTD )
    ENDIF
-   IF xRes == Nil
+   IF xRes == NIL
       IF !lAll
          hwg_MsgStop( "Expression error", "Calculator" )
       ENDIF
@@ -393,7 +393,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
       oEdit:lUpdated := .T.
    ENDIF
    SET DECIMALS TO 2
-   IF iTD != Nil
+   IF iTD != NIL
       oEdit:RestoreEnv( nL, iTD )
    ENDIF
 
@@ -402,7 +402,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
    ENDIF
    hced_Setfocus( oEdit:hEdit )
    
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CnvVal( xRes )
 
@@ -436,18 +436,18 @@ FUNCTION Z( nCol, nRow )
 
    LOCAL nL, cText, c
 
-   IF nCol == Nil
+   IF nCol == NIL
       nCol := aCurrTD[1]
    ELSEIF nCol < 0
       nCol := aCurrTD[1] + nCol
    ENDIF
-   IF nRow == Nil
+   IF nRow == NIL
       nRow := aCurrTD[2]
    ELSEIF nRow < 0
       nRow := aCurrTD[2] + nRow
    ENDIF
    IF Empty(nCol) .OR. Empty(nRow)
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3],1,OB_TRNUM] + nRow
@@ -460,7 +460,7 @@ FUNCTION Sum( aCells )
 
    LOCAL nSum := 0, i, nL, cText
 
-   IF aCells[1] == Nil
+   IF aCells[1] == NIL
       aCells[1] := aCells[3] := aCurrTD[1]
    ELSEIF aCells[1] < 0
       aCells[1] := aCurrTD[1] + aCells[1]
@@ -469,7 +469,7 @@ FUNCTION Sum( aCells )
       aCells[3] := aCurrTD[1] + aCells[3]
    ENDIF
 
-   IF aCells[2] == Nil
+   IF aCells[2] == NIL
       aCells[2] := aCells[4] := aCurrTD[2]
    ELSEIF aCells[2] < 0
       aCells[2] := aCurrTD[2] + aCells[2]
@@ -513,7 +513,7 @@ FUNCTION GetAt( cMet )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION SetAt( cMet, xVal )
 

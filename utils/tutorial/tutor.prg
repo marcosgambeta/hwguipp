@@ -144,7 +144,7 @@ FUNCTION Main
 
    ACTIVATE WINDOW oMain
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ReadIni()
    LOCAL oInit, i, oNode1, cHwgui_dir
@@ -185,7 +185,7 @@ STATIC FUNCTION ReadIni()
       cHrb_inc_dir := hb_OsPathListSeparator() + cHrb_inc_dir
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION BuildTree( oTree )
    LOCAL oTreeNode1, oTreeNode2, oTNode
@@ -262,7 +262,7 @@ STATIC FUNCTION BuildTree( oTree )
 
    oTree:bExpand := { || .T. }
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION NodeOut( oItem )
 
@@ -279,7 +279,7 @@ STATIC FUNCTION NodeOut( oItem )
       oText:SetText( oItem:cargo[2] )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION RunSample( oItem )
    LOCAL cText := "", cLine, i, cHrb, lWnd := .F.
@@ -290,8 +290,8 @@ STATIC FUNCTION RunSample( oItem )
    cHrbCopts := cHrbCopts + "-d__GTK__"
 #endif   
 
-   IF oItem != Nil .AND. !oItem:cargo[1]
-      RETURN Nil
+   IF oItem != NIL .AND. !oItem:cargo[1]
+      RETURN NIL
    ENDIF
 
    FOR i := 1 TO oText:nTextLen
@@ -336,7 +336,7 @@ STATIC FUNCTION RunSample( oItem )
    ENDIF
 #endif
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION FindHwgrun()
    LOCAL arr, i, cPath
@@ -369,7 +369,7 @@ STATIC FUNCTION ChangeFont( oCtrl, n )
 
    oCtrl:SetFont( oFont )
 
-   RETURN Nil
+   RETURN NIL
    
 * ================================= EOF of tutor.prg ===============================
 

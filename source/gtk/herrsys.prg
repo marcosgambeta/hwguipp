@@ -117,7 +117,7 @@ FUNCTION hwg_WriteLog( cText, fname )
 
    LOCAL nHand
 
-   fname := LogInitialPath + iif( fname == Nil, "a.log", fname )
+   fname := LogInitialPath + iif( fname == NIL, "a.log", fname )
    IF !File( fname )
       nHand := FCreate( fname )
    ELSE
@@ -143,7 +143,7 @@ STATIC FUNCTION ErrorPreview( cMess )
 
    oDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 * ====================================== EOF of herrsys.prg ===============================================
    

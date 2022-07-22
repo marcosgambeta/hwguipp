@@ -137,7 +137,7 @@ INIT WINDOW oMainW  ;
    ON CLICK { | | Clickcnt()} ;
    SIZE 28,24 FLAT ;
    BITMAP obtncnt ; 
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ;
    TOOLTIP "Container image" 
 */    
 
@@ -170,6 +170,6 @@ FUNCTION CHECK_FILE ( cfi )
   Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
   QUIT
  ENDIF 
-RETURN Nil
+RETURN NIL
 
 * ============================= EOF of bincnts.prg ==================================

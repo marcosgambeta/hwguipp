@@ -357,6 +357,6 @@ FUNCTION CHECK_FILE ( cfi )
   Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
   QUIT
  ENDIF 
-RETURN Nil
+RETURN NIL
 
 * =========================== EOF of Ticket60.prg =========================== 

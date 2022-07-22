@@ -337,7 +337,7 @@ FUNCTION Main( ... )
 
    ACTIVATE WINDOW oMainW
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ReadHrb()
    LOCAL cHrb
@@ -352,7 +352,7 @@ STATIC FUNCTION ReadHrb()
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ReadIni()
    LOCAL oInit, i , cxmlfile
@@ -386,7 +386,7 @@ STATIC FUNCTION ReadIni()
    oHighLighter := Hilight():New( cIniPath + "hilight.xml", "prg" )
 #endif
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SaveIni()
    LOCAL oInit, oNode
@@ -416,13 +416,13 @@ STATIC FUNCTION SaveIni()
 
    oIni:Save( cIniPath + "hwgdebug.xml" )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SaveBreaks()
    LOCAL oInit, oNode, n := 0, lFound := .F.
 
    IF Empty( cAppName )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    IF Empty( oIni ) .OR. Empty( oIni:aItems )
       oIni := HXMLDoc():New( "windows-1251" )
@@ -449,16 +449,16 @@ STATIC FUNCTION SaveBreaks()
    NEXT
    oIni:Save( cIniPath + "hwgdebug.xml" )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION LoadBreaks()
    LOCAL oInit, oNode, n := 0, nLine, cPrg
 
    IF Empty( cAppName )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    IF Empty( oIni ) .OR. Empty( oIni:aItems )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    oInit := oIni:aItems[1]
@@ -485,11 +485,11 @@ STATIC FUNCTION LoadBreaks()
       ENDIF
    ENDDO
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION DebugNewExe( cExe, cParams )
 
-   IF cExe == Nil
+   IF cExe == NIL
       IF !Empty( cExe := hwg_Selectfile( "Executable files( *.exe )", "*.exe", CurDir() ) )
          aBP := {}
          aWatches := {}
@@ -498,13 +498,13 @@ FUNCTION DebugNewExe( cExe, cParams )
          nId1 := 0
          nId2 := - 1
       ELSE
-         RETURN Nil
+         RETURN NIL
       ENDIF
    ENDIF
 
    IF !File( cExe )
       hwg_MsgStop( cExe + " isn't found..." )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    FErase( cExe + ".d1" )
@@ -527,7 +527,7 @@ FUNCTION DebugNewExe( cExe, cParams )
       hwg_MsgStop( "No connection" )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Wait4Conn( cDir )
 
@@ -549,7 +549,7 @@ STATIC FUNCTION Wait4Conn( cDir )
       hwg_MsgStop( "No connection" )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION dbgRead()
    LOCAL n, s := "", arr
@@ -558,7 +558,7 @@ STATIC FUNCTION dbgRead()
    DO WHILE ( n := FRead( handl2, @cBuffer, Len(cBuffer ) ) ) > 0
       s += Left( cBuffer, n )
       IF ( n := At( ",!", s ) ) > 0
-         IF ( arr := hb_aTokens( Left( s,n + 1 ), "," ) ) != Nil .AND. Len( arr ) > 2 .AND. arr[1] == arr[Len(arr)-1]
+         IF ( arr := hb_aTokens( Left( s,n + 1 ), "," ) ) != NIL .AND. Len( arr ) > 2 .AND. arr[1] == arr[Len(arr)-1]
             RETURN arr
          ELSE
             EXIT
@@ -566,7 +566,7 @@ STATIC FUNCTION dbgRead()
       ENDIF
    ENDDO
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Send( ... )
    LOCAL arr := hb_aParams(), i, s := ""
@@ -577,7 +577,7 @@ STATIC FUNCTION Send( ... )
    NEXT
    FWrite( handl1, LTrim( Str( ++ nId1 ) ) + "," + s + LTrim( Str(nId1 ) ) + ",!" )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION TimerProc()
    LOCAL n, arr, xTmp
@@ -588,7 +588,7 @@ STATIC FUNCTION TimerProc()
          IF arr[1] == "quit"
             SetMode( MODE_INIT )
             StopDebug()
-            RETURN Nil
+            RETURN NIL
          ENDIF
          IF nMode == MODE_WAIT_ANS
             IF Left( arr[1], 1 ) == "b" .AND. ( n := Val( SubStr(arr[1],2 ) ) ) == nId1
@@ -598,17 +598,17 @@ STATIC FUNCTION TimerProc()
                         IF ( xTmp := SubStr( Hex2Str(arr[3] ),2,1 ) ) == "O"
                            nMode := MODE_INPUT
                            InspectObject( cInspectVar )
-                           cInspectVar := Nil
-                           RETURN Nil
+                           cInspectVar := NIL
+                           RETURN NIL
                         ELSEIF xTmp == "A"
                            nMode := MODE_INPUT
                            InspectArray( cInspectVar )
-                           cInspectVar := Nil
-                           RETURN Nil
+                           cInspectVar := NIL
+                           RETURN NIL
                         ELSE
                            nMode := MODE_INPUT
                            Calc( cInspectVar )
-                           RETURN Nil
+                           RETURN NIL
                         ENDIF
                      ELSE
                         SetResult( Hex2Str( arr[3] ) )
@@ -625,9 +625,9 @@ STATIC FUNCTION TimerProc()
                   IF !Empty( aBPLoad )
                      IF ++ nBPLoad <= Len( aBPLoad )
                         AddBreakPoint( aBPLoad[nBPLoad,2], aBPLoad[nBPLoad,1] )
-                        RETURN Nil
+                        RETURN NIL
                      ELSE
-                        aBPLoad := Nil
+                        aBPLoad := NIL
                      ENDIF
                   ENDIF
                ELSEIF nAnsType == ANS_STACK
@@ -725,7 +725,7 @@ STATIC FUNCTION TimerProc()
       SetMode( MODE_WAIT_BR )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SetMode( newMode )
    LOCAL aStates := { { "Input",16711680,CLR_LGREEN }, { "Init",16777215,CLR_DBLUE }, { "Wait",16777215,255 }, { "Run",16777215,0 } }
@@ -757,7 +757,7 @@ STATIC FUNCTION SetMode( newMode )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
 
@@ -783,19 +783,19 @@ STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
          Send( "exp", cDop )
          nAnsType := ANS_CALC
          SetMode( MODE_WAIT_ANS )
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_STACK
          Send( "view", "stack", cDop )
          nAnsType := ANS_STACK
          SetMode( MODE_WAIT_ANS )
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_LOCAL
          Send( "view", "local", cDop )
          nAnsType := ANS_LOCAL
          SetMode( MODE_WAIT_ANS )
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_PRIV
          IF nVerProto > 1
@@ -805,7 +805,7 @@ STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
          ELSE
             hwg_MsgStop( cMsgNotSupp )
          ENDIF
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_PUBL
          IF nVerProto > 1
@@ -815,7 +815,7 @@ STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
          ELSE
             hwg_MsgStop( cMsgNotSupp )
          ENDIF
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_STATIC
          IF nVerProto > 1
@@ -825,7 +825,7 @@ STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
          ELSE
             hwg_MsgStop( cMsgNotSupp )
          ENDIF
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_WATCH
          IF Empty( cDop2 )
@@ -835,13 +835,13 @@ STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
          ENDIF
          nAnsType := ANS_WATCH
          SetMode( MODE_WAIT_ANS )
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_AREA
          Send( "view", "areas" )
          nAnsType := ANS_AREAS
          SetMode( MODE_WAIT_ANS )
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_REC
          IF nVerProto > 1
@@ -851,7 +851,7 @@ STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
          ELSE
             hwg_MsgStop( cMsgNotSupp )
          ENDIF
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_OBJECT
          IF nVerProto > 1
@@ -861,7 +861,7 @@ STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
          ELSE
             hwg_MsgStop( cMsgNotSupp )
          ENDIF
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_ARRAY
          IF nVerProto > 2
@@ -871,17 +871,17 @@ STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
          ELSE
             hwg_MsgStop( cMsgNotSupp )
          ENDIF
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_QUIT
          nExitMode := 2
          hwg_EndWindow()
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_EXIT
          nExitMode := 1
          hwg_EndWindow()
-         RETURN Nil
+         RETURN NIL
 
       ELSEIF nCmd == CMD_TERMINATE
          Send( "cmd", "quit" )
@@ -896,7 +896,7 @@ STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
 
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SetPath( cRes, cName, lClear )
    LOCAL arr, i, cFull
@@ -915,7 +915,7 @@ STATIC FUNCTION SetPath( cRes, cName, lClear )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION OpenPrg()
    LOCAL cFile := hwg_Selectfile( "Source files( *.prg )", "*.prg", cCurrPath )
@@ -924,7 +924,7 @@ STATIC FUNCTION OpenPrg()
       SetText( cFile )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION GetTextObj( cName, nTab )
    LOCAL i, oText
@@ -984,7 +984,7 @@ STATIC FUNCTION onTxtPaint( oText, hDC, nLine, y1, y2 )
    LOCAL y
    STATIC oPenCurr, oPenBP
 
-   IF nLine == Nil
+   IF nLine == NIL
       oText:n4Separ += 12
    ELSE
       IF Empty( oPenCurr )
@@ -993,7 +993,7 @@ STATIC FUNCTION onTxtPaint( oText, hDC, nLine, y1, y2 )
       ENDIF
       IF nCurrLine == nLine
          IF !( cPrgName == oText:cargo )
-            RETURN Nil
+            RETURN NIL
          ENDIF
          y := y1 + Int( ( y2 - y1 )/2 )
          hwg_Selectobject( hDC, oPenCurr:handle )
@@ -1007,7 +1007,7 @@ STATIC FUNCTION onTxtPaint( oText, hDC, nLine, y1, y2 )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SetCurrLine( nLine, cName )
    LOCAL nTab, oText := GetTextObj( cName, @nTab )
@@ -1032,12 +1032,12 @@ STATIC FUNCTION SetCurrLine( nLine, cName )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SetText( cName, lClear )
    LOCAL oText, nTab, i
 
-   IF cName == Nil; cName := cPrgName; ENDIF
+   IF cName == NIL; cName := cPrgName; ENDIF
 
    IF !Empty( GetTextObj( CutPath( cName ) ) )
       RETURN .T.
@@ -1082,12 +1082,12 @@ STATIC FUNCTION SetText( cName, lClear )
 STATIC FUNCTION SetTextFont( oFont )
    LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
 
-   RETURN iif( Empty( oText ), Nil, oText:SetFont( oFont ) )
+   RETURN iif( Empty( oText ), NIL, oText:SetFont( oFont ) )
 
 STATIC FUNCTION GetTextArr()
    LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
 
-   RETURN iif( Empty( oText ), Nil, oText:aText )
+   RETURN iif( Empty( oText ), NIL, oText:aText )
 
 STATIC FUNCTION GetCurrLine()
    LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
@@ -1154,12 +1154,12 @@ STATIC FUNCTION SetCurrLine( nLine, cName )
       oText:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SetText( cName, lClear )
    LOCAL oText, nTab, cBuff, cNewLine := Chr( 13 ) + Chr( 10 ), i
 
-   IF cName == Nil; cName := cPrgName; ENDIF
+   IF cName == NIL; cName := cPrgName; ENDIF
 
    IF !Empty( GetTextObj( CutPath( cName ) ) )
       RETURN .T.
@@ -1217,12 +1217,12 @@ STATIC FUNCTION SetTextFont( oFont )
       oText:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION GetTextArr()
    LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
 
-   RETURN iif( Empty( oText ), Nil, oText:aArray )
+   RETURN iif( Empty( oText ), NIL, oText:aArray )
 
 STATIC FUNCTION GetCurrLine()
 
@@ -1246,14 +1246,14 @@ STATIC FUNCTION LOCATE( nDir )
    LOCAL i, arr := GetTextArr()
 
    IF Empty( arr )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    IF nDir == 0 .OR. nDir > 0
       IF nDir == 0
          cTextLocate := hu_Get( "Search string", "@S256", "" )
          nLineLocate := 0
       ELSEIF Empty( nLineLocate )
-         RETURN Nil
+         RETURN NIL
       ENDIF
       IF !Empty( cTextLocate )
          cTextLocate := Lower( cTextLocate )
@@ -1285,13 +1285,13 @@ STATIC FUNCTION LOCATE( nDir )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Funclist()
    LOCAL i, arr := GetTextArr(), cLine, cfirst, cSecond, nSkip, arrfnc := {}, lClassDef := .F.
 
    IF Empty( arr )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    FOR i := 1 TO Len( arr )
       cLine := Lower( LTrim( arr[i] ) )
@@ -1317,7 +1317,7 @@ STATIC FUNCTION Funclist()
       SetCurrLine( arrfnc[i,2] )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Animate()
    LOCAL n := hu_Get( "Seconds:", "9", nAnimate )
@@ -1328,11 +1328,11 @@ STATIC FUNCTION Animate()
       DoCommand( CMD_STEP )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION getBP( nLine, cPrg )
 
-   cPrg := Lower( iif( cPrg == Nil, cPrgName, cPrg ) )
+   cPrg := Lower( iif( cPrg == NIL, cPrgName, cPrg ) )
 
    RETURN Ascan( aBP, { |a|a[1] == nLine .AND. Lower( a[2] ) == cPrg } )
 
@@ -1358,25 +1358,25 @@ STATIC FUNCTION ToggleBreakPoint( cAns, cLine )
    ENDIF
    SetCurrLine()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION AddBreakPoint( cPrg, nLine )
    LOCAL oText
 
    IF nMode != MODE_INPUT .AND. Empty( aBPLoad )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    IF lAnimate
       lAnimate := .F.
-      RETURN Nil
+      RETURN NIL
    ENDIF
-   IF nLine == Nil
+   IF nLine == NIL
       nLine := GetCurrLine()
    ENDIF
    IF !Empty( oText := oTabMain:aControls[oTabMain:GetActivePage()] ) .AND. ;
          !Empty( oText:cargo )
 
-      IF cPrg == Nil
+      IF cPrg == NIL
          cPrg := oText:cargo
       ENDIF
 
@@ -1392,7 +1392,7 @@ STATIC FUNCTION AddBreakPoint( cPrg, nLine )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION PrevExpr( nDirection )
    LOCAL i
@@ -1419,7 +1419,7 @@ STATIC FUNCTION PrevExpr( nDirection )
       iPos := 0
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SetResult( cLine )
 
@@ -1427,7 +1427,7 @@ STATIC FUNCTION SetResult( cLine )
    oBrwRes:Bottom( .T. )
    hwg_Setfocus( oEditExpr:handle )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION KeyPress( nKey )
    LOCAL o
@@ -1444,7 +1444,7 @@ STATIC FUNCTION KeyPress( nKey )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Calc( cExp )
    LOCAL arr, cmd
@@ -1474,12 +1474,12 @@ STATIC FUNCTION Calc( cExp )
             oBrwRes:aArray[RES_LEN] := { "", cExp }
          ENDIF
          PrevExpr( 0 )
-         cInspectVar := Nil
+         cInspectVar := NIL
          DoCommand( CMD_EXP, Str2Hex( cExp ) )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION StackToggle()
    LOCAL oBrw
@@ -1495,7 +1495,7 @@ STATIC FUNCTION StackToggle()
    }
    LOCAL bClose := { ||
    hwg_Checkmenuitem( , MENU_STACK, .F. )
-   oStackDlg := Nil
+   oStackDlg := NIL
    IF lDebugging
       DoCommand( CMD_STACK, "off" )
    ENDIF
@@ -1531,7 +1531,7 @@ STATIC FUNCTION StackToggle()
       //hwg_Checkmenuitem( ,MENU_STACK, .T. )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ShowStack( arr, n )
    LOCAL oBrw, i, nLen := Val( arr[n] )
@@ -1549,14 +1549,14 @@ STATIC FUNCTION ShowStack( arr, n )
       oBrw:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION VarsToggle()
    LOCAL oTab, oBrwL, oBrwR, oBrwU, oBrwS, y1
    LOCAL bClose := { ||
 
    hwg_Checkmenuitem( , MENU_VARS, .F. )
-   oVarsDlg := Nil
+   oVarsDlg := NIL
    IF lDebugging
       DoCommand( CMD_LOCAL, "off" )
    ENDIF
@@ -1677,7 +1677,7 @@ STATIC FUNCTION VarsToggle()
       //hwg_Checkmenuitem( ,MENU_VARS, .T. )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ShowVars( arr, n, nVarType )
    LOCAL oBrw, i, nLen := Val( arr[n] )
@@ -1696,7 +1696,7 @@ STATIC FUNCTION ShowVars( arr, n, nVarType )
       oBrw:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ViewVar( aLine, cObjName, nItem )
    LOCAL cName := aLine[1], cType := aLine[2]
@@ -1713,14 +1713,14 @@ STATIC FUNCTION ViewVar( aLine, cObjName, nItem )
       InspectArray( cName )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION WatchesToggle()
    LOCAL oBrw
    LOCAL bClose := { ||
 
    hwg_Checkmenuitem( , MENU_WATCH, .F. )
-   oWatchDlg := Nil
+   oWatchDlg := NIL
    IF lDebugging
       DoCommand( CMD_WATCH, "off" )
    ENDIF
@@ -1759,7 +1759,7 @@ STATIC FUNCTION WatchesToggle()
       //hwg_Checkmenuitem( ,MENU_WATCH, .T. )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ShowWatch( arr, n )
    LOCAL oBrw, i, nLen := Val( arr[n] )
@@ -1772,7 +1772,7 @@ STATIC FUNCTION ShowWatch( arr, n )
       oBrw:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION WatchAdd()
    LOCAL cExpr
@@ -1782,7 +1782,7 @@ STATIC FUNCTION WatchAdd()
       DoCommand( CMD_WATCH, "add", Str2Hex( cExpr ) )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION WatchDel()
    LOCAL n := oWatchDlg:aControls[1]:nCurrent
@@ -1797,7 +1797,7 @@ STATIC FUNCTION WatchDel()
       DoCommand( CMD_WATCH, "del", LTrim( Str( n ) ) )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InspectAreas()
    LOCAL oBrw, oSayRdd
@@ -1826,10 +1826,10 @@ STATIC FUNCTION InspectAreas()
    }
 
    IF !Empty( oAreasDlg )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    INIT DIALOG oAreasDlg TITLE "Watch expressions" AT 30, 30 SIZE 480, 400 ;
-      FONT HWindow():GetMain():oFont ON EXIT { ||oAreasDlg := Nil, .T. }
+      FONT HWindow():GetMain():oFont ON EXIT { ||oAreasDlg := NIL, .T. }
 
    @ 0, 0 BROWSE oBrw ARRAY OF oAreasDlg     ;
       SIZE 480, 260                       ;
@@ -1862,7 +1862,7 @@ STATIC FUNCTION InspectAreas()
 
    DoCommand( CMD_AREA )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ShowAreas( arr, n )
    LOCAL oBrw, arr1, i, j, nAreas := Val( arr[n] ), nAItems := Val( Hex2Str( arr[++n] ) )
@@ -1880,7 +1880,7 @@ STATIC FUNCTION ShowAreas( arr, n )
       oBrw:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InspectRec( cAlias )
    LOCAL oDlg, oBrw
@@ -1915,13 +1915,13 @@ STATIC FUNCTION InspectRec( cAlias )
    oInspectDlg := oDlg
    DoCommand( CMD_REC, cAlias )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InspectInd( cInd )
    LOCAL oDlgInd, oBrw, arr, i
 
    IF Empty( cInd )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    arr := hb_ATokens( Substr(cInd,2), '/' )
    FOR i := 1 TO Len(arr)
@@ -1949,7 +1949,7 @@ STATIC FUNCTION InspectInd( cInd )
 
    ACTIVATE DIALOG oDlgInd
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ShowRec( arr, n )
    LOCAL oBrw, arr1, i, j, nFields := Val( arr[n] )
@@ -1965,10 +1965,10 @@ STATIC FUNCTION ShowRec( arr, n )
       NEXT
       oBrw:aArray := arr1
       oBrw:Refresh()
-      oInspectDlg := Nil
+      oInspectDlg := NIL
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InspectObject( cObjName )
    LOCAL oDlg, oBrw
@@ -1999,7 +1999,7 @@ STATIC FUNCTION InspectObject( cObjName )
    oInspectDlg := oDlg
    DoCommand( CMD_OBJECT, cObjName )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ShowObject( arr, n )
    LOCAL oBrw, arr1, i, j, nLen := Val( arr[n] )
@@ -2014,10 +2014,10 @@ STATIC FUNCTION ShowObject( arr, n )
       NEXT
       oBrw:aArray := arr1
       oBrw:Refresh()
-      oInspectDlg := Nil
+      oInspectDlg := NIL
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InspectArray( cArrName )
    LOCAL oDlg, oBrw, i
@@ -2105,7 +2105,7 @@ STATIC FUNCTION InspectArray( cArrName )
    oInspectDlg := oDlg
    DoCommand( CMD_ARRAY, cArrName, "1", LTrim( Str(ARR_LEN ) ) )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ShowArray( arr, n )
    LOCAL oBrw, i, j, nItems := Val( arr[n] ), nFirst := Val( Hex2Str( arr[++n] ) )
@@ -2132,16 +2132,16 @@ STATIC FUNCTION ShowArray( arr, n )
       oInspectDlg:cargo[2] := .T.
       oInspectDlg:aControls[2]:Setcolor( 0, CLR_GREEN, .T. )
       oBrw:Refresh()
-      oInspectDlg := Nil
+      oInspectDlg := NIL
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ViewCmdLine( lView )
    LOCAL oMain := HWindow():GetMain(), aControls := oMain:aControls
    LOCAL i := Ascan( aControls, { |o| hwg_isPtrEq( o:handle,oBrwRes:handle ) } ), j := 7
 
-   lViewCmd := iif( lView != Nil, lView, !lViewCmd )
+   lViewCmd := iif( lView != NIL, lView, !lViewCmd )
    hwg_Checkmenuitem( , MENU_CMDLINE, lViewCmd )
    DO WHILE -- j > 0
       IF lViewCmd
@@ -2159,7 +2159,7 @@ STATIC FUNCTION ViewCmdLine( lView )
       oMain:Move( , , , oMain:nHeight + 12 )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ViewSelVar()
 
@@ -2168,21 +2168,21 @@ STATIC FUNCTION ViewSelVar()
    LOCAL nL := oText:aPointC[P_Y], nPos := oText:aPointC[P_X], cLine, c, nPos1, nPos2
 
    IF Empty( nL ) .OR. Empty( nPos1 := nPos2 := nPos ) .OR. SubStr( cLine := oText:aText[nL], nPos, 1 ) < '0'
-      RETURN Nil
+      RETURN NIL
    ENDIF
    DO WHILE -- nPos1 > 0 .AND. ( IsDigit( c := SubStr( cLine,nPos1,1 ) ) .OR. ;
          IsAlpha( c ) .OR. c == '_' .OR. c == ':' )
    ENDDO
    nPos1 ++
    IF IsDigit( SubStr( cLine,nPos1,1 ) )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    DO WHILE ++ nPos2 <= Len( cLine ) .AND. ( IsDigit( c := SubStr( cLine,nPos2,1 ) ) .OR. ;
          IsAlpha( c ) .OR. c == '_' )
    ENDDO
    IF c == '('
       IF ( nPos := Find_Z( SubStr(cLine,nPos2 + 1 ), ')' ) ) == 0
-         RETURN Nil
+         RETURN NIL
       ENDIF
       nPos2 += nPos + 1
    ENDIF
@@ -2194,7 +2194,7 @@ STATIC FUNCTION ViewSelVar()
    ENDIF
 #endif
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SetFont( oFont )
 
@@ -2206,7 +2206,7 @@ STATIC FUNCTION SetFont( oFont )
       oBrwRes:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION About()
    LOCAL oDlg
@@ -2228,7 +2228,7 @@ STATIC FUNCTION About()
 
    ACTIVATE DIALOG oDlg
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION Font2Attr( oFont )
    LOCAL aAttr := {}
@@ -2341,7 +2341,7 @@ STATIC FUNCTION StopDebug()
       handl1 := - 1
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ExitDbg()
 

@@ -68,7 +68,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
       bColor, lTransp, bClick, bDblClick, bOther ) CLASS HStaticEx
 
-   nStyle := iif( nStyle = Nil, 0, nStyle )
+   nStyle := iif( nStyle = NIL, 0, nStyle )
    ::nStyleHS := nStyle - Hwg_BitAND( nStyle,  WS_VISIBLE + WS_DISABLED + WS_CLIPSIBLINGS + ;
       WS_CLIPCHILDREN + WS_BORDER + WS_DLGFRAME + ;
       WS_VSCROLL + WS_HSCROLL + WS_THICKFRAME + WS_TABSTOP )
@@ -1335,7 +1335,7 @@ METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClic
                         WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS )
    ::Super:New( oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
 
-   ::nStatusHeight := IIF( nHeight = Nil, ::nStatusHeight, nHeight )
+   ::nStatusHeight := IIF( nHeight = NIL, ::nStatusHeight, nHeight )
    ::aParts    := aParts
    ::bDblClick := bDblClick
    ::bRClick   := bRClick
@@ -1388,20 +1388,20 @@ LOCAL nParts := hwg_GetNotifySBParts( lParam ) - 1
       CASE nCode == NM_CLICK
 
       CASE nCode == NM_DBLCLK
-          IF ::bdblClick != Nil
+          IF ::bdblClick != NIL
               Eval( ::bdblClick, Self, nParts )
           ENDIF
       CASE nCode == NM_RCLICK
-         IF ::bRClick != Nil
+         IF ::bRClick != NIL
              Eval( ::bRClick, Self, nParts )
          ENDIF
    ENDCASE
-   RETURN Nil
+   RETURN NIL
 
 METHOD StatusHeight( nHeight  ) CLASS HStatusEx
    LOCAL aCoors
 
-   IF nHeight != Nil
+   IF nHeight != NIL
       aCoors := hwg_GetWindowRect( ::handle )
       IF nHeight != 0
          IF  ::lInit .AND. __ObjHasMsg( ::oParent, "AOFFSET" )
@@ -1429,11 +1429,11 @@ METHOD GetTextPanel( nPart ) CLASS HStatusEx
 
 METHOD SetTextPanel( nPart, cText, lRedraw ) CLASS HStatusEx
    hwg_SendMessage( ::handle, SB_SETTEXT, nPart - 1, cText )
-   IF lRedraw != Nil .AND. lRedraw
+   IF lRedraw != NIL .AND. lRedraw
       hwg_RedrawWindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
    
 METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatusEx
    Local oIcon
@@ -1451,7 +1451,7 @@ METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatusEx
       hwg_SendMessage( ::handle, SB_SETICON, nPart - 1, oIcon:handle )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Resize( xIncrSize ) CLASS HStatusEx   
    LOCAL i

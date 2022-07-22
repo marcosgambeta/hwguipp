@@ -51,7 +51,7 @@ FUNCTION _hwr_LButtonDbl( xPos, yPos )
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION StaticDlg( aItem )
 
@@ -98,14 +98,14 @@ STATIC FUNCTION StaticDlg( aItem )
 
    ACTIVATE DIALOG oModDlg CENTER
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InitStatic( oDlg, aItem )
 
    LOCAL oFont := aItem[ITEM_FONT]
 
    oDlg:oEdit1:Value := aItem[ITEM_CAPTION]
-   IF aItem[ITEM_SCRIPT] != Nil
+   IF aItem[ITEM_SCRIPT] != NIL
       oDlg:oEdit2:Value := aItem[ITEM_SCRIPT]
    ENDIF
    oDlg:oCombo:Value := aItem[ITEM_VAR] + 1
@@ -128,7 +128,7 @@ STATIC FUNCTION EndStatic( oDlg, aItem )
 STATIC FUNCTION SetItemFont( oDlg, aItem )
    LOCAL oFont := HFont():Select()
 
-   IF oFont != Nil
+   IF oFont != NIL
       aItem[ITEM_FONT] := oFont
       oDlg:oLabel2:SetText( oFont:name + "," + LTrim( Str(oFont:width ) ) + "," + LTrim( Str(oFont:height ) ) )
    ENDIF
@@ -159,7 +159,7 @@ STATIC FUNCTION LineDlg( aItem )
 
    oModDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InitLine( oDlg, aItem )
    LOCAL oPen := aItem[ITEM_PEN]
@@ -232,7 +232,7 @@ STATIC FUNCTION OpenBmp( oDlg, aItem, fname )
 
    oDlg:oEdit1:Value := fname
    IF !Empty( fname )
-      IF aItem[ITEM_BITMAP] != Nil
+      IF aItem[ITEM_BITMAP] != NIL
          hwg_Deleteobject( aItem[ITEM_BITMAP]:handle )
       ENDIF
       aItem[ITEM_CAPTION] := fname
@@ -244,23 +244,23 @@ STATIC FUNCTION OpenBmp( oDlg, aItem, fname )
       oDlg:oLabel7:SetText( LTrim( Str(aItem[ITEM_WIDTH] ) ) + "x" + LTrim( Str(aItem[ITEM_HEIGHT] ) ) )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION UpdateProcent( oDlg, aItem )
    LOCAL nValue := oDlg:oUpdown1:Value
    LOCAL aBmpSize
 
-   IF aItem[ITEM_BITMAP] != Nil
+   IF aItem[ITEM_BITMAP] != NIL
       aBmpSize := hwg_Getbitmapsize( aItem[ITEM_BITMAP]:handle )
       oDlg:oLabel7:SetText( LTrim( Str(Round(aBmpSize[1] * nValue/100,0 ) ) ) + "x" + LTrim( Str(Round(aBmpSize[2] * nValue/100,0 ) ) ) )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InitBitmap( oDlg, aItem )
    LOCAL aBmpSize
 
-   IF aItem[ITEM_BITMAP] != Nil
+   IF aItem[ITEM_BITMAP] != NIL
       aBmpSize := hwg_Getbitmapsize( aItem[ITEM_BITMAP]:handle )
       oDlg:oEdit1:Value := aItem[ITEM_CAPTION]
       oDlg:oLabel6:SetText( LTrim( Str(aBmpSize[1] ) ) + "x" + LTrim( Str(aBmpSize[2] ) ) )
@@ -301,7 +301,7 @@ FUNCTION MarkLDlg( aItem )
 
    oModDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InitMarkL( oDlg, aItem )
 
@@ -339,7 +339,7 @@ FUNCTION MarkFDlg( aItem )
 
    oModDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION EndMarkF( oDlg, aItem )
 
@@ -370,7 +370,7 @@ FUNCTION FormOptions()
 
    oModDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InitFOpt( oDlg )
 

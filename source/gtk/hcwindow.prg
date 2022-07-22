@@ -19,7 +19,7 @@
    STATIC aCustomEvents := { ;
       { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
       { ;
-      { |o, w|iif( o:bPaint != Nil, Eval( o:bPaint,o,w ), - 1 ) }, ;
+      { |o, w|iif( o:bPaint != NIL, Eval( o:bPaint,o,w ), - 1 ) }, ;
       { |o, w|onCommand( o, w ) },                ;     && |o, w, l| ==> |o, w|
       { |o, w, l|onSize( o, w, l ) },                ;
       { |o|onDestroy( o ) }                          ;
@@ -82,11 +82,11 @@ METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
       nId := Upper( nId )
       RETURN hwg_GetItemByName( ::aControls, nId )
    ELSE
-      i := Iif( nId != Nil, Ascan( ::aControls,{|o|o:id == nId } ), ;
+      i := Iif( nId != NIL, Ascan( ::aControls,{|o|o:id == nId } ), ;
          Ascan( ::aControls, {|o|o:handle == nHandle } ) )
    ENDIF
 
-   RETURN Iif( i == 0, Nil, ::aControls[i] )
+   RETURN Iif( i == 0, NIL, ::aControls[i] )
 
 METHOD DelControl( oCtrl ) CLASS HCustomWindow
    LOCAL id := oCtrl:id, h
@@ -122,27 +122,27 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
       ASize( ::aNotify, Len( ::aNotify ) - h )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Move( x1, y1, width, height )  CLASS HCustomWindow
 
    hwg_Movewindow( ::handle, x1, y1, width, height )
    IF !__ObjHasMsg( Self, "AWINDOWS" )
-      IF x1 != Nil
+      IF x1 != NIL
          ::nLeft := x1
       ENDIF
-      IF y1 != Nil
+      IF y1 != NIL
          ::nTop  := y1
       ENDIF
-      IF width != Nil
+      IF width != NIL
          ::nWidth := width
       ENDIF
-      IF height != Nil
+      IF height != NIL
          ::nHeight := height
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Refresh() CLASS HCustomWindow
 
@@ -152,37 +152,37 @@ METHOD Refresh() CLASS HCustomWindow
 
 METHOD Setcolor( tcolor, bcolor, lRepaint ) CLASS HCustomWindow
 
-   IF tcolor != Nil
+   IF tcolor != NIL
       ::tcolor  := tcolor
       IF !Empty( ::handle )
          hwg_Setfgcolor( ::handle, ::tcolor )
       ENDIF
    ENDIF
 
-   IF bcolor != Nil
+   IF bcolor != NIL
       ::bcolor  := bcolor
       IF !Empty( ::handle )
          hwg_Setbgcolor( ::handle, ::bcolor )
       ENDIF
-      IF ::brush != Nil
+      IF ::brush != NIL
          ::brush:Release()
       ENDIF
       ::brush := HBrush():Add( bcolor )
    ENDIF
 
-   IF lRepaint != Nil .AND. lRepaint
+   IF lRepaint != NIL .AND. lRepaint
       hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HCustomWindow
    LOCAL i
 
-   // hwg_WriteLog( "== "+::Classname()+Str(msg)+Iif(wParam!=Nil,Str(wParam),"Nil")+Iif(lParam!=Nil,Str(lParam),"Nil") )
+   // hwg_WriteLog( "== "+::Classname()+Str(msg)+Iif(wParam!=NIL,Str(wParam),"NIL")+Iif(lParam!=NIL,Str(lParam),"NIL") )
    IF ( i := Ascan( aCustomEvents[1],msg ) ) != 0
       RETURN Eval( aCustomEvents[2,i], Self, wParam, lParam )
-   ELSEIF ::bOther != Nil
+   ELSEIF ::bOther != NIL
       RETURN Eval( ::bOther, Self, msg, wParam, lParam )
    ENDIF
 
@@ -198,7 +198,7 @@ METHOD End()  CLASS HCustomWindow
 
    hwg_ReleaseObject( ::handle )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD OnError() CLASS HCustomWindow
 
@@ -240,7 +240,7 @@ STATIC FUNCTION onDestroy( oWnd )
 STATIC FUNCTION onCommand( oWnd, wParam )
    LOCAL iItem, iParHigh := hwg_Hiword( wParam ), iParLow := hwg_Loword( wParam )
 
-   IF oWnd:aEvents != Nil .AND. ;
+   IF oWnd:aEvents != NIL .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
       Eval( oWnd:aEvents[ iItem,3 ], oWnd, iParLow )
    ENDIF
@@ -251,7 +251,7 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
    LOCAL aControls := oWnd:aControls, oItem, x, y
 
    FOR EACH oItem in aControls
-      IF oItem:bSize != Nil
+      IF oItem:bSize != NIL
          IF wParam != 0
             x := wParam
             y := lParam
@@ -270,7 +270,7 @@ FUNCTION hwg_onTrackScroll( oWnd, wParam, lParam )
 
    LOCAL oCtrl := oWnd:FindControl( , lParam ), msg
 
-   IF oCtrl != Nil
+   IF oCtrl != NIL
       msg := hwg_Loword ( wParam )
       IF msg == TB_ENDTRACK
          IF HB_ISBLOCK( oCtrl:bChange )
@@ -296,13 +296,13 @@ FUNCTION hwg_GetItemByName( arr, cName )
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION HB_GT_TRM
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION HB_GT_TRM_DEFAULT
-   RETURN Nil
+   RETURN NIL
 
 INIT PROCEDURE HWGINIT
 

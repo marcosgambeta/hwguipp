@@ -24,7 +24,7 @@ Private var1 := 10320.54
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+Return NIL
 
 Function DlgGet(lColor)
 Local oModDlg, oFont := HFont():Add( "MS Sans Serif",0,-13 ), oTimer
@@ -48,7 +48,7 @@ Private oSayT
    SET KEY 0,VK_F3 TO hwg_Msginfo("F3") 
    SET KEY 0,VK_RETURN TO hwg_Msginfo("Return") 
    
-   If lColor <> Nil
+   If lColor <> NIL
       hwg_SetColorinFocus( lColor )
    EndIf
    
@@ -100,17 +100,17 @@ Private oSayT
                ,"Results:" )
    ENDIF
 
-Return Nil
+Return NIL
 
 Static Function hwg_Settimer( oDlg,oTimer )
 
    SET TIMER oTimer OF oDlg VALUE 1000 ACTION {||TimerFunc()}
-Return Nil
+Return NIL
 
 Static Function TimerFunc()
 
    oSayT:SetText( Time() )
-Return Nil
+Return NIL
 
 
 Function TestBallon
@@ -128,5 +128,5 @@ Function TestBallon
 
    ACTIVATE DIALOG oWnd
 
-   Return Nil
+   Return NIL
 

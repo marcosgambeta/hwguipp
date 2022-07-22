@@ -72,7 +72,7 @@ aItems := { "<empty>" }
 
    ACTIVATE DIALOG oDialg
 
-Return Nil
+Return NIL
 
 FUNCTION NewItem( nItem )
 LOCAL oDlg , oFont
@@ -127,6 +127,6 @@ LOCAL oGet1
 *      
     ENDIF
 
-Return Nil
+Return NIL
 
 * ==================== EOF of menumod.prg ======================

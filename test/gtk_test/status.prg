@@ -96,7 +96,7 @@ return NIL
 Static Function Settimer(oTimer)
 //-------------------------------
    SET TIMER oTimer OF oNewLang VALUE 2000 ACTION {|| IIF(rg < 5 , TimerFunc() , oTimer:End() ) }
-Return Nil
+Return NIL
 
 //-------------------------
 Static Function TimerFunc()
@@ -111,7 +111,7 @@ local array:={"one", "two", "three", "four"}
       oTimer:End()
    ENDIF
 */
-Return Nil
+Return NIL
 
 * ======================== EOF of status.prg ==============================
 

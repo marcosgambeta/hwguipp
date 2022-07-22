@@ -96,11 +96,11 @@ Private oMenu
                 MENUITEMBITMAP oMain ID 1005 BITMAP cbmplogo                 
                 //Hwg_InsertBitmapMenu(oMain:Menu, 1005, "\hwgui\sourceoBmp:handle)   //do not use bitmap empty
         ACTIVATE WINDOW oMain
-Return Nil
+Return NIL
 
 Function Test()
 hwg_Msginfo("Test")
-Return Nil
+Return NIL
 
 * ======================== EOF of testmenubitmap.prg ======================
  

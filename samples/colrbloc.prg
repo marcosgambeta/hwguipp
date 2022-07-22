@@ -252,7 +252,7 @@ ELSEIF cType == "Array"
   oEdGoto:SetText(oBrw:nCurrent)
 END
 oBrw:Refresh()
-Return Nil
+Return NIL
 
 *************************************************
 STATIC FUNCTION GoToRec(oBrw, nRec, nLast, cType)
@@ -516,7 +516,7 @@ FUNCTION CHECK_FILE ( cfi )
   Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
   QUIT
  ENDIF 
-RETURN Nil
+RETURN NIL
 
 
 * =================================== EOF of colrbloc.prg ==============================

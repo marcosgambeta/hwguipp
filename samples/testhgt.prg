@@ -97,7 +97,7 @@ FUNCTION Test()
       nKey := Inkey(1)
    ENDDO
 
-   RETURN Nil
+   RETURN NIL
 
 //PROCEDURE HB_GTSYS
 //   REQUEST HB_GT_WVG_DEFAULT

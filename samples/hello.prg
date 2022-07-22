@@ -216,7 +216,7 @@ Static lastTab := 1
    aGetsTab[lastTab] := hwg_Getedittext( oGet:oParent:handle,oGet:id )
    hwg_Setdlgitemtext( oGet:oParent:handle,oGet:id,aGetsTab[n] )
    lastTab := n
-Return Nil
+Return NIL
 #endif
 
 #ifndef __GTK__

@@ -68,7 +68,7 @@ FUNCTION hwg_hwr_Open( fname, repName )
                   EXIT
                ELSEIF Upper( SubStr( stroka, 2, 6 ) ) == "SCRIPT"
                   nMode := 2
-                  IF aItem != Nil
+                  IF aItem != NIL
                      aItem[ ITEM_SCRIPT ] := ""
                   ELSE
                      aPaintRep[ FORM_VARS ] := ""
@@ -86,35 +86,35 @@ FUNCTION hwg_hwr_Open( fname, repName )
                      Val( aLine[4] ), Val( aLine[5] ), Val( aLine[6] ), Val( aLine[7] ), ;
                      0, aLine[8], Val( aLine[9] ) )
 
-                  IF aItem[ ITEM_X1 ] == Nil .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
-                          aItem[ ITEM_Y1 ] == Nil .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
-                          aItem[ ITEM_WIDTH ] == Nil .OR. aItem[ ITEM_WIDTH ] == 0 .OR. ;
-                          aItem[ ITEM_HEIGHT ] == Nil .OR. aItem[ ITEM_HEIGHT ] == 0
+                  IF aItem[ ITEM_X1 ] == NIL .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
+                          aItem[ ITEM_Y1 ] == NIL .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
+                          aItem[ ITEM_WIDTH ] == NIL .OR. aItem[ ITEM_WIDTH ] == 0 .OR. ;
+                          aItem[ ITEM_HEIGHT ] == NIL .OR. aItem[ ITEM_HEIGHT ] == 0
                      hwg_Msgstop( "Error: " + stroka )
-                     RETURN Nil
+                     RETURN NIL
                   ENDIF
                ELSEIF itemName == "HLINE" .OR. itemName == "VLINE" .OR. itemName == "BOX"
                   aItem := hwg_Hwr_AddItem( aPaintRep, IIf( itemName == "HLINE", 2, IIf( itemName == "VLINE", 3, 4 ) ), ;
                       "", Val( aLine[2] ), Val( aLine[3] ), Val( aLine[4] ), ;
                       Val( aLine[5] ), 0, aLine[6] )
 
-                  IF aItem[ ITEM_X1 ] == Nil .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
-                              aItem[ ITEM_Y1 ] == Nil .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
-                              aItem[ ITEM_WIDTH ] == Nil .OR. aItem[ ITEM_WIDTH ] == 0 .OR. ;
-                              aItem[ ITEM_HEIGHT ] == Nil .OR. aItem[ ITEM_HEIGHT ] == 0
+                  IF aItem[ ITEM_X1 ] == NIL .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
+                              aItem[ ITEM_Y1 ] == NIL .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
+                              aItem[ ITEM_WIDTH ] == NIL .OR. aItem[ ITEM_WIDTH ] == 0 .OR. ;
+                              aItem[ ITEM_HEIGHT ] == NIL .OR. aItem[ ITEM_HEIGHT ] == 0
                      hwg_Msgstop( "Error: " + stroka )
-                     RETURN Nil
+                     RETURN NIL
                   ENDIF
                ELSEIF itemName == "BITMAP"
                   aItem := hwg_Hwr_AddItem( aPaintRep, 5, aLine[2], ;
                       Val( aLine[3] ), Val( aLine[4] ), Val( aLine[5] ), Val( aLine[6] ) )
 
-                  IF aItem[ ITEM_X1 ] == Nil .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
-                     aItem[ ITEM_Y1 ] == Nil .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
-                     aItem[ ITEM_WIDTH ] == Nil .OR. aItem[ ITEM_WIDTH ] == 0 .OR. ;
-                     aItem[ ITEM_HEIGHT ] == Nil .OR. aItem[ ITEM_HEIGHT ] == 0
+                  IF aItem[ ITEM_X1 ] == NIL .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
+                     aItem[ ITEM_Y1 ] == NIL .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
+                     aItem[ ITEM_WIDTH ] == NIL .OR. aItem[ ITEM_WIDTH ] == 0 .OR. ;
+                     aItem[ ITEM_HEIGHT ] == NIL .OR. aItem[ ITEM_HEIGHT ] == 0
                      hwg_Msgstop( "Error: " + stroka )
-                     RETURN Nil
+                     RETURN NIL
                   ENDIF
                ELSEIF itemName == "MARKER"
                   aItem := hwg_Hwr_AddItem( aPaintRep, 6, aLine[2], Val( aLine[3] ), ;
@@ -125,7 +125,7 @@ FUNCTION hwg_hwr_Open( fname, repName )
             IF Left( stroka, 1 ) == "#" .AND. Upper( SubStr( stroka, 2, 6 ) ) == "ENDSCR"
                nMode := 1
             ELSE
-               IF aItem != Nil
+               IF aItem != NIL
                   aItem[ ITEM_SCRIPT ] += stroka + Chr( 13 ) + Chr( 10 )
                ELSE
                   aPaintRep[ FORM_VARS ] += stroka + Chr( 13 ) + Chr( 10 )
@@ -136,11 +136,11 @@ FUNCTION hwg_hwr_Open( fname, repName )
       FClose( han )
    ELSE
       hwg_Msgstop( "Can't open " + fname )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    IF Empty( aPaintRep[ FORM_ITEMS ] )
       hwg_Msgstop( repName + " not found or empty!" )
-      RETURN Nil
+      RETURN NIL
    ELSE
       aPaintRep[ FORM_ITEMS ] := ASort( aPaintRep[ FORM_ITEMS ],,, { | z, y | z[ ITEM_Y1 ] < y[ ITEM_Y1 ] .OR.( z[ ITEM_Y1 ] == y[ ITEM_Y1 ] .AND.z[ ITEM_X1 ] < y[ ITEM_X1 ] ) .OR.( z[ ITEM_Y1 ] == y[ ITEM_Y1 ] .AND.z[ ITEM_X1 ] == y[ ITEM_X1 ] .AND.( z[ ITEM_WIDTH ] < y[ ITEM_WIDTH ] .OR.z[ ITEM_HEIGHT ] < y[ ITEM_HEIGHT ] ) ) } )
    ENDIF
@@ -156,7 +156,7 @@ FUNCTION hwg_Hwr_AddItem( aPaintRep, nType, cCaption, nLeft, nTop, nWidth, nHeig
    IF Empty( nVarType ); nVarType := 0; ENDIF
 
    AAdd( aPaintRep[ FORM_ITEMS ], aItem := { nType, cCaption, ;
-      nLeft, nTop, nWidth, nHeight, nAlign, cPen, cFont, nVarType, 0, Nil, 0 } )
+      nLeft, nTop, nWidth, nHeight, nAlign, cPen, cFont, nVarType, 0, NIL, 0 } )
 
    IF !Empty( aItem[ ITEM_FONT ] ) .AND. Valtype( aItem[ ITEM_FONT ] ) == "C"
       arr := hb_ATokens( aItem[ ITEM_FONT ], ',' )
@@ -181,8 +181,8 @@ FUNCTION hwg_hwr_Close( aPaintRep )
 
    LOCAL i, aItem
 
-   IF aPaintRep == Nil
-      RETURN Nil
+   IF aPaintRep == NIL
+      RETURN NIL
    ENDIF
 
    FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
@@ -199,11 +199,11 @@ FUNCTION hwg_hwr_Close( aPaintRep )
    NEXT
    aPaintRep[FORM_ITEMS] := {}
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 
-   LOCAL oPrinter := IIf( xPrn==Nil, HPrinter():New(xPrn), ;
+   LOCAL oPrinter := IIf( xPrn==NIL, HPrinter():New(xPrn), ;
       Iif( Valtype(xPrn)=="O", xPrn, HPrinter():New(xPrn) ) )
    LOCAL aPrnCoors, prnXCoef, prnYCoef
    LOCAL iItem, aItem, nLineStartY := 0, nLineHeight := 0, nPHStart := 0
@@ -265,7 +265,7 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
          ENDIF
          DO WHILE ! Empty( varName := getNextVar( @stroka, @varValue ) )
             PRIVATE &varName
-            IF varValue != Nil
+            IF varValue != NIL
                &varName := &varValue
             ENDIF
          ENDDO
@@ -447,7 +447,7 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 
    oPrinter:EndPage()
    oPrinter:EndDoc()
-   IF lPreview != Nil .AND. lPreview
+   IF lPreview != NIL .AND. lPreview
       oPrinter:Preview()
    ENDIF
    oPrinter:END()
@@ -455,16 +455,16 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
    FOR i := 1 TO Len( aPaintRep[ FORM_ITEMS ] )
       IF aPaintRep[ FORM_ITEMS, i, ITEM_TYPE ] == TYPE_TEXT
          aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ]:Release()
-         aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ] := Nil
+         aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ] := NIL
       ENDIF
    NEXT
-   aImgs := Nil
+   aImgs := NIL
    /*
    FOR i := 1 TO Len( aBitmaps )
       IF !Empty( aBitmaps[i] )
          hwg_Deleteobject( aBitmaps[i] )
       ENDIF
-      aBitmaps[i] := Nil
+      aBitmaps[i] := NIL
    NEXT
    */
    RETURN .T.
@@ -503,19 +503,19 @@ FUNCTION hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, nYadd, lCalc )
       IF !Empty( aItem[ITEM_BITMAP] )
         hBitmap := aItem[ITEM_BITMAP]:handle
         AAdd( aImgs, {x1, y1, x2, y2, hBitmap, aItem[ ITEM_CAPTION ]} )
-        //hwg_writelog( "hBitmap: "+Iif(hBitmap==Nil,"Nil","Ok") )
+        //hwg_writelog( "hBitmap: "+Iif(hBitmap==NIL,"Nil","Ok") )
         //oPrinter:Bitmap( x1, y1, x2, y2,, hBitmap, aItem[ ITEM_CAPTION ] )
       ENDIF
       //hwg_Deleteobject( hBitmap )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ScriptExecute( aItem )
    LOCAL nError, nLineEr
-   IF aItem[ ITEM_SCRIPT ] != Nil .AND. ! Empty( aItem[ ITEM_SCRIPT ] )
+   IF aItem[ ITEM_SCRIPT ] != NIL .AND. ! Empty( aItem[ ITEM_SCRIPT ] )
       IF ValType( aItem[ ITEM_SCRIPT ] ) == "C"
-         IF ( aItem[ ITEM_SCRIPT ] := RdScript( , aItem[ ITEM_SCRIPT ] ) ) == Nil
+         IF ( aItem[ ITEM_SCRIPT ] := RdScript( , aItem[ ITEM_SCRIPT ] ) ) == NIL
             nError := CompileErr( @nLineEr )
             hwg_Msgstop( "Script error (" + LTrim( Str( nError ) ) + "), line " + LTrim( Str( nLineEr ) ) )
             RETURN .F.

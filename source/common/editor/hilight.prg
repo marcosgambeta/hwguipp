@@ -79,13 +79,13 @@ CLASS HilightBase INHERIT HOBJECT
 
    METHOD New()   INLINE  Self
    METHOD End()
-   METHOD Do()    INLINE  (::nItems := 0,Nil)
+   METHOD Do()    INLINE  (::nItems := 0,NIL)
 
 ENDCLASS
 
 METHOD End() CLASS HilightBase
-   ::oEdit := Nil
-   RETURN Nil
+   ::oEdit := NIL
+   RETURN NIL
 
 
 CLASS Hilight INHERIT HilightBase
@@ -207,10 +207,10 @@ Local nPos, nPos1, nPrev, cWord, c
    ::nItems := 0
    ::lMultiComm := .F.
 
-   IF lCheck == Nil
+   IF lCheck == NIL
       lCheck := .F.
    ELSEIF lCheck .AND. Empty( ::cMcomm1 )
-      Return Nil
+      Return NIL
    ENDIF
 
    aText := ::oEdit:aText
@@ -240,12 +240,12 @@ Local nPos, nPos1, nPrev, cWord, c
       nLenM := Len(::cMcomm1)
    ENDIF
 
-   IF lComm != Nil .AND. lComm
+   IF lComm != NIL .AND. lComm
       IF ( nPos := At( ::cMcomm2, cLine ) ) == 0
          IF !lCheck; ::AddItem( 1, hced_Len(::oEdit,cLine), HILIGHT_COMM ); ENDIF
          ::lMultiComm := .T.
          ::aDop[nLine] := 1
-         Return Nil
+         Return NIL
       ELSE
          IF !lCheck; ::AddItem( 1, nPos, HILIGHT_COMM ); ENDIF
          nPos += nLenM
@@ -317,12 +317,12 @@ Local nPos, nPos1, nPrev, cWord, c
       ::nLine := nLine
    ENDIF
    
-Return Nil
+Return NIL
 
 METHOD AddItem( nPos1, nPos2, nType ) CLASS Hilight
 
    IF ::nItems > MAX_ITEMS
-      Return Nil
+      Return NIL
    ELSEIF ::nItems >= Len( ::aLineStru )
       Aadd( ::aLineStru, Array(3) )
    ENDIF
@@ -331,7 +331,7 @@ METHOD AddItem( nPos1, nPos2, nType ) CLASS Hilight
    ::aLineStru[::nItems,2] := nPos2
    ::aLineStru[::nItems,3] := nType
    
-Return Nil
+Return NIL
 
 Static Function IsLetter( c )
 Return Len(c) > 1 .OR. ( c >= "A" .AND. c <= "Z" ) .OR. ( c >= "a" .AND. c <= "z" ) .OR. ;

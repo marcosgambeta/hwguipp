@@ -295,7 +295,7 @@ FUNCTION Main( ... )
 
    oWndMain:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ReadIni( cPath )
    LOCAL hIni := hb_iniRead( cPath + "dbc.ini" ), aSect, cTmp
@@ -308,7 +308,7 @@ STATIC FUNCTION ReadIni( cPath )
             m->aBrwFont := hb_aTokens( cTmp, "," )
          ENDIF
          IF hb_hHaskey( aSect, "dateformat" ) .AND. !Empty( cTmp := aSect[ "dateformat" ] )
-            IF Ascan( aDateF, cTmp ) != Nil
+            IF Ascan( aDateF, cTmp ) != NIL
                dformat := cTmp
             ENDIF
          ENDIF
@@ -319,12 +319,12 @@ STATIC FUNCTION ReadIni( cPath )
             lRdOnly := ( Lower( cTmp ) == "on" )
          ENDIF
          IF hb_hHaskey( aSect, "appcodepage" ) .AND. !Empty( cTmp := aSect[ "appcodepage" ] )
-            IF Ascan( aCpId, cTmp ) != Nil
+            IF Ascan( aCpId, cTmp ) != NIL
                cAppCpage := cTmp
             ENDIF
          ENDIF
          IF hb_hHaskey( aSect, "datacodepage" ) .AND. !Empty( cTmp := aSect[ "datacodepage" ] )
-            IF Ascan( aCpId, cTmp ) != Nil
+            IF Ascan( aCpId, cTmp ) != NIL
                cDataCpage := cTmp
             ENDIF
          ENDIF
@@ -361,7 +361,7 @@ STATIC FUNCTION ReadIni( cPath )
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ReadParams( aParams )
    LOCAL i, cExt
@@ -381,7 +381,7 @@ STATIC FUNCTION ReadParams( aParams )
          RdView( aParams[i] )
       ENDIF
    NEXT
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ChildClose
    LOCAL xWnd
@@ -399,7 +399,7 @@ STATIC FUNCTION ChildClose
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION About
    LOCAL oDlg, sv, nPos
@@ -427,7 +427,7 @@ STATIC FUNCTION About
 
    oDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
    /* -----------------------  Select Order --------------------- */
 
@@ -474,7 +474,7 @@ Local oDlg, oBrowse, width, height, nChoice := 0, cOrder, nOrder := OrdNumber()+
       UpdBrowse()
    ENDIF
                            
-Return Nil
+Return NIL
 
 Static Function NewIndex()
 Local oDlg, oMsg
@@ -512,17 +512,17 @@ Local lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
          cName := cServerPath + Trim( cName )
          IF lMulti
             IF EMPTY( cCond )
-               ORDCREATE( cName,RTRIM(cTag),RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,Nil) )
+               ORDCREATE( cName,RTRIM(cTag),RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
-               ORDCREATE( cName, RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,Nil) )
+               ORDCREATE( cName, RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ENDIF
          ELSE
             IF EMPTY( cCond )
-               dbCreateIndex( cName,RTRIM(cExpr),&("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,Nil) )
+               dbCreateIndex( cName,RTRIM(cExpr),&("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
-               ORDCREATE( cName, RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,Nil) )
+               ORDCREATE( cName, RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ENDIF
          ENDIF
          oMsg:Close()
@@ -532,7 +532,7 @@ Local lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
       ENDIF
    ENDIF
    
-Return Nil
+Return NIL
 
 Static Function OpenIndex()
 Local fname, cExt := Iif( numdriv==1,"*.cdx", "*.ntx" )
@@ -552,7 +552,7 @@ Local fname, cExt := Iif( numdriv==1,"*.cdx", "*.ntx" )
       UpdBrowse()
    ENDIF
 
-Return Nil
+Return NIL
 
 FUNCTION CloseIndex()
 
@@ -560,7 +560,7 @@ FUNCTION CloseIndex()
    Set Order To 0
    UpdBrowse()
 
-   RETURN Nil
+   RETURN NIL
 
 Function UpdBrowse()
    LOCAL oBrw := GetBrwActive(), i, cTmp
@@ -588,7 +588,7 @@ Function UpdBrowse()
       hwg_SetFocus( oBrw:handle )
    ENDIF
 
-Return Nil
+Return NIL
 
 Function GetBrwActive()
 
@@ -599,7 +599,7 @@ Function GetBrwActive()
       IF !Empty( oWindow := HMainWindow():GetMdiActive() ) 
          i := Ascan( oWindow:aControls, { |o|o:classname() == "HBROWSE" } )
       ENDIF
-      oBrw := Iif( Empty(i), Nil, oWindow:aControls[i] )
+      oBrw := Iif( Empty(i), NIL, oWindow:aControls[i] )
 #endif
    ELSE
       oBrw := oTabMain:aControls[ oTabMain:GetActivePage() ]
@@ -697,7 +697,7 @@ Local bFileBtn := {||
    IF oDlg:lResult
       IF Empty( cFile )
          hwg_MsgStop( "File name is absent!" )
-         Return Nil
+         Return NIL
       ENDIF
 #ifdef RDD_ADS
       AdsSetServerType( nServerType := Iif( lRemote, 6, ADS_LOCAL_SERVER ) )
@@ -719,7 +719,7 @@ Local bFileBtn := {||
       OpenDbf( Iif(lRemote,cServerPath+cFile,cFile), alsname,, pass )
    ENDIF
 
-Return Nil
+Return NIL
 
 FUNCTION OpenDbf( fname, alsname, hChild, pass )
    LOCAL oWindow, oBrowse, i, nArea, kolf
@@ -737,7 +737,7 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
             ENDIF
          NEXT
       ENDDO
-      RETURN Nil
+      RETURN NIL
    }
    LOCAL bCol1 := {|o,h,x1,y1,x2,y2|
       oStyle:Draw( h,x1,y1,x2,y2 )
@@ -747,7 +747,7 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
          hwg_Drawtext( h, '*', x1, y1 + 6, x2, y2 - 4, 1 )
          hwg_Settransparentmode( h, .F. )
       ENDIF
-      RETURN Nil
+      RETURN NIL
    }
 
    IF !FiOpen( fname, alsname, pass )
@@ -836,7 +836,7 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
       IF lMdi
 #ifndef __GTK__
          oWindow := HWindow():FindWindow( hChild )
-         IF oWindow != Nil .AND. ;
+         IF oWindow != NIL .AND. ;
                ( i := Ascan( oWindow:aControls, { |o|o:classname() == "HBROWSE" } ) ) > 0
             oBrowse := oWindow:aControls[ i ]
             hwg_Sendmessage( HWindow():GetMain():handle, WM_MDIACTIVATE, hChild, 0 )
@@ -878,7 +878,7 @@ FUNCTION WriteTableInfo( n, cText )
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    /* -----------------------  Calculator  --------------------- */
 
@@ -894,9 +894,9 @@ FUNCTION Calcul()
       END SEQUENCE
       ErrorBlock( bOldError )
       IF lRes
-         oSayRes:SetText( Iif( xRes==Nil, "Nil", Transform( xRes, "@B" ) ) )
+         oSayRes:SetText( Iif( xRes==NIL, "Nil", Transform( xRes, "@B" ) ) )
       ENDIF
-      RETURN Nil
+      RETURN NIL
    }
 
    INIT DIALOG oDlg TITLE "Calculator" ;
@@ -917,7 +917,7 @@ FUNCTION Calcul()
       
    oDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
    /* -----------------------  Scripts  --------------------- */
 
@@ -932,12 +932,12 @@ FUNCTION Scripts( nAct )
       IF !Empty( fname )
          oEdit1:SetText( Memoread(fname) )
       ENDIF
-      RETURN Nil
+      RETURN NIL
    }
 
    LOCAL bCalcBtn := {||
       Local aScr := RdScript( ,oEdit1:GetText() ), obl
-      IF aScr != Nil
+      IF aScr != NIL
          IF nAct == 1
             obl := Select()
             GO TOP
@@ -951,7 +951,7 @@ FUNCTION Scripts( nAct )
          ENDIF
          hwg_Msginfo( "Script executed" )
       ENDIF
-      RETURN Nil
+      RETURN NIL
    }
 
    INIT DIALOG oDlg TITLE "Script" ;
@@ -967,12 +967,12 @@ FUNCTION Scripts( nAct )
 
    oDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION ChildGetFocus( xWindow )
    LOCAL i, oBrw
 
-   IF xWindow != Nil
+   IF xWindow != NIL
       IF lMdi
          IF ( i := Ascan( xWindow:aControls, { |o|o:classname() == "HBROWSE" } ) ) > 0
             oBrw := xWindow:aControls[i]
@@ -994,12 +994,12 @@ FUNCTION ChildGetFocus( xWindow )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ChildKill( xWindow )
    LOCAL i, oBrw
 
-   IF xWindow != Nil
+   IF xWindow != NIL
       IF lMdi
          IF ( i := Ascan( xWindow:aControls, { |o|o:classname() == "HBROWSE" } ) ) > 0
             oBrw := xWindow:aControls[i]
@@ -1031,7 +1031,7 @@ STATIC FUNCTION ChildKill( xWindow )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ResizeBrwQ( oBrw, nWidth, nHeight )
    LOCAL hWndStatus, aControls := oBrw:oParent:aControls
@@ -1047,7 +1047,7 @@ STATIC FUNCTION ResizeBrwQ( oBrw, nWidth, nHeight )
    oBrw:Move( ,, nWidth, nHeight - nHBusy - oBrw:nTop )
    //hwg_Movewindow( oBrw:handle, 0, oBrw:nTop, nWidth, nHeight - nHBusy - oBrw:nTop )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Fiopen( fname, alsname, pass )
 
@@ -1055,9 +1055,9 @@ STATIC FUNCTION Fiopen( fname, alsname, pass )
    LOCAL strerr := "Can't open file " + Iif( Empty(fname), alsname, fname )
    LOCAL bOldError, oError
 
-   IF fname != Nil
+   IF fname != NIL
       FOR i := 1 TO OPENED_FILES_LIMIT
-         IF aFiles[ i,AF_NAME ] == Nil
+         IF aFiles[ i,AF_NAME ] == NIL
             improc := i
             EXIT
          ENDIF
@@ -1094,7 +1094,7 @@ STATIC FUNCTION Fiopen( fname, alsname, pass )
       IF NetErr()
          IF SET( _SET_EXCLUSIVE )
             SET( _SET_EXCLUSIVE, .F. )
-            dbUseArea( , , fname, CutExten( iif( alsname = Nil, fname, alsname ) ), , lRdonly )
+            dbUseArea( , , fname, CutExten( iif( alsname = NIL, fname, alsname ) ), , lRdonly )
             IF NetErr()
                hwg_Msgstop( strerr )
                improc := oldimp
@@ -1112,11 +1112,11 @@ STATIC FUNCTION Fiopen( fname, alsname, pass )
       ENDIF
    ENDIF
 #ifdef RDD_ADS
-   IF pass != Nil
+   IF pass != NIL
       AdsEnableEncryption( pass )
    ENDIF
 #endif
-   aFiles[ improc, AF_NAME ] := Iif( fname != Nil, fname, Alias() )
+   aFiles[ improc, AF_NAME ] := Iif( fname != NIL, fname, Alias() )
    aFiles[ improc, AF_EXCLU ] := Set( _SET_EXCLUSIVE )
    aFiles[ improc, AF_RDONLY ] := lRdonly
    aFiles[ improc, AF_DRIVER ] := numdriv
@@ -1135,12 +1135,12 @@ FUNCTION FiClose
    IF improc > 0
       SELECT( improc )
       USE
-      aFiles[ improc,AF_NAME ] := Nil
-      aFiles[ improc,AF_BRW ]  := Nil
+      aFiles[ improc,AF_NAME ] := NIL
+      aFiles[ improc,AF_BRW ]  := NIL
       improc := 0
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 
 /*
@@ -1149,14 +1149,14 @@ FUNCTION FiClose
  source\common\procmisc\procscri.prg
 FUNCTION WndOut()
 
-   RETURN Nil
+   RETURN NIL
 */
 
 FUNCTION MsgSay( cText )
 
    hwg_Msgstop( cText )
 
-   RETURN Nil
+   RETURN NIL
 
 Static Function ChangeFont( oCtrl, n )
 Local oFont, nHeight, i, nOld
@@ -1180,7 +1180,7 @@ Local oFont, nHeight, i, nOld
       ENDIF
    ENDIF
 
-   Return Nil
+   Return NIL
 
 Static Function ChangeBrwFont()
 Local nHold, nHeight, i, j, oBrw, oFont
@@ -1189,7 +1189,7 @@ Local nHold, nHeight, i, j, oBrw, oFont
       m->oBrwFont := oFont
       nHeight := (m->oBrwFont):height
       FOR i := 1 TO OPENED_FILES_LIMIT
-         IF ( oBrw := aFiles[ improc,AF_BRW ] ) != Nil
+         IF ( oBrw := aFiles[ improc,AF_BRW ] ) != NIL
             nHold := oBrw:oFont:height
             hwg_Setctrlfont( oBrw:oParent:handle, oBrw:id, ( oBrw:oFont := m->oBrwFont ):handle )
             FOR j := 1 TO Len( oBrw:aColumns )
@@ -1200,7 +1200,7 @@ Local nHold, nHeight, i, j, oBrw, oFont
       NEXT
    ENDIF
 
-   Return Nil
+   Return NIL
 
 Static Function Options()
    LOCAL oDlg, nCp := Ascan( aCpId, cAppCpage ), nDf := Ascan( aDatef, dformat )
@@ -1229,7 +1229,7 @@ Static Function Options()
 
    ENDIF
 
-   Return Nil
+   Return NIL
 
 STATIC FUNCTION EditRec()
    LOCAL oDlg, oBrowse, af := Array( FCount(), 3 ), i, nFile := improc, oBrwM
@@ -1260,7 +1260,7 @@ STATIC FUNCTION EditRec()
    oBrowse:aArray := af
    oBrowse:AddColumn( HColumn():New( "",{|v,o|o:nCurrent},"N",4,0 ) )
    oBrowse:AddColumn( HColumn():New( "Field",{|v,o|o:aArray[o:nCurrent,1]},"C",12,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Value",{|v,o|Iif(v==Nil,o:aArray[o:nCurrent,2],o:aArray[o:nCurrent,2]:=v)},"C",40,0,.T. ) )
+   oBrowse:AddColumn( HColumn():New( "Value",{|v,o|Iif(v==NIL,o:aArray[o:nCurrent,2],o:aArray[o:nCurrent,2]:=v)},"C",40,0,.T. ) )
    oBrowse:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
 
    oBrowse:bcolorSel := BCOLOR_SEL
@@ -1301,7 +1301,7 @@ STATIC FUNCTION EditRec()
 
    ENDIF
 
-   Return Nil
+   Return NIL
 
 #ifndef __GTK__
 STATIC FUNCTION EdRec( oBrw, n, nFile )
@@ -1350,7 +1350,7 @@ LOCAL cType, nLen, nDec, cPicture, rowPos
    IF cType != "M"
       INIT DIALOG oDlg AT x1, y1 - 1 ;
          STYLE WS_POPUP + 1 + WS_BORDER  ;
-         SIZE nWidth, oBrw:height + iif( oColumn:aList == Nil, 1, 0 ) ;
+         SIZE nWidth, oBrw:height + iif( oColumn:aList == NIL, 1, 0 ) ;
          ON INIT { |o|hwg_Movewindow( o:handle,x1,y1,nWidth,o:nHeight + 1 ) }
    ELSE
       INIT DIALOG oDlg TITLE "Memo edit" AT 0, 0 SIZE 400, 300 ON INIT { |o|o:center() }

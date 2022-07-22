@@ -107,7 +107,7 @@ HB_LANGSELECT("DE")
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+Return NIL
 
 Function NewItem( nItem )
 Local oDlg, oItemFont, oFontNew
@@ -173,7 +173,7 @@ Local oGet1, oGet2
          oXmlNode := oXmlDoc:aItems[1]:Add( HXMLNode():New( "item" ) )
          oXmlNode:SetAttribute( "name", cName )
          oXmlNode:Add( cInfo )
-         oXMLNode:Add( hwg_Font2XML( Iif( oFontNew!=Nil,oFontNew,oFont ) ) )
+         oXMLNode:Add( hwg_Font2XML( Iif( oFontNew!=NIL,oFontNew,oFont ) ) )
          lIniChanged := .T.
 
          aMenu := oMainWindow:menu[1,1]
@@ -197,7 +197,7 @@ Local oGet1, oGet2
                   lIniChanged := .T.
                ENDIF
             ELSEIF oXmlNode:aItems[i]:title == "font"
-               IF oFontNew != Nil
+               IF oFontNew != NIL
                   oXMLNode:aItems[i] := hwg_Font2XML( oFontNew )
                   lIniChanged := .T.
                ENDIF
@@ -206,7 +206,7 @@ Local oGet1, oGet2
       ENDIF
    ENDIF
 
-Return Nil
+Return NIL
 
 Function FontFromXML( oXmlNode )
 Local width  := oXmlNode:GetAttribute( "width" )
@@ -216,22 +216,22 @@ Local charset := oXmlNode:GetAttribute( "charset" )
 Local ita   := oXmlNode:GetAttribute( "italic" )
 Local under := oXmlNode:GetAttribute( "underline" )
 
-  IF width != Nil
+  IF width != NIL
      width := Val( width )
   ENDIF
-  IF height != Nil
+  IF height != NIL
      height := Val( height )
   ENDIF
-  IF weight != Nil
+  IF weight != NIL
      weight := Val( weight )
   ENDIF
-  IF charset != Nil
+  IF charset != NIL
      charset := Val( charset )
   ENDIF
-  IF ita != Nil
+  IF ita != NIL
      ita := Val( ita )
   ENDIF
-  IF under != Nil
+  IF under != NIL
      under := Val( under )
   ENDIF
   
@@ -267,7 +267,7 @@ Function SaveOptions()
       oXmlDoc:Save( "testxml.xml" )
    ENDIF
    CLOSE ALL
-Return Nil
+Return NIL
 
 FUNCTION p_about
 #ifdef __GTK__

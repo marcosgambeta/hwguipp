@@ -51,7 +51,7 @@ FUNCTION Main()
    
    oMainW:Close()
 
-   RETURN Nil
+   RETURN NIL
 
 * To avoid adress conflict at call of functions for multithread
 * you must clone the same function with a new name.
@@ -84,7 +84,7 @@ FUNCTION Test1()
     cgetrx1 := cTexto
     hb_mutexUnLock( mutex1 )
 
-   RETURN Nil
+   RETURN NIL
    
 FUNCTION Test2()
 
@@ -112,6 +112,6 @@ FUNCTION Test2()
     hb_mutexUnLock( mutex1 )
 
    
-   RETURN Nil   
+   RETURN NIL   
 
 * ====================== EOF of Ticket27.prg ==========================

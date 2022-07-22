@@ -51,7 +51,7 @@ FUNCTION Main
    hwg_writelog( "Key " + Str( nKey ) )
    gthwg_CloseWindow()
 
-   RETURN Nil
+   RETURN NIL
 
 #include "hwgui.ch"
 

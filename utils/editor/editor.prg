@@ -375,7 +375,7 @@ FUNCTION Main ( fName )
 
    handCursor := hwg_Loadcursor( CURS_HAND )
 
-   IF fname != Nil
+   IF fname != NIL
       OpenFile( fname )
    ELSE
       onChangePos( .T. )
@@ -394,7 +394,7 @@ FUNCTION Main ( fName )
       WriteIni( cIniPath )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION NewFile()
 
@@ -402,7 +402,7 @@ STATIC FUNCTION NewFile()
    oEdit:SetText()
    onChangePos( .T. )
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION OpenFile( fname, lAdd )
 
@@ -421,10 +421,10 @@ FUNCTION OpenFile( fname, lAdd )
       IF !( Lower( hb_FNameExt( fname ) ) $ ".html;.hwge;" )
          oEdit:bImport := { |o, cText| SetText( o, cText ) }
       ENDIF
-      oEdit:SetText( MemoRead(fname),,,, lAdd, Iif( !Empty(lAdd),oEdit:aPointC[P_Y],Nil ) )
+      oEdit:SetText( MemoRead(fname),,,, lAdd, Iif( !Empty(lAdd),oEdit:aPointC[P_Y],NIL ) )
       oEdit:cFileName := fname
 
-      oEdit:bImport := Nil
+      oEdit:bImport := NIL
       oEdit:nBoundL := Iif( oEdit:nDocFormat > 0, DOC_BOUNDL, FREE_BOUNDL )
       onChangePos( .T. )
       IF oEdit:lError
@@ -433,7 +433,7 @@ FUNCTION OpenFile( fname, lAdd )
       Add2Recent( fname )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SaveFile( lAs, lHtml )
    LOCAL fname
@@ -459,7 +459,7 @@ STATIC FUNCTION SaveFile( lAs, lHtml )
       Add2Recent( fname )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CloseFile()
 
@@ -467,7 +467,7 @@ STATIC FUNCTION CloseFile()
       SaveFile( .F. )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION PrintFile()
 
@@ -478,7 +478,7 @@ STATIC FUNCTION PrintFile()
       oEdit:Print()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SetRuler()
 
@@ -488,14 +488,14 @@ STATIC FUNCTION SetRuler()
       oEdit:Move( , oRuler:nHeight+oToolBar:nHeight,, oEdit:nHeight - 28 )
       hwg_Checkmenuitem( ,MENU_RULER, .T. )
    ELSE
-      oRuler:bPaint := Nil
+      oRuler:bPaint := NIL
       oRuler:nHeight := 0
       oEdit:Move( , oRuler:nHeight+oToolBar:nHeight,, oEdit:nHeight + 28 )
       hwg_Checkmenuitem( ,MENU_RULER, .F. )
    ENDIF
    oRuler:Move( ,,, oRuler:nHeight )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION PaintRuler( o )
    LOCAL pps, hDC, aCoors, n1cm, x := oEdit:nBoundL - oEdit:nShiftL, i := 0, nBoundR
@@ -524,7 +524,7 @@ STATIC FUNCTION PaintRuler( o )
 
    hwg_Endpaint( o:handle, pps )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION PaintTB( o )
    LOCAL pps, hDC, aCoors
@@ -535,7 +535,7 @@ STATIC FUNCTION PaintTB( o )
    hwg_drawGradient( hDC, 0, 0, aCoors[3], aCoors[4], 1, { CLR_GRAY1, CLR_GRAY2 } )
    hwg_Endpaint( o:handle, pps )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION onBtnSize()
 
@@ -549,7 +549,7 @@ STATIC FUNCTION onBtnSize()
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION onBtnColor()
 
@@ -557,13 +557,13 @@ STATIC FUNCTION onBtnColor()
 
    IF !Empty( oEdit:aPointM2[P_Y] ) .OR. !Empty( oEdit:aTdSel[2] )
 
-      IF ( nColor := Hwg_ChooseColor( 0 ) ) != Nil
+      IF ( nColor := Hwg_ChooseColor( 0 ) ) != NIL
          cAttr := "ct" + Ltrim(Str( nColor ))
          oEdit:ChgStyle( ,, cAttr )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION onBtnStyle( nBtn )
 
@@ -582,14 +582,14 @@ STATIC FUNCTION onBtnStyle( nBtn )
       aSetStyle[nBtn] := Iif( aButtons[nBtn]:lPress, 1, 0 )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION onChangePos( lInit )
 
    LOCAL arr, aStru, aAttr, i, l, lb, cTmp, nOptP, nOptS, aStruTbl, nL, nEnv
    STATIC lInTable := .F., lSelection := .T., lImage := .T., lInBlock := .F.
 
-   IF lInit == Nil; lInit := .F.; ENDIF
+   IF lInit == NIL; lInit := .F.; ENDIF
 
    lComboSet := .T.
    IF !Empty(aSetStyle) .AND. ( nLastMsg == WM_CHAR .OR. nLastMsg == WM_KEYDOWN ) .AND. ;
@@ -680,7 +680,7 @@ STATIC FUNCTION onChangePos( lInit )
       ENDIF
    ENDIF
    nOptP := hced_getAccInfo( oEdit, oEdit:aPointC, 0 )
-   IF ( nOptS := hced_getAccInfo( oEdit, oEdit:aPointC, 1 ) ) == Nil
+   IF ( nOptS := hced_getAccInfo( oEdit, oEdit:aPointC, 1 ) ) == NIL
       nOptS := 0
    ENDIF
    FOR i := 1 TO 3
@@ -698,18 +698,18 @@ STATIC FUNCTION onChangePos( lInit )
       hwg_Checkmenuitem( ,MENU_SALLOW, alAcc[7] )
    ENDIF
 
-   aSetStyle := Nil
+   aSetStyle := NIL
    lComboSet := .F.
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION insBlock()
 
    LOCAL oDlg, nChoice := 1, nStyle := 1, aStyles := { "code" }
-   LOCAL i, nl1, nl2, cBuff, aAttr, nWidth := Nil
+   LOCAL i, nl1, nl2, cBuff, aAttr, nWidth := NIL
 
    IF Len( oEdit:GetPosInfo() ) >= 7
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Insert block"  ;
@@ -773,7 +773,7 @@ STATIC FUNCTION insBlock()
       hced_Invalidaterect( oEdit:hEdit, 0, 0, 0, oEdit:nClientWidth, oEdit:nHeight )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION textTab( oTab, aAttr, nTop )
 
@@ -784,7 +784,7 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
    MEMVAR lb, li, lu, ls, lbb, lib, lub, lsb
 
    bColorT := {||
-      IF ( nColor := Hwg_ChooseColor( tColor ) ) != Nil
+      IF ( nColor := Hwg_ChooseColor( tColor ) ) != NIL
          tColor := nColor
          oSayTest:Setcolor( tColor,,.T. )
          oSayTClr:SetText( Iif( tColor==0,"Default","#"+hwg_ColorN2C(tColor) ) )
@@ -793,7 +793,7 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
       RETURN .T.
    }
    bColorB := {||
-      IF ( nColor := Hwg_ChooseColor( bColor ) ) != Nil
+      IF ( nColor := Hwg_ChooseColor( bColor ) ) != NIL
          bColor := nColor
          oSayTest:Setcolor( ,bColor,.T. )
          oSayBClr:SetText( Iif( bColor==16777215,"Default","#"+hwg_ColorN2C(bColor) ) )
@@ -802,7 +802,7 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
       RETURN .T.
    }
 
-   IF nTop == Nil
+   IF nTop == NIL
      nTop := GetVal_nTop()
    ENDIF
 
@@ -837,7 +837,7 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
    tc := tColor; tb := bColor; nsb := nSize; nfb := nFamily
    lbb := lb; lib := li; lub := lu; lsb := ls
 
-   IF oTab != Nil
+   IF oTab != NIL
       BEGIN PAGE "Text" of oTab
    ENDIF
 
@@ -869,11 +869,11 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
       @ 20, nTop+290 SAY oSayTest CAPTION "This is a sample" SIZE 340, 26 ;
          STYLE WS_BORDER + SS_CENTER COLOR tColor BACKCOLOR bcolor
 
-   IF oTab != Nil
+   IF oTab != NIL
       END PAGE of oTab
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION text2attr( aAttr )
 
@@ -910,7 +910,7 @@ STATIC FUNCTION text2attr( aAttr )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION setCell()
    LOCAL oDlg
@@ -925,7 +925,7 @@ STATIC FUNCTION setCell()
    PRIVATE lb := .F., li := .F., lu := .F., ls := .F., lbb, lib, lub, lsb
 
    IF Len( oEdit:GetPosInfo() ) < 7
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    cClsName := oEdit:aStru[oEdit:aPointC[P_Y],1,OB_OB,oEdit:aPointc[P_X],OB_CLS]
@@ -951,7 +951,7 @@ STATIC FUNCTION setCell()
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION setPara()
    LOCAL oDlg, nMarginL := oEdit:nMarginL, nMarginR := oEdit:nMarginR, nIndent := oEdit:nIndent
@@ -1043,7 +1043,7 @@ STATIC FUNCTION setPara()
       @ 30, nTop+226 SAY "Width:" SIZE 100, 24 TRANSPARENT
       @ 150,nTop+220 GET nBWidth SIZE 60, 24 PICTURE "9"
       @ 240,nTop+220  BUTTON "Color" SIZE 80, 30 ;
-            ON CLICK {||Iif((nColor:=Hwg_ChooseColor(nBColor))==Nil,.T.,(nBColor:=nColor)) }
+            ON CLICK {||Iif((nColor:=Hwg_ChooseColor(nBColor))==NIL,.T.,(nBColor:=nColor)) }
       IF !lFew
          @ 30, nTop+290 SAY "Anchor:" SIZE 100, 24 TRANSPARENT
          @ 170,nTop+290 GET cId SIZE 100, 24 MAXLENGTH 0
@@ -1113,7 +1113,7 @@ STATIC FUNCTION setPara()
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION setSpan()
    LOCAL oDlg, oTab, nTop
@@ -1155,7 +1155,7 @@ STATIC FUNCTION setSpan()
             oEdit:RestoreEnv( arr1[1], arr1[2] )
          ENDIF
       ELSE
-         RETURN Nil
+         RETURN NIL
       ENDIF
 
       IF !Empty( cClsName )
@@ -1236,7 +1236,7 @@ STATIC FUNCTION setSpan()
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION setBlock()
 
@@ -1246,7 +1246,7 @@ STATIC FUNCTION setBlock()
    LOCAL cClsName, arr := { "Left", "Center", "Right" }
    LOCAL bClr := { ||
      LOCAL nColor
-     IF ( nColor := Hwg_ChooseColor( nBColor ) ) != Nil
+     IF ( nColor := Hwg_ChooseColor( nBColor ) ) != NIL
         nBColor := nColor
         oSayClr:SetText( Iif( nBColor==0,"Default","#"+hwg_ColorN2C(nBColor) ) )
      ENDIF
@@ -1262,15 +1262,15 @@ STATIC FUNCTION setBlock()
    PRIVATE lb := .F., li := .F., lu := .F., ls := .F., lbb, lib, lub, lsb
 
    IF Len( oEdit:GetPosInfo() ) < 7 .OR. oEdit:aStru[nL,1,OB_TRNUM] > 1
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    aStruTbl := oEdit:aStru[nL,1,OB_TBL]
    IF Len( aStruTbl[OB_OB] ) > 1
-      RETURN Nil
+      RETURN NIL
    ENDIF
    IF nL+1 <= oEdit:nTextLen .AND. Valtype(oEdit:aStru[nL+1,1,1]) == "C" .AND. oEdit:aStru[nL+1,1,1] == "tr"
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF !Empty( cClsName := aStruTbl[OB_CLS] )
@@ -1344,7 +1344,7 @@ STATIC FUNCTION setBlock()
       hced_Invalidaterect( oEdit:hEdit, 0, 0, 0, oEdit:nClientWidth, oEdit:nHeight )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION setTable( lNew )
    LOCAL oDlg, oTab, nTop, oSayClr, nRows := 3, nCols := 2, nBorder := 1, nBColor := 0, nWidth := 100
@@ -1355,7 +1355,7 @@ STATIC FUNCTION setTable( lNew )
    LOCAL aStruTbl, i
    LOCAL bClr := { ||
      LOCAL nColor
-     IF ( nColor := Hwg_ChooseColor( nBColor ) ) != Nil
+     IF ( nColor := Hwg_ChooseColor( nBColor ) ) != NIL
         nBColor := nColor
         oSayClr:SetText( Iif( nBColor==0,"Default","#"+hwg_ColorN2C(nBColor) ) )
      ENDIF
@@ -1408,7 +1408,7 @@ STATIC FUNCTION setTable( lNew )
    nTop := GetVal_nTop()
 
    IF lNew == ( Valtype(oEdit:aStru[nL,1,OB_TYPE]) == "C" .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF lNew
@@ -1497,7 +1497,7 @@ STATIC FUNCTION setTable( lNew )
    IF oDlg:lResult
       oEdit:lSetFocus := .T.
       IF Len( aCols ) != nCols
-         Eval( bChgTab, Nil, 2 )
+         Eval( bChgTab, NIL, 2 )
       ENDIF
       FOR i := 1 TO Len( aCols )
          aCols[i] := - aCols[i]
@@ -1513,7 +1513,7 @@ STATIC FUNCTION setTable( lNew )
             ENDIF
          ENDIF
          text2attr( aAttr )
-         oEdit:InsTable( aCols, nRows, iif( nWidth == 100, Nil, - nWidth ), ;
+         oEdit:InsTable( aCols, nRows, iif( nWidth == 100, NIL, - nWidth ), ;
             nAlign-1, aAttr )
       ELSE
          IF aStruTbl[OB_TWIDTH] != - nWidth
@@ -1574,7 +1574,7 @@ STATIC FUNCTION setTable( lNew )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION setDoc()
    LOCAL oDlg, arr[6]
@@ -1664,7 +1664,7 @@ STATIC FUNCTION setAccess( n, lSpan )
    aStru := oEdit:aStru[nL]
 
    nOpt := hced_getAccInfo( oEdit, oEdit:aPointC, Iif( Empty(lSpan), 0, 1 ) )
-   IF nOpt == Nil
+   IF nOpt == NIL
       nOpt := 0
    ENDIF
 
@@ -1696,7 +1696,7 @@ STATIC FUNCTION setAccess( n, lSpan )
       oEdit:RestoreEnv( arr1[1], arr1[2] )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION SetText( oEd, cText )
    LOCAL aText, i, nLen
@@ -1712,7 +1712,7 @@ STATIC FUNCTION SetText( oEd, cText )
    oEd:aStru := Array( Len( aText ) )
 
    FOR i := 1 TO Len( aText )
-      oEd:aStru[i] := { { 0,0,Nil } }
+      oEd:aStru[i] := { { 0,0,NIL } }
       nLen := Len( aText[i] )
       nPos2 := 1
       DO WHILE ( nPos1 := hb_At( "://", aText[i], nPos2 ) ) != 0
@@ -1736,9 +1736,9 @@ STATIC FUNCTION InsUrl( nType )
    LOCAL oProto, aProto := { "http", "https", "ftp", "goto" }, cProto := aProto[1]
 
    aPos := oEdit:GetPosInfo()
-   IF aPos != Nil .AND. aPos[3] != Nil .AND. Len( aPos[3] ) >= OB_HREF
+   IF aPos != NIL .AND. aPos[3] != NIL .AND. Len( aPos[3] ) >= OB_HREF
       hwg_msgStop( "Can't insert URL into existing one" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Insert URL"  ;
@@ -1792,7 +1792,7 @@ STATIC FUNCTION InsUrl( nType )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION setImage( lNew )
 
@@ -1823,7 +1823,7 @@ STATIC FUNCTION setImage( lNew )
    ENDIF
 
    IF lNew == ( Valtype(aStru[1,OB_TYPE]) == "C" .AND. aStru[1,OB_TYPE] == "img" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF !lNew
@@ -1865,11 +1865,11 @@ STATIC FUNCTION setImage( lNew )
       IF lNew
          IF !Empty( fname )
             IF nImage > 0 .AND. Left( fname,1 ) == "#"
-               oEdit:InsImage( , nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),Nil ), oEdit:aBin[nImage,2] )
+               oEdit:InsImage( , nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),NIL ), oEdit:aBin[nImage,2] )
             ELSEIF lEmbed
-               oEdit:InsImage( , nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),Nil ), MemoRead(fname), Lower(hb_FNameExt(fname)) )
+               oEdit:InsImage( , nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),NIL ), MemoRead(fname), Lower(hb_FNameExt(fname)) )
             ELSE
-               oEdit:InsImage( fname, nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),Nil ) )
+               oEdit:InsImage( fname, nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),NIL ) )
             ENDIF
          ENDIF
       ELSEIF lEmbed != ( Left( aStru[1,OB_HREF], 1 ) == "#" ) .OR. ;
@@ -1905,7 +1905,7 @@ STATIC FUNCTION setImage( lNew )
    ENDIF
    hced_Setfocus( oEdit:hEdit )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION selectImage()
 
@@ -1923,7 +1923,7 @@ STATIC FUNCTION selectImage()
       hwg_drawGradient( hDC, 0, 0, aCoors[3], aCoors[4], 1, { CLR_GRAY1, CLR_GRAY2 } )
       hwg_Drawbitmap( hDC, oImg:handle,, (oPanel:nWidth-nWidth)/2, (oPanel:nHeight-nHeight)/2, nWidth, nHeight )
       hwg_Endpaint( o:handle, pps )
-      RETURN Nil
+      RETURN NIL
    }
 
    IF Empty( oEdit:aBin )
@@ -1959,7 +1959,7 @@ STATIC FUNCTION InsRows()
    LOCAL nL := oEdit:aPointC[P_Y], oDlg, nRows := 1
 
    IF Valtype(oEdit:aStru[nL,1,1]) != "C" .OR. oEdit:aStru[nL,1,1] != "tr"
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    INIT DIALOG oDlg TITLE "Insert rows"  ;
@@ -1978,14 +1978,14 @@ STATIC FUNCTION InsRows()
       hced_Invalidaterect( oEdit:hEdit, 0, 0, 0, oEdit:nClientWidth, oEdit:nHeight )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION DelRow()
 
    LOCAL nL := oEdit:aPointC[P_Y], i
 
    IF Valtype(oEdit:aStru[nL,1,1]) != "C" .OR. oEdit:aStru[nL,1,1] != "tr"
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF nL == oEdit:nTextLen .OR. ;
@@ -2003,30 +2003,30 @@ STATIC FUNCTION DelRow()
    oEdit:Paint( .F. )
    hced_Invalidaterect( oEdit:hEdit, 0, 0, 0, oEdit:nClientWidth, oEdit:nHeight )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION InsCols( l2End )
 
    LOCAL nL := oEdit:aPointC[P_Y]
 
    IF Valtype(oEdit:aStru[nL,1,1]) != "C" .OR. oEdit:aStru[nL,1,1] != "tr"
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
-   oEdit:InsCol( nL, Iif( l2End, Nil, oEdit:aPointC[P_X] ) )
+   oEdit:InsCol( nL, Iif( l2End, NIL, oEdit:aPointC[P_X] ) )
    oEdit:Scan()
    oEdit:Paint( .F. )
    hced_Invalidaterect( oEdit:hEdit, 0, 0, 0, oEdit:nClientWidth, oEdit:nHeight )
    hced_Setfocus( oEdit:hEdit )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION DelCol()
 
    LOCAL nL := oEdit:aPointC[P_Y]
 
    IF Valtype(oEdit:aStru[nL,1,1]) != "C" .OR. oEdit:aStru[nL,1,1] != "tr"
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    oEdit:DelCol( nL, oEdit:aPointC[P_X] )
@@ -2035,7 +2035,7 @@ STATIC FUNCTION DelCol()
    hced_Invalidaterect( oEdit:hEdit, 0, 0, 0, oEdit:nClientWidth, oEdit:nHeight )
    hced_Setfocus( oEdit:hEdit )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION EditMessProc( o, msg, wParam, lParam )
    LOCAL arr
@@ -2109,7 +2109,7 @@ STATIC FUNCTION UrlLaunch( oEdi, cAddr )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Find()
 
@@ -2145,7 +2145,7 @@ STATIC FUNCTION Find()
    ENDIF
    hced_Setfocus( oEdit:hEdit )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION FindNext()
 
@@ -2163,7 +2163,7 @@ STATIC FUNCTION FindNext()
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CopyFormatted()
 
@@ -2189,7 +2189,7 @@ STATIC FUNCTION CopyFormatted()
       oEdit:RestoreEnv( nLTr, iTd )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION PasteFormatted()
 
@@ -2219,7 +2219,7 @@ STATIC FUNCTION PasteFormatted()
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Zoom( n )
 
@@ -2228,7 +2228,7 @@ STATIC FUNCTION Zoom( n )
    nHeight := Iif( nHeight<0, nHeight-n, nHeight+n )
    oEdit:SetFont( HFont():Add( oEdit:oFont:name, oEdit:oFont:Width,nHeight,,oEdit:oFont:Charset,,,,,.T. ) )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION MarkRow( n )
 
@@ -2242,7 +2242,7 @@ STATIC FUNCTION MarkRow( n )
       nL := oEdit:aPointC[P_Y]
       aStru := oEdit:aStru; aPointM1 := oEdit:aPointM1; aPointM2 := oEdit:aPointM2
    ENDIF
-   IF n == Nil
+   IF n == NIL
       IF nRow1 == 0 .OR. ( nRow1 > 0 .AND. nRow2 > 0 )
          nRow1 := nL; nRow2 := 0
          aPointM1[P_Y] := nL; aPointM1[P_X] := 1
@@ -2271,7 +2271,7 @@ STATIC FUNCTION MarkRow( n )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION CnvCase( nType )
 
@@ -2298,7 +2298,7 @@ STATIC FUNCTION CnvCase( nType )
       oEdit:Refresh()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION Add2Recent( cFile )
 
@@ -2306,7 +2306,7 @@ FUNCTION Add2Recent( cFile )
 
    IF ( i := Ascan( aFilesRecent, cFile ) ) == 0
       IF Len( aFilesRecent ) < MAX_RECENT_FILES
-         Aadd( aFilesRecent, Nil )
+         Aadd( aFilesRecent, NIL )
       ENDIF
       AIns( aFilesRecent, 1 )
       aFilesRecent[1] := cFile
@@ -2319,7 +2319,7 @@ FUNCTION Add2Recent( cFile )
       lOptChg := .T.
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION ReadIni( cPath )
 
@@ -2341,7 +2341,7 @@ STATIC FUNCTION ReadIni( cPath )
     ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION WriteIni( cPath )
 
@@ -2359,7 +2359,7 @@ STATIC FUNCTION WriteIni( cPath )
 
    oIni:Save( cPath + "editor.ini" )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION FontFromXML( oXmlNode )
 
@@ -2370,22 +2370,22 @@ STATIC FUNCTION FontFromXML( oXmlNode )
    LOCAL ita   := oXmlNode:GetAttribute( "italic" )
    LOCAL under := oXmlNode:GetAttribute( "underline" )
 
-   IF width != Nil
+   IF width != NIL
       width := Val( width )
    ENDIF
-   IF height != Nil
+   IF height != NIL
       height := Val( height )
    ENDIF
-   IF weight != Nil
+   IF weight != NIL
       weight := Val( weight )
    ENDIF
-   IF charset != Nil
+   IF charset != NIL
       charset := Val( charset )
    ENDIF
-   IF ita != Nil
+   IF ita != NIL
       ita := Val( ita )
    ENDIF
-   IF under != Nil
+   IF under != NIL
       under := Val( under )
    ENDIF
 
@@ -2421,16 +2421,16 @@ STATIC FUNCTION Help(cHTopic , nPROCLINE , cHVar)
 
    IF !Empty( oDlgHelp )
       hwg_SetFocus( oDlgHelp:handle )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF !File( cIniPath + "editor.hwge" )
       hwg_msgStop( "Help file editor.hwge not found" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    INIT DIALOG oDlgHelp TITLE "Help" AT 100, 50 ;
-         SIZE 400,400 FONT HWindow():GetMain():oFont ON EXIT {||oDlgHelp := Nil, .T.}
+         SIZE 400,400 FONT HWindow():GetMain():oFont ON EXIT {||oDlgHelp := NIL, .T.}
    oDlgHelp:brush := 0
 
    oEdit := HCEdiExt():New( ,,, 0, 0, oDlgHelp:nWidth, oDlgHelp:nHeight, ;
@@ -2453,7 +2453,7 @@ STATIC FUNCTION Help(cHTopic , nPROCLINE , cHVar)
 
    oEdit:Open( cIniPath + "editor.hwge" )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION About()
 
@@ -2482,7 +2482,7 @@ STATIC FUNCTION About()
 
    hced_Setfocus( oEdit:hEdit )
 
-   RETURN Nil
+   RETURN NIL
 
 * ==========================================
 STATIC FUNCTION GetVal_nTop

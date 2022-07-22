@@ -55,8 +55,8 @@ FUNCTION hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
    FOR i = 1 TO nLen
       IF ValType( aControls ) = "C"
          oWnd:&aControls[ i ]:&cProperty := Value
-      ELSEIF cClass == Nil .OR. Upper( cClass ) == aControls[ i ]:ClassName
-         IF Value = Nil
+      ELSEIF cClass == NIL .OR. Upper( cClass ) == aControls[ i ]:ClassName
+         IF Value = NIL
             __mvPrivate( "oCtrl" )
             &( "oCtrl" ) := aControls[ i ]
             &( "oCtrl:" + cProperty )
@@ -66,4 +66,4 @@ FUNCTION hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL

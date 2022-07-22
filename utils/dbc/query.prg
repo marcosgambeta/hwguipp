@@ -30,7 +30,7 @@ Local fname := hwg_Selectfile( "Query files( *.que )", "*.que", mypath )
       Query( .T. )
    ENDIF
 
-Return Nil
+Return NIL
 
 Function Query( lEdit )
 Local oDlg
@@ -69,7 +69,7 @@ Static lConnected := .F.
 
    IF oDlg:lResult
       IF Empty( cQuery )
-         Return Nil
+         Return NIL
       ENDIF
 
       IF numdriv == 2
@@ -128,5 +128,5 @@ Static lConnected := .F.
       ENDIF
 #endif
    ENDIF
-Return Nil
+Return NIL
 

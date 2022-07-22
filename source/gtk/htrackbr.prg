@@ -46,21 +46,21 @@ ENDCLASS
 METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
             bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis ) CLASS HTrack
 
-   color := Iif( color == Nil, CLR_BLACK, color )
-   bColor := Iif( bColor == Nil, CLR_WHITE, bColor )
+   color := Iif( color == NIL, CLR_BLACK, color )
+   bColor := Iif( bColor == NIL, CLR_WHITE, bColor )
    ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight,,, ;
               bSize, bPaint,, color, bcolor )
 
    ::title  := ""
    ::lVertical := ( ::nHeight > ::nWidth )
-   ::nSize := Iif( nSize == Nil, 12, nSize )
+   ::nSize := Iif( nSize == NIL, 12, nSize )
    //::nFrom  := Iif( ::lVertical, Int(::nSize/2), Int(::nSize/2) )
    ::nFrom  := Int(::nSize/2)
    ::nTo    := Iif( ::lVertical, ::nHeight-1-Int(::nSize/2), ::nWidth-1-Int(::nSize/2) )
    ::nCurr  := ::nFrom
    ::oStyleBar := oStyleBar
    ::oStyleSlider := oStyleSlider
-   ::lAxis := ( lAxis == Nil .OR. lAxis )
+   ::lAxis := ( lAxis == NIL .OR. lAxis )
    ::oPen1 := HPen():Add( PS_SOLID, 1, color )
 
    ::Activate()
@@ -73,7 +73,7 @@ METHOD Activate() CLASS HTrack
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HTrack
 
@@ -88,7 +88,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrack
       ::Paint()
 
    ELSEIF msg == WM_ERASEBKGND
-      IF ::brush != Nil
+      IF ::brush != NIL
          hwg_Fillrect( wParam, 0, 0, ::nWidth, ::nHeight, ::brush:handle )
          RETURN 1
       ENDIF
@@ -99,7 +99,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrack
 
    ELSEIF msg == WM_LBUTTONUP
       ::lCaptured := .F.
-      IF ::bEndDrag != Nil
+      IF ::bEndDrag != NIL
          Eval( ::bEndDrag, Self )
       ENDIF
       ::Refresh()
@@ -117,48 +117,48 @@ METHOD Init() CLASS HTrack
       hwg_Setwindowobject( ::handle, Self )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Set( nSize, oStyleBar, oStyleSlider, lAxis, bPaint ) CLASS HTrack
 
    LOCAL xValue := (::nCurr - ::nFrom) / (::nTo - ::nFrom)
 
-   IF nSize != Nil
+   IF nSize != NIL
       ::nSize := nSize
       ::nFrom  := Int(::nSize/2)
       ::nTo    := Iif( ::lVertical, ::nHeight, ::nWidth ) -1-Int(::nSize/2)
       ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom
    ENDIF
-   IF oStyleBar != Nil
+   IF oStyleBar != NIL
       ::oStyleBar := oStyleBar
    ENDIF
-   IF oStyleSlider != Nil
+   IF oStyleSlider != NIL
       ::oStyleSlider := oStyleSlider
    ENDIF
-   IF lAxis != Nil
+   IF lAxis != NIL
       ::lAxis := lAxis
    ENDIF
-   IF bPaint != Nil
+   IF bPaint != NIL
       ::bPaint := bPaint
    ENDIF
    ::Refresh()
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Paint() CLASS HTrack
 
    LOCAL nHalf, nw, x1, y1
    LOCAL hDC := hwg_Getdc( ::handle )
 
-   IF ::tColor2 != Nil .AND. ::oPen2 == Nil
+   IF ::tColor2 != NIL .AND. ::oPen2 == NIL
       ::oPen2 := HPen():Add( PS_SOLID, 1, ::tColor2 )
    ENDIF
 
-   IF ::bPaint != Nil
+   IF ::bPaint != NIL
       Eval( ::bPaint, Self, hDC )
    ELSE
 
-      IF ::oStyleBar == Nil
+      IF ::oStyleBar == NIL
          hwg_Fillrect( hDC, 0, 0, ::nWidth, ::nHeight, ::brush:handle )
       ELSE
          ::oStyleBar:Draw( hDC, 0, 0, ::nWidth, ::nHeight )
@@ -174,14 +174,14 @@ METHOD Paint() CLASS HTrack
             //hwg_Drawline( hDC, x1, ::nTo, x1, ::nCurr+nHalf )
             hwg_Drawline( hDC, x1, ::nFrom, x1, ::nCurr-nHalf )
          ENDIF
-         IF ::oStyleSlider == Nil
+         IF ::oStyleSlider == NIL
             hwg_Rectangle( hDC, x1-nHalf, ::nCurr+nHalf, x1+nHalf, ::nCurr-nHalf )
          ELSE
             ::oStyleSlider:Draw( hDC, x1-nw, ::nCurr-nHalf, x1+nw, ::nCurr+nHalf )
          ENDIF
          //IF ::nCurr - nHalf > ::nTo
          IF ::lAxis .AND. ::nCurr + nHalf < ::nTo
-            IF ::oPen2 != Nil
+            IF ::oPen2 != NIL
                hwg_Selectobject( hDC, ::oPen2:handle )
             ENDIF
             //hwg_Drawline( hDC, x1, ::nCurr-nHalf, x1, ::nTo )
@@ -193,13 +193,13 @@ METHOD Paint() CLASS HTrack
          IF ::lAxis .AND. ::nCurr - nHalf > ::nFrom
             hwg_Drawline( hDC, ::nFrom, y1, ::nCurr-nHalf, y1 )
          ENDIF
-         IF ::oStyleSlider == Nil
+         IF ::oStyleSlider == NIL
             hwg_Rectangle( hDC, ::nCurr-nHalf, y1-nHalf, ::nCurr+nHalf, y1+nHalf )
          ELSE
             ::oStyleSlider:Draw( hDC, ::nCurr-nHalf, y1-nw, ::nCurr+nHalf, y1+nw )
          ENDIF
          IF ::lAxis .AND. ::nCurr + nHalf < ::nTo
-            IF ::oPen2 != Nil
+            IF ::oPen2 != NIL
                hwg_Selectobject( hDC, ::oPen2:handle )
             ENDIF
             hwg_Drawline( hDC, ::nCurr+nHalf+1, y1, ::nTo, y1 )
@@ -209,7 +209,7 @@ METHOD Paint() CLASS HTrack
 
    hwg_Releasedc( ::handle, hDC )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Drag( xPos, yPos ) CLASS HTrack
 
@@ -229,11 +229,11 @@ METHOD Drag( xPos, yPos ) CLASS HTrack
    ENDIF
 
    ::Refresh()
-   IF nCurr != ::nCurr .AND. ::bChange != Nil
+   IF nCurr != ::nCurr .AND. ::bChange != NIL
       Eval( ::bChange, Self, ::Value )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Move( x1, y1, width, height ) CLASS HTrack
 
@@ -251,11 +251,11 @@ METHOD Move( x1, y1, width, height ) CLASS HTrack
 
    ::Super:Move( x1, y1, width, height )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value( xValue ) CLASS HTrack
 
-   IF xValue != Nil
+   IF xValue != NIL
       xValue := Iif( xValue < 0, 0, Iif( xValue > 1, 1, xValue ) )
       ::nCurr := xValue * (::nTo - ::nFrom) + ::nFrom
       ::Refresh()

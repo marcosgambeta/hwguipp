@@ -44,10 +44,10 @@ ENDCLASS
 /* Added: cValue */
 METHOD New( cTitle, type, aAttr, cValue ) CLASS HXMLNode
 
-   IF cTitle != Nil ; ::title := cTitle ; ENDIF
-   IF aAttr  != Nil ; ::aAttr := aAttr  ; ENDIF
-   ::type := Iif( type != Nil , type, HBXML_TYPE_TAG )
-   IF cValue != Nil
+   IF cTitle != NIL ; ::title := cTitle ; ENDIF
+   IF aAttr  != NIL ; ::aAttr := aAttr  ; ENDIF
+   ::type := Iif( type != NIL , type, HBXML_TYPE_TAG )
+   IF cValue != NIL
       ::Add( cValue )
    ENDIF
 
@@ -64,7 +64,7 @@ METHOD GetAttribute( cName, cType, xDefault ) CLASS HXMLNode
    LOCAL i := Ascan( ::aAttr, { | a | a[ 1 ] == cName } )
 
    IF i != 0
-      IF cType == Nil .OR. cType == "C"
+      IF cType == NIL .OR. cType == "C"
          RETURN ::aAttr[ i, 2 ]
       ELSEIF cType == "N"
          RETURN Val( ::aAttr[ i, 2 ] )
@@ -195,7 +195,7 @@ METHOD Find( cTitle,nStart,block ) CLASS HXMLNode
 
    LOCAL i
 
-   IF nStart == Nil
+   IF nStart == NIL
       nStart := 1
    ENDIF
    DO WHILE .T.
@@ -204,7 +204,7 @@ METHOD Find( cTitle,nStart,block ) CLASS HXMLNode
          EXIT
       ELSE
          nStart := i
-         IF block == Nil .OR. Eval( block,::aItems[ i ] )
+         IF block == NIL .OR. Eval( block,::aItems[ i ] )
             Return ::aItems[ i ]
          ELSE
             nStart ++
@@ -212,7 +212,7 @@ METHOD Find( cTitle,nStart,block ) CLASS HXMLNode
       ENDIF
    ENDDO
 
-RETURN Nil
+RETURN NIL
 
 
 /*
@@ -232,7 +232,7 @@ ENDCLASS
 
 METHOD New( encoding ) CLASS HXMLDoc
 
-   IF encoding != Nil
+   IF encoding != NIL
       Aadd( ::aAttr, { "version", "1.0" } )
       Aadd( ::aAttr, { "encoding", encoding } )
    ENDIF
@@ -244,7 +244,7 @@ METHOD Read( fname, buffer ) CLASS HXMLDoc
 
    LOCAL han
 
-   IF fname != Nil
+   IF fname != NIL
       han := FOpen( fname, FO_READ )
       ::nLastErr := 0
       IF han != -1
@@ -253,29 +253,29 @@ METHOD Read( fname, buffer ) CLASS HXMLDoc
       ELSE
          ::nLastErr := XML_ERROR_FILEOPEN
       ENDIF
-   ELSEIF buffer != Nil
+   ELSEIF buffer != NIL
       ::nLastErr := hbxml_GetDoc( Self,buffer )
    ELSE
-      Return Nil
+      Return NIL
    ENDIF
 
-RETURN Iif( ::nLastErr == 0, Self, Nil )
+RETURN Iif( ::nLastErr == 0, Self, NIL )
 
 METHOD Save( fname,lNoHeader ) CLASS HXMLDoc
 
    LOCAL handle := -2
    LOCAL cEncod, i, s
 
-   IF fname != Nil
+   IF fname != NIL
       handle := FCreate( fname )
    ENDIF
    IF handle != -1
-      IF lNoHeader == Nil .OR. !lNoHeader
-         IF ( cEncod := ::GetAttribute( "encoding" ) ) == Nil
+      IF lNoHeader == NIL .OR. !lNoHeader
+         IF ( cEncod := ::GetAttribute( "encoding" ) ) == NIL
             cEncod := "UTF-8"
          ENDIF
          s := '<?xml version="1.0" encoding="' + cEncod + '"?>' + cNewLine
-         IF fname != Nil
+         IF fname != NIL
             FWrite( handle, s )
          ENDIF
       ELSE
@@ -284,7 +284,7 @@ METHOD Save( fname,lNoHeader ) CLASS HXMLDoc
       FOR i := 1 TO Len( ::aItems )
          s += ::aItems[i]:Save( handle, 0 )
       NEXT
-      IF fname != Nil
+      IF fname != NIL
          FClose( handle )
       ELSE
          Return s

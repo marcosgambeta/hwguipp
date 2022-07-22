@@ -31,10 +31,10 @@
 CLASS HActiveX FROM HControl
 
    CLASS VAR winclass	INIT "ACTIVEX"
-   DATA oOle      INIT Nil
-   DATA hSink     INIT Nil
-   DATA hAtl      INIT Nil
-   DATA hObj      INIT Nil
+   DATA oOle      INIT NIL
+   DATA hSink     INIT NIL
+   DATA hAtl      INIT NIL
+   DATA hObj      INIT NIL
 
    METHOD Release
    METHOD New
@@ -86,7 +86,7 @@ METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
       ENDIF
       IF Empty( ::oOle:__hObj )
          hwg_MsgStop( "Invalid argument to contructor!" )
-         RETURN Nil
+         RETURN NIL
       ENDIF
 #endif
 
@@ -101,7 +101,7 @@ METHOD Release() CLASS HActiveX
    hwg_Shutdownconnectionpoint( ::hSink )
    hwg_Releasedispatch( ::hObj )
 
-Return Nil
+Return NIL
 
 *-----------------------------------------------------------------------------* 
 METHOD __Error( ... ) CLASS HActiveX 

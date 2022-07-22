@@ -1,4 +1,4 @@
-#include "windows.ch" 
+#include "windows.ch"
 #include "guilib.ch"
 // #include "listbox.ch"
 
@@ -15,7 +15,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+Return NIL
 
 Function Teste
 Local oModDlg, oFont := HFont():Add( "MS Sans Serif",0,-13 )
@@ -41,4 +41,4 @@ Local oList, oItems:={"Item01","Item02","Item03","Item04"}
 
    IF oModDlg:lResult
     ENDIF
-Return Nil
+Return NIL

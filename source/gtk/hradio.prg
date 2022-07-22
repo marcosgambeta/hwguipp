@@ -26,7 +26,7 @@ CLASS HRadioGroup INHERIT HObject
       cCaption, oFont, bInit, bSize, tcolor, bColor )
    METHOD EndGroup( nSelected )
    METHOD Value( nValue ) SETGET
-   METHOD Refresh()   INLINE iif( ::bSetGet != Nil, ::Value := Eval(::bSetGet ), .T. )
+   METHOD Refresh()   INLINE iif( ::bSetGet != NIL, ::Value := Eval(::bSetGet ), .T. )
 
 ENDCLASS
 
@@ -35,7 +35,7 @@ METHOD New( vari, bSetGet ) CLASS HRadioGroup
    ::oGroupCurrent := Self
    ::aButtons := {}
 
-   IF vari != Nil
+   IF vari != NIL
       IF ValType( vari ) == "N"
          ::nValue := vari
       ENDIF
@@ -65,22 +65,22 @@ METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeig
 METHOD EndGroup( nSelected )  CLASS HRadioGroup
    LOCAL nLen
 
-   IF ::oGroupCurrent != Nil .AND. ( nLen := Len( ::oGroupCurrent:aButtons ) ) > 0
+   IF ::oGroupCurrent != NIL .AND. ( nLen := Len( ::oGroupCurrent:aButtons ) ) > 0
 
-      nSelected := iif( nSelected != Nil .AND. nSelected <= nLen .AND. nSelected > 0, ;
+      nSelected := iif( nSelected != NIL .AND. nSelected <= nLen .AND. nSelected > 0, ;
          nSelected, ::oGroupCurrent:nValue )
       IF nSelected != 0 .AND. nSelected <= nlen
          hwg_CheckButton( ::oGroupCurrent:aButtons[nSelected]:handle, .T. )
       ENDIF
    ENDIF
-   ::oGroupCurrent := Nil
+   ::oGroupCurrent := NIL
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value( nValue ) CLASS HRadioGroup
    LOCAL nLen
 
-   IF nValue != Nil
+   IF nValue != NIL
       IF ( nLen := Len( ::aButtons ) ) > 0 .AND. nValue > 0 .AND. nValue <= nLen
          hwg_CheckButton( ::aButtons[nValue]:handle, .T. )
          ::nValue := nValue
@@ -114,13 +114,13 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
      * Parameters not used
     HB_SYMBOL_UNUSED(bcolor)
 
-   ::oParent := iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
-   ::id      := iif( nId == Nil, ::NewId(), nId )
+   ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
+   ::id      := iif( nId == NIL, ::NewId(), nId )
    ::title   := cCaption
    ::oGroup  := HRadioGroup():oGroupCurrent
-   ::style   := Hwg_BitOr( iif( nStyle == Nil,0,nStyle ), BS_AUTORADIOBUTTON + ;
+   ::style   := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), BS_AUTORADIOBUTTON + ;
       WS_CHILD + WS_VISIBLE + ;
-      iif( ::oGroup != Nil .AND. Empty( ::oGroup:aButtons ), WS_GROUP, 0 ) )
+      iif( ::oGroup != NIL .AND. Empty( ::oGroup:aButtons ), WS_GROUP, 0 ) )
    ::oFont   := oFont
    ::nLeft   := nLeft
    ::nTop    := nTop
@@ -139,12 +139,12 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::Activate()
    ::oParent:AddControl( Self )
    ::bClick := bClick
-   IF bClick != Nil .AND. ( ::oGroup == Nil .OR. ::oGroup:bSetGet == Nil )
+   IF bClick != NIL .AND. ( ::oGroup == NIL .OR. ::oGroup:bSetGet == NIL )
       hwg_SetSignal( ::handle, "released", WM_LBUTTONUP, 0, 0 )
    ENDIF
-   IF ::oGroup != Nil
+   IF ::oGroup != NIL
       AAdd( ::oGroup:aButtons, Self )
-      IF ::oGroup:bSetGet != Nil
+      IF ::oGroup:bSetGet != NIL
          hwg_SetSignal( ::handle, "released", WM_LBUTTONUP, 0, 0 ) 
       ENDIF
    ENDIF
@@ -167,7 +167,7 @@ METHOD Activate() CLASS HRadioButton
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HRadioButton
 
@@ -176,17 +176,17 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HRadioButton
    HB_SYMBOL_UNUSED(lParam)
 
    IF msg == WM_LBUTTONUP
-      IF ::oGroup:bSetGet == Nil
+      IF ::oGroup:bSetGet == NIL
          Eval( ::bClick, Self, ::oGroup:nValue )
       ELSE
          __Valid( Self )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value( lValue ) CLASS HRadioButton
-   IF lValue != Nil
+   IF lValue != NIL
       hwg_CheckButton( ::handle, .T. )
    ENDIF
    RETURN hwg_isButtonChecked( ::handle )
@@ -194,10 +194,10 @@ METHOD Value( lValue ) CLASS HRadioButton
 STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:oGroup:nValue := Ascan( oCtrl:oGroup:aButtons, { |o|o:id == oCtrl:id } )
-   IF oCtrl:oGroup:bSetGet != Nil
+   IF oCtrl:oGroup:bSetGet != NIL
       Eval( oCtrl:oGroup:bSetGet, oCtrl:oGroup:nValue )
    ENDIF
-   IF oCtrl:bClick != Nil
+   IF oCtrl:bClick != NIL
       Eval( oCtrl:bClick, oCtrl, oCtrl:oGroup:nValue )
    ENDIF
 

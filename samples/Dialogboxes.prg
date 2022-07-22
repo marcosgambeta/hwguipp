@@ -112,7 +112,7 @@ Function Test
 
 
    @ 20,y1 BUTTON "hwg_MsgGet()" SIZE 180,28 ;
-      ON CLICK {||oSay6:SetText( Iif( (cRes := hwg_MsgGet("Input something","Tutorial")) == Nil, "", cRes ) )}
+      ON CLICK {||oSay6:SetText( Iif( (cRes := hwg_MsgGet("Input something","Tutorial")) == NIL, "", cRes ) )}
 
    @ 230,y1 SAY oSay6 CAPTION "" SIZE 80,24 COLOR 8404992
 
@@ -130,7 +130,7 @@ Function Test
 
    ACTIVATE DIALOG oDlg
 
-Return Nil
+Return NIL
 
 * ============================= EOF of Dialogboxes.prg ===========================
 

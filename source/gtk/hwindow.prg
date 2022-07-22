@@ -69,7 +69,7 @@ FUNCTION hwg_HideHidden( oWnd )
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_onAnchor( oWnd, wold, hold, wnew, hnew )
 
@@ -84,19 +84,19 @@ FUNCTION hwg_onAnchor( oWnd, wold, hold, wnew, hnew )
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION onDestroy( oWnd )
 
    LOCAL i, lRes
 
-   IF oWnd:bDestroy != Nil
+   IF oWnd:bDestroy != NIL
       IF ValType( lRes := Eval( oWnd:bDestroy, oWnd ) ) == "L" .AND. !lRes
          RETURN .F.
       ENDIF
-      oWnd:bDestroy := Nil
+      oWnd:bDestroy := NIL
    ENDIF
-   IF __ObjHasMsg( oWnd, "HACCEL" ) .AND. oWnd:hAccel != Nil
+   IF __ObjHasMsg( oWnd, "HACCEL" ) .AND. oWnd:hAccel != NIL
       hwg_Destroyacceleratortable( oWnd:hAccel )
    ENDIF
    IF ( i := Ascan( HTimer():aTimers,{ |o|hwg_Isptreq( o:oParent:handle,oWnd:handle ) } ) ) != 0
@@ -155,13 +155,13 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
 
    ::oDefaultParent := Self
    ::title    := cTitle
-   ::style    := iif( nStyle == Nil, 0, nStyle )
+   ::style    := iif( nStyle == NIL, 0, nStyle )
    ::oIcon    := oIcon
    ::oBmp     := oBmp
-   ::nTop     := iif( y == Nil, 0, y )
-   ::nLeft    := iif( x == Nil, 0, x )
-   ::nWidth   := iif( width == Nil, 0, width )
-   ::nHeight  := iif( height == Nil, 0, Abs( height ) )
+   ::nTop     := iif( y == NIL, 0, y )
+   ::nLeft    := iif( x == NIL, 0, x )
+   ::nWidth   := iif( width == NIL, 0, width )
+   ::nHeight  := iif( height == NIL, 0, Abs( height ) )
    IF ::nWidth < 0
       ::nWidth   := Abs( ::nWidth )
       ::nAdjust := 1
@@ -174,7 +174,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    ::bGetFocus  := bGFocus
    ::bLostFocus := bLFocus
    ::bOther     := bOther
-   IF cAppName != Nil
+   IF cAppName != NIL
       ::szAppName := cAppName
    ENDIF
    IF hwg_BitAnd( Abs( ::style ), DS_CENTER ) > 0
@@ -194,7 +194,7 @@ METHOD AddItem( oWnd ) CLASS HWindow
 
    AAdd( ::aWindows, oWnd )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD DelItem( oWnd ) CLASS HWindow
 
@@ -205,12 +205,12 @@ METHOD DelItem( oWnd ) CLASS HWindow
       ASize( ::aWindows, Len( ::aWindows ) - 1 )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD FindWindow( hWnd ) CLASS HWindow
 
    // Local i := Ascan( ::aWindows, {|o|o:handle==hWnd} )
-   // Return Iif( i == 0, Nil, ::aWindows[i] )
+   // Return Iif( i == 0, NIL, ::aWindows[i] )
 
    RETURN hwg_Getwindowobject( hWnd )
 
@@ -219,7 +219,7 @@ METHOD GetMain() CLASS HWindow
    RETURN iif( Len( ::aWindows ) > 0,            ;
       iif( ::aWindows[1]:type == WND_MAIN, ;
       ::aWindows[1],                  ;
-      iif( Len( ::aWindows ) > 1, ::aWindows[2], Nil ) ), Nil )
+      iif( Len( ::aWindows ) > 1, ::aWindows[2], NIL ) ), NIL )
 
 /* Added: nctrl */
 METHOD EvalKeyList( nKey, nctrl ) CLASS HWindow
@@ -288,14 +288,14 @@ METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,
    IF lType == WND_MDI
    ELSEIF lType == WND_MAIN
       ::handle := Hwg_InitMainWindow( Self, ::szAppName, cTitle, cMenu, ;
-         iif( oIcon != Nil, oIcon:handle, Nil ), ::Style, ::nLeft, ;
+         iif( oIcon != NIL, oIcon:handle, NIL ), ::Style, ::nLeft, ;
          ::nTop, ::nWidth, ::nHeight, hbackground )
          * DF7BE: background missing, added as 11th parameter
    ENDIF
-   IF ::bColor != Nil
+   IF ::bColor != NIL
       hwg_SetBgColor( ::handle, ::bColor )
    ENDIF
-   IF ::bInit != Nil
+   IF ::bInit != NIL
       Eval( ::bInit, Self )
    ENDIF
 
@@ -337,7 +337,7 @@ METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMain
       IF HB_ISBLOCK( bActivate )
          ::bActivate := bActivate
       ENDIF
-      IF ::bActivate != Nil
+      IF ::bActivate != NIL
          Eval( ::bActivate, Self )
       ENDIF
       IF !Empty( lMinimize )
@@ -351,7 +351,7 @@ METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMain
       Hwg_ActivateMainWindow( ::handle )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
 
@@ -370,7 +370,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
    RETURN 0
 
 METHOD InitTray() CLASS HMainWindow
-   RETURN Nil
+   RETURN NIL
    
 METHOD DEICONIFY() CLASS HMainWindow 
    hwg_deiconify(::handle)
@@ -401,20 +401,20 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
 
    iParHigh := hwg_Hiword( wParam )
    iParLow := hwg_Loword( wParam )
-   IF oWnd:aEvents != Nil .AND. ;
+   IF oWnd:aEvents != NIL .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
       Eval( oWnd:aEvents[ iItem,3 ], oWnd, iParLow )
    ELSEIF ValType( oWnd:menu ) == "A" .AND. ;
-         ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != Nil ;
-         .AND. aMenu[ 1,iCont,1 ] != Nil
+         ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != NIL ;
+         .AND. aMenu[ 1,iCont,1 ] != NIL
       Eval( aMenu[ 1,iCont,1 ] )
-   ELSEIF oWnd:oPopup != Nil .AND. ;
-         ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu,wParam,@iCont ) ) != Nil ;
-         .AND. aMenu[ 1,iCont,1 ] != Nil
+   ELSEIF oWnd:oPopup != NIL .AND. ;
+         ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu,wParam,@iCont ) ) != NIL ;
+         .AND. aMenu[ 1,iCont,1 ] != NIL
       Eval( aMenu[ 1,iCont,1 ] )
-   ELSEIF oWnd:oNotifyMenu != Nil .AND. ;
-         ( aMenu := Hwg_FindMenuItem( oWnd:oNotifyMenu:aMenu,wParam,@iCont ) ) != Nil ;
-         .AND. aMenu[ 1,iCont,1 ] != Nil
+   ELSEIF oWnd:oNotifyMenu != NIL .AND. ;
+         ( aMenu := Hwg_FindMenuItem( oWnd:oNotifyMenu:aMenu,wParam,@iCont ) ) != NIL ;
+         .AND. aMenu[ 1,iCont,1 ] != NIL
       Eval( aMenu[ 1,iCont,1 ] )
    ENDIF
 
@@ -426,7 +426,7 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
    HB_SYMBOL_UNUSED(w)
    HB_SYMBOL_UNUSED(l)
 
-   IF oDlg:bGetFocus != Nil
+   IF oDlg:bGetFocus != NIL
       Eval( oDlg:bGetFocus, oDlg )
    ENDIF
 
@@ -435,7 +435,7 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
 
 * Prepare for future (if available on next GTK versions)   
 * FUNCTION hwg_GTKShellnotifyicon( oIcon )
-*       hwg_ShellModifyIcon ( iif( oIcon != Nil, oIcon:handle, Nil ) )
+*       hwg_ShellModifyIcon ( iif( oIcon != NIL, oIcon:handle, NIL ) )
 *   RETURN NIL
 
 * ===================== EOF of hwindow.prg ==============================

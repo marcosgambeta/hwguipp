@@ -48,16 +48,16 @@ METHOD Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, ;
 
    LOCAL i, nlen := Len( ::aFonts )
 
-   nHeight  := iif( nHeight == Nil, 13, Abs( nHeight ) )
-   IF lLinux == Nil .OR. !lLinux
+   nHeight  := iif( nHeight == NIL, 13, Abs( nHeight ) )
+   IF lLinux == NIL .OR. !lLinux
       nHeight -= 3
    ENDIF
-   nWidth := iif( nWidth == Nil, 0, nWidth )
-   fnWeight := iif( fnWeight == Nil, 0, fnWeight )
-   fdwCharSet := iif( fdwCharSet == Nil, 0, fdwCharSet )
-   fdwItalic := iif( fdwItalic == Nil, 0, fdwItalic )
-   fdwUnderline := iif( fdwUnderline == Nil, 0, fdwUnderline )
-   fdwStrikeOut := iif( fdwStrikeOut == Nil, 0, fdwStrikeOut )
+   nWidth := iif( nWidth == NIL, 0, nWidth )
+   fnWeight := iif( fnWeight == NIL, 0, fnWeight )
+   fdwCharSet := iif( fdwCharSet == NIL, 0, fdwCharSet )
+   fdwItalic := iif( fdwItalic == NIL, 0, fdwItalic )
+   fdwUnderline := iif( fdwUnderline == NIL, 0, fdwUnderline )
+   fdwStrikeOut := iif( fdwStrikeOut == NIL, 0, fdwStrikeOut )
 
    FOR i := 1 TO nlen
       IF ::aFonts[i]:name == fontName .AND.          ;
@@ -71,14 +71,14 @@ METHOD Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, ;
             ::aFonts[i]:StrikeOut == fdwStrikeOut
 
          ::aFonts[i]:nCounter ++
-         IF nHandle != Nil
+         IF nHandle != NIL
             hwg_Deleteobject( nHandle )
          ENDIF
          Return ::aFonts[i]
       ENDIF
    NEXT
 
-   IF nHandle == Nil
+   IF nHandle == NIL
       ::handle := hwg_Createfont( fontName, nWidth, nHeight * 1024 , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut )
    ELSE
       ::handle := nHandle
@@ -103,7 +103,7 @@ METHOD Select( oFont, cTitle ) CLASS HFont
    LOCAL af := hwg_Selectfont( oFont, cTitle )
 
    IF Valtype( af ) != "A"
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    Return ::Add( af[2], af[3], af[4], af[5], af[6], af[7], af[8], af[9], af[1], .T. )
@@ -134,7 +134,7 @@ METHOD Release() CLASS HFont
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 
 /* DF7BE: For debugging purposes */   
@@ -146,13 +146,13 @@ METHOD PrintFont()  CLASS HFont
    LOCAL fontName , nWidth , nHeight , fnWeight , fdwCharSet , fdwItalic , fdwUnderline , fdwStrikeOut
 
    fontName     := iif( ::name == NIL , "<Empty>", ::name )
-   nWidth       := iif( ::width == Nil, - 9999 , ::width )
+   nWidth       := iif( ::width == NIL, - 9999 , ::width )
    nHeight      := iif( ::height == NIL , - 9999 , ::height )
-   fnWeight     := iif( ::weight == Nil, - 9999 , ::weight )
-   fdwCharSet   := iif( ::CharSet == Nil, - 9999 , ::CharSet )
-   fdwItalic    := iif( ::Italic == Nil, - 9999 , ::Italic )
-   fdwUnderline := iif( ::Underline == Nil, - 9999 , ::Underline )
-   fdwStrikeOut := iif( ::StrikeOut == Nil, - 9999 , ::StrikeOut )
+   fnWeight     := iif( ::weight == NIL, - 9999 , ::weight )
+   fdwCharSet   := iif( ::CharSet == NIL, - 9999 , ::CharSet )
+   fdwItalic    := iif( ::Italic == NIL, - 9999 , ::Italic )
+   fdwUnderline := iif( ::Underline == NIL, - 9999 , ::Underline )
+   fdwStrikeOut := iif( ::StrikeOut == NIL, - 9999 , ::StrikeOut )
  
 
  
@@ -177,13 +177,13 @@ METHOD Props2Arr() CLASS HFont
    LOCAL aFontprops := {}
 
    fontName     := iif( ::name == NIL , "<Empty>", ::name )
-   nWidth       := iif( ::width == Nil, - 9999 , ::width )
+   nWidth       := iif( ::width == NIL, - 9999 , ::width )
    nHeight      := iif( ::height == NIL , - 9999 , ::height )
-   fnWeight     := iif( ::weight == Nil, - 9999 , ::weight )
-   fdwCharSet   := iif( ::CharSet == Nil, - 9999 , ::CharSet )
-   fdwItalic    := iif( ::Italic == Nil, - 9999 , ::Italic )
-   fdwUnderline := iif( ::Underline == Nil, - 9999 , ::Underline )
-   fdwStrikeOut := iif( ::StrikeOut == Nil, - 9999 , ::StrikeOut )
+   fnWeight     := iif( ::weight == NIL, - 9999 , ::weight )
+   fdwCharSet   := iif( ::CharSet == NIL, - 9999 , ::CharSet )
+   fdwItalic    := iif( ::Italic == NIL, - 9999 , ::Italic )
+   fdwUnderline := iif( ::Underline == NIL, - 9999 , ::Underline )
+   fdwStrikeOut := iif( ::StrikeOut == NIL, - 9999 , ::StrikeOut )
    
    AADD (aFontprops, fontName)  && C
    AADD (aFontprops, nWidth)    && all other of type N 
@@ -200,16 +200,16 @@ METHOD Props2Arr() CLASS HFont
 METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight ) CLASS HFont
    LOCAL  weight, Italic, Underline, StrikeOut
 
-   IF lBold != Nil
+   IF lBold != NIL
       weight = iif( lBold, FW_BOLD, FW_REGULAR )
    ELSE
       weight := ::weight
    ENDIF
-   Italic    := iif( lItalic = Nil, ::Italic, iif( lItalic, 1, 0 ) )
-   Underline := iif( lUnder  = Nil, ::Underline, iif( lUnder , 1, 0 ) )
-   StrikeOut := iif( lStrike = Nil, ::StrikeOut, iif( lStrike , 1, 0 ) )
-   nheight   := iif( nheight = Nil, ::height, nheight )
-   nCharSet  := iif( nCharSet = Nil, ::CharSet, nCharSet )
+   Italic    := iif( lItalic = NIL, ::Italic, iif( lItalic, 1, 0 ) )
+   Underline := iif( lUnder  = NIL, ::Underline, iif( lUnder , 1, 0 ) )
+   StrikeOut := iif( lStrike = NIL, ::StrikeOut, iif( lStrike , 1, 0 ) )
+   nheight   := iif( nheight = NIL, ::height, nheight )
+   nCharSet  := iif( nCharSet = NIL, ::CharSet, nCharSet )
 
    RETURN HFont():Add( ::name, ::width, nheight, weight, ;
       nCharSet, Italic, Underline, StrikeOut,,(nHeight==::height) )
@@ -232,12 +232,12 @@ ENDCLASS
 METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
    LOCAL i
 
-   nStyle := iif( nStyle == Nil, PS_SOLID, nStyle )
-   nWidth := iif( nWidth == Nil, 1, nWidth )
+   nStyle := iif( nStyle == NIL, PS_SOLID, nStyle )
+   nWidth := iif( nWidth == NIL, 1, nWidth )
    IF nStyle != PS_SOLID
       nWidth := 1
    ENDIF
-   nColor := iif( nColor == Nil, 0, nColor )
+   nColor := iif( nColor == NIL, 0, nColor )
 
    For EACH i in ::aPens
       IF i:style == nStyle .AND. ;
@@ -260,12 +260,12 @@ METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
 METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
    LOCAL i
 
-   nStyle := iif( nStyle == Nil, PS_SOLID, nStyle )
-   nWidth := iif( nWidth == Nil, 1, nWidth )
+   nStyle := iif( nStyle == NIL, PS_SOLID, nStyle )
+   nWidth := iif( nWidth == NIL, 1, nWidth )
    IF nStyle != PS_SOLID
       nWidth := 1
    ENDIF
-   nColor := iif( nColor == Nil, 0, nColor )
+   nColor := iif( nColor == NIL, 0, nColor )
 
    For EACH i in ::aPens
       IF i:style == nStyle .AND. ;
@@ -276,7 +276,7 @@ METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD RELEASE() CLASS HPen
    LOCAL i, nlen := Len( ::aPens )
@@ -304,7 +304,7 @@ METHOD RELEASE() CLASS HPen
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //- HBrush
 
@@ -363,7 +363,7 @@ METHOD RELEASE() CLASS HBrush
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //- HBitmap
 
@@ -455,7 +455,7 @@ METHOD AddResource( name ) CLASS HBitmap
    
    IF Empty( ::handle )
       hwg_MsgStop("Can not add bitmap to resource container: >" + name + "<" )
-      RETURN Nil
+      RETURN NIL
    // ELSE
    //     hwg_MsgInfo("Bitmap resource successfully loaded >" + name + "<" )     
    ENDIF
@@ -464,7 +464,7 @@ METHOD AddResource( name ) CLASS HBitmap
 
    RETURN Self
 
-   // RETURN Nil
+   // RETURN NIL
 
 METHOD AddFile( name, HDC , lTransparent, nWidth, nHeight ) CLASS HBitmap
    LOCAL i, aBmpSize
@@ -491,7 +491,7 @@ METHOD AddFile( name, HDC , lTransparent, nWidth, nHeight ) CLASS HBitmap
       ::nHeight := aBmpSize[2]
       AAdd( ::aBitmaps, Self )
    ELSE
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    RETURN Self 
@@ -536,7 +536,7 @@ METHOD AddString( name, cVal ) CLASS HBitmap
       AAdd( ::aBitmaps, Self )
    ELSE
       hwg_MsgStop("Bitmap not loaded >" + name + "<" ) 
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    RETURN Self
@@ -544,7 +544,7 @@ METHOD AddString( name, cVal ) CLASS HBitmap
 METHOD AddStandard( cId, nSize ) CLASS HBitmap
    LOCAL i, aBmpSize, cName
 
-   cName := cId + Iif( nSize==Nil, "", Str(nSize,1) )
+   cName := cId + Iif( nSize==NIL, "", Str(nSize,1) )
    FOR EACH i IN ::aBitmaps
       IF i:name == cName
          i:nCounter ++
@@ -554,7 +554,7 @@ METHOD AddStandard( cId, nSize ) CLASS HBitmap
 
    ::handle := hwg_StockBitmap( cId, nSize )
    IF Empty( ::handle )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    ::name    := cName
    aBmpSize  := hwg_Getbitmapsize( ::handle )
@@ -569,7 +569,7 @@ METHOD AddWindow( oWnd, x1, y1, width, height ) CLASS HBitmap
    * Variables not used
    * i
 
-   IF x1 == Nil .OR. y1 == Nil
+   IF x1 == NIL .OR. y1 == NIL
       x1 := 0; y1 := 0; width := oWnd:nWidth - 1; height := oWnd:nHeight - 1
    ENDIF
    ::handle := hwg_Window2Bitmap( Iif( Empty(handle),oWnd:handle,handle ),x1,y1,width,height )
@@ -589,7 +589,7 @@ METHOD Draw( hDC, x1, y1, width, height ) CLASS HBitmap
       hwg_Drawtransparentbitmap( hDC, ::handle, x1, y1, ::nTransparent )
    ENDIF
    
-   RETURN Nil
+   RETURN NIL
 
 METHOD Release() CLASS HBitmap
    LOCAL i, nlen := Len( ::aBitmaps )
@@ -617,7 +617,7 @@ METHOD Release() CLASS HBitmap
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //- HIcon
 
@@ -685,7 +685,7 @@ METHOD AddResource( name , nWidth, nHeight , nFlags, lOEM ) CLASS HIcon
    ENDIF
    IF Empty( ::handle )
       hwg_MsgStop("Can not add icon to resource container: >" + name + "<" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    ::name   := name
    AAdd( ::aIcons, Self )
@@ -735,7 +735,7 @@ METHOD AddFile( name , nWidth, nHeight ) CLASS HIcon
       AAdd( ::aIcons, Self )
    ELSE
       hwg_MsgStop("Can not load icon: >" + name + "<")
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    RETURN Self
@@ -776,7 +776,7 @@ METHOD AddString( name, cVal , nWidth, nHeight ) CLASS HIcon
       AAdd( ::aIcons, Self )
    ELSE
       hwg_MsgStop("Can not load icon: >" + name + "<")
-      RETURN Nil
+      RETURN NIL
    ENDIF
   
    RETURN Self  
@@ -808,7 +808,7 @@ METHOD RELEASE() CLASS HIcon
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 CLASS HStyle INHERIT HObject
 
@@ -831,9 +831,9 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
 
    LOCAL i, nlen := Len( ::aStyles )
 
-   nBorder := Iif( nBorder == Nil, 0, nBorder )
-   tColor := Iif( tColor == Nil, -1, tColor )
-   nOrient := Iif( nOrient == Nil .OR. nOrient > 9, 1, nOrient )
+   nBorder := Iif( nBorder == NIL, 0, nBorder )
+   tColor := Iif( tColor == NIL, -1, tColor )
+   nOrient := Iif( nOrient == NIL .OR. nOrient > 9, 1, nOrient )
 
    FOR i := 1 TO nlen
       IF hwg_aCompare( ::aStyles[i]:aColors, aColors ) .AND. ;
@@ -842,8 +842,8 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
          ::aStyles[i]:nBorder == nBorder .AND. ;
          ::aStyles[i]:tColor == tColor .AND. ;
          ::aStyles[i]:nOrient == nOrient .AND. ;
-         ( ( ::aStyles[i]:oBitmap == Nil .AND. oBitmap == Nil ) .OR. ;
-         ( ::aStyles[i]:oBitmap != Nil .AND. oBitmap != Nil .AND. ::aStyles[i]:oBitmap:name == oBitmap:name ) )
+         ( ( ::aStyles[i]:oBitmap == NIL .AND. oBitmap == NIL ) .OR. ;
+         ( ::aStyles[i]:oBitmap != NIL .AND. oBitmap != NIL .AND. ::aStyles[i]:oBitmap:name == oBitmap:name ) )
 
          RETURN ::aStyles[ i ]
       ENDIF
@@ -866,7 +866,7 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
 
 METHOD Draw( hDC, nLeft, nTop, nRight, nBottom ) CLASS HStyle
 
-   IF ::oBitmap == Nil
+   IF ::oBitmap == NIL
       hwg_drawGradient( hDC, nLeft, nTop, nRight, nBottom, ::nOrient, ::aColors,, ::aCorners )
    ELSE
       hwg_SpreadBitmap( hDC, ::oBitmap:handle, nLeft, nTop, nRight, nBottom )
@@ -877,14 +877,14 @@ METHOD Draw( hDC, nLeft, nTop, nRight, nBottom ) CLASS HStyle
       hwg_Rectangle( hDC, nLeft, nTop, nRight-1, nBottom-1 )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 
 FUNCTION hwg_aCompare( arr1, arr2 )
 
    LOCAL i, nLen
 
-   IF arr1 == Nil .AND. arr2 == Nil
+   IF arr1 == NIL .AND. arr2 == NIL
       RETURN .T.
    ELSEIF Valtype( arr1 ) == Valtype( arr2 ) .AND. Valtype( arr1 ) == "A" ;
          .AND. ( nLen := Len( arr1 ) ) == Len( arr2 )
@@ -935,7 +935,7 @@ FUNCTION hwg_SetResContainer( cName )
    IF Empty( cName )
       IF !Empty( oResCnt )
          oResCnt:Close()
-         oResCnt := Nil
+         oResCnt := NIL
       ENDIF
    ELSE
       IF Empty( oResCnt := HBinC():Open( cName ) )

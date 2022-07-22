@@ -47,7 +47,7 @@ Function Main()
                 ENDMENU
 
         ACTIVATE WINDOW oMain
-Return Nil
+Return NIL
 
 Function Test()
     Local aItems := {}
@@ -113,7 +113,7 @@ Function Test()
 
     ACTIVATE DIALOG oForm                
 
-Return Nil
+Return NIL
     
 Function GridEdit(cAlias, aFields, lAppend, bChange)
     Local i , oFont

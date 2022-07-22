@@ -43,5 +43,5 @@ Local oIco2 := HIcon():AddFile("..\image\cancel.ico")
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+Return NIL
 

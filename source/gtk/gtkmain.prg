@@ -12,11 +12,11 @@
 
 FUNCTION hwg_EndWindow()
 
-   IF HWindow():GetMain() != Nil
+   IF HWindow():GetMain() != NIL
       HWindow():aWindows[1]:Close()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_ColorC2N( cColor )
 
@@ -75,10 +75,10 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cRes )
    IF Empty( cRes )
       cRes := ""
    ENDIF
-   nStyle := iif( nStyle == Nil, 0, nStyle )
-   x := iif( x == Nil, 210, x )
-   y := iif( y == Nil, 10, y )
-   nDlgStyle := iif( nDlgStyle == Nil, 0, nDlgStyle )
+   nStyle := iif( nStyle == NIL, 0, nStyle )
+   x := iif( x == NIL, 210, x )
+   y := iif( y == NIL, 10, y )
+   nDlgStyle := iif( nDlgStyle == NIL, 0, nDlgStyle )
 
    INIT DIALOG oModDlg TITLE cTitle AT x, y SIZE 300, 140 ;
       FONT oFont CLIPPER STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + nDlgStyle
@@ -109,16 +109,16 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    LOCAL nChoice := 0, i, aLen := Len( arr ), nLen := 0, addX := 20, addY := 20, minWidth := 0, x1
    LOCAL hDC, aMetr, width, height, screenh
 
-   IF cTitle == Nil; cTitle := ""; ENDIF
-   IF nLeft == Nil; nLeft := 10; ENDIF
-   IF nTop == Nil; nTop := 10; ENDIF
-   IF oFont == Nil
+   IF cTitle == NIL; cTitle := ""; ENDIF
+   IF nLeft == NIL; nLeft := 10; ENDIF
+   IF nTop == NIL; nTop := 10; ENDIF
+   IF oFont == NIL
       oFont := HFont():Add( "Times", 0, 14 )
       lNewFont := .T.
    ENDIF
-   IF cOk != Nil
+   IF cOk != NIL
       minWidth += 120
-      IF cCancel != Nil
+      IF cCancel != NIL
          minWidth += 100
       ENDIF
       addY += 36
@@ -165,25 +165,25 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    ENDIF
    hwg_CREATEARLIST( oBrw, arr )
    oBrw:lDispHead := .F.
-   IF clrT != Nil
+   IF clrT != NIL
       oBrw:tcolor := clrT
    ENDIF
-   IF clrB != Nil
+   IF clrB != NIL
       oBrw:bcolor := clrB
    ENDIF
-   IF clrTSel != Nil
+   IF clrTSel != NIL
       oBrw:tcolorSel := clrTSel
    ENDIF
-   IF clrBSel != Nil
+   IF clrBSel != NIL
       oBrw:bcolorSel := clrBSel
    ENDIF
 
-   IF cOk != Nil
-      x1 := Int( width/2 ) - iif( cCancel != Nil, 90, 40 )
+   IF cOk != NIL
+      x1 := Int( width/2 ) - iif( cCancel != NIL, 90, 40 )
       @ x1, height - 36 BUTTON cOk SIZE 80, 30 ;
             ON CLICK { ||nChoice := oBrw:nCurrent, hwg_EndDialog( oDlg:handle ) } ;
             ON SIZE ANCHOR_BOTTOMABS
-      IF cCancel != Nil
+      IF cCancel != NIL
          @ x1 + 100, height - 36 BUTTON cCancel SIZE 80, 30 ;
             ON CLICK { ||hwg_EndDialog( oDlg:handle ) } ;
             ON SIZE ANCHOR_BOTTOMABS
@@ -201,7 +201,7 @@ FUNCTION hwg_RefreshAllGets( oDlg )
 
    AEval( oDlg:GetList, { |o|o:Refresh() } )
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION HWG_Version( n )
 
@@ -230,7 +230,7 @@ FUNCTION hwg_WriteStatus( oWnd, nPart, cText )
       aControls[i]:Write( cText, nPart )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_FindParent( hCtrl, nLevel )
 
@@ -239,34 +239,34 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
    IF hParent > 0
       IF ( i := Ascan( HDialog():aModalDialogs,{ |o|o:handle == hParent } ) ) != 0
          RETURN HDialog():aModalDialogs[i]
-      ELSEIF ( oParent := HDialog():FindDialog( hParent ) ) != Nil
+      ELSEIF ( oParent := HDialog():FindDialog( hParent ) ) != NIL
          RETURN oParent
-      ELSEIF ( oParent := HWindow():FindWindow( hParent ) ) != Nil
+      ELSEIF ( oParent := HWindow():FindWindow( hParent ) ) != NIL
          RETURN oParent
       ENDIF
    ENDIF
-   IF nLevel == Nil; nLevel := 0; ENDIF
+   IF nLevel == NIL; nLevel := 0; ENDIF
    IF nLevel < 2
-      IF ( oParent := hwg_FindParent( hParent,nLevel + 1 ) ) != Nil
+      IF ( oParent := hwg_FindParent( hParent,nLevel + 1 ) ) != NIL
          RETURN oParent:FindControl( , hParent )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_FindSelf( hCtrl )
 
    LOCAL oParent
 
    oParent := hwg_FindParent( hCtrl )
-   IF oParent != Nil
+   IF oParent != NIL
       RETURN oParent:FindControl( , hCtrl )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_getParentForm( o )
-   DO WHILE o:oParent != Nil .AND. !__ObjHasMsg( o, "GETLIST" )
+   DO WHILE o:oParent != NIL .AND. !__ObjHasMsg( o, "GETLIST" )
       o := o:oParent
    ENDDO
    RETURN o
@@ -275,7 +275,7 @@ FUNCTION HWG_ISWINDOWVISIBLE( handle )
 
    LOCAL o := hwg_GetWindowObject( handle )
 
-   IF o != Nil .AND. o:lHide
+   IF o != NIL .AND. o:lHide
       RETURN .F.
    ENDIF
 

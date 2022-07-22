@@ -37,7 +37,7 @@ FUNCTION Main
          HSTYLES oStyleNormal, oStylePressed, oStyleOver TEXT "Exit" ;
          ON CLICK {||hwg_EndWindow()}
 
-   @ 50, 100 GRAPH oGraph DATA Nil SIZE 300, 200 COLOR 65280
+   @ 50, 100 GRAPH oGraph DATA NIL SIZE 300, 200 COLOR 65280
 
    ACTIVATE WINDOW oMain
 
@@ -57,7 +57,7 @@ STATIC FUNCTION Graph1
 
    oGraph:Rebuild( aGraph, 1 )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Graph2
    LOCAL oGraph, i, aGraph := { {} }
@@ -71,7 +71,7 @@ STATIC FUNCTION Graph2
 
    oGraph:Rebuild( aGraph, 2 )
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION Graph3
    LOCAL oGraph, i, aGraph := { {} }
@@ -85,4 +85,4 @@ STATIC FUNCTION Graph3
 
    oGraph:Rebuild( aGraph, 3 )
 
-   RETURN Nil
+   RETURN NIL

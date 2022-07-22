@@ -68,16 +68,16 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
    ::title := iif( Empty( cTitle ), "", cTitle )
    ::handle := ++ oTree:nNodeCount
 
-   IF aImages != Nil .AND. !Empty( aImages )
+   IF aImages != NIL .AND. !Empty( aImages )
       ::aImages := {}
       FOR i := 1 TO Len( aImages )
          AAdd( ::aImages, iif( oTree:Type, hwg_BmpFromRes( aImages[i] ), hwg_Openimage( AddPath( aImages[i],HBitmap():cPath ) ) ) )
       NEXT
    ENDIF
 
-   nPos := iif( oPrev == Nil, 2, 0 )
-   IF oPrev == Nil .AND. oNext != Nil
-      op := iif( oNext:oParent == Nil, oNext:oTree, oNext:oParent )
+   nPos := iif( oPrev == NIL, 2, 0 )
+   IF oPrev == NIL .AND. oNext != NIL
+      op := iif( oNext:oParent == NIL, oNext:oTree, oNext:oParent )
       FOR i := 1 TO Len( op:aItems )
          IF op:aItems[ i ]:handle == oNext:handle
             EXIT
@@ -91,15 +91,15 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
       ENDIF
    ENDIF
 
-   aItems := iif( oParent == Nil, oTree:aItems, oParent:aItems )
+   aItems := iif( oParent == NIL, oTree:aItems, oParent:aItems )
    IF nPos == 2
       AAdd( aItems, Self )
    ELSEIF nPos == 1
-      AAdd( aItems, Nil )
+      AAdd( aItems, NIL )
       AIns( aItems, 1 )
       aItems[ 1 ] := Self
    ELSE
-      AAdd( aItems, Nil )
+      AAdd( aItems, NIL )
       h := oPrev:handle
       IF ( i := AScan( aItems, { | o | o:handle == h } ) ) == 0
          aItems[ Len( aItems ) ] := Self
@@ -124,17 +124,17 @@ METHOD DELETE( lInternal ) CLASS HTreeNode
       alen := Len( ::aItems )
       FOR j := 1 TO alen
          ::aItems[ j ]:Delete( .T. )
-         ::aItems[ j ] := Nil
+         ::aItems[ j ] := NIL
       NEXT
    ENDIF
-   IF lInternal == Nil
-      aItems := iif( ::oParent == Nil, ::oTree:aItems, ::oParent:aItems )
+   IF lInternal == NIL
+      aItems := iif( ::oParent == NIL, ::oTree:aItems, ::oParent:aItems )
       j := AScan( aItems, { | o | o:handle == h } )
       ADel( aItems, j )
       ASize( aItems, Len( aItems ) - 1 )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD getNodeIndex() CLASS HTreeNode
    LOCAL aItems := ::oParent:aItems, nNode
@@ -150,13 +150,13 @@ METHOD getNodeIndex() CLASS HTreeNode
 METHOD PrevNode( nNode, lSkip ) CLASS HTreeNode
    LOCAL oNode
 
-   IF nNode == Nil
+   IF nNode == NIL
       nNode := ::getNodeIndex()
    ENDIF
 
    IF nNode == 1
       IF ::nLevel == 1
-         RETURN Nil
+         RETURN NIL
       ELSE
          oNode := ::oParent
          nNode := oNode:getNodeIndex()
@@ -175,7 +175,7 @@ METHOD PrevNode( nNode, lSkip ) CLASS HTreeNode
 METHOD NextNode( nNode, lSkip ) CLASS HTreeNode
    LOCAL oNode
 
-   IF nNode == Nil
+   IF nNode == NIL
       nNode := ::getNodeIndex()
    ENDIF
    IF ::lExpanded .AND. Empty( lSkip )
@@ -187,7 +187,7 @@ METHOD NextNode( nNode, lSkip ) CLASS HTreeNode
       nNode := ::oParent:getNodeIndex()
       oNode := ::oParent:NextNode( @nNode, .T. )
    ELSE
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    RETURN oNode
@@ -257,16 +257,16 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
    HB_SYMBOL_UNUSED(lEditLabels)
    HB_SYMBOL_UNUSED(nBC)
 
-   IF color == Nil; color := 0; ENDIF
-   IF bcolor == Nil; bcolor := CLR_WHITE; ENDIF
+   IF color == NIL; color := 0; ENDIF
+   IF bcolor == NIL; bcolor := CLR_WHITE; ENDIF
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
       bSize, , , color, bcolor )
 
    ::title   := ""
-   ::Type    := iif( lResour == Nil, .F. , lResour )
+   ::Type    := iif( lResour == NIL, .F. , lResour )
    ::bClick := bClick
 
-   IF aImages != Nil .AND. !Empty( aImages )
+   IF aImages != NIL .AND. !Empty( aImages )
       ::aImages := {}
       FOR i := 1 TO Len( aImages )
          AAdd( ::aImages, iif( ::Type, hwg_BmpFromRes( aImages[i] ), hwg_Openimage( AddPath( aImages[i],HBitmap():cPath ) ) ) )
@@ -286,7 +286,7 @@ METHOD Init() CLASS HTree
       ::Super:Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Activate() CLASS HTree
 
@@ -295,7 +295,7 @@ METHOD Activate() CLASS HTree
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam )  CLASS HTree
 
@@ -303,7 +303,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HTree
    * Variables not used
    * LOCAL aCoors 
 
-   IF ::bOther != Nil
+   IF ::bOther != NIL
       Eval( ::bOther, Self, msg, wParam, lParam )
    ENDIF
 
@@ -312,12 +312,12 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HTree
       retValue := 1
 
    ELSEIF msg == WM_SETFOCUS
-      IF ::bGetFocus != Nil
+      IF ::bGetFocus != NIL
          Eval( ::bGetFocus, Self )
       ENDIF
 
    ELSEIF msg == WM_KILLFOCUS
-      IF ::bLostFocus != Nil
+      IF ::bLostFocus != NIL
          Eval( ::bLostFocus, Self )
       ENDIF
 
@@ -385,9 +385,9 @@ METHOD SELECT( oNode, lNoRedraw ) CLASS HTree
       ( oParent := oParent:oParent ):lExpanded := .T.
    ENDDO
 
-   IF oNode:bClick != Nil
+   IF oNode:bClick != NIL
       Eval( oNode:bClick, oNode )
-   ELSEIF ::bClick != Nil
+   ELSEIF ::bClick != NIL
       Eval( ::bClick, oNode )
    ENDIF
 
@@ -395,7 +395,7 @@ METHOD SELECT( oNode, lNoRedraw ) CLASS HTree
       hwg_Redrawwindow( ::area )
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Clean() CLASS HTree
 
@@ -403,17 +403,17 @@ METHOD Clean() CLASS HTree
    ReleaseTree( ::aItems, .T. )
    ::aItems := { }
    ::nNodeCount := 0
-   ::aScreen := Nil
-   ::oFirst := Nil
+   ::aScreen := NIL
+   ::oFirst := NIL
    hwg_Redrawwindow( ::area )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Refresh() CLASS HTree
 
    hwg_Redrawwindow( ::area )
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Paint() CLASS HTree
    LOCAL hDC
@@ -424,10 +424,10 @@ METHOD Paint() CLASS HTree
 
    hDC := hwg_Getdc( ::area )
 
-   IF ::oFont != Nil
+   IF ::oFont != NIL
       hwg_Selectobject( hDC, ::oFont:handle )
    ENDIF
-   IF ::brushSel == Nil
+   IF ::brushSel == NIL
       ::brushSel := HBrush():Add( ::bcolorSel )
    ENDIF
 
@@ -437,7 +437,7 @@ METHOD Paint() CLASS HTree
    aMetr := hwg_Gettextmetric( hDC )
 
    IF Empty( ::aItems )
-      RETURN Nil
+      RETURN NIL
    ELSEIF Empty( ::oFirst )
       ::oFirst := ::aItems[1]
    ENDIF
@@ -467,7 +467,7 @@ METHOD Paint() CLASS HTree
    ENDDO
    ::rowCurrCount := nLine - 1
 
-   RETURN Nil
+   RETURN NIL
 
 /* Added: nNode */
 METHOD PaintNode( hDC, oNode, nNode, nLine ) CLASS HTree
@@ -521,7 +521,7 @@ METHOD PaintNode( hDC, oNode, nNode, nLine ) CLASS HTree
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD ButtonDown( lParam )  CLASS HTree
    LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
@@ -572,7 +572,7 @@ METHOD ButtonDbl( lParam ) CLASS HTree
       hwg_Releasedc( ::handle, hDC )
       IF xm >= x1 .AND. xm <= x1 + ::nIndent + nWidth
          ::Select( oNode, .T. )
-         IF ::bDblClick != Nil
+         IF ::bDblClick != NIL
             Eval( ::bDblClick, Self, oNode )
          ENDIF
          hwg_Redrawwindow( ::area )
@@ -595,7 +595,7 @@ METHOD ButtonRDown( lParam ) CLASS HTree
       hwg_Releasedc( ::handle, hDC )
       IF xm >= x1 .AND. xm <= x1 + ::nIndent + nWidth
          ::Select( oNode, .T. )
-         IF ::bRClick != Nil
+         IF ::bRClick != NIL
             Eval( ::bRClick, Self, oNode )
          ENDIF
          hwg_Redrawwindow( ::area )
@@ -672,7 +672,7 @@ METHOD DoVScroll() CLASS HTree
    ELSEIF nScrollV - ::nScrollV == - 10
       ::GoUp( 2 )
    ELSE
-      IF ::bScrollPos != Nil
+      IF ::bScrollPos != NIL
          Eval( ::bScrollPos, Self, SB_THUMBTRACK, .F. , nScrollV )
       ENDIF
    ENDIF
@@ -689,19 +689,19 @@ METHOD End() CLASS HTree
       FOR j := 1 TO Len( ::aImages )
          IF !Empty( ::aImages[j] )
             hwg_Deleteobject( ::aImages[j] )
-            ::aImages[j] := Nil
+            ::aImages[j] := NIL
          ENDIF
       NEXT
    ENDIF
    ReleaseTree( ::aItems, .T. )
-   IF ::brush != Nil
+   IF ::brush != NIL
       ::brush:Release()
    ENDIF
-   IF ::brushSel != Nil
+   IF ::brushSel != NIL
       ::brushSel:Release()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
    LOCAL i, j, iLen := Len( aItems )
@@ -709,9 +709,9 @@ STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
    FOR i := 1 TO iLen
       IF lDelImages .AND. !Empty( aItems[i]:aImages )
          FOR j := 1 TO Len( aItems[i]:aImages )
-            IF aItems[i]:aImages[j] != Nil
+            IF aItems[i]:aImages[j] != NIL
                hwg_Deleteobject( aItems[i]:aImages[j] )
-               aItems[i]:aImages[j] := Nil
+               aItems[i]:aImages[j] := NIL
             ENDIF
          NEXT
       ENDIF

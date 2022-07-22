@@ -92,7 +92,7 @@ FUNCTION Main
 
    ACTIVATE WINDOW oMainWindow
 
-RETURN Nil
+RETURN NIL
 
 FUNCTION hex_splith()
 * Hex value of splith.cur

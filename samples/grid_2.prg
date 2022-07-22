@@ -35,7 +35,7 @@ Function Main()
         
         oServer:Close()
         
-Return Nil
+Return NIL
 
 Function Test()
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
@@ -58,7 +58,7 @@ Function Test()
              @ 620, 395 BUTTON "Close" SIZE 75,25 ON CLICK {|| oForm:Close() }                            
              
         ACTIVATE DIALOG oForm
-Return Nil
+Return NIL
 
 Function ConnectGrid()
     Local cHost := "Localhost"
@@ -113,5 +113,5 @@ Function ConnectGrid()
     
     oQuery:refresh()                                              
     
-return NIL        
+return NIL
 

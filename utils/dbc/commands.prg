@@ -26,7 +26,7 @@ FUNCTION C_REPL
 
    IF aFiles[ improc, AF_RDONLY ]
       hwg_Msgstop( "File is opened in readonly mode" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    INIT DIALOG oDlg TITLE aFiles[improc,AF_ALIAS]+": Replace" ;
@@ -90,7 +90,7 @@ FUNCTION C_REPL
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 
    /* -----------------------  Delete, recall, count --------------------- */
@@ -107,7 +107,7 @@ FUNCTION C_4( nAct )
 
    IF nAct <= 2 .AND. aFiles[ improc, AF_RDONLY ]
       hwg_Msgstop( "File is opened in readonly mode" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF nAct == 4
@@ -137,12 +137,12 @@ FUNCTION C_4( nAct )
 
       IF !Empty( cFor ) .AND. Type( cFor ) != "L"
          hwg_Msgstop( "Wrong 'FOR' expression!" )
-         RETURN Nil
+         RETURN NIL
       ENDIF
       IF nAct == 4 
          IF Empty( cExpr ) .AND. Type( cExpr ) != "N"
             hwg_Msgstop( "Wrong 'SUM' expression!" )
-            RETURN Nil
+            RETURN NIL
          ELSE
             bSum := &( "{||" + cExpr + "}" )
          ENDIF
@@ -193,7 +193,7 @@ FUNCTION C_4( nAct )
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    /* -----------------------  Append from --------------------- */
 
@@ -232,7 +232,7 @@ FUNCTION C_APPEND()
 
    IF aFiles[ improc, AF_RDONLY ]
       hwg_Msgstop( "File is opened in readonly mode" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    INIT DIALOG oDlg TITLE aFiles[improc,AF_ALIAS]+": Append" ;
@@ -282,11 +282,11 @@ FUNCTION C_APPEND()
 
       IF Empty( cFile )
          hwg_Msgstop( "File name is absent" )
-         RETURN Nil
+         RETURN NIL
       ENDIF
       IF !Empty( cFor ) .AND. Type( cFor ) != "L"
          hwg_Msgstop( "Wrong 'FOR' expression!" )
-         RETURN Nil
+         RETURN NIL
       ENDIF
       IF !Empty( cFor )
          bFor := &( "{||" + cFor + "}" )
@@ -389,7 +389,7 @@ FUNCTION C_APPEND()
       UpdBrowse()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION C_COPY()
    LOCAL oDlg, oMsg, cFile := "", cFields := "", cFor := ""
@@ -475,11 +475,11 @@ FUNCTION C_COPY()
 
       IF Empty( cFile )
          hwg_Msgstop( "File name is absent" )
-         RETURN Nil
+         RETURN NIL
       ENDIF
       IF !Empty( cFor ) .AND. Type( cFor ) != "L"
          hwg_Msgstop( "Wrong 'FOR' expression!" )
-         RETURN Nil
+         RETURN NIL
       ENDIF
       IF !Empty( cFor )
          bFor := &( "{||" + cFor + "}" )
@@ -572,7 +572,7 @@ FUNCTION C_COPY()
       UpdBrowse()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    /* -----------------------  Reindex, pack, zap --------------------- */
 
@@ -584,11 +584,11 @@ FUNCTION C_RPZ( nAct )
 
    IF !aFiles[ improc, AF_EXCLU ]
       hwg_Msgstop( "File must be opened in exclusive mode" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    IF aFiles[ improc, AF_RDONLY ]
       hwg_Msgstop( "File is opened in readonly mode" )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF hwg_MsgYesNo( "Really " + aTitle[nAct] + " " + aFiles[improc,AF_ALIAS] + "?", "Attention!" )
@@ -605,7 +605,7 @@ FUNCTION C_RPZ( nAct )
       UpdBrowse()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION C_REL
    LOCAL oDlg, oBrowse, arel := {}, aals := {}, nAlias := 1, i := 0, cExpr
@@ -614,7 +614,7 @@ FUNCTION C_REL
       oBrowse:aArray := arel := {}
       hwg_Invalidaterect( oBrowse:handle, 1 )
       oBrowse:Refresh()
-      RETURN Nil
+      RETURN NIL
       }
    LOCAL bAdd := {||
       LOCAL cTmp
@@ -626,14 +626,14 @@ FUNCTION C_REL
       ENDDO
       hwg_Invalidaterect( oBrowse:handle, 1 )
       oBrowse:Refresh()
-      RETURN Nil
+      RETURN NIL
       }
 
    DO WHILE !Empty( cExpr := dbRelation( ++i ) )
       Aadd( arel, { cExpr, Alias( dbRselect(i) ) } )
    ENDDO
    FOR i := 1 TO Len( aFiles )
-      IF aFiles[ i,AF_NAME ] != Nil .AND. i != improc
+      IF aFiles[ i,AF_NAME ] != NIL .AND. i != improc
          Aadd( aals, aFiles[ i,AF_ALIAS ] )
       ENDIF
    NEXT
@@ -669,4 +669,4 @@ FUNCTION C_REL
 
    oDlg:Activate()
 
-   RETURN Nil
+   RETURN NIL
