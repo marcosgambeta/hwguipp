@@ -170,7 +170,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
    ON CLICK { | | hwg_Msginfo( "ola" )  }  ;
    TEXT "teste1"  ;
    BITMAP oBmpNew ; // cbmppref + "new.bmp" ;
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ;
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ;
    TOOLTIP "ola" 
    
 *         
@@ -183,7 +183,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
    ON CLICK { | | hwg_Msginfo( "ola1" )  }  ;
    TEXT "teste2"  ;
    BITMAP oBmpbook ; 
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ;
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ;
    TOOLTIP "ola2" 
    
 *         
@@ -197,7 +197,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
    ON CLICK { | | hwg_Msginfo( "ola2" )  }  ;
    TEXT "asdsa"  ;
    BITMAP oIcoOK  ; 
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ;
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ;
    TOOLTIP "ola3" 
 
    nbut += 1   
@@ -210,7 +210,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
    ON CLICK { | | hwg_Msginfo( "ola4" )  }  ;
    TEXT "teste2"  ;
    BITMAP oBmpdoor ; 
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ;
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ;
    TOOLTIP "ola2"
 
    nbut += 1
@@ -222,7 +222,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
    ON CLICK { | | hwg_Msginfo( "ola5" )  }  ;
    TEXT "teste2"  ;
    BITMAP oIcoCancel  ; 
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ;
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ;
    TOOLTIP "ola5"
  
    nbut += 1

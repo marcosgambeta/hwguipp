@@ -102,7 +102,7 @@ al_DOKs :=  { {"1"} , {"2"} , {"3"} , {"4"} }
       hwg_CREATEARLIST(oBrwArr,al_DOKs)
       oBrwArr:acolumns[1]:heading := "DOKs"  // Header string
       oBrwArr:acolumns[1]:length := 50
-      oBrwArr:bcolorSel := hwg_ColorC2N( "800080" )
+      oBrwArr:bcolorSel := 0x800080
       * FONT setting is mandatory, otherwise crashes with "Not exported method PROPS2ARR" 
       oBrwArr:ofont := oFont // HFont():Add( "Arial",0,-12 )
 

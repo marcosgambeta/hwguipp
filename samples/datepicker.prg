@@ -72,7 +72,7 @@ daltdatum := d1
 *  v==> These are the original coordinates of DATEPICKER command    
    @ 160,170 GET odGet VAR d1  ;
         STYLE WS_DLGFRAME   ;
-        SIZE 80, 20 COLOR hwg_ColorC2N("FF0000")
+        SIZE 80, 20 COLOR 0xFF0000
 *            ^==> This is the original size of DATEPICKER command
 
 *    v==>  x = 160 + 81 (x value of GET + width of GET + 1 )

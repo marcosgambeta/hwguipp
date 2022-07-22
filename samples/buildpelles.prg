@@ -85,7 +85,7 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
       hwg_CREATEARLIST(oBrowse1,aFiles1)
       obrowse1:acolumns[1]:heading := "File Names"
       obrowse1:acolumns[1]:length := 50
-      oBrowse1:bcolorSel := hwg_ColorC2N( "800080" )
+      oBrowse1:bcolorSel := 0x800080
       oBrowse1:ofont := HFont():Add( "Arial",0,-12 )
       @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse1, "*.prg")}  
       @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse1:aArray, oBrowse1:nCurrent),oBrowse1:Refresh()}
@@ -97,7 +97,7 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
       hwg_CREATEARLIST(oBrowse2,aFiles2)
       obrowse2:acolumns[1]:heading := "File Names"
       obrowse2:acolumns[1]:length := 50
-      oBrowse2:bcolorSel := hwg_ColorC2N( "800080" )
+      oBrowse2:bcolorSel := 0x800080
       oBrowse2:ofont := HFont():Add( "Arial",0,-12 )
       @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse2, "*.c")}  
       @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse1:aArray, oBrowse2:nCurrent),oBrowse2:Refresh()}
@@ -108,7 +108,7 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
       hwg_CREATEARLIST(oBrowse3,aFiles3)
       obrowse3:acolumns[1]:heading := "File Names"
       obrowse3:acolumns[1]:length := 50
-      oBrowse3:bcolorSel := hwg_ColorC2N( "800080" )
+      oBrowse3:bcolorSel := 0x800080
       oBrowse3:ofont := HFont():Add( "Arial",0,-12 )
       @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse3, "*.lib")}  
       @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse3:aArray, oBrowse3:nCurrent),oBrowse3:Refresh()}
@@ -119,7 +119,7 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
       hwg_CREATEARLIST(oBrowse4,aFiles4)
       obrowse4:acolumns[1]:heading := "File Names"
       obrowse4:acolumns[1]:length := 50
-      oBrowse4:bcolorSel := hwg_ColorC2N( "800080" )
+      oBrowse4:bcolorSel := 0x800080
       oBrowse4:ofont := HFont():Add( "Arial",0,-12 )
       @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse4, "*.rc")}  
       @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse4:aArray, oBrowse4:nCurrent),oBrowse4:Refresh()}
@@ -658,4 +658,3 @@ Endif
 fClose(oName)
 
 Return Nil
- 

@@ -47,7 +47,7 @@ FUNCTION DlgADO()
    @ 20,10 BROWSE ARRAY oBrw SIZE 800,500 STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL
    oBrw:bOther := {|oBrw, msg, wParam, lParam| fKeyDown(oBrw, msg, wParam, lParam)}   
 
-   @ 500,540 OWNERBUTTON ON CLICK {||  hwg_EndDialog()} SIZE 180,36 FLAT TEXT "Close" COLOR hwg_ColorC2N("0000FF")
+   @ 500,540 OWNERBUTTON ON CLICK {||  hwg_EndDialog()} SIZE 180,36 FLAT TEXT "Close" COLOR 0x0000FF
 
    oBrw:aArray := cnSQL
    oBrw:AddColumn( HColumn():New( "Name",   { |v,o| (v), o:aArray:Fields( "NAME" ):Value }  ,"C",30,0,.F.,DT_CENTER ) )
@@ -131,7 +131,7 @@ FUNCTION DlgDBF()
    @ 20,10 BROWSE oBrw DATABASE SIZE 800,500 STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL
    oBrw:bOther := {|oBrw, msg, wParam, lParam| fKeyDown(oBrw, msg, wParam, lParam)}   
 
-   @ 500,540 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} SIZE 180,36 FLAT TEXT "Close" COLOR hwg_ColorC2N("0000FF")
+   @ 500,540 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} SIZE 180,36 FLAT TEXT "Close" COLOR 0x0000FF
 
    Add column FieldBlock("NAME")   to oBrw Header "Name"   Length 30 justify Line DT_LEFT
    Add column FieldBlock("ADRESS") to oBrw Header "Adress" Length 30 justify Line DT_LEFT

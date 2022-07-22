@@ -80,18 +80,18 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
    @ 20,10 SAY "Input something:" SIZE 260, 22
    @ 20,35 GET oGet VAR e1  ;
         STYLE WS_DLGFRAME   ;
-        SIZE 260, 26 COLOR hwg_ColorC2N("FF0000")
+        SIZE 260, 26 COLOR 0xFF0000
 
    @ 20,70 GET CHECKBOX c1 CAPTION "Check 1" SIZE 90, 20
-   @ 20,95 GET CHECKBOX c2 CAPTION "Check 2" SIZE 90, 20 COLOR hwg_ColorC2N("0000FF")
+   @ 20,95 GET CHECKBOX c2 CAPTION "Check 2" SIZE 90, 20 COLOR 0x0000FF
 
    @ 160,70 GROUPBOX "RadioGroup" SIZE 130, 75
 
    GET RADIOGROUP r1
    @ 180,90 RADIOBUTTON "Radio 1"  ;
-        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_ColorC2N("0000FF"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oGet:SetColor(0x0000FF,,.T.)}
    @ 180,115 RADIOBUTTON "Radio 2" ;
-        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_ColorC2N("FF0000"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oGet:SetColor(0xFF0000,,.T.)}
    END RADIOGROUP
 
 #ifdef __GTK__
@@ -112,7 +112,7 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
 *  v==> These are the original coordinates of DATEPICKER command    
    @ 160,170 GET odGet VAR d1  ;
         STYLE WS_DLGFRAME   ;
-        SIZE 80, 20 COLOR hwg_ColorC2N("FF0000")
+        SIZE 80, 20 COLOR 0xFF0000
 *            ^==> This is the original size of DATEPICKER command
 
 *    v==>  x = 160 + 81 (x value of GET + width of GET + 1 )
@@ -192,7 +192,7 @@ FUNCTION DLG_MONTHCALENDAR()
 
    @ 20,20 MONTHCALENDAR oMC ;
       SIZE 250,250 ;
-      INIT dheute ;   // Date() 
+      INIT dheute ;   // Date()
       FONT oFont WEEKNUMBERS
 
     @ 300,60 BUTTON "Cancel" ON CLICK {|| oDlg:Close() } SIZE 100,40

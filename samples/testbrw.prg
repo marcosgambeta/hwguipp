@@ -86,7 +86,7 @@ Local cValTrue
 
    @ 210,260 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} ;
        SIZE 180,36 FLAT                                ;
-       TEXT "Close" COLOR hwg_ColorC2N("0000FF")
+       TEXT "Close" COLOR 0x0000FF
 
    ACTIVATE DIALOG oModDlg
 Return Nil

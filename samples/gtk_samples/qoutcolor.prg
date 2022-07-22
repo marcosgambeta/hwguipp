@@ -69,8 +69,8 @@ PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -12
    
 INIT DIALOG oMakeDlg TITLE "Colored qout() test" AT 100,100 SIZE 350,110  font oFont
 
-@ 10,10 say "Warning, this test must be launched from within a terminal ..." SIZE 330, 22 COLOR hwg_ColorC2N("FF0000")
-@ 10,40 say "We'll send colored strings to qout() in the terminal" SIZE 285, 22 COLOR hwg_ColorC2N("0000FF")
+@ 10,10 say "Warning, this test must be launched from within a terminal ..." SIZE 330, 22 COLOR 0xFF0000
+@ 10,40 say "We'll send colored strings to qout() in the terminal" SIZE 285, 22 COLOR 0x0000FF
 
 @ 100, 80 BUTTON "Continue" SIZE 100,25 ID IDOK
 

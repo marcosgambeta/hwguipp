@@ -100,7 +100,7 @@ INIT WINDOW oMainW  ;
    ON CLICK { | | FileOpen()} ;
    SIZE 28,24 FLAT ;
    BITMAP oBitmap ;
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
    TOOLTIP "Open File"
    
    nbut += 1
@@ -109,7 +109,7 @@ INIT WINDOW oMainW  ;
    ON CLICK { | | oMainW:Close()} ;
    SIZE 28,24 FLAT ;
    BITMAP oBMPExit ; 
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
    TOOLTIP "Terminate Program"
    
    nbut += 1
@@ -119,7 +119,7 @@ INIT WINDOW oMainW  ;
    ON CLICK { | | OpenDoor()} ;
    SIZE 28,24 FLAT ;
    BITMAP oPNGDoor ; 
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
    TOOLTIP "Open the door"
    
   nbut += 1 
@@ -128,7 +128,7 @@ INIT WINDOW oMainW  ;
    ON CLICK { | | ClickJpeg()} ;
    SIZE 28,24 FLAT ;
    BITMAP ojpeg ; 
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
    TOOLTIP "JPEG image"
 
   nbut += 1 
@@ -137,7 +137,7 @@ INIT WINDOW oMainW  ;
    ON CLICK { | | Clickcnt()} ;
    SIZE 28,24 FLAT ;
    BITMAP obtncnt ; 
-   TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
    TOOLTIP "Container image" 
 */    
 

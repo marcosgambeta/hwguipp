@@ -41,8 +41,8 @@ Function Test()
                      ON POSCHANGE {|oCtrl, nRow| OnPoschange(oCtrl, nRow) } ;
                      ON CLICK {|oCtrl| OnClick(oCtrl) } ;
                      ON DISPINFO {|oCtrl, nRow, nCol| OnDispInfo( oCtrl, nRow, nCol ) } ;
-                     COLOR hwg_ColorC2N("D3D3D3");
-                     BACKCOLOR hwg_ColorC2N("BEBEBE") 
+                     COLOR 0xD3D3D3;
+                     BACKCOLOR 0xBEBEBE
 
              ADD COLUMN TO GRID oGrid HEADER "Column 1" WIDTH 150
              ADD COLUMN TO GRID oGrid HEADER "Column 2" WIDTH 150

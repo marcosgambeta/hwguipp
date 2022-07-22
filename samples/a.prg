@@ -184,7 +184,7 @@ Local oSay
 
    @ 20,110 SAY "Sample Dialog"       ;
        SIZE 130, 22 STYLE SS_CENTER  ;
-        COLOR hwg_ColorC2N("0000FF")
+        COLOR 0x0000FF
 
    @ 20,130 SAY "Written as a sample"  ;
         SIZE 130, 22 STYLE SS_CENTER
@@ -196,13 +196,13 @@ Local oSay
    @ 20,210 SAY "Hwgui Page"        ;
    LINK "http://www.kresin.ru/en/hwgui.html" ;
        SIZE 320, 22 STYLE SS_CENTER  ;
-        COLOR hwg_ColorC2N("0000FF") ;
+        COLOR 0x0000FF ;
         VISITCOLOR hwg_ColorRgb2N(241,249,91)
 
    @ 20,230 SAY "Hwgui international Forum"        ;
    LINK "http://br.groups.yahoo.com/group/hwguibr" ;
        SIZE 320, 22 STYLE SS_CENTER  ;
-        COLOR hwg_ColorC2N("0000FF") ;
+        COLOR 0x0000FF ;
         VISITCOLOR hwg_ColorRgb2N(241,249,91)
 
 
@@ -211,7 +211,7 @@ Local oSay
 
    @ 80,260 OWNERBUTTON ON CLICK {|| hwg_EndDialog()}    ;
        SIZE 180,35 FLAT                                  ;
-       TEXT "Close" COLOR hwg_ColorC2N("0000FF") FONT oFontBtn ;
+       TEXT "Close" COLOR 0x0000FF FONT oFontBtn ;
        BITMAP cImageDir+"door.bmp" COORDINATES 40,10,0,0
        //
 
@@ -355,19 +355,19 @@ LOCAL oTab
    @ 20,10 SAY cText SIZE 260, 22
    @ 20,35 EDITBOX oEdit CAPTION ""    ;
         STYLE WS_DLGFRAME              ;
-        SIZE 260, 26 COLOR hwg_ColorC2N("FF0000") ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS
+        SIZE 260, 26 COLOR 0xFF0000 ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
    @ 20,70 CHECKBOX "Check 1" SIZE 90, 20
    @ 20,95 CHECKBOX "Check 2"  ;
-        SIZE 90, 20 COLOR Iif( nColor==Nil,hwg_ColorC2N("0000FF"),nColor )
+        SIZE 90, 20 COLOR Iif( nColor==Nil,0x0000FF,nColor )
 
    @ 160,70 GROUPBOX "RadioGroup"  SIZE 130, 75
 
    RADIOGROUP
    @ 180,90 RADIOBUTTON "Radio 1"  ;
-        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_ColorC2N("0000FF"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oEdit:SetColor(0x0000FF,,.T.)}
    @ 180,115 RADIOBUTTON "Radio 2" ;
-        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_ColorC2N("FF0000"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oEdit:SetColor(0xFF0000,,.T.)}
    END RADIOGROUP SELECTED 2
 
    @ 20,120 COMBOBOX aCombo STYLE WS_TABSTOP ;
@@ -386,7 +386,7 @@ LOCAL oTab
    @ 100,220 LINE LENGTH 100
 
    @ 20,240 BUTTON "Ok" OF oModDlg ID IDOK  ;
-        SIZE 100, 32 COLOR hwg_ColorC2N("FF0000") ON SIZE ANCHOR_BOTTOMABS
+        SIZE 100, 32 COLOR 0xFF0000 ON SIZE ANCHOR_BOTTOMABS
    @ 140,240 BUTTON "11" OF oModDlg  ;
         SIZE 20, 32 ON CLICK {|o|CreateC(o)}
    @ 180,240 BUTTON "Cancel" OF oModDlg ID IDCANCEL  ;
