@@ -21,7 +21,7 @@ CLASS HToolBar INHERIT HControl
    CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(NIL, 1, RT_MANIFEST)) SHARED
    DATA winclass INIT "ToolbarWindow32"
    DATA TEXT, id, nTop, nLeft, nwidth, nheight
-   CLASSDATA oSelected INIT Nil
+   CLASSDATA oSelected INIT NIL
    DATA State INIT 0
    DATA ExStyle
    DATA bClick, cTooltip
@@ -79,7 +79,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   ::BtnWidth :=  BtnWidth //!= Nil, BtnWidth, 32 )
+   ::BtnWidth :=  BtnWidth //!= NIL, BtnWidth, 32 )
    ::nIDB := nIDB
    ::aItem := aItem
    ::nIndent := iif(nIndent != NIL, nIndent, 1)
@@ -137,19 +137,19 @@ METHOD Activate() CLASS hToolBar
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD INIT() CLASS hToolBar
 
    IF !::lInit
-      IF ::Line != Nil
+      IF ::Line != NIL
          ::Line:Anchor := ::Anchor
       ENDIF
       ::Super:Init()
       ::CreateTool()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD CREATETOOL() CLASS hToolBar
    LOCAL n, n1
@@ -161,7 +161,7 @@ METHOD CREATETOOL() CLASS hToolBar
 
    IF !::lResource
       IF Empty(::handle)
-         RETURN Nil
+         RETURN NIL
       ENDIF
       IF !::lCreate
          hwg_Destroywindow(::Handle)
@@ -177,13 +177,13 @@ METHOD CREATETOOL() CLASS hToolBar
    ENDIF
 
    nlistimg := 0
-   IF ::nIDB != Nil .AND. ::nIDB >= 0
+   IF ::nIDB != NIL .AND. ::nIDB >= 0
       nlistimg := hwg_Toolbar_loadstandartimage(::handle, ::nIDB)
    ENDIF
-   IF Hwg_BitAnd(::Style, TBSTYLE_LIST) > 0 .AND. ::nwSize = Nil
+   IF Hwg_BitAnd(::Style, TBSTYLE_LIST) > 0 .AND. ::nwSize = NIL
       ::nwSize := Max(16, (::nHeight - 16))
    ENDIF
-   IF ::nwSize != Nil
+   IF ::nwSize != NIL
       hwg_Sendmessage(::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong(::nwSize, ::nhSize))
    ENDIF
 
@@ -247,7 +247,7 @@ METHOD CREATETOOL() CLASS hToolBar
       hwg_Toolbaraddbuttons(::handle, ::aItem, Len(::aItem))
       hwg_Sendmessage(::handle, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_DRAWDDARROWS)
    ENDIF
-   IF ::BtnWidth != Nil
+   IF ::BtnWidth != NIL
       IF Hwg_BitAnd(::Style, CCS_NODIVIDER) > 0
          nMax := iif(Hwg_BitAnd(::Style, WS_DLGFRAME + WS_BORDER) > 0, 4, 2)
       ELSEIF Hwg_BitAnd(::Style, TBSTYLE_FLAT) > 0
@@ -264,7 +264,7 @@ METHOD CREATETOOL() CLASS hToolBar
    ENDIF
    ::BtnWidth := hwg_Loword(hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0))
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Notify(lParam) CLASS hToolBar
 
@@ -306,14 +306,14 @@ METHOD Notify(lParam) CLASS hToolBar
    RETURN 0
 
 METHOD AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nIndex) CLASS hToolBar
-   LOCAL hMenu := Nil, oButton
+   LOCAL hMenu := NIL, oButton
 
    DEFAULT nBitIp to - 1
    DEFAULT bstate TO TBSTATE_ENABLED
    DEFAULT bstyle TO 0x0000
    DEFAULT c TO ""
    DEFAULT ctext TO ""
-   IF nId = Nil .OR. Empty(nId)
+   IF nId = NIL .OR. Empty(nId)
       //IDTOOLBAR
       nId := Val(Right(Str(::id, 6), 1)) * IDMAXBUTTONTOOLBAR
       nId := nId + ::id + IDTOOLBAR + Len(::aButtons) + Len(::aSeparators) + 1
@@ -342,7 +342,7 @@ METHOD RESIZE(xIncrSize, lWidth, lHeight) CLASS hToolBar
    LOCAL nSize
 
    IF ::Anchor = 0 .OR. ( !lWidth .AND. !lHeight )
-      RETURN Nil
+      RETURN NIL
    ENDIF
    nSize := hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0)
    IF xIncrSize != 1
@@ -354,7 +354,7 @@ METHOD RESIZE(xIncrSize, lWidth, lHeight) CLASS hToolBar
       ::BtnWidth :=  hwg_Loword(nSize) * xIncrSize
    ENDIF
    hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, hwg_Makelparam(::BtnWidth - 1, ::BtnWidth + 1))
-   IF ::BtnWidth != Nil
+   IF ::BtnWidth != NIL
       IF !::lVertical
          hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::BtnWidth, ::BtnHeight))
       ELSE

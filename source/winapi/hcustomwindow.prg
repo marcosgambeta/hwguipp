@@ -80,10 +80,10 @@ METHOD FindControl(nId, nHandle) CLASS HCustomWindow
       nId := Upper(nId)
       RETURN hwg_GetItemByName(::aControls, nId)
    ELSE
-      i := Iif(nId != Nil, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|hwg_Isptreq(o:handle, nHandle)}))
+      i := Iif(nId != NIL, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|hwg_Isptreq(o:handle, nHandle)}))
    ENDIF
 
-   RETURN Iif(i == 0, Nil, ::aControls[i])
+   RETURN Iif(i == 0, NIL, ::aControls[i])
 
 METHOD DelControl(oCtrl) CLASS HCustomWindow
    LOCAL h := oCtrl:handle, id := oCtrl:id
@@ -376,4 +376,4 @@ FUNCTION hwg_GetItemByName(arr, cName)
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL

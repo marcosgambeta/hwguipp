@@ -18,7 +18,7 @@ CLASS HNiceButton INHERIT HControl
 
    DATA winclass INIT "NICEBUTT"
    DATA TEXT, id, nTop, nLeft, nwidth, nheight
-   CLASSDATA oSelected INIT Nil
+   CLASSDATA oSelected INIT NIL
    DATA State INIT 0
    DATA ExStyle
    DATA bClick, cTooltip
@@ -103,7 +103,7 @@ METHOD Activate() CLASS HNiceButton
       ::handle := hwg_Createnicebtn(::oParent:handle, ::id, ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::ExStyle, ::Text)
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD INIT() CLASS HNiceButton
 
@@ -111,7 +111,7 @@ METHOD INIT() CLASS HNiceButton
       ::Super:Init()
       ::Create()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_NICEBUTTPROC(hBtn, msg, wParam, lParam)
 
@@ -119,7 +119,7 @@ FUNCTION hwg_NICEBUTTPROC(hBtn, msg, wParam, lParam)
    LOCAL oBtn
    IF msg != WM_CREATE
       IF AScan({WM_MOUSEMOVE, WM_PAINT, WM_LBUTTONDOWN, WM_LBUTTONUP, WM_LBUTTONDBLCLK, WM_DESTROY, WM_MOVING, WM_SIZE}, msg ) > 0
-         IF ( oBtn := hwg_FindSelf(hBtn) ) == Nil
+         IF ( oBtn := hwg_FindSelf(hBtn) ) == NIL
             RETURN .F.
          ENDIF
 
@@ -196,11 +196,11 @@ METHOD MouseMove(wParam, lParam) CLASS HNICEButton
    IF ::lFlat .AND. ::state != OBTN_INIT
       otmp := hwg_SetNiceBtnSelected()
 
-      IF otmp != Nil .AND. otmp:id != ::id .AND. !otmp:lPress
+      IF otmp != NIL .AND. otmp:id != ::id .AND. !otmp:lPress
          otmp:state := OBTN_NORMAL
          hwg_Invalidaterect(otmp:handle, 0)
          hwg_Postmessage(otmp:handle, WM_PAINT, 0, 0)
-         hwg_SetNiceBtnSelected(Nil)
+         hwg_SetNiceBtnSelected(NIL)
       ENDIF
 
 //      aCoors := hwg_Getclientrect(::handle)
@@ -228,9 +228,9 @@ METHOD MUp() CLASS HNICEButton
          hwg_Postmessage(::handle, WM_PAINT, 0, 0)
       ENDIF
       IF !::lFlat
-         hwg_SetNiceBtnSelected(Nil)
+         hwg_SetNiceBtnSelected(NIL)
       ENDIF
-      IF ::bClick != Nil
+      IF ::bClick != NIL
          Eval(::bClick, ::oParent, ::id)
       ENDIF
    ENDIF
@@ -309,7 +309,7 @@ METHOD PAINT() CLASS HNICEButton
 
 METHOD END () CLASS HNiceButton
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD RELEASE() CLASS HNiceButton
 
@@ -318,7 +318,7 @@ METHOD RELEASE() CLASS HNiceButton
    hwg_Invalidaterect(::handle, 0)
    hwg_Postmessage(::handle, WM_PAINT, 0, 0)
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_SetNiceBtnSelected(oBtn)
 

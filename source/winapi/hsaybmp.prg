@@ -37,18 +37,18 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor)
 
    ::bPaint := { | o, lpdis | o:Paint(lpdis) }
-   ::lTransp := Iif(lTransp = Nil, .F., lTransp)
-   ::nStretch := Iif(nStretch = Nil, 0, nStretch)
-   ::trcolor := Iif(trcolor = Nil, Nil, trcolor)
+   ::lTransp := Iif(lTransp = NIL, .F., lTransp)
+   ::nStretch := Iif(nStretch = NIL, 0, nStretch)
+   ::trcolor := Iif(trcolor = NIL, NIL, trcolor)
    ::nBorder := 0
    ::tColor := 0
 
-   IF Image != Nil .AND. !Empty(Image)
-      IF lRes == Nil
+   IF Image != NIL .AND. !Empty(Image)
+      IF lRes == NIL
          lRes := .F.
       ENDIF
       ::oImage := Iif(lRes .OR. ValType(Image) == "N", HBitmap():AddResource(Image), iif(ValType(Image) == "C", HBitmap():AddFile(Image), Image))
-      IF ::oImage != Nil .AND. ( nWidth == Nil .OR. nHeight == Nil )
+      IF ::oImage != NIL .AND. ( nWidth == NIL .OR. nHeight == NIL )
          ::nWidth  := ::oImage:nWidth
          ::nHeight := ::oImage:nHeight
          ::nStretch = 2
@@ -63,10 +63,10 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) 
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    ::bPaint := { | o, lpdis | o:Paint(lpdis) }
-   ::lTransp := iif(lTransp = Nil, .F., lTransp)
+   ::lTransp := iif(lTransp = NIL, .F., lTransp)
    ::nBorder := 0
    ::tColor := 0
-   IF lRes == Nil
+   IF lRes == NIL
       lRes := .F.
    ENDIF
    ::oImage := iif(lRes .OR. ValType(xImage) == "N", HBitmap():AddResource(xImage), iif(ValType(xImage) == "C", HBitmap():AddFile(xImage), xImage))
@@ -77,21 +77,21 @@ METHOD Init() CLASS HSayBmp
 
    IF !::lInit
       ::Super:Init()
-      IF ::oImage != Nil .AND. !Empty(::oImage:Handle)
+      IF ::oImage != NIL .AND. !Empty(::oImage:Handle)
          hwg_Sendmessage(::handle, STM_SETIMAGE, IMAGE_BITMAP, ::oImage:handle)
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Paint(lpdis) CLASS HSayBmp
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis), n
 
-   IF ::brush != Nil
+   IF ::brush != NIL
       hwg_Fillrect(drawInfo[3], drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7], ::brush:handle)
    ENDIF
-   IF ::oImage != Nil .AND. !Empty(::oImage:Handle)
-      IF ::nZoom == Nil
+   IF ::oImage != NIL .AND. !Empty(::oImage:Handle)
+      IF ::nZoom == NIL
          IF ::lTransp
             IF ::nStretch = 1  // isometric
                hwg_Drawtransparentbitmap(drawInfo[3], ::oImage:handle, drawInfo[4] + ::nOffsetH, drawInfo[5] + ::nOffsetV, ::trcolor)
@@ -114,7 +114,7 @@ METHOD Paint(lpdis) CLASS HSayBmp
       ENDIF
    ENDIF
    IF ::nBorder > 0
-      IF ::oPen == Nil
+      IF ::oPen == NIL
          ::oPen := HPen():Add(BS_SOLID, ::nBorder, ::tColor)
       ENDIF
       hwg_Selectobject(drawInfo[3], ::oPen:handle)
@@ -122,19 +122,19 @@ METHOD Paint(lpdis) CLASS HSayBmp
       hwg_Rectangle(drawInfo[3], ::nOffsetH+n, ::nOffsetV+n, ::nOffsetH + ::nWidth - n, ::nOffsetV + ::nHeight - n)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD ReplaceBitmap(Image, lRes) CLASS HSayBmp
 
-   IF ::oImage != Nil
+   IF ::oImage != NIL
       ::oImage:Release()
-      ::oImage := Nil
+      ::oImage := NIL
    ENDIF
    IF !Empty(Image)
-      IF lRes == Nil
+      IF lRes == NIL
          lRes := .F.
       ENDIF
       ::oImage := iif(lRes .OR. ValType(Image) == "N", HBitmap():AddResource(Image), iif(ValType(Image) == "C", HBitmap():AddFile(Image), Image))
    ENDIF
 
-   RETURN Nil
+   RETURN NIL

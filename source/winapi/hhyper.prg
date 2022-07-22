@@ -68,7 +68,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    ::m_sVisitedColor := vColor
 
    ::state := LBL_INIT
-   ::title := iif(cCaption == Nil, "", cCaption)
+   ::title := iif(cCaption == NIL, "", cCaption)
 
    // Test The Font the underline must be 1
    IF ::oFont == NIL

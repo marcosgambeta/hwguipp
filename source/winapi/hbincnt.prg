@@ -63,12 +63,12 @@ ENDCLASS
 
 METHOD Create(cName, n) CLASS HBinC
    
-   IF n == Nil
+   IF n == NIL
       n := 16
    ENDIF
 
    IF (::handle := FCreate(cName)) == -1
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    ::cName := cName
@@ -90,14 +90,14 @@ METHOD Open(cName, lWr) CLASS HBinC
    ::cName := cName
    ::lWriteAble := !Empty(lWr)
    IF (::handle := FOpen(cName, Iif(::lWriteAble, FO_READWRITE, FO_READ))) == -1
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    cBuf := Space(HEAD_LEN)
    FRead(::handle, @cBuf, HEAD_LEN)
    IF Left(cBuf, 5) != cHead
       FClose(::handle)
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    ::nVerHigh := Asc(Substr(cBuf, 6, 1))
@@ -132,7 +132,7 @@ METHOD Open(cName, lWr) CLASS HBinC
 METHOD Close() CLASS HBinC
 
    FClose(::handle)
-   RETURN Nil
+   RETURN NIL
 
 METHOD Add(cObjName, cType, cVal) CLASS HBinC
    LOCAL nAddress, nSize, cAddress, cSize, nAddr
@@ -246,9 +246,9 @@ METHOD Pack() CLASS HBinC
    FErase(::cName)
    FRename(cTempName, ::cName)
 
-   IF ::Open(::cName, ::lWriteAble) == Nil
+   IF ::Open(::cName, ::lWriteAble) == NIL
       ::nItems := 0
-      ::aObjects := Nil
+      ::aObjects := NIL
    ENDIF
 
    RETURN .T.
@@ -258,7 +258,7 @@ METHOD Get(cObjName) CLASS HBinC
 
    cObjName := Lower(cObjName)
    IF (n := Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})) == 0
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    cBuf := Space(::aObjects[n, OBJ_SIZE])

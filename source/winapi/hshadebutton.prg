@@ -70,13 +70,13 @@ METHOD Paint() CLASS HShadeButton
    ::DrawItems(hDC)
 
    hwg_Endpaint(::handle, pps)
-   RETURN Nil
+   RETURN NIL
 
 METHOD END() CLASS HShadeButton
 
    ::Super:END()
    IF !Empty(::hShade)
       hwg_Shade_release(::hShade)
-      ::hShade := Nil
+      ::hShade := NIL
    ENDIF
-   RETURN Nil
+   RETURN NIL

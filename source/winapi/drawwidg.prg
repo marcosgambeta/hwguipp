@@ -91,7 +91,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
       ::handle := hwg_Loadimage(NIL, iif(lPreDefined, Val(name), name), IMAGE_BITMAP, nWidth, nHeight, nFlags)
    ENDIF
    IF Empty(::handle)
-      RETURN Nil
+      RETURN NIL
    ENDIF
    ::name    := name
    aBmpSize  := hwg_Getbitmapsize(::handle)
@@ -114,7 +114,7 @@ METHOD AddStandard(nId) CLASS HBitmap
 
    ::handle := hwg_Loadbitmap(nId, .T.)
    IF Empty(::handle)
-      RETURN Nil
+      RETURN NIL
    ENDIF
    ::name   := name
    aBmpSize  := hwg_Getbitmapsize(::handle)
@@ -135,7 +135,7 @@ METHOD AddFile(name, hDC, lTransparent, nWidth, nHeight) CLASS HBitmap
    ENDIF
 
    FOR EACH i IN ::aBitmaps
-      IF i:name == cname .AND. ( nWidth == Nil .OR. nHeight == Nil )
+      IF i:name == cname .AND. ( nWidth == NIL .OR. nHeight == NIL )
          i:nCounter++
          RETURN i
       ENDIF
@@ -149,21 +149,21 @@ METHOD AddFile(name, hDC, lTransparent, nWidth, nHeight) CLASS HBitmap
       DirChange(cCurDir)
    ENDIF
 
-   IF Lower(Right(name, 4)) != ".bmp" .OR. ( nWidth == NIL .AND. nHeight == NIL .AND. lTransparent == Nil )
+   IF Lower(Right(name, 4)) != ".bmp" .OR. ( nWidth == NIL .AND. nHeight == NIL .AND. lTransparent == NIL )
       IF Lower(Right(name, 4)) == ".bmp"
          ::handle := hwg_Openbitmap(name, hDC)
       ELSE
          ::handle := hwg_Openimage(name)
       ENDIF
    ELSE
-      IF lTransparent != Nil .AND. lTransparent
+      IF lTransparent != NIL .AND. lTransparent
          ::handle := hwg_Loadimage(NIL, name, IMAGE_BITMAP, nWidth, nHeight, LR_LOADFROMFILE + LR_LOADTRANSPARENT + LR_LOADMAP3DCOLORS)
       ELSE
          ::handle := hwg_Loadimage(NIL, name, IMAGE_BITMAP, nWidth, nHeight, LR_LOADFROMFILE)
       ENDIF
    ENDIF
    IF Empty(::handle)
-      RETURN Nil
+      RETURN NIL
    ENDIF
    ::name := cname
    aBmpSize  := hwg_Getbitmapsize(::handle)
@@ -198,7 +198,7 @@ METHOD AddString(name, cVal, nWidth, nHeight) CLASS HBitmap
       ::nHeight := aBmpSize[2]
       AAdd(::aBitmaps, Self)
    ELSE
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    RETURN Self
@@ -206,7 +206,7 @@ METHOD AddString(name, cVal, nWidth, nHeight) CLASS HBitmap
 METHOD AddWindow(oWnd, x1, y1, width, height) CLASS HBitmap
    LOCAL aBmpSize
 
-   IF x1 == Nil .OR. y1 == Nil
+   IF x1 == NIL .OR. y1 == NIL
       x1 := 0
       y1 := 0
       width := oWnd:nWidth - 1
@@ -230,7 +230,7 @@ METHOD Draw(hDC, x1, y1, width, height) CLASS HBitmap
       hwg_Drawtransparentbitmap(hDC, ::handle, x1, y1, ::nTransparent)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD RELEASE() CLASS HBitmap
    LOCAL i, nlen := Len(::aBitmaps)
@@ -258,7 +258,7 @@ METHOD RELEASE() CLASS HBitmap
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
    //- HIcon
 
@@ -317,7 +317,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
       ::handle := hwg_Loadimage(NIL, iif(lPreDefined, Val(name), name), IMAGE_ICON, nWidth, nHeight, nFlags)
    ENDIF
    IF Empty(::handle)
-      RETURN Nil
+      RETURN NIL
    ENDIF
    ::name   := name
    aIconSize := hwg_Geticonsize(::handle)
@@ -373,7 +373,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
       nHeight := 0
    ENDIF
    FOR EACH i IN  ::aIcons
-      IF i:name == cname .AND. (nWidth == Nil .OR. i:nWidth == nWidth) .AND. (nHeight == Nil .OR. i:nHeight == nHeight)
+      IF i:name == cname .AND. (nWidth == NIL .OR. i:nWidth == nWidth) .AND. (nHeight == NIL .OR. i:nHeight == nHeight)
          i:nCounter++
          RETURN i
       ENDIF
@@ -430,13 +430,13 @@ METHOD RELEASE() CLASS HIcon
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_aCompare(arr1, arr2)
 
    LOCAL i, nLen
 
-   IF arr1 == Nil .AND. arr2 == Nil
+   IF arr1 == NIL .AND. arr2 == NIL
       RETURN .T.
    ELSEIF Valtype(arr1) == Valtype(arr2) .AND. Valtype(arr1) == "A" .AND. (nLen := Len(arr1)) == Len(arr2)
       FOR i := 1 TO nLen
@@ -480,7 +480,7 @@ FUNCTION hwg_SetResContainer(cName)
    IF Empty(cName)
       IF !Empty(oResCnt)
          oResCnt:Close()
-         oResCnt := Nil
+         oResCnt := NIL
       ENDIF
    ELSE
       IF Empty(oResCnt := HBinC():Open(cName))

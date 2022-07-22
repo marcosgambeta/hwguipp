@@ -43,8 +43,8 @@ METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CLASS T
    ::nWidth    := ::nLeft + nWidth + 1
    ::Style     := hwg_bitOR(WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0))
 
-   ::oParent   := IIf(oWnd == Nil, ::oDefaultParent, oWnd)
-   ::id        := IIf(nid == Nil, ::NewId(), nid)
+   ::oParent   := IIf(oWnd == NIL, ::oDefaultParent, oWnd)
+   ::id        := IIf(nid == NIL, ::NewId(), nid)
    ::cAviFile  := cFileName
    ::oMci      := TMci():New("avivideo", cFileName)
    ::Initiate()

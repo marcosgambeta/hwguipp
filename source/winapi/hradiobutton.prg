@@ -27,15 +27,15 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp) CLASS HRadioButton
 
-   ::oParent := iif(oWndParent == Nil, ::oDefaultParent, oWndParent)
-   ::id      := iif(nId == Nil, ::NewId(), nId)
+   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::id      := iif(nId == NIL, ::NewId(), nId)
    ::title   := cCaption
    ::oGroup  := HRadioGroup():oGroupCurrent
    IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
-   ::style   := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
-      iif(::oGroup != Nil .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
+   ::style   := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
+      iif(::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
    ::oFont   := oFont
    ::nLeft   := nLeft
    ::nTop    := nTop
@@ -50,21 +50,21 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    ::bPaint  := bPaint
    ::tooltip := ctooltip
    ::tcolor  := tcolor
-   IF tColor != Nil .AND. bColor == Nil
+   IF tColor != NIL .AND. bColor == NIL
       bColor := hwg_Getsyscolor(COLOR_3DFACE)
    ENDIF
    ::bcolor  := bcolor
-   IF bColor != Nil
+   IF bColor != NIL
       ::brush := HBrush():Add(bcolor)
    ENDIF
 
    ::bClick := bClick
    ::Activate()
    ::oParent:AddControl(Self)
-   IF bClick != Nil .AND. (::oGroup == Nil .OR. ::oGroup:bSetGet == Nil)
+   IF bClick != NIL .AND. (::oGroup == NIL .OR. ::oGroup:bSetGet == NIL)
       ::oParent:AddEvent(0, ::id, {|o,id|onClick(o,id)})
    ENDIF
-   IF ::oGroup != Nil
+   IF ::oGroup != NIL
       AAdd(::oGroup:aButtons, Self)
       ::oParent:AddEvent(BN_CLICKED, ::id, {|o,id|__Valid(o:FindControl(id))})
    ENDIF
@@ -78,12 +78,12 @@ METHOD Activate() CLASS HRadioButton
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 /* Parameter lInit was removed a long time ago */
 METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor) CLASS HRadioButton
 
-   ::oParent := iif(oWndParent == Nil, ::oDefaultParent, oWndParent)
+   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id      := nId
    ::oGroup  := HRadioGroup():oGroupCurrent
    ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
@@ -97,20 +97,20 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ::bPaint  := bPaint
    ::tooltip := ctooltip
    ::tcolor  := tcolor
-   IF tColor != Nil .AND. bColor == Nil
+   IF tColor != NIL .AND. bColor == NIL
       bColor := hwg_Getsyscolor(COLOR_3DFACE)
    ENDIF
    ::bcolor  := bcolor
-   IF bColor != Nil
+   IF bColor != NIL
       ::brush := HBrush():Add(bcolor)
    ENDIF
 
    ::bClick := bClick
    ::oParent:AddControl(Self)
-   IF bClick != Nil .AND. (::oGroup == Nil .OR. ::oGroup:bSetGet == Nil)
+   IF bClick != NIL .AND. (::oGroup == NIL .OR. ::oGroup:bSetGet == NIL)
       ::oParent:AddEvent(0, ::id, {|o, id|onClick(o,id)})
    ENDIF
-   IF ::oGroup != Nil
+   IF ::oGroup != NIL
       AAdd(::oGroup:aButtons, Self)
       ::oParent:AddEvent(BN_CLICKED, ::id, {|o, id|__Valid(o:FindControl(id))})
    ENDIF
@@ -118,7 +118,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    RETURN Self
 
 METHOD Value(lValue) CLASS HRadioButton
-   IF lValue != Nil
+   IF lValue != NIL
       hwg_Sendmessage(::handle, BM_SETCHECK, Iif(lValue, BST_CHECKED, BST_UNCHECKED), 0)
    ENDIF
    RETURN (hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1)
@@ -126,10 +126,10 @@ METHOD Value(lValue) CLASS HRadioButton
 STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:oGroup:nValue := Ascan(oCtrl:oGroup:aButtons, {|o|o:id == oCtrl:id})
-   IF oCtrl:oGroup:bSetGet != Nil
+   IF oCtrl:oGroup:bSetGet != NIL
       Eval(oCtrl:oGroup:bSetGet, oCtrl:oGroup:nValue)
    ENDIF
-   IF oCtrl:bClick != Nil
+   IF oCtrl:bClick != NIL
       Eval(oCtrl:bClick, oCtrl, oCtrl:oGroup:nValue)
    ENDIF
 

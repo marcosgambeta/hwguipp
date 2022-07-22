@@ -124,7 +124,7 @@ FUNCTION hwg_ErrMsg(oError)
 FUNCTION hwg_WriteLog(cText, fname)
    LOCAL nHand
 
-   fname := LogInitialPath + IIf(fname == Nil, "a.log", fname)
+   fname := LogInitialPath + IIf(fname == NIL, "a.log", fname)
    IF !File(fname)
       nHand := FCreate(fname)
    ELSE
@@ -148,4 +148,4 @@ STATIC FUNCTION ErrorPreview(cMess)
    @ 200, 460 BUTTON "Close" ON CLICK { || hwg_EndDialog() } SIZE 100, 32
 
    oDlg:Activate()
-   RETURN Nil
+   RETURN NIL

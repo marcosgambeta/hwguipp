@@ -32,10 +32,10 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cFilename, lAutoPlay, lCenter, lTransparent, xResID) CLASS HAnimation
 
-   nStyle     := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE)
-   nStyle     := nStyle + IIf(lAutoPlay == Nil .OR. lAutoPlay, ACS_AUTOPLAY, 0)
-   nStyle     := nStyle + IIf(lCenter == Nil .OR. !lCenter, 0, ACS_CENTER)
-   nStyle     := nStyle + IIf(lTransparent == Nil .OR. !lTransparent, 0, ACS_TRANSPARENT)
+   nStyle     := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE)
+   nStyle     := nStyle + IIf(lAutoPlay == NIL .OR. lAutoPlay, ACS_AUTOPLAY, 0)
+   nStyle     := nStyle + IIf(lCenter == NIL .OR. !lCenter, 0, ACS_CENTER)
+   nStyle     := nStyle + IIf(lTransparent == NIL .OR. !lTransparent, 0, ACS_TRANSPARENT)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight)
    ::xResID    := xResID
    ::cFilename := cFilename
@@ -51,35 +51,35 @@ METHOD Activate() CLASS HAnimation
       ::handle := hwg_Animate_Create(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HAnimation
    IF !::lInit
       ::Super:Init()
-      IF ::xResID != Nil
+      IF ::xResID != NIL
          hwg_Animate_OpenEx(::handle, hwg_Getresources(), ::xResID)
-      ELSEIF ::cFileName <> Nil
+      ELSEIF ::cFileName <> NIL
          hwg_Animate_Open(::handle, ::cFileName)
       ENDIF
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Open(cFileName) CLASS HAnimation
-   IF cFileName <> Nil
+   IF cFileName <> NIL
       ::cFileName := cFileName
       hwg_Animate_Open(::handle, ::cFileName)
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Play(nFrom, nTo, nRep) CLASS HAnimation
-   nFrom := IIf(nFrom == Nil, 0, nFrom)
-   nTo   := IIf(nTo == Nil, -1, nTo)
-   nRep  := IIf(nRep == Nil, -1, nRep)
+   nFrom := IIf(nFrom == NIL, 0, nFrom)
+   nTo   := IIf(nTo == NIL, -1, nTo)
+   nRep  := IIf(nRep == NIL, -1, nRep)
    hwg_Animate_Play(::handle, nFrom, nTo, nRep)
    RETURN Self
 
 METHOD Seek(nFrame) CLASS HAnimation
-   nFrame := IIf(nFrame == Nil, 0, nFrame)
+   nFrame := IIf(nFrame == NIL, 0, nFrame)
    hwg_Animate_Seek(::handle, nFrame)
    RETURN Self
 
@@ -89,8 +89,8 @@ METHOD Stop() CLASS HAnimation
 
 METHOD Close() CLASS HAnimation
    hwg_Animate_Close(::handle)
-   RETURN Nil
+   RETURN NIL
 
 METHOD Destroy() CLASS HAnimation
    hwg_Animate_Destroy(::handle)
-   RETURN Nil
+   RETURN NIL

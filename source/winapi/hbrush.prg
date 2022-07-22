@@ -26,7 +26,7 @@ ENDCLASS
 METHOD Add(nColor, nHatch) CLASS HBrush
    LOCAL i
 
-   IF nHatch == Nil
+   IF nHatch == NIL
       nHatch := 99
    ENDIF
 
@@ -74,4 +74,4 @@ METHOD RELEASE() CLASS HBrush
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL

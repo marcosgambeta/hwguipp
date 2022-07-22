@@ -128,7 +128,7 @@ METHOD Init() CLASS HTrackBar
 
 METHOD Value(nValue) CLASS HTrackBar
 
-   IF nValue != Nil
+   IF nValue != NIL
       IF Valtype(nValue) == "N"
          hwg_Sendmessage(::handle, TBM_SETPOS, 1, nValue)
          ::nValue := nValue

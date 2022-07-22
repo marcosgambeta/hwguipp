@@ -45,20 +45,20 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus) CLASS HTab
    LOCAL i, aBmpSize
 
-   nStyle   := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
+   nStyle   := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint)
 
    ::title   := ""
-   ::oFont   := iif(oFont == Nil, ::oParent:oFont, oFont)
-   ::aTabs   := iif(aTabs == Nil, {}, aTabs)
+   ::oFont   := iif(oFont == NIL, ::oParent:oFont, oFont)
+   ::aTabs   := iif(aTabs == NIL, {}, aTabs)
    ::bChange := bChange
    ::bChange2 := bChange
 
-   ::bGetFocus := iif(bGetFocus == Nil, Nil, bGetFocus)
-   ::bLostFocus := iif(bLostFocus == Nil, Nil, bLostFocus)
-   ::bAction   := iif(bClick == Nil, Nil, bClick)
+   ::bGetFocus := iif(bGetFocus == NIL, NIL, bGetFocus)
+   ::bLostFocus := iif(bLostFocus == NIL, NIL, bLostFocus)
+   ::bAction   := iif(bClick == NIL, NIL, bClick)
 
-   IF aImages != Nil
+   IF aImages != NIL
       ::aImages := {}
       FOR i := 1 TO Len(aImages)
          AAdd(::aImages, Upper(aImages[i]))
@@ -83,18 +83,18 @@ METHOD Activate() CLASS HTab
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HTab
    LOCAL i
 
    IF !::lInit
       ::Super:Init()
-      hwg_Inittabcontrol(::handle, ::aTabs, IIF(::himl != Nil, ::himl, 0))
+      hwg_Inittabcontrol(::handle, ::aTabs, IIF(::himl != NIL, ::himl, 0))
       ::nHolder := 1
       hwg_Setwindowobject(::handle, Self)
 
-      IF ::himl != Nil
+      IF ::himl != NIL
          hwg_Sendmessage(::handle, TCM_SETIMAGELIST, 0, ::himl)
       ENDIF
 
@@ -104,14 +104,14 @@ METHOD Init() CLASS HTab
       Hwg_InitTabProc(::handle)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 /*
 METHOD onEvent(msg, wParam, lParam) CLASS HTab
 
    LOCAL iParHigh, iParLow, nPos
 
    IF msg == WM_COMMAND
-      IF ::aEvents != Nil
+      IF ::aEvents != NIL
          iParHigh := hwg_Hiword(wParam)
          iParLow  := hwg_Loword(wParam)
          IF ( nPos := Ascan(::aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
@@ -126,7 +126,7 @@ METHOD SetTab(n) CLASS HTab
 
    hwg_Sendmessage(::handle, TCM_SETCURFOCUS, n - 1, 0)
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD StartPage(cname, oDlg) CLASS HTab
 
@@ -147,7 +147,7 @@ METHOD StartPage(cname, oDlg) CLASS HTab
    ENDIF
    ::nActive := Len(::aPages)
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD EndPage() CLASS HTab
 
@@ -157,7 +157,7 @@ METHOD EndPage() CLASS HTab
          hwg_Addtab(::handle, ::nActive, ::aTabs[::nActive])
       ENDIF
    ELSE
-      IF !Empty(::handle != Nil)
+      IF !Empty(::handle != NIL)
          hwg_Addtabdialog(::handle, ::nActive, ::aTabs[::nActive], ::aPages[::nactive, 1]:handle)
       ENDIF
    ENDIF
@@ -168,11 +168,11 @@ METHOD EndPage() CLASS HTab
    ::nActive := 1
 
    ::oDefaultParent := ::oTemp
-   ::oTemp := Nil
+   ::oTemp := NIL
 
    ::bChange = { |o, n|o:ChangePage(n) }
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD ChangePage(nPage) CLASS HTab
 
@@ -186,11 +186,11 @@ METHOD ChangePage(nPage) CLASS HTab
 
    ENDIF
 
-   IF ::bChange2 != Nil
+   IF ::bChange2 != NIL
       Eval(::bChange2, Self, nPage)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD HidePage(nPage) CLASS HTab
    LOCAL i, nFirst, nEnd
@@ -205,7 +205,7 @@ METHOD HidePage(nPage) CLASS HTab
       ::aPages[nPage, 1]:Hide()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD ShowPage(nPage) CLASS HTab
    LOCAL i, nFirst, nEnd
@@ -217,7 +217,7 @@ METHOD ShowPage(nPage) CLASS HTab
          ::aControls[i]:Show()
       NEXT
       FOR i := nFirst TO nEnd
-         IF __ObjHasMsg(::aControls[i], "BSETGET") .AND. ::aControls[i]:bSetGet != Nil
+         IF __ObjHasMsg(::aControls[i], "BSETGET") .AND. ::aControls[i]:bSetGet != NIL
             hwg_Setfocus(::aControls[i]:handle)
             EXIT
          ENDIF
@@ -225,14 +225,14 @@ METHOD ShowPage(nPage) CLASS HTab
    ELSE
       ::aPages[nPage, 1]:Show()
       FOR i := 1  TO Len(::aPages[nPage, 1]:aControls)
-         IF __ObjHasMsg(::aPages[nPage, 1]:aControls[i], "BSETGET") .AND. ::aPages[nPage, 1]:aControls[i]:bSetGet != Nil
+         IF __ObjHasMsg(::aPages[nPage, 1]:aControls[i], "BSETGET") .AND. ::aPages[nPage, 1]:aControls[i]:bSetGet != NIL
             hwg_Setfocus(::aPages[nPage, 1]:aControls[i]:handle)
             EXIT
          ENDIF
       NEXT
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD GetActivePage(nFirst, nEnd) CLASS HTab
 
@@ -293,11 +293,11 @@ METHOD Notify(lParam) CLASS HTab
    // TODO: usar SWITCH
    DO CASE
    CASE nCode == TCN_SELCHANGE
-      IF ::bChange != Nil
+      IF ::bChange != NIL
          Eval(::bChange, Self, hwg_Getcurrenttab(::handle))
       ENDIF
    CASE nCode == TCN_CLICK
-      IF ::bAction != Nil
+      IF ::bAction != NIL
          Eval(::bAction, Self, hwg_Getcurrenttab(::handle))
       ENDIF
    CASE nCode == TCN_SETFOCUS

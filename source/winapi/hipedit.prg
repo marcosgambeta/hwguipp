@@ -36,7 +36,7 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bGetFocus, bKillFocus) CLASS HIPedit
 
-   nStyle   := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP)
+   nStyle   := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont)
 
    ::title   := ""
@@ -51,7 +51,7 @@ METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeigh
    ::Activate()
 
 
-   IF bKillFocus != Nil
+   IF bKillFocus != NIL
       ::oParent:AddEvent(IPN_FIELDCHANGED, ::id, ::bKillFocus, .T., "onChange")
    ENDIF
   // ENDIF
@@ -68,7 +68,7 @@ METHOD Activate() CLASS HIPedit
       ::handle := hwg_Initipaddress(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HIPedit
 
@@ -78,11 +78,11 @@ METHOD Init() CLASS HIPedit
       ::lInit := .T.
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value(aValue) CLASS HIPedit
 
-   IF aValue != Nil
+   IF aValue != NIL
       hwg_Setipaddress(::handle, aValue[1], aValue[2], aValue[3], aValue[4])
       ::aValue := aValue
    ELSE
@@ -103,7 +103,7 @@ METHOD END() CLASS HIPedit
    // Nothing to do here, yet!
    ::Super:END()
 
-   RETURN Nil
+   RETURN NIL
 
 
 STATIC FUNCTION __GetFocus(oCtrl)

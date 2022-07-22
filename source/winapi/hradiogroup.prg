@@ -22,7 +22,7 @@ CLASS HRadioGroup INHERIT HObject
    METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor)
    METHOD EndGroup(nSelected)
    METHOD Value(nValue) SETGET
-   METHOD Refresh()   INLINE iif(::bSetGet != Nil, ::Value := Eval(::bSetGet), .T.)
+   METHOD Refresh()   INLINE iif(::bSetGet != NIL, ::Value := Eval(::bSetGet), .T.)
 
 ENDCLASS
 
@@ -31,7 +31,7 @@ METHOD New(vari, bSetGet) CLASS HRadioGroup
    ::oGroupCurrent := Self
    ::aButtons := {}
 
-   IF vari != Nil
+   IF vari != NIL
       IF ValType(vari) == "N"
          ::nValue := vari
       ENDIF
@@ -59,9 +59,9 @@ METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeigh
 METHOD EndGroup(nSelected)  CLASS HRadioGroup
    LOCAL nLen
 
-   IF ::oGroupCurrent != Nil .AND. ( nLen := Len(::oGroupCurrent:aButtons) ) > 0
+   IF ::oGroupCurrent != NIL .AND. ( nLen := Len(::oGroupCurrent:aButtons) ) > 0
 
-      nSelected := iif(nSelected != Nil .AND. nSelected <= nLen .AND. nSelected > 0, nSelected, ::oGroupCurrent:nValue)
+      nSelected := iif(nSelected != NIL .AND. nSelected <= nLen .AND. nSelected > 0, nSelected, ::oGroupCurrent:nValue)
       IF nSelected != 0 .AND. nSelected <= nlen
          IF !Empty(::oGroupCurrent:aButtons[nlen]:handle)
             hwg_Checkradiobutton(::oGroupCurrent:aButtons[nlen]:oParent:handle, ::oGroupCurrent:aButtons[1]:id, ;
@@ -74,14 +74,14 @@ METHOD EndGroup(nSelected)  CLASS HRadioGroup
          ENDIF
       ENDIF
    ENDIF
-   ::oGroupCurrent := Nil
+   ::oGroupCurrent := NIL
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value(nValue) CLASS HRadioGroup
    LOCAL nLen
 
-   IF nValue != Nil
+   IF nValue != NIL
       IF ( nLen := Len(::aButtons) ) > 0 .AND. nValue > 0 .AND. nValue <= nLen
          hwg_Checkradiobutton(::aButtons[nlen]:oParent:handle, ::aButtons[1]:id, ::aButtons[nLen]:id, ::aButtons[nValue]:id)
          ::nValue := nValue

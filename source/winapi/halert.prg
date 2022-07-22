@@ -80,7 +80,7 @@ CLASS HAlert
    PROTECT nCharSet AS NUMERIC INIT 0
    PROTECT nIcon AS NUMERIC INIT IDI_INFORMATION           // Feel free to use your own
    PROTECT acOptions AS ARRAY INIT { "OK" }
-   PROTECT abOptionActions                                 // Can be Nil, so no types
+   PROTECT abOptionActions                                 // Can be NIL, so no types
    PROTECT nAlign AS NUMERIC INIT SS_CENTER                // MessageBox is SS_LEFT
    PROTECT lModal AS LOGIC INIT .T.
    PROTECT nTime AS NUMERIC INIT 0
@@ -163,52 +163,52 @@ RETURN Self
 
 METHOD SetVars(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions, nCharSet) CLASS HAlert
 
-   IF cTitle != Nil
+   IF cTitle != NIL
       ::Title := cTitle
    ENDIF
-   IF cFont != Nil
+   IF cFont != NIL
       ::Font := cFont
    ENDIF
-   IF nFontSize != Nil
+   IF nFontSize != NIL
       ::FontSize := nFontSize
    ENDIF
-   IF nCharSet != Nil
+   IF nCharSet != NIL
       ::nCharSet := nCharSet
    ENDIF
-   IF nIcon != Nil
+   IF nIcon != NIL
       ::Icon := nIcon
    ENDIF
-   IF acOptions != Nil
+   IF acOptions != NIL
       ::Options := acOptions
    ENDIF
-   IF nAlign != Nil
+   IF nAlign != NIL
       ::Align := nAlign
    ENDIF
-   IF lModal != Nil
+   IF lModal != NIL
       ::Modal := lModal
    ENDIF
-   IF nTime != Nil
+   IF nTime != NIL
       ::Time := nTime
    ENDIF
-   IF lBeep != Nil
+   IF lBeep != NIL
       ::Beep := lBeep
    ENDIF
-   IF nBeepSound != Nil
+   IF nBeepSound != NIL
       ::BeepSound := nBeepSound
    ENDIF
-   IF lTitleIcon != Nil
+   IF lTitleIcon != NIL
       ::TitleIcon := lTitleIcon
    ENDIF
-   IF lCloseButton != Nil
+   IF lCloseButton != NIL
       ::CloseButton := lCloseButton
    ENDIF
-   IF abOptionActions != Nil
+   IF abOptionActions != NIL
       ::OptionActions := abOptionActions
    ENDIF
 
    ::nChoice := 0
 
-RETURN Nil
+RETURN NIL
 
 METHOD ResetVars() CLASS HAlert
 
@@ -218,7 +218,7 @@ METHOD ResetVars() CLASS HAlert
    ::nCharSet := 0
    ::Icon := IDI_INFORMATION        // Feel free to use your own
    ::Options := { "OK" }
-   ::OptionActions := Nil
+   ::OptionActions := NIL
    ::Align := SS_CENTER             // MessageBox is actually SS_LEFT
    ::Modal := .T.
    ::Time := 0
@@ -229,22 +229,22 @@ METHOD ResetVars() CLASS HAlert
 
    ::nChoice := 0
 
-RETURN Nil
+RETURN NIL
 
 METHOD ReleaseNonModalAlert(lViaCode) CLASS HAlert
 
    DEFAULT lViaCode TO .T.
 
-   IF ::oDlg != Nil
+   IF ::oDlg != NIL
       IF lViaCode
          Hwg_DestroyWindow(::oDlg:handle)
       ENDIF
       ::oFont:Release()
       ::oIcon:Release()
-      IF ::oTimer != Nil
+      IF ::oTimer != NIL
          ::oTimer:end()
       ENDIF
-      ::oDlg := Nil
+      ::oDlg := NIL
    ENDIF
 
 RETURN .T.
@@ -264,7 +264,7 @@ METHOD SetupTimer() CLASS HAlert
    // SET TIMER ::oTimer OF ::oDlg ID nTimer VALUE (::Time * 1000) ACTION { || Hwg_EndDialog(::oDlg:handle), ::RemoveTimer(nTimer) }
    ::oTimer := HTimer():New(::oDlg, nTimer, (::Time * 1000), {||Hwg_EndDialog(::oDlg:handle), ::RemoveTimer(nTimer)}) //; ::oTimer:name := "::oTimer"
 
-RETURN Nil
+RETURN NIL
 
 METHOD RemoveTimer(nTimerID) CLASS HAlert
 
@@ -297,7 +297,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
    LOCAL nDialogWidth
 
    // We can't do more than one non-modal alert
-   IF ::oDlg != Nil .AND. !::Modal
+   IF ::oDlg != NIL .AND. !::Modal
       RETURN 0
    ENDIF
 
@@ -306,7 +306,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
    ENDIF
    cMessage := strtran(cMessage, ";", chr(10))
 
-   IF acOptions == Nil
+   IF acOptions == NIL
       acOptions := ::Options
    ENDIF
    nOptions := len(acOptions)
@@ -349,7 +349,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
 
    INIT DIALOG ::oDlg TITLE ::Title ;
       AT 0, 0 SIZE nDialogWidth, nDialogHeight ;
-      ICON Iif(::lTitleIcon, ::oIcon, Nil) ;        // Visible in task switch (alt-tab) & on title bar
+      ICON Iif(::lTitleIcon, ::oIcon, NIL) ;        // Visible in task switch (alt-tab) & on title bar
       STYLE ALERTSTYLE ;
       FONT ::oFont ;
       ON INIT { |oWin| Hwg_Alert_CenterWindow(oWin:handle), Iif(!::lCloseButton, hwg_Alert_DisableCloseButton(oWin:handle), ), Iif(::Time > 0, ::SetupTimer(), ) } ;
@@ -362,12 +362,12 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
    IF nOptions > 0
       @ nButtonLeft, nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
          BUTTON acOptions[1] ID 100 SIZE nButtonWidth, 1.7 * nFontHeight ;
-         ON CLICK { |oCtl| HB_SYMBOL_UNUSED(oCtl), ::nChoice := 1, Iif(::OptionActions != Nil, eval(::OptionActions[1] ), ), Hwg_EndDialog(::oDlg:handle) } ;
+         ON CLICK { |oCtl| HB_SYMBOL_UNUSED(oCtl), ::nChoice := 1, Iif(::OptionActions != NIL, eval(::OptionActions[1] ), ), Hwg_EndDialog(::oDlg:handle) } ;
          STYLE WS_TABSTOP + BS_DEFPUSHBUTTON
       FOR i := 2 TO nOptions
          @ nButtonLeft + (i - 1) * (nButtonWidth + nFontWidth), nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
             BUTTON acOptions[i] ID i + 100 SIZE nButtonWidth, 1.7 * nFontHeight ;
-            ON CLICK { |oCtl| ::nChoice := oCtl:id - 100, Iif(::OptionActions != Nil, eval(::OptionActions[oCtl:id - 100]), ), Hwg_EndDialog(::oDlg:handle) } ;
+            ON CLICK { |oCtl| ::nChoice := oCtl:id - 100, Iif(::OptionActions != NIL, eval(::OptionActions[oCtl:id - 100]), ), Hwg_EndDialog(::oDlg:handle) } ;
             STYLE WS_TABSTOP
       NEXT
    ENDIF
@@ -385,10 +385,10 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
       // and then release ...
       ::oFont:Release()
       ::oIcon:Release()
-      IF ::oTimer != Nil
+      IF ::oTimer != NIL
          ::oTimer:end()
       ENDIF
-      ::oDlg := Nil
+      ::oDlg := NIL
    ELSE
       ACTIVATE DIALOG ::oDlg NOMODAL
    ENDIF
@@ -401,7 +401,7 @@ METHOD UpdateMessage(cMessage)
    //::oMessage:autosize := .T.
    ::oMessage:SetValue(cMessage)
 
-RETURN Nil
+RETURN NIL
 
 // END OF CLASS
 
@@ -411,7 +411,7 @@ RETURN Nil
 
 FUNCTION hwg_Alert(cMessage, acOptions)
 
-   IF soDefaultAlert == Nil
+   IF soDefaultAlert == NIL
       soDefaultAlert := HAlert():New()
    ENDIF
 
@@ -419,7 +419,7 @@ RETURN soDefaultAlert:Alert(cMessage, acOptions)
 
 PROCEDURE SetDefaultAlert(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions)
 
-   IF soDefaultAlert == Nil
+   IF soDefaultAlert == NIL
       soDefaultAlert := HAlert():New(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions)
    ELSE
       soDefaultAlert:SetVars(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions)
@@ -429,7 +429,7 @@ RETURN
 
 PROCEDURE ResetDefaultAlert()
 
-   IF soDefaultAlert == Nil
+   IF soDefaultAlert == NIL
       soDefaultAlert := HAlert():New()
    ELSE
       soDefaultAlert:ResetVars()
@@ -439,7 +439,7 @@ RETURN
 
 FUNCTION hwg_GetDefaultAlert()
 
-   IF soDefaultAlert == Nil
+   IF soDefaultAlert == NIL
       soDefaultAlert := HAlert():New()
    ENDIF
 
@@ -447,11 +447,11 @@ RETURN soDefaultAlert
 
 FUNCTION hwg_ReleaseDefaultAlert()
 
-   IF soDefaultAlert != Nil
+   IF soDefaultAlert != NIL
       soDefaultAlert:ReleaseNonModalAlert(.T.)
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 /* Utility functions */
 
@@ -494,7 +494,7 @@ FUNCTION HWG_Alert_CenterWindow(hWnd)
    ENDIF
 
    IF !Hwg_IsWindowVisible(hWndParent)
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    aParent := Hwg_GetClientRect(hWndParent)
@@ -508,4 +508,4 @@ FUNCTION HWG_Alert_CenterWindow(hWnd)
 
    Hwg_MoveWindow(hWnd, aPoint[1], aPoint[2], nCWidth, nCHeight, .F.)
 
-RETURN Nil
+RETURN NIL

@@ -40,14 +40,14 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, ;
       bGFocus, tcolor, bcolor, bValid, nDisplay) CLASS HComboBox
 
-   IF lEdit == Nil
+   IF lEdit == NIL
       lEdit := .F.
    ENDIF
-   IF lText == Nil
+   IF lText == NIL
       lText := .F.
    ENDIF
 
-   nStyle := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), iif(lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST) + WS_TABSTOP)
+   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), iif(lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST) + WS_TABSTOP)
    IF !Empty(nDisplay)
       nStyle := Hwg_BitOr(nStyle, CBS_NOINTEGRALHEIGHT + WS_VSCROLL)
       ::nDisplay := nDisplay
@@ -62,12 +62,12 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ENDIF
 
    IF ::lText
-      ::xValue := iif(vari == Nil .OR. ValType(vari) != "C", "", Trim(vari))
+      ::xValue := iif(vari == NIL .OR. ValType(vari) != "C", "", Trim(vari))
    ELSE
-      ::xValue := iif(vari == Nil .OR. ValType(vari) != "N", 1, vari)
+      ::xValue := iif(vari == NIL .OR. ValType(vari) != "N", 1, vari)
    ENDIF
 
-   IF bSetGet != Nil
+   IF bSetGet != NIL
       ::bSetGet := bSetGet
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
@@ -82,11 +82,11 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ENDIF
    ::bChangeSel := bChange
    ::oParent:AddEvent(CBN_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))})
-   IF ::bChangeSel != Nil
+   IF ::bChangeSel != NIL
       ::oParent:AddEvent(CBN_SELCHANGE, ::id, {|o, id|__Valid(o:FindControl(id))})
    ENDIF
 
-   IF bGFocus != Nil
+   IF bGFocus != NIL
       ::bGetFocus := bGFocus
       ::oParent:AddEvent(CBN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})
    ENDIF
@@ -100,7 +100,7 @@ METHOD Activate() CLASS HComboBox
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus) CLASS HComboBox
 
@@ -109,20 +109,20 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip)
 
    IF ::lText
-      ::xValue := iif(vari == Nil .OR. ValType(vari) != "C", "", Trim(vari))
+      ::xValue := iif(vari == NIL .OR. ValType(vari) != "C", "", Trim(vari))
    ELSE
-      ::xValue := iif(vari == Nil .OR. ValType(vari) != "N", 1, vari)
+      ::xValue := iif(vari == NIL .OR. ValType(vari) != "N", 1, vari)
    ENDIF
    ::bSetGet := bSetGet
    ::aItems  := aItems
 
-   IF bSetGet != Nil
+   IF bSetGet != NIL
       ::bChangeSel := bChange
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
-      IF ::bChangeSel != Nil
+      IF ::bChangeSel != NIL
          ::oParent:AddEvent(CBN_SELCHANGE, ::id, {|o, id|__Valid(o:FindControl(id))})
       ENDIF
-   ELSEIF bChange != Nil
+   ELSEIF bChange != NIL
       ::oParent:AddEvent(CBN_SELCHANGE, ::id, bChange)
    ENDIF
    ::oParent:AddEvent(CBN_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))})
@@ -166,20 +166,20 @@ METHOD Init() CLASS HComboBox
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Refresh(xVal) CLASS HComboBox
    LOCAL vari, i
 
    IF !Empty(::aItems)
-      IF xVal != Nil
+      IF xVal != NIL
          ::xValue := xVal
-      ELSEIF ::bSetGet != Nil
+      ELSEIF ::bSetGet != NIL
          vari := Eval(::bSetGet, NIL, Self)
          IF ::lText
-            ::xValue := iif(vari == Nil .OR. ValType(vari) != "C", "", Trim(vari))
+            ::xValue := iif(vari == NIL .OR. ValType(vari) != "C", "", Trim(vari))
          ELSE
-            ::xValue := iif(vari == Nil .OR. ValType(vari) != "N", 1, vari)
+            ::xValue := iif(vari == NIL .OR. ValType(vari) != "N", 1, vari)
          ENDIF
       ENDIF
 
@@ -202,7 +202,7 @@ METHOD Refresh(xVal) CLASS HComboBox
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD SetItem(nPos) CLASS HComboBox
 
@@ -214,15 +214,15 @@ METHOD SetItem(nPos) CLASS HComboBox
 
    hwg_Sendmessage(::handle, CB_SETCURSEL, nPos - 1, 0)
 
-   IF ::bSetGet != Nil
+   IF ::bSetGet != NIL
       Eval(::bSetGet, ::xValue, self)
    ENDIF
 
-   IF ::bChangeSel != Nil
+   IF ::bChangeSel != NIL
       Eval(::bChangeSel, nPos, Self)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD GetValue(nItem) CLASS HComboBox
    LOCAL nPos, l := .F.
@@ -236,15 +236,15 @@ METHOD GetValue(nItem) CLASS HComboBox
          ::xValue := Iif(::lText, Iif(l, ::aItems[nPos, 1], ::aItems[nPos]), nPos)
       ENDIF
    ENDIF
-   IF ::bSetGet != Nil
+   IF ::bSetGet != NIL
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
 
-   RETURN iif(l .AND. nItem != Nil, Iif(nItem > 0 .AND. nItem <= Len(::aItems[nPos]), ::aItems[nPos,nItem], Nil), ::xValue)
+   RETURN iif(l .AND. nItem != NIL, Iif(nItem > 0 .AND. nItem <= Len(::aItems[nPos]), ::aItems[nPos,nItem], NIL), ::xValue)
 
 METHOD Value ( xValue ) CLASS HComboBox
 
-   IF xValue != Nil
+   IF xValue != NIL
       IF ValType(xValue) == "C"
 #ifdef __XHARBOUR__
          xValue := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}))
@@ -281,15 +281,15 @@ STATIC FUNCTION __Valid(oCtrl)
          ELSE
             oCtrl:xValue := iif(oCtrl:lText, iif(ValType(oCtrl:aItems[nPos]) == "A", oCtrl:aItems[nPos, 1], oCtrl:aItems[nPos]), nPos)
          ENDIF
-         IF oCtrl:bSetGet != Nil
+         IF oCtrl:bSetGet != NIL
             Eval(oCtrl:bSetGet, oCtrl:xValue, oCtrl)
          ENDIF
-         IF oCtrl:bChangeSel != Nil
+         IF oCtrl:bChangeSel != NIL
             Eval(oCtrl:bChangeSel, nPos, oCtrl)
          ENDIF
       ENDIF
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com.br) 03/06/2006
-      IF oCtrl:bValid != Nil
+      IF oCtrl:bValid != NIL
          IF !Eval(oCtrl:bValid, oCtrl)
             hwg_Setfocus(oCtrl:handle)
             RETURN .F.
@@ -304,8 +304,8 @@ STATIC FUNCTION __When(oCtrl)
 
    //oCtrl:Refresh()
 
-   IF oCtrl:bGetFocus != Nil
-      IF oCtrl:bSetGet == Nil
+   IF oCtrl:bGetFocus != NIL
+      IF oCtrl:bSetGet == NIL
          res := Eval(oCtrl:bGetFocus, oCtrl:xValue, oCtrl)
       ELSE
          res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, NIL, oCtrl), oCtrl)

@@ -35,26 +35,26 @@ ENDCLASS
 METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor) CLASS HDatePicker
 
-   nStyle := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_TABSTOP)
+   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, NIL, NIL, ctooltip, tcolor, bcolor)
 
-   ::dValue  := iif(vari == Nil .OR. ValType(vari) != "D", CToD(Space(8)), vari)
+   ::dValue  := iif(vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari)
    ::bSetGet := bSetGet
    ::bChange := bChange
 
    HWG_InitCommonControlsEx()
    ::Activate()
 
-   IF bGfocus != Nil
+   IF bGfocus != NIL
       ::oParent:AddEvent(NM_SETFOCUS, ::id, bGfocus, .T.)
    ENDIF
    ::oParent:AddEvent(DTN_DATETIMECHANGE, ::id, {|o, id|__Change(o:FindControl(id), DTN_DATETIMECHANGE)}, .T.)
    ::oParent:AddEvent(DTN_CLOSEUP, ::id, {|o, id|__Change(o:FindControl(id), DTN_CLOSEUP)}, .T.)
-   IF bSetGet != Nil
+   IF bSetGet != NIL
       ::bLostFocus := bLFocus
       ::oParent:AddEvent(NM_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))}, .T.)
    ELSE
-      IF bLfocus != Nil
+      IF bLfocus != NIL
          ::oParent:AddEvent(NM_KILLFOCUS, ::id, bLfocus, .T.)
       ENDIF
    ENDIF
@@ -68,7 +68,7 @@ METHOD Activate() CLASS HDatePicker
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HDatePicker
 
@@ -81,11 +81,11 @@ METHOD Init() CLASS HDatePicker
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Refresh() CLASS HDatePicker
 
-   IF ::bSetGet != Nil
+   IF ::bSetGet != NIL
       ::dValue := Eval(::bSetGet, NIL, Self)
    ENDIF
 
@@ -95,15 +95,15 @@ METHOD Refresh() CLASS HDatePicker
       hwg_Setdatepicker(::handle, ::dValue)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value(dValue) CLASS HDatePicker
 
-   IF dValue != Nil
+   IF dValue != NIL
       IF ValType(dValue) == "D"
          hwg_Setdatepicker(::handle, dValue)
          ::dValue := dValue
-         IF ::bSetGet != Nil
+         IF ::bSetGet != NIL
             Eval(::bSetGet, dValue, Self)
          ENDIF
       ENDIF
@@ -117,10 +117,10 @@ STATIC FUNCTION __Change(oCtrl, nMess)
 
    IF (nMess == DTN_DATETIMECHANGE .AND. hwg_Sendmessage(oCtrl:handle, DTM_GETMONTHCAL, 0, 0) == 0) .OR. nMess == DTN_CLOSEUP
       oCtrl:dValue := hwg_Getdatepicker(oCtrl:handle)
-      IF oCtrl:bSetGet != Nil
+      IF oCtrl:bSetGet != NIL
          Eval(oCtrl:bSetGet, oCtrl:dValue, oCtrl)
       ENDIF
-      IF oCtrl:bChange != Nil
+      IF oCtrl:bChange != NIL
          Eval(oCtrl:bChange, oCtrl:dValue, oCtrl)
       ENDIF
    ENDIF
@@ -130,10 +130,10 @@ STATIC FUNCTION __Change(oCtrl, nMess)
 STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:dValue := hwg_Getdatepicker(oCtrl:handle)
-   IF oCtrl:bSetGet != Nil
+   IF oCtrl:bSetGet != NIL
       Eval(oCtrl:bSetGet, oCtrl:dValue, oCtrl)
    ENDIF
-   IF oCtrl:bLostFocus != Nil .AND. !Eval(oCtrl:bLostFocus, oCtrl:dValue, oCtrl)
+   IF oCtrl:bLostFocus != NIL .AND. !Eval(oCtrl:bLostFocus, oCtrl:dValue, oCtrl)
       RETURN .F.
    ENDIF
 

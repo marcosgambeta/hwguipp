@@ -31,9 +31,9 @@ METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap) CLASS HStyle
 
    LOCAL i, nlen := Len(::aStyles)
 
-   nBorder := Iif(nBorder == Nil, 0, nBorder)
-   tColor := Iif(tColor == Nil, 0, tColor)
-   nOrient := Iif(nOrient == Nil .OR. nOrient > 9, 1, nOrient)
+   nBorder := Iif(nBorder == NIL, 0, nBorder)
+   tColor := Iif(tColor == NIL, 0, tColor)
+   nOrient := Iif(nOrient == NIL .OR. nOrient > 9, 1, nOrient)
 
    FOR i := 1 TO nlen
       IF hwg_aCompare(::aStyles[i]:aColors, aColors) .AND. ;
@@ -42,8 +42,8 @@ METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap) CLASS HStyle
          ::aStyles[i]:nBorder == nBorder .AND. ;
          ::aStyles[i]:tColor == tColor .AND. ;
          ::aStyles[i]:nOrient == nOrient .AND. ;
-         ((::aStyles[i]:oBitmap == Nil .AND. oBitmap == Nil) .OR. ;
-         (::aStyles[i]:oBitmap != Nil .AND. oBitmap != Nil .AND. ::aStyles[i]:oBitmap:name == oBitmap:name))
+         ((::aStyles[i]:oBitmap == NIL .AND. oBitmap == NIL) .OR. ;
+         (::aStyles[i]:oBitmap != NIL .AND. oBitmap != NIL .AND. ::aStyles[i]:oBitmap:name == oBitmap:name))
          RETURN ::aStyles[i]
       ENDIF
    NEXT
@@ -66,7 +66,7 @@ METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap) CLASS HStyle
 METHOD Draw(hDC, nLeft, nTop, nRight, nBottom) CLASS HStyle
 
    LOCAL n1, n2
-   IF ::oBitmap == Nil
+   IF ::oBitmap == NIL
       hwg_drawGradient(hDC, nLeft, nTop, nRight, nBottom, ::nOrient, ::aColors, NIL, ::aCorners)
    ELSE
       hwg_SpreadBitmap(hDC, ::oBitmap:handle, nLeft, nTop, nRight, nBottom)
@@ -81,4 +81,4 @@ METHOD Draw(hDC, nLeft, nTop, nRight, nBottom) CLASS HStyle
       hwg_Rectangle(hDC, nLeft + n1, nTop + n1, nRight - n2, nBottom - n2)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL

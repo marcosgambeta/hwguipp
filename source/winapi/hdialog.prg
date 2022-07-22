@@ -12,7 +12,7 @@
 
 #define  WM_PSPNOTIFY         WM_USER+1010
 
-STATIC aSheet := Nil
+STATIC aSheet := NIL
 STATIC aMessModalDlg := { ;
       { WM_COMMAND, { |o,w,l|onDlgCommand(o, w, l) } }, ;
       { WM_SYSCOMMAND, { |o,w,l| onSysCommand(o, w, l) } }, ;
@@ -76,7 +76,7 @@ ENDCLASS
 METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
       bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable) CLASS HDialog
 
-   IF nStyle == Nil
+   IF nStyle == NIL
       ::style := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
    ELSEIF nStyle < 0 .AND. nStyle > -0x1000
       ::style := WS_POPUP + WS_VISIBLE
@@ -98,11 +98,11 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
    ::title    := cTitle
    ::oBmp     := oBmp
    ::oIcon    := oIcon
-   ::nTop     := Iif(y == Nil, 0, y)
-   ::nLeft    := Iif(x == Nil, 0, x)
-   ::nWidth   := Iif(width == Nil, 0, width)
-   ::nWidth   := Iif(width == Nil, 0, width)
-   ::nHeight  := Iif(height == Nil, 0, Abs(height))
+   ::nTop     := Iif(y == NIL, 0, y)
+   ::nLeft    := Iif(x == NIL, 0, x)
+   ::nWidth   := Iif(width == NIL, 0, width)
+   ::nWidth   := Iif(width == NIL, 0, width)
+   ::nHeight  := Iif(height == NIL, 0, Abs(height))
    IF ::nWidth < 0
       ::nWidth   := Abs(::nWidth)
       //::nAdjust := 1
@@ -115,12 +115,12 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
    ::bGetFocus  := bGFocus
    ::bLostFocus := bLFocus
    ::bOther     := bOther
-   ::lClipper   := Iif(lClipper == Nil, .F., lClipper)
-   ::lExitOnEnter := Iif(lExitOnEnter == Nil, .T., !lExitOnEnter)
-   ::lExitOnEsc := Iif(lExitOnEsc == Nil, .T., !lExitOnEsc)
-   ::lClosable  := Iif(lNoClosable == Nil, .T., !lNoClosable)
+   ::lClipper   := Iif(lClipper == NIL, .F., lClipper)
+   ::lExitOnEnter := Iif(lExitOnEnter == NIL, .T., !lExitOnEnter)
+   ::lExitOnEsc := Iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
+   ::lClosable  := Iif(lNoClosable == NIL, .T., !lNoClosable)
 
-   IF bColor != Nil
+   IF bColor != NIL
       ::brush := HBrush():Add(bColor)
    ENDIF
    IF nHelpId != NIL
@@ -140,20 +140,20 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
    LOCAL oWnd, hParent
    //LOCAL aCoors, aRect
 
-   IF bActivate != Nil
+   IF bActivate != NIL
       ::bActivate := bActivate
    ENDIF
 
-   IF ::oParent == Nil
+   IF ::oParent == NIL
       ::oParent := hwg_GetModalDlg()
    ENDIF
    hwg_CreateGetList(Self)
-   hParent := Iif(::oParent != Nil .AND. __ObjHasMsg(::oParent, "HANDLE") .AND. !Empty(::oParent:handle), ;
-      ::oParent:handle, Iif((oWnd := HWindow():GetMain()) != Nil, oWnd:handle, hwg_Getactivewindow()))
+   hParent := Iif(::oParent != NIL .AND. __ObjHasMsg(::oParent, "HANDLE") .AND. !Empty(::oParent:handle), ;
+      ::oParent:handle, Iif((oWnd := HWindow():GetMain()) != NIL, oWnd:handle, hwg_Getactivewindow()))
 
    ::nInitState := Iif(!Empty(lMaximized), SW_SHOWMAXIMIZED, Iif(!Empty(lMinimized), SW_SHOWMINIMIZED, Iif(!Empty(lCentered), 16, 0)))
    IF ::type == WND_DLG_RESOURCE
-      IF lNoModal == Nil .OR. !lNoModal
+      IF lNoModal == NIL .OR. !lNoModal
          ::lModal := .T.
          ::AddItem()
          Hwg_DialogBox(hParent, Self)
@@ -166,7 +166,7 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
       ENDIF
 
    ELSEIF ::type == WND_DLG_NORESOURCE
-      IF lNoModal == Nil .OR. !lNoModal
+      IF lNoModal == NIL .OR. !lNoModal
          ::lModal := .T.
          ::AddItem()
          Hwg_DlgBoxIndirect(hParent, Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
@@ -194,13 +194,13 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
          ::Move(NIL, NIL, ::nWidth + (aCoors[3] - aCoors[1] - (aRect[3] - aRect[1])), ::nHeight + (aCoors[4] - aCoors[2] - (aRect[4] - aRect[2])))
       ENDIF
       */
-      IF ::bActivate != Nil
+      IF ::bActivate != NIL
          Eval(::bActivate, Self)
-         ::bActivate := Nil
+         ::bActivate := NIL
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent(msg, wParam, lParam) CLASS HDialog
 
@@ -227,7 +227,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       RETURN Eval(aMessModalDlg[i, 2], Self, wParam, lParam)
    ELSE
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
-         IF ::nScrollBars != - 1  .AND. ::bScroll = Nil
+         IF ::nScrollBars != - 1  .AND. ::bScroll = NIL
             hwg_ScrollHV(Self, msg, wParam, lParam)
          ENDIF
          hwg_onTrackScroll(Self, msg, wParam, lParam)
@@ -253,20 +253,20 @@ METHOD DelItem() CLASS HDialog
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD FindDialog(hWnd) CLASS HDialog
 
    LOCAL i := Ascan(::aDialogs, {|o|hwg_Isptreq(o:handle, hWnd)})
 
-   RETURN Iif(i == 0, Nil, ::aDialogs[i])
+   RETURN Iif(i == 0, NIL, ::aDialogs[i])
 
 METHOD GetActive() CLASS HDialog
 
    LOCAL handle := hwg_Getfocus()
    LOCAL i := Ascan(::Getlist, {|o|hwg_Isptreq(o:handle, handle)})
 
-   RETURN Iif(i == 0, Nil, ::Getlist[i])
+   RETURN Iif(i == 0, NIL, ::Getlist[i])
 
 
 STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
@@ -281,13 +281,13 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
       hwg__SetMenu(oDlg:handle, oDlg:menu[5])
    ENDIF
    hwg_InitControls(oDlg, .T.)
-   IF oDlg:oIcon != Nil
+   IF oDlg:oIcon != NIL
       hwg_Sendmessage(oDlg:handle, WM_SETICON, 1, oDlg:oIcon:handle)
    ENDIF
    IF oDlg:Title != NIL
       hwg_Setwindowtext(oDlg:Handle, oDlg:Title)
    ENDIF
-   IF oDlg:oFont != Nil
+   IF oDlg:oFont != NIL
       hwg_Sendmessage(oDlg:handle, WM_SETFONT, oDlg:oFont:handle, 0)
    ENDIF
    IF !oDlg:lClosable
@@ -302,7 +302,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
       oDlg:Center()
    ENDIF
 
-   IF oDlg:bInit != Nil
+   IF oDlg:bInit != NIL
       IF ValType(nReturn := Eval(oDlg:bInit, oDlg)) != "N"
          nReturn := 1
       ENDIF
@@ -329,12 +329,12 @@ STATIC FUNCTION onEraseBk(oDlg, hDC)
    LOCAL aCoors
 
    IF __ObjHasMsg(oDlg, "OBMP")
-      IF oDlg:oBmp != Nil
+      IF oDlg:oBmp != NIL
          hwg_Spreadbitmap(hDC, oDlg:oBmp:handle)
          RETURN 1
       ELSE
          aCoors := hwg_Getclientrect(oDlg:handle)
-         IF oDlg:brush != Nil
+         IF oDlg:brush != NIL
             IF ValType(oDlg:brush) != "N"
                hwg_Fillrect(hDC, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, oDlg:brush:handle)
             ENDIF
@@ -369,7 +369,7 @@ FUNCTION onDlgCommand(oDlg, wParam, lParam)
          IF i != 0 .AND. oDlg:GetList[i]:handle == hCtrl
             IF __ObjHasMsg(oDlg:GetList[i], "BVALID")
                IF oDlg:lExitOnEnter .AND. Eval(oDlg:GetList[i]:bValid, oDlg:GetList[i])
-                  oDlg:GetList[i]:bLostFocus := Nil
+                  oDlg:GetList[i]:bLostFocus := NIL
                   oDlg:lResult := .T.
                   hwg_EndDialog(oDlg:handle)
                ENDIF
@@ -390,9 +390,9 @@ FUNCTION onDlgCommand(oDlg, wParam, lParam)
       ENDIF
    ENDIF
 
-   IF oDlg:aEvents != Nil .AND. (i := Ascan(oDlg:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow})) > 0
+   IF oDlg:aEvents != NIL .AND. (i := Ascan(oDlg:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow})) > 0
       Eval(oDlg:aEvents[i, 3], oDlg, iParLow)
-   ELSEIF iParHigh == 0 .AND. ((iParLow == IDOK .AND. oDlg:FindControl(IDOK) != Nil) .OR. iParLow == IDCANCEL)
+   ELSEIF iParHigh == 0 .AND. ((iParLow == IDOK .AND. oDlg:FindControl(IDOK) != NIL) .OR. iParLow == IDCANCEL)
       IF iParLow == IDOK
          oDlg:lResult := .T.
       ENDIF
@@ -400,14 +400,14 @@ FUNCTION onDlgCommand(oDlg, wParam, lParam)
       IF oDlg:lExitOnEsc .OR. hwg_Getkeystate(VK_ESCAPE) >= 0
          hwg_EndDialog(oDlg:handle)
       ENDIF
-   ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. ValType(oDlg:menu) == "A" .AND. (aMenu := Hwg_FindMenuItem(oDlg:menu, iParLow, @i)) != Nil
+   ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. ValType(oDlg:menu) == "A" .AND. (aMenu := Hwg_FindMenuItem(oDlg:menu, iParLow, @i)) != NIL
       IF Hwg_BitAnd(aMenu[1, i, 4], FLAG_CHECK) > 0
          hwg_Checkmenuitem(NIL, aMenu[1, i, 3], !hwg_Ischeckedmenuitem(NIL, aMenu[1, i, 3]))
       ENDIF
-      IF aMenu[1, i, 1] != Nil
+      IF aMenu[1, i, 1] != NIL
          Eval(aMenu[1, i, 1])
       ENDIF
-   ELSEIF __ObjHasMsg(oDlg, "OPOPUP") .AND. oDlg:oPopup != Nil .AND. (aMenu := Hwg_FindMenuItem(oDlg:oPopup:aMenu, iParLow, @i)) != Nil .AND. aMenu[1, i, 1] != Nil
+   ELSEIF __ObjHasMsg(oDlg, "OPOPUP") .AND. oDlg:oPopup != NIL .AND. (aMenu := Hwg_FindMenuItem(oDlg:oPopup:aMenu, iParLow, @i)) != NIL .AND. aMenu[1, i, 1] != NIL
       Eval(aMenu[1, i, 1])
    ENDIF
 
@@ -419,14 +419,14 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(lParam)
 
-   IF oDlg:bActivate != Nil
+   IF oDlg:bActivate != NIL
       b := oDlg:bActivate
-      oDlg:bActivate := Nil
+      oDlg:bActivate := NIL
       Eval(b, oDlg)
    ENDIF
-   IF iParLow > 0 .AND. oDlg:bGetFocus != Nil
+   IF iParLow > 0 .AND. oDlg:bGetFocus != NIL
       Eval(oDlg:bGetFocus, oDlg)
-   ELSEIF iParLow == 0 .AND. oDlg:bLostFocus != Nil
+   ELSEIF iParLow == 0 .AND. oDlg:bLostFocus != NIL
       Eval(oDlg:bLostFocus, oDlg)
    ENDIF
 
@@ -461,14 +461,14 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
    HB_SYMBOL_UNUSED(wParam)
 
    IF nCode == PSN_SETACTIVE
-      IF oDlg:bGetFocus != Nil
+      IF oDlg:bGetFocus != NIL
          res := Eval(oDlg:bGetFocus, oDlg)
       ENDIF
       // 'res' should be 0(Ok) or -1
       Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, -1))
       RETURN 1
    ELSEIF nCode == PSN_KILLACTIVE
-      IF oDlg:bLostFocus != Nil
+      IF oDlg:bLostFocus != NIL
          res := Eval(oDlg:bLostFocus, oDlg)
       ENDIF
       // 'res' should be 0(Ok) or 1
@@ -476,7 +476,7 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
       RETURN 1
    ELSEIF nCode == PSN_RESET
    ELSEIF nCode == PSN_APPLY
-      IF oDlg:bDestroy != Nil
+      IF oDlg:bDestroy != NIL
          res := Eval(oDlg:bDestroy, oDlg)
          res := Iif(Valtype(res) == "L", res, .T.)
       ENDIF
@@ -487,7 +487,7 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
       ENDIF
       RETURN 1
    ELSE
-      IF oDlg:bOther != Nil
+      IF oDlg:bOther != NIL
          res := Eval(oDlg:bOther, oDlg, WM_NOTIFY, 0, lParam)
          Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, 1))
          RETURN 1
@@ -523,7 +523,7 @@ FUNCTION hwg_GetModalDlg()
 
    LOCAL i := Len(HDialog():aModalDialogs)
 
-   RETURN Iif(i > 0, HDialog():aModalDialogs[i], Nil)
+   RETURN Iif(i > 0, HDialog():aModalDialogs[i], NIL)
 
 FUNCTION hwg_GetModalHandle()
 
@@ -535,21 +535,21 @@ FUNCTION hwg_EndDialog(handle)
 
    LOCAL oDlg, lRes
 
-   IF handle == Nil
-      IF ( oDlg := Atail(HDialog():aModalDialogs) ) == Nil
-         RETURN Nil
+   IF handle == NIL
+      IF ( oDlg := Atail(HDialog():aModalDialogs) ) == NIL
+         RETURN NIL
       ENDIF
    ELSE
-      IF ((oDlg := Atail(HDialog():aModalDialogs)) == Nil .OR. oDlg:handle != handle) .AND. (oDlg := HDialog():FindDialog(handle)) == Nil
-         RETURN Nil
+      IF ((oDlg := Atail(HDialog():aModalDialogs)) == NIL .OR. oDlg:handle != handle) .AND. (oDlg := HDialog():FindDialog(handle)) == NIL
+         RETURN NIL
       ENDIF
    ENDIF
-   IF oDlg:bDestroy != Nil
+   IF oDlg:bDestroy != NIL
       lRes := Eval(oDlg:bDestroy, oDlg)
       IF Valtype(lRes) != "L" .OR. lRes
          RETURN Iif(oDlg:lModal, Hwg__EndDialog(oDlg:handle), hwg_Destroywindow(oDlg:handle))
       ELSE
-         RETURN Nil
+         RETURN NIL
       ENDIF
    ENDIF
 
@@ -559,10 +559,10 @@ FUNCTION hwg_SetDlgKey(oDlg, nctrl, nkey, block, lGlobal)
 
    LOCAL i, aKeys
 
-   IF oDlg == Nil
+   IF oDlg == NIL
       oDlg := HCustomWindow():oDefaultParent
    ENDIF
-   IF nctrl == Nil
+   IF nctrl == NIL
       nctrl := 0
    ENDIF
 
@@ -575,7 +575,7 @@ FUNCTION hwg_SetDlgKey(oDlg, nctrl, nkey, block, lGlobal)
       aKeys := HWindow():aKeysGlobal
    ENDIF
 
-   IF block == Nil
+   IF block == NIL
 
       IF ( i := Ascan(aKeys, {|a|a[1] == nctrl .AND. a[2] == nkey}) ) == 0
          RETURN .F.

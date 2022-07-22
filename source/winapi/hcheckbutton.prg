@@ -35,11 +35,11 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
-   nStyle   := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
+   nStyle   := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::title   := cCaption
-   ::lValue   := iif(vari == Nil .OR. ValType(vari) != "L", .F., vari)
+   ::lValue   := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
    ::bSetGet := bSetGet
 
    ::Activate()
@@ -49,10 +49,10 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::bGetFocus  := bGFocus
                                                                       
    ::oParent:AddEvent(BN_CLICKED, ::id, {|o, id|__Valid(o:FindControl(id))})
-   IF bGFocus != Nil
+   IF bGFocus != NIL
       ::oParent:AddEvent(BN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})
    ENDIF
-   IF bLFocus != Nil
+   IF bLFocus != NIL
       ::oParent:AddEvent(BN_KILLFOCUS, ::id, ::bLostFocus)
    ENDIF
 
@@ -65,19 +65,19 @@ METHOD Activate() CLASS HCheckButton
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus) CLASS HCheckButton
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   ::lValue  := iif(vari == Nil .OR. ValType(vari) != "L", .F., vari)
+   ::lValue  := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
    ::bSetGet := bSetGet
 
    ::bClick := bClick
    ::bGetFocus  := bGFocus
    ::oParent:AddEvent(BN_CLICKED, ::id, {|o, id|__Valid(o:FindControl(id))})
-   IF bGFocus != Nil
+   IF bGFocus != NIL
       ::oParent:AddEvent(BN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})
    ENDIF
 
@@ -92,37 +92,37 @@ METHOD Init() CLASS HCheckButton
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Refresh() CLASS HCheckButton
    LOCAL var
 
-   IF ::bSetGet != Nil
+   IF ::bSetGet != NIL
       var := Eval(::bSetGet, NIL, NIL)
-      ::lValue := iif(var == Nil, .F., var)
+      ::lValue := iif(var == NIL, .F., var)
    ENDIF
 
    hwg_Sendmessage(::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0)
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Disable() CLASS HCheckButton
 
    ::Super:Disable()
    hwg_Sendmessage(::handle, BM_SETCHECK, BST_INDETERMINATE, 0)
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Enable() CLASS HCheckButton
 
    ::Super:Enable()
    hwg_Sendmessage(::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0)
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value(lValue) CLASS HCheckButton
 
-   IF lValue != Nil
+   IF lValue != NIL
       IF ValType(lValue) != "L"
          lValue := .F.
       ENDIF
@@ -146,10 +146,10 @@ STATIC FUNCTION __Valid(oCtrl)
       oCtrl:lValue := ( l == 1 )
    ENDIF
 
-   IF oCtrl:bSetGet != Nil
+   IF oCtrl:bSetGet != NIL
       Eval(oCtrl:bSetGet, oCtrl:lValue, oCtrl)
    ENDIF
-   IF oCtrl:bClick != Nil .AND. !Eval(oCtrl:bClick, oCtrl, oCtrl:lValue)
+   IF oCtrl:bClick != NIL .AND. !Eval(oCtrl:bClick, oCtrl, oCtrl:lValue)
       hwg_Setfocus(oCtrl:handle)
    ENDIF
 
@@ -160,7 +160,7 @@ STATIC FUNCTION __When(oCtrl)
 
    oCtrl:Refresh()
 
-   IF oCtrl:bGetFocus != Nil
+   IF oCtrl:bGetFocus != NIL
       res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, NIL, oCtrl), oCtrl)
       IF !res
          hwg_GetSkip(oCtrl:oParent, oCtrl:handle, 1)

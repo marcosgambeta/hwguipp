@@ -66,7 +66,7 @@ METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMe
 
 METHOD Caption(cText)  CLASS HToolButton
 
-   IF cText != Nil
+   IF cText != NIL
       ::Title := cText
       hwg_Toolbar_setbuttoninfo(::oParent:handle, ::id, cText)
    ENDIF
@@ -75,15 +75,15 @@ METHOD Caption(cText)  CLASS HToolButton
 
 METHOD onClick()  CLASS HToolButton
 
-   IF ::bClick != Nil
+   IF ::bClick != NIL
       Eval(::bClick, self, ::id)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Enabled(lEnabled) CLASS HToolButton
 
-   IF lEnabled != Nil
+   IF lEnabled != NIL
       IF lEnabled
          ::enable()
       ELSE
@@ -97,7 +97,7 @@ METHOD Enabled(lEnabled) CLASS HToolButton
 METHOD Pressed(lPressed) CLASS HToolButton
    LOCAL nState
 
-   IF lPressed != Nil
+   IF lPressed != NIL
       nState := hwg_Sendmessage(::oParent:handle, TB_GETSTATE, Int(::id), 0)
       hwg_Sendmessage(::oParent:handle, TB_SETSTATE, Int(::id), hwg_Makelong(iif(lPressed, HWG_BITOR(nState, TBSTATE_PRESSED), nState - HWG_BITAND(nState, TBSTATE_PRESSED)), 0))
       ::lPressed := lPressed
@@ -108,7 +108,7 @@ METHOD Pressed(lPressed) CLASS HToolButton
 METHOD Checked(lcheck) CLASS HToolButton
    LOCAL nState
 
-   IF lCheck != Nil
+   IF lCheck != NIL
       nState := hwg_Sendmessage(::oParent:handle, TB_GETSTATE, Int(::id), 0)
       hwg_Sendmessage(::oParent:handle, TB_SETSTATE, Int(::id), hwg_Makelong(iif(lCheck, HWG_BITOR(nState, TBSTATE_CHECKED), nState - HWG_BITAND(nState, TBSTATE_CHECKED)), 0))
       ::lChecked := lCheck

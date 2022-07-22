@@ -25,10 +25,10 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, bS
 
    ::Super:New(oWndParent, nId, SS_ICON, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick)
 
-   IF lRes == Nil
+   IF lRes == NIL
       lRes := .F.
    ENDIF
-   IF lOEM == Nil
+   IF lOEM == NIL
       lOEM := .F.
    ENDIF
    IF ::oImage == NIL
@@ -46,7 +46,7 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip) CLASS HSa
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
 
-   IF lRes == Nil
+   IF lRes == NIL
       lRes := .F.
    ENDIF
    IF ::oImage == NIL
@@ -62,4 +62,4 @@ METHOD Init() CLASS HSayIcon
       hwg_Sendmessage(::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL

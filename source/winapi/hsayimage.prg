@@ -19,7 +19,7 @@ CLASS HSayImage INHERIT HControl
    METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor)
    METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    METHOD Activate()
-   METHOD END()  INLINE (::Super:END(), iif(::oImage <> Nil, ::oImage:Release(), ::oImage := Nil), ::oImage := Nil)
+   METHOD END()  INLINE (::Super:END(), iif(::oImage <> NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL)
    METHOD onClick()
    METHOD onDblClick()
 
@@ -28,7 +28,7 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor) CLASS HSayImage
 
    nStyle := Hwg_BitOr(nStyle, SS_NOTIFY)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, Iif(nWidth != Nil, nWidth, 0), iif(nHeight != Nil, nHeight, 0), NIL, bInit, bSize, NIL, ctooltip, NIL, bColor)
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, Iif(nWidth != NIL, nWidth, 0), iif(nHeight != NIL, nHeight, 0), NIL, bInit, bSize, NIL, ctooltip, NIL, bColor)
 
    ::title := ""
 
@@ -54,7 +54,7 @@ METHOD Activate() CLASS HSayImage
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onClick()  CLASS HSayImage
 
@@ -62,7 +62,7 @@ METHOD onClick()  CLASS HSayImage
       Eval(::bClick, Self)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onDblClick()  CLASS HSayImage
 
@@ -70,7 +70,7 @@ METHOD onDblClick()  CLASS HSayImage
       Eval(::bDblClick, Self)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 // TODO: move to another file and rewrite in C++
 

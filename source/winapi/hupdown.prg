@@ -36,14 +36,14 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, ;
       nUpDWidth, nLower, nUpper) CLASS HUpDown
 
-   nStyle := Hwg_BitOr(iif(nStyle == Nil, 0, nStyle), WS_TABSTOP)
+   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::idUpDown := ::NewId()
    IF Empty(vari)
       vari := 0
    ENDIF
-   IF vari != Nil
+   IF vari != NIL
       IF ValType(vari) != "N"
          vari := 0
          Eval(bSetGet, vari)
@@ -54,28 +54,28 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 
    ::styleUpDown := UDS_SETBUDDYINT + UDS_ALIGNRIGHT
 
-   IF nLower != Nil
+   IF nLower != NIL
       ::nLower := nLower
    ENDIF
-   IF nUpper != Nil
+   IF nUpper != NIL
       ::nUpper := nUpper
    ENDIF
-   IF nUpDWidth != Nil
+   IF nUpDWidth != NIL
       ::nUpDownWidth := nUpDWidth
    ENDIF
 
    ::Activate()
 
-   IF bSetGet != Nil
+   IF bSetGet != NIL
       ::bGetFocus := bGFocus
       ::bLostFocus := bLFocus
       ::oParent:AddEvent(EN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})
       ::oParent:AddEvent(EN_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))})
    ELSE
-      IF bGfocus != Nil
+      IF bGfocus != NIL
          ::oParent:AddEvent(EN_SETFOCUS, ::id, bGfocus)
       ENDIF
-      IF bLfocus != Nil
+      IF bLfocus != NIL
          ::oParent:AddEvent(EN_KILLFOCUS, ::id, bLfocus)
       ENDIF
    ENDIF
@@ -89,7 +89,7 @@ METHOD Activate() CLASS HUpDown
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init()  CLASS HUpDown
 
@@ -98,11 +98,11 @@ METHOD Init()  CLASS HUpDown
       ::hUpDown := hwg_Createupdowncontrol(::oParent:handle, ::idUpDown, ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, ::nUpper, ::nLower, Val(::title))
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value(nValue) CLASS HUpDown
 
-   IF nValue != Nil
+   IF nValue != NIL
       IF Valtype(nValue) == "N"
          hwg_SetUpdown(::hUpDown, nValue)
          ::nValue := nValue
@@ -122,7 +122,7 @@ METHOD Refresh()  CLASS HUpDown
    // Variables not used
    // LOCAL vari
 
-   IF ::bSetGet != Nil
+   IF ::bSetGet != NIL
       ::nValue := Eval(::bSetGet)
       IF Str(::nValue) != ::title
          ::title := Str(::nValue)
@@ -132,12 +132,12 @@ METHOD Refresh()  CLASS HUpDown
       hwg_Setupdown(::hUpDown, Val(::title))
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 STATIC FUNCTION __When(oCtrl)
 
    oCtrl:Refresh()
-   IF oCtrl:bGetFocus != Nil
+   IF oCtrl:bGetFocus != NIL
       RETURN Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet), oCtrl)
    ENDIF
 
@@ -146,10 +146,10 @@ STATIC FUNCTION __When(oCtrl)
 STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:nValue := oCtrl:Value
-   IF oCtrl:bSetGet != Nil
+   IF oCtrl:bSetGet != NIL
       Eval(oCtrl:bSetGet, oCtrl:nValue)
    ENDIF
-   IF oCtrl:bLostFocus != Nil .AND. !Eval(oCtrl:bLostFocus, oCtrl:nValue, oCtrl) .OR. ;
+   IF oCtrl:bLostFocus != NIL .AND. !Eval(oCtrl:bLostFocus, oCtrl:nValue, oCtrl) .OR. ;
          oCtrl:nValue > oCtrl:nUpper .OR. oCtrl:nValue < oCtrl:nLower
       hwg_Setfocus(oCtrl:handle)
    ENDIF

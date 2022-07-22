@@ -49,8 +49,8 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle) CLASS HLenta
 
-   color := Iif(color == Nil, CLR_BLACK, color)
-   bColor := Iif(bColor == Nil, CLR_WHITE, bColor)
+   color := Iif(color == NIL, CLR_BLACK, color)
+   bColor := Iif(bColor == NIL, CLR_WHITE, bColor)
    ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont, NIL, bSize, bPaint, NIL, color, bcolor)
 
    ::title  := ""
@@ -77,7 +77,7 @@ METHOD Activate() CLASS HLenta
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HLenta
 
@@ -91,7 +91,7 @@ METHOD Init() CLASS HLenta
 #endif
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent(msg, wParam, lParam) CLASS HLenta
 
@@ -171,15 +171,15 @@ METHOD Paint() CLASS HLenta
    LOCAL lVertical := ::lVertical, l1
    LOCAL nW := Iif(::lVertical, ::nWidth, ::nHeight), nLength := Iif(::lVertical, ::nHeight, ::nWidth)
    LOCAL aItemStyle := ::aItemStyle
-   LOCAL lStyleOver := ( Len(aItemStyle)>2.AND.aItemStyle[3]!=Nil ), lStyleSele := ( Len(aItemStyle)>1.AND.aItemStyle[2]!=Nil )
+   LOCAL lStyleOver := ( Len(aItemStyle)>2.AND.aItemStyle[3]!=NIL ), lStyleSele := ( Len(aItemStyle)>1.AND.aItemStyle[2]!=NIL )
 
-   IF ::bPaint != Nil
+   IF ::bPaint != NIL
       Eval(::bPaint, Self, hDC)
    ELSE
 
       IF !Empty(::aItems)
          l1 := ( Valtype(::aItems[1]) == "A" )
-         IF ::oFont != Nil
+         IF ::oFont != NIL
             hwg_Selectobject(hDC, ::oFont:handle)
          ENDIF
          y1 := Int(::nShift % nItemSize)
@@ -262,7 +262,7 @@ METHOD Paint() CLASS HLenta
       hwg_Endpaint(::handle, pps)
 #endif
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Drag(xPos, yPos) CLASS HLenta
 
@@ -284,11 +284,11 @@ METHOD Drag(xPos, yPos) CLASS HLenta
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Value(nValue) CLASS HLenta
 
-   IF nValue != Nil .AND. nValue >= 0 .AND. !Empty(::aItems) .AND. nValue <= Len(::aItems)
+   IF nValue != NIL .AND. nValue >= 0 .AND. !Empty(::aItems) .AND. nValue <= Len(::aItems)
       ::nSelected := nValue
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
    ELSE

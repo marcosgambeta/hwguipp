@@ -32,8 +32,8 @@ ENDCLASS
 
 METHOD New(oParent, nId, value, bAction, lOnce) CLASS HTimer
 
-   ::oParent := Iif(oParent == Nil, HWindow():GetMain(), oParent)
-   ::id := Iif(nId == Nil, TIMER_FIRST_ID + Len(::aTimers), nId)
+   ::oParent := Iif(oParent == NIL, HWindow():GetMain(), oParent)
+   ::id := Iif(nId == NIL, TIMER_FIRST_ID + Len(::aTimers), nId)
    ::value   := value
    ::bAction := bAction
    ::lOnce := !Empty(lOnce)
@@ -47,7 +47,7 @@ METHOD Interval(n) CLASS HTimer
 
    LOCAL nOld := ::value
 
-   IF n != Nil
+   IF n != NIL
       IF n == 0
          ::End()
       ELSE
@@ -67,7 +67,7 @@ METHOD End() CLASS HTimer
       ASize(::aTimers, Len(::aTimers) - 1)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_TimerProc(hWnd, idTimer) //, time )
 
@@ -84,7 +84,7 @@ FUNCTION hwg_TimerProc(hWnd, idTimer) //, time )
       Eval(b, oParent)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 FUNCTION hwg_ReleaseTimers()
    LOCAL oTimer, i
@@ -94,7 +94,7 @@ FUNCTION hwg_ReleaseTimers()
       hwg_Killtimer(oTimer:oParent:handle, oTimer:id)
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 EXIT PROCEDURE CleanTimers
 

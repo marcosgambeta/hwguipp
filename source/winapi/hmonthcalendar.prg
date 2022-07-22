@@ -42,10 +42,10 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
            oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
            lWeekNumbers) CLASS HMonthCalendar
 
-   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP)
-   nStyle += IIf(lNoToday == Nil .OR. !lNoToday, 0, MCS_NOTODAY)
-   nStyle += IIf(lNoTodayCircle == Nil .OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE)
-   nStyle += IIf(lWeekNumbers == Nil .OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS)
+   nStyle := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP)
+   nStyle += IIf(lNoToday == NIL .OR. !lNoToday, 0, MCS_NOTODAY)
+   nStyle += IIf(lNoTodayCircle == NIL .OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE)
+   nStyle += IIf(lWeekNumbers == NIL .OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, NIL, NIL, cTooltip)
 
    ::dValue := IIf(ValType(vari) == "D" .And. !Empty(vari), vari, Date())
@@ -54,7 +54,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    HWG_InitCommonControlsEx()
 
-   IF bChange != Nil
+   IF bChange != NIL
       ::oParent:AddEvent(MCN_SELECT, ::id, bChange, .T., "onChange")
       ::oParent:AddEvent(MCN_SELCHANGE, ::id, bChange, .T., "onChange")
    ENDIF
@@ -71,7 +71,7 @@ METHOD Activate() CLASS HMonthCalendar
       ::Init()
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 //--------------------------------------------------------------------------//
 
@@ -84,13 +84,13 @@ METHOD Init() CLASS HMonthCalendar
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 //--------------------------------------------------------------------------//
 
 METHOD Value(dValue) CLASS HMonthCalendar
 
-   IF dValue != Nil
+   IF dValue != NIL
       IF ValType(dValue) == "D" .And. !Empty(dValue)
          hwg_setmonthcalendardate(::handle, dValue)
          ::dValue := dValue

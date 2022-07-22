@@ -37,7 +37,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
       lDescend, bWhile, bFirst, bLast, bFor, bRClick) CLASS HBrwflt
 
-   ::lDescend := Iif(lDescend == Nil, .F., lDescend)
+   ::lDescend := Iif(lDescend == NIL, .F., lDescend)
 
    IF HB_ISBLOCK(bFirst) .OR. HB_ISBLOCK(bFor) .OR. HB_ISBLOCK(bWhile)
       ::lFilter := .T.
@@ -85,11 +85,11 @@ METHOD InitBrw()  CLASS HBrwFlt
       ::bGoTo     := { |o, n|(::alias) -> ( FltGoTo(o, n) ) }
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Refresh(lFull) CLASS HBrwFlt
 
-   IF lFull == Nil .OR. lFull
+   IF lFull == NIL .OR. lFull
       IF ::lFilter
          ::nLastRecordFilter := 0
          ::nFirstRecordFilter := 0

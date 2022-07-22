@@ -75,12 +75,12 @@ METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor) CLASS HR
 
 
    ::title := ""
-   ::lVert := IIf(lVert == Nil, .F., lVert)
+   ::lVert := IIf(lVert == NIL, .F., lVert)
    IF ::lVert
       ::nWidth  := 10
-      ::nHeight := IIf(nLength == Nil, 20, nLength)
+      ::nHeight := IIf(nLength == NIL, 20, nLength)
    ELSE
-      ::nWidth  := IIf(nLength == Nil, 20, nLength)
+      ::nWidth  := IIf(nLength == NIL, 20, nLength)
       ::nHeight := 10
    ENDIF
    ::oPen := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(nColor))
@@ -95,7 +95,7 @@ METHOD Activate() CLASS HRect_Line
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 //---------------------------------------------------------------------------
 METHOD Paint(lpdis) CLASS HRect_Line
@@ -112,7 +112,7 @@ METHOD Paint(lpdis) CLASS HRect_Line
    ENDIF
 
 
-   RETURN Nil
+   RETURN NIL
 
 
 //Contribution   Luis Fernando Basso
@@ -128,9 +128,9 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, n
    /* Variable Self is reserved and cannot be overwritten ! */
    LOCAL oSelf
 
-   nBorder := IIf(nBorder = Nil, 1, nBorder)
-   nbStyle := IIf(nbStyle = Nil, PS_SOLID, nbStyle)
-   nfStyle := IIf(nfStyle = Nil, BS_TRANSPARENT, nfStyle)
+   nBorder := IIf(nBorder = NIL, 1, nBorder)
+   nbStyle := IIf(nbStyle = NIL, PS_SOLID, nbStyle)
+   nfStyle := IIf(nfStyle = NIL, BS_TRANSPARENT, nfStyle)
    nCurvature := nCurvature
 
    /* old : Self := ... */
@@ -194,8 +194,8 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor,
    ::nTop := nTop
    ::nWidth := nWidth
    ::nHeight := nHeight
-   tcolor := IIf(tcolor = Nil, 0, tcolor)
-   bColor := IIf(bColor = Nil, hwg_Getsyscolor(COLOR_BTNFACE), bColor)
+   tcolor := IIf(tcolor = NIL, 0, tcolor)
+   bColor := IIf(bColor = NIL, hwg_Getsyscolor(COLOR_BTNFACE), bColor)
    ::lnoBorder := lnoBorder
    ::nBorder := nBorder
    ::nbStyle := nbStyle
@@ -205,7 +205,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor,
    // brush somente para os SHAPE
    ::nbcolor := bColor
    ::ntColor := tcolor
-   IF ncStyle == Nil
+   IF ncStyle == NIL
       ::oPen := HPen():Add(::nbStyle, ::nBorder, tcolor)
    ELSE  // CONTAINER
       ::oPen := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
@@ -219,7 +219,7 @@ METHOD Activate() CLASS HDrawShape
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD SetColor(tcolor, bColor) CLASS HDrawShape
 
@@ -235,7 +235,7 @@ METHOD SetColor(tcolor, bColor) CLASS HDrawShape
    hwg_Sendmessage(::handle, WM_PAINT, 0, 0)
    hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE)
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Curvature(nCurvature) CLASS HDrawShape
 
@@ -244,7 +244,7 @@ METHOD Curvature(nCurvature) CLASS HDrawShape
       hwg_Sendmessage(::handle, WM_PAINT, 0, 0)
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE)
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 //---------------------------------------------------------------------------
 METHOD Paint(lpdis) CLASS HDrawShape
@@ -254,7 +254,7 @@ METHOD Paint(lpdis) CLASS HDrawShape
    LOCAL  x2 := drawInfo[6], y2 := drawInfo[7]
 
    hwg_Selectobject(hDC, ::oPen:handle)
-   IF ::ncStyle != Nil
+   IF ::ncStyle != NIL
       IF ::lnoBorder = .F.
          IF ::ncStyle == 0      // RAISED
             hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_RAISED, BF_LEFT + BF_TOP + BF_RIGHT + BF_BOTTOM)  // raised  forte      8
@@ -283,7 +283,7 @@ METHOD Paint(lpdis) CLASS HDrawShape
          hwg_Roundrect(hDC, x1, y1, x2, y2, ::nCurvature, ::nCurvature)
       ENDIF
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 // END NEW CLASSE
 

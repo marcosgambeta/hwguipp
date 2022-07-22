@@ -65,12 +65,12 @@ METHOD NewId() CLASS HControl
 METHOD INIT() CLASS HControl
 
    IF !::lInit
-      IF ::tooltip != Nil
+      IF ::tooltip != NIL
          hwg_Addtooltip(::handle, ::tooltip)
       ENDIF
-      IF ::oFont != Nil
+      IF ::oFont != NIL
          hwg_Setctrlfont(::oParent:handle, ::id, ::oFont:handle)
-      ELSEIF ::oParent:oFont != Nil
+      ELSEIF ::oParent:oFont != NIL
          ::oFont := ::oParent:oFont
          hwg_Setctrlfont(::oParent:handle, ::id, ::oParent:oFont:handle)
       ENDIF
@@ -96,7 +96,7 @@ METHOD Enable() CLASS HControl
 
 METHOD Enabled(lEnabled) CLASS HControl
 
-   IF lEnabled != Nil
+   IF lEnabled != NIL
       IF lEnabled
          hwg_Enablewindow(::handle, .T.)
          RETURN .T.
@@ -230,4 +230,4 @@ FUNCTION hwg_SetCtrlName(oCtrl, cName)
       oCtrl:objName := Upper(cName)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
