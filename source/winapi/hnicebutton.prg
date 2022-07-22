@@ -57,7 +57,7 @@ METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, bIni
    DEFAULT r := ::r
    ::lFlat  := .T.
    ::bClick := bClick
-   ::nOrder  := IIf(oWndParent == nil, 0, Len(oWndParent:aControls))
+   ::nOrder  := IIf(oWndParent == NIL, 0, Len(oWndParent:aControls))
 
    ::ExStyle := nStyleEx
    ::text    := cText

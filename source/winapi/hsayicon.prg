@@ -31,9 +31,9 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, bS
    IF lOEM == Nil
       lOEM := .F.
    ENDIF
-   IF ::oImage == nil
+   IF ::oImage == NIL
       // Ticket #60
-      // hwg_writelog("::oImage == nil" + Str(nWidth) + "/" + str(nHeight))
+      // hwg_writelog("::oImage == NIL" + Str(nWidth) + "/" + str(nHeight))
       ::oImage := iif(lRes .OR. ValType(Image) == "N", HIcon():AddResource(Image, nWidth, nHeight, NIL, lOEM), iif(ValType(Image) == "C", HIcon():AddFile(Image, nWidth, nHeight), Image))
    ENDIF
    ::Activate()
@@ -49,7 +49,7 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip) CLASS HSa
    IF lRes == Nil
       lRes := .F.
    ENDIF
-   IF ::oImage == nil
+   IF ::oImage == NIL
       ::oImage := iif(lRes .OR. ValType(xImage) == "N", HIcon():AddResource(xImage), iif(ValType(xImage) == "C", HIcon():AddFile(xImage), xImage))
    ENDIF
 

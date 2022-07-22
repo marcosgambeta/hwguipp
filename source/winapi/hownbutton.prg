@@ -65,7 +65,7 @@ METHOD New(oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight, bInit, bSize,
    ::lflat   := iif(lflat == Nil, .F., lflat)
    ::bClick  := bClick
    ::state   := OBTN_INIT
-   ::nOrder  := Iif(oWndParent == nil, 0, Len(oWndParent:aControls))
+   ::nOrder  := Iif(oWndParent == NIL, 0, Len(oWndParent:aControls))
 
    ::title   := cText
    ::tcolor  := Iif(color == Nil, hwg_Getsyscolor(COLOR_BTNTEXT), color)

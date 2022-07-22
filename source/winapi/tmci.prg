@@ -54,7 +54,7 @@ METHOD SendStr(cMciStr) CLASS TMci
    hwg_Mcisendstring(cMciStr, @cBuffer, ::oWnd:hWnd)
    ::cBuffer = cBuffer
 
-   RETURN nil
+   RETURN NIL
 
 //----------------------------------------------------------------------------//
 METHOD lOpen() CLASS TMci

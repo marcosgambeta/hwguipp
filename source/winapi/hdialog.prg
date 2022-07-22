@@ -123,7 +123,7 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
    IF bColor != Nil
       ::brush := HBrush():Add(bColor)
    ENDIF
-   IF nHelpId != nil
+   IF nHelpId != NIL
       ::HelpId := nHelpId
    ENDIF
    IF Hwg_Bitand(::style, WS_HSCROLL) > 0
@@ -439,8 +439,8 @@ STATIC FUNCTION onHelp(oDlg, wParam, lParam)
    HB_SYMBOL_UNUSED(wParam)
 
    IF !Empty(hwg_SetHelpFileName())
-      oCtrl := oDlg:FindControl(nil, hwg_Gethelpdata(lParam))
-      IF oCtrl != nil
+      oCtrl := oDlg:FindControl(NIL, hwg_Gethelpdata(lParam))
+      IF oCtrl != NIL
          nHelpId := oCtrl:HelpId
          IF Empty(nHelpId)
             oParent := oCtrl:oParent

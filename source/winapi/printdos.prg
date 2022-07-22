@@ -399,7 +399,7 @@ METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
 
    INIT PRINTER oPrinter // HPrinter():New()
 // added by Giuseppe Mastrangelo
-   IF oPrinter == nil
+   IF oPrinter == NIL
       RETURN .F.
    ENDIF
 // end of added code

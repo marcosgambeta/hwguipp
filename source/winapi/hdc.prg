@@ -73,9 +73,9 @@ METHOD Attach(hDC) CLASS HDC
 
 METHOD Deletedc() CLASS HDC
    hwg_Deletedc(::m_hDC)
-   ::m_hDC := nil
-   ::m_hAttribDC := nil
-   RETURN nil
+   ::m_hDC := NIL
+   ::m_hAttribDC := NIL
+   RETURN NIL
 
 METHOD SetAttribDC(hDC) CLASS HDC
 

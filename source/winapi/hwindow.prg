@@ -214,7 +214,7 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    IF cAppName != Nil
       ::szAppName := cAppName
    ENDIF
-   IF nHelpId != nil
+   IF nHelpId != NIL
       ::HelpId := nHelpId
    END
 

@@ -229,7 +229,7 @@ METHOD Show(nMode, p1, p2, p3) CLASS HFormTmpl
    LOCAL xProperty, block, nStyle, nExclude := 0, bColor := - 1
    LOCAL lMdi := .F.
    LOCAL lMdiChild := .F.
-   LOCAL oIcon := Nil, cBitmap := nil
+   LOCAL oIcon := Nil, cBitmap := NIL
    LOCAL oBmp := NIL
    LOCAL bGetFo := { |o| HFormTmpl():oActive := o }
    

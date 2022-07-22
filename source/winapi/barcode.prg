@@ -89,7 +89,7 @@ FUNCTION main
 
    ACTIVATE WINDOW oMainWindow
 
-   RETURN nil
+   RETURN NIL
 
 #endif
 

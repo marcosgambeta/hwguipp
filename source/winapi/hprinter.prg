@@ -833,7 +833,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
 METHOD ChangePage(oCanvas, oSayPage, n, nPage) CLASS hPrinter
 
-   IF nPage == nil
+   IF nPage == NIL
       IF n == 0
          ::nCurrPage := 1
       ELSEIF n == 2
