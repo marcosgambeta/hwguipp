@@ -215,6 +215,6 @@ qout(gBla+bWhi+"black/white"+noColor+" "+;
 qout()
 qout()
 
-return nil
+return NIL
 
 * ---------------------- EOF of qoutcolor.prg ---------------------

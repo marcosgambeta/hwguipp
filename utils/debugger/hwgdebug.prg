@@ -1240,7 +1240,7 @@ STATIC FUNCTION GoToLine()
       SetCurrLine( nLine )
    ENDIF
 
-   RETURN nil
+   RETURN NIL
 
 STATIC FUNCTION LOCATE( nDir )
    LOCAL i, arr := GetTextArr()

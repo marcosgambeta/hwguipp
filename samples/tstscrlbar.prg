@@ -15,5 +15,5 @@ FUNCTION main
 
    ACTIVATE window oMain
 
-   RETURN nil
+   RETURN NIL
 

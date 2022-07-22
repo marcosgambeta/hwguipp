@@ -62,7 +62,7 @@ Private oBmp2
 
    ACTIVATE WINDOW oMainWindow 
 
-return nil
+return NIL
 
 Function FileOpen
 Local oModDlg, oBrw
@@ -128,7 +128,7 @@ Local han := fcreate( "LPT1",0 )
   else
      hwg_Msgstop("Can't open printer port!")
   endif
-return nil
+return NIL
 
 Function DialogFromPrg()
 Local cTitle := "Dialog from prg", cText := "Input something"
@@ -215,7 +215,7 @@ END PAGE of oTab
 
 ACTIVATE DIALOG oDlg
 
-return nil
+return NIL
 
 Function PrnTest
 Local oPrinter, oFont

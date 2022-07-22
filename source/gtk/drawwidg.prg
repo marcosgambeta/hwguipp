@@ -651,10 +651,10 @@ METHOD AddResource( name , nWidth, nHeight , nFlags, lOEM ) CLASS HIcon
     HB_SYMBOL_UNUSED(lOEM) 
  
 /* 
-   IF nWidth == nil
+   IF nWidth == NIL
       nWidth := 0
    ENDIF
-   IF nHeight == nil
+   IF nHeight == NIL
       nHeight := 0
    ENDIF
 */
@@ -696,10 +696,10 @@ METHOD AddFile( name , nWidth, nHeight ) CLASS HIcon
 
    LOCAL i, aBmpSize
    
-   IF nWidth == nil
+   IF nWidth == NIL
       nWidth := 0
    ENDIF
-   IF nHeight == nil
+   IF nHeight == NIL
       nHeight := 0
    ENDIF   
 
@@ -749,10 +749,10 @@ METHOD AddString( name, cVal , nWidth, nHeight ) CLASS HIcon
 
  LOCAL i , cTmp , aBmpSize
  
-   IF nWidth == nil
+   IF nWidth == NIL
       nWidth := 0
    ENDIF
-   IF nHeight == nil
+   IF nHeight == NIL
       nHeight := 0
    ENDIF
 

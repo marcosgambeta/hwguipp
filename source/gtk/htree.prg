@@ -27,9 +27,9 @@
 #define  CLR_MGREEN      8421440
 #define  CLR_VDBLUE     10485760
 
-STATIC crossCursor := nil
-STATIC arrowCursor := nil
-STATIC vCursor     := nil
+STATIC crossCursor := NIL
+STATIC arrowCursor := NIL
+STATIC vCursor     := NIL
 
 CLASS HTreeNode INHERIT HObject
 

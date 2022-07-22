@@ -191,7 +191,7 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
 
    ACTIVATE WINDOW oMainWindow
 
-Return nil
+Return NIL
 
 FUNCTION SHELL_EXEC()
 LOCAL hinst

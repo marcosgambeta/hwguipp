@@ -113,5 +113,5 @@ Function ConnectGrid()
     
     oQuery:refresh()                                              
     
-return nil        
+return NIL        
 

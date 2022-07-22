@@ -127,7 +127,7 @@ FUNCTION hwg_WriteLog( cText, fname )
    FWrite( nHand, cText + Chr( 10 ) )
    FClose( nHand )
 
-   RETURN nil
+   RETURN NIL
 
 STATIC FUNCTION ErrorPreview( cMess )
    LOCAL oDlg, oEdit

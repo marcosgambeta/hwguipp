@@ -990,6 +990,6 @@ FUNCTION AltD( nAction )
       ENDIF
    ENDIF
 
-   RETURN nil
+   RETURN NIL
 
 #endif

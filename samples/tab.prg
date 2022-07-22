@@ -169,7 +169,7 @@ oTab:StartPage( "pagina2",aDlg2 ),    oTab:EndPage(),otab:changepage(1)
    
   activate dialog oDlg1
   
-return nil
+return NIL
 
 /*
 
@@ -185,7 +185,7 @@ for each n in aPage
    ind := ind + 1 
    oTab:startpage(aTitle[ind],n)  // hb_enumindex()
    otab:endpage()
-   n:oParent := nil
+   n:oParent := NIL
 next
 return .t.
 */

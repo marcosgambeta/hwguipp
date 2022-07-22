@@ -69,7 +69,7 @@ STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_THICKFRAME+WS_MINIMIZEBOX+WS_
 
 activate dialog odlg
 
-return nil
+return NIL
 
 /*
 Error BASE/1070  Argument error: ==

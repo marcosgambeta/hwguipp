@@ -323,7 +323,7 @@ static Function __valid(value, oCtrl, aFields, bChange)
 
         Eval(bChange, oCtrl, n)
 
-        if aFields[n, GET_VALID] != nil
+        if aFields[n, GET_VALID] != NIL
             if ! Eval(aFields[n, GET_VALID])
                 result := .F.            
                 oGet := aFields[n, GET_OBJECT]
@@ -375,23 +375,23 @@ Static Function OnKey( o, k, aItems , oGrid )
     elseif k == VK_DELETE .and. hwg_Msgyesno("Delete this record ?", "Warning")                   
         MyDelete(oGrid)
     endif        
-return nil    
+return NIL    
 
 Static function OnClick( o, aItems )
     GridEdit("temp", aItems, .F., {|oCtrl, colpos| myblock(oCtrl, colpos)})
-return nil    
+return NIL    
 
 Static function myblock( oCtrl, colpos )
     if colpos == 3
         replace field_5 with "hello"
     endif            
-return nil    
+return NIL    
     
 Static Function mydelete(oGrid)
     DELETE
     PACK
     oGrid:SetItemCount(Lastrec())
-return nil
+return NIL
 
 * ============================== EOF of grid_5.prg ================================
 

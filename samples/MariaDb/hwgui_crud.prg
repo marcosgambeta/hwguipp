@@ -1,4 +1,4 @@
-#require "rddsql" 
+#require "rddsql"
 #require "sddodbc" //SQLMIX
 
 #include "hwgui.ch"
@@ -121,7 +121,7 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts Via DBFCDX" AT 0,0 size 1024,500
 oDlg:Activate()
 
 ctc->( dbCloseArea() )
-Return nil 
+Return NIL 
 
 Static Function MakeVars()
    nIdContact := 0 //Auto increment
@@ -353,4 +353,4 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts using SQLMIX and MariaDB" AT 0,0
 oDlg:Activate()
 
 ctc->( dbCloseArea() )
-Return nil 
+Return NIL 

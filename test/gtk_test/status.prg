@@ -36,7 +36,7 @@ INIT WINDOW oMain TITLE "Trying to update status bar" AT 200,200 SIZE 100,100
 
 ACTIVATE WINDOW oMain
 
-return nil
+return NIL
 
 //----------------------
 function newlang()
@@ -59,7 +59,7 @@ INIT DIALOG oNewLang TITLE "Add or update a language" AT oMain:nLeft+200,oMain:n
 
 ACTIVATE DIALOG oNewLang
 
-return nil
+return NIL
 
 //----------------------
 function CreateLang()
@@ -86,7 +86,7 @@ next
 */
 
 
-return nil
+return NIL
 //----------------------
 
 

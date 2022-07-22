@@ -33,7 +33,7 @@ Private nColor, oBmp2
 
    oMainWindow:Activate()
 
-return nil
+return NIL
 
 FUNCTION TestRtf()
 LOCAL cOutFile, oRtf, anchos, i

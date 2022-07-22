@@ -24,7 +24,7 @@ function Convert_file(fname)
 local hd, varbuf
 
 if EMPTY(fname)
-  return nil
+  return NIL
 endif
 * dirchange(cspath+"/../../image")
 dirchange("../../image")

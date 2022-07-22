@@ -100,7 +100,7 @@ Private nColor, oBmp2
 
    ACTIVATE WINDOW oMainWindow
 
-return nil
+return NIL
 
 Function CreateChildWindow
 Local oChildWnd, oPanel, oFontBtn, oBoton1, oBoton2
@@ -309,7 +309,7 @@ Local han := fcreate( "LPT1",0 )
   else
      hwg_Msgstop("Can't open printer port!")
   endif
-return nil
+return NIL
 
 Function PrnTest
 Local oPrinter, oFont
@@ -446,7 +446,7 @@ END PAGE of oTab
 
 ACTIVATE DIALOG oDlg
 
-return nil
+return NIL
 
 FUNCTION ActiveTopMost( nHandle, lActive )
 
@@ -508,7 +508,7 @@ INIT DIALOG oDlg TITLE "Sample HRect"    ;
 
    oDlg:Activate()
 
-return nil
+return NIL
 
 Function Test1
 Local hDC := hwg_Getdc( 0 ), aMetr, oFont

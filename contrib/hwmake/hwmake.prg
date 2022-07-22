@@ -473,7 +473,7 @@ For Each i in oBrowse1:aArray
    cRun := " -v -y -c " +Alltrim( oCFlag:GetText() ) + " -O2 -tW -M -I"+cHarbour+"\include;"+cHwGUI+"\include;"+cBCC55+"\include " + "-o"+StrTran( cObjName, ".c", ".obj" ) + " " + cObjName
    If ExecuteCommand( cBCC55 + "\bin\bcc32.exe", cRun ) <> 0
       hwg_Msginfo("No Created Object files!", "HwMake" )
-      Return nil
+      Return NIL
    EndIF
           
 Next

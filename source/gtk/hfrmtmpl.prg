@@ -239,7 +239,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
    LOCAL i, j, i1, j1, cTemp, a1, cType, xRes
    LOCAL nLeft, nTop, nWidth, nHeight, cTitle, oFont, lClipper := .F. , lExitOnEnter := .F.
    LOCAL xProperty, block, nstyle
-   LOCAL oIcon := Nil, cBitmap := nil
+   LOCAL oIcon := Nil, cBitmap := NIL
    LOCAL oBmp := NIL
    LOCAL bGetFo := { |o| HFormTmpl():oActive := o }
    * Variables not used

@@ -110,7 +110,7 @@ METHOD Refresh() CLASS HCheckButton
    LOCAL var
 
    IF ::bSetGet != Nil
-      var := Eval( ::bSetGet, , nil )
+      var := Eval( ::bSetGet, , NIL )
       ::lValue := iif( var == Nil, .F. , var )
    ENDIF
 

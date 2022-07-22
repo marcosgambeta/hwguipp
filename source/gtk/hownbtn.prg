@@ -66,7 +66,7 @@ METHOD New( oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight,   ;
    ::lFlat   := Iif( lFlat == Nil, .F. , lFlat )
    ::bClick  := bClick
    ::state   := OBTN_INIT
-   ::nOrder  := Iif( oWndParent == nil, 0, Len( oWndParent:aControls ) )
+   ::nOrder  := Iif( oWndParent == NIL, 0, Len( oWndParent:aControls ) )
 
    ::aStyle  := aStyles
    ::title   := cText

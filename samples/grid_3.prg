@@ -62,7 +62,7 @@ Function Test()
                      ON CLICK {|oCtrl| OnClick(oCtrl) } ;
                      ON DISPINFO {|oCtrl, nRow, nCol| OnDispInfo( oCtrl, nRow, nCol ) } ;
                      COLOR 0xD3D3D3;
-                     BACKCOLOR 0xBEBEBE 
+                     BACKCOLOR 0xBEBEBE
                      
                      /*
                      ON LOSTFOCUS {|| hwg_Msginfo("lost focus") } ;
@@ -81,15 +81,15 @@ Return Nil
 
 Function OnKey( o, k )
 //    hwg_Msginfo(str(k))
-return nil    
+return NIL    
 
 Function OnPosChange( o, row )
 //    hwg_Msginfo( str(row) )
-return nil    
+return NIL    
 
 Function OnClick( o )
 //    hwg_Msginfo( "click" )
-return nil    
+return NIL    
 
 Function OnDispInfo( o, x, y )
     Local result := "", i
@@ -170,7 +170,7 @@ Function CriaBase()
 
         res := PQexec(conn, "DECLARE cursor_1 NO SCROLL CURSOR WITH HOLD FOR SELECT * FROM test")
         PQclear(res)    
-return nil        
+return NIL        
 
 
 Function MyVal( xValue, type )

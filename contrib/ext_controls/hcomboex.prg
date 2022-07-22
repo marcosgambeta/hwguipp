@@ -285,7 +285,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bP
       ::bGetFocus  := bGFocus
       ::oParent:AddEvent( CBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
-      IF ::bSetGet <> nil
+      IF ::bSetGet <> NIL
          ::oParent:AddEvent( CBN_SELCHANGE, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )
       ELSEIF ::bChangeSel != NIL
          ::oParent:AddEvent( CBN_SELCHANGE, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )
@@ -1161,7 +1161,7 @@ METHOD SelectAll( bCheck ) CLASS hCheckComboBox
       ::SetCheck( i, bCheck )
    NEXT
 
-   RETURN nil
+   RETURN NIL
 
 METHOD RecalcText() CLASS hCheckComboBox
    LOCAL strtext

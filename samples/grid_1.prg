@@ -56,15 +56,15 @@ Return Nil
 
 Function OnKey( o, k )
 //    hwg_Msginfo(str(k))
-return nil    
+return NIL    
 
 Function OnPosChange( o, row )
 //    hwg_Msginfo( str(row) )
-return nil    
+return NIL    
 
 Function OnClick( o )
 //    hwg_Msginfo( "click" )
-return nil    
+return NIL    
 
 Function OnDispInfo( o, x, y )
 return "Row: " + ltrim(str(x)) + " Col: " + ltrim(str(y))

@@ -41,4 +41,4 @@ endif
 
 oWinMain:Close()
 
-return nil
+return NIL

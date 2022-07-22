@@ -34,7 +34,7 @@ init window o main
 @ 80,80 nicebutton [guimaraes]  of o id 102 size 60,60 red 198 green 045 blue 215 on click {||hwg_EndWindow()}
 activate window o
 
-return nil
+return NIL
 
 * ============================= EOF of nice.prg ==============================
 

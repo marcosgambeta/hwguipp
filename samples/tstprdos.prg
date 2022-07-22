@@ -75,7 +75,7 @@ Local oMain
 
    oMain:Activate()
 
-return nil
+return NIL
 
 Function TestDosClass(oTest)
 

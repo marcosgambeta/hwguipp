@@ -181,7 +181,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       ::nLeft := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
       ::nTop  := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
    ENDIF
-   IF nHelpId != nil
+   IF nHelpId != NIL
       ::HelpId := nHelpId
    END
    ::aOffset := Array( 4 )

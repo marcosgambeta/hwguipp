@@ -41,7 +41,7 @@ FUNCTION Main
 
    ACTIVATE WINDOW oMain
 
-   RETURN nil
+   RETURN NIL
 
 STATIC FUNCTION Graph1
    LOCAL oGraph, i, aGraph := { {}, {} }
