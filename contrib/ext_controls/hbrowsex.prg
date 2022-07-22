@@ -1353,13 +1353,13 @@ METHOD Paint( lLostFocus )  CLASS HBrowseEx
    // Validate some variables
 
    IF ::tcolor == NIL ; ::tcolor := 0 ; ENDIF
-   IF ::bcolor == NIL ; ::bcolor := hwg_ColorC2N( "FFFFFF" ) ; ENDIF
+   IF ::bcolor == NIL ; ::bcolor := 0xFFFFFF ; ENDIF
 
    IF ::httcolor == NIL ; ::httcolor := hwg_Getsyscolor( COLOR_HIGHLIGHTTEXT ) ; ENDIF
    IF ::htbcolor == NIL ; ::htbcolor := hwg_Getsyscolor( COLOR_HIGHLIGHT )  ; ENDIF
 
-   IF ::tcolorSel == NIL ; ::tcolorSel := hwg_ColorC2N( "FFFFFF" ) ; ENDIF
-   IF ::bcolorSel == NIL ; ::bcolorSel := hwg_ColorC2N( "808080" ) ; ENDIF
+   IF ::tcolorSel == NIL ; ::tcolorSel := 0xFFFFFF ; ENDIF
+   IF ::bcolorSel == NIL ; ::bcolorSel := 0x808080 ; ENDIF
 
    // Open Paint procedure
 

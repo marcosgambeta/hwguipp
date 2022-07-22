@@ -294,12 +294,12 @@ METHOD PAINT() CLASS HNICEButton
    hwg_Setbkmode(hDC, TRANSPARENT)
 
    IF (::State == OBTN_MOUSOVER)
-//      p := hwg_Settextcolor(hDC, hwg_ColorC2N("FF0000"))
-      hwg_Settextcolor(hDC, hwg_ColorC2N("FF0000"))
+//      p := hwg_Settextcolor(hDC, 0xFF0000)
+      hwg_Settextcolor(hDC, 0xFF0000)
       hwg_Textout(hDC, XCtr - (Size[1] / 2) + 1, YCtr - (Size[2] / 2) + 1, T)
    ELSE
-//      p := hwg_Settextcolor(hDC, hwg_ColorC2N("0000FF"))
-      hwg_Settextcolor(hDC, hwg_ColorC2N("0000FF"))
+//      p := hwg_Settextcolor(hDC, 0x0000FF)
+      hwg_Settextcolor(hDC, 0x0000FF)
       hwg_Textout(hDC, XCtr - Size[1] / 2, YCtr - Size[2] / 2, T)
    ENDIF
 

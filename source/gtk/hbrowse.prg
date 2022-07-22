@@ -281,10 +281,10 @@ METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont,
    ENDIF
 
    ::tcolor := 0
-   ::bcolor := hwg_ColorC2N( "FFFFFF" )
-   ::tcolorSel := ::httColor := hwg_ColorC2N( "FFFFFF" )
-   ::bcolorSel := hwg_ColorC2N( "808080" )
-   ::htbColor := 2896388
+   ::bcolor := 0xFFFFFF
+   ::tcolorSel := ::httColor := 0xFFFFFF
+   ::bcolorSel := 0x808080
+   ::htbColor := 2896388 // TODO: converter para hexadecimal
 
    ::InitBrw()
    ::Activate()

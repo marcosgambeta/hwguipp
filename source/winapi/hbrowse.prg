@@ -742,21 +742,21 @@ METHOD Paint(lLostFocus) CLASS HBrowse
       ::tcolor := 0
    ENDIF
    IF ::bcolor == NIL
-      ::bcolor := hwg_ColorC2N("FFFFFF")
+      ::bcolor := 0xFFFFFF
    ENDIF
 
    IF ::httcolor == NIL
-      ::httcolor := hwg_ColorC2N("FFFFFF")
+      ::httcolor := 0xFFFFFF
    ENDIF
    IF ::htbcolor == NIL
-      ::htbcolor := 2896388
+      ::htbcolor := 2896388 // TODO: converter para hexadecimal
    ENDIF
 
    IF ::tcolorSel == NIL
-      ::tcolorSel := hwg_ColorC2N("FFFFFF")
+      ::tcolorSel := 0xFFFFFF
    ENDIF
    IF ::bcolorSel == NIL
-      ::bcolorSel := hwg_ColorC2N("808080")
+      ::bcolorSel := 0x808080
    ENDIF
 
    pps := hwg_Definepaintstru()

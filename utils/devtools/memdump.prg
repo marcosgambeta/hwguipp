@@ -180,7 +180,7 @@ FUNCTION UPDATE_BRW()
       oBrwArr:acolumns[5]:heading :="Dec"
       oBrwArr:acolumns[6]:heading :="Contents"
 //      oBrwArr:acolumns[1]:length := 50
-      oBrwArr:bcolorSel := hwg_ColorC2N( "800080" )
+      oBrwArr:bcolorSel := 0x800080
       oBrwArr:Refresh()
 
 RETURN NIL

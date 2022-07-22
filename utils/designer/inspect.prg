@@ -435,8 +435,8 @@ STATIC FUNCTION EditArray( arr )
    @ 0, 0 BROWSE oBrw ARRAY SIZE 400, 255  ;
       ON SIZE { |o, x, y|o:Move( , , x, y - 45 ) }
 
-   oBrw:bcolor := 15132390
-   oBrw:bcolorSel := hwg_ColorC2N( "008000" )
+   oBrw:bcolor := 15132390 // TODO: converter para hexadecimal
+   oBrw:bcolorSel := 0x008000
    oBrw:lAppable := .T.
    oBrw:aArray := arr
    oBrw:AddColumn( HColumn():New( ,{ |v,o|iif(v != Nil,o:aArray[o:nCurrent] := v,o:aArray[o:nCurrent] ) },"C",100,0, .T. ,,,Replicate("X",100 ) ) )

@@ -2463,7 +2463,7 @@ STATIC FUNCTION About()
    oStyle2 := HStyle():New( { 0xFFFFFF, CLR_GRAY1 }, 2, aRadius, )
 
    INIT DIALOG oDlg TITLE "About" ;
-      AT 0, 0 SIZE 400, 330 FONT HWindow():GetMain():oFont COLOR hwg_colorC2N("CCCCCC")
+      AT 0, 0 SIZE 400, 330 FONT HWindow():GetMain():oFont COLOR 0xCCCCCC
 
    @ 20, 40 SAY "Editor" SIZE 360,26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
    @ 20, 64 SAY "Version "+APP_VERSION SIZE 360,26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
@@ -2473,7 +2473,7 @@ STATIC FUNCTION About()
    @ 20, 180 SAY hwg_version() SIZE 360,26 STYLE SS_CENTER COLOR CLR_LBLUE0 TRANSPARENT
 
    @ 120, 246 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} SIZE 160,36 ;
-          TEXT "Close" COLOR hwg_colorC2N("0000FF")
+          TEXT "Close" COLOR 0x0000FF
 
    Atail(oDlg:aControls):aStyle := { oStyle1, oStyle2 }
    //Atail(oDlg:aControls):aRadius := { 8,8,8,8 }

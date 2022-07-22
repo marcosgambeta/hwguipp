@@ -26,14 +26,14 @@ FUNCTION Main()
 
    @ 2, 3  OWNERBUTTON OF oPanel ON CLICK { ||hwg_EndWindow() } ;
       SIZE 80, 44 FLAT ;
-      TEXT "Exit" COLOR hwg_ColorC2N( "0000FF" ) FONT oFont
+      TEXT "Exit" COLOR 0x0000FF FONT oFont
 
    @ 82, 3 OWNERBUTTON OF oPanel ON CLICK { ||Print1() } ;
       SIZE 120, 22 FLAT ;
-      TEXT "Print Example.rpt" COLOR hwg_ColorC2N( "FF0000" ) FONT oFont
+      TEXT "Print Example.rpt" COLOR 0xFF0000 FONT oFont
    @ 82, 25 OWNERBUTTON OF oPanel ON CLICK { ||Print2() } ;
       SIZE 120, 22 FLAT ;
-      TEXT "Print MyReport()" COLOR hwg_ColorC2N( "E60099" ) FONT oFont
+      TEXT "Print MyReport()" COLOR 0xE60099 FONT oFont
 
    oMainWindow:Activate()
 

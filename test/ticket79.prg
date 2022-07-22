@@ -51,7 +51,7 @@ LOCAL oodt , codt , nget
         AT 0,0 SIZE 300, 500  ;
         STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
-   @ 10, 14 + (30 * nget) GET oodt VAR codt ID ID_ODT COLOR hwg_ColorC2N("FF0000") SIZE 474,24  
+   @ 10, 14 + (30 * nget) GET oodt VAR codt ID ID_ODT COLOR 0xFF0000 SIZE 474,24  
 
    oDlg:Activate()
    

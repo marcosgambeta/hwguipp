@@ -87,9 +87,9 @@ FUNCTION Main()
    horzCursor := hwg_Loadcursor( IDC_SIZEWE )
    vertCursor := hwg_Loadcursor( IDC_SIZENS )
 #endif
-   oPenBorder := HPen():Add( PS_SOLID, 1, hwg_ColorC2N( "800080" ) )
-   oPenLine   := HPen():Add( PS_SOLID, 1, hwg_ColorC2N( "000000" ) )
-   oPenDivider := HPen():Add( PS_DOT, 1, hwg_ColorC2N( "C0C0C0" ) )
+   oPenBorder := HPen():Add( PS_SOLID, 1, 0x800080 )
+   oPenLine   := HPen():Add( PS_SOLID, 1, 0x000000 )
+   oPenDivider := HPen():Add( PS_DOT, 1, 0xC0C0C0 )
 
    oBrushWhite := HBrush():Add( CLR_WHITE )
    oBrushLGray := HBrush():Add( CLR_LGRAY )

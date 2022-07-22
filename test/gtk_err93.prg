@@ -62,7 +62,7 @@ INIT DIALOG oWinDia ;
   @ htab+(nbut*32), 3 OWNERBUTTON /* OF oToolbar */ ;
       ON CLICK {||oWinDia:Close() } ;
       SIZE 28,24   /* FLAT */ ;
-      BITMAP oObj_Exit TRANSPARENT COLOR hwg_ColorC2N("#DCDAD5") ;
+      BITMAP oObj_Exit TRANSPARENT COLOR 0xDCDAD5 ;
       COORDINATES 0,4,0,0 ;
       TOOLTIP "Quit"
       
