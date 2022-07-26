@@ -33,7 +33,7 @@ static LRESULT CALLBACK s_FrameWndProc(HWND, UINT, WPARAM, LPARAM);
 static LRESULT CALLBACK s_MDIChildWndProc(HWND, UINT, WPARAM, LPARAM);
 
 static HHOOK s_KeybHook = nullptr;
-HWND aWindows[2] = { 0, 0 };
+HWND aWindows[2] = {0, 0};
 PHB_DYNS pSym_onEvent = nullptr;
 PHB_DYNS pSym_keylist = nullptr;
 static LPCTSTR s_szChild = TEXT("MDICHILD");
@@ -451,8 +451,8 @@ HB_FUNC( HWG_ACTIVATEMDIWINDOW )
 
 /*  Creates child MDI window
     CreateMdiChildWindow(aChildWindow)
-    aChildWindow = { cWindowTitle, Nil, aActions, Nil, nStatusWindowID, bStatusWrite }
-    aActions = { { nMenuItemID, bAction }, ... }
+    aChildWindow = {cWindowTitle, Nil, aActions, Nil, nStatusWindowID, bStatusWrite}
+    aActions = {{nMenuItemID, bAction}, ...}
 */
 
 HB_FUNC( HWG_CREATEMDICHILDWINDOW )
@@ -870,7 +870,7 @@ void SetObjectVar(PHB_ITEM pObject, const char *varname, PHB_ITEM pValue)
  * versions which do not support automatic UNICODE conversions
  */
 
-static const char s_szConstStr[1] = { 0 };
+static const char s_szConstStr[1] = {0};
 
 const char * hwg_strnull(const char * str)
 {
@@ -970,7 +970,7 @@ void hwg_strfree(void * hString)
 
 static int s_iVM_CP = CP_ACP;   /* CP_OEMCP */
 
-static const wchar_t s_wszConstStr[1] = { 0 };
+static const wchar_t s_wszConstStr[1] = {0};
 
 const wchar_t *hwg_wstrnull(const wchar_t * str)
 {

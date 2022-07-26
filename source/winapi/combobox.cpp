@@ -64,7 +64,7 @@ HWG_COMBOBOXGETLBTEXT(hWnd, nPar2, @cPar3) --> numeric
 */
 HB_FUNC( HWG_COMBOBOXGETLBTEXT )
 {
-   TCHAR lpszText[255] = { 0 };
+   TCHAR lpszText[255] = {0};
    hb_retni(SendMessage(hwg_par_HWND(1), CB_GETLBTEXT, hb_parnl(2), reinterpret_cast<LPARAM>(lpszText)));
    HB_STORSTR(lpszText, 3);
 }

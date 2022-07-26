@@ -250,7 +250,7 @@ HB_FUNC( HWG_LISTVIEW_SETVIEW )
    if( (dwStyle & LVS_TYPEMASK) != dwView )
    {
       SetWindowLongPtr(hWndListView, GWL_STYLE, (dwStyle & ~LVS_TYPEMASK) | dwView);
-      //  RedrawWindow(hwg_par_HWND(1), nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+      //  RedrawWindow(hwg_par_HWND(1), nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
    }
 }
 
@@ -352,7 +352,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
          break;
    }
 
-// RedrawWindow(hwndListView, nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+// RedrawWindow(hwndListView, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
    InvalidateRect(hwndListView, &rect, TRUE);
    hb_retni(iResult);
    hb_strfree(hText);
@@ -429,7 +429,7 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    int Index = hb_parni(2);
    int Index2 = hb_parni(3);
    LVITEM Item;
-   TCHAR Buffer[256] = { 0 };
+   TCHAR Buffer[256] = {0};
 
    memset(&Item, '\0', sizeof(Item));
 
@@ -456,8 +456,8 @@ int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
    int nColumnNo = pSortInfo->nColumnNo;
    HWND pListControl = pSortInfo->pListControl;
    BOOL nAscendingSortOrder = pSortInfo->nAscendingSortOrder;
-   TCHAR szA[256] = { 0 };
-   TCHAR szB[256] = { 0 };
+   TCHAR szA[256] = {0};
+   TCHAR szB[256] = {0};
    int rc;
 
    ListView_GetItemText(pListControl, ( INT ) lParam1, nColumnNo, szA, HB_SIZEOFARRAY(szA));

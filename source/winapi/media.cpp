@@ -47,7 +47,7 @@ HB_FUNC( HWG_PLAYSOUND )
 
 HB_FUNC( HWG_MCISENDSTRING )
 {
-   TCHAR cBuffer[256] = { 0 };
+   TCHAR cBuffer[256] = {0};
    void * hCommand;
 
    hb_retnl(static_cast<LONG>(mciSendString(HB_PARSTR(1, &hCommand, nullptr), cBuffer, HB_SIZEOFARRAY(cBuffer), HB_ISNIL(3) ? GetActiveWindow() : hwg_par_HWND(3))));
@@ -71,7 +71,7 @@ HB_FUNC( HWG_MCISENDCOMMAND )
 
 HB_FUNC( HWG_MCIGETERRORSTRING )
 {
-   TCHAR cBuffer[256] = { 0 };
+   TCHAR cBuffer[256] = {0};
    hb_retl(mciGetErrorString(hb_parnl(1), /* Error Code */ cBuffer, HB_SIZEOFARRAY(cBuffer)));
    HB_STORSTR(cBuffer, 2);
 }

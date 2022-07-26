@@ -233,7 +233,7 @@ HB_FUNC( HWG_TOOLBAR_IDCLICK )
 HB_FUNC( HWG_TOOLBAR_SUBMENU )
 {
    LPNMTOOLBAR lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
-   RECT rc = { 0, 0, 0, 0 };
+   RECT rc = {0, 0, 0, 0};
    TPMPARAMS tpm;
    HMENU hPopupMenu;
    HMENU hMenuLoaded;
@@ -262,7 +262,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENU )
 HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
 {
    LPNMTOOLBAR lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
-   RECT rc = { 0, 0, 0, 0 };
+   RECT rc = {0, 0, 0, 0};
    TPMPARAMS tpm;
    HMENU hPopupMenu = hwg_par_HMENU(2);
    HWND g_hwndMain = hwg_par_HWND(3);

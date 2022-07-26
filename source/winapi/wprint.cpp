@@ -91,7 +91,7 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
    {
       if( osvi.dwMajorVersion >= 5 )    /* Windows 2000 or later */
       {
-         TCHAR PrinterDefault[256] = { 0 };
+         TCHAR PrinterDefault[256] = {0};
          DWORD BuffSize = 256;
 
          GetDefaultPrinter(PrinterDefault, &BuffSize);

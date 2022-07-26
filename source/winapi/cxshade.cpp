@@ -102,7 +102,7 @@ void Draw3dRect(HDC hDC, RECT* lprect, COLORREF clrTopLeft, COLORREF clrBottomRi
 
    SetBkColor(hDC, clrBottomRight);
 
-   SetRect(&r, x + cx, y, x + cx - 1 , y + cy);
+   SetRect(&r, x + cx, y, x + cx - 1, y + cy);
    ExtTextOut(hDC, 0, 0, ETO_OPAQUE, &r, nullptr, 0, nullptr);
 
    SetRect(&r, x, y + cy, x + cx, y + cy - 1);
@@ -693,8 +693,8 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
             k = a * (sXSize - j) / sXSize + idxmin;
             for( i = 0; i < sYSize; i++ )
             {
-               posDst[ j + i * bytes] = static_cast<BYTE>(k);
-               posDst[ j + i * bytes] += rand() / grainx2 - granularity;
+               posDst[j + i * bytes] = static_cast<BYTE>(k);
+               posDst[j + i * bytes] += rand() / grainx2 - granularity;
             }
          }
          break;

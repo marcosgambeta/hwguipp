@@ -483,7 +483,7 @@ HB_FUNC( HWG_TREENODEHASCHILDREN )
 HB_FUNC( HWG_TREEGETNODETEXT )
 {
    TV_ITEM TreeItem;
-   TCHAR ItemText[256] = { 0 };
+   TCHAR ItemText[256] = {0};
 
    memset(&TreeItem, 0, sizeof(TV_ITEM));
    TreeItem.mask = TVIF_HANDLE | TVIF_TEXT;
@@ -1251,7 +1251,7 @@ HB_FUNC( HWG_COMBOGETITEMRECT )
 
 HB_FUNC( HWG_GETLOCALEINFO )
 {
-   TCHAR szBuffer[10] = { 0 };
+   TCHAR szBuffer[10] = {0};
    GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SLIST, szBuffer, HB_SIZEOFARRAY(szBuffer));
    HB_RETSTR(szBuffer);
 }
@@ -1303,8 +1303,8 @@ HB_FUNC( HWG_GETDLGMESSAGE )
 
 HB_FUNC( HWG_GETUTCTIMEDATE ) /* Format: W,YYYYMMDD-HH:MM:SS */
 {
-  SYSTEMTIME st = { 0 };
-  char cst[41] = { 0 };
+  SYSTEMTIME st = {0};
+  char cst[41] = {0};
   GetSystemTime(&st);
   sprintf(cst, "%01d.%04d%02d%02d-%02d:%02d:%02d", st.wDayOfWeek, st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
   HB_RETSTR(cst);
@@ -1312,8 +1312,8 @@ HB_FUNC( HWG_GETUTCTIMEDATE ) /* Format: W,YYYYMMDD-HH:MM:SS */
 
 HB_FUNC( HWG_GETDATEANSI ) /* Format: YYYYMMDD, based on local time */
 {
-  SYSTEMTIME lt = { 0 };
-  char cst[41] = { 0 };
+  SYSTEMTIME lt = {0};
+  char cst[41] = {0};
   GetLocalTime(&lt);
   sprintf(cst, "%04d%02d%02d", lt.wYear, lt.wMonth, lt.wDay);
   HB_RETSTR(cst);
@@ -1325,9 +1325,9 @@ HB_FUNC( HWG_GETLOCALEINFON )
    hb_retni(GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SLIST, nullptr, 0));
 }
 
-HB_FUNC( HWG_DEFUSERLANG ) /* Windows only , on other OSs available, returns forever "-1". */
+HB_FUNC( HWG_DEFUSERLANG ) /* Windows only, on other OSs available, returns forever "-1". */
 {
-  char clang[25] = { 0 };
+  char clang[25] = {0};
   LANGID l;  /* ==> WORD */
   l = GetUserDefaultUILanguage();
   sprintf(clang, "%d", l);

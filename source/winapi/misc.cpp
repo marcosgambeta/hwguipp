@@ -386,7 +386,7 @@ HB_FUNC( HWG_PTS2PIX )
 
 HB_FUNC( HWG_GETWINDOWSDIR )
 {
-   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
+   TCHAR szBuffer[MAX_PATH + 1] = {0};
 
    GetWindowsDirectory(szBuffer, MAX_PATH);
    HB_RETSTR(szBuffer);
@@ -394,7 +394,7 @@ HB_FUNC( HWG_GETWINDOWSDIR )
 
 HB_FUNC( HWG_GETSYSTEMDIR )
 {
-   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
+   TCHAR szBuffer[MAX_PATH + 1] = {0};
 
    GetSystemDirectory(szBuffer, MAX_PATH);
    HB_RETSTR(szBuffer);
@@ -402,7 +402,7 @@ HB_FUNC( HWG_GETSYSTEMDIR )
 
 HB_FUNC( HWG_GETTEMPDIR )
 {
-   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
+   TCHAR szBuffer[MAX_PATH + 1] = {0};
 
    GetTempPath(MAX_PATH, szBuffer);
    HB_RETSTR(szBuffer);
@@ -677,7 +677,7 @@ HB_FUNC( HWG_SETFILEATTRIBUTES )
 // GETCOMPUTERNAME([@nLengthChar]) -> cComputerName
 HB_FUNC( HWG_GETCOMPUTERNAME )
 {
-   TCHAR cText[64] = { 0 };
+   TCHAR cText[64] = {0};
    DWORD nSize = HB_SIZEOFARRAY(cText);
    GetComputerName(cText, &nSize);
    HB_RETSTR(cText);
@@ -688,7 +688,7 @@ HB_FUNC( HWG_GETCOMPUTERNAME )
 // GETUSERNAME([@nLengthChar]) -> cUserName
 HB_FUNC( HWG_GETUSERNAME )
 {
-   TCHAR cText[64] = { 0 };
+   TCHAR cText[64] = {0};
    DWORD nSize = HB_SIZEOFARRAY(cText);
    GetUserName(cText, &nSize);
    HB_RETSTR(cText);
@@ -1193,8 +1193,8 @@ HB_FUNC( HWG_STOD )
 }
 
 int hwg_hexbin(int cha)
-/* converts single hex char to int, returns -1 , if not in range
-   returns 0 - 15 (dec) , only a half byte */ 
+/* converts single hex char to int, returns -1, if not in range
+   returns 0 - 15 (dec), only a half byte */ 
 {
     char gross;
     int o;
@@ -1355,7 +1355,7 @@ HB_FUNC( HWG_BIN2DC )
             {
               p = ( p * 16 ) + c;
               o = (unsigned char) p;
-              bu[ i / 2 ] = o;  
+              bu[i / 2] = o;
 
 /* Display some debug info */
 //             printf("i=%d ", i);
@@ -1378,7 +1378,7 @@ HB_FUNC( HWG_BIN2DC )
 
     /* Return double value as type N */
   
-    hb_retndlen(pbyNumber , uiWidth , uiDec);
+    hb_retndlen(pbyNumber, uiWidth, uiDec);
   
 }
 
@@ -1389,7 +1389,7 @@ static void GetFileMtimeU(const char * filePath)
  char date[18];
  stat (filePath, &attrib);
 
- strftime(date, sizeof(date) , "%Y%m%d-%H:%M:%S", gmtime(&(attrib.st_mtime)));
+ strftime(date, sizeof(date), "%Y%m%d-%H:%M:%S", gmtime(&(attrib.st_mtime)));
  hb_retc(date);
 }
 
@@ -1399,7 +1399,7 @@ static void GetFileMtime(const char * filePath)
  struct stat attrib;
  char date[18];
  stat (filePath, &attrib);
- strftime(date, sizeof(date) , "%Y%m%d-%H:%M:%S", localtime(&(attrib.st_mtime)));
+ strftime(date, sizeof(date), "%Y%m%d-%H:%M:%S", localtime(&(attrib.st_mtime)));
  hb_retc(date);
 }
 

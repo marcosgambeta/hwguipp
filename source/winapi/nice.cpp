@@ -78,7 +78,7 @@ void Draw_Gradient(HDC hdc, int x, int y, int w, int h, int r, int g, int b)
    GradientFill(hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V);
 }
 
-void Gradient(HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode) // int , int g, int b, int nMode)
+void Gradient(HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode) // int, int g, int b, int nMode)
 {
    TRIVERTEX Vert[2];
    GRADIENT_RECT Rect;
@@ -158,7 +158,7 @@ HB_FUNC( HWG_SETWINDOWRGN ) // TODO: reinterpret_cast<HRGN>(hb_parnl(2)) ?
 
 HB_FUNC( HWG_REGNICE )
 {
-   // **********[ DLL Declarations ]**********
+   // **********[DLL Declarations]**********
    static LPCTSTR s_szAppName = TEXT("NICEBUTT");
    static BOOL s_bRegistered = 0;
 

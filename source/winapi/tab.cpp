@@ -164,7 +164,7 @@ HB_FUNC( HWG_TABITEMPOS )
 HB_FUNC( HWG_GETTABNAME )
 {
    TC_ITEM tie;
-   TCHAR d[255] = { 0 };
+   TCHAR d[255] = {0};
 
    tie.mask = TCIF_TEXT;
    tie.cchTextMax = HB_SIZEOFARRAY(d) - 1;

@@ -875,7 +875,7 @@ HB_FUNC( HWG_FI_COPY )
 /* just a test, should receive a RGBQUAD structure, a xharbour array */
 HB_FUNC( HWG_FI_SETBACKGROUNDCOLOR )
 {
-   RGBQUAD rgbquad = { 255, 255, 255, 255 };
+   RGBQUAD rgbquad = {255, 255, 255, 255};
 
    pSetBackgroundColor = ( FREEIMAGE_SETBACKGROUNDCOLOR ) s_getFunction(( FARPROC ) pSetBackgroundColor, "_FreeImage_SetBackgroundColor@8");
 

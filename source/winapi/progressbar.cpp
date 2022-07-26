@@ -85,11 +85,11 @@ HB_FUNC( HWG_UPDATEPROGRESSBAR )
 */
 HB_FUNC( HWG_RESETPROGRESSBAR )
 {
-   SendMessage(hwg_par_HWND(1), PBM_SETPOS, static_cast<WPARAM>(0) , 0);
+   SendMessage(hwg_par_HWND(1), PBM_SETPOS, static_cast<WPARAM>(0), 0);
 }
 
 /*
-   SetProgressBar(hPBar , nPercent)
+   SetProgressBar(hPBar, nPercent)
 */
 HB_FUNC( HWG_SETPROGRESSBAR )
 {
