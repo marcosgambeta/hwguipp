@@ -21,4 +21,6 @@ hwguipp.hbc
 -cflag={bcc}-a8
 -cflag=-D__EXPORT__
 
+{mingw64}-cflag=-fpermissive
+
 @hwgui.hbm
