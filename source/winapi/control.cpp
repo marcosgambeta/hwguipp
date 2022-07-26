@@ -1336,7 +1336,7 @@ HB_FUNC( HWG_DEFUSERLANG ) /* Windows only , on other OSs available, returns for
 
 /*
  DF7BE : Ticket #64
- hwg_ShowCursor( lcursor )
+ hwg_ShowCursor(lcursor)
 */
 HB_FUNC( HWG_SHOWCURSOR )
 {

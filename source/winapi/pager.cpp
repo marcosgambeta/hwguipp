@@ -7,7 +7,7 @@ HB_FUNC( HWG_PAGERSETCHILD )
    HWND hWnd = hwg_par_HWND(2);
 
 #ifndef __GNUC__
-   Pager_SetChild( m_hWnd, hWnd );
+   Pager_SetChild(m_hWnd, hWnd);
 #else
    SendMessage(m_hWnd, PGM_SETCHILD, 0, ( LPARAM ) hWnd);
 #endif
@@ -18,7 +18,7 @@ HB_FUNC( HWG_PAGERRECALCSIZE )
    HWND m_hWnd = hwg_par_HWND(1);
 
 #ifndef __GNUC__
-   Pager_RecalcSize( m_hWnd );
+   Pager_RecalcSize(m_hWnd);
 #else
    SendMessage(m_hWnd, PGM_RECALCSIZE, 0, 0);
 #endif
@@ -30,7 +30,7 @@ HB_FUNC( HWG_PAGERFORWARDMOUSE )
    BOOL bForward = hb_parl(2);
 
 #ifndef __GNUC__
-   Pager_ForwardMouse( m_hWnd, bForward );
+   Pager_ForwardMouse(m_hWnd, bForward);
 #else
    SendMessage(m_hWnd, PGM_FORWARDMOUSE, ( WPARAM ) (bForward), 0);
 #endif

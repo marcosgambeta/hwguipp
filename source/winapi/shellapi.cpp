@@ -46,7 +46,7 @@ static int (CALLBACK BrowseCallbackProc)(HWND hwnd, UINT uMsg, LPARAM lParam, LP
 }
 
 /*
- *  SelectFolder( cTitle )
+ *  SelectFolder(cTitle)
  */
 
 HB_FUNC( HWG_SELECTFOLDER )
@@ -63,29 +63,29 @@ HB_FUNC( HWG_SELECTFOLDER )
    bi.hwndOwner = GetActiveWindow();
    bi.pidlRoot = nullptr;
    bi.pszDisplayName = lpBuffer;
-   bi.lpszTitle = HB_PARSTRDEF( 1, &hTitle, nullptr );
+   bi.lpszTitle = HB_PARSTRDEF(1, &hTitle, nullptr);
    bi.ulFlags = BIF_USENEWUI | BIF_NEWDIALOGSTYLE;
    bi.lpfn = BrowseCallbackProc;        // = nullptr;
    bi.lParam = lpFolderName ? ( LPARAM ) lpFolderName : 0;
    bi.iImage = 0;
 
    // Browse for a folder and return its PIDL. 
-   pidlBrowse = SHBrowseForFolder( &bi );
+   pidlBrowse = SHBrowseForFolder(&bi);
    if( pidlBrowse != nullptr )
    {
-      if( SHGetPathFromIDList( pidlBrowse, lpBuffer ) )
+      if( SHGetPathFromIDList(pidlBrowse, lpBuffer) )
       {
          lpResult = lpBuffer;
       }
-      CoTaskMemFree( pidlBrowse );
+      CoTaskMemFree(pidlBrowse);
    }
-   HB_RETSTR( lpResult );
+   HB_RETSTR(lpResult);
    hb_strfree(hTitle);
    hb_strfree(hFolderName);
 }
 
 /*
- *  ShellNotifyIcon( lAdd, hWnd, hIcon, cTooltip )
+ *  ShellNotifyIcon(lAdd, hWnd, hIcon, cTooltip)
  */
 
 HB_FUNC( HWG_SHELLNOTIFYICON )
@@ -100,21 +100,21 @@ HB_FUNC( HWG_SHELLNOTIFYICON )
    tnid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
    tnid.uCallbackMessage = WM_NOTIFYICON;
    tnid.hIcon = hwg_par_HICON(3);
-   HB_ITEMCOPYSTR( hb_param( 4, HB_IT_ANY ), tnid.szTip,
-         HB_SIZEOFARRAY( tnid.szTip ) );
+   HB_ITEMCOPYSTR(hb_param(4, HB_IT_ANY), tnid.szTip,
+         HB_SIZEOFARRAY(tnid.szTip));
 
    if( ( BOOL ) hb_parl(1) )
    {
-      Shell_NotifyIcon( NIM_ADD, &tnid );
+      Shell_NotifyIcon(NIM_ADD, &tnid);
    }
    else
    {
-      Shell_NotifyIcon( NIM_DELETE, &tnid );
+      Shell_NotifyIcon(NIM_DELETE, &tnid);
    }
 }
 
 /*
-  *  ShellModifyIcon( hWnd, hIcon, cTooltip )
+  *  ShellModifyIcon(hWnd, hIcon, cTooltip)
   */
 
 HB_FUNC( HWG_SHELLMODIFYICON )
@@ -131,16 +131,16 @@ HB_FUNC( HWG_SHELLMODIFYICON )
       tnid.uFlags |= NIF_ICON;
       tnid.hIcon = hwg_par_HICON(2);
    }
-   if( HB_ITEMCOPYSTR( hb_param( 3, HB_IT_ANY ), tnid.szTip, HB_SIZEOFARRAY( tnid.szTip ) ) > 0 )
+   if( HB_ITEMCOPYSTR(hb_param(3, HB_IT_ANY), tnid.szTip, HB_SIZEOFARRAY(tnid.szTip)) > 0 )
    {
       tnid.uFlags |= NIF_TIP;
    }
 
-   Shell_NotifyIcon( NIM_MODIFY, &tnid );
+   Shell_NotifyIcon(NIM_MODIFY, &tnid);
 }
 
 /*
- * ShellExecute( cFile, cOperation, cParams, cDir, nFlag )
+ * ShellExecute(cFile, cOperation, cParams, cDir, nFlag)
  */
 HB_FUNC( HWG_SHELLEXECUTE )
 {
@@ -156,10 +156,10 @@ HB_FUNC( HWG_SHELLEXECUTE )
    lpDirectory = HB_PARSTR(4, &hDirectory, nullptr);
    if( lpDirectory == nullptr )
    {
-      lpDirectory = TEXT( "C:\\" );
+      lpDirectory = TEXT("C:\\");
    }
 
-   hb_retnl(reinterpret_cast<LONG>(ShellExecute( GetActiveWindow(), HB_PARSTRDEF(2, &hOperation, nullptr), HB_PARSTR(1, &hFile, nullptr),
+   hb_retnl(reinterpret_cast<LONG>(ShellExecute(GetActiveWindow(), HB_PARSTRDEF(2, &hOperation, nullptr), HB_PARSTR(1, &hFile, nullptr),
       HB_PARSTR(3, &hParameters, nullptr), lpDirectory, HB_ISNUM(5) ? hb_parni(5) : SW_SHOWNORMAL)));
 
    hb_strfree(hOperation);

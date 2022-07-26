@@ -29,7 +29,7 @@ HB_FUNC( HWG_INITRICHEDIT )
 {
    if( !hRichEd )
    {
-      hRichEd = LoadLibrary( TEXT( "riched20.dll" ) );
+      hRichEd = LoadLibrary(TEXT("riched20.dll"));
    }
 }
 
@@ -41,14 +41,14 @@ HB_FUNC( HWG_CREATERICHEDIT )
 
    if( !hRichEd )
    {
-      hRichEd = LoadLibrary( TEXT( "riched20.dll" ) );
+      hRichEd = LoadLibrary(TEXT("riched20.dll"));
    }
 
-   hCtrl = CreateWindowEx( 0,   /* extended style    */
+   hCtrl = CreateWindowEx(0,   /* extended style    */
 #ifdef UNICODE
-         TEXT( "RichEdit20W" ), /* predefined class  */
+         TEXT("RichEdit20W"), /* predefined class  */
 #else
-         TEXT( "RichEdit20A" ), /* predefined class  */
+         TEXT("RichEdit20A"), /* predefined class  */
 #endif
          nullptr,                  /* title   */
          WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
@@ -56,7 +56,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
          hwg_par_int(6), hwg_par_int(7),  /* nWidth, nHeight */
          hwg_par_HWND(1),    /* parent window    */
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
-         GetModuleHandle( nullptr ), nullptr );
+         GetModuleHandle(nullptr), nullptr);
 
    lpText = HB_PARSTR(8, &hText, nullptr);
    if( lpText )
@@ -69,8 +69,8 @@ HB_FUNC( HWG_CREATERICHEDIT )
 }
 
 /*
- * re_SetCharFormat( hCtrl, n1, n2, nColor, cName, nHeight, lBold, lItalic,
-           lUnderline, nCharset, lSuperScript/lSubscript(.T./.F.), lProtected )
+ * re_SetCharFormat(hCtrl, n1, n2, nColor, cName, nHeight, lBold, lItalic,
+           lUnderline, nCharset, lSuperScript/lSubscript(.T./.F.), lProtected)
  */
 HB_FUNC( HWG_RE_SETCHARFORMAT )
 {
@@ -86,54 +86,54 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
    {
       ULONG ulLen, ulLen1;
       PHB_ITEM pArr1;
-      pArr = hb_param( 2, HB_IT_ARRAY );
-      ulLen = hb_arrayLen( pArr );
+      pArr = hb_param(2, HB_IT_ARRAY);
+      ulLen = hb_arrayLen(pArr);
       for( ULONG ul = 1; ul <= ulLen; ul++ )
       {
-         pArr1 = hb_arrayGetItemPtr( pArr, ul );
-         ulLen1 = hb_arrayLen( pArr1 );
-         chrNew.cpMin = hb_arrayGetNL( pArr1, 1 ) - 1;
-         chrNew.cpMax = hb_arrayGetNL( pArr1, 2 ) - 1;
+         pArr1 = hb_arrayGetItemPtr(pArr, ul);
+         ulLen1 = hb_arrayLen(pArr1);
+         chrNew.cpMin = hb_arrayGetNL(pArr1, 1) - 1;
+         chrNew.cpMax = hb_arrayGetNL(pArr1, 2) - 1;
          SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) &chrNew);
 
          memset(&cf, 0, sizeof(CHARFORMAT2));
          cf.cbSize = sizeof(CHARFORMAT2);
-         if( hb_itemType( hb_arrayGetItemPtr( pArr1, 3 ) ) != HB_IT_NIL )
+         if( hb_itemType(hb_arrayGetItemPtr(pArr1, 3)) != HB_IT_NIL )
          {
             cf.crTextColor = static_cast<COLORREF>(hb_arrayGetNL(pArr1, 3));
             cf.dwMask |= CFM_COLOR;
          }
-         if( ulLen1 > 3 && hb_itemType( hb_arrayGetItemPtr( pArr1, 4 ) ) != HB_IT_NIL )
+         if( ulLen1 > 3 && hb_itemType(hb_arrayGetItemPtr(pArr1, 4)) != HB_IT_NIL )
          {
-            HB_ITEMCOPYSTR( hb_arrayGetItemPtr( pArr1, 4 ), cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ) );
-            cf.szFaceName[HB_SIZEOFARRAY( cf.szFaceName ) - 1] = '\0';
+            HB_ITEMCOPYSTR(hb_arrayGetItemPtr(pArr1, 4), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
+            cf.szFaceName[HB_SIZEOFARRAY(cf.szFaceName) - 1] = '\0';
             cf.dwMask |= CFM_FACE;
          }
-         if( ulLen1 > 4 && hb_itemType( hb_arrayGetItemPtr( pArr1, 5 ) ) != HB_IT_NIL )
+         if( ulLen1 > 4 && hb_itemType(hb_arrayGetItemPtr(pArr1, 5)) != HB_IT_NIL )
          {
-            cf.yHeight = hb_arrayGetNL( pArr1, 5 );
+            cf.yHeight = hb_arrayGetNL(pArr1, 5);
             cf.dwMask |= CFM_SIZE;
          }
-         if( ulLen1 > 5 && hb_itemType( hb_arrayGetItemPtr( pArr1, 6 ) ) != HB_IT_NIL && hb_arrayGetL( pArr1, 6 ) )
+         if( ulLen1 > 5 && hb_itemType(hb_arrayGetItemPtr(pArr1, 6)) != HB_IT_NIL && hb_arrayGetL(pArr1, 6) )
          {
             cf.dwEffects |= CFE_BOLD;
          }
-         if( ulLen1 > 6 && hb_itemType( hb_arrayGetItemPtr( pArr1, 7 ) ) != HB_IT_NIL && hb_arrayGetL( pArr1, 7 ) )
+         if( ulLen1 > 6 && hb_itemType(hb_arrayGetItemPtr(pArr1, 7)) != HB_IT_NIL && hb_arrayGetL(pArr1, 7) )
          {
             cf.dwEffects |= CFE_ITALIC;
          }
-         if( ulLen1 > 7 && hb_itemType( hb_arrayGetItemPtr( pArr1, 8 ) ) != HB_IT_NIL && hb_arrayGetL( pArr1, 8 ) )
+         if( ulLen1 > 7 && hb_itemType(hb_arrayGetItemPtr(pArr1, 8)) != HB_IT_NIL && hb_arrayGetL(pArr1, 8) )
          {
             cf.dwEffects |= CFE_UNDERLINE;
          }
-         if( ulLen1 > 8 && hb_itemType( hb_arrayGetItemPtr( pArr1, 9 ) ) != HB_IT_NIL )
+         if( ulLen1 > 8 && hb_itemType(hb_arrayGetItemPtr(pArr1, 9)) != HB_IT_NIL )
          {
-            cf.bCharSet = static_cast<BYTE>(hb_arrayGetNL( pArr1, 9 ));
+            cf.bCharSet = static_cast<BYTE>(hb_arrayGetNL(pArr1, 9));
             cf.dwMask |= CFM_CHARSET;
          }
-         if( ulLen1 > 9 && hb_itemType( hb_arrayGetItemPtr( pArr1, 10 ) ) != HB_IT_NIL )
+         if( ulLen1 > 9 && hb_itemType(hb_arrayGetItemPtr(pArr1, 10)) != HB_IT_NIL )
          {
-            if( hb_arrayGetL( pArr1, 10 ) )
+            if( hb_arrayGetL(pArr1, 10) )
             {
                cf.dwEffects |= CFE_SUPERSCRIPT;
             }
@@ -143,7 +143,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
             }
             cf.dwMask |= CFM_SUPERSCRIPT;
          }
-         if( ulLen1 > 10 && hb_itemType( hb_arrayGetItemPtr( pArr1, 11 ) ) != HB_IT_NIL && hb_arrayGetL( pArr1, 11 ) )
+         if( ulLen1 > 10 && hb_itemType(hb_arrayGetItemPtr(pArr1, 11)) != HB_IT_NIL && hb_arrayGetL(pArr1, 11) )
          {
             cf.dwEffects |= CFE_PROTECTED;
          }
@@ -168,8 +168,8 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       }
       if( !HB_ISNIL(5) )
       {
-         HB_ITEMCOPYSTR( hb_param( 5, HB_IT_ANY ), cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ) );
-         cf.szFaceName[HB_SIZEOFARRAY( cf.szFaceName ) - 1] = '\0';
+         HB_ITEMCOPYSTR(hb_param(5, HB_IT_ANY), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
+         cf.szFaceName[HB_SIZEOFARRAY(cf.szFaceName) - 1] = '\0';
          cf.dwMask |= CFM_FACE;
       }
       if( !HB_ISNIL(6) )
@@ -225,7 +225,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
 }
 
 /*
- * re_SetDefault( hCtrl, nColor, cName, nHeight, lBold, lItalic, lUnderline, nCharset )
+ * re_SetDefault(hCtrl, nColor, cName, nHeight, lBold, lItalic, lUnderline, nCharset)
  */
 HB_FUNC( HWG_RE_SETDEFAULT )
 {
@@ -242,8 +242,8 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    }
    if( HB_ISCHAR(3) )
    {
-      HB_ITEMCOPYSTR( hb_param( 3, HB_IT_ANY ), cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ) );
-      cf.szFaceName[HB_SIZEOFARRAY( cf.szFaceName ) - 1] = '\0';
+      HB_ITEMCOPYSTR(hb_param(3, HB_IT_ANY), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
+      cf.szFaceName[HB_SIZEOFARRAY(cf.szFaceName) - 1] = '\0';
       cf.dwMask |= CFM_FACE;
    }
 
@@ -277,7 +277,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
 }
 
 /*
- * re_CharFromPos( hEdit, xPos, yPos ) --> nPos
+ * re_CharFromPos(hEdit, xPos, yPos) --> nPos
  */
 HB_FUNC( HWG_RE_CHARFROMPOS )
 {
@@ -294,7 +294,7 @@ HB_FUNC( HWG_RE_CHARFROMPOS )
 }
 
 /*
- * re_GetTextRange( hEdit, n1, n2 )
+ * re_GetTextRange(hEdit, n1, n2)
  */
 HB_FUNC( HWG_RE_GETTEXTRANGE )
 {
@@ -307,12 +307,12 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
 
    tr.lpstrText = ( LPTSTR ) hb_xgrab((tr.chrg.cpMax - tr.chrg.cpMin + 2) * sizeof(TCHAR));
    ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, ( LPARAM ) &tr);
-   HB_RETSTRLEN( tr.lpstrText, ul );
+   HB_RETSTRLEN(tr.lpstrText, ul);
    hb_xfree(tr.lpstrText);
 }
 
 /*
- * re_GetLine( hEdit, nLine )
+ * re_GetLine(hEdit, nLine)
  */
 HB_FUNC( HWG_RE_GETLINE )
 {
@@ -324,7 +324,7 @@ HB_FUNC( HWG_RE_GETLINE )
 
    *(reinterpret_cast<ULONG*>(lpBuf)) = ul;
    ul = SendMessage(hCtrl, EM_GETLINE, nLine, ( LPARAM ) lpBuf);
-   HB_RETSTRLEN( lpBuf, ul );
+   HB_RETSTRLEN(lpBuf, ul);
    hb_xfree(lpBuf);
 }
 
@@ -336,7 +336,7 @@ HB_FUNC( HWG_RE_INSERTTEXT )
 }
 
 /*
- * re_FindText( hEdit, cFind, nStart, bCase, bWholeWord, bSearchUp )
+ * re_FindText(hEdit, cFind, nStart, bCase, bWholeWord, bSearchUp)
  */
 HB_FUNC( HWG_RE_FINDTEXT )
 {
@@ -378,8 +378,8 @@ HB_FUNC( HWG_RE_GETZOOM )
    int nNum = hb_parni(2);
    int nDen = hb_parni(3);
    hb_retnl(( BOOL ) SendMessage(hwnd, EM_GETZOOM, ( WPARAM ) & nNum, ( LPARAM ) &nDen));
-   hb_storni( nNum, 2 );
-   hb_storni( nDen, 3 );
+   hb_storni(nNum, 2);
+   hb_storni(nDen, 3);
 }
 
 HB_FUNC( HWG_PRINTRTF )
@@ -388,12 +388,12 @@ HB_FUNC( HWG_PRINTRTF )
    HDC hdc = hwg_par_HDC(2);
    FORMATRANGE fr;
    BOOL fSuccess = TRUE;
-   int cxPhysOffset = GetDeviceCaps( hdc, PHYSICALOFFSETX );
-   int cyPhysOffset = GetDeviceCaps( hdc, PHYSICALOFFSETY );
-   int cxPhys = GetDeviceCaps( hdc, PHYSICALWIDTH );
-   int cyPhys = GetDeviceCaps( hdc, PHYSICALHEIGHT );
-   int ppi_x = GetDeviceCaps( hdc, LOGPIXELSX );
-   int ppi_y = GetDeviceCaps( hdc, LOGPIXELSX );
+   int cxPhysOffset = GetDeviceCaps(hdc, PHYSICALOFFSETX);
+   int cyPhysOffset = GetDeviceCaps(hdc, PHYSICALOFFSETY);
+   int cxPhys = GetDeviceCaps(hdc, PHYSICALWIDTH);
+   int cyPhys = GetDeviceCaps(hdc, PHYSICALHEIGHT);
+   int ppi_x = GetDeviceCaps(hdc, LOGPIXELSX);
+   int ppi_y = GetDeviceCaps(hdc, LOGPIXELSX);
    int cpMin;
 
    SendMessage(hwnd, EM_SETTARGETDEVICE, ( WPARAM ) hdc, cxPhys / 2);
@@ -436,7 +436,7 @@ HB_FUNC( HWG_INITRICHPROC )
 LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
+   PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
    if( !pSym_onEvent )
    {
@@ -445,13 +445,13 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(static_cast<LONG>(message));
       hb_vmPushLong(static_cast<LONG>(wParam));
       hb_vmPushLong(static_cast<LONG>(lParam));
       hb_vmSend(3);
-      res = hb_parnl( -1 );
+      res = hb_parnl(-1);
       if( res == -1 )
       {
          return (CallWindowProc(wpOrigRichProc, hWnd, message, wParam, lParam));
@@ -471,14 +471,14 @@ static DWORD CALLBACK RichStreamOutCallback(DWORD_PTR dwCookie, LPBYTE pbBuff, L
 {
    HANDLE pFile = reinterpret_cast<HANDLE>(dwCookie);
    DWORD dwW;
-   HB_SYMBOL_UNUSED( pcb );
+   HB_SYMBOL_UNUSED(pcb);
 
    if( pFile == INVALID_HANDLE_VALUE )
    {
       return 0;
    }
 
-   WriteFile( pFile, pbBuff, cb, &dwW, nullptr );
+   WriteFile(pFile, pbBuff, cb, &dwW, nullptr);
    return 0;
 }
 
@@ -509,7 +509,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
    es.pfnCallback = RichStreamOutCallback;
 
    SendMessage(hWnd, EM_STREAMOUT, ( WPARAM ) SF_RTF, ( LPARAM ) &es);
-   CloseHandle( hFile );
+   CloseHandle(hFile);
    HB_RETHANDLE(hFile);
 
 }
@@ -534,6 +534,6 @@ HB_FUNC( HWG_LOADRICHEDIT )
    es.dwCookie = reinterpret_cast<DWORD_PTR>(hFile);
    es.pfnCallback = EditStreamCallback;
    SendMessage(hWnd, EM_STREAMIN, ( WPARAM ) SF_RTF, ( LPARAM ) &es);
-   CloseHandle( hFile );
+   CloseHandle(hFile);
    HB_RETHANDLE(hFile);
 }

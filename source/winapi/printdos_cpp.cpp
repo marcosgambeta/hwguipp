@@ -8,8 +8,8 @@
 
 /*
    txtfile.c
-   AFILLTEXT( cFile ) -> aArray
-   NTXTLINE( cFile )  -> nLines
+   AFILLTEXT(cFile) -> aArray
+   NTXTLINE(cFile)  -> nLines
 */
 
 #include "hbapi.h"
@@ -67,62 +67,62 @@ HB_FUNC( AFILLTEXT )
 
    if ( !pSrc )
    {
-      hb_reta( 0 );
+      hb_reta(0);
       return;
    }
 
-   if ( strlen( pSrc ) == 0 )
+   if ( strlen(pSrc) == 0 )
    {
-      hb_reta( 0 );
+      hb_reta(0);
       return;
    }
-   inFile = fopen( pSrc, "r" );
+   inFile = fopen(pSrc, "r");
 
    if ( !inFile )
    {
-      hb_reta( 0 );
+      hb_reta(0);
       return;
    }
 
-   string = (char*) hb_xgrab( LINE_MAX + 1 );
-   hb_arrayNew( pArray, 0 );
+   string = (char*) hb_xgrab(LINE_MAX + 1);
+   hb_arrayNew(pArray, 0);
 
    while ( file_read ( inFile, string ) )
    {
-      hb_arrayAddForward( pArray, hb_itemPutC( pTemp, string ));
+      hb_arrayAddForward(pArray, hb_itemPutC(pTemp, string));
    }
 
-   hb_itemRelease( hb_itemReturn( pArray ) );
-   hb_itemRelease( pTemp );
-   hb_xfree( string );
-   fclose( inFile );
+   hb_itemRelease(hb_itemReturn(pArray));
+   hb_itemRelease(pTemp);
+   hb_xfree(string);
+   fclose(inFile);
 }
 
 #include <windows.h>
 
 HB_FUNC( HWG_WIN_ANSITOOEM )
 {
-   PHB_ITEM pString = hb_param( 1, HB_IT_STRING );
+   PHB_ITEM pString = hb_param(1, HB_IT_STRING);
 
    if( pString )
    {
-      int nLen = ( int ) hb_itemGetCLen( pString );
-      const char * pszSrc = hb_itemGetCPtr( pString );
+      int nLen = ( int ) hb_itemGetCLen(pString);
+      const char * pszSrc = hb_itemGetCPtr(pString);
 
-      int nWideLen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, NULL, 0 );
-      LPWSTR pszWide = ( LPWSTR ) hb_xgrab( ( nWideLen + 1 ) * sizeof( wchar_t ) );
+      int nWideLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, NULL, 0);
+      LPWSTR pszWide = ( LPWSTR ) hb_xgrab(( nWideLen + 1 ) * sizeof(wchar_t));
 
       char * pszDst;
 
-      MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, pszWide, nWideLen );
+      MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, pszWide, nWideLen);
 
-      nLen = WideCharToMultiByte( CP_OEMCP, 0, pszWide, nWideLen, NULL, 0, NULL, NULL );
-      pszDst = ( char * ) hb_xgrab( nLen + 1 );
+      nLen = WideCharToMultiByte(CP_OEMCP, 0, pszWide, nWideLen, NULL, 0, NULL, NULL);
+      pszDst = ( char * ) hb_xgrab(nLen + 1);
 
-      WideCharToMultiByte( CP_OEMCP, 0, pszWide, nWideLen, pszDst, nLen, NULL, NULL );
+      WideCharToMultiByte(CP_OEMCP, 0, pszWide, nWideLen, pszDst, nLen, NULL, NULL);
 
-      hb_xfree( pszWide );
-      hb_retclen_buffer( pszDst, nLen );
+      hb_xfree(pszWide);
+      hb_retclen_buffer(pszDst, nLen);
    }
    else
       hb_retc_null();

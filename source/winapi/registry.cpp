@@ -21,7 +21,7 @@
 #include "incomp_pointer.h"
 
 /*
- * Regcreatekey( handle, cKeyName ) --> handle
+ * Regcreatekey(handle, cKeyName) --> handle
 */
 
 HB_FUNC( HWG_REGCREATEKEY )
@@ -40,7 +40,7 @@ HB_FUNC( HWG_REGCREATEKEY )
 }
 
 /*
- * RegOpenKey( handle, cKeyName ) --> handle
+ * RegOpenKey(handle, cKeyName) --> handle
 */
 
 HB_FUNC( HWG_REGOPENKEY )
@@ -58,16 +58,16 @@ HB_FUNC( HWG_REGOPENKEY )
 }
 
 /*
- * RegCloseKey( handle )
+ * RegCloseKey(handle)
 */
 
 HB_FUNC( HWG_REGCLOSEKEY )
 {
-   RegCloseKey( (HKEY)hb_parnl(1) );
+   RegCloseKey((HKEY)hb_parnl(1));
 }
 
 /*
- * RegSetString( handle, cKeyName, cKeyValue ) --> 0 (Success) or -1 (Error)
+ * RegSetString(handle, cKeyName, cKeyValue) --> 0 (Success) or -1 (Error)
 */
 
 HB_FUNC( HWG_REGSETSTRING )

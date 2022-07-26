@@ -113,7 +113,7 @@ HB_FUNC( HWG_DELETETAB )
 
 HB_FUNC( HWG_GETCURRENTTAB )
 {
-   hb_retni(TabCtrl_GetCurSel( hwg_par_HWND(1) ) + 1);
+   hb_retni(TabCtrl_GetCurSel(hwg_par_HWND(1)) + 1);
 }
 
 HB_FUNC( HWG_SETTABSIZE )

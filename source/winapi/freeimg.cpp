@@ -17,30 +17,30 @@ typedef char *( WINAPI * FREEIMAGE_GETVERSION ) ( void );
 #if defined( __cplusplus )
 typedef FIBITMAP *( WINAPI * FREEIMAGE_LOADFROMHANDLE ) ( FREE_IMAGE_FORMAT fif, FreeImageIO * io, fi_handle handle, int flags );
 typedef FIBITMAP *( WINAPI * FREEIMAGE_LOAD ) ( FREE_IMAGE_FORMAT fif, const char *filename, int flags );
-typedef BOOL( WINAPI * FREEIMAGE_SAVE ) ( FREE_IMAGE_FORMAT fif, FIBITMAP * dib, const char *filename, int flags );
+typedef BOOL(WINAPI * FREEIMAGE_SAVE) ( FREE_IMAGE_FORMAT fif, FIBITMAP * dib, const char *filename, int flags );
 typedef FIBITMAP *( WINAPI * FREEIMAGE_ALLOCATE ) ( int width, int height, int bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask );
 typedef FIBITMAP *( WINAPI * FREEIMAGE_CONVERTFROMRAWBITS ) ( BYTE * bits, int width, int height, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown );
 typedef void ( WINAPI * FREEIMAGE_CONVERTTORAWBITS ) ( BYTE * bits, FIBITMAP * dib, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown );
 #else
-typedef FIBITMAP *( WINAPI * FREEIMAGE_LOADFROMHANDLE ) ( FREE_IMAGE_FORMAT fif, FreeImageIO * io, fi_handle handle, int flags FI_DEFAULT( 0 ) );
-typedef FIBITMAP *( WINAPI * FREEIMAGE_LOAD ) ( FREE_IMAGE_FORMAT fif, const char *filename, int flags FI_DEFAULT( 0 ) );
-typedef FIBITMAP *( WINAPI * FREEIMAGE_ALLOCATE ) ( int width, int height, int bpp, unsigned red_mask FI_DEFAULT( 0 ), unsigned green_mask FI_DEFAULT( 0 ), unsigned blue_mask FI_DEFAULT( 0 ) );
-typedef BOOL( WINAPI * FREEIMAGE_SAVE ) ( FREE_IMAGE_FORMAT fif, FIBITMAP * dib, const char *filename, int flags FI_DEFAULT( 0 ) );
-typedef FIBITMAP *( WINAPI * FREEIMAGE_CONVERTFROMRAWBITS ) ( BYTE * bits, int width, int height, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown FI_DEFAULT( FALSE ) );
-typedef void ( WINAPI * FREEIMAGE_CONVERTTORAWBITS ) ( BYTE * bits, FIBITMAP * dib, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown FI_DEFAULT( FALSE ) );
+typedef FIBITMAP *( WINAPI * FREEIMAGE_LOADFROMHANDLE ) ( FREE_IMAGE_FORMAT fif, FreeImageIO * io, fi_handle handle, int flags FI_DEFAULT(0) );
+typedef FIBITMAP *( WINAPI * FREEIMAGE_LOAD ) ( FREE_IMAGE_FORMAT fif, const char *filename, int flags FI_DEFAULT(0) );
+typedef FIBITMAP *( WINAPI * FREEIMAGE_ALLOCATE ) ( int width, int height, int bpp, unsigned red_mask FI_DEFAULT(0), unsigned green_mask FI_DEFAULT(0), unsigned blue_mask FI_DEFAULT(0) );
+typedef BOOL(WINAPI * FREEIMAGE_SAVE) ( FREE_IMAGE_FORMAT fif, FIBITMAP * dib, const char *filename, int flags FI_DEFAULT(0) );
+typedef FIBITMAP *( WINAPI * FREEIMAGE_CONVERTFROMRAWBITS ) ( BYTE * bits, int width, int height, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown FI_DEFAULT(FALSE) );
+typedef void ( WINAPI * FREEIMAGE_CONVERTTORAWBITS ) ( BYTE * bits, FIBITMAP * dib, int pitch, unsigned bpp, unsigned red_mask, unsigned green_mask, unsigned blue_mask, BOOL topdown FI_DEFAULT(FALSE) );
 #endif
 
 typedef void ( WINAPI * FREEIMAGE_UNLOAD ) ( FIBITMAP * dib );
-typedef FREE_IMAGE_FORMAT( WINAPI * FREEIMAGE_GETFIFFROMFILENAME ) ( const char *filename );
-typedef ULONG( WINAPI * FREEIMAGE_GETWIDTH ) ( FIBITMAP * dib );
-typedef ULONG( WINAPI * FREEIMAGE_GETHEIGHT ) ( FIBITMAP * dib );
+typedef FREE_IMAGE_FORMAT(WINAPI * FREEIMAGE_GETFIFFROMFILENAME) ( const char *filename );
+typedef ULONG(WINAPI * FREEIMAGE_GETWIDTH) ( FIBITMAP * dib );
+typedef ULONG(WINAPI * FREEIMAGE_GETHEIGHT) ( FIBITMAP * dib );
 typedef BYTE *( WINAPI * FREEIMAGE_GETBITS ) ( FIBITMAP * dib );
 typedef BITMAPINFO *( WINAPI * FREEIMAGE_GETINFO ) ( FIBITMAP * dib );
 typedef BITMAPINFOHEADER *( WINAPI * FREEIMAGE_GETINFOHEADER ) ( FIBITMAP * dib );
 typedef FIBITMAP *( WINAPI * FREEIMAGE_RESCALE ) ( FIBITMAP * dib, int dst_width, int dst_height, FREE_IMAGE_FILTER filter );
 typedef RGBQUAD *( WINAPI * FREEIMAGE_GETPALETTE ) ( FIBITMAP * dib );
-typedef ULONG( WINAPI * FREEIMAGE_GETBPP ) ( FIBITMAP * dib );
-typedef BOOL( WINAPI * FREEIMAGE_SETCHANNEL ) ( FIBITMAP * dib, FIBITMAP * dib8, FREE_IMAGE_COLOR_CHANNEL channel );
+typedef ULONG(WINAPI * FREEIMAGE_GETBPP) ( FIBITMAP * dib );
+typedef BOOL(WINAPI * FREEIMAGE_SETCHANNEL) ( FIBITMAP * dib, FIBITMAP * dib8, FREE_IMAGE_COLOR_CHANNEL channel );
 typedef BYTE *( WINAPI * FREEIMAGE_GETSCANLINE ) ( FIBITMAP * dib, int scanline );
 typedef unsigned ( WINAPI * FREEIMAGE_GETPITCH ) ( FIBITMAP * dib );
 typedef short ( WINAPI * FREEIMAGE_GETIMAGETYPE ) ( FIBITMAP * dib );
@@ -50,19 +50,19 @@ typedef unsigned ( WINAPI * FREEIMAGE_GETDOTSPERMETERX ) ( FIBITMAP * dib );
 typedef unsigned ( WINAPI * FREEIMAGE_GETDOTSPERMETERY ) ( FIBITMAP * dib );
 typedef void ( WINAPI * FREEIMAGE_SETDOTSPERMETERX ) ( FIBITMAP * dib, unsigned res );
 typedef void ( WINAPI * FREEIMAGE_SETDOTSPERMETERY ) ( FIBITMAP * dib, unsigned res );
-typedef BOOL( WINAPI * FREEIMAGE_PASTE ) ( FIBITMAP * dst, FIBITMAP * src, int left, int top, int alpha );
+typedef BOOL(WINAPI * FREEIMAGE_PASTE) ( FIBITMAP * dst, FIBITMAP * src, int left, int top, int alpha );
 typedef FIBITMAP *( WINAPI * FREEIMAGE_COPY ) ( FIBITMAP * dib, int left, int top, int right, int bottom );
-typedef BOOL( WINAPI * FREEIMAGE_SETBACKGROUNDCOLOR ) ( FIBITMAP * dib, RGBQUAD * bkcolor );
-typedef BOOL( WINAPI * FREEIMAGE_INVERT ) ( FIBITMAP * dib );
+typedef BOOL(WINAPI * FREEIMAGE_SETBACKGROUNDCOLOR) ( FIBITMAP * dib, RGBQUAD * bkcolor );
+typedef BOOL(WINAPI * FREEIMAGE_INVERT) ( FIBITMAP * dib );
 typedef FIBITMAP *( WINAPI * FREEIMAGE_CONVERTTO8BITS ) ( FIBITMAP * dib );
 typedef FIBITMAP *( WINAPI * FREEIMAGE_CONVERTTOGREYSCALE ) ( FIBITMAP * dib );
-typedef BOOL( WINAPI * FREEIMAGE_FLIPVERTICAL ) ( FIBITMAP * dib );
+typedef BOOL(WINAPI * FREEIMAGE_FLIPVERTICAL) ( FIBITMAP * dib );
 typedef FIBITMAP *( WINAPI * FREEIMAGE_THRESHOLD ) ( FIBITMAP * dib, BYTE T );
 
-typedef BOOL( WINAPI * FREEIMAGE_GETPIXELINDEX ) ( FIBITMAP * dib, unsigned x, unsigned y, BYTE * value );
-typedef BOOL( WINAPI * FREEIMAGE_GETPIXELCOLOR ) ( FIBITMAP * dib, unsigned x, unsigned y, RGBQUAD * value );
-typedef BOOL( WINAPI * FREEIMAGE_SETPIXELINDEX ) ( FIBITMAP * dib, unsigned x, unsigned y, BYTE * value );
-typedef BOOL( WINAPI * FREEIMAGE_SETPIXELCOLOR ) ( FIBITMAP * dib, unsigned x, unsigned y, RGBQUAD * value );
+typedef BOOL(WINAPI * FREEIMAGE_GETPIXELINDEX) ( FIBITMAP * dib, unsigned x, unsigned y, BYTE * value );
+typedef BOOL(WINAPI * FREEIMAGE_GETPIXELCOLOR) ( FIBITMAP * dib, unsigned x, unsigned y, RGBQUAD * value );
+typedef BOOL(WINAPI * FREEIMAGE_SETPIXELINDEX) ( FIBITMAP * dib, unsigned x, unsigned y, BYTE * value );
+typedef BOOL(WINAPI * FREEIMAGE_SETPIXELCOLOR) ( FIBITMAP * dib, unsigned x, unsigned y, RGBQUAD * value );
 
 static HINSTANCE hFreeImageDll = nullptr;
 static FREEIMAGE_LOAD pLoad = nullptr;
@@ -103,25 +103,25 @@ static FREEIMAGE_GETPIXELINDEX pGetPixelIndex = nullptr;
 static FREEIMAGE_GETPIXELCOLOR pGetPixelColor = nullptr;
 static FREEIMAGE_SETPIXELINDEX pSetPixelIndex = nullptr;
 static FREEIMAGE_SETPIXELCOLOR pSetPixelColor = nullptr;
-static void SET_FREEIMAGE_MARKER( BITMAPINFOHEADER * bmih, FIBITMAP * dib );
+static void SET_FREEIMAGE_MARKER(BITMAPINFOHEADER * bmih, FIBITMAP * dib);
 
 fi_handle g_load_address;
 
-BOOL s_freeImgInit( void )
+BOOL s_freeImgInit(void)
 {
    if( !hFreeImageDll )
    {
-      hFreeImageDll = LoadLibrary( TEXT( "FreeImage.dll" ) );
+      hFreeImageDll = LoadLibrary(TEXT("FreeImage.dll"));
       if( !hFreeImageDll )
       {
-         MessageBox( GetActiveWindow(), TEXT( "Library not loaded" ), TEXT( "FreeImage.dll" ), MB_OK | MB_ICONSTOP );
+         MessageBox(GetActiveWindow(), TEXT("Library not loaded"), TEXT("FreeImage.dll"), MB_OK | MB_ICONSTOP);
          return 0;
       }
    }
    return 1;
 }
 
-static FARPROC s_getFunction( FARPROC h, LPCSTR funcname )
+static FARPROC s_getFunction(FARPROC h, LPCSTR funcname)
 {
    if( !h )
    {
@@ -149,7 +149,7 @@ HB_FUNC( HWG_FI_END )
 {
    if( hFreeImageDll )
    {
-      FreeLibrary( hFreeImageDll );
+      FreeLibrary(hFreeImageDll);
       hFreeImageDll = nullptr;
       pLoad = nullptr;
       pUnload = nullptr;
@@ -195,7 +195,7 @@ HB_FUNC( HWG_FI_VERSION )
 {
    FREEIMAGE_GETVERSION pFunc = ( FREEIMAGE_GETVERSION ) s_getFunction(nullptr, "_FreeImage_GetVersion@0");
 
-   hb_retc( ( pFunc ) ? pFunc() : "" );
+   hb_retc(( pFunc ) ? pFunc() : "");
 }
 
 HB_FUNC( HWG_FI_UNLOAD )
@@ -204,7 +204,7 @@ HB_FUNC( HWG_FI_UNLOAD )
 
    if( pUnload )
    {
-      pUnload( ( FIBITMAP * ) hb_parnl(1) );
+      pUnload(( FIBITMAP * ) hb_parnl(1));
    }
 }
 
@@ -250,7 +250,7 @@ HB_FUNC( HWG_FI_SAVE )
    if( pGetfiffromfile && pSave )
    {
       const char *name = hb_parc(2);
-      hb_retl(( BOOL ) pSave( pGetfiffromfile(name), ( FIBITMAP * ) hb_parnl(1), name, (hb_pcount() > 2) ? hb_parni(3) : 0));
+      hb_retl(( BOOL ) pSave(pGetfiffromfile(name), ( FIBITMAP * ) hb_parnl(1), name, (hb_pcount() > 2) ? hb_parni(3) : 0));
    }
    else
    {
@@ -307,7 +307,7 @@ HB_FUNC( HWG_FI_GETIMAGETYPE )
 HB_FUNC( HWG_FI_2BITMAP )
 {
    FIBITMAP *dib = ( FIBITMAP * ) hb_parnl(1);
-   HDC hDC = GetDC( 0 );
+   HDC hDC = GetDC(0);
 
    pGetbits = ( FREEIMAGE_GETBITS ) s_getFunction(( FARPROC ) pGetbits, "_FreeImage_GetBits@4");
    pGetinfo = ( FREEIMAGE_GETINFO ) s_getFunction(( FARPROC ) pGetinfo, "_FreeImage_GetInfo@4");
@@ -315,7 +315,7 @@ HB_FUNC( HWG_FI_2BITMAP )
 
    hb_retnl(reinterpret_cast<LONG>(CreateDIBitmap(hDC, pGetinfoHead(dib), CBM_INIT, pGetbits(dib), pGetinfo(dib), DIB_RGB_COLORS)));
 
-   ReleaseDC( 0, hDC );
+   ReleaseDC(0, hDC);
 }
 
 /* 24/02/2005 - <maurilio.longo@libero.it>
@@ -378,7 +378,7 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
    bi.biSizeImage = dwBytesPerLine * dwHeight;
 
    // alloc memory block to store our bitmap
-   hDIB = GlobalAlloc( GHND, dwLen );
+   hDIB = GlobalAlloc(GHND, dwLen);
 
    // major bummer if we couldn't get memory block
    if( !hDIB )
@@ -387,7 +387,7 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
    }
 
    // lock memory and get pointer to it
-   lpbi = ( LPBITMAPINFOHEADER ) GlobalLock( hDIB );
+   lpbi = ( LPBITMAPINFOHEADER ) GlobalLock(hDIB);
 
    // use our bitmap info structure to fill in first part of
    // our DIB with the BITMAPINFOHEADER
@@ -395,7 +395,7 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 
    // Since we don't know what the colortable and bits should contain,
    // just leave these blank.  Unlock the DIB and return the HDIB.
-   GlobalUnlock( hDIB );
+   GlobalUnlock(hDIB);
 
    //return handle to the DIB
    return hDIB;
@@ -413,20 +413,20 @@ HB_FUNC( HWG_FI_FI2DIB )
    FIBITMAP *dib = ( FIBITMAP * ) hb_parnl(1);
    HANDLE hdib;
 
-   pGetwidth = ( FREEIMAGE_GETWIDTH ) s_getFunction( ( FARPROC ) pGetwidth, "_FreeImage_GetWidth@4" );
-   pGetheight = ( FREEIMAGE_GETHEIGHT ) s_getFunction( ( FARPROC ) pGetheight, "_FreeImage_GetHeight@4" );
-   pGetBPP = ( FREEIMAGE_GETBPP ) s_getFunction( ( FARPROC ) pGetBPP, "_FreeImage_GetBPP@4" );
-   pGetPitch = ( FREEIMAGE_GETPITCH ) s_getFunction( ( FARPROC ) pGetBPP, "_FreeImage_GetPitch@4" );
-   pGetbits = ( FREEIMAGE_GETBITS ) s_getFunction( ( FARPROC ) pGetbits, "_FreeImage_GetBits@4" );
+   pGetwidth = ( FREEIMAGE_GETWIDTH ) s_getFunction(( FARPROC ) pGetwidth, "_FreeImage_GetWidth@4");
+   pGetheight = ( FREEIMAGE_GETHEIGHT ) s_getFunction(( FARPROC ) pGetheight, "_FreeImage_GetHeight@4");
+   pGetBPP = ( FREEIMAGE_GETBPP ) s_getFunction(( FARPROC ) pGetBPP, "_FreeImage_GetBPP@4");
+   pGetPitch = ( FREEIMAGE_GETPITCH ) s_getFunction(( FARPROC ) pGetBPP, "_FreeImage_GetPitch@4");
+   pGetbits = ( FREEIMAGE_GETBITS ) s_getFunction(( FARPROC ) pGetbits, "_FreeImage_GetBits@4");
 
    hdib = CreateDIB(static_cast<WORD>(pGetwidth(dib)), static_cast<WORD>(pGetheight(dib)), static_cast<WORD>(pGetBPP(dib)));
 
    if( hdib )
    {
-      /* int scan_width = pGetPitch( dib ); unused */
-      LPBITMAPINFO lpbi = ( LPBITMAPINFO ) GlobalLock( hdib );
+      /* int scan_width = pGetPitch(dib); unused */
+      LPBITMAPINFO lpbi = ( LPBITMAPINFO ) GlobalLock(hdib);
       memcpy(( LPBYTE )(( BYTE * ) lpbi) + lpbi->bmiHeader.biSize, pGetbits(dib), lpbi->bmiHeader.biSizeImage);
-      GlobalUnlock( hdib );
+      GlobalUnlock(hdib);
       hb_retnl(reinterpret_cast<LONG>(hdib));
    }
    else
@@ -438,13 +438,13 @@ HB_FUNC( HWG_FI_FI2DIB )
 /* 24/02/2005 - <maurilio.longo@libero.it>
   This comes straight from freeimage fipWinImage::copyToHandle()
 */
-static void SET_FREEIMAGE_MARKER( BITMAPINFOHEADER * bmih, FIBITMAP * dib )
+static void SET_FREEIMAGE_MARKER(BITMAPINFOHEADER * bmih, FIBITMAP * dib)
 {
    pGetImageType = ( FREEIMAGE_GETIMAGETYPE ) s_getFunction(( FARPROC ) pGetImageType, "_FreeImage_GetImageType@4");
 
    // Windows constants goes from 0L to 5L
    // Add 0xFF to avoid conflicts
-   bmih->biCompression = 0xFF + pGetImageType( dib );
+   bmih->biCompression = 0xFF + pGetImageType(dib);
 }
 
 HB_FUNC( HWG_FI_FI2DIBEX )
@@ -472,38 +472,38 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       BITMAPINFOHEADER *bih;
       RGBQUAD *pal;
 
-      dib_size += pGetColorsUsed( _dib ) * sizeof(RGBQUAD);
-      dib_size += pGetPitch( _dib ) * pGetheight( _dib );
+      dib_size += pGetColorsUsed(_dib) * sizeof(RGBQUAD);
+      dib_size += pGetPitch(_dib) * pGetheight(_dib);
 
       // Allocate a DIB
-      hMem = GlobalAlloc( GHND, dib_size );
-      dib = ( BYTE * ) GlobalLock( hMem );
+      hMem = GlobalAlloc(GHND, dib_size);
+      dib = ( BYTE * ) GlobalLock(hMem);
 
       memset(dib, 0, dib_size);
 
       p_dib = ( BYTE * ) dib;
 
       // Copy the BITMAPINFOHEADER
-      bih = pGetinfoHead( _dib );
+      bih = pGetinfoHead(_dib);
       memcpy(p_dib, bih, sizeof(BITMAPINFOHEADER));
 
       if( pGetImageType(_dib) != 1 /*FIT_BITMAP */ )
       {
          // this hack is used to store the bitmap type in the biCompression member of the BITMAPINFOHEADER
-         SET_FREEIMAGE_MARKER( ( BITMAPINFOHEADER * ) p_dib, _dib );
+         SET_FREEIMAGE_MARKER(( BITMAPINFOHEADER * ) p_dib, _dib);
       }
       p_dib += sizeof(BITMAPINFOHEADER);
 
       // Copy the palette
-      pal = pGetPalette( _dib );
+      pal = pGetPalette(_dib);
       memcpy(p_dib, pal, pGetColorsUsed(_dib) * sizeof(RGBQUAD));
-      p_dib += pGetColorsUsed( _dib ) * sizeof(RGBQUAD);
+      p_dib += pGetColorsUsed(_dib) * sizeof(RGBQUAD);
 
       // Copy the bitmap
-      bits = pGetbits( _dib );
+      bits = pGetbits(_dib);
       memcpy(p_dib, bits, pGetPitch(_dib) * pGetheight(_dib));
 
-      GlobalUnlock( hMem );
+      GlobalUnlock(hMem);
    }
 
    hb_retnl(reinterpret_cast<LONG>(hMem));
@@ -536,7 +536,7 @@ HB_FUNC( HWG_FI_DRAW )
    pp[1].y = pp[0].y + nDestHeight;
    // sprintf( cres,"\n %d %d %d %d",pp[0].x,pp[0].y,pp[1].x,pp[1].y );
    // writelog(cres);
-   // l = DPtoLP( hDC, pp, 2 );
+   // l = DPtoLP(hDC, pp, 2);
    // sprintf( cres,"\n %d %d %d %d %d",pp[0].x,pp[0].y,pp[1].x,pp[1].y,l );
    // writelog(cres);
 
@@ -566,12 +566,12 @@ HB_FUNC( HWG_FI_BMP2FI )
 
       if( pAllocate && pGetbits && pGetinfo && pGetheight )
       {
-         HDC hDC = GetDC( nullptr );
+         HDC hDC = GetDC(nullptr);
 
-         GetObject( hbmp, sizeof(BITMAP), ( LPVOID ) & bm );
-         dib = pAllocate( bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0 );
-         GetDIBits( hDC, hbmp, 0, pGetheight( dib ), pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS );
-         ReleaseDC( nullptr, hDC );
+         GetObject(hbmp, sizeof(BITMAP), ( LPVOID ) & bm);
+         dib = pAllocate(bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0);
+         GetDIBits(hDC, hbmp, 0, pGetheight(dib), pGetbits(dib), pGetinfo(dib), DIB_RGB_COLORS);
+         ReleaseDC(nullptr, hDC);
          hb_retnl(reinterpret_cast<LONG>(dib));
          return;
       }
@@ -580,12 +580,12 @@ HB_FUNC( HWG_FI_BMP2FI )
 }
 
 /* Next three from EZTwain.c ( http://www.twain.org ) */
-static int ColorCount( int bpp )
+static int ColorCount(int bpp)
 {
    return 0xFFF & ( 1 << bpp );
 }
 
-static int BmiColorCount( LPBITMAPINFOHEADER lpbi )
+static int BmiColorCount(LPBITMAPINFOHEADER lpbi)
 {
    if( lpbi->biSize == sizeof(BITMAPCOREHEADER) )
    {
@@ -594,7 +594,7 @@ static int BmiColorCount( LPBITMAPINFOHEADER lpbi )
    }
    else if( lpbi->biClrUsed == 0 )
    {
-      return ColorCount( lpbi->biBitCount );
+      return ColorCount(lpbi->biBitCount);
    }
    else
    {
@@ -602,15 +602,15 @@ static int BmiColorCount( LPBITMAPINFOHEADER lpbi )
    }
 }                               // BmiColorCount
 
-static int DibNumColors( VOID FAR * pv )
+static int DibNumColors(VOID FAR * pv)
 {
-   return BmiColorCount( ( LPBITMAPINFOHEADER ) pv );
+   return BmiColorCount(( LPBITMAPINFOHEADER ) pv);
 }                               // DibNumColors
 
-static LPBYTE DibBits( LPBITMAPINFOHEADER lpdib )
+static LPBYTE DibBits(LPBITMAPINFOHEADER lpdib)
 // Given a pointer to a locked DIB, return a pointer to the actual bits (pixels)
 {
-   DWORD dwColorTableSize = static_cast<DWORD>( DibNumColors( lpdib ) * sizeof(RGBQUAD) );
+   DWORD dwColorTableSize = static_cast<DWORD>( DibNumColors(lpdib) * sizeof(RGBQUAD) );
    LPBYTE lpBits = ( LPBYTE ) lpdib + lpdib->biSize + dwColorTableSize;
 
    return lpBits;
@@ -627,7 +627,7 @@ HB_FUNC( HWG_FI_DIB2FI )
    if( hdib )
    {
       FIBITMAP *dib;
-      LPBITMAPINFOHEADER lpbi = ( LPBITMAPINFOHEADER ) GlobalLock( hdib );
+      LPBITMAPINFOHEADER lpbi = ( LPBITMAPINFOHEADER ) GlobalLock(hdib);
 
       pConvertFromRawBits = ( FREEIMAGE_CONVERTFROMRAWBITS ) s_getFunction(( FARPROC ) pConvertFromRawBits, "_FreeImage_ConvertFromRawBits@36");
       pGetPalette = ( FREEIMAGE_GETPALETTE ) s_getFunction(( FARPROC ) pGetPalette, "_FreeImage_GetPalette@4");
@@ -644,10 +644,10 @@ HB_FUNC( HWG_FI_DIB2FI )
          if( pGetBPP(dib) <= 8 )
          {
             // Convert palette entries
-            RGBQUAD *pal = pGetPalette( dib );
+            RGBQUAD *pal = pGetPalette(dib);
             RGBQUAD *dibpal = ( RGBQUAD * ) ( ( ( LPBYTE ) lpbi ) + lpbi->biSize );
 
-            for( i = 0; i < BmiColorCount( lpbi ); i++ )
+            for( i = 0; i < BmiColorCount(lpbi); i++ )
             {
                pal[i].rgbRed = dibpal[i].rgbRed;
                pal[i].rgbGreen = dibpal[i].rgbGreen;
@@ -656,14 +656,14 @@ HB_FUNC( HWG_FI_DIB2FI )
             }
          }
 
-         GlobalUnlock( hdib );
+         GlobalUnlock(hdib);
          hb_retnl(reinterpret_cast<LONG>(dib));
          return;
 
       }
       else
       {
-         GlobalUnlock( hdib );
+         GlobalUnlock(hdib);
       }
    }
    hb_retnl(0);
@@ -688,12 +688,12 @@ HB_FUNC( HWG_FI_REMOVECHANNEL )
    pSetChannel = ( FREEIMAGE_SETCHANNEL ) s_getFunction(( FARPROC ) pSetChannel, "_FreeImage_SetChannel@12");
    pUnload = ( FREEIMAGE_UNLOAD ) s_getFunction(( FARPROC ) pUnload, "_FreeImage_Unload@4");
 
-   dib8 = pAllocate( pGetwidth( dib ), pGetheight( dib ), 8, 0, 0, 0 );
+   dib8 = pAllocate(pGetwidth(dib), pGetheight(dib), 8, 0, 0, 0);
 
    if( dib8 )
    {
       hb_retl(pSetChannel(dib, dib8, ( FREE_IMAGE_COLOR_CHANNEL ) hb_parni(2)));
-      pUnload( dib8 );
+      pUnload(dib8);
    }
    else
    {
@@ -705,10 +705,10 @@ HB_FUNC( HWG_FI_REMOVECHANNEL )
  * Set of functions for loading the image from memory
  */
 
-unsigned DLL_CALLCONV _ReadProc( void *buffer, unsigned size, unsigned count, fi_handle handle )
+unsigned DLL_CALLCONV _ReadProc(void *buffer, unsigned size, unsigned count, fi_handle handle)
 {
    BYTE *tmp = ( BYTE * ) buffer;
-   HB_SYMBOL_UNUSED( handle );
+   HB_SYMBOL_UNUSED(handle);
 
    for( unsigned u = 0; u < count; u++ )
    {
@@ -719,26 +719,26 @@ unsigned DLL_CALLCONV _ReadProc( void *buffer, unsigned size, unsigned count, fi
    return count;
 }
 
-unsigned DLL_CALLCONV _WriteProc( void *buffer, unsigned size, unsigned count, fi_handle handle )
+unsigned DLL_CALLCONV _WriteProc(void *buffer, unsigned size, unsigned count, fi_handle handle)
 {
-   HB_SYMBOL_UNUSED( buffer );
-   HB_SYMBOL_UNUSED( count );
-   HB_SYMBOL_UNUSED( handle );
+   HB_SYMBOL_UNUSED(buffer);
+   HB_SYMBOL_UNUSED(count);
+   HB_SYMBOL_UNUSED(handle);
 
    return size;
 }
 
-int DLL_CALLCONV _SeekProc( fi_handle handle, long offset, int origin )
+int DLL_CALLCONV _SeekProc(fi_handle handle, long offset, int origin)
 {
-   /* assert( origin != SEEK_END ); */
+   /* assert(origin != SEEK_END); */
 
    g_load_address = ( ( origin == SEEK_SET ) ? ( BYTE * ) handle : ( BYTE * ) g_load_address ) + offset;
    return 0;
 }
 
-long DLL_CALLCONV _TellProc( fi_handle handle )
+long DLL_CALLCONV _TellProc(fi_handle handle)
 {
-   /* assert( static_cast<long int>(handle) >= static_cast<long int>(g_load_address) ); */
+   /* assert(static_cast<long int>(handle) >= static_cast<long int>(g_load_address)); */
 
    return (reinterpret_cast<long int>(g_load_address) - reinterpret_cast<long int>(handle));
 }

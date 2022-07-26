@@ -36,7 +36,7 @@ typedef struct tagSortInfo
    BOOL nAscendingSortOrder;
 } SortInfo, *PSORTINFO;
 
-LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pColor );
+LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pColor);
 
 HB_FUNC( HWG_LISTVIEW_CREATE )
 {
@@ -54,10 +54,10 @@ HB_FUNC( HWG_LISTVIEW_CREATE )
       style = style | LVS_NOSCROLL;
    }
 
-   handle = CreateWindowEx( WS_EX_CLIENTEDGE, WC_LISTVIEW, nullptr,
+   handle = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, nullptr,
          style,
          hwg_par_int(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6),
-         hwnd, reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle( nullptr ), nullptr );
+         hwnd, reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);
 
    HB_RETHANDLE(handle);
 }
@@ -73,12 +73,12 @@ HB_FUNC( HWG_LISTVIEW_INIT )
 
    SendMessage(hwg_par_HWND(1), LVM_SETEXTENDEDLISTVIEWSTYLE, 0, LVS_EX_FULLROWSELECT | LVS_EX_HEADERDRAGDROP | LVS_EX_FLATSB | style);
 
-   ListView_SetItemCount( hwg_par_HWND(1), hb_parnl(2) );
+   ListView_SetItemCount(hwg_par_HWND(1), hb_parnl(2));
 }
 
 HB_FUNC( HWG_LISTVIEW_SETITEMCOUNT )
 {
-   ListView_SetItemCount( hwg_par_HWND(1), hb_parni(2) );
+   ListView_SetItemCount(hwg_par_HWND(1), hb_parni(2));
 }
 
 HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
@@ -89,7 +89,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
 
    COL.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT | LVCF_SUBITEM;
    COL.cx = hb_parni(3);
-   COL.pszText = ( LPTSTR ) HB_PARSTRDEF( 4, &hText, nullptr );
+   COL.pszText = ( LPTSTR ) HB_PARSTRDEF(4, &hText, nullptr);
    COL.iSubItem = hb_parni(2) - 1;
    COL.fmt = hb_parni(5);
    if( iImage > 0 )
@@ -102,11 +102,9 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
       COL.iImage = -1;
    }
 
-   ListView_InsertColumn( hwg_par_HWND(1), hb_parni(2) - 1, &COL );
+   ListView_InsertColumn(hwg_par_HWND(1), hb_parni(2) - 1, &COL);
 
-   RedrawWindow( hwg_par_HWND(1), nullptr, nullptr,
-         RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
-         RDW_UPDATENOW );
+   RedrawWindow(hwg_par_HWND(1), nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
    hb_strfree(hText);
 }
 
@@ -144,8 +142,8 @@ HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
    int iSubItem = pDispInfo->item.iSubItem;
 
    hb_reta(2);
-   hb_storvni( iItem + 1, -1, 1 );
-   hb_storvni( iSubItem + 1, -1, 2 );
+   hb_storvni(iItem + 1, -1, 1);
+   hb_storvni(iSubItem + 1, -1, 2);
 }
 
 HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
@@ -210,19 +208,19 @@ HB_FUNC( HWG_LISTVIEW_HITTEST )
 
    lvhti.pt = point;
 
-   ListView_SubItemHitTest( hwg_par_HWND(1), &lvhti );
+   ListView_SubItemHitTest(hwg_par_HWND(1), &lvhti);
 
    if( lvhti.flags & LVHT_ONITEM )
    {
       hb_reta(2);
-      hb_storvni( lvhti.iItem + 1, -1, 1 );
-      hb_storvni( lvhti.iSubItem + 1, -1, 2 );
+      hb_storvni(lvhti.iItem + 1, -1, 1);
+      hb_storvni(lvhti.iSubItem + 1, -1, 2);
    }
    else
    {
       hb_reta(2);
-      hb_storvni( 0, -1, 1 );
-      hb_storvni( 0, -1, 2 );
+      hb_storvni(0, -1, 1);
+      hb_storvni(0, -1, 2);
    }
 }
 
@@ -236,8 +234,8 @@ HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
    SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p, ( LPARAM ) LVSIL_NORMAL);
    SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p, ( LPARAM ) LVSIL_SMALL);
 #else
-   ListView_SetImageList( hList, static_cast<HIMAGELIST>(p), LVSIL_NORMAL );
-   ListView_SetImageList( hList, static_cast<HIMAGELIST>(p), LVSIL_SMALL );
+   ListView_SetImageList(hList, static_cast<HIMAGELIST>(p), LVSIL_NORMAL);
+   ListView_SetImageList(hList, static_cast<HIMAGELIST>(p), LVSIL_SMALL);
 #endif
 }
 
@@ -252,7 +250,7 @@ HB_FUNC( HWG_LISTVIEW_SETVIEW )
    if( (dwStyle & LVS_TYPEMASK) != dwView )
    {
       SetWindowLongPtr(hWndListView, GWL_STYLE, (dwStyle & ~LVS_TYPEMASK) | dwView);
-      //  RedrawWindow( hwg_par_HWND(1), nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW );
+      //  RedrawWindow(hwg_par_HWND(1), nullptr , nullptr , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
    }
 }
 
@@ -381,7 +379,7 @@ HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
    hb_retl(true);
 }
 
-LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
+LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
 {
    LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
    PHB_ITEM pColor;
@@ -404,7 +402,7 @@ LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
          COLORREF ColorText;
          COLORREF ColorBack;
 
-         pColor = hb_arrayGetItemPtr( pArray, lplvcd->iSubItem + 1 );
+         pColor = hb_arrayGetItemPtr(pArray, lplvcd->iSubItem + 1);
          ColorText = static_cast<COLORREF>(hb_arrayGetNL(pColor, 1));
          ColorBack = static_cast<COLORREF>(hb_arrayGetNL(pColor, 2));
          lplvcd->clrText = ColorText;
@@ -420,7 +418,7 @@ HB_FUNC( HWG_PROCESSCUSTU )
 {
    /* HWND hWnd = hwg_par_HWND(1); */
    LPARAM lParam = ( LPARAM ) HB_PARHANDLE(2);
-   PHB_ITEM pColor = hb_param( 3, HB_IT_ARRAY );
+   PHB_ITEM pColor = hb_param(3, HB_IT_ARRAY);
 
    hb_retnl(static_cast<LONG>(ProcessCustomDraw(lParam, pColor)));
 }
@@ -439,19 +437,19 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    Item.iItem = Index;
    Item.iSubItem = Index2;
    Item.pszText = Buffer;
-   Item.cchTextMax = HB_SIZEOFARRAY( Buffer );
+   Item.cchTextMax = HB_SIZEOFARRAY(Buffer);
 
    if( ListView_GetItem(hList, &Item) )
    {
-      HB_RETSTR( Buffer );
+      HB_RETSTR(Buffer);
    }
    else
    {
-      hb_retc( nullptr );
-   }   
+      hb_retc(nullptr);
+   }
 }
 
-int CALLBACK CompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort )
+int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
    PSORTINFO pSortInfo = ( PSORTINFO ) lParamSort;
    //int nResult      = 0;
@@ -462,17 +460,15 @@ int CALLBACK CompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort )
    TCHAR szB[256] = { 0 };
    int rc;
 
-   ListView_GetItemText( pListControl, ( INT ) lParam1, nColumnNo, szA,
-         HB_SIZEOFARRAY( szA ) );
-   ListView_GetItemText( pListControl, ( INT ) lParam2, nColumnNo, szB,
-         HB_SIZEOFARRAY( szB ) );
+   ListView_GetItemText(pListControl, ( INT ) lParam1, nColumnNo, szA, HB_SIZEOFARRAY(szA));
+   ListView_GetItemText(pListControl, ( INT ) lParam2, nColumnNo, szB, HB_SIZEOFARRAY(szB));
 
-   rc = lstrcmp( szA, szB );
+   rc = lstrcmp(szA, szB);
    if( !nAscendingSortOrder )
    {
       rc = -rc;
    }
-   
+
    return rc;
 }
 
@@ -495,7 +491,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFONEW )
       p->nColumnNo = -1;
       p->nAscendingSortOrder = FALSE;
    }
-   hb_retptr( ( void * ) p );
+   hb_retptr(( void * ) p);
 }
 
 HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
@@ -525,5 +521,5 @@ HB_FUNC( HWG_LISTVIEWSORT )
 // p->nColumnNo = phdNotify->iItem;
    p->nColumnNo = phdNotify->iSubItem;
    p->pListControl = hwg_par_HWND(1);
-   ListView_SortItemsEx( hwg_par_HWND(1), CompareFunc, p );
+   ListView_SortItemsEx(hwg_par_HWND(1), CompareFunc, p);
 }

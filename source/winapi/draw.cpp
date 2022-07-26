@@ -17,11 +17,11 @@
 
 #include "incomp_pointer.h"
 
-#if defined( __BORLANDC__ ) && __BORLANDC__ == 0x0550
+#if defined(__BORLANDC__) && __BORLANDC__ == 0x0550
 #ifdef __cplusplus
 extern "C"
 {
-   STDAPI OleLoadPicture( LPSTREAM, LONG, BOOL, REFIID, PVOID * );
+   STDAPI OleLoadPicture(LPSTREAM, LONG, BOOL, REFIID, PVOID *);
 }
 #else
 //STDAPI OleLoadPicture(LPSTREAM,LONG,BOOL,REFIID,PVOID*);
@@ -68,14 +68,14 @@ void TransparentBmp(HDC hDC, int x, int y, int nWidthDest, int nHeightDest, HDC 
    TransparentBlt(hDC, x, y, nWidthDest, nHeightDest, dcImage, 0, 0, bmWidth, bmHeight, trColor);
 }
 
-BOOL Array2Rect( PHB_ITEM aRect, RECT * rc )
+BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)
 {
    if( HB_IS_ARRAY(aRect) && hb_arrayLen(aRect) == 4 )
    {
-      rc->left = hb_arrayGetNL( aRect, 1 );
-      rc->top = hb_arrayGetNL( aRect, 2 );
-      rc->right = hb_arrayGetNL( aRect, 3 );
-      rc->bottom = hb_arrayGetNL( aRect, 4 );
+      rc->left = hb_arrayGetNL(aRect, 1);
+      rc->top = hb_arrayGetNL(aRect, 2);
+      rc->right = hb_arrayGetNL(aRect, 3);
+      rc->bottom = hb_arrayGetNL(aRect, 4);
       return TRUE;
    }
    else
@@ -85,16 +85,16 @@ BOOL Array2Rect( PHB_ITEM aRect, RECT * rc )
    return FALSE;
 }
 
-PHB_ITEM Rect2Array( RECT * rc )
+PHB_ITEM Rect2Array(RECT * rc)
 {
    PHB_ITEM aRect = hb_itemArrayNew(4);
-   PHB_ITEM element = hb_itemNew( nullptr );
+   PHB_ITEM element = hb_itemNew(nullptr);
 
-   hb_arraySet( aRect, 1, hb_itemPutNL( element, rc->left ) );
-   hb_arraySet( aRect, 2, hb_itemPutNL( element, rc->top ) );
-   hb_arraySet( aRect, 3, hb_itemPutNL( element, rc->right ) );
-   hb_arraySet( aRect, 4, hb_itemPutNL( element, rc->bottom ) );
-   hb_itemRelease( element );
+   hb_arraySet(aRect, 1, hb_itemPutNL(element, rc->left));
+   hb_arraySet(aRect, 2, hb_itemPutNL(element, rc->top));
+   hb_arraySet(aRect, 3, hb_itemPutNL(element, rc->right));
+   hb_arraySet(aRect, 4, hb_itemPutNL(element, rc->bottom));
+   hb_itemRelease(element);
    return aRect;
 }
 
@@ -102,10 +102,10 @@ HB_FUNC( HWG_GETPPSRECT )
 {
    PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(1);
 
-   PHB_ITEM aMetr = Rect2Array( &pps->rcPaint );
+   PHB_ITEM aMetr = Rect2Array(&pps->rcPaint);
 
-   hb_itemReturn( aMetr );
-   hb_itemRelease( aMetr );
+   hb_itemReturn(aMetr);
+   hb_itemRelease(aMetr);
 }
 
 HB_FUNC( HWG_GETPPSERASE )
@@ -663,7 +663,7 @@ HB_FUNC( HWG_GETICONSIZE )
 }
 
 /*
-  hwg_Openbitmap( cBitmap, hDC )
+  hwg_Openbitmap(cBitmap, hDC)
   cBitmap : File name of bitmap
   hDC     : Printer device handle
 */
@@ -769,7 +769,7 @@ HB_FUNC( HWG_OPENBITMAP )
 }
 
 /*
- *  hwg_SaveBitMap( cfilename , hBitmap )
+ *  hwg_SaveBitMap(cfilename , hBitmap)
  */
 HB_FUNC( HWG_SAVEBITMAP )
 {
@@ -1004,26 +1004,25 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    pOldBitmapImage = static_cast<HBITMAP>(SelectObject(dcImage, hBitmap));
    GetObject(hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap);
    // Create the mask bitmap
-   bitmapgray = CreateBitmap( bitmap.bmWidth, bitmap.bmHeight, 1, 1, nullptr );
+   bitmapgray = CreateBitmap(bitmap.bmWidth, bitmap.bmHeight, 1, 1, nullptr);
    // Select the mask bitmap into the appropriate dc
    pOldbitmapgray = static_cast<HBITMAP>(SelectObject(dcTrans, bitmapgray));
    // Build mask based on transparent colour
-   SetBkColor( dcImage, RGB( 255, 255, 255 ) );
-   BitBlt( dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
-         SRCCOPY );
+   SetBkColor(dcImage, RGB(255, 255, 255));
+   BitBlt(dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCCOPY);
    // Do the work - True Mask method - cool if not actual display
    BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCINVERT);
    BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcTrans, 0, 0, SRCAND);
    BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCINVERT);
    // Restore settings
-   SelectObject( dcImage, pOldBitmapImage );
-   SelectObject( dcTrans, pOldbitmapgray );
+   SelectObject(dcImage, pOldBitmapImage);
+   SelectObject(dcTrans, pOldbitmapgray);
    SetBkColor(hDC, GetPixel(hDC, 0, 0));
    SetTextColor(hDC, 0);
 
-   DeleteObject( bitmapgray );
-   DeleteDC( dcImage );
-   DeleteDC( dcTrans );
+   DeleteObject(bitmapgray);
+   DeleteDC(dcImage);
+   DeleteDC(dcTrans);
 }
 
 #include <olectl.h>
@@ -1044,7 +1043,7 @@ HB_FUNC( HWG_OPENIMAGE )
    if( bString )
    {
       iFileSize = hb_parclen(1);
-      hG = GlobalAlloc( GPTR, iFileSize );
+      hG = GlobalAlloc(GPTR, iFileSize);
       if( !hG )
       {
          HB_RETHANDLE(0);
@@ -1054,25 +1053,25 @@ HB_FUNC( HWG_OPENIMAGE )
    }
    else
    {
-      fp = fopen( cFileName, "rb" );
+      fp = fopen(cFileName, "rb");
       if( !fp )
       {
          HB_RETHANDLE(0);
          return;
       }
 
-      fseek( fp, 0, SEEK_END );
-      iFileSize = ftell( fp );
-      hG = GlobalAlloc( GPTR, iFileSize );
+      fseek(fp, 0, SEEK_END);
+      iFileSize = ftell(fp);
+      hG = GlobalAlloc(GPTR, iFileSize);
       if( !hG )
       {
-         fclose( fp );
+         fclose(fp);
          HB_RETHANDLE(0);
          return;
       }
-      fseek( fp, 0, SEEK_SET );
-      fread( ( void * ) hG, 1, iFileSize, fp );
-      fclose( fp );
+      fseek(fp, 0, SEEK_SET);
+      fread(( void * ) hG, 1, iFileSize, fp);
+      fclose(fp);
    }
 
    CreateStreamOnHGlobal(hG, 0, &pStream);
@@ -1085,12 +1084,11 @@ HB_FUNC( HWG_OPENIMAGE )
    }
 
 #if defined(__cplusplus)
-   OleLoadPicture( pStream, 0, 0, IID_IPicture, ( void ** ) &pPic );
+   OleLoadPicture(pStream, 0, 0, IID_IPicture, ( void ** ) &pPic);
    pStream->Release();
 #else
-   OleLoadPicture( pStream, 0, 0, &IID_IPicture,
-         ( void ** ) ( void * ) &pPic );
-   pStream->lpVtbl->Release( pStream );
+   OleLoadPicture(pStream, 0, 0, &IID_IPicture, ( void ** ) ( void * ) &pPic);
+   pStream->lpVtbl->Release(pStream);
 #endif
 
    GlobalFree(hG);
@@ -1105,9 +1103,9 @@ HB_FUNC( HWG_OPENIMAGE )
    {
       HBITMAP hBitmap = 0;
 #if defined(__cplusplus)
-      pPic->get_Handle( ( OLE_HANDLE * ) & hBitmap );
+      pPic->get_Handle(( OLE_HANDLE * ) &hBitmap);
 #else
-      pPic->lpVtbl->get_Handle( pPic, ( OLE_HANDLE * ) ( void * ) &hBitmap );
+      pPic->lpVtbl->get_Handle(pPic, ( OLE_HANDLE * ) ( void * ) &hBitmap);
 #endif
 
       HB_RETHANDLE(CopyImage(hBitmap, IMAGE_BITMAP, 0, 0, LR_COPYRETURNORG));
@@ -1116,9 +1114,9 @@ HB_FUNC( HWG_OPENIMAGE )
    {
       HICON hIcon = 0;
 #if defined(__cplusplus)
-      pPic->get_Handle( ( OLE_HANDLE * ) & hIcon );
+      pPic->get_Handle(( OLE_HANDLE * ) &hIcon);
 #else
-      pPic->lpVtbl->get_Handle( pPic, ( OLE_HANDLE * ) ( void * ) &hIcon );
+      pPic->lpVtbl->get_Handle(pPic, ( OLE_HANDLE * ) ( void * ) &hIcon);
 #endif
 
       HB_RETHANDLE(CopyImage(hIcon, IMAGE_ICON, 0, 0, 0));
@@ -1127,9 +1125,9 @@ HB_FUNC( HWG_OPENIMAGE )
    {
       HCURSOR hCur = 0;
 #if defined(__cplusplus)
-      pPic->get_Handle( ( OLE_HANDLE * ) & hCur );
+      pPic->get_Handle(( OLE_HANDLE * ) &hCur);
 #else
-      pPic->lpVtbl->get_Handle( pPic, ( OLE_HANDLE * ) ( void * ) &hCur );
+      pPic->lpVtbl->get_Handle(pPic, ( OLE_HANDLE * ) ( void * ) &hCur);
 #endif
 
       HB_RETHANDLE(CopyImage(hCur, IMAGE_CURSOR, 0, 0, 0));
@@ -1138,7 +1136,7 @@ HB_FUNC( HWG_OPENIMAGE )
 #if defined(__cplusplus)
    pPic->Release();
 #else
-   pPic->lpVtbl->Release( pPic );
+   pPic->lpVtbl->Release(pPic);
 #endif
 }
 
@@ -1171,28 +1169,28 @@ HB_FUNC( HWG_SETWINDOWORGEX )
 {
    HDC hDC = hwg_par_HDC(1);
    SetWindowOrgEx(hDC, hb_parni(2), hb_parni(3), nullptr);
-   hb_stornl( 0, 4 );
+   hb_stornl(0, 4);
 }
 
 HB_FUNC( HWG_SETWINDOWEXTEX )
 {
    HDC hDC = hwg_par_HDC(1);
    SetWindowExtEx(hDC, hb_parni(2), hb_parni(3), nullptr);
-   hb_stornl( 0, 4 );
+   hb_stornl(0, 4);
 }
 
 HB_FUNC( HWG_SETVIEWPORTORGEX )
 {
    HDC hDC = hwg_par_HDC(1);
    SetViewportOrgEx(hDC, hb_parni(2), hb_parni(3), nullptr);
-   hb_stornl( 0, 4 );
+   hb_stornl(0, 4);
 }
 
 HB_FUNC( HWG_SETVIEWPORTEXTEX )
 {
    HDC hDC = hwg_par_HDC(1);
    SetViewportExtEx(hDC, hb_parni(2), hb_parni(3), nullptr);
-   hb_stornl( 0, 4 );
+   hb_stornl(0, 4);
 }
 
 HB_FUNC( HWG_SETARCDIRECTION )
@@ -1227,10 +1225,10 @@ HB_FUNC( HWG_INFLATERECT )
    }
    hb_retl(InflateRect(&pRect, x, y));
 
-   hb_storvni( pRect.left, 1, 1 );
-   hb_storvni( pRect.top, 1, 2 );
-   hb_storvni( pRect.right, 1, 3 );
-   hb_storvni( pRect.bottom, 1, 4 );
+   hb_storvni(pRect.left, 1, 1);
+   hb_storvni(pRect.top, 1, 2);
+   hb_storvni(pRect.right, 1, 3);
+   hb_storvni(pRect.bottom, 1, 4);
 }
 
 HB_FUNC( HWG_FRAMERECT )
@@ -1272,10 +1270,10 @@ HB_FUNC( HWG_OFFSETRECT )
    }
    
    hb_retl(OffsetRect(&pRect, x, y));
-   hb_storvni( pRect.left, 1, 1 );
-   hb_storvni( pRect.top, 1, 2 );
-   hb_storvni( pRect.right, 1, 3 );
-   hb_storvni( pRect.bottom, 1, 4 );
+   hb_storvni(pRect.left, 1, 1);
+   hb_storvni(pRect.top, 1, 2);
+   hb_storvni(pRect.right, 1, 3);
+   hb_storvni(pRect.bottom, 1, 4);
 }
 
 HB_FUNC( HWG_DRAWFOCUSRECT )
@@ -1289,12 +1287,12 @@ HB_FUNC( HWG_DRAWFOCUSRECT )
    hb_retl(DrawFocusRect(hc, &pRect));
 }
 
-BOOL Array2Point( PHB_ITEM aPoint, POINT * pt )
+BOOL Array2Point(PHB_ITEM aPoint, POINT * pt)
 {
    if( HB_IS_ARRAY(aPoint) && hb_arrayLen(aPoint) == 2 )
    {
-      pt->x = hb_arrayGetNL( aPoint, 1 );
-      pt->y = hb_arrayGetNL( aPoint, 2 );
+      pt->x = hb_arrayGetNL(aPoint, 1);
+      pt->y = hb_arrayGetNL(aPoint, 2);
       return TRUE;
    }
    return FALSE;
@@ -1316,27 +1314,27 @@ HB_FUNC( HWG_GETMEASUREITEMINFO )
    PHB_ITEM aMetr = hb_itemArrayNew(5);
    PHB_ITEM temp;
 
-   temp = hb_itemPutNL( nullptr, lpdis->CtlType );
-   hb_itemArrayPut( aMetr, 1, temp );
-   hb_itemRelease( temp );
+   temp = hb_itemPutNL(nullptr, lpdis->CtlType);
+   hb_itemArrayPut(aMetr, 1, temp);
+   hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( nullptr, lpdis->CtlID );
-   hb_itemArrayPut( aMetr, 2, temp );
-   hb_itemRelease( temp );
+   temp = hb_itemPutNL(nullptr, lpdis->CtlID);
+   hb_itemArrayPut(aMetr, 2, temp);
+   hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( nullptr, lpdis->itemID );
-   hb_itemArrayPut( aMetr, 3, temp );
-   hb_itemRelease( temp );
+   temp = hb_itemPutNL(nullptr, lpdis->itemID);
+   hb_itemArrayPut(aMetr, 3, temp);
+   hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( nullptr, lpdis->itemWidth );
-   hb_itemArrayPut( aMetr, 4, temp );
-   hb_itemRelease( temp );
+   temp = hb_itemPutNL(nullptr, lpdis->itemWidth);
+   hb_itemArrayPut(aMetr, 4, temp);
+   hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( nullptr, lpdis->itemHeight );
-   hb_itemArrayPut( aMetr, 5, temp );
-   hb_itemRelease( temp );
-   hb_itemReturn( aMetr );
-   hb_itemRelease( aMetr );
+   temp = hb_itemPutNL(nullptr, lpdis->itemHeight);
+   hb_itemArrayPut(aMetr, 5, temp);
+   hb_itemRelease(temp);
+   hb_itemReturn(aMetr);
+   hb_itemRelease(aMetr);
 }
 
 HB_FUNC( HWG_COPYRECT )
@@ -1357,7 +1355,7 @@ HB_FUNC( HWG_GETWINDOWDC )
 HB_FUNC( HWG_MODIFYSTYLE )
 {
    HWND hWnd = hwg_par_HWND(1);
-   DWORD dwStyle = GetWindowLongPtr( static_cast<HWND>(hWnd), GWL_STYLE );
+   DWORD dwStyle = GetWindowLongPtr(static_cast<HWND>(hWnd), GWL_STYLE);
    DWORD a = hb_parnl(2);
    DWORD b = hb_parnl(3);
    DWORD dwNewStyle = ( dwStyle & ~a ) | b;
@@ -1396,17 +1394,17 @@ HB_FUNC( HWG_DRAWGRADIENT )
    HDC hDC = hwg_par_HDC(1);
    int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
    int type = (HB_ISNUM(6)) ? hb_parni(6) : 1;
-   PHB_ITEM pArrColor = hb_param( 7, HB_IT_ARRAY );
+   PHB_ITEM pArrColor = hb_param(7, HB_IT_ARRAY);
    long int color;
    int red[GRADIENT_MAX_COLORS], green[GRADIENT_MAX_COLORS], blue[GRADIENT_MAX_COLORS], index;
    int cur_red, cur_green, cur_blue, section_len;
    double red_step, green_step, blue_step;
-   PHB_ITEM pArrStop = hb_param( 8, HB_IT_ARRAY );
+   PHB_ITEM pArrStop = hb_param(8, HB_IT_ARRAY);
    double stop;
    int stop_x[GRADIENT_MAX_COLORS], stop_y[GRADIENT_MAX_COLORS], coord_stop;
    int isH = 0, isV = 0, isD = 0, is_5_6 = 0, isR = 0;
    int x_center = 0, y_center = 0, gr_radius = 0;
-   PHB_ITEM pArrRadius = hb_param( 9, HB_IT_ARRAY );
+   PHB_ITEM pArrRadius = hb_param(9, HB_IT_ARRAY);
    int radius[4];
    double angle, angle_step, coord_x, coord_y, min_delta, delta;
    int user_colors_num, colors_num, user_stops_num, user_radiuses_num, i, j, k;
@@ -1422,7 +1420,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
    int convert[4][2] = { {-1,1}, {1,1}, {1,-1}, {-1,-1} };
    long x, y;
    
-   if( !pArrColor || ( user_colors_num = hb_arrayLen( pArrColor ) ) == 0 )
+   if( !pArrColor || ( user_colors_num = hb_arrayLen(pArrColor) ) == 0 )
    {
       return;
    }
@@ -1430,7 +1428,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
    if( user_colors_num >= 2 )
    {
       colors_num = ( user_colors_num <= GRADIENT_MAX_COLORS ) ? user_colors_num : GRADIENT_MAX_COLORS;
-      user_stops_num = ( pArrStop ) ? hb_arrayLen( pArrStop ) : 0;
+      user_stops_num = ( pArrStop ) ? hb_arrayLen(pArrStop) : 0;
 
       type = ( type >= 1 && type <= 9 ) ? type : 1;
       if( type == 1 || type == 2 )
@@ -1456,10 +1454,10 @@ HB_FUNC( HWG_DRAWGRADIENT )
       // calculate stops and colors for our gradient
       for( i = 0; i < colors_num; i++ )
       {
-         stop = ( i < user_stops_num ) ? hb_arrayGetND( pArrStop, i+1 ) : 1. / (colors_num-1) * i;
+         stop = ( i < user_stops_num ) ? hb_arrayGetND(pArrStop, i+1) : 1. / (colors_num-1) * i;
          if( isV )
          {
-            coord_stop = floor( stop * (y2-y1+1) + 0.5 );
+            coord_stop = floor(stop * (y2 - y1 + 1) + 0.5);
             if( type == 1 )
             {
                stop_y[i] = y1 + coord_stop;
@@ -1471,7 +1469,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
          }
          if( isH )
          {
-            coord_stop = floor( stop * (x2 - x1 + 1) + 0.5 );
+            coord_stop = floor(stop * (x2 - x1 + 1) + 0.5);
             if( type == 3 )
             {
                stop_x[i] = x1 + coord_stop;
@@ -1483,7 +1481,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
          }
          if( isD )
          {
-            coord_stop = floor( stop * 2*(x2-x1+1) + 0.5 );
+            coord_stop = floor(stop * 2 * (x2 - x1 + 1) + 0.5);
             if( type == 5 || type == 7 )
             {
                stop_x[i] = 2*x1-x2-1 + coord_stop;
@@ -1495,10 +1493,10 @@ HB_FUNC( HWG_DRAWGRADIENT )
          }
          if( isR )
          {
-            stop_x[i] = floor( stop * gr_radius + 0.5 );
+            stop_x[i] = floor(stop * gr_radius + 0.5);
          }
 
-         color = hb_arrayGetNL( pArrColor, i+1 );
+         color = hb_arrayGetNL(pArrColor, i+1);
          index = ( type == 2 || type == 4 || type == 6 || type == 8 ) ? colors_num-1-i : i;
          red[ index ]   = color % 256;
          green[ index ] = color / 256 % 256;
@@ -1550,9 +1548,9 @@ HB_FUNC( HWG_DRAWGRADIENT )
          // shifts of edges
          if( (isV && stop_y[0] > y1) || (isH && stop_x[0] > x1) )
          {
-            hPen = CreatePen( PS_SOLID, 1, RGB(red[0], green[0], blue[0]) );
+            hPen = CreatePen(PS_SOLID, 1, RGB(red[0], green[0], blue[0]));
             hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
-            hBrush = CreateSolidBrush( RGB(red[0], green[0], blue[0]) );
+            hBrush = CreateSolidBrush(RGB(red[0], green[0], blue[0]));
             SelectObject(hDC_mem, hBrush);
             if( isV )
             {
@@ -1569,9 +1567,9 @@ HB_FUNC( HWG_DRAWGRADIENT )
          }
          if( ( isV && stop_y[colors_num-1] < y2 + 1 ) || ( isH && stop_x[colors_num-1] < x2 + 1 ) )
          {
-            hPen = CreatePen( PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
+            hPen = CreatePen(PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]));
             hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
-            hBrush = CreateSolidBrush( RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
+            hBrush = CreateSolidBrush(RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]));
             SelectObject(hDC_mem, hBrush);
             if( isV )
             {
@@ -1608,10 +1606,10 @@ HB_FUNC( HWG_DRAWGRADIENT )
             blue_step = (double)( blue[i] - blue[i-1] ) / section_len;
             for( j = stop_x[i-1], k = 0; j <= stop_x[i]; j++, k++ )
             {
-               cur_red = floor( red[i-1] + k * red_step + 0.5 );
-               cur_green = floor( green[i-1] + k * green_step + 0.5 );
-               cur_blue = floor( blue[i-1] + k * blue_step + 0.5 );
-               hPen = CreatePen( PS_SOLID, 1, RGB( cur_red, cur_green, cur_blue ) );
+               cur_red = floor(red[i-1] + k * red_step + 0.5);
+               cur_green = floor(green[i-1] + k * green_step + 0.5);
+               cur_blue = floor(blue[i-1] + k * blue_step + 0.5);
+               hPen = CreatePen(PS_SOLID, 1, RGB(cur_red, cur_green, cur_blue));
                hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
 
                MoveToEx(hDC_mem, j, (is_5_6) ? y1 : y2, nullptr);
@@ -1627,9 +1625,9 @@ HB_FUNC( HWG_DRAWGRADIENT )
          // shifts of edges
          if( stop_x[0] > 2*x1-x2-1 ) // on the left
          {
-            hPen = CreatePen( PS_SOLID, 1, RGB(red[0], green[0], blue[0]) );
+            hPen = CreatePen(PS_SOLID, 1, RGB(red[0], green[0], blue[0]));
             hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
-            hBrush = CreateSolidBrush( RGB(red[0], green[0], blue[0]) );
+            hBrush = CreateSolidBrush(RGB(red[0], green[0], blue[0]));
             SelectObject(hDC_mem, hBrush);
 
             edge[0].x = x1;
@@ -1649,9 +1647,9 @@ HB_FUNC( HWG_DRAWGRADIENT )
          }
          if( stop_x[colors_num-1] < x2 ) // on the right
          {
-            hPen = CreatePen( PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
+            hPen = CreatePen(PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]));
             hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
-            hBrush = CreateSolidBrush( RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
+            hBrush = CreateSolidBrush(RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]));
             SelectObject(hDC_mem, hBrush);
 
             edge[0].x = x2;
@@ -1681,9 +1679,9 @@ HB_FUNC( HWG_DRAWGRADIENT )
          // shifts of edge
          if( stop_x[colors_num-1] < gr_radius )
          {
-            hPen = CreatePen( PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
+            hPen = CreatePen(PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]));
             hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
-            hBrush = CreateSolidBrush( RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]) );
+            hBrush = CreateSolidBrush(RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]));
             SelectObject(hDC_mem, hBrush);
             
             Rectangle(hDC_mem, x1, y1, x2 + 1, y2 + 1);
@@ -1701,12 +1699,12 @@ HB_FUNC( HWG_DRAWGRADIENT )
             blue_step = (double)( blue[i-1] - blue[i] ) / section_len;
             for( j = stop_x[i], k = 0; j >= stop_x[i-1]; j--, k++ )
             {
-               cur_red = floor( red[i] + k * red_step + 0.5 );
-               cur_green = floor( green[i] + k * green_step + 0.5 );
-               cur_blue = floor( blue[i] + k * blue_step + 0.5 );
-               hPen = CreatePen( PS_SOLID, 1, RGB( cur_red, cur_green, cur_blue ) );
+               cur_red = floor(red[i] + k * red_step + 0.5);
+               cur_green = floor(green[i] + k * green_step + 0.5);
+               cur_blue = floor(blue[i] + k * blue_step + 0.5);
+               hPen = CreatePen(PS_SOLID, 1, RGB(cur_red, cur_green, cur_blue));
                hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
-               hBrush = CreateSolidBrush( RGB( cur_red, cur_green, cur_blue ) );
+               hBrush = CreateSolidBrush(RGB(cur_red, cur_green, cur_blue));
                SelectObject(hDC_mem, hBrush);
 
                Ellipse(hDC_mem, x_center - j, y_center - j, x_center + j + 1, y_center + j + 1);
@@ -1723,10 +1721,10 @@ HB_FUNC( HWG_DRAWGRADIENT )
 
    // We draw polygon that looks like rectangle with rounded corners.
    // WinAPI allows to fill this figure with brush.
-   user_radiuses_num = ( pArrRadius ) ? hb_arrayLen( pArrRadius ) : 0;
+   user_radiuses_num = ( pArrRadius ) ? hb_arrayLen(pArrRadius) : 0;
    for( i = 0; i < 4; i++ )
    {
-      radius[i] = ( i < user_radiuses_num ) ? hb_arrayGetNI( pArrRadius, i+1 ) : 0;
+      radius[i] = ( i < user_radiuses_num ) ? hb_arrayGetNI(pArrRadius, i+1) : 0;
       radius[i] = ( radius[i] >= 0 ) ? radius[i] : 0;
    }
    
@@ -1771,17 +1769,17 @@ HB_FUNC( HWG_DRAWGRADIENT )
             for( j = 1; j < SECTORS_NUM; j++ )
             {
                angle += angle_step;
-               coord_x = cos( angle ) * radius[i];
-               coord_y = sin( angle ) * radius[i];
+               coord_x = cos(angle) * radius[i];
+               coord_y = sin(angle) * radius[i];
 
-               candidates[0].x = floor( coord_x );
-               candidates[0].y = floor( coord_y );
-               candidates[1].x = ceil( coord_x );
-               candidates[1].y = floor( coord_y );
-               candidates[2].x = floor( coord_x );
-               candidates[2].y = ceil( coord_y );
-               candidates[3].x = ceil( coord_x );
-               candidates[3].y = ceil( coord_y );
+               candidates[0].x = floor(coord_x);
+               candidates[0].y = floor(coord_y);
+               candidates[1].x = ceil(coord_x);
+               candidates[1].y = floor(coord_y);
+               candidates[2].x = floor(coord_x);
+               candidates[2].y = ceil(coord_y);
+               candidates[3].x = ceil(coord_x);
+               candidates[3].y = ceil(coord_y);
                min_delta = 1000000;
                for( k = 0; k < 4; k++ )
                {
@@ -1819,14 +1817,14 @@ HB_FUNC( HWG_DRAWGRADIENT )
    // We draw polygon and fill it with brush
    if( user_colors_num >= 2 )
    {
-      hPen = CreatePen( PS_NULL, 1, RGB( 0, 0, 0 ) );
-      hBrush = CreatePatternBrush( bmp );
+      hPen = CreatePen(PS_NULL, 1, RGB(0, 0, 0));
+      hBrush = CreatePatternBrush(bmp);
    }
    else
    {
-      color = hb_arrayGetNL( pArrColor, 1 );
-      hPen = CreatePen( PS_SOLID, 1, color );
-      hBrush = CreateSolidBrush( color );
+      color = hb_arrayGetNL(pArrColor, 1);
+      hPen = CreatePen(PS_SOLID, 1, color);
+      hBrush = CreateSolidBrush(color);
    }
 
    hPenOld = static_cast<HPEN>(SelectObject(hDC, hPen));
@@ -1842,7 +1840,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
 
       if( bmp )
       {
-         DeleteObject( bmp );
+         DeleteObject(bmp);
       }
       if( hDC_mem )
       {

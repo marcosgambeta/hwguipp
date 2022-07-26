@@ -117,7 +117,7 @@ HB_FUNC( HWG__ADDMENUITEM )
    if( HB_ISCHAR(2) )
    {
       mii.dwTypeData = ( LPTSTR ) HB_PARSTR(2, &hData, nullptr);
-      mii.cch = strlen( mii.dwTypeData );
+      mii.cch = strlen(mii.dwTypeData);
       mii.fType = MFT_STRING;
    }
    else

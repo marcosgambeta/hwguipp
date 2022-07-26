@@ -14,7 +14,7 @@
 #include "hbstack.h"
 
 /*
- *  PlaySound( cName, lSync, lLoop )
+ *  PlaySound(cName, lSync, lLoop)
  */
 HB_FUNC( HWG_PLAYSOUND )
 {
@@ -54,7 +54,7 @@ HB_FUNC( HWG_MCISENDSTRING )
 
    if( !HB_ISNIL(2) )
    {
-      HB_STORSTR( cBuffer, 2 );
+      HB_STORSTR(cBuffer, 2);
    }
    hb_strfree(hCommand);
 }
