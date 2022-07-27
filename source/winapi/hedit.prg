@@ -54,7 +54,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
       tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword, bKeyDown, bChange) CLASS HEdit
 
-   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP + iif(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) + ;
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP + iif(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) + ;
       iif(lPassword == NIL .OR. !lPassword, 0, ES_PASSWORD))
 
      // DF7BE: Crashes here, sample program grid_5.prg
@@ -73,7 +73,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::bKeyDown := bKeyDown
 
    IF Hwg_BitAnd(nStyle, ES_MULTILINE) != 0
-      ::style := Hwg_BitOr(::style, ES_WANTRETURN)
+      ::style := hb_bitor(::style, ES_WANTRETURN)
       ::lMultiLine := .T.
    ENDIF
 

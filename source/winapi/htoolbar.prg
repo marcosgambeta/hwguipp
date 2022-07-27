@@ -67,7 +67,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
 
    DEFAULT  aitem TO { }
 
-   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), iif(Hwg_BitAnd(nStyle, WS_DLGFRAME + WS_BORDER) > 0, CCS_NODIVIDER, 0))
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), iif(Hwg_BitAnd(nStyle, WS_DLGFRAME + WS_BORDER) > 0, CCS_NODIVIDER, 0))
    nHeight += iif(Hwg_BitAnd(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 1, 0)
    nWidth  -= iif(Hwg_BitAnd(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 2, 0)
 

@@ -150,7 +150,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       bIChange, nDisplay, nhItem, ncWidth, nMaxLength ) CLASS HComboBoxEx
 
    IF !Empty( nDisplay ) .AND. nDisplay > 0
-      nStyle := Hwg_BitOr( nStyle, CBS_NOINTEGRALHEIGHT  + WS_VSCROLL )
+      nStyle := hb_bitor( nStyle, CBS_NOINTEGRALHEIGHT  + WS_VSCROLL )
    ELSE
       nDisplay := 6
    ENDIF
@@ -162,7 +162,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       lEdit := .F.
    ENDIF
 
-   nStyle := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), iif( lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST ) + WS_TABSTOP )
+   nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), iif( lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST ) + WS_TABSTOP )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
 
    IF lText == NIL
@@ -256,7 +256,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bP
    ::acheck := acheck
 
    IF !Empty( nDisplay ) .AND. nDisplay > 0
-      ::Style := Hwg_BitOr( ::Style, CBS_NOINTEGRALHEIGHT )
+      ::Style := hb_bitor( ::Style, CBS_NOINTEGRALHEIGHT )
    ELSE
       nDisplay := 6
    ENDIF
@@ -1281,7 +1281,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
       nstate := DFCS_BUTTONCHECK
 
       IF ( ncheck > 1 )
-         nstate := hwg_bitor( nstate, DFCS_CHECKED )
+         nstate := hb_bitor( nstate, DFCS_CHECKED )
       ENDIF
 
       // Draw the checkmark using DrawFrameControl
@@ -1427,7 +1427,7 @@ METHOD SkipItems( nNav ) CLASS hCheckComboBox
 
    RETURN - 1
 
-FUNCTION hwg_multibitor( ... )
+FUNCTION hwg_multibitor( ... ) // TODO: substituir por hb_bitor
 
    LOCAL aArgumentList := HB_AParams()
    LOCAL nItem
@@ -1438,7 +1438,7 @@ FUNCTION hwg_multibitor( ... )
          hwg_Msginfo( "hwg_multibitor parameter not numeric set to zero", "Possible error" )
          nItem := 0
       ENDIF
-      result := hwg_bitor( result, nItem )
+      result := hb_bitor( result, nItem )
    NEXT
 
    RETURN result

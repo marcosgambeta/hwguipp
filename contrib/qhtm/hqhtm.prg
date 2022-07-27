@@ -36,7 +36,7 @@ METHOD New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption, ;
    // ::classname:= "HQHTM"
    ::oParent := Iif( oWndParent==NIL, ::oDefaultParent, oWndParent )
    ::id      := Iif( nId==NIL,::NewId(), nId )
-   ::style   := Hwg_BitOr( Iif( nStyle==NIL,0,nStyle ), WS_CHILD+WS_VISIBLE )
+   ::style   := hb_bitor( Iif( nStyle==NIL,0,nStyle ), WS_CHILD+WS_VISIBLE )
    ::nLeft   := nLeft
    ::nTop    := nTop
    ::nWidth  := nWidth

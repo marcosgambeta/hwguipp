@@ -47,9 +47,9 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       lText := .F.
    ENDIF
 
-   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), iif(lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST) + WS_TABSTOP)
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), iif(lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST) + WS_TABSTOP)
    IF !Empty(nDisplay)
-      nStyle := Hwg_BitOr(nStyle, CBS_NOINTEGRALHEIGHT + WS_VSCROLL)
+      nStyle := hb_bitor(nStyle, CBS_NOINTEGRALHEIGHT + WS_VSCROLL)
       ::nDisplay := nDisplay
    ENDIF
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)

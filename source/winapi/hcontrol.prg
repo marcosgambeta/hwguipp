@@ -37,7 +37,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id      := iif(nId == NIL, ::NewId(), nId)
-   ::style   := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_VISIBLE + WS_CHILD)
+   ::style   := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_VISIBLE + WS_CHILD)
    ::oFont   := oFont
    ::nLeft   := nLeft
    ::nTop    := nTop

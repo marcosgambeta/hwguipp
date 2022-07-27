@@ -118,7 +118,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::id      := iif( nId == NIL, ::NewId(), nId )
    ::title   := cCaption
    ::oGroup  := HRadioGroup():oGroupCurrent
-   ::style   := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), BS_AUTORADIOBUTTON + ;
+   ::style   := hb_bitor( iif( nStyle == NIL,0,nStyle ), BS_AUTORADIOBUTTON + ;
       WS_CHILD + WS_VISIBLE + ;
       iif( ::oGroup != NIL .AND. Empty( ::oGroup:aButtons ), WS_GROUP, 0 ) )
    ::oFont   := oFont

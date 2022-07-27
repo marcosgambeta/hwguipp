@@ -255,7 +255,7 @@ METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont,
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick ) CLASS HBrowse
 
-   nStyle := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), WS_CHILD + WS_VISIBLE +  ;
+   nStyle := hb_bitor( iif( nStyle == NIL,0,nStyle ), WS_CHILD + WS_VISIBLE +  ;
       iif( lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0 ) +            ;
       iif( lNoVScroll = NIL .OR. !lNoVScroll, WS_VSCROLL, 0 ) )
 

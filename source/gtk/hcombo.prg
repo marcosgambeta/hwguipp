@@ -46,7 +46,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    IF lEdit == NIL; lEdit := .F. ; ENDIF
    IF lText == NIL; lText := .F. ; ENDIF
 
-   nStyle := Hwg_BitOr( iif( nStyle == NIL,0,nStyle ), iif( lEdit,CBS_DROPDOWN,CBS_DROPDOWNLIST ) + WS_TABSTOP )
+   nStyle := hb_bitor( iif( nStyle == NIL,0,nStyle ), iif( lEdit,CBS_DROPDOWN,CBS_DROPDOWNLIST ) + WS_TABSTOP )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor )
 
    ::lEdit := lEdit

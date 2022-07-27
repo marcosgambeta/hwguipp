@@ -136,8 +136,10 @@ HB_FUNC( HWG_HIWORD )
    hb_retni( (int) ( ( hb_parnl( 1 ) >> 16 ) & 0xFFFF ) );
 }
 
-
-HB_FUNC( HWG_BITOR )
+/*
+HWG_BITOR(nValue1, nValue2) --> numeric
+*/
+HB_FUNC( HWG_BITOR ) /* DEPRECATED: use hb_bitor */
 {
    hb_retnl( hb_parnl(1) | hb_parnl(2) );
 }

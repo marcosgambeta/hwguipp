@@ -324,13 +324,13 @@ METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, 
    IF nStyle != NIL .AND. nStyle < 0
       nExclude := 0
       IF hwg_Bitand(Abs(nStyle), WND_NOSYSMENU) != 0
-         nExclude := hwg_BitOr(nExclude, WS_SYSMENU)
+         nExclude := hb_bitor(nExclude, WS_SYSMENU)
       ENDIF
       IF hwg_Bitand(Abs(nStyle), WND_NOSIZEBOX) != 0
-         nExclude := hwg_BitOr(nExclude, WS_THICKFRAME)
+         nExclude := hb_bitor(nExclude, WS_THICKFRAME)
       ENDIF
       IF hwg_Bitand(Abs(nStyle), Abs(WND_NOTITLE)) != 0
-         nExclude := hwg_BitOr(nExclude, WS_CAPTION)
+         nExclude := hb_bitor(nExclude, WS_CAPTION)
          nStyle := WS_POPUP
       ELSE
          nStyle := 0

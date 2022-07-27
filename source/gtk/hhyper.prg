@@ -92,13 +92,13 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ENDIF
 
    IF ( n := hwg_bitAnd( ::style, SS_TYPEMASK ) ) == SS_RIGHT
-      ::dwFlags := hwg_bitOr( DT_RIGHT, DT_WORDBREAK )
+      ::dwFlags := hb_bitor( DT_RIGHT, DT_WORDBREAK )
    ELSEIF n == SS_CENTER
-      ::dwFlags := hwg_bitOr( SS_CENTER, DT_WORDBREAK )
+      ::dwFlags := hb_bitor( SS_CENTER, DT_WORDBREAK )
    ELSEIF n == SS_LEFTNOWORDWRAP
       ::dwFlags := DT_LEFT
    ELSE
-      ::dwFlags := hwg_bitOr( DT_LEFT, DT_WORDBREAK )
+      ::dwFlags := hb_bitor( DT_LEFT, DT_WORDBREAK )
    ENDIF
 
    ::Activate()

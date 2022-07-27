@@ -40,7 +40,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
       IF nStyle == NIL
          nStyle := SS_NOTIFY
       ELSE
-         nStyle := Hwg_BitOr(nStyle, SS_NOTIFY)
+         nStyle := hb_bitor(nStyle, SS_NOTIFY)
       ENDIF
    ENDIF
 

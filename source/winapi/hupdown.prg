@@ -36,7 +36,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, ;
       nUpDWidth, nLower, nUpper) CLASS HUpDown
 
-   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP)
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::idUpDown := ::NewId()

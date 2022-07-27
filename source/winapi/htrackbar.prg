@@ -53,9 +53,9 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
       TickMarks := 0
    ENDIF
    IF bPaint != NIL
-      TickStyle := Hwg_BitOr(TickStyle, TBS_AUTOTICKS)
+      TickStyle := hb_bitor(TickStyle, TBS_AUTOTICKS)
    ENDIF
-   nstyle   := Hwg_BitOr(IIF(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
+   nstyle   := hb_bitor(IIF(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
    nstyle   += IIF(lVertical != NIL .AND. lVertical, TBS_VERT, 0)
    nstyle   += TickStyle + TickMarks
 

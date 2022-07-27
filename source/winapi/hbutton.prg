@@ -25,7 +25,7 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor) CLASS HButton
 
-   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON + WS_TABSTOP)
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON + WS_TABSTOP)
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, iif(nWidth == NIL, 90, nWidth), iif(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
    ::bClick := bClick

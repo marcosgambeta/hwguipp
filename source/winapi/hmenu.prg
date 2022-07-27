@@ -226,7 +226,7 @@ FUNCTION Hwg_DefineMenuItem(cItem, nId, bItem, lDisabled, accFlag, accKey, lBitm
 
    lCheck := IIf(lCheck == NIL, .F., lCheck)
    lDisabled := IIf(lDisabled == NIL, .F., lDisabled)
-   nFlag := Hwg_BitOr(IIf(lCheck, FLAG_CHECK, 0), IIf(lDisabled, FLAG_DISABLED, 0))
+   nFlag := hb_bitor(IIf(lCheck, FLAG_CHECK, 0), IIf(lDisabled, FLAG_DISABLED, 0))
 
    aMenu := _aMenuDef
    FOR i := 1 TO _nLevel

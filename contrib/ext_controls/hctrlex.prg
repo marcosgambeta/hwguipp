@@ -77,7 +77,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::BackStyle := OPAQUE
    IF ( lTransp != NIL .AND. lTransp )
       ::BackStyle := TRANSPARENT
-      ::extStyle := Hwg_BitOr( ::extStyle, WS_EX_TRANSPARENT )
+      ::extStyle := hb_bitor( ::extStyle, WS_EX_TRANSPARENT )
       bPaint := { | o, p | o:paint( p ) }
       nStyle += SS_OWNERDRAW - ::nStyleHS
    ELSEIF ::nStyleHS > 32 .OR. ::nStyleHS = 2
@@ -104,7 +104,7 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, cTooltip, tcolor, bColor, lTransp, bClick, bDblClick, bOther ) CLASS HStaticEx
 
    IF ( lTransp != NIL .AND. lTransp )
-      ::extStyle := Hwg_BitOr( ::extStyle, WS_EX_TRANSPARENT )
+      ::extStyle := hb_bitor( ::extStyle, WS_EX_TRANSPARENT )
       bPaint := { | o, p | o:paint( p ) }
       ::BackStyle := TRANSPARENT
    ENDIF
@@ -292,7 +292,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
       tcolor, bColor, bGFocus ) CLASS HButtonX
 
-   nStyle := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), BS_PUSHBUTTON + BS_NOTIFY )
+   nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), BS_PUSHBUTTON + BS_NOTIFY )
    ::lFlat := Hwg_BitAND( nStyle, BS_FLAT ) != 0
 
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
@@ -406,7 +406,7 @@ METHOD onClick()  CLASS HButtonX
 METHOD NoteCaption( cNote )  CLASS HButtonX
 
    IF cNote != NIL
-      IF Hwg_BitOr( ::Style, BS_COMMANDLINK ) > 0
+      IF hb_bitor( ::Style, BS_COMMANDLINK ) > 0
          hwg_Sendmessage( ::Handle, BCM_SETNOTE, 0, hwg_Ansitounicode( cNote ) )
       ENDIF
       ::cNote := cNote
@@ -933,14 +933,14 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
          hwg_Framerect( dc, itemRect, brBtnShadow:handle )
       ELSE
          IF ! ::lFlat .OR. ::bMouseOverButton
-            uState := HWG_BITOR( ;
-               HWG_BITOR( DFCS_BUTTONPUSH, ;
+            uState := hb_bitor( ;
+               hb_bitor( DFCS_BUTTONPUSH, ;
                iif( ::bMouseOverButton, DFCS_HOT, 0 ) ), ;
                iif( bIsPressed, DFCS_PUSHED, 0 ) )
             hwg_Drawframecontrol( dc, itemRect, DFC_BUTTON, uState )
          ELSEIF bIsFocused
-            uState := HWG_BITOR( ;
-               HWG_BITOR( DFCS_BUTTONPUSH + DFCS_MONO , ; // DFCS_FLAT , ;
+            uState := hb_bitor( ;
+               hb_bitor( DFCS_BUTTONPUSH + DFCS_MONO , ; // DFCS_FLAT , ;
             iif( ::bMouseOverButton, DFCS_HOT, 0 ) ), ;
                iif( bIsPressed, DFCS_PUSHED, 0 ) )
             hwg_Drawframecontrol( dc, itemRect, DFC_BUTTON, uState )
@@ -1331,7 +1331,7 @@ ENDCLASS
 METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight ) CLASS HStatusEx
 
    bSize  := IIf( bSize != NIL, bSize, { | o, x, y | o:Move( 0, y - ::nStatusHeight, x, ::nStatusHeight ) } )
-   nStyle := Hwg_BitOr( IIf( nStyle == NIL, 0, nStyle ), ;
+   nStyle := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), ;
                         WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS )
    ::Super:New( oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
 

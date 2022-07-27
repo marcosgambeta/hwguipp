@@ -249,7 +249,7 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
 
    lCheck := iif( lCheck == NIL, .F. , lCheck )
    lDisabled := iif( lDisabled == NIL, .T. , !lDisabled )
-   nFlag := Hwg_BitOr( iif( lCheck,FLAG_CHECK,0 ), iif( lDisabled,0,FLAG_DISABLED ) )
+   nFlag := hb_bitor( iif( lCheck,FLAG_CHECK,0 ), iif( lDisabled,0,FLAG_DISABLED ) )
 
    aMenu := _aMenuDef
    FOR i := 1 TO _nLevel

@@ -86,7 +86,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
          ::handle := hwg_OpenImage(i, .T.)
       ENDIF
    ELSEIF lOEM
-      ::handle := hwg_Loadimage(0, Val(name), IMAGE_BITMAP, NIL, NIL, Hwg_bitor(nFlags, LR_SHARED))
+      ::handle := hwg_Loadimage(0, Val(name), IMAGE_BITMAP, NIL, NIL, hb_bitor(nFlags, LR_SHARED))
    ELSE
       ::handle := hwg_Loadimage(NIL, iif(lPreDefined, Val(name), name), IMAGE_BITMAP, nWidth, nHeight, nFlags)
    ENDIF
@@ -312,7 +312,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
          //hwg_writelog(Str(Len(i)) + "/" + Iif(Empty(::handle), "Err", "Ok"))
       ENDIF
    ELSEIF lOEM // LR_SHARED is required for OEM images
-      ::handle := hwg_Loadimage(0, Val(name), IMAGE_ICON, nWidth, nHeight, Hwg_bitor(nFlags, LR_SHARED))
+      ::handle := hwg_Loadimage(0, Val(name), IMAGE_ICON, nWidth, nHeight, hb_bitor(nFlags, LR_SHARED))
    ELSE
       ::handle := hwg_Loadimage(NIL, iif(lPreDefined, Val(name), name), IMAGE_ICON, nWidth, nHeight, nFlags)
    ENDIF

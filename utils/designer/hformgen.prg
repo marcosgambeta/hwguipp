@@ -301,7 +301,7 @@ Private value, oCtrl
       IF ::oDlg:oFont == NIL
          ::oDlg:oFont := HFont():Add( "Arial",0,-13 )
       ENDIF
-      ::oDlg:style := Hwg_BitOr( ::oDlg:style,WS_VSCROLL+WS_HSCROLL+WS_MAXIMIZEBOX )
+      ::oDlg:style := hb_bitor( ::oDlg:style,WS_VSCROLL+WS_HSCROLL+WS_MAXIMIZEBOX )
 
       @ LEFT_INDENT,TOP_INDENT PANEL oPanel ;
         SIZE Round(::nPWidth*::nKoeff,0)-1, Round(::nPHeight*::nKoeff,0)-1 ;

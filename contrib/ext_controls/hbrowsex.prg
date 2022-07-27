@@ -398,7 +398,7 @@ METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont,
       lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, bRclick, bChgRowCol, ctooltip ) CLASS HBrowseEx
 
    lNoVScroll := iif( lNoVScroll = NIL , .F. , lNoVScroll )
-   nStyle := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
+   nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
       iif( lNoBorder = NIL .OR. ! lNoBorder, WS_BORDER, 0 ) +            ;
       iif( ! lNoVScroll, WS_VSCROLL, 0 ) )
    nStyle -= iif( Hwg_BitAND( nStyle, WS_VSCROLL ) > 0 .AND. lNoVScroll, WS_VSCROLL, 0 )
@@ -2209,7 +2209,7 @@ METHOD LineOut( nRow, nCol, hDC, lSelected, lClear ) CLASS HBrowseEx
                         IF ( nCheck > 0 )
                            nState := DFCS_BUTTONCHECK
                            IF ( nCheck > 1 )
-                              nState := hwg_bitor( nstate, DFCS_CHECKED )
+                              nState := hb_bitor( nstate, DFCS_CHECKED )
                            ENDIF
                            nState += iif( ::lEditable .OR. ::aColumns[ ::nPaintCol ]:lEditable, 0, DFCS_INACTIVE )
                            hwg_Drawframecontrol( hDC, rcBitmap, DFC_BUTTON , nState + DFCS_FLAT  )

@@ -93,7 +93,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
             bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus,bKeydown, bDblclick,bOther )  CLASS HListBox
 
    // removed: + LBS_DISABLENOSCROLL + LBS_NOTIFY  + LBS_NOINTEGRALHEIGHT
-   nStyle   := Hwg_BitOr( IIf( nStyle == NIL, 0, nStyle ), WS_TABSTOP + WS_VSCROLL + WS_BORDER )
+   nStyle   := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), WS_TABSTOP + WS_VSCROLL + WS_BORDER )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, cTooltip, tColor, bcolor )
 

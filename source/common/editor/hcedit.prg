@@ -303,7 +303,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
    ELSE
       ::nTrackWidth := HTRACK_DEF_WIDTH
    ENDIF
-   nStyle := Hwg_BitOr( Iif( nStyle == NIL,0,nStyle ), WS_CHILD + WS_VISIBLE +  ;
+   nStyle := hb_bitor( Iif( nStyle == NIL,0,nStyle ), WS_CHILD + WS_VISIBLE +  ;
       Iif( lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0 ) ) //+          ;
       //Iif( ::lVScroll, WS_VSCROLL, 0 ) )
 

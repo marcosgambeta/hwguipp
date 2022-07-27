@@ -311,9 +311,9 @@ METHOD Show(nMode, p1, p2, p3) CLASS HFormTmpl
       ELSEIF ::aProp[i, 1] == "fromstyle"
          IF nMode != 1
             IF Lower(xProperty) == "popup"
-               nStyle := hwg_bitor(nStyle, WS_POPUP)
+               nStyle := hb_bitor(nStyle, WS_POPUP)
             ELSEIF Lower(xProperty) == "child"
-               nStyle := hwg_bitor(nStyle, WS_CHILD)
+               nStyle := hb_bitor(nStyle, WS_CHILD)
             ENDIF
          ENDIF
       ELSEIF ::aProp[i, 1] == "bitmap"
