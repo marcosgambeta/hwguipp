@@ -221,10 +221,10 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    ::aOffset := Array(4)
    AFill(::aOffset, 0)
 
-   IF Hwg_Bitand(::style, WS_HSCROLL) > 0
+   IF hb_bitand(::style, WS_HSCROLL) > 0
       ::nScrollBars++
    ENDIF
-   IF Hwg_Bitand(::style, WS_VSCROLL) > 0
+   IF hb_bitand(::style, WS_VSCROLL) > 0
       ::nScrollBars += 2
    ENDIF
 
@@ -323,13 +323,13 @@ METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, 
 
    IF nStyle != NIL .AND. nStyle < 0
       nExclude := 0
-      IF hwg_Bitand(Abs(nStyle), WND_NOSYSMENU) != 0
+      IF hb_bitand(Abs(nStyle), WND_NOSYSMENU) != 0
          nExclude := hb_bitor(nExclude, WS_SYSMENU)
       ENDIF
-      IF hwg_Bitand(Abs(nStyle), WND_NOSIZEBOX) != 0
+      IF hb_bitand(Abs(nStyle), WND_NOSIZEBOX) != 0
          nExclude := hb_bitor(nExclude, WS_THICKFRAME)
       ENDIF
-      IF hwg_Bitand(Abs(nStyle), Abs(WND_NOTITLE)) != 0
+      IF hb_bitand(Abs(nStyle), Abs(WND_NOTITLE)) != 0
          nExclude := hb_bitor(nExclude, WS_CAPTION)
          nStyle := WS_POPUP
       ELSE
@@ -631,7 +631,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ELSEIF ValType(oWnd:menu) == "A" .AND. ;
          ( aMenu := Hwg_FindMenuItem(oWnd:menu, iParLow, @iCont) ) != NIL
-      IF Hwg_BitAnd(aMenu[1, iCont, 4], FLAG_CHECK) > 0
+      IF hb_bitand(aMenu[1, iCont, 4], FLAG_CHECK) > 0
          hwg_Checkmenuitem(NIL, aMenu[1, iCont, 3], !hwg_Ischeckedmenuitem(NIL, aMenu[1, iCont, 3]))
       ENDIF
       IF aMenu[1, iCont, 1] != NIL

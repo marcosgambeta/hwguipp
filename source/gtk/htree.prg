@@ -640,7 +640,7 @@ METHOD GoUp( n ) CLASS HTree
 
 METHOD MouseWheel( nKeys, nDelta )  CLASS HTree
 
-   IF Hwg_BitAnd( nKeys, MK_MBUTTON ) != 0
+   IF hb_bitand( nKeys, MK_MBUTTON ) != 0
       IF nDelta > 0
          ::GoUp( 2 )
       ELSE

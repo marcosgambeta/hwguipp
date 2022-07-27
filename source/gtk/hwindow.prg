@@ -177,7 +177,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    IF cAppName != NIL
       ::szAppName := cAppName
    ENDIF
-   IF hwg_BitAnd( Abs( ::style ), DS_CENTER ) > 0
+   IF hb_bitand( Abs( ::style ), DS_CENTER ) > 0
       ::nLeft := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
       ::nTop  := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
    ENDIF
@@ -314,12 +314,12 @@ METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMain
    hwg_CreateGetList( Self )
 
    IF ::type == WND_MAIN
-      IF ::style < 0 .AND. hwg_Bitand( Abs( ::style ), Abs( WND_NOTITLE ) ) != 0
+      IF ::style < 0 .AND. hb_bitand( Abs( ::style ), Abs( WND_NOTITLE ) ) != 0
          hwg_WindowSetDecorated( ::handle, 0 )
          //hwg_WindowSetResize( ::handle, 1 )
       ENDIF
       hwg_ShowAll( ::handle )
-      IF ::style < 0 .AND. hwg_Bitand( Abs( ::style ), Abs( WND_NOSIZEBOX ) ) != 0
+      IF ::style < 0 .AND. hb_bitand( Abs( ::style ), Abs( WND_NOSIZEBOX ) ) != 0
          hwg_WindowSetResize( ::handle, 0 )
       ENDIF
       IF ::nAdjust == 1

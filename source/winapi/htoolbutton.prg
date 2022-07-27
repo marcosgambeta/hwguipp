@@ -99,7 +99,7 @@ METHOD Pressed(lPressed) CLASS HToolButton
 
    IF lPressed != NIL
       nState := hwg_Sendmessage(::oParent:handle, TB_GETSTATE, Int(::id), 0)
-      hwg_Sendmessage(::oParent:handle, TB_SETSTATE, Int(::id), hwg_Makelong(iif(lPressed, hb_bitor(nState, TBSTATE_PRESSED), nState - HWG_BITAND(nState, TBSTATE_PRESSED)), 0))
+      hwg_Sendmessage(::oParent:handle, TB_SETSTATE, Int(::id), hwg_Makelong(iif(lPressed, hb_bitor(nState, TBSTATE_PRESSED), nState - hb_bitand(nState, TBSTATE_PRESSED)), 0))
       ::lPressed := lPressed
    ENDIF
 
@@ -110,7 +110,7 @@ METHOD Checked(lcheck) CLASS HToolButton
 
    IF lCheck != NIL
       nState := hwg_Sendmessage(::oParent:handle, TB_GETSTATE, Int(::id), 0)
-      hwg_Sendmessage(::oParent:handle, TB_SETSTATE, Int(::id), hwg_Makelong(iif(lCheck, hb_bitor(nState, TBSTATE_CHECKED), nState - HWG_BITAND(nState, TBSTATE_CHECKED)), 0))
+      hwg_Sendmessage(::oParent:handle, TB_SETSTATE, Int(::id), hwg_Makelong(iif(lCheck, hb_bitor(nState, TBSTATE_CHECKED), nState - hb_bitand(nState, TBSTATE_CHECKED)), 0))
       ::lChecked := lCheck
    ENDIF
 

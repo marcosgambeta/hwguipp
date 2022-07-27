@@ -67,9 +67,9 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
 
    DEFAULT  aitem TO { }
 
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), iif(Hwg_BitAnd(nStyle, WS_DLGFRAME + WS_BORDER) > 0, CCS_NODIVIDER, 0))
-   nHeight += iif(Hwg_BitAnd(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 1, 0)
-   nWidth  -= iif(Hwg_BitAnd(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 2, 0)
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), iif(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, CCS_NODIVIDER, 0))
+   nHeight += iif(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 1, 0)
+   nWidth  -= iif(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 2, 0)
 
    ::lTransp := iif(lTransp != NIL, lTransp, .F.)
    ::lVertical := iif(lVertical != NIL .AND. ValType(lVertical) = "L", lVertical, ::lVertical)
@@ -86,9 +86,9 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
    ::nwSize := iif(nwSize != NIL .AND. nwSize > 11, nwSize, 16)
    ::nhSize := iif(nhSize != NIL .AND. nhSize > 11, nhSize, ::nwSize - 1)
    //::lnoThemes := !hwg_Isthemeactive() .OR. !::WindowsManifest
-   IF Hwg_BitAnd(::Style, WS_DLGFRAME + WS_BORDER + CCS_NODIVIDER) = 0
+   IF hb_bitand(::Style, WS_DLGFRAME + WS_BORDER + CCS_NODIVIDER) = 0
       IF !::lVertical
-         ::Line := HLine():New(oWndParent, NIL, NIL, nLeft, nTop + nHeight + iif(::lnoThemes .AND. Hwg_BitAnd(nStyle, TBSTYLE_FLAT) > 0, 2, 1), nWidth)
+         ::Line := HLine():New(oWndParent, NIL, NIL, nLeft, nTop + nHeight + iif(::lnoThemes .AND. hb_bitand(nStyle, TBSTYLE_FLAT) > 0, 2, 1), nWidth)
       ELSE
          ::Line := HLine():New(oWndParent, NIL, ::lVertical, nLeft + nWidth + 1, nTop, nHeight)
       ENDIF
@@ -180,7 +180,7 @@ METHOD CREATETOOL() CLASS hToolBar
    IF ::nIDB != NIL .AND. ::nIDB >= 0
       nlistimg := hwg_Toolbar_loadstandartimage(::handle, ::nIDB)
    ENDIF
-   IF Hwg_BitAnd(::Style, TBSTYLE_LIST) > 0 .AND. ::nwSize = NIL
+   IF hb_bitand(::Style, TBSTYLE_LIST) > 0 .AND. ::nwSize = NIL
       ::nwSize := Max(16, (::nHeight - 16))
    ENDIF
    IF ::nwSize != NIL
@@ -205,7 +205,7 @@ METHOD CREATETOOL() CLASS hToolBar
       IF ::aItem[n, 4] = BTNS_SEP
          LOOP
       ENDIF
-      nDrop := Max(nDrop, iif(Hwg_Bitand(::aItem[n, 4], BTNS_WHOLEDROPDOWN) != 0, 0, iif(Hwg_Bitand(::aItem[n, 4], BTNS_DROPDOWN) != 0, 8, 0)))
+      nDrop := Max(nDrop, iif(hb_bitand(::aItem[n, 4], BTNS_WHOLEDROPDOWN) != 0, 0, iif(hb_bitand(::aItem[n, 4], BTNS_DROPDOWN) != 0, 8, 0)))
 
       IF ValType(::aItem[n, 1])  == "C" .OR. ::aItem[n, 1] > 1
          IF ValType(::aItem[n, 1])  == "C" .AND. At(".", ::aitem[n, 1]) != 0
@@ -248,14 +248,14 @@ METHOD CREATETOOL() CLASS hToolBar
       hwg_Sendmessage(::handle, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_DRAWDDARROWS)
    ENDIF
    IF ::BtnWidth != NIL
-      IF Hwg_BitAnd(::Style, CCS_NODIVIDER) > 0
-         nMax := iif(Hwg_BitAnd(::Style, WS_DLGFRAME + WS_BORDER) > 0, 4, 2)
-      ELSEIF Hwg_BitAnd(::Style, TBSTYLE_FLAT) > 0
+      IF hb_bitand(::Style, CCS_NODIVIDER) > 0
+         nMax := iif(hb_bitand(::Style, WS_DLGFRAME + WS_BORDER) > 0, 4, 2)
+      ELSEIF hb_bitand(::Style, TBSTYLE_FLAT) > 0
          nMax := 2
       ENDIF
       ::ndrop := nMax + iif(!::WindowsManifest, 0, nDrop)
       ::BtnHeight := Max(hwg_Hiword(hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0)), ::nHeight - ::nDrop - ;
-         iif(!::lnoThemes .AND. Hwg_BitAnd(::Style, TBSTYLE_FLAT) > 0, 0, 2))
+         iif(!::lnoThemes .AND. hb_bitand(::Style, TBSTYLE_FLAT) > 0, 0, 2))
       IF !::lVertical
          hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::BtnWidth, ::BtnHeight))
       ELSE

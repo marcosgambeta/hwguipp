@@ -289,7 +289,7 @@ STATIC FUNCTION onCtlColor(oWnd, wParam, lParam)
       ENDIF
 
       //hwg_writelog(octrl:classname)
-      IF hwg_bitand(oCtrl:extStyle, WS_EX_TRANSPARENT) != 0
+      IF hb_bitand(oCtrl:extStyle, WS_EX_TRANSPARENT) != 0
          hwg_SetTransparentMode(wParam, .T.)
          RETURN 0  //hwg_getBackBrush(oWnd:handle)
       ELSE

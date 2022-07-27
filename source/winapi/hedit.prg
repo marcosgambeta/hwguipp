@@ -72,7 +72,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::bSetGet := bSetGet
    ::bKeyDown := bKeyDown
 
-   IF Hwg_BitAnd(nStyle, ES_MULTILINE) != 0
+   IF hb_bitand(nStyle, ES_MULTILINE) != 0
       ::style := hb_bitor(::style, ES_WANTRETURN)
       ::lMultiLine := .T.
    ENDIF

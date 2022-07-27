@@ -401,7 +401,7 @@ METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont,
    nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
       iif( lNoBorder = NIL .OR. ! lNoBorder, WS_BORDER, 0 ) +            ;
       iif( ! lNoVScroll, WS_VSCROLL, 0 ) )
-   nStyle -= iif( Hwg_BitAND( nStyle, WS_VSCROLL ) > 0 .AND. lNoVScroll, WS_VSCROLL, 0 )
+   nStyle -= iif( hb_bitand( nStyle, WS_VSCROLL ) > 0 .AND. lNoVScroll, WS_VSCROLL, 0 )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL, 0, nWidth ), ;
       iif( nHeight == NIL, 0, nHeight ), oFont, bInit, bSize, bPaint, ctooltip , tColor, bColor )
    ::lNoVScroll := lNoVScroll
@@ -1277,7 +1277,7 @@ METHOD Rebuild() CLASS HBrowseEx
          oColumn:width := xSize
       ENDIF
    NEXT
-   IF HWG_BITAND( ::style, WS_HSCROLL ) != 0
+   IF hb_bitand( ::style, WS_HSCROLL ) != 0
       hwg_Setscrollinfo( ::Handle, SB_HORZ, 1, 0,  1 , Len( ::aColumns ) )
    ENDIF
 
@@ -2040,7 +2040,7 @@ METHOD FooterOut( hDC ) CLASS HBrowseEx
    ENDDO
 
    IF ::lDispSep
-      IF HWG_BITAND( ::style, WS_HSCROLL ) != 0
+      IF hb_bitand( ::style, WS_HSCROLL ) != 0
          hwg_Drawline( hDC, ::x1 , ::y2 - 1, iif( ::lAdjRight, ::x2, x ), ::y2 - 1 )
       ENDIF
       oPen:Release()
@@ -2199,7 +2199,7 @@ METHOD LineOut( nRow, nCol, hDC, lSelected, lClear ) CLASS HBrowseEx
                            0, 0 }
                         nCheckHeight := ( ::y1 + ( ::height + 1 ) * ::nPaintRow  ) - ( ::y1 + ( ::height + 1 ) * ( ::nPaintRow - 1 ) ) - ::aMargin[ 1 ] - ::aMargin[ 3 ] - 1
                         nCheckHeight := iif( nCheckHeight > 16, 16, nCheckHeight )
-                        IF Hwg_BitAND( ::aColumns[ ::nPaintCol ]:nJusLin, DT_CENTER ) != 0
+                        IF hb_bitand( ::aColumns[ ::nPaintCol ]:nJusLin, DT_CENTER ) != 0
                            rcBitmap[ 1 ] := rcBitmap[ 1 ] + (  xsize - ::aMargin[ 2 ] - ::aMargin[ 4 ] - nCheckHeight + 1 ) / 2
                         ENDIF
                         rcBitmap[ 4 ] := ::y1 + ( ::height + 1 ) * ::nPaintRow - ( 1 + ::aMargin[ 3 ] )
@@ -2444,7 +2444,7 @@ METHOD DoHScroll( wParam ) CLASS HBrowseEx
       ENDIF
    ENDIF
    IF ::nLeftCol != oldLeft .OR. ::colpos != oldPos
-      IF HWG_BITAND( ::style, WS_HSCROLL ) != 0
+      IF hb_bitand( ::style, WS_HSCROLL ) != 0
          hwg_Setscrollrange( ::handle, SB_HORZ, 1, Len( ::aColumns ) )
          nPos :=  ::colpos + ::nLeftCol - 1
          hwg_Setscrollpos( ::handle, SB_HORZ, nPos )
@@ -2963,7 +2963,7 @@ METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos ) CLASS HBrowseEx
    HB_SYMBOL_UNUSED( nXPos )
    HB_SYMBOL_UNUSED( nYPos )
 
-   IF Hwg_BitAnd( nKeys, MK_MBUTTON ) != 0
+   IF hb_bitand( nKeys, MK_MBUTTON ) != 0
       IF nDelta > 0
          ::PageUp()
       ELSE

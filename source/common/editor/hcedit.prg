@@ -369,7 +369,7 @@ METHOD Activate() CLASS HCEdit
       ::hEdit := hced_CreateTextEdit( Self )
       ::nWIdth := nw
       ::handle := hced_GetHandle( ::hEdit )
-      IF hwg_bitand( ::style, WS_BORDER ) != 0
+      IF hb_bitand( ::style, WS_BORDER ) != 0
          ::SetBorder( 2 )
       ENDIF
 #else
@@ -578,7 +578,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdit
 
    ELSEIF msg == WM_MOUSEWHEEL
       n := Iif( ( n := hwg_HiWord( wParam ) ) > 32768, n - 65535, n )
-      IF Hwg_BitAnd( hwg_LoWord( wParam ), MK_MBUTTON ) != 0
+      IF hb_bitand( hwg_LoWord( wParam ), MK_MBUTTON ) != 0
          IF n > 0
             ::PageUp()
          ELSE
@@ -1525,7 +1525,7 @@ METHOD onKeyDown( nKeyCode, lParam, nCtrl ) CLASS HCEdit
 #ifdef __GTK__
    ELSEIF nKeyCode < 0xFE00 .OR. ( nKeyCode >= GDK_KP_Multiply .AND. nKeyCode <= GDK_KP_9 ) ;
          .OR. nKeyCode == VK_RETURN .OR. nKeyCode == VK_BACK .OR. nKeyCode == VK_TAB .OR. nKeyCode == VK_ESCAPE
-      IF hwg_bitand( lParam, GDK_CONTROL_MASK+GDK_MOD1_MASK ) == 0
+      IF hb_bitand( lParam, GDK_CONTROL_MASK+GDK_MOD1_MASK ) == 0
          IF nKeyCode >= GDK_KP_0
             nKeyCode -= ( GDK_KP_0 - 48 )
          ENDIF

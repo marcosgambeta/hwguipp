@@ -110,7 +110,7 @@ METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
    ::lExitOnEnter := iif( lExitOnEnter == NIL, .T. , !lExitOnEnter )
    ::lExitOnEsc  := iif( lExitOnEsc == NIL, .T. , !lExitOnEsc )
 
-   IF ::style > 0 .AND. hwg_BitAnd( ::style, DS_CENTER ) > 0
+   IF ::style > 0 .AND. hb_bitand( ::style, DS_CENTER ) > 0
       ::nLeft := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
       ::nTop  := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
    ENDIF
@@ -139,7 +139,7 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
       hwg_Set_Modal( ::handle, hParent )
    ENDIF
 
-   IF ::style < 0 .AND. hwg_Bitand( Abs(::style), Abs(WND_NOTITLE) ) != 0
+   IF ::style < 0 .AND. hb_bitand( Abs(::style), Abs(WND_NOTITLE) ) != 0
       hwg_WindowSetDecorated( ::handle, 0 )
    ENDIF
 
@@ -147,7 +147,7 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
    InitModalDlg( Self )
    ::lActivated := .T.
 
-   IF ::style < 0 .AND. hwg_Bitand( Abs(::style), Abs(WND_NOSIZEBOX) ) != 0
+   IF ::style < 0 .AND. hb_bitand( Abs(::style), Abs(WND_NOSIZEBOX) ) != 0
       hwg_WindowSetResize( ::handle, 0 )
    ENDIF
 
@@ -166,7 +166,7 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
       ::Minimize()
    ELSEIF !Empty( lMaximized )
       ::Maximize()
-   ELSEIF !Empty( lCentered ) .OR. ( ::style > 0 .AND. hwg_BitAnd( ::style, DS_CENTER ) > 0 )
+   ELSEIF !Empty( lCentered ) .OR. ( ::style > 0 .AND. hb_bitand( ::style, DS_CENTER ) > 0 )
       ::Center()
    ELSEIF ::oParent != NIL .AND. __ObjHasMsg( ::oParent, "nLeft" )
       hwg_MoveWindow( ::handle, ::oParent:nLeft + ::nLeft, ::oParent:nTop + ::nTop )

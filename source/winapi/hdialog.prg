@@ -80,13 +80,13 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
       ::style := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
    ELSEIF nStyle < 0 .AND. nStyle > -0x1000
       ::style := WS_POPUP + WS_VISIBLE
-      IF hwg_Bitand(Abs(nStyle), Abs(WND_NOTITLE)) = 0
+      IF hb_bitand(Abs(nStyle), Abs(WND_NOTITLE)) = 0
          ::style += WS_CAPTION
       ENDIF
-      IF hwg_Bitand(Abs(nStyle), WND_NOSYSMENU) = 0
+      IF hb_bitand(Abs(nStyle), WND_NOSYSMENU) = 0
          ::style += WS_SYSMENU
       ENDIF
-      IF hwg_Bitand(Abs(nStyle), WND_NOSIZEBOX) = 0
+      IF hb_bitand(Abs(nStyle), WND_NOSIZEBOX) = 0
          ::style += WS_SIZEBOX
       ENDIF
    ELSE
@@ -126,10 +126,10 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
    IF nHelpId != NIL
       ::HelpId := nHelpId
    ENDIF
-   IF Hwg_Bitand(::style, WS_HSCROLL) > 0
+   IF hb_bitand(::style, WS_HSCROLL) > 0
       ::nScrollBars++
    ENDIF
-   IF Hwg_Bitand(::style, WS_VSCROLL) > 0
+   IF hb_bitand(::style, WS_VSCROLL) > 0
       ::nScrollBars += 2
    ENDIF
 
@@ -401,7 +401,7 @@ FUNCTION onDlgCommand(oDlg, wParam, lParam)
          hwg_EndDialog(oDlg:handle)
       ENDIF
    ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. ValType(oDlg:menu) == "A" .AND. (aMenu := Hwg_FindMenuItem(oDlg:menu, iParLow, @i)) != NIL
-      IF Hwg_BitAnd(aMenu[1, i, 4], FLAG_CHECK) > 0
+      IF hb_bitand(aMenu[1, i, 4], FLAG_CHECK) > 0
          hwg_Checkmenuitem(NIL, aMenu[1, i, 3], !hwg_Ischeckedmenuitem(NIL, aMenu[1, i, 3]))
       ENDIF
       IF aMenu[1, i, 1] != NIL

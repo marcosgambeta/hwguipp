@@ -690,7 +690,7 @@ METHOD Paint()  CLASS HBrowse
    ENDIF
    aCoors := hwg_Getclientrect( ::handle )
 
-   IF hwg_BitAnd( ::style, WS_BORDER ) != 0
+   IF hb_bitand( ::style, WS_BORDER ) != 0
       hwg_gtk_drawedge( hDC, aCoors[1], aCoors[2], aCoors[3] - 1, aCoors[4] - 1, 6 )
       i := 1
    ELSE
@@ -1750,7 +1750,7 @@ METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos ) CLASS HBrowse
    HB_SYMBOL_UNUSED(nYPos)   
   
    // hwg_WriteLog( "Brw: MouseWheel" )
-   IF Hwg_BitAnd( nKeys, MK_MBUTTON ) != 0
+   IF hb_bitand( nKeys, MK_MBUTTON ) != 0
       IF nDelta > 0
          ::PageUp()
       ELSE

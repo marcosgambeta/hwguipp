@@ -89,7 +89,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
       ::extStyle += WS_EX_TRANSPARENT
    ENDIF
 
-   IF ( n := hwg_bitAnd(::style, SS_TYPEMASK) ) == SS_RIGHT
+   IF ( n := hb_bitand(::style, SS_TYPEMASK) ) == SS_RIGHT
       ::dwFlags := hb_bitor(DT_RIGHT, DT_WORDBREAK)
    ELSEIF n == SS_CENTER
       ::dwFlags := hb_bitor(SS_CENTER, DT_WORDBREAK)

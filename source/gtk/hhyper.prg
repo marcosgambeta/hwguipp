@@ -91,7 +91,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
       ENDIF
    ENDIF
 
-   IF ( n := hwg_bitAnd( ::style, SS_TYPEMASK ) ) == SS_RIGHT
+   IF ( n := hb_bitand( ::style, SS_TYPEMASK ) ) == SS_RIGHT
       ::dwFlags := hb_bitor( DT_RIGHT, DT_WORDBREAK )
    ELSEIF n == SS_CENTER
       ::dwFlags := hb_bitor( SS_CENTER, DT_WORDBREAK )
@@ -192,7 +192,7 @@ METHOD SetLinkColor( sLinkColor ) CLASS HStaticLink
 
 METHOD OnMouseMove( wParam ) CLASS HStaticLink
 
-   LOCAL lEnter := ( hwg_BitAnd( wParam,16 ) > 0 )
+   LOCAL lEnter := ( hb_bitand( wParam,16 ) > 0 )
 
    IF ::state != LBL_INIT
 

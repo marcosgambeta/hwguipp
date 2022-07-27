@@ -176,7 +176,7 @@ METHOD onAnchor(x, y, w, h) CLASS HControl
    IF nAnchor >= ANCHOR_RIGHTABS
       // Absolute - RIGHT ABSOLUTE
       nAnchor -= ANCHOR_RIGHTABS
-      IF HWG_BITAND(::Anchor, ANCHOR_LEFTREL) != 0
+      IF hb_bitand(::Anchor, ANCHOR_LEFTREL) != 0
          w1 := Int(nxIncAbsolute) - (x1 - x9) + w9
       ELSE
          IF x1 != x9
@@ -188,7 +188,7 @@ METHOD onAnchor(x, y, w, h) CLASS HControl
    IF nAnchor >= ANCHOR_BOTTOMABS
       // Absolute - BOTTOM ABSOLUTE
       nAnchor -= ANCHOR_BOTTOMABS
-      IF HWG_BITAND(::Anchor, ANCHOR_TOPREL) != 0
+      IF hb_bitand(::Anchor, ANCHOR_TOPREL) != 0
          h1 := Int(nyIncAbsolute) - (y1 - y9) + h9
       ELSE
          IF y1 != y9

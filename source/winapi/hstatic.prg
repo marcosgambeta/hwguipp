@@ -113,7 +113,7 @@ METHOD Paint(lpDis) CLASS HStatic
 METHOD SetText(c) CLASS HStatic
 
    ::Super:SetText(c)
-   IF hwg_bitand(::extStyle, WS_EX_TRANSPARENT) != 0
+   IF hb_bitand(::extStyle, WS_EX_TRANSPARENT) != 0
       hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
       hwg_Sendmessage(::oParent:handle, WM_PAINT, 0, 0)
    ENDIF
@@ -122,7 +122,7 @@ METHOD SetText(c) CLASS HStatic
 
 METHOD Refresh() CLASS HStatic
 
-   IF hwg_bitand(::extStyle, WS_EX_TRANSPARENT) != 0
+   IF hb_bitand(::extStyle, WS_EX_TRANSPARENT) != 0
       hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
       hwg_Sendmessage(::oParent:handle, WM_PAINT, 0, 0)
    ELSE

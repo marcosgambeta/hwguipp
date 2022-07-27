@@ -144,7 +144,10 @@ HB_FUNC( HWG_BITOR ) /* DEPRECATED: use hb_bitor */
    hb_retnl( hb_parnl(1) | hb_parnl(2) );
 }
 
-HB_FUNC( HWG_BITAND )
+/*
+HWG_BITAND(nValue1, nValue2) --> numeric
+*/
+HB_FUNC( HWG_BITAND ) /* DEPRECATED: use hb_bitand */
 {
    hb_retnl( hb_parnl(1) & hb_parnl(2) );
 }

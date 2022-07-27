@@ -469,16 +469,16 @@ FUNCTION SelectAnchor( nAnchor )
    IF nAnchor == 0
       c1 := .T.
    ELSEIF nAnchor > 0
-      IF hwg_BitAnd( nAnchor, ANCHOR_TOPABS ) > 0; c2 := .T.; ENDIF
-      IF hwg_BitAnd( nAnchor, ANCHOR_LEFTABS ) > 0; c3 := .T.; ENDIF
-      IF hwg_BitAnd( nAnchor, ANCHOR_BOTTOMABS ) > 0; c4 := .T.; ENDIF
-      IF hwg_BitAnd( nAnchor, ANCHOR_RIGHTABS ) > 0; c5 := .T.; ENDIF
-      IF hwg_BitAnd( nAnchor, ANCHOR_TOPREL ) > 0; c6 := .T.; ENDIF
-      IF hwg_BitAnd( nAnchor, ANCHOR_LEFTREL ) > 0; c7 := .T.; ENDIF
-      IF hwg_BitAnd( nAnchor, ANCHOR_BOTTOMREL ) > 0; c8 := .T.; ENDIF
-      IF hwg_BitAnd( nAnchor, ANCHOR_RIGHTREL ) > 0; c9 := .T.; ENDIF
-      IF hwg_BitAnd( nAnchor, ANCHOR_HORFIX ) > 0; c10 := .T.; ENDIF
-      IF hwg_BitAnd( nAnchor, ANCHOR_VERTFIX ) > 0; c11 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_TOPABS ) > 0; c2 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_LEFTABS ) > 0; c3 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_BOTTOMABS ) > 0; c4 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_RIGHTABS ) > 0; c5 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_TOPREL ) > 0; c6 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_LEFTREL ) > 0; c7 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_BOTTOMREL ) > 0; c8 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_RIGHTREL ) > 0; c9 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_HORFIX ) > 0; c10 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_VERTFIX ) > 0; c11 := .T.; ENDIF
    ENDIF
 
    INIT DIALOG oDlg TITLE "Select anchor" ;

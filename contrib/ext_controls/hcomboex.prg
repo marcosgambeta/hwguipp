@@ -1288,7 +1288,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
       hwg_Drawframecontrol( dc, rcBitmap, DFC_BUTTON, nstate )
    ENDIF
 
-   IF ( hwg_Bitand( drawInfo[ 9 ], ODS_SELECTED ) != 0 )
+   IF ( hb_bitand( drawInfo[ 9 ], ODS_SELECTED ) != 0 )
       hwg_Setbkcolor( dc, hwg_Getsyscolor( COLOR_HIGHLIGHT ) )
       hwg_Settextcolor( dc, hwg_Getsyscolor( COLOR_HIGHLIGHTTEXT ) )
    ELSE
@@ -1316,7 +1316,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
          hwg_Drawtransparentbitmap( dc, hbitmap, bmpRect[ 1 ]  , bmpRect[ 2 ] + 1 )
       ENDIF
    ENDIF
-   IF ( ( hwg_Bitand( DrawInfo[ 9 ], ODS_FOCUS + ODS_SELECTED ) ) == ( ODS_FOCUS + ODS_SELECTED ) )
+   IF ( ( hb_bitand( DrawInfo[ 9 ], ODS_FOCUS + ODS_SELECTED ) ) == ( ODS_FOCUS + ODS_SELECTED ) )
       IF  cTmp != "\-"  .AND. ! lDroped
          hwg_Drawfocusrect( dc, iif( ::lCheck, rcText , rcBitmap ) )
       ENDIF

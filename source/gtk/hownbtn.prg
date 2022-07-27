@@ -267,7 +267,7 @@ METHOD Paint() CLASS HOwnButton
    RETURN NIL
 
 METHOD MouseMove( wParam, lParam )  CLASS HOwnButton
-   LOCAL lEnter := ( hwg_BitAnd( wParam,16 ) > 0 )
+   LOCAL lEnter := ( hb_bitand( wParam,16 ) > 0 )
    * Variables not used
    * LOCAL res := .F.
 

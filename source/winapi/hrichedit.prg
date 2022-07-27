@@ -61,7 +61,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::bOther := bOther
    ::bChange := bChange
    ::lAllowTabs := iif(Empty(lAllowTabs), ::lAllowTabs, lAllowTabs)
-   ::lReadOnly := Hwg_BitAnd(nStyle, ES_READONLY) != 0
+   ::lReadOnly := hb_bitand(nStyle, ES_READONLY) != 0
 
    hwg_InitRichEdit()
 

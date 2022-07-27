@@ -359,7 +359,7 @@ METHOD Activate() CLASS HStatic
    IF !Empty( ::oParent:handle )
       ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle, ::title )
-      IF hwg_BitAnd( ::style, SS_OWNERDRAW ) != 0
+      IF hb_bitand( ::style, SS_OWNERDRAW ) != 0
          hwg_Setwindowobject( ::handle, Self )
       ENDIF
       ::Init()

@@ -69,7 +69,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       bColor, lTransp, bClick, bDblClick, bOther ) CLASS HStaticEx
 
    nStyle := iif( nStyle = NIL, 0, nStyle )
-   ::nStyleHS := nStyle - Hwg_BitAND( nStyle,  WS_VISIBLE + WS_DISABLED + WS_CLIPSIBLINGS + ;
+   ::nStyleHS := nStyle - hb_bitand( nStyle,  WS_VISIBLE + WS_DISABLED + WS_CLIPSIBLINGS + ;
       WS_CLIPCHILDREN + WS_BORDER + WS_DLGFRAME + ;
       WS_VSCROLL + WS_HSCROLL + WS_THICKFRAME + WS_TABSTOP )
    nStyle += SS_NOTIFY + WS_CLIPCHILDREN
@@ -293,7 +293,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       tcolor, bColor, bGFocus ) CLASS HButtonX
 
    nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), BS_PUSHBUTTON + BS_NOTIFY )
-   ::lFlat := Hwg_BitAND( nStyle, BS_FLAT ) != 0
+   ::lFlat := hb_bitand( nStyle, BS_FLAT ) != 0
 
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint,, cTooltip, ;
@@ -853,10 +853,10 @@ METHOD SetColorEx( nIndex, nColor, lPaint ) CLASS HBUTTONEx
 METHOD Paint( lpDis ) CLASS HBUTTONEx
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpDis )
    LOCAL dc := drawInfo[ 3 ]
-   LOCAL bIsPressed     := HWG_BITAND( drawInfo[ 9 ], ODS_SELECTED ) != 0
-   LOCAL bIsFocused     := HWG_BITAND( drawInfo[ 9 ], ODS_FOCUS ) != 0
-   LOCAL bIsDisabled    := HWG_BITAND( drawInfo[ 9 ], ODS_DISABLED ) != 0
-   LOCAL bDrawFocusRect := ! HWG_BITAND( drawInfo[ 9 ], ODS_NOFOCUSRECT ) != 0
+   LOCAL bIsPressed     := hb_bitand( drawInfo[ 9 ], ODS_SELECTED ) != 0
+   LOCAL bIsFocused     := hb_bitand( drawInfo[ 9 ], ODS_FOCUS ) != 0
+   LOCAL bIsDisabled    := hb_bitand( drawInfo[ 9 ], ODS_DISABLED ) != 0
+   LOCAL bDrawFocusRect := ! hb_bitand( drawInfo[ 9 ], ODS_NOFOCUSRECT ) != 0
    LOCAL focusRect
    LOCAL captionRect
    LOCAL centerRect
@@ -954,10 +954,10 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    ENDIF
 
    IF uAlign = DT_VCENTER
-      uAlign := iif( HWG_BITAND( ::Style, BS_TOP ) != 0, DT_TOP, DT_VCENTER )
-      uAlign += iif( HWG_BITAND( ::Style, BS_BOTTOM ) != 0, DT_BOTTOM - DT_VCENTER , 0 )
-      uAlign += iif( HWG_BITAND( ::Style, BS_LEFT ) != 0, DT_LEFT, DT_CENTER )
-      uAlign += iif( HWG_BITAND( ::Style, BS_RIGHT ) != 0, DT_RIGHT - DT_CENTER, 0 )
+      uAlign := iif( hb_bitand( ::Style, BS_TOP ) != 0, DT_TOP, DT_VCENTER )
+      uAlign += iif( hb_bitand( ::Style, BS_BOTTOM ) != 0, DT_BOTTOM - DT_VCENTER , 0 )
+      uAlign += iif( hb_bitand( ::Style, BS_LEFT ) != 0, DT_LEFT, DT_CENTER )
+      uAlign += iif( hb_bitand( ::Style, BS_RIGHT ) != 0, DT_RIGHT - DT_CENTER, 0 )
    ELSE
       uAlign := iif( uAlign = 0, DT_CENTER + DT_VCENTER, uAlign )
    ENDIF
@@ -1032,8 +1032,8 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    ELSE
       hwg_Inflaterect( @captionRect, - 3, - 3 )
    ENDIF
-   captionRect[ 1 ] += iif( HWG_BITAND( ::Style, BS_LEFT )  != 0, Max( ::PictureMargin, 2 ), 0 )
-   captionRect[ 3 ] -= iif( HWG_BITAND( ::Style, BS_RIGHT ) != 0, Max( ::PictureMargin, 3 ), 0 )
+   captionRect[ 1 ] += iif( hb_bitand( ::Style, BS_LEFT )  != 0, Max( ::PictureMargin, 2 ), 0 )
+   captionRect[ 3 ] -= iif( hb_bitand( ::Style, BS_RIGHT ) != 0, Max( ::PictureMargin, 3 ), 0 )
 
    itemRect1    := AClone( itemRect )
    captionRect1 := AClone( captionRect )
@@ -1131,7 +1131,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    ENDIF
 
    // Draw the focus rect
-   IF bIsFocused .AND. bDrawFocusRect .AND. Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
+   IF bIsFocused .AND. bDrawFocusRect .AND. hb_bitand( ::sTyle, WS_TABSTOP ) != 0
       focusRect := hwg_Copyrect( itemRect )
       hwg_Inflaterect( @focusRect, - 3, - 3 )
       hwg_Drawfocusrect( dc, focusRect )
@@ -1243,7 +1243,7 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
    ENDIF
    hwg_Setbkmode( dc, TRANSPARENT )
 
-   IF Hwg_BitAND( dwStyle, BS_FLAT ) != 0  // "flat" frame
+   IF hb_bitand( dwStyle, BS_FLAT ) != 0  // "flat" frame
       pnFrmDark  := HPen():Add( PS_SOLID, 1,  hwg_ColorRgb2N( 64, 64, 64 ) )
       pnFrmLight := HPen():Add( PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
       ppnOldPen := hwg_Selectobject( dc, pnFrmDark:Handle )

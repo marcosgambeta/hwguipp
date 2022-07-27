@@ -2367,7 +2367,7 @@ METHOD LoadEnv( nL, iTd, lPaint ) CLASS HCEdiExt
          ENDIF
       ENDIF
    ENDIF
-   IF !Empty( lPaint ) .AND. hwg_BitAnd( aStru[OB_OPT], TROPT_SEL ) > 0
+   IF !Empty( lPaint ) .AND. hb_bitand( aStru[OB_OPT], TROPT_SEL ) > 0
       ::bColor := ::bcolorSel
       lChgClr := .T.
    ENDIF
