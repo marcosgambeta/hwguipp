@@ -43,7 +43,7 @@ STATIC FUNCTION Print1
 
    LOCAL aRep
 
-   IF !Empty( aRep := hwg_hwr_Open( "example.rpt", "MyReport" ) )
+   IF !Empty(aRep := hwg_hwr_Open( "example.rpt", "MyReport" ))
       hwg_hwr_Print( aRep,, .T. )
       hwg_hwr_Close( aRep )
    ENDIF
@@ -62,7 +62,7 @@ STATIC FUNCTION Print2
 
 FUNCTION MyReport
 
-   LOCAL aPaintRep , crlf := Chr( 13 ) + Chr( 10 ), cScr
+   LOCAL aPaintRep , crlf := Chr(13) + Chr(10), cScr
 
    aPaintRep := hwg_hwr_Init( "MyReport", 210, 297, 735, "nStroka := 1" + crlf )
 

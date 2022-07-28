@@ -213,7 +213,9 @@ Function ReadBuildFile()
 Local cLibFiles, oBr1:={}, oBr2:={}, oBr3:={}, oBr4:={}, oSel1, oSel2, oSel3, i, oSel4
 Local aPal:=""
 Local cFolderFile:=hwg_SelectFile("HwGUI File Build (*.bld)", "*.bld" ) 
-if empty(cFolderFile); Return NIL; Endif
+if empty(cFolderFile)
+   Return NIL
+Endif
 oStatus:SetTextPanel(1,cFolderFile)      
 oExeName:SetText( Hwg_GetIni( 'Config', 'ExeName' , , cFolderFile ))
 oLibFolder:SetText(Hwg_GetIni( 'Config', 'LibFolder' , , cFolderFile ))
@@ -270,10 +272,10 @@ Local cDest := ""
 Local cLetra
 Local cNome := cFileNoPath( cArq )
 
-cDest := Alltrim( StrTran( cArq, cNome, "" ) )
+cDest := Alltrim(StrTran( cArq, cNome, "" ))
 
-If Substr( cDest, -1, 1 ) == "\"
-   cDest := Substr( cDest, 1, Len( cDest ) -1 )
+If Substr(cDest, -1, 1) == "\"
+   cDest := Substr(cDest, 1, Len(cDest) - 1)
 EndIf
    
 Return cDest
@@ -281,9 +283,9 @@ Return cDest
 Function cFileNoExt( cArq )
 *-------------------------------------------------------------------------------------
 Local n
-n:=At( ".", cArq )
+n := At(".", cArq)
 If n > 0
-   Return Substr( cArq, 1, n - 1 )
+   Return Substr(cArq, 1, n - 1)
 Endif
 
 Return cArq   
@@ -295,7 +297,7 @@ Local cLetra
 
 For i:=1 to Len( cArq )
    
-   cLetra := Substr( cArq, i, 1 )
+   cLetra := Substr(cArq, i, 1)
    If cLetra == "\"
       cDest := ""
    Else   
@@ -309,7 +311,9 @@ Return cDest
 Function SaveBuildFile()
 Local cLibFiles, i, oNome, g
 Local cFolderFile:=hwg_SaveFile("*.bld", "HwGUI File Build (*.bld)", "*.bld" ) 
-if empty(cFolderFile); Return NIL; Endif
+if empty(cFolderFile)
+   Return NIL
+Endif
 if file(cFolderFile)
    If(hwg_Msgyesno("File "+cFolderFile+" EXIT ..Replace?"))
      Erase( cFolderFile )
@@ -384,7 +388,7 @@ Local cMake
 Local CRLF := Chr(13) + Chr(10)
 Local cListObj := ""
 Local cListRes := ""
-Local cMainPrg := Alltrim( Lower( cFileNoPath( cFileNoExt( oMainPrg:GetText() ) ) ) )
+Local cMainPrg := Alltrim(Lower(cFileNoPath(cFileNoExt(oMainPrg:GetText()))))
 Local cPathFile
 Local cRun 
 Local cNameExe
@@ -394,15 +398,15 @@ Local cErrText
 Local lEnd
 
 cPathFile := cPathNoFile( oMainPrg:GetText() )
-If !Empty( cPathFile )
+If !Empty(cPathFile)
    DirChange( cPathFile )
 EndIF   
 
 If File(cDirec+"hwmake.Ini")
-   cHwGUI  := lower( alltrim( Hwg_GetIni( 'Config', 'DIR_HwGUI'   , , cDirec+"hwmake.Ini" ) ) )
-   cHarbour:= lower( alltrim( Hwg_GetIni( 'Config', 'DIR_HARBOUR' , , cDirec+"hwmake.Ini")  ) )
-   cBCC55  := lower( alltrim( Hwg_GetIni( 'Config', 'DIR_BCC55'   , , cDirec+"hwmake.Ini" ) ) )
-   cObj    := lower( alltrim( Hwg_GetIni( 'Config', 'DIR_OBJ'     , , cDirec+"hwmake.Ini" ) ) )
+   cHwGUI  := lower(alltrim(Hwg_GetIni( 'Config', 'DIR_HwGUI'   , , cDirec+"hwmake.Ini" )))
+   cHarbour:= lower(alltrim(Hwg_GetIni( 'Config', 'DIR_HARBOUR' , , cDirec+"hwmake.Ini")))
+   cBCC55  := lower(alltrim(Hwg_GetIni( 'Config', 'DIR_BCC55'   , , cDirec+"hwmake.Ini" )))
+   cObj    := lower(alltrim(Hwg_GetIni( 'Config', 'DIR_OBJ'     , , cDirec+"hwmake.Ini" )))
 Else 
    cHwGUI  :="c:\hwgui"
    cHarbour:="c:\xharbour"
@@ -410,19 +414,19 @@ Else
    cObj    :="obj"
 EndIf
 
-cObj := Lower( Alltrim( cObj ) )
+cObj := Lower(Alltrim(cObj))
 Makedir( cObj )
 
-cExeHarbour := Lower( cHarbour+"\bin\harbour.exe" )
+cExeHarbour := Lower(cHarbour+"\bin\harbour.exe")
 //If !File( cExeHarbour )
 //   hwg_Msginfo( "Not exist " + cExeHarbour +"!!" )
 //   Return NIL
 //EndIf
 
 //PrgFiles
-i := Ascan( oBrowse1:aArray, {|x| At( cMainPrg, x ) > 0 } )
+i := Ascan( oBrowse1:aArray, {|x| At(cMainPrg, x) > 0 } )
 If i == 0
-   AADD(  oBrowse1:aArray, Alltrim( oMainPrg:GetText() ) )
+   AADD(  oBrowse1:aArray, Alltrim(oMainPrg:GetText()) )
 EndIf   
 
 For Each i in oBrowse1:aArray 
@@ -448,7 +452,7 @@ For Each i in oBrowse1:aArray
       fErase( cLogErro )
       fErase( cObjName )
       fErase( cFileNoExt( cObjName ) + ".obj" )
-      If ExecuteCommand(  cExeHarbour, cPrgName + " -o" + cObjName + " " + Alltrim( oPrgFlag:GetText() ) + " -n -i"+cHarbour+"\include;"+cHwGUI+"\include"+If( !Empty(Alltrim( oIncFolder:GetText() ) ), ";"+Alltrim( oIncFolder:GetText() ), ""),  cFileNoExt( cObjName ) + ".log" ) <> 0
+      If ExecuteCommand(  cExeHarbour, cPrgName + " -o" + cObjName + " " + Alltrim(oPrgFlag:GetText()) + " -n -i"+cHarbour+"\include;"+cHwGUI+"\include"+If( !Empty(Alltrim(oIncFolder:GetText()) ), ";"+Alltrim(oIncFolder:GetText()), ""),  cFileNoExt( cObjName ) + ".log" ) <> 0
   
          cErrText := Memoread( cLogErro ) 
        
@@ -467,10 +471,10 @@ For Each i in oBrowse1:aArray
          
    EndIf
    cList    += cObjName + " " 
-   If At( cMainPrg,cObjName ) == 0      
+   If At(cMainPrg, cObjName) == 0      
       cListObj += StrTran( cObjName, ".c", ".obj" ) + " " + CRLF
    EndIf   
-   cRun := " -v -y -c " +Alltrim( oCFlag:GetText() ) + " -O2 -tW -M -I"+cHarbour+"\include;"+cHwGUI+"\include;"+cBCC55+"\include " + "-o"+StrTran( cObjName, ".c", ".obj" ) + " " + cObjName
+   cRun := " -v -y -c " +Alltrim(oCFlag:GetText()) + " -O2 -tW -M -I"+cHarbour+"\include;"+cHwGUI+"\include;"+cBCC55+"\include " + "-o"+StrTran( cObjName, ".c", ".obj" ) + " " + cObjName
    If ExecuteCommand( cBCC55 + "\bin\bcc32.exe", cRun ) <> 0
       hwg_Msginfo("No Created Object files!", "HwMake" )
       Return NIL
@@ -495,11 +499,11 @@ For Each i in oBrowse4:aArray
    cListRes += cObj+"\"+cFileNoPath( cFileNoExt( i ) ) + ".res +" + CRLF
 Next
 If Len( cListRes ) > 0
-   cListRes := Substr( cListRes, 1, Len( cListRes ) - 3 )
+   cListRes := Substr(cListRes, 1, Len(cListRes) - 3)
 EndIF   
 cMake := cListObj
-cNameExe := Alltrim( lower( oExeName:GetText() ) )
-If At( ".exe", cNameExe ) == 0
+cNameExe := Alltrim(lower(oExeName:GetText()))
+If At(".exe", cNameExe) == 0
    cNameExe += ".exe"
 EndIF
    
@@ -508,7 +512,7 @@ cMake += cFileNoExt( oExeName:GetText() ) + ".map, + " + CRLF
 cMake += RetLibrary( cHwGUI, cHarbour, cBcc55, oBrowse3:aArray )
 //Add def File
 //
-cMake += If( !Empty( cListRes ), ",," + cListRes, "" )  
+cMake += If( !Empty(cListRes), ",," + cListRes, "" )
 
 If File( cMainPrg + ".bc ")
    fErase( cMainPrg + ".bc " )
@@ -577,7 +581,7 @@ FOR EACH i in aLibs
    cLib += lower(i) + CRLF
 Next 
 
-cLib := Substr( Alltrim( cLib ), 1, Len( Alltrim( cLib ) ) - 2 )
+cLib := Substr(Alltrim(cLib), 1, Len(Alltrim(cLib)) - 2)
 cLib := StrTran( cLib, Chr(179), Chr(13) + Chr(10 ) )
 Return cLib
  
@@ -664,4 +668,4 @@ Local oDlg, oEdit
    @ 200,460 BUTTON "Close" ON CLICK {||hwg_EndDialog()} SIZE 100,32 
 
    oDlg:Activate()
-Return NIL 
+Return NIL

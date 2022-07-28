@@ -84,7 +84,7 @@ METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
       IF __oleIsDisp( ::hObj )
          ::oOle:__hObj := ::hObj
       ENDIF
-      IF Empty( ::oOle:__hObj )
+      IF Empty(::oOle:__hObj)
          hwg_MsgStop( "Invalid argument to contructor!" )
          RETURN NIL
       ENDIF
@@ -109,8 +109,8 @@ METHOD __Error( ... ) CLASS HActiveX
 Local cMessage, uRet 
 cMessage := __GetMessage() 
 
-   IF SubStr( cMessage, 1, 1 ) == "_"
-      cMessage := SubStr( cMessage, 2 )
+   IF SubStr(cMessage, 1, 1) == "_"
+      cMessage := SubStr(cMessage, 2)
    ENDIF
 
    //hwg_writelog( Valtype(::oOle)+Valtype(cMessage)+Valtype(HB_aParams()) )

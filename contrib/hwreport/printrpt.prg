@@ -29,7 +29,7 @@ FUNCTION _hwr_PrintRpt
    PRIVATE lAddMode := .F.
    PRIVATE aImgs := {}
 
-   IF Empty( hDC )
+   IF Empty(hDC)
       RETURN .F.
    ENDIF
 
@@ -91,7 +91,7 @@ FUNCTION _hwr_PrintRpt
       ENDIF
    NEXT
    */
-   IF !Empty( aImgs )
+   IF !Empty(aImgs)
       FOR i := 1 TO Len( aImgs )
          oPrinter:Bitmap( aImgs[i,1], aImgs[i,2], aImgs[i,3], aImgs[i,4], , aImgs[i,5], aImgs[i,6] )
       NEXT

@@ -14,7 +14,7 @@
 FUNCTION Main
 
    LOCAL nKey, nh, nw, GetList := {}
-   LOCAL cLogin := Space( 16 )
+   LOCAL cLogin := Space(16)
 
    REQUEST HB_GT_HWGUI
    REQUEST HB_GT_HWGUI_DEFAULT
@@ -38,7 +38,7 @@ FUNCTION Main
    clear screen
    @ 0, 0, MaxRow(), MaxCol() BOX "******** "
    @ 4,5 SAY "Test"
-   @ MaxRow() - 1, 1 SAY "---- " + Str( MaxRow() + 1, 3 ) + " X " + Str( MaxCol() + 1, 3 ) + " Desktop:" + Str( hb_gtinfo( HB_GTI_DESKTOPROWS ), 3 )
+   @ MaxRow() - 1, 1 SAY "---- " + Str(MaxRow() + 1, 3) + " X " + Str(MaxCol() + 1, 3) + " Desktop:" + Str(hb_gtinfo(HB_GTI_DESKTOPROWS), 3)
    @ MaxRow() - 1, 70 SAY "----"
    @ MaxRow(), 1 SAY "===="
    @ MaxRow(), 70 SAY "===="
@@ -48,7 +48,7 @@ FUNCTION Main
    hwg_writelog( "Login: " + cLogin )
 
    nKey := Inkey( 5 )
-   hwg_writelog( "Key " + Str( nKey ) )
+   hwg_writelog( "Key " + Str(nKey) )
    gthwg_CloseWindow()
 
    RETURN NIL

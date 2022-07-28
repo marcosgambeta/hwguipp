@@ -171,8 +171,7 @@ CLASS RichText
    // Information
    METHOD InfoDoc( cTitle, cSubject, cAuthor, cManager, cCompany, cOperator, ;
          cCategor, cKeyWords, cComment )
-   METHOD DocFormat( nTab, nLineStart, lBackup, nDefLang, nDocType, ;
-         cFootType, cFootNotes, cEndNotes, cFootNumber, nPage, cProtect, lFacing, nGutter )
+   METHOD DocFormat(nTab, nLineStart, lBackup, nDefLang, nDocType, cFootType, cFootNotes, cEndNotes, cFootNumber, nPage, cProtect, lFacing, nGutter)
    // Lots of other cool stuff
    // New Methods for table managament
    METHOD EndTable() INLINE ::CloseGroup()
@@ -180,7 +179,7 @@ CLASS RichText
    METHOD TableCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign, ;
          nSpace, lSpExact, nFontColor, ;
          lDefault, lHeader, lPage, lDate )
-   METHOD CellFormat( cCellBorder, aCellPct )
+   METHOD CellFormat(cCellBorder, aCellPct)
    METHOD DefNewTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
          cCellAppear, cCellHAlign, nTblRows, ;
          nTblColumns, nTblRHgt, aTableCWid, cRowBorder, cCellBorder, aColPct, nCellPct, ;
@@ -318,8 +317,8 @@ METHOD PageSetup( nLeft, nRight, nTop, nBottom, nWidth, nHeight, ;
    // Vertical alignment and page number position are "section-specific"
    // codes.  But we'll put them here anyway for now...
 
-   IF ! Empty( cVertAlign )
-      ::TextCode( "vertal" + Lower( Left( cVertAlign, 1 ) ) )
+   IF ! Empty(cVertAlign)
+      ::TextCode( "vertal" + Lower(Left(cVertAlign, 1)) )
    ENDIF
 
    // Set the initial font size
@@ -422,7 +421,7 @@ METHOD Paragraph( cText, nFontNumber, nFontSize, cAppear, ;
 
    IF nShdPct > 0
       ::NumCode( IIf( ! lChar, "shading", "chshdng" ), nShdPct, .F. )
-      IF ! Empty( cShadPat )
+      IF ! Empty(cShadPat)
          ::TextCode( "bg" + ::ShadeCode( cShadPat ) )
       ENDIF
    ENDIF
@@ -498,19 +497,19 @@ METHOD Write( xData, lCodesOK ) CLASS RichText
 ******************************************************************** */
    LOCAL cWrite := ""
    LOCAL i, cChar, nChar
-   LOCAL cString := cStr( xData ) //cValToChar( xData )
+   LOCAL cString := cStr(xData) //cValToChar( xData )
    LOCAL aCodes := { "\", "{", "}" }
 
    DEFAULT lCodesOK TO .F.
 
    IF ::lTrimSpaces
-      cString := RTrim( cString )
+      cString := RTrim(cString)
    ENDIF
 
    // cString := " " + cString
 
    FOR i := 1 TO Len( cString )
-      cChar := SubStr( cString, i, 1 )
+      cChar := SubStr(cString, i, 1)
       nChar := Asc( cChar )
       IF nChar < 128
          IF nChar > 91
@@ -534,14 +533,14 @@ METHOD Write( xData, lCodesOK ) CLASS RichText
          // is specified, write data verbatim in hex format.  If a
          // translation table is specified, look up the appropriate
          // hex value to write.
-         IF Empty( ::aTranslate )
+         IF Empty(::aTranslate)
             // Ignore soft line breaks
             IF nChar == 141
                LOOP
             ELSE
-               cWrite += "\plain\f" + AllTrim( Str( ::nFontAct - 1 ) ) + ;
-                     "\fs" + AllTrim( Str( ::nFontSize * 2 ) ) + ;
-                     "\cf" + AllTrim( Str( ::nFontColor ) ) + AllTrim( ::cLastApar ) + "\'" + Lower( NewBase( nChar, 16 ) )
+               cWrite += "\plain\f" + AllTrim(Str(::nFontAct - 1)) + ;
+                     "\fs" + AllTrim(Str(::nFontSize * 2)) + ;
+                     "\cf" + AllTrim(Str(::nFontColor)) + AllTrim(::cLastApar) + "\'" + Lower(NewBase(nChar, 16))
             ENDIF
          ELSE
             cWrite += ::aTranslate[ Asc( cChar ) - 127 ]
@@ -584,7 +583,7 @@ METHOD NumCode( cCode, nValue, lScale ) CLASS RichText
       IF lScale
          nValue := Int( nValue * ::nScale )
       ENDIF
-      cWrite += AllTrim( Str( nValue ) ) //+ " "
+      cWrite += AllTrim(Str(nValue)) //+ " "
       FWrite( ::hFile, cWrite )
    ENDIF
 
@@ -627,7 +626,7 @@ FUNCTION FormatCode( cCode )
 *
 ******************************************************************** */
 
-   cCode := AllTrim( cCode )
+   cCode := AllTrim(cCode)
    IF ! ( Left( cCode, 1 ) == "\" )
       cCode := "\" + cCode
    ENDIF
@@ -690,7 +689,7 @@ METHOD DefineTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
       AFill( aColPct, 0 )
    ENDIF
 
-   ::cTblHAlign := Lower( Left( cTblHAlign, 1 ) )
+   ::cTblHAlign := Lower(Left(cTblHAlign, 1))
    ::nTblFntNum := nTblFntNum
    ::nTblFntSize := nTblFntSize
    ::cCellAppear := cCellAppear
@@ -868,8 +867,8 @@ METHOD NewSection( lLandscape, nColumns, nLeft, nRight, nTop, nBottom, ;
    ::NumCode( "pgwsxn", nWidth )
    ::NumCode( "pghsxn", nHeight )
 
-   IF ! Empty( cVertAlign )
-      ::TextCode( "vertal" + Lower( Left( cVertAlign, 1 ) ) )
+   IF ! Empty(cVertAlign)
+      ::TextCode( "vertal" + Lower(Left(cVertAlign, 1)) )
    ENDIF
 
    // Formato de numero de pagina
@@ -893,7 +892,7 @@ METHOD NewFont( nFontNumber ) CLASS RichText
 *
 ******************************************************************** */
 
-   IF ! Empty( nFontNumber ) .AND. nFontNumber <= ::nFontNum
+   IF ! Empty(nFontNumber) .AND. nFontNumber <= ::nFontNum
       ::NumCode( "f", nFontNumber - 1, .F. )
       ::nFontAct := nFontNumber
    ENDIF
@@ -917,8 +916,8 @@ METHOD Appearance( cAppear ) CLASS RichText
    LOCAL cWrite := ""
 
    // Special case (see .CH file) -- first remove leading slash ...ugh.
-   IF ! Empty( cAppear )
-      cWrite := ::TextCode( SubStr( cAppear, 2 ) )
+   IF ! Empty(cAppear)
+      cWrite := ::TextCode( SubStr(cAppear, 2) )
       ::cLastApar := cAppear
    ENDIF
 
@@ -937,8 +936,8 @@ METHOD HAlignment( cAlign ) CLASS RichText
 *
 ******************************************************************** */
 
-   IF ! Empty( cAlign )
-      ::TextCode( "q" + Lower( Left( cAlign, 1 ) ) )
+   IF ! Empty(cAlign)
+      ::TextCode( "q" + Lower(Left(cAlign, 1)) )
    ENDIF
 
    RETURN NIL
@@ -961,7 +960,7 @@ METHOD LineSpacing( nSpace, lSpExact ) CLASS RichText
    DEFAULT lSpExact TO .F.
 
    ::NumCode( "sl", nSpace, lSpExact )
-   IF ! Empty( nSpace )
+   IF ! Empty(nSpace)
       ::NumCode( "slmult", IIf( lSpExact, 0, 1 ), .F. )
    ENDIF
 
@@ -1005,7 +1004,7 @@ METHOD ParaBorder( cBorder, cType ) CLASS RichText
 ******************************************************************** */
    LOCAL codigo
 
-   cBorder := Upper( AllTrim( cBorder ) )
+   cBorder := Upper(AllTrim(cBorder))
    DO CASE
    CASE cBorder == "CHARACTER"
       codigo := "chbrdr"
@@ -1050,7 +1049,7 @@ METHOD BorderCode( cBorderID ) CLASS RichText
          { "HAIRLINE",    "hair" }  ;
          }
 
-   cBorderID := Upper( RTrim( cBorderID ) )
+   cBorderID := Upper(RTrim(cBorderID))
    n := AScan( aBorder, { | x | x[ 1 ] == cBorderID } )
    IF n > 0
       cBorderCode := aBorder[ n ][ 2 ]
@@ -1082,7 +1081,7 @@ METHOD ShadeCode( cShadeID ) CLASS RichText
          { "BACKDIAG",     "bdiag"      } ;
          }
 
-   cShadeID := Upper( RTrim( cShadeID ) )
+   cShadeID := Upper(RTrim(cShadeID))
    n := AScan( aShade, { | x | x[ 1 ] == cShadeID } )
    IF n > 0
       cShadeCode := aShade[ n ][ 2 ]
@@ -1145,9 +1144,9 @@ FUNCTION NewBase( nDec, nBase )
          lContinue := .F.
       ENDIF
       IF nRemain < 10
-         cRemain := AllTrim( Str( nRemain, 2, 0 ) )
+         cRemain := AllTrim(Str(nRemain, 2, 0))
       ELSE
-         cRemain := Chr( nRemain + 55 )
+         cRemain := Chr(nRemain + 55)
       ENDIF
       cNewBase := cRemain + cNewBase
    ENDDO
@@ -1162,7 +1161,7 @@ METHOD BegBookMark( texto )  CLASS RichText
    ::cLastBook := StrTran( texto, " ", "_" )
    // Iniciar grupo
    ::OpenGroup()
-   ::TextCode( "*\bkmkstart " + Lower( ::cLastBook ) )
+   ::TextCode( "*\bkmkstart " + Lower(::cLastBook) )
    ::CloseGroup()
 
    RETURN NIL
@@ -1170,7 +1169,7 @@ METHOD BegBookMark( texto )  CLASS RichText
 METHOD EndBookMark()  CLASS RichText
 
    ::OpenGroup()
-   ::TextCode( "*\bkmkend " + Lower( ::cLastBook ) )
+   ::TextCode( "*\bkmkend " + Lower(::cLastBook) )
    ::CloseGroup()
 
    RETURN NIL
@@ -1309,16 +1308,20 @@ METHOD FootNote( cTexto, cChar, nFontNumber, ;
    IF lUpper
       ::TextCode( "super " + cChar )
    ELSE
-      IF ! Empty( cChar )
+      IF ! Empty(cChar)
          ::Write( cChar )
       ENDIF
    ENDIF
 
-   IF lAuto ; ::TextCode( "chftn" ) ; ENDIF
+   IF lAuto
+      ::TextCode( "chftn" )
+   ENDIF
    ::CloseGroup()
    ::OpenGroup()
    ::TextCode( "footnote" )
-   IF lEnd ; ::TextCode( "ftnalt" ) ; ENDIF
+   IF lEnd
+      ::TextCode( "ftnalt" )
+   ENDIF
    ::NewFont( nFontNumber )
    ::SetFontSize( nFontSize )
    ::SetFontColor( nFontColor )
@@ -1327,12 +1330,14 @@ METHOD FootNote( cTexto, cChar, nFontNumber, ;
    IF lUpper
       ::TextCode( "super " + cChar )
    ELSE
-      IF ! Empty( cChar )
+      IF ! Empty(cChar)
          ::Write( cChar )
       ENDIF
    ENDIF
 
-   IF lAuto ; ::TextCode( "chftn" ) ; ENDIF
+   IF lAuto
+      ::TextCode( "chftn" )
+   ENDIF
    ::CloseGroup()
    ::Write( cTexto )
    ::CloseGroup()
@@ -1371,7 +1376,7 @@ METHOD BegTextBox( cTexto, aOffset, ASize, cTipo, aColores, nWidth, nPatron, ;
    ENDIF
    ::OpenGroup()
    ::TextCode( "dptxbxtext \s0\ql" )
-   IF ! Empty( cTexto )
+   IF ! Empty(cTexto)
       ::Paragraph( cTexto, nFontNumber, nFontSize, cAppear, ;
             ,, nIndent,,,,,,,,,,,, .F., .T. , nFontColor )
    ENDIF
@@ -1415,7 +1420,7 @@ METHOD SetFrame( ASize, cHorzAlign, cVertAlign, lNoWrap, ;
       cXAlign, xpos, cYAlign, ypos ) CLASS RichText
    LOCAL ancho
 
-   IF Empty( ASize )
+   IF Empty(ASize)
       RETURN NIL
    ENDIF
    ancho := Round( ( 1.25 * ASize[ 1 ] * ::nScale ) + 0.5, 0 )
@@ -1485,7 +1490,7 @@ METHOD Image( cName, ASize, nPercent, lCell, lInclude, lFrame, aFSize, cHorzAlig
          lInclude TO .F., ;
          nPercent TO 1
 
-   IF Empty( cName )
+   IF Empty(cName)
       RETURN NIL
    ENDIF
    IF lCell
@@ -1511,14 +1516,14 @@ METHOD Image( cName, ASize, nPercent, lCell, lInclude, lFrame, aFSize, cHorzAlig
 
       FWrite( ::hFile, " INCLUDEPICTURE " )
       cName := StrTran( cName, "\", "\\\\" )
-      FWrite( ::hFile, " " + AllTrim( cName ) + " \\*MERGEFORMAT " )
+      FWrite( ::hFile, " " + AllTrim(cName) + " \\*MERGEFORMAT " )
       ::CloseGroup()
       ::OpenGroup()
       ::TextCode( "fldrslt" )
       ::CloseGroup()
       ::CloseGroup()
    ELSE
-      cExt := Upper( cFileExt( cName ) )
+      cExt := Upper(cFileExt(cName))
       DO CASE
       CASE cExt == "BMP"
          ::Bmp2Wmf( cName, ASize, nPercent )
@@ -1575,7 +1580,7 @@ METHOD IncStyle( cName, styletype, nFontNumber, nFontSize, ;
    CASE styletype == "SECTION"
       ::NumCode( "ds", ::nStlSec, .F. )
    ENDCASE
-   IF ! Empty( cKeys )
+   IF ! Empty(cKeys)
       ::OpenGroup()
       ::TextCode( "keycode " + cKeys )
       ::CloseGroup()
@@ -1606,7 +1611,7 @@ METHOD IncStyle( cName, styletype, nFontNumber, nFontSize, ;
    IF lParrafo
       IF nShdPct > 0
          cEstilo += ::NumCode( "shading", nShdPct, .F. )
-         IF ! Empty( cShadPat )
+         IF ! Empty(cShadPat)
             cEstilo += ::TextCode( "bg" + ::ShadeCode( cShadPat ) )
          ENDIF
       ENDIF
@@ -1748,7 +1753,7 @@ METHOD DefNewTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
       aColPct   := Array( nTblColumns )
       AFill( aColPct, 0 )
    ENDIF
-   ::cTblHAlign := Lower( Left( cTblHAlign, 1 ) )
+   ::cTblHAlign := Lower(Left(cTblHAlign, 1))
    ::nTblFntNum := nTblFntNum
    ::nTblFntSize := nTblFntSize
    ::cCellAppear := cCellAppear
@@ -1822,7 +1827,7 @@ METHOD TableDef( lHeader, nRowHead, cCellBorder, aColPct ) CLASS RichText
    // Set the default shading, border & width info for each body cell
    FOR i := 1 TO Len( ::aTableCWid )
       IF lHeader
-         IF ! Empty( ::TblCJoin )
+         IF ! Empty(::TblCJoin)
             FOR j := 1 TO Len( ::TblCJoin[ nRowHead ] )
                pos := AScan( ::TblCJoin[ nRowHead ][ j ], i )
                IF pos == 1
@@ -1920,7 +1925,7 @@ METHOD TableCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign, ;
    RETURN NIL
 /* *********************  END OF TableCell()  ********************** */
 
-METHOD CellFormat( cCellBorder, aCellPct ) CLASS RichText
+METHOD CellFormat(cCellBorder, aCellPct) CLASS RichText
 /* ********************************************************************
 * Description:  Changes the format of one row.
 *               Now we can change the celborders and shading for
@@ -1944,9 +1949,9 @@ METHOD CellFormat( cCellBorder, aCellPct ) CLASS RichText
    RETURN NIL
 /* *********************  END OF CellFormat()  ********************** */
 
-METHOD DocFormat( nTab, nLineStart, lBackup, nDefLang, nDocType, ;
+METHOD DocFormat(nTab, nLineStart, lBackup, nDefLang, nDocType, ;
       cFootType, cFootNotes, cEndNotes, cFootNumber, nPage, ;
-      cProtect, lFacing, nGutter ) CLASS RichText
+      cProtect, lFacing, nGutter) CLASS RichText
 
    DEFAULT nTab TO 0.5, ;
          nLineStart TO 1, ;
@@ -2203,7 +2208,7 @@ METHOD Bmp2Wmf(cName,aSize,nPercent) CLASS RichText
    cMenInter := Space(n_bloque)
    lHecho := .F.
    cDir := GetEnv( "TEMP" )
-   temp := cDir + "\tmp" + padl( ALLTRIM( STR( ::nFile, 4, 0 ) ), 4, "0" ) + ".wmf"
+   temp := cDir + "\tmp" + padl( ALLTRIM(STR(::nFile, 4, 0)), 4, "0" ) + ".wmf"
    hDCOut := hwg_CreateMetafile( temp )
    hDib := DibRead( cName )
    IF hDib > 0
@@ -2270,10 +2275,10 @@ METHOD Bmp2Wmf(cName,aSize,nPercent) CLASS RichText
 
 FUNCTION cFileExt( cFile )
 
-   RETURN SubStr( cFile, At( '.', cFile ) + 1 )
+   RETURN SubStr(cFile, At('.', cFile) + 1)
 
 #ifndef __XHARBOUR__
-STATIC FUNCTION CStr( xExp )
+STATIC FUNCTION CStr(xExp)
    LOCAL cType
 
    IF xExp == NIL
@@ -2288,11 +2293,11 @@ STATIC FUNCTION CStr( xExp )
    CASE cType == 'L'
       RETURN IIf( xExp, '.T.', '.F.' )
    CASE cType == 'N'
-      RETURN Str( xExp )
+      RETURN Str(xExp)
    CASE cType == 'M'
       RETURN xExp
    CASE cType == 'A'
-      RETURN "{ Array of " +  LTrim( Str( Len( xExp ) ) ) + " Items }"
+      RETURN "{ Array of " +  LTrim(Str(Len(xExp))) + " Items }"
    CASE cType == 'B'
       RETURN '{|| Block }'
    CASE cType == 'O'
@@ -2304,7 +2309,7 @@ STATIC FUNCTION CStr( xExp )
       RETURN hb_NumToHex( xExp )
 #endif
    CASE cType == 'H'
-      RETURN "{ Hash of " +  LTrim( Str( Len( xExp ) ) ) + " Items }"
+      RETURN "{ Hash of " +  LTrim(Str(Len(xExp))) + " Items }"
    OTHERWISE
       RETURN "Type: " + cType
    ENDCASE

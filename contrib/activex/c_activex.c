@@ -376,9 +376,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
    if( hb_hashScan( ( ( MyRealIEventHandler * ) this )->pEvents,
                hb_itemPutNL( Key, dispid ), &ulPos ) )
    {
-      PHB_ITEM pArray =
-            hb_hashGetValueAt( ( ( MyRealIEventHandler * ) this )->pEvents,
-            ulPos );
+      PHB_ITEM pArray = hb_hashGetValueAt((( MyRealIEventHandler * ) this)->pEvents, ulPos);
 
 #else
 

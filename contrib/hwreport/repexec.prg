@@ -24,7 +24,7 @@ FUNCTION hwg_hwr_Init( cRepName, nWidth, nHeight, nFormWidth, cVars )
 
    nWidth := Iif( Empty(nWidth), 210, nWidth )
    nHeight := Iif( Empty(nHeight),297,nHeight )
-   IF !Empty( nFormWidth )
+   IF !Empty(nFormWidth)
       xKoef := nFormWidth / nWidth
    ENDIF
    RETURN { nWidth, nHeight, xKoef, 0, 0, {}, "", cRepName, .F. , 0, cVars }
@@ -32,7 +32,7 @@ FUNCTION hwg_hwr_Init( cRepName, nWidth, nHeight, nFormWidth, cVars )
 FUNCTION hwg_hwr_Open( fname, repName )
 
    LOCAL aPaintRep
-   LOCAL strbuf := Space( 512 ), poz := 513, stroka, nMode := 0
+   LOCAL strbuf := Space(512), poz := 513, stroka, nMode := 0
    LOCAL han
    LOCAL aLine, itemName, aItem, res := .T.
    LOCAL nFormWidth
@@ -40,7 +40,7 @@ FUNCTION hwg_hwr_Open( fname, repName )
    han := FOpen( fname, FO_READ + FO_SHARED )
    IF han <> - 1
       DO WHILE .T.
-         stroka := RDSTR( han, @strbuf, @poz, 512 )
+         stroka := RDSTR(han, @strbuf, @poz, 512)
          IF Len( stroka ) = 0
             EXIT
          ENDIF
@@ -49,12 +49,12 @@ FUNCTION hwg_hwr_Open( fname, repName )
          ENDIF
          IF nMode == 0
             IF Left( stroka, 1 ) == "#"
-               IF Upper( SubStr( stroka, 2, 6 ) ) == "REPORT"
-                  IF Empty( stroka := LTrim( SubStr( stroka, 9 ) ) )
+               IF Upper(SubStr(stroka, 2, 6)) == "REPORT"
+                  IF Empty(stroka := LTrim(SubStr(stroka, 9)))
                      stroka := "report"
                   ENDIF
-                  IF Empty( repName ) .OR. Upper( stroka ) == Upper( repName )
-                     IF Empty( repName )
+                  IF Empty(repName) .OR. Upper(stroka) == Upper(repName)
+                     IF Empty(repName)
                         repName := stroka
                      ENDIF
                      nMode := 1
@@ -64,9 +64,9 @@ FUNCTION hwg_hwr_Open( fname, repName )
             ENDIF
          ELSEIF nMode == 1
             IF Left( stroka, 1 ) == "#"
-               IF Upper( SubStr( stroka, 2, 6 ) ) == "ENDREP"
+               IF Upper(SubStr(stroka, 2, 6)) == "ENDREP"
                   EXIT
-               ELSEIF Upper( SubStr( stroka, 2, 6 ) ) == "SCRIPT"
+               ELSEIF Upper(SubStr(stroka, 2, 6)) == "SCRIPT"
                   nMode := 2
                   IF aItem != NIL
                      aItem[ ITEM_SCRIPT ] := ""
@@ -122,13 +122,13 @@ FUNCTION hwg_hwr_Open( fname, repName )
                ENDIF
             ENDIF
          ELSEIF nMode == 2
-            IF Left( stroka, 1 ) == "#" .AND. Upper( SubStr( stroka, 2, 6 ) ) == "ENDSCR"
+            IF Left( stroka, 1 ) == "#" .AND. Upper(SubStr(stroka, 2, 6)) == "ENDSCR"
                nMode := 1
             ELSE
                IF aItem != NIL
-                  aItem[ ITEM_SCRIPT ] += stroka + Chr( 13 ) + Chr( 10 )
+                  aItem[ ITEM_SCRIPT ] += stroka + Chr(13) + Chr(10)
                ELSE
-                  aPaintRep[ FORM_VARS ] += stroka + Chr( 13 ) + Chr( 10 )
+                  aPaintRep[ FORM_VARS ] += stroka + Chr(13) + Chr(10)
                ENDIF
             ENDIF
          ENDIF
@@ -138,7 +138,7 @@ FUNCTION hwg_hwr_Open( fname, repName )
       hwg_Msgstop( "Can't open " + fname )
       RETURN NIL
    ENDIF
-   IF Empty( aPaintRep[ FORM_ITEMS ] )
+   IF Empty(aPaintRep[ FORM_ITEMS ])
       hwg_Msgstop( repName + " not found or empty!" )
       RETURN NIL
    ELSE
@@ -150,28 +150,36 @@ FUNCTION hwg_Hwr_AddItem( aPaintRep, nType, cCaption, nLeft, nTop, nWidth, nHeig
 
    LOCAL aItem, arr
 
-   IF Empty( nAlign ); nAlign := 0; ENDIF
-   IF Empty( cPen ); cPen := 0; ENDIF
-   IF Empty( cFont ); cFont := 0; ENDIF
-   IF Empty( nVarType ); nVarType := 0; ENDIF
+   IF Empty(nAlign)
+      nAlign := 0
+   ENDIF
+   IF Empty(cPen)
+      cPen := 0
+   ENDIF
+   IF Empty(cFont)
+      cFont := 0
+   ENDIF
+   IF Empty(nVarType)
+      nVarType := 0
+   ENDIF
 
    AAdd( aPaintRep[ FORM_ITEMS ], aItem := { nType, cCaption, ;
       nLeft, nTop, nWidth, nHeight, nAlign, cPen, cFont, nVarType, 0, NIL, 0 } )
 
-   IF !Empty( aItem[ ITEM_FONT ] ) .AND. Valtype( aItem[ ITEM_FONT ] ) == "C"
+   IF !Empty(aItem[ ITEM_FONT ]) .AND. Valtype( aItem[ ITEM_FONT ] ) == "C"
       arr := hb_ATokens( aItem[ ITEM_FONT ], ',' )
       aItem[ ITEM_FONT ] := HFont():Add( arr[1], ;
          Val( arr[2] ), Val( arr[3] ), Val( arr[4] ), Val( arr[5] ), ;
          Val( arr[6] ), Val( arr[7] ), Val( arr[8] ) )
    ENDIF
-   IF !Empty( aItem[ ITEM_PEN ] ) .AND. Valtype( aItem[ ITEM_PEN ] ) == "C"
+   IF !Empty(aItem[ ITEM_PEN ]) .AND. Valtype( aItem[ ITEM_PEN ] ) == "C"
       arr := hb_ATokens( aItem[ ITEM_PEN ], ',' )
       aItem[ ITEM_PEN ] := HPen():Add( Val( arr[1] ), Val( arr[2]), Val( arr[3] ) )
    ENDIF
    IF aItem[ITEM_TYPE] == TYPE_BITMAP
       aItem[ITEM_BITMAP] := HBitmap():AddFile( aItem[ITEM_CAPTION] )
    ENDIF
-   IF !Empty( cScript )
+   IF !Empty(cScript)
       aItem[ITEM_SCRIPT] := cScript
    ENDIF
 
@@ -187,13 +195,13 @@ FUNCTION hwg_hwr_Close( aPaintRep )
 
    FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
       aItem := aPaintRep[FORM_ITEMS,i]
-      IF !Empty( aItem[ITEM_PEN] ) .AND. Valtype( aItem[ ITEM_PEN ] ) == "O"
+      IF !Empty(aItem[ITEM_PEN]) .AND. Valtype( aItem[ ITEM_PEN ] ) == "O"
          aItem[ITEM_PEN]:Release()
       ENDIF
-      IF !Empty( aItem[ITEM_FONT] )
+      IF !Empty(aItem[ITEM_FONT])
          aItem[ITEM_FONT]:Release()
       ENDIF
-      IF !Empty( aItem[ITEM_BITMAP] )
+      IF !Empty(aItem[ITEM_BITMAP])
          aItem[ITEM_BITMAP]:Release()
       ENDIF
    NEXT
@@ -221,7 +229,7 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
    PRIVATE lFirst := .T., lFinish := .T., lLastCycle := .F.  //, aBitmaps := {}
    PRIVATE aImgs := {}
 
-   IF Empty( hDC )
+   IF Empty(hDC)
       RETURN .F.
    ENDIF
 
@@ -259,11 +267,11 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 
    IF ValType( aPaintRep[ FORM_VARS ] ) == "C"
       DO WHILE .T.
-         stroka := RDSTR( , aPaintRep[ FORM_VARS ], @poz )
+         stroka := RDSTR(, aPaintRep[FORM_VARS], @poz)
          IF Len( stroka ) = 0
             EXIT
          ENDIF
-         DO WHILE ! Empty( varName := getNextVar( @stroka, @varValue ) )
+         DO WHILE ! Empty(varName := getNextVar( @stroka, @varValue ))
             PRIVATE &varName
             IF varValue != NIL
                &varName := &varValue
@@ -439,7 +447,7 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
       ENDIF
    ENDDO
 
-   IF !Empty( aImgs )
+   IF !Empty(aImgs)
       FOR i := 1 TO Len( aImgs )
          oPrinter:Bitmap( aImgs[i,1], aImgs[i,2], aImgs[i,3], aImgs[i,4], , aImgs[i,5], aImgs[i,6] )
       NEXT
@@ -461,7 +469,7 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
    aImgs := NIL
    /*
    FOR i := 1 TO Len( aBitmaps )
-      IF !Empty( aBitmaps[i] )
+      IF !Empty(aBitmaps[i])
          hwg_Deleteobject( aBitmaps[i] )
       ENDIF
       aBitmaps[i] := NIL
@@ -487,7 +495,7 @@ FUNCTION hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, nYadd, lCalc )
       ELSE
          stroka := aItem[ ITEM_CAPTION ]
       ENDIF
-      IF ! Empty( aItem[ ITEM_CAPTION ] )
+      IF ! Empty(aItem[ ITEM_CAPTION ])
          oPrinter:Say( stroka, x1, y1, x2, y2, ;
                        IIf( aItem[ ITEM_ALIGN ] == 0, DT_LEFT, IIf( aItem[ ITEM_ALIGN ] == 1, DT_RIGHT, DT_CENTER ) ), ;
                        aItem[ ITEM_GROUP ] )
@@ -500,7 +508,7 @@ FUNCTION hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, nYadd, lCalc )
       oPrinter:Box( x1, y1, x2, y2, aItem[ ITEM_PEN ] )
    ELSEIF aItem[ ITEM_TYPE ] == TYPE_BITMAP
       //Aadd( aBitmaps, hBitmap := hwg_Openbitmap( aItem[ ITEM_CAPTION ], oPrinter:hDC ) )
-      IF !Empty( aItem[ITEM_BITMAP] )
+      IF !Empty(aItem[ITEM_BITMAP])
         hBitmap := aItem[ITEM_BITMAP]:handle
         AAdd( aImgs, {x1, y1, x2, y2, hBitmap, aItem[ ITEM_CAPTION ]} )
         //hwg_writelog( "hBitmap: "+Iif(hBitmap==NIL,"Nil","Ok") )
@@ -513,11 +521,11 @@ FUNCTION hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, nYadd, lCalc )
 
 STATIC FUNCTION ScriptExecute( aItem )
    LOCAL nError, nLineEr
-   IF aItem[ ITEM_SCRIPT ] != NIL .AND. ! Empty( aItem[ ITEM_SCRIPT ] )
+   IF aItem[ ITEM_SCRIPT ] != NIL .AND. ! Empty(aItem[ ITEM_SCRIPT ])
       IF ValType( aItem[ ITEM_SCRIPT ] ) == "C"
          IF ( aItem[ ITEM_SCRIPT ] := RdScript( , aItem[ ITEM_SCRIPT ] ) ) == NIL
             nError := CompileErr( @nLineEr )
-            hwg_Msgstop( "Script error (" + LTrim( Str( nError ) ) + "), line " + LTrim( Str( nLineEr ) ) )
+            hwg_Msgstop( "Script error (" + LTrim(Str(nError)) + "), line " + LTrim(Str(nLineEr)) )
             RETURN .F.
          ENDIF
       ENDIF

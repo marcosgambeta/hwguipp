@@ -70,7 +70,7 @@ static BOOL s_qhtmInit( LPCTSTR lpLibname )
 HB_FUNC( QHTM_INIT )
 {
    void * hLibName;
-   hb_retl( s_qhtmInit( HB_PARSTR( 1, &hLibName, NULL ) ) );
+   hb_retl( s_qhtmInit( HB_PARSTR(1, &hLibName, NULL) ) );
    hb_strfree( hLibName );
 
 }
@@ -111,7 +111,7 @@ HB_FUNC( QHTM_GETNOTIFY )
 {
    LPNMQHTM pnm = ( LPNMQHTM ) hb_parnl( 1 );
 
-   HB_RETSTR( pnm->pcszLinkText );
+   HB_RETSTR(pnm->pcszLinkText);
 }
 
 HB_FUNC( QHTM_SETRETURNVALUE )
@@ -132,8 +132,8 @@ void CALLBACK FormCallback( HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit,
    {
       temp = hb_itemArrayNew( 2 );
 
-      HB_ARRAYSETSTR( temp, 1, ( pFormSubmit->parrFields + i )->pcszName );
-      HB_ARRAYSETSTR( temp, 2, ( pFormSubmit->parrFields + i )->pcszValue );
+      HB_ARRAYSETSTR(temp, 1, (pFormSubmit->parrFields + i)->pcszName);
+      HB_ARRAYSETSTR(temp, 2, (pFormSubmit->parrFields + i)->pcszValue);
 
       hb_itemArrayPut( aMetr, i + 1, temp );
       hb_itemRelease( temp );
@@ -146,11 +146,11 @@ void CALLBACK FormCallback( HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit,
       hb_vmPushSymbol( hb_dynsymSymbol( pSymTest ) );
       hb_vmPushNil();
       hb_vmPushLong( ( LONG ) hWndQHTM );
-      temp = HB_ITEMPUTSTR( NULL, pFormSubmit->pcszMethod );
+      temp = HB_ITEMPUTSTR(NULL, pFormSubmit->pcszMethod);
       hb_vmPush( temp );
-      hb_vmPush( HB_ITEMPUTSTR( temp, pFormSubmit->pcszAction ) );
+      hb_vmPush( HB_ITEMPUTSTR(temp, pFormSubmit->pcszAction) );
       if( pFormSubmit->pcszName )
-         hb_vmPush( HB_ITEMPUTSTR( temp, pFormSubmit->pcszName ) );
+         hb_vmPush( HB_ITEMPUTSTR(temp, pFormSubmit->pcszName) );
       else
          hb_vmPushNil();
       hb_itemRelease( temp );
@@ -175,7 +175,7 @@ HB_FUNC( QHTM_MESSAGE )
          void * hText, * hTitle;
          UINT uType = ( hb_pcount() < 3 ) ? MB_OK : ( UINT ) hb_parni( 3 );
 
-         pFunc( GetActiveWindow(), HB_PARSTR( 1, &hText, NULL ),
+         pFunc( GetActiveWindow(), HB_PARSTR(1, &hText, NULL),
                 HB_PARSTRDEF( 2, &hTitle, NULL ), uType );
          hb_strfree( hText );
          hb_strfree( hTitle );
@@ -218,7 +218,7 @@ HB_FUNC( QHTM_GETTITLE )
       TCHAR szBuffer[256] = { 0 };
       SendMessage( ( HWND ) hb_parnl( 1 ), QHTM_GET_HTML_TITLE, 256,
                    ( LPARAM ) szBuffer );
-      HB_RETSTR( szBuffer );
+      HB_RETSTR(szBuffer);
    }
 }
 
@@ -318,7 +318,7 @@ HB_FUNC( QHTM_PRINTSETTEXT )
             ( QHTM_PRINTSETTEXT ) GetProcAddress( s_hQhtmDll,
             "QHTM_PrintSetText" );
       hb_retl( pFunc( ( QHTMCONTEXT ) hb_parnl( 1 ),
-                      HB_PARSTR( 2, &hText, NULL ) ) );
+                      HB_PARSTR(2, &hText, NULL) ) );
       hb_strfree( hText );
    }
    else
@@ -335,7 +335,7 @@ HB_FUNC( QHTM_PRINTSETTEXTFILE )
             ( QHTM_PRINTSETTEXTFILE ) GetProcAddress( s_hQhtmDll,
             "QHTM_PrintSetTextFile" );
       hb_retl( pFunc( ( QHTMCONTEXT ) hb_parnl( 1 ),
-                      HB_PARSTR( 2, &hText, NULL ) ) );
+                      HB_PARSTR(2, &hText, NULL) ) );
       hb_strfree( hText );
    }
    else
@@ -352,7 +352,7 @@ HB_FUNC( QHTM_PRINTSETTEXTRESOURCE )
             ( QHTM_PRINTSETTEXTRESOURCE ) GetProcAddress( s_hQhtmDll,
             "QHTM_PrintSetTextResource" );
       hb_retl( pFunc( ( QHTMCONTEXT ) hb_parnl( 1 ), GetModuleHandle( NULL ),
-                      HB_PARSTR( 2, &hText, NULL ) ) );
+                      HB_PARSTR(2, &hText, NULL) ) );
       hb_strfree( hText );
    }
    else

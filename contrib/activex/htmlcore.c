@@ -117,10 +117,8 @@ HRESULT STDMETHODCALLTYPE Frame_GetWindow( IOleInPlaceFrame *, HWND * );
 HRESULT STDMETHODCALLTYPE Frame_ContextSensitiveHelp( IOleInPlaceFrame *,
       BOOL );
 HRESULT STDMETHODCALLTYPE Frame_GetBorder( IOleInPlaceFrame *, LPRECT );
-HRESULT STDMETHODCALLTYPE Frame_RequestBorderSpace( IOleInPlaceFrame *,
-      LPCBORDERWIDTHS );
-HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace( IOleInPlaceFrame *,
-      LPCBORDERWIDTHS );
+HRESULT STDMETHODCALLTYPE Frame_RequestBorderSpace(IOleInPlaceFrame *, LPCBORDERWIDTHS);
+HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace(IOleInPlaceFrame *, LPCBORDERWIDTHS);
 HRESULT STDMETHODCALLTYPE Frame_SetActiveObject( IOleInPlaceFrame *,
       IOleInPlaceActiveObject *, LPCOLESTR );
 HRESULT STDMETHODCALLTYPE Frame_InsertMenus( IOleInPlaceFrame *, HMENU,
@@ -1284,16 +1282,14 @@ HRESULT STDMETHODCALLTYPE Frame_GetBorder( IOleInPlaceFrame * This,
    NOTIMPLEMENTED;
 }
 
-HRESULT STDMETHODCALLTYPE Frame_RequestBorderSpace( IOleInPlaceFrame * This,
-      LPCBORDERWIDTHS pborderwidths )
+HRESULT STDMETHODCALLTYPE Frame_RequestBorderSpace(IOleInPlaceFrame * This, LPCBORDERWIDTHS pborderwidths)
 {
    ( void ) This;
    ( void ) pborderwidths;
    NOTIMPLEMENTED;
 }
 
-HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace( IOleInPlaceFrame * This,
-      LPCBORDERWIDTHS pborderwidths )
+HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace(IOleInPlaceFrame * This, LPCBORDERWIDTHS pborderwidths)
 {
    ( void ) This;
    ( void ) pborderwidths;
@@ -1881,9 +1877,9 @@ HRESULT WINAPI GetWebPtrs( HWND hwnd, IWebBrowser2 ** webBrowser2Result,
  */
 
 #ifdef UNICODE
-BSTR WINAPI TStr2BStr( HWND hwnd, const WCHAR * string )
+BSTR WINAPI TStr2BStr(HWND hwnd, const WCHAR * string)
 #else
-BSTR WINAPI TStr2BStr( HWND hwnd, const char *string )
+BSTR WINAPI TStr2BStr(HWND hwnd, const char * string)
 #endif
 {
    BSTR bstr;
@@ -1919,7 +1915,7 @@ BSTR WINAPI TStr2BStr( HWND hwnd, const char *string )
  * RETURNS: Pointer to the string, or 0 if an error.
  */
 
-void *WINAPI BStr2TStr( HWND hwnd, BSTR strIn )
+void *WINAPI BStr2TStr(HWND hwnd, BSTR strIn)
 {
    DWORD size;
    void *strOut;
@@ -2001,7 +1997,7 @@ IHTMLElement *WINAPI GetWebElement( HWND hwnd, IHTMLDocument2 * htmlDoc2,
          // index into a VARIENT struct too.
          VariantInit( &varName );
          varName.DEF_VT = VT_BSTR;
-         if( ( varName.DEF_BSTRVAL = TStr2BStr( hwnd, name ) ) != NULL )
+         if( ( varName.DEF_BSTRVAL = TStr2BStr(hwnd, name) ) != NULL )
          {
             VariantInit( &varIndex );
             varIndex.DEF_VT = VT_I4;
@@ -2210,9 +2206,9 @@ void WINAPI UnEmbedBrowserObject( HWND hwnd )
  */
 
 #ifdef UNICODE
-long WINAPI DisplayHTMLStr( HWND hwnd, const WCHAR * string )
+long WINAPI DisplayHTMLStr(HWND hwnd, const WCHAR * string)
 #else
-long WINAPI DisplayHTMLStr( HWND hwnd, const char *string )
+long WINAPI DisplayHTMLStr(HWND hwnd, const char * string)
 #endif
 {
    IHTMLDocument2 *htmlDoc2;
@@ -2269,7 +2265,7 @@ long WINAPI DisplayHTMLStr( HWND hwnd, const char *string )
 
                   // Store our BSTR pointer in the VARIENT.
                   if( ( pVar->DEF_BSTRVAL =
-                              TStr2BStr( hwnd, string ) ) != NULL )
+                              TStr2BStr(hwnd, string) ) != NULL )
                   {
                      // Pass the VARIENT with its BSTR to write() in order to
                      // shove our desired HTML string into the body of that
@@ -2367,7 +2363,7 @@ long WINAPI DisplayHTMLPage( HWND hwnd, const char *webPageName )
       // COM interfaces can be used by just about any language.
       VariantInit( &myURL );
       myURL.DEF_VT = VT_BSTR;
-      if( ( myURL.DEF_BSTRVAL = TStr2BStr( hwnd, webPageName ) ) == NULL )
+      if( ( myURL.DEF_BSTRVAL = TStr2BStr(hwnd, webPageName) ) == NULL )
       {
          webBrowser2->lpVtbl->Release( webBrowser2 );
          return ( -6 );

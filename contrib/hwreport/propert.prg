@@ -109,7 +109,7 @@ STATIC FUNCTION InitStatic( oDlg, aItem )
       oDlg:oEdit2:Value := aItem[ITEM_SCRIPT]
    ENDIF
    oDlg:oCombo:Value := aItem[ITEM_VAR] + 1
-   oDlg:oLabel2:SetText( oFont:name + "," + LTrim( Str(oFont:width ) ) + "," + LTrim( Str(oFont:height ) ) )
+   oDlg:oLabel2:SetText( oFont:name + "," + LTrim(Str(oFont:width )) + "," + LTrim(Str(oFont:height )) )
    hwg_Setfocus( oDlg:oEdit1:handle )
 
    RETURN .T.
@@ -130,7 +130,7 @@ STATIC FUNCTION SetItemFont( oDlg, aItem )
 
    IF oFont != NIL
       aItem[ITEM_FONT] := oFont
-      oDlg:oLabel2:SetText( oFont:name + "," + LTrim( Str(oFont:width ) ) + "," + LTrim( Str(oFont:height ) ) )
+      oDlg:oLabel2:SetText( oFont:name + "," + LTrim(Str(oFont:width )) + "," + LTrim(Str(oFont:height )) )
    ENDIF
 
    RETURN .T.
@@ -165,7 +165,7 @@ STATIC FUNCTION InitLine( oDlg, aItem )
    LOCAL oPen := aItem[ITEM_PEN]
 
    oDlg:oCombo1:Value := oPen:style + 1
-   oDlg:oEdit1:Value := Str( oPen:width,1 )
+   oDlg:oEdit1:Value := Str(oPen:width, 1)
 
    RETURN .T.
 
@@ -231,7 +231,7 @@ STATIC FUNCTION OpenBmp( oDlg, aItem, fname )
    LOCAL aBmpSize
 
    oDlg:oEdit1:Value := fname
-   IF !Empty( fname )
+   IF !Empty(fname)
       IF aItem[ITEM_BITMAP] != NIL
          hwg_Deleteobject( aItem[ITEM_BITMAP]:handle )
       ENDIF
@@ -240,8 +240,8 @@ STATIC FUNCTION OpenBmp( oDlg, aItem, fname )
       aBmpSize := hwg_Getbitmapsize( aItem[ITEM_BITMAP]:handle )
       aItem[ITEM_WIDTH] :=  aItem[ITEM_BITMAP]:nWidth
       aItem[ITEM_HEIGHT] := aItem[ITEM_BITMAP]:nHeight
-      oDlg:oLabel6:SetText( LTrim( Str(aBmpSize[1] ) ) + "x" + LTrim( Str(aBmpSize[2] ) ) )
-      oDlg:oLabel7:SetText( LTrim( Str(aItem[ITEM_WIDTH] ) ) + "x" + LTrim( Str(aItem[ITEM_HEIGHT] ) ) )
+      oDlg:oLabel6:SetText( LTrim(Str(aBmpSize[1] )) + "x" + LTrim(Str(aBmpSize[2] )) )
+      oDlg:oLabel7:SetText( LTrim(Str(aItem[ITEM_WIDTH] )) + "x" + LTrim(Str(aItem[ITEM_HEIGHT] )) )
    ENDIF
 
    RETURN NIL
@@ -252,7 +252,7 @@ STATIC FUNCTION UpdateProcent( oDlg, aItem )
 
    IF aItem[ITEM_BITMAP] != NIL
       aBmpSize := hwg_Getbitmapsize( aItem[ITEM_BITMAP]:handle )
-      oDlg:oLabel7:SetText( LTrim( Str(Round(aBmpSize[1] * nValue/100,0 ) ) ) + "x" + LTrim( Str(Round(aBmpSize[2] * nValue/100,0 ) ) ) )
+      oDlg:oLabel7:SetText( LTrim(Str(Round(aBmpSize[1] * nValue/100,0 ) )) + "x" + LTrim(Str(Round(aBmpSize[2] * nValue/100,0 ) )) )
    ENDIF
 
    RETURN NIL
@@ -263,8 +263,8 @@ STATIC FUNCTION InitBitmap( oDlg, aItem )
    IF aItem[ITEM_BITMAP] != NIL
       aBmpSize := hwg_Getbitmapsize( aItem[ITEM_BITMAP]:handle )
       oDlg:oEdit1:Value := aItem[ITEM_CAPTION]
-      oDlg:oLabel6:SetText( LTrim( Str(aBmpSize[1] ) ) + "x" + LTrim( Str(aBmpSize[2] ) ) )
-      oDlg:oLabel7:SetText( LTrim( Str(aItem[ITEM_WIDTH] ) ) + "x" + LTrim( Str(aItem[ITEM_HEIGHT] ) ) )
+      oDlg:oLabel6:SetText( LTrim(Str(aBmpSize[1] )) + "x" + LTrim(Str(aBmpSize[2] )) )
+      oDlg:oLabel7:SetText( LTrim(Str(aItem[ITEM_WIDTH] )) + "x" + LTrim(Str(aItem[ITEM_HEIGHT] )) )
       oDlg:oUpdown1:Value := Round( aItem[ITEM_WIDTH] * 100/aBmpSize[1],0 )
    ENDIF
 

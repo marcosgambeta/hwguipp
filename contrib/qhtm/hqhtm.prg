@@ -94,11 +94,11 @@ METHOD Init CLASS HQhtm
 
    IF !::lInit
       ::Super:Init()
-      IF !Empty( ::cText )
+      IF !Empty(::cText)
          hwg_Setwindowtext( ::handle,::cText )
-      ELSEIF !Empty( ::filename )
+      ELSEIF !Empty(::filename)
          QHTM_LoadFile( ::handle,::filename )
-      ELSEIF !Empty( ::resname )
+      ELSEIF !Empty(::resname)
          QHTM_LoadRes( ::handle,::resname )
       ENDIF
       QHTM_FormCallBack( ::handle )

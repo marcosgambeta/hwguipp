@@ -452,7 +452,7 @@ HB_FUNC( BF_ENCRYPT )
    {
       key = ( unsigned char * ) hb_xgrab( 5 );
       hb_strncpy( ( char * ) key, hb_parc( 2 ), 4 );
-      hb_strncat( ( char * ) key, keyDefault, 4 - iKeylen );
+      hb_strncat(( char * ) key, keyDefault, 4 - iKeylen);
       iKeylen = 4;
    }
    else
@@ -508,7 +508,7 @@ HB_FUNC( BF_DECRYPT )
    {
       key = ( unsigned char * ) hb_xgrab( 5 );
       hb_strncpy( ( char * ) key, hb_parc( 2 ), 4 );
-      hb_strncat( ( char * ) key, keyDefault, 4 - iKeylen );
+      hb_strncat(( char * ) key, keyDefault, 4 - iKeylen);
       iKeylen = 4;
    }
    else

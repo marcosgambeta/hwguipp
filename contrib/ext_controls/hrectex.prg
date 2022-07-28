@@ -71,7 +71,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSiz
 //---------------------------------------------------------------------------
 METHOD Activate() CLASS HContainerEx
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic( ::oParent:handle, ::id, ::style, ;
             ::nLeft, ::nTop, ::nWidth, ::nHeight )
       IF ! ::lInit
@@ -80,7 +80,7 @@ METHOD Activate() CLASS HContainerEx
          hwg_Setwindowobject( ::handle, Self )
          Hwg_InitStaticProc( ::handle )
          ::linit := .T.
-         IF Empty( ::oParent:oParent ) .AND. ::oParent:Type >= WND_DLG_RESOURCE
+         IF Empty(::oParent:oParent) .AND. ::oParent:Type >= WND_DLG_RESOURCE
             ::Create()
             ::lCreate := .T.
          ENDIF

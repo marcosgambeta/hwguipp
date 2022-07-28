@@ -230,7 +230,7 @@ static HFONT gthwg_GetFont( LPCTSTR lpFace, int iHeight, int iWidth, int iWeight
       PHB_ITEM pItem;
 
       //pItem = hb_itemPutC( NULL, (const char *) lpFace );
-      pItem = HB_ITEMPUTSTR( NULL, lpFace );
+      pItem = HB_ITEMPUTSTR(NULL, lpFace);
 
       hb_vmPushDynSym( s_pSymTest );
       hb_vmPushNil();   /* places NIL at self */
@@ -1601,10 +1601,10 @@ static HB_BOOL hb_gt_hwg_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
             break;
 
          case HB_GTI_FONTNAME:
-            pInfo->pResult = HB_ITEMPUTSTR( pInfo->pResult, pHWG->fontFace );
+            pInfo->pResult = HB_ITEMPUTSTR(pInfo->pResult, pHWG->fontFace);
             if( hb_itemType( pInfo->pNewVal ) & HB_IT_STRING )
             {
-               HB_ITEMCOPYSTR( pInfo->pNewVal, pHWG->fontFace, HB_SIZEOFARRAY( pHWG->fontFace ) );
+               HB_ITEMCOPYSTR(pInfo->pNewVal, pHWG->fontFace, HB_SIZEOFARRAY(pHWG->fontFace));
                pHWG->fontFace[ HB_SIZEOFARRAY( pHWG->fontFace ) - 1 ] = TEXT( '\0' );
             }
             break;

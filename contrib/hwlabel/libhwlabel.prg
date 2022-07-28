@@ -273,7 +273,7 @@ ENDIF
 czl := czeile
 nlaenge := LEN(czeile)
 IF nlaenge > 0
- IF SUBSTR( czeile , nlaenge , 1) == CHR(13)
+ IF SUBSTR(czeile, nlaenge, 1) == CHR(13)
     czl := SUBSTR(czeile , 1 , nlaenge - 1 )
  ENDIF
 ENDIF

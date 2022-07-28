@@ -4,7 +4,7 @@
 
 FUNCTION ADDMETHOD( oObjectName, cMethodName, pFunction )
 
-   IF ValType( oObjectName ) = "O" .AND. ! Empty( cMethodName )
+   IF ValType( oObjectName ) = "O" .AND. ! Empty(cMethodName)
       IF ! __ObjHasMsg( oObjectName, cMethodName )
          __objAddMethod( oObjectName, cMethodName, pFunction )
       ENDIF
@@ -15,13 +15,13 @@ FUNCTION ADDMETHOD( oObjectName, cMethodName, pFunction )
 
 FUNCTION ADDPROPERTY( oObjectName, cPropertyName, eNewValue )
 
-   IF ValType( oObjectName ) = "O" .AND. ! Empty( cPropertyName )
+   IF ValType( oObjectName ) = "O" .AND. ! Empty(cPropertyName)
       IF ! __objHasData( oObjectName, cPropertyName )
-         IF Empty( __objAddData( oObjectName, cPropertyName ) )
+         IF Empty(__objAddData( oObjectName, cPropertyName ))
             RETURN .F.
          ENDIF
       ENDIF
-      IF !Empty( eNewValue )
+      IF !Empty(eNewValue)
          IF ValType( eNewValue ) = "B"
             oObjectName: & ( cPropertyName ) := Eval( eNewValue )
          ELSE
@@ -35,9 +35,9 @@ FUNCTION ADDPROPERTY( oObjectName, cPropertyName, eNewValue )
 
 FUNCTION REMOVEPROPERTY( oObjectName, cPropertyName )
 
-   IF ValType( oObjectName ) = "O" .AND. ! Empty( cPropertyName ) .AND. ;
+   IF ValType( oObjectName ) = "O" .AND. ! Empty(cPropertyName) .AND. ;
          __objHasData( oObjectName, cPropertyName )
-      RETURN Empty( __objDelData( oObjectName, cPropertyName ) )
+      RETURN Empty(__objDelData( oObjectName, cPropertyName ))
    ENDIF
 
    RETURN .F.
@@ -50,12 +50,12 @@ FUNCTION hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
    // cClass baseclass hwgui
    LOCAL nLen , i
 
-   aControls := iif( Empty( aControls ), oWnd:aControls, aControls )
+   aControls := iif( Empty(aControls), oWnd:aControls, aControls )
    nLen := iif( ValType( aControls ) = "C", Len( oWnd:&aControls ), Len( aControls ) )
    FOR i = 1 TO nLen
       IF ValType( aControls ) = "C"
          oWnd:&aControls[ i ]:&cProperty := Value
-      ELSEIF cClass == NIL .OR. Upper( cClass ) == aControls[ i ]:ClassName
+      ELSEIF cClass == NIL .OR. Upper(cClass) == aControls[ i ]:ClassName
          IF Value = NIL
             __mvPrivate( "oCtrl" )
             &( "oCtrl" ) := aControls[ i ]

@@ -752,7 +752,7 @@ static HB_LONG gthwg_KeyConvert( HB_LONG ulKeyRaw, HB_LONG ulFlags )
       }
       else
       {
-         hb_cdpUTF8ToStr( hb_vmCDP(), utf8char, iLen, cdpchar, 3 );
+         hb_cdpUTF8ToStr(hb_vmCDP(), utf8char, iLen, cdpchar, 3);
          cdpchar[1] = '\0';
          ulKey = HB_INKEY_NEW_KEY( ((unsigned int) *cdpchar) & 0xff, ulFlags );
       }

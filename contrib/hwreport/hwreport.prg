@@ -69,7 +69,7 @@ FUNCTION Main()
    LOCAL oMainWindow, oPanel, oIcon
 
    PUBLIC cDirSep := hwg_GetDirSep()
-   PUBLIC mypath := cDirSep + CurDir() + iif( Empty( CurDir() ), "", cDirSep )
+   PUBLIC mypath := cDirSep + CurDir() + iif( Empty(CurDir()), "", cDirSep )
    PUBLIC aPaintRep := NIL
    PUBLIC oPenBorder, oFontSmall, oFontStandard, oFontDlg , lastFont := NIL
    PUBLIC aItemTypes := { "TEXT", "HLINE", "VLINE", "BOX", "BITMAP", "MARKER" }
@@ -238,8 +238,8 @@ STATIC FUNCTION EndNewrep( oDlg )
 
    aPaintRep[FORM_Y] := 0
    hwg_Enablemenuitem( , 1, .T. , .F. )
-   hwg_WriteStatus( oMainWindow, 2, LTrim( Str(aPaintRep[FORM_WIDTH],4 ) ) + "x" + ;
-      LTrim( Str( aPaintRep[FORM_HEIGHT],4 ) ) + "  Items: " + LTrim( Str( Len(aPaintRep[FORM_ITEMS] ) ) ) )
+   hwg_WriteStatus(oMainWindow, 2, LTrim(Str(aPaintRep[FORM_WIDTH],4)) + "x" + ;
+      LTrim(Str(aPaintRep[FORM_HEIGHT], 4)) + "  Items: " + LTrim(Str(Len(aPaintRep[FORM_ITEMS]))))
    oMainWindow:Refresh()
 
    oDlg:Close()
@@ -317,7 +317,7 @@ STATIC FUNCTION PaintMain( oWnd )
       hwg_Drawline( hDC, xt + Round( n1cm * 3/4,0 ), 0, xt + Round( n1cm * 3/4,0 ), 4 )
       hwg_Drawline( hDC, xt, 0, xt, 12 )
       IF i > 0 .AND. i < aPaintRep[FORM_WIDTH]/10
-         hwg_Drawtext( hDC, LTrim( Str(i,2 ) ), xt - 15, 12, xt + 15, TOP_INDENT - 5, DT_CENTER )
+         hwg_Drawtext( hDC, LTrim(Str(i,2 )), xt - 15, 12, xt + 15, TOP_INDENT - 5, DT_CENTER )
       ENDIF
       i ++
    ENDDO
@@ -330,7 +330,7 @@ STATIC FUNCTION PaintMain( oWnd )
       hwg_Drawline( hDC, 0, yt + Round( n1cm * 3/4,0 ), 4, yt + Round( n1cm * 3/4,0 ) )
       hwg_Drawline( hDC, 0, yt, 12, yt )
       IF i > 0 .AND. i < aPaintRep[FORM_HEIGHT]/10
-         hwg_Drawtext( hDC, LTrim( Str(i + nsteps * 2,2 ) ), 12, yt - 10, LEFT_INDENT - 12, yt + 10, DT_CENTER )
+         hwg_Drawtext( hDC, LTrim(Str(i + nsteps * 2,2 )), 12, yt - 10, LEFT_INDENT - 12, yt + 10, DT_CENTER )
       ENDIF
       i ++
    ENDDO
@@ -388,7 +388,7 @@ STATIC FUNCTION PaintItem( hDC, aItem, aCoors )
          hwg_Rectangle( hDC, x1 - 1, y1 - 1, x2 + 1, y2 + 1 )
       ENDIF
       IF aItem[ITEM_TYPE] == TYPE_TEXT
-         IF Empty( aItem[ITEM_CAPTION] )
+         IF Empty(aItem[ITEM_CAPTION])
             hwg_Fillrect( hDC, x1, y1, x2, y2, oBrushGray:handle )
          ELSE
             hwg_Selectobject( hDC, iif( lPreviewMode,oFontSmall:handle,aItem[ITEM_FONT]:handle ) )
@@ -424,7 +424,7 @@ STATIC FUNCTION KeyActions( nKey )
 
    LOCAL hWnd := HWindow():GetMain():oPanel:handle, i, aItem
 
-   IF Empty( aPaintRep )
+   IF Empty(aPaintRep)
       RETURN -1
    ENDIF
    IF nKey == VK_DOWN        // Down
@@ -796,8 +796,8 @@ STATIC FUNCTION LButtonUp( xPos, yPos )
       DeselectAll( Len( aPaintRep[FORM_ITEMS] ) )
       aPaintRep[FORM_CHANGED] := .T.
       WriteItemInfo( Atail( aPaintRep[FORM_ITEMS] ) )
-      hwg_WriteStatus( Hwindow():GetMain(), 2, LTrim( Str(aPaintRep[FORM_WIDTH],4 ) ) + "x" + ;
-         LTrim( Str( aPaintRep[FORM_HEIGHT],4 ) ) + "  Items: " + LTrim( Str( Len(aPaintRep[FORM_ITEMS] ) ) ) )
+      hwg_WriteStatus(Hwindow():GetMain(), 2, LTrim(Str(aPaintRep[FORM_WIDTH], 4)) + "x" + ;
+         LTrim(Str(aPaintRep[FORM_HEIGHT], 4)) + "  Items: " + LTrim(Str(Len(aPaintRep[FORM_ITEMS]))))
       hwg_Invalidaterect( hWnd, 0, LEFT_INDENT + aItem[ITEM_X1] - 3, ;
          TOP_INDENT + aItem[ITEM_Y1] - aPaintRep[FORM_Y] - 3, ;
          LEFT_INDENT + aItem[ITEM_X1] + aItem[ITEM_WIDTH] + 3, ;
@@ -842,8 +842,8 @@ STATIC FUNCTION DeleteItem()
          ASize( aPaintRep[FORM_ITEMS], Len( aPaintRep[FORM_ITEMS] ) - 1 )
          aPaintRep[FORM_CHANGED] := .T.
          hwg_WriteStatus( Hwindow():GetMain(), 1, "" )
-         hwg_WriteStatus( Hwindow():GetMain(), 2, LTrim( Str(aPaintRep[FORM_WIDTH],4 ) ) + "x" + ;
-            LTrim( Str( aPaintRep[FORM_HEIGHT],4 ) ) + "  Items: " + LTrim( Str( Len(aPaintRep[FORM_ITEMS] ) ) ) )
+         hwg_WriteStatus(Hwindow():GetMain(), 2, LTrim(Str(aPaintRep[FORM_WIDTH], 4)) + "x" + ;
+            LTrim(Str(aPaintRep[FORM_HEIGHT], 4)) + "  Items: " + LTrim(Str(Len(aPaintRep[FORM_ITEMS]))))
          IF Len( aPaintRep[FORM_ITEMS] ) == 0
             hwg_Enablemenuitem( , IDM_CLOSE, .F. , .T. )
             hwg_Enablemenuitem( , IDM_SAVE, .F. , .T. )
@@ -879,9 +879,9 @@ STATIC FUNCTION DeselectAll( iSelected )
 
 STATIC FUNCTION WriteItemInfo( aItem )
 
-   hwg_WriteStatus( Hwindow():GetMain(), 1, " x1: " + LTrim( Str(aItem[ITEM_X1] ) ) + ", y1: " ;
-      + LTrim( Str( aItem[ITEM_Y1] ) ) + ", cx: " + LTrim( Str( aItem[ITEM_WIDTH] ) ) ;
-      + ", cy: " + LTrim( Str( aItem[ITEM_HEIGHT] ) ) )
+   hwg_WriteStatus(Hwindow():GetMain(), 1, " x1: " + LTrim(Str(aItem[ITEM_X1])) + ", y1: " ;
+      + LTrim(Str(aItem[ITEM_Y1])) + ", cx: " + LTrim(Str(aItem[ITEM_WIDTH])) ;
+      + ", cy: " + LTrim(Str(aItem[ITEM_HEIGHT])))
 
    RETURN NIL
 
