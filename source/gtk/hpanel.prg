@@ -45,7 +45,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    LOCAL oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
 
-   IF !Empty( bPaint ) .OR. bColor != NIL .OR. oStyle != NIL
+   IF !Empty(bPaint) .OR. bColor != NIL .OR. oStyle != NIL
       nStyle := hb_bitor( nStyle, SS_OWNERDRAW )
    ENDIF
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL,0,nWidth ), ;
@@ -59,7 +59,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HPanel
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createpanel( Self, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -103,7 +103,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HPanel
 METHOD Init() CLASS HPanel
 
    IF !::lInit
-      IF ::bSize == NIL .AND. Empty( ::Anchor )
+      IF ::bSize == NIL .AND. Empty(::Anchor)
          IF ::nHeight != 0 .AND. ( ::nWidth > ::nHeight .OR. ::nWidth == 0 )
             ::bSize := { |o, x, y|o:Move( , iif( ::nTop > 0,y - ::nHeight,0 ), x, ::nHeight ) }
          ELSEIF ::nWidth != 0 .AND. ( ::nHeight > ::nWidth .OR. ::nHeight == 0 )
@@ -120,10 +120,10 @@ METHOD DrawItems( hDC, aCoors ) CLASS HPanel
 
    LOCAL i, aCB
 
-   IF Empty( aCoors )
+   IF Empty(aCoors)
       aCoors := hwg_Getclientrect( ::handle )
    ENDIF
-   IF !Empty( aCB := hwg_getPaintCB( ::aPaintCB, PAINT_ITEM ) )
+   IF !Empty(aCB := hwg_getPaintCB( ::aPaintCB, PAINT_ITEM ))
       FOR i := 1 TO Len( aCB )
          Eval( aCB[i], Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
       NEXT
@@ -140,7 +140,7 @@ METHOD Paint() CLASS HPanel
    ENDIF
    hDC := hwg_Getdc( ::handle )
    aCoors := hwg_Getclientrect( ::handle )
-   IF !Empty( block := hwg_getPaintCB( ::aPaintCB, PAINT_BACK ) )
+   IF !Empty(block := hwg_getPaintCB( ::aPaintCB, PAINT_BACK ))
       Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
    ELSEIF ::oStyle == NIL
       hwg_Drawbutton( hDC, 0, 0, ::nWidth - 1, ::nHeight - 1, 5 )
@@ -187,15 +187,19 @@ METHOD SetPaintCB( nId, block, cId ) CLASS HPanel
 
    LOCAL i, nLen
 
-   IF Empty( cId ); cId := "_"; ENDIF
-   IF Empty( ::aPaintCB ); ::aPaintCB := {}; ENDIF
+   IF Empty(cId)
+      cId := "_"
+   ENDIF
+   IF Empty(::aPaintCB)
+      ::aPaintCB := {}
+   ENDIF
    nLen := Len( ::aPaintCB )
    FOR i := 1 TO nLen
       IF ::aPaintCB[i,1] == nId .AND. ::aPaintCB[i,2] == cId
          EXIT
       ENDIF
    NEXT
-   IF Empty( block )
+   IF Empty(block)
       IF i <= nLen
          ADel( ::aPaintCB, i )
          ::aPaintCB := ASize( ::aPaintCB, nLen - 1 )
@@ -252,7 +256,7 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPar
    ::Anchor := ANCHOR_LEFTABS + ANCHOR_RIGHTABS
    ::oFont := iif( oFont == NIL, ::oParent:oFont, oFont )
    ::oStyle := oStyle
-   IF !Empty( aParts )
+   IF !Empty(aParts)
       ::aParts := aParts
    ELSE
       ::aParts := { 0 }
@@ -288,7 +292,7 @@ METHOD PaintText( hDC ) CLASS HPanelStS
          x2 := x1 + ::aParts[i]
       ENDIF
       nWidth -= ( x2 - x1 + 1 )
-      IF !Empty( ::aText[i] )
+      IF !Empty(::aText[i])
          hwg_Drawtext( hDC, ::aText[i], x1, 6, x2, ::nHeight - 2, DT_LEFT + DT_VCENTER )
       ENDIF
    NEXT
@@ -306,10 +310,10 @@ METHOD Paint() CLASS HPanelStS
    ENDIF
    pps    := hwg_Definepaintstru()
    hDC    := hwg_Beginpaint( ::handle, pps )
-   IF !Empty( block := hwg_getPaintCB( ::aPaintCB, PAINT_BACK ) )
+   IF !Empty(block := hwg_getPaintCB( ::aPaintCB, PAINT_BACK ))
       aCoors := hwg_Getclientrect( ::handle )
       Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
-   ELSEIF Empty( ::oStyle )
+   ELSEIF Empty(::oStyle)
       ::oStyle := HStyle():New( { ::bColor }, 1, , 0.4, 0 )
    ENDIF
    ::oStyle:Draw( hDC, 0, 0, ::nWidth, ::nHeight )
@@ -357,20 +361,20 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oSty
    ::lDragWin := .T.
    ::lPreDef := .F.
 
-   IF !Empty( lBtnClose ) .OR. !Empty( lBtnMax ) .OR. !Empty( lBtnMin )
+   IF !Empty(lBtnClose) .OR. !Empty(lBtnMax) .OR. !Empty(lBtnMin)
       ::lPreDef := .T.
 
-      IF !Empty( lBtnClose )
+      IF !Empty(lBtnClose)
          @ 0, 0 OWNERBUTTON btnClose OF Self ;
             SIZE 1, 1 ON PAINT {|o|fPaintBtn(o)} ;
             ON CLICK {||::oParent:Close()}
       ENDIF
-      IF !Empty( lBtnMax )
+      IF !Empty(lBtnMax)
          @ 0, 0 OWNERBUTTON btnMax OF Self ;
             SIZE 1, 1 ON PAINT {|o|fPaintBtn(o)} ;
             ON CLICK {||Iif(::lMaximized,::oParent:Restore(),::oParent:Maximize()),::lMaximized:=!::lMaximized}
       ENDIF
-      IF !Empty( lBtnMin )
+      IF !Empty(lBtnMin)
          @ 0, 0 OWNERBUTTON btnMin OF Self ;
             SIZE 1, 1 ON PAINT {|o|fPaintBtn(o)} ;
             ON CLICK {||::oParent:Minimize()}
@@ -417,15 +421,15 @@ METHOD SetSysbtnColor( tColor, bColor )
    oPen1 := HPen():Add( BS_SOLID, 2, tColor )
    oPen2 := HPen():Add( BS_SOLID, 1, tColor )
 
-   IF !Empty( oBtn := ::FindControl( "btnclose" ) )
+   IF !Empty(oBtn := ::FindControl( "btnclose" ))
       oBtn:SetColor( tColor, bColor )
       oBtn:oPen1 := oPen1; oBtn:oPen2 := oPen2
    ENDIF
-   IF !Empty( oBtn := ::FindControl( "btnmax" ) )
+   IF !Empty(oBtn := ::FindControl( "btnmax" ))
       oBtn:SetColor( tColor, bColor )
       oBtn:oPen1 := oPen1; oBtn:oPen2 := oPen2
    ENDIF
-   IF !Empty( oBtn := ::FindControl( "btnmin" ) )
+   IF !Empty(oBtn := ::FindControl( "btnmin" ))
       oBtn:SetColor( tColor, bColor )
       oBtn:oPen1 := oPen1; oBtn:oPen2 := oPen2
    ENDIF
@@ -463,10 +467,10 @@ METHOD Paint() CLASS HPanelHea
    pps := hwg_Definepaintstru()
    hDC := hwg_Beginpaint( ::handle, pps )
 
-   IF !Empty( block := hwg_getPaintCB( ::aPaintCB, PAINT_BACK ) )
+   IF !Empty(block := hwg_getPaintCB( ::aPaintCB, PAINT_BACK ))
       aCoors := hwg_Getclientrect( ::handle )
       Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
-   ELSEIF Empty( ::oStyle )
+   ELSEIF Empty(::oStyle)
       ::oStyle := HStyle():New( {::bColor}, 1 )
    ENDIF
    ::oStyle:Draw( hDC, 0, 0, ::nWidth, ::nHeight )
@@ -481,19 +485,19 @@ METHOD Paint() CLASS HPanelHea
       nBtnSize := Min( 24, ::nHeight )
       x1 := ::nWidth-nBtnSize-4
       y1 := Int((::nHeight-nBtnSize)/2)
-      IF !Empty( oBtn := ::FindControl( "btnclose" ) )
+      IF !Empty(oBtn := ::FindControl( "btnclose" ))
          oBtn:oBitmap := HBitmap():AddWindow( Self, x1, y1, nBtnSize, nBtnSize )
          oBtn:Move( x1, y1, nBtnSize, nBtnSize )
          oBtn:Anchor := ANCHOR_RIGHTABS
          x1 -= nBtnSize
       ENDIF
-      IF !Empty( oBtn := ::FindControl( "btnmax" ) )
+      IF !Empty(oBtn := ::FindControl( "btnmax" ))
          oBtn:oBitmap := HBitmap():AddWindow( Self, x1, y1, nBtnSize, nBtnSize )
          oBtn:Move( x1, y1, nBtnSize, nBtnSize )
          oBtn:Anchor := ANCHOR_RIGHTABS
          x1 -= nBtnSize
       ENDIF
-      IF !Empty( oBtn := ::FindControl( "btnmin" ) )
+      IF !Empty(oBtn := ::FindControl( "btnmin" ))
          oBtn:oBitmap := HBitmap():AddWindow( Self, x1, y1, nBtnSize, nBtnSize )
          oBtn:Move( x1, y1, nBtnSize, nBtnSize )
          oBtn:Anchor := ANCHOR_RIGHTABS

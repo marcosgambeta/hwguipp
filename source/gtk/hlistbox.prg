@@ -152,7 +152,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 METHOD Activate() CLASS HListBox
 * Make listbox visible
 
-   IF ! Empty( ::oParent:handle )
+   IF ! Empty(::oParent:handle)
      HWG_LISTBOXSHOW(::handle)
 /* 
       ::handle := hwg_Createlistbox( ::oParent:handle, ::id, ;
@@ -205,7 +205,7 @@ METHOD Init() CLASS HListBox
          IF ::value == NIL
             ::value := 1
          ENDIF
-         IF !EMPTY( ::nItemHeight )
+         IF !EMPTY(::nItemHeight)
  //           hwg_Sendmessage( ::handle, LB_SETITEMHEIGHT , 0, ::nItemHeight )
          ENDIF
 //         hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0 )
@@ -385,7 +385,7 @@ METHOD Valid( oCtrl ) CLASS HListBox
          oDlg:nLastKey := 0
       ENDIF
    ENDIF
-   IF Empty( hwg_Getfocus() )
+   IF Empty(hwg_Getfocus())
        hwg_GetSkip( ::oParent, ::handle, 1 )
    ENDIF
 */   

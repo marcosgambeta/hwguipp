@@ -65,7 +65,9 @@ ENDCLASS
 
 METHOD Create( cName, n ) CLASS HBinC
    
-   IF n == NIL; n := 16; ENDIF
+   IF n == NIL
+      n := 16
+   ENDIF
 
    IF ( ::handle := FCreate( cName ) ) == -1
       RETURN NIL
@@ -90,40 +92,40 @@ METHOD Open( cName, lWr ) CLASS HBinC
    LOCAL cBuf, i, nLen, arr, nAddr := 0
 
    ::cName := cName
-   ::lWriteAble := !Empty( lWr )
+   ::lWriteAble := !Empty(lWr)
    IF ( ::handle := FOpen( cName, Iif( ::lWriteAble, FO_READWRITE, FO_READ ) ) ) == -1
       RETURN NIL
    ENDIF
 
-   cBuf := Space( HEAD_LEN )
+   cBuf := Space(HEAD_LEN)
    FRead( ::handle, @cBuf, HEAD_LEN )
    IF Left( cBuf,5 ) != cHead
       FClose( ::handle )
       RETURN NIL
    ENDIF
 
-   ::nVerHigh := Asc( Substr( cBuf, 6, 1 ) )
-   ::nVerLow  := Asc( Substr( cBuf, 7, 1 ) )
-   ::nItems   := Asc( Substr( cBuf, 9, 1 ) ) * 256 + Asc( Substr( cBuf, 10, 1 ) )
-   ::nCntLen  := Asc( Substr( cBuf, 11, 1 ) ) * 65536 + Asc( Substr( cBuf, 12, 1 ) ) * 256 + Asc( Substr( cBuf, 13, 1 ) )
-   ::nCntBlocks := Asc( Substr( cBuf, 14, 1 ) )
-   ::nPassLen := Asc( Substr( cBuf, 15, 1 ) )
+   ::nVerHigh := Asc( Substr(cBuf, 6, 1) )
+   ::nVerLow  := Asc( Substr(cBuf, 7, 1) )
+   ::nItems   := Asc( Substr(cBuf, 9, 1) ) * 256 + Asc( Substr(cBuf, 10, 1) )
+   ::nCntLen  := Asc( Substr(cBuf, 11, 1) ) * 65536 + Asc( Substr(cBuf, 12, 1) ) * 256 + Asc( Substr(cBuf, 13, 1) )
+   ::nCntBlocks := Asc( Substr(cBuf, 14, 1) )
+   ::nPassLen := Asc( Substr(cBuf, 15, 1) )
    ::nFileLen := FSeek( ::handle, 0, FS_END )
 
    FSeek( ::handle, HEAD_LEN + ::nPassLen, FS_SET )
-   cBuf := Space( ::nCntLen )
+   cBuf := Space(::nCntLen)
    FRead( ::handle, @cBuf, ::nCntLen )
 
    ::aObjects := Array( ::nItems )
    FOR i := 1 TO ::nItems
-      nLen := Asc( Substr( cBuf, nAddr+1 ) )
+      nLen := Asc( Substr(cBuf, nAddr + 1) )
       arr := Array( 5 )
-      arr[OBJ_NAME] := Substr( cBuf, nAddr+2, nLen )
-      arr[OBJ_TYPE] := Substr( cBuf, nAddr+nLen+2, 4 )
-      arr[OBJ_VAL]  := Asc( Substr( cBuf, nAddr+nLen+6, 1 ) ) * 16777216 + ;
-            Asc( Substr( cBuf, nAddr+nLen+7, 1 ) ) * 65536 + Asc( Substr( cBuf, nAddr+nLen+8, 1 ) ) * 256 + Asc( Substr( cBuf, nAddr+nLen+9, 1 ) )
-      arr[OBJ_SIZE] := Asc( Substr( cBuf, nAddr+nLen+10, 1 ) ) * 16777216 + ;
-            Asc( Substr( cBuf, nAddr+nLen+11, 1 ) ) * 65536 + Asc( Substr( cBuf, nAddr+nLen+12, 1 ) ) * 256 + Asc( Substr( cBuf, nAddr+nLen+13, 1 ) )
+      arr[OBJ_NAME] := Substr(cBuf, nAddr + 2, nLen)
+      arr[OBJ_TYPE] := Substr(cBuf, nAddr + nLen + 2, 4)
+      arr[OBJ_VAL]  := Asc( Substr(cBuf, nAddr + nLen + 6, 1) ) * 16777216 + ;
+            Asc( Substr(cBuf, nAddr + nLen + 7, 1) ) * 65536 + Asc( Substr(cBuf, nAddr + nLen + 8, 1) ) * 256 + Asc( Substr(cBuf, nAddr + nLen + 9, 1) )
+      arr[OBJ_SIZE] := Asc( Substr(cBuf, nAddr + nLen + 10, 1) ) * 16777216 + ;
+            Asc( Substr(cBuf, nAddr + nLen + 11, 1) ) * 65536 + Asc( Substr(cBuf, nAddr + nLen + 12, 1) ) * 256 + Asc( Substr(cBuf, nAddr + nLen + 13, 1) )
       arr[OBJ_ADDR] := nAddr
       ::aObjects[i] := arr
       nAddr += nLen + CNT_FIX_LEN
@@ -142,8 +144,8 @@ METHOD Add( cObjName, cType, cVal ) CLASS HBinC
    IF !::lWriteAble
       RETURN .F.
    ENDIF
-   cObjName := Lower( cObjName )
-   cType := Padr( Lower( Left( cType, 4 ) ), 4 )
+   cObjName := Lower(cObjName)
+   cType := Padr( Lower(Left(cType, 4)), 4 )
    IF Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) > 0
       RETURN .F.
    ENDIF
@@ -163,15 +165,15 @@ METHOD Add( cObjName, cType, cVal ) CLASS HBinC
    FWrite( ::handle, cVal )
    ::nFileLen += nSize
 
-   cAddress := Chr( nAddress/16777216 ) + Chr( (nAddress/65536)%256 ) + Chr( (nAddress/256)%65536 ) + Chr( nAddress%16777216 )
-   cSize := Chr( nSize/16777216 ) + Chr( (nSize/65536)%256 ) + Chr( (nSize/256)%65536 ) + Chr( nSize%16777216 )
+   cAddress := Chr(nAddress / 16777216) + Chr((nAddress / 65536) % 256) + Chr((nAddress / 256) % 65536) + Chr(nAddress % 16777216)
+   cSize := Chr(nSize / 16777216) + Chr((nSize / 65536) % 256) + Chr((nSize / 256) % 65536) + Chr(nSize % 16777216)
    FSeek( ::handle, HEAD_LEN + ::nPassLen + nAddr, FS_SET )
    FWrite( ::handle, Chr(Len(cObjName))+cObjName+cType+cAddress+cSize+Chr(0)+Chr(0) )
 
    ::nItems ++
    ::nCntLen += Len(cObjName) + CNT_FIX_LEN
-   cAddress := Chr( ::nItems/256 ) + Chr( ::nItems%256 )
-   cSize := Chr( ::nCntLen/65536 ) + Chr( (::nCntLen/256)%256 ) + Chr( ::nCntLen%65536 )
+   cAddress := Chr(::nItems / 256) + Chr(::nItems % 256)
+   cSize := Chr(::nCntLen / 65536) + Chr((::nCntLen / 256) % 256) + Chr(::nCntLen % 65536)
    FSeek( ::handle, 8, FS_SET )
    FWrite( ::handle, cAddress+cSize )
 
@@ -184,7 +186,7 @@ METHOD Del( cObjName ) CLASS HBinC
    IF !::lWriteAble
       RETURN .F.
    ENDIF
-   cObjName := Lower( cObjName )
+   cObjName := Lower(cObjName)
    IF ( n := Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) ) == 0
       RETURN .F.
    ENDIF
@@ -217,16 +219,16 @@ METHOD Pack() CLASS HBinC
    ::nItems := nItems
    ::nCntLen := nCntLen
 
-   cAddr := Chr( nItems/256 ) + Chr( nItems%256 )
-   cSize := Chr( nCntLen/65536 ) + Chr( (nCntLen/256)%256 ) + Chr( nCntLen%65536 )
+   cAddr := Chr(nItems / 256) + Chr(nItems % 256)
+   cSize := Chr(nCntLen / 65536) + Chr((nCntLen / 256) % 256) + Chr(nCntLen % 65536)
    s += cAddr + cSize + Chr(::nCntBlocks) + Chr(::nPassLen)
 
    nAddr := ::aObjects[1,OBJ_VAL]
    FOR i := 1 TO Len( ::aObjects )
       a := ::aObjects[i]
-      IF !Empty( a[OBJ_NAME] )
-         cAddr := Chr( nAddr/16777216 ) + Chr( (nAddr/65536)%256 ) + Chr( (nAddr/256)%65536 ) + Chr( nAddr%16777216 )
-         cSize := Chr( a[OBJ_SIZE]/16777216 ) + Chr( (a[OBJ_SIZE]/65536)%256 ) + Chr( (a[OBJ_SIZE]/256)%65536 ) + Chr( a[OBJ_SIZE]%16777216 )
+      IF !Empty(a[OBJ_NAME])
+         cAddr := Chr(nAddr / 16777216) + Chr((nAddr / 65536) % 256) + Chr((nAddr / 256) % 65536) + Chr(nAddr % 16777216)
+         cSize := Chr(a[OBJ_SIZE] / 16777216) + Chr((a[OBJ_SIZE] / 65536) % 256) + Chr((a[OBJ_SIZE] / 256) % 65536) + Chr(a[OBJ_SIZE] % 16777216)
          nAddr += a[OBJ_SIZE]
          s += Chr(Len(a[OBJ_NAME]))+a[OBJ_NAME]+a[OBJ_TYPE]+cAddr+cSize+Chr(0)+Chr(0)
       ENDIF
@@ -236,8 +238,8 @@ METHOD Pack() CLASS HBinC
    FWrite( handle, Replicate( Chr(0), ::nCntBlocks*2048 - Len(s) ) )
 
    FOR i := 1 TO Len( ::aObjects )
-      IF !Empty( ::aObjects[i,OBJ_NAME] )
-         s := Space( ::aObjects[i,OBJ_SIZE] )
+      IF !Empty(::aObjects[i,OBJ_NAME])
+         s := Space(::aObjects[i, OBJ_SIZE])
          FSeek( ::handle, ::aObjects[i,OBJ_VAL], FS_SET )
          FRead( ::handle, @s, ::aObjects[i,OBJ_SIZE] )
          FWrite( handle, s, ::aObjects[i,OBJ_SIZE] )
@@ -259,12 +261,12 @@ METHOD Pack() CLASS HBinC
 METHOD Get( cObjName ) CLASS HBinC
    LOCAL n, cBuf
 
-   cObjName := Lower( cObjName )
+   cObjName := Lower(cObjName)
    IF ( n := Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) ) == 0
       RETURN NIL
    ENDIF
 
-   cBuf := Space( ::aObjects[n,OBJ_SIZE] )
+   cBuf := Space(::aObjects[n, OBJ_SIZE])
    FSeek( ::handle, ::aObjects[n,OBJ_VAL], FS_SET )
    FRead( ::handle, @cBuf, ::aObjects[n,OBJ_SIZE] )
 
@@ -272,12 +274,12 @@ METHOD Get( cObjName ) CLASS HBinC
 
 METHOD Exist( cObjName )  CLASS HBinC
 
-   cObjName := Lower( cObjName )
+   cObjName := Lower(cObjName)
    RETURN ( Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) ) != 0
 
 METHOD GetPos( cObjName )  CLASS HBinC
 
-  cObjName := Lower( cObjName )
+  cObjName := Lower(cObjName)
   
   RETURN  Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) 
   
@@ -286,7 +288,7 @@ METHOD GetType( cObjName )
 
   LOCAL n, crettype := ""
 
-  cObjName := Lower( cObjName )
+  cObjName := Lower(cObjName)
   
   n:=  Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) 
 

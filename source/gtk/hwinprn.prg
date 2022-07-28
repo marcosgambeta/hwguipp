@@ -141,7 +141,7 @@ METHOD New( cPrinter, cpFrom, cpTo, nFormType , nCharset ) CLASS HWinPrn
    ::cpFrom := cpFrom
    ::cpTo   := cpTo
 #ifdef __GTK__
-   IF !Empty( cpTo )
+   IF !Empty(cpTo)
       ::oPrinter:cdpIn := cpTo
    ENDIF
 #endif
@@ -167,21 +167,41 @@ METHOD SetLanguage(apTooltips, apBootUser) CLASS HWinPrn
 * Default settings (English)
   ::aTooltips := hwg_HPrinter_LangArray_EN()
 * Overwrite default, if array with own language served 
-   IF apTooltips != NIL ; ::aTooltips := apTooltips ; ENDIF
+   IF apTooltips != NIL
+      ::aTooltips := apTooltips
+   ENDIF
 /* Activate, if necessary */   
-//   IF apBootUser != NIL ; ::aBootUser := apBootUser ; ENDIF  
+//   IF apBootUser != NIL
+//      ::aBootUser := apBootUser
+//   ENDIF
 RETURN NIL
 
 METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset ) CLASS HWinPrn
 
-   IF lElite != NIL ; ::lElite := lElite ;  ENDIF
-   IF lCond != NIL ; ::lCond := lCond ;  ENDIF
-   IF nLineInch != NIL ; ::nLineInch := nLineInch ;  ENDIF
-   IF lBold != NIL ; ::lBold := lBold ;  ENDIF
-   IF lItalic != NIL ; ::lItalic := lItalic ;  ENDIF
-   IF lUnder != NIL ; ::lUnder := lUnder ;  ENDIF
-   IF nLineMax != NIL ; ::nLineMax := nLineMax ;  ENDIF
-   IF nCharset != NIL ; ::nCharset := nCharset ;  ENDIF
+   IF lElite != NIL
+      ::lElite := lElite
+   ENDIF
+   IF lCond != NIL
+      ::lCond := lCond
+   ENDIF
+   IF nLineInch != NIL
+      ::nLineInch := nLineInch
+   ENDIF
+   IF lBold != NIL
+      ::lBold := lBold
+   ENDIF
+   IF lItalic != NIL
+      ::lItalic := lItalic
+   ENDIF
+   IF lUnder != NIL
+      ::lUnder := lUnder
+   ENDIF
+   IF nLineMax != NIL
+      ::nLineMax := nLineMax
+   ENDIF
+   IF nCharset != NIL
+      ::nCharset := nCharset
+   ENDIF
    ::lChanged := .T.
 
    RETURN NIL
@@ -223,8 +243,12 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
       nStdLineW  := Iif( ::nFormType==8, Iif(::oPrinter:nOrient==2,160,113), Iif(::oPrinter:nOrient==2,113,80) )
       nStdHeight := Iif( !Empty(::nLineMax), ::nStdHeight / ( ::nLineMax/nStdLineW ), ::nStdHeight )
 
-      IF ::lElite ; nMode ++ ; ENDIF
-      IF ::lCond ; nMode += 2 ; ENDIF
+      IF ::lElite
+         nMode ++
+      ENDIF
+      IF ::lCond
+         nMode += 2
+      ENDIF
       //hwg_writelog( "nStdHeight: "+Ltrim(str(::nStdHeight))+"/"+Ltrim(str(nStdHeight))+" ::nLineMax: "+Ltrim(str(::nLineMax))+"  nStdLineW: "+Ltrim(str(nStdLineW)) )
 
       ::nLineHeight := ( nStdHeight / aKoef[ nMode + 1 ] ) * ::oPrinter:nVRes
@@ -480,26 +504,26 @@ IF cLine != NIL .AND. VALTYPE(cLine) == "N"
       ::y += ::nLineHeight + ::nLined
    ENDIF
 
-   IF cLine != NIL .AND. ! Empty( cLine )
+   IF cLine != NIL .AND. ! Empty(cLine)
       slen := Len( cLine )
       i := 1
       i0 := 0
       DO WHILE i <= slen
-         IF ( c := SubStr( cLine, i, 1 ) ) < " "
+         IF ( c := SubStr(cLine, i, 1) ) < " "
             IF i0 != 0
-               ::PrintText( SubStr( cLine, i0, i - i0 ) )
+               ::PrintText( SubStr(cLine, i0, i - i0) )
                i0 := 0
             ENDIF
-            i += ::PutCode( SubStr( cLine, i ) )
+            i += ::PutCode( SubStr(cLine, i) )
             LOOP
-         ELSEIF ( j := At( c, ::cPseudo ) ) != 0
+         ELSEIF ( j := At(c, ::cPseudo) ) != 0
             IF i0 != 0
-               ::PrintText( SubStr( cLine, i0, i - i0 ) )
+               ::PrintText( SubStr(cLine, i0, i - i0) )
                i0 := 0
             ENDIF
             IF j < 3            // Horisontal line ÄÍ
                i0 := i
-               DO WHILE i <= slen .AND. SubStr( cLine, i, 1 ) == c
+               DO WHILE i <= slen .AND. SubStr(cLine, i, 1) == c
                   i ++
                ENDDO
                ::oPrinter:Line( ::x, ::y + ( ::nLineHeight / 2 ), ::x + ( i - i0 ) * ::nCharW, ::y + ( ::nLineHeight / 2 ) )
@@ -549,7 +573,7 @@ IF cLine != NIL .AND. VALTYPE(cLine) == "N"
       IF i0 != 0
        // hwg_writelog(STR(::x) + CHR(10) + STR(::y) + CHR(10) + STR(i0) + CHR(10) + STR(i) + ;
        //  CHR(10) + STR(::nLineHeight) )
-         ::PrintText( SubStr( cLine, i0, i - i0 ) )
+         ::PrintText( SubStr(cLine, i0, i - i0) )
        ENDIF
    ENDIF
 
@@ -569,28 +593,28 @@ METHOD PrintText( cText ) CLASS HWinPrn
 
 METHOD PutCode( cLine ) CLASS HWinPrn
    STATIC aCodes := {   ;
-          { Chr( 27 ) + '@', .f., .f., 6, .f., .f., .f. },  ;     /* Reset */
-          { Chr( 27 ) + 'M', .t.,,,,, },  ;     /* Elite */
-          { Chr( 15 ),, .t.,,,, },      ;     /* Cond */
-          { Chr( 18 ),, .f.,,,, },      ;     /* Cancel Cond */
-          { Chr( 27 ) + '0',,, 8,,, },    ;     /* 8 lines per inch */
-          { Chr( 27 ) + '2',,, 6,,, },    ;     /* 6 lines per inch ( standard ) */
-          { Chr( 27 ) + '-1',,,,,, .t. }, ;     /* underline */
-          { Chr( 27 ) + '-0',,,,,, .f. }, ;     /* cancel underline */
-          { Chr( 27 ) + '4',,,,, .t., },  ;     /* italic */
-          { Chr( 27 ) + '5',,,,, .f., },  ;     /* cancel italic */
-          { Chr( 27 ) + 'G',,,, .t.,, },  ;     /* bold */
-          { Chr( 27 ) + 'H',,,, .f.,, }   ;     /* cancel bold */
+          { Chr(27) + '@', .f., .f., 6, .f., .f., .f. },  ;     /* Reset */
+          { Chr(27) + 'M', .t.,,,,, },  ;     /* Elite */
+          { Chr(15),, .t.,,,, },      ;     /* Cond */
+          { Chr(18),, .f.,,,, },      ;     /* Cancel Cond */
+          { Chr(27) + '0',,, 8,,, },    ;     /* 8 lines per inch */
+          { Chr(27) + '2',,, 6,,, },    ;     /* 6 lines per inch ( standard ) */
+          { Chr(27) + '-1',,,,,, .t. }, ;     /* underline */
+          { Chr(27) + '-0',,,,,, .f. }, ;     /* cancel underline */
+          { Chr(27) + '4',,,,, .t., },  ;     /* italic */
+          { Chr(27) + '5',,,,, .f., },  ;     /* cancel italic */
+          { Chr(27) + 'G',,,, .t.,, },  ;     /* bold */
+          { Chr(27) + 'H',,,, .f.,, }   ;     /* cancel bold */
         }
    LOCAL i, sLen := Len( aCodes ), c := Left( cLine, 1 )
 
-   IF !Empty( c ) .AND. c < " "
+   IF !Empty(c) .AND. c < " "
       IF Asc( c ) == 31
          ::InitValues( ,,,,,, Asc(Substr(cLine,2,1)) )
          RETURN 2
       ELSE
          FOR i := 1 TO sLen
-            IF Left( aCodes[ i, 1 ], 1 ) == c .AND. At( aCodes[ i, 1 ], Left( cLine, 3 ) ) == 1
+            IF Left( aCodes[ i, 1 ], 1 ) == c .AND. At(aCodes[i, 1], Left(cLine, 3)) == 1
                ::InitValues( aCodes[ i, 2 ], aCodes[ i, 3 ], aCodes[ i, 4 ], aCodes[ i, 5 ], aCodes[ i, 6 ], aCodes[ i, 7 ]  )
                RETURN Len( aCodes[ i, 1 ] )
             ENDIF

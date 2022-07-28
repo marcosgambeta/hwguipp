@@ -210,16 +210,16 @@ static void draw_page( cairo_t *cr, const char * cpage )
       if( !strncmp( ptr,"txt",3 ) )
       {
          x1 = atof( ptr+4 );
-         ptr = strchr( ptr+4, ',' ); ptr++;
+         ptr = strchr(ptr+4, ','); ptr++;
          y1 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          x2 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          y2 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          iOpt = atol( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
-         ptre = strchr( ptr, '\r' );
+         ptr = strchr(ptr, ','); ptr++;
+         ptre = strchr(ptr, '\r');
 
          memcpy( cBuf, ptr, ptre-ptr );
          cBuf[ptre-ptr] = '\0';
@@ -247,13 +247,13 @@ static void draw_page( cairo_t *cr, const char * cpage )
       else if( !strncmp( ptr,"lin",3 ) )
       {
          x1 = atof( ptr+4 );
-         ptr = strchr( ptr+4, ',' ); ptr++;
+         ptr = strchr(ptr+4, ','); ptr++;
          y1 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          x2 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          y2 = atof( ptr );
-         // ptr = strchr( ptr, ',' ); ptr++;
+         // ptr = strchr(ptr, ','); ptr++;
          // iOpt = atol( ptr );
 
          cairo_move_to( cr, (gdouble)x1, (gdouble)y1 );
@@ -263,11 +263,11 @@ static void draw_page( cairo_t *cr, const char * cpage )
       else if( !strncmp( ptr,"box",3 ) )
       {
          x1 = atof( ptr+4 );
-         ptr = strchr( ptr+4, ',' ); ptr++;
+         ptr = strchr(ptr+4, ','); ptr++;
          y1 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          x2 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          y2 = atof( ptr );
 
          cairo_rectangle( cr, (gdouble)x1, (gdouble)y1, 
@@ -284,14 +284,14 @@ static void draw_page( cairo_t *cr, const char * cpage )
          }
 
          ptr += 4;
-         ptre = strchr( ptr, ',' );
+         ptre = strchr(ptr, ',');
          memcpy( cBuf, ptr, ptre-ptr );
          cBuf[ptre-ptr] = '\0';
          ptr = ptre + 1;
          x1 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          i1 = ( atoi(ptr) == 700 )? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL;
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          i2 = ( atoi(ptr) == 0 )? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC;
          // g_debug( "font: %s %f %d %d", cBuf, d1, x1, y1 );
 
@@ -302,9 +302,9 @@ static void draw_page( cairo_t *cr, const char * cpage )
       else if( !strncmp( ptr,"pen",3 ) )
       {
          x1 = atof( ptr+4 );
-         ptr = strchr( ptr+4, ',' ); ptr++;
+         ptr = strchr(ptr+4, ','); ptr++;
          i1 = atoi( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          li = atol( ptr );
 
          if( iPathExist )
@@ -328,16 +328,16 @@ static void draw_page( cairo_t *cr, const char * cpage )
       else if( !strncmp( ptr,"img",3 ) )
       {
          x1 = atof( ptr+4 );
-         ptr = strchr( ptr+4, ',' ); ptr++;
+         ptr = strchr(ptr+4, ','); ptr++;
          y1 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          x2 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          y2 = atof( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
+         ptr = strchr(ptr, ','); ptr++;
          iOpt = atol( ptr );
-         ptr = strchr( ptr, ',' ); ptr++;
-         ptre = strchr( ptr, '\r' );
+         ptr = strchr(ptr, ','); ptr++;
+         ptre = strchr(ptr, '\r');
 
          memcpy( cBuf, ptr, ptre-ptr );
          cBuf[ptre-ptr] = '\0';
@@ -386,7 +386,7 @@ static void print_page( GtkPrintOperation * operation, GtkPrintContext * context
       ptr = (char*) hb_arrayGetCPtr( ppages, page_nr+2 );
       if( !strncmp( ptr,"page",4 ) )
       {  
-         ptr = strchr( ptr+5, ',' ); ptr += 4;
+         ptr = strchr(ptr+5, ','); ptr += 4;
          gtk_page_setup_set_orientation( page_setup,
                (*ptr=='p')? GTK_PAGE_ORIENTATION_PORTRAIT : GTK_PAGE_ORIENTATION_LANDSCAPE );
          gtk_print_operation_set_default_page_setup( operation, page_setup );

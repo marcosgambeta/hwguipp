@@ -298,7 +298,7 @@ METHOD GetExprValue( xExpr, lValid ) CLASS HBDebugger
       xResult := oErr:operation + ": " + oErr:description
       IF HB_ISARRAY( oErr:args )
          xResult += "; arguments:"
-         AEval( oErr:args, { | x | xResult += " " + AllTrim( __dbgValToStr( x ) ) } )
+         AEval( oErr:args, { | x | xResult += " " + AllTrim(__dbgValToStr(x)) } )
       ENDIF
       lValid := .F.
    END SEQUENCE
@@ -361,7 +361,7 @@ METHOD HandleEvent() CLASS HBDebugger
       CASE nKey == CMD_BADD
          IF __dbgIsValidStopLine( ::pInfo, p1, p2 )
             AAdd( ::aBreakPoints, { p2, p1 } )
-            hwg_dbg_Answer( "line", LTrim( Str(p2 ) ) )
+            hwg_dbg_Answer( "line", LTrim(Str(p2 )) )
             __dbgAddBreak( ::pInfo, p1, p2 )
          ELSE
             hwg_dbg_Answer( "err" )
@@ -373,7 +373,7 @@ METHOD HandleEvent() CLASS HBDebugger
          ELSE
             ADel( ::aBreakPoints, nAt )
             ASize( ::aBreakPoints, Len( ::aBreakPoints ) - 1 )
-            hwg_dbg_Answer( "ok", LTrim( Str(p2 ) ) )
+            hwg_dbg_Answer( "ok", LTrim(Str(p2 )) )
             __dbgDelBreak( ::pInfo, nAt - 1 )
          ENDIF
 
@@ -466,9 +466,9 @@ METHOD HandleEvent() CLASS HBDebugger
 
       CASE nKey == CMD_CALC
          IF Left( p1, 1 ) == "?"
-            p1 := LTrim( SubStr( p1, iif( Left(p1,2 ) == "??",3,2 ) ) )
+            p1 := LTrim(SubStr(p1, iif(Left(p1, 2) == "??", 3, 2)))
          ENDIF
-         hwg_dbg_Answer( "value", __dbgValToStr( ::GetExprValue( p1 ) ) )
+         hwg_dbg_Answer("value", __dbgValToStr(::GetExprValue(p1)))
 
       ENDCASE
    ENDDO
@@ -526,7 +526,7 @@ METHOD ShowCodeLine( nProc ) CLASS HBDebugger
          RETURN NIL
       ENDIF
 
-      IF ! Empty( cPrgName )
+      IF ! Empty(cPrgName)
          hwg_dbg_SetActiveLine( cPrgName, nLine, ;
             iif( ::lViewStack, SendStack(), NIL ),  ;
             iif( ::lShowLocals, SendLocal(), ;
@@ -549,10 +549,10 @@ METHOD VarGetInfo( aVar ) CLASS HBDebugger
    LOCAL uValue := ::VarGetValue( aVar )
 
    DO CASE
-   CASE cType == "G" ; RETURN aVar[ VAR_NAME ] + " <Global, " + ValType( uValue ) + ">: " + __dbgValToStr( uValue )
-   CASE cType == "L" ; RETURN aVar[ VAR_NAME ] + " <Local, " + ValType( uValue ) + ">: " + __dbgValToStr( uValue )
-   CASE cType == "S" ; RETURN aVar[ VAR_NAME ] + " <Static, " + ValType( uValue ) + ">: " + __dbgValToStr( uValue )
-      OTHERWISE         ; RETURN aVar[ VAR_NAME ] + " <" + aVar[ VAR_TYPE ] + ", " + ValType( uValue ) + ">: " + __dbgValToStr( uValue )
+   CASE cType == "G" ; RETURN aVar[ VAR_NAME ] + " <Global, " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
+   CASE cType == "L" ; RETURN aVar[ VAR_NAME ] + " <Local, " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
+   CASE cType == "S" ; RETURN aVar[ VAR_NAME ] + " <Static, " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
+      OTHERWISE         ; RETURN aVar[ VAR_NAME ] + " <" + aVar[ VAR_TYPE ] + ", " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
    ENDCASE
 
    // ; Never reached
@@ -606,11 +606,11 @@ STATIC FUNCTION SendStack()
    LOCAL aStack := t_oDebugger:aProcStack
    LOCAL arr := Array( Len( aStack ) * 3 + 1 ), i, j := 2
 
-   arr[1] := LTrim( Str( Len( aStack ) ) )
+   arr[1] := LTrim(Str(Len(aStack)))
    FOR i := 1 TO Len( aStack )
-      arr[j++] := iif( Empty( aStack[i,CSTACK_MODULE] ), "", aStack[i,CSTACK_MODULE] )
-      arr[j++] := iif( Empty( aStack[i,CSTACK_FUNCTION] ), "Unknown", aStack[i,CSTACK_FUNCTION] )
-      arr[j++] := iif( Empty( aStack[i,CSTACK_LINE] ), "", LTrim( Str( aStack[i,CSTACK_LINE] ) ) )
+      arr[j++] := iif( Empty(aStack[i,CSTACK_MODULE]), "", aStack[i,CSTACK_MODULE] )
+      arr[j++] := iif( Empty(aStack[i,CSTACK_FUNCTION]), "Unknown", aStack[i,CSTACK_FUNCTION] )
+      arr[j++] := iif( Empty(aStack[i,CSTACK_LINE]), "", LTrim(Str(aStack[i,CSTACK_LINE])) )
    NEXT
 
    RETURN arr
@@ -619,12 +619,12 @@ STATIC FUNCTION SendLocal()
    LOCAL aVars := t_oDebugger:aProcStack[1,CSTACK_LOCALS]
    LOCAL arr := Array( Len( aVars ) * 3 + 1 ), i, j := 1, xVal
 
-   arr[1] := LTrim( Str( Len( aVars ) ) )
+   arr[1] := LTrim(Str(Len(aVars)))
    FOR i := 1 TO Len( aVars )
       arr[++j] := aVars[ i,VAR_NAME ]
       xVal := __dbgvmVarLGet( __dbgprocLevel() - aVars[i,VAR_LEVEL], aVars[i,VAR_POS] )
       arr[++j] := ValType( xVal )
-      arr[++j] := __dbgValToStr( xVal )
+      arr[++j] := __dbgValToStr(xVal)
       IF Len( arr[j] ) > VAR_MAX_LEN
          arr[j] := Left( arr[j], VAR_MAX_LEN )
       ENDIF
@@ -636,12 +636,12 @@ STATIC FUNCTION SendPrivate()
    LOCAL nCount := __mvDbgInfo( HB_MV_PRIVATE )
    LOCAL arr := Array( nCount * 3 + 1 ), cName, xValue, i, j := 1
 
-   arr[1] := LTrim( Str( nCount ) )
+   arr[1] := LTrim(Str(nCount))
    FOR i := 1 TO nCount
       xValue := __mvDbgInfo( HB_MV_PRIVATE, i, @cName )
       arr[++j] := cName
       arr[++j] := ValType( xValue )
-      arr[++j] := __dbgValToStr( xValue )
+      arr[++j] := __dbgValToStr(xValue)
       IF Len( arr[j] ) > VAR_MAX_LEN
          arr[j] := Left( arr[j], VAR_MAX_LEN )
       ENDIF
@@ -653,12 +653,12 @@ STATIC FUNCTION SendPublic()
    LOCAL nCount := __mvDbgInfo( HB_MV_PUBLIC )
    LOCAL arr := Array( nCount * 3 + 1 ), cName, xValue, i, j := 1
 
-   arr[1] := LTrim( Str( nCount ) )
+   arr[1] := LTrim(Str(nCount))
    FOR i := 1 TO nCount
       xValue := __mvDbgInfo( HB_MV_PUBLIC, i, @cName )
       arr[++j] := cName
       arr[++j] := ValType( xValue )
-      arr[++j] := __dbgValToStr( xValue )
+      arr[++j] := __dbgValToStr(xValue)
       IF Len( arr[j] ) > VAR_MAX_LEN
          arr[j] := Left( arr[j], VAR_MAX_LEN )
       ENDIF
@@ -680,14 +680,14 @@ STATIC FUNCTION SendStatic()
    nAll += Len( t_oDebugger:aProcStack[1,CSTACK_STATICS] )
    arr := Array( nAll * 3 + 1 )
 
-   arr[1] := LTrim( Str( nAll ) )
+   arr[1] := LTrim(Str(nAll))
 
-   IF !Empty( aVars )
+   IF !Empty(aVars)
       FOR i := 1 TO Len( aVars )
          arr[++j] := aVars[ i,VAR_NAME ]
          xVal := __dbgVMVarSGet( aVarS[ i,VAR_LEVEL ], aVarS[ i,VAR_POS ] )
          arr[++j] := ValType( xVal )
-         arr[++j] := __dbgValToStr( xVal )
+         arr[++j] := __dbgValToStr(xVal)
          IF Len( arr[j] ) > VAR_MAX_LEN
             arr[j] := Left( arr[j], VAR_MAX_LEN )
          ENDIF
@@ -699,7 +699,7 @@ STATIC FUNCTION SendStatic()
       arr[++j] := aVars[ i,VAR_NAME ]
       xVal := __dbgVMVarSGet( aVarS[ i,VAR_LEVEL ], aVarS[ i,VAR_POS ] )
       arr[++j] := ValType( xVal )
-      arr[++j] := __dbgValToStr( xVal )
+      arr[++j] := __dbgValToStr(xVal)
       IF Len( arr[j] ) > VAR_MAX_LEN
          arr[j] := Left( arr[j], VAR_MAX_LEN )
       ENDIF
@@ -710,10 +710,10 @@ STATIC FUNCTION SendStatic()
 STATIC FUNCTION SendWatch()
    LOCAL arr := Array( t_oDebugger:nWatches + 1 ), i
 
-   arr[1] := LTrim( Str( t_oDebugger:nWatches ) )
+   arr[1] := LTrim(Str(t_oDebugger:nWatches))
 
    FOR i := 1 TO t_oDebugger:nWatches
-      arr[i+1] := __dbgValToStr( t_oDebugger:GetExprValue( i ) )
+      arr[i+1] := __dbgValToStr(t_oDebugger:GetExprValue(i))
    NEXT
 
    RETURN arr
@@ -746,14 +746,14 @@ STATIC FUNCTION SendAreas()
       arr[++n] := iif( Found(), "Yes", "No" )
       arr[++n] := iif( Deleted(), "Yes", "No" )
       arr[++n] := dbFilter()
-      IF !Empty( cName := OrdSetFocus() )
-         arr[++n] := LTrim( Str( OrdNumber(cName ) ) )
+      IF !Empty(cName := OrdSetFocus())
+         arr[++n] := LTrim(Str(OrdNumber(cName)))
       ELSE
          arr[++n] := "0"
       ENDIF
       arr[++n] := ""
       j := 0
-      DO WHILE !Empty( cName := OrdName( ++ j ) )
+      DO WHILE !Empty(cName := OrdName( ++ j ))
          arr[n] += "/" + cName + "@" + OrdKey( j )
       ENDDO
       //hwg_writelog( "D> "+arr[n-1]+" "+arr[n] )
@@ -767,25 +767,25 @@ STATIC FUNCTION SendAreas()
 STATIC FUNCTION SendRec( cAlias )
    LOCAL af, nCount, arr, i, j := 3
 
-   IF Empty( cAlias )
+   IF Empty(cAlias)
       cAlias := Alias()
    ENDIF
    i := Select( cAlias )
-   IF Empty( cAlias ) .OR.  i == 0
+   IF Empty(cAlias) .OR.  i == 0
       RETURN { "0", "", "0" }
    ENDIF
    af := ( cAlias ) -> ( dbStruct() )
    nCount := Len( af )
    arr := Array( nCount * 4 + 3 )
 
-   arr[1] := LTrim( Str( nCount ) )
+   arr[1] := LTrim(Str(nCount))
    arr[2] := cAlias
-   arr[3] := LTrim( Str( (cAlias ) -> (RecNo() ) ) )
+   arr[3] := LTrim(Str((cAlias)->(RecNo())))
    FOR i := 1 TO nCount
       arr[++j] := af[i,1]
       arr[++j] := af[i,2]
-      arr[++j] := LTrim( Str( af[i,3] ) )
-      arr[++j] := __dbgValToStr( ( cAlias ) -> ( FieldGet(i ) ) )
+      arr[++j] := LTrim(Str(af[i, 3]))
+      arr[++j] := __dbgValToStr((cAlias)->(FieldGet(i)))
       IF Len( arr[j] ) > VAR_MAX_LEN
          arr[j] := Left( arr[j], VAR_MAX_LEN )
       ENDIF
@@ -803,12 +803,12 @@ STATIC FUNCTION SendObject( cObjName )
       aVars := __objGetValueList( obj )
       aMethods := __objGetMethodList( obj )
       arr := Array( ( Len(aVars ) + Len(aMethods ) ) * 3 + 1 )
-      arr[1] := LTrim( Str( Len(aVars ) + Len(aMethods ) ) )
+      arr[1] := LTrim(Str(Len(aVars) + Len(aMethods)))
 
       FOR i := 1 TO Len( aVars )
          arr[++j] := aVars[ i,1 ]
          arr[++j] := ValType( aVars[ i,2 ] )
-         arr[++j] := __dbgValToStr( aVars[ i,2 ] )
+         arr[++j] := __dbgValToStr(aVars[i, 2])
          IF Len( arr[j] ) > VAR_MAX_LEN
             arr[j] := Left( arr[j], VAR_MAX_LEN )
          ENDIF
@@ -835,13 +835,13 @@ STATIC FUNCTION SendObject( cObjName )
       aVars := __objGetMsgList( obj )
       aMethods := __objGetMethodList( obj )
       arr := Array( ( Len(aVars ) + Len(aMethods ) ) * 3 + 1 )
-      arr[1] := LTrim( Str( Len(aVars ) + Len(aMethods ) ) )
+      arr[1] := LTrim(Str(Len(aVars) + Len(aMethods)))
 
       FOR i := 1 TO Len( aVars )
          arr[++j] := aVars[i]
          xVal := __dbgObjGetValue( obj, aVars[i] )
          arr[++j] := ValType( xVal )
-         arr[++j] := __dbgValToStr( xVal )
+         arr[++j] := __dbgValToStr(xVal)
 
          IF Len( arr[j] ) > VAR_MAX_LEN
             arr[j] := Left( arr[j], VAR_MAX_LEN )
@@ -872,12 +872,12 @@ STATIC FUNCTION SendArray( cArrName, nFirst, nCount )
          nCount := Len( arrFrom ) - nFirst + 1
       ENDIF
       arr := Array( nCount * 2 + 3 )
-      arr[1] := LTrim( Str( nCount ) )
-      arr[2] := LTrim( Str( nFirst ) )
-      arr[3] := LTrim( Str( Len(arrFrom ) ) )
+      arr[1] := LTrim(Str(nCount))
+      arr[2] := LTrim(Str(nFirst))
+      arr[3] := LTrim(Str(Len(arrFrom)))
       FOR i := 1 TO nCount
          arr[++j] := ValType( arrFrom[nFirst+i-1] )
-         arr[++j] := __dbgValToStr( arrFrom[nFirst+i-1] )
+         arr[++j] := __dbgValToStr(arrFrom[nFirst + i - 1])
          IF Len( arr[j] ) > VAR_MAX_LEN
             arr[j] := Left( arr[j], VAR_MAX_LEN )
          ENDIF
@@ -906,14 +906,16 @@ STATIC FUNCTION strip_path( cFileName )
    LOCAL cName
    LOCAL cExt
 
-   IF cFileName == NIL; cFileName := ""; ENDIF
+   IF cFileName == NIL
+      cFileName := ""
+   ENDIF
 
    hb_FNameSplit( cFileName, NIL, @cName, @cExt )
 
    RETURN cName + cExt
 */   
 
-FUNCTION __dbgValToStr( uVal )
+FUNCTION __dbgValToStr(uVal)
 
    LOCAL cType := ValType( uVal ), i, s, nLen
 
@@ -936,7 +938,7 @@ FUNCTION __dbgValToStr( uVal )
 #ifndef __XHARBOUR__
    CASE cType == "T" ; RETURN hb_TToC( uVal )
 #endif
-   CASE cType == "N" ; RETURN Str( uVal )
+   CASE cType == "N" ; RETURN Str(uVal)
    CASE cType == "O" ; RETURN "Class " + uVal:ClassName() + " object"
    CASE cType == "H" ; RETURN "Hash(" + hb_ntos( Len( uVal ) ) + ")"
    CASE cType == "P" ; RETURN "Pointer"

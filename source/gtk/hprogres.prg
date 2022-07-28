@@ -89,7 +89,7 @@ METHOD NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit ) CLA
 
 METHOD Activate() CLASS HProgressBar
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createprogressbar( ::oParent:handle, ::maxPos, ;
          ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()

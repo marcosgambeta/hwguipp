@@ -71,7 +71,7 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
     void          * hString;
     GtkWidget     * item;
 
-    HB_PARSTR( 2, &hString, NULL ) ;
+    HB_PARSTR(2, &hString, NULL) ;
 
     /*  Create a list item  */
     item = gtk_list_item_new_with_label (hString);
@@ -91,8 +91,7 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
  
 
    /*
-   SendMessage( ( HWND ) HB_PARHANDLE( 1 ), LB_ADDSTRING, 0,
-                ( LPARAM ) HB_PARSTR( 2, &hString, NULL ) );
+   SendMessage( ( HWND ) HB_PARHANDLE( 1 ), LB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR(2, &hString, NULL) );
    */
    hb_strfree( hString );
 }

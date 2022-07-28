@@ -168,7 +168,9 @@ METHOD SetLanguage(apTooltips, apBootUser) CLASS HWinPrn
       ::aTooltips := apTooltips
    ENDIF
 /* Activate, if necessary */
-//   IF apBootUser != NIL ; ::aBootUser := apBootUser ; ENDIF
+//   IF apBootUser != NIL
+//      ::aBootUser := apBootUser
+//   ENDIF
 RETURN NIL
 
 METHOD InitValues(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax, nCharset) CLASS HWinPrn

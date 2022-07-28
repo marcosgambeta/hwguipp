@@ -67,7 +67,7 @@ METHOD New( oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, ;
 
 METHOD Activate() CLASS HGraph
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       hwg_Setwindowobject( ::handle, Self )
@@ -91,14 +91,14 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HGraph
 METHOD CalcMinMax() CLASS HGraph
    LOCAL i, j, nLen, l1
 
-   IF ::nType == 0 .OR. ::nType > 3 .OR. Empty( ::aValues )
+   IF ::nType == 0 .OR. ::nType > 3 .OR. Empty(::aValues)
       RETURN NIL
    ENDIF
    ::xmax := ::xmin := ::ymax := ::ymin := 0
-   IF !Empty( ::ymaxSet )
+   IF !Empty(::ymaxSet)
       ::ymax := ::ymaxSet
    ENDIF
-   IF !Empty( ::yminSet )
+   IF !Empty(::yminSet)
       ::ymin := ::yminSet
    ENDIF
    FOR i := 1 TO ::nGraphs
@@ -153,7 +153,7 @@ METHOD Paint() CLASS HGraph
    LOCAL i, j, nLen, l1
    LOCAL x0, y0, px1, px2, py1, py2, nWidth
 
-   IF ::nType == 0 .OR. ::nType > 3 .OR. Empty( ::aValues )
+   IF ::nType == 0 .OR. ::nType > 3 .OR. Empty(::aValues)
       RETURN NIL
    ENDIF
    IF ::xmax == NIL
@@ -246,7 +246,7 @@ METHOD Paint() CLASS HGraph
    ENDIF
 
    hwg_Selectobject( hDC, ::oPenGrid:handle )
-   IF !Empty( ::aSignY )
+   IF !Empty(::aSignY)
       IF ::oFont != NIL
          hwg_Selectobject( hDC, ::oFont:handle )
       ENDIF
@@ -265,7 +265,7 @@ METHOD Paint() CLASS HGraph
          ENDIF
       NEXT
    ENDIF
-   IF !Empty( ::aSignX )
+   IF !Empty(::aSignX)
       IF ::oFont != NIL
          hwg_Selectobject( hDC, ::oFont:handle )
       ENDIF
@@ -283,7 +283,7 @@ METHOD Paint() CLASS HGraph
       NEXT
    ENDIF
 
-   IF !Empty( ::bPaintItems )
+   IF !Empty(::bPaintItems)
       Eval( ::bPaintItems, Self, hDC )
    ENDIF
 

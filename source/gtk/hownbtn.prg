@@ -113,7 +113,7 @@ METHOD New( oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight,   ;
 
 METHOD Activate() CLASS HOwnButton
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createownbtn( ::oParent:handle, ::id, ;
          ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -144,7 +144,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
       h := hwg_Setfocus( ::handle )
    ELSEIF msg == WM_LBUTTONDBLCLK
       /* Asmith 2017-06-06 workaround for touch terminals */
-      IF ::bClick != NIL .AND. Empty( ::oTimer )
+      IF ::bClick != NIL .AND. Empty(::oTimer)
          Eval( ::bClick, Self, 0 )
       ENDIF
 
@@ -180,7 +180,7 @@ METHOD Paint() CLASS HOwnButton
    aCoors := hwg_Getclientrect( ::handle )
    
 
-   IF !Empty( ::aStyle )
+   IF !Empty(::aStyle)
       n := Len( ::aStyle )
       n := Iif( ::state == OBTN_MOUSOVER, Iif( n > 2, 3, 1 ), ;
             Iif( ::state == OBTN_PRESSED, Iif( n > 1, 2, 1 ), 1 ) )
@@ -202,7 +202,7 @@ METHOD Paint() CLASS HOwnButton
       ENDIF
    ENDIF
 
-   IF !Empty( ::brush )
+   IF !Empty(::brush)
       hwg_Fillrect( hDC, aCoors[ 1 ] + 2, aCoors[ 2 ] + 2, aCoors[ 3 ] - 2, aCoors[ 4 ] - 2, ::brush:handle )
    ENDIF
 
@@ -276,7 +276,7 @@ METHOD MouseMove( wParam, lParam )  CLASS HOwnButton
 
    IF ::state != OBTN_INIT
       IF !lEnter
-         IF !Empty( ::oTimer )
+         IF !Empty(::oTimer)
             OwnBtnTimerProc( Self, 2 )
             ::oTimer:End()
             ::oTimer := NIL
@@ -320,7 +320,7 @@ METHOD MUp() CLASS HOwnButton
             ::Press()
          ENDIF
       ENDIF
-      IF !Empty( ::oTimer )
+      IF !Empty(::oTimer)
          OwnBtnTimerProc( Self, 2 )
          ::oTimer:End()
          ::oTimer := NIL
@@ -337,7 +337,7 @@ METHOD MUp() CLASS HOwnButton
 METHOD SetTimer( nPeriod )  CLASS HOwnButton
 
    IF nPeriod == NIL
-      IF !Empty( ::oTimer )
+      IF !Empty(::oTimer)
          OwnBtnTimerProc( Self, 2 )
          ::oTimer:End()
          ::oTimer := NIL
@@ -365,7 +365,7 @@ METHOD End()  CLASS HOwnButton
       ::oBitmap:Release()
       ::oBitmap := NIL
    ENDIF
-   IF !Empty( ::oTimer )
+   IF !Empty(::oTimer)
       ::oTimer:End()
       ::oTimer := NIL
    ENDIF

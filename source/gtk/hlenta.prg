@@ -73,7 +73,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, oFont, ;
 METHOD Activate() CLASS HLenta
    LOCAL handle := ::oParent:handle
 
-   IF !Empty( handle )
+   IF !Empty(handle)
 #ifdef __PLATFORM__UNIX
       ::handle := hwg_Createpanel( Self, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
 #else
@@ -118,7 +118,9 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HLenta
             ::Drag( xPos, yPos )
          ELSE
             y1 := Int( ::nShift % ::nItemSize )
-            IF y1 > 0; y1 := ::nItemSize - y1; ENDIF
+            IF y1 > 0
+               y1 := ::nItemSize - y1
+            ENDIF
             nPos := Iif( ::lVertical, yPos - y1, xPos - y1 )
             IF nPos > 0
                IF ( nPos := Int( nPos / ::nItemSize ) + ::nFirst ) > Len( ::aItems )
@@ -146,7 +148,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HLenta
          IF ::nSelected != ::nOver .AND. ::nOver != 0
             ::nSelected := ::nOver
             lRedraw := .T.
-            IF !Empty( ::bClick )
+            IF !Empty(::bClick)
                Eval( ::bClick, Self, ::nSelected )
             ENDIF
          ENDIF
@@ -180,13 +182,15 @@ METHOD Paint() CLASS HLenta
       Eval( ::bPaint, Self, hDC )
    ELSE
 
-      IF !Empty( ::aItems )
+      IF !Empty(::aItems)
          l1 := ( Valtype( ::aItems[1] ) == "A" )
          IF ::oFont != NIL
             hwg_Selectobject( hDC, ::oFont:handle )
          ENDIF
          y1 := Int( ::nShift % nItemSize )
-         IF y1 > 0; y1 := nItemSize - y1; ENDIF
+         IF y1 > 0
+            y1 := nItemSize - y1
+         ENDIF
          IF y1 > 0
             IF lVertical
                aItemStyle[1]:Draw( hDC, 0, 0, nW, y1 )
@@ -201,7 +205,7 @@ METHOD Paint() CLASS HLenta
             cText := Iif( l1,::aItems[nCurr,1],::aItems[nCurr] )
             IF lVertical
                oStyle:Draw( hDC, 0, y1, nW, y1 + nItemSize )
-               IF !Empty( cText )
+               IF !Empty(cText)
                   hwg_SetTextColor( hDC, ::tcolor )
                   hwg_Settransparentmode( hDC, .T. )
                   hwg_Drawtext( hDC, cText, 4, y1+4, nW-4, y1+nItemSize-4, ;
@@ -209,7 +213,7 @@ METHOD Paint() CLASS HLenta
                ENDIF
             ELSE
                oStyle:Draw( hDC, y1, 0, y1 + nItemSize, nW )
-               IF !Empty( cText )
+               IF !Empty(cText)
                   hwg_SetTextColor( hDC, ::tcolor )
                   hwg_Settransparentmode( hDC, .T. )
                   hwg_Drawtext( hDC, cText, y1+4, 4, y1+nItemSize-4, nW-4, ;
@@ -217,7 +221,7 @@ METHOD Paint() CLASS HLenta
                ENDIF
             ENDIF
             hwg_Settransparentmode( hDC, .F. )
-            IF l1 .AND. Len(::aItems[nCurr]) > 1 .AND. !Empty( ob := ::aItems[nCurr,2] )
+            IF l1 .AND. Len(::aItems[nCurr]) > 1 .AND. !Empty(ob := ::aItems[nCurr,2])
                ob:Draw( hDC, Int( (nW - ob:nWidth)/2 ), Int( (nItemSize - ob:nHeight)/2 ), ;
                   ob:nWidth, ob:nHeight )
             ENDIF
@@ -294,7 +298,7 @@ METHOD Drag( xPos, yPos ) CLASS HLenta
 
 METHOD Value( nValue ) CLASS HLenta
 
-   IF nValue != NIL .AND. nValue >= 0 .AND. !Empty( ::aItems ) .AND. nValue <= Len( ::aItems )
+   IF nValue != NIL .AND. nValue >= 0 .AND. !Empty(::aItems) .AND. nValue <= Len( ::aItems )
       ::nSelected := nValue
       hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW )
    ELSE

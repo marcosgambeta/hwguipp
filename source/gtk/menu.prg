@@ -37,7 +37,7 @@ ENDCLASS
 /* Removed: xPos, yPos, lWnd */
 METHOD Show( oWnd ) CLASS HMenu
 
-   IF !Empty( HWindow():GetMain() )
+   IF !Empty(HWindow():GetMain())
       oWnd := HWindow():GetMain()
    ENDIF
    oWnd:oPopup := Self
@@ -48,7 +48,7 @@ METHOD Show( oWnd ) CLASS HMenu
 FUNCTION Hwg_CreateMenu
    LOCAL hMenu
 
-   IF ( Empty( hMenu := hwg__CreateMenu() ) )
+   IF ( Empty(hMenu := hwg__CreateMenu()) )
       RETURN NIL
    ENDIF
 
@@ -56,7 +56,7 @@ FUNCTION Hwg_CreateMenu
 
 FUNCTION Hwg_SetMenu( oWnd, aMenu )
 
-   IF !Empty( oWnd:handle )
+   IF !Empty(oWnd:handle)
       IF hwg__SetMenu( oWnd:handle, aMenu[5] )
          oWnd:menu := aMenu
       ELSE
@@ -87,7 +87,7 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos, hWnd )
       Iif( Empty(hWnd), 0, hWnd ), nMenuId, , lSubMenu )
 
    IF nPos > Len( aMenu[1] )
-      IF Empty( lSubmenu )
+      IF Empty(lSubmenu)
          AAdd( aMenu[1], { bItem, cItem, nMenuId, 0, hSubMenu } )
       ELSE
          AAdd( aMenu[1], { {}, cItem, nMenuId, 0, hSubMenu } )
@@ -96,7 +96,7 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos, hWnd )
    ELSE
       AAdd( aMenu[1], NIL )
       AIns( aMenu[1], nPos )
-      IF Empty( lSubmenu )
+      IF Empty(lSubmenu)
          aMenu[ 1,nPos ] := { bItem, cItem, nMenuId, 0, hSubMenu }
       ELSE
          aMenu[ 1,nPos ] := { {}, cItem, nMenuId, 0, hSubMenu }
@@ -197,7 +197,7 @@ FUNCTION Hwg_BeginMenu( oWnd, nId, cTitle )
          aMenu := Atail( aMenu )[1]
       NEXT
       _nLevel ++
-      IF !Empty( cTitle )
+      IF !Empty(cTitle)
          cTitle := StrTran( cTitle, "\t", "" )
          cTitle := StrTran( cTitle, "&", "_" )
       ENDIF
@@ -225,7 +225,7 @@ FUNCTION Hwg_EndMenu()
    ELSE
       hwg_BuildMenu( AClone( _aMenuDef ), Iif( _oWnd != NIL,_oWnd:handle,0 ), ;
          _oWnd, , _lContext )
-      IF _oWnd != NIL .AND. !Empty( _aAccel )
+      IF _oWnd != NIL .AND. !Empty(_aAccel)
          _oWnd:hAccel := hwg_Createacceleratortable( _oWnd )
       ENDIF
       _aMenuDef := NIL
@@ -256,7 +256,7 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
       aMenu := Atail( aMenu )[1]
    NEXT
    nId := iif( nId == NIL .AND. cItem != NIL, ++ _Id, nId )
-   IF !Empty( cItem )
+   IF !Empty(cItem)
       cItem := StrTran( cItem, "\t", "" )
       cItem := StrTran( cItem, "&", "_" )
    ENDIF
@@ -268,7 +268,9 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
 
    /*
    IF lBitmap!=NIL .or. !Empty(lBitmap)
-      if lResource==NIL ;lResource:=.F.; Endif
+      if lResource==NIL
+         lResource:=.F.
+      Endif
       if !lResource
          oBmp:=HBitmap():AddFile(lBitmap)
       else

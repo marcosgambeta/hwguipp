@@ -108,7 +108,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
 METHOD Activate() CLASS HStaticLink
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createownbtn( ::oParent:handle, ::id, ;
                                 ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()

@@ -23,11 +23,11 @@ FUNCTION hwg_ColorC2N( cColor )
    LOCAL i, res := 0, n := 1, iValue
 
    IF Left( cColor,1 ) == "#"
-      cColor := Substr( cColor,2 )
+      cColor := Substr(cColor, 2)
    ENDIF
-   cColor := Trim( cColor )
+   cColor := Trim(cColor)
    FOR i := 1 TO Len( cColor )
-      iValue := Asc( SubStr( cColor,i,1 ) )
+      iValue := Asc( SubStr(cColor, i, 1) )
       IF iValue < 58 .AND. iValue > 47
          iValue -= 48
       ELSEIF iValue >= 65 .AND. iValue <= 70
@@ -55,7 +55,7 @@ FUNCTION hwg_ColorN2C( nColor )
    FOR i := 0 to 2
       n1 := hb_BitAnd( hb_BitShift( nColor,-i*8-4 ), 15 )
       n2 := hb_BitAnd( hb_BitShift( nColor,-i*8 ), 15 )
-      s += Chr( Iif(n1<10,n1+48,n1+55) ) + Chr( Iif(n2<10,n2+48,n2+55) )
+      s += Chr(Iif(n1 < 10, n1 + 48, n1 + 55)) + Chr(Iif(n2 < 10, n2 + 48, n2 + 55))
    NEXT
 
    RETURN s
@@ -72,7 +72,7 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cRes )
 
    LOCAL oModDlg, oFont := HFont():Add( "Sans", 0, 12 )
 
-   IF Empty( cRes )
+   IF Empty(cRes)
       cRes := ""
    ENDIF
    nStyle := iif( nStyle == NIL, 0, nStyle )
@@ -83,7 +83,7 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cRes )
    INIT DIALOG oModDlg TITLE cTitle AT x, y SIZE 300, 140 ;
       FONT oFont CLIPPER STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + nDlgStyle
 
-   IF !Empty( cText )
+   IF !Empty(cText)
       @ 20, 10 SAY cText SIZE 260, 22
    ENDIF
    @ 20, 35 GET cres  SIZE 260, 26 STYLE WS_DLGFRAME + WS_TABSTOP + nStyle
@@ -96,7 +96,7 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cRes )
 
    oFont:Release()
    IF oModDlg:lResult
-      RETURN Trim( cRes )
+      RETURN Trim(cRes)
    ELSE
       cRes := ""
    ENDIF
@@ -109,9 +109,15 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    LOCAL nChoice := 0, i, aLen := Len( arr ), nLen := 0, addX := 20, addY := 20, minWidth := 0, x1
    LOCAL hDC, aMetr, width, height, screenh
 
-   IF cTitle == NIL; cTitle := ""; ENDIF
-   IF nLeft == NIL; nLeft := 10; ENDIF
-   IF nTop == NIL; nTop := 10; ENDIF
+   IF cTitle == NIL
+      cTitle := ""
+   ENDIF
+   IF nLeft == NIL
+      nLeft := 10
+   ENDIF
+   IF nTop == NIL
+      nTop := 10
+   ENDIF
    IF oFont == NIL
       oFont := HFont():Add( "Times", 0, 14 )
       lNewFont := .T.
@@ -205,7 +211,7 @@ FUNCTION hwg_RefreshAllGets( oDlg )
 
 FUNCTION HWG_Version( n )
 
-   IF !Empty( n )
+   IF !Empty(n)
       IF n == 1
          RETURN HWG_VERSION
       ELSEIF n == 2
@@ -217,7 +223,7 @@ FUNCTION HWG_Version( n )
       ENDIF
    ENDIF
 
-   RETURN "HWGUI " + HWG_VERSION + " Build " + LTrim( Str( HWG_BUILD ) )
+   RETURN "HWGUI " + HWG_VERSION + " Build " + LTrim(Str(HWG_BUILD))
 
 FUNCTION hwg_WriteStatus( oWnd, nPart, cText )
 
@@ -245,7 +251,9 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
          RETURN oParent
       ENDIF
    ENDIF
-   IF nLevel == NIL; nLevel := 0; ENDIF
+   IF nLevel == NIL
+      nLevel := 0
+   ENDIF
    IF nLevel < 2
       IF ( oParent := hwg_FindParent( hParent,nLevel + 1 ) ) != NIL
          RETURN oParent:FindControl( , hParent )

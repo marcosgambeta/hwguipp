@@ -60,7 +60,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HSplitter
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createsplitter( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()

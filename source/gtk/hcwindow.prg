@@ -79,7 +79,7 @@ METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
    LOCAL i
 
    IF Valtype( nId ) == "C"
-      nId := Upper( nId )
+      nId := Upper(nId)
       RETURN hwg_GetItemByName( ::aControls, nId )
    ELSE
       i := Iif( nId != NIL, Ascan( ::aControls,{|o|o:id == nId } ), ;
@@ -154,14 +154,14 @@ METHOD Setcolor( tcolor, bcolor, lRepaint ) CLASS HCustomWindow
 
    IF tcolor != NIL
       ::tcolor  := tcolor
-      IF !Empty( ::handle )
+      IF !Empty(::handle)
          hwg_Setfgcolor( ::handle, ::tcolor )
       ENDIF
    ENDIF
 
    IF bcolor != NIL
       ::bcolor  := bcolor
-      IF !Empty( ::handle )
+      IF !Empty(::handle)
          hwg_Setbgcolor( ::handle, ::bcolor )
       ENDIF
       IF ::brush != NIL
@@ -206,11 +206,11 @@ METHOD OnError() CLASS HCustomWindow
    LOCAL oError
    LOCAL oItem
 
-   IF !Empty( oItem := hwg_GetItemByName( ::aControls, cMsg ) )
+   IF !Empty(oItem := hwg_GetItemByName( ::aControls, cMsg ))
       RETURN oItem
    ENDIF
    FOR EACH oItem IN HTimer():aTimers
-      IF !Empty( oItem:objname ) .AND. oItem:objname == cMsg .AND. hwg_Isptreq( ::handle, oItem:oParent:handle )
+      IF !Empty(oItem:objname) .AND. oItem:objname == cMsg .AND. hwg_Isptreq( ::handle, oItem:oParent:handle )
          RETURN oItem
       ENDIF
    NEXT
@@ -291,7 +291,7 @@ FUNCTION hwg_GetItemByName( arr, cName )
 
    LOCAL oItem
    FOR EACH oItem IN arr
-      IF !Empty( oItem:objname ) .AND. oItem:objname == cName
+      IF !Empty(oItem:objname) .AND. oItem:objname == cName
          RETURN oItem
       ENDIF
    NEXT

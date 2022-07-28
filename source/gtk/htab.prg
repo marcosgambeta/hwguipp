@@ -68,7 +68,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HTab
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createtabcontrol( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
 
@@ -139,7 +139,7 @@ METHOD EndPage() CLASS HTab
    RETURN NIL
 
 METHOD GetActivePage( nFirst, nEnd ) CLASS HTab
-   IF !Empty( ::aPages )
+   IF !Empty(::aPages)
       nFirst := ::aPages[ ::nActive,1 ] + 1
       nEnd   := ::aPages[ ::nActive,1 ] + ::aPages[ ::nActive,2 ]
    ELSE

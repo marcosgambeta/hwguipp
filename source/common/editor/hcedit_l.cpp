@@ -260,7 +260,7 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
          {
             ptr = g_utf8_offset_to_pointer( szText, i );
             i1 = i;
-            while( i > 0 && !g_utf8_strchr( szDelimiters, iDLen, g_utf8_get_char(ptr) ) ) {
+            while( i > 0 && !g_utf8_strchr(szDelimiters, iDLen, g_utf8_get_char(ptr)) ) {
                ptr = g_utf8_prev_char( ptr );
                i --;
             }
@@ -289,8 +289,8 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
       {
          i = i1;
          ptr = g_utf8_offset_to_pointer( szText, i );
-         while( i && !g_utf8_strchr( szDelimiters, iDLen, g_utf8_get_char(ptr) ) &&
-               !g_utf8_strchr( szDelimiters, iDLen, g_utf8_get_char(ptr = g_utf8_prev_char(ptr)) ) ) i --;
+         while( i && !g_utf8_strchr(szDelimiters, iDLen, g_utf8_get_char(ptr)) &&
+               !g_utf8_strchr(szDelimiters, iDLen, g_utf8_get_char(ptr = g_utf8_prev_char(ptr))) ) i --;
          if( i || bLastInFew )
          //if( i )
             i1 = i;
@@ -300,7 +300,7 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
          if( bWrap )
          {
             ptr = g_utf8_offset_to_pointer( szText, i );
-            while( i < *iRealLen && !g_utf8_strchr( szDelimiters,iDLen,g_utf8_get_char(ptr) ) ) {
+            while( i < *iRealLen && !g_utf8_strchr(szDelimiters,iDLen,g_utf8_get_char(ptr)) ) {
                i ++;
                ptr = g_utf8_next_char( ptr );
             }

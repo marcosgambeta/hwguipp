@@ -927,7 +927,7 @@ LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  
      i := i + 1
     ENDDO
     nYear := nYear - njoff
-    cYear := STR( nYear , 4 , 0 )   
+    cYear := STR(nYear, 4, 0)   
 
     cYear := hwg_leading0(cYear)
     * Check for valid year range
@@ -1001,7 +1001,7 @@ LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  
              k := 334
          ENDIF
          d := d - k
-         cday := STR( d , 2 ,0 ) 
+         cday := STR(d, 2, 0) 
         ENDIF
    cday := hwg_leading0(cday)
    

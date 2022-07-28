@@ -45,7 +45,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
-   IF Empty( vari )
+   IF Empty(vari)
       vari := 0
    ENDIF
    IF vari != NIL
@@ -53,13 +53,19 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
          vari := 0
          Eval( bSetGet, vari )
       ENDIF
-      ::title := Str( vari )
+      ::title := Str(vari)
    ENDIF
    ::bSetGet := bSetGet
 
-   IF nLower != NIL ; ::nLower := nLower ; ENDIF
-   IF nUpper != NIL ; ::nUpper := nUpper ; ENDIF
-   IF nUpDWidth != NIL ; ::nUpDownWidth := nUpDWidth ; ENDIF
+   IF nLower != NIL
+      ::nLower := nLower
+   ENDIF
+   IF nUpper != NIL
+      ::nUpper := nUpper
+   ENDIF
+   IF nUpDWidth != NIL
+      ::nUpDownWidth := nUpDWidth
+   ENDIF
 
    ::Activate()
 
@@ -72,7 +78,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
 METHOD Activate() CLASS HUpDown
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createupdowncontrol( ::oParent:handle, ;
          ::nLeft, ::nTop, ::nWidth, ::nHeight, Val( ::title ), ::nLower, ::nUpper )
       hwg_Setwindowobject( ::handle, Self )
@@ -112,8 +118,8 @@ METHOD Refresh()  CLASS HUpDown
 
    IF ::bSetGet != NIL
       ::nValue := Eval( ::bSetGet )
-      IF Str( ::nValue ) != ::title
-         ::title := Str( ::nValue )
+      IF Str(::nValue) != ::title
+         ::title := Str(::nValue)
          hwg_SetUpDown( ::handle, ::nValue )
       ENDIF
    ELSE

@@ -215,7 +215,7 @@ int ted_CalcItemWidth( TEDIT * pted, char *szText, TEDATTR * pattr, int *iRealLe
          if( bWrap )
          {
             i1 = i;
-            while( i > 0 && !strchr( szDelimiters,*(szText+i) ) ) i --;
+            while( i > 0 && !strchr(szDelimiters,*(szText+i)) ) i --;
             if( !i && !bLastInFew )
             //if( !i )
             {
@@ -239,8 +239,8 @@ int ted_CalcItemWidth( TEDIT * pted, char *szText, TEDATTR * pattr, int *iRealLe
       if( bWrap && iReal < *iRealLen )
       {
          i = i1;
-         while( i && !strchr( szDelimiters,*(szText+i) ) &&
-               !strchr( szDelimiters,*(szText+i-1) ) ) i --;
+         while( i && !strchr(szDelimiters,*(szText+i)) &&
+               !strchr(szDelimiters,*(szText+i-1)) ) i --;
          if( i || bLastInFew )
          //if( i )
             i1 = i;
@@ -249,7 +249,7 @@ int ted_CalcItemWidth( TEDIT * pted, char *szText, TEDATTR * pattr, int *iRealLe
       {
          if( bWrap )
          {
-            while( i < *iRealLen && !strchr( szDelimiters,*(szText+i) ) ) i ++;
+            while( i < *iRealLen && !strchr(szDelimiters,*(szText+i)) ) i ++;
          }
          GetTextExtentPoint32( pted->hDCScr, szText, i, &sz );
          if( sz.cx > iWidth )
@@ -708,7 +708,7 @@ HB_FUNC( HCED_EXACTCARETPOS )
 #ifdef UNICODE
    void *hText;
    HB_SIZE iLen;
-   LPCTSTR szText = HB_PARSTR( 2, &hText, &iLen );
+   LPCTSTR szText = HB_PARSTR(2, &hText, &iLen);
 #else
    char * szText = ( char * ) hb_parc(2);
    int iLen = hb_parclen(2);
@@ -802,7 +802,7 @@ HB_FUNC( HCED_LINEOUT )
    TEDFONT *font;
 #ifdef UNICODE
    void *hText;
-   LPCTSTR szText = HB_PARSTR( 5, &hText, nullptr );
+   LPCTSTR szText = HB_PARSTR(5, &hText, nullptr);
 #else
    char *szText = ( char * )hb_parc( 5 );
 #endif

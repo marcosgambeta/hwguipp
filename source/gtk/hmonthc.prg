@@ -52,7 +52,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
       , , ctooltip )
 
-   ::dValue   := iif( ValType( vari ) == "D" .AND. !Empty( vari ), vari, Date() )
+   ::dValue   := iif( ValType( vari ) == "D" .AND. !Empty(vari), vari, Date() )
 
    ::bChange := bChange
 
@@ -64,7 +64,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HMonthCalendar
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Initmonthcalendar ( ::oParent:handle, , ;
          ::nLeft, ::nTop, ::nWidth, ::nHeight )
       hwg_Setwindowobject( ::handle, Self )  
@@ -80,7 +80,7 @@ METHOD Init() CLASS HMonthCalendar
 
    IF !::lInit
       ::Super:Init()
-      IF !Empty( ::dValue )
+      IF !Empty(::dValue)
          hwg_Setmonthcalendardate( ::handle , ::dValue )
       ENDIF
    ENDIF
@@ -92,7 +92,7 @@ METHOD Init() CLASS HMonthCalendar
 METHOD Value( dValue ) CLASS HMonthCalendar
 
    IF dValue != NIL
-      IF ValType( dValue ) == "D" .AND. !Empty( dValue )
+      IF ValType( dValue ) == "D" .AND. !Empty(dValue)
          hwg_Setmonthcalendardate( ::handle, dValue )
          ::dValue := dValue
       ENDIF
@@ -152,7 +152,7 @@ FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
 
    @ 0,0 MONTHCALENDAR oMC ;
       SIZE wid - 1 , hei - 1 ;
-      INIT dstartdate ;   && Date(), if NIL 
+      INIT dstartdate ;   && Date(), if NIL
       FONT oFont 
 
    @ 0 ,hei BUTTON cOK FONT oFont ;

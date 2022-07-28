@@ -124,7 +124,9 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
 
    hwg_CreateGetList( Self )
 
-   IF lNoModal == NIL ; lNoModal := .F. ; ENDIF
+   IF lNoModal == NIL
+      lNoModal := .F.
+   ENDIF
    ::lModal := !lNoModal
    ::lResult := .F.
    IF ::oParent == NIL
@@ -134,7 +136,7 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
 
    IF !lNoModal
       hParent := iif( ::oParent != NIL .AND. __ObjHasMsg( ::oParent,"HANDLE" ) ;
-         .AND. !Empty( ::oParent:handle ), ::oParent:handle, ;
+         .AND. !Empty(::oParent:handle), ::oParent:handle, ;
          iif( ( oWnd := HWindow():GetMain() ) != NIL, oWnd:handle, NIL ) )
       hwg_Set_Modal( ::handle, hParent )
    ENDIF
@@ -162,11 +164,11 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
          ::Move( , , ::nWidth + ( aCoors[3] - aCoors[1] - aRect[3] ), ::nHeight + ( aCoors[4] - aCoors[2] - aRect[4] ) )
       ENDIF
    ENDIF
-   IF !Empty( lMinimized )
+   IF !Empty(lMinimized)
       ::Minimize()
-   ELSEIF !Empty( lMaximized )
+   ELSEIF !Empty(lMaximized)
       ::Maximize()
-   ELSEIF !Empty( lCentered ) .OR. ( ::style > 0 .AND. hb_bitand( ::style, DS_CENTER ) > 0 )
+   ELSEIF !Empty(lCentered) .OR. ( ::style > 0 .AND. hb_bitand( ::style, DS_CENTER ) > 0 )
       ::Center()
    ELSEIF ::oParent != NIL .AND. __ObjHasMsg( ::oParent, "nLeft" )
       hwg_MoveWindow( ::handle, ::oParent:nLeft + ::nLeft, ::oParent:nTop + ::nTop )
@@ -363,10 +365,14 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block, lGlobal )
 
    LOCAL i, aKeys
 
-   IF oDlg == NIL ; oDlg := HCustomWindow():oDefaultParent ; ENDIF
-   IF nctrl == NIL ; nctrl := 0 ; ENDIF
+   IF oDlg == NIL
+      oDlg := HCustomWindow():oDefaultParent
+   ENDIF
+   IF nctrl == NIL
+      nctrl := 0
+   ENDIF
 
-   IF Empty( lGlobal )
+   IF Empty(lGlobal)
       IF !__ObjHasMsg( oDlg, "KEYLIST" )
          RETURN .F.
       ENDIF

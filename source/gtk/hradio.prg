@@ -120,7 +120,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::oGroup  := HRadioGroup():oGroupCurrent
    ::style   := hb_bitor( iif( nStyle == NIL,0,nStyle ), BS_AUTORADIOBUTTON + ;
       WS_CHILD + WS_VISIBLE + ;
-      iif( ::oGroup != NIL .AND. Empty( ::oGroup:aButtons ), WS_GROUP, 0 ) )
+      iif( ::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0 ) )
    ::oFont   := oFont
    ::nLeft   := nLeft
    ::nTop    := nTop
@@ -159,7 +159,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 METHOD Activate() CLASS HRadioButton
    LOCAL groupHandle := ::oGroup:handle
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, @groupHandle, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       ::oGroup:handle := groupHandle

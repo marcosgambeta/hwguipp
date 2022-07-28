@@ -384,7 +384,7 @@ HB_FUNC( HWG_GETTEMPDIR )
    TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
    GetTempPath( MAX_PATH, szBuffer );
-   HB_RETSTR( szBuffer );
+   HB_RETSTR(szBuffer);
 #else
  char const * tempdirname = getenv("TMPDIR");
  
@@ -400,7 +400,7 @@ HB_FUNC( HWG_GETWINDOWSDIR )
    TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
    GetWindowsDirectory( szBuffer, MAX_PATH );
-   HB_RETSTR( szBuffer );
+   HB_RETSTR(szBuffer);
 #else
    hb_retc("");
 #endif

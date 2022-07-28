@@ -44,8 +44,12 @@ ENDCLASS
 /* Added: cValue */
 METHOD New( cTitle, type, aAttr, cValue ) CLASS HXMLNode
 
-   IF cTitle != NIL ; ::title := cTitle ; ENDIF
-   IF aAttr  != NIL ; ::aAttr := aAttr  ; ENDIF
+   IF cTitle != NIL
+      ::title := cTitle
+   ENDIF
+   IF aAttr  != NIL
+      ::aAttr := aAttr
+   ENDIF
    ::type := Iif( type != NIL , type, HBXML_TYPE_TAG )
    IF cValue != NIL
       ::Add( cValue )
@@ -69,7 +73,7 @@ METHOD GetAttribute( cName, cType, xDefault ) CLASS HXMLNode
       ELSEIF cType == "N"
          RETURN Val( ::aAttr[ i, 2 ] )
       ELSEIF cType == "L"
-         RETURN ( Lower( ::aAttr[ i, 2 ] ) $ ".t.;on;yes;true" )
+         RETURN ( Lower(::aAttr[i, 2]) $ ".t.;on;yes;true" )
       ENDIF
    ENDIF
 
@@ -100,7 +104,7 @@ RETURN .T.
 
 METHOD Save( handle,level ) CLASS HXMLNode
 
-   LOCAL i, s := Space( level * 2 ) + '<', lNewLine
+   LOCAL i, s := Space(level * 2) + '<', lNewLine
 
    IF ! __mvExist( "HXML_NEWLINE" )
       __mvPrivate( "HXML_NEWLINE" )
@@ -130,7 +134,7 @@ METHOD Save( handle,level ) CLASS HXMLNode
       m->hxml_newline := .T.
    ELSEIF ::type == HBXML_TYPE_TAG
       s += '>'
-      IF Empty( ::aItems ) .OR. ( Len( ::aItems ) == 1 .AND. ;
+      IF Empty(::aItems) .OR. ( Len( ::aItems ) == 1 .AND. ;
             Valtype( ::aItems[ 1 ] ) == "C" .AND. Len( ::aItems[ 1 ] ) + Len( s ) < 80 )
          lNewLine := m->hxml_newline := .F.
       ELSE
@@ -171,7 +175,7 @@ METHOD Save( handle,level ) CLASS HXMLNode
    m->hxml_newline := .T.
    IF handle >= 0
       IF ::type == HBXML_TYPE_TAG
-         FWrite( handle, Iif( lNewLine, Space( level * 2 ), "" ) + '</' + ::title + '>' + cNewLine )
+         FWrite( handle, Iif( lNewLine, Space(level * 2), "" ) + '</' + ::title + '>' + cNewLine )
       ELSEIF ::type == HBXML_TYPE_CDATA
          FWrite( handle, ']]>' + cNewLine )
       ELSEIF ::type == HBXML_TYPE_COMMENT
@@ -179,7 +183,7 @@ METHOD Save( handle,level ) CLASS HXMLNode
       ENDIF
    ELSE
       IF ::type == HBXML_TYPE_TAG
-         s += Iif( lNewLine, Space( level * 2 ), "" ) + '</' + ::title + '>' + cNewLine
+         s += Iif( lNewLine, Space(level * 2), "" ) + '</' + ::title + '>' + cNewLine
       ELSEIF ::type == HBXML_TYPE_CDATA
          s += ']]>' + cNewLine
       ELSEIF ::type == HBXML_TYPE_COMMENT

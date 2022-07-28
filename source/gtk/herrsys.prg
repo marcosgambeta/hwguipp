@@ -18,7 +18,7 @@ STATIC LogInitialPath := ""
 PROCEDURE hwg_ErrSys
 
    ErrorBlock( { | oError | DefError( oError ) } )
-   LogInitialPath := "/" + CurDir() + iif( Empty( CurDir() ), "", "/" )
+   LogInitialPath := "/" + CurDir() + iif( Empty(CurDir()), "", "/" )
 
    RETURN
 
@@ -53,20 +53,20 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    cMessage := hwg_ErrMsg( oError )
-   IF ! Empty( oError:osCode )
-      cDOSError := "(DOS Error " + LTrim( Str( oError:osCode ) ) + ")"
+   IF ! Empty(oError:osCode)
+      cDOSError := "(DOS Error " + LTrim(Str(oError:osCode)) + ")"
    ENDIF
 
-   IF ! Empty( oError:osCode )
+   IF ! Empty(oError:osCode)
       cMessage += " " + cDOSError
    ENDIF
 
    n := 2
-   WHILE ! Empty( ProcName( n ) )
+   WHILE ! Empty(ProcName( n ))
 #ifdef __XHARBOUR__
-      cMessage += Chr( 13 ) + Chr( 10 ) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
+      cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
 #else
-      cMessage += Chr( 13 ) + Chr( 10 ) + "Called from " + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
+      cMessage += Chr(13) + Chr(10) + "Called from " + ProcName( n ) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
 #endif
    ENDDO
 
@@ -93,7 +93,7 @@ FUNCTION hwg_ErrMsg( oError )
 
    // add subsystem's error code if available
    IF ISNUMBER( oError:subCode )
-      cMessage += "/" + LTrim( Str( oError:subCode ) )
+      cMessage += "/" + LTrim(Str(oError:subCode))
    ELSE
       cMessage += "/???"
    ENDIF
@@ -105,9 +105,9 @@ FUNCTION hwg_ErrMsg( oError )
 
    // add either filename or operation
    DO CASE
-   CASE !Empty( oError:filename )
+   CASE !Empty(oError:filename)
       cMessage += ": " + oError:filename
-   CASE !Empty( oError:operation )
+   CASE !Empty(oError:operation)
       cMessage += ": " + oError:operation
    ENDCASE
 
@@ -124,7 +124,7 @@ FUNCTION hwg_WriteLog( cText, fname )
       nHand := FOpen( fname, 1 )
    ENDIF
    FSeek( nHand, 0, 2 )
-   FWrite( nHand, cText + Chr( 10 ) )
+   FWrite( nHand, cText + Chr(10) )
    FClose( nHand )
 
    RETURN NIL

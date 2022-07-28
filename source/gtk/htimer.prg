@@ -47,7 +47,7 @@ METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
 
    ::value   := iif( ValType( value ) == "N", value, 1000 )
    ::bAction := bAction
-   ::lOnce := !Empty( lOnce )
+   ::lOnce := !Empty(lOnce)
 
    ::tag := hwg_SetTimer( ::id, ::value )
    AAdd( ::aTimers, Self )

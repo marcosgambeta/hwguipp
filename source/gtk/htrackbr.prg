@@ -68,7 +68,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
    RETURN Self
 
 METHOD Activate() CLASS HTrack
-   IF ! Empty( ::oParent:handle )
+   IF ! Empty(::oParent:handle)
       ::handle := hwg_Createsplitter( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -239,11 +239,11 @@ METHOD Move( x1, y1, width, height ) CLASS HTrack
 
    LOCAL xValue := (::nCurr - ::nFrom) / (::nTo - ::nFrom)
 
-   IF ::lVertical .AND. !Empty( height ) .AND. height != ::nHeight
+   IF ::lVertical .AND. !Empty(height) .AND. height != ::nHeight
       ::nFrom  := Int(::nSize/2)
       ::nTo    := height-1-Int(::nSize/2)
       ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom
-   ELSEIF !::lVertical .AND. !Empty( width ) .AND. width != ::nWidth
+   ELSEIF !::lVertical .AND. !Empty(width) .AND. width != ::nWidth
       ::nFrom  := Int(::nSize/2)
       ::nTo    := width-1-Int(::nSize/2)
       ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom

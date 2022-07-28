@@ -25,11 +25,11 @@ REQUEST HWG_ENDWINDOW
 Function hwg_SetCtrlName( oCtrl, cName )
    LOCAL nPos
 
-   IF !Empty( cName ) .AND. ValType( cName ) == "C" .AND. ! "[" $ cName
-      IF ( nPos :=  RAt( ":", cName ) ) > 0 .OR. ( nPos :=  RAt( ">", cName ) ) > 0
-         cName := SubStr( cName, nPos + 1 )
+   IF !Empty(cName) .AND. ValType( cName ) == "C" .AND. ! "[" $ cName
+      IF ( nPos :=  RAt(":", cName) ) > 0 .OR. ( nPos :=  RAt(">", cName) ) > 0
+         cName := SubStr(cName, nPos + 1)
       ENDIF
-      oCtrl:objName := Upper( cName )
+      oCtrl:objName := Upper(cName)
       IF __ObjHasMsg( oCtrl, "ODEFAULTPARENT" )
          hwg_SetWidgetName( oCtrl:handle, oCtrl:objName )
       ENDIF
@@ -307,7 +307,7 @@ METHOD Activate() CLASS HStatus
    * Variables not used
    * LOCAL aCoors
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
 
       ::handle := hwg_Createstatuswindow( ::oParent:handle, ::id )
 
@@ -356,7 +356,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
 METHOD Activate() CLASS HStatic
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle, ::title )
       IF hb_bitand( ::style, SS_OWNERDRAW ) != 0
@@ -413,7 +413,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
 METHOD Activate() CLASS HButton
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       hwg_Setwindowobject( ::handle, Self )
@@ -469,11 +469,11 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HButtonEX
 
-   IF !Empty( ::oParent:handle )
-      IF !Empty( ::hBitmap )
+   IF !Empty(::oParent:handle)
+      IF !Empty(::hBitmap)
          ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title, ::hBitmap )
-      ELSEIF !Empty( ::hIcon )
+      ELSEIF !Empty(::hIcon)
          ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title, ::hIcon )
       ELSE
@@ -511,7 +511,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
 
 METHOD Activate() CLASS HGroup
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       ::Init()
@@ -551,7 +551,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize ) CLASS HLine
 
 METHOD Activate() CLASS HLine
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_CreateSep( ::oParent:handle, ::lVert, ::nLeft, ::nTop, ;
          ::nWidth, ::nHeight )
       ::Init()

@@ -432,8 +432,8 @@ METHOD AddResource( name ) CLASS HBitmap
    */
    
    * oResCnt (Static Memvar) is object of HBinC class
-   IF !Empty( oResCnt )
-      IF !Empty( i := oResCnt:Get( name ) )
+   IF !Empty(oResCnt)
+      IF !Empty(i := oResCnt:Get( name ))
        * DF7BE: 
        * Store bmp in a temporary file 
        * (otherwise the bmp is not loadable)
@@ -446,14 +446,14 @@ METHOD AddResource( name ) CLASS HBitmap
    ENDIF
    
    /*
-   IF !Empty( oResCnt ) .AND. !Empty( cVal := oResCnt:Get( name ) )
-      IF !Empty( oBmp := ::AddString( name, cVal ) )
+   IF !Empty(oResCnt) .AND. !Empty(cVal := oResCnt:Get( name ))
+      IF !Empty(oBmp := ::AddString( name, cVal ))
           RETURN oBmp
       ENDIF
    ENDIF
    */
    
-   IF Empty( ::handle )
+   IF Empty(::handle)
       hwg_MsgStop("Can not add bitmap to resource container: >" + name + "<" )
       RETURN NIL
    // ELSE
@@ -484,7 +484,7 @@ METHOD AddFile( name, HDC , lTransparent, nWidth, nHeight ) CLASS HBitmap
 
    name := AddPath( name, ::cPath )
    ::handle := hwg_Openimage( name )
-   IF !Empty( ::handle )
+   IF !Empty(::handle)
       ::name := name
       aBmpSize  := hwg_Getbitmapsize( ::handle )
       ::nWidth  := aBmpSize[1]
@@ -516,7 +516,7 @@ METHOD AddString( name, cVal ) CLASS HBitmap
 
    /* Try to load image from file */
    ::handle := hwg_Openimage( cVal  )  && 2nd parameter not .T. !
-   IF Empty( ::handle )
+   IF Empty(::handle)
       * Otherwise:   
       * Write image from binary container into temporary file
       * (as a bitmap file)
@@ -527,7 +527,7 @@ METHOD AddString( name, cVal ) CLASS HBitmap
       ::handle := hwg_Openimage( cTmp )
       FErase( cTmp )
    ENDIF
-   IF !Empty( ::handle )
+   IF !Empty(::handle)
       * hwg_Msginfo("Bitmap successfully loaded: >" + name + "<")
       ::name := name
       aBmpSize  := hwg_Getbitmapsize( ::handle )
@@ -553,7 +553,7 @@ METHOD AddStandard( cId, nSize ) CLASS HBitmap
    NEXT
 
    ::handle := hwg_StockBitmap( cId, nSize )
-   IF Empty( ::handle )
+   IF Empty(::handle)
       RETURN NIL
    ENDIF
    ::name    := cName
@@ -573,7 +573,7 @@ METHOD AddWindow( oWnd, x1, y1, width, height ) CLASS HBitmap
       x1 := 0; y1 := 0; width := oWnd:nWidth - 1; height := oWnd:nHeight - 1
    ENDIF
    ::handle := hwg_Window2Bitmap( Iif( Empty(handle),oWnd:handle,handle ),x1,y1,width,height )
-   ::name := LTrim( hb_valToStr( oWnd:handle ) )
+   ::name := LTrim(hb_valToStr(oWnd:handle))
    aBmpSize  := hwg_Getbitmapsize( ::handle )
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
@@ -659,7 +659,7 @@ METHOD AddResource( name , nWidth, nHeight , nFlags, lOEM ) CLASS HIcon
    ENDIF
 */
    IF ValType( name ) == "N"
-      name := LTrim( Str( name ) )
+      name := LTrim(Str(name))
       * lPreDefined := .T.
    ENDIF
 
@@ -671,8 +671,8 @@ METHOD AddResource( name , nWidth, nHeight , nFlags, lOEM ) CLASS HIcon
       ENDIF
    NEXT
    * oResCnt (Static Memvar) is object of HBinC class
-   IF !Empty( oResCnt )
-      IF !Empty( i := oResCnt:Get( name ) )
+   IF !Empty(oResCnt)
+      IF !Empty(i := oResCnt:Get( name ))
        * DF7BE: 
        * Store icon in a temporary file 
        * (otherwise the icon is not loadable)
@@ -683,7 +683,7 @@ METHOD AddResource( name , nWidth, nHeight , nFlags, lOEM ) CLASS HIcon
          ::handle := hwg_OpenImage( cTmp )
       ENDIF
    ENDIF
-   IF Empty( ::handle )
+   IF Empty(::handle)
       hwg_MsgStop("Can not add icon to resource container: >" + name + "<" )
       RETURN NIL
    ENDIF
@@ -711,11 +711,11 @@ METHOD AddFile( name , nWidth, nHeight ) CLASS HIcon
    NEXT
 
    name := AddPath( name, ::cPath )
-   IF Empty( hb_fNameExt( name ) )
+   IF Empty(hb_fNameExt( name ))
       name += ".png"
    ENDIF
    ::handle := hwg_Openimage( name )
-   IF !Empty( ::handle )
+   IF !Empty(::handle)
       ::name := name
       aBmpSize  := hwg_Getbitmapsize( ::handle )
 
@@ -768,7 +768,7 @@ METHOD AddString( name, cVal , nWidth, nHeight ) CLASS HIcon
        hb_memowrit( cTmp := hwg_CreateTempfileName() , cVal )
        ::handle := hwg_OpenImage( cTmp )
        FERASE(cTmp)
-   IF !Empty( ::handle )
+   IF !Empty(::handle)
       ::name := name
       aBmpSize  := hwg_Getbitmapsize( ::handle )
       ::nWidth  := aBmpSize[1]
@@ -872,7 +872,7 @@ METHOD Draw( hDC, nLeft, nTop, nRight, nBottom ) CLASS HStyle
       hwg_SpreadBitmap( hDC, ::oBitmap:handle, nLeft, nTop, nRight, nBottom )
    ENDIF
 
-   IF !Empty( ::oPen )
+   IF !Empty(::oPen)
       hwg_Selectobject( hDC, ::oPen:handle )
       hwg_Rectangle( hDC, nLeft, nTop, nRight-1, nBottom-1 )
    ENDIF
@@ -902,10 +902,10 @@ FUNCTION hwg_BmpFromRes( cBmp )
 
    LOCAL handle, cBuff, cTmp
 
-   IF !Empty( oResCnt )
-      IF !Empty( cBuff := oResCnt:Get( cBmp ) )
+   IF !Empty(oResCnt)
+      IF !Empty(cBuff := oResCnt:Get( cBmp ))
          handle := hwg_OpenImage( cBuff, .T. )
-         IF Empty( handle )
+         IF Empty(handle)
             * hb_memowrit( cTmp := "/tmp/e"+Ltrim(Str(Int(Seconds()*100))), cBuff )
             * DF7BE: Ready for multi platform use (also Windows cross development environment)
             hb_memowrit( cTmp := hwg_CreateTempfileName() , cBuff )
@@ -932,13 +932,13 @@ FUNCTION hwg_BmpFromRes( cBmp )
 FUNCTION hwg_SetResContainer( cName )
 * Returns .T., if container is opened successfully
 
-   IF Empty( cName )
-      IF !Empty( oResCnt )
+   IF Empty(cName)
+      IF !Empty(oResCnt)
          oResCnt:Close()
          oResCnt := NIL
       ENDIF
    ELSE
-      IF Empty( oResCnt := HBinC():Open( cName ) )
+      IF Empty(oResCnt := HBinC():Open( cName ))
          RETURN .F.
       ENDIF
    ENDIF
@@ -946,7 +946,7 @@ FUNCTION hwg_SetResContainer( cName )
 
 FUNCTION hwg_GetResContainerOpen()
 * Returns .T., if a container is open
-IF !Empty( oResCnt )
+IF !Empty(oResCnt)
  RETURN .T.
 ENDIF
 RETURN .F.   
@@ -955,7 +955,7 @@ FUNCTION hwg_GetResContainer()
 * Returns the object of opened container,
 * otherwise NIL
 * (because the object variable is static)
-IF !Empty( oResCnt )
+IF !Empty(oResCnt)
  RETURN oResCnt
 ENDIF
 RETURN NIL
@@ -1059,7 +1059,7 @@ RETURN ctmpfilename
    FOR i := 1 TO Len( HIcon():aIcons )
       // hwg_Deleteobject( HIcon():aIcons[i]:handle )
    NEXT
-   IF !Empty( oResCnt )
+   IF !Empty(oResCnt)
       oResCnt:Close()
    ENDIF
 

@@ -138,7 +138,7 @@ METHOD New( cPrinter, lmm, nFormType ) CLASS HPrinter
       nFormType := DMPAPER_A4
    ENDIF
 
-   ::cdpIn := iif( Empty( ::cdp ), hb_cdpSelect(), ::cdp )
+   ::cdpIn := iif( Empty(::cdp), hb_cdpSelect(), ::cdp )
 
    IF cPrinter != NIL .AND. cPrinter == SCREEN_PRINTER
       ::lBuffPrn := .T.
@@ -149,7 +149,7 @@ METHOD New( cPrinter, lmm, nFormType ) CLASS HPrinter
       ::cPrinterName := cPrinter
    ENDIF
 
-   IF Empty( ::hDC )
+   IF Empty(::hDC)
       RETURN NIL
    ELSEIF ::lBuffPrn
       aPrnCoors := hwg_Getdevicearea()
@@ -247,7 +247,7 @@ METHOD SetPen( nWidth, style, color )  CLASS HPrinter
 
 METHOD End() CLASS HPrinter
 
-   IF !Empty( ::hDC )
+   IF !Empty(::hDC)
       IF ::lBuffPrn
          hwg_Releasedc( hwg_Getactivewindow(), ::hDC )
       ELSE
@@ -264,11 +264,11 @@ METHOD Box( x1, y1, x2, y2, oPen ) CLASS HPrinter
       oPen := ::oPen
    ENDIF
    IF oPen != NIL
-      IF Empty( ::lastPen ) .OR. oPen:width != ::lastPen:width .OR. ;
+      IF Empty(::lastPen) .OR. oPen:width != ::lastPen:width .OR. ;
             oPen:style != ::lastPen:style .OR. oPen:color != ::lastPen:color
          ::lastPen := oPen
-         ::aPages[::nPage] += "pen," + LTrim( Str( oPen:width ) ) + "," + ;
-            LTrim( Str( oPen:style ) ) + "," + LTrim( Str( oPen:color ) ) + "," + crlf
+         ::aPages[::nPage] += "pen," + LTrim(Str(oPen:width)) + "," + ;
+            LTrim(Str(oPen:style)) + "," + LTrim(Str(oPen:color)) + "," + crlf
       ENDIF
    ENDIF
 
@@ -278,8 +278,8 @@ METHOD Box( x1, y1, x2, y2, oPen ) CLASS HPrinter
 
    ::Recalc( @x1, @y1, @x2, @y2 )
 
-   ::aPages[::nPage] += "box," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-      LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + crlf
+   ::aPages[::nPage] += "box," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+      LTrim(Str(x2)) + "," + LTrim(Str(y2)) + crlf
 
    RETURN NIL
 
@@ -289,11 +289,11 @@ METHOD Line( x1, y1, x2, y2, oPen ) CLASS HPrinter
       oPen := ::oPen
    ENDIF
    IF oPen != NIL
-      IF Empty( ::lastPen ) .OR. oPen:width != ::lastPen:width .OR. ;
+      IF Empty(::lastPen) .OR. oPen:width != ::lastPen:width .OR. ;
             oPen:style != ::lastPen:style .OR. oPen:color != ::lastPen:color
          ::lastPen := oPen
-         ::aPages[::nPage] += "pen," + LTrim( Str( oPen:width ) ) + "," + ;
-            LTrim( Str( oPen:style ) ) + "," + LTrim( Str( oPen:color ) ) + "," + crlf
+         ::aPages[::nPage] += "pen," + LTrim(Str(oPen:width)) + "," + ;
+            LTrim(Str(oPen:style)) + "," + LTrim(Str(oPen:color)) + "," + crlf
       ENDIF
    ENDIF
 
@@ -303,8 +303,8 @@ METHOD Line( x1, y1, x2, y2, oPen ) CLASS HPrinter
 
    ::Recalc( @x1, @y1, @x2, @y2 )
 
-   ::aPages[::nPage] += "lin," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-      LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + "," + crlf
+   ::aPages[::nPage] += "lin," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+      LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + crlf
 
    RETURN NIL
 
@@ -322,21 +322,21 @@ METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont ) CLASS HPrinter
 
    IF oFont != NIL  .AND. ( ::lastFont == NIL .OR. !::lastFont:Equal( oFont:name, oFont:height, oFont:weight, oFont:Italic, oFont:Underline ) )
       ::lastFont := oFont
-      ::aPages[::nPage] += "fnt," + oFont:name + "," + LTrim( Str( oFont:height ) ) + "," + ;
-         LTrim( Str( oFont:weight ) ) + "," + LTrim( Str( oFont:Italic ) ) + "," + ;
-         LTrim( Str( oFont:Underline ) ) + "," + crlf
+      ::aPages[::nPage] += "fnt," + oFont:name + "," + LTrim(Str(oFont:height)) + "," + ;
+         LTrim(Str(oFont:weight)) + "," + LTrim(Str(oFont:Italic)) + "," + ;
+         LTrim(Str(oFont:Underline)) + "," + crlf
    ENDIF
 
-   IF !Empty( nOpt ) .AND. ( Hb_BitAnd( nOpt, DT_RIGHT ) != 0 .OR. Hb_BitAnd( nOpt, DT_CENTER ) != 0 ) .AND. Left( cString, 1 ) == " "
-      cString := LTrim( cString )
+   IF !Empty(nOpt) .AND. ( Hb_BitAnd( nOpt, DT_RIGHT ) != 0 .OR. Hb_BitAnd( nOpt, DT_CENTER ) != 0 ) .AND. Left( cString, 1 ) == " "
+      cString := LTrim(cString)
    ENDIF
-   ::aPages[::nPage] += "txt," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-      LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + "," + ;
-      iif( nOpt == NIL, ",", LTrim( Str(nOpt ) ) + "," ) + hb_StrToUtf8( cString, ::cdpIn ) + crlf
+   ::aPages[::nPage] += "txt," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+      LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + ;
+      iif( nOpt == NIL, ",", LTrim(Str(nOpt )) + "," ) + hb_StrToUtf8( cString, ::cdpIn ) + crlf
 
-    // hwg_WriteLog( "Printer:Txt " + "txt," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-    //  LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + "," + ;
-    //  iif( nOpt == NIL, ",", LTrim( Str(nOpt ) ) + "," ) + hb_StrToUtf8( cString, ::cdpIn ) + crlf )
+    // hwg_WriteLog( "Printer:Txt " + "txt," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+    //  LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + ;
+    //  iif( nOpt == NIL, ",", LTrim(Str(nOpt )) + "," ) + hb_StrToUtf8( cString, ::cdpIn ) + crlf )
   
    RETURN NIL
 
@@ -351,13 +351,13 @@ METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap, cImageName ) CLASS HPrinter
 
    ::Recalc( @x1, @y1, @x2, @y2 )
 
-   ::aPages[::nPage] += "img," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-      LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + "," + ;
-      iif( nOpt == NIL, ",", LTrim( Str(nOpt ) ) + "," ) + cImageName + crlf
+   ::aPages[::nPage] += "img," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+      LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + ;
+      iif( nOpt == NIL, ",", LTrim(Str(nOpt )) + "," ) + cImageName + crlf
 
-    // hwg_WriteLog( "Printer:Bitmap " + "img," + LTrim( Str( x1 ) ) + "," + LTrim( Str( y1 ) ) + "," + ;
-    //    LTrim( Str( x2 ) ) + "," + LTrim( Str( y2 ) ) + "," + ;
-    //  iif( nOpt == NIL, ",", LTrim( Str(nOpt ) ) + "," ) + cImageName + crlf )
+    // hwg_WriteLog( "Printer:Bitmap " + "img," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
+    //    LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + ;
+    //  iif( nOpt == NIL, ",", LTrim(Str(nOpt )) + "," ) + cImageName + crlf )
 
    RETURN NIL
 
@@ -372,7 +372,7 @@ METHOD StartDoc( lPreview, cScriptFile , lprbutton ) CLASS HPrinter
    ::nPage := 0
    ::aPages := {}
    ::lPreview := lPreview
-   IF !Empty( cScriptFile )
+   IF !Empty(cScriptFile)
       ::cScriptFile := cScriptFile
    ENDIF
 
@@ -380,11 +380,11 @@ METHOD StartDoc( lPreview, cScriptFile , lprbutton ) CLASS HPrinter
 
 METHOD EndDoc() CLASS HPrinter
 
-   IF !Empty( ::cScriptFile )
+   IF !Empty(::cScriptFile)
       ::SaveScript()
    ENDIF
 
-   IF Empty( ::lPreview ) .AND. !::lBuffPrn
+   IF Empty(::lPreview) .AND. !::lBuffPrn
       ::PrintDoc()
    ENDIF
 
@@ -393,7 +393,7 @@ METHOD EndDoc() CLASS HPrinter
 METHOD StartPage() CLASS HPrinter
 
    ::nPage ++
-   AAdd( ::aPages, "page," + LTrim( Str( ::nPage ) ) + "," + ;
+   AAdd( ::aPages, "page," + LTrim(Str(::nPage)) + "," + ;
       iif( ::lmm, "mm,", "px," ) + iif( ::nOrient == 1, "p", "l" ) + crlf )
 
    RETURN NIL
@@ -408,7 +408,7 @@ METHOD EndPage() CLASS HPrinter
 METHOD LoadScript( cScriptFile ) CLASS HPrinter
    LOCAL arr, i, s
 
-   IF Empty( cScriptFile ) .OR. Empty( arr := hb_aTokens( MemoRead( cScriptFile ), crlf ) )
+   IF Empty(cScriptFile) .OR. Empty(arr := hb_aTokens( MemoRead( cScriptFile ), crlf ))
       RETURN .F.
    ENDIF
    ::cScriptFile := cScriptFile
@@ -418,40 +418,40 @@ METHOD LoadScript( cScriptFile ) CLASS HPrinter
 
    FOR i := 1 TO Len( arr )
       IF Left( arr[i], 4 ) == "page"
-         IF !Empty( s )
+         IF !Empty(s)
             AAdd( ::aPages, s )
          ENDIF
          s := arr[i] + crlf
-      ELSEIF !Empty( arr[i] ) .AND. !Empty( s )
+      ELSEIF !Empty(arr[i]) .AND. !Empty(s)
          s += arr[i] + crlf
       ENDIF
    NEXT
-   IF !Empty( s )
+   IF !Empty(s)
       AAdd( ::aPages, s )
    ENDIF
 
-   RETURN !Empty( ::aPages )
+   RETURN !Empty(::aPages)
 
 METHOD SaveScript( cScriptFile ) CLASS HPrinter
 
    LOCAL han, i
 
-   IF Empty( cScriptFile )
-      IF Empty( ::cScriptFile )
+   IF Empty(cScriptFile)
+      IF Empty(::cScriptFile)
          cScriptFile := ::cScriptFile := hwg_SelectfileEx( ,, { { "All files", "*" } } )
       ELSE
          cScriptFile := ::cScriptFile
       ENDIF
    ENDIF
 
-   IF !Empty( cScriptFile )
+   IF !Empty(cScriptFile)
       // hwg_MsgInfo("Scriptfile=" + cScriptFile )
       // Default scriptfile is "temp_a2.ps"
       han := FCreate( cScriptFile )
       FWrite( han, "job," + ;
-            LTrim( Str(Iif(::lmm,::nWidth*::nHRes,::nWidth) ) ) + "," + ;
-            LTrim( Str(Iif(::lmm,::nHeight*::nVRes,::nHeight) ) ) + "," + ;
-            LTrim( Str(::nHRes,11,4 ) ) + "," + LTrim( Str(::nVRes,11,4 ) ) + ",utf8" + crlf )
+            LTrim(Str(Iif(::lmm,::nWidth*::nHRes,::nWidth) )) + "," + ;
+            LTrim(Str(Iif(::lmm,::nHeight*::nVRes,::nHeight) )) + "," + ;
+            LTrim(Str(::nHRes,11,4 )) + "," + LTrim(Str(::nVRes,11,4 )) + ",utf8" + crlf )
 
       FOR i := 1 TO Len( ::aPages )
          FWrite( han, ::aPages[i] + crlf )
@@ -510,7 +510,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       * cBootUser4 := aTooltips[ 15 ]
    ENDIF
    FOR i := 1 TO nLastPage
-      AAdd( aPage, Str( i, 4 ) + ":" + Str( nLastPage, 4 ) )
+      AAdd( aPage, Str(i, 4) + ":" + Str(nLastPage, 4) )
    NEXT
 
 
@@ -641,7 +641,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    oDlg:Activate()
 
    oFont:Release()
-   IF !Empty( ::hMeta )
+   IF !Empty(::hMeta)
       hwg_Deleteobject( ::hMeta )
    ENDIF
 
@@ -655,7 +655,7 @@ METHOD PaintDoc( oCanvas ) CLASS HPrinter
    aCoors := hwg_Getclientrect( oCanvas:handle )
 
    hwg_Fillrect( hDC, 0, 0, aCoors[3], aCoors[4], ::oBrush1:handle )
-   IF !Empty( ::hMeta )
+   IF !Empty(::hMeta)
       nWidth := aCoors[3] - 20
       IF ( nHeight := Int( nWidth * ( ::nHeight / ::nWidth ) ) ) > aCoors[4] - 20
          nHeight := aCoors[4] - 20
@@ -701,7 +701,7 @@ METHOD PaintDoc( oCanvas ) CLASS HPrinter
 METHOD PrintDoc()
    LOCAL nOper := 0, cExt
 
-   IF !Empty( ::cPrinterName ) .AND. ( cExt := Lower( FilExten( ::cPrinterName ) ) ) $ "pdf;ps;png;svg;"
+   IF !Empty(::cPrinterName) .AND. (cExt := Lower(FilExten(::cPrinterName))) $ "pdf;ps;png;svg;"
       nOper := iif( cExt == "pdf", 1, iif( cExt == "ps",2,iif( cExt == "png",3,4 ) ) )
    ENDIF
    /*
@@ -731,14 +731,14 @@ METHOD ChangePage( oCanvas, oSayPage, n, nPage ) CLASS HPrinter
       ::nCurrPage := nPage
    ENDIF
    IF !( nCurrPage == ::nCurrPage )
-      IF !Empty( ::hMeta )
+      IF !Empty(::hMeta)
          hwg_Deleteobject( ::hMeta )
       ENDIF
-      cMetaName := "/tmp/i" + LTrim( Str( Int(Seconds() ) ) ) + ".png"
+      cMetaName := "/tmp/i" + LTrim(Str(Int(Seconds()))) + ".png"
       hwg_gp_Print( ::hDC, ::aPages, Len( ::aPages ), 3, cMetaName, ::nCurrPage )
       ::hMeta := hwg_Openimage( cMetaName )
       FErase( cMetaName )
-      IF !Empty( oCanvas )
+      IF !Empty(oCanvas)
          hwg_Redrawwindow( oCanvas:handle )
       ENDIF
    ENDIF
@@ -910,9 +910,9 @@ STATIC FUNCTION MessProc( oPrinter, oPanel, lParam )
       hb_TokenPtr( arr[i], @nPos, "," )
 
       cl := hwg_SetAppLocale( "UTF-8" )
-      cTemp := hwg_MsgGet( "", , ES_AUTOHSCROLL, , , DS_CENTER, SubStr( arr[i], nPos + 1 ) )
+      cTemp := hwg_MsgGet( "", , ES_AUTOHSCROLL, , , DS_CENTER, SubStr(arr[i], nPos + 1) )
       hwg_SetAppLocale( cl )
-      IF !Empty( cTemp ) .AND. !( cTemp == SubStr( arr[i],nPos + 1 ) )
+      IF !Empty(cTemp) .AND. !( cTemp == SubStr(arr[i], nPos + 1) )
          oPrinter:aPages[nPage] := ""
          FOR j := 1 TO Len( arr )
             IF j != i

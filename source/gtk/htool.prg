@@ -94,7 +94,7 @@ Local aItem
       For n := 1 TO len( ::aItem )
 
          if valtype( ::aItem[ n, 1 ] ) == "N"
-            IF !empty( ::aItem[ n, 1 ] )
+            IF !empty(::aItem[ n, 1 ])
                AAdd( aButton, ::aItem[ n , 1 ])
             ENDIF
          elseif  valtype( ::aItem[ n, 1 ] ) == "C"

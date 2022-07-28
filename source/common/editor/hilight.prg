@@ -110,10 +110,10 @@ Local oIni, oMod, oNode, i, nPos
 
    ::aLineStru := Array( 20,3 )
 
-   IF !Empty( cFile )
+   IF !Empty(cFile)
       IF Valtype( cFile ) == "C"
          oIni := HXMLDoc():Read( cFile )
-         IF !Empty( oIni:aItems ) .AND. oIni:aItems[1]:title == "hilight"
+         IF !Empty(oIni:aItems) .AND. oIni:aItems[1]:title == "hilight"
             oIni := oIni:aItems[1]
             FOR i := 1 TO Len( oIni:aItems )
                IF oIni:aItems[i]:title == "module" .AND. oIni:aItems[i]:GetAttribute( "type" ) == cSection
@@ -125,20 +125,20 @@ Local oIni, oMod, oNode, i, nPos
       ELSEIF Valtype( cFile ) == "O"
          oMod := cFile
       ENDIF
-      IF !Empty( oMod )      
+      IF !Empty(oMod)      
          FOR i := 1 TO Len( oMod:aItems )
             oNode := oMod:aItems[i]
             IF oNode:title == "keywords"
-               ::cCommands := " " + AllTrim( oNode:aItems[1] ) + " "
+               ::cCommands := " " + AllTrim(oNode:aItems[1]) + " "
             ELSEIF oNode:title == "functions"
-               ::cFuncs := " " + AllTrim( oNode:aItems[1] ) + " "
+               ::cFuncs := " " + AllTrim(oNode:aItems[1]) + " "
             ELSEIF oNode:title == "single_line_comment"
-               ::cScomm := AllTrim( oNode:aItems[1] )
+               ::cScomm := AllTrim(oNode:aItems[1])
             ELSEIF oNode:title == "multi_line_comment"
-               ::cMcomm1 := AllTrim( oNode:aItems[1] )
-               IF ( nPos := At( " ", ::cMcomm1 ) ) > 0
-                  ::cMcomm2 := Ltrim( Substr( ::cMcomm1,nPos+1 ) )
-                  ::cMcomm1 := Trim( Left( ::cMcomm1,nPos-1 ) )
+               ::cMcomm1 := AllTrim(oNode:aItems[1])
+               IF ( nPos := At(" ", ::cMcomm1) ) > 0
+                  ::cMcomm2 := Ltrim(Substr(::cMcomm1, nPos + 1))
+                  ::cMcomm1 := Trim(Left( ::cMcomm1,nPos-1 ))
                ENDIF
             ELSEIF oNode:title == "case"
                IF oNode:GetAttribute( "value" ) == "on"
@@ -148,20 +148,20 @@ Local oIni, oMod, oNode, i, nPos
          NEXT
       ENDIF
    ELSE
-      IF !Empty( cCommands )
-         ::cCommands := " " + AllTrim( cCommands ) + " "
+      IF !Empty(cCommands)
+         ::cCommands := " " + AllTrim(cCommands) + " "
       ENDIF
-      IF !Empty( cFuncs )
-         ::cFuncs := " " + AllTrim( cFuncs ) + " "
+      IF !Empty(cFuncs)
+         ::cFuncs := " " + AllTrim(cFuncs) + " "
       ENDIF
-      IF !Empty( cSComm )
-         ::cScomm := AllTrim( cScomm )
+      IF !Empty(cSComm)
+         ::cScomm := AllTrim(cScomm)
       ENDIF
-      IF !Empty( cMComm )
-         ::cMcomm1 := AllTrim( cMcomm )
-         IF !Empty(::cMcomm1) .AND. ( nPos := At( " ", ::cMcomm1 ) ) > 0
-            ::cMcomm2 := Ltrim( Substr( ::cMcomm1,nPos+1 ) )
-            ::cMcomm1 := Trim( Left( ::cMcomm1,nPos-1 ) )
+      IF !Empty(cMComm)
+         ::cMcomm1 := AllTrim(cMcomm)
+         IF !Empty(::cMcomm1) .AND. ( nPos := At(" ", ::cMcomm1) ) > 0
+            ::cMcomm2 := Ltrim(Substr(::cMcomm1, nPos + 1))
+            ::cMcomm1 := Trim(Left( ::cMcomm1,nPos-1 ))
          ENDIF
       ENDIF
       IF Valtype( lCase ) == 'L'
@@ -169,11 +169,11 @@ Local oIni, oMod, oNode, i, nPos
       ENDIF
    ENDIF
    IF !::lCase
-      IF !Empty( ::cCommands )
-         ::cCommands := Lower( ::cCommands )
+      IF !Empty(::cCommands)
+         ::cCommands := Lower(::cCommands)
       ENDIF
-      IF !Empty( ::cFuncs )
-         ::cFuncs := Lower( ::cFuncs )
+      IF !Empty(::cFuncs)
+         ::cFuncs := Lower(::cFuncs)
       ENDIF
    ENDIF
 
@@ -209,7 +209,7 @@ Local nPos, nPos1, nPrev, cWord, c
 
    IF lCheck == NIL
       lCheck := .F.
-   ELSEIF lCheck .AND. Empty( ::cMcomm1 )
+   ELSEIF lCheck .AND. Empty(::cMcomm1)
       Return NIL
    ENDIF
 
@@ -217,7 +217,7 @@ Local nPos, nPos1, nPrev, cWord, c
    cLine := aText[nLine]
    nLen := hced_Len( ::oEdit,cLine )
 
-   IF Empty( ::aDop )
+   IF Empty(::aDop)
       ::aDop := Array( Len( ::oEdit:aText ) )
       ::nDopChecked := 0
    ELSEIF Len( ::aDop ) < Len( aText )
@@ -229,11 +229,11 @@ Local nPos, nPos1, nPrev, cWord, c
          ::aDop[i] := Iif( ::lMultiComm, 1, 0 )
       NEXT
    ENDIF
-   lComm := Iif( nLine==1, .F., !Empty( ::aDop[nLine - 1] ) )
+   lComm := Iif( nLine==1, .F., !Empty(::aDop[nLine - 1]) )
    ::nDopChecked := nLine
    ::aDop[nLine] := 0
 
-   IF Empty( ::cMcomm1 )
+   IF Empty(::cMcomm1)
       cm := ""
    ELSE
       cm := Left( ::cMcomm1,1 )
@@ -241,20 +241,24 @@ Local nPos, nPos1, nPrev, cWord, c
    ENDIF
 
    IF lComm != NIL .AND. lComm
-      IF ( nPos := At( ::cMcomm2, cLine ) ) == 0
-         IF !lCheck; ::AddItem( 1, hced_Len(::oEdit,cLine), HILIGHT_COMM ); ENDIF
+      IF ( nPos := At(::cMcomm2, cLine) ) == 0
+         IF !lCheck
+            ::AddItem( 1, hced_Len(::oEdit,cLine), HILIGHT_COMM )
+         ENDIF
          ::lMultiComm := .T.
          ::aDop[nLine] := 1
          Return NIL
       ELSE
-         IF !lCheck; ::AddItem( 1, nPos, HILIGHT_COMM ); ENDIF
+         IF !lCheck
+            ::AddItem( 1, nPos, HILIGHT_COMM )
+         ENDIF
          nPos += nLenM
       ENDIF
    ELSE
       nPos := 1
    ENDIF
 
-   IF Empty( ::cScomm )
+   IF Empty(::cScomm)
       cs := ""
    ELSE
       cs := Left( ::cScomm,1 )
@@ -263,29 +267,37 @@ Local nPos, nPos1, nPrev, cWord, c
 
 
    DO WHILE nPos <= nLen
-      DO WHILE nPos <= nLen .AND. hced_Substr( ::oEdit,cLine,nPos,1 ) $ cSpaces; nPos++; ENDDO
+      DO WHILE nPos <= nLen .AND. hced_Substr(::oEdit, cLine, nPos, 1) $ cSpaces
+         nPos++
+      ENDDO
       DO WHILE nPos <= nLen
-         IF ( c := hced_Substr( ::oEdit,cLine,nPos,1 ) ) $ cQuotes .AND. ;
-            !( nLen - nPos > 1 .AND. Substr( cLine,nPos+1,1 ) == c .AND. Substr( cLine,nPos+2,1 ) == c )
+         IF ( c := hced_Substr(::oEdit, cLine, nPos, 1) ) $ cQuotes .AND. ;
+            !( nLen - nPos > 1 .AND. Substr(cLine, nPos + 1, 1) == c .AND. Substr(cLine, nPos + 2, 1) == c )
             nPos1 := nPos
-            IF ( nPos := hced_At( ::oEdit, c, cLine, nPos1+1 ) ) == 0
+            IF ( nPos := hced_At(::oEdit, c, cLine, nPos1 + 1) ) == 0
                nPos := hced_Len( ::oEdit,cLine )
             ENDIF
-            IF !lCheck; ::AddItem( nPos1, nPos, HILIGHT_QUOTE ); ENDIF
+            IF !lCheck
+               ::AddItem( nPos1, nPos, HILIGHT_QUOTE )
+            ENDIF
 
-         ELSEIF c == cs .AND. hced_Substr( ::oEdit, cLine, nPos, nLenS ) == ::cScomm
-            IF !lCheck; ::AddItem( nPos, hced_Len( ::oEdit, cLine ), HILIGHT_COMM ); ENDIF
+         ELSEIF c == cs .AND. hced_Substr(::oEdit, cLine, nPos, nLenS) == ::cScomm
+            IF !lCheck
+               ::AddItem( nPos, hced_Len( ::oEdit, cLine ), HILIGHT_COMM )
+            ENDIF
             nPos := hced_Len( ::oEdit, cLine ) + 1
             EXIT
 
-         ELSEIF c == cm .AND. hced_Substr( ::oEdit, cLine, nPos, nLenM ) == ::cMcomm1
+         ELSEIF c == cm .AND. hced_Substr(::oEdit, cLine, nPos, nLenM) == ::cMcomm1
             nPos1 := nPos
-            IF ( nPos := hced_At( ::oEdit, ::cMcomm2, cLine, nPos1+1 ) ) == 0
+            IF ( nPos := hced_At(::oEdit, ::cMcomm2, cLine, nPos1 + 1) ) == 0
                nPos := hced_Len( ::oEdit, cLine )
                ::lMultiComm := .T.
                ::aDop[nLine] := 1
             ENDIF
-            IF !lCheck; ::AddItem( nPos1, nPos, HILIGHT_COMM ); ENDIF
+            IF !lCheck
+               ::AddItem( nPos1, nPos, HILIGHT_COMM )
+            ENDIF
             nPos += nLenM - 1
 
          ELSEIF !lCheck .AND. IsLetter( c )
@@ -293,13 +305,12 @@ Local nPos, nPos1, nPrev, cWord, c
             //nPos ++
             nPrev := nPos
             nPos := hced_NextPos( ::oEdit, cLine, nPos )
-            DO WHILE IsLetter( hced_Substr( ::oEdit, cLine,nPos,1 ) )
+            DO WHILE IsLetter( hced_Substr(::oEdit, cLine, nPos, 1) )
                 //nPos++
                 nPrev := nPos
                 nPos := hced_NextPos( ::oEdit, cLine, nPos )
             ENDDO
-            cWord := " " + Iif( ::lCase, hced_Substr( ::oEdit, cLine, nPos1, nPos-nPos1 ), ;
-                  Lower( hced_Substr( ::oEdit, cLine, nPos1, nPos-nPos1 ) ) ) + " "
+            cWord := " " + Iif(::lCase, hced_Substr(::oEdit, cLine, nPos1, nPos - nPos1), Lower(hced_Substr(::oEdit, cLine, nPos1, nPos - nPos1))) + " "
             //nPos --
             nPos := nPrev
             IF !Empty(::cCommands ) .AND. cWord $ ::cCommands

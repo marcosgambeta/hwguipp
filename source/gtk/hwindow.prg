@@ -61,7 +61,7 @@ FUNCTION hwg_HideHidden( oWnd )
    LOCAL i, aControls := oWnd:aControls
 
    FOR i := 1 TO Len( aControls )
-      IF !Empty( aControls[i]:aControls )
+      IF !Empty(aControls[i]:aControls)
          hwg_HideHidden( aControls[i] )
       ENDIF
       IF aControls[i]:lHide
@@ -228,12 +228,12 @@ METHOD EvalKeyList( nKey, nctrl ) CLASS HWindow
 
    nctrl := iif( nctrl == 2, FCONTROL, iif( nctrl == 1, FSHIFT, iif( nctrl == 4,FALT,0 ) ) )
    //hwg_writelog( str(nKey)+"/"+str(nctrl) )
-   IF !Empty( ::KeyList )
+   IF !Empty(::KeyList)
       IF ( nPos := Ascan( ::KeyList,{ |a|a[1] == nctrl .AND. a[2] == nKey } ) ) > 0
          Eval( ::KeyList[ nPos,3 ], ::FindControl( ,hwg_Getfocus() ) )
       ENDIF
    ENDIF
-   IF !Empty( ::aKeysGlobal )
+   IF !Empty(::aKeysGlobal)
       IF ( nPos := Ascan( ::aKeysGlobal,{ |a|a[1] == nctrl .AND. a[2] == nKey } ) ) > 0
          Eval( ::aKeysGlobal[ nPos,3 ], ::FindControl( ,hwg_Getfocus() ) )
       ENDIF
@@ -340,11 +340,11 @@ METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMain
       IF ::bActivate != NIL
          Eval( ::bActivate, Self )
       ENDIF
-      IF !Empty( lMinimize )
+      IF !Empty(lMinimize)
          ::Minimize()
-      ELSEIF !Empty( lMaximize )
+      ELSEIF !Empty(lMaximize)
          ::Maximize()
-      ELSEIF !Empty( lCentered )
+      ELSEIF !Empty(lCentered)
          ::Center()
       ENDIF
       hwg_HideHidden( Self )
@@ -357,7 +357,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
 
    LOCAL i
 
-   // hwg_WriteLog( "On Event" + str(msg) + str(wParam) + str( lParam ) )
+   // hwg_WriteLog( "On Event" + str(msg) + str(wParam) + str(lParam) )
    IF ( i := Ascan( ::aMessages[1],msg ) ) != 0
       RETURN Eval( ::aMessages[2,i], Self, wParam, lParam )
    ELSE

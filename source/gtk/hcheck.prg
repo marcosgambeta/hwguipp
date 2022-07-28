@@ -61,7 +61,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
 METHOD Activate() CLASS HCheckButton
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       hwg_Setwindowobject( ::handle, Self )
@@ -71,7 +71,7 @@ METHOD Activate() CLASS HCheckButton
    RETURN NIL
    
 METHOD Disable() CLASS HCheckButton
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       hwg_Setwindowobject( ::handle, Self )

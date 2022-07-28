@@ -42,7 +42,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
 
 METHOD Activate() CLASS HSayImage
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -86,12 +86,14 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    ::tColor := 0
 
    IF Image != NIL
-      IF lRes == NIL ; lRes := .F. ; ENDIF
+      IF lRes == NIL
+         lRes := .F.
+      ENDIF
       ::oImage := Iif( lRes .OR. ValType( Image ) == "N",     ;
          HBitmap():AddResource( Image ), ;
          iif( ValType( Image ) == "C",     ;
          HBitmap():AddFile( Image ), Image ) )
-      IF !Empty( ::oImage )
+      IF !Empty(::oImage)
          IF nWidth == NIL .OR. nHeight == NIL
             ::nWidth  := ::oImage:nWidth
             ::nHeight := ::oImage:nHeight
@@ -162,8 +164,10 @@ METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
       ::oImage:Release()
       ::oImage := NIL
    ENDIF
-   IF !Empty( Image )
-      IF lRes == NIL ; lRes := .F. ; ENDIF
+   IF !Empty(Image)
+      IF lRes == NIL
+         lRes := .F.
+      ENDIF
       ::oImage := iif( lRes .OR. ValType( Image ) == "N",  ;
          HBitmap():AddResource( Image ), ;
          iif( ValType( Image ) == "C",   ;
@@ -186,7 +190,9 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
 
    ::Super:New( oWndParent, nId, SS_ICON, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctoolt )
 
-   IF lRes == NIL ; lRes := .F. ; ENDIF
+   IF lRes == NIL
+      lRes := .F.
+   ENDIF
    ::oImage := iif( lRes .OR. ValType( Image ) == "N", ;
       HIcon():AddResource( Image , nWidth, nHeight ),  ;
       iif( ValType( Image ) == "C",  ;
