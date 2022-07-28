@@ -454,10 +454,10 @@
                 [ <lFacing :FACING >;
                         [ GUTTER <nGutter> ] ];
    => ;
-      <oRTF>:DocFormat( <nTab>,<nLineStart>,<.lBackUp.>,<nDefLang>,;
-         <nDocType>,<"cFootType">,<"cFootNotes">,;
-         <"cEndNotes">,<"cFootNumber">,<nPage>,<"cProtect">,;
-         <.lFacing.>,<nGutter>)
+      <oRTF>:DocFormat(<nTab>, <nLineStart>, <.lBackUp.>, <nDefLang>, ;
+         <nDocType>, <"cFootType">, <"cFootNotes">, ;
+         <"cEndNotes">, <"cFootNumber">, <nPage>, <"cProtect">, ;
+         <.lFacing.>, <nGutter>)
 
 #xcommand SETPAGE <oRTF> => <oRTF>:NumPage()
 
