@@ -301,7 +301,7 @@ RETURN NIL
 FUNCTION fSUMM
   hwg_Msginfo( ;
        "OS(): " + OS() + CHR(10) + ;
-       "Hwgui Version  : " + hwg_Version() + CHR(10) + ;   
+       "HWGUI++ Version  : " + hwg_Version() + CHR(10) + ;   
        "Windows : " + TotF(hwg_isWindows() )  + CHR(10) + ; 
        "Windows 7: " + TotF(hwg_isWin7() ) + CHR(10) + ; 
        "Windows 10: " + TotF(hwg_isWin10() ) + CHR(10) + ;
