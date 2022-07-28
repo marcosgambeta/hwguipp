@@ -44,13 +44,3 @@ https://magsoftinfo.com/blog/
 ### Grupo de usuários no Facebook
 
 https://www.facebook.com/groups/575158780741473
-
-### Donativos
-
-O desenvolvimento deste projeto é apoiado por donativos. Se desejar contribuir,
-veja as instruções presentes no arquivo README.md do projeto Harbour++:
-
-https://github.com/harbourplusplus/harbourpp-v1/blob/main/README.md
-
-Os donativos recebidos ajudarão a investir mais tempo e recursos no desenvolvimento
-deste e de outros projetos relacionados com o Harbour++.
