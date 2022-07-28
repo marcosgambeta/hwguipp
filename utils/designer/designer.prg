@@ -308,7 +308,7 @@ STATIC FUNCTION StartDes( oDlg, p1, cForm )
    hwg_Movewindow( oDlg:handle, 0, 0, 400, 210 )
 
    IF p1 != NIL .AND. Left( p1, 1 ) $ "-/"
-      IF ( p1 := SubStr( p1,2,1 ) ) == "n"
+      IF ( p1 := SubStr(p1, 2, 1) ) == "n"
          HFormGen():New()
       ELSEIF p1 == "f"
          IF cForm == NIL
@@ -347,13 +347,13 @@ STATIC FUNCTION ReadIniFiles()
       cfitem := "format"
       critem := "recent"
    ENDIF
-   IF Empty( oIni:aItems )
+   IF Empty(oIni:aItems)
       CreateIni( oIni )
    ENDIF
    FOR i := 1 TO Len( oIni:aItems[1]:aItems )
       oNode := oIni:aItems[1]:aItems[i]
       IF oNode:title == cwitem
-         IF !Empty( oNode:aItems )
+         IF !Empty(oNode:aItems)
             cWidgetsFileName := oNode:aItems[1]
          ENDIF
       ELSEIF oNode:title == cfitem
@@ -364,8 +364,8 @@ STATIC FUNCTION ReadIniFiles()
          LoadEdOptions( oNode:aItems[1] )
       ELSEIF oNode:title == "dirpath"
          l_ds_mypath := oNode:GetAttribute( "default" )
-         IF !Empty( l_ds_mypath )
-            oDesigner:ds_mypath := Lower( l_ds_mypath )
+         IF !Empty(l_ds_mypath)
+            oDesigner:ds_mypath := Lower(l_ds_mypath)
          ENDIF
       ELSEIF oNode:title == "grid"
          oDesigner:nGrid := oNode:GetAttribute( "value", "N", 0 )
@@ -373,7 +373,7 @@ STATIC FUNCTION ReadIniFiles()
          cBmpPath := oNode:GetAttribute( "default" )
       ELSEIF oNode:title == critem .AND. !oDesigner:lSingleForm
          FOR j := 1 TO Min( Len( oNode:aItems ), MAX_RECENT_FILES )
-            oDesigner:aRecent[j] := Lower( Trim( oNode:aItems[j]:aItems[1] ) )
+            oDesigner:aRecent[j] := Lower(Trim(oNode:aItems[j]:aItems[1]))
          NEXT
       ELSEIF oNode:title == "rep_zoom"
          oDesigner:nRepZoom := Val( oNode:GetAttribute( "default" ) )
@@ -385,7 +385,7 @@ STATIC FUNCTION ReadIniFiles()
    IF ValType( cWidgetsFileName ) == "C"
       oDesigner:oWidgetsSet := HXMLDoc():Read( cCurDir + cWidgetsFileName )
    ENDIF
-   IF oDesigner:oWidgetsSet == NIL .OR. Empty( oDesigner:oWidgetsSet:aItems )
+   IF oDesigner:oWidgetsSet == NIL .OR. Empty(oDesigner:oWidgetsSet:aItems)
       hwg_Msgstop( "Widgets file isn't found!", "Designer error" )
       RETURN .F.
    ENDIF
@@ -396,7 +396,7 @@ STATIC FUNCTION BuildSet( oTab )
    LOCAL i, j, j1, aSet, oWidget, oProperty, b1, b2, b3, cDlg, arr, b4
    LOCAL x1, cText, cBmp, oButton
 
-   IF !Empty( oDesigner:oWidgetsSet:aItems )
+   IF !Empty(oDesigner:oWidgetsSet:aItems)
       aSet := oDesigner:oWidgetsSet:aItems[1]:aItems
       FOR i := 1 TO Len( aSet )
          IF aSet[i]:title == "set"
@@ -441,9 +441,9 @@ STATIC FUNCTION BuildSet( oTab )
                   cDlg := oProperty:GetAttribute( "array" )
                   IF cDlg != NIL
                      arr := {}
-                     DO WHILE ( j1 := At( ",",cDlg ) ) > 0
+                     DO WHILE ( j1 := At(",", cDlg) ) > 0
                         AAdd( arr, Left( cDlg,j1 - 1 ) )
-                        cDlg := LTrim( SubStr( cDlg,j1 + 1 ) )
+                        cDlg := LTrim(SubStr(cDlg, j1 + 1))
                      ENDDO
                      AAdd( arr, cDlg )
                   ELSE
@@ -451,17 +451,15 @@ STATIC FUNCTION BuildSet( oTab )
                   ENDIF
                   cDlg := oProperty:GetAttribute( "dlg" )
                   IF cDlg != NIL
-                     cDlg := Lower( cDlg )
+                     cDlg := Lower(cDlg)
                   ENDIF
-                  AAdd( oDesigner:aDataDef, { Lower( oProperty:GetAttribute("name" ) ), ;
-                     b1, b2, b3, cDlg, arr, b4 } )
+                  AAdd(oDesigner:aDataDef, {Lower(oProperty:GetAttribute("name")), b1, b2, b3, cDlg, arr, b4})
                ENDIF
             NEXT
          ELSEIF aSet[i]:title == "methods"
             FOR j := 1 TO Len( aSet[i]:aItems )
                IF aSet[i]:aItems[j]:title == "method"
-                  AAdd( oDesigner:aMethDef, { Lower( aSet[i]:aItems[j]:GetAttribute("name" ) ), ;
-                     aSet[i]:aItems[j]:GetAttribute( "params" ) } )
+                  AAdd(oDesigner:aMethDef, {Lower(aSet[i]:aItems[j]:GetAttribute("name")), aSet[i]:aItems[j]:GetAttribute("params")})
                ENDIF
             NEXT
          ENDIF
@@ -498,7 +496,7 @@ STATIC FUNCTION ArrangeBtn( oTab, x, y )
 
 STATIC FUNCTION ClickBtn( oBtn, cItem, cText, nWidth, nHeight )
 
-   IF !Empty( HFormGen():aForms )
+   IF !Empty(HFormGen():aForms)
       oDesigner:addItem := oBtn:cargo
       IF oDesigner:oBtnPressed != NIL
          oDesigner:oBtnPressed:Release()
@@ -573,7 +571,7 @@ STATIC FUNCTION CreateIni( oIni )
    RETURN NIL
 
 FUNCTION AddRecent( oForm )
-   LOCAL i, cItem := Lower( Trim( oForm:path + oForm:filename ) )
+   LOCAL i, cItem := Lower(Trim(oForm:path + oForm:filename))
 
    IF oDesigner:aRecent[1] == NIL .OR. !( oDesigner:aRecent[1] == cItem )
       FOR i := 1 TO MAX_RECENT_FILES

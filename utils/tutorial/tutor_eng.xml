@@ -785,7 +785,7 @@ STATIC FUNCTION fPaint()
    hwg_Selectobject( hDC, o:oFont:handle )
    hwg_SetTransparentMode( hDC, .T. )
 
-   IF !Empty( aCurrAcc )
+   IF !Empty(aCurrAcc)
       nMin := 99; nMax := 1
       nBarre := 0; nBarreLast := 0
       FOR i := 1 TO Len( aCurrAcc )

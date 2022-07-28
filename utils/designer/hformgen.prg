@@ -141,7 +141,7 @@ Private oForm := Self, aCtrlTable
          Aadd( ::aForms, Self )
          InspSetCombo()
       ENDIF
-      IF ::oDlg == NIL //.OR. Empty( ::oDlg:aControls )
+      IF ::oDlg == NIL //.OR. Empty(::oDlg:aControls)
          hwg_Msgstop( "Can't load the form", "Designer" )
       ELSEIF !oDesigner:lSingleForm .AND. fname != NIL
          AddRecent( Self )
@@ -153,7 +153,9 @@ RETURN Self
 METHOD End( lDlg,lCloseDes ) CLASS HFormGen
 Local i, j, name := ::name, oDlgSel
 
-   IF lDlg == NIL; lDlg := .F.; ENDIF
+   IF lDlg == NIL
+      lDlg := .F.
+   ENDIF
    IF ::lChanged
       IF hwg_Msgyesno( ::name + " was changed. Save it ?", "Designer" )
          ::Save()
@@ -196,14 +198,16 @@ Local aFormats := oDesigner:aFormats
 Memvar oForm, aCtrlTable
 Private oForm := Self, aCtrlTable
 
-   IF lAs == NIL; lAs := .F.; ENDIF
+   IF lAs == NIL
+      lAs := .F.
+   ENDIF
    IF !::lChanged .AND. !lAs
       hwg_Msgstop( "Nothing to save", "Designer" )
       Return NIL
    ENDIF
 
    IF ( oDesigner:lSingleForm .AND. !lAs ) .OR. ;
-      ( ( Empty( ::filename ) .OR. lAs ) .AND. FileDlg( Self,.F. ) ) .OR. !Empty( ::filename )
+      ( ( Empty(::filename) .OR. lAs ) .AND. FileDlg( Self,.F. ) ) .OR. !Empty(::filename)
       FrmSort( Self,Iif( oDesigner:lReport,::oDlg:aControls[1]:aControls[1]:aControls,::oDlg:aControls ) )
       IF ::type == 1
          WriteForm( Self )
@@ -252,7 +256,7 @@ Private value, oCtrl
    IF oFormDesc != NIL
       FOR i := 1 TO Len( oFormDesc:aItems )
          IF oFormDesc:aItems[i]:title == "property"
-            IF !Empty( oFormDesc:aItems[i]:aItems )
+            IF !Empty(oFormDesc:aItems[i]:aItems)
                IF Valtype( oFormDesc:aItems[i]:aItems[1]:aItems[1] ) == "C"
                   oFormDesc:aItems[i]:aItems[1]:aItems[1] := &( "{||" + oFormDesc:aItems[i]:aItems[1]:aItems[1] + "}" )
                ENDIF
@@ -273,9 +277,9 @@ Private value, oCtrl
    ENDIF
    IF aProp != NIL
       FOR i := 1 TO Len( aProp )
-         cPropertyName := Lower( aProp[ i,1 ] )
+         cPropertyName := Lower(aProp[i, 1])
          IF ( j := Ascan( ::aProp, {|a|Lower(a[1])==cPropertyName} ) ) != 0
-            IF !Empty( aProp[i,2] )
+            IF !Empty(aProp[i,2])
                ::aProp[j,2] := aProp[i,2]
             ENDIF
          ENDIF
@@ -284,7 +288,7 @@ Private value, oCtrl
    FOR i := 1 TO Len( ::aProp )
       value := ::aProp[ i,2 ]
       IF value != NIL
-         cPropertyName := Lower( ::aProp[ i,1 ] )
+         cPropertyName := Lower(::aProp[i, 1])
          j := Ascan( oDesigner:aDataDef, {|a|a[1]==cPropertyName} )
          IF j != 0 .AND. oDesigner:aDataDef[ j,3 ] != NIL
             EvalCode( oDesigner:aDataDef[ j,3 ] )
@@ -336,14 +340,14 @@ RETURN NIL
 
 METHOD GetProp( cName ) CLASS HFormGen
 Local i
-  cName := Lower( cName )
+  cName := Lower(cName)
   i := Ascan( ::aProp,{|a|Lower(a[1])==cName} )
 Return Iif( i==0, NIL, ::aProp[i,2] )
 
 METHOD SetProp( xName,xValue ) CLASS HFormGen
 
    IF Valtype( xName ) == "C"
-      xName := Lower( xName )
+      xName := Lower(xName)
       xName := Ascan( ::aProp,{|a|Lower(a[1])==xName} )
    ENDIF
    IF xName != 0
@@ -366,7 +370,7 @@ Local ntemp, nx := ::nPWidth, ny := ::nPHeight
       ::nPWidth  := ::nPHeight
       ::nPHeight := ntemp
    ENDIF
-   IF !Empty( ::oDlg:aControls ) .AND. ( nx != ::nPWidth .OR. ny != ::nPHeight )
+   IF !Empty(::oDlg:aControls) .AND. ( nx != ::nPWidth .OR. ny != ::nPHeight )
       ::oDlg:aControls[1]:Move( ,,Round(::nPWidth*::nKoeff,0)-1,Round(::nPHeight*::nKoeff,0)-1 )
    ENDIF
 
@@ -455,10 +459,10 @@ Local i
    IF oDlg:lResult
       oFrm:type := af[nType]
       oFrm:filename := CutPath( fname )
-      IF Empty( FilExten( oFrm:filename ) )
+      IF Empty(FilExten( oFrm:filename ))
          oFrm:filename += "."+aFormats[ af[nType],2 ]
       ENDIF
-      oFrm:path := Iif( Empty( FilePath(fname) ), oDesigner:ds_mypath, FilePath(fname) )
+      oFrm:path := Iif( Empty(FilePath(fname)), oDesigner:ds_mypath, FilePath(fname) )
       Return .T.
    ENDIF
 
@@ -479,8 +483,8 @@ Local fname, s1, s2, l_ds_mypath
       fname := hwg_Savefile( s2,s1,s2,oDesigner:ds_mypath )
 #endif
    ENDIF
-   IF !Empty( fname )
-      l_ds_mypath := Lower( FilePath( fname ) )
+   IF !Empty(fname)
+      l_ds_mypath := Lower(FilePath(fname))
       IF !( oDesigner:ds_mypath == l_ds_mypath )
          oDesigner:ds_mypath := l_ds_mypath
          oDesigner:lChgOpt  := .T.
@@ -503,7 +507,7 @@ Local i, aTree := {}, oNode
       ELSE
          Aadd( aTree, { NIL, oNode:GetAttribute("name"), ;
                  Val( oNode:GetAttribute("id") ), NIL } )
-         IF !Empty( oNode:aItems )
+         IF !Empty(oNode:aItems)
             aTree[ Len(aTree),1 ] := ReadTree( aTail( aTree ),oNode )
          ENDIF
       ENDIF
@@ -520,7 +524,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
             o := aItems[i]:aItems[j]
             IF o:title == "property"
                cPropertyName := o:GetAttribute( "name" )
-               IF Lower( cPropertyName ) == "geometry"
+               IF Lower(cPropertyName) == "geometry"
                   aRect := hwg_hfrm_Str2Arr( o:aItems[1] )
                   Aadd( aProp, { "Left", aRect[1] } )
                   Aadd( aProp, { "Top", aRect[2] } )
@@ -530,7 +534,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                      Aadd( aProp, { "Right", aRect[5] } )
                      Aadd( aProp, { "Bottom", aRect[6] } )
                   ENDIF
-               ELSEIF Lower( cPropertyName ) == "font"
+               ELSEIF Lower(cPropertyName) == "font"
                   Aadd( aProp, { cPropertyName,hwg_hfrm_FontFromXML( o:aItems[1],oDesigner:lReport ) } )
                ELSEIF Left( Lower(cPropertyName),6 ) == "hstyle"
                   Aadd( aProp, { cPropertyName,hwg_HstyleFromXML( o:aItems[1] ) } )
@@ -540,12 +544,12 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                      Aadd( arr, hwg_HstyleFromXML( o:aItems[j1] ) )
                   NEXT
                   Aadd( aProp, { cPropertyName,arr } )
-               ELSEIF Lower( cPropertyName ) == "atree"
+               ELSEIF Lower(cPropertyName) == "atree"
                   Aadd( aProp, { cPropertyName,ReadTree( ,o ) } )
                ELSEIF !Empty(o:aItems)
                   cProperty := Left( o:aItems[1],1 )
                   IF cProperty == '['
-                     cProperty := Substr( o:aItems[1],2,Len(o:aItems[1])-2 )
+                     cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
                   ELSEIF cProperty == '.'
                      cProperty := Iif( Substr(o:aItems[1],2,1)=="T","True","False" )
                   ELSEIF cProperty == '{'
@@ -578,16 +582,16 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
             oCtrl:aMethods[j,2] := aItems[i]:aItems[1]:aItems[1]
          ENDIF
       ELSEIF aItems[i]:title == "part"
-         IF Lower( aItems[i]:GetAttribute( "class" ) ) == "pagesheet"
+         IF Lower(aItems[i]:GetAttribute("class")) == "pagesheet"
             FOR j := 1 TO Len( aItems[i]:aItems )
                ReadCtrls( oDlg,aItems[i]:aItems[j],oCtrl,Val(aItems[i]:GetAttribute( "page" )) )
             NEXT
          ELSE
             ReadCtrls( oDlg,aItems[i],oCtrl )
          ENDIF
-         IF oCtrl != NIL .AND. Lower( oCtrl:cClass ) == "page"
+         IF oCtrl != NIL .AND. Lower(oCtrl:cClass) == "page"
             aRect := oCtrl:GetProp( "Tabs" )
-            IF aRect != NIL .AND. !Empty( aRect )
+            IF aRect != NIL .AND. !Empty(aRect)
                Page_Upd( oCtrl, aRect )
                Page_Select( oCtrl, 1, .T. )
             ENDIF
@@ -601,7 +605,7 @@ Static Function ReadForm( oForm,cForm )
 Local oDoc := Iif( cForm!=NIL, HXMLDoc():ReadString(cForm), HXMLDoc():Read( oForm:path+oForm:filename ) )
 Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
 
-   IF Empty( oDoc:aItems )
+   IF Empty(oDoc:aItems)
       hwg_Msgstop( "Can't open "+oForm:path+oForm:filename, "Designer" )
       Return NIL
    ELSEIF oDoc:aItems[1]:title != "part" .OR. oDoc:aItems[1]:GetAttribute( "class" ) != Iif( oDesigner:lReport,"report","form" )
@@ -616,18 +620,18 @@ Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
             o := aItems[i]:aItems[j]
             IF o:title == "property"
                cPropertyName := o:GetAttribute( "name" )
-               IF Lower( cPropertyName ) == "geometry"
+               IF Lower(cPropertyName) == "geometry"
                   aRect := hwg_hfrm_Str2Arr( o:aItems[1] )
                   Aadd( aProp, { "Left", aRect[1] } )
                   Aadd( aProp, { "Top", aRect[2] } )
                   Aadd( aProp, { "Width", aRect[3] } )
                   Aadd( aProp, { "Height", aRect[4] } )
-               ELSEIF Lower( cPropertyName ) == "font"
+               ELSEIF Lower(cPropertyName) == "font"
                   Aadd( aProp, { cPropertyName,hwg_hfrm_FontFromXML( o:aItems[1],oDesigner:lReport ) } )
                ELSEIF !Empty(o:aItems)
                   cProperty := Left( o:aItems[1],1 )
                   IF cProperty == '['
-                     cProperty := Substr( o:aItems[1],2,Len(o:aItems[1])-2 )
+                     cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
                   ELSEIF cProperty == '.'
                      cProperty := Iif( Substr(o:aItems[1],2,1)=="T","True","False" )
                   ELSEIF cProperty == '{'
@@ -665,7 +669,7 @@ Local j1, aItems := oCtrl:oXMLDesc:aItems, xProperty, cPropName := Lower(aPropIt
       IF aItems[j1]:title == "property" .AND. ;
                    Lower(aItems[j1]:GetAttribute("name")) == cPropName
 
-         IF !Empty( aItems[j1]:aItems )
+         IF !Empty(aItems[j1]:aItems)
             IF Valtype( aItems[j1]:aItems[1]:aItems[1] ) == "C"
                aItems[j1]:aItems[1]:aItems[1] := &( "{||" + aItems[j1]:aItems[1]:aItems[1] + "}" )
             ENDIF
@@ -686,7 +690,7 @@ Static Function WriteTree( aTree, oParent )
 Local i, oNode, type
 
    FOR i := 1 TO Len( aTree )
-      IF aTree[i,4] != NIL .OR. ( Valtype( aTree[i,1] ) == "A" .AND. !Empty( aTree[i,1] ) )
+      IF aTree[i,4] != NIL .OR. ( Valtype( aTree[i,1] ) == "A" .AND. !Empty(aTree[i,1]) )
          type := HBXML_TYPE_TAG
       ELSE
          type := HBXML_TYPE_SINGLE
@@ -696,7 +700,7 @@ Local i, oNode, type
       IF aTree[i,4] != NIL
          oNode:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,aTree[i,4] ) )
       ENDIF
-      IF Valtype( aTree[i,1] ) == "A" .AND. !Empty( aTree[i,1] )
+      IF Valtype( aTree[i,1] ) == "A" .AND. !Empty(aTree[i,1])
          WriteTree( aTree[i,1], oNode )
       ENDIF
    NEXT
@@ -715,10 +719,10 @@ Local cProperty, i1
       oStyle := oNode:Add( HXMLNode():New( "style" ) )
       IF oDesigner:lReport
          oStyle:Add( HXMLNode():New( "property",,{ { "name","Geometry" } }, ;
-          hwg_hfrm_Arr2Str( { oCtrl:GetProp("Left"),oCtrl:GetProp("Top"),oCtrl:GetProp("Width"),oCtrl:GetProp("Height"),oCtrl:GetProp("Right"),oCtrl:GetProp("Bottom") } ) ) )
+          hwg_hfrm_Arr2Str({oCtrl:GetProp("Left"), oCtrl:GetProp("Top"), oCtrl:GetProp("Width"), oCtrl:GetProp("Height"), oCtrl:GetProp("Right"), oCtrl:GetProp("Bottom")})))
       ELSE
          oStyle:Add( HXMLNode():New( "property",,{ { "name","Geometry" } }, ;
-          hwg_hfrm_Arr2Str( { oCtrl:GetProp("Left"),oCtrl:GetProp("Top"),oCtrl:GetProp("Width"),oCtrl:GetProp("Height") } ) ) )
+          hwg_hfrm_Arr2Str({oCtrl:GetProp("Left"), oCtrl:GetProp("Top"), oCtrl:GetProp("Width"), oCtrl:GetProp("Height")})))
       ENDIF
       FOR j := 1 TO Len( oCtrl:aProp )
          cPropertyName := Lower(oCtrl:aProp[j,1])
@@ -729,7 +733,7 @@ Local cProperty, i1
                 ( cPropertyName == "backcolor" .AND. oCtrl:bColor == hwg_Getsyscolor( COLOR_3DFACE ) )
             lDef := .T.
          */
-         ELSEIF ( cPropertyName == "name" .AND. Empty( oCtrl:aProp[j,2] ) )
+         ELSEIF ( cPropertyName == "name" .AND. Empty(oCtrl:aProp[j,2]) )
             lDef := .T.
          ELSE
             lDef := IsDefault( oCtrl, oCtrl:aProp[j] )
@@ -761,9 +765,9 @@ Local cProperty, i1
                ELSEIF oCtrl:aProp[j,3] == "N"
                   cProperty := oCtrl:aProp[j,2]
                ELSEIF oCtrl:aProp[j,3] == "L"
-                  cProperty := Iif( Lower( oCtrl:aProp[j,2] ) == "true",".T.",".F." )
+                  cProperty := Iif( Lower(oCtrl:aProp[j, 2]) == "true",".T.",".F." )
                ELSEIF oCtrl:aProp[j,3] == "A"
-                  cProperty := hwg_hfrm_Arr2Str( oCtrl:aProp[j,2] )
+                  cProperty := hwg_hfrm_Arr2Str(oCtrl:aProp[j, 2])
                ELSE
                   cProperty := ""
                ENDIF
@@ -772,15 +776,13 @@ Local cProperty, i1
          ENDIF
       NEXT
       FOR j := 1 TO Len( oCtrl:aMethods )
-         IF !Empty( oCtrl:aMethods[j,2] )
+         IF !Empty(oCtrl:aMethods[j,2])
             oMeth := oNode:Add( HXMLNode():New( "method",,{ { "name",oCtrl:aMethods[j,1] } } ) )
             oMeth:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,oCtrl:aMethods[j,2] ) )
          ENDIF
       NEXT
-      IF !Empty( oCtrl:aControls )
-         IF Lower( oCtrl:cClass ) == "page" .AND. ; 
-              ( aItems := oCtrl:GetProp("Tabs") ) != NIL .AND. ;
-              !Empty( aItems )
+      IF !Empty(oCtrl:aControls)
+         IF Lower(oCtrl:cClass) == "page" .AND. (aItems := oCtrl:GetProp("Tabs")) != NIL .AND. !Empty(aItems)
             FOR j := 1 TO Len( aItems )
                oNode1 := oNode:Add( HXMLNode():New( "part",,{ { "class","PageSheet" },{ "page",Ltrim(Str(j)) } } ) )
                FOR i := 1 TO Len( oCtrl:aControls )
@@ -805,9 +807,9 @@ Local oNode, oNode1, oStyle, i, i1, oMeth, cProperty, aControls
 
    oNode := oDoc:Add( HXMLNode():New( "part",,{ { "class",Iif(oDesigner:lReport,"report","form") } } ) )
    oStyle := oNode:Add( HXMLNode():New( "style" ) )  
-   oStyle:Add( HXMLNode():New( "property",,{ { "name","Geometry" } }, ;
-       hwg_hfrm_Arr2Str( { oForm:oDlg:nLeft,oForm:oDlg:nTop,oForm:GetProp("Width"),oForm:GetProp("Height") } ) ) )
-       //hwg_hfrm_Arr2Str( { oForm:oDlg:nLeft,oForm:oDlg:nTop,oForm:oDlg:nWidth,oForm:oDlg:nHeight } ) ) )
+   oStyle:Add(HXMLNode():New("property", , {{"name", "Geometry"}}, ;
+       hwg_hfrm_Arr2Str({oForm:oDlg:nLeft, oForm:oDlg:nTop, oForm:GetProp("Width"), oForm:GetProp("Height")})))
+       //hwg_hfrm_Arr2Str({oForm:oDlg:nLeft, oForm:oDlg:nTop, oForm:oDlg:nWidth, oForm:oDlg:nHeight})))
    FOR i := 1 TO Len( oForm:aProp )
       IF Ascan( aG, Lower(oForm:aProp[i,1]) ) == 0
          IF Lower(oForm:aProp[i,1]) == "font"
@@ -821,9 +823,9 @@ Local oNode, oNode1, oStyle, i, i1, oMeth, cProperty, aControls
             ELSEIF oForm:aProp[i,3] == "N"
                cProperty := oForm:aProp[i,2]
             ELSEIF oForm:aProp[i,3] == "L"
-               cProperty := Iif( Lower( oForm:aProp[i,2] ) == "true",".T.",".F." )
+               cProperty := Iif( Lower(oForm:aProp[i, 2]) == "true",".T.",".F." )
             ELSEIF oForm:aProp[i,3] == "A"
-               cProperty := hwg_hfrm_Arr2Str( oForm:aProp[i,2] )
+               cProperty := hwg_hfrm_Arr2Str(oForm:aProp[i, 2])
             ELSE
                cProperty := ""
             ENDIF
@@ -832,7 +834,7 @@ Local oNode, oNode1, oStyle, i, i1, oMeth, cProperty, aControls
       ENDIF
    NEXT
    FOR i := 1 TO Len( oForm:aMethods )
-      IF !Empty( oForm:aMethods[i,2] )
+      IF !Empty(oForm:aMethods[i,2])
          oMeth := oNode:Add( HXMLNode():New( "method",,{ { "name",oForm:aMethods[i,1] } } ) )
          oMeth:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,oForm:aMethods[i,2] ) )
       ENDIF
@@ -1137,7 +1139,7 @@ Local oCtrl := GetCtrlSelected( oDlg ), resizeDirection, flag, i
          SetCtrlSelected( oDlg )
       ENDIF
    ENDIF
-   IF oCtrl != NIL .AND. Lower( oCtrl:cClass ) == "page"
+   IF oCtrl != NIL .AND. Lower(oCtrl:cClass) == "page"
 #ifndef __GTK__
       i := hwg_Tab_hittest( oCtrl:handle,,,@flag )
       IF i >= 0 .AND. flag == 4 .OR. flag == 6
@@ -1173,7 +1175,7 @@ Local aBDown, oCtrl, oContainer, i, nLeft, aProp, j, name
          aProp := AClone( oDesigner:addItem:aProp )
          j := 0
          FOR i := Len( aProp ) TO 1 STEP -1
-            IF ( name := Lower( aProp[i,1] ) ) == "name" .OR. name == "varname"
+            IF ( name := Lower(aProp[i, 1]) ) == "name" .OR. name == "varname"
                Adel( aProp,i )
                j ++
             ELSEIF name == "left"
@@ -1213,7 +1215,7 @@ Local aBDown, oCtrl, oContainer, i, nLeft, aProp, j, name
           oCtrl:nTop+oCtrl:nHeight <= oContainer:nTop+oContainer:nHeight )
          oContainer:AddControl( oCtrl )
          oCtrl:oContainer := oContainer
-         IF Lower( oContainer:cClass ) == "page"
+         IF Lower(oContainer:cClass) == "page"
             oCtrl:nPage := hwg_Getcurrenttab( oContainer:handle )
             IF oCtrl:nPage == 0
                oCtrl:nPage ++
@@ -1249,11 +1251,11 @@ Local oCtrl, oForm
             xPos -= Round( oForm:nXOffset * oForm:nKoeff, 0 )
             yPos -= Round( oForm:nYOffset * oForm:nKoeff, 0 )
          ENDIF
-         IF Lower( oCtrl:cClass ) == "page"
+         IF Lower(oCtrl:cClass) == "page"
             oDesigner:oTabMenu:Show( oDlg,xPos,yPos,.T. )
          ELSE
-            IF oDesigner:lReport .AND. Lower( oCtrl:cClass ) $ "hline.vline" ;
-               .AND. oCtrl:oContainer != NIL .AND. Lower( oCtrl:oContainer:cClass ) == "box"
+            IF oDesigner:lReport .AND. Lower(oCtrl:cClass) $ "hline.vline" ;
+               .AND. oCtrl:oContainer != NIL .AND. Lower(oCtrl:oContainer:cClass) == "box"
                hwg_Enablemenuitem( oDesigner:oCtrlMenu,MENU_FIT,.T. )
                IF oCtrl:lEmbed
                   hwg_Checkmenuitem( oDesigner:oCtrlMenu,MENU_FIT,.T. )
@@ -1298,7 +1300,7 @@ Local i, nLeft := oCtrl:nLeft, oContainer
    IF oContainer != NIL
       oContainer:AddControl( oCtrl )
       oCtrl:oContainer := oContainer
-      IF Lower( oContainer:cClass ) == "page"
+      IF Lower(oContainer:cClass) == "page"
          oCtrl:nPage := hwg_Getcurrenttab( oContainer:handle )
          IF oCtrl:nPage == 0
             oCtrl:nPage ++
@@ -1417,7 +1419,7 @@ Local i, nLeft, nTop, lSorted := .T., aTabs
       // ENDIF
    ENDIF
    FOR i := 1 TO Len( aControls )
-      IF !Empty( aControls[i]:aControls )
+      IF !Empty(aControls[i]:aControls)
          FrmSort( oForm,aControls[i]:aControls,.T. )
       ENDIF
    NEXT
@@ -1428,9 +1430,7 @@ Local i, nLeft, nTop, lSorted := .T., aTabs
          aControls[i]:lHide := .F.
       NEXT
       FOR i := 1 TO Len( aControls )
-         IF Lower( aControls[i]:cClass ) == "page" .AND. ;
-                   ( aTabs := aControls[i]:GetProp("Tabs") ) != NIL .AND. ;
-                   !Empty( aTabs )
+         IF Lower(aControls[i]:cClass) == "page" .AND. (aTabs := aControls[i]:GetProp("Tabs")) != NIL .AND. !Empty(aTabs)
             Page_Upd( aControls[i], aTabs )
             Page_Select( aControls[i], 1, .T. )
          ENDIF
@@ -1477,6 +1477,6 @@ Local oTmpl
 
 Return NIL
 
-Function _CHR( n )
-Return CHR( n )
+Function _CHR(n)
+Return CHR(n)
 

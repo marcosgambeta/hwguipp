@@ -208,7 +208,7 @@ Local bKeyDown := {|o,nKey|
    ENDIF
    oEdit:bKeyDown := bKeyDown
    oEdit:HighLighter( HDTheme():oHili )
-   IF !Empty( cMethod )
+   IF !Empty(cMethod)
       oEdit:SetText( cMethod )
    ENDIF
    cMethod := NIL
@@ -359,7 +359,7 @@ Memvar nScheme, nType, oTheme, cScheme
             Return NIL
          ENDIF
       ELSEIF nAction == 2
-         IF Empty( cScheme )
+         IF Empty(cScheme)
             hwg_Msgstop( "You must specify the theme name !", "Designer" )
             Return NIL
          ENDIF

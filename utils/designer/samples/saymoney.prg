@@ -41,7 +41,7 @@ RETURN oDlg:lresult
 
 FUNCTION SayDollar(nDollar)
 
- LOCAL cDollar := RIGHT( LTRIM( STR(nDollar,15) ),11)
+ LOCAL cDollar := RIGHT( LTRIM(STR(nDollar, 15) ),11)
  LOCAL nAA := 1
  LOCAL nPJ := LEN(cDollar)
  LOCAL xSay := '', xLang2, xLang1, xMuch, xNum, xteen
@@ -250,8 +250,12 @@ FUNCTION SayRupiah(nAngka)
 STATIC FUNCTION tigades( mvc, n)    // created: 28 mei 1993
  LOCAL say := "", x1 := left(mvc,1), x2:=subs(mvc,2,1), x3:=right(mvc,1)
 
- IF n==4 .and. mvc=="001"; RETURN "se"; ENDIF
- IF mvc=="000"; RETURN "";  end
+ IF n==4 .and. mvc=="001"
+    RETURN "se"
+ ENDIF
+ IF mvc=="000"
+    RETURN ""
+ ENDIF
 
        IF     x1=="0"   // do nothing
        ELSEIF x1=="1";  say += "SERATUS "

@@ -58,10 +58,10 @@ FUNCTION C_REPL
    oDlg:Activate()
 
    IF oDlg:lResult
-      IF !Empty( cFor ) .AND. Type( cFor ) != "L"
+      IF !Empty(cFor) .AND. Type( cFor ) != "L"
          hwg_Msgstop( "Wrong expression!" )
       ELSE
-         IF !Empty( cFor )
+         IF !Empty(cFor)
             bFor := &( "{||" + cFor + "}" )
          ENDIF
          nrec := RecNo()
@@ -72,7 +72,7 @@ FUNCTION C_REPL
             Eval( oBrw:bGoTop, oBrw )
          ENDIF
          DO WHILE !Eval( oBrw:bEof, oBrw ) .AND. Iif( r1==2, nNext-- > 0, .T. )
-            IF Empty( cFor ) .OR. Eval( bFor )
+            IF Empty(cFor) .OR. Eval( bFor )
                IF !aFiles[improc,AF_EXCLU]
                   rlock()
                ENDIF
@@ -135,12 +135,12 @@ FUNCTION C_4( nAct )
 
    IF oDlg:lResult
 
-      IF !Empty( cFor ) .AND. Type( cFor ) != "L"
+      IF !Empty(cFor) .AND. Type( cFor ) != "L"
          hwg_Msgstop( "Wrong 'FOR' expression!" )
          RETURN NIL
       ENDIF
       IF nAct == 4 
-         IF Empty( cExpr ) .AND. Type( cExpr ) != "N"
+         IF Empty(cExpr) .AND. Type( cExpr ) != "N"
             hwg_Msgstop( "Wrong 'SUM' expression!" )
             RETURN NIL
          ELSE
@@ -148,7 +148,7 @@ FUNCTION C_4( nAct )
          ENDIF
       ENDIF
 
-      IF !Empty( cFor )
+      IF !Empty(cFor)
          bFor := &( "{||" + cFor + "}" )
       ENDIF
       nrec := RecNo()
@@ -158,7 +158,7 @@ FUNCTION C_4( nAct )
          Eval( oBrw:bGoTop, oBrw )
       ENDIF
       DO WHILE !Eval( oBrw:bEof, oBrw ) .AND. Iif( r1==2, nNext-- > 0, .T. )
-         IF Empty( cFor ) .OR. Eval( bFor )
+         IF Empty(cFor) .OR. Eval( bFor )
             IF nAct == 1
                IF !aFiles[improc,AF_EXCLU]
                   rlock()
@@ -280,23 +280,23 @@ FUNCTION C_APPEND()
 
    IF oDlg:lResult
 
-      IF Empty( cFile )
+      IF Empty(cFile)
          hwg_Msgstop( "File name is absent" )
          RETURN NIL
       ENDIF
-      IF !Empty( cFor ) .AND. Type( cFor ) != "L"
+      IF !Empty(cFor) .AND. Type( cFor ) != "L"
          hwg_Msgstop( "Wrong 'FOR' expression!" )
          RETURN NIL
       ENDIF
-      IF !Empty( cFor )
+      IF !Empty(cFor)
          bFor := &( "{||" + cFor + "}" )
       ENDIF
-      IF !Empty( cFields )
+      IF !Empty(cFields)
          af := hb_aTokens( Trim(cFields), "," )
       ENDIF
 
       oMsg := DlgWait( "Append" )
-      cFile := Iif( lRemote.AND.r1==1, Trim( cPath ), "" ) + Trim( cFile )
+      cFile := Iif( lRemote.AND.r1==1, Trim(cPath), "" ) + Trim(cFile)
       IF r1 == 1
 #ifdef RDD_ADS
          AdsSetServerType( nServerType := Iif( lRemote, 6, ADS_LOCAL_SERVER ) )
@@ -310,7 +310,7 @@ FUNCTION C_APPEND()
          __dbDelim( .F., cFile, Iif( Empty(cdelim), "blank", Trim(cdelim) ), af, bfor,,,, .F. )
       ELSE
          aFie := dbStruct()
-         IF Empty( af )
+         IF Empty(af)
             af := Array( Len( aFie ) )
             FOR i := 1 TO Len( af )
                af[i] := i
@@ -324,8 +324,8 @@ FUNCTION C_APPEND()
             j := 0
             oldDf := Set( _SET_DATEFORMAT, aDatef[nDf] )
             DO WHILE .T.
-               s := RdStr( han, @strbuf, @poz, STR_BUFLEN )
-               IF Empty( s )
+               s := RdStr(han, @strbuf, @poz, STR_BUFLEN)
+               IF Empty(s)
                   EXIT
                ELSE
                   IF j % 2 == 1
@@ -334,7 +334,7 @@ FUNCTION C_APPEND()
                      stroka := s
                   ENDIF
                   i := 1; j := 0
-                  DO WHILE ( i := hb_At( cQuo,stroka,i ) ) != 0
+                  DO WHILE ( i := hb_At(cQuo, stroka, i) ) != 0
                      i ++; j ++
                   ENDDO
                   IF j % 2 == 0
@@ -344,7 +344,7 @@ FUNCTION C_APPEND()
                         IF i <= Len( af )
                            xVal := arr[i]
                            IF Left( xVal,1 ) == cQuo
-                              xVal := Substr( xVal, 2, Len(xVal)-2 )
+                              xVal := Substr(xVal, 2, Len(xVal) - 2)
                            ENDIF
                            IF cQuo+cQuo $ arr[i]
                               xVal := Strtran( xVal, cQuo+cQuo, cQuo )
@@ -473,23 +473,23 @@ FUNCTION C_COPY()
 
    IF oDlg:lResult
 
-      IF Empty( cFile )
+      IF Empty(cFile)
          hwg_Msgstop( "File name is absent" )
          RETURN NIL
       ENDIF
-      IF !Empty( cFor ) .AND. Type( cFor ) != "L"
+      IF !Empty(cFor) .AND. Type( cFor ) != "L"
          hwg_Msgstop( "Wrong 'FOR' expression!" )
          RETURN NIL
       ENDIF
-      IF !Empty( cFor )
+      IF !Empty(cFor)
          bFor := &( "{||" + cFor + "}" )
       ENDIF
-      IF !Empty( cFields )
+      IF !Empty(cFields)
          af := hb_aTokens( Trim(cFields), "," )
       ENDIF
 
       oMsg := DlgWait( "Append" )
-      cFile := Iif( lRemote.AND.r1==1, Trim( cPath ), "" ) + Trim( cFile )
+      cFile := Iif( lRemote.AND.r1==1, Trim(cPath), "" ) + Trim(cFile)
       IF r1 == 1 .AND. r2 == 1
 #ifdef RDD_ADS
           AdsSetServerType( nServerType := Iif( lRemote, 6, ADS_LOCAL_SERVER ) )
@@ -526,7 +526,7 @@ FUNCTION C_COPY()
       ELSEIF r1 == 4
          han := FCreate( cFile )
          aFie := dbStruct()
-         IF Empty( af )
+         IF Empty(af)
             af := Array( Len( aFie ) )
             FOR i := 1 TO Len( af )
                af[i] := i
@@ -541,7 +541,7 @@ FUNCTION C_COPY()
          ENDIF
          oldDf := Set( _SET_DATEFORMAT, aDatef[nDf] )
          DO WHILE !Eof()
-            IF Empty( bFor ) .OR. Eval( bFor )
+            IF Empty(bFor) .OR. Eval( bFor )
                s := ""
                FOR i := 1 TO Len( af )
                   xVal := FieldGet( af[i] )
@@ -621,7 +621,7 @@ FUNCTION C_REL
       dbSetRelation( aals[nAlias], &( "{||"+Trim(cExpr)+"}" ), Trim(cExpr) )
       oBrowse:aArray := aRel := {}
       i := 0
-      DO WHILE !Empty( cTmp := dbRelation( ++i ) )
+      DO WHILE !Empty(cTmp := dbRelation( ++i ))
          Aadd( arel, { cTmp, Alias( dbRselect(i) ) } )
       ENDDO
       hwg_Invalidaterect( oBrowse:handle, 1 )
@@ -629,7 +629,7 @@ FUNCTION C_REL
       RETURN NIL
       }
 
-   DO WHILE !Empty( cExpr := dbRelation( ++i ) )
+   DO WHILE !Empty(cExpr := dbRelation( ++i ))
       Aadd( arel, { cExpr, Alias( dbRselect(i) ) } )
    ENDDO
    FOR i := 1 TO Len( aFiles )

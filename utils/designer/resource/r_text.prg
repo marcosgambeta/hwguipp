@@ -2,7 +2,7 @@
 FUNCTION STR2FONT
 PARAMETERS cFont
 PRIVATE oFont
-  IF !Empty( cFont )
+  IF !Empty(cFont)
     oFont := HFont():Add( NextItem( cFont,.T.,"," ), ;
        Val(NextItem( cFont,,"," )),Val(NextItem( cFont,,"," )), ;
        Val(NextItem( cFont,,"," )),Val(NextItem( cFont,,"," )), ;
@@ -22,28 +22,28 @@ Private cWidth, aVars
     Return
   ENDIF
   DO WHILE .T.
-    stroka := RDSTR( han,@strbuf,@poz,512 )
+    stroka := RDSTR(han, @strbuf, @poz, 512)
     IF LEN( stroka ) == 0
       EXIT
     ENDIF
     IF Left( stroka,1 ) == ";"
       LOOP
     ENDIF
-    stroka := Ltrim( stroka )
+    stroka := Ltrim(stroka)
     IF nMode == 0
       IF Left( stroka,1 ) == "#"
-        IF Upper( Substr( stroka,2,6 ) ) == "REPORT"
-          stroka := Ltrim( Substr( stroka,9 ) )
-          IF Empty( oForm:name ) .OR. Upper( stroka ) == Upper( oForm:name )
+        IF Upper(Substr(stroka, 2, 6)) == "REPORT"
+          stroka := Ltrim(Substr(stroka, 9))
+          IF Empty(oForm:name) .OR. Upper(stroka) == Upper(oForm:name)
             nMode := 1
           ENDIF
         ENDIF
       ENDIF
     ELSEIF nMode == 1
       IF Left( stroka,1 ) == "#"
-        IF Upper( Substr( stroka,2,6 ) ) == "ENDREP"
+        IF Upper(Substr(stroka, 2, 6)) == "ENDREP"
           Exit
-        ELSEIF Upper( Substr( stroka,2,6 ) ) == "SCRIPT"
+        ELSEIF Upper(Substr(stroka, 2, 6)) == "SCRIPT"
           nMode := 2
           cCaption := ""
           IF itemName == "FORM"
@@ -74,7 +74,7 @@ Private cWidth, aVars
           Aadd( arr,{ itemName,x,y,nWidth,nHeight,NIL,cCaption,oFont,nAlign,nVar } )
 
         ELSEIF itemName == "HLINE" .OR. itemName == "VLINE" .OR. itemName == "BOX"
-          itemName := Lower( itemName )
+          itemName := Lower(itemName)
           x := Val( NextItem( stroka ) )
           y := Val( NextItem( stroka ) )
           nWidth := Val( NextItem( stroka ) )
@@ -86,7 +86,7 @@ Private cWidth, aVars
           Aadd( arr,{ itemName,x,y,nWidth,nHeight,NIL,nAlign,nVar } )
 
         ELSEIF itemName == "BITMAP"
-          itemName := Lower( itemName )
+          itemName := Lower(itemName)
           cCaption := NextItem( stroka )
           x := Val( NextItem( stroka ) )
           y := Val( NextItem( stroka ) )
@@ -126,7 +126,7 @@ Private cWidth, aVars
         ENDIF
       ENDIF
     ELSEIF nMode == 2
-      IF Left( stroka,1 ) == "#" .AND. Upper( Substr( stroka,2,6 ) ) == "ENDSCR"
+      IF Left( stroka,1 ) == "#" .AND. Upper(Substr(stroka, 2, 6)) == "ENDSCR"
          nMode := 1
          IF itemName == "area"
            IF cm == "SL"
@@ -146,7 +146,7 @@ Private cWidth, aVars
       ELSE
         cCaption += stroka+Chr(13)+chr(10)
         IF itemName == "FORM"
-          DO WHILE !Empty( cFont := getNextVar( @stroka ) )
+          DO WHILE !Empty(cFont := getNextVar( @stroka ))
             Aadd( aVars,cFont )
           ENDDO
         ENDIF

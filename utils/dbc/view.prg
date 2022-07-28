@@ -20,14 +20,14 @@ FUNCTION RdView( fname )
    LOCAL scom, sword, i, n, nPos
    LOCAL aRel := {}, aFlt := {}
 
-   IF Empty( fname )
+   IF Empty(fname)
       fname := hwg_Selectfile( "View files( *.vew )", "*.vew", mypath )
    ENDIF
 
-   IF !Empty( fname ) .AND. !Empty( aLines := hb_aTokens( MemoRead( fname ), crlf  ) )
+   IF !Empty(fname) .AND. !Empty(aLines := hb_aTokens( MemoRead( fname ), crlf  ))
       FOR nLine := 1 TO Len( aLines )
          nPos := 0
-         IF ( scom := Upper( hb_TokenPtr( aLines[nLine], @nPos, " " ) ) ) == "DRIVER"
+         IF ( scom := Upper(hb_TokenPtr(aLines[nLine], @nPos, " ") ) ) == "DRIVER"
             sword := hb_TokenPtr( aLines[nLine], @nPos, " " )
             IF hb_TokenPtr( aLines[nLine], @nPos, " " ) == "REMOTE"
 #if defined( RDD_ADS )
@@ -59,22 +59,22 @@ FUNCTION RdView( fname )
             lShared := ( hb_TokenPtr( aLines[nLine], @nPos, " " ) == "SHARED" )
             Set( _SET_EXCLUSIVE, !lShared )
             lRdonly := ( hb_TokenPtr( aLines[nLine], @nPos, " " ) == "READ" )
-            IF Empty( sword := LTrim( SubStr( aLines[nLine], nPos + 1 ) ) )
+            IF Empty(sword := LTrim(SubStr(aLines[nLine], nPos + 1)))
                res := .F.
                EXIT
             ELSE
                OpenDbf( sword )
             ENDIF
          ELSEIF scom == "ORDER"
-            IF !Empty( sword := LTrim( SubStr( aLines[nLine], nPos + 1 ) ) )
+            IF !Empty(sword := LTrim(SubStr(aLines[nLine], nPos + 1)))
                OrdSetFocus( sword )
                UpdBrowse()
             ENDIF
          ELSEIF scom == "FILTER"
-            AAdd( aFlt, { improc, LTrim( SubStr( aLines[nLine], nPos + 1 ) ) } )
+            AAdd( aFlt, { improc, LTrim(SubStr(aLines[nLine], nPos + 1)) } )
          ELSEIF scom == "RELATION"
             sword := hb_TokenPtr( aLines[nLine], @nPos, " " )
-            AAdd( aRel, { improc, sword, LTrim( SubStr( aLines[nLine], nPos + 1 ) ) } )
+            AAdd( aRel, { improc, sword, LTrim(SubStr(aLines[nLine], nPos + 1)) } )
          ENDIF
       NEXT
       IF !res
@@ -104,14 +104,14 @@ FUNCTION WrView()
    Local fname := hwg_Savefile( "*.vew","View files( *.vew )", "*.vew", mypath )
 #endif
 
-   IF Empty( fname )
+   IF Empty(fname)
       Return NIL
    ENDIF
 
    obl := SELECT()
    IF ( han := Fcreate( fname, FC_NORMAL ) ) != - 1
       FOR i := 1 TO Len( aFiles )
-         IF !Empty( aFiles[i,AF_NAME] )
+         IF !Empty(aFiles[i,AF_NAME])
             dbSelectArea( aFiles[i,AF_ALIAS] )
             FWrite( han, "DRIVER " +  aDrivers[ aFiles[ improc,AF_DRIVER ] ] +  ;
                iif( nServerType == LOCAL_SERVER, " LOCAL", " REMOTE" ) + crlf )
@@ -120,16 +120,16 @@ FUNCTION WrView()
                   Iif(aFiles[i,AF_RDONLY],"READ ","WRITE ") + ;
                   aFiles[i,AF_NAME] + crlf )
 
-            IF !Empty( cTmp := OrdSetFocus() )
+            IF !Empty(cTmp := OrdSetFocus())
                FWrite( han, "ORDER " + cTmp + crlf )
             ENDIF
 
-            IF !Empty( cTmp := dbFilter() )
+            IF !Empty(cTmp := dbFilter())
                FWrite( han, "FILTER " + cTmp + crlf )
             ENDIF
 
             j := 0
-            DO WHILE !Empty( cTmp := dbRelation( ++ j ) )
+            DO WHILE !Empty(cTmp := dbRelation( ++ j ))
                FWrite( han, "RELATION " + Alias( dbRSelect( j ) ) + " " + cTmp + crlf )
             ENDDO
          ENDIF

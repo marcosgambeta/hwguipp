@@ -24,8 +24,8 @@ Local fname := hwg_SelectFileEx( , mypath, { { "Query files( *.que )", "*.que" }
 Local fname := hwg_Selectfile( "Query files( *.que )", "*.que", mypath )
 #endif
 
-   IF !Empty( fname )
-      mypath := "\" + CURDIR() + IIF( EMPTY( CURDIR() ), "", "\" )
+   IF !Empty(fname)
+      mypath := "\" + CURDIR() + IIF( EMPTY(CURDIR()), "", "\" )
       cQuery := MemoRead( fname )
       Query( .T. )
    ENDIF
@@ -40,7 +40,7 @@ Local bBtnSave := {||
 #else
    Local fname := hwg_Savefile( "*.que","Query files( *.que )", "*.que", mypath )
 #endif
-   IF !Empty( fname )
+   IF !Empty(fname)
       hb_MemoWrit( fname,cQuery )
    ENDIF
    }
@@ -68,7 +68,7 @@ Static lConnected := .F.
    oDlg:Activate()
 
    IF oDlg:lResult
-      IF Empty( cQuery )
+      IF Empty(cQuery)
          Return NIL
       ENDIF
 
@@ -78,8 +78,8 @@ Static lConnected := .F.
       ENDIF
 #ifdef RDD_ADS
       IF !lConnected
-         IF Empty( mypath )
-            AdsConnect( "\" + CURDIR() + IIF( EMPTY( CURDIR() ), "", "\" ) )
+         IF Empty(mypath)
+            AdsConnect( "\" + CURDIR() + IIF( EMPTY(CURDIR()), "", "\" ) )
          ELSE
             AdsConnect( mypath )
          ENDIF
@@ -93,14 +93,14 @@ Static lConnected := .F.
       ENDIF
       IF !AdsCreateSqlStatement( ,Iif( numdriv==1,2,3 ) )
          hwg_Msgstop( "Cannot create SQL statement" )
-         IF !Empty( oldArea )
+         IF !Empty(oldArea)
             Select( oldArea )
          ENDIF
          Return .F.
       ENDIF
       IF !AdsExecuteSqlDirect( cQuery )
          hwg_Msgstop( "SQL execution failed" )
-         IF !Empty( oldArea )
+         IF !Empty(oldArea)
             Select( oldArea )
          ENDIF
          Return .F.
@@ -119,7 +119,7 @@ Static lConnected := .F.
             nQueryWndHandle := OpenDbf( mypath+"_dbc_que.dbf","ADSSQL",nQueryWndHandle )
             */
          ELSE
-            IF !Empty( oldArea )
+            IF !Empty(oldArea)
                Select( oldArea )
             ENDIF
             hwg_Msgstop( "Statement doesn't returns cursor" )

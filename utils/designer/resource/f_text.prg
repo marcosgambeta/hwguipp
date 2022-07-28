@@ -11,7 +11,7 @@ aCtrlTable := { { "STATIC","label" }, { "BUTTON","button" }, &&
 FUNCTION STR2FONT
 PARAMETERS cFont
 PRIVATE oFont
-   IF !Empty( cFont )
+   IF !Empty(cFont)
       oFont := HFont():Add( NextItem( cFont,.T.,"," ), &&
             Val(NextItem( cFont,,"," )),Val(NextItem( cFont,,"," )), &&
             Val(NextItem( cFont,,"," )),Val(NextItem( cFont,,"," )), &&
@@ -30,24 +30,24 @@ Private cCaption, x, y, nWidth, nHeight, nStyle, lClipper, oFont, tColor, bColor
       Return
    ENDIF
    DO WHILE .T.
-      stroka := RDSTR( han,@strbuf,@poz,512 )
+      stroka := RDSTR(han, @strbuf, @poz, 512)
       IF LEN( stroka ) == 0
          EXIT
       ENDIF
-      stroka := Ltrim( stroka )
+      stroka := Ltrim(stroka)
       IF nMode == 0
          IF Left( stroka,1 ) == "#"
-            IF Upper( Substr( stroka,2,4 ) ) == "FORM"
-               stroka := Ltrim( Substr( stroka,7 ) )
+            IF Upper(Substr(stroka, 2, 4)) == "FORM"
+               stroka := Ltrim(Substr(stroka, 7))
                itemName := NextItem( stroka,.T. )
-               IF Empty( oForm:name ) .OR. Upper( itemName ) == Upper( oForm:name )
+               IF Empty(oForm:name) .OR. Upper(itemName) == Upper(oForm:name)
                   x := NextItem( stroka )
                   y := NextItem( stroka )
                   nWidth := NextItem( stroka )
                   nHeight := NextItem( stroka )
                   nStyle := Val( NextItem( stroka ) )
-                  oForm:lGet := ( Upper( NextItem( stroka) ) == "T" )
-                  lClipper := ( Upper( NextItem( stroka ) ) == "T" )
+                  oForm:lGet := ( Upper(NextItem(stroka)) == "T" )
+                  lClipper := ( Upper(NextItem(stroka)) == "T" )
                   cFont := NextItem( stroka )
                   oFont := CallFunc( "Str2Font", { cFont } )
                   oForm:CreateDialog( { {"Left",x}, {"Top",y},{"Width",nWidth},{"Height",nHeight},{"Caption",itemName},{"Font",oFont} } )
@@ -57,7 +57,7 @@ Private cCaption, x, y, nWidth, nHeight, nStyle, lClipper, oFont, tColor, bColor
          ENDIF
       ELSEIF nMode == 1
          IF Left( stroka,1 ) == "#"
-            IF Upper( Substr( stroka,2,7 ) ) == "ENDFORM"
+            IF Upper(Substr(stroka, 2, 7)) == "ENDFORM"
                Exit
             ENDIF
          ELSE           
@@ -94,11 +94,11 @@ Private aControls := oForm:oDlg:aControls, alen := Len( aControls ), i
 
    han := Fcreate( fname )
    Fwrite( han, "#FORM " + oForm:name &&
-       + ";" + Ltrim( Str(oForm:oDlg:nLeft) )    &&
-       + ";" + Ltrim( Str(oForm:oDlg:nTop) )     &&
-       + ";" + Ltrim( Str(oForm:oDlg:nWidth) )   &&
-       + ";" + Ltrim( Str(oForm:oDlg:nHeight ) ) &&
-       + ";" + Ltrim( Str(oForm:oDlg:style) )    &&
+       + ";" + Ltrim(Str(oForm:oDlg:nLeft))    &&
+       + ";" + Ltrim(Str(oForm:oDlg:nTop))     &&
+       + ";" + Ltrim(Str(oForm:oDlg:nWidth))   &&
+       + ";" + Ltrim(Str(oForm:oDlg:nHeight)) &&
+       + ";" + Ltrim(Str(oForm:oDlg:style))    &&
        + ";" + Iif(oForm:lGet,"T","F")           &&
        + ";" + Iif(oForm:oDlg:lClipper,"T","F")  &&
        + ";" + Iif(oForm:oDlg:oFont!=NIL,        &&
@@ -111,13 +111,13 @@ Private aControls := oForm:oDlg:aControls, alen := Len( aControls ), i
    i := 1
    DO WHILE i <= alen
       oCtrl := aControls[i]
-      stroka := CnvCtrlName( oCtrl:cClass,.T. ) + ";" + Rtrim( oCtrl:title) &&
-          + ";" + Ltrim( Str(Iif(oCtrl:id<34000,oCtrl:id,0)) ) &&
-          + ";" + Ltrim( Str(oCtrl:nLeft) )    &&
-          + ";" + Ltrim( Str(oCtrl:nTop) )     &&
-          + ";" + Ltrim( Str(oCtrl:nWidth) )   &&
-          + ";" + Ltrim( Str(oCtrl:nHeight ) ) &&
-          + ";" + Ltrim( Str(oCtrl:style) )    &&
+      stroka := CnvCtrlName( oCtrl:cClass,.T. ) + ";" + Rtrim(oCtrl:title) &&
+          + ";" + Ltrim(Str(Iif(oCtrl:id < 34000, oCtrl:id, 0))) &&
+          + ";" + Ltrim(Str(oCtrl:nLeft))    &&
+          + ";" + Ltrim(Str(oCtrl:nTop))     &&
+          + ";" + Ltrim(Str(oCtrl:nWidth))   &&
+          + ";" + Ltrim(Str(oCtrl:nHeight)) &&
+          + ";" + Ltrim(Str(oCtrl:style))    &&
           + ";" + Iif(oCtrl:oFont!=NIL,        &&
           oCtrl:oFont:name + "," + Ltrim(Str(oCtrl:oFont:width)) &&
           + "," + Ltrim(Str(oCtrl:oFont:height)) + "," + Ltrim(Str(oCtrl:oFont:weight)) &&

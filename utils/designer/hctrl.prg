@@ -75,7 +75,7 @@ Private value, oCtrl := Self
       FOR i := 1 TO Len( oXMLDesc:aItems )
          IF oXMLDesc:aItems[i]:title == "paint"
             oPaint := oXMLDesc:aItems[i]
-            IF !Empty( oPaint:aItems ) .AND. oPaint:aItems[1]:type == HBXML_TYPE_CDATA
+            IF !Empty(oPaint:aItems) .AND. oPaint:aItems[1]:type == HBXML_TYPE_CDATA
                ::aPaint := RdScript( ,oPaint:aItems[1]:aItems[1] )
             ENDIF
             IF ( bmp := oPaint:GetAttribute( "bmp" ) ) != NIL
@@ -90,17 +90,17 @@ Private value, oCtrl := Self
             ENDIF
          ELSEIF oXMLDesc:aItems[i]:title == "init"
             oPaint := oXMLDesc:aItems[i]
-            IF !Empty( oPaint:aItems ) .AND. oPaint:aItems[1]:type == HBXML_TYPE_CDATA
+            IF !Empty(oPaint:aItems) .AND. oPaint:aItems[1]:type == HBXML_TYPE_CDATA
                ::aInit := RdScript( ,oPaint:aItems[1]:aItems[1] )
             ENDIF
          ELSEIF oXMLDesc:aItems[i]:title == "create"
             oPaint := oXMLDesc:aItems[i]
-            IF !Empty( oPaint:aItems ) .AND. oPaint:aItems[1]:type == HBXML_TYPE_CDATA
-               ::cCreate := RdStr( ,oPaint:aItems[1]:aItems[1],1 )
+            IF !Empty(oPaint:aItems) .AND. oPaint:aItems[1]:type == HBXML_TYPE_CDATA
+               ::cCreate := RdStr(, oPaint:aItems[1]:aItems[1], 1)
                ::style   := WS_VISIBLE+WS_CHILD+WS_DISABLED
             ENDIF
          ELSEIF oXMLDesc:aItems[i]:title == "property"
-            IF !Empty( oXMLDesc:aItems[i]:aItems )
+            IF !Empty(oXMLDesc:aItems[i]:aItems)
                IF Valtype( oXMLDesc:aItems[i]:aItems[1]:aItems[1] ) == "C"
                   oXMLDesc:aItems[i]:aItems[1]:aItems[1] := &( "{||" + oXMLDesc:aItems[i]:aItems[1]:aItems[1] + "}" )
                ENDIF
@@ -121,7 +121,7 @@ Private value, oCtrl := Self
    ENDIF
    IF aProp != NIL
       FOR i := 1 TO Len( aProp )
-         cPropertyName := Lower( aProp[ i,1 ] )
+         cPropertyName := Lower(aProp[i, 1])
          IF ( j := Ascan( ::aProp, {|a|Lower(a[1])==cPropertyName} ) ) != 0
             ::aProp[j,2] := aProp[i,2]
          ENDIF
@@ -129,7 +129,7 @@ Private value, oCtrl := Self
    ENDIF
    FOR i := 1 TO Len( ::aProp )
       value := ::aProp[ i,2 ]
-      cPropertyName := Lower( ::aProp[ i,1 ] )
+      cPropertyName := Lower(::aProp[i, 1])
       j := Ascan( oDesigner:aDataDef, {|a|a[1]==cPropertyName} )
       IF value != NIL
          IF j != 0 .AND. oDesigner:aDataDef[ j,3 ] != NIL
@@ -162,7 +162,7 @@ METHOD Activate() CLASS HControlGen
 Local oFont
 Memvar oCtrl
 
-   IF ::oParent != NIL .AND. !Empty( ::oParent:handle )
+   IF ::oParent != NIL .AND. !Empty(::oParent:handle)
       Private oCtrl := Self
       IF ::aInit != NIL
          DoScript( ::aInit )
@@ -197,14 +197,14 @@ Return NIL
 
 METHOD GetProp( cName,i ) CLASS HControlGen
 
-  cName := Lower( cName )
+  cName := Lower(cName)
   i := Ascan( ::aProp,{|a|Lower(a[1])==cName} )
 Return Iif( i==0, NIL, ::aProp[i,2] )
 
 METHOD SetProp( xName,xValue )
 
    IF Valtype( xName ) == "C"
-      xName := Lower( xName )
+      xName := Lower(xName)
       xName := Ascan( ::aProp,{|a|Lower(a[1])==xName} )
    ENDIF
    IF xName != 0
@@ -239,13 +239,13 @@ Return NIL
 
 Function CreateName( cPropertyName, oCtrl )
 Local i, j, aControls := oCtrl:oParent:aControls, arr := {}
-Local cName := "o" + Upper( Left( oCtrl:cClass,1 ) ) + Substr( oCtrl:cClass,2 )
+Local cName := "o" + Upper(Left(oCtrl:cClass, 1)) + Substr(oCtrl:cClass, 2)
 Local nLen := Len( cName )
 
    FOR i := 1 TO Len( aControls )
       IF( j := Ascan( aControls[i]:aProp, {|a|a[1]==cPropertyName} ) ) > 0
          IF Left( aControls[i]:aProp[j,2],nLen ) == cName
-            Aadd( arr,Substr( aControls[i]:aProp[j,2],nLen+1 ) )
+            Aadd(arr, Substr(aControls[i]:aProp[j, 2], nLen + 1))
          ENDIF
       ENDIF
    NEXT
@@ -264,7 +264,7 @@ Local i, dx, dy
       dx := xPos - aBDown[2]
       dy := yPos - aBDown[3]
       IF oCtrl:lEmbed
-         IF Lower( oCtrl:cClass ) == "hline"
+         IF Lower(oCtrl:cClass) == "hline"
             dx := 0
          ELSE
             dy := 0
@@ -567,7 +567,7 @@ Function FitLine( oCtrl )
    IF oCtrl:lEmbed
       oCtrl:lEmbed := .F.
    ELSE
-      IF Lower( oCtrl:cClass ) == "hline"
+      IF Lower(oCtrl:cClass) == "hline"
          oCtrl:Move( oCtrl:oContainer:nLeft+1,,oCtrl:oContainer:nWidth-2 )
          oCtrl:SetCoor( "Left",oCtrl:nLeft )
          oCtrl:SetCoor( "Width",oCtrl:nWidth )
@@ -725,17 +725,17 @@ Static Function EditTree( aTree,oTree,nAction )
 Local oNode, cMethod
 Local nPos, aSubarr
 
-   IF Empty( oTree:oSelected ) .AND. !Empty( oTree:aItems )
+   IF Empty(oTree:oSelected) .AND. !Empty(oTree:aItems)
       oTree:Select( oTree:aItems[1] )
    ENDIF
 
    IF nAction == 0       // Rename
-      IF !Empty( oTree:oSelected )
+      IF !Empty(oTree:oSelected)
          oTree:EditLabel( oTree:oSelected )
       ENDIF
 
    ELSEIF nAction == 1   // Insert after
-      IF !Empty( oTree:aItems )
+      IF !Empty(oTree:aItems)
          IF oTree:oSelected:oParent == NIL
             oNode := oTree:AddNode( "New" )
          ELSE
@@ -752,7 +752,7 @@ Local nPos, aSubarr
       ENDIF
 
    ELSEIF nAction == 2   // Insert before
-      IF !Empty( oTree:aItems )
+      IF !Empty(oTree:aItems)
          IF oTree:oSelected:oParent == NIL
             oNode := oTree:AddNode( "New",,oTree:oSelected )
          ELSE
@@ -769,7 +769,7 @@ Local nPos, aSubarr
       ENDIF
 
    ELSEIF nAction == 3   // Insert child
-      IF Empty( oTree:aItems )
+      IF Empty(oTree:aItems)
          oNode := oTree:AddNode( "New" )
       ELSE
          oNode := oTree:oSelected:AddNode( "New" )
@@ -786,7 +786,7 @@ Local nPos, aSubarr
       ENDIF
 
    ELSEIF nAction == 4   // Delete
-      IF !Empty( oTree:aItems ) .AND. !(oTree:oSelected == oTree:aItems[1])
+      IF !Empty(oTree:aItems) .AND. !(oTree:oSelected == oTree:aItems[1])
          IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) != NIL
             Adel( aSubarr,nPos )
             Asize( aSubarr,Len(aSubarr)-1 )

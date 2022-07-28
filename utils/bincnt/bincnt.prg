@@ -99,7 +99,7 @@ FUNCTION Main( cContainer )
 
    ACTIVATE WINDOW oMainW
 
-   IF !Empty( oContainer )
+   IF !Empty(oContainer)
       oContainer:Close()
    ENDIF
 
@@ -115,10 +115,10 @@ STATIC FUNCTION CntCreate()
 #else
    fname := hwg_Savefile( "*.*", "( *.* )", "*.*", CurDir() )
 #endif
-   IF !Empty( fname )
-      IF !Empty( oContainer := HBinC():Create( fname ) )
+   IF !Empty(fname)
+      IF !Empty(oContainer := HBinC():Create( fname ))
          hwg_WriteStatus( HWindow():GetMain(), 1, hb_fnameNameExt( fname ) )
-         hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim( Str(oContainer:nItems ) ) )
+         hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim(Str(oContainer:nItems )) )
          hwg_Enablemenuitem( , 1001, .T. , .T. )
          hwg_Drawmenubar( HWindow():GetMain():handle )
          oBrw:aArray := oContainer:aObjects
@@ -133,13 +133,13 @@ STATIC FUNCTION CntCreate()
 
 STATIC FUNCTION CntOpen( fname )
 
-   IF Empty( fname )
+   IF Empty(fname)
       fname := hwg_Selectfile( { "All files" }, { "*.*" }, "" )
    ENDIF
-   IF !Empty( fname )
-      IF !Empty( oContainer := HBinC():Open( fname, .T. ) )
+   IF !Empty(fname)
+      IF !Empty(oContainer := HBinC():Open( fname, .T. ))
          hwg_WriteStatus( HWindow():GetMain(), 1, hb_fnameNameExt( fname ) )
-         hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim( Str(oContainer:nItems ) ) )
+         hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim(Str(oContainer:nItems )) )
          hwg_Enablemenuitem( , 1001, .T. , .T. )
          hwg_Drawmenubar( HWindow():GetMain():handle )
          oBrw:aArray := oContainer:aObjects
@@ -158,18 +158,18 @@ STATIC FUNCTION CntAdd()
    LOCAL bFile := { ||
    LOCAL cFile := hwg_Selectfile( "All files( *.* )", "*.*" )
 
-   IF !Empty( cFile )
+   IF !Empty(cFile)
       oEdit1:value := cFile
       oEdit2:value := Left( CutExten( CutPath(cFile ) ), 32 )
       oEdit3:value := Left( FilExten( cFile ), 4 )
-      hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim( Str(oContainer:nItems ) ) )
+      hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim(Str(oContainer:nItems)) )
    ENDIF
 
    RETURN .T.
 
    }
    LOCAL bOk := { ||
-   IF Empty( cFileName ) .OR. Empty( cObjName ) .OR. Empty( cType )
+   IF Empty(cFileName) .OR. Empty(cObjName) .OR. Empty(cType)
       hwg_MsgStop( "Fill all fields!" )
       RETURN .F.
    ENDIF
@@ -220,7 +220,7 @@ STATIC FUNCTION CntSave()
 #else
    fname := hwg_Savefile( "*.*", "( *.* )", "*.*", CurDir() )
 #endif
-   IF !Empty( fname )
+   IF !Empty(fname)
       fname := hb_FNameExtSetDef( fname, oContainer:aObjects[n,2] )
       hb_MemoWrit( fname, oContainer:Get( oContainer:aObjects[n,1] ) )
    ENDIF
@@ -230,7 +230,7 @@ STATIC FUNCTION CntSave()
 STATIC FUNCTION CntPack()
 
    oContainer:Pack()
-   hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim( Str(oContainer:nItems ) ) )
+   hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim(Str(oContainer:nItems)) )
    oBrw:aArray := oContainer:aObjects
    oBrw:Top()
    oBrw:Refresh()

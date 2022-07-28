@@ -96,7 +96,7 @@ STATIC FUNCTION Edit1()
       aCtrlProp := oCtrl:aProp
    ENDIF
    oColumn := oBrw1:aColumns[2]
-   cName := Lower( aProp[oBrw1:cargo,1] )
+   cName := Lower(aProp[oBrw1:cargo, 1])
    j := Ascan( aDataDef, { |a|a[1] == cName } )
    varbuf := Eval( oColumn:block, , oBrw1, 2 )
 
@@ -105,7 +105,7 @@ STATIC FUNCTION Edit1()
          IF aDataDef[ j,5 ] == "color"
             varbuf := Hwg_ChooseColor( Val( varbuf ), .F. )
             IF varbuf != NIL
-               varbuf := LTrim( Str( varbuf ) )
+               varbuf := LTrim(Str(varbuf))
                lRes := .T.
             ENDIF
          ELSEIF aDataDef[ j,5 ] == "font"
@@ -121,7 +121,7 @@ STATIC FUNCTION Edit1()
          ELSEIF aDataDef[ j,5 ] == "anchor"
             varbuf := SelectAnchor( Val(varbuf) )
             IF varbuf != NIL
-               varbuf := LTrim( Str( varbuf ) )
+               varbuf := LTrim(Str(varbuf))
                lRes := .T.
             ENDIF
          ELSEIF Left( aDataDef[j,5],6 ) == "hstyle"
@@ -143,7 +143,7 @@ STATIC FUNCTION Edit1()
       ENDIF
 
       IF lRes
-         cName := Lower( aProp[ oBrw1:cargo,1 ] )
+         cName := Lower(aProp[oBrw1:cargo, 1])
          j := Ascan( aDataDef, { |a|a[1] == cName } )
          value := aProp[ oBrw1:cargo,2 ] := varbuf
          aCtrlProp[ oBrw1:cargo,2 ] := value
@@ -167,7 +167,7 @@ STATIC FUNCTION Edit1()
       IF ( j != 0 .AND. aDataDef[ j,6 ] != NIL ) .OR. aCtrlProp[ oBrw1:cargo,3 ] == "L"
 
          aItems := iif( j != 0 .AND. aDataDef[ j,6 ] != NIL, aDataDef[ j,6 ], { "True", "False" } )
-         varbuf := AllTrim( varbuf )
+         varbuf := AllTrim(varbuf)
          nChoic := Ascan( aItems, varbuf )
 
          @ x1, y1 - 2 COMBOBOX oGet         ;
@@ -223,7 +223,7 @@ STATIC FUNCTION VldBrwGet( oGet )
    MEMVAR value, oCtrl
    PRIVATE value, oCtrl := iif( oCombo:value == 1, HFormGen():oDlgSelected, GetCtrlSelected( HFormGen():oDlgSelected ) )
 
-   cName := Lower( aProp[ oBrw1:cargo,1 ] )
+   cName := Lower(aProp[oBrw1:cargo, 1])
 
    j := Ascan( oDesigner:aDataDef, { |a|a[1] == cName } )
 
@@ -270,7 +270,7 @@ STATIC FUNCTION VldBrwGet( oGet )
 
 STATIC FUNCTION DlgOk()
 
-   IF !Empty( oBrw1:aControls )
+   IF !Empty(oBrw1:aControls)
       VldBrwGet( oBrw1:aControls[1] )
    ENDIF
 
@@ -279,7 +279,7 @@ STATIC FUNCTION DlgOk()
 STATIC FUNCTION DlgCancel()
    LOCAL oDlg
 
-   IF !Empty( oBrw1:aControls )
+   IF !Empty(oBrw1:aControls)
       IF ( oDlg := hwg_ParentGetDialog( oBrw1:aControls[1] ) ) != NIL
          oDlg:nLastKey := 0
       ENDIF
@@ -412,7 +412,7 @@ FUNCTION InspUpdBrowse()
 FUNCTION InspUpdProp( cName, xValue )
    LOCAL i
 
-   cName := Lower( cName )
+   cName := Lower(cName)
    IF ( i := Ascan( aProp, { |a|Lower(a[1] ) == Lower(cName ) } ) ) > 0
       aProp[ i,2 ] := xValue
       oBrw1:Refresh()
@@ -426,7 +426,7 @@ STATIC FUNCTION EditArray( arr )
    IF arr == NIL
       arr := {}
    ENDIF
-   IF Empty( arr )
+   IF Empty(arr)
       AAdd( arr, "....." )
    ENDIF
    INIT DIALOG oDlg TITLE "Edit " + aProp[nRec,1] + " array" ;
@@ -454,7 +454,7 @@ STATIC FUNCTION EditArray( arr )
          arr := {}
       ENDIF
       FOR i := 1 TO Len( arr )
-         arr[i] := Trim( arr[i] )
+         arr[i] := Trim(arr[i])
       NEXT
       RETURN arr
    ENDIF
@@ -469,20 +469,39 @@ FUNCTION SelectAnchor( nAnchor )
    IF nAnchor == 0
       c1 := .T.
    ELSEIF nAnchor > 0
-      IF hb_bitand( nAnchor, ANCHOR_TOPABS ) > 0; c2 := .T.; ENDIF
-      IF hb_bitand( nAnchor, ANCHOR_LEFTABS ) > 0; c3 := .T.; ENDIF
-      IF hb_bitand( nAnchor, ANCHOR_BOTTOMABS ) > 0; c4 := .T.; ENDIF
-      IF hb_bitand( nAnchor, ANCHOR_RIGHTABS ) > 0; c5 := .T.; ENDIF
-      IF hb_bitand( nAnchor, ANCHOR_TOPREL ) > 0; c6 := .T.; ENDIF
-      IF hb_bitand( nAnchor, ANCHOR_LEFTREL ) > 0; c7 := .T.; ENDIF
-      IF hb_bitand( nAnchor, ANCHOR_BOTTOMREL ) > 0; c8 := .T.; ENDIF
-      IF hb_bitand( nAnchor, ANCHOR_RIGHTREL ) > 0; c9 := .T.; ENDIF
-      IF hb_bitand( nAnchor, ANCHOR_HORFIX ) > 0; c10 := .T.; ENDIF
-      IF hb_bitand( nAnchor, ANCHOR_VERTFIX ) > 0; c11 := .T.; ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_TOPABS ) > 0
+         c2 := .T.
+      ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_LEFTABS ) > 0
+         c3 := .T.
+      ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_BOTTOMABS ) > 0
+         c4 := .T.
+      ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_RIGHTABS ) > 0
+         c5 := .T.
+      ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_TOPREL ) > 0
+         c6 := .T.
+      ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_LEFTREL ) > 0
+         c7 := .T.
+      ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_BOTTOMREL ) > 0
+         c8 := .T.
+      ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_RIGHTREL ) > 0
+         c9 := .T.
+      ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_HORFIX ) > 0
+         c10 := .T.
+      ENDIF
+      IF hb_bitand( nAnchor, ANCHOR_VERTFIX ) > 0
+         c11 := .T.
+      ENDIF
    ENDIF
 
-   INIT DIALOG oDlg TITLE "Select anchor" ;
-      AT 300, 280 SIZE 280, 354 FONT oDesigner:oMainWnd:oFont
+   INIT DIALOG oDlg TITLE "Select anchor" AT 300, 280 SIZE 280, 354 FONT oDesigner:oMainWnd:oFont
 
    @ 20,20 GET CHECKBOX c1 CAPTION "ANCHOR_TOPLEFT" SIZE 200, 24
    @ 20,44 GET CHECKBOX c2 CAPTION "ANCHOR_TOPABS" SIZE 200, 24
@@ -503,16 +522,36 @@ FUNCTION SelectAnchor( nAnchor )
 
    IF oDlg:lResult
       nAnchor := 0
-      IF c2; nAnchor += ANCHOR_TOPABS; ENDIF
-      IF c3; nAnchor += ANCHOR_LEFTABS; ENDIF
-      IF c4; nAnchor += ANCHOR_BOTTOMABS; ENDIF
-      IF c5; nAnchor += ANCHOR_RIGHTABS; ENDIF
-      IF c6; nAnchor += ANCHOR_TOPREL; ENDIF
-      IF c7; nAnchor += ANCHOR_LEFTREL; ENDIF
-      IF c8; nAnchor += ANCHOR_BOTTOMREL; ENDIF
-      IF c9; nAnchor += ANCHOR_RIGHTREL; ENDIF
-      IF c10; nAnchor += ANCHOR_HORFIX; ENDIF
-      IF c11; nAnchor += ANCHOR_VERTFIX; ENDIF
+      IF c2
+         nAnchor += ANCHOR_TOPABS
+      ENDIF
+      IF c3
+         nAnchor += ANCHOR_LEFTABS
+      ENDIF
+      IF c4
+         nAnchor += ANCHOR_BOTTOMABS
+      ENDIF
+      IF c5
+         nAnchor += ANCHOR_RIGHTABS
+      ENDIF
+      IF c6
+         nAnchor += ANCHOR_TOPREL
+      ENDIF
+      IF c7
+         nAnchor += ANCHOR_LEFTREL
+      ENDIF
+      IF c8
+         nAnchor += ANCHOR_BOTTOMREL
+      ENDIF
+      IF c9
+         nAnchor += ANCHOR_RIGHTREL
+      ENDIF
+      IF c10
+         nAnchor += ANCHOR_HORFIX
+      ENDIF
+      IF c11
+         nAnchor += ANCHOR_VERTFIX
+      ENDIF
       IF nAnchor == 0 .AND. !c1
          nAnchor := -1
       ENDIF
@@ -537,12 +576,12 @@ FUNCTION SelectStyle( oStyle )
    }
    LOCAL bRadio := {||
       oDemoStyle:nOrient := nOrient
-      //hwg_writelog( hwg_hfrm_Arr2Str( oDemoStyle:aColors ) )
+      //hwg_writelog(hwg_hfrm_Arr2Str(oDemoStyle:aColors))
       Demo( oDemo, oDemoStyle )
       RETURN .T.
    }
    LOCAL bValid := {||
-      IF Empty( cColors )
+      IF Empty(cColors)
          oDemoStyle:aColors := NIL
       ELSE
          oDemoStyle:aColors := hb_ATokens( AllTrim(cColors),',' )
@@ -594,9 +633,9 @@ FUNCTION SelectStyle( oStyle )
    }
 
    IF oStyle != NIL
-      IF !Empty( oStyle:aColors )
-         cColors := hwg_hfrm_Arr2Str( oStyle:aColors )
-         cColors := Substr( cColors,2,Len(cColors)-2 )
+      IF !Empty(oStyle:aColors)
+         cColors := hwg_hfrm_Arr2Str(oStyle:aColors)
+         cColors := Substr(cColors, 2, Len(cColors) - 2)
          nOrient := oStyle:nOrient
          aCorners := oStyle:aCorners
          nBorder := oStyle:nBorder
@@ -652,7 +691,7 @@ FUNCTION SelectStyle( oStyle )
    ACTIVATE DIALOG oDlg
 
    IF oDlg:lResult
-      IF !Empty( cColors )
+      IF !Empty(cColors)
          aColors := hb_ATokens( AllTrim(cColors),',' )
          Cnv_aColors( aColors )
          IF aCorners != NIL .AND. aCorners[1] == 0 .AND. aCorners[2] == 0 .AND. aCorners[3] == 0 .AND. aCorners[4] == 0 
@@ -689,7 +728,7 @@ FUNCTION SeleStyles( aStyles )
    LOCAL oDlg, aDemo := Array(3)
    LOCAL bClick := {|o|
       LOCAL oStyle := Iif( aStyles != NIL, aStyles[o:cargo], NIL )
-      IF !Empty( oStyle := SelectStyle( oStyle ) )
+      IF !Empty(oStyle := SelectStyle( oStyle ))
          IF aStyles == NIL
             aStyles := Array(3)
          ENDIF

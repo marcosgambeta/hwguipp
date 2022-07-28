@@ -150,14 +150,14 @@ STATIC FUNCTION ReadIni()
    LOCAL oInit, i, oNode1, cHwgui_dir
 
    oIni := HXMLDoc():Read( cIniPath + "tutor.xml" )
-   IF !Empty( oIni:aItems ) .AND. oIni:aItems[1]:title == "init"
+   IF !Empty(oIni:aItems) .AND. oIni:aItems[1]:title == "init"
       oInit := oIni:aItems[1]
       FOR i := 1 TO Len( oInit:aItems )
          oNode1 := oInit:aItems[i]
          IF oNode1:title == "tutorial"
             cTutor := oNode1:GetAttribute( "file" )
          ELSEIF oNode1:title == "hwgui_dir"
-            IF !Empty( cHwgui_dir := oNode1:GetAttribute( "path",,"" ) )
+            IF !Empty(cHwgui_dir := oNode1:GetAttribute( "path",,"" ))
                cHwg_include_dir := cHwgui_dir + DIR_SEP + "include"
                cHwg_image_dir := cHwgui_dir + DIR_SEP + "image"
             ENDIF
@@ -181,7 +181,7 @@ STATIC FUNCTION ReadIni()
       hwg_MsgStop( "Set correct path to HwGUI in tutor.xml", "Hwgui.ch isn't found" )
    ENDIF
 
-   IF !Empty( cHrb_inc_dir )
+   IF !Empty(cHrb_inc_dir)
       cHrb_inc_dir := hb_OsPathListSeparator() + cHrb_inc_dir
    ENDIF
 
@@ -197,7 +197,7 @@ STATIC FUNCTION BuildTree( oTree )
 #endif
 
    oIniTut := HXMLDoc():Read( cIniPath + cTutor )
-   IF !Empty( oIniTut:aItems ) .AND. oIniTut:aItems[1]:title == "init"
+   IF !Empty(oIniTut:aItems) .AND. oIniTut:aItems[1]:title == "init"
       oInit := oIniTut:aItems[1]
       FOR i := 1 TO Len( oInit:aItems )
          oNode1 := oInit:aItems[i]
@@ -212,43 +212,43 @@ STATIC FUNCTION BuildTree( oTree )
                   FOR j1 := 1 TO Len( oNode2:aItems )
                      oNode3 := oNode2:aItems[j1]
                      IF oNode3:title == "module"
-                        IF Empty( cTemp := oNode3:GetAttribute( "ver",,"" ) ) .OR. cTemp == cVer
+                        IF Empty(cTemp := oNode3:GetAttribute( "ver",,"" )) .OR. cTemp == cVer
                            INSERT NODE oTNode CAPTION oNode3:GetAttribute( "name", , "" ) TO oTreeNode2 BITMAP { "book.bmp" } ON CLICK { |o|NodeOut( o ) }
                            oTNode:cargo := { .T. , "" }
-                           IF Empty( oTNode:cargo[2] := oNode3:GetAttribute( "file",,"" ) )
-                              IF !Empty( oNode3:aItems ) .AND. ValType( oNode3:aItems[1] ) == "O"
+                           IF Empty(oTNode:cargo[2] := oNode3:GetAttribute( "file",,"" ))
+                              IF !Empty(oNode3:aItems) .AND. ValType( oNode3:aItems[1] ) == "O"
                                  oTNode:cargo[2] := oNode3:aItems[1]:aItems[1]
                               ENDIF
                            ENDIF
                         ENDIF
                      ELSEIF oNode3:title == "comment"
-                        IF !Empty( oNode3:aItems ) .AND. ValType( oNode3:aItems[1] ) == "O"
+                        IF !Empty(oNode3:aItems) .AND. ValType( oNode3:aItems[1] ) == "O"
                            oTreeNode2:cargo[2] := oNode3:aItems[1]:aItems[1]
                         ENDIF
                      ENDIF
                   NEXT
                ELSEIF oNode2:title == "module"
-                  IF Empty( cTemp := oNode2:GetAttribute( "ver",,"" ) ) .OR. cTemp == cVer
+                  IF Empty(cTemp := oNode2:GetAttribute( "ver",,"" )) .OR. cTemp == cVer
                      INSERT NODE oTNode CAPTION oNode2:GetAttribute( "name", , "" ) TO oTreeNode1 BITMAP { "book.bmp" } ON CLICK { |o|NodeOut( o ) }
                      oTNode:cargo := { .T. , "" }
-                     IF Empty( oTNode:cargo[2] := oNode2:GetAttribute( "file",,"" ) )
-                        IF !Empty( oNode2:aItems ) .AND. ValType( oNode2:aItems[1] ) == "O"
+                     IF Empty(oTNode:cargo[2] := oNode2:GetAttribute( "file",,"" ))
+                        IF !Empty(oNode2:aItems) .AND. ValType( oNode2:aItems[1] ) == "O"
                            oTNode:cargo[2] := oNode2:aItems[1]:aItems[1]
                         ENDIF
                      ENDIF
                   ENDIF
                ELSEIF oNode2:title == "comment"
-                  IF !Empty( oNode2:aItems ) .AND. ValType( oNode2:aItems[1] ) == "O"
+                  IF !Empty(oNode2:aItems) .AND. ValType( oNode2:aItems[1] ) == "O"
                      oTreeNode1:cargo[2] := oNode2:aItems[1]:aItems[1]
                   ENDIF
                ENDIF
             NEXT
          ELSEIF oNode1:title == "module"
-            IF Empty( cTemp := oNode1:GetAttribute( "ver",,"" ) ) .OR. cTemp == cVer
+            IF Empty(cTemp := oNode1:GetAttribute( "ver",,"" )) .OR. cTemp == cVer
                INSERT NODE oTNode CAPTION oNode1:GetAttribute( "name", , "" ) TO oTree BITMAP { "book.bmp" } ON CLICK { |o|NodeOut( o ) }
                oTNode:cargo := { .T. , "" }
-               IF Empty( oTNode:cargo[2] := oNode1:GetAttribute( "file",,"" ) )
-                  IF !Empty( oNode1:aItems ) .AND. ValType( oNode1:aItems[1] ) == "O"
+               IF Empty(oTNode:cargo[2] := oNode1:GetAttribute( "file",,"" ))
+                  IF !Empty(oNode1:aItems) .AND. ValType( oNode1:aItems[1] ) == "O"
                      oTNode:cargo[2] := oNode1:aItems[1]:aItems[1]
                   ENDIF
                ENDIF
@@ -256,7 +256,7 @@ STATIC FUNCTION BuildTree( oTree )
          ENDIF
       NEXT
    ENDIF
-   IF !Empty( oTree:aItems )
+   IF !Empty(oTree:aItems)
       oTree:Select( oTree:aItems[1] )
    ENDIF
 
@@ -296,17 +296,17 @@ STATIC FUNCTION RunSample( oItem )
 
    FOR i := 1 TO oText:nTextLen
       cLine := oText:aText[i]
-      IF "INIT WINDOW" $ Upper( cLine )
+      IF "INIT WINDOW" $ Upper(cLine)
          lWnd := .T.
       ENDIF
-      cText += cLine + Chr( 13 ) + Chr( 10 )
+      cText += cLine + Chr(13) + Chr(10)
    NEXT
 
 #ifdef __XHARBOUR__
    FErase( "__tmp.hrb" )
    oText:Save( "__tmp.prg" )
    IF hwg_RunConsoleApp( cHrb_bin_dir + "harbour " + "__tmp.prg -n -gh " + cHrbCopts + " -I" + cHwg_include_dir + cHrb_inc_dir ) .AND. File( "__tmp.hrb" )
-      IF !Empty( cHwgrunPath )
+      IF !Empty(cHwgrunPath)
          hwg_RunApp( cHwgrunPath + "hwgrun __tmp.hrb" )
       ELSE
          hwg_MsgStop( "HwgRun is absent, you need to compile it at first." )
@@ -317,12 +317,12 @@ STATIC FUNCTION RunSample( oItem )
 #else
 
 #ifdef __GTK__
-   IF !Empty( cHrb := hb_compileFromBuf( cText, "harbour","-n", "-d__GTK__" , "-I" + cHwg_include_dir + cHrb_inc_dir ) )
+   IF !Empty(cHrb := hb_compileFromBuf( cText, "harbour","-n", "-d__GTK__" , "-I" + cHwg_include_dir + cHrb_inc_dir ))
 #else
-   IF !Empty( cHrb := hb_compileFromBuf( cText, "harbour","-n", "-I" + cHwg_include_dir + cHrb_inc_dir ) )
+   IF !Empty(cHrb := hb_compileFromBuf( cText, "harbour","-n", "-I" + cHwg_include_dir + cHrb_inc_dir ))
 #endif   
       IF lWnd
-         IF !Empty( cHwgrunPath )
+         IF !Empty(cHwgrunPath)
             hb_Memowrit( "__tmp.hrb", cHrb )
             hwg_RunApp( cHwgrunPath + "hwgrun __tmp.hrb" )
          ELSE
@@ -350,7 +350,7 @@ STATIC FUNCTION FindHwgrun()
 
    arr := hb_aTokens( "./" + hb_OsPathListSeparator() + GetEnv( "PATH" ), hb_OsPathListSeparator() )
    FOR i := 1 TO Len( arr )
-      cPath := arr[i] + Iif( Empty( arr[i] ) .OR. Right( arr[i],1 ) $ "\/", ;
+      cPath := arr[i] + Iif( Empty(arr[i]) .OR. Right( arr[i],1 ) $ "\/", ;
          "", cDefSep )
       IF File( cPath + cHwgRun )
          RETURN cPath
