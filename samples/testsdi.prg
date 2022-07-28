@@ -35,7 +35,7 @@ LOCAL oGet
 
    @ 214,35 TAB oTab ITEMS {} SIZE 206, 280 ;
         ON SIZE {|o,x,y|o:Move(,,x-oSplit:nLeft-oSplit:nWidth-10,y-20)} ;
-        ON CHANGE { |o| hwg_Msginfo( str( len( o:aPages ) ) ) }
+        ON CHANGE { |o| hwg_Msginfo(str(len(o:aPages))) }
 
    @ 414,10 BUTTON "X" SIZE 24, 24 ON CLICK {|| hwg_Msginfo( "Delete " + str(oTab:GetActivePage()) ), oTab:DeletePage( oTab:GetActivePage() ) } ;
         ON SIZE {|o,x,y| o:Move( oTab:nLeft+oTab:nWidth-26 )} ;
@@ -69,11 +69,11 @@ Return NIL
 
 Static Function NodeOut( n, oTab )
 
-Local cTitle := "Page " + str( len( oTab:aPages ) + 1 )
+Local cTitle := "Page " + str(len(oTab:aPages) + 1)
 
   oTab:StartPage( cTitle )
 
-  cTitle := "Pages " + str( len( oTab:aPages ) )
+  cTitle := "Pages " + str(len(oTab:aPages))
 
   @ 30, 60 SAY cTitle SIZE 100, 26
 

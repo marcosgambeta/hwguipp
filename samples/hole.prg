@@ -20,13 +20,13 @@ Public oAgent, oTimer
      FONT oFont
 
    oAgent := TOleAuto():New("Agent.Control.2")
-   IF Empty( oAgent ) .OR. Empty( oAgent:hObj )
+   IF Empty(oAgent) .OR. Empty(oAgent:hObj)
       cText := "Ms Agent isn't installed !"
    ELSE
       oAgent:Connected := 1
       oAgent:Characters:Load("Default")
       oChar := oAgent:Characters("Default")
-      IF Empty( oChar ) .OR. Empty( oChar:hObj )
+      IF Empty(oChar) .OR. Empty(oChar:hObj)
          cText := "No default character !"
       ELSE
          @ 480,20 BUTTON oBtnSpeak CAPTION "Speak!" SIZE 100,32  ON CLICK {||SpeakIt(oEdit)}
@@ -70,15 +70,15 @@ Return NIL
 Static Function SpeakLine()
 Local cLine, lEnd := .F., cUpd := "10"
 
-   IF ( nPos := hb_At( ".", cText, nPosOld ) ) == 0
-      cLine := Substr( cText, nPosOld )
+   IF (nPos := hb_At(".", cText, nPosOld)) == 0
+      cLine := Substr(cText, nPosOld)
       lEnd := .T.
    ELSE
-      cLine := Substr( cText, nPosOld, nPos-nPosOld+1 )
+      cLine := Substr(cText, nPosOld, nPos - nPosOld + 1)
       nPosOld := nPos + 1
    ENDIF
-   IF !Empty( cLine )
-      // cUpd := Alltrim( hwg_Getedittext( oUpDown:oParent:handle, oUpDown:id ) )
+   IF !Empty(cLine)
+      // cUpd := Alltrim(hwg_Getedittext(oUpDown:oParent:handle, oUpDown:id))
       oReq := oChar:Speak( "\Spd="+cUpd+"\"+cLine )
       // hwg_writelog( "\Spd="+cUpd+"\"+cLine )
    ENDIF
@@ -102,7 +102,7 @@ Return NIL
 Static Function TimerFunc()
 Local nReq
 
-   IF !lPause .AND. !Empty( oReq ) .AND. ( nReq := oReq:Status() ) != 2 .AND. nReq != 4
+   IF !lPause .AND. !Empty(oReq) .AND. ( nReq := oReq:Status() ) != 2 .AND. nReq != 4
       oReq := NIL
       IF SpeakLine()
          oChar:Hide( 1 )
@@ -113,7 +113,7 @@ Return NIL
 
 EXIT PROCEDURE EXI
 
-   IF !Empty( oAgent ) .AND. !Empty( oAgent:hObj )
+   IF !Empty(oAgent) .AND. !Empty(oAgent:hObj)
       oAgent:Characters:UnLoad("Default")
       oAgent:End()
    ENDIF

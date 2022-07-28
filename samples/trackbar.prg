@@ -47,7 +47,7 @@ Function Main ()
 
 Function UpdateSay ()
 
-   oSay:SetText( str( oTB:Value ) )
+   oSay:SetText(str(oTB:Value))
 
    Return NIL
 
@@ -78,7 +78,7 @@ Function Dlg1 ()
 
 Function UpdateSayDlg1 ()
 
-   oSayDlg1:SetText( str( oTB1:Value ) )
+   oSayDlg1:SetText(str(oTB1:Value))
 
    Return NIL
 
@@ -110,7 +110,7 @@ Function Dlg2 ()
 
 Function UpdateSayDlg2 ()
 
-   oSayDlg2:SetText( str( oTB2:Value ) )
+   oSayDlg2:SetText(str(oTB2:Value))
 
    Return NIL
 

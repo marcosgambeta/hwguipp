@@ -57,7 +57,7 @@ aItems := { "<empty>" }
       MENU TITLE "Menu"
          MENUITEM "New item" ACTION NewItem(0)
          SEPARATOR
-          IF ! Empty( aItems )
+          IF ! Empty(aItems)
              FOR i := 1 TO Len( aItems )
                 citem := aItems[i]
                 Hwg_DefineMenuItem( citem, 1020 + i, &( "{ | | NewItem("+LTrim(Str(i,2))+")}" ) )

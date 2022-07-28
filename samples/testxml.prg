@@ -84,7 +84,7 @@ HB_LANGSELECT("DE")
       MENU TITLE "File"
          MENUITEM "New item" ACTION NewItem(0)
          SEPARATOR
-         IF !Empty( oXmlDoc:aItems )
+         IF !Empty(oXmlDoc:aItems)
             nCurrentItem := 1
             FOR i := 1 TO Len( oXmlDoc:aItems[1]:aItems )
                oXmlNode := oXmlDoc:aItems[1]:aItems[i]

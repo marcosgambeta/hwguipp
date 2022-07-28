@@ -108,7 +108,7 @@ FUNCTION AppVersaoExe(); RETURN ""
 
 FUNCTION MainGT()
 
-   IF Empty( MainWVT )
+   IF Empty(MainWVT)
       MainWVT := HGT():New()
       MainWVT:Handle := hb_gtInfo( HB_GTI_WINHANDLE )
       hb_gtInfo( HB_GTI_NOTIFIERBLOCKGUI, { | nEvent, ... | MainWVT:OnEvent( nEvent, ... ) } )

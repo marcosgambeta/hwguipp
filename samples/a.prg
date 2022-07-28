@@ -257,12 +257,12 @@ Return .T.
 
 Function FileOpen
 Local oModDlg, oBrw
-Local mypath := cdirSep + CURDIR() + IIF( EMPTY( CURDIR() ), "", cdirSep )
+Local mypath := cdirSep + CURDIR() + IIF( EMPTY(CURDIR()), "", cdirSep )
 Local fname := hwg_Selectfile( "xBase files( *.dbf )", "*.dbf", mypath )
 Local nId
 
-   IF !Empty( fname )
-      mypath := cdirSep + CURDIR() + IIF( EMPTY( CURDIR() ), "", cdirSep )
+   IF !Empty(fname)
+      mypath := cdirSep + CURDIR() + IIF( EMPTY(CURDIR()), "", cdirSep )
       // use &fname new codepage RU866
       use &fname new
       nId := 111

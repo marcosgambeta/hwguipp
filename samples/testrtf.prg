@@ -41,7 +41,7 @@ LOCAL j, aMarca, lFormato := .F.
 LOCAL cTexto
 
    cOutFile := hwg_Savefile( "*.rtf","RTF files( *.rtf )","*.rtf" )
-   IF Empty( cOutFile )
+   IF Empty(cOutFile)
       Return NIL
    ENDIF
    IF File( cOutFile ) .AND. !hwg_Msgyesno( "Recreate it ?",cOutFile+" already exists!" )

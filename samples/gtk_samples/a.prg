@@ -71,7 +71,7 @@ Local fname
 Local nId
 
 cdirSep := hwg_GetDirSep()
-mypath := cdirSep + CURDIR() + IIF( EMPTY( CURDIR() ), "", cdirSep )
+mypath := cdirSep + CURDIR() + IIF( EMPTY(CURDIR()), "", cdirSep )
 
 #ifdef __GTK__
 fname := hwg_SelectFileEx(,,{{"Dbf Files","*.dbf"},{"All files","*"}} )
@@ -79,9 +79,9 @@ fname := hwg_SelectFileEx(,,{{"Dbf Files","*.dbf"},{"All files","*"}} )
 fname := hwg_Selectfile("Dbf Files" , "*.dbf", mypath )
 #endif
 
-   IF !Empty( fname )
+   IF !Empty(fname)
    
-      mypath := cdirSep + CURDIR() + IIF( EMPTY( CURDIR() ), "", cdirSep )
+      mypath := cdirSep + CURDIR() + IIF( EMPTY(CURDIR()), "", cdirSep )
       use &fname new
       nId := 111
 

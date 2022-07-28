@@ -97,9 +97,9 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
      
    @ 20,10 RICHEDIT oEdit TEXT "Hello, world !"  SIZE 200,30
 
-   hwg_Re_setcharformat( oEdit:handle, { { 1,6,,,,.T. }, { 8,13,255,,,,,.T. } } )
+   hwg_Re_setcharformat(oEdit:handle, {{1, 6, , , , .T.}, {8, 13, 255, , , , , .T.}})
 #else
-     @ 20,10 EDITBOX oEdit CAPTION "Hello, world !"  SIZE 200,30 
+     @ 20,10 EDITBOX oEdit CAPTION "Hello, world !"  SIZE 200,30
 #endif   
 
 #ifdef __GTK__

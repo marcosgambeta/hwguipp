@@ -70,6 +70,6 @@ FUNCTION SUBMNU_BRW( nCol, nRow )
 
 FUNCTION st_f4(n, c)
 
-   hwg_MsgInfo( "This is the status window of Line " + AllTrim( Str(n ) ) + " : " + c, "Bingo !" )
+   hwg_MsgInfo( "This is the status window of Line " + AllTrim(Str(n)) + " : " + c, "Bingo !" )
 
    RETURN 0

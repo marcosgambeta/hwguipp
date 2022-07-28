@@ -32,13 +32,13 @@ FUNCTION OnOtherMessages( Sender, WinMsg, WParam, LParam )
 /* Remove comment chars to display keydown codes */  
 // IF WinMsg == WM_KEYDOWN
 //    nKey := WParam
-//    hwg_Msginfo( "Keydown " + chr( hwg_Loword( nKey ) ) + " " + str( hwg_Loword( nKey ) ) )
+//    hwg_Msginfo("Keydown " + chr(hwg_Loword(nKey)) + " " + str(hwg_Loword(nKey)))
 //  endif
   
 
   IF WinMsg == WM_KEYUP
     nKey := WParam
-    hwg_Msginfo( "Keyup " + chr( hwg_Loword( nKey ) ) + " " + str( hwg_Loword( nKey ) ) )
+    hwg_Msginfo("Keyup " + chr(hwg_Loword(nKey)) + " " + str(hwg_Loword(nKey)))
   endif
 
 RETURN( -1 )

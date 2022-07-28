@@ -179,13 +179,13 @@ nBrwCharset := 0  // Do not modify with UTF-8 on LINUX
 Return NIL
 
 Static Function FileOpen( fname )
-Local mypath := "\" + CURDIR() + IIF( EMPTY( CURDIR() ), "", "\" )
+Local mypath := "\" + CURDIR() + IIF( EMPTY(CURDIR()), "", "\" )
 Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
 
-   IF Empty( fname )
+   IF Empty(fname)
       fname := hwg_Selectfile( "xBase files( *.dbf )", "*.dbf", mypath )
    ENDIF
-   IF !Empty( fname )
+   IF !Empty(fname)
       close all
  
       IF DataCP != NIL
@@ -252,7 +252,7 @@ Memvar oBrw, oFont
    ENDIF
    
    i := 1   
-   DO WHILE !EMPTY( indname := ORDNAME( i ) )
+   DO WHILE !EMPTY(indname := ORDNAME( i ))
       AADD( aIndex, { indname, ORDKEY( i ), ORDBAGNAME( i ) } )
       iLen := Max( iLen, Len( OrdKey( i ) ) )
       i ++
@@ -326,18 +326,18 @@ Memvar oBrw
    oDlg:Activate()
    
    IF oDlg:lResult
-      IF !Empty( cName ) .AND. ( !Empty( cTag ) .OR. !lMulti ) .AND. ;
-            !Empty( cExpr )
+      IF !Empty(cName) .AND. ( !Empty(cTag) .OR. !lMulti ) .AND. ;
+            !Empty(cExpr)
          oMsg = DlgWait("Indexing")
          IF lMulti
-            IF EMPTY( cCond )
+            IF EMPTY(cCond)
                ORDCREATE( RTRIM(cName),RTRIM(cTag),RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
                ORDCREATE( RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ENDIF
          ELSE
-            IF EMPTY( cCond )
+            IF EMPTY(cCond)
                dbCreateIndex( RTRIM(cName),RTRIM(cExpr),&("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
@@ -353,7 +353,7 @@ Memvar oBrw
 Return NIL
 
 Static Function OpenIndex()
-Local mypath := "\" + CURDIR() + IIF( EMPTY( CURDIR() ), "", "\" )
+Local mypath := "\" + CURDIR() + IIF( EMPTY(CURDIR()), "", "\" )
 Local fname := hwg_Selectfile( "index files( *.ntx )", "*.ntx", mypath )
 Memvar oBrw
 
@@ -361,7 +361,7 @@ Memvar oBrw
       Return NIL
    ENDIF
 
-   IF !Empty( fname )
+   IF !Empty(fname)
       Set Index To (fname)
       UpdBrowse()
    ENDIF
@@ -479,7 +479,7 @@ Memvar oBrw, currentCP, currFname
       IF lNew
          CLOSE ALL
          fname := hwg_MsgGet("File creation","Input new file name")
-         IF Empty( fname )
+         IF Empty(fname)
             Return NIL
          ENDIF
          dbCreate( fname,af )
@@ -511,9 +511,9 @@ Memvar oBrw, currentCP, currFname
                   ELSE
                      IF af[i,2] != af0[af[i,5],2]
                         IF af[i,2] == "C" .AND. af0[af[i,5],2] == "N"
-                           xValue := Str( xValue,af0[af[i,5],3],af0[af[i,5],4] )
+                           xValue := Str(xValue, af0[af[i, 5], 3], af0[af[i, 5], 4])
                         ELSEIF af[i,2] == "N" .AND. af0[af[i,5],2] == "C"
-                           xValue := Val( Ltrim( xValue ) )
+                           xValue := Val( Ltrim(xValue) )
                         ELSE
                            LOOP
                         ENDIF
@@ -638,7 +638,7 @@ Memvar oBrw, oSay2
       hwg_Msgstop( "No active order !","Seek record" )
    ELSE
       cKey := GetData( dbv_cSeek,"Seek record","Input key:" )
-      IF !Empty( cKey )
+      IF !Empty(cKey)
          dbv_cSeek := cKey
          nRec := Eval( oBrw:bRecNo, oBrw )
          IF dbSeek( cKey )
@@ -662,7 +662,7 @@ Memvar oBrw, oSay2
    DO WHILE .T.
 
       cLocate := GetData( cLocate,"Locate","Input condition:" )
-      IF Empty( cLocate )
+      IF Empty(cLocate)
          Return NIL
       ENDIF
 
@@ -700,7 +700,7 @@ Static Function dbv_Continue()
 Local nRec
 Memvar oBrw, oSay2
 
-   IF !Empty( dbv_cLocate )
+   IF !Empty(dbv_cLocate)
       nRec := Eval( oBrw:bRecNo, oBrw )
       CONTINUE
       IF Found()
@@ -731,7 +731,7 @@ Local oModDlg, oFont := HFont():Add( "MS Sans Serif",0,-13 )
 
    oFont:Release()
    IF oModDlg:lResult
-      Return Trim( cRes )
+      Return Trim(cRes)
    ELSE
       cRes := ""
    ENDIF
@@ -786,7 +786,7 @@ Return NIL
 Static Function dbv_DelRec()
 Memvar oBrw
 
-   IF !Empty( Alias() )
+   IF !Empty(Alias())
       IF Deleted()
          RECALL
       ELSE

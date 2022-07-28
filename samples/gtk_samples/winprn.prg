@@ -223,7 +223,9 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
   cbr    := CHR(217)  // Edge bottom right
 
 
-  IF cname == NIL ; cname := "English" ; ENDIF
+  IF cname == NIL
+     cname := "English"
+  ENDIF
 /* ===========================================  
    + Initialize sequences for printer class  +
    ===========================================
@@ -517,7 +519,9 @@ FUNCTION NLS_SetLang(cname,omain)
 *  ENDIF 
   LOCAL bmn
   bmn := .F.
-  IF omain != NIL ; bmn := .T. ; ENDIF
+  IF omain != NIL
+     bmn := .T.
+  ENDIF
     
 /* Add case block for every new language */
   DO CASE
@@ -533,7 +537,9 @@ FUNCTION NLS_SetLang(cname,omain)
         cTitle := "Demo f" + CHR(252) + "r Winprn-Klasse"
       ENDIF
       * Set title of main windows
-      IF bmn ; Set_Maintitle(omain,cTitle) ; ENDIF
+      IF bmn
+         Set_Maintitle(omain,cTitle)
+      ENDIF
    CASE cname == "Deutsch-OE"  // Austria: German @ Euro
       aMainMenu := { "E&nde", "&Quit" , "&Drucken" , "&Druck starten" , "&Einstellungen" , ;
        "Drucker &Zeichensatz" , "&Sprache" }
@@ -551,7 +557,9 @@ FUNCTION NLS_SetLang(cname,omain)
      clangset := "English"
      cTitle := "Demo for Winprn Class"
       * Set title of main windows
-     IF bmn ; Set_Maintitle(omain,cTitle) ; ENDIF 
+     IF bmn
+        Set_Maintitle(omain,cTitle)
+     ENDIF
  ENDCASE
  
 RETURN NIL 

@@ -170,7 +170,9 @@ Local oLibFiles, oBr1:={}, oBr2:={}, oBr3:={}, oBr4:={}, oSel1, oSel2, oSel3, i,
 Local aPal:=""
 Local oFolderFile:=hwg_Selectfile("HwGUI File Build (*.bld)", "*.bld" )
  
-if empty(oFolderFile); Return NIL; Endif
+if empty(oFolderFile)
+   Return NIL
+Endif
    
 oExeName:SetText( Hwg_GetIni( "Config", "ExeName" , , oFolderFile ))
 oLibFolder:SetText(Hwg_GetIni( "Config", "LibFolder" , , oFolderFile ))
@@ -222,7 +224,9 @@ Return NIL
 Function SaveBuildFile()
 Local oLibFiles, i, oNome, g
 Local oFolderFile:=hwg_Savefile("*.bld", "HwGUI File Build (*.bld)", "*.bld" ) 
-if empty(oFolderFile); Return NIL; Endif
+if empty(oFolderFile)
+   Return NIL
+Endif
 if file(oFolderFile)
    If(hwg_Msgyesno("File "+oFolderFile+" EXIT ..Replace?"))
      Erase( oFolderFile )
@@ -339,7 +343,7 @@ if Len(voPrgFiles)>0
 
    for i:=1 to Len(voPrgFiles)
    
-      if !empty( voPrgFiles[i] )
+      if !empty(voPrgFiles[i])
  
          oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
          lName:=""
@@ -409,7 +413,7 @@ fwrite(oArq,vHarbour+"\BIN\HARBOUR "+voPrgMain+;
 
 if Len(voPrgFiles)>0 
 for i:=1 to Len(voPrgFiles)
-    if !empty( voPrgFiles[i] )
+    if !empty(voPrgFiles[i])
  
        oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4) 
        fwrite(oArq,vHarbour+"\BIN\HARBOUR "+voPrgFiles[i]+;
@@ -425,7 +429,7 @@ fwrite(oArq,vPelles+"\bin\pocc "+oName+".c "+voCFlag+" /Ze /D"+chr(34)+"NEED_DUM
 
 if Len(voPrgFiles)>0
 for i:=1 to Len(voPrgFiles)
-   if !empty( voPrgFiles[i] )
+   if !empty(voPrgFiles[i])
       oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
       fwrite(oArq,vPelles+"\bin\pocc "+oName+".c "+voCFlag+" /Ze /D"+chr(34)+"NEED_DUMMY_RETURN"+chr(34)+" /D"+chr(34)+"__XCC__"+chr(34)+" /I"+chr(34)+"INCLUDE"+chr(34)+" /I"+chr(34)+vHarbour+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\WIN"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\MSVC"+chr(34)+" /D"+chr(34)+"HB_STATIC_STARTUP"+chr(34)+" /c"+CRF)
   endif
@@ -463,7 +467,7 @@ fwrite(oArq,"Del "+oName+".map"+CRF)
 fwrite(oArq,"Del "+oName+".obj"+CRF)
 
 for i:=1 to Len(voPrgFiles)
-   if !empty( voPrgFiles[i] )
+   if !empty(voPrgFiles[i])
       oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
       fwrite(oArq,"Del "+oName+".c "+CRF)
       fwrite(oArq,"Del "+oName+".map"+CRF)
@@ -577,7 +581,7 @@ if Len(voPrgFiles)>0
 
    for i:=1 to Len(voPrgFiles)
    
-      if !empty( voPrgFiles[i] )
+      if !empty(voPrgFiles[i])
  
          oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
          lName:=""
@@ -617,7 +621,7 @@ fwrite(oArq,"   $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@"+CRF+CRF)
 
 if Len(voPrgFiles)>0 
 for i:=1 to Len(voPrgFiles)
-    if !empty( voPrgFiles[i] )
+    if !empty(voPrgFiles[i])
  
        oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4) 
        fwrite(oArq,oName+".c : "+voPrgFiles[i]+CRF)
@@ -631,7 +635,7 @@ fwrite(oArq,"   $(CC_EXE) $(CFLAGS) /Fo$@ $** "+CRF+CRF)
 
 if Len(voPrgFiles)>0 
 for i:=1 to Len(voPrgFiles)
-    if !empty( voPrgFiles[i] )
+    if !empty(voPrgFiles[i])
        oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4) 
        fwrite(oArq,oName+".obj : "+oName+".c"+CRF)
        fwrite(oArq, "   $(CC_EXE) $(CFLAGS) /Fo$@ $** "+CRF+CRF)

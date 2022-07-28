@@ -62,10 +62,10 @@ Local oEdit, cUrl, oIE
 Return NIL
 
 Static Function OpenFile( oIE,oEdit )
-Local mypath := "\" + Curdir() + Iif( Empty( Curdir() ), "", "\" )
+Local mypath := "\" + Curdir() + Iif( Empty(Curdir()), "", "\" )
 Local fname := hwg_Selectfile( "HTML files", "*.htm;*.html", mypath )
 
-   IF !Empty( fname )
+   IF !Empty(fname)
       oEdit:SetText( fname )
       oIE:DisplayPage( fname )
    ENDIF
@@ -75,9 +75,9 @@ Return NIL
 Static Function FindInGoogle( cQuery,oIE,oEdit )
 Local cUrl := "http://www.google.com/search?q=", cItem
 
-   IF !Empty( cItem := NextItem( cQuery,.T.," " ) )
+   IF !Empty(cItem := NextItem( cQuery,.T.," " ))
       cUrl += cItem
-      DO WHILE !Empty( cItem := NextItem( cQuery,," " ) )
+      DO WHILE !Empty(cItem := NextItem( cQuery,," " ))
          cUrl += "+" + cItem
       ENDDO
       oEdit:SetText( cUrl )

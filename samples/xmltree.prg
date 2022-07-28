@@ -24,7 +24,7 @@ Local oTree, oXmlDoc
 Local fname := hwg_Selectfile( "All files( *.* )", "*.*" )
 Local oSplit, oSay
 
-   IF Empty( fname )
+   IF Empty(fname)
       Return NIL
    ENDIF
 

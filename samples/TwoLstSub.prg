@@ -279,7 +279,7 @@ FUNCTION browsBOX_ITEMFIND(obrows, cItem)
 * returns 0, if no match.
 * --------------------------------------------
 LOCAL i
- //    hwg_msgInfo(STR( LEN(obrows:aArray)  ) )
+ //    hwg_msgInfo(STR(LEN(obrows:aArray)))
  FOR i := 1 TO LEN(obrows:aArray)
   IF ALLTRIM(obrows:aArray[i,1]) == ALLTRIM(cItem)
    RETURN i

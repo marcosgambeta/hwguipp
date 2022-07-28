@@ -16,7 +16,7 @@ REQUEST HB_CODEPAGE_PTISO, HB_CODEPAGE_PT850
 
 FUNCTION Main()
    LOCAL oModDlg, oEditbox, onome, obar
-   LOCAL meditbox := "", mnome := Space( 50 )
+   LOCAL meditbox := "", mnome := Space(50)
    LOCAL cbmppref
    LOCAL otool
 

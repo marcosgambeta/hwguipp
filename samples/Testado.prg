@@ -110,10 +110,10 @@ FUNCTION RecordsetADO()
       :Open()
       FOR nCont = 1 TO 10
          :AddNew()
-         :Fields( "NAME" ):Value := "ADO_NAME_" + Replicate( cChar, 10 ) + Str( nCont, 6 )
-         :Fields( "ADRESS" ):Value := "ADO_ANDRESS_" + Replicate( cChar, 10 ) + Str( nCont, 6 )
+         :Fields( "NAME" ):Value := "ADO_NAME_" + Replicate( cChar, 10 ) + Str(nCont, 6)
+         :Fields( "ADRESS" ):Value := "ADO_ANDRESS_" + Replicate( cChar, 10 ) + Str(nCont, 6)
          :Update()
-         cChar := iif( cChar == "Z", "A", Chr( Asc( cChar ) + 1 ) )
+         cChar := iif( cChar == "Z", "A", Chr(Asc(cChar) + 1) )
       NEXT
       :MoveFirst()
    ENDWITH
