@@ -223,7 +223,7 @@ FUNCTION HWG_Version( n )
       ENDIF
    ENDIF
 
-   RETURN "HWGUI " + HWG_VERSION + " Build " + LTrim(Str(HWG_BUILD))
+   RETURN "HWGUI++ " + HWG_VERSION // + " Build " + LTrim(Str(HWG_BUILD))
 
 FUNCTION hwg_WriteStatus( oWnd, nPart, cText )
 

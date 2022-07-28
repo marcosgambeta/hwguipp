@@ -447,7 +447,7 @@ FUNCTION hwg_Version(n)
          RETURN 0
       ENDIF
    ENDIF
-   s := "HWGUI " + HWG_VERSION + " Build " + Ltrim(Str(HWG_BUILD))
+   s := "HWGUI++ " + HWG_VERSION // + " Build " + Ltrim(Str(HWG_BUILD))
 #ifdef UNICODE
    IF hwg__isUnicode()
       s += " Unicode"
