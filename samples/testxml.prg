@@ -70,7 +70,7 @@ Private oMainWindow, oFont
 #endif
 HB_LANGSELECT("DE")
 
-   oXmlDoc := HXMLDoc():Read( "testxml.xml" )
+   oXmlDoc := HXMLDoc():Read("testxml.xml")
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -17 // CHARSET 0 // 204 = Russian
 
@@ -170,7 +170,7 @@ Local oGet1, oGet2
    
     IF oDlg:lResult .AND. !Empty(cName) .AND. !Empty(cInfo)
       IF nItem == 0
-         oXmlNode := oXmlDoc:aItems[1]:Add( HXMLNode():New( "item" ) )
+         oXmlNode := oXmlDoc:aItems[1]:Add( HXMLNode():New("item") )
          oXmlNode:SetAttribute( "name", cName )
          oXmlNode:Add( cInfo )
          oXMLNode:Add( hwg_Font2XML( Iif( oFontNew!=NIL,oFontNew,oFont ) ) )
@@ -244,23 +244,23 @@ Return HFont():Add( oXmlNode:GetAttribute( "name" ),  ;
 Function hwg_Font2XML( oFont )
 Local aAttr := {}
 
-   Aadd( aAttr, { "name",oFont:name } )
-   Aadd( aAttr, { "width",Ltrim(Str(oFont:width,5)) } )
-   Aadd( aAttr, { "height",Ltrim(Str(oFont:height,5)) } )
+   Aadd(aAttr, {"name", oFont:name})
+   Aadd(aAttr, {"width", Ltrim(Str(oFont:width, 5))})
+   Aadd(aAttr, {"height", Ltrim(Str(oFont:height, 5))})
    IF oFont:weight != 0
-      Aadd( aAttr, { "weight",Ltrim(Str(oFont:weight,5)) } )
+      Aadd(aAttr, {"weight", Ltrim(Str(oFont:weight, 5))})
    ENDIF
    IF oFont:charset != 0
-      Aadd( aAttr, { "charset",Ltrim(Str(oFont:charset,5)) } )
+      Aadd(aAttr, {"charset", Ltrim(Str(oFont:charset, 5))})
    ENDIF
    IF oFont:Italic != 0
-      Aadd( aAttr, { "italic",Ltrim(Str(oFont:Italic,5)) } )
+      Aadd(aAttr, {"italic", Ltrim(Str(oFont:Italic, 5))})
    ENDIF
    IF oFont:Underline != 0
-      Aadd( aAttr, { "underline",Ltrim(Str(oFont:Underline,5)) } )
+      Aadd(aAttr, {"underline", Ltrim(Str(oFont:Underline, 5))})
    ENDIF
    
-Return HXMLNode():New( "font", HBXML_TYPE_SINGLE, aAttr )
+Return HXMLNode():New("font", HBXML_TYPE_SINGLE, aAttr)
 
 Function SaveOptions()
    IF lIniChanged

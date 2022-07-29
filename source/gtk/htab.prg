@@ -84,7 +84,7 @@ METHOD Init() CLASS HTab
       ::Super:Init()
       FOR i := 1 TO Len( ::aTabs )
          h := hwg_Addtab( ::handle, ::aTabs[i] )
-         AAdd( ::aPages, { 0, 0, .T. , h } )
+         AAdd(::aPages, {0, 0, .T., h})
       NEXT
 
       hwg_Setwindowobject( ::handle, Self )
@@ -118,9 +118,9 @@ METHOD StartPage( cname ) CLASS HTab
 
    ::oTemp := ::oDefaultParent
    ::oDefaultParent := Self
-   AAdd( ::aTabs, cname )
+   AAdd(::aTabs, cname)
    i := Len( ::aTabs )
-   AAdd( ::aPages, { Len( ::aControls ), 0, .F., 0 } )
+   AAdd(::aPages, {Len(::aControls), 0, .F., 0})
 
    ::nActive := i
    ::aPages[ i,4 ] := hwg_Addtab( ::handle, ::aTabs[i] )

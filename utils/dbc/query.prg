@@ -26,7 +26,7 @@ Local fname := hwg_Selectfile( "Query files( *.que )", "*.que", mypath )
 
    IF !Empty(fname)
       mypath := "\" + CURDIR() + IIF( EMPTY(CURDIR()), "", "\" )
-      cQuery := MemoRead( fname )
+      cQuery := MemoRead(fname)
       Query( .T. )
    ENDIF
 

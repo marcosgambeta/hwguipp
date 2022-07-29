@@ -199,7 +199,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
 
 METHOD AddItem( oWnd, lModal ) CLASS HDialog
 
-   AAdd( iif( lModal,::aModalDialogs,::aDialogs ), oWnd )
+   AAdd(iif(lModal, ::aModalDialogs, ::aDialogs), oWnd)
 
    RETURN NIL
 
@@ -391,7 +391,7 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block, lGlobal )
       ENDIF
    ELSE
       IF ( i := Ascan( aKeys,{ |a|a[1] == nctrl .AND. a[2] == nkey } ) ) == 0
-         AAdd( aKeys, { nctrl, nkey, block } )
+         AAdd(aKeys, {nctrl, nkey, block})
       ELSE
          aKeys[i,3] := block
       ENDIF

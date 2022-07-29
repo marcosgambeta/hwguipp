@@ -116,9 +116,9 @@ CLASS HComboBoxEx INHERIT HControl
    DATA nMaxLength     INIT NIL
 
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, ;
-      bcolor, bLFocus, bIChange, nDisplay, nhItem, ncWidth, nMaxLength )
+      bcolor, bLFocus, bIChange, nDisplay, nhItem, ncWidth, nMaxLength)
    METHOD Activate()
    METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus, bLFocus, bIChange, nDisplay, nMaxLength, ledit, ltext,aCheck )
    METHOD INIT()
@@ -145,9 +145,9 @@ CLASS HComboBoxEx INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, bLFocus, ;
-      bIChange, nDisplay, nhItem, ncWidth, nMaxLength ) CLASS HComboBoxEx
+      bIChange, nDisplay, nhItem, ncWidth, nMaxLength) CLASS HComboBoxEx
 
    IF !Empty(nDisplay) .AND. nDisplay > 0
       nStyle := hb_bitor( nStyle, CBS_NOINTEGRALHEIGHT  + WS_VSCROLL )
@@ -163,7 +163,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ENDIF
 
    nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), iif( lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST ) + WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    IF lText == NIL
       lText := .F.
@@ -261,7 +261,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bP
       nDisplay := 6
    ENDIF
    ::lResource := .T.
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip)
 
    ::nDisplay := nDisplay
 
@@ -638,7 +638,7 @@ METHOD AddItem( cItem, cItemBound, nPos ) CLASS HComboBoxEx
          ASize( ::AitemsBound, nCount + 1 )
          AIns( ::AitemsBound, nPos, cItemBound )
       ELSE
-         AAdd( ::AitemsBound, cItemBound )
+         AAdd(::AitemsBound, cItemBound)
       ENDIF
       ::columnBound := 2
    ENDIF
@@ -646,7 +646,7 @@ METHOD AddItem( cItem, cItemBound, nPos ) CLASS HComboBoxEx
       ASize( ::Aitems, nCount + 1 )
       AIns( ::Aitems, nPos, cItem )
    ELSE
-      AAdd( ::Aitems, cItem )
+      AAdd(::Aitems, cItem)
    ENDIF
    IF nPos != NIL .AND. nPos > 0 .AND. nPos < nCount
       hwg_Comboinsertstring( ::handle, nPos - 1, cItem )
@@ -834,9 +834,9 @@ METHOD Populate() CLASS HComboBoxEx
       ( cAlias ) -> ( DBGOTOP() )
       i := 1
       DO WHILE !( cAlias ) -> ( Eof() )
-         AAdd( ::Aitems, ( cAlias ) -> ( &( value ) ) )
+         AAdd(::Aitems, (cAlias)->(&(value)))
          IF !Empty(cvaluebound)
-            AAdd( ::AitemsBound, ( cAlias ) -> ( &( cValueBound ) ) )
+            AAdd(::AitemsBound, (cAlias)->(&(cValueBound)))
          ENDIF
          hwg_Comboaddstring( ::handle, ::aItems[ i ] )
          numofchars := hwg_Sendmessage( ::handle, CB_GETLBTEXTLEN, i - 1, 0 )
@@ -854,9 +854,9 @@ METHOD Populate() CLASS HComboBoxEx
       FOR i := 1 TO Len( ::aItems )
          IF ::columnBound > 1
             IF ValType( ::aItems[ i ] ) = "A" .AND. Len(  ::aItems[ i ] ) > 1
-               AAdd( ::AitemsBound, ::aItems[i, 2 ] )
+               AAdd(::AitemsBound, ::aItems[i, 2])
             ELSE
-               AAdd( ::AitemsBound, NIL )
+               AAdd(::AitemsBound, NIL)
             ENDIF
             ::aItems[ i ] := ::aItems[ i, 1 ]
             hwg_Comboaddstring( ::handle, ::aItems[ i ] )
@@ -893,9 +893,9 @@ CLASS HCheckComboBox INHERIT HComboBoxEx
    METHOD onGetText( wParam, lParam )
    METHOD OnGetTextLength( wParam, lParam )
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, ;
-      tcolor, bcolor, bValid, acheck, nDisplay, nhItem, ncWidth, aImages )
+      tcolor, bcolor, bValid, acheck, nDisplay, nhItem, ncWidth, aImages)
    METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, ;
       bChange, ctooltip, bGFocus, acheck,aImage )
    METHOD INIT()
@@ -918,9 +918,9 @@ CLASS HCheckComboBox INHERIT HComboBoxEx
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, ;
-      bValid, acheck, nDisplay, nhItem, ncWidth, aImages ) CLASS hCheckComboBox
+      bValid, acheck, nDisplay, nhItem, ncWidth, aImages) CLASS hCheckComboBox
 
    ::acheck := iif( acheck == NIL, {}, acheck )
    ::lCheck := iif( aImages == NIL, .T. , .F. )
@@ -934,9 +934,9 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
    bPaint := { | o, p | o:paint( p ) }
 
-   ::Super:New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
+   ::Super:New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, ;
-      bValid, , nDisplay, nhItem, ncWidth )
+      bValid, , nDisplay, nhItem, ncWidth)
 
    RETURN Self
 
@@ -984,7 +984,7 @@ METHOD INIT() CLASS hCheckComboBox
                   hImage := HBitmap():AddResource( ::aImages[ i ], , , 16, nSize ):handle
                ENDIF
             ENDIF
-            AAdd( ::aHImages,  hImage )
+            AAdd(::aHImages, hImage)
          NEXT
       ENDIF
    ENDIF
@@ -1325,7 +1325,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
    RETURN Self
 
 METHOD MeasureItem( l ) CLASS hCheckComboBox
-   LOCAL dc                  := HCLIENTDC():new( ::handle )
+   LOCAL dc                  := HCLIENTDC():new(::handle)
    LOCAL lpMeasureItemStruct := hwg_Getmeasureiteminfo( l )
    LOCAL metrics
    LOCAL pFont
@@ -1380,7 +1380,7 @@ METHOD GetAllCheck() CLASS hCheckComboBox
 
    FOR n := 1 TO Len( ::aItems )
       IF ::GetCheck( n )
-         AAdd( aCheck, n )
+         AAdd(aCheck, n)
       ENDIF
    NEXT
 

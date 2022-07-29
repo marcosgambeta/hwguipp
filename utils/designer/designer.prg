@@ -314,7 +314,7 @@ STATIC FUNCTION StartDes( oDlg, p1, cForm )
          IF cForm == NIL
             HFormGen():New()
          ELSE
-            HFormGen():Open( cForm )
+            HFormGen():Open(cForm)
          ENDIF
 #ifdef INTEGRATED
          // #ifdef MODAL
@@ -322,7 +322,7 @@ STATIC FUNCTION StartDes( oDlg, p1, cForm )
          IF cForm == NIL
             HFormGen():New()
          ELSE
-            HFormGen():Open( , cForm )
+            HFormGen():Open(, cForm)
          ENDIF
          Hwg_SetForegroundWindow( HFormGen():aForms[1]:oDlg:handle )
          hwg_Setfocus( HFormGen():aForms[1]:oDlg:handle )
@@ -334,7 +334,7 @@ STATIC FUNCTION StartDes( oDlg, p1, cForm )
    RETURN NIL
 
 STATIC FUNCTION ReadIniFiles()
-   LOCAL oIni := HXMLDoc():Read( "designer.iml" )
+   LOCAL oIni := HXMLDoc():Read("designer.iml")
    LOCAL i, oNode, cWidgetsFileName, cwitem, cfitem, critem, l_ds_mypath, j
    LOCAL cBmpPath := oDesigner:ds_mypath + "resource" + DIR_SEP + "bmp" + DIR_SEP
 
@@ -357,9 +357,9 @@ STATIC FUNCTION ReadIniFiles()
             cWidgetsFileName := oNode:aItems[1]
          ENDIF
       ELSEIF oNode:title == cfitem
-         AAdd( oDesigner:aFormats, { oNode:GetAttribute( "name" ), oNode:GetAttribute( "ext" ), ;
+         AAdd(oDesigner:aFormats, { oNode:GetAttribute( "name" ), oNode:GetAttribute( "ext" ), ;
             oNode:GetAttribute( "file" ), oNode:GetAttribute( "rdscr" ), ;
-            oNode:GetAttribute( "wrscr" ), oNode:GetAttribute( "cnvtable" ) } )
+            oNode:GetAttribute( "wrscr" ), oNode:GetAttribute( "cnvtable" ) })
       ELSEIF oNode:title == "editor"
          LoadEdOptions( oNode:aItems[1] )
       ELSEIF oNode:title == "dirpath"
@@ -383,7 +383,7 @@ STATIC FUNCTION ReadIniFiles()
    oDesigner:cBmpPath := cBmpPath
    
    IF ValType( cWidgetsFileName ) == "C"
-      oDesigner:oWidgetsSet := HXMLDoc():Read( cCurDir + cWidgetsFileName )
+      oDesigner:oWidgetsSet := HXMLDoc():Read(cCurDir + cWidgetsFileName)
    ENDIF
    IF oDesigner:oWidgetsSet == NIL .OR. Empty(oDesigner:oWidgetsSet:aItems)
       hwg_Msgstop( "Widgets file isn't found!", "Designer error" )
@@ -442,10 +442,10 @@ STATIC FUNCTION BuildSet( oTab )
                   IF cDlg != NIL
                      arr := {}
                      DO WHILE ( j1 := At(",", cDlg) ) > 0
-                        AAdd( arr, Left( cDlg,j1 - 1 ) )
+                        AAdd(arr, Left(cDlg, j1 - 1))
                         cDlg := LTrim(SubStr(cDlg, j1 + 1))
                      ENDDO
-                     AAdd( arr, cDlg )
+                     AAdd(arr, cDlg)
                   ELSE
                      arr := NIL
                   ENDIF
@@ -603,7 +603,7 @@ STATIC FUNCTION EndIde
    ENDIF
    IF !oDesigner:lSingleForm .AND. ( oDesigner:lChgRecent .OR. oDesigner:lChgOpt )
       critem := iif( oDesigner:lReport, "rep_recent", "recent" )
-      oIni := HXMLDoc():Read( cCurDir + "Designer.iml" )
+      oIni := HXMLDoc():Read(cCurDir + "Designer.iml")
 
       i := 1
       oNode := HXMLNode():New( "dirpath", HBXML_TYPE_SINGLE, { { "default",oDesigner:ds_myPath } } )

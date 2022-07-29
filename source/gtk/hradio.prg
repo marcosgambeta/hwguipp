@@ -143,7 +143,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
       hwg_SetSignal( ::handle, "released", WM_LBUTTONUP, 0, 0 )
    ENDIF
    IF ::oGroup != NIL
-      AAdd( ::oGroup:aButtons, Self )
+      AAdd(::oGroup:aButtons, Self)
       IF ::oGroup:bSetGet != NIL
          hwg_SetSignal( ::handle, "released", WM_LBUTTONUP, 0, 0 ) 
       ENDIF

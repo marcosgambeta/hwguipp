@@ -31,7 +31,7 @@ CLASS HXMLNode
    DATA cargo
 //   DATA aItems  INIT {}
 
-   METHOD New( cTitle, type, aAttr, cValue )
+   METHOD New(cTitle, type, aAttr, cValue)
    METHOD Add( xItem )
    METHOD GetAttribute( cName, cType, xDefault )
    METHOD SetAttribute( cName,cValue )
@@ -42,7 +42,7 @@ CLASS HXMLNode
 ENDCLASS
 
 /* Added: cValue */
-METHOD New( cTitle, type, aAttr, cValue ) CLASS HXMLNode
+METHOD New(cTitle, type, aAttr, cValue) CLASS HXMLNode
 
    IF cTitle != NIL
       ::title := cTitle
@@ -59,7 +59,7 @@ RETURN Self
 
 METHOD Add( xItem ) CLASS HXMLNode
 
-   Aadd( ::aItems, xItem )
+   Aadd(::aItems, xItem)
 
 RETURN xItem
 
@@ -84,7 +84,7 @@ METHOD SetAttribute( cName, cValue ) CLASS HXMLNode
    LOCAL i := Ascan( ::aAttr, { | a | a[ 1 ] == cName } )
 
    IF i == 0
-      Aadd( ::aAttr,{ cName, cValue } )
+      Aadd(::aAttr, {cName, cValue})
    ELSE
       ::aAttr[ i, 2 ] := cValue
    ENDIF
@@ -143,19 +143,19 @@ METHOD Save( handle,level ) CLASS HXMLNode
       ENDIF
    ENDIF
    IF handle >= 0
-      FWrite( handle,s )
+      FWrite(handle, s)
    ENDIF
 
    FOR i := 1 TO Len( ::aItems )
       IF Valtype( ::aItems[ i ] ) == "C"
         IF handle >= 0
            IF ::type == HBXML_TYPE_CDATA .OR. ::type == HBXML_TYPE_COMMENT
-              FWrite( handle, ::aItems[ i ] )
+              FWrite(handle, ::aItems[ i ])
            ELSE
-              FWrite( handle, HBXML_PreSave( ::aItems[ i ] ) )
+              FWrite(handle, HBXML_PreSave( ::aItems[ i ] ))
            ENDIF
            IF lNewLine .AND. Right( ::aItems[ i ],1 ) != Chr(10)
-              FWrite( handle, cNewLine )
+              FWrite(handle, cNewLine)
            ENDIF
         ELSE
            IF ::type == HBXML_TYPE_CDATA .OR. ::type == HBXML_TYPE_COMMENT
@@ -175,11 +175,11 @@ METHOD Save( handle,level ) CLASS HXMLNode
    m->hxml_newline := .T.
    IF handle >= 0
       IF ::type == HBXML_TYPE_TAG
-         FWrite( handle, Iif( lNewLine, Space(level * 2), "" ) + '</' + ::title + '>' + cNewLine )
+         FWrite(handle, Iif( lNewLine, Space(level * 2), "" ) + '</' + ::title + '>' + cNewLine)
       ELSEIF ::type == HBXML_TYPE_CDATA
-         FWrite( handle, ']]>' + cNewLine )
+         FWrite(handle, ']]>' + cNewLine)
       ELSEIF ::type == HBXML_TYPE_COMMENT
-         FWrite( handle, '-->' + cNewLine )
+         FWrite(handle, '-->' + cNewLine)
       ENDIF
    ELSE
       IF ::type == HBXML_TYPE_TAG
@@ -226,34 +226,34 @@ RETURN NIL
 
 CLASS HXMLDoc INHERIT HXMLNode
 
-   METHOD New( encoding )
-   METHOD Read( fname, buffer )
-   METHOD ReadString( buffer )  INLINE ::Read( , buffer )
+   METHOD New(encoding)
+   METHOD Read(fname, buffer)
+   METHOD ReadString( buffer )  INLINE ::Read(, buffer)
    METHOD Save( fname, lNoHeader )
    METHOD Save2String()  INLINE ::Save()
 
 ENDCLASS
 
-METHOD New( encoding ) CLASS HXMLDoc
+METHOD New(encoding) CLASS HXMLDoc
 
    IF encoding != NIL
-      Aadd( ::aAttr, { "version", "1.0" } )
-      Aadd( ::aAttr, { "encoding", encoding } )
+      Aadd(::aAttr, {"version", "1.0"})
+      Aadd(::aAttr, {"encoding", encoding})
    ENDIF
 
 RETURN Self
 
 /* Added: buffer */
-METHOD Read( fname, buffer ) CLASS HXMLDoc
+METHOD Read(fname, buffer) CLASS HXMLDoc
 
    LOCAL han
 
    IF fname != NIL
-      han := FOpen( fname, FO_READ )
+      han := FOpen(fname, FO_READ)
       ::nLastErr := 0
       IF han != -1
          ::nLastErr := hbxml_GetDoc( Self, han )
-         FClose( han )
+         FClose(han)
       ELSE
          ::nLastErr := XML_ERROR_FILEOPEN
       ENDIF
@@ -271,7 +271,7 @@ METHOD Save( fname,lNoHeader ) CLASS HXMLDoc
    LOCAL cEncod, i, s
 
    IF fname != NIL
-      handle := FCreate( fname )
+      handle := FCreate(fname)
    ENDIF
    IF handle != -1
       IF lNoHeader == NIL .OR. !lNoHeader
@@ -280,7 +280,7 @@ METHOD Save( fname,lNoHeader ) CLASS HXMLDoc
          ENDIF
          s := '<?xml version="1.0" encoding="' + cEncod + '"?>' + cNewLine
          IF fname != NIL
-            FWrite( handle, s )
+            FWrite(handle, s)
          ENDIF
       ELSE
          s := ""
@@ -289,7 +289,7 @@ METHOD Save( fname,lNoHeader ) CLASS HXMLDoc
          s += ::aItems[i]:Save( handle, 0 )
       NEXT
       IF fname != NIL
-         FClose( handle )
+         FClose(handle)
       ELSE
          Return s
       ENDIF

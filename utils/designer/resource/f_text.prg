@@ -22,7 +22,7 @@ Return oFont
 ENDFUNC
 
 Private strbuf := Space(512), poz := 513, stroka, nMode := 0, itemName, i
-Private han := FOPEN( oForm:path+oForm:filename )
+Private han := FOPEN(oForm:path + oForm:filename)
 Private cCaption, x, y, nWidth, nHeight, nStyle, lClipper, oFont, tColor, bColor, cFont
 
    IF han == - 1
@@ -84,7 +84,7 @@ Private cCaption, x, y, nWidth, nHeight, nStyle, lClipper, oFont, tColor, bColor
          ENDIF
       ENDIF
    ENDDO
-   Fclose( han )
+   Fclose(han)
 Return
 #ENDSCRIPT
 
@@ -92,8 +92,8 @@ Return
 Private han, fname := oForm:path + oForm:filename, stroka, oCtrl
 Private aControls := oForm:oDlg:aControls, alen := Len( aControls ), i
 
-   han := Fcreate( fname )
-   Fwrite( han, "#FORM " + oForm:name &&
+   han := Fcreate(fname)
+   Fwrite(han, "#FORM " + oForm:name &&
        + ";" + Ltrim(Str(oForm:oDlg:nLeft))    &&
        + ";" + Ltrim(Str(oForm:oDlg:nTop))     &&
        + ";" + Ltrim(Str(oForm:oDlg:nWidth))   &&
@@ -107,7 +107,7 @@ Private aControls := oForm:oDlg:aControls, alen := Len( aControls ), i
        + "," + Ltrim(Str(oForm:oDlg:oFont:charset)) + "," + Ltrim(Str(oForm:oDlg:oFont:italic)) &&
        + "," + Ltrim(Str(oForm:oDlg:oFont:underline)) + "," + Ltrim(Str(oForm:oDlg:oFont:strikeout)) &&
        ,"") &&
-       + _Chr(10) )
+       + _Chr(10))
    i := 1
    DO WHILE i <= alen
       oCtrl := aControls[i]
@@ -126,10 +126,10 @@ Private aControls := oForm:oDlg:aControls, alen := Len( aControls ), i
           ,"")  &&
           + ";" + Iif(oCtrl:tcolor!=NIL.AND.oCtrl:tcolor!=0,Ltrim(Str(oCtrl:tcolor)),"") &&
           + ";" + Iif(oCtrl:bcolor!=NIL,Ltrim(Str(oCtrl:bcolor)),"")
-      Fwrite( han, stroka + _Chr(10) )
+      Fwrite(han, stroka + _Chr(10))
       i++
    ENDDO
-   Fwrite( han, "#ENDFORM " )
-   Fwrite( han, _Chr(10 ) )
-   Fclose( han )
+   Fwrite(han, "#ENDFORM ")
+   Fwrite(han, _Chr(10))
+   Fclose(han)
 #ENDSCRIPT

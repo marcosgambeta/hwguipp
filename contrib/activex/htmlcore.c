@@ -2175,7 +2175,7 @@ void WINAPI UnEmbedBrowserObject( HWND hwnd )
    {
       // Unembed the browser object, and release its resources.
       browserObject = *browserHandle;
-      browserObject->lpVtbl->Close( browserObject, OLECLOSE_NOSAVE );
+      browserObject->lpVtbl->Close(browserObject, OLECLOSE_NOSAVE);
       browserObject->lpVtbl->Release( browserObject );
 
       // Zero out the pointer just in case UnEmbedBrowserObject is called
@@ -2255,9 +2255,7 @@ long WINAPI DisplayHTMLStr(HWND hwnd, const char * string)
 
             // Our HTML must be in the form of a BSTR. And it must be passed
             // to write() in an array of "VARIENT" structs. So let's create all that.
-            if( ( sfArray =
-                        SafeArrayCreate( VT_VARIANT, 1,
-                              ( SAFEARRAYBOUND * ) & ArrayBound ) ) != NULL )
+            if( ( sfArray = SafeArrayCreate(VT_VARIANT, 1, ( SAFEARRAYBOUND * ) & ArrayBound) ) != NULL )
             {
                if( !SafeArrayAccessData( sfArray, ( void ** ) &pVar ) )
                {
@@ -2270,12 +2268,12 @@ long WINAPI DisplayHTMLStr(HWND hwnd, const char * string)
                      // Pass the VARIENT with its BSTR to write() in order to
                      // shove our desired HTML string into the body of that
                      // empty page we created above.
-                     htmlDoc2->lpVtbl->write( htmlDoc2, sfArray );
+                     htmlDoc2->lpVtbl->write(htmlDoc2, sfArray);
 
                      // Close the document. If we don't do this, subsequent
                      // calls to DisplayHTMLStr would append to the current
                      // contents of the page
-                     htmlDoc2->lpVtbl->close( htmlDoc2 );
+                     htmlDoc2->lpVtbl->close(htmlDoc2);
 
                      // Success. Just set this to something other than VT_BSTR
                      // to flag success

@@ -192,7 +192,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
 
 METHOD AddItem( oWnd ) CLASS HWindow
 
-   AAdd( ::aWindows, oWnd )
+   AAdd(::aWindows, oWnd)
 
    RETURN NIL
 

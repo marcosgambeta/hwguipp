@@ -94,7 +94,7 @@ METHOD Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, ;
    ::Underline := fdwUnderline
    ::StrikeOut := fdwStrikeOut
 
-   AAdd( ::aFonts, Self )
+   AAdd(::aFonts, Self)
 
    RETURN Self
 
@@ -253,7 +253,7 @@ METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
    ::style  := nStyle
    ::width  := nWidth
    ::color  := nColor
-   AAdd( ::aPens, Self )
+   AAdd(::aPens, Self)
 
    RETURN Self
 
@@ -333,7 +333,7 @@ METHOD Add( nColor ) CLASS HBrush
 
    ::handle := hwg_Createsolidbrush( nColor )
    ::color  := nColor
-   AAdd( ::aBrushes, Self )
+   AAdd(::aBrushes, Self)
 
    RETURN Self
 
@@ -460,7 +460,7 @@ METHOD AddResource( name ) CLASS HBitmap
    //     hwg_MsgInfo("Bitmap resource successfully loaded >" + name + "<" )     
    ENDIF
    ::name   := name
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -489,7 +489,7 @@ METHOD AddFile( name, HDC , lTransparent, nWidth, nHeight ) CLASS HBitmap
       aBmpSize  := hwg_Getbitmapsize( ::handle )
       ::nWidth  := aBmpSize[1]
       ::nHeight := aBmpSize[2]
-      AAdd( ::aBitmaps, Self )
+      AAdd(::aBitmaps, Self)
    ELSE
       RETURN NIL
    ENDIF
@@ -525,7 +525,7 @@ METHOD AddString( name, cVal ) CLASS HBitmap
 *      DF7BE: Ready for multi platform use
        hb_memowrit( cTmp := hwg_CreateTempfileName() , cVal )
       ::handle := hwg_Openimage( cTmp )
-      FErase( cTmp )
+      FErase(cTmp)
    ENDIF
    IF !Empty(::handle)
       * hwg_Msginfo("Bitmap successfully loaded: >" + name + "<")
@@ -533,7 +533,7 @@ METHOD AddString( name, cVal ) CLASS HBitmap
       aBmpSize  := hwg_Getbitmapsize( ::handle )
       ::nWidth  := aBmpSize[1]
       ::nHeight := aBmpSize[2]
-      AAdd( ::aBitmaps, Self )
+      AAdd(::aBitmaps, Self)
    ELSE
       hwg_MsgStop("Bitmap not loaded >" + name + "<" ) 
       RETURN NIL
@@ -560,7 +560,7 @@ METHOD AddStandard( cId, nSize ) CLASS HBitmap
    aBmpSize  := hwg_Getbitmapsize( ::handle )
    ::nWidth  := aBmpSize[ 1 ]
    ::nHeight := aBmpSize[ 2 ]
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -577,7 +577,7 @@ METHOD AddWindow( oWnd, x1, y1, width, height ) CLASS HBitmap
    aBmpSize  := hwg_Getbitmapsize( ::handle )
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -688,7 +688,7 @@ METHOD AddResource( name , nWidth, nHeight , nFlags, lOEM ) CLASS HIcon
       RETURN NIL
    ENDIF
    ::name   := name
-   AAdd( ::aIcons, Self )
+   AAdd(::aIcons, Self)
 
    RETURN Self
 
@@ -732,7 +732,7 @@ METHOD AddFile( name , nWidth, nHeight ) CLASS HIcon
        ::nHeight := aBmpSize[ 2 ]
       ENDIF
 
-      AAdd( ::aIcons, Self )
+      AAdd(::aIcons, Self)
    ELSE
       hwg_MsgStop("Can not load icon: >" + name + "<")
       RETURN NIL
@@ -773,7 +773,7 @@ METHOD AddString( name, cVal , nWidth, nHeight ) CLASS HIcon
       aBmpSize  := hwg_Getbitmapsize( ::handle )
       ::nWidth  := aBmpSize[1]
       ::nHeight := aBmpSize[2]
-      AAdd( ::aIcons, Self )
+      AAdd(::aIcons, Self)
    ELSE
       hwg_MsgStop("Can not load icon: >" + name + "<")
       RETURN NIL
@@ -859,7 +859,7 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
       ::oPen := HPen():Add( BS_SOLID, nBorder, tColor )
    ENDIF
 
-   AAdd( ::aStyles, Self )
+   AAdd(::aStyles, Self)
    ::id := Len( ::aStyles )
 
    RETURN Self
@@ -911,7 +911,7 @@ FUNCTION hwg_BmpFromRes( cBmp )
             hb_memowrit( cTmp := hwg_CreateTempfileName() , cBuff )
             * Load from temporary image file
             handle := hwg_Openimage( cTmp )
-            FErase( cTmp )
+            FErase(cTmp)
          ENDIF
      ENDIF
    ENDIF
@@ -938,7 +938,7 @@ FUNCTION hwg_SetResContainer( cName )
          oResCnt := NIL
       ENDIF
    ELSE
-      IF Empty(oResCnt := HBinC():Open( cName ))
+      IF Empty(oResCnt := HBinC():Open(cName))
          RETURN .F.
       ENDIF
    ENDIF

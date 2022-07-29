@@ -644,9 +644,9 @@ HB_FUNC( HBXML_GETDOC )
    else if( HB_ISNUM( 2 ) )
    {
       HB_FHANDLE hInput = ( HB_FHANDLE ) hb_parnint( 2 );
-      unsigned long ulLen = hb_fsSeek( hInput, 0, FS_END ), ulRead;
+      unsigned long ulLen = hb_fsSeek(hInput, 0, FS_END), ulRead;
 
-      hb_fsSeek( hInput, 0, FS_SET );
+      hb_fsSeek(hInput, 0, FS_SET);
       ptr = pBuffer = ( unsigned char * ) hb_xgrab( ulLen + 1 );
       ulRead = hb_fsReadLarge( hInput, ( HB_BYTE * ) pBuffer, ulLen );
       pBuffer[ulRead] = '\0';

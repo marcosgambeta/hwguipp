@@ -780,9 +780,9 @@ STATIC FUNCTION LButtonUp( xPos, yPos )
    x2 := x1 + Round( aPaintRep[FORM_WIDTH] * aPaintRep[FORM_XKOEF], 0 ) - 1
    y2 := y1 + Round( aPaintRep[FORM_HEIGHT] * aPaintRep[FORM_XKOEF], 0 ) - aPaintRep[FORM_Y] - 1
    IF nAddItem > 0 .AND. xPos > x1 .AND. xPos < x2 .AND. yPos > y1 .AND. yPos < y2
-      AAdd( aPaintRep[FORM_ITEMS], { nAddItem, "", xPos - x1, ;
+      AAdd(aPaintRep[FORM_ITEMS], {nAddItem, "", xPos - x1, ;
          yPos - y1 + aPaintRep[FORM_Y], aInitialSize[nAddItem,1], ;
-         aInitialSize[nAddItem,2], 0, NIL, NIL, 0, 0, NIL, STATE_SELECTED } )
+         aInitialSize[nAddItem, 2], 0, NIL, NIL, 0, 0, NIL, STATE_SELECTED})
       aItem := Atail( aPaintRep[FORM_ITEMS] )
       IF nAddItem == TYPE_HLINE .OR. nAddItem == TYPE_VLINE .OR. nAddItem == TYPE_BOX
          aItem[ITEM_PEN] := HPen():Add()

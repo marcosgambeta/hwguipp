@@ -229,7 +229,7 @@ if empty(oFolderFile)
 Endif
 if file(oFolderFile)
    If(hwg_Msgyesno("File "+oFolderFile+" EXIT ..Replace?"))
-     Erase( oFolderFile )
+     Erase(oFolderFile)
    Else
      hwg_Msginfo("No file SAVED.")
      Return NIL

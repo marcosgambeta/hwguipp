@@ -31,25 +31,23 @@ CLASS HContainerEx INHERIT HControl, HScrollArea
    DATA xVisible  INIT .T. HIDDEN
    DATA lTABSTOP INIT .F. HIDDEN
 
-   METHOD New( oWndParent, nId, nstyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize,;
-         lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther)  //, bClick, bDblClick)
+   METHOD New(oWndParent, nId, nstyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize, lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther) //, bClick, bDblClick)
    METHOD Activate()
    METHOD Init()
-   METHOD Create( ) INLINE ::lCreate := .T.
+   METHOD Create() INLINE ::lCreate := .T.
    METHOD onEvent( msg, wParam, lParam )
    METHOD Paint( lpDis )
    METHOD Visible( lVisibled ) SETGET
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize,;
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize, ;
       lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther) CLASS HContainerEx
 
    ::lTABSTOP :=  nStyle = WS_TABSTOP
    ::bPaint   := { | o, p | o:paint( p ) }
    nStyle := SS_OWNERDRAW + IIF( nStyle = WS_TABSTOP, WS_TABSTOP , 0 ) + hb_bitand( nStyle, SS_NOTIFY )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, , ;
-         bInit, bSize, ::bPaint,, tcolor, bColor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, , bInit, bSize, ::bPaint,, tcolor, bColor)
 
    //::title := ""
    ::ncStyle := IIF( ncStyle = NIL .AND. nStyle < WS_TABSTOP, 3, ncStyle )

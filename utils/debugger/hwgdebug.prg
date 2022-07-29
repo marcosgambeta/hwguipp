@@ -313,8 +313,8 @@ FUNCTION Main( ... )
    cBuffer := Space(BUFF_LEN)
 
    IF !Empty(cFile)
-      handl1 := FOpen( cFile + ".d1", FO_READWRITE + FO_SHARED )
-      handl2 := FOpen( cFile + ".d2", FO_READ + FO_SHARED )
+      handl1 := FOpen(cFile + ".d1", FO_READWRITE + FO_SHARED)
+      handl2 := FOpen(cFile + ".d2", FO_READ + FO_SHARED)
       IF handl1 != - 1 .AND. handl2 != - 1
          cAppName := Lower(CutPath(cFile))
       ELSE
@@ -360,7 +360,7 @@ STATIC FUNCTION ReadIni()
    cxmlfile := cIniPath + "hwgdebug.xml"
    IF FILE(cxmlfile)
    * DF7BE: crashes here, object oIni not constructed, if file not existing !
-    oIni := HXMLDoc():Read( cxmlfile )
+    oIni := HXMLDoc():Read(cxmlfile)
     IF !Empty(oIni:aItems)
      IF oIni:aItems[1]:title == "init"
        oInit := oIni:aItems[1]
@@ -473,7 +473,7 @@ STATIC FUNCTION LoadBreaks()
                nLine := Val( oNode:aItems[n]:GetAttribute( "line" ) )
                cPrg := oNode:aItems[n]:GetAttribute( "prg" )
                IF getBP( nLine, cPrg ) == 0
-                  AAdd( aBPLoad, { nLine, cPrg } )
+                  AAdd(aBPLoad, {nLine, cPrg})
                ENDIF
             ENDIF
          NEXT
@@ -507,19 +507,19 @@ FUNCTION DebugNewExe( cExe, cParams )
       RETURN NIL
    ENDIF
 
-   FErase( cExe + ".d1" )
-   FErase( cExe + ".d2" )
+   FErase(cExe + ".d1")
+   FErase(cExe + ".d2")
 
-   handl1 := FCreate( cExe + ".d1" )
-   FWrite( handl1, "init,!" )
-   FClose( handl1 )
-   handl2 := FCreate( cExe + ".d2" )
-   FClose( handl2 )
+   handl1 := FCreate(cExe + ".d1")
+   FWrite(handl1, "init,!")
+   FClose(handl1)
+   handl2 := FCreate(cExe + ".d2")
+   FClose(handl2)
 
-   hb_processOpen( cExe + iif( !Empty(cParams), cParams, "" ) )
+   hb_processOpen(cExe + iif(!Empty(cParams), cParams, ""))
 
-   handl1 := FOpen( cExe + ".d1", FO_READWRITE + FO_SHARED )
-   handl2 := FOpen( cExe + ".d2", FO_READ + FO_SHARED )
+   handl1 := FOpen(cExe + ".d1", FO_READWRITE + FO_SHARED)
+   handl2 := FOpen(cExe + ".d2", FO_READ + FO_SHARED)
    IF handl1 != - 1 .AND. handl2 != - 1
       cAppName := Lower(CutPath(cExe))
    ELSE
@@ -532,17 +532,17 @@ FUNCTION DebugNewExe( cExe, cParams )
 STATIC FUNCTION Wait4Conn( cDir )
 
    cDir += iif( Right( cDir,1 ) $ "\/", "", hb_OsPathSeparator() ) + "hwgdebug"
-   FErase( cDir + ".d1" )
-   FErase( cDir + ".d2" )
+   FErase(cDir + ".d1")
+   FErase(cDir + ".d2")
 
-   handl1 := FCreate( cDir + ".d1" )
-   FWrite( handl1, "init,!" )
-   FClose( handl1 )
-   handl2 := FCreate( cDir + ".d2" )
-   FClose( handl2 )
+   handl1 := FCreate(cDir + ".d1")
+   FWrite(handl1, "init,!")
+   FClose(handl1)
+   handl2 := FCreate(cDir + ".d2")
+   FClose(handl2)
 
-   handl1 := FOpen( cDir + ".d1", FO_READWRITE + FO_SHARED )
-   handl2 := FOpen( cDir + ".d2", FO_READ + FO_SHARED )
+   handl1 := FOpen(cDir + ".d1", FO_READWRITE + FO_SHARED)
+   handl2 := FOpen(cDir + ".d2", FO_READ + FO_SHARED)
    IF handl1 != - 1 .AND. handl2 != - 1
    ELSE
       handl1 := handl2 := - 1
@@ -554,8 +554,8 @@ STATIC FUNCTION Wait4Conn( cDir )
 STATIC FUNCTION dbgRead()
    LOCAL n, s := "", arr
 
-   FSeek( handl2, 0, 0 )
-   DO WHILE ( n := FRead( handl2, @cBuffer, Len(cBuffer ) ) ) > 0
+   FSeek(handl2, 0, 0)
+   DO WHILE ( n := FRead(handl2, @cBuffer, Len(cBuffer)) ) > 0
       s += Left( cBuffer, n )
       IF ( n := At(",!", s) ) > 0
          IF ( arr := hb_aTokens( Left( s,n + 1 ), "," ) ) != NIL .AND. Len( arr ) > 2 .AND. arr[1] == arr[Len(arr)-1]
@@ -571,11 +571,11 @@ STATIC FUNCTION dbgRead()
 STATIC FUNCTION Send( ... )
    LOCAL arr := hb_aParams(), i, s := ""
 
-   FSeek( handl1, 0, 0 )
+   FSeek(handl1, 0, 0)
    FOR i := 1 TO Len( arr )
       s += arr[i] + ","
    NEXT
-   FWrite( handl1, LTrim(Str(++nId1)) + "," + s + LTrim(Str(nId1)) + ",!" )
+   FWrite(handl1, LTrim(Str(++nId1)) + "," + s + LTrim(Str(nId1)) + ",!")
 
    RETURN NIL
 
@@ -1064,7 +1064,7 @@ STATIC FUNCTION SetText( cName, lClear )
    oTabMain:SetTab( nTab )
    IF File( cName )
       cCurrPath := FilePath( cName )
-      oText:Open( cName )
+      oText:Open(cName)
       FOR i := 1 TO Len( oText:aText )
          IF Chr(9) $ oText:aText[i]
             oText:aText[i] := StrTran( oText:aText[i], Chr(9), Space(4) )
@@ -1186,7 +1186,7 @@ STATIC FUNCTION SetText( cName, lClear )
       ENDIF
    ENDIF
 
-   IF File( cName ) .AND. !Empty(cBuff := MemoRead( cName ))
+   IF File( cName ) .AND. !Empty(cBuff := MemoRead(cName))
       IF !( cNewLine $ cBuff )
          cNewLine := Chr(10)
       ENDIF
@@ -1305,13 +1305,13 @@ STATIC FUNCTION Funclist()
             ( cfirst == "method" .AND. !lClassDef ) .OR. cfirst == "func" .OR. cfirst == "proc" .OR. ;
             ( cfirst == "static" .AND. ( ( cSecond := hb_TokenPtr( cLine, @nSkip ) ) == "function" .OR. ;
             cSecond == "procedure" .OR. cSecond == "func" .OR. cSecond == "proc" ) )
-         AAdd( arrfnc, { Left( arr[i],72 ), i } )
+         AAdd(arrfnc, {Left(arr[i], 72), i})
       ENDIF
       IF cfirst == "class" .OR. ( cfirst == "create" .AND. ( cSecond := hb_TokenPtr( cLine, @nSkip ) ) == "class" )
          IF cfirst == "create" .OR. ( !( ( cSecond := hb_TokenPtr( cLine, @nSkip ) ) == "var" ) ;
                .AND. !( cSecond == "data" ) )
             lClassDef := .T.
-            AAdd( arrfnc, { Left( arr[i],72 ), i } )
+            AAdd(arrfnc, {Left(arr[i], 72), i})
          ENDIF
       ELSEIF cfirst == "end" .OR. cfirst == "endclass"
          lClassDef := .F.
@@ -1351,7 +1351,7 @@ STATIC FUNCTION ToggleBreakPoint( cAns, cLine )
          ENDIF
       NEXT
       IF i > Len( aBP )
-         AAdd( aBP, { nLine, cPrgBP } )
+         AAdd(aBP, {nLine, cPrgBP})
       ENDIF
    ELSE
       IF ( i := getBP( nLine, cPrgBP ) ) == 0
@@ -1471,7 +1471,7 @@ STATIC FUNCTION Calc( cExp )
          ENDIF
       ELSE
          IF Len( oBrwRes:aArray ) < RES_LEN
-            AAdd( oBrwRes:aArray, { "", cExp } )
+            AAdd(oBrwRes:aArray, {"", cExp})
             oBrwRes:nRecords ++
          ELSE
             ADel( oBrwRes:aArray, 1 )
@@ -1782,7 +1782,7 @@ STATIC FUNCTION WatchAdd()
    LOCAL cExpr
 
    IF !Empty(cExpr := hu_Get( "Watch expression", "@S256", "" ))
-      AAdd( aWatches, { cExpr, "" } )
+      AAdd(aWatches, {cExpr, ""})
       DoCommand( CMD_WATCH, "add", Str2Hex( cExpr ) )
    ENDIF
 
@@ -2237,20 +2237,20 @@ STATIC FUNCTION About()
 FUNCTION Font2Attr( oFont )
    LOCAL aAttr := {}
 
-   AAdd( aAttr, { "name", oFont:name } )
-   AAdd( aAttr, { "width", LTrim(Str(oFont:width, 5)) } )
-   AAdd( aAttr, { "height", LTrim(Str(oFont:height, 5)) } )
+   AAdd(aAttr, {"name", oFont:name})
+   AAdd(aAttr, {"width", LTrim(Str(oFont:width, 5))})
+   AAdd(aAttr, {"height", LTrim(Str(oFont:height, 5))})
    IF oFont:weight != 0
-      AAdd( aAttr, { "weight", LTrim(Str(oFont:weight, 5)) } )
+      AAdd(aAttr, {"weight", LTrim(Str(oFont:weight, 5))})
    ENDIF
    IF oFont:charset != 0
-      AAdd( aAttr, { "charset", LTrim(Str(oFont:charset, 5)) } )
+      AAdd(aAttr, {"charset", LTrim(Str(oFont:charset, 5))})
    ENDIF
    IF oFont:Italic != 0
-      AAdd( aAttr, { "italic", LTrim(Str(oFont:Italic, 5)) } )
+      AAdd(aAttr, {"italic", LTrim(Str(oFont:Italic, 5))})
    ENDIF
    IF oFont:Underline != 0
-      AAdd( aAttr, { "underline", LTrim(Str(oFont:Underline, 5)) } )
+      AAdd(aAttr, {"underline", LTrim(Str(oFont:Underline, 5))})
    ENDIF
 
    RETURN aAttr
@@ -2340,8 +2340,8 @@ STATIC FUNCTION StopDebug()
    ENDIF
 
    IF handl1 != - 1
-      FClose( handl1 )
-      FClose( handl2 )
+      FClose(handl1)
+      FClose(handl2)
       handl1 := - 1
    ENDIF
 

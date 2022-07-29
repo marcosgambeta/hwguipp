@@ -39,7 +39,7 @@ FUNCTION DlgADO()
    LOCAL oModDlg, oBrw, cnSQL
 
    //cnSQL := win_OleCreateObject( "ADODB.Recordset" )
-   //cnSQL:Open( hb_cwd() + "teste.ado" )
+   //cnSQL:Open(hb_cwd() + "teste.ado")
    cnSQL := RecordsetADO()
 
    INIT DIALOG oModDlg TITLE "ADO BROWSE" AT 0,0 SIZE 1024,600
@@ -50,8 +50,8 @@ FUNCTION DlgADO()
    @ 500,540 OWNERBUTTON ON CLICK {||  hwg_EndDialog()} SIZE 180,36 FLAT TEXT "Close" COLOR 0x0000FF
 
    oBrw:aArray := cnSQL
-   oBrw:AddColumn( HColumn():New( "Name",   { |v,o| (v), o:aArray:Fields( "NAME" ):Value }  ,"C",30,0,.F.,DT_CENTER ) )
-   oBrw:AddColumn( HColumn():New( "Adress", { |v,o| (v), o:aArray:Fields( "ADRESS" ):Value },"C",30,0,.T.,DT_CENTER,DT_LEFT ) )
+   oBrw:AddColumn(HColumn():New("Name",   {|v, o|(v), o:aArray:Fields("NAME"):Value}, "C", 30, 0, .F., DT_CENTER))
+   oBrw:AddColumn(HColumn():New("Adress", {|v, o|(v), o:aArray:Fields("ADRESS"):Value}, "C", 30, 0, .T., DT_CENTER, DT_LEFT))
 
    oBrw:bSkip     := { | o, nSkip | ADOSkipper( o:aArray, nSkip ) }
    oBrw:bGotop    := { | o | o:aArray:MoveFirst() }
@@ -110,8 +110,8 @@ FUNCTION RecordsetADO()
       :Open()
       FOR nCont = 1 TO 10
          :AddNew()
-         :Fields( "NAME" ):Value := "ADO_NAME_" + Replicate( cChar, 10 ) + Str(nCont, 6)
-         :Fields( "ADRESS" ):Value := "ADO_ANDRESS_" + Replicate( cChar, 10 ) + Str(nCont, 6)
+         :Fields( "NAME" ):Value := "ADO_NAME_" + Replicate(cChar, 10) + Str(nCont, 6)
+         :Fields( "ADRESS" ):Value := "ADO_ANDRESS_" + Replicate(cChar, 10) + Str(nCont, 6)
          :Update()
          cChar := iif( cChar == "Z", "A", Chr(Asc(cChar) + 1) )
       NEXT
@@ -147,9 +147,7 @@ FUNCTION CreateDbf( cName )
       RETURN NIL 
    ENDIF
 
-   dbCreate( cName, { ;
-      { "NAME", "C", 30, 0 }, ;
-      { "ADRESS", "C", 30, 0 } } )
+   dbCreate(cName, {{"NAME", "C", 30, 0}, {"ADRESS", "C", 30, 0}})
    USE ( cName )
    APPEND BLANK
    REPLACE test->name WITH "DBF_AAAA", test->adress WITH "DBF_AAAA"

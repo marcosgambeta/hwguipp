@@ -296,7 +296,7 @@ METHOD onDblClick()  CLASS HListBox
 
 METHOD AddItems( p ) CLASS HListBox
 
-   AAdd( ::aItems, p )
+   AAdd(::aItems, p)
    hwg_Listboxaddstring( ::handle, p )
 //   hwg_Listboxsetstring( ::handle, ::value )
    RETURN Self

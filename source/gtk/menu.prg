@@ -88,13 +88,13 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos, hWnd )
 
    IF nPos > Len( aMenu[1] )
       IF Empty(lSubmenu)
-         AAdd( aMenu[1], { bItem, cItem, nMenuId, 0, hSubMenu } )
+         AAdd(aMenu[1], {bItem, cItem, nMenuId, 0, hSubMenu})
       ELSE
-         AAdd( aMenu[1], { {}, cItem, nMenuId, 0, hSubMenu } )
+         AAdd(aMenu[1], {{}, cItem, nMenuId, 0, hSubMenu})
       ENDIF
       RETURN ATail( aMenu[1] )
    ELSE
-      AAdd( aMenu[1], NIL )
+      AAdd(aMenu[1], NIL)
       AIns( aMenu[1], nPos )
       IF Empty(lSubmenu)
          aMenu[ 1,nPos ] := { bItem, cItem, nMenuId, 0, hSubMenu }
@@ -148,7 +148,7 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
       aMenu := aMenuInit[ 1,nPosParent ]
       hMenu := hwg__AddMenuItem( hMenu, aMenu[2], nPos + 1, hWnd, aMenu[3], aMenu[4], .T. )
       IF Len( aMenu ) < 5
-         AAdd( aMenu, hMenu )
+         AAdd(aMenu, hMenu)
       ELSE
          aMenu[5] := hMenu
       ENDIF
@@ -161,7 +161,7 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
       ELSE
          IF aMenu[ 1,nPos,1 ] == NIL .OR. aMenu[ 1,nPos,2 ] != NIL
             IF Len( aMenu[1,npos] ) == 4
-               AAdd( aMenu[1,npos], NIL )
+               AAdd(aMenu[1, npos], NIL)
             ENDIF
             aMenu[1,npos,5] := hwg__AddMenuItem( hMenu, aMenu[1,npos,2], ;
                nPos, hWnd, aMenu[1,nPos,3], aMenu[1,npos,4], .F. )
@@ -201,7 +201,7 @@ FUNCTION Hwg_BeginMenu( oWnd, nId, cTitle )
          cTitle := StrTran( cTitle, "\t", "" )
          cTitle := StrTran( cTitle, "&", "_" )
       ENDIF
-      AAdd( aMenu, { {}, cTitle, nId, 0 } )
+      AAdd(aMenu, {{}, cTitle, nId, 0})
    ENDIF
 
    RETURN .T.
@@ -260,10 +260,10 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
       cItem := StrTran( cItem, "\t", "" )
       cItem := StrTran( cItem, "&", "_" )
    ENDIF
-   AAdd( aMenu, { bItem, cItem, nId, nFlag, 0 } )
+   AAdd(aMenu, {bItem, cItem, nId, nFlag, 0})
 
    IF accFlag != NIL .AND. accKey != NIL
-      AAdd( _aAccel, { accFlag, accKey, nId } )
+      AAdd(_aAccel, {accFlag, accKey, nId})
    ENDIF
 
    /*
@@ -276,9 +276,9 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
       else
          oBmp:=HBitmap():AddResource(lBitmap)
       endif
-      Aadd( _oBitmap, {.t., oBmp:Handle,cItem,nId} )
+      Aadd(_oBitmap, {.t., oBmp:Handle, cItem, nId})
    Else
-      Aadd( _oBitmap, {.F., "",cItem, nID})
+      Aadd(_oBitmap, {.F., "", cItem, nID})
    Endif
    */
 
@@ -292,8 +292,8 @@ FUNCTION Hwg_DefineAccelItem( nId, bItem, accFlag, accKey )
       aMenu := Atail( aMenu )[1]
    NEXT
    nId := iif( nId == NIL, ++ _Id, nId )
-   AAdd( aMenu, { bItem, NIL, nId, .T., 0 } )
-   AAdd( _aAccel, { accFlag, accKey, nId } )
+   AAdd(aMenu, {bItem, NIL, nId, .T., 0})
+   AAdd(_aAccel, {accFlag, accKey, nId})
 
    RETURN .T.
 

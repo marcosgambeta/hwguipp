@@ -298,7 +298,7 @@ FUNCTION Main( ... )
    RETURN NIL
 
 STATIC FUNCTION ReadIni( cPath )
-   LOCAL hIni := hb_iniRead( cPath + "dbc.ini" ), aSect, cTmp
+   LOCAL hIni := hb_iniRead(cPath + "dbc.ini"), aSect, cTmp
 
    IF !Empty(hIni)
       hb_hCaseMatch( hIni, .F. )
@@ -437,7 +437,7 @@ Local oDlg, oBrowse, width, height, nChoice := 0, cOrder, nOrder := OrdNumber()+
 
    i := 1   
    DO WHILE !EMPTY(indname := ORDNAME( i ))
-      AADD( aIndex, { indname, ORDKEY( i ), ORDBAGNAME( i ) } )
+      AADD(aIndex, {indname, ORDKEY(i), ORDBAGNAME(i)})
       iLen := Max( iLen, Len( OrdKey( i ) ) )
       i ++
    ENDDO
@@ -512,17 +512,17 @@ Local lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
          cName := cServerPath + Trim(cName)
          IF lMulti
             IF EMPTY(cCond)
-               ORDCREATE( cName,RTRIM(cTag),RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
+               ORDCREATE(cName, RTRIM(cTag), RTRIM(cExpr), &("{||" + RTRIM(cExpr) + "}"), Iif(lUniq, .T., NIL))
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
-               ORDCREATE( cName, RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
+               ORDCREATE(cName, RTRIM(cTag), RTRIM(cExpr), &("{||" + RTRIM(cExpr) + "}"), Iif(lUniq, .T., NIL))
             ENDIF
          ELSE
             IF EMPTY(cCond)
                dbCreateIndex( cName,RTRIM(cExpr),&("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
-               ORDCREATE( cName, RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
+               ORDCREATE(cName, RTRIM(cTag), RTRIM(cExpr), &("{||" + RTRIM(cExpr) + "}"), Iif(lUniq, .T., NIL))
             ENDIF
          ENDIF
          oMsg:Close()
@@ -750,7 +750,7 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
       RETURN NIL
    }
 
-   IF !FiOpen( fname, alsname, pass )
+   IF !FiOpen(fname, alsname, pass)
       RETURN 0
    ENDIF
 
@@ -1049,7 +1049,7 @@ STATIC FUNCTION ResizeBrwQ( oBrw, nWidth, nHeight )
 
    RETURN NIL
 
-STATIC FUNCTION Fiopen( fname, alsname, pass )
+STATIC FUNCTION Fiopen(fname, alsname, pass)
 
    LOCAL i, oldimp := improc, newimp, res := .T.
    LOCAL strerr := "Can't open file " + Iif( Empty(fname), alsname, fname )
@@ -1321,7 +1321,7 @@ LOCAL cType, nLen, nDec, cPicture, rowPos
    nDec := (oBrwM:Alias)->( dbFieldInfo( 4, nField ) )
 
    IF ( cType := oBrw:aArray[nField,3] ) == "C"
-      cPicture := Replicate( "X", nLen )
+      cPicture := Replicate("X", nLen)
    ELSEIF cType == "N"
       cPicture := Iif( nDec==0, Replicate("9",nLen), Replicate("9",nLen-1-nDec)+"."+Replicate("9",nDec) )
       cBuff := Val( cBuff )

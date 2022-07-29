@@ -92,7 +92,7 @@ Local hDCwindow := hwg_Getdc( hwg_Getactivewindow() ), aTermMetr := hwg_Getdevic
    ::CreateDialog( { {"Left",Ltrim(Str(aTermMetr[1]-500))}, {"Top","120"},{"Width","500"},{"Height","400"},{"Caption",name} } )
    ::filename := ""
 
-   Aadd( ::aForms, Self )
+   Aadd(::aForms, Self)
 
 Return Self
 
@@ -107,9 +107,9 @@ Local oForm := ::aForms[1]
    oForm:End()
    oDesigner:lSingleForm := .T.
 
-Return ::Open( fname )
+Return ::Open(fname)
 
-METHOD Open( fname,cForm )  CLASS HFormGen
+METHOD Open(fname, cForm)  CLASS HFormGen
 Local aFormats := oDesigner:aFormats
 Local oIni, i
 Memvar oForm, aCtrlTable
@@ -138,7 +138,7 @@ Private oForm := Self, aCtrlTable
       ENDIF
       IF ::oDlg != NIL
          ::name := ::oDlg:title
-         Aadd( ::aForms, Self )
+         Aadd(::aForms, Self)
          InspSetCombo()
       ENDIF
       IF ::oDlg == NIL //.OR. Empty(::oDlg:aControls)
@@ -264,14 +264,12 @@ Private value, oCtrl
             ELSE
                xProperty := oFormDesc:aItems[i]:GetAttribute( "value" )
             ENDIF
-            Aadd( ::aProp, { oFormDesc:aItems[i]:GetAttribute( "name" ),  ;
-                             xProperty, ;
-                             oFormDesc:aItems[i]:GetAttribute( "type" ) } )
+            Aadd(::aProp, {oFormDesc:aItems[i]:GetAttribute("name"), xProperty, oFormDesc:aItems[i]:GetAttribute("type")})
             IF oFormDesc:aItems[i]:GetAttribute( "hidden" ) != NIL
-               Aadd( Atail( ::aProp ),.T. )
+               Aadd(Atail(::aProp), .T.)
             ENDIF
          ELSEIF oFormDesc:aItems[i]:title == "method"
-            Aadd( ::aMethods, { oFormDesc:aItems[i]:GetAttribute( "name" ),"" } )
+            Aadd(::aMethods, {oFormDesc:aItems[i]:GetAttribute("name"), ""})
          ENDIF
       NEXT
    ENDIF
@@ -424,10 +422,9 @@ Local formname := Iif( lOpen,"",oFrm:name )
 Local i
 
    FOR i := 1 TO Len( aFormats )
-      IF i == 1 .OR. ( lOpen .AND. aFormats[ i,4 ] != NIL ) .OR. ;
-                     ( !lOpen .AND. aFormats[ i,5 ] != NIL )
-         Aadd( aCombo, aFormats[ i,1 ] )
-         Aadd( af,i )
+      IF i == 1 .OR. (lOpen .AND. aFormats[i, 4] != NIL) .OR. (!lOpen .AND. aFormats[i, 5] != NIL)
+         Aadd(aCombo, aFormats[i, 1])
+         Aadd(af, i)
          IF !lOpen .AND. oFrm:type == i
             nType := Len( af ) 
          ENDIF
@@ -505,8 +502,7 @@ Local i, aTree := {}, oNode
       IF oNode:type == HBXML_TYPE_CDATA
          aParent[4] := oNode:aItems[1]
       ELSE
-         Aadd( aTree, { NIL, oNode:GetAttribute("name"), ;
-                 Val( oNode:GetAttribute("id") ), NIL } )
+         Aadd(aTree, {NIL, oNode:GetAttribute("name"), Val(oNode:GetAttribute("id")), NIL})
          IF !Empty(oNode:aItems)
             aTree[ Len(aTree),1 ] := ReadTree( aTail( aTree ),oNode )
          ENDIF
@@ -526,26 +522,26 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                cPropertyName := o:GetAttribute( "name" )
                IF Lower(cPropertyName) == "geometry"
                   aRect := hwg_hfrm_Str2Arr( o:aItems[1] )
-                  Aadd( aProp, { "Left", aRect[1] } )
-                  Aadd( aProp, { "Top", aRect[2] } )
-                  Aadd( aProp, { "Width", aRect[3] } )
-                  Aadd( aProp, { "Height", aRect[4] } )
+                  Aadd(aProp, {"Left", aRect[1]})
+                  Aadd(aProp, {"Top", aRect[2]})
+                  Aadd(aProp, {"Width", aRect[3]})
+                  Aadd(aProp, {"Height", aRect[4]})
                   IF oDesigner:lReport
-                     Aadd( aProp, { "Right", aRect[5] } )
-                     Aadd( aProp, { "Bottom", aRect[6] } )
+                     Aadd(aProp, {"Right", aRect[5]})
+                     Aadd(aProp, {"Bottom", aRect[6]})
                   ENDIF
                ELSEIF Lower(cPropertyName) == "font"
-                  Aadd( aProp, { cPropertyName,hwg_hfrm_FontFromXML( o:aItems[1],oDesigner:lReport ) } )
+                  Aadd(aProp, {cPropertyName, hwg_hfrm_FontFromXML(o:aItems[1], oDesigner:lReport)})
                ELSEIF Left( Lower(cPropertyName),6 ) == "hstyle"
-                  Aadd( aProp, { cPropertyName,hwg_HstyleFromXML( o:aItems[1] ) } )
+                  Aadd(aProp, {cPropertyName, hwg_HstyleFromXML(o:aItems[1])})
                ELSEIF Left( Lower(cPropertyName),6 ) == "styles"
                   arr := {}
                   FOR j1 := 1 TO Len( o:aItems )
-                     Aadd( arr, hwg_HstyleFromXML( o:aItems[j1] ) )
+                     Aadd(arr, hwg_HstyleFromXML(o:aItems[j1]))
                   NEXT
-                  Aadd( aProp, { cPropertyName,arr } )
+                  Aadd(aProp, {cPropertyName, arr})
                ELSEIF Lower(cPropertyName) == "atree"
-                  Aadd( aProp, { cPropertyName,ReadTree( ,o ) } )
+                  Aadd(aProp, {cPropertyName, ReadTree(NIL, o)})
                ELSEIF !Empty(o:aItems)
                   cProperty := Left( o:aItems[1],1 )
                   IF cProperty == '['
@@ -557,12 +553,12 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                   ELSE
                      cProperty := o:aItems[1]
                   ENDIF
-                  Aadd( aProp, { cPropertyName,cProperty } )
+                  Aadd(aProp, {cPropertyName, cProperty})
                ENDIF
             ENDIF
          NEXT
          IF Ascan( aProp,{|a|a[1]=="Name"} ) == 0
-            Aadd( aProp, { "Name","" } )
+            Aadd(aProp, {"Name", ""})
          ENDIF
          oCtrl := HControlGen():New( oDlg, oCtrlDesc:GetAttribute( "class" ), aProp )
          IF oContainer != NIL
@@ -602,7 +598,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
 Return NIL
 
 Static Function ReadForm( oForm,cForm )
-Local oDoc := Iif( cForm!=NIL, HXMLDoc():ReadString(cForm), HXMLDoc():Read( oForm:path+oForm:filename ) )
+Local oDoc := Iif( cForm!=NIL, HXMLDoc():ReadString(cForm), HXMLDoc():Read(oForm:path + oForm:filename) )
 Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
 
    IF Empty(oDoc:aItems)
@@ -622,12 +618,12 @@ Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
                cPropertyName := o:GetAttribute( "name" )
                IF Lower(cPropertyName) == "geometry"
                   aRect := hwg_hfrm_Str2Arr( o:aItems[1] )
-                  Aadd( aProp, { "Left", aRect[1] } )
-                  Aadd( aProp, { "Top", aRect[2] } )
-                  Aadd( aProp, { "Width", aRect[3] } )
-                  Aadd( aProp, { "Height", aRect[4] } )
+                  Aadd(aProp, {"Left", aRect[1]})
+                  Aadd(aProp, {"Top", aRect[2]})
+                  Aadd(aProp, {"Width", aRect[3]})
+                  Aadd(aProp, {"Height", aRect[4]})
                ELSEIF Lower(cPropertyName) == "font"
-                  Aadd( aProp, { cPropertyName,hwg_hfrm_FontFromXML( o:aItems[1],oDesigner:lReport ) } )
+                  Aadd(aProp, {cPropertyName, hwg_hfrm_FontFromXML(o:aItems[1], oDesigner:lReport)})
                ELSEIF !Empty(o:aItems)
                   cProperty := Left( o:aItems[1],1 )
                   IF cProperty == '['
@@ -639,7 +635,7 @@ Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
                   ELSE
                      cProperty := o:aItems[1]
                   ENDIF
-                  Aadd( aProp, { cPropertyName,cProperty } )
+                  Aadd(aProp, {cPropertyName, cProperty})
                ENDIF
             ENDIF
          NEXT
@@ -1459,8 +1455,7 @@ Local oTmpl
       oForm:Save()
    ENDIF
 
-   oTmpl := Iif( oDesigner:lReport, HRepTmpl():Read( oForm:path+oForm:filename ), ;
-               HFormTmpl():Read( oForm:path+oForm:filename ) )
+   oTmpl := Iif(oDesigner:lReport, HRepTmpl():Read(oForm:path + oForm:filename), HFormTmpl():Read(oForm:path + oForm:filename))
 
    IF lc
       oForm:filename := cTemp1

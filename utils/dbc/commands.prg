@@ -320,7 +320,7 @@ FUNCTION C_APPEND()
                af[i] := Ascan( aFie, {|a|Upper(a[1])==Upper(af[i])} )
             NEXT
          ENDIF
-         IF ( han := FOpen( cFile, FO_READ + FO_SHARED ) ) != -1
+         IF ( han := FOpen(cFile, FO_READ + FO_SHARED) ) != -1
             j := 0
             oldDf := Set( _SET_DATEFORMAT, aDatef[nDf] )
             DO WHILE .T.
@@ -382,7 +382,7 @@ FUNCTION C_APPEND()
                ENDIF
             ENDDO
             Set( _SET_DATEFORMAT, oldDf )
-            FClose( han )
+            FClose(han)
          ENDIF
       ENDIF
       oMsg:Close()
@@ -524,7 +524,7 @@ FUNCTION C_COPY()
       ELSEIF r1 == 3 .AND. r2 == 3
          __dbDelim( .T., cFile, Iif( Empty(cdelim), "blank", cdelim ), af, bFor,,,, .T. )
       ELSEIF r1 == 4
-         han := FCreate( cFile )
+         han := FCreate(cFile)
          aFie := dbStruct()
          IF Empty(af)
             af := Array( Len( aFie ) )
@@ -558,7 +558,7 @@ FUNCTION C_COPY()
                      s += Iif( i>1,cDelim2,'' ) + xVal
                   ENDIF
                NEXT
-               FWrite( han, s + Chr(13) + Chr(10) )
+               FWrite(han, s + Chr(13) + Chr(10))
                IF r2 == 2 .AND. --nNext == 0
                   EXIT
                ENDIF
@@ -566,7 +566,7 @@ FUNCTION C_COPY()
             SKIP
          ENDDO
          Set( _SET_DATEFORMAT, oldDf )
-         FClose( han )
+         FClose(han)
       ENDIF
       oMsg:Close()
       UpdBrowse()
@@ -622,7 +622,7 @@ FUNCTION C_REL
       oBrowse:aArray := aRel := {}
       i := 0
       DO WHILE !Empty(cTmp := dbRelation( ++i ))
-         Aadd( arel, { cTmp, Alias( dbRselect(i) ) } )
+         Aadd(arel, {cTmp, Alias(dbRselect(i))})
       ENDDO
       hwg_Invalidaterect( oBrowse:handle, 1 )
       oBrowse:Refresh()
@@ -630,23 +630,17 @@ FUNCTION C_REL
       }
 
    DO WHILE !Empty(cExpr := dbRelation( ++i ))
-      Aadd( arel, { cExpr, Alias( dbRselect(i) ) } )
+      Aadd(arel, {cExpr, Alias(dbRselect(i))})
    ENDDO
    FOR i := 1 TO Len( aFiles )
       IF aFiles[ i,AF_NAME ] != NIL .AND. i != improc
-         Aadd( aals, aFiles[ i,AF_ALIAS ] )
+         Aadd(aals, aFiles[i, AF_ALIAS])
       ENDIF
    NEXT
 
-   INIT DIALOG oDlg TITLE "Relations" ;
-      AT 0, 0         ;
-      SIZE 400, 280   ;
-      FONT oMainFont
+   INIT DIALOG oDlg TITLE "Relations" AT 0, 0 SIZE 400, 280 FONT oMainFont
 
-   @ 20,20 BROWSE oBrowse ARRAY   ;
-       SIZE 360,120               ;
-       STYLE WS_BORDER+WS_VSCROLL ;
-       ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
+   @ 20, 20 BROWSE oBrowse ARRAY SIZE 360, 120 STYLE WS_BORDER + WS_VSCROLL ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS
 
    oBrowse:aArray := arel
    oBrowse:AddColumn( HColumn():New( "",{|v,o|o:nCurrent},"N",4,0 ) )

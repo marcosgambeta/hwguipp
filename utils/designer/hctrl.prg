@@ -108,14 +108,12 @@ Private value, oCtrl := Self
             ELSE
                xProperty := oXMLDesc:aItems[i]:GetAttribute( "value" )
             ENDIF
-            Aadd( ::aProp, { oXMLDesc:aItems[i]:GetAttribute( "name" ),  ;
-                             xProperty, ;
-                             oXMLDesc:aItems[i]:GetAttribute( "type" ) } )
+            Aadd(::aProp, {oXMLDesc:aItems[i]:GetAttribute("name"), xProperty, oXMLDesc:aItems[i]:GetAttribute("type")})
             IF oXMLDesc:aItems[i]:GetAttribute( "hidden" ) != NIL
-               Aadd( Atail( ::aProp ),.T. )
+               Aadd(Atail(::aProp), .T.)
             ENDIF
          ELSEIF oXMLDesc:aItems[i]:title == "method"
-            Aadd( ::aMethods, { oXMLDesc:aItems[i]:GetAttribute( "name" ),"" } )
+            Aadd(::aMethods, {oXMLDesc:aItems[i]:GetAttribute("name"), ""})
          ENDIF
       NEXT
    ENDIF
@@ -590,7 +588,7 @@ Local aTabs := oTab:GetProp( "Tabs" )
       oTab:SetProp( "Tabs",aTabs )
    ENDIF
    hwg_Addtab( oTab:handle, Len( aTabs ), "New Page" )
-   Aadd( aTabs,"New Page" )
+   Aadd(aTabs, "New Page")
    InspUpdProp( "Tabs", aTabs )
    hwg_Redrawwindow( oTab:handle,5 )
 Return NIL
@@ -745,8 +743,8 @@ Local nPos, aSubarr
          nMaxId ++
          oNode:cargo := nMaxId
          IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) != NIL
-            Aadd( aSubarr,NIL )
-            Ains( aSubarr,nPos+1 )
+            Aadd(aSubarr, NIL)
+            Ains(aSubarr, nPos + 1)
             aSubarr[nPos+1] := { NIL,"New",nMaxId,NIL }
          ENDIF
       ENDIF
@@ -762,8 +760,8 @@ Local nPos, aSubarr
          nMaxId ++
          oNode:cargo := nMaxId
          IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) != NIL
-            Aadd( aSubarr,NIL )
-            Ains( aSubarr,nPos )
+            Aadd(aSubarr, NIL)
+            Ains(aSubarr, nPos)
             aSubarr[nPos] := { NIL,"New",nMaxId,NIL }
          ENDIF
       ENDIF
@@ -782,7 +780,7 @@ Local nPos, aSubarr
          IF Valtype( aSubarr[nPos,1] ) != "A"
             aSubarr[nPos,1] := {}
          ENDIF
-         Aadd( aSubarr[nPos,1], { NIL,"New",nMaxId,NIL } )
+         Aadd(aSubarr[nPos, 1], {NIL, "New", nMaxId, NIL})
       ENDIF
 
    ELSEIF nAction == 4   // Delete

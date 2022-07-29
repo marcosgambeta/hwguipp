@@ -240,10 +240,9 @@ CLASS HCEdit INHERIT HControl
    // call of METHOD ::New()
 
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
-      bInit, bSize, bPaint, tcolor, bcolor, bGfocus, bLfocus, lNoVScroll, lNoBorder )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, tcolor, bcolor, bGfocus, bLfocus, lNoVScroll, lNoBorder)
    METHOD DefaultLang()
-   METHOD Open( cFileName, cPageIn, cPageOut )
+   METHOD Open(cFileName, cPageIn, cPageOut)
    METHOD Activate()
    METHOD Init()
    METHOD SetHili( xGroup, oFont, tColor, bColor )
@@ -290,8 +289,7 @@ CLASS HCEdit INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
-      bInit, bSize, bPaint, tcolor, bcolor, bGfocus, bLfocus, lNoVScroll, lNoBorder )  CLASS HCEdit
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, tcolor, bcolor, bGfocus, bLfocus, lNoVScroll, lNoBorder) CLASS HCEdit
 
    ::DefaultLang()
 
@@ -307,9 +305,9 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       Iif( lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0 ) ) //+          ;
       //Iif( ::lVScroll, WS_VSCROLL, 0 ) )
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, Iif( nWidth == NIL,0,nWidth ), ;
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, Iif( nWidth == NIL,0,nWidth ), ;
       Iif( nHeight == NIL, 0, nHeight ), oFont, bInit, bSize, bPaint, , ;
-      Iif( tcolor == NIL, 0, tcolor ), Iif( bcolor == NIL, 16777215, bcolor ) )
+      Iif( tcolor == NIL, 0, tcolor ), Iif( bcolor == NIL, 16777215, bcolor ))
 
    ::nBoundR := ::nClientWidth := ::nWidth - ::nTrackWidth
 
@@ -348,9 +346,9 @@ METHOD DefaultLang() CLASS HCEdit
   ::aLangTexts := hwg_HPrinter_LangArray_EN()
 RETURN NIL
 
-METHOD Open( cFileName, cPageIn, cPageOut ) CLASS HCEdit
+METHOD Open(cFileName, cPageIn, cPageOut) CLASS HCEdit
 
-   ::SetText( MemoRead( cFileName ), cPageIn, cPageOut )
+   ::SetText( MemoRead(cFileName), cPageIn, cPageOut )
    ::cFileName := cFileName
 
    RETURN NIL
@@ -1096,7 +1094,7 @@ METHOD Save( cFileName, cpSou ) CLASS HCEdit
    ENDIF
 
    IF !Empty(cFileName)
-      IF ( nHand := FCreate( ::cFileName := cFileName ) ) == -1
+      IF ( nHand := FCreate(::cFileName := cFileName) ) == -1
          RETURN .F.
       ENDIF
 
@@ -1105,9 +1103,9 @@ METHOD Save( cFileName, cpSou ) CLASS HCEdit
       ENDIF
       FOR i := 1 TO ::nTextLen
          cLine := Iif( ::lStripSpaces, Trim(::aText[i] ), ::aText[i] )
-         FWrite( nHand, Iif( !Empty(cpSou), hb_Translate( cLIne, ::cp, cpSou ), cLine )  + cNewLine )
+         FWrite(nHand, Iif( !Empty(cpSou), hb_Translate( cLIne, ::cp, cpSou ), cLine )  + cNewLine)
       NEXT
-      FClose( nHand )
+      FClose(nHand)
    ENDIF
 
    RETURN NIL
@@ -1149,7 +1147,7 @@ METHOD AddFont( oFont, name, width, height , weight, ;
          CharSet, Italic, Underline, StrikeOut,, .T. )
    ENDIF
    hced_AddFont( ::hEdit, oFont:handle )
-   AAdd( ::aFonts, oFont )
+   AAdd(::aFonts, oFont)
 
    RETURN Len( ::aFonts )
 
@@ -2390,7 +2388,7 @@ METHOD Undo( nLine1, nPos1, nLine2, nPos2, nOper, cText ) CLASS HCEdit
             IF nUndo == ::nMaxUndo
                ADel( ::aUndo, 1 )
             ELSE
-               Aadd( ::aUndo, NIL )
+               Aadd(::aUndo, NIL)
                nUndo ++
             ENDIF
             ::aUndo[nUndo] := { nLine1, nPos1, nLine2, nPos2, nOper, Iif(nOper>1,cText,NIL) }
@@ -2488,7 +2486,7 @@ METHOD PrintLine( oPrinter, yPos, nL ) CLASS HCEdit
                      IF !Empty(aHili[1]) .AND. aHili[1] > 1
                         x1 := Max( nPos1, aStru[i,1] ) - nPos1 + 1
                         x2 := Min( aStru[i,2],nPos1+nPrinted-1 ) - nPos1 + 1
-                        cAttr := Stuff( cAttr, x1, x2-x1+1, Replicate( Chr(aHili[1]), x2-x1+1 ) )
+                        cAttr := Stuff( cAttr, x1, x2-x1+1, Replicate(Chr(aHili[1]), x2 - x1 + 1) )
                      ENDIF
                   ENDIF
                NEXT
@@ -2506,7 +2504,7 @@ METHOD PrintLine( oPrinter, yPos, nL ) CLASS HCEdit
 
                //oPrinter:Say( cTemp, nMarginL, yPos, nMarginL+arrS[1], yPos+nHeight, ::nAlign, ::aFonts[Asc(i)] )
                //hwg_writelog( cTemp+"//-- "+str(::nMarginR)+" "+str(::nBoundR) )
-               Aadd( aTemp, { cTemp, Asc(i), arrS[1] } )
+               Aadd(aTemp, {cTemp, Asc(i), arrS[1]})
                nMarginL += arrS[1]
                IF x1 > Len(cAttr)
                   EXIT
@@ -2573,8 +2571,8 @@ METHOD ShowTrackBar( lShow, nTrackWidth ) CLASS HCEdit
          IF Empty(nTrackWidth)
             nTrackWidth := HTRACK_DEF_WIDTH
          ENDIF
-         ::oTrack := HTrack():New( ::oParent,, ::nLeft+::nWidth-nTrackWidth, ::nTop, nTrackWidth, ;
-            ::nHeight,,,,, 48,, HStyle():New( { 0x888888, 0xcccccc }, 3 ), .F. )
+         ::oTrack := HTrack():New(::oParent,, ::nLeft+::nWidth-nTrackWidth, ::nTop, nTrackWidth, ;
+            ::nHeight,,,,, 48,, HStyle():New( { 0x888888, 0xcccccc }, 3 ), .F.)
          ::oTrack:bChange := {|o,n| onTrack(Self,o,n) }
          //hwg_writelog( "CrTrack " + ::oParent:ClassName() )
       ELSE

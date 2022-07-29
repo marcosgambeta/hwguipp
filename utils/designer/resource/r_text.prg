@@ -13,7 +13,7 @@ Return oFont
 ENDFUNC
 
 Private strbuf := Space(512), poz := 513, stroka, nMode := 0, itemName, i, j
-Private han := FOPEN( oForm:path+oForm:filename ), arr := {}, oArea, oCtrl
+Private han := FOPEN(oForm:path + oForm:filename), arr := {}, oArea, oCtrl
 Private cCaption, x, y, nWidth, nHeight, x2, y2, nAlign, oFont, cFont, nVar, xKoef, cm
 Private cWidth, aVars
 
@@ -71,7 +71,7 @@ Private cWidth, aVars
           nVar := Val( NextItem( stroka ) )
 
           oFont := CallFunc( "Str2Font", { cFont } )
-          Aadd( arr,{ itemName,x,y,nWidth,nHeight,NIL,cCaption,oFont,nAlign,nVar } )
+          Aadd(arr, {itemName, x, y, nWidth, nHeight, NIL, cCaption, oFont, nAlign, nVar})
 
         ELSEIF itemName == "HLINE" .OR. itemName == "VLINE" .OR. itemName == "BOX"
           itemName := Lower(itemName)
@@ -83,7 +83,7 @@ Private cWidth, aVars
           nAlign := Val( NextItem( cFont,.T.,"," ) ) + 1
           nVar   := Val( NextItem( cFont,,"," ) )
 
-          Aadd( arr,{ itemName,x,y,nWidth,nHeight,NIL,nAlign,nVar } )
+          Aadd(arr, {itemName, x, y, nWidth, nHeight, NIL, nAlign, nVar})
 
         ELSEIF itemName == "BITMAP"
           itemName := Lower(itemName)
@@ -93,7 +93,7 @@ Private cWidth, aVars
           nWidth := Val( NextItem( stroka ) )
           nHeight := Val( NextItem( stroka ) )
 
-          Aadd( arr,{ itemName,x,y,nWidth,nHeight,NIL,cCaption } )
+          Aadd(arr, {itemName, x, y, nWidth, nHeight, NIL, cCaption})
 
         ELSEIF itemName == "MARKER"
           itemName := "area"
@@ -121,7 +121,7 @@ Private cWidth, aVars
               ENDIF
               nHeight := Round( oForm:nPHeight*oForm:nKoeff,0 ) - y
             ENDIF
-            Aadd( arr,{ itemName,0,y,9999,nHeight,NIL,cCaption,NIL } )
+            Aadd(arr, {itemName, 0, y, 9999, nHeight, NIL, cCaption, NIL})
           ENDIF
         ENDIF
       ENDIF
@@ -147,16 +147,16 @@ Private cWidth, aVars
         cCaption += stroka+Chr(13)+chr(10)
         IF itemName == "FORM"
           DO WHILE !Empty(cFont := getNextVar( @stroka ))
-            Aadd( aVars,cFont )
+            Aadd(aVars, cFont)
           ENDDO
         ENDIF
       ENDIF
     ENDIF
   ENDDO
-  Fclose( han )
+  Fclose(han)
   arr := Asort( arr,,, {|z,y|z[3]<y[3].OR.(z[3]==y[3].AND.z[2]<y[2]).OR.(z[3]==y[3].AND.z[2]==y[2].AND.(z[4]>y[4].OR.z[5]>y[5]))} )
   IF ( j := Ascan( arr,{|a|a[1]=="area".AND.a[7]=="PH"} ) ) > 1
-    Aadd( arr,NIL )
+    Aadd(arr, NIL)
     Ains( arr, 1 )
     arr[1] := { "area",0,0,9999,arr[j+1,3]-1,NIL,"DH",NIL }
   ENDIF

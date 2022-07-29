@@ -101,7 +101,7 @@ CLASS HColumnEx INHERIT HObject
    DATA aHints INIT {}
    DATA Hint INIT .F.
 
-   METHOD New( cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bColor, bClick )
+   METHOD New(cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bColor, bClick)
    METHOD Visible( lVisible ) SETGET
    METHOD Hide()
    METHOD Show()
@@ -113,7 +113,7 @@ ENDCLASS
 
    //----------------------------------------------------//
 
-METHOD New( cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bcolor, bClick ) CLASS HColumnEx
+METHOD New(cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bcolor, bClick) CLASS HColumnEx
 
    ::heading   := iif( cHeading == NIL, "", cHeading )
    ::block     := block
@@ -323,10 +323,10 @@ CLASS HBrowseEx INHERIT HControl, HThemed
    // 2 nopersit highlighting //for current row and current cell
    // 3 nopersist when grid is not the current active control.
 
-   METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+   METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
-      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, brclick, bChgRowCol, ctooltip )
+      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, brclick, bChgRowCol, ctooltip)
    METHOD InitBrw( nType, lInit )
    METHOD Rebuild()
    METHOD Activate()
@@ -392,18 +392,18 @@ ENDCLASS
 
    //----------------------------------------------------//
 
-METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
-      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, bRclick, bChgRowCol, ctooltip ) CLASS HBrowseEx
+      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, bRclick, bChgRowCol, ctooltip) CLASS HBrowseEx
 
    lNoVScroll := iif( lNoVScroll = NIL , .F. , lNoVScroll )
    nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
       iif( lNoBorder = NIL .OR. ! lNoBorder, WS_BORDER, 0 ) +            ;
       iif( ! lNoVScroll, WS_VSCROLL, 0 ) )
    nStyle -= iif( hb_bitand( nStyle, WS_VSCROLL ) > 0 .AND. lNoVScroll, WS_VSCROLL, 0 )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL, 0, nWidth ), ;
-      iif( nHeight == NIL, 0, nHeight ), oFont, bInit, bSize, bPaint, ctooltip , tColor, bColor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL, 0, nWidth ), ;
+      iif( nHeight == NIL, 0, nHeight ), oFont, bInit, bSize, bPaint, ctooltip , tColor, bColor)
    ::lNoVScroll := lNoVScroll
    ::Type    := lType
    IF oFont == NIL
@@ -849,7 +849,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowseEx
 
 METHOD Redefine( lType, oWndParent, nId, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus ) CLASS HBrowseEx
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint)
 
    ::Type    := lType
    IF oFont == NIL
@@ -880,11 +880,10 @@ METHOD AddColumn( oColumn ) CLASS HBrowseEx
    IF Valtype( oColumn ) == "A"
       arr := oColumn
       n := Len(arr)
-      oColumn := HColumnEx():New( Iif(n>0,arr[1],NIL), Iif(n>1,arr[2],NIL), ;
-         Iif(n>2,arr[3],NIL), Iif(n>3,arr[4],NIL), Iif(n>4,arr[5],NIL), Iif(n>5,arr[6],NIL) )
+      oColumn := HColumnEx():New(Iif(n > 0, arr[1], NIL), Iif(n > 1, arr[2], NIL), Iif(n > 2, arr[3], NIL), Iif(n > 3, arr[4], NIL), Iif(n > 4, arr[5], NIL), Iif(n > 5, arr[6], NIL))
    ENDIF
 
-   AAdd( ::aColumns, oColumn )
+   AAdd(::aColumns, oColumn)
    ::lChanged := .T.
    InitColumn( Self, oColumn, Len( ::aColumns ) )
 
@@ -899,11 +898,10 @@ METHOD InsColumn( oColumn, nPos ) CLASS HBrowseEx
    IF Valtype( oColumn ) == "A"
       arr := oColumn
       n := Len(arr)
-      oColumn := HColumnEx():New( Iif(n>0,arr[1],NIL), Iif(n>1,arr[2],NIL), ;
-         Iif(n>2,arr[3],NIL), Iif(n>3,arr[4],NIL), Iif(n>4,arr[5],NIL), Iif(n>5,arr[6],NIL) )
+      oColumn := HColumnEx():New(Iif(n > 0, arr[1], NIL), Iif(n > 1, arr[2], NIL), Iif(n > 2, arr[3], NIL), Iif(n > 3, arr[4], NIL), Iif(n > 4, arr[5], NIL), Iif(n > 5, arr[6], NIL))
    ENDIF
 
-   AAdd( ::aColumns, NIL )
+   AAdd(::aColumns, NIL)
    AIns( ::aColumns, nPos )
    ::aColumns[ nPos ] := oColumn
    ::lChanged := .T.
@@ -1132,8 +1130,8 @@ METHOD LinkMaster( cLinkMaster ) CLASS HBrowseEx
             ( ::Alias ) -> ( dbSetOrder( ::ChildOrder ) )
          ENDIF
          IF ! Empty(::RelationalExpr)
-            ::bFirst := { |  | ( ::Alias ) -> ( dbSeek( ( ::cLinkMaster ) -> ( &( ::RelationalExpr ) ), .F. ) ) }
-            ::bLast  := { |  | ( ::Alias ) -> ( dbSeek( ( ::cLinkMaster ) -> ( &( ::RelationalExpr ) ) , .F. , .T. ) ) }
+            ::bFirst := { |  | ( ::Alias ) -> ( dbSeek((::cLinkMaster)->(&(::RelationalExpr)), .F.) ) }
+            ::bLast  := { |  | ( ::Alias ) -> ( dbSeek((::cLinkMaster)->(&(::RelationalExpr)), .F., .T.) ) }
             ::bWhile := { |  | ( ::Alias ) -> ( ( ::cLinkMaster ) -> &( ::RelationalExpr ) )  = ( ::cLinkMaster ) -> ( &( ::RelationalExpr ) ) }
             Eval( ::bFirst, Self )
             ::rowCurrCount := 1
@@ -2245,7 +2243,7 @@ METHOD LineOut( nRow, nCol, hDC, lSelected, lClear ) CLASS HBrowseEx
                         lColumnFont := .F.
                      ENDIF
                      IF ::aColumns[ ::nPaintCol ]:Hint
-                        AAdd( ::aColumns[ ::nPaintCol ]:aHints, sViv )
+                        AAdd(::aColumns[::nPaintCol]:aHints, sViv)
                      ENDIF
                      hwg_Drawtext( hDC, sviv,  ;
                         x + ::aMargin[ 4 ] + 1, ;
@@ -2683,7 +2681,7 @@ METHOD ButtonDown( lParam, lReturnRowCol ) CLASS HBrowseEx
          xSize := Max( ::x2 - x1, xSize )
       ENDIF
       IF !::aColumns[ nCols ]:lHide
-         AAdd( aColumns, { xSize, ncols } )
+         AAdd(aColumns, {xSize, ncols})
          x1 += xSize
          xSize := 0
       ENDIF
@@ -2832,7 +2830,7 @@ METHOD SELECT() CLASS HBrowseEx
       ADel( ::aSelected, i )
       ASize( ::aSelected, Len( ::aSelected ) - 1 )
    ELSE
-      AAdd( ::aSelected, Eval( ::bRecno, Self ) )
+      AAdd(::aSelected, Eval(::bRecno, Self))
    ENDIF
 
    RETURN NIL
@@ -2859,7 +2857,7 @@ METHOD ButtonRDown( lParam ) CLASS HBrowseEx
          xSize := Max( ::x2 - x1, xSize )
       ENDIF
       IF !::aColumns[ nCols ]:lhide
-         AAdd( aColumns, { xSize, ncols } )
+         AAdd(aColumns, {xSize, ncols})
          x1 += xSize
          xSize := 0
       ENDIF
@@ -3024,7 +3022,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowseEx
          ::varbuf := ( ::Alias ) -> ( Eval( oColumn:block,, Self, fipos ) )
       ELSE
          IF ::nRecords  = 0 .AND. ::lAppMode
-            AAdd( ::aArray, Array( Len( ::aColumns ) ) )
+            AAdd(::aArray, Array(Len(::aColumns)))
             FOR fif := 1 TO Len( ::aColumns )
                ::aArray[ 1, fif ] := ;
                   iif( ::aColumns[ fif ]:Type == "D", CToD( Space(8) ), ;
@@ -3181,14 +3179,14 @@ METHOD Edit( wParam, lParam ) CLASS HBrowseEx
                   ( ::Alias ) -> ( dbUnlock() )
                ELSE
                   IF ValType( ::aArray[ 1 ] ) == "A"
-                     AAdd( ::aArray, Array( Len( ::aArray[ 1 ] ) ) )
+                     AAdd(::aArray, Array(Len(::aArray[1])))
                      FOR fif := 2 TO Len( ( ::aArray[ 1 ] ) )
                         ::aArray[ Len( ::aArray ), fif ] := ;
                            iif( ::aColumns[ fif ]:Type == "D", CToD( Space(8) ), ;
                            iif( ::aColumns[ fif ]:Type == "N", 0, "" ) )
                      NEXT
                   ELSE
-                     AAdd( ::aArray, NIL )
+                     AAdd(::aArray, NIL)
                   ENDIF
                   ::nCurrent := Len( ::aArray )
                   Eval( oColumn:block, ::varbuf, Self, fipos )

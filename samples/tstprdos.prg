@@ -149,7 +149,7 @@ Return NIL
 FUNCTION OpenRel(oText)
 LOCAL oDlg
 Local oFont
-Local lText   := MemoRead( oText ) 
+Local lText   := MemoRead(oText) 
 
    PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -12
 

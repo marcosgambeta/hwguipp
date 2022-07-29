@@ -341,7 +341,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                   ENDIF
                   nPosS ++
                   IF !Empty(cVal := ::AddClass( cClsName, Substr(cStyleS, nPosS, nPosA - nPosS) ))
-                     Aadd( aClsReplace, { cClsName, cVal } )
+                     Aadd(aClsReplace, {cClsName, cVal})
                   ENDIF
                   nPosA ++
                ENDDO
@@ -391,8 +391,8 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                lBin := .F.
                cVal := hb_Base64Decode( Substr(xText, nPosS, nPos1 - nPosS) )
                xVal := HBitmap():AddString( cClsName, cVal )
-               Aadd( ::aImages, xVal )
-               Aadd( ::aBin, { cClsName, cVal, xVal, Iif( (i:=Ascan(aAttr,{|a|a[1]=="ext"}))==0, NIL, aAttr[i,2] )} )
+               Aadd(::aImages, xVal)
+               Aadd(::aBin, {cClsName, cVal, xVal, Iif((i := Ascan(aAttr, {|a|a[1] == "ext"})) == 0, NIL, aAttr[i, 2])})
 
             ENDIF
          ELSE
@@ -408,11 +408,15 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                ENDIF
                n ++
                IF Empty(nFrom)
-                  Aadd( aText, "" )
-                  Aadd( ::aStru, {} )
+                  Aadd(aText, "")
+                  Aadd(::aStru, {})
                ELSE
-                  Aadd( aText, NIL ); AIns( aText, n ); aText[n] := ""
-                  Aadd( ::aStru, NIL ); AIns( ::aStru, n ); ::aStru[n] := {}
+                  Aadd(aText, NIL)
+                  AIns(aText, n)
+                  aText[n] := ""
+                  Aadd(::aStru, NIL )
+                  AIns(::aStru, n)
+                  ::aStru[n] := {}
                ENDIF
                hced_CrStru( Self, aAttr, ::aStru[n],, cClsname )
                lDiv := .T.
@@ -439,7 +443,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                      hced_CrStru(Self, aAttr, ::aStru[n], aText[n], cClsname, cVal := aAttr[i, 2], Substr(xText, nPosS, nPos2 - nPosS))
                      aStru := Atail( ::aStru[n] )
                      aStru[OB_ACCESS] := hwg_SetBit( aStru[OB_ACCESS], BIT_CLCSCR )
-                     Aadd( aStru, NIL )
+                     Aadd(aStru, NIL)
                      aText[n] += cVal
                      nPosS := nPos2 + 3
                      DO WHILE Substr(xText, nPosS, 1) $ e" \t\r\n"; nPosS ++
@@ -488,7 +492,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                cVal := Iif( (i:=Ascan(aAttr,{|a|a[1]=="src"}))==0, "", aAttr[i,2] )
                xVal := Iif( Empty(cVal) .OR. Left(cVal,1) == "#", NIL, Iif( ::bImgLoad==NIL, HBitmap():AddFile(cVal), Eval(::bImgLoad,cVal) ) )
                IF !Empty(xVal)
-                  Aadd( ::aImages, xVal )
+                  Aadd(::aImages, xVal)
                ENDIF
                aStru := { "img", xVal, cClsName,,, cVal, nAlign }
                aStru[OB_ACCESS] := hced_ReadAccInfo( Iif( (i:=Ascan(aAttr,{|a|a[1]=="access"}))==0, "", aAttr[i,2] ) )
@@ -497,14 +501,18 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                ENDIF
                n ++
                IF Empty(nFrom)
-                  Aadd( aText, "" )
-                  Aadd( ::aStru, { aStru } )
+                  Aadd(aText, "")
+                  Aadd(::aStru, {aStru})
                ELSE
-                  Aadd( aText, NIL ); AIns( aText, n ); aText[n] := ""
-                  Aadd( ::aStru, NIL ); AIns( ::aStru, n ); ::aStru[n] := { aStru }
+                  Aadd(aText, NIL)
+                  AIns(aText, n)
+                  aText[n] := ""
+                  Aadd(::aStru, NIL)
+                  AIns(::aStru, n)
+                  ::aStru[n] := {aStru}
                ENDIF
                IF Left(cVal,1) == "#"
-                  Aadd( aImg, Atail(::aStru)[1] )
+                  Aadd(aImg, Atail(::aStru)[1])
                ENDIF
 
             ELSEIF cTagName == "td"
@@ -516,7 +524,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                nPosA := nPos2 + 1
                i := Iif( (i:=Ascan(aAttr,{|a|a[1]=="colspan"}))==0, 0, Val(aAttr[i,2]) )
                j := Iif( (j:=Ascan(aAttr,{|a|a[1]=="rowspan"}))==0, 0, Val(aAttr[j,2]) )
-               Aadd( ::aStru[n,1,OB_OB], { "td", {}, cClsName, {}, i, j, NIL, Array(4,AL_LENGTH), 0, 1, 0, 1, 1, 1, 1, 1, {1,1}, {0,0}, {0,0}, 0, 0, 0, 0 } )
+               Aadd(::aStru[n, 1, OB_OB], {"td", {}, cClsName, {}, i, j, NIL, Array(4, AL_LENGTH), 0, 1, 0, 1, 1, 1, 1, 1, {1, 1}, {0, 0}, {0, 0}, 0, 0, 0, 0})
                iTd := Len( ::aStru[n,1,OB_OB] )
                aStruBack := ::aStru
                ::aStru := aStruBack[ n,1,OB_OB,iTd,2 ]
@@ -540,15 +548,19 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                   ::lError := .T. ; EXIT
                ENDIF
                IF Empty(nFrom)
-                  Aadd( aText, "" )
-                  Aadd( ::aStru, { aStru } )
+                  Aadd(aText, "")
+                  Aadd(::aStru, {aStru})
                ELSE
                   IF aStru[OB_TRNUM] == 1
                      //aStru[OB_TBL] := ::aStru[n,1,OB_TBL]
                      ::aStru[n,1] := ASize( ::aStru[n,1],OB_TBL-1 )
                   ENDIF
-                  Aadd( aText, NIL ); AIns( aText, n ); aText[n] := ""
-                  Aadd( ::aStru, NIL ); AIns( ::aStru, n ); ::aStru[n] := { aStru }
+                  Aadd(aText, NIL)
+                  AIns(aText, n)
+                  aText[n] := ""
+                  Aadd(::aStru, NIL)
+                  AIns(::aStru, n)
+                  ::aStru[n] := {aStru}
                ENDIF
 
             ELSEIF cTagName == "col"
@@ -560,8 +572,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                   nInsCols ++
                ELSE
                   cVal := Iif( (i:=Ascan(aAttr,{|a|a[1]=="width"}))==0, "", aAttr[i,2] )
-                  Aadd( aStruTbl[OB_OB], ;
-                     { Iif( Right(cVal,1)=='%',-Val(cVal),Val(cVal) ), 0, 0 } )
+                  Aadd(aStruTbl[OB_OB], {Iif(Right(cVal, 1) == '%', -Val(cVal), Val(cVal)), 0, 0})
                ENDIF
 
             ELSEIF cTagName == "table"
@@ -1577,11 +1588,11 @@ METHOD StyleSpan( nLine, nPos1, nPos2, xAttr, cHref, cId, nOpt ) CLASS HCEdiExt
    ENDIF
    hced_Stru4Pos( aStru, nPos1, @n1, .T. )
    IF n1 > Len( aStru )
-      AAdd( aStru, { nPos1, nPos2, ::FindClass( aStru[1,3], xAttr, .T. ) } )
+      AAdd(aStru, {nPos1, nPos2, ::FindClass(aStru[1, 3], xAttr, .T.)})
       n1 := Len( aStru )
    ELSE
       IF nPos1 < aStru[n1,1]
-         AAdd( aStru, NIL )
+         AAdd(aStru, NIL)
          AIns( aStru, n1 )
          aStru[n1] := { nPos1, nPos2, ::FindClass( aStru[1,3], xAttr, .T. ) }
       ELSE     
@@ -1590,7 +1601,7 @@ METHOD StyleSpan( nLine, nPos1, nPos2, xAttr, cHref, cId, nOpt ) CLASS HCEdiExt
          ELSE
             xCls := aStru[n1,3]
             IF nPos1 > aStru[n1,1]
-               AAdd( aStru, NIL )
+               AAdd(aStru, NIL)
                AIns( aStru, n1 )
                aStru[n1] := { aStru[n1+1,1], nPos1-1, xCls }
                n1 ++
@@ -1601,7 +1612,7 @@ METHOD StyleSpan( nLine, nPos1, nPos2, xAttr, cHref, cId, nOpt ) CLASS HCEdiExt
                nPosTmp := aStru[n1,2]
                aStru[n1,2] := nPos2
                n1 ++
-               AAdd( aStru, NIL )
+               AAdd(aStru, NIL)
                AIns( aStru, n1 )
                aStru[n1] := { nPos2+1, nPosTmp, xCls }
             ENDIF
@@ -1609,14 +1620,14 @@ METHOD StyleSpan( nLine, nPos1, nPos2, xAttr, cHref, cId, nOpt ) CLASS HCEdiExt
       ENDIF
    ENDIF
    IF cHref != NIL
-      Aadd( aStru[n1], cId )
-      Aadd( aStru[n1], nOpt )
-      Aadd( aStru[n1], cHRef )
+      Aadd(aStru[n1], cId)
+      Aadd(aStru[n1], nOpt)
+      Aadd(aStru[n1], cHRef)
    ELSEIF nOpt != NIL
-      Aadd( aStru[n1], cId )
-      Aadd( aStru[n1], nOpt )
+      Aadd(aStru[n1], cId)
+      Aadd(aStru[n1], nOpt)
    ELSEIF cId != NIL
-      Aadd( aStru[n1], cId )
+      Aadd(aStru[n1], cId)
    ENDIF
    IF !::lChgStyle
       hced_CleanStru( Self, nLine, nLine )
@@ -1708,7 +1719,7 @@ METHOD InsTable( xCols, nRows, nWidth, nAlign, xAttr ) CLASS HCEdiExt
    ::InsRows( nL, nRows, nCols, .T. )
 
    // Add table description to the first row
-   Aadd( ::aStru[nL,1], { "tbl", {}, cClsName, Iif(Empty(nWidth),-100,nWidth), nAlign } )
+   Aadd(::aStru[nL, 1], {"tbl", {}, cClsName, Iif(Empty(nWidth), -100, nWidth), nAlign})
    ::aStru[nL,1,OB_TBL,OB_OB] := aStruOB
 
    hced_Invalidaterect( ::hEdit, 0, 0, 0, ::nClientWidth, ::nHeight )
@@ -1736,7 +1747,7 @@ METHOD InsRows( nL, nRows, nCols, lNoAddline ) CLASS HCEdiExt
       ::aStru[nL,1] :=  { "tr", {},, nRow, 0 }
       ::aText[nL] := ""
       FOR i := 1 TO nCols
-         Aadd( ::aStru[nL,1,OB_OB], { "td", { { { 0,0,NIL } } }, NIL, {""}, 0, 0, {NIL}, Array(4,AL_LENGTH), 0, 1, 1, 1, 1, 1, 1, 1, {1,1}, {0,0}, {0,0}, 0, 0, 0, 0 } )
+         Aadd(::aStru[nL, 1, OB_OB], {"td", {{{0, 0, NIL}}}, NIL, {""}, 0, 0, {NIL}, Array(4, AL_LENGTH), 0, 1, 1, 1, 1, 1, 1, 1, {1, 1}, {0, 0}, {0, 0}, 0, 0, 0, 0})
       NEXT
       IF n < nRows
          nRow ++
@@ -1775,7 +1786,7 @@ METHOD InsCol( nL, iTd ) CLASS HCEdiExt
    IF iTd == NIL
       iTd := nCols
    ENDIF
-   Aadd( aStruCols, NIL )
+   Aadd(aStruCols, NIL)
    AIns( aStruCols, iTd )
    nWidth := Int( 100/nCols ) 
    aStruCols[iTd] := { -nWidth, 0, 0 }
@@ -1796,7 +1807,7 @@ METHOD InsCol( nL, iTd ) CLASS HCEdiExt
 
    DO WHILE Valtype( ::aStru[nL,1,1] ) == "C" .AND. ::aStru[nL,1,1] == "tr"
       aStruCols := ::aStru[nL,1,OB_OB]
-      Aadd( aStruCols, NIL )
+      Aadd(aStruCols, NIL)
       AIns( aStruCols, iTd )
       aStruCols[iTd] := { "td", { { { 0,0,NIL } } }, NIL, {""}, 0, 0, {NIL}, Array(4,AL_LENGTH), 0, 1, 1, 1, 1, 1, 1, 1, {1,1}, {0,0}, {0,0} }
       nL++
@@ -1910,7 +1921,7 @@ METHOD InsImage( cName, nAlign, xAttr, xBin, cExt ) CLASS HCEdiExt
             ENDDO
          ENDIF
          xVal := HBitmap():AddString( cName, xBin )
-         Aadd( ::aBin, { cName, xBin, xVal, cExt } )
+         Aadd(::aBin, {cName, xBin, xVal, cExt})
          cName := "#" + cName
       ENDIF
    ENDIF
@@ -1918,7 +1929,7 @@ METHOD InsImage( cName, nAlign, xAttr, xBin, cExt ) CLASS HCEdiExt
    IF ::aImages == NIL
       ::aImages := {}
    ENDIF
-   Aadd( ::aImages, xVal )
+   Aadd(::aImages, xVal)
 
    IF !Empty(nLTr)
       ::RestoreEnv( nLTr, iTd )
@@ -1998,7 +2009,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
       ENDIF
       IF !Empty(cFileName)
          ::cFileName := cFileName
-         IF ( nHand := FCreate( ::cFileName := cFileName ) ) == -1
+         IF ( nHand := FCreate(::cFileName := cFileName) ) == -1
             RETURN .F.
          ENDIF
       ENDIF
@@ -2019,20 +2030,20 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
                LOOP
             ENDIF
             IF !Empty(xTemp := ::aStru[i,j,OB_CLS]) .AND. Ascan( aClasses, xTemp ) == 0
-               AAdd( aClasses, xTemp )
+               AAdd(aClasses, xTemp)
             ENDIF
          NEXT
          IF Valtype(::aStru[i,1,OB_TYPE]) == "C"
             IF ::aStru[i,1,OB_TYPE] == "img"
-               Aadd( aImages, ::aStru[i,1,OB_HREF] )
+               Aadd(aImages, ::aStru[i, 1, OB_HREF])
             ELSEIF ::aStru[i,1,OB_TYPE] == "tr"
                IF ::aStru[i,1,OB_TRNUM] == 1 .AND. !Empty(xTemp := ::aStru[i,1,OB_TBL,OB_CLS] ) ;
                      .AND. Ascan( aClasses, xTemp ) == 0
-                  AAdd( aClasses, xTemp )
+                  AAdd(aClasses, xTemp)
                ENDIF
                FOR n := 1 TO Len( ::aStru[i,1,OB_OB] )
                   IF !Empty(xTemp := ::aStru[i,1,OB_OB,n,OB_CLS]) .AND. Ascan( aClasses, xTemp ) == 0
-                     AAdd( aClasses, xTemp )
+                     AAdd(aClasses, xTemp)
                   ENDIF
                   aStru := ::aStru[ i,1,OB_OB,n,OB_ASTRU ]
                   aText := ::aStru[ i,1,OB_OB,n,OB_ATEXT ]
@@ -2040,12 +2051,11 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
                   FOR i1 := 1 TO nTextLen
                      FOR j1 := 1 TO Len( aStru[i1] )
                         IF !Empty(xTemp := aStru[i1,j1,OB_CLS]) .AND. Ascan( aClasses, xTemp ) == 0
-                           AAdd( aClasses, xTemp )
+                           AAdd(aClasses, xTemp)
                         ENDIF
                      NEXT
-                     IF Valtype(aStru[i1,1,OB_TYPE]) == "C" .AND. ;
-                           aStru[i1,1,OB_TYPE] == "img"
-                        Aadd( aImages, aStru[i1,1,OB_HREF] )
+                     IF Valtype(aStru[i1, 1, OB_TYPE]) == "C" .AND. aStru[i1, 1, OB_TYPE] == "img"
+                        Aadd(aImages, aStru[i1, 1, OB_HREF])
                      ENDIF
                   NEXT
                NEXT
@@ -2285,8 +2295,8 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
          s += "</hwge>"
       ENDIF
       IF nHand != -1
-         FWrite( nHand, s )
-         FClose( nHand )
+         FWrite(nHand, s)
+         FClose(nHand)
          RETURN .T.
       ENDIF
    ENDIF
@@ -2306,10 +2316,10 @@ METHOD Undo( nLine1, nPos1, nLine2, nPos2, nOper, cText ) CLASS HCEdiExt
          nUndo := Iif( Empty(::aUndo), 0, Len( ::aUndo ) )
          IF Len( ::aUndo[nUndo] ) < UNDO_EX
             FOR i := nLine1 TO Min( nLine2, Len(::aStru) )
-               Aadd( arr, AClone(::aStru[i]) )
+               Aadd(arr, AClone(::aStru[i]))
             NEXT
-            Aadd( ::aUndo[nUndo], arr )
-            Aadd( ::aUndo[nUndo], ::aEnv[OB_TYPE] )
+            Aadd(::aUndo[nUndo], arr)
+            Aadd(::aUndo[nUndo], ::aEnv[OB_TYPE])
          ENDIF
       ELSEIF nOper == 4
          IF nUndo == ::nMaxUndo
@@ -2318,12 +2328,12 @@ METHOD Undo( nLine1, nPos1, nLine2, nPos2, nOper, cText ) CLASS HCEdiExt
             IF nUndo == 0
                ::aUndo := { NIL }
             ELSE
-               Aadd( ::aUndo, NIL )
+               Aadd(::aUndo, NIL)
             ENDIF
             nUndo ++
          ENDIF
           FOR i := nLine1 TO nLine2
-             Aadd( arr, AClone(::aStru[i]) )
+             Aadd(arr, AClone(::aStru[i]))
           NEXT
          ::aUndo[nUndo] := { nLine1, nPos1, nLine2, nPos2, nOper, NIL, arr, ::aEnv[OB_TYPE] }
       ENDIF
@@ -2509,22 +2519,22 @@ METHOD getClassAttr( cClsName ) CLASS HCEdiExt
       IF aHili[1] > 0
          oFont := ::aFonts[aHili[1]]
          IF oFont:weight == 700
-            Aadd( aAttr, "fb" )
+            Aadd(aAttr, "fb")
          ENDIF
          IF oFont:italic == 255
-            Aadd( aAttr, "fi" )
+            Aadd(aAttr, "fi")
          ENDIF
          IF oFont:Underline == 255
-            Aadd( aAttr, "fu" )
+            Aadd(aAttr, "fu")
          ENDIF
          IF oFont:StrikeOut == 255
-            Aadd( aAttr, "fs" )
+            Aadd(aAttr, "fs")
          ENDIF
          IF !Empty(oFont:cargo)
-            Aadd( aAttr, "fh" + oFont:cargo )
+            Aadd(aAttr, "fh" + oFont:cargo)
          ENDIF
          IF !(oFont:name == ::oFont:name)
-            Aadd( aAttr, "fn" + oFont:name )
+            Aadd(aAttr, "fn" + oFont:name)
          ENDIF
       ENDIF
       IF !Empty(aHili[2])
@@ -2599,7 +2609,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
             IF !lAll .AND. ::aStru[i,1,OB_ID] == cId
                RETURN { 1, i }
             ELSEIF lAll .AND. ::aStru[i,1,OB_ID] = cId
-               Aadd( arr, { 1, i } )
+               Aadd(arr, {1, i})
             ENDIF
          ELSEIF lText
             nPos := Iif( i==nLStart,nPosStart,1 )
@@ -2609,7 +2619,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
                   nPos := hced_At(Self, cText, cLine, nPos)
                ELSEIF ( cRes := hb_Atx( cText, cLine, lCase, @nPos ) ) != NIL
                   IF lAll
-                     Aadd( arr, { nPos, i, hced_Len( Self,cRes ) } )
+                     Aadd(arr, {nPos, i, hced_Len(Self, cRes)})
                   ELSE
                      RETURN { nPos, i, hced_Len( Self,cRes ) }
                   ENDIF
@@ -2618,7 +2628,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
                ENDIF
                IF nPos > 0 .AND. Empty(lRegex)
                   IF lAll
-                     Aadd( arr, { nPos, i } )
+                     Aadd(arr, {nPos, i})
                   ELSE
                      RETURN { nPos, i }
                   ENDIF
@@ -2632,7 +2642,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
             FOR j := 2 TO Len( ::aStru[i] )
                IF lHref .AND. Len(::aStru[i,j]) >= OB_HREF .AND. ::aStru[i,j,OB_HREF] == cHRef
                   IF lAll
-                     Aadd( arr, { j, i } )
+                     Aadd(arr, {j, i})
                   ELSE
                      RETURN { j, i }
                   ENDIF
@@ -2640,7 +2650,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
                   IF !lAll .AND. ::aStru[i,j,OB_ID] == cId
                      RETURN { j, i }
                   ELSEIF lAll .AND. ::aStru[i,j,OB_ID] = cId
-                     Aadd( arr, { j, i } )
+                     Aadd(arr, {j, i})
                   ENDIF
                ENDIF
             NEXT
@@ -2656,7 +2666,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
                   IF !lAll .AND. aStru[i1,1,OB_ID] == cId
                      RETURN { n, i, 1, i1 }
                   ELSEIF lAll .AND. aStru[i1,1,OB_ID] = cId
-                     Aadd( arr, { n , i, 1, i1 } )
+                     Aadd(arr, {n , i, 1, i1})
                   ENDIF
                ELSEIF lText
                   nPos := Iif( i1==nL1Start, Iif( Valtype(aStart)=="A".AND.Len(aStart)>3,aStart[3],1 ), 1 )
@@ -2666,7 +2676,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
                         nPos := hced_At(Self, cText, cLine, nPos)
                      ELSEIF ( cRes := hb_Atx( cText, cLine, lCase, @nPos ) ) != NIL
                         IF lAll
-                           Aadd( arr, { n, i, nPos, i1, hced_Len( Self,cRes ) } )
+                           Aadd(arr, {n, i, nPos, i1, hced_Len(Self, cRes)})
                         ELSE
                            RETURN { n, i, nPos, i1, hced_Len( Self,cRes ) }
                         ENDIF
@@ -2675,7 +2685,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
                      ENDIF
                      IF nPos > 0 .AND. Empty(lRegex)
                         IF lAll
-                           Aadd( arr, { n, i, nPos, i1 } )
+                           Aadd(arr, {n, i, nPos, i1})
                         ELSE
                            RETURN { n, i, nPos, i1 }
                         ENDIF
@@ -2689,7 +2699,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
                   FOR j1 := 2 TO Len( aStru[i1] )
                      IF lHref .AND. Len(aStru[i1,j1]) >= OB_HREF .AND. aStru[i1,j1,OB_HREF] == cHRef
                         IF lAll
-                           Aadd( arr, { n, i, j1, i1 } )
+                           Aadd(arr, {n, i, j1, i1})
                         ELSE
                            RETURN { n, i, j1, i1 }
                         ENDIF
@@ -2697,7 +2707,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
                         IF !lAll .AND. aStru[i1,j1,OB_ID] == cId
                            RETURN { n, i, j1, i1 }
                         ELSEIF lAll .AND. aStru[i1,j1,OB_ID] = cId
-                           Aadd( arr, { n, i, j1, i1 } )
+                           Aadd(arr, {n, i, j1, i1})
                         ENDIF
                      ENDIF
                   NEXT
@@ -2708,7 +2718,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
          IF !lAll .AND. ::aStru[i,1,OB_ID] == cId
             RETURN { 1, i }
          ELSEIF lAll .AND. ::aStru[i,1,OB_ID] = cId
-            Aadd( arr, { 1, i } )
+            Aadd(arr, {1, i})
          ENDIF
       ENDIF
    NEXT
@@ -2772,10 +2782,10 @@ METHOD UpdSource( nLine1, nPos1, nLine2, nPos2, nOper, cText ) CLASS HiliExt
             FOR i := n1 TO Len( aStru1 )
                aStru1[i,1] -= nDel
                aStru1[i,2] -= nDel
-               Aadd( aStru2, aStru1[i] )
+               Aadd(aStru2, aStru1[i])
             NEXT
             IF !Empty(aRest)
-               Aadd( aStru2, aRest )
+               Aadd(aStru2, aRest)
             ENDIF
             ::oEdit:aStru[nLine1] := ASize( aStru1, n1-1 )
          ENDIF
@@ -2807,7 +2817,7 @@ METHOD UpdSource( nLine1, nPos1, nLine2, nPos2, nOper, cText ) CLASS HiliExt
                   aStru2[i,1] := nPos1
                ENDIF
                aStru2[i,2] := nPos1 + aStru2[i,2] - nPos2 - 1
-               Aadd( aStru1, aStru2[i] )
+               Aadd(aStru1, aStru2[i])
             ENDIF
          NEXT
          //::oEdit:aStru[nLine2] := { { 0, 0, NIL } }
@@ -2967,10 +2977,10 @@ FUNCTION hced_setAccInfo( oEdit, aPoint, nType, nOpt )
       RETURN .F.
    ENDIF
    IF Len( aStru ) < OB_ID
-      Aadd( aStru, NIL )
+      Aadd(aStru, NIL)
    ENDIF
    IF Len( aStru ) < OB_ACCESS
-      Aadd( aStru, NIL )
+      Aadd(aStru, NIL)
    ENDIF
    aStru[OB_ACCESS] := nOpt
 
@@ -3022,9 +3032,9 @@ STATIC FUNCTION hced_CrStru( oEdit, aAttr, aStru, aText, cClsname, cVal, cHRef )
       n1 := hced_Len( oEdit, aText )+1
       n2 := hced_Len( oEdit, aText ) + hced_Len( oEdit,cVal )
    ENDIF
-   Aadd( aStru, Iif( cHRef!=NIL, { n1, n2, cClsName, cId, nAccess, cHRef }, ;
-         Iif( nAccess!=0, { n1, n2, cClsName, cId, nAccess }, ;
-         Iif( !Empty(cId), { n1, n2, cClsName, cId }, { n1, n2, cClsName } ) ) ) )
+   Aadd(aStru, Iif(cHRef != NIL, {n1, n2, cClsName, cId, nAccess, cHRef}, ;
+        Iif(nAccess != 0, {n1, n2, cClsName, cId, nAccess}, ;
+        Iif(!Empty(cId), {n1, n2, cClsName, cId}, {n1, n2, cClsName}))))
 
    RETURN NIL
 

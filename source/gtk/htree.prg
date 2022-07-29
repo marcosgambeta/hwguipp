@@ -71,7 +71,7 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
    IF aImages != NIL .AND. !Empty(aImages)
       ::aImages := {}
       FOR i := 1 TO Len( aImages )
-         AAdd( ::aImages, iif( oTree:Type, hwg_BmpFromRes( aImages[i] ), hwg_Openimage( AddPath( aImages[i],HBitmap():cPath ) ) ) )
+         AAdd(::aImages, iif(oTree:Type, hwg_BmpFromRes(aImages[i]), hwg_Openimage(AddPath(aImages[i], HBitmap():cPath))))
       NEXT
    ENDIF
 
@@ -93,13 +93,13 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
 
    aItems := iif( oParent == NIL, oTree:aItems, oParent:aItems )
    IF nPos == 2
-      AAdd( aItems, Self )
+      AAdd(aItems, Self)
    ELSEIF nPos == 1
-      AAdd( aItems, NIL )
+      AAdd(aItems, NIL)
       AIns( aItems, 1 )
       aItems[ 1 ] := Self
    ELSE
-      AAdd( aItems, NIL )
+      AAdd(aItems, NIL)
       h := oPrev:handle
       IF ( i := AScan( aItems, { | o | o:handle == h } ) ) == 0
          aItems[ Len( aItems ) ] := Self
@@ -272,7 +272,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
    IF aImages != NIL .AND. !Empty(aImages)
       ::aImages := {}
       FOR i := 1 TO Len( aImages )
-         AAdd( ::aImages, iif( ::Type, hwg_BmpFromRes( aImages[i] ), hwg_Openimage( AddPath( aImages[i],HBitmap():cPath ) ) ) )
+         AAdd(::aImages, iif(::Type, hwg_BmpFromRes(aImages[i]), hwg_Openimage(AddPath(aImages[i], HBitmap():cPath))))
       NEXT
    ENDIF
 

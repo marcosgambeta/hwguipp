@@ -95,7 +95,7 @@ Local aItem
 
          if valtype( ::aItem[ n, 1 ] ) == "N"
             IF !empty(::aItem[ n, 1 ])
-               AAdd( aButton, ::aItem[ n , 1 ])
+               AAdd(aButton, ::aItem[n , 1])
             ENDIF
          elseif  valtype( ::aItem[ n, 1 ] ) == "C"
             if ".ico" $ lower(::aItem[ n, 1 ]) //if ".ico" in lower(::aItem[ n, 1 ])
@@ -147,7 +147,7 @@ METHOD AddButton(nBitIp,nId,bState,bStyle,cText,bClick,c,aMenu) CLASS hToolBar
    DEFAULT bstyle to 0x0000
    DEFAULT c to ""
    DEFAULT ctext to ""
-   AAdd( ::aItem ,{ nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu ,0} )
+   AAdd(::aItem, {nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, 0})
 RETURN Self
 
 METHOD onEvent( msg, wParam, lParam )  CLASS HToolbar

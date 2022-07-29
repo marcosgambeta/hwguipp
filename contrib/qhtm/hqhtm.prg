@@ -20,8 +20,7 @@ CLASS HQhtm INHERIT HControl
    DATA resname INIT ""
    DATA bLink, bSubmit
 
-   METHOD New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption, ;
-                  bInit,bSize,bLink,bSubmit,fname,resname )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, bInit, bSize, bLink, bSubmit, fname, resname)
    METHOD Activate()
    METHOD Redefine( oWndParent,nId,caption,bInit,bSize,bLink,bSubmit,fname,resname )
    METHOD Init()
@@ -30,8 +29,7 @@ CLASS HQhtm INHERIT HControl
 ENDCLASS
 
 
-METHOD New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption, ;
-                  bInit,bSize,bLink,bSubmit,fname,resname ) CLASS HQhtm
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, bInit, bSize, bLink, bSubmit, fname, resname) CLASS HQhtm
 
    // ::classname:= "HQHTM"
    ::oParent := Iif( oWndParent==NIL, ::oDefaultParent, oWndParent )
@@ -140,19 +138,16 @@ CLASS HQhtmButton INHERIT HButton
 
    CLASS VAR winclass   INIT "BUTTON"
    DATA  cHtml
-   METHOD New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,cCaption,oFont, ;
-                  bInit,bSize,bClick,ctooltip )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bClick, ctooltip)
    METHOD Redefine( oWnd,nId,cCaption,oFont,bInit,bSize,bClick,ctooltip )
    METHOD Init()
 
 ENDCLASS
 
-METHOD New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,cCaption,oFont, ;
-                  bInit,bSize,bClick,ctooltip ) CLASS HQhtmButton
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bClick, ctooltip) CLASS HQhtmButton
 
    ::cHtml := cCaption
-   ::Super:New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,"",, ;
-                  bInit,bSize,,bClick,ctooltip )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, "", , bInit, bSize, , bClick, ctooltip)
    // ::classname:= "HQHTMBUTTON"
 
 Return Self

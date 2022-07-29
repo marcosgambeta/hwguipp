@@ -40,8 +40,8 @@ Diseñador
      cadena de cualquier fuente) el método y lo muestra en una
      pantalla:
 
-     oForm:     =    HFormTmpl    ():Read(    "testget1.xml")
-oForm:Show()
+     oForm := HFormTmpl():Read("testget1.xml")
+     oForm:Show()
 
      Así, permite crear realmente aplicaciones manejadas  por
     los datos.

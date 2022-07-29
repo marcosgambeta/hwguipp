@@ -24,7 +24,7 @@ FUNCTION RdView( fname )
       fname := hwg_Selectfile( "View files( *.vew )", "*.vew", mypath )
    ENDIF
 
-   IF !Empty(fname) .AND. !Empty(aLines := hb_aTokens( MemoRead( fname ), crlf  ))
+   IF !Empty(fname) .AND. !Empty(aLines := hb_aTokens( MemoRead(fname), crlf  ))
       FOR nLine := 1 TO Len( aLines )
          nPos := 0
          IF ( scom := Upper(hb_TokenPtr(aLines[nLine], @nPos, " ") ) ) == "DRIVER"
@@ -71,10 +71,10 @@ FUNCTION RdView( fname )
                UpdBrowse()
             ENDIF
          ELSEIF scom == "FILTER"
-            AAdd( aFlt, { improc, LTrim(SubStr(aLines[nLine], nPos + 1)) } )
+            AAdd(aFlt, {improc, LTrim(SubStr(aLines[nLine], nPos + 1))})
          ELSEIF scom == "RELATION"
             sword := hb_TokenPtr( aLines[nLine], @nPos, " " )
-            AAdd( aRel, { improc, sword, LTrim(SubStr(aLines[nLine], nPos + 1)) } )
+            AAdd(aRel, {improc, sword, LTrim(SubStr(aLines[nLine], nPos + 1))})
          ENDIF
       NEXT
       IF !res
@@ -109,32 +109,32 @@ FUNCTION WrView()
    ENDIF
 
    obl := SELECT()
-   IF ( han := Fcreate( fname, FC_NORMAL ) ) != - 1
+   IF ( han := Fcreate(fname, FC_NORMAL) ) != - 1
       FOR i := 1 TO Len( aFiles )
          IF !Empty(aFiles[i,AF_NAME])
             dbSelectArea( aFiles[i,AF_ALIAS] )
-            FWrite( han, "DRIVER " +  aDrivers[ aFiles[ improc,AF_DRIVER ] ] +  ;
-               iif( nServerType == LOCAL_SERVER, " LOCAL", " REMOTE" ) + crlf )
+            FWrite(han, "DRIVER " +  aDrivers[ aFiles[ improc,AF_DRIVER ] ] +  ;
+               iif( nServerType == LOCAL_SERVER, " LOCAL", " REMOTE" ) + crlf)
 
-            FWrite( han, "FILE " + Iif(aFiles[i,AF_EXCLU],"EXCLUSIVE ","SHARED ") + ;
+            FWrite(han, "FILE " + Iif(aFiles[i,AF_EXCLU],"EXCLUSIVE ","SHARED ") + ;
                   Iif(aFiles[i,AF_RDONLY],"READ ","WRITE ") + ;
-                  aFiles[i,AF_NAME] + crlf )
+                  aFiles[i,AF_NAME] + crlf)
 
             IF !Empty(cTmp := OrdSetFocus())
-               FWrite( han, "ORDER " + cTmp + crlf )
+               FWrite(han, "ORDER " + cTmp + crlf)
             ENDIF
 
             IF !Empty(cTmp := dbFilter())
-               FWrite( han, "FILTER " + cTmp + crlf )
+               FWrite(han, "FILTER " + cTmp + crlf)
             ENDIF
 
             j := 0
             DO WHILE !Empty(cTmp := dbRelation( ++ j ))
-               FWrite( han, "RELATION " + Alias( dbRSelect( j ) ) + " " + cTmp + crlf )
+               FWrite(han, "RELATION " + Alias( dbRSelect( j ) ) + " " + cTmp + crlf)
             ENDDO
          ENDIF
       NEXT
-      Fclose( han )
+      Fclose(han)
    ENDIF
    SELECT( obl )
 RETURN NIL

@@ -98,7 +98,7 @@ FUNCTION _APPMAIN( cFileName, cPar1, cPar2, cPar3, cPar4, cPar5, cPar6, cPar7, c
 STATIC FUNCTION ReadIni( cPath )
    LOCAL oIni, oInit, i, oNode1
 
-   oIni := HXMLDoc():Read( cPath + "hwgrun.xml" )
+   oIni := HXMLDoc():Read(cPath + "hwgrun.xml")
    IF !Empty(oIni:aItems) .AND. oIni:aItems[1]:title == "init"
       oInit := oIni:aItems[1]
       FOR i := 1 TO Len( oInit:aItems )

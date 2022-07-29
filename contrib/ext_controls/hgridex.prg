@@ -61,13 +61,13 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    DATA aRowStyle  INIT { }
    DATA iRowSelect INIT  0
 
-   METHOD New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
-               bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
-               nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit, aItems )
+   METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
+              bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
+              nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit, aItems)
 
    METHOD Activate()
    METHOD Init()
-   METHOD AddColumn( cHeader, nWidth, nJusHead, nBit ) INLINE AAdd( ::aColumns, { cHeader, nWidth, nJusHead, nBit } )
+   METHOD AddColumn( cHeader, nWidth, nJusHead, nBit ) INLINE AAdd(::aColumns, {cHeader, nWidth, nJusHead, nBit})
    METHOD Refresh()
    METHOD RefreshLine()                          INLINE hwg_Listview_update( ::handle, hwg_Listview_getfirstitem( ::handle ) )
    METHOD SetItemCount( nItem )                    INLINE hwg_Listview_setitemcount( ::handle, nItem )
@@ -85,16 +85,15 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
 ENDCLASS
 
 
-METHOD New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
-            bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
-            nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit, aItems ) CLASS HGridEx
+METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
+           bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
+           nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit, aItems) CLASS HGridEx
 
    HB_SYMBOL_UNUSED( nItemCount )
 
    //nStyle := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), WS_VISIBLE + WS_CHILD + WS_TABSTOP + LVS_REPORT )
    nStyle := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), WS_TABSTOP + WS_BORDER   )
-   ::Super:New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
-              bSize, bPaint )
+   ::Super:New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint)
    DEFAULT aBit TO { }
    ::aItems := aItems
    ::ItemCount := Len( aItems )
@@ -144,7 +143,7 @@ METHOD Init() CLASS HGridEx
       ::nHolder := 1
 
       FOR n := 1 TO Len( ::aBitmaps )
-         AAdd( aButton, hwg_Loadimage( , ::aBitmaps[ n ] , IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION ) )
+         AAdd(aButton, hwg_Loadimage(NIL, ::aBitmaps[n], IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION))
       NEXT
 
       IF Len( aButton ) > 0
@@ -230,20 +229,20 @@ METHOD AddRow( a , bupdate ) CLASS HGRIDEX
 
    DEFAULT bupdate TO .f.
    FOR n := 1 TO nLen STEP 4
-      AAdd( aTmp1, a[ n ] )
-      AAdd( aTmp,  IIF( ValType( a[ n + 1 ] ) == "N", a[ n + 1 ], - 1 ) )
+      AAdd(aTmp1, a[n])
+      AAdd(aTmp, IIF(ValType(a[n + 1]) == "N", a[n + 1], -1))
 
-      AAdd( aTmp2,  IIF( ValType( a[ n + 2  ] ) == "N", a[ n + 2 ], hwg_ColorRgb2N( 12, 15, 46 ) ) )
+      AAdd(aTmp2, IIF(ValType(a[n + 2]) == "N", a[n + 2], hwg_ColorRgb2N(12, 15, 46)))
 
 
-      AAdd( aTmp2,  IIF( ValType( a[ n + 3  ] ) == "N", a[ n + 3 ], hwg_ColorRgb2N( 192, 192, 192 ) ) )
+      AAdd(aTmp2, IIF(ValType(a[n + 3]) == "N", a[n + 3], hwg_ColorRgb2N(192, 192, 192)))
 
-      AAdd( ::aColors, aTmp2 )
+      AAdd(::aColors, aTmp2)
       aTmp2 := { }
    NEXT
 
-   AAdd( ::aRowBitMap, aTmp )
-   AAdd( ::aRow,    aTmp1 )
+   AAdd(::aRowBitMap, aTmp)
+   AAdd(::aRow, aTmp1)
    IF bupdate
       ::updatedata()
    ENDIF
@@ -274,7 +273,7 @@ METHOD Notify( lParam )  CLASS HGRIDEX
 
    IF nCode == LVN_COLUMNCLICK //.and. hwg_Getnotifycodefrom(lParam) == ::Handle
       IF Empty(::hsort)
-         ::hSort := hwg_Listviewsortinfonew( lParam, NIL )
+         ::hSort := hwg_Listviewsortinfonew(lParam, NIL)
       ENDIF
       hwg_Listviewsort( ::handle, lParam, ::hSort )
       RETURN  0
@@ -301,8 +300,7 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
    HB_SYMBOL_UNUSED( lTransp )
 
    DEFAULT  aItem TO { }
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-              bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
    ::arow := aItem
 

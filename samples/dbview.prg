@@ -178,7 +178,7 @@ nBrwCharset := 0  // Do not modify with UTF-8 on LINUX
 
 Return NIL
 
-Static Function FileOpen( fname )
+Static Function FileOpen(fname)
 Local mypath := "\" + CURDIR() + IIF( EMPTY(CURDIR()), "", "\" )
 Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
 
@@ -199,9 +199,9 @@ Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
       oBrw:InitBrw( 2 )
       oBrw:active := .F.
       hwg_CreateList( oBrw,.T. )
-      Aadd( oBrw:aColumns,NIL )
+      Aadd(oBrw:aColumns, NIL)
       Ains( oBrw:aColumns,1 )
-      oBrw:aColumns[1] := HColumn():New( "*",{|v,o|Iif(Deleted(),"*"," ")},"C",1,0 )
+      oBrw:aColumns[1] := HColumn():New("*", {|v, o|Iif(Deleted(), "*", " ")}, "C", 1, 0)
       oBrw:active := .T.
       oBrw:nHCCharset := nBrwCharset 
       oBrw:Refresh()
@@ -253,7 +253,7 @@ Memvar oBrw, oFont
    
    i := 1   
    DO WHILE !EMPTY(indname := ORDNAME( i ))
-      AADD( aIndex, { indname, ORDKEY( i ), ORDBAGNAME( i ) } )
+      AADD(aIndex, {indname, ORDKEY(i), ORDBAGNAME(i)})
       iLen := Max( iLen, Len( OrdKey( i ) ) )
       i ++
    ENDDO
@@ -261,10 +261,7 @@ Memvar oBrw, oFont
    width := Min( oBrw:width * ( iLen + 20 ), hwg_Getdesktopwidth() )
    height := oBrw:height * ( Len( aIndex ) + 2 )
    
-   INIT DIALOG oDlg TITLE "Select Order" ;
-         AT 0,0                  ;
-         SIZE width+2,height+2   ;
-         FONT oFont
+   INIT DIALOG oDlg TITLE "Select Order" AT 0, 0 SIZE width + 2, height + 2 FONT oFont
 
    @ 0,0 BROWSE oBrowse ARRAY       ;
        SIZE width,height            ;
@@ -274,9 +271,9 @@ Memvar oBrw, oFont
        ON CLICK {|o|nChoice:=o:nCurrent,hwg_EndDialog(o:oParent:handle)}
 
    oBrowse:aArray := aIndex
-   oBrowse:AddColumn( HColumn():New( "OrdName",{|v,o|o:aArray[o:nCurrent,1]},"C",10,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Order key",{|v,o|o:aArray[o:nCurrent,2]},"C",Max(iLen,12),0 ) )
-   oBrowse:AddColumn( HColumn():New( "Filename",{|v,o|o:aArray[o:nCurrent,3]},"C",10,0 ) )
+   oBrowse:AddColumn(HColumn():New("OrdName",   {|v, o|o:aArray[o:nCurrent, 1]}, "C", 10, 0))
+   oBrowse:AddColumn(HColumn():New("Order key", {|v, o|o:aArray[o:nCurrent, 2]}, "C", Max(iLen, 12), 0))
+   oBrowse:AddColumn(HColumn():New("Filename",  {|v, o|o:aArray[o:nCurrent, 3]}, "C", 10, 0))
    
    oBrowse:rowPos := nOrder
    Eval( oBrowse:bGoTo,oBrowse,nOrder )
@@ -331,17 +328,17 @@ Memvar oBrw
          oMsg = DlgWait("Indexing")
          IF lMulti
             IF EMPTY(cCond)
-               ORDCREATE( RTRIM(cName),RTRIM(cTag),RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
+               ORDCREATE(RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||" + RTRIM(cExpr) + "}"), Iif(lUniq, .T., NIL))
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
-               ORDCREATE( RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
+               ORDCREATE(RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||" + RTRIM(cExpr) + "}"), Iif(lUniq, .T., NIL))
             ENDIF
          ELSE
             IF EMPTY(cCond)
                dbCreateIndex( RTRIM(cName),RTRIM(cExpr),&("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
             ELSE                     
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
-               ORDCREATE( RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||"+RTRIM(cExpr)+"}"),Iif(lUniq,.T.,NIL) )
+               ORDCREATE(RTRIM(cName), RTRIM(cTag), RTRIM(cExpr), &("{||" + RTRIM(cExpr) + "}"), Iif(lUniq, .T., NIL))
             ENDIF
          ENDIF
          oMsg:Close()
@@ -438,25 +435,20 @@ Memvar oBrw, currentCP, currFname
       af0 := dbStruct()
       af  := dbStruct()
       FOR i := 1 TO Len(af)
-         Aadd( af[i],i )
+         Aadd(af[i], i)
       NEXT
    ENDIF
 
-   INIT DIALOG oDlg TITLE "Modify structure" ;
-         AT 0,0                  ;
-         SIZE 400,330            ;
-         FONT of
+   INIT DIALOG oDlg TITLE "Modify structure" AT 0, 0 SIZE 400, 330 FONT of
 
-   @ 10,10 BROWSE oBrowse ARRAY  ;
-       SIZE 250,200              ;
-       STYLE WS_BORDER+WS_VSCROLL+WS_HSCROLL ;
-       ON POSCHANGE {|o|brw_onPosChg(o,oGet1,oGet2,oGet3,oGet4)}
+   @ 10, 10 BROWSE oBrowse ARRAY SIZE 250, 200 STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL ;
+      ON POSCHANGE {|o|brw_onPosChg(o, oGet1, oGet2, oGet3, oGet4)}
 
    oBrowse:aArray := af
-   oBrowse:AddColumn( HColumn():New( "Name",{|v,o|o:aArray[o:nCurrent,1]},"C",10,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Type",{|v,o|o:aArray[o:nCurrent,2]},"C",1,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Length",{|v,o|o:aArray[o:nCurrent,3]},"N",5,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Dec",{|v,o|o:aArray[o:nCurrent,4]},"N",2,0 ) )
+   oBrowse:AddColumn(HColumn():New("Name",   {|v, o|o:aArray[o:nCurrent, 1]}, "C", 10, 0))
+   oBrowse:AddColumn(HColumn():New("Type",   {|v, o|o:aArray[o:nCurrent, 2]}, "C",  1, 0))
+   oBrowse:AddColumn(HColumn():New("Length", {|v, o|o:aArray[o:nCurrent, 3]}, "N",  5, 0))
+   oBrowse:AddColumn(HColumn():New("Dec",    {|v, o|o:aArray[o:nCurrent, 4]}, "N",  2, 0))
    
    @ 10,230 GET oGet1 VAR cName SIZE 100,24
    @ 120,230 GET COMBOBOX oGet2 VAR nType ITEMS aTypes SIZE 100,24
@@ -482,8 +474,8 @@ Memvar oBrw, currentCP, currFname
          IF Empty(fname)
             Return NIL
          ENDIF
-         dbCreate( fname,af )
-         FileOpen( fname )
+         dbCreate(fname, af)
+         FileOpen(fname)
       ELSE
          cAlias := Alias()
          nOrd := ordNumber()
@@ -492,7 +484,7 @@ Memvar oBrw, currentCP, currFname
          GO TOP
          
          fname := "a0_new"
-         dbCreate( fname,af )
+         dbCreate(fname, af)
          IF currentCP != NIL
             use (fname) new codepage (currentCP)
          ELSE
@@ -542,7 +534,7 @@ Memvar oBrw, currentCP, currFname
          ENDIF
 
          Close All
-         Ferase( currFname+".bak" )
+         Ferase(currFname + ".bak")
          Frename( currFname + ".dbf", currFname + ".bak" )
          Frename( "a0_new.dbf", currFname + ".dbf" )
          IF File( "a0_new.fpt" )
@@ -597,11 +589,11 @@ Local cName, cType, nLen, nDec
       nLen  := Val( oGet3:SetGet() )
       nDec  := Val( oGet4:SetGet() )
       IF nOperation == 1
-         Aadd( oBrowse:aArray,{ cName,cType,nLen,nDec } )
+         Aadd(oBrowse:aArray, {cName, cType, nLen, nDec})
       ELSE
          IF nOperation == 2
-            Aadd( oBrowse:aArray, NIL )
-            Ains( oBrowse:aArray,oBrowse:nCurrent )
+            Aadd(oBrowse:aArray, NIL)
+            Ains(oBrowse:aArray, oBrowse:nCurrent)
             oBrowse:aArray[oBrowse:nCurrent] := Array(4)
          ENDIF
          oBrowse:aArray[oBrowse:nCurrent,1] := cName
@@ -641,7 +633,7 @@ Memvar oBrw, oSay2
       IF !Empty(cKey)
          dbv_cSeek := cKey
          nRec := Eval( oBrw:bRecNo, oBrw )
-         IF dbSeek( cKey )
+         IF dbSeek(cKey)
             oSay2:SetText( "Found" )
             oBrw:Refresh()
             Eval( oBrw:bScrollPos,oBrw,0 )

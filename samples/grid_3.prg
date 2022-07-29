@@ -136,11 +136,11 @@ Return result
 Function CriaBase()
         IF File("trash.dbf")
             FErase("trash.dbf")
-        END
-                    
-        DBCreate( "trash.dbf", {{"code", "N", 10, 0},;
-                                {"creation", "D",  8, 0},;
-                                {"descr", "C", 40, 0}} )
+        ENDIF
+
+        DBCreate("trash.dbf", {{"code      ", "N", 10, 0}, ;
+                               {"creation  ", "D",  8, 0}, ;
+                               {"descr     ", "C", 40, 0}})
         
         USE trash                         
         

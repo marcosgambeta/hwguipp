@@ -159,11 +159,11 @@ void wrlog( const char * sFile, const char * sTraceMsg, ... )
 
    if( sFile == nullptr )
    {
-      hFile = hb_fopen( "trace.log", "a" );
+      hFile = hb_fopen("trace.log", "a");
    }
    else
    {
-      hFile = hb_fopen( sFile, "a" );
+      hFile = hb_fopen(sFile, "a");
    }
 
    if( hFile )
@@ -174,7 +174,7 @@ void wrlog( const char * sFile, const char * sTraceMsg, ... )
       vfprintf( hFile, sTraceMsg, ap );
       va_end( ap );
 
-      fclose( hFile );
+      fclose(hFile);
    }
 
 }
@@ -810,7 +810,7 @@ HB_FUNC( HCED_EXACTCARETPOS )
 
    if( iLen > 0 )
    {
-      cr = gdk_cairo_create( gtk_widget_get_window( pted->area ) );
+      cr = gdk_cairo_create(gtk_widget_get_window(pted->area));
       layout = pango_cairo_create_layout( cr );
 
       if( xpos < 0 )

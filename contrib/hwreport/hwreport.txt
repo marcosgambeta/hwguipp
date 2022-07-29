@@ -181,7 +181,7 @@
         If the report is in *.rpt file, you need open it with the hwg_hwr_Open()
    function and then print with hwg_hwr_Print():
 
-         IF !Empty(aReport := hwg_hwr_Open( fileName, reportName ))
+         IF !Empty(aReport := hwg_hwr_Open(fileName, reportName))
             hwg_hwr_Print( aReport, printerName )
          ENDIF        
 

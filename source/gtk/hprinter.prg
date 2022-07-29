@@ -393,8 +393,7 @@ METHOD EndDoc() CLASS HPrinter
 METHOD StartPage() CLASS HPrinter
 
    ::nPage ++
-   AAdd( ::aPages, "page," + LTrim(Str(::nPage)) + "," + ;
-      iif( ::lmm, "mm,", "px," ) + iif( ::nOrient == 1, "p", "l" ) + crlf )
+   AAdd(::aPages, "page," + LTrim(Str(::nPage)) + "," + iif(::lmm, "mm,", "px,") + iif(::nOrient == 1, "p", "l") + crlf)
 
    RETURN NIL
 
@@ -408,7 +407,7 @@ METHOD EndPage() CLASS HPrinter
 METHOD LoadScript( cScriptFile ) CLASS HPrinter
    LOCAL arr, i, s
 
-   IF Empty(cScriptFile) .OR. Empty(arr := hb_aTokens( MemoRead( cScriptFile ), crlf ))
+   IF Empty(cScriptFile) .OR. Empty(arr := hb_aTokens( MemoRead(cScriptFile), crlf ))
       RETURN .F.
    ENDIF
    ::cScriptFile := cScriptFile
@@ -419,7 +418,7 @@ METHOD LoadScript( cScriptFile ) CLASS HPrinter
    FOR i := 1 TO Len( arr )
       IF Left( arr[i], 4 ) == "page"
          IF !Empty(s)
-            AAdd( ::aPages, s )
+            AAdd(::aPages, s)
          ENDIF
          s := arr[i] + crlf
       ELSEIF !Empty(arr[i]) .AND. !Empty(s)
@@ -427,7 +426,7 @@ METHOD LoadScript( cScriptFile ) CLASS HPrinter
       ENDIF
    NEXT
    IF !Empty(s)
-      AAdd( ::aPages, s )
+      AAdd(::aPages, s)
    ENDIF
 
    RETURN !Empty(::aPages)
@@ -447,16 +446,16 @@ METHOD SaveScript( cScriptFile ) CLASS HPrinter
    IF !Empty(cScriptFile)
       // hwg_MsgInfo("Scriptfile=" + cScriptFile )
       // Default scriptfile is "temp_a2.ps"
-      han := FCreate( cScriptFile )
-      FWrite( han, "job," + ;
+      han := FCreate(cScriptFile)
+      FWrite(han, "job," + ;
             LTrim(Str(Iif(::lmm,::nWidth*::nHRes,::nWidth) )) + "," + ;
             LTrim(Str(Iif(::lmm,::nHeight*::nVRes,::nHeight) )) + "," + ;
-            LTrim(Str(::nHRes,11,4 )) + "," + LTrim(Str(::nVRes,11,4 )) + ",utf8" + crlf )
+            LTrim(Str(::nHRes,11,4 )) + "," + LTrim(Str(::nVRes,11,4 )) + ",utf8" + crlf)
 
       FOR i := 1 TO Len( ::aPages )
-         FWrite( han, ::aPages[i] + crlf )
+         FWrite(han, ::aPages[i] + crlf)
       NEXT
-      FClose( han )
+      FClose(han)
    ENDIF
 
    RETURN NIL
@@ -510,7 +509,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       * cBootUser4 := aTooltips[ 15 ]
    ENDIF
    FOR i := 1 TO nLastPage
-      AAdd( aPage, Str(i, 4) + ":" + Str(nLastPage, 4) )
+      AAdd(aPage, Str(i, 4) + ":" + Str(nLastPage, 4))
    NEXT
 
 
@@ -737,7 +736,7 @@ METHOD ChangePage( oCanvas, oSayPage, n, nPage ) CLASS HPrinter
       cMetaName := "/tmp/i" + LTrim(Str(Int(Seconds()))) + ".png"
       hwg_gp_Print( ::hDC, ::aPages, Len( ::aPages ), 3, cMetaName, ::nCurrPage )
       ::hMeta := hwg_Openimage( cMetaName )
-      FErase( cMetaName )
+      FErase(cMetaName)
       IF !Empty(oCanvas)
          hwg_Redrawwindow( oCanvas:handle )
       ENDIF
@@ -784,7 +783,7 @@ METHOD Add( fontName, nHeight , fnWeight, fdwItalic, fdwUnderline ) CLASS HGP_Fo
    ::Italic    := fdwItalic
    ::Underline := fdwUnderline
 
-   AAdd( ::aFonts, Self )
+   AAdd(::aFonts, Self)
 
    RETURN Self
 
@@ -849,7 +848,7 @@ METHOD Add( nWidth, style, color ) CLASS HGP_Pen
    ::width  := nWidth
    ::style  := style
    ::color  := color
-   AAdd( ::aPens, Self )
+   AAdd(::aPens, Self)
 
    RETURN Self
 

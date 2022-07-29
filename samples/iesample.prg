@@ -55,7 +55,7 @@ Local oEdit, cUrl, oIE
 
     @ 0,34 PANEL oPanelIE SIZE 500,366 ON SIZE {|o,x,y|o:Move(,,x,y-34)}
 
-    oIE := HHtml():New( oPanelIE )
+    oIE := HHtml():New(oPanelIE)
 
     ACTIVATE WINDOW oMainWnd
 

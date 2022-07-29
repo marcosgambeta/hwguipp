@@ -27,7 +27,7 @@ FUNCTION Menu2Prg
    i := 1
    IF ValType( aLMenu[i,1] ) == "A"
       stroka := Space(2) + "  MENU TITLE '" + aLMenu[i,2] + "' ID " + Str(aLMenu[i, 3]) + " "
-      FWrite( han, hb_OsNewline() + stroka )
+      FWrite(han, hb_OsNewline() + stroka)
    ENDIF
 
    DO WHILE i <=  Len( aLMenu )
@@ -35,12 +35,12 @@ FUNCTION Menu2Prg
       IF ValType( aLMenu[i,1] ) == "A"
          //BuildTree( oNode, aMenu[i,1] )
          stroka := Space(2 * nMaxid) + "  MENU TITLE '" + aLMenu[i,2] + "' ID " + Str(aLMenu[i, 3]) + " "
-         FWrite( han, hb_OsNewline() + stroka )
+         FWrite(han, hb_OsNewline() + stroka)
          nMaxId += 1
          CallFunc( "Menu2Prg", { oCtrl , alMenu[i,1] } )
          nMaxId -= 1
          stroka := Space(2 * nmaxid) + "  ENDMENU  "
-         FWrite( han, hb_OsNewline() + stroka )
+         FWrite(han, hb_OsNewline() + stroka)
       ELSE
          IF alMenu[i,2] != "-"
             stroka := Space(2 * nMaxId + 2) + "MENUITEM '" + alMenu[i,2] + "' ID " + LTrim(Str(alMenu[i, 3])) + "  "
@@ -56,7 +56,7 @@ FUNCTION Menu2Prg
          ELSE
             stroka := Space(4 + nMaxId) + "SEPARATOR"
          ENDIF
-         FWrite( han, hb_OsNewline() + stroka + " " )
+         FWrite(han, hb_OsNewline() + stroka + " ")
       ENDIF
       i ++
    ENDDO
@@ -86,10 +86,10 @@ FUNCTION Tool2Prg
    ENDIF
 
    cId := Val( iif( (temp := oCtrl:GetProp("Id" ) ) != NIL .AND. !Empty(temp ),temp ,"700" ) )
-   FWrite( han, " ID " + LTrim(Str(cid)) )
+   FWrite(han, " ID " + LTrim(Str(cid)))
    //<O>:AddButton(<nBitIp>,<nId>,<bstate>,<bstyle>,<ctext>,<bclick>,<c>,<d>)
    IF Len( oCtrl:aControls ) > 0
-      FWrite( han, hb_OsNewline() + cTool )
+      FWrite(han, hb_OsNewline() + cTool)
       i := 1
       DO WHILE i <= Len( oCtrl:aControls )
          cName := Trim(oCtrl:GetProp("Name"))
@@ -158,7 +158,7 @@ FUNCTION Tool2Prg
          //  cTool += ",{|| .T. }"
          //ENDIF
          cTool += "," + cTip + ",''"
-         FWrite( han, cTool + ")" + hb_OsNewline() )
+         FWrite(han, cTool + ")" + hb_OsNewline())
          cTool := ""
          i ++
       ENDDO
@@ -272,7 +272,7 @@ FUNCTION Browse2Prg
       ENDDO
       cBrowser :=  hb_OsNewline() + cBrowser + "    *- FIM DE " + cname
    ELSE
-      FWrite( han, hb_OsNewline() + hb_OsNewline() + cbrowser )
+      FWrite(han, hb_OsNewline() + hb_OsNewline() + cbrowser)
       i := 1
       DO WHILE i <= Len( oCtrl:aControls )
          cName := Trim(oCtrl:GetProp("Name"))
@@ -290,7 +290,7 @@ FUNCTION Browse2Prg
             // verificar se tem mais de um campo
             temp := SubStr(temp, 1, iif(At('+', temp) > 0, At('+', temp) - 1, Len(temp)))
             j := {}
-            AEval( aTypes, { |aField| AAdd( j,aField[1] ) } )
+            AEval( aTypes, { |aField| AAdd(j, aField[1]) } )
             cHeader  := iif( cHeader == NIL .OR. Empty(cHeader) , '"' + temp + '"', '' + cHeader + '' )
             IF m -> nLength = NIL
                m -> nLength := &cTmpAlias -> ( fieldlen( AScan(j,temp ) ) )
@@ -319,7 +319,7 @@ FUNCTION Browse2Prg
          cbrowser += "," + iif( ( temp := oCtrl1:GetProp("JustifyHeader" ) ) != NIL, LTrim(Str(Val(temp))), "" )
          cbrowser += "," + iif( ( temp := oCtrl1:GetProp("JustifyLine" ) ) != NIL, LTrim(Str(Val(temp))), "" )
          cbrowser += "," + iif( ( temp := oCtrl1:GetProp("Picture" ) ) != NIL .AND. !Empty(temp), "'" + Trim(temp) + "'", "" )
-         //Fwrite( han, +hb_OsNewline() + cbrowser)
+         //Fwrite(han, +hb_OsNewline() + cbrowser)
 
          // Methods ( events ) for the control
          k := 1
@@ -349,7 +349,7 @@ FUNCTION Browse2Prg
          cbrowser += "," + CallFunc( "Bloco2Prg", { aMethods, "ColorBlock" } )
          cbrowser += "," + CallFunc( "Bloco2Prg", { aMethods, "HeadClick" } )
          //cbrowser += "))"
-         FWrite( han, cbrowser + "))" + hb_OsNewline() )
+         FWrite(han, cbrowser + "))" + hb_OsNewline())
          //( <cHeader>,<block>,<cType>,<nLen>,<nDec>,<.lEdit.>,<nJusHead>, <nJusLine>, <cPict>, <{bValid}>, <{bWhen}>, <aItem>, <{bClrBlck}>, <{bHeadClick}> ) )
          i ++
       ENDDO
@@ -665,7 +665,7 @@ FUNCTION Ctrl2Prg
       ELSE
          // colocar o group para depois dos demais objetos
          IF !Empty(cGroup)
-            FWrite( han, hb_OsNewline() + cGroup )
+            FWrite(han, hb_OsNewline() + cGroup)
          ENDIF
          cofgroup := ""
          cGroup := ""
@@ -849,7 +849,7 @@ FUNCTION Ctrl2Prg
       // BASSO
       IF oCtrl:cClass == "animation"
          stroka += " OF " + cFormName
-         //Fwrite( han, hb_OsNewline() + "   ADD STATUS " + cName + " TO " + cFormName + " ")
+         //Fwrite(han, hb_OsNewline() + "   ADD STATUS " + cName + " TO " + cFormName + " ")
          IF ( temp := oCtrl:GetProp( "Filename" ) ) != NIL
             stroka += " ;" + hb_OsNewline() + Space(8) + "FILE '" + Trim(temp) + "' "
             stroka += " ;" + hb_OsNewline() + Space(8)
@@ -862,9 +862,9 @@ FUNCTION Ctrl2Prg
       IF oCtrl:cClass == "status"
          stroka := ""
          cname := oCtrl:GetProp( "Name" )
-         FWrite( han, hb_OsNewline() + "   ADD STATUS " + cName + " TO " + cFormName + " " )
+         FWrite(han, hb_OsNewline() + "   ADD STATUS " + cName + " TO " + cFormName + " ")
          IF ( temp := oCtrl:GetProp( "aParts" ) ) != NIL
-            FWrite( han, " ; " )
+            FWrite(han, " ; ")
             stroka += Space(8) + "PARTS " + temp[1]
             j := 2
             DO WHILE j <= Len( temp )
@@ -877,8 +877,8 @@ FUNCTION Ctrl2Prg
          // enviar para tras
          cGroup += stroka
       ELSE
-         FWrite( han, hb_OsNewline() )
-         FWrite( han, stroka )
+         FWrite(han, hb_OsNewline())
+         FWrite(han, stroka)
       ENDIF
       // Methods ( events ) for the control
       i := 1
@@ -923,15 +923,14 @@ FUNCTION Ctrl2Prg
                   cname := oCtrl:GetProp( "Name" )
                   temp := oCtrl:GetProp( "interval" ) //) != NIL
                   stroka := "ON INIT {|| " + cName + " := HTimer():New( " + cFormName + ",," + iif( temp != NIL, temp, '0' ) + "," + stroka + " )}"
-                  FWrite( han, " ; //OBJECT TIMER " + hb_OsNewline() + Space(8) + stroka )
+                  FWrite(han, " ; //OBJECT TIMER " + hb_OsNewline() + Space(8) + stroka)
                ELSE
                   IF lsubParameter
                      //temp :=  " {|" + temp + "| " +  cName +"("+ cFormParameters + ")  }"
-                     FWrite( han, " ;" + hb_OsNewline() + Space(8) + cMethod + "{ ||" + cName + "(" + cFormParameters + ")  }"  )
+                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + "{ ||" + cName + "(" + cFormParameters + ")  }")
                   ELSE
 
-                     FWrite( han, " ; " + hb_OsNewline() + Space(8) + cMethod + " {|" + temp + "| " + ;
-                        cName + "( " + temp + " ) }" )
+                     FWrite(han, " ; " + hb_OsNewline() + Space(8) + cMethod + " {|" + temp + "| " + cName + "( " + temp + " ) }")
                   ENDIF
                ENDIF
             ELSE
@@ -943,14 +942,14 @@ FUNCTION Ctrl2Prg
                   temp := oCtrl:GetProp( "value" ) //) != NIL
                   //ON INIT {|| oTimer1 := HTimer():New( otESTE,,5000,{|| OtIMER1:END(),hwg_Msginfo('oi'),hwg_EndDialog() } )}
                   stroka := "ON INIT {|| " + cName + " := HTimer():New( " + cFormName + ",," + temp + "," + stroka + " )}"
-                  FWrite( han, " ; //OBJECT TIMER " + hb_OsNewline() + Space(8) + stroka )
+                  FWrite(han, " ; //OBJECT TIMER " + hb_OsNewline() + Space(8) + stroka)
                ELSE
 
                   IF lsubParameter
                      //temp :=  " {|" + temp + "| " +  cName +"("+ cFormParameters + ")  }"
-                     FWrite( han, " ;" + hb_OsNewline() + Space(8) + cMethod + "{ ||" + cName + "(" + cFormParameters + ")  }"  )
+                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + "{ ||" + cName + "(" + cFormParameters + ")  }")
                   ELSE
-                     FWrite( han, " ;" + hb_OsNewline() + Space(8) + cMethod + " {|" + temp + "| " +  iif( Len( cName ) == 1, cName[ 1 ], cName[ 2 ] ) + " }" )
+                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + " {|" + temp + "| " +  iif( Len( cName ) == 1, cName[ 1 ], cName[ 2 ] ) + " }")
                   ENDIF
 
                ENDIF
@@ -964,13 +963,13 @@ FUNCTION Ctrl2Prg
    // gerar o codigo da TOOLBAR
    IF oCtrl:cClass == "toolbar"
       stroka := CallFunc( "Tool2Prg", { oCtrl } )
-      FWrite( han, hb_OsNewline() + stroka )
+      FWrite(han, hb_OsNewline() + stroka)
    ENDIF
 
    // gerar o codigo do browse
    IF oCtrl:cClass == "browse"
       stroka := CallFunc( "Browse2Prg", { oCtrl } )
-      FWrite( han, hb_OsNewline() + stroka )
+      FWrite(han, hb_OsNewline() + stroka)
    ENDIF
 
    IF !Empty(oCtrl:aControls)
@@ -978,10 +977,10 @@ FUNCTION Ctrl2Prg
       IF oCtrl:cClass == "page" .AND. ;
             ( temp := oCtrl:GetProp( "Tabs" ) ) != NIL .AND. !Empty(temp)
          //stroka := CallFunc( "Style2Prg", { oCtrl } ) + " "
-         //Fwrite( han, stroka)
+         //Fwrite(han, stroka)
          j := 1
          DO WHILE j <= Len( temp )
-            FWrite( han, hb_OsNewline() + "  BEGIN PAGE '" + temp[j] + "' OF " + oCtrl:GetProp( "Name" ) )
+            FWrite(han, hb_OsNewline() + "  BEGIN PAGE '" + temp[j] + "' OF " + oCtrl:GetProp( "Name" ))
 
             i := 1
             DO WHILE i <= Len( oCtrl:aControls )
@@ -991,16 +990,16 @@ FUNCTION Ctrl2Prg
                i ++
             ENDDO
 
-            FWrite( han, hb_OsNewline() + "  END PAGE OF " + oCtrl:GetProp( "Name" ) + hb_OsNewline() )
+            FWrite(han, hb_OsNewline() + "  END PAGE OF " + oCtrl:GetProp( "Name" ) + hb_OsNewline())
             j ++
          ENDDO
          RETURN
       ELSEIF oCtrl:cClass == "radiogroup"
          varname := oCtrl:GetProp( "varName" )
          IF varname == NIL
-            FWrite( han, hb_OsNewline() + "  RADIOGROUP" )
+            FWrite(han, hb_OsNewline() + "  RADIOGROUP")
          ELSE
-            FWrite( han, hb_OsNewline() + "  GET RADIOGROUP " + varname )
+            FWrite(han, hb_OsNewline() + "  GET RADIOGROUP " + varname)
          ENDIF
       ENDIF
 
@@ -1012,7 +1011,7 @@ FUNCTION Ctrl2Prg
 
       IF oCtrl:cClass == "radiogroup"
          temp := oCtrl:GetProp( "nInitValue" )
-         FWrite( han, hb_OsNewline() + "  END RADIOGROUP SELECTED " + iif( temp == NIL,"1",temp ) + hb_OsNewline() )
+         FWrite(han, hb_OsNewline() + "  END RADIOGROUP SELECTED " + iif( temp == NIL,"1",temp ) + hb_OsNewline())
       ENDIF
    ENDIF
 
@@ -1054,24 +1053,24 @@ FUNCTION Ctrl2Prg
    //
 
    cName := iif( Empty(cName), NIL, Trim(cName) )
-   han := FCreate( fname )
+   han := FCreate(fname)
 
    //Add the lines to include
-   //Fwrite( han,'#include "windows.ch"'+ hb_OsNewline()  )
-   //Fwrite( han,'#include "guilib.ch"' + hb_OsNewline()+ hb_OsNewline() )
-   FWrite( han, '#include "hwgui.ch"' + hb_OsNewline() )
-   FWrite( han, '#include "common.ch"' + hb_OsNewline() )
-   FWrite( han, '#ifdef __XHARBOUR__' + hb_OsNewline() )
-   FWrite( han, '   #include "ttable.ch"' + hb_OsNewline() )
-   FWrite( han, '#endif' + hb_OsNewline() + hb_OsNewline() )
+   //Fwrite(han,'#include "windows.ch"'+ hb_OsNewline())
+   //Fwrite(han,'#include "guilib.ch"' + hb_OsNewline()+ hb_OsNewline())
+   FWrite(han, '#include "hwgui.ch"' + hb_OsNewline())
+   FWrite(han, '#include "common.ch"' + hb_OsNewline())
+   FWrite(han, '#ifdef __XHARBOUR__' + hb_OsNewline())
+   FWrite(han, '   #include "ttable.ch"' + hb_OsNewline())
+   FWrite(han, '#endif' + hb_OsNewline() + hb_OsNewline())
 
-   //Fwrite( han, "FUNCTION " + "_" + Iif( cName != NIL, cName, "Main" ) + hb_OsNewline()  )
-   FWrite( han, "FUNCTION " + "_" + iif( cName != NIL, cFunction, cFunction ) + hb_OsNewline()  )
+   //Fwrite(han, "FUNCTION " + "_" + Iif( cName != NIL, cName, "Main" ) + hb_OsNewline())
+   FWrite(han, "FUNCTION " + "_" + iif( cName != NIL, cFunction, cFunction ) + hb_OsNewline())
 
    // Declare 'Private' variables
    IF cName != NIL
-      //    Fwrite( han, "PRIVATE " + cName + hb_OsNewline() )
-      FWrite( han, "Local " + cName + hb_OsNewline() )
+      //    Fwrite(han, "PRIVATE " + cName + hb_OsNewline())
+      FWrite(han, "Local " + cName + hb_OsNewline())
    ENDIF
 
    i := 1
@@ -1086,7 +1085,7 @@ FUNCTION Ctrl2Prg
 
    IF ! Empty(stroka)
 
-      //Fwrite( han, stroka )
+      //Fwrite(han, stroka)
       aParameters := hb_atokens( stroka, ", " )
 
       stroka := ""
@@ -1095,7 +1094,7 @@ FUNCTION Ctrl2Prg
          IF Len( stroka ) < 76
             stroka += aParameters[i] + ", "
          ELSE
-            FWrite( han, hb_OsNewline() + SubStr(stroka, 1, Len(stroka) - 2) )
+            FWrite(han, hb_OsNewline() + SubStr(stroka, 1, Len(stroka) - 2))
             stroka := "LOCAL "
          ENDIF
          i ++
@@ -1104,7 +1103,7 @@ FUNCTION Ctrl2Prg
       //  stroka := "LOCAL " + stroka
       Stroka += hb_OsNewline() //+ "PUBLIC oDlg"
 
-      FWrite( han, hb_OsNewline() + SubStr(stroka, 1, RAt(',', stroka) - 1) )
+      FWrite(han, hb_OsNewline() + SubStr(stroka, 1, RAt(',', stroka) - 1))
 
    ENDIF
 
@@ -1132,7 +1131,7 @@ FUNCTION Ctrl2Prg
             ENDIF
          ELSE
             IF Upper(AllTrim(stroka)) == "LOCAL" .AND. Len( Upper(AllTrim(stroka)) ) > 5
-               FWrite( han, hb_OsNewline() + SubStr(stroka, 1, RAt(',', stroka) - 1) )
+               FWrite(han, hb_OsNewline() + SubStr(stroka, 1, RAt(',', stroka) - 1))
             ENDIF
             stroka := "LOCAL "
          ENDIF
@@ -1142,7 +1141,7 @@ FUNCTION Ctrl2Prg
       //  stroka := " LOCAL " + stroka
       Stroka += hb_OsNewline() //+ "PUBLIC oDlg"
       IF Upper(SubStr(AllTrim(stroka), 1, 5)) == "LOCAL" .AND. Len( AllTrim(stroka ) ) > 5
-         FWrite( han, hb_OsNewline() + SubStr(stroka, 1, RAt(',', stroka) - 1) )
+         FWrite(han, hb_OsNewline() + SubStr(stroka, 1, RAt(',', stroka) - 1))
       ENDIF
    ENDIF
 
@@ -1156,7 +1155,7 @@ FUNCTION Ctrl2Prg
          //stroka += "LOCAL " + temp[j] + hb_OsNewline()
          j ++
       ENDDO
-      FWrite( han, hb_OsNewline() + stroka )
+      FWrite(han, hb_OsNewline() + stroka)
    ENDIF
 
 
@@ -1165,8 +1164,8 @@ FUNCTION Ctrl2Prg
       IF oForm:aMethods[ i, 2 ] != NIL .AND. ! Empty(oForm:aMethods[ i, 2 ])
 
          IF Lower(oForm:aMethods[i, 1]) == "onforminit"
-            FWrite( han, hb_OsNewline() + hb_OsNewline() )
-            FWrite( han, oForm:aMethods[i,2] )
+            FWrite(han, hb_OsNewline() + hb_OsNewline())
+            FWrite(han, oForm:aMethods[i,2])
          ENDIF
 
       ENDIF
@@ -1182,14 +1181,14 @@ FUNCTION Ctrl2Prg
          cName := "oDlg"
       ENDIF
 
-      FWrite( han, hb_OsNewline() + hb_OsNewline() + '  INIT DIALOG ' + cname + ' TITLE "' + oForm:oDlg:title + '" ;' + hb_OsNewline() )
+      FWrite(han, hb_OsNewline() + hb_OsNewline() + '  INIT DIALOG ' + cname + ' TITLE "' + oForm:oDlg:title + '" ;' + hb_OsNewline())
 
    ELSE
       // 'INIT WINDOW' command
       IF cName == NIL
          cName := "oWin"
       ENDIF
-      FWrite( han, hb_OsNewline() + hb_OsNewline() + '  INIT WINDOW ' + cName + ' TITLE "' + oForm:oDlg:title + '" ;' + hb_OsNewline() )
+      FWrite(han, hb_OsNewline() + hb_OsNewline() + '  INIT WINDOW ' + cName + ' TITLE "' + oForm:oDlg:title + '" ;' + hb_OsNewline())
 
    ENDIF
 
@@ -1205,7 +1204,7 @@ FUNCTION Ctrl2Prg
       cStyle += "BACKGROUND BITMAP HBitmap():AddFile('" + temp + "') "
    ENDIF
    IF Len( cStyle ) > 0
-      FWrite( han,  Space(4) + cStyle + " ;" + hb_OsNewline() )
+      FWrite(han,  Space(4) + cStyle + " ;" + hb_OsNewline())
    ENDIF
 
    cFormName := cName
@@ -1249,28 +1248,28 @@ FUNCTION Ctrl2Prg
       //cStyle := ";"+hb_OsNewline()+SPACE(8) +  "STYLE " + substr(cStyle,2)
       cStyle :=  Space(1) + "STYLE " + SubStr(cStyle, 2)
    ENDIF
-   FWrite( han, Space(4) + "AT " + LTrim(Str(oForm:oDlg:nLeft)) + "," ;
+   FWrite(han, Space(4) + "AT " + LTrim(Str(oForm:oDlg:nLeft)) + "," ;
       + LTrim(Str(oForm:oDlg:nTop)) + ;
       " SIZE " + LTrim(Str(oForm:oDlg:nWidth)) + "," + ;
-      LTrim(Str(oForm:oDlg:nHeight + temp)) )
+      LTrim(Str(oForm:oDlg:nHeight + temp)))
 
    IF ( temp := oForm:GetProp( "Font" ) ) != NIL
-      FWrite( han, CallFunc( "FONT2STR",{ temp } ) )
+      FWrite(han, CallFunc( "FONT2STR",{ temp } ))
    ENDIF
 
 
    // NANDO POS
    IF oForm:GetProp( "lClipper" ) = "True"
-      FWrite( han, ' CLIPPER '  )
+      FWrite(han, ' CLIPPER ')
    ENDIF
    IF oForm:GetProp( "lExitOnEnter" ) = "True"
-      //-Fwrite( han,  ' ;' + hb_OsNewline() + SPACE(8) + 'NOEXIT'  )
-      FWrite( han, ' NOEXIT '  )
+      //-Fwrite(han,  ' ;' + hb_OsNewline() + SPACE(8) + 'NOEXIT')
+      FWrite(han, ' NOEXIT ')
    ENDIF
    //
 
    IF Len( cStyle ) > 6
-      FWrite( han,  ' ;' + hb_OsNewline() + Space(4) + cStyle )
+      FWrite(han,  ' ;' + hb_OsNewline() + Space(4) + cStyle)
    ENDIF
 
    i := 1
@@ -1291,9 +1290,9 @@ FUNCTION Ctrl2Prg
          ENDIF
          // fim
          // all methods are onSomething so, strip leading "on"
-         FWrite( han, " ;" + + hb_OsNewline() + Space(8) + "ON " + ;
+         FWrite(han, " ;" + + hb_OsNewline() + Space(8) + "ON " + ;
             StrTran(StrTran(Upper(SubStr(oForm:aMethods[i, 1], 3)), "DLG", ""), "FORM", "") + ;
-            " {|" + temp + "| " + oForm:aMethods[ i, 1 ] + "( " + temp + " ) }" )
+            " {|" + temp + "| " + oForm:aMethods[ i, 1 ] + "( " + temp + " ) }")
 
          // Dialog and Windows methods can have little different name, should be fixed
 
@@ -1301,7 +1300,7 @@ FUNCTION Ctrl2Prg
 
       i ++
    ENDDO
-   FWrite( han, hb_OsNewline() + hb_OsNewline() )
+   FWrite(han, hb_OsNewline() + hb_OsNewline())
 
    // Controls initialization
    i := 1
@@ -1312,9 +1311,9 @@ FUNCTION Ctrl2Prg
          ENDIF
       ELSE
          nMaxId := 0
-         FWrite( han, hb_OsNewline() + " MENU OF " + cformname + " " )
+         FWrite(han, hb_OsNewline() + " MENU OF " + cformname + " ")
          CallFunc( "Menu2Prg", { aControls[ i ] , getmenu() } )
-         FWrite( han, hb_OsNewline() + " ENDMENU" + " " + hb_OsNewline() + hb_OsNewline() )
+         FWrite(han, hb_OsNewline() + " ENDMENU" + " " + hb_OsNewline() + hb_OsNewline())
       ENDIF
       i ++
    ENDDO
@@ -1326,9 +1325,9 @@ FUNCTION Ctrl2Prg
       ELSE
          temp := cname + ":lresult"  // nando pos  return
       ENDIF
-      FWrite( han, hb_OsNewline() + hb_OsNewline() + "   ACTIVATE DIALOG " + cname + hb_OsNewline() )
+      FWrite(han, hb_OsNewline() + hb_OsNewline() + "   ACTIVATE DIALOG " + cname + hb_OsNewline())
    ELSE
-      FWrite( han, hb_OsNewline() + hb_OsNewline() + "   ACTIVATE WINDOW " + cname + hb_OsNewline() )
+      FWrite(han, hb_OsNewline() + hb_OsNewline() + "   ACTIVATE WINDOW " + cname + hb_OsNewline())
    ENDIF
 
    i := 1
@@ -1337,8 +1336,8 @@ FUNCTION Ctrl2Prg
       IF oForm:aMethods[ i, 2 ] != NIL .AND. ! Empty(oForm:aMethods[ i, 2 ])
 
          IF Lower(oForm:aMethods[i, 1]) == "onformexit"
-            FWrite( han, oForm:aMethods[ i, 2 ] )
-            FWrite( han, hb_OsNewline() + hb_OsNewline() )
+            FWrite(han, oForm:aMethods[ i, 2 ])
+            FWrite(han, hb_OsNewline() + hb_OsNewline())
          ENDIF
 
       ENDIF
@@ -1346,7 +1345,7 @@ FUNCTION Ctrl2Prg
    ENDDO
 
 
-   FWrite( han, "RETURN " + temp + hb_OsNewline() + hb_OsNewline() )
+   FWrite(han, "RETURN " + temp + hb_OsNewline() + hb_OsNewline())
 
    // "common" Form/Dialog methods
    i := 1
@@ -1367,21 +1366,21 @@ FUNCTION Ctrl2Prg
                ENDIF
 
                IF Lower(Left(stroka, 8)) == "function"
-                  FWrite( han, "STATIC " + stroka + hb_OsNewline() )
+                  FWrite(han, "STATIC " + stroka + hb_OsNewline())
                   temp := .F.
 
                ELSEIF Lower(Left(stroka, 6)) == "return"
-                  FWrite( han, stroka + hb_OsNewline() )
+                  FWrite(han, stroka + hb_OsNewline())
                   temp := .T.
 
                ELSEIF Lower(Left(stroka, 7)) == "endfunc"
                   IF !temp
-                     FWrite( han, "Return NIL" +  hb_OsNewline() )
+                     FWrite(han, "Return NIL" +  hb_OsNewline())
                   ENDIF
                   temp := .F.
 
                ELSE
-                  FWrite( han, stroka + hb_OsNewline() )
+                  FWrite(han, stroka + hb_OsNewline())
                   temp := .F.
                ENDIF
 
@@ -1389,16 +1388,16 @@ FUNCTION Ctrl2Prg
 
          ELSEIF cName != "onforminit" .AND. cName != "onformexit"
 
-            FWrite( han, "STATIC FUNCTION " + oForm:aMethods[i,1] + hb_OsNewline() + _Chr(13) )
-            FWrite( han, oForm:aMethods[i,2] )
+            FWrite(han, "STATIC FUNCTION " + oForm:aMethods[i,1] + hb_OsNewline() + _Chr(13))
+            FWrite(han, oForm:aMethods[i,2])
 
             j1 := RAt(hb_OsNewline(), oForm:aMethods[i, 2])
 
             IF j1 == 0 .OR. Lower(Left(LTrim(SubStr(oForm:aMethods[i, 2], j1 + 1)), 6)) != "return"
-               FWrite( han, hb_OsNewline() + "RETURN NIL" )
+               FWrite(han, hb_OsNewline() + "RETURN NIL")
             ENDIF
 
-            FWrite( han, hb_OsNewline() + hb_OsNewline() )
+            FWrite(han, hb_OsNewline() + hb_OsNewline())
 
          ENDIF
 
@@ -1423,19 +1422,19 @@ FUNCTION Ctrl2Prg
 
             IF ValType( cName := Callfunc( "FUNC_NAME", { oCtrl, i } ) ) == "C"
 
-               FWrite( han, "STATIC FUNCTION " + cName + hb_OsNewline() )
-               FWrite( han, oCtrl:aMethods[ i, 2 ] )
+               FWrite(han, "STATIC FUNCTION " + cName + hb_OsNewline())
+               FWrite(han, oCtrl:aMethods[ i, 2 ])
 
                j1 := RAt(hb_OsNewline(), oCtrl:aMethods[i, 2])
 
                IF j1 == 0 .OR. ;
                      Lower(Left(LTrim(SubStr(oCtrl:aMethods[i, 2], j1 + 1)), 6)) != "return"
 
-                  FWrite( han, hb_OsNewline() + "RETURN NIL" )
+                  FWrite(han, hb_OsNewline() + "RETURN NIL")
 
                ENDIF
 
-               FWrite( han, hb_OsNewline() + hb_OsNewline() )
+               FWrite(han, hb_OsNewline() + hb_OsNewline())
 
             ENDIF
 
@@ -1446,7 +1445,7 @@ FUNCTION Ctrl2Prg
 
       j ++
    ENDDO
-   FClose( han )
+   FClose(han)
 
 #endscript
 

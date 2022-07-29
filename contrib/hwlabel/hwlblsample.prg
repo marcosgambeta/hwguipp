@@ -203,10 +203,10 @@ ctempoutficv := hwg_CreateTempfileName()
  
  * Create HWINPRN object
 #ifndef __PLATFORM__WINDOWS
-   oWinPrn := HWinPrn():New( ,"DE858","UTF8", , nPrCharset )
+   oWinPrn := HWinPrn():New(, "DE858","UTF8", , nPrCharset)
    oWinPrn:StartDoc( lpreview ,"temp_a2.ps", lprbutton )
 #else
-   oWinPrn := HWinPrn():New( ,"DE858","DEWIN", , nPrCharset)
+   oWinPrn := HWinPrn():New(, "DE858","DEWIN", , nPrCharset)
    oWinPrn:StartDoc( lpreview ,"temp_a2.pdf" , lprbutton)
 #endif
 

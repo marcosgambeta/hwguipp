@@ -402,9 +402,9 @@ HB_FUNC( HWG_EDIT_SET_OVERMODE )
 
    if( g_object_get_data( ( GObject * ) hCtrl, "multi" ) )
    {
-     bOver = gtk_text_view_get_overwrite( ( (GtkTextView *) hCtrl ) );
+     bOver = gtk_text_view_get_overwrite(( (GtkTextView *) hCtrl ));
      if( !( HB_ISNIL(2) ) )
-        gtk_text_view_set_overwrite( ( (GtkTextView *) hCtrl ), hb_parl(2) );
+        gtk_text_view_set_overwrite(( (GtkTextView *) hCtrl ), hb_parl(2));
    }
    else
    {

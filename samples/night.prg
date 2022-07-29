@@ -36,9 +36,9 @@ LOCAL cTitle := "Header"
 
 
 * Style objects for night design
-   oStyleNormal := HStyle():New( {0x7b7680,0x5b5760}, 1 )
-   oStylePressed := HStyle():New( {0x7b7680}, 1,, 2, 0xffffff )
-   oStyleOver := HStyle():New( {0x7b7680}, 1 )
+   oStyleNormal := HStyle():New({0x7b7680, 0x5b5760}, 1)
+   oStylePressed := HStyle():New({0x7b7680}, 1, , 2, 0xffffff)
+   oStyleOver := HStyle():New({0x7b7680}, 1)
 
 inilNightDesign := hwg_MsgYesNo("Set to night mode")
 nNightOffset := 32

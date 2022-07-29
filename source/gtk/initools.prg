@@ -28,8 +28,8 @@ FUNCTION Hwg_GetIni( rubrique, param, defaut, inifile )
 
    // ============================================================================
    LOCAL hini, inivalue, aSect, inicontent
-   inicontent = MemoRead( inifile )
-   hini = hb_iniread( inifile )
+   inicontent = MemoRead(inifile)
+   hini = hb_iniread(inifile)
    IF At("[" + rubrique + "]", inicontent) == 0
       IF defaut == NIL
          inivalue = ""
@@ -62,7 +62,7 @@ FUNCTION Hwg_WriteIni( rubrique, param, value , inifile )
 
    // ============================================================================
    LOCAL rg, rga, rgb, txt, newcontent := "", myrubrique := .F. , inicontent, nblines, delmarker := "$*$"
-   inicontent = MemoRead( inifile )
+   inicontent = MemoRead(inifile)
    nblines = MLCount( inicontent, 150 )
    for rg = 1 TO nblines
       txt = Trim(MemoLine( inicontent,150,rg ))

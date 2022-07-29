@@ -433,8 +433,7 @@ TEDIT * ted_init( void )
    return pted;
 }
 
-HWND ted_create( HWND hwndParent, int id, DWORD dwStyle, int x, int y,
-      int iWidth, int iHeight )
+HWND ted_create(HWND hwndParent, int id, DWORD dwStyle, int x, int y, int iWidth, int iHeight)
 {
 
    return CreateWindowEx( 
@@ -451,9 +450,7 @@ HB_FUNC( HCED_INITTEXTEDIT )
 
 HB_FUNC( HCED_CREATETEXTEDIT )
 {
-   HB_RETHANDLE( ted_create( ( HWND ) HB_PARHANDLE( 1 ),
-          hb_parni( 2 ), ( DWORD ) hb_parnl( 3 ), hb_parni( 4 ),
-          hb_parni( 5 ), hb_parni( 6 ), hb_parni( 7 ) ) );
+   HB_RETHANDLE(ted_create(( HWND ) HB_PARHANDLE(1), hb_parni(2), ( DWORD ) hb_parnl(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)));
 }
 
 HB_FUNC( HCED_SETHANDLE )

@@ -94,7 +94,7 @@ FUNCTION Main( cContainer )
    hwg_Enablemenuitem( , 1001, .F. , .T. )
 
    IF cContainer != NIL
-      CntOpen( cContainer )
+      CntOpen(cContainer)
    ENDIF
 
    ACTIVATE WINDOW oMainW
@@ -116,7 +116,7 @@ STATIC FUNCTION CntCreate()
    fname := hwg_Savefile( "*.*", "( *.* )", "*.*", CurDir() )
 #endif
    IF !Empty(fname)
-      IF !Empty(oContainer := HBinC():Create( fname ))
+      IF !Empty(oContainer := HBinC():Create(fname))
          hwg_WriteStatus( HWindow():GetMain(), 1, hb_fnameNameExt( fname ) )
          hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim(Str(oContainer:nItems )) )
          hwg_Enablemenuitem( , 1001, .T. , .T. )
@@ -131,13 +131,13 @@ STATIC FUNCTION CntCreate()
 
    RETURN NIL
 
-STATIC FUNCTION CntOpen( fname )
+STATIC FUNCTION CntOpen(fname)
 
    IF Empty(fname)
       fname := hwg_Selectfile( { "All files" }, { "*.*" }, "" )
    ENDIF
    IF !Empty(fname)
-      IF !Empty(oContainer := HBinC():Open( fname, .T. ))
+      IF !Empty(oContainer := HBinC():Open(fname, .T.))
          hwg_WriteStatus( HWindow():GetMain(), 1, hb_fnameNameExt( fname ) )
          hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim(Str(oContainer:nItems )) )
          hwg_Enablemenuitem( , 1001, .T. , .T. )
@@ -173,7 +173,7 @@ STATIC FUNCTION CntAdd()
       hwg_MsgStop( "Fill all fields!" )
       RETURN .F.
    ENDIF
-   oContainer:Add( cObjName, cType, MemoRead( cFileName ) )
+   oContainer:Add( cObjName, cType, MemoRead(cFileName) )
    hwg_EndDialog()
    oBrw:Refresh()
 
@@ -188,7 +188,7 @@ STATIC FUNCTION CntAdd()
    @ 210, 20 BUTTON "Browse" SIZE 80, 26 ON CLICK bFile
 
    @ 10, 70 SAY "Object name:" SIZE 120, 22
-   @ 130, 70 GET oEdit2 VAR cObjName SIZE 160, 26 PICTURE Replicate( 'X', 32 ) MAXLENGTH 0
+   @ 130, 70 GET oEdit2 VAR cObjName SIZE 160, 26 PICTURE Replicate('X', 32) MAXLENGTH 0
 
    @ 10, 100 SAY "Type:" SIZE 120, 22
    @ 10, 100 GET oEdit3 VAR cType SIZE 80, 26 PICTURE "XXXX" MAXLENGTH 0

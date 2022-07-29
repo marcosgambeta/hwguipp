@@ -316,7 +316,7 @@ if empty(cFolderFile)
 Endif
 if file(cFolderFile)
    If(hwg_Msgyesno("File "+cFolderFile+" EXIT ..Replace?"))
-     Erase( cFolderFile )
+     Erase(cFolderFile)
    Else
      hwg_Msginfo("No file SAVED.", "HwMake")
      Return NIL
@@ -426,7 +426,7 @@ cExeHarbour := Lower(cHarbour+"\bin\harbour.exe")
 //PrgFiles
 i := Ascan( oBrowse1:aArray, {|x| At(cMainPrg, x) > 0 } )
 If i == 0
-   AADD(  oBrowse1:aArray, Alltrim(oMainPrg:GetText()) )
+   AADD(oBrowse1:aArray, Alltrim(oMainPrg:GetText()))
 EndIf   
 
 For Each i in oBrowse1:aArray 
@@ -449,20 +449,20 @@ For Each i in oBrowse1:aArray
 
    If lCompile 
       cLogErro := cFileNoPath( cFileNoExt( cObjName ) ) + ".log" 
-      fErase( cLogErro )
-      fErase( cObjName )
-      fErase( cFileNoExt( cObjName ) + ".obj" )
+      fErase(cLogErro)
+      fErase(cObjName)
+      fErase(cFileNoExt(cObjName) + ".obj")
       If ExecuteCommand(  cExeHarbour, cPrgName + " -o" + cObjName + " " + Alltrim(oPrgFlag:GetText()) + " -n -i"+cHarbour+"\include;"+cHwGUI+"\include"+If( !Empty(Alltrim(oIncFolder:GetText()) ), ";"+Alltrim(oIncFolder:GetText()), ""),  cFileNoExt( cObjName ) + ".log" ) <> 0
   
-         cErrText := Memoread( cLogErro ) 
+         cErrText := Memoread(cLogErro) 
        
          lEnd     := 'C2006' $ cErrText .OR. 'No code generated' $ cErrText .or. "Error E" $ cErrText .or. "Error F" $ cErrText
          If lEnd
-            ErrorPreview( Memoread( cLogErro ) )           
+            ErrorPreview( Memoread(cLogErro) )
             Return NIL
          Else 
             If File( cLogErro )
-             //  fErase( cLogErro )
+             //  fErase(cLogErro)
             EndIf   
          EndIf   
          Return NIL
@@ -515,7 +515,7 @@ cMake += RetLibrary( cHwGUI, cHarbour, cBcc55, oBrowse3:aArray )
 cMake += If( !Empty(cListRes), ",," + cListRes, "" )
 
 If File( cMainPrg + ".bc ")
-   fErase( cMainPrg + ".bc " )
+   fErase(cMainPrg + ".bc ")
 EndIF   
 
 Memowrit( cMainPrg + ".bc ", cMake )
@@ -526,7 +526,7 @@ If ExecuteCommand( cBCC55 + "\bin\ilink32", "-v -Gn -aa -Tpe @"+cMainPrg + ".bc"
 EndIf
 
 If File( cMainPrg + ".bc ")
-   fErase( cMainPrg + ".bc " )
+   fErase(cMainPrg + ".bc ")
 EndIF   
    
 Return NIL
@@ -594,13 +594,13 @@ Else
    cLog := " > " + cFileNoPath( cLog ) 
 EndIf      
 If File( cFile )
-   fErase( cFile )
+   fErase(cFile)
 EndIf 
 Memowrit( cFile, cProc + " " + cSend + cLog )
 * DF7BE: HWG_WAITRUN() does not exist
 *  nRet := hwg_WAITRUN( cFile ) 
 If File( cFile )
-   fErase( cFile )
+   fErase(cFile)
 EndIf
 
 Return nRet

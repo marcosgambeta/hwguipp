@@ -61,14 +61,14 @@ function CreateChild(lClip)
    DEFAULT lClip := .f.
 
     /*
-   oChild := HWindow():New( WND_CHILD , oIcon,0x0000FF,NIL,10,10,200,100,cTitle,cMenu,NIL,NIL, ;
-                          NIL,bExit,NIL,NIL,NIL,NIL,NIL, "Child_" + Alltrim(Str(len(aChilds))) , oBmp )
+   oChild := HWindow():New(WND_CHILD , oIcon,0x0000FF,NIL,10,10,200,100,cTitle,cMenu,NIL,NIL, ;
+                          NIL,bExit,NIL,NIL,NIL,NIL,NIL, "Child_" + Alltrim(Str(len(aChilds))) , oBmp)
     */
    
    * The class HChildWindow is coded in file hwindow.prg at about line 517
    
-   oChild := HChildWindow():New( oIcon,0x0000FF,NIL,10,10,200,100,cTitle,cMenu,NIL,NIL, ;
-                          bExit,NIL,NIL,NIL,NIL,NIL, "Child_" + Alltrim(Str(len(aChilds))) , NIL )
+   oChild := HChildWindow():New(oIcon,0x0000FF,NIL,10,10,200,100,cTitle,cMenu,NIL,NIL, ;
+                          bExit,NIL,NIL,NIL,NIL,NIL, "Child_" + Alltrim(Str(len(aChilds))) , NIL)
 
    
    // Test if we could create the window object 

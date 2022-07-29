@@ -36,11 +36,9 @@ FUNCTION gthwg_CreateMainWindow( cTitle, oFont )
    LOCAL nStyle, x := 0, y := 0, width := 400, height := 200
    LOCAL bSize
 
-   oWnd := HMainWindow():New( 1,,, nStyle, x, y, width, height, ;
-      Iif( Empty(cTitle),"gt_HwGUI",cTitle ),,, oFont,, {||gthwg_CloseWindow()}, ;
-      ,,,,,,,,,, WS_THICKFRAME )
+   oWnd := HMainWindow():New(1, , , nStyle, x, y, width, height, Iif(Empty(cTitle), "gt_HwGUI", cTitle), , , oFont, , {||gthwg_CloseWindow()}, , , , , , , , , , , WS_THICKFRAME)
 
-   gthwg_SetWindow( oWnd:handle, Iif( Empty(oFont), NIL, oFont:handle ) )
+   gthwg_SetWindow(oWnd:handle, Iif(Empty(oFont), NIL, oFont:handle))
 
    RETURN oWnd
 

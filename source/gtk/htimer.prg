@@ -50,7 +50,7 @@ METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
    ::lOnce := !Empty(lOnce)
 
    ::tag := hwg_SetTimer( ::id, ::value )
-   AAdd( ::aTimers, Self )
+   AAdd(::aTimers, Self)
 
    RETURN Self
 

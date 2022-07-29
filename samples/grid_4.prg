@@ -24,7 +24,7 @@ Function Main()
             FErase("temp.dbf")
         END
                     
-        DBCreate( "temp.dbf", {{"LINE", "C", 300, 0}} )
+        DBCreate("temp.dbf", {{"LINE", "C", 300, 0}})
         
         USE temp
                         

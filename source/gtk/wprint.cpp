@@ -100,15 +100,15 @@ HB_FUNC( HWG_OPENPRINTER )
 
 HB_FUNC( HWG_GETPRINTERS )
 {
-   HB_FHANDLE hInput = hb_fsOpen( "/etc/printcap", FO_READ );
+   HB_FHANDLE hInput = hb_fsOpen("/etc/printcap", FO_READ);
    PHB_ITEM aMetr = NULL, temp;
 
    if( hInput != -1 )
    {
-      HB_ULONG ulLen = hb_fsSeek( hInput, 0, FS_END );
+      HB_ULONG ulLen = hb_fsSeek(hInput, 0, FS_END);
       unsigned char *cBuffer, *ptr, *ptr1;
 
-      hb_fsSeek( hInput, 0, FS_SET );
+      hb_fsSeek(hInput, 0, FS_SET);
       cBuffer = (unsigned char*) hb_xgrab( ulLen + 1 );
       ulLen = hb_fsReadLarge( hInput, cBuffer, ulLen );
       cBuffer[ulLen] = '\0';
@@ -575,15 +575,15 @@ HB_FUNC( HWG_GP_PRINT )
    {
       cairo_surface_t *surface;
       if( iOper == 2 )
-         surface = cairo_ps_surface_create( print->cName,
+         surface = cairo_ps_surface_create(print->cName,
                 gtk_page_setup_get_page_width( print->page_setup, GTK_UNIT_POINTS ),
-                gtk_page_setup_get_page_height( print->page_setup, GTK_UNIT_POINTS ) );
+                gtk_page_setup_get_page_height( print->page_setup, GTK_UNIT_POINTS ));
       else
-         surface = cairo_svg_surface_create( print->cName,
+         surface = cairo_svg_surface_create(print->cName,
                 gtk_page_setup_get_page_width( print->page_setup, GTK_UNIT_POINTS ),
-                gtk_page_setup_get_page_height( print->page_setup, GTK_UNIT_POINTS ) );
+                gtk_page_setup_get_page_height( print->page_setup, GTK_UNIT_POINTS ));
 
-      cairo_t *cr = cairo_create( surface );
+      cairo_t *cr = cairo_create(surface);
 
       if( iPage > 0 )
          i = iPages = iPage;
@@ -612,7 +612,7 @@ HB_FUNC( HWG_GP_PRINT )
          cairo_surface_t *surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
              gtk_page_setup_get_page_width( print->page_setup, GTK_UNIT_POINTS ),
              gtk_page_setup_get_page_height( print->page_setup, GTK_UNIT_POINTS ) );
-         cairo_t *cr = cairo_create( surface );
+         cairo_t *cr = cairo_create(surface);
          draw_page( cr, (char*)hb_arrayGetCPtr( hb_param( 2,HB_IT_ARRAY ), i ) );
          memcpy( sfile, print->cName, iLen );
          sfile[iLen] = '\0';
@@ -667,7 +667,7 @@ HB_FUNC( HWG_GP_GETTEXTSIZE )
    cText = hwg_convert_to_utf8( hb_parc(2) );
 
    surface = cairo_image_surface_create ( CAIRO_FORMAT_ARGB32, 1024, 400 );
-   cr = cairo_create( surface );
+   cr = cairo_create(surface);
 
    cairo_select_font_face( cr, hb_parc(3), CAIRO_FONT_SLANT_NORMAL,
         CAIRO_FONT_WEIGHT_NORMAL );

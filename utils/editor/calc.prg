@@ -90,7 +90,7 @@ FUNCTION EditScr( oEdit, aStru )
          IF !Empty(arr[3])
             arr[3,OB_ACCESS] := hwg_setBit( hwg_setBit( 0, BIT_CLCSCR ), BIT_RDONLY )
             IF Len( arr[3] ) < OB_EXEC
-               Aadd( arr[3], NIL )
+               Aadd(arr[3], NIL)
             ENDIF
          ENDIF
       ENDIF
@@ -384,7 +384,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
             IF Len( aStru ) >= OB_ID
                aStru[OB_ID] := cIdExp
             ELSE
-               Aadd( aStru, cIdExp )
+               Aadd(aStru, cIdExp)
             ENDIF
          ENDIF
          oEdit:aPointC[P_X] := nPos2
@@ -394,7 +394,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
          IF Len( aStru ) >= OB_ID
             aStru[OB_ID] := cIdRes
          ELSE
-            Aadd( aStru, cIdRes )
+            Aadd(aStru, cIdRes)
          ENDIF
       ELSE
          n := aStru[nStruRes,2]-aStru[nStruRes,1]+1

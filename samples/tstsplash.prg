@@ -41,7 +41,7 @@ csplashimg := ".." + cDirSep + "image" + cDirSep + "astro.jpg"
       MENUITEM "&Exit" ACTION oMainWindow:Close()
    ENDMENU
 
-   //oSplash := HSplash():Create( "Hwgui.bmp",2000)
+   //oSplash := HSplash():Create("Hwgui.bmp", 2000)
    SPLASH oSplash TO csplashimg TIME 2000
 
    ACTIVATE WINDOW oMainWindow

@@ -45,7 +45,7 @@ CLASS HDTheme
 ENDCLASS
 
 Function LoadEdOptions( cFileName )
-Local oIni := HXMLDoc():Read( cFileName ), oOptDesc
+Local oIni := HXMLDoc():Read(cFileName), oOptDesc
 Local i, j, j1, cTheme, oTheme, oThemeXML, arr
 
    cIniName := cFileName
@@ -86,7 +86,7 @@ Local i, j, j1, cTheme, oTheme, oThemeXML, arr
 Return NIL
 
 Function SaveEdOptions()
-Local oIni := HXMLDoc():Read( cCurDir+cIniName )
+Local oIni := HXMLDoc():Read(cCurDir+cIniName)
 Local i, j, oNode, nStart, oThemeDesc, aAttr
 
    oNode := oIni:aItems[1]
@@ -105,50 +105,50 @@ Local i, j, oNode, nStart, oThemeDesc, aAttr
          aAttr := { {"tcolor",Ltrim(Str(HDTheme():aThemes[i]:normal[1]))}, ;
                     {"bcolor",Ltrim(Str(HDTheme():aThemes[i]:normal[2]))} }
          IF HDTheme():aThemes[i]:normal[3]
-            Aadd( aAttr, { "bold","True" } )
+            Aadd(aAttr, {"bold","True"})
          ENDIF
          IF HDTheme():aThemes[i]:normal[4]
-            Aadd( aAttr, { "italic","True" } )
+            Aadd(aAttr, {"italic","True"})
          ENDIF
          oThemeDesc:Add( HXMLNode():New( "normal",HBXML_TYPE_SINGLE,aAttr ) )
 
          aAttr := { {"tcolor",Ltrim(Str(HDTheme():aThemes[i]:command[1]))}, ;
                     {"bcolor",Ltrim(Str(HDTheme():aThemes[i]:command[2]))} }
          IF HDTheme():aThemes[i]:command[3]
-            Aadd( aAttr, { "bold","True" } )
+            Aadd(aAttr, {"bold", "True"})
          ENDIF
          IF HDTheme():aThemes[i]:command[4]
-            Aadd( aAttr, { "italic","True" } )
+            Aadd(aAttr, {"italic", "True"})
          ENDIF
          oThemeDesc:Add( HXMLNode():New( "command",HBXML_TYPE_SINGLE,aAttr ) )
 
          aAttr := { {"tcolor",Ltrim(Str(HDTheme():aThemes[i]:comment[1]))}, ;
                     {"bcolor",Ltrim(Str(HDTheme():aThemes[i]:comment[2]))} }
          IF HDTheme():aThemes[i]:comment[3]
-            Aadd( aAttr, { "bold","True" } )
+            Aadd(aAttr, {"bold", "True"})
          ENDIF
          IF HDTheme():aThemes[i]:comment[4]
-            Aadd( aAttr, { "italic","True" } )
+            Aadd(aAttr, {"italic", "True"})
          ENDIF
          oThemeDesc:Add( HXMLNode():New( "comment",HBXML_TYPE_SINGLE,aAttr ) )
 
          aAttr := { {"tcolor",Ltrim(Str(HDTheme():aThemes[i]:quote[1]))}, ;
                     {"bcolor",Ltrim(Str(HDTheme():aThemes[i]:quote[2]))} }
          IF HDTheme():aThemes[i]:quote[3]
-            Aadd( aAttr, { "bold","True" } )
+            Aadd(aAttr, {"bold", "True"})
          ENDIF
          IF HDTheme():aThemes[i]:quote[4]
-            Aadd( aAttr, { "italic","True" } )
+            Aadd(aAttr, {"italic", "True"})
          ENDIF
          oThemeDesc:Add( HXMLNode():New( "quote",HBXML_TYPE_SINGLE,aAttr ) )
 
          aAttr := { {"tcolor",Ltrim(Str(HDTheme():aThemes[i]:number[1]))}, ;
                     {"bcolor",Ltrim(Str(HDTheme():aThemes[i]:number[2]))} }
          IF HDTheme():aThemes[i]:number[3]
-            Aadd( aAttr, { "bold","True" } )
+            Aadd(aAttr, {"bold", "True"})
          ENDIF
          IF HDTheme():aThemes[i]:number[4]
-            Aadd( aAttr, { "italic","True" } )
+            Aadd(aAttr, {"italic", "True"})
          ENDIF
          oThemeDesc:Add( HXMLNode():New( "number",HBXML_TYPE_SINGLE,aAttr ) )
 
@@ -364,9 +364,9 @@ Memvar nScheme, nType, oTheme, cScheme
             Return NIL
          ENDIF
          IF Ascan( aSchemes,{|a|Lower(a[1])==Lower(cScheme)} ) == 0
-            Aadd( aSchemes,{ cScheme, AClone(aSchemes[nScheme,2]), ;
+            Aadd(aSchemes, {cScheme, AClone(aSchemes[nScheme, 2]), ;
                 AClone(aSchemes[nScheme,3]), AClone(aSchemes[nScheme,4]), ;
-                AClone(aSchemes[nScheme,5]), AClone(aSchemes[nScheme,6]) } )
+                AClone(aSchemes[nScheme,5]), AClone(aSchemes[nScheme,6])})
             oBrw:Refresh()
          ELSE
             hwg_Msgstop( "The " + cScheme + " theme exists already !", "Designer" )

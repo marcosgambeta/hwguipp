@@ -123,7 +123,7 @@ METHOD SetPaintCB( nId, block, cId ) CLASS HColumn
       ENDIF
    ELSE
       IF i > nLen
-         AAdd( ::aPaintCB, { nId, cId, block } )
+         AAdd(::aPaintCB, {nId, cId, block})
       ELSE
          ::aPaintCB[i,3] := block
       ENDIF
@@ -458,7 +458,7 @@ METHOD AddColumn( oColumn ) CLASS HBrowse
       oColumn := HColumn():New( iif( n > 0,arr[1],NIL ), iif( n > 1,arr[2],NIL ), ;
          iif( n > 2, arr[3], NIL ), iif( n > 3, arr[4], NIL ), iif( n > 4, arr[5], NIL ), iif( n > 5, arr[6], NIL ) )
    ENDIF
-   AAdd( ::aColumns, oColumn )
+   AAdd(::aColumns, oColumn)
    ::lChanged := .T.
    InitColumn( Self, oColumn, Len( ::aColumns ) )
 
@@ -466,7 +466,7 @@ METHOD AddColumn( oColumn ) CLASS HBrowse
 
 METHOD InsColumn( oColumn, nPos ) CLASS HBrowse
 
-   AAdd( ::aColumns, NIL )
+   AAdd(::aColumns, NIL)
    AIns( ::aColumns, nPos )
    ::aColumns[ nPos ] := oColumn
    ::lChanged := .T.
@@ -1674,7 +1674,7 @@ METHOD ButtonUp( lParam ) CLASS HBrowse
             ADel( ::aSelected, i )
             ASize( ::aSelected, Len( ::aSelected ) - 1 )
          ELSE
-            AAdd( ::aSelected, Eval( ::bRecno,Self ) )
+            AAdd(::aSelected, Eval(::bRecno,Self))
          ENDIF
       ELSE
          IF Len( ::aSelected ) > 0
@@ -1963,14 +1963,14 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
             UNLOCK
          ELSE
             IF ValType( oBrw:aArray[1] ) == "A"
-               AAdd( oBrw:aArray, Array( Len(oBrw:aArray[1] ) ) )
+               AAdd(oBrw:aArray, Array(Len(oBrw:aArray[1])))
                FOR fif := 2 TO Len( ( oBrw:aArray[1] ) )
                   oBrw:aArray[Len(oBrw:aArray),fif] := ;
                      Iif( oBrw:aColumns[fif]:type == "D", CToD( Space(8 ) ), ;
                      Iif( oBrw:aColumns[fif]:type == "N", 0, "" ) )
                NEXT
             ELSE
-               AAdd( oBrw:aArray, NIL )
+               AAdd(oBrw:aArray, NIL)
             ENDIF
             oBrw:nCurrent := Len( oBrw:aArray )
             Eval( oColumn:block, oBrw:varbuf, oBrw, fipos )
@@ -2243,7 +2243,7 @@ FUNCTION hwg_getPaintCB( arr, nId )
                IF aRes == NIL
                   aRes := { arr[i,3] }
                ELSE
-                  AAdd( aRes, arr[i,3] )
+                  AAdd(aRes, arr[i, 3])
                ENDIF
             ENDIF
          ENDIF

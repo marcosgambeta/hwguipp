@@ -23,7 +23,7 @@ CLASS HHtml // INHERIT HControl
    DATA oParent
    DATA handle  INIT 0
 
-   METHOD New( oParent )
+   METHOD New(oParent)
    METHOD DisplayPage( cUrl )   INLINE hwgax_DisplayHtmlPage( ::oParent:handle,cUrl )
    METHOD DisplayText( cText )  INLINE hwgax_DisplayHtmlStr(::oParent:handle, cText)
    METHOD Activate()
@@ -37,7 +37,7 @@ CLASS HHtml // INHERIT HControl
    METHOD End()
 ENDCLASS
 
-METHOD New( oParent ) CLASS HHtml
+METHOD New(oParent) CLASS HHtml
 
    IF !hwgax_OleInitialize()
       hwg_Msgstop( "Can't open OLE!","HHtml():New()" )

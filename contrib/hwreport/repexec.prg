@@ -29,7 +29,7 @@ FUNCTION hwg_hwr_Init( cRepName, nWidth, nHeight, nFormWidth, cVars )
    ENDIF
    RETURN { nWidth, nHeight, xKoef, 0, 0, {}, "", cRepName, .F. , 0, cVars }
 
-FUNCTION hwg_hwr_Open( fname, repName )
+FUNCTION hwg_hwr_Open(fname, repName)
 
    LOCAL aPaintRep
    LOCAL strbuf := Space(512), poz := 513, stroka, nMode := 0
@@ -37,7 +37,7 @@ FUNCTION hwg_hwr_Open( fname, repName )
    LOCAL aLine, itemName, aItem, res := .T.
    LOCAL nFormWidth
 
-   han := FOpen( fname, FO_READ + FO_SHARED )
+   han := FOpen(fname, FO_READ + FO_SHARED)
    IF han <> - 1
       DO WHILE .T.
          stroka := RDSTR(han, @strbuf, @poz, 512)
@@ -133,7 +133,7 @@ FUNCTION hwg_hwr_Open( fname, repName )
             ENDIF
          ENDIF
       ENDDO
-      FClose( han )
+      FClose(han)
    ELSE
       hwg_Msgstop( "Can't open " + fname )
       RETURN NIL
@@ -163,8 +163,7 @@ FUNCTION hwg_Hwr_AddItem( aPaintRep, nType, cCaption, nLeft, nTop, nWidth, nHeig
       nVarType := 0
    ENDIF
 
-   AAdd( aPaintRep[ FORM_ITEMS ], aItem := { nType, cCaption, ;
-      nLeft, nTop, nWidth, nHeight, nAlign, cPen, cFont, nVarType, 0, NIL, 0 } )
+   AAdd(aPaintRep[FORM_ITEMS], aItem := {nType, cCaption, nLeft, nTop, nWidth, nHeight, nAlign, cPen, cFont, nVarType, 0, NIL, 0})
 
    IF !Empty(aItem[ ITEM_FONT ]) .AND. Valtype( aItem[ ITEM_FONT ] ) == "C"
       arr := hb_ATokens( aItem[ ITEM_FONT ], ',' )
@@ -185,7 +184,7 @@ FUNCTION hwg_Hwr_AddItem( aPaintRep, nType, cCaption, nLeft, nTop, nWidth, nHeig
 
    RETURN aItem
 
-FUNCTION hwg_hwr_Close( aPaintRep )
+FUNCTION hwg_hwr_Close(aPaintRep)
 
    LOCAL i, aItem
 
@@ -507,10 +506,10 @@ FUNCTION hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, nYadd, lCalc )
    ELSEIF aItem[ ITEM_TYPE ] == TYPE_BOX
       oPrinter:Box( x1, y1, x2, y2, aItem[ ITEM_PEN ] )
    ELSEIF aItem[ ITEM_TYPE ] == TYPE_BITMAP
-      //Aadd( aBitmaps, hBitmap := hwg_Openbitmap( aItem[ ITEM_CAPTION ], oPrinter:hDC ) )
+      //Aadd(aBitmaps, hBitmap := hwg_Openbitmap(aItem[ITEM_CAPTION], oPrinter:hDC))
       IF !Empty(aItem[ITEM_BITMAP])
         hBitmap := aItem[ITEM_BITMAP]:handle
-        AAdd( aImgs, {x1, y1, x2, y2, hBitmap, aItem[ ITEM_CAPTION ]} )
+        AAdd(aImgs, {x1, y1, x2, y2, hBitmap, aItem[ITEM_CAPTION]})
         //hwg_writelog( "hBitmap: "+Iif(hBitmap==NIL,"Nil","Ok") )
         //oPrinter:Bitmap( x1, y1, x2, y2,, hBitmap, aItem[ ITEM_CAPTION ] )
       ENDIF

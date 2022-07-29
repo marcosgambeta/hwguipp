@@ -180,7 +180,7 @@ HB_FUNC( HWG_GETFONTSLIST )
    int n_families, i;
    PHB_ITEM aFonts;
 
-   cr = gdk_cairo_create( gtk_widget_get_window(widget) );
+   cr = gdk_cairo_create(gtk_widget_get_window(widget));
    layout = pango_cairo_create_layout( cr );
    context = pango_layout_get_context( layout );
    pango_context_list_families( context, &families, &n_families );

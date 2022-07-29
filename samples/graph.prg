@@ -8,9 +8,9 @@ FUNCTION Main
 
    PREPARE FONT oFont NAME "Georgia" WIDTH 0 HEIGHT -17 ITALIC
 
-   oStyleNormal := HStyle():New( {0x7b7680,0x5b5760}, 1 )
-   oStylePressed := HStyle():New( {0x7b7680}, 1,, 2, 0xffffff )
-   oStyleOver := HStyle():New( {0x7b7680}, 1 )
+   oStyleNormal := HStyle():New({0x7b7680, 0x5b5760}, 1)
+   oStylePressed := HStyle():New({0x7b7680}, 1, , 2, 0xffffff)
+   oStyleOver := HStyle():New({0x7b7680}, 1)
 
    INIT WINDOW oMain MAIN TITLE "Example" AT 200, 0 SIZE 400, 320 ;
       BACKCOLOR 0x3C3940 FONT oFont STYLE WND_NOTITLE + WND_NOSIZEBOX
@@ -47,8 +47,8 @@ STATIC FUNCTION Graph1
    LOCAL oGraph, i, aGraph := { {}, {} }
 
    FOR i := - 40 TO 40
-      AAdd( aGraph[1], hwg_cos( i/10 ) )
-      AAdd( aGraph[2], hwg_sin( i/10 ) )
+      AAdd(aGraph[1], hwg_cos(i / 10))
+      AAdd(aGraph[2], hwg_sin(i / 10))
    NEXT
 
    oGraph := HWindow():GetMain():oGraph
@@ -63,7 +63,7 @@ STATIC FUNCTION Graph2
    LOCAL oGraph, i, aGraph := { {} }
 
    FOR i := 1 TO 8
-      AAdd( aGraph[1], i * i )
+      AAdd(aGraph[1], i * i)
    NEXT
 
    oGraph := HWindow():GetMain():oGraph
@@ -77,7 +77,7 @@ STATIC FUNCTION Graph3
    LOCAL oGraph, i, aGraph := { {} }
 
    FOR i := 1 TO 6
-      AAdd( aGraph[1], { "", i * i } )
+      AAdd(aGraph[1], {"", i * i})
    NEXT
 
    oGraph := HWindow():GetMain():oGraph

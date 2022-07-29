@@ -206,7 +206,7 @@ METHOD SetPaintCB( nId, block, cId ) CLASS HPanel
       ENDIF
    ELSE
       IF i > nLen
-         AAdd( ::aPaintCB, { nId, cId, block } )
+         AAdd(::aPaintCB, {nId, cId, block})
       ELSE
          ::aPaintCB[i,3] := block
       ENDIF
@@ -235,8 +235,8 @@ CLASS HPanelStS INHERIT HPANEL
    DATA aParts
    DATA aText
    METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts )
-   METHOD Write( cText, nPart, lRedraw )
-   METHOD SetText( cText )    INLINE ::Write( cText, , .T. )
+   METHOD Write(cText, nPart, lRedraw)
+   METHOD SetText( cText )    INLINE ::Write(cText, , .T.)
    METHOD PaintText( hDC )
    METHOD Paint()
 
@@ -266,7 +266,7 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPar
 
    RETURN Self
 
-METHOD Write( cText, nPart, lRedraw ) CLASS HPanelStS
+METHOD Write(cText, nPart, lRedraw) CLASS HPanelStS
 
    ::aText[Iif(nPart==NIL,1,nPart)] := cText
    IF ValType( lRedraw ) != "L" .OR. lRedraw

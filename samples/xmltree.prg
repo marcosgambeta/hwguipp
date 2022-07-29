@@ -28,7 +28,7 @@ Local oSplit, oSay
       Return NIL
    ENDIF
 
-   IF ( oXmlDoc := HXMLDoc():Read( fname ) ) = NIL
+   IF ( oXmlDoc := HXMLDoc():Read(fname) ) = NIL
    ENDIF
 
    INIT DIALOG oDlg TITLE CutPath(fname)    ;
@@ -128,9 +128,9 @@ static char * utfConvert( char * psz1, short int b2Utf, short int bKoi )
       if( !it )
       {
          if( bKoi )
-            it = it_koi2utf = iconv_open( "UTF-8",codePage );
+            it = it_koi2utf = iconv_open("UTF-8", codePage);
          else
-            it = it_8662utf = iconv_open( "UTF-8",codePage );
+            it = it_8662utf = iconv_open("UTF-8", codePage);
       }
       if( it == (iconv_t)-1 )
       {
@@ -151,9 +151,9 @@ static char * utfConvert( char * psz1, short int b2Utf, short int bKoi )
    {
       it = (bKoi)? it_utf2koi : it_utf2866;
       if( !it )
-         it = it_utf2koi = iconv_open( codePage,"UTF-8" );
+         it = it_utf2koi = iconv_open(codePage, "UTF-8");
       else
-         it = it_utf2866 = iconv_open( codePage,"UTF-8" );
+         it = it_utf2866 = iconv_open(codePage, "UTF-8");
       if( it == (iconv_t)-1 )
       {
          psz2 = ( char * ) hb_xgrab( nLen1+1 );
@@ -231,13 +231,13 @@ HB_FUNC( ICONV_CLOSE )
 {
 #ifdef OS_UNIX_COMPATIBLE
    if( it_koi2utf )
-      iconv_close( it_koi2utf );
+      iconv_close(it_koi2utf);
    if( it_utf2koi )
-      iconv_close( it_utf2koi );
+      iconv_close(it_utf2koi);
    if( it_8662utf )
-      iconv_close( it_8662utf );
+      iconv_close(it_8662utf);
    if( it_utf2866 )
-      iconv_close( it_utf2866 );
+      iconv_close(it_utf2866);
 #endif
 }
 

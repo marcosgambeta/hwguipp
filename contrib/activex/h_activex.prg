@@ -49,7 +49,7 @@ CLASS HActiveX FROM HControl
 
 ENDCLASS
 
-METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
+METHOD New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize) CLASS HActiveX
    LOCAL nStyle, nExStyle, cClsName, hSink
    LOCAL i,a,h,n
    LOCAL oError, bErrorBlock
@@ -58,7 +58,7 @@ METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
    nExStyle := 0
    cClsName := "AtlAxWin"
 
-   ::Super:New( oWnd, , nStyle, nLeft, nTop, nWidth, nHeight )   // ,,,,bSize)
+   ::Super:New(oWnd, , nStyle, nLeft, nTop, nWidth, nHeight)   // ,,,,bSize)
    ::title = cProgId
 
    ::handle := hwg_Createactivex(  nExStyle, cClsName, cProgId, ::style, ;
@@ -73,7 +73,7 @@ METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
 #ifdef __XHARBOUR__
       bErrorBlock := ErrorBlock( { |x| break( x ) } )
       TRY
-         ::oOle := ToleAuto():New( ::hObj )
+         ::oOle := ToleAuto():New(::hObj)
       CATCH oError
          hwg_Msginfo( oError:Description )
       END
@@ -121,8 +121,8 @@ METHOD EventMap( nMsg, xExec, oSelf ) CLASS HActiveX
    LOCAL nAt
    nAt := AScan( ::aAxEv, nMsg )
    IF nAt == 0
-      AAdd( ::aAxEv, nMsg )
-      AAdd( ::aAxExec, { NIL, NIL } )
+      AAdd(::aAxEv, nMsg)
+      AAdd(::aAxExec, {NIL, NIL})
       nAt := Len( ::aAxEv )
    ENDIF
    ::aAxExec[ nAt ] := { xExec, oSelf }

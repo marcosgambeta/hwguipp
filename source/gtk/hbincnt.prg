@@ -50,8 +50,8 @@ CLASS HBinC
 
    DATA   aObjects
 
-   METHOD Create( cName, n )
-   METHOD Open( cName, lWr )
+   METHOD Create(cName, n)
+   METHOD Open(cName, lWr)
    METHOD Close()
    METHOD Add( cObjName, cType, cVal )
    METHOD Del( cObjName )
@@ -63,13 +63,13 @@ CLASS HBinC
 
 ENDCLASS
 
-METHOD Create( cName, n ) CLASS HBinC
+METHOD Create(cName, n) CLASS HBinC
    
    IF n == NIL
       n := 16
    ENDIF
 
-   IF ( ::handle := FCreate( cName ) ) == -1
+   IF ( ::handle := FCreate(cName) ) == -1
       RETURN NIL
    ENDIF
 
@@ -82,25 +82,23 @@ METHOD Create( cName, n ) CLASS HBinC
    ::nFileLen := ::nCntBlocks*2048
    ::aObjects := {}
 
-   FWrite( ::handle, cHead + Chr(::nVerHigh) + Chr(::nVerLow) + ;
-         Replicate( Chr(0), 6 ) + Chr(::nCntBlocks) + ;
-         Replicate( Chr(0), ::nCntBlocks*2048 - 14 ) )
+   FWrite(::handle, cHead + Chr(::nVerHigh) + Chr(::nVerLow) + Replicate(Chr(0), 6) + Chr(::nCntBlocks) + Replicate(Chr(0), ::nCntBlocks * 2048 - 14))
 
    RETURN Self
 
-METHOD Open( cName, lWr ) CLASS HBinC
+METHOD Open(cName, lWr) CLASS HBinC
    LOCAL cBuf, i, nLen, arr, nAddr := 0
 
    ::cName := cName
    ::lWriteAble := !Empty(lWr)
-   IF ( ::handle := FOpen( cName, Iif( ::lWriteAble, FO_READWRITE, FO_READ ) ) ) == -1
+   IF ( ::handle := FOpen(cName, Iif(::lWriteAble, FO_READWRITE, FO_READ)) ) == -1
       RETURN NIL
    ENDIF
 
    cBuf := Space(HEAD_LEN)
-   FRead( ::handle, @cBuf, HEAD_LEN )
+   FRead(::handle, @cBuf, HEAD_LEN)
    IF Left( cBuf,5 ) != cHead
-      FClose( ::handle )
+      FClose(::handle)
       RETURN NIL
    ENDIF
 
@@ -110,11 +108,11 @@ METHOD Open( cName, lWr ) CLASS HBinC
    ::nCntLen  := Asc( Substr(cBuf, 11, 1) ) * 65536 + Asc( Substr(cBuf, 12, 1) ) * 256 + Asc( Substr(cBuf, 13, 1) )
    ::nCntBlocks := Asc( Substr(cBuf, 14, 1) )
    ::nPassLen := Asc( Substr(cBuf, 15, 1) )
-   ::nFileLen := FSeek( ::handle, 0, FS_END )
+   ::nFileLen := FSeek(::handle, 0, FS_END)
 
-   FSeek( ::handle, HEAD_LEN + ::nPassLen, FS_SET )
+   FSeek(::handle, HEAD_LEN + ::nPassLen, FS_SET)
    cBuf := Space(::nCntLen)
-   FRead( ::handle, @cBuf, ::nCntLen )
+   FRead(::handle, @cBuf, ::nCntLen)
 
    ::aObjects := Array( ::nItems )
    FOR i := 1 TO ::nItems
@@ -135,7 +133,7 @@ METHOD Open( cName, lWr ) CLASS HBinC
 
 METHOD Close() CLASS HBinC
 
-   FClose( ::handle )
+   FClose(::handle)
    RETURN NIL
 
 METHOD Add( cObjName, cType, cVal ) CLASS HBinC
@@ -153,7 +151,7 @@ METHOD Add( cObjName, cType, cVal ) CLASS HBinC
    nAddress := ::nFileLen
    nSize := Len( cVal )
    nAddr := Iif( Empty(::aObjects), 0, ::aObjects[Len(::aObjects),OBJ_ADDR] + Len(::aObjects[Len(::aObjects),OBJ_NAME]) + CNT_FIX_LEN )
-   Aadd( ::aObjects, { cObjName, cType, nAddress, nSize, nAddr } )
+   Aadd(::aObjects, {cObjName, cType, nAddress, nSize, nAddr})
 
    IF HEAD_LEN + ::nPassLen + ::nCntLen + Len(cObjName) + CNT_FIX_LEN > ::nCntBlocks*2048
       :: Pack()
@@ -161,21 +159,21 @@ METHOD Add( cObjName, cType, cVal ) CLASS HBinC
       ENDIF
    ENDIF
 
-   FSeek( ::handle, 0, FS_END )
-   FWrite( ::handle, cVal )
+   FSeek(::handle, 0, FS_END)
+   FWrite(::handle, cVal)
    ::nFileLen += nSize
 
    cAddress := Chr(nAddress / 16777216) + Chr((nAddress / 65536) % 256) + Chr((nAddress / 256) % 65536) + Chr(nAddress % 16777216)
    cSize := Chr(nSize / 16777216) + Chr((nSize / 65536) % 256) + Chr((nSize / 256) % 65536) + Chr(nSize % 16777216)
-   FSeek( ::handle, HEAD_LEN + ::nPassLen + nAddr, FS_SET )
-   FWrite( ::handle, Chr(Len(cObjName))+cObjName+cType+cAddress+cSize+Chr(0)+Chr(0) )
+   FSeek(::handle, HEAD_LEN + ::nPassLen + nAddr, FS_SET)
+   FWrite(::handle, Chr(Len(cObjName))+cObjName+cType+cAddress+cSize+Chr(0)+Chr(0))
 
    ::nItems ++
    ::nCntLen += Len(cObjName) + CNT_FIX_LEN
    cAddress := Chr(::nItems / 256) + Chr(::nItems % 256)
    cSize := Chr(::nCntLen / 65536) + Chr((::nCntLen / 256) % 256) + Chr(::nCntLen % 65536)
-   FSeek( ::handle, 8, FS_SET )
-   FWrite( ::handle, cAddress+cSize )
+   FSeek(::handle, 8, FS_SET)
+   FWrite(::handle, cAddress+cSize)
 
    RETURN .T.
 
@@ -191,8 +189,8 @@ METHOD Del( cObjName ) CLASS HBinC
       RETURN .F.
    ENDIF
 
-   FSeek( ::handle, HEAD_LEN + ::nPassLen + ::aObjects[n,OBJ_ADDR] + 1, FS_SET )
-   FWrite( ::handle, Replicate( ' ', Len(cObjName)+4 ) )
+   FSeek(::handle, HEAD_LEN + ::nPassLen + ::aObjects[n, OBJ_ADDR] + 1, FS_SET)
+   FWrite(::handle, Replicate(' ', Len(cObjName) + 4))
    ::aObjects[n,OBJ_NAME] := ::aObjects[n,OBJ_TYPE] := ""
 
    RETURN .T.
@@ -212,7 +210,7 @@ METHOD Pack() CLASS HBinC
    ENDIF
 
    cTempName := ::cName + ".new"
-   IF ( handle := FCreate( cTempName ) ) == -1
+   IF ( handle := FCreate(cTempName) ) == -1
       RETURN .F.
    ENDIF
 
@@ -234,24 +232,24 @@ METHOD Pack() CLASS HBinC
       ENDIF
    NEXT
 
-   FWrite( handle, s )
-   FWrite( handle, Replicate( Chr(0), ::nCntBlocks*2048 - Len(s) ) )
+   FWrite(handle, s)
+   FWrite(handle, Replicate(Chr(0), ::nCntBlocks * 2048 - Len(s)))
 
    FOR i := 1 TO Len( ::aObjects )
       IF !Empty(::aObjects[i,OBJ_NAME])
          s := Space(::aObjects[i, OBJ_SIZE])
-         FSeek( ::handle, ::aObjects[i,OBJ_VAL], FS_SET )
-         FRead( ::handle, @s, ::aObjects[i,OBJ_SIZE] )
-         FWrite( handle, s, ::aObjects[i,OBJ_SIZE] )
+         FSeek(::handle, ::aObjects[i, OBJ_VAL], FS_SET)
+         FRead(::handle, @s, ::aObjects[i, OBJ_SIZE])
+         FWrite(handle, s, ::aObjects[i,OBJ_SIZE])
       ENDIF
    NEXT
 
-   FClose( handle )
-   FClose( ::handle )
-   FErase( ::cName )
-   FRename( cTempName, ::cName )
+   FClose(handle)
+   FClose(::handle)
+   FErase(::cName)
+   FRename(cTempName, ::cName)
 
-   IF ::Open( ::cName, ::lWriteAble ) == NIL
+   IF ::Open(::cName, ::lWriteAble) == NIL
       ::nItems := 0
       ::aObjects := NIL
    ENDIF
@@ -267,8 +265,8 @@ METHOD Get( cObjName ) CLASS HBinC
    ENDIF
 
    cBuf := Space(::aObjects[n, OBJ_SIZE])
-   FSeek( ::handle, ::aObjects[n,OBJ_VAL], FS_SET )
-   FRead( ::handle, @cBuf, ::aObjects[n,OBJ_SIZE] )
+   FSeek(::handle, ::aObjects[n, OBJ_VAL], FS_SET)
+   FRead(::handle, @cBuf, ::aObjects[n, OBJ_SIZE])
 
    RETURN cBuf
 

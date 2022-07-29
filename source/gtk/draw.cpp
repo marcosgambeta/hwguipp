@@ -575,7 +575,7 @@ HB_FUNC( HWG_OPENIMAGE )
       guint8 *buf = (guint8 *) hb_parc(1);
       GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
 
-      gdk_pixbuf_loader_write( loader, buf, hb_parclen(1), NULL );
+      gdk_pixbuf_loader_write(loader, buf, hb_parclen(1), NULL);
       handle = gdk_pixbuf_loader_get_pixbuf( loader );
    }
    else
@@ -712,7 +712,7 @@ HB_FUNC( HWG_BEGINPAINT )
    hDC->widget = widget;
 
    hDC->window = gtk_widget_get_window( widget );
-   hDC->cr = gdk_cairo_create( hDC->window );
+   hDC->cr = gdk_cairo_create(hDC->window);
 
    hDC->layout = pango_cairo_create_layout( hDC->cr );
    hDC->fcolor = hDC->bcolor = -1;
@@ -742,7 +742,7 @@ HB_FUNC( HWG_GETDC )
    hDC->widget = widget;
 
    hDC->window = gtk_widget_get_window( widget );
-   hDC->cr = gdk_cairo_create( hDC->window );
+   hDC->cr = gdk_cairo_create(hDC->window);
 
    hDC->layout = pango_cairo_create_layout( hDC->cr );
    hDC->fcolor = hDC->bcolor = -1;
@@ -774,7 +774,7 @@ HB_FUNC( HWG_CREATECOMPATIBLEDC )
 
    hDCdest->surface = cairo_surface_create_similar(cairo_get_target( hDCsource->cr ),
          CAIRO_CONTENT_COLOR_ALPHA, hb_parni(2), hb_parni(3) );
-   hDCdest->cr = cairo_create( hDCdest->surface );
+   hDCdest->cr = cairo_create(hDCdest->surface);
 
    hDCdest->layout = pango_cairo_create_layout( hDCdest->cr );
    hDCdest->fcolor = hDCdest->bcolor = -1;

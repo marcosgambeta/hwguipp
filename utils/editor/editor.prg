@@ -600,7 +600,7 @@ STATIC FUNCTION onChangePos( lInit )
       aAttr := {}
       FOR i := 1 TO 4
          IF aSetStyle[i] >= 0
-            AAdd( aAttr, aButtons[i]:cargo + Iif( aSetStyle[i]==0,"-","" ) )
+            AAdd(aAttr, aButtons[i]:cargo + Iif(aSetStyle[i] == 0, "-", ""))
          ENDIF
       NEXT
       oEdit:ChgStyle( aPointLast, oEdit:aPointC, aAttr )
@@ -887,28 +887,28 @@ STATIC FUNCTION text2attr( aAttr )
          nFamily != nfb .OR. nSize != nsb .OR. lbb != lb .OR. lib != li .OR. lub != lu .OR. lsb != ls
 
       IF tColor != tc
-         AAdd( aAttr, "ct" + LTrim(Str(tColor)) )
+         AAdd(aAttr, "ct" + LTrim(Str(tColor)))
       ENDIF
       IF bColor != tb
-         AAdd( aAttr, "cb" + LTrim(Str(bColor)) )
+         AAdd(aAttr, "cb" + LTrim(Str(bColor)))
       ENDIF
       IF nFamily != nfb
-         AAdd( aAttr, "fn" + aComboFam[nFamily] )
+         AAdd(aAttr, "fn" + aComboFam[nFamily])
       ENDIF
       IF nSize != nsb
-         AAdd( aAttr, "fh" + oComboSiz:aItems[nSize] )
+         AAdd(aAttr, "fh" + oComboSiz:aItems[nSize])
       ENDIF
       IF lb != lbb
-         AAdd( aAttr, "fb" + Iif( lb, "","-" ) )
+         AAdd(aAttr, "fb" + Iif(lb, "", "-"))
       ENDIF
       IF li != lib
-         AAdd( aAttr, "fi" + Iif( li, "","-" ) )
+         AAdd(aAttr, "fi" + Iif(li, "", "-"))
       ENDIF
       IF lu != lub
-         AAdd( aAttr, "fu" + Iif( lu, "","-" ) )
+         AAdd(aAttr, "fu" + Iif(lu, "", "-"))
       ENDIF
       IF ls != lsb
-         AAdd( aAttr, "fs" + Iif( ls, "","-" ) )
+         AAdd(aAttr, "fs" + Iif(ls, "", "-"))
       ENDIF
    ENDIF
 
@@ -1066,22 +1066,22 @@ STATIC FUNCTION setPara()
          arr[3] != nIndent .OR. arr[4] != nAlign .OR. arr[5] != nBWidth .OR. arr[6] != nBColor
 
          IF arr[1] != nMarginL
-            AAdd( aAttr, "ml" + LTrim(Str(nMarginL)) + iif( lml, '%', '' ) )
+            AAdd(aAttr, "ml" + LTrim(Str(nMarginL)) + iif(lml, '%', ''))
          ENDIF
          IF arr[2] != nMarginR
-            AAdd( aAttr, "mr" + LTrim(Str(nMarginR)) + iif( lmr, '%', '' ) )
+            AAdd(aAttr, "mr" + LTrim(Str(nMarginR)) + iif(lmr, '%', ''))
          ENDIF
          IF arr[3] != nIndent
-            AAdd( aAttr, "ti" + LTrim(Str(nIndent)) + iif( lti, '%', '' ) )
+            AAdd(aAttr, "ti" + LTrim(Str(nIndent)) + iif(lti, '%', ''))
          ENDIF
          IF arr[4] != nAlign
-            AAdd( aAttr, "ta" + LTrim(Str(nAlign - 1)) )
+            AAdd(aAttr, "ta" + LTrim(Str(nAlign - 1)))
          ENDIF
          IF arr[5] != nBWidth
-            AAdd( aAttr, "bw" + LTrim(Str(nBWidth)) )
+            AAdd(aAttr, "bw" + LTrim(Str(nBWidth)))
          ENDIF
          IF arr[6] != nBColor
-            AAdd( aAttr, "bc" + LTrim(Str(nBColor)) )
+            AAdd(aAttr, "bc" + LTrim(Str(nBColor)))
          ENDIF
       ENDIF
 
@@ -1107,7 +1107,7 @@ STATIC FUNCTION setPara()
          IF Len( oEdit:aStru[nl,1] ) >= OB_ID
             oEdit:aStru[nl,1,OB_ID] := cId
          ELSE
-            Aadd( oEdit:aStru[nl,1], cId )
+            Aadd(oEdit:aStru[nl, 1], cId)
          ENDIF
          IF Len( arr1 ) >= 7
             oEdit:RestoreEnv( arr1[1], arr1[2] )
@@ -1217,7 +1217,7 @@ STATIC FUNCTION setSpan()
          IF Len( aStru ) >= OB_ID
             aStru[OB_ID] := cId
          ELSE
-            Aadd( aStru, cId )
+            Aadd(aStru, cId)
          ENDIF
          oEdit:lUpdated := .T.
       ENDIF
@@ -1331,12 +1331,12 @@ STATIC FUNCTION setBlock()
       IF ( i := Ascan( aAttr, "bw" ) ) != 0
          aAttr[i] := "bw" + Ltrim(Str(nBorder))
       ELSE
-         AAdd( aAttr, "bw" + LTrim(Str(nBorder)) )
+         AAdd(aAttr, "bw" + LTrim(Str(nBorder)))
       ENDIF
       IF ( i := Ascan( aAttr, "bc" ) ) != 0
          aAttr[i] := "bc" + Ltrim(Str(nBColor))
       ELSE
-         AAdd( aAttr, "bc" + LTrim(Str(nBColor)) )
+         AAdd(aAttr, "bc" + LTrim(Str(nBColor)))
       ENDIF
       text2attr( aAttr )
       aStruTbl[OB_CLS] := oEdit:FindClass( , aAttr, .T. )
@@ -1508,10 +1508,10 @@ STATIC FUNCTION setTable( lNew )
          aAttr := {}
          IF nBorder > 0 .OR. nBColor > 0
             IF nBorder > 0
-               AAdd( aAttr, "bw" + LTrim(Str(nBorder)) )
+               AAdd(aAttr, "bw" + LTrim(Str(nBorder)))
             ENDIF
             IF nBColor > 0
-               AAdd( aAttr, "bc" + LTrim(Str(nBColor)) )
+               AAdd(aAttr, "bc" + LTrim(Str(nBColor)))
             ENDIF
          ENDIF
          text2attr( aAttr )
@@ -1548,21 +1548,21 @@ STATIC FUNCTION setTable( lNew )
          IF Empty(aAttr)
             aAttr := {}
             IF nBorder > 0
-               AAdd( aAttr, "bw" + LTrim(Str(nBorder)) )
+               AAdd(aAttr, "bw" + LTrim(Str(nBorder)))
             ENDIF
             IF nBColor > 0
-               AAdd( aAttr, "bc" + LTrim(Str(nBColor)) )
+               AAdd(aAttr, "bc" + LTrim(Str(nBColor)))
             ENDIF
          ELSE
             IF ( i := Ascan( aAttr, "bw" ) ) != 0
                aAttr[i] := "bw" + Ltrim(Str(nBorder))
             ELSE
-               AAdd( aAttr, "bw" + LTrim(Str(nBorder)) )
+               AAdd(aAttr, "bw" + LTrim(Str(nBorder)))
             ENDIF
             IF ( i := Ascan( aAttr, "bc" ) ) != 0
                aAttr[i] := "bc" + Ltrim(Str(nBColor))
             ELSE
-               AAdd( aAttr, "bc" + LTrim(Str(nBColor)) )
+               AAdd(aAttr, "bc" + LTrim(Str(nBColor)))
             ENDIF
          ENDIF
          text2attr( aAttr )
@@ -1728,7 +1728,7 @@ STATIC FUNCTION SetText( oEd, cText )
          IF SubStr(aText[i], nPos2 - 1, 1) $ ",.;"
             nPos2 --
          ENDIF
-         AAdd( oEd:aStru[i], { nPos1, nPos2, "url", SubStr(aText[i], nPos1, nPos2 - nPos1 + 1) } )
+         AAdd(oEd:aStru[i], {nPos1, nPos2, "url", SubStr(aText[i], nPos1, nPos2 - nPos1 + 1)})
       ENDDO
    NEXT
 
@@ -1885,7 +1885,7 @@ STATIC FUNCTION setImage( lNew )
          IF lEmbed != ( Left( aStru[1,OB_HREF], 1 ) == "#" )
             IF lEmbed
                cName := aStru[1,OB_HREF]
-               IF !Empty(cBin := MemoRead( cName ))
+               IF !Empty(cBin := MemoRead(cName))
                   IF ( i := Ascan( oEdit:aBin, {|a|a[2]==cBin} ) ) > 0
                      aStru[1,OB_HREF] := "#" + oEdit:aBin[i,1]
                   ELSE
@@ -1893,7 +1893,7 @@ STATIC FUNCTION setImage( lNew )
                      DO WHILE !Empty(cName := "img_"+Ltrim(Str(i))) .AND. Ascan( oEdit:aBin, {|a|a[1]==cName} ) != 0
                         i ++
                      ENDDO
-                     Aadd( oEdit:aBin, { cName, cBin, aStru[1,OB_OB] } )
+                     Aadd(oEdit:aBin, {cName, cBin, aStru[1, OB_OB]})
                   ENDIF
                ENDIF
             ELSE
@@ -2310,7 +2310,7 @@ FUNCTION Add2Recent( cFile )
 
    IF ( i := Ascan( aFilesRecent, cFile ) ) == 0
       IF Len( aFilesRecent ) < MAX_RECENT_FILES
-         Aadd( aFilesRecent, NIL )
+         Aadd(aFilesRecent, NIL)
       ENDIF
       AIns( aFilesRecent, 1 )
       aFilesRecent[1] := cFile
@@ -2327,7 +2327,7 @@ FUNCTION Add2Recent( cFile )
 
 STATIC FUNCTION ReadIni( cPath )
 
-   LOCAL oIni := HXMLDoc():Read( cPath + "editor.ini" )
+   LOCAL oIni := HXMLDoc():Read(cPath + "editor.ini")
    LOCAL oNode, i, j
 
    IF FILE(cPath + "editor.ini")
@@ -2336,7 +2336,7 @@ STATIC FUNCTION ReadIni( cPath )
           oNode := oIni:aItems[1]:aItems[i]
           IF oNode:title == "recent"
              FOR j := 1 TO Min( Len( oNode:aItems ), MAX_RECENT_FILES )
-                Aadd( aFilesRecent, Trim(oNode:aItems[j]:GetAttribute("name")) )
+                Aadd(aFilesRecent, Trim(oNode:aItems[j]:GetAttribute("name")))
              NEXT
           ELSEIF oNode:title == "font"
              oFontMain := FontFromXML( oNode )
@@ -2400,20 +2400,20 @@ STATIC FUNCTION FontToXML( oFont, cTitle )
 
    LOCAL aAttr := {}
 
-   AAdd( aAttr, { "name", oFont:name } )
-   AAdd( aAttr, { "width", LTrim(Str(oFont:width, 5)) } )
-   AAdd( aAttr, { "height", LTrim(Str(oFont:height, 5)) } )
+   AAdd(aAttr, {"name", oFont:name})
+   AAdd(aAttr, {"width", LTrim(Str(oFont:width, 5))})
+   AAdd(aAttr, {"height", LTrim(Str(oFont:height, 5))})
    IF oFont:weight != 0
-      AAdd( aAttr, { "weight", LTrim(Str(oFont:weight, 5)) } )
+      AAdd(aAttr, {"weight", LTrim(Str(oFont:weight, 5))})
    ENDIF
    IF oFont:charset != 0
-      AAdd( aAttr, { "charset", LTrim(Str(oFont:charset, 5)) } )
+      AAdd(aAttr, {"charset", LTrim(Str(oFont:charset, 5))})
    ENDIF
    IF oFont:Italic != 0
-      AAdd( aAttr, { "italic", LTrim(Str(oFont:Italic, 5)) } )
+      AAdd(aAttr, {"italic", LTrim(Str(oFont:Italic, 5))})
    ENDIF
    IF oFont:Underline != 0
-      AAdd( aAttr, { "underline", LTrim(Str(oFont:Underline, 5)) } )
+      AAdd(aAttr, {"underline", LTrim(Str(oFont:Underline, 5))})
    ENDIF
 
    RETURN HXMLNode():New( cTitle, HBXML_TYPE_SINGLE, aAttr )
@@ -2455,7 +2455,7 @@ STATIC FUNCTION Help(cHTopic , nPROCLINE , cHVar)
 
    ACTIVATE DIALOG oDlgHelp NOMODAL
 
-   oEdit:Open( cIniPath + "editor.hwge" )
+   oEdit:Open(cIniPath + "editor.hwge")
 
    RETURN NIL
 

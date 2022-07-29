@@ -132,8 +132,8 @@ LOCAL oItems1, oItems2
    // Init Browse windows
      obrowsbox1:aArray := GetItems() // Fill source browse box with all items
      obrowsbox2:aArray := {}
-     obrowsbox1:AddColumn( HColumn():New( "Source",{|v,o|o:aArray[o:nCurrent,1]},"C",10,0 ) )
-     obrowsbox2:AddColumn( HColumn():New( "Target",{|v,o|o:aArray[o:nCurrent,1]},"C",10,0 ) )
+     obrowsbox1:AddColumn(HColumn():New("Source", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 10, 0))
+     obrowsbox2:AddColumn(HColumn():New("Target", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 10, 0))
      obrowsbox1:lEditable := .F.
      obrowsbox2:lEditable := .F.
      obrowsbox1:lDispHead := .F. // No Header

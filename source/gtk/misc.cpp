@@ -53,11 +53,11 @@ void hwg_writelog( const char * sFile, const char * sTraceMsg, ... )
 
    if( sFile == NULL )
    {
-      hFile = hb_fopen( "ac.log", "a" );
+      hFile = hb_fopen("ac.log", "a");
    }
    else
    {
-      hFile = hb_fopen( sFile, "a" );
+      hFile = hb_fopen(sFile, "a");
    }
 
    if( hFile )
@@ -68,7 +68,7 @@ void hwg_writelog( const char * sFile, const char * sTraceMsg, ... )
       vfprintf( hFile, sTraceMsg, ap );
       va_end( ap );
 
-      fclose( hFile );
+      fclose(hFile);
    }
 
 }
@@ -273,7 +273,7 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 {
     /* Ensure that output of command does interfere with stdout */
     fflush(stdin);
-    FILE *cmd_file = (FILE *) popen( hb_parc(1), "r" );
+    FILE *cmd_file = (FILE *) popen(hb_parc(1), "r");
     FILE *hOut;
     char buf[CHUNK_LEN];
     int bytes_read, iOutExist = 0, iExitCode;
@@ -286,20 +286,20 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 
     if( !HB_ISNIL(2) )
     {
-       hOut = fopen( hb_parc(2), "w" );
+       hOut = fopen(hb_parc(2), "w");
        iOutExist = 1;
     }
 
     do
     {
-        bytes_read = fread( buf, sizeof(char), CHUNK_LEN, cmd_file );
+        bytes_read = fread(buf, sizeof(char), CHUNK_LEN, cmd_file);
         if( iOutExist )
-           fwrite( buf, 1, bytes_read, hOut );
+           fwrite(buf, 1, bytes_read, hOut);
     } while (bytes_read == CHUNK_LEN);
 
     iExitCode = pclose(cmd_file);
     if( iOutExist )
-       fclose( hOut );
+       fclose(hOut);
 
     hb_retni( iExitCode );
 }

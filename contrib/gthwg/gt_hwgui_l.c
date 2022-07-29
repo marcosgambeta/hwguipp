@@ -259,7 +259,7 @@ static HFONT gthwg_GetFont( char * lpFace, int iHeight, int iWidth, int iWeight,
 
    ih -= 2;
    hdc.window = gtk_widget_get_window( hPaneMain );
-   hdc.cr = gdk_cairo_create( hdc.window );
+   hdc.cr = gdk_cairo_create(hdc.window);
    if( !hdc.cr )
       return NULL;
    hdc.layout = pango_cairo_create_layout( hdc.cr );
@@ -308,7 +308,7 @@ static void gthwg_ResetWindowSize( PHB_GTHWG pHWG )
    {
       HWGUI_HDC hdc;
       hdc.window = gtk_widget_get_window( hPaneMain );
-      hdc.cr = gdk_cairo_create( hdc.window );
+      hdc.cr = gdk_cairo_create(hdc.window);
       hdc.layout = pango_cairo_create_layout( hdc.cr );
 
       gthwg_CalcFontSize( &hdc, pHWG->hFont->hFont, &width, &height, 0 );
@@ -466,7 +466,7 @@ static void gthwg_PaintText( PHB_GTHWG pHWG, GdkRectangle *pArea )
    PangoLayout * layout;
    HB_BOOL fUtf8 = ( strncmp( cdp->id, "UTF", 3 ) == 0 );
 
-   cr = gdk_cairo_create( gtk_widget_get_window( hPaneMain ) );
+   cr = gdk_cairo_create(gtk_widget_get_window(hPaneMain));
    if( !cr )
       return;
    layout = pango_cairo_create_layout( cr );

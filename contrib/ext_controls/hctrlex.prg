@@ -48,9 +48,9 @@ CLASS HStaticEx INHERIT HStatic
    DATA BackStyle       INIT OPAQUE
    DATA hBrushDefault  HIDDEN
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
-      bColor, lTransp, bClick, bDblClick, bOther )
+      bColor, lTransp, bClick, bDblClick, bOther)
    METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, cTooltip, tcolor, bColor, lTransp, bClick, bDblClick, bOther )
    METHOD SetText( value ) INLINE ::SetValue( value )
@@ -64,9 +64,9 @@ CLASS HStaticEx INHERIT HStatic
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
-      bColor, lTransp, bClick, bDblClick, bOther ) CLASS HStaticEx
+      bColor, lTransp, bClick, bDblClick, bOther) CLASS HStaticEx
 
    nStyle := iif( nStyle = NIL, 0, nStyle )
    ::nStyleHS := nStyle - hb_bitand( nStyle,  WS_VISIBLE + WS_DISABLED + WS_CLIPSIBLINGS + ;
@@ -88,8 +88,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::hBrushDefault := HBrush():Add( hwg_Getsyscolor( COLOR_BTNFACE ) )
    ::bOther := bOther
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
+      bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::bClick := bClick
    IF ::id > 2
@@ -109,8 +109,8 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
       ::BackStyle := TRANSPARENT
    ENDIF
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, cCaption, oFont, bInit, ;
+      bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    // Enabling style for tooltips
@@ -274,9 +274,9 @@ CLASS HButtonX INHERIT HButton
    DATA lFlat INIT .F.
    DATA lnoWhen
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor, bGFocus )
+      tcolor, bColor, bGFocus)
    METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
       cTooltip, tcolor, bColor, cCaption, bGFocus )
    METHOD Init()
@@ -288,16 +288,16 @@ CLASS HButtonX INHERIT HButton
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor, bGFocus ) CLASS HButtonX
+      tcolor, bColor, bGFocus) CLASS HButtonX
 
    nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), BS_PUSHBUTTON + BS_NOTIFY )
    ::lFlat := hb_bitand( nStyle, BS_FLAT ) != 0
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint,, cTooltip, ;
-      tcolor, bColor, bGFocus )
+      tcolor, bColor, bGFocus)
 
    ::bClick := bClick
    ::bGetFocus  := bGFocus
@@ -318,8 +318,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
       cTooltip, tcolor, bColor, cCaption, bGFocus ) CLASS HButtonX
 
-   ::super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint, cTooltip, tcolor, bColor )
+   ::super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
+      bSize, bPaint, cTooltip, tcolor, bColor)
 
    ::title   := cCaption
    ::bGetFocus  := bGFocus
@@ -476,9 +476,9 @@ CLASS HButtonEX INHERIT HButtonX, HThemed
    DATA bMouseOverButton INIT .F.
    DATA lnoThemes
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor, hBitmap, iStyle, hicon, Transp, bGFocus, nPictureMargin, lnoThemes, bOther )
+      tcolor, bColor, hBitmap, iStyle, hicon, Transp, bGFocus, nPictureMargin, lnoThemes, bOther)
    METHOD Paint( lpDis )
    METHOD SetBitmap( hBitMap )
    METHOD SetIcon( hIcon )
@@ -501,9 +501,9 @@ CLASS HButtonEX INHERIT HButtonX, HThemed
 
 END CLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor, hBitmap, iStyle, hicon, Transp, bGFocus, nPictureMargin, lnoThemes, bOther ) CLASS HButtonEx
+      tcolor, bColor, hBitmap, iStyle, hicon, Transp, bGFocus, nPictureMargin, lnoThemes, bOther) CLASS HButtonEx
 
    DEFAULT iStyle TO ST_ALIGN_HORIZ
    DEFAULT Transp TO .T.
@@ -525,9 +525,9 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::bOther := bOther
    bPaint := { | o, p | o:paint( p ) }
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor, bGFocus )
+      tcolor, bColor, bGFocus)
 
    RETURN Self
 
@@ -1144,7 +1144,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
 
 METHOD PAINTBK( hdc ) CLASS HBUTTONEx
 
-   LOCAL clDC := HclientDc():New( ::oparent:handle )
+   LOCAL clDC := HclientDc():New(::oparent:handle)
    LOCAL rect, rect1
 
    rect := hwg_Getclientrect( ::handle )
@@ -1168,22 +1168,19 @@ CLASS HGroupEx INHERIT HGroup
    DATA BackStyle       INIT OPAQUE
    DATA lTransparent HIDDEN
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor, lTransp, oRGroup )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor, lTransp, oRGroup)
    METHOD Init()
    METHOD Paint( lpDis )
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
-      oFont, bInit, bSize, bPaint, tcolor, bColor, lTransp, oRGroup ) CLASS HGroupEx
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor, lTransp, oRGroup) CLASS HGroupEx
 
    ::oRGroup := oRGroup
    ::oBrush := iif( bColor != NIL, ::brush, NIL )
    ::lTransparent := iif( lTransp != NIL, lTransp, .F. )
    ::backStyle := iif( ( lTransp != NIL .AND. lTransp ) .OR. ::bColor != NIL , TRANSPARENT, OPAQUE )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
-      oFont, bInit, bSize, bPaint, tcolor, bColor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor)
 
    RETURN Self
 
@@ -1313,7 +1310,7 @@ CLASS VAR winclass   INIT "msctls_statusbar32"
    DATA bDblClick
    DATA bRClick
 
-   METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight )
+   METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight)
    METHOD Activate()
    METHOD Init()
    METHOD Notify( lParam )
@@ -1328,12 +1325,12 @@ CLASS VAR winclass   INIT "msctls_statusbar32"
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight ) CLASS HStatusEx
+METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight) CLASS HStatusEx
 
    bSize  := IIf( bSize != NIL, bSize, { | o, x, y | o:Move( 0, y - ::nStatusHeight, x, ::nStatusHeight ) } )
    nStyle := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), ;
                         WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS )
-   ::Super:New( oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
+   ::Super:New(oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint)
 
    ::nStatusHeight := IIF( nHeight = NIL, ::nStatusHeight, nHeight )
    ::aParts    := aParts
@@ -1368,8 +1365,7 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
    HB_SYMBOL_UNUSED( cCaption )
    HB_SYMBOL_UNUSED( lTransp )
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-              bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
    ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    ::aParts := aParts
@@ -1423,7 +1419,7 @@ METHOD GetTextPanel( nPart ) CLASS HStatusEx
    LOCAL ntxtLen, cText := ""
 
    ntxtLen := hwg_SendMessage( ::handle, SB_GETTEXTLENGTH, nPart - 1, 0 )
-   cText := Replicate( Chr(0), ntxtLen )
+   cText := Replicate(Chr(0), ntxtLen)
    hwg_SendMessage( ::handle, SB_GETTEXT, nPart - 1, @cText )
    RETURN cText
 

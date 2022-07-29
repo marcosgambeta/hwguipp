@@ -119,13 +119,13 @@ FUNCTION hwg_WriteLog( cText, fname )
 
    fname := LogInitialPath + iif( fname == NIL, "a.log", fname )
    IF !File( fname )
-      nHand := FCreate( fname )
+      nHand := FCreate(fname)
    ELSE
-      nHand := FOpen( fname, 1 )
+      nHand := FOpen(fname, 1)
    ENDIF
-   FSeek( nHand, 0, 2 )
-   FWrite( nHand, cText + Chr(10) )
-   FClose( nHand )
+   FSeek(nHand, 0, 2)
+   FWrite(nHand, cText + Chr(10))
+   FClose(nHand)
 
    RETURN NIL
 

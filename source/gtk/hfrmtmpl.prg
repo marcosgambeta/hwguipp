@@ -89,7 +89,7 @@ CLASS HCtrlTmpl
    DATA aControls INIT {}
    DATA aProp, aMethods
 
-   METHOD New( oParent )   INLINE ( ::oParent := oParent, AAdd( oParent:aControls,Self ), Self )
+   METHOD New( oParent )   INLINE ( ::oParent := oParent, AAdd(oParent:aControls, Self), Self )
    METHOD F( nId )
 
 ENDCLASS
@@ -136,7 +136,7 @@ CLASS HFormTmpl
    // DATA cTextRepDescnotF    INIT "Report description isn't found" ==> Class HRepTmpl
 
    METHOD DefaultLang()   
-   METHOD Read( fname, cId )
+   METHOD Read(fname, cId)
    METHOD Show( nMode, p1, p2, p3 )  && params
    METHOD ShowMain( params )   INLINE ::Show( 1, params )
    METHOD ShowModal( params )  INLINE ::Show( 2, params )
@@ -154,7 +154,7 @@ METHOD DefaultLang() CLASS HFormTmpl
   ::cTextRepDescnotF    := "Report description isn't found"
 RETURN NIL
 
-METHOD Read( fname, cId ) CLASS HFormTmpl
+METHOD Read(fname, cId) CLASS HFormTmpl
    LOCAL oDoc
    LOCAL i, j, nCtrl := 0, aItems, o, aProp := {}, aMethods := {}, arr
    LOCAL cPre, cName
@@ -167,7 +167,7 @@ METHOD Read( fname, cId ) CLASS HFormTmpl
       oDoc := HXMLDoc():ReadString( fname )
    ELSE
       ::cFormName := fname
-      oDoc := HXMLDoc():Read( fname )
+      oDoc := HXMLDoc():Read(fname)
    ENDIF
 
    IF Empty(oDoc:aItems)
@@ -185,7 +185,7 @@ METHOD Read( fname, cId ) CLASS HFormTmpl
    ::aMethods := aMethods
 
    ppScript( , .T. )
-   AAdd( ::aForms, Self )
+   AAdd(::aForms, Self)
    aItems := oDoc:aItems[1]:aItems
    FOR i := 1 TO Len( aItems )
       IF aItems[i]:title == "style"
@@ -193,7 +193,7 @@ METHOD Read( fname, cId ) CLASS HFormTmpl
             o := aItems[i]:aItems[j]
             IF o:title == "property"
                IF !Empty(o:aItems)
-                  AAdd( aProp, { Lower(o:GetAttribute("name")), o:aItems[1] } )
+                  AAdd(aProp, {Lower(o:GetAttribute("name")), o:aItems[1]})
                   arr := Atail( aProp )
                   IF arr[1] == "ldebug" .AND. hwg_hfrm_GetProperty( arr[2] )
                      ::lDebug := .T.
@@ -217,10 +217,10 @@ METHOD Read( fname, cId ) CLASS HFormTmpl
                   Upper(arr[j]) + "',, HFormTmpl():F("+LTrim(Str(::id))+"):aFuncs )"
                ppScript( cPre )
             NEXT
-            AAdd( aMethods, { cName, CompileMethod( aItems[i]:aItems[1]:aItems[1],Self,,cName ) } )
+            AAdd(aMethods, {cName, CompileMethod(aItems[i]:aItems[1]:aItems[1], Self, , cName)})
             ::aFuncs := ::aMethods[ Len(aMethods),2,2 ]
          ELSE
-            AAdd( aMethods, { cName, CompileMethod( aItems[i]:aItems[1]:aItems[1],Self,,cName ) } )
+            AAdd(aMethods, {cName, CompileMethod(aItems[i]:aItems[1]:aItems[1], Self, , cName)})
          ENDIF
          
       ELSEIF aItems[i]:title == "part"
@@ -280,7 +280,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
          ENDIF
       ELSEIF ::aProp[ i,1 ] == "variables"
          FOR j := 1 TO Len( xProperty )
-            Aadd( ::aVars, Lower(xProperty[j]) )
+            Aadd(::aVars, Lower(xProperty[j]))
          NEXT
          // Styles below
       ELSEIF ::aProp[ i,1 ] == "systemMenu"
@@ -562,8 +562,7 @@ STATIC FUNCTION ReadTree( oForm, aParent, oDesc )
       IF oNode:type == HBXML_TYPE_CDATA
          aParent[1] := CompileMethod( oNode:aItems[1], oForm )
       ELSE
-         AAdd( aTree, { NIL, oNode:GetAttribute( "name" ), ;
-            Val( oNode:GetAttribute( "id" ) ), .T. } )
+         AAdd(aTree, {NIL, oNode:GetAttribute("name"), Val(oNode:GetAttribute("id")), .T.})
          IF !Empty(oNode:aItems)
             IF ( subarr := ReadTree( oForm,aTail( aTree ),oNode ) ) != NIL
                aTree[ Len(aTree),1 ] := subarr
@@ -579,9 +578,9 @@ FUNCTION hwg_ParseMethod( cMethod )
    LOCAL arr := {}, nPos1, nPos2, cLine
 
    IF ( nPos1 := At(Chr(10), cMethod) ) == 0
-      AAdd( arr, AllTrim(cMethod) )
+      AAdd(arr, AllTrim(cMethod))
    ELSE
-      AAdd( arr, AllTrim(Left( cMethod,nPos1 - 1 )) )
+      AAdd(arr, AllTrim(Left(cMethod,nPos1 - 1)))
       DO WHILE .T.
          IF ( nPos2 := hb_At(Chr(10 ), cMethod, nPos1 + 1) ) == 0
             cLine := AllTrim(SubStr(cMethod, nPos1 + 1))
@@ -589,7 +588,7 @@ FUNCTION hwg_ParseMethod( cMethod )
             cLine := AllTrim(SubStr(cMethod, nPos1 + 1, nPos2 - nPos1 - 1))
          ENDIF
          IF !Empty(cLine)
-            AAdd( arr, cLine )
+            AAdd(arr, cLine)
          ENDIF
          IF nPos2 == 0 .OR. Len( arr ) > 2
             EXIT
@@ -689,19 +688,19 @@ STATIC FUNCTION ReadCtrl( oCtrlDesc, oContainer, oForm )
                IF ( cName := Lower(o:GetAttribute("name")) ) == "varname"
                   AAdd(oForm:aVars, Lower(hwg_hfrm_GetProperty(o:aItems[1])))
                ELSEIF cName == "name"
-                  AAdd( oForm:aNames, hwg_hfrm_GetProperty(o:aItems[1] ) )
+                  AAdd(oForm:aNames, hwg_hfrm_GetProperty(o:aItems[1]))
                ENDIF
                IF cName == "atree"
-                  AAdd( aProp, { cName, ReadTree( oForm,,o ) } )
+                  AAdd(aProp, {cName, ReadTree(oForm, , o)})
                ELSEIF cname == "styles"
-                  AAdd( aProp, { cName, Iif( Empty(o:aItems ),"",o:aItems ) } )
+                  AAdd(aProp, {cName, Iif(Empty(o:aItems), "", o:aItems)})
                ELSE
-                  AAdd( aProp, { cName, Iif( Empty(o:aItems ),"",o:aItems[1] ) } )
+                  AAdd(aProp, {cName, Iif(Empty(o:aItems), "", o:aItems[1])})
                ENDIF
             ENDIF
          NEXT
       ELSEIF aItems[i]:title == "method"
-         AAdd( aMethods, { cName := Lower(aItems[i]:GetAttribute("name")), CompileMethod( aItems[i]:aItems[1]:aItems[1],oForm,oCtrl,cName ) } )
+         AAdd(aMethods, {cName := Lower(aItems[i]:GetAttribute("name")), CompileMethod(aItems[i]:aItems[1]:aItems[1], oForm, oCtrl,cName)})
       ELSEIF aItems[i]:title == "part"
          ReadCtrl( aItems[i], oCtrl, oForm )
       ENDIF
@@ -796,7 +795,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       ELSEIF cPName == "styles"
          aStyles := {}
          FOR j := 1 TO Len( xProperty )
-            Aadd( aStyles, hwg_HstyleFromXML( xProperty[j] ) )
+            Aadd(aStyles, hwg_HstyleFromXML(xProperty[j]))
          NEXT
       ELSEIF cPName == "border"
          IF xProperty
@@ -948,20 +947,20 @@ FUNCTION hwg_Font2XML( oFont )
 
    LOCAL aAttr := {}
 
-   AAdd( aAttr, { "name", oFont:name } )
-   AAdd( aAttr, { "width", LTrim(Str(oFont:width,5 )) } )
-   AAdd( aAttr, { "height", LTrim(Str(oFont:height,5 )) } )
+   AAdd(aAttr, {"name", oFont:name})
+   AAdd(aAttr, {"width", LTrim(Str(oFont:width, 5))})
+   AAdd(aAttr, {"height", LTrim(Str(oFont:height, 5))})
    IF oFont:weight != 0
-      AAdd( aAttr, { "weight", LTrim(Str(oFont:weight,5 )) } )
+      AAdd(aAttr, {"weight", LTrim(Str(oFont:weight, 5))})
    ENDIF
    IF oFont:charset != 0
-      AAdd( aAttr, { "charset", LTrim(Str(oFont:charset,5 )) } )
+      AAdd(aAttr, {"charset", LTrim(Str(oFont:charset, 5))})
    ENDIF
    IF oFont:Italic != 0
-      AAdd( aAttr, { "italic", LTrim(Str(oFont:Italic,5 )) } )
+      AAdd(aAttr, {"italic", LTrim(Str(oFont:Italic, 5))})
    ENDIF
    IF oFont:Underline != 0
-      AAdd( aAttr, { "underline", LTrim(Str(oFont:Underline,5 )) } )
+      AAdd(aAttr, {"underline", LTrim(Str(oFont:Underline, 5))})
    ENDIF
 
    RETURN HXMLNode():New( "font", HBXML_TYPE_SINGLE, aAttr )
@@ -1002,15 +1001,15 @@ FUNCTION hwg_HStyle2XML( oStyle )
    LOCAL aAttr := {}
 
    IF !Empty(oStyle:aColors)
-      AAdd( aAttr, { "colors", hwg_hfrm_Arr2Str(oStyle:aColors) } )
-      AAdd( aAttr, { "orient", Ltrim(Str(oStyle:nOrient)) } )
+      AAdd(aAttr, {"colors", hwg_hfrm_Arr2Str(oStyle:aColors)})
+      AAdd(aAttr, {"orient", Ltrim(Str(oStyle:nOrient))})
    ENDIF
    IF !Empty(oStyle:aCorners)
-      AAdd( aAttr, { "corners", hwg_hfrm_Arr2Str(oStyle:aCorners) } )
+      AAdd(aAttr, {"corners", hwg_hfrm_Arr2Str(oStyle:aCorners)})
    ENDIF
    IF oStyle:nBorder != 0
-      AAdd( aAttr, { "border", Ltrim(Str(oStyle:nBorder)) } )
-      AAdd( aAttr, { "tcolor", Ltrim(Str(oStyle:tColor)) } )
+      AAdd(aAttr, {"border", Ltrim(Str(oStyle:nBorder))})
+      AAdd(aAttr, {"tcolor", Ltrim(Str(oStyle:tColor))})
    ENDIF
 
    RETURN HXMLNode():New( "hstyle", HBXML_TYPE_SINGLE, aAttr )
@@ -1107,7 +1106,7 @@ CLASS HRepItem
    DATA y2
    DATA lMark INIT .F.
 
-   METHOD New( oParent )   INLINE ( ::oParent := oParent, AAdd( oParent:aControls,Self ), Self )
+   METHOD New( oParent )   INLINE ( ::oParent := oParent, AAdd(oParent:aControls, Self), Self )
 
 ENDCLASS
 
@@ -1135,7 +1134,7 @@ CLASS HRepTmpl
    DATA cTextFrmRepDescnotF INIT "Form description isn't found"
 
    METHOD DefaultLang()
-   METHOD READ( fname, cId )
+   METHOD READ(fname, cId)
    METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 )
    METHOD PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 )
    METHOD PrintItem( oItem )
@@ -1150,7 +1149,7 @@ METHOD DefaultLang() CLASS HRepTmpl
   ::cTextFrmRepDescnotF := "Form description isn't found"
 RETURN NIL
 
-METHOD READ( fname, cId ) CLASS HRepTmpl
+METHOD READ(fname, cId) CLASS HRepTmpl
    LOCAL oDoc
    LOCAL i, j, aItems, o, aProp := {}, aMethods := {}
    LOCAL cPre, cName
@@ -1163,7 +1162,7 @@ METHOD READ( fname, cId ) CLASS HRepTmpl
       oDoc := HXMLDoc():ReadString( fname )
    ELSE
       ::cFormName := fname
-      oDoc := HXMLDoc():Read( fname )
+      oDoc := HXMLDoc():Read(fname)
    ENDIF
 
    IF Empty(oDoc:aItems)
@@ -1189,7 +1188,7 @@ METHOD READ( fname, cId ) CLASS HRepTmpl
    ::aMethods := aMethods
 
    ppScript( , .T. )
-   AAdd( ::aReports, Self )
+   AAdd(::aReports, Self)
    aItems := oDoc:aItems[1]:aItems
    FOR i := 1 TO Len( aItems )
       IF aItems[i]:title == "style"
@@ -1197,7 +1196,7 @@ METHOD READ( fname, cId ) CLASS HRepTmpl
             o := aItems[i]:aItems[j]
             IF o:title == "property"
                IF !Empty(o:aItems)
-                  AAdd( aProp, { Lower(o:GetAttribute("name")), hwg_hfrm_GetProperty( o:aItems[1] ) } )
+                  AAdd(aProp, {Lower(o:GetAttribute("name")), hwg_hfrm_GetProperty(o:aItems[1])})
                   IF Atail( aProp )[1] == "ldebug" .AND. hwg_hfrm_GetProperty( Atail( aProp )[2] )
                      ::lDebug := .T.
                      SetDebugInfo( .T. )
@@ -1206,7 +1205,7 @@ METHOD READ( fname, cId ) CLASS HRepTmpl
             ENDIF
          NEXT
       ELSEIF aItems[i]:title == "method"
-         AAdd( aMethods, { cName := Lower(aItems[i]:GetAttribute("name")), RdScript( ,aItems[i]:aItems[1]:aItems[1],, .T. ,cName ) } )
+         AAdd(aMethods, {cName := Lower(aItems[i]:GetAttribute("name")), RdScript(NIL, aItems[i]:aItems[1]:aItems[1], , .T., cName)})
          IF aMethods[ (j := Len(aMethods)),1 ] == "common"
             ::aFuncs := ::aMethods[ j,2 ]
             FOR j := 1 TO Len( ::aFuncs[2] )
@@ -1623,7 +1622,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
             oItem:obj := hwg_Openbitmap( aGetSecond( oItem:aProp,"bitmap" ), ::oPrinter:hDC )
          ENDIF
 #endif
-         AAdd( aImgs, { x, y, x2, y2, oItem:obj, aGetSecond( oItem:aProp,"bitmap" ) } )
+         AAdd(aImgs, {x, y, x2, y2, oItem:obj, aGetSecond(oItem:aProp, "bitmap")})
          //::oPrinter:Bitmap( x,y,x2,y2,, oItem:obj, aGetSecond( oItem:aProp,"bitmap" ) )
       ENDIF
       ::ny := Max( ::ny, y2 + ::nAOffSet )
@@ -1692,11 +1691,11 @@ STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
          FOR j := 1 TO Len( aItems[i]:aItems )
             o := aItems[i]:aItems[j]
             IF o:title == "property"
-               AAdd( aProp, { Lower(o:GetAttribute("name")), Iif( Empty(o:aItems ),"",hwg_hfrm_GetProperty(o:aItems[1] ) ) } )
+               AAdd(aProp, {Lower(o:GetAttribute("name")), Iif(Empty(o:aItems ), "", hwg_hfrm_GetProperty(o:aItems[1]))})
             ENDIF
          NEXT
       ELSEIF aItems[i]:title == "method"
-         AAdd( aMethods, { cName := Lower(aItems[i]:GetAttribute("name") ), RdScript( ,aItems[i]:aItems[1]:aItems[1],, .T. ,cName ) } )
+         AAdd(aMethods, {cName := Lower(aItems[i]:GetAttribute("name")), RdScript(, aItems[i]:aItems[1]:aItems[1], , .T., cName)})
       ELSEIF aItems[i]:title == "part"
          ReadRepItem( aItems[i], Iif( oCtrl:cClass == "area",oCtrl,oContainer ) )
       ENDIF
@@ -1724,7 +1723,7 @@ FUNCTION hwg_aSetSecond( arr, xFirst, xValue )
          arr[i,2] := xValue
       ENDIF
    ELSEIF xValue != NIL
-      AAdd( arr, { xFirst, xValue } )
+      AAdd(arr, {xFirst, xValue})
    ENDIF
 
    RETURN xRet

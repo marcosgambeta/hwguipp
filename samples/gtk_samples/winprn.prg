@@ -236,15 +236,15 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
    CASE cname == "Deutsch"  // Germany @ Euro
 
 #ifndef __PLATFORM__WINDOWS
-   oWinPrn := HWinPrn():New( ,"DE858","UTF8", , nPrCharset )
-//   oWinPrn := HWinPrn():New( ,,"UTF8", , nPrCharset )
+   oWinPrn := HWinPrn():New(, "DE858", "UTF8", , nPrCharset)
+//   oWinPrn := HWinPrn():New(, ,"UTF8", , nPrCharset)
    oWinPrn:aTooltips := hwg_HPrinter_LangArray_DE()
    oWinPrn:StartDoc( .T.,"temp_a2.ps" )
 #else
-   oWinPrn := HWinPrn():New( ,"DE858","DEWIN", , nPrCharset)
+   oWinPrn := HWinPrn():New(, "DE858", "DEWIN", , nPrCharset)
    /* This displays the Euro currency sign CHR(128) correct, but not
       all of the Umlaute ! */
-//   oWinPrn := HWinPrn():New( ,,, , nPrCharset )   
+//   oWinPrn := HWinPrn():New(, , , , nPrCharset)
    oWinPrn:aTooltips := hwg_HPrinter_LangArray_DE()
 *   oWinPrn:StartDoc( .T. )
    oWinPrn:StartDoc( .T.,"temp_a2.pdf" )
@@ -256,11 +256,11 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
 *  Hello Alexander, i think this is your job.   
   CASE cname == "Russian"
 #ifndef __PLATFORM__WINDOWS
-   oWinPrn := HWinPrn():New( ,"RU866","RUKOI8" , , nPrCharset ) // 204
+   oWinPrn := HWinPrn():New(, "RU866", "RUKOI8" , , nPrCharset) // 204
       oWinPrn:aTooltips := hwg_HPrinter_LangArray_RU()
    oWinPrn:StartDoc( .T.,"temp_a2.ps" )
 #else
-   oWinPrn := HWinPrn():New( ,"RU866","RU1251", , nPrCharset ) // 204
+   oWinPrn := HWinPrn():New(, "RU866", "RU1251", , nPrCharset) // 204
    oWinPrn:aTooltips := hwg_HPrinter_LangArray_RU()
 //   Hwg_MsgInfo("nCharset=" + STR(oWinPrn:nCharset),"Russian" )
 *   oWinPrn:StartDoc( .T. )
@@ -271,10 +271,10 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
  OTHERWISE
 /* ============== Default EN/USA ==================*/ 
 #ifndef __PLATFORM__WINDOWS
-   oWinPrn := HWinPrn():New( ,,, , nPrCharset )
+   oWinPrn := HWinPrn():New(, , , , nPrCharset)
    oWinPrn:StartDoc( .T.,"temp_a2.ps" )
 #else
-   oWinPrn := HWinPrn():New( ,,, , nPrCharset)
+   oWinPrn := HWinPrn():New(, , , , nPrCharset)
 *   oWinPrn:StartDoc( .T. )
     oWinPrn:StartDoc( .T.,"temp_a2.pdf" )
 #endif

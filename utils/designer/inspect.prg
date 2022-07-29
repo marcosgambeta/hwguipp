@@ -296,12 +296,12 @@ FUNCTION InspSetCombo()
    oCombo:aItems := {}
    IF oDlg != NIL
       n := 0
-      AAdd( oCombo:aItems, "Form." + oDlg:title )
+      AAdd(oCombo:aItems, "Form." + oDlg:title)
       oCtrl := GetCtrlSelected( oDlg )
       aControls := iif( oDesigner:lReport, oDlg:aControls[1]:aControls[1]:aControls, ;
          oDlg:aControls )
       FOR i := 1 TO Len( aControls )
-         AAdd( oCombo:aItems, aControls[i]:cClass + "." + iif( aControls[i]:title != NIL,Left(aControls[i]:title,15 ),LTrim(Str(aControls[i]:id ) ) ) )
+         AAdd(oCombo:aItems, aControls[i]:cClass + "." + iif(aControls[i]:title != NIL, Left(aControls[i]:title, 15), LTrim(Str(aControls[i]:id))))
          IF oCtrl != NIL .AND. oCtrl:handle == aControls[i]:handle
             n := i
          ENDIF
@@ -322,7 +322,7 @@ FUNCTION InspUpdCombo( n )
          HFormGen():oDlgSelected:aControls )
       i := Len( aControls )
       IF i >= Len( oCombo:aItems )
-         AAdd( oCombo:aItems, aControls[i]:cClass + "." + iif( aControls[i]:title != NIL,Left(aControls[i]:title,15 ),LTrim(Str(aControls[i]:id ) ) ) )
+         AAdd(oCombo:aItems, aControls[i]:cClass + "." + iif(aControls[i]:title != NIL, Left(aControls[i]:title, 15), LTrim(Str(aControls[i]:id))))
       ELSEIF i + 1 < Len( oCombo:aItems )
          RETURN InspSetCombo()
       ENDIF
@@ -364,11 +364,11 @@ STATIC FUNCTION InspSetBrowse()
       o := iif( oCombo:value == 1, HFormGen():oDlgSelected:oParent, GetCtrlSelected( HFormGen():oDlgSelected ) )
       FOR i := 1 TO Len( o:aProp )
          IF Len( o:aProp[i] ) == 3
-            AAdd( aProp, { o:aProp[i,1], o:aProp[i,2] } )
+            AAdd(aProp, {o:aProp[i, 1], o:aProp[i, 2]})
          ENDIF
       NEXT
       FOR i := 1 TO Len( o:aMethods )
-         AAdd( aMethods, { o:aMethods[i,1], o:aMethods[i,2] } )
+         AAdd(aMethods, {o:aMethods[i, 1], o:aMethods[i, 2]})
       NEXT
    ENDIF
 
@@ -427,7 +427,7 @@ STATIC FUNCTION EditArray( arr )
       arr := {}
    ENDIF
    IF Empty(arr)
-      AAdd( arr, "....." )
+      AAdd(arr, ".....")
    ENDIF
    INIT DIALOG oDlg TITLE "Edit " + aProp[nRec,1] + " array" ;
       AT 300, 280 SIZE 400, 300 FONT oDesigner:oMainWnd:oFont

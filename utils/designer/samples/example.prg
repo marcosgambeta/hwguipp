@@ -17,7 +17,7 @@ REQUEST HB_FNAMENAME, HB_FNAMEDIR
 // #include "example.frm"
 
 Function Main( cFileName )
-Local oForm := HFormTmpl():Read( Iif( cFileName!=NIL, cFileName, "example.xml" ) )
+Local oForm := HFormTmpl():Read(Iif(cFileName != NIL, cFileName, "example.xml"))
 
  oForm:ShowMain()
 

@@ -112,19 +112,19 @@ fname := hwg_Selectfile("Dbf Files" , "*.dbf", mypath )
    ENDIF
 Return NIL
 
-Function FileClose( oDlg )
+Function FileClose(oDlg)
    Local oBrw := oDlg:FindControl( 111 )
    dbSelectArea( oBrw:alias )
    dbCloseArea()
 Return .T.
 
 function printdos
-Local han := fcreate( "LPT1",0 )
+Local han := fcreate("LPT1", 0)
   if han != -1
-     fwrite( han, Chr(10)+Chr(13)+"Example of dos printing ..."+Chr(10)+Chr(13) )
-     fwrite( han, "Line 2 ..."+Chr(10)+Chr(13) )
-     fwrite( han, "---------------------------"+Chr(10)+Chr(13)+Chr(12) )
-     fclose( han )
+     fwrite(han, Chr(10)+Chr(13)+"Example of dos printing ..."+Chr(10)+Chr(13))
+     fwrite(han, "Line 2 ..."+Chr(10)+Chr(13))
+     fwrite(han, "---------------------------"+Chr(10)+Chr(13)+Chr(12))
+     fclose(han)
   else
      hwg_Msgstop("Can't open printer port!")
   endif

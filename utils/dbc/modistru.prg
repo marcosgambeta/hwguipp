@@ -44,7 +44,7 @@ FUNCTION StruMan( lNew )
       af0 := dbStruct()
       af  := dbStruct()
       FOR i := 1 TO Len( af )
-         AAdd( af[i], i )
+         AAdd(af[i], i)
       NEXT
    ENDIF
    lCanModif := ( !lNew .AND. aFiles[improc,AF_EXCLU] .AND. !aFiles[improc,AF_RDONLY] .AND. aFiles[improc,AF_LOCAL] )
@@ -93,7 +93,7 @@ FUNCTION StruMan( lNew )
          IF Empty(fname)
             RETURN NIL
          ENDIF
-         dbCreate( fname, af )
+         dbCreate(fname, af)
          OpenDbf( fname )
       ELSE
          cAlias := Alias()
@@ -103,7 +103,7 @@ FUNCTION StruMan( lNew )
          GO TOP
 
          fname := "a0_new"
-         dbCreate( fname, af )
+         dbCreate(fname, af)
          IF currentCP != NIL
             USE ( fname ) NEW codepage ( currentCP )
          ELSE
@@ -153,11 +153,11 @@ FUNCTION StruMan( lNew )
          ENDIF
 
          CLOSE ALL
-         FErase( currFname + ".bak" )
-         FRename( currFname + ".dbf", currFname + ".bak" )
-         FRename( "a0_new.dbf", currFname + ".dbf" )
+         FErase(currFname + ".bak")
+         FRename(currFname + ".dbf", currFname + ".bak")
+         FRename("a0_new.dbf", currFname + ".dbf")
          IF File( "a0_new.fpt" )
-            FRename( "a0_new.fpt", currFname + ".fpt" )
+            FRename("a0_new.fpt", currFname + ".fpt")
          ENDIF
 
          USE ( currFname )
@@ -198,10 +198,10 @@ STATIC FUNCTION UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
          nOperation := 3
       ENDIF
       IF nOperation == 1
-         AAdd( oBrowse:aArray, { cName, cType, nLen, nDec } )
+         AAdd(oBrowse:aArray, {cName, cType, nLen, nDec})
       ELSE
          IF nOperation == 2
-            AAdd( oBrowse:aArray, NIL )
+            AAdd(oBrowse:aArray, NIL)
             AIns( oBrowse:aArray, oBrowse:nCurrent )
             oBrowse:aArray[oBrowse:nCurrent] := { "", "", 0, 0 }
          ENDIF

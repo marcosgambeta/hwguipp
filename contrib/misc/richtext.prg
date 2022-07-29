@@ -82,16 +82,16 @@ CLASS RichText
    DATA oPrinter
    // Methods for opening & closing output file, and setting defaults
 
-   METHOD New( cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nScale, aHigh ) CONSTRUCTOR
-   METHOD END() INLINE ::TextCode( "par\pard" ), ::CloseGroup(), FClose( ::hFile )
+   METHOD New(cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nScale, aHigh) CONSTRUCTOR
+   METHOD END() INLINE ::TextCode( "par\pard" ), ::CloseGroup(), FClose(::hFile)
    // Core methods for writing control codes & data to the output file
    METHOD TextCode( cCode ) //INLINE FWRITE(::hFile, FormatCode(cCode) )
    METHOD NumCode( cCode, nValue, lScale )
    METHOD LogicCode( cCode, lTest )
-   METHOD Write( xData, lCodesOK )
+   METHOD Write(xData, lCodesOK)
    // Groups and Sections (basic RTF structures)
-   METHOD OpenGroup() INLINE FWrite( ::hFile, "{" )
-   METHOD CloseGroup() INLINE FWrite( ::hFile, "}" )
+   METHOD OpenGroup() INLINE FWrite(::hFile, "{")
+   METHOD CloseGroup() INLINE FWrite(::hFile, "}")
    METHOD NewSection( lLandscape, nColumns, nLeft, nRight, nTop, nBottom, ;
          nWidth, nHeight, cVertAlign, lDefault )
    // Higher-level page setup methods
@@ -128,7 +128,7 @@ CLASS RichText
    METHOD NewFont( nFontNumber )
    METHOD SetFontSize( nFontSize )
    METHOD SetFontColor( nFontColor )
-   METHOD NewLine() INLINE FWrite( ::hFile, hb_Eol() ), ::TextCode( "par" )
+   METHOD NewLine() INLINE FWrite(::hFile, hb_Eol()), ::TextCode("par")
    METHOD NewPage() INLINE ::TextCode( "page" + hb_Eol() )
    METHOD NumPage() INLINE ::TextCode( "chpgn" )
    METHOD CurrDate( cFormat )
@@ -191,7 +191,7 @@ CLASS RichText
 
 ENDCLASS
 
-METHOD New( cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nScale, aHigh ) CLASS RichText
+METHOD New(cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nScale, aHigh) CLASS RichText
 /* ********************************************************************
 * Description:  Initialize a new RTF object, and create an associated
 *               file, with a valid RTF header.
@@ -243,7 +243,7 @@ METHOD New( cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nS
    ENDIF
 
    // Create/open a file for writing
-   ::hFile := FCreate( ::cFileName )
+   ::hFile := FCreate(::cFileName)
    ::oPrinter := NIL
 
    IF ::hFile >= 0
@@ -261,7 +261,7 @@ METHOD New( cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nS
          ::NewFont( i )
          ::NumCode( "charset", aFontChar[ i ], .F. )
          ::TextCode( aFontFam[ i ] )
-         ::Write( aFontData[ i ] + ";" )
+         ::Write(aFontData[i] + ";")
          ::CloseGroup()
       NEXT
       ::CloseGroup()
@@ -426,7 +426,7 @@ METHOD Paragraph( cText, nFontNumber, nFontSize, cAppear, ;
       ENDIF
    ENDIF
 
-   ::Write( cText )
+   ::Write(cText)
 
    IF lChar
       IF cTypeBorder # NIL
@@ -483,7 +483,7 @@ METHOD SetFontColor( nFontColor ) CLASS RichText
    RETURN NIL
 /* *********************  END OF SetFontColor()  ********************** */
 
-METHOD Write( xData, lCodesOK ) CLASS RichText
+METHOD Write(xData, lCodesOK) CLASS RichText
 /* ********************************************************************
 * Description:  Write data to output file, accounting for any characters
 *               above ASCII 127 (RTF only deals with 7-bit characters
@@ -549,7 +549,7 @@ METHOD Write( xData, lCodesOK ) CLASS RichText
    NEXT
 
    ::OpenGroup()
-   FWrite( ::hFile, cWrite )
+   FWrite(::hFile, cWrite)
    ::CloseGroup()
 
    RETURN NIL
@@ -584,7 +584,7 @@ METHOD NumCode( cCode, nValue, lScale ) CLASS RichText
          nValue := Int( nValue * ::nScale )
       ENDIF
       cWrite += AllTrim(Str(nValue)) //+ " "
-      FWrite( ::hFile, cWrite )
+      FWrite(::hFile, cWrite)
    ENDIF
 
    RETURN cWrite
@@ -829,7 +829,7 @@ METHOD WriteCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign, ;
    ::HAlignment( cHorzAlign )
    ::LineSpacing( nSpace, lSpExact )
    // Now write the text
-   ::Write( cText )
+   ::Write(cText)
    ::CloseGroup()
    // Close the cell
    ::TextCode( "cell" )
@@ -1309,7 +1309,7 @@ METHOD FootNote( cTexto, cChar, nFontNumber, ;
       ::TextCode( "super " + cChar )
    ELSE
       IF ! Empty(cChar)
-         ::Write( cChar )
+         ::Write(cChar)
       ENDIF
    ENDIF
 
@@ -1331,7 +1331,7 @@ METHOD FootNote( cTexto, cChar, nFontNumber, ;
       ::TextCode( "super " + cChar )
    ELSE
       IF ! Empty(cChar)
-         ::Write( cChar )
+         ::Write(cChar)
       ENDIF
    ENDIF
 
@@ -1339,7 +1339,7 @@ METHOD FootNote( cTexto, cChar, nFontNumber, ;
       ::TextCode( "chftn" )
    ENDIF
    ::CloseGroup()
-   ::Write( cTexto )
+   ::Write(cTexto)
    ::CloseGroup()
    ::CloseGroup()
 
@@ -1514,9 +1514,9 @@ METHOD Image( cName, ASize, nPercent, lCell, lInclude, lFrame, aFSize, cHorzAlig
       ::OpenGroup()
       ::TextCode( "fldinst" )
 
-      FWrite( ::hFile, " INCLUDEPICTURE " )
+      FWrite(::hFile, " INCLUDEPICTURE ")
       cName := StrTran( cName, "\", "\\\\" )
-      FWrite( ::hFile, " " + AllTrim(cName) + " \\*MERGEFORMAT " )
+      FWrite(::hFile, " " + AllTrim(cName) + " \\*MERGEFORMAT ")
       ::CloseGroup()
       ::OpenGroup()
       ::TextCode( "fldrslt" )
@@ -1603,7 +1603,7 @@ METHOD IncStyle( cName, styletype, nFontNumber, nFontSize, ;
    cEstilo += ::Appearance( cAppear )
    IF lChar
       cEstilo += ::LogicCode( "\additive", lAdd )
-      AAdd( ::CharStyles, cEstilo )
+      AAdd(::CharStyles, cEstilo)
       ::nCharStl += 1
 
    ENDIF
@@ -1615,10 +1615,10 @@ METHOD IncStyle( cName, styletype, nFontNumber, nFontSize, ;
             cEstilo += ::TextCode( "bg" + ::ShadeCode( cShadPat ) )
          ENDIF
       ENDIF
-      AAdd( ::ParStyles, cEstilo )
+      AAdd(::ParStyles, cEstilo)
       ::NStlDef += 1
    ENDIF
-   FWrite( ::hFile, " " + cName + ";" )
+   FWrite(::hFile, " " + cName + ";")
    ::CloseGroup()
 
    RETURN NIL
@@ -1655,7 +1655,7 @@ METHOD ParaStyle( nStyle ) CLASS RichText
    IF ::nStlAct # nStyle
       IF nStyle <= Len( ::ParStyles[ nStyle ] )
          ::Numcode( "par\pard\s", nStyle, .F. )
-         FWrite( ::hFile, ::ParStyles[ nStyle ] )
+         FWrite(::hFile, ::ParStyles[ nStyle ])
          ::nStlAct := nStyle
       ENDIF
    ENDIF
@@ -1680,7 +1680,7 @@ METHOD CharStyle( nStyle ) CLASS RichText
    IF ::nCharAct # nStyle
       IF nStyle <= Len( ::CharStyles[ nStyle ] )
          ::Numcode( "\cs", nStyle, .F. )
-         FWrite( ::hFile, ::CharStyles[ nStyle ] )
+         FWrite(::hFile, ::CharStyles[ nStyle ])
          ::nCharAct := nStyle
       ENDIF
    ENDIF
@@ -1692,7 +1692,7 @@ METHOD TextCode( cCode ) CLASS RichText
    LOCAL codigo
 
    codigo :=  FormatCode( cCode )
-   FWrite( ::hFile, codigo )
+   FWrite(::hFile, codigo)
 
    RETURN codigo
 
@@ -1908,7 +1908,7 @@ METHOD TableCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign, ;
       ::HAlignment( IIf( cHorzAlign == NIL, ::cCellHAlign, cHorzAlign ) )
       ::LineSpacing( nSpace, lSpExact )
    ENDIF
-   ::Write( cText )
+   ::Write(cText)
    IF lPage
       ::NumPage()
    ENDIF
@@ -2210,7 +2210,7 @@ METHOD Bmp2Wmf(cName,aSize,nPercent) CLASS RichText
    cDir := GetEnv( "TEMP" )
    temp := cDir + "\tmp" + padl( ALLTRIM(STR(::nFile, 4, 0)), 4, "0" ) + ".wmf"
    hDCOut := hwg_CreateMetafile( temp )
-   hDib := DibRead( cName )
+   hDib := DibRead(cName)
    IF hDib > 0
       // Dimensiones en pixels
       nWidth := DIBWIDTH( hDib )
@@ -2242,7 +2242,7 @@ METHOD Bmp2Wmf(cName,aSize,nPercent) CLASS RichText
       CloseMetafile( hDCOut )
       DELETEMETA( hDcOut )
       // La matriz que se necesita para el metafile
-      in := fopen( temp )
+      in := fopen(temp)
       ::OpenGroup()
       ::TextCode( "\pict\wmetafile8" )
       x := ROUND( ( ( aInches[ 1 ] * 2540 ) / 1440 ) + 0.5, 0 )
@@ -2265,8 +2265,8 @@ METHOD Bmp2Wmf(cName,aSize,nPercent) CLASS RichText
       ENDDO
       ::CloseGroup()
       ::CloseGroup()
-      fclose( in )
-      FERASE( temp )
+      fclose(in)
+      FERASE(temp)
       ::nFile += 1
    ENDIF
 

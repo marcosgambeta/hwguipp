@@ -198,7 +198,7 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
             cType  := Fieldtype(Fieldpos(aFields[i, GET_FIELD]))
             
             if cType == "N" .and. aFields[i, GET_LIST] != NIL
-                aFields[i, GET_OBJECT] := HComboBox():New( oForm,;
+                aFields[i, GET_OBJECT] := HComboBox():New(oForm, ;
                             3000 + i,;
                             aFields[i, GET_VALUE],;
                             FieldBlock(aFields[i, GET_FIELD]),;
@@ -217,7 +217,7 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
 
             elseif cType == "L"
 
-                aFields[i, GET_OBJECT] := HCheckButton():New( oForm,;
+                aFields[i, GET_OBJECT] := HCheckButton():New(oForm, ;
                             3000 + i,;
                             aFields[i, GET_VALUE],;
                             FieldBlock(aFields[i, GET_FIELD]),;
@@ -237,9 +237,9 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
                             NIL)
 
 
-            elseif cType = "D" 
+            elseif cType = "D"
 
-                aFields[i, GET_OBJECT] := HDatePicker():New( oForm,;
+                aFields[i, GET_OBJECT] := HDatePicker():New(oForm,;
                             3000 + i,;
                             aFields[i, GET_VALUE],;
                             FieldBlock(aFields[i, GET_FIELD ]),;
@@ -254,19 +254,19 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
                             {|value, oCtrl| __valid(value, oCtrl, aFields, bChange) },;
                             NIL,;
                             NIL,;
-                            NIL )
+                            NIL)
 
             else
                 if cType == "M"
-                    nStyle := WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE 
+                    nStyle := WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE
                 endif
-                
+
                 if aFields[i, GET_EDIT]
                     nStyle += WS_DISABLED
                 endif
 
 
-                aFields[i, GET_OBJECT] := HEdit():New( oForm, ;
+                aFields[i, GET_OBJECT] := HEdit():New(oForm, ;
                             3000 + i,;
                             aFields[i, GET_VALUE],;
                             FieldBlock(aFields[i, GET_FIELD]),;
@@ -290,15 +290,15 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
 
         Next
 
-        @ oForm:nWidth - 160, oForm:nHeight - 30 BUTTON "Ok"     ID IDOK SIZE 75,25 
+        @ oForm:nWidth - 160, oForm:nHeight - 30 BUTTON "Ok"     ID IDOK SIZE 75,25
         @ oForm:nWidth -  80, oForm:nHeight - 30 BUTTON "Cancel" ID IDCANCEL SIZE 75,25 ON CLICK {|| oForm:Close() }
 
         oForm:bActivate := {|| hwg_Setfocus(aFields[1, GET_OBJECT]:handle)}
 
     ACTIVATE DIALOG oForm
-    
+
     if oForm:lResult
-        DBCommit()    
+        DBCommit()
     elseif lAppend
         Delete
     else
@@ -307,7 +307,7 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
             Fieldput(Fieldpos(aFields[i, GET_FIELD]), aFields[i, GET_VALUE])
         Next
     endif
-    
+
     Unlock
     DBSelectArea(nArea)
     

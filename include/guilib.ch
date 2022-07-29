@@ -1715,7 +1715,7 @@ Added by Marcos Antonio Gambeta
 
 #xcommand MENUBARITEM  <oWnd> CAPTION <c> ON <id1> ACTION <b1>      ;
           => ;
-          Aadd( <oWnd>, \{ <c>, <id1>, <{b1}> \})
+          Aadd(<oWnd>, \{ <c>, <id1>, <{b1}> \})
 
 #xcommand ADD TOOLBUTTON  <O> ;
           ID <nId> ;

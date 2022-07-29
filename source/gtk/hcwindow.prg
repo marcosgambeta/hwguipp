@@ -59,10 +59,9 @@ CLASS HCustomWindow INHERIT HObject
    DATA HelpId    INIT 0
    DATA nChildId  INIT 34000
 
-   METHOD AddControl( oCtrl ) INLINE AAdd( ::aControls, oCtrl )
+   METHOD AddControl( oCtrl ) INLINE AAdd(::aControls, oCtrl)
    METHOD DelControl( oCtrl )
-   METHOD AddEvent( nEvent, nId, bAction ) ;
-      INLINE AAdd( ::aEvents, { nEvent, nId, bAction } )
+   METHOD AddEvent( nEvent, nId, bAction ) INLINE AAdd(::aEvents, {nEvent, nId, bAction})
    METHOD FindControl( nId, nHandle )
    METHOD Hide() INLINE ( ::lHide := .T. , hwg_Hidewindow( ::handle ) )
    METHOD Show() INLINE ( ::lHide := .F. , hwg_Showwindow( ::handle ) )

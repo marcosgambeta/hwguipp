@@ -29,7 +29,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
    IF Len( aScript ) < 3
       Return .F.
    ELSEIF Len( aScript ) == 3
-      Aadd( aScript, NIL )
+      Aadd(aScript, NIL)
    ENDIF
    IF Empty(aScript[4])
       nScriptSch ++
@@ -66,9 +66,9 @@ FUNCTION hwg_scrDebug( aScript, iscr )
           ON SIZE { | o, x | o:Move(,, x ) }
 
       oBrwData:aArray := aWatches
-      oBrwData:AddColumn( HColumn():New( "",{ |v, o | HB_SYMBOL_UNUSED( v ), o:aArray[ o:nCurrent, 1 ] }, "C", 30, 0 ) )
-      oBrwData:AddColumn( HColumn():New( "",{ |v, o | HB_SYMBOL_UNUSED( v ), o:aArray[ o:nCurrent, 3 ] }, "C", 1, 0 ) )
-      oBrwData:AddColumn( HColumn():New( "",{ |v, o | HB_SYMBOL_UNUSED( v ), o:aArray[ o:nCurrent, 4 ] }, "C", 60, 0 ) )
+      oBrwData:AddColumn(HColumn():New("", {|v, o|HB_SYMBOL_UNUSED(v), o:aArray[o:nCurrent, 1]}, "C", 30, 0))
+      oBrwData:AddColumn(HColumn():New("", {|v, o|HB_SYMBOL_UNUSED(v), o:aArray[o:nCurrent, 3]}, "C",  1, 0))
+      oBrwData:AddColumn(HColumn():New("", {|v, o|HB_SYMBOL_UNUSED(v), o:aArray[o:nCurrent, 4]}, "C", 60, 0))
       @ 0,4 BROWSE oBrwScript ARRAY SIZE 500,236    ;
           FONT oScrFont STYLE WS_BORDER+WS_VSCROLL+WS_HSCROLL ;
           ON SIZE {|o,x,y|o:Move(,,x,y-oSplit:nTop-oSplit:nHeight-64)}
@@ -79,18 +79,17 @@ FUNCTION hwg_scrDebug( aScript, iscr )
       oBrwScript:aArray := aScript[3]
 #ifdef __GTK__
       oBrwScript:rowCount := 5
-      oBrwScript:AddColumn( HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,'>',Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,'*',' '))},"C",1,0 ) )
+      oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,'>',Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,'*',' '))},"C",1,0))
 #else
-      oBrwScript:AddColumn( HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,1,Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,2,0))},"N",1,0 ) )
+      oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,1,Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,2,0))},"N",1,0))
       oBrwScript:aColumns[1]:aBitmaps := { { {|n|n==1},oBmpCurr },{ {|n|n==2},oBmpPoint } }
 #endif
-      oBrwScript:AddColumn( HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Left(o:aArray[o:nCurrent],4)},"C",4,0 ) )
-      oBrwScript:AddColumn( HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Substr(o:aArray[o:nCurrent],6)},"C",80,0 ) )
+      oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED( v ),Left(o:aArray[o:nCurrent],4)},"C",4,0))
+      oBrwScript:AddColumn(HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Substr(o:aArray[o:nCurrent],6)},"C",80,0))
 
       oBrwScript:bEnter:= {||AddBreakPoint()}
 
-      @ 0,240 PANEL oPanel OF oDlgDebug SIZE oDlgDebug:nWidth,64 ;
-          ON SIZE {|o,x,y|o:Move(,y-64,x)}
+      @ 0, 240 PANEL oPanel OF oDlgDebug SIZE oDlgDebug:nWidth, 64 ON SIZE {|o, x, y|o:Move(, y - 64, x)}
 
 #ifdef __GTK__
       @ 10,10 OWNERBUTTON TEXT "Add" SIZE 100, 24 OF oPanel ON CLICK {||AddWatch()}
@@ -110,7 +109,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
    IF aScriptCurr[4] != aScript[4]
       IF !Empty(aBreakPoints)
          IF Ascan( aBreaks, {|a|a[1]==aBreakPoints[1]} ) == 0
-            Aadd( aBreaks, aBreakPoints )
+            Aadd(aBreaks, aBreakPoints)
          ENDIF
          IF ( i := Ascan( aBreaks, {|a|a[1]==aScript[4]} ) ) == 0
             aBreakPoints := NIL
@@ -190,7 +189,7 @@ Local i
          ENDIF
       NEXT
       IF i > Len(aBreakPoints[2])
-         Aadd( aBreakPoints[2], oBrwScript:nCurrent )
+         Aadd(aBreakPoints[2], oBrwScript:nCurrent)
       ENDIF
    ELSE
       Adel( aBreakPoints[2], i )
@@ -218,7 +217,7 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
 
    IF lRes
       IF Ascan( aWatches, {|s|s[1] == xRes} ) == 0
-         Aadd( aWatches, { xRes,bCodeblock, NIL, NIL } )
+         Aadd(aWatches, {xRes, bCodeblock, NIL, NIL})
          CalcWatch( Len(aWatches) )
       ENDIF
       IF oBrwData:nHeight < 20

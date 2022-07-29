@@ -149,7 +149,7 @@ FUNCTION Main
 STATIC FUNCTION ReadIni()
    LOCAL oInit, i, oNode1, cHwgui_dir
 
-   oIni := HXMLDoc():Read( cIniPath + "tutor.xml" )
+   oIni := HXMLDoc():Read(cIniPath + "tutor.xml")
    IF !Empty(oIni:aItems) .AND. oIni:aItems[1]:title == "init"
       oInit := oIni:aItems[1]
       FOR i := 1 TO Len( oInit:aItems )
@@ -196,7 +196,7 @@ STATIC FUNCTION BuildTree( oTree )
    LOCAL cVer := "win"
 #endif
 
-   oIniTut := HXMLDoc():Read( cIniPath + cTutor )
+   oIniTut := HXMLDoc():Read(cIniPath + cTutor)
    IF !Empty(oIniTut:aItems) .AND. oIniTut:aItems[1]:title == "init"
       oInit := oIniTut:aItems[1]
       FOR i := 1 TO Len( oInit:aItems )
@@ -303,7 +303,7 @@ STATIC FUNCTION RunSample( oItem )
    NEXT
 
 #ifdef __XHARBOUR__
-   FErase( "__tmp.hrb" )
+   FErase("__tmp.hrb")
    oText:Save( "__tmp.prg" )
    IF hwg_RunConsoleApp( cHrb_bin_dir + "harbour " + "__tmp.prg -n -gh " + cHrbCopts + " -I" + cHwg_include_dir + cHrb_inc_dir ) .AND. File( "__tmp.hrb" )
       IF !Empty(cHwgrunPath)

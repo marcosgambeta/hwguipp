@@ -16,7 +16,7 @@ FUNCTION RDSTR(han, strbuf, poz, buflen)
    IF poz = 0
       IF han <> NIL
          stro += SubStr(strbuf, oldpoz)
-         rez  := FRead( han, @strbuf, buflen )
+         rez  := FRead(han, @strbuf, buflen)
          IF rez = 0
             RETURN ""
          ELSEIF rez < buflen

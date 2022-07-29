@@ -395,10 +395,9 @@ METHOD ParsePict( cPicture, vari ) CLASS HEdit
       ELSEIF ::cType == "N"
          vari := Str(vari)
          IF ( nAt := At(".", vari) ) > 0
-            ::cPicMask := Replicate( '9', nAt - 1 ) + "." + ;
-               Replicate( '9', Len( vari ) - nAt )
+            ::cPicMask := Replicate('9', nAt - 1) + "." + Replicate('9', Len(vari) - nAt)
          ELSE
-            ::cPicMask := Replicate( '9', Len( vari ) )
+            ::cPicMask := Replicate('9', Len(vari))
          ENDIF
       ENDIF
    ENDIF
@@ -912,12 +911,12 @@ FUNCTION hwg_CreateGetList( oDlg )
 
    FOR i := 1 TO aLen1
       IF __ObjHasMsg( oDlg:aControls[i], "BSETGET" ) .AND. oDlg:aControls[i]:bSetGet != NIL
-         AAdd( oDlg:GetList, oDlg:aControls[i] )
+         AAdd(oDlg:GetList, oDlg:aControls[i])
       ELSEIF !Empty(oDlg:aControls[i]:aControls)
          aLen2 := Len( oDlg:aControls[i]:aControls )
          FOR j := 1 TO aLen2
             IF __ObjHasMsg( oDlg:aControls[i]:aControls[j], "BSETGET" ) .AND. oDlg:aControls[i]:aControls[j]:bSetGet != NIL
-               AAdd( oDlg:GetList, oDlg:aControls[i]:aControls[j] )
+               AAdd(oDlg:GetList, oDlg:aControls[i]:aControls[j])
             ENDIF
          NEXT
       ENDIF

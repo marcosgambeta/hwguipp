@@ -360,7 +360,7 @@ METHOD HandleEvent() CLASS HBDebugger
 
       CASE nKey == CMD_BADD
          IF __dbgIsValidStopLine( ::pInfo, p1, p2 )
-            AAdd( ::aBreakPoints, { p2, p1 } )
+            AAdd(::aBreakPoints, {p2, p1})
             hwg_dbg_Answer( "line", LTrim(Str(p2 )) )
             __dbgAddBreak( ::pInfo, p1, p2 )
          ELSE

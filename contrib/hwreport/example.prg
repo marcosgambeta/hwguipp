@@ -43,9 +43,9 @@ STATIC FUNCTION Print1
 
    LOCAL aRep
 
-   IF !Empty(aRep := hwg_hwr_Open( "example.rpt", "MyReport" ))
+   IF !Empty(aRep := hwg_hwr_Open("example.rpt", "MyReport"))
       hwg_hwr_Print( aRep,, .T. )
-      hwg_hwr_Close( aRep )
+      hwg_hwr_Close(aRep)
    ENDIF
 
    RETURN NIL
@@ -56,7 +56,7 @@ STATIC FUNCTION Print2
 
    aRep := MyReport()
    hwg_hwr_Print( aRep,, .T. )
-   hwg_hwr_Close( aRep )
+   hwg_hwr_Close(aRep)
 
    RETURN NIL
 

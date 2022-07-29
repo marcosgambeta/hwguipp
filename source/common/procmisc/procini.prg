@@ -66,7 +66,7 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
       USE (fname) NEW
       han := Iif( NetErr(), -1, 0 )
    ELSE
-      han    := FOPEN( fname, FO_READ + FO_SHARED )
+      han    := FOPEN(fname, FO_READ + FO_SHARED)
    ENDIF
    IF han <> - 1
       strfull := ""
@@ -92,7 +92,7 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
          IF Left( stroka,1 ) = "["
             stroka := UPPER(SUBSTR(stroka, 2, AT("]", stroka) - 2))
             IF lWinIni
-               AADD( prm1, { UPPER(stroka), {} } )
+               AADD(prm1, {UPPER(stroka), {}})
             ELSE
                prblo := .F.
                SET EXACT ON
@@ -108,7 +108,7 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
                vname    := RTRIM(SUBSTR(stroka, 1, IIF(lTruncAr, poz1 - 1, poz1 - 2)))
                stroka   := ALLTRIM(SUBSTR(stroka, poz1 + 1))
                IF lWinIni
-                  AADD( prm1[ LEN( prm1 ), 2 ], { UPPER(vname), stroka } )
+                  AADD(prm1[LEN(prm1), 2], {UPPER(vname), stroka})
                ELSE
                   IF TYPE( vname ) = "U"
                      IF ASC( stroka ) = 123                 // {
@@ -146,7 +146,7 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
             //
          ENDIF
       ENDDO
-      FCLOSE( han )
+      FCLOSE(han)
    ELSE
       RETURN 0
    ENDIF
@@ -182,12 +182,12 @@ LOCAL poz1, len1, strv, newname
             poz1 := FIND_Z( stroka )
             strv := LTRIM(SUBSTR(stroka, 1, IIF(poz1 = 0, 9999, poz1 - 1)))
             IF ASC( strv ) = 123 .AND. SUBSTR(strv, 2, 1) != "|"
-               AADD( &vname, {} )
+               AADD(&vname, {})
                len1    := LEN( &vname )
                newname := vname + "[" + LTRIM(STR(len1, 3)) + "]"
                RDARR( newname, strv )
             ELSE
-               AADD( &vname, RDZNACH( strv ) )
+               AADD(&vname, RDZNACH(strv))
             ENDIF
             stroka := SUBSTR(stroka, poz1 + 1)
          ENDIF

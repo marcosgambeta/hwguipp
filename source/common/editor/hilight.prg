@@ -98,21 +98,21 @@ CLASS Hilight INHERIT HilightBase
    DATA   lMultiComm
    DATA   aDop, nDopChecked
 
-   METHOD New( cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase )
+   METHOD New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase)
    METHOD Set( oEdit )
    METHOD Do( oEdit, nLine, lCheck )
    METHOD UpdSource( nLine )  INLINE  ( ::nDopChecked := nLine-1 )
    METHOD AddItem( nPos1, nPos2, nType )
 ENDCLASS
 
-METHOD New( cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase ) CLASS Hilight
+METHOD New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase) CLASS Hilight
 Local oIni, oMod, oNode, i, nPos
 
    ::aLineStru := Array( 20,3 )
 
    IF !Empty(cFile)
       IF Valtype( cFile ) == "C"
-         oIni := HXMLDoc():Read( cFile )
+         oIni := HXMLDoc():Read(cFile)
          IF !Empty(oIni:aItems) .AND. oIni:aItems[1]:title == "hilight"
             oIni := oIni:aItems[1]
             FOR i := 1 TO Len( oIni:aItems )
@@ -335,7 +335,7 @@ METHOD AddItem( nPos1, nPos2, nType ) CLASS Hilight
    IF ::nItems > MAX_ITEMS
       Return NIL
    ELSEIF ::nItems >= Len( ::aLineStru )
-      Aadd( ::aLineStru, Array(3) )
+      Aadd(::aLineStru, Array(3))
    ENDIF
    ::nItems ++
    ::aLineStru[::nItems,1] := nPos1
