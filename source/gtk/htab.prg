@@ -100,7 +100,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTab
 
    IF msg == WM_USER
       ::nActive := wParam
-      IF ::bChange2 != NIL .AND. ::aPages[ ::nActive,3 ]
+      IF ::bChange2 != NIL .AND. ::aPages[::nActive, 3]
          Eval( ::bChange2, Self, wParam )
       ENDIF
    ENDIF
@@ -123,14 +123,14 @@ METHOD StartPage( cname ) CLASS HTab
    AAdd(::aPages, {Len(::aControls), 0, .F., 0})
 
    ::nActive := i
-   ::aPages[ i,4 ] := hwg_Addtab( ::handle, ::aTabs[i] )
+   ::aPages[i, 4] := hwg_Addtab( ::handle, ::aTabs[i] )
 
    RETURN NIL
 
 METHOD EndPage() CLASS HTab
 
-   ::aPages[ ::nActive,2 ] := Len( ::aControls ) - ::aPages[ ::nActive,1 ]
-   ::aPages[ ::nActive,3 ] := .T.
+   ::aPages[::nActive, 2] := Len( ::aControls ) - ::aPages[::nActive, 1]
+   ::aPages[::nActive, 3] := .T.
    ::nActive := 1
 
    ::oDefaultParent := ::oTemp
@@ -140,8 +140,8 @@ METHOD EndPage() CLASS HTab
 
 METHOD GetActivePage( nFirst, nEnd ) CLASS HTab
    IF !Empty(::aPages)
-      nFirst := ::aPages[ ::nActive,1 ] + 1
-      nEnd   := ::aPages[ ::nActive,1 ] + ::aPages[ ::nActive,2 ]
+      nFirst := ::aPages[::nActive, 1] + 1
+      nEnd   := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
    ELSE
       nFirst := 1
       nEnd   := Len( ::aControls )
@@ -152,13 +152,13 @@ METHOD GetActivePage( nFirst, nEnd ) CLASS HTab
 METHOD DeletePage( nPage ) CLASS HTab
 Local nFirst, nEnd, i
 
-   nFirst := ::aPages[ nPage,1 ] + 1
-   nEnd   := ::aPages[ nPage,1 ] + ::aPages[ nPage,2 ]
+   nFirst := ::aPages[nPage, 1] + 1
+   nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
    FOR i := nEnd TO nFirst STEP -1
       ::DelControl( ::aControls[i] )
    NEXT
    FOR i := nPage + 1 TO Len( ::aPages )
-      ::aPages[ i,1 ] -= ( nEnd-nFirst+1 )
+      ::aPages[i, 1] -= ( nEnd-nFirst+1 )
    NEXT
 
    hwg_Deletetab( ::handle, nPage - 1 )
@@ -174,7 +174,7 @@ Local nFirst, nEnd, i
       ::SetTab( ::nActive )
    ELSEIF Len( ::aPages ) > 0
       ::nActive := 1
-      ::SetTab( 1 )
+      ::SetTab(1)
    ENDIF
 
    Return ::nActive

@@ -52,7 +52,7 @@ HB_FUNC( HWG__ADDMENUITEM )
    HB_BOOL lString = HB_FALSE, lCheck = HB_FALSE, lStock = FALSE;
    const char * lpNewItem = NULL;
 
-   if( HB_ISCHAR( 2 ) )
+   if( HB_ISCHAR(2) )
    {
       const char * ptr;
       lpNewItem	= hb_parc(2);
@@ -92,7 +92,7 @@ HB_FUNC( HWG__ADDMENUITEM )
    else
       hMenu = (GtkWidget *) gtk_separator_menu_item_new();
 
-   if( !HB_ISNIL( 7 ) && hb_parl(7) )
+   if( !HB_ISNIL(7) && hb_parl(7) )
    {
       GtkWidget * hSubMenu = gtk_menu_new();
       gtk_menu_item_set_submenu( GTK_MENU_ITEM (hMenu), hSubMenu );
@@ -197,7 +197,7 @@ HB_FUNC( HWG__CREATEACCELERATORTABLE )
 HB_FUNC( HWG__ADDACCELERATOR )
 {
 
-   int iControl = hb_parni( 3 );
+   int iControl = hb_parni(3);
    GdkModifierType nType = (iControl==FSHIFT)? GDK_SHIFT_MASK : 
          ( (iControl==FCONTROL)? GDK_CONTROL_MASK : ( (iControl==FALT)? GDK_MOD1_MASK : 0 ) );
 

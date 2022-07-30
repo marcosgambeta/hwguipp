@@ -105,7 +105,7 @@ FUNCTION Tool2Prg
          k := 1
          aMethods := {}
          DO WHILE k <= Len( oCtrl1:aMethods )
-            IF oCtrl1:aMethods[ k, 2 ] != NIL .AND. ! Empty(oCtrl1:aMethods[ k, 2 ])
+            IF oCtrl1:aMethods[k, 2] != NIL .AND. ! Empty(oCtrl1:aMethods[k, 2])
 
                IF Lower(Left(oCtrl1:aMethods[k, 2], 10)) == "parameters"
                   // Note, do we look for a CR or a LF??
@@ -142,7 +142,7 @@ FUNCTION Tool2Prg
                      temp :=  " {|" + temp + "| " +  cName + "( " + temp + " ) }"
                   ENDIF
                ELSE
-                  temp := " {|" + temp + "| " + iif( Len( cName ) == 1, cName[ 1 ], cName[ 2 ] ) + " }"
+                  temp := " {|" + temp + "| " + iif( Len( cName ) == 1, cName[1], cName[2] ) + " }"
                ENDIF
                AAdd(aMethods, {Lower(oCtrl1:aMethods[k, 1]), temp})
             ENDIF
@@ -325,7 +325,7 @@ FUNCTION Browse2Prg
          k := 1
          aMethods := {}
          DO WHILE k <= Len( oCtrl1:aMethods )
-            IF oCtrl1:aMethods[ k, 2 ] != NIL .AND. ! Empty(oCtrl1:aMethods[ k, 2 ])
+            IF oCtrl1:aMethods[k, 2] != NIL .AND. ! Empty(oCtrl1:aMethods[k, 2])
                IF Lower(Left(oCtrl1:aMethods[k, 2], 10)) == "parameters"
                   // Note, do we look for a CR or a LF??
                   j := At(_Chr(13), oCtrl1:aMethods[k, 2])
@@ -337,7 +337,7 @@ FUNCTION Browse2Prg
                IF ValType( cName := Callfunc( "FUNC_NAME", { oCtrl1, k } ) ) == "C"
                   temp :=  " {|" + temp + "| " +  cName + "( " + temp + " ) }"
                ELSE
-                  temp := " {|" + temp + "| " + iif( Len( cName ) == 1, cName[ 1 ], cName[ 2 ] ) + " }"
+                  temp := " {|" + temp + "| " + iif( Len( cName ) == 1, cName[1], cName[2] ) + " }"
                ENDIF
                AAdd(aMethods, {Lower(oCtrl1:aMethods[k, 1]), temp})
             ENDIF
@@ -512,7 +512,7 @@ FUNCTION Func_name
 
    PARAMETERS oCtrl, nMeth
 
-   PRIVATE cName, arr := ParseMethod( oCtrl:aMethods[ nMeth, 2 ] )
+   PRIVATE cName, arr := ParseMethod( oCtrl:aMethods[nMeth, 2] )
 
    IF Len(arr) == 1 .OR. (Len(arr) == 2 .AND. Lower(Left(arr[1], 11)) == "parameters ")
 
@@ -523,7 +523,7 @@ FUNCTION Func_name
          cName := oCtrl:cClass + "_" + LTrim(Str(oCtrl:id - 34000))
       ENDIF
 
-      cName += "_" + oCtrl:aMethods[ nMeth, 1 ]
+      cName += "_" + oCtrl:aMethods[nMeth, 1]
 
    ENDIF
 
@@ -889,7 +889,7 @@ FUNCTION Ctrl2Prg
             LOOP
          ENDIF
          //
-         IF oCtrl:aMethods[ i, 2 ] != NIL .AND. ! Empty(oCtrl:aMethods[ i, 2 ])
+         IF oCtrl:aMethods[i, 2] != NIL .AND. ! Empty(oCtrl:aMethods[i, 2])
             IF Lower(Left(oCtrl:aMethods[i, 2], 10)) == "parameters"
 
                // Note, do we look for a CR or a LF??
@@ -937,7 +937,7 @@ FUNCTION Ctrl2Prg
                //
                IF oCtrl:cClass == "timer"
                   stroka := iif( cName != NIL, " {|" + temp + "| " + ;
-                     iif( Len( cName ) == 1, cName[ 1 ], cName[ 2 ] ) + " }" , " " )
+                     iif( Len( cName ) == 1, cName[1], cName[2] ) + " }" , " " )
                   cname := oCtrl:GetProp( "Name" )
                   temp := oCtrl:GetProp( "value" ) //) != NIL
                   //ON INIT {|| oTimer1 := HTimer():New( otESTE,,5000,{|| OtIMER1:END(),hwg_Msginfo('oi'),hwg_EndDialog() } )}
@@ -949,7 +949,7 @@ FUNCTION Ctrl2Prg
                      //temp :=  " {|" + temp + "| " +  cName +"("+ cFormParameters + ")  }"
                      FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + "{ ||" + cName + "(" + cFormParameters + ")  }")
                   ELSE
-                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + " {|" + temp + "| " +  iif( Len( cName ) == 1, cName[ 1 ], cName[ 2 ] ) + " }")
+                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + " {|" + temp + "| " +  iif( Len( cName ) == 1, cName[1], cName[2] ) + " }")
                   ENDIF
 
                ENDIF
@@ -1161,7 +1161,7 @@ FUNCTION Ctrl2Prg
 
    i := 1
    DO WHILE i <= Len( oForm:aMethods )
-      IF oForm:aMethods[ i, 2 ] != NIL .AND. ! Empty(oForm:aMethods[ i, 2 ])
+      IF oForm:aMethods[i, 2] != NIL .AND. ! Empty(oForm:aMethods[i, 2])
 
          IF Lower(oForm:aMethods[i, 1]) == "onforminit"
             FWrite(han, hb_OsNewline() + hb_OsNewline())
@@ -1292,7 +1292,7 @@ FUNCTION Ctrl2Prg
          // all methods are onSomething so, strip leading "on"
          FWrite(han, " ;" + + hb_OsNewline() + Space(8) + "ON " + ;
             StrTran(StrTran(Upper(SubStr(oForm:aMethods[i, 1], 3)), "DLG", ""), "FORM", "") + ;
-            " {|" + temp + "| " + oForm:aMethods[ i, 1 ] + "( " + temp + " ) }")
+            " {|" + temp + "| " + oForm:aMethods[i, 1] + "( " + temp + " ) }")
 
          // Dialog and Windows methods can have little different name, should be fixed
 
@@ -1307,12 +1307,12 @@ FUNCTION Ctrl2Prg
    DO WHILE i <= aLen
       IF aControls[i]:cClass != "menu"
          IF aControls[i]:oContainer == NIL
-            CallFunc( "Ctrl2Prg", { aControls[ i ] } )
+            CallFunc( "Ctrl2Prg", { aControls[i] } )
          ENDIF
       ELSE
          nMaxId := 0
          FWrite(han, hb_OsNewline() + " MENU OF " + cformname + " ")
-         CallFunc( "Menu2Prg", { aControls[ i ] , getmenu() } )
+         CallFunc( "Menu2Prg", { aControls[i] , getmenu() } )
          FWrite(han, hb_OsNewline() + " ENDMENU" + " " + hb_OsNewline() + hb_OsNewline())
       ENDIF
       i ++
@@ -1333,10 +1333,10 @@ FUNCTION Ctrl2Prg
    i := 1
    DO WHILE i <= Len( oForm:aMethods )
 
-      IF oForm:aMethods[ i, 2 ] != NIL .AND. ! Empty(oForm:aMethods[ i, 2 ])
+      IF oForm:aMethods[i, 2] != NIL .AND. ! Empty(oForm:aMethods[i, 2])
 
          IF Lower(oForm:aMethods[i, 1]) == "onformexit"
-            FWrite(han, oForm:aMethods[ i, 2 ])
+            FWrite(han, oForm:aMethods[i, 2])
             FWrite(han, hb_OsNewline() + hb_OsNewline())
          ENDIF
 
@@ -1416,14 +1416,14 @@ FUNCTION Ctrl2Prg
       i := 1
       DO WHILE i <= Len( oCtrl:aMethods )
 
-         //hwg_Msginfo( oCtrl:aMethods[ i, 1 ] + " / " + oCtrl:aMethods[ i, 2 ] )
+         //hwg_Msginfo( oCtrl:aMethods[i, 1] + " / " + oCtrl:aMethods[i, 2] )
 
-         IF oCtrl:aMethods[ i, 2 ] != NIL .AND. ! Empty(oCtrl:aMethods[ i, 2 ])
+         IF oCtrl:aMethods[i, 2] != NIL .AND. ! Empty(oCtrl:aMethods[i, 2])
 
             IF ValType( cName := Callfunc( "FUNC_NAME", { oCtrl, i } ) ) == "C"
 
                FWrite(han, "STATIC FUNCTION " + cName + hb_OsNewline())
-               FWrite(han, oCtrl:aMethods[ i, 2 ])
+               FWrite(han, oCtrl:aMethods[i, 2])
 
                j1 := RAt(hb_OsNewline(), oCtrl:aMethods[i, 2])
 

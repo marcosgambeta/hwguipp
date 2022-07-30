@@ -37,7 +37,7 @@ STATIC cHwg_include_dir, cHrb_inc_dir, cMod_Dir
 
 FUNCTION _APPMAIN( cFileName, cPar1, cPar2, cPar3, cPar4, cPar5, cPar6, cPar7, cPar8, cPar9 )
 
-   LOCAL cInitPath := FilePath( hb_ArgV( 0 ) ), cIncPath
+   LOCAL cInitPath := FilePath( hb_ArgV(0) ), cIncPath
    LOCAL xRetVal, cHrb, cPath, cHrbName, lExt, lCompile
    LOCAL tHrb, tPrg
 

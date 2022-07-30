@@ -791,7 +791,7 @@ STATIC FUNCTION LButtonUp( xPos, yPos )
             iif( lastFont == NIL, HFont():Add( "Arial",0, - 13 ), lastFont )
       ELSEIF nAddItem == TYPE_MARKER
          aItem[ITEM_X1] := - aInitialSize[nAddItem,1]
-         aItem[ITEM_CAPTION] := aMarkers[ nMarkerType ]
+         aItem[ITEM_CAPTION] := aMarkers[nMarkerType]
       ENDIF
       DeselectAll( Len( aPaintRep[FORM_ITEMS] ) )
       aPaintRep[FORM_CHANGED] := .T.
@@ -830,7 +830,7 @@ STATIC FUNCTION DeleteItem()
    FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
       IF aPaintRep[FORM_ITEMS,i,ITEM_STATE] == STATE_SELECTED
          aItem := aPaintRep[FORM_ITEMS,i]
-         IF aItem[ITEM_PEN] != NIL .AND. Valtype( aItem[ ITEM_PEN ] ) == "O"
+         IF aItem[ITEM_PEN] != NIL .AND. Valtype( aItem[ITEM_PEN] ) == "O"
             aItem[ITEM_PEN]:Release()
             aItem[ITEM_PEN] := NIL
          ENDIF

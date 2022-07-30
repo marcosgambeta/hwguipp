@@ -90,17 +90,17 @@ HB_FUNC( HWG_CREATEACTIVEX )
    HWND hWndCtrl;
 
    _Ax_Init(  );
-   hWndCtrl = CreateWindowEx( ( DWORD ) HB_ISNIL( 1 ) ? 0 : hb_parni( 1 ), // nExStyle
-         ( LPCTSTR ) HB_ISNIL( 2 ) ? "A3434_CLASS" : hb_parc( 2 ), // cClsName
-         ( LPCTSTR ) HB_ISNIL( 3 ) ? "" : hb_parc( 3 ),    // cProgId
-         ( DWORD ) HB_ISNIL( 4 ) ? WS_OVERLAPPEDWINDOW : hb_parni( 4 ),    // style
-         HB_ISNIL( 5 ) ? CW_USEDEFAULT : hb_parni( 5 ),    // nLeft
-         HB_ISNIL( 6 ) ? CW_USEDEFAULT : hb_parni( 6 ),    // nTop
-         HB_ISNIL( 7 ) ? 544 : hb_parni( 7 ),      // nWidth
-         HB_ISNIL( 8 ) ? 375 : hb_parni( 8 ),      // nHeight
-         HB_ISNIL( 9 ) ? HWND_DESKTOP : ( HWND ) HB_PARHANDLE( 9 ),    // oParent:handle
+   hWndCtrl = CreateWindowEx( ( DWORD ) HB_ISNIL(1) ? 0 : hb_parni(1), // nExStyle
+         ( LPCTSTR ) HB_ISNIL(2) ? "A3434_CLASS" : hb_parc(2), // cClsName
+         ( LPCTSTR ) HB_ISNIL(3) ? "" : hb_parc(3),    // cProgId
+         ( DWORD ) HB_ISNIL(4) ? WS_OVERLAPPEDWINDOW : hb_parni(4),    // style
+         HB_ISNIL(5) ? CW_USEDEFAULT : hb_parni(5),    // nLeft
+         HB_ISNIL(6) ? CW_USEDEFAULT : hb_parni(6),    // nTop
+         HB_ISNIL(7) ? 544 : hb_parni(7),      // nWidth
+         HB_ISNIL(8) ? 375 : hb_parni(8),      // nHeight
+         HB_ISNIL(9) ? HWND_DESKTOP : ( HWND ) HB_PARHANDLE(9),    // oParent:handle
          // HB_ISNIL( 10 ) ? NULL                : (HMENU) hb_parnl( 10 ),  // Id
-         // GetModuleHandle( 0 ),
+         // GetModuleHandle(0),
          0, 0, NULL );
 
    HB_RETHANDLE( hWndCtrl );
@@ -111,7 +111,7 @@ HB_FUNC( HWG_ATLAXGETDISP )
 {
    IUnknown *pUnk = NULL;
    IDispatch *pDisp;
-   HWND hCtrl = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
 
    _Ax_Init(  );
    AtlAxGetControl( hCtrl, &pUnk );
@@ -297,7 +297,7 @@ static ULONG STDMETHODCALLTYPE Release( IEventHandler * this )
    if( --( ( MyRealIEventHandler * ) this )->count == 0 )
    {
       GlobalFree( this );
-      return ( 0 );
+      return (0);
    }
    return ( ( ( MyRealIEventHandler * ) this )->count );
 }
@@ -307,8 +307,8 @@ static ULONG STDMETHODCALLTYPE Release( IEventHandler * this )
 static ULONG STDMETHODCALLTYPE GetTypeInfoCount( IEventHandler * this,
       UINT * pCount )
 {
-   HB_SYMBOL_UNUSED( this );
-   HB_SYMBOL_UNUSED( pCount );
+   HB_SYMBOL_UNUSED(this);
+   HB_SYMBOL_UNUSED(pCount);
    return E_NOTIMPL;
 }
 
@@ -317,10 +317,10 @@ static ULONG STDMETHODCALLTYPE GetTypeInfoCount( IEventHandler * this,
 static ULONG STDMETHODCALLTYPE GetTypeInfo( IEventHandler * this, UINT itinfo,
       LCID lcid, ITypeInfo ** pTypeInfo )
 {
-   HB_SYMBOL_UNUSED( this );
-   HB_SYMBOL_UNUSED( itinfo );
-   HB_SYMBOL_UNUSED( lcid );
-   HB_SYMBOL_UNUSED( pTypeInfo );
+   HB_SYMBOL_UNUSED(this);
+   HB_SYMBOL_UNUSED(itinfo);
+   HB_SYMBOL_UNUSED(lcid);
+   HB_SYMBOL_UNUSED(pTypeInfo);
    return E_NOTIMPL;
 }
 
@@ -330,12 +330,12 @@ static ULONG STDMETHODCALLTYPE GetIDsOfNames( IEventHandler * this,
       REFIID riid, LPOLESTR * rgszNames, UINT cNames, LCID lcid,
       DISPID * rgdispid )
 {
-   HB_SYMBOL_UNUSED( this );
-   HB_SYMBOL_UNUSED( riid );
-   HB_SYMBOL_UNUSED( rgszNames );
-   HB_SYMBOL_UNUSED( cNames );
-   HB_SYMBOL_UNUSED( lcid );
-   HB_SYMBOL_UNUSED( rgdispid );
+   HB_SYMBOL_UNUSED(this);
+   HB_SYMBOL_UNUSED(riid);
+   HB_SYMBOL_UNUSED(rgszNames);
+   HB_SYMBOL_UNUSED(cNames);
+   HB_SYMBOL_UNUSED(lcid);
+   HB_SYMBOL_UNUSED(rgdispid);
    return E_NOTIMPL;
 }
 
@@ -362,11 +362,11 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
    if( !IsEqualIID( riid, &IID_NULL ) )
       return ( DISP_E_UNKNOWNINTERFACE );
 
-   HB_SYMBOL_UNUSED( lcid );
-   HB_SYMBOL_UNUSED( wFlags );
-   HB_SYMBOL_UNUSED( result );
-   HB_SYMBOL_UNUSED( pexcepinfo );
-   HB_SYMBOL_UNUSED( puArgErr );
+   HB_SYMBOL_UNUSED(lcid);
+   HB_SYMBOL_UNUSED(wFlags);
+   HB_SYMBOL_UNUSED(result);
+   HB_SYMBOL_UNUSED(pexcepinfo);
+   HB_SYMBOL_UNUSED(puArgErr);
 
    // delegate work to somewhere else in PRG
    //***************************************
@@ -570,7 +570,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
    DWORD dwCookie = 0;
 
 #if defined( __XHARBOUR__ )
-   device_interface *pdevice_interface = ( device_interface * ) HB_PARHANDLE( 1 );
+   device_interface *pdevice_interface = ( device_interface * ) HB_PARHANDLE(1);
 #else
    device_interface *pdevice_interface = ( device_interface * ) hb_oleItemGet( hb_param( 1, HB_IT_ANY ) );
 #endif
@@ -699,7 +699,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
 //------------------------------------------------------------------------------
 HB_FUNC( HWG_SHUTDOWNCONNECTIONPOINT )
 {
-   MyRealIEventHandler *this = ( MyRealIEventHandler * ) HB_PARHANDLE( 1 );
+   MyRealIEventHandler *this = ( MyRealIEventHandler * ) HB_PARHANDLE(1);
    if( this->pIConnectionPoint )
    {
       this->pIConnectionPoint->lpVtbl->Unadvise( this->pIConnectionPoint,
@@ -714,7 +714,7 @@ HB_FUNC( HWG_SHUTDOWNCONNECTIONPOINT )
 HB_FUNC( HWG_RELEASEDISPATCH )
 {
 #if defined( __XHARBOUR__ )
-   IDispatch *pObj = ( IDispatch * ) HB_PARHANDLE( 1 );
+   IDispatch *pObj = ( IDispatch * ) HB_PARHANDLE(1);
 #else
    IDispatch *pObj = ( IDispatch * ) hb_oleItemGet( hb_param( 1, HB_IT_ANY ) );
 #endif

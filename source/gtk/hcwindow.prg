@@ -241,7 +241,7 @@ STATIC FUNCTION onCommand( oWnd, wParam )
 
    IF oWnd:aEvents != NIL .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      Eval( oWnd:aEvents[ iItem,3 ], oWnd, iParLow )
+      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
    ENDIF
 
    RETURN 1

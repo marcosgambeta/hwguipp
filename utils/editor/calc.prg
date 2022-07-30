@@ -237,9 +237,9 @@ FUNCTION CalcAll( oEdit )
       IF Valtype(aStru[1,OB_TYPE]) == "C" .AND. aStru[1,OB_TYPE] == "tr"
          FOR n := 1 TO Len( aStru[1,OB_OB] )
             aCurrTD[1] := n; aCurrTD[2] := aStru[1,OB_TRNUM]; aCurrTD[3] := i
-            aStruTD := aStru[ 1,OB_OB,n,2 ]
-            aTextTD := aStru[ 1,OB_OB,n,OB_ATEXT ]
-            nTextLen := aStru[ 1,OB_OB,n,OB_NTLEN ]
+            aStruTD := aStru[1, OB_OB, n, 2]
+            aTextTD := aStru[1, OB_OB, n, OB_ATEXT]
+            nTextLen := aStru[1, OB_OB, n, OB_NTLEN]
             FOR i1 := 1 TO nTextLen
                FOR j := 2 TO Len( aStruTD[i1] )
                   IF Len( aStruTD[i1,j] ) >= OB_HREF .AND. hwg_CheckBit( aStruTD[i1,j,OB_ACCESS], BIT_CLCSCR )

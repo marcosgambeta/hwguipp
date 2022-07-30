@@ -155,11 +155,11 @@ METHOD Paint( lpdis ) CLASS HContainerEx
    LOCAL x1, y1, x2, y2
 
    drawInfo := hwg_Getdrawiteminfo( lpdis )
-   hDC := drawInfo[ 3 ]
-   x1  := drawInfo[ 4 ]
-   y1  := drawInfo[ 5 ]
-   x2  := drawInfo[ 6 ]
-   y2  := drawInfo[ 7 ]
+   hDC := drawInfo[3]
+   x1  := drawInfo[4]
+   y1  := drawInfo[5]
+   x2  := drawInfo[6]
+   y2  := drawInfo[7]
 
    hwg_Selectobject( hDC, ::oPen:handle )
 
@@ -186,7 +186,7 @@ METHOD Paint( lpdis ) CLASS HContainerEx
             hwg_Fillrect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2 , ::brush:handle )
          ENDIF
       ELSE
-         hwg_Fillrect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2 , hwg_Getstockobject( 5 ) )
+         hwg_Fillrect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2 , hwg_Getstockobject(5) )
       ENDIF
       //hwg_Setbkmode( hDC, 0 )
    ENDIF

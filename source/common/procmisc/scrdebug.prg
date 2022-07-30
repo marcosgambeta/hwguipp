@@ -47,7 +47,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
       oBmpCurr := HBitmap():AddStandard(OBM_RGARROWD)
       oBmpPoint:= HBitmap():AddStandard(OBM_CHECK)
 #endif
-      INIT DIALOG oDlgDebug TITLE ( "Script Debugger - " + aScript[ 1 ] ) AT 210,10 SIZE 500,300 ;
+      INIT DIALOG oDlgDebug TITLE ( "Script Debugger - " + aScript[1] ) AT 210,10 SIZE 500,300 ;
            FONT oDlgFont STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX ;
            ON EXIT { || dlgDebugClose() }
 
@@ -79,13 +79,13 @@ FUNCTION hwg_scrDebug( aScript, iscr )
       oBrwScript:aArray := aScript[3]
 #ifdef __GTK__
       oBrwScript:rowCount := 5
-      oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,'>',Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,'*',' '))},"C",1,0))
+      oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),Iif(o:nCurrent==i_scr,'>',Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,'*',' '))},"C",1,0))
 #else
-      oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED( v ),Iif(o:nCurrent==i_scr,1,Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,2,0))},"N",1,0))
+      oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),Iif(o:nCurrent==i_scr,1,Iif(aBreakPoints!=NIL.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)!=0,2,0))},"N",1,0))
       oBrwScript:aColumns[1]:aBitmaps := { { {|n|n==1},oBmpCurr },{ {|n|n==2},oBmpPoint } }
 #endif
-      oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED( v ),Left(o:aArray[o:nCurrent],4)},"C",4,0))
-      oBrwScript:AddColumn(HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED( v ),Substr(o:aArray[o:nCurrent],6)},"C",80,0))
+      oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),Left(o:aArray[o:nCurrent],4)},"C",4,0))
+      oBrwScript:AddColumn(HColumn():New( "",{|v,o|HB_SYMBOL_UNUSED(v),Substr(o:aArray[o:nCurrent],6)},"C",80,0))
 
       oBrwScript:bEnter:= {||AddBreakPoint()}
 

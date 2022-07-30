@@ -126,16 +126,16 @@ Private value, oCtrl := Self
       NEXT
    ENDIF
    FOR i := 1 TO Len( ::aProp )
-      value := ::aProp[ i,2 ]
+      value := ::aProp[i, 2]
       cPropertyName := Lower(::aProp[i, 1])
       j := Ascan( oDesigner:aDataDef, {|a|a[1]==cPropertyName} )
       IF value != NIL
-         IF j != 0 .AND. oDesigner:aDataDef[ j,3 ] != NIL
-            // pArray := oDesigner:aDataDef[ j,6 ]
-            EvalCode( oDesigner:aDataDef[ j,3 ] )
+         IF j != 0 .AND. oDesigner:aDataDef[j, 3] != NIL
+            // pArray := oDesigner:aDataDef[j, 6]
+            EvalCode( oDesigner:aDataDef[j, 3] )
          ENDIF
-      ELSEIF j != 0 .AND. value == NIL .AND. oDesigner:aDataDef[ j,7 ] != NIL
-         ::aProp[ i,2 ] := EvalCode( oDesigner:aDataDef[ j,7 ] )
+      ELSEIF j != 0 .AND. value == NIL .AND. oDesigner:aDataDef[j, 7] != NIL
+         ::aProp[i, 2] := EvalCode( oDesigner:aDataDef[j, 7] )
       ENDIF
    NEXT
 
@@ -436,7 +436,7 @@ Local oFrm := Iif( oDlg:oParent:Classname()=="HPANEL",oDlg:oParent:oParent:oPare
          ENDIF
       ELSE
          IF oDesigner:oDlgInsp != NIL
-            InspUpdCombo( 0 )
+            InspUpdCombo(0)
          ENDIF
       ENDIF
       hwg_Sendmessage( handle,WM_PAINT,0,0 )

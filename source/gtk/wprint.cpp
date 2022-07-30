@@ -126,7 +126,7 @@ HB_FUNC( HWG_GETPRINTERS )
                   continue;
             }
             if( !aMetr )
-               aMetr = hb_itemArrayNew( 0 );
+               aMetr = hb_itemArrayNew(0);
             ptr1 = ptr;
             while( *ptr && *ptr != 0x0a && *ptr != '|' ) ptr++;
             temp = hb_itemPutCL( NULL,(char*)ptr1,ptr-ptr1 );
@@ -637,7 +637,7 @@ HB_FUNC( HWG_GP_GETDEVICEAREA )
 {
    PHWGUI_PRINT print = (PHWGUI_PRINT) hb_parnl(1);
 
-   PHB_ITEM aMetr = hb_itemArrayNew( 4 );
+   PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
    temp = hb_itemPutNL( NULL, (HB_LONG) gtk_page_setup_get_page_width( print->page_setup, GTK_UNIT_POINTS ) );

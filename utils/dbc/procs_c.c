@@ -79,7 +79,7 @@ HB_FUNC( CARR_GET )
    if( ulItem > 0 && ulItem < ulLen )
       hb_retnl( *( pul + ulItem ) );
    else
-      hb_retnl( 0 );
+      hb_retnl(0);
 }
 
 HB_FUNC( CARR_COUNT )
@@ -95,12 +95,12 @@ HB_FUNC( CARR_COUNT )
  */
 HB_FUNC( CLONG_TEST )
 {
-   unsigned char * cptr = (unsigned char *) hb_parc( 1 );
+   unsigned char * cptr = (unsigned char *) hb_parc(1);
    unsigned char c;
-   unsigned int uiBit = (unsigned int) hb_parni( 2 ) - 1;
+   unsigned int uiBit = (unsigned int) hb_parni(2) - 1;
 
    if( uiBit > (unsigned int) (hb_parclen(1) * 8) )
-      hb_retl( 0 );
+      hb_retl(0);
    else
    {
       c = *( cptr+(uiBit/8) );
@@ -113,7 +113,7 @@ HB_FUNC( CLONG_SET )
    unsigned char c;
    HB_ULONG ulLen = hb_parclen(1);
    unsigned char * cptr = ( unsigned char * ) hb_xgrab( ulLen+1 );
-   unsigned int uiBit = (unsigned int) hb_parni( 2 ) - 1;
+   unsigned int uiBit = (unsigned int) hb_parni(2) - 1;
 
    memcpy( cptr, hb_parc(1), ulLen+1 );
    if( uiBit <= (unsigned int) (ulLen * 8) )
@@ -130,7 +130,7 @@ HB_FUNC( CLONG_RESET )
    unsigned char c;
    HB_ULONG ulLen = hb_parclen(1);
    unsigned char * cptr = ( unsigned char * ) hb_xgrab( ulLen+1 );
-   unsigned int uiBit = (unsigned int) hb_parni( 2 ) - 1;
+   unsigned int uiBit = (unsigned int) hb_parni(2) - 1;
 
    memcpy( cptr, hb_parc(1), ulLen+1 );
    if( uiBit <= (unsigned int) (ulLen * 8) )

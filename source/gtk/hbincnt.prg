@@ -117,7 +117,7 @@ METHOD Open(cName, lWr) CLASS HBinC
    ::aObjects := Array( ::nItems )
    FOR i := 1 TO ::nItems
       nLen := Asc( Substr(cBuf, nAddr + 1) )
-      arr := Array( 5 )
+      arr := Array(5)
       arr[OBJ_NAME] := Substr(cBuf, nAddr + 2, nLen)
       arr[OBJ_TYPE] := Substr(cBuf, nAddr + nLen + 2, 4)
       arr[OBJ_VAL]  := Asc( Substr(cBuf, nAddr + nLen + 6, 1) ) * 16777216 + ;

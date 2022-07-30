@@ -85,7 +85,7 @@ FUNCTION Main
    IF hwg__isUnicode()
       hb_cdpSelect( "UTF8" )
    ENDIF
-   cIniPath := FilePath( hb_ArgV( 0 ) )
+   cIniPath := FilePath( hb_ArgV(0) )
    cHwgrunPath := FindHwgrun()
    ReadIni()
 

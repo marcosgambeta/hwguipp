@@ -196,7 +196,7 @@ Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
       ENDIF
       currFname := CutExten( fname )
       
-      oBrw:InitBrw( 2 )
+      oBrw:InitBrw(2)
       oBrw:active := .F.
       hwg_CreateList( oBrw,.T. )
       Aadd(oBrw:aColumns, NIL)
@@ -585,7 +585,7 @@ Local cName, cType, nLen, nDec
       ENDIF
    ELSE
       cName := oGet1:SetGet()
-      cType := aFieldTypes[ Eval(oGet2:bSetGet,,oGet2) ]
+      cType := aFieldTypes[Eval(oGet2:bSetGet, , oGet2)]
       nLen  := Val( oGet3:SetGet() )
       nDec  := Val( oGet4:SetGet() )
       IF nOperation == 1

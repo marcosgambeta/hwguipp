@@ -468,7 +468,7 @@ METHOD InsColumn( oColumn, nPos ) CLASS HBrowse
 
    AAdd(::aColumns, NIL)
    AIns( ::aColumns, nPos )
-   ::aColumns[ nPos ] := oColumn
+   ::aColumns[nPos] := oColumn
    ::lChanged := .T.
    InitColumn( Self, oColumn, nPos )
 
@@ -556,14 +556,14 @@ METHOD InitBrw( nType )  CLASS HBrowse
 
    IF ::type == BRW_DATABASE
       ::alias   := Alias()
-      ::bSkip     :=  { |o, n| HB_SYMBOL_UNUSED( o ) , ( ::alias ) -> ( dbSkip( n ) ) }
+      ::bSkip     :=  { |o, n| HB_SYMBOL_UNUSED(o) , ( ::alias ) -> ( dbSkip( n ) ) }
       ::bGoTop    :=  { || ( ::alias ) -> ( DBGOTOP() ) }
       ::bGoBot    :=  { || ( ::alias ) -> ( dbGoBottom() ) }
       ::bEof      :=  { || ( ::alias ) -> ( Eof() ) }
       ::bBof      :=  { || ( ::alias ) -> ( Bof() ) }
       ::bRcou     :=  { || ( ::alias ) -> ( RecCount() ) }
       ::bRecnoLog := ::bRecno  := { ||( ::alias ) -> ( RecNo() ) }
-      ::bGoTo     :=  { |o, n| HB_SYMBOL_UNUSED( o ) , ( ::alias ) -> ( dbGoto( n ) ) }
+      ::bGoTo     :=  { |o, n| HB_SYMBOL_UNUSED(o) , ( ::alias ) -> ( dbGoto( n ) ) }
 
    ELSEIF ::type == BRW_ARRAY
       ::bSKip   := { | o, x | ARSKIP( o, x ) }
@@ -703,10 +703,10 @@ METHOD Paint()  CLASS HBrowse
 
    ::height := iif( ::nRowHeight>0, ::nRowHeight, ;
          Max( ::nRowTextHeight, ::minHeight ) + 1 + ::aPadding[2] + ::aPadding[4] )
-   ::x1 := aCoors[ 1 ] + i
-   ::y1 := aCoors[ 2 ] + iif( ::lDispHead, ::nRowTextHeight * ::nHeadRows + ::aHeadPadding[2] + ::aHeadPadding[4], 0 ) + i
-   ::x2 := aCoors[ 3 ] - i
-   ::y2 := aCoors[ 4 ] - i
+   ::x1 := aCoors[1] + i
+   ::y1 := aCoors[2] + iif( ::lDispHead, ::nRowTextHeight * ::nHeadRows + ::aHeadPadding[2] + ::aHeadPadding[4], 0 ) + i
+   ::x2 := aCoors[3] - i
+   ::y2 := aCoors[4] - i
    ::nRecords := Eval( ::bRcou, Self )
    IF ::nCurrent > ::nRecords .AND. ::nRecords > 0
       ::nCurrent := ::nRecords
@@ -1634,8 +1634,8 @@ METHOD ButtonRDown( lParam ) CLASS HBrowse
    x1  := ::x1
    fif := iif( ::freeze > 0, 1, ::nLeftCol )
 
-   DO WHILE fif < ( ::nLeftCol + ::nColumns ) .AND. x1 + ::aColumns[ fif ]:width < xm
-      x1 += ::aColumns[ fif ]:width
+   DO WHILE fif < ( ::nLeftCol + ::nColumns ) .AND. x1 + ::aColumns[fif]:width < xm
+      x1 += ::aColumns[fif]:width
       fif := iif( fif == ::freeze, ::nLeftCol, fif + 1 )
    ENDDO
 
@@ -2124,7 +2124,7 @@ FUNCTION hwg_CREATEARLIST( oBrw, arr )
             oBrw:AddColumn( HColumn():New( ,hwg_ColumnArBlock() ) )
          NEXT
       ELSE
-         oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED(value) , o:aArray[ o:nCurrent ] } ) )
+         oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED(value) , o:aArray[o:nCurrent] } ) )
       ENDIF
    ENDIF
    Eval( oBrw:bGoTop, oBrw )

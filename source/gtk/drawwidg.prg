@@ -558,8 +558,8 @@ METHOD AddStandard( cId, nSize ) CLASS HBitmap
    ENDIF
    ::name    := cName
    aBmpSize  := hwg_Getbitmapsize( ::handle )
-   ::nWidth  := aBmpSize[ 1 ]
-   ::nHeight := aBmpSize[ 2 ]
+   ::nWidth  := aBmpSize[1]
+   ::nHeight := aBmpSize[2]
    AAdd(::aBitmaps, Self)
 
    RETURN Self
@@ -724,12 +724,12 @@ METHOD AddFile( name , nWidth, nHeight ) CLASS HIcon
       IF  nWidth > 0
        ::nWidth := nWidth
       ELSE
-       ::nWidth  := aBmpSize[ 1 ]
+       ::nWidth  := aBmpSize[1]
       ENDIF
       IF nHeight > 0
        ::nHeight := nHeight
       ELSE
-       ::nHeight := aBmpSize[ 2 ]
+       ::nHeight := aBmpSize[2]
       ENDIF
 
       AAdd(::aIcons, Self)
@@ -845,7 +845,7 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
          ( ( ::aStyles[i]:oBitmap == NIL .AND. oBitmap == NIL ) .OR. ;
          ( ::aStyles[i]:oBitmap != NIL .AND. oBitmap != NIL .AND. ::aStyles[i]:oBitmap:name == oBitmap:name ) )
 
-         RETURN ::aStyles[ i ]
+         RETURN ::aStyles[i]
       ENDIF
    NEXT
 
@@ -1079,7 +1079,7 @@ FUNCTION hwg_FontSetCharset ( oFont, nCharSet  )
    oFont:charset := nCharSet
    
  FOR i := 1 TO nlen
-        oFont:aFonts[ i ]:CharSet := nCharSet
+        oFont:aFonts[i]:CharSet := nCharSet
  NEXT
   
 RETURN oFont

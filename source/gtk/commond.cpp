@@ -32,7 +32,7 @@ void store_font( gpointer fontseldlg )
    char * szFontName = (char*) gtk_font_selection_dialog_get_font_name( (GtkFontSelectionDialog*)fontseldlg );
    PangoFontDescription * hFont = pango_font_description_from_string( szFontName );
    PHWGUI_FONT h = (PHWGUI_FONT) hb_xgrab( sizeof(HWGUI_FONT) );
-   PHB_ITEM aMetr = hb_itemArrayNew( 9 );
+   PHB_ITEM aMetr = hb_itemArrayNew(9);
    PHB_ITEM temp;
 
    h->type = HWGUI_OBJECT_FONT;

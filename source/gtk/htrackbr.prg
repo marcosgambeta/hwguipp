@@ -77,7 +77,7 @@ METHOD Activate() CLASS HTrack
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HTrack
 
-   HB_SYMBOL_UNUSED( wParam )
+   HB_SYMBOL_UNUSED(wParam)
 
    IF msg == WM_MOUSEMOVE
       IF ::lCaptured

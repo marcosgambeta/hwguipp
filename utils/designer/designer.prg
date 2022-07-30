@@ -153,8 +153,8 @@ FUNCTION Main( p0, p1, p2 )
          MENUITEMCHECK "&Object Inspector" ID MENU_OINSP ACTION iif( oDesigner:oDlgInsp == NIL, InspOpen(), oDesigner:oDlgInsp:Close() )
          SEPARATOR
          IF !oDesigner:lReport
-            MENUITEMCHECK "Grid &4px" ID MENU_GRID4 ACTION SetGrid( 4 )
-            MENUITEMCHECK "Grid &8px" ID MENU_GRID8 ACTION SetGrid( 8 )
+            MENUITEMCHECK "Grid &4px" ID MENU_GRID4 ACTION SetGrid(4)
+            MENUITEMCHECK "Grid &8px" ID MENU_GRID8 ACTION SetGrid(8)
             SEPARATOR
          ENDIF
          MENUITEM "&Preview"  ID MENU_PREVIEW ACTION DoPreview()

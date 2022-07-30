@@ -89,8 +89,8 @@ Memvar nServerType, cServerPath, numdriv, aCPId
 FUNCTION Main( ... )
    LOCAL oWndMain, oPanel, aParams := hb_aParams()
    PUBLIC aBrwFont := { "MS Sans Serif", "0", "-13" }, oBrwFont, oMainFont
-   PUBLIC aButtons := Array( 5 )
-   PUBLIC aFiles[ OPENED_FILES_LIMIT, AF_LEN ], improc := 0
+   PUBLIC aButtons := Array(5)
+   PUBLIC aFiles[OPENED_FILES_LIMIT, AF_LEN], improc := 0
    PUBLIC mypath := "\" + Curdir() + Iif( Empty(Curdir()), "", "\" )
    PUBLIC aDateF := { "dd/mm/yy", "mm/dd/yy", "yyyy-mm-dd", "yyyy.mm.dd", "dd.mm.yy", "dd-mm-yy", "yy/mm/dd", "dd/mm/yyyy", "dd.mm.yyyy", "mm/dd/yyyy" }
    PUBLIC dformat := aDateF[1], memownd := .F. , lRdonly := .F., lShared := .F.
@@ -146,8 +146,8 @@ FUNCTION Main( ... )
    SET EPOCH TO 1960
    SET DATE FORMAT dformat
 
-   cExePath := FilePath( hb_ArgV( 0 ) )
-   ReadIni( FilePath( hb_ArgV( 0 ) ) )
+   cExePath := FilePath( hb_ArgV(0) )
+   ReadIni( FilePath( hb_ArgV(0) ) )
    ReadIni( "\" + Curdir() + Iif( Empty(Curdir()), "", "\" ) )
    IF !Empty(cServerPath) .AND. !( Right( cServerPath, 1 ) $ "/\" )
       cServerPath += "\"
@@ -213,25 +213,25 @@ FUNCTION Main( ... )
          MENUITEM "&Edit record"+Chr(9)+"Ctrl+E" ACTION EditRec() ACCELERATOR FCONTROL,Asc("E")
       ENDMENU
       MENU TITLE  "&Move" ID MITEM_MOVE
-         MENUITEM "&Locate" ACTION  Move( 1 )
+         MENUITEM "&Locate" ACTION  Move(1)
          MENUITEM "&Continue" ACTION .T.
-         MENUITEM "&Seek"+Chr(9)+"Ctrl+S" ACTION  Move( 2 ) ACCELERATOR FCONTROL,Asc("S")
-         MENUITEM "&Filter"+Chr(9)+"Ctrl+F" ACTION  Move( 3 ) ACCELERATOR FCONTROL,Asc("F")
-         MENUITEM "&Go To"+Chr(9)+"Ctrl+G" ACTION  Move( 4 ) ACCELERATOR FCONTROL,Asc("G")
+         MENUITEM "&Seek"+Chr(9)+"Ctrl+S" ACTION  Move(2) ACCELERATOR FCONTROL,Asc("S")
+         MENUITEM "&Filter"+Chr(9)+"Ctrl+F" ACTION  Move(3) ACCELERATOR FCONTROL,Asc("F")
+         MENUITEM "&Go To"+Chr(9)+"Ctrl+G" ACTION  Move(4) ACCELERATOR FCONTROL,Asc("G")
       ENDMENU
       MENU TITLE  "&Commands" ID MITEM_CMDS
          MENUITEM "&Replace" ACTION  C_Repl()
-         MENUITEM "&Delete" ACTION  C_4( 1 )
-         MENUITEM "Reca&ll" ACTION  C_4( 2 )
-         MENUITEM "&Count" ACTION  C_4( 3 )
-         MENUITEM "&Sum" ACTION  C_4( 4 )
+         MENUITEM "&Delete" ACTION  C_4(1)
+         MENUITEM "Reca&ll" ACTION  C_4(2)
+         MENUITEM "&Count" ACTION  C_4(3)
+         MENUITEM "&Sum" ACTION  C_4(4)
          MENUITEM "&Append from"  ACTION  C_Append()
          MENUITEM "Copy &To" ACTION C_Copy()
-         MENUITEM "Re&index" ACTION  C_RPZ( 1 )
-         MENUITEM "&Pack" ACTION  C_RPZ( 2 )
-         MENUITEM "&Zap" ACTION  C_RPZ( 3 )
+         MENUITEM "Re&index" ACTION  C_RPZ(1)
+         MENUITEM "&Pack" ACTION  C_RPZ(2)
+         MENUITEM "&Zap" ACTION  C_RPZ(3)
          SEPARATOR
-         MENUITEM "D&o script" ACTION  Scripts( 1 )
+         MENUITEM "D&o script" ACTION  Scripts(1)
          MENUITEM "&Memo" ACTION .T.
          MENUITEM "Set Relatio&n" ACTION C_Rel()
       ENDMENU
@@ -241,7 +241,7 @@ FUNCTION Main( ... )
       ENDMENU
       MENU TITLE  "&More..."
          MENUITEM "&Calculator" ACTION  Calcul()
-         MENUITEM "&Do script" ACTION  Scripts( 2 )
+         MENUITEM "&Do script" ACTION  Scripts(2)
       ENDMENU
 #ifndef __GTK__
       IF lMdi
@@ -302,59 +302,59 @@ STATIC FUNCTION ReadIni( cPath )
 
    IF !Empty(hIni)
       hb_hCaseMatch( hIni, .F. )
-      IF !Empty(aSect := hIni[ "MAIN" ])
+      IF !Empty(aSect := hIni["MAIN"])
          hb_hCaseMatch( aSect, .F. )
-         IF hb_hHaskey( aSect, "brwfont" ) .AND. !Empty(cTmp := aSect[ "brwfont" ])
+         IF hb_hHaskey( aSect, "brwfont" ) .AND. !Empty(cTmp := aSect["brwfont"])
             m->aBrwFont := hb_aTokens( cTmp, "," )
          ENDIF
-         IF hb_hHaskey( aSect, "dateformat" ) .AND. !Empty(cTmp := aSect[ "dateformat" ])
+         IF hb_hHaskey( aSect, "dateformat" ) .AND. !Empty(cTmp := aSect["dateformat"])
             IF Ascan( aDateF, cTmp ) != NIL
                dformat := cTmp
             ENDIF
          ENDIF
-         IF hb_hHaskey( aSect, "shared" ) .AND. !Empty(cTmp := aSect[ "shared" ])
+         IF hb_hHaskey( aSect, "shared" ) .AND. !Empty(cTmp := aSect["shared"])
             lShared := ( Lower(cTmp) == "on" )
          ENDIF
-         IF hb_hHaskey( aSect, "readonly" ) .AND. !Empty(cTmp := aSect[ "readonly" ])
+         IF hb_hHaskey( aSect, "readonly" ) .AND. !Empty(cTmp := aSect["readonly"])
             lRdOnly := ( Lower(cTmp) == "on" )
          ENDIF
-         IF hb_hHaskey( aSect, "appcodepage" ) .AND. !Empty(cTmp := aSect[ "appcodepage" ])
+         IF hb_hHaskey( aSect, "appcodepage" ) .AND. !Empty(cTmp := aSect["appcodepage"])
             IF Ascan( aCpId, cTmp ) != NIL
                cAppCpage := cTmp
             ENDIF
          ENDIF
-         IF hb_hHaskey( aSect, "datacodepage" ) .AND. !Empty(cTmp := aSect[ "datacodepage" ])
+         IF hb_hHaskey( aSect, "datacodepage" ) .AND. !Empty(cTmp := aSect["datacodepage"])
             IF Ascan( aCpId, cTmp ) != NIL
                cDataCpage := cTmp
             ENDIF
          ENDIF
-         IF hb_hHaskey( aSect, "mdi" ) .AND. ( Empty(cTmp := aSect[ "mdi" ]) ;
+         IF hb_hHaskey( aSect, "mdi" ) .AND. ( Empty(cTmp := aSect["mdi"]) ;
                .OR. Lower(cTmp) != "on" )
             lMdi := .F.
          ENDIF
-         IF hb_hHaskey( aSect, "index" ) .AND. ( !Empty(cTmp := aSect[ "index" ]) ;
+         IF hb_hHaskey( aSect, "index" ) .AND. ( !Empty(cTmp := aSect["index"]) ;
                .AND. Lower(cTmp) == "ntx" )
             numdriv := 2
          ENDIF
       ENDIF
 #ifdef RDD_ADS
-      IF hb_hHaskey( hIni, "ADS" ) .AND. !Empty(aSect := hIni[ "ADS" ])
+      IF hb_hHaskey( hIni, "ADS" ) .AND. !Empty(aSect := hIni["ADS"])
          hb_hCaseMatch( aSect, .F. )
-         IF hb_hHaskey( aSect, "serverpath" ) .AND. !Empty(cTmp := aSect[ "serverpath" ])
+         IF hb_hHaskey( aSect, "serverpath" ) .AND. !Empty(cTmp := aSect["serverpath"])
             cServerPath := cTmp
          ENDIF
-         IF hb_hHaskey( aSect, "servertype" ) .AND. !Empty(cTmp := aSect[ "servertype" ])
+         IF hb_hHaskey( aSect, "servertype" ) .AND. !Empty(cTmp := aSect["servertype"])
             nServerType := Iif( Lower(cTmp) == "remote", 6, 1 )
          ENDIF
       ENDIF
 #endif
 #ifdef RDD_LETO
-      IF hb_hHaskey( hIni, "LETO" ) .AND. !Empty(aSect := hIni[ "LETO" ])
+      IF hb_hHaskey( hIni, "LETO" ) .AND. !Empty(aSect := hIni["LETO"])
          hb_hCaseMatch( aSect, .F. )
-         IF hb_hHaskey( aSect, "serverpath" ) .AND. !Empty(cTmp := aSect[ "serverpath" ])
+         IF hb_hHaskey( aSect, "serverpath" ) .AND. !Empty(cTmp := aSect["serverpath"])
             cServerPath := cTmp
          ENDIF
-         IF hb_hHaskey( aSect, "servertype" ) .AND. !Empty(cTmp := aSect[ "servertype" ])
+         IF hb_hHaskey( aSect, "servertype" ) .AND. !Empty(cTmp := aSect["servertype"])
             nServerType := Iif( Lower(cTmp) == "remote", REMOTE_SERVER, LOCAL_SERVER )
          ENDIF
       ENDIF
@@ -537,7 +537,7 @@ Return NIL
 Static Function OpenIndex()
 Local fname, cExt := Iif( numdriv==1,"*.cdx", "*.ntx" )
 
-   IF aFiles[ improc, AF_LOCAL ]
+   IF aFiles[improc, AF_LOCAL]
 #ifdef __GTK__
       fname := hwg_SelectFileEx( ,, { { "Index files", cExt }, { "All files", "*" } } )
 #else
@@ -567,7 +567,7 @@ Function UpdBrowse()
 
    IF !Empty(oBrw)
 
-      IF aFiles[ improc,AF_LFLT ]
+      IF aFiles[improc, AF_LFLT]
          oBrw:bRcou := {|o| o:nRecords }
          oBrw:bRecnoLog := {|o| o:nCurrent }
       ELSE
@@ -602,7 +602,7 @@ Function GetBrwActive()
       oBrw := Iif( Empty(i), NIL, oWindow:aControls[i] )
 #endif
    ELSE
-      oBrw := oTabMain:aControls[ oTabMain:GetActivePage() ]
+      oBrw := oTabMain:aControls[oTabMain:GetActivePage()]
    ENDIF
 
    RETURN oBrw
@@ -715,7 +715,7 @@ Local bFileBtn := {||
       Set( _SET_EXCLUSIVE, lExcl )
       lShared := !lExcl
       lRdonly := lRd
-      cDataCpage := aCpId[ nCp ]
+      cDataCpage := aCpId[nCp]
       OpenDbf( Iif(lRemote,cServerPath+cFile,cFile), alsname,, pass )
    ENDIF
 
@@ -838,7 +838,7 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
          oWindow := HWindow():FindWindow( hChild )
          IF oWindow != NIL .AND. ;
                ( i := Ascan( oWindow:aControls, { |o|o:classname() == "HBROWSE" } ) ) > 0
-            oBrowse := oWindow:aControls[ i ]
+            oBrowse := oWindow:aControls[i]
             hwg_Sendmessage( HWindow():GetMain():handle, WM_MDIACTIVATE, hChild, 0 )
          ENDIF
 #endif
@@ -855,7 +855,7 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
          oBrowse:Refresh()
       ENDIF
    ENDIF
-   aFiles[ improc, AF_BRW ] := oBrowse
+   aFiles[improc, AF_BRW] := oBrowse
    UpdBrowse()
 
    RETURN Iif( lMdi, oWindow:handle, oTabMain:GetActivePage() )
@@ -1041,7 +1041,7 @@ STATIC FUNCTION ResizeBrwQ( oBrw, nWidth, nHeight )
       IF aControls[i]:classname() == "HSTATUS"
          hWndStatus := aControls[i]:handle
          aRect := hwg_Getclientrect( hWndStatus )
-         nHbusy += aRect[ 4 ]
+         nHbusy += aRect[4]
       ENDIF
    NEXT
    oBrw:Move( ,, nWidth, nHeight - nHBusy - oBrw:nTop )
@@ -1057,7 +1057,7 @@ STATIC FUNCTION Fiopen(fname, alsname, pass)
 
    IF fname != NIL
       FOR i := 1 TO OPENED_FILES_LIMIT
-         IF aFiles[ i,AF_NAME ] == NIL
+         IF aFiles[i, AF_NAME] == NIL
             improc := i
             EXIT
          ENDIF
@@ -1116,15 +1116,15 @@ STATIC FUNCTION Fiopen(fname, alsname, pass)
       AdsEnableEncryption( pass )
    ENDIF
 #endif
-   aFiles[ improc, AF_NAME ] := Iif( fname != NIL, fname, Alias() )
-   aFiles[ improc, AF_EXCLU ] := Set( _SET_EXCLUSIVE )
-   aFiles[ improc, AF_RDONLY ] := lRdonly
-   aFiles[ improc, AF_DRIVER ] := numdriv
-   aFiles[ improc, AF_LOCAL ] := ( nServerType == LOCAL_SERVER )
-   aFiles[ improc, AF_PASS ] := pass
-   aFiles[ improc, AF_ALIAS ] := alsname
-   aFiles[ improc, AF_LFLT ] := .F.
-   aFiles[ improc, AF_CP ] := cDataCpage
+   aFiles[improc, AF_NAME] := Iif( fname != NIL, fname, Alias() )
+   aFiles[improc, AF_EXCLU] := Set( _SET_EXCLUSIVE )
+   aFiles[improc, AF_RDONLY] := lRdonly
+   aFiles[improc, AF_DRIVER] := numdriv
+   aFiles[improc, AF_LOCAL] := ( nServerType == LOCAL_SERVER )
+   aFiles[improc, AF_PASS] := pass
+   aFiles[improc, AF_ALIAS] := alsname
+   aFiles[improc, AF_LFLT] := .F.
+   aFiles[improc, AF_CP] := cDataCpage
 
    RETURN .T.
 
@@ -1135,8 +1135,8 @@ FUNCTION FiClose
    IF improc > 0
       SELECT( improc )
       USE
-      aFiles[ improc,AF_NAME ] := NIL
-      aFiles[ improc,AF_BRW ]  := NIL
+      aFiles[improc, AF_NAME] := NIL
+      aFiles[improc, AF_BRW]  := NIL
       improc := 0
    ENDIF
 
@@ -1189,7 +1189,7 @@ Local nHold, nHeight, i, j, oBrw, oFont
       m->oBrwFont := oFont
       nHeight := (m->oBrwFont):height
       FOR i := 1 TO OPENED_FILES_LIMIT
-         IF ( oBrw := aFiles[ improc,AF_BRW ] ) != NIL
+         IF ( oBrw := aFiles[improc, AF_BRW] ) != NIL
             nHold := oBrw:oFont:height
             hwg_Setctrlfont( oBrw:oParent:handle, oBrw:id, ( oBrw:oFont := m->oBrwFont ):handle )
             FOR j := 1 TO Len( oBrw:aColumns )
@@ -1223,9 +1223,9 @@ Static Function Options()
 
    IF oDlg:lResult
 
-      dformat := aDatef[ nDf ]
+      dformat := aDatef[nDf]
       SET DATE FORMAT dformat
-      hb_cdpSelect( cAppCpage := aCpId[ nCp ] )
+      hb_cdpSelect( cAppCpage := aCpId[nCp] )
 
    ENDIF
 
@@ -1275,9 +1275,9 @@ STATIC FUNCTION EditRec()
    oDlg:Activate()
 
    IF oDlg:lResult
-      oBrwM := aFiles[ nFile, AF_BRW ]
+      oBrwM := aFiles[nFile, AF_BRW]
 
-      IF !aFiles[ nFile, AF_EXCLU ]
+      IF !aFiles[nFile, AF_EXCLU]
          (oBrwM:Alias)->( RLock() )
       ENDIF
 
@@ -1293,7 +1293,7 @@ STATIC FUNCTION EditRec()
          (oBrwM:Alias)->( FieldPut( i, af[i,2] ) )
       NEXT
 
-      IF !aFiles[ nFile, AF_EXCLU ]
+      IF !aFiles[nFile, AF_EXCLU]
          (oBrwM:Alias)->( dbUnLock() )
       ENDIF
       hwg_Invalidaterect( oBrwM:handle, 0, oBrwM:x1, oBrwM:y1 + ( oBrwM:height + 1 ) * ( oBrwM:rowPos - 2 ), oBrwM:x2, oBrwM:y1 + ( oBrwM:height + 1 ) * oBrwM:rowPos )
@@ -1308,11 +1308,11 @@ STATIC FUNCTION EdRec( oBrw, n, nFile )
 LOCAL oDlg, oBrwM, oColumn, oGet, nField, aCoors, cBuff, x1, y1, nWidth, lReadExit
 LOCAL cType, nLen, nDec, cPicture, rowPos
 
-   IF n != 3 .OR. aFiles[ nFile, AF_RDONLY ]
+   IF n != 3 .OR. aFiles[nFile, AF_RDONLY]
       Return .T.
    ENDIF
 
-   oBrwM := aFiles[ nFile, AF_BRW ]
+   oBrwM := aFiles[nFile, AF_BRW]
    oColumn := oBrw:aColumns[n]
    nField := oBrw:nCurrent
    cBuff := oBrw:aArray[nField,2]

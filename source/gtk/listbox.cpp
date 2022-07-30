@@ -84,14 +84,14 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
 
  
     /* Add item */
-    gtk_container_add (GTK_CONTAINER ( HB_PARHANDLE( 1 ) ), item);
+    gtk_container_add (GTK_CONTAINER ( HB_PARHANDLE(1) ), item);
 
     /* Visible --- */
     gtk_widget_show (item);
  
 
    /*
-   SendMessage( ( HWND ) HB_PARHANDLE( 1 ), LB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR(2, &hString, NULL) );
+   SendMessage( ( HWND ) HB_PARHANDLE(1), LB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR(2, &hString, NULL) );
    */
    hb_strfree( hString );
 }
@@ -103,8 +103,8 @@ hwg_Listboxsetstring( ::handle, ::value )
 /*
 HB_FUNC( HWG_LISTBOXSETSTRING )
 {
-   SendMessage( ( HWND ) HB_PARHANDLE( 1 ), LB_SETCURSEL,
-         ( WPARAM ) hb_parni( 2 ) - 1, 0 );
+   SendMessage( ( HWND ) HB_PARHANDLE(1), LB_SETCURSEL,
+         ( WPARAM ) hb_parni(2) - 1, 0 );
 }
 */
 
@@ -136,17 +136,17 @@ void listitem_selected (GtkWidget *widget, gpointer *data)
     
 
     if ( hlistbox )
-     gtk_fixed_put(GTK_FIXED (hlistbox) , hlistbox, hb_parni( 4 ), hb_parni( 5 ) );    /* x, y */
+     gtk_fixed_put(GTK_FIXED (hlistbox) , hlistbox, hb_parni(4), hb_parni(5) );    /* x, y */
  
-     gtk_widget_set_size_request (hlistbox, hb_parni( 6 ), hb_parni( 7 ) );  /* nWidth, nHeight */
+     gtk_widget_set_size_request (hlistbox, hb_parni(6), hb_parni(7) );  /* nWidth, nHeight */
  
 //   HWND hListbox = CreateWindow( TEXT( "LISTBOX" ),     /* predefined class  */
 //         TEXT( "" ),                    /*   */
-//         WS_CHILD | WS_VISIBLE | hb_parnl( 3 ), /* style  */
-//         hb_parni( 4 ), hb_parni( 5 ),  /* x, y       */
-//         hb_parni( 6 ), hb_parni( 7 ),  /* nWidth, nHeight */
-//         ( HWND ) HB_PARHANDLE( 1 ),    /* parent window    */
-//         ( HMENU ) hb_parni( 2 ),       /* listbox ID      */
+//         WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
+//         hb_parni(4), hb_parni(5),  /* x, y       */
+//         hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
+//         ( HWND ) HB_PARHANDLE(1),    /* parent window    */
+//         ( HMENU ) hb_parni(2),       /* listbox ID      */
 //         GetModuleHandle( NULL ),
 //         NULL );
 
@@ -163,7 +163,7 @@ void listitem_selected (GtkWidget *widget, gpointer *data)
 /*
 HB_FUNC( HWG_LISTBOXDELETESTRING )
 {
-   SendMessage( ( HWND ) HB_PARHANDLE( 1 ), LB_DELETESTRING, 0, ( LPARAM ) 0 );
+   SendMessage( ( HWND ) HB_PARHANDLE(1), LB_DELETESTRING, 0, ( LPARAM ) 0 );
 }
 */
 
@@ -175,8 +175,8 @@ HB_FUNC( HWG_LISTBOXSHOWMAIN )
 {
      /* Make listbox visible */
      GtkWidget * fenster;
-     fenster = HB_PARHANDLE( 1 );
-     gtk_container_add (GTK_CONTAINER (fenster), HB_PARHANDLE( 2 ) ); /* par 2 = hlistbox */
+     fenster = HB_PARHANDLE(1);
+     gtk_container_add (GTK_CONTAINER (fenster), HB_PARHANDLE(2) ); /* par 2 = hlistbox */
      gtk_widget_show ( (GtkWidget *) fenster);
 }
 
@@ -185,7 +185,7 @@ HB_FUNC( HWG_LISTBOXSHOWMAIN )
 */
 HB_FUNC( HWG_LISTBOXSHOW )
 {
-  gtk_widget_show ( (GtkWidget *) HB_PARHANDLE( 1 ) );
+  gtk_widget_show ( (GtkWidget *) HB_PARHANDLE(1) );
 }
 
 

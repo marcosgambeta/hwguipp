@@ -123,17 +123,17 @@ Private oForm := Self, aCtrlTable
       IF ::type == 1
          ReadForm( Self,cForm )
       ELSE
-         IF Valtype( aFormats[ ::type,4 ] ) == "C"
-            aFormats[ ::type,4 ] := OpenScript( cCurDir + aFormats[ ::type,3 ], aFormats[ ::type,4 ] )
+         IF Valtype( aFormats[::type, 4] ) == "C"
+            aFormats[::type, 4] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 4] )
          ENDIF
-         IF Valtype( aFormats[ ::type,6 ] ) == "C"
-            aFormats[ ::type,6 ] := OpenScript( cCurDir + aFormats[ ::type,3 ], aFormats[ ::type,6 ] )
+         IF Valtype( aFormats[::type, 6] ) == "C"
+            aFormats[::type, 6] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 6] )
          ENDIF
-         IF Valtype( aFormats[ ::type,6 ] ) == "A"
-            DoScript( aFormats[ ::type,6 ] )
+         IF Valtype( aFormats[::type, 6] ) == "A"
+            DoScript( aFormats[::type, 6] )
          ENDIF
-         IF Valtype( aFormats[ ::type,4 ] ) == "A"
-            DoScript( aFormats[ ::type,4 ] )
+         IF Valtype( aFormats[::type, 4] ) == "A"
+            DoScript( aFormats[::type, 4] )
          ENDIF
       ENDIF
       IF ::oDlg != NIL
@@ -212,17 +212,17 @@ Private oForm := Self, aCtrlTable
       IF ::type == 1
          WriteForm( Self )
       ELSE
-         IF Valtype( aFormats[ ::type,5 ] ) == "C"
-            aFormats[ ::type,5 ] := OpenScript( cCurDir + aFormats[ ::type,3 ], aFormats[ ::type,5 ] )
+         IF Valtype( aFormats[::type, 5] ) == "C"
+            aFormats[::type, 5] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 5] )
          ENDIF
-         IF Valtype( aFormats[ ::type,6 ] ) == "C"
-            aFormats[ ::type,6 ] := OpenScript( cCurDir + aFormats[ ::type,3 ], aFormats[ ::type,6 ] )
+         IF Valtype( aFormats[::type, 6] ) == "C"
+            aFormats[::type, 6] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 6] )
          ENDIF
-         IF Valtype( aFormats[ ::type,6 ] ) == "A"
-            DoScript( aFormats[ ::type,6 ] )
+         IF Valtype( aFormats[::type, 6] ) == "A"
+            DoScript( aFormats[::type, 6] )
          ENDIF
-         IF Valtype( aFormats[ ::type,5 ] ) == "A"
-            DoScript( aFormats[ ::type,5 ] )
+         IF Valtype( aFormats[::type, 5] ) == "A"
+            DoScript( aFormats[::type, 5] )
          ENDIF
       ENDIF
       IF !oDesigner:lSingleForm .AND. !( ::filename == "__tmp.xml" )
@@ -284,12 +284,12 @@ Private value, oCtrl
       NEXT
    ENDIF
    FOR i := 1 TO Len( ::aProp )
-      value := ::aProp[ i,2 ]
+      value := ::aProp[i, 2]
       IF value != NIL
          cPropertyName := Lower(::aProp[i, 1])
          j := Ascan( oDesigner:aDataDef, {|a|a[1]==cPropertyName} )
-         IF j != 0 .AND. oDesigner:aDataDef[ j,3 ] != NIL
-            EvalCode( oDesigner:aDataDef[ j,3 ] )
+         IF j != 0 .AND. oDesigner:aDataDef[j, 3] != NIL
+            EvalCode( oDesigner:aDataDef[j, 3] )
          ENDIF
       ENDIF
    NEXT
@@ -457,7 +457,7 @@ Local i
       oFrm:type := af[nType]
       oFrm:filename := CutPath( fname )
       IF Empty(FilExten( oFrm:filename ))
-         oFrm:filename += "."+aFormats[ af[nType],2 ]
+         oFrm:filename += "."+aFormats[af[nType], 2]
       ENDIF
       oFrm:path := Iif( Empty(FilePath(fname)), oDesigner:ds_mypath, FilePath(fname) )
       Return .T.
@@ -468,8 +468,8 @@ Return .F.
 Static Function BrowFile( lOpen,nType,oEdit1, oEdit2 )
 Local fname, s1, s2, l_ds_mypath
 
-   s2 := "*." + oDesigner:aFormats[ nType,2 ]
-   s1 := oDesigner:aFormats[ nType,1 ] + "( " + s2 + " )"
+   s2 := "*." + oDesigner:aFormats[nType, 2]
+   s1 := oDesigner:aFormats[nType, 1] + "( " + s2 + " )"
 
    IF lOpen
       fname := hwg_Selectfile( {s1,"All files"}, {s2,"*.*"},oDesigner:ds_mypath )
@@ -504,7 +504,7 @@ Local i, aTree := {}, oNode
       ELSE
          Aadd(aTree, {NIL, oNode:GetAttribute("name"), Val(oNode:GetAttribute("id")), NIL})
          IF !Empty(oNode:aItems)
-            aTree[ Len(aTree),1 ] := ReadTree( aTail( aTree ),oNode )
+            aTree[Len(aTree), 1] := ReadTree( aTail( aTree ),oNode )
          ENDIF
       ENDIF
    NEXT

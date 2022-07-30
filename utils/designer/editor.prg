@@ -256,7 +256,7 @@ Static Function EditColors()
 Local oDlg, i, j, temp, oBtn2
 Local cText := "// The code sample" + cNewLine + ;
                "do while ++nItem < 120"+ cNewLine + ;
-               "  if aItems[ nItem ] == 'scheme'"+ cNewLine + ;
+               "  if aItems[nItem] == 'scheme'"+ cNewLine + ;
                "    nFactor := 22.5"+ cNewLine + ;
                "  endif"
 

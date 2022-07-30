@@ -93,19 +93,19 @@ Local aItem
       ::Super:Init()
       For n := 1 TO len( ::aItem )
 
-         if valtype( ::aItem[ n, 1 ] ) == "N"
-            IF !empty(::aItem[ n, 1 ])
+         if valtype( ::aItem[n, 1] ) == "N"
+            IF !empty(::aItem[n, 1])
                AAdd(aButton, ::aItem[n , 1])
             ENDIF
-         elseif  valtype( ::aItem[ n, 1 ] ) == "C"
-            if ".ico" $ lower(::aItem[ n, 1 ]) //if ".ico" in lower(::aItem[ n, 1 ])
-               oImage:=hIcon():AddFile( ::aItem[ n, 1 ] )
+         elseif  valtype( ::aItem[n, 1] ) == "C"
+            if ".ico" $ lower(::aItem[n, 1]) //if ".ico" in lower(::aItem[n, 1])
+               oImage:=hIcon():AddFile( ::aItem[n, 1] )
             else
-               oImage:=hBitmap():AddFile( ::aItem[ n, 1 ] )
+               oImage:=hBitmap():AddFile( ::aItem[n, 1] )
             endif
             if valtype(oImage) =="O"
                aadd(aButton,Oimage:handle)
-               ::aItem[ n, 1 ] := Oimage:handle
+               ::aItem[n, 1] := Oimage:handle
             endif
          ENDIF
 
@@ -177,14 +177,14 @@ return NIL
 METHOD EnableAllButtons() class htoolbar
    Local xItem
    For Each xItem in ::aItem
-      hwg_Enablewindow( xItem[ 11 ], .T. )
+      hwg_Enablewindow( xItem[11], .T. )
    Next
 RETURN Self
 
 METHOD DisableAllButtons() class htoolbar
    Local xItem
    For Each xItem in ::aItem
-      hwg_Enablewindow( xItem[ 11 ], .F. )
+      hwg_Enablewindow( xItem[11], .F. )
    Next
 RETURN Self
 

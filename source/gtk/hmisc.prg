@@ -293,7 +293,7 @@ LOCAL n1, n2
    n1 := nascchar / 16 
    n2 := nascchar % 16
    * combine return value
-RETURN chexchars[ n1 + 1 ] + chexchars[ n2 + 1 ]
+RETURN chexchars[n1 + 1] + chexchars[n2 + 1]
 
 * ================================= *
 FUNCTION hwg_EOLStyle
@@ -1001,7 +1001,7 @@ LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  
              k := 334
          ENDIF
          d := d - k
-         cday := STR(d, 2, 0) 
+         cday := STR(d, 2, 0)
         ENDIF
    cday := hwg_leading0(cday)
    

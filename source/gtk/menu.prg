@@ -97,11 +97,11 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos, hWnd )
       AAdd(aMenu[1], NIL)
       AIns( aMenu[1], nPos )
       IF Empty(lSubmenu)
-         aMenu[ 1,nPos ] := { bItem, cItem, nMenuId, 0, hSubMenu }
+         aMenu[1, nPos] := { bItem, cItem, nMenuId, 0, hSubMenu }
       ELSE
-         aMenu[ 1,nPos ] := { {}, cItem, nMenuId, 0, hSubMenu }
+         aMenu[1, nPos] := { {}, cItem, nMenuId, 0, hSubMenu }
       ENDIF
-      RETURN aMenu[ 1,nPos ]
+      RETURN aMenu[1, nPos]
    ENDIF
 
    RETURN NIL
@@ -111,10 +111,10 @@ FUNCTION Hwg_FindMenuItem( aMenu, nId, nPos )
 
    nPos := 1
    DO WHILE nPos <= Len( aMenu[1] )
-      IF aMenu[ 1,npos,3 ] == nId
+      IF aMenu[1, npos, 3] == nId
          RETURN aMenu
-      ELSEIF ValType( aMenu[ 1,npos,1 ] ) == "A"
-         IF ( aSubMenu := Hwg_FindMenuItem( aMenu[ 1,nPos ] , nId, @nPos1 ) ) != NIL
+      ELSEIF ValType( aMenu[1, npos, 1] ) == "A"
+         IF ( aSubMenu := Hwg_FindMenuItem( aMenu[1, nPos] , nId, @nPos1 ) ) != NIL
             nPos := nPos1
             RETURN aSubMenu
          ENDIF
@@ -145,7 +145,7 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
    ELSE
       hMenu := aMenuInit[5]
       nPos := Len( aMenuInit[1] )
-      aMenu := aMenuInit[ 1,nPosParent ]
+      aMenu := aMenuInit[1, nPosParent]
       hMenu := hwg__AddMenuItem( hMenu, aMenu[2], nPos + 1, hWnd, aMenu[3], aMenu[4], .T. )
       IF Len( aMenu ) < 5
          AAdd(aMenu, hMenu)
@@ -156,10 +156,10 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
 
    nPos := 1
    DO WHILE nPos <= Len( aMenu[1] )
-      IF ValType( aMenu[ 1,nPos,1 ] ) == "A"
+      IF ValType( aMenu[1, nPos, 1] ) == "A"
          hwg_BuildMenu( aMenu, hWnd, , nPos )
       ELSE
-         IF aMenu[ 1,nPos,1 ] == NIL .OR. aMenu[ 1,nPos,2 ] != NIL
+         IF aMenu[1, nPos, 1] == NIL .OR. aMenu[1, nPos, 2] != NIL
             IF Len( aMenu[1,npos] ) == 4
                AAdd(aMenu[1, npos], NIL)
             ENDIF
@@ -417,8 +417,8 @@ FUNCTION hwg_DeleteMenuItem( oWnd, nId )
 
    IF ( aSubMenu := Hwg_FindMenuItem( oWnd:menu, nId, @nPos ) ) != NIL
       hwg__DeleteMenu( aSubmenu[1,nPos,5], nId )
-      ADel( aSubMenu[ 1 ], nPos )
-      ASize( aSubMenu[ 1 ], Len( aSubMenu[ 1 ] ) - 1 )
+      ADel( aSubMenu[1], nPos )
+      ASize( aSubMenu[1], Len( aSubMenu[1] ) - 1 )
    ENDIF
 
    RETURN NIL

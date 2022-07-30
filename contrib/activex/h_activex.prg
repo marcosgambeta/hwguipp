@@ -125,6 +125,6 @@ METHOD EventMap( nMsg, xExec, oSelf ) CLASS HActiveX
       AAdd(::aAxExec, {NIL, NIL})
       nAt := Len( ::aAxEv )
    ENDIF
-   ::aAxExec[ nAt ] := { xExec, oSelf }
+   ::aAxExec[nAt] := { xExec, oSelf }
 RETURN NIL
 

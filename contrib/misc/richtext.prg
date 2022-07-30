@@ -259,8 +259,8 @@ METHOD New(cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nSc
       FOR i := 1 TO ::nFontNum
          ::OpenGroup()
          ::NewFont( i )
-         ::NumCode( "charset", aFontChar[ i ], .F. )
-         ::TextCode( aFontFam[ i ] )
+         ::NumCode( "charset", aFontChar[i], .F. )
+         ::TextCode( aFontFam[i] )
          ::Write(aFontData[i] + ";")
          ::CloseGroup()
       NEXT
@@ -293,7 +293,7 @@ METHOD PageSetup( nLeft, nRight, nTop, nBottom, nWidth, nHeight, ;
 *
 ******************************************************************** */
 
-   HB_SYMBOL_UNUSED( cPgNumPos )
+   HB_SYMBOL_UNUSED(cPgNumPos)
 
    DEFAULT lLandscape TO .F.
    DEFAULT lNoWidow TO .F.
@@ -405,7 +405,7 @@ METHOD Paragraph( cText, nFontNumber, nFontSize, cAppear, ;
          ::ParaBorder( "CHARACTER", cBordStyle )
       ELSE
          FOR i = 1 TO Len( cTypeBorder )
-            ::ParaBorder( cTypeBorder[ i ], cBordStyle )
+            ::ParaBorder( cTypeBorder[i], cBordStyle )
          NEXT i
       ENDIF
    ENDIF
@@ -543,7 +543,7 @@ METHOD Write(xData, lCodesOK) CLASS RichText
                      "\cf" + AllTrim(Str(::nFontColor)) + AllTrim(::cLastApar) + "\'" + Lower(NewBase(nChar, 16))
             ENDIF
          ELSE
-            cWrite += ::aTranslate[ Asc( cChar ) - 127 ]
+            cWrite += ::aTranslate[Asc(cChar) - 127]
          ENDIF
       ENDIF
    NEXT
@@ -673,15 +673,15 @@ METHOD DefineTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
    nTblHdColor   TO  0, ;
    nTblHdFColor  TO  0
 
-   IF aTableCWid[ 1 ] == NIL
+   IF aTableCWid[1] == NIL
       AFill( aTableCWid, 6.5 / nTblColumns )
-   ELSEIF ValType( aTableCWid[ 1 ] ) == "A"
-      aTableCWid := AClone( aTableCWid[ 1 ] )
+   ELSEIF ValType( aTableCWid[1] ) == "A"
+      aTableCWid := AClone( aTableCWid[1] )
    ENDIF
 
    // Turn independent column widths into "right boundary" info...
    FOR i := 2 TO Len( aTableCWid )
-      aTableCWid[ i ] += aTableCWid[ i - 1 ]
+      aTableCWid[i] += aTableCWid[i - 1]
    NEXT
 
    IF aColPct == NIL
@@ -704,8 +704,8 @@ METHOD DefineTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
    ::nCellPct := IIf( nCellPct < 1, nCellPct * 10000, nCellPct * 100 )
    // Porcentajes para cada celda
    i := 1
-   AEval( ::aColPct, { || ::aColPct[ i ] := IIf( ::aColPct[ i ] < 1, ::aColPct[ i ] * 10000, ;
-         ::aColPct[ i ] * 100 ), i ++ } )
+   AEval( ::aColPct, { || ::aColPct[i] := IIf( ::aColPct[i] < 1, ::aColPct[i] * 10000, ;
+         ::aColPct[i] * 100 ), i ++ } )
    ::lTblNoSplit := lTblNoSplit
    ::nTblHdRows := nTblHdRows
    ::nTblHdHgt := nTblHdHgt
@@ -738,8 +738,8 @@ METHOD WriteCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign, ;
 ******************************************************************** */
    LOCAL i
 
-   HB_SYMBOL_UNUSED( cCellBorder )
-   HB_SYMBOL_UNUSED( nCellPct )
+   HB_SYMBOL_UNUSED(cCellBorder)
+   HB_SYMBOL_UNUSED(nCellPct)
 
    DEFAULT cText TO "", ;
    lDefault TO .F.
@@ -774,7 +774,7 @@ METHOD WriteCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign, ;
                ::NumCode( "clcbpat", ::nTblHdColor, .F. )
             ENDIF
             ::Borders( "cl", ::cCellBorder )
-            ::NumCode( "cellx", ::aTableCWid[ i ] )
+            ::NumCode( "cellx", ::aTableCWid[i] )
          NEXT
          // Identify the header-specific font
          ::NewFont( ::nTblHdFont )
@@ -801,9 +801,9 @@ METHOD WriteCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign, ;
          ::LogicCode( "trkeep", ::lTblNoSplit )
          // Set the default shading, border & width info for each body cell
          FOR i := 1 TO Len( ::aTableCWid )
-            ::NumCode( "clshdng", ::aColPct[ i ], .F. )
+            ::NumCode( "clshdng", ::aColPct[i], .F. )
             ::Borders( "cl", ::cCellBorder )
-            ::NumCode( "cellx", ::aTableCWid[ i ] )
+            ::NumCode( "cellx", ::aTableCWid[i] )
          NEXT
          // Write the body formatting codes
          ::NewFont( ::nTblFntNum )
@@ -983,7 +983,7 @@ METHOD Borders( cEntity, cBorder ) CLASS RichText
 
    IF ValType( cBorder ) == "C"
       FOR i := 1 TO 4
-         ::TextCode( cEntity + "brdr" + aBorder[ i ] + "\brdr" + cBorder )
+         ::TextCode( cEntity + "brdr" + aBorder[i] + "\brdr" + cBorder )
       NEXT
    ENDIF
 
@@ -1050,9 +1050,9 @@ METHOD BorderCode( cBorderID ) CLASS RichText
          }
 
    cBorderID := Upper(RTrim(cBorderID))
-   n := AScan( aBorder, { | x | x[ 1 ] == cBorderID } )
+   n := AScan( aBorder, { | x | x[1] == cBorderID } )
    IF n > 0
-      cBorderCode := aBorder[ n ][ 2 ]
+      cBorderCode := aBorder[n][2]
    ENDIF
 
    RETURN cBorderCode
@@ -1082,9 +1082,9 @@ METHOD ShadeCode( cShadeID ) CLASS RichText
          }
 
    cShadeID := Upper(RTrim(cShadeID))
-   n := AScan( aShade, { | x | x[ 1 ] == cShadeID } )
+   n := AScan( aShade, { | x | x[1] == cShadeID } )
    IF n > 0
-      cShadeCode := aShade[ n ][ 2 ]
+      cShadeCode := aShade[n][2]
    ENDIF
 
    RETURN cShadeCode
@@ -1103,7 +1103,7 @@ FUNCTION IntlTranslate()
 *
 ******************************************************************** */
    LOCAL i
-   LOCAL aTranslate[ 128 ]
+   LOCAL aTranslate[128]
    LOCAL aHighTable := ;
          { ;
          "\'fc", "\'e9", "\'e2", "\'e4", "\'e0", "\'e5", "\'e7", "\'ea", ;
@@ -1115,7 +1115,7 @@ FUNCTION IntlTranslate()
 
    AFill( aTranslate, "" )
    FOR i := 1 TO Len( aHighTable )
-      aTranslate[ i ] := aHighTable[ i ]
+      aTranslate[i] := aHighTable[i]
    NEXT
 
    RETURN aTranslate
@@ -1189,14 +1189,14 @@ METHOD Linea( aInicio, aFinal, nxoffset, nyoffset, ASize, cTipo, ;
 
    ::OpenGroup()
    ::TextCode( "do\dobxmargin\dobypara\dpline" )
-   ::NumCode( "dpptx", aInicio[ 1 ], .T. )
-   ::NumCode( "dppty", aInicio[ 2 ], .T. )
-   ::NumCode( "dpptx", aFinal[ 1 ], .T. )
-   ::NumCode( "dppty", aFinal[ 2 ], .T. )
+   ::NumCode( "dpptx", aInicio[1], .T. )
+   ::NumCode( "dppty", aInicio[2], .T. )
+   ::NumCode( "dpptx", aFinal[1], .T. )
+   ::NumCode( "dppty", aFinal[2], .T. )
    ::NumCode( "dpx", nxoffset, .T. )
    ::NumCode( "dpy", nyoffset, .T. )
-   ::NumCode( "dpxsize", ASize[ 1 ], .T. )
-   ::NumCode( "dpysize", ASize[ 2 ], .T. )
+   ::NumCode( "dpxsize", ASize[1], .T. )
+   ::NumCode( "dpysize", ASize[2], .T. )
    DO CASE
    CASE cTipo == "SOLIDA"
       ::TextCode( "dplinesolid" )
@@ -1208,9 +1208,9 @@ METHOD Linea( aInicio, aFinal, nxoffset, nyoffset, ASize, cTipo, ;
       ::TextCode( "dplinedado" )
    ENDCASE
    // Colores
-   ::NumCode( "dplinecob", aColores[ 1 ], .F. )
-   ::NumCode( "dplinecog", aColores[ 2 ], .F. )
-   ::NumCode( "dplinecor", aColores[ 3 ], .F. )
+   ::NumCode( "dplinecob", aColores[1], .F. )
+   ::NumCode( "dplinecog", aColores[2], .F. )
+   ::NumCode( "dplinecor", aColores[3], .F. )
    // Ancho de la linea
    ::NumCode( "dplinew", nWidth, .T. )
    // Patron
@@ -1218,8 +1218,8 @@ METHOD Linea( aInicio, aFinal, nxoffset, nyoffset, ASize, cTipo, ;
    // Linea con sombra
    ::LogicCode( "dpshadow", lSombra )
    IF lSombra
-      ::NumCode( "dpshadx", aSombra[ 1 ], .T. )
-      ::NumCode( "dpshady", aSombra[ 2 ], .T. )
+      ::NumCode( "dpshadx", aSombra[1], .T. )
+      ::NumCode( "dpshady", aSombra[2], .T. )
    ENDIF
    ::CloseGroup()
 
@@ -1371,8 +1371,8 @@ METHOD BegTextBox( cTexto, aOffset, ASize, cTipo, aColores, nWidth, nPatron, ;
    ::logicCode( "dproundr", lRounded )
    ::LogicCode( "dpshadow", lSombra )
    IF lSombra
-      ::NumCode( "dpshadx", aSombra[ 1 ], .T. )
-      ::NumCode( "dpshadx", aSombra[ 2 ], .T. )
+      ::NumCode( "dpshadx", aSombra[1], .T. )
+      ::NumCode( "dpshadx", aSombra[2], .T. )
    ENDIF
    ::OpenGroup()
    ::TextCode( "dptxbxtext \s0\ql" )
@@ -1389,10 +1389,10 @@ METHOD BegTextBox( cTexto, aOffset, ASize, cTipo, aColores, nWidth, nPatron, ;
 METHOD EndTextBox() CLASS RichText
 
    ::CloseGroup() // Cierra el grupo de texto
-   ::NumCode( "dpx", ::aOfftbox[ 1 ], .T. )
-   ::NumCode( "dpy", ::aOfftbox[ 2 ], .T. )
-   ::NumCode( "dpxsize", ::aSztBox[ 1 ], .T. )
-   ::NumCode( "dpysize", ::aSztBox[ 2 ], .T. )
+   ::NumCode( "dpx", ::aOfftbox[1], .T. )
+   ::NumCode( "dpy", ::aOfftbox[2], .T. )
+   ::NumCode( "dpxsize", ::aSztBox[1], .T. )
+   ::NumCode( "dpysize", ::aSztBox[2], .T. )
    DO CASE
    CASE ::cTpltBox == "SOLIDA"
       ::TextCode( "dplinesolid" )
@@ -1404,9 +1404,9 @@ METHOD EndTextBox() CLASS RichText
       ::TextCode( "dplinedado" )
    ENDCASE
    // Colores
-   ::NumCode( "dplinecob", ::aCltBox[ 1 ], .F. )
-   ::NumCode( "dplinecog", ::aCltBox[ 2 ], .F. )
-   ::NumCode( "dplinecor", ::aCltBox[ 3 ], .F. )
+   ::NumCode( "dplinecob", ::aCltBox[1], .F. )
+   ::NumCode( "dplinecog", ::aCltBox[2], .F. )
+   ::NumCode( "dplinecor", ::aCltBox[3], .F. )
    // Ancho de la linea
    ::NumCode( "dplinew", ::nWltBox, .F. )
    ::TextCode( "\dpfillbgcr255\dpfillbgcg255\dpfillbgcb255" )
@@ -1423,7 +1423,7 @@ METHOD SetFrame( ASize, cHorzAlign, cVertAlign, lNoWrap, ;
    IF Empty(ASize)
       RETURN NIL
    ENDIF
-   ancho := Round( ( 1.25 * ASize[ 1 ] * ::nScale ) + 0.5, 0 )
+   ancho := Round( ( 1.25 * ASize[1] * ::nScale ) + 0.5, 0 )
    ::TextCode( "absh0" )
    ::NumCode( "absw", ancho, .F. )
    IF cXAlign == "MARGIN"
@@ -1506,8 +1506,8 @@ METHOD Image( cName, ASize, nPercent, lCell, lInclude, lFrame, aFSize, cHorzAlig
       ENDIF
    ENDIF
    IF ! lInclude
-      ::NumCode( "sslinkpictw", ASize[ 1 ] )
-      ::NumCode( "sslinkpicth", ASize[ 2 ] )
+      ::NumCode( "sslinkpictw", ASize[1] )
+      ::NumCode( "sslinkpicth", ASize[2] )
       ::OpenGroup()
       ::TextCode( "field" )
 
@@ -1591,7 +1591,7 @@ METHOD IncStyle( cName, styletype, nFontNumber, nFontSize, ;
             cEstilo += ::ParaBorder( "ALL", cBordStyle )
          ELSE
             FOR i := 1 TO Len( cTypeBorder )
-               cEstilo += ::ParaBorder( cTypeBorder[ i ], cBordStyle )
+               cEstilo += ::ParaBorder( cTypeBorder[i], cBordStyle )
             NEXT i
          ENDIF
       ENDIF
@@ -1653,9 +1653,9 @@ METHOD ParaStyle( nStyle ) CLASS RichText
       RETURN NIL
    ENDIF
    IF ::nStlAct # nStyle
-      IF nStyle <= Len( ::ParStyles[ nStyle ] )
+      IF nStyle <= Len( ::ParStyles[nStyle] )
          ::Numcode( "par\pard\s", nStyle, .F. )
-         FWrite(::hFile, ::ParStyles[ nStyle ])
+         FWrite(::hFile, ::ParStyles[nStyle])
          ::nStlAct := nStyle
       ENDIF
    ENDIF
@@ -1678,9 +1678,9 @@ METHOD CharStyle( nStyle ) CLASS RichText
       RETURN NIL
    ENDIF
    IF ::nCharAct # nStyle
-      IF nStyle <= Len( ::CharStyles[ nStyle ] )
+      IF nStyle <= Len( ::CharStyles[nStyle] )
          ::Numcode( "\cs", nStyle, .F. )
-         FWrite(::hFile, ::CharStyles[ nStyle ])
+         FWrite(::hFile, ::CharStyles[nStyle])
          ::nCharAct := nStyle
       ENDIF
    ENDIF
@@ -1740,14 +1740,14 @@ METHOD DefNewTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
          nTblHdFColor  TO  0, ;
          aTblCJoin TO { }
 
-   IF aTableCWid[ 1 ] == NIL
+   IF aTableCWid[1] == NIL
       AFill( aTableCWid, 6.5 / nTblColumns )
-   ELSEIF ValType( aTableCWid[ 1 ] ) == "A"
-      aTableCWid := AClone( aTableCWid[ 1 ] )
+   ELSEIF ValType( aTableCWid[1] ) == "A"
+      aTableCWid := AClone( aTableCWid[1] )
    ENDIF
    // Turn independent column widths into "right boundary" info...
    FOR i := 2 TO Len( aTableCWid )
-      aTableCWid[ i ] += aTableCWid[ i - 1 ]
+      aTableCWid[i] += aTableCWid[i - 1]
    NEXT
    IF aColPct == NIL
       aColPct   := Array( nTblColumns )
@@ -1768,8 +1768,8 @@ METHOD DefNewTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
    ::nCellPct := IIf( nCellPct < 1, nCellPct * 10000, nCellPct * 100 )
    // Porcentajes para cada celda
    i := 1
-   AEval( ::aColPct, { || ::aColPct[ i ] := IIf( ::aColPct[ i ] < 1, ::aColPct[ i ] * 10000, ;
-         ::aColPct[ i ] * 100 ), i ++ } )
+   AEval( ::aColPct, { || ::aColPct[i] := IIf( ::aColPct[i] < 1, ::aColPct[i] * 10000, ;
+         ::aColPct[i] * 100 ), i ++ } )
    ::lTblNoSplit := lTblNoSplit
    ::nTblHdRows := nTblHdRows
    ::nTblHdHgt := nTblHdHgt
@@ -1787,7 +1787,7 @@ METHOD DefNewTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
    FOR j := 1 TO ::nTblHdRows
       ::TableDef( .T., j )
       FOR i := 1 TO Len( ::aTableCWid )
-         ::TableCell( aHeadTit[ j ][ i ],,,,,,,, .T., .T. )
+         ::TableCell( aHeadTit[j][i],,,,,,,, .T., .T. )
       NEXT i
    NEXT j
    ::TableDef()
@@ -1828,8 +1828,8 @@ METHOD TableDef( lHeader, nRowHead, cCellBorder, aColPct ) CLASS RichText
    FOR i := 1 TO Len( ::aTableCWid )
       IF lHeader
          IF ! Empty(::TblCJoin)
-            FOR j := 1 TO Len( ::TblCJoin[ nRowHead ] )
-               pos := AScan( ::TblCJoin[ nRowHead ][ j ], i )
+            FOR j := 1 TO Len( ::TblCJoin[nRowHead] )
+               pos := AScan( ::TblCJoin[nRowHead][j], i )
                IF pos == 1
                   ::TextCode( "clvertalt" )
                   ::TextCode( "clmgf" )
@@ -1852,9 +1852,9 @@ METHOD TableDef( lHeader, nRowHead, cCellBorder, aColPct ) CLASS RichText
             ::NumCode( "clcbpat", ::nTblHdColor, .F. )
          ENDIF
       ELSE
-         ::NumCode( "clshdng", aColPct[ i ], .F. )
+         ::NumCode( "clshdng", aColPct[i], .F. )
       ENDIF
-      ::NumCode( "cellx", ::aTableCWid[ i ] )
+      ::NumCode( "cellx", ::aTableCWid[i] )
    NEXT
 
    RETURN NIL
@@ -2221,18 +2221,18 @@ METHOD Bmp2Wmf(cName,aSize,nPercent) CLASS RichText
       aInches[1]:=nWidth/ResX
       aInches[2]:=nHeight/ResY
       IF EMPTY(aSize)
-         aInches[ 1 ] *= nPercent
-         aInches[ 2 ] *= nPercent
+         aInches[1] *= nPercent
+         aInches[2] *= nPercent
          scalex := INT( nPercent*100 )
          scaley := INT( nPercent*100 )
       ELSE
-         scalex := ROUND( ( ( aSize[ 1 ] * 100 ) / aInches[ 1 ] ) + 0.5, 0 )
-         scaley := ROUND( ( ( aSize[ 2 ] * 100 ) / aInches[ 2 ] ) + 0.5, 0 )
-         aInches[1 ] := aSize[ 1 ]
-         aInches[ 2 ] := aSize[ 2 ]
+         scalex := ROUND( ( ( aSize[1] * 100 ) / aInches[1] ) + 0.5, 0 )
+         scaley := ROUND( ( ( aSize[2] * 100 ) / aInches[2] ) + 0.5, 0 )
+         aInches[1 ] := aSize[1]
+         aInches[2] := aSize[2]
       ENDIF
-      aInches[ 1 ] := ROUND( aInches[ 1 ] * 1440, 0 )
-      aInches[ 2 ] := ROUND( aInches[ 2 ] * 1440, 0 )
+      aInches[1] := ROUND( aInches[1] * 1440, 0 )
+      aInches[2] := ROUND( aInches[2] * 1440, 0 )
       // initialize the metafile
       SETWNDEX( hDCOut, 0, 0 )
       hwg_Setwindowextex( hDCOut, nWidth, nHeight );
@@ -2245,11 +2245,11 @@ METHOD Bmp2Wmf(cName,aSize,nPercent) CLASS RichText
       in := fopen(temp)
       ::OpenGroup()
       ::TextCode( "\pict\wmetafile8" )
-      x := ROUND( ( ( aInches[ 1 ] * 2540 ) / 1440 ) + 0.5, 0 )
+      x := ROUND( ( ( aInches[1] * 2540 ) / 1440 ) + 0.5, 0 )
       ::NumCode( "picw", x, .F. )
-      ::NumCode( "picwgoal", aInches[ 1 ], .F. )
+      ::NumCode( "picwgoal", aInches[1], .F. )
       ::NumCode( "picscalex", scalex, .F. )
-      x := ROUND( ( ( aInches[ 2 ] * 2540 ) / 1440 ) + 0.5, 0 )
+      x := ROUND( ( ( aInches[2] * 2540 ) / 1440 ) + 0.5, 0 )
       ::NumCode( "pich", x, .F. )
       ::NumCode("pichgoal", aInches[2], .F. )
       ::NumCode( "picscaley", scaley, .F.)

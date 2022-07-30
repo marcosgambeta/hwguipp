@@ -110,7 +110,7 @@ HB_FUNC( HWG_GETTEXTMETRIC )
       hDC->hFont = style->font_desc;
    }
    {
-      PHB_ITEM aMetr = _itemArrayNew( 3 );
+      PHB_ITEM aMetr = _itemArrayNew(3);
       PHB_ITEM temp;
       int height, width;
 
@@ -142,9 +142,9 @@ HB_FUNC( HWG_GETTEXTMETRIC )
 HB_FUNC( HWG_GETTEXTSIZE )
 {
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   char * cText = hwg_convert_to_utf8( hb_parc( 2 ) );
+   char * cText = hwg_convert_to_utf8( hb_parc(2) );
    PangoRectangle rc;
-   PHB_ITEM aMetr = hb_itemArrayNew( 2 );
+   PHB_ITEM aMetr = hb_itemArrayNew(2);
 
    if( HB_ISCHAR(2) && hb_parclen(2) > 0 )
       pango_layout_set_text( hDC->layout, cText, -1 );
@@ -159,7 +159,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
 HB_FUNC( HWG_GETTEXTWIDTH )
 {
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   char * cText = hwg_convert_to_utf8( hb_parc( 2 ) );
+   char * cText = hwg_convert_to_utf8( hb_parc(2) );
    PangoRectangle rc;
 
    if( HB_ISCHAR(2) && hb_parclen(2) > 0 )
@@ -282,7 +282,7 @@ HB_FUNC( HWG_CREATEFONT )
       if( iUnder )
          pango_attr_list_insert( h->attrs, pango_attr_underline_new( PANGO_UNDERLINE_SINGLE) );
       if( iStrike )
-         pango_attr_list_insert( h->attrs, pango_attr_strikethrough_new( 1 ) );
+         pango_attr_list_insert( h->attrs, pango_attr_strikethrough_new(1) );
    }
    else
       h->attrs = NULL;

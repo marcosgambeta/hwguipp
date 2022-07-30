@@ -436,37 +436,37 @@ HB_FUNC( BF_ENCRYPT )
 
    BLOWFISH_CTX ctx;
    const char *keyDefault = "r2d7";
-   const char *ptri = hb_parc( 1 );
+   const char *ptri = hb_parc(1);
    unsigned char *ptro;
    unsigned char *key;
    int iKeylen, iDiff;
    HB_U32 ul, ulLen, ulPairs;
 
-   if( HB_ISNIL( 2 ) )
+   if( HB_ISNIL(2) )
    {
       iKeylen = 4;
-      key = ( unsigned char * ) hb_xgrab( 5 );
+      key = ( unsigned char * ) hb_xgrab(5);
       hb_strncpy( ( char * ) key, keyDefault, iKeylen );
    }
-   else if( ( iKeylen = hb_parclen( 2 ) ) < 4 )
+   else if( ( iKeylen = hb_parclen(2) ) < 4 )
    {
-      key = ( unsigned char * ) hb_xgrab( 5 );
-      hb_strncpy( ( char * ) key, hb_parc( 2 ), 4 );
+      key = ( unsigned char * ) hb_xgrab(5);
+      hb_strncpy( ( char * ) key, hb_parc(2), 4 );
       hb_strncat(( char * ) key, keyDefault, 4 - iKeylen);
       iKeylen = 4;
    }
    else
    {
       key = ( unsigned char * ) hb_xgrab( iKeylen + 1 );
-      hb_strncpy( ( char * ) key, hb_parc( 2 ), iKeylen );
+      hb_strncpy( ( char * ) key, hb_parc(2), iKeylen );
    }
 
    Blowfish_Init( &ctx, key, iKeylen );
 
-   if( HB_ISNIL( 3 ) )
-      ulLen = ( HB_U32 ) hb_parclen( 1 );
+   if( HB_ISNIL(3) )
+      ulLen = ( HB_U32 ) hb_parclen(1);
    else
-      ulLen = ( HB_U32 ) hb_parnl( 3 );
+      ulLen = ( HB_U32 ) hb_parnl(3);
 
    ulPairs = ( ulLen + 2 ) / 8 + ( ( ( ulLen + 2 ) % 8 ) ? 1 : 0 );
    ptro = ( unsigned char * ) hb_xgrab( ulPairs * 8 + 1 );
@@ -492,37 +492,37 @@ HB_FUNC( BF_DECRYPT )
 
    BLOWFISH_CTX ctx;
    const char *keyDefault = "r2d7";
-   const char *ptri = hb_parc( 1 );
+   const char *ptri = hb_parc(1);
    unsigned char *ptro;
    unsigned char *key;
    int iKeylen, iDiff;
    HB_U32 ul, ulLen, ulPairs;
 
-   if( HB_ISNIL( 2 ) )
+   if( HB_ISNIL(2) )
    {
       iKeylen = 4;
-      key = ( unsigned char * ) hb_xgrab( 5 );
+      key = ( unsigned char * ) hb_xgrab(5);
       hb_strncpy( ( char * ) key, keyDefault, iKeylen );
    }
-   else if( ( iKeylen = hb_parclen( 2 ) ) < 4 )
+   else if( ( iKeylen = hb_parclen(2) ) < 4 )
    {
-      key = ( unsigned char * ) hb_xgrab( 5 );
-      hb_strncpy( ( char * ) key, hb_parc( 2 ), 4 );
+      key = ( unsigned char * ) hb_xgrab(5);
+      hb_strncpy( ( char * ) key, hb_parc(2), 4 );
       hb_strncat(( char * ) key, keyDefault, 4 - iKeylen);
       iKeylen = 4;
    }
    else
    {
       key = ( unsigned char * ) hb_xgrab( iKeylen + 1 );
-      hb_strncpy( ( char * ) key, hb_parc( 2 ), iKeylen );
+      hb_strncpy( ( char * ) key, hb_parc(2), iKeylen );
    }
 
    Blowfish_Init( &ctx, key, iKeylen );
 
-   if( HB_ISNIL( 3 ) )
-      ulLen = ( HB_U32 ) hb_parclen( 1 );
+   if( HB_ISNIL(3) )
+      ulLen = ( HB_U32 ) hb_parclen(1);
    else
-      ulLen = ( HB_U32 ) hb_parnl( 3 );
+      ulLen = ( HB_U32 ) hb_parnl(3);
 
    ulPairs = ulLen / 8;
    ptro = ( unsigned char * ) hb_xgrab( ulLen + 1 );

@@ -210,7 +210,7 @@ METHOD Init() CLASS HListBox
          ENDIF
 //         hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0 )
          FOR i := 1 TO Len( ::aItems )
-            hwg_Listboxaddstring( ::handle, ::aItems[ i ] )
+            hwg_Listboxaddstring( ::handle, ::aItems[i] )
          NEXT
 //         hwg_Listboxsetstring( ::handle, ::value )
       ENDIF
@@ -330,7 +330,7 @@ METHOD onChange( oCtrl ) CLASS HListBox
 /*
    LOCAL nPos
 
-   HB_SYMBOL_UNUSED( oCtrl )
+   HB_SYMBOL_UNUSED(oCtrl)
 
    nPos := hwg_Sendmessage( ::handle, LB_GETCURSEL, 0, 0 ) + 1
    ::SetItem( nPos )
@@ -342,7 +342,7 @@ METHOD When( oCtrl ) CLASS HListBox
 /*
    LOCAL res := .t., nSkip
 
-   HB_SYMBOL_UNUSED( oCtrl )
+   HB_SYMBOL_UNUSED(oCtrl)
 
     nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .or. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
    IF ::bSetGet != NIL
@@ -361,7 +361,7 @@ METHOD Valid( oCtrl ) CLASS HListBox
 /*
    LOCAL res, oDlg
 
-   HB_SYMBOL_UNUSED( oCtrl )
+   HB_SYMBOL_UNUSED(oCtrl)
 
    IF ( oDlg := hwg_GetParentForm( Self ) ) == NIL .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage( ::handle, LB_GETCURSEL, 0, 0 ) + 1
@@ -399,7 +399,7 @@ STATIC FUNCTION AddLItems (h,it)
     ENDIF  
     IF .NOT. EMPTY(it)
      FOR i := 1 TO LEN(it)
-       HWG_LISTBOXADDSTRING( h,it[ i ] )
+       HWG_LISTBOXADDSTRING( h,it[i] )
      NEXT
     ENDIF
 RETURN NIL

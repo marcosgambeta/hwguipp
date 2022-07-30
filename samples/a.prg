@@ -250,7 +250,7 @@ Return NIL
 
 Static Function BrwKey( oBrw, key )
    IF key == 32
-      oBrw:aArray[ oBrw:nCurrent,1 ] := !oBrw:aArray[ oBrw:nCurrent,1 ]
+      oBrw:aArray[oBrw:nCurrent, 1] := !oBrw:aArray[oBrw:nCurrent, 1]
       oBrw:RefreshLine()
    ENDIF
 Return .T.
@@ -511,7 +511,7 @@ INIT DIALOG oDlg TITLE "Sample HRect"    ;
 return NIL
 
 Function Test1
-Local hDC := hwg_Getdc( 0 ), aMetr, oFont
+Local hDC := hwg_Getdc(0), aMetr, oFont
 
    PREPARE FONT oFont NAME "Arial" WIDTH 0 HEIGHT -17
    hwg_Selectobject( hDC, oFont:handle )

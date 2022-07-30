@@ -100,25 +100,25 @@ STATIC FUNCTION Edit1()
    j := Ascan( aDataDef, { |a|a[1] == cName } )
    varbuf := Eval( oColumn:block, , oBrw1, 2 )
 
-   IF ( j != 0 .AND. aDataDef[ j,5 ] != NIL ) .OR. aCtrlProp[ oBrw1:cargo,3 ] == "A"
-      IF j != 0 .AND. aDataDef[ j,5 ] != NIL
-         IF aDataDef[ j,5 ] == "color"
+   IF ( j != 0 .AND. aDataDef[j, 5] != NIL ) .OR. aCtrlProp[oBrw1:cargo, 3] == "A"
+      IF j != 0 .AND. aDataDef[j, 5] != NIL
+         IF aDataDef[j, 5] == "color"
             varbuf := Hwg_ChooseColor( Val( varbuf ), .F. )
             IF varbuf != NIL
                varbuf := LTrim(Str(varbuf))
                lRes := .T.
             ENDIF
-         ELSEIF aDataDef[ j,5 ] == "font"
+         ELSEIF aDataDef[j, 5] == "font"
             varbuf := HFont():Select( varbuf )
             IF varbuf != NIL
                lRes := .T.
             ENDIF
-         ELSEIF aDataDef[ j,5 ] == "file"
+         ELSEIF aDataDef[j, 5] == "file"
             varbuf := hwg_Selectfile( "All files ( *.* )", "*.*" )
             IF varbuf != NIL
                lRes := .T.
             ENDIF
-         ELSEIF aDataDef[ j,5 ] == "anchor"
+         ELSEIF aDataDef[j, 5] == "anchor"
             varbuf := SelectAnchor( Val(varbuf) )
             IF varbuf != NIL
                varbuf := LTrim(Str(varbuf))
@@ -129,7 +129,7 @@ STATIC FUNCTION Edit1()
             IF varbuf != NIL
                lRes := .T.
             ENDIF
-         ELSEIF aDataDef[ j,5 ] == "styles"
+         ELSEIF aDataDef[j, 5] == "styles"
             varbuf := SeleStyles( varbuf )
             IF varbuf != NIL
                lRes := .T.
@@ -145,12 +145,12 @@ STATIC FUNCTION Edit1()
       IF lRes
          cName := Lower(aProp[oBrw1:cargo, 1])
          j := Ascan( aDataDef, { |a|a[1] == cName } )
-         value := aProp[ oBrw1:cargo,2 ] := varbuf
-         aCtrlProp[ oBrw1:cargo,2 ] := value
-         IF j != 0 .AND. aDataDef[ j,3 ] != NIL
-            EvalCode( aDataDef[ j,3 ] )
-            IF aDataDef[ j,4 ] != NIL
-               EvalCode( aDataDef[ j,4 ] )
+         value := aProp[oBrw1:cargo, 2] := varbuf
+         aCtrlProp[oBrw1:cargo, 2] := value
+         IF j != 0 .AND. aDataDef[j, 3] != NIL
+            EvalCode( aDataDef[j, 3] )
+            IF aDataDef[j, 4] != NIL
+               EvalCode( aDataDef[j, 4] )
             ENDIF
          ENDIF
          hwg_Redrawwindow( oCtrl:handle, 5 )
@@ -164,9 +164,9 @@ STATIC FUNCTION Edit1()
       nWidth := Min( oBrw1:aColumns[2]:width, oBrw1:x2 - x1 - 1 )
 
       ReadExit( .T. )
-      IF ( j != 0 .AND. aDataDef[ j,6 ] != NIL ) .OR. aCtrlProp[ oBrw1:cargo,3 ] == "L"
+      IF ( j != 0 .AND. aDataDef[j, 6] != NIL ) .OR. aCtrlProp[oBrw1:cargo, 3] == "L"
 
-         aItems := iif( j != 0 .AND. aDataDef[ j,6 ] != NIL, aDataDef[ j,6 ], { "True", "False" } )
+         aItems := iif( j != 0 .AND. aDataDef[j, 6] != NIL, aDataDef[j, 6], { "True", "False" } )
          varbuf := AllTrim(varbuf)
          nChoic := Ascan( aItems, varbuf )
 
@@ -229,24 +229,24 @@ STATIC FUNCTION VldBrwGet( oGet )
 
    IF oGet:Classname() == "HCOMBOBOX"
       vari := hwg_Sendmessage( oGet:handle, CB_GETCURSEL, 0, 0 ) + 1
-      value := aProp[ oBrw1:cargo,2 ] := oGet:aItems[ vari ]
+      value := aProp[oBrw1:cargo, 2] := oGet:aItems[vari]
    ELSE
       vari := oGet:GetText()
-      value := aProp[ oBrw1:cargo,2 ] := vari
+      value := aProp[oBrw1:cargo, 2] := vari
    ENDIF
    IF oCombo:value == 1
-      oCtrl:oParent:aProp[ oBrw1:cargo,2 ] := value
+      oCtrl:oParent:aProp[oBrw1:cargo, 2] := value
    ELSE
-      oCtrl:aProp[ oBrw1:cargo,2 ] := value
+      oCtrl:aProp[oBrw1:cargo, 2] := value
    ENDIF
 
    x1 := oCtrl:nLeft; y1 := oCtrl:nTop
    x2 := oCtrl:nLeft + oCtrl:nWidth; y2 := oCtrl:nTop + oCtrl:nHeight
 
-   IF j != 0 .AND. oDesigner:aDataDef[ j,3 ] != NIL
-      EvalCode( oDesigner:aDataDef[ j,3 ] )
-      IF oDesigner:aDataDef[ j,4 ] != NIL
-         EvalCode( oDesigner:aDataDef[ j,4 ] )
+   IF j != 0 .AND. oDesigner:aDataDef[j, 3] != NIL
+      EvalCode( oDesigner:aDataDef[j, 3] )
+      IF oDesigner:aDataDef[j, 4] != NIL
+         EvalCode( oDesigner:aDataDef[j, 4] )
       ENDIF
    ENDIF
 
@@ -395,10 +395,10 @@ FUNCTION InspUpdBrowse()
    oCtrl := iif( oCombo:value == 1, HFormGen():oDlgSelected, GetCtrlSelected( HFormGen():oDlgSelected ) )
    IF oDesigner:oDlgInsp != NIL
       FOR i := 1 TO Len( aProp )
-         value := iif( oCombo:value == 1, oCtrl:oParent:aProp[ i,2 ], oCtrl:aProp[ i,2 ] )
-         IF ValType( aProp[ i,2 ] ) != "O" .AND. ValType( aProp[ i,2 ] ) != "A" ;
-               .AND. ( aProp[ i,2 ] == NIL .OR. !( aProp[ i,2 ] == value ) )
-            aProp[ i,2 ] := value
+         value := iif( oCombo:value == 1, oCtrl:oParent:aProp[i, 2], oCtrl:aProp[i, 2] )
+         IF ValType( aProp[i, 2] ) != "O" .AND. ValType( aProp[i, 2] ) != "A" ;
+               .AND. ( aProp[i, 2] == NIL .OR. !( aProp[i, 2] == value ) )
+            aProp[i, 2] := value
             lChg := .T.
          ENDIF
       NEXT
@@ -414,7 +414,7 @@ FUNCTION InspUpdProp( cName, xValue )
 
    cName := Lower(cName)
    IF ( i := Ascan( aProp, { |a|Lower(a[1] ) == Lower(cName ) } ) ) > 0
-      aProp[ i,2 ] := xValue
+      aProp[i, 2] := xValue
       oBrw1:Refresh()
    ENDIF
 

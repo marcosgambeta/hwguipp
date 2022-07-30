@@ -91,7 +91,7 @@ Return NIL
 
 Static Function BrwKey( oBrw, key )
    IF key == 32
-      oBrw:aArray[ oBrw:nCurrent,1 ] := !oBrw:aArray[ oBrw:nCurrent,1 ]
+      oBrw:aArray[oBrw:nCurrent, 1] := !oBrw:aArray[oBrw:nCurrent, 1]
       oBrw:RefreshLine()
    ENDIF
 Return .T.

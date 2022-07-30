@@ -80,7 +80,7 @@ typedef struct
    int      fontWeight;     /* Bold level */
    int      fontQuality;    /* requested font quality */
    int      fontAttribute;  /* font attribute: HB_GTI_FONTA_* */
-   TCHAR    fontFace[ 48 ]; /* requested font face name LF_FACESIZE #defined in wingdi.h */
+   TCHAR    fontFace[48]; /* requested font face name LF_FACESIZE #defined in wingdi.h */
    HFONT    hFont;
 
    POINT    PTEXTSIZE;      /* size of the fixed width font */
@@ -88,7 +88,7 @@ typedef struct
    int      MarginTop;
    int      MarginLeft;
 
-   int      Keys[ 128 ];    /* Array to hold the characters & events */
+   int      Keys[128];    /* Array to hold the characters & events */
    int      keyPointerIn;   /* Offset into key array for character to be placed */
    int      keyPointerOut;  /* Offset into key array of next character to read */
    int      keyLastPos;     /* last inkey code position in buffer */
@@ -98,7 +98,7 @@ typedef struct
    int      COLS;           /* number of displayable columns in window */
    //char *   TextLine;
    HB_USHORT *   TextLine;
-   COLORREF COLORS[ 16 ];   /* colors */
+   COLORREF COLORS[16];   /* colors */
 
    HB_BOOL  CaretExist;     /* HB_TRUE if a caret has been created */
    HB_BOOL  CaretHidden;    /* HB_TRUE if a caret has been hiden */
@@ -161,10 +161,9 @@ static void gthwg_GetClientRect( GtkWidget* hWnd, LPRECT lpRect )
 
 static void gthwg_SetWindowPos( GtkWidget* hWnd, int left, int top, int width, int height, unsigned int uiFlags )
 {
-
-   HB_SYMBOL_UNUSED( hWnd );
-   HB_SYMBOL_UNUSED( left );
-   HB_SYMBOL_UNUSED( top );
+   HB_SYMBOL_UNUSED(hWnd);
+   HB_SYMBOL_UNUSED(left);
+   HB_SYMBOL_UNUSED(top);
    //gtk_window_move( GTK_WINDOW(hWnd), left, top );
    if( !(uiFlags & SWP_NOSIZE) )
    {
@@ -253,9 +252,9 @@ static HFONT gthwg_GetFont( char * lpFace, int iHeight, int iWidth, int iWeight,
    HWGUI_HDC hdc;
    int width, height, ih = iHeight;
 
-   HB_SYMBOL_UNUSED( iWeight );
-   HB_SYMBOL_UNUSED( iQuality );
-   HB_SYMBOL_UNUSED( iCodePage );
+   HB_SYMBOL_UNUSED(iWeight);
+   HB_SYMBOL_UNUSED(iQuality);
+   HB_SYMBOL_UNUSED(iCodePage);
 
    ih -= 2;
    hdc.window = gtk_widget_get_window( hPaneMain );
@@ -365,10 +364,10 @@ static void gthwg_AddCharToInputQueue( PHB_GTHWG pHWG, int iKey )
    if( pHWG->keyPointerIn != pHWG->keyPointerOut &&
        HB_INKEY_ISMOUSEPOS( iKey ) )
    {
-      int iLastKey = pHWG->Keys[ pHWG->keyLastPos ];
+      int iLastKey = pHWG->Keys[pHWG->keyLastPos];
       if( HB_INKEY_ISMOUSEPOS( iLastKey ) )
       {
-         pHWG->Keys[ pHWG->keyLastPos ] = iKey;
+         pHWG->Keys[pHWG->keyLastPos] = iKey;
          return;
       }
    }
@@ -377,7 +376,7 @@ static void gthwg_AddCharToInputQueue( PHB_GTHWG pHWG, int iKey )
     * When the buffer is full new event overwrite the last one
     * in the buffer - it's Clipper behavior, [druzus]
     */
-   pHWG->Keys[ pHWG->keyLastPos = iPos ] = iKey;
+   pHWG->Keys[pHWG->keyLastPos = iPos] = iKey;
    if( ++iPos >= AKEYS_LEN )
       iPos = 0;
    if( iPos != pHWG->keyPointerOut )
@@ -388,7 +387,7 @@ static HB_BOOL gthwg_GetCharFromInputQueue( PHB_GTHWG pHWG, int * iKey )
 {
    if( pHWG->keyPointerOut != pHWG->keyPointerIn )
    {
-      *iKey = pHWG->Keys[ pHWG->keyPointerOut ];
+      *iKey = pHWG->Keys[pHWG->keyPointerOut];
       if( ++pHWG->keyPointerOut >= AKEYS_LEN )
          pHWG->keyPointerOut = 0;
 
@@ -429,7 +428,7 @@ static void cb_signal( GtkWidget *widget, gchar* data )
 {
    HB_LONG p1, p2, p3;
 
-   HB_SYMBOL_UNUSED( widget );
+   HB_SYMBOL_UNUSED(widget);
 
    sscanf( (char*)data,"%ld %ld %ld",&p1,&p2,&p3 );
    if( !p1 )
@@ -525,12 +524,12 @@ static void gthwg_PaintText( PHB_GTHWG pHWG, GdkRectangle *pArea )
             x1 = startCol * pHWG->PTEXTSIZE.x + pHWG->MarginLeft;
             x2 = x1 + (iCol-startCol) * pHWG->PTEXTSIZE.x;
             // draw background
-            hwg_setcolor( cr, pHWG->COLORS[ ( iOldColor >> 4 ) & 0x0F ] );
+            hwg_setcolor( cr, pHWG->COLORS[(iOldColor >> 4) & 0x0F] );
             cairo_rectangle( cr, (gdouble)x1, (gdouble)y1, (gdouble)(x2-x1+1), (gdouble)(y2-y1) );
             cairo_fill( cr );
 
             // draw text
-            hwg_setcolor( cr, pHWG->COLORS[ iOldColor & 0x0F ] );
+            hwg_setcolor( cr, pHWG->COLORS[iOldColor & 0x0F] );
             pango_layout_set_width( layout, pHWG->PTEXTSIZE.x*PANGO_SCALE );
             pango_layout_set_justify( layout, 1 );
             for( i = 0; i < len; i++ )
@@ -557,8 +556,8 @@ static void gthwg_PaintText( PHB_GTHWG pHWG, GdkRectangle *pArea )
          }
          if( iCol == iLastCol )
             break;
-         //pHWG->TextLine[ len++ ] = ( char ) usChar;
-         pHWG->TextLine[ len++ ] = usChar;
+         //pHWG->TextLine[len++] = ( char ) usChar;
+         pHWG->TextLine[len++] = usChar;
          if( iCol == iColCurs && iRow == iRowCurs )
          {
             bCursor = iCol;
@@ -575,7 +574,7 @@ static void gthwg_PaintText( PHB_GTHWG pHWG, GdkRectangle *pArea )
             //hwg_writelog( NULL, "TextOut-draw cursor %lu\r\n", iCaretMs );
             if( HB_GTSELF_GETCURSORSTYLE( pHWG->pGT ) != SC_NONE )
             {
-               hwg_setcolor( cr, pHWG->COLORS[ iCursorColor & 0x0F ] );
+               hwg_setcolor( cr, pHWG->COLORS[iCursorColor & 0x0F] );
                cairo_rectangle( cr, (gdouble)x1+1, (gdouble)y2-2, (gdouble)(x2-x1-1), (gdouble)2 );
                cairo_stroke( cr );
             }
@@ -914,7 +913,7 @@ static GtkWidget * gthwg_CreatePane( int iLeft, int iTop, int iWidth, int iHeigh
 HB_FUNC( GTHWG_CREATEPANEL )
 {
 
-   hWndMain = hb_parptr( 1 );
+   hWndMain = hb_parptr(1);
    HB_RETHANDLE( gthwg_CreatePane( hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5) ) );
 }
 
@@ -922,7 +921,7 @@ HB_FUNC( GTHWG_SETWINDOW )
 {
    GtkAllocation alloc;
 
-   hWndMain = hb_parptr( 1 );
+   hWndMain = hb_parptr(1);
    gtk_widget_get_allocation( hWndMain, &alloc );
 
    //gthwg_CreatePane( pHWGMain, 0, 0, alloc.width, alloc.height );
@@ -933,13 +932,13 @@ HB_FUNC( GTHWG_SETWINDOW )
 
    hwg_doEvents();
 
-   if( HB_ISNIL( 2 ) )
+   if( HB_ISNIL(2) )
    {
       if( pHWGMain )
          hFontMain = gthwg_GetFont( pHWGMain->fontFace, pHWGMain->fontHeight, pHWGMain->fontWidth, pHWGMain->fontWeight, pHWGMain->fontQuality, pHWGMain->CodePage );
    }
    else
-      hFontMain = hb_parptr( 2 );
+      hFontMain = hb_parptr(2);
 
    if( iNewPosX != -1 )
    {
@@ -971,15 +970,13 @@ HB_FUNC( GTHWG_CLOSEWINDOW )
 
 static HB_BOOL hb_gt_hwg_mouse_IsPresent( PHB_GT pGT )
 {
-
-   HB_SYMBOL_UNUSED( pGT );
+   HB_SYMBOL_UNUSED(pGT);
 
    return HB_TRUE;
 }
 
 static void hb_gt_hwg_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) HB_GTLOCAL( pGT );
 
    *piRow = pHWG->MousePos.y;
@@ -988,20 +985,18 @@ static void hb_gt_hwg_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 
 static void hb_gt_hwg_mouse_SetPos( PHB_GT pGT, int iRow, int iCol )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) HB_GTLOCAL( pGT );
 
-   HB_SYMBOL_UNUSED( pGT );
-   gthwg_SetMousePos( pHWG, iRow, iCol );
+   HB_SYMBOL_UNUSED(pGT);
+   gthwg_SetMousePos(pHWG, iRow, iCol);
 }
 
 static HB_BOOL hb_gt_hwg_mouse_ButtonState( PHB_GT pGT, int iButton )
 {
+   HB_SYMBOL_UNUSED(pGT);
 
-   HB_SYMBOL_UNUSED( pGT );
-
-   HB_SYMBOL_UNUSED( pGT );
-   HB_SYMBOL_UNUSED( iButton );
+   HB_SYMBOL_UNUSED(pGT);
+   HB_SYMBOL_UNUSED(iButton);
 #if !defined( HB_OS_UNIX )
    switch( iButton )
    {
@@ -1018,7 +1013,6 @@ static HB_BOOL hb_gt_hwg_mouse_ButtonState( PHB_GT pGT, int iButton )
 
 static void hb_gt_hwg_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFilenoStdout, HB_FHANDLE hFilenoStderr )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) hb_xgrab( sizeof( HB_GTHWG ) );
    memset( pHWG, 0, sizeof(HB_GTHWG) );
 
@@ -1044,22 +1038,22 @@ static void hb_gt_hwg_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
    //pHWG->TextLine = ( char * ) hb_xgrab( pHWG->COLS * sizeof( char ) );
    pHWG->TextLine = ( HB_USHORT * ) hb_xgrab( pHWG->COLS * sizeof( HB_USHORT ) );
 
-   pHWG->COLORS[ 0 ]       = 0x000000;   //BLACK
-   pHWG->COLORS[ 1 ]       = 0xAA0000;   //BLUE
-   pHWG->COLORS[ 2 ]       = 0x00AA00;   //GREEN
-   pHWG->COLORS[ 3 ]       = 0xAAAA00;   //CYAN
-   pHWG->COLORS[ 4 ]       = 0x0000AA;   //RED
-   pHWG->COLORS[ 5 ]       = 0xAA00AA;   //MAGENTA
-   pHWG->COLORS[ 6 ]       = 0x0055AA;   //BROWN
-   pHWG->COLORS[ 7 ]       = 0xAAAAAA;   //LIGHT_GRAY
-   pHWG->COLORS[ 8 ]       = 0x555555;   //GRAY
-   pHWG->COLORS[ 9 ]       = 0xFF5555;   //BRIGHT_BLUE
-   pHWG->COLORS[ 10 ]      = 0x55FF55;   //BRIGHT_GREEN
-   pHWG->COLORS[ 11 ]      = 0xFFFF55;   //BRIGHT_CYAN
-   pHWG->COLORS[ 12 ]      = 0x5555FF;   //BRIGHT_RED
-   pHWG->COLORS[ 13 ]      = 0xFF55FF;   //BRIGHT_MAGENTA
-   pHWG->COLORS[ 14 ]      = 0x55FFFF;   //YELLOW
-   pHWG->COLORS[ 15 ]      = 0xFFFFFF;   //WHITE
+   pHWG->COLORS[0]       = 0x000000;   //BLACK
+   pHWG->COLORS[1]       = 0xAA0000;   //BLUE
+   pHWG->COLORS[2]       = 0x00AA00;   //GREEN
+   pHWG->COLORS[3]       = 0xAAAA00;   //CYAN
+   pHWG->COLORS[4]       = 0x0000AA;   //RED
+   pHWG->COLORS[5]       = 0xAA00AA;   //MAGENTA
+   pHWG->COLORS[6]       = 0x0055AA;   //BROWN
+   pHWG->COLORS[7]       = 0xAAAAAA;   //LIGHT_GRAY
+   pHWG->COLORS[8]       = 0x555555;   //GRAY
+   pHWG->COLORS[9]       = 0xFF5555;   //BRIGHT_BLUE
+   pHWG->COLORS[10]      = 0x55FF55;   //BRIGHT_GREEN
+   pHWG->COLORS[11]      = 0xFFFF55;   //BRIGHT_CYAN
+   pHWG->COLORS[12]      = 0x5555FF;   //BRIGHT_RED
+   pHWG->COLORS[13]      = 0xFF55FF;   //BRIGHT_MAGENTA
+   pHWG->COLORS[14]      = 0x55FFFF;   //YELLOW
+   pHWG->COLORS[15]      = 0xFFFFFF;   //WHITE
 
    pHWG->keyPointerIn      = 0;
    pHWG->keyPointerOut     = 0;
@@ -1083,7 +1077,6 @@ static void hb_gt_hwg_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
 
 static void hb_gt_hwg_Exit( PHB_GT pGT )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) HB_GTLOCAL( pGT );
 
    //hwg_writelog( NULL, "_exit\r\n" );
@@ -1102,7 +1095,6 @@ static void hb_gt_hwg_Exit( PHB_GT pGT )
 
 static int hb_gt_hwg_ReadKey( PHB_GT pGT, int iEventMask )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) HB_GTLOCAL( pGT );
    int c = 0;
    HB_BOOL fKey;
@@ -1110,7 +1102,7 @@ static int hb_gt_hwg_ReadKey( PHB_GT pGT, int iEventMask )
    int iRow, iCol, iStyle;
    RECT rect;
 
-   HB_SYMBOL_UNUSED( iEventMask );
+   HB_SYMBOL_UNUSED(iEventMask);
 
    //hwg_writelog( NULL, "ReadKey-1\r\n" );
    if( pHWG->hWnd )
@@ -1209,8 +1201,7 @@ static void hb_gt_hwg_Refresh( PHB_GT pGT )
 
 static const char * hb_gt_hwg_Version( PHB_GT pGT, int iType )
 {
-
-   HB_SYMBOL_UNUSED( pGT );
+   HB_SYMBOL_UNUSED(pGT);
 
    if( iType == 0 )
       return HB_GT_DRVNAME( HB_GT_NAME );
@@ -1220,7 +1211,6 @@ static const char * hb_gt_hwg_Version( PHB_GT pGT, int iType )
 
 static HB_BOOL hb_gt_hwg_SetMode( PHB_GT pGT, int iRows, int iCols )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) HB_GTLOCAL( pGT );
    HB_BOOL fResult;
 
@@ -1410,11 +1400,11 @@ static HB_BOOL hb_gt_hwg_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 
             if( iIndex >= 0 && iIndex < 16 )
             {
-               pInfo->pResult = hb_itemPutNL( pInfo->pResult, pHWG->COLORS[ iIndex ] );
+               pInfo->pResult = hb_itemPutNL( pInfo->pResult, pHWG->COLORS[iIndex] );
 
                if( hb_itemType( pInfo->pNewVal2 ) & HB_IT_NUMERIC )
                {
-                  pHWG->COLORS[ iIndex ] = hb_itemGetNL( pInfo->pNewVal2 );
+                  pHWG->COLORS[iIndex] = hb_itemGetNL( pInfo->pNewVal2 );
 
                   if( pHWG->hWnd )
                      HB_GTSELF_EXPOSEAREA( pHWG->pGT, 0, 0, pHWG->ROWS, pHWG->COLS );
@@ -1428,14 +1418,14 @@ static HB_BOOL hb_gt_hwg_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
                pInfo->pResult = hb_itemNew( NULL );
             hb_arrayNew( pInfo->pResult, 16 );
             for( i = 0; i < 16; i++ )
-               hb_arraySetNL( pInfo->pResult, i + 1, pHWG->COLORS[ i ] );
+               hb_arraySetNL( pInfo->pResult, i + 1, pHWG->COLORS[i] );
 
             if( hb_itemType( pInfo->pNewVal ) & HB_IT_ARRAY )
             {
                if( hb_arrayLen( pInfo->pNewVal ) == 16 )
                {
                   for( i = 0; i < 16; i++ )
-                     pHWG->COLORS[ i ] = hb_arrayGetNL( pInfo->pNewVal, i + 1 );
+                     pHWG->COLORS[i] = hb_arrayGetNL( pInfo->pNewVal, i + 1 );
 
                   if( pHWG->hWnd )
                      HB_GTSELF_EXPOSEAREA( pHWG->pGT, 0, 0, pHWG->ROWS, pHWG->COLS );

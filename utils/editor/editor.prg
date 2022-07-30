@@ -150,7 +150,7 @@ FUNCTION Main ( fName )
    LOCAL result, csel , nchrs
    LOCAL aCharset := { "ISO8859@Euro (0)" , "Russian (204)" }
 
-   PRIVATE handcursor, cIniPath := FilePath( hb_ArgV( 0 ) )
+   PRIVATE handcursor, cIniPath := FilePath( hb_ArgV(0) )
 
    csel := ""
    nchrs := 0
@@ -297,9 +297,9 @@ FUNCTION Main ( fName )
          MENUITEM "Find &Next"+Chr(9)+"F3" ID MENU_FINDNEXT ACTION FindNext() ACCELERATOR 0,VK_F3
          SEPARATOR
          MENU TITLE "&Access to paragraph"
-            MENUITEMCHECK "&Read only" ID MENU_PNOWR ACTION setAccess( 1 )
-            MENUITEMCHECK "&OverWrite only" ID MENU_PNOINS ACTION setAccess( 2 )
-            MENUITEMCHECK "&No line break" ID MENU_PNOCR ACTION setAccess( 3 )
+            MENUITEMCHECK "&Read only" ID MENU_PNOWR ACTION setAccess(1)
+            MENUITEMCHECK "&OverWrite only" ID MENU_PNOINS ACTION setAccess(2)
+            MENUITEMCHECK "&No line break" ID MENU_PNOCR ACTION setAccess(3)
          ENDMENU
          MENU TITLE "&Access to span"
             MENUITEMCHECK "&Read only" ID MENU_SNOWR ACTION setAccess( 1,.T. )
@@ -314,13 +314,13 @@ FUNCTION Main ( fName )
          MENUITEMCHECK "&Scroll bar" ID MENU_VSCROLL ACTION (lScrollBar:=!lScrollBar,oEdit:ShowTrackBar(lScrollBar))
 #endif
          SEPARATOR
-         MENUITEMCHECK "Zoom &In"+Chr(9)+"Ctrl+ +" ACTION Zoom( 2 ) ACCELERATOR FCONTROL,VK_ADD
+         MENUITEMCHECK "Zoom &In"+Chr(9)+"Ctrl+ +" ACTION Zoom(2) ACCELERATOR FCONTROL,VK_ADD
          MENUITEMCHECK "&Zoom &Out"+Chr(9)+"Ctrl+ -" ACTION Zoom( -2 ) ACCELERATOR FCONTROL,VK_SUBTRACT
       ENDMENU
       MENU TITLE "&Insert"
          MENU TITLE "&Url"
-            MENUITEM "&External"+Chr(9)+"Ctrl+I" ACTION (InsUrl( 1 ),hced_Setfocus(oEdit:hEdit)) ACCELERATOR FCONTROL,Asc("I")
-            MENUITEM "&Internal" ACTION (InsUrl( 2 ),hced_Setfocus(oEdit:hEdit))
+            MENUITEM "&External"+Chr(9)+"Ctrl+I" ACTION (InsUrl(1),hced_Setfocus(oEdit:hEdit)) ACCELERATOR FCONTROL,Asc("I")
+            MENUITEM "&Internal" ACTION (InsUrl(2),hced_Setfocus(oEdit:hEdit))
          ENDMENU
          MENUITEM "&Image" ACTION (setImage( .T. ),hced_Setfocus(oEdit:hEdit))
          MENUITEM "&Table" ID MENU_INS_TABLE ACTION (setTable( .T. ),hced_Setfocus(oEdit:hEdit))
@@ -362,9 +362,9 @@ FUNCTION Main ( fName )
          MENUITEM "Calculate all"+Chr(9)+"Ctrl+F9" ACTION CalcAll( oEdit ) ACCELERATOR FCONTROL,VK_F9
          SEPARATOR
          MENU TITLE "&Convert case"
-            MENUITEM "to &UPPER" ACTION CnvCase( 1 )
-            MENUITEM "to &lower" ACTION CnvCase( 2 )
-            MENUITEM "to &Title" ACTION CnvCase( 3 )
+            MENUITEM "to &UPPER" ACTION CnvCase(1)
+            MENUITEM "to &lower" ACTION CnvCase(2)
+            MENUITEM "to &Title" ACTION CnvCase(3)
          ENDMENU
       ENDMENU
       MENU TITLE "&Help"
@@ -557,7 +557,7 @@ STATIC FUNCTION onBtnColor()
 
    IF !Empty(oEdit:aPointM2[P_Y]) .OR. !Empty(oEdit:aTdSel[2])
 
-      IF ( nColor := Hwg_ChooseColor( 0 ) ) != NIL
+      IF ( nColor := Hwg_ChooseColor(0) ) != NIL
          cAttr := "ct" + Ltrim(Str(nColor))
          oEdit:ChgStyle( ,, cAttr )
       ENDIF
@@ -2085,12 +2085,12 @@ STATIC FUNCTION EdMsgAfter( o, msg, wParam, lParam )
 
       nKey := hwg_PtrToUlong( wParam )
       IF nKey == VK_UP .OR. nKey == VK_DOWN .OR. nKey == VK_NEXT .OR. nKey == VK_PRIOR
-         MarkRow( 1 )
+         MarkRow(1)
       ENDIF
 
    ELSEIF msg == WM_RBUTTONDOWN .OR. msg == WM_LBUTTONDOWN
 
-      MarkRow( 0 )
+      MarkRow(0)
 
    ENDIF
 

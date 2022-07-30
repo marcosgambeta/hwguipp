@@ -494,7 +494,7 @@ Return
 #ifdef __XHARBOUR__
 #ifndef __PLATFORM__WINDOWS
 FUNCTION EXENAMEX()
-   RETURN HB_ARGV( 0 )
+   RETURN HB_ARGV(0)
 #endif
 #ifdef __PLATFORM__WINDOWS
 #pragma BEGINDUMP
@@ -503,9 +503,9 @@ FUNCTION EXENAMEX()
 #include "windows.h"
 HB_FUNC(EXENAMEX)
 {
-   char szBuffer[ MAX_PATH + 1 ] = {0} ;
+   char szBuffer[MAX_PATH + 1] = {0};
 
-   GetModuleFileName( ISNIL(1) ? GetModuleHandle( NULL ) : (HMODULE) hb_parnl( 1 ), szBuffer ,MAX_PATH );
+   GetModuleFileName( ISNIL(1) ? GetModuleHandle( NULL ) : (HMODULE) hb_parnl(1), szBuffer ,MAX_PATH );
 
    hb_retc( szBuffer );
 }

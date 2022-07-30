@@ -24,7 +24,7 @@ FUNCTION C_REPL
    AFields( af )
    improc := oBrw:cargo[1]
 
-   IF aFiles[ improc, AF_RDONLY ]
+   IF aFiles[improc, AF_RDONLY]
       hwg_Msgstop( "File is opened in readonly mode" )
       RETURN NIL
    ENDIF
@@ -105,7 +105,7 @@ FUNCTION C_4( nAct )
       SIZE 320, 250   ;
       FONT oMainFont
 
-   IF nAct <= 2 .AND. aFiles[ improc, AF_RDONLY ]
+   IF nAct <= 2 .AND. aFiles[improc, AF_RDONLY]
       hwg_Msgstop( "File is opened in readonly mode" )
       RETURN NIL
    ENDIF
@@ -230,7 +230,7 @@ FUNCTION C_APPEND()
    Return .T.
    }
 
-   IF aFiles[ improc, AF_RDONLY ]
+   IF aFiles[improc, AF_RDONLY]
       hwg_Msgstop( "File is opened in readonly mode" )
       RETURN NIL
    ENDIF
@@ -582,11 +582,11 @@ FUNCTION C_RPZ( nAct )
 
    improc := oBrw:cargo[1]
 
-   IF !aFiles[ improc, AF_EXCLU ]
+   IF !aFiles[improc, AF_EXCLU]
       hwg_Msgstop( "File must be opened in exclusive mode" )
       RETURN NIL
    ENDIF
-   IF aFiles[ improc, AF_RDONLY ]
+   IF aFiles[improc, AF_RDONLY]
       hwg_Msgstop( "File is opened in readonly mode" )
       RETURN NIL
    ENDIF
@@ -633,7 +633,7 @@ FUNCTION C_REL
       Aadd(arel, {cExpr, Alias(dbRselect(i))})
    ENDDO
    FOR i := 1 TO Len( aFiles )
-      IF aFiles[ i,AF_NAME ] != NIL .AND. i != improc
+      IF aFiles[i, AF_NAME] != NIL .AND. i != improc
          Aadd(aals, aFiles[i, AF_ALIAS])
       ENDIF
    NEXT

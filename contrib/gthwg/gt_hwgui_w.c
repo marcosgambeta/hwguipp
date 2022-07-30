@@ -128,7 +128,7 @@ typedef struct
    int      fontWeight;     /* Bold level */
    int      fontQuality;    /* requested font quality */
    int      fontAttribute;  /* font attribute: HB_GTI_FONTA_* */
-   TCHAR    fontFace[ 48 ]; /* requested font face name LF_FACESIZE #defined in wingdi.h */
+   TCHAR    fontFace[48];   /* requested font face name LF_FACESIZE #defined in wingdi.h */
    HFONT    hFont;
 
    POINT    PTEXTSIZE;      /* size of the fixed width font */
@@ -137,7 +137,7 @@ typedef struct
    int      MarginTop;
    int      MarginLeft;
 
-   int      Keys[ 128 ];    /* Array to hold the characters & events */
+   int      Keys[128];      /* Array to hold the characters & events */
    int      keyPointerIn;   /* Offset into key array for character to be placed */
    int      keyPointerOut;  /* Offset into key array of next character to read */
    int      keyLastPos;     /* last inkey code position in buffer */
@@ -146,7 +146,7 @@ typedef struct
    int      ROWS;           /* number of displayable rows in window */
    int      COLS;           /* number of displayable columns in window */
    TCHAR *  TextLine;
-   COLORREF COLORS[ 16 ];   /* colors */
+   COLORREF COLORS[16];     /* colors */
 
    HB_BOOL  CaretExist;     /* HB_TRUE if a caret has been created */
    HB_BOOL  CaretHidden;    /* HB_TRUE if a caret has been hiden */
@@ -240,7 +240,7 @@ static HFONT gthwg_GetFont( LPCTSTR lpFace, int iHeight, int iWidth, int iWeight
       hb_vmPushLong( ( LONG ) iWeight );
       hb_vmPushLong( ( LONG ) iQuality );
       hb_vmPushLong( ( LONG ) iCodePage );
-      hb_vmDo( 6 );     /* the number of pushed parameters */
+      hb_vmDo(6);     /* the number of pushed parameters */
       //hwg_writelog( NULL, "_getfont-10 \r\n" );
       return (HFONT) hb_parptr( -1 );
    }
@@ -251,18 +251,18 @@ static HFONT gthwg_GetFont( LPCTSTR lpFace, int iHeight, int iWidth, int iWeight
 #if ! defined( UNICODE )
 static int gthwg_key_ansi_to_oem( int c )
 {
-   BYTE pszSrc[ 2 ];
-   wchar_t pszWide[ 1 ];
-   BYTE pszDst[ 2 ];
+   BYTE pszSrc[2];
+   wchar_t pszWide[1];
+   BYTE pszDst[2];
 
-   pszSrc[ 0 ] = ( CHAR ) c;
-   pszSrc[ 1 ] =
-   pszDst[ 0 ] =
-   pszDst[ 1 ] = 0;
+   pszSrc[0] = ( CHAR ) c;
+   pszSrc[1] =
+   pszDst[0] =
+   pszDst[1] = 0;
 
    if( MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, ( LPCSTR ) pszSrc, 1, ( LPWSTR ) pszWide, 1 ) &&
        WideCharToMultiByte( CP_OEMCP, 0, ( LPCWSTR ) pszWide, 1, ( LPSTR ) pszDst, 1, NULL, NULL ) )
-      return pszDst[ 0 ];
+      return pszDst[0];
    else
       return c;
 }
@@ -363,10 +363,10 @@ static void gthwg_AddCharToInputQueue( PHB_GTHWG pHWG, int iKey )
    if( pHWG->keyPointerIn != pHWG->keyPointerOut &&
        HB_INKEY_ISMOUSEPOS( iKey ) )
    {
-      int iLastKey = pHWG->Keys[ pHWG->keyLastPos ];
+      int iLastKey = pHWG->Keys[pHWG->keyLastPos];
       if( HB_INKEY_ISMOUSEPOS( iLastKey ) )
       {
-         pHWG->Keys[ pHWG->keyLastPos ] = iKey;
+         pHWG->Keys[pHWG->keyLastPos] = iKey;
          return;
       }
    }
@@ -375,7 +375,7 @@ static void gthwg_AddCharToInputQueue( PHB_GTHWG pHWG, int iKey )
     * When the buffer is full new event overwrite the last one
     * in the buffer - it's Clipper behavior, [druzus]
     */
-   pHWG->Keys[ pHWG->keyLastPos = iPos ] = iKey;
+   pHWG->Keys[pHWG->keyLastPos = iPos] = iKey;
    if( ++iPos >= AKEYS_LEN )
       iPos = 0;
    if( iPos != pHWG->keyPointerOut )
@@ -386,7 +386,7 @@ static HB_BOOL gthwg_GetCharFromInputQueue( PHB_GTHWG pHWG, int * iKey )
 {
    if( pHWG->keyPointerOut != pHWG->keyPointerIn )
    {
-      *iKey = pHWG->Keys[ pHWG->keyPointerOut ];
+      *iKey = pHWG->Keys[pHWG->keyPointerOut];
       if( ++pHWG->keyPointerOut >= AKEYS_LEN )
          pHWG->keyPointerOut = 0;
 
@@ -992,7 +992,7 @@ static void gthwg_ResetWindowSize( PHB_GTHWG pHWG )
    /* pHWG->FixedSize[] is used by ExtTextOut() to emulate
       fixed font when a proportional font is used */
    for( n = 0; n < pHWG->COLS; n++ )
-      pHWG->FixedSize[ n ] = pHWG->PTEXTSIZE.x;
+      pHWG->FixedSize[n] = pHWG->PTEXTSIZE.x;
 
    gthwg_GetWindowRect( pHWG->hWnd, &wi );
    gthwg_GetClientRect( pHWG->hWnd, &ci );
@@ -1045,9 +1045,9 @@ static void gthwg_TextOut( PHB_GTHWG pHWG, HDC hdc, int col, int row, int iColor
    fuOptions |= ETO_OPAQUE;
 
    /* set background color */
-   SetBkColor( hdc, pHWG->COLORS[ ( iColor >> 4 ) & 0x0F ] );
+   SetBkColor( hdc, pHWG->COLORS[(iColor >> 4) & 0x0F] );
    /* set foreground color */
-   SetTextColor( hdc, pHWG->COLORS[ iColor & 0x0F ] );
+   SetTextColor( hdc, pHWG->COLORS[iColor & 0x0F] );
 
    SetTextAlign( hdc, TA_LEFT );
 
@@ -1100,7 +1100,7 @@ static void gthwg_PaintText( PHB_GTHWG pHWG )
             startCol = iCol;
             len = 0;
          }
-         pHWG->TextLine[ len++ ] = ( TCHAR ) usChar;
+         pHWG->TextLine[len++] = ( TCHAR ) usChar;
 #else
          HB_UCHAR uc;
          if( ! HB_GTSELF_GETSCRUC( pHWG->pGT, iRow, iCol, &iColor, &bAttr, &uc, HB_TRUE ) )
@@ -1116,7 +1116,7 @@ static void gthwg_PaintText( PHB_GTHWG pHWG )
             startCol = iCol;
             len = 0;
          }
-         pHWG->TextLine[ len++ ] = ( TCHAR ) uc;
+         pHWG->TextLine[len++] = ( TCHAR ) uc;
 #endif
          iCol++;
       }
@@ -1228,14 +1228,14 @@ HB_FUNC( GTHWG_SETWINDOW )
 {
    HMENU hSysMenu;
 
-   hWndMain = hb_parptr( 1 );
-   if( HB_ISNIL( 2 ) )
+   hWndMain = hb_parptr(1);
+   if( HB_ISNIL(2) )
    {
       if( pHWGMain )
          hFontMain = gthwg_GetFont( pHWGMain->fontFace, pHWGMain->fontHeight, pHWGMain->fontWidth, pHWGMain->fontWeight, pHWGMain->fontQuality, pHWGMain->CodePage );
    }
    else
-      hFontMain = hb_parptr( 2 );
+      hFontMain = hb_parptr(2);
 
    //hwg_writelog( NULL, "_setwindow-1 %d\r\n", ((hWndMain)? 1:0) );
    if( pHWGMain )
@@ -1274,10 +1274,10 @@ HB_FUNC( GTHWG_SETPANEL )
 
    HMENU hSysMenu;
 
-   hPaneMain = (HWND) hb_parptr( 1 );
-   hWndMain = (HWND) hb_parptr( 2 );
+   hPaneMain = (HWND) hb_parptr(1);
+   hWndMain = (HWND) hb_parptr(2);
 
-   if( HB_ISNIL( 3 ) )
+   if( HB_ISNIL(3) )
    {
       if( pHWGMain )
          hFontMain = gthwg_GetFont( pHWGMain->fontFace, pHWGMain->fontHeight, pHWGMain->fontWidth, pHWGMain->fontWeight, pHWGMain->fontQuality, pHWGMain->CodePage );
@@ -1287,7 +1287,7 @@ HB_FUNC( GTHWG_SETPANEL )
       }
    }
    else
-      hFontMain = hb_parptr( 3 );
+      hFontMain = hb_parptr(3);
 
    //hwg_writelog( NULL, "_setpanel-1\r\n" );
    wpOrigWndProc = ( WNDPROC ) SetWindowLongPtr( hPaneMain, GWLP_WNDPROC, ( LONG_PTR ) gthwg_WinProc );
@@ -1326,7 +1326,7 @@ HB_FUNC( GTHWG_CLOSEWINDOW )
 
 HB_FUNC( GTHWG_GETSIZE )
 {
-   PHB_ITEM aSize = hb_itemArrayNew( 2 );
+   PHB_ITEM aSize = hb_itemArrayNew(2);
 
    hb_itemPutNL( hb_arrayGetItemPtr( aSize, 1 ), iNewWidth );
    hb_itemPutNL( hb_arrayGetItemPtr( aSize, 2 ), iNewHeight );
@@ -1363,22 +1363,22 @@ static void hb_gt_hwg_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
    pHWG->TextLine = ( TCHAR * ) hb_xgrab( pHWG->COLS * sizeof( TCHAR ) );
    pHWG->FixedSize = ( int * ) hb_xgrab( pHWG->COLS * sizeof( int ) );
 
-   pHWG->COLORS[ 0 ]       = BLACK;
-   pHWG->COLORS[ 1 ]       = BLUE;
-   pHWG->COLORS[ 2 ]       = GREEN;
-   pHWG->COLORS[ 3 ]       = CYAN;
-   pHWG->COLORS[ 4 ]       = RED;
-   pHWG->COLORS[ 5 ]       = MAGENTA;
-   pHWG->COLORS[ 6 ]       = BROWN;
-   pHWG->COLORS[ 7 ]       = LIGHT_GRAY;
-   pHWG->COLORS[ 8 ]       = GRAY;
-   pHWG->COLORS[ 9 ]       = BRIGHT_BLUE;
-   pHWG->COLORS[ 10 ]      = BRIGHT_GREEN;
-   pHWG->COLORS[ 11 ]      = BRIGHT_CYAN;
-   pHWG->COLORS[ 12 ]      = BRIGHT_RED;
-   pHWG->COLORS[ 13 ]      = BRIGHT_MAGENTA;
-   pHWG->COLORS[ 14 ]      = YELLOW;
-   pHWG->COLORS[ 15 ]      = WHITE;
+   pHWG->COLORS[0]       = BLACK;
+   pHWG->COLORS[1]       = BLUE;
+   pHWG->COLORS[2]       = GREEN;
+   pHWG->COLORS[3]       = CYAN;
+   pHWG->COLORS[4]       = RED;
+   pHWG->COLORS[5]       = MAGENTA;
+   pHWG->COLORS[6]       = BROWN;
+   pHWG->COLORS[7]       = LIGHT_GRAY;
+   pHWG->COLORS[8]       = GRAY;
+   pHWG->COLORS[9]       = BRIGHT_BLUE;
+   pHWG->COLORS[10]      = BRIGHT_GREEN;
+   pHWG->COLORS[11]      = BRIGHT_CYAN;
+   pHWG->COLORS[12]      = BRIGHT_RED;
+   pHWG->COLORS[13]      = BRIGHT_MAGENTA;
+   pHWG->COLORS[14]      = YELLOW;
+   pHWG->COLORS[15]      = WHITE;
 
    pHWG->keyPointerIn      = 0;
    pHWG->keyPointerOut     = 0;
@@ -1424,12 +1424,11 @@ static void hb_gt_hwg_Exit( PHB_GT pGT )
 
 static int hb_gt_hwg_ReadKey( PHB_GT pGT, int iEventMask )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) HB_GTLOCAL( pGT );
    int c = 0;
    HB_BOOL fKey;
 
-   HB_SYMBOL_UNUSED( iEventMask );
+   HB_SYMBOL_UNUSED(iEventMask);
 
    //hwg_writelog( NULL, "ReadKey-1\r\n" );
    if( pHWG->hWnd )
@@ -1450,8 +1449,7 @@ static int hb_gt_hwg_ReadKey( PHB_GT pGT, int iEventMask )
 
 static const char * hb_gt_hwg_Version( PHB_GT pGT, int iType )
 {
-
-   HB_SYMBOL_UNUSED( pGT );
+   HB_SYMBOL_UNUSED(pGT);
 
    if( iType == 0 )
       return HB_GT_DRVNAME( HB_GT_NAME );
@@ -1461,7 +1459,6 @@ static const char * hb_gt_hwg_Version( PHB_GT pGT, int iType )
 
 static HB_BOOL hb_gt_hwg_SetMode( PHB_GT pGT, int iRows, int iCols )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) HB_GTLOCAL( pGT );
    HB_BOOL fResult;
 
@@ -1605,7 +1602,7 @@ static HB_BOOL hb_gt_hwg_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
             if( hb_itemType( pInfo->pNewVal ) & HB_IT_STRING )
             {
                HB_ITEMCOPYSTR(pInfo->pNewVal, pHWG->fontFace, HB_SIZEOFARRAY(pHWG->fontFace));
-               pHWG->fontFace[ HB_SIZEOFARRAY( pHWG->fontFace ) - 1 ] = TEXT( '\0' );
+               pHWG->fontFace[HB_SIZEOFARRAY(pHWG->fontFace) - 1] = TEXT( '\0' );
             }
             break;
 
@@ -1697,11 +1694,11 @@ static HB_BOOL hb_gt_hwg_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 
             if( iIndex >= 0 && iIndex < 16 )
             {
-               pInfo->pResult = hb_itemPutNL( pInfo->pResult, pHWG->COLORS[ iIndex ] );
+               pInfo->pResult = hb_itemPutNL( pInfo->pResult, pHWG->COLORS[iIndex] );
 
                if( hb_itemType( pInfo->pNewVal2 ) & HB_IT_NUMERIC )
                {
-                  pHWG->COLORS[ iIndex ] = hb_itemGetNL( pInfo->pNewVal2 );
+                  pHWG->COLORS[iIndex] = hb_itemGetNL( pInfo->pNewVal2 );
 
                   if( pHWG->hWnd )
                      HB_GTSELF_EXPOSEAREA( pHWG->pGT, 0, 0, pHWG->ROWS, pHWG->COLS );
@@ -1715,14 +1712,14 @@ static HB_BOOL hb_gt_hwg_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
                pInfo->pResult = hb_itemNew( NULL );
             hb_arrayNew( pInfo->pResult, 16 );
             for( i = 0; i < 16; i++ )
-               hb_arraySetNL( pInfo->pResult, i + 1, pHWG->COLORS[ i ] );
+               hb_arraySetNL( pInfo->pResult, i + 1, pHWG->COLORS[i] );
 
             if( hb_itemType( pInfo->pNewVal ) & HB_IT_ARRAY )
             {
                if( hb_arrayLen( pInfo->pNewVal ) == 16 )
                {
                   for( i = 0; i < 16; i++ )
-                     pHWG->COLORS[ i ] = hb_arrayGetNL( pInfo->pNewVal, i + 1 );
+                     pHWG->COLORS[i] = hb_arrayGetNL( pInfo->pNewVal, i + 1 );
 
                   if( pHWG->hWnd )
                      HB_GTSELF_EXPOSEAREA( pHWG->pGT, 0, 0, pHWG->ROWS, pHWG->COLS );
@@ -1833,15 +1830,13 @@ static HB_BOOL hb_gt_hwg_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 
 static HB_BOOL hb_gt_hwg_mouse_IsPresent( PHB_GT pGT )
 {
-
-   HB_SYMBOL_UNUSED( pGT );
+   HB_SYMBOL_UNUSED(pGT);
 
    return HB_TRUE;
 }
 
 static void hb_gt_hwg_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) HB_GTLOCAL( pGT );
 
    *piRow = pHWG->MousePos.y;
@@ -1850,7 +1845,6 @@ static void hb_gt_hwg_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 
 static void hb_gt_hwg_mouse_SetPos( PHB_GT pGT, int iRow, int iCol )
 {
-
    PHB_GTHWG pHWG = (PHB_GTHWG) HB_GTLOCAL( pGT );
 
    gthwg_SetMousePos( pHWG, iRow, iCol );
@@ -1858,8 +1852,7 @@ static void hb_gt_hwg_mouse_SetPos( PHB_GT pGT, int iRow, int iCol )
 
 static HB_BOOL hb_gt_hwg_mouse_ButtonState( PHB_GT pGT, int iButton )
 {
-
-   HB_SYMBOL_UNUSED( pGT );
+   HB_SYMBOL_UNUSED(pGT);
 #if !defined( HB_OS_UNIX )
    switch( iButton )
    {

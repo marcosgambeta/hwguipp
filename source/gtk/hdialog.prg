@@ -296,7 +296,7 @@ FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
 
    IF oDlg:aEvents != NIL .AND. ;
          ( i := Ascan( oDlg:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      Eval( oDlg:aEvents[ i,3 ], oDlg, iParLow )
+      Eval( oDlg:aEvents[i, 3], oDlg, iParLow )
    ELSEIF iParHigh == 0 .AND. ( ;
          ( iParLow == IDOK .AND. oDlg:FindControl( IDOK ) != NIL ) .OR. ;
          iParLow == IDCANCEL )
@@ -309,12 +309,12 @@ FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
       ENDIF
    ELSEIF __ObjHasMsg( oDlg, "MENU" ) .AND. ValType( oDlg:menu ) == "A" .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:menu,iParLow,@i ) ) != NIL ;
-         .AND. aMenu[ 1,i,1 ] != NIL
-      Eval( aMenu[ 1,i,1 ] )
+         .AND. aMenu[1, i, 1] != NIL
+      Eval( aMenu[1, i, 1] )
    ELSEIF __ObjHasMsg( oDlg, "OPOPUP" ) .AND. oDlg:oPopup != NIL .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:oPopup:aMenu,wParam,@i ) ) != NIL ;
-         .AND. aMenu[ 1,i,1 ] != NIL
-      Eval( aMenu[ 1,i,1 ] )
+         .AND. aMenu[1, i, 1] != NIL
+      Eval( aMenu[1, i, 1] )
    ENDIF
 
    RETURN 1

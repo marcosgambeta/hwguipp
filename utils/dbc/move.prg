@@ -87,7 +87,7 @@ FUNCTION F_Locate( oBrw, cExpres )
    IF ValType( &cLocate ) == "L"
       nrec := RecNo()
       block := &( "{||" + cLocate + "}" )
-      IF aFiles[ improc,AF_LFLT ]
+      IF aFiles[improc, AF_LFLT]
          Fgotop( oBrw )
          DO WHILE !Feof( oBrw )
             IF Eval( block )
@@ -99,12 +99,12 @@ FUNCTION F_Locate( oBrw, cExpres )
       ELSE
          __dbLocate( block, , , , .F. )
       ENDIF
-      IF ( aFiles[ improc,AF_LFLT ] .AND. !res ) .OR. ( !aFiles[ improc,AF_LFLT ] .AND. !Found() )
+      IF ( aFiles[improc, AF_LFLT] .AND. !res ) .OR. ( !aFiles[improc, AF_LFLT] .AND. !Found() )
          GO nrec
          hwg_Msgstop( "Record not found" )
       ELSE
          hwg_WriteStatus( HMainWindow():GetMdiActive(), 3, "Found" )
-         IF aFiles[ improc,AF_LFLT ]
+         IF aFiles[improc, AF_LFLT]
             oBrw:nCurrent := i
          ENDIF
       ENDIF
@@ -136,7 +136,7 @@ FUNCTION F_Filter( oBrw, cExpres )
          IF oBrw:nRecords > 0
             oBrw:aArray := cArr
             Fgotop( oBrw )
-            aFiles[ improc,AF_LFLT ] := .T.
+            aFiles[improc, AF_LFLT] := .T.
             oBrw:bSkip :=  {|o,x| (o:alias)->(fSkip(o,x))}
             oBrw:bGoTop := {|o|   (o:alias)->(fGotop(o))}
             oBrw:bGoBot := {|o|   (o:alias)->(fGobot(o))}
@@ -157,7 +157,7 @@ FUNCTION F_Filter( oBrw, cExpres )
    ENDIF
    IF !lRes
       oBrw:aArray := NIL
-      aFiles[ improc,AF_LFLT ] := .F.
+      aFiles[improc, AF_LFLT] := .F.
       SET FILTER TO
       oBrw:bSkip  := {|o,x|(o:alias)->(dbSkip(x))}
       oBrw:bGoTop := {|o|  (o:alias)->(dbGotop())}

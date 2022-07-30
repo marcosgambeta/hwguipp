@@ -112,15 +112,15 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
 HB_FUNC( HWG_GETKEYBOARDSTATE )
 {
    char lpbKeyState[256];
-   HB_ULONG ulState = hb_parnl( 1 );
+   HB_ULONG ulState = hb_parnl(1);
 
    memset( lpbKeyState, 0, 255 );
    if( ulState & 1 )
-      lpbKeyState[ 0x10 ] = 0x80;  // Shift
+      lpbKeyState[0x10] = 0x80;  // Shift
    if( ulState & 2 )
-      lpbKeyState[ 0x11 ] = 0x80;  // Ctrl
+      lpbKeyState[0x11] = 0x80;  // Ctrl
    if( ulState & 4 )
-      lpbKeyState[ 0x12 ] = 0x80;  // Alt
+      lpbKeyState[0x12] = 0x80;  // Alt
 
    hb_retclen( lpbKeyState, 255 );
 }
@@ -128,12 +128,12 @@ HB_FUNC( HWG_GETKEYBOARDSTATE )
 
 HB_FUNC( HWG_LOWORD )
 {
-   hb_retni( (int) ( hb_parnl( 1 ) & 0xFFFF ) );
+   hb_retni( (int) ( hb_parnl(1) & 0xFFFF ) );
 }
 
 HB_FUNC( HWG_HIWORD )
 {
-   hb_retni( (int) ( ( hb_parnl( 1 ) >> 16 ) & 0xFFFF ) );
+   hb_retni( (int) ( ( hb_parnl(1) >> 16 ) & 0xFFFF ) );
 }
 
 /*
@@ -159,7 +159,7 @@ HB_FUNC( HWG_BITANDINVERSE )
 
 HB_FUNC( HWG_SETBIT )
 {
-   if( hb_pcount() < 3 || hb_parni( 3 ) )
+   if( hb_pcount() < 3 || hb_parni(3) )
       hb_retnl( hb_parnl(1) | ( 1 << (hb_parni(2)-1) ) );
    else
       hb_retnl( hb_parnl(1) & ~( 1 << (hb_parni(2)-1) ) );
@@ -172,12 +172,12 @@ HB_FUNC( HWG_CHECKBIT )
 
 HB_FUNC( HWG_PTRTOULONG )
 {
-   hb_retnl( hb_parnl( 1 ) );
+   hb_retnl( hb_parnl(1) );
 }
 
 HB_FUNC( HWG_ISPTREQ )
 {
-   hb_retl( HB_PARHANDLE( 1 ) == HB_PARHANDLE( 2 ) );
+   hb_retl( HB_PARHANDLE(1) == HB_PARHANDLE(2) );
 }
 
 HB_FUNC( HWG_SIN )
@@ -236,7 +236,7 @@ HB_FUNC( HWG_GETDEVICEAREA )
 {
    GdkScreen* screen = gdk_screen_get_default();
 
-   PHB_ITEM aMetr = hb_itemArrayNew( 4 );
+   PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
    temp = hb_itemPutNL( NULL, (HB_LONG) gdk_screen_get_width( screen ) );
@@ -258,13 +258,13 @@ HB_FUNC( HWG_GETDEVICEAREA )
 
 HB_FUNC( HWG_COLORRGB2N )
 {
-   hb_retnl( hb_parni( 1 ) + hb_parni( 2 ) * 256 + hb_parni( 3 ) * 65536 );
+   hb_retnl( hb_parni(1) + hb_parni(2) * 256 + hb_parni(3) * 65536 );
 }
 
 HB_FUNC( HWG_SLEEP )
 {
-   if( hb_parinfo( 1 ) )
-      usleep( hb_parnl( 1 ) * 1000 );
+   if( hb_parinfo(1) )
+      usleep( hb_parnl(1) * 1000 );
 }
 
 #define CHUNK_LEN 1024
@@ -412,7 +412,7 @@ HB_FUNC( HWG_GETKEYSTATE )
   /* Attention ! gdk_window_get_pointer() is deprecated */
   GdkModifierType keyboard_state;
   gdk_window_get_pointer(NULL,NULL,NULL,&keyboard_state);
-   hb_retni( keyboard_state & hb_parni( 1 ) );
+   hb_retni( keyboard_state & hb_parni(1) );
 }
 
 HB_FUNC( HWG_SHOWSCROLLBAR )
@@ -554,14 +554,14 @@ HB_FUNC( HWG_BIN2DC )
 
     // Internal I2BIN for Len
 
-    HB_USHORT uiWidth = ( HB_USHORT ) hb_parni( 2 );
+    HB_USHORT uiWidth = ( HB_USHORT ) hb_parni(2);
 
     // Internal I2BIN for Dec
 
-    HB_USHORT uiDec = ( HB_USHORT ) hb_parni( 3 );
+    HB_USHORT uiDec = ( HB_USHORT ) hb_parni(3);
 
 
-    const char *name = hb_parc( 1 );
+    const char *name = hb_parc(1);
  
     memcpy(&szHex,name,16);
  
@@ -597,7 +597,7 @@ HB_FUNC( HWG_BIN2DC )
             {
               p = ( p * 16 ) + c;
               o = (unsigned char) p;
-              bu[ i / 2 ] = o;  
+              bu[i / 2] = o;
 
 /* Display some debug info */
 //             printf("i=%d ", i);

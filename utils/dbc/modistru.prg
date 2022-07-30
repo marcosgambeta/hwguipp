@@ -191,7 +191,7 @@ STATIC FUNCTION UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
       IF Empty(cName := oGet1:SetGet())
          RETURN NIL
       ENDIF
-      cType := aFieldTypes[ Eval(oGet2:bSetGet,,oGet2) ]
+      cType := aFieldTypes[Eval(oGet2:bSetGet, , oGet2)]
       nLen  := Val( oGet3:SetGet() )
       nDec  := Val( oGet4:SetGet() )
       IF oBrowse:nRecords == 1 .AND. Empty(oBrowse:aArray[oBrowse:nCurrent,1])

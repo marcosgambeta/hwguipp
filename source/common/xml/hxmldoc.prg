@@ -65,13 +65,13 @@ RETURN xItem
 
 METHOD GetAttribute( cName, cType, xDefault ) CLASS HXMLNode
 
-   LOCAL i := Ascan( ::aAttr, { | a | a[ 1 ] == cName } )
+   LOCAL i := Ascan( ::aAttr, { | a | a[1] == cName } )
 
    IF i != 0
       IF cType == NIL .OR. cType == "C"
-         RETURN ::aAttr[ i, 2 ]
+         RETURN ::aAttr[i, 2]
       ELSEIF cType == "N"
-         RETURN Val( ::aAttr[ i, 2 ] )
+         RETURN Val( ::aAttr[i, 2] )
       ELSEIF cType == "L"
          RETURN ( Lower(::aAttr[i, 2]) $ ".t.;on;yes;true" )
       ENDIF
@@ -81,19 +81,19 @@ RETURN xDefault
 
 METHOD SetAttribute( cName, cValue ) CLASS HXMLNode
 
-   LOCAL i := Ascan( ::aAttr, { | a | a[ 1 ] == cName } )
+   LOCAL i := Ascan( ::aAttr, { | a | a[1] == cName } )
 
    IF i == 0
       Aadd(::aAttr, {cName, cValue})
    ELSE
-      ::aAttr[ i, 2 ] := cValue
+      ::aAttr[i, 2] := cValue
    ENDIF
 
    RETURN .T.
 
 METHOD DelAttribute( cName ) CLASS HXMLNode
 
-   LOCAL i := Ascan( ::aAttr, { | a | a[ 1 ] == cName } )
+   LOCAL i := Ascan( ::aAttr, { | a | a[1] == cName } )
 
    IF i != 0
       Adel( ::aAttr, i )
@@ -123,7 +123,7 @@ METHOD Save( handle,level ) CLASS HXMLNode
    IF ::type == HBXML_TYPE_TAG .OR. ::type == HBXML_TYPE_SINGLE
       FOR i := 1 TO Len( ::aAttr )
          //s += ' ' + ::aAttr[i,1] + '="' + HBXML_PreSave(::aAttr[i,2]) + '"'
-         s += ' ' + ::aAttr[ i, 1 ] + '="' + ::aAttr[ i, 2 ] + '"'
+         s += ' ' + ::aAttr[i, 1] + '="' + ::aAttr[i, 2] + '"'
       NEXT
    ENDIF
    IF ::type == HBXML_TYPE_PI
@@ -135,7 +135,7 @@ METHOD Save( handle,level ) CLASS HXMLNode
    ELSEIF ::type == HBXML_TYPE_TAG
       s += '>'
       IF Empty(::aItems) .OR. ( Len( ::aItems ) == 1 .AND. ;
-            Valtype( ::aItems[ 1 ] ) == "C" .AND. Len( ::aItems[ 1 ] ) + Len( s ) < 80 )
+            Valtype( ::aItems[1] ) == "C" .AND. Len( ::aItems[1] ) + Len( s ) < 80 )
          lNewLine := m->hxml_newline := .F.
       ELSE
          s += cNewLine
@@ -147,21 +147,21 @@ METHOD Save( handle,level ) CLASS HXMLNode
    ENDIF
 
    FOR i := 1 TO Len( ::aItems )
-      IF Valtype( ::aItems[ i ] ) == "C"
+      IF Valtype( ::aItems[i] ) == "C"
         IF handle >= 0
            IF ::type == HBXML_TYPE_CDATA .OR. ::type == HBXML_TYPE_COMMENT
-              FWrite(handle, ::aItems[ i ])
+              FWrite(handle, ::aItems[i])
            ELSE
-              FWrite(handle, HBXML_PreSave( ::aItems[ i ] ))
+              FWrite(handle, HBXML_PreSave( ::aItems[i] ))
            ENDIF
-           IF lNewLine .AND. Right( ::aItems[ i ],1 ) != Chr(10)
+           IF lNewLine .AND. Right( ::aItems[i],1 ) != Chr(10)
               FWrite(handle, cNewLine)
            ENDIF
         ELSE
            IF ::type == HBXML_TYPE_CDATA .OR. ::type == HBXML_TYPE_COMMENT
-              s += ::aItems[ i ]
+              s += ::aItems[i]
            ELSE
-              s += HBXML_PreSave( ::aItems[ i ] )
+              s += HBXML_PreSave( ::aItems[i] )
            ENDIF
            IF lNewLine .AND. Right( s,1 ) != Chr(10)
               s += cNewLine
@@ -169,7 +169,7 @@ METHOD Save( handle,level ) CLASS HXMLNode
         ENDIF
         m->hxml_newline := .F.
       ELSE
-        s += ::aItems[ i ]:Save( handle, level + 1 )
+        s += ::aItems[i]:Save( handle, level + 1 )
       ENDIF
    NEXT
    m->hxml_newline := .T.
@@ -208,8 +208,8 @@ METHOD Find( cTitle,nStart,block ) CLASS HXMLNode
          EXIT
       ELSE
          nStart := i
-         IF block == NIL .OR. Eval( block,::aItems[ i ] )
-            Return ::aItems[ i ]
+         IF block == NIL .OR. Eval( block,::aItems[i] )
+            Return ::aItems[i]
          ELSE
             nStart ++
          ENDIF

@@ -62,7 +62,7 @@ Static Function SpeakIt( oEdit )
 
    IF SpeakLine()
       oReq := NIL
-      oChar:Hide( 1 )
+      oChar:Hide(1)
    ENDIF
 
 Return NIL
@@ -105,7 +105,7 @@ Local nReq
    IF !lPause .AND. !Empty(oReq) .AND. ( nReq := oReq:Status() ) != 2 .AND. nReq != 4
       oReq := NIL
       IF SpeakLine()
-         oChar:Hide( 1 )
+         oChar:Hide(1)
       ENDIF
    ENDIF
 

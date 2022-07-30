@@ -47,7 +47,7 @@ FUNCTION Main
 
    hwg_writelog( "Login: " + cLogin )
 
-   nKey := Inkey( 5 )
+   nKey := Inkey(5)
    hwg_writelog( "Key " + Str(nKey) )
    gthwg_CloseWindow()
 

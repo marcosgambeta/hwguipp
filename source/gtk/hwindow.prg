@@ -184,7 +184,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    IF nHelpId != NIL
       ::HelpId := nHelpId
    END
-   ::aOffset := Array( 4 )
+   ::aOffset := Array(4)
    AFill( ::aOffset, 0 )
    ::AddItem( Self )
 
@@ -230,12 +230,12 @@ METHOD EvalKeyList( nKey, nctrl ) CLASS HWindow
    //hwg_writelog( str(nKey)+"/"+str(nctrl) )
    IF !Empty(::KeyList)
       IF ( nPos := Ascan( ::KeyList,{ |a|a[1] == nctrl .AND. a[2] == nKey } ) ) > 0
-         Eval( ::KeyList[ nPos,3 ], ::FindControl( ,hwg_Getfocus() ) )
+         Eval( ::KeyList[nPos, 3], ::FindControl( ,hwg_Getfocus() ) )
       ENDIF
    ENDIF
    IF !Empty(::aKeysGlobal)
       IF ( nPos := Ascan( ::aKeysGlobal,{ |a|a[1] == nctrl .AND. a[2] == nKey } ) ) > 0
-         Eval( ::aKeysGlobal[ nPos,3 ], ::FindControl( ,hwg_Getfocus() ) )
+         Eval( ::aKeysGlobal[nPos, 3], ::FindControl( ,hwg_Getfocus() ) )
       ENDIF
    ENDIF
 
@@ -403,19 +403,19 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
    iParLow := hwg_Loword( wParam )
    IF oWnd:aEvents != NIL .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      Eval( oWnd:aEvents[ iItem,3 ], oWnd, iParLow )
+      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
    ELSEIF ValType( oWnd:menu ) == "A" .AND. ;
          ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != NIL ;
-         .AND. aMenu[ 1,iCont,1 ] != NIL
-      Eval( aMenu[ 1,iCont,1 ] )
+         .AND. aMenu[1, iCont, 1] != NIL
+      Eval( aMenu[1, iCont, 1] )
    ELSEIF oWnd:oPopup != NIL .AND. ;
          ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu,wParam,@iCont ) ) != NIL ;
-         .AND. aMenu[ 1,iCont,1 ] != NIL
-      Eval( aMenu[ 1,iCont,1 ] )
+         .AND. aMenu[1, iCont, 1] != NIL
+      Eval( aMenu[1, iCont, 1] )
    ELSEIF oWnd:oNotifyMenu != NIL .AND. ;
          ( aMenu := Hwg_FindMenuItem( oWnd:oNotifyMenu:aMenu,wParam,@iCont ) ) != NIL ;
-         .AND. aMenu[ 1,iCont,1 ] != NIL
-      Eval( aMenu[ 1,iCont,1 ] )
+         .AND. aMenu[1, iCont, 1] != NIL
+      Eval( aMenu[1, iCont, 1] )
    ENDIF
 
    RETURN 0

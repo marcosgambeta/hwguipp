@@ -38,8 +38,8 @@ FUNCTION _hwr_PrintRpt
 #else
    aPrnCoors := hwg_GetDeviceArea( hDC )
 #endif
-   prnXCoef := ( aPrnCoors[ 1 ] / aPaintRep[ FORM_WIDTH ] ) / aPaintRep[ FORM_XKOEF ]
-   prnYCoef := ( aPrnCoors[ 2 ] / aPaintRep[ FORM_HEIGHT ] ) / aPaintRep[ FORM_XKOEF ]
+   prnXCoef := ( aPrnCoors[1] / aPaintRep[FORM_WIDTH] ) / aPaintRep[FORM_XKOEF]
+   prnYCoef := ( aPrnCoors[2] / aPaintRep[FORM_HEIGHT] ) / aPaintRep[FORM_XKOEF]
    //hwg_writelog( str(aPrnCoors[2])+" / "+str(prnYCoef)+" / "+str(aPaintRep[FORM_XKOEF])+" // "+;
    //   str(aPaintRep[FORM_HEIGHT]) +" / "+str(oPrinter:nHeight)+" / "+str(oPrinter:nHeight/aPaintRep[FORM_HEIGHT]) )
 
@@ -64,7 +64,7 @@ FUNCTION _hwr_PrintRpt
       IF aPaintRep[FORM_ITEMS,i,ITEM_TYPE] == TYPE_TEXT
          oFont := aPaintRep[FORM_ITEMS,i,ITEM_FONT]
 #ifdef __GTK__
-         aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ] := oPrinter:AddFont( oFont:name, ;
+         aPaintRep[FORM_ITEMS, i, ITEM_GROUP] := oPrinter:AddFont( oFont:name, ;
             Round( oFont:height * prnYCoef, 0 ), (oFont:weight>400), ;
             (oFont:italic>0), .F., oFont:charset )
 #else
@@ -72,7 +72,7 @@ FUNCTION _hwr_PrintRpt
             oFont:width, Round( oFont:height * fontKoef, 0 ), oFont:weight, ;
             oFont:charset, oFont:italic )
 #endif
-         //hwg_writelog( str(ofont:height)+" "+str(prnycoef)+" "+str(aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ]:height) )
+         //hwg_writelog( str(ofont:height)+" "+str(prnycoef)+" "+str(aPaintRep[FORM_ITEMS, i, ITEM_GROUP]:height) )
       ENDIF
    NEXT
 

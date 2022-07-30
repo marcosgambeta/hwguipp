@@ -120,7 +120,7 @@ HB_FUNC( HWG_INVALIDATERECT )
 HB_FUNC( HWG_RECTANGLE )
 {
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   int x1 = hb_parni( 2 ), y1 = hb_parni( 3 );
+   int x1 = hb_parni(2), y1 = hb_parni(3);
 
    cairo_rectangle( hDC->cr, (gdouble)x1, (gdouble)y1, 
         (gdouble)(hb_parni(4)-x1+1), (gdouble)(hb_parni(5)-y1+1) );
@@ -160,7 +160,7 @@ HB_FUNC( HWG_PIE )
 HB_FUNC( HWG_ELLIPSE )
 {
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   int x1 = hb_parni( 2 ), y1 = hb_parni( 3 ), x2 = hb_parni( 4 ), y2 = hb_parni( 5 );
+   int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
 
    cairo_arc( hDC->cr, (double)x1+(x2-x1)/2, (double)y1+(y2-y1)/2, (double) (x2-x1)/2, 0, 6.28 );
    cairo_stroke( hDC->cr );
@@ -170,8 +170,8 @@ HB_FUNC( HWG_ARC )
 {
 
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   gdouble x1 = hb_parnd( 2 ), y1 = hb_parnd( 3 );
-   gdouble radius = hb_parnd( 4 );
+   gdouble x1 = hb_parnd(2), y1 = hb_parnd(3);
+   gdouble radius = hb_parnd(4);
    int iAngle1 = hb_parni(5), iAngle2 = hb_parni(6);
 
    cairo_new_sub_path( hDC->cr );
@@ -184,8 +184,8 @@ HB_FUNC( HWG_DRAWGRID )
 {
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
    int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
-   int n = ( HB_ISNIL( 6 ) ) ? 4 : hb_parni( 6 );
-   unsigned int uiColor = ( HB_ISNIL( 7 ) ) ? 0 : ( unsigned int ) hb_parnl( 7 );
+   int n = ( HB_ISNIL(6) ) ? 4 : hb_parni(6);
+   unsigned int uiColor = ( HB_ISNIL(7) ) ? 0 : ( unsigned int ) hb_parnl(7);
    int i, j;
 
    hwg_setcolor( hDC->cr, uiColor );
@@ -197,7 +197,7 @@ HB_FUNC( HWG_DRAWGRID )
 
 HB_FUNC( HWG_FILLRECT )
 {
-   int x1 = hb_parni( 2 ), y1 = hb_parni( 3 );
+   int x1 = hb_parni(2), y1 = hb_parni(3);
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
    PHWGUI_BRUSH brush = (PHWGUI_BRUSH) HB_PARHANDLE(6);
 
@@ -217,8 +217,8 @@ HB_FUNC( HWG_ARC )
 {
 
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   gdouble x1 = hb_parnd( 2 ), y1 = hb_parnd( 3 );
-   gdouble radius = hb_parnd( 4 );
+   gdouble x1 = hb_parnd(2), y1 = hb_parnd(3);
+   gdouble radius = hb_parnd(4);
    int iAngle1 = hb_parni(5), iAngle2 = hb_parni(6);
 
    cairo_new_sub_path( hDC->cr );
@@ -231,8 +231,8 @@ HB_FUNC( HWG_ROUNDRECT )
 {
 
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   gdouble x1 = hb_parnd( 2 ), y1 = hb_parnd( 3 ), x2 = hb_parnd( 4 ), y2 = hb_parnd( 5 );
-   gdouble radius = hb_parnd( 6 );
+   gdouble x1 = hb_parnd(2), y1 = hb_parnd(3), x2 = hb_parnd(4), y2 = hb_parnd(5);
+   gdouble radius = hb_parnd(6);
 
    cairo_arc( hDC->cr, x1+radius, y1+radius, radius, M_PI, 3*M_PI/2 );
    cairo_arc( hDC->cr, x2-radius, y1+radius, radius, 3*M_PI/2, 0 );
@@ -255,11 +255,11 @@ HB_FUNC( HWG_REDRAWWINDOW )
 HB_FUNC( HWG_DRAWBUTTON )
 {
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   int left = hb_parni( 2 );
-   int top = hb_parni( 3 );
-   int right = hb_parni( 4 );
-   int bottom = hb_parni( 5 );
-   unsigned int iType = hb_parni( 6 );
+   int left = hb_parni(2);
+   int top = hb_parni(3);
+   int right = hb_parni(4);
+   int bottom = hb_parni(5);
+   unsigned int iType = hb_parni(6);
    GtkStyle * style = gtk_widget_get_style( hDC->widget );
 
    if( iType == 0 )
@@ -351,8 +351,8 @@ void hwg_gtk_drawedge( PHWGUI_HDC hDC, int left, int top, int right, int bottom,
 HB_FUNC( HWG_GTK_DRAWEDGE )
 {
 
-   hwg_gtk_drawedge( (PHWGUI_HDC) HB_PARHANDLE(1), hb_parni( 2 ), hb_parni( 3 ),
-         hb_parni( 4 ), hb_parni( 5 ), hb_parni( 6 ) );
+   hwg_gtk_drawedge( (PHWGUI_HDC) HB_PARHANDLE(1), hb_parni(2), hb_parni(3),
+         hb_parni(4), hb_parni(5), hb_parni(6) );
 }
 
 HB_FUNC( HWG_LOADICON )
@@ -405,8 +405,8 @@ HB_FUNC( HWG_DRAWBITMAP )
    gint y =  hb_parni(5);
    gint srcWidth = gdk_pixbuf_get_width( obj->handle );
    gint srcHeight = gdk_pixbuf_get_height( obj->handle );
-   gint destWidth = ( hb_pcount(  ) >= 5 && !HB_ISNIL( 6 ) ) ? hb_parni( 6 ) : srcWidth;
-   gint destHeight = ( hb_pcount(  ) >= 6 && !HB_ISNIL( 7 ) ) ? hb_parni( 7 ) : srcHeight;
+   gint destWidth = ( hb_pcount(  ) >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : srcWidth;
+   gint destHeight = ( hb_pcount(  ) >= 6 && !HB_ISNIL(7) ) ? hb_parni(7) : srcHeight;
 
    if( srcWidth == destWidth && srcHeight == destHeight ) {
       gdk_cairo_set_source_pixbuf( hDC->cr, obj->handle, x, y );
@@ -434,8 +434,8 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    long int nColor = hb_parnl(5);
    gint srcWidth = gdk_pixbuf_get_width( obj->handle );
    gint srcHeight = gdk_pixbuf_get_height( obj->handle );
-   gint destWidth = ( hb_pcount(  ) >= 5 && !HB_ISNIL( 6 ) ) ? hb_parni( 6 ) : srcWidth;
-   gint destHeight = ( hb_pcount(  ) >= 6 && !HB_ISNIL( 7 ) ) ? hb_parni( 7 ) : srcHeight;
+   gint destWidth = ( hb_pcount(  ) >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : srcWidth;
+   gint destHeight = ( hb_pcount(  ) >= 6 && !HB_ISNIL(7) ) ? hb_parni(7) : srcHeight;
 
    if( obj->trcolor != nColor )
    {
@@ -510,7 +510,7 @@ HB_FUNC( HWG_SPREADBITMAP )
 HB_FUNC( HWG_GETBITMAPSIZE )
 {
    PHWGUI_PIXBUF obj = (PHWGUI_PIXBUF) HB_PARHANDLE(1);
-   PHB_ITEM aMetr = _itemArrayNew( 2 );
+   PHB_ITEM aMetr = _itemArrayNew(2);
    PHB_ITEM temp;
 
    temp = _itemPutNL( NULL, gdk_pixbuf_get_width ( obj->handle) );
@@ -566,7 +566,7 @@ HB_FUNC( HWG_SAVEBITMAP )
 HB_FUNC( HWG_OPENIMAGE )
 {
    PHWGUI_PIXBUF hpix;
-   short int iString = ( HB_ISNIL( 2 ) ) ? 0 : hb_parl( 2 );
+   short int iString = ( HB_ISNIL(2) ) ? 0 : hb_parl(2);
    GdkPixbuf * handle;
 
    if( iString )
@@ -604,7 +604,7 @@ HB_FUNC( HWG_GETSYSCOLOR )
       hb_retnl( hwg_gdk_color( &color ) );
    }
    else
-      hb_retnl( 0 );
+      hb_retnl(0);
 }
 
 #define  PS_SOLID   0
@@ -784,16 +784,16 @@ HB_FUNC( HWG_CREATECOMPATIBLEDC )
 
 HB_FUNC( HWG_BITBLT )
 {
-   PHWGUI_HDC hDCdest = ( PHWGUI_HDC ) HB_PARHANDLE( 1 );
-   PHWGUI_HDC hDCsource = ( PHWGUI_HDC ) HB_PARHANDLE( 6 );
+   PHWGUI_HDC hDCdest = ( PHWGUI_HDC ) HB_PARHANDLE(1);
+   PHWGUI_HDC hDCsource = ( PHWGUI_HDC ) HB_PARHANDLE(6);
 
-   cairo_set_source_surface( hDCdest->cr, hDCsource->surface, hb_parni( 2 ), hb_parni( 3 ) );
+   cairo_set_source_surface( hDCdest->cr, hDCsource->surface, hb_parni(2), hb_parni(3) );
    cairo_paint( hDCdest->cr );
 }
 
 HB_FUNC( HWG_CAIRO_TRANSLATE )
 {
-   PHWGUI_HDC hDC = ( PHWGUI_HDC ) HB_PARHANDLE( 1 );
+   PHWGUI_HDC hDC = ( PHWGUI_HDC ) HB_PARHANDLE(1);
    cairo_translate( hDC->cr, hb_parni(2), hb_parni(3) );
 }
 
@@ -822,9 +822,9 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
 
 HB_FUNC( HWG_GETCLIENTAREA )
 {
-   PHWGUI_PPS pps = ( PHWGUI_PPS ) HB_PARHANDLE( 1 );
+   PHWGUI_PPS pps = ( PHWGUI_PPS ) HB_PARHANDLE(1);
    GtkWidget * widget = pps->hDC->widget;
-   PHB_ITEM aMetr = hb_itemArrayNew( 4 );    
+   PHB_ITEM aMetr = hb_itemArrayNew(4);    
    GtkAllocation alloc;
 
    if( getFixedBox( (GObject *) widget ) )
@@ -841,7 +841,7 @@ HB_FUNC( HWG_GETCLIENTAREA )
 HB_FUNC( HWG_GETCLIENTRECT )
 {
    GtkWidget * widget = (GtkWidget*) HB_PARHANDLE(1);
-   PHB_ITEM aMetr = hb_itemArrayNew( 4 );
+   PHB_ITEM aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
 
    if( getFixedBox( (GObject *) widget ) )
@@ -858,7 +858,7 @@ HB_FUNC( HWG_GETCLIENTRECT )
 HB_FUNC( HWG_GETWINDOWRECT )
 {
    GtkWidget * widget = (GtkWidget*) HB_PARHANDLE(1);
-   PHB_ITEM aMetr = hb_itemArrayNew( 4 );
+   PHB_ITEM aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
    gtk_widget_get_allocation( widget, &alloc );
 
@@ -889,8 +889,8 @@ void hwg_prepare_cairo_colors( long int nColor, gdouble *r, gdouble *g, gdouble 
 HB_FUNC( HWG_DRAWGRADIENT )
 {
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   gdouble x1 = hb_parnd( 2 ), y1 = hb_parnd( 3 ), x2 = hb_parnd( 4 ), y2 = hb_parnd( 5 );
-   gint type = ( HB_ISNUM(6) ) ? hb_parni( 6 ) : 1;
+   gdouble x1 = hb_parnd(2), y1 = hb_parnd(3), x2 = hb_parnd(4), y2 = hb_parnd(5);
+   gint type = ( HB_ISNUM(6) ) ? hb_parni(6) : 1;
    PHB_ITEM pArrColor = hb_param( 7, HB_IT_ARRAY );
    long int color;
    PHB_ITEM pArrStop = hb_param( 8, HB_IT_ARRAY );
@@ -1000,8 +1000,8 @@ HB_FUNC( HWG__DRAWCOMBO )
 {
 #if GTK_MAJOR_VERSION -0 < 3
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   gdouble x1 = (gdouble)hb_parni( 2 ), y1 = (gdouble)hb_parni( 3 ),
-           x2 = (gdouble)hb_parni( 4 ), y2 = (gdouble)hb_parni( 5 ),
+   gdouble x1 = (gdouble)hb_parni(2), y1 = (gdouble)hb_parni(3),
+           x2 = (gdouble)hb_parni(4), y2 = (gdouble)hb_parni(5),
            nWidth = x2-x1+1, nHeight = y2-y1+1;
 
    hwg_setcolor( hDC->cr, 0xffffff );
@@ -1025,11 +1025,11 @@ HB_FUNC( HWG__DRAWCHECKBTN )
 {
 #if GTK_MAJOR_VERSION -0 < 3
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   gdouble x1 = (gdouble)hb_parni( 2 ), y1 = (gdouble)hb_parni( 3 ),
-           y2 = (gdouble)hb_parni( 5 ),
+   gdouble x1 = (gdouble)hb_parni(2), y1 = (gdouble)hb_parni(3),
+           y2 = (gdouble)hb_parni(5),
            nHeight = y2-y1-6;
    int iSet = hb_parl(6);
-   const char *cTitle = ( hb_pcount(  ) > 6 ) ? hb_parc( 7 ) : NULL;
+   const char *cTitle = ( hb_pcount(  ) > 6 ) ? hb_parc(7) : NULL;
    gchar *gcTitle;
 
    x1 += 2;
@@ -1067,11 +1067,11 @@ HB_FUNC( HWG__DRAWRADIOBTN )
 {
 #if GTK_MAJOR_VERSION -0 < 3
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(1);
-   gdouble x1 = (gdouble)hb_parni( 2 ), y1 = (gdouble)hb_parni( 3 ),
-           y2 = (gdouble)hb_parni( 5 ),
+   gdouble x1 = (gdouble)hb_parni(2), y1 = (gdouble)hb_parni(3),
+           y2 = (gdouble)hb_parni(5),
            nHeight = y2-y1-4;
    int iSet = hb_parl(6);
-   const char *cTitle = ( hb_pcount(  ) > 6 ) ? hb_parc( 7 ) : NULL;
+   const char *cTitle = ( hb_pcount(  ) > 6 ) ? hb_parc(7) : NULL;
    gchar *gcTitle;
 
    x1 += 2;

@@ -33,8 +33,8 @@ RETURN NIL
 Function Test
 Local oDlg, oTrack, oSay, oFont := HFont():Add( "MS Sans Serif",0,-13 )
 Local bVolChange := {|o,n| 
-      HB_SYMBOL_UNUSED( o )
-      HB_SYMBOL_UNUSED( n )
+      HB_SYMBOL_UNUSED(o)
+      HB_SYMBOL_UNUSED(n)
       oSay:SetText( Ltrim(Str(oTrack:value)) )
       RETURN .T.
    }

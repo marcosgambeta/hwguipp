@@ -232,7 +232,7 @@ STATIC FUNCTION OpenFile( fname, repName )
       */
       aPaintRep[FORM_ITEMS] := ASort( aPaintRep[FORM_ITEMS], , , { |z, y|z[ITEM_Y1] < y[ITEM_Y1] .OR. ( z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] < y[ITEM_X1] ) .OR. ( z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] == y[ITEM_X1] .AND. (z[ITEM_WIDTH] < y[ITEM_WIDTH] .OR. z[ITEM_HEIGHT] < y[ITEM_HEIGHT] ) ) } )
       IF !lPrg
-         RecalcForm( aPaintRep, Round( aPaintRep[ FORM_XKOEF ] * aPaintRep[ FORM_WIDTH ], 0 ) )
+         RecalcForm( aPaintRep, Round( aPaintRep[FORM_XKOEF] * aPaintRep[FORM_WIDTH], 0 ) )
       ENDIF
 
       hwg_WriteStatus(Hwindow():GetMain(), 2, LTrim(Str(aPaintRep[FORM_WIDTH], 4)) + "x" + ;
@@ -247,17 +247,17 @@ STATIC FUNCTION RecalcForm( aPaintRep, nFormWidth )
 
    hDC := hwg_Getdc( hwg_Getactivewindow() )
    aMetr := hwg_Getdevicearea( hDC )
-   aPaintRep[ FORM_XKOEF ] := ( aMetr[ 1 ] - XINDENT ) / aPaintRep[ FORM_WIDTH ]
+   aPaintRep[FORM_XKOEF] := ( aMetr[1] - XINDENT ) / aPaintRep[FORM_WIDTH]
    hwg_Releasedc( hwg_Getactivewindow(), hDC )
 
-   IF nFormWidth != aMetr[ 1 ] - XINDENT
-      xKoef := ( aMetr[ 1 ] - XINDENT ) / nFormWidth
-      FOR i := 1 TO Len( aPaintRep[ FORM_ITEMS ] )
-         aItem := aPaintRep[ FORM_ITEMS, i ]
-         aItem[ ITEM_X1 ] := Round( aItem[ ITEM_X1 ] * xKoef, 0 )
-         aItem[ ITEM_Y1 ] := Round( aItem[ ITEM_Y1 ] * xKoef, 0 )
-         aItem[ ITEM_WIDTH ] := Round( aItem[ ITEM_WIDTH ] * xKoef, 0 )
-         aItem[ ITEM_HEIGHT ] := Round( aItem[ ITEM_HEIGHT ] * xKoef, 0 )
+   IF nFormWidth != aMetr[1] - XINDENT
+      xKoef := ( aMetr[1] - XINDENT ) / nFormWidth
+      FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
+         aItem := aPaintRep[FORM_ITEMS, i]
+         aItem[ITEM_X1] := Round( aItem[ITEM_X1] * xKoef, 0 )
+         aItem[ITEM_Y1] := Round( aItem[ITEM_Y1] * xKoef, 0 )
+         aItem[ITEM_WIDTH] := Round( aItem[ITEM_WIDTH] * xKoef, 0 )
+         aItem[ITEM_HEIGHT] := Round( aItem[ITEM_HEIGHT] * xKoef, 0 )
       NEXT
    ENDIF
    RETURN NIL

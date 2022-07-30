@@ -82,8 +82,8 @@
 #define CSTACK_LOCALS           5  // an array with local variables
 #define CSTACK_STATICS          6  // an array with static variables
 
-/* Information structure stored in aCallStack[ n ][ CSTACK_LOCALS ]
-   { cLocalName, nLocalIndex, "Local", ProcName( 1 ), nLevel } */
+/* Information structure stored in aCallStack[n][CSTACK_LOCALS]
+   { cLocalName, nLocalIndex, "Local", ProcName(1), nLevel } */
 #define VAR_NAME                1
 #define VAR_POS                 2
 #define VAR_TYPE                3
@@ -270,7 +270,7 @@ METHOD Activate() CLASS HBDebugger
    ENDIF
 
    // show the topmost procedure
-   ::ShowCodeLine( 1 )
+   ::ShowCodeLine(1)
    ::HandleEvent()
 
    RETURN NIL
@@ -490,12 +490,12 @@ METHOD LoadCallStack() CLASS HBDebugger
 
    FOR i := nDebugLevel TO nCurrLevel
       nLevel := nCurrLevel - i + 1
-      nPos := AScan( ::aCallStack, { | a | a[ CSTACK_LEVEL ] == nLevel } )
+      nPos := AScan( ::aCallStack, { | a | a[CSTACK_LEVEL] == nLevel } )
       IF nPos > 0
          // a procedure with debug info
-         ::aProcStack[ i - nDebugLevel + 1 ] := ::aCallStack[ nPos ]
+         ::aProcStack[i - nDebugLevel + 1] := ::aCallStack[nPos]
       ELSE
-         ::aProcStack[ i - nDebugLevel + 1 ] := { , ProcName( i ) + "(" + hb_ntos( ProcLine( i ) ) + ")", , nLevel, , }
+         ::aProcStack[i - nDebugLevel + 1] := { , ProcName( i ) + "(" + hb_ntos( ProcLine( i ) ) + ")", , nLevel, , }
       ENDIF
    NEXT
 
@@ -518,11 +518,10 @@ METHOD ShowCodeLine( nProc ) CLASS HBDebugger
    // we only update the stack window and up a new browse
    // to view the code if we have just broken execution
    IF ! ::lGo
-      nLine := ::aProcStack[ nProc ][ CSTACK_LINE ]
-      cPrgName := ::aProcStack[ nProc ][ CSTACK_MODULE ]
+      nLine := ::aProcStack[nProc][CSTACK_LINE]
+      cPrgName := ::aProcStack[nProc][CSTACK_MODULE]
       IF nLine == NIL
-         hwg_dbg_Msg( ::aProcStack[ nProc ][ CSTACK_FUNCTION ] + ;
-            ": Code not available" )
+         hwg_dbg_Msg( ::aProcStack[nProc][CSTACK_FUNCTION] + ": Code not available" )
          RETURN NIL
       ENDIF
 
@@ -545,14 +544,14 @@ METHOD ShowCodeLine( nProc ) CLASS HBDebugger
 
 METHOD VarGetInfo( aVar ) CLASS HBDebugger
 
-   LOCAL cType := Left( aVar[ VAR_TYPE ], 1 )
+   LOCAL cType := Left( aVar[VAR_TYPE], 1 )
    LOCAL uValue := ::VarGetValue( aVar )
 
    DO CASE
-   CASE cType == "G" ; RETURN aVar[ VAR_NAME ] + " <Global, " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
-   CASE cType == "L" ; RETURN aVar[ VAR_NAME ] + " <Local, " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
-   CASE cType == "S" ; RETURN aVar[ VAR_NAME ] + " <Static, " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
-      OTHERWISE         ; RETURN aVar[ VAR_NAME ] + " <" + aVar[ VAR_TYPE ] + ", " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
+   CASE cType == "G" ; RETURN aVar[VAR_NAME] + " <Global, " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
+   CASE cType == "L" ; RETURN aVar[VAR_NAME] + " <Local, " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
+   CASE cType == "S" ; RETURN aVar[VAR_NAME] + " <Static, " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
+      OTHERWISE         ; RETURN aVar[VAR_NAME] + " <" + aVar[VAR_TYPE] + ", " + ValType( uValue ) + ">: " + __dbgValToStr(uValue)
    ENDCASE
 
    // ; Never reached
@@ -561,13 +560,13 @@ METHOD VarGetInfo( aVar ) CLASS HBDebugger
 
 METHOD VarGetValue( aVar ) CLASS HBDebugger
 
-   LOCAL cType := Left( aVar[ VAR_TYPE ], 1 )
+   LOCAL cType := Left( aVar[VAR_TYPE], 1 )
 
    DO CASE
-   CASE cType == "G" ; RETURN __dbgVMVarGGet( aVar[ VAR_LEVEL ], aVar[ VAR_POS ] )
-   CASE cType == "L" ; RETURN __dbgVMVarLGet( __dbgProcLevel() - aVar[ VAR_LEVEL ], aVar[ VAR_POS ] )
-   CASE cType == "S" ; RETURN __dbgVMVarSGet( aVar[ VAR_LEVEL ], aVar[ VAR_POS ] )
-      OTHERWISE         ; RETURN aVar[ VAR_POS ] // Public or Private
+   CASE cType == "G" ; RETURN __dbgVMVarGGet( aVar[VAR_LEVEL], aVar[VAR_POS] )
+   CASE cType == "L" ; RETURN __dbgVMVarLGet( __dbgProcLevel() - aVar[VAR_LEVEL], aVar[VAR_POS] )
+   CASE cType == "S" ; RETURN __dbgVMVarSGet( aVar[VAR_LEVEL], aVar[VAR_POS] )
+      OTHERWISE         ; RETURN aVar[VAR_POS] // Public or Private
    ENDCASE
 
    // ; Never reached
@@ -577,22 +576,22 @@ METHOD VarGetValue( aVar ) CLASS HBDebugger
 METHOD VarSetValue( aVar, uValue ) CLASS HBDebugger
 
    LOCAL nProcLevel
-   LOCAL cType := Left( aVar[ VAR_TYPE ], 1 )
+   LOCAL cType := Left( aVar[VAR_TYPE], 1 )
 
    IF cType == "G"
-      __dbgVMVarGSet( aVar[ VAR_LEVEL ], aVar[ VAR_POS ], uValue )
+      __dbgVMVarGSet( aVar[VAR_LEVEL], aVar[VAR_POS], uValue )
 
    ELSEIF cType == "L"
-      nProcLevel := __dbgProcLevel() - aVar[ VAR_LEVEL ]   // skip debugger stack
-      __dbgVMVarLSet( nProcLevel, aVar[ VAR_POS ], uValue )
+      nProcLevel := __dbgProcLevel() - aVar[VAR_LEVEL]   // skip debugger stack
+      __dbgVMVarLSet( nProcLevel, aVar[VAR_POS], uValue )
 
    ELSEIF cType == "S"
-      __dbgVMVarSSet( aVar[ VAR_LEVEL ], aVar[ VAR_POS ], uValue )
+      __dbgVMVarSSet( aVar[VAR_LEVEL], aVar[VAR_POS], uValue )
 
    ELSE
       // Public or Private
-      aVar[ VAR_POS ] := uValue
-      &( aVar[ VAR_NAME ] ) := uValue
+      aVar[VAR_POS] := uValue
+      &( aVar[VAR_NAME] ) := uValue
 
    ENDIF
 
@@ -621,7 +620,7 @@ STATIC FUNCTION SendLocal()
 
    arr[1] := LTrim(Str(Len(aVars)))
    FOR i := 1 TO Len( aVars )
-      arr[++j] := aVars[ i,VAR_NAME ]
+      arr[++j] := aVars[i, VAR_NAME]
       xVal := __dbgvmVarLGet( __dbgprocLevel() - aVars[i,VAR_LEVEL], aVars[i,VAR_POS] )
       arr[++j] := ValType( xVal )
       arr[++j] := __dbgValToStr(xVal)
@@ -670,10 +669,10 @@ STATIC FUNCTION SendStatic()
    LOCAL aVars, nAll := 0
    LOCAL arr, i, j := 1, xVal
 
-   xVal := t_oDebugger:aProcStack[ 1,CSTACK_MODULE ]
+   xVal := t_oDebugger:aProcStack[1, CSTACK_MODULE]
    i := AScan( t_oDebugger:aModules, { |a| hb_FileMatch( a[MODULE_NAME], xVal ) } )
    IF i > 0
-      aVars := t_oDebugger:aModules[ i,MODULE_STATICS ]
+      aVars := t_oDebugger:aModules[i, MODULE_STATICS]
       nAll := Len( aVars )
    ENDIF
 
@@ -684,8 +683,8 @@ STATIC FUNCTION SendStatic()
 
    IF !Empty(aVars)
       FOR i := 1 TO Len( aVars )
-         arr[++j] := aVars[ i,VAR_NAME ]
-         xVal := __dbgVMVarSGet( aVarS[ i,VAR_LEVEL ], aVarS[ i,VAR_POS ] )
+         arr[++j] := aVars[i, VAR_NAME]
+         xVal := __dbgVMVarSGet( aVarS[i, VAR_LEVEL], aVarS[i, VAR_POS] )
          arr[++j] := ValType( xVal )
          arr[++j] := __dbgValToStr(xVal)
          IF Len( arr[j] ) > VAR_MAX_LEN
@@ -696,8 +695,8 @@ STATIC FUNCTION SendStatic()
 
    aVars := t_oDebugger:aProcStack[1,CSTACK_STATICS]
    FOR i := 1 TO Len( aVars )
-      arr[++j] := aVars[ i,VAR_NAME ]
-      xVal := __dbgVMVarSGet( aVarS[ i,VAR_LEVEL ], aVarS[ i,VAR_POS ] )
+      arr[++j] := aVars[i, VAR_NAME]
+      xVal := __dbgVMVarSGet( aVarS[i, VAR_LEVEL], aVarS[i, VAR_POS] )
       arr[++j] := ValType( xVal )
       arr[++j] := __dbgValToStr(xVal)
       IF Len( arr[j] ) > VAR_MAX_LEN
@@ -725,7 +724,7 @@ STATIC FUNCTION SendAreas()
 
    FOR n := 1 TO 512
       IF ( ( n ) -> ( Used() ) )
-         arr1[ ++nAreas ] := n
+         arr1[++nAreas] := n
       ENDIF
    NEXT
 
@@ -806,15 +805,15 @@ STATIC FUNCTION SendObject( cObjName )
       arr[1] := LTrim(Str(Len(aVars) + Len(aMethods)))
 
       FOR i := 1 TO Len( aVars )
-         arr[++j] := aVars[ i,1 ]
-         arr[++j] := ValType( aVars[ i,2 ] )
+         arr[++j] := aVars[i, 1]
+         arr[++j] := ValType( aVars[i, 2] )
          arr[++j] := __dbgValToStr(aVars[i, 2])
          IF Len( arr[j] ) > VAR_MAX_LEN
             arr[j] := Left( arr[j], VAR_MAX_LEN )
          ENDIF
       NEXT
       FOR i := 1 TO Len( aMethods )
-         arr[++j] := aMethods[ i ]
+         arr[++j] := aMethods[i]
          arr[++j] := ""
          arr[++j] := "Method"
       NEXT
@@ -848,7 +847,7 @@ STATIC FUNCTION SendObject( cObjName )
          ENDIF
       NEXT
       FOR i := 1 TO Len( aMethods )
-         arr[++j] := aMethods[ i ]
+         arr[++j] := aMethods[i]
          arr[++j] := ""
          arr[++j] := "Method"
       NEXT

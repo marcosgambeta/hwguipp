@@ -79,12 +79,12 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
    IF oPrev == NIL .AND. oNext != NIL
       op := iif( oNext:oParent == NIL, oNext:oTree, oNext:oParent )
       FOR i := 1 TO Len( op:aItems )
-         IF op:aItems[ i ]:handle == oNext:handle
+         IF op:aItems[i]:handle == oNext:handle
             EXIT
          ENDIF
       NEXT
       IF i > 1
-         oPrev := op:aItems[ i - 1 ]
+         oPrev := op:aItems[i - 1]
          nPos := 0
       ELSE
          nPos := 1
@@ -97,15 +97,15 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
    ELSEIF nPos == 1
       AAdd(aItems, NIL)
       AIns( aItems, 1 )
-      aItems[ 1 ] := Self
+      aItems[1] := Self
    ELSE
       AAdd(aItems, NIL)
       h := oPrev:handle
       IF ( i := AScan( aItems, { | o | o:handle == h } ) ) == 0
-         aItems[ Len( aItems ) ] := Self
+         aItems[Len(aItems)] := Self
       ELSE
          AIns( aItems, i + 1 )
-         aItems[ i + 1 ] := Self
+         aItems[i + 1] := Self
       ENDIF
    ENDIF
 
@@ -123,8 +123,8 @@ METHOD DELETE( lInternal ) CLASS HTreeNode
    IF ! Empty(::aItems)
       alen := Len( ::aItems )
       FOR j := 1 TO alen
-         ::aItems[ j ]:Delete( .T. )
-         ::aItems[ j ] := NIL
+         ::aItems[j]:Delete( .T. )
+         ::aItems[j] := NIL
       NEXT
    ENDIF
    IF lInternal == NIL
@@ -339,13 +339,13 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HTree
       retValue := 1
    ELSEIF msg == WM_KEYDOWN
       IF wParam == GDK_Down        // Down
-         ::GoDown( 1 )
+         ::GoDown(1)
       ELSEIF wParam == GDK_Up    // Up
-         ::GoUp( 1 )
+         ::GoUp(1)
       ELSEIF wParam == GDK_Page_Down    // PageDown
-         ::GoDown( 2 )
+         ::GoDown(2)
       ELSEIF wParam == GDK_Page_Up    // PageUp
-         ::GoUp( 2 )
+         ::GoUp(2)
       ENDIF
       retValue := 1
 
@@ -445,12 +445,12 @@ METHOD Paint() CLASS HTree
       ::oFirst := ::aItems[1]
    ENDIF
 
-   ::width := aMetr[ 2 ]
-   ::height := aMetr[ 1 ]
-   * x1 := aCoors[ 1 ] + 2
-   y1 := aCoors[ 2 ] + 2
-   * x2 := aCoors[ 3 ] - 2
-   y2 := aCoors[ 4 ] - 2
+   ::width := aMetr[2]
+   ::height := aMetr[1]
+   * x1 := aCoors[1] + 2
+   y1 := aCoors[2] + 2
+   * x2 := aCoors[3] - 2
+   y2 := aCoors[4] - 2
 
    ::rowCount := Int( ( y2 - y1 ) / ( ::height + 1 ) )
    IF Empty(::aScreen) .OR. Len( ::aScreen ) < ::rowCount
@@ -530,7 +530,7 @@ METHOD ButtonDown( lParam )  CLASS HTree
    LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
    LOCAL xm := hwg_Loword( lParam ), x1, hDC, oNode, nWidth, lRedraw := .F.
 
-   IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[ nLine ])
+   IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[nLine])
       x1 := 10 + oNode:nLevel * ::nIndent
       hDC := hwg_Getdc( ::handle )
       IF !Empty(::oFont)
@@ -565,7 +565,7 @@ METHOD ButtonDbl( lParam ) CLASS HTree
    LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
    LOCAL xm := hwg_Loword( lParam ), x1, hDC, oNode, nWidth
 
-   IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[ nLine ])
+   IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[nLine])
       x1 := 10 + oNode:nLevel * ::nIndent
       hDC := hwg_Getdc( ::handle )
       IF !Empty(::oFont)
@@ -588,7 +588,7 @@ METHOD ButtonRDown( lParam ) CLASS HTree
    LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
    LOCAL xm := hwg_Loword( lParam ), x1, hDC, oNode, nWidth
 
-   IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[ nLine ])
+   IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[nLine])
       x1 := 10 + oNode:nLevel * ::nIndent
       hDC := hwg_Getdc( ::handle )
       IF !Empty(::oFont)
@@ -645,15 +645,15 @@ METHOD MouseWheel( nKeys, nDelta )  CLASS HTree
 
    IF hb_bitand( nKeys, MK_MBUTTON ) != 0
       IF nDelta > 0
-         ::GoUp( 2 )
+         ::GoUp(2)
       ELSE
-         ::GoDown( 2 )
+         ::GoDown(2)
       ENDIF
    ELSE
       IF nDelta > 0
-         ::GoUp( 1 )
+         ::GoUp(1)
       ELSE
-         ::GoDown( 1 )
+         ::GoDown(1)
       ENDIF
    ENDIF
 
@@ -667,13 +667,13 @@ METHOD DoVScroll() CLASS HTree
    LOCAL nScrollV := hwg_getAdjValue( ::hScrollV )
 
    IF nScrollV - ::nScrollV == 1
-      ::GoDown( 1 )
+      ::GoDown(1)
    ELSEIF nScrollV - ::nScrollV == - 1
-      ::GoUp( 1 )
+      ::GoUp(1)
    ELSEIF nScrollV - ::nScrollV == 10
-      ::GoDown( 2 )
+      ::GoDown(2)
    ELSEIF nScrollV - ::nScrollV == - 10
-      ::GoUp( 2 )
+      ::GoUp(2)
    ELSE
       IF ::bScrollPos != NIL
          Eval( ::bScrollPos, Self, SB_THUMBTRACK, .F. , nScrollV )

@@ -352,8 +352,8 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                   EXIT
                ENDIF
                lTd := .F.
-               aStruBack[ nBack,1,OB_OB,iTd,OB_AWRAP ] := Array( Len(aText) )
-               aStruBack[ nBack,1,OB_OB,iTd,OB_NTLEN ] := Len(aText)
+               aStruBack[nBack, 1, OB_OB, iTd, OB_AWRAP] := Array( Len(aText) )
+               aStruBack[nBack, 1, OB_OB, iTd, OB_NTLEN] := Len(aText)
                ::aStru := aStruBack
                aText := aTextBack
                nFrom := nFromBack
@@ -527,9 +527,9 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                Aadd(::aStru[n, 1, OB_OB], {"td", {}, cClsName, {}, i, j, NIL, Array(4, AL_LENGTH), 0, 1, 0, 1, 1, 1, 1, 1, {1, 1}, {0, 0}, {0, 0}, 0, 0, 0, 0})
                iTd := Len( ::aStru[n,1,OB_OB] )
                aStruBack := ::aStru
-               ::aStru := aStruBack[ n,1,OB_OB,iTd,2 ]
+               ::aStru := aStruBack[n, 1, OB_OB, iTd, 2]
                aTextBack := aText
-               aText := aStruBack[ n,1,OB_OB,iTd,OB_ATEXT ]
+               aText := aStruBack[n, 1, OB_OB, iTd, OB_ATEXT]
                nBack := n
                n := 0
                nFromBack := nFrom
@@ -1003,23 +1003,23 @@ METHOD PaintLine( hDC, yPos, nLine, lUse_aWrap, nRight ) CLASS HCEdiExt
          ::LoadEnv( nL, iTd, !Empty(hDC) )
          ::nBoundL += nBorder
          IF iCol > 1
-           i := aStruTbl[ OB_OB,iCol-1,OB_CWIDTH ]
+           i := aStruTbl[OB_OB, iCol - 1, OB_CWIDTH]
            ::nBoundL += Iif( i>0, i, Round( nTWidth*(-i)/100,0 ) )
          ENDIF
-         aStruTbl[ OB_OB,iCol,OB_CLEFT ] := ::nBoundL
+         aStruTbl[OB_OB, iCol, OB_CLEFT] := ::nBoundL
 
          IF aStru[OB_OB,iTd,OB_COLSPAN] > 1
             i := 0
             iCol --
             FOR j := 1 TO aStru[OB_OB,iTd,OB_COLSPAN]
-               i += aStruTbl[ OB_OB,++iCol,OB_CWIDTH ]
+               i += aStruTbl[OB_OB, ++iCol, OB_CWIDTH]
             NEXT
          ELSE
-            i := aStruTbl[ OB_OB,iCol,OB_CWIDTH ]
+            i := aStruTbl[OB_OB, iCol, OB_CWIDTH]
          ENDIF
          i := Iif( i>0, i, Round( nTWidth*(-i)/100,0 ) )
 
-         aStruTbl[ OB_OB,iCol,OB_CRIGHT ] := ::nBoundR := ::nBoundL + i
+         aStruTbl[OB_OB, iCol, OB_CRIGHT] := ::nBoundR := ::nBoundL + i
 
          ::nLines := nLine := 0
          ::nMarginL := ::nMarginR := 0
@@ -1444,11 +1444,11 @@ METHOD SetHili( xGroup, xFont, tColor, bColor, nMargL, nMargR, nIndent, nAlign, 
    ENDIF
    arr := ::aHili[xGroup]
 
-   arr[ 4 ] := nMargL
-   arr[ 5 ] := nMargR
-   arr[ 6 ] := nIndent
-   arr[ 7 ] := nAlign
-   arr[ 8 ] := oPen
+   arr[4] := nMargL
+   arr[5] := nMargR
+   arr[6] := nIndent
+   arr[7] := nAlign
+   arr[8] := oPen
 
    RETURN ::Super:SetHili( xGroup, xFont, tColor, bColor )
 
@@ -2045,9 +2045,9 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
                   IF !Empty(xTemp := ::aStru[i,1,OB_OB,n,OB_CLS]) .AND. Ascan( aClasses, xTemp ) == 0
                      AAdd(aClasses, xTemp)
                   ENDIF
-                  aStru := ::aStru[ i,1,OB_OB,n,OB_ASTRU ]
-                  aText := ::aStru[ i,1,OB_OB,n,OB_ATEXT ]
-                  nTextLen := ::aStru[ i,1,OB_OB,n,OB_NTLEN ]
+                  aStru := ::aStru[i, 1, OB_OB, n, OB_ASTRU]
+                  aText := ::aStru[i, 1, OB_OB, n, OB_ATEXT]
+                  nTextLen := ::aStru[i, 1, OB_OB, n, OB_NTLEN]
                   FOR i1 := 1 TO nTextLen
                      FOR j1 := 1 TO Len( aStru[i1] )
                         IF !Empty(xTemp := aStru[i1,j1,OB_CLS]) .AND. Ascan( aClasses, xTemp ) == 0
@@ -2067,7 +2067,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
          s += "<html><head>"
       ELSEIF Empty(lCompact)
          s += "<hwge" + Iif(Empty(::cpSource),"",' cp="' + ::cpSource + '"' ) + ;
-               Iif(Empty(::nDocFormat),"",' page="' + HPrinter():aPaper[ ::nDocFormat,1] ;
+               Iif(Empty(::nDocFormat),"",' page="' + HPrinter():aPaper[::nDocFormat, 1] ;
                + ',' + Ltrim(Str(::nDocOrient)) + ',' + Ltrim(Str(::aDocMargins[1])) + ',' + ;
                Ltrim(Str(::aDocMargins[2])) + ',' + Ltrim(Str(::aDocMargins[3])) + ',' + Ltrim(Str(::aDocMargins[4])) + '"' ) + ;
                + ::SaveTag( "hwge" ) + '>' + cNewL
@@ -2246,9 +2246,9 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
                + Iif( !Empty(::aStru[i,1,OB_OB,j,OB_ROWSPAN]), ' rowspan="' + Ltrim(Str(::aStru[i,1,OB_OB,j,OB_ROWSPAN])) + '"', "" ) ;
                + ::SaveTag( "td", i, j ) + '>' + cNewL
             nTextLen := ::nTextLen; aText := ::aText; aStru := ::aStru
-            ::aStru := aStru[ i,1,OB_OB,j,2 ]
-            ::aText := aStru[ i,1,OB_OB,j,OB_ATEXT ]
-            ::nTextLen := aStru[ i,1,OB_OB,j,OB_NTLEN ]
+            ::aStru := aStru[i, 1, OB_OB, j, 2]
+            ::aText := aStru[i, 1, OB_OB, j, OB_ATEXT]
+            ::nTextLen := aStru[i, 1, OB_OB, j, OB_NTLEN]
             s += ::Save( .F., cpSou, lHtml, lCompact )
             ::nTextLen := nTextLen; ::aText := aText; ::aStru := aStru
             s += "</td>" + cNewL
@@ -2657,9 +2657,9 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
          ENDIF
       ELSEIF nLType == 1
          FOR n := Iif( i==nLStart,nPosStart,1 ) TO Len( ::aStru[i,1,OB_OB] )
-            aStru := ::aStru[ i,1,OB_OB,n,2 ]
-            aText := ::aStru[ i,1,OB_OB,n,OB_ATEXT ]
-            nTextLen := ::aStru[ i,1,OB_OB,n,OB_NTLEN ]
+            aStru := ::aStru[i, 1, OB_OB, n, 2]
+            aText := ::aStru[i, 1, OB_OB, n, OB_ATEXT]
+            nTextLen := ::aStru[i, 1, OB_OB, n, OB_NTLEN]
             nL1Start := Iif( Valtype(aStart)=="A".AND.Len(aStart)>3,aStart[4],1 )
             FOR i1 := nL1Start TO nTextLen
                IF lId .AND. Len( aStru[i1,1] ) >= OB_ID .AND. !Empty(aStru[i1,1,OB_ID])
@@ -2874,7 +2874,7 @@ STATIC FUNCTION hced_td4Pos( oEdit, nL, xPos )
       IF aStru[OB_OB,iTd,OB_COLSPAN] > 1
          iCol += (aStru[OB_OB,iTd,OB_COLSPAN] - 1)
       ENDIF
-      IF xPos <= aStruTbl[ OB_OB,iCol,OB_CRIGHT ]
+      IF xPos <= aStruTbl[OB_OB, iCol, OB_CRIGHT]
          EXIT
       ENDIF
    NEXT

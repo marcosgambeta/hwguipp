@@ -31,7 +31,7 @@ FUNCTION RdView( fname )
             sword := hb_TokenPtr( aLines[nLine], @nPos, " " )
             IF hb_TokenPtr( aLines[nLine], @nPos, " " ) == "REMOTE"
 #if defined( RDD_ADS )
-               AdsSetServerType( 6 )
+               AdsSetServerType(6)
 #elif !defined( RDD_LETO )
                res := .F.
                EXIT
@@ -113,7 +113,7 @@ FUNCTION WrView()
       FOR i := 1 TO Len( aFiles )
          IF !Empty(aFiles[i,AF_NAME])
             dbSelectArea( aFiles[i,AF_ALIAS] )
-            FWrite(han, "DRIVER " +  aDrivers[ aFiles[ improc,AF_DRIVER ] ] +  ;
+            FWrite(han, "DRIVER " +  aDrivers[aFiles[improc, AF_DRIVER] ] +  ;
                iif( nServerType == LOCAL_SERVER, " LOCAL", " REMOTE" ) + crlf)
 
             FWrite(han, "FILE " + Iif(aFiles[i,AF_EXCLU],"EXCLUSIVE ","SHARED ") + ;

@@ -89,7 +89,7 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
            bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
            nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit, aItems) CLASS HGridEx
 
-   HB_SYMBOL_UNUSED( nItemCount )
+   HB_SYMBOL_UNUSED(nItemCount)
 
    //nStyle := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), WS_VISIBLE + WS_CHILD + WS_TABSTOP + LVS_REPORT )
    nStyle := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), WS_TABSTOP + WS_BORDER   )
@@ -148,30 +148,30 @@ METHOD Init() CLASS HGridEx
 
       IF Len( aButton ) > 0
 
-         aBmpSize := hwg_Getbitmapsize( aButton[ 1 ] )
-         nmax := aBmpSize[ 3 ]
+         aBmpSize := hwg_Getbitmapsize( aButton[1] )
+         nmax := aBmpSize[3]
          FOR n := 2 TO Len( aButton )
-            aBmpSize := hwg_Getbitmapsize( aButton[ n ] )
-            nmax := Max( nmax, aBmpSize[ 3 ] )
+            aBmpSize := hwg_Getbitmapsize( aButton[n] )
+            nmax := Max( nmax, aBmpSize[3] )
          NEXT
 
 
          IF nmax == 4
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLOR4 + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK )
          ELSEIF nmax == 8
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLOR8 + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK )
          ELSEIF nmax == 24
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLORDDB + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
          ENDIF
 
          FOR nPos := 1 TO Len( aButton )
 
-            aBmpSize := hwg_Getbitmapsize( aButton[ nPos ] )
+            aBmpSize := hwg_Getbitmapsize( aButton[nPos] )
 
-            IF aBmpSize[ 3 ] == 24
-               hwg_Imagelist_add( ::hIm, aButton[ nPos ] )
+            IF aBmpSize[3] == 24
+               hwg_Imagelist_add( ::hIm, aButton[nPos] )
             ELSE
-               hwg_Imagelist_add( ::hIm, aButton[ nPos ] )
+               hwg_Imagelist_add( ::hIm, aButton[nPos] )
             ENDIF
 
          NEXT
@@ -183,15 +183,15 @@ METHOD Init() CLASS HGridEx
       hwg_Listview_init( ::handle, ::ItemCount, ::lNoLines )
 
       FOR i := 1 TO Len( ::aColumns )
-         hwg_Listview_addcolumnex( ::handle, i, ::aColumns[ i, 1 ], ::aColumns[ i , 2 ], ::aColumns[ i, 3 ], IIF( ::aColumns[ i, 4 ] != NIL, ::aColumns[ i, 4 ]  , - 1 ) )
+         hwg_Listview_addcolumnex( ::handle, i, ::aColumns[i, 1], ::aColumns[i , 2], ::aColumns[i, 3], IIF( ::aColumns[i, 4] != NIL, ::aColumns[i, 4]  , - 1 ) )
 
       NEXT
       IF Len( ::aRow ) > 0
          FOR n := 1 TO Len( ::aRow )
-            aTemp := ::aRow[ n ]
-            aTemp1 := ::aRowBitMap[ n ]
+            aTemp := ::aRow[n]
+            aTemp1 := ::aRowBitMap[n]
             FOR n1 := 1 TO Len( aTemp )
-               hwg_Listview_insertitemex( ::handle, n, n1, aTemp[ n1 ], aTemp1[ n1 ] )
+               hwg_Listview_insertitemex( ::handle, n, n1, aTemp[n1], aTemp1[n1] )
             NEXT
          NEXT
 
@@ -296,8 +296,8 @@ METHOD Notify( lParam )  CLASS HGRIDEX
 METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
                  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem )  CLASS hGridex
 
-   HB_SYMBOL_UNUSED( cCaption )
-   HB_SYMBOL_UNUSED( lTransp )
+   HB_SYMBOL_UNUSED(cCaption)
+   HB_SYMBOL_UNUSED(lTransp)
 
    DEFAULT  aItem TO { }
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
@@ -312,12 +312,12 @@ METHOD UpdateData() CLASS hGridex
    LOCAL n := Len( ::aRow ), n1
    LOCAL aTemp, atemp1
 
-   aTemp := ::aRow[ n ]
-   atemp1 := ::aRowBitMap[ n ]
+   aTemp := ::aRow[n]
+   atemp1 := ::aRowBitMap[n]
 
    FOR n1 := 1 TO Len( aTemp )
 
-      hwg_Listview_insertitemex( ::handle, n, n1, aTemp[ n1 ], atemp1[ n1 ] )
+      hwg_Listview_insertitemex( ::handle, n, n1, aTemp[n1], atemp1[n1] )
    NEXT
 
    RETURN .t.

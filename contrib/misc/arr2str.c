@@ -260,10 +260,10 @@ HB_FUNC( ARRAY2STRING )
 
 HB_FUNC( STRING2ARRAY )
 {
-   const char *szResult = hb_parc( 1 );
+   const char *szResult = hb_parc(1);
    PHB_ITEM pItem = hb_itemNew( NULL );
 
-   if( hb_parclen( 1 ) > 2 && *szResult == '\6' )
+   if( hb_parclen(1) > 2 && *szResult == '\6' )
       ReadArray( szResult, pItem );
 
    hb_itemRelease( hb_itemReturn( pItem ) );

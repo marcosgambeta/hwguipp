@@ -85,7 +85,7 @@ HB_FUNC( HBXML_SETENTITY )
       hb_xfree( pEntity2 );
    }
 
-   if( HB_ISNIL( 1 ) )
+   if( HB_ISNIL(1) )
    {
       nPredefsKol = XML_PREDEFS_KOL;
       pEntity1 = predefinedEntity1;
@@ -117,9 +117,9 @@ HB_FUNC( HBXML_SETENTITY )
 HB_FUNC( HBXML_PRESAVE )
 {
    PHB_ITEM pItem;
-   unsigned char *pBuffer = ( unsigned char * ) hb_parc( 1 ), *pNew;
+   unsigned char *pBuffer = ( unsigned char * ) hb_parc(1), *pNew;
    unsigned char *ptr, *ptr1, *ptrs, c;
-   unsigned long ulLen = hb_parclen( 1 );
+   unsigned long ulLen = hb_parclen(1);
    int iLenAdd = 0, iLen;
 
    if( !pEntity1 )
@@ -388,7 +388,7 @@ PHB_ITEM hbxml_getattr( unsigned char **pBuffer, int * lSingle )
 
 void hbxml_getdoctype( PHB_ITEM pDoc, unsigned char **pBuffer )
 {
-   HB_SYMBOL_UNUSED( pDoc );
+   HB_SYMBOL_UNUSED(pDoc);
    while( **pBuffer != '>' )
       ( *pBuffer )++;
    ( *pBuffer )++;
@@ -401,7 +401,7 @@ PHB_ITEM hbxml_addnode( PHB_ITEM pParent )
 
    hb_vmPushSymbol( hb_dynsymSymbol( pSym ) );
    hb_vmPushNil(  );
-   hb_vmDo( 0 );
+   hb_vmDo(0);
 
    hb_objSendMsg( hb_param( -1, HB_IT_ANY ), "NEW", 0 );
    hb_itemCopy( pNode, hb_param( -1, HB_IT_ANY ) );
@@ -612,7 +612,7 @@ int hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
 
 HB_FUNC( HBXML_GETATTR )
 {
-   unsigned char *pBuffer = (unsigned char *) hb_parc( 1 );
+   unsigned char *pBuffer = (unsigned char *) hb_parc(1);
    int lSingle;
 
    pStart = pBuffer;
@@ -636,14 +636,14 @@ HB_FUNC( HBXML_GETDOC )
       pEntity1 = predefinedEntity1;
       pEntity2 = predefinedEntity2;
    }
-   if( HB_ISCHAR( 2 ) )
+   if( HB_ISCHAR(2) )
    {
-      ptr = ( unsigned char * ) hb_parc( 2 );
+      ptr = ( unsigned char * ) hb_parc(2);
       ulDataLen = hb_parclen(2);
    }
-   else if( HB_ISNUM( 2 ) )
+   else if( HB_ISNUM(2) )
    {
-      HB_FHANDLE hInput = ( HB_FHANDLE ) hb_parnint( 2 );
+      HB_FHANDLE hInput = ( HB_FHANDLE ) hb_parnint(2);
       unsigned long ulLen = hb_fsSeek(hInput, 0, FS_END), ulRead;
 
       hb_fsSeek(hInput, 0, FS_SET);

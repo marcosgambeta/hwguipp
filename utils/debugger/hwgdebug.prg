@@ -173,7 +173,7 @@ MEMVAR cIniPath, cCurrPath
 FUNCTION Main( ... )
    LOCAL oMainW
    LOCAL aParams := hb_aParams(), i, j, cFile, cExe, cParams, cDirWait
-   PUBLIC cIniPath := FilePath( hb_ArgV( 0 ) ), cCurrPath := ""
+   PUBLIC cIniPath := FilePath( hb_ArgV(0) ), cCurrPath := ""
 
    FOR i := 1 TO Len( aParams )
       IF Left( aParams[i], 1 ) == "-"
@@ -229,8 +229,8 @@ FUNCTION Main( ... )
       DO( hb_hrbGetFunsym( hHrbProj, "proj_menu" ) )
    ENDIF
    MENU TITLE "&Search"
-   MENUITEM "&Find" + Chr(9) + "Ctrl+F" ACTION Locate( 0 ) ACCELERATOR FCONTROL, Asc( "F" )
-   MENUITEM "&Next" + Chr(9) + "F3" ACTION Locate( 1 ) ACCELERATOR 0, VK_F3
+   MENUITEM "&Find" + Chr(9) + "Ctrl+F" ACTION Locate(0) ACCELERATOR FCONTROL, Asc( "F" )
+   MENUITEM "&Next" + Chr(9) + "F3" ACTION Locate(1) ACCELERATOR 0, VK_F3
    MENUITEM "&Previous" + Chr(9) + "Shift+F3" ACTION Locate( - 1 ) ACCELERATOR FSHIFT, VK_F3
    SEPARATOR
    MENUITEM "&Go to line" + Chr(9) + "Ctrl+G" ACTION GoToLine( )ACCELERATOR FCONTROL, Asc( "G" )
@@ -304,7 +304,7 @@ FUNCTION Main( ... )
    //oEditExpr:nMaxLines := 1
    //oEditExpr:bColorCur := oEditExpr:bColor
 
-   @ 536, 516 BUTTON "-" SIZE 24, 14 ON CLICK { ||PrevExpr( 1 ) } ON SIZE { |o, x, y|o:Move( x - 64, y - 32 ) }
+   @ 536, 516 BUTTON "-" SIZE 24, 14 ON CLICK { ||PrevExpr(1) } ON SIZE { |o, x, y|o:Move( x - 64, y - 32 ) }
    @ 536, 530 BUTTON "-" SIZE 24, 14 ON CLICK { ||PrevExpr( - 1 ) } ON SIZE { |o, x, y|o:Move( x - 64, y - 18 ) }
    @ 560, 516 BUTTON oBtnExp CAPTION "Ok" SIZE 36, 28 ON CLICK { ||Calc() } ON SIZE { |o, x, y|o:Move( x - 40, y - 32 ) }
 
@@ -736,8 +736,8 @@ STATIC FUNCTION SetMode( newMode )
    hwg_Enablemenuitem( , MENU_BRP, ( newmode == MODE_INPUT ), .T. )
    hwg_Enablemenuitem( , MENU_QUIT, ( newmode == MODE_INPUT ), .T. )
    hwg_Drawmenubar( HWindow():GetMain():handle )
-   oSayState:SetText( aStates[ newMode,1 ] )
-   oSayState:Setcolor( aStates[ newMode,2 ], aStates[ newMode,3 ], .T. )
+   oSayState:SetText( aStates[newMode, 1] )
+   oSayState:Setcolor( aStates[newMode, 2], aStates[newMode, 3], .T. )
    IF newMode == MODE_INPUT
       oBtnExp:Enable()
 #ifndef __PLATFORM__WINDOWS
@@ -930,7 +930,7 @@ FUNCTION GetTextObj( cName, nTab )
    LOCAL i, oText
 
    IF Empty(cName)
-      oText := oTabMain:aControls[ nTab := oTabMain:GetActivePage() ]
+      oText := oTabMain:aControls[nTab := oTabMain:GetActivePage()]
    ELSE
       FOR i := 1 TO Len( oTabMain:aControls )
          IF oTabMain:aControls[i]:cargo == cName
@@ -1082,17 +1082,17 @@ STATIC FUNCTION SetText( cName, lClear )
    RETURN .F.
 
 STATIC FUNCTION SetTextFont( oFont )
-   LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
+   LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
    RETURN iif( Empty(oText), NIL, oText:SetFont( oFont ) )
 
 STATIC FUNCTION GetTextArr()
-   LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
+   LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
    RETURN iif( Empty(oText), NIL, oText:aText )
 
 STATIC FUNCTION GetCurrLine()
-   LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
+   LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
    RETURN iif( Empty(oText), 0, oText:nLineF + oText:nLineC - 1 )
 
@@ -1214,7 +1214,7 @@ STATIC FUNCTION SetText( cName, lClear )
    RETURN .F.
 
 STATIC FUNCTION SetTextFont( oFont )
-   LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
+   LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
    IF !Empty(oText)
       oText:oFont := oFont
@@ -1224,13 +1224,13 @@ STATIC FUNCTION SetTextFont( oFont )
    RETURN NIL
 
 STATIC FUNCTION GetTextArr()
-   LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
+   LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
    RETURN iif( Empty(oText), NIL, oText:aArray )
 
 STATIC FUNCTION GetCurrLine()
 
-   LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
+   LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
    RETURN iif( Empty(oText), 0, oText:nCurrent )
 
@@ -1409,7 +1409,7 @@ STATIC FUNCTION PrevExpr( nDirection )
 
       iPos += nDirection
       i := Len( oBrwRes:aArray ) - iPos + 1
-      oEditExpr:value := oBrwRes:aArray[ i,2]
+      oEditExpr:value := oBrwRes:aArray[i, 2]
 
       oBrwRes:nCurrent := i
       oBrwRes:rowPos := Min( 2, i )
@@ -1427,7 +1427,7 @@ STATIC FUNCTION PrevExpr( nDirection )
 
 STATIC FUNCTION SetResult( cLine )
 
-   oBrwRes:aArray[ Len(oBrwRes:aArray),1 ] := cLine
+   oBrwRes:aArray[Len(oBrwRes:aArray), 1] := cLine
    oBrwRes:Bottom( .T. )
    hwg_Setfocus( oEditExpr:handle )
 
@@ -1440,7 +1440,7 @@ STATIC FUNCTION KeyPress( nKey )
       IF nKey == VK_RETURN
          Calc()
       ELSEIF nKey == VK_UP
-         PrevExpr( 1 )
+         PrevExpr(1)
          hwg_Setfocus( oEditExpr:handle )
       ELSEIF nKey == VK_DOWN
          PrevExpr( - 1 )
@@ -1477,7 +1477,7 @@ STATIC FUNCTION Calc( cExp )
             ADel( oBrwRes:aArray, 1 )
             oBrwRes:aArray[RES_LEN] := { "", cExp }
          ENDIF
-         PrevExpr( 0 )
+         PrevExpr(0)
          cInspectVar := NIL
          DoCommand( CMD_EXP, Str2Hex( cExp ) )
       ENDIF
@@ -1546,9 +1546,9 @@ STATIC FUNCTION ShowStack( arr, n )
          oBrw:aArray := Array( nLen, 3 )
       ENDIF
       FOR i := 1 TO nLen
-         oBrw:aArray[i,1] := arr[ ++n ]
-         oBrw:aArray[i,2] := arr[ ++n ]
-         oBrw:aArray[i,3] := arr[ ++n ]
+         oBrw:aArray[i,1] := arr[++n]
+         oBrw:aArray[i,2] := arr[++n]
+         oBrw:aArray[i,3] := arr[++n]
       NEXT
       oBrw:Refresh()
    ENDIF
@@ -2168,7 +2168,7 @@ STATIC FUNCTION ViewCmdLine( lView )
 STATIC FUNCTION ViewSelVar()
 
 #ifdef __HCEDIT__
-   LOCAL oText := oTabMain:aControls[ oTabMain:GetActivePage() ]
+   LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
    LOCAL nL := oText:aPointC[P_Y], nPos := oText:aPointC[P_X], cLine, c, nPos1, nPos2
 
    IF Empty(nL) .OR. Empty(nPos1 := nPos2 := nPos) .OR. SubStr(cLine := oText:aText[nL], nPos, 1) < '0'

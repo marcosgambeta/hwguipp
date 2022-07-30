@@ -368,7 +368,7 @@ METHOD Activate() CLASS HCEdit
       ::nWIdth := nw
       ::handle := hced_GetHandle( ::hEdit )
       IF hb_bitand( ::style, WS_BORDER ) != 0
-         ::SetBorder( 2 )
+         ::SetBorder(2)
       ENDIF
 #else
       ::handle := hced_CreateTextEdit( ::oParent:handle, ::id, ;
@@ -424,13 +424,13 @@ METHOD SetHili( xGroup, oFont, tColor, bColor ) CLASS HCEdit
    ENDIF
 
    IF !hb_hHaskey( ::aHili, xGroup )
-      ::aHili[xGroup] := Array( 3 )
+      ::aHili[xGroup] := Array(3)
    ENDIF
    arr := ::aHili[xGroup]
 
-   arr[ 1 ] := Iif( ValType( oFont ) == "O", ::AddFont( oFont ), Iif( Empty(oFont), 0, oFont ) )
-   arr[ 2 ] := tColor
-   arr[ 3 ] := bColor
+   arr[1] := Iif( ValType( oFont ) == "O", ::AddFont( oFont ), Iif( Empty(oFont), 0, oFont ) )
+   arr[2] := tColor
+   arr[3] := bColor
 
    RETURN NIL
 
@@ -682,7 +682,7 @@ METHOD Paint( lReal ) CLASS HCEdit
    ELSE
       ::nMarginL := Round( ::aDocMargins[1] * ::nKoeffScr, 0 )
       ::nMarginR := Round( ::aDocMargins[2] * ::nKoeffScr, 0 )
-      ::nDocWidth := nDocWidth := Int( ::nKoeffScr * HPrinter():aPaper[ ::nDocFormat, Iif(::nDocOrient==0,2,3) ] ) - ::nMarginR
+      ::nDocWidth := nDocWidth := Int( ::nKoeffScr * HPrinter():aPaper[::nDocFormat, Iif(::nDocOrient == 0, 2, 3)] ) - ::nMarginR
    ENDIF
 
    IF lReal == NIL .OR. lReal
@@ -1471,7 +1471,7 @@ METHOD onKeyDown( nKeyCode, lParam, nCtrl ) CLASS HCEdit
          cLine := ::GetText( ::aPointM1, ::aPointM2 )
          hwg_Copystringtoclipboard( cLine )
       ENDIF
-      ::putChar( 7 )   // for to not interfere with '.'
+      ::putChar(7)   // for to not interfere with '.'
 
    ELSEIF nKeyCode == VK_INSERT   // Insert
       IF nCtrl == 0
@@ -1528,7 +1528,7 @@ METHOD onKeyDown( nKeyCode, lParam, nCtrl ) CLASS HCEdit
       IF !Empty(::aPointM2[P_Y])
          cLine := ::GetText( ::aPointM1, ::aPointM2 )
          hwg_Copystringtoclipboard( cLine )
-         ::putChar( 7 )   // for to not interfere with '.'
+         ::putChar(7)   // for to not interfere with '.'
       ENDIF
 #ifdef __GTK__
    ELSEIF nKeyCode < 0xFE00 .OR. ( nKeyCode >= GDK_KP_Multiply .AND. nKeyCode <= GDK_KP_9 ) ;
@@ -2263,7 +2263,7 @@ METHOD Scan( nl1, nl2, hDC, nWidth, nHeight ) CLASS HCEdit
       ELSE
          ::nMarginL := Round( ::aDocMargins[1] * ::nKoeffScr, 0 )
          ::nMarginR := Round( ::aDocMargins[2] * ::nKoeffScr, 0 )
-         ::nDocWidth := nDocWidth := Int( ::nKoeffScr * HPrinter():aPaper[ ::nDocFormat, Iif(::nDocOrient==0,2,3) ] ) - ::nMarginR
+         ::nDocWidth := nDocWidth := Int( ::nKoeffScr * HPrinter():aPaper[::nDocFormat, Iif(::nDocOrient == 0, 2, 3)] ) - ::nMarginR
       ENDIF
       ::nBoundR := Iif( !Empty(nDocWidth), nDocWidth, ::nClientWidth ) - ::nPadding
       nHeight := ::nHeight
@@ -2440,7 +2440,7 @@ METHOD Print( nDocFormat, nDocOrient, nMarginL, nMarginR, nMarginT, nMarginB ) C
 
    ENDIF
    IF ::nDocOrient == 1
-      oPrinter:SetMode( 2 )
+      oPrinter:SetMode(2)
    ENDIF
    oPrinter:StartDoc()
    oPrinter:StartPage()
@@ -2753,7 +2753,7 @@ STATIC FUNCTION onTrack( oEdit, oTrack )
 FUNCTION hced_Line4Pos( oEdit, yPos )
    LOCAL y1
    FOR y1 := 1 TO oEdit:nLines
-      IF yPos < oEdit:aLines[ y1,AL_Y2 ]
+      IF yPos < oEdit:aLines[y1, AL_Y2]
          EXIT
       ENDIF
    NEXT

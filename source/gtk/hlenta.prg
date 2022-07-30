@@ -102,7 +102,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HLenta
 
    LOCAL xPos, yPos, nPos, lRedraw := .F., y1
 
-   HB_SYMBOL_UNUSED( wParam )
+   HB_SYMBOL_UNUSED(wParam)
 
    IF msg == WM_MOUSEMOVE
       hwg_SetCapture( ::handle )
