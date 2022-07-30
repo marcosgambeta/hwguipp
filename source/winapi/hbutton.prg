@@ -25,6 +25,21 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor) CLASS HButton
 
+   // TODO: reorganizar para evitar repetição de código
+
+   IF pcount() == 0
+      ::Super:New(NIL, NIL, BS_PUSHBUTTON + WS_TABSTOP, 0, 0, 90, 30, NIL, NIL, NIL, NIL, NIL, NIL, NIL)
+      ::Activate()
+      IF ::id != IDOK .AND. ::id != IDCANCEL
+         IF ::oParent:className == "HSTATUS"
+            ::oParent:oParent:AddEvent(0, ::id, {|o, id|onClick(o, id)})
+         ELSE
+            ::oParent:AddEvent(0, ::id, {|o, id|onClick(o, id)})
+         ENDIF
+      ENDIF
+      RETURN Self
+   ENDIF
+
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON + WS_TABSTOP)
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, iif(nWidth == NIL, 90, nWidth), iif(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
