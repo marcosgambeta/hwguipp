@@ -76,6 +76,17 @@ ENDCLASS
 METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
       bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable) CLASS HDialog
 
+   IF pcount() == 0
+      ::style          := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
+      ::oDefaultParent := Self
+      ::nTop           := 0
+      ::nLeft          := 0
+      ::nWidth         := 0
+      ::nHeight        := 0
+      ::type           := WND_DLG_NORESOURCE
+      RETURN Self
+   ENDIF
+
    IF nStyle == NIL
       ::style := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
    ELSEIF nStyle < 0 .AND. nStyle > -0x1000
