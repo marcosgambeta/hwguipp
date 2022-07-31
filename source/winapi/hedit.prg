@@ -19,19 +19,23 @@ STATIC bColorinFocus := 16777164
 
 CLASS HEdit INHERIT HControl
 
-   CLASS VAR winclass  INIT "EDIT"
-   DATA lMultiLine     INIT .F.
-   DATA cType INIT "C"
+   CLASS VAR winclass INIT "EDIT"
+
+   DATA lMultiLine  INIT .F.
+   DATA cType       INIT "C"
    DATA bSetGet
    DATA bValid
-   DATA cPicFunc, cPicMask
-   DATA lPicComplex    INIT .F.
-   DATA lFirst         INIT .T.
-   DATA lChanged       INIT .F.
-   DATA lNoPaste       INIT .F.
-   DATA nMaxLength     INIT NIL
-   DATA bkeydown, bkeyup, bchange
-   DATA aColorOld      INIT { 0,0 }
+   DATA cPicFunc
+   DATA cPicMask
+   DATA lPicComplex INIT .F.
+   DATA lFirst      INIT .T.
+   DATA lChanged    INIT .F.
+   DATA lNoPaste    INIT .F.
+   DATA nMaxLength  INIT NIL // TODO: INIT desnecessário, pois NIL é o valor padrão
+   DATA bkeydown
+   DATA bkeyup
+   DATA bchange
+   DATA aColorOld   INIT {0, 0}
    DATA bColorBlock
 
    METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
@@ -50,9 +54,14 @@ CLASS HEdit INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
-      tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword, bKeyDown, bChange) CLASS HEdit
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
+           tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword, bKeyDown, bChange) CLASS HEdit
+
+   IF pcount() == 0
+      ::Super:New(NIL, NIL, WS_TABSTOP + WS_BORDER, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL, 0, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT))
+      ::Activate()
+      RETURN Self
+   ENDIF
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP + iif(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) + ;
       iif(lPassword == NIL .OR. !lPassword, 0, ES_PASSWORD))
