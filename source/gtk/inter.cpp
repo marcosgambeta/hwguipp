@@ -58,7 +58,7 @@ extern void hwg_writelog( const char * sFile, const char * sTraceMsg, ... );
  Some troubleshootings:
   The function HB_RETSTR() is windows only !
   Use hb_retc().
-*/  
+*/
 
 HB_FUNC( HWG_GETLOCALEINFO )
 /* Port to GTK added by DF7BE */
@@ -74,8 +74,10 @@ HB_FUNC( HWG_GETLOCALEINFO )
 #else
    char * lokale;
    lokale = setlocale(LC_CTYPE,NULL); /* only user setting, LC_ALL displays all locale settings */
-   if ( lokale == NULL ) /* Out of memory ? ==> return empty string */
+   if( lokale == NULL ) /* Out of memory ? ==> return empty string */
+   {
      lokale = "\0";
+   }
    strncpy(puf, lokale, 127);  /* Avoid buffer overflow */
 //   hwg_writelog( NULL ,  puf);
    hb_retc( puf );
@@ -108,12 +110,12 @@ HB_FUNC( HWG_GETUTCTIMEDATE )
   SYSTEMTIME st = { 0 };
   GetSystemTime(&st);
   sprintf(cst,"%01d.%04d%02d%02d-%02d:%02d:%02d",st.wDayOfWeek, st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
-  strncpy(puf, cst, 24); 
+  strncpy(puf, cst, 24);
   hb_retc( puf);
   free( puf);
 #else
 /* Note for possible extensions:
-    tm.tm_yday;    Days since Jan. 1: 0-365 
+    tm.tm_yday;    Days since Jan. 1: 0-365
     tm.tm_isdst;   +1 Daylight Savings Time, 0 No DST,
                      * -1 don't know
    Use localtime ( &T ); for local time
@@ -140,12 +142,12 @@ HB_FUNC( HWG_GETDATEANSI )
   SYSTEMTIME lt = { 0 };
   GetLocalTime(&lt);
   sprintf(cst,"%04d%02d%02d", lt.wYear, lt.wMonth, lt.wDay);
-  strncpy(puf, cst, 24); 
+  strncpy(puf, cst, 24);
   hb_retc( puf);
   free( puf);
 #else
 /* Note for possible extensions:
-    tm.tm_yday;    Days since Jan. 1: 0-365 
+    tm.tm_yday;    Days since Jan. 1: 0-365
     tm.tm_isdst;   +1 Daylight Savings Time, 0 No DST,
                      * -1 don't know
    Use localtime ( &T ); for local time
@@ -190,7 +192,7 @@ HB_FUNC( HWG_DEFUSERLANG )
    for ( n = 0; n < sizeof ( (char *) dest) ; ++n ) {
         c =  dest[n];
         c ? sprintf(aus,"'%c' ", c) : sprintf(aus,"'\\0' ");
-        hwg_writelog( NULL ,  aus); 
+        hwg_writelog( NULL ,  aus);
     }
 }
 /* ====================== EOF of inter.c ======================= */

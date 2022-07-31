@@ -412,7 +412,8 @@ HB_FUNC( HWG_DRAWBITMAP )
       gdk_cairo_set_source_pixbuf( hDC->cr, obj->handle, x, y );
       cairo_paint( hDC->cr );
    }
-   else {
+   else
+   {
       pixbuf = gdk_pixbuf_scale_simple( obj->handle, destWidth, destHeight, GDK_INTERP_HYPER );
       gdk_cairo_set_source_pixbuf( hDC->cr, pixbuf, x, y );
       cairo_paint( hDC->cr );
@@ -445,11 +446,13 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
       obj->trcolor = nColor;
    }
 
-   if( srcWidth == destWidth && srcHeight == destHeight ) {
+   if( srcWidth == destWidth && srcHeight == destHeight )
+   {
       gdk_cairo_set_source_pixbuf( hDC->cr, obj->handle, x, y );
       cairo_paint( hDC->cr );
    }
-   else {
+   else
+   {
       pixbuf = gdk_pixbuf_scale_simple( obj->handle, destWidth, destHeight, GDK_INTERP_HYPER );
       gdk_cairo_set_source_pixbuf( hDC->cr, pixbuf, x, y );
       cairo_paint( hDC->cr );
@@ -579,9 +582,11 @@ HB_FUNC( HWG_OPENIMAGE )
       handle = gdk_pixbuf_loader_get_pixbuf( loader );
    }
    else
+   {
    /* Load image from file */
       handle = gdk_pixbuf_new_from_file( hb_parc(1), NULL );
-   
+   }
+
    if( handle )
    {
       hpix = (PHWGUI_PIXBUF) hb_xgrab( sizeof(HWGUI_PIXBUF) );
@@ -604,7 +609,9 @@ HB_FUNC( HWG_GETSYSCOLOR )
       hb_retnl( hwg_gdk_color( &color ) );
    }
    else
+   {
       hb_retnl(0);
+   }
 }
 
 #define  PS_SOLID   0
@@ -644,7 +651,9 @@ HB_FUNC( HWG_SELECTOBJECT )
          hwg_setcolor( hDC->cr, ((PHWGUI_PEN)obj)->color );
          cairo_set_line_width( hDC->cr, ((PHWGUI_PEN)obj)->width );
          if( ((PHWGUI_PEN)obj)->style == PS_SOLID )
+         {
             cairo_set_dash( hDC->cr, NULL, 0, 0 );
+         }
          else
          {
             static const double dashed[] = {2.0, 2.0};
@@ -697,7 +706,7 @@ HB_FUNC( HWG_DELETEOBJECT )
 HB_FUNC( HWG_DEFINEPAINTSTRU )
 {
    PHWGUI_PPS pps = (PHWGUI_PPS) hb_xgrab( sizeof(HWGUI_PPS) );
-   
+
    pps->hDC = NULL;
    HB_RETHANDLE( pps );
 }
@@ -706,8 +715,8 @@ HB_FUNC( HWG_BEGINPAINT )
 {
    GtkWidget * widget = (GtkWidget*) HB_PARHANDLE(1);
    PHWGUI_PPS pps = (PHWGUI_PPS) HB_PARHANDLE(2);
-   PHWGUI_HDC hDC = (PHWGUI_HDC) hb_xgrab( sizeof(HWGUI_HDC) );   
-   
+   PHWGUI_HDC hDC = (PHWGUI_HDC) hb_xgrab( sizeof(HWGUI_HDC) );
+
    memset( hDC, 0, sizeof(HWGUI_HDC) );
    hDC->widget = widget;
 
@@ -728,7 +737,9 @@ HB_FUNC( HWG_ENDPAINT )
    PHWGUI_HDC hDC = pps->hDC;
 
    if( hDC->layout )
+   {
       g_object_unref( (GObject*) hDC->layout );
+   }
    hb_xfree( hDC );
    hb_xfree( pps );
 }
@@ -755,10 +766,14 @@ HB_FUNC( HWG_RELEASEDC )
    PHWGUI_HDC hDC = (PHWGUI_HDC) HB_PARHANDLE(2);
 
    if( hDC->layout )
+   {
       g_object_unref( (GObject*) hDC->layout );
+   }
 
    if( hDC->surface )
+   {
       cairo_surface_destroy( hDC->surface );
+   }
    cairo_destroy( hDC->cr );
    hb_xfree( hDC );
 }
@@ -824,11 +839,13 @@ HB_FUNC( HWG_GETCLIENTAREA )
 {
    PHWGUI_PPS pps = ( PHWGUI_PPS ) HB_PARHANDLE(1);
    GtkWidget * widget = pps->hDC->widget;
-   PHB_ITEM aMetr = hb_itemArrayNew(4);    
+   PHB_ITEM aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
 
    if( getFixedBox( (GObject *) widget ) )
+   {
       widget = (GtkWidget*) getFixedBox( (GObject *) widget );
+   }
 
    gtk_widget_get_allocation( widget, &alloc );
    hb_itemPutNL( hb_arrayGetItemPtr( aMetr, 1 ), 0 );
@@ -845,7 +862,9 @@ HB_FUNC( HWG_GETCLIENTRECT )
    GtkAllocation alloc;
 
    if( getFixedBox( (GObject *) widget ) )
+   {
       widget = (GtkWidget*) getFixedBox( (GObject *) widget );
+   }
 
    gtk_widget_get_allocation( widget, &alloc );
    hb_itemPutNL( hb_arrayGetItemPtr( aMetr, 1 ), 0 );
@@ -872,7 +891,7 @@ HB_FUNC( HWG_GETWINDOWRECT )
 void hwg_prepare_cairo_colors( long int nColor, gdouble *r, gdouble *g, gdouble *b )
 {
    short int int_r, int_g, int_b;
-  
+
    nColor %= ( 65536 * 256 );
    int_r = nColor % 256;
    int_g = ( ( nColor - int_r ) % 65536 ) / 256;
@@ -904,15 +923,19 @@ HB_FUNC( HWG_DRAWGRADIENT )
    gint user_radiuses_num;
 
    if( !pArrColor || ( user_colors_num = hb_arrayLen( pArrColor ) ) == 0 )
+   {
       return;
+   }
 
    if( user_colors_num == 1 )
+   {
       hwg_setcolor( hDC->cr, hb_arrayGetNL( pArrColor, 1 ) );
+   }
    else
    {
       // type of gradient
       type = ( type >= 1 && type <= 9 ) ? type : 1;
-      switch( type ) 
+      switch( type )
       {
          case 1:
             // vertical and down
@@ -986,14 +1009,20 @@ HB_FUNC( HWG_DRAWGRADIENT )
       cairo_close_path(hDC->cr);
    }
    else
+   {
       cairo_rectangle( hDC->cr, x1, y1, x2-x1+1, y2-y1+1 );
+   }
 
    if( user_colors_num > 1 )
+   {
       cairo_set_source( hDC->cr, pat );
+   }
    cairo_fill( hDC->cr );
 
    if( user_colors_num > 1 )
+   {
       cairo_pattern_destroy( pat );
+   }
 }
 
 HB_FUNC( HWG__DRAWCOMBO )

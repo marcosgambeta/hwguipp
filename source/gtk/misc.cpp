@@ -88,7 +88,9 @@ HB_FUNC( HWG_RELEASECAPTURE )
 HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 {
    if( !clipboard )
+   {
       clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+   }
 
    gtk_clipboard_set_text( clipboard, hb_parc(1), -1 );
    gtk_clipboard_store( clipboard );
@@ -98,7 +100,9 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
 {
    gchar * sText;
    if( !clipboard )
+   {
       clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+   }
 
    if( gtk_clipboard_wait_is_text_available( clipboard ) )
    {
@@ -106,7 +110,9 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
       hb_retc( sText );
    }
    else
+   {
       hb_retc( "" );
+   }
 }
 
 HB_FUNC( HWG_GETKEYBOARDSTATE )
@@ -116,11 +122,17 @@ HB_FUNC( HWG_GETKEYBOARDSTATE )
 
    memset( lpbKeyState, 0, 255 );
    if( ulState & 1 )
+   {
       lpbKeyState[0x10] = 0x80;  // Shift
+   }
    if( ulState & 2 )
+   {
       lpbKeyState[0x11] = 0x80;  // Ctrl
+   }
    if( ulState & 4 )
+   {
       lpbKeyState[0x12] = 0x80;  // Alt
+   }
 
    hb_retclen( lpbKeyState, 255 );
 }
@@ -160,9 +172,13 @@ HB_FUNC( HWG_BITANDINVERSE )
 HB_FUNC( HWG_SETBIT )
 {
    if( hb_pcount() < 3 || hb_parni(3) )
+   {
       hb_retnl( hb_parnl(1) | ( 1 << (hb_parni(2)-1) ) );
+   }
    else
+   {
       hb_retnl( hb_parnl(1) & ~( 1 << (hb_parni(2)-1) ) );
+   }
 }
 
 HB_FUNC( HWG_CHECKBIT )
@@ -264,7 +280,9 @@ HB_FUNC( HWG_COLORRGB2N )
 HB_FUNC( HWG_SLEEP )
 {
    if( hb_parinfo(1) )
+   {
       usleep( hb_parnl(1) * 1000 );
+   }
 }
 
 #define CHUNK_LEN 1024
@@ -294,12 +312,16 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
     {
         bytes_read = fread(buf, sizeof(char), CHUNK_LEN, cmd_file);
         if( iOutExist )
+        {
            fwrite(buf, 1, bytes_read, hOut);
+        }
     } while (bytes_read == CHUNK_LEN);
 
     iExitCode = pclose(cmd_file);
     if( iOutExist )
+    {
        fclose(hOut);
+    }
 
     hb_retni( iExitCode );
 }
@@ -319,7 +341,7 @@ HB_FUNC( HWG_GETCENTURY )
 {
   HB_BOOL centset = hb_setGetCentury();
   hb_retl(centset);
-} 
+}
 
 /* DF7BE: This functions works on GTK cross development environment */
 HB_FUNC( HWG_ISWIN7 )
@@ -387,9 +409,11 @@ HB_FUNC( HWG_GETTEMPDIR )
    HB_RETSTR(szBuffer);
 #else
  char const * tempdirname = getenv("TMPDIR");
- 
- if (tempdirname == NULL)
-   { tempdirname = "/tmp"; }
+
+ if( tempdirname == NULL )
+ {
+   tempdirname = "/tmp";
+ }
    hb_retc(tempdirname);
 #endif
 }
@@ -445,7 +469,7 @@ HB_FUNC( HWG_STOD )
 
 int hwg_hexbin(int cha)
 /* converts single hex char to int, returns -1 , if not in range
-   returns 0 - 15 (dec) , only a half byte */ 
+   returns 0 - 15 (dec) , only a half byte */
 {
     char gross;
     int o;
@@ -461,7 +485,7 @@ int hwg_hexbin(int cha)
      break;
      case 50:  /* 2 */
      o = 2;
-     break;	 
+     break;
      case 51:  /* 3 */
      o = 3;
      break;
@@ -473,7 +497,7 @@ int hwg_hexbin(int cha)
      break;
      case 54:  /* 6 */
      o = 6;
-     break;	 
+     break;
      case 55:  /* 7 */
      o = 7	 ;
      break;
@@ -517,7 +541,7 @@ HB_FUNC( HWG_BIN2DC )
     double pbyNumber;
     int i;
     unsigned char o;
-    unsigned char bu[8];     /* Buffer with binary contents of double value */ 
+    unsigned char bu[8];     /* Buffer with binary contents of double value */
     unsigned char szHex[17]; /* The hex string from parameter 1 + null byte*/
 
 
@@ -610,18 +634,18 @@ HB_FUNC( HWG_BIN2DC )
 
             }
           }
-        }  
+        }
 
 
-   
+
     /* Convert buffer to double */
 
     memcpy(&pbyNumber,bu,sizeof(pbyNumber));
 
     /* Return double value as type N */
-  
+
     hb_retndlen( pbyNumber , uiWidth , uiDec );
-  
+
 }
 
 static void GetFileMtimeU(const char * filePath)
@@ -651,7 +675,7 @@ HB_FUNC( HWG_FILEMODTIMEU )
  GetFileMtimeU( ( const char * ) hb_parc(1) );
 }
 
- 
+
 HB_FUNC( HWG_FILEMODTIME )
 {
  GetFileMtime( ( const char * ) hb_parc(1) );

@@ -58,7 +58,9 @@ HB_FUNC( HWG__ADDMENUITEM )
       lpNewItem	= hb_parc(2);
       ptr = lpNewItem;
       if( *ptr == '%' )
+      {
          lStock = TRUE;
+      }
       else
          while( *ptr )
          {
@@ -71,7 +73,9 @@ HB_FUNC( HWG__ADDMENUITEM )
          }
    }
    if( !HB_ISNIL(6) && ( hb_parni(6) & FLAG_CHECK ) )
+   {
       lCheck = TRUE;
+   }
 
    if( lCheck )
    {
@@ -90,7 +94,9 @@ HB_FUNC( HWG__ADDMENUITEM )
       g_free( gcptr );
    }
    else
+   {
       hMenu = (GtkWidget *) gtk_separator_menu_item_new();
+   }
 
    if( !HB_ISNIL(7) && hb_parl(7) )
    {
@@ -198,11 +204,11 @@ HB_FUNC( HWG__ADDACCELERATOR )
 {
 
    int iControl = hb_parni(3);
-   GdkModifierType nType = (iControl==FSHIFT)? GDK_SHIFT_MASK : 
+   GdkModifierType nType = (iControl==FSHIFT)? GDK_SHIFT_MASK :
          ( (iControl==FCONTROL)? GDK_CONTROL_MASK : ( (iControl==FALT)? GDK_MOD1_MASK : 0 ) );
 
-   gtk_widget_add_accelerator( (GtkWidget *) HB_PARHANDLE(2), "activate", 
-         (GtkAccelGroup *)HB_PARHANDLE(1), 
+   gtk_widget_add_accelerator( (GtkWidget *) HB_PARHANDLE(2), "activate",
+         (GtkAccelGroup *)HB_PARHANDLE(1),
          (guint)hb_parni(4), nType, 0 );
 }
 

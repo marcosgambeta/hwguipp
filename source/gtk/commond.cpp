@@ -154,7 +154,9 @@ HB_FUNC( HWG_SELECTFILE )
    char * cDir = ( hb_pcount()>2 && HB_ISCHAR(3) )? (char*)hb_parc(3) : NULL;
 
    if( cDir )
+   {
       hb_fsChDir( cDir );
+   }
    file_selector = gtk_file_selection_new( cTitle );
 
    g_signal_connect (G_OBJECT (file_selector), "destroy",
@@ -168,10 +170,12 @@ HB_FUNC( HWG_SELECTFILE )
    g_signal_connect_swapped( G_OBJECT (GTK_FILE_SELECTION (file_selector)->cancel_button),
                              "clicked",
                              G_CALLBACK (cancel_filedlg),
-                             (gpointer) file_selector); 
+                             (gpointer) file_selector);
 
    if( cMask )
+   {
       gtk_file_selection_complete( (GtkFileSelection*)file_selector, cMask );
+   }
 
    gtk_widget_show( file_selector );
 
@@ -195,8 +199,10 @@ static void selefile_preview( GtkFileChooser *file_chooser, gpointer data )
   g_free (filename);
 
   gtk_image_set_from_pixbuf (GTK_IMAGE (preview), pixbuf);
-  if (pixbuf)
+  if( pixbuf )
+  {
     g_object_unref (pixbuf);
+  }
 
   gtk_file_chooser_set_preview_widget_active (file_chooser, have_preview);
 }
@@ -239,7 +245,9 @@ HB_FUNC( HWG_SELECTFILE )
       GtkFileFilter *filtro = gtk_file_filter_new();
       gtk_file_filter_add_pattern( filtro, cMsk );
       if( cTip )
+      {
          gtk_file_filter_set_name( filtro, cTip );
+      }
       gtk_file_chooser_add_filter( (GtkFileChooser*)selector_archivo, filtro);
    }
 
@@ -262,9 +270,9 @@ HB_FUNC( HWG_SELECTFILE )
           // do_nothing_since_dialog_was_cancelled ();
           /* DF7BE: if file selection cancelled,
              crash at IF ... == NIL or IF EMPTY(..),
-             to handle this 
+             to handle this
              returning empty string */
-          hb_retc(""); 
+          hb_retc("");
        break;
    }
    gtk_widget_destroy (selector_archivo);
@@ -328,12 +336,12 @@ HB_FUNC( HWG_CHOOSECOLOR )
   response = gtk_dialog_run (GTK_DIALOG (colorseldlg));
 
   if (response == GTK_RESPONSE_OK)
-    {
+  {
       gtk_color_selection_get_current_color (colorsel,
 					     &color);
       hb_retnl( (HB_ULONG) ( (color.red>>8) + (color.green&0xff00) + ((color.blue&0xff00)<<8) ) );
-    }
-  
+  }
+
   gtk_widget_destroy (colorseldlg);
 
 }
@@ -353,8 +361,10 @@ static void actualiza_preview( GtkFileChooser *file_chooser, gpointer data )
   g_free (filename);
 
   gtk_image_set_from_pixbuf (GTK_IMAGE (preview), pixbuf);
-  if (pixbuf)
+  if( pixbuf )
+  {
     g_object_unref (pixbuf);
+  }
 
   gtk_file_chooser_set_preview_widget_active (file_chooser, have_preview);
 }
@@ -396,9 +406,13 @@ HB_FUNC( HWG_SELECTFILEEX )
           for( j=1; j<=iLen1; j++ )
           {
              if( j == 1 )
+             {
                 gtk_file_filter_set_name( filtro, hb_arrayGetC( pArr1,j ) );
+             }
              else
+             {
                 gtk_file_filter_add_pattern (filtro, hb_arrayGetC( pArr1,j ));
+             }
           }
           gtk_file_chooser_add_filter( (GtkFileChooser*)selector_archivo, filtro);
       }
@@ -410,7 +424,9 @@ HB_FUNC( HWG_SELECTFILEEX )
    //
    gtk_file_chooser_set_current_folder ( (GtkFileChooser*)selector_archivo, cDir );
    if( bMulti )
+   {
       gtk_file_chooser_set_select_multiple( (GtkFileChooser*)selector_archivo, 1);
+   }
    // ------------------------------
    // Definicion del previsualizador
    // ------------------------------
@@ -446,7 +462,8 @@ HB_FUNC( HWG_SELECTFILEEX )
                hb_itemReturnRelease( aFiles );
                g_slist_free( gsli );
             }
-         } else
+         }
+         else
          {
             filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (selector_archivo));
             hb_retc( filename );
@@ -457,9 +474,9 @@ HB_FUNC( HWG_SELECTFILEEX )
          // do_nothing_since_dialog_was_cancelled ();
          /* DF7BE: if file selection cancelled,
              crash at IF ... == NIL or IF EMPTY(..),
-             to handle this 
+             to handle this
              returning empty string */
-         hb_retc(""); 
+         hb_retc("");
        break;
      }
     gtk_widget_destroy (selector_archivo);

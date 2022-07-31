@@ -78,7 +78,9 @@ gboolean cb_delete_event( GtkWidget *widget, gchar* data )
    gObject = g_object_get_data( (GObject*) widget, "obj" );
 
    if( !pSym_onEvent )
+   {
       pSym_onEvent = hb_dynsymFindName( "ONEVENT" );
+   }
 
    if( pSym_onEvent && gObject )
    {
@@ -305,7 +307,9 @@ HB_FUNC( HWG_ACTIVATEDIALOG )
 {
    // gtk_widget_show_all( (GtkWidget*) HB_PARHANDLE(1) );
    if( HB_ISNIL(2) || !hb_parl(2) )
+   {
       gtk_main();
+   }
 }
 
 void hwg_doEvents( void )
@@ -331,7 +335,9 @@ gint cb_signal_size( GtkWidget *widget, GtkAllocation *allocation, gpointer data
    HB_SYMBOL_UNUSED(data);
 
    if( !pSym_onEvent )
+   {
       pSym_onEvent = hb_dynsymFindName( "ONEVENT" );
+   }
 
    if( pSym_onEvent && gObject )
    {
@@ -359,16 +365,22 @@ void cb_signal( GtkWidget *widget,gchar* data )
    {
       p1 = 273;
       if( p3 )
+      {
          widget = (GtkWidget*) p3;
+      }
       else
+      {
          widget = hMainWindow;
+      }
       p3 = 0;
    }
 
    gObject = g_object_get_data( (GObject*) widget, "obj" );
 
    if( !pSym_onEvent )
+   {
       pSym_onEvent = hb_dynsymFindName( "ONEVENT" );
+   }
 
    if( pSym_onEvent && gObject )
    {
@@ -384,171 +396,313 @@ void cb_signal( GtkWidget *widget,gchar* data )
 
 static HB_LONG ToKey(HB_LONG a,HB_LONG b)
 {
-
 if ( a == GDK_KEY_asciitilde || a == GDK_KEY_dead_tilde)
 {
-   if ( b== GDK_KEY_A)
+   if( b== GDK_KEY_A )
+   {
       return (HB_LONG)GDK_KEY_Atilde;
-   else if ( b == GDK_KEY_a )
+   }
+   else if( b == GDK_KEY_a )
+   {
       return (HB_LONG)GDK_KEY_atilde;
-   else if ( b== GDK_KEY_N)
+   }
+   else if( b== GDK_KEY_N )
+   {
       return (HB_LONG)GDK_KEY_Ntilde;
-   else if ( b == GDK_KEY_n )
+   }
+   else if( b == GDK_KEY_n )
+   {
       return (HB_LONG)GDK_KEY_ntilde;
-   else if ( b== GDK_KEY_O)
+   }
+   else if( b== GDK_KEY_O )
+   {
       return (HB_LONG)GDK_KEY_Otilde;
-   else if ( b == GDK_KEY_o )
+   }
+   else if( b == GDK_KEY_o )
+   {
       return (HB_LONG)GDK_KEY_otilde;
+   }
 }
 if  ( a == GDK_KEY_asciicircum || a ==GDK_KEY_dead_circumflex)
 {
-   if ( b== GDK_KEY_A)
+   if( b== GDK_KEY_A )
+   {
       return (HB_LONG)GDK_KEY_Acircumflex;
-   else if ( b == GDK_KEY_a )
+   }
+   else if( b == GDK_KEY_a )
+   {
       return (HB_LONG)GDK_KEY_acircumflex;
-   else if ( b== GDK_KEY_E)
+   }
+   else if( b== GDK_KEY_E )
+   {
       return (HB_LONG)GDK_KEY_Ecircumflex;
-   else if ( b == GDK_KEY_e )
+   }
+   else if( b == GDK_KEY_e )
+   {
       return (HB_LONG)GDK_KEY_ecircumflex;
-   else if ( b== GDK_KEY_I)
+   }
+   else if( b== GDK_KEY_I )
+   {
       return (HB_LONG)GDK_KEY_Icircumflex;
-   else if ( b == GDK_KEY_i )
+   }
+   else if( b == GDK_KEY_i )
+   {
       return (HB_LONG)GDK_KEY_icircumflex;
-   else if ( b== GDK_KEY_O)
+   }
+   else if( b== GDK_KEY_O )
+   {
       return (HB_LONG)GDK_KEY_Ocircumflex;
-   else if ( b == GDK_KEY_o )
+   }
+   else if( b == GDK_KEY_o )
+   {
       return (HB_LONG)GDK_KEY_ocircumflex;
-   else if ( b== GDK_KEY_U)
+   }
+   else if( b== GDK_KEY_U )
+   {
       return (HB_LONG)GDK_KEY_Ucircumflex;
-   else if ( b == GDK_KEY_u )
+   }
+   else if( b == GDK_KEY_u )
+   {
       return (HB_LONG)GDK_KEY_ucircumflex;
-   else if ( b== GDK_KEY_C)
+   }
+   else if( b== GDK_KEY_C )
+   {
       return (HB_LONG)GDK_KEY_Ccircumflex;
-   else if ( b== GDK_KEY_H)
+   }
+   else if( b== GDK_KEY_H )
+   {
       return (HB_LONG)GDK_KEY_Hcircumflex;
-   else if ( b == GDK_KEY_h )
+   }
+   else if( b == GDK_KEY_h )
+   {
       return (HB_LONG)GDK_KEY_hcircumflex;
-   else if ( b== GDK_KEY_J)
+   }
+   else if( b== GDK_KEY_J )
+   {
       return (HB_LONG)GDK_KEY_Jcircumflex;
+   }
    else if ( b == GDK_KEY_j )
+   {
       return (HB_LONG)GDK_KEY_jcircumflex;
-   else if ( b== GDK_KEY_G)
+   }
+   else if ( b== GDK_KEY_G )
+   {
       return (HB_LONG)GDK_KEY_Gcircumflex;
+   }
    else if ( b == GDK_KEY_g )
+   {
       return (HB_LONG)GDK_KEY_gcircumflex;
-   else if ( b== GDK_KEY_S)
+   }
+   else if ( b== GDK_KEY_S )
+   {
       return (HB_LONG)GDK_KEY_Scircumflex;
+   }
    else if ( b == GDK_KEY_s )
+   {
       return (HB_LONG)GDK_KEY_scircumflex;
+   }
 }
-	
+
 if ( a == GDK_KEY_grave  || a==GDK_KEY_dead_grave )
 {
-   if ( b== GDK_KEY_A)
+   if( b== GDK_KEY_A )
+   {
       return (HB_LONG)GDK_KEY_Agrave;
-   else if ( b == GDK_KEY_a )
+   }
+   else if( b == GDK_KEY_a )
+   {
       return (HB_LONG)GDK_KEY_agrave;
-   else if ( b== GDK_KEY_E)
+   }
+   else if( b== GDK_KEY_E )
+   {
       return (HB_LONG)GDK_KEY_Egrave;
-   else if ( b == GDK_KEY_e )
+   }
+   else if( b == GDK_KEY_e )
+   {
       return (HB_LONG)GDK_KEY_egrave;
-   else if ( b== GDK_KEY_I)
+   }
+   else if( b== GDK_KEY_I )
+   {
       return (HB_LONG)GDK_KEY_Igrave;
-   else if ( b == GDK_KEY_i )
+   }
+   else if( b == GDK_KEY_i )
+   {
       return (HB_LONG)GDK_KEY_igrave;
-   else if ( b== GDK_KEY_O)
+   }
+   else if( b== GDK_KEY_O )
+   {
       return (HB_LONG)GDK_KEY_Ograve;
-   else if ( b == GDK_KEY_o )
+   }
+   else if( b == GDK_KEY_o )
+   {
       return (HB_LONG)GDK_KEY_ograve;
-   else if ( b== GDK_KEY_U)
+   }
+   else if( b== GDK_KEY_U )
+   {
       return (HB_LONG)GDK_KEY_Ugrave;
-   else if ( b == GDK_KEY_u )
+   }
+   else if( b == GDK_KEY_u )
+   {
       return (HB_LONG)GDK_KEY_ugrave;
-   else if ( b== GDK_KEY_C)
+   }
+   else if( b== GDK_KEY_C )
+   {
       return (HB_LONG)GDK_KEY_Ccedilla;
-   else if ( b == GDK_KEY_c )
+   }
+   else if( b == GDK_KEY_c )
+   {
       return (HB_LONG)GDK_KEY_ccedilla ;
-
-}
+   }
 
 if ( a == GDK_KEY_acute  ||  a == GDK_KEY_dead_acute)
 {
-  if ( b== GDK_KEY_A)
+  if( b== GDK_KEY_A )
+  {
       return (HB_LONG)GDK_KEY_Aacute;
-   else if ( b == GDK_KEY_a )
+  }
+  else if( b == GDK_KEY_a )
+  {
       return (HB_LONG)GDK_KEY_aacute;
-   else if ( b== GDK_KEY_E)
+  }
+  else if( b== GDK_KEY_E )
+  {
       return (HB_LONG)GDK_KEY_Eacute;
-   else if ( b == GDK_KEY_e )
+  }
+  else if( b == GDK_KEY_e )
+  {
       return (HB_LONG)GDK_KEY_eacute;
-   else if ( b== GDK_KEY_I)
+  }
+  else if( b== GDK_KEY_I )
+  {
       return (HB_LONG)GDK_KEY_Iacute;
-   else if ( b == GDK_KEY_i )
+  }
+  else if( b == GDK_KEY_i )
+  {
       return (HB_LONG)GDK_KEY_iacute;
-   else if ( b== GDK_KEY_O)
+  }
+  else if( b== GDK_KEY_O )
+  {
       return (HB_LONG)GDK_KEY_Oacute;
-   else if ( b == GDK_KEY_o )
+  }
+  else if( b == GDK_KEY_o )
+  {
       return (HB_LONG)GDK_KEY_oacute;
-   else if ( b== GDK_KEY_U)
+  }
+  else if( b== GDK_KEY_U )
+  {
       return (HB_LONG)GDK_KEY_Uacute;
-   else if ( b == GDK_KEY_u )
+  }
+  else if( b == GDK_KEY_u )
+  {
       return (HB_LONG)GDK_KEY_uacute;
-   else if ( b== GDK_KEY_Y)
+  }
+  else if( b== GDK_KEY_Y )
+  {
       return (HB_LONG)GDK_KEY_Yacute;
-   else if ( b == GDK_KEY_y )
+  }
+  else if( b == GDK_KEY_y )
+  {
       return (HB_LONG)GDK_KEY_yacute;
-   else if ( b== GDK_KEY_C)
+  }
+  else if( b== GDK_KEY_C )
+  {
       return (HB_LONG)GDK_KEY_Cacute;
-   else if ( b == GDK_KEY_c )
+  }
+  else if( b == GDK_KEY_c )
+  {
       return (HB_LONG)GDK_KEY_cacute;
-   else if ( b== GDK_KEY_L)
+  }
+  else if( b== GDK_KEY_L )
+  {
       return (HB_LONG)GDK_KEY_Lacute;
-   else if ( b == GDK_KEY_l )
+  }
+  else if( b == GDK_KEY_l )
+  {
       return (HB_LONG)GDK_KEY_lacute;
-   else if ( b== GDK_KEY_N)
+  }
+  else if( b== GDK_KEY_N )
+  {
       return (HB_LONG)GDK_KEY_Nacute;
-   else if ( b == GDK_KEY_n )
+  }
+  else if( b == GDK_KEY_n )
+  {
       return (HB_LONG)GDK_KEY_nacute;
-   else if ( b== GDK_KEY_R)
+  }
+  else if( b== GDK_KEY_R )
+  {
       return (HB_LONG)GDK_KEY_Racute;
-   else if ( b == GDK_KEY_r )
+  }
+  else if( b == GDK_KEY_r )
+  {
       return (HB_LONG)GDK_KEY_racute;
-   else if ( b== GDK_KEY_S)
+  }
+  else if( b== GDK_KEY_S )
+  {
       return (HB_LONG)GDK_KEY_Sacute;
-   else if ( b == GDK_KEY_s )
+  }
+  else if( b == GDK_KEY_s )
+  {
       return (HB_LONG)GDK_KEY_sacute;
-   else if ( b== GDK_KEY_Z)
+  }
+  else if( b== GDK_KEY_Z )
+  {
       return (HB_LONG)GDK_KEY_Zacute;
-   else if ( b == GDK_KEY_z )
+  }
+  else if( b == GDK_KEY_z )
+  {
       return (HB_LONG)GDK_KEY_zacute;
+  }
 }
-if ( a == GDK_KEY_diaeresis|| a==GDK_KEY_dead_diaeresis)	
+if( a == GDK_KEY_diaeresis || a==GDK_KEY_dead_diaeresis )
 {
-  if ( b== GDK_KEY_A)
-      return (HB_LONG)GDK_KEY_Adiaeresis;
-   else if ( b == GDK_KEY_a )
+  if( b== GDK_KEY_A )
+  {
+        return (HB_LONG)GDK_KEY_Adiaeresis;
+  }
+  else if( b == GDK_KEY_a )
+  {
       return (HB_LONG)GDK_KEY_adiaeresis;
-   else if ( b== GDK_KEY_E)
+  }
+  else if( b== GDK_KEY_E )
+  {
       return (HB_LONG)GDK_KEY_Ediaeresis;
-   else if ( b == GDK_KEY_e )
+  }
+  else if( b == GDK_KEY_e )
+  {
       return (HB_LONG)GDK_KEY_ediaeresis;
-   else if ( b== GDK_KEY_I)
+  }
+  else if( b== GDK_KEY_I )
+  {
       return (HB_LONG)GDK_KEY_Idiaeresis;
-   else if ( b == GDK_KEY_i )
+  }
+  else if( b == GDK_KEY_i )
+  {
       return (HB_LONG)GDK_KEY_idiaeresis;
-   else if ( b== GDK_KEY_O)
+  }
+  else if( b== GDK_KEY_O )
+  {
       return (HB_LONG)GDK_KEY_Odiaeresis;
-   else if ( b == GDK_KEY_o )
+  }
+  else if( b == GDK_KEY_o )
+  {
       return (HB_LONG)GDK_KEY_odiaeresis;
-   else if ( b== GDK_KEY_U)
+  }
+  else if( b== GDK_KEY_U )
+  {
       return (HB_LONG)GDK_KEY_Udiaeresis;
-   else if ( b == GDK_KEY_u )
+  }
+  else if( b == GDK_KEY_u )
+  {
       return (HB_LONG)GDK_KEY_udiaeresis;
-   else if ( b== GDK_KEY_Y)
+  }
+  else if( b== GDK_KEY_Y )
+  {
       return (HB_LONG)GDK_KEY_Ydiaeresis;
-   else if ( b == GDK_KEY_y )
-      return (HB_LONG)GDK_KEY_ydiaeresis;       	
-
+  }
+  else if( b == GDK_KEY_y )
+  {
+      return (HB_LONG)GDK_KEY_ydiaeresis;
+  }
 }
  return b;
 
@@ -563,7 +717,9 @@ static gint cb_event( GtkWidget *widget, GdkEvent * event, gchar* data )
    //gchar *res = NULL;
 
    if( !pSym_onEvent )
+   {
       pSym_onEvent = hb_dynsymFindName( "ONEVENT" );
+   }
 
    //if( !gObject )
    //   gObject = g_object_get_data( (GObject*) (widget->parent->parent), "obj" );
@@ -585,7 +741,7 @@ static gint cb_event( GtkWidget *widget, GdkEvent * event, gchar* data )
          p1 = (event->type==GDK_KEY_PRESS)? WM_KEYDOWN : WM_KEYUP;
          p2 = ((GdkEventKey*)event)->keyval;
 
-         if ( p2 == GDK_KEY_asciitilde  ||  p2 == GDK_KEY_asciicircum  ||  p2 == GDK_KEY_grave ||  p2 == GDK_KEY_acute ||  p2 == GDK_KEY_diaeresis || p2 == GDK_KEY_dead_acute ||	 p2 ==GDK_KEY_dead_tilde || p2==GDK_KEY_dead_circumflex || p2==GDK_KEY_dead_grave || p2 == GDK_KEY_dead_diaeresis)	
+         if( p2 == GDK_KEY_asciitilde  ||  p2 == GDK_KEY_asciicircum  ||  p2 == GDK_KEY_grave ||  p2 == GDK_KEY_acute ||  p2 == GDK_KEY_diaeresis || p2 == GDK_KEY_dead_acute ||	 p2 ==GDK_KEY_dead_tilde || p2==GDK_KEY_dead_circumflex || p2==GDK_KEY_dead_grave || p2 == GDK_KEY_dead_diaeresis )
          {
             prevp2 = p2 ;
             p2=-1;
@@ -603,7 +759,7 @@ static gint cb_event( GtkWidget *widget, GdkEvent * event, gchar* data )
          //tmpbuf=g_new0(gchar,7);
          //g_unichar_to_utf8( uchar,tmpbuf );
          //res = hwg_convert_to_utf8( tmpbuf );
-         //g_free(tmpbuf);	
+         //g_free(tmpbuf);
          p3 = ( ( ((GdkEventKey*)event)->state & GDK_SHIFT_MASK )? 1 : 0 ) |
               ( ( ((GdkEventKey*)event)->state & GDK_CONTROL_MASK )? 2 : 0 ) |
               ( ( ((GdkEventKey*)event)->state & GDK_MOD1_MASK )? 4 : 0 );
@@ -619,11 +775,15 @@ static gint cb_event( GtkWidget *widget, GdkEvent * event, gchar* data )
                event->type == GDK_BUTTON_RELEASE )
       {
          if( ((GdkEventButton*)event)->button == 3 )
+         {
             p1 = (event->type==GDK_BUTTON_PRESS)? WM_RBUTTONDOWN :
                  ( (event->type==GDK_BUTTON_RELEASE)? WM_RBUTTONUP : WM_LBUTTONDBLCLK );
+         }
          else
+         {
             p1 = (event->type==GDK_BUTTON_PRESS)? WM_LBUTTONDOWN :
                  ( (event->type==GDK_BUTTON_RELEASE)? WM_LBUTTONUP : WM_LBUTTONDBLCLK );
+         }
          p2 = 0;
          p3 = ( ((HB_ULONG)(((GdkEventButton*)event)->x)) & 0xFFFF ) | ( ( ((HB_ULONG)(((GdkEventButton*)event)->y)) << 16 ) & 0xFFFF0000 );
       }
@@ -663,7 +823,9 @@ static gint cb_event( GtkWidget *widget, GdkEvent * event, gchar* data )
          p2 = p3 = 0;
       }
       else
+      {
          sscanf( (char*)data,"%ld %ld %ld",&p1,&p2,&p3 );
+      }
 
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( ( PHB_ITEM ) gObject );
@@ -733,11 +895,15 @@ GtkWidget * GetActiveWindow( void )
    while( pList )
    {
       if( gtk_window_is_active( pList->data ) )
+      {
         break;
+      }
       pList = g_list_next( pList );
    }
    if( !pList )
+   {
       pList = pL;
+   }
 
    return ( pList )? pList->data : NULL;
 }
@@ -820,9 +986,13 @@ HB_FUNC( HWG_MOVEWINDOW )
    GtkWidget * hWnd = (GtkWidget*)HB_PARHANDLE(1);
 
    if( !HB_ISNIL(2) || !HB_ISNIL(3) )
+   {
       gtk_window_move( GTK_WINDOW(hWnd), hb_parni(2), hb_parni(3) );
+   }
    if( !HB_ISNIL(4) || !HB_ISNIL(5) )
+   {
       gtk_window_resize( GTK_WINDOW(hWnd), hb_parni(4), hb_parni(5) );
+   }
 }
 
 HB_FUNC( HWG_CENTERWINDOW )
@@ -893,9 +1063,13 @@ HB_FUNC( HWG_SETFOCUS )
    if( hObj )
    {
       if( g_object_get_data( hObj, "window" ) )
+      {
          gtk_window_present( (GtkWindow*) HB_PARHANDLE(1) );
+      }
       else
+      {
          gtk_widget_grab_focus( (GtkWidget*) HB_PARHANDLE(1) );
+      }
    }
    HB_RETHANDLE( handle );
 }
@@ -914,7 +1088,9 @@ void hwg_set_modal( GtkWindow * hDlg, GtkWindow * hParent )
 {
    gtk_window_set_modal( hDlg, 1 );
    if( hParent )
+   {
       gtk_window_set_transient_for( hDlg, hParent );
+   }
 }
 
 HB_FUNC( HWG_SET_MODAL )
@@ -966,17 +1142,25 @@ HB_FUNC( HWG_GETWINDOWPOS )
 gchar * hwg_convert_to_utf8( const char * szText )
 {
    if( *szAppLocale )
+   {
       return g_convert( szText, -1, "UTF-8", szAppLocale, NULL, NULL, NULL );
+   }
    else
+   {
       return g_locale_to_utf8( szText,-1,NULL,NULL,NULL );
+   }
 }
 
 gchar * hwg_convert_from_utf8( const char * szText )
 {
    if( *szAppLocale )
+   {
       return g_convert( szText, -1, szAppLocale, "UTF-8", NULL, NULL, NULL );
+   }
    else
+   {
       return g_locale_from_utf8( szText,-1,NULL,NULL,NULL );
+   }
 }
 
 HB_FUNC( HWG_SETAPPLOCALE )
@@ -1015,7 +1199,9 @@ static gint snooper ( GtkWidget *grab_widget,
    {
       PHB_ITEM pObject = (PHB_ITEM) g_object_get_data( (GObject*) window, "obj" );
       if( !pSym_keylist )
+      {
          pSym_keylist = hb_dynsymFindName( "EVALKEYLIST" );
+      }
 
       if( pObject && pSym_keylist && hb_objHasMessage( pObject, pSym_keylist ) )
       {
@@ -1064,7 +1250,7 @@ HB_FUNC( HWG_DEICONIFY ) /* maximize  */
 gtk_window_deiconify(  (GtkWindow*) (HB_PARHANDLE(1) ) );
 }
 
-HB_FUNC( HWG_ICONIFY )   /* minimize */ 
+HB_FUNC( HWG_ICONIFY )   /* minimize */
 {
 gtk_window_iconify(  (GtkWindow*) (HB_PARHANDLE(1) ) );
 }
@@ -1074,12 +1260,12 @@ gtk_window_iconify(  (GtkWindow*) (HB_PARHANDLE(1) ) );
   * TOOLTIP not supported
   * Comment out for experimental purposes
   */
-/*  
+/*
 HB_FUNC( HWG_SHELLMODIFYICON )
 {
 
 
-  PHWGUI_PIXBUF szFile = HB_ISPOINTER(2) ? (PHWGUI_PIXBUF) HB_PARHANDLE(2): NULL; 
+  PHWGUI_PIXBUF szFile = HB_ISPOINTER(2) ? (PHWGUI_PIXBUF) HB_PARHANDLE(2): NULL;
   if (szFile)
    {
         gtk_window_set_icon( (GtkWindow*) (HB_PARHANDLE(1) ), szFile->handle);
