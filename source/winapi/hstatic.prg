@@ -10,11 +10,11 @@
 #include "hbclass.ch"
 #include "guilib.ch"
 
-CLASS HStatic INHERIT HControl
+CLASS HStatic INHERIT HControl // TODO: HLabel é um nome mais adequado para a classe
 
-   CLASS VAR winclass   INIT "STATIC"
+   CLASS VAR winclass INIT "STATIC"
 
-   DATA   nStyleDraw
+   DATA nStyleDraw
 
    METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
@@ -27,6 +27,14 @@ CLASS HStatic INHERIT HControl
 ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
+
+   IF pcount() == 0
+      ::Super:New(NIL, NIL, 0, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL, NIL, NIL)
+      ::Activate()
+      RETURN Self
+   ENDIF
+
+   // TODO: verificar como tratar a clausula TRANSPARENT na sintaxe alternativa
 
    IF lTransp != NIL .AND. lTransp
       ::extStyle += WS_EX_TRANSPARENT
@@ -54,7 +62,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
 
-   HB_SYMBOL_UNUSED(cCaption) // TODO: verificar
+   HB_SYMBOL_UNUSED(cCaption) // TODO: verificar porque foi marcado como HB_SYMBOL_UNUSED
    HB_SYMBOL_UNUSED(lTransp)
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
