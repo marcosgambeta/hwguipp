@@ -173,12 +173,11 @@ HB_FUNC( HWG_DRAWGRID )
    int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
    int n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
    unsigned int uiColor = (HB_ISNIL(7)) ? 0 : static_cast<unsigned int>(hb_parnl(7));
-   int i, j;
 
    hwg_setcolor(hDC->cr, uiColor);
-   for( i = x1 + n; i < x2; i += n )
+   for( int i = x1 + n; i < x2; i += n )
    {
-      for( j = y1 + n; j < y2; j += n )
+      for( int j = y1 + n; j < y2; j += n )
       {
          cairo_rectangle(hDC->cr, static_cast<gdouble>(i), static_cast<gdouble>(j), 1, 1);
       }
@@ -869,7 +868,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
    long int color;
    PHB_ITEM pArrStop = hb_param(8, HB_IT_ARRAY);
    gdouble stop;
-   gint user_colors_num, colors_num, user_stops_num, i;
+   gint user_colors_num, colors_num, user_stops_num;
    cairo_pattern_t * pat = nullptr;
    gdouble x_center, y_center, gr_radius;
    gdouble r, g, b;
@@ -936,7 +935,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
       colors_num = user_colors_num;
       user_stops_num = (pArrStop) ? hb_arrayLen(pArrStop) : 0;
 
-      for( i = 0; i < colors_num; i++ )
+      for( gint i = 0; i < colors_num; i++ )
       {
          color = (i < user_colors_num) ? hb_arrayGetNL(pArrColor, i + 1) : 0xFFFFFF * i;
          hwg_prepare_cairo_colors(color, &r, &g, &b);
@@ -951,7 +950,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
       max_r = (x2 - x1 + 1 > y2 - y1 + 1) ? y2 - y1 + 1 : x2 - x1 + 1;
       max_r /= 2;
 
-      for( i = 0; i < 4; i++ )
+      for( gint i = 0; i < 4; i++ )
       {
          radius[i] = (i < user_radiuses_num) ? hb_arrayGetNI(pArrRadius, i + 1) : 0;
          radius[i] = (radius[i] >= 0) ? radius[i] : 0;
