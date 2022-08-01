@@ -152,7 +152,7 @@
 {unix}source/gtk/hwindow.prg
 {unix}source/gtk/hwinprn.prg
 {unix}source/gtk/initools.prg
-{unix}source/gtk/menu.prg
+{unix}source/gtk/hmenu.prg
 {unix}source/gtk/hbrush.prg
 {unix}source/gtk/hfont.prg
 {unix}source/gtk/hpen.prg
