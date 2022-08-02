@@ -157,3 +157,10 @@
 {unix}source/gtk/hfont.prg
 {unix}source/gtk/hpen.prg
 {unix}source/gtk/hstyle.prg
+{unix}source/gtk/hbutton.prg
+{unix}source/gtk/hbuttonex.prg
+{unix}source/gtk/hgroup.prg
+{unix}source/gtk/hline.prg
+{unix}source/gtk/hstatic.prg
+{unix}source/gtk/hstatus.prg
+
