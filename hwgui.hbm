@@ -124,7 +124,7 @@
 {unix}source/gtk/hbincnt.prg
 {unix}source/gtk/hbrowse.prg
 {unix}source/gtk/hcheckbutton.prg
-{unix}source/gtk/hcombo.prg
+{unix}source/gtk/hcombobox.prg
 {unix}source/gtk/hcontrol.prg
 {unix}source/gtk/hcwindow.prg
 {unix}source/gtk/hdialog.prg
