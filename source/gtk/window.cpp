@@ -50,10 +50,10 @@ void cb_signal(GtkWidget * widget, gchar * data);
 gint cb_signal_size(GtkWidget * widget, GtkAllocation * allocation, gpointer data);
 void set_event(gpointer handle, char * cSignal, long int p1, long int p2, long int p3);
 
-PHB_DYNS pSym_onEvent = NULL;
-PHB_DYNS pSym_keylist = NULL;
+PHB_DYNS pSym_onEvent = nullptr;
+PHB_DYNS pSym_keylist = nullptr;
 guint s_KeybHook = 0;
-GtkWidget * hMainWindow = NULL;
+GtkWidget * hMainWindow = nullptr;
 
 HB_LONG prevp2 = -1;
 
@@ -122,15 +122,15 @@ HB_FUNC( HWG_INITMAINWINDOW )
    int width = hb_parnl(9);
    int height = hb_parnl(10);
    /* Icon */
-   PHWGUI_PIXBUF szFile = HB_ISPOINTER(5) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(5)) : NULL;
+   PHWGUI_PIXBUF szFile = HB_ISPOINTER(5) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(5)) : nullptr;
    /* Background image */
-   PHWGUI_PIXBUF szBackFile = HB_ISPOINTER(11) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(11)) : NULL;
+   PHWGUI_PIXBUF szBackFile = HB_ISPOINTER(11) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(11)) : nullptr;
 
    /* Background style*/
    style = gtk_style_new();
    if( szBackFile )
    {
-      gdk_pixbuf_render_pixmap_and_mask(szBackFile->handle, &background, NULL, 0);
+      gdk_pixbuf_render_pixmap_and_mask(szBackFile->handle, &background, nullptr, 0);
       if( !background )
       {
          g_error("%s\n", "Error loading background image");
@@ -163,14 +163,14 @@ HB_FUNC( HWG_INITMAINWINDOW )
    set_event(static_cast<gpointer>(hWnd), "button_release_event", 0, 0, 0);
    set_event(static_cast<gpointer>(hWnd), "motion_notify_event", 0, 0, 0);
 
-   g_signal_connect(G_OBJECT(hWnd), "delete-event", G_CALLBACK(cb_delete_event), NULL);
-   g_signal_connect(G_OBJECT (hWnd), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+   g_signal_connect(G_OBJECT(hWnd), "delete-event", G_CALLBACK(cb_delete_event), nullptr);
+   g_signal_connect(G_OBJECT (hWnd), "destroy", G_CALLBACK(gtk_main_quit), nullptr);
 
    set_event(static_cast<gpointer>(hWnd), "configure_event", 0, 0, 0);
    set_event(static_cast<gpointer>(hWnd), "focus_in_event", 0, 0, 0);
 
-   g_signal_connect_after(box, "size-allocate", G_CALLBACK(cb_signal_size), NULL);
-   //g_signal_connect_after(hWnd, "size-allocate", G_CALLBACK(cb_signal_size), NULL);
+   g_signal_connect_after(box, "size-allocate", G_CALLBACK(cb_signal_size), nullptr);
+   //g_signal_connect_after(hWnd, "size-allocate", G_CALLBACK(cb_signal_size), nullptr);
 
 /* Set default icon
    DF7BE:
@@ -205,8 +205,8 @@ HB_FUNC( HWG_CREATEDLG )
    int height = hb_itemGetNI(GetObjectVar(pObject, "NHEIGHT"));
    PHB_ITEM pIcon = GetObjectVar(pObject, "OICON");
    PHB_ITEM pBmp = GetObjectVar(pObject, "OBMP");
-   PHWGUI_PIXBUF szFile = NULL;
-   PHWGUI_PIXBUF szBackFile = NULL;
+   PHWGUI_PIXBUF szFile = nullptr;
+   PHWGUI_PIXBUF szBackFile = nullptr;
 
    /* Icon */
    if( !HB_IS_NIL(pIcon) )
@@ -222,7 +222,7 @@ HB_FUNC( HWG_CREATEDLG )
    style = gtk_style_new();
    if( szBackFile )
    {
-      gdk_pixbuf_render_pixmap_and_mask(szBackFile->handle, &background, NULL, 0);
+      gdk_pixbuf_render_pixmap_and_mask(szBackFile->handle, &background, nullptr, 0);
       if( !background )
       {
          g_error("%s\n", "Error loading background image");
@@ -260,13 +260,13 @@ HB_FUNC( HWG_CREATEDLG )
    set_event(static_cast<gpointer>(hWnd), "button_release_event", 0, 0, 0);
    set_event(static_cast<gpointer>(hWnd), "motion_notify_event", 0, 0, 0);
 
-   g_signal_connect(G_OBJECT(hWnd), "delete-event", G_CALLBACK(cb_delete_event), NULL);
+   g_signal_connect(G_OBJECT(hWnd), "delete-event", G_CALLBACK(cb_delete_event), nullptr);
 
    set_event(static_cast<gpointer>(hWnd), "configure_event", 0, 0, 0);
    set_event(static_cast<gpointer>(hWnd), "focus_in_event", 0, 0, 0);
 
-   g_signal_connect(box, "size-allocate", G_CALLBACK(cb_signal_size), NULL);
-   //g_signal_connect(hWnd, "size-allocate", G_CALLBACK(cb_signal_size), NULL);
+   g_signal_connect(box, "size-allocate", G_CALLBACK(cb_signal_size), nullptr);
+   //g_signal_connect(hWnd, "size-allocate", G_CALLBACK(cb_signal_size), nullptr);
 
    /* Set Background */
    if( szBackFile )
@@ -310,12 +310,12 @@ HB_FUNC( HWG_ACTIVATEDIALOG )
 
 void hwg_doEvents(void)
 {
-   while( g_main_context_iteration(NULL, FALSE) );
+   while( g_main_context_iteration(nullptr, FALSE) );
 }
 
 void ProcessMessage(void)
 {
-   while( g_main_context_iteration(NULL, FALSE) );
+   while( g_main_context_iteration(nullptr, FALSE) );
 }
 
 HB_FUNC( HWG_PROCESSMESSAGE )
@@ -505,7 +505,7 @@ static gint cb_event(GtkWidget * widget, GdkEvent * event, gchar * data)
    HB_LONG lRes;
    //gunichar uchar;
    //gchar * tmpbuf;
-   //gchar * res = NULL;
+   //gchar * res = nullptr;
 
    if( !pSym_onEvent )
    {
@@ -700,7 +700,7 @@ GtkWidget * GetActiveWindow(void)
       pList = pL;
    }
 
-   return (pList) ? pList->data : NULL;
+   return (pList) ? pList->data : nullptr;
 }
 
 HB_FUNC( HWG_GETACTIVEWINDOW )
@@ -727,7 +727,7 @@ void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject)
    }
    else
    {
-      g_object_set_data(static_cast<GObject*>(hWnd), "obj", static_cast<gpointer>(NULL));
+      g_object_set_data(static_cast<GObject*>(hWnd), "obj", static_cast<gpointer>(nullptr));
    }
 }
 
@@ -836,7 +836,7 @@ HB_FUNC( HWG_RELEASEOBJECT )
    if( dwNewLong )
    {
       hb_itemRelease(static_cast<PHB_ITEM>(dwNewLong));
-      g_object_set_data(hWnd, "obj", static_cast<gpointer>(NULL));
+      g_object_set_data(hWnd, "obj", static_cast<gpointer>(nullptr));
    }
    else
    {
@@ -885,7 +885,7 @@ void hwg_set_modal(GtkWindow * hDlg, GtkWindow * hParent)
 
 HB_FUNC( HWG_SET_MODAL )
 {
-   hwg_set_modal(static_cast<GtkWindow*>(HB_PARHANDLE(1)), static_cast<GtkWindow*>((!HB_ISNIL(2)) ? HB_PARHANDLE(2) : NULL));
+   hwg_set_modal(static_cast<GtkWindow*>(HB_PARHANDLE(1)), static_cast<GtkWindow*>((!HB_ISNIL(2)) ? HB_PARHANDLE(2) : nullptr));
 }
 
 HB_FUNC( HWG_WINDOWSETRESIZE )
@@ -931,11 +931,11 @@ gchar * hwg_convert_to_utf8( const char * szText )
 {
    if( *szAppLocale )
    {
-      return g_convert(szText, -1, "UTF-8", szAppLocale, NULL, NULL, NULL);
+      return g_convert(szText, -1, "UTF-8", szAppLocale, nullptr, nullptr, nullptr);
    }
    else
    {
-      return g_locale_to_utf8(szText, -1, NULL, NULL, NULL);
+      return g_locale_to_utf8(szText, -1, nullptr, nullptr, nullptr);
    }
 }
 
@@ -943,11 +943,11 @@ gchar * hwg_convert_from_utf8(const char * szText)
 {
    if( *szAppLocale )
    {
-      return g_convert(szText, -1, szAppLocale, "UTF-8", NULL, NULL, NULL);
+      return g_convert(szText, -1, szAppLocale, "UTF-8", nullptr, nullptr, nullptr);
    }
    else
    {
-      return g_locale_from_utf8(szText, -1, NULL, NULL, NULL);
+      return g_locale_from_utf8(szText, -1, nullptr, nullptr, nullptr);
    }
 }
 
@@ -1021,7 +1021,7 @@ HB_FUNC( HWG__ISUNICODE )
 
 HB_FUNC( HWG_INITPROC )
 {
-   s_KeybHook = gtk_key_snooper_install(&snooper, NULL);
+   s_KeybHook = gtk_key_snooper_install(&snooper, nullptr);
 }
 
 HB_FUNC( HWG_EXITPROC )
@@ -1047,7 +1047,7 @@ HB_FUNC( HWG_ICONIFY )   /* minimize */
 /*
 HB_FUNC( HWG_SHELLMODIFYICON )
 {
-   PHWGUI_PIXBUF szFile = HB_ISPOINTER(2) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(2)) : NULL;
+   PHWGUI_PIXBUF szFile = HB_ISPOINTER(2) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(2)) : nullptr;
    if( szFile )
    {
       gtk_window_set_icon(static_cast<GtkWindow*>(HB_PARHANDLE(1)), szFile->handle);
