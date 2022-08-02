@@ -145,7 +145,7 @@
 {unix}source/gtk/hsayimage.prg
 {unix}source/gtk/hsaybmp.prg
 {unix}source/gtk/hsayicon.prg
-{unix}source/gtk/hsplit.prg
+{unix}source/gtk/hsplitter.prg
 {unix}source/gtk/htab.prg
 {unix}source/gtk/htimer.prg
 {unix}source/gtk/htoolbar.prg
