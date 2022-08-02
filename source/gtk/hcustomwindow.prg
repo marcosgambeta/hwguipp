@@ -13,9 +13,6 @@
 #include "guilib.ch"
 #include "error.ch"
 
-   //ANNOUNCE HB_GTSYS
-   REQUEST HB_GT_CGI_DEFAULT
-
    STATIC aCustomEvents := { ;
       { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
       { ;
@@ -25,13 +22,6 @@
       { |o|onDestroy( o ) }                          ;
       } ;
       }
-
-CLASS HObject
-
-   DATA cargo
-   DATA objName
-
-ENDCLASS
 
 CLASS HCustomWindow INHERIT HObject
 

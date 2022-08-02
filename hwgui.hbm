@@ -163,4 +163,4 @@
 {unix}source/gtk/hline.prg
 {unix}source/gtk/hstatic.prg
 {unix}source/gtk/hstatus.prg
-
+{unix}source/gtk/hobject.prg
