@@ -1,6 +1,4 @@
 /*
- * $Id: hgraph.prg 2971 2021-04-19 08:53:30Z alkresin $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HGraph class
  *

@@ -1,6 +1,4 @@
 /*
- *$Id: hwindow.prg 3040 2022-01-04 23:17:36Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HWindow class
  *

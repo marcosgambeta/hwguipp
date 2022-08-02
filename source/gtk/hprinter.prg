@@ -1,6 +1,4 @@
 /*
- *$Id: hprinter.prg 3078 2022-06-12 21:41:53Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HPrinter class
  *

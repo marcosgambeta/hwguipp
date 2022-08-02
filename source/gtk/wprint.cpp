@@ -1,6 +1,4 @@
 /*
- * $Id: wprint.c 2951 2021-03-02 14:19:33Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * C level print functions
  *

@@ -1,6 +1,4 @@
 /*
- *$Id: hedit.prg 2953 2021-03-04 08:45:45Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HEdit class
  *

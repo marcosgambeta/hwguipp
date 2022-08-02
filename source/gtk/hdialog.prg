@@ -1,6 +1,4 @@
 /*
- *$Id: hdialog.prg 3007 2021-09-30 09:54:08Z alkresin $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HDialog class
  *

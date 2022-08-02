@@ -1,6 +1,4 @@
 /*
- * $Id: hpanel.prg 3063 2022-02-22 22:55:43Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HPanel class
  *

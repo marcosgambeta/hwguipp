@@ -1,6 +1,4 @@
 /*
- * $Id: draw.c 3017 2021-10-08 10:30:32Z alkresin $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * C level painting functions
  *

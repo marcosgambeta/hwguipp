@@ -1,6 +1,4 @@
 /*
- * $Id: hbrowse.prg 3051 2022-01-29 21:16:21Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HBrowse class - browse databases and arrays
  *

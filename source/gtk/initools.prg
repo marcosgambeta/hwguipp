@@ -1,6 +1,4 @@
 /*
- *$Id: initools.prg 3018 2021-10-12 07:19:54Z alkresin $
- *
  * HWGUI - Harbour Linux GUI library
  *
  * HwMake

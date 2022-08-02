@@ -1,6 +1,4 @@
 /*
- *$Id: hbincnt.prg 3046 2022-01-20 10:33:07Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HBinC class
  *
@@ -299,4 +297,3 @@ METHOD GetType( cObjName )
 
 
 * ================================= EOF of hbincnt.prg =======================================
-   

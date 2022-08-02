@@ -1,6 +1,4 @@
 /*
- * $Id: gtkmain.prg 2969 2021-04-09 08:40:38Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * Main prg level functions
  *

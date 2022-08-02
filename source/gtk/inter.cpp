@@ -1,6 +1,4 @@
 /*
- *$Id: inter.c 2951 2021-03-02 14:19:33Z df7be $
- *
  * HWGUI - Harbour Win32 GUI and GTK library source code:
  * Additional Functions for National Language Support ("International")
  *

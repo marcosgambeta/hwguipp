@@ -1,6 +1,4 @@
 /*
- *$Id: hcombo.prg 3001 2021-07-07 05:47:47Z alkresin $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HComboBox class
  *

@@ -1,6 +1,4 @@
 /*
- * $Id: message.c 2968 2021-04-09 06:13:17Z alkresin $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * Message box functions
  *

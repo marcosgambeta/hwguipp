@@ -1,6 +1,4 @@
 /*
- * $Id: menu_c.c 2988 2021-05-07 11:42:18Z alkresin $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * C level menu functions
  *

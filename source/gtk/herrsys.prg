@@ -1,6 +1,4 @@
 /*
- * $Id: herrsys.prg 2943 2021-02-20 17:32:38Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * Windows errorsys replacement
  *

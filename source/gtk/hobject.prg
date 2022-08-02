@@ -1,6 +1,4 @@
 /*
- *$Id: hcwindow.prg 2985 2021-05-05 16:02:52Z alkresin $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HCustomWindow class
  *

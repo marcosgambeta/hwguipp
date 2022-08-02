@@ -1,5 +1,4 @@
 /*
- * $Id: hlenta.prg 2977 2021-04-23 13:53:42Z alkresin $
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HLenta class
  *

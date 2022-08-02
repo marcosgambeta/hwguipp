@@ -1,6 +1,4 @@
 /*
- *$Id: hmisc.prg 3080 2022-06-18 09:34:56Z df7be $
- *
  * HWGUI - Harbour Win32 GUI and GTK library source code:
  * Misc functions
  *

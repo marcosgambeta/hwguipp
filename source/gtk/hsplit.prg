@@ -1,6 +1,4 @@
 /*
- * $Id: hsplit.prg 3061 2022-02-21 07:28:34Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HSplitter class
  *

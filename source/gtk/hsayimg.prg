@@ -1,6 +1,4 @@
 /*
- * $Id: hsayimg.prg 3053 2022-02-08 23:58:25Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HSayImage class
  *

@@ -1,6 +1,4 @@
 /*
- * $Id: htrackbr.prg 3065 2022-03-02 11:50:38Z alkresin $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HTrack class - Substitute for WinAPI HTRACKBAR
  *

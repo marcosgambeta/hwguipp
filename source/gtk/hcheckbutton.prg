@@ -1,6 +1,4 @@
 /*
- *$Id: hcheck.prg 2943 2021-02-20 17:32:38Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HCheckButton class
  *

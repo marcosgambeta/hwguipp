@@ -1,6 +1,4 @@
 /*
- * $Id: hownbtn.prg 3044 2022-01-17 18:22:22Z df7be $
- *
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * HOwnButton class, which implements owner drawn buttons
  *
