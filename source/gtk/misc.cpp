@@ -12,9 +12,9 @@
  Some troubleshootings:
   The function HB_RETSTR() is windows only !
   Use hb_retc().
-*/ 
+*/
 
-#define HB_MEM_NUM_LEN  8 
+#define HB_MEM_NUM_LEN  8
 
 /* Standard C libraries */
 #include <math.h>
@@ -45,13 +45,13 @@
 /* Avoid warnings from GCC */
 #include "warnings.h"
 
-static GtkClipboard* clipboard = NULL;
+static GtkClipboard * clipboard = nullptr;
 
-void hwg_writelog( const char * sFile, const char * sTraceMsg, ... )
+void hwg_writelog(const char * sFile, const char * sTraceMsg, ...)
 {
-   FILE *hFile;
+   FILE * hFile;
 
-   if( sFile == NULL )
+   if( sFile == nullptr )
    {
       hFile = hb_fopen("ac.log", "a");
    }
@@ -63,14 +63,11 @@ void hwg_writelog( const char * sFile, const char * sTraceMsg, ... )
    if( hFile )
    {
       va_list ap;
-
-      va_start( ap, sTraceMsg );
-      vfprintf( hFile, sTraceMsg, ap );
-      va_end( ap );
-
+      va_start(ap, sTraceMsg);
+      vfprintf(hFile, sTraceMsg, ap);
+      va_end(ap);
       fclose(hFile);
    }
-
 }
 
 HB_FUNC( HWG_SETDLGRESULT )
@@ -92,8 +89,8 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
       clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
    }
 
-   gtk_clipboard_set_text( clipboard, hb_parc(1), -1 );
-   gtk_clipboard_store( clipboard );
+   gtk_clipboard_set_text(clipboard, hb_parc(1), -1);
+   gtk_clipboard_store(clipboard);
 }
 
 HB_FUNC( HWG_GETCLIPBOARDTEXT )
@@ -104,14 +101,14 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
       clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
    }
 
-   if( gtk_clipboard_wait_is_text_available( clipboard ) )
+   if( gtk_clipboard_wait_is_text_available(clipboard) )
    {
-      sText = gtk_clipboard_wait_for_text( clipboard );
-      hb_retc( sText );
+      sText = gtk_clipboard_wait_for_text(clipboard);
+      hb_retc(sText);
    }
    else
    {
-      hb_retc( "" );
+      hb_retc("");
    }
 }
 
@@ -120,7 +117,7 @@ HB_FUNC( HWG_GETKEYBOARDSTATE )
    char lpbKeyState[256];
    HB_ULONG ulState = hb_parnl(1);
 
-   memset( lpbKeyState, 0, 255 );
+   memset(lpbKeyState, 0, 255);
    if( ulState & 1 )
    {
       lpbKeyState[0x10] = 0x80;  // Shift
@@ -134,18 +131,17 @@ HB_FUNC( HWG_GETKEYBOARDSTATE )
       lpbKeyState[0x12] = 0x80;  // Alt
    }
 
-   hb_retclen( lpbKeyState, 255 );
+   hb_retclen(lpbKeyState, 255);
 }
-
 
 HB_FUNC( HWG_LOWORD )
 {
-   hb_retni( (int) ( hb_parnl(1) & 0xFFFF ) );
+   hb_retni(static_cast<int>(hb_parnl(1) & 0xFFFF));
 }
 
 HB_FUNC( HWG_HIWORD )
 {
-   hb_retni( (int) ( ( hb_parnl(1) >> 16 ) & 0xFFFF ) );
+   hb_retni(static_cast<int>((hb_parnl(1) >> 16) & 0xFFFF));
 }
 
 /*
@@ -153,7 +149,7 @@ HWG_BITOR(nValue1, nValue2) --> numeric
 */
 HB_FUNC( HWG_BITOR ) /* DEPRECATED: use hb_bitor */
 {
-   hb_retnl( hb_parnl(1) | hb_parnl(2) );
+   hb_retnl(hb_parnl(1) | hb_parnl(2));
 }
 
 /*
@@ -161,76 +157,74 @@ HWG_BITAND(nValue1, nValue2) --> numeric
 */
 HB_FUNC( HWG_BITAND ) /* DEPRECATED: use hb_bitand */
 {
-   hb_retnl( hb_parnl(1) & hb_parnl(2) );
+   hb_retnl(hb_parnl(1) & hb_parnl(2));
 }
 
 HB_FUNC( HWG_BITANDINVERSE )
 {
-   hb_retnl( hb_parnl(1) & (~hb_parnl(2)) );
+   hb_retnl(hb_parnl(1) & (~hb_parnl(2)));
 }
 
 HB_FUNC( HWG_SETBIT )
 {
    if( hb_pcount() < 3 || hb_parni(3) )
    {
-      hb_retnl( hb_parnl(1) | ( 1 << (hb_parni(2)-1) ) );
+      hb_retnl(hb_parnl(1) | (1 << (hb_parni(2) - 1)));
    }
    else
    {
-      hb_retnl( hb_parnl(1) & ~( 1 << (hb_parni(2)-1) ) );
+      hb_retnl(hb_parnl(1) & ~(1 << (hb_parni(2) - 1)));
    }
 }
 
 HB_FUNC( HWG_CHECKBIT )
 {
-   hb_retl( hb_parnl(1) & ( 1 << (hb_parni(2)-1) ) );
+   hb_retl(hb_parnl(1) & (1 << (hb_parni(2) - 1)));
 }
 
 HB_FUNC( HWG_PTRTOULONG )
 {
-   hb_retnl( hb_parnl(1) );
+   hb_retnl(hb_parnl(1));
 }
 
 HB_FUNC( HWG_ISPTREQ )
 {
-   hb_retl( HB_PARHANDLE(1) == HB_PARHANDLE(2) );
+   hb_retl(HB_PARHANDLE(1) == HB_PARHANDLE(2));
 }
 
 HB_FUNC( HWG_SIN )
 {
-   hb_retnd( sin( hb_parnd(1) ) );
+   hb_retnd(sin(hb_parnd(1)));
 }
 
 HB_FUNC( HWG_COS )
 {
-   hb_retnd( cos( hb_parnd(1) ) );
+   hb_retnd(cos(hb_parnd(1)));
 }
 
 HB_FUNC( HWG_GETDESKTOPWIDTH )
 {
-    hb_retni(gdk_screen_width());
+   hb_retni(gdk_screen_width());
 }
-
 
 HB_FUNC( HWG_GETDESKTOPHEIGHT )
 {
-    hb_retni(gdk_screen_height());
+   hb_retni(gdk_screen_height());
 }
-
 
 HB_FUNC( HWG_HIDEWINDOW )
 {
-    gtk_widget_hide( (GtkWidget *) HB_PARHANDLE(1) );
+   gtk_widget_hide(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
 }
 
 HB_FUNC( HWG_SHOWWINDOW )
 {
-   gtk_widget_show( (GtkWidget *) HB_PARHANDLE(1) );
+   gtk_widget_show(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
 }
 
 HB_FUNC( HWG_SHOWALL )
 {
-   gtk_widget_show_all( (GtkWidget *) HB_PARHANDLE(1) );
+   gtk_widget_show_all(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
 }
 
 HB_FUNC( HWG_SENDMESSAGE )
@@ -250,38 +244,38 @@ HB_FUNC( HWG_GETNOTIFYCODE )
  */
 HB_FUNC( HWG_GETDEVICEAREA )
 {
-   GdkScreen* screen = gdk_screen_get_default();
+   GdkScreen * screen = gdk_screen_get_default();
 
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
-   temp = hb_itemPutNL( NULL, (HB_LONG) gdk_screen_get_width( screen ) );
-   hb_itemArrayPut( aMetr, 1, temp );
+   temp = hb_itemPutNL(nullptr, static_cast<HB_LONG>(gdk_screen_get_width(screen)));
+   hb_itemArrayPut(aMetr, 1, temp);
 
-   hb_itemPutNL( temp, (HB_LONG) gdk_screen_get_height( screen ) );
-   hb_itemArrayPut( aMetr, 2, temp );
+   hb_itemPutNL(temp, static_cast<HB_LONG>(gdk_screen_get_height(screen)));
+   hb_itemArrayPut(aMetr, 2, temp);
 
-   hb_itemPutNL( temp, (HB_LONG) gdk_screen_get_width_mm( screen ) );
-   hb_itemArrayPut( aMetr, 3, temp );
+   hb_itemPutNL(temp, static_cast<HB_LONG>(gdk_screen_get_width_mm(screen)));
+   hb_itemArrayPut(aMetr, 3, temp);
 
-   hb_itemPutNL( temp, (HB_LONG) gdk_screen_get_height_mm( screen ) );
-   hb_itemArrayPut( aMetr, 4, temp );
+   hb_itemPutNL(temp, static_cast<HB_LONG>(gdk_screen_get_height_mm(screen)));
+   hb_itemArrayPut(aMetr, 4, temp);
 
-   hb_itemRelease( temp );
-   hb_itemReturn( aMetr );
-   hb_itemRelease( aMetr );
+   hb_itemRelease(temp);
+   hb_itemReturn(aMetr);
+   hb_itemRelease(aMetr);
 }
 
 HB_FUNC( HWG_COLORRGB2N )
 {
-   hb_retnl( hb_parni(1) + hb_parni(2) * 256 + hb_parni(3) * 65536 );
+   hb_retnl(hb_parni(1) + hb_parni(2) * 256 + hb_parni(3) * 65536);
 }
 
 HB_FUNC( HWG_SLEEP )
 {
    if( hb_parinfo(1) )
    {
-      usleep( hb_parnl(1) * 1000 );
+      usleep(hb_parnl(1) * 1000);
    }
 }
 
@@ -289,58 +283,59 @@ HB_FUNC( HWG_SLEEP )
 
 HB_FUNC( HWG_RUNCONSOLEAPP )
 {
-    /* Ensure that output of command does interfere with stdout */
-    fflush(stdin);
-    FILE *cmd_file = (FILE *) popen(hb_parc(1), "r");
-    FILE *hOut;
-    char buf[CHUNK_LEN];
-    int bytes_read, iOutExist = 0, iExitCode;
+   /* Ensure that output of command does interfere with stdout */
+   fflush(stdin);
+   FILE * cmd_file = static_cast<FILE*>(popen(hb_parc(1), "r"));
+   FILE * hOut;
+   char buf[CHUNK_LEN];
+   int bytes_read, iOutExist = 0, iExitCode;
 
-    if( !cmd_file )
-    {
-        hb_retni( -1 );
-        return;
-    }
+   if( !cmd_file )
+   {
+      hb_retni(-1);
+      return;
+   }
 
-    if( !HB_ISNIL(2) )
-    {
-       hOut = fopen(hb_parc(2), "w");
-       iOutExist = 1;
-    }
+   if( !HB_ISNIL(2) )
+   {
+      hOut = fopen(hb_parc(2), "w");
+      iOutExist = 1;
+   }
 
-    do
-    {
-        bytes_read = fread(buf, sizeof(char), CHUNK_LEN, cmd_file);
-        if( iOutExist )
-        {
-           fwrite(buf, 1, bytes_read, hOut);
-        }
-    } while (bytes_read == CHUNK_LEN);
+   do
+   {
+      bytes_read = fread(buf, sizeof(char), CHUNK_LEN, cmd_file);
+      if( iOutExist )
+      {
+         fwrite(buf, 1, bytes_read, hOut);
+      }
+   }
+   while (bytes_read == CHUNK_LEN);
 
-    iExitCode = pclose(cmd_file);
-    if( iOutExist )
-    {
-       fclose(hOut);
-    }
+   iExitCode = pclose(cmd_file);
+   if( iOutExist )
+   {
+      fclose(hOut);
+   }
 
-    hb_retni( iExitCode );
+   hb_retni(iExitCode);
 }
 
 HB_FUNC( HWG_RUNAPP )
 {
-   hb_retl( g_spawn_command_line_async( hb_parc(1), NULL ) );
+   hb_retl(g_spawn_command_line_async(hb_parc(1), nullptr));
 }
 
 HB_FUNC( HWG_SHELLEXECUTE )
 {
    const gchar * uri = hb_parc(1);
-   hb_retl( gtk_show_uri( NULL, uri, GDK_CURRENT_TIME, NULL ) );
+   hb_retl(gtk_show_uri(nullptr, uri, GDK_CURRENT_TIME, nullptr));
 }
 
 HB_FUNC( HWG_GETCENTURY )
 {
-  HB_BOOL centset = hb_setGetCentury();
-  hb_retl(centset);
+   HB_BOOL centset = hb_setGetCentury();
+   hb_retl(centset);
 }
 
 /* DF7BE: This functions works on GTK cross development environment */
@@ -351,10 +346,10 @@ HB_FUNC( HWG_ISWIN7 )
    ovi.dwOSVersionInfoSize = sizeof ovi;
    ovi.dwMajorVersion = 0;
    ovi.dwMinorVersion = 0;
-   GetVersionEx( &ovi );
-   hb_retl( ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion == 1 );
+   GetVersionEx(&ovi);
+   hb_retl(ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion == 1);
 #else
-   hb_retl( 1 == 2 );  /* .F.  for all other operating systems */
+   hb_retl(1 == 2);  /* .F.  for all other operating systems */
 #endif
 }
 
@@ -366,9 +361,9 @@ HB_FUNC( HWG_ISWIN10 )
    ovi.dwMajorVersion = 0;
    ovi.dwMinorVersion = 0;
    GetVersionEx( &ovi );
-   hb_retl( ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion == 2 );
+   hb_retl(ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion == 2);
 #else
-   hb_retl( 1 == 2 );  /* .F.  for all other operating systems */
+   hb_retl(1 == 2);  /* .F.  for all other operating systems */
 #endif
 }
 
@@ -380,9 +375,9 @@ HB_FUNC( HWG_GETWINMAJORVERS )
    ovi.dwMajorVersion = 0;
    ovi.dwMinorVersion = 0;
    GetVersionEx( &ovi );
-   hb_retni( ovi.dwMajorVersion );
+   hb_retni(ovi.dwMajorVersion);
 #else
-   hb_retni( -1 );  /* -1  for all other operating systems */
+   hb_retni(-1);  /* -1  for all other operating systems */
 #endif
 }
 
@@ -393,27 +388,25 @@ HB_FUNC( HWG_GETWINMINORVERS )
    ovi.dwOSVersionInfoSize = sizeof ovi;
    ovi.dwMajorVersion = 0;
    ovi.dwMinorVersion = 0;
-   GetVersionEx( &ovi );
-   hb_retni( ovi.dwMinorVersion );
+   GetVersionEx(&ovi);
+   hb_retni(ovi.dwMinorVersion);
 #else
-   hb_retni( -1 );  /* -1  for all other operating systems */
+   hb_retni(-1);  /* -1  for all other operating systems */
 #endif
 }
 
 HB_FUNC( HWG_GETTEMPDIR )
 {
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
-   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
-
-   GetTempPath( MAX_PATH, szBuffer );
+   TCHAR szBuffer[MAX_PATH + 1] = {0};
+   GetTempPath(MAX_PATH, szBuffer);
    HB_RETSTR(szBuffer);
 #else
- char const * tempdirname = getenv("TMPDIR");
-
- if( tempdirname == NULL )
- {
-   tempdirname = "/tmp";
- }
+   char const * tempdirname = getenv("TMPDIR");
+   if( tempdirname == nullptr )
+   {
+      tempdirname = "/tmp";
+   }
    hb_retc(tempdirname);
 #endif
 }
@@ -421,8 +414,7 @@ HB_FUNC( HWG_GETTEMPDIR )
 HB_FUNC( HWG_GETWINDOWSDIR )
 {
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
-   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
-
+   TCHAR szBuffer[MAX_PATH + 1] = {0};
    GetWindowsDirectory( szBuffer, MAX_PATH );
    HB_RETSTR(szBuffer);
 #else
@@ -433,10 +425,10 @@ HB_FUNC( HWG_GETWINDOWSDIR )
 /* experimental state of this function */
 HB_FUNC( HWG_GETKEYSTATE )
 {
-  /* Attention ! gdk_window_get_pointer() is deprecated */
-  GdkModifierType keyboard_state;
-  gdk_window_get_pointer(NULL,NULL,NULL,&keyboard_state);
-   hb_retni( keyboard_state & hb_parni(1) );
+   /* Attention ! gdk_window_get_pointer() is deprecated */
+   GdkModifierType keyboard_state;
+   gdk_window_get_pointer(nullptr, nullptr, nullptr, &keyboard_state);
+   hb_retni(keyboard_state & hb_parni(1));
 }
 
 HB_FUNC( HWG_SHOWSCROLLBAR )
@@ -458,170 +450,160 @@ HB_FUNC( HWG_SHOWSCROLLBAR )
 * ============================================
 */
 
-
-
 HB_FUNC( HWG_STOD )
 {
-   PHB_ITEM pDateString = hb_param( 1, HB_IT_STRING );
-
-   hb_retds( hb_itemGetCLen( pDateString ) >= 7 ? hb_itemGetCPtr( pDateString ) : NULL );
+   PHB_ITEM pDateString = hb_param(1, HB_IT_STRING);
+   hb_retds(hb_itemGetCLen(pDateString) >= 7 ? hb_itemGetCPtr(pDateString) : nullptr);
 }
 
-int hwg_hexbin(int cha)
 /* converts single hex char to int, returns -1 , if not in range
    returns 0 - 15 (dec) , only a half byte */
+int hwg_hexbin(int cha)
 {
-    char gross;
-    int o;
+   char gross;
+   int o;
 
-    gross = toupper(cha);
-    switch (gross)
-    {
-     case 48:  /* 0 */
-     o = 0;
-     break;
-     case 49:  /* 1 */
-     o = 1;
-     break;
-     case 50:  /* 2 */
-     o = 2;
-     break;
-     case 51:  /* 3 */
-     o = 3;
-     break;
-     case 52:  /* 4 */
-     o = 4;
-     break;
-     case 53:  /* 5 */
-     o = 5;
-     break;
-     case 54:  /* 6 */
-     o = 6;
-     break;
-     case 55:  /* 7 */
-     o = 7	 ;
-     break;
-     case 56:  /* 8 */
-     o = 8;
-     break;	 
-     case 57:  /* 9 */
-     o = 9;
-     break;
-     case 65:  /* A */
-     o = 10;
-     break;
-     case 66:  /* B */
-     o = 11;
-     break;
-     case 67:  /* C */
-     o = 12;
-     break;	 
-     case 68:  /* D */
-     o = 13;
-     break;
-     case 69:  /* E */
-     o = 14;
-     break;	 
-     case 70:  /* F */
-     o = 15;
-     break;
-     default:
-     o = -1; 
-    } 
-    return o;
+   gross = toupper(cha);
+   switch( gross )
+   {
+      case 48:  /* 0 */
+         o = 0;
+         break;
+      case 49:  /* 1 */
+         o = 1;
+         break;
+      case 50:  /* 2 */
+         o = 2;
+         break;
+      case 51:  /* 3 */
+         o = 3;
+         break;
+      case 52:  /* 4 */
+         o = 4;
+         break;
+      case 53:  /* 5 */
+         o = 5;
+         break;
+      case 54:  /* 6 */
+         o = 6;
+         break;
+      case 55:  /* 7 */
+         o = 7	 ;
+         break;
+      case 56:  /* 8 */
+         o = 8;
+         break;
+      case 57:  /* 9 */
+         o = 9;
+         break;
+      case 65:  /* A */
+         o = 10;
+         break;
+      case 66:  /* B */
+         o = 11;
+         break;
+      case 67:  /* C */
+         o = 12;
+         break;
+      case 68:  /* D */
+         o = 13;
+         break;
+      case 69:  /* E */
+         o = 14;
+         break;
+      case 70:  /* F */
+         o = 15;
+         break;
+      default:
+         o = -1;
+   }
+   return o;
 }
 
 /*
-   hwg_Bin2DC(cbin,nlen,ndec)
+   hwg_Bin2DC(cbin, nlen, ndec)
 */
-
 HB_FUNC( HWG_BIN2DC )
 {
+   double pbyNumber;
+   unsigned char o;
+   unsigned char bu[8];     /* Buffer with binary contents of double value */
+   unsigned char szHex[17]; /* The hex string from parameter 1 + null byte*/
 
-    double pbyNumber;
-    int i;
-    unsigned char o;
-    unsigned char bu[8];     /* Buffer with binary contents of double value */
-    unsigned char szHex[17]; /* The hex string from parameter 1 + null byte*/
+   int p;
+   int c;      /* char with int value hex from hex */
+   int od;     /* odd even sign / gerade - ungerade */
 
+   /* init vars */
 
-    int p;
-    int c;      /* char with int value hex from hex */
-    int od;     /* odd even sign / gerade - ungerade */
+   pbyNumber = 0;
 
-  /* init vars */
-  
-  pbyNumber = 0;
-  
-    szHex[0] = '\0';
-    szHex[1] = '\0';
-    szHex[2] = '\0';
-    szHex[3] = '\0';
-    szHex[4] = '\0';
-    szHex[5] = '\0';
-    szHex[6] = '\0';
-    szHex[7] = '\0';
-    szHex[8] = '\0';
-    szHex[9] = '\0';
-    szHex[10] = '\0';
-    szHex[11] = '\0';
-    szHex[12] = '\0'; 
-    szHex[13] = '\0';
-    szHex[14] = '\0';
-    szHex[15] = '\0';
-    szHex[16] = '\0';
+   szHex[0] = '\0';
+   szHex[1] = '\0';
+   szHex[2] = '\0';
+   szHex[3] = '\0';
+   szHex[4] = '\0';
+   szHex[5] = '\0';
+   szHex[6] = '\0';
+   szHex[7] = '\0';
+   szHex[8] = '\0';
+   szHex[9] = '\0';
+   szHex[10] = '\0';
+   szHex[11] = '\0';
+   szHex[12] = '\0';
+   szHex[13] = '\0';
+   szHex[14] = '\0';
+   szHex[15] = '\0';
+   szHex[16] = '\0';
 
+   p = 0;
+   c = 0;
+   od = 0;
 
-    p = 0;
-    c = 0;
-    od = 0;  
+   // Internal I2BIN for Len
 
-    // Internal I2BIN for Len
+   HB_USHORT uiWidth = static_cast<HB_USHORT>(hb_parni(2));
 
-    HB_USHORT uiWidth = ( HB_USHORT ) hb_parni(2);
+   // Internal I2BIN for Dec
 
-    // Internal I2BIN for Dec
+   HB_USHORT uiDec = static_cast<HB_USHORT>(hb_parni(3));
 
-    HB_USHORT uiDec = ( HB_USHORT ) hb_parni(3);
+   const char * name = hb_parc(1);
 
+   memcpy(&szHex, name, 16);
 
-    const char *name = hb_parc(1);
- 
-    memcpy(&szHex,name,16);
- 
-    szHex[16] = '\0';
+   szHex[16] = '\0';
 
-    /* Convert hex to bin */
+   /* Convert hex to bin */
 
-    for ( i = 0 ; i < 16; i++ )
-     {
- 
-          c = hwg_hexbin(szHex[i]);
-          /* ignore, if not in 0 ... 1, A ... F */
-          if ( c  != -1 )
-          {
-           /* must be a pair of char,
-              other values between the pairs of hex values are ignored */
-            if ( od == 1 )
-            {
-                od = 0;
-            }
-            else
-            {
-                od = 1;
-            }
-            /* 1. Halbbyte zwischenspeichern / Store first half byte */
-            if ( od == 1)
-            {
-              p = c;
-            }
-            else
-            /* 2. Halbbyte verarbeiten, ganzes Byte ausspeichern 
-                / Process second half byte and store full byte */
-            {
-              p = ( p * 16 ) + c;
-              o = (unsigned char) p;
-              bu[i / 2] = o;
+   for( int i = 0 ; i < 16; i++ )
+   {
+      c = hwg_hexbin(szHex[i]);
+      /* ignore, if not in 0 ... 1, A ... F */
+      if ( c  != -1 )
+      {
+         /* must be a pair of char,
+         other values between the pairs of hex values are ignored */
+         if ( od == 1 )
+         {
+            od = 0;
+         }
+         else
+         {
+            od = 1;
+         }
+         /* 1. Halbbyte zwischenspeichern / Store first half byte */
+         if ( od == 1)
+         {
+            p = c;
+         }
+         else
+         /* 2. Halbbyte verarbeiten, ganzes Byte ausspeichern
+             / Process second half byte and store full byte */
+         {
+            p = ( p * 16 ) + c;
+            o = static_cast<unsigned char>(p);
+            bu[i / 2] = o;
 
 /* Display some debug info */
 //             printf("i=%d ", i);
@@ -631,55 +613,45 @@ HB_FUNC( HWG_BIN2DC )
 //             printf("%s", " ");
 // 80  P 69  E 82  R 84  T 251  ยน 33  ! 9     64
 // 50    45    52    54    FB     21    09    40
+         }
+      }
+   }
 
-            }
-          }
-        }
+   /* Convert buffer to double */
 
+   memcpy(&pbyNumber, bu, sizeof(pbyNumber));
 
+   /* Return double value as type N */
 
-    /* Convert buffer to double */
-
-    memcpy(&pbyNumber,bu,sizeof(pbyNumber));
-
-    /* Return double value as type N */
-
-    hb_retndlen( pbyNumber , uiWidth , uiDec );
-
+   hb_retndlen(pbyNumber, uiWidth, uiDec);
 }
 
 static void GetFileMtimeU(const char * filePath)
 {
-/* Format: YYYYMMDD-HH:MM:SS  for example: 20211204-20:05:42 l= 17 + NULL byte */
- struct stat attrib;
- char date[18];
- stat (filePath, &attrib);
-
- strftime(date, sizeof(date) , "%Y%m%d-%H:%M:%S", gmtime(&(attrib.st_mtime)));
- hb_retc(date);
+   /* Format: YYYYMMDD-HH:MM:SS  for example: 20211204-20:05:42 l= 17 + NULL byte */
+   struct stat attrib;
+   char date[18];
+   stat(filePath, &attrib);
+   strftime(date, sizeof(date), "%Y%m%d-%H:%M:%S", gmtime(&(attrib.st_mtime)));
+   hb_retc(date);
 }
 
 static void GetFileMtime(const char * filePath)
 {
-/* Format: YYYYMMDD-HH:MM:SS  for example: 20211204-20:05:42 l= 17 + NULL byte */
- struct stat attrib;
- char date[18];
- stat (filePath, &attrib);
- strftime(date, sizeof(date) , "%Y%m%d-%H:%M:%S", localtime(&(attrib.st_mtime)));
- hb_retc(date);
+   /* Format: YYYYMMDD-HH:MM:SS  for example: 20211204-20:05:42 l= 17 + NULL byte */
+   struct stat attrib;
+   char date[18];
+   stat(filePath, &attrib);
+   strftime(date, sizeof(date), "%Y%m%d-%H:%M:%S", localtime(&(attrib.st_mtime)));
+   hb_retc(date);
 }
-
 
 HB_FUNC( HWG_FILEMODTIMEU )
 {
- GetFileMtimeU( ( const char * ) hb_parc(1) );
+   GetFileMtimeU(static_cast<const char*>(hb_parc(1)));
 }
-
 
 HB_FUNC( HWG_FILEMODTIME )
 {
- GetFileMtime( ( const char * ) hb_parc(1) );
+   GetFileMtime(static_cast<const char*>(hb_parc(1)));
 }
-
-
-/* ========= EOF of misc.c ============ */
