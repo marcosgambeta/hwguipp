@@ -140,6 +140,7 @@
 {unix}source/gtk/hpanel.prg
 {unix}source/gtk/hprinter.prg
 {unix}source/gtk/hprogressbar.prg
+{unix}source/gtk/hradiobutton.prg
 {unix}source/gtk/hradiogroup.prg
 {unix}source/gtk/hsayimg.prg
 {unix}source/gtk/hsplit.prg
