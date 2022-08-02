@@ -136,7 +136,7 @@
 {unix}source/gtk/hlenta.prg
 {unix}source/gtk/hmisc.prg
 {unix}source/gtk/hmonthc.prg
-{unix}source/gtk/hownbtn.prg
+{unix}source/gtk/hownbutton.prg
 {unix}source/gtk/hpanel.prg
 {unix}source/gtk/hprinter.prg
 {unix}source/gtk/hprogres.prg
