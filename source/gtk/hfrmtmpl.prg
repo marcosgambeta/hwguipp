@@ -1756,5 +1756,3 @@ STATIC FUNCTION hrep_FontFromXML( oPrinter, oXmlNode, nKoeff, nFontH )
    under  := Iif( under != NIL, Val( under ), 0 )
 
    RETURN oPrinter:AddFont( name, height, ( weight > 400 ), ( ita > 0 ), ( under > 0 ), charset )
-
-   * ==================== EOF of hfrmtmpl.prg =====================

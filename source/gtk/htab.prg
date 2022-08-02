@@ -176,6 +176,3 @@ Local nFirst, nEnd, i
    ENDIF
 
    Return ::nActive
-
-* =============================== EOF of htab.prg ==================================================
-   

@@ -293,7 +293,3 @@ METHOD GetType( cObjName )
   ENDIF
   
   RETURN crettype
-  
-
-
-* ================================= EOF of hbincnt.prg =======================================

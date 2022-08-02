@@ -211,6 +211,3 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    aBmpSize  := hwg_Getbitmapsize( handle )
    
    RETURN aBmpSize[1]   
-   
-* ====================== EOF of hsayimg.prg ========================
-   

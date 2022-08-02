@@ -437,5 +437,3 @@ FUNCTION hwg_gtk_convertkey( nKey )
    ENDIF
 
    RETURN nKey
-
-* =============================== EOF of menu.prg ========================================

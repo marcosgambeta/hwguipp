@@ -262,5 +262,3 @@ METHOD Value( xValue ) CLASS HTrack
    ENDIF
 
    RETURN xValue
-
-* ================== EOF of htrackbr.prg =======================

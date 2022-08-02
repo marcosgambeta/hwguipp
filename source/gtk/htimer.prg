@@ -112,5 +112,3 @@ FUNCTION hwg_ReleaseTimers()
    hwg_ReleaseTimers()
 
    RETURN
-
-* ============================== EOF of htimer.prg =============================

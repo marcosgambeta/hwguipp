@@ -266,6 +266,3 @@ STATIC FUNCTION __When( oCtrl )
    ENDIF
 
    RETURN .T.
-
-* ================================ EOF of hcombo.prg =============================================
-

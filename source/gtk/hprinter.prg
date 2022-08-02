@@ -923,6 +923,3 @@ STATIC FUNCTION MessProc( oPrinter, oPanel, lParam )
    ENDIF
 
 Return 1
-
-* ============================ EOF of hprinter.prg =================================
-

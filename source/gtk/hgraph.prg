@@ -307,5 +307,3 @@ METHOD Rebuild( aValues, nType, nLineType, nPointSize ) CLASS HGraph
    hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW )
 
    RETURN NIL
-
-* =============================== EOF of hgraph.prg =======================================

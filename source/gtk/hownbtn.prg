@@ -394,6 +394,3 @@ STATIC FUNCTION OwnBtnTimerProc( oBtn, nType )
    ENDIF
 
    RETURN NIL
-
-* ====================== EOF of hownbtn.prg ===========================
-

@@ -2249,6 +2249,3 @@ FUNCTION hwg_getPaintCB( arr, nId )
    ENDIF
 
    RETURN aRes
-  
-* ======================= EOF of hbrowse.prg =====================
-

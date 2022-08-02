@@ -200,6 +200,3 @@ STATIC FUNCTION __Valid( oCtrl )
    ENDIF
 
    RETURN .T.
-
-* =================================== EOF of hradio.prg =============================================
-   

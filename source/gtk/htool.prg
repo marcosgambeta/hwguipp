@@ -193,5 +193,3 @@ RETURN Self
 METHOD DisableButtons(n) class htoolbar
    hwg_Enablewindow( ::aItem[n, 11 ], .T. )
 RETURN Self
-
-* ================================== EOF of htool.prg ==================================

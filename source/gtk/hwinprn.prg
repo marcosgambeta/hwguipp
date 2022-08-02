@@ -645,5 +645,3 @@ METHOD END() CLASS HWinPrn
    ::oPrinter:END()
 
    RETURN NIL
-   
-* ================================ EOF of hwinprn.prg ==========================   

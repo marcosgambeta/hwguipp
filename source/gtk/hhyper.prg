@@ -229,5 +229,3 @@ METHOD Paint() CLASS HStaticLink
    hwg_Endpaint( ::handle, pps )
 
    RETURN 0
-
-* =============================== EOF of hhyper.prg =======================================

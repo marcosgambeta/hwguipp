@@ -435,6 +435,3 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
 * FUNCTION hwg_GTKShellnotifyicon( oIcon )
 *       hwg_ShellModifyIcon ( iif( oIcon != NIL, oIcon:handle, NIL ) )
 *   RETURN NIL
-
-* ===================== EOF of hwindow.prg ==============================
-

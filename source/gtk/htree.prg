@@ -720,5 +720,3 @@ STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
    NEXT
 
    RETURN
-
-* ============================== EOF of htree.prg ===============================================

@@ -92,5 +92,3 @@ FUNCTION Hwg_WriteIni( rubrique, param, value , inifile )
    hb_memowrit( inifile, newcontent, .F. )
 
    RETURN NIL
-
-   // ===   eof   =================================================================

@@ -286,5 +286,3 @@ FUNCTION HWG_ISWINDOWVISIBLE( handle )
    ENDIF
 
    RETURN .T.
-
-* ============================================= EOF of gtkmain.prg ==========================================
