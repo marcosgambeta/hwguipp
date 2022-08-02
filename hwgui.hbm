@@ -123,7 +123,7 @@
 {unix}source/gtk/gtkmain.prg
 {unix}source/gtk/hbincnt.prg
 {unix}source/gtk/hbrowse.prg
-{unix}source/gtk/hcheck.prg
+{unix}source/gtk/hcheckbutton.prg
 {unix}source/gtk/hcombo.prg
 {unix}source/gtk/hcontrol.prg
 {unix}source/gtk/hcwindow.prg
