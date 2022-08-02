@@ -126,7 +126,7 @@
 {unix}source/gtk/hcheckbutton.prg
 {unix}source/gtk/hcombobox.prg
 {unix}source/gtk/hcontrol.prg
-{unix}source/gtk/hcwindow.prg
+{unix}source/gtk/hcustomwindow.prg
 {unix}source/gtk/hdialog.prg
 {unix}source/gtk/hedit.prg
 {unix}source/gtk/herrsys.prg
