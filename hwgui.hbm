@@ -142,7 +142,7 @@
 {unix}source/gtk/hprogressbar.prg
 {unix}source/gtk/hradiobutton.prg
 {unix}source/gtk/hradiogroup.prg
-{unix}source/gtk/hsayimg.prg
+{unix}source/gtk/hsayimage.prg
 {unix}source/gtk/hsplit.prg
 {unix}source/gtk/htab.prg
 {unix}source/gtk/htimer.prg
