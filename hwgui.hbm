@@ -151,6 +151,7 @@
 {unix}source/gtk/htoolbar.prg
 {unix}source/gtk/htrackbr.prg
 {unix}source/gtk/htree.prg
+{unix}source/gtk/htreenode.prg
 {unix}source/gtk/hupdown.prg
 {unix}source/gtk/hwindow.prg
 {unix}source/gtk/hwinprn.prg
