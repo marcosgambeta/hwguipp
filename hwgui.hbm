@@ -139,7 +139,7 @@
 {unix}source/gtk/hownbutton.prg
 {unix}source/gtk/hpanel.prg
 {unix}source/gtk/hprinter.prg
-{unix}source/gtk/hprogres.prg
+{unix}source/gtk/hprogressbar.prg
 {unix}source/gtk/hradio.prg
 {unix}source/gtk/hsayimg.prg
 {unix}source/gtk/hsplit.prg
