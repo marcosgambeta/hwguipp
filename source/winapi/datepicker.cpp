@@ -47,7 +47,7 @@ HB_FUNC( HWG_CREATEDATEPICKER )
 
 HB_FUNC( HWG_SETDATEPICKER )
 {
-   PHB_ITEM pDate = hb_param(2, HB_IT_DATE);
+   PHB_ITEM pDate = hb_param(2, Harbour::Item::DATE);
    ULONG ulLen;
    long lSeconds = 0;
 

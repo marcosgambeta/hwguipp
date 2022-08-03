@@ -450,7 +450,7 @@ HB_FUNC( HWG_SHOWSCROLLBAR )
 
 HB_FUNC( HWG_STOD )
 {
-   PHB_ITEM pDateString = hb_param(1, HB_IT_STRING);
+   PHB_ITEM pDateString = hb_param(1, Harbour::Item::STRING);
    hb_retds(hb_itemGetCLen(pDateString) >= 7 ? hb_itemGetCPtr(pDateString) : nullptr);
 }
 

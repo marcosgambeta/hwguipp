@@ -93,7 +93,7 @@ HB_FUNC( HBXML_SETENTITY )
    }
    else
    {
-      pArray = hb_param( 1, HB_IT_ARRAY );
+      pArray = hb_param( 1, Harbour::Item::ARRAY );
       ulLen = ( unsigned long ) hb_arrayLen( pArray );
 
       nPredefsKol = (int) ulLen;
@@ -403,11 +403,11 @@ PHB_ITEM hbxml_addnode( PHB_ITEM pParent )
    hb_vmPushNil(  );
    hb_vmDo(0);
 
-   hb_objSendMsg( hb_param( -1, HB_IT_ANY ), "NEW", 0 );
-   hb_itemCopy( pNode, hb_param( -1, HB_IT_ANY ) );
+   hb_objSendMsg( hb_param( -1, Harbour::Item::ANY ), "NEW", 0 );
+   hb_itemCopy( pNode, hb_param( -1, Harbour::Item::ANY ) );
 
    hb_objSendMsg( pParent, "AITEMS", 0 );
-   hb_arrayAdd( hb_param( -1, HB_IT_ANY ), pNode );
+   hb_arrayAdd( hb_param( -1, Harbour::Item::ANY ), pNode );
 
    return pNode;
 }
@@ -433,7 +433,7 @@ int hbxml_readComment( PHB_ITEM pParent, unsigned char **pBuffer )
    {
       pTemp = hb_itemPutCL( nullptr, ( char * ) ptr, *pBuffer - ptr );
       hb_objSendMsg( pNode, "AITEMS", 0 );
-      hb_arrayAdd( hb_param( -1, HB_IT_ANY ), pTemp );
+      hb_arrayAdd( hb_param( -1, Harbour::Item::ANY ), pTemp );
       hb_itemRelease( pTemp );
 
       ( *pBuffer ) += 3;
@@ -466,7 +466,7 @@ int hbxml_readCDATA( PHB_ITEM pParent, unsigned char **pBuffer )
    {
       pTemp = hb_itemPutCL( nullptr, ( char * ) ptr, *pBuffer - ptr );
       hb_objSendMsg( pNode, "AITEMS", 0 );
-      hb_arrayAdd( hb_param( -1, HB_IT_ANY ), pTemp );
+      hb_arrayAdd( hb_param( -1, Harbour::Item::ANY ), pTemp );
       hb_itemRelease( pTemp );
 
       ( *pBuffer ) += 3;
@@ -545,7 +545,7 @@ int hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
          {
             pTemp = hbxml_pp( ptr, *pBuffer - ptr );
             hb_objSendMsg( pNode, "AITEMS", 0 );
-            hb_arrayAdd( hb_param( -1, HB_IT_ANY ), pTemp );
+            hb_arrayAdd( hb_param( -1, Harbour::Item::ANY ), pTemp );
             hb_itemRelease( pTemp );
             if( nParseError )
             {
@@ -627,7 +627,7 @@ HB_FUNC( HBXML_GETATTR )
 
 HB_FUNC( HBXML_GETDOC )
 {
-   PHB_ITEM pDoc = hb_param( 1, HB_IT_OBJECT );
+   PHB_ITEM pDoc = hb_param( 1, Harbour::Item::OBJECT );
    unsigned char *ptr, *pBuffer = nullptr;
    int iMainTags = 0;
 

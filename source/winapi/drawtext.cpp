@@ -77,7 +77,7 @@ HB_FUNC( HWG_DRAWTEXT )
    }
    else
    {
-      Array2Rect(hb_param(3, HB_IT_ARRAY), &rc);
+      Array2Rect(hb_param(3, Harbour::Item::ARRAY), &rc);
    }
 
 
@@ -443,7 +443,7 @@ HB_FUNC( HWG_CREATEFONTINDIRECT )
    lf.lfQuality = hb_parni(4);
    lf.lfHeight = hb_parni(3);
    lf.lfWeight = hb_parni(2);
-   HB_ITEMCOPYSTR(hb_param(1, HB_IT_ANY), lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
+   HB_ITEMCOPYSTR(hb_param(1, Harbour::Item::ANY), lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
    lf.lfFaceName[HB_SIZEOFARRAY(lf.lfFaceName) - 1] = '\0';
 
    HB_RETHANDLE(CreateFontIndirect(&lf));

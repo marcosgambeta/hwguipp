@@ -207,7 +207,7 @@ HB_FUNC( HWG_INITSTATUS )
    HLOCAL hloc;
    LPINT lpParts;
    int nWidth, j, nParts = hb_parni(3);
-   PHB_ITEM pArray = hb_param(4, HB_IT_ARRAY);
+   PHB_ITEM pArray = hb_param(4, Harbour::Item::ARRAY);
 
    // Allocate an array for holding the right edge coordinates.
    hloc = LocalAlloc(LHND, sizeof(int) * nParts);
@@ -377,7 +377,7 @@ HB_FUNC( HWG_TREEADDNODE )
    TV_INSERTSTRUCT is;
 
    int nPos = hb_parni(5);
-   PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
    void * hStr;
 
    tvi.iImage = 0;
@@ -640,7 +640,7 @@ HB_FUNC( HWG_TREERELEASENODE )
 */
 HB_FUNC( HWG_CREATEIMAGELIST )
 {
-   PHB_ITEM pArray = hb_param(1, HB_IT_ARRAY);
+   PHB_ITEM pArray = hb_param(1, Harbour::Item::ARRAY);
    UINT flags = (HB_ISNIL(5)) ? ILC_COLOR : hb_parni(5);
    HIMAGELIST himl;
    ULONG ulLen = hb_arrayLen(pArray);

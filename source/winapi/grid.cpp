@@ -152,7 +152,7 @@ HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
 
    if( pDispInfo->item.mask & LVIF_TEXT )
    {
-      HB_ITEMCOPYSTR(hb_param(2, HB_IT_ANY), pDispInfo->item.pszText, pDispInfo->item.cchTextMax);
+      HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->item.pszText, pDispInfo->item.cchTextMax);
       pDispInfo->item.pszText[pDispInfo->item.cchTextMax - 1] = 0;
    }
    // it seems these lines below are not strictly necessary for text cells
@@ -418,7 +418,7 @@ HB_FUNC( HWG_PROCESSCUSTU )
 {
    /* HWND hWnd = hwg_par_HWND(1); */
    LPARAM lParam = ( LPARAM ) HB_PARHANDLE(2);
-   PHB_ITEM pColor = hb_param(3, HB_IT_ARRAY);
+   PHB_ITEM pColor = hb_param(3, Harbour::Item::ARRAY);
 
    hb_retnl(static_cast<LONG>(ProcessCustomDraw(lParam, pColor)));
 }

@@ -100,7 +100,7 @@ HB_FUNC( HWG_SHELLNOTIFYICON )
    tnid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
    tnid.uCallbackMessage = WM_NOTIFYICON;
    tnid.hIcon = hwg_par_HICON(3);
-   HB_ITEMCOPYSTR(hb_param(4, HB_IT_ANY), tnid.szTip,
+   HB_ITEMCOPYSTR(hb_param(4, Harbour::Item::ANY), tnid.szTip,
          HB_SIZEOFARRAY(tnid.szTip));
 
    if( ( BOOL ) hb_parl(1) )
@@ -131,7 +131,7 @@ HB_FUNC( HWG_SHELLMODIFYICON )
       tnid.uFlags |= NIF_ICON;
       tnid.hIcon = hwg_par_HICON(2);
    }
-   if( HB_ITEMCOPYSTR(hb_param(3, HB_IT_ANY), tnid.szTip, HB_SIZEOFARRAY(tnid.szTip)) > 0 )
+   if( HB_ITEMCOPYSTR(hb_param(3, Harbour::Item::ANY), tnid.szTip, HB_SIZEOFARRAY(tnid.szTip)) > 0 )
    {
       tnid.uFlags |= NIF_TIP;
    }

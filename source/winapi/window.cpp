@@ -76,7 +76,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
    WNDCLASS wndclass;
    HANDLE hInstance = GetModuleHandle(nullptr);
    DWORD ExStyle = 0;
-   PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT), temp;
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT), temp;
    void * hAppName, * hTitle, * hMenu;
    LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, nullptr);
    LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, nullptr);
@@ -252,7 +252,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
    HWND hWnd = nullptr;
    WNDCLASS wndclass;
    HMODULE /*HANDLE*/ hInstance = GetModuleHandle(nullptr);
-   PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT), temp;
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT), temp;
    void * hAppName, * hTitle, * hMenu;
    LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, nullptr);
    LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, nullptr);
@@ -329,7 +329,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
    HWND hWnd;
    WNDCLASS wndclass, wc;
    HANDLE hInstance = GetModuleHandle(nullptr);
-   PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT), temp;
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT), temp;
    void * hAppName, * hTitle, * hMenu;
    LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, nullptr);
    LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, nullptr);
@@ -458,7 +458,7 @@ HB_FUNC( HWG_ACTIVATEMDIWINDOW )
 HB_FUNC( HWG_CREATEMDICHILDWINDOW )
 {
    HWND hWnd = nullptr;
-   PHB_ITEM pObj = hb_param(1, HB_IT_OBJECT);
+   PHB_ITEM pObj = hb_param(1, Harbour::Item::OBJECT);
    DWORD style = static_cast<DWORD>(hb_itemGetNL(GetObjectVar(pObj, "STYLE")));
    int y = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NTOP"));
    int x = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NLEFT"));
@@ -553,7 +553,7 @@ HB_FUNC( HWG_SELFFOCUS )
 
 HB_FUNC( HWG_SETWINDOWOBJECT )
 {
-   SetWindowObject(hwg_par_HWND(1), hb_param(2, HB_IT_OBJECT));
+   SetWindowObject(hwg_par_HWND(1), hb_param(2, Harbour::Item::OBJECT));
 }
 
 void SetWindowObject(HWND hWnd, PHB_ITEM pObject)
@@ -1154,7 +1154,7 @@ HB_FUNC( HWG_EXITPROCESS )
 HB_FUNC( HWG_DECREASEHOLDERS )
 {
 /*
-   PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
    #ifndef  UIHOLDERS
    if( pObject->item.asArray.value->ulHolders )
       pObject->item.asArray.value->ulHolders--;
@@ -1398,7 +1398,7 @@ HB_FUNC( HWG_ANSITOUNICODE )
 #if !defined(__XHARBOUR__)
    hb_parstr_u16( 1, HB_CDP_ENDIAN_NATIVE, &hText, nullptr );
 #else
-   hwg_wstrget(hb_param(1, HB_IT_ANY), &hText, nullptr);
+   hwg_wstrget(hb_param(1, Harbour::Item::ANY), &hText, nullptr);
 #endif
    HB_RETSTRLEN(( TCHAR * )hText, 1024);
    hb_strfree(hText);

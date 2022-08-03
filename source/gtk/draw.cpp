@@ -862,15 +862,15 @@ HB_FUNC( HWG_DRAWGRADIENT )
    PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    gdouble x1 = hb_parnd(2), y1 = hb_parnd(3), x2 = hb_parnd(4), y2 = hb_parnd(5);
    gint type = (HB_ISNUM(6)) ? hb_parni(6) : 1;
-   PHB_ITEM pArrColor = hb_param(7, HB_IT_ARRAY);
+   PHB_ITEM pArrColor = hb_param(7, Harbour::Item::ARRAY);
    long int color;
-   PHB_ITEM pArrStop = hb_param(8, HB_IT_ARRAY);
+   PHB_ITEM pArrStop = hb_param(8, Harbour::Item::ARRAY);
    gdouble stop;
    gint user_colors_num, colors_num, user_stops_num;
    cairo_pattern_t * pat = nullptr;
    gdouble x_center, y_center, gr_radius;
    gdouble r, g, b;
-   PHB_ITEM pArrRadius = hb_param(9, HB_IT_ARRAY);
+   PHB_ITEM pArrRadius = hb_param(9, Harbour::Item::ARRAY);
    gint radius[4], max_r;
    gint user_radiuses_num;
 

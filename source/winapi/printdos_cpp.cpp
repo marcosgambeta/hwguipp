@@ -102,7 +102,7 @@ HB_FUNC( AFILLTEXT )
 
 HB_FUNC( HWG_WIN_ANSITOOEM )
 {
-   PHB_ITEM pString = hb_param(1, HB_IT_STRING);
+   PHB_ITEM pString = hb_param(1, Harbour::Item::STRING);
 
    if( pString )
    {

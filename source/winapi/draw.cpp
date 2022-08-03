@@ -1182,7 +1182,7 @@ HB_FUNC( HWG_INFLATERECT )
 
    if( HB_ISARRAY(1) )
    {
-      Array2Rect(hb_param(1, HB_IT_ARRAY), &pRect);
+      Array2Rect(hb_param(1, Harbour::Item::ARRAY), &pRect);
    }
    hb_retl(InflateRect(&pRect, x, y));
 
@@ -1198,7 +1198,7 @@ HB_FUNC( HWG_FRAMERECT )
 
    if( HB_ISARRAY(2) )
    {
-      Array2Rect(hb_param(2, HB_IT_ARRAY), &pRect);
+      Array2Rect(hb_param(2, Harbour::Item::ARRAY), &pRect);
    }
 
    hb_retni(FrameRect(hwg_par_HDC(1), &pRect, hwg_par_HBRUSH(3)));
@@ -1213,7 +1213,7 @@ HB_FUNC( HWG_DRAWFRAMECONTROL )
 
    if( HB_ISARRAY(2) )
    {
-      Array2Rect(hb_param(2, HB_IT_ARRAY), &pRect);
+      Array2Rect(hb_param(2, Harbour::Item::ARRAY), &pRect);
    }
 
    hb_retl(DrawFrameControl(hwg_par_HDC(1), &pRect, hwg_par_UINT(3), hwg_par_UINT(4)));
@@ -1228,7 +1228,7 @@ HB_FUNC( HWG_OFFSETRECT )
 
    if( HB_ISARRAY(1) )
    {
-      Array2Rect(hb_param(1, HB_IT_ARRAY), &pRect);
+      Array2Rect(hb_param(1, Harbour::Item::ARRAY), &pRect);
    }
 
    hb_retl(OffsetRect(&pRect, hwg_par_int(2), hwg_par_int(3)));
@@ -1247,7 +1247,7 @@ HB_FUNC( HWG_DRAWFOCUSRECT )
 
    if( HB_ISARRAY(2) )
    {
-      Array2Rect(hb_param(2, HB_IT_ARRAY), &pRect);
+      Array2Rect(hb_param(2, Harbour::Item::ARRAY), &pRect);
    }
 
    hb_retl(DrawFocusRect(hwg_par_HDC(1), &pRect));
@@ -1271,8 +1271,8 @@ HB_FUNC( HWG_PTINRECT )
 {
    POINT pt;
    RECT rect;
-   Array2Rect(hb_param(1, HB_IT_ARRAY), &rect);
-   Array2Point(hb_param(2, HB_IT_ARRAY), &pt);
+   Array2Rect(hb_param(1, Harbour::Item::ARRAY), &rect);
+   Array2Point(hb_param(2, Harbour::Item::ARRAY), &pt);
    hb_retl(PtInRect(&rect, pt));
 }
 
@@ -1311,7 +1311,7 @@ HWG_COPYRECT(aRect) --> aRect
 HB_FUNC( HWG_COPYRECT )
 {
    RECT p;
-   Array2Rect(hb_param(1, HB_IT_ARRAY), &p);
+   Array2Rect(hb_param(1, Harbour::Item::ARRAY), &p);
    hb_itemRelease(hb_itemReturn(Rect2Array(&p)));
 }
 
@@ -1365,17 +1365,17 @@ HB_FUNC( HWG_DRAWGRADIENT )
    HDC hDC = hwg_par_HDC(1);
    int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
    int type = (HB_ISNUM(6)) ? hb_parni(6) : 1;
-   PHB_ITEM pArrColor = hb_param(7, HB_IT_ARRAY);
+   PHB_ITEM pArrColor = hb_param(7, Harbour::Item::ARRAY);
    long int color;
    int red[GRADIENT_MAX_COLORS], green[GRADIENT_MAX_COLORS], blue[GRADIENT_MAX_COLORS], index;
    int cur_red, cur_green, cur_blue, section_len;
    double red_step, green_step, blue_step;
-   PHB_ITEM pArrStop = hb_param(8, HB_IT_ARRAY);
+   PHB_ITEM pArrStop = hb_param(8, Harbour::Item::ARRAY);
    double stop;
    int stop_x[GRADIENT_MAX_COLORS], stop_y[GRADIENT_MAX_COLORS], coord_stop;
    int isH = 0, isV = 0, isD = 0, is_5_6 = 0, isR = 0;
    int x_center = 0, y_center = 0, gr_radius = 0;
-   PHB_ITEM pArrRadius = hb_param(9, HB_IT_ARRAY);
+   PHB_ITEM pArrRadius = hb_param(9, Harbour::Item::ARRAY);
    int radius[4];
    double angle, angle_step, coord_x, coord_y, min_delta, delta;
    int user_colors_num, colors_num, user_stops_num, user_radiuses_num, j, k;

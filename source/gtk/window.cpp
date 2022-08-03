@@ -113,7 +113,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
    GtkFixed * box;
    GdkPixmap * background;
    GtkStyle * style;
-   PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
    gchar * gcTitle = hwg_convert_to_utf8(hb_parcx(3));
    int x = hb_parnl(7);
    int y = hb_parnl(8);
@@ -195,7 +195,7 @@ HB_FUNC( HWG_CREATEDLG )
    GtkFixed * box;
    GdkPixmap * background;
    GtkStyle * style;
-   PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
    gchar * gcTitle = hwg_convert_to_utf8(hb_itemGetCPtr(GetObjectVar(pObject, "TITLE")));
    int x = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
    int y = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
@@ -708,7 +708,7 @@ HB_FUNC( HWG_GETACTIVEWINDOW )
 
 HB_FUNC( HWG_SETWINDOWOBJECT )
 {
-   SetWindowObject(static_cast<GtkWidget*>(HB_PARHANDLE(1)), hb_param(2, HB_IT_OBJECT));
+   SetWindowObject(static_cast<GtkWidget*>(HB_PARHANDLE(1)), hb_param(2, Harbour::Item::OBJECT));
 }
 
 void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject)
@@ -817,7 +817,7 @@ PHB_ITEM GetObjectVar(PHB_ITEM pObject, char * varname)
    return hb_objSendMsg(pObject, varname, 0);
 #else
    hb_objSendMsg(pObject, varname, 0);
-   return hb_param(-1, HB_IT_ANY);
+   return hb_param(-1, Harbour::Item::ANY);
 #endif
 }
 

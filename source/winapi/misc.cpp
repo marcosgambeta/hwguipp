@@ -246,7 +246,7 @@ HB_FUNC( HWG_SCREENTOCLIENT )
    }
    else
    {
-      Array2Rect(hb_param(2, HB_IT_ARRAY), &R);
+      Array2Rect(hb_param(2, Harbour::Item::ARRAY), &R);
       ScreenToClient(hwg_par_HWND(1), ( LPPOINT ) ( void * ) &R);
       ScreenToClient(hwg_par_HWND(1), (( LPPOINT ) ( void * ) &R) + 1);
       hb_itemRelease(hb_itemReturn(Rect2Array(&R)));
@@ -731,7 +731,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 {
    HDC hdc = hwg_par_HDC(1);
    //UINT h = hb_parni(2);
-   PHB_ITEM pObject = hb_param(3, HB_IT_OBJECT);
+   PHB_ITEM pObject = hb_param(3, Harbour::Item::OBJECT);
    PHB_ITEM p, p1, p2, temp;
    LONG i;
    HBRUSH hBrush;
@@ -1193,7 +1193,7 @@ HB_FUNC( HWG_ALERT_GETWINDOW )
 
 HB_FUNC( HWG_STOD )
 {
-   PHB_ITEM pDateString = hb_param(1, HB_IT_STRING);
+   PHB_ITEM pDateString = hb_param(1, Harbour::Item::STRING);
 
    hb_retds(hb_itemGetCLen(pDateString) >= 7 ? hb_itemGetCPtr(pDateString) : nullptr);
 }

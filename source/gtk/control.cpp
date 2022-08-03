@@ -448,7 +448,7 @@ HB_FUNC( HWG_CREATECOMBO )
 HB_FUNC( HWG_COMBOSETARRAY )
 {
    GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
-   PHB_ITEM pArray = hb_param(2, HB_IT_ARRAY);
+   PHB_ITEM pArray = hb_param(2, Harbour::Item::ARRAY);
    HB_ULONG ulKol;
 
    if( pArray )
@@ -467,7 +467,7 @@ HB_FUNC( HWG_COMBOSETARRAY )
       }
       for( HB_ULONG ul = 1; ul <= ulLen; ++ul )
       {
-         if( hb_arrayGetType(pArray, ul) & HB_IT_ARRAY )
+         if( hb_arrayGetType(pArray, ul) & Harbour::Item::ARRAY )
          {
             cItem = hwg_convert_to_utf8(hb_arrayGetCPtr(hb_arrayGetItemPtr(pArray, ul), 1));
          }
@@ -568,7 +568,7 @@ HB_FUNC( HWG_CREATEBROWSE )
    GtkWidget * vscroll, * hscroll;
    GtkWidget * area;
    GtkFixed * box;
-   PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT), temp;
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT), temp;
    GObject * handle;
    int nLeft = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
    int nTop = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
@@ -845,7 +845,7 @@ HB_FUNC( HWG_CREATEPANEL )
    GtkWidget * hCtrl;
    GtkFixed * box, * fbox;
    GObject * handle;
-   PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT), temp;
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT), temp;
    HB_ULONG ulStyle = hb_parnl(3);
    gint nWidth = hb_parnl(6), nHeight = hb_parnl(7);
 
@@ -1345,7 +1345,7 @@ HB_FUNC( HWG_INITMONTHCALENDAR )
 
 HB_FUNC( HWG_SETMONTHCALENDARDATE )
 {
-   PHB_ITEM pDate = hb_param(2, HB_IT_DATE);
+   PHB_ITEM pDate = hb_param(2, Harbour::Item::DATE);
 
    if( pDate )
    {

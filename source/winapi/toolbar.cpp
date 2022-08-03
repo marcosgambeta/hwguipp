@@ -90,7 +90,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
 {
    HWND hWndCtrl = hwg_par_HWND(1);
    /* HWND hToolTip = hwg_par_HWND(4); */
-   PHB_ITEM pArray = hb_param(2, HB_IT_ARRAY);
+   PHB_ITEM pArray = hb_param(2, Harbour::Item::ARRAY);
    int iButtons = hb_parni(3);
    TBBUTTON * tb = static_cast<struct _TBBUTTON*>(hb_xgrab(iButtons * sizeof(TBBUTTON)));
    PHB_ITEM pTemp;
@@ -186,7 +186,7 @@ HB_FUNC( HWG_TOOLBAR_SETDISPINFO )
 
    if( pDispInfo )
    {
-      HB_ITEMCOPYSTR(hb_param(2, HB_IT_ANY), pDispInfo->szText, HB_SIZEOFARRAY(pDispInfo->szText));
+      HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->szText, HB_SIZEOFARRAY(pDispInfo->szText));
       pDispInfo->szText[HB_SIZEOFARRAY(pDispInfo->szText) - 1] = 0;
 #if 0
       /* is it necessary? */
@@ -211,7 +211,7 @@ HB_FUNC( HWG_TOOLBAR_GETINFOTIP )
    LPNMTBGETINFOTIP pDispInfo = static_cast<LPNMTBGETINFOTIP>(HB_PARHANDLE(1));
    if( pDispInfo && pDispInfo->cchTextMax > 0 )
    {
-      HB_ITEMCOPYSTR(hb_param(2, HB_IT_ANY), pDispInfo->pszText, pDispInfo->cchTextMax);
+      HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->pszText, pDispInfo->cchTextMax);
       pDispInfo->pszText[pDispInfo->cchTextMax - 1] = 0;
    }
 }

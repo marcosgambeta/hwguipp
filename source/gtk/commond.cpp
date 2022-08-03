@@ -94,7 +94,7 @@ HB_FUNC( HWG_SELECTFONT )
 
    if( hb_pcount() > 0 && !HB_ISNIL(1) )
    {
-      PHB_ITEM pObj = hb_param(1, HB_IT_OBJECT);
+      PHB_ITEM pObj = hb_param(1, Harbour::Item::OBJECT);
       const char * ptr = hb_itemGetCPtr(GetObjectVar(pObj, "NAME"));
       int height = hb_itemGetNI(GetObjectVar(pObj, "HEIGHT"));
       int weight = hb_itemGetNI(GetObjectVar(pObj, "WEIGHT"));
@@ -195,8 +195,8 @@ HB_FUNC( HWG_SELECTFILE )
    GtkWidget * selector_archivo;
    gint resultado;
    GtkImage * preview;
-   PHB_ITEM pArrTip = ((HB_ISARRAY(1)) ? hb_param(1, HB_IT_ARRAY) : nullptr);
-   PHB_ITEM pArrMsk = ((hb_pcount() > 1 && HB_ISARRAY(2)) ? hb_param(2, HB_IT_ARRAY) : nullptr);
+   PHB_ITEM pArrTip = ((HB_ISARRAY(1)) ? hb_param(1, Harbour::Item::ARRAY) : nullptr);
+   PHB_ITEM pArrMsk = ((hb_pcount() > 1 && HB_ISARRAY(2)) ? hb_param(2, Harbour::Item::ARRAY) : nullptr);
    const char * cTip = (HB_ISCHAR(1)) ? hb_parc(1) : nullptr;
    const char * cMsk = (hb_pcount() > 1 && HB_ISCHAR(2)) ? hb_parc(2) : nullptr;
    const char * cDir = (hb_pcount() > 2 && HB_ISCHAR(3)) ? hb_parc(3) : "";
@@ -348,7 +348,7 @@ HB_FUNC( HWG_SELECTFILEEX )
    const char * cTitle = (HB_ISCHAR(1)) ? hb_parc(1) : "Select a file";
    const char * cDir = (hb_pcount() > 1 && HB_ISCHAR(2)) ? hb_parc(2) : "";
    GtkImage * preview;
-   PHB_ITEM pArray = ((hb_pcount() > 2 && HB_ISARRAY(3)) ? hb_param(3, HB_IT_ARRAY) : nullptr), pArr1;
+   PHB_ITEM pArray = ((hb_pcount() > 2 && HB_ISARRAY(3)) ? hb_param(3, Harbour::Item::ARRAY) : nullptr), pArr1;
    int bMulti = (HB_ISLOG(4)) ? hb_parl(4) : 0;
    char * filename;
    int iLen, iLen1;

@@ -606,7 +606,7 @@ HB_FUNC( HWG_GP_PRINT )
 
       gtk_print_operation_set_default_page_setup(operation, print->page_setup);
       gtk_print_operation_set_n_pages(operation, hb_parni(3));
-      g_signal_connect(operation, "draw-page", G_CALLBACK(print_page), hb_param(2, HB_IT_ARRAY));
+      g_signal_connect(operation, "draw-page", G_CALLBACK(print_page), hb_param(2, Harbour::Item::ARRAY));
 
 #ifdef G_CONSOLE_MODE
       print_init(operation, print);
@@ -632,7 +632,7 @@ HB_FUNC( HWG_GP_PRINT )
       gtk_print_operation_set_default_page_setup(operation, print->page_setup);
       gtk_print_operation_set_n_pages(operation, hb_parni(3));
       gtk_print_operation_set_export_filename(operation, print->cName);
-      g_signal_connect(operation, "draw-page", G_CALLBACK(print_page), hb_param(2, HB_IT_ARRAY));
+      g_signal_connect(operation, "draw-page", G_CALLBACK(print_page), hb_param(2, Harbour::Item::ARRAY));
 
       gtk_print_operation_run(operation, GTK_PRINT_OPERATION_ACTION_EXPORT, nullptr, nullptr);
    }
@@ -664,7 +664,7 @@ HB_FUNC( HWG_GP_PRINT )
       }
       for( ; i <= iPages; i++ )
       {
-         draw_page(cr, static_cast<char*>(hb_arrayGetCPtr(hb_param(2, HB_IT_ARRAY), i)));
+         draw_page(cr, static_cast<char*>(hb_arrayGetCPtr(hb_param(2, Harbour::Item::ARRAY), i)));
          cairo_show_page(cr);
       }
 
@@ -690,7 +690,7 @@ HB_FUNC( HWG_GP_PRINT )
             gtk_page_setup_get_page_width(print->page_setup, GTK_UNIT_POINTS),
             gtk_page_setup_get_page_height(print->page_setup, GTK_UNIT_POINTS));
          cairo_t * cr = cairo_create(surface);
-         draw_page(cr, static_cast<char*>(hb_arrayGetCPtr(hb_param(2, HB_IT_ARRAY), i)));
+         draw_page(cr, static_cast<char*>(hb_arrayGetCPtr(hb_param(2, Harbour::Item::ARRAY), i)));
          memcpy(sfile, print->cName, iLen);
          sfile[iLen] = '\0';
          if( i > 1 && iPage == 0 )

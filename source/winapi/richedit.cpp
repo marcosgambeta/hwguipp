@@ -86,7 +86,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
    {
       ULONG ulLen, ulLen1;
       PHB_ITEM pArr1;
-      pArr = hb_param(2, HB_IT_ARRAY);
+      pArr = hb_param(2, Harbour::Item::ARRAY);
       ulLen = hb_arrayLen(pArr);
       for( ULONG ul = 1; ul <= ulLen; ul++ )
       {
@@ -98,40 +98,40 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
 
          memset(&cf, 0, sizeof(CHARFORMAT2));
          cf.cbSize = sizeof(CHARFORMAT2);
-         if( hb_itemType(hb_arrayGetItemPtr(pArr1, 3)) != HB_IT_NIL )
+         if( hb_itemType(hb_arrayGetItemPtr(pArr1, 3)) != Harbour::Item::NIL )
          {
             cf.crTextColor = static_cast<COLORREF>(hb_arrayGetNL(pArr1, 3));
             cf.dwMask |= CFM_COLOR;
          }
-         if( ulLen1 > 3 && hb_itemType(hb_arrayGetItemPtr(pArr1, 4)) != HB_IT_NIL )
+         if( ulLen1 > 3 && hb_itemType(hb_arrayGetItemPtr(pArr1, 4)) != Harbour::Item::NIL )
          {
             HB_ITEMCOPYSTR(hb_arrayGetItemPtr(pArr1, 4), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
             cf.szFaceName[HB_SIZEOFARRAY(cf.szFaceName) - 1] = '\0';
             cf.dwMask |= CFM_FACE;
          }
-         if( ulLen1 > 4 && hb_itemType(hb_arrayGetItemPtr(pArr1, 5)) != HB_IT_NIL )
+         if( ulLen1 > 4 && hb_itemType(hb_arrayGetItemPtr(pArr1, 5)) != Harbour::Item::NIL )
          {
             cf.yHeight = hb_arrayGetNL(pArr1, 5);
             cf.dwMask |= CFM_SIZE;
          }
-         if( ulLen1 > 5 && hb_itemType(hb_arrayGetItemPtr(pArr1, 6)) != HB_IT_NIL && hb_arrayGetL(pArr1, 6) )
+         if( ulLen1 > 5 && hb_itemType(hb_arrayGetItemPtr(pArr1, 6)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 6) )
          {
             cf.dwEffects |= CFE_BOLD;
          }
-         if( ulLen1 > 6 && hb_itemType(hb_arrayGetItemPtr(pArr1, 7)) != HB_IT_NIL && hb_arrayGetL(pArr1, 7) )
+         if( ulLen1 > 6 && hb_itemType(hb_arrayGetItemPtr(pArr1, 7)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 7) )
          {
             cf.dwEffects |= CFE_ITALIC;
          }
-         if( ulLen1 > 7 && hb_itemType(hb_arrayGetItemPtr(pArr1, 8)) != HB_IT_NIL && hb_arrayGetL(pArr1, 8) )
+         if( ulLen1 > 7 && hb_itemType(hb_arrayGetItemPtr(pArr1, 8)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 8) )
          {
             cf.dwEffects |= CFE_UNDERLINE;
          }
-         if( ulLen1 > 8 && hb_itemType(hb_arrayGetItemPtr(pArr1, 9)) != HB_IT_NIL )
+         if( ulLen1 > 8 && hb_itemType(hb_arrayGetItemPtr(pArr1, 9)) != Harbour::Item::NIL )
          {
             cf.bCharSet = static_cast<BYTE>(hb_arrayGetNL(pArr1, 9));
             cf.dwMask |= CFM_CHARSET;
          }
-         if( ulLen1 > 9 && hb_itemType(hb_arrayGetItemPtr(pArr1, 10)) != HB_IT_NIL )
+         if( ulLen1 > 9 && hb_itemType(hb_arrayGetItemPtr(pArr1, 10)) != Harbour::Item::NIL )
          {
             if( hb_arrayGetL(pArr1, 10) )
             {
@@ -143,7 +143,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
             }
             cf.dwMask |= CFM_SUPERSCRIPT;
          }
-         if( ulLen1 > 10 && hb_itemType(hb_arrayGetItemPtr(pArr1, 11)) != HB_IT_NIL && hb_arrayGetL(pArr1, 11) )
+         if( ulLen1 > 10 && hb_itemType(hb_arrayGetItemPtr(pArr1, 11)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 11) )
          {
             cf.dwEffects |= CFE_PROTECTED;
          }
@@ -168,7 +168,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       }
       if( !HB_ISNIL(5) )
       {
-         HB_ITEMCOPYSTR(hb_param(5, HB_IT_ANY), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
+         HB_ITEMCOPYSTR(hb_param(5, Harbour::Item::ANY), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
          cf.szFaceName[HB_SIZEOFARRAY(cf.szFaceName) - 1] = '\0';
          cf.dwMask |= CFM_FACE;
       }
@@ -242,7 +242,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    }
    if( HB_ISCHAR(3) )
    {
-      HB_ITEMCOPYSTR(hb_param(3, HB_IT_ANY), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
+      HB_ITEMCOPYSTR(hb_param(3, Harbour::Item::ANY), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
       cf.szFaceName[HB_SIZEOFARRAY(cf.szFaceName) - 1] = '\0';
       cf.dwMask |= CFM_FACE;
    }
