@@ -12,7 +12,7 @@
 
 CLASS HCheckButton INHERIT HControl
 
-   CLASS VAR winclass   INIT "BUTTON"
+   CLASS VAR winclass INIT "BUTTON"
    DATA bSetGet
    DATA lValue
    DATA bClick
@@ -32,6 +32,14 @@ ENDCLASS
 METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lTransp, bLFocus) CLASS HCheckButton
 
+   IF pcount() == 0
+      ::Super:New(NIL, NIL, BS_AUTO3STATE + WS_TABSTOP, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL, NIL, NIL)
+      ::lValue := .F.
+      ::Activate()
+      ::oParent:AddEvent(BN_CLICKED, ::id, {|o, id|__Valid(o:FindControl(id))})
+      RETURN Self
+   ENDIF
+
    IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
@@ -47,7 +55,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::bClick := bClick
    ::bLostFocus := bLFocus
    ::bGetFocus  := bGFocus
-                                                                      
+
    ::oParent:AddEvent(BN_CLICKED, ::id, {|o, id|__Valid(o:FindControl(id))})
    IF bGFocus != NIL
       ::oParent:AddEvent(BN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})
@@ -95,6 +103,7 @@ METHOD Init() CLASS HCheckButton
    RETURN NIL
 
 METHOD Refresh() CLASS HCheckButton
+
    LOCAL var
 
    IF ::bSetGet != NIL
@@ -136,6 +145,7 @@ METHOD Value(lValue) CLASS HCheckButton
    RETURN (::lValue := (hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1))
 
 STATIC FUNCTION __Valid(oCtrl)
+
    LOCAL l := hwg_Sendmessage(oCtrl:handle, BM_GETCHECK, 0, 0)
 
    IF l == BST_INDETERMINATE
@@ -143,7 +153,7 @@ STATIC FUNCTION __Valid(oCtrl)
       hwg_Sendmessage(oCtrl:handle, BM_SETCHECK, 0, 0)
       oCtrl:lValue := .F.
    ELSE
-      oCtrl:lValue := ( l == 1 )
+      oCtrl:lValue := (l == 1)
    ENDIF
 
    IF oCtrl:bSetGet != NIL
@@ -156,6 +166,7 @@ STATIC FUNCTION __Valid(oCtrl)
    RETURN .T.
 
 STATIC FUNCTION __When(oCtrl)
+
    LOCAL res
 
    oCtrl:Refresh()
