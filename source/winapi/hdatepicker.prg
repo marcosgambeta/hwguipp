@@ -19,7 +19,8 @@
 
 CLASS HDatePicker INHERIT HControl
 
-   CLASS VAR winclass   INIT "SYSDATETIMEPICK32"
+   CLASS VAR winclass INIT "SYSDATETIMEPICK32"
+
    DATA bSetGet
    DATA dValue
    DATA bChange
@@ -28,12 +29,23 @@ CLASS HDatePicker INHERIT HControl
    METHOD Activate()
    METHOD Init()
    METHOD Refresh()
-   METHOD Value ( dValue ) SETGET
+   METHOD Value(dValue) SETGET
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor) CLASS HDatePicker
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bGfocus, bLfocus, bChange, ;
+           ctooltip, tcolor, bcolor) CLASS HDatePicker
+
+   HWG_InitCommonControlsEx()
+
+   IF pcount() == 0
+      ::Super:New(NIL, NIL, WS_TABSTOP, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL, NIL, NIL)
+      ::dValue := ctod(space(8))
+      ::Activate()
+      ::oParent:AddEvent(DTN_DATETIMECHANGE, ::id, {|o, id|__Change(o:FindControl(id), DTN_DATETIMECHANGE)}, .T.)
+      ::oParent:AddEvent(DTN_CLOSEUP, ::id, {|o, id|__Change(o:FindControl(id), DTN_CLOSEUP)}, .T.)
+      RETURN Self
+   ENDIF
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, NIL, NIL, ctooltip, tcolor, bcolor)
@@ -42,7 +54,6 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::bSetGet := bSetGet
    ::bChange := bChange
 
-   HWG_InitCommonControlsEx()
    ::Activate()
 
    IF bGfocus != NIL
