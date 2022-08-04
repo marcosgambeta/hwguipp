@@ -1,0 +1,21 @@
+#xcommand @ <x>,<y> RICHEDIT [ <oEdit> TEXT ] <vari> ;
+            [ OF <oWnd> ]              ;
+            [ ID <nId> ]               ;
+            [ SIZE <width>, <height> ] ;
+            [ COLOR <color> ]          ;
+            [ BACKCOLOR <bcolor> ]     ;
+            [<lallowtabs: ALLOWTABS>]  ;
+            [ ON INIT <bInit> ]        ;
+            [ ON SIZE <bSize> ]        ;
+            [ ON GETFOCUS <bGfocus> ]  ;
+            [ ON LOSTFOCUS <bLfocus> ] ;
+            [ ON CHANGE <bChange>]     ;
+            [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
+            [ STYLE <nStyle> ]         ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <ctoolt> ]       ;
+          => ;
+    [<oEdit> := ] HRichEdit():New( <oWnd>,<nId>,<vari>,<nStyle>,<x>,<y>,<width>, ;
+                    <height>,<oFont>,<bInit>,<bSize>,<bGfocus>, ;
+                    <bLfocus>,<ctoolt>,<color>,<bcolor>,<bOther>,<.lallowtabs.>,<bChange> );
+    [; hwg_SetCtrlName( <oEdit>,<(oEdit)> )]
