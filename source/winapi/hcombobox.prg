@@ -12,33 +12,38 @@
 
 CLASS HComboBox INHERIT HControl
 
-   CLASS VAR winclass   INIT "COMBOBOX"
-   DATA  aItems
-   DATA  bSetGet
-   DATA  xValue   INIT 1
-   DATA  bValid   INIT {|| .T. }
-   DATA  bChangeSel
-   DATA  nDisplay
+   CLASS VAR winclass INIT "COMBOBOX"
 
-   DATA  lText    INIT .F.
-   DATA  lEdit    INIT .F.
+   DATA aItems
+   DATA bSetGet
+   DATA xValue INIT 1
+   DATA bValid INIT {||.T.}
+   DATA bChangeSel
+   DATA nDisplay
+   DATA lText INIT .F.
+   DATA lEdit INIT .F.
 
-   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, ;
-      bGFocus, tcolor, bcolor, bValid, nDisplay)
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, ;
+              ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, bValid, nDisplay)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus)
    METHOD Init()
    METHOD Refresh(xVal)
    METHOD Setitem(nPos)
    METHOD GetValue(nItem)
-   METHOD Value ( xValue ) SETGET
+   METHOD Value(xValue) SETGET
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, ;
-      bGFocus, tcolor, bcolor, bValid, nDisplay) CLASS HComboBox
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, ;
+           ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, bValid, nDisplay) CLASS HComboBox
+
+   IF pcount() == 0
+      ::Super:New(NIL, NIL, CBS_DROPDOWNLIST + WS_TABSTOP, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL, NIL, NIL)
+      ::Activate()
+      ::oParent:AddEvent(CBN_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))})
+      RETURN Self
+   ENDIF
 
    IF lEdit == NIL
       lEdit := .F.
@@ -71,7 +76,6 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       ::bSetGet := bSetGet
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
-
 
    ::aItems  := aItems
 
@@ -131,7 +135,10 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
    RETURN Self
 
 METHOD Init() CLASS HComboBox
-   LOCAL i, nHeightBox, nHeightItem
+
+   LOCAL i
+   LOCAL nHeightBox
+   LOCAL nHeightItem
 
    IF !::lInit
       ::Super:Init()
@@ -169,7 +176,9 @@ METHOD Init() CLASS HComboBox
    RETURN NIL
 
 METHOD Refresh(xVal) CLASS HComboBox
-   LOCAL vari, i
+
+   LOCAL vari
+   LOCAL i
 
    IF !Empty(::aItems)
       IF xVal != NIL
@@ -225,7 +234,9 @@ METHOD SetItem(nPos) CLASS HComboBox
    RETURN NIL
 
 METHOD GetValue(nItem) CLASS HComboBox
-   LOCAL nPos, l := .F.
+
+   LOCAL nPos
+   LOCAL l := .F.
 
    IF ::lEdit
       ::xValue := ::GetText()
@@ -260,6 +271,7 @@ METHOD Value ( xValue ) CLASS HComboBox
    RETURN ::GetValue()
 
 STATIC FUNCTION __Valid(oCtrl)
+
    LOCAL nPos
    LOCAL lESC
 
@@ -270,7 +282,7 @@ STATIC FUNCTION __Valid(oCtrl)
    ELSE
       // caso o PARENT seja HTAB, HPANEL
       lESC := .T.
-   end
+   ENDIF
    // end by sauli
    IF lESC // "if" by Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
       nPos := hwg_Sendmessage(oCtrl:handle, CB_GETCURSEL, 0, 0) + 1
@@ -300,6 +312,7 @@ STATIC FUNCTION __Valid(oCtrl)
    RETURN .T.
 
 STATIC FUNCTION __When(oCtrl)
+
    LOCAL res
 
    //oCtrl:Refresh()
