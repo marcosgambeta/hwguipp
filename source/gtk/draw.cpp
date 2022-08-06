@@ -534,7 +534,7 @@ HB_FUNC( HWG_OPENIMAGE )
    if( iString )
    {
       /* Load image from GDK pixbuffer */
-      guint8 * buf = static_cast<guint8*>(const_cast<char*>(hb_parc(1)));
+      guint8 * buf = reinterpret_cast<guint8*>(const_cast<char*>(hb_parc(1)));
       GdkPixbufLoader * loader = gdk_pixbuf_loader_new();
 
       gdk_pixbuf_loader_write(loader, buf, hb_parclen(1), nullptr);
@@ -652,7 +652,7 @@ HB_FUNC( HWG_DELETEOBJECT )
    }
    else if( obj->type == HWGUI_OBJECT_PIXBUF )
    {
-      g_object_unref(static_cast<GObject*>(reinterpret_cast<PHWGUI_PIXBUF>(obj))->handle);
+      g_object_unref(reinterpret_cast<GObject*>(reinterpret_cast<PHWGUI_PIXBUF>(obj))->handle);
       hb_xfree(obj);
    }
 }
@@ -796,7 +796,7 @@ HB_FUNC( HWG_GETCLIENTAREA )
 
    if( getFixedBox(reinterpret_cast<GObject*>(widget)) )
    {
-      widget = static_cast<GtkWidget*>(getFixedBox(reinterpret_cast<GObject*>(widget)));
+      widget = reinterpret_cast<GtkWidget*>(getFixedBox(reinterpret_cast<GObject*>(widget)));
    }
 
    gtk_widget_get_allocation(widget, &alloc);
@@ -815,7 +815,7 @@ HB_FUNC( HWG_GETCLIENTRECT )
 
    if( getFixedBox(reinterpret_cast<GObject*>(widget)) )
    {
-      widget = static_cast<GtkWidget*>(getFixedBox(reinterpret_cast<GObject*>(widget)));
+      widget = reinterpret_cast<GtkWidget*>(getFixedBox(reinterpret_cast<GObject*>(widget)));
    }
 
    gtk_widget_get_allocation(widget, &alloc);

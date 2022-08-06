@@ -433,7 +433,7 @@ HB_FUNC( HWG_CREATECOMBO )
 #endif
    if( !iText )
    {
-      gtk_editable_set_editable(static_cast<GtkEditable*>(gtk_bin_get_child(static_cast<GtkBin*>(hCtrl))), FALSE);
+      gtk_editable_set_editable(static_cast<GtkEditable*>(gtk_bin_get_child(reinterpret_cast<GtkBin*>(hCtrl))), FALSE);
       //hCtrl = gtk_combo_box_new_text();
    }
    if( box )
@@ -456,11 +456,11 @@ HB_FUNC( HWG_COMBOSETARRAY )
       HB_ULONG ulLen = hb_arrayLen(pArray);
       char * cItem;
 
-      ulKol = static_cast<HB_ULONG>(g_object_get_data(static_cast<GObject*>(hCtrl), "kol"));
+      ulKol = static_cast<HB_ULONG>(g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "kol"));
       for( HB_ULONG ul = 1; ul <= ulKol; ++ul )
       {
 #if GTK_MAJOR_VERSION - 0 < 3
-         gtk_combo_box_remove_text(static_cast<GtkComboBox*>(hCtrl), 0);
+         gtk_combo_box_remove_text(reinterpret_cast<GtkComboBox*>(hCtrl), 0);
 #else
          gtk_combo_box_text_remove(static_cast<GtkComboBox*>(hCtrl), 0);
 #endif
@@ -476,12 +476,12 @@ HB_FUNC( HWG_COMBOSETARRAY )
             cItem = hwg_convert_to_utf8(hb_arrayGetCPtr(pArray, ul));
          }
 #if GTK_MAJOR_VERSION - 0 < 3
-         gtk_combo_box_append_text(static_cast<GtkComboBox*>(hCtrl), cItem);
+         gtk_combo_box_append_text(reinterpret_cast<GtkComboBox*>(hCtrl), cItem);
 #else
          gtk_combo_box_text_append(static_cast<GtkComboBox*>(hCtrl), nullptr, cItem);
 #endif
       }
-      g_object_set_data(static_cast<GObject*>(hCtrl), "kol", static_cast<gpointer>(ulLen));
+      g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "kol", reinterpret_cast<gpointer>(ulLen));
    }
 }
 
@@ -532,7 +532,7 @@ HB_FUNC( HWG_CREATEUPDOWNCONTROL )
    GtkAdjustment * adj;
 #endif
    adj = gtk_adjustment_new(static_cast<gdouble>(hb_parnl(6)), static_cast<gdouble>(hb_parnl(7)), static_cast<gdouble>(hb_parnl(8)), 1, 1, 1);
-   GtkWidget * hCtrl = gtk_spin_button_new(static_cast<GtkAdjustment*>(adj), 0.5, 0);
+   GtkWidget * hCtrl = gtk_spin_button_new(reinterpret_cast<GtkAdjustment*>(adj), 0.5, 0);
 
    GtkFixed * box = getFixedBox(static_cast<GObject*>(HB_PARHANDLE(1)));
    if( box )
@@ -600,7 +600,7 @@ HB_FUNC( HWG_CREATEBROWSE )
       SetObjectVar(pObject, "_HSCROLLV", temp);
       hb_itemRelease(temp);
 
-      SetWindowObject(static_cast<GtkWidget*>(adjV), pObject);
+      SetWindowObject(reinterpret_cast<GtkWidget*>(adjV), pObject);
       set_signal(static_cast<gpointer>(adjV), "value_changed", WM_VSCROLL, 0, 0);
    }
 
@@ -620,7 +620,7 @@ HB_FUNC( HWG_CREATEBROWSE )
       SetObjectVar(pObject, "_HSCROLLH", temp);
       hb_itemRelease(temp);
 
-      SetWindowObject(static_cast<GtkWidget*>(adjH), pObject);
+      SetWindowObject(reinterpret_cast<GtkWidget*>(adjH), pObject);
       set_signal(static_cast<gpointer>(adjH), "value_changed", WM_HSCROLL, 0, 0);
    }
 
@@ -657,7 +657,7 @@ HB_FUNC( HWG_CREATEBROWSE )
 
    //gtk_widget_show_all(hbox);
    all_signal_connect(static_cast<gpointer>(area));
-   g_object_set_data(static_cast<GObject*>(hbox), "draw", static_cast<gpointer>(area));
+   g_object_set_data(reinterpret_cast<GObject*>(hbox), "draw", static_cast<gpointer>(area));
    HB_RETHANDLE(hbox);
 }
 
@@ -735,7 +735,7 @@ HB_FUNC( HWG_SETADJOPTIONS )
 
 void cb_signal_tab(GtkNotebook * notebook, GtkWidget * page, guint page_num, gpointer user_data)
 {
-   gpointer gObject = g_object_get_data(static_cast<GObject*>(notebook), "obj");
+   gpointer gObject = g_object_get_data(reinterpret_cast<GObject*>(notebook), "obj");
 
    HB_SYMBOL_UNUSED(page);
    HB_SYMBOL_UNUSED(user_data);
@@ -782,7 +782,7 @@ HB_FUNC( HWG_ADDTAB )
 
    gtk_notebook_append_page(nb, box, hLabel);
 
-   g_object_set_data(static_cast<GObject*>(nb), "fbox", static_cast<gpointer>(box));
+   g_object_set_data(reinterpret_cast<GObject*>(nb), "fbox", static_cast<gpointer>(box));
 
    HB_RETHANDLE(nb);
 }
@@ -852,7 +852,7 @@ HB_FUNC( HWG_CREATEPANEL )
    temp = GetObjectVar(pObject, "OPARENT");
    handle = static_cast<GObject*>(HB_GETHANDLE(GetObjectVar(temp, "HANDLE")));
 
-   fbox = static_cast<GtkFixed*>(gtk_fixed_new());
+   fbox = reinterpret_cast<GtkFixed*>(gtk_fixed_new());
 
    hbox = gtk_hbox_new(FALSE, 0);
    vbox = gtk_vbox_new(FALSE, 0);
@@ -860,7 +860,7 @@ HB_FUNC( HWG_CREATEPANEL )
    if( (ulStyle & SS_OWNERDRAW) == SS_OWNERDRAW )
    {
       hCtrl = gtk_drawing_area_new();
-      g_object_set_data(static_cast<GObject*>(hCtrl), "draw", static_cast<gpointer>(hCtrl));
+      g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "draw", static_cast<gpointer>(hCtrl));
    }
    else
    {
@@ -883,11 +883,11 @@ HB_FUNC( HWG_CREATEPANEL )
       SetObjectVar(pObject, "_HSCROLLV", temp);
       hb_itemRelease(temp);
 
-      SetWindowObject(static_cast<GtkWidget*>(adjV), pObject);
+      SetWindowObject(reinterpret_cast<GtkWidget*>(adjV), pObject);
       set_signal(static_cast<gpointer>(adjV), "value_changed", WM_VSCROLL, 0, 0);
    }
 
-   gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(fbox), TRUE, TRUE, 0);
+   gtk_box_pack_start(GTK_BOX(vbox), reinterpret_cast<GtkWidget*>(fbox), TRUE, TRUE, 0);
    gtk_fixed_put(fbox, hCtrl, 0, 0);
    if( ulStyle & WS_HSCROLL )
    {
@@ -904,7 +904,7 @@ HB_FUNC( HWG_CREATEPANEL )
       SetObjectVar(pObject, "_HSCROLLH", temp);
       hb_itemRelease(temp);
 
-      SetWindowObject(static_cast<GtkWidget*>(adjH), pObject);
+      SetWindowObject(reinterpret_cast<GtkWidget*>(adjH), pObject);
       set_signal(static_cast<gpointer>(adjH), "value_changed", WM_HSCROLL, 0, 0);
    }
 
@@ -924,7 +924,7 @@ HB_FUNC( HWG_CREATEPANEL )
       gtk_widget_set_size_request(hCtrl, nWidth, nHeight);
    }
 
-   g_object_set_data(static_cast<GObject*>(hCtrl), "fbox", static_cast<gpointer>(fbox));
+   g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "fbox", static_cast<gpointer>(fbox));
 
    temp = HB_PUTHANDLE(nullptr, hbox);
    SetObjectVar(pObject, "_HBOX", temp);
@@ -954,7 +954,7 @@ HB_FUNC( HWG_DESTROYPANEL )
    GtkFixed * box = getFixedBox(static_cast<GObject*>(HB_PARHANDLE(1)));
    if( box )
    {
-      gtk_widget_destroy(static_cast<GtkWidget*>(box));
+      gtk_widget_destroy(reinterpret_cast<GtkWidget*>(box));
    }
 }
 
@@ -967,7 +967,7 @@ HB_FUNC( HWG_CREATEOWNBTN )
    GtkFixed * box;
 
    hCtrl = gtk_drawing_area_new();
-   g_object_set_data(static_cast<GObject*>(hCtrl), "draw", static_cast<gpointer>(hCtrl));
+   g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "draw", static_cast<gpointer>(hCtrl));
 
    box = getFixedBox(static_cast<GObject*>(HB_PARHANDLE(1)));
    if( box )
@@ -1053,7 +1053,7 @@ HB_FUNC( HWG_SETTIMER )
 {
    char buf[10] = {0};
    sprintf(buf, "%ld", hb_parnl(1));
-   hb_retni(static_cast<gint>(g_timeout_add(static_cast<guint32>(hb_parnl(2)), static_cast<GSourceFunc>(cb_timer), g_strdup(buf))));
+   hb_retni(static_cast<gint>(g_timeout_add(static_cast<guint32>(hb_parnl(2)), reinterpret_cast<GSourceFunc>(cb_timer), g_strdup(buf))));
 }
 
 /*
@@ -1131,7 +1131,7 @@ HB_FUNC( HWG_MOVEWIDGET )
    parent = gtk_widget_get_parent(widget);
    if( !HB_ISNIL(2) && !HB_ISNIL(3) )
    {
-      gtk_fixed_move(static_cast<GtkFixed*>(parent), widget, hb_parni(2), hb_parni(3));
+      gtk_fixed_move(reinterpret_cast<GtkFixed*>(parent), widget, hb_parni(2), hb_parni(3));
    }
    if( !HB_ISNIL(4) || !HB_ISNIL(5) )
    {
@@ -1233,7 +1233,7 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
    GtkWidget * w = static_cast<GtkWidget*>(hb_parptr(1));
 
    //hb_retni(gtk_statusbar_push(GTK_STATUSBAR(w), iStatus, cText));
-   gtk_label_set_text(static_cast<GtkLabel*>(w), cText);
+   gtk_label_set_text(reinterpret_cast<GtkLabel*>(w), cText);
    g_free(cText);
 }
 
@@ -1255,7 +1255,7 @@ HB_FUNC( HWG_CREATETOOLBAR )
    // gint tmp_toolbar_icon_size;
    GObject * handle = static_cast<GObject*>(HB_PARHANDLE(1));
    GtkFixed * box = getFixedBox(handle);
-   GtkWidget * vbox = gtk_widget_get_parent(static_cast<GtkWidget*>(box));
+   GtkWidget * vbox = gtk_widget_get_parent(reinterpret_cast<GtkWidget*>(box));
    gtk_box_pack_start(GTK_BOX(vbox), hCtrl, FALSE, FALSE, 0);
    HB_RETHANDLE(hCtrl);
 }
@@ -1276,7 +1276,7 @@ HB_FUNC( HWG_CREATETOOLBARBUTTON )
    }
    if( lSep )
    {
-      toolbutton1 = static_cast<GtkWidget*>(gtk_separator_tool_item_new());
+      toolbutton1 = reinterpret_cast<GtkWidget*>(gtk_separator_tool_item_new());
    }
    else
    {
@@ -1284,11 +1284,11 @@ HB_FUNC( HWG_CREATETOOLBARBUTTON )
       {
          img = gtk_image_new_from_pixbuf(szFile->handle);
          gtk_widget_show(img);
-         toolbutton1 = static_cast<GtkWidget*>(gtk_tool_button_new(img, gcLabel));
+         toolbutton1 = reinterpret_cast<GtkWidget*>(gtk_tool_button_new(img, gcLabel));
       }
       else
       {
-         toolbutton1 = static_cast<GtkWidget*>(gtk_tool_button_new(nullptr, gcLabel));
+         toolbutton1 = reinterpret_cast<GtkWidget*>(gtk_tool_button_new(nullptr, gcLabel));
       }
       if( gcLabel )
       {
@@ -1312,7 +1312,7 @@ HB_FUNC( HWG_TOOLBAR_SETACTION )
 static void tabchange_clicked(GtkNotebook * item, GtkWidget * Page, guint pagenum, gpointer user_data)
 {
    PHB_ITEM pData = static_cast<PHB_ITEM>(user_data);
-   gpointer dwNewLong = g_object_get_data(static_cast<GObject*>(item), "obj");
+   gpointer dwNewLong = g_object_get_data(reinterpret_cast<GObject*>(item), "obj");
    PHB_ITEM pObject = static_cast<PHB_ITEM>(dwNewLong);
    PHB_ITEM Disk = hb_itemPutNL(nullptr, pagenum + 1);
 
@@ -1374,7 +1374,7 @@ HB_FUNC( HWG_GETMONTHCALENDARDATE )
 #else
    long lYear, lMonth, lDay;
 #endif
-   gtk_calendar_get_date(GTK_CALENDAR(hCtrl), static_cast<guint*>(&lYear), static_cast<guint*>(&lMonth), static_cast<guint*>(&lDay));
+   gtk_calendar_get_date(GTK_CALENDAR(hCtrl), reinterpret_cast<guint*>(&lYear), reinterpret_cast<guint*>(&lMonth), reinterpret_cast<guint*>(&lDay));
 
    lMonth = lMonth + 1;
 
@@ -1505,7 +1505,7 @@ HB_FUNC( HWG_CREATESPLITTER )
    //GtkFixed * fbox = static_cast<GtkFixed*>(gtk_fixed_new());
 
    hCtrl = gtk_drawing_area_new();
-   g_object_set_data(static_cast<GObject*>(hCtrl), "draw", static_cast<gpointer>(hCtrl));
+   g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "draw", static_cast<gpointer>(hCtrl));
    box = getFixedBox(static_cast<GObject*>(HB_PARHANDLE(1)));
 
    if( box )
@@ -1593,5 +1593,5 @@ HB_FUNC( HWG_SHOWCURSOR )
 
 HB_FUNC( HWG_GETCURSORTYPE )
 {
-   hb_retnl(static_cast<long>(gdk_cursor_get_type);
+   hb_retnl(reinterpret_cast<long>(gdk_cursor_get_type);
 }
