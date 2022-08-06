@@ -71,7 +71,7 @@ gboolean cb_delete_event(GtkWidget * widget, gchar * data)
    gpointer gObject;
 
    HB_SYMBOL_UNUSED(data);
-   gObject = g_object_get_data(static_cast<GObject*>(widget), "obj");
+   gObject = g_object_get_data(reinterpret_cast<GObject*>(widget), "obj");
 
    if( !pSym_onEvent )
    {
@@ -148,13 +148,13 @@ HB_FUNC( HWG_INITMAINWINDOW )
    vbox = gtk_vbox_new(FALSE, 0);
    gtk_container_add(GTK_CONTAINER(hWnd), vbox);
 
-   box = static_cast<GtkFixed*>(gtk_fixed_new());
-   gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(box), TRUE, TRUE, 0);
+   box = reinterpret_cast<GtkFixed*>(gtk_fixed_new());
+   gtk_box_pack_start(GTK_BOX(vbox), reinterpret_cast<GtkWidget*>(box), TRUE, TRUE, 0);
 
-   g_object_set_data(static_cast<GObject*>(hWnd), "window", static_cast<gpointer>(1));
+   g_object_set_data(reinterpret_cast<GObject*>(hWnd), "window", reinterpret_cast<gpointer>(1));
    SetWindowObject(hWnd, pObject);
-   g_object_set_data(static_cast<GObject*>(hWnd), "vbox", static_cast<gpointer>(vbox));
-   g_object_set_data(static_cast<GObject*>(hWnd), "fbox", static_cast<gpointer>(box));
+   g_object_set_data(reinterpret_cast<GObject*>(hWnd), "vbox", static_cast<gpointer>(vbox));
+   g_object_set_data(reinterpret_cast<GObject*>(hWnd), "fbox", static_cast<gpointer>(box));
 
    gtk_widget_add_events(hWnd, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK | GDK_FOCUS_CHANGE);
    set_event(static_cast<gpointer>(hWnd), "button_press_event", 0, 0, 0);
@@ -245,13 +245,13 @@ HB_FUNC( HWG_CREATEDLG )
    vbox = gtk_vbox_new(FALSE, 0);
    gtk_container_add(GTK_CONTAINER(hWnd), vbox);
 
-   box = static_cast<GtkFixed*>(gtk_fixed_new());
-   gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(box), TRUE, TRUE, 0);
+   box = reinterpret_cast<GtkFixed*>(gtk_fixed_new());
+   gtk_box_pack_start(GTK_BOX(vbox), reinterpret_cast<GtkWidget*>(box), TRUE, TRUE, 0);
 
-   g_object_set_data(static_cast<GObject*>(hWnd), "window", static_cast<gpointer>(1));
+   g_object_set_data(reinterpret_cast<GObject*>(hWnd), "window", reinterpret_cast<gpointer>(1));
    SetWindowObject(hWnd, pObject);
-   g_object_set_data(static_cast<GObject*>(hWnd), "vbox", static_cast<gpointer>(vbox));
-   g_object_set_data(static_cast<GObject*>(hWnd), "fbox", static_cast<gpointer>(box));
+   g_object_set_data(reinterpret_cast<GObject*>(hWnd), "vbox", static_cast<gpointer>(vbox));
+   g_object_set_data(reinterpret_cast<GObject*>(hWnd), "fbox", static_cast<gpointer>(box));
 
    gtk_widget_add_events(hWnd, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK | GDK_FOCUS_CHANGE);
    set_event(static_cast<gpointer>(hWnd), "button_press_event", 0, 0, 0 );
@@ -323,7 +323,7 @@ HB_FUNC( HWG_PROCESSMESSAGE )
 
 gint cb_signal_size(GtkWidget * widget, GtkAllocation * allocation, gpointer data)
 {
-   gpointer gObject = g_object_get_data(static_cast<GObject*>(gtk_widget_get_parent(gtk_widget_get_parent(widget))), "obj");
+   gpointer gObject = g_object_get_data(reinterpret_cast<GObject*>(gtk_widget_get_parent(gtk_widget_get_parent(widget))), "obj");
    //gpointer gObject = g_object_get_data(static_cast<GObject*>(widget), "obj");
    HB_SYMBOL_UNUSED(data);
 
@@ -358,7 +358,7 @@ void cb_signal(GtkWidget * widget, gchar * data)
       p1 = 273;
       if( p3 )
       {
-         widget = static_cast<GtkWidget*>(p3);
+         widget = reinterpret_cast<GtkWidget*>(p3);
       }
       else
       {
@@ -367,7 +367,7 @@ void cb_signal(GtkWidget * widget, gchar * data)
       p3 = 0;
    }
 
-   gObject = g_object_get_data(static_cast<GObject*>(widget), "obj");
+   gObject = g_object_get_data(reinterpret_cast<GObject*>(widget), "obj");
 
    if( !pSym_onEvent )
    {
@@ -499,7 +499,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
 
 static gint cb_event(GtkWidget * widget, GdkEvent * event, gchar * data)
 {
-   gpointer gObject = g_object_get_data(static_cast<GObject*>(widget), "obj");
+   gpointer gObject = g_object_get_data(reinterpret_cast<GObject*>(widget), "obj");
    HB_LONG lRes;
    //gunichar uchar;
    //gchar * tmpbuf;
@@ -533,7 +533,7 @@ static gint cb_event(GtkWidget * widget, GdkEvent * event, gchar * data)
             g_debug("keyval: %lu %s", (static_cast<GdkEventKey*>(event))->keyval, utf8string);
             */
             p1 = (event->type == GDK_KEY_PRESS) ? WM_KEYDOWN : WM_KEYUP;
-            p2 = (static_cast<GdkEventKey*>(event))->keyval;
+            p2 = (reinterpret_cast<GdkEventKey*>(event))->keyval;
             if( p2 == GDK_KEY_asciitilde || p2 == GDK_KEY_asciicircum || p2 == GDK_KEY_grave || p2 == GDK_KEY_acute || p2 == GDK_KEY_diaeresis || p2 == GDK_KEY_dead_acute || p2 == GDK_KEY_dead_tilde || p2==GDK_KEY_dead_circumflex || p2==GDK_KEY_dead_grave || p2 == GDK_KEY_dead_diaeresis )
             {
                prevp2 = p2;
@@ -552,15 +552,15 @@ static gint cb_event(GtkWidget * widget, GdkEvent * event, gchar * data)
             //g_unichar_to_utf8(uchar, tmpbuf);
             //res = hwg_convert_to_utf8(tmpbuf);
             //g_free(tmpbuf);
-            p3 = (((static_cast<GdkEventKey*>(event))->state & GDK_SHIFT_MASK) ? 1 : 0) |
-                 (((static_cast<GdkEventKey*>(event))->state & GDK_CONTROL_MASK) ? 2 : 0) |
-                 (((static_cast<GdkEventKey*>(event))->state & GDK_MOD1_MASK) ? 4 : 0);
+            p3 = (((reinterpret_cast<GdkEventKey*>(event))->state & GDK_SHIFT_MASK) ? 1 : 0) |
+                 (((reinterpret_cast<GdkEventKey*>(event))->state & GDK_CONTROL_MASK) ? 2 : 0) |
+                 (((reinterpret_cast<GdkEventKey*>(event))->state & GDK_MOD1_MASK) ? 4 : 0);
             break;
          }
          case GDK_SCROLL:
          {
             p1 = WM_KEYDOWN;
-            p2 = ((static_cast<GdkEventScroll*>(event))->direction == GDK_SCROLL_DOWN) ? 0xFF54 : 0xFF52;
+            p2 = ((reinterpret_cast<GdkEventScroll*>(event))->direction == GDK_SCROLL_DOWN) ? 0xFF54 : 0xFF52;
             p3 = 0;
             break;
          }
@@ -568,7 +568,7 @@ static gint cb_event(GtkWidget * widget, GdkEvent * event, gchar * data)
          case GDK_2BUTTON_PRESS:
          case GDK_BUTTON_RELEASE:
          {
-            if( (static_cast<GdkEventButton*>(event))->button == 3 )
+            if( (reinterpret_cast<GdkEventButton*>(event))->button == 3 )
             {
                p1 = (event->type == GDK_BUTTON_PRESS) ? WM_RBUTTONDOWN : ((event->type == GDK_BUTTON_RELEASE) ? WM_RBUTTONUP : WM_LBUTTONDBLCLK);
             }
@@ -577,14 +577,14 @@ static gint cb_event(GtkWidget * widget, GdkEvent * event, gchar * data)
                p1 = (event->type == GDK_BUTTON_PRESS) ? WM_LBUTTONDOWN : ((event->type == GDK_BUTTON_RELEASE) ? WM_LBUTTONUP : WM_LBUTTONDBLCLK);
             }
             p2 = 0;
-            p3 = ((static_cast<HB_ULONG>((static_cast<GdkEventButton*>(event))->x)) & 0xFFFF) | (((static_cast<HB_ULONG>((static_cast<GdkEventButton*>(event))->y)) << 16) & 0xFFFF0000);
+            p3 = ((static_cast<HB_ULONG>((reinterpret_cast<GdkEventButton*>(event))->x)) & 0xFFFF) | (((static_cast<HB_ULONG>((reinterpret_cast<GdkEventButton*>(event))->y)) << 16) & 0xFFFF0000);
             break;
          }
          case GDK_MOTION_NOTIFY:
          {
             p1 = WM_MOUSEMOVE;
-            p2 = ((static_cast<GdkEventMotion*>(event))->state & GDK_BUTTON1_MASK ) ? 1 : 0;
-            p3 = ((static_cast<HB_ULONG>((static_cast<GdkEventMotion*>(event))->x)) & 0xFFFF) | (((static_cast<HB_ULONG>((static_cast<GdkEventMotion*>(event))->y)) << 16) & 0xFFFF0000);
+            p2 = ((reinterpret_cast<GdkEventMotion*>(event))->state & GDK_BUTTON1_MASK ) ? 1 : 0;
+            p3 = ((static_cast<HB_ULONG>((reinterpret_cast<GdkEventMotion*>(event))->x)) & 0xFFFF) | (((static_cast<HB_ULONG>((reinterpret_cast<GdkEventMotion*>(event))->y)) << 16) & 0xFFFF0000);
             break;
          }
          case GDK_CONFIGURE:
@@ -592,14 +592,14 @@ static gint cb_event(GtkWidget * widget, GdkEvent * event, gchar * data)
             GtkAllocation alloc;
             gtk_widget_get_allocation(widget, &alloc);
             p2 = 0;
-            if( alloc.width != (static_cast<GdkEventConfigure*>(event))->width || alloc.height!= (static_cast<GdkEventConfigure*>(event))->height )
+            if( alloc.width != (reinterpret_cast<GdkEventConfigure*>(event))->width || alloc.height!= (reinterpret_cast<GdkEventConfigure*>(event))->height )
             {
                return 0;
             }
             else
             {
                p1 = WM_MOVE;
-               p3 = ((static_cast<GdkEventConfigure*>(event))->x & 0xFFFF) | (((static_cast<GdkEventConfigure*>(event))->y << 16) & 0xFFFF0000);
+               p3 = ((reinterpret_cast<GdkEventConfigure*>(event))->x & 0xFFFF) | (((reinterpret_cast<GdkEventConfigure*>(event))->y << 16) & 0xFFFF0000);
             }
             break;
          }
@@ -607,13 +607,13 @@ static gint cb_event(GtkWidget * widget, GdkEvent * event, gchar * data)
          case GDK_LEAVE_NOTIFY:
          {
             p1 = WM_MOUSEMOVE;
-            p2 = ((static_cast<GdkEventCrossing*>(event))->state & GDK_BUTTON1_MASK) ? 1 : 0 | (event->type == GDK_ENTER_NOTIFY) ? 0x10 : 0;
-            p3 = ((static_cast<HB_ULONG>((static_cast<GdkEventCrossing*>(event))->x)) & 0xFFFF) | (((static_cast<HB_ULONG>((static_cast<GdkEventMotion*>(event))->y)) << 16) & 0xFFFF0000);
+            p2 = ((reinterpret_cast<GdkEventCrossing*>(event))->state & GDK_BUTTON1_MASK) ? 1 : 0 | (event->type == GDK_ENTER_NOTIFY) ? 0x10 : 0;
+            p3 = ((static_cast<HB_ULONG>((reinterpret_cast<GdkEventCrossing*>(event))->x)) & 0xFFFF) | (((static_cast<HB_ULONG>((reinterpret_cast<GdkEventMotion*>(event))->y)) << 16) & 0xFFFF0000);
             break;
          }
          case GDK_FOCUS_CHANGE:
          {
-            p1 = ((static_cast<GdkEventFocus*>(event))->in) ? WM_SETFOCUS : WM_KILLFOCUS;
+            p1 = ((reinterpret_cast<GdkEventFocus*>(event))->in) ? WM_SETFOCUS : WM_KILLFOCUS;
             p2 = p3 = 0;
             break;
          }
@@ -647,12 +647,12 @@ void set_signal(gpointer handle, char * cSignal, long int p1, long int p2, long 
 HB_FUNC( HWG_SETSIGNAL )
 {
    gpointer p = static_cast<gpointer>(HB_PARHANDLE(1));
-   set_signal(static_cast<gpointer>(p), static_cast<char*>(hb_parc(2)), hb_parnl(3), hb_parnl(4), static_cast<long int>(HB_PARHANDLE(5)));
+   set_signal(static_cast<gpointer>(p), const_cast<char*>(hb_parc(2)), hb_parnl(3), hb_parnl(4), reinterpret_cast<long int>(HB_PARHANDLE(5)));
 }
 
 HB_FUNC( HWG_EMITSIGNAL )
 {
-   g_signal_emit_by_name(G_OBJECT(HB_PARHANDLE(1)), static_cast<char*>(hb_parc(2)));
+   g_signal_emit_by_name(G_OBJECT(HB_PARHANDLE(1)), const_cast<char*>(hb_parc(2)));
 }
 
 void set_event(gpointer handle, char * cSignal, long int p1, long int p2, long int p3)
@@ -666,7 +666,7 @@ void set_event(gpointer handle, char * cSignal, long int p1, long int p2, long i
 HB_FUNC( HWG_SETEVENT )
 {
    gpointer p = static_cast<gpointer>(HB_PARHANDLE(1));
-   set_event(p, static_cast<char*>(hb_parc(2)), hb_parnl(3), hb_parnl(4), hb_parnl(5));
+   set_event(p, const_cast<char*>(hb_parc(2)), hb_parnl(3), hb_parnl(4), hb_parnl(5));
 }
 
 void all_signal_connect(gpointer hWnd)
@@ -713,7 +713,7 @@ HB_FUNC( HWG_SETWINDOWOBJECT )
 
 void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject)
 {
-   gpointer gObject = g_object_get_data(static_cast<GObject*>(hWnd), "obj");
+   gpointer gObject = g_object_get_data(reinterpret_cast<GObject*>(hWnd), "obj");
 
    if( gObject )
    {
@@ -721,11 +721,11 @@ void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject)
    }
    if( pObject )
    {
-      g_object_set_data(static_cast<GObject*>(hWnd), "obj", static_cast<gpointer>(hb_itemNew(pObject)));
+      g_object_set_data(reinterpret_cast<GObject*>(hWnd), "obj", static_cast<gpointer>(hb_itemNew(pObject)));
    }
    else
    {
-      g_object_set_data(static_cast<GObject*>(hWnd), "obj", static_cast<gpointer>(nullptr));
+      g_object_set_data(reinterpret_cast<GObject*>(hWnd), "obj", static_cast<gpointer>(nullptr));
    }
 }
 
@@ -752,7 +752,7 @@ HB_FUNC( HWG_SETWINDOWTEXT )
 
 HB_FUNC( HWG_GETWINDOWTEXT )
 {
-   char * cTitle = static_cast<char*>(gtk_window_get_title(GTK_WINDOW(HB_PARHANDLE(1))));
+   char * cTitle = const_cast<char*>(gtk_window_get_title(GTK_WINDOW(HB_PARHANDLE(1))));
    hb_retc(cTitle);
 }
 
@@ -894,7 +894,7 @@ HB_FUNC( HWG_WINDOWSETRESIZE )
    //if( !bResize )
    //{
       gtk_window_get_size(handle, &width, &height);
-      gtk_widget_set_size_request(static_cast<GtkWidget*>(handle), width, height);
+      gtk_widget_set_size_request(reinterpret_cast<GtkWidget*>(handle), width, height);
    //}
    gtk_window_set_resizable(handle, bResize);
 }
@@ -979,7 +979,7 @@ static gint snooper(GtkWidget * grab_widget, GdkEventKey * event, gpointer func_
    HB_SYMBOL_UNUSED(func_data);
    if( window && event->type == GDK_KEY_RELEASE )
    {
-      PHB_ITEM pObject = static_cast<PHB_ITEM>(g_object_get_data(static_cast<GObject*>(window), "obj"));
+      PHB_ITEM pObject = static_cast<PHB_ITEM>(g_object_get_data(reinterpret_cast<GObject*>(window), "obj"));
       if( !pSym_keylist )
       {
          pSym_keylist = hb_dynsymFindName("EVALKEYLIST");

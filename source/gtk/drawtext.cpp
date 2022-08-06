@@ -197,7 +197,7 @@ HB_FUNC( HWG_GETFONTSLIST )
       hb_arraySetC(aFonts, i + 1, pango_font_family_get_name(families[i]));
    }
 
-   g_object_unref(static_cast<GObject*>(layout));
+   g_object_unref(reinterpret_cast<GObject*>(layout));
    cairo_destroy(cr);
    g_free(families);
    hb_itemReturnRelease(aFonts);
@@ -306,7 +306,7 @@ HB_FUNC( HWG_CREATEFONT )
 HB_FUNC( HWG_SETCTRLFONT )
 {
    GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
-   GtkWidget * hLabel = static_cast<GtkWidget*>(g_object_get_data(static_cast<GObject*>(hCtrl), "label");
+   GtkWidget * hLabel = static_cast<GtkWidget*>(g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "label"));
 
    if( GTK_IS_BUTTON(hCtrl) )
    {

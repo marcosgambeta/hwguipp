@@ -79,7 +79,7 @@ HB_FUNC( HWG_ALPHA2PIXBUF )
    if( obj && obj->handle && obj->trcolor != nColor )
    {
       handle = alpha2pixbuf(obj->handle, nColor);
-      g_object_unref(static_cast<GObject*>(obj->handle));
+      g_object_unref(reinterpret_cast<GObject*>(obj->handle));
       obj->handle = handle;
       obj->trcolor = nColor;
    }
@@ -382,7 +382,7 @@ HB_FUNC( HWG_DRAWBITMAP )
       pixbuf = gdk_pixbuf_scale_simple(obj->handle, destWidth, destHeight, GDK_INTERP_HYPER);
       gdk_cairo_set_source_pixbuf(hDC->cr, pixbuf, x, y);
       cairo_paint(hDC->cr);
-      g_object_unref(static_cast<GObject*>(pixbuf));
+      g_object_unref(reinterpret_cast<GObject*>(pixbuf));
    }
 }
 
@@ -405,7 +405,7 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    if( obj->trcolor != nColor )
    {
       pixbuf = alpha2pixbuf(obj->handle, nColor);
-      g_object_unref(static_cast<GObject*>(obj->handle));
+      g_object_unref(reinterpret_cast<GObject*>(obj->handle));
       obj->handle = pixbuf;
       obj->trcolor = nColor;
    }
@@ -420,7 +420,7 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
       pixbuf = gdk_pixbuf_scale_simple(obj->handle, destWidth, destHeight, GDK_INTERP_HYPER);
       gdk_cairo_set_source_pixbuf(hDC->cr, pixbuf, x, y);
       cairo_paint(hDC->cr);
-      g_object_unref(static_cast<GObject*>(pixbuf));
+      g_object_unref(reinterpret_cast<GObject*>(pixbuf));
    }
 }
 
@@ -469,7 +469,7 @@ HB_FUNC( HWG_SPREADBITMAP )
 
    gdk_cairo_set_source_pixbuf(hDC->cr, pixbuf, nLeft, nTop);
    cairo_paint(hDC->cr);
-   g_object_unref(static_cast<GObject*>(pixbuf));
+   g_object_unref(reinterpret_cast<GObject*>(pixbuf));
 }
 
 HB_FUNC( HWG_GETBITMAPSIZE )
@@ -534,7 +534,7 @@ HB_FUNC( HWG_OPENIMAGE )
    if( iString )
    {
       /* Load image from GDK pixbuffer */
-      guint8 * buf = static_cast<guint8*>(hb_parc(1));
+      guint8 * buf = static_cast<guint8*>(const_cast<char*>(hb_parc(1)));
       GdkPixbufLoader * loader = gdk_pixbuf_loader_new();
 
       gdk_pixbuf_loader_write(loader, buf, hb_parclen(1), nullptr);
@@ -603,9 +603,9 @@ HB_FUNC( HWG_SELECTOBJECT )
 
       if( obj->type == HWGUI_OBJECT_PEN )
       {
-         hwg_setcolor(hDC->cr, (static_cast<PHWGUI_PEN>(obj))->color);
-         cairo_set_line_width(hDC->cr, (static_cast<PHWGUI_PEN>(obj))->width);
-         if( (static_cast<PHWGUI_PEN>(obj))->style == PS_SOLID )
+         hwg_setcolor(hDC->cr, (reinterpret_cast<PHWGUI_PEN>(obj))->color);
+         cairo_set_line_width(hDC->cr, (reinterpret_cast<PHWGUI_PEN>(obj))->width);
+         if( (reinterpret_cast<PHWGUI_PEN>(obj))->style == PS_SOLID )
          {
             cairo_set_dash(hDC->cr, nullptr, 0, 0);
          }
@@ -617,15 +617,15 @@ HB_FUNC( HWG_SELECTOBJECT )
       }
       else if( obj->type == HWGUI_OBJECT_BRUSH )
       {
-         hwg_setcolor(hDC->cr, (static_cast<PHWGUI_BRUSH>(obj))->color);
+         hwg_setcolor(hDC->cr, (reinterpret_cast<PHWGUI_BRUSH>(obj))->color);
       }
       else if( obj->type == HWGUI_OBJECT_FONT )
       {
-         hDC->hFont = (static_cast<PHWGUI_FONT>(obj))->hFont;
+         hDC->hFont = (reinterpret_cast<PHWGUI_FONT>(obj))->hFont;
          pango_layout_set_font_description(hDC->layout, hDC->hFont);
-         if( (static_cast<PHWGUI_FONT>(obj))->attrs )
+         if( (reinterpret_cast<PHWGUI_FONT>(obj))->attrs )
          {
-            pango_layout_set_attributes(hDC->layout, (static_cast<PHWGUI_FONT>(obj))->attrs);
+            pango_layout_set_attributes(hDC->layout, (reinterpret_cast<PHWGUI_FONT>(obj))->attrs);
          }
       }
    }
@@ -646,13 +646,13 @@ HB_FUNC( HWG_DELETEOBJECT )
    }
    else if( obj->type == HWGUI_OBJECT_FONT )
    {
-      pango_font_description_free((static_cast<PHWGUI_FONT>(obj))->hFont);
-      pango_attr_list_unref((static_cast<PHWGUI_FONT>(obj))->attrs);
+      pango_font_description_free((reinterpret_cast<PHWGUI_FONT>(obj))->hFont);
+      pango_attr_list_unref((reinterpret_cast<PHWGUI_FONT>(obj))->attrs);
       hb_xfree(obj);
    }
    else if( obj->type == HWGUI_OBJECT_PIXBUF )
    {
-      g_object_unref(static_cast<GObject*>(static_cast<PHWGUI_PIXBUF>(obj))->handle);
+      g_object_unref(static_cast<GObject*>(reinterpret_cast<PHWGUI_PIXBUF>(obj))->handle);
       hb_xfree(obj);
    }
 }
@@ -691,7 +691,7 @@ HB_FUNC( HWG_ENDPAINT )
 
    if( hDC->layout )
    {
-      g_object_unref(static_cast<GObject*>(hDC->layout));
+      g_object_unref(reinterpret_cast<GObject*>(hDC->layout));
    }
    hb_xfree(hDC);
    hb_xfree(pps);
@@ -720,7 +720,7 @@ HB_FUNC( HWG_RELEASEDC )
 
    if( hDC->layout )
    {
-      g_object_unref(static_cast<GObject*>(hDC->layout));
+      g_object_unref(reinterpret_cast<GObject*>(hDC->layout));
    }
 
    if( hDC->surface )
@@ -794,9 +794,9 @@ HB_FUNC( HWG_GETCLIENTAREA )
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
 
-   if( getFixedBox(static_cast<GObject*>(widget)) )
+   if( getFixedBox(reinterpret_cast<GObject*>(widget)) )
    {
-      widget = static_cast<GtkWidget*>(getFixedBox(static_cast<GObject*>(widget)));
+      widget = static_cast<GtkWidget*>(getFixedBox(reinterpret_cast<GObject*>(widget)));
    }
 
    gtk_widget_get_allocation(widget, &alloc);
@@ -813,9 +813,9 @@ HB_FUNC( HWG_GETCLIENTRECT )
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
 
-   if( getFixedBox(static_cast<GObject*>(widget)) )
+   if( getFixedBox(reinterpret_cast<GObject*>(widget)) )
    {
-      widget = static_cast<GtkWidget*>(getFixedBox(static_cast<GObject*>(widget)));
+      widget = static_cast<GtkWidget*>(getFixedBox(reinterpret_cast<GObject*>(widget)));
    }
 
    gtk_widget_get_allocation(widget, &alloc);

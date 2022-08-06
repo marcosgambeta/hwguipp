@@ -98,7 +98,7 @@ PHWGUI_PRINT hwg_openprinter(int iFormType)
 
 HB_FUNC( HWG_OPENPRINTER )
 {
-   hb_retnl(static_cast<HB_LONG>(hwg_openprinter((HB_ISNIL(2)) ? 0 : hb_parni(2))));
+   hb_retnl(reinterpret_cast<HB_LONG>(hwg_openprinter((HB_ISNIL(2)) ? 0 : hb_parni(2))));
 }
 
 HB_FUNC( HWG_GETPRINTERS )
@@ -146,7 +146,7 @@ HB_FUNC( HWG_GETPRINTERS )
             {
                ptr++;
             }
-            temp = hb_itemPutCL(nullptr, static_cast<char*>(ptr1), ptr-ptr1);
+            temp = hb_itemPutCL(nullptr, reinterpret_cast<char*>(ptr1), ptr-ptr1);
             hb_arrayAdd(aMetr, temp);
             hb_itemRelease(temp);
             while( *ptr && *ptr != 0x0a )
@@ -182,7 +182,7 @@ HB_FUNC( HWG_GETPRINTERS )
 
 HB_FUNC( HWG_SETPRINTERMODE )
 {
-   PHWGUI_PRINT print = static_cast<PHWGUI_PRINT>(hb_parnl(1));
+   PHWGUI_PRINT print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
 
    gtk_page_setup_set_orientation(print->page_setup, (hb_parni(2) == 1) ? GTK_PAGE_ORIENTATION_PORTRAIT : GTK_PAGE_ORIENTATION_LANDSCAPE);
    if( HB_ISNUM(3) )
@@ -194,7 +194,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
 
 HB_FUNC( HWG_CLOSEPRINTER )
 {
-   PHWGUI_PRINT print = static_cast<PHWGUI_PRINT>(hb_parnl(1));
+   PHWGUI_PRINT print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
 
    g_object_unref(G_OBJECT(print->page_setup));
    if( print->cName )
@@ -231,7 +231,7 @@ static void draw_page(cairo_t * cr, const char * cpage)
 
    cairo_set_source_rgb(cr, 0, 0, 0);
 
-   ptr = static_cast<char*>(cpage);
+   ptr = const_cast<char*>(cpage);
    while( *ptr )
    {
       if( !strncmp(ptr, "txt", 3) )
@@ -442,7 +442,7 @@ static void print_page(GtkPrintOperation * operation, GtkPrintContext * context,
    if( hb_arrayLen(ppages) >= static_cast<unsigned int>(page_nr) + 2 )
    {
       page_setup = gtk_print_context_get_page_setup(context);
-      ptr = static_cast<char*>(hb_arrayGetCPtr(ppages, page_nr + 2));
+      ptr = const_cast<char*>(hb_arrayGetCPtr(ppages, page_nr + 2));
       if( !strncmp(ptr, "page", 4) )
       {
          ptr = strchr(ptr + 5, ',');
@@ -580,7 +580,7 @@ static void print_init(GtkPrintOperation * operation, PHWGUI_PRINT print)
 
 HB_FUNC( HWG_GP_PRINT )
 {
-   PHWGUI_PRINT print = static_cast<PHWGUI_PRINT>(hb_parnl(1));
+   PHWGUI_PRINT print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
    int i, iPages = hb_parni(3);
    int iOper = hb_parni(4);
    int iPage = HB_ISNIL(6) ? 0 : hb_parni(6);
@@ -664,7 +664,7 @@ HB_FUNC( HWG_GP_PRINT )
       }
       for( ; i <= iPages; i++ )
       {
-         draw_page(cr, static_cast<char*>(hb_arrayGetCPtr(hb_param(2, Harbour::Item::ARRAY), i)));
+         draw_page(cr, const_cast<char*>(hb_arrayGetCPtr(hb_param(2, Harbour::Item::ARRAY), i)));
          cairo_show_page(cr);
       }
 
@@ -690,7 +690,7 @@ HB_FUNC( HWG_GP_PRINT )
             gtk_page_setup_get_page_width(print->page_setup, GTK_UNIT_POINTS),
             gtk_page_setup_get_page_height(print->page_setup, GTK_UNIT_POINTS));
          cairo_t * cr = cairo_create(surface);
-         draw_page(cr, static_cast<char*>(hb_arrayGetCPtr(hb_param(2, Harbour::Item::ARRAY), i)));
+         draw_page(cr, const_cast<char*>(hb_arrayGetCPtr(hb_param(2, Harbour::Item::ARRAY), i)));
          memcpy(sfile, print->cName, iLen);
          sfile[iLen] = '\0';
          if( i > 1 && iPage == 0 )
@@ -713,7 +713,7 @@ HB_FUNC( HWG_GP_PRINT )
  */
 HB_FUNC( HWG_GP_GETDEVICEAREA )
 {
-   PHWGUI_PRINT print = static_cast<PHWGUI_PRINT>(hb_parnl(1));
+   PHWGUI_PRINT print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
 
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
