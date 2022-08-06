@@ -302,7 +302,7 @@ HB_FUNC( HWG_CREATEEDIT )
       }
       else
       {
-         gtk_entry_set_text(static_cast<GtkEntry*>(hCtrl), gcTitle);
+         gtk_entry_set_text(reinterpret_cast<GtkEntry*>(hCtrl), gcTitle);
       }
       g_free(gcTitle);
    }
@@ -319,14 +319,14 @@ HB_FUNC( HWG_EDIT_SETTEXT )
    GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    gchar * gcTitle = hwg_convert_to_utf8(hb_parcx(2));
 
-   if( g_object_get_data(static_cast<GObject*>(hCtrl), "multi") )
+   if( g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "multi") )
    {
       GtkTextBuffer * buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(hCtrl));
       gtk_text_buffer_set_text(buffer, gcTitle, -1);
    }
    else
    {
-      gtk_entry_set_text(static_cast<GtkEntry*>(hCtrl), gcTitle);
+      gtk_entry_set_text(reinterpret_cast<GtkEntry*>(hCtrl), gcTitle);
    }
    g_free(gcTitle);
 }
@@ -336,7 +336,7 @@ HB_FUNC( HWG_EDIT_GETTEXT )
    GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    char * cptr;
 
-   if( g_object_get_data(static_cast<GObject*>(hCtrl), "multi") )
+   if( g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "multi") )
    {
       GtkTextBuffer * buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(hCtrl));
       GtkTextIter iterStart, iterEnd;
@@ -347,7 +347,7 @@ HB_FUNC( HWG_EDIT_GETTEXT )
    }
    else
    {
-      cptr = static_cast<char*>(gtk_entry_get_text(static_cast<GtkEntry*>(hCtrl)));
+      cptr = static_cast<char*>(gtk_entry_get_text(reinterpret_cast<GtkEntry*>(hCtrl)));
    }
 
    if( *cptr )
@@ -398,20 +398,20 @@ HB_FUNC( HWG_EDIT_SET_OVERMODE )
    GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    gboolean bOver;
 
-   if( g_object_get_data(static_cast<GObject*>(hCtrl), "multi") )
+   if( g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "multi") )
    {
-      bOver = gtk_text_view_get_overwrite((static_cast<GtkTextView*>(hCtrl)));
+      bOver = gtk_text_view_get_overwrite((reinterpret_cast<GtkTextView*>(hCtrl)));
       if( !(HB_ISNIL(2)) )
       {
-         gtk_text_view_set_overwrite((static_cast<GtkTextView*>(hCtrl)), hb_parl(2));
+         gtk_text_view_set_overwrite((reinterpret_cast<GtkTextView*>(hCtrl)), hb_parl(2));
       }
    }
    else
    {
-      bOver = gtk_entry_get_overwrite_mode((static_cast<GtkEntry*>(hCtrl)));
+      bOver = gtk_entry_get_overwrite_mode((reinterpret_cast<GtkEntry*>(hCtrl)));
       if( !(HB_ISNIL(2)) )
       {
-        gtk_entry_set_overwrite_mode((static_cast<GtkEntry*>(hCtrl)), hb_parl(2));
+        gtk_entry_set_overwrite_mode((reinterpret_cast<GtkEntry*>(hCtrl)), hb_parl(2));
       }
    }
    hb_retl(bOver);
@@ -433,7 +433,7 @@ HB_FUNC( HWG_CREATECOMBO )
 #endif
    if( !iText )
    {
-      gtk_editable_set_editable(static_cast<GtkEditable*>(gtk_bin_get_child(reinterpret_cast<GtkBin*>(hCtrl))), FALSE);
+      gtk_editable_set_editable(reinterpret_cast<GtkEditable*>(gtk_bin_get_child(reinterpret_cast<GtkBin*>(hCtrl))), FALSE);
       //hCtrl = gtk_combo_box_new_text();
    }
    if( box )
@@ -456,7 +456,7 @@ HB_FUNC( HWG_COMBOSETARRAY )
       HB_ULONG ulLen = hb_arrayLen(pArray);
       char * cItem;
 
-      ulKol = static_cast<HB_ULONG>(g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "kol"));
+      ulKol = reinterpret_cast<HB_ULONG>(g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "kol"));
       for( HB_ULONG ul = 1; ul <= ulKol; ++ul )
       {
 #if GTK_MAJOR_VERSION - 0 < 3
