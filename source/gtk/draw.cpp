@@ -652,7 +652,7 @@ HB_FUNC( HWG_DELETEOBJECT )
    }
    else if( obj->type == HWGUI_OBJECT_PIXBUF )
    {
-      g_object_unref(reinterpret_cast<GObject*>(reinterpret_cast<PHWGUI_PIXBUF>(obj))->handle);
+      g_object_unref(reinterpret_cast<GObject*>(reinterpret_cast<PHWGUI_PIXBUF>(obj)->handle));
       hb_xfree(obj);
    }
 }
