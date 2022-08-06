@@ -113,7 +113,7 @@
 {unix}source/gtk/draw.cpp
 {unix}source/gtk/drawtext.cpp
 {unix}source/gtk/inter.cpp
-{unix}source/gtk/menu_c.cpp
+{unix}source/gtk/menu.cpp
 {unix}source/gtk/message.cpp
 {unix}source/gtk/misc.cpp
 {unix}source/gtk/window.cpp
