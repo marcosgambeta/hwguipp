@@ -40,7 +40,7 @@ void store_font(gpointer fontseldlg)
    hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutC(nullptr, static_cast<char*>(pango_font_description_get_family(hFont)));
+   temp = hb_itemPutC(nullptr, const_cast<char*>(pango_font_description_get_family(hFont)));
    hb_itemArrayPut(aMetr, 2, temp);
    hb_itemRelease(temp);
 
@@ -109,16 +109,16 @@ HB_FUNC( HWG_SELECTFONT )
    g_signal_connect(G_OBJECT(fontseldlg), "destroy", G_CALLBACK(gtk_main_quit), nullptr);
 
    //g_signal_connect_swapped(GTK_OBJECT(GTK_FONT_SELECTION_DIALOG(fontseldlg)->ok_button),
-   g_signal_connect_swapped(G_OBJECT(gtk_font_selection_dialog_get_ok_button(static_cast<GtkFontSelectionDialog*>(fontseldlg))),
+   g_signal_connect_swapped(G_OBJECT(gtk_font_selection_dialog_get_ok_button(reinterpret_cast<GtkFontSelectionDialog*>(fontseldlg))),
       "clicked", G_CALLBACK(store_font), static_cast<gpointer>(fontseldlg));
 
    //g_signal_connect_swapped(GTK_OBJECT(GTK_FONT_SELECTION_DIALOG(fontseldlg)->cancel_button),
-   g_signal_connect_swapped(G_OBJECT(gtk_font_selection_dialog_get_cancel_button(static_cast<GtkFontSelectionDialog*>(fontseldlg))),
+   g_signal_connect_swapped(G_OBJECT(gtk_font_selection_dialog_get_cancel_button(reinterpret_cast<GtkFontSelectionDialog*>(fontseldlg))),
       "clicked", G_CALLBACK(cancel_font), static_cast<gpointer>(fontseldlg));
 
    gtk_widget_show(fontseldlg);
 
-   hwg_set_modal(static_cast<GtkWindow*>(fontseldlg), static_cast<GtkWindow*>(GetActiveWindow()));
+   hwg_set_modal(reinterpret_cast<GtkWindow*>(fontseldlg), reinterpret_cast<GtkWindow*>(GetActiveWindow()));
 
    gtk_main();
 }
@@ -126,7 +126,7 @@ HB_FUNC( HWG_SELECTFONT )
 #if GTK_MAJOR_VERSION - 0 < 3
 void store_filename(gpointer file_selector)
 {
-   hb_retc(static_cast<char*>(gtk_file_selection_get_filename(GTK_FILE_SELECTION(file_selector))));
+   hb_retc(const_cast<char*>(gtk_file_selection_get_filename(GTK_FILE_SELECTION(file_selector))));
    gtk_widget_destroy(static_cast<GtkWidget*>(file_selector));
 }
 
@@ -141,7 +141,7 @@ HB_FUNC( HWG_SELECTFILE )
    GtkWidget * file_selector;
    const char * cMask = (hb_pcount() > 1 && HB_ISCHAR(2)) ? hb_parc(2) : nullptr;
    const char * cTitle = (hb_pcount() > 3 && HB_ISCHAR(4)) ? hb_parc(4) : "Select a file";
-   char * cDir = (hb_pcount() > 2 && HB_ISCHAR(3)) ? static_cast<char*>(hb_parc(3)) : nullptr;
+   char * cDir = (hb_pcount() > 2 && HB_ISCHAR(3)) ? const_cast<char*>(hb_parc(3)) : nullptr;
 
    if( cDir )
    {
@@ -157,12 +157,12 @@ HB_FUNC( HWG_SELECTFILE )
 
    if( cMask )
    {
-      gtk_file_selection_complete(static_cast<GtkFileSelection*>(file_selector), cMask);
+      gtk_file_selection_complete(reinterpret_cast<GtkFileSelection*>(file_selector), cMask);
    }
 
    gtk_widget_show(file_selector);
 
-   hwg_set_modal(static_cast<GtkWindow*>(file_selector), static_cast<GtkWindow*>(GetActiveWindow()));
+   hwg_set_modal(reinterpret_cast<GtkWindow*>(file_selector), reinterpret_cast<GtkWindow*>(GetActiveWindow()));
 
    gtk_main();
 }
@@ -283,7 +283,7 @@ HB_FUNC( HWG_CHOOSECOLOR )
    gint response;
 
    colorseldlg = gtk_color_selection_dialog_new(cTitle);
-   colorsel = GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection(static_cast<GtkColorSelectionDialog*>(colorseldlg)));
+   colorsel = GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection(reinterpret_cast<GtkColorSelectionDialog*>(colorseldlg)));
 
    if( hb_pcount() > 0 && !HB_ISNIL(1) )
    {
@@ -357,7 +357,7 @@ HB_FUNC( HWG_SELECTFILEEX )
    // Creacion del selector de archivos.
    // ----------------------------------
 
-   selector_archivo = gtk_file_chooser_dialog_new(cTitle, static_cast<GtkWindow*>(GetActiveWindow()),
+   selector_archivo = gtk_file_chooser_dialog_new(cTitle, reinterpret_cast<GtkWindow*>(GetActiveWindow()),
       GTK_FILE_CHOOSER_ACTION_OPEN, "gtk-cancel", GTK_RESPONSE_CANCEL, "gtk-open", GTK_RESPONSE_ACCEPT, nullptr);
 
    // -----------------------
@@ -383,7 +383,7 @@ HB_FUNC( HWG_SELECTFILEEX )
                gtk_file_filter_add_pattern(filtro, hb_arrayGetC(pArr1, j));
             }
          }
-         gtk_file_chooser_add_filter(static_cast<GtkFileChooser*>(selector_archivo), filtro);
+         gtk_file_chooser_add_filter(reinterpret_cast<GtkFileChooser*>(selector_archivo), filtro);
       }
    }
 
@@ -391,18 +391,18 @@ HB_FUNC( HWG_SELECTFILEEX )
    // Opciones del selector
    // ---------------------
 
-   gtk_file_chooser_set_current_folder(static_cast<GtkFileChooser*>(selector_archivo), cDir);
+   gtk_file_chooser_set_current_folder(reinterpret_cast<GtkFileChooser*>(selector_archivo), cDir);
    if( bMulti )
    {
-      gtk_file_chooser_set_select_multiple(static_cast<GtkFileChooser*>(selector_archivo), 1);
+      gtk_file_chooser_set_select_multiple(reinterpret_cast<GtkFileChooser*>(selector_archivo), 1);
    }
 
    // ------------------------------
    // Definicion del previsualizador
    // ------------------------------
 
-   preview = static_cast<GtkImage*>(gtk_image_new());
-   gtk_file_chooser_set_preview_widget(static_cast<GtkFileChooser*>(selector_archivo), static_cast<GtkWidget*>(preview));
+   preview = reinterpret_cast<GtkImage*>(gtk_image_new());
+   gtk_file_chooser_set_preview_widget(reinterpret_cast<GtkFileChooser*>(selector_archivo), reinterpret_cast<GtkWidget*>(preview));
    g_signal_connect(selector_archivo, "update-preview", G_CALLBACK(actualiza_preview), preview);
 
    // ----------------------
@@ -462,7 +462,7 @@ HB_FUNC( HWG_SELECTFOLDER )
    // Creacion del selector de archivos.
    // ----------------------------------
 
-   selector_archivo = gtk_file_chooser_dialog_new(cTitle, static_cast<GtkWindow*>(GetActiveWindow()),
+   selector_archivo = gtk_file_chooser_dialog_new(cTitle, reinterpret_cast<GtkWindow*>(GetActiveWindow()),
       GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, "gtk-cancel", GTK_RESPONSE_CANCEL, "gtk-open", GTK_RESPONSE_ACCEPT, nullptr);
 
    // ----------------------

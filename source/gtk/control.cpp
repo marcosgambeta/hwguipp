@@ -132,7 +132,7 @@ HB_FUNC( HWG_CREATESTATIC )
    if( (ulStyle & SS_OWNERDRAW) == SS_OWNERDRAW )
    {
       hCtrl = gtk_drawing_area_new();
-      g_object_set_data(static_cast<GObject*>(hCtrl), "draw", static_cast<gpointer>(hCtrl));
+      g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "draw", static_cast<gpointer>(hCtrl));
    }
    else
    {
@@ -141,7 +141,7 @@ HB_FUNC( HWG_CREATESTATIC )
       hLabel = gtk_label_new(gcTitle);
       g_free(gcTitle);
       gtk_container_add(GTK_CONTAINER(hCtrl), hLabel);
-      g_object_set_data(static_cast<GObject*>(hCtrl), "label", static_cast<gpointer>(hLabel));
+      g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "label", static_cast<gpointer>(hLabel));
       if( ulExtStyle & WS_EX_TRANSPARENT )
       {
          gtk_event_box_set_visible_window(GTK_EVENT_BOX(hCtrl), 0);
@@ -180,7 +180,7 @@ HB_FUNC( HWG_STATIC_SETTEXT )
 
 HB_FUNC( HWG_STATIC_GETTEXT )
 {
-   hb_retc(static_cast<char*>(gtk_label_get_text(g_object_get_data(static_cast<GObject*>(HB_PARHANDLE(1)), "label"))));
+   hb_retc(const_cast<char*>(gtk_label_get_text(g_object_get_data(static_cast<GObject*>(HB_PARHANDLE(1)), "label"))));
 }
 
 /*
@@ -199,7 +199,7 @@ HB_FUNC( HWG_CREATEBUTTON )
    {
       GSList * group = static_cast<GSList*>(HB_PARHANDLE(2));
       hCtrl = gtk_radio_button_new_with_label(group, gcTitle);
-      group = gtk_radio_button_get_group(static_cast<GtkRadioButton*>(hCtrl));
+      group = gtk_radio_button_get_group(reinterpret_cast<GtkRadioButton*>(hCtrl));
       HB_STOREHANDLE(group, 2);
    }
    else if( (ulStyle & 0xf) == BS_AUTO3STATE )
@@ -238,13 +238,13 @@ HB_FUNC( HWG_BUTTON_SETTEXT )
    gchar * gcTitle = hwg_convert_to_utf8(hb_parcx(2));
    GtkWidget * hBtn = static_cast<GtkWidget*>(HB_PARHANDLE(1));
 
-   gtk_button_set_label(static_cast<GtkButton*>(hBtn), gcTitle);
+   gtk_button_set_label(reinterpret_cast<GtkButton*>(hBtn), gcTitle);
    g_free(gcTitle);
 }
 
 HB_FUNC( HWG_BUTTON_GETTEXT )
 {
-   hb_retc(static_cast<char*>(gtk_button_get_label(static_cast<GtkButton*>(HB_PARHANDLE(1)))));
+   hb_retc(const_cast<char*>(gtk_button_get_label(static_cast<GtkButton*>(HB_PARHANDLE(1)))));
 }
 
 HB_FUNC( HWG_CHECKBUTTON )
@@ -269,10 +269,10 @@ HB_FUNC( HWG_CREATEEDIT )
    if( ulStyle & ES_MULTILINE )
    {
       hCtrl = gtk_text_view_new();
-      g_object_set_data(static_cast<GObject*>(hCtrl), "multi", static_cast<gpointer>(1));
+      g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "multi", reinterpret_cast<gpointer>(1));
       if( ulStyle & ES_READONLY )
       {
-         gtk_text_view_set_editable(static_cast<GtkTextView*>(hCtrl), 0);
+         gtk_text_view_set_editable(reinterpret_cast<GtkTextView*>(hCtrl), 0);
       }
       gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(hCtrl), GTK_WRAP_WORD_CHAR);
    }
@@ -281,7 +281,7 @@ HB_FUNC( HWG_CREATEEDIT )
       hCtrl = gtk_entry_new();
       if( ulStyle & ES_PASSWORD )
       {
-         gtk_entry_set_visibility(static_cast<GtkEntry*>(hCtrl), FALSE);
+         gtk_entry_set_visibility(reinterpret_cast<GtkEntry*>(hCtrl), FALSE);
       }
    }
 
@@ -347,7 +347,7 @@ HB_FUNC( HWG_EDIT_GETTEXT )
    }
    else
    {
-      cptr = static_cast<char*>(gtk_entry_get_text(reinterpret_cast<GtkEntry*>(hCtrl)));
+      cptr = const_cast<char*>(gtk_entry_get_text(reinterpret_cast<GtkEntry*>(hCtrl)));
    }
 
    if( *cptr )
