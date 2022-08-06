@@ -459,7 +459,7 @@ static const WCHAR BeforeUnload[] = L"beforeunload";
 #include "hbvm.h"
 #include "item.api"
 
-PHB_ITEM GetObjectVar( PHB_ITEM pObject, char *varname );
+PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 void SetObjectVar( PHB_ITEM pObject, char *varname, PHB_ITEM pValue );
 extern void writelog( char *s );
 
@@ -474,7 +474,7 @@ void SetEmbedded( HWND handle, IOleObject ** obj )
    #else
    pObject = ( PHB_ITEM ) GetWindowLongPtr( handle, GWL_USERDATA );
    #endif
-   pEmbed = hb_itemNew( GetObjectVar( pObject, "OEMBEDDED" ) );
+   pEmbed = hb_itemNew( GetObjectVar(pObject, "OEMBEDDED") );
    temp = hb_itemPutNL( NULL, ( LONG ) obj );
    SetObjectVar( pEmbed, "_HANDLE", temp );
    hb_itemRelease( temp );
@@ -489,8 +489,8 @@ IOleObject **GetEmbedded( HWND handle )
    #else
    pObject = ( PHB_ITEM ) GetWindowLongPtr( handle, GWL_USERDATA );
    #endif
-   pEmbed = hb_itemNew( GetObjectVar( pObject, "OEMBEDDED" ) );
-   return ( IOleObject ** ) hb_itemGetNL( GetObjectVar( pEmbed, "HANDLE" ) );
+   pEmbed = hb_itemNew( GetObjectVar(pObject, "OEMBEDDED") );
+   return ( IOleObject ** ) hb_itemGetNL( GetObjectVar(pEmbed, "HANDLE") );
 }
 
 ///////////////////// My IDocHostUIHandler functions  ///////////////////

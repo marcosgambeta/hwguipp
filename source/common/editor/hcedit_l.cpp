@@ -138,7 +138,7 @@ typedef struct
 #define WS_BORDER      8388608
 
 extern void hwg_setcolor( cairo_t * cr, long int nColor );
-extern PHB_ITEM GetObjectVar( PHB_ITEM pObject, char* varname );
+extern PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 extern void SetObjectVar( PHB_ITEM pObject, char *varname, PHB_ITEM pValue );
 extern void SetWindowObject( GtkWidget * hWnd, PHB_ITEM pObject );
 extern void set_signal( gpointer handle, char *cSignal, long int p1,
@@ -486,15 +486,15 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    GtkFixed *box;
    PHB_ITEM pObject = hb_param( 1, Harbour::Item::OBJECT ), temp;
    GObject *handle;
-   int nLeft = hb_itemGetNI( GetObjectVar( pObject, "NLEFT" ) );
-   int nTop = hb_itemGetNI( GetObjectVar( pObject, "NTOP" ) );
-   int nWidth = hb_itemGetNI( GetObjectVar( pObject, "NWIDTH" ) );
-   int nHeight = hb_itemGetNI( GetObjectVar( pObject, "NHEIGHT" ) );
+   int nLeft = hb_itemGetNI( GetObjectVar(pObject, "NLEFT") );
+   int nTop = hb_itemGetNI( GetObjectVar(pObject, "NTOP") );
+   int nWidth = hb_itemGetNI( GetObjectVar(pObject, "NWIDTH") );
+   int nHeight = hb_itemGetNI( GetObjectVar(pObject, "NHEIGHT") );
    unsigned long int ulStyle =
-         hb_itemGetNL( GetObjectVar( pObject, "STYLE" ) );
+         hb_itemGetNL( GetObjectVar(pObject, "STYLE") );
 
-   temp = GetObjectVar( pObject, "OPARENT" );
-   handle = ( GObject * ) HB_GETHANDLE( GetObjectVar( temp, "HANDLE" ) );
+   temp = GetObjectVar(pObject, "OPARENT");
+   handle = ( GObject * ) HB_GETHANDLE( GetObjectVar(temp, "HANDLE") );
 
    hbox = gtk_hbox_new( FALSE, 0 );
    vbox = gtk_vbox_new( FALSE, 0 );

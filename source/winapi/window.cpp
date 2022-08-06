@@ -850,10 +850,7 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
 
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char *varname)
 {
-   /* ( char * ) casting is a hack for old [x]Harbour versions
-    * which used wrong hb_objSendMsg() declaration
-    */
-   return hb_objSendMsg(pObject, ( char * ) varname, 0);
+   return hb_objSendMsg(pObject, varname, 0);
 }
 
 void SetObjectVar(PHB_ITEM pObject, const char *varname, PHB_ITEM pValue)

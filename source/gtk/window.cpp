@@ -40,7 +40,7 @@
 extern void hwg_writelog(const char * sFile, const char * sTraceMsg, ...);
 
 void SetObjectVar(PHB_ITEM pObject, char* varname, PHB_ITEM pValue);
-PHB_ITEM GetObjectVar(PHB_ITEM pObject, char * varname);
+PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject);
 void all_signal_connect(gpointer hWnd);
 void set_signal(gpointer handle, char * cSignal, long int p1, long int p2, long int p3);
@@ -811,7 +811,7 @@ HB_FUNC( HWG_WINDOWMINIMIZE )
    gtk_window_iconify(static_cast<GtkWindow*>(HB_PARHANDLE(1)));
 }
 
-PHB_ITEM GetObjectVar(PHB_ITEM pObject, char * varname)
+PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname)
 {
 #ifdef __XHARBOUR__
    return hb_objSendMsg(pObject, varname, 0);

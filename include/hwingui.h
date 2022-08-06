@@ -122,7 +122,7 @@ HB_EXTERN_BEGIN
 
 extern void hwg_writelog( const char * sFile, const char * sTraceMsg, ... );
 
-extern PHB_ITEM GetObjectVar( PHB_ITEM pObject, const char *varname );
+extern PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 extern void SetObjectVar( PHB_ITEM pObject, const char *varname, PHB_ITEM pValue );
 
 extern void SetWindowObject( HWND hWnd, PHB_ITEM pObject );
