@@ -105,7 +105,7 @@ HB_FUNC( HWG__ADDMENUITEM )
    else
    {
       char buf[40] = {0};
-      sprintf(buf, "0 %ld %ld", hb_parnl(5),static_cast<HB_LONG>(HB_PARHANDLE(4)));
+      sprintf(buf, "0 %ld %ld", hb_parnl(5),reinterpret_cast<HB_LONG>(HB_PARHANDLE(4)));
       g_signal_connect(G_OBJECT(hMenu), "activate", G_CALLBACK(cb_signal), static_cast<gpointer>(g_strdup(buf)));
 
       HB_RETHANDLE(hMenu);
@@ -122,7 +122,7 @@ HB_FUNC( HWG__SETMENU )
 {
    GObject * handle = static_cast<GObject*>(HB_PARHANDLE(1));
    GtkFixed * box = getFixedBox(handle);
-   GtkWidget * vbox = gtk_widget_get_parent(static_cast<GtkWidget*>(box));
+   GtkWidget * vbox = gtk_widget_get_parent(reinterpret_cast<GtkWidget*>(box));
    gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(HB_PARHANDLE(2)), FALSE, FALSE, 0);
    gtk_box_reorder_child(GTK_BOX(vbox), static_cast<GtkWidget*>(HB_PARHANDLE(2)), 0);
    gtk_widget_show(static_cast<GtkWidget*>(HB_PARHANDLE(2)));
@@ -138,7 +138,7 @@ HB_FUNC( HWG_GETMENUHANDLE )
 HB_FUNC( HWG__CHECKMENUITEM )
 {
    GtkCheckMenuItem * check_menu_item = static_cast<GtkCheckMenuItem*>(HB_PARHANDLE(1));
-   g_signal_handlers_block_matched(static_cast<gpointer>(check_menu_item, G_SIGNAL_MATCH_FUNC, 0, 0, 0, G_CALLBACK(cb_signal), 0));
+   g_signal_handlers_block_matched(reinterpret_cast<gpointer>(check_menu_item, G_SIGNAL_MATCH_FUNC, 0, 0, 0, G_CALLBACK(cb_signal), 0));
    gtk_check_menu_item_set_active(check_menu_item, (HB_ISNIL(2)) ? 1 : hb_parl(2));
    g_signal_handlers_unblock_matched(static_cast<gpointer>(check_menu_item), G_SIGNAL_MATCH_FUNC, 0, 0, 0, G_CALLBACK(cb_signal), 0);
 }
@@ -152,7 +152,7 @@ HB_FUNC( HWG__ISCHECKEDMENUITEM )
 HB_FUNC( HWG__ENABLEMENUITEM )
 {
    GtkMenuItem * menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
-   gtk_widget_set_sensitive(static_cast<GtkWidget*>(menu_item), (HB_ISNIL(2)) ? 1 : hb_parl(2));
+   gtk_widget_set_sensitive(reinterpret_cast<GtkWidget*>(menu_item), (HB_ISNIL(2)) ? 1 : hb_parl(2));
 }
 
 HB_FUNC( HWG__ISENABLEDMENUITEM )
@@ -208,14 +208,14 @@ HB_FUNC( HWG__SETMENUCAPTION )
 {
    GtkMenuItem * menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
    gchar * gcptr = hwg_convert_to_utf8(hb_parc(2));
-   gtk_label_set_text(static_cast<GtkLabel*>(gtk_bin_get_child(static_cast<GtkBin*>(menu_item))), gcptr);
+   gtk_label_set_text(static_cast<GtkLabel*>(gtk_bin_get_child(reinterpret_cast<GtkBin*>(menu_item))), gcptr);
    g_free(gcptr);
 }
 
 HB_FUNC( HWG__DELETEMENU )
 {
    GtkMenuItem * menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
-   gtk_container_remove(static_cast<GtkContainer*>(gtk_widget_get_parent((static_cast<GtkWidget*>(menu_item)))), static_cast<GtkWidget*>(menu_item));
+   gtk_container_remove(static_cast<GtkContainer*>(gtk_widget_get_parent((reinterpret_cast<GtkWidget*>(menu_item)))), reinterpret_cast<GtkWidget*>(menu_item));
 }
 
 HB_FUNC( HWG_DRAWMENUBAR )
