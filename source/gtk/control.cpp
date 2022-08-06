@@ -1593,5 +1593,5 @@ HB_FUNC( HWG_SHOWCURSOR )
 
 HB_FUNC( HWG_GETCURSORTYPE )
 {
-   hb_retnl(reinterpret_cast<long>(gdk_cursor_get_type);
+   hb_retnl(reinterpret_cast<long>(gdk_cursor_get_type));
 }
