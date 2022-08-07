@@ -20,3 +20,5 @@ source/common/procmisc/*.prg
 {win}source/common/editor/hcedit_w.cpp
 {unix}source/common/editor/hcedit_l.cpp
 source/common/editor/*.prg
+
+{unix}-cflag=-fpermissive
