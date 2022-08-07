@@ -39,7 +39,7 @@
 
 extern void hwg_writelog(const char * sFile, const char * sTraceMsg, ...);
 
-void SetObjectVar(PHB_ITEM pObject, char* varname, PHB_ITEM pValue);
+void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue);
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject);
 void all_signal_connect(gpointer hWnd);
@@ -821,7 +821,7 @@ PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname)
 #endif
 }
 
-void SetObjectVar(PHB_ITEM pObject, char * varname, PHB_ITEM pValue)
+void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue) // TODO: deprecate and call hb_objSendMsg directly
 {
    hb_objSendMsg(pObject, varname, 1, pValue);
 }

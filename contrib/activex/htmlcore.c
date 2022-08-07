@@ -460,7 +460,7 @@ static const WCHAR BeforeUnload[] = L"beforeunload";
 #include "item.api"
 
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
-void SetObjectVar( PHB_ITEM pObject, char *varname, PHB_ITEM pValue );
+void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue);
 extern void writelog( char *s );
 
 void SetEmbedded( HWND handle, IOleObject ** obj )
@@ -476,7 +476,7 @@ void SetEmbedded( HWND handle, IOleObject ** obj )
    #endif
    pEmbed = hb_itemNew( GetObjectVar(pObject, "OEMBEDDED") );
    temp = hb_itemPutNL( NULL, ( LONG ) obj );
-   SetObjectVar( pEmbed, "_HANDLE", temp );
+   SetObjectVar(pEmbed, "_HANDLE", temp);
    hb_itemRelease( temp );
 }
 

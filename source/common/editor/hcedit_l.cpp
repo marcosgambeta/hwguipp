@@ -139,7 +139,7 @@ typedef struct
 
 extern void hwg_setcolor( cairo_t * cr, long int nColor );
 extern PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
-extern void SetObjectVar( PHB_ITEM pObject, char *varname, PHB_ITEM pValue );
+extern void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue);
 extern void SetWindowObject( GtkWidget * hWnd, PHB_ITEM pObject );
 extern void set_signal( gpointer handle, char *cSignal, long int p1,
       long int p2, long int p3 );
@@ -514,7 +514,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
       gtk_box_pack_end( GTK_BOX( hbox ), vscroll, FALSE, FALSE, 0 );
 
       temp = HB_PUTHANDLE( nullptr, adjV );
-      SetObjectVar( pObject, "_HSCROLLV", temp );
+      SetObjectVar(pObject, "_HSCROLLV", temp);
       hb_itemRelease( temp );
 
       SetWindowObject( ( GtkWidget * ) adjV, pObject );
@@ -534,7 +534,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
       gtk_box_pack_end( GTK_BOX( vbox ), hscroll, FALSE, FALSE, 0 );
 
       temp = HB_PUTHANDLE( nullptr, adjH );
-      SetObjectVar( pObject, "_HSCROLLH", temp );
+      SetObjectVar(pObject, "_HSCROLLH", temp);
       hb_itemRelease( temp );
 
       SetWindowObject( ( GtkWidget * ) adjH, pObject );
@@ -547,7 +547,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    gtk_widget_set_size_request( hbox, nWidth, nHeight );
 
    temp = HB_PUTHANDLE( nullptr, area );
-   SetObjectVar( pObject, "_AREA", temp );
+   SetObjectVar(pObject, "_AREA", temp);
    hb_itemRelease( temp );
 
    SetWindowObject( area, pObject );

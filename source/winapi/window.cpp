@@ -853,12 +853,9 @@ PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char *varname)
    return hb_objSendMsg(pObject, varname, 0);
 }
 
-void SetObjectVar(PHB_ITEM pObject, const char *varname, PHB_ITEM pValue)
+void SetObjectVar(PHB_ITEM pObject, const char *varname, PHB_ITEM pValue) // TODO: deprecate and call hb_objSendMsg directly
 {
-   /* ( char * ) casting is a hack for old [x]Harbour versions
-    * which used wrong hb_objSendMsg() declaration
-    */
-   hb_objSendMsg(pObject, ( char * ) varname, 1, pValue);
+   hb_objSendMsg(pObject, varname, 1, pValue);
 }
 
 #if !defined(HB_HAS_STR_FUNC)
