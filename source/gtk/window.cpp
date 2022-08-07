@@ -43,7 +43,7 @@ void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue);
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject);
 void all_signal_connect(gpointer hWnd);
-void set_signal(gpointer handle, char * cSignal, long int p1, long int p2, long int p3);
+void set_signal(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3);
 void cb_signal(GtkWidget * widget, gchar * data);
 gint cb_signal_size(GtkWidget * widget, GtkAllocation * allocation, gpointer data);
 void set_event(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3);
@@ -636,7 +636,7 @@ static gint cb_event(GtkWidget * widget, GdkEvent * event, gchar * data)
    return 0;
 }
 
-void set_signal(gpointer handle, char * cSignal, long int p1, long int p2, long int p3)
+void set_signal(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3)
 {
    char buf[25] = {0};
 
@@ -647,7 +647,7 @@ void set_signal(gpointer handle, char * cSignal, long int p1, long int p2, long 
 HB_FUNC( HWG_SETSIGNAL )
 {
    gpointer p = static_cast<gpointer>(HB_PARHANDLE(1));
-   set_signal(static_cast<gpointer>(p), const_cast<char*>(hb_parc(2)), hb_parnl(3), hb_parnl(4), reinterpret_cast<long int>(HB_PARHANDLE(5)));
+   set_signal(static_cast<gpointer>(p), hb_parc(2), hb_parnl(3), hb_parnl(4), reinterpret_cast<long int>(HB_PARHANDLE(5)));
 }
 
 HB_FUNC( HWG_EMITSIGNAL )

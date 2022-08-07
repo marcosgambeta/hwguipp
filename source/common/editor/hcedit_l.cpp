@@ -141,8 +141,7 @@ extern void hwg_setcolor( cairo_t * cr, long int nColor );
 extern PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 extern void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue);
 extern void SetWindowObject( GtkWidget * hWnd, PHB_ITEM pObject );
-extern void set_signal( gpointer handle, char *cSignal, long int p1,
-      long int p2, long int p3 );
+extern void set_signal(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3);
 extern void set_event(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3);
 extern void cb_signal( GtkWidget * widget, gchar * data );
 extern void all_signal_connect( gpointer hWnd );
@@ -517,7 +516,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
       hb_itemRelease( temp );
 
       SetWindowObject( ( GtkWidget * ) adjV, pObject );
-      set_signal( ( gpointer ) adjV, "value_changed", WM_VSCROLL, 0, 0 );
+      set_signal(( gpointer ) adjV, "value_changed", WM_VSCROLL, 0, 0);
    }
 
    gtk_box_pack_start( GTK_BOX( vbox ), area, TRUE, TRUE, 0 );
@@ -537,7 +536,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
       hb_itemRelease( temp );
 
       SetWindowObject( ( GtkWidget * ) adjH, pObject );
-      set_signal( ( gpointer ) adjH, "value_changed", WM_HSCROLL, 0, 0 );
+      set_signal(( gpointer ) adjH, "value_changed", WM_HSCROLL, 0, 0);
    }
 
    box = getFixedBox( handle );
