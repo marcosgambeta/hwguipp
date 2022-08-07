@@ -46,7 +46,7 @@ void all_signal_connect(gpointer hWnd);
 void set_signal(gpointer handle, char * cSignal, long int p1, long int p2, long int p3);
 void cb_signal(GtkWidget * widget, gchar * data);
 gint cb_signal_size(GtkWidget * widget, GtkAllocation * allocation, gpointer data);
-void set_event(gpointer handle, char * cSignal, long int p1, long int p2, long int p3);
+void set_event(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3);
 
 PHB_DYNS pSym_onEvent = nullptr;
 PHB_DYNS pSym_keylist = nullptr;
@@ -655,7 +655,7 @@ HB_FUNC( HWG_EMITSIGNAL )
    g_signal_emit_by_name(G_OBJECT(HB_PARHANDLE(1)), const_cast<char*>(hb_parc(2)));
 }
 
-void set_event(gpointer handle, char * cSignal, long int p1, long int p2, long int p3)
+void set_event(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3)
 {
    char buf[25] = {0};
 

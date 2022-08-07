@@ -143,8 +143,7 @@ extern void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue
 extern void SetWindowObject( GtkWidget * hWnd, PHB_ITEM pObject );
 extern void set_signal( gpointer handle, char *cSignal, long int p1,
       long int p2, long int p3 );
-extern void set_event( gpointer handle, char *cSignal, long int p1,
-      long int p2, long int p3 );
+extern void set_event(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3);
 extern void cb_signal( GtkWidget * widget, gchar * data );
 extern void all_signal_connect( gpointer hWnd );
 extern gint cb_signal_size( GtkWidget *widget, GtkAllocation *allocation, gpointer data );
@@ -552,9 +551,9 @@ HB_FUNC( HCED_CREATETEXTEDIT )
 
    SetWindowObject( area, pObject );
 #if GTK_MAJOR_VERSION -0 < 3
-      set_event( ( gpointer ) area, "expose_event", WM_PAINT, 0, 0 );
+      set_event(( gpointer ) area, "expose_event", WM_PAINT, 0, 0);
 #else
-      set_event( ( gpointer ) area, "draw", WM_PAINT, 0, 0 );
+      set_event(( gpointer ) area, "draw", WM_PAINT, 0, 0);
 #endif
 
    gtk_widget_set_can_focus( area, 1 );
@@ -563,14 +562,14 @@ HB_FUNC( HCED_CREATETEXTEDIT )
          GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK |
          GDK_POINTER_MOTION_MASK | GDK_SCROLL_MASK | GDK_FOCUS_CHANGE_MASK );
    g_signal_connect( area, "size-allocate", G_CALLBACK (cb_signal_size), nullptr );
-   set_event( ( gpointer ) area, "focus_in_event", 0, 0, 0 );
-   set_event( ( gpointer ) area, "focus_out_event", 0, 0, 0 );
-   set_event( ( gpointer ) area, "button_press_event", 0, 0, 0 );
-   set_event( ( gpointer ) area, "button_release_event", 0, 0, 0 );
-   set_event( ( gpointer ) area, "motion_notify_event", 0, 0, 0 );
-   set_event( ( gpointer ) area, "key_press_event", 0, 0, 0 );
-   set_event( ( gpointer ) area, "key_release_event", 0, 0, 0 );
-   set_event( ( gpointer ) area, "scroll_event", 0, 0, 0 );
+   set_event(( gpointer ) area, "focus_in_event", 0, 0, 0);
+   set_event(( gpointer ) area, "focus_out_event", 0, 0, 0);
+   set_event(( gpointer ) area, "button_press_event", 0, 0, 0);
+   set_event(( gpointer ) area, "button_release_event", 0, 0, 0);
+   set_event(( gpointer ) area, "motion_notify_event", 0, 0, 0);
+   set_event(( gpointer ) area, "key_press_event", 0, 0, 0);
+   set_event(( gpointer ) area, "key_release_event", 0, 0, 0);
+   set_event(( gpointer ) area, "scroll_event", 0, 0, 0);
 
    all_signal_connect( ( gpointer ) area );
 

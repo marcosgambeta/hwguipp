@@ -50,7 +50,7 @@ extern PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 extern void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue);
 extern void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject);
 extern void set_signal(gpointer handle, char * cSignal, long int p1, long int p2, long int p3);
-extern void set_event(gpointer handle, char * cSignal, long int p1, long int p2, long int p3);
+extern void set_event(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3);
 extern void cb_signal(GtkWidget * widget, gchar * data);
 extern void all_signal_connect(gpointer hWnd);
 extern GtkWidget * GetActiveWindow(void);
