@@ -23,5 +23,6 @@ hwguipp.hbc
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
 {mingw64}-cflag=-fpermissive
+{unix}-cflag=-fpermissive
 
 @hwgui.hbm
