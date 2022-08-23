@@ -36,6 +36,7 @@
 {win}source/winapi/toolbar.cpp
 {win}source/winapi/tooltip.cpp
 {win}source/winapi/trackbar.cpp
+{win}source/winapi/treeview.cpp
 {win}source/winapi/updown.cpp
 {win}source/winapi/window.cpp
 {win}source/winapi/wprint.cpp
