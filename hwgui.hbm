@@ -33,6 +33,7 @@
 {win}source/winapi/static.cpp
 {win}source/winapi/tab.cpp
 {win}source/winapi/toolbar.cpp
+{win}source/winapi/tooltip.cpp
 {win}source/winapi/trackbar.cpp
 {win}source/winapi/updown.cpp
 {win}source/winapi/window.cpp
