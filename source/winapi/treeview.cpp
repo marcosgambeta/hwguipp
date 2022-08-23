@@ -81,17 +81,12 @@ HB_FUNC( HWG_TREEADDNODE )
 #endif
 
    is.hParent = (HB_ISNIL(3) ? nullptr : static_cast<HTREEITEM>(HB_PARHANDLE(3)));
-   if( nPos == 0 )
+
+   switch( nPos )
    {
-      is.hInsertAfter = static_cast<HTREEITEM>(HB_PARHANDLE(4));
-   }
-   else if( nPos == 1 )
-   {
-      is.hInsertAfter = TVI_FIRST;
-   }
-   else if( nPos == 2 )
-   {
-      is.hInsertAfter = TVI_LAST;
+      case 0: is.hInsertAfter = static_cast<HTREEITEM>(HB_PARHANDLE(4)); break;
+      case 1: is.hInsertAfter = TVI_FIRST; break;
+      case 2: is.hInsertAfter = TVI_LAST;
    }
 
    HB_RETHANDLE(SendMessage(hwg_par_HWND(2), TVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&is)));
@@ -185,17 +180,17 @@ HB_FUNC( HWG_TREESETITEM )
    TreeItem.mask = TVIF_HANDLE;
    TreeItem.hItem = static_cast<HTREEITEM>(HB_PARHANDLE(2));
 
-   if( iType == TREE_SETITEM_TEXT )
+   switch( iType )
    {
-      TreeItem.mask |= TVIF_TEXT;
-      TreeItem.pszText = const_cast<LPTSTR>(HB_PARSTR(4, &hStr, nullptr));
-   }
-   if( iType == TREE_SETITEM_CHECK )
-   {
-      TreeItem.mask |= TVIF_STATE;
-      TreeItem.stateMask = TVIS_STATEIMAGEMASK;
-      TreeItem.state =  hb_parni(4);
-      TreeItem.state = TreeItem.state << 12;
+      case TREE_SETITEM_TEXT:
+         TreeItem.mask |= TVIF_TEXT;
+         TreeItem.pszText = const_cast<LPTSTR>(HB_PARSTR(4, &hStr, nullptr));
+         break;
+      case TREE_SETITEM_CHECK:
+         TreeItem.mask |= TVIF_STATE;
+         TreeItem.stateMask = TVIS_STATEIMAGEMASK;
+         TreeItem.state =  hb_parni(4);
+         TreeItem.state = TreeItem.state << 12;
    }
 
    SendMessage(hwg_par_HWND(1), TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&TreeItem));
@@ -213,41 +208,45 @@ HB_FUNC( HWG_TREEGETNOTIFY )
 {
    int iType = hb_parni(2);
 
-   if( iType == TREE_GETNOTIFY_HANDLE )
+   switch( iType )
    {
-      HB_RETHANDLE(static_cast<HTREEITEM>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemNew.hItem));
-   }
-
-   if( iType == TREE_GETNOTIFY_ACTION )
-   {
-      hb_retni(static_cast<UINT>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->action));
-   }
-
-   else if( iType == TREE_GETNOTIFY_PARAM || iType == TREE_GETNOTIFY_EDITPARAM || iType == TREE_GETNOTIFY_OLDPARAM )
-   {
-      PHB_ITEM oNode; // = hb_itemNew(nullptr);
-      if( iType == TREE_GETNOTIFY_EDITPARAM )
+      case TREE_GETNOTIFY_HANDLE:
       {
-         oNode = reinterpret_cast<PHB_ITEM>((static_cast<TV_DISPINFO*>(HB_PARHANDLE(1)))->item.lParam);
+         HB_RETHANDLE(static_cast<HTREEITEM>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemNew.hItem));
+         break;
       }
-      else if( iType == TREE_GETNOTIFY_OLDPARAM )
+      case TREE_GETNOTIFY_ACTION:
       {
-         oNode = reinterpret_cast<PHB_ITEM>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemOld.lParam);
+         hb_retni(static_cast<UINT>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->action));
+         break;
       }
-      else
+      case TREE_GETNOTIFY_PARAM:
       {
+         PHB_ITEM oNode; // = hb_itemNew(nullptr);
          oNode = reinterpret_cast<PHB_ITEM>(((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemNew.lParam));
+         hb_itemReturn(oNode);
+         break;
       }
-
-      hb_itemReturn(oNode);
-
-   }
-   else if( iType == TREE_GETNOTIFY_EDIT )
-   {
-      TV_DISPINFO *tv;
-      tv = static_cast<TV_DISPINFO*>(HB_PARHANDLE(1));
-
-      HB_RETSTR((tv->item.pszText) ? tv->item.pszText : TEXT(""));
+      case TREE_GETNOTIFY_EDITPARAM:
+      {
+         PHB_ITEM oNode; // = hb_itemNew(nullptr);
+         oNode = reinterpret_cast<PHB_ITEM>((static_cast<TV_DISPINFO*>(HB_PARHANDLE(1)))->item.lParam);
+         hb_itemReturn(oNode);
+         break;
+      }
+      case TREE_GETNOTIFY_OLDPARAM:
+      {
+         PHB_ITEM oNode; // = hb_itemNew(nullptr);
+         oNode = reinterpret_cast<PHB_ITEM>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemOld.lParam);
+         hb_itemReturn(oNode);
+         break;
+      }
+      case TREE_GETNOTIFY_EDIT:
+      {
+         TV_DISPINFO *tv;
+         tv = static_cast<TV_DISPINFO*>(HB_PARHANDLE(1));
+         HB_RETSTR((tv->item.pszText) ? tv->item.pszText : TEXT(""));
+      }
    }
 }
 
