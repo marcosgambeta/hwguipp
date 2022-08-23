@@ -32,6 +32,7 @@
 {win}source/winapi/shellapi.cpp
 {win}source/winapi/static.cpp
 {win}source/winapi/tab.cpp
+{win}source/winapi/timer.cpp
 {win}source/winapi/toolbar.cpp
 {win}source/winapi/tooltip.cpp
 {win}source/winapi/trackbar.cpp

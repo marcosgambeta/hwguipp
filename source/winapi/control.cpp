@@ -50,7 +50,6 @@ LRESULT APIENTRY SplitterProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 LRESULT APIENTRY ListSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY TrackSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY TreeViewSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-static void CALLBACK s_timerProc(HWND, UINT, UINT, DWORD);
 
 static bool s_lInitCmnCtrl = false;
 static WNDPROC wpOrigTrackProc, wpOrigListProc, wpOrigTreeViewProc;
@@ -560,31 +559,6 @@ HB_FUNC( HWG_DESTROYIMAGELIST )
    ImageList_Destroy(hwg_par_HIMAGELIST(1));
 }
 
-/*
- *  SetTimer(hWnd, idTimer, i_MilliSeconds)
- */
-
-/* 22/09/2005 - <maurilio.longo@libero.it>
-      If I pass a fourth parameter as 0 (zero) I don't set
-      the TimerProc, this way I can receive WM_TIMER messages
-      inside an ON OTHER MESSAGES code block
-*/
-HB_FUNC( HWG_SETTIMER )
-{
-   SetTimer(hwg_par_HWND(1), static_cast<UINT>(hb_parni(2)),
-            static_cast<UINT>(hb_parni(3)),
-            hb_pcount() == 3 ?  reinterpret_cast<TIMERPROC>(reinterpret_cast<UINT_PTR>(s_timerProc)) : nullptr);
-}
-
-/*
- *  KillTimer(hWnd, idTimer)
- */
-
-HB_FUNC( HWG_KILLTIMER )
-{
-   hb_retl(KillTimer(hwg_par_HWND(1), static_cast<UINT>(hb_parni(2))));
-}
-
 HB_FUNC( HWG_GETPARENT )
 {
    HB_RETHANDLE(GetParent(hwg_par_HWND(1)));
@@ -715,29 +689,6 @@ HB_FUNC( HWG_REGBROWSE )
 
       RegisterClass(&wndclass);
       bRegistered = true;
-   }
-}
-
-static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer, DWORD dwTime) /* DWORD dwTime as last parameter unused */
-{
-   static PHB_DYNS s_pSymTest = nullptr;
-
-   HB_SYMBOL_UNUSED(message);
-
-   if( s_pSymTest == nullptr )
-   {
-      s_pSymTest = hb_dynsymGetCase("HWG_TIMERPROC");
-   }
-
-   if( hb_dynsymIsFunction(s_pSymTest) )
-   {
-      hb_vmPushDynSym(s_pSymTest);
-      hb_vmPushNil();   /* places NIL at self */
-//      hb_vmPushLong(static_cast<LONG>(hWnd));    /* pushes parameters on to the hvm stack */
-      HB_PUSHITEM(hWnd);
-      hb_vmPushLong(static_cast<LONG>(idTimer));
-      //hb_vmPushLong(static_cast<LONG>(dwTime));
-      hb_vmDo(2);             /* where iArgCount is the number of pushed parameters */
    }
 }
 
