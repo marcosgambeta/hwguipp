@@ -29,7 +29,7 @@ static LRESULT CALLBACK s_PSPProcRelease(HWND, UINT, LPPROPSHEETPAGE);
 #define	WND_DLG_RESOURCE       10
 #define	WND_DLG_NORESOURCE     11
 
-HWND *aDialogs = nullptr;
+HWND * aDialogs = nullptr;
 static int s_nDialogs = 0;
 int iDialogs = 0;
 
@@ -44,7 +44,7 @@ HB_FUNC( HWG_DIALOGBOX )
    {
       lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
    }
-   
+
    DialogBoxParam(hModule, lpResource, hwg_par_HWND(1), ( DLGPROC ) s_ModalDlgProc, ( LPARAM ) pObject);
 
    hb_strfree(hResource);
@@ -65,7 +65,7 @@ HB_FUNC( HWG_CREATEDIALOG )
    {
       lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
    }
-   
+
    hDlg = CreateDialogParam(hModule, lpResource, hwg_par_HWND(1), ( DLGPROC ) s_DlgProc, ( LPARAM ) pObject);
    hb_strfree(hResource);
 
@@ -73,98 +73,97 @@ HB_FUNC( HWG_CREATEDIALOG )
    HB_RETHANDLE(hDlg);
 }
 
+/*
+HWG__ENDDIALOG(hWnd) --> NIL
+*/
 HB_FUNC( HWG__ENDDIALOG )
 {
    EndDialog(hwg_par_HWND(1), TRUE);
 }
 
+/*
+HWG_GETDLGITEM(hWnd, nID) --> hWnd
+*/
 HB_FUNC( HWG_GETDLGITEM )
 {
-   HWND hWnd = GetDlgItem(hwg_par_HWND(1),  // handle of dialog box
-         hb_parni(2)          // identifier of control
-         );
-   HB_RETHANDLE(hWnd);
+   HB_RETHANDLE(GetDlgItem(hwg_par_HWND(1), hwg_par_int(2)));
 }
 
+/*
+HWG_GETDLGCTRLID(hWnd) --> nID
+*/
 HB_FUNC( HWG_GETDLGCTRLID )
 {
    hb_retni(GetDlgCtrlID(hwg_par_HWND(1)));
 }
 
+/*
+HWG_SETDLGITEMTEXT(hWnd, nID, cText) --> NIL
+*/
 HB_FUNC( HWG_SETDLGITEMTEXT )
 {
    void * hText;
-
-   SetDlgItemText(hwg_par_HWND(1),  // handle of dialog box
-         hb_parni(2),         // identifier of control
-         HB_PARSTR(3, &hText, nullptr)   // text to set
-         );
+   SetDlgItemText(hwg_par_HWND(1), hwg_par_int(2), HB_PARSTR(3, &hText, nullptr));
    hb_strfree(hText);
 }
 
+/*
+HWG_SETDLGITEMINT(hWnd, nID, nInt, lSigned) --> NIL
+*/
 HB_FUNC( HWG_SETDLGITEMINT )
 {
-   SetDlgItemInt(hwg_par_HWND(1),   // handle of dialog box
-         hb_parni(2),         // identifier of control
-         hwg_par_UINT(3),        // text to set
-         (hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4)) ? 0 : 1);
-}
-
-HB_FUNC( HWG_GETDLGITEMTEXT )
-{
-   USHORT uiLen = hb_parni(3);
-   LPTSTR lpText = ( LPTSTR ) hb_xgrab((uiLen + 1) * sizeof(TCHAR));
-
-   GetDlgItemText(hwg_par_HWND(1),  // handle of dialog box
-         hb_parni(2),         // identifier of control
-         lpText,                // address of buffer for text
-         uiLen                  // maximum size of string
-         );
-   HB_RETSTR(lpText);
-   hb_xfree(lpText);
-}
-
-HB_FUNC( HWG_GETEDITTEXT )
-{
-   HWND hDlg = hwg_par_HWND(1);
-   int id = hb_parni(2);
-   USHORT uiLen = ( USHORT ) SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0);
-   LPTSTR lpText = ( LPTSTR ) hb_xgrab((uiLen + 2) * sizeof(TCHAR));
-
-   GetDlgItemText(hDlg,        // handle of dialog box
-         id,                    // identifier of control
-         lpText,                // address of buffer for text
-         uiLen + 1              // maximum size of string
-          );
-   HB_RETSTR(lpText);
-   hb_xfree(lpText);
-}
-
-HB_FUNC( HWG_CHECKDLGBUTTON )
-{
-   CheckDlgButton(hwg_par_HWND(1),  // handle of dialog box
-         hb_parni(2),         // identifier of control
-         (hb_parl(3)) ? BST_CHECKED : BST_UNCHECKED // value to set
-          );
-}
-
-HB_FUNC( HWG_CHECKRADIOBUTTON )
-{
-   CheckRadioButton(hwg_par_HWND(1),        // handle of dialog box
-         hb_parni(2),         // identifier of first radio button in group
-         hb_parni(3),         // identifier of last radio button in group
-         hb_parni(4)          // identifier of radio button to select
-         );
+   SetDlgItemInt(hwg_par_HWND(1), hwg_par_int(2), hwg_par_UINT(3), (hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4)) ? FALSE : TRUE);
 }
 
 /*
-HWG_ISDLGBUTTONCHECKED(hWnd, nId) --> logical
+HWG_GETDLGITEMTEXT(hWnd, nID, nMaxSize) --> cText
+*/
+HB_FUNC( HWG_GETDLGITEMTEXT )
+{
+   USHORT uiLen = hwg_par_int(3);
+   LPTSTR lpText = static_cast<LPTSTR>(hb_xgrab((uiLen + 1) * sizeof(TCHAR)));
+   GetDlgItemText(hwg_par_HWND(1), hwg_par_int(2), lpText, uiLen);
+   HB_RETSTR(lpText);
+   hb_xfree(lpText);
+}
+
+/*
+HWG_GETEDITTEXT(hWnd, nID) --> cText
+*/
+HB_FUNC( HWG_GETEDITTEXT )
+{
+   HWND hDlg = hwg_par_HWND(1);
+   int id = hwg_par_int(2);
+   USHORT uiLen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
+   LPTSTR lpText = static_cast<LPTSTR>(hb_xgrab((uiLen + 2) * sizeof(TCHAR)));
+   GetDlgItemText(hDlg, id, lpText, uiLen + 1);
+   HB_RETSTR(lpText);
+   hb_xfree(lpText);
+}
+
+/*
+HWG_CHECKDLGBUTTON(hWnd, nID, lState) --> NIL
+*/
+HB_FUNC( HWG_CHECKDLGBUTTON )
+{
+   CheckDlgButton(hwg_par_HWND(1), hwg_par_int(2), (hb_parl(3)) ? BST_CHECKED : BST_UNCHECKED);
+}
+
+/*
+HWG_CHECKRADIOBUTTON(hWnd, nIDFirstButton, nIDLastButton, nIDCheckButton) --> NIL
+*/
+HB_FUNC( HWG_CHECKRADIOBUTTON )
+{
+   CheckRadioButton(hwg_par_HWND(1), hwg_par_int(2), hwg_par_int(3), hwg_par_int(4));
+}
+
+/*
+HWG_ISDLGBUTTONCHECKED(hWnd, nID) --> logical
 */
 HB_FUNC( HWG_ISDLGBUTTONCHECKED )
 {
-   hb_retl(IsDlgButtonChecked(hwg_par_HWND(1), hb_parni(2)) == BST_CHECKED);
+   hb_retl(IsDlgButtonChecked(hwg_par_HWND(1), hwg_par_int(2)) == BST_CHECKED);
 }
-
 
 HB_FUNC( HWG_GETNOTIFYCODE )
 {
@@ -209,7 +208,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
    int baseunitX = LOWORD(baseUnit), baseunitY = HIWORD(baseUnit);
    long lTemplateSize = 15;
    LONG lExtStyle;
-   ULONG ul, ulControls;
+   ULONG ulControls;
 
    x1 = ( x1 * 4 ) / baseunitX;
    dwidth = ( dwidth * 4 ) / baseunitX;
@@ -225,7 +224,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
    lTemplateSize += s_nWideStringLen(GETOBJECTVAR(pObj, "TITLE"));
    lTemplateSize += lTemplateSize & 1;
 
-   for( ul = 1; ul <= ulControls; ul++ )
+   for( ULONG ul = 1; ul <= ulControls; ul++ )
    {
       pControl = hb_arrayGetItemPtr(pControls, ul);
       lTemplateSize += 13;
@@ -263,7 +262,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
    // Copy the title of the dialog box.
    p += s_nCopyAnsiToWideChar(p, GETOBJECTVAR(pObj, "TITLE"), pend - p);
 
-   for( ul = 1; ul <= ulControls; ul++ )
+   for( ULONG ul = 1; ul <= ulControls; ul++ )
    {
       pControl = hb_arrayGetItemPtr(pControls, ul);
 
@@ -371,7 +370,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
       else
       {
          lpTitle = nullptr;
-      }   
+      }
 #if !defined(__BORLANDC__) ||  (__BORLANDC__ > 1424)
       psp.pszTemplate = lpTitle;
 #else
@@ -602,7 +601,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       for( ; i < iDialogs; i++ )
       {
          aDialogs[i] = aDialogs[i + 1];
-      }   
+      }
    }
 
    pObject = ( PHB_ITEM ) GetWindowLongPtr(hDlg, GWLP_USERDATA);
@@ -611,7 +610,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
    {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
    }
-   
+
    if( pSym_onEvent && pObject )
    {
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
