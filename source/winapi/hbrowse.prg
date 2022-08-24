@@ -2280,10 +2280,11 @@ STATIC FUNCTION FldStr(oBrw, numf)
          IF type == "U" .AND. vartmp != NIL
             type := ValType(vartmp)
          ENDIF
-         // TODO: SWITCH
-         IF type == "C"
+         SWITCH type
+         CASE "C"
             cRes := vartmp
-         ELSEIF type == "N"
+            EXIT
+         CASE "N"
             IF vartmp = NIL
                //cRes := PadL(Space(oBrw:aColumns[numf]:length + oBrw:aColumns[numf]:dec), oBrw:aColumns[numf]:length)
                cRes := " "
@@ -2291,10 +2292,12 @@ STATIC FUNCTION FldStr(oBrw, numf)
                //cRes := PadL(Str(vartmp, oBrw:aColumns[numf]:length, oBrw:aColumns[numf]:dec), oBrw:aColumns[numf]:length)
                cRes := Ltrim(Str(vartmp, 24, oBrw:aColumns[numf]:dec))
             ENDIF
-         ELSEIF type == "D"
+            EXIT
+         CASE "D"
             //cRes := PadR(Dtoc(vartmp), oBrw:aColumns[numf]:length)
             cRes := Dtoc(vartmp)
-         ELSEIF type == "T"
+            EXIT
+         CASE "T"
 #ifdef __XHARBOUR__
             cRes := Space(23)
 #else
@@ -2305,23 +2308,24 @@ STATIC FUNCTION FldStr(oBrw, numf)
                cRes := HB_TSTOSTR(vartmp, .T.)
             ENDIF
 #endif
-         ELSEIF type == "L"
+            EXIT
+         CASE "L"
             //cRes := PadR(iif(vartmp, "T", "F"), oBrw:aColumns[numf]:length)
             cRes := iif(vartmp, "T", "F")
-
-         ELSEIF type == "M"
+            EXIT
+         CASE "M"
             cRes := iif(Empty(vartmp), "<memo>", "<MEMO>")
-
-         ELSEIF type == "O"
+            EXIT
+         CASE "O"
             cRes := "<" + vartmp:Classname() + ">"
-
-         ELSEIF type == "A"
+            EXIT
+         CASE "A"
             cRes := "<Array>"
-
-         ELSE
+            EXIT
+         OTHERWISE
             //cRes := Space(oBrw:aColumns[numf]:length)
             cRes := " "
-         ENDIF
+         ENDSWITCH
       ENDIF
    ENDIF
 
