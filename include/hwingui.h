@@ -136,3 +136,6 @@ extern HMODULE hModule;
 extern PHB_DYNS pSym_onEvent;
 
 HB_EXTERN_END
+
+#define GETOBJECTVAR(obj, var)        hb_objSendMsg(obj, var, 0)
+#define SETOBJECTVAR(obj, var, val)   hb_objSendMsg(obj, var, 1, val)

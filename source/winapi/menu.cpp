@@ -11,6 +11,7 @@
 #include <commctrl.h>
 #include "hbapiitm.h"
 #include "hbvm.h"
+#include "hbapicls.h"
 #include "hbstack.h"
 
 #define  FLAG_DISABLED   1
@@ -182,7 +183,7 @@ HB_FUNC( HWG_CHECKMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
-      hMenu = static_cast<HMENU>(HB_GETHANDLE(GetObjectVar(pObject, "HANDLE")));
+      hMenu = static_cast<HMENU>(HB_GETHANDLE(GETOBJECTVAR(pObject, "HANDLE")));
    }
    else
    {
@@ -215,7 +216,7 @@ HB_FUNC( HWG_ISCHECKEDMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
-      hMenu = static_cast<HMENU>(HB_GETHANDLE(GetObjectVar(pObject, "HANDLE")));
+      hMenu = static_cast<HMENU>(HB_GETHANDLE(GETOBJECTVAR(pObject, "HANDLE")));
    }
    else
    {
@@ -250,7 +251,7 @@ HB_FUNC( HWG_ENABLEMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
-      hMenu = static_cast<HMENU>(HB_GETHANDLE(GetObjectVar(pObject, "HANDLE")));
+      hMenu = static_cast<HMENU>(HB_GETHANDLE(GETOBJECTVAR(pObject, "HANDLE")));
    }
    else
    {
@@ -285,7 +286,7 @@ HB_FUNC( HWG_ISENABLEDMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
-      hMenu = static_cast<HMENU>(HB_GETHANDLE(GetObjectVar(pObject, "HANDLE")));
+      hMenu = static_cast<HMENU>(HB_GETHANDLE(GETOBJECTVAR(pObject, "HANDLE")));
    }
    else
    {
@@ -390,7 +391,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
-      hMenu = static_cast<HMENU>(HB_GETHANDLE(GetObjectVar(pObject, "HANDLE")));
+      hMenu = static_cast<HMENU>(HB_GETHANDLE(GETOBJECTVAR(pObject, "HANDLE")));
    }
    else
    {
@@ -443,7 +444,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
-      hMenu = static_cast<HMENU>(HB_GETHANDLE(GetObjectVar(pObject, "HANDLE")));
+      hMenu = static_cast<HMENU>(HB_GETHANDLE(GETOBJECTVAR(pObject, "HANDLE")));
    }
    else
    {
@@ -602,7 +603,7 @@ HB_FUNC( HWG_SETMENUBACKCOLOR )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
-      hMenu = static_cast<HMENU>(HB_GETHANDLE(GetObjectVar(pObject, "HANDLE")));
+      hMenu = static_cast<HMENU>(HB_GETHANDLE(GETOBJECTVAR(pObject, "HANDLE")));
    }
    else
    {

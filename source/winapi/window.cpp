@@ -111,7 +111,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
             nullptr, nullptr, static_cast<HINSTANCE>(hInstance), nullptr);
 
          temp = hb_itemPutNL(nullptr, 1);
-         SetObjectVar(pObject, "_NHOLDER", temp);
+         SETOBJECTVAR(pObject, "_NHOLDER", temp);
          hb_itemRelease(temp);
          SetWindowObject(hWnd, pObject);
 
@@ -303,7 +303,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
             hParent, nullptr, static_cast<HINSTANCE>(hInstance), nullptr);
 
       temp = hb_itemPutNL(nullptr, 1);
-      SetObjectVar(pObject, "_NHOLDER", temp);
+      SETOBJECTVAR(pObject, "_NHOLDER", temp);
       hb_itemRelease(temp);
       SetWindowObject(hWnd, pObject);
    }
@@ -395,7 +395,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
             else
             {
                temp = hb_itemPutNL(nullptr, 1);
-               SetObjectVar(pObject, "_NHOLDER", temp);
+               SETOBJECTVAR(pObject, "_NHOLDER", temp);
                hb_itemRelease(temp);
                SetWindowObject(hWnd, pObject);
 
@@ -459,13 +459,13 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
 {
    HWND hWnd = nullptr;
    PHB_ITEM pObj = hb_param(1, Harbour::Item::OBJECT);
-   DWORD style = static_cast<DWORD>(hb_itemGetNL(GetObjectVar(pObj, "STYLE")));
-   int y = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NTOP"));
-   int x = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NLEFT"));
-   int width = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NWIDTH"));
-   int height = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NHEIGHT"));
+   DWORD style = static_cast<DWORD>(hb_itemGetNL(GETOBJECTVAR(pObj, "STYLE")));
+   int y = ( int ) hb_itemGetNL(GETOBJECTVAR(pObj, "NTOP"));
+   int x = ( int ) hb_itemGetNL(GETOBJECTVAR(pObj, "NLEFT"));
+   int width = ( int ) hb_itemGetNL(GETOBJECTVAR(pObj, "NWIDTH"));
+   int height = ( int ) hb_itemGetNL(GETOBJECTVAR(pObj, "NHEIGHT"));
    void * hTitle;
-   LPCTSTR lpTitle = HB_ITEMGETSTR(GetObjectVar(pObj, "TITLE"), &hTitle, nullptr);
+   LPCTSTR lpTitle = HB_ITEMGETSTR(GETOBJECTVAR(pObj, "TITLE"), &hTitle, nullptr);
 
    if( !style )
    {
@@ -797,11 +797,11 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
       PHB_ITEM temp;
 
       temp = hb_itemPutNL(nullptr, 1);
-      SetObjectVar(*pObj, "_NHOLDER", temp);
+      SETOBJECTVAR(*pObj, "_NHOLDER", temp);
       hb_itemRelease(temp);
 
       temp = HB_PUTHANDLE(nullptr, hWnd);
-      SetObjectVar(*pObj, "_HANDLE", temp);
+      SETOBJECTVAR(*pObj, "_HANDLE", temp);
       hb_itemRelease(temp);
 
       SetWindowObject(hWnd, *pObj);
@@ -848,12 +848,20 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
 
 }
 
+/*
+DEPRECATED
+Call hb_objSendMsg directly or use the macro GETOBJECTVAR
+*/
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char *varname)
 {
    return hb_objSendMsg(pObject, varname, 0);
 }
 
-void SetObjectVar(PHB_ITEM pObject, const char *varname, PHB_ITEM pValue) // TODO: deprecate and call hb_objSendMsg directly
+/*
+DEPRECATED
+Call hb_objSendMsg directly or use the macro SETOBJECTVAR
+*/
+void SetObjectVar(PHB_ITEM pObject, const char *varname, PHB_ITEM pValue)
 {
    hb_objSendMsg(pObject, varname, 1, pValue);
 }

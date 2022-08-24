@@ -26,6 +26,7 @@
 #include "hbapifs.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
+#include "hbapicls.h"
 #include "hbset.h"
 
 #include "missing.h"
@@ -744,14 +745,14 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
       return;
    }
 
-   p = GetObjectVar(pObject, "M_BRUSH");
-   p2 = GetObjectVar(pObject, "M_TEXTCOLOR");
+   p = GETOBJECTVAR(pObject, "M_BRUSH");
+   p2 = GETOBJECTVAR(pObject, "M_TEXTCOLOR");
    cColor = static_cast<COLORREF>(hb_itemGetNL(p2));
    hBrush = static_cast<HBRUSH>(HB_GETHANDLE(p));
 
    DeleteObject(hBrush);
 
-   p1 = GetObjectVar(pObject, "M_BACKCOLOR");
+   p1 = GETOBJECTVAR(pObject, "M_BACKCOLOR");
    i = hb_itemGetNL(p1);
    if( i == -1 )
    {
@@ -765,7 +766,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    }
 
    temp = HB_PUTHANDLE(nullptr, hBrush);
-   SetObjectVar(pObject, "_M_BRUSH", temp);
+   SETOBJECTVAR(pObject, "_M_BRUSH", temp);
    hb_itemRelease(temp);
 
    SetTextColor(hdc, cColor);
