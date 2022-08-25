@@ -318,8 +318,8 @@ HB_FUNC( HWG_RE_GETLINE )
 {
    HWND hCtrl = hwg_par_HWND(1);
    int nLine = hb_parni(2);
-   ULONG uLineIndex = SendMessage(hCtrl, EM_LINEINDEX, ( WPARAM ) nLine, 0);
-   ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0);
+   ULONG uLineIndex = SendMessage(hCtrl, EM_LINEINDEX, static_cast<WPARAM>(nLine), 0);
+   ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, static_cast<WPARAM>(uLineIndex), 0);
    LPTSTR lpBuf = ( LPTSTR ) hb_xgrab((ul + 4) * sizeof(TCHAR));
 
    *(reinterpret_cast<ULONG*>(lpBuf)) = ul;
@@ -352,7 +352,7 @@ HB_FUNC( HWG_RE_FINDTEXT )
    ft.chrg.cpMax = -1;
    ft.lpstrText = ( LPTSTR ) HB_PARSTR(2, &hString, nullptr);
 
-   lPos = static_cast<LONG>(SendMessage(hCtrl, EM_FINDTEXTEX, ( WPARAM ) lFlag, reinterpret_cast<LPARAM>(&ft)));
+   lPos = static_cast<LONG>(SendMessage(hCtrl, EM_FINDTEXTEX, static_cast<WPARAM>(lFlag), reinterpret_cast<LPARAM>(&ft)));
    hb_strfree(hString);
    hb_retnl(lPos);
 }
@@ -377,7 +377,7 @@ HB_FUNC( HWG_RE_GETZOOM )
    HWND hwnd = hwg_par_HWND(1);
    int nNum = hb_parni(2);
    int nDen = hb_parni(3);
-   hb_retnl(( BOOL ) SendMessage(hwnd, EM_GETZOOM, ( WPARAM ) & nNum, reinterpret_cast<LPARAM>(&nDen)));
+   hb_retnl(( BOOL ) SendMessage(hwnd, EM_GETZOOM, reinterpret_cast<WPARAM>(&nNum), reinterpret_cast<LPARAM>(&nDen)));
    hb_storni(nNum, 2);
    hb_storni(nDen, 3);
 }
@@ -396,7 +396,7 @@ HB_FUNC( HWG_PRINTRTF )
    int ppi_y = GetDeviceCaps(hdc, LOGPIXELSX);
    int cpMin;
 
-   SendMessage(hwnd, EM_SETTARGETDEVICE, ( WPARAM ) hdc, cxPhys / 2);
+   SendMessage(hwnd, EM_SETTARGETDEVICE, reinterpret_cast<WPARAM>(hdc), cxPhys / 2);
    fr.hdc = hdc;
    fr.hdcTarget = hdc;
    fr.rc.left = 1440 * cxPhysOffset / ppi_x;
@@ -508,7 +508,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
    es.dwCookie = reinterpret_cast<DWORD>(hFile);
    es.pfnCallback = RichStreamOutCallback;
 
-   SendMessage(hWnd, EM_STREAMOUT, ( WPARAM ) SF_RTF, reinterpret_cast<LPARAM>(&es));
+   SendMessage(hWnd, EM_STREAMOUT, static_cast<WPARAM>(SF_RTF), reinterpret_cast<LPARAM>(&es));
    CloseHandle(hFile);
    HB_RETHANDLE(hFile);
 
@@ -533,7 +533,7 @@ HB_FUNC( HWG_LOADRICHEDIT )
    }
    es.dwCookie = reinterpret_cast<DWORD_PTR>(hFile);
    es.pfnCallback = EditStreamCallback;
-   SendMessage(hWnd, EM_STREAMIN, ( WPARAM ) SF_RTF, reinterpret_cast<LPARAM>(&es));
+   SendMessage(hWnd, EM_STREAMIN, static_cast<WPARAM>(SF_RTF), reinterpret_cast<LPARAM>(&es));
    CloseHandle(hFile);
    HB_RETHANDLE(hFile);
 }

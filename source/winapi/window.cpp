@@ -507,7 +507,7 @@ HB_FUNC( HWG_SENDMESSAGE )
 
    hb_retnl(static_cast<LONG>(SendMessage(hwg_par_HWND(1),  // handle of destination window
             hwg_par_UINT(2),  // message to send
-            HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
+            HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(HB_PARHANDLE(3)) : static_cast<WPARAM>(hb_parnl(3)),
             lpText ? reinterpret_cast<LPARAM>(lpText) : (HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(HB_PARHANDLE(4)) : hwg_par_LPARAM(4))
           )));
    hb_strfree(hText);
@@ -520,7 +520,7 @@ HB_FUNC( HWG_SENDMESSPTR )
 
    HB_RETHANDLE(SendMessage(hwg_par_HWND(1),  // handle of destination window
                hwg_par_UINT(2),  // message to send
-               HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
+               HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(HB_PARHANDLE(3)) : static_cast<WPARAM>(hb_parnl(3)),
                lpText ? reinterpret_cast<LPARAM>(lpText) : (HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(HB_PARHANDLE(4)) : hwg_par_LPARAM(4))
           ));
    hb_strfree(hText);
@@ -530,7 +530,7 @@ HB_FUNC( HWG_POSTMESSAGE )
 {
    hb_retnl(static_cast<LONG>(PostMessage(hwg_par_HWND(1),  // handle of destination window
                hwg_par_UINT(2),  // message to send
-               HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
+               HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(HB_PARHANDLE(3)) : static_cast<WPARAM>(hb_parnl(3)),
                HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(HB_PARHANDLE(4)) : hwg_par_LPARAM(4)
           )));
 }
@@ -579,7 +579,7 @@ HB_FUNC( HWG_GETWINDOWTEXT )
    ULONG ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0));
    LPTSTR cText = ( TCHAR * ) hb_xgrab((ulLen + 1) * sizeof(TCHAR));
 
-   ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXT, ( WPARAM ) (ulLen + 1), reinterpret_cast<LPARAM>(cText)));
+   ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXT, static_cast<WPARAM>(ulLen + 1), reinterpret_cast<LPARAM>(cText)));
 
    HB_RETSTRLEN(cText, ulLen);
    hb_xfree(cText);
@@ -588,7 +588,7 @@ HB_FUNC( HWG_GETWINDOWTEXT )
 HB_FUNC( HWG_SETWINDOWFONT )
 {
    SendMessage(hwg_par_HWND(1), WM_SETFONT,
-      HB_ISPOINTER(2) ? ( WPARAM ) HB_PARHANDLE(2) : ( WPARAM ) hb_parnl(2),
+      HB_ISPOINTER(2) ? reinterpret_cast<WPARAM>(HB_PARHANDLE(2)) : static_cast<WPARAM>(hb_parnl(2)),
       MAKELPARAM(((HB_ISNIL(3)) ? 0 : hb_parl(3)), 0));
 }
 
@@ -1334,10 +1334,10 @@ HB_FUNC( HWG_GETFONTDIALOGUNITS )
 HB_FUNC( HWG_GETTOOLBARID )
 {
    HWND hMytoolMenu = hwg_par_HWND(1);
-   WPARAM wp = ( WPARAM ) hb_parnl(2);
+   WPARAM wp = static_cast<WPARAM>(hb_parnl(2));
    UINT uId;
 
-   if( SendMessage(hMytoolMenu, TB_MAPACCELERATOR, ( WPARAM ) wp, reinterpret_cast<LPARAM>(&uId)) != 0 )
+   if( SendMessage(hMytoolMenu, TB_MAPACCELERATOR, static_cast<WPARAM>(wp), reinterpret_cast<LPARAM>(&uId)) != 0 )
    {
       hb_retnl(uId);
    }

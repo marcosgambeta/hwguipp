@@ -403,7 +403,7 @@ HB_FUNC( HWG_CREATEFONT )
 */
 HB_FUNC( HWG_SETCTRLFONT )
 {
-   SendDlgItemMessage(hwg_par_HWND(1), hb_parni(2), WM_SETFONT, ( WPARAM ) HB_PARHANDLE(3), 0L);
+   SendDlgItemMessage(hwg_par_HWND(1), hb_parni(2), WM_SETFONT, reinterpret_cast<WPARAM>(HB_PARHANDLE(3)), 0L);
 }
 
 HB_FUNC( HWG_CREATERECTRGN )

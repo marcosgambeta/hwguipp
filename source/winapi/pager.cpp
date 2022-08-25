@@ -32,7 +32,7 @@ HB_FUNC( HWG_PAGERFORWARDMOUSE )
 #ifndef __GNUC__
    Pager_ForwardMouse(m_hWnd, bForward);
 #else
-   SendMessage(m_hWnd, PGM_FORWARDMOUSE, ( WPARAM ) (bForward), 0);
+   SendMessage(m_hWnd, PGM_FORWARDMOUSE, static_cast<WPARAM>(bForward), 0);
 #endif
 }
 
