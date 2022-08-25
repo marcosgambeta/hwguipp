@@ -493,7 +493,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
             height,             // height of window
             static_cast<HWND>(aWindows[1]),       // handle to parent window (MDI client)
             GetModuleHandle(nullptr),    // handle to application instance
-            ( LPARAM ) & pObj   // application-defined value
+            reinterpret_cast<LPARAM>(&pObj)   // application-defined value
              );
    }
    HB_RETHANDLE(hWnd);
@@ -508,7 +508,7 @@ HB_FUNC( HWG_SENDMESSAGE )
    hb_retnl(static_cast<LONG>(SendMessage(hwg_par_HWND(1),  // handle of destination window
             hwg_par_UINT(2),  // message to send
             HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
-            lpText ? ( LPARAM ) lpText : (HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : hwg_par_LPARAM(4))
+            lpText ? reinterpret_cast<LPARAM>(lpText) : (HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(HB_PARHANDLE(4)) : hwg_par_LPARAM(4))
           )));
    hb_strfree(hText);
 }
@@ -521,7 +521,7 @@ HB_FUNC( HWG_SENDMESSPTR )
    HB_RETHANDLE(SendMessage(hwg_par_HWND(1),  // handle of destination window
                hwg_par_UINT(2),  // message to send
                HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
-               lpText ? ( LPARAM ) lpText : (HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : hwg_par_LPARAM(4))
+               lpText ? reinterpret_cast<LPARAM>(lpText) : (HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(HB_PARHANDLE(4)) : hwg_par_LPARAM(4))
           ));
    hb_strfree(hText);
 }
@@ -531,7 +531,7 @@ HB_FUNC( HWG_POSTMESSAGE )
    hb_retnl(static_cast<LONG>(PostMessage(hwg_par_HWND(1),  // handle of destination window
                hwg_par_UINT(2),  // message to send
                HB_ISPOINTER(3) ? ( WPARAM ) HB_PARHANDLE(3) : ( WPARAM ) hb_parnl(3),
-               HB_ISPOINTER(4) ? ( LPARAM ) HB_PARHANDLE(4) : hwg_par_LPARAM(4)
+               HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(HB_PARHANDLE(4)) : hwg_par_LPARAM(4)
           )));
 }
 
@@ -558,7 +558,7 @@ HB_FUNC( HWG_SETWINDOWOBJECT )
 
 void SetWindowObject(HWND hWnd, PHB_ITEM pObject)
 {
-   SetWindowLongPtr(hWnd, GWLP_USERDATA, pObject ? ( LPARAM ) hb_itemNew(pObject) : 0);
+   SetWindowLongPtr(hWnd, GWLP_USERDATA, pObject ? reinterpret_cast<LPARAM>(hb_itemNew(pObject)) : 0);
 }
 
 HB_FUNC( HWG_GETWINDOWOBJECT )
@@ -579,7 +579,7 @@ HB_FUNC( HWG_GETWINDOWTEXT )
    ULONG ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0));
    LPTSTR cText = ( TCHAR * ) hb_xgrab((ulLen + 1) * sizeof(TCHAR));
 
-   ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXT, ( WPARAM ) (ulLen + 1), ( LPARAM ) cText));
+   ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXT, ( WPARAM ) (ulLen + 1), reinterpret_cast<LPARAM>(cText)));
 
    HB_RETSTRLEN(cText, ulLen);
    hb_xfree(cText);
@@ -1337,7 +1337,7 @@ HB_FUNC( HWG_GETTOOLBARID )
    WPARAM wp = ( WPARAM ) hb_parnl(2);
    UINT uId;
 
-   if( SendMessage(hMytoolMenu, TB_MAPACCELERATOR, ( WPARAM ) wp, ( LPARAM ) &uId) != 0 )
+   if( SendMessage(hMytoolMenu, TB_MAPACCELERATOR, ( WPARAM ) wp, reinterpret_cast<LPARAM>(&uId)) != 0 )
    {
       hb_retnl(uId);
    }
@@ -1369,7 +1369,7 @@ HB_FUNC( HWG_MINMAXWINDOW )
    lpMMI->ptMaxTrackSize.x = m_fxMax;
    lpMMI->ptMaxTrackSize.y = m_fyMax;
 
-//   SendMessage(hwg_par_HWND(1), WM_GETMINMAXINFO, 0, ( LPARAM ) lpMMI);
+//   SendMessage(hwg_par_HWND(1), WM_GETMINMAXINFO, 0, static_cast<LPARAM>(lpMMI));
 }
 
 HB_FUNC( HWG_GETWINDOWPLACEMENT )

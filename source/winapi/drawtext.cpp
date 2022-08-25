@@ -354,7 +354,7 @@ HWG_WRITESTATUSWINDOW(hWnd, nPar2, cString) --> NIL
 HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    void * hString;
-   SendMessage(hwg_par_HWND(1), SB_SETTEXT, hb_parni(2), ( LPARAM ) HB_PARSTR(3, &hString, nullptr));
+   SendMessage(hwg_par_HWND(1), SB_SETTEXT, hb_parni(2), reinterpret_cast<LPARAM>(HB_PARSTR(3, &hString, nullptr)));
    hb_strfree(hString);
 }
 

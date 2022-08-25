@@ -45,7 +45,7 @@ HB_FUNC( HWG_DIALOGBOX )
       lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
    }
 
-   DialogBoxParam(hModule, lpResource, hwg_par_HWND(1), ( DLGPROC ) s_ModalDlgProc, ( LPARAM ) pObject);
+   DialogBoxParam(hModule, lpResource, hwg_par_HWND(1), ( DLGPROC ) s_ModalDlgProc, reinterpret_cast<LPARAM>(pObject));
 
    hb_strfree(hResource);
 }
@@ -66,7 +66,7 @@ HB_FUNC( HWG_CREATEDIALOG )
       lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
    }
 
-   hDlg = CreateDialogParam(hModule, lpResource, hwg_par_HWND(1), ( DLGPROC ) s_DlgProc, ( LPARAM ) pObject);
+   hDlg = CreateDialogParam(hModule, lpResource, hwg_par_HWND(1), ( DLGPROC ) s_DlgProc, reinterpret_cast<LPARAM>(pObject));
    hb_strfree(hResource);
 
    ShowWindow(hDlg, SW_SHOW);
@@ -343,7 +343,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
    psp.hInstance = nullptr;
    psp.pszTitle = nullptr;
    psp.pfnDlgProc = ( DLGPROC ) s_PSPProc;
-   psp.lParam = ( LPARAM ) hb_itemNew(pObj);
+   psp.lParam = reinterpret_cast<LPARAM>(hb_itemNew(pObj));
    psp.pfnCallback = ( LPFNPSPCALLBACK ) s_PSPProcRelease;
    psp.pcRefParent = 0;
 #if !defined(__BORLANDC__) ||  (__BORLANDC__ > 1424)
@@ -468,7 +468,7 @@ HB_FUNC( HWG_CREATEDLGINDIRECT )
       fFree = TRUE;
    }
 
-   CreateDialogIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), ( DLGPROC ) s_DlgProc, ( LPARAM ) pObject);
+   CreateDialogIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), ( DLGPROC ) s_DlgProc, reinterpret_cast<LPARAM>(pObject));
 
    if( fFree )
    {
@@ -485,7 +485,7 @@ HB_FUNC( HWG_DLGBOXINDIRECT )
    ULONG ulStyle = ((hb_pcount() > 6 && !HB_ISNIL(7)) ? static_cast<ULONG>(hb_parnd(7)) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU); // | DS_SETFONT;
    int x1 = hb_parni(3), y1 = hb_parni(4), dwidth = hb_parni(5), dheight = hb_parni(6);
    LPDLGTEMPLATE pdlgtemplate = s_CreateDlgTemplate(pObject, x1, y1, dwidth, dheight, ulStyle);
-   DialogBoxIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), ( DLGPROC ) s_ModalDlgProc, ( LPARAM ) pObject);
+   DialogBoxIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), ( DLGPROC ) s_ModalDlgProc, reinterpret_cast<LPARAM>(pObject));
    s_ReleaseDlgTemplate(pdlgtemplate);
 }
 

@@ -20,7 +20,7 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
 {
    void * hString;
 
-   SendMessage(hwg_par_HWND(1), LB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR(2, &hString, nullptr));
+   SendMessage(hwg_par_HWND(1), LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &hString, nullptr)));
    hb_strfree(hString);
 }
 
@@ -49,5 +49,5 @@ HB_FUNC( HWG_CREATELISTBOX )
 
 HB_FUNC( HWG_LISTBOXDELETESTRING )
 {
-   SendMessage(hwg_par_HWND(1), LB_DELETESTRING, 0, ( LPARAM ) 0);
+   SendMessage(hwg_par_HWND(1), LB_DELETESTRING, 0, static_cast<LPARAM>(0));
 }

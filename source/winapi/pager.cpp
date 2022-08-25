@@ -9,7 +9,7 @@ HB_FUNC( HWG_PAGERSETCHILD )
 #ifndef __GNUC__
    Pager_SetChild(m_hWnd, hWnd);
 #else
-   SendMessage(m_hWnd, PGM_SETCHILD, 0, ( LPARAM ) hWnd);
+   SendMessage(m_hWnd, PGM_SETCHILD, 0, reinterpret_cast<LPARAM>(hWnd));
 #endif
 }
 
@@ -44,7 +44,7 @@ HB_FUNC( HWG_PAGERSETBKCOLOR )
 #ifndef __GNUC__
    hb_retnl(static_cast<LONG>(Pager_SetBkColor(m_hWnd, clr)));
 #else
-   hb_retnl(static_cast<LONG>(SendMessage(m_hWnd, PGM_SETBKCOLOR, 0, ( LPARAM ) clr)));
+   hb_retnl(static_cast<LONG>(SendMessage(m_hWnd, PGM_SETBKCOLOR, 0, static_cast<LPARAM>(clr))));
 #endif
 }
 
@@ -67,7 +67,7 @@ HB_FUNC( HWG_PAGERSETBORDER )
 #ifndef __GNUC__
    hb_retni(Pager_SetBorder(m_hWnd, iBorder));
 #else
-   hb_retni(SendMessage(m_hWnd, PGM_SETBORDER, 0, ( LPARAM ) iBorder));
+   hb_retni(SendMessage(m_hWnd, PGM_SETBORDER, 0, static_cast<LPARAM>(iBorder)));
 #endif
 }
 
@@ -90,7 +90,7 @@ HB_FUNC( HWG_PAGERSETPOS )
 #ifndef __GNUC__
    hb_retni(Pager_SetPos(m_hWnd, iPos));
 #else
-   hb_retni(SendMessage(m_hWnd, PGM_SETPOS, 0, ( LPARAM ) iPos));
+   hb_retni(SendMessage(m_hWnd, PGM_SETPOS, 0, static_cast<LPARAM>(iPos)));
 #endif
 }
 
@@ -113,7 +113,7 @@ HB_FUNC( HWG_PAGERSETBUTTONSIZE )
 #ifndef __GNUC__
    hb_retni(Pager_SetButtonSize(m_hWnd, iSize));
 #else
-   hb_retni(SendMessage(m_hWnd, PGM_SETBUTTONSIZE, 0, ( LPARAM ) iSize));
+   hb_retni(SendMessage(m_hWnd, PGM_SETBUTTONSIZE, 0, static_cast<LPARAM>(iSize)));
 #endif
 }
 
@@ -136,7 +136,7 @@ HB_FUNC( HWG_PAGERGETBUTTONSTATE )
 #ifndef __GNUC__
    hb_retnl(Pager_GetButtonState(m_hWnd, iButton));
 #else
-   hb_retnl(static_cast<LONG>(SendMessage(m_hWnd, PGM_GETBUTTONSTATE, 0, ( LPARAM ) iButton)));
+   hb_retnl(static_cast<LONG>(SendMessage(m_hWnd, PGM_GETBUTTONSTATE, 0, static_cast<LPARAM>(iButton))));
 #endif
 }
 
@@ -146,7 +146,7 @@ HB_FUNC( HWG_PAGERONPAGERCALCSIZE )
    HWND hwndToolbar = hwg_par_HWND(2);
    SIZE size;
 
-   SendMessage(hwndToolbar, TB_GETMAXSIZE, 0, ( LPARAM ) &size);
+   SendMessage(hwndToolbar, TB_GETMAXSIZE, 0, reinterpret_cast<LPARAM>(&size));
 
    switch ( pNMPGCalcSize->dwFlag )
    {

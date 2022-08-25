@@ -36,7 +36,7 @@ static int (CALLBACK BrowseCallbackProc)(HWND hwnd, UINT uMsg, LPARAM lParam, LP
    {
       case BFFM_INITIALIZED:
       {
-         if( lpData != ( LPARAM ) nullptr )
+         if( lpData != reinterpret_cast<LPARAM>(nullptr) )
          {
             SendMessage(hwnd, BFFM_SETSELECTION, lParam, lpData);
          }
@@ -66,7 +66,7 @@ HB_FUNC( HWG_SELECTFOLDER )
    bi.lpszTitle = HB_PARSTRDEF(1, &hTitle, nullptr);
    bi.ulFlags = BIF_USENEWUI | BIF_NEWDIALOGSTYLE;
    bi.lpfn = BrowseCallbackProc;        // = nullptr;
-   bi.lParam = lpFolderName ? ( LPARAM ) lpFolderName : 0;
+   bi.lParam = lpFolderName ? reinterpret_cast<LPARAM>(lpFolderName) : 0;
    bi.iImage = 0;
 
    // Browse for a folder and return its PIDL. 
