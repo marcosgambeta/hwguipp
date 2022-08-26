@@ -284,6 +284,8 @@ METHOD EvalKeyList(nKey, bPressed) CLASS HWindow
 
 CLASS HMainWindow INHERIT HWindow
 
+#if 0
+// TODO: remover
    CLASS VAR aMessages INIT { ;
       { WM_COMMAND, WM_ERASEBKGND, WM_MOVE, WM_SIZE, WM_SYSCOMMAND, ;
       WM_NOTIFYICON, WM_ACTIVATE, WM_ENTERIDLE, WM_ACTIVATEAPP, WM_CLOSE, WM_DESTROY, WM_ENDSESSION }, ;
@@ -302,6 +304,7 @@ CLASS HMainWindow INHERIT HWindow
       {|o,w|onEndSession(o, w) }          ;
       } ;
       }
+#endif
    DATA   nMenuPos
    DATA oNotifyIcon, bNotify, oNotifyMenu
    DATA lTray INIT .F.
@@ -396,6 +399,8 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
 
    RETURN NIL
 
+#if 0
+// TODO: remover / reescrito usando SWITCH/CASE/ENDSWITCH
 METHOD onEvent(msg, wParam, lParam)  CLASS HMainWindow
 
    LOCAL i
@@ -414,6 +419,63 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HMainWindow
    ENDIF
 
    Return - 1
+#endif
+
+METHOD onEvent(msg, wParam, lParam)  CLASS HMainWindow
+
+   SWITCH msg
+
+   CASE WM_COMMAND
+      RETURN Eval({|o,w,l|onCommand(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ERASEBKGND
+      RETURN Eval({|o,w|onEraseBk(o, w) }, Self, wParam, lParam)
+
+   CASE WM_MOVE
+      RETURN Eval({|o|onMove(o) }, Self, wParam, lParam)
+
+   CASE WM_SIZE
+      RETURN Eval({|o,w,l|hwg_onWndSize(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_SYSCOMMAND
+      RETURN Eval({|o,w|onSysCommand(o, w) }, Self, wParam, lParam)
+
+   CASE WM_NOTIFYICON
+      RETURN Eval({|o,w,l|onNotifyIcon(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ACTIVATE
+      RETURN Eval({|o,w,l|onActivate(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ENTERIDLE
+      RETURN Eval({|o,w,l|onEnterIdle(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ACTIVATEAPP
+      RETURN Eval({|o,w,l|onEnterIdle(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_CLOSE
+      RETURN Eval({|o|onCloseQuery(o) }, Self, wParam, lParam)
+
+   CASE WM_DESTROY
+      RETURN Eval({|o|hwg_onDestroy(o) }, Self, wParam, lParam)
+
+   CASE WM_ENDSESSION
+      RETURN Eval({|o,w|onEndSession(o, w) }, Self, wParam, lParam)
+
+   CASE WM_HSCROLL
+   CASE WM_VSCROLL
+   CASE WM_MOUSEWHEEL
+      IF ::nScrollBars != -1
+         hwg_ScrollHV(Self, msg, wParam, lParam)
+      ENDIF
+      hwg_onTrackScroll(Self, msg, wParam, lParam)
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   OTHERWISE
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   ENDSWITCH
+
+   RETURN -1
 
 METHOD InitTray(oNotifyIcon, bNotify, oNotifyMenu, cTooltip) CLASS HMainWindow
 
@@ -427,6 +489,8 @@ METHOD InitTray(oNotifyIcon, bNotify, oNotifyMenu, cTooltip) CLASS HMainWindow
 
 CLASS HMDIChildWindow INHERIT HWindow
 
+#if 0
+// TODO: remover
    CLASS VAR aMessages INIT { ;
       { WM_ERASEBKGND, WM_COMMAND, WM_MOVE, WM_SIZE, WM_NCACTIVATE, ;
       WM_SYSCOMMAND, WM_CREATE, WM_DESTROY }, ;
@@ -441,6 +505,7 @@ CLASS HMDIChildWindow INHERIT HWindow
       {|o|hwg_onDestroy(o) }             ;
       } ;
       }
+#endif
 
    METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
       cAppName, oBmp, cHelp, nHelpId, bColor)
@@ -488,6 +553,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMDIC
 
    RETURN NIL
 
+#if 0
 METHOD onEvent(msg, wParam, lParam)  CLASS HMDIChildWindow
 
    LOCAL i
@@ -505,6 +571,50 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HMDIChildWindow
    ENDIF
 
    Return - 1
+#endif
+
+METHOD onEvent(msg, wParam, lParam)  CLASS HMDIChildWindow
+
+   SWITCH msg
+
+   CASE WM_ERASEBKGND
+      RETURN Eval({|o,w|onEraseBk(o, w) }, Self, wParam, lParam)
+
+   CASE WM_COMMAND
+      RETURN Eval({|o,w|onMdiCommand(o, w) }, Self, wParam, lParam)
+
+   CASE WM_MOVE
+      RETURN Eval({|o|onMove(o) }, Self, wParam, lParam)
+
+   CASE WM_SIZE
+      RETURN Eval({|o,w,l|hwg_onWndSize(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_NCACTIVATE
+      RETURN Eval({|o,w|onMdiNcActivate(o, w) }, Self, wParam, lParam)
+
+   CASE WM_SYSCOMMAND
+      RETURN Eval({|o,w|onSysCommand(o, w) }, Self, wParam, lParam)
+
+   CASE WM_CREATE
+      RETURN Eval({|o,w,l| HB_SYMBOL_UNUSED(w), onMdiCreate(o, l) }, Self, wParam, lParam)
+
+   CASE WM_DESTROY
+      RETURN Eval({|o|hwg_onDestroy(o) }, Self, wParam, lParam)
+
+   CASE WM_HSCROLL
+   CASE WM_VSCROLL
+      IF ::nScrollBars != -1
+         hwg_ScrollHV(Self, msg, wParam, lParam)
+      ENDIF
+      hwg_onTrackScroll(Self, wParam, lParam)
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   OTHERWISE
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   ENDSWITCH
+
+   RETURN -1
 
 CLASS HChildWindow INHERIT HWindow
 
@@ -548,6 +658,8 @@ METHOD Activate(lShow) CLASS HChildWindow
 
    RETURN NIL
 
+#if 0
+// TODO: remover
 METHOD onEvent(msg, wParam, lParam)  CLASS HChildWindow
 
    LOCAL i
@@ -566,6 +678,65 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HChildWindow
    ENDIF
 
    Return - 1
+#endif
+
+METHOD onEvent(msg, wParam, lParam)  CLASS HChildWindow
+
+   SWITCH msg // TODO: chamar funcoes diretamente
+
+   CASE WM_DESTROY
+      RETURN hwg_onDestroy(Self)
+
+   CASE WM_SIZE
+      RETURN hwg_onWndSize(Self, wParam, lParam)
+
+   CASE WM_COMMAND
+      RETURN Eval({|o,w,l|onCommand(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ERASEBKGND
+      RETURN Eval({|o,w|onEraseBk(o, w) }, Self, wParam, lParam)
+
+   CASE WM_MOVE
+      RETURN Eval({|o|onMove(o) }, Self, wParam, lParam)
+
+   //CASE WM_SIZE
+   //   RETURN Eval({|o,w,l|hwg_onWndSize(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_SYSCOMMAND
+      RETURN Eval({|o,w|onSysCommand(o, w) }, Self, wParam, lParam)
+
+   CASE WM_NOTIFYICON
+      RETURN Eval({|o,w,l|onNotifyIcon(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ACTIVATE
+      RETURN Eval({|o,w,l|onActivate(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ENTERIDLE
+      RETURN Eval({|o,w,l|onEnterIdle(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ACTIVATEAPP
+      RETURN Eval({|o,w,l|onEnterIdle(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_CLOSE
+      RETURN Eval({|o|onCloseQuery(o) }, Self, wParam, lParam)
+
+   //CASE WM_DESTROY
+   //   RETURN Eval({|o|hwg_onDestroy(o) }, Self, wParam, lParam)
+
+   CASE WM_ENDSESSION
+      RETURN Eval({|o,w|onEndSession(o, w) }, Self, wParam, lParam)
+
+   CASE WM_HSCROLL
+   CASE WM_VSCROLL
+      hwg_onTrackScroll(Self, wParam, lParam)
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   OTHERWISE
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   ENDSWITCH
+
+   Return -1
 
 FUNCTION hwg_ReleaseAllWindows(hWnd)
 
