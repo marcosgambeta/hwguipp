@@ -76,36 +76,44 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrack
 
    HB_SYMBOL_UNUSED(wParam)
 
-   IF msg == WM_MOUSEMOVE
+   SWITCH msg
+
+   CASE WM_MOUSEMOVE
       IF ::lCaptured
          ::Drag(hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
+      EXIT
 
-   ELSEIF msg == WM_PAINT
+   CASE WM_PAINT
       ::Paint()
+      EXIT
 
-   ELSEIF msg == WM_ERASEBKGND
+   CASE WM_ERASEBKGND
       IF ::brush != NIL
          hwg_Fillrect(wParam, 0, 0, ::nWidth, ::nHeight, ::brush:handle)
          RETURN 1
       ENDIF
+      EXIT
 
-   ELSEIF msg == WM_LBUTTONDOWN
+   CASE WM_LBUTTONDOWN
       ::lCaptured := .T.
       hwg_Setcapture(::handle)
       ::Drag(hwg_Loword(lParam), hwg_Hiword(lParam))
+      EXIT
 
-   ELSEIF msg == WM_LBUTTONUP
+   CASE WM_LBUTTONUP
       ::lCaptured := .F.
       hwg_Releasecapture()
       IF ::bEndDrag != NIL
          Eval(::bEndDrag, Self)
       ENDIF
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
+      EXIT
 
-   ELSEIF msg == WM_DESTROY
+   CASE WM_DESTROY
       ::END()
-   ENDIF
+   
+   ENDSWITCH
 
    RETURN - 1
 
