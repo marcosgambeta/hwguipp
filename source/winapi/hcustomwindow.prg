@@ -17,6 +17,7 @@
 #endif
 
 #if 0
+// TODO: remover
 STATIC aCustomEvents := { ;
       { WM_NOTIFY, WM_PAINT, WM_CTLCOLORSTATIC, WM_CTLCOLOREDIT, WM_CTLCOLORBTN, ;
       WM_COMMAND, WM_DRAWITEM, WM_SIZE, WM_DESTROY }, ;
@@ -133,6 +134,8 @@ METHOD DelControl(oCtrl) CLASS HCustomWindow
 
    RETURN NIL
 
+#if 0
+// TODO: remover / reescrito em C++
 METHOD Move(x1, y1, width, height) CLASS HCustomWindow
 
    IF x1     != NIL
@@ -150,6 +153,7 @@ METHOD Move(x1, y1, width, height) CLASS HCustomWindow
    hwg_Movewindow(::handle, ::nLeft, ::nTop, ::nWidth, ::nHeight)
 
    RETURN NIL
+#endif
 
 METHOD Refresh() CLASS HCustomWindow
 
@@ -181,6 +185,7 @@ METHOD SetColor(tcolor, bColor, lRepaint) CLASS HCustomWindow
    RETURN NIL
 
 #if 0
+// TODO: remover / reescrito usando SWITCH/CASE/ENDSWITCH
 METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
    LOCAL i
    STATIC iCount := 0
@@ -430,3 +435,64 @@ FUNCTION hwg_GetItemByName(arr, cName)
    NEXT
 
    RETURN NIL
+
+#pragma BEGINDUMP
+
+#define HB_OS_WIN_32_USED
+
+#define OEMRESOURCE
+
+#include "hwingui.h"
+#include <commctrl.h>
+#include <winuser.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbapicls.h>
+
+/* Suppress compiler warnings */
+#include "incomp_pointer.h"
+#include "warnings.h"
+
+HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+
+   if( HB_ISNUM(1) )
+   {
+      PHB_ITEM left = hb_itemPutNI(nullptr, hb_parni(1));
+      hb_objSendMsg(hb_stackSelfItem(), "NLEFT", 1, left);
+      hb_itemRelease(left);
+   }
+
+   if( HB_ISNUM(2) )
+   {
+      PHB_ITEM top = hb_itemPutNI(nullptr, hb_parni(2));
+      hb_objSendMsg(hb_stackSelfItem(), "NTOP", 1, top);
+      hb_itemRelease(top);
+   }
+
+   if( HB_ISNUM(3) )
+   {
+      PHB_ITEM width = hb_itemPutNI(nullptr, hb_parni(3));
+      hb_objSendMsg(hb_stackSelfItem(), "NWIDTH", 1, width);
+      hb_itemRelease(width);
+   }
+
+   if( HB_ISNUM(4) )
+   {
+      PHB_ITEM height = hb_itemPutNI(nullptr, hb_parni(4));
+      hb_objSendMsg(hb_stackSelfItem(), "NHEIGHT", 1, height);
+      hb_itemRelease(height);
+   }
+
+   RECT rect;
+   GetWindowRect(window, &rect);
+   MoveWindow(window, HB_ISNIL(1) ? rect.left : hb_parni(1),
+                      HB_ISNIL(2) ? rect.top : hb_parni(2),
+                      HB_ISNIL(3) ? rect.right - rect.left : hb_parni(3),
+                      HB_ISNIL(4) ? rect.bottom - rect.top : hb_parni(4),
+                      TRUE);
+}
+
+#pragma ENDDUMP
