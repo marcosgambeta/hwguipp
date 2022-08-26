@@ -489,12 +489,10 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
       hb_itemRelease(height);
    }
 
-   RECT rect;
-   GetWindowRect(window, &rect);
-   MoveWindow(window, HB_ISNIL(1) ? rect.left : hb_parni(1),
-                      HB_ISNIL(2) ? rect.top : hb_parni(2),
-                      HB_ISNIL(3) ? rect.right - rect.left : hb_parni(3),
-                      HB_ISNIL(4) ? rect.bottom - rect.top : hb_parni(4),
+   MoveWindow(window, hb_itemGetNI(hb_objSendMsg(hb_stackSelfItem(), "NLEFT", 0)),
+                      hb_itemGetNI(hb_objSendMsg(hb_stackSelfItem(), "NTOP", 0)),
+                      hb_itemGetNI(hb_objSendMsg(hb_stackSelfItem(), "NWIDTH", 0)),
+                      hb_itemGetNI(hb_objSendMsg(hb_stackSelfItem(), "NHEIGHT", 0)),
                       TRUE);
 }
 
