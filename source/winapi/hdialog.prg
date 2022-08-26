@@ -13,6 +13,8 @@
 #define  WM_PSPNOTIFY         WM_USER+1010
 
 STATIC aSheet := NIL
+#if 0
+// TODO: remover
 STATIC aMessModalDlg := { ;
       { WM_COMMAND, { |o,w,l|onDlgCommand(o, w, l) } }, ;
       { WM_SYSCOMMAND, { |o,w,l| onSysCommand(o, w, l) } }, ;
@@ -24,6 +26,7 @@ STATIC aMessModalDlg := { ;
       { WM_INITDIALOG, { |o,w,l|InitModalDlg(o, w, l) } }, ;
       { WM_DESTROY, { |o|hwg_onDestroy(o) } }               ;
       }
+#endif
 
 #ifdef MT_EXPERIMENTAL
    THREAD STATIC aDialogs := {}
@@ -163,7 +166,8 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
       ::oParent:handle, Iif((oWnd := HWindow():GetMain()) != NIL, oWnd:handle, hwg_Getactivewindow()))
 
    ::nInitState := Iif(!Empty(lMaximized), SW_SHOWMAXIMIZED, Iif(!Empty(lMinimized), SW_SHOWMINIMIZED, Iif(!Empty(lCentered), 16, 0)))
-   IF ::type == WND_DLG_RESOURCE
+   SWITCH ::type
+   CASE WND_DLG_RESOURCE
       IF lNoModal == NIL .OR. !lNoModal
          ::lModal := .T.
          ::AddItem()
@@ -175,8 +179,8 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
          ::AddItem()
          Hwg_CreateDialog(hParent, Self)
       ENDIF
-
-   ELSEIF ::type == WND_DLG_NORESOURCE
+      EXIT
+   CASE WND_DLG_NORESOURCE
       IF lNoModal == NIL .OR. !lNoModal
          ::lModal := .T.
          ::AddItem()
@@ -188,15 +192,13 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
          ::AddItem()
          Hwg_CreateDlgIndirect(hParent, Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
       ENDIF
-   ENDIF
+   ENDSWITCH
    IF !::lModal
-      IF ::nInitState == SW_SHOWMINIMIZED
-         ::Minimize()
-      ELSEIF ::nInitState == SW_SHOWMAXIMIZED
-         ::Maximize()
-      ELSEIF ::nInitState == 16
-         ::Center()
-      ENDIF
+      SWITCH ::nInitState
+      CASE SW_SHOWMINIMIZED ; ::Minimize() ; EXIT
+      CASE SW_SHOWMAXIMIZED ; ::Maximize() ; EXIT
+      CASE 16               ; ::Center()
+      ENDSWITCH
       /*
       IF ::nAdjust == 1
          ::nAdjust := 2
@@ -213,6 +215,8 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
 
    RETURN NIL
 
+#if 0
+// TODO: remover / reescrito usando SWITCH/CASE/ENDSWITCH
 METHOD onEvent(msg, wParam, lParam) CLASS HDialog
 
    LOCAL i
@@ -245,6 +249,68 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       ENDIF
       Return ::Super:onEvent(msg, wParam, lParam)
    ENDIF
+
+   RETURN 0
+#endif
+
+METHOD onEvent(msg, wParam, lParam) CLASS HDialog
+
+   LOCAL nPos
+   LOCAL oTab
+
+   // hwg_writelog(str(msg) + str(hwg_PtrToUlong(wParam)) + str(hwg_PtrToUlong(lParam)))
+
+   SWITCH msg
+
+   CASE WM_COMMAND
+      IF ::lRouteCommand
+         nPos := ascan(::aControls, {|x|x:className() == "HTAB"})
+         IF nPos > 0
+            oTab := ::aControls[nPos]
+            IF Len(oTab:aPages) > 0
+               Eval({ |o,w,l|onDlgCommand(o, w, l) }, oTab:aPages[oTab:GetActivePage(), 1], wParam, lParam)
+            ENDIF
+         ENDIF
+      ENDIF
+      RETURN Eval({ |o,w,l|onDlgCommand(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_SYSCOMMAND
+      RETURN Eval({ |o,w,l| onSysCommand(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_SIZE
+      RETURN Eval({ |o,w,l|hwg_onWndSize(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ERASEBKGND
+      RETURN Eval({ |o,w|onEraseBk(o, w) }, Self, wParam, lParam)
+
+   CASE WM_PSPNOTIFY
+      RETURN Eval({ |o,w,l|onPspNotify(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_HELP
+      RETURN Eval({ |o,w,l|onHelp(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_ACTIVATE
+      RETURN Eval({ |o,w,l|onActivate(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_INITDIALOG
+      RETURN Eval({ |o,w,l|InitModalDlg(o, w, l) }, Self, wParam, lParam)
+
+   CASE WM_DESTROY
+      RETURN Eval({ |o|hwg_onDestroy(o) }, Self, wParam, lParam)
+
+   CASE WM_HSCROLL
+   CASE WM_VSCROLL
+   CASE WM_MOUSEWHEEL
+      IF ::nScrollBars != - 1  .AND. ::bScroll = NIL
+         hwg_ScrollHV(Self, msg, wParam, lParam)
+      ENDIF
+      hwg_onTrackScroll(Self, msg, wParam, lParam)
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   OTHERWISE
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   ENDSWITCH
 
    RETURN 0
 
@@ -305,13 +371,11 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
       hwg_Enablemenusystemitem(oDlg:handle, SC_CLOSE, .F.)
    ENDIF
 
-   IF oDlg:nInitState == SW_SHOWMINIMIZED
-      oDlg:Minimize()
-   ELSEIF oDlg:nInitState == SW_SHOWMAXIMIZED
-      oDlg:Maximize()
-   ELSEIF oDlg:nInitState == 16
-      oDlg:Center()
-   ENDIF
+   SWITCH oDlg:nInitState
+   CASE SW_SHOWMINIMIZED ; oDlg:Minimize() ; EXIT
+   CASE SW_SHOWMAXIMIZED ; oDlg:Maximize() ; EXIT
+   CASE 16               ; oDlg:Center()
+   ENDSWITCH
 
    IF oDlg:bInit != NIL
       IF ValType(nReturn := Eval(oDlg:bInit, oDlg)) != "N"
@@ -471,22 +535,24 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
 
-   IF nCode == PSN_SETACTIVE
+   SWITCH nCode
+   CASE PSN_SETACTIVE
       IF oDlg:bGetFocus != NIL
          res := Eval(oDlg:bGetFocus, oDlg)
       ENDIF
       // 'res' should be 0(Ok) or -1
       Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, -1))
       RETURN 1
-   ELSEIF nCode == PSN_KILLACTIVE
+   CASE PSN_KILLACTIVE
       IF oDlg:bLostFocus != NIL
          res := Eval(oDlg:bLostFocus, oDlg)
       ENDIF
       // 'res' should be 0(Ok) or 1
       Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, 1))
       RETURN 1
-   ELSEIF nCode == PSN_RESET
-   ELSEIF nCode == PSN_APPLY
+   CASE PSN_RESET
+      EXIT
+   CASE PSN_APPLY
       IF oDlg:bDestroy != NIL
          res := Eval(oDlg:bDestroy, oDlg)
          res := Iif(Valtype(res) == "L", res, .T.)
@@ -497,13 +563,13 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
          oDlg:lResult := .T.
       ENDIF
       RETURN 1
-   ELSE
+   OTHERWISE
       IF oDlg:bOther != NIL
          res := Eval(oDlg:bOther, oDlg, WM_NOTIFY, 0, lParam)
          Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, 1))
          RETURN 1
       ENDIF
-   ENDIF
+   ENDSWITCH
 
    RETURN 0
 
