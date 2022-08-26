@@ -290,25 +290,27 @@ METHOD Notify(lParam) CLASS HTab
    LOCAL nCode := hwg_Getnotifycode(lParam)
 
    //hwg_writelog(str(ncode))
-   // TODO: usar SWITCH
-   DO CASE
-   CASE nCode == TCN_SELCHANGE
+   SWITCH nCode
+   CASE TCN_SELCHANGE
       IF ::bChange != NIL
          Eval(::bChange, Self, hwg_Getcurrenttab(::handle))
       ENDIF
-   CASE nCode == TCN_CLICK
+      EXIT
+   CASE TCN_CLICK
       IF ::bAction != NIL
          Eval(::bAction, Self, hwg_Getcurrenttab(::handle))
       ENDIF
-   CASE nCode == TCN_SETFOCUS
+      EXIT
+   CASE TCN_SETFOCUS
       IF ::bGetFocus != NIL
          Eval(::bGetFocus, Self, hwg_Getcurrenttab(::handle))
       ENDIF
-   CASE nCode == TCN_KILLFOCUS
+      EXIT
+   CASE TCN_KILLFOCUS
       IF ::bLostFocus != NIL
          Eval(::bLostFocus, Self, hwg_Getcurrenttab(::handle))
       ENDIF
-   ENDCASE
+   ENDSWITCH
 
    Return - 1
 
