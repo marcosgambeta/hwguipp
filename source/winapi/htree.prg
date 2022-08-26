@@ -308,7 +308,10 @@ METHOD Clean() CLASS HTree
 METHOD Notify(lParam)  CLASS HTree
    LOCAL nCode := hwg_Getnotifycode(lParam), oItem, cText, nAct
 
-   IF nCode == TVN_SELCHANGED .OR. nCode == TVN_SELCHANGEDW
+   SWITCH nCode
+
+   CASE TVN_SELCHANGED
+   CASE TVN_SELCHANGEDW
       oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_PARAM)
       IF ValType(oItem) == "O"
          oItem:oTree:oSelected := oItem
@@ -320,9 +323,15 @@ METHOD Notify(lParam)  CLASS HTree
             ENDIF
          ENDIF
       ENDIF
-   ELSEIF nCode == TVN_BEGINLABELEDIT .OR. nCode == TVN_BEGINLABELEDITW
+      EXIT
+
+   CASE TVN_BEGINLABELEDIT
+   CASE TVN_BEGINLABELEDITW
       // Return 1
-   ELSEIF nCode == TVN_ENDLABELEDIT .OR. nCode == TVN_ENDLABELEDITW
+      EXIT
+
+   CASE TVN_ENDLABELEDIT
+   CASE TVN_ENDLABELEDITW
       IF !Empty(cText := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDIT))
          oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDITPARAM)
          IF ValType(oItem) == "O"
@@ -332,24 +341,33 @@ METHOD Notify(lParam)  CLASS HTree
             ENDIF
          ENDIF
       ENDIF
-   ELSEIF nCode == TVN_ITEMEXPANDING .OR. nCode == TVN_ITEMEXPANDINGW
+      EXIT
+
+   CASE TVN_ITEMEXPANDING
+   CASE TVN_ITEMEXPANDINGW
       oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_PARAM)
       IF ValType(oItem) == "O"
          IF ::bExpand != NIL
             RETURN IIf(Eval(oItem:oTree:bExpand, oItem, hwg_Checkbit(hwg_Treegetnotify(lParam, TREE_GETNOTIFY_ACTION), TVE_EXPAND)), 0, 1)
          ENDIF
       ENDIF
-   ELSEIF nCode == - 3
+      EXIT
+
+   CASE -3
       IF ::bDblClick != NIL
          oItem  := hwg_Treehittest(::handle, NIL, NIL, @nAct)
          Eval(::bDblClick, Self, oItem, nAct)
       ENDIF
-   ELSEIF nCode == - 5
+      EXIT
+
+   CASE -5
       IF ::bRClick != NIL
          oItem  := hwg_Treehittest(::handle, NIL, NIL, @nAct)
          Eval(::bRClick, Self, oItem, nAct)
       ENDIF
-   ENDIF
+
+   ENDSWITCH
+
    RETURN 0
 
 METHOD End() CLASS HTree
