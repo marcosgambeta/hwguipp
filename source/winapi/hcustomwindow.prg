@@ -72,8 +72,8 @@ CLASS HCustomWindow INHERIT HObject
    METHOD DelControl(oCtrl)
    METHOD AddEvent(nEvent, nId, bAction, lNotify) INLINE AAdd(iif(lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify), {nEvent, nId, bAction})
    METHOD FindControl(nId, nHandle)
-   METHOD Hide() INLINE (::lHide := .T., hwg_Hidewindow(::handle))
-   METHOD Show() INLINE (::lHide := .F., hwg_Showwindow(::handle))
+   METHOD Hide() // INLINE (::lHide := .T., hwg_Hidewindow(::handle)) // TODO: remover / reescrito em C++
+   METHOD Show() // INLINE (::lHide := .F., hwg_Showwindow(::handle)) // TODO: remover / reescrito em C++
    METHOD Refresh()
    METHOD Move(x1, y1, width, height)
    METHOD SetColor(tcolor, bColor, lRepaint)
@@ -155,11 +155,14 @@ METHOD Move(x1, y1, width, height) CLASS HCustomWindow
    RETURN NIL
 #endif
 
+#if 0
+// TODO: remover / reescrito em C++
 METHOD Refresh() CLASS HCustomWindow
 
    hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
 
    RETURN NIL
+#endif
 
 METHOD SetColor(tcolor, bColor, lRepaint) CLASS HCustomWindow
 
@@ -207,7 +210,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
    RETURN -1
 #endif
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
+METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow // TODO: chamar funcoes diretamente ?
 
    SWITCH msg
    CASE WM_NOTIFY         ; RETURN Eval({|o, w, l|onNotify(o, w, l)}, Self, wParam, lParam)
@@ -461,28 +464,28 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
    if( HB_ISNUM(1) )
    {
       PHB_ITEM left = hb_itemPutNI(nullptr, hb_parni(1));
-      hb_objSendMsg(hb_stackSelfItem(), "NLEFT", 1, left);
+      hb_objSendMsg(hb_stackSelfItem(), "_NLEFT", 1, left);
       hb_itemRelease(left);
    }
 
    if( HB_ISNUM(2) )
    {
       PHB_ITEM top = hb_itemPutNI(nullptr, hb_parni(2));
-      hb_objSendMsg(hb_stackSelfItem(), "NTOP", 1, top);
+      hb_objSendMsg(hb_stackSelfItem(), "_NTOP", 1, top);
       hb_itemRelease(top);
    }
 
    if( HB_ISNUM(3) )
    {
       PHB_ITEM width = hb_itemPutNI(nullptr, hb_parni(3));
-      hb_objSendMsg(hb_stackSelfItem(), "NWIDTH", 1, width);
+      hb_objSendMsg(hb_stackSelfItem(), "_NWIDTH", 1, width);
       hb_itemRelease(width);
    }
 
    if( HB_ISNUM(4) )
    {
       PHB_ITEM height = hb_itemPutNI(nullptr, hb_parni(4));
-      hb_objSendMsg(hb_stackSelfItem(), "NHEIGHT", 1, height);
+      hb_objSendMsg(hb_stackSelfItem(), "_NHEIGHT", 1, height);
       hb_itemRelease(height);
    }
 
@@ -493,6 +496,35 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
                       HB_ISNIL(3) ? rect.right - rect.left : hb_parni(3),
                       HB_ISNIL(4) ? rect.bottom - rect.top : hb_parni(4),
                       TRUE);
+}
+
+HB_FUNC_STATIC( HCUSTOMWINDOW_HIDE )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+
+   PHB_ITEM hide = hb_itemPutL(nullptr, true);
+   hb_objSendMsg(hb_stackSelfItem(), "_LHIDE", 1, hide);
+   hb_itemRelease(hide);
+
+   ShowWindow(window, SW_HIDE);
+}
+
+HB_FUNC_STATIC( HCUSTOMWINDOW_SHOW )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+
+   PHB_ITEM hide = hb_itemPutL(nullptr, false);
+   hb_objSendMsg(hb_stackSelfItem(), "_LHIDE", 1, hide);
+   hb_itemRelease(hide);
+
+   ShowWindow(window, SW_SHOW);
+}
+
+HB_FUNC_STATIC( HCUSTOMWINDOW_REFRESH )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+
+   RedrawWindow(window, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_INTERNALPAINT | RDW_UPDATENOW);
 }
 
 #pragma ENDDUMP
