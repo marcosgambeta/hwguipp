@@ -161,28 +161,34 @@ METHOD Init() CLASS HStaticLink
 
 METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
 
-   IF msg == WM_PAINT
+   SWITCH msg
+   CASE WM_PAINT
       ::Paint()
-   ELSEIF msg == WM_ERASEBKGND
+      EXIT
+   CASE WM_ERASEBKGND
       RETURN 1
-   ELSEIF msg == WM_MOUSEMOVE
+   CASE WM_MOUSEMOVE
       hwg_SetCursor(::m_hHyperCursor)
       ::OnMouseMove(wParam, lParam)
-   ELSEIF msg == WM_SETCURSOR
+      EXIT
+   CASE WM_SETCURSOR
       hwg_SetCursor(::m_hHyperCursor)
-   ELSEIF msg == WM_LBUTTONDOWN
+      EXIT
+   CASE WM_LBUTTONDOWN
       hwg_SetCursor(::m_hHyperCursor)
-   ELSEIF msg == WM_LBUTTONUP
+      EXIT
+   CASE WM_LBUTTONUP
       ::OnClicked()
-   ELSEIF msg == WM_KILLFOCUS
+      EXIT
+   CASE WM_KILLFOCUS
       IF ::state == LBL_MOUSEOVER
          ::state := LBL_NORMAL
          hwg_Releasecapture()
          hwg_Invalidaterect(::handle, 0)
       ENDIF
-   ENDIF
+   ENDSWITCH
 
-   RETURN - 1
+   RETURN -1
 
 METHOD GoToLinkUrl(csLink) CLASS HStaticLink
 
