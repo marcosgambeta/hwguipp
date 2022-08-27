@@ -13,20 +13,6 @@
 #define  WM_PSPNOTIFY         WM_USER+1010
 
 STATIC aSheet := NIL
-#if 0
-// TODO: remover
-STATIC aMessModalDlg := { ;
-      { WM_COMMAND, { |o,w,l|onDlgCommand(o, w, l) } }, ;
-      { WM_SYSCOMMAND, { |o,w,l| onSysCommand(o, w, l) } }, ;
-      { WM_SIZE, { |o,w,l|hwg_onWndSize(o, w, l) } }, ;
-      { WM_ERASEBKGND, { |o,w|onEraseBk(o, w) } }, ;
-      { WM_PSPNOTIFY, { |o,w,l|onPspNotify(o, w, l) } }, ;
-      { WM_HELP, { |o,w,l|onHelp(o, w, l) } }, ;
-      { WM_ACTIVATE, { |o,w,l|onActivate(o, w, l) } }, ;
-      { WM_INITDIALOG, { |o,w,l|InitModalDlg(o, w, l) } }, ;
-      { WM_DESTROY, { |o|hwg_onDestroy(o) } }               ;
-      }
-#endif
 
 #ifdef MT_EXPERIMENTAL
    THREAD STATIC aDialogs := {}
@@ -40,8 +26,6 @@ STATIC aMessModalDlg := { ;
 
       RETURN aModalDialogs
 #endif
-
-   // Class HDialog
 
 CLASS HDialog INHERIT HWindow
 
@@ -64,8 +48,8 @@ CLASS HDialog INHERIT HWindow
    DATA lClosable    INIT .T.
    DATA nInitState
 
-   METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
-      bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable)
+   METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, lClipper, ;
+              oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable)
    METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
    METHOD onEvent(msg, wParam, lParam)
    METHOD AddItem() INLINE AAdd(Iif(::lModal, ::aModalDialogs, ::aDialogs), Self)
@@ -76,8 +60,8 @@ CLASS HDialog INHERIT HWindow
 
 ENDCLASS
 
-METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
-      bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable) CLASS HDialog
+METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, lClipper, ;
+           oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable) CLASS HDialog
 
    IF pcount() == 0
       ::style          := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
@@ -107,32 +91,32 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
       ::style := nStyle
    ENDIF
    ::oDefaultParent := Self
-   ::xResourceID := xResourceID
-   ::type     := lType
-   ::title    := cTitle
-   ::oBmp     := oBmp
-   ::oIcon    := oIcon
-   ::nTop     := Iif(y == NIL, 0, y)
-   ::nLeft    := Iif(x == NIL, 0, x)
-   ::nWidth   := Iif(width == NIL, 0, width)
-   ::nWidth   := Iif(width == NIL, 0, width)
-   ::nHeight  := Iif(height == NIL, 0, Abs(height))
+   ::xResourceID    := xResourceID
+   ::type           := lType
+   ::title          := cTitle
+   ::oBmp           := oBmp
+   ::oIcon          := oIcon
+   ::nTop           := Iif(y == NIL, 0, y)
+   ::nLeft          := Iif(x == NIL, 0, x)
+   ::nWidth         := Iif(width == NIL, 0, width)
+   ::nWidth         := Iif(width == NIL, 0, width)
+   ::nHeight        := Iif(height == NIL, 0, Abs(height))
    IF ::nWidth < 0
-      ::nWidth   := Abs(::nWidth)
+      ::nWidth      := Abs(::nWidth)
       //::nAdjust := 1
    ENDIF
-   ::oFont    := oFont
-   ::bInit    := bInit
-   ::bDestroy := bExit
-   ::bSize    := bSize
-   ::bPaint   := bPaint
-   ::bGetFocus  := bGFocus
-   ::bLostFocus := bLFocus
-   ::bOther     := bOther
-   ::lClipper   := Iif(lClipper == NIL, .F., lClipper)
-   ::lExitOnEnter := Iif(lExitOnEnter == NIL, .T., !lExitOnEnter)
-   ::lExitOnEsc := Iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
-   ::lClosable  := Iif(lNoClosable == NIL, .T., !lNoClosable)
+   ::oFont          := oFont
+   ::bInit          := bInit
+   ::bDestroy       := bExit
+   ::bSize          := bSize
+   ::bPaint         := bPaint
+   ::bGetFocus      := bGFocus
+   ::bLostFocus     := bLFocus
+   ::bOther         := bOther
+   ::lClipper       := Iif(lClipper == NIL, .F., lClipper)
+   ::lExitOnEnter   := Iif(lExitOnEnter == NIL, .T., !lExitOnEnter)
+   ::lExitOnEsc     := Iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
+   ::lClosable      := Iif(lNoClosable == NIL, .T., !lNoClosable)
 
    IF bColor != NIL
       ::brush := HBrush():Add(bColor)
@@ -151,8 +135,10 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
 
 METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HDialog
 
-   LOCAL oWnd, hParent
-   //LOCAL aCoors, aRect
+   LOCAL oWnd
+   LOCAL hParent
+   //LOCAL aCoors
+   //LOCAL aRect
 
    IF bActivate != NIL
       ::bActivate := bActivate
@@ -166,7 +152,9 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
       ::oParent:handle, Iif((oWnd := HWindow():GetMain()) != NIL, oWnd:handle, hwg_Getactivewindow()))
 
    ::nInitState := Iif(!Empty(lMaximized), SW_SHOWMAXIMIZED, Iif(!Empty(lMinimized), SW_SHOWMINIMIZED, Iif(!Empty(lCentered), 16, 0)))
+
    SWITCH ::type
+
    CASE WND_DLG_RESOURCE
       IF lNoModal == NIL .OR. !lNoModal
          ::lModal := .T.
@@ -180,6 +168,7 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
          Hwg_CreateDialog(hParent, Self)
       ENDIF
       EXIT
+
    CASE WND_DLG_NORESOURCE
       IF lNoModal == NIL .OR. !lNoModal
          ::lModal := .T.
@@ -192,7 +181,9 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
          ::AddItem()
          Hwg_CreateDlgIndirect(hParent, Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
       ENDIF
+
    ENDSWITCH
+
    IF !::lModal
       SWITCH ::nInitState
       CASE SW_SHOWMINIMIZED ; ::Minimize() ; EXIT
@@ -215,44 +206,6 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
 
    RETURN NIL
 
-#if 0
-// TODO: remover / reescrito usando SWITCH/CASE/ENDSWITCH
-METHOD onEvent(msg, wParam, lParam) CLASS HDialog
-
-   LOCAL i
-   LOCAL oTab
-   LOCAL nPos
-
-   // hwg_writelog(str(msg) + str(hwg_PtrToUlong(wParam)) + str(hwg_PtrToUlong(lParam)))
-   IF ( i := Ascan(aMessModalDlg, {|a|a[1] == msg}) ) != 0
-      IF ::lRouteCommand .AND. ( msg == WM_COMMAND .OR. msg == WM_NOTIFY )
-
-         nPos := ascan(::aControls, {|x|x:className() == "HTAB"})
-         IF nPos > 0
-            oTab := ::aControls[nPos]
-            IF Len(oTab:aPages) > 0
-               Eval(aMessModalDlg[i, 2], oTab:aPages[oTab:GetActivePage(), 1], wParam, lParam)
-               RETURN Eval(aMessModalDlg[i, 2], Self, wParam, lParam)
-            ELSE
-               RETURN Eval(aMessModalDlg[i, 2], Self, wParam, lParam)
-            ENDIF
-         ENDIF
-         RETURN Eval(aMessModalDlg[i, 2], Self, wParam, lParam)
-      ENDIF
-      RETURN Eval(aMessModalDlg[i, 2], Self, wParam, lParam)
-   ELSE
-      IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
-         IF ::nScrollBars != - 1  .AND. ::bScroll = NIL
-            hwg_ScrollHV(Self, msg, wParam, lParam)
-         ENDIF
-         hwg_onTrackScroll(Self, msg, wParam, lParam)
-      ENDIF
-      Return ::Super:onEvent(msg, wParam, lParam)
-   ENDIF
-
-   RETURN 0
-#endif
-
 METHOD onEvent(msg, wParam, lParam) CLASS HDialog
 
    LOCAL nPos
@@ -268,40 +221,40 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
          IF nPos > 0
             oTab := ::aControls[nPos]
             IF Len(oTab:aPages) > 0
-               Eval({ |o,w,l|onDlgCommand(o, w, l) }, oTab:aPages[oTab:GetActivePage(), 1], wParam, lParam)
+               onDlgCommand(oTab:aPages[oTab:GetActivePage(), 1], wParam, lParam)
             ENDIF
          ENDIF
       ENDIF
-      RETURN Eval({ |o,w,l|onDlgCommand(o, w, l) }, Self, wParam, lParam)
+      RETURN onDlgCommand(Self, wParam, lParam)
 
    CASE WM_SYSCOMMAND
-      RETURN Eval({ |o,w,l| onSysCommand(o, w, l) }, Self, wParam, lParam)
+      RETURN onSysCommand(Self, wParam)
 
    CASE WM_SIZE
-      RETURN Eval({ |o,w,l|hwg_onWndSize(o, w, l) }, Self, wParam, lParam)
+      RETURN hwg_onWndSize(Self, wParam, lParam)
 
    CASE WM_ERASEBKGND
-      RETURN Eval({ |o,w|onEraseBk(o, w) }, Self, wParam, lParam)
+      RETURN onEraseBk(Self, wParam)
 
    CASE WM_PSPNOTIFY
-      RETURN Eval({ |o,w,l|onPspNotify(o, w, l) }, Self, wParam, lParam)
+      RETURN onPspNotify(Self, wParam, lParam)
 
    CASE WM_HELP
-      RETURN Eval({ |o,w,l|onHelp(o, w, l) }, Self, wParam, lParam)
+      RETURN onHelp(Self, wParam, lParam)
 
    CASE WM_ACTIVATE
-      RETURN Eval({ |o,w,l|onActivate(o, w, l) }, Self, wParam, lParam)
+      RETURN onActivate(Self, wParam, lParam)
 
    CASE WM_INITDIALOG
-      RETURN Eval({ |o,w,l|InitModalDlg(o, w, l) }, Self, wParam, lParam)
+      RETURN InitModalDlg(Self, wParam, lParam)
 
    CASE WM_DESTROY
-      RETURN Eval({ |o|hwg_onDestroy(o) }, Self, wParam, lParam)
+      RETURN hwg_onDestroy(Self)
 
    CASE WM_HSCROLL
    CASE WM_VSCROLL
    CASE WM_MOUSEWHEEL
-      IF ::nScrollBars != - 1  .AND. ::bScroll = NIL
+      IF ::nScrollBars != -1 .AND. ::bScroll = NIL
          hwg_ScrollHV(Self, msg, wParam, lParam)
       ENDIF
       hwg_onTrackScroll(Self, msg, wParam, lParam)
@@ -319,12 +272,12 @@ METHOD DelItem() CLASS HDialog
    LOCAL i
 
    IF ::lModal
-      IF ( i := Ascan(::aModalDialogs, {|o|o == Self}) ) > 0
+      IF (i := Ascan(::aModalDialogs, {|o|o == Self})) > 0
          ADel(::aModalDialogs, i)
          ASize(::aModalDialogs, Len(::aModalDialogs) - 1)
       ENDIF
    ELSE
-      IF ( i := Ascan(::aDialogs, {|o|o == Self}) ) > 0
+      IF (i := Ascan(::aDialogs, {|o|o == Self})) > 0
          ADel(::aDialogs, i)
          ASize(::aDialogs, Len(::aDialogs) - 1)
       ENDIF
@@ -345,11 +298,11 @@ METHOD GetActive() CLASS HDialog
 
    RETURN Iif(i == 0, NIL, ::Getlist[i])
 
-
 STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
 
    LOCAL nReturn := 1
-   LOCAL aCoors //, aRect
+   LOCAL aCoors
+   //LOCAL aRect
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
@@ -426,9 +379,11 @@ STATIC FUNCTION onEraseBk(oDlg, hDC)
 
 FUNCTION onDlgCommand(oDlg, wParam, lParam)
 
-
-   LOCAL iParHigh := hwg_Hiword(wParam), iParLow := hwg_Loword(wParam)
-   LOCAL aMenu, i, hCtrl
+   LOCAL iParHigh := hwg_Hiword(wParam)
+   LOCAL iParLow := hwg_Loword(wParam)
+   LOCAL aMenu
+   LOCAL i
+   LOCAL hCtrl
 
    HB_SYMBOL_UNUSED(lParam)
 
@@ -436,7 +391,7 @@ FUNCTION onDlgCommand(oDlg, wParam, lParam)
    IF iParHigh == 0
       IF iParLow == IDOK
          hCtrl := hwg_Getfocus()
-         FOR i := Len(oDlg:GetList) TO 1 STEP - 1
+         FOR i := Len(oDlg:GetList) TO 1 STEP -1
             IF !oDlg:GetList[i]:lHide .AND. hwg_Iswindowenabled(oDlg:Getlist[i]:Handle)
                EXIT
             ENDIF
@@ -490,7 +445,8 @@ FUNCTION onDlgCommand(oDlg, wParam, lParam)
 
 STATIC FUNCTION onActivate(oDlg, wParam, lParam)
 
-   LOCAL iParLow := hwg_Loword(wParam), b
+   LOCAL iParLow := hwg_Loword(wParam)
+   LOCAL b
 
    HB_SYMBOL_UNUSED(lParam)
 
@@ -509,7 +465,9 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
 
 STATIC FUNCTION onHelp(oDlg, wParam, lParam)
 
-   LOCAL oCtrl, nHelpId, oParent
+   LOCAL oCtrl
+   LOCAL nHelpId
+   LOCAL oParent
 
    HB_SYMBOL_UNUSED(wParam)
 
@@ -521,9 +479,7 @@ STATIC FUNCTION onHelp(oDlg, wParam, lParam)
             oParent := oCtrl:oParent
             nHelpId := oParent:HelpId
          ENDIF
-
          hwg_Winhelp(oDlg:handle, hwg_SetHelpFileName(), Iif(Empty(nHelpId), 3, 1), nHelpId)
-
       ENDIF
    ENDIF
 
@@ -531,7 +487,8 @@ STATIC FUNCTION onHelp(oDlg, wParam, lParam)
 
 STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
 
-   LOCAL nCode := hwg_Getnotifycode(lParam), res := .T.
+   LOCAL nCode := hwg_Getnotifycode(lParam)
+   LOCAL res := .T.
 
    HB_SYMBOL_UNUSED(wParam)
 
@@ -575,7 +532,10 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
 
 FUNCTION hwg_PropertySheet(hParentWindow, aPages, cTitle, x1, y1, width, height, lModeless, lNoApply, lWizard)
 
-   LOCAL hSheet, i, aHandles := Array(Len(aPages)), aTemplates := Array(Len(aPages))
+   LOCAL hSheet
+   LOCAL i
+   LOCAL aHandles := Array(Len(aPages))
+   LOCAL aTemplates := Array(Len(aPages))
 
    aSheet := Array(Len(aPages))
    FOR i := 1 TO Len(aPages)
@@ -610,10 +570,11 @@ FUNCTION hwg_GetModalHandle()
 
 FUNCTION hwg_EndDialog(handle)
 
-   LOCAL oDlg, lRes
+   LOCAL oDlg
+   LOCAL lRes
 
    IF handle == NIL
-      IF ( oDlg := Atail(HDialog():aModalDialogs) ) == NIL
+      IF (oDlg := Atail(HDialog():aModalDialogs)) == NIL
          RETURN NIL
       ENDIF
    ELSE
@@ -630,11 +591,12 @@ FUNCTION hwg_EndDialog(handle)
       ENDIF
    ENDIF
 
-   RETURN  Iif(oDlg:lModal, Hwg__EndDialog(oDlg:handle), hwg_Destroywindow(oDlg:handle))
+   RETURN Iif(oDlg:lModal, Hwg__EndDialog(oDlg:handle), hwg_Destroywindow(oDlg:handle))
 
 FUNCTION hwg_SetDlgKey(oDlg, nctrl, nkey, block, lGlobal)
 
-   LOCAL i, aKeys
+   LOCAL i
+   LOCAL aKeys
 
    IF oDlg == NIL
       oDlg := HCustomWindow():oDefaultParent
@@ -653,15 +615,14 @@ FUNCTION hwg_SetDlgKey(oDlg, nctrl, nkey, block, lGlobal)
    ENDIF
 
    IF block == NIL
-
-      IF ( i := Ascan(aKeys, {|a|a[1] == nctrl .AND. a[2] == nkey}) ) == 0
+      IF (i := Ascan(aKeys, {|a|a[1] == nctrl .AND. a[2] == nkey})) == 0
          RETURN .F.
       ELSE
          ADel(aKeys, i)
          ASize(aKeys, Len(aKeys) - 1)
       ENDIF
    ELSE
-      IF ( i := Ascan(aKeys, {|a|a[1] == nctrl .AND. a[2] == nkey}) ) == 0
+      IF (i := Ascan(aKeys, {|a|a[1] == nctrl .AND. a[2] == nkey})) == 0
          AAdd(aKeys, {nctrl, nkey, block})
       ELSE
          aKeys[i, 3] := block
@@ -679,4 +640,4 @@ STATIC FUNCTION onSysCommand(oDlg, wParam)
       ENDIF
    ENDIF
 
-   RETURN - 1
+   RETURN -1
