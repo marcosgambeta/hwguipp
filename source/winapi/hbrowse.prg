@@ -339,7 +339,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBrowse
    // hwg_WriteLog("Brw: " + Str(msg, 6) + " " + Str(hwg_PtrToUlong(wParam), 10)  +" " + Str(hwg_PtrToUlong(lParam), 10))
    IF ::active .AND. !Empty(::aColumns)
 
-      IF ::bOther != NIL
+      IF HB_ISBLOCK(::bOther)
          Eval(::bOther, Self, msg, wParam, lParam)
       ENDIF
 
@@ -358,13 +358,13 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBrowse
          EXIT
 
       CASE WM_SETFOCUS
-         IF ::bGetFocus != NIL
+         IF HB_ISBLOCK(::bGetFocus)
             Eval(::bGetFocus, Self)
          ENDIF
          EXIT
 
       CASE WM_KILLFOCUS
-         IF ::bLostFocus != NIL
+         IF HB_ISBLOCK(::bLostFocus)
             Eval(::bLostFocus, Self)
          ENDIF
          EXIT
@@ -401,7 +401,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBrowse
 
       CASE WM_KEYDOWN
          wParam := hwg_PtrToUlong(wParam)
-         IF ::bKeyDown != NIL
+         IF HB_ISBLOCK(::bKeyDown)
             IF !Eval(::bKeyDown, Self, wParam)
                RETURN 1
             ENDIF
@@ -926,7 +926,7 @@ METHOD Paint(lLostFocus) CLASS HBrowse
    tmp := Eval(::bRecno, Self)
    IF ::recCurr != tmp
       ::recCurr := tmp
-      IF ::bPosChanged != NIL
+      IF HB_ISBLOCK(::bPosChanged)
          Eval(::bPosChanged, Self, ::nCurrent)
       ENDIF
    ENDIF
@@ -1204,7 +1204,7 @@ METHOD LineOut(nstroka, vybfld, hDC, lSelected, lClear) CLASS HBrowse
       lClear := .F.
    ENDIF
 
-   IF ::bLineOut != NIL
+   IF HB_ISBLOCK(::bLineOut)
       Eval(::bLineOut, Self, lSelected)
    ENDIF
    IF ::nRecords > 0
@@ -1410,12 +1410,12 @@ METHOD DoVScroll(wParam) CLASS HBrowse
       ::PAGEUP()
       EXIT
    CASE SB_THUMBPOSITION
-      IF ::bScrollPos != NIL
+      IF HB_ISBLOCK(::bScrollPos)
          Eval(::bScrollPos, Self, SB_THUMBPOSITION, .F., hwg_Hiword(wParam))
       ENDIF
       EXIT
    CASE SB_THUMBTRACK
-      IF ::bScrollPos != NIL
+      IF HB_ISBLOCK(::bScrollPos)
          Eval(::bScrollPos, Self, SB_THUMBTRACK, .F., hwg_Hiword(wParam))
       ENDIF
       EXIT
@@ -1465,13 +1465,13 @@ METHOD DoHScroll(wParam) CLASS HBrowse
       ENDDO
       EXIT
    CASE SB_THUMBPOSITION
-      IF ::bHScrollPos != NIL
+      IF HB_ISBLOCK(::bHScrollPos)
          Eval(::bHScrollPos, Self, SB_THUMBPOSITION, .F., hwg_Hiword(wParam))
          lMoveThumb := .F.
       ENDIF
       EXIT
    CASE SB_THUMBTRACK
-      IF ::bHScrollPos != NIL
+      IF HB_ISBLOCK(::bHScrollPos)
          Eval(::bHScrollPos, Self, SB_THUMBTRACK, .F., hwg_Hiword(wParam))
          lMoveThumb := .F.
       ENDIF
@@ -1558,7 +1558,7 @@ METHOD LINEDOWN(lMouse) CLASS HBrowse
       ::colPos := ::nLeftCol := colpos
    ENDIF
 
-   IF ::bScrollPos != NIL
+   IF HB_ISBLOCK(::bScrollPos)
       Eval(::bScrollPos, Self, 1, .F.)
    ELSEIF ::nRecords > 1
       hwg_Getscrollrange(::handle, SB_VERT, @minPos, @maxPos)
@@ -1602,7 +1602,7 @@ METHOD LINEUP() CLASS HBrowse
          hwg_Invalidaterect(::handle, 0, ::x1, ::y1 + (::height + 1) * ::rowPos - ::height, ::x2, ::y1 + (::height + 1) * ::rowPos)
       ENDIF
 
-      IF ::bScrollPos != NIL
+      IF HB_ISBLOCK(::bScrollPos)
          Eval(::bScrollPos, Self, -1, .F.)
       ELSEIF ::nRecords > 1
          hwg_Getscrollrange(::handle, SB_VERT, @minPos, @maxPos)
@@ -1638,7 +1638,7 @@ METHOD PAGEUP() CLASS HBrowse
       ENDIF
    ENDIF
 
-   IF ::bScrollPos != NIL
+   IF HB_ISBLOCK(::bScrollPos)
       Eval(::bScrollPos, Self, -step, lBof)
    ELSEIF ::nRecords > 1
       hwg_Getscrollrange(::handle, SB_VERT, @minPos, @maxPos)
@@ -1663,7 +1663,7 @@ METHOD PAGEDOWN() CLASS HBrowse
    Eval(::bSkip, Self, step)
    ::rowPos := Min(::nRecords, nRows)
 
-   IF ::bScrollPos != NIL
+   IF HB_ISBLOCK(::bScrollPos)
       Eval(::bScrollPos, Self, step, Eval(::bEof, Self))
    ELSE
       hwg_Getscrollrange(::handle, SB_VERT, @minPos, @maxPos)
@@ -1764,7 +1764,7 @@ METHOD ButtonDown(lParam) CLASS HBrowse
          Eval(::bSkip, Self, step)
          IF !Eval(::bEof, Self)
             ::rowPos := nLine
-            IF ::bScrollPos != NIL
+            IF HB_ISBLOCK(::bScrollPos)
                Eval(::bScrollPos, Self, step, .F.)
             ELSEIF ::nRecords > 1
                hwg_Getscrollrange(hBrw, SB_VERT, @minPos, @maxPos)
@@ -2037,6 +2037,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
       IF type != "O"
          IF oColumn:bWhen = NIL .OR. Eval(oColumn:bWhen)
             IF ::lAppMode
+               // TODO: SWITCH
                IF type == "D"
                   ::varbuf := CToD("")
                ELSEIF type == "N"

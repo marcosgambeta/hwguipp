@@ -181,7 +181,7 @@ METHOD DrawItems(hDC, aCoors) CLASS HPanel
 METHOD Paint() CLASS HPanel
    LOCAL pps, hDC, aCoors, block, oPenLight, oPenGray
 
-   IF ::bPaint != NIL
+   IF HB_ISBLOCK(::bPaint)
       RETURN Eval(::bPaint, Self)
    ENDIF
 
@@ -413,7 +413,7 @@ METHOD PaintText(hDC) CLASS HPanelStS
 METHOD Paint() CLASS HPanelStS
    LOCAL pps, hDC, block, aCoors
 
-   IF ::bPaint != NIL
+   IF HB_ISBLOCK(::bPaint)
       RETURN Eval(::bPaint, Self)
    ENDIF
 
@@ -567,7 +567,7 @@ METHOD PaintText(hDC) CLASS HPanelHea
 METHOD Paint() CLASS HPanelHea
    LOCAL pps, hDC, block, aCoors, i
 
-   IF ::bPaint != NIL
+   IF HB_ISBLOCK(::bPaint)
       RETURN Eval(::bPaint, Self)
    ENDIF
 

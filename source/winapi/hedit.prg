@@ -153,7 +153,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
    // Not used variables
    // nctrl, cKeyb
 
-   IF ::bOther != NIL .AND. ( nPos := Eval(::bOther, Self, msg, wParam, lParam) ) != - 1
+   IF HB_ISBLOCK(::bOther) .AND. ( nPos := Eval(::bOther, Self, msg, wParam, lParam) ) != - 1
       RETURN nPos
    ENDIF
    wParam := hwg_PtrToUlong(wParam)
@@ -188,7 +188,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
             RETURN GetApplyKey(Self, hwg_Chr(wParam))
 
          CASE WM_KEYDOWN
-            IF ::bKeyDown != NIL .AND. ( nPos := Eval(::bKeyDown, Self, wParam, lParam) ) != -1
+            IF HB_ISBLOCK(::bKeyDown) .AND. ( nPos := Eval(::bKeyDown, Self, wParam, lParam) ) != -1
                RETURN nPos
             ENDIF
             SWITCH wParam
@@ -308,7 +308,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
          /* Added by Sauli */
       ELSE
          IF msg == WM_KEYDOWN
-            IF ::bKeyDown != NIL .AND. ( nPos := Eval(::bKeyDown, Self, wParam, lParam) ) != -1
+            IF HB_ISBLOCK(::bKeyDown) .AND. ( nPos := Eval(::bKeyDown, Self, wParam, lParam) ) != -1
                RETURN nPos
             ENDIF
 
@@ -331,7 +331,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
       ENDIF
       //******  Tab  MULTILINE - Paulo Flecha
       IF msg == WM_KEYDOWN
-         IF ::bKeyDown != NIL .AND. ( nPos := Eval(::bKeyDown, Self, wParam, lParam) ) != -1
+         IF HB_ISBLOCK(::bKeyDown) .AND. ( nPos := Eval(::bKeyDown, Self, wParam, lParam) ) != -1
             RETURN nPos
          ENDIF
          IF wParam == VK_ESCAPE .AND. !__ObjHasMsg(::oParent, "GETLIST")
@@ -358,7 +358,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
    SWITCH msg
    CASE WM_KEYUP
    CASE WM_SYSKEYUP
-      IF ::bKeyUp != NIL .AND. ( nPos := Eval(::bKeyUp, Self, msg, wParam, lParam) ) != -1
+      IF HB_ISBLOCK(::bKeyUp) .AND. ( nPos := Eval(::bKeyUp, Self, msg, wParam, lParam) ) != -1
          RETURN nPos
       ENDIF
       EXIT
@@ -375,7 +375,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
       IF lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
          ::aColorOld[1] := ::tcolor
          ::aColorOld[2] := ::bcolor
-         IF ::bColorBlock != NIL
+         IF HB_ISBLOCK(::bColorBlock)
             Eval(::bColorBlock, Self)
          ELSE
             ::Setcolor(Iif(oParent:tColorinFocus >= 0, oParent:tColorinFocus, tColorinFocus), Iif(oParent:bColorinFocus >= 0, oParent:bColorinFocus, bColorinFocus), .T.)
@@ -428,7 +428,7 @@ METHOD Refresh()  CLASS HEdit
 
    LOCAL vari
 
-   IF hb_isBlock(::bSetGet)
+   IF HB_ISBLOCK(::bSetGet)
       vari := Eval(::bSetGet, NIL, self)
       IF vari == NIL
          vari := ""
@@ -444,7 +444,7 @@ METHOD Refresh()  CLASS HEdit
    ELSE
       hwg_Setdlgitemtext(::oParent:handle, ::id, ::title)
    ENDIF
-   IF ::bColorBlock != NIL .AND. hwg_Isptreq(::handle, hwg_Getfocus())
+   IF HB_ISBLOCK(::bColorBlock) .AND. hwg_Isptreq(::handle, hwg_Getfocus())
       Eval(::bColorBlock, Self)
    ENDIF
 
@@ -461,7 +461,7 @@ METHOD Value(xValue) CLASS HEdit
          ::title := xValue
       ENDIF
       hwg_Setwindowtext(::handle, ::title)
-      IF ::bSetGet != NIL
+      IF HB_ISBLOCK(::bSetGet)
          Eval(::bSetGet, xValue, Self)
       ENDIF
       RETURN xValue
@@ -899,7 +899,7 @@ STATIC FUNCTION __When(oCtrl)
 
    oCtrl:Refresh()
    oCtrl:lFirst := .T.
-   IF oCtrl:bGetFocus != NIL
+   IF HB_ISBLOCK(oCtrl:bGetFocus)
       res := Eval(oCtrl:bGetFocus, oCtrl:title, oCtrl)
       IF !res
          hwg_GetSkip(oCtrl:oParent, oCtrl:handle, 1)
@@ -921,7 +921,7 @@ STATIC FUNCTION __valid(oCtrl)
    LOCAL oDlg
    LOCAL nLen
 
-   IF oCtrl:bSetGet != NIL
+   IF HB_ISBLOCK(oCtrl:bSetGet)
       IF ( oDlg := hwg_getParentForm(oCtrl) ) == NIL .OR. oDlg:nLastKey != 27
          vari := UnTransform(oCtrl, hwg_Getedittext(oCtrl:oParent:handle, oCtrl:id))
          oCtrl:title := vari
@@ -949,7 +949,7 @@ STATIC FUNCTION __valid(oCtrl)
          IF oDlg != NIL
             oDlg:nLastKey := 27
          ENDIF
-         IF oCtrl:bLostFocus != NIL .AND. !Eval(oCtrl:bLostFocus, vari, oCtrl)
+         IF HB_ISBLOCK(oCtrl:bLostFocus) .AND. !Eval(oCtrl:bLostFocus, vari, oCtrl)
             hwg_Setfocus(oCtrl:handle)
             IF oDlg != NIL
                oDlg:nLastKey := 0

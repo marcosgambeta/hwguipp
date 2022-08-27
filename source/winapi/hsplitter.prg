@@ -91,7 +91,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HSplitter
       hwg_Releasecapture()
       ::DragAll()
       ::lCaptured := .F.
-      IF ::bEndDrag != NIL
+      IF HB_ISBLOCK(::bEndDrag)
          Eval(::bEndDrag, Self)
       ENDIF
    ELSEIF msg == WM_DESTROY
@@ -114,7 +114,7 @@ METHOD Init() CLASS HSplitter
 METHOD Paint() CLASS HSplitter
    LOCAL pps, hDC, aCoors, x1, y1, x2, y2
 
-   IF ::bPaint != NIL
+   IF HB_ISBLOCK(::bPaint)
       Eval(::bPaint, Self)
    ELSE
       pps := hwg_Definepaintstru()

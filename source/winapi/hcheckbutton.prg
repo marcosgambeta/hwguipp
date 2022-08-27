@@ -106,7 +106,7 @@ METHOD Refresh() CLASS HCheckButton
 
    LOCAL var
 
-   IF ::bSetGet != NIL
+   IF HB_ISBLOCK(::bSetGet)
       var := Eval(::bSetGet, NIL, NIL)
       ::lValue := iif(var == NIL, .F., var)
    ENDIF
@@ -136,7 +136,7 @@ METHOD Value(lValue) CLASS HCheckButton
          lValue := .F.
       ENDIF
       hwg_Sendmessage(::handle, BM_SETCHECK, iif(lValue, 1, 0), 0)
-      IF ::bSetGet != NIL
+      IF HB_ISBLOCK(::bSetGet)
          Eval(::bSetGet, lValue, Self)
       ENDIF
       RETURN (::lValue := lValue)
@@ -156,10 +156,10 @@ STATIC FUNCTION __Valid(oCtrl)
       oCtrl:lValue := (l == 1)
    ENDIF
 
-   IF oCtrl:bSetGet != NIL
+   IF HB_ISBLOCK(oCtrl:bSetGet)
       Eval(oCtrl:bSetGet, oCtrl:lValue, oCtrl)
    ENDIF
-   IF oCtrl:bClick != NIL .AND. !Eval(oCtrl:bClick, oCtrl, oCtrl:lValue)
+   IF HB_ISBLOCK(oCtrl:bClick) .AND. !Eval(oCtrl:bClick, oCtrl, oCtrl:lValue)
       hwg_Setfocus(oCtrl:handle)
    ENDIF
 
@@ -171,7 +171,7 @@ STATIC FUNCTION __When(oCtrl)
 
    oCtrl:Refresh()
 
-   IF oCtrl:bGetFocus != NIL
+   IF HB_ISBLOCK(oCtrl:bGetFocus)
       res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, NIL, oCtrl), oCtrl)
       IF !res
          hwg_GetSkip(oCtrl:oParent, oCtrl:handle, 1)

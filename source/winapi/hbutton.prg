@@ -72,7 +72,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, 
    ::bClick := bClick
    ::title := cCaption
 
-   IF bClick != NIL
+   IF HB_ISBLOCK(bClick)
       ::oParent:AddEvent(0, ::id, {|o, id|onClick(o, id)})
    ENDIF
 
@@ -91,7 +91,7 @@ STATIC FUNCTION onClick(oParent, id)
 
    LOCAL oCtrl := oParent:FindControl(id)
 
-   IF !Empty(oCtrl) .AND. !Empty(oCtrl:bClick)
+   IF !Empty(oCtrl) .AND. HB_ISBLOCK(oCtrl:bClick)
       Eval(oCtrl:bClick, oCtrl)
    ENDIF
 

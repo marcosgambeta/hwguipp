@@ -107,7 +107,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HRichEdit
 
    LOCAL nDelta
 
-   IF ::bOther != NIL
+   IF HB_ISBLOCK(::bOther)
       nDelta := Eval(::bOther, Self, msg, wParam, lParam)
       IF ValType(nDelta) != "N" .OR. nDelta > - 1
          RETURN nDelta
@@ -193,7 +193,7 @@ METHOD UpdatePos() CLASS HRichEdit
 
 METHOD onChange() CLASS HRichEdit
 
-   IF ::bChange != NIL
+   IF HB_ISBLOCK(::bChange)
       Eval(::bChange, ::gettext(), Self)
    ENDIF
 

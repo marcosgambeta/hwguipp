@@ -126,7 +126,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HOwnButton
       IF ::state == OBTN_INIT
          ::state := OBTN_NORMAL
       ENDIF
-      IF ::bPaint != NIL
+      IF HB_ISBLOCK(::bPaint)
          Eval(::bPaint, Self)
       ELSE
          ::Paint()
@@ -144,7 +144,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HOwnButton
 
    ELSEIF msg == WM_LBUTTONDBLCLK
       /* Asmith 2017-06-06 workaround for touch terminals */
-      IF ::bClick != NIL .AND. Empty(::oTimer)
+      IF HB_ISBLOCK(::bClick) .AND. Empty(::oTimer)
          Eval(::bClick, Self, 0)
       ENDIF
 
@@ -157,16 +157,16 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HOwnButton
    ELSEIF msg == WM_DESTROY
       ::End()
    ELSEIF msg == WM_SETFOCUS
-      IF !Empty(::bGetfocus)
+      IF HB_ISBLOCK(::bGetfocus)
          Eval(::bGetfocus, Self, msg, wParam, lParam)
       ENDIF
    ELSEIF msg == WM_KILLFOCUS
       ::release()
-      IF !Empty(::bLostfocus)
+      IF HB_ISBLOCK(::bLostfocus)
          Eval(::bLostfocus, Self, msg, wParam, lParam)
       ENDIF
    ELSE
-      IF !Empty(::bOther)
+      IF HB_ISBLOCK(::bOther)
          Eval(::bOther, Self, msg, wParam, lParam)
       ENDIF
    ENDIF
@@ -391,7 +391,7 @@ METHOD MUp() CLASS HOwnButton
          ::oTimer:End()
          ::oTimer := NIL
       ELSE
-         IF ::bClick != NIL
+         IF HB_ISBLOCK(::bClick)
             hwg_Releasecapture()
             Eval(::bClick, Self)
          ENDIF
@@ -462,7 +462,7 @@ METHOD Disable() CLASS HOwnButton
 
 STATIC FUNCTION OwnBtnTimerProc(oBtn, nType)
 
-   IF oBtn:bClick != NIL
+   IF HB_ISBLOCK(oBtn:bClick)
       Eval(oBtn:bClick, oBtn, nType)
    ENDIF
 

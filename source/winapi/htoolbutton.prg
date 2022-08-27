@@ -75,7 +75,7 @@ METHOD Caption(cText)  CLASS HToolButton
 
 METHOD onClick()  CLASS HToolButton
 
-   IF ::bClick != NIL
+   IF HB_ISBLOCK(::bClick)
       Eval(::bClick, self, ::id)
    ENDIF
 

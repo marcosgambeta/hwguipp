@@ -143,7 +143,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HLenta
          IF ::nSelected != ::nOver .AND. ::nOver != 0
             ::nSelected := ::nOver
             lRedraw := .T.
-            IF !Empty(::bClick)
+            IF HB_ISBLOCK(::bClick)
                Eval(::bClick, Self, ::nSelected)
             ENDIF
          ENDIF
@@ -173,7 +173,7 @@ METHOD Paint() CLASS HLenta
    LOCAL aItemStyle := ::aItemStyle
    LOCAL lStyleOver := ( Len(aItemStyle)>2.AND.aItemStyle[3]!=NIL ), lStyleSele := ( Len(aItemStyle)>1.AND.aItemStyle[2]!=NIL )
 
-   IF ::bPaint != NIL
+   IF HB_ISBLOCK(::bPaint)
       Eval(::bPaint, Self, hDC)
    ELSE
 

@@ -188,7 +188,7 @@ METHOD CREATETOOL() CLASS hToolBar
    ENDIF
 
    FOR n := 1 TO Len(::aItem)
-      IF ValType(::aItem[n, 7]) == "B"
+      IF HB_ISBLOCK(::aItem[n, 7])
          //::oParent:AddEvent(BN_CLICKED, ::aItem[n, 2], ::aItem[n, 7])
       ENDIF
       IF ValType(::aItem[n, 9]) == "A"
@@ -298,7 +298,7 @@ METHOD Notify(lParam) CLASS hToolBar
    ELSEIF nCode == NM_CLICK
       nId := hwg_Toolbar_idclick(lParam)
       nPos := AScan(::aItem, {|x|x[2] == nId})
-      IF nPos > 0 .AND. ::aItem[nPos, 7] != NIL
+      IF nPos > 0 .AND. HB_ISBLOCK(::aItem[nPos, 7])
          Eval(::aItem[nPos, 7], ::aItem[nPos, 11], nId)
       ENDIF
    ENDIF

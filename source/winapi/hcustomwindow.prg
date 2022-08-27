@@ -137,7 +137,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
 
    SWITCH msg
    CASE WM_NOTIFY         ; RETURN onNotify(Self, wParam, lParam)
-   CASE WM_PAINT          ; RETURN iif(::bPaint != NIL, Eval(::bPaint, Self, wParam), -1)
+   CASE WM_PAINT          ; RETURN iif(HB_ISBLOCK(::bPaint), Eval(::bPaint, Self, wParam), -1)
    CASE WM_CTLCOLORSTATIC ; RETURN onCtlColor(Self, wParam, lParam)
    CASE WM_CTLCOLOREDIT   ; RETURN onCtlColor(Self, wParam, lParam)
    CASE WM_CTLCOLORBTN    ; RETURN onCtlColor(Self, wParam, lParam)
@@ -146,7 +146,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
    CASE WM_SIZE           ; RETURN onSize(Self, wParam, lParam)
    CASE WM_DESTROY        ; RETURN onDestroy(Self)
    OTHERWISE
-      IF ::bOther != NIL
+      IF HB_ISBLOCK(::bOther)
          RETURN Eval(::bOther, Self, msg, wParam, lParam)
       ENDIF
    ENDSWITCH
@@ -279,7 +279,7 @@ STATIC FUNCTION onDrawItem(oWnd, wParam, lParam)
    LOCAL oCtrl
 
    wParam := hwg_PtrToUlong(wParam)
-   IF wParam != 0 .AND. (oCtrl := oWnd:FindControl(wParam)) != NIL .AND. oCtrl:bPaint != NIL
+   IF wParam != 0 .AND. (oCtrl := oWnd:FindControl(wParam)) != NIL .AND. HB_ISBLOCK(oCtrl:bPaint)
       Eval(oCtrl:bPaint, oCtrl, lParam)
       RETURN 1
    ENDIF
@@ -308,7 +308,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
    HB_SYMBOL_UNUSED(wParam)
 
    FOR EACH oItem IN aControls
-      IF oItem:bSize != NIL
+      IF HB_ISBLOCK(oItem:bSize)
          //  { |o, w, l| onSize(o, w, l) }
          Eval(oItem:bSize, oItem, hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF

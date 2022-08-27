@@ -141,7 +141,7 @@ METHOD Init() CLASS HListBox
 METHOD onEvent(msg, wParam, lParam) CLASS HListBox
  Local nEval
 
-   IF ::bOther != NIL
+   IF HB_ISBLOCK(::bOther)
       IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != -1 .AND. nEval != NIL
          RETURN 0
       ENDIF
@@ -151,7 +151,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HListBox
       IF wParam = VK_TAB //.AND. nType < WND_DLG_RESOURCE
          hwg_GetSkip(::oParent, ::handle, NIL, iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
       ENDIF
-         IF ::bKeyDown != NIL .AND. ValType(::bKeyDown) == "B"
+      IF HB_ISBLOCK(::bKeyDown)
          nEval := Eval(::bKeyDown, Self, wParam)
          IF (VALTYPE(nEval) == "L" .AND. !nEval ) .OR. ( nEval != -1 .AND. nEval != NIL )
             RETURN 0
@@ -176,7 +176,7 @@ METHOD Requery() CLASS HListBox
 
 METHOD Refresh() CLASS HListBox
    LOCAL vari
-   IF ::bSetGet != NIL
+   IF HB_ISBLOCK(::bSetGet)
       vari := Eval(::bSetGet)
    ENDIF
 
@@ -188,17 +188,17 @@ METHOD SetItem(nPos) CLASS HListBox
    ::value := nPos
    hwg_Sendmessage(::handle, LB_SETCURSEL, nPos - 1, 0)
 
-   IF ::bSetGet != NIL
+   IF HB_ISBLOCK(::bSetGet)
       Eval(::bSetGet, ::value)
    ENDIF
 
-   IF ::bChangeSel != NIL
+   IF HB_ISBLOCK(::bChangeSel)
       Eval(::bChangeSel, ::value, Self)
    ENDIF
    RETURN NIL
 
 METHOD onDblClick()  CLASS HListBox
-  IF ::bDblClick != NIL
+   IF HB_ISBLOCK(::bDblClick)
       Eval(::bDblClick, self, ::value)
    ENDIF
    RETURN NIL
@@ -216,7 +216,7 @@ METHOD DeleteItem(nPos) CLASS HListBox
       ADel(::Aitems, nPos)
       ASize(::Aitems, Len(::aitems) - 1)
       ::value := Min(Len(::aitems), ::value)
-      IF ::bSetGet != NIL
+      IF HB_ISBLOCK(::bSetGet)
          Eval(::bSetGet, ::value, Self)
       ENDIF
       RETURN .T.
@@ -254,10 +254,10 @@ METHOD When(oCtrl) CLASS HListBox
 //    Warning W0027  Meaningless use of expression "Numeric"
 //   IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
 
-   IF ::bSetGet != NIL
+   IF HB_ISBLOCK(::bSetGet)
       Eval(::bSetGet, ::value, Self)
    ENDIF
-   IF ::bGetFocus != NIL
+   IF HB_ISBLOCK(::bGetFocus)
       res := Eval(::bGetFocus, ::Value, Self)
       ::Setfocus()      
    ENDIF
@@ -271,13 +271,13 @@ METHOD Valid(oCtrl) CLASS HListBox
 
    IF ( oDlg := hwg_GetParentForm(Self) ) == NIL .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
-      IF ::bSetGet != NIL
+      IF HB_ISBLOCK(::bSetGet)
          Eval(::bSetGet, ::value, Self)
       ENDIF
       IF oDlg != NIL
          oDlg:nLastKey := 27
       ENDIF
-      IF ::bLostFocus != NIL
+      IF HB_ISBLOCK(::bLostFocus)
          res := Eval(::bLostFocus, ::value, Self)
          IF !res
             ::Setfocus(.T.) // (::handle)

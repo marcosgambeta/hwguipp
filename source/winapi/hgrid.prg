@@ -190,12 +190,12 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam)
 
    SWITCH nCode
    CASE LVN_KEYDOWN
-      IF oCtrl:bKeydown != NIL
+      IF HB_ISBLOCK(oCtrl:bKeydown)
          Eval(oCtrl:bKeyDown, oCtrl, hwg_Listview_getgridkey(lParam))
       ENDIF
       EXIT
    CASE NM_DBLCLK
-      IF oCtrl:bEnter != NIL
+      IF HB_ISBLOCK(oCtrl:bEnter)
          aCord := hwg_Listview_hittest(oCtrl:handle, hwg_GetCursorPos()[2] - hwg_GetWindowRect(oCtrl:handle)[2], hwg_GetCursorPos()[1] - hwg_GetWindowRect(oCtrl:handle)[1])
          oCtrl:nRow := aCord[1]
          oCtrl:nCol := aCord[2]
@@ -203,23 +203,23 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam)
       ENDIF
       EXIT
    CASE NM_SETFOCUS
-      IF oCtrl:bGfocus != NIL
+      IF HB_ISBLOCK(oCtrl:bGfocus)
          Eval(oCtrl:bGfocus, oCtrl)
       ENDIF
       EXIT
    CASE NM_KILLFOCUS
-      IF oCtrl:bLfocus != NIL
+      IF HB_ISBLOCK(oCtrl:bLfocus)
          Eval(oCtrl:bLfocus, oCtrl)
       ENDIF
       EXIT
    CASE LVN_ITEMCHANGED
       oCtrl:nRow := oCtrl:Row()
-      IF oCtrl:bPosChg != NIL
+      IF HB_ISBLOCK(oCtrl:bPosChg)
          Eval(oCtrl:bPosChg, oCtrl, hwg_Listview_getfirstitem(oCtrl:handle))
       ENDIF
       EXIT
    CASE LVN_GETDISPINFO
-      IF oCtrl:bDispInfo != NIL
+      IF HB_ISBLOCK(oCtrl:bDispInfo)
          aCord := hwg_Listview_getdispinfo(lParam)
          oCtrl:nRow := aCord[1]
          oCtrl:nCol := aCord[2]

@@ -230,7 +230,7 @@ METHOD MUp() CLASS HNICEButton
       IF !::lFlat
          hwg_SetNiceBtnSelected(NIL)
       ENDIF
-      IF ::bClick != NIL
+      IF HB_ISBLOCK(::bClick)
          Eval(::bClick, ::oParent, ::id)
       ENDIF
    ENDIF

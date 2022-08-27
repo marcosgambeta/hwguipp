@@ -72,7 +72,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       ::xValue := iif(vari == NIL .OR. ValType(vari) != "N", 1, vari)
    ENDIF
 
-   IF bSetGet != NIL
+   IF HB_ISBLOCK(bSetGet)
       ::bSetGet := bSetGet
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
@@ -183,7 +183,7 @@ METHOD Refresh(xVal) CLASS HComboBox
    IF !Empty(::aItems)
       IF xVal != NIL
          ::xValue := xVal
-      ELSEIF ::bSetGet != NIL
+      ELSEIF HB_ISBLOCK(::bSetGet)
          vari := Eval(::bSetGet, NIL, Self)
          IF ::lText
             ::xValue := iif(vari == NIL .OR. ValType(vari) != "C", "", Trim(vari))
@@ -223,11 +223,11 @@ METHOD SetItem(nPos) CLASS HComboBox
 
    hwg_Sendmessage(::handle, CB_SETCURSEL, nPos - 1, 0)
 
-   IF ::bSetGet != NIL
+   IF HB_ISBLOCK(::bSetGet)
       Eval(::bSetGet, ::xValue, self)
    ENDIF
 
-   IF ::bChangeSel != NIL
+   IF HB_ISBLOCK(::bChangeSel)
       Eval(::bChangeSel, nPos, Self)
    ENDIF
 
@@ -247,7 +247,7 @@ METHOD GetValue(nItem) CLASS HComboBox
          ::xValue := Iif(::lText, Iif(l, ::aItems[nPos, 1], ::aItems[nPos]), nPos)
       ENDIF
    ENDIF
-   IF ::bSetGet != NIL
+   IF HB_ISBLOCK(::bSetGet)
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
 
@@ -293,15 +293,15 @@ STATIC FUNCTION __Valid(oCtrl)
          ELSE
             oCtrl:xValue := iif(oCtrl:lText, iif(ValType(oCtrl:aItems[nPos]) == "A", oCtrl:aItems[nPos, 1], oCtrl:aItems[nPos]), nPos)
          ENDIF
-         IF oCtrl:bSetGet != NIL
+         IF HB_ISBLOCK(oCtrl:bSetGet)
             Eval(oCtrl:bSetGet, oCtrl:xValue, oCtrl)
          ENDIF
-         IF oCtrl:bChangeSel != NIL
+         IF HB_ISBLOCK(oCtrl:bChangeSel)
             Eval(oCtrl:bChangeSel, nPos, oCtrl)
          ENDIF
       ENDIF
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com.br) 03/06/2006
-      IF oCtrl:bValid != NIL
+      IF HB_ISBLOCK(oCtrl:bValid)
          IF !Eval(oCtrl:bValid, oCtrl)
             hwg_Setfocus(oCtrl:handle)
             RETURN .F.
@@ -317,7 +317,7 @@ STATIC FUNCTION __When(oCtrl)
 
    //oCtrl:Refresh()
 
-   IF oCtrl:bGetFocus != NIL
+   IF HB_ISBLOCK(oCtrl:bGetFocus)
       IF oCtrl:bSetGet == NIL
          res := Eval(oCtrl:bGetFocus, oCtrl:xValue, oCtrl)
       ELSE

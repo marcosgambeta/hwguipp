@@ -83,7 +83,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
 LOCAL aCoors
 
    IF msg == WM_PAINT
-      IF ::bPaint != NIL
+      IF HB_ISBLOCK(::bPaint)
          Eval(::bPaint, Self)
          RETURN 0
       ENDIF
@@ -103,7 +103,7 @@ LOCAL aCoors
    ELSEIF msg == WM_DESTROY
       ::End()
 
-   ELSEIF ::bOther != NIL
+   ELSEIF HB_ISBLOCK(::bOther)
       RETURN Eval(::bOther, Self, msg, wParam, lParam)
 
    ENDIF

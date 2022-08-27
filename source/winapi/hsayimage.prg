@@ -58,7 +58,7 @@ METHOD Activate() CLASS HSayImage
 
 METHOD onClick()  CLASS HSayImage
 
-   IF ::bClick != NIL
+   IF HB_ISBLOCK(::bClick)
       Eval(::bClick, Self)
    ENDIF
 
@@ -66,7 +66,7 @@ METHOD onClick()  CLASS HSayImage
 
 METHOD onDblClick()  CLASS HSayImage
 
-   IF ::bDblClick != NIL
+   IF HB_ISBLOCK(::bDblClick)
       Eval(::bDblClick, Self)
    ENDIF
 

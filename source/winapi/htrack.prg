@@ -104,7 +104,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrack
    CASE WM_LBUTTONUP
       ::lCaptured := .F.
       hwg_Releasecapture()
-      IF ::bEndDrag != NIL
+      IF HB_ISBLOCK(::bEndDrag)
          Eval(::bEndDrag, Self)
       ENDIF
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
@@ -140,7 +140,7 @@ METHOD Paint() CLASS HTrack
       ::oPen2 := HPen():Add(PS_SOLID, 1, ::tColor2)
    ENDIF
 
-   IF ::bPaint != NIL
+   IF HB_ISBLOCK(::bPaint)
       Eval(::bPaint, Self, hDC)
    ELSE
 
@@ -217,7 +217,7 @@ METHOD Drag(xPos, yPos) CLASS HTrack
       ::nCurr := Min(Max(::nFrom, xPos), ::nTo)
    ENDIF
    hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
-   IF nCurr != ::nCurr .AND. ::bChange != NIL
+   IF nCurr != ::nCurr .AND. HB_ISBLOCK(::bChange)
       Eval(::bChange, Self, ::Value)
    ENDIF
 

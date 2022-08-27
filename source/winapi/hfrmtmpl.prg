@@ -452,7 +452,7 @@ METHOD Show(nMode, p1, p2, p3) CLASS HFormTmpl
    ::oDlg:Activate(Iif(nMode == NIL .OR. nMode == 2, ::lNoModal, NIL))
 
    IF !::lNoModal
-      IF ::bFormExit != NIL
+      IF HB_ISBLOCK(::bFormExit)
          xRes := Eval(::bFormExit)
       ENDIF
       ::Close()

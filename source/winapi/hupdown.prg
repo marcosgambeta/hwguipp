@@ -106,7 +106,7 @@ METHOD Value(nValue) CLASS HUpDown
       IF Valtype(nValue) == "N"
          hwg_SetUpdown(::hUpDown, nValue)
          ::nValue := nValue
-         IF ::bSetGet != NIL
+         IF HB_ISBLOCK(::bSetGet)
             Eval(::bSetGet, nValue, Self)
          ENDIF
       ENDIF
@@ -122,7 +122,7 @@ METHOD Refresh()  CLASS HUpDown
    // Variables not used
    // LOCAL vari
 
-   IF ::bSetGet != NIL
+   IF HB_ISBLOCK(::bSetGet)
       ::nValue := Eval(::bSetGet)
       IF Str(::nValue) != ::title
          ::title := Str(::nValue)
@@ -137,7 +137,7 @@ METHOD Refresh()  CLASS HUpDown
 STATIC FUNCTION __When(oCtrl)
 
    oCtrl:Refresh()
-   IF oCtrl:bGetFocus != NIL
+   IF HB_ISBLOCK(oCtrl:bGetFocus)
       RETURN Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet), oCtrl)
    ENDIF
 
@@ -146,10 +146,10 @@ STATIC FUNCTION __When(oCtrl)
 STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:nValue := oCtrl:Value
-   IF oCtrl:bSetGet != NIL
+   IF HB_ISBLOCK(oCtrl:bSetGet)
       Eval(oCtrl:bSetGet, oCtrl:nValue)
    ENDIF
-   IF oCtrl:bLostFocus != NIL .AND. !Eval(oCtrl:bLostFocus, oCtrl:nValue, oCtrl) .OR. ;
+   IF HB_ISBLOCK(oCtrl:bLostFocus) .AND. !Eval(oCtrl:bLostFocus, oCtrl:nValue, oCtrl) .OR. ;
          oCtrl:nValue > oCtrl:nUpper .OR. oCtrl:nValue < oCtrl:nLower
       hwg_Setfocus(oCtrl:handle)
    ENDIF

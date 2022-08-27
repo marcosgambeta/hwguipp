@@ -109,7 +109,7 @@ METHOD END() CLASS HIPedit
 STATIC FUNCTION __GetFocus(oCtrl)
    LOCAL xRet
 
-   IF ValType(oCtrl:bGetFocus) == "B"
+   IF HB_ISBLOCK(oCtrl:bGetFocus)
       xRet := Eval(oCtrl:bGetFocus, oCtrl)
    ENDIF
 
@@ -119,7 +119,7 @@ STATIC FUNCTION __GetFocus(oCtrl)
 STATIC FUNCTION __KillFocus(oCtrl)
    LOCAL xRet
 
-   IF ValType(oCtrl:bKillFocus) == "B"
+   IF HB_ISBLOCK(oCtrl:bKillFocus)
       xRet := Eval(oCtrl:bKillFocus, oCtrl)
    ENDIF
 

@@ -86,9 +86,9 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(lParam)
 
-   IF iParLow > 0 .AND. oDlg:bGetFocus != NIL
+   IF iParLow > 0 .AND. HB_ISBLOCK(oDlg:bGetFocus)
       Eval(oDlg:bGetFocus, oDlg)
-   ELSEIF iParLow == 0 .AND. oDlg:bLostFocus != NIL
+   ELSEIF iParLow == 0 .AND. HB_ISBLOCK(oDlg:bLostFocus)
       Eval(oDlg:bLostFocus, oDlg)
    ENDIF
 
@@ -107,7 +107,7 @@ STATIC FUNCTION onEnterIdle(oDlg, wParam, lParam)
          aRect := hwg_GetClientRect(oDlg:handle)
          oDlg:Move(NIL, NIL, oDlg:nWidth + (aCoors[3] - aCoors[1] - aRect[3]), oDlg:nHeight + (aCoors[4] - aCoors[2] - aRect[4]))
       ENDIF
-      IF oDlg:bActivate != NIL
+      IF HB_ISBLOCK(oDlg:bActivate)
          b := oDlg:bActivate
          oDlg:bActivate := NIL
          Eval(b, oDlg)
@@ -362,7 +362,7 @@ METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, 
       ENDIF
 
    ENDIF
-   IF ::bInit != NIL
+   IF HB_ISBLOCK(::bInit)
       Eval(::bInit, Self)
    ENDIF
 
@@ -538,12 +538,12 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMDIC
    ::handle := Hwg_CreateMdiChildWindow(Self)
    ::RedefineScrollbars()
 
-   IF bActivate != NIL
+   IF HB_ISBLOCK(bActivate)
       Eval(bActivate)
    ENDIF
 
    hwg_InitControls(Self)
-   IF ::bInit != NIL
+   IF HB_ISBLOCK(::bInit)
       Eval(::bInit, Self)
    ENDIF
 
@@ -645,7 +645,7 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       hwg_Msgstop("Create Main window first !", "HChildWindow():New()")
       RETURN NIL
    ENDIF
-   IF ::bInit != NIL
+   IF HB_ISBLOCK(::bInit)
       Eval(::bInit, Self)
    ENDIF
 
@@ -805,12 +805,12 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       IF hb_bitand(aMenu[1, iCont, 4], FLAG_CHECK) > 0
          hwg_Checkmenuitem(NIL, aMenu[1, iCont, 3], !hwg_Ischeckedmenuitem(NIL, aMenu[1, iCont, 3]))
       ENDIF
-      IF aMenu[1, iCont, 1] != NIL
+      IF HB_ISBLOCK(aMenu[1, iCont, 1])
          Eval(aMenu[1, iCont, 1])
       ENDIF
-   ELSEIF oWnd:oPopup != NIL .AND. (aMenu := Hwg_FindMenuItem(oWnd:oPopup:aMenu, wParam, @iCont)) != NIL .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF oWnd:oPopup != NIL .AND. (aMenu := Hwg_FindMenuItem(oWnd:oPopup:aMenu, wParam, @iCont)) != NIL .AND. HB_ISBLOCK(aMenu[1, iCont, 1])
       Eval(aMenu[1, iCont, 1])
-   ELSEIF oWnd:oNotifyMenu != NIL .AND. (aMenu := Hwg_FindMenuItem(oWnd:oNotifyMenu:aMenu, wParam, @iCont)) != NIL .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF oWnd:oNotifyMenu != NIL .AND. (aMenu := Hwg_FindMenuItem(oWnd:oNotifyMenu:aMenu, wParam, @iCont)) != NIL .AND. HB_ISBLOCK(aMenu[1, iCont, 1])
       Eval(aMenu[1, iCont, 1])
    ENDIF
 
@@ -907,7 +907,7 @@ STATIC FUNCTION onMdiCreate(oWnd, lParam)
    HB_SYMBOL_UNUSED(lParam)
 
    hwg_InitControls(oWnd)
-   IF oWnd:bInit != NIL
+   IF HB_ISBLOCK(oWnd:bInit)
       Eval(oWnd:bInit, oWnd)
    ENDIF
 
@@ -932,9 +932,9 @@ STATIC FUNCTION onMdiCommand(oWnd, wParam)
 STATIC FUNCTION onMdiNcActivate(oWnd, wParam)
 
    wParam := hwg_PtrToUlong(wParam)
-   IF wParam == 1 .AND. oWnd:bGetFocus != NIL
+   IF wParam == 1 .AND. HB_ISBLOCK(oWnd:bGetFocus)
       Eval(oWnd:bGetFocus, oWnd)
-   ELSEIF wParam == 0 .AND. oWnd:bLostFocus != NIL
+   ELSEIF wParam == 0 .AND. HB_ISBLOCK(oWnd:bLostFocus)
       Eval(oWnd:bLostFocus, oWnd)
    ENDIF
 
@@ -944,7 +944,7 @@ STATIC FUNCTION onMdiNcActivate(oWnd, wParam)
 
 STATIC FUNCTION onCloseQuery(o)
 
-   IF ValType(o:bCloseQuery) = "B"
+   IF HB_ISBLOCK(o:bCloseQuery)
       IF Eval(o:bCloseQuery)
          hwg_ReleaseAllWindows(o:handle)
       end
