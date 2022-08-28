@@ -105,10 +105,18 @@ HB_FUNC( HWG_INITMAINWINDOW )
       if( RegisterClass(&wndclass) )
       {
          nStyle = (WS_OVERLAPPEDWINDOW & ~nExcl) | nStyle;
-         hWnd = CreateWindowEx(ExStyle, lpAppName, lpTitle, nStyle, x, y,
-            (!width) ? static_cast<LONG>(CW_USEDEFAULT) : width,
-            (!height) ? static_cast<LONG>(CW_USEDEFAULT) : height,
-            nullptr, nullptr, static_cast<HINSTANCE>(hInstance), nullptr);
+         hWnd = CreateWindowEx(ExStyle,
+                               lpAppName,
+                               lpTitle,
+                               nStyle,
+                               x,
+                               y,
+                               (!width) ? static_cast<LONG>(CW_USEDEFAULT) : width,
+                               (!height) ? static_cast<LONG>(CW_USEDEFAULT) : height,
+                               nullptr,
+                               nullptr,
+                               static_cast<HINSTANCE>(hInstance),
+                               nullptr);
 
          temp = hb_itemPutNL(nullptr, 1);
          SETOBJECTVAR(pObject, "_NHOLDER", temp);
@@ -296,11 +304,18 @@ HB_FUNC( HWG_INITCHILDWINDOW )
 
    if( fRegistered )
    {
-      hWnd = CreateWindowEx(WS_EX_MDICHILD, lpAppName, lpTitle,
-            WS_OVERLAPPEDWINDOW | nStyle, x, y,
-            ( !width ) ? static_cast<LONG>(CW_USEDEFAULT) : width,
-            ( !height ) ? static_cast<LONG>(CW_USEDEFAULT) : height,
-            hParent, nullptr, static_cast<HINSTANCE>(hInstance), nullptr);
+      hWnd = CreateWindowEx(WS_EX_MDICHILD,
+                            lpAppName,
+                            lpTitle,
+                            WS_OVERLAPPEDWINDOW | nStyle,
+                            x,
+                            y,
+                            ( !width ) ? static_cast<LONG>(CW_USEDEFAULT) : width,
+                            ( !height ) ? static_cast<LONG>(CW_USEDEFAULT) : height,
+                            hParent,
+                            nullptr,
+                            static_cast<HINSTANCE>(hInstance),
+                            nullptr);
 
       temp = hb_itemPutNL(nullptr, 1);
       SETOBJECTVAR(pObject, "_NHOLDER", temp);
@@ -368,7 +383,9 @@ HB_FUNC( HWG_INITMDIWINDOW )
          // Register client window
          wc.lpfnWndProc = ( WNDPROC ) s_MDIChildWndProc;
          wc.hIcon = (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
-         wc.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? hwg_par_HBRUSH(6) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
+         // TODO: revisar linha abaixo
+         //wc.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? hwg_par_HBRUSH(6) : reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
+         wc.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
          wc.lpszMenuName = nullptr;
          wc.cbWndExtra = 0;
          wc.lpszClassName = s_szChild;
@@ -384,10 +401,17 @@ HB_FUNC( HWG_INITMDIWINDOW )
          else
          {
             // Create frame window
-            hWnd = CreateWindow(lpAppName, lpTitle, WS_OVERLAPPEDWINDOW, x, y,
-               (!width) ? static_cast<LONG>(CW_USEDEFAULT) : width,
-               (!height) ? static_cast<LONG>(CW_USEDEFAULT) : height,
-               nullptr, nullptr, static_cast<HINSTANCE>(hInstance), nullptr);
+            hWnd = CreateWindow(lpAppName,
+                                lpTitle,
+                                WS_OVERLAPPEDWINDOW,
+                                x,
+                                y,
+                                (!width) ? static_cast<LONG>(CW_USEDEFAULT) : width,
+                                (!height) ? static_cast<LONG>(CW_USEDEFAULT) : height,
+                                nullptr,
+                                nullptr,
+                                static_cast<HINSTANCE>(hInstance),
+                                nullptr);
             if( !hWnd )
             {
                hb_retni(-4);
@@ -410,22 +434,29 @@ HB_FUNC( HWG_INITMDIWINDOW )
    hb_strfree(hMenu);
 }
 
+/*
+HWG_INITCLIENTWINDOW(?, nPos, nX, nY, nWidth, nHeight) --> hWnd
+*/
 HB_FUNC( HWG_INITCLIENTWINDOW )
 {
    CLIENTCREATESTRUCT ccs;
-   HWND hWnd;
    int nPos = ( hb_pcount() > 1 && !HB_ISNIL(2) ) ? hb_parni(2) : 0;
-   int x = hb_parnl(3);
-   int y = hb_parnl(4);
-   int width = hb_parnl(5);
-   int height = hb_parnl(6);
 
    // Create client window
    ccs.hWindowMenu = GetSubMenu(GetMenu(aWindows[0]), nPos);
    ccs.idFirstChild = FIRST_MDICHILD_ID;
 
-   hWnd = CreateWindow(TEXT("MDICLIENT"), nullptr, WS_CHILD | WS_CLIPCHILDREN | MDIS_ALLCHILDSTYLES, x, y, width, height,
-      aWindows[0], nullptr, GetModuleHandle(nullptr), ( LPVOID ) &ccs);
+   HWND hWnd = CreateWindow(TEXT("MDICLIENT"),
+                            nullptr,
+                            WS_CHILD | WS_CLIPCHILDREN | MDIS_ALLCHILDSTYLES,
+                            hwg_par_int(3),
+                            hwg_par_int(4),
+                            hwg_par_int(5),
+                            hwg_par_int(6),
+                            aWindows[0],
+                            nullptr,
+                            GetModuleHandle(nullptr),
+                            static_cast<LPVOID>(&ccs));
 
    aWindows[1] = hWnd;
    HB_RETHANDLE(hWnd);
