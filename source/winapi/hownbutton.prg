@@ -15,25 +15,34 @@
 CLASS HOwnButton INHERIT HControl
 
    CLASS VAR cPath SHARED
-   DATA winclass   INIT "OWNBTN"
+
+   DATA winclass INIT "OWNBTN"
    DATA lFlat
    DATA aStyle
    DATA state
    DATA bClick
-   DATA lPress  INIT .F.
-   DATA lCheck  INIT .F.
-   DATA xt, yt, widtht, heightt
-   DATA oBitmap, xb, yb, widthb, heightb, lTransp, trColor
-   DATA oPen1, oPen2
+   DATA lPress INIT .F.
+   DATA lCheck INIT .F.
+   DATA xt
+   DATA yt
+   DATA widtht
+   DATA heightt
+   DATA oBitmap
+   DATA xb
+   DATA yb
+   DATA widthb
+   DATA heightb
+   DATA lTransp
+   DATA trColor
+   DATA oPen1
+   DATA oPen2
    DATA lEnabled INIT .T.
    DATA nOrder
    DATA oTimer
-   DATA nPeriod  INIT 0
+   DATA nPeriod INIT 0
 
-   METHOD New(oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight, bInit, bSize, bPaint, bClick, lflat, ;
-              cText, color, ofont, xt, yt, widtht, heightt, bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, ;
-              cTooltip, lEnabled, lCheck, bColor)
-
+   METHOD New(oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight, bInit, bSize, bPaint, bClick, lflat, cText, color, ofont, xt, yt, ;
+              widtht, heightt, bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, cTooltip, lEnabled, lCheck, bColor)
    METHOD Activate()
    METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
@@ -43,7 +52,7 @@ CLASS HOwnButton INHERIT HControl
    METHOD MouseMove(wParam, lParam)
    METHOD MDown()
    METHOD MUp()
-   METHOD Press()   INLINE (::lPress := .T., ::MDown())
+   METHOD Press() INLINE (::lPress := .T., ::MDown())
    METHOD SetTimer(nPeriod)
    METHOD RELEASE()
    METHOD End()
@@ -85,11 +94,11 @@ METHOD New(oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight, bInit, bSize,
       ::lCheck := lCheck
    ENDIF
    IF bmp != NIL
-      IF ValType(bmp) == "O"
+      IF HB_ISOBJECT(bmp)
          // Valid bitmap object
          ::oBitmap := bmp
       ELSE
-         ::oBitmap := iif((lResour != NIL .AND. lResour) .OR. ValType(bmp) == "N", HBitmap():AddResource(bmp), HBitmap():AddFile(iif(::cPath != NIL, ::cPath + bmp, bmp)))
+         ::oBitmap := iif((lResour != NIL .AND. lResour) .OR. HB_ISNUMERIC(bmp), HBitmap():AddResource(bmp), HBitmap():AddFile(iif(::cPath != NIL, ::cPath + bmp, bmp)))
       ENDIF
    ENDIF
    ::xb      := xb
@@ -122,7 +131,9 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HOwnButton
 
    STATIC h
 
-   IF msg == WM_PAINT
+   SWITCH msg
+
+   CASE WM_PAINT
       IF ::state == OBTN_INIT
          ::state := OBTN_NORMAL
       ENDIF
@@ -131,47 +142,63 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HOwnButton
       ELSE
          ::Paint()
       ENDIF
-   ELSEIF msg == WM_ERASEBKGND
+      EXIT
+
+   CASE WM_ERASEBKGND
       RETURN 1
-   ELSEIF msg == WM_MOUSEMOVE
+
+   CASE WM_MOUSEMOVE
       IF ::MouseMove(wParam, lParam) .AND. !Empty(h)
          hwg_Setfocus(h)
          h := NIL
       ENDIF
-   ELSEIF msg == WM_LBUTTONDOWN
+      EXIT
+
+   CASE WM_LBUTTONDOWN
       h := hwg_Setfocus(::handle)
       ::MDown()
+      EXIT
 
-   ELSEIF msg == WM_LBUTTONDBLCLK
+   CASE WM_LBUTTONDBLCLK
       /* Asmith 2017-06-06 workaround for touch terminals */
       IF HB_ISBLOCK(::bClick) .AND. Empty(::oTimer)
          Eval(::bClick, Self, 0)
       ENDIF
+      EXIT
 
-   ELSEIF msg == WM_LBUTTONUP
+   CASE WM_LBUTTONUP
       ::MUp()
       IF hwg_Isptreq(::handle, hwg_Getfocus()) .AND. !Empty(h)
          hwg_Setfocus(h)
       ENDIF
       h := NIL
-   ELSEIF msg == WM_DESTROY
+      EXIT
+
+   CASE WM_DESTROY
       ::End()
-   ELSEIF msg == WM_SETFOCUS
+      EXIT
+
+   CASE WM_SETFOCUS
       IF HB_ISBLOCK(::bGetfocus)
          Eval(::bGetfocus, Self, msg, wParam, lParam)
       ENDIF
-   ELSEIF msg == WM_KILLFOCUS
+      EXIT
+
+   CASE WM_KILLFOCUS
       ::release()
       IF HB_ISBLOCK(::bLostfocus)
          Eval(::bLostfocus, Self, msg, wParam, lParam)
       ENDIF
-   ELSE
+      EXIT
+
+   OTHERWISE
       IF HB_ISBLOCK(::bOther)
          Eval(::bOther, Self, msg, wParam, lParam)
       ENDIF
-   ENDIF
 
-   RETURN - 1
+   ENDSWITCH
+
+   RETURN -1
 
 METHOD Init() CLASS HOwnButton
 
@@ -183,10 +210,8 @@ METHOD Init() CLASS HOwnButton
 
    RETURN NIL
 
-METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
-      cText, color, font, xt, yt, widtht, heightt, ;
-      bmp, lResour, xb, yb, widthb, heightb, lTr, ;
-      cTooltip, lEnabled, lCheck) CLASS HOwnButton
+METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, cText, color, font, xt, yt, widtht, heightt, bmp, lResour, xb, yb, ;
+                widthb, heightb, lTr, cTooltip, lEnabled, lCheck) CLASS HOwnButton
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, NIL, bInit, bSize, bPaint, cTooltip)
 
@@ -213,7 +238,7 @@ METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
    ENDIF
 
    IF bmp != NIL
-      IF ValType(bmp) == "O"
+      IF HB_ISOBJECT(bmp)
          ::oBitmap := bmp
       ELSE
          ::oBitmap := iif(lResour, HBitmap():AddResource(bmp), HBitmap():AddFile(bmp))
@@ -229,7 +254,11 @@ METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
    RETURN Self
 
 METHOD Paint() CLASS HOwnButton
-   LOCAL pps, hDC, aCoors, n
+
+   LOCAL pps
+   LOCAL hDC
+   LOCAL aCoors
+   LOCAL n
 
    pps := hwg_Definepaintstru()
 
@@ -246,26 +275,29 @@ METHOD Paint() CLASS HOwnButton
       n := Len(::aStyle)
       n := Iif(::state == OBTN_MOUSOVER, Iif(n > 2, 3, 1), Iif(::state == OBTN_PRESSED, Iif(n > 1, 2, 1), 1))
       ::aStyle[n]:Draw(hDC, 0, 0, aCoors[3], aCoors[4])
-
    ELSEIF ::lFlat
-      IF ::state == OBTN_NORMAL
+      SWITCH ::state
+      CASE OBTN_NORMAL
          IF ::handle != hwg_Getfocus()
-            // NORM
-            hwg_Drawbutton(hDC, 0, 0, aCoors[3], aCoors[4], 0)
+            hwg_Drawbutton(hDC, 0, 0, aCoors[3], aCoors[4], 0) // NORM
          ELSE
             hwg_Drawbutton(hDC, 0, 0, aCoors[3], aCoors[4], 1)
          ENDIF
-      ELSEIF ::state == OBTN_MOUSOVER
+         EXIT
+      CASE OBTN_MOUSOVER
          hwg_Drawbutton(hDC, 0, 0, aCoors[3], aCoors[4], 1)
-      ELSEIF ::state == OBTN_PRESSED
+         EXIT
+      CASE OBTN_PRESSED
          hwg_Drawbutton(hDC, 0, 0, aCoors[3], aCoors[4], 2)
-      ENDIF
+      ENDSWITCH
    ELSE
-      IF ::state == OBTN_NORMAL
+      SWITCH ::state
+      CASE OBTN_NORMAL
          hwg_Drawbutton(hDC, 0, 0, aCoors[3], aCoors[4], 5)
-      ELSEIF ::state == OBTN_PRESSED
+         EXIT
+      CASE OBTN_PRESSED
          hwg_Drawbutton(hDC, 0, 0, aCoors[3], aCoors[4], 6)
-      ENDIF
+      ENDSWITCH
    ENDIF
 
    ::DrawItems(hDC)
@@ -275,7 +307,12 @@ METHOD Paint() CLASS HOwnButton
    RETURN NIL
 
 METHOD DrawItems(hDC) CLASS HOwnButton
-   LOCAL x1, y1, x2, y2, aCoors
+
+   LOCAL x1
+   LOCAL y1
+   LOCAL x2
+   LOCAL y2
+   LOCAL aCoors
 
    aCoors := hwg_Getclientrect(::handle)
    IF !Empty(::brush)
@@ -304,8 +341,8 @@ METHOD DrawItems(hDC) CLASS HOwnButton
       ENDIF
    ENDIF
 
-   IF ::title != NIL
-      IF ::oFont != NIL
+   IF HB_ISCHAR(::title)
+      IF HB_ISOBJECT(::oFont)
          hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
       IF ::lEnabled
@@ -325,7 +362,9 @@ METHOD DrawItems(hDC) CLASS HOwnButton
    RETURN NIL
 
 METHOD MouseMove(wParam, lParam)  CLASS HOwnButton
-   LOCAL xPos, yPos
+
+   LOCAL xPos
+   LOCAL yPos
    LOCAL res := .F.
 
    HB_SYMBOL_UNUSED(wParam)
@@ -336,7 +375,7 @@ METHOD MouseMove(wParam, lParam)  CLASS HOwnButton
       //hwg_writelog("mm-2 " + str(xpos) + "/" + str(ypos))
       IF xPos > ::nWidth .OR. yPos > ::nHeight
          hwg_Releasecapture()
-         IF !Empty(::oTimer)
+         IF HB_ISOBJECT(::oTimer)
             OwnBtnTimerProc(Self, 2)
             ::oTimer:End()
             ::oTimer := NIL
@@ -359,7 +398,7 @@ METHOD MouseMove(wParam, lParam)  CLASS HOwnButton
 
    RETURN res
 
-METHOD MDown()  CLASS HOwnButton
+METHOD MDown() CLASS HOwnButton
 
    IF ::state != OBTN_PRESSED
       ::state := OBTN_PRESSED
@@ -385,7 +424,7 @@ METHOD MUp() CLASS HOwnButton
             ::Press()
          ENDIF
       ENDIF
-      IF !Empty(::oTimer)
+      IF HB_ISOBJECT(::oTimer)
          hwg_Releasecapture()
          OwnBtnTimerProc(Self, 2)
          ::oTimer:End()
@@ -401,10 +440,10 @@ METHOD MUp() CLASS HOwnButton
 
    RETURN NIL
 
-METHOD SetTimer(nPeriod)  CLASS HOwnButton
+METHOD SetTimer(nPeriod) CLASS HOwnButton
 
    IF nPeriod == NIL
-      IF !Empty(::oTimer)
+      IF HB_ISOBJECT(::oTimer)
          OwnBtnTimerProc(Self, 2)
          ::oTimer:End()
          ::oTimer := NIL
@@ -416,7 +455,7 @@ METHOD SetTimer(nPeriod)  CLASS HOwnButton
 
    RETURN NIL
 
-METHOD RELEASE()  CLASS HOwnButton
+METHOD RELEASE() CLASS HOwnButton
 
    ::lPress := .F.
    ::state := OBTN_NORMAL
@@ -424,15 +463,15 @@ METHOD RELEASE()  CLASS HOwnButton
 
    RETURN NIL
 
-METHOD End()  CLASS HOwnButton
+METHOD End() CLASS HOwnButton
 
    ::Super:End()
    ::oFont := NIL
-   IF ::oBitmap != NIL
+   IF HB_ISOBJECT(::oBitmap)
       ::oBitmap:Release()
       ::oBitmap := NIL
    ENDIF
-   IF !Empty(::oTimer)
+   IF HB_ISOBJECT(::oTimer)
       ::oTimer:End()
       ::oTimer := NIL
    ENDIF
