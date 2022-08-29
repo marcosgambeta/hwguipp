@@ -1839,7 +1839,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowse
          y1 := ::y1 + ( ::height + 1 ) * rowPos
          ::nGetRec := Eval( ::bRecno, Self )
          ::lEditing := .T.
-         IF type <> "M"
+         IF type != "M"
          @ x1+::nLeft, y1+::nTop GET ::oGet VAR ::varbuf      ;
             OF ::oParent                   ;
             SIZE nWidth, ::height + 1      ;

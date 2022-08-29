@@ -2072,7 +2072,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
          bInit := iif(wParam == NIL, {|o|hwg_Movewindow(o:handle, x1, y1, nWidth, o:nHeight + 1)}, ;
             {|o|hwg_Movewindow(o:handle, x1, y1, nWidth, o:nHeight + 1), hwg_Postmessage(o:aControls[1]:handle, WM_KEYDOWN, wParam, lParam)})
 
-         IF type <> "M"
+         IF type != "M"
             INIT DIALOG oModDlg STYLE WS_POPUP + 1 + iif(oColumn:aList == NIL, WS_BORDER, 0) ;
                AT x1, y1 - iif(oColumn:aList == NIL, 1, 0) SIZE nWidth, ::height + iif(oColumn:aList == NIL, 1, 0) ;
                ON INIT bInit
@@ -2106,7 +2106,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
             ENDIF
 
          ELSE
-            IF type <> "M"
+            IF type != "M"
                @ 0, 0 GET oGet VAR ::varbuf      ;
                   SIZE nWidth, ::height + 1      ;
                   NOBORDER                       ;

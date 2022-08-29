@@ -278,7 +278,7 @@ STATIC FUNCTION __Valid(oCtrl)
    // by sauli
    IF __ObjHasMsg(oCtrl:oParent, "nLastKey")
       // caso o PARENT seja HDIALOG
-      lESC := oCtrl:oParent:nLastKey <> 27
+      lESC := oCtrl:oParent:nLastKey != 27
    ELSE
       // caso o PARENT seja HTAB, HPANEL
       lESC := .T.

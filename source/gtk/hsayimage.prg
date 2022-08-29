@@ -20,7 +20,7 @@ CLASS HSayImage INHERIT HControl
    METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
       bSize, ctoolt, bClick, bDblClick, bColor )
    METHOD Activate()
-   METHOD END()  INLINE ( ::Super:END(), iif( ::oImage <> NIL,::oImage:Release(),::oImage := NIL ), ::oImage := NIL )
+   METHOD END()  INLINE ( ::Super:END(), iif( ::oImage != NIL,::oImage:Release(),::oImage := NIL ), ::oImage := NIL )
 
 ENDCLASS
 

@@ -433,7 +433,7 @@ METHOD InitCode128(cMode) CLASS BarCode
    LOCAL nCount := 0
 
    // Errors
-   IF ValType(cCode) <> "C"
+   IF ValType(cCode) != "C"
       hwg_Msginfo("Barcode Code 128 requires a character value.")
       RETURN NIL
    ENDIF

@@ -844,7 +844,7 @@ cANSIDate := ALLTRIM(cANSIDate)
 IF EMPTY(cANSIDate)
  RETURN .F.
 ENDIF
-IF LEN(cANSIDate) <> 8
+IF LEN(cANSIDate) != 8
  RETURN .F.
 ENDIF
 ddate := hwg_STOD(cANSIDate)

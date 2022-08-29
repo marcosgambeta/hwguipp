@@ -244,7 +244,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       ::aImages := { }
       FOR i := 1 TO Len(aImages)
          AAdd(::aImages, Upper(aImages[i]))
-         aImages[i] := IIf(lResour <> NIL .AND. lResour, hwg_BmpFromRes(aImages[i]), hwg_Openbitmap(AddPath(aImages[i], HBitmap():cPath)))
+         aImages[i] := IIf(lResour != NIL .AND. lResour, hwg_BmpFromRes(aImages[i]), hwg_Openbitmap(AddPath(aImages[i], HBitmap():cPath)))
       NEXT
       aBmpSize := hwg_Getbitmapsize(aImages[1])
       ::himl := hwg_Createimagelist(aImages, aBmpSize[1], aBmpSize[2], 12, nBC)

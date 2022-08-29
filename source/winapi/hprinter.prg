@@ -162,7 +162,7 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
          ::Copies := nCopies
       ENDIF
    ENDIF
-   IF ValType(lProprierties) <> "L"
+   IF ValType(lProprierties) != "L"
       lProprierties := .T.
    ENDIF
 

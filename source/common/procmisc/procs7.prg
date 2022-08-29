@@ -14,7 +14,7 @@ FUNCTION RDSTR(han, strbuf, poz, buflen)
    oldpoz := poz
    poz    := At(Chr(10), SubStr(strbuf, poz))
    IF poz = 0
-      IF han <> NIL
+      IF han != NIL
          stro += SubStr(strbuf, oldpoz)
          rez  := FRead(han, @strbuf, buflen)
          IF rez = 0
@@ -58,7 +58,7 @@ FUNCTION getNextVar( stroka, varValue )
       ENDIF
       ipos3    := Find_Z( Left( stroka, iPosEnd - 1 ), ':' )
       varName  := RTrim(LTrim(Left(stroka, iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
-      varValue := iif( iPos3 <> 0, LTrim(SubStr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), NIL )
+      varValue := iif( iPos3 != 0, LTrim(SubStr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), NIL )
       stroka   := SubStr(stroka, iPosEnd + 1)
    ENDIF
 
@@ -77,7 +77,7 @@ FUNCTION FIND_Z( stroka, symb )
          poz := poz + poz1 - 1
       ENDIF
       FOR i := poz1 TO poz - 1
-         IF (j := At(SubStr(stroka, i, 1), ms1)) <> 0
+         IF (j := At(SubStr(stroka, i, 1), ms1)) != 0
             ms2[j] ++
          ENDIF
       NEXT
@@ -85,7 +85,7 @@ FUNCTION FIND_Z( stroka, symb )
             ms2[5] == ms2[6] .AND. ms2[7] % 2 == 0 .AND. ms2[8] % 2 == 0
          EXIT
       ELSE
-         IF (j := At(SubStr(stroka, poz, 1), ms1)) <> 0
+         IF (j := At(SubStr(stroka, poz, 1), ms1)) != 0
             ms2[j] ++
          ENDIF
          poz1 := poz + 1

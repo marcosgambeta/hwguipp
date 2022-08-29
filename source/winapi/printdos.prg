@@ -281,7 +281,7 @@ METHOD Say(oProw, oPcol, oTexto, oPicture) CLASS PrintDos
    // tracelog(oProw, oPcol, oTexto, oPicture)
    IF ValType(oTexto) == "N"
 
-      IF !Empty(oPicture) .OR. oPicture <> NIL
+      IF !Empty(oPicture) .OR. oPicture != NIL
          oTexto := Transform(oTexto, oPicture)
       ELSE
          oTexto := Str(oTexto)
@@ -290,7 +290,7 @@ METHOD Say(oProw, oPcol, oTexto, oPicture) CLASS PrintDos
    ELSEIF ValType(oTexto) == "D"
       oTexto := DToC(oTexto)
    ELSE
-      IF !Empty(oPicture) .OR. oPicture <> NIL
+      IF !Empty(oPicture) .OR. oPicture != NIL
          oTexto := Transform(oTexto, oPicture)
       ENDIF
    ENDIF
@@ -349,7 +349,7 @@ METHOD PrinterFile(fname) CLASS PrintDos
 
    han := FOpen(fname, FO_READWRITE + FO_EXCLUSIVE)
 
-   IF han <> - 1
+   IF han != - 1
 
       DO WHILE .T.
 
@@ -410,7 +410,7 @@ METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
 
    hwg_Selectobject(oPrinter:hDC, oFont:handle)
 
-   IF han <> - 1
+   IF han != - 1
       DO WHILE .T.
          stroka := RDSTR(han, @strbuf, @poz, 2052)
          IF Len(stroka) = 0
@@ -457,7 +457,7 @@ METHOD Preview(fName, cTitle) CLASS PrintDos
    LOCAL oEdit
    LOCAL oPrt := IIf(Empty(::oPorta) .OR. ::oPorta == "PREVIEW", "LPT1", ::oPorta)
 
-   IF han <> - 1
+   IF han != - 1
       DO WHILE .T.
          stroka := RDSTR(han, @strbuf, @poz, 2052)
          IF Len(stroka) = 0
