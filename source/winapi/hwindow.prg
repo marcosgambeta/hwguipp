@@ -179,11 +179,11 @@ CLASS HWindow INHERIT HCustomWindow, HScrollArea
    METHOD FindWindow(hWnd)
    METHOD GetMain()
    METHOD EvalKeyList(nKey, bPressed)
-   METHOD Center()   INLINE Hwg_CenterWindow(::handle)
-   METHOD Restore()  INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_RESTORE, 0)
-   METHOD Maximize() INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_MAXIMIZE, 0)
-   METHOD Minimize() INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_MINIMIZE, 0)
-   METHOD Close()    INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_CLOSE, 0)
+   METHOD Center()
+   METHOD Restore()
+   METHOD Maximize()
+   METHOD Minimize()
+   METHOD Close()
    METHOD SetTitle(cTitle) INLINE hwg_Setwindowtext(::handle, ::title := cTitle)
 
 ENDCLASS
@@ -870,3 +870,63 @@ STATIC FUNCTION onCloseQuery(o)
    ENDIF
 
    RETURN -1
+
+#pragma BEGINDUMP
+
+#define HB_OS_WIN_32_USED
+
+#define OEMRESOURCE
+
+#include "hwingui.h"
+#include <winuser.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbapicls.h>
+
+/* Suppress compiler warnings */
+#include "incomp_pointer.h"
+#include "warnings.h"
+
+HB_FUNC_STATIC( HWINDOW_CENTER )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+
+   RECT rect;
+   int w, h, x, y;
+
+   GetWindowRect(window, &rect);
+
+   w = rect.right - rect.left;
+   h = rect.bottom - rect.top;
+   x = GetSystemMetrics(SM_CXSCREEN);
+   y = GetSystemMetrics(SM_CYSCREEN);
+
+   SetWindowPos(window, HWND_TOP, (x - w) / 2, (y - h) / 2, 0, 0, SWP_NOSIZE + SWP_NOACTIVATE + SWP_FRAMECHANGED + SWP_NOSENDCHANGING);
+}
+
+HB_FUNC_STATIC( HWINDOW_RESTORE )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   hb_retnl(static_cast<LONG>(SendMessage(window, WM_SYSCOMMAND, SC_RESTORE, 0)));
+}
+
+HB_FUNC_STATIC( HWINDOW_MAXIMIZE )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   hb_retnl(static_cast<LONG>(SendMessage(window, WM_SYSCOMMAND, SC_MAXIMIZE, 0)));
+}
+
+HB_FUNC_STATIC( HWINDOW_MINIMIZE )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   hb_retnl(static_cast<LONG>(SendMessage(window, WM_SYSCOMMAND, SC_MINIMIZE, 0)));
+}
+
+HB_FUNC_STATIC( HWINDOW_CLOSE )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   hb_retnl(static_cast<LONG>(SendMessage(window, WM_SYSCOMMAND, SC_CLOSE, 0)));
+}
+
+#pragma ENDDUMP
