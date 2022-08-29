@@ -12,22 +12,20 @@
 
 CLASS HControl INHERIT HCustomWindow
 
-   DATA   id
-   DATA   tooltip
-   DATA   lInit      INIT .F.
-   DATA   Anchor     INIT 0
+   DATA id
+   DATA tooltip
+   DATA lInit   INIT .F.
+   DATA Anchor  INIT 0
 
    METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
-
    METHOD NewId()
    METHOD Init()
-
    METHOD Disable()
    METHOD Enable()
    METHOD Enabled(lEnabled) SETGET
-   METHOD Setfocus()    INLINE (hwg_Sendmessage(::oParent:handle, WM_NEXTDLGCTL, ::handle, 1), hwg_Setfocus(::handle))
-   METHOD GetText()     INLINE hwg_Getwindowtext(::handle)
-   METHOD SetText(c)  INLINE hwg_Setwindowtext(::Handle, ::title := c)
+   METHOD Setfocus() INLINE (hwg_Sendmessage(::oParent:handle, WM_NEXTDLGCTL, ::handle, 1), hwg_Setfocus(::handle))
+   METHOD GetText() INLINE hwg_Getwindowtext(::handle)
+   METHOD SetText(c) INLINE hwg_Setwindowtext(::Handle, ::title := c)
    METHOD End()
    METHOD onAnchor(x, y, w, h)
 
@@ -44,7 +42,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    ::nWidth  := nWidth
    ::nHeight := nHeight
    ::bInit   := bInit
-   IF ValType(bSize) == "N"
+   IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
       ::bSize   := bSize
@@ -58,6 +56,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    RETURN Self
 
 METHOD NewId() CLASS HControl
+
    LOCAL nId := ::oParent:nChildId++
 
    RETURN nId
@@ -79,18 +78,6 @@ METHOD INIT() CLASS HControl
       ENDIF
       ::lInit := .T.
    ENDIF
-
-   RETURN NIL
-
-METHOD Disable() CLASS HControl
-
-   hwg_Enablewindow(::handle, .F.)
-
-   RETURN NIL
-
-METHOD Enable() CLASS HControl
-
-   hwg_Enablewindow(::handle, .T.)
 
    RETURN NIL
 
@@ -120,8 +107,20 @@ METHOD End() CLASS HControl
    RETURN NIL
 
 METHOD onAnchor(x, y, w, h) CLASS HControl
-   LOCAL nAnchor, nXincRelative, nYincRelative, nXincAbsolute, nYincAbsolute
-   LOCAL x1, y1, w1, h1, x9, y9, w9, h9
+
+   LOCAL nAnchor
+   LOCAL nXincRelative
+   LOCAL nYincRelative
+   LOCAL nXincAbsolute
+   LOCAL nYincAbsolute
+   LOCAL x1
+   LOCAL y1
+   LOCAL w1
+   LOCAL h1
+   LOCAL x9
+   LOCAL y9
+   LOCAL w9
+   LOCAL h9
 
    // LOCAL nCxv, nCyh   // not used variables
 
@@ -135,8 +134,8 @@ METHOD onAnchor(x, y, w, h) CLASS HControl
    nXincRelative := iif(x > 0, w / x, 1)
    nYincRelative := iif(y > 0, h / y, 1)
    // *- calculo ABSOLUTE
-   nXincAbsolute := ( w - x )
-   nYincAbsolute := ( h - y )
+   nXincAbsolute := (w - x)
+   nYincAbsolute := (h - y)
    IF nAnchor >= ANCHOR_VERTFIX
       // *- vertical fixed center
       nAnchor -= ANCHOR_VERTFIX
@@ -169,7 +168,7 @@ METHOD onAnchor(x, y, w, h) CLASS HControl
       // relative  - TOP RELATIVE
       nAnchor -= ANCHOR_TOPREL
       IF y1 != y9
-         h1 := y1 - ( Round(y9 * nYincRelative, 2) ) + h9
+         h1 := y1 - (Round(y9 * nYincRelative, 2)) + h9
       ENDIF
       y1 := Round(y9 * nYincRelative, 2)
    ENDIF
@@ -213,7 +212,7 @@ METHOD onAnchor(x, y, w, h) CLASS HControl
       y1 := y9
    ENDIF
    // REDRAW AND INVALIDATE SCREEN
-   IF ( x1 != X9 .OR. y1 != y9 .OR. w1 != w9 .OR. h1 != h9 )
+   IF (x1 != X9 .OR. y1 != y9 .OR. w1 != w9 .OR. h1 != h9)
       ::Move(x1, y1, w1, h1)
       RETURN .T.
    ENDIF
@@ -221,13 +220,45 @@ METHOD onAnchor(x, y, w, h) CLASS HControl
    RETURN .F.
 
 FUNCTION hwg_SetCtrlName(oCtrl, cName)
+
    LOCAL nPos
 
-   IF !Empty(cName) .AND. ValType(cName) == "C" .AND. !( "[" $ cName )
-      IF ( nPos :=  RAt(":", cName) ) > 0 .OR. ( nPos :=  RAt(">", cName) ) > 0
+   IF !Empty(cName) .AND. HB_ISSTRING(cName) .AND. !("[" $ cName)
+      IF (nPos :=  RAt(":", cName)) > 0 .OR. (nPos :=  RAt(">", cName)) > 0
          cName := SubStr(cName, nPos + 1)
       ENDIF
       oCtrl:objName := Upper(cName)
    ENDIF
 
    RETURN NIL
+
+#pragma BEGINDUMP
+
+#define HB_OS_WIN_32_USED
+
+#define OEMRESOURCE
+
+#include "hwingui.h"
+#include <winuser.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbapicls.h>
+
+/* Suppress compiler warnings */
+#include "incomp_pointer.h"
+#include "warnings.h"
+
+HB_FUNC_STATIC( HCONTROL_DISABLE )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   EnableWindow(window, FALSE);
+}
+
+HB_FUNC_STATIC( HCONTROL_ENABLE )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   EnableWindow(window, TRUE);
+}
+
+#pragma ENDDUMP
