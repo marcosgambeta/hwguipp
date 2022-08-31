@@ -35,7 +35,7 @@ TODO: 1) In line edit
 CLASS HGrid INHERIT HControl
 
    CLASS VAR winclass INIT "SYSLISTVIEW32"
-   
+
    DATA aBitMaps  INIT {}
    DATA ItemCount
    DATA color
@@ -60,9 +60,9 @@ CLASS HGrid INHERIT HControl
    METHOD Init()
    METHOD AddColumn(cHeader, nWidth, nJusHead, nBit) INLINE AAdd(::aColumns, {cHeader, nWidth, nJusHead, nBit})
    METHOD Refresh()
-   METHOD RefreshLine() INLINE hwg_Listview_update(::handle, hwg_Listview_getfirstitem(::handle))
-   METHOD SetItemCount(nItem) INLINE hwg_Listview_setitemcount(::handle, nItem)
-   METHOD Row() INLINE hwg_Listview_getfirstitem(::handle)
+   METHOD RefreshLine()
+   METHOD SetItemCount(nItem)
+   METHOD Row()
    METHOD Notify(lParam)
 
 ENDCLASS
@@ -109,16 +109,15 @@ METHOD Activate() CLASS HGrid
 METHOD Init() CLASS HGrid
 
    LOCAL i
-   LOCAL nPos
    LOCAL aButton := {}
    LOCAL aBmpSize
-   LOCAL n
+   LOCAL item
 
    IF !::lInit
       ::Super:Init()
-      FOR n := 1 TO Len(::aBitmaps)
-         AAdd(aButton, hwg_Loadimage(NIL, ::aBitmaps[n], IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION))
-      NEXT n
+      FOR EACH item IN ::aBitmaps
+         AAdd(aButton, hwg_Loadimage(NIL, item, IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION))
+      NEXT
 
       IF Len(aButton) > 0
 
@@ -132,17 +131,9 @@ METHOD Init() CLASS HGrid
             ::hIm := hwg_Createimagelist({}, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK)
          ENDIF
 
-         FOR nPos := 1 TO Len(aButton)
-
-            aBmpSize := hwg_Getbitmapsize(aButton[nPos])
-
-            IF aBmpSize[3] == 24
-               hwg_Imagelist_add(::hIm, aButton[nPos])
-            ELSE
-               hwg_Imagelist_add(::hIm, aButton[nPos])
-            ENDIF
-
-         NEXT nPos
+         FOR EACH item IN aButton
+            hwg_Imagelist_add(::hIm, item)
+         NEXT
 
          hwg_Listview_setimagelist(::handle, ::him)
 
@@ -166,24 +157,54 @@ METHOD Init() CLASS HGrid
 
    RETURN NIL
 
-METHOD Refresh() CLASS HGrid
-
-   LOCAL iFirst
-   LOCAL iLast
-
-   iFirst := hwg_Listview_gettopindex(::handle)
-
-   iLast := iFirst + hwg_Listview_getcountperpage(::handle)
-
-   hwg_Listview_redrawitems(::handle, iFirst, iLast)
-
-   RETURN NIL
-
 METHOD Notify(lParam) CLASS HGrid
 
-   RETURN hwg_ListViewNotify(Self, lParam)
+   LOCAL aCord
+   LOCAL nCode := hwg_Getnotifycode(lParam)
 
-FUNCTION hwg_ListViewNotify(oCtrl, lParam)
+   SWITCH nCode
+   CASE LVN_KEYDOWN
+      IF HB_ISBLOCK(::bKeydown)
+         Eval(::bKeyDown, SELF, hwg_Listview_getgridkey(lParam))
+      ENDIF
+      EXIT
+   CASE NM_DBLCLK
+      IF HB_ISBLOCK(::bEnter)
+         aCord := hwg_Listview_hittest(::handle, hwg_GetCursorPos()[2] - hwg_GetWindowRect(::handle)[2], hwg_GetCursorPos()[1] - hwg_GetWindowRect(::handle)[1])
+         ::nRow := aCord[1]
+         ::nCol := aCord[2]
+         Eval(::bEnter, SELF)
+      ENDIF
+      EXIT
+   CASE NM_SETFOCUS
+      IF HB_ISBLOCK(::bGfocus)
+         Eval(::bGfocus, SELF)
+      ENDIF
+      EXIT
+   CASE NM_KILLFOCUS
+      IF HB_ISBLOCK(::bLfocus)
+         Eval(::bLfocus, SELF)
+      ENDIF
+      EXIT
+   CASE LVN_ITEMCHANGED
+      ::nRow := ::Row()
+      IF HB_ISBLOCK(::bPosChg)
+         Eval(::bPosChg, SELF, hwg_Listview_getfirstitem(::handle))
+      ENDIF
+      EXIT
+   CASE LVN_GETDISPINFO
+      IF HB_ISBLOCK(::bDispInfo)
+         aCord := hwg_Listview_getdispinfo(lParam)
+         ::nRow := aCord[1]
+         ::nCol := aCord[2]
+         hwg_Listview_setdispinfo(lParam, Eval(::bDispInfo, SELF, ::nRow, ::nCol))
+      ENDIF
+      EXIT
+   ENDSWITCH
+
+   RETURN 0
+
+FUNCTION hwg_ListViewNotify(oCtrl, lParam) // TODO: nao utilizada - remover ?
 
    LOCAL aCord
    LOCAL nCode := hwg_Getnotifycode(lParam)
@@ -229,3 +250,50 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam)
    ENDSWITCH
 
    RETURN 0
+
+#pragma BEGINDUMP
+
+#define HB_OS_WIN_32_USED
+
+#define OEMRESOURCE
+
+#include "hwingui.h"
+#include <commctrl.h>
+#include <winuser.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbapicls.h>
+
+/* Suppress compiler warnings */
+#include "incomp_pointer.h"
+#include "warnings.h"
+
+HB_FUNC_STATIC( HGRID_REFRESH )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   LRESULT first = ListView_GetTopIndex(window);
+   LRESULT last = first + ListView_GetCountPerPage(window);
+   ListView_RedrawItems(window, first, last);
+}
+
+HB_FUNC_STATIC( HGRID_REFRESHLINE )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   LRESULT first = ListView_GetNextItem(window, -1, LVNI_ALL | LVNI_SELECTED) + 1;
+   ListView_Update(window, first - 1);
+}
+
+HB_FUNC_STATIC( HGRID_SETITEMCOUNT )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   ListView_SetItemCount(window, hb_parni(1));
+}
+
+HB_FUNC_STATIC( HGRID_ROW )
+{
+   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   hb_retnl(ListView_GetNextItem(window, -1, LVNI_ALL | LVNI_SELECTED) + 1);
+}
+
+#pragma ENDDUMP
