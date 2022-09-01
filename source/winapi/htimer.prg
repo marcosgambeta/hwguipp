@@ -10,11 +10,12 @@
 #include "hbclass.ch"
 #include "guilib.ch"
 
-#define  TIMER_FIRST_ID   33900
+#define TIMER_FIRST_ID 33900
 
 CLASS HTimer INHERIT HObject
 
    CLASS VAR aTimers   INIT {}
+
    DATA id
    DATA value
    DATA lOnce          INIT .F.
@@ -34,7 +35,7 @@ METHOD New(oParent, nId, value, bAction, lOnce) CLASS HTimer
 
    ::oParent := Iif(oParent == NIL, HWindow():GetMain(), oParent)
    ::id := Iif(nId == NIL, TIMER_FIRST_ID + Len(::aTimers), nId)
-   ::value   := value
+   ::value := value
    ::bAction := bAction
    ::lOnce := !Empty(lOnce)
 
@@ -47,7 +48,7 @@ METHOD Interval(n) CLASS HTimer
 
    LOCAL nOld := ::value
 
-   IF n != NIL
+   IF HB_ISNUMERIC(n)
       IF n == 0
          ::End()
       ELSE
@@ -58,6 +59,7 @@ METHOD Interval(n) CLASS HTimer
    RETURN nOld
 
 METHOD End() CLASS HTimer
+
    LOCAL i
 
    hwg_Killtimer(::oParent:handle, ::id)
@@ -87,16 +89,16 @@ FUNCTION hwg_TimerProc(hWnd, idTimer) //, time )
    RETURN NIL
 
 FUNCTION hwg_ReleaseTimers()
-   LOCAL oTimer, i
 
-   For i := 1 TO Len(HTimer():aTimers)
-      oTimer := HTimer():aTimers[i]
+   LOCAL oTimer
+
+   FOR EACH oTimer IN HTimer():aTimers
       hwg_Killtimer(oTimer:oParent:handle, oTimer:id)
    NEXT
 
    RETURN NIL
 
-EXIT PROCEDURE CleanTimers
+EXIT PROCEDURE CleanTimers()
 
    hwg_ReleaseTimers()
 
