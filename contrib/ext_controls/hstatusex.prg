@@ -1,6 +1,4 @@
 /*
- * $Id: hctrlex.prg 2641 2018-01-20 19:56:09Z lculik $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HStaticEx, HButtonEx, HGroupEx
  *

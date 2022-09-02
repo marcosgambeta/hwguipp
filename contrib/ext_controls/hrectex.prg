@@ -1,6 +1,4 @@
 /*
- * $Id: hrectex.prg 2329 2014-12-21 17:08:55Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * C level class HRect (Panel)
  *

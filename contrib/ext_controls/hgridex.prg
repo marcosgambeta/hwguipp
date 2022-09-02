@@ -1,6 +1,4 @@
- /*
- * $Id: hgridex.prg 2404 2015-05-20 06:28:08Z alkresin $
- *
+/*
  * HWGUI - Harbour Win32 GUI library source code:
  * HGrid class
  *

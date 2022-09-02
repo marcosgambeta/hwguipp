@@ -1,6 +1,4 @@
 /*
- * $Id: hbrowsex.prg 3077 2022-06-03 08:50:16Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HBrowseEx class - browse databases and arrays
  *

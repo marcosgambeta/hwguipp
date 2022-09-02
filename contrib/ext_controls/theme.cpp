@@ -1,6 +1,4 @@
 /*
- * $Id: theme.c 2920 2020-12-23 14:09:22Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * Theme related functions
  *

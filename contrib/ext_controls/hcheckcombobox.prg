@@ -1,6 +1,4 @@
 /*
- * $Id: hcomboex.prg 2655 2018-08-31 11:00:12Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HCombo class
  *
