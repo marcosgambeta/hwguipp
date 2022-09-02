@@ -1,12 +1,9 @@
-#
-# $Id: $
-#
 # Build script building HWGUI lib libhwg_extctrl.a with hbmk2 utility
 
 -inc
 
 -hblib
--o../lib/hwg_extctrl
+-o../lib/${hb_plat}/${hb_comp}/hwg_extctrl
 
 -n -q0 -w -es2
 # Activate for GCC > V8
@@ -16,7 +13,5 @@
 
 -cflag=-DHWG_USE_POINTER_ITEM
 
-ext_controls/*.c
+ext_controls/*.cpp
 ext_controls/*.prg
-
-# ================== EOF of hwg_extctrl.hbp ===================
