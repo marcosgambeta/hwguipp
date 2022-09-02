@@ -105,62 +105,7 @@
              <color>,<bcolor>,<.lTransp.>,<bClick>,<bDblClick>,<bOther> );;
           [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
 
-#xcommand @ <x>,<y> BUTTONEX [ <oBut> CAPTION ] <caption> ;
-             [ OF <oWnd> ]              ;
-             [ ID <nId> ]               ;
-             [ SIZE <width>, <height> ] ;
-             [ COLOR <color> ]          ;
-             [ BACKCOLOR <bcolor> ]     ;
-             [ ON INIT <bInit> ]        ;
-             [ ON SIZE <bSize> ]        ;
-             [ ON PAINT <bDraw> ]       ;
-             [ ON CLICK <bClick> ]      ;
-             [ ON GETFOCUS <bGfocus> ]  ;
-             [ STYLE <nStyle> ]         ;
-             [ FONT <oFont> ]           ;
-             [ TOOLTIP <ctoolt> ]       ;
-             [ BITMAP <hbit> ]          ;
-             [ BSTYLE <nBStyle> ]       ;                     
-             [ PICTUREMARGIN <nMargin> ];
-             [ ICON <hIco> ]            ;
-             [ <lTransp: TRANSPARENT> ] ;
-             [ <lnoTheme: NOTHEMES> ]   ;
-             [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
-          => ;
-          [<oBut> := ] HButtonEx():New( <oWnd>,<nId>,<nStyle>,<x>,<y>,<width>, ;
-             <height>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<ctoolt>,<color>,<bcolor>,<hbit>, ;
-             <nBStyle>,<hIco>, <.lTransp.>,<bGfocus>,<nMargin>,<.lnoTheme.>, <bOther> );
-          [; hwg_SetCtrlName( <oBut>,<(oBut)> )]
-
-		  
-#xcommand REDEFINE BUTTONEX [ <oBut> ]   ;
-            [ OF <oWnd> ]              ;
-            ID <nId>                   ;
-            [ CAPTION <cCaption> ]     ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
-            [ FONT <oFont> ]           ;
-            [ ON INIT <bInit> ]        ;
-            [ ON SIZE <bSize> ]        ;
-            [ ON PAINT <bDraw> ]       ;
-            [ ON CLICK <bClick> ]      ;
-            [ TOOLTIP <ctoolt> ]       ;
-			  [ ON GETFOCUS <bGfocus> ]  ;
-			  [ BITMAP <hbit> ]          ;
-             [ BSTYLE <nBStyle> ]       ;                     
-             [ PICTUREMARGIN <nMargin> ];
-             [ ICON <hIco> ]            ;
-             [ <lTransp: TRANSPARENT> ] ;
-             [ <lnoTheme: NOTHEMES> ]   ;
-             [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
-          => ;
-    [<oBut> := ] HButtonEx():Redefine( <oWnd>,<nId>,<oFont>,<bInit>,<bSize>,<bDraw>, ;
-                    <bClick>,<ctoolt>,<color>,<bcolor>,<cCaption>,<hbit>, ;
-             <nBStyle>,<hIco>, <.lTransp.>,<bGfocus>,<nMargin>,<.lnoTheme.>, <bOther> ) ;
-    [; hwg_SetCtrlName( <oBut>,<(oBut)> )]
-		  
-		  
-		  
+#include "hbuttonex.ch"
 
 #xcommand @ <x>,<y> GRIDEX <oGrid>      ;
             [ OF <oWnd> ]               ;
