@@ -95,11 +95,17 @@ METHOD Init() CLASS HLenta
 
 METHOD onEvent(msg, wParam, lParam) CLASS HLenta
 
-   LOCAL xPos, yPos, nPos, lRedraw := .F., y1
+   LOCAL xPos
+   LOCAL yPos
+   LOCAL nPos
+   LOCAL lRedraw := .F.
+   LOCAL y1
 
    HB_SYMBOL_UNUSED(wParam)
 
-   IF msg == WM_MOUSEMOVE
+   SWITCH msg
+
+   CASE WM_MOUSEMOVE
       hwg_SetCapture(::handle)
       xPos := hwg_Loword(lParam); yPos := hwg_Hiword(lParam)
       //hwg_writelog(ltrim(str(xpos)) + " " + ltrim(str(ypos)))
@@ -126,18 +132,21 @@ METHOD onEvent(msg, wParam, lParam) CLASS HLenta
             ENDIF
          ENDIF
       ENDIF
+      EXIT
 
-   ELSEIF msg == WM_PAINT
+   CASE WM_PAINT
       ::Paint()
+      EXIT
 
-   ELSEIF msg == WM_LBUTTONDOWN
+   CASE WM_LBUTTONDOWN
       xPos := hwg_Loword(lParam); yPos := hwg_Hiword(lParam)
       ::lPressed := .T.
       ::lMoved := .F.
       ::xPos := xPos
       ::yPos := yPos
+      EXIT
 
-   ELSEIF msg == WM_LBUTTONUP
+   CASE WM_LBUTTONUP
       ::lPressed := .F.
       IF !::lMoved
          IF ::nSelected != ::nOver .AND. ::nOver != 0
@@ -148,10 +157,12 @@ METHOD onEvent(msg, wParam, lParam) CLASS HLenta
             ENDIF
          ENDIF
       ENDIF
+      EXIT
 
-   ELSEIF msg == WM_DESTROY
+   CASE WM_DESTROY
       ::End()
-   ENDIF
+
+   ENDSWITCH
 
    IF lRedraw
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
