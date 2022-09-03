@@ -10,7 +10,7 @@ libpaths=lib/${hb_plat}/${hb_comp}
 
 {win}gt=gtgui
 
-{!hblib}libs=hwgui procmisc hbxml hwgdebug
+{!hblib}libs=hwgui procmisc hwgdebug
 
 # --- Outdated, out of support ---
 #{win&!allmingw&!watcom&!hblib}libs=hbactivex hwg_extctrl hwg_qhtm

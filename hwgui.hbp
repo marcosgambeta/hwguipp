@@ -26,3 +26,5 @@ hwguipp.hbc
 {unix}-cflag=-fpermissive
 
 @hwgui.hbm
+source/common/xml/*.cpp
+source/common/xml/*.prg
