@@ -1,8 +1,4 @@
 /*
- * $Id: dbgconnect.prg 2957 2021-03-08 23:32:43Z df7be $
- */
-
-/*
  * HWGUI - Harbour Win32 GUI library source code:
  * The Debugger
  *
@@ -82,21 +78,25 @@
 #define CMD_OBJECT             21
 #define CMD_ARRAY              22
 
-#ifdef __XHARBOUR__
-#xtranslate HB_AT([<n,...>]) =>  AT(<n>)
-#xtranslate HB_PROGNAME([<n,...>]) =>  EXENAMEX(<n>)
-#xtranslate HB_PROCESSOPEN([<n,...>]) =>  HB_OPENPROCESS(<n>)
-#xtranslate HB_DIRTEMP([<n,...>]) =>  ""
-#endif
+STATIC lDebugRun := .F.
+STATIC handl1
+STATIC handl2
+STATIC cBuffer
+STATIC nId1 := -1
+STATIC nId2 := 0
 
-Static lDebugRun := .F., handl1, handl2, cBuffer
-Static nId1 := -1, nId2 := 0
+FUNCTION hwg_dbg_New()
 
-Function hwg_dbg_New()
-   Local i, nPos, arr, cCmd, cDir, cFile := hb_Progname()
-   Local cDebugger := "hwgdebug", cExe
-   Local lRun
-   Local hProcess
+   LOCAL i
+   LOCAL nPos
+   LOCAL arr
+   LOCAL cCmd
+   LOCAL cDir
+   LOCAL cFile := hb_Progname()
+   LOCAL cDebugger := "hwgdebug"
+   LOCAL cExe
+   LOCAL lRun
+   LOCAL hProcess
 
    cBuffer := Space(1024)
 
@@ -130,7 +130,7 @@ Function hwg_dbg_New()
             handl2 := FOpen(cFile + ".d2", FO_READWRITE + FO_SHARED)
             IF handl2 != -1
                lDebugRun := .T.
-               Return NIL
+               RETURN NIL
             ENDIF
          ENDIF
          FClose(handl1)
@@ -148,7 +148,7 @@ Function hwg_dbg_New()
                handl2 := FOpen(cDir + cDebugger + ".d2", FO_READWRITE + FO_SHARED)
                IF handl2 != -1
                   lDebugRun := .T.
-                  Return NIL
+                  RETURN NIL
                ENDIF
             ENDIF
             FClose(handl1)
@@ -195,26 +195,33 @@ Function hwg_dbg_New()
       ENDIF
    ENDIF
 
-Return NIL
+RETURN NIL
 
-Static Function hwg_dbg_Read()
-Local n, s := "", arr
+STATIC FUNCTION hwg_dbg_Read()
+
+   LOCAL n
+   LOCAL s := ""
+   LOCAL arr
 
    FSeek(handl1, 0, 0)
    DO WHILE ( n := Fread(handl1, @cBuffer, Len(cBuffer)) ) > 0
       s += Left( cBuffer, n )
       IF ( n := At(",!", s) ) > 0
          IF ( arr := hb_aTokens( Left( s,n+1 ), "," ) ) != NIL .AND. Len( arr ) > 2 .AND. arr[1] == arr[Len(arr)-1]
-            Return arr
+            RETURN arr
          ELSE
             EXIT
          ENDIF
       ENDIF
    ENDDO
-Return NIL
 
-Static Function hwg_dbg_Send( ... )
-Local arr := hb_aParams(), i, s := ""
+RETURN NIL
+
+STATIC FUNCTION hwg_dbg_Send(...)
+
+   LOCAL arr := hb_aParams()
+   LOCAL i
+   LOCAL s := ""
 
    FSeek(handl2, 0, 0)
    FOR i := 2 TO Len( arr )
@@ -228,14 +235,16 @@ Local arr := hb_aParams(), i, s := ""
       FWrite(handl2, arr[1] + "," + s + arr[1] + ",!")
    ENDIF
 
-Return NIL
+RETURN NIL
 
+FUNCTION hwg_dbg_SetActiveLine(cPrgName, nLine, aStack, aVars, aWatch, nVarType)
 
-Function hwg_dbg_SetActiveLine( cPrgName, nLine, aStack, aVars, aWatch, nVarType )
-Local i, s := cPrgName + "," + Ltrim(Str(nLine)), nLen
+   LOCAL i
+   LOCAL s := cPrgName + "," + Ltrim(Str(nLine))
+   LOCAL nLen
 
    IF !lDebugRun
-      Return NIL
+      RETURN NIL
    ENDIF
 
    IF nId2 == 0
@@ -266,24 +275,26 @@ Local i, s := cPrgName + "," + Ltrim(Str(nLine)), nLen
 
    hwg_dbg_Send( "a"+Ltrim(Str(++nId2)), s  )
 
-Return NIL
+RETURN NIL
 
-Function hwg_dbg_Wait( nWait )
+FUNCTION hwg_dbg_Wait(nWait)
 
-     * Parameters not used
-    HB_SYMBOL_UNUSED(nWait)
+   HB_SYMBOL_UNUSED(nWait)
 
    IF !lDebugRun
-      Return NIL
+      RETURN NIL
    ENDIF
 
-Return NIL
+RETURN NIL
 
-Function hwg_dbg_Input( p1, p2, p3 )
-Local n, cmd, arr
+FUNCTION hwg_dbg_Input(p1, p2, p3)
+
+   LOCAL n
+   LOCAL cmd
+   LOCAL arr
 
    IF !lDebugRun
-      Return CMD_GO
+      RETURN CMD_GO
    ENDIF
 
    DO WHILE .T.
@@ -291,82 +302,94 @@ Local n, cmd, arr
       IF !Empty(arr := hwg_dbg_Read())
          IF ( n := Val( arr[1] ) ) > nId1 .AND. arr[Len(arr)] == "!"
             nId1 := n
-            IF arr[2] == "cmd"
-               IF ( cmd := arr[3] ) == "go"
-                  Return CMD_GO
-               ELSEIF cmd == "step"
-                  Return CMD_STEP
-               ELSEIF cmd == "trace"
-                  Return CMD_TRACE
-               ELSEIF cmd == "nextr"
-                  Return CMD_NEXTR
-               ELSEIF cmd == "to"
+            SWITCH arr[2]
+            CASE "cmd"
+               cmd := arr[3]
+               SWITCH cmd
+               CASE "go"
+                  RETURN CMD_GO
+               CASE "step"
+                  RETURN CMD_STEP
+               CASE "trace"
+                  RETURN CMD_TRACE
+               CASE "nextr"
+                  RETURN CMD_NEXTR
+               CASE "to"
                   p1 := arr[4]
                   p2 := Val( arr[5] )
-                  Return CMD_TOCURS
-               ELSEIF cmd == "quit"
-                  Return CMD_QUIT
-               ELSEIF cmd == "exit"
+                  RETURN CMD_TOCURS
+               CASE "quit"
+                  RETURN CMD_QUIT
+               CASE "exit"
                   lDebugRun := .F.
-                  Return CMD_EXIT
-               ENDIF
-            ELSEIF arr[2] == "brp"
-               IF arr[3] == "add"
+                  RETURN CMD_EXIT
+               ENDSWITCH
+               EXIT
+            CASE "brp"
+               SWITCH arr[3]
+               CASE "add"
                   p1 := arr[4]
                   p2 := Val( arr[5] )
-                  Return CMD_BADD
-               ELSEIF arr[3] == "del"
+                  RETURN CMD_BADD
+               CASE "del"
                   p1 := arr[4]
                   p2 := Val( arr[5] )
-                  Return CMD_BDEL
-               ENDIF
-            ELSEIF arr[2] == "watch"
-               IF arr[3] == "add"
+                  RETURN CMD_BDEL
+               ENDSWITCH
+               EXIT
+            CASE "watch"
+               SWITCH arr[3]
+               CASE "add"
                   p1 := Hex2Str(arr[4])
-                  Return CMD_WADD
-               ELSEIF arr[3] == "del"
+                  RETURN CMD_WADD
+               CASE "del"
                   p1 := Val( arr[4] )
-                  Return CMD_WDEL
-               ENDIF
-            ELSEIF arr[2] == "exp"
+                  RETURN CMD_WDEL
+               ENDSWITCH
+               EXIT
+            CASE "exp"
                p1 := Hex2Str(arr[3])
-               Return CMD_CALC
-            ELSEIF arr[2] == "view"
-               IF arr[3] == "stack"
+               RETURN CMD_CALC
+            CASE "view"
+               SWITCH arr[3]
+               CASE "stack"
                   p1 := arr[4]
-                  Return CMD_STACK
-               ELSEIF arr[3] == "local"
+                  RETURN CMD_STACK
+               CASE "local"
                   p1 := arr[4]
-                  Return CMD_LOCAL
-               ELSEIF arr[3] == "priv"
+                  RETURN CMD_LOCAL
+               CASE "priv"
                   p1 := arr[4]
-                  Return CMD_PRIVATE
-               ELSEIF arr[3] == "publ"
+                  RETURN CMD_PRIVATE
+               CASE "publ"
                   p1 := arr[4]
-                  Return CMD_PUBLIC
-               ELSEIF arr[3] == "static"
+                  RETURN CMD_PUBLIC
+               CASE "static"
                   p1 := arr[4]
-                  Return CMD_STATIC
-               ELSEIF arr[3] == "watch"
+                  RETURN CMD_STATIC
+               CASE "watch"
                   p1 := arr[4]
-                  Return CMD_WATCH
-               ELSEIF arr[3] == "areas"
-                  Return CMD_AREAS
-               ENDIF
-            ELSEIF arr[2] == "insp"
-               IF arr[3] == "rec"
+                  RETURN CMD_WATCH
+               CASE "areas"
+                  RETURN CMD_AREAS
+               ENDSWITCH
+               EXIT
+            CASE "insp"
+               SWITCH arr[3]
+               CASE "rec"
                   p1 := arr[4]
-                  Return CMD_REC
-               ELSEIF arr[3] == "obj"
+                  RETURN CMD_REC
+               CASE "obj"
                   p1 := arr[4]
-                  Return CMD_OBJECT
-               ELSEIF arr[3] == "arr"
+                  RETURN CMD_OBJECT
+               CASE "arr"
                   p1 := arr[4]
                   p2 := arr[5]
                   p3 := arr[6]
-                  Return CMD_ARRAY
-               ENDIF
-            ENDIF
+                  RETURN CMD_ARRAY
+               ENDSWITCH
+               EXIT
+            ENDSWITCH
             hwg_dbg_Send( "e"+Ltrim(Str(++nId2)) )
          ENDIF
       ENDIF
@@ -374,13 +397,18 @@ Local n, cmd, arr
 
    ENDDO
 
-Return 0
+RETURN 0
 
-Function hwg_dbg_Answer( ... )
-Local arr := hb_aParams(), i, j, s := "", lConvert
+FUNCTION hwg_dbg_Answer(...)
+
+   LOCAL arr := hb_aParams()
+   LOCAL i
+   LOCAL j
+   LOCAL s := ""
+   LOCAL lConvert
 
    IF !lDebugRun
-      Return NIL
+      RETURN NIL
    ENDIF
 
    FOR i := 1 TO Len( arr )
@@ -399,28 +427,31 @@ Local arr := hb_aParams(), i, j, s := "", lConvert
    NEXT
    hwg_dbg_Send( "b"+Ltrim(Str(nId1)), Left( s,Len(s)-1 ) )
 
-Return NIL
+RETURN NIL
 
-Function hwg_dbg_Msg( cMessage )
+FUNCTION hwg_dbg_Msg(cMessage)
 
-     * Parameters not used
-    HB_SYMBOL_UNUSED(cMessage)
+   HB_SYMBOL_UNUSED(cMessage)
 
    IF !lDebugRun
-      Return NIL
+      RETURN NIL
    ENDIF
 
-Return NIL
+RETURN NIL
 
-Function hwg_dbg_Alert( cMessage )
-Local bCode := &( Iif( Type( "hwg_msginfo()" ) == "UI", "{|s|hwg_msginfo(s)}", ;
+FUNCTION hwg_dbg_Alert(cMessage)
+
+   LOCAL bCode := &( Iif( Type( "hwg_msginfo()" ) == "UI", "{|s|hwg_msginfo(s)}", ;
        Iif( Type( "msginfo()" ) == "UI", "{|s|msginfo(s)}", "{|s|alert(s)}" ) ) )
 
    Eval( bCode, cMessage )
-Return NIL
 
-Function hwg_dbg_Quit()
-Local cCode, bCode
+RETURN NIL
+
+FUNCTION hwg_dbg_Quit()
+
+   LOCAL cCode
+   LOCAL bCode
 
    IF Type( "hwg_endwindow()" ) == "UI"
       cCode := "{||hwg_endwindow()"
@@ -438,17 +469,20 @@ Local cCode, bCode
    ENDIF
 
    bCode := &( cCode )
-Return Eval( bCode )
 
-Static Function Hex2Int( stroka )
-Local i := ASC( stroka ), res
+RETURN Eval( bCode )
+
+STATIC FUNCTION Hex2Int(stroka)
+
+   LOCAL i := ASC( stroka )
+   LOCAL res
 
    IF i > 64 .AND. i < 71
       res := ( i - 55 ) * 16
    ELSEIF i > 47 .AND. i < 58
       res := ( i - 48 ) * 16
    ELSE
-      Return 0
+      RETURN 0
    ENDIF
 
    i := ASC( SubStr(stroka, 2, 1) )
@@ -457,60 +491,49 @@ Local i := ASC( stroka ), res
    ELSEIF i > 47 .AND. i < 58
       res += i - 48
    ENDIF
-Return res
 
-Static Function Int2Hex( n )
-Local n1 := Int( n/16 ), n2 := n % 16
+RETURN res
+
+STATIC FUNCTION Int2Hex(n)
+
+   LOCAL n1 := Int( n/16 )
+   LOCAL n2 := n % 16
 
    IF n > 255
-      Return "XX"
+      RETURN "XX"
    ENDIF
-Return Chr(Iif(n1 < 10, n1 + 48, n1 + 55)) + Chr(Iif(n2 < 10, n2 + 48, n2 + 55))
 
-Static Function Str2Hex( stroka )
-Local cRes := "", i, nLen := Len( stroka )
+RETURN Chr(Iif(n1 < 10, n1 + 48, n1 + 55)) + Chr(Iif(n2 < 10, n2 + 48, n2 + 55))
+
+STATIC FUNCTION Str2Hex(stroka)
+
+   LOCAL cRes := ""
+   LOCAL i
+   LOCAL nLen := Len( stroka )
 
    FOR i := 1 to nLen
       cRes += Int2Hex( Asc( Substr(stroka,i,1) ) )
    NEXT
-Return cRes
 
-Static Function Hex2Str(stroka)
-Local cRes := "", i := 1, nLen := Len( stroka )
+RETURN cRes
+
+STATIC FUNCTION Hex2Str(stroka)
+
+   LOCAL cRes := ""
+   LOCAL i := 1
+   LOCAL nLen := Len( stroka )
 
    DO WHILE i <= nLen
       cRes += Chr(Hex2Int(Substr(stroka, i, 2)))
       i += 2
    ENDDO
-Return cRes
+
+RETURN cRes
 
 EXIT PROCEDURE hwg_dbg_exit
 
    hwg_dbg_Send( "quit" )
    FClose(handl1)
    FClose(handl2)
-Return
 
-#ifdef __XHARBOUR__
-#ifndef __PLATFORM__WINDOWS
-FUNCTION EXENAMEX()
-   RETURN HB_ARGV(0)
-#endif
-#ifdef __PLATFORM__WINDOWS
-#pragma BEGINDUMP
-
-#include "hbapi.h"
-#include "windows.h"
-HB_FUNC(EXENAMEX)
-{
-   char szBuffer[MAX_PATH + 1] = {0};
-
-   GetModuleFileName( ISNIL(1) ? GetModuleHandle( NULL ) : (HMODULE) hb_parnl(1), szBuffer ,MAX_PATH );
-
-   hb_retc( szBuffer );
-}
-
-
-#pragma enddump
-#endif
-#endif
+RETURN
