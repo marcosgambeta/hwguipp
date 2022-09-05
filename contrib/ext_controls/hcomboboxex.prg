@@ -692,7 +692,7 @@ METHOD onChange(lForce) CLASS HComboBoxEx
    ENDIF
 
    ::SetItem( hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0) + 1 )
-   IF HB_ISLOCK(::bChangeSel)
+   IF HB_ISBLOCK(::bChangeSel)
       // ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bChangeSel, ::Value, Self)
       // ::oparent:lSuspendMsgsHandling := .F.
@@ -853,7 +853,7 @@ METHOD Populate() CLASS HComboBoxEx
          ( cAlias ) -> ( dbGoto( nRecno ) )
       ENDIF
    ELSE
-   tracelog(valtoprg( ::aItems ))
+   //tracelog(valtoprg( ::aItems ))
       FOR i := 1 TO Len( ::aItems )
          IF ::columnBound > 1
             IF ValType( ::aItems[i] ) = "A" .AND. Len(  ::aItems[i] ) > 1
