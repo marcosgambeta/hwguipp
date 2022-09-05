@@ -111,6 +111,20 @@
 {win}source/winapi/hwinprn.prg
 {win}source/winapi/printdos.prg
 
+# extended controls
+{win}contrib\ext_controls\hbrowsex.prg
+{win}contrib\ext_controls\hbuttonex.prg
+{win}contrib\ext_controls\hbuttonx.prg
+{win}contrib\ext_controls\hcheckcombobox.prg
+{win}contrib\ext_controls\hcomboboxex.prg
+{win}contrib\ext_controls\hgridex.prg
+{win}contrib\ext_controls\hgroupex.prg
+{win}contrib\ext_controls\hrectex.prg
+{win}contrib\ext_controls\hstaticex.prg
+{win}contrib\ext_controls\hstatusex.prg
+{win}contrib\ext_controls\hthemed.prg
+{win}contrib\ext_controls\theme.cpp
+
 # GTK
 {unix}source/gtk/commond.cpp
 {unix}source/gtk/control.cpp
