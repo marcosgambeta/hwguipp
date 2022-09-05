@@ -116,6 +116,7 @@
 #define hwg_par_HMENU(n) static_cast<HMENU>(HB_PARHANDLE(n))
 #define hwg_par_BYTE(n) static_cast<BYTE>(hb_parni(n))
 #define hwg_par_UINT_PTR(n) static_cast<UINT_PTR>(hb_parni(n))
+#define hwg_par_HGDIOBJ(n) static_cast<HGDIOBJ>(HB_PARHANDLE(n))
 
 /* ================================== EOF of guilib.h ============================== */
 
