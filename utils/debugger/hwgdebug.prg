@@ -1,8 +1,4 @@
 /*
- * $Id: hwgdebug.prg 2964 2021-03-15 09:00:37Z df7be $
- */
-
-/*
  * HWGUI - Harbour Win32 GUI library source code:
  * The GUI Debugger
  *
@@ -98,13 +94,13 @@
 #define RES_LEN       100
 #define ARR_LEN       100
 
-#define  CLR_LGREEN  12507070
-#define  CLR_GREEN      32768
-#define  CLR_DBLUE    8404992
-#define  CLR_LBLUE1  16759929
-#define  CLR_LBLUE2  16764831
-#define  CLR_LIGHT1  15132390
-#define  CLR_LIGHT2  12632256
+#define CLR_LGREEN  12507070
+#define CLR_GREEN      32768
+#define CLR_DBLUE    8404992
+#define CLR_LBLUE1  16759929
+#define CLR_LBLUE2  16764831
+#define CLR_LIGHT1  15132390
+#define CLR_LIGHT2  12632256
 
 #define EDIT_RES         1900
 
@@ -120,42 +116,59 @@
 #define MENU_CMDLINE     1910
 
 #ifdef __PLATFORM__WINDOWS
-REQUEST HWG_SAVEFILE, HWG_SELECTFOLDER
+REQUEST HWG_SAVEFILE
+REQUEST HWG_SELECTFOLDER
 #endif
-REQUEST GETENV, HB_FGETDATETIME
+REQUEST GETENV
+REQUEST HB_FGETDATETIME
 REQUEST HB_OSPATHLISTSEPARATOR
-REQUEST HWG_RUNCONSOLEAPP, HWG_RUNAPP
-
-#ifdef __XHARBOUR__
-#xtranslate HB_PROCESSOPEN([<n,...>]) =>  HB_OPENPROCESS(<n>)
-#endif
+REQUEST HWG_RUNCONSOLEAPP
+REQUEST HWG_RUNAPP
 
 STATIC lModeIde := .T.
 STATIC lDebugging := .F.
 STATIC hHrbProj
-STATIC handl1 := - 1, handl2, cBuffer
-STATIC nId1 := 0, nId2 := - 1
+STATIC handl1 := -1
+STATIC handl2
+STATIC cBuffer
+STATIC nId1 := 0
+STATIC nId2 := -1
 
-STATIC oIni, cHrbPath := "hrb"
-STATIC cAppName, cPrgName := ""
-STATIC cTextLocate, nLineLocate
+STATIC oIni
+STATIC cHrbPath := "hrb"
+STATIC cAppName
+STATIC cPrgName := ""
+STATIC cTextLocate
+STATIC nLineLocate
 
-STATIC oTimer, oSayState, oEditExpr, oBtnExp, oMainFont
+STATIC oTimer
+STATIC oSayState
+STATIC oEditExpr
+STATIC oBtnExp
+STATIC oMainFont
 STATIC oBrwRes
-STATIC oStackDlg, oVarsDlg, oWatchDlg, oAreasDlg
+STATIC oStackDlg
+STATIC oVarsDlg
+STATIC oWatchDlg
+STATIC oAreasDlg
 STATIC oInspectDlg
 STATIC cInspectVar
 STATIC lViewCmd := .T.
-STATIC oTabMain, nTabsMax := 5
+STATIC oTabMain
+STATIC nTabsMax := 5
 STATIC cPaths := ";"
 
 STATIC aBP := {}
 STATIC aWatches := {}
 STATIC aExpr := {}
 STATIC nCurrLine := 0
-STATIC nMode, nAnsType, cPrgBP
-STATIC aBPLoad, nBPLoad
-STATIC lAnimate := .F. , nAnimate := 3
+STATIC nMode
+STATIC nAnsType
+STATIC cPrgBP
+STATIC aBPLoad
+STATIC nBPLoad
+STATIC lAnimate := .F.
+STATIC nAnimate := 3
 
 STATIC nExitMode := 1
 STATIC nVerProto := 0
@@ -168,19 +181,29 @@ STATIC cMsgNotSupp := "Command isn't supported"
 STATIC oHighLighter
 #endif
 
-MEMVAR cIniPath, cCurrPath
+MEMVAR cIniPath
+MEMVAR cCurrPath
 
-FUNCTION Main( ... )
+FUNCTION Main(...)
+
    LOCAL oMainW
-   LOCAL aParams := hb_aParams(), i, j, cFile, cExe, cParams, cDirWait
-   PUBLIC cIniPath := FilePath( hb_ArgV(0) ), cCurrPath := ""
+   LOCAL aParams := hb_aParams()
+   LOCAL i
+   LOCAL j
+   LOCAL cFile
+   LOCAL cExe
+   LOCAL cParams
+   LOCAL cDirWait
 
-   FOR i := 1 TO Len( aParams )
-      IF Left( aParams[i], 1 ) == "-"
-         IF Left( aParams[i], 2 ) == "-c"
+   PUBLIC cIniPath := FilePath(hb_ArgV(0))
+   PUBLIC cCurrPath := ""
+
+   FOR i := 1 TO Len(aParams)
+      IF Left(aParams[i], 1) == "-"
+         IF Left(aParams[i], 2) == "-c"
             cFile := SubStr(aParams[i], 3)
             lModeIde := .F.
-         ELSEIF Left( aParams[i], 2 ) == "-w"
+         ELSEIF Left(aParams[i], 2) == "-w"
             cDirWait := SubStr(aParams[i], 3)
             lModeIde := .F.
          ENDIF
@@ -188,7 +211,7 @@ FUNCTION Main( ... )
          lModeIde := .F.
          cExe := aParams[i]
          cParams := ""
-         FOR j := i + 1 TO Len( aParams )
+         FOR j := i + 1 TO Len(aParams)
             cParams += " " + aParams[j]
          NEXT
          EXIT
@@ -200,42 +223,39 @@ FUNCTION Main( ... )
 
    IF Empty(oMainFont)
 #ifndef __PLATFORM__WINDOWS
-      oMainFont := HFont():Add( "Sans", 0, 12, 400, 4, , , , , .T. )
+      oMainFont := HFont():Add("Sans", 0, 12, 400, 4, , , , , .T.)
 #else
-      PREPARE FONT oMainFont NAME "Georgia" WIDTH 0 HEIGHT - 15 CHARSET 4
+      PREPARE FONT oMainFont NAME "Georgia" WIDTH 0 HEIGHT -15 CHARSET 4
 #endif
    ENDIF
 
-   INIT WINDOW oMainW MAIN TITLE "Debugger" ;
-      AT 200, 0 SIZE 600, 544                  ;
-      FONT oMainFont                         ;
-      ON EXIT { || ExitDbg() }
+   INIT WINDOW oMainW MAIN TITLE "Debugger" AT 200, 0 SIZE 600, 544 FONT oMainFont ON EXIT {||ExitDbg()}
 
    MENU OF oMainW
    MENU TITLE "&File"
    MENUITEM "Debug program" ID MENU_INIT ACTION DebugNewExe()
    SEPARATOR
-   MENUITEM "Open source file" + Chr(9) + "Ctrl+O" ACTION OpenPrg() ACCELERATOR FCONTROL, Asc( "O" )
+   MENUITEM "Open source file" + Chr(9) + "Ctrl+O" ACTION OpenPrg() ACCELERATOR FCONTROL, Asc("O")
    SEPARATOR
-   MENUITEM "Close source file" ACTION oTabMain:DeletePage( oTabMain:GetActivePage() )
+   MENUITEM "Close source file" ACTION oTabMain:DeletePage(oTabMain:GetActivePage())
    IF lModeIde
-      DO( hb_hrbGetFunsym( hHrbProj, "proj_menu_save" ) )
+      DO(hb_hrbGetFunsym(hHrbProj, "proj_menu_save"))
    ENDIF
    SEPARATOR
-   MENUITEM "&Close debugger" ID MENU_EXIT ACTION DoCommand( CMD_EXIT )
-   MENUITEM "&Exit and terminate program" ID MENU_QUIT ACTION DoCommand( CMD_QUIT )
+   MENUITEM "&Close debugger" ID MENU_EXIT ACTION DoCommand(CMD_EXIT)
+   MENUITEM "&Exit and terminate program" ID MENU_QUIT ACTION DoCommand(CMD_QUIT)
    ENDMENU
    IF lModeIde
-      DO( hb_hrbGetFunsym( hHrbProj, "proj_menu" ) )
+      DO(hb_hrbGetFunsym(hHrbProj, "proj_menu"))
    ENDIF
    MENU TITLE "&Search"
-   MENUITEM "&Find" + Chr(9) + "Ctrl+F" ACTION Locate(0) ACCELERATOR FCONTROL, Asc( "F" )
+   MENUITEM "&Find" + Chr(9) + "Ctrl+F" ACTION Locate(0) ACCELERATOR FCONTROL, Asc("F")
    MENUITEM "&Next" + Chr(9) + "F3" ACTION Locate(1) ACCELERATOR 0, VK_F3
-   MENUITEM "&Previous" + Chr(9) + "Shift+F3" ACTION Locate( - 1 ) ACCELERATOR FSHIFT, VK_F3
+   MENUITEM "&Previous" + Chr(9) + "Shift+F3" ACTION Locate(-1) ACCELERATOR FSHIFT, VK_F3
    SEPARATOR
-   MENUITEM "&Go to line" + Chr(9) + "Ctrl+G" ACTION GoToLine( )ACCELERATOR FCONTROL, Asc( "G" )
+   MENUITEM "&Go to line" + Chr(9) + "Ctrl+G" ACTION GoToLine() ACCELERATOR FCONTROL, Asc("G")
    SEPARATOR
-   MENUITEM "&Current position" ACTION iif( lDebugging, SetCurrLine( nCurrLine,cPrgName ), .T. )
+   MENUITEM "&Current position" ACTION iif(lDebugging, SetCurrLine(nCurrLine, cPrgName), .T.)
    SEPARATOR
    MENUITEM "Functions &list" ACTION Funclist()
    ENDMENU
@@ -251,24 +271,24 @@ FUNCTION Main( ... )
    MENUITEMCHECK "Selected &var" + Chr(9) + "F12" ACTION ViewSelVar() ACCELERATOR 0, VK_F12
    ENDMENU
    MENU ID MENU_RUN TITLE "&Run"
-   MENUITEM "&Go" + Chr(9) + "F5" ACTION DoCommand( CMD_GO ) ACCELERATOR 0, VK_F5
-   MENUITEM "&Step" + Chr(9) + "F8" ACTION DoCommand( CMD_STEP ) ACCELERATOR 0, VK_F8
-   MENUITEM "To &cursor" + Chr(9) + "F7" ACTION DoCommand( CMD_TOCURS ) ACCELERATOR 0, VK_F7
-   MENUITEM "&Trace" + Chr(9) + "F10" ACTION DoCommand( CMD_TRACE ) ACCELERATOR 0, VK_F10
-   MENUITEM "&Next Routine" + Chr(9) + "Ctrl+F5" ACTION DoCommand( CMD_NEXTR ) ACCELERATOR FCONTROL, VK_F5
+   MENUITEM "&Go" + Chr(9) + "F5" ACTION DoCommand(CMD_GO) ACCELERATOR 0, VK_F5
+   MENUITEM "&Step" + Chr(9) + "F8" ACTION DoCommand(CMD_STEP) ACCELERATOR 0, VK_F8
+   MENUITEM "To &cursor" + Chr(9) + "F7" ACTION DoCommand(CMD_TOCURS) ACCELERATOR 0, VK_F7
+   MENUITEM "&Trace" + Chr(9) + "F10" ACTION DoCommand(CMD_TRACE) ACCELERATOR 0, VK_F10
+   MENUITEM "&Next Routine" + Chr(9) + "Ctrl+F5" ACTION DoCommand(CMD_NEXTR) ACCELERATOR FCONTROL, VK_F5
    SEPARATOR
    MENUITEM "&Animate" ACTION Animate()
    SEPARATOR
-   MENUITEM "T&erminate program" ACTION DoCommand( CMD_TERMINATE )
+   MENUITEM "T&erminate program" ACTION DoCommand(CMD_TERMINATE)
    ENDMENU
    MENU ID MENU_BRP TITLE "&BreakPoints"
    MENUITEM "&Add" + Chr(9) + "F9" ACTION AddBreakPoint() ACCELERATOR 0, VK_F9
    MENUITEM "&Delete" + Chr(9) + "F9" ACTION AddBreakPoint()
    ENDMENU
    MENU TITLE "&Options"
-   MENUITEM "Set &Path" ACTION SetPath( , cPrgName )
+   MENUITEM "Set &Path" ACTION SetPath(, cPrgName)
    MENUITEM "&Font" ACTION SetFont()
-   MENUITEM "&Max Tabs" ACTION ( nTabsMax := iif( !Empty(i := hu_Get( "Max number of tabs:","99",nTabsMax ) ), i, nTabsMax ) )
+   MENUITEM "&Max Tabs" ACTION (nTabsMax := iif(!Empty(i := hu_Get("Max number of tabs:", "99", nTabsMax)), i, nTabsMax))
    SEPARATOR
    MENUITEM "&Save Settings" ACTION SaveIni()
    SEPARATOR
@@ -280,179 +300,194 @@ FUNCTION Main( ... )
    ENDMENU
    ENDMENU
 
-   @ 0, 0 TAB oTabMain ITEMS {} SIZE 600, 436 ON SIZE { |o, x, y|o:Move( , , x, y - 108 ) }
-   oTabMain:bChange2 := { |o, n|iif( Len( o:aControls ) >= n, hwg_setfocus( o:acontrols[n]:handle ), .T. ) }
+   @ 0, 0 TAB oTabMain ITEMS {} SIZE 600, 436 ON SIZE { |o, x, y|o:Move(, , x, y - 108) }
+   oTabMain:bChange2 := {|o, n|iif(Len(o:aControls) >= n, hwg_setfocus(o:acontrols[n]:handle), .T.)}
    CreateTextCtrl()
 
    @ 4, 444 BROWSE oBrwRes ARRAY SIZE 592, 72 STYLE WS_BORDER + WS_VSCROLL ;
-      ON SIZE { |o, x, y|o:Move( , y - 104, x - 8 ) }
+      ON SIZE { |o, x, y|o:Move(, y - 104, x - 8) }
 
    oBrwRes:aArray := {}
-   oBrwRes:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,1] },"C",80,0 ) )
+   oBrwRes:AddColumn(HColumn():New("", { |v,o|o:aArray[o:nCurrent,1] }, "C", 80, 0))
    oBrwRes:lDispHead := .F.
    oBrwRes:bcolor := CLR_LIGHT1
    oBrwRes:bcolorSel := oBrwRes:htbcolor := CLR_LGREEN
    oBrwRes:tcolorSel := oBrwRes:httcolor := 0
-   oBrwRes:bEnter := { |o| iif( o:nCurrent > 0 .AND. o:nCurrent <= o:nRecords, oEditExpr:value := o:aArray[o:nCurrent,2], .T. ) }
+   oBrwRes:bEnter := {|o|iif(o:nCurrent > 0 .AND. o:nCurrent <= o:nRecords, oEditExpr:value := o:aArray[o:nCurrent,2], .T.)}
 
-   @ 4, 516 SAY oSayState CAPTION "" SIZE 80, 28 STYLE WS_BORDER + SS_CENTER ON SIZE { |o, x, y|o:Move( , y - 32 ) }
-   SET KEY 0, VK_RETURN TO KeyPress( VK_RETURN )
-   SET KEY 0, VK_UP TO KeyPress( VK_UP )
-   SET KEY 0, VK_DOWN TO KeyPress( VK_DOWN )
-   @ 84, 516 EDITBOX oEditExpr CAPTION "" ID EDIT_RES SIZE 452, 26 STYLE ES_AUTOHSCROLL ON SIZE { |o, x, y|o:Move( , y - 32, x - 148 ) }
-   //oEditExpr := HCEdit():New( , EDIT_RES,, 84, 516, 452, 26,,, {|o,x,y|o:Move(,y-32,x-148)},,,,,, .T. )
+   @ 4, 516 SAY oSayState CAPTION "" SIZE 80, 28 STYLE WS_BORDER + SS_CENTER ON SIZE { |o, x, y|o:Move(, y - 32) }
+   SET KEY 0, VK_RETURN TO KeyPress(VK_RETURN)
+   SET KEY 0, VK_UP TO KeyPress(VK_UP)
+   SET KEY 0, VK_DOWN TO KeyPress(VK_DOWN)
+   @ 84, 516 EDITBOX oEditExpr CAPTION "" ID EDIT_RES SIZE 452, 26 STYLE ES_AUTOHSCROLL ON SIZE { |o, x, y|o:Move(, y - 32, x - 148) }
+   //oEditExpr := HCEdit():New(, EDIT_RES, , 84, 516, 452, 26, , , {|o,x,y|o:Move(,y-32,x-148)},,,,,, .T.)
    //oEditExpr:nMaxLines := 1
    //oEditExpr:bColorCur := oEditExpr:bColor
 
-   @ 536, 516 BUTTON "-" SIZE 24, 14 ON CLICK { ||PrevExpr(1) } ON SIZE { |o, x, y|o:Move( x - 64, y - 32 ) }
-   @ 536, 530 BUTTON "-" SIZE 24, 14 ON CLICK { ||PrevExpr( - 1 ) } ON SIZE { |o, x, y|o:Move( x - 64, y - 18 ) }
-   @ 560, 516 BUTTON oBtnExp CAPTION "Ok" SIZE 36, 28 ON CLICK { ||Calc() } ON SIZE { |o, x, y|o:Move( x - 40, y - 32 ) }
+   @ 536, 516 BUTTON "-" SIZE 24, 14 ON CLICK { ||PrevExpr(1) } ON SIZE { |o, x, y|o:Move(x - 64, y - 32) }
+   @ 536, 530 BUTTON "-" SIZE 24, 14 ON CLICK { ||PrevExpr(-1) } ON SIZE { |o, x, y|o:Move(x - 64, y - 18) }
+   @ 560, 516 BUTTON oBtnExp CAPTION "Ok" SIZE 36, 28 ON CLICK { ||Calc() } ON SIZE { |o, x, y|o:Move(x - 40, y - 32) }
 
-   SetMode( MODE_INIT )
+   SetMode(MODE_INIT)
 
    cBuffer := Space(BUFF_LEN)
 
    IF !Empty(cFile)
       handl1 := FOpen(cFile + ".d1", FO_READWRITE + FO_SHARED)
       handl2 := FOpen(cFile + ".d2", FO_READ + FO_SHARED)
-      IF handl1 != - 1 .AND. handl2 != - 1
+      IF handl1 != -1 .AND. handl2 != -1
          cAppName := Lower(CutPath(cFile))
       ELSE
-         handl1 := handl2 := - 1
-         hwg_MsgStop( "No connection" )
+         handl1 := handl2 := -1
+         hwg_MsgStop("No connection")
       ENDIF
    ELSEIF !Empty(cExe)
-      DebugNewExe( cExe, cParams )
+      DebugNewExe(cExe, cParams)
    ELSEIF !Empty(cDirWait)
-      Wait4Conn( cDirWait )
+      Wait4Conn(cDirWait)
    ENDIF
 
    IF lModeIde
-      ViewCmdLine( .F. )
+      ViewCmdLine(.F.)
    ELSE
-      hwg_Checkmenuitem( , MENU_CMDLINE, lViewCmd )
+      hwg_Checkmenuitem(, MENU_CMDLINE, lViewCmd)
    ENDIF
 
    SET TIMER oTimer OF oMainW VALUE 30 ACTION { ||TimerProc() }
 
    ACTIVATE WINDOW oMainW
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION ReadHrb()
+
    LOCAL cHrb
 
    IF lModeIde
-      cHrb := cHrbPath + iif( Right( cHrbPath,1 ) $ "\/", "", hb_OsPathSeparator() ) + ;
+      cHrb := cHrbPath + iif(Right(cHrbPath, 1) $ "\/", "", hb_OsPathSeparator() ) + ;
          "hwg_project.hrb"
-      IF !File( cHrb ) .OR. Empty(hHrbProj := hb_hrbLoad( cHrb ))
+      IF !File(cHrb) .OR. Empty(hHrbProj := hb_hrbLoad(cHrb))
          lModeIde := .F.
       ELSE
-         DO( hb_hrbGetFunsym( hHrbProj, "proj_RdIni" ) )
+         DO(hb_hrbGetFunsym(hHrbProj, "proj_RdIni"))
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION ReadIni()
-   LOCAL oInit, i , cxmlfile
+
+   LOCAL oInit
+   LOCAL i
+   LOCAL cxmlfile
 
    cxmlfile := cIniPath + "hwgdebug.xml"
    IF FILE(cxmlfile)
-   * DF7BE: crashes here, object oIni not constructed, if file not existing !
-    oIni := HXMLDoc():Read(cxmlfile)
-    IF !Empty(oIni:aItems)
-     IF oIni:aItems[1]:title == "init"
-       oInit := oIni:aItems[1]
-       FOR i := 1 TO Len( oInit:aItems )
-          IF oInit:aItems[i]:title == "module"
-          ELSEIF oInit:aItems[i]:title == "path"
-             cPaths := oInit:aItems[i]:aItems[1]
-             IF Left( cPaths, 1 ) != ";"
-                cPaths := ";" + cPaths
-             ENDIF
-          ELSEIF oInit:aItems[i]:title == "font"
-             oMainFont := hwg_hfrm_FontFromXML( oInit:aItems[i], .T. )
-          ELSEIF oInit:aItems[i]:title == "maxtabs"
-             nTabsMax := Val( oInit:aItems[i]:aItems[1] )
-          ELSEIF oInit:aItems[i]:title == "hrbpath"
-             cHrbPath := oInit:aItems[i]:aItems[1]
-          ENDIF
-       NEXT
-     ENDIF
-    ENDIF
+      // DF7BE: crashes here, object oIni not constructed, if file not existing !
+      oIni := HXMLDoc():Read(cxmlfile)
+      IF !Empty(oIni:aItems)
+         IF oIni:aItems[1]:title == "init"
+            oInit := oIni:aItems[1]
+            FOR i := 1 TO Len(oInit:aItems)
+               IF oInit:aItems[i]:title == "module"
+               ELSEIF oInit:aItems[i]:title == "path"
+                  cPaths := oInit:aItems[i]:aItems[1]
+                  IF Left(cPaths, 1) != ";"
+                     cPaths := ";" + cPaths
+                  ENDIF
+               ELSEIF oInit:aItems[i]:title == "font"
+                  oMainFont := hwg_hfrm_FontFromXML(oInit:aItems[i], .T.)
+               ELSEIF oInit:aItems[i]:title == "maxtabs"
+                  nTabsMax := Val(oInit:aItems[i]:aItems[1])
+               ELSEIF oInit:aItems[i]:title == "hrbpath"
+                  cHrbPath := oInit:aItems[i]:aItems[1]
+               ENDIF
+            NEXT
+         ENDIF
+      ENDIF
    ENDIF && FILE
 #ifdef __HCEDIT__
-   oHighLighter := Hilight():New( cIniPath + "hilight.xml", "prg" )
+   oHighLighter := Hilight():New(cIniPath + "hilight.xml", "prg")
 #endif
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION SaveIni()
-   LOCAL oInit, oNode
+
+   LOCAL oInit
+   LOCAL oNode
 
    IF Empty(oIni) .OR. Empty(oIni:aItems)
-      oIni := HXMLDoc():New( "windows-1251" )
-      oIni:Add( oInit := HXMLNode():New( "init" ) )
+      oIni := HXMLDoc():New("windows-1251")
+      oIni:Add(oInit := HXMLNode():New("init"))
    ELSE
       oInit := oIni:aItems[1]
    ENDIF
 
-   IF !Empty(oNode := oInit:Find( "path" ))
+   IF !Empty(oNode := oInit:Find("path"))
       oNode:aItems[1] := cPaths
    ELSE
-      oInit:Add( HXMLNode():New( "path",,,cPaths ) )
+      oInit:Add(HXMLNode():New("path", , , cPaths))
    ENDIF
-   IF !Empty(oNode := oInit:Find( "font" ))
-      oNode:aAttr := Font2Attr( oMainFont )
+   IF !Empty(oNode := oInit:Find("font"))
+      oNode:aAttr := Font2Attr(oMainFont)
    ELSE
-      oInit:Add( HXMLNode():New( "font", HBXML_TYPE_SINGLE, Font2Attr( oMainFont ) ) )
+      oInit:Add(HXMLNode():New("font", HBXML_TYPE_SINGLE, Font2Attr(oMainFont)))
    ENDIF
-   IF !Empty(oNode := oInit:Find( "maxtabs" ))
+   IF !Empty(oNode := oInit:Find("maxtabs"))
       oNode:aItems[1] := LTrim(Str(nTabsMax))
    ELSE
-      oInit:Add( HXMLNode():New( "maxtabs",,,LTrim(Str(nTabsMax ) ) ) )
+      oInit:Add(HXMLNode():New("maxtabs", , , LTrim(Str(nTabsMax))))
    ENDIF
 
-   oIni:Save( cIniPath + "hwgdebug.xml" )
+   oIni:Save(cIniPath + "hwgdebug.xml")
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION SaveBreaks()
-   LOCAL oInit, oNode, n := 0, lFound := .F.
+
+   LOCAL oInit
+   LOCAL oNode
+   LOCAL n := 0
+   LOCAL lFound := .F.
 
    IF Empty(cAppName)
       RETURN NIL
    ENDIF
    IF Empty(oIni) .OR. Empty(oIni:aItems)
-      oIni := HXMLDoc():New( "windows-1251" )
-      oIni:Add( oInit := HXMLNode():New( "init" ) )
+      oIni := HXMLDoc():New("windows-1251")
+      oIni:Add(oInit := HXMLNode():New("init"))
    ELSE
       oInit := oIni:aItems[1]
    ENDIF
 
    DO WHILE .T.
       n ++
-      IF Empty(oNode := oInit:Find( "app", @n ))
+      IF Empty(oNode := oInit:Find("app", @n))
          EXIT
-      ELSEIF oNode:GetAttribute( "name" ) == cAppName
+      ELSEIF oNode:GetAttribute("name") == cAppName
          lFound := .T.
          oNode:aItems := {}
          EXIT
       ENDIF
    ENDDO
    IF !lFound
-      oInit:Add( oNode := HXMLNode():New( "app",, { { "name",cAppName } } ) )
+      oInit:Add(oNode := HXMLNode():New("app", , {{"name", cAppName}}))
    ENDIF
-   FOR n := 1 TO Len( aBP )
-      oNode:Add( HXMLNode():New( "brp", HBXML_TYPE_SINGLE, { { "prg",aBP[n,2] }, { "line",LTrim(Str(aBP[n,1] ) ) } } ) )
+   FOR n := 1 TO Len(aBP)
+      oNode:Add(HXMLNode():New("brp", HBXML_TYPE_SINGLE, {{"prg", aBP[n, 2]}, {"line", LTrim(Str(aBP[n, 1]))}}))
    NEXT
-   oIni:Save( cIniPath + "hwgdebug.xml" )
+   oIni:Save(cIniPath + "hwgdebug.xml")
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION LoadBreaks()
-   LOCAL oInit, oNode, n := 0, nLine, cPrg
+
+   LOCAL oInit
+   LOCAL oNode
+   LOCAL n := 0
+   LOCAL nLine
+   LOCAL cPrg
 
    IF Empty(cAppName)
       RETURN NIL
@@ -464,46 +499,46 @@ STATIC FUNCTION LoadBreaks()
    oInit := oIni:aItems[1]
    DO WHILE .T.
       n ++
-      IF Empty(oNode := oInit:Find( "app", @n ))
+      IF Empty(oNode := oInit:Find("app", @n))
          EXIT
-      ELSEIF oNode:GetAttribute( "name" ) == cAppName
+      ELSEIF oNode:GetAttribute("name") == cAppName
          aBPLoad := {}
-         FOR n := 1 TO Len( oNode:aItems )
+         FOR n := 1 TO Len(oNode:aItems)
             IF oNode:aItems[n]:title == "brp"
-               nLine := Val( oNode:aItems[n]:GetAttribute( "line" ) )
-               cPrg := oNode:aItems[n]:GetAttribute( "prg" )
-               IF getBP( nLine, cPrg ) == 0
+               nLine := Val(oNode:aItems[n]:GetAttribute("line"))
+               cPrg := oNode:aItems[n]:GetAttribute("prg")
+               IF getBP(nLine, cPrg) == 0
                   AAdd(aBPLoad, {nLine, cPrg})
                ENDIF
             ENDIF
          NEXT
          IF !Empty(aBPLoad)
             nBPLoad := 1
-            AddBreakPoint( aBPLoad[1,2], aBPLoad[1,1] )
+            AddBreakPoint(aBPLoad[1, 2], aBPLoad[1, 1])
          ENDIF
          EXIT
       ENDIF
    ENDDO
 
-   RETURN NIL
+RETURN NIL
 
-FUNCTION DebugNewExe( cExe, cParams )
+FUNCTION DebugNewExe(cExe, cParams)
 
    IF cExe == NIL
-      IF !Empty(cExe := hwg_Selectfile( "Executable files( *.exe )", "*.exe", CurDir() ))
+      IF !Empty(cExe := hwg_Selectfile("Executable files( *.exe )", "*.exe", CurDir()))
          aBP := {}
          aWatches := {}
          aExpr := {}
          nCurrLine := 0
          nId1 := 0
-         nId2 := - 1
+         nId2 := -1
       ELSE
          RETURN NIL
       ENDIF
    ENDIF
 
-   IF !File( cExe )
-      hwg_MsgStop( cExe + " isn't found..." )
+   IF !File(cExe)
+      hwg_MsgStop(cExe + " isn't found...")
       RETURN NIL
    ENDIF
 
@@ -520,18 +555,18 @@ FUNCTION DebugNewExe( cExe, cParams )
 
    handl1 := FOpen(cExe + ".d1", FO_READWRITE + FO_SHARED)
    handl2 := FOpen(cExe + ".d2", FO_READ + FO_SHARED)
-   IF handl1 != - 1 .AND. handl2 != - 1
+   IF handl1 != -1 .AND. handl2 != -1
       cAppName := Lower(CutPath(cExe))
    ELSE
-      handl1 := handl2 := - 1
-      hwg_MsgStop( "No connection" )
+      handl1 := handl2 := -1
+      hwg_MsgStop("No connection")
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION Wait4Conn( cDir )
+STATIC FUNCTION Wait4Conn(cDir)
 
-   cDir += iif( Right( cDir,1 ) $ "\/", "", hb_OsPathSeparator() ) + "hwgdebug"
+   cDir += iif(Right(cDir, 1) $ "\/", "", hb_OsPathSeparator()) + "hwgdebug"
    FErase(cDir + ".d1")
    FErase(cDir + ".d2")
 
@@ -543,22 +578,25 @@ STATIC FUNCTION Wait4Conn( cDir )
 
    handl1 := FOpen(cDir + ".d1", FO_READWRITE + FO_SHARED)
    handl2 := FOpen(cDir + ".d2", FO_READ + FO_SHARED)
-   IF handl1 != - 1 .AND. handl2 != - 1
+   IF handl1 != -1 .AND. handl2 != -1
    ELSE
-      handl1 := handl2 := - 1
-      hwg_MsgStop( "No connection" )
+      handl1 := handl2 := -1
+      hwg_MsgStop("No connection")
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION dbgRead()
-   LOCAL n, s := "", arr
+
+   LOCAL n
+   LOCAL s := ""
+   LOCAL arr
 
    FSeek(handl2, 0, 0)
-   DO WHILE ( n := FRead(handl2, @cBuffer, Len(cBuffer)) ) > 0
-      s += Left( cBuffer, n )
-      IF ( n := At(",!", s) ) > 0
-         IF ( arr := hb_aTokens( Left( s,n + 1 ), "," ) ) != NIL .AND. Len( arr ) > 2 .AND. arr[1] == arr[Len(arr)-1]
+   DO WHILE (n := FRead(handl2, @cBuffer, Len(cBuffer))) > 0
+      s += Left(cBuffer, n)
+      IF (n := At(",!", s)) > 0
+         IF (arr := hb_aTokens(Left(s, n + 1), ",")) != NIL .AND. Len(arr) > 2 .AND. arr[1] == arr[Len(arr) - 1]
             RETURN arr
          ELSE
             EXIT
@@ -566,183 +604,196 @@ STATIC FUNCTION dbgRead()
       ENDIF
    ENDDO
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION Send( ... )
-   LOCAL arr := hb_aParams(), i, s := ""
+STATIC FUNCTION Send(...)
+
+   LOCAL arr := hb_aParams()
+   LOCAL i
+   LOCAL s := ""
 
    FSeek(handl1, 0, 0)
-   FOR i := 1 TO Len( arr )
+   FOR i := 1 TO Len(arr)
       s += arr[i] + ","
    NEXT
    FWrite(handl1, LTrim(Str(++nId1)) + "," + s + LTrim(Str(nId1)) + ",!")
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION TimerProc()
-   LOCAL n, arr, xTmp
+
+   LOCAL n
+   LOCAL arr
+   LOCAL xTmp
+
    STATIC nLastSec := 0
 
    IF nMode != MODE_INPUT
       IF !Empty(arr := dbgRead())
          IF arr[1] == "quit"
-            SetMode( MODE_INIT )
+            SetMode(MODE_INIT)
             StopDebug()
             RETURN NIL
          ENDIF
          IF nMode == MODE_WAIT_ANS
-            IF Left( arr[1], 1 ) == "b" .AND. ( n := Val( SubStr(arr[1],2 ) ) ) == nId1
-               IF nAnsType == ANS_CALC
+            IF Left(arr[1], 1) == "b" .AND. (n := Val(SubStr(arr[1], 2))) == nId1
+               SWITCH nAnsType
+               CASE ANS_CALC
                   IF arr[2] == "value"
                      IF !Empty(cInspectVar)
-                        IF ( xTmp := SubStr(Hex2Str(arr[3]), 2, 1) ) == "O"
+                        IF (xTmp := SubStr(Hex2Str(arr[3]), 2, 1)) == "O"
                            nMode := MODE_INPUT
-                           InspectObject( cInspectVar )
+                           InspectObject(cInspectVar)
                            cInspectVar := NIL
                            RETURN NIL
                         ELSEIF xTmp == "A"
                            nMode := MODE_INPUT
-                           InspectArray( cInspectVar )
+                           InspectArray(cInspectVar)
                            cInspectVar := NIL
                            RETURN NIL
                         ELSE
                            nMode := MODE_INPUT
-                           Calc( cInspectVar )
+                           Calc(cInspectVar)
                            RETURN NIL
                         ENDIF
                      ELSE
-                        SetResult( Hex2Str(arr[3]) )
+                        SetResult(Hex2Str(arr[3]))
                      ENDIF
                   ELSE
                      oEditExpr:value := "-- BAD ANSWER --"
                   ENDIF
-               ELSEIF nAnsType == ANS_BRP
+                  EXIT
+               CASE ANS_BRP
                   IF arr[2] == "err"
                      oEditExpr:value := "-- BAD LINE --"
                   ELSE
-                     ToggleBreakPoint( arr[2], arr[3] )
+                     ToggleBreakPoint(arr[2], arr[3])
                   ENDIF
                   IF !Empty(aBPLoad)
-                     IF ++ nBPLoad <= Len( aBPLoad )
-                        AddBreakPoint( aBPLoad[nBPLoad,2], aBPLoad[nBPLoad,1] )
+                     IF ++ nBPLoad <= Len(aBPLoad)
+                        AddBreakPoint(aBPLoad[nBPLoad, 2], aBPLoad[nBPLoad, 1])
                         RETURN NIL
                      ELSE
                         aBPLoad := NIL
                      ENDIF
                   ENDIF
-               ELSEIF nAnsType == ANS_STACK
+                  EXIT
+               CASE ANS_STACK
                   IF arr[2] == "stack"
-                     ShowStack( arr, 3 )
+                     ShowStack(arr, 3)
                   ENDIF
-               ELSEIF nAnsType == ANS_LOCAL
-                  IF arr[2] == "valuelocal"
-                     ShowVars( arr, 3, 1 )
-                  ELSEIF arr[2] == "valuepriv"
-                     ShowVars( arr, 3, 2 )
-                  ELSEIF arr[2] == "valuepubl"
-                     ShowVars( arr, 3, 3 )
-                  ELSEIF arr[2] == "valuestatic"
-                     ShowVars( arr, 3, 4 )
-                  ENDIF
-               ELSEIF nAnsType == ANS_WATCH
+                  EXIT
+               CASE ANS_LOCAL
+                  SWITCH arr[2]
+                  CASE "valuelocal"  ; ShowVars(arr, 3, 1) ; EXIT
+                  CASE "valuepriv"   ; ShowVars(arr, 3, 2) ; EXIT
+                  CASE "valuepubl"   ; ShowVars(arr, 3, 3) ; EXIT
+                  CASE "valuestatic" ; ShowVars(arr, 3, 4)
+                  ENDSWITCH
+                  EXIT
+               CASE ANS_WATCH
                   IF arr[2] == "valuewatch"
-                     ShowWatch( arr, 3 )
+                     ShowWatch(arr, 3)
                   ENDIF
-               ELSEIF nAnsType == ANS_AREAS
+                  EXIT
+               CASE ANS_AREAS
                   IF arr[2] == "valueareas"
-                     ShowAreas( arr, 3 )
+                     ShowAreas(arr, 3)
                   ENDIF
-               ELSEIF nAnsType == ANS_REC
+                  EXIT
+               CASE ANS_REC
                   IF arr[2] == "valuerec"
-                     ShowRec( arr, 3 )
+                     ShowRec(arr, 3)
                   ENDIF
-               ELSEIF nAnsType == ANS_OBJECT
+                  EXIT
+               CASE ANS_OBJECT
                   IF arr[2] == "valueobj"
-                     ShowObject( arr, 3 )
+                     ShowObject(arr, 3)
                   ENDIF
-               ELSEIF nAnsType == ANS_ARRAY
+                  EXIT
+               CASE ANS_ARRAY
                   IF arr[2] == "valuearr"
-                     ShowArray( arr, 3 )
+                     ShowArray(arr, 3)
                   ENDIF
-               ENDIF
-               SetMode( MODE_INPUT )
+               ENDSWITCH
+               SetMode(MODE_INPUT)
             ENDIF
          ELSE
-            IF Left( arr[1], 1 ) == "a" .AND. ( n := Val( SubStr(arr[1],2 ) ) ) > nId2
+            IF Left(arr[1], 1) == "a" .AND. (n := Val(SubStr(arr[1], 2))) > nId2
                nId2 := n
                IF arr[2] == "."
                   oEditExpr:value := "-- BAD LINE --"
                ELSE
-                  IF !( cPrgName == arr[2] )
+                  IF !(cPrgName == arr[2])
                      cPrgName := arr[2]
-                     SetPath( cPaths, cPrgName )
+                     SetPath(cPaths, cPrgName)
                   ENDIF
-                  SetCurrLine( nCurrLine := Val( arr[3] ), cPrgName )
+                  SetCurrLine(nCurrLine := Val(arr[3]), cPrgName)
                   n := 4
                   DO WHILE .T.
                      IF arr[n] == "ver"
-                        nVerProto := Val( arr[n+1] )
+                        nVerProto := Val(arr[n + 1])
                         n += 2
                      ELSEIF arr[n] == "stack"
-                        ShowStack( arr, n + 1 )
-                        n += 2 + Val( arr[n+1] ) * 3
+                        ShowStack(arr, n + 1)
+                        n += 2 + Val(arr[n + 1]) * 3
                      ELSEIF arr[n] == "valuelocal"
-                        ShowVars( arr, n + 1, 1 )
-                        n += 2 + Val( arr[n+1] ) * 3
+                        ShowVars(arr, n + 1, 1)
+                        n += 2 + Val(arr[n + 1]) * 3
                      ELSEIF arr[n] == "valuepriv"
-                        ShowVars( arr, n + 1, 2 )
-                        n += 2 + Val( arr[n+1] ) * 3
+                        ShowVars(arr, n + 1, 2)
+                        n += 2 + Val(arr[n + 1]) * 3
                      ELSEIF arr[n] == "valuepubl"
-                        ShowVars( arr, n + 1, 3 )
-                        n += 2 + Val( arr[n+1] ) * 3
+                        ShowVars(arr, n + 1, 3)
+                        n += 2 + Val(arr[n + 1]) * 3
                      ELSEIF arr[n] == "valuestatic"
-                        ShowVars( arr, n + 1, 4 )
-                        n += 2 + Val( arr[n+1] ) * 3
+                        ShowVars(arr, n + 1, 4)
+                        n += 2 + Val(arr[n + 1]) * 3
                      ELSEIF arr[n] == "valuewatch"
-                        ShowWatch( arr, n + 1 )
-                        n += 2 + Val( arr[n+1] )
+                        ShowWatch(arr, n + 1)
+                        n += 2 + Val(arr[n + 1])
                      ELSE
                         EXIT
                      ENDIF
                   ENDDO
                   // Set Inspectors to nonactual state
-                  FOR n := 1 TO Len( HDialog():aDialogs )
-                     IF ValType( xTmp := HDialog():aDialogs[n]:cargo ) == "A" .AND. ;
-                           !Empty(xTmp) .AND. ValType( xTmp[1] ) == "C" .AND. xTmp[1] == "f"
+                  FOR n := 1 TO Len(HDialog():aDialogs)
+                     IF ValType(xTmp := HDialog():aDialogs[n]:cargo) == "A" .AND. !Empty(xTmp) .AND. ValType(xTmp[1]) == "C" .AND. xTmp[1] == "f"
                         xTmp[2] := .F.
-                        HDialog():aDialogs[n]:aControls[2]:Setcolor( 0, 255, .T. )
+                        HDialog():aDialogs[n]:aControls[2]:Setcolor(0, 255, .T.)
                      ENDIF
                   NEXT
-                  hwg_Setwindowtext( HWindow():GetMain():handle, "Debugger (" + arr[2] + ", line " + arr[3] + ")" )
+                  hwg_Setwindowtext(HWindow():GetMain():handle, "Debugger (" + arr[2] + ", line " + arr[3] + ")")
                ENDIF
-               SetMode( MODE_INPUT )
+               SetMode(MODE_INPUT)
                nLastSec := Seconds()
             ENDIF
          ENDIF
       ENDIF
    ELSEIF lAnimate .AND. Seconds() - nLastSec > nAnimate
-      Send( "cmd", "step" )
-      SetMode( MODE_WAIT_BR )
+      Send("cmd", "step")
+      SetMode(MODE_WAIT_BR)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION SetMode( newMode )
-   LOCAL aStates := { { "Input",16711680,CLR_LGREEN }, { "Init",16777215,CLR_DBLUE }, { "Wait",16777215,255 }, { "Run",16777215,0 } }
+STATIC FUNCTION SetMode(newMode)
+
+   LOCAL aStates := {{"Input", 16711680, CLR_LGREEN}, {"Init", 16777215, CLR_DBLUE}, {"Wait", 16777215, 255}, {"Run", 16777215, 0}}
 
    nMode := newMode
-   hwg_Enablemenuitem( , MENU_RUN, ( newmode == MODE_INPUT ), .T. )
-   hwg_Enablemenuitem( , MENU_VIEW, ( newmode == MODE_INPUT ), .T. )
-   hwg_Enablemenuitem( , MENU_BRP, ( newmode == MODE_INPUT ), .T. )
-   hwg_Enablemenuitem( , MENU_QUIT, ( newmode == MODE_INPUT ), .T. )
-   hwg_Drawmenubar( HWindow():GetMain():handle )
-   oSayState:SetText( aStates[newMode, 1] )
-   oSayState:Setcolor( aStates[newMode, 2], aStates[newMode, 3], .T. )
+   hwg_Enablemenuitem(, MENU_RUN, (newmode == MODE_INPUT), .T.)
+   hwg_Enablemenuitem(, MENU_VIEW, (newmode == MODE_INPUT), .T.)
+   hwg_Enablemenuitem(, MENU_BRP, (newmode == MODE_INPUT), .T.)
+   hwg_Enablemenuitem(, MENU_QUIT, (newmode == MODE_INPUT), .T.)
+   hwg_Drawmenubar(HWindow():GetMain():handle)
+   oSayState:SetText(aStates[newMode, 1])
+   oSayState:Setcolor(aStates[newMode, 2], aStates[newMode, 3], .T.)
    IF newMode == MODE_INPUT
       oBtnExp:Enable()
 #ifndef __PLATFORM__WINDOWS
 #else
-      hwg_SetForeGroundWindow( HWindow():GetMain():handle )
+      hwg_SetForeGroundWindow(HWindow():GetMain():handle)
 #endif
    ELSE
       oBtnExp:Disable()
@@ -752,187 +803,180 @@ STATIC FUNCTION SetMode( newMode )
             SetCurrLine()
          ENDIF
       ELSEIF newMode == MODE_INIT
-         hwg_Enablemenuitem( , MENU_INIT, .T. , .T. )
+         hwg_Enablemenuitem(, MENU_INIT, .T., .T.)
          lDebugging := .F.
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION DoCommand( nCmd, cDop, cDop2, cDop3 )
+STATIC FUNCTION DoCommand(nCmd, cDop, cDop2, cDop3)
 
-   IF nMode == MODE_INPUT
+   SWITCH nMode
+   CASE MODE_INPUT
       lAnimate := .F.
-      IF nCmd == CMD_GO
-         hwg_Setwindowtext( HWindow():GetMain():handle, "Debugger (" + cPrgName + ")" )
-         Send( "cmd", "go" )
-
-      ELSEIF nCmd == CMD_STEP
-         Send( "cmd", "step" )
-
-      ELSEIF nCmd == CMD_TOCURS
-         Send( "cmd", "to", cPrgName, LTrim(Str(GetCurrLine())) )
-
-      ELSEIF nCmd == CMD_TRACE
-         Send( "cmd", "trace" )
-
-      ELSEIF nCmd == CMD_NEXTR
-         Send( "cmd", "nextr" )
-
-      ELSEIF nCmd == CMD_EXP
-         Send( "exp", cDop )
+      SWITCH nCmd
+      CASE CMD_GO
+         hwg_Setwindowtext(HWindow():GetMain():handle, "Debugger (" + cPrgName + ")")
+         Send("cmd", "go")
+         EXIT
+      CASE CMD_STEP
+         Send("cmd", "step")
+         EXIT
+      CASE CMD_TOCURS
+         Send("cmd", "to", cPrgName, LTrim(Str(GetCurrLine())))
+         EXIT
+      CASE CMD_TRACE
+         Send("cmd", "trace")
+         EXIT
+      CASE CMD_NEXTR
+         Send("cmd", "nextr")
+         EXIT
+      CASE CMD_EXP
+         Send("exp", cDop)
          nAnsType := ANS_CALC
-         SetMode( MODE_WAIT_ANS )
+         SetMode(MODE_WAIT_ANS)
          RETURN NIL
-
-      ELSEIF nCmd == CMD_STACK
-         Send( "view", "stack", cDop )
+      CASE CMD_STACK
+         Send("view", "stack", cDop)
          nAnsType := ANS_STACK
-         SetMode( MODE_WAIT_ANS )
+         SetMode(MODE_WAIT_ANS)
          RETURN NIL
-
-      ELSEIF nCmd == CMD_LOCAL
-         Send( "view", "local", cDop )
+      CASE CMD_LOCAL
+         Send("view", "local", cDop)
          nAnsType := ANS_LOCAL
-         SetMode( MODE_WAIT_ANS )
+         SetMode(MODE_WAIT_ANS)
          RETURN NIL
-
-      ELSEIF nCmd == CMD_PRIV
+      CASE CMD_PRIV
          IF nVerProto > 1
-            Send( "view", "priv", cDop )
+            Send("view", "priv", cDop)
             nAnsType := ANS_LOCAL
-            SetMode( MODE_WAIT_ANS )
+            SetMode(MODE_WAIT_ANS)
          ELSE
-            hwg_MsgStop( cMsgNotSupp )
+            hwg_MsgStop(cMsgNotSupp)
          ENDIF
          RETURN NIL
-
-      ELSEIF nCmd == CMD_PUBL
+      CASE CMD_PUBL
          IF nVerProto > 1
-            Send( "view", "publ", cDop )
+            Send("view", "publ", cDop)
             nAnsType := ANS_LOCAL
-            SetMode( MODE_WAIT_ANS )
+            SetMode(MODE_WAIT_ANS)
          ELSE
-            hwg_MsgStop( cMsgNotSupp )
+            hwg_MsgStop(cMsgNotSupp)
          ENDIF
          RETURN NIL
-
-      ELSEIF nCmd == CMD_STATIC
+      CASE CMD_STATIC
          IF nVerProto > 1
-            Send( "view", "static", cDop )
+            Send("view", "static", cDop)
             nAnsType := ANS_LOCAL
-            SetMode( MODE_WAIT_ANS )
+            SetMode(MODE_WAIT_ANS)
          ELSE
-            hwg_MsgStop( cMsgNotSupp )
+            hwg_MsgStop(cMsgNotSupp)
          ENDIF
          RETURN NIL
-
-      ELSEIF nCmd == CMD_WATCH
+      CASE CMD_WATCH
          IF Empty(cDop2)
-            Send( "view", "watch", cDop )
+            Send("view", "watch", cDop)
          ELSE
-            Send( "watch", cDop, cDop2 )
+            Send("watch", cDop, cDop2)
          ENDIF
          nAnsType := ANS_WATCH
-         SetMode( MODE_WAIT_ANS )
+         SetMode(MODE_WAIT_ANS)
          RETURN NIL
-
-      ELSEIF nCmd == CMD_AREA
-         Send( "view", "areas" )
+      CASE CMD_AREA
+         Send("view", "areas")
          nAnsType := ANS_AREAS
-         SetMode( MODE_WAIT_ANS )
+         SetMode(MODE_WAIT_ANS)
          RETURN NIL
-
-      ELSEIF nCmd == CMD_REC
+      CASE CMD_REC
          IF nVerProto > 1
-            Send( "insp", "rec", cDop )
+            Send("insp", "rec", cDop)
             nAnsType := ANS_REC
-            SetMode( MODE_WAIT_ANS )
+            SetMode(MODE_WAIT_ANS)
          ELSE
-            hwg_MsgStop( cMsgNotSupp )
+            hwg_MsgStop(cMsgNotSupp)
          ENDIF
          RETURN NIL
-
-      ELSEIF nCmd == CMD_OBJECT
+      CASE CMD_OBJECT
          IF nVerProto > 1
-            Send( "insp", "obj", cDop )
+            Send("insp", "obj", cDop)
             nAnsType := ANS_OBJECT
-            SetMode( MODE_WAIT_ANS )
+            SetMode(MODE_WAIT_ANS)
          ELSE
-            hwg_MsgStop( cMsgNotSupp )
+            hwg_MsgStop(cMsgNotSupp)
          ENDIF
          RETURN NIL
-
-      ELSEIF nCmd == CMD_ARRAY
+      CASE CMD_ARRAY
          IF nVerProto > 2
-            Send( "insp", "arr", cDop, cDop2, cDop3 )
+            Send("insp", "arr", cDop, cDop2, cDop3)
             nAnsType := ANS_ARRAY
-            SetMode( MODE_WAIT_ANS )
+            SetMode(MODE_WAIT_ANS)
          ELSE
-            hwg_MsgStop( cMsgNotSupp )
+            hwg_MsgStop(cMsgNotSupp)
          ENDIF
          RETURN NIL
-
-      ELSEIF nCmd == CMD_QUIT
+      CASE CMD_QUIT
          nExitMode := 2
          hwg_EndWindow()
          RETURN NIL
-
-      ELSEIF nCmd == CMD_EXIT
+      CASE CMD_EXIT
          nExitMode := 1
          hwg_EndWindow()
          RETURN NIL
-
-      ELSEIF nCmd == CMD_TERMINATE
-         Send( "cmd", "quit" )
+      CASE CMD_TERMINATE
+         Send("cmd", "quit")
          lDebugging := .F.
          StopDebug()
-
-      ENDIF
-      SetMode( MODE_WAIT_BR )
-   ELSEIF nCmd == CMD_EXIT
+      ENDSWITCH
+      SetMode(MODE_WAIT_BR)
+      EXIT
+   CASE CMD_EXIT
       nExitMode := 1
       hwg_EndWindow()
+   ENDSWITCH
 
-   ENDIF
+RETURN NIL
 
-   RETURN NIL
+STATIC FUNCTION SetPath(cRes, cName, lClear)
 
-STATIC FUNCTION SetPath( cRes, cName, lClear )
-   LOCAL arr, i, cFull
+   LOCAL arr
+   LOCAL i
+   LOCAL cFull
 
-   IF !Empty(cRes) .OR. !Empty(cRes := hu_Get( "Path to source files", Replicate("X",256), cPaths ))
-      cPaths := iif( Left( cRes,1 ) != ";", ";" + cRes, cRes )
-      arr := hb_aTokens( cPaths, ";" )
+   IF !Empty(cRes) .OR. !Empty(cRes := hu_Get("Path to source files", Replicate("X", 256), cPaths))
+      cPaths := iif(Left(cRes, 1) != ";", ";" + cRes, cRes)
+      arr := hb_aTokens(cPaths, ";")
       IF !Empty(cName)
-         FOR i := 1 TO Len( arr )
-            cFull := arr[i] + ;
-               iif( Empty(arr[i]) .OR. Right( arr[i],1 ) $ "\/", "", hb_OsPathSeparator() ) + cPrgName
-            IF SetText( cFull, lClear )
+         FOR i := 1 TO Len(arr)
+            cFull := arr[i] + iif(Empty(arr[i]) .OR. Right(arr[i], 1) $ "\/", "", hb_OsPathSeparator()) + cPrgName
+            IF SetText(cFull, lClear)
                EXIT
             ENDIF
          NEXT
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION OpenPrg()
-   LOCAL cFile := hwg_Selectfile( "Source files( *.prg )", "*.prg", cCurrPath )
+
+   LOCAL cFile := hwg_Selectfile("Source files( *.prg )", "*.prg", cCurrPath)
 
    IF !Empty(cFile)
       SetText( cFile )
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-FUNCTION GetTextObj( cName, nTab )
-   LOCAL i, oText
+FUNCTION GetTextObj(cName, nTab)
+
+   LOCAL i
+   LOCAL oText
 
    IF Empty(cName)
       oText := oTabMain:aControls[nTab := oTabMain:GetActivePage()]
    ELSE
-      FOR i := 1 TO Len( oTabMain:aControls )
+      FOR i := 1 TO Len(oTabMain:aControls)
          IF oTabMain:aControls[i]:cargo == cName
             oText := oTabMain:aControls[i]
             nTab := i
@@ -941,82 +985,84 @@ FUNCTION GetTextObj( cName, nTab )
       NEXT
    ENDIF
 
-   RETURN oText
+RETURN oText
 
 #ifdef __HCEDIT__
 
 #define HILIGHT_KEYW    1
-
 #define HILIGHT_FUNC    2
-
 #define HILIGHT_QUOTE   3
-
 #define HILIGHT_COMM    4
 
 STATIC FUNCTION CreateTextCtrl()
+
    LOCAL oText
 
    BEGIN PAGE "Empty" of oTabMain
 #ifdef __GTK__
-   oText := HCEdit():New( oTabMain, , , 4, 4, 592, 426, oMainFont, , { |o, x, y|o:Move( ,,x - 8,y - 10 ) } )
+   oText := HCEdit():New(oTabMain, , , 4, 4, 592, 426, oMainFont, , {|o, x, y|o:Move(, , x - 8, y - 10)})
 #else
-   oText := HCEdit():New( oTabMain, , , 10, 30, oTabMain:nWidth - 20, oTabMain:nHeight - 36, oMainFont, , ;
-      { |o, x, y|o:Move( , , x - 20, y - 36 ) }, , , , , , , .T. )
+   oText := HCEdit():New(oTabMain, , , 10, 30, oTabMain:nWidth - 20, oTabMain:nHeight - 36, oMainFont, , {|o, x, y|o:Move(, , x - 20, y - 36)}, , , , , , , .T.)
 #endif
    END PAGE of oTabMain
 
-   oText:HighLighter( Hilight():New( cIniPath + "hilight.xml", "prg" ) )
+   oText:HighLighter(Hilight():New(cIniPath + "hilight.xml", "prg"))
    oText:lReadOnly := !lModeIde
    oText:lShowNumbers := .T.
-   oText:bPaint := { |o, h, n, y1, y2| onTxtPaint( o, h, n, y1, y2 ) }
-   oText:bKeyDown := { |o, n|iif( n == 120 .OR. n == 13, AddBreakPoint(), - 1 ) }
-   oText:bClickDoub := { ||AddBreakPoint() }
-   oText:HighLighter( oHighLighter )
+   oText:bPaint := {|o, h, n, y1, y2|onTxtPaint(o, h, n, y1, y2)}
+   oText:bKeyDown := {|o, n|iif(n == 120 .OR. n == 13, AddBreakPoint(), -1)}
+   oText:bClickDoub := {||AddBreakPoint()}
+   oText:HighLighter(oHighLighter)
 
-   oText:SetHili( HILIGHT_KEYW, oText:oFont:SetFontStyle( .T. ), 8388608, oText:bColor )
-   oText:SetHili( HILIGHT_FUNC, 0, 8388608, oText:bColor )
-   oText:SetHili( HILIGHT_QUOTE, 0, 16711680, oText:bColor )
-   oText:SetHili( HILIGHT_COMM, oText:oFont:SetFontStyle( ,, .T. ), 32768, oText:bColor )
+   oText:SetHili(HILIGHT_KEYW, oText:oFont:SetFontStyle(.T.), 8388608, oText:bColor)
+   oText:SetHili(HILIGHT_FUNC, 0, 8388608, oText:bColor)
+   oText:SetHili(HILIGHT_QUOTE, 0, 16711680, oText:bColor)
+   oText:SetHili(HILIGHT_COMM, oText:oFont:SetFontStyle(, , .T.), 32768, oText:bColor)
 
-   RETURN oText
+RETURN oText
 
-STATIC FUNCTION onTxtPaint( oText, hDC, nLine, y1, y2 )
+STATIC FUNCTION onTxtPaint(oText, hDC, nLine, y1, y2)
+
    LOCAL y
-   STATIC oPenCurr, oPenBP
+
+   STATIC oPenCurr
+   STATIC oPenBP
 
    IF nLine == NIL
       oText:n4Separ += 12
    ELSE
       IF Empty(oPenCurr)
-         oPenCurr := HPen():Add( , 2, 8388608 )
-         oPenBP := HPen():Add( , 2, 255 )
+         oPenCurr := HPen():Add(, 2, 8388608)
+         oPenBP := HPen():Add(, 2, 255)
       ENDIF
       IF nCurrLine == nLine
-         IF !( cPrgName == oText:cargo )
+         IF !(cPrgName == oText:cargo)
             RETURN NIL
          ENDIF
-         y := y1 + Int( ( y2 - y1 )/2 )
-         hwg_Selectobject( hDC, oPenCurr:handle )
-         hwg_Drawline( hDC, oText:n4Separ - 12, y - 3, oText:n4Separ - 4, y )
-         hwg_Drawline( hDC, oText:n4Separ - 12, y + 3, oText:n4Separ - 4, y )
-      ELSEIF getBP( nLine, oText:cargo ) != 0
-         hwg_Selectobject( hDC, oPenBP:handle )
-         y := y1 + Int( ( y2 - y1 )/2 )
-         hwg_Ellipse( hDC, oText:n4Separ - 12, y - 4, oText:n4Separ - 4, y + 4 )
-         hwg_Ellipse( hDC, oText:n4Separ - 10, y - 2, oText:n4Separ - 6, y + 2 )
+         y := y1 + Int((y2 - y1) / 2)
+         hwg_Selectobject(hDC, oPenCurr:handle)
+         hwg_Drawline(hDC, oText:n4Separ - 12, y - 3, oText:n4Separ - 4, y)
+         hwg_Drawline(hDC, oText:n4Separ - 12, y + 3, oText:n4Separ - 4, y)
+      ELSEIF getBP(nLine, oText:cargo) != 0
+         hwg_Selectobject(hDC, oPenBP:handle)
+         y := y1 + Int((y2 - y1) / 2)
+         hwg_Ellipse(hDC, oText:n4Separ - 12, y - 4, oText:n4Separ - 4, y + 4)
+         hwg_Ellipse(hDC, oText:n4Separ - 10, y - 2, oText:n4Separ - 6, y + 2)
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION SetCurrLine( nLine, cName )
-   LOCAL nTab, oText := GetTextObj( cName, @nTab )
+STATIC FUNCTION SetCurrLine(nLine, cName)
+
+   LOCAL nTab
+   LOCAL oText := GetTextObj(cName, @nTab)
 
    IF !lDebugging
       IF !lViewCmd
-         ViewCmdLine( .T. )
+         ViewCmdLine(.T.)
       ENDIF
-      hwg_Enablemenuitem( , MENU_INIT, .F. , .T. )
+      hwg_Enablemenuitem(, MENU_INIT, .F., .T.)
       lDebugging := .T.
       IF !Empty(oText)
          oText:lReadOnly := .T.
@@ -1025,26 +1071,29 @@ STATIC FUNCTION SetCurrLine( nLine, cName )
 
    IF !Empty(oText)
       IF !Empty(nLine) .AND. oText:nTextLen >= nLine
-         oTabMain:SetTab( nTab )
-         oText:GoTo( nLine )
+         oTabMain:SetTab(nTab)
+         oText:GoTo(nLine)
       ELSE
          oText:Refresh()
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION SetText( cName, lClear )
-   LOCAL oText, nTab, i
+STATIC FUNCTION SetText(cName, lClear)
+
+   LOCAL oText
+   LOCAL nTab
+   LOCAL i
 
    IF cName == NIL
       cName := cPrgName
    ENDIF
 
-   IF !Empty(GetTextObj( CutPath( cName ) ))
+   IF !Empty(GetTextObj(CutPath(cName)))
       RETURN .T.
    ENDIF
-   FOR i := Len( oTabMain:aControls ) TO 1 STEP - 1
+   FOR i := Len(oTabMain:aControls) TO 1 STEP -1
       IF Empty(oTabMain:aControls[i]:cargo) .AND. oTabMain:aControls[i]:nTextLen <= 1
          oText := oTabMain:aControls[i]
          nTab := i
@@ -1052,124 +1101,132 @@ STATIC FUNCTION SetText( cName, lClear )
       ENDIF
    NEXT
    IF Empty(oText)
-      IF Len( oTabMain:aControls ) < nTabsMax
+      IF Len(oTabMain:aControls) < nTabsMax
          oText := CreateTextCtrl()
-         nTab := Len( oTabMain:aControls )
+         nTab := Len(oTabMain:aControls)
       ELSE
          oText := oTabMain:aControls[nTabsMax]
          nTab := nTabsMax
       ENDIF
    ENDIF
 
-   oTabMain:SetTab( nTab )
-   IF File( cName )
-      cCurrPath := FilePath( cName )
+   oTabMain:SetTab(nTab)
+   IF File(cName)
+      cCurrPath := FilePath(cName)
       oText:Open(cName)
-      FOR i := 1 TO Len( oText:aText )
+      FOR i := 1 TO Len(oText:aText)
          IF Chr(9) $ oText:aText[i]
-            oText:aText[i] := StrTran( oText:aText[i], Chr(9), Space(4) )
+            oText:aText[i] := StrTran(oText:aText[i], Chr(9), Space(4))
          ENDIF
       NEXT
       oText:lReadOnly := lDebugging
-      hwg_SetTabName( oTabMain:handle, nTab, oText:cargo := CutPath( cName ) )
+      hwg_SetTabName(oTabMain:handle, nTab, oText:cargo := CutPath(cName))
       RETURN .T.
    ELSEIF !Empty(lClear)
-      oText:SetText( "" )
+      oText:SetText("")
       oText:cargo := ""
-      hwg_SetTabName( oTabMain:handle, nTab, "Empty" )
+      hwg_SetTabName(oTabMain:handle, nTab, "Empty")
    ENDIF
 
-   RETURN .F.
+RETURN .F.
 
-STATIC FUNCTION SetTextFont( oFont )
+STATIC FUNCTION SetTextFont(oFont)
+
    LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
-   RETURN iif( Empty(oText), NIL, oText:SetFont( oFont ) )
+RETURN iif(Empty(oText), NIL, oText:SetFont(oFont))
 
 STATIC FUNCTION GetTextArr()
+
    LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
-   RETURN iif( Empty(oText), NIL, oText:aText )
+RETURN iif(Empty(oText), NIL, oText:aText)
 
 STATIC FUNCTION GetCurrLine()
+
    LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
-   RETURN iif( Empty(oText), 0, oText:nLineF + oText:nLineC - 1 )
+RETURN iif(Empty(oText), 0, oText:nLineF + oText:nLineC - 1)
 
 #else
 
 STATIC FUNCTION CreateTextCtrl()
+
    LOCAL oText
 
    BEGIN PAGE "Empty" of oTabMain
 #ifdef __GTK__
-   @ 4, 4 BROWSE oText OF oTabMain ARRAY SIZE 592, 426  ;
-      FONT oMainFont STYLE WS_BORDER + WS_VSCROLL ;
-      ON SIZE { |o, x, y|o:Move( , , x - 8, y - 32 ) }
+   @ 4, 4 BROWSE oText OF oTabMain ARRAY SIZE 592, 426 FONT oMainFont STYLE WS_BORDER + WS_VSCROLL ON SIZE {|o, x, y|o:Move(, , x - 8, y - 32)}
 #else
-   @ 10, 30 BROWSE oText OF oTabMain ARRAY SIZE oTabMain:nWidth - 20, oTabMain:nHeight - 36  ;
-      FONT oMainFont NOBORDER ;
-      ON SIZE { |o, x, y|o:Move( , , x - 20, y - 36 ) }
+   @ 10, 30 BROWSE oText OF oTabMain ARRAY SIZE oTabMain:nWidth - 20, oTabMain:nHeight - 36 FONT oMainFont NOBORDER ON SIZE {|o, x, y|o:Move(, , x - 20, y - 36)}
 #endif
    END PAGE of oTabMain
 
    oText:aArray := {}
 
-   oText:AddColumn( HColumn():New( "",{ |v,o|iif(cPrgName == o:cargo,iif(o:nCurrent == nCurrLine,'>',iif(getBP(o:nCurrent ) != 0,'#',' ' ) ),' ' ) },"C",2,0 ) )
-   oText:aColumns[1]:oFont := oMainFont:SetFontStyle( .T. )
-   oText:aColumns[1]:bColorBlock := { ||iif( getBP( oText:nCurrent ) != 0, { 65535, 255, 16777215, 255 }, { oText:tColor, oText:bColor, oText:tColorSel, oText:bColorSel } ) }
+   oText:AddColumn(HColumn():New("", {|v, o|iif(cPrgName == o:cargo, iif(o:nCurrent == nCurrLine, ">", iif(getBP(o:nCurrent) != 0, "#", " ")), " ")}, "C", 2, 0))
+   oText:aColumns[1]:oFont := oMainFont:SetFontStyle(.T.)
+   oText:aColumns[1]:bColorBlock := {||iif(getBP(oText:nCurrent) != 0, {65535, 255, 16777215, 255}, {oText:tColor, oText:bColor, oText:tColorSel, oText:bColorSel})}
 
-   oText:AddColumn( HColumn():New( "",{ |v,o|o:nCurrent },"N",5,0 ) )
-   oText:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent] },"C",80,0 ) )
+   oText:AddColumn(HColumn():New("", {|v, o|o:nCurrent}, "N", 5, 0))
+   oText:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent]}, "C", 80, 0))
 
-   oText:bEnter := { ||AddBreakPoint() }
+   oText:bEnter := {||AddBreakPoint()}
    oText:lDispHead := .F.
    oText:bcolorSel := oText:htbcolor := CLR_LGREEN
    oText:tcolorSel := 0
 
-   RETURN oText
+RETURN oText
 
-STATIC FUNCTION SetCurrLine( nLine, cName )
-   LOCAL nLine1, nTab, oText := GetTextObj( cName, @nTab )
+STATIC FUNCTION SetCurrLine(nLine, cName)
+
+   LOCAL nLine1
+   LOCAL nTab
+   LOCAL oText := GetTextObj(cName, @nTab)
 
    IF !lDebugging
       IF !lViewCmd
-         ViewCmdLine( .T. )
+         ViewCmdLine(.T.)
       ENDIF
-      hwg_Enablemenuitem( , MENU_INIT, .F. , .T. )
+      hwg_Enablemenuitem(, MENU_INIT, .F., .T.)
       lDebugging := .T.
    ENDIF
 
    IF !Empty(oText) .AND. !Empty(oText:aArray)
       IF !Empty(nLine)
-         oTabMain:SetTab( nTab )
+         oTabMain:SetTab(nTab)
          nLine1 := oText:nCurrent - oText:rowPos + 1
          oText:nCurrent := nLine
          IF nLine < nLine1 .OR. nLine > nLine1 + oText:rowCount - 1
-            oText:rowPos := Int( oText:rowCount / 2 )
+            oText:rowPos := Int(oText:rowCount / 2)
          ENDIF
          IF oText:rowPos > nLine
             oText:rowPos := nLine
          ENDIF
-         hwg_VScrollPos( oText, 0, .F. )
+         hwg_VScrollPos(oText, 0, .F.)
       ENDIF
       oText:Refresh()
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION SetText( cName, lClear )
-   LOCAL oText, nTab, cBuff, cNewLine := Chr(13) + Chr(10), i
+STATIC FUNCTION SetText(cName, lClear)
+
+   LOCAL oText
+   LOCAL nTab
+   LOCAL cBuff
+   LOCAL cNewLine := Chr(13) + Chr(10)
+   LOCAL i
 
    IF cName == NIL
       cName := cPrgName
    ENDIF
 
-   IF !Empty(GetTextObj( CutPath( cName ) ))
+   IF !Empty(GetTextObj(CutPath(cName)))
       RETURN .T.
    ENDIF
 
-   FOR i := Len( oTabMain:aControls ) TO 1 STEP - 1
+   FOR i := Len(oTabMain:aControls) TO 1 STEP -1
       IF Empty(oTabMain:aControls[i]:cargo)
          oText := oTabMain:aControls[i]
          nTab := i
@@ -1177,43 +1234,44 @@ STATIC FUNCTION SetText( cName, lClear )
       ENDIF
    NEXT
    IF Empty(oText)
-      IF Len( oTabMain:aControls ) < nTabsMax
+      IF Len(oTabMain:aControls) < nTabsMax
          oText := CreateTextCtrl()
-         nTab := Len( oTabMain:aControls )
+         nTab := Len(oTabMain:aControls)
       ELSE
          oText := oTabMain:aControls[nTabsMax]
          nTab := nTabsMax
       ENDIF
    ENDIF
 
-   IF File( cName ) .AND. !Empty(cBuff := MemoRead(cName))
-      IF !( cNewLine $ cBuff )
+   IF File(cName) .AND. !Empty(cBuff := MemoRead(cName))
+      IF !(cNewLine $ cBuff)
          cNewLine := Chr(10)
       ENDIF
-      cCurrPath := FilePath( cName )
-      oText:aArray := hb_aTokens( cBuff, cNewLine )
-      FOR i := 1 TO Len( oText:aArray )
+      cCurrPath := FilePath(cName)
+      oText:aArray := hb_aTokens(cBuff, cNewLine)
+      FOR i := 1 TO Len(oText:aArray)
          IF Chr(9) $ oText:aArray[i]
-            oText:aArray[i] := StrTran( oText:aArray[i], Chr(9), Space(4) )
+            oText:aArray[i] := StrTran(oText:aArray[i], Chr(9), Space(4))
          ENDIF
       NEXT
-      hwg_SetTabName( oTabMain:handle, nTab, oText:cargo := CutPath( cName ) )
-      oTabMain:SetTab( nTab )
-      hwg_Invalidaterect( oText:handle, 1 )
+      hwg_SetTabName(oTabMain:handle, nTab, oText:cargo := CutPath(cName))
+      oTabMain:SetTab(nTab)
+      hwg_Invalidaterect(oText:handle, 1)
       oText:Refresh()
       RETURN .T.
    ELSEIF !Empty(lClear)
       oText:aArray := {}
       oText:cargo := ""
-      hwg_SetTabName( oTabMain:handle, nTab, "Empty" )
-      oTabMain:SetTab( nTab )
-      hwg_Invalidaterect( oText:handle, 1 )
+      hwg_SetTabName(oTabMain:handle, nTab, "Empty")
+      oTabMain:SetTab(nTab)
+      hwg_Invalidaterect(oText:handle, 1)
       oText:Refresh()
    ENDIF
 
-   RETURN .F.
+RETURN .F.
 
-STATIC FUNCTION SetTextFont( oFont )
+STATIC FUNCTION SetTextFont(oFont)
+
    LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
    IF !Empty(oText)
@@ -1221,61 +1279,65 @@ STATIC FUNCTION SetTextFont( oFont )
       oText:Refresh()
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION GetTextArr()
+
    LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
-   RETURN iif( Empty(oText), NIL, oText:aArray )
+RETURN iif(Empty(oText), NIL, oText:aArray)
 
 STATIC FUNCTION GetCurrLine()
 
    LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
 
-   RETURN iif( Empty(oText), 0, oText:nCurrent )
+RETURN iif(Empty(oText), 0, oText:nCurrent)
 
 #endif
 
 STATIC FUNCTION GoToLine()
+
    LOCAL nLine := GetCurrLine()
 
-   nLine = hu_Get( "Go to line", "999999", nLine )
+   nLine = hu_Get("Go to line", "999999", nLine)
    IF !Empty(nLine)
-      SetCurrLine( nLine )
+      SetCurrLine(nLine)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION LOCATE( nDir )
-   LOCAL i, arr := GetTextArr()
+STATIC FUNCTION LOCATE(nDir)
+
+   LOCAL i
+   LOCAL arr := GetTextArr()
 
    IF Empty(arr)
       RETURN NIL
    ENDIF
    IF nDir == 0 .OR. nDir > 0
       IF nDir == 0
-         cTextLocate := hu_Get( "Search string", "@S256", "" )
+         cTextLocate := hu_Get("Search string", "@S256", "")
          nLineLocate := 0
       ELSEIF Empty(nLineLocate)
          RETURN NIL
       ENDIF
       IF !Empty(cTextLocate)
          cTextLocate := Lower(cTextLocate)
-         FOR i := nLineLocate + 1 TO Len( arr )
+         FOR i := nLineLocate + 1 TO Len(arr)
             IF cTextLocate $ Lower(arr[i])
                nLineLocate := i
                EXIT
             ENDIF
          NEXT
-         IF i > Len( arr )
-            hwg_MsgStop( "String isn't found" )
+         IF i > Len(arr)
+            hwg_MsgStop("String isn't found")
          ELSE
-            SetCurrLine( nLineLocate )
+            SetCurrLine(nLineLocate)
          ENDIF
       ENDIF
    ELSEIF nDir < 0
       IF !Empty(cTextLocate) .AND. !Empty(nLineLocate)
-         FOR i := nLineLocate - 1 TO 1 STEP - 1
+         FOR i := nLineLocate - 1 TO 1 STEP -1
             IF cTextLocate $ Lower(arr[i])
                nLineLocate := i
                EXIT
@@ -1283,33 +1345,40 @@ STATIC FUNCTION LOCATE( nDir )
          NEXT
       ENDIF
       IF i == 0
-         hwg_MsgStop( "String isn't found" )
+         hwg_MsgStop("String isn't found")
       ELSE
-         SetCurrLine( nLineLocate )
+         SetCurrLine(nLineLocate)
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION Funclist()
-   LOCAL i, arr := GetTextArr(), cLine, cfirst, cSecond, nSkip, arrfnc := {}, lClassDef := .F.
+
+   LOCAL i
+   LOCAL arr := GetTextArr()
+   LOCAL cLine
+   LOCAL cfirst
+   LOCAL cSecond
+   LOCAL nSkip
+   LOCAL arrfnc := {}
+   LOCAL lClassDef := .F.
 
    IF Empty(arr)
       RETURN NIL
    ENDIF
-   FOR i := 1 TO Len( arr )
+   FOR i := 1 TO Len(arr)
       cLine := Lower(LTrim(arr[i]))
       nSkip := 0
-      cfirst := hb_TokenPtr( cLine, @nSkip )
+      cfirst := hb_TokenPtr(cLine, @nSkip)
       IF cfirst == "function" .OR. cfirst == "procedure" .OR. ;
-            ( cfirst == "method" .AND. !lClassDef ) .OR. cfirst == "func" .OR. cfirst == "proc" .OR. ;
-            ( cfirst == "static" .AND. ( ( cSecond := hb_TokenPtr( cLine, @nSkip ) ) == "function" .OR. ;
-            cSecond == "procedure" .OR. cSecond == "func" .OR. cSecond == "proc" ) )
+         (cfirst == "method" .AND. !lClassDef) .OR. cfirst == "func" .OR. cfirst == "proc" .OR. ;
+         (cfirst == "static" .AND. ((cSecond := hb_TokenPtr(cLine, @nSkip)) == "function" .OR. ;
+         cSecond == "procedure" .OR. cSecond == "func" .OR. cSecond == "proc"))
          AAdd(arrfnc, {Left(arr[i], 72), i})
       ENDIF
-      IF cfirst == "class" .OR. ( cfirst == "create" .AND. ( cSecond := hb_TokenPtr( cLine, @nSkip ) ) == "class" )
-         IF cfirst == "create" .OR. ( !( ( cSecond := hb_TokenPtr( cLine, @nSkip ) ) == "var" ) ;
-               .AND. !( cSecond == "data" ) )
+      IF cfirst == "class" .OR. (cfirst == "create" .AND. (cSecond := hb_TokenPtr(cLine, @nSkip)) == "class")
+         IF cfirst == "create" .OR. (!((cSecond := hb_TokenPtr(cLine, @nSkip)) == "var") .AND. !(cSecond == "data"))
             lClassDef := .T.
             AAdd(arrfnc, {Left(arr[i], 72), i})
          ENDIF
@@ -1317,54 +1386,58 @@ STATIC FUNCTION Funclist()
          lClassDef := .F.
       ENDIF
    NEXT
-   IF !Empty(arrfnc) .AND. ( i := hwg_WChoice( arrfnc, "Functions list",,,HWindow():GetMain():oFont ) ) != 0
-      SetCurrLine( arrfnc[i,2] )
+   IF !Empty(arrfnc) .AND. (i := hwg_WChoice(arrfnc, "Functions list", , , HWindow():GetMain():oFont)) != 0
+      SetCurrLine(arrfnc[i, 2])
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION Animate()
-   LOCAL n := hu_Get( "Seconds:", "9", nAnimate )
+
+   LOCAL n := hu_Get("Seconds:", "9", nAnimate)
 
    IF !Empty(n)
       nAnimate := n
       lAnimate := .T.
-      DoCommand( CMD_STEP )
+      DoCommand(CMD_STEP)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION getBP( nLine, cPrg )
+STATIC FUNCTION getBP(nLine, cPrg)
 
    cPrg := Lower(iif(cPrg == NIL, cPrgName, cPrg))
 
-   RETURN Ascan( aBP, { |a|a[1] == nLine .AND. Lower(a[2]) == cPrg } )
+RETURN Ascan(aBP, {|a|a[1] == nLine .AND. Lower(a[2]) == cPrg})
 
-STATIC FUNCTION ToggleBreakPoint( cAns, cLine )
-   LOCAL nLine := Val( cLine ), i
+STATIC FUNCTION ToggleBreakPoint(cAns, cLine)
+
+   LOCAL nLine := Val(cLine)
+   LOCAL i
 
    IF cAns == "line"
-      FOR i := 1 TO Len( aBP )
-         IF aBP[i,1] == 0
-            aBP[i,1] := nLine
+      FOR i := 1 TO Len(aBP)
+         IF aBP[i, 1] == 0
+            aBP[i, 1] := nLine
             EXIT
          ENDIF
       NEXT
-      IF i > Len( aBP )
+      IF i > Len(aBP)
          AAdd(aBP, {nLine, cPrgBP})
       ENDIF
    ELSE
-      IF ( i := getBP( nLine, cPrgBP ) ) == 0
-         hwg_MsgInfo( "Error deleting BP line " + cLine )
+      IF (i := getBP(nLine, cPrgBP)) == 0
+         hwg_MsgInfo("Error deleting BP line " + cLine)
       ELSE
-         aBP[i,1] := 0
+         aBP[i, 1] := 0
       ENDIF
    ENDIF
    SetCurrLine()
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION AddBreakPoint( cPrg, nLine )
+STATIC FUNCTION AddBreakPoint(cPrg, nLine)
+
    LOCAL oText
 
    IF nMode != MODE_INPUT .AND. Empty(aBPLoad)
@@ -1377,44 +1450,45 @@ STATIC FUNCTION AddBreakPoint( cPrg, nLine )
    IF nLine == NIL
       nLine := GetCurrLine()
    ENDIF
-   IF !Empty(oText := oTabMain:aControls[oTabMain:GetActivePage()]) .AND. ;
-         !Empty(oText:cargo)
+   IF !Empty(oText := oTabMain:aControls[oTabMain:GetActivePage()]) .AND. !Empty(oText:cargo)
 
       IF cPrg == NIL
          cPrg := oText:cargo
       ENDIF
 
-      IF getBP( nLine, cPrg ) == 0
-         Send( "brp", "add", cPrg, LTrim(Str(nLine)) )
+      IF getBP(nLine, cPrg) == 0
+         Send("brp", "add", cPrg, LTrim(Str(nLine)))
       ELSE
-         Send( "brp", "del", cPrg, LTrim(Str(nLine)) )
+         Send("brp", "del", cPrg, LTrim(Str(nLine)))
       ENDIF
       IF nMode != MODE_WAIT_ANS
          nAnsType := ANS_BRP
          cPrgBP := cPrg
-         SetMode( MODE_WAIT_ANS )
+         SetMode(MODE_WAIT_ANS)
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION PrevExpr( nDirection )
+STATIC FUNCTION PrevExpr(nDirection)
+
    LOCAL i
+
    STATIC iPos := 0
 
    IF nDirection == 0
 
       iPos := 0
-   ELSEIF iPos + nDirection <= Len( oBrwRes:aArray ) .AND. iPos + nDirection > 0
+   ELSEIF iPos + nDirection <= Len(oBrwRes:aArray) .AND. iPos + nDirection > 0
 
       iPos += nDirection
-      i := Len( oBrwRes:aArray ) - iPos + 1
+      i := Len(oBrwRes:aArray) - iPos + 1
       oEditExpr:value := oBrwRes:aArray[i, 2]
 
       oBrwRes:nCurrent := i
-      oBrwRes:rowPos := Min( 2, i )
-      hwg_VScrollPos( oBrwRes, 0, .F. )
-      hwg_Invalidaterect( oBrwRes:handle, 1 )
+      oBrwRes:rowPos := Min(2, i)
+      hwg_VScrollPos(oBrwRes, 0, .F.)
+      hwg_Invalidaterect(oBrwRes:handle, 1)
       oBrwRes:Refresh()
 
    ELSEIF nDirection < 0
@@ -1423,107 +1497,101 @@ STATIC FUNCTION PrevExpr( nDirection )
       iPos := 0
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION SetResult( cLine )
+STATIC FUNCTION SetResult(cLine)
 
    oBrwRes:aArray[Len(oBrwRes:aArray), 1] := cLine
-   oBrwRes:Bottom( .T. )
-   hwg_Setfocus( oEditExpr:handle )
+   oBrwRes:Bottom(.T.)
+   hwg_Setfocus(oEditExpr:handle)
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION KeyPress( nKey )
+STATIC FUNCTION KeyPress(nKey)
+
    LOCAL o
 
-   IF nMode == MODE_INPUT .AND. !Empty(o := HWindow():GetMain():FindControl( ,hwg_Getfocus() )) .AND. o:id == EDIT_RES
+   IF nMode == MODE_INPUT .AND. !Empty(o := HWindow():GetMain():FindControl(, hwg_Getfocus())) .AND. o:id == EDIT_RES
       IF nKey == VK_RETURN
          Calc()
       ELSEIF nKey == VK_UP
          PrevExpr(1)
-         hwg_Setfocus( oEditExpr:handle )
+         hwg_Setfocus(oEditExpr:handle)
       ELSEIF nKey == VK_DOWN
-         PrevExpr( - 1 )
-         hwg_Setfocus( oEditExpr:handle )
+         PrevExpr(-1)
+         hwg_Setfocus(oEditExpr:handle)
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION Calc( cExp )
-   LOCAL arr, cmd
+STATIC FUNCTION Calc(cExp)
+
+   LOCAL arr
+   LOCAL cmd
 
    IF Empty(cExp)
       cExp := Trim(oEditExpr:value)
    ENDIF
    IF !Empty(cExp)
       oEditExpr:value := ""
-      IF Left( cExp, 1 ) == ":" .AND. SubStr(cExp, 2, 1) != ":"
-         arr := hb_aTokens( SubStr(cExp, 2), " " )
+      IF Left(cExp, 1) == ":" .AND. SubStr(cExp, 2, 1) != ":"
+         arr := hb_aTokens(SubStr(cExp, 2), " ")
          cmd := Lower(arr[1])
          IF "inspect" = cmd
-            IF Len( arr ) > 1 .AND. !Empty(arr[2])
+            IF Len(arr) > 1 .AND. !Empty(arr[2])
                cInspectVar := arr[2]
-               DoCommand( CMD_EXP, Str2Hex( "Valtype(" + arr[2] + ")" ) )
+               DoCommand(CMD_EXP, Str2Hex("Valtype(" + arr[2] + ")"))
             ENDIF
          ELSEIF "record" = cmd
-            InspectRec( iif( Len(arr ) > 1, arr[2], "" ) )
+            InspectRec(iif(Len(arr) > 1, arr[2], ""))
          ENDIF
       ELSE
-         IF Len( oBrwRes:aArray ) < RES_LEN
+         IF Len(oBrwRes:aArray) < RES_LEN
             AAdd(oBrwRes:aArray, {"", cExp})
             oBrwRes:nRecords ++
          ELSE
-            ADel( oBrwRes:aArray, 1 )
+            ADel(oBrwRes:aArray, 1)
             oBrwRes:aArray[RES_LEN] := { "", cExp }
          ENDIF
          PrevExpr(0)
          cInspectVar := NIL
-         DoCommand( CMD_EXP, Str2Hex( cExp ) )
+         DoCommand(CMD_EXP, Str2Hex(cExp))
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION StackToggle()
+
    LOCAL oBrw
-   LOCAL bEnter := { |o|
-
-   IF Lower(cPrgName) != Lower(o:aArray[o:nCurrent,1])
-      SetPath( cPaths, o:aArray[o:nCurrent,1], .T. )
-   ENDIF
-   SetCurrLine( Val( o:aArray[o:nCurrent,3] ), o:aArray[o:nCurrent,1] )
-
-   RETURN .T.
-
-   }
-   LOCAL bClose := { ||
-   hwg_Checkmenuitem( , MENU_STACK, .F. )
-   oStackDlg := NIL
-   IF lDebugging
-      DoCommand( CMD_STACK, "off" )
-   ENDIF
-
-   RETURN .T.
-
-   }
+   LOCAL bEnter := {|o|
+      IF Lower(cPrgName) != Lower(o:aArray[o:nCurrent,1])
+         SetPath(cPaths, o:aArray[o:nCurrent,1], .T.)
+      ENDIF
+      SetCurrLine(Val(o:aArray[o:nCurrent, 3]), o:aArray[o:nCurrent, 1])
+      RETURN .T.
+      }
+   LOCAL bClose := {||
+      hwg_Checkmenuitem(, MENU_STACK, .F.)
+      oStackDlg := NIL
+      IF lDebugging
+         DoCommand(CMD_STACK, "off")
+      ENDIF
+      RETURN .T.
+      }
 
    IF !Empty(oStackDlg)
       oStackDlg:Close()
    ELSE
-      INIT DIALOG oStackDlg TITLE "Stack" AT 0, 0 SIZE 340, 120 ;
-         FONT HWindow():GetMain():oFont ON EXIT bClose
+      INIT DIALOG oStackDlg TITLE "Stack" AT 0, 0 SIZE 340, 120 FONT HWindow():GetMain():oFont ON EXIT bClose
 
-      @ 0, 0 BROWSE oBrw ARRAY OF oStackDlg     ;
-         SIZE 340, 120                       ;
-         FONT HWindow():GetMain():oFont     ;
-         STYLE WS_VSCROLL                   ;
-         ON SIZE { |o, x, y|o:Move( 0, 0, x, y ) }
+      @ 0, 0 BROWSE oBrw ARRAY OF oStackDlg SIZE 340, 120 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ON SIZE {|o, x, y|o:Move(0, 0, x, y)}
 
       oBrw:aArray := {}
-      oBrw:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,1] },"C",16,0 ) )
-      oBrw:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,2] },"C",16,0 ) )
-      oBrw:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,3] },"C",8,0 ) )
+      oBrw:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 16, 0))
+      oBrw:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 2]}, "C", 16, 0))
+      oBrw:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 3]}, "C",  8, 0))
 
       oBrw:bcolorSel := oBrw:htbcolor := CLR_LGREEN
       oBrw:tcolorSel := oBrw:httcolor := 0
@@ -1531,19 +1599,22 @@ STATIC FUNCTION StackToggle()
 
       ACTIVATE DIALOG oStackDlg NOMODAL
 
-      DoCommand( CMD_STACK, "on" )
-      //hwg_Checkmenuitem( ,MENU_STACK, .T. )
+      DoCommand(CMD_STACK, "on")
+      //hwg_Checkmenuitem(, MENU_STACK, .T.)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION ShowStack( arr, n )
-   LOCAL oBrw, i, nLen := Val( arr[n] )
+STATIC FUNCTION ShowStack(arr, n)
+
+   LOCAL oBrw
+   LOCAL i
+   LOCAL nLen := Val(arr[n])
 
    IF !Empty(oStackDlg)
       oBrw := oStackDlg:aControls[1]
-      IF Empty(oBrw:aArray) .OR. Len( oBrw:aArray ) != nLen
-         oBrw:aArray := Array( nLen, 3 )
+      IF Empty(oBrw:aArray) .OR. Len(oBrw:aArray) != nLen
+         oBrw:aArray := Array(nLen, 3)
       ENDIF
       FOR i := 1 TO nLen
          oBrw:aArray[i,1] := arr[++n]
@@ -1553,45 +1624,43 @@ STATIC FUNCTION ShowStack( arr, n )
       oBrw:Refresh()
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION VarsToggle()
-   LOCAL oTab, oBrwL, oBrwR, oBrwU, oBrwS, y1
-   LOCAL bClose := { ||
 
-   hwg_Checkmenuitem( , MENU_VARS, .F. )
-   oVarsDlg := NIL
-   IF lDebugging
-      DoCommand( CMD_LOCAL, "off" )
-   ENDIF
-
-   RETURN .T.
-
-   }
-   LOCAL bTbChange := { |o, n|
-   IF lDebugging
-      IF n == 1
-         DoCommand( CMD_LOCAL, "on" )
-      ELSEIF n == 2
-         DoCommand( CMD_PRIV, "on" )
-      ELSEIF n == 3
-         DoCommand( CMD_PUBL, "on" )
-      ELSE
-         DoCommand( CMD_STATIC, "on" )
+   LOCAL oTab
+   LOCAL oBrwL
+   LOCAL oBrwR
+   LOCAL oBrwU
+   LOCAL oBrwS
+   LOCAL y1
+   LOCAL bClose := {||
+      hwg_Checkmenuitem(, MENU_VARS, .F.)
+      oVarsDlg := NIL
+      IF lDebugging
+         DoCommand(CMD_LOCAL, "off")
       ENDIF
-   ENDIF
+      RETURN .T.
+      }
+   LOCAL bTbChange := {|o, n|
+      IF lDebugging
+         SWITCH n
+         CASE 1 ; DoCommand(CMD_LOCAL, "on") ; EXIT
+         CASE 2 ; DoCommand(CMD_PRIV, "on")  ; EXIT
+         CASE 3 ; DoCommand(CMD_PUBL, "on")  ; EXIT
+         OTHERWISE
+            DoCommand(CMD_STATIC, "on")
+         ENDSWITCH
+      ENDIF
+      RETURN .T.
+      }
 
-   RETURN .T.
-
-   }
-
-   IF !Empty(oVarsDlg) //hwg_Ischeckedmenuitem( ,MENU_VARS )
+   IF !Empty(oVarsDlg) //hwg_Ischeckedmenuitem(, MENU_VARS)
       oVarsDlg:Close()
    ELSE
-      INIT DIALOG oVarsDlg TITLE "Local variables" AT 10, 10 SIZE 360, 180 ;
-         FONT HWindow():GetMain():oFont ON EXIT bClose
+      INIT DIALOG oVarsDlg TITLE "Local variables" AT 10, 10 SIZE 360, 180 FONT HWindow():GetMain():oFont ON EXIT bClose
 
-      @ 0, 0 TAB oTab ITEMS {} SIZE 360, 180 ON SIZE { |o, x, y|o:Move( , , x, y ) }
+      @ 0, 0 TAB oTab ITEMS {} SIZE 360, 180 ON SIZE {|o, x, y|o:Move(, , x, y)}
       oTab:bChange2 := bTbChange
 #ifdef __GTK__
       y1 := 4
@@ -1601,109 +1670,98 @@ STATIC FUNCTION VarsToggle()
 
       BEGIN PAGE "Local" of oTab
 
-      @ 8, y1 BROWSE oBrwL ARRAY OF oTab        ;
-         SIZE 344, 142                       ;
-         FONT HWindow():GetMain():oFont     ;
-         STYLE WS_VSCROLL                   ;
-         ON SIZE { |o, x, y|o:Move( , , x - 16, y - 38 ) }
+      @ 8, y1 BROWSE oBrwL ARRAY OF oTab SIZE 344, 142 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ON SIZE {|o, x, y|o:Move(, , x - 16, y - 38)}
 
       oBrwL:aArray := {}
-      oBrwL:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,1] },"C",16,0 ) )
-      oBrwL:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,2] },"C",2,0 ) )
-      oBrwL:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,3] },"C",60,0 ) )
+      oBrwL:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 16, 0))
+      oBrwL:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 2]}, "C",  2, 0))
+      oBrwL:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 3]}, "C", 60, 0))
 
       oBrwL:bcolorSel := oBrwL:htbcolor := CLR_LGREEN
       oBrwL:tcolorSel := oBrwL:httcolor := 0
-      oBrwL:bEnter := { ||ViewVar( oBrwL:aArray[oBrwL:nCurrent] ) }
+      oBrwL:bEnter := {||ViewVar(oBrwL:aArray[oBrwL:nCurrent])}
 
       END PAGE of oTab
 
       BEGIN PAGE "Private" of oTab
 
-      @ 8, y1 BROWSE oBrwR ARRAY OF oTab        ;
-         SIZE 344, 142                       ;
-         FONT HWindow():GetMain():oFont     ;
-         STYLE WS_VSCROLL                   ;
-         ON SIZE { |o, x, y|o:Move( , , x - 16, y - 38 ) }
+      @ 8, y1 BROWSE oBrwR ARRAY OF oTab SIZE 344, 142 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ON SIZE {|o, x, y|o:Move(, , x - 16, y - 38)}
 
       oBrwR:aArray := {}
-      oBrwR:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,1] },"C",16,0 ) )
-      oBrwR:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,2] },"C",2,0 ) )
-      oBrwR:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,3] },"C",60,0 ) )
+      oBrwR:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 16, 0))
+      oBrwR:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 2]}, "C",  2, 0))
+      oBrwR:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 3]}, "C", 60, 0))
 
       oBrwR:bcolorSel := oBrwR:htbcolor := CLR_LGREEN
       oBrwR:tcolorSel := oBrwR:httcolor := 0
-      oBrwR:bEnter := { ||ViewVar( oBrwR:aArray[oBrwR:nCurrent] ) }
+      oBrwR:bEnter := {||ViewVar(oBrwR:aArray[oBrwR:nCurrent])}
 
       END PAGE of oTab
 
       BEGIN PAGE "Public" of oTab
 
-      @ 8, y1 BROWSE oBrwU ARRAY OF oTab        ;
-         SIZE 344, 142                       ;
-         FONT HWindow():GetMain():oFont     ;
-         STYLE WS_VSCROLL                   ;
-         ON SIZE { |o, x, y|o:Move( , , x - 16, y - 38 ) }
+      @ 8, y1 BROWSE oBrwU ARRAY OF oTab SIZE 344, 142 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ON SIZE {|o, x, y|o:Move(, , x - 16, y - 38)}
 
       oBrwU:aArray := {}
-      oBrwU:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,1] },"C",16,0 ) )
-      oBrwU:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,2] },"C",2,0 ) )
-      oBrwU:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,3] },"C",60,0 ) )
+      oBrwU:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 16, 0))
+      oBrwU:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 2]}, "C",  2, 0))
+      oBrwU:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 3]}, "C", 60, 0))
 
       oBrwU:bcolorSel := oBrwU:htbcolor := CLR_LGREEN
       oBrwU:tcolorSel := oBrwU:httcolor := 0
-      oBrwU:bEnter := { ||ViewVar( oBrwU:aArray[oBrwU:nCurrent] ) }
+      oBrwU:bEnter := {||ViewVar(oBrwU:aArray[oBrwU:nCurrent])}
 
       END PAGE of oTab
 
       BEGIN PAGE "Static" of oTab
 
-      @ 8, y1 BROWSE oBrwS ARRAY OF oTab        ;
-         SIZE 344, 142                       ;
-         FONT HWindow():GetMain():oFont     ;
-         STYLE WS_VSCROLL                   ;
-         ON SIZE { |o, x, y|o:Move( , , x - 16, y - 38 ) }
+      @ 8, y1 BROWSE oBrwS ARRAY OF oTab SIZE 344, 142 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ON SIZE {|o, x, y|o:Move(, , x - 16, y - 38)}
 
       oBrwS:aArray := {}
-      oBrwS:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,1] },"C",16,0 ) )
-      oBrwS:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,2] },"C",2,0 ) )
-      oBrwS:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,3] },"C",60,0 ) )
+      oBrwS:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 16, 0))
+      oBrwS:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 2]}, "C",  2, 0))
+      oBrwS:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 3]}, "C", 60, 0))
 
       oBrwS:bcolorSel := oBrwS:htbcolor := CLR_LGREEN
       oBrwS:tcolorSel := oBrwS:httcolor := 0
-      oBrwS:bEnter := { ||ViewVar( oBrwS:aArray[oBrwS:nCurrent] ) }
+      oBrwS:bEnter := {||ViewVar(oBrwS:aArray[oBrwS:nCurrent])}
 
       END PAGE of oTab
 
       ACTIVATE DIALOG oVarsDlg NOMODAL
 
-      DoCommand( CMD_LOCAL, "on" )
-      //hwg_Checkmenuitem( ,MENU_VARS, .T. )
+      DoCommand(CMD_LOCAL, "on")
+      //hwg_Checkmenuitem(, MENU_VARS, .T.)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION ShowVars( arr, n, nVarType )
-   LOCAL oBrw, i, nLen := Val( arr[n] )
+STATIC FUNCTION ShowVars(arr, n, nVarType)
+
+   LOCAL oBrw
+   LOCAL i
+   LOCAL nLen := Val(arr[n])
 
    IF !Empty(oVarsDlg)
       oBrw := oVarsDlg:aControls[1]:aControls[nVarType]
-      IF Empty(oBrw:aArray) .OR. Len( oBrw:aArray ) != nLen
-         oBrw:aArray := Array( nLen, 3 )
+      IF Empty(oBrw:aArray) .OR. Len(oBrw:aArray) != nLen
+         oBrw:aArray := Array(nLen, 3)
       ENDIF
       FOR i := 1 TO nLen
          oBrw:aArray[i,1] := Hex2Str(arr[++n])
          oBrw:aArray[i,2] := Hex2Str(arr[++n])
          oBrw:aArray[i,3] := Hex2Str(arr[++n])
       NEXT
-      oBrw:aArray := ASort( oBrw:aArray, , , { |z, y|z[1] < y[1] } )
+      oBrw:aArray := ASort(oBrw:aArray, , , {|z, y|z[1] < y[1]})
       oBrw:Refresh()
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION ViewVar( aLine, cObjName, nItem )
-   LOCAL cName := aLine[1], cType := aLine[2]
+STATIC FUNCTION ViewVar(aLine, cObjName, nItem)
+
+   LOCAL cName := aLine[1]
+   LOCAL cType := aLine[2]
 
    IF !Empty(nItem)
       cName := cObjName + "[" + LTrim(Str(nItem)) + "]"
@@ -1712,61 +1770,57 @@ STATIC FUNCTION ViewVar( aLine, cObjName, nItem )
       cName := cObjName + ":" + aLine[1]
    ENDIF
    IF cType == "O"
-      InspectObject( cName )
+      InspectObject(cName)
    ELSEIF cType == "A"
-      InspectArray( cName )
+      InspectArray(cName)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION WatchesToggle()
+
    LOCAL oBrw
-   LOCAL bClose := { ||
-
-   hwg_Checkmenuitem( , MENU_WATCH, .F. )
-   oWatchDlg := NIL
-   IF lDebugging
-      DoCommand( CMD_WATCH, "off" )
-   ENDIF
-
-   RETURN .T.
-
-   }
+   LOCAL bClose := {||
+      hwg_Checkmenuitem(, MENU_WATCH, .F.)
+      oWatchDlg := NIL
+      IF lDebugging
+         DoCommand(CMD_WATCH, "off")
+      ENDIF
+      RETURN .T.
+      }
 
    IF !Empty(oWatchDlg)
       oWatchDlg:Close()
    ELSE
-      INIT DIALOG oWatchDlg TITLE "Watch expressions" AT 20, 20 SIZE 340, 120 ;
-         FONT HWindow():GetMain():oFont ON EXIT bClose
+      INIT DIALOG oWatchDlg TITLE "Watch expressions" AT 20, 20 SIZE 340, 120 FONT HWindow():GetMain():oFont ON EXIT bClose
 
       MENU OF oWatchDlg
       MENUITEM "&Add" ACTION WatchAdd()
       MENUITEM "&Delete" ACTION WatchDel()
       ENDMENU
 
-      @ 0, 0 BROWSE oBrw ARRAY OF oWatchDlg     ;
-         SIZE 340, 120                       ;
-         FONT HWindow():GetMain():oFont     ;
-         STYLE WS_VSCROLL                   ;
-         ON SIZE { |o, x, y|o:Move( 0, 0, x, y ) }
+      @ 0, 0 BROWSE oBrw ARRAY OF oWatchDlg SIZE 340, 120 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ON SIZE {|o, x, y|o:Move(0, 0, x, y)}
 
       oBrw:aArray := aWatches
-      oBrw:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,1] },"C",16,0 ) )
-      oBrw:AddColumn( HColumn():New( "",{ |v,o|o:aArray[o:nCurrent,2] },"C",60,0 ) )
+      oBrw:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 16, 0))
+      oBrw:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 2]}, "C", 60, 0))
 
       oBrw:bcolorSel := oBrw:htbcolor := CLR_LGREEN
       oBrw:tcolorSel := oBrw:httcolor := 0
 
       ACTIVATE DIALOG oWatchDlg NOMODAL
 
-      DoCommand( CMD_WATCH, "on" )
-      //hwg_Checkmenuitem( ,MENU_WATCH, .T. )
+      DoCommand(CMD_WATCH, "on")
+      //hwg_Checkmenuitem(, MENU_WATCH, .T.)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION ShowWatch( arr, n )
-   LOCAL oBrw, i, nLen := Val( arr[n] )
+STATIC FUNCTION ShowWatch(arr, n)
+
+   LOCAL oBrw
+   LOCAL i
+   LOCAL nLen := Val(arr[n])
 
    IF !Empty(oWatchDlg)
       oBrw := oWatchDlg:aControls[1]
@@ -1776,195 +1830,205 @@ STATIC FUNCTION ShowWatch( arr, n )
       oBrw:Refresh()
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION WatchAdd()
+
    LOCAL cExpr
 
-   IF !Empty(cExpr := hu_Get( "Watch expression", "@S256", "" ))
+   IF !Empty(cExpr := hu_Get("Watch expression", "@S256", ""))
       AAdd(aWatches, {cExpr, ""})
-      DoCommand( CMD_WATCH, "add", Str2Hex( cExpr ) )
+      DoCommand(CMD_WATCH, "add", Str2Hex(cExpr))
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION WatchDel()
+
    LOCAL n := oWatchDlg:aControls[1]:nCurrent
 
-   IF n > 0 .AND. n <= Len( aWatches )
-      IF Len( aWatches ) == 1
+   IF n > 0 .AND. n <= Len(aWatches)
+      IF Len(aWatches) == 1
          oWatchDlg:aControls[1]:aArray := aWatches := {}
       ELSE
-         ADel( aWatches, n )
-         oWatchDlg:aControls[1]:aArray := ASize( aWatches, Len( aWatches ) - 1 )
+         ADel(aWatches, n)
+         oWatchDlg:aControls[1]:aArray := ASize(aWatches, Len(aWatches) - 1)
       ENDIF
-      DoCommand( CMD_WATCH, "del", LTrim(Str(n)) )
+      DoCommand(CMD_WATCH, "del", LTrim(Str(n)))
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION InspectAreas()
-   LOCAL oBrw, oSayRdd
-   LOCAL bChgPos := { |o|
-      LOCAL arr, nOrd, cOrd
+
+   LOCAL oBrw
+   LOCAL oSayRdd
+   LOCAL bChgPos := {|o|
+      LOCAL arr
+      LOCAL nOrd
+      LOCAL cOrd
 
       IF Empty(o:aArray)
-         oSayRdd:SetText( "No Workareas in use..." )
+         oSayRdd:SetText("No Workareas in use...")
       ELSE
          //hwg_writelog(o:aArray[o:nCurrent,11] + " " + o:aArray[o:nCurrent,12])
-         IF ( nOrd := Val( o:aArray[o:nCurrent,11] ) ) == 0
+         IF (nOrd := Val(o:aArray[o:nCurrent, 11])) == 0
             cOrd := ""
          ELSE
             nOrd++
-            arr := hb_ATokens( o:aArray[o:nCurrent,12], '/' )
-            cOrd := iif( nOrd <= Len( arr ), arr[nOrd], "" )
-            cOrd := StrTran( cOrd, '@', ', ' )
+            arr := hb_ATokens(o:aArray[o:nCurrent, 12], "/")
+            cOrd := iif(nOrd <= Len(arr), arr[nOrd], "")
+            cOrd := StrTran(cOrd, "@", ", ")
          ENDIF
-         oSayRdd:SetText( o:aArray[o:nCurrent,1] + " rdd: " + o:aArray[o:nCurrent,3] + ;
-            "  area N: " + o:aArray[o:nCurrent,2] + Chr(13) + Chr(10) + ;
-            "Filter: " + o:aArray[o:nCurrent,10] + Chr(13) + Chr(10) +  ;
-            "Order: " + cOrd )
+         oSayRdd:SetText(o:aArray[o:nCurrent, 1] + " rdd: " + o:aArray[o:nCurrent, 3] + ;
+            "  area N: " + o:aArray[o:nCurrent, 2] + Chr(13) + Chr(10) + ;
+            "Filter: " + o:aArray[o:nCurrent, 10] + Chr(13) + Chr(10) + ;
+            "Order: " + cOrd)
       ENDIF
 
       RETURN .T.
-   }
+      }
 
    IF !Empty(oAreasDlg)
       RETURN NIL
    ENDIF
-   INIT DIALOG oAreasDlg TITLE "Watch expressions" AT 30, 30 SIZE 480, 400 ;
-      FONT HWindow():GetMain():oFont ON EXIT { ||oAreasDlg := NIL, .T. }
+   INIT DIALOG oAreasDlg TITLE "Watch expressions" AT 30, 30 SIZE 480, 400 FONT HWindow():GetMain():oFont ON EXIT {||oAreasDlg := NIL, .T.}
 
-   @ 0, 0 BROWSE oBrw ARRAY OF oAreasDlg     ;
-      SIZE 480, 260                       ;
-      FONT HWindow():GetMain():oFont     ;
-      STYLE WS_VSCROLL                   ;
-      ON POSCHANGE bChgPos               ;
+   @ 0, 0 BROWSE oBrw ARRAY OF oAreasDlg SIZE 480, 260 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ON POSCHANGE bChgPos ;
       ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    oBrw:aArray := {}
-   oBrw:AddColumn( HColumn():New( "",{ |v,o|iif(Left(o:aArray[o:nCurrent,1],1 ) == "*","*","" ) },"C",1,0 ) )
-   oBrw:AddColumn( HColumn():New( "Alias",{ |v,o|iif(Left(o:aArray[o:nCurrent,1],1 ) == "*",SubStr(o:aArray[o:nCurrent,1],2 ),o:aArray[o:nCurrent,1] ) },"C",10,0 ) )
-   oBrw:AddColumn( HColumn():New( "Records",{ |v,o|o:aArray[o:nCurrent,4] },"C",10,0 ) )
-   oBrw:AddColumn( HColumn():New( "Current",{ |v,o|o:aArray[o:nCurrent,5] },"C",10,0 ) )
-   oBrw:AddColumn( HColumn():New( "Bof",{ |v,o|o:aArray[o:nCurrent,6] },"C",5,0 ) )
-   oBrw:AddColumn( HColumn():New( "Eof",{ |v,o|o:aArray[o:nCurrent,7] },"C",5,0 ) )
-   oBrw:AddColumn( HColumn():New( "Fou",{ |v,o|o:aArray[o:nCurrent,8] },"C",5,0 ) )
-   oBrw:AddColumn( HColumn():New( "Del",{ |v,o|o:aArray[o:nCurrent,9] },"C",5,0 ) )
+   oBrw:AddColumn(HColumn():New("", {|v, o|iif(Left(o:aArray[o:nCurrent, 1], 1) == "*", "*", "")}, "C", 1, 0))
+   oBrw:AddColumn(HColumn():New("Alias", {|v, o|iif(Left(o:aArray[o:nCurrent, 1], 1) == "*", SubStr(o:aArray[o:nCurrent, 1], 2), o:aArray[o:nCurrent, 1])}, "C", 10, 0))
+   oBrw:AddColumn(HColumn():New("Records", {|v, o|o:aArray[o:nCurrent, 4]}, "C", 10, 0))
+   oBrw:AddColumn(HColumn():New("Current", {|v, o|o:aArray[o:nCurrent, 5]}, "C", 10, 0))
+   oBrw:AddColumn(HColumn():New("Bof", {|v, o|o:aArray[o:nCurrent, 6]}, "C", 5, 0))
+   oBrw:AddColumn(HColumn():New("Eof", {|v, o|o:aArray[o:nCurrent, 7]}, "C", 5, 0))
+   oBrw:AddColumn(HColumn():New("Fou", {|v, o|o:aArray[o:nCurrent, 8]}, "C", 5, 0))
+   oBrw:AddColumn(HColumn():New("Del", {|v, o|o:aArray[o:nCurrent, 9]}, "C", 5, 0))
 
    oBrw:bcolorSel := oBrw:htbcolor := CLR_LGREEN
    oBrw:tcolorSel := oBrw:httcolor := 0
 
    @ 10, 264 SAY oSayRdd CAPTION "" SIZE 460, 80 STYLE WS_BORDER BACKCOLOR CLR_LIGHT1 ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
-   @ 10, 360 BUTTON "Refresh" ON CLICK { || DoCommand( CMD_AREA ) } SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
-   @ 130, 360 BUTTON "Inspect" ON CLICK { || iif( !Empty(oBrw:aArray), InspectRec( oBrw:aArray[oBrw:nCurrent,1] ), .T. ) } SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
-   @ 250, 360 BUTTON "Indexes" ON CLICK { || iif( !Empty(oBrw:aArray), InspectInd( oBrw:aArray[oBrw:nCurrent,12] ), .T. ) } SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
-   @ 370, 360 BUTTON "Close" ON CLICK { || oAreasDlg:Close() } SIZE 100, 28 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
+   @ 10, 360 BUTTON "Refresh" ON CLICK {||DoCommand(CMD_AREA)} SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
+   @ 130, 360 BUTTON "Inspect" ON CLICK {||iif(!Empty(oBrw:aArray), InspectRec(oBrw:aArray[oBrw:nCurrent, 1]), .T.)} SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
+   @ 250, 360 BUTTON "Indexes" ON CLICK {||iif(!Empty(oBrw:aArray), InspectInd(oBrw:aArray[oBrw:nCurrent, 12]), .T.)} SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
+   @ 370, 360 BUTTON "Close" ON CLICK {||oAreasDlg:Close()} SIZE 100, 28 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    ACTIVATE DIALOG oAreasDlg NOMODAL
 
-   DoCommand( CMD_AREA )
+   DoCommand(CMD_AREA)
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION ShowAreas( arr, n )
-   LOCAL oBrw, arr1, i, j, nAreas := Val( arr[n] ), nAItems := Val(Hex2Str(arr[++n]))
+STATIC FUNCTION ShowAreas(arr, n)
+
+   LOCAL oBrw
+   LOCAL arr1
+   LOCAL i
+   LOCAL j
+   LOCAL nAreas := Val(arr[n])
+   LOCAL nAItems := Val(Hex2Str(arr[++n]))
 
    IF !Empty(oAreasDlg)
       oBrw := oAreasDlg:aControls[1]
-      arr1 := Array( nAreas, nAItems )
+      arr1 := Array(nAreas, nAItems)
       FOR i := 1 TO nAreas
          FOR j := 1 TO nAItems
-            arr1[i,j] := Hex2Str(arr[++n])
+            arr1[i, j] := Hex2Str(arr[++n])
          NEXT
       NEXT
       oBrw:aArray := arr1
-      Eval( oBrw:bPosChanged, oBrw )
+      Eval(oBrw:bPosChanged, oBrw)
       oBrw:Refresh()
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION InspectRec( cAlias )
-   LOCAL oDlg, oBrw
+STATIC FUNCTION InspectRec(cAlias)
 
-   IF Left( cAlias, 1 ) == '*'
+   LOCAL oDlg
+   LOCAL oBrw
+
+   IF Left(cAlias, 1) == "*"
       cAlias := SubStr(cAlias, 2)
    ENDIF
 
-   INIT DIALOG oDlg TITLE cAlias AT 30, 30 SIZE 480, 400 ;
-      FONT HWindow():GetMain():oFont
+   INIT DIALOG oDlg TITLE cAlias AT 30, 30 SIZE 480, 400 FONT HWindow():GetMain():oFont
 
-   @ 0, 0 BROWSE oBrw ARRAY OF oDlg          ;
-      SIZE 480, 340                       ;
-      FONT HWindow():GetMain():oFont     ;
-      STYLE WS_VSCROLL                   ;
+   @ 0, 0 BROWSE oBrw ARRAY OF oDlg SIZE 480, 340 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ;
       ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    oBrw:aArray := {}
-   oBrw:AddColumn( HColumn():New( "Name",{ |v,o|o:aArray[o:nCurrent,1] },"C",14,0 ) )
-   oBrw:AddColumn( HColumn():New( "Type",{ |v,o|o:aArray[o:nCurrent,2] },"C",2,0 ) )
-   oBrw:AddColumn( HColumn():New( "Len",{ |v,o|o:aArray[o:nCurrent,3] },"C",6,0 ) )
-   oBrw:AddColumn( HColumn():New( "Value",{ |v,o|o:aArray[o:nCurrent,4] },"C",60,0 ) )
+   oBrw:AddColumn(HColumn():New("Name", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 14, 0))
+   oBrw:AddColumn(HColumn():New("Type", {|v, o|o:aArray[o:nCurrent, 2]}, "C", 2, 0))
+   oBrw:AddColumn(HColumn():New("Len", {|v, o|o:aArray[o:nCurrent, 3]}, "C", 6, 0))
+   oBrw:AddColumn(HColumn():New("Value", {|v, o|o:aArray[o:nCurrent, 4]}, "C", 60, 0))
 
    oBrw:bcolorSel := oBrw:htbcolor := CLR_LGREEN
    oBrw:tcolorSel := oBrw:httcolor := 0
 
-   @ 45, 360 BUTTON "Refresh" ON CLICK { || oInspectDlg := oDlg, DoCommand( CMD_REC, cAlias ) } SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
-   @ 335, 360 BUTTON "Close" ON CLICK { || oDlg:Close() } SIZE 100, 28 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
+   @ 45, 360 BUTTON "Refresh" ON CLICK {||oInspectDlg := oDlg, DoCommand(CMD_REC, cAlias)} SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
+   @ 335, 360 BUTTON "Close" ON CLICK {||oDlg:Close()} SIZE 100, 28 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    ACTIVATE DIALOG oDlg NOMODAL
 
    oInspectDlg := oDlg
-   DoCommand( CMD_REC, cAlias )
+   DoCommand(CMD_REC, cAlias)
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION InspectInd( cInd )
-   LOCAL oDlgInd, oBrw, arr, i
+STATIC FUNCTION InspectInd(cInd)
+
+   LOCAL oDlgInd
+   LOCAL oBrw
+   LOCAL arr
+   LOCAL i
 
    IF Empty(cInd)
       RETURN NIL
    ENDIF
-   arr := hb_ATokens( Substr(cInd,2), '/' )
+   arr := hb_ATokens(Substr(cInd, 2), "/")
    FOR i := 1 TO Len(arr)
-      arr[i] := hb_ATokens( arr[i], '@' )
+      arr[i] := hb_ATokens(arr[i], "@")
    NEXT
 
-   INIT DIALOG oDlgInd TITLE "Indexes" AT 30, 30 SIZE 480, 300 ;
-      FONT HWindow():GetMain():oFont
+   INIT DIALOG oDlgInd TITLE "Indexes" AT 30, 30 SIZE 480, 300 FONT HWindow():GetMain():oFont
 
-   @ 0, 0 BROWSE oBrw ARRAY OF oDlgInd   ;
-      SIZE 480, 240                      ;
-      FONT HWindow():GetMain():oFont     ;
-      STYLE WS_VSCROLL                   ;
+   @ 0, 0 BROWSE oBrw ARRAY OF oDlgInd SIZE 480, 240 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ;
       ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    oBrw:aArray := arr
-   oBrw:AddColumn( HColumn():New( "Num",{ |v,o|o:nCurrent },"N",3,0 ) )
-   oBrw:AddColumn( HColumn():New( "Name",{ |v,o|o:aArray[o:nCurrent,1] },"C",10,0 ) )
-   oBrw:AddColumn( HColumn():New( "Key",{ |v,o|o:aArray[o:nCurrent,2] },"C",80,0 ) )
+   oBrw:AddColumn(HColumn():New("Num", {|v, o|o:nCurrent}, "N", 3, 0))
+   oBrw:AddColumn(HColumn():New("Name", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 10, 0))
+   oBrw:AddColumn(HColumn():New("Key", {|v, o|o:aArray[o:nCurrent, 2]}, "C", 80, 0))
 
    oBrw:bcolorSel := oBrw:htbcolor := CLR_LGREEN
    oBrw:tcolorSel := oBrw:httcolor := 0
 
-   @ 190, 260 BUTTON "Close" ON CLICK { || oDlgInd:Close() } SIZE 100, 28 ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
+   @ 190, 260 BUTTON "Close" ON CLICK {||oDlgInd:Close()} SIZE 100, 28 ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    ACTIVATE DIALOG oDlgInd
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION ShowRec( arr, n )
-   LOCAL oBrw, arr1, i, j, nFields := Val( arr[n] )
+STATIC FUNCTION ShowRec(arr, n)
+
+   LOCAL oBrw
+   LOCAL arr1
+   LOCAL i
+   LOCAL j
+   LOCAL nFields := Val(arr[n])
 
    IF !Empty(oInspectDlg)
-      hwg_Setwindowtext( oInspectDlg:handle, "Record inspector (" + Hex2Str(arr[++n]) + ", rec." + Hex2Str(arr[++n]) + ")" )
+      hwg_Setwindowtext(oInspectDlg:handle, "Record inspector (" + Hex2Str(arr[++n]) + ", rec." + Hex2Str(arr[++n]) + ")")
       oBrw := oInspectDlg:aControls[1]
-      arr1 := Array( nFields, 4 )
+      arr1 := Array(nFields, 4)
       FOR i := 1 TO nFields
          FOR j := 1 TO 4
-            arr1[i,j] := Hex2Str(arr[++n])
+            arr1[i, j] := Hex2Str(arr[++n])
          NEXT
       NEXT
       oBrw:aArray := arr1
@@ -1972,48 +2036,51 @@ STATIC FUNCTION ShowRec( arr, n )
       oInspectDlg := NIL
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION InspectObject( cObjName )
-   LOCAL oDlg, oBrw
+STATIC FUNCTION InspectObject(cObjName)
 
-   INIT DIALOG oDlg TITLE "Object inspector (" + cObjName + ")" AT 30, 30 SIZE 480, 400 ;
-      FONT HWindow():GetMain():oFont
+   LOCAL oDlg
+   LOCAL oBrw
 
-   @ 0, 0 BROWSE oBrw ARRAY OF oDlg          ;
-      SIZE 480, 340                       ;
-      FONT HWindow():GetMain():oFont     ;
-      STYLE WS_VSCROLL                   ;
+   INIT DIALOG oDlg TITLE "Object inspector (" + cObjName + ")" AT 30, 30 SIZE 480, 400 FONT HWindow():GetMain():oFont
+
+   @ 0, 0 BROWSE oBrw ARRAY OF oDlg SIZE 480, 340 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ;
       ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    oBrw:aArray := {}
-   oBrw:AddColumn( HColumn():New( "Name",{ |v,o|o:aArray[o:nCurrent,1] },"C",12,0 ) )
-   oBrw:AddColumn( HColumn():New( "Type",{ |v,o|o:aArray[o:nCurrent,2] },"C",2,0 ) )
-   oBrw:AddColumn( HColumn():New( "Value",{ |v,o|o:aArray[o:nCurrent,3] },"C",60,0 ) )
+   oBrw:AddColumn(HColumn():New("Name", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 12, 0))
+   oBrw:AddColumn(HColumn():New("Type", {|v, o|o:aArray[o:nCurrent, 2]}, "C", 2, 0))
+   oBrw:AddColumn(HColumn():New("Value", {|v, o|o:aArray[o:nCurrent, 3]}, "C", 60, 0))
 
    oBrw:bcolorSel := oBrw:htbcolor := CLR_LGREEN
    oBrw:tcolorSel := oBrw:httcolor := 0
-   oBrw:bEnter := { ||ViewVar( oBrw:aArray[oBrw:nCurrent], cObjName ) }
+   oBrw:bEnter := {||ViewVar(oBrw:aArray[oBrw:nCurrent], cObjName)}
 
-   @ 45, 360 BUTTON "Refresh" ON CLICK { || oInspectDlg := oDlg, DoCommand( CMD_OBJECT, cObjName ) } SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
-   @ 335, 360 BUTTON "Close" ON CLICK { || oDlg:Close() } SIZE 100, 28 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
+   @ 45, 360 BUTTON "Refresh" ON CLICK {||oInspectDlg := oDlg, DoCommand(CMD_OBJECT, cObjName)} SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
+   @ 335, 360 BUTTON "Close" ON CLICK {||oDlg:Close()} SIZE 100, 28 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    ACTIVATE DIALOG oDlg NOMODAL
 
    oInspectDlg := oDlg
-   DoCommand( CMD_OBJECT, cObjName )
+   DoCommand(CMD_OBJECT, cObjName)
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION ShowObject( arr, n )
-   LOCAL oBrw, arr1, i, j, nLen := Val( arr[n] )
+STATIC FUNCTION ShowObject(arr, n)
+
+   LOCAL oBrw
+   LOCAL arr1
+   LOCAL i
+   LOCAL j
+   LOCAL nLen := Val(arr[n])
 
    IF !Empty(oInspectDlg)
       oBrw := oInspectDlg:aControls[1]
-      arr1 := Array( nLen, 3 )
+      arr1 := Array(nLen, 3)
       FOR i := 1 TO nLen
          FOR j := 1 TO 3
-            arr1[i,j] := Hex2Str(arr[++n])
+            arr1[i, j] := Hex2Str(arr[++n])
          NEXT
       NEXT
       oBrw:aArray := arr1
@@ -2021,220 +2088,231 @@ STATIC FUNCTION ShowObject( arr, n )
       oInspectDlg := NIL
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION InspectArray( cArrName )
-   LOCAL oDlg, oBrw, i
-   
+STATIC FUNCTION InspectArray(cArrName)
+
+   LOCAL oDlg
+   LOCAL oBrw
+   LOCAL i
+
    /* Bugfix Ticket #80:
        this old line causes crash press button "Refresh" in array inspector:
        n2 := n1 + oBrw:rowCount - 1
        oBrw:rowCount return 13, but must be 4 !
    */
-   
+
    /* hwg_WriteLog("n1=" + ALLTRIM(STR(n1)) +  " n2=" + ALLTRIM(STR(n2)) + " oBrw:rowCount=" + ;
           ALLTRIM(STR(oBrw:rowCount)) )
    */
-   
-   LOCAL bRefresh := { ||
-   LOCAL n1, n2, lRefr := .F.
 
-   IF nMode == MODE_INPUT
-      n1 := oBrw:nCurrent - oBrw:rowPos + 1
-      n2 := n1 + Min( oBrw:rowCount, Len( oBrw:aArray ) ) - 1
-      IF !oDlg:cargo[2]
-         lRefr := .T.
-      ELSE
+   LOCAL bRefresh := {||
+      LOCAL n1
+      LOCAL n2
+      LOCAL lRefr := .F.
+
+      IF nMode == MODE_INPUT
+         n1 := oBrw:nCurrent - oBrw:rowPos + 1
+         n2 := n1 + Min(oBrw:rowCount, Len(oBrw:aArray)) - 1
+         IF !oDlg:cargo[2]
+            lRefr := .T.
+         ELSE
+            FOR i := n1 TO n2
+               IF oBrw:aArray[i, 1] == "-"
+                  lRefr := .T.
+                  EXIT
+               ENDIF
+            NEXT
+         ENDIF
+         IF lRefr
+            oInspectDlg := oDlg
+            DoCommand(CMD_ARRAY, cArrName, LTrim(Str(Max(1, n1 - 10))), LTrim(Str(ARR_LEN)))
+         ENDIF
+      ENDIF
+
+      RETURN .T.
+      }
+   LOCAL bChgPos := {||
+      LOCAL n1
+      LOCAL n2
+
+      IF nMode == MODE_INPUT .AND. !Empty(oBrw:aArray)
+         n1 := oBrw:nCurrent - oBrw:rowPos + 1
+         n2 := n1 + Min(oBrw:rowCount, Len(oBrw:aArray)) - 1
          FOR i := n1 TO n2
-            IF oBrw:aArray[i,1] == "-"
-               lRefr := .T.
+            IF oBrw:aArray[i, 1] == "-"
+               oInspectDlg := oDlg
+               DoCommand(CMD_ARRAY, cArrName, LTrim(Str(i)), LTrim(Str(ARR_LEN)))
                EXIT
             ENDIF
          NEXT
       ENDIF
-      IF lRefr
-         oInspectDlg := oDlg
-         DoCommand( CMD_ARRAY, cArrName, LTrim(Str(Max(1, n1 - 10))), LTrim(Str(ARR_LEN)) )
-      ENDIF
-   ENDIF
 
-   RETURN .T.
+      RETURN .T.
+      }
 
-   }
-   LOCAL bChgPos := { ||
-   LOCAL n1, n2
-   IF nMode == MODE_INPUT .AND. !Empty(oBrw:aArray)
-      n1 := oBrw:nCurrent - oBrw:rowPos + 1
-      n2 := n1 + Min( oBrw:rowCount, Len( oBrw:aArray ) ) - 1
-      FOR i := n1 TO n2
-         IF oBrw:aArray[i,1] == "-"
-            oInspectDlg := oDlg
-            DoCommand( CMD_ARRAY, cArrName, LTrim(Str(i)), LTrim(Str(ARR_LEN)) )
-            EXIT
-         ENDIF
-      NEXT
-   ENDIF
+   INIT DIALOG oDlg TITLE "Array inspector - " + cArrName AT 30, 30 SIZE 480, 400 FONT HWindow():GetMain():oFont
+   oDlg:cargo := {"f", .F.}
 
-   RETURN .T.
-
-   }
-
-   INIT DIALOG oDlg TITLE "Array inspector - " + cArrName AT 30, 30 SIZE 480, 400 ;
-      FONT HWindow():GetMain():oFont
-   oDlg:cargo := { "f", .F. }
-
-   @ 0, 0 BROWSE oBrw ARRAY OF oDlg          ;
-      SIZE 480, 340                       ;
-      FONT HWindow():GetMain():oFont     ;
-      STYLE WS_VSCROLL                   ;
-      ON POSCHANGE bChgPos               ;
+   @ 0, 0 BROWSE oBrw ARRAY OF oDlg SIZE 480, 340 FONT HWindow():GetMain():oFont STYLE WS_VSCROLL ON POSCHANGE bChgPos ;
       ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    oBrw:aArray := {}
-   oBrw:AddColumn( HColumn():New( "Index",{ |v,o|"[" + LTrim(Str(o:nCurrent ) ) + "]" },"C",12,0 ) )
-   oBrw:AddColumn( HColumn():New( "Type",{ |v,o|o:aArray[o:nCurrent,1] },"C",2,0 ) )
-   oBrw:AddColumn( HColumn():New( "Value",{ |v,o|o:aArray[o:nCurrent,2] },"C",60,0 ) )
+   oBrw:AddColumn(HColumn():New("Index", {|v, o|"[" + LTrim(Str(o:nCurrent)) + "]"}, "C", 12, 0))
+   oBrw:AddColumn(HColumn():New("Type", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 2, 0))
+   oBrw:AddColumn(HColumn():New("Value", {|v, o|o:aArray[o:nCurrent, 2]}, "C", 60, 0))
 
    oBrw:bcolorSel := oBrw:htbcolor := CLR_LGREEN
    oBrw:tcolorSel := oBrw:httcolor := 0
 
-   oBrw:bEnter := { ||ViewVar( oBrw:aArray[oBrw:nCurrent], cArrName, oBrw:nCurrent ) }
+   oBrw:bEnter := {||ViewVar(oBrw:aArray[oBrw:nCurrent], cArrName, oBrw:nCurrent)}
 
    @ 12, 366 SAY "" SIZE 16, 16 STYLE WS_BORDER BACKCOLOR 255 ON SIZE ANCHOR_BOTTOMABS
    @ 45, 360 BUTTON "Refresh" ON CLICK bRefresh SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS
-   @ 335, 360 BUTTON "Close" ON CLICK { || oDlg:Close() } SIZE 100, 28 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
+   @ 335, 360 BUTTON "Close" ON CLICK {||oDlg:Close()} SIZE 100, 28 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    ACTIVATE DIALOG oDlg NOMODAL
 
    oInspectDlg := oDlg
-   DoCommand( CMD_ARRAY, cArrName, "1", LTrim(Str(ARR_LEN)) )
+   DoCommand(CMD_ARRAY, cArrName, "1", LTrim(Str(ARR_LEN)))
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION ShowArray( arr, n )
-   LOCAL oBrw, i, j, nItems := Val( arr[n] ), nFirst := Val(Hex2Str(arr[++n]))
+STATIC FUNCTION ShowArray(arr, n)
+
+   LOCAL oBrw
+   LOCAL i
+   LOCAL j
+   LOCAL nItems := Val(arr[n])
+   LOCAL nFirst := Val(Hex2Str(arr[++n]))
    LOCAL nLen := Val(Hex2Str(arr[++n]))
 
    IF !Empty(oInspectDlg)
-      hwg_Setwindowtext( oInspectDlg:handle, oInspectDlg:title + "(" + LTrim(Str(nLen)) + ")" )
+      hwg_Setwindowtext(oInspectDlg:handle, oInspectDlg:title + "(" + LTrim(Str(nLen)) + ")")
       oBrw := oInspectDlg:aControls[1]
-      IF Len( oBrw:aArray ) != nLen .OR. !oInspectDlg:cargo[2]
-         IF Len( oBrw:aArray ) != nLen
-            oBrw:aArray := Array( nLen, 2 )
+      IF Len(oBrw:aArray) != nLen .OR. !oInspectDlg:cargo[2]
+         IF Len(oBrw:aArray) != nLen
+            oBrw:aArray := Array(nLen, 2)
          ENDIF
          FOR i := 1 TO nLen
-            oBrw:aArray[i,1] := "-"
-            oBrw:aArray[i,2] := ""
+            oBrw:aArray[i, 1] := "-"
+            oBrw:aArray[i, 2] := ""
          NEXT
       ENDIF
       nItems += nFirst - 1
       FOR i := nFirst TO nItems
          FOR j := 1 TO 2
-            oBrw:aArray[i,j] := Hex2Str(arr[++n])
+            oBrw:aArray[i, j] := Hex2Str(arr[++n])
          NEXT
       NEXT
       oInspectDlg:cargo[2] := .T.
-      oInspectDlg:aControls[2]:Setcolor( 0, CLR_GREEN, .T. )
+      oInspectDlg:aControls[2]:Setcolor(0, CLR_GREEN, .T.)
       oBrw:Refresh()
       oInspectDlg := NIL
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION ViewCmdLine( lView )
-   LOCAL oMain := HWindow():GetMain(), aControls := oMain:aControls
-   LOCAL i := Ascan( aControls, { |o| hwg_isPtrEq( o:handle,oBrwRes:handle ) } ), j := 7
+STATIC FUNCTION ViewCmdLine(lView)
 
-   lViewCmd := iif( lView != NIL, lView, !lViewCmd )
-   hwg_Checkmenuitem( , MENU_CMDLINE, lViewCmd )
-   DO WHILE -- j > 0
+   LOCAL oMain := HWindow():GetMain()
+   LOCAL aControls := oMain:aControls
+   LOCAL i := Ascan(aControls, {|o|hwg_isPtrEq(o:handle,oBrwRes:handle)})
+   LOCAL j := 7
+
+   lViewCmd := iif(lView != NIL, lView, !lViewCmd)
+   hwg_Checkmenuitem(, MENU_CMDLINE, lViewCmd)
+   DO WHILE --j > 0
       IF lViewCmd
          aControls[i]:Show()
       ELSE
          aControls[i]:Hide()
       ENDIF
-      i ++
+      i++
    ENDDO
    IF lViewCmd
-      oTabMain:bSize := { |o, x, y|o:Move( , , x, y - 108 ) }
-      oMain:Move( , , , oMain:nHeight + 24 )
+      oTabMain:bSize := {|o, x, y|o:Move(, , x, y - 108)}
+      oMain:Move(, , , oMain:nHeight + 24)
    ELSE
-      oTabMain:bSize := { |o, x, y|o:Move( , , x, y ) }
-      oMain:Move( , , , oMain:nHeight + 12 )
+      oTabMain:bSize := {|o, x, y|o:Move(, , x, y)}
+      oMain:Move(, , , oMain:nHeight + 12)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION ViewSelVar()
 
 #ifdef __HCEDIT__
-   LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
-   LOCAL nL := oText:aPointC[P_Y], nPos := oText:aPointC[P_X], cLine, c, nPos1, nPos2
 
-   IF Empty(nL) .OR. Empty(nPos1 := nPos2 := nPos) .OR. SubStr(cLine := oText:aText[nL], nPos, 1) < '0'
+   LOCAL oText := oTabMain:aControls[oTabMain:GetActivePage()]
+   LOCAL nL := oText:aPointC[P_Y]
+   LOCAL nPos := oText:aPointC[P_X]
+   LOCAL cLine
+   LOCAL c
+   LOCAL nPos1
+   LOCAL nPos2
+
+   IF Empty(nL) .OR. Empty(nPos1 := nPos2 := nPos) .OR. SubStr(cLine := oText:aText[nL], nPos, 1) < "0"
       RETURN NIL
    ENDIF
-   DO WHILE -- nPos1 > 0 .AND. ( IsDigit( c := SubStr(cLine, nPos1, 1) ) .OR. ;
-         IsAlpha( c ) .OR. c == '_' .OR. c == ':' )
+   DO WHILE --nPos1 > 0 .AND. (IsDigit(c := SubStr(cLine, nPos1, 1)) .OR. IsAlpha(c) .OR. c == "_" .OR. c == ":")
    ENDDO
-   nPos1 ++
-   IF IsDigit( SubStr(cLine, nPos1, 1) )
+   nPos1++
+   IF IsDigit(SubStr(cLine, nPos1, 1))
       RETURN NIL
    ENDIF
-   DO WHILE ++ nPos2 <= Len( cLine ) .AND. ( IsDigit( c := SubStr(cLine, nPos2, 1) ) .OR. ;
-         IsAlpha( c ) .OR. c == '_' )
+   DO WHILE ++nPos2 <= Len(cLine) .AND. (IsDigit(c := SubStr(cLine, nPos2, 1)) .OR. IsAlpha(c) .OR. c == "_")
    ENDDO
-   IF c == '('
-      IF ( nPos := Find_Z( SubStr(cLine,nPos2 + 1 ), ')' ) ) == 0
+   IF c == "("
+      IF (nPos := Find_Z(SubStr(cLine, nPos2 + 1), ")")) == 0
          RETURN NIL
       ENDIF
       nPos2 += nPos + 1
    ENDIF
    cLine := SubStr(cLine, nPos1, nPos2 - nPos1)
-   IF '(' $ cLine
+   IF "(" $ cLine
       oEditExpr:value := cLine
    ELSE
-      Calc( ":ins " + cLine )
+      Calc(":ins " + cLine)
    ENDIF
 #endif
 
-   RETURN NIL
+RETURN NIL
 
-STATIC FUNCTION SetFont( oFont )
+STATIC FUNCTION SetFont(oFont)
 
-   IF !Empty(oFont) .OR. !Empty(oFont := HFont():Select( HWindow():GetMain():oFont ))
+   IF !Empty(oFont) .OR. !Empty(oFont := HFont():Select(HWindow():GetMain():oFont))
       oMainFont := oBrwRes:oFont := HWindow():GetMain():oFont := oFont
-      SetTextFont( oFont )
+      SetTextFont(oFont)
       oBrwRes:lChanged := .T.
       oBrwRes:lChanged := .T.
       oBrwRes:Refresh()
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION About()
+
    LOCAL oDlg
 
-   INIT DIALOG oDlg TITLE "About" AT 0, 0 SIZE 340, 170 ;
-      FONT HWindow():GetMain():oFont ;
+   INIT DIALOG oDlg TITLE "About" AT 0, 0 SIZE 340, 170 FONT HWindow():GetMain():oFont ;
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + DS_CENTER
 
    @ 20, 30 SAY "HwGUI Debugger" SIZE 300, 24 STYLE SS_CENTER ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS
    @ 20, 60 SAY "Version 2.03" SIZE 300, 24 STYLE SS_CENTER ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
 #ifdef __PLATFORM__WINDOWS
-   @ 20, 90 SAY "http://www.kresin.ru/debugger.html" ;
-      LINK "http://www.kresin.ru/debugger.html" ;
-      SIZE 300, 24 STYLE SS_CENTER  ;
-      COLOR 0x0000FF ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS
+   @ 20, 90 SAY "http://www.kresin.ru/debugger.html" LINK "http://www.kresin.ru/debugger.html" ;
+      SIZE 300, 24 STYLE SS_CENTER COLOR 0xFF0000 ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 #endif
    @ 120, 130 BUTTON "Ok" ID IDOK SIZE 100, 28 ON SIZE ANCHOR_BOTTOMABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
    ACTIVATE DIALOG oDlg
 
-   RETURN NIL
+RETURN NIL
 
-FUNCTION Font2Attr( oFont )
+FUNCTION Font2Attr(oFont)
+
    LOCAL aAttr := {}
 
    AAdd(aAttr, {"name", oFont:name})
@@ -2253,17 +2331,17 @@ FUNCTION Font2Attr( oFont )
       AAdd(aAttr, {"underline", LTrim(Str(oFont:Underline, 5))})
    ENDIF
 
-   RETURN aAttr
+RETURN aAttr
 
-STATIC FUNCTION hu_Get( cTitle, tpict, txget )
+STATIC FUNCTION hu_Get(cTitle, tpict, txget)
+
    LOCAL oDlg
 
-   INIT DIALOG oDlg TITLE cTitle AT 0, 0 SIZE 300, 100 ;
-      FONT HWindow():GetMain():oFont CLIPPER ;
+   INIT DIALOG oDlg TITLE cTitle AT 0, 0 SIZE 300, 100 FONT HWindow():GetMain():oFont CLIPPER ;
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + DS_CENTER
 
    @ 20, 15 GET txget SIZE 260, 26 PICTURE tpict STYLE ES_AUTOHSCROLL
-   Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
+   Atail(oDlg:aControls):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
    @ 20, 55 BUTTON "Ok" ID IDOK SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS
    @ 180, 55 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
@@ -2271,58 +2349,68 @@ STATIC FUNCTION hu_Get( cTitle, tpict, txget )
    ACTIVATE DIALOG oDlg
 
    IF oDlg:lResult
-      RETURN iif( ValType( txget ) == "C", Trim(txget), txget )
+      RETURN iif(ValType(txget) == "C", Trim(txget), txget)
    ENDIF
 
-   RETURN ""
+RETURN ""
 
-STATIC FUNCTION Hex2Int( stroka )
-   LOCAL i := Asc( stroka ), res
+STATIC FUNCTION Hex2Int(stroka)
+
+   LOCAL i := Asc(stroka)
+   LOCAL res
 
    IF i > 64 .AND. i < 71
-      res := ( i - 55 ) * 16
+      res := (i - 55) * 16
    ELSEIF i > 47 .AND. i < 58
-      res := ( i - 48 ) * 16
+      res := (i - 48) * 16
    ELSE
       RETURN 0
    ENDIF
 
-   i := Asc( SubStr(stroka, 2, 1) )
+   i := Asc(SubStr(stroka, 2, 1))
    IF i > 64 .AND. i < 71
       res += i - 55
    ELSEIF i > 47 .AND. i < 58
       res += i - 48
    ENDIF
 
-   RETURN res
+RETURN res
 
-STATIC FUNCTION Int2Hex( n )
-   LOCAL n1 := Int( n/16 ), n2 := n % 16
+STATIC FUNCTION Int2Hex(n)
+
+   LOCAL n1 := Int(n / 16)
+   LOCAL n2 := n % 16
 
    IF n > 255
       RETURN "XX"
    ENDIF
 
-   RETURN Chr(iif( n1 < 10, n1 + 48, n1 + 55)) + Chr(iif(n2 < 10, n2 + 48, n2 + 55))
+RETURN Chr(iif(n1 < 10, n1 + 48, n1 + 55)) + Chr(iif(n2 < 10, n2 + 48, n2 + 55))
 
-STATIC FUNCTION Str2Hex( stroka )
-   LOCAL cRes := "", i, nLen := Len( stroka )
+STATIC FUNCTION Str2Hex(stroka)
+
+   LOCAL cRes := ""
+   LOCAL i
+   LOCAL nLen := Len(stroka)
 
    FOR i := 1 TO nLen
-      cRes += Int2Hex( Asc( SubStr(stroka,i,1 ) ) )
+      cRes += Int2Hex(Asc(SubStr(stroka, i, 1)))
    NEXT
 
-   RETURN cRes
+RETURN cRes
 
 STATIC FUNCTION Hex2Str(stroka)
-   LOCAL cRes := "", i := 1, nLen := Len( stroka )
+
+   LOCAL cRes := ""
+   LOCAL i := 1
+   LOCAL nLen := Len(stroka)
 
    DO WHILE i <= nLen
       cRes += Chr(Hex2Int(SubStr(stroka, i, 2)))
       i += 2
    ENDDO
 
-   RETURN cRes
+RETURN cRes
 
 STATIC FUNCTION StopDebug()
 
@@ -2339,31 +2427,28 @@ STATIC FUNCTION StopDebug()
       oAreasDlg:Close()
    ENDIF
 
-   IF handl1 != - 1
+   IF handl1 != -1
       FClose(handl1)
       FClose(handl2)
-      handl1 := - 1
+      handl1 := -1
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 STATIC FUNCTION ExitDbg()
 
    IF nExitMode == 1
-      IF handl1 != - 1
-         Send( "cmd", "exit" )
+      IF handl1 != -1
+         Send("cmd", "exit")
       ENDIF
    ELSEIF nExitMode == 2
-      Send( "cmd", "quit" )
+      Send("cmd", "quit")
    ENDIF
    lDebugging := .F.
    StopDebug()
 
    IF lModeIde
-      DO( hb_hrbGetFunsym( hHrbProj, "proj_WrIni" ) )
+      DO(hb_hrbGetFunsym(hHrbProj, "proj_WrIni"))
    ENDIF
 
-   RETURN .T.
-
-* ===================== EOF of hwgdebug.prg ========================
-   
+RETURN .T.
