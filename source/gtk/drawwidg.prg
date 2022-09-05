@@ -627,23 +627,24 @@ RETURN ctmpfilename
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-   EXIT PROCEDURE CleanDrawWidg
-   LOCAL i
+EXIT PROCEDURE CleanDrawWidg
 
-   FOR i := 1 TO Len( HPen():aPens )
-      hwg_Deleteobject( HPen():aPens[i]:handle )
+   LOCAL oItem
+
+   FOR EACH oItem IN HPen():aPens
+      hwg_Deleteobject(oItem:handle)
    NEXT
-   FOR i := 1 TO Len( HBrush():aBrushes )
-      hwg_Deleteobject( HBrush():aBrushes[i]:handle )
+   FOR EACH oItem IN HBrush():aBrushes
+      hwg_Deleteobject(oItem:handle)
    NEXT
-   FOR i := 1 TO Len( HFont():aFonts )
-      hwg_Deleteobject( HFont():aFonts[i]:handle )
+   FOR EACH oItem IN HFont():aFonts
+      hwg_Deleteobject(oItem:handle)
    NEXT
-   FOR i := 1 TO Len( HBitmap():aBitmaps )
-      hwg_Deleteobject( HBitmap():aBitmaps[i]:handle )
+   FOR EACH oItem IN HBitmap():aBitmaps
+      hwg_Deleteobject(oItem:handle)
    NEXT
-   FOR i := 1 TO Len( HIcon():aIcons )
-      // hwg_Deleteobject( HIcon():aIcons[i]:handle )
+   FOR EACH oItem IN HIcon():aIcons
+      // hwg_Deleteobject(oItem:handle)
    NEXT
    IF !Empty(oResCnt)
       oResCnt:Close()
