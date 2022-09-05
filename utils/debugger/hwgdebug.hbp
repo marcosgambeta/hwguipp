@@ -1,7 +1,3 @@
-#
-# $Id: hwgdebug.hbp 2964 2021-03-15 09:00:37Z df7be $
-#
-
 -n -w
 
 {linux}-lm
@@ -10,11 +6,8 @@
 {linux}-d__GTK__
 
 -L../..
-hwguipp.hbc
+../../hwguipp.hbc
 
 -o../../bin/hwgdebug
 
 hwgdebug.prg
-
-
-# ================= EOF of hwgdebug.hbp ====================
