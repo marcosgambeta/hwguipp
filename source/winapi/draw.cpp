@@ -868,7 +868,7 @@ HWG_SELECTOBJECT(hDC, hGdiObj) --> hObject
 */
 HB_FUNC( HWG_SELECTOBJECT )
 {
-   HB_RETHANDLE(SelectObject(hwg_par_HDC(1), static_cast<HGDIOBJ>(HB_PARHANDLE(2))));
+   HB_RETHANDLE(SelectObject(hwg_par_HDC(1), hwg_par_HGDIOBJ(2)));
 }
 
 /*
@@ -876,7 +876,7 @@ HWG_DELETEOBJECT(hGdiObj) --> NIL
 */
 HB_FUNC( HWG_DELETEOBJECT )
 {
-   DeleteObject(static_cast<HGDIOBJ>(HB_PARHANDLE(1)));
+   DeleteObject(hwg_par_HGDIOBJ(1));
 }
 
 /*
