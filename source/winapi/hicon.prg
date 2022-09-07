@@ -13,23 +13,28 @@
 CLASS HIcon INHERIT HObject
 
    CLASS VAR cPath SHARED
-   CLASS VAR aIcons     INIT { }
-   CLASS VAR lSelFile   INIT .F.
+   CLASS VAR aIcons   INIT {}
+   CLASS VAR lSelFile INIT .F.
+
    DATA handle
    DATA name
-   DATA nWidth, nHeight
-   DATA nCounter   INIT 1
+   DATA nWidth
+   DATA nHeight
+   DATA nCounter INIT 1
 
    METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM)
    METHOD AddFile(name, nWidth, nHeight)
    METHOD AddString(name, cVal, nWidth, nHeight)
-   METHOD Draw(hDC, x, y)   INLINE hwg_Drawicon(hDC, ::handle, x, y)
+   METHOD Draw(hDC, x, y)
    METHOD RELEASE()
 
 ENDCLASS
 
 METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
-   LOCAL lPreDefined := .F., i, aIconSize
+
+   LOCAL lPreDefined := .F.
+   LOCAL i
+   LOCAL aIconSize
    LOCAL oResCnt := hwg_GetResContainer()
 
    IF nWidth == NIL
@@ -76,17 +81,16 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
 
    AAdd(::aIcons, Self)
 
-   RETURN Self
+RETURN Self
 
-
-
- /* Added by DF7BE
- name : Name of resource
- cVal : Binary contents of *.ico file
- */
+/* Added by DF7BE
+name : Name of resource
+cVal : Binary contents of *.ico file
+*/
 METHOD AddString(name, cVal, nWidth, nHeight) CLASS HIcon
- LOCAL cTmp //, oreturn
- LOCAL aIconSize
+
+   LOCAL cTmp //, oreturn
+   LOCAL aIconSize
 
    IF nWidth == NIL
       nWidth := 0
@@ -95,25 +99,28 @@ METHOD AddString(name, cVal, nWidth, nHeight) CLASS HIcon
       nHeight := 0
    ENDIF
 
- // Write contents into temporary file
- hb_memowrit(cTmp := hwg_CreateTempfileName(NIL, ".ico"), cVal)
- // Load icon from temporary file
- ::handle := hwg_Loadimage(0, cTmp, IMAGE_ICON, nWidth, nHeight, LR_DEFAULTSIZE + LR_LOADFROMFILE + LR_SHARED)
- ::name := name
-  aIconSize := hwg_Geticonsize(::handle)
- ::nWidth  := aIconSize[1]
- ::nHeight := aIconSize[2]
+   // Write contents into temporary file
+   hb_memowrit(cTmp := hwg_CreateTempfileName(NIL, ".ico"), cVal)
+   // Load icon from temporary file
+   ::handle := hwg_Loadimage(0, cTmp, IMAGE_ICON, nWidth, nHeight, LR_DEFAULTSIZE + LR_LOADFROMFILE + LR_SHARED)
+   ::name := name
+   aIconSize := hwg_Geticonsize(::handle)
+   ::nWidth  := aIconSize[1]
+   ::nHeight := aIconSize[2]
 
    AAdd(::aIcons, Self)
 
-  // oreturn := ::AddFile(name)
- FERASE(cTmp)
+   // oreturn := ::AddFile(name)
+   FERASE(cTmp)
 
-RETURN  Self   // oreturn
-
+RETURN Self // oreturn
 
 METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
-   LOCAL i, aIconSize, cname := CutPath(name), cCurDir
+
+   LOCAL i
+   LOCAL aIconSize
+   LOCAL cname := CutPath(name)
+   LOCAL cCurDir
 
    IF nWidth == NIL
       nWidth := 0
@@ -121,7 +128,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
    IF nHeight == NIL
       nHeight := 0
    ENDIF
-   FOR EACH i IN  ::aIcons
+   FOR EACH i IN ::aIcons
       IF i:name == cname .AND. (nWidth == NIL .OR. i:nWidth == nWidth) .AND. (nHeight == NIL .OR. i:nHeight == nHeight)
          i:nCounter++
          RETURN i
@@ -151,10 +158,12 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
 
    AAdd(::aIcons, Self)
 
-   RETURN Self
+RETURN Self
 
 METHOD RELEASE() CLASS HIcon
-   LOCAL i, nlen := Len(::aIcons)
+
+   LOCAL i
+   LOCAL nlen := Len(::aIcons)
 
    ::nCounter--
    IF ::nCounter == 0
@@ -179,4 +188,25 @@ METHOD RELEASE() CLASS HIcon
 #endif
    ENDIF
 
-   RETURN NIL
+RETURN NIL
+
+#pragma BEGINDUMP
+
+#define OEMRESOURCE
+
+#include "hwingui.h"
+#include "hbapiitm.h"
+#include "hbvm.h"
+#include "hbstack.h"
+#include "hbapicls.h"
+#include "missing.h"
+#include "math.h"
+#include "incomp_pointer.h"
+
+HB_FUNC_STATIC( HICON_DRAW )
+{
+   HICON icon = static_cast<HICON>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   DrawIcon(hwg_par_HDC(1), hwg_par_int(2), hwg_par_int(3), icon);
+}
+
+#pragma ENDDUMP
