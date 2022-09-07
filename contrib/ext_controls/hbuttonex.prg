@@ -306,7 +306,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HButtonEx
          IF HB_ISBLOCK(::bClick) .OR. ::id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
          ENDIF
-      ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif( ValType( o:title ) = "C", ( pos := At("&", o:title) ) > 0 .AND. ;
+      ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif( HB_ISCHAR(o:title), ( pos := At("&", o:title) ) > 0 .AND. ;
             wParam == Asc( Upper(SubStr(o:title, ++pos, 1)) ), ) } ) ) > 0
          IF __ObjHasMsg( ::oParent:aControls[nID], "BCLICK" ) .AND. ;
                HB_ISBLOCK(::oParent:aControls[nID]:bClick) .OR. ::oParent:aControls[nID]:id < 3
@@ -324,7 +324,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HButtonEx
             IF HB_ISBLOCK(::bClick) .OR. ::id < 3
                hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
             ENDIF
-         ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif( ValType( o:title ) = "C", ( pos := At("&", o:title) ) > 0 .AND. ;
+         ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif( HB_ISCHAR(o:title), ( pos := At("&", o:title) ) > 0 .AND. ;
                wParam == Asc( Upper(SubStr(o:title, ++pos, 1)) ), ) } ) ) > 0
             IF __ObjHasMsg( ::oParent:aControls[nID], "BCLICK" ) .AND. ;
                   HB_ISBLOCK(::oParent:aControls[nID]:bClick) .OR. ::oParent:aControls[nID]:id < 3
@@ -650,7 +650,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
       nHeight := aTxtSize[2] //nHeight := IIF( lMultiLine, hwg_Drawtext( dc, ::caption, itemRect,  DT_CALCRECT + DT_WORDBREAK ), aTxtSize[2] )
    ENDIF
 
-   bHasTitle := ValType( ::caption ) == "C" .AND. ! Empty(::Caption)
+   bHasTitle := HB_ISCHAR(::caption) .AND. ! Empty(::Caption)
 
    IF !Empty(::hbitmap) .AND. ::m_bDrawTransparent .AND. ( ! bIsDisabled .OR. ::istyle = ST_ALIGN_HORIZ_RIGHT )
       bmpRect := hwg_Prepareimagerect(::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, ::hIcon, ::hbitmap, ::iStyle)

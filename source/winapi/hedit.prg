@@ -87,7 +87,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ENDIF
 
    ::ParsePict(cPicture, vari)
-   IF Empty(::nMaxLength) .AND. !Empty(::bSetGet) .AND. Valtype(vari) == "C"
+   IF Empty(::nMaxLength) .AND. !Empty(::bSetGet) .AND. HB_ISCHAR(vari)
       ::nMaxLength := hwg_Len(vari)
    ENDIF
    IF nMaxLength != NIL

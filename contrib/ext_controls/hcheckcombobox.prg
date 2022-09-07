@@ -142,8 +142,8 @@ METHOD INIT() CLASS hCheckComboBox
          nSize := hwg_Sendmessage( ::handle, CB_GETITEMHEIGHT, - 1, 0 ) - 5
          FOR i := 1 TO Len( ::aImages )
             hImage := 0
-            IF ( ValType( ::aImages[i] ) == "C" .OR. ::aImages[i] > 1 ) .AND. ! Empty(::aImages[i])
-               IF ValType( ::aImages[i] ) == "C" .AND. At(".", ::aImages[i]) != 0
+            IF ( HB_ISCHAR(::aImages[i]) .OR. ::aImages[i] > 1 ) .AND. ! Empty(::aImages[i])
+               IF HB_ISCHAR(::aImages[i]) .AND. At(".", ::aImages[i]) != 0
                   IF File( ::aImages[i] )
                      hImage := HBITMAP():AddfILE( ::aImages[i], , .T. , 16, nSize ):handle
                   ENDIF

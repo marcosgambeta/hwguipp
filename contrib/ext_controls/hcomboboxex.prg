@@ -520,7 +520,7 @@ METHOD SetValue(xItem) CLASS HComboBoxEx
 
    LOCAL nPos
 
-   IF ::lText .AND. ValType( xItem ) = "C"
+   IF ::lText .AND. HB_ISCHAR(xItem)
       IF ::columnBound = 2
          nPos := AScan( ::aItemsBound, xItem )
       ELSE
@@ -586,7 +586,7 @@ METHOD GetValueBound(xItem) CLASS HComboBoxEx
 METHOD DisplayValue(cValue) CLASS HComboBoxEx
 
    IF cValue != NIL
-      IF ::lEdit .AND. ValType( cValue ) = "C"
+      IF ::lEdit .AND. HB_ISCHAR(cValue)
          hwg_Setdlgitemtext( ::oParent:handle, ::id, cValue )
          ::cDisplayValue := cValue
       ENDIF
@@ -598,7 +598,7 @@ METHOD DeleteItem(xIndex) CLASS HComboBoxEx
 
    LOCAL nIndex
 
-   IF ::lText .AND. ValType( xIndex ) = "C"
+   IF ::lText .AND. HB_ISCHAR(xIndex)
       nIndex := hwg_Sendmessage(::handle, CB_FINDSTRINGEXACT, -1, xIndex) + 1
    ELSE
       nIndex := xIndex

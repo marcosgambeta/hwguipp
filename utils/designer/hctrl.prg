@@ -59,7 +59,7 @@ Private value, oCtrl := Self
    ::id      := ::NewId()
    ::style   := WS_VISIBLE+WS_CHILD+WS_DISABLED+SS_OWNERDRAW
 
-   IF Valtype( xClass ) == "C"
+   IF HB_ISCHAR(xClass)
       oXMLDesc := FindWidget( xClass )
    ELSE
       oXMLDesc := xClass
@@ -101,7 +101,7 @@ Private value, oCtrl := Self
             ENDIF
          ELSEIF oXMLDesc:aItems[i]:title == "property"
             IF !Empty(oXMLDesc:aItems[i]:aItems)
-               IF Valtype( oXMLDesc:aItems[i]:aItems[1]:aItems[1] ) == "C"
+               IF HB_ISCHAR(oXMLDesc:aItems[i]:aItems[1]:aItems[1])
                   oXMLDesc:aItems[i]:aItems[1]:aItems[1] := &( "{||" + oXMLDesc:aItems[i]:aItems[1]:aItems[1] + "}" )
                ENDIF
                xProperty := Eval( oXMLDesc:aItems[i]:aItems[1]:aItems[1] )
@@ -201,7 +201,7 @@ Return Iif( i==0, NIL, ::aProp[i,2] )
 
 METHOD SetProp( xName,xValue )
 
-   IF Valtype( xName ) == "C"
+   IF HB_ISCHAR(xName)
       xName := Lower(xName)
       xName := Ascan( ::aProp,{|a|Lower(a[1])==xName} )
    ENDIF

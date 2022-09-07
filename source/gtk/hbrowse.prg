@@ -865,7 +865,7 @@ METHOD DrawHeader( hDC, nColumn, x1, y1, x2, y2 ) CLASS HBrowse
       NEXT
    ENDIF
 
-   IF ValType( oColumn:heading ) == "C"
+   IF HB_ISCHAR(oColumn:heading)
       hwg_Drawtext( hDC, oColumn:heading, x1 + 1 + ::aHeadPadding[1],    ;
          y1 + 1 + ::aHeadPadding[2], x2 + 1 + ::aHeadPadding[3], ;
          y1 + nHeight + ::aHeadPadding[2], oColumn:nJusHead )
@@ -983,7 +983,7 @@ METHOD FooterOut( hDC ) CLASS HBrowse
 
          IF oColumn:footing != NIL
             hwg_Settransparentmode( hDC, .T. )
-            IF ValType( oColumn:footing ) == "C"
+            IF HB_ISCHAR(oColumn:footing)
                hwg_Drawtext( hDC, oColumn:footing, ;
                   x + ::aHeadPadding[1], y1 + ::aHeadPadding[2], ;
                   x2 - ::aHeadPadding[3], y2 - ::aHeadPadding[4], oColumn:nJusLin + iif( oColumn:lSpandFoot, DT_NOCLIP, 0 ) )
@@ -2212,7 +2212,7 @@ FUNCTION hwg_ColumnArBlock()
 STATIC FUNCTION CountToken( cStr, nMaxLen, nCount )
 
    nMaxLen := nCount := 0
-   IF ValType( cStr ) == "C"
+   IF HB_ISCHAR(cStr)
       IF ( ';' $ cStr )
          cStr := hb_aTokens( cStr, ';' )
       ELSE

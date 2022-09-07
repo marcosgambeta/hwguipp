@@ -254,7 +254,7 @@ METHOD Paint() CLASS HGraph
          IF py1 > y1 .AND. py1 < y2
             hwg_Drawline( hDC, x0-4, py1, x0+1, py1 )
             IF ::aSignY[i, 2] != NIL
-               hwg_Drawtext( hDC, Iif( Valtype(::aSignY[i,2])=="C",::aSignY[i,2], ;
+               hwg_Drawtext( hDC, Iif( HB_ISCHAR(::aSignY[i,2]),::aSignY[i,2], ;
                      Ltrim(Str(::aSignY[i,2]))), 0, py1-8, x0-4, py1+8, DT_RIGHT )
                IF ::lGridY
                   hwg_Drawline( hDC, x0+1, py1, x2, py1 )
@@ -272,7 +272,7 @@ METHOD Paint() CLASS HGraph
          px1 := Round( x1 + ( ::aSignX[i, 1] - ::xmin ) / scaleX + Iif( ::nType==2.AND.::lGridXMid,nWidth/2,0 ), 0 )
          hwg_Drawline( hDC, px1, y0+4, px1, y0-1 )
          IF ::aSignX[i, 2] != NIL
-            hwg_Drawtext( hDC, Iif( Valtype(::aSignX[i,2])=="C",::aSignX[i,2], ;
+            hwg_Drawtext( hDC, Iif( HB_ISCHAR(::aSignX[i,2]),::aSignX[i,2], ;
                   Ltrim(Str(::aSignX[i,2]))), px1-40, y0+4, px1+40, y0+20, DT_CENTER )
             IF ::lGridX
                hwg_Drawline( hDC, px1, y0-1, px1, y1 )

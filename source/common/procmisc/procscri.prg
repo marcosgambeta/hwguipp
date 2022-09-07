@@ -118,7 +118,7 @@ LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
    IF scrSource == NIL
       han := NIL
       poz := 1
-   ELSEIF Valtype( scrSource ) == "C"
+   ELSEIF HB_ISCHAR(scrSource)
       strbuf := Space(STR_BUFLEN)
       poz := STR_BUFLEN + 1
       IF DEF_CH_SEP $ scrSource
@@ -132,7 +132,7 @@ LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
       IF !lppNoInit
          ppScript( ,.T. )
       ENDIF
-      IF Valtype( scrSource ) == "C"
+      IF HB_ISCHAR(scrSource)
          WndOut( "Compiling ..." )
          WndOut( "" )
       ENDIF
@@ -140,7 +140,7 @@ LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
       IF !CompileScr( han, @strbuf, @poz, rezArray, scrSource )
          rezArray := NIL
       ENDIF
-      IF scrSource != NIL .AND. Valtype( scrSource ) == "C"
+      IF scrSource != NIL .AND. HB_ISCHAR(scrSource)
          WndOut()
          Fclose(han)
       ENDIF
@@ -302,7 +302,7 @@ Local cLine, lDebug := ( Len( rezArray ) >= 3 )
             BEGIN SEQUENCE
                AADD(rezArray[2], &("{||EndScript(" + Ltrim(Substr(stroka, 7)) + ")}"))
             RECOVER
-               IF scrSource != NIL .AND. VALTYPE( scrSource ) == "C"
+               IF scrSource != NIL .AND. HB_ISCHAR(scrSource)
                   WndOut()
                   FCLOSE(han)
                ENDIF
@@ -327,7 +327,7 @@ Local cLine, lDebug := ( Len( rezArray ) >= 3 )
             BEGIN SEQUENCE
                AADD(rezArray[2], &("{||" + ALLTRIM(stroka) + "}"))
             RECOVER
-               IF scrSource != NIL .AND. VALTYPE( scrSource ) == "C"
+               IF scrSource != NIL .AND. HB_ISCHAR(scrSource)
                   WndOut()
                   FCLOSE(han)
                ENDIF
@@ -481,7 +481,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
    ENDIF
    lDebug := ( Len( aScript ) >= 3 )
    DO WHILE Valtype( aScript[2, iscr] ) != "B"
-      IF Valtype( aScript[2, iscr] ) == "C"
+      IF HB_ISCHAR(aScript[2, iscr])
          IF Left( aScript[2, iscr], 1 ) == "#"
             IF !lDebugger
                * lSetDebugger := .T.

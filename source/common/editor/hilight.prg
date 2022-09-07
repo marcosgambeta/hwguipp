@@ -111,7 +111,7 @@ Local oIni, oMod, oNode, i, nPos
    ::aLineStru := Array( 20,3 )
 
    IF !Empty(cFile)
-      IF Valtype( cFile ) == "C"
+      IF HB_ISCHAR(cFile)
          oIni := HXMLDoc():Read(cFile)
          IF !Empty(oIni:aItems) .AND. oIni:aItems[1]:title == "hilight"
             oIni := oIni:aItems[1]

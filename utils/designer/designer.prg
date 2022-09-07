@@ -382,7 +382,7 @@ STATIC FUNCTION ReadIniFiles()
 
    oDesigner:cBmpPath := cBmpPath
    
-   IF ValType( cWidgetsFileName ) == "C"
+   IF HB_ISCHAR(cWidgetsFileName)
       oDesigner:oWidgetsSet := HXMLDoc():Read(cCurDir + cWidgetsFileName)
    ENDIF
    IF oDesigner:oWidgetsSet == NIL .OR. Empty(oDesigner:oWidgetsSet:aItems)
@@ -545,7 +545,7 @@ FUNCTION FindWidget( cClass )
 FUNCTION Evalcode( xCode )
    LOCAL nLines
 
-   IF ValType( xCode ) == "C"
+   IF HB_ISCHAR(xCode)
       nLines := MLCount( xCode )
       IF nLines > 1
          xCode := RdScript( , xCode )

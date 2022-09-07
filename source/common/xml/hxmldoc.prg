@@ -135,7 +135,7 @@ METHOD Save( handle,level ) CLASS HXMLNode
    ELSEIF ::type == HBXML_TYPE_TAG
       s += '>'
       IF Empty(::aItems) .OR. ( Len( ::aItems ) == 1 .AND. ;
-            Valtype( ::aItems[1] ) == "C" .AND. Len( ::aItems[1] ) + Len( s ) < 80 )
+            HB_ISCHAR(::aItems[1]) .AND. Len( ::aItems[1] ) + Len( s ) < 80 )
          lNewLine := m->hxml_newline := .F.
       ELSE
          s += cNewLine
@@ -147,7 +147,7 @@ METHOD Save( handle,level ) CLASS HXMLNode
    ENDIF
 
    FOR i := 1 TO Len( ::aItems )
-      IF Valtype( ::aItems[i] ) == "C"
+      IF HB_ISCHAR(::aItems[i])
         IF handle >= 0
            IF ::type == HBXML_TYPE_CDATA .OR. ::type == HBXML_TYPE_COMMENT
               FWrite(handle, ::aItems[i])

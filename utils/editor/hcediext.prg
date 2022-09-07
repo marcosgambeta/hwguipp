@@ -376,7 +376,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                   lInsRows := .F.
                   j := ::aStru[n,1,OB_TRNUM]
                   i := n + 1
-                  DO WHILE i <= Len( ::aStru ) .AND. Valtype( ::aStru[i,1,OB_TYPE] ) == "C" ;
+                  DO WHILE i <= Len( ::aStru ) .AND. HB_ISCHAR(::aStru[i,1,OB_TYPE]) ;
                         .AND. ::aStru[i,1,OB_TYPE] == "tr"
                      ::aStru[i,1,OB_TRNUM] := ++j
                      i ++
@@ -582,7 +582,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                ENDIF
                lTable := .T.
                IF lAdd .AND. !Empty(nFrom) .AND. n == nFrom-1 .AND. ;
-                     Valtype( ::aStru[nFrom,1,OB_TYPE] ) == "C" .AND. ;
+                     HB_ISCHAR(::aStru[nFrom,1,OB_TYPE]) .AND. ;
                      ::aStru[nFrom,1,OB_TYPE] == "tr"
                   //::lError := .T. ; EXIT
                   nLTable := nFrom - ::aStru[nFrom,1,OB_TRNUM]
@@ -1363,7 +1363,7 @@ METHOD FindClass( xBase, xAttr, xNewClass ) CLASS HCEdiExt
    LOCAL lFont := .F., nfont, name, cVal, cHeight, height, weight, Italic, Underline, Strike
    LOCAL lPen := .F., nBWidth := 1, nBColor := 0
 
-   IF Valtype( xAttr ) == "C"
+   IF HB_ISCHAR(xAttr)
       xAttr := { xAttr }
    ENDIF
 
@@ -1647,7 +1647,7 @@ METHOD StyleDiv( nLine, xAttr, cClass ) CLASS HCEdiExt
    IF nLine == NIL
       nLine := ::aPointC[P_Y]
    ENDIF
-   IF Valtype( ::aStru[nLine,1,OB_TYPE] ) == "C" .AND. ::aStru[nLine,1,OB_TYPE] == "tr"
+   IF HB_ISCHAR(::aStru[nLine,1,OB_TYPE]) .AND. ::aStru[nLine,1,OB_TYPE] == "tr"
       lCell := .T.
       cBase := ::aStru[nLine,1,OB_OB,::aPointc[P_X],OB_CLS]
    ELSE
@@ -1690,7 +1690,7 @@ METHOD InsTable( xCols, nRows, nWidth, nAlign, xAttr ) CLASS HCEdiExt
    ENDIF
    nL := ::aPointC[P_Y]
 
-   IF Valtype( ::aStru[nL,1,OB_TYPE] ) == "C"
+   IF HB_ISCHAR(::aStru[nL,1,OB_TYPE])
       RETURN .F.
    ENDIF
 
@@ -1730,7 +1730,7 @@ METHOD InsRows( nL, nRows, nCols, lNoAddline ) CLASS HCEdiExt
    LOCAL i, n, nRow
 
    IF Empty(lNoAddline)
-      IF Valtype( ::aStru[nL,1,1] ) == "C" .AND. ::aStru[nL,1,1] == "tr"
+      IF HB_ISCHAR(::aStru[nL,1,1]) .AND. ::aStru[nL,1,1] == "tr"
          nRow := ::aStru[nL,1,OB_TRNUM] + 1
       ELSE
          nRow := 1
@@ -1761,7 +1761,7 @@ METHOD InsRows( nL, nRows, nCols, lNoAddline ) CLASS HCEdiExt
       ::aText[nL+1] := ""
    ENDIF
    DO WHILE ++nL <= ::nTextLen
-      IF Valtype( ::aStru[nL,1,1] ) == "C" .AND. ::aStru[nL,1,1] == "tr"
+      IF HB_ISCHAR(::aStru[nL,1,1]) .AND. ::aStru[nL,1,1] == "tr"
          ::aStru[nL,1,OB_TRNUM] := ++nRow
       ELSE
          EXIT
@@ -1805,7 +1805,7 @@ METHOD InsCol( nL, iTd ) CLASS HCEdiExt
       NEXT
    ENDIF
 
-   DO WHILE Valtype( ::aStru[nL,1,1] ) == "C" .AND. ::aStru[nL,1,1] == "tr"
+   DO WHILE HB_ISCHAR(::aStru[nL,1,1]) .AND. ::aStru[nL,1,1] == "tr"
       aStruCols := ::aStru[nL,1,OB_OB]
       Aadd(aStruCols, NIL)
       AIns( aStruCols, iTd )
@@ -1845,7 +1845,7 @@ METHOD DelCol( nL, iTd ) CLASS HCEdiExt
       aStruCols[1,1] := - (Abs(aStruCols[1,1])-(nWidth-100))
    ENDIF
 
-   DO WHILE Valtype( ::aStru[nL,1,1] ) == "C" .AND. ::aStru[nL,1,1] == "tr"
+   DO WHILE HB_ISCHAR(::aStru[nL,1,1]) .AND. ::aStru[nL,1,1] == "tr"
       aStruCols := ::aStru[nL,1,OB_OB]
       ADel( aStruCols, iTd )
       ASize( aStruCols, nCols )
@@ -1877,7 +1877,7 @@ METHOD InsImage( cName, nAlign, xAttr, xBin, cExt ) CLASS HCEdiExt
 
    nL := ::aPointC[P_Y]
 
-   IF Valtype( ::aStru[nL,1,OB_TYPE] ) == "C" .AND. ::aStru[nL,1,OB_TYPE] == "tr"
+   IF HB_ISCHAR(::aStru[nL,1,OB_TYPE]) .AND. ::aStru[nL,1,OB_TYPE] == "tr"
       aStruTbl := ::aStru[nL-::aStru[nL,1,OB_TRNUM]+1,1,OB_TBL]
 
       iTd := ::nPosC
@@ -1947,7 +1947,7 @@ METHOD InsSpan( cText, xAttr, cHref, cId, nOpt ) CLASS HCEdiExt
 
    nL := ::aPointC[P_Y]
 
-   IF Valtype( ::aStru[nL,1,OB_TYPE] ) == "C" .AND. ::aStru[nL,1,OB_TYPE] == "tr"
+   IF HB_ISCHAR(::aStru[nL,1,OB_TYPE]) .AND. ::aStru[nL,1,OB_TYPE] == "tr"
       aStruTbl := ::aStru[nL-::aStru[nL,1,OB_TRNUM]+1,1,OB_TBL]
 
       iTd := ::nPosC
@@ -2033,7 +2033,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
                AAdd(aClasses, xTemp)
             ENDIF
          NEXT
-         IF Valtype(::aStru[i,1,OB_TYPE]) == "C"
+         IF HB_ISCHAR(::aStru[i,1,OB_TYPE])
             IF ::aStru[i,1,OB_TYPE] == "img"
                Aadd(aImages, ::aStru[i, 1, OB_HREF])
             ELSEIF ::aStru[i,1,OB_TYPE] == "tr"
@@ -2054,7 +2054,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
                            AAdd(aClasses, xTemp)
                         ENDIF
                      NEXT
-                     IF Valtype(aStru[i1, 1, OB_TYPE]) == "C" .AND. aStru[i1, 1, OB_TYPE] == "img"
+                     IF HB_ISCHAR(aStru[i1, 1, OB_TYPE]) .AND. aStru[i1, 1, OB_TYPE] == "img"
                         Aadd(aImages, aStru[i1, 1, OB_HREF])
                      ENDIF
                   NEXT

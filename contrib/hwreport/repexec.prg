@@ -165,13 +165,13 @@ FUNCTION hwg_Hwr_AddItem( aPaintRep, nType, cCaption, nLeft, nTop, nWidth, nHeig
 
    AAdd(aPaintRep[FORM_ITEMS], aItem := {nType, cCaption, nLeft, nTop, nWidth, nHeight, nAlign, cPen, cFont, nVarType, 0, NIL, 0})
 
-   IF !Empty(aItem[ ITEM_FONT ]) .AND. Valtype( aItem[ ITEM_FONT ] ) == "C"
+   IF !Empty(aItem[ ITEM_FONT ]) .AND. HB_ISCHAR(aItem[ITEM_FONT])
       arr := hb_ATokens( aItem[ ITEM_FONT ], ',' )
       aItem[ ITEM_FONT ] := HFont():Add( arr[1], ;
          Val( arr[2] ), Val( arr[3] ), Val( arr[4] ), Val( arr[5] ), ;
          Val( arr[6] ), Val( arr[7] ), Val( arr[8] ) )
    ENDIF
-   IF !Empty(aItem[ ITEM_PEN ]) .AND. Valtype( aItem[ ITEM_PEN ] ) == "C"
+   IF !Empty(aItem[ ITEM_PEN ]) .AND. HB_ISCHAR(aItem[ITEM_PEN])
       arr := hb_ATokens( aItem[ ITEM_PEN ], ',' )
       aItem[ ITEM_PEN ] := HPen():Add( Val( arr[1] ), Val( arr[2]), Val( arr[3] ) )
    ENDIF
@@ -264,7 +264,7 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
       ENDIF
    NEXT
 
-   IF ValType( aPaintRep[ FORM_VARS ] ) == "C"
+   IF HB_ISCHAR(aPaintRep[FORM_VARS])
       DO WHILE .T.
          stroka := RDSTR(, aPaintRep[FORM_VARS], @poz)
          IF Len( stroka ) = 0
@@ -521,7 +521,7 @@ FUNCTION hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, nYadd, lCalc )
 STATIC FUNCTION ScriptExecute( aItem )
    LOCAL nError, nLineEr
    IF aItem[ ITEM_SCRIPT ] != NIL .AND. ! Empty(aItem[ ITEM_SCRIPT ])
-      IF ValType( aItem[ ITEM_SCRIPT ] ) == "C"
+      IF HB_ISCHAR(aItem[ITEM_SCRIPT])
          IF ( aItem[ ITEM_SCRIPT ] := RdScript( , aItem[ ITEM_SCRIPT ] ) ) == NIL
             nError := CompileErr( @nLineEr )
             hwg_Msgstop( "Script error (" + LTrim(Str(nError)) + "), line " + LTrim(Str(nLineEr)) )

@@ -1076,7 +1076,7 @@ FUNCTION hwg_hfrm_GetProperty( xProp )
 
    LOCAL c
 
-   IF ValType( xProp ) == "C"
+   IF HB_ISCHAR(xProp)
       c := Left( xProp, 1 )
       IF c == "["
          xProp := SubStr(xProp, 2, Len(Trim(xProp)) - 2)
@@ -1558,7 +1558,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
          ELSE
             cText := aGetSecond( oItem:aProp, "caption" )
          ENDIF
-         IF ValType( cText ) == "C"
+         IF HB_ISCHAR(cText)
             IF ( xProperty := aGetSecond( oItem:aProp,"border" ) ) != NIL ;
                   .AND. xProperty
                ::oPrinter:Box( x, y, x2, y2, oItem:oPen )

@@ -44,7 +44,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    ENDIF
 
    // Enabling style for tooltips
-   IF ValType(cTooltip) == "C"
+   IF HB_ISCHAR(cTooltip)
       IF nStyle == NIL
          nStyle := SS_NOTIFY
       ELSE
@@ -71,7 +71,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
 
    // Enabling style for tooltips
-   IF ValType(cTooltip) == "C"
+   IF HB_ISCHAR(cTooltip)
       ::Style := SS_NOTIFY
    ENDIF
 

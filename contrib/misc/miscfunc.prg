@@ -51,9 +51,9 @@ FUNCTION hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
    LOCAL nLen , i
 
    aControls := iif( Empty(aControls), oWnd:aControls, aControls )
-   nLen := iif( ValType( aControls ) = "C", Len( oWnd:&aControls ), Len( aControls ) )
+   nLen := iif( HB_ISCHAR(aControls), Len( oWnd:&aControls ), Len( aControls ) )
    FOR i = 1 TO nLen
-      IF ValType( aControls ) = "C"
+      IF HB_ISCHAR(aControls)
          oWnd:&aControls[i]:&cProperty := Value
       ELSEIF cClass == NIL .OR. Upper(cClass) == aControls[i]:ClassName
          IF Value = NIL

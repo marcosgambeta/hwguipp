@@ -221,7 +221,7 @@ METHOD GetValue( nItem ) CLASS HComboBox
 METHOD Value ( xValue ) CLASS HComboBox
 
    IF xValue != NIL
-      IF ValType( xValue ) == "C"
+      IF HB_ISCHAR(xValue)
 #ifdef __XHARBOUR__
          xValue := iif( ValType( ::aItems[1] ) == "A", AScan( ::aItems, { |a|a[1] == xValue } ), AScan( ::aItems, { |s|s == xValue } ) )
 #else

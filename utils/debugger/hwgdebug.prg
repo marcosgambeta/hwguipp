@@ -758,7 +758,7 @@ STATIC FUNCTION TimerProc()
                   ENDDO
                   // Set Inspectors to nonactual state
                   FOR n := 1 TO Len(HDialog():aDialogs)
-                     IF ValType(xTmp := HDialog():aDialogs[n]:cargo) == "A" .AND. !Empty(xTmp) .AND. ValType(xTmp[1]) == "C" .AND. xTmp[1] == "f"
+                     IF ValType(xTmp := HDialog():aDialogs[n]:cargo) == "A" .AND. !Empty(xTmp) .AND. HB_ISCHAR(xTmp[1]) .AND. xTmp[1] == "f"
                         xTmp[2] := .F.
                         HDialog():aDialogs[n]:aControls[2]:Setcolor(0, 255, .T.)
                      ENDIF
@@ -2349,7 +2349,7 @@ STATIC FUNCTION hu_Get(cTitle, tpict, txget)
    ACTIVATE DIALOG oDlg
 
    IF oDlg:lResult
-      RETURN iif(ValType(txget) == "C", Trim(txget), txget)
+      RETURN iif(HB_ISCHAR(txget), Trim(txget), txget)
    ENDIF
 
 RETURN ""

@@ -305,7 +305,7 @@ FUNCTION MarkLDlg( aItem )
 
 STATIC FUNCTION InitMarkL( oDlg, aItem )
 
-   IF ValType( aItem[ITEM_SCRIPT] ) == "C"
+   IF HB_ISCHAR(aItem[ITEM_SCRIPT])
       oDlg:oEdit1:Value := aItem[ITEM_SCRIPT]
    ENDIF
 
@@ -375,7 +375,7 @@ FUNCTION FormOptions()
 STATIC FUNCTION InitFOpt( oDlg )
 
    oDlg:oLabel1:SetText( "Variables:" )
-   IF ValType( aPaintRep[FORM_VARS] ) == "C"
+   IF HB_ISCHAR(aPaintRep[FORM_VARS])
       oDlg:oEdit1:Value := aPaintRep[FORM_VARS]
    ENDIF
 

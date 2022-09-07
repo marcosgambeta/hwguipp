@@ -212,7 +212,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       addY += 36
    ENDIF
 
-   IF ValType(arr) == "C"
+   IF HB_ISCHAR(arr)
       lArray := .F.
       aLen := RecCount()
       IF ( nField := FieldPos(arr) ) == 0

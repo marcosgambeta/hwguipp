@@ -123,10 +123,10 @@ Private oForm := Self, aCtrlTable
       IF ::type == 1
          ReadForm( Self,cForm )
       ELSE
-         IF Valtype( aFormats[::type, 4] ) == "C"
+         IF HB_ISCHAR(aFormats[::type, 4])
             aFormats[::type, 4] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 4] )
          ENDIF
-         IF Valtype( aFormats[::type, 6] ) == "C"
+         IF HB_ISCHAR(aFormats[::type, 6])
             aFormats[::type, 6] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 6] )
          ENDIF
          IF Valtype( aFormats[::type, 6] ) == "A"
@@ -212,10 +212,10 @@ Private oForm := Self, aCtrlTable
       IF ::type == 1
          WriteForm( Self )
       ELSE
-         IF Valtype( aFormats[::type, 5] ) == "C"
+         IF HB_ISCHAR(aFormats[::type, 5])
             aFormats[::type, 5] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 5] )
          ENDIF
-         IF Valtype( aFormats[::type, 6] ) == "C"
+         IF HB_ISCHAR(aFormats[::type, 6])
             aFormats[::type, 6] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 6] )
          ENDIF
          IF Valtype( aFormats[::type, 6] ) == "A"
@@ -257,7 +257,7 @@ Private value, oCtrl
       FOR i := 1 TO Len( oFormDesc:aItems )
          IF oFormDesc:aItems[i]:title == "property"
             IF !Empty(oFormDesc:aItems[i]:aItems)
-               IF Valtype( oFormDesc:aItems[i]:aItems[1]:aItems[1] ) == "C"
+               IF HB_ISCHAR(oFormDesc:aItems[i]:aItems[1]:aItems[1])
                   oFormDesc:aItems[i]:aItems[1]:aItems[1] := &( "{||" + oFormDesc:aItems[i]:aItems[1]:aItems[1] + "}" )
                ENDIF
                xProperty := Eval( oFormDesc:aItems[i]:aItems[1]:aItems[1] )
@@ -344,7 +344,7 @@ Return Iif( i==0, NIL, ::aProp[i,2] )
 
 METHOD SetProp( xName,xValue ) CLASS HFormGen
 
-   IF Valtype( xName ) == "C"
+   IF HB_ISCHAR(xName)
       xName := Lower(xName)
       xName := Ascan( ::aProp,{|a|Lower(a[1])==xName} )
    ENDIF
@@ -666,7 +666,7 @@ Local j1, aItems := oCtrl:oXMLDesc:aItems, xProperty, cPropName := Lower(aPropIt
                    Lower(aItems[j1]:GetAttribute("name")) == cPropName
 
          IF !Empty(aItems[j1]:aItems)
-            IF Valtype( aItems[j1]:aItems[1]:aItems[1] ) == "C"
+            IF HB_ISCHAR(aItems[j1]:aItems[1]:aItems[1])
                aItems[j1]:aItems[1]:aItems[1] := &( "{||" + aItems[j1]:aItems[1]:aItems[1] + "}" )
             ENDIF
             xProperty := Eval( aItems[j1]:aItems[1]:aItems[1] )

@@ -95,7 +95,7 @@ METHOD CreateBands(pBar, pszText, clrFore, clrBack, pbmp, dwStyle) CLASS hrebar
       ::aBands[i, 4] := IIF(::aBands[i, 4] = NIL, hwg_Getsyscolor(COLOR_3DFACE), ::aBands[i, 4])
       ::aBands[i, 6] := IIF(::aBands[i, 6] = NIL, dwStyle, ::aBands[i, 6])
       IF !Empty(::aBands[i, 1])
-         ::aBands[i, 1] := IIF(ValType(::aBands[i, 1]) = "C", &(::aBands[i, 1]), ::aBands[i, 1])
+         ::aBands[i, 1] := IIF(HB_ISCHAR(::aBands[i, 1]), &(::aBands[i, 1]), ::aBands[i, 1])
          IF (::aBands[i, 5] != NIL)
             hwg_Addbarbitmap(::handle, ::aBands[i, 1]:handle, ::aBands[i, 2], ::aBands[i, 5], ::aBands[i, 6])
          ELSE

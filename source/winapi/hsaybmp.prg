@@ -47,7 +47,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := Iif(lRes .OR. ValType(Image) == "N", HBitmap():AddResource(Image), iif(ValType(Image) == "C", HBitmap():AddFile(Image), Image))
+      ::oImage := Iif(lRes .OR. ValType(Image) == "N", HBitmap():AddResource(Image), iif(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
       IF ::oImage != NIL .AND. ( nWidth == NIL .OR. nHeight == NIL )
          ::nWidth  := ::oImage:nWidth
          ::nHeight := ::oImage:nHeight
@@ -69,7 +69,7 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) 
    IF lRes == NIL
       lRes := .F.
    ENDIF
-   ::oImage := iif(lRes .OR. ValType(xImage) == "N", HBitmap():AddResource(xImage), iif(ValType(xImage) == "C", HBitmap():AddFile(xImage), xImage))
+   ::oImage := iif(lRes .OR. ValType(xImage) == "N", HBitmap():AddResource(xImage), iif(HB_ISCHAR(xImage), HBitmap():AddFile(xImage), xImage))
 
    RETURN Self
 
@@ -134,7 +134,7 @@ METHOD ReplaceBitmap(Image, lRes) CLASS HSayBmp
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := iif(lRes .OR. ValType(Image) == "N", HBitmap():AddResource(Image), iif(ValType(Image) == "C", HBitmap():AddFile(Image), Image))
+      ::oImage := iif(lRes .OR. ValType(Image) == "N", HBitmap():AddResource(Image), iif(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
    ENDIF
 
    RETURN NIL

@@ -207,8 +207,8 @@ METHOD CREATETOOL() CLASS hToolBar
       ENDIF
       nDrop := Max(nDrop, iif(hb_bitand(::aItem[n, 4], BTNS_WHOLEDROPDOWN) != 0, 0, iif(hb_bitand(::aItem[n, 4], BTNS_DROPDOWN) != 0, 8, 0)))
 
-      IF ValType(::aItem[n, 1])  == "C" .OR. ::aItem[n, 1] > 1
-         IF ValType(::aItem[n, 1])  == "C" .AND. At(".", ::aitem[n, 1]) != 0
+      IF HB_ISCHAR(::aItem[n, 1]) .OR. ::aItem[n, 1] > 1
+         IF HB_ISCHAR(::aItem[n, 1]) .AND. At(".", ::aitem[n, 1]) != 0
             IF !File(::aitem[n, 1])
                LOOP
             ENDIF

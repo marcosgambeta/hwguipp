@@ -234,7 +234,7 @@ FUNCTION CalcAll( oEdit )
          //   Calc( oEdit, i )
          ENDIF
       NEXT
-      IF Valtype(aStru[1,OB_TYPE]) == "C" .AND. aStru[1,OB_TYPE] == "tr"
+      IF HB_ISCHAR(aStru[1,OB_TYPE]) .AND. aStru[1,OB_TYPE] == "tr"
          FOR n := 1 TO Len( aStru[1,OB_OB] )
             aCurrTD[1] := n; aCurrTD[2] := aStru[1,OB_TRNUM]; aCurrTD[3] := i
             aStruTD := aStru[1, OB_OB, n, 2]

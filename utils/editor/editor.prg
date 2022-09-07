@@ -640,7 +640,7 @@ STATIC FUNCTION onChangePos( lInit )
 
       IF !Empty(arr)
          aStru := Iif( Len( arr ) >= 7, arr[7], oEdit:aStru[arr[1]] )
-         IF ( l := ( Valtype(aStru[1,OB_TYPE]) == "C" .AND. aStru[1,OB_TYPE] == "img" ) ) != lImage
+         IF ( l := ( HB_ISCHAR(aStru[1,OB_TYPE]) .AND. aStru[1,OB_TYPE] == "img" ) ) != lImage
             lImage := l
             hwg_Enablemenuitem( , MENU_IMAGE, l, .T. )
          ENDIF
@@ -662,7 +662,7 @@ STATIC FUNCTION onChangePos( lInit )
             IF Len( aStruTbl[OB_OB] ) > 1
                lB := .F.
             ELSE
-               IF nL+1 <= Len(aStru) .AND. Valtype(aStru[nL+1,1,1]) == "C" .AND. aStru[nL+1,1,1] == "tr"
+               IF nL+1 <= Len(aStru) .AND. HB_ISCHAR(aStru[nL+1,1,1]) .AND. aStru[nL+1,1,1] == "tr"
                   lB := .F.
                ENDIF
             ENDIF
@@ -1271,7 +1271,7 @@ STATIC FUNCTION setBlock()
    IF Len( aStruTbl[OB_OB] ) > 1
       RETURN NIL
    ENDIF
-   IF nL+1 <= oEdit:nTextLen .AND. Valtype(oEdit:aStru[nL+1,1,1]) == "C" .AND. oEdit:aStru[nL+1,1,1] == "tr"
+   IF nL+1 <= oEdit:nTextLen .AND. HB_ISCHAR(oEdit:aStru[nL+1,1,1]) .AND. oEdit:aStru[nL+1,1,1] == "tr"
       RETURN NIL
    ENDIF
 
@@ -1409,7 +1409,7 @@ STATIC FUNCTION setTable( lNew )
 
    nTop := GetVal_nTop()
 
-   IF lNew == ( Valtype(oEdit:aStru[nL,1,OB_TYPE]) == "C" .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr" )
+   IF lNew == ( HB_ISCHAR(oEdit:aStru[nL,1,OB_TYPE]) .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr" )
       RETURN NIL
    ENDIF
 
@@ -1435,7 +1435,7 @@ STATIC FUNCTION setTable( lNew )
       ENDIF
 
       i := 1
-      DO WHILE nL+i <= oEdit:nTextLen .AND. Valtype(oEdit:aStru[nL+i,1,1]) == "C" .AND. oEdit:aStru[nL+i,1,1] == "tr"
+      DO WHILE nL+i <= oEdit:nTextLen .AND. HB_ISCHAR(oEdit:aStru[nL+i,1,1]) .AND. oEdit:aStru[nL+i,1,1] == "tr"
          i ++
          nRows ++
       ENDDO
@@ -1826,7 +1826,7 @@ STATIC FUNCTION setImage( lNew )
       aStru := oEdit:aStru[nL]
    ENDIF
 
-   IF lNew == ( Valtype(aStru[1,OB_TYPE]) == "C" .AND. aStru[1,OB_TYPE] == "img" )
+   IF lNew == ( HB_ISCHAR(aStru[1,OB_TYPE]) .AND. aStru[1,OB_TYPE] == "img" )
       RETURN NIL
    ENDIF
 
@@ -1993,13 +1993,13 @@ STATIC FUNCTION DelRow()
    ENDIF
 
    IF nL == oEdit:nTextLen .OR. ;
-         !(Valtype(oEdit:aStru[nL+1,1,1]) == "C" .AND. oEdit:aStru[nL+1,1,1] == "tr")
+         !(HB_ISCHAR(oEdit:aStru[nL+1,1,1]) .AND. oEdit:aStru[nL+1,1,1] == "tr")
       oEdit:aPointC[P_Y] := nL - 1
    ENDIF
 
    i := nL
    DO WHILE ++i <= oEdit:nTextLen .AND. ;
-         Valtype(oEdit:aStru[i,1,1]) == "C" .AND. oEdit:aStru[i,1,1] == "tr"
+         HB_ISCHAR(oEdit:aStru[i,1,1]) .AND. oEdit:aStru[i,1,1] == "tr"
       oEdit:aStru[i,1,OB_TRNUM] --
    ENDDO
    oEdit:DelLine( nL )
@@ -2174,7 +2174,7 @@ STATIC FUNCTION CopyFormatted()
    LOCAL nL, nLTr, iTd
 
    nL := oEdit:aPointC[P_Y]
-   IF Valtype( oEdit:aStru[nL,1,OB_TYPE] ) == "C" .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr"
+   IF HB_ISCHAR(oEdit:aStru[nL,1,OB_TYPE]) .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr"
       nLTr := nL
       iTd := oEdit:nPosC
       oEdit:LoadEnv( nL, iTd )
@@ -2205,7 +2205,7 @@ STATIC FUNCTION PasteFormatted()
          nL := oEdit:aPointC[P_Y]
          nLines := oEdit:nLines; nLineF := oEdit:nLineF; nLineC := oEdit:nLineC; nPosF := oEdit:nPosF; nPosC := oEdit:nPosC; nWCharF := oEdit:nWCharF; nWSublF := oEdit:nWSublF
 
-         IF Valtype( oEdit:aStru[nL,1,OB_TYPE] ) == "C" .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr"
+         IF HB_ISCHAR(oEdit:aStru[nL,1,OB_TYPE]) .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr"
             nLTr := nL
             iTd := oEdit:nPosC
             oEdit:LoadEnv( nL, iTd )

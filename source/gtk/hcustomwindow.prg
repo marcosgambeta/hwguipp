@@ -65,7 +65,7 @@ ENDCLASS
 METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
    LOCAL i
 
-   IF Valtype( nId ) == "C"
+   IF HB_ISCHAR(nId)
       nId := Upper(nId)
       RETURN hwg_GetItemByName( ::aControls, nId )
    ELSE
