@@ -13,14 +13,16 @@
 CLASS HBitmap INHERIT HObject
 
    CLASS VAR cPath SHARED
-   CLASS VAR aBitmaps   INIT { }
-   CLASS VAR lSelFile   INIT .F.
+   CLASS VAR aBitmaps INIT {}
+   CLASS VAR lSelFile INIT .F.
+
    DATA handle
    DATA name
    DATA nFlags
-   DATA nTransparent    INIT -1
-   DATA nWidth, nHeight
-   DATA nCounter   INIT 1
+   DATA nTransparent INIT -1
+   DATA nWidth
+   DATA nHeight
+   DATA nCounter INIT 1
 
    METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight)
    METHOD AddStandard(nId)
@@ -30,7 +32,7 @@ CLASS HBitmap INHERIT HObject
    METHOD Draw(hDC, x1, y1, width, height)
    METHOD RELEASE()
    METHOD OBMP2FILE(cfilename, name)
- 
+
 ENDCLASS
 
 /*
@@ -38,7 +40,8 @@ ENDCLASS
 */
 METHOD OBMP2FILE(cfilename, name) CLASS HBitmap
 
-LOCAL i, hbmp
+   LOCAL i
+   LOCAL hbmp
 
    hbmp := NIL
    // Search for bitmap in object
@@ -56,7 +59,10 @@ LOCAL i, hbmp
 RETURN NIL
 
 METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
-   LOCAL lPreDefined := .F., i, aBmpSize
+
+   LOCAL lPreDefined := .F.
+   LOCAL i
+   LOCAL aBmpSize
    LOCAL oResCnt := hwg_GetResContainer()
 
    IF nFlags == NIL
@@ -95,12 +101,15 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
    ::nFlags  :=  nFlags
    AAdd(::aBitmaps, Self)
 
-   RETURN Self
+RETURN Self
 
 METHOD AddStandard(nId) CLASS HBitmap
-   LOCAL i, aBmpSize, name := "s" + LTrim(Str(nId))
 
-   FOR EACH i  IN  ::aBitmaps
+   LOCAL i
+   LOCAL aBmpSize
+   LOCAL name := "s" + LTrim(Str(nId))
+
+   FOR EACH i IN ::aBitmaps
       IF i:name == name
          i:nCounter++
          RETURN i
@@ -111,16 +120,20 @@ METHOD AddStandard(nId) CLASS HBitmap
    IF Empty(::handle)
       RETURN NIL
    ENDIF
-   ::name   := name
+   ::name    := name
    aBmpSize  := hwg_Getbitmapsize(::handle)
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
    AAdd(::aBitmaps, Self)
 
-   RETURN Self
+RETURN Self
 
 METHOD AddFile(name, hDC, lTransparent, nWidth, nHeight) CLASS HBitmap
-   LOCAL i, aBmpSize, cname := CutPath(name), cCurDir
+
+   LOCAL i
+   LOCAL aBmpSize
+   LOCAL cname := CutPath(name)
+   LOCAL cCurDir
 
    IF nWidth == NIL
       nWidth := 0
@@ -166,10 +179,12 @@ METHOD AddFile(name, hDC, lTransparent, nWidth, nHeight) CLASS HBitmap
    ::nHeight := aBmpSize[2]
    AAdd(::aBitmaps, Self)
 
-   RETURN Self
+RETURN Self
 
 METHOD AddString(name, cVal, nWidth, nHeight) CLASS HBitmap
-   LOCAL oBmp, aBmpSize
+
+   LOCAL oBmp
+   LOCAL aBmpSize
 
    IF nWidth == NIL
       nWidth := 0
@@ -196,9 +211,10 @@ METHOD AddString(name, cVal, nWidth, nHeight) CLASS HBitmap
       RETURN NIL
    ENDIF
 
-   RETURN Self
+RETURN Self
 
 METHOD AddWindow(oWnd, x1, y1, width, height) CLASS HBitmap
+
    LOCAL aBmpSize
 
    IF x1 == NIL .OR. y1 == NIL
@@ -215,7 +231,7 @@ METHOD AddWindow(oWnd, x1, y1, width, height) CLASS HBitmap
    ::nHeight := aBmpSize[2]
    AAdd(::aBitmaps, Self)
 
-   RETURN Self
+RETURN Self
 
 METHOD Draw(hDC, x1, y1, width, height) CLASS HBitmap
 
@@ -225,10 +241,12 @@ METHOD Draw(hDC, x1, y1, width, height) CLASS HBitmap
       hwg_Drawtransparentbitmap(hDC, ::handle, x1, y1, ::nTransparent)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
 METHOD RELEASE() CLASS HBitmap
-   LOCAL i, nlen := Len(::aBitmaps)
+
+   LOCAL i
+   LOCAL nlen := Len(::aBitmaps)
 
    ::nCounter--
    IF ::nCounter == 0
@@ -253,4 +271,4 @@ METHOD RELEASE() CLASS HBitmap
 #endif
    ENDIF
 
-   RETURN NIL
+RETURN NIL
