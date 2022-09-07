@@ -110,6 +110,8 @@
 {win}source/winapi/hwindow.prg
 {win}source/winapi/hwinprn.prg
 {win}source/winapi/printdos.prg
+{win}source/winapi/hbitmap.prg
+{win}source/winapi/hicon.prg
 
 # extended controls
 {win}contrib\ext_controls\hbrowsex.prg
