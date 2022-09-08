@@ -216,13 +216,13 @@ STATIC FUNCTION BuildTree( oTree )
                            INSERT NODE oTNode CAPTION oNode3:GetAttribute( "name", , "" ) TO oTreeNode2 BITMAP { "book.bmp" } ON CLICK { |o|NodeOut( o ) }
                            oTNode:cargo := { .T. , "" }
                            IF Empty(oTNode:cargo[2] := oNode3:GetAttribute( "file",,"" ))
-                              IF !Empty(oNode3:aItems) .AND. ValType( oNode3:aItems[1] ) == "O"
+                              IF !Empty(oNode3:aItems) .AND. HB_ISOBJECT(oNode3:aItems[1])
                                  oTNode:cargo[2] := oNode3:aItems[1]:aItems[1]
                               ENDIF
                            ENDIF
                         ENDIF
                      ELSEIF oNode3:title == "comment"
-                        IF !Empty(oNode3:aItems) .AND. ValType( oNode3:aItems[1] ) == "O"
+                        IF !Empty(oNode3:aItems) .AND. HB_ISOBJECT(oNode3:aItems[1])
                            oTreeNode2:cargo[2] := oNode3:aItems[1]:aItems[1]
                         ENDIF
                      ENDIF
@@ -232,13 +232,13 @@ STATIC FUNCTION BuildTree( oTree )
                      INSERT NODE oTNode CAPTION oNode2:GetAttribute( "name", , "" ) TO oTreeNode1 BITMAP { "book.bmp" } ON CLICK { |o|NodeOut( o ) }
                      oTNode:cargo := { .T. , "" }
                      IF Empty(oTNode:cargo[2] := oNode2:GetAttribute( "file",,"" ))
-                        IF !Empty(oNode2:aItems) .AND. ValType( oNode2:aItems[1] ) == "O"
+                        IF !Empty(oNode2:aItems) .AND. HB_ISOBJECT(oNode2:aItems[1])
                            oTNode:cargo[2] := oNode2:aItems[1]:aItems[1]
                         ENDIF
                      ENDIF
                   ENDIF
                ELSEIF oNode2:title == "comment"
-                  IF !Empty(oNode2:aItems) .AND. ValType( oNode2:aItems[1] ) == "O"
+                  IF !Empty(oNode2:aItems) .AND. HB_ISOBJECT(oNode2:aItems[1])
                      oTreeNode1:cargo[2] := oNode2:aItems[1]:aItems[1]
                   ENDIF
                ENDIF
@@ -248,7 +248,7 @@ STATIC FUNCTION BuildTree( oTree )
                INSERT NODE oTNode CAPTION oNode1:GetAttribute( "name", , "" ) TO oTree BITMAP { "book.bmp" } ON CLICK { |o|NodeOut( o ) }
                oTNode:cargo := { .T. , "" }
                IF Empty(oTNode:cargo[2] := oNode1:GetAttribute( "file",,"" ))
-                  IF !Empty(oNode1:aItems) .AND. ValType( oNode1:aItems[1] ) == "O"
+                  IF !Empty(oNode1:aItems) .AND. HB_ISOBJECT(oNode1:aItems[1])
                      oTNode:cargo[2] := oNode1:aItems[1]:aItems[1]
                   ENDIF
                ENDIF

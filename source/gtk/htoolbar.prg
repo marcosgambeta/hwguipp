@@ -101,7 +101,7 @@ Local aItem
             else
                oImage:=hBitmap():AddFile( ::aItem[n, 1] )
             endif
-            if valtype(oImage) =="O"
+            if HB_ISOBJECT(oImage)
                aadd(aButton,Oimage:handle)
                ::aItem[n, 1] := Oimage:handle
             endif

@@ -724,7 +724,7 @@ METHOD Rebuild(hDC) CLASS HBrowse
       IF oColumn:aBitmaps != NIL
          xSize := 0
          FOR j := 1 TO Len(oColumn:aBitmaps)
-            IF ValType(oColumn:aBitmaps[j, 2]) == "O"
+            IF HB_ISOBJECT(oColumn:aBitmaps[j, 2])
                xSize := Max(xSize, oColumn:aBitmaps[j, 2]:nWidth + 2)
                ::minHeight := Max(::minHeight, oColumn:aBitmaps[j, 2]:nHeight)
             ENDIF

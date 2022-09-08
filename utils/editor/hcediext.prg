@@ -3046,7 +3046,7 @@ STATIC FUNCTION hced_FindClass( aClasses, aHili )
       IF aHili[1] != arr[1] .AND. ( arr[1] > 1 .OR. ( !Empty(aHili[1]) .AND. aHili[1] > 1 ) )
          i := 1
       ELSEIF Valtype(arr[HILI_LEN]) != Valtype(aHili[HILI_LEN]) .OR. ;
-         ( Valtype(arr[HILI_LEN]) == "O" .AND. ( (arr[HILI_LEN]:style != aHili[HILI_LEN]:style) .OR. ;
+         ( HB_ISOBJECT(arr[HILI_LEN]) .AND. ( (arr[HILI_LEN]:style != aHili[HILI_LEN]:style) .OR. ;
          (arr[HILI_LEN]:width != aHili[HILI_LEN]:width) .OR. (arr[HILI_LEN]:color != aHili[HILI_LEN]:color) ) )
          i := 1
       ELSE

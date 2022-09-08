@@ -906,7 +906,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
       oCtrl:cargo := cVarName
    ENDIF
 
-   IF !Empty(cCtrlName) .AND. Valtype(oCtrl) == "O"
+   IF !Empty(cCtrlName) .AND. HB_ISOBJECT(oCtrl)
       __mvPut(cCtrlName, oCtrl)
       hwg_SetCtrlName(oCtrl, cCtrlName)
    ENDIF
@@ -1239,7 +1239,7 @@ METHOD READ(fname, cId) CLASS HRepTmpl
    RETURN Self
 
 METHOD PRINT(printer, lPreview, p1, p2, p3, p4, p5) CLASS HRepTmpl
-   LOCAL oPrinter := Iif(printer != NIL, Iif(ValType(printer ) == "O", printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
+   LOCAL oPrinter := Iif(printer != NIL, Iif(HB_ISOBJECT(printer), printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
    LOCAL i, j, aMethod, xProperty, oFont, xTemp, nPWidth, nPHeight, nOrientation := 1, nDuplex
    MEMVAR oReport
    PRIVATE oReport := Self
@@ -1332,7 +1332,7 @@ METHOD PRINT(printer, lPreview, p1, p2, p3, p4, p5) CLASS HRepTmpl
    RETURN NIL
 
 METHOD PrintAsPage(printer, nPageType, lPreview, p1, p2, p3, p4, p5) CLASS HRepTmpl
-   LOCAL oPrinter := Iif(printer != NIL, Iif(ValType(printer ) == "O", printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
+   LOCAL oPrinter := Iif(printer != NIL, Iif(HB_ISOBJECT(printer), printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
    LOCAL i, j, aMethod, xProperty, oFont, xTemp, nPWidth, nPHeight, nOrientation := 1, nDuplex
    MEMVAR oReport
    PRIVATE oReport := Self

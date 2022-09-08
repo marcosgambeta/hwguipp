@@ -778,7 +778,7 @@ FUNCTION hwg_deb_is_object(oObj)
 // =======================================================
 LOCAL lret
 
-       IF Valtype(oObj) == "O" // Debug
+       IF HB_ISOBJECT(oObj) // Debug
          hwg_MsgInfo("Is object")
          lret := .T.
         ELSE

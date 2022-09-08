@@ -1166,7 +1166,7 @@ FUNCTION hwg_SetGetUpdated(o)
 
 FUNCTION hwg_SetColorinFocus(lDef, tColor, bColor)
 
-   IF ValType(lDef) ==  "O"
+   IF HB_ISOBJECT(lDef)
       IF tColor != NIL
          lDef:tColorinFocus := tColor
       ENDIF
