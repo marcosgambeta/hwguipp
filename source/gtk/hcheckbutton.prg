@@ -155,7 +155,7 @@ STATIC FUNCTION __When( oCtrl )
 
    IF oCtrl:bGetFocus != NIL
       res := Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet,, oCtrl ), oCtrl )
-      IF ValType( res ) == "L" .AND. !res
+      IF HB_ISLOGICAL(res) .AND. !res
          hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )
       ENDIF
       RETURN res

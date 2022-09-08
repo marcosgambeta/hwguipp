@@ -154,7 +154,7 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
    IF ValType(nBin) == "N"
       ::BinNumber := nBin
    ENDIF
-   IF ValType(lLandScape) == "L"
+   IF HB_ISLOGICAL(lLandScape)
       ::nOrient := Iif(lLandScape, 2, 1)
    ENDIF
    IF ValType(nCopies) == "N"

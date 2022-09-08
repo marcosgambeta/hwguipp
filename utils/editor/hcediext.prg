@@ -1424,7 +1424,7 @@ METHOD FindClass( xBase, xAttr, xNewClass ) CLASS HCEdiExt
    cName := hced_FindClass( ::aHili, aHili )
 
    IF Empty(cName) .AND. !Empty(xNewClass)
-      IF Valtype( xNewClass ) == "L"
+      IF HB_ISLOGICAL(xNewClass)
          i := Len( ::aHili )
          DO WHILE hb_hHaskey( ::aHili, ( xNewClass := "c" + Ltrim(Str(++i)) ) )
          ENDDO
@@ -1994,7 +1994,7 @@ METHOD DelObject( cType, nL, nCol ) CLASS HCEdiExt
 METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdiExt
    LOCAL nHand := -1, s := "", s1, i, iTbl, j, nPos, cLine, aClasses, aImages, aHili, oFont
    LOCAL cPart, cHref, cId, nAcc, cAcc
-   LOCAL lNested := ( Valtype(cFileName) == "L"), aStruTbl, xTemp
+   LOCAL lNested := (HB_ISLOGICAL(cFileName)), aStruTbl, xTemp
    LOCAL aText, nTextLen, aStru, n, i1, j1, cNewL := Iif( Empty(lCompact), cNewLine, "" )
    LOCAL aDefClasses := Iif( Empty(::aDefClasses), {}, ::aDefClasses )
    LOCAL nFrom := Iif( xFrom==NIL, 1, Iif( HB_ISARRAY(xFrom),xFrom[P_Y],xFrom ) ), nXFrom := -1

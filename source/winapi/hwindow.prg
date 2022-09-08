@@ -763,7 +763,7 @@ STATIC FUNCTION onSysCommand(oWnd, wParam)
    CASE SC_CLOSE
       IF HB_ISBLOCK(oWnd:bDestroy)
          i := Eval(oWnd:bDestroy, oWnd)
-         i := Iif(ValType(i) == "L", i, .T.)
+         i := Iif(HB_ISLOGICAL(i), i, .T.)
          IF !i
             RETURN 0
          ENDIF
@@ -790,7 +790,7 @@ STATIC FUNCTION onEndSession(oWnd)
 
    IF HB_ISBLOCK(oWnd:bDestroy)
       i := Eval(oWnd:bDestroy, oWnd)
-      i := Iif(ValType(i) == "L", i, .T.)
+      i := Iif(HB_ISLOGICAL(i), i, .T.)
       IF !i
          RETURN 0
       ENDIF

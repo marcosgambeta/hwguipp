@@ -72,7 +72,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
    nWidth  -= iif(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 2, 0)
 
    ::lTransp := iif(lTransp != NIL, lTransp, .F.)
-   ::lVertical := iif(lVertical != NIL .AND. ValType(lVertical) = "L", lVertical, ::lVertical)
+   ::lVertical := iif(lVertical != NIL .AND. HB_ISLOGICAL(lVertical), lVertical, ::lVertical)
    IF ::lTransp  .OR. ::lVertical
       nStyle += iif(::lTransp, TBSTYLE_TRANSPARENT, iif(::lVertical, CCS_VERT, 0))
    ENDIF

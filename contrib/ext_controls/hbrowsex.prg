@@ -536,7 +536,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowseEx
       //
       IF ::bOther != NIL
          IF ValType( nRet := Eval( ::bOther,Self,msg,wParam,lParam ) ) != "N"
-            nRet := iif( ValType( nRet ) = "L" .AND. ! nRet, 0, - 1 )
+            nRet := iif( HB_ISLOGICAL(nRet) .AND. ! nRet, 0, - 1 )
          ENDIF
          IF nRet >= 0
             RETURN - 1
@@ -3259,7 +3259,7 @@ METHOD EditLogical( wParam, lParam ) CLASS HBrowseEx
       //::oparent:lSuspendMsgsHandling := .T.
       ::varbuf := Eval( ::aColumns[::fipos]:bWhen, ::aColumns[::fipos], ::varbuf )
       //::oparent:lSuspendMsgsHandling := .F.
-      IF ! ( ValType( ::varbuf ) == "L" .AND. ::varbuf )
+      IF ! ( HB_ISLOGICAL(::varbuf) .AND. ::varbuf )
          RETURN .F.
       ENDIF
    ENDIF
@@ -3329,8 +3329,8 @@ METHOD WhenColumn( value, oGet ) CLASS HBrowseEx
    IF oColumn:bWhen != NIL
       //::oparent:lSuspendMsgsHandling := .T.
       res := Eval( oColumn:bWhen, Value, oGet )
-      res := iif( ValType( res ) = "L" , res, .T. )
-      IF ValType( res ) = "L" .AND. ! res
+      res := iif( HB_ISLOGICAL(res), res, .T. )
+      IF HB_ISLOGICAL(res) .AND. ! res
          ::Setfocus()
          oGet:oParent:close()
       ENDIF
@@ -3354,7 +3354,7 @@ METHOD ValidColumn( value, oGet, oBtn ) CLASS HBrowseEx
    IF oColumn:bValid != NIL
       //::oparent:lSuspendMsgsHandling := .T.
       res := Eval( oColumn:bValid, value, oGet )
-      IF ValType( res ) = "L" .AND. ! res
+      IF HB_ISLOGICAL(res) .AND. ! res
          oGet:Setfocus()
          hwg_Setfocus( NIL )
       ENDIF
@@ -3402,7 +3402,7 @@ METHOD When() CLASS HBrowseEx
    IF ::bGetFocus != NIL
       nSkip := iif( hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate(VK_SHIFT ) < 0 ), - 1, 1 )
       res := Eval( ::bGetFocus, ::Colpos, Self )
-      res := iif( ValType( res ) = "L", res, .T. )
+      res := iif( HB_ISLOGICAL(res), res, .T. )
    ENDIF
 
    RETURN res
@@ -3415,8 +3415,8 @@ METHOD Valid() CLASS HBrowseEx
    ENDIF
    IF ::bLostFocus != NIL
       res := Eval( ::bLostFocus, ::ColPos, Self )
-      res := iif( ValType( res ) = "L", res, .T. )
-      IF ValType( res ) = "L" .AND. ! res
+      res := iif( HB_ISLOGICAL(res), res, .T. )
+      IF HB_ISLOGICAL(res) .AND. ! res
          ::Setfocus( .T. )
          RETURN .F.
       ENDIF

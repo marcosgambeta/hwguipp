@@ -296,7 +296,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    //::lVScroll := ( lNoVScroll == NIL .OR. !lNoVScroll )
    IF Valtype( lNoVScroll ) == "N"
       ::nTrackWidth := lNoVScroll
-   ELSEIF Valtype( lNoVScroll ) == "L" .AND. lNoVScroll
+   ELSEIF HB_ISLOGICAL(lNoVScroll) .AND. lNoVScroll
       ::nTrackWidth := 0
    ELSE
       ::nTrackWidth := HTRACK_DEF_WIDTH

@@ -120,7 +120,7 @@ FUNCTION F_Filter( oBrw, cExpres )
 
    cFilter := cExpres
    IF !Empty(cFilter) .AND. !( Type( cFilter ) $ "UEUI" )
-      IF ValType( &cFilter ) == "L"
+      IF HB_ISLOGICAL(&cFilter)
          nrec := RecNo()
          dbSetFilter( &( "{||" + cFilter + "}" ), cFilter )
 

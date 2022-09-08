@@ -140,7 +140,7 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
       nPos := Len(aMenuInit[1])
       aMenu := aMenuInit[1, nPosParent]
       /* This code just for sure menu runtime hfrmtmpl.prg is enable */
-      IIf(ValType(aMenu[4]) == "L", aMenu[4] := .F., NIL)
+      IIf(HB_ISLOGICAL(aMenu[4]), aMenu[4] := .F., NIL)
       hMenu := hwg__AddMenuItem(hMenu, aMenu[2], nPos + 1, .T., aMenu[3], aMenu[4], .T.)
       IF Len(aMenu) < 5
          AAdd(aMenu, hMenu)
@@ -156,7 +156,7 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
       ELSE
          IF aMenu[1, nPos, 1] == NIL .OR. aMenu[1, nPos, 2] != NIL
             /* This code just for sure menu runtime hfrmtmpl.prg is enable */
-            IIf(ValType(aMenu[1, nPos, 4]) == "L", aMenu[1, nPos, 4] := .F., NIL)
+            IIf(HB_ISLOGICAL(aMenu[1, nPos, 4]), aMenu[1, nPos, 4] := .F., NIL)
             hwg__AddMenuItem(hMenu, aMenu[1, nPos, 2], nPos, .T., aMenu[1, nPos, 3], aMenu[1, nPos, 4], .F.)
             oBmp := SearchPosBitmap(aMenu[1, nPos, 3])
             IF oBmp[1]

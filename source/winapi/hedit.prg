@@ -1173,7 +1173,7 @@ FUNCTION hwg_SetColorinFocus(lDef, tColor, bColor)
       IF bColor != NIL
          lDef:bColorinFocus := bColor
       ENDIF
-   ELSEIF ValType(lDef) == "L"
+   ELSEIF HB_ISLOGICAL(lDef)
       lColorinFocus := lDef
       IF tColor != NIL
          tColorinFocus := tColor

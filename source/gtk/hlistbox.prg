@@ -232,7 +232,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
       ENDIF
          IF ::bKeyDown != NIL .and. ValType( ::bKeyDown ) == 'B'
          nEval := Eval( ::bKeyDown, Self, wParam )
-         IF (VALTYPE( nEval ) == "L" .AND. ! nEval ) .OR. ( nEval != -1 .AND. nEval != NIL )
+         IF (HB_ISLOGICAL(nEval) .AND. ! nEval ) .OR. ( nEval != -1 .AND. nEval != NIL )
             RETURN 0
          ENDIF
       ENDIF

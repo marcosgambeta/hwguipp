@@ -60,7 +60,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
                   bSize,bPaint,ctooltip,tcolor,bcolor )
 
    ::aItem := aItem
-   ::lVertical := IIF( lVertical != NIL .AND. VALTYPE( lVertical ) = "L", lVertical, ::lVertical )
+   ::lVertical := IIF( lVertical != NIL .AND. HB_ISLOGICAL(lVertical), lVertical, ::lVertical )
 
    ::Activate()
 

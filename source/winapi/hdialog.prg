@@ -512,7 +512,7 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
    CASE PSN_APPLY
       IF HB_ISBLOCK(oDlg:bDestroy)
          res := Eval(oDlg:bDestroy, oDlg)
-         res := Iif(Valtype(res) == "L", res, .T.)
+         res := Iif(HB_ISLOGICAL(res), res, .T.)
       ENDIF
       // 'res' should be 0(Ok) or 2
       Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, 2))

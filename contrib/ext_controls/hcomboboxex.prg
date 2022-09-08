@@ -721,7 +721,7 @@ METHOD When() CLASS HComboBoxEx
       ENDIF
       // ::oParent:lSuspendMsgsHandling := .F.
       // ::lnoValid := !res
-      IF ValType( res ) = "L" .AND. ! res
+      IF HB_ISLOGICAL(res) .AND. ! res
          oParent := hwg_GetParentForm( Self )
          IF Self == ATail( oParent:GetList )
             nSkip := - 1
@@ -753,7 +753,7 @@ METHOD Valid() CLASS HComboBoxEx
       IF HB_ISBLOCK(::bLostFocus)
          // ::oparent:lSuspendMsgsHandling := .T.
          res := Eval(::bLostFocus, ::value, Self)
-         IF ValType( res ) = "L" .AND. ! res
+         IF HB_ISLOGICAL(res) .AND. ! res
             ::Setfocus( .T. )
             IF oDlg != NIL
                oDlg:nLastKey := 0
