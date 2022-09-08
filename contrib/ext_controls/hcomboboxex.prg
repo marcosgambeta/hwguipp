@@ -781,7 +781,7 @@ METHOD Valid() CLASS HComboBoxEx
 METHOD RowSource(xSource) CLASS HComboBoxEx
 
    IF xSource != NIL
-      IF ValType( xSource ) = "A"
+      IF HB_ISARRAY(xSource)
          IF Len( xSource ) > 0 .AND. ! hb_IsArray( xSource[1] ) .AND. Len( xSource ) <= 2 .AND. "->" $ xSource[1] // COLUMNS MAX = 2
             ::xrowsource := { xSource[1] , iif( Len( xSource ) > 1, xSource[2], NIL ) }
          ENDIF
@@ -817,7 +817,7 @@ METHOD Populate() CLASS HComboBoxEx
       cAlias := iif( ValType( xRowSource ) == "U",  NIL, cAlias )
       cValueBound := iif( ::xrowsource[2]  != NIL  .AND. cAlias != NIL, StrTran( ::xrowsource[2] , calias + "->" ), NIL )
    ELSE
-      cValueBound := iif( ValType( ::aItems[1] ) == "A" .AND. Len(  ::aItems[1] ) > 1, ::aItems[1, 2], NIL )
+      cValueBound := iif( HB_ISARRAY(::aItems[1]) .AND. Len(  ::aItems[1] ) > 1, ::aItems[1, 2], NIL )
    ENDIF
    ::columnBound := iif( cValueBound = NIL, 1 , 2 )
    IF ::value == NIL
@@ -856,7 +856,7 @@ METHOD Populate() CLASS HComboBoxEx
    //tracelog(valtoprg( ::aItems ))
       FOR i := 1 TO Len( ::aItems )
          IF ::columnBound > 1
-            IF ValType( ::aItems[i] ) = "A" .AND. Len(  ::aItems[i] ) > 1
+            IF HB_ISARRAY(::aItems[i]) .AND. Len(  ::aItems[i] ) > 1
                AAdd(::AitemsBound, ::aItems[i, 2])
             ELSE
                AAdd(::AitemsBound, NIL)

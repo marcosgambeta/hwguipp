@@ -225,7 +225,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
       IF Empty(xText)
          ::aStru := { { { 0,0,NIL } } }
          RETURN ::Super:SetText()
-      ELSEIF Valtype( xText ) == "A"
+      ELSEIF HB_ISARRAY(xText)
          RETURN ::Super:SetText( xText, cPageIn, cPageOut )
       ENDIF
    ELSE
@@ -234,7 +234,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
       ENDIF
       aText := AClone( ::aText )
       ::lUpdated := .T.
-      IF Valtype( xText ) == "A"
+      IF HB_ISARRAY(xText)
          aText := ASize( aText, Len(aText) + Len(xText) )
          FOR i := 1 TO Len(xText)
             aText[i+::nTextLen] := xText[i]
@@ -1997,14 +1997,14 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
    LOCAL lNested := ( Valtype(cFileName) == "L"), aStruTbl, xTemp
    LOCAL aText, nTextLen, aStru, n, i1, j1, cNewL := Iif( Empty(lCompact), cNewLine, "" )
    LOCAL aDefClasses := Iif( Empty(::aDefClasses), {}, ::aDefClasses )
-   LOCAL nFrom := Iif( xFrom==NIL, 1, Iif( Valtype(xFrom)=="A",xFrom[P_Y],xFrom ) ), nXFrom := -1
-   LOCAL nTo := Iif( xTo==NIL, ::nTextLen, Iif( Valtype(xTo)=="A",xTo[P_Y],xTo ) ), nXTo := 999999999
+   LOCAL nFrom := Iif( xFrom==NIL, 1, Iif( HB_ISARRAY(xFrom),xFrom[P_Y],xFrom ) ), nXFrom := -1
+   LOCAL nTo := Iif( xTo==NIL, ::nTextLen, Iif( HB_ISARRAY(xTo),xTo[P_Y],xTo ) ), nXTo := 999999999
 
    IF !lNested
-      IF Valtype( xFrom ) == "A"
+      IF HB_ISARRAY(xFrom)
          nXFrom := xFrom[P_X]
       ENDIF
-      IF Valtype( xTo ) == "A"
+      IF HB_ISARRAY(xTo)
          nXTo := xTo[P_X]
       ENDIF
       IF !Empty(cFileName)
@@ -2506,7 +2506,7 @@ METHOD GetPosInfo( xPos, yPos ) CLASS HCEdiExt
 
    IF xPos == NIL
       RETURN ::SetCaretPos( SETC_XY + 200 )
-   ELSEIF Valtype( xPos ) == "A"
+   ELSEIF HB_ISARRAY(xPos)
       RETURN ::SetCaretPos( SETC_XYPOS + 200, xPos[P_X], xPos[P_Y] )
    ENDIF
    RETURN ::SetCaretPos( SETC_COORS + 200, xPos, yPos )
@@ -2586,7 +2586,7 @@ METHOD Scan( nl1, nl2, hDC, nWidth, nHeight ) CLASS HCEdiExt
 METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
 
    LOCAL nLType, i, j, i1, j1, n, nPos, aStru, aText, nTextLen, cLine, cRes
-   LOCAL nLStart := Iif( Valtype(aStart)=="A",aStart[P_Y],1 ), nPosStart := Iif( Valtype(aStart)=="A",aStart[P_X],1 ), nL1Start
+   LOCAL nLStart := Iif( HB_ISARRAY(aStart),aStart[P_Y],1 ), nPosStart := Iif( HB_ISARRAY(aStart),aStart[P_X],1 ), nL1Start
    LOCAL lId := (cId != NIL), lText := (cText != NIL), lHref := (cHRef != NIL), lAll
    LOCAL arr
 
@@ -2660,7 +2660,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
             aStru := ::aStru[i, 1, OB_OB, n, 2]
             aText := ::aStru[i, 1, OB_OB, n, OB_ATEXT]
             nTextLen := ::aStru[i, 1, OB_OB, n, OB_NTLEN]
-            nL1Start := Iif( Valtype(aStart)=="A".AND.Len(aStart)>3,aStart[4],1 )
+            nL1Start := Iif( HB_ISARRAY(aStart).AND.Len(aStart)>3,aStart[4],1 )
             FOR i1 := nL1Start TO nTextLen
                IF lId .AND. Len( aStru[i1,1] ) >= OB_ID .AND. !Empty(aStru[i1,1,OB_ID])
                   IF !lAll .AND. aStru[i1,1,OB_ID] == cId
@@ -2669,7 +2669,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
                      Aadd(arr, {n , i, 1, i1})
                   ENDIF
                ELSEIF lText
-                  nPos := Iif( i1==nL1Start, Iif( Valtype(aStart)=="A".AND.Len(aStart)>3,aStart[3],1 ), 1 )
+                  nPos := Iif( i1==nL1Start, Iif( HB_ISARRAY(aStart).AND.Len(aStart)>3,aStart[3],1 ), 1 )
                   cLine := Iif(lCase, aText[i1], Lower(::aText[i]))
                   DO WHILE nPos > 0
                      IF Empty(lRegex)

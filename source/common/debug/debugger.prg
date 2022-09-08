@@ -869,7 +869,7 @@ STATIC FUNCTION SendArray(cArrName, nFirst, nCount)
    // xValue
 
    arrFrom := t_oDebugger:GetExprValue( cArrName )
-   IF ValType( arrFrom ) == "A"
+   IF HB_ISARRAY(arrFrom)
       IF Len( arrFrom ) < nFirst + nCount - 1
          nCount := Len( arrFrom ) - nFirst + 1
       ENDIF

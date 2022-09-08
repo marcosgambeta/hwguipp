@@ -1030,7 +1030,7 @@ METHOD SetText( xText, cPageIn, cPageOut ) CLASS HCEdit
 
    IF Empty(xText)
       ::aText := { "" }
-   ELSEIF Valtype( xText ) == "A"
+   ELSEIF HB_ISARRAY(xText)
       ::aText := xText
    ELSE
       IF ( nPos := At(Chr(10), xText) ) == 0

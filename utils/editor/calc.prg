@@ -186,7 +186,7 @@ STATIC FUNCTION CalcScr( aStru, nL, iTD, nL1 )
          aStru[OB_EXEC] := RdScript( , cRes )
       ENDIF
    ENDIF
-   IF ( xRes := Iif( Valtype(aStru[OB_EXEC])=="A", DoScript(aStru[OB_EXEC]), Eval(aStru[OB_EXEC]) ) ) != NIL
+   IF ( xRes := Iif( HB_ISARRAY(aStru[OB_EXEC]), DoScript(aStru[OB_EXEC]), Eval(aStru[OB_EXEC]) ) ) != NIL
       cRes := Trim(Transform(xReS, "@B"))
       IF Valtype( xRes ) == "N" .AND. Rat(".", cRes) > 0
         nPos2 := Len( cRes )

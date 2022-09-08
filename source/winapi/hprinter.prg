@@ -1120,7 +1120,7 @@ METHOD PrintDoc(nPage) CLASS HPrinter
                Hwg_EndPage(::hDCPrn)
             ENDIF
          NEXT
-      ELSEIF Valtype(nPage) == "A"
+      ELSEIF HB_ISARRAY(nPage)
          arr := nPage
          FOR nPage := 1 TO Len(arr)
             IF ::lUseMeta

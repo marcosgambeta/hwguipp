@@ -688,7 +688,7 @@ Local i := Len( aMenu ), oNode
       INSERT NODE oNode CAPTION aMenu[i,2] TO oParent
       oNode:cargo := aMenu[i,3]
       nMaxId := Max( nMaxId,aMenu[i,3] )
-      IF Valtype( aMenu[i,1] ) == "A"
+      IF HB_ISARRAY(aMenu[i, 1])
          BuildTree( oNode, aMenu[i,1] )
       ENDIF
    NEXT
@@ -709,7 +709,7 @@ Local nPos1, aSubarr
    DO WHILE nPos <= Len( aTree )
       IF aTree[npos,3] == nId
          Return aTree
-      ELSEIF Valtype(aTree[npos,1]) == "A"
+      ELSEIF HB_ISARRAY(aTree[npos, 1])
          IF ( aSubarr := FindTreeItem( aTree[nPos,1] , nId, @nPos1 ) ) != NIL
             nPos := nPos1
             Return aSubarr

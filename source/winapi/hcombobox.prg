@@ -145,20 +145,20 @@ METHOD Init() CLASS HComboBox
       IF !Empty(::aItems)
          IF Empty(::xValue)
             IF ::lText
-               ::xValue := iif(ValType(::aItems[1]) == "A", ::aItems[1, 1], ::aItems[1])
+               ::xValue := iif(HB_ISARRAY(::aItems[1]), ::aItems[1, 1], ::aItems[1])
             ELSE
                ::xValue := 1
             ENDIF
          ENDIF
          hwg_Sendmessage(::handle, CB_RESETCONTENT, 0, 0)
          FOR i := 1 TO Len(::aItems)
-            hwg_Comboaddstring(::handle, iif(ValType(::aItems[i] ) == "A", ::aItems[i, 1], ::aItems[i]))
+            hwg_Comboaddstring(::handle, iif(HB_ISARRAY(::aItems[i]), ::aItems[i, 1], ::aItems[i]))
          NEXT
          IF ::lText
 #ifdef __XHARBOUR__
-            i := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}))
+            i := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}))
 #else
-            i := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
+            i := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
 #endif
             hwg_Combosetstring(::handle, i)
          ELSE
@@ -195,14 +195,14 @@ METHOD Refresh(xVal) CLASS HComboBox
       hwg_Sendmessage(::handle, CB_RESETCONTENT, 0, 0)
 
       FOR i := 1 TO Len(::aItems)
-         hwg_Comboaddstring(::handle, iif(ValType(::aItems[i] ) == "A", ::aItems[i, 1], ::aItems[i]))
+         hwg_Comboaddstring(::handle, iif(HB_ISARRAY(::aItems[i]), ::aItems[i, 1], ::aItems[i]))
       NEXT
 
       IF ::lText
 #ifdef __XHARBOUR__
-         i := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}))
+         i := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}))
 #else
-         i := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
+         i := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
 #endif
          hwg_Combosetstring(::handle, i)
       ELSE
@@ -216,7 +216,7 @@ METHOD Refresh(xVal) CLASS HComboBox
 METHOD SetItem(nPos) CLASS HComboBox
 
    IF ::lText
-      ::xValue := iif(ValType(::aItems[nPos]) == "A", ::aItems[nPos, 1], ::aItems[nPos])
+      ::xValue := iif(HB_ISARRAY(::aItems[nPos]), ::aItems[nPos, 1], ::aItems[nPos])
    ELSE
       ::xValue := nPos
    ENDIF
@@ -243,7 +243,7 @@ METHOD GetValue(nItem) CLASS HComboBox
    ELSE
       nPos := hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0) + 1
       IF nPos > 0 .AND. nPos <= Len(::aItems)
-         l := ValType(::aItems[nPos]) == "A"
+         l := HB_ISARRAY(::aItems[nPos])
          ::xValue := Iif(::lText, Iif(l, ::aItems[nPos, 1], ::aItems[nPos]), nPos)
       ENDIF
    ENDIF
@@ -258,9 +258,9 @@ METHOD Value ( xValue ) CLASS HComboBox
    IF xValue != NIL
       IF HB_ISCHAR(xValue)
 #ifdef __XHARBOUR__
-         xValue := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}))
+         xValue := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}))
 #else
-         xValue := Iif(ValType(::aItems[1]) == "A", AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
+         xValue := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
 #endif
       ENDIF
       ::SetItem(xValue)
@@ -291,7 +291,7 @@ STATIC FUNCTION __Valid(oCtrl)
          IF oCtrl:lEdit
             oCtrl:xValue := oCtrl:GetText()
          ELSE
-            oCtrl:xValue := iif(oCtrl:lText, iif(ValType(oCtrl:aItems[nPos]) == "A", oCtrl:aItems[nPos, 1], oCtrl:aItems[nPos]), nPos)
+            oCtrl:xValue := iif(oCtrl:lText, iif(HB_ISARRAY(oCtrl:aItems[nPos]), oCtrl:aItems[nPos, 1], oCtrl:aItems[nPos]), nPos)
          ENDIF
          IF HB_ISBLOCK(oCtrl:bSetGet)
             Eval(oCtrl:bSetGet, oCtrl:xValue, oCtrl)

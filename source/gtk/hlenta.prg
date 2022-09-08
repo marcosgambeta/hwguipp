@@ -182,7 +182,7 @@ METHOD Paint() CLASS HLenta
    ELSE
 
       IF !Empty(::aItems)
-         l1 := ( Valtype( ::aItems[1] ) == "A" )
+         l1 := ( HB_ISARRAY(::aItems[1]) )
          IF ::oFont != NIL
             hwg_Selectobject( hDC, ::oFont:handle )
          ENDIF

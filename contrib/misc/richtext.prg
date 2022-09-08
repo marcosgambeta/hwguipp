@@ -233,7 +233,7 @@ METHOD New(cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nSc
       AFill( aFontChar, 0 )
    ENDIF
 
-   IF ValType( aHigh ) == "A"
+   IF HB_ISARRAY(aHigh)
       ::aTranslate := aHigh
    ENDIF
 
@@ -385,7 +385,7 @@ METHOD Paragraph( cText, nFontNumber, nFontSize, cAppear, ;
    ::Appearance( cAppear )
    ::HAlignment( cHorzAlign )
 
-   IF ValType( aTabPos ) == "A"
+   IF HB_ISARRAY(aTabPos)
       AEval( aTabPos, { | x | ::NumCode( "tx", x ) } )
    ENDIF
 
@@ -675,7 +675,7 @@ METHOD DefineTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
 
    IF aTableCWid[1] == NIL
       AFill( aTableCWid, 6.5 / nTblColumns )
-   ELSEIF ValType( aTableCWid[1] ) == "A"
+   ELSEIF HB_ISARRAY(aTableCWid[1])
       aTableCWid := AClone( aTableCWid[1] )
    ENDIF
 
@@ -1742,7 +1742,7 @@ METHOD DefNewTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
 
    IF aTableCWid[1] == NIL
       AFill( aTableCWid, 6.5 / nTblColumns )
-   ELSEIF ValType( aTableCWid[1] ) == "A"
+   ELSEIF HB_ISARRAY(aTableCWid[1])
       aTableCWid := AClone( aTableCWid[1] )
    ENDIF
    // Turn independent column widths into "right boundary" info...

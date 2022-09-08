@@ -151,7 +151,7 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
 
    nPos := 1
    DO WHILE nPos <= Len(aMenu[1])
-      IF ValType(aMenu[1, nPos, 1]) == "A"
+      IF HB_ISARRAY(aMenu[1, nPos, 1])
          hwg_BuildMenu(aMenu, NIL, NIL, nPos)
       ELSE
          IF aMenu[1, nPos, 1] == NIL .OR. aMenu[1, nPos, 2] != NIL

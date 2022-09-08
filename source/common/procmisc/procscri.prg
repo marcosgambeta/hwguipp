@@ -568,7 +568,7 @@ LOCAL i := 1, RetValue := NIL
       aScript := m->aScriptt
    ENDIF
    cProc := Upper(cProc)
-   DO WHILE i <= Len( aScript[2] ) .AND. Valtype( aScript[2, i] ) == "A"
+   DO WHILE i <= Len( aScript[2] ) .AND. HB_ISARRAY(aScript[2, i])
       IF aScript[2, i, 1] == cProc
          RetValue := DoScript( aScript[2, i], aParams )
          EXIT

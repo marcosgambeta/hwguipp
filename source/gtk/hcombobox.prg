@@ -109,7 +109,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
       IF ::bSetGet == NIL
          IF ::bGetFocus != NIL
             i := hwg_ComboGet( ::handle )
-            Eval( ::bGetFocus, iif( ValType(::aItems[1] ) == "A", ::aItems[i,1], ::aItems[i] ), Self )
+            Eval( ::bGetFocus, iif( HB_ISARRAY(::aItems[1]), ::aItems[i,1], ::aItems[i] ), Self )
          ENDIF
       ELSE
          __When( Self )
@@ -118,7 +118,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
       IF ::bSetGet == NIL
          IF ::bLostFocus != NIL
             i := hwg_ComboGet( ::handle )
-            Eval( ::bLostFocus, iif( ValType(::aItems[1] ) == "A", ::aItems[i,1], ::aItems[i] ), Self )
+            Eval( ::bLostFocus, iif( HB_ISARRAY(::aItems[1]), ::aItems[i,1], ::aItems[i] ), Self )
          ENDIF
       ELSE
          __Valid( Self )
@@ -143,7 +143,7 @@ METHOD Init() CLASS HComboBox
          hwg_ComboSetArray( ::handle, ::aItems )
          IF Empty(::xValue)
             IF ::lText
-               ::xValue := iif( ValType( ::aItems[1] ) == "A", ::aItems[1,1], ::aItems[1] )
+               ::xValue := iif( HB_ISARRAY(::aItems[1]), ::aItems[1,1], ::aItems[1] )
             ELSE
                ::xValue := 1
             ENDIF
@@ -188,7 +188,7 @@ METHOD Refresh( xVal ) CLASS HComboBox
 METHOD SetItem( nPos ) CLASS HComboBox
 
    IF ::lText
-      ::xValue := iif( ValType( ::aItems[nPos] ) == "A", ::aItems[nPos,1], ::aItems[nPos] )
+      ::xValue := iif( HB_ISARRAY(::aItems[nPos]), ::aItems[nPos,1], ::aItems[nPos] )
    ELSE
       ::xValue := nPos
    ENDIF
@@ -208,8 +208,8 @@ METHOD SetItem( nPos ) CLASS HComboBox
 METHOD GetValue( nItem ) CLASS HComboBox
    LOCAL nPos := hwg_ComboGet( ::handle )
    LOCAL vari := iif( !Empty(::aItems) .AND. nPos > 0, ;
-      iif( ValType( ::aItems[1] ) == "A", ::aItems[nPos,1], ::aItems[nPos] ), "" )
-   LOCAL l := nPos > 0 .AND. ValType( ::aItems[nPos] ) == "A"
+      iif( HB_ISARRAY(::aItems[1]), ::aItems[nPos,1], ::aItems[nPos] ), "" )
+   LOCAL l := nPos > 0 .AND. HB_ISARRAY(::aItems[nPos])
 
    ::xValue := iif( ::lText, vari, nPos )
    IF ::bSetGet != NIL
@@ -223,9 +223,9 @@ METHOD Value ( xValue ) CLASS HComboBox
    IF xValue != NIL
       IF HB_ISCHAR(xValue)
 #ifdef __XHARBOUR__
-         xValue := iif( ValType( ::aItems[1] ) == "A", AScan( ::aItems, { |a|a[1] == xValue } ), AScan( ::aItems, { |s|s == xValue } ) )
+         xValue := iif( HB_ISARRAY(::aItems[1]), AScan( ::aItems, { |a|a[1] == xValue } ), AScan( ::aItems, { |s|s == xValue } ) )
 #else
-         xValue := iif( ValType( ::aItems[1] ) == "A", AScan( ::aItems, { |a|a[1] == xValue } ), hb_AScan( ::aItems, xValue,,, .T. ) )
+         xValue := iif( HB_ISARRAY(::aItems[1]), AScan( ::aItems, { |a|a[1] == xValue } ), hb_AScan( ::aItems, xValue,,, .T. ) )
 #endif
       ENDIF
       ::SetItem( xValue )

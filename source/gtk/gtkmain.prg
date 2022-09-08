@@ -128,7 +128,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       addY += 36
    ENDIF
 
-   IF ValType( arr[1] ) == "A"
+   IF HB_ISARRAY(arr[1])
       FOR i := 1 TO aLen
          nLen := Max( nLen, Len( arr[i,1] ) )
       NEXT
@@ -162,10 +162,10 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       ON SIZE {|o,x,y|o:Move( addX/2, 10, x - addX, y - addY )} ;
       ON CLICK { |o|nChoice := o:nCurrent, hwg_EndDialog( o:oParent:handle ) }
 
-   IF ValType( arr[1] ) == "A"
+   IF HB_ISARRAY(arr[1])
       oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED ( value ) , o:aArray[o:nCurrent,1] },"C",nLen ) ) 
    ELSE
-      oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED ( value ) ,o:aArray[o:nCurrent] },"C",nLen ) )   
+      oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED ( value ) ,o:aArray[o:nCurrent] },"C",nLen ) )
    ENDIF
    hwg_CREATEARLIST( oBrw, arr )
    oBrw:lDispHead := .F.

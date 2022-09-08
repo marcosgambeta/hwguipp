@@ -1721,7 +1721,7 @@ STATIC FUNCTION hrep_FontFromXML(oPrinter, oXmlNode, nKoeff, nFontH)
    LOCAL under := oXmlNode:GetAttribute("underline")
    LOCAL name  := oXmlNode:GetAttribute("name"), i
 
-   IF ValType(HRepTmpl():aFontTable) == "A"
+   IF HB_ISARRAY(HRepTmpl():aFontTable)
       IF ( i := Ascan(HRepTmpl():aFontTable,{|a|Lower(a[1]) == Lower(name)}) ) != 0
          name := HRepTmpl():aFontTable[i, 2]
       ENDIF

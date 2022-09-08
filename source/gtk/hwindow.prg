@@ -402,7 +402,7 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
    IF oWnd:aEvents != NIL .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
       Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
-   ELSEIF ValType( oWnd:menu ) == "A" .AND. ;
+   ELSEIF HB_ISARRAY(oWnd:menu) .AND. ;
          ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != NIL ;
          .AND. aMenu[1, iCont, 1] != NIL
       Eval( aMenu[1, iCont, 1] )

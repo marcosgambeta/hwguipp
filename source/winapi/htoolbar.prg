@@ -191,7 +191,7 @@ METHOD CREATETOOL() CLASS hToolBar
       IF HB_ISBLOCK(::aItem[n, 7])
          //::oParent:AddEvent(BN_CLICKED, ::aItem[n, 2], ::aItem[n, 7])
       ENDIF
-      IF ValType(::aItem[n, 9]) == "A"
+      IF HB_ISARRAY(::aItem[n, 9])
          ::aItem[n, 10] := hwg__CreatePopupMenu()
          ::aItem[n, 11]:hMenu := ::aItem[n, 10]
          aTemp := ::aItem[n, 9]

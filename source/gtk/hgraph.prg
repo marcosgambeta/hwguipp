@@ -176,7 +176,7 @@ METHOD Paint() CLASS HGraph
    IF ::oPen == NIL
       ::oPen := HPen():Add( PS_SOLID, 2, ::tcolor )
    ENDIF
-   IF ::nGraphs > 1 .AND. Valtype(::aColors) == "A" .AND. ::aPens == NIL
+   IF ::nGraphs > 1 .AND. HB_ISARRAY(::aColors) .AND. ::aPens == NIL
       ::aPens := Array( Len(::aColors) )
       FOR i := 1 TO Len(::aColors)
          ::aPens[i] := HPen():Add( PS_SOLID, 2, ::aColors[i] )

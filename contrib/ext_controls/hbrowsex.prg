@@ -875,7 +875,7 @@ METHOD AddColumn( oColumn ) CLASS HBrowseEx
 
    LOCAL n, arr
 
-   IF Valtype( oColumn ) == "A"
+   IF HB_ISARRAY(oColumn)
       arr := oColumn
       n := Len(arr)
       oColumn := HColumnEx():New(Iif(n > 0, arr[1], NIL), Iif(n > 1, arr[2], NIL), Iif(n > 2, arr[3], NIL), Iif(n > 3, arr[4], NIL), Iif(n > 4, arr[5], NIL), Iif(n > 5, arr[6], NIL))
@@ -893,7 +893,7 @@ METHOD InsColumn( oColumn, nPos ) CLASS HBrowseEx
 
    LOCAL n, arr
 
-   IF Valtype( oColumn ) == "A"
+   IF HB_ISARRAY(oColumn)
       arr := oColumn
       n := Len(arr)
       oColumn := HColumnEx():New(Iif(n > 0, arr[1], NIL), Iif(n > 1, arr[2], NIL), Iif(n > 2, arr[3], NIL), Iif(n > 3, arr[4], NIL), Iif(n > 4, arr[5], NIL), Iif(n > 5, arr[6], NIL))
@@ -3176,7 +3176,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowseEx
                   ( ::Alias ) -> ( Eval( oColumn:block, ::varbuf, Self, fipos ) )
                   ( ::Alias ) -> ( dbUnlock() )
                ELSE
-                  IF ValType( ::aArray[1] ) == "A"
+                  IF HB_ISARRAY(::aArray[1])
                      AAdd(::aArray, Array(Len(::aArray[1])))
                      FOR fif := 2 TO Len( ( ::aArray[1] ) )
                         ::aArray[Len(::aArray), fif] := ;

@@ -221,7 +221,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       nLen := dbFieldInfo(3, nField)
    ELSE
       aLen := Len(arr)
-      IF ValType(arr[1]) == "A"
+      IF HB_ISARRAY(arr[1])
          FOR i := 1 TO aLen
             nLen := Max(nLen, Len(arr[i, 1]))
          NEXT
@@ -254,7 +254,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    IF lArray
       @ addX/2, 10 BROWSE oBrw ARRAY SIZE width - addX, height - addY
       oBrw:aArray := arr
-      IF ValType(arr[1]) == "A"
+      IF HB_ISARRAY(arr[1])
          oBrw:AddColumn(HColumn():New(NIL, {|value, o|(value), o:aArray[o:nCurrent, 1]}, "C", nLen))
       ELSE
          oBrw:AddColumn(HColumn():New(NIL, {|value, o|(value), o:aArray[o:nCurrent]}, "C", nLen))

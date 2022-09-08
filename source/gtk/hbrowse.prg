@@ -450,7 +450,7 @@ METHOD AddColumn( oColumn ) CLASS HBrowse
 
    LOCAL n, arr
 
-   IF ValType( oColumn ) == "A"
+   IF HB_ISARRAY(oColumn)
       arr := oColumn
       n := Len( arr )
       oColumn := HColumn():New( iif( n > 0,arr[1],NIL ), iif( n > 1,arr[2],NIL ), ;
@@ -1960,7 +1960,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
             ( oBrw:alias ) -> ( Eval( oColumn:block,oBrw:varbuf,oBrw,fipos ) )
             UNLOCK
          ELSE
-            IF ValType( oBrw:aArray[1] ) == "A"
+            IF HB_ISARRAY(oBrw:aArray[1])
                AAdd(oBrw:aArray, Array(Len(oBrw:aArray[1])))
                FOR fif := 2 TO Len( ( oBrw:aArray[1] ) )
                   oBrw:aArray[Len(oBrw:aArray),fif] := ;
@@ -2117,7 +2117,7 @@ FUNCTION hwg_CREATEARLIST( oBrw, arr )
    oBrw:aArray := arr
    IF Len( oBrw:aColumns ) == 0
       // oBrw:aColumns := {}
-      IF ValType( arr[1] ) == "A"
+      IF HB_ISARRAY(arr[1])
          FOR i := 1 TO Len( arr[1] )
             oBrw:AddColumn( HColumn():New( ,hwg_ColumnArBlock() ) )
          NEXT
@@ -2220,7 +2220,7 @@ STATIC FUNCTION CountToken( cStr, nMaxLen, nCount )
          nCount := 1
       ENDIF
    ENDIF
-   IF ValType( cStr ) == "A"
+   IF HB_ISARRAY(cStr)
       AEval( cStr, { |s|nMaxLen := Max( nMaxLen,Len(s ) ) } )
       nCount := Len( cStr )
    ENDIF

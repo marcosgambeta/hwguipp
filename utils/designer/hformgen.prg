@@ -129,10 +129,10 @@ Private oForm := Self, aCtrlTable
          IF HB_ISCHAR(aFormats[::type, 6])
             aFormats[::type, 6] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 6] )
          ENDIF
-         IF Valtype( aFormats[::type, 6] ) == "A"
+         IF HB_ISARRAY(aFormats[::type, 6])
             DoScript( aFormats[::type, 6] )
          ENDIF
-         IF Valtype( aFormats[::type, 4] ) == "A"
+         IF HB_ISARRAY(aFormats[::type, 4])
             DoScript( aFormats[::type, 4] )
          ENDIF
       ENDIF
@@ -218,10 +218,10 @@ Private oForm := Self, aCtrlTable
          IF HB_ISCHAR(aFormats[::type, 6])
             aFormats[::type, 6] := OpenScript( cCurDir + aFormats[::type, 3], aFormats[::type, 6] )
          ENDIF
-         IF Valtype( aFormats[::type, 6] ) == "A"
+         IF HB_ISARRAY(aFormats[::type, 6])
             DoScript( aFormats[::type, 6] )
          ENDIF
-         IF Valtype( aFormats[::type, 5] ) == "A"
+         IF HB_ISARRAY(aFormats[::type, 5])
             DoScript( aFormats[::type, 5] )
          ENDIF
       ENDIF
@@ -686,7 +686,7 @@ Static Function WriteTree( aTree, oParent )
 Local i, oNode, type
 
    FOR i := 1 TO Len( aTree )
-      IF aTree[i,4] != NIL .OR. ( Valtype( aTree[i,1] ) == "A" .AND. !Empty(aTree[i,1]) )
+      IF aTree[i,4] != NIL .OR. ( HB_ISARRAY(aTree[i, 1]) .AND. !Empty(aTree[i,1]) )
          type := HBXML_TYPE_TAG
       ELSE
          type := HBXML_TYPE_SINGLE
@@ -696,7 +696,7 @@ Local i, oNode, type
       IF aTree[i,4] != NIL
          oNode:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,aTree[i,4] ) )
       ENDIF
-      IF Valtype( aTree[i,1] ) == "A" .AND. !Empty(aTree[i,1])
+      IF HB_ISARRAY(aTree[i, 1]) .AND. !Empty(aTree[i,1])
          WriteTree( aTree[i,1], oNode )
       ENDIF
    NEXT
@@ -746,7 +746,7 @@ Local cProperty, i1
                   oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j,2] ) )
                ENDIF
             ELSEIF Left( Lower(oCtrl:aProp[j,1]),6 ) == "styles"
-               IF Valtype( oCtrl:aProp[j,2] ) == "A"
+               IF HB_ISARRAY(oCtrl:aProp[j, 2])
                   oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name","styles" } } ) )
                   oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j,2,1] ) )
                   oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j,2,2] ) )

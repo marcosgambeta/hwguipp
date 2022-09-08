@@ -980,7 +980,7 @@ FUNCTION ChildGetFocus( xWindow )
       ELSE
          oBrw := oTabMain:aControls[xWindow]
       ENDIF
-      IF !Empty(oBrw) .AND. ValType( oBrw:cargo ) == "A"
+      IF !Empty(oBrw) .AND. HB_ISARRAY(oBrw:cargo)
          SELECT( improc := oBrw:cargo[1] )
 #ifdef __GTK
          hwg_WriteStatus( HWindow():GetMain(), 1, oBrw:cargo[2,1]+", "+oBrw:cargo[2,2]+", "+oBrw:cargo[2,3] )
