@@ -188,7 +188,7 @@ STATIC FUNCTION CalcScr( aStru, nL, iTD, nL1 )
    ENDIF
    IF ( xRes := Iif( HB_ISARRAY(aStru[OB_EXEC]), DoScript(aStru[OB_EXEC]), Eval(aStru[OB_EXEC]) ) ) != NIL
       cRes := Trim(Transform(xReS, "@B"))
-      IF Valtype( xRes ) == "N" .AND. Rat(".", cRes) > 0
+      IF HB_ISNUMERIC(xRes) .AND. Rat(".", cRes) > 0
         nPos2 := Len( cRes )
         DO WHILE Substr(cRes, nPos2, 1) == '0'
            nPos2 --
@@ -433,7 +433,7 @@ STATIC FUNCTION CnvVal( xRes )
    ELSE
       cRes := Trim(Transform(xReS, "@B"))
    ENDIF
-   IF Valtype( xRes ) == "N" .AND. Rat(".", cRes) > 0
+   IF HB_ISNUMERIC(xRes) .AND. Rat(".", cRes) > 0
      nPos2 := Len( cRes )
      DO WHILE Substr(cRes, nPos2, 1) == '0'
         nPos2 --

@@ -43,7 +43,7 @@ METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
    ENDIF
    ::Id := nId
 
-   ::value   := iif( ValType( value ) == "N", value, 1000 )
+   ::value   := iif( HB_ISNUMERIC(value), value, 1000 )
    ::bAction := bAction
    ::lOnce := !Empty(lOnce)
 

@@ -841,7 +841,7 @@ METHOD PaintLine( hDC, yPos, nLine, lUse_aWrap, nRight ) CLASS HCEdiExt
       hDC := NIL
    ENDIF
    nWidth := Iif( lFormat, ::nDocWidth, ::nClientWidth - :: nBoundL )
-   IF Valtype( aStru[OB_TYPE] ) == "N"
+   IF HB_ISNUMERIC(aStru[OB_TYPE])
       IF !Empty(aStru[OB_CLS]) .AND. hb_hHaskey( ::aHili,aStru[OB_CLS] )
          aHili := ::aHili[aStru[OB_CLS]]
          nMargL := ::nMarginL; nMargR := ::nMarginR; nIndent := ::nIndent; nAlign := ::nAlign; nBoundL := ::nBoundL
@@ -1127,7 +1127,7 @@ METHOD SetCaretPos( nt, p1, p2 ) CLASS HCEdiExt
    LOCAL iTd, aStru, j, aStruTbl, nIndent, nBoundL, nBoundR, nBoundT, aRes
 
    nType := nt
-   IF Valtype(nt) == "N"
+   IF HB_ISNUMERIC(nt)
       IF nt > 200
          lInfo := .T.
          nPosPrev := ::nPosC
@@ -1153,7 +1153,7 @@ METHOD SetCaretPos( nt, p1, p2 ) CLASS HCEdiExt
    ENDIF
 
    aStru := ::aStru[nL,1]
-   IF Valtype( aStru[OB_TYPE] ) == "N"
+   IF HB_ISNUMERIC(aStru[OB_TYPE])
       IF !Empty(aStru[OB_CLS]) .AND. hb_hHaskey( ::aHili,aStru[OB_CLS] )
          aHili := ::aHili[aStru[OB_CLS]]
          IF aHili[1] != NIL .AND. aHili[1] > 0
@@ -1694,7 +1694,7 @@ METHOD InsTable( xCols, nRows, nWidth, nAlign, xAttr ) CLASS HCEdiExt
       RETURN .F.
    ENDIF
 
-   IF Valtype( xCols ) == "N"
+   IF HB_ISNUMERIC(xCols)
       nCols := xCols
       aStruOB := Array( nCols )
       FOR i := 1 TO nCols
@@ -1895,7 +1895,7 @@ METHOD InsImage( cName, nAlign, xAttr, xBin, cExt ) CLASS HCEdiExt
       nL := ::aPointC[P_Y]
    ENDIF
 
-   IF Valtype( ::aStru[nL,1,OB_TYPE] ) == "N"
+   IF HB_ISNUMERIC(::aStru[nL, 1, OB_TYPE])
       IF !Empty(::aText[nl])
          ::InsText( ::aPointC, cNewLine )
          IF !Empty(::aText[nl])
@@ -2135,7 +2135,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
    ENDIF
 
    FOR i := nFrom TO nTo
-      IF Valtype(::aStru[i,1,OB_TYPE]) == "N"
+      IF HB_ISNUMERIC(::aStru[i, 1, OB_TYPE])
          IF !Empty(aStruTbl)
             aStruTbl := NIL
             s += "</table>" + cNewL
@@ -2602,7 +2602,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
    ENDIF
 
    FOR i := nLStart TO ::nTextLen
-      nLType := Iif( Valtype(::aStru[i,1,OB_TYPE]) == "N", 0, ;
+      nLType := Iif( HB_ISNUMERIC(::aStru[i, 1, OB_TYPE]), 0, ;
             Iif( ::aStru[i,1,OB_TYPE] == "tr", 1, Iif( ::aStru[i,1,OB_TYPE] == "img", 2, 3 ) ) )
       IF nLType == 0
          IF lId .AND. Len( ::aStru[i,1] ) >= OB_ID .AND. !Empty(::aStru[i,1,OB_ID])
@@ -2743,7 +2743,7 @@ Local oHili := HiliExt():New()
 
 METHOD Do( oEdit, nLine ) CLASS HiliExt
 
-   IF Valtype( ::oEdit:aStru[nLine,1,OB_TYPE] ) == "N"
+   IF HB_ISNUMERIC(::oEdit:aStru[nLine, 1, OB_TYPE])
       ::aLineStru := ::oEdit:aStru[nLine]
       ::nItems := Len( ::aLineStru )
       ::nLine := nLine

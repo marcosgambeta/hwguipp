@@ -502,7 +502,7 @@ METHOD SetRowHeight( nPixels ) CLASS HBrowseEx
 
    nOldPixels := ::forceHeight
 
-   IF ValType( nPixels ) == "N"
+   IF HB_ISNUMERIC(nPixels)
       IF nPixels > 0
          ::forceHeight := nPixels
          IF nPixels != nOldPixels .AND. ::rowCurrCount > 0  //nando

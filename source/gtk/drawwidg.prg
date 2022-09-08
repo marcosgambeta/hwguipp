@@ -314,7 +314,7 @@ METHOD AddResource( name , nWidth, nHeight , nFlags, lOEM ) CLASS HIcon
       nHeight := 0
    ENDIF
 */
-   IF ValType( name ) == "N"
+   IF HB_ISNUMERIC(name)
       name := LTrim(Str(name))
       // lPreDefined := .T.
    ENDIF

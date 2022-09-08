@@ -101,7 +101,7 @@ METHOD CalcMinMax() CLASS HGraph
    ENDIF
    FOR i := 1 TO ::nGraphs
       nLen := Len( ::aValues[i] )
-      l1 := ( Valtype(::aValues[i, 1] ) == "N" )
+      l1 := ( HB_ISNUMERIC(::aValues[i, 1]) )
       IF ::nType == 1
          FOR j := 1 TO nLen
             IF l1
@@ -201,7 +201,7 @@ METHOD Paint() CLASS HGraph
             hwg_Selectobject( hDC, ::aPens[i]:handle )
          ENDIF
          nLen := Len( ::aValues[i] )
-         l1 := ( Valtype(::aValues[i, 1] ) == "N" )
+         l1 := ( HB_ISNUMERIC(::aValues[i, 1]) )
          IF ::nType == 1
             FOR j := 2 TO nLen
                px1 := Round( x1 + ( Iif( l1, j-1, ::aValues[i, j - 1, 1] ) - ::xmin ) / scaleX, 0 )

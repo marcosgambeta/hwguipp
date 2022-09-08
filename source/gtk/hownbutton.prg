@@ -90,7 +90,7 @@ METHOD New( oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight,   ;
          ::oBitmap := bmp
       ELSE
          * otherwise load from file or resource container
-         ::oBitmap := Iif( ( lResour != NIL .AND. lResour ) .OR. ValType( bmp ) == "N", ;
+         ::oBitmap := Iif( ( lResour != NIL .AND. lResour ) .OR. HB_ISNUMERIC(bmp), ;
             HBitmap():AddResource( bmp ), ;
             HBitmap():AddFile( Iif( ::cPath != NIL,::cPath + bmp,bmp ) ) )
       ENDIF

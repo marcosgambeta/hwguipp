@@ -93,7 +93,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::lCheck := iif( aImages == NIL, .T. , .F. )
    ::aImages := aImages
 
-   IF ValType( nStyle ) == "N"
+   IF HB_ISNUMERIC(nStyle)
       nStyle := hwg_multibitor( nStyle, CBS_DROPDOWNLIST, CBS_OWNERDRAWVARIABLE, CBS_HASSTRINGS )
    ELSE
       nStyle := hwg_multibitor( CBS_DROPDOWNLIST, CBS_OWNERDRAWVARIABLE, CBS_HASSTRINGS )

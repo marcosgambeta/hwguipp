@@ -46,7 +46,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := Iif( lRes .OR. ValType( Image ) == "N",     ;
+      ::oImage := Iif( lRes .OR. HB_ISNUMERIC(Image),     ;
          HBitmap():AddResource( Image ), ;
          iif( HB_ISCHAR(Image),     ;
          HBitmap():AddFile( Image ), Image ) )
@@ -125,7 +125,7 @@ METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := iif( lRes .OR. ValType( Image ) == "N",  ;
+      ::oImage := iif( lRes .OR. HB_ISNUMERIC(Image),  ;
          HBitmap():AddResource( Image ), ;
          iif( HB_ISCHAR(Image),   ;
          HBitmap():AddFile( Image ), Image ) )

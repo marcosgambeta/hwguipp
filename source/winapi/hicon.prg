@@ -50,7 +50,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
       lOEM := .F.
    ENDIF
    // hwg_writelog("HIcon:AddResource " + Str(nWidth) + "/" + str(nHeight))
-   IF ValType(name) == "N"
+   IF HB_ISNUMERIC(name)
       name := LTrim(Str(name))
       lPreDefined := .T.
    ENDIF

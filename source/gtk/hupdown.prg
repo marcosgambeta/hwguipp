@@ -129,7 +129,7 @@ METHOD Refresh()  CLASS HUpDown
 METHOD Value( nValue ) CLASS HUpDown
 
    IF nValue != NIL
-      IF ValType( nValue ) == "N"
+      IF HB_ISNUMERIC(nValue)
          hwg_SetUpdown( ::handle, nValue )
          ::nValue := nValue
          IF ::bSetGet != NIL

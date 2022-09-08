@@ -42,7 +42,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    ::nWidth  := nWidth
    ::nHeight := nHeight
    ::bInit   := bInit
-   IF ValType(bSize) == "N"
+   IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
       ::bSize  := bSize
@@ -89,7 +89,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    ::oFont   := oFont
    ::bInit   := bInit
-   IF ValType(bSize) == "N"
+   IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
       ::bSize  := bSize

@@ -34,7 +34,7 @@ METHOD New( vari, bSetGet ) CLASS HRadioGroup
    ::aButtons := {}
 
    IF vari != NIL
-      IF ValType( vari ) == "N"
+      IF HB_ISNUMERIC(vari)
          ::nValue := vari
       ENDIF
       ::bSetGet := bSetGet
@@ -52,7 +52,7 @@ METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeig
       oFont, bInit, bSize, , tcolor, bColor )
 
    IF vari != NIL
-      IF ValType( vari ) == "N"
+      IF HB_ISNUMERIC(vari)
          ::nValue := vari
       ENDIF
       ::bSetGet := bSetGet

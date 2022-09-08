@@ -294,7 +294,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    ::DefaultLang()
 
    //::lVScroll := ( lNoVScroll == NIL .OR. !lNoVScroll )
-   IF Valtype( lNoVScroll ) == "N"
+   IF HB_ISNUMERIC(lNoVScroll)
       ::nTrackWidth := lNoVScroll
    ELSEIF HB_ISLOGICAL(lNoVScroll) .AND. lNoVScroll
       ::nTrackWidth := 0
@@ -2551,7 +2551,7 @@ METHOD PrintLine( oPrinter, yPos, nL ) CLASS HCEdit
 METHOD Move( x1, y1, width, height ) CLASS HCEdit
 
    LOCAL nw := Iif( Empty(::oTrack).OR.::oTrack:lHide, 0, ;
-      Iif( Valtype(::oTrack)=="N", ::oTrack, ::oTrack:nWidth ) )
+      Iif( HB_ISNUMERIC(::oTrack), ::oTrack, ::oTrack:nWidth ) )
 
    //hwg_writelog( "1> "+Iif(x1==NIL,"nil",str(x1)) + " " + Iif(width==NIL,"nil",str(width)) + " " + str(nw) + " " + str(::nWidth) )
    ::Super:Move( x1, y1, Iif(!Empty(width),width-nw,width), height )

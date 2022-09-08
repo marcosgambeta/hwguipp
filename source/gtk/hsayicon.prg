@@ -24,7 +24,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    IF lRes == NIL
       lRes := .F.
    ENDIF
-   ::oImage := iif( lRes .OR. ValType( Image ) == "N", ;
+   ::oImage := iif( lRes .OR. HB_ISNUMERIC(Image), ;
       HIcon():AddResource( Image , nWidth, nHeight ),  ;
       iif( HB_ISCHAR(Image),  ;
       HIcon():AddFile( Image , nWidth, nHeight ), Image ) )

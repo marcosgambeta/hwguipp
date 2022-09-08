@@ -71,7 +71,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
    IF lOEM == NIL
       lOEM := .F.
    ENDIF
-   IF ValType(name) == "N"
+   IF HB_ISNUMERIC(name)
       name := LTrim(Str(name))
       lPreDefined := .T.
    ENDIF

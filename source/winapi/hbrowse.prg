@@ -2085,7 +2085,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
             oModDlg:brush := - 1
             oModDlg:nHeight := ::height * 5
 
-            IF ValType(::varbuf) == "N"
+            IF HB_ISNUMERIC(::varbuf)
                nChoic := ::varbuf
             ELSE
                ::varbuf := AllTrim(::varbuf)
@@ -2169,7 +2169,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
 
          IF oModDlg:lResult
             IF oColumn:aList != NIL
-               IF ValType(::varbuf) == "N"
+               IF HB_ISNUMERIC(::varbuf)
                   ::varbuf := nChoic
                ELSE
                   ::varbuf := oColumn:aList[nChoic]

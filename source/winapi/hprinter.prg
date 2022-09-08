@@ -145,19 +145,19 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
 
    ::DefaultLang()
 
-   IF ValType(nFormType) == "N"
+   IF HB_ISNUMERIC(nFormType)
       // A3 - DMPAPER_A3, A4 - DMPAPER_A4
       ::FormType := nFormType
    ELSE
       nFormType := DMPAPER_A4
    ENDIF
-   IF ValType(nBin) == "N"
+   IF HB_ISNUMERIC(nBin)
       ::BinNumber := nBin
    ENDIF
    IF HB_ISLOGICAL(lLandScape)
       ::nOrient := Iif(lLandScape, 2, 1)
    ENDIF
-   IF ValType(nCopies) == "N"
+   IF HB_ISNUMERIC(nCopies)
       IF nCopies > 0
          ::Copies := nCopies
       ENDIF

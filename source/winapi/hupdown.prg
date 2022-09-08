@@ -103,7 +103,7 @@ METHOD Init()  CLASS HUpDown
 METHOD Value(nValue) CLASS HUpDown
 
    IF nValue != NIL
-      IF Valtype(nValue) == "N"
+      IF HB_ISNUMERIC(nValue)
          hwg_SetUpdown(::hUpDown, nValue)
          ::nValue := nValue
          IF HB_ISBLOCK(::bSetGet)

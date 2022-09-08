@@ -1008,7 +1008,7 @@ STATIC FUNCTION ChildKill( xWindow )
          oBrw := oTabMain:aControls[xWindow]
       ENDIF
       IF !Empty(oBrw)
-         IF ValType( oBrw:cargo[1] ) == "N"
+         IF HB_ISNUMERIC(oBrw:cargo[1])
             SELECT( improc := oBrw:cargo[1] )
 #ifdef RDD_ADS
             IF Alias() == "ADSSQL"

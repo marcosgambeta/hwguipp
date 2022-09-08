@@ -441,7 +441,7 @@ METHOD PrintLine(cLine, lNewLine) CLASS HWinPrn
 
 // HKrzak.Start 2020-10-25
 // Bug Ticket #64
-IF cLine != NIL .AND. VALTYPE(cLine) == "N"
+IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
      ::y += ::nLineHeight * cLine
      IF ::y < 0
        ::y := 0
@@ -460,7 +460,7 @@ IF cLine != NIL .AND. VALTYPE(cLine) == "N"
 
 // HKrzak.Start 2020-10-25
 // Bug Ticket #64
-   IF cLine != NIL .AND. VALTYPE(cLine) == "N"
+   IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
      RETURN NIL
    ENDIF
 // HKrzak.End
