@@ -112,6 +112,8 @@
 {win}source/winapi/printdos.prg
 {win}source/winapi/hbitmap.prg
 {win}source/winapi/hicon.prg
+{win}source/winapi/hpanelhea.prg
+{win}source/winapi/hpanelsts.prg
 
 # extended controls
 {win}contrib\ext_controls\hbrowsex.prg
