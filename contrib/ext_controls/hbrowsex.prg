@@ -3096,7 +3096,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowseEx
                   ::varbuf := AllTrim(::varbuf)
                   nChoic := AScan( oColumn:aList, ::varbuf )
                ENDIF
-               oComboFont := iif( ValType( ::oFont ) == "U", ;
+               oComboFont := iif( ::oFont == NIL, ;
                   HFont():Add( "MS Sans Serif", 0, - 8 ), ;
                   HFont():Add( ::oFont:name, ::oFont:width, ::oFont:height + 2 ) )
                @ 0, 0 GET COMBOBOX oCombo VAR nChoic ;

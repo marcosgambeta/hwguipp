@@ -2097,7 +2097,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
                             by the browser or it will be taller than the browse row that
                             has to contain it.
             */
-            oComboFont := iif(ValType(::oFont) == "U", HFont():Add("MS Sans Serif", 0, -8), HFont():Add(::oFont:name, ::oFont:width, ::oFont:height + 2))
+            oComboFont := iif(::oFont == NIL, HFont():Add("MS Sans Serif", 0, -8), HFont():Add(::oFont:name, ::oFont:width, ::oFont:height + 2))
 
             @ 0, 0 GET COMBOBOX oCombo VAR nChoic ITEMS oColumn:aList SIZE nWidth, ::height * 5 FONT oComboFont
 

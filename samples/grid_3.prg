@@ -176,7 +176,7 @@ return NIL
 Function MyVal( xValue, type )
     Local result
     
-    if valtype(xValue) == "U"
+    if xValue == NIL
         if type == "N"
             result := 0
         elseif type == "D"

@@ -814,7 +814,7 @@ METHOD Populate() CLASS HComboBoxEx
          cAlias := LTrim(SubStr(cAlias, i + 1))
       ENDIF
       value  := StrTran( xRowSource, calias + "->", , , 1, 1 )
-      cAlias := iif( ValType( xRowSource ) == "U",  NIL, cAlias )
+      cAlias := iif( xRowSource == NIL,  NIL, cAlias )
       cValueBound := iif( ::xrowsource[2]  != NIL  .AND. cAlias != NIL, StrTran( ::xrowsource[2] , calias + "->" ), NIL )
    ELSE
       cValueBound := iif( HB_ISARRAY(::aItems[1]) .AND. Len(  ::aItems[1] ) > 1, ::aItems[1, 2], NIL )

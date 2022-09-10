@@ -1041,7 +1041,7 @@ METHOD PaintDoc(oWnd) CLASS HPrinter
    pps := hwg_Definepaintstru()
    hDC := hwg_Beginpaint(oWnd:handle, pps)
 
-   IF ValType(::memDC) == "U"
+   IF ::memDC == NIL
       ::memDC := hDC():New()
       ::memDC:Createcompatibledc(hDC)
       ::memBitmap := hwg_Createcompatiblebitmap(hDC, Rect[3] - Rect[1], Rect[4] - Rect[2])

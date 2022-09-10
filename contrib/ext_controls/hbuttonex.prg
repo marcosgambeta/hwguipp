@@ -790,7 +790,7 @@ METHOD PAINTBK( hdc ) CLASS HBUTTONEx
    rect := hwg_Getclientrect(::handle)
    rect1 := hwg_Getwindowrect(::handle)
    hwg_Screentoclient( ::oparent:handle, rect1 )
-   IF ValType( ::m_dcBk ) == "U"
+   IF ::m_dcBk == NIL
       ::m_dcBk := hdc():New()
       ::m_dcBk:Createcompatibledc( clDC:m_hDC )
       ::m_bmpBk := hwg_Createcompatiblebitmap( clDC:m_hDC, rect[3] - rect[1], rect[4] - rect[2] )
