@@ -13,7 +13,7 @@
 
 -cflag=-DHWG_USE_POINTER_ITEM
 
-activex/*.c
+activex/*.cpp
 activex/*.prg
 
 #-stop{allmingw}
