@@ -1,11 +1,7 @@
-#
-# $Id: gthwg.hbp 2989 2021-05-07 16:28:30Z alkresin $
-#
-
 -inc
 
 -hblib
--o../lib/gthwg
+-o../lib/${hb_plat}/${hb_comp}/gthwg
 
 -n -q0 -w -es2
 
@@ -16,3 +12,5 @@
 gthwg/gt_hwg.prg
 {unix}gthwg/gt_hwgui_l.c
 {win}gthwg/gt_hwgui_w.c
+
+-cflag=-fpermissive
