@@ -10,7 +10,7 @@
 "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
 gthwg/gt_hwg.prg
-{unix}gthwg/gt_hwgui_l.c
-{win}gthwg/gt_hwgui_w.c
+{unix}gthwg/gt_hwgui_l.cpp
+{win}gthwg/gt_hwgui_w.cpp
 
 -cflag=-fpermissive
