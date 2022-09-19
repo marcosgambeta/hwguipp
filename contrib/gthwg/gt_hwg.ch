@@ -1,6 +1,4 @@
 /*
- * $Id: gt_hwg.ch 2987 2021-05-07 08:23:24Z alkresin $
- *
  * GTHWGUI, Video subsystem, based on HwGUI
  *
  * Copyright 2021 Alexander S.Kresin <alex@kresin.ru>

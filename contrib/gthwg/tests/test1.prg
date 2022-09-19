@@ -1,6 +1,4 @@
 /*
- * $Id: test1.prg 3021 2021-10-18 22:58:02Z josequintas $
- *
  * GTHWG, Video subsystem, based on HwGUI
  *
  * test1.prg - simple test program
