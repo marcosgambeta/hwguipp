@@ -19,7 +19,7 @@ Public oAgent, oTimer
      AT 200,0 SIZE 600,380                       ;
      FONT oFont
 
-   oAgent := TOleAuto():New("Agent.Control.2")
+   oAgent := win_OleCreateObject("Agent.Control.2")
    IF Empty(oAgent) .OR. Empty(oAgent:hObj)
       cText := "Ms Agent isn't installed !"
    ELSE
