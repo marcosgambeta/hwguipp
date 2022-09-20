@@ -648,7 +648,7 @@ oInc:=""
 for i:=1 to Len(voCFiles)
     if !empty(voCFiles[i])
        if !empty(oIncFolder)
-          oInc:="/I"+chr(34)+voIncFolder+"+chr(34)
+          oInc:="/I"+chr(34)+voIncFolder+chr(34)
        endif
        oName:=Substr(voCFiles[i],1,Len(voCFiles[i])-4)
 
