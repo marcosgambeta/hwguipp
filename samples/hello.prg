@@ -166,7 +166,7 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
 #endif         
       ENDMENU
       MENU TITLE "Third"
-         MENUITEM "Wchoice" ACTION hwg_WChoice( acho,"Select",,,,,15132390,,0x008000 ) )
+         MENUITEM "Wchoice" ACTION hwg_WChoice(acho, "Select", , , , , 15132390, , 0x008000)
          MENUITEM "hwg_Selectfolder" ACTION hwg_Msginfo( hwg_Selectfolder("!!!") )
          MENU TITLE "Submenu"
          
