@@ -64,8 +64,3 @@ winprn.prg   1)     Y         N        Y         Printing via Windows GDI Interf
     set to it if progress bar is increased by steps, it is necessary to install the
     command "wmctrl" with "sudo apt install wmctrl" as system adminstrator.
     It no problem to switch the main windows to full screen display.
-  
-
-* =================== EOF of Readme.txt ========================
-
-

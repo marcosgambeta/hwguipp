@@ -17,5 +17,3 @@
 -d__LINUX__ -d__GTK__
 
 ../../hwguipp.hbc
-
-# ================ EOF of hbmk.hbm ===============

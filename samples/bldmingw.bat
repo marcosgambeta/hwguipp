@@ -49,5 +49,3 @@ REM hbmk2: Hint: Add option 'hbwin.hbc' for missing function(s):
 REM       win_oleCreateObject()
 REM activate the following command for compile: 
 hbmk2 %1 hwgui_xp.rc %HBWINBC% -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib %HWGUI_LIBS%
-
-REM ---- EOF of bldmingw.bat ----

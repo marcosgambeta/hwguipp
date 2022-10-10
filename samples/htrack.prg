@@ -53,7 +53,3 @@ Local bVolChange := {|o,n|
    oFont:Release()
 
 Return NIL
-
-   
-* ============================ EOF of htrack.prg ==============================
-   

@@ -2291,5 +2291,3 @@ cHexAstro := ;
 "FF FF FF FF FF FF FF FF FF FF FF 00 00 00 "
 
 RETURN NIL
-
-* ============================= EOF of hexbincnt.prg ==================================

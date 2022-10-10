@@ -20,7 +20,3 @@ SET EDPATH=%WATCOM%\EDDAT
 SET INCLUDE=%WATCOM%\H;%WATCOM%\H\NT
 REM SET LIB=
 REM SET WHTMLHELP=D:\BINNT\HELP
-REM
-REM
-REM ========================= EOF of pfad_wc.bat ==============================
-

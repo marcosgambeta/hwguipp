@@ -60,6 +60,3 @@
  - Create ticket for PCRE group for port to 64bit.
  - Check 64bit for Cross Development Environment
  - Build scripts for other components (utils,contrib)
- 
- 
- * ============= EOF of MinGW64.txt ==================

@@ -79,6 +79,3 @@ gcc -Wall -mwindows -o%PRGNAME%.exe %PRGNAME%.o -L%MINGW%\lib -L%HRB_LIB_DIR% -L
 
 del %PRGNAME%.c
 del %PRGNAME%.o
-
-
-REM ------------ EOF of hwmingnw.bat --------------------

@@ -313,9 +313,3 @@ BEGIN FOOTER oRTF
 END FOOTER oRTF
 
 RETURN oRTF
-**********************  END OF SetupRTF()  ***********************
-
-* ====================== EOF of testrtf.prg ===========================
- 
-
-

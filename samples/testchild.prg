@@ -83,5 +83,3 @@ function CreateChild(lClip)
    oChild:Activate(.t.)
 
 return (NIL)
-
-* ===================================== EOF of testchild.prg =============================================

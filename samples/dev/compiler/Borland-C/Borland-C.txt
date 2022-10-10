@@ -69,7 +69,3 @@ Build a HWGUI sample
 hbmk.bat dbview.prg
 
 Use this script as a sample to build your own app.
-
-
-* =================== EOF of Borland-C.txt ======================
- 

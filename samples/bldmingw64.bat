@@ -73,5 +73,3 @@ if exist %PRGNAME%_res.o del %PRGNAME%_res.o
 
 
 REM -mno-cygwin and -gui not supported any more
-
-REM ========================== EOF of bldmingw64.bat ========================= 

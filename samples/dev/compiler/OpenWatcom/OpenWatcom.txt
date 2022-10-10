@@ -108,5 +108,3 @@ hbmk2[hbrun]: Exit status: 6: failed in compilation (Harbour, C compiler, Resour
 ! Finished package build...
 make[1]: *** [first] Error 6
 make: *** [contrib] Error 2
-
-* ============== EOF of OpenWatcom.txt ==================

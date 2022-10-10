@@ -18,7 +18,3 @@ REM 32 bit
 SET PATH=%GNU_MAKE%;%CCOMP%\Bin;%HB_PATH%\bin\%HB_PLATFORM%\%HB_COMPILER%;%PATH%
 SET INCLUDE=%CCOMP%\include
 REM SET LIB=
-REM
-REM
-REM ========================= EOF of pfad_bc.bat ==============================
-

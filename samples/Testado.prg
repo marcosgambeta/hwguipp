@@ -158,5 +158,3 @@ FUNCTION CreateDbf( cName )
    USE
 
    RETURN NIL
-
-* ==================== EOF of Testado.prg =======================

@@ -529,6 +529,3 @@ Local hDC := hwg_Getdc(0), aMetr, oFont
    hwg_Releasedc( 0,hDC )
 
 Return NIL
-
-* ============================ EOF of a.prg =================================
-

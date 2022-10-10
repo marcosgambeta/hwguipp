@@ -69,7 +69,3 @@ RETURN NIL
  *   IA__gtk_spin_button_set_value: assertion 'GTK_IS_SPIN_BUTTON (spin_button)' failed
  *   at this point o_Number:Value()  should return 2
  *   but the value of the o_Number is 1
-
-* ====== EOF of getupdown.prg ======
- 
-

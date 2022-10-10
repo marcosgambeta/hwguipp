@@ -250,5 +250,3 @@ FUNCTION Hilfe
 * --------------------------------------------
  hwg_MsgInfo("Need Help","HELP !")
 RETURN NIL
- 
-* ============== EOF of TwoListbox.prg =================

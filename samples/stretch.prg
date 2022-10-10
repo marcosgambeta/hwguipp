@@ -97,5 +97,3 @@ FUNCTION CHECK_FILE ( cfi )
   QUIT
  ENDIF 
 RETURN NIL
-
-* ==================== EOF of stretch.prg ============

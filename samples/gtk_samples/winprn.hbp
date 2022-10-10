@@ -7,5 +7,3 @@ winprn.prg
 -d__LINUX__ -d__GTK__
 
 ../../hwguipp.hbc
-
-# ==================== EOF of winprn.hbp ===============

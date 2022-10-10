@@ -126,5 +126,3 @@ RETURN NIL
 FUNCTION action_selected(pcfname)
   hwg_MsgInfo("Selection done: " + pcfname ,"HWGUI Sample")
 RETURN NIL
-  
-* ======================= EOF of fileselect.prg ==============================

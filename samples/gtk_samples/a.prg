@@ -244,6 +244,3 @@ Local oPrinter, oFont
    oPrinter:End()
 
 Return NIL
-
-* ================== EOF of a.prg =====================
-                                                               

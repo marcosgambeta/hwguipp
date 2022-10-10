@@ -131,7 +131,3 @@ Function Test
    ACTIVATE DIALOG oDlg
 
 Return NIL
-
-* ============================= EOF of Dialogboxes.prg ===========================
-
-      

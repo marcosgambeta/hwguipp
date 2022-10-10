@@ -106,6 +106,3 @@ FUNCTION Main()
 #endif   
 
    RETURN NIL
-   
-* ======================== EOF of testtray.prg =================================
-

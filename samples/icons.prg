@@ -94,6 +94,3 @@ FUNCTION Teste(cimgpfad)
    ACTIVATE DIALOG oModDlg   
    
 RETURN NIL
-
-* ================================== EOF of icons.prg ============================== 
-

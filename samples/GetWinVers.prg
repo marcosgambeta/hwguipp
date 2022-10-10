@@ -47,5 +47,3 @@ RETURN NIL
 
 FUNCTION LOGICAL2STR(bl)
 RETURN IIF(bl,"True","False")
-
-* ====================== EOF of GetWinVers.prg ==================== 

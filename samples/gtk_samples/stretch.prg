@@ -71,5 +71,3 @@ ELSE
    oFormMain:Activate()
 ENDIF
 RETURN NIL 
-
-* ==================== EOF of stretch.prg ============

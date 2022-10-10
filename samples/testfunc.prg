@@ -401,5 +401,3 @@ ctim := hwg_FileModTime(fn)
 hwg_MsgInfo("Modification date and time (local) of file" + ;
  CHR(10) + fn + " is :" + CHR(10) +  ctim, "Result of hwg_FileModTime()")
 RETURN NIL 
-
-* ============================== EOF of testfunc.prg ==============================

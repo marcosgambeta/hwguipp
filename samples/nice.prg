@@ -35,6 +35,3 @@ init window o main
 activate window o
 
 return NIL
-
-* ============================= EOF of nice.prg ==============================
-

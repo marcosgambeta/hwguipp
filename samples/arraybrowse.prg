@@ -224,6 +224,3 @@ clgetf := cgetf
    ENDIF 
 
 RETURN clgetf
-
-* ============================ EOF of arraybrowse.prg ==============================
-

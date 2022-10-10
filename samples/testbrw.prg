@@ -185,7 +185,3 @@ RETURN ;
 "FF FF FF 00 00 00 FF FF FF FF FF FF FF FF FF FF " + ;
 "FF FF FF 00 00 00 "
 #endif
-
-
-* ========================== EOF of testbrw.prg ==========================
-

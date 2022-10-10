@@ -36,7 +36,3 @@ SET PATH=%HB_PATH%\win\bcc;%PATH%
 REM
 SET INCLUDE=%CCOMP%\include
 REM SET LIB=
-REM
-REM
-REM ========================= EOF of pfad_pc.bat ==============================
-

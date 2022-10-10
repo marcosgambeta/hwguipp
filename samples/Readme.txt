@@ -293,7 +293,3 @@ Directories:
 
  12) Little modifications for GTK needed (use compiler switch "#ifdef __GTK__").
      Extra sample program with same filename in subdirectory "gtk_samples"
- 
-* =================== EOF of Readme.txt ========================
-
-

@@ -176,5 +176,3 @@ else
 endif   
 
 Return NIL
-
-* ====================== EOF of progbars.prg ========================

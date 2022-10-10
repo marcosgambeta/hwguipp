@@ -97,7 +97,3 @@ daltdatum := d1
     hwg_Msginfo(dtoc(d1))
 
 Return NIL
-
-
-* =============================== EOF of datepicker.prg ==============================
-

@@ -191,5 +191,3 @@ ohda:SetTitle("New header text")
 ENDIF
 
 RETURN NIL
-
-* ================================ EOF of night.prg ============================================

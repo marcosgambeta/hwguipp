@@ -216,10 +216,3 @@ FUNCTION DLG_MONTHCALENDAR()
    hwg_Msginfo(dtoc(dnewdate))
 
    RETURN NIL
-
-
-
-
-
-
-* ========================== EOF of testget1.prg =========================================

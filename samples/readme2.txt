@@ -38,7 +38,3 @@ hwguipp.hbc
 
 # List of prg file(s), start with file containing the MAIN() function or procedure
 sample.prg
-
-
-# ===================== EOF of sample.hbp ====================
-

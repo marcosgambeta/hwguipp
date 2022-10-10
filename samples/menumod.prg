@@ -128,5 +128,3 @@ LOCAL oGet1
     ENDIF
 
 Return NIL
-
-* ==================== EOF of menumod.prg ======================

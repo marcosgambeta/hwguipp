@@ -112,6 +112,3 @@ make[1]: *** [3rd] Fehler 2
 make: *** [src] Fehler 2
 
 C:\harbour-pc\core-master>
-
-
-* =================== EOF of PellesC.txt ==================

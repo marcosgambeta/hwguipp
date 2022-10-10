@@ -99,6 +99,3 @@ FONT 8, "MS Sans Serif"
  CONTROL "Teste", IDC_1, "NICEBUTT", 0 | WS_CHILD | WS_VISIBLE, 32, 36, 20, 20
 }
 */
-
-* ============================ EOF of nice2.prg ===============================
-

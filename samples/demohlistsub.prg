@@ -90,5 +90,3 @@ STATIC FUNCTION ConvItems( ap )
 LOCAL a
  a := ap
 RETURN a
-
-* ==================== EOF of demohlistsub.prg =========================

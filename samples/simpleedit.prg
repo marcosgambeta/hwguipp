@@ -79,7 +79,3 @@ Function FileOpen()
     mmemofield := MemoRead(fname)
 
 Return Test()
-
-
-* ======================= EOF of simpleedit.prg ==========================
-

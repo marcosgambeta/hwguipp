@@ -117,6 +117,3 @@ Static Function TimerFunc()
 
    oSayT:SetText( Time() )
 Return NIL
-
-* =========================== EOF of testget2.prg ==============================
-

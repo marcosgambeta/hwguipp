@@ -128,9 +128,3 @@ tab.prg
 testbrw.prg
 testchild.prg (Windows only)
 testrtf.prg   (Windows only) 
-    
-    
-====================== EOF of Readme.txt =======================================
-    
-       
-

@@ -93,6 +93,3 @@ Function Test()
 
         ACTIVATE DIALOG oForm
 Return NIL
-
-* ========================== EOF of tstcombo.prg ===================================
-

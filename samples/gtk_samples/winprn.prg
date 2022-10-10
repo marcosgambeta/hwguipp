@@ -815,5 +815,3 @@ FUNCTION CHECK_FILE ( cfi )
   QUIT
  ENDIF 
 RETURN NIL
-
-* ============================= EOF of winprn.prg =========================================

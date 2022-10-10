@@ -59,6 +59,3 @@ Local cMsgErr := "Bar doesn't exist"
         ACTIVATE DIALOG oForm
 
 Return NIL
-
-* ============================= EOF of progbars.prg =============================
-

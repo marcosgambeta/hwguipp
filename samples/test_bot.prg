@@ -42,7 +42,3 @@ FUNCTION OnOtherMessages( Sender, WinMsg, WParam, LParam )
   endif
 
 RETURN( -1 )
-
-
-* ============================ EOF of test_bot.prg ==========================
-

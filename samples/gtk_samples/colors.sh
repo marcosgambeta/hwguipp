@@ -80,5 +80,3 @@ export mdo='\033[0B'
 # Gestion curseur:
 export chid="\033[?25l"
 export csee="\033[?25h"
-
-# --------------------------- EOF of colors.sh -------------------

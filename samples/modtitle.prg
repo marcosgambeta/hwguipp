@@ -74,5 +74,3 @@ FUNCTION Titel2
                    // with a new order
 
 RETURN NIL
-
-* ======== EOF of modtitle.prg =============  

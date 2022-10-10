@@ -116,5 +116,3 @@ FUNCTION MainGT()
    ENDIF
 
    RETURN MainWVT
-
-* ===================== EOF of testhgt.prg ======================

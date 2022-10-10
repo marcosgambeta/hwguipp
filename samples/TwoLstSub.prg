@@ -310,5 +310,3 @@ FUNCTION dbg(obr)
   ENDIF 
   hwg_MsgInfo(s,"Debug")
 RETURN NIL
- 
-* ============== EOF of TwoLstSub.prg =================

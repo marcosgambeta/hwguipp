@@ -11,5 +11,3 @@ echo "compiling $PGM_NAME .."
 
 # Add -trace for debug output 
 hbmk2 $PGM_NAME.hbp 
-
-# ======================= EOF of hbmk.sh =============================

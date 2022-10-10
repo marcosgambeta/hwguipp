@@ -216,5 +216,3 @@ qout()
 qout()
 
 return NIL
-
-* ---------------------- EOF of qoutcolor.prg ---------------------

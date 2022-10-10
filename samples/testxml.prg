@@ -282,7 +282,3 @@ FUNCTION p_about
                       // Sample output for Windows 10: "Windows 8 6.2" (2020)
 #endif
 RETURN NIL
-
-
-
-* ==================== EOF of testxml.prg ======================

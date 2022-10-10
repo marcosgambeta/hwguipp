@@ -26,5 +26,3 @@ SET HB_CPU=x86_64
 
 REM -trace : see commands for debugging
 hbmk2 %PRGNAME% hwgui_xp.rc -trace -gui -i..\include -L..\lib -lhwgui -lprocmisc -lhbxml -lhwgdebug
-
-REM ======================== EOF of hbmk64.bat ==========================

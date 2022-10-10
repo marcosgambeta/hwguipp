@@ -84,5 +84,3 @@ Local cUrl := "http://www.google.com/search?q=", cItem
       oIE:DisplayPage( cUrl )
    ENDIF
 Return NIL
-
-* =============== EOF of iesample.prg =========================

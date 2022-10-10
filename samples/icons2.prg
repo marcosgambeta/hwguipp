@@ -1051,5 +1051,3 @@ cHexWico := ;
 
 
 RETURN NIL
-
-* ================= EOF of icons2.prg =================

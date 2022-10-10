@@ -49,5 +49,3 @@ INIT Dialog oDlg AT 0,0 SIZE 500,400 CLIPPER NOEXIT NOEXITESC
 
 ACTIVATE Dialog oDlg center
 return NIL
-
-* ================ EOF of testimage.prg ===========================

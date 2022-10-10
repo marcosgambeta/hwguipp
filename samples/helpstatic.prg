@@ -150,7 +150,3 @@ AADD(aUmlaute, EURO )
 
 
 RETURN aUmlaute
-
-* ======================= EOF of helpstatic.prg =====================
-
-

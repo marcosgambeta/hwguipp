@@ -101,6 +101,3 @@ Return NIL
 Function Test()
 hwg_Msginfo("Test")
 Return NIL
-
-* ======================== EOF of testmenubitmap.prg ======================
- 

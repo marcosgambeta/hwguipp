@@ -83,7 +83,3 @@ Function FileOpen()
         APPEND FROM (fname) SDF
 
 Return Test()
-
-
-* =========================== EOF of grid_4.prg ============================
-
