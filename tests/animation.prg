@@ -1,0 +1,13 @@
+#include "hwgui.ch"
+
+PROCEDURE Main()
+
+   LOCAL oDialog
+
+   INIT DIALOG oDialog TITLE "Test" SIZE 640, 480
+
+   @ 20, 20 ANIMATION FILE "sample.avi" SIZE 194, 52 AUTOPLAY CENTER TRANSPARENT
+
+   ACTIVATE DIALOG oDialog
+
+RETURN
