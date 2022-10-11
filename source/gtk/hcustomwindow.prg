@@ -28,7 +28,13 @@ CLASS HCustomWindow INHERIT HObject
    DATA oParent
    DATA title
    DATA TYPE
-   DATA nTop, nLeft, nWidth, nHeight
+   DATA nTop // deprecated - use nY
+   ACCESS nY INLINE ::nTop
+   ASSIGN nY(n) INLINE ::nTop := n
+   DATA nLeft // deprecated - use nX
+   ACCESS nX INLINE ::nLeft
+   ASSIGN nX(n) INLINE ::nLeft := n
+   DATA nWidth, nHeight
    DATA tcolor, bcolor, brush
    DATA style
    DATA extStyle  INIT 0
