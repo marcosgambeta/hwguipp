@@ -28,17 +28,18 @@ HWG_CREATECOMBO(hParentWIndow, nComboID, nStyle, x, y, nWidth, nHeight, cInitial
 */
 HB_FUNC( HWG_CREATECOMBO )
 {
-   HWND hCombo = CreateWindow(TEXT("COMBOBOX"),
-                              TEXT(""),
-                              WS_CHILD | WS_VISIBLE | hb_parnl(3),
-                              hwg_par_int(4),
-                              hwg_par_int(5),
-                              hwg_par_int(6),
-                              hwg_par_int(7),
-                              hwg_par_HWND(1),
-                              reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-                              GetModuleHandle(nullptr),
-                              nullptr);
+   HWND hCombo = CreateWindowEx(0,
+                                TEXT("COMBOBOX"),
+                                TEXT(""),
+                                WS_CHILD | WS_VISIBLE | hwg_par_DWORD(3),
+                                hwg_par_int(4),
+                                hwg_par_int(5),
+                                hwg_par_int(6),
+                                hwg_par_int(7),
+                                hwg_par_HWND(1),
+                                reinterpret_cast<HMENU>(hb_parni(2)),
+                                GetModuleHandle(nullptr),
+                                nullptr);
 
    HB_RETHANDLE(hCombo);
 }
