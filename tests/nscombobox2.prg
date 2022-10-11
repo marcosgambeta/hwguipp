@@ -35,32 +35,32 @@ METHOD myMethod() CLASS MyDialog
 
    WITH OBJECT ::oLabel1 := HStatic():new()
       :title   := "Label1"
-      :nLeft   := 20
-      :nTop    := 20
+      :nX      := 20
+      :nY      := 20
       :nWidth  := 120
       :nHeight := 30
    ENDWITH
 
    WITH OBJECT ::oComboBox1 := HComboBox():new()
       :title   := "ComboBox1"
-      :nLeft   := 120
-      :nTop    := 20
+      :nX      := 120
+      :nY      := 20
       :nWidth  := 120
       :nHeight := 30 * 5
    ENDWITH
 
    WITH OBJECT ::oLabel2 := HStatic():new()
       :title   := "Label2"
-      :nLeft   := 20
-      :nTop    := 60
+      :nX      := 20
+      :nY      := 60
       :nWidth  := 120
       :nHeight := 30
    ENDWITH
 
    WITH OBJECT ::oComboBox2 := HComboBox():new()
       :title   := "ComboBox2"
-      :nLeft   := 120
-      :nTop    := 60
+      :nX      := 120
+      :nY      := 60
       :nWidth  := 120
       :nHeight := 30 * 5
       :aItems  := {"Item1", "Item2", "Item3", "Item4", "Item5"}
@@ -68,16 +68,16 @@ METHOD myMethod() CLASS MyDialog
 
    WITH OBJECT ::oLabel3 := HStatic():new()
       :title   := "Label3"
-      :nLeft   := 20
-      :nTop    := 100
+      :nX      := 20
+      :nY      := 100
       :nWidth  := 120
       :nHeight := 30
    ENDWITH
 
    WITH OBJECT ::oComboBox3 := HComboBox():new()
       :title   := "ComboBox3"
-      :nLeft   := 120
-      :nTop    := 100
+      :nX      := 120
+      :nY      := 100
       :nWidth  := 120
       :nHeight := 30 * 5
       :aItems  := {"Item1", "Item2", "Item3", "Item4", "Item5"}
@@ -86,15 +86,15 @@ METHOD myMethod() CLASS MyDialog
 
    WITH OBJECT ::oButtonOK := HButton():new()
       :title  := "&OK"
-      :nLeft  := 20
-      :nTop   := 140
+      :nX     := 20
+      :nY     := 140
       :bClick := {||hwg_MsgInfo("OK clicked", "Information")}
    ENDWITH
 
    WITH OBJECT ::oButtonCancel := HButton():new()
       :title  := "&Cancel"
-      :nLeft  := 120
-      :nTop   := 140
+      :nX     := 120
+      :nY     := 140
       :bClick := {||hwg_MsgInfo("Cancel clicked", "Information")}
    ENDWITH
 

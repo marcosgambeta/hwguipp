@@ -14,15 +14,15 @@ PROCEDURE Main()
 
       WITH OBJECT oButtonOk := HButton():new()
          :title  := "&OK"
-         :nLeft  := 20
-         :nTop   := 20
+         :nX     := 20
+         :nY     := 20
          :bClick := {||hwg_MsgInfo("OK clicked", "Information")}
       ENDWITH
 
       WITH OBJECT oButtonCancel := HButton():new()
          :title  := "&Cancel"
-         :nLeft  := 120
-         :nTop   := 20
+         :nX     := 120
+         :nY     := 20
          :bClick := {||hwg_MsgInfo("Cancel clicked", "Information")}
       ENDWITH
 

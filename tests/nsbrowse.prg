@@ -12,8 +12,8 @@ PROCEDURE Main()
       :nHeight := 480
 
       WITH OBJECT oBrowse := HBrowse():new()
-         :nLeft   := 20
-         :nTop    := 20
+         :nX      := 20
+         :nY      := 20
          :nWidth  := 640 - 40
          :nHeight := 480 - 40
       ENDWITH

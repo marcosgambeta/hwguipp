@@ -20,15 +20,15 @@ PROCEDURE Main()
 
       WITH OBJECT oLabel1 := HStatic():new()
          :title   := "Label1"
-         :nLeft   := 20
-         :nTop    := 20
+         :nX      := 20
+         :nY      := 20
          :nWidth  := 120
          :nHeight := 30
       ENDWITH
 
       WITH OBJECT oDatePicker1 := HDatePicker():new()
-         :nLeft   := 120
-         :nTop    := 20
+         :nX      := 120
+         :nY      := 20
          :nWidth  := 120
          :nHeight := 30
          :dValue := date() - 30
@@ -36,15 +36,15 @@ PROCEDURE Main()
 
       WITH OBJECT oLabel2 := HStatic():new()
          :title   := "Label2"
-         :nLeft   := 20
-         :nTop    := 60
+         :nX      := 20
+         :nY      := 60
          :nWidth  := 120
          :nHeight := 30
       ENDWITH
 
       WITH OBJECT oDatePicker2 := HDatePicker():new()
-         :nLeft   := 120
-         :nTop    := 60
+         :nX      := 120
+         :nY      := 60
          :nWidth  := 120
          :nHeight := 30
          :dValue  := date()
@@ -52,15 +52,15 @@ PROCEDURE Main()
 
       WITH OBJECT oLabel3 := HStatic():new()
          :title   := "Label3"
-         :nLeft   := 20
-         :nTop    := 100
+         :nX      := 20
+         :nY      := 100
          :nWidth  := 120
          :nHeight := 30
       ENDWITH
 
       WITH OBJECT oDatePicker3 := HDatePicker():new()
-         :nLeft   := 120
-         :nTop    := 100
+         :nX      := 120
+         :nY      := 100
          :nWidth  := 120
          :nHeight := 30
          :dValue := date() + 30
@@ -68,15 +68,15 @@ PROCEDURE Main()
 
       WITH OBJECT oButtonOk := HButton():new()
          :title  := "&OK"
-         :nLeft  := 20
-         :nTop   := 140
+         :nX     := 20
+         :nY     := 140
          :bClick := {||hwg_MsgInfo("OK clicked", "Information")}
       ENDWITH
 
       WITH OBJECT oButtonCancel := HButton():new()
          :title  := "&Cancel"
-         :nLeft  := 120
-         :nTop   := 140
+         :nX     := 120
+         :nY     := 140
          :bClick := {||hwg_MsgInfo("Cancel clicked", "Information")}
       ENDWITH
 

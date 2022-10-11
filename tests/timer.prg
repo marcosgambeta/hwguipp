@@ -17,8 +17,8 @@ PROCEDURE Main()
 
       WITH OBJECT oLabel := HStatic():new()
          :title   := time()
-         :nLeft   := 20
-         :nTop    := 20
+         :nX      := 20
+         :nY      := 20
          :nWidth  := 120
          :nHeight := 30
       ENDWITH

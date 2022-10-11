@@ -12,8 +12,8 @@ PROCEDURE Main()
    @ 20,140 BUTTON "Restore" SIZE 100,32 ON CLICK {||oMainWindow:restore()}
    @ 20,180 BUTTON "Close" SIZE 100,32 ON CLICK {||oMainWindow:close()}
    @ 20,220 BUTTON "info" SIZE 100,40 ON CLICK {||hwg_MsgInfo(;
-      "x="+alltrim(str(oMainWindow:nLeft))+;
-      "y="+alltrim(str(oMainWindow:nTop))+;
+      "x="+alltrim(str(oMainWindow:nX))+;
+      "y="+alltrim(str(oMainWindow:nY))+;
       "w="+alltrim(str(oMainWindow:nWidth))+;
       "h="+alltrim(str(oMainWindow:nHeight)))}
 
