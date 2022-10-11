@@ -33,18 +33,18 @@ HWG_CREATEBUTTON(hParentWIndow, nButtonID, nStyle, nX, nY, nWidth, nHeight, cCap
 HB_FUNC( HWG_CREATEBUTTON )
 {
    void * hStr;
-   HWND hBtn = CreateWindow(TEXT("BUTTON"),
-                            HB_PARSTR(8, &hStr, nullptr),
-                            WS_CHILD | WS_VISIBLE | hb_parnl(3),
-                            hwg_par_int(4),
-                            hwg_par_int(5),
-                            hwg_par_int(6),
-                            hwg_par_int(7),
-                            hwg_par_HWND(1),
-                            reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-                            GetModuleHandle(nullptr),
-                            nullptr
-                            );
+   HWND hBtn = CreateWindowEx(0,
+                              TEXT("BUTTON"),
+                              HB_PARSTR(8, &hStr, nullptr),
+                              WS_CHILD | WS_VISIBLE | hwg_par_DWORD(3),
+                              hwg_par_int(4),
+                              hwg_par_int(5),
+                              hwg_par_int(6),
+                              hwg_par_int(7),
+                              hwg_par_HWND(1),
+                              reinterpret_cast<HMENU>(hb_parni(2)),
+                              GetModuleHandle(nullptr),
+                              nullptr);
    hb_strfree(hStr);
    HB_RETHANDLE(hBtn);
 }
