@@ -17,7 +17,7 @@ CLASS HAnimation INHERIT HControl
    DATA cFileName
    DATA xResID
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cFilename, lAutoPlay, lCenter, lTransparent, xResID)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cFilename, lAutoPlay, lCenter, lTransparent, xResID)
    METHOD Activate()
    METHOD Init()
    METHOD Open(cFileName)
@@ -31,13 +31,13 @@ CLASS HAnimation INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cFilename, lAutoPlay, lCenter, lTransparent, xResID) CLASS HAnimation
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cFilename, lAutoPlay, lCenter, lTransparent, xResID) CLASS HAnimation
 
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE)
    nStyle += IIf(lAutoPlay == NIL .OR. lAutoPlay, ACS_AUTOPLAY, 0)
    nStyle += IIf(lCenter == NIL .OR. !lCenter, 0, ACS_CENTER)
    nStyle += IIf(lTransparent == NIL .OR. !lTransparent, 0, ACS_TRANSPARENT)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight)
    ::xResID := xResID
    ::cFilename := cFilename
    ::brush := ::oParent:brush
@@ -50,7 +50,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cFilename, lAu
 METHOD Activate() CLASS HAnimation
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Animate_Create(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Animate_Create(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
