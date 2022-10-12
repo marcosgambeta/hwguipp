@@ -16,14 +16,14 @@ CLASS HButton INHERIT HControl
 
    DATA bClick
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, cCaption)
    METHOD Init()
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor) CLASS HButton
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor) CLASS HButton
 
    // TODO: reorganizar para evitar repetição de código
 
@@ -42,7 +42,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON + WS_TABSTOP)
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, iif(nWidth == NIL, 90, nWidth), iif(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, iif(nWidth == NIL, 90, nWidth), iif(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
    ::bClick := bClick
    ::title := cCaption
    ::Activate()
@@ -60,7 +60,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 METHOD Activate() CLASS HButton
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
+      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
 

@@ -22,7 +22,7 @@ CLASS HTab INHERIT HControl
    DATA  bAction
    DATA  lResourceTab INIT .F.
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus)
    METHOD Activate()
    METHOD Init()
    //METHOD onEvent(msg, wParam, lParam)
@@ -42,11 +42,11 @@ CLASS HTab INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus) CLASS HTab
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus) CLASS HTab
    LOCAL i, aBmpSize
 
    nStyle   := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint)
 
    ::title   := ""
    ::oFont   := iif(oFont == NIL, ::oParent:oFont, oFont)
@@ -79,7 +79,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
 METHOD Activate() CLASS HTab
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createtabcontrol(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createtabcontrol(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -325,6 +325,6 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
    HWG_InitCommonControlsEx()
    ::lResourceTab := .T.
    ::aTabs := {}
-   ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
 
    RETURN Self

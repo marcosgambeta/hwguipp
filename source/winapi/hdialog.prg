@@ -66,8 +66,8 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
    IF pcount() == 0
       ::style          := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
       ::oDefaultParent := Self
-      ::nTop           := 0
-      ::nLeft          := 0
+      ::nY             := 0
+      ::nX             := 0
       ::nWidth         := 0
       ::nHeight        := 0
       ::type           := WND_DLG_NORESOURCE
@@ -96,8 +96,8 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
    ::title          := cTitle
    ::oBmp           := oBmp
    ::oIcon          := oIcon
-   ::nTop           := Iif(y == NIL, 0, y)
-   ::nLeft          := Iif(x == NIL, 0, x)
+   ::nY             := Iif(y == NIL, 0, y)
+   ::nX             := Iif(x == NIL, 0, x)
    ::nWidth         := Iif(width == NIL, 0, width)
    ::nWidth         := Iif(width == NIL, 0, width)
    ::nHeight        := Iif(height == NIL, 0, Abs(height))
@@ -173,13 +173,13 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
       IF lNoModal == NIL .OR. !lNoModal
          ::lModal := .T.
          ::AddItem()
-         Hwg_DlgBoxIndirect(hParent, Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
+         Hwg_DlgBoxIndirect(hParent, Self, ::nX, ::nY, ::nWidth, ::nHeight, ::style)
       ELSE
          ::lModal  := .F.
          ::handle  := 0
          ::lResult := .F.
          ::AddItem()
-         Hwg_CreateDlgIndirect(hParent, Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
+         Hwg_CreateDlgIndirect(hParent, Self, ::nX, ::nY, ::nWidth, ::nHeight, ::style)
       ENDIF
 
    ENDSWITCH

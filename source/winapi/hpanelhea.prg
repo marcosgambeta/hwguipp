@@ -195,7 +195,7 @@ STATIC FUNCTION fPaintBtn(oBtn)
 
    IF oBtn:state == OBTN_NORMAL
       oBtn:state := OBTN_STATE1
-      hwg_Invalidaterect(oBtn:oParent:handle, 0, oBtn:nLeft, oBtn:nTop, oBtn:nLeft+oBtn:nWidth - 1, oBtn:nTop + oBtn:nHeight - 1)
+      hwg_Invalidaterect(oBtn:oParent:handle, 0, oBtn:nX, oBtn:nY, oBtn:nX+oBtn:nWidth - 1, oBtn:nY + oBtn:nHeight - 1)
       RETURN NIL
    ELSEIF oBtn:state == OBTN_STATE1
       oBtn:state := OBTN_NORMAL

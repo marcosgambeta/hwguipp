@@ -38,7 +38,7 @@ CLASS HEdit INHERIT HControl
    DATA aColorOld   INIT {0, 0}
    DATA bColorBlock
 
-   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
       tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword, bKeyDown, bChange)
    METHOD Activate()
@@ -54,7 +54,7 @@ CLASS HEdit INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
            tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword, bKeyDown, bChange) CLASS HEdit
 
    IF pcount() == 0
@@ -69,7 +69,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
      // DF7BE: Crashes here, sample program grid_5.prg
       // iif(lPassword == NIL .OR. !lPassword, 0, ES_PASSWORD)  )
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, NIL, ctooltip, Iif(tcolor == NIL, 0, tcolor), Iif(bcolor == NIL, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
 
    IF vari != NIL
@@ -122,7 +122,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 METHOD Activate() CLASS HEdit
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createedit(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
+      ::handle := hwg_Createedit(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
 

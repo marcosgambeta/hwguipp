@@ -17,7 +17,7 @@ CLASS HCheckButton INHERIT HControl
    DATA lValue
    DATA bClick
 
-   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lTransp, bLFocus)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus)
@@ -29,7 +29,7 @@ CLASS HCheckButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lTransp, bLFocus) CLASS HCheckButton
 
    IF pcount() == 0
@@ -44,7 +44,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
    nStyle   := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::title   := cCaption
    ::lValue   := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
@@ -69,7 +69,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 METHOD Activate() CLASS HCheckButton
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
+      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
 

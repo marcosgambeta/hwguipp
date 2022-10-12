@@ -37,11 +37,11 @@ METHOD RedefineScrollbars() CLASS HScrollArea
    IF ::nScrollBars > - 1 .AND. ::bScroll = NIL
       IF ::nVscrollPos = 0
          ::ncurHeight := 0                                                              //* 4
-         AEval(::aControls, {|o|::ncurHeight := Int(Max(o:nTop + o:nHeight + VERT_PTS * 1, ::ncurHeight))})
+         AEval(::aControls, {|o|::ncurHeight := Int(Max(o:nY + o:nHeight + VERT_PTS * 1, ::ncurHeight))})
       ENDIF
       IF ::nHscrollPos = 0
          ::ncurWidth  := 0                                                           // * 4
-         AEval(::aControls, {|o|::ncurWidth := Int(Max(o:nLeft + o:nWidth + HORZ_PTS * 1, ::ncurWidth))})
+         AEval(::aControls, {|o|::ncurWidth := Int(Max(o:nX + o:nWidth + HORZ_PTS * 1, ::ncurWidth))})
       ENDIF
       ::ResetScrollbars()
       ::SetupScrollbars()

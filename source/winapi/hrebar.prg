@@ -26,7 +26,7 @@ CLASS hrebar INHERIT HControl
    DATA m_nWidth, m_nHeight
    DATA aBands INIT  {}
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
    METHOD Activate()
    METHOD INIT()
@@ -37,13 +37,13 @@ CLASS hrebar INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lvert) CLASS hrebar
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lvert) CLASS hrebar
 
    HB_SYMBOL_UNUSED(cCaption)
 
    DEFAULT  lvert  TO .F.
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, RBS_BANDBORDERS), WS_CHILD)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    ::Title := ""
    HWG_InitCommonControlsEx()
 
@@ -59,14 +59,14 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
 
-   ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
 
    RETURN Self
 
 METHOD Activate() CLASS hrebar
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createrebar(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createrebar(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 

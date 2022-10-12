@@ -17,7 +17,7 @@
 CLASS HNiceButton INHERIT HControl
 
    DATA winclass INIT "NICEBUTT"
-   DATA TEXT, id, nTop, nLeft, nwidth, nheight
+   DATA TEXT, id, nY, nX, nwidth, nheight
    CLASSDATA oSelected INIT NIL
    DATA State INIT 0
    DATA ExStyle
@@ -30,7 +30,7 @@ CLASS HNiceButton INHERIT HControl
    DATA lFlat
    DATA nOrder
 
-   METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, bInit, bClick, cText, cTooltip, r, g, b)
+   METHOD New(oWndParent, nId, nStyle, nStyleEx, nX, nY, nWidth, nHeight, bInit, bClick, cText, cTooltip, r, g, b)
 
    METHOD Redefine(oWndParent, nId, nStyleEx, bInit, bClick, cText, cTooltip, r, g, b)
 
@@ -49,8 +49,8 @@ CLASS HNiceButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, bInit, bClick, cText, cTooltip, r, g, b) CLASS HNiceButton
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, NIL, bInit, NIL, NIL, cTooltip)
+METHOD New(oWndParent, nId, nStyle, nStyleEx, nX, nY, nWidth, nHeight, bInit, bClick, cText, cTooltip, r, g, b) CLASS HNiceButton
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, NIL, bInit, NIL, NIL, cTooltip)
    DEFAULT g := ::g
    DEFAULT b := ::b
 
@@ -64,8 +64,8 @@ METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, bIni
    ::r       := r
    ::g       := g
    ::b       := b
-   ::nTop    := nTop
-   ::nLeft   := nLeft
+   ::nY      := nY
+   ::nX      := nX
    ::nWidth  := nWidth
    ::nHeight := nHeight
 
@@ -100,7 +100,7 @@ METHOD Redefine(oWndParent, nId, nStyleEx, bInit, bClick, cText, cTooltip, r, g,
 METHOD Activate() CLASS HNiceButton
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createnicebtn(::oParent:handle, ::id, ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::ExStyle, ::Text)
+      ::handle := hwg_Createnicebtn(::oParent:handle, ::id, ::Style, ::nX, ::nY, ::nWidth, ::nHeight, ::ExStyle, ::Text)
       ::Init()
    ENDIF
    RETURN NIL

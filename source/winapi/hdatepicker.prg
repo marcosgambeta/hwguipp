@@ -25,7 +25,7 @@ CLASS HDatePicker INHERIT HControl
    DATA dValue
    DATA bChange
 
-   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor)
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor)
    METHOD Activate()
    METHOD Init()
    METHOD Refresh()
@@ -33,7 +33,7 @@ CLASS HDatePicker INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bGfocus, bLfocus, bChange, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bGfocus, bLfocus, bChange, ;
            ctooltip, tcolor, bcolor) CLASS HDatePicker
 
    HWG_InitCommonControlsEx()
@@ -48,7 +48,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ENDIF
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, NIL, NIL, ctooltip, tcolor, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, NIL, NIL, ctooltip, tcolor, bcolor)
 
    ::dValue  := iif(vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari)
    ::bSetGet := bSetGet
@@ -75,7 +75,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 METHOD Activate() CLASS HDatePicker
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createdatepicker(::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
+      ::handle := hwg_Createdatepicker(::oParent:handle, ::id, ::nX, ::nY, ::nWidth, ::nHeight, ::style)
       ::Init()
    ENDIF
 

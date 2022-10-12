@@ -27,7 +27,7 @@ CLASS VAR winclass   INIT "SysMonthCal32"
    DATA dValue
    DATA bChange
 
-   METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
               oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
               lWeekNumbers)
    METHOD Activate()
@@ -38,7 +38,7 @@ ENDCLASS
 
 //--------------------------------------------------------------------------//
 
-METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
            oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
            lWeekNumbers) CLASS HMonthCalendar
 
@@ -46,7 +46,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    nStyle += IIf(lNoToday == NIL .OR. !lNoToday, 0, MCS_NOTODAY)
    nStyle += IIf(lNoTodayCircle == NIL .OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE)
    nStyle += IIf(lWeekNumbers == NIL .OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, NIL, NIL, cTooltip)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, NIL, NIL, cTooltip)
 
    ::dValue := IIf(ValType(vari) == "D" .And. !Empty(vari), vari, Date())
 
@@ -67,7 +67,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 METHOD Activate() CLASS HMonthCalendar
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_initmonthcalendar(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_initmonthcalendar(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 

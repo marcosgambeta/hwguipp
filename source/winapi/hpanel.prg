@@ -23,7 +23,7 @@ CLASS HPanel INHERIT HControl
    DATA nOldX, nOldY HIDDEN
    DATA lResizeX, lResizeY, nSize HIDDEN
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, bPaint, bcolor, oStyle)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bcolor, oStyle)
    METHOD Activate()
    METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
@@ -39,11 +39,11 @@ CLASS HPanel INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, bPaint, bcolor, oStyle) CLASS HPanel
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bcolor, oStyle) CLASS HPanel
 
    LOCAL oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, iif(nWidth == NIL, 0, nWidth), iif(nHeight == NIL, 0, nHeight), oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, iif(nWidth == NIL, 0, nWidth), iif(nHeight == NIL, 0, nHeight), oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bcolor)
 
    IF bcolor != NIL
       ::brush  := HBrush():Add(bcolor)
@@ -57,7 +57,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, 
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] := ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
-         IF ::nLeft == 0
+         IF ::nX == 0
             ::oParent:aOffset[1] := ::nWidth
          ELSE
             ::oParent:aOffset[3] := ::nWidth
@@ -75,7 +75,7 @@ METHOD Activate() CLASS HPanel
    LOCAL handle := ::oParent:handle
 
    IF !Empty(handle)
-      ::handle := hwg_Createpanel(handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createpanel(handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -150,8 +150,8 @@ METHOD Init() CLASS HPanel
 
    IF !::lInit
       IF ::bSize == NIL .AND. Empty(::Anchor)
-         ::bSize := {|o, x, y|o:Move(iif(::nLeft > 0, x - ::nLeft, 0), ;
-            iif(::nTop > 0, y - ::nHeight, 0), ;
+         ::bSize := {|o, x, y|o:Move(iif(::nX > 0, x - ::nX, 0), ;
+            iif(::nY > 0, y - ::nHeight, 0), ;
             iif(::nWidth == 0 .OR. ::lResizeX, x, ::nWidth), ;
             iif(::nHeight == 0 .OR. ::lResizeY, y, ::nHeight)) }
       ENDIF
@@ -243,13 +243,13 @@ METHOD Release() CLASS HPanel
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] -= ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
-         IF ::nLeft == 0
+         IF ::nX == 0
             ::oParent:aOffset[1] -= ::nWidth
          ELSE
             ::oParent:aOffset[3] -= ::nWidth
          ENDIF
       ENDIF
-      hwg_Invalidaterect(::oParent:handle, 0, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      hwg_Invalidaterect(::oParent:handle, 0, ::nX, ::nY, ::nWidth, ::nHeight)
    ENDIF
    hwg_Sendmessage(::oParent:handle, WM_SIZE, 0, 0)
    ::oParent:DelControl(Self)
@@ -268,13 +268,13 @@ METHOD Hide() CLASS HPanel
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] -= ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
-         IF ::nLeft == 0
+         IF ::nX == 0
             ::oParent:aOffset[1] -= ::nWidth
          ELSE
             ::oParent:aOffset[3] -= ::nWidth
          ENDIF
       ENDIF
-      hwg_Invalidaterect(::oParent:handle, 0, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      hwg_Invalidaterect(::oParent:handle, 0, ::nX, ::nY, ::nWidth, ::nHeight)
    ENDIF
    ::nSize := ::nWidth
    FOR EACH oItem IN ::acontrols
@@ -297,13 +297,13 @@ METHOD Show() CLASS HPanel
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] += ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
-         IF ::nLeft == 0
+         IF ::nX == 0
             ::oParent:aOffset[1] += ::nWidth
          ELSE
             ::oParent:aOffset[3] += ::nWidth
          ENDIF
       ENDIF
-      hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      hwg_Invalidaterect(::oParent:handle, 1, ::nX, ::nY, ::nWidth, ::nHeight)
    ENDIF
    ::nWidth := ::nsize
    hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, 0)
@@ -311,7 +311,7 @@ METHOD Show() CLASS HPanel
    FOR EACH oItem IN ::aControls
       oItem:Show()
    NEXT
-   hwg_Movewindow(::Handle, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+   hwg_Movewindow(::Handle, ::nX, ::nY, ::nWidth, ::nHeight)
 
 RETURN NIL
 
@@ -360,7 +360,7 @@ METHOD Drag(xPos, yPos) CLASS HPanel
    ENDIF
 
    IF Abs(xPos - ::nOldX) > 1 .OR. Abs(yPos - ::nOldY) > 1
-      oWnd:Move(oWnd:nLeft + (xPos - ::nOldX), oWnd:nTop + (yPos - ::nOldY))
+      oWnd:Move(oWnd:nX + (xPos - ::nOldX), oWnd:nY + (yPos - ::nOldY))
    ENDIF
 
 RETURN NIL

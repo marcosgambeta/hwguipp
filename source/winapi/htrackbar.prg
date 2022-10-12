@@ -31,7 +31,7 @@ CLASS HTrackBar INHERIT HControl
    DATA nHigh
    DATA hCursor
 
-   METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
               bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
               lVertical, TickStyle, TickMarks)
    METHOD Activate()
@@ -42,7 +42,7 @@ CLASS HTrackBar INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
            bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
            lVertical, TickStyle, TickMarks) CLASS HTrackBar
 
@@ -59,7 +59,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    nstyle   += IIF(lVertical != NIL .AND. lVertical, TBS_VERT, 0)
    nstyle   += TickStyle + TickMarks
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, NIL, bInit, bSize, bPaint, cTooltip)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, NIL, bInit, bSize, bPaint, cTooltip)
 
    ::nValue     := IIF(HB_ISNUMERIC(vari), vari, 0)
    ::bChange    := bChange
@@ -74,7 +74,7 @@ RETURN Self
 
 METHOD Activate() CLASS HTrackBar
    IF !Empty(::oParent:handle)
-      ::handle := hwg_inittrackbar(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::nLow, ::nHigh)
+      ::handle := hwg_inittrackbar(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::nLow, ::nHigh)
       ::Init()
    ENDIF
 RETURN NIL

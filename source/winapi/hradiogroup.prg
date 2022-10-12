@@ -19,7 +19,7 @@ CLASS HRadioGroup INHERIT HObject
    DATA oHGroup
 
    METHOD New(vari, bSetGet)
-   METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor)
+   METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor)
    METHOD EndGroup(nSelected)
    METHOD Value(nValue) SETGET
    METHOD Refresh()   INLINE iif(HB_ISBLOCK(::bSetGet), ::Value := Eval(::bSetGet), .T.)
@@ -40,12 +40,12 @@ METHOD New(vari, bSetGet) CLASS HRadioGroup
 
    RETURN Self
 
-METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor) CLASS HRadioGroup
+METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor) CLASS HRadioGroup
 
    ::oGroupCurrent := Self
    ::aButtons := {}
 
-   ::oHGroup := HGroup():New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, NIL, tcolor, bColor)
+   ::oHGroup := HGroup():New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, NIL, tcolor, bColor)
 
    IF vari != NIL
       IF HB_ISNUMERIC(vari)

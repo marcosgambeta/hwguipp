@@ -21,7 +21,7 @@ CLASS HUpDown INHERIT HControl
    DATA nUpDownWidth INIT 12
    DATA lChanged    INIT .F.
 
-   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, nUpDWidth, nLower, nUpper)
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, nUpDWidth, nLower, nUpper)
    METHOD Activate()
    METHOD Init()
    METHOD Value(nValue) SETGET
@@ -32,12 +32,12 @@ CLASS HUpDown INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, ;
       nUpDWidth, nLower, nUpper) CLASS HUpDown
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::idUpDown := ::NewId()
    IF Empty(vari)
@@ -85,7 +85,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 METHOD Activate() CLASS HUpDown
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createedit(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
+      ::handle := hwg_Createedit(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
 

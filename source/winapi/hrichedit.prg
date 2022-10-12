@@ -31,7 +31,7 @@ CLASS HRichEdit INHERIT HControl
    DATA SelLength  INIT 0
    DATA bChange
 
-   METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
       tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder)
 
@@ -47,14 +47,14 @@ CLASS HRichEdit INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
       tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder) CLASS HRichEdit
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
       iif(lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0))
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, NIL, ctooltip, tcolor, iif(bcolor == NIL, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
 
    ::title  := vari
@@ -81,7 +81,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 METHOD Activate() CLASS HRichEdit
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createrichedit(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
+      ::handle := hwg_Createrichedit(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
 

@@ -26,7 +26,7 @@ CLASS VAR winclass INIT "STATIC"
    DATA lMoved      INIT .F.
    DATA bEndDrag
 
-   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle)
+   METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle)
    METHOD Activate()
    METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
@@ -37,9 +37,9 @@ CLASS VAR winclass INIT "STATIC"
 ENDCLASS
 
 /* bPaint ==> bDraw */
-METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle) CLASS HSplitter
+METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle) CLASS HSplitter
 
-   ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, NIL, NIL, bSize, bDraw, NIL, Iif(color == NIL, 0, color), bcolor)
+   ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, bDraw, NIL, Iif(color == NIL, 0, color), bcolor)
 
    ::title  := ""
    ::aLeft  := IIf(aLeft == NIL, {}, aLeft)
@@ -55,7 +55,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, bDraw, color, b
 
 METHOD Activate() CLASS HSplitter
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN NIL
@@ -144,61 +144,61 @@ METHOD Drag(xPos, yPos) CLASS HSplitter
       IF xPos > 32000
          xPos -= 65535
       ENDIF
-      IF (xPos := (::nLeft + xPos)) >= nFrom .AND. xPos <= nTo
-         ::nLeft := xPos
+      IF (xPos := (::nX + xPos)) >= nFrom .AND. xPos <= nTo
+         ::nX := xPos
       ENDIF
    ELSE
       IF yPos > 32000
          yPos -= 65535
       ENDIF
-      IF (yPos := (::nTop + yPos)) >= nFrom .AND. yPos <= nTo
-         ::nTop := yPos
+      IF (yPos := (::nY + yPos)) >= nFrom .AND. yPos <= nTo
+         ::nY := yPos
       ENDIF
    ENDIF
-   hwg_MoveWindow(::handle, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+   hwg_MoveWindow(::handle, ::nX, ::nY, ::nWidth, ::nHeight)
    ::lMoved := .T.
 
    RETURN NIL
 
 METHOD DragAll(xPos, yPos) CLASS HSplitter
    LOCAL i, oCtrl, nDiff, wold, hold
-   LOCAL nLeft, nTop, nWidth, nHeight
+   LOCAL nX, nY, nWidth, nHeight
 
    IF xPos != NIL .OR. yPos != NIL
       ::Drag(xPos, yPos)
    ENDIF
    FOR i := 1 TO Len(::aRight)
       oCtrl := ::aRight[i]
-      nLeft := oCtrl:nLeft
-      nTop := oCtrl:nTop
+      nX := oCtrl:nX
+      nY := oCtrl:nY
       nWidth := wold := oCtrl:nWidth
       nHeight := hold := oCtrl:nHeight
       IF ::lVertical
-         nDiff := ::nLeft + ::nWidth - oCtrl:nLeft
-         nLeft += nDiff
+         nDiff := ::nX + ::nWidth - oCtrl:nX
+         nX += nDiff
          nWidth -= nDiff
       ELSE
-         nDiff := ::nTop + ::nHeight - oCtrl:nTop
-         nTop += nDiff
+         nDiff := ::nY + ::nHeight - oCtrl:nY
+         nY += nDiff
          nHeight -= nDiff
       ENDIF
-      oCtrl:Move(nLeft, nTop, nWidth, nHeight)
+      oCtrl:Move(nX, nY, nWidth, nHeight)
       hwg_onAnchor(oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight)
    NEXT
    FOR i := 1 TO Len(::aLeft)
       oCtrl := ::aLeft[i]
-      nLeft := oCtrl:nLeft
-      nTop := oCtrl:nTop
+      nX := oCtrl:nX
+      nY := oCtrl:nY
       nWidth := wold := oCtrl:nWidth
       nHeight := hold := oCtrl:nHeight
       IF ::lVertical
-         nDiff := ::nLeft - ( oCtrl:nLeft + oCtrl:nWidth )
+         nDiff := ::nX - ( oCtrl:nX + oCtrl:nWidth )
          nWidth += nDiff
       ELSE
-         nDiff := ::nTop - ( oCtrl:nTop + oCtrl:nHeight )
+         nDiff := ::nY - ( oCtrl:nY + oCtrl:nHeight )
          nHeight += nDiff
       ENDIF
-      oCtrl:Move(nLeft, nTop, nWidth, nHeight)
+      oCtrl:Move(nX, nY, nWidth, nHeight)
       hwg_onAnchor(oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight)
    NEXT
    ::lMoved := .F.

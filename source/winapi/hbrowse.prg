@@ -228,7 +228,7 @@ CLASS HBrowse INHERIT HControl
    DATA cTextMod   INIT "Memo was modified, save ?"
    DATA cTextLockRec INIT "Can't lock the record!"
 
-   METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, ;
+   METHOD New(lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, ;
               lNoVScroll, lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick)
    METHOD InitBrw(nType)
    METHOD Rebuild(hDC)
@@ -270,7 +270,7 @@ CLASS HBrowse INHERIT HControl
 
 ENDCLASS
 
-METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, ;
+METHOD New(lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, ;
            lNoVScroll, lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick) CLASS HBrowse
 
    IF pcount() == 0
@@ -286,7 +286,7 @@ METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, 
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + iif(lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0) + iif(lNoVScroll = NIL .OR. !lNoVScroll, WS_VSCROLL, 0))
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, iif(nWidth == NIL, 0, nWidth), iif(nHeight == NIL, 0, nHeight), oFont, bInit, bSize, bPaint)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, iif(nWidth == NIL, 0, nWidth), iif(nHeight == NIL, 0, nHeight), oFont, bInit, bSize, bPaint)
 
    ::type := lType
    IF oFont == NIL
@@ -324,7 +324,7 @@ METHOD DefaultLang() CLASS HBrowse
 METHOD Activate() CLASS HBrowse
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbrowse(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createbrowse(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 

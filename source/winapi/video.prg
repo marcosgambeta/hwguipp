@@ -37,10 +37,10 @@ METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CLASS T
 
    DEFAULT nWidth TO 200, nHeight TO 200, cFileName TO "", lNoBorder TO .F.
 
-   ::nTop      := nRow *  VID_CHARPIX_H  // 8
-   ::nLeft     := nCol * VID_CHARPIX_W   // 14
-   ::nHeight   := ::nTop  + nHeight - 1
-   ::nWidth    := ::nLeft + nWidth + 1
+   ::nY        := nRow *  VID_CHARPIX_H  // 8
+   ::nX        := nCol * VID_CHARPIX_W   // 14
+   ::nHeight   := ::nY + nHeight - 1
+   ::nWidth    := ::nX + nWidth + 1
    ::Style     := hb_bitor(WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0))
 
    ::oParent   := IIf(oWnd == NIL, ::oDefaultParent, oWnd)

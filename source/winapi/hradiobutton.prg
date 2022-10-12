@@ -16,7 +16,7 @@ CLASS HRadioButton INHERIT HControl
    DATA  oGroup
    DATA bClick
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
               bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor)
@@ -24,7 +24,7 @@ CLASS HRadioButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp) CLASS HRadioButton
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
@@ -37,8 +37,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    ::style   := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
       iif(::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
    ::oFont   := oFont
-   ::nLeft   := nLeft
-   ::nTop    := nTop
+   ::nX      := nX
+   ::nY      := nY
    ::nWidth  := nWidth
    ::nHeight := nHeight
    ::bInit   := bInit
@@ -74,7 +74,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 METHOD Activate() CLASS HRadioButton
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
+      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
 
@@ -86,7 +86,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id      := nId
    ::oGroup  := HRadioGroup():oGroupCurrent
-   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
    ::oFont   := oFont
    ::bInit   := bInit
    IF HB_ISNUMERIC(bSize)

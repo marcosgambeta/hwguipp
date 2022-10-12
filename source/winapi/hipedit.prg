@@ -22,7 +22,7 @@ CLASS HIPedit INHERIT HControl
    DATA bKillFocus
    DATA bGetFocus
 
-   METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bGetFocus, bKillFocus)
+   METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bGetFocus, bKillFocus)
    METHOD Activate()
    METHOD Init()
    METHOD Value(aValue) SETGET
@@ -34,10 +34,10 @@ CLASS HIPedit INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bGetFocus, bKillFocus) CLASS HIPedit
+METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bGetFocus, bKillFocus) CLASS HIPedit
 
    nStyle   := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont)
 
    ::title   := ""
 
@@ -65,7 +65,7 @@ METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeigh
 
 METHOD Activate() CLASS HIPedit
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Initipaddress(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Initipaddress(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN NIL

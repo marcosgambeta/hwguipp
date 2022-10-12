@@ -36,8 +36,8 @@ FUNCTION hwg_onWndSize(oWnd, wParam, lParam)
       IF oWnd:nScrollBars > - 1 .AND. oWnd:lAutoScroll .AND. !Empty(oWnd:Type)
          IF Empty(oWnd:rect)
             oWnd:rect := hwg_Getclientrect(oWnd:handle)
-            AEval(oWnd:aControls, {|o|oWnd:ncurHeight := Max(o:nTop + o:nHeight + VERT_PTS * 4, oWnd:ncurHeight)})
-            AEval(oWnd:aControls, {|o|oWnd:ncurWidth := Max(o:nLeft + o:nWidth + HORZ_PTS * 4, oWnd:ncurWidth)})
+            AEval(oWnd:aControls, {|o|oWnd:ncurHeight := Max(o:nY + o:nHeight + VERT_PTS * 4, oWnd:ncurHeight)})
+            AEval(oWnd:aControls, {|o|oWnd:ncurWidth := Max(o:nX + o:nWidth + HORZ_PTS * 4, oWnd:ncurWidth)})
          ENDIF
          oWnd:ResetScrollbars()
          oWnd:SetupScrollbars()
@@ -201,8 +201,8 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit,
    ::style    := Iif(nStyle == NIL, 0, nStyle)
    ::oIcon    := oIcon
    ::oBmp     := oBmp
-   ::nTop     := Iif(y == NIL, 0, y)
-   ::nLeft    := iif(x == NIL, 0, x)
+   ::nY       := Iif(y == NIL, 0, y)
+   ::nX       := iif(x == NIL, 0, x)
    ::nWidth   := Iif(width == NIL, 0, width)
    ::nHeight  := Iif(height == NIL, 0, Abs(height))
    IF ::nWidth < 0
@@ -343,12 +343,12 @@ METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, 
    IF lType == WND_MDI
 
       ::nMenuPos := nPos
-      ::handle := Hwg_InitMdiWindow(Self, ::szAppName, cTitle, cMenu, Iif(oIcon != NIL, oIcon:handle, NIL), hbrush, nStyle, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := Hwg_InitMdiWindow(Self, ::szAppName, cTitle, cMenu, Iif(oIcon != NIL, oIcon:handle, NIL), hbrush, nStyle, ::nX, ::nY, ::nWidth, ::nHeight)
 
    ELSEIF lType == WND_MAIN
 
       ::handle := Hwg_InitMainWindow(Self, ::szAppName, cTitle, cMenu, Iif(oIcon != NIL, oIcon:handle, NIL), Iif(oBmp != NIL, -1, hbrush), ;
-         ::Style, Iif(nExclude == NIL, 0, nExclude), ::nLeft, ::nTop, ::nWidth, ::nHeight)
+         ::Style, Iif(nExclude == NIL, 0, nExclude), ::nX, ::nY, ::nWidth, ::nHeight)
 
       IF cHelp != NIL
          hwg_SetHelpFileName(cHelp)
@@ -375,7 +375,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
    IF ::type == WND_MDI
 
       oWndClient := HWindow():New(NIL, NIL, NIL, ::style, ::title, NIL, ::bInit, ::bDestroy, ::bSize, ::bPaint, ::bGetFocus, ::bLostFocus, ::bOther)
-      handle := Hwg_InitClientWindow(oWndClient, ::nMenuPos, ::nLeft, ::nTop + 60, ::nWidth, ::nHeight)
+      handle := Hwg_InitClientWindow(oWndClient, ::nMenuPos, ::nX, ::nY + 60, ::nWidth, ::nHeight)
       oWndClient:handle = handle
 
       IF !Empty(lCentered)
@@ -573,7 +573,7 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit,
 
    IF HB_ISOBJECT(::oParent)
       ::handle := Hwg_InitChildWindow(Self, ::szAppName, cTitle, cMenu, Iif(oIcon != NIL, oIcon:handle, NIL), ;
-         Iif(oBmp != NIL, -1, Iif(::brush != NIL, ::brush:handle, clr)), nStyle, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::oParent:handle)
+         Iif(oBmp != NIL, -1, Iif(::brush != NIL, ::brush:handle, clr)), nStyle, ::nX, ::nY, ::nWidth, ::nHeight, ::oParent:handle)
    ELSE
       hwg_Msgstop("Create Main window first !", "HChildWindow():New()")
       RETURN NIL
@@ -734,8 +734,8 @@ STATIC FUNCTION onMove(oWnd)
 
    LOCAL aControls := hwg_Getwindowrect(oWnd:handle)
 
-   oWnd:nLeft := aControls[1]
-   oWnd:nTop  := aControls[2]
+   oWnd:nX := aControls[1]
+   oWnd:nY := aControls[2]
 
    RETURN -1
 

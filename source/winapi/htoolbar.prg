@@ -20,7 +20,7 @@ CLASS HToolBar INHERIT HControl
 
    CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(NIL, 1, RT_MANIFEST)) SHARED
    DATA winclass INIT "ToolbarWindow32"
-   DATA TEXT, id, nTop, nLeft, nwidth, nheight
+   DATA TEXT, id, nY, nLeft, nwidth, nheight
    CLASSDATA oSelected INIT NIL
    DATA State INIT 0
    DATA ExStyle
@@ -44,7 +44,7 @@ CLASS HToolBar INHERIT HControl
    DATA nDrop
    DATA lNoThemes   INIT .F.
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFont, bInit, ;
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem, nWSize, nHSize, nIndent, nIDB)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
 
@@ -62,7 +62,7 @@ CLASS HToolBar INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFont, bInit, ;
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem, nWSize, nHSize, nIndent, nIDB) CLASS hToolBar
 
    DEFAULT  aitem TO { }
@@ -77,7 +77,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
       nStyle += iif(::lTransp, TBSTYLE_TRANSPARENT, iif(::lVertical, CCS_VERT, 0))
    ENDIF
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::BtnWidth :=  BtnWidth //!= NIL, BtnWidth, 32 )
    ::nIDB := nIDB
@@ -88,16 +88,16 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
    //::lnoThemes := !hwg_Isthemeactive() .OR. !::WindowsManifest
    IF hb_bitand(::Style, WS_DLGFRAME + WS_BORDER + CCS_NODIVIDER) = 0
       IF !::lVertical
-         ::Line := HLine():New(oWndParent, NIL, NIL, nLeft, nTop + nHeight + iif(::lnoThemes .AND. hb_bitand(nStyle, TBSTYLE_FLAT) > 0, 2, 1), nWidth)
+         ::Line := HLine():New(oWndParent, NIL, NIL, nX, nY + nHeight + iif(::lnoThemes .AND. hb_bitand(nStyle, TBSTYLE_FLAT) > 0, 2, 1), nWidth)
       ELSE
-         ::Line := HLine():New(oWndParent, NIL, ::lVertical, nLeft + nWidth + 1, nTop, nHeight)
+         ::Line := HLine():New(oWndParent, NIL, ::lVertical, nX + nWidth + 1, nY, nHeight)
       ENDIF
    ENDIF
    IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI .AND. ::oParent:aOffset[2] + ::oParent:aOffset[3] = 0
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] += ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
-         IF ::nLeft == 0
+         IF ::nX == 0
             ::oParent:aOffset[1] += ::nWidth
          ELSE
             ::oParent:aOffset[3] += ::nWidth
@@ -123,7 +123,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
    HWG_InitCommonControlsEx()
    ::aItem := aItem
 
-   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
    ::nIndent := 1
    ::lResource := .T.
 
@@ -133,7 +133,7 @@ METHOD Activate() CLASS hToolBar
 
    IF !Empty(::oParent:handle)
       ::lCreate := .T.
-      ::handle := hwg_Createtoolbar(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle)
+      ::handle := hwg_Createtoolbar(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::extStyle)
       ::Init()
    ENDIF
 
@@ -346,7 +346,7 @@ METHOD RESIZE(xIncrSize, lWidth, lHeight) CLASS hToolBar
    ENDIF
    nSize := hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0)
    IF xIncrSize != 1
-      ::Move(::nLeft, ::nTop, ::nWidth, ::nHeight, 0)
+      ::Move(::nX, ::nY, ::nWidth, ::nHeight, 0)
    ENDIF
    IF xIncrSize < 1 .OR. hwg_Loword(nSize) <= ::BtnWidth
       ::BtnWidth :=  ::BtnWidth  * xIncrSize

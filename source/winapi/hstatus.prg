@@ -68,7 +68,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
-   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
    ::aparts := aparts
 
    RETURN Self

@@ -23,8 +23,8 @@ CLASS HProgressBar INHERIT HControl
    DATA  nPercent INIT 0
    DATA  lPercent INIT .F.
 
-   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
-   METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent)
+   METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
+   METHOD NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, lPercent)
    METHOD Init()
    METHOD Activate()
    METHOD Increment() INLINE hwg_Updateprogressbar(::handle)
@@ -38,13 +38,13 @@ CLASS HProgressBar INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical) CLASS HProgressBar
+METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical) CLASS HProgressBar
 
    ::Style := iif(lvertical != NIL .AND. lVertical, PBS_VERTICAL, 0)
    ::Style += iif(nAnimation != NIL .AND. nAnimation > 0, PBS_MARQUEE, 0)
    ::nAnimation := nAnimation
 
-   ::Super:New(oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight, NIL, bInit, bSize, bPaint, ctooltip)
+   ::Super:New(oWndParent, nId, ::Style, nX, nY, nWidth, nHeight, NIL, bInit, bSize, bPaint, ctooltip)
 
    ::maxPos  := iif(maxPos == NIL, 20, maxPos)
    ::lNewBox := .F.
@@ -61,7 +61,7 @@ METHOD Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPaint, ctooltip,
 
    ::Super:New(oWndParent,nId, 0, 0, 0, 0, 0, NIL, bInit, bSize, bPaint, ctooltip, NIL, NIL)
    HWG_InitCommonControlsEx()
-   //::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   //::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
    ::maxPos      := iif(maxPos == NIL, 20, maxPos)
    ::lNewBox     := .F.
    ::nRange      := iif(nRange != NIL .AND. nRange != 0, nRange, 100)
@@ -72,19 +72,19 @@ METHOD Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPaint, ctooltip,
 
 /*
   Former definition was:
-  METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, bInit, bSize, bPaint, ctooltip)
+  METHOD NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, bInit, bSize, bPaint, ctooltip)
 */
 
-METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent) CLASS HProgressBar
+METHOD NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, lPercent) CLASS HProgressBar
 
    // ::classname:= "HPROGRESSBAR"
    ::style    := WS_CHILD + WS_VISIBLE
    nWidth     := iif(nWidth == NIL, 220, nWidth)
    nHeight    := iif(nHeight == NIL, 55, nHeight)
-   nLeft      := iif(nLeft == NIL, 0, nLeft)
-   nTop       := iif(nTop == NIL, 0, nTop)
-   ::nLeft    := 20
-   ::nTop     := 25
+   nX         := iif(nX == NIL, 0, nX)
+   nY         := iif(nY == NIL, 0, nY)
+   ::nX       := 20
+   ::nY       := 25
    ::nWidth   := nWidth - 40
    ::maxPos   := iif(maxPos == NIL, 20, maxPos)
    ::lNewBox  := .T.
@@ -93,10 +93,10 @@ METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPerc
    ::lPercent := lPercent
 
    INIT DIALOG ::oParent TITLE cTitle       ;
-      At nLeft, nTop SIZE nWidth, nHeight   ;
-      STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + /* WS_SYSMENU + */ WS_SIZEBOX + iif(nTop == 0, DS_CENTER, 0) + /* DS_SYSMODAL + */ DS_SETFOREGROUND + MB_USERICON
+      At nX, nY SIZE nWidth, nHeight   ;
+      STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + /* WS_SYSMENU + */ WS_SIZEBOX + iif(nY == 0, DS_CENTER, 0) + /* DS_SYSMODAL + */ DS_SETFOREGROUND + MB_USERICON
 
-   @ ::nLeft, nTop + 5 SAY ::LabelBox CAPTION iif(Empty(lPercent), "", "%")  SIZE ::nWidth, 19 STYLE SS_CENTER
+   @ ::nX, nY + 5 SAY ::LabelBox CAPTION iif(Empty(lPercent), "", "%")  SIZE ::nWidth, 19 STYLE SS_CENTER
 
    IF bExit != NIL
       ::oParent:bDestroy := bExit
@@ -113,7 +113,7 @@ METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPerc
 METHOD Activate() CLASS HProgressBar
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createprogressbar(::oParent:handle, ::maxPos, ::style, ::nLeft, ::nTop, ::nWidth, iif(::nHeight = 0, NIL, ::nHeight))
+      ::handle := hwg_Createprogressbar(::oParent:handle, ::maxPos, ::style, ::nX, ::nY, ::nWidth, iif(::nHeight = 0, NIL, ::nHeight))
       ::Init()
    ENDIF
 

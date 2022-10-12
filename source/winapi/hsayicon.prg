@@ -14,16 +14,16 @@
 
 CLASS HSayIcon INHERIT HSayImage
 
-   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, bSize, ctooltip, lOEM, bClick, bDblClick)
+   METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, ctooltip, lOEM, bClick, bDblClick)
    METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip)
    METHOD Init()
    METHOD REFRESH() INLINE hwg_Sendmessage(::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle)
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, bSize, ctooltip, lOEM, bClick, bDblClick) CLASS HSayIcon
+METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, ctooltip, lOEM, bClick, bDblClick) CLASS HSayIcon
 
-   ::Super:New(oWndParent, nId, SS_ICON, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick)
+   ::Super:New(oWndParent, nId, SS_ICON, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick)
 
    IF lRes == NIL
       lRes := .F.

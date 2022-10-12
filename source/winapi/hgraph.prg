@@ -37,7 +37,7 @@ CLASS VAR winclass   INIT "STATIC"
    DATA oPen, oPenGrid
    DATA xmax, ymax, xmin, ymin PROTECTED
 
-   METHOD New(oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor)
+   METHOD New(oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor)
    METHOD Activate()
    METHOD Init()
    METHOD CalcMinMax()
@@ -46,9 +46,9 @@ CLASS VAR winclass   INIT "STATIC"
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor) CLASS HGraph
+METHOD New(oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor) CLASS HGraph
 
-   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont, NIL, ;
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont, NIL, ;
               bSize, { | o, lpdis | o:Paint(lpdis) }, ctooltip, ;
               IIf(tcolor == NIL, 0xFFFFFF, tcolor), IIf(bcolor == NIL, 0, bcolor))
 
@@ -62,7 +62,7 @@ METHOD New(oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, bSize,
 
 METHOD Activate() CLASS HGraph
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN NIL

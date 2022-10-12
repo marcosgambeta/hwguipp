@@ -17,15 +17,15 @@ CLASS HLine INHERIT HControl
    DATA lVert
    DATA oPenLight, oPenGray
 
-   METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize)
+   METHOD New(oWndParent, nId, lVert, nX, nY, nLength, bSize)
    METHOD Activate()
    METHOD Paint(lpdis)
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize) CLASS HLine
+METHOD New(oWndParent, nId, lVert, nX, nY, nLength, bSize) CLASS HLine
 
-   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, NIL, NIL, NIL, NIL, bSize, {|o, lp|o:Paint(lp)})
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, NIL, NIL, NIL, NIL, bSize, {|o, lp|o:Paint(lp)})
 
    ::title := ""
    ::lVert := iif(lVert == NIL, .F., lVert)
@@ -47,7 +47,7 @@ METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize) CLASS HLine
 METHOD Activate() CLASS HLine
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 

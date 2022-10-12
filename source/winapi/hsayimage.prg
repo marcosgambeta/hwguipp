@@ -16,7 +16,7 @@ CLASS HSayImage INHERIT HControl
    DATA  oImage
    DATA bClick, bDblClick
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor)
    METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    METHOD Activate()
    METHOD END()  INLINE (::Super:END(), iif(::oImage != NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL)
@@ -25,10 +25,10 @@ CLASS HSayImage INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor) CLASS HSayImage
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor) CLASS HSayImage
 
    nStyle := hb_bitor(nStyle, SS_NOTIFY)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, Iif(nWidth != NIL, nWidth, 0), iif(nHeight != NIL, nHeight, 0), NIL, bInit, bSize, NIL, ctooltip, NIL, bColor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, Iif(nWidth != NIL, nWidth, 0), iif(nHeight != NIL, nHeight, 0), NIL, bInit, bSize, NIL, ctooltip, NIL, bColor)
 
    ::title := ""
 
@@ -50,7 +50,7 @@ METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip) CLASS HSayImage
 METHOD Activate() CLASS HSayImage
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 

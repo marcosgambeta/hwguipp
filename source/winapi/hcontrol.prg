@@ -17,7 +17,7 @@ CLASS HControl INHERIT HCustomWindow
    DATA lInit   INIT .F.
    DATA Anchor  INIT 0
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
    METHOD NewId()
    METHOD Init()
    METHOD Disable()
@@ -31,14 +31,14 @@ CLASS HControl INHERIT HCustomWindow
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor) CLASS HControl
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor) CLASS HControl
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id      := iif(nId == NIL, ::NewId(), nId)
    ::style   := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_VISIBLE + WS_CHILD)
    ::oFont   := oFont
-   ::nLeft   := nLeft
-   ::nTop    := nTop
+   ::nX      := nX
+   ::nY      := nY
    ::nWidth  := nWidth
    ::nHeight := nHeight
    ::bInit   := bInit
@@ -126,8 +126,8 @@ METHOD onAnchor(x, y, w, h) CLASS HControl
 
    // hwg_writelog("onAnchor " + ::classname() + str(x) + "/" + str(y) + "/" + str(w) + "/" + str(h))
    nAnchor := ::anchor
-   x9 := x1 := ::nLeft
-   y9 := y1 := ::nTop
+   x9 := x1 := ::nX
+   y9 := y1 := ::nY
    w9 := w1 := ::nWidth
    h9 := h1 := ::nHeight
    // *- calculo relativo

@@ -41,7 +41,7 @@ CLASS HOwnButton INHERIT HControl
    DATA oTimer
    DATA nPeriod INIT 0
 
-   METHOD New(oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight, bInit, bSize, bPaint, bClick, lflat, cText, color, ofont, xt, yt, ;
+   METHOD New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bClick, lflat, cText, color, ofont, xt, yt, ;
               widtht, heightt, bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, cTooltip, lEnabled, lCheck, bColor)
    METHOD Activate()
    METHOD onEvent(msg, wParam, lParam)
@@ -61,11 +61,11 @@ CLASS HOwnButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight, bInit, bSize, bPaint, bClick, lflat, ;
+METHOD New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bClick, lflat, ;
            cText, color, oFont, xt, yt, widtht, heightt, bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, ;
            cTooltip, lEnabled, lCheck, bColor) CLASS HOwnButton
 
-   ::Super:New(oWndParent, nId, NIL, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip)
+   ::Super:New(oWndParent, nId, NIL, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip)
 
    IF oFont == NIL
       ::oFont := ::oParent:oFont
@@ -116,7 +116,7 @@ METHOD New(oWndParent, nId, aStyles, nLeft, nTop, nWidth, nHeight, bInit, bSize,
 METHOD Activate() CLASS HOwnButton
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createownbtn(::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createownbtn(::oParent:handle, ::id, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
       IF !::lEnabled
          hwg_Enablewindow(::handle, .F.)

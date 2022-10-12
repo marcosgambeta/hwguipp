@@ -16,7 +16,7 @@ CLASS HStatic INHERIT HControl // TODO: HLabel é um nome mais adequado para a cl
 
    DATA nStyleDraw
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
    METHOD Activate()
    METHOD Init()
@@ -26,7 +26,7 @@ CLASS HStatic INHERIT HControl // TODO: HLabel é um nome mais adequado para a cl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
 
    IF pcount() == 0
       ::Super:New(NIL, NIL, 0, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL, NIL, NIL)
@@ -52,7 +52,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
       ENDIF
    ENDIF
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 
    ::title := cCaption
 
@@ -68,7 +68,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 
    ::title := cCaption
-   ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
 
    // Enabling style for tooltips
    IF HB_ISCHAR(cTooltip)
@@ -84,7 +84,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip
 METHOD Activate() CLASS HStatic
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle)
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::extStyle)
       ::Init()
    ENDIF
 
@@ -122,7 +122,7 @@ METHOD SetText(c) CLASS HStatic
 
    ::Super:SetText(c)
    IF hb_bitand(::extStyle, WS_EX_TRANSPARENT) != 0
-      hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
+      hwg_Invalidaterect(::oParent:handle, 1, ::nX, ::nY, ::nX + ::nWidth, ::nY + ::nHeight)
       hwg_Sendmessage(::oParent:handle, WM_PAINT, 0, 0)
    ENDIF
 
@@ -131,7 +131,7 @@ METHOD SetText(c) CLASS HStatic
 METHOD Refresh() CLASS HStatic
 
    IF hb_bitand(::extStyle, WS_EX_TRANSPARENT) != 0
-      hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
+      hwg_Invalidaterect(::oParent:handle, 1, ::nX, ::nY, ::nX + ::nWidth, ::nY + ::nHeight)
       hwg_Sendmessage(::oParent:handle, WM_PAINT, 0, 0)
    ELSE
       ::Super:Refresh()

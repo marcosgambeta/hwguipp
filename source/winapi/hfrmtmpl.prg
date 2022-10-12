@@ -770,11 +770,11 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          nWidth  := Val(xProperty[3])
          nHeight := Val(xProperty[4])
          IF __ObjHasMsg(oParent, "ID")
-            nLeft -= oParent:nLeft
-            nTop -= oParent:nTop
+            nLeft -= oParent:nX
+            nTop -= oParent:nY
             IF __ObjHasMsg(oParent:oParent, "ID")
-               nLeft -= oParent:oParent:nLeft
-               nTop -= oParent:oParent:nTop
+               nLeft -= oParent:oParent:nX
+               nTop -= oParent:oParent:nY
             ENDIF
          ENDIF
       ELSEIF cPName == "font"

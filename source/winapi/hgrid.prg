@@ -54,7 +54,7 @@ CLASS HGrid INHERIT HControl
    DATA bGfocus
    DATA bLfocus
 
-   METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoScroll, lNoBord, ;
+   METHOD New(oWnd, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoScroll, lNoBord, ;
       bKeyDown, bPosChg, bDispInfo, nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit)
    METHOD Activate()
    METHOD Init()
@@ -67,11 +67,11 @@ CLASS HGrid INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoScroll, lNoBord, ;
+METHOD New(oWnd, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoScroll, lNoBord, ;
    bKeyDown, bPosChg, bDispInfo, nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit) CLASS HGrid
 
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), LVS_SHOWSELALWAYS + WS_TABSTOP + IIf(lNoBord, 0, WS_BORDER) + LVS_REPORT + LVS_OWNERDATA + LVS_SINGLESEL)
-   ::Super:New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint)
+   ::Super:New(oWnd, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint)
    DEFAULT aBit TO {}
    ::ItemCount := nItemCount
    ::aBitMaps := aBit
@@ -100,7 +100,7 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
 METHOD Activate() CLASS HGrid
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Listview_create(::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style, ::lNoHeader, ::lNoScroll)
+      ::handle := hwg_Listview_create(::oParent:handle, ::id, ::nX, ::nY, ::nWidth, ::nHeight, ::style, ::lNoHeader, ::lNoScroll)
       ::Init()
    ENDIF
 

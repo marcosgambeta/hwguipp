@@ -388,14 +388,14 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
    if( HB_ISNUM(1) )
    {
       PHB_ITEM left = hb_itemPutNI(nullptr, hb_parni(1));
-      hb_objSendMsg(self, "_NLEFT", 1, left);
+      hb_objSendMsg(self, "_NX", 1, left);
       hb_itemRelease(left);
    }
 
    if( HB_ISNUM(2) )
    {
       PHB_ITEM top = hb_itemPutNI(nullptr, hb_parni(2));
-      hb_objSendMsg(self, "_NTOP", 1, top);
+      hb_objSendMsg(self, "_NY", 1, top);
       hb_itemRelease(top);
    }
 
@@ -413,8 +413,8 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
       hb_itemRelease(height);
    }
 
-   MoveWindow(window, hb_itemGetNI(hb_objSendMsg(self, "NLEFT", 0)),
-                      hb_itemGetNI(hb_objSendMsg(self, "NTOP", 0)),
+   MoveWindow(window, hb_itemGetNI(hb_objSendMsg(self, "NX", 0)),
+                      hb_itemGetNI(hb_objSendMsg(self, "NY", 0)),
                       hb_itemGetNI(hb_objSendMsg(self, "NWIDTH", 0)),
                       hb_itemGetNI(hb_objSendMsg(self, "NHEIGHT", 0)),
                       TRUE);

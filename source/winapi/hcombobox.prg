@@ -23,7 +23,7 @@ CLASS HComboBox INHERIT HControl
    DATA lText INIT .F.
    DATA lEdit INIT .F.
 
-   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, ;
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, ;
               ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, bValid, nDisplay)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus)
@@ -35,7 +35,7 @@ CLASS HComboBox INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, ;
            ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, bValid, nDisplay) CLASS HComboBox
 
    IF pcount() == 0
@@ -57,7 +57,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       nStyle := hb_bitor(nStyle, CBS_NOINTEGRALHEIGHT + WS_VSCROLL)
       ::nDisplay := nDisplay
    ENDIF
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::lEdit := lEdit
    ::lText := lText
@@ -100,7 +100,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 METHOD Activate() CLASS HComboBox
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createcombo(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createcombo(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -169,7 +169,7 @@ METHOD Init() CLASS HComboBox
          nHeightBox := hwg_Sendmessage(::handle, CB_GETITEMHEIGHT, -1, 0)
          nHeightItem := hwg_Sendmessage(::handle, CB_GETITEMHEIGHT, -1, 0)
          ::nHeight := nHeightBox + nHeightItem * (::nDisplay)
-         hwg_Movewindow(::handle, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+         hwg_Movewindow(::handle, ::nX, ::nY, ::nWidth, ::nHeight)
       ENDIF
    ENDIF
 

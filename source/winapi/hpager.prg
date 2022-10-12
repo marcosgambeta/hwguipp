@@ -18,8 +18,8 @@ CLASS HPager INHERIT HControl
    DATA winclass INIT "SysPager"
    DATA TEXT
    DATA id
-   DATA nTop
-   DATA nLeft
+   DATA nY
+   DATA nX
    DATA nwidth
    DATA nheight
    CLASSDATA oSelected INIT NIL
@@ -30,7 +30,7 @@ CLASS HPager INHERIT HControl
    DATA m_nWidth
    DATA m_nHeight
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
    METHOD SetScrollArea(nWidth, nHeight) INLINE ::m_nWidth := nWidth, ::m_nHeight := nHeight
    METHOD Activate()
@@ -52,14 +52,14 @@ CLASS HPager INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lvert) CLASS HPager
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lvert) CLASS HPager
 
    HB_SYMBOL_UNUSED(cCaption)
 
    DEFAULT lvert TO .F.
    ::lvert := lvert
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_VISIBLE + WS_CHILD + IIF(lvert, PGS_VERT, PGS_HORZ))
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
 
    ::Activate()
@@ -74,14 +74,14 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
 
-   ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
 
    RETURN Self
 
 METHOD Activate() CLASS HPager
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createpager(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, IIF(::lVert, PGS_VERT, PGS_HORZ))
+      ::handle := hwg_Createpager(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, IIF(::lVert, PGS_VERT, PGS_HORZ))
       ::Init()
    ENDIF
    RETURN NIL

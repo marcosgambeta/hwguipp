@@ -212,7 +212,7 @@ CLASS VAR winclass   INIT "SysTreeView32"
    DATA bItemChange, bExpand, bRClick, bDblClick, bClick
    DATA lEmpty INIT .T.
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
               bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC)
    METHOD Init()
    METHOD Activate()
@@ -228,13 +228,13 @@ CLASS VAR winclass   INIT "SysTreeView32"
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
            bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC) CLASS HTree
    LOCAL i, aBmpSize
 
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + TVS_HASLINES + TVS_LINESATROOT + TVS_HASBUTTONS + TVS_SHOWSELALWAYS + ;
       IIf(lEditLabels == NIL .OR. !lEditLabels, 0, TVS_EDITLABELS))
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, NIL, NIL, color, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, NIL, NIL, color, bcolor)
 
    ::title   := ""
    ::Type    := IIf(lResour == NIL, .F., lResour)
@@ -272,7 +272,7 @@ METHOD Init() CLASS HTree
 METHOD Activate() CLASS HTree
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createtree(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::tcolor, ::bcolor)
+      ::handle := hwg_Createtree(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::tcolor, ::bcolor)
       ::Init()
    ENDIF
 

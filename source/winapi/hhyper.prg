@@ -35,7 +35,7 @@ CLASS HStaticLink FROM HSTATIC
 
    CLASS VAR winclass INIT "STATIC"
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
    METHOD Activate()
    METHOD Init()
@@ -53,11 +53,11 @@ CLASS HStaticLink FROM HSTATIC
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor) CLASS HStaticLink
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor) CLASS HStaticLink
 
    LOCAL oPrevFont, n
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp)
 
    DEFAULT vColor TO hwg_ColorRgb2N(5, 34, 143)
    DEFAULT lColor TO hwg_ColorRgb2N(0, 0, 255)
@@ -136,7 +136,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
    ENDIF
 
    ::title   := cCaption
-   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
 
    hwg_RegOwnBtn()
 
@@ -144,7 +144,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
 
 METHOD Activate() CLASS HStaticLink
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createownbtn(::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createownbtn(::oParent:handle, ::id, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 RETURN NIL

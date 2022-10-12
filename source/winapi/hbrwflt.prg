@@ -22,7 +22,7 @@ CLASS HBrwflt INHERIT HBrowse
    DATA nLastRecordFilter INIT 0       // Save the last record of filter.
    DATA nFirstRecordFilter INIT 0      // Save the first record of filter.
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
       lDescend, bWhile, bFirst, bLast, bFor, bRClick)
@@ -32,7 +32,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
       lDescend, bWhile, bFirst, bLast, bFor, bRClick) CLASS HBrwflt
@@ -57,7 +57,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       ::lFilter := .F.
    ENDIF
 
-   RETURN ::Super:New(BRW_DATABASE, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+   RETURN ::Super:New(BRW_DATABASE, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, lNoBorder, ;
       lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick)
 
