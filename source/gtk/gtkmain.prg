@@ -18,7 +18,10 @@ FUNCTION hwg_EndWindow()
 
 FUNCTION hwg_ColorC2N( cColor )
 
-   LOCAL i, res := 0, n := 1, iValue
+   LOCAL i
+   LOCAL res := 0
+   LOCAL n := 1
+   LOCAL iValue
 
    IF Left( cColor,1 ) == "#"
       cColor := Substr(cColor, 2)
@@ -48,7 +51,10 @@ FUNCTION hwg_ColorC2N( cColor )
 
 FUNCTION hwg_ColorN2C( nColor )
 
-   LOCAL s := "", n1, n2, i
+   LOCAL s := ""
+   LOCAL n1
+   LOCAL n2
+   LOCAL i
 
    FOR i := 0 to 2
       n1 := hb_BitAnd( hb_BitShift( nColor,-i*8-4 ), 15 )
@@ -66,19 +72,20 @@ FUNCTION hwg_ColorN2RGB( nColor, nr, ng, nb )
 
    RETURN { nr, ng, nb }
 
-FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cRes )
+FUNCTION hwg_MsgGet( cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes )
 
-   LOCAL oModDlg, oFont := HFont():Add( "Sans", 0, 12 )
+   LOCAL oModDlg
+   LOCAL oFont := HFont():Add( "Sans", 0, 12 )
 
    IF Empty(cRes)
       cRes := ""
    ENDIF
    nStyle := iif( nStyle == NIL, 0, nStyle )
-   x := iif( x == NIL, 210, x )
-   y := iif( y == NIL, 10, y )
+   nX := iif( nX == NIL, 210, nX )
+   nY := iif( nY == NIL, 10, nY )
    nDlgStyle := iif( nDlgStyle == NIL, 0, nDlgStyle )
 
-   INIT DIALOG oModDlg TITLE cTitle AT x, y SIZE 300, 140 ;
+   INIT DIALOG oModDlg TITLE cTitle AT nX, nY SIZE 300, 140 ;
       FONT oFont CLIPPER STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + nDlgStyle
 
    IF !Empty(cText)
@@ -101,20 +108,33 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cRes )
 
    RETURN cRes
 
-FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBSel, cOk, cCancel )
+FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, cOk, cCancel )
 
-   LOCAL oDlg, oBrw, lNewFont := .F.
-   LOCAL nChoice := 0, i, aLen := Len( arr ), nLen := 0, addX := 20, addY := 20, minWidth := 0, x1
-   LOCAL hDC, aMetr, width, height, screenh
+   LOCAL oDlg
+   LOCAL oBrw
+   LOCAL lNewFont := .F.
+   LOCAL nChoice := 0
+   LOCAL i
+   LOCAL aLen := Len( arr )
+   LOCAL nLen := 0
+   LOCAL addX := 20
+   LOCAL addY := 20
+   LOCAL minWidth := 0
+   LOCAL x1
+   LOCAL hDC
+   LOCAL aMetr
+   LOCAL width
+   LOCAL height
+   LOCAL screenh
 
    IF cTitle == NIL
       cTitle := ""
    ENDIF
-   IF nLeft == NIL
-      nLeft := 10
+   IF nX == NIL
+      nX := 10
    ENDIF
-   IF nTop == NIL
-      nTop := 10
+   IF nY == NIL
+      nY := 10
    ENDIF
    IF oFont == NIL
       oFont := HFont():Add( "Times", 0, 14 )
@@ -150,20 +170,14 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    ENDIF
    width := Max( minWidth, aMetr[2] * 2 * nLen + addX )
 
-   INIT DIALOG oDlg TITLE cTitle ;
-      AT nLeft, nTop           ;
-      SIZE width, height       ;
-      FONT oFont
+   INIT DIALOG oDlg TITLE cTitle AT nX, nY SIZE width, height FONT oFont
 
-   @ 0, 0 BROWSE oBrw ARRAY        ;
-      SIZE  width, height - addY   ;
-      FONT oFont                   ;
-      STYLE WS_BORDER              ;
+   @ 0, 0 BROWSE oBrw ARRAY SIZE width, height - addY FONT oFont STYLE WS_BORDER ;
       ON SIZE {|o,x,y|o:Move( addX/2, 10, x - addX, y - addY )} ;
       ON CLICK { |o|nChoice := o:nCurrent, hwg_EndDialog( o:oParent:handle ) }
 
    IF HB_ISARRAY(arr[1])
-      oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED ( value ) , o:aArray[o:nCurrent,1] },"C",nLen ) ) 
+      oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED ( value ) , o:aArray[o:nCurrent,1] },"C",nLen ) )
    ELSE
       oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED ( value ) ,o:aArray[o:nCurrent] },"C",nLen ) )
    ENDIF
@@ -210,22 +224,20 @@ FUNCTION hwg_RefreshAllGets( oDlg )
 FUNCTION HWG_Version( n )
 
    IF !Empty(n)
-      IF n == 1
-         RETURN HWG_VERSION
-      ELSEIF n == 2
-         RETURN HWG_BUILD
-      ELSEIF n == 3
-         RETURN 1
-      ELSEIF n == 4
-         RETURN 1
-      ENDIF
+      SWITCH n
+      CASE 1 ; RETURN HWG_VERSION
+      CASE 2 ; RETURN HWG_BUILD
+      CASE 3 ; RETURN 1
+      CASE 4 ; RETURN 1
+      ENDSWITCH
    ENDIF
 
    RETURN "HWGUI++ " + HWG_VERSION // + " Build " + LTrim(Str(HWG_BUILD))
 
 FUNCTION hwg_WriteStatus( oWnd, nPart, cText )
 
-   LOCAL aControls, i
+   LOCAL aControls
+   LOCAL i
 
    aControls := oWnd:aControls
    IF ( i := Ascan( aControls, { |o|o:ClassName() == "HSTATUS" } ) ) > 0
@@ -238,7 +250,9 @@ FUNCTION hwg_WriteStatus( oWnd, nPart, cText )
 
 FUNCTION hwg_FindParent( hCtrl, nLevel )
 
-   LOCAL i, oParent, hParent := hwg_Getparent( hCtrl )
+   LOCAL i
+   LOCAL oParent
+   LOCAL hParent := hwg_Getparent( hCtrl )
 
    IF hParent > 0
       IF ( i := Ascan( HDialog():aModalDialogs,{ |o|o:handle == hParent } ) ) != 0
