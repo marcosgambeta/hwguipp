@@ -18,10 +18,6 @@ CLASS HPager INHERIT HControl
    DATA winclass INIT "SysPager"
    DATA TEXT
    DATA id
-   DATA nY
-   DATA nX
-   DATA nwidth
-   DATA nheight
    CLASSDATA oSelected INIT NIL
    DATA ExStyle
    DATA bClick
