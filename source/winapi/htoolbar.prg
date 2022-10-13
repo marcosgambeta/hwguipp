@@ -20,7 +20,7 @@ CLASS HToolBar INHERIT HControl
 
    CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(NIL, 1, RT_MANIFEST)) SHARED
    DATA winclass INIT "ToolbarWindow32"
-   DATA TEXT, id, nY, nLeft, nwidth, nheight
+   DATA TEXT, id
    CLASSDATA oSelected INIT NIL
    DATA State INIT 0
    DATA ExStyle
