@@ -16,7 +16,7 @@ CLASS HRadioButton INHERIT HControl
    DATA  oGroup
    DATA bClick
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -26,7 +26,7 @@ CLASS HRadioButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor ) CLASS HRadioButton
 
      * Parameters not used
@@ -40,8 +40,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
       WS_CHILD + WS_VISIBLE + ;
       iif( ::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0 ) )
    ::oFont   := oFont
-   ::nLeft   := nLeft
-   ::nTop    := nTop
+   ::nX      := nX
+   ::nY      := nY
    ::nWidth  := nWidth
    ::nHeight := nHeight
    ::bInit   := bInit
@@ -68,8 +68,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ENDIF
 
    IF Left( ::oParent:ClassName(),6 ) == "HPANEL" .AND. hb_bitand( ::oParent:style,SS_OWNERDRAW ) != 0
-      ::oParent:SetPaintCB( PAINT_ITEM, {|h|Iif(!::lHide,hwg__DrawRadioBtn(h,::nLeft,::nTop,::nLeft+::nWidth-1,::nTop+::nHeight-1,hwg_isButtonChecked(::handle),::title),.T.)}, "rb"+Ltrim(Str(::id)) )
-*      ::oParent:SetPaintCB( PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawRadioBtn(h,::nLeft,::nTop,::nLeft+::nWidth-1,::nTop+::nHeight-1,hwg_isButtonChecked(::handle),::title),.T.)}, "rb"+Ltrim(Str(::id)) )
+      ::oParent:SetPaintCB( PAINT_ITEM, {|h|Iif(!::lHide,hwg__DrawRadioBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,hwg_isButtonChecked(::handle),::title),.T.)}, "rb"+Ltrim(Str(::id)) )
+*      ::oParent:SetPaintCB( PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawRadioBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,hwg_isButtonChecked(::handle),::title),.T.)}, "rb"+Ltrim(Str(::id)) )
    ENDIF
 
    RETURN Self
@@ -79,7 +79,7 @@ METHOD Activate() CLASS HRadioButton
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, @groupHandle, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title )
       ::oGroup:handle := groupHandle
       hwg_Setwindowobject( ::handle, Self )
       ::Init()

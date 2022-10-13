@@ -37,7 +37,7 @@ CLASS VAR winclass INIT "PANEL"
    DATA xPos, yPos
    DATA bClick
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, oFont, ;
+   METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, oFont, ;
                bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -48,12 +48,12 @@ CLASS VAR winclass INIT "PANEL"
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, oFont, ;
             bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle ) CLASS HLenta
 
    color := Iif( color == NIL, CLR_BLACK, color )
    bColor := Iif( bColor == NIL, CLR_WHITE, bColor )
-   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont,, ;
+   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont,, ;
               bSize, bPaint,, color, bcolor )
 
    ::title  := ""
@@ -74,9 +74,9 @@ METHOD Activate() CLASS HLenta
 
    IF !Empty(handle)
 #ifdef __PLATFORM__UNIX
-      ::handle := hwg_Createpanel( Self, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createpanel( Self, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight )
 #else
-      ::handle := hwg_Createpanel( handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createpanel( handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight )
 #endif
       ::Init()
    ENDIF

@@ -18,7 +18,7 @@ CLASS HSayBmp INHERIT HSayImage
    DATA nStretch
    DATA nBorder, oPen
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
+   METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
       bSize, ctoolt, bClick, bDblClick, lTransp, nStretch, trcolor, bColor )
    METHOD INIT
    METHOD onEvent( msg, wParam, lParam )
@@ -28,13 +28,13 @@ CLASS HSayBmp INHERIT HSayImage
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
+METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
       bSize, ctoolt, bClick, bDblClick, lTransp, nStretch, trcolor, bColor ) CLASS HSayBmp
 
    * Parameters not used
    HB_SYMBOL_UNUSED(nStretch)
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, ;
+   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, ;
          bInit, bSize, ctoolt, bClick, bDblClick, bColor )
 
    ::lTransp := Iif( lTransp = NIL, .F. , lTransp )

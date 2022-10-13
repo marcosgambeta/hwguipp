@@ -210,7 +210,7 @@ CLASS HBrowse INHERIT HControl
    DATA cTextMod   INIT "Memo was modified, save ?"
    DATA cTextLockRec INIT "Can't lock the record!"
 
-   METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+   METHOD New( lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, lNoBorder, ;
       lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick )
    METHOD InitBrw( nType )
@@ -253,7 +253,7 @@ CLASS HBrowse INHERIT HControl
 
 ENDCLASS
 
-METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New( lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick ) CLASS HBrowse
 
@@ -261,7 +261,7 @@ METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont,
       iif( lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0 ) +            ;
       iif( lNoVScroll = NIL .OR. !lNoVScroll, WS_VSCROLL, 0 ) )
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL,0,nWidth ), ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, iif( nWidth == NIL,0,nWidth ), ;
       iif( nHeight == NIL, 0, nHeight ), oFont, bInit, bSize, bPaint )
 
    ::type := lType
@@ -1840,7 +1840,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowse
          ::nGetRec := Eval( ::bRecno, Self )
          ::lEditing := .T.
          IF type != "M"
-         @ x1+::nLeft, y1+::nTop GET ::oGet VAR ::varbuf      ;
+         @ x1+::nX, y1+::nY GET ::oGet VAR ::varbuf      ;
             OF ::oParent                   ;
             SIZE nWidth, ::height + 1      ;
             STYLE ES_AUTOHSCROLL           ;

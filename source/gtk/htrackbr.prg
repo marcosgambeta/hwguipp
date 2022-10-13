@@ -28,7 +28,7 @@ CLASS VAR winclass INIT "STATIC"
    DATA bEndDrag
    DATA bChange
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, ;
                bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -41,12 +41,12 @@ CLASS VAR winclass INIT "STATIC"
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
+METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, ;
             bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis ) CLASS HTrack
 
    color := Iif( color == NIL, CLR_BLACK, color )
    bColor := Iif( bColor == NIL, CLR_WHITE, bColor )
-   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight,,, ;
+   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight,,, ;
               bSize, bPaint,, color, bcolor )
 
    ::title  := ""
@@ -68,7 +68,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
 METHOD Activate() CLASS HTrack
    IF ! Empty(::oParent:handle)
       ::handle := hwg_Createsplitter( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
       ::Init()
    ENDIF
    RETURN NIL

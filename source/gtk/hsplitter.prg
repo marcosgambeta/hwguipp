@@ -25,7 +25,7 @@ CLASS HSplitter INHERIT HControl
    DATA lMoved      INIT .F.
    DATA bEndDrag
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, ;
       bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -38,10 +38,10 @@ CLASS HSplitter INHERIT HControl
 ENDCLASS
 
 /* bPaint ==> bDraw */
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
+METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, ;
       bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle ) CLASS HSplitter
 
-   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, , , ;
+   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, , , ;
       bSize, bDraw, , iif( color == NIL, 0, color ), bcolor )
 
    ::title  := ""
@@ -60,7 +60,7 @@ METHOD Activate() CLASS HSplitter
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createsplitter( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
       ::Init()
    ENDIF
 
@@ -141,18 +141,18 @@ METHOD Drag( xPos, yPos ) CLASS HSplitter
       IF xPos > 32000
          xPos -= 65535
       ENDIF
-      IF ( xPos := ( ::nLeft + xPos ) ) >= nFrom .AND. xPos <= nTo
-         ::nLeft := xPos
+      IF ( xPos := ( ::nX + xPos ) ) >= nFrom .AND. xPos <= nTo
+         ::nX := xPos
       ENDIF
    ELSE
       IF yPos > 32000
          yPos -= 65535
       ENDIF
-      IF ( yPos := ( ::nTop + yPos ) ) >= nFrom .AND. yPos <= nTo
-         ::nTop := yPos
+      IF ( yPos := ( ::nY + yPos ) ) >= nFrom .AND. yPos <= nTo
+         ::nY := yPos
       ENDIF
    ENDIF
-   hwg_MoveWidget( ::handle, ::nLeft, ::nTop, ::nWidth, ::nHeight ) //, .T. )
+   hwg_MoveWidget( ::handle, ::nX, ::nY, ::nWidth, ::nHeight ) //, .T. )
    ::lMoved := .T.
 
    RETURN NIL
@@ -168,11 +168,11 @@ METHOD DragAll( xPos, yPos ) CLASS HSplitter
       wold := oCtrl:nWidth
       hold := oCtrl:nHeight
       IF ::lVertical
-         nDiff := ::nLeft + ::nWidth - oCtrl:nLeft
-         oCtrl:Move( oCtrl:nLeft + nDiff, , oCtrl:nWidth - nDiff )
+         nDiff := ::nX + ::nWidth - oCtrl:nX
+         oCtrl:Move( oCtrl:nX + nDiff, , oCtrl:nWidth - nDiff )
       ELSE
-         nDiff := ::nTop + ::nHeight - oCtrl:nTop
-         oCtrl:Move( , oCtrl:nTop + nDiff, , oCtrl:nHeight - nDiff )
+         nDiff := ::nY + ::nHeight - oCtrl:nY
+         oCtrl:Move( , oCtrl:nY + nDiff, , oCtrl:nHeight - nDiff )
       ENDIF
       hwg_onAnchor( oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight )
    NEXT
@@ -181,10 +181,10 @@ METHOD DragAll( xPos, yPos ) CLASS HSplitter
       wold := oCtrl:nWidth
       hold := oCtrl:nHeight
       IF ::lVertical
-         nDiff := ::nLeft - ( oCtrl:nLeft + oCtrl:nWidth )
+         nDiff := ::nX - ( oCtrl:nX + oCtrl:nWidth )
          oCtrl:Move( , , oCtrl:nWidth + nDiff )
       ELSE
-         nDiff := ::nTop - ( oCtrl:nTop + oCtrl:nHeight )
+         nDiff := ::nY - ( oCtrl:nY + oCtrl:nHeight )
          oCtrl:Move( , , , oCtrl:nHeight + nDiff )
       ENDIF
       hwg_onAnchor( oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight )

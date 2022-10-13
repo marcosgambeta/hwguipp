@@ -30,7 +30,7 @@ CLASS HToolBar INHERIT HControl
    Data aItem init {}
    DATA Line
 
-   METHOD New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,cCaption,oFont,bInit, ;
+   METHOD New( oWndParent,nId,nStyle,nX,nY,nWidth,nHeight,cCaption,oFont,bInit, ;
                   bSize,bPaint,ctooltip,tcolor,bcolor,lTransp,lVertical,aItem)
 
    METHOD Activate()
@@ -48,7 +48,7 @@ CLASS HToolBar INHERIT HControl
 ENDCLASS
 
 /* Added: lVertical */
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
                   bSize, bPaint, ctooltip, tcolor, bcolor, lTransp , lVertical, aItem ) CLASS hToolBar
 
    * Parameters not used
@@ -56,7 +56,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    HB_SYMBOL_UNUSED(lTransp)   
 
    Default  aItem to {}
-   ::Super:New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,oFont,bInit, ;
+   ::Super:New( oWndParent,nId,nStyle,nX,nY,nWidth,nHeight,oFont,bInit, ;
                   bSize,bPaint,ctooltip,tcolor,bcolor )
 
    ::aItem := aItem

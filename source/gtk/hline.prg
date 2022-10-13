@@ -16,14 +16,14 @@ CLASS HLine INHERIT HControl
    CLASS VAR winclass   INIT "STATIC"
    DATA lVert
 
-   METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize )
+   METHOD New( oWndParent, nId, lVert, nX, nY, nLength, bSize )
    METHOD Activate()
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize ) CLASS HLine
+METHOD New( oWndParent, nId, lVert, nX, nY, nLength, bSize ) CLASS HLine
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, , , , , bSize, { |o, lp|o:Paint( lp ) } )
+   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, , , , , bSize, { |o, lp|o:Paint( lp ) } )
 
    ::title := ""
    ::lVert := iif( lVert == NIL, .F. , lVert )
@@ -42,7 +42,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize ) CLASS HLine
 METHOD Activate() CLASS HLine
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_CreateSep( ::oParent:handle, ::lVert, ::nLeft, ::nTop, ;
+      ::handle := hwg_CreateSep( ::oParent:handle, ::lVert, ::nX, ::nY, ;
          ::nWidth, ::nHeight )
       ::Init()
    ENDIF

@@ -56,7 +56,7 @@ CLASS HTree INHERIT HControl
    DATA nScrollH  INIT 0
    DATA bScrollPos
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC )
    METHOD Init()
    METHOD Activate()
@@ -83,7 +83,7 @@ CLASS HTree INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC ) CLASS HTree
    LOCAL i 
 
@@ -100,7 +100,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
    IF bcolor == NIL
       bcolor := CLR_WHITE
    ENDIF
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, , , color, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, , , color, bcolor)
 
    ::title   := ""
    ::Type    := iif( lResour == NIL, .F. , lResour )
@@ -350,7 +350,7 @@ METHOD PaintNode( hDC, oNode, nNode, nLine ) CLASS HTree
    ELSE
       hwg_Fillrect( hDC, x1, y1, x1 + nTextWidth, y1 + ( ::height + 1 ), ::brush:handle )
    ENDIF
-   hwg_Drawtext( hDC, oNode:title, x1, y1, ::nLeft+::nWidth-1, y1 + ( ::height + 1 ),,.T. )
+   hwg_Drawtext( hDC, oNode:title, x1, y1, ::nX+::nWidth-1, y1 + ( ::height + 1 ),,.T. )
    hwg_Settextcolor( hDC, ::tcolor )
 
    FOR i := oNode:nLevel - 1 TO 1 STEP - 1

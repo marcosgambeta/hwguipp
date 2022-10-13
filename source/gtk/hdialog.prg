@@ -88,8 +88,8 @@ METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
    ::bColor   := bColor
    ::oBmp     := oBmp
    ::oIcon    := oIcon
-   ::nTop     := iif( y == NIL, 0, y )
-   ::nLeft    := iif( x == NIL, 0, x )
+   ::nY       := iif( y == NIL, 0, y )
+   ::nX       := iif( x == NIL, 0, x )
    ::nWidth   := iif( width == NIL, 0, width )
    ::nHeight  := iif( height == NIL, 0, Abs( height ) )
    IF ::nWidth < 0
@@ -109,8 +109,8 @@ METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
    ::lExitOnEsc  := iif( lExitOnEsc == NIL, .T. , !lExitOnEsc )
 
    IF ::style > 0 .AND. hb_bitand( ::style, DS_CENTER ) > 0
-      ::nLeft := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
-      ::nTop  := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
+      ::nX := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
+      ::nY := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
    ENDIF
    ::handle := Hwg_CreateDlg( Self )
 
@@ -168,8 +168,8 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
       ::Maximize()
    ELSEIF !Empty(lCentered) .OR. ( ::style > 0 .AND. hb_bitand( ::style, DS_CENTER ) > 0 )
       ::Center()
-   ELSEIF ::oParent != NIL .AND. __ObjHasMsg( ::oParent, "nLeft" )
-      hwg_MoveWindow( ::handle, ::oParent:nLeft + ::nLeft, ::oParent:nTop + ::nTop )
+   ELSEIF ::oParent != NIL .AND. __ObjHasMsg( ::oParent, "nX" )
+      hwg_MoveWindow( ::handle, ::oParent:nX + ::nX, ::oParent:nY + ::nY )
    ENDIF
    IF HB_ISBLOCK( bActivate )
       ::bActivate := bActivate

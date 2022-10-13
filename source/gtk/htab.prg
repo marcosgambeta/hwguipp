@@ -18,7 +18,7 @@ CLASS HTab INHERIT HControl
    DATA  oTemp
    DATA  bAction
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, ;
       bClick, bGetFocus, bLostFocus )
    METHOD Activate()
@@ -35,7 +35,7 @@ CLASS HTab INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus  ) CLASS HTab
 
    * Variables not used
@@ -46,7 +46,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    HB_SYMBOL_UNUSED(lResour)
    HB_SYMBOL_UNUSED(nBC)   
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint )
 
    ::title   := ""
@@ -68,7 +68,7 @@ METHOD Activate() CLASS HTab
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createtabcontrol( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
 
       ::Init()
    ENDIF

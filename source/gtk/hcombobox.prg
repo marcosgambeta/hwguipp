@@ -25,7 +25,7 @@ CLASS HComboBox INHERIT HControl
    DATA  lEdit    INIT .F.
    DATA  hEdit
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
       aItems, oFont, bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -38,7 +38,7 @@ CLASS HComboBox INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
+METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid ) CLASS HComboBox
 
    IF lEdit == NIL
@@ -49,7 +49,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ENDIF
 
    nStyle := hb_bitor( iif( nStyle == NIL,0,nStyle ), iif( lEdit,CBS_DROPDOWN,CBS_DROPDOWNLIST ) + WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor )
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor )
 
    ::lEdit := lEdit
    ::lText := lText
@@ -81,7 +81,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    hwg_SetSignal( ::handle, "changed", CBN_SELCHANGE, 0, 0 )
 
    IF Left( ::oParent:ClassName(), 6 ) == "HPANEL" .AND. hb_bitand( ::oParent:style, SS_OWNERDRAW ) != 0
-      ::oParent:SetPaintCB( PAINT_ITEM, { |o,h|HB_SYMBOL_UNUSED(o),iif( !::lHide,hwg__DrawCombo(h,::nLeft + ::nWidth - 22,::nTop,::nLeft + ::nWidth - 1,::nTop + ::nHeight - 1 ), .T. ) }, "hc" + LTrim(Str(::id)) )
+      ::oParent:SetPaintCB( PAINT_ITEM, { |o,h|HB_SYMBOL_UNUSED(o),iif( !::lHide,hwg__DrawCombo(h,::nX + ::nWidth - 22,::nY,::nX + ::nWidth - 1,::nY + ::nHeight - 1 ), .T. ) }, "hc" + LTrim(Str(::id)) )
    ENDIF
 
    RETURN Self
@@ -90,7 +90,7 @@ METHOD Activate() CLASS HComboBox
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createcombo( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
       ::Init()
       hwg_Setwindowobject( ::handle, Self )
    ENDIF

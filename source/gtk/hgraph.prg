@@ -38,7 +38,7 @@ CLASS HGraph INHERIT HControl
    DATA bPaintItems
    DATA xmax, ymax, xmin, ymin PROTECTED
 
-   METHOD New( oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, ;
+   METHOD New( oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, ;
                bSize, ctooltip, tcolor, bcolor )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -48,10 +48,10 @@ CLASS HGraph INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New( oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, ;
       bSize, ctooltip, tcolor, bcolor ) CLASS HGraph
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont, , ;
+   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont, , ;
       bSize, { |o, lpdis|o:Paint( lpdis ) }, ctooltip, ;
       iif( tcolor == NIL, 0xFFFFFF, tcolor ), iif( bcolor == NIL, 0, bcolor ) )
 
@@ -67,7 +67,7 @@ METHOD Activate() CLASS HGraph
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
       hwg_Setwindowobject( ::handle, Self )
       ::Init()
    ENDIF

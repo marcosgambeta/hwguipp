@@ -48,9 +48,9 @@ FUNCTION hwg_onMove( oWnd, wParam, lParam )
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)   
 
-   //hwg_WriteLog( "onMove: "+str(oWnd:nLeft)+" "+str(oWnd:nTop)+" -> "+str(hwg_Loword(lParam))+str(hwg_Hiword(lParam))+" "+str(apos[1])+" "+str(apos[2]) )
-   oWnd:nLeft := apos[1] //hwg_Loword( lParam )
-   oWnd:nTop  := apos[2] //hwg_Hiword( lParam )
+   //hwg_WriteLog( "onMove: "+str(oWnd:nX)+" "+str(oWnd:nY)+" -> "+str(hwg_Loword(lParam))+str(hwg_Hiword(lParam))+" "+str(apos[1])+" "+str(apos[2]) )
+   oWnd:nX := apos[1] //hwg_Loword( lParam )
+   oWnd:nY  := apos[2] //hwg_Hiword( lParam )
 
    RETURN 0
 
@@ -156,8 +156,8 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    ::style    := iif( nStyle == NIL, 0, nStyle )
    ::oIcon    := oIcon
    ::oBmp     := oBmp
-   ::nTop     := iif( y == NIL, 0, y )
-   ::nLeft    := iif( x == NIL, 0, x )
+   ::nY       := iif( y == NIL, 0, y )
+   ::nX       := iif( x == NIL, 0, x )
    ::nWidth   := iif( width == NIL, 0, width )
    ::nHeight  := iif( height == NIL, 0, Abs( height ) )
    IF ::nWidth < 0
@@ -176,8 +176,8 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       ::szAppName := cAppName
    ENDIF
    IF hb_bitand( Abs( ::style ), DS_CENTER ) > 0
-      ::nLeft := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
-      ::nTop  := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
+      ::nX := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
+      ::nY := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
    ENDIF
    IF nHelpId != NIL
       ::HelpId := nHelpId
@@ -286,8 +286,8 @@ METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,
    IF lType == WND_MDI
    ELSEIF lType == WND_MAIN
       ::handle := Hwg_InitMainWindow( Self, ::szAppName, cTitle, cMenu, ;
-         iif( oIcon != NIL, oIcon:handle, NIL ), ::Style, ::nLeft, ;
-         ::nTop, ::nWidth, ::nHeight, hbackground )
+         iif( oIcon != NIL, oIcon:handle, NIL ), ::Style, ::nX, ;
+         ::nY, ::nWidth, ::nHeight, hbackground )
          * DF7BE: background missing, added as 11th parameter
    ENDIF
    IF ::bColor != NIL

@@ -16,7 +16,7 @@ CLASS HCheckButton INHERIT HControl
    DATA bSetGet
    DATA lValue
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor, bGFocus )
    METHOD Activate()
    METHOD Disable()
@@ -29,11 +29,11 @@ CLASS HCheckButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor, bGFocus ) CLASS HCheckButton
 
    nStyle   := hb_bitor( iif( nStyle == NIL,0,nStyle ), BS_AUTO3STATE + WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
    ::title   := cCaption
@@ -51,8 +51,8 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ENDIF
 
    IF Left( ::oParent:ClassName(),6 ) == "HPANEL" .AND. hb_bitand( ::oParent:style,SS_OWNERDRAW ) != 0
-*      ::oParent:SetPaintCB( PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nLeft,::nTop,::nLeft+::nWidth-1,::nTop+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)) )   
-      ::oParent:SetPaintCB( PAINT_ITEM, {|h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nLeft,::nTop,::nLeft+::nWidth-1,::nTop+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)) )
+*      ::oParent:SetPaintCB( PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)) )   
+      ::oParent:SetPaintCB( PAINT_ITEM, {|h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)) )
    ENDIF
 
    RETURN Self
@@ -61,7 +61,7 @@ METHOD Activate() CLASS HCheckButton
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title )
       hwg_Setwindowobject( ::handle, Self )
       ::Init()
    ENDIF
@@ -71,7 +71,7 @@ METHOD Activate() CLASS HCheckButton
 METHOD Disable() CLASS HCheckButton
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title )
       hwg_Setwindowobject( ::handle, Self )
       ::Init()
          hwg_CheckButton( ::handle, .F. )      

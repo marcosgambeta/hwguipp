@@ -11,15 +11,15 @@
 
 CLASS HSayIcon INHERIT HSayImage
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
+   METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
       bSize, ctoolt )
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
+METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
       bSize, ctoolt ) CLASS HSayIcon
 
-   ::Super:New( oWndParent, nId, SS_ICON, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctoolt )
+   ::Super:New( oWndParent, nId, SS_ICON, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt )
 
    IF lRes == NIL
       lRes := .F.

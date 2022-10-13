@@ -16,7 +16,7 @@ CLASS HButton INHERIT HControl
    CLASS VAR winclass   INIT "BUTTON"
    DATA  bClick
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -25,11 +25,11 @@ CLASS HButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor ) CLASS HButton
 
    nStyle := hb_bitor( iif( nStyle == NIL,0,nStyle ), BS_PUSHBUTTON )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL,90,nWidth ), ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, iif( nWidth == NIL,90,nWidth ), ;
       iif( nHeight == NIL, 30, nHeight ), oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
@@ -50,7 +50,7 @@ METHOD Activate() CLASS HButton
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title )
       hwg_Setwindowobject( ::handle, Self )
       ::Init()
    ENDIF

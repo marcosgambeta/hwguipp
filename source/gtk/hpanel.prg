@@ -25,7 +25,7 @@ CLASS HPanel INHERIT HControl
    DATA nScrollV  INIT 0
    DATA nScrollH  INIT 0
    DATA bVScroll, bHScroll
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
       bInit, bSize, bPaint, bColor, oStyle )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -38,7 +38,7 @@ CLASS HPanel INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
       bInit, bSize, bPaint, bColor, oStyle ) CLASS HPanel
 
    LOCAL oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
@@ -46,7 +46,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    IF !Empty(bPaint) .OR. bColor != NIL .OR. oStyle != NIL
       nStyle := hb_bitor( nStyle, SS_OWNERDRAW )
    ENDIF
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL,0,nWidth ), ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, iif( nWidth == NIL,0,nWidth ), ;
       nHeight, oParent:oFont, bInit, ;
       bSize, bPaint, , , bColor )
    ::oStyle := oStyle
@@ -59,7 +59,7 @@ METHOD Activate() CLASS HPanel
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createpanel( Self, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
       ::Init()
    ENDIF
 
@@ -103,9 +103,9 @@ METHOD Init() CLASS HPanel
    IF !::lInit
       IF ::bSize == NIL .AND. Empty(::Anchor)
          IF ::nHeight != 0 .AND. ( ::nWidth > ::nHeight .OR. ::nWidth == 0 )
-            ::bSize := { |o, x, y|o:Move( , iif( ::nTop > 0,y - ::nHeight,0 ), x, ::nHeight ) }
+            ::bSize := { |o, x, y|o:Move( , iif( ::nY > 0,y - ::nHeight,0 ), x, ::nHeight ) }
          ELSEIF ::nWidth != 0 .AND. ( ::nHeight > ::nWidth .OR. ::nHeight == 0 )
-            ::bSize := { |o, x, y|o:Move( iif( ::nLeft > 0,x - ::nLeft,0 ), , ::nWidth, y ) }
+            ::bSize := { |o, x, y|o:Move( iif( ::nX > 0,x - ::nX,0 ), , ::nWidth, y ) }
          ENDIF
       ENDIF
       ::Super:Init()
@@ -154,12 +154,12 @@ METHOD Move( x1, y1, width, height )  CLASS HPanel
 
    LOCAL lMove := .F. , lSize := .F.
 
-   IF x1 != NIL .AND. x1 != ::nLeft
-      ::nLeft := x1
+   IF x1 != NIL .AND. x1 != ::nX
+      ::nX := x1
       lMove := .T.
    ENDIF
-   IF y1 != NIL .AND. y1 != ::nTop
-      ::nTop := y1
+   IF y1 != NIL .AND. y1 != ::nY
+      ::nY := y1
       lMove := .T.
    ENDIF
    IF width != NIL .AND. width != ::nWidth
@@ -171,7 +171,7 @@ METHOD Move( x1, y1, width, height )  CLASS HPanel
       lSize := .T.
    ENDIF
    IF lMove .OR. lSize
-      hwg_MoveWidget( ::hbox, iif( lMove,::nLeft,NIL ), iif( lMove,::nTop,NIL ), ;
+      hwg_MoveWidget( ::hbox, iif( lMove,::nX,NIL ), iif( lMove,::nY,NIL ), ;
          iif( lSize, ::nWidth, NIL ), iif( lSize, ::nHeight, NIL ), .F. )
       IF lSize
          hwg_MoveWidget( ::handle, NIL, NIL, ::nWidth, ::nHeight, .F. )
@@ -223,7 +223,7 @@ METHOD Drag( xPos, yPos ) CLASS HPanel
       yPos -= 65535
    ENDIF
    IF Abs( xPos - ::nOldX ) > 1 .OR. Abs( yPos - ::nOldY ) > 1
-      oWnd:Move( oWnd:nLeft + ( xPos - ::nOldX ), oWnd:nTop + ( yPos - ::nOldY ) )
+      oWnd:Move( oWnd:nX + ( xPos - ::nOldX ), oWnd:nY + ( yPos - ::nOldY ) )
    ENDIF
 
    RETURN NIL

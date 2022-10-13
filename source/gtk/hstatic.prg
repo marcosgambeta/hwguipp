@@ -15,7 +15,7 @@ CLASS HStatic INHERIT HControl
 
    CLASS VAR winclass   INIT "STATIC"
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
+   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor, lTransp )
    METHOD Activate()
    METHOD Init()
@@ -24,10 +24,10 @@ CLASS HStatic INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor, lTransp ) CLASS HStatic
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
    ::title   := cCaption
@@ -43,7 +43,7 @@ METHOD Activate() CLASS HStatic
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle, ::title )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::extStyle, ::title )
       IF hb_bitand( ::style, SS_OWNERDRAW ) != 0
          hwg_Setwindowobject( ::handle, Self )
       ENDIF

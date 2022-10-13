@@ -27,7 +27,7 @@ CLASS HMonthCalendar INHERIT HControl
    DATA dValue
    DATA bChange
 
-   METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New( oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
       lWeekNumbers )
    METHOD Activate()
@@ -38,7 +38,7 @@ ENDCLASS
 
    //--------------------------------------------------------------------------//
 
-METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New( oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
       lWeekNumbers ) CLASS HMonthCalendar
 
@@ -47,7 +47,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    HB_SYMBOL_UNUSED(lNoTodayCircle)
    HB_SYMBOL_UNUSED(lWeekNumbers)
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       , , ctooltip )
 
    ::dValue   := iif( ValType( vari ) == "D" .AND. !Empty(vari), vari, Date() )
@@ -64,7 +64,7 @@ METHOD Activate() CLASS HMonthCalendar
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Initmonthcalendar ( ::oParent:handle, , ;
-         ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         ::nX, ::nY, ::nWidth, ::nHeight )
       hwg_Setwindowobject( ::handle, Self )  
       hwg_Monthcalendar_setaction( ::handle, { ||::dValue := hwg_Getmonthcalendardate( ::handle ) } )
       ::Init()

@@ -35,7 +35,7 @@ CLASS HStaticLink FROM HSTATIC
 
    CLASS VAR winclass INIT "STATIC"
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
+   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor )
    METHOD Activate()
    METHOD Init()
@@ -53,12 +53,12 @@ CLASS HStaticLink FROM HSTATIC
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor ) CLASS HStaticLink
 
    LOCAL oPrevFont, n
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp )
 
    DEFAULT vColor TO hwg_ColorRgb2N( 5, 34, 143 )
@@ -108,7 +108,7 @@ METHOD Activate() CLASS HStaticLink
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createownbtn( ::oParent:handle, ::id, ;
-                                ::nLeft, ::nTop, ::nWidth, ::nHeight )
+                                ::nX, ::nY, ::nWidth, ::nHeight )
       ::Init()
    ENDIF
 

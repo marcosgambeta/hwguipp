@@ -122,10 +122,10 @@ METHOD Move( x1, y1, width, height )  CLASS HCustomWindow
    hwg_Movewindow( ::handle, x1, y1, width, height )
    IF !__ObjHasMsg( Self, "AWINDOWS" )
       IF x1 != NIL
-         ::nLeft := x1
+         ::nX := x1
       ENDIF
       IF y1 != NIL
-         ::nTop  := y1
+         ::nY := y1
       ENDIF
       IF width != NIL
          ::nWidth := width

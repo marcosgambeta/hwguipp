@@ -38,7 +38,7 @@ CLASS HEdit INHERIT HControl
    DATA aColorOld      INIT { 0,0 }
    DATA bColorBlock
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bGfocus, bLfocus, ctoolt, tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -53,7 +53,7 @@ CLASS HEdit INHERIT HControl
 ENDCLASS
 
 /* Added: lPassword */
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bGfocus, bLfocus, ctoolt, ;
       tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword ) CLASS HEdit
 
@@ -61,7 +61,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       WS_TABSTOP + iif( lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0 ) + ;
       iif( lPassword == NIL .OR. !lPassword, 0, ES_PASSWORD )  )
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize,, ctoolt, Iif(tcolor==NIL,0,tcolor), Iif(bcolor==NIL,0xffffff,bcolor) )
 
    IF vari != NIL
@@ -106,7 +106,7 @@ METHOD Activate() CLASS HEdit
   
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createedit( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
       hwg_Setwindowobject( ::handle, Self )
       ::Init()
    ENDIF

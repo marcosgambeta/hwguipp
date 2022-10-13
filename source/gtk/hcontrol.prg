@@ -39,7 +39,7 @@ CLASS HControl INHERIT HCustomWindow
    DATA lInit    INIT .F.
    DATA Anchor   INIT 0
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
    METHOD Init()
    METHOD NewId()
@@ -55,15 +55,15 @@ CLASS HControl INHERIT HCustomWindow
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor ) CLASS HControl
 
    ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
    ::id      := iif( nId == NIL, ::NewId(), nId )
    ::style   := hb_bitor( iif( nStyle == NIL,0,nStyle ), WS_VISIBLE + WS_CHILD )
    ::oFont   := oFont
-   ::nLeft   := nLeft
-   ::nTop    := nTop
+   ::nX      := nX
+   ::nY      := nY
    ::nWidth  := nWidth
    ::nHeight := nHeight
    ::bInit   := bInit
@@ -141,12 +141,12 @@ METHOD Enabled( lEnabled ) CLASS HControl
 METHOD Move( x1, y1, width, height, lMoveParent )  CLASS HControl
    LOCAL lMove := .F. , lSize := .F.
 
-   IF x1 != NIL .AND. x1 != ::nLeft
-      ::nLeft := x1
+   IF x1 != NIL .AND. x1 != ::nX
+      ::nX := x1
       lMove := .T.
    ENDIF
-   IF y1 != NIL .AND. y1 != ::nTop
-      ::nTop := y1
+   IF y1 != NIL .AND. y1 != ::nY
+      ::nY := y1
       lMove := .T.
    ENDIF
    IF width != NIL .AND. width != ::nWidth
@@ -158,7 +158,7 @@ METHOD Move( x1, y1, width, height, lMoveParent )  CLASS HControl
       lSize := .T.
    ENDIF
    IF lMove .OR. lSize
-      hwg_MoveWidget( ::handle, iif( lMove,::nLeft,NIL ), iif( lMove,::nTop,NIL ), ;
+      hwg_MoveWidget( ::handle, iif( lMove,::nX,NIL ), iif( lMove,::nY,NIL ), ;
          iif( lSize, ::nWidth, NIL ), iif( lSize, ::nHeight, NIL ), lMoveParent )
    ENDIF
 
@@ -179,13 +179,13 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    LOCAL x1, y1, w1, h1, x9, y9, w9, h9
 
    nAnchor := ::anchor
-   x9 := ::nLeft
-   y9 := ::nTop
+   x9 := ::nX
+   y9 := ::nY
    w9 := ::nWidth
    h9 := ::nHeight
 
-   x1 := ::nLeft
-   y1 := ::nTop
+   x1 := ::nX
+   y1 := ::nY
    w1 := ::nWidth
    h1 := ::nHeight
    //- calculo relativo
@@ -263,10 +263,10 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
       ENDIF
       y1 := y9
    ENDIF
-   hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   hwg_Invalidaterect( ::oParent:handle, 1, ::nX, ::nY, ::nWidth, ::nHeight )
    ::Move( x1, y1, w1, h1 )
-   ::nLeft := x1
-   ::nTop := y1
+   ::nX := x1
+   ::nY := y1
    ::nWidth := w1
    ::nHeight := h1
    hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )

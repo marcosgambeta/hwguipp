@@ -20,7 +20,7 @@ CLASS HButtonEX INHERIT HButton
    DATA hBitmap
    DATA hIcon
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
          cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
          tcolor, bColor, hBitmap, iStyle, hIcon, Transp )
 
@@ -29,7 +29,7 @@ CLASS HButtonEX INHERIT HButton
 END CLASS
 
 /* Removed: bClick  Added: hBitmap , iStyle , Transp */
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
       tcolor, bColor, hBitmap, iStyle, hIcon, Transp ) CLASS HButtonEx
 
@@ -40,7 +40,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::hBitmap := hBitmap
    ::hIcon   := hIcon
 
-   ::super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   ::super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
       tcolor, bColor )
 
@@ -51,13 +51,13 @@ METHOD Activate() CLASS HButtonEX
    IF !Empty(::oParent:handle)
       IF !Empty(::hBitmap)
          ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title, ::hBitmap )
+            ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title, ::hBitmap )
       ELSEIF !Empty(::hIcon)
          ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title, ::hIcon )
+            ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title, ::hIcon )
       ELSE
          ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title, NIL )
+            ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title, NIL )
       endif
       hwg_Setwindowobject( ::handle, Self )
       ::Init()

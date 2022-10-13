@@ -25,7 +25,7 @@ CLASS HUpDown INHERIT HControl
    DATA nUpDownWidth INIT 12
    DATA lChanged    INIT .F.
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctoolt, tcolor, bcolor, nUpDWidth, nLower, nUpper )
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -35,12 +35,12 @@ CLASS HUpDown INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctoolt, tcolor, bcolor,   ;
       nUpDWidth, nLower, nUpper ) CLASS HUpDown
 
    nStyle   := hb_bitor( iif( nStyle == NIL,0,nStyle ), WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
    IF Empty(vari)
@@ -78,7 +78,7 @@ METHOD Activate() CLASS HUpDown
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createupdowncontrol( ::oParent:handle, ;
-         ::nLeft, ::nTop, ::nWidth, ::nHeight, Val( ::title ), ::nLower, ::nUpper )
+         ::nX, ::nY, ::nWidth, ::nHeight, Val( ::title ), ::nLower, ::nUpper )
       hwg_Setwindowobject( ::handle, Self )
       ::Init()
    ENDIF

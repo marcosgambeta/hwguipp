@@ -67,7 +67,7 @@ CLASS VAR winclass   INIT "LISTBOX"
    DATA  bValid
    DATA  handle  // GtkWidget of listbox
 
-   METHOD New( oWndParent,nId,vari,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight, ;
+   METHOD New( oWndParent,nId,vari,bSetGet,nStyle,nX,nY,nWidth,nHeight, ;
               aItems,oFont,bInit,bSize,bPaint,bChange,cTooltip,tColor,bcolor,bGFocus,bLFocus, bKeydown, bDblclick,bOther )
    METHOD Activate()
    METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, ;
@@ -87,12 +87,12 @@ CLASS VAR winclass   INIT "LISTBOX"
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
+METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, ;
             bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus,bKeydown, bDblclick,bOther )  CLASS HListBox
 
    // removed: + LBS_DISABLENOSCROLL + LBS_NOTIFY  + LBS_NOINTEGRALHEIGHT
    nStyle   := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), WS_TABSTOP + WS_VSCROLL + WS_BORDER )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, cTooltip, tColor, bcolor )
 
    ::value   := IIf( vari == NIL .OR. ValType( vari ) != "N", 0, vari )
@@ -154,7 +154,7 @@ METHOD Activate() CLASS HListBox
      HWG_LISTBOXSHOW(::handle)
 /* 
       ::handle := hwg_Createlistbox( ::oParent:handle, ::id, ;
-                                 ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+                                 ::style, ::nX, ::nY, ::nWidth, ::nHeight )
       ::Init()
 */
       hwg_Setwindowobject( ::handle, Self )
