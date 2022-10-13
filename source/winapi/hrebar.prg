@@ -17,7 +17,7 @@
 CLASS hrebar INHERIT HControl
 
    DATA winclass INIT "ReBarWindow32"
-   DATA TEXT, id, nTop, nLeft, nwidth, nheight
+   DATA TEXT, id
    CLASSDATA oSelected INIT NIL
    DATA ExStyle
    DATA bClick
