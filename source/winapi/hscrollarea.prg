@@ -50,7 +50,12 @@ METHOD RedefineScrollbars() CLASS HScrollArea
    RETURN NIL
 
 METHOD SetupScrollbars() CLASS HScrollArea
-   LOCAL tempRect, nwMax, nhMax, aMenu, nPos
+   
+   LOCAL tempRect
+   LOCAL nwMax
+   LOCAL nhMax
+   LOCAL aMenu
+   LOCAL nPos
 
    tempRect := hwg_Getclientrect(::handle)
    aMenu := iif(__objHasData(Self, "MENU"), ::menu, NIL)

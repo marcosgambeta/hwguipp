@@ -75,11 +75,15 @@ METHOD onDblClick()  CLASS HSayImage
 // TODO: move to another file and rewrite in C++
 
 FUNCTION hwg_GetBitmapHeight(handle)
-LOCAL aBmpSize
+
+   LOCAL aBmpSize
+
 aBmpSize  := hwg_Getbitmapsize(handle)
 RETURN aBmpSize[2]
 
 FUNCTION hwg_GetBitmapWidth(handle)
-LOCAL aBmpSize
+
+   LOCAL aBmpSize
+
 aBmpSize  := hwg_Getbitmapsize(handle)
 RETURN aBmpSize[1]

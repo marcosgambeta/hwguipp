@@ -22,9 +22,9 @@ PROCEDURE hwg_ErrSys
    RETURN
 
 STATIC FUNCTION DefError(oError)
+   
    LOCAL cMessage
    LOCAL cDOSError
-
    LOCAL n
 
    // By default, division by zero results in zero
@@ -81,6 +81,7 @@ STATIC FUNCTION DefError(oError)
 
 
 FUNCTION hwg_ErrMsg(oError)
+   
    LOCAL cMessage
 
    // start error message
@@ -122,6 +123,7 @@ FUNCTION hwg_ErrMsg(oError)
    RETURN cMessage
 
 FUNCTION hwg_WriteLog(cText, fname)
+   
    LOCAL nHand
 
    fname := LogInitialPath + IIf(fname == NIL, "a.log", fname)
@@ -137,7 +139,9 @@ FUNCTION hwg_WriteLog(cText, fname)
    RETURN NIL
 
 STATIC FUNCTION ErrorPreview(cMess)
-   LOCAL oDlg, oEdit
+   
+   LOCAL oDlg
+   LOCAL oEdit
 
    INIT DIALOG oDlg TITLE "Error.log" At 92, 61 SIZE 500, 500
 

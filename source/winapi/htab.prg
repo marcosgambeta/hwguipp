@@ -43,7 +43,9 @@ CLASS HTab INHERIT HControl
 ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus) CLASS HTab
-   LOCAL i, aBmpSize
+   
+   LOCAL i
+   LOCAL aBmpSize
 
    nStyle   := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint)
@@ -86,6 +88,7 @@ METHOD Activate() CLASS HTab
    RETURN NIL
 
 METHOD Init() CLASS HTab
+   
    LOCAL i
 
    IF !::lInit
@@ -108,7 +111,9 @@ METHOD Init() CLASS HTab
 /*
 METHOD onEvent(msg, wParam, lParam) CLASS HTab
 
-   LOCAL iParHigh, iParLow, nPos
+   LOCAL iParHigh
+   LOCAL iParLow
+   LOCAL nPos
 
    IF msg == WM_COMMAND
       IF ::aEvents != NIL
@@ -193,7 +198,10 @@ METHOD ChangePage(nPage) CLASS HTab
    RETURN NIL
 
 METHOD HidePage(nPage) CLASS HTab
-   LOCAL i, nFirst, nEnd
+   
+   LOCAL i
+   LOCAL nFirst
+   LOCAL nEnd
 
    IF !::lResourceTab
       nFirst := ::aPages[nPage, 1] + 1
@@ -208,7 +216,10 @@ METHOD HidePage(nPage) CLASS HTab
    RETURN NIL
 
 METHOD ShowPage(nPage) CLASS HTab
-   LOCAL i, nFirst, nEnd
+   
+   LOCAL i
+   LOCAL nFirst
+   LOCAL nEnd
 
    IF !::lResourceTab
       nFirst := ::aPages[nPage, 1] + 1
@@ -249,7 +260,10 @@ METHOD GetActivePage(nFirst, nEnd) CLASS HTab
    Return ::nActive
 
 METHOD DeletePage(nPage) CLASS HTab
-Local nFirst, nEnd, i
+
+   LOCAL nFirst
+   LOCAL nEnd
+   LOCAL i
 
    if ::lResourceTab
       ADel(::m_arrayStatusTab, nPage, NIL, .T.)
@@ -287,6 +301,7 @@ Local nFirst, nEnd, i
    Return ::nActive
 
 METHOD Notify(lParam) CLASS HTab
+   
    LOCAL nCode := hwg_Getnotifycode(lParam)
 
    //hwg_writelog(str(ncode))

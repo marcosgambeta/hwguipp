@@ -180,7 +180,8 @@ METHOD ReadOnly(lreadOnly)
 METHOD UpdatePos() CLASS HRichEdit
 
    LOCAL npos := hwg_Sendmessage(::handle, EM_GETSEL, 0, 0)
-   LOCAL pos1 := hwg_Loword(npos) + 1, pos2 := hwg_Hiword(npos) + 1
+   LOCAL pos1 := hwg_Loword(npos) + 1
+   LOCAL pos2 := hwg_Hiword(npos) + 1
 
    ::Line := hwg_Sendmessage(::Handle, EM_LINEFROMCHAR, pos1 - 1, 0) + 1
    ::LinesTotal := hwg_Sendmessage(::handle, EM_GETLINECOUNT, 0, 0)

@@ -37,6 +37,7 @@ METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint) CLASS H
    RETURN Self
 
 METHOD Activate() CLASS HStatus
+   
    LOCAL aCoors
 
    IF !Empty(::oParent:handle)

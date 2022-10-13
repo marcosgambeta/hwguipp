@@ -80,7 +80,8 @@ METHOD Activate() CLASS HTrackBar
 RETURN NIL
 
 METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
-LOCAL aCoors
+
+   LOCAL aCoors
 
    IF msg == WM_PAINT
       IF HB_ISBLOCK(::bPaint)

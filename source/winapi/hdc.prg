@@ -131,6 +131,7 @@ METHOD Createcompatibledc(x) CLASS HDC
    RETURN ::Attach(hwg_Createcompatibledc(x))
 
 METHOD Savedc() CLASS HDC
+   
    LOCAL nRetVal := 0
 
    IF ( !Empty(::m_hAttribDC) )
@@ -146,6 +147,7 @@ METHOD Restoredc(nSavedDC) CLASS HDC
    // if two distinct DCs, nSavedDC can only be -1
 
    LOCAL bRetVal := .T.
+   
    IF (::m_hDC != ::m_hAttribDC)
       bRetVal := hwg_Restoredc(::m_hDC, nSavedDC)
    ENDIF
@@ -217,6 +219,7 @@ METHOD SetViewportExt(x, y) CLASS HDC
 METHOD Setarcdirection(nArcDirection)
 
    LOCAL nResult := 0
+   
    IF (::m_hDC != ::m_hAttribDC)
       nResult = hwg_Setarcdirection(::m_hDC, nArcDirection)
    ENDIF

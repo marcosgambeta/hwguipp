@@ -102,8 +102,13 @@ METHOD Init() CLASS HStatic
    RETURN  NIL
 
 METHOD Paint(lpDis) CLASS HStatic
+   
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpDis)
-   LOCAL hDC := drawInfo[3], x1 := drawInfo[4], y1 := drawInfo[5], x2 := drawInfo[6], y2 := drawInfo[7]
+   LOCAL hDC := drawInfo[3]
+   LOCAL x1 := drawInfo[4]
+   LOCAL y1 := drawInfo[5]
+   LOCAL x2 := drawInfo[6]
+   LOCAL y2 := drawInfo[7]
 
    IF ::oFont != NIL
       hwg_Selectobject(hDC, ::oFont:handle)

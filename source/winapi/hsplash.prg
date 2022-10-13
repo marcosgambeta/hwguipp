@@ -44,8 +44,11 @@ CLASS HSplash
 ENDCLASS
 
 METHOD Create(cFile, oTime, oResource) CLASS HSplash
-   LOCAL aWidth, aHeigth
-   LOCAL bitmap, oDlg
+   
+   LOCAL aWidth
+   LOCAL aHeigth
+   LOCAL bitmap
+   LOCAL oDlg
 
    IIf(Empty(oTime) .OR. oTime == NIL, oTime := 2000, oTime := oTime)
 

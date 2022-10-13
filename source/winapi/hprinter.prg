@@ -110,7 +110,9 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 /* Returns array with captions for titles and controls of print preview dialog
   in default language english.
   Use this code snippet as template to set to your own desired language. */
+  
   LOCAL aTooltips
+  
   aTooltips := {}
 
   /* 1  */ AAdd(aTooltips,"Exit Preview")
@@ -141,7 +143,9 @@ RETURN aTooltips
 
 METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn) CLASS HPrinter
 
-   LOCAL aPrnCoors, cPrinterName, nTemp
+   LOCAL aPrnCoors
+   LOCAL cPrinterName
+   LOCAL nTemp
 
    ::DefaultLang()
 
@@ -232,7 +236,10 @@ RETURN NIL
 
 METHOD SetMode(nOrientation, nDuplex) CLASS HPrinter
 
-   LOCAL hPrinter := ::hPrinter, hDC, aPrnCoors, nTemp
+   LOCAL hPrinter := ::hPrinter
+   LOCAL hDC
+   LOCAL aPrnCoors
+   LOCAL nTemp
 
    IF !Empty(nOrientation)
       ::nOrient := nOrientation
@@ -294,6 +301,7 @@ METHOD End() CLASS HPrinter
    RETURN NIL
 
 METHOD ReleaseRes() CLASS HPrinter
+   
    LOCAL i
 
    IF !Empty(::aFonts)
@@ -386,7 +394,10 @@ METHOD Line(x1, y1, x2, y2, oPen) CLASS HPrinter
 
 METHOD Say(cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor) CLASS HPrinter
 
-   LOCAL hFont, nOldTC, nOldBC, lTr
+   LOCAL hFont
+   LOCAL nOldTC
+   LOCAL nOldBC
+   LOCAL lTr
 
    ::Recalc(@x1, @y1, @x2, @y2)
 
@@ -458,7 +469,9 @@ METHOD Bitmap(x1, y1, x2, y2, nOpt, hBitmap, cImageName) CLASS HPrinter
 
 METHOD GetTextWidth(cString, oFont) CLASS HPrinter
 
-   LOCAL arr, hFont, hDC := Iif(::lUseMeta, ::hDC, ::hDCPrn)
+   LOCAL arr
+   LOCAL hFont
+   LOCAL hDC := Iif(::lUseMeta, ::hDC, ::hDCPrn)
 
    IF oFont != NIL
       hFont := hwg_Selectobject(hDC, oFont:handle)
@@ -542,7 +555,8 @@ METHOD StartPage() CLASS HPrinter
 
 METHOD EndPage() CLASS HPrinter
 
-   LOCAL nLen, nRes := 0
+   LOCAL nLen
+   LOCAL nRes := 0
 
    IF ::lPreview
       IF ::lUseMeta
@@ -558,7 +572,9 @@ METHOD EndPage() CLASS HPrinter
 
 METHOD LoadScript(cScriptFile) CLASS HPrinter
 
-   LOCAL arr, i, s
+   LOCAL arr
+   LOCAL i
+   LOCAL s
 
    IF Empty(cScriptFile) .OR. Empty(arr := hb_aTokens(MemoRead(cScriptFile), crlf))
       RETURN .F.
@@ -586,7 +602,8 @@ METHOD LoadScript(cScriptFile) CLASS HPrinter
 
 METHOD SaveScript(cScriptFile) CLASS HPrinter
 
-   LOCAL han, i
+   LOCAL han
+   LOCAL i
 
    IF Empty(cScriptFile)
       IF Empty(::cScriptFile)
@@ -612,7 +629,8 @@ METHOD SaveScript(cScriptFile) CLASS HPrinter
 
 METHOD ReleaseMeta() CLASS HPrinter
 
-   LOCAL i, nLen
+   LOCAL i
+   LOCAL nLen
 
    IF !::lUseMeta == NIL
       RETURN NIL
@@ -638,8 +656,17 @@ Default values in array aTooltips see
 FUNCTION hwg_HPrinter_LangArray_EN()
 */
 
-   LOCAL cmExit, cmPrint, cmDialog, cmTitle
-   LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, i, aPage // := { }
+   LOCAL cmExit
+   LOCAL cmPrint
+   LOCAL cmDialog
+   LOCAL cmTitle
+   LOCAL oDlg
+   LOCAL oToolBar
+   LOCAL oSayPage
+   LOCAL oBtn
+   LOCAL oCanvas
+   LOCAL i
+   LOCAL aPage // := { }
    LOCAL oFont := HFont():Add("Times New Roman", 0, -13, 700)
    LOCAL lTransp := ( aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
 
@@ -863,8 +890,17 @@ METHOD ChangePage(oCanvas, oSayPage, n, nPage) CLASS hPrinter
 
 METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) CLASS hPrinter
 
-   LOCAL nWidth, nHeight, k1, k2, x, y
-   LOCAL i, nPos, wmsg, nPosVert, nPosHorz
+   LOCAL nWidth
+   LOCAL nHeight
+   LOCAL k1
+   LOCAL k2
+   LOCAL x
+   LOCAL y
+   LOCAL i
+   LOCAL nPos
+   LOCAL wmsg
+   LOCAL nPosVert
+   LOCAL nPosHorz
 
    x := oCanvas:nWidth
    y := oCanvas:nHeight
@@ -1024,8 +1060,10 @@ METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) CLASS hPrinter
 
 METHOD PaintDoc(oWnd) CLASS HPrinter
 
-   LOCAL pps, hDC
+   LOCAL pps
+   LOCAL hDC
    LOCAL Rect := hwg_Getclientrect(oWnd:handle)
+   
    STATIC Brush := NIL
    STATIC BrushShadow := NIL
    STATIC BrushBorder := NIL
@@ -1088,8 +1126,17 @@ METHOD PaintDoc(oWnd) CLASS HPrinter
    RETURN NIL
 
 METHOD PrintDoc(nPage) CLASS HPrinter
-   LOCAL hDCBuff, cPrinterName, cTemp, lBuffPrn := ::lBuffPrn, arr
-   LOCAL aPrnCoors, nWidth, nHeight, nHres, nVres
+   
+   LOCAL hDCBuff
+   LOCAL cPrinterName
+   LOCAL cTemp
+   LOCAL lBuffPrn := ::lBuffPrn
+   LOCAL arr
+   LOCAL aPrnCoors
+   LOCAL nWidth
+   LOCAL nHeight
+   LOCAL nHres
+   LOCAL nVres
 
    IF ::lPreview
       ::lBuffPrn := .F.
@@ -1154,7 +1201,18 @@ METHOD PrintDoc(nPage) CLASS HPrinter
    RETURN NIL
 
 METHOD PrintDlg(aTooltips) CLASS HPrinter
-   LOCAL oDlg, oGet, nChoic := 1, cpages := "", arr, arrt, i, j, n1, n2, nPos
+   
+   LOCAL oDlg
+   LOCAL oGet
+   LOCAL nChoic := 1
+   LOCAL cpages := ""
+   LOCAL arr
+   LOCAL arrt
+   LOCAL i
+   LOCAL j
+   LOCAL n1
+   LOCAL n2
+   LOCAL nPos
 
    IF aTooltips == NIL
     aTooltips := ::aLangTexts
@@ -1203,11 +1261,33 @@ METHOD PrintDlg(aTooltips) CLASS HPrinter
 
 METHOD PrintScript(hDC, nPage, x1, y1, x2, y2) CLASS HPrinter
 
-   LOCAL i, j, arr, nPos, sCom
-   LOCAL nOpt, cTemp
-   LOCAL name, height, weight, italic, underline, charset, oFont
-   LOCAL width, style, color, oPen, hBitmap
-   LOCAL nWidth, nHeight, nHRes, nVRes, nHResNew, nVResNew, xOff, yOff
+   LOCAL i
+   LOCAL j
+   LOCAL arr
+   LOCAL nPos
+   LOCAL sCom
+   LOCAL nOpt
+   LOCAL cTemp
+   LOCAL name
+   LOCAL height
+   LOCAL weight
+   LOCAL italic
+   LOCAL underline
+   LOCAL charset
+   LOCAL oFont
+   LOCAL width
+   LOCAL style
+   LOCAL color
+   LOCAL oPen
+   LOCAL hBitmap
+   LOCAL nWidth
+   LOCAL nHeight
+   LOCAL nHRes
+   LOCAL nVRes
+   LOCAL nHResNew
+   LOCAL nVResNew
+   LOCAL xOff
+   LOCAL yOff
 
    IF Empty(::aPages) .OR. Empty(nPage) .OR. Len(::aPages) < nPage .OR. Empty(arr := hb_aTokens(::aPages[nPage], crlf))
       RETURN NIL
@@ -1310,8 +1390,21 @@ METHOD PrintScript(hDC, nPage, x1, y1, x2, y2) CLASS HPrinter
    RETURN NIL
 
 Static Function MessProc(oPrinter, oPanel, lParam)
-   LOCAL xPos, yPos, nPage := oPrinter:nCurrPage, arr, i, j, nPos, x1, y1, x2, y2, cTemp
-   LOCAL nHRes, nVRes
+   
+   LOCAL xPos
+   LOCAL yPos
+   LOCAL nPage := oPrinter:nCurrPage
+   LOCAL arr
+   LOCAL i
+   LOCAL j
+   LOCAL nPos
+   LOCAL x1
+   LOCAL y1
+   LOCAL x2
+   LOCAL y2
+   LOCAL cTemp
+   LOCAL nHRes
+   LOCAL nVRes
 
    xPos := hwg_Loword(lParam)
    yPos := hwg_Hiword(lParam)

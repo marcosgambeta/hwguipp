@@ -115,6 +115,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
    RETURN Self
 
 METHOD Init() CLASS HListBox
+   
    LOCAL i
 
    IF !::lInit
@@ -139,7 +140,8 @@ METHOD Init() CLASS HListBox
    RETURN NIL
 
 METHOD onEvent(msg, wParam, lParam) CLASS HListBox
- Local nEval
+
+   LOCAL nEval
 
    IF HB_ISBLOCK(::bOther)
       IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != -1 .AND. nEval != NIL
@@ -163,7 +165,8 @@ METHOD onEvent(msg, wParam, lParam) CLASS HListBox
    RETURN -1
 
 METHOD Requery() CLASS HListBox
-   Local i
+   
+   LOCAL i
 
    hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
    FOR i := 1 TO Len(::aItems)
@@ -175,7 +178,9 @@ METHOD Requery() CLASS HListBox
 
 
 METHOD Refresh() CLASS HListBox
+   
    LOCAL vari
+   
    IF HB_ISBLOCK(::bSetGet)
       vari := Eval(::bSetGet)
    ENDIF
@@ -232,6 +237,7 @@ METHOD Clear() CLASS HListBox
 
 
 METHOD onChange(oCtrl) CLASS HListBox
+   
    LOCAL nPos
 
    HB_SYMBOL_UNUSED(oCtrl)
@@ -243,6 +249,7 @@ METHOD onChange(oCtrl) CLASS HListBox
 
 
 METHOD When(oCtrl) CLASS HListBox
+   
    LOCAL res := .T.
    
    // Variable not used
@@ -265,7 +272,9 @@ METHOD When(oCtrl) CLASS HListBox
 
 
 METHOD Valid(oCtrl) CLASS HListBox
-   LOCAL res, oDlg
+   
+   LOCAL res
+   LOCAL oDlg
 
    HB_SYMBOL_UNUSED(oCtrl)
 

@@ -82,6 +82,7 @@ METHOD INIT() CLASS hrebar
    RETURN NIL
 
 METHOD CreateBands(pBar, pszText, clrFore, clrBack, pbmp, dwStyle) CLASS hrebar
+   
    LOCAL i
 
    IF pBar != NIL

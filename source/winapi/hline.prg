@@ -54,10 +54,13 @@ METHOD Activate() CLASS HLine
    RETURN NIL
 
 METHOD Paint(lpdis) CLASS HLine
+   
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
    LOCAL hDC := drawInfo[3]
-   LOCAL x1  := drawInfo[4], y1 := drawInfo[5]
-   LOCAL x2  := drawInfo[6], y2 := drawInfo[7]
+   LOCAL x1 := drawInfo[4]
+   LOCAL y1 := drawInfo[5]
+   LOCAL x2 := drawInfo[6]
+   LOCAL y2 := drawInfo[7]
 
    hwg_Selectobject(hDC, ::oPenLight:handle)
    IF ::lVert

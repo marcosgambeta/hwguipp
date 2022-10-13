@@ -95,6 +95,7 @@ METHOD Enabled(lEnabled) CLASS HToolButton
    RETURN ::lEnabled
 
 METHOD Pressed(lPressed) CLASS HToolButton
+   
    LOCAL nState
 
    IF lPressed != NIL
@@ -106,6 +107,7 @@ METHOD Pressed(lPressed) CLASS HToolButton
    RETURN ::lPressed
 
 METHOD Checked(lcheck) CLASS HToolButton
+   
    LOCAL nState
 
    IF lCheck != NIL

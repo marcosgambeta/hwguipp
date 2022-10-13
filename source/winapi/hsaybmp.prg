@@ -85,7 +85,9 @@ METHOD Init() CLASS HSayBmp
    RETURN NIL
 
 METHOD Paint(lpdis) CLASS HSayBmp
-   LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis), n
+   
+   LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
+   LOCAL n
 
    IF ::brush != NIL
       hwg_Fillrect(drawInfo[3], drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7], ::brush:handle)

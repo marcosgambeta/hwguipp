@@ -115,8 +115,8 @@ METHOD INIT() CLASS HNiceButton
 
 FUNCTION hwg_NICEBUTTPROC(hBtn, msg, wParam, lParam)
 
-
    LOCAL oBtn
+
    IF msg != WM_CREATE
       IF AScan({WM_MOUSEMOVE, WM_PAINT, WM_LBUTTONDOWN, WM_LBUTTONUP, WM_LBUTTONDBLCLK, WM_DESTROY, WM_MOVING, WM_SIZE}, msg ) > 0
          IF ( oBtn := hwg_FindSelf(hBtn) ) == NIL
@@ -149,7 +149,7 @@ METHOD Create() CLASS HNICEButton
    LOCAL Rct
    LOCAL w
    LOCAL h
-   
+
 // Not used variables
 //   LOCAL x
 //   LOCAL y
@@ -180,7 +180,6 @@ METHOD Moving() CLASS HNICEButton
    RETURN Self
 
 METHOD MouseMove(wParam, lParam) CLASS HNICEButton
-
 
    LOCAL otmp
 
@@ -322,11 +321,10 @@ METHOD RELEASE() CLASS HNiceButton
 
 FUNCTION hwg_SetNiceBtnSelected(oBtn)
 
-
-   LOCAL otmp := HNiceButton() :oSelected
+   LOCAL otmp := HNiceButton():oSelected
 
    IF PCount() > 0
-      HNiceButton() :oSelected := oBtn
+      HNiceButton():oSelected := oBtn
    ENDIF
 
    RETURN otmp

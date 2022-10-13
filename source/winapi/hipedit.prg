@@ -107,6 +107,7 @@ METHOD END() CLASS HIPedit
 
 
 STATIC FUNCTION __GetFocus(oCtrl)
+   
    LOCAL xRet
 
    IF HB_ISBLOCK(oCtrl:bGetFocus)
@@ -117,6 +118,7 @@ STATIC FUNCTION __GetFocus(oCtrl)
 
 
 STATIC FUNCTION __KillFocus(oCtrl)
+   
    LOCAL xRet
 
    IF HB_ISBLOCK(oCtrl:bKillFocus)

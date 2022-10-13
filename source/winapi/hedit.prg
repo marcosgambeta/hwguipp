@@ -1216,7 +1216,7 @@ FUNCTION hwg_Len(cString)
 
 FUNCTION hwg_GET_Helper(cp_get,nlen)
 
-LOCAL c_get
+   LOCAL c_get
 
 #ifndef __GTK__
   HB_SYMBOL_UNUSED(nlen)

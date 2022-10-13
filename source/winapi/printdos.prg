@@ -80,12 +80,13 @@ ENDCLASS
 
 METHOD New(oPorta) CLASS PrintDos
 
-   LOCAL oDouble  := { oMATRIXDOUBLE, oINKJETDOUBLE, oLASER10CPI }
-   LOCAL oNormal  := { oMATRIXNORMAL, oINKJETNORMAL, oLASER12CPI }
+   LOCAL oDouble := { oMATRIXDOUBLE, oINKJETDOUBLE, oLASER10CPI }
+   LOCAL oNormal := { oMATRIXNORMAL, oINKJETNORMAL, oLASER12CPI }
    LOCAL oCompress := { oMATRIXCOMPRESS, oINKJETCOMPRESS, oLASER18CPI }
-   LOCAL oBold    := { oMATRIXBOLD, oINKJETBOLD, oLASERBOLD }       //Added by  por Fernando Athayde
-   LOCAL oUnBold  := { oMATRIXUNBOLD, oINKJETUNBOLD, oLASERUNBOLD }       //Added by  por Fernando Athayde
-   LOCAL oPtrSetup, oPtrName
+   LOCAL oBold := { oMATRIXBOLD, oINKJETBOLD, oLASERBOLD }       //Added by  por Fernando Athayde
+   LOCAL oUnBold := { oMATRIXUNBOLD, oINKJETUNBOLD, oLASERUNBOLD }       //Added by  por Fernando Athayde
+   LOCAL oPtrSetup
+   LOCAL oPtrName
 
    ::DefaultLang()
 
@@ -340,7 +341,8 @@ METHOD END() CLASS PrintDos
 METHOD PrinterFile(fname) CLASS PrintDos
 
    LOCAL strbuf := Space(PF_BUFFERS)
-   LOCAL han, nRead
+   LOCAL han
+   LOCAL nRead
 
    IF !File(fname)
       hwg_Msgstop("Error open file " + fname, "Error")
@@ -391,9 +393,12 @@ FUNCTION hwg_wSetPrc(x, y, oPrinter)
 
 METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
 
-   LOCAL strbuf := Space(2052), poz := 2052, stroka
+   LOCAL strbuf := Space(2052)
+   LOCAL poz := 2052
+   LOCAL stroka
    LOCAL han := FOpen(fName, FO_READ + FO_SHARED)
-   LOCAL oCol := 0, oPage := 1  //Added by  Por Fernando Athayde
+   LOCAL oCol := 0
+   LOCAL oPage := 1  //Added by  Por Fernando Athayde
    LOCAL oPrinter
    LOCAL oFont
 
@@ -448,12 +453,18 @@ METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
 METHOD Preview(fName, cTitle) CLASS PrintDos
 
    LOCAL oedit1
-   LOCAL strbuf := Space(2052), poz := 2052, stroka
+   LOCAL strbuf := Space(2052)
+   LOCAL poz := 2052
+   LOCAL stroka
    LOCAL han := FOpen(fName, FO_READ + FO_SHARED)
-   LOCAL oCol := 10, oPage := 1, nPage := 1
+   LOCAL oCol := 10
+   LOCAL oPage := 1
+   LOCAL nPage := 1
    LOCAL oFont := HFont():Add("Courier New", 0, -13)
    LOCAL oText := { "" }
-   LOCAL oDlg, oColor1, oColor2
+   LOCAL oDlg
+   LOCAL oColor1
+   LOCAL oColor2
    LOCAL oEdit
    LOCAL oPrt := IIf(Empty(::oPorta) .OR. ::oPorta == "PREVIEW", "LPT1", ::oPorta)
 

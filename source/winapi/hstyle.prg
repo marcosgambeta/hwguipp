@@ -29,7 +29,8 @@ ENDCLASS
 
 METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap) CLASS HStyle
 
-   LOCAL i, nlen := Len(::aStyles)
+   LOCAL i
+   LOCAL nlen := Len(::aStyles)
 
    nBorder := Iif(nBorder == NIL, 0, nBorder)
    tColor := Iif(tColor == NIL, 0, tColor)
@@ -65,7 +66,9 @@ METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap) CLASS HStyle
 
 METHOD Draw(hDC, nLeft, nTop, nRight, nBottom) CLASS HStyle
 
-   LOCAL n1, n2
+   LOCAL n1
+   LOCAL n2
+   
    IF ::oBitmap == NIL
       hwg_drawGradient(hDC, nLeft, nTop, nRight, nBottom, ::nOrient, ::aColors, NIL, ::aCorners)
    ELSE

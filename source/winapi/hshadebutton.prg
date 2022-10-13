@@ -49,7 +49,9 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
    RETURN Self
 
 METHOD Paint() CLASS HShadeButton
-   LOCAL pps, hDC
+   
+   LOCAL pps
+   LOCAL hDC
    LOCAL nState
 
    pps := hwg_Definepaintstru()

@@ -174,8 +174,10 @@ STATIC FUNCTION FltGoBottom(oBrw)
 
 STATIC FUNCTION FltBOF(oBrw)
 
-   LOCAL lRet := .F., nRecord
-   LOCAL xValue, xFirstValue
+   LOCAL lRet := .F.
+   LOCAL nRecord
+   LOCAL xValue
+   LOCAL xFirstValue
 
    IF Bof()
       lRet := .T.
@@ -200,8 +202,10 @@ STATIC FUNCTION FltBOF(oBrw)
 
 STATIC FUNCTION FltEOF(oBrw)
 
-   LOCAL lRet := .F., nRecord
-   LOCAL xValue, xLastValue
+   LOCAL lRet := .F.
+   LOCAL nRecord
+   LOCAL xValue
+   LOCAL xLastValue
 
    IF Eof()
       lRet := .T.
@@ -227,7 +231,8 @@ STATIC FUNCTION FltEOF(oBrw)
 
 STATIC FUNCTION FltRecCount(oBrw)
 
-   LOCAL nRecord, nCount := 0
+   LOCAL nRecord
+   LOCAL nCount := 0
 
    nRecord := FltRecNo(oBrw)
    FltGoTop(oBrw)

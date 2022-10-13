@@ -89,7 +89,15 @@ CLASS HTreeNode INHERIT HObject
 ENDCLASS
 
 METHOD New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages) CLASS HTreeNode
-   LOCAL aItems, i, h, im1, im2, cImage, op, nPos
+   
+   LOCAL aItems
+   LOCAL i
+   LOCAL h
+   LOCAL im1
+   LOCAL im2
+   LOCAL cImage
+   LOCAL op
+   LOCAL nPos
 
    ::oTree := oTree
    ::oParent := oParent
@@ -161,13 +169,18 @@ METHOD New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages) CLASS HTreeNod
    RETURN Self
 
 METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages) CLASS HTreeNode
+   
    LOCAL oParent := Self
    LOCAL oNode := HTreeNode():New(::oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
 
    RETURN oNode
 
 METHOD Delete(lInternal) CLASS HTreeNode
-   LOCAL h := ::handle, j, alen, aItems
+   
+   LOCAL h := ::handle
+   LOCAL j
+   LOCAL alen
+   LOCAL aItems
 
    IF !Empty(::aItems)
       alen := Len(::aItems)
@@ -189,7 +202,12 @@ METHOD Delete(lInternal) CLASS HTreeNode
    RETURN NIL
 
 METHOD FindChild(h) CLASS HTreeNode
-   LOCAL aItems := ::aItems, i, alen := Len(aItems), oNode
+   
+   LOCAL aItems := ::aItems
+   LOCAL i
+   LOCAL alen := Len(aItems)
+   LOCAL oNode
+
    FOR i := 1 TO alen
       IF aItems[i]:handle == h
          RETURN aItems[i]
@@ -230,7 +248,9 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
            bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC) CLASS HTree
-   LOCAL i, aBmpSize
+   
+   LOCAL i
+   LOCAL aBmpSize
 
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + TVS_HASLINES + TVS_LINESATROOT + TVS_HASBUTTONS + TVS_SHOWSELALWAYS + ;
       IIf(lEditLabels == NIL .OR. !lEditLabels, 0, TVS_EDITLABELS))
@@ -279,12 +299,19 @@ METHOD Activate() CLASS HTree
    RETURN NIL
 
 METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages) CLASS HTree
+   
    LOCAL oNode := HTreeNode():New(Self, NIL, oPrev, oNext, cTitle, bClick, aImages)
+
    ::lEmpty := .F.
    RETURN oNode
 
 METHOD FindChild(h) CLASS HTree
-   LOCAL aItems := ::aItems, i, alen := Len(aItems), oNode
+   
+   LOCAL aItems := ::aItems
+   LOCAL i
+   LOCAL alen := Len(aItems)
+   LOCAL oNode
+
    FOR i := 1 TO alen
       IF aItems[i]:handle == h
          RETURN aItems[i]
@@ -306,7 +333,11 @@ METHOD Clean() CLASS HTree
    RETURN NIL
 
 METHOD Notify(lParam)  CLASS HTree
-   LOCAL nCode := hwg_Getnotifycode(lParam), oItem, cText, nAct
+   
+   LOCAL nCode := hwg_Getnotifycode(lParam)
+   LOCAL oItem
+   LOCAL cText
+   LOCAL nAct
 
    SWITCH nCode
 
@@ -380,7 +411,9 @@ METHOD End() CLASS HTree
    RETURN NIL
 
 STATIC PROCEDURE ReleaseTree(aItems)
-   LOCAL i, iLen := Len(aItems)
+   
+   LOCAL i
+   LOCAL iLen := Len(aItems)
 
    FOR i := 1 TO iLen
       hwg_Treereleasenode(aItems[i]:oTree:handle, aItems[i]:handle)

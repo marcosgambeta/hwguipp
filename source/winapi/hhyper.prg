@@ -55,7 +55,8 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor) CLASS HStaticLink
 
-   LOCAL oPrevFont, n
+   LOCAL oPrevFont
+   LOCAL n
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp)
 
@@ -278,7 +279,9 @@ METHOD OnMouseMove(nFlags, lParam) CLASS HStaticLink
 
 METHOD Paint() CLASS HStaticLink
 
-   LOCAL pps, hDC, aCoors
+   LOCAL pps
+   LOCAL hDC
+   LOCAL aCoors
 
    IF ::state == LBL_INIT
       ::state := LBL_NORMAL

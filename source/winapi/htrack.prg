@@ -132,7 +132,10 @@ METHOD Init() CLASS HTrack
 
 METHOD Paint() CLASS HTrack
 
-   LOCAL nHalf, nw, x1, y1
+   LOCAL nHalf
+   LOCAL nw
+   LOCAL x1
+   LOCAL y1
    LOCAL pps := hwg_Definepaintstru()
    LOCAL hDC := hwg_Beginpaint(::handle, pps)
 
@@ -195,7 +198,9 @@ METHOD Paint() CLASS HTrack
 METHOD Drag(xPos, yPos) CLASS HTrack
 
    LOCAL nCurr := ::nCurr
-   LOCAL nHalf := Int(::nSize/2), x1, y1
+   LOCAL nHalf := Int(::nSize/2)
+   LOCAL x1
+   LOCAL y1
 
 
    HB_SYMBOL_UNUSED(nhalf)

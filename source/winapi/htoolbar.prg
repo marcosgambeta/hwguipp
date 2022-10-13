@@ -152,12 +152,19 @@ METHOD INIT() CLASS hToolBar
    RETURN NIL
 
 METHOD CREATETOOL() CLASS hToolBar
-   LOCAL n, n1
+   
+   LOCAL n
+   LOCAL n1
    LOCAL aTemp
    LOCAL aButton := {}
-   LOCAL aBmpSize, hIm, nPos
+   LOCAL aBmpSize
+   LOCAL hIm
+   LOCAL nPos
    LOCAL nMax := 0
-   LOCAL hImage, img, nlistimg, ndrop := 0
+   LOCAL hImage
+   LOCAL img
+   LOCAL nlistimg
+   LOCAL ndrop := 0
 
    IF !::lResource
       IF Empty(::handle)
@@ -270,7 +277,6 @@ METHOD Notify(lParam) CLASS hToolBar
 
    LOCAL nCode :=  hwg_Getnotifycode(lParam)
    LOCAL nId
-
    LOCAL nButton
    LOCAL nPos
 
@@ -306,7 +312,9 @@ METHOD Notify(lParam) CLASS hToolBar
    RETURN 0
 
 METHOD AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nIndex) CLASS hToolBar
-   LOCAL hMenu := NIL, oButton
+   
+   LOCAL hMenu := NIL
+   LOCAL oButton
 
    DEFAULT nBitIp to - 1
    DEFAULT bstate TO TBSTATE_ENABLED
@@ -339,6 +347,7 @@ METHOD AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nI
    RETURN oButton
 
 METHOD RESIZE(xIncrSize, lWidth, lHeight) CLASS hToolBar
+   
    LOCAL nSize
 
    IF ::Anchor = 0 .OR. ( !lWidth .AND. !lHeight )

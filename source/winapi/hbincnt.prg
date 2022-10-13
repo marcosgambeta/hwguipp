@@ -85,7 +85,12 @@ METHOD Create(cName, n) CLASS HBinC
    RETURN Self
 
 METHOD Open(cName, lWr) CLASS HBinC
-   LOCAL cBuf, i, nLen, arr, nAddr := 0
+   
+   LOCAL cBuf
+   LOCAL i
+   LOCAL nLen
+   LOCAL arr
+   LOCAL nAddr := 0
 
    ::cName := cName
    ::lWriteAble := !Empty(lWr)
@@ -135,7 +140,12 @@ METHOD Close() CLASS HBinC
    RETURN NIL
 
 METHOD Add(cObjName, cType, cVal) CLASS HBinC
-   LOCAL nAddress, nSize, cAddress, cSize, nAddr
+   
+   LOCAL nAddress
+   LOCAL nSize
+   LOCAL cAddress
+   LOCAL cSize
+   LOCAL nAddr
 
    IF !::lWriteAble
       RETURN .F.
@@ -176,6 +186,7 @@ METHOD Add(cObjName, cType, cVal) CLASS HBinC
    RETURN .T.
 
 METHOD Del(cObjName) CLASS HBinC
+   
    LOCAL n
 
    IF !::lWriteAble
@@ -193,9 +204,17 @@ METHOD Del(cObjName) CLASS HBinC
    RETURN .T.
 
 METHOD Pack() CLASS HBinC
-   LOCAL i, nItems := 0, nCntLen := 0
-   LOCAL nAddr, cAddr, cSize, a
-   Local s := cHead + Chr(::nVerHigh) + Chr(::nVerLow) + Chr(0), handle, cTempName
+   
+   LOCAL i
+   LOCAL nItems := 0
+   LOCAL nCntLen := 0
+   LOCAL nAddr
+   LOCAL cAddr
+   LOCAL cSize
+   LOCAL a
+   LOCAL s := cHead + Chr(::nVerHigh) + Chr(::nVerLow) + Chr(0)
+   LOCAL handle
+   LOCAL cTempName
 
    IF !::lWriteAble
       RETURN .F.
@@ -254,7 +273,9 @@ METHOD Pack() CLASS HBinC
    RETURN .T.
 
 METHOD Get(cObjName) CLASS HBinC
-   LOCAL n, cBuf
+   
+   LOCAL n
+   LOCAL cBuf
 
    cObjName := Lower(cObjName)
    IF (n := Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})) == 0
@@ -281,7 +302,8 @@ METHOD GetPos(cObjName)  CLASS HBinC
   
 METHOD GetType(cObjName)
 
-  LOCAL n, crettype := ""
+  LOCAL n
+  LOCAL crettype := ""
 
   cObjName := Lower(cObjName)
   

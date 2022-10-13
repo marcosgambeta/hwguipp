@@ -73,7 +73,9 @@ METHOD End() CLASS HTimer
 
 FUNCTION hwg_TimerProc(hWnd, idTimer) //, time )
 
-   LOCAL i := Ascan(HTimer():aTimers, {|o|o:id == idTimer}), b, oParent
+   LOCAL i := Ascan(HTimer():aTimers, {|o|o:id == idTimer})
+   LOCAL b
+   LOCAL oParent
 
    HB_SYMBOL_UNUSED(hWnd)
 
