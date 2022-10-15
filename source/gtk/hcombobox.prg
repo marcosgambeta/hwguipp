@@ -206,9 +206,9 @@ METHOD SetItem( nPos ) CLASS HComboBox
    RETURN NIL
 
 METHOD GetValue( nItem ) CLASS HComboBox
+   
    LOCAL nPos := hwg_ComboGet( ::handle )
-   LOCAL vari := iif( !Empty(::aItems) .AND. nPos > 0, ;
-      iif( HB_ISARRAY(::aItems[1]), ::aItems[nPos,1], ::aItems[nPos] ), "" )
+   LOCAL vari := iif( !Empty(::aItems) .AND. nPos > 0, iif( HB_ISARRAY(::aItems[1]), ::aItems[nPos,1], ::aItems[nPos] ), "" )
    LOCAL l := nPos > 0 .AND. HB_ISARRAY(::aItems[nPos])
 
    ::xValue := iif( ::lText, vari, nPos )
@@ -255,6 +255,7 @@ STATIC FUNCTION __Valid( oCtrl )
    RETURN .T.
 
 STATIC FUNCTION __When( oCtrl )
+   
    LOCAL res
 
    IF oCtrl:bGetFocus != NIL

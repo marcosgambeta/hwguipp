@@ -54,7 +54,8 @@ METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
 
 METHOD Interval( n ) CLASS HTimer
 
-   LOCAL nOld := ::value, nId
+   LOCAL nOld := ::value
+   LOCAL nId
 
    IF n != NIL
       IF n > 0
@@ -70,6 +71,7 @@ METHOD Interval( n ) CLASS HTimer
    RETURN nOld
 
 METHOD End() CLASS HTimer
+   
    LOCAL i
 
    //hwg_KillTimer( ::tag )
@@ -84,7 +86,9 @@ METHOD End() CLASS HTimer
 
 FUNCTION hwg_TimerProc( idTimer )
 
-   LOCAL i := Ascan( HTimer():aTimers, { |o|o:id == idTimer } ), b, oParent
+   LOCAL i := Ascan( HTimer():aTimers, { |o|o:id == idTimer } )
+   LOCAL b
+   LOCAL oParent
 
    IF i != 0 .AND. ValType( HTimer():aTimers[i]:bAction ) == "B"
       b := HTimer():aTimers[i]:bAction
@@ -99,7 +103,9 @@ FUNCTION hwg_TimerProc( idTimer )
    RETURN 0
 
 FUNCTION hwg_ReleaseTimers()
-   LOCAL oTimer, i
+   
+   LOCAL oTimer
+   LOCAL i
 
    For i := 1 TO Len( HTimer():aTimers )
       oTimer := HTimer():aTimers[i]

@@ -109,7 +109,9 @@ METHOD Init() CLASS HSplitter
    RETURN NIL
 
 METHOD Paint() CLASS HSplitter
-   LOCAL hDC, aCoors
+   
+   LOCAL hDC
+   LOCAL aCoors
 
    IF ::bPaint != NIL
       Eval( ::bPaint, Self )
@@ -133,7 +135,9 @@ METHOD Move( x1, y1, width, height )  CLASS HSplitter
    RETURN NIL
 */
 METHOD Drag( xPos, yPos ) CLASS HSplitter
-   LOCAL nFrom, nTo
+   
+   LOCAL nFrom
+   LOCAL nTo
 
    nFrom := iif( ::nFrom == NIL, 1, ::nFrom )
    nTo := iif( ::nTo == NIL, iif( ::lVertical,::oParent:nWidth - 1,::oParent:nHeight - 1 ), ::nTo )
@@ -158,7 +162,12 @@ METHOD Drag( xPos, yPos ) CLASS HSplitter
    RETURN NIL
 
 METHOD DragAll( xPos, yPos ) CLASS HSplitter
-   LOCAL i, oCtrl, nDiff, wold, hold
+   
+   LOCAL i
+   LOCAL oCtrl
+   LOCAL nDiff
+   LOCAL wold
+   LOCAL hold
 
    IF xPos != NIL .OR. yPos != NIL
       ::Drag( xPos, yPos )

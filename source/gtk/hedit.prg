@@ -114,6 +114,7 @@ METHOD Activate() CLASS HEdit
    RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
+   
    LOCAL oParent
    LOCAL nPos
 
@@ -306,6 +307,7 @@ METHOD Init()  CLASS HEdit
    RETURN NIL
 
 METHOD Refresh()  CLASS HEdit
+   
    LOCAL vari
 
    IF ::bSetGet != NIL
@@ -359,7 +361,11 @@ METHOD Value( xValue ) CLASS HEdit
    RETURN vari
 
 METHOD ParsePict( cPicture, vari ) CLASS HEdit
-   LOCAL nAt, i, masklen, cChar
+   
+   LOCAL nAt
+   LOCAL i
+   LOCAL masklen
+   LOCAL cChar
 
    IF ::bSetGet == NIL
       RETURN NIL
@@ -422,6 +428,7 @@ METHOD ParsePict( cPicture, vari ) CLASS HEdit
    RETURN NIL
 
 STATIC FUNCTION IsEditable( oEdit, nPos )
+   
    LOCAL cChar
 
    IF Empty(oEdit:cPicMask)
@@ -446,9 +453,11 @@ STATIC FUNCTION IsEditable( oEdit, nPos )
    RETURN .F.
 
 STATIC FUNCTION KeyRight( oEdit, nPos )
-   LOCAL masklen, newpos 
-   * Variables not used
-   * i , vari
+   
+   LOCAL masklen
+   LOCAL newpos
+   // Variables not used
+   // i , vari
 
    IF oEdit == NIL
       RETURN 0
@@ -482,8 +491,9 @@ STATIC FUNCTION KeyRight( oEdit, nPos )
    RETURN 1
 
 STATIC FUNCTION KeyLeft( oEdit, nPos )
-   * Variables not used
-   * LOCAL i
+   
+   // Variables not used
+   // LOCAL i
 
    IF oEdit == NIL
       RETURN 0
@@ -505,8 +515,10 @@ STATIC FUNCTION KeyLeft( oEdit, nPos )
    RETURN 1
 
 STATIC FUNCTION DeleteChar( oEdit, lBack )
+   
    LOCAL nPos := hwg_edit_Getpos( oEdit:handle ) + iif( !lBack, 1, 0 )
-   LOCAL nGetLen := Len( oEdit:cPicMask ), nLen
+   LOCAL nGetLen := Len( oEdit:cPicMask )
+   LOCAL nLen
 
    FOR nLen := 0 TO nGetLen
       IF !IsEditable( oEdit, nPos + nLen )
@@ -533,6 +545,7 @@ STATIC FUNCTION DeleteChar( oEdit, lBack )
    RETURN NIL
 
 STATIC FUNCTION INPUT( oEdit, cChar, nPos )
+   
    LOCAL cPic
 
    IF !Empty(oEdit:cPicMask) .AND. nPos > Len( oEdit:cPicMask )
@@ -592,7 +605,13 @@ STATIC FUNCTION INPUT( oEdit, cChar, nPos )
    RETURN cChar
 
 STATIC FUNCTION GetApplyKey( oEdit, cKey )
-   LOCAL nPos, nGetLen, nLen, vari, i, newPos
+   
+   LOCAL nPos
+   LOCAL nGetLen
+   LOCAL nLen
+   LOCAL vari
+   LOCAL i
+   LOCAL newPos
 
    // hwg_WriteLog( "GetApplyKey "+str(asc(ckey)) )
    IF oEdit:lFirst
@@ -681,6 +700,7 @@ STATIC FUNCTION GetApplyKey( oEdit, cKey )
    RETURN 1
 
 STATIC FUNCTION __setInitPos( oCtrl )
+   
    LOCAL n := 1
 
    IF !Empty(oCtrl:cPicMask)
@@ -693,6 +713,7 @@ STATIC FUNCTION __setInitPos( oCtrl )
    RETURN NIL
 
 STATIC FUNCTION __When( oCtrl )
+   
    LOCAL res := .T.
 
    oCtrl:Refresh()
@@ -707,7 +728,9 @@ STATIC FUNCTION __When( oCtrl )
    RETURN res
 
 STATIC FUNCTION __valid( oCtrl )
-   LOCAL vari, oDlg
+   
+   LOCAL vari
+   LOCAL oDlg
 
    IF oCtrl:bSetGet != NIL
       IF ( oDlg := hwg_getParentForm( oCtrl ) ) == NIL .OR. oDlg:nLastKey != 27
@@ -749,7 +772,11 @@ STATIC FUNCTION __valid( oCtrl )
    RETURN .T.
 
 STATIC FUNCTION Untransform( oEdit, cBuffer )
-   LOCAL xValue, cChar, nFor, minus
+   
+   LOCAL xValue
+   LOCAL cChar
+   LOCAL nFor
+   LOCAL minus
 
    IF oEdit:cType == "C"
 
@@ -839,7 +866,9 @@ STATIC FUNCTION Untransform( oEdit, cBuffer )
    RETURN xValue
 
 STATIC FUNCTION FirstEditable( oEdit )
-   LOCAL nFor, nMaxLen := Len( oEdit:cPicMask )
+   
+   LOCAL nFor
+   LOCAL nMaxLen := Len( oEdit:cPicMask )
 
    IF IsEditable( oEdit, 1 )
       RETURN 1
@@ -854,7 +883,9 @@ STATIC FUNCTION FirstEditable( oEdit )
    RETURN 0
 
 STATIC FUNCTION  LastEditable( oEdit )
-   LOCAL nFor, nMaxLen := Len( oEdit:cPicMask )
+   
+   LOCAL nFor
+   LOCAL nMaxLen := Len( oEdit:cPicMask )
 
    FOR nFor := nMaxLen TO 1 step - 1
       IF IsEditable( oEdit, nFor )
@@ -865,7 +896,9 @@ STATIC FUNCTION  LastEditable( oEdit )
    RETURN 0
 
 STATIC FUNCTION IsBadDate( cBuffer )
-   LOCAL i, nLen
+   
+   LOCAL i
+   LOCAL nLen
 
    IF !Empty(CToD( cBuffer ))
       RETURN .F.
@@ -883,6 +916,7 @@ STATIC FUNCTION DoCopy( oEdit )
 
    LOCAL cClipboardText := hwg_Edit_GetText( oEdit:handle )
    LOCAL aPos := hwg_Edit_GetSelPos( oEdit:handle )
+
    IF aPos != NIL .AND. aPos[2] > aPos[1] .AND.aPos[2] - aPos[1] < hwg_Len( cClipboardText )
       hwg_Copystringtoclipboard(hwg_SubStr(cClipboardText, aPos[1] + 1, aPos[2] - aPos[1]))
    ELSE
@@ -892,7 +926,8 @@ STATIC FUNCTION DoCopy( oEdit )
 
 STATIC FUNCTION DoPaste( oEdit )
 
-   LOCAL cClipboardText := hwg_Getclipboardtext(), nPos
+   LOCAL cClipboardText := hwg_Getclipboardtext()
+   LOCAL nPos
 
    IF ! Empty(cClipboardText)
       FOR nPos = 1 TO hwg_Len( cClipboardText )
@@ -905,7 +940,10 @@ STATIC FUNCTION DoPaste( oEdit )
 
 FUNCTION hwg_CreateGetList( oDlg )
 
-   LOCAL i, j, aLen1 := Len( oDlg:aControls ), aLen2
+   LOCAL i
+   LOCAL j
+   LOCAL aLen1 := Len( oDlg:aControls )
+   LOCAL aLen2
 
    FOR i := 1 TO aLen1
       IF __ObjHasMsg( oDlg:aControls[i], "BSETGET" ) .AND. oDlg:aControls[i]:bSetGet != NIL
@@ -924,7 +962,8 @@ FUNCTION hwg_CreateGetList( oDlg )
 
 FUNCTION hwg_GetSkip( oParent, hCtrl, nSkip, lClipper )
 
-   LOCAL i, aLen
+   LOCAL i
+   LOCAL aLen
 
    DO WHILE oParent != NIL .AND. !__ObjHasMsg( oParent, "GETLIST" )
       oParent := oParent:oParent
@@ -1010,7 +1049,7 @@ FUNCTION hwg_Len( cString )
 
 FUNCTION hwg_GET_Helper(cp_get,nlen)
  
-LOCAL c_get 
+   LOCAL c_get 
 
   c_get := cp_get
 

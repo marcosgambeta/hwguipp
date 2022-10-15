@@ -85,10 +85,11 @@ ENDCLASS
 
 METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC ) CLASS HTree
-   LOCAL i 
-
-   * Variables not used
-   * LOCAL aBmpSize
+   
+   LOCAL i
+   
+   // Variables not used
+   // LOCAL aBmpSize
 
    * Parameters not used
    HB_SYMBOL_UNUSED(lEditLabels)
@@ -139,9 +140,9 @@ METHOD Activate() CLASS HTree
 
 METHOD onEvent( msg, wParam, lParam )  CLASS HTree
 
-   LOCAL retValue := - 1
-   * Variables not used
-   * LOCAL aCoors 
+   LOCAL retValue := -1
+   // Variables not used
+   // LOCAL aCoors 
 
    IF ::bOther != NIL
       Eval( ::bOther, Self, msg, wParam, lParam )
@@ -210,6 +211,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HTree
    RETURN retValue
 
 METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages ) CLASS HTree
+   
    LOCAL oNode := HTreeNode():New( Self, Self, oPrev, oNext, cTitle, bClick, aImages )
 
    ::lEmpty := .F.
@@ -256,11 +258,18 @@ METHOD Refresh() CLASS HTree
    RETURN NIL
 
 METHOD Paint() CLASS HTree
+   
    LOCAL hDC
-   LOCAL aCoors, aMetr, y1, y2, oNode, nNode, nLine := 1
-   * Variables not used
-   * LOCAL pps
-   * LOCAL x1, x2   
+   LOCAL aCoors
+   LOCAL aMetr
+   LOCAL y1
+   LOCAL y2
+   LOCAL oNode
+   LOCAL nNode
+   LOCAL nLine := 1
+   // Variables not used
+   // LOCAL pps
+   // LOCAL x1, x2   
 
    hDC := hwg_Getdc( ::area )
 
@@ -311,8 +320,13 @@ METHOD Paint() CLASS HTree
 
 /* Added: nNode */
 METHOD PaintNode( hDC, oNode, nNode, nLine ) CLASS HTree
-   LOCAL y1 := ( ::height + 1 ) * ( nLine - 1 ) + 1, x1 := 10 + oNode:nLevel * ::nIndent
-   LOCAL i, hBmp, aBmpSize, nTextWidth
+   
+   LOCAL y1 := ( ::height + 1 ) * ( nLine - 1 ) + 1
+   LOCAL x1 := 10 + oNode:nLevel * ::nIndent
+   LOCAL i
+   LOCAL hBmp
+   LOCAL aBmpSize
+   LOCAL nTextWidth
 
    hwg_Selectobject( hDC, ::oPenLine:handle )
    hwg_Drawline( hDC, iif( Empty(oNode:aItems ),x1 + 5,x1 + 1 ), y1 + 9, x1 + ::nIndent - 4, y1 + 9 )
@@ -364,8 +378,14 @@ METHOD PaintNode( hDC, oNode, nNode, nLine ) CLASS HTree
    RETURN NIL
 
 METHOD ButtonDown( lParam )  CLASS HTree
+   
    LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
-   LOCAL xm := hwg_Loword( lParam ), x1, hDC, oNode, nWidth, lRedraw := .F.
+   LOCAL xm := hwg_Loword( lParam )
+   LOCAL x1
+   LOCAL hDC
+   LOCAL oNode
+   LOCAL nWidth
+   LOCAL lRedraw := .F.
 
    IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[nLine])
       x1 := 10 + oNode:nLevel * ::nIndent
@@ -399,8 +419,13 @@ METHOD ButtonUp( lParam ) CLASS HTree
    RETURN 0
 
 METHOD ButtonDbl( lParam ) CLASS HTree
+   
    LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
-   LOCAL xm := hwg_Loword( lParam ), x1, hDC, oNode, nWidth
+   LOCAL xm := hwg_Loword( lParam )
+   LOCAL x1
+   LOCAL hDC
+   LOCAL oNode
+   LOCAL nWidth
 
    IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[nLine])
       x1 := 10 + oNode:nLevel * ::nIndent
@@ -422,8 +447,13 @@ METHOD ButtonDbl( lParam ) CLASS HTree
    RETURN 0
 
 METHOD ButtonRDown( lParam ) CLASS HTree
+   
    LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
-   LOCAL xm := hwg_Loword( lParam ), x1, hDC, oNode, nWidth
+   LOCAL xm := hwg_Loword( lParam )
+   LOCAL x1
+   LOCAL hDC
+   LOCAL oNode
+   LOCAL nWidth
 
    IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[nLine])
       x1 := 10 + oNode:nLevel * ::nIndent
@@ -501,6 +531,7 @@ METHOD DoHScroll() CLASS HTree
    RETURN 0
 
 METHOD DoVScroll() CLASS HTree
+   
    LOCAL nScrollV := hwg_getAdjValue( ::hScrollV )
 
    IF nScrollV - ::nScrollV == 1
@@ -544,7 +575,10 @@ METHOD End() CLASS HTree
    RETURN NIL
 
 STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
-   LOCAL i, j, iLen := Len( aItems )
+   
+   LOCAL i
+   LOCAL j
+   LOCAL iLen := Len( aItems )
 
    FOR i := 1 TO iLen
       IF lDelImages .AND. !Empty(aItems[i]:aImages)

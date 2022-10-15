@@ -21,13 +21,12 @@ PROCEDURE hwg_ErrSys
    RETURN
 
 STATIC FUNCTION DefError( oError )
+   
    LOCAL cMessage
    LOCAL cDOSError
-
-   * Variables not used
-   * LOCAL aOptions
-   * LOCAL nChoice
-
+   // Variables not used
+   // LOCAL aOptions
+   // LOCAL nChoice
    LOCAL n
 
    // By default, division by zero results in zero
@@ -77,6 +76,7 @@ STATIC FUNCTION DefError( oError )
    RETURN .F.
 
 FUNCTION hwg_ErrMsg( oError )
+   
    LOCAL cMessage
 
    // start error message
@@ -128,7 +128,9 @@ FUNCTION hwg_WriteLog( cText, fname )
    RETURN NIL
 
 STATIC FUNCTION ErrorPreview( cMess )
-   LOCAL oDlg, oEdit
+   
+   LOCAL oDlg
+   LOCAL oEdit
 
    INIT DIALOG oDlg TITLE "Error.log" ;
       AT 92, 61 SIZE 400, 400

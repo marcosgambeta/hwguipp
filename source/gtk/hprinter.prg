@@ -92,7 +92,9 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 /* Returns array with captions for titles and controls of print preview dialog
   in default language english.
   Use this code snippet as template to set to your own desired language. */
+  
   LOCAL aTooltips
+  
   aTooltips := {}
 
   /* 1  */ AAdd(aTooltips,"Exit Preview")
@@ -175,6 +177,7 @@ METHOD DefaultLang() CLASS HPrinter
 RETURN NIL  
 
 METHOD SetMode( nOrientation, nDuplex ) CLASS HPrinter
+   
    LOCAL x
 
    IF ( nOrientation == 1 .OR. nOrientation == 2 ) .AND. nOrientation != ::nOrient
@@ -205,6 +208,7 @@ METHOD Recalc( x1, y1, x2, y2 ) CLASS HPrinter
 
 /* Added: , nCharset */   
 METHOD AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset ) CLASS HPrinter
+   
    LOCAL oFont
    
    * Parameters not used
@@ -220,6 +224,7 @@ METHOD AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset ) CLASS
    RETURN oFont
 
 METHOD SetFont( oFont )  CLASS HPrinter
+   
    LOCAL oFontOld := ::oFont
 
    ::oFont := oFont
@@ -227,6 +232,7 @@ METHOD SetFont( oFont )  CLASS HPrinter
    RETURN oFontOld
 
 METHOD AddPen( nWidth, style, color ) CLASS HPrinter
+   
    LOCAL oPen
 
    IF ::lmm .AND. nWidth != NIL
@@ -237,6 +243,7 @@ METHOD AddPen( nWidth, style, color ) CLASS HPrinter
    RETURN oPen
 
 METHOD SetPen( nWidth, style, color )  CLASS HPrinter
+   
    LOCAL oPenOld := ::oPen
 
    ::oPen := HGP_Pen():Add( nWidth, style, color )
@@ -403,7 +410,10 @@ METHOD EndPage() CLASS HPrinter
    RETURN NIL
 
 METHOD LoadScript( cScriptFile ) CLASS HPrinter
-   LOCAL arr, i, s
+   
+   LOCAL arr
+   LOCAL i
+   LOCAL s
 
    IF Empty(cScriptFile) .OR. Empty(arr := hb_aTokens( MemoRead(cScriptFile), crlf ))
       RETURN .F.
@@ -431,7 +441,8 @@ METHOD LoadScript( cScriptFile ) CLASS HPrinter
 
 METHOD SaveScript( cScriptFile ) CLASS HPrinter
 
-   LOCAL han, i
+   LOCAL han
+   LOCAL i
 
    IF Empty(cScriptFile)
       IF Empty(::cScriptFile)
@@ -472,14 +483,21 @@ Default values in array aTooltips see
 FUNCTION hwg_HPrinter_LangArray_EN()
 */
 
-   LOCAL cmExit, cmPrint, cmTitle
-   LOCAL oDlg, oSayPage, oBtn, oCanvas, i, nLastPage := Len( ::aPages ), aPage := { }
+   LOCAL cmExit
+   LOCAL cmPrint
+   LOCAL cmTitle
+   LOCAL oDlg
+   LOCAL oSayPage
+   LOCAL oBtn
+   LOCAL oCanvas
+   LOCAL i
+   LOCAL nLastPage := Len( ::aPages )
+   LOCAL aPage := { }
    LOCAL oFont := HFont():Add( "Times New Roman", 0, - 13, 700 )
    LOCAL lTransp := ( aBitmaps != NIL .AND. Len( aBitmaps ) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
-   * Variables not used
-   * LOCAL oTimer
-   * LOCAL cmDialog, cBootUser3, cBootUser4
-   
+   // Variables not used
+   // LOCAL oTimer
+   // LOCAL cmDialog, cBootUser3, cBootUser4
    
    // Button and title default captions
    // "Print preview -", see above
@@ -645,6 +663,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    RETURN NIL
 
 METHOD PaintDoc( oCanvas ) CLASS HPrinter
+   
    LOCAL pps, hDC, aCoors, nWidth, nHeight, nZoom, nShiftV := 0, nShiftH := 0
 
    pps := hwg_Definepaintstru()

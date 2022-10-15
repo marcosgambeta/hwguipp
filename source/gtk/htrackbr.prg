@@ -145,7 +145,10 @@ METHOD Set( nSize, oStyleBar, oStyleSlider, lAxis, bPaint ) CLASS HTrack
 
 METHOD Paint() CLASS HTrack
 
-   LOCAL nHalf, nw, x1, y1
+   LOCAL nHalf
+   LOCAL nw
+   LOCAL x1
+   LOCAL y1
    LOCAL hDC := hwg_Getdc( ::handle )
 
    IF ::tColor2 != NIL .AND. ::oPen2 == NIL

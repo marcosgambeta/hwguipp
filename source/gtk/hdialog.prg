@@ -23,7 +23,8 @@ STATIC aMessModalDlg := { ;
 
 STATIC FUNCTION onDestroy( oDlg )
 
-   LOCAL i, lRes
+   LOCAL i
+   LOCAL lRes
 
    IF oDlg:bDestroy != NIL
       IF ValType( lRes := Eval( oDlg:bDestroy, oDlg ) ) == "L" .AND. !lRes
@@ -118,7 +119,11 @@ METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
 
 /* Added: lMaximized, lMinimized, lCentered, bActivate */
 METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS HDialog
-   LOCAL hParent, oWnd, aCoors, aRect
+   
+   LOCAL hParent
+   LOCAL oWnd
+   LOCAL aCoors
+   LOCAL aRect
 
    hwg_CreateGetList( Self )
 
@@ -185,6 +190,7 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
    RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
+   
    LOCAL i
 
    IF ( i := Ascan( aMessModalDlg, { |a|a[1] == msg } ) ) != 0
@@ -202,6 +208,7 @@ METHOD AddItem( oWnd, lModal ) CLASS HDialog
    RETURN NIL
 
 METHOD DelItem( oWnd, lModal ) CLASS HDialog
+   
    LOCAL i
 
    IF lModal
@@ -223,6 +230,7 @@ METHOD FindDialog( hWnd ) CLASS HDialog
    RETURN hwg_Getwindowobject( hWnd )
 
 METHOD GetActive() CLASS HDialog
+   
    LOCAL handle := hwg_Getfocus()
    LOCAL i := Ascan( ::Getlist, { |o|o:handle == handle } )
 
@@ -232,8 +240,9 @@ METHOD GetActive() CLASS HDialog
    // ------------------------------------
 
 STATIC FUNCTION InitModalDlg( oDlg )
-   * Variables not used
-   * LOCAL iCont
+   
+   // Variables not used
+   // LOCAL iCont
 
    // hwg_WriteLog( str(oDlg:handle)+" "+oDlg:title )
    IF HB_ISARRAY(oDlg:menu)
@@ -253,8 +262,11 @@ STATIC FUNCTION InitModalDlg( oDlg )
 
 FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
 
-   LOCAL iParHigh := hwg_Hiword( wParam ), iParLow := hwg_Loword( wParam )
-   LOCAL aMenu, i, hCtrl
+   LOCAL iParHigh := hwg_Hiword( wParam )
+   LOCAL iParLow := hwg_Loword( wParam )
+   LOCAL aMenu
+   LOCAL i
+   LOCAL hCtrl
 
    * Parameters not used
    HB_SYMBOL_UNUSED(lParam)
@@ -361,7 +373,8 @@ FUNCTION hwg_EndDialog( handle )
 
 FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block, lGlobal )
 
-   LOCAL i, aKeys
+   LOCAL i
+   LOCAL aKeys
 
    IF oDlg == NIL
       oDlg := HCustomWindow():oDefaultParent

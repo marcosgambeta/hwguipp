@@ -75,6 +75,7 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
    RETURN Self
 
 METHOD Activate() CLASS HRadioButton
+   
    LOCAL groupHandle := ::oGroup:handle
 
    IF !Empty(::oParent:handle)

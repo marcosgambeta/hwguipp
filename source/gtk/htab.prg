@@ -38,8 +38,8 @@ ENDCLASS
 METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus  ) CLASS HTab
 
-   * Variables not used
-   * LOCAL i, aBmpSize
+   // Variables not used
+   // LOCAL i, aBmpSize
    
    * Parameters not used
    HB_SYMBOL_UNUSED(aImages)
@@ -76,7 +76,9 @@ METHOD Activate() CLASS HTab
    RETURN NIL
 
 METHOD Init() CLASS HTab
-   LOCAL i, h
+   
+   LOCAL i
+   LOCAL h
 
    IF !::lInit
       ::Super:Init()
@@ -112,6 +114,7 @@ METHOD SetTab( n ) CLASS HTab
    RETURN NIL
 
 METHOD StartPage( cname ) CLASS HTab
+   
    LOCAL i
 
    ::oTemp := ::oDefaultParent
@@ -148,7 +151,10 @@ METHOD GetActivePage( nFirst, nEnd ) CLASS HTab
    Return ::nActive
 
 METHOD DeletePage( nPage ) CLASS HTab
-Local nFirst, nEnd, i
+
+   LOCAL nFirst
+   LOCAL nEnd
+   LOCAL i
 
    nFirst := ::aPages[nPage, 1] + 1
    nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]

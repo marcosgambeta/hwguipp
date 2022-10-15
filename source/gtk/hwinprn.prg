@@ -212,7 +212,12 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
    LOCAL cFont := "Lucida Console"
 #endif
    LOCAL aKoef := { 1, 1.22, 1.71, 2 }
-   LOCAL nMode := 0, oFont, nWidth, nPWidth, nStdHeight, nStdLineW
+   LOCAL nMode := 0
+   LOCAL oFont
+   LOCAL nWidth
+   LOCAL nPWidth
+   LOCAL nStdHeight
+   LOCAL nStdLineW
 
    ::InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset )
 
@@ -349,11 +354,14 @@ METHOD NextPage() CLASS HWinPrn
  */   
 METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
 
-   LOCAL i , cTmp , bfromobj
-   LOCAL hBitmap, aBmpSize , cImageName
-   
-   * Variables not used
-   * LOCAL oBitmap
+   LOCAL i
+   LOCAL cTmp
+   LOCAL bfromobj
+   LOCAL hBitmap
+   LOCAL aBmpSize
+   LOCAL cImageName
+   // Variables not used
+   // LOCAL oBitmap
 
    IF ! ::lDocStart
       ::StartDoc()
@@ -459,7 +467,12 @@ METHOD NewLine()  CLASS HWinPrn
 
    
 METHOD PrintLine( cLine, lNewLine ) CLASS HWinPrn
-   LOCAL i, i0, j, slen, c
+   
+   LOCAL i
+   LOCAL i0
+   LOCAL j
+   LOCAL slen
+   LOCAL c
 
    IF ! ::lDocStart
       ::StartDoc()
@@ -590,6 +603,7 @@ METHOD PrintText( cText ) CLASS HWinPrn
    RETURN NIL
 
 METHOD PutCode( cLine ) CLASS HWinPrn
+
    STATIC aCodes := {   ;
           { Chr(27) + '@', .f., .f., 6, .f., .f., .f. },  ;     /* Reset */
           { Chr(27) + 'M', .t.,,,,, },  ;     /* Elite */
@@ -604,7 +618,10 @@ METHOD PutCode( cLine ) CLASS HWinPrn
           { Chr(27) + 'G',,,, .t.,, },  ;     /* bold */
           { Chr(27) + 'H',,,, .f.,, }   ;     /* cancel bold */
         }
-   LOCAL i, sLen := Len( aCodes ), c := Left( cLine, 1 )
+
+   LOCAL i
+   LOCAL sLen := Len( aCodes )
+   LOCAL c := Left( cLine, 1 )
 
    IF !Empty(c) .AND. c < " "
       IF Asc( c ) == 31

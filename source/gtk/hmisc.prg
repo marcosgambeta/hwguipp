@@ -33,14 +33,18 @@ FUNCTION hwg_isWindows()
 #endif
 
 FUNCTION hwg_CompleteFullPath( cPath )
- LOCAL  cDirSep := hwg_GetDirSep()
+   
+   LOCAL cDirSep := hwg_GetDirSep()
+
   IF RIGHT(cPath , 1 ) != cDirSep
    cPath := cPath + cDirSep
   ENDIF
 RETURN cPath
 
 FUNCTION hwg_CreateTempfileName( cPrefix , cSuffix )
- LOCAL cPre , cSuff
+
+   LOCAL cPre
+   LOCAL cSuff
   
   cPre  := IIF( cPrefix == NIL , "e" , cPrefix )
   cSuff := IIF( cSuffix == NIL , ".tmp" , cSuffix )
@@ -79,7 +83,15 @@ FUNCTION hwg_cHex2Bin (chexstr)
 * 0 ... 9 , A ... F , a ... f
 * Other characters are ignored.
 * ================================= *
-LOCAL cbin, ncount, chs, lpos, nvalu, nvalue , nodd
+
+   LOCAL cbin
+   LOCAL ncount
+   LOCAL chs
+   LOCAL lpos
+   LOCAL nvalu
+   LOCAL nvalue
+   LOCAL nodd
+
 * lpos : F = MSB , T = LSB
 cbin := ""
 lpos := .T.
@@ -184,8 +196,20 @@ FUNCTION hwg_HEX_DUMP (cinfield, npmode, cpVarName)
 * Sample writing hex dump to text file
 * MEMOWRIT("hexdump.txt",HEX_DUMP(varbuf))
 * ================================= *  
-LOCAL nlength, coutfield,  nindexcnt , cccchar, nccchar, ccchex, nlinepos, cccprint, ;
-   cccprline, ccchexline, nmode , cVarName
+
+   LOCAL nlength
+   LOCAL coutfield
+   LOCAL nindexcnt
+   LOCAL cccchar
+   LOCAL nccchar
+   LOCAL ccchex
+   LOCAL nlinepos
+   LOCAL cccprint
+   LOCAL cccprline
+   LOCAL ccchexline
+   LOCAL nmode
+   LOCAL cVarName
+
  IIF(npmode == NIL , nmode := 2 , nmode := npmode )
  IIF(cpVarName == NIL , cVarName := "cVar" , cVarName := cpVarName )
  * get length of field to be dumped
@@ -276,9 +300,11 @@ FUNCTION hwg_NUMB2HEX (nascchar)
 * 0 ... 255 TO HEX 00 ... FF
 * (2 Bytes String)
 * ================================= *
-LOCAL chexchars := ;
-   {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"}  
-LOCAL n1, n2
+
+   LOCAL chexchars := {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"}
+   LOCAL n1
+   LOCAL n2
+
   * Range 0 ... 255
   IF nascchar > 255
    RETURN "  "
@@ -314,7 +340,11 @@ FUNCTION hwg_EOLStyle
 * ================================= *
 FUNCTION hwg_BaseName ( pFullpath )
 * ================================= *
- LOCAL nPosifilna , cFilename , cseparator
+   
+   LOCAL nPosifilna
+   LOCAL cFilename
+   LOCAL cseparator
+
  * avoid crash
  IF PCOUNT() == 0
    RETURN ""
@@ -339,7 +369,12 @@ FUNCTION hwg_BaseName ( pFullpath )
 * ================================= *
 FUNCTION hwg_Dirname ( pFullpath )
 * ================================= *
- LOCAL nPosidirna , sFilePath , cseparator , sFullpath
+   
+   LOCAL nPosidirna
+   LOCAL sFilePath
+   LOCAL cseparator
+   LOCAL sFullpath
+
  * avoid crash
  IF PCOUNT() == 0
    RETURN ""
@@ -381,7 +416,11 @@ FUNCTION hwg_Dirname ( pFullpath )
 * ================================= *
 FUNCTION hwg_CleanPathname ( pSwithdbl )
 * ================================= *
- LOCAL sSwithdbl , bready , cseparator
+   
+   LOCAL sSwithdbl
+   LOCAL bready
+   LOCAL cseparator
+
  * avoid crash
  IF PCOUNT() == 0
    RETURN ""
@@ -412,7 +451,12 @@ ENDIF
 RETURN IIF(EMPTY(ato_check), 0 , LEN(ato_check)  )
 
 FUNCTION hwg_MemoCmp(mmemo1,mmemo2)
-LOCAL nnum , nlen1 , nlen2 , lende
+
+   LOCAL nnum
+   LOCAL nlen1
+   LOCAL nlen2
+   LOCAL lende
+
 nnum := 1
 lende := .T.
 nlen1 := LEN(mmemo1)
@@ -433,7 +477,13 @@ RETURN lende
 FUNCTION hwg_MemoEdit(mpmemo , cTextTitME , cTextSave ,  cTextClose , ;
  cTTSave , cTTClose , oHCfont )
 
-LOCAL mvarbuff , varbuf , oModDlg , oEdit , owb1 , owb2 , bMemoMod
+   LOCAL mvarbuff
+   LOCAL varbuf
+   LOCAL oModDlg
+   LOCAL oEdit
+   LOCAL owb1
+   LOCAL owb2
+   LOCAL bMemoMod
 
  IF cTextTitME == NIL
    cTextTitME := "Memo Edit"
@@ -650,7 +700,9 @@ RETURN NIL
 FUNCTION hwg_ShowHelp(cHelptxt,cTitle,cClose,opFont,blmodus)
 * Shows a help window
 * ================================= *
- LOCAL oDlg , oheget
+   
+   LOCAL oDlg
+   LOCAL oheget
 
 * T: not modal (default is .F.)
  IF blmodus == NIL 
@@ -706,7 +758,9 @@ RETURN 3.141592653589793285
 * =======================================================
 FUNCTION hwg_StrDebNIL(xParchk)
 * =======================================================
-LOCAL cres
+   
+   LOCAL cres
+
   IF xParchk == NIL
    cres := "NIL"
   ELSE
@@ -717,7 +771,9 @@ RETURN cres
 * =======================================================
 FUNCTION hwg_StrDebLog(ltoCheck)
 * =======================================================
-LOCAL cres
+   
+   LOCAL cres
+
  IF ltoCheck
    cres := ".T."
   ELSE
@@ -741,8 +797,7 @@ FUNCTION hwg_MsgIsNIL(xpara,ctitle)
 * Only for debugging
 * =======================================================
 
-LOCAL lrvalue
-
+   LOCAL lrvalue
 
 lrvalue := hwg_Isnil( xpara )
 
@@ -767,7 +822,8 @@ FUNCTION hwg_DefaultFont()
 * Returns an object with a suitable default font
 * for Windows and LINUX
 * =======================================================
-LOCAL oFont
+   
+   LOCAL oFont
 
 #ifdef __PLATFORM__WINDOWS
  PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
@@ -780,7 +836,8 @@ RETURN oFont
 * =======================================================
 FUNCTION hwg_deb_is_object(oObj)
 * =======================================================
-LOCAL lret
+   
+   LOCAL lret
 
        IF Valtype(oObj) == "O" && Debug
          hwg_MsgInfo("Is object")
@@ -799,7 +856,11 @@ FUNCTION hwg_leading0(ce)
 * Replace all leading blanks with
 * "0".
 * =================================
-LOCAL vni , e1 , crvalue, lstop
+
+   LOCAL vni
+   LOCAL e1
+   LOCAL crvalue
+   LOCAL lstop
 
 lstop := .F.
  
@@ -836,7 +897,10 @@ FUNCTION hwg_checkANSIDate(cANSIDate)
 * of Format YYYYMMDD
 * 
 * =================================
-LOCAL ddate, cdate
+
+   LOCAL ddate
+   LOCAL cdate
+
 IF cANSIDate == NIL
  RETURN .F.
 ENDIF
@@ -861,7 +925,10 @@ RETURN .T.
 FUNCTION hwg_Date2JulianDay(dDate,nhour,nminutes,nseconds)
 * =================================
 
-LOCAL nyear, nmonth, nday , ngreg
+   LOCAL nyear
+   LOCAL nmonth
+   LOCAL nday
+   LOCAL ngreg
 
 IF nhour == NIL
  nhour     := 0
@@ -901,7 +968,20 @@ FUNCTION hwg_JulianDay2Date(z)
 * and Harbour MEM files as
 * double value.
 * =================================
-LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  cMonth , cday
+   
+   LOCAL njoff
+   LOCAL nRound_4
+   LOCAL nFour
+   LOCAL nYear
+   LOCAL d
+   LOCAL d1
+   LOCAL i
+   LOCAL jz
+   LOCAL sz
+   LOCAL k
+   LOCAL cYear
+   LOCAL cMonth
+   LOCAL cday
 
  njoff := 4712                  && const year offset
  nFour := ( z + 13 ) / 1461     && 1461 = 3*365+366  period of 4 years  (valid 1901 ... 2099)
@@ -1012,7 +1092,10 @@ LOCAL njoff , nRound_4 , nFour , nYear , d , d1 , i , jz  , sz ,  k ,  cYear ,  
 RETURN cYear + cMonth + cday
 
 FUNCTION HWG_GET_TIME_SHIFT()
-LOCAL nhUTC , nhLocal
+
+   LOCAL nhUTC
+   LOCAL nhLocal
+
 nhUTC := VAL(SUBSTR(HWG_GETUTCTIMEDATE(),12,2  ))
 * Format: W,YYYYMMDD-HH:MM:SS
 nhLocal := VAL(SUBSTR(TIME(),1,2))
@@ -1028,7 +1111,10 @@ RETURN .F.
 
 FUNCTION hwg_addextens(cfilename,cext,lcs)
 
-LOCAL nposi , fna , ce
+   LOCAL nposi
+   LOCAL fna
+   LOCAL ce
+
 IF cfilename == NIL
  cfilename := ""
 ENDIF 

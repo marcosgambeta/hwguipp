@@ -104,7 +104,12 @@ FUNCTION hwg_pCalendar(dstartdate, cTitle , cOK, cCancel , nx , ny , wid, hei )
 * Date picker command for all platforms in the design of original
 * Windows only DATEPICKER command
 
-   LOCAL oDlg, oMC , oFont , dolddate , dnewdate,  lcancel 
+   LOCAL oDlg
+   LOCAL oMC
+   LOCAL oFont
+   LOCAL dolddate
+   LOCAL dnewdate
+   LOCAL lcancel 
 
   IF cTitle == NIL
     cTitle := "Calendar"

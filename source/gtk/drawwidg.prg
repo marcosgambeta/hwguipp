@@ -49,7 +49,8 @@ ENDCLASS
 */
 METHOD OBMP2FILE( cfilename , name ) CLASS HBitmap
 
-   LOCAL i , hbmp
+   LOCAL i
+   LOCAL hbmp
 
    hbmp := NIL
    // Search for bitmap in object
@@ -73,7 +74,8 @@ METHOD AddResource( name ) CLASS HBitmap
  *  returns an object to bitmap, if resource successfully added
  */
    LOCAL oBmp   // cVal
-   LOCAL i , cTmp
+   LOCAL i
+   LOCAL cTmp
 
    For EACH oBmp IN ::aBitmaps
       IF oBmp:name == name
@@ -123,7 +125,9 @@ METHOD AddResource( name ) CLASS HBitmap
    // RETURN NIL
 
 METHOD AddFile( name, HDC , lTransparent, nWidth, nHeight ) CLASS HBitmap
-   LOCAL i, aBmpSize
+   
+   LOCAL i
+   LOCAL aBmpSize
    
     // Parameters not used
     HB_SYMBOL_UNUSED(HDC)
@@ -160,7 +164,9 @@ METHOD AddString( name, cVal ) CLASS HBitmap
   cVal : Contents of image
 */
 
-   LOCAL oBmp, aBmpSize, cTmp
+   LOCAL oBmp
+   LOCAL aBmpSize
+   LOCAL cTmp
 
    For EACH oBmp IN ::aBitmaps
       IF oBmp:name == name
@@ -198,7 +204,10 @@ METHOD AddString( name, cVal ) CLASS HBitmap
    RETURN Self
 
 METHOD AddStandard( cId, nSize ) CLASS HBitmap
-   LOCAL i, aBmpSize, cName
+   
+   LOCAL i
+   LOCAL aBmpSize
+   LOCAL cName
 
    cName := cId + Iif( nSize==NIL, "", Str(nSize,1) )
    FOR EACH i IN ::aBitmaps
@@ -221,7 +230,9 @@ METHOD AddStandard( cId, nSize ) CLASS HBitmap
    RETURN Self
 
 METHOD AddWindow( oWnd, x1, y1, width, height ) CLASS HBitmap
-   LOCAL aBmpSize, handle := hwg_GetDrawing( oWnd:handle )
+   
+   LOCAL aBmpSize
+   LOCAL handle := hwg_GetDrawing( oWnd:handle )
    // Variables not used
    // i
 
@@ -248,7 +259,9 @@ METHOD Draw( hDC, x1, y1, width, height ) CLASS HBitmap
    RETURN NIL
 
 METHOD Release() CLASS HBitmap
-   LOCAL i, nlen := Len( ::aBitmaps )
+   
+   LOCAL i
+   LOCAL nlen := Len( ::aBitmaps )
 
    ::nCounter --
    IF ::nCounter == 0
@@ -295,7 +308,9 @@ ENDCLASS
 
 METHOD AddResource( name , nWidth, nHeight , nFlags, lOEM ) CLASS HIcon
 // For compatibility to WinAPI the parameters nFlags and lOEM are dummys
-   LOCAL i , cTmp
+   
+   LOCAL i
+   LOCAL cTmp
 
    // Variables not used
    // lPreDefined := .F.
@@ -350,7 +365,8 @@ METHOD AddResource( name , nWidth, nHeight , nFlags, lOEM ) CLASS HIcon
 
 METHOD AddFile( name , nWidth, nHeight ) CLASS HIcon
 
-   LOCAL i, aBmpSize
+   LOCAL i
+   LOCAL aBmpSize
 
    IF nWidth == NIL
       nWidth := 0
@@ -403,7 +419,9 @@ METHOD AddFile( name , nWidth, nHeight ) CLASS HIcon
  */
 METHOD AddString( name, cVal , nWidth, nHeight ) CLASS HIcon
 
- LOCAL i , cTmp , aBmpSize
+   LOCAL i
+   LOCAL cTmp
+   LOCAL aBmpSize
 
    IF nWidth == NIL
       nWidth := 0
@@ -439,7 +457,9 @@ METHOD AddString( name, cVal , nWidth, nHeight ) CLASS HIcon
 
 
 METHOD RELEASE() CLASS HIcon
-   LOCAL i, nlen := Len( ::aIcons )
+   
+   LOCAL i
+   LOCAL nlen := Len( ::aIcons )
 
    ::nCounter --
    IF ::nCounter == 0
@@ -468,7 +488,8 @@ METHOD RELEASE() CLASS HIcon
 
 FUNCTION hwg_aCompare( arr1, arr2 )
 
-   LOCAL i, nLen
+   LOCAL i
+   LOCAL nLen
 
    IF arr1 == NIL .AND. arr2 == NIL
       RETURN .T.
@@ -486,7 +507,9 @@ FUNCTION hwg_aCompare( arr1, arr2 )
 
 FUNCTION hwg_BmpFromRes( cBmp )
 
-   LOCAL handle, cBuff, cTmp
+   LOCAL handle
+   LOCAL cBuff
+   LOCAL cTmp
 
    IF !Empty(oResCnt)
       IF !Empty(cBuff := oResCnt:Get( cBmp ))
@@ -553,7 +576,9 @@ FUNCTION hwg_ExtractResContItem2file(cfilename,cname)
 // hwg_ExtractResContItemType() before)
 // Returns .T., if success, otherwise .F.
 // for example if no match.
-LOCAL n
+
+   LOCAL n
+
 n := hwg_ResContItemPosition(cname)
 IF n > 0
     hb_MemoWrit( cfilename, oResCnt:Get( oResCnt:aObjects[n,1] ) )
@@ -568,7 +593,9 @@ FUNCTION hwg_ExtractResContItemType(cname)
 // Returns the type (bmp,png,ico,jpg)
 // as a string.
 // Empty string "", of container not open or no match
-LOCAL  cItemType := ""
+
+   LOCAL cItemType := ""
+
 IF hwg_GetResContainerOpen()
  cItemType := oResCnt:GetType(cname)
 ENDIF
@@ -579,7 +606,9 @@ FUNCTION hwg_ResContItemPosition(cname)
 // container
 // Returns the position name of item in the container,
 // 0 , if no match or container not open.
-LOCAL i := 0
+
+   LOCAL i := 0
+
 IF hwg_GetResContainerOpen()
  i := oResCnt:GetPos( cname )
 ENDIF
@@ -606,7 +635,8 @@ FUNCTION hwg_Bitmap2tmpfile(objBitmap , cname , cfextn)
 //
 // Read more about the usage of this function in the documentation
 // of the Binary Container Manager in the utils/bincnt directory.
-LOCAL ctmpfilename
+
+   LOCAL ctmpfilename
 
 IF cfextn == NIL
  cfextn := "bmp"
@@ -657,7 +687,9 @@ EXIT PROCEDURE CleanDrawWidg
    All other attributes are not modified.
  */
 FUNCTION hwg_FontSetCharset ( oFont, nCharSet  )
-   LOCAL i, nlen := Len( oFont:aFonts )
+   
+   LOCAL i
+   LOCAL nlen := Len( oFont:aFonts )
 
    IF nCharSet == NIL .OR. nCharSet == -1
     RETURN oFont
@@ -673,7 +705,10 @@ RETURN oFont
 
 
 FUNCTION hwg_LoadCursorFromString(cVal, nx , ny)
-LOCAL cTmp , hCursor
+
+   LOCAL cTmp
+   LOCAL hCursor
+
 // Parameter x and y not used on WinApi
 
  // Write contents into temporary file

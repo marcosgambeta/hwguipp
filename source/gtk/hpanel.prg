@@ -116,7 +116,8 @@ METHOD Init() CLASS HPanel
 
 METHOD DrawItems( hDC, aCoors ) CLASS HPanel
 
-   LOCAL i, aCB
+   LOCAL i
+   LOCAL aCB
 
    IF Empty(aCoors)
       aCoors := hwg_Getclientrect( ::handle )
@@ -131,7 +132,9 @@ METHOD DrawItems( hDC, aCoors ) CLASS HPanel
 
 METHOD Paint() CLASS HPanel
 
-   LOCAL hDC, aCoors, block
+   LOCAL hDC
+   LOCAL aCoors
+   LOCAL block
 
    IF ::bPaint != NIL
       RETURN Eval( ::bPaint, Self )
@@ -152,7 +155,8 @@ METHOD Paint() CLASS HPanel
 
 METHOD Move( x1, y1, width, height )  CLASS HPanel
 
-   LOCAL lMove := .F. , lSize := .F.
+   LOCAL lMove := .F.
+   LOCAL lSize := .F.
 
    IF x1 != NIL .AND. x1 != ::nX
       ::nX := x1
@@ -183,7 +187,8 @@ METHOD Move( x1, y1, width, height )  CLASS HPanel
 
 METHOD SetPaintCB( nId, block, cId ) CLASS HPanel
 
-   LOCAL i, nLen
+   LOCAL i
+   LOCAL nLen
 
    IF Empty(cId)
       cId := "_"
@@ -275,7 +280,11 @@ METHOD Write(cText, nPart, lRedraw) CLASS HPanelStS
 
 METHOD PaintText( hDC ) CLASS HPanelStS
 
-   LOCAL i, x1, x2, nWidth := ::nWidth, oldTColor
+   LOCAL i
+   LOCAL x1
+   LOCAL x2
+   LOCAL nWidth := ::nWidth
+   LOCAL oldTColor
 
    IF ::oFont != NIL
       hwg_Selectobject( hDC, ::oFont:handle )

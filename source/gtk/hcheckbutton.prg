@@ -105,6 +105,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
    RETURN NIL
 
 METHOD Refresh() CLASS HCheckButton
+   
    LOCAL var
 
    IF ::bSetGet != NIL
@@ -133,6 +134,7 @@ METHOD Value( lValue ) CLASS HCheckButton
 
 
 STATIC FUNCTION __Valid( oCtrl )
+   
    LOCAL res
 
    oCtrl:lValue := hwg_IsButtonChecked( oCtrl:handle )
@@ -149,6 +151,7 @@ STATIC FUNCTION __Valid( oCtrl )
    RETURN .T.
 
 STATIC FUNCTION __When( oCtrl )
+   
    LOCAL res
 
    oCtrl:Refresh()

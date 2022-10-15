@@ -85,6 +85,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSayBmp
    RETURN 0
 
 METHOD Paint() CLASS HSayBmp
+   
    LOCAL hDC := hwg_Getdc( ::handle )
 
    IF ::brush != NIL

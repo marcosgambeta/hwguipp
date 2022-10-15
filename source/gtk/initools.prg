@@ -24,8 +24,11 @@ MEMVAR inierror, delmarker
 
 FUNCTION Hwg_GetIni( rubrique, param, defaut, inifile )
 
-   // ============================================================================
-   LOCAL hini, inivalue, aSect, inicontent
+   LOCAL hini
+   LOCAL inivalue
+   LOCAL aSect
+   LOCAL inicontent
+
    inicontent = MemoRead(inifile)
    hini = hb_iniread(inifile)
    IF At("[" + rubrique + "]", inicontent) == 0
@@ -58,8 +61,16 @@ FUNCTION Hwg_GetIni( rubrique, param, defaut, inifile )
 
 FUNCTION Hwg_WriteIni( rubrique, param, value , inifile )
 
-   // ============================================================================
-   LOCAL rg, rga, rgb, txt, newcontent := "", myrubrique := .F. , inicontent, nblines, delmarker := "$*$"
+   LOCAL rg
+   LOCAL rga
+   LOCAL rgb
+   LOCAL txt
+   LOCAL newcontent := ""
+   LOCAL myrubrique := .F.
+   LOCAL inicontent
+   LOCAL nblines
+   LOCAL delmarker := "$*$"
+
    inicontent = MemoRead(inifile)
    nblines = MLCount( inicontent, 150 )
    for rg = 1 TO nblines

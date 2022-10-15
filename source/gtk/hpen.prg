@@ -24,6 +24,7 @@ CLASS HPen INHERIT HObject
 ENDCLASS
 
 METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
+   
    LOCAL i
 
    nStyle := iif( nStyle == NIL, PS_SOLID, nStyle )
@@ -52,6 +53,7 @@ METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
    RETURN Self
 
 METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
+   
    LOCAL i
 
    nStyle := iif( nStyle == NIL, PS_SOLID, nStyle )
@@ -73,7 +75,9 @@ METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
    RETURN NIL
 
 METHOD RELEASE() CLASS HPen
-   LOCAL i, nlen := Len( ::aPens )
+   
+   LOCAL i
+   LOCAL nlen := Len( ::aPens )
 
    ::nCounter --
    IF ::nCounter == 0

@@ -218,7 +218,7 @@ METHOD Init() CLASS HListBox
 METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
 
 /*
- Local nEval
+   LOCAL nEval
 
    IF ::bOther != NIL
       IF (nEval := Eval( ::bOther,Self,msg,wParam,lParam )) != -1 .AND. nEval != NIL
@@ -244,7 +244,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
 
 METHOD Requery() CLASS HListBox
 /*
-   Local i
+   LOCAL i
 
    hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0)
    FOR i := 1 TO Len( ::aItems )
@@ -259,6 +259,7 @@ METHOD Requery() CLASS HListBox
 METHOD Refresh() CLASS HListBox
 
    LOCAL vari
+   
    IF ::bSetGet != NIL
       vari := Eval( ::bSetGet )
    ENDIF
@@ -338,7 +339,8 @@ METHOD onChange( oCtrl ) CLASS HListBox
 
 METHOD When( oCtrl ) CLASS HListBox
 /*
-   LOCAL res := .t., nSkip
+   LOCAL res := .t.
+   LOCAL nSkip
 
    HB_SYMBOL_UNUSED(oCtrl)
 
@@ -357,7 +359,8 @@ METHOD When( oCtrl ) CLASS HListBox
 
 METHOD Valid( oCtrl ) CLASS HListBox
 /*
-   LOCAL res, oDlg
+   LOCAL res
+   LOCAL oDlg
 
    HB_SYMBOL_UNUSED(oCtrl)
 
@@ -391,7 +394,9 @@ METHOD Valid( oCtrl ) CLASS HListBox
 /*   
 STATIC FUNCTION AddLItems (h,it)
 * h = Handle, it = array with items
+    
     LOCAL i
+    
     IF it == NIL
       it := { }
     ENDIF  

@@ -61,6 +61,7 @@ METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, ;
    RETURN Self
 
 METHOD EndGroup( nSelected )  CLASS HRadioGroup
+   
    LOCAL nLen
 
    IF ::oGroupCurrent != NIL .AND. ( nLen := Len( ::oGroupCurrent:aButtons ) ) > 0
@@ -76,6 +77,7 @@ METHOD EndGroup( nSelected )  CLASS HRadioGroup
    RETURN NIL
 
 METHOD Value( nValue ) CLASS HRadioGroup
+   
    LOCAL nLen
 
    IF nValue != NIL

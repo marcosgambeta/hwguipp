@@ -93,7 +93,11 @@ CLASS HCtrlTmpl
 ENDCLASS
 
 METHOD F( nId ) CLASS HCtrlTmpl
-   LOCAL i, aControls := ::aControls, nLen := Len( aControls ), o
+   
+   LOCAL i
+   LOCAL aControls := ::aControls
+   LOCAL nLen := Len( aControls )
+   LOCAL o
 
    FOR i := 1 TO nLen
       IF aControls[i]:nId == nId
@@ -153,9 +157,18 @@ METHOD DefaultLang() CLASS HFormTmpl
 RETURN NIL
 
 METHOD Read(fname, cId) CLASS HFormTmpl
+   
    LOCAL oDoc
-   LOCAL i, j, nCtrl := 0, aItems, o, aProp := {}, aMethods := {}, arr
-   LOCAL cPre, cName
+   LOCAL i
+   LOCAL j
+   LOCAL nCtrl := 0
+   LOCAL aItems
+   LOCAL o
+   LOCAL aProp := {}
+   LOCAL aMethods := {}
+   LOCAL arr
+   LOCAL cPre
+   LOCAL cName
 
    /* IF cId != NIL .AND. ( o := HFormTmpl():Find( cId ) ) != NIL
       Return o
@@ -234,17 +247,35 @@ METHOD Read(fname, cId) CLASS HFormTmpl
 
 /* params ==> p1, p2, p3 */
 METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
-   LOCAL i, j, i1, j1, cTemp, a1, cType, xRes
-   LOCAL nLeft, nTop, nWidth, nHeight, cTitle, oFont, lClipper := .F. , lExitOnEnter := .F.
-   LOCAL xProperty, block, nstyle
-   LOCAL oIcon := NIL, cBitmap := NIL
+   
+   LOCAL i
+   LOCAL j
+   LOCAL i1
+   LOCAL j1
+   LOCAL cTemp
+   LOCAL a1
+   LOCAL cType
+   LOCAL xRes
+   LOCAL nLeft
+   LOCAL nTop
+   LOCAL nWidth
+   LOCAL nHeight
+   LOCAL cTitle
+   LOCAL oFont
+   LOCAL lClipper := .F.
+   LOCAL lExitOnEnter := .F.
+   LOCAL xProperty
+   LOCAL block
+   LOCAL nstyle
+   LOCAL oIcon := NIL
+   LOCAL cBitmap := NIL
    LOCAL oBmp := NIL
    LOCAL bGetFo := { |o| HFormTmpl():oActive := o }
-   * Variables not used
-   * LOCAL lval := .F.
-   * LOCAL lMdi         && := .F.
-   * LOCAL lMdiChild    && := .F.
-   
+   // Variables not used
+   // LOCAL lval := .F.
+   // LOCAL lMdi         && := .F.
+   // LOCAL lMdiChild    && := .F.
+
    MEMVAR oDlg
    PRIVATE oDlg
 
@@ -461,6 +492,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
    RETURN NIL
 
 METHOD F( id, n ) CLASS HFormTmpl
+   
    LOCAL i := Ascan( ::aForms, { |o|o:id == id } )
 
    IF i != 0 .AND. n != NIL
@@ -470,11 +502,13 @@ METHOD F( id, n ) CLASS HFormTmpl
    RETURN Iif( i == 0, NIL, ::aForms[i] )
 
 METHOD Find( cId ) CLASS HFormTmpl
+   
    LOCAL i := Ascan( ::aForms, { |o|o:cId != NIL .AND. o:cId == cId } )
 
    RETURN Iif( i == 0, NIL, ::aForms[i] )
 
 METHOD Close() CLASS HFormTmpl
+   
    LOCAL i := Ascan( ::aForms, { |o|o:id == ::id } )
 
    IF i != 0
@@ -487,7 +521,9 @@ METHOD Close() CLASS HFormTmpl
 METHOD OnError( xValue ) CLASS HFormTmpl
 
    LOCAL cMsg := Lower(__GetMessage())
-   LOCAL oError, lSet := .F., lErr
+   LOCAL oError
+   LOCAL lSet := .F.
+   LOCAL lErr
 
    IF PCount() > 0 .AND. Left( cMsg, 1 ) == "_"
       cMsg := SubStr(cMsg, 2)
@@ -553,7 +589,11 @@ FUNCTION hwg_hfrm_Exit( oDlg, nId )
    RETURN .T.
 
 STATIC FUNCTION ReadTree( oForm, aParent, oDesc )
-   LOCAL i, aTree := {}, oNode, subarr
+   
+   LOCAL i
+   LOCAL aTree := {}
+   LOCAL oNode
+   LOCAL subarr
 
    FOR i := 1 TO Len( oDesc:aItems )
       oNode := oDesc:aItems[i]
@@ -573,7 +613,10 @@ STATIC FUNCTION ReadTree( oForm, aParent, oDesc )
 
 FUNCTION hwg_ParseMethod( cMethod )
 
-   LOCAL arr := {}, nPos1, nPos2, cLine
+   LOCAL arr := {}
+   LOCAL nPos1
+   LOCAL nPos2
+   LOCAL cLine
 
    IF ( nPos1 := At(Chr(10), cMethod) ) == 0
       AAdd(arr, AllTrim(cMethod))
@@ -605,7 +648,14 @@ FUNCTION hwg_ParseMethod( cMethod )
    RETURN arr
 
 STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
-   LOCAL arr, arrExe, nContainer := 0, cCode1, cCode, bOldError, bRes
+   
+   LOCAL arr
+   LOCAL arrExe
+   LOCAL nContainer := 0
+   LOCAL cCode1
+   LOCAL cCode
+   LOCAL bOldError
+   LOCAL bRes
 
    IF cMethod = NIL .OR. Empty(cMethod)
       RETURN NIL
@@ -669,8 +719,15 @@ STATIC PROCEDURE CompileErr( e, stroka )
    BREAK( NIL )
 
 STATIC FUNCTION ReadCtrl( oCtrlDesc, oContainer, oForm )
+   
    LOCAL oCtrl := HCtrlTmpl():New( oContainer )
-   LOCAL i, j, o, cName, aProp := {}, aMethods := {}, aItems := oCtrlDesc:aItems
+   LOCAL i
+   LOCAL j
+   LOCAL o
+   LOCAL cName
+   LOCAL aProp := {}
+   LOCAL aMethods := {}
+   LOCAL aItems := oCtrlDesc:aItems
 
    oCtrl:nId      := oForm:nCtrlId
    oForm:nCtrlId ++
@@ -712,10 +769,22 @@ STATIC FUNCTION ReadCtrl( oCtrlDesc, oContainer, oForm )
 #define TBS_NOTICKS                 16
 
 STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
-   LOCAL i, j, oCtrl, stroka, varname, xProperty, cType, cPName, cCtrlName
-   LOCAL nCtrl := Ascan( aClass, oCtrlTmpl:cClass ), xInitValue, cInitName, cVarName
-   * Variables not used
-   * block   
+   
+   LOCAL i
+   LOCAL j
+   LOCAL oCtrl
+   LOCAL stroka
+   LOCAL varname
+   LOCAL xProperty
+   LOCAL cType
+   LOCAL cPName
+   LOCAL cCtrlName
+   LOCAL nCtrl := Ascan( aClass, oCtrlTmpl:cClass )
+   LOCAL xInitValue
+   LOCAL cInitName
+   LOCAL cVarName
+   // Variables not used
+   // block   
    
    MEMVAR oPrnt, nId, nInitValue, cInitValue, dInitValue, nStyle, nLeft, nTop, oStyle, aStyles
    MEMVAR onInit, onSize, onPaint, onEnter, onGetfocus, onLostfocus, lNoVScroll, lAppend, lAutoedit, bUpdate, onKeyDown, onPosChg
@@ -996,6 +1065,7 @@ FUNCTION hwg_hfrm_FontFromXML( oXmlNode, lDecr )
       ita, under, , , lDecr )
 
 FUNCTION hwg_HStyle2XML( oStyle )
+   
    LOCAL aAttr := {}
 
    IF !Empty(oStyle:aColors)
@@ -1013,9 +1083,15 @@ FUNCTION hwg_HStyle2XML( oStyle )
    RETURN HXMLNode():New( "hstyle", HBXML_TYPE_SINGLE, aAttr )
 
 FUNCTION hwg_HstyleFromXML( oXmlNode )
-   LOCAL cColors := oXmlNode:GetAttribute( "colors" ), aColors, i, nOrient
-   LOCAL cCorners := oXmlNode:GetAttribute( "corners" ), aCorners
-   LOCAL nBorder, tColor
+   
+   LOCAL cColors := oXmlNode:GetAttribute( "colors" )
+   LOCAL aColors
+   LOCAL i
+   LOCAL nOrient
+   LOCAL cCorners := oXmlNode:GetAttribute( "corners" )
+   LOCAL aCorners
+   LOCAL nBorder
+   LOCAL tColor
 
    IF !Empty(cColors)
       aColors := hwg_hfrm_Str2Arr( cColors )
@@ -1039,7 +1115,9 @@ FUNCTION hwg_HstyleFromXML( oXmlNode )
 
 FUNCTION hwg_hfrm_Str2Arr( stroka )
 
-   LOCAL arr := {}, pos1 := 2, pos2 := 1
+   LOCAL arr := {}
+   LOCAL pos1 := 2
+   LOCAL pos2 := 1
 
    IF Len( stroka ) > 2
       DO WHILE pos2 > 0
@@ -1056,7 +1134,9 @@ FUNCTION hwg_hfrm_Str2Arr( stroka )
 
 FUNCTION hwg_hfrm_Arr2Str(arr)
 
-   LOCAL stroka := "{", i, cType
+   LOCAL stroka := "{"
+   LOCAL i
+   LOCAL cType
 
    FOR i := 1 TO Len( arr )
       IF i > 1
@@ -1148,9 +1228,16 @@ METHOD DefaultLang() CLASS HRepTmpl
 RETURN NIL
 
 METHOD READ(fname, cId) CLASS HRepTmpl
+   
    LOCAL oDoc
-   LOCAL i, j, aItems, o, aProp := {}, aMethods := {}
-   LOCAL cPre, cName
+   LOCAL i
+   LOCAL j
+   LOCAL aItems
+   LOCAL o
+   LOCAL aProp := {}
+   LOCAL aMethods := {}
+   LOCAL cPre
+   LOCAL cName
 
    IF cId != NIL .AND. ( o := HRepTmpl():Find( cId ) ) != NIL
       RETURN o
@@ -1225,8 +1312,19 @@ METHOD READ(fname, cId) CLASS HRepTmpl
    RETURN Self
 
 METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
+   
    LOCAL oPrinter := Iif( printer != NIL, Iif( ValType(printer ) == "O",printer,HPrinter():New(printer, .T. ) ), HPrinter():New( , .T. ) )
-   LOCAL i, j, aMethod, xProperty, oFont, xTemp, nPWidth, nPHeight, nOrientation := 1, nDuplex
+   LOCAL i
+   LOCAL j
+   LOCAL aMethod
+   LOCAL xProperty
+   LOCAL oFont
+   LOCAL xTemp
+   LOCAL nPWidth
+   LOCAL nPHeight
+   LOCAL nOrientation := 1
+   LOCAL nDuplex
+   
    MEMVAR oReport
    PRIVATE oReport := Self, aImgs
 
@@ -1330,8 +1428,19 @@ METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
    RETURN NIL
 
 METHOD PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
+   
    LOCAL oPrinter := Iif( printer != NIL, Iif( ValType(printer ) == "O",printer,HPrinter():New(printer, .T. ) ), HPrinter():New( , .T. ) )
-   LOCAL i, j, aMethod, xProperty, oFont, xTemp, nPWidth, nPHeight, nOrientation := 1, nDuplex
+   LOCAL i
+   LOCAL j
+   LOCAL aMethod
+   LOCAL xProperty
+   LOCAL oFont
+   LOCAL xTemp
+   LOCAL nPWidth
+   LOCAL nPHeight
+   LOCAL nOrientation := 1
+   LOCAL nDuplex
+   
    MEMVAR oReport
    PRIVATE oReport := Self, aImgs := {}
 
@@ -1432,8 +1541,26 @@ METHOD PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 ) CLASS HRe
    RETURN NIL
 
 METHOD PrintItem( oItem ) CLASS HRepTmpl
-   LOCAL aMethod, lRes := .T. , i, nPenType, nPenWidth
-   LOCAL x, y, x2, y2, cText, nJustify, xProperty, nLen, dy, nFirst, ny, nw, x1
+   
+   LOCAL aMethod
+   LOCAL lRes := .T.
+   LOCAL i
+   LOCAL nPenType
+   LOCAL nPenWidth
+   LOCAL x
+   LOCAL y
+   LOCAL x2
+   LOCAL y2
+   LOCAL cText
+   LOCAL nJustify
+   LOCAL xProperty
+   LOCAL nLen
+   LOCAL dy
+   LOCAL nFirst
+   LOCAL ny
+   LOCAL nw
+   LOCAL x1
+   
    MEMVAR lLastCycle, lSkipItem
 
    IF oItem:cClass == "area"
@@ -1633,6 +1760,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
    RETURN NIL
 
 METHOD ReleaseObj( aControls ) CLASS HRepTmpl
+   
    LOCAL i
 
    FOR i := 1 TO Len( aControls )
@@ -1660,11 +1788,13 @@ METHOD ReleaseObj( aControls ) CLASS HRepTmpl
    RETURN NIL
 
 METHOD Find( cId ) CLASS HRepTmpl
+   
    LOCAL i := Ascan( ::aReports, { |o|o:cId != NIL .AND. o:cId == cId } )
 
    RETURN Iif( i == 0, NIL, ::aReports[i] )
 
 METHOD CLOSE() CLASS HRepTmpl
+   
    LOCAL i := Ascan( ::aReports, { |o|o:id == ::id } )
 
    IF i != 0
@@ -1675,10 +1805,18 @@ METHOD CLOSE() CLASS HRepTmpl
    RETURN NIL
 
 STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
+   
    LOCAL oCtrl := HRepItem():New( oContainer )
-   LOCAL i, j, o, cName, aProp := {}, aMethods := {}, aItems := oCtrlDesc:aItems, xProperty
-   * Variables not used
-   * LOCAL nPenWidth, nPenType
+   LOCAL i
+   LOCAL j
+   LOCAL o
+   LOCAL cName
+   LOCAL aProp := {}
+   LOCAL aMethods := {}
+   LOCAL aItems := oCtrlDesc:aItems
+   LOCAL xProperty
+   // Variables not used
+   // LOCAL nPenWidth, nPenType
 
    oCtrl:cClass   := oCtrlDesc:GetAttribute( "class" )
    oCtrl:aProp    := aProp
@@ -1707,13 +1845,15 @@ STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
    RETURN NIL
 
 STATIC FUNCTION aGetSecond( arr, xFirst )
+   
    LOCAL i := Ascan( arr, { |a|a[1] == xFirst } )
 
    RETURN Iif( i == 0, NIL, arr[i,2] )
 
 FUNCTION hwg_aSetSecond( arr, xFirst, xValue )
 
-   LOCAL i := Ascan( arr, { |a|a[1] == xFirst } ), xRet
+   LOCAL i := Ascan( arr, { |a|a[1] == xFirst } )
+   LOCAL xRet
 
    IF i != 0
       xRet := arr[i,2]
@@ -1727,12 +1867,15 @@ FUNCTION hwg_aSetSecond( arr, xFirst, xValue )
    RETURN xRet
 
 STATIC FUNCTION hrep_FontFromXML( oPrinter, oXmlNode, nKoeff, nFontH )
-   LOCAL height := oXmlNode:GetAttribute( "height" ), nPos
+   
+   LOCAL height := oXmlNode:GetAttribute( "height" )
+   LOCAL nPos
    LOCAL weight := oXmlNode:GetAttribute( "weight" )
    LOCAL charset := oXmlNode:GetAttribute( "charset" )
    LOCAL ita   := oXmlNode:GetAttribute( "italic" )
    LOCAL under := oXmlNode:GetAttribute( "underline" )
-   LOCAL name  := oXmlNode:GetAttribute( "name" ), i
+   LOCAL name  := oXmlNode:GetAttribute( "name" )
+   LOCAL i
 
    IF HB_ISARRAY(HRepTmpl():aFontTable)
       IF ( i := Ascan( HRepTmpl():aFontTable,{ |a|Lower(a[1] ) == Lower(name ) } ) ) != 0

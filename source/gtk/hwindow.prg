@@ -16,9 +16,11 @@ REQUEST HWG_ENDWINDOW
 FUNCTION hwg_onWndSize( oWnd, wParam, lParam )
 
    LOCAL aCoors := hwg_Getwindowrect( oWnd:handle )
+   // LOCAL w := hwg_Loword( lParam )
+   // LOCAL h := hwg_Hiword( lParam )
+   LOCAL w := aCoors[3] - aCoors[1]
+   LOCAL h := aCoors[4] - aCoors[2]
 
-   //LOCAL w := hwg_Loword( lParam ), h := hwg_Hiword( lParam )
-   LOCAL w := aCoors[3] - aCoors[1], h := aCoors[4] - aCoors[2]
    IF oWnd:nWidth == w .AND. oWnd:nHeight == h
       RETURN 0
    ENDIF
@@ -43,10 +45,10 @@ FUNCTION hwg_onWndSize( oWnd, wParam, lParam )
 FUNCTION hwg_onMove( oWnd, wParam, lParam )
 
    LOCAL apos := hwg_getwindowpos( oWnd:handle )
-   
+
    * Parameters not used
    HB_SYMBOL_UNUSED(wParam)
-   HB_SYMBOL_UNUSED(lParam)   
+   HB_SYMBOL_UNUSED(lParam)
 
    //hwg_WriteLog( "onMove: "+str(oWnd:nX)+" "+str(oWnd:nY)+" -> "+str(hwg_Loword(lParam))+str(hwg_Hiword(lParam))+" "+str(apos[1])+" "+str(apos[2]) )
    oWnd:nX := apos[1] //hwg_Loword( lParam )
@@ -56,7 +58,8 @@ FUNCTION hwg_onMove( oWnd, wParam, lParam )
 
 FUNCTION hwg_HideHidden( oWnd )
 
-   LOCAL i, aControls := oWnd:aControls
+   LOCAL i
+   LOCAL aControls := oWnd:aControls
 
    FOR i := 1 TO Len( aControls )
       IF !Empty(aControls[i]:aControls)
@@ -71,7 +74,10 @@ FUNCTION hwg_HideHidden( oWnd )
 
 FUNCTION hwg_onAnchor( oWnd, wold, hold, wnew, hnew )
 
-   LOCAL aControls := oWnd:aControls, oItem, w, h
+   LOCAL aControls := oWnd:aControls
+   LOCAL oItem
+   LOCAL w
+   LOCAL h
 
    FOR EACH oItem IN aControls
       IF oItem:Anchor > 0
@@ -86,7 +92,8 @@ FUNCTION hwg_onAnchor( oWnd, wold, hold, wnew, hnew )
 
 STATIC FUNCTION onDestroy( oWnd )
 
-   LOCAL i, lRes
+   LOCAL i
+   LOCAL lRes
 
    IF oWnd:bDestroy != NIL
       IF ValType( lRes := Eval( oWnd:bDestroy, oWnd ) ) == "L" .AND. !lRes
@@ -207,9 +214,9 @@ METHOD DelItem( oWnd ) CLASS HWindow
 
 METHOD FindWindow( hWnd ) CLASS HWindow
 
-   // Local i := Ascan( ::aWindows, {|o|o:handle==hWnd} )
-   // Return Iif( i == 0, NIL, ::aWindows[i] )
+   // LOCAL i := Ascan( ::aWindows, {|o|o:handle==hWnd} )
 
+   // Return Iif( i == 0, NIL, ::aWindows[i] )
    RETURN hwg_Getwindowobject( hWnd )
 
 METHOD GetMain() CLASS HWindow
@@ -302,9 +309,10 @@ METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,
 /* Added: lMaximize, lMinimize, lCentered, bActivate */
 METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMainWindow
 
-   LOCAL aCoors, aRect
-   * Variables not used
-   * LOCAL i
+   LOCAL aCoors
+   LOCAL aRect
+   // Variables not used
+   // LOCAL i
 
    * Parameters not used
    HB_SYMBOL_UNUSED(lShow)
@@ -380,7 +388,7 @@ METHOD ICONIFY()  CLASS HMainWindow
 
 FUNCTION hwg_ReleaseAllWindows( hWnd )
 
-   * LOCAL oItem, iCont, nCont
+   // LOCAL oItem, iCont, nCont
    
    * Parameters not used
    HB_SYMBOL_UNUSED(hWnd)
@@ -389,9 +397,13 @@ FUNCTION hwg_ReleaseAllWindows( hWnd )
 
 STATIC FUNCTION onCommand( oWnd, wParam, lParam )
 
-   LOCAL iItem, iCont, aMenu, iParHigh, iParLow
-   * Variables not used
-   * LOCAL nHandle
+   LOCAL iItem
+   LOCAL iCont
+   LOCAL aMenu
+   LOCAL iParHigh
+   LOCAL iParLow
+   // Variables not used
+   // LOCAL nHandle
 
    * Parameters not used
    HB_SYMBOL_UNUSED(lParam)

@@ -99,7 +99,8 @@ METHOD New( cHeading, block, type, length, dec, lEditable, nJusHead, nJusLin, cP
 
 METHOD SetPaintCB( nId, block, cId ) CLASS HColumn
 
-   LOCAL i, nLen
+   LOCAL i
+   LOCAL nLen
 
    IF Empty(cId)
       cId := "_"
@@ -314,7 +315,8 @@ METHOD Activate() CLASS HBrowse
 /* Event handler */
 METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
 
-   LOCAL aCoors, retValue := - 1
+   LOCAL aCoors
+   LOCAL retValue := -1
 
    // hwg_WriteLog( "Brw: "+Str(msg,6)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
    IF ::active .AND. !Empty(::aColumns)
@@ -448,7 +450,8 @@ METHOD Init() CLASS HBrowse
 
 METHOD AddColumn( oColumn ) CLASS HBrowse
 
-   LOCAL n, arr
+   LOCAL n
+   LOCAL arr
 
    IF HB_ISARRAY(oColumn)
       arr := oColumn
@@ -581,7 +584,14 @@ METHOD InitBrw( nType )  CLASS HBrowse
 /* Added: hDC */
 METHOD Rebuild( hDC ) CLASS HBrowse
 
-   LOCAL i, j, oColumn, xSize, nColLen, nHdrLen, nCount, arr
+   LOCAL i
+   LOCAL j
+   LOCAL oColumn
+   LOCAL xSize
+   LOCAL nColLen
+   LOCAL nHdrLen
+   LOCAL nCount
+   LOCAL arr
 
    IF ::oPenSep == NIL
       ::oPenSep := HPen():Add( PS_SOLID, 1, ::sepColor )
@@ -667,8 +677,12 @@ METHOD Rebuild( hDC ) CLASS HBrowse
 
 METHOD Paint()  CLASS HBrowse
 
-   LOCAL aCoors, i, l, tmp, nRows
-   LOCAL  hDC
+   LOCAL aCoors
+   LOCAL i
+   LOCAL l
+   LOCAL tmp
+   LOCAL nRows
+   LOCAL hDC
  
    * Variables not used
    * LOCAL oldAlias, pps
@@ -826,8 +840,16 @@ METHOD Paint()  CLASS HBrowse
 
 METHOD DrawHeader( hDC, nColumn, x1, y1, x2, y2 ) CLASS HBrowse
 
-   LOCAL cStr, oColumn := ::aColumns[nColumn], cNWSE, nLine, ya, yb
-   LOCAL nHeight := ::nRowTextHeight, aCB := oColumn:aPaintCB, block, i
+   LOCAL cStr
+   LOCAL oColumn := ::aColumns[nColumn]
+   LOCAL cNWSE
+   LOCAL nLine
+   LOCAL ya
+   LOCAL yb
+   LOCAL nHeight := ::nRowTextHeight
+   LOCAL aCB := oColumn:aPaintCB
+   LOCAL block
+   LOCAL i
 
    IF !Empty(block := hwg_getPaintCB( aCB, PAINT_HEAD_ALL ))
       RETURN Eval( block, oColumn, hDC, x1, y1, x2, y2, nColumn )
@@ -890,7 +912,12 @@ METHOD DrawHeader( hDC, nColumn, x1, y1, x2, y2 ) CLASS HBrowse
 
 METHOD HeaderOut( hDC ) CLASS HBrowse
 
-   LOCAL i, x, y1, oldc, fif, xSize
+   LOCAL i
+   LOCAL x
+   LOCAL y1
+   LOCAL oldc
+   LOCAL fif
+   LOCAL xSize
    LOCAL nRows := Min( ::nRecords + iif( ::lAppMode,1,0 ), ::rowCount )
 
    IF ::lDispSep
@@ -946,8 +973,17 @@ METHOD HeaderOut( hDC ) CLASS HBrowse
 
 METHOD FooterOut( hDC ) CLASS HBrowse
 
-   LOCAL i, x, x2, y1, y2, fif, xSize, nLine
-   LOCAL oColumn, aCB, block
+   LOCAL i
+   LOCAL x
+   LOCAL x2
+   LOCAL y1
+   LOCAL y2
+   LOCAL fif
+   LOCAL xSize
+   LOCAL nLine
+   LOCAL oColumn
+   LOCAL aCB
+   LOCAL block
 
    IF ::lDispSep
       hwg_Selectobject( hDC, ::oPenSep:handle )
@@ -1032,15 +1068,31 @@ METHOD FooterOut( hDC ) CLASS HBrowse
 /* Added: nstroka, vybfld, hDC, lSelected, lClear */
 METHOD LineOut( nstroka, vybfld, hDC, lSelected, lClear ) CLASS HBrowse
 
-   LOCAL x, x2, y1, y2, i := 1, sviv, xSize, nCol
-   LOCAL j, ob, bw, bh, hBReal
-   LOCAL oldBkColor, oldTColor
+   LOCAL x
+   LOCAL x2
+   LOCAL y1
+   LOCAL y2
+   LOCAL i := 1
+   LOCAL sviv
+   LOCAL xSize
+   LOCAL nCol
+   LOCAL j
+   LOCAL ob
+   LOCAL bw
+   LOCAL bh
+   LOCAL hBReal
+   LOCAL oldBkColor
+   LOCAL oldTColor
    LOCAL oBrushLine := iif( lSelected, ::brushSel, ::brush )
    LOCAL oBrushSele := iif( vybfld >= 1, HBrush():Add( ::htbColor ), NIL )
    LOCAL lColumnFont := .F.
-   LOCAL aCores, oColumn, aCB, block
+   LOCAL aCores
+   LOCAL oColumn
+   LOCAL aCB
+   LOCAL block
+
    * Variables not used
-   * dx, shablon, fldname, slen  
+   * dx, shablon, fldname, slen
    x := ::x1
    IF lClear == NIL
       lClear := .F.
@@ -1155,7 +1207,8 @@ METHOD LineOut( nstroka, vybfld, hDC, lSelected, lClear ) CLASS HBrowse
 
 METHOD SetColumn( nCol ) CLASS HBrowse
 
-   LOCAL nColPos, lPaint := .F.
+   LOCAL nColPos
+   LOCAL lPaint := .F.
 
    IF ::lEditable
       IF nCol != NIL .AND. nCol >= 1 .AND. nCol <= Len( ::aColumns )
@@ -1189,8 +1242,13 @@ METHOD SetColumn( nCol ) CLASS HBrowse
 
 STATIC FUNCTION LINERIGHT( oBrw, lRefresh )
 
-   LOCAL maxPos, nPos, oldLeft := oBrw:nLeftCol, oldPos := oBrw:colpos, fif
-   LOCAL i, nColumns := Len( oBrw:aColumns )
+   LOCAL maxPos
+   LOCAL nPos
+   LOCAL oldLeft := oBrw:nLeftCol
+   LOCAL oldPos := oBrw:colpos
+   LOCAL fif
+   LOCAL i
+   LOCAL nColumns := Len( oBrw:aColumns )
 
    IF oBrw:lEditable .AND. oBrw:colpos < oBrw:nColumns
       oBrw:colpos ++
@@ -1227,7 +1285,11 @@ STATIC FUNCTION LINERIGHT( oBrw, lRefresh )
 
 STATIC FUNCTION LINELEFT( oBrw, lRefresh )
 
-   LOCAL maxPos, nPos, oldLeft := oBrw:nLeftCol, oldPos := oBrw:colpos, fif
+   LOCAL maxPos
+   LOCAL nPos
+   LOCAL oldLeft := oBrw:nLeftCol
+   LOCAL oldPos := oBrw:colpos
+   LOCAL fif
    LOCAL nColumns := Len( oBrw:aColumns )
 
    IF oBrw:lEditable
@@ -1295,7 +1357,9 @@ METHOD DoVScroll( wParam ) CLASS HBrowse
 
 METHOD DoHScroll( wParam ) CLASS HBrowse
 
-   LOCAL nScrollH, nLeftCol, colpos
+   LOCAL nScrollH
+   LOCAL nLeftCol
+   LOCAL colpos
 
    IF wParam == NIL
       nScrollH := hwg_getAdjValue( ::hScrollH )
@@ -1327,7 +1391,9 @@ METHOD DoHScroll( wParam ) CLASS HBrowse
 
 METHOD LINEDOWN( lMouse ) CLASS HBrowse
 
-   LOCAL maxPos, nPos, colpos
+   LOCAL maxPos
+   LOCAL nPos
+   LOCAL colpos
 
    lMouse := iif( lMouse == NIL, .F. , lMouse )
    Eval( ::bSkip, Self, 1 )
@@ -1383,7 +1449,8 @@ METHOD LINEDOWN( lMouse ) CLASS HBrowse
 /* Added: lMouse */
 METHOD LINEUP( lMouse ) CLASS HBrowse
 
-   LOCAL maxPos, nPos
+   LOCAL maxPos
+   LOCAL nPos
 
    lMouse := iif( lMouse == NIL, .F. , lMouse )
    Eval( ::bSkip, Self, - 1 )
@@ -1422,7 +1489,10 @@ METHOD LINEUP( lMouse ) CLASS HBrowse
 /* Added: lMouse */
 METHOD PAGEUP( lMouse ) CLASS HBrowse
 
-   LOCAL maxPos, nPos, step, lBof := .F.
+   LOCAL maxPos
+   LOCAL nPos
+   LOCAL step
+   LOCAL lBof := .F.
 
    lMouse := iif( lMouse == NIL, .F. , lMouse )
    IF ::rowPos > 1
@@ -1461,8 +1531,11 @@ METHOD PAGEUP( lMouse ) CLASS HBrowse
 /* Added: lMouse */
 METHOD PAGEDOWN( lMouse ) CLASS HBrowse
 
-   LOCAL maxPos, nPos, nRows := ::rowCurrCount
-   LOCAL step := Iif( nRows > ::rowPos, nRows - ::rowPos + 1, nRows ), lEof
+   LOCAL maxPos
+   LOCAL nPos
+   LOCAL nRows := ::rowCurrCount
+   LOCAL step := Iif( nRows > ::rowPos, nRows - ::rowPos + 1, nRows )
+   LOCAL lEof
 
    lMouse := Iif( lMouse == NIL, .F. , lMouse )
    Eval( ::bSkip, Self, step )
@@ -1542,11 +1615,17 @@ METHOD TOP() CLASS HBrowse
 METHOD ButtonDown( lParam ) CLASS HBrowse
 
    LOCAL nLine
-   LOCAL step, res := .F. , nrec
-   LOCAL maxPos, nPos
-   LOCAL ym := hwg_Hiword( lParam ), xm := hwg_Loword( lParam ), x1, fif
-   * Variables not used
-   * LOCAL hBrw := ::handle
+   LOCAL step
+   LOCAL res := .F.
+   LOCAL nrec
+   LOCAL maxPos
+   LOCAL nPos
+   LOCAL ym := hwg_Hiword( lParam )
+   LOCAL xm := hwg_Loword( lParam )
+   LOCAL x1
+   LOCAL fif
+   // Variables not used
+   // LOCAL hBrw := ::handle
 
    nLine := iif( ym < ::y1, 0, Int( (ym - ::y1 ) / (::height + 1 ) ) + 1 )
    step := nLine - ::rowPos
@@ -1622,7 +1701,10 @@ METHOD ButtonDown( lParam ) CLASS HBrowse
 METHOD ButtonRDown( lParam ) CLASS HBrowse
 
    LOCAL nLine
-   LOCAL ym := hwg_Hiword( lParam ), xm := hwg_Loword( lParam ), x1, fif
+   LOCAL ym := hwg_Hiword( lParam )
+   LOCAL xm := hwg_Loword( lParam )
+   LOCAL x1
+   LOCAL fif
 
    IF ::bRClick == NIL
       RETURN NIL
@@ -1644,7 +1726,10 @@ METHOD ButtonRDown( lParam ) CLASS HBrowse
 METHOD ButtonUp( lParam ) CLASS HBrowse
 
    LOCAL hBrw := ::handle
-   LOCAL xPos := hwg_Loword( lParam ), x := ::x1, x1 := xPos, i
+   LOCAL xPos := hwg_Loword( lParam )
+   LOCAL x := ::x1
+   LOCAL x1 := xPos
+   LOCAL i
 
    IF ::lBtnDbl
       ::lBtnDbl := .F.
@@ -1692,8 +1777,8 @@ METHOD ButtonDbl( lParam ) CLASS HBrowse
 
    LOCAL nLine
    LOCAL ym := hwg_Hiword( lParam )
-   * Variables not used
-   * hBrw := ::handle
+   // Variables not used
+   // hBrw := ::handle
 
    nLine := iif( ym < ::y1, 0, Int( (ym - ::y1 ) / (::height + 1 ) ) + 1 )
    IF nLine <= ::rowCurrCount
@@ -1706,8 +1791,12 @@ METHOD ButtonDbl( lParam ) CLASS HBrowse
 
 METHOD MouseMove( wParam, lParam ) CLASS HBrowse
 
-   LOCAL xPos := hwg_Loword( lParam ), yPos := hwg_Hiword( lParam )
-   LOCAL x := ::x1, i, res := .F. , nLen
+   LOCAL xPos := hwg_Loword( lParam )
+   LOCAL yPos := hwg_Hiword( lParam )
+   LOCAL x := ::x1
+   LOCAL i
+   LOCAL res := .F.
+   LOCAL nLen
 
    IF !::active .OR. Empty(::aColumns) .OR. ::x1 == NIL
       RETURN NIL
@@ -1774,10 +1863,22 @@ METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos ) CLASS HBrowse
 
 METHOD Edit( wParam, lParam ) CLASS HBrowse
 
-   LOCAL fipos, lRes, x1, y1, fif, nWidth, rowPos
-   LOCAL oColumn, type
-   LOCAL mvarbuff , bMemoMod , owb1 , owb2 , oModDlg , bclsbutt
-   LOCAL lSaveMem    && DF7BE
+   LOCAL fipos
+   LOCAL lRes
+   LOCAL x1
+   LOCAL y1
+   LOCAL fif
+   LOCAL nWidth
+   LOCAL rowPos
+   LOCAL oColumn
+   LOCAL type
+   LOCAL mvarbuff
+   LOCAL bMemoMod
+   LOCAL owb1
+   LOCAL owb2
+   LOCAL oModDlg
+   LOCAL bclsbutt
+   LOCAL lSaveMem // DF7BE
 
    lSaveMem := .T.
 
@@ -1924,8 +2025,11 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
 * Purpose: Store edited contents
 * Parameter oEdit only used, if memo edit is used.
 
-   LOCAL oColumn := oBrw:aColumns[fipos], nRec, fif
-   LOCAL cErrMsgRecLock, bESCkey
+   LOCAL oColumn := oBrw:aColumns[fipos]
+   LOCAL nRec
+   LOCAL fif
+   LOCAL cErrMsgRecLock
+   LOCAL bESCkey
    LOCAL nChoic := NIL
    
    /* Mysterious behavior of Harbour on Ubuntu and LinuxMINT:
@@ -2037,7 +2141,9 @@ METHOD Refresh( lFull ) CLASS HBrowse
 
 STATIC FUNCTION FldStr(oBrw, numf)
 
-   LOCAL cRes, vartmp, type 
+   LOCAL cRes
+   LOCAL vartmp
+   LOCAL type
    LOCAL pict
 
    IF numf <= Len( oBrw:aColumns )
@@ -2093,7 +2199,8 @@ STATIC FUNCTION FldStr(oBrw, numf)
 
 STATIC FUNCTION FLDCOUNT( oBrw, xstrt, xend, fld1 )
 
-   LOCAL klf := 0, i := iif( oBrw:freeze > 0, 1, fld1 )
+   LOCAL klf := 0
+   LOCAL i := iif( oBrw:freeze > 0, 1, fld1 )
 
    WHILE .T.
       xstrt += oBrw:aColumns[i]:width
@@ -2171,7 +2278,8 @@ FUNCTION hwg_CreateList( oBrw, lEditable )
 FUNCTION hwg_VScrollPos( oBrw, nType, lEof, nPos )
 
    LOCAL maxPos := hwg_getAdjValue( oBrw:hScrollV, 1 ) - hwg_getAdjValue( oBrw:hScrollV, 4 )
-   LOCAL oldRecno, newRecno
+   LOCAL oldRecno
+   LOCAL newRecno
 
    IF nPos == NIL
       IF nType > 0 .AND. lEof
@@ -2229,7 +2337,9 @@ STATIC FUNCTION CountToken( cStr, nMaxLen, nCount )
 
 FUNCTION hwg_getPaintCB( arr, nId )
 
-   LOCAL i, nLen, aRes
+   LOCAL i
+   LOCAL nLen
+   LOCAL aRes
 
    IF !Empty(arr)
       nLen := Len( arr )

@@ -48,14 +48,18 @@ METHOD Activate() CLASS HSayImage
 
    RETURN NIL
 
-   FUNCTION hwg_GetBitmapHeight( handle )
+FUNCTION hwg_GetBitmapHeight( handle )
+
    LOCAL aBmpSize
+
    aBmpSize  := hwg_Getbitmapsize( handle )
 
-   RETURN aBmpSize[2]
+RETURN aBmpSize[2]
 
-   FUNCTION hwg_GetBitmapWidth( handle )
+FUNCTION hwg_GetBitmapWidth( handle )
+
    LOCAL aBmpSize
+
    aBmpSize  := hwg_Getbitmapsize( handle )
 
-   RETURN aBmpSize[1]
+RETURN aBmpSize[1]

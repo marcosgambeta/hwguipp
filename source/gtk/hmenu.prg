@@ -44,6 +44,7 @@ METHOD Show( oWnd ) CLASS HMenu
    RETURN NIL
 
 FUNCTION Hwg_CreateMenu
+   
    LOCAL hMenu
 
    IF ( Empty(hMenu := hwg__CreateMenu()) )
@@ -74,6 +75,7 @@ FUNCTION Hwg_SetMenu( oWnd, aMenu )
  */
 
 FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos, hWnd )
+   
    LOCAL hSubMenu
 
    IF nPos == NIL
@@ -105,7 +107,9 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos, hWnd )
    RETURN NIL
 
 FUNCTION Hwg_FindMenuItem( aMenu, nId, nPos )
-   LOCAL nPos1, aSubMenu
+   
+   LOCAL nPos1
+   LOCAL aSubMenu
 
    nPos := 1
    DO WHILE nPos <= Len( aMenu[1] )
@@ -123,15 +127,18 @@ FUNCTION Hwg_FindMenuItem( aMenu, nId, nPos )
    RETURN NIL
 
 FUNCTION Hwg_GetSubMenuHandle( aMenu, nId )
+   
    LOCAL aSubMenu := Hwg_FindMenuItem( aMenu, nId )
 
    RETURN iif( aSubMenu == NIL, 0, aSubMenu[5] )
 
 FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
 
-   LOCAL hMenu, nPos, aMenu
-   * Variables not used
-   * LOCAL i, oBmp
+   LOCAL hMenu
+   LOCAL nPos
+   LOCAL aMenu
+   // Variables not used
+   // LOCAL i, oBmp
 
    IF nPosParent == NIL
       IF lPopup == NIL .OR. !lPopup
@@ -177,7 +184,9 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
    RETURN NIL
 
 FUNCTION Hwg_BeginMenu( oWnd, nId, cTitle )
-   LOCAL aMenu, i
+   
+   LOCAL aMenu
+   LOCAL i
 
    IF oWnd != NIL
       _lContext := .F.
@@ -237,9 +246,11 @@ FUNCTION Hwg_EndMenu()
 
 FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBitmap, lResource, lCheck )
 
-   LOCAL aMenu, i, nFlag
-   * Variables not used
-   * LOCAL oBmp
+   LOCAL aMenu
+   LOCAL i
+   LOCAL nFlag
+   // Variables not used
+   // LOCAL oBmp
 
    * Parameters not used
    HB_SYMBOL_UNUSED(lBitmap)
@@ -283,7 +294,9 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
    RETURN .T.
 
 FUNCTION Hwg_DefineAccelItem( nId, bItem, accFlag, accKey )
-   LOCAL aMenu, i
+   
+   LOCAL aMenu
+   LOCAL i
 
    aMenu := _aMenuDef
    FOR i := 1 TO _nLevel
@@ -296,10 +309,14 @@ FUNCTION Hwg_DefineAccelItem( nId, bItem, accFlag, accKey )
    RETURN .T.
 
 STATIC FUNCTION hwg_Createacceleratortable( oWnd )
+   
    LOCAL hTable := hwg__Createacceleratortable( oWnd:handle )
-   LOCAL i, nPos, aSubMenu, nKey
-   * Variables not used
-   * LOCAL n
+   LOCAL i
+   LOCAL nPos
+   LOCAL aSubMenu
+   LOCAL nKey
+   // Variables not used
+   // LOCAL n
 
    FOR i := 1 TO Len( _aAccel )
       IF ( aSubMenu := Hwg_FindMenuItem( oWnd:menu, _aAccel[i,3], @nPos ) ) != NIL
@@ -315,7 +332,10 @@ STATIC FUNCTION hwg_Createacceleratortable( oWnd )
    RETURN hTable
 
 STATIC FUNCTION GetMenuByHandle( hWnd )
-   LOCAL i, aMenu, oDlg
+   
+   LOCAL i
+   LOCAL aMenu
+   LOCAL oDlg
 
    IF hWnd == NIL
       aMenu := HWindow():GetMain():menu
@@ -342,7 +362,9 @@ STATIC FUNCTION GetMenuByHandle( hWnd )
 //   OR hWnd - handle of a window OR hMenu - menu handle
 FUNCTION hwg_CheckMenuItem( hWnd, nId, lValue )
 
-   LOCAL aMenu, aSubMenu, nPos
+   LOCAL aMenu
+   LOCAL aSubMenu
+   LOCAL nPos
 
    aMenu := GetMenuByHandle( hWnd )
    IF aMenu != NIL
@@ -355,7 +377,10 @@ FUNCTION hwg_CheckMenuItem( hWnd, nId, lValue )
 
 FUNCTION hwg_IsCheckedMenuItem( hWnd, nId )
 
-   LOCAL aMenu, aSubMenu, nPos, lRes := .F.
+   LOCAL aMenu
+   LOCAL aSubMenu
+   LOCAL nPos
+   LOCAL lRes := .F.
 
    aMenu := GetMenuByHandle( hWnd )
    IF aMenu != NIL
@@ -368,7 +393,9 @@ FUNCTION hwg_IsCheckedMenuItem( hWnd, nId )
 
 FUNCTION hwg_EnableMenuItem( hWnd, nId, lValue )
 
-   LOCAL aMenu, aSubMenu, nPos
+   LOCAL aMenu
+   LOCAL aSubMenu
+   LOCAL nPos
 
    aMenu := GetMenuByHandle( hWnd )
    IF aMenu != NIL
@@ -381,7 +408,9 @@ FUNCTION hwg_EnableMenuItem( hWnd, nId, lValue )
 
 FUNCTION hwg_IsEnabledMenuItem( hWnd, nId )
 
-   LOCAL aMenu, aSubMenu, nPos
+   LOCAL aMenu
+   LOCAL aSubMenu
+   LOCAL nPos
 
    aMenu := GetMenuByHandle( hWnd )
    IF aMenu != NIL
@@ -398,7 +427,9 @@ FUNCTION hwg_IsEnabledMenuItem( hWnd, nId )
 
 FUNCTION hwg_SetMenuCaption( hWnd, nId, cText )
 
-   LOCAL aMenu, aSubMenu, nPos
+   LOCAL aMenu
+   LOCAL aSubMenu
+   LOCAL nPos
 
    aMenu := GetMenuByHandle( hWnd )
    IF aMenu != NIL
@@ -411,7 +442,8 @@ FUNCTION hwg_SetMenuCaption( hWnd, nId, cText )
 
 FUNCTION hwg_DeleteMenuItem( oWnd, nId )
 
-   LOCAL aSubMenu, nPos
+   LOCAL aSubMenu
+   LOCAL nPos
 
    IF ( aSubMenu := Hwg_FindMenuItem( oWnd:menu, nId, @nPos ) ) != NIL
       hwg__DeleteMenu( aSubmenu[1,nPos,5], nId )
@@ -423,8 +455,8 @@ FUNCTION hwg_DeleteMenuItem( oWnd, nId )
 
 FUNCTION hwg_gtk_convertkey( nKey )
 
-   * Variables not used
-   * LOCAL n
+   // Variables not used
+   // LOCAL n
 
    IF nKey >= 65 .AND. nKey <= 90
       nKey += 32

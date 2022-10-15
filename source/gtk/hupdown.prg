@@ -87,9 +87,9 @@ METHOD Activate() CLASS HUpDown
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HUpDown
 
-   * Variables not used 
-   * LOCAL oParent := ::oParent
-   * LOCAL nPos
+   // Variables not used
+   // LOCAL oParent := ::oParent
+   // LOCAL nPos
 
    * Parameters not used
    HB_SYMBOL_UNUSED(wParam)
@@ -111,8 +111,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HUpDown
 
 METHOD Refresh()  CLASS HUpDown
 
-   * Variables not used
-   * LOCAL vari
+   // Variables not used
+   // LOCAL vari
 
    IF ::bSetGet != NIL
       ::nValue := Eval( ::bSetGet )

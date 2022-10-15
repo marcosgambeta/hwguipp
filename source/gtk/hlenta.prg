@@ -70,6 +70,7 @@ METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, oFont, ;
    RETURN Self
 
 METHOD Activate() CLASS HLenta
+   
    LOCAL handle := ::oParent:handle
 
    IF !Empty(handle)
@@ -99,7 +100,11 @@ METHOD Init() CLASS HLenta
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HLenta
 
-   LOCAL xPos, yPos, nPos, lRedraw := .F., y1
+   LOCAL xPos
+   LOCAL yPos
+   LOCAL nPos
+   LOCAL lRedraw := .F.
+   LOCAL y1
 
    HB_SYMBOL_UNUSED(wParam)
 
@@ -171,11 +176,20 @@ METHOD Paint() CLASS HLenta
    LOCAL pps := hwg_Definepaintstru()
    LOCAL hDC := hwg_Beginpaint( ::handle, pps )
 #endif
-   LOCAL i, y1, ob, nCurr, nItemSize := ::nItemSize, oStyle, cText
-   LOCAL lVertical := ::lVertical, l1
-   LOCAL nW := Iif( ::lVertical, ::nWidth, ::nHeight ), nLength := Iif( ::lVertical, ::nHeight, ::nWidth )
+   LOCAL i
+   LOCAL y1
+   LOCAL ob
+   LOCAL nCurr
+   LOCAL nItemSize := ::nItemSize
+   LOCAL oStyle
+   LOCAL cText
+   LOCAL lVertical := ::lVertical
+   LOCAL l1
+   LOCAL nW := Iif( ::lVertical, ::nWidth, ::nHeight )
+   LOCAL nLength := Iif( ::lVertical, ::nHeight, ::nWidth )
    LOCAL aItemStyle := ::aItemStyle
-   LOCAL lStyleOver := ( Len(aItemStyle)>2.AND.aItemStyle[3]!=NIL ), lStyleSele := ( Len(aItemStyle)>1.AND.aItemStyle[2]!=NIL )
+   LOCAL lStyleOver := ( Len(aItemStyle)>2.AND.aItemStyle[3]!=NIL )
+   LOCAL lStyleSele := ( Len(aItemStyle)>1.AND.aItemStyle[2]!=NIL )
 
    IF ::bPaint != NIL
       Eval( ::bPaint, Self, hDC )
@@ -274,7 +288,9 @@ METHOD Paint() CLASS HLenta
 
 METHOD Drag( xPos, yPos ) CLASS HLenta
 
-   LOCAL nLength := Iif( ::lVertical, ::nHeight, ::nWidth ), nKolItems := Len( ::aItems )
+   LOCAL nLength := Iif( ::lVertical, ::nHeight, ::nWidth )
+   LOCAL nKolItems := Len( ::aItems )
+
    //hwg_Writelog( "   " + Ltrim(Str(yPos)) + " " + Ltrim(Str(::yPos)) + " " + Ltrim(Str(::nShift)) )
    IF nLength < ::nItemSize * nKolItems - 4 .AND. ;
       ( ( ::lVertical .AND. Abs( yPos-::yPos ) > 2 ) .OR. ( !::lVertical .AND. Abs( xPos-::xPos ) > 2 ) )

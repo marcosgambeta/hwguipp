@@ -87,7 +87,11 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HGraph
    RETURN 0
 
 METHOD CalcMinMax() CLASS HGraph
-   LOCAL i, j, nLen, l1
+   
+   LOCAL i
+   LOCAL j
+   LOCAL nLen
+   LOCAL l1
 
    IF ::nType == 0 .OR. ::nType > 3 .OR. Empty(::aValues)
       RETURN NIL
@@ -146,10 +150,25 @@ METHOD CalcMinMax() CLASS HGraph
    RETURN NIL
 
 METHOD Paint() CLASS HGraph
+   
    LOCAL hDC := hwg_Getdc( ::handle )
-   LOCAL x1 := 0, y1 := 0, x2 := ::nWidth, y2 := ::nHeight, scaleX, scaleY
-   LOCAL i, j, nLen, l1
-   LOCAL x0, y0, px1, px2, py1, py2, nWidth
+   LOCAL x1 := 0
+   LOCAL y1 := 0
+   LOCAL x2 := ::nWidth
+   LOCAL y2 := ::nHeight
+   LOCAL scaleX
+   LOCAL scaleY
+   LOCAL i
+   LOCAL j
+   LOCAL nLen
+   LOCAL l1
+   LOCAL x0
+   LOCAL y0
+   LOCAL px1
+   LOCAL px2
+   LOCAL py1
+   LOCAL py2
+   LOCAL nWidth
 
    IF ::nType == 0 .OR. ::nType > 3 .OR. Empty(::aValues)
       RETURN NIL

@@ -76,16 +76,18 @@ METHOD Activate() CLASS hToolBar
 RETURN NIL
 
 METHOD INIT() CLASS hToolBar
-Local n
-Local aButton := {}
-Local oImage
-Local aItem
-* Variables not used
-* Local n1
-* Local aTemp
-* Local hIm
-* Local aBmpSize
-* Local nPos
+
+   LOCAL n
+   LOCAL aButton := {}
+   LOCAL oImage
+   LOCAL aItem
+
+   // Variables not used
+   // Local n1
+   // Local aTemp
+   // Local hIm
+   // Local aBmpSize
+   // Local nPos
 
    IF !::lInit
       ::Super:Init()
@@ -139,7 +141,9 @@ Local aItem
 RETURN NIL
 
 METHOD AddButton(nBitIp,nId,bState,bStyle,cText,bClick,c,aMenu) CLASS hToolBar
-   Local hMenu := NIL
+   
+   LOCAL hMenu := NIL
+
    DEFAULT nBitIp to -1
    DEFAULT bstate to TBSTATE_ENABLED
    DEFAULT bstyle to 0x0000
@@ -150,7 +154,7 @@ RETURN Self
 
 METHOD onEvent( msg, wParam, lParam )  CLASS HToolbar
 
-   Local nPos
+   LOCAL nPos
 
    * Parameters not used
    HB_SYMBOL_UNUSED(lParam)
@@ -173,14 +177,18 @@ METHOD REFRESH() class htoolbar
 return NIL
 
 METHOD EnableAllButtons() class htoolbar
-   Local xItem
+   
+   LOCAL xItem
+
    For Each xItem in ::aItem
       hwg_Enablewindow( xItem[11], .T. )
    Next
 RETURN Self
 
 METHOD DisableAllButtons() class htoolbar
-   Local xItem
+   
+   LOCAL xItem
+
    For Each xItem in ::aItem
       hwg_Enablewindow( xItem[11], .F. )
    Next

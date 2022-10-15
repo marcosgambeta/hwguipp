@@ -160,6 +160,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
 METHOD Init() CLASS HOwnButton
 
    LOCAL bColor
+
    IF !::lInit
       bColor := ::bColor
       ::bColor := NIL
@@ -171,9 +172,16 @@ METHOD Init() CLASS HOwnButton
    RETURN NIL
 
 METHOD Paint() CLASS HOwnButton
+   
    LOCAL hDC := hwg_Getdc( ::handle )
-   LOCAL aCoors, aMetr, x1, y1, x2, y2, n
-   LOCAL nwidthb  && for ::widthb
+   LOCAL aCoors
+   LOCAL aMetr
+   LOCAL x1
+   LOCAL y1
+   LOCAL x2
+   LOCAL y2
+   LOCAL n
+   LOCAL nwidthb // for ::widthb
 
    aCoors := hwg_Getclientrect( ::handle )
    
@@ -265,9 +273,10 @@ METHOD Paint() CLASS HOwnButton
    RETURN NIL
 
 METHOD MouseMove( wParam, lParam )  CLASS HOwnButton
+   
    LOCAL lEnter := ( hb_bitand( wParam,16 ) > 0 )
-   * Variables not used
-   * LOCAL res := .F.
+   // Variables not used
+   // LOCAL res := .F.
 
    * Parameters not used
    HB_SYMBOL_UNUSED(lParam)

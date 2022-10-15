@@ -33,8 +33,9 @@ METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint ) CLASS
    RETURN Self
 
 METHOD Activate() CLASS HStatus
-   * Variables not used
-   * LOCAL aCoors
+   
+   // Variables not used
+   // LOCAL aCoors
 
    IF !Empty(::oParent:handle)
 

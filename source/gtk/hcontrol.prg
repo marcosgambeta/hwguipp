@@ -16,6 +16,7 @@ REQUEST HWG_ENDWINDOW
 #define  CONTROL_FIRST_ID   34000
 
 Function hwg_SetCtrlName( oCtrl, cName )
+   
    LOCAL nPos
 
    IF !Empty(cName) .AND. HB_ISCHAR(cName) .AND. ! "[" $ cName
@@ -83,7 +84,8 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
 
 /* Removed:  lDop  */
 METHOD NewId() CLASS HControl
-LOCAL nId := ::oParent:nChildId++
+
+   LOCAL nId := ::oParent:nChildId++
 
 RETURN nId
 
@@ -139,7 +141,9 @@ METHOD Enabled( lEnabled ) CLASS HControl
 
 /* Added: lMoveParent */
 METHOD Move( x1, y1, width, height, lMoveParent )  CLASS HControl
-   LOCAL lMove := .F. , lSize := .F.
+   
+   LOCAL lMove := .F.
+   LOCAL lSize := .F.
 
    IF x1 != NIL .AND. x1 != ::nX
       ::nX := x1
@@ -175,8 +179,20 @@ METHOD End() CLASS HControl
    RETURN NIL
 
 METHOD onAnchor( x, y, w, h ) CLASS HControl
-   LOCAL nAnchor, nXincRelative, nYincRelative, nXincAbsolute, nYincAbsolute
-   LOCAL x1, y1, w1, h1, x9, y9, w9, h9
+   
+   LOCAL nAnchor
+   LOCAL nXincRelative
+   LOCAL nYincRelative
+   LOCAL nXincAbsolute
+   LOCAL nYincAbsolute
+   LOCAL x1
+   LOCAL y1
+   LOCAL w1
+   LOCAL h1
+   LOCAL x9
+   LOCAL y9
+   LOCAL w9
+   LOCAL h9
 
    nAnchor := ::anchor
    x9 := ::nX

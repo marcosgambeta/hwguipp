@@ -29,7 +29,8 @@ ENDCLASS
 
 METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
 
-   LOCAL i, nlen := Len( ::aStyles )
+   LOCAL i
+   LOCAL nlen := Len( ::aStyles )
 
    nBorder := Iif( nBorder == NIL, 0, nBorder )
    tColor := Iif( tColor == NIL, -1, tColor )

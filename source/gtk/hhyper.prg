@@ -56,7 +56,8 @@ ENDCLASS
 METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor ) CLASS HStaticLink
 
-   LOCAL oPrevFont, n
+   LOCAL oPrevFont
+   LOCAL n
 
    ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp )
@@ -169,8 +170,8 @@ METHOD SetHoverColor( cHoverColor ) CLASS HStaticLink
 
 METHOD OnClicked() CLASS HStaticLink
 
-   * Variables not used
-   * LOCAL nCtrlID
+   // Variables not used
+   // LOCAL nCtrlID
 
    ::GoToLinkUrl( ::m_csUrl )
 
@@ -210,7 +211,9 @@ METHOD OnMouseMove( wParam ) CLASS HStaticLink
 
 METHOD Paint() CLASS HStaticLink
 
-   LOCAL pps, hDC, aCoors
+   LOCAL pps
+   LOCAL hDC
+   LOCAL aCoors
 
    IF ::state == LBL_INIT
       ::State := LBL_NORMAL

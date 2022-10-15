@@ -69,6 +69,7 @@ CLASS HCustomWindow INHERIT HObject
 ENDCLASS
 
 METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
+   
    LOCAL i
 
    IF HB_ISCHAR(nId)
@@ -82,7 +83,9 @@ METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
    RETURN Iif( i == 0, NIL, ::aControls[i] )
 
 METHOD DelControl( oCtrl ) CLASS HCustomWindow
-   LOCAL id := oCtrl:id, h
+   
+   LOCAL id := oCtrl:id
+   LOCAL h
    LOCAL i := Ascan( ::aControls, { |o|o == oCtrl } )
 
    IF oCtrl:ClassName() == "HPANEL"
@@ -170,6 +173,7 @@ METHOD Setcolor( tcolor, bcolor, lRepaint ) CLASS HCustomWindow
    RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HCustomWindow
+   
    LOCAL i
 
    // hwg_WriteLog( "== "+::Classname()+Str(msg)+Iif(wParam!=NIL,Str(wParam),"NIL")+Iif(lParam!=NIL,Str(lParam),"NIL") )
@@ -182,8 +186,10 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCustomWindow
    RETURN 0
 
 METHOD End()  CLASS HCustomWindow
+   
    LOCAL aControls := ::aControls
-   LOCAL i, nLen := Len( aControls )
+   LOCAL i
+   LOCAL nLen := Len( aControls )
 
    FOR i := 1 TO nLen
       aControls[i]:End()
@@ -231,7 +237,10 @@ STATIC FUNCTION onDestroy( oWnd )
    RETURN 0
 
 STATIC FUNCTION onCommand( oWnd, wParam )
-   LOCAL iItem, iParHigh := hwg_Hiword( wParam ), iParLow := hwg_Loword( wParam )
+   
+   LOCAL iItem
+   LOCAL iParHigh := hwg_Hiword( wParam )
+   LOCAL iParLow := hwg_Loword( wParam )
 
    IF oWnd:aEvents != NIL .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
@@ -241,7 +250,11 @@ STATIC FUNCTION onCommand( oWnd, wParam )
    RETURN 1
 
 STATIC FUNCTION onSize( oWnd, wParam, lParam )
-   LOCAL aControls := oWnd:aControls, oItem, x, y
+   
+   LOCAL aControls := oWnd:aControls
+   LOCAL oItem
+   LOCAL x
+   LOCAL y
 
    FOR EACH oItem in aControls
       IF oItem:bSize != NIL
@@ -261,7 +274,8 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
 
 FUNCTION hwg_onTrackScroll( oWnd, wParam, lParam )
 
-   LOCAL oCtrl := oWnd:FindControl( , lParam ), msg
+   LOCAL oCtrl := oWnd:FindControl( , lParam )
+   LOCAL msg
 
    IF oCtrl != NIL
       msg := hwg_Loword ( wParam )
@@ -283,6 +297,7 @@ FUNCTION hwg_onTrackScroll( oWnd, wParam, lParam )
 FUNCTION hwg_GetItemByName( arr, cName )
 
    LOCAL oItem
+   
    FOR EACH oItem IN arr
       IF !Empty(oItem:objname) .AND. oItem:objname == cName
          RETURN oItem
