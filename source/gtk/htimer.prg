@@ -14,20 +14,22 @@
 
 CLASS HTimer INHERIT HObject
 
-   CLASS VAR aTimers   INIT {}
-   DATA id, tag
+   CLASS VAR aTimers INIT {}
+
+   DATA id
+   DATA tag
    DATA value
    DATA oParent
    DATA bAction
-   DATA lOnce          INIT .F.
+   DATA lOnce INIT .F.
    DATA name
    /*
    ACCESS Interval     INLINE ::value
    ASSIGN Interval(x)  INLINE ::value := x, ::End(), ;
-         Iif( x == 0, .T., ::tag := hwg_SetTimer( ::id,x ) )
+         Iif( x == 0, .T., ::tag := hwg_SetTimer(::id, x) )
    */
-   METHOD Interval( n ) SETGET
-   METHOD New( oParent, nId, value, bAction, lOnce )
+   METHOD Interval(n) SETGET
+   METHOD New(oParent, nId, value, bAction, lOnce)
    METHOD End()
 
 ENDCLASS
@@ -37,7 +39,7 @@ METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
    ::oParent := iif( oParent == NIL, HWindow():GetMain(), oParent )
    IF nId == NIL
       nId := TIMER_FIRST_ID
-      DO WHILE AScan( ::aTimers, { |o| o:id == nId } ) !=  0
+      DO WHILE AScan(::aTimers, {|o|o:id == nId}) != 0
          nId ++
       ENDDO
    ENDIF
@@ -47,7 +49,7 @@ METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
    ::bAction := bAction
    ::lOnce := !Empty(lOnce)
 
-   ::tag := hwg_SetTimer( ::id, ::value )
+   ::tag := hwg_SetTimer(::id, ::value)
    AAdd(::aTimers, Self)
 
    RETURN Self
@@ -60,11 +62,11 @@ METHOD Interval( n ) CLASS HTimer
    IF n != NIL
       IF n > 0
          nId := TIMER_FIRST_ID
-         DO WHILE AScan( ::aTimers, { |o| o:id == nId } ) !=  0
+         DO WHILE AScan(::aTimers, {|o|o:id == nId}) != 0
             nId ++
          ENDDO
          ::id := nId
-         ::tag := hwg_SetTimer( ::id, ::value := n )
+         ::tag := hwg_SetTimer(::id, ::value := n)
       ENDIF
    ENDIF
 
@@ -74,12 +76,12 @@ METHOD End() CLASS HTimer
    
    LOCAL i
 
-   //hwg_KillTimer( ::tag )
+   //hwg_KillTimer(::tag)
    ::bAction := NIL
-   i := Ascan( ::aTimers, { |o|o:id == ::id } )
+   i := Ascan(::aTimers, {|o|o:id == ::id})
    IF i != 0
-      ADel( ::aTimers, i )
-      ASize( ::aTimers, Len( ::aTimers ) - 1 )
+      ADel(::aTimers, i)
+      ASize(::aTimers, Len(::aTimers) - 1)
    ENDIF
 
    RETURN NIL

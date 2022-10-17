@@ -31,46 +31,51 @@ STATIC vCursor     := NIL
 
 CLASS HTree INHERIT HControl
 
-   CLASS VAR winclass   INIT "SysTreeView32"
+   CLASS VAR winclass INIT "SysTreeView32"
 
    DATA aItems INIT {}
-   DATA nNodeCount  INIT 0
+   DATA nNodeCount INIT 0
    DATA aScreen
    DATA oFirst
    DATA oSelected
    DATA aImages
-   DATA bItemChange, bExpand, bRClick, bDblClick, bClick
+   DATA bItemChange
+   DATA bExpand
+   DATA bRClick
+   DATA bDblClick
+   DATA bClick
    DATA lEmpty INIT .T.
    DATA area
-   DATA width, height
-   DATA rowCount              // Number of visible data rows
-   DATA rowCurrCount  INIT 0
-   DATA oPenLine, oPenPlus
-   DATA nIndent   INIT 20
+   DATA width
+   DATA height
+   DATA rowCount // Number of visible data rows
+   DATA rowCurrCount INIT 0
+   DATA oPenLine
+   DATA oPenPlus
+   DATA nIndent INIT 20
    DATA tcolorSel INIT CLR_WHITE
    DATA bcolorSel INIT CLR_VDBLUE
    DATA brushSel
-
-   DATA hScrollV, hScrollH
-   DATA nScrollV  INIT 0
-   DATA nScrollH  INIT 0
+   DATA hScrollV
+   DATA hScrollH
+   DATA nScrollV INIT 0
+   DATA nScrollH INIT 0
    DATA bScrollPos
 
-   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
-      bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC )
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC)
    METHOD Init()
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages )
    METHOD GetSelected()   INLINE ::oSelected
-   //METHOD EditLabel( oNode ) BLOCK { | Self, o | hwg_Sendmessage( ::handle, TVM_EDITLABEL, 0, o:handle ) }
-   METHOD Expand( oNode ) BLOCK {|Self,o| o:lExpanded := .T., hwg_Redrawwindow( ::area ) }
+   //METHOD EditLabel( oNode ) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle) }
+   METHOD Expand( oNode ) BLOCK {|Self,o| o:lExpanded := .T., hwg_Redrawwindow(::area) }
    METHOD SELECT( oNode, lNoRedraw )
    METHOD Clean()
    METHOD Refresh()
    METHOD END()
    METHOD Paint()
-   METHOD PaintNode( hDC, oNode, nNode, nLine )
+   METHOD PaintNode(hDC, oNode, nNode, nLine)
    METHOD ButtonDown( lParam )
    METHOD ButtonUp( lParam )
    METHOD ButtonDbl( lParam )
@@ -91,7 +96,6 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
    // Variables not used
    // LOCAL aBmpSize
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(lEditLabels)
    HB_SYMBOL_UNUSED(nBC)
 
@@ -101,7 +105,7 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
    IF bcolor == NIL
       bcolor := CLR_WHITE
    ENDIF
-   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, , , color, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, NIL, NIL, color, bcolor)
 
    ::title   := ""
    ::Type    := iif( lResour == NIL, .F. , lResour )
@@ -123,7 +127,7 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
 
 METHOD Init() CLASS HTree
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
    ENDIF
 
@@ -131,7 +135,7 @@ METHOD Init() CLASS HTree
 
 METHOD Activate() CLASS HTree
 
-   IF ! Empty(::oParent:handle)
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createbrowse( Self )
       ::Init()
    ENDIF
@@ -145,7 +149,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HTree
    // LOCAL aCoors 
 
    IF ::bOther != NIL
-      Eval( ::bOther, Self, msg, wParam, lParam )
+      Eval(::bOther, Self, msg, wParam, lParam)
    ENDIF
 
    IF msg == WM_PAINT
@@ -154,12 +158,12 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HTree
 
    ELSEIF msg == WM_SETFOCUS
       IF ::bGetFocus != NIL
-         Eval( ::bGetFocus, Self )
+         Eval(::bGetFocus, Self)
       ENDIF
 
    ELSEIF msg == WM_KILLFOCUS
       IF ::bLostFocus != NIL
-         Eval( ::bLostFocus, Self )
+         Eval(::bLostFocus, Self)
       ENDIF
 
    ELSEIF msg == WM_HSCROLL
@@ -200,9 +204,9 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HTree
       ::ButtonRDown( lParam )
 
    ELSEIF msg == WM_MOUSEWHEEL
-      ::MouseWheel( hwg_Loword( wParam ),      ;
-         iif( hwg_Hiword( wParam ) > 32768, ;
-         hwg_Hiword( wParam ) - 65535, hwg_Hiword( wParam ) ) )
+      ::MouseWheel( hwg_Loword(wParam),      ;
+         iif( hwg_Hiword(wParam) > 32768, ;
+         hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam) ) )
 
    ELSEIF msg == WM_DESTROY
       ::End()
@@ -230,11 +234,11 @@ METHOD SELECT( oNode, lNoRedraw ) CLASS HTree
    IF oNode:bClick != NIL
       Eval( oNode:bClick, oNode )
    ELSEIF ::bClick != NIL
-      Eval( ::bClick, oNode )
+      Eval(::bClick, oNode)
    ENDIF
 
    IF Empty(lNoRedraw)
-      hwg_Redrawwindow( ::area )
+      hwg_Redrawwindow(::area)
    ENDIF
 
    RETURN NIL
@@ -242,18 +246,18 @@ METHOD SELECT( oNode, lNoRedraw ) CLASS HTree
 METHOD Clean() CLASS HTree
 
    ::lEmpty := .T.
-   ReleaseTree( ::aItems, .T. )
+   ReleaseTree(::aItems, .T.)
    ::aItems := { }
    ::nNodeCount := 0
    ::aScreen := NIL
    ::oFirst := NIL
-   hwg_Redrawwindow( ::area )
+   hwg_Redrawwindow(::area)
 
    RETURN NIL
 
 METHOD Refresh() CLASS HTree
 
-   hwg_Redrawwindow( ::area )
+   hwg_Redrawwindow(::area)
 
    RETURN NIL
 
@@ -271,19 +275,19 @@ METHOD Paint() CLASS HTree
    // LOCAL pps
    // LOCAL x1, x2   
 
-   hDC := hwg_Getdc( ::area )
+   hDC := hwg_Getdc(::area)
 
    IF ::oFont != NIL
-      hwg_Selectobject( hDC, ::oFont:handle )
+      hwg_Selectobject(hDC, ::oFont:handle)
    ENDIF
    IF ::brushSel == NIL
-      ::brushSel := HBrush():Add( ::bcolorSel )
+      ::brushSel := HBrush():Add(::bcolorSel)
    ENDIF
 
-   aCoors := hwg_Getclientrect( ::handle )
-   hwg_Fillrect( hDC, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, ::brush:handle )
-   hwg_gtk_drawedge( hDC, aCoors[1], aCoors[2], aCoors[3] - 1, aCoors[4] - 1, 6 )
-   aMetr := hwg_Gettextmetric( hDC )
+   aCoors := hwg_Getclientrect(::handle)
+   hwg_Fillrect(hDC, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, ::brush:handle)
+   hwg_gtk_drawedge(hDC, aCoors[1], aCoors[2], aCoors[3] - 1, aCoors[4] - 1, 6)
+   aMetr := hwg_Gettextmetric(hDC)
 
    IF Empty(::aItems)
       RETURN NIL
@@ -298,9 +302,9 @@ METHOD Paint() CLASS HTree
    * x2 := aCoors[3] - 2
    y2 := aCoors[4] - 2
 
-   ::rowCount := Int( ( y2 - y1 ) / ( ::height + 1 ) )
-   IF Empty(::aScreen) .OR. Len( ::aScreen ) < ::rowCount
-      ::aScreen := Array( ::rowCount + 5 )
+   ::rowCount := Int( ( y2 - y1 ) / (::height + 1) )
+   IF Empty(::aScreen) .OR. Len(::aScreen) < ::rowCount
+      ::aScreen := Array(::rowCount + 5)
    ENDIF
 
    oNode := ::oFirst
@@ -309,7 +313,7 @@ METHOD Paint() CLASS HTree
    DO WHILE .T.
 
       ::aScreen[nLine] := oNode
-      ::PaintNode( hDC, oNode, nNode, nLine ++ )
+      ::PaintNode(hDC, oNode, nNode, nLine++)
       IF nLine > ::rowCount() .OR. Empty(oNode := oNode:NextNode( @nNode ))
          EXIT
       ENDIF
@@ -319,59 +323,59 @@ METHOD Paint() CLASS HTree
    RETURN NIL
 
 /* Added: nNode */
-METHOD PaintNode( hDC, oNode, nNode, nLine ) CLASS HTree
+METHOD PaintNode(hDC, oNode, nNode, nLine) CLASS HTree
    
-   LOCAL y1 := ( ::height + 1 ) * ( nLine - 1 ) + 1
+   LOCAL y1 := (::height + 1) * (nLine - 1) + 1
    LOCAL x1 := 10 + oNode:nLevel * ::nIndent
    LOCAL i
    LOCAL hBmp
    LOCAL aBmpSize
    LOCAL nTextWidth
 
-   hwg_Selectobject( hDC, ::oPenLine:handle )
-   hwg_Drawline( hDC, iif( Empty(oNode:aItems ),x1 + 5,x1 + 1 ), y1 + 9, x1 + ::nIndent - 4, y1 + 9 )
+   hwg_Selectobject(hDC, ::oPenLine:handle)
+   hwg_Drawline(hDC, iif(Empty(oNode:aItems), x1 + 5, x1 + 1), y1 + 9, x1 + ::nIndent - 4, y1 + 9)
    IF nNode > 1 .OR. oNode:nLevel > 1
-      hwg_Drawline( hDC, x1 + 5, y1, x1 + 5, iif( Empty(oNode:aItems ),y1 + 9,y1 + 4 ) )
+      hwg_Drawline(hDC, x1 + 5, y1, x1 + 5, iif(Empty(oNode:aItems), y1 + 9, y1 + 4))
    ENDIF
    IF nNode < Len( oNode:oParent:aItems )
-      hwg_Drawline( hDC, x1 + 5, iif( Empty(oNode:aItems ),y1 + 9,y1 + 12 ), x1 + 5, y1 + ::height + 1 )
+      hwg_Drawline(hDC, x1 + 5, iif(Empty(oNode:aItems), y1 + 9, y1 + 12), x1 + 5, y1 + ::height + 1)
    ENDIF
    IF !Empty(oNode:aItems)
-      hwg_Rectangle( hDC, x1, y1 + 4, x1 + 8, y1 + 12 )
+      hwg_Rectangle(hDC, x1, y1 + 4, x1 + 8, y1 + 12)
       IF !oNode:lExpanded
-         hwg_Selectobject( hDC, ::oPenPlus:handle )
-         hwg_Drawline( hDC, x1 + 5, y1 + 5, x1 + 5, y1 + 12 )
-         hwg_Drawline( hDC, x1 + 1, y1 + 9, x1 + 8, y1 + 9 )
-         hwg_Selectobject( hDC, ::oPenLine:handle )
+         hwg_Selectobject(hDC, ::oPenPlus:handle)
+         hwg_Drawline(hDC, x1 + 5, y1 + 5, x1 + 5, y1 + 12)
+         hwg_Drawline(hDC, x1 + 1, y1 + 9, x1 + 8, y1 + 9)
+         hwg_Selectobject(hDC, ::oPenLine:handle)
       ENDIF
    ENDIF
 
    IF !Empty(oNode:aImages)
-      hBmp := iif( ::oSelected == oNode .AND. Len( oNode:aImages ) > 1, oNode:aImages[2], oNode:aImages[1] )
+      hBmp := iif(::oSelected == oNode .AND. Len(oNode:aImages) > 1, oNode:aImages[2], oNode:aImages[1] )
    ELSEIF !Empty(::aImages)
-      hBmp := iif( ::oSelected == oNode .AND. Len( ::aImages ) > 1, ::aImages[2], ::aImages[1] )
+      hBmp := iif(::oSelected == oNode .AND. Len(::aImages) > 1, ::aImages[2], ::aImages[1])
    ENDIF
    IF !Empty(hBmp)
       aBmpSize := hwg_Getbitmapsize( hBmp )
-      hwg_Drawbitmap( hDC, hBmp, , x1 + ::nIndent, y1, aBmpSize[1], aBmpSize[2] )
+      hwg_Drawbitmap(hDC, hBmp, NIL, x1 + ::nIndent, y1, aBmpSize[1], aBmpSize[2])
    ENDIF
 
-   nTextWidth := hwg_GetTextWidth( hDC, oNode:title )
+   nTextWidth := hwg_GetTextWidth(hDC, oNode:title)
    x1 += ::nIndent + iif( !Empty(aBmpSize), aBmpSize[1] + 4, 0 )
    IF ::oSelected == oNode
-      hwg_Settextcolor( hDC, ::tcolorSel )
-      hwg_Fillrect( hDC, x1, y1, x1 + nTextWidth, y1 + ( ::height + 1 ), ::brushSel:handle )
+      hwg_Settextcolor(hDC, ::tcolorSel)
+      hwg_Fillrect(hDC, x1, y1, x1 + nTextWidth, y1 + (::height + 1), ::brushSel:handle)
    ELSE
-      hwg_Fillrect( hDC, x1, y1, x1 + nTextWidth, y1 + ( ::height + 1 ), ::brush:handle )
+      hwg_Fillrect(hDC, x1, y1, x1 + nTextWidth, y1 + (::height + 1), ::brush:handle)
    ENDIF
-   hwg_Drawtext( hDC, oNode:title, x1, y1, ::nX+::nWidth-1, y1 + ( ::height + 1 ),,.T. )
-   hwg_Settextcolor( hDC, ::tcolor )
+   hwg_Drawtext(hDC, oNode:title, x1, y1, ::nX + ::nWidth - 1, y1 + (::height + 1), NIL, .T.)
+   hwg_Settextcolor(hDC, ::tcolor)
 
    FOR i := oNode:nLevel - 1 TO 1 STEP - 1
       oNode := oNode:oParent
       IF !( oNode == Atail( oNode:oParent:aItems ) )
          x1 := 10 + oNode:nLevel * ::nIndent
-         hwg_Drawline( hDC, x1 + 5, y1, x1 + 5, y1 + ::height + 1 )
+         hwg_Drawline(hDC, x1 + 5, y1, x1 + 5, y1 + ::height + 1)
       ENDIF
    NEXT
 
@@ -379,22 +383,22 @@ METHOD PaintNode( hDC, oNode, nNode, nLine ) CLASS HTree
 
 METHOD ButtonDown( lParam )  CLASS HTree
    
-   LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
-   LOCAL xm := hwg_Loword( lParam )
+   LOCAL nLine := Int( hwg_Hiword(lParam) / (::height + 1) ) + 1
+   LOCAL xm := hwg_Loword(lParam)
    LOCAL x1
    LOCAL hDC
    LOCAL oNode
    LOCAL nWidth
    LOCAL lRedraw := .F.
 
-   IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[nLine])
+   IF nLine <= Len(::aScreen) .AND. !Empty(oNode := ::aScreen[nLine])
       x1 := 10 + oNode:nLevel * ::nIndent
-      hDC := hwg_Getdc( ::handle )
+      hDC := hwg_Getdc(::handle)
       IF !Empty(::oFont)
-         hwg_Selectobject( hDC, ::oFont:handle )
+         hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
-      nWidth := hwg_GetTextWidth( hDC, oNode:title )
-      hwg_Releasedc( ::handle, hDC )
+      nWidth := hwg_GetTextWidth(hDC, oNode:title)
+      hwg_Releasedc(::handle, hDC)
       IF !Empty(oNode:aItems) .AND.  xm >= x1 .AND. xm <= x1 + ::nIndent
          oNode:lExpanded := !oNode:lExpanded
          lRedraw := .T.
@@ -405,7 +409,7 @@ METHOD ButtonDown( lParam )  CLASS HTree
          lRedraw := .T.
       ENDIF
       IF lRedraw
-         hwg_Redrawwindow( ::area )
+         hwg_Redrawwindow(::area)
       ENDIF
    ENDIF
 
@@ -413,34 +417,33 @@ METHOD ButtonDown( lParam )  CLASS HTree
 
 METHOD ButtonUp( lParam ) CLASS HTree
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(lParam)
 
    RETURN 0
 
 METHOD ButtonDbl( lParam ) CLASS HTree
    
-   LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
-   LOCAL xm := hwg_Loword( lParam )
+   LOCAL nLine := Int( hwg_Hiword(lParam) / (::height + 1) ) + 1
+   LOCAL xm := hwg_Loword(lParam)
    LOCAL x1
    LOCAL hDC
    LOCAL oNode
    LOCAL nWidth
 
-   IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[nLine])
+   IF nLine <= Len(::aScreen) .AND. !Empty(oNode := ::aScreen[nLine])
       x1 := 10 + oNode:nLevel * ::nIndent
-      hDC := hwg_Getdc( ::handle )
+      hDC := hwg_Getdc(::handle)
       IF !Empty(::oFont)
-         hwg_Selectobject( hDC, ::oFont:handle )
+         hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
-      nWidth := hwg_GetTextWidth( hDC, oNode:title )
-      hwg_Releasedc( ::handle, hDC )
+      nWidth := hwg_GetTextWidth(hDC, oNode:title)
+      hwg_Releasedc(::handle, hDC)
       IF xm >= x1 .AND. xm <= x1 + ::nIndent + nWidth
          ::Select( oNode, .T. )
          IF ::bDblClick != NIL
-            Eval( ::bDblClick, Self, oNode )
+            Eval(::bDblClick, Self, oNode)
          ENDIF
-         hwg_Redrawwindow( ::area )
+         hwg_Redrawwindow(::area)
       ENDIF
    ENDIF
 
@@ -448,27 +451,27 @@ METHOD ButtonDbl( lParam ) CLASS HTree
 
 METHOD ButtonRDown( lParam ) CLASS HTree
    
-   LOCAL nLine := Int( hwg_Hiword( lParam ) / ( ::height + 1 ) ) + 1
-   LOCAL xm := hwg_Loword( lParam )
+   LOCAL nLine := Int( hwg_Hiword(lParam) / (::height + 1) ) + 1
+   LOCAL xm := hwg_Loword(lParam)
    LOCAL x1
    LOCAL hDC
    LOCAL oNode
    LOCAL nWidth
 
-   IF nLine <= Len( ::aScreen ) .AND. !Empty(oNode := ::aScreen[nLine])
+   IF nLine <= Len(::aScreen) .AND. !Empty(oNode := ::aScreen[nLine])
       x1 := 10 + oNode:nLevel * ::nIndent
-      hDC := hwg_Getdc( ::handle )
+      hDC := hwg_Getdc(::handle)
       IF !Empty(::oFont)
-         hwg_Selectobject( hDC, ::oFont:handle )
+         hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
-      nWidth := hwg_GetTextWidth( hDC, oNode:title )
-      hwg_Releasedc( ::handle, hDC )
+      nWidth := hwg_GetTextWidth(hDC, oNode:title)
+      hwg_Releasedc(::handle, hDC)
       IF xm >= x1 .AND. xm <= x1 + ::nIndent + nWidth
          ::Select( oNode, .T. )
          IF ::bRClick != NIL
-            Eval( ::bRClick, Self, oNode )
+            Eval(::bRClick, Self, oNode)
          ENDIF
-         hwg_Redrawwindow( ::area )
+         hwg_Redrawwindow(::area)
       ENDIF
    ENDIF
 
@@ -485,7 +488,7 @@ METHOD GoDown( n ) CLASS HTree
       RETURN 0
    ENDIF
    ::oFirst := iif( n == 1, ::oFirst:NextNode(), ::aScreen[::rowCurrCount] )
-   hwg_Redrawwindow( ::area )
+   hwg_Redrawwindow(::area)
 
    RETURN 0
 
@@ -504,7 +507,7 @@ METHOD GoUp( n ) CLASS HTree
       ::oFirst := ::oFirst:PrevNode()
    ELSE
    ENDIF
-   hwg_Redrawwindow( ::area )
+   hwg_Redrawwindow(::area)
 
    RETURN 0
 
@@ -532,7 +535,7 @@ METHOD DoHScroll() CLASS HTree
 
 METHOD DoVScroll() CLASS HTree
    
-   LOCAL nScrollV := hwg_getAdjValue( ::hScrollV )
+   LOCAL nScrollV := hwg_getAdjValue(::hScrollV)
 
    IF nScrollV - ::nScrollV == 1
       ::GoDown(1)
@@ -544,7 +547,7 @@ METHOD DoVScroll() CLASS HTree
       ::GoUp(2)
    ELSE
       IF ::bScrollPos != NIL
-         Eval( ::bScrollPos, Self, SB_THUMBTRACK, .F. , nScrollV )
+         Eval(::bScrollPos, Self, SB_THUMBTRACK, .F., nScrollV)
       ENDIF
    ENDIF
    ::nScrollV := nScrollV
@@ -557,14 +560,14 @@ METHOD End() CLASS HTree
 
    ::Super:END()
    IF !Empty(::aImages)
-      FOR j := 1 TO Len( ::aImages )
+      FOR j := 1 TO Len(::aImages)
          IF !Empty(::aImages[j])
-            hwg_Deleteobject( ::aImages[j] )
+            hwg_Deleteobject(::aImages[j])
             ::aImages[j] := NIL
          ENDIF
       NEXT
    ENDIF
-   ReleaseTree( ::aItems, .T. )
+   ReleaseTree(::aItems, .T.)
    IF ::brush != NIL
       ::brush:Release()
    ENDIF

@@ -22,47 +22,43 @@ STATIC bColorinFocus := 16777164
 
 CLASS HEdit INHERIT HControl
 
-   CLASS VAR winclass   INIT "EDIT"
-   DATA lMultiLine   INIT .F.
+   CLASS VAR winclass INIT "EDIT"
+
+   DATA lMultiLine INIT .F.
    DATA cType INIT "C"
    DATA bSetGet
    DATA bValid
    DATA bAnyEvent
-   DATA cPicFunc, cPicMask
-   DATA lPicComplex  INIT .F.
-   DATA lFirst       INIT .T.
-   DATA lChanged     INIT .F.
-   DATA nMaxLength   INIT NIL
-   DATA nLastKey     INIT 0
-   DATA lMouse       INIT .F.
-   DATA aColorOld      INIT { 0,0 }
+   DATA cPicFunc
+   DATA cPicMask
+   DATA lPicComplex INIT .F.
+   DATA lFirst INIT .T.
+   DATA lChanged INIT .F.
+   DATA nMaxLength  // INIT NIL
+   DATA nLastKey INIT 0
+   DATA lMouse INIT .F.
+   DATA aColorOld INIT {0, 0}
    DATA bColorBlock
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
-      oFont, bInit, bSize, bGfocus, bLfocus, ctoolt, tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword )
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctoolt, tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword)
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
-   METHOD SetGet( value ) INLINE Eval( ::bSetGet, value, self )
+   METHOD SetGet( value ) INLINE Eval(::bSetGet, value, self)
    METHOD Refresh()
    METHOD Value ( xValue ) SETGET
-   METHOD SetText( value ) INLINE hwg_edit_SetText( ::handle, ::title := value )
-   METHOD GetText() INLINE hwg_edit_GetText( ::handle )
+   METHOD SetText( value ) INLINE hwg_edit_SetText(::handle, ::title := value)
+   METHOD GetText() INLINE hwg_edit_GetText(::handle)
    METHOD ParsePict( cPicture, vari )
 
 ENDCLASS
 
 /* Added: lPassword */
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
-      oFont, bInit, bSize, bGfocus, bLfocus, ctoolt, ;
-      tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword ) CLASS HEdit
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctoolt, tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword) CLASS HEdit
 
-   nStyle := hb_bitor( iif( nStyle == NIL,0,nStyle ), ;
-      WS_TABSTOP + iif( lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0 ) + ;
-      iif( lPassword == NIL .OR. !lPassword, 0, ES_PASSWORD )  )
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP + iif(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) + iif(lPassword == NIL .OR. !lPassword, 0, ES_PASSWORD))
 
-   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
-      bSize,, ctoolt, Iif(tcolor==NIL,0,tcolor), Iif(bcolor==NIL,0xffffff,bcolor) )
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize,, ctoolt, Iif(tcolor == NIL, 0, tcolor), Iif(bcolor == NIL, 0xffffff, bcolor))
 
    IF vari != NIL
       ::cType := ValType( vari )
@@ -73,7 +69,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
    ::bSetGet := bSetGet
 
    IF hb_bitand( nStyle, ES_MULTILINE ) != 0
-      ::style := hb_bitor( ::style, ES_WANTRETURN )
+      ::style := hb_bitor(::style, ES_WANTRETURN)
       ::lMultiLine := .T.
    ENDIF
 
@@ -89,12 +85,12 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
 
    ::bGetFocus := bGFocus
    ::bLostFocus := bLFocus
-   hwg_SetEvent( ::handle, "focus_in_event", WM_SETFOCUS, 0, 0 )
-   hwg_SetEvent( ::handle, "focus_out_event", WM_KILLFOCUS, 0, 0 )
-   hwg_SetEvent( ::handle, "key_press_event", 0, 0, 0 )
+   hwg_SetEvent(::handle, "focus_in_event", WM_SETFOCUS, 0, 0)
+   hwg_SetEvent(::handle, "focus_out_event", WM_KILLFOCUS, 0, 0)
+   hwg_SetEvent(::handle, "key_press_event", 0, 0, 0)
    IF ::bSetGet != NIL
-      hwg_SetSignal( ::handle, "paste-clipboard", WM_PASTE, 0, 0 )
-      hwg_SetSignal( ::handle, "copy-clipboard", WM_COPY, 0, 0 )
+      hwg_SetSignal(::handle, "paste-clipboard", WM_PASTE, 0, 0)
+      hwg_SetSignal(::handle, "copy-clipboard", WM_COPY, 0, 0)
    ENDIF
    
 //   ::aColorOld[1] := iif( tcolor = NIL, 0, ::tcolor )
@@ -105,9 +101,8 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
 METHOD Activate() CLASS HEdit
   
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createedit( ::oParent:handle, ::id, ;
-         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
-      hwg_Setwindowobject( ::handle, Self )
+      ::handle := hwg_Createedit(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
+      hwg_Setwindowobject(::handle, Self)
       ::Init()
    ENDIF
    
@@ -120,7 +115,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
 
    // hwg_WriteLog( "Edit: "+Str(msg,10)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
    
-   IF ::bAnyEvent != NIL .AND. Eval( ::bAnyEvent, Self, msg, wParam, lParam ) != 0
+   IF ::bAnyEvent != NIL .AND. Eval(::bAnyEvent, Self, msg, wParam, lParam) != 0
       RETURN 0
    ENDIF
 
@@ -135,20 +130,19 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
          ::aColorOld[1] := ::tcolor
          ::aColorOld[2] := ::bcolor
          IF ::bColorBlock != NIL
-            Eval( ::bColorBlock, Self )
+            Eval(::bColorBlock, Self)
          ELSE
-            ::Setcolor( Iif( oParent:tColorinFocus >= 0, oParent:tColorinFocus, tColorinFocus ), ;
-                  Iif( oParent:bColorinFocus >= 0, oParent:bColorinFocus, bColorinFocus ), .T. )
+            ::Setcolor(Iif(oParent:tColorinFocus >= 0, oParent:tColorinFocus, tColorinFocus), Iif(oParent:bColorinFocus >= 0, oParent:bColorinFocus, bColorinFocus), .T.)
          ENDIF
       ENDIF
       IF ::lMouse
          ::lFirst := .F.
          ::lMouse := .F.
       ENDIF
-      hwg_edit_set_Overmode( ::handle, !Set( _SET_INSERT ) )
+      hwg_edit_set_Overmode(::handle, !Set(_SET_INSERT))
       IF ::bSetGet == NIL
          IF ::bGetFocus != NIL
-            Eval( ::bGetFocus, hwg_Edit_GetText( ::handle ), Self )
+            Eval(::bGetFocus, hwg_Edit_GetText(::handle), Self)
          ENDIF
       ELSE
          __When( Self )
@@ -156,11 +150,11 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
    ELSEIF msg == WM_KILLFOCUS
       oParent := hwg_getParentForm( Self )
       IF lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
-         ::Setcolor( ::aColorOld[1], ::aColorOld[2], .T. )
+         ::Setcolor(::aColorOld[1], ::aColorOld[2], .T.)
       ENDIF
       IF ::bSetGet == NIL
          IF ::bLostFocus != NIL
-            Eval( ::bLostFocus, hwg_Edit_GetText( ::handle ), Self )
+            Eval(::bLostFocus, hwg_Edit_GetText(::handle), Self)
          ENDIF
       ELSE
          __Valid( Self )
@@ -171,7 +165,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
       ::End()
    ELSEIF msg == WM_PASTE
       DoPaste( Self )
-      Eval( ::bSetGet, ::title, Self )
+      Eval(::bSetGet, ::title, Self)
       RETURN 1
    ELSEIF msg == WM_COPY
       DoCopy( Self )
@@ -179,7 +173,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
    ENDIF
 
    IF ::bSetGet == NIL
-      ::Title := hwg_Edit_GetText( ::handle )
+      ::Title := hwg_Edit_GetText(::handle)
       RETURN 0
    ENDIF
 
@@ -226,7 +220,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
                ::lFirst := .F.
                IF ::cType == "C"
                   nPos := Len( Trim(::title) )
-                  hwg_edit_SetPos( ::handle, nPos )
+                  hwg_edit_SetPos(::handle, nPos)
                   RETURN 1
                ENDIF
             ENDIF
@@ -270,7 +264,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
             ENDIF
          ELSEIF wParam == GDK_Insert     // Insert
             IF lParam == 0
-               SET( _SET_INSERT, ! Set( _SET_INSERT ) )
+               SET( _SET_INSERT, !Set(_SET_INSERT) )
             ENDIF
          ELSEIF ( (wParam >= 32 .AND. wParam < 65000) .OR. (wParam >= GDK_KP_0 .AND. wParam <= GDK_KP_9) ) ;
                .AND. !hwg_Checkbit( lParam, 2 )
@@ -288,7 +282,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
 
  
       IF msg == WM_MOUSEWHEEL
-         nPos := hwg_Hiword( wParam )
+         nPos := hwg_Hiword(wParam)
          nPos := iif( nPos > 32768, nPos - 65535, nPos )
       ENDIF
 */
@@ -311,20 +305,20 @@ METHOD Refresh()  CLASS HEdit
    LOCAL vari
 
    IF ::bSetGet != NIL
-      vari := Eval( ::bSetGet, , self )
+      vari := Eval(::bSetGet, NIL, self)
 
       IF !Empty(::cPicFunc) .OR. !Empty(::cPicMask)
          vari := Transform( vari, ::cPicFunc + iif( Empty(::cPicFunc ),""," " ) + ::cPicMask )
       ELSE
-         vari := iif( ::cType == "D", Dtoc( vari ), iif( ::cType == "N",Str(vari ),iif(::cType == "C",vari,"" ) ) )
+         vari := iif(::cType == "D", Dtoc(vari), iif(::cType == "N", Str(vari ), iif(::cType == "C", vari, "")))
       ENDIF
       ::title := vari
-      hwg_Edit_SetText( ::handle, vari )
+      hwg_Edit_SetText(::handle, vari)
    ELSE
-      hwg_Edit_SetText( ::handle, ::title )
+      hwg_Edit_SetText(::handle, ::title)
    ENDIF
-   IF ::bColorBlock != NIL .AND. hwg_Isptreq( ::handle, hwg_Getfocus() )
-      Eval( ::bColorBlock, Self )
+   IF ::bColorBlock != NIL .AND. hwg_Isptreq(::handle, hwg_Getfocus())
+      Eval(::bColorBlock, Self)
    ENDIF
 
    RETURN NIL
@@ -339,14 +333,14 @@ METHOD Value( xValue ) CLASS HEdit
       ELSE
          ::title := xValue
       ENDIF
-      hwg_Edit_SetText( ::handle, ::title )
+      hwg_Edit_SetText(::handle, ::title)
       IF ::bSetGet != NIL
-         Eval( ::bSetGet, xValue, Self )
+         Eval(::bSetGet, xValue, Self)
       ENDIF
       RETURN xValue
    ENDIF
 
-   vari := iif( Empty(::handle), ::title, hwg_Edit_GetText( ::handle ) )
+   vari := iif( Empty(::handle), ::title, hwg_Edit_GetText(::handle) )
    IF !Empty(::cPicFunc) .OR. !Empty(::cPicMask)
       vari := UnTransform( Self, vari )
    ENDIF
@@ -388,8 +382,8 @@ METHOD ParsePict( cPicture, vari ) CLASS HEdit
          ::cPicFunc   := ""
          ::cPicMask   := cPicture
       ENDIF
-      IF Empty(::nMaxLength) .AND. !Empty(::cPicMask) .AND. !( ::cPicFunc == "@R")
-         ::nMaxLength := Len( ::cPicMask )
+      IF Empty(::nMaxLength) .AND. !Empty(::cPicMask) .AND. !(::cPicFunc == "@R")
+         ::nMaxLength := Len(::cPicMask)
       ENDIF
    ENDIF
 
@@ -407,7 +401,7 @@ METHOD ParsePict( cPicture, vari ) CLASS HEdit
    ENDIF
 
    IF !Empty(::cPicMask)
-      masklen := Len( ::cPicMask )
+      masklen := Len(::cPicMask)
       FOR i := 1 TO masklen
          cChar := SubStr(::cPicMask, i, 1)
          IF !cChar $ "!ANX9#"
@@ -419,8 +413,8 @@ METHOD ParsePict( cPicture, vari ) CLASS HEdit
 
    //                                         ------------ added by Maurizio la Cecilia
 
-   IF !Empty(::nMaxLength) .AND. Len( ::cPicMask ) < ::nMaxLength
-      ::cPicMask := PadR( ::cPicMask, ::nMaxLength, "X" )
+   IF !Empty(::nMaxLength) .AND. Len(::cPicMask) < ::nMaxLength
+      ::cPicMask := PadR(::cPicMask, ::nMaxLength, "X")
    ENDIF
 
    //                                         ------------- end of added code
@@ -584,19 +578,19 @@ STATIC FUNCTION INPUT( oEdit, cChar, nPos )
 
       cChar := Transform( cChar, cPic )
       IF cPic == "A"
-         IF ! IsAlpha( cChar )
+         IF !IsAlpha( cChar )
             cChar := NIL
          ENDIF
       ELSEIF cPic == "N"
-         IF ! IsAlpha( cChar ) .AND. ! IsDigit( cChar )
+         IF !IsAlpha( cChar ) .AND. !IsDigit( cChar )
             cChar := NIL
          ENDIF
       ELSEIF cPic == "9"
-         IF ! IsDigit( cChar ) .AND. cChar != "-"
+         IF !IsDigit( cChar ) .AND. cChar != "-"
             cChar := NIL
          ENDIF
       ELSEIF cPic == "#"
-         IF ! IsDigit( cChar ) .AND. !( cChar == " " ) .AND. !( cChar $ "+-" )
+         IF !IsDigit( cChar ) .AND. !( cChar == " " ) .AND. !( cChar $ "+-" )
             cChar := NIL
          ENDIF
       ENDIF
@@ -929,7 +923,7 @@ STATIC FUNCTION DoPaste( oEdit )
    LOCAL cClipboardText := hwg_Getclipboardtext()
    LOCAL nPos
 
-   IF ! Empty(cClipboardText)
+   IF !Empty(cClipboardText)
       FOR nPos = 1 TO hwg_Len( cClipboardText )
          GetApplyKey( oEdit, hwg_SubStr(cClipboardText, nPos, 1) )
       NEXT
@@ -1049,7 +1043,7 @@ FUNCTION hwg_Len( cString )
 
 FUNCTION hwg_GET_Helper(cp_get,nlen)
  
-   LOCAL c_get 
+   LOCAL c_get
 
   c_get := cp_get
 

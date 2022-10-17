@@ -16,8 +16,8 @@ REQUEST HWG_ENDWINDOW
 FUNCTION hwg_onWndSize( oWnd, wParam, lParam )
 
    LOCAL aCoors := hwg_Getwindowrect( oWnd:handle )
-   // LOCAL w := hwg_Loword( lParam )
-   // LOCAL h := hwg_Hiword( lParam )
+   // LOCAL w := hwg_Loword(lParam)
+   // LOCAL h := hwg_Hiword(lParam)
    LOCAL w := aCoors[3] - aCoors[1]
    LOCAL h := aCoors[4] - aCoors[2]
 
@@ -37,7 +37,7 @@ FUNCTION hwg_onWndSize( oWnd, wParam, lParam )
       oWnd:nHeight := h
    ENDIF
    IF HB_ISBLOCK( oWnd:bSize )
-      Eval( oWnd:bSize, oWnd, hwg_Loword( lParam ), hwg_Hiword( lParam ) )
+      Eval( oWnd:bSize, oWnd, hwg_Loword(lParam), hwg_Hiword(lParam) )
    ENDIF
 
    RETURN 0
@@ -46,13 +46,12 @@ FUNCTION hwg_onMove( oWnd, wParam, lParam )
 
    LOCAL apos := hwg_getwindowpos( oWnd:handle )
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
    //hwg_WriteLog( "onMove: "+str(oWnd:nX)+" "+str(oWnd:nY)+" -> "+str(hwg_Loword(lParam))+str(hwg_Hiword(lParam))+" "+str(apos[1])+" "+str(apos[2]) )
-   oWnd:nX := apos[1] //hwg_Loword( lParam )
-   oWnd:nY  := apos[2] //hwg_Hiword( lParam )
+   oWnd:nX := apos[1] //hwg_Loword(lParam)
+   oWnd:nY  := apos[2] //hwg_Hiword(lParam)
 
    RETURN 0
 
@@ -115,23 +114,28 @@ STATIC FUNCTION onDestroy( oWnd )
 
 CLASS HWindow INHERIT HCustomWindow
 
-   CLASS VAR aWindows   SHARED INIT {}
-   CLASS VAR szAppName  SHARED INIT "HwGUI_App"
+   CLASS VAR aWindows SHARED INIT {}
+   CLASS VAR szAppName SHARED INIT "HwGUI_App"
    CLASS VAR aKeysGlobal SHARED INIT {}
+
    DATA fbox
-   DATA menu, oPopup, hAccel
-   DATA oIcon, oBmp
+   DATA menu
+   DATA oPopup
+   DATA hAccel
+   DATA oIcon
+   DATA oBmp
    DATA lUpdated INIT .F.     // TRUE, if any GET is changed
    DATA lClipper INIT .F.
-   DATA GetList  INIT {}      // The array of GET items in the dialog
-   DATA KeyList  INIT {}      // The array of keys ( as Clipper's SET KEY )
+   DATA GetList INIT {}      // The array of GET items in the dialog
+   DATA KeyList INIT {}      // The array of keys ( as Clipper's SET KEY )
    DATA nLastKey INIT 0
    DATA bActivate
-   DATA lActivated  INIT .F.
-   DATA nAdjust  INIT 0
-   DATA tColorinFocus  INIT - 1
-   DATA bColorinFocus  INIT - 1
+   DATA lActivated INIT .F.
+   DATA nAdjust INIT 0
+   DATA tColorinFocus INIT -1
+   DATA bColorinFocus INIT -1
    DATA aOffset
+
    METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, cAppName, oBmp, cHelp, nHelpId )
    METHOD AddItem( oWnd )
@@ -139,13 +143,12 @@ CLASS HWindow INHERIT HCustomWindow
    METHOD FindWindow( hWnd )
    METHOD GetMain()
    METHOD EvalKeyList( nKey, nctrl )
-   METHOD Center()   INLINE Hwg_CenterWindow( ::handle )
-   METHOD RESTORE()  INLINE hwg_RestoreWindow( ::handle )
-   METHOD Maximize() INLINE hwg_WindowMaximize( ::handle )
-   METHOD Minimize() INLINE hwg_WindowMinimize( ::handle )
-   METHOD CLOSE()    INLINE iif( !onDestroy( Self ), .F. , hwg_DestroyWindow( ::handle ) )
-   METHOD SetTitle( cTitle ) INLINE hwg_Setwindowtext( ::handle, ::title := cTitle )
-   
+   METHOD Center()   INLINE Hwg_CenterWindow(::handle)
+   METHOD RESTORE()  INLINE hwg_RestoreWindow(::handle)
+   METHOD Maximize() INLINE hwg_WindowMaximize(::handle)
+   METHOD Minimize() INLINE hwg_WindowMinimize(::handle)
+   METHOD CLOSE()    INLINE iif( !onDestroy( Self ), .F. , hwg_DestroyWindow(::handle) )
+   METHOD SetTitle( cTitle ) INLINE hwg_Setwindowtext(::handle, ::title := cTitle)
 
 ENDCLASS
 
@@ -153,7 +156,6 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
       cAppName, oBmp, cHelp, nHelpId ) CLASS HWindow
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(clr)
    HB_SYMBOL_UNUSED(cMenu)
    HB_SYMBOL_UNUSED(cHelp)
@@ -168,7 +170,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    ::nWidth   := iif( width == NIL, 0, width )
    ::nHeight  := iif( height == NIL, 0, Abs( height ) )
    IF ::nWidth < 0
-      ::nWidth   := Abs( ::nWidth )
+      ::nWidth   := Abs(::nWidth)
       ::nAdjust := 1
    ENDIF
    ::oFont    := oFont
@@ -182,7 +184,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    IF cAppName != NIL
       ::szAppName := cAppName
    ENDIF
-   IF hb_bitand( Abs( ::style ), DS_CENTER ) > 0
+   IF hb_bitand( Abs(::style), DS_CENTER ) > 0
       ::nX := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
       ::nY := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
    ENDIF
@@ -190,7 +192,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       ::HelpId := nHelpId
    END
    ::aOffset := Array(4)
-   AFill( ::aOffset, 0 )
+   AFill(::aOffset, 0)
    ::AddItem( Self )
 
    RETURN Self
@@ -205,26 +207,23 @@ METHOD DelItem( oWnd ) CLASS HWindow
 
    LOCAL i
 
-   IF ( i := Ascan( ::aWindows,{ |o|o == oWnd } ) ) > 0
-      ADel( ::aWindows, i )
-      ASize( ::aWindows, Len( ::aWindows ) - 1 )
+   IF ( i := Ascan(::aWindows, {|o|o == oWnd}) ) > 0
+      ADel(::aWindows, i)
+      ASize(::aWindows, Len(::aWindows) - 1)
    ENDIF
 
    RETURN NIL
 
 METHOD FindWindow( hWnd ) CLASS HWindow
 
-   // LOCAL i := Ascan( ::aWindows, {|o|o:handle==hWnd} )
+   // LOCAL i := Ascan(::aWindows, {|o|o:handle == hWnd})
 
    // Return Iif( i == 0, NIL, ::aWindows[i] )
    RETURN hwg_Getwindowobject( hWnd )
 
 METHOD GetMain() CLASS HWindow
 
-   RETURN iif( Len( ::aWindows ) > 0,            ;
-      iif( ::aWindows[1]:type == WND_MAIN, ;
-      ::aWindows[1],                  ;
-      iif( Len( ::aWindows ) > 1, ::aWindows[2], NIL ) ), NIL )
+   RETURN iif(Len(::aWindows) > 0, iif(::aWindows[1]:type == WND_MAIN, ::aWindows[1], iif(Len(::aWindows) > 1, ::aWindows[2], NIL)), NIL)
 
 /* Added: nctrl */
 METHOD EvalKeyList( nKey, nctrl ) CLASS HWindow
@@ -234,13 +233,13 @@ METHOD EvalKeyList( nKey, nctrl ) CLASS HWindow
    nctrl := iif( nctrl == 2, FCONTROL, iif( nctrl == 1, FSHIFT, iif( nctrl == 4,FALT,0 ) ) )
    //hwg_writelog( str(nKey)+"/"+str(nctrl) )
    IF !Empty(::KeyList)
-      IF ( nPos := Ascan( ::KeyList,{ |a|a[1] == nctrl .AND. a[2] == nKey } ) ) > 0
-         Eval( ::KeyList[nPos, 3], ::FindControl( ,hwg_Getfocus() ) )
+      IF ( nPos := Ascan(::KeyList, {|a|a[1] == nctrl .AND. a[2] == nKey})) > 0
+         Eval(::KeyList[nPos, 3], ::FindControl(NIL, hwg_Getfocus()))
       ENDIF
    ENDIF
    IF !Empty(::aKeysGlobal)
-      IF ( nPos := Ascan( ::aKeysGlobal,{ |a|a[1] == nctrl .AND. a[2] == nKey } ) ) > 0
-         Eval( ::aKeysGlobal[nPos, 3], ::FindControl( ,hwg_Getfocus() ) )
+      IF (nPos := Ascan(::aKeysGlobal, {|a|a[1] == nctrl .AND. a[2] == nKey})) > 0
+         Eval(::aKeysGlobal[nPos, 3], ::FindControl(NIL, hwg_Getfocus()))
       ENDIF
    ENDIF
 
@@ -259,9 +258,13 @@ CLASS HMainWindow INHERIT HWindow
       { |o|onDestroy( o ) }                 ;
       } ;
       }
-   DATA   nMenuPos
-   DATA oNotifyIcon, bNotify, oNotifyMenu
-   DATA lTray       INIT .F.
+
+   DATA nMenuPos
+   DATA oNotifyIcon
+   DATA bNotify
+   DATA oNotifyMenu
+   DATA lTray INIT .F.
+
    METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,   ;
       oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
       cAppName, oBmp, cHelp, nHelpId, bColor, nExclude )
@@ -279,11 +282,10 @@ METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,
 
     LOCAL  hbackground
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(nPos)
    HB_SYMBOL_UNUSED(nExclude)
 
-    IIF ( oBmp == NIL , hbackground := NIL , hbackground := oBmp:handle )
+   IIF ( oBmp == NIL , hbackground := NIL , hbackground := oBmp:handle )
 
    ::Super:New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther,  ;
@@ -298,10 +300,10 @@ METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,
          * DF7BE: background missing, added as 11th parameter
    ENDIF
    IF ::bColor != NIL
-      hwg_SetBgColor( ::handle, ::bColor )
+      hwg_SetBgColor(::handle, ::bColor)
    ENDIF
    IF ::bInit != NIL
-      Eval( ::bInit, Self )
+      Eval(::bInit, Self)
    ENDIF
 
    RETURN Self
@@ -314,29 +316,28 @@ METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMain
    // Variables not used
    // LOCAL i
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(lShow)
 
    hwg_CreateGetList( Self )
 
    IF ::type == WND_MAIN
-      IF ::style < 0 .AND. hb_bitand( Abs( ::style ), Abs( WND_NOTITLE ) ) != 0
-         hwg_WindowSetDecorated( ::handle, 0 )
-         //hwg_WindowSetResize( ::handle, 1 )
+      IF ::style < 0 .AND. hb_bitand(Abs(::style), Abs(WND_NOTITLE)) != 0
+         hwg_WindowSetDecorated(::handle, 0)
+         //hwg_WindowSetResize(::handle, 1)
       ENDIF
-      hwg_ShowAll( ::handle )
-      IF ::style < 0 .AND. hb_bitand( Abs( ::style ), Abs( WND_NOSIZEBOX ) ) != 0
-         hwg_WindowSetResize( ::handle, 0 )
+      hwg_ShowAll(::handle)
+      IF ::style < 0 .AND. hb_bitand(Abs(::style), Abs(WND_NOSIZEBOX)) != 0
+         hwg_WindowSetResize(::handle, 0)
       ENDIF
       IF ::nAdjust == 1
          ::nAdjust := 2
-         aCoors := hwg_Getwindowrect( ::handle )
-         aRect := hwg_GetClientRect( ::handle )
+         aCoors := hwg_Getwindowrect(::handle)
+         aRect := hwg_GetClientRect(::handle)
          IF aCoors[4] - aCoors[2] == aRect[4]
             ::nAdjust := 0
          ELSE
             //hwg_writelog( str(::nheight)+"/"+str(aCoors[4]-aCoors[2])+"/"+str(arect[4]) )
-            ::Move( , , ::nWidth + ( aCoors[3] - aCoors[1] - aRect[3] ), ::nHeight + ( aCoors[4] - aCoors[2] - aRect[4] ) )
+            ::Move(NIL, NIL, ::nWidth + (aCoors[3] - aCoors[1] - aRect[3]), ::nHeight + (aCoors[4] - aCoors[2] - aRect[4]))
          ENDIF
       ENDIF
       ::lActivated := .T.
@@ -344,7 +345,7 @@ METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMain
          ::bActivate := bActivate
       ENDIF
       IF ::bActivate != NIL
-         Eval( ::bActivate, Self )
+         Eval(::bActivate, Self)
       ENDIF
       IF !Empty(lMinimize)
          ::Minimize()
@@ -354,7 +355,7 @@ METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMain
          ::Center()
       ENDIF
       hwg_HideHidden( Self )
-      Hwg_ActivateMainWindow( ::handle )
+      Hwg_ActivateMainWindow(::handle)
    ENDIF
 
    RETURN NIL
@@ -364,8 +365,8 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
    LOCAL i
 
    // hwg_WriteLog( "On Event" + str(msg) + str(wParam) + str(lParam) )
-   IF ( i := Ascan( ::aMessages[1],msg ) ) != 0
-      RETURN Eval( ::aMessages[2,i], Self, wParam, lParam )
+   IF (i := Ascan(::aMessages[1], msg)) != 0
+      RETURN Eval(::aMessages[2, i], Self, wParam, lParam)
    ELSE
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL
          // hwg_onTrackScroll( Self,wParam,lParam )
@@ -384,18 +385,17 @@ METHOD DEICONIFY() CLASS HMainWindow
 
 METHOD ICONIFY()  CLASS HMainWindow
    hwg_iconify(::handle)
-  RETURN NIL  
+  RETURN NIL
 
 FUNCTION hwg_ReleaseAllWindows( hWnd )
 
    // LOCAL oItem, iCont, nCont
-   
-   * Parameters not used
+
    HB_SYMBOL_UNUSED(hWnd)
 
    return - 1
 
-STATIC FUNCTION onCommand( oWnd, wParam, lParam )
+STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 
    LOCAL iItem
    LOCAL iCont
@@ -405,26 +405,17 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
    // Variables not used
    // LOCAL nHandle
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(lParam)
 
-
-   iParHigh := hwg_Hiword( wParam )
-   iParLow := hwg_Loword( wParam )
-   IF oWnd:aEvents != NIL .AND. ;
-         ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
+   iParHigh := hwg_Hiword(wParam)
+   iParLow := hwg_Loword(wParam)
+   IF oWnd:aEvents != NIL .AND. ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
       Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
-   ELSEIF HB_ISARRAY(oWnd:menu) .AND. ;
-         ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != NIL ;
-         .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF HB_ISARRAY(oWnd:menu) .AND. ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval( aMenu[1, iCont, 1] )
-   ELSEIF oWnd:oPopup != NIL .AND. ;
-         ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu,wParam,@iCont ) ) != NIL ;
-         .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF oWnd:oPopup != NIL .AND. ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu,wParam,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval( aMenu[1, iCont, 1] )
-   ELSEIF oWnd:oNotifyMenu != NIL .AND. ;
-         ( aMenu := Hwg_FindMenuItem( oWnd:oNotifyMenu:aMenu,wParam,@iCont ) ) != NIL ;
-         .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF oWnd:oNotifyMenu != NIL .AND. ( aMenu := Hwg_FindMenuItem( oWnd:oNotifyMenu:aMenu,wParam,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval( aMenu[1, iCont, 1] )
    ENDIF
 
@@ -432,7 +423,6 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
 
 STATIC FUNCTION onGetFocus( oDlg, w, l )
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(w)
    HB_SYMBOL_UNUSED(l)
 
@@ -443,7 +433,7 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
    RETURN 0
 
 
-* Prepare for future (if available on next GTK versions)   
+* Prepare for future (if available on next GTK versions)
 * FUNCTION hwg_GTKShellnotifyicon( oIcon )
 *       hwg_ShellModifyIcon ( iif( oIcon != NIL, oIcon:handle, NIL ) )
 *   RETURN NIL

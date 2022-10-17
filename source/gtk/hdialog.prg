@@ -49,36 +49,34 @@ STATIC FUNCTION onDestroy( oDlg )
 
 CLASS HDialog INHERIT HWindow
 
-   CLASS VAR aDialogs       SHARED INIT {}
-   CLASS VAR aModalDialogs  SHARED INIT {}
+   CLASS VAR aDialogs SHARED INIT {}
+   CLASS VAR aModalDialogs SHARED INIT {}
 
    DATA fbox
-   DATA lResult  INIT .F.     // Becomes TRUE if the OK button is pressed
+   DATA lResult INIT .F.     // Becomes TRUE if the OK button is pressed
    DATA lUpdated INIT .F.     // TRUE, if any GET is changed
    DATA lExitOnEnter INIT .T. // Set it to False, if dialog shouldn't be ended after pressing ENTER key,
    // Added by Sandro Freire
-   DATA lExitOnEsc   INIT .T. // Set it to False, if dialog shouldn't be ended after pressing ENTER key,
+   DATA lExitOnEsc INIT .T. // Set it to False, if dialog shouldn't be ended after pressing ENTER key,
    // Added by Sandro Freire
-   DATA oIcon, oBmp
+   DATA oIcon
+   DATA oBmp
    DATA xResourceID
    DATA lModal
 
-   METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
-      bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor )
-   METHOD Activate( lNoModal , lMaximized, lMinimized, lCentered, bActivate )
+   METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor)
+   METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
    METHOD onEvent( msg, wParam, lParam )
    METHOD AddItem( oWnd, lModal )
    METHOD DelItem( oWnd, lModal )
    METHOD FindDialog( hWnd )
    METHOD GetActive()
-   METHOD CLOSE()    INLINE hwg_EndDialog( ::handle )
+   METHOD CLOSE()    INLINE hwg_EndDialog(::handle)
 
 ENDCLASS
 
-METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
-      bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor ) CLASS HDialog
+METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor) CLASS HDialog
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(nHelpId)
 
    ::oDefaultParent := Self
@@ -94,7 +92,7 @@ METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
    ::nWidth   := iif( width == NIL, 0, width )
    ::nHeight  := iif( height == NIL, 0, Abs( height ) )
    IF ::nWidth < 0
-      ::nWidth  := Abs( ::nWidth )
+      ::nWidth  := Abs(::nWidth)
       ::nAdjust := 1
    ENDIF
    ::oFont    := oFont
@@ -105,11 +103,11 @@ METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
    ::bGetFocus  := bGFocus
    ::bLostFocus := bLFocus
    ::bOther     := bOther
-   ::lClipper   := iif( lClipper == NIL, .F. , lClipper )
-   ::lExitOnEnter := iif( lExitOnEnter == NIL, .T. , !lExitOnEnter )
-   ::lExitOnEsc  := iif( lExitOnEsc == NIL, .T. , !lExitOnEsc )
+   ::lClipper   := iif(lClipper == NIL, .F., lClipper)
+   ::lExitOnEnter := iif(lExitOnEnter == NIL, .T., !lExitOnEnter)
+   ::lExitOnEsc  := iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
 
-   IF ::style > 0 .AND. hb_bitand( ::style, DS_CENTER ) > 0
+   IF ::style > 0 .AND. hb_bitand(::style, DS_CENTER) > 0
       ::nX := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
       ::nY := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
    ENDIF
@@ -138,54 +136,54 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
    ::AddItem( Self, !lNoModal )
 
    IF !lNoModal
-      hParent := iif( ::oParent != NIL .AND. __ObjHasMsg( ::oParent,"HANDLE" ) ;
+      hParent := iif(::oParent != NIL .AND. __ObjHasMsg(::oParent, "HANDLE") ;
          .AND. !Empty(::oParent:handle), ::oParent:handle, ;
          iif( ( oWnd := HWindow():GetMain() ) != NIL, oWnd:handle, NIL ) )
-      hwg_Set_Modal( ::handle, hParent )
+      hwg_Set_Modal(::handle, hParent)
    ENDIF
 
    IF ::style < 0 .AND. hb_bitand( Abs(::style), Abs(WND_NOTITLE) ) != 0
-      hwg_WindowSetDecorated( ::handle, 0 )
+      hwg_WindowSetDecorated(::handle, 0)
    ENDIF
 
-   hwg_ShowAll( ::handle )
+   hwg_ShowAll(::handle)
    InitModalDlg( Self )
    ::lActivated := .T.
 
    IF ::style < 0 .AND. hb_bitand( Abs(::style), Abs(WND_NOSIZEBOX) ) != 0
-      hwg_WindowSetResize( ::handle, 0 )
+      hwg_WindowSetResize(::handle, 0)
    ENDIF
 
    IF ::nAdjust == 1
       ::nAdjust := 2
-      aCoors := hwg_Getwindowrect( ::handle )
-      aRect := hwg_GetClientRect( ::handle )
+      aCoors := hwg_Getwindowrect(::handle)
+      aRect := hwg_GetClientRect(::handle)
       //hwg_writelog( str(::nheight)+"/"+str(aCoors[4]-aCoors[2])+"/"+str(arect[4]) )
       IF aCoors[4] - aCoors[2] == aRect[4]
          ::nAdjust := 0
       ELSE
-         ::Move( , , ::nWidth + ( aCoors[3] - aCoors[1] - aRect[3] ), ::nHeight + ( aCoors[4] - aCoors[2] - aRect[4] ) )
+         ::Move(NIL, NIL, ::nWidth + (aCoors[3] - aCoors[1] - aRect[3]), ::nHeight + (aCoors[4] - aCoors[2] - aRect[4]))
       ENDIF
    ENDIF
    IF !Empty(lMinimized)
       ::Minimize()
    ELSEIF !Empty(lMaximized)
       ::Maximize()
-   ELSEIF !Empty(lCentered) .OR. ( ::style > 0 .AND. hb_bitand( ::style, DS_CENTER ) > 0 )
+   ELSEIF !Empty(lCentered) .OR. (::style > 0 .AND. hb_bitand(::style, DS_CENTER) > 0)
       ::Center()
-   ELSEIF ::oParent != NIL .AND. __ObjHasMsg( ::oParent, "nX" )
-      hwg_MoveWindow( ::handle, ::oParent:nX + ::nX, ::oParent:nY + ::nY )
+   ELSEIF ::oParent != NIL .AND. __ObjHasMsg(::oParent, "nX")
+      hwg_MoveWindow(::handle, ::oParent:nX + ::nX, ::oParent:nY + ::nY)
    ENDIF
    IF HB_ISBLOCK( bActivate )
       ::bActivate := bActivate
    ENDIF
    IF ::bActivate != NIL
-      Eval( ::bActivate, Self )
+      Eval(::bActivate, Self)
    ENDIF
 
    hwg_HideHidden( Self )
 
-   hwg_ActivateDialog( ::handle, lNoModal  )
+   hwg_ActivateDialog(::handle, lNoModal)
 
    RETURN NIL
 
@@ -212,14 +210,14 @@ METHOD DelItem( oWnd, lModal ) CLASS HDialog
    LOCAL i
 
    IF lModal
-      IF ( i := Ascan( ::aModalDialogs,{ |o|o == oWnd } ) ) > 0
-         ADel( ::aModalDialogs, i )
-         ASize( ::aModalDialogs, Len( ::aModalDialogs ) - 1 )
+      IF (i := Ascan(::aModalDialogs, {|o|o == oWnd})) > 0
+         ADel(::aModalDialogs, i)
+         ASize(::aModalDialogs, Len(::aModalDialogs) - 1)
       ENDIF
    ELSE
-      IF ( i := Ascan( ::aDialogs,{ |o|o == oWnd } ) ) > 0
-         ADel( ::aDialogs, i )
-         ASize( ::aDialogs, Len( ::aDialogs ) - 1 )
+      IF (i := Ascan(::aDialogs, {|o|o == oWnd})) > 0
+         ADel(::aDialogs, i)
+         ASize(::aDialogs, Len(::aDialogs) - 1)
       ENDIF
    ENDIF
 
@@ -232,7 +230,7 @@ METHOD FindDialog( hWnd ) CLASS HDialog
 METHOD GetActive() CLASS HDialog
    
    LOCAL handle := hwg_Getfocus()
-   LOCAL i := Ascan( ::Getlist, { |o|o:handle == handle } )
+   LOCAL i := Ascan(::Getlist, {|o|o:handle == handle})
 
    RETURN iif( i == 0, NIL, ::Getlist[i] )
 
@@ -262,13 +260,12 @@ STATIC FUNCTION InitModalDlg( oDlg )
 
 FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
 
-   LOCAL iParHigh := hwg_Hiword( wParam )
-   LOCAL iParLow := hwg_Loword( wParam )
+   LOCAL iParHigh := hwg_Hiword(wParam)
+   LOCAL iParLow := hwg_Loword(wParam)
    LOCAL aMenu
    LOCAL i
    LOCAL hCtrl
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(lParam)
 
    // hwg_WriteLog( Str(iParHigh,10)+"|"+Str(iParLow,10)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
@@ -331,7 +328,6 @@ FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
 
 STATIC FUNCTION onGetFocus( oDlg, w, l )
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(w)
    HB_SYMBOL_UNUSED(l)
 

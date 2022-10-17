@@ -12,32 +12,30 @@
 
 CLASS HCheckButton INHERIT HControl
 
-   CLASS VAR winclass   INIT "BUTTON"
+   CLASS VAR winclass INIT "BUTTON"
+
    DATA bSetGet
    DATA lValue
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
-      bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor, bGFocus )
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor, bGFocus)
    METHOD Activate()
    METHOD Disable()
    METHOD Init()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Refresh()
-   METHOD SetText( value ) INLINE hwg_button_SetText( ::handle, ::title := value )
-   METHOD GetText() INLINE hwg_button_GetText( ::handle )
+   METHOD SetText( value ) INLINE hwg_button_SetText(::handle, ::title := value)
+   METHOD GetText() INLINE hwg_button_GetText(::handle)
    METHOD Value( lValue ) SETGET
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
-      bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor, bGFocus ) CLASS HCheckButton
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor, bGFocus) CLASS HCheckButton
 
-   nStyle   := hb_bitor( iif( nStyle == NIL,0,nStyle ), BS_AUTO3STATE + WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint, ctoolt, tcolor, bcolor )
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
 
-   ::title   := cCaption
-   ::lValue   := iif( vari == NIL .OR. ValType( vari ) != "L", .F. , vari )
+   ::title := cCaption
+   ::lValue := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
    ::bSetGet := bSetGet
 
    ::Activate()
@@ -45,13 +43,13 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCa
    ::bLostFocus := bClick
    ::bGetFocus  := bGFocus
 
-   hwg_SetSignal( ::handle, "clicked", WM_LBUTTONUP, 0, 0 )
+   hwg_SetSignal(::handle, "clicked", WM_LBUTTONUP, 0, 0)
    IF bGFocus != NIL
-      hwg_SetSignal( ::handle, "enter", BN_SETFOCUS, 0, 0 )
+      hwg_SetSignal(::handle, "enter", BN_SETFOCUS, 0, 0)
    ENDIF
 
-   IF Left( ::oParent:ClassName(),6 ) == "HPANEL" .AND. hb_bitand( ::oParent:style,SS_OWNERDRAW ) != 0
-*      ::oParent:SetPaintCB( PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)) )   
+   IF Left(::oParent:ClassName(), 6) == "HPANEL" .AND. hb_bitand(::oParent:style, SS_OWNERDRAW) != 0
+*      ::oParent:SetPaintCB( PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)) )
       ::oParent:SetPaintCB( PAINT_ITEM, {|h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)) )
    ENDIF
 
@@ -60,9 +58,8 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCa
 METHOD Activate() CLASS HCheckButton
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-         ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title )
-      hwg_Setwindowobject( ::handle, Self )
+      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
+      hwg_Setwindowobject(::handle, Self)
       ::Init()
    ENDIF
 
@@ -70,11 +67,10 @@ METHOD Activate() CLASS HCheckButton
    
 METHOD Disable() CLASS HCheckButton
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-         ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title )
-      hwg_Setwindowobject( ::handle, Self )
+      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
+      hwg_Setwindowobject(::handle, Self)
       ::Init()
-         hwg_CheckButton( ::handle, .F. )      
+         hwg_CheckButton(::handle, .F.)
    ENDIF
 
    RETURN NIL   
@@ -84,7 +80,7 @@ METHOD Init() CLASS HCheckButton
    IF !::lInit
       ::Super:Init()
       IF ::lValue
-         hwg_CheckButton( ::handle, .T. )
+         hwg_CheckButton(::handle, .T.)
       ENDIF
    ENDIF
 
@@ -92,7 +88,6 @@ METHOD Init() CLASS HCheckButton
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
@@ -109,11 +104,11 @@ METHOD Refresh() CLASS HCheckButton
    LOCAL var
 
    IF ::bSetGet != NIL
-      var := Eval( ::bSetGet, , NIL )
-      ::lValue := iif( var == NIL, .F. , var )
+      var := Eval(::bSetGet, NIL, NIL)
+      ::lValue := iif( var == NIL, .F., var )
    ENDIF
 
-   hwg_CheckButton( ::handle, ::lValue )
+   hwg_CheckButton(::handle, ::lValue)
 
    RETURN NIL
 
@@ -123,18 +118,18 @@ METHOD Value( lValue ) CLASS HCheckButton
       IF ValType( lValue ) != "L"
          lValue := .F.
       ENDIF
-      hwg_CheckButton( ::handle, lValue )
+      hwg_CheckButton(::handle, lValue)
       IF ::bSetGet != NIL
-         Eval( ::bSetGet, lValue, Self )
+         Eval(::bSetGet, lValue, Self)
       ENDIF
-      RETURN ( ::lValue := lValue )
+      RETURN (::lValue := lValue)
    ENDIF
 
-   RETURN ( ::lValue := hwg_IsButtonChecked( ::handle ) )
+   RETURN (::lValue := hwg_IsButtonChecked(::handle))
 
 
 STATIC FUNCTION __Valid( oCtrl )
-   
+
    LOCAL res
 
    oCtrl:lValue := hwg_IsButtonChecked( oCtrl:handle )
@@ -142,9 +137,7 @@ STATIC FUNCTION __Valid( oCtrl )
    IF oCtrl:bSetGet != NIL
       Eval( oCtrl:bSetGet, oCtrl:lValue, oCtrl )
    ENDIF
-   IF oCtrl:bLostFocus != NIL .AND. ;
-         ValType( res := Eval( oCtrl:bLostFocus, oCtrl, oCtrl:lValue ) ) == "L" ;
-         .AND. !res
+   IF oCtrl:bLostFocus != NIL .AND. ValType(res := Eval(oCtrl:bLostFocus, oCtrl, oCtrl:lValue)) == "L" .AND. !res
       hwg_Setfocus( oCtrl:handle )
    ENDIF
 

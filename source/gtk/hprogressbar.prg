@@ -20,16 +20,17 @@
 
 CLASS HProgressBar INHERIT HControl
 
-   CLASS VAR winclass   INIT "ProgressBar"
-   DATA  maxPos
-   DATA  lNewBox
-   DATA  nCount INIT 0
-   DATA  nLimit
+   CLASS VAR winclass INIT "ProgressBar"
+
+   DATA maxPos
+   DATA lNewBox
+   DATA nCount INIT 0
+   DATA nLimit
 
    METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip )
    METHOD NewBox( cTitle, nX, nY, nWidth, nHeight, maxPos, nRange , bExit )
    METHOD Activate()
-   METHOD Increment() INLINE hwg_Updateprogressbar( ::handle )
+   METHOD Increment() INLINE hwg_Updateprogressbar(::handle)
    METHOD Step()
    METHOD SET( cTitle, nPos )
    METHOD RESET()
@@ -39,7 +40,7 @@ ENDCLASS
 
 METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip ) CLASS HProgressBar
 
-   ::Super:New( oWndParent, nId, , nX, nY, nWidth, nHeight, , bInit, bSize, bPaint, ctooltip )
+   ::Super:New( oWndParent, nId, NIL, nX, nY, nWidth, nHeight, NIL, bInit, bSize, bPaint, ctooltip )
 
    ::maxPos  := iif( maxPos == NIL, 20, maxPos )
    ::lNewBox := .F.
@@ -88,8 +89,7 @@ METHOD NewBox( cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit ) CLASS HP
 METHOD Activate() CLASS HProgressBar
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createprogressbar( ::oParent:handle, ::maxPos, ;
-         ::nX, ::nY, ::nWidth, ::nHeight )
+      ::handle := hwg_Createprogressbar(::oParent:handle, ::maxPos, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -100,7 +100,7 @@ METHOD Step()
    ::nCount ++
    IF ::nCount == ::nLimit
       ::nCount := 0
-      hwg_Updateprogressbar( ::handle )
+      hwg_Updateprogressbar(::handle)
    ENDIF
 
    RETURN NIL
@@ -108,7 +108,7 @@ METHOD Step()
 METHOD SET( cTitle, nPos ) CLASS HProgressBar
 
    IF cTitle != NIL
-      hwg_Setwindowtext( ::oParent:handle, cTitle )
+      hwg_Setwindowtext(::oParent:handle, cTitle)
    ENDIF
    IF nPos != NIL
       IF ::nLimit * ::maxpos != 0
@@ -121,7 +121,7 @@ METHOD SET( cTitle, nPos ) CLASS HProgressBar
        if progbar reached end.
       */
       IF ( nPos >= 0  ) .AND. (nPos <= 1 ) 
-       hwg_Setprogressbar( ::handle, nPos )
+       hwg_Setprogressbar(::handle, nPos)
       END
    ENDIF
 
@@ -131,17 +131,17 @@ METHOD SET( cTitle, nPos ) CLASS HProgressBar
 METHOD RESET() CLASS HProgressBar
  IF ::handle != NIL
     ::nCount := 0
-    hwg_Resetprogressbar( ::handle )
-    * hwg_Updateprogressbar( ::handle )    
+    hwg_Resetprogressbar(::handle)
+    * hwg_Updateprogressbar(::handle)
  ENDIF
 RETURN NIL
  
 
 METHOD CLOSE()
 
-   HWG_DestroyWindow( ::handle )
+   HWG_DestroyWindow(::handle)
    IF ::lNewBox
-      hwg_EndDialog( ::oParent:handle )
+      hwg_EndDialog(::oParent:handle)
    ENDIF
 
    RETURN NIL

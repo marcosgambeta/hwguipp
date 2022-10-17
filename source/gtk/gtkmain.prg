@@ -94,7 +94,7 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes )
    @ 20, 35 GET cres  SIZE 260, 26 STYLE WS_DLGFRAME + WS_TABSTOP + nStyle
    Atail( oModDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @ 20, 95 BUTTON "Ok" ID IDOK SIZE 100, 32 ON CLICK { ||oModDlg:lResult := .T. , hwg_EndDialog() } ON SIZE ANCHOR_BOTTOMABS
+   @ 20, 95 BUTTON "Ok" ID IDOK SIZE 100, 32 ON CLICK { ||oModDlg:lResult := .T., hwg_EndDialog() } ON SIZE ANCHOR_BOTTOMABS
    @ 180, 95 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON CLICK { ||hwg_EndDialog() } ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    ACTIVATE DIALOG oModDlg
@@ -159,8 +159,8 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
    ENDIF
 
    hDC := hwg_Getdc( HWindow():GetMain():handle )
-   hwg_Selectobject( hDC, ofont:handle )
-   aMetr := hwg_Gettextmetric( hDC )
+   hwg_Selectobject(hDC, ofont:handle)
+   aMetr := hwg_Gettextmetric(hDC)
    hwg_Releasedc( hwg_Getactivewindow(), hDC )
    height := ( aMetr[1] + 5 ) * aLen + 4 + addY
    screenh := hwg_Getdesktopheight()
@@ -177,9 +177,9 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
       ON CLICK { |o|nChoice := o:nCurrent, hwg_EndDialog( o:oParent:handle ) }
 
    IF HB_ISARRAY(arr[1])
-      oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED ( value ) , o:aArray[o:nCurrent,1] },"C",nLen ) )
+      oBrw:AddColumn(HColumn():New(NIL, {|value, o|HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent, 1]}, "C", nLen))
    ELSE
-      oBrw:AddColumn( HColumn():New( ,{ |value,o| HB_SYMBOL_UNUSED ( value ) ,o:aArray[o:nCurrent] },"C",nLen ) )
+      oBrw:AddColumn(HColumn():New(NIL, {|value, o|HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent]}, "C", nLen))
    ENDIF
    hwg_CREATEARLIST( oBrw, arr )
    oBrw:lDispHead := .F.
@@ -268,7 +268,7 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
    ENDIF
    IF nLevel < 2
       IF ( oParent := hwg_FindParent( hParent,nLevel + 1 ) ) != NIL
-         RETURN oParent:FindControl( , hParent )
+         RETURN oParent:FindControl(NIL, hParent)
       ENDIF
    ENDIF
 
@@ -280,7 +280,7 @@ FUNCTION hwg_FindSelf( hCtrl )
 
    oParent := hwg_FindParent( hCtrl )
    IF oParent != NIL
-      RETURN oParent:FindControl( , hCtrl )
+      RETURN oParent:FindControl(NIL, hCtrl)
    ENDIF
 
    RETURN NIL

@@ -13,26 +13,23 @@
 
 CLASS HSayImage INHERIT HControl
 
-   CLASS VAR winclass   INIT "STATIC"
-   DATA  oImage
-   DATA bClick, bDblClick
+   CLASS VAR winclass INIT "STATIC"
+   
+   DATA oImage
+   DATA bClick
+   DATA bDblClick
 
-   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, ;
-      bSize, ctoolt, bClick, bDblClick, bColor )
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor)
    METHOD Activate()
-   METHOD END()  INLINE ( ::Super:END(), iif( ::oImage != NIL,::oImage:Release(),::oImage := NIL ), ::oImage := NIL )
+   METHOD END() INLINE (::Super:END(), iif(::oImage != NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL )
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, ;
-      bSize, ctoolt, bClick, bDblClick, bColor ) CLASS HSayImage
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor) CLASS HSayImage
 
-   ::Super:New( oWndParent, nId, nStyle, nX, nY, ;
-      Iif( nWidth != NIL, nWidth, 0 ), iif( nHeight != NIL, nHeight, 0 ),, ;
-      bInit, bSize,, ctoolt,, bColor )
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, Iif(nWidth != NIL, nWidth, 0), iif(nHeight != NIL, nHeight, 0), NIL, bInit, bSize, NIL, ctoolt, NIL, bColor)
 
    ::title := ""
-
    ::bClick := bClick
    ::bDblClick := bDblClick
 
@@ -41,8 +38,7 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, ;
 METHOD Activate() CLASS HSayImage
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 

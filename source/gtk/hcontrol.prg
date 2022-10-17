@@ -37,11 +37,10 @@ CLASS HControl INHERIT HCustomWindow
 
    DATA id
    DATA tooltip
-   DATA lInit    INIT .F.
-   DATA Anchor   INIT 0
+   DATA lInit INIT .F.
+   DATA Anchor INIT 0
 
-   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint, ctoolt, tcolor, bcolor )
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
    METHOD Init()
    METHOD NewId()
 
@@ -49,15 +48,14 @@ CLASS HControl INHERIT HCustomWindow
    METHOD Enable()
    METHOD Enabled( lEnabled )
 
-   METHOD Setfocus() INLINE hwg_SetFocus( ::handle )
+   METHOD Setfocus() INLINE hwg_SetFocus(::handle)
    METHOD Move( x1, y1, width, height, lMoveParent )
    METHOD onAnchor( x, y, w, h )
    METHOD End()
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint, ctoolt, tcolor, bcolor ) CLASS HControl
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor) CLASS HControl
 
    ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
    ::id      := iif( nId == NIL, ::NewId(), nId )
@@ -95,16 +93,16 @@ METHOD INIT() CLASS HControl
 
    IF !::lInit
       IF ::oFont != NIL
-         hwg_SetCtrlFont( ::handle,, ::oFont:handle )
+         hwg_SetCtrlFont(::handle, NIL, ::oFont:handle)
       ELSEIF ::oParent:oFont != NIL
          ::oFont := ::oParent:oFont
-         hwg_SetCtrlFont( ::handle,, ::oParent:oFont:handle )
+         hwg_SetCtrlFont(::handle, NIL, ::oParent:oFont:handle)
       ENDIF
-      hwg_Addtooltip( ::handle, ::tooltip )
-      IF HB_ISBLOCK( ::bInit )
-         Eval( ::bInit, Self )
+      hwg_Addtooltip(::handle, ::tooltip)
+      IF HB_ISBLOCK(::bInit)
+         Eval(::bInit, Self)
       ENDIF
-      ::Setcolor( ::tcolor, ::bcolor )
+      ::Setcolor(::tcolor, ::bcolor)
 
       IF ( o := hwg_getParentForm( Self ) ) != NIL .AND. o:lActivated
          hwg_ShowAll( o:handle )
@@ -117,27 +115,27 @@ METHOD INIT() CLASS HControl
 
 METHOD Disable() CLASS HControl
 
-   hwg_Enablewindow( ::handle, .F. )
+   hwg_Enablewindow(::handle, .F.)
 RETURN NIL
 
 METHOD Enable() CLASS HControl
 
-   hwg_Enablewindow( ::handle, .T. )
+   hwg_Enablewindow(::handle, .T.)
 RETURN NIL
 
 METHOD Enabled( lEnabled ) CLASS HControl
 
    IF lEnabled != NIL
       IF lEnabled
-         hwg_Enablewindow( ::handle, .T. )
+         hwg_Enablewindow(::handle, .T.)
          RETURN .T.
       ELSE
-         hwg_Enablewindow( ::handle, .F. )
+         hwg_Enablewindow(::handle, .F.)
          RETURN .F.
       ENDIF
    ENDIF
 
-   RETURN hwg_Iswindowenabled( ::handle )
+   RETURN hwg_Iswindowenabled(::handle)
 
 /* Added: lMoveParent */
 METHOD Move( x1, y1, width, height, lMoveParent )  CLASS HControl
@@ -162,8 +160,7 @@ METHOD Move( x1, y1, width, height, lMoveParent )  CLASS HControl
       lSize := .T.
    ENDIF
    IF lMove .OR. lSize
-      hwg_MoveWidget( ::handle, iif( lMove,::nX,NIL ), iif( lMove,::nY,NIL ), ;
-         iif( lSize, ::nWidth, NIL ), iif( lSize, ::nHeight, NIL ), lMoveParent )
+      hwg_MoveWidget(::handle, iif(lMove, ::nX, NIL), iif(lMove, ::nY, NIL), iif(lSize, ::nWidth, NIL), iif(lSize, ::nHeight, NIL), lMoveParent)
    ENDIF
 
    RETURN NIL
@@ -172,7 +169,7 @@ METHOD End() CLASS HControl
 
    ::Super:End()
    IF ::tooltip != NIL
-      // DelToolTip( ::oParent:handle,::handle )
+      // DelToolTip(::oParent:handle, ::handle)
       ::tooltip := NIL
    ENDIF
 
@@ -279,12 +276,12 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
       ENDIF
       y1 := y9
    ENDIF
-   hwg_Invalidaterect( ::oParent:handle, 1, ::nX, ::nY, ::nWidth, ::nHeight )
+   hwg_Invalidaterect(::oParent:handle, 1, ::nX, ::nY, ::nWidth, ::nHeight)
    ::Move( x1, y1, w1, h1 )
    ::nX := x1
    ::nY := y1
    ::nWidth := w1
    ::nHeight := h1
-   hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
+   hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE)
 
    RETURN NIL

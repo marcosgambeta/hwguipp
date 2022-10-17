@@ -19,8 +19,8 @@ CLASS HStatic INHERIT HControl
       bSize, bPaint, ctoolt, tcolor, bcolor, lTransp )
    METHOD Activate()
    METHOD Init()
-   METHOD SetText( value ) INLINE hwg_static_SetText( ::handle, ::title := value )
-   METHOD GetText() INLINE hwg_static_GetText( ::handle )
+   METHOD SetText( value ) INLINE hwg_static_SetText(::handle, ::title := value)
+   METHOD GetText() INLINE hwg_static_GetText(::handle)
 
 ENDCLASS
 
@@ -42,10 +42,9 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, b
 METHOD Activate() CLASS HStatic
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-         ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::extStyle, ::title )
-      IF hb_bitand( ::style, SS_OWNERDRAW ) != 0
-         hwg_Setwindowobject( ::handle, Self )
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::extStyle, ::title)
+      IF hb_bitand(::style, SS_OWNERDRAW) != 0
+         hwg_Setwindowobject(::handle, Self)
       ENDIF
       ::Init()
    ENDIF

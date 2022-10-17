@@ -11,20 +11,21 @@
 #include "guilib.ch"
 #include "error.ch"
 
-   STATIC aCustomEvents := { ;
-      { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
-      { ;
-      { |o, w|iif( o:bPaint != NIL, Eval( o:bPaint,o,w ), - 1 ) }, ;
-      { |o, w|onCommand( o, w ) },                ;     && |o, w, l| ==> |o, w|
-      { |o, w, l|onSize( o, w, l ) },                ;
-      { |o|onDestroy( o ) }                          ;
-      } ;
-      }
+STATIC aCustomEvents := { ;
+   { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
+   { ;
+   { |o, w|iif( o:bPaint != NIL, Eval( o:bPaint,o,w ), - 1 ) }, ;
+   { |o, w|onCommand( o, w ) },                ;     && |o, w, l| ==> |o, w|
+   { |o, w, l|onSize( o, w, l ) },                ;
+   { |o|onDestroy( o ) }                          ;
+   } ;
+   }
 
 CLASS HCustomWindow INHERIT HObject
 
    CLASS VAR oDefaultParent SHARED
-   DATA handle  INIT 0
+
+   DATA handle INIT 0
    DATA oParent
    DATA title
    DATA TYPE
@@ -34,14 +35,17 @@ CLASS HCustomWindow INHERIT HObject
    DATA nLeft // deprecated - use nX
    ACCESS nX INLINE ::nLeft
    ASSIGN nX(n) INLINE ::nLeft := n
-   DATA nWidth, nHeight
-   DATA tcolor, bcolor, brush
+   DATA nWidth
+   DATA nHeight
+   DATA tcolor
+   DATA bcolor
+   DATA brush
    DATA style
-   DATA extStyle  INIT 0
+   DATA extStyle INIT 0
    DATA lHide INIT .F.
    DATA oFont
-   DATA aEvents   INIT {}
-   DATA aNotify   INIT {}
+   DATA aEvents INIT {}
+   DATA aNotify INIT {}
    DATA aControls INIT {}
    DATA bInit
    DATA bDestroy
@@ -50,15 +54,15 @@ CLASS HCustomWindow INHERIT HObject
    DATA bGetFocus
    DATA bLostFocus
    DATA bOther
-   DATA HelpId    INIT 0
-   DATA nChildId  INIT 34000
+   DATA HelpId INIT 0
+   DATA nChildId INIT 34000
 
    METHOD AddControl( oCtrl ) INLINE AAdd(::aControls, oCtrl)
    METHOD DelControl( oCtrl )
    METHOD AddEvent( nEvent, nId, bAction ) INLINE AAdd(::aEvents, {nEvent, nId, bAction})
    METHOD FindControl( nId, nHandle )
-   METHOD Hide() INLINE ( ::lHide := .T. , hwg_Hidewindow( ::handle ) )
-   METHOD Show() INLINE ( ::lHide := .F. , hwg_Showwindow( ::handle ) )
+   METHOD Hide() INLINE (::lHide := .T., hwg_Hidewindow(::handle))
+   METHOD Show() INLINE (::lHide := .F., hwg_Showwindow(::handle))
    METHOD Move( x1, y1, width, height )
    METHOD Refresh()
    METHOD Setcolor( tcolor, bcolor, lRepaint )
@@ -69,24 +73,23 @@ CLASS HCustomWindow INHERIT HObject
 ENDCLASS
 
 METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
-   
+
    LOCAL i
 
    IF HB_ISCHAR(nId)
       nId := Upper(nId)
-      RETURN hwg_GetItemByName( ::aControls, nId )
+      RETURN hwg_GetItemByName(::aControls, nId)
    ELSE
-      i := Iif( nId != NIL, Ascan( ::aControls,{|o|o:id == nId } ), ;
-         Ascan( ::aControls, {|o|o:handle == nHandle } ) )
+      i := Iif(nId != NIL, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|o:handle == nHandle}))
    ENDIF
 
    RETURN Iif( i == 0, NIL, ::aControls[i] )
 
 METHOD DelControl( oCtrl ) CLASS HCustomWindow
-   
+
    LOCAL id := oCtrl:id
    LOCAL h
-   LOCAL i := Ascan( ::aControls, { |o|o == oCtrl } )
+   LOCAL i := Ascan(::aControls, {|o|o == oCtrl})
 
    IF oCtrl:ClassName() == "HPANEL"
       hwg_Destroypanel( oCtrl:handle )
@@ -94,35 +97,35 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
       hwg_DestroyWindow( oCtrl:handle )
    ENDIF
    IF i != 0
-      ADel( ::aControls, i )
-      ASize( ::aControls, Len( ::aControls ) - 1 )
+      ADel(::aControls, i)
+      ASize(::aControls, Len(::aControls) - 1)
    ENDIF
    h := 0
-   FOR i := Len( ::aEvents ) TO 1 STEP - 1
-      IF ::aEvents[i,2] == id
-         ADel( ::aEvents, i )
+   FOR i := Len(::aEvents) TO 1 STEP -1
+      IF ::aEvents[i, 2] == id
+         ADel(::aEvents, i)
          h ++
       ENDIF
    NEXT
    IF h > 0
-      ASize( ::aEvents, Len( ::aEvents ) - h )
+      ASize(::aEvents, Len(::aEvents) - h)
    ENDIF
    h := 0
-   FOR i := Len( ::aNotify ) TO 1 STEP - 1
-      IF ::aNotify[i,2] == id
-         ADel( ::aNotify, i )
+   FOR i := Len(::aNotify) TO 1 STEP -1
+      IF ::aNotify[i, 2] == id
+         ADel(::aNotify, i)
          h ++
       ENDIF
    NEXT
    IF h > 0
-      ASize( ::aNotify, Len( ::aNotify ) - h )
+      ASize(::aNotify, Len(::aNotify) - h)
    ENDIF
 
    RETURN NIL
 
 METHOD Move( x1, y1, width, height )  CLASS HCustomWindow
 
-   hwg_Movewindow( ::handle, x1, y1, width, height )
+   hwg_Movewindow(::handle, x1, y1, width, height)
    IF !__ObjHasMsg( Self, "AWINDOWS" )
       IF x1 != NIL
          ::nX := x1
@@ -142,7 +145,7 @@ METHOD Move( x1, y1, width, height )  CLASS HCustomWindow
 
 METHOD Refresh() CLASS HCustomWindow
 
-   hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW )
+   hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
 
    RETURN NIL
 
@@ -151,14 +154,14 @@ METHOD Setcolor( tcolor, bcolor, lRepaint ) CLASS HCustomWindow
    IF tcolor != NIL
       ::tcolor  := tcolor
       IF !Empty(::handle)
-         hwg_Setfgcolor( ::handle, ::tcolor )
+         hwg_Setfgcolor(::handle, ::tcolor)
       ENDIF
    ENDIF
 
    IF bcolor != NIL
       ::bcolor  := bcolor
       IF !Empty(::handle)
-         hwg_Setbgcolor( ::handle, ::bcolor )
+         hwg_Setbgcolor(::handle, ::bcolor)
       ENDIF
       IF ::brush != NIL
          ::brush:Release()
@@ -167,7 +170,7 @@ METHOD Setcolor( tcolor, bcolor, lRepaint ) CLASS HCustomWindow
    ENDIF
 
    IF lRepaint != NIL .AND. lRepaint
-      hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
+      hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE)
    ENDIF
 
    RETURN NIL
@@ -180,7 +183,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCustomWindow
    IF ( i := Ascan( aCustomEvents[1],msg ) ) != 0
       RETURN Eval( aCustomEvents[2,i], Self, wParam, lParam )
    ELSEIF ::bOther != NIL
-      RETURN Eval( ::bOther, Self, msg, wParam, lParam )
+      RETURN Eval(::bOther, Self, msg, wParam, lParam)
    ENDIF
 
    RETURN 0
@@ -195,7 +198,7 @@ METHOD End()  CLASS HCustomWindow
       aControls[i]:End()
    NEXT
 
-   hwg_ReleaseObject( ::handle )
+   hwg_ReleaseObject(::handle)
 
    RETURN NIL
 
@@ -205,11 +208,11 @@ METHOD OnError() CLASS HCustomWindow
    LOCAL oError
    LOCAL oItem
 
-   IF !Empty(oItem := hwg_GetItemByName( ::aControls, cMsg ))
+   IF !Empty(oItem := hwg_GetItemByName(::aControls, cMsg))
       RETURN oItem
    ENDIF
    FOR EACH oItem IN HTimer():aTimers
-      IF !Empty(oItem:objname) .AND. oItem:objname == cMsg .AND. hwg_Isptreq( ::handle, oItem:oParent:handle )
+      IF !Empty(oItem:objname) .AND. oItem:objname == cMsg .AND. hwg_Isptreq(::handle, oItem:oParent:handle)
          RETURN oItem
       ENDIF
    NEXT
@@ -239,8 +242,8 @@ STATIC FUNCTION onDestroy( oWnd )
 STATIC FUNCTION onCommand( oWnd, wParam )
    
    LOCAL iItem
-   LOCAL iParHigh := hwg_Hiword( wParam )
-   LOCAL iParLow := hwg_Loword( wParam )
+   LOCAL iParHigh := hwg_Hiword(wParam)
+   LOCAL iParLow := hwg_Loword(wParam)
 
    IF oWnd:aEvents != NIL .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
@@ -262,8 +265,8 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
             x := wParam
             y := lParam
          ELSE
-            x := hwg_Loword( lParam )
-            y := hwg_Hiword( lParam )
+            x := hwg_Loword(lParam)
+            y := hwg_Hiword(lParam)
          ENDIF
          Eval( oItem:bSize, oItem, x, y )
          onSize( oItem, oItem:nWidth, oItem:nHeight )
@@ -274,7 +277,7 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
 
 FUNCTION hwg_onTrackScroll( oWnd, wParam, lParam )
 
-   LOCAL oCtrl := oWnd:FindControl( , lParam )
+   LOCAL oCtrl := oWnd:FindControl(NIL, lParam)
    LOCAL msg
 
    IF oCtrl != NIL

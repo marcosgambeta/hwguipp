@@ -13,18 +13,18 @@
 CLASS HRadioGroup INHERIT HObject
 
    CLASS VAR oGroupCurrent
+
    DATA handle INIT 0
    DATA aButtons
-   DATA nValue  INIT 1
+   DATA nValue INIT 1
    DATA bSetGet
    DATA oHGroup
 
-   METHOD New( vari, bSetGet )
-   METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, tcolor, bColor )
-   METHOD EndGroup( nSelected )
-   METHOD Value( nValue ) SETGET
-   METHOD Refresh()   INLINE iif( ::bSetGet != NIL, ::Value := Eval(::bSetGet ), .T. )
+   METHOD New(vari, bSetGet)
+   METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor)
+   METHOD EndGroup(nSelected)
+   METHOD Value(nValue) SETGET
+   METHOD Refresh() INLINE iif(::bSetGet != NIL, ::Value := Eval(::bSetGet), .T.)
 
 ENDCLASS
 
@@ -49,7 +49,7 @@ METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, ;
    ::aButtons := {}
 
    ::oHGroup := HGroup():New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, ;
-      oFont, bInit, bSize, , tcolor, bColor )
+      oFont, bInit, bSize, NIL, tcolor, bColor )
 
    IF vari != NIL
       IF HB_ISNUMERIC(vari)
@@ -64,12 +64,12 @@ METHOD EndGroup( nSelected )  CLASS HRadioGroup
    
    LOCAL nLen
 
-   IF ::oGroupCurrent != NIL .AND. ( nLen := Len( ::oGroupCurrent:aButtons ) ) > 0
+   IF ::oGroupCurrent != NIL .AND. ( nLen := Len(::oGroupCurrent:aButtons) ) > 0
 
       nSelected := iif( nSelected != NIL .AND. nSelected <= nLen .AND. nSelected > 0, ;
          nSelected, ::oGroupCurrent:nValue )
       IF nSelected != 0 .AND. nSelected <= nlen
-         hwg_CheckButton( ::oGroupCurrent:aButtons[nSelected]:handle, .T. )
+         hwg_CheckButton(::oGroupCurrent:aButtons[nSelected]:handle, .T.)
       ENDIF
    ENDIF
    ::oGroupCurrent := NIL
@@ -81,11 +81,11 @@ METHOD Value( nValue ) CLASS HRadioGroup
    LOCAL nLen
 
    IF nValue != NIL
-      IF ( nLen := Len( ::aButtons ) ) > 0 .AND. nValue > 0 .AND. nValue <= nLen
-         hwg_CheckButton( ::aButtons[nValue]:handle, .T. )
+      IF ( nLen := Len(::aButtons) ) > 0 .AND. nValue > 0 .AND. nValue <= nLen
+         hwg_CheckButton(::aButtons[nValue]:handle, .T.)
          ::nValue := nValue
          IF ::bSetGet != NIL
-            Eval( ::bSetGet, nValue, Self )
+            Eval(::bSetGet, nValue, Self)
          ENDIF
       ENDIF
    ENDIF

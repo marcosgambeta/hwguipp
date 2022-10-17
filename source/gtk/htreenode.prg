@@ -15,12 +15,13 @@
 CLASS HTreeNode INHERIT HObject
 
    DATA handle
-   DATA oTree, oParent
+   DATA oTree
+   DATA oParent
    DATA nLevel
-   DATA lExpanded   INIT .F.
+   DATA lExpanded INIT .F.
    DATA title
    DATA aImages
-   DATA aItems      INIT {}
+   DATA aItems INIT {}
    DATA bClick
 
    METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
@@ -44,7 +45,6 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
 
    // Variables not used
    // LOCAL im1, im2, cImage
-
 
    ::oTree := oTree
    ::oParent := oParent
@@ -99,7 +99,7 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
 METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages ) CLASS HTreeNode
    
    LOCAL oParent := Self
-   LOCAL oNode := HTreeNode():New( ::oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
+   LOCAL oNode := HTreeNode():New(::oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
 
    RETURN oNode
 
@@ -110,15 +110,15 @@ METHOD DELETE( lInternal ) CLASS HTreeNode
    LOCAL alen
    LOCAL aItems
 
-   IF ! Empty(::aItems)
-      alen := Len( ::aItems )
+   IF !Empty(::aItems)
+      alen := Len(::aItems)
       FOR j := 1 TO alen
          ::aItems[j]:Delete( .T. )
          ::aItems[j] := NIL
       NEXT
    ENDIF
    IF lInternal == NIL
-      aItems := iif( ::oParent == NIL, ::oTree:aItems, ::oParent:aItems )
+      aItems := iif(::oParent == NIL, ::oTree:aItems, ::oParent:aItems)
       j := AScan( aItems, { | o | o:handle == h } )
       ADel( aItems, j )
       ASize( aItems, Len( aItems ) - 1 )
@@ -175,7 +175,7 @@ METHOD NextNode( nNode, lSkip ) CLASS HTreeNode
    IF ::lExpanded .AND. Empty(lSkip)
       nNode := 1
       oNode := ::aItems[nNode]
-   ELSEIF nNode < Len( ::oParent:aItems )
+   ELSEIF nNode < Len(::oParent:aItems)
       oNode := ::oParent:aItems[++nNode]
    ELSEIF ::nLevel > 1
       nNode := ::oParent:getNodeIndex()

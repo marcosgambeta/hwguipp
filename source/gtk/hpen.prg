@@ -12,10 +12,13 @@
 
 CLASS HPen INHERIT HObject
 
-   CLASS VAR aPens   INIT {}
+   CLASS VAR aPens INIT {}
+
    DATA handle
-   DATA style, width, color
-   DATA nCounter   INIT 1
+   DATA style
+   DATA width
+   DATA color
+   DATA nCounter INIT 1
 
    METHOD Add( nStyle, nWidth, nColor )
    METHOD Get( nStyle, nWidth, nColor )
@@ -77,25 +80,25 @@ METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
 METHOD RELEASE() CLASS HPen
    
    LOCAL i
-   LOCAL nlen := Len( ::aPens )
+   LOCAL nlen := Len(::aPens)
 
    ::nCounter --
    IF ::nCounter == 0
 #ifdef __XHARBOUR__
       For EACH i  in ::aPens
          IF i:handle == ::handle
-            hwg_Deleteobject( ::handle )
-            ADel( ::aPens, hb_EnumIndex() )
-            ASize( ::aPens, nlen - 1 )
+            hwg_Deleteobject(::handle)
+            ADel(::aPens, hb_EnumIndex())
+            ASize(::aPens, nlen - 1)
             EXIT
          ENDIF
       NEXT
 #else
       For i := 1 TO nlen
          IF ::aPens[i]:handle == ::handle
-            hwg_Deleteobject( ::handle )
-            ADel( ::aPens, i )
-            ASize( ::aPens, nlen - 1 )
+            hwg_Deleteobject(::handle)
+            ADel(::aPens, i)
+            ASize(::aPens, nlen - 1)
             EXIT
          ENDIF
       NEXT

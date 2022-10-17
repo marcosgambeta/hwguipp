@@ -15,18 +15,18 @@
 
 CLASS HComboBox INHERIT HControl
 
-   CLASS VAR winclass   INIT "COMBOBOX"
-   DATA  aItems
-   DATA  bSetGet
-   DATA  bValid
-   DATA  xValue    INIT 1
-   DATA  bChangeSel
-   DATA  lText    INIT .F.
-   DATA  lEdit    INIT .F.
-   DATA  hEdit
+   CLASS VAR winclass INIT "COMBOBOX"
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
-      aItems, oFont, bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid )
+   DATA aItems
+   DATA bSetGet
+   DATA bValid
+   DATA xValue INIT 1
+   DATA bChangeSel
+   DATA lText INIT .F.
+   DATA lEdit INIT .F.
+   DATA hEdit
+
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid)
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
@@ -38,8 +38,7 @@ CLASS HComboBox INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, ;
-      bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid ) CLASS HComboBox
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid) CLASS HComboBox
 
    IF lEdit == NIL
       lEdit := .F.
@@ -66,7 +65,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aIt
 
    IF bSetGet != NIL
       ::bSetGet := bSetGet
-      Eval( ::bSetGet, ::xValue, self )
+      Eval(::bSetGet, ::xValue, self)
    ENDIF
 
    ::aItems  := aItems
@@ -76,11 +75,11 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aIt
    ::bGetFocus := bGFocus
    ::bChangeSel := bChange
 
-   hwg_SetEvent( ::handle, "focus_in_event", EN_SETFOCUS, 0, 0 )
-   hwg_SetEvent( ::handle, "focus_out_event", EN_KILLFOCUS, 0, 0 )
-   hwg_SetSignal( ::handle, "changed", CBN_SELCHANGE, 0, 0 )
+   hwg_SetEvent(::handle, "focus_in_event", EN_SETFOCUS, 0, 0)
+   hwg_SetEvent(::handle, "focus_out_event", EN_KILLFOCUS, 0, 0)
+   hwg_SetSignal(::handle, "changed", CBN_SELCHANGE, 0, 0)
 
-   IF Left( ::oParent:ClassName(), 6 ) == "HPANEL" .AND. hb_bitand( ::oParent:style, SS_OWNERDRAW ) != 0
+   IF Left(::oParent:ClassName(), 6) == "HPANEL" .AND. hb_bitand(::oParent:style, SS_OWNERDRAW) != 0
       ::oParent:SetPaintCB( PAINT_ITEM, { |o,h|HB_SYMBOL_UNUSED(o),iif( !::lHide,hwg__DrawCombo(h,::nX + ::nWidth - 22,::nY,::nX + ::nWidth - 1,::nY + ::nHeight - 1 ), .T. ) }, "hc" + LTrim(Str(::id)) )
    ENDIF
 
@@ -89,10 +88,9 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aIt
 METHOD Activate() CLASS HComboBox
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createcombo( ::oParent:handle, ::id, ;
-         ::style, ::nX, ::nY, ::nWidth, ::nHeight )
+      ::handle := hwg_Createcombo(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
-      hwg_Setwindowobject( ::handle, Self )
+      hwg_Setwindowobject(::handle, Self)
    ENDIF
 
    RETURN NIL
@@ -101,15 +99,14 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
 
    LOCAL i
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
    IF msg == EN_SETFOCUS
       IF ::bSetGet == NIL
          IF ::bGetFocus != NIL
-            i := hwg_ComboGet( ::handle )
-            Eval( ::bGetFocus, iif( HB_ISARRAY(::aItems[1]), ::aItems[i,1], ::aItems[i] ), Self )
+            i := hwg_ComboGet(::handle)
+            Eval(::bGetFocus, iif(HB_ISARRAY(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
          ENDIF
       ELSE
          __When( Self )
@@ -117,8 +114,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
    ELSEIF msg == EN_KILLFOCUS
       IF ::bSetGet == NIL
          IF ::bLostFocus != NIL
-            i := hwg_ComboGet( ::handle )
-            Eval( ::bLostFocus, iif( HB_ISARRAY(::aItems[1]), ::aItems[i,1], ::aItems[i] ), Self )
+            i := hwg_ComboGet(::handle)
+            Eval(::bLostFocus, iif(HB_ISARRAY(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
          ENDIF
       ELSE
          __Valid( Self )
@@ -127,7 +124,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
    ELSEIF msg == CBN_SELCHANGE
       ::GetValue()
       IF ::bChangeSel != NIL
-         Eval( ::bChangeSel, ::xValue, Self )
+         Eval(::bChangeSel, ::xValue, Self)
       ENDIF
 
    ENDIF
@@ -140,7 +137,7 @@ METHOD Init() CLASS HComboBox
    IF !::lInit
       ::Super:Init()
       IF !Empty(::aItems)
-         hwg_ComboSetArray( ::handle, ::aItems )
+         hwg_ComboSetArray(::handle, ::aItems)
          IF Empty(::xValue)
             IF ::lText
                ::xValue := iif( HB_ISARRAY(::aItems[1]), ::aItems[1,1], ::aItems[1] )
@@ -150,7 +147,7 @@ METHOD Init() CLASS HComboBox
          ENDIF
          ::Value := ::xValue
          IF ::bSetGet != NIL
-            Eval( ::bSetGet, ::xValue, Self )
+            Eval(::bSetGet, ::xValue, Self)
          ENDIF
       ENDIF
    ENDIF
@@ -164,7 +161,7 @@ METHOD Refresh( xVal ) CLASS HComboBox
    IF xVal != NIL
       ::xValue := xVal
    ELSEIF ::bSetGet != NIL
-      vari := Eval( ::bSetGet, , Self )
+      vari := Eval(::bSetGet, NIL, Self)
       IF ::lText
          ::xValue := iif( vari == NIL .OR. ValType( vari ) != "C", "", vari )
       ELSE
@@ -173,12 +170,12 @@ METHOD Refresh( xVal ) CLASS HComboBox
    ENDIF
 
    IF !Empty(::aItems)
-      hwg_ComboSetArray( ::handle, ::aItems )
+      hwg_ComboSetArray(::handle, ::aItems)
 
       IF ::lText
-         hwg_ComboSet( ::handle, 1 )
+         hwg_ComboSet(::handle, 1)
       ELSE
-         hwg_ComboSet( ::handle, ::xValue )
+         hwg_ComboSet(::handle, ::xValue)
       ENDIF
 
    ENDIF
@@ -193,27 +190,27 @@ METHOD SetItem( nPos ) CLASS HComboBox
       ::xValue := nPos
    ENDIF
 
-   hwg_ComboSet( ::handle, nPos )
+   hwg_ComboSet(::handle, nPos)
 
    IF ::bSetGet != NIL
-      Eval( ::bSetGet, ::xValue, self )
+      Eval(::bSetGet, ::xValue, self)
    ENDIF
 
    IF ::bChangeSel != NIL
-      Eval( ::bChangeSel, ::xValue, Self )
+      Eval(::bChangeSel, ::xValue, Self)
    ENDIF
 
    RETURN NIL
 
 METHOD GetValue( nItem ) CLASS HComboBox
    
-   LOCAL nPos := hwg_ComboGet( ::handle )
+   LOCAL nPos := hwg_ComboGet(::handle)
    LOCAL vari := iif( !Empty(::aItems) .AND. nPos > 0, iif( HB_ISARRAY(::aItems[1]), ::aItems[nPos,1], ::aItems[nPos] ), "" )
    LOCAL l := nPos > 0 .AND. HB_ISARRAY(::aItems[nPos])
 
-   ::xValue := iif( ::lText, vari, nPos )
+   ::xValue := iif(::lText, vari, nPos)
    IF ::bSetGet != NIL
-      Eval( ::bSetGet, ::xValue, Self )
+      Eval(::bSetGet, ::xValue, Self)
    ENDIF
 
    RETURN iif( l .AND. nItem != NIL, iif( nItem > 0 .AND. nItem <= Len(::aItems[nPos] ), ::aItems[nPos,nItem], NIL ), ::xValue )
@@ -223,9 +220,9 @@ METHOD Value ( xValue ) CLASS HComboBox
    IF xValue != NIL
       IF HB_ISCHAR(xValue)
 #ifdef __XHARBOUR__
-         xValue := iif( HB_ISARRAY(::aItems[1]), AScan( ::aItems, { |a|a[1] == xValue } ), AScan( ::aItems, { |s|s == xValue } ) )
+         xValue := iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}))
 #else
-         xValue := iif( HB_ISARRAY(::aItems[1]), AScan( ::aItems, { |a|a[1] == xValue } ), hb_AScan( ::aItems, xValue,,, .T. ) )
+         xValue := iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
 #endif
       ENDIF
       ::SetItem( xValue )
@@ -237,7 +234,7 @@ METHOD Value ( xValue ) CLASS HComboBox
 
 METHOD End() CLASS HComboBox
 
-   hwg_ReleaseObject( ::handle )
+   hwg_ReleaseObject(::handle)
    ::Super:End()
 
    RETURN NIL

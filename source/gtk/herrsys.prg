@@ -50,16 +50,16 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    cMessage := hwg_ErrMsg( oError )
-   IF ! Empty(oError:osCode)
+   IF !Empty(oError:osCode)
       cDOSError := "(DOS Error " + LTrim(Str(oError:osCode)) + ")"
    ENDIF
 
-   IF ! Empty(oError:osCode)
+   IF !Empty(oError:osCode)
       cMessage += " " + cDOSError
    ENDIF
 
    n := 2
-   WHILE ! Empty(ProcName( n ))
+   WHILE !Empty(ProcName( n ))
 #ifdef __XHARBOUR__
       cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
 #else

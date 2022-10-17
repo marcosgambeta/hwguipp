@@ -20,29 +20,22 @@ CLASS HButtonEX INHERIT HButton
    DATA hBitmap
    DATA hIcon
 
-   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
-         cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-         tcolor, bColor, hBitmap, iStyle, hIcon, Transp )
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, hBitmap, iStyle, hIcon, Transp)
 
    METHOD Activate
 
 END CLASS
 
-/* Removed: bClick  Added: hBitmap , iStyle , Transp */
-METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor, hBitmap, iStyle, hIcon, Transp ) CLASS HButtonEx
+/* Removed: bClick  Added: hBitmap, iStyle, Transp */
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, hBitmap, iStyle, hIcon, Transp) CLASS HButtonEx
 
-     * Parameters not used
-    HB_SYMBOL_UNUSED(Transp)
-    HB_SYMBOL_UNUSED(iStyle)
+   HB_SYMBOL_UNUSED(Transp)
+   HB_SYMBOL_UNUSED(iStyle)
 
    ::hBitmap := hBitmap
    ::hIcon   := hIcon
 
-   ::super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor )
+   ::super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor)
 
    RETURN Self
 
@@ -50,16 +43,13 @@ METHOD Activate() CLASS HButtonEX
 
    IF !Empty(::oParent:handle)
       IF !Empty(::hBitmap)
-         ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-            ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title, ::hBitmap )
+         ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title, ::hBitmap)
       ELSEIF !Empty(::hIcon)
-         ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-            ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title, ::hIcon )
+         ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title, ::hIcon)
       ELSE
-         ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
-            ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title, NIL )
+         ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title, NIL)
       endif
-      hwg_Setwindowobject( ::handle, Self )
+      hwg_Setwindowobject(::handle, Self)
       ::Init()
    ENDIF
 

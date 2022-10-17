@@ -11,31 +11,29 @@
 
 CLASS HSayBmp INHERIT HSayImage
 
-   DATA nOffsetV  INIT 0
-   DATA nOffsetH  INIT 0
+   DATA nOffsetV INIT 0
+   DATA nOffsetH INIT 0
    DATA nZoom
-   DATA lTransp, trcolor
+   DATA lTransp
+   DATA trcolor
    DATA nStretch
-   DATA nBorder, oPen
+   DATA nBorder
+   DATA oPen
 
-   METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
-      bSize, ctoolt, bClick, bDblClick, lTransp, nStretch, trcolor, bColor )
+   METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, ctoolt, bClick, bDblClick, lTransp, nStretch, trcolor, bColor)
    METHOD INIT
    METHOD onEvent( msg, wParam, lParam )
    METHOD Paint()
    METHOD ReplaceBitmap( Image, lRes )
-   METHOD Refresh() INLINE hwg_Redrawwindow( ::handle )
+   METHOD Refresh() INLINE hwg_Redrawwindow(::handle)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
-      bSize, ctoolt, bClick, bDblClick, lTransp, nStretch, trcolor, bColor ) CLASS HSayBmp
+METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, ctoolt, bClick, bDblClick, lTransp, nStretch, trcolor, bColor) CLASS HSayBmp
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(nStretch)
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, ;
-         bInit, bSize, ctoolt, bClick, bDblClick, bColor )
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor)
 
    ::lTransp := Iif( lTransp = NIL, .F. , lTransp )
    ::trcolor := Iif( trcolor = NIL, 16777215, trcolor )
@@ -67,14 +65,13 @@ METHOD INIT() CLASS HSayBmp
 
    IF !::lInit
       ::Super:Init()
-      hwg_Setwindowobject( ::handle, Self )
+      hwg_Setwindowobject(::handle, Self)
    ENDIF
 
    RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HSayBmp
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
@@ -85,34 +82,31 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSayBmp
    RETURN 0
 
 METHOD Paint() CLASS HSayBmp
-   
-   LOCAL hDC := hwg_Getdc( ::handle )
+
+   LOCAL hDC := hwg_Getdc(::handle)
 
    IF ::brush != NIL
-      hwg_Fillrect( hDC, ::nOffsetH, ::nOffsetV, ::nWidth, ::nHeight, ::brush:handle )
+      hwg_Fillrect(hDC, ::nOffsetH, ::nOffsetV, ::nWidth, ::nHeight, ::brush:handle)
    ENDIF
    IF ::oImage != NIL
       IF ::nZoom == NIL
          IF ::lTransp
-            hwg_Drawtransparentbitmap( hDC, ::oImage:handle, ::nOffsetH, ;
-               ::nOffsetV, ::trColor, ::nWidth, ::nHeight )
+            hwg_Drawtransparentbitmap(hDC, ::oImage:handle, ::nOffsetH, ::nOffsetV, ::trColor, ::nWidth, ::nHeight)
          ELSE
-            hwg_Drawbitmap( hDC, ::oImage:handle, , ::nOffsetH, ;
-               ::nOffsetV, ::nWidth, ::nHeight )
+            hwg_Drawbitmap(hDC, ::oImage:handle, NIL, ::nOffsetH, ::nOffsetV, ::nWidth, ::nHeight)
          ENDIF
       ELSE
-         hwg_Drawbitmap( hDC, ::oImage:handle, , ::nOffsetH, ;
-            ::nOffsetV, ::oImage:nWidth * ::nZoom, ::oImage:nHeight * ::nZoom )
+         hwg_Drawbitmap(hDC, ::oImage:handle, NIL, ::nOffsetH, ::nOffsetV, ::oImage:nWidth * ::nZoom, ::oImage:nHeight * ::nZoom)
       ENDIF
    ENDIF
    IF ::nBorder > 0
       IF ::oPen == NIL
          ::oPen := HPen():Add( BS_SOLID, ::nBorder, ::tColor )
       ENDIF
-      hwg_Selectobject( hDC, ::oPen:handle )
-      hwg_Rectangle( hDC, ::nOffsetH, ::nOffsetV, ::nOffsetH+::nWidth-1-::nBorder, ::nOffsetV+::nHeight-1-::nBorder )
+      hwg_Selectobject(hDC, ::oPen:handle)
+      hwg_Rectangle(hDC, ::nOffsetH, ::nOffsetV, ::nOffsetH + ::nWidth - 1 - ::nBorder, ::nOffsetV + ::nHeight - 1 - ::nBorder)
    ENDIF
-   hwg_Releasedc( ::handle, hDC )
+   hwg_Releasedc(::handle, hDC)
 
    RETURN NIL
 
@@ -126,10 +120,7 @@ METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := iif( lRes .OR. HB_ISNUMERIC(Image),  ;
-         HBitmap():AddResource( Image ), ;
-         iif( HB_ISCHAR(Image),   ;
-         HBitmap():AddFile( Image ), Image ) )
+      ::oImage := iif(lRes .OR. HB_ISNUMERIC(Image), HBitmap():AddResource(Image), iif(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
    ENDIF
 
    RETURN NIL

@@ -69,36 +69,36 @@
 
 CLASS HWinPrn
 
-   CLASS VAR nStdHeight SHARED  INIT NIL
-   CLASS VAR cPrinterName SHARED  INIT NIL
-   DATA   oPrinter
-   DATA   nFormType INIT 9
-   DATA   oFont
-   DATA   nLineHeight, nLined
-   DATA   nCharW
-   DATA   x, y
-   DATA   cPseudo   INIT "ÄÍ³ºÚÉÕÖ¿»·¸ÀÈÓÔÙ¼½¾ÂËÑÒÁÊÏÐÃÌÆÇ´¹µ¶ÅÎ×Ø"
-   DATA   lElite    INIT .F.
-   DATA   lCond     INIT .F.
-   DATA   nLineInch INIT 6
-   DATA   lBold     INIT .F.
-   DATA   lItalic   INIT .F.
-   DATA   lUnder    INIT .F.
-   DATA   nLineMax  INIT 0
-   DATA   lChanged  INIT .F.
+   CLASS VAR nStdHeight SHARED // INIT NIL
+   CLASS VAR cPrinterName SHARED // INIT NIL
 
-   DATA   cpFrom, cpTo
-   DATA   nTop      INIT 5
-   DATA   nBottom   INIT 5
-   DATA   nLeft     INIT 5
-   DATA   nRight    INIT 5
-   
-   DATA   nCharset  INIT 0   &&  Charset (N) Default: 0  , 204 = Russian
-
+   DATA oPrinter
+   DATA nFormType INIT 9
+   DATA oFont
+   DATA nLineHeight
+   DATA nLined
+   DATA nCharW
+   DATA x
+   DATA y
+   DATA cPseudo INIT "ÄÍ³ºÚÉÕÖ¿»·¸ÀÈÓÔÙ¼½¾ÂËÑÒÁÊÏÐÃÌÆÇ´¹µ¶ÅÎ×Ø"
+   DATA lElite INIT .F.
+   DATA lCond INIT .F.
+   DATA nLineInch INIT 6
+   DATA lBold INIT .F.
+   DATA lItalic INIT .F.
+   DATA lUnder INIT .F.
+   DATA nLineMax INIT 0
+   DATA lChanged INIT .F.
+   DATA cpFrom
+   DATA cpTo
+   DATA nTop INIT 5
+   DATA nBottom INIT 5
+   DATA nLeft INIT 5
+   DATA nRight INIT 5
+   DATA nCharset INIT 0  // Charset (N) Default: 0  , 204 = Russian
    // --- International Language Support for internal dialogs --
-   DATA aTooltips   INIT {}  // Array with tooltips messages for print preview dialog
-   DATA aBootUser   INIT {}  // Array with control  messages for print preview dialog  (optional usage)
-   
+   DATA aTooltips INIT {} // Array with tooltips messages for print preview dialog
+   DATA aBootUser INIT {} // Array with control  messages for print preview dialog  (optional usage)
 
    METHOD New( cPrinter, cpFrom, cpTo, nFormType, nCharset )
    METHOD SetLanguage(apTooltips, apBootUser)
@@ -118,12 +118,12 @@ CLASS HWinPrn
    METHOD END()
 
 #ifdef __GTK__
-   METHOD SetMetaFile( cMetafile )    INLINE ::oPrinter:cScriptFile := cMetafile
+   METHOD SetMetaFile(cMetafile) INLINE ::oPrinter:cScriptFile := cMetafile
 #endif
 
    HIDDEN:
-   DATA lDocStart   INIT .F.
-   DATA lPageStart  INIT .F.
+   DATA lDocStart INIT .F.
+   DATA lPageStart INIT .F.
    DATA lFirstLine
 
 ENDCLASS
@@ -146,7 +146,7 @@ METHOD New( cPrinter, cpFrom, cpTo, nFormType , nCharset ) CLASS HWinPrn
    IF nFormType != NIL
       ::nFormType := nFormType
    ENDIF
-   
+
    IF nCharset != NIL
       :: nCharset := nCharset
    ENDIF
@@ -159,8 +159,7 @@ METHOD SetLanguage(apTooltips, apBootUser) CLASS HWinPrn
 * NLS: Sets the message and control texts to print preview dialog
 * Are stored in arrays:   ::aTooltips[], ::aBootUser[]
 
-* Parameters not used
- HB_SYMBOL_UNUSED(apBootUser)
+   HB_SYMBOL_UNUSED(apBootUser)
 
 * Default settings (English)
   ::aTooltips := hwg_HPrinter_LangArray_EN()
@@ -211,7 +210,7 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
 #else
    LOCAL cFont := "Lucida Console"
 #endif
-   LOCAL aKoef := { 1, 1.22, 1.71, 2 }
+   LOCAL aKoef := {1, 1.22, 1.71, 2}
    LOCAL nMode := 0
    LOCAL oFont
    LOCAL nWidth
@@ -233,7 +232,7 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
          ELSEIF ::nFormType == 8 .AND. ( nPWidth > 300 .OR. nPWidth < 280 )
             nPWidth := 290
          ENDIF
-         
+
          oFont := ::oPrinter:AddFont( cFont, ::nStdHeight * ::oPrinter:nVRes )
 
          nWidth := ::oPrinter:GetTextWidth(Replicate('A', Iif(::nFormType == 8, 113, 80)), oFont) / ::oPrinter:nHRes
@@ -243,8 +242,8 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
          oFont:Release()
       ENDIF
 
-      nStdLineW  := Iif( ::nFormType==8, Iif(::oPrinter:nOrient==2,160,113), Iif(::oPrinter:nOrient==2,113,80) )
-      nStdHeight := Iif( !Empty(::nLineMax), ::nStdHeight / ( ::nLineMax/nStdLineW ), ::nStdHeight )
+      nStdLineW  := Iif(::nFormType == 8, Iif(::oPrinter:nOrient == 2, 160, 113), Iif(::oPrinter:nOrient == 2, 113, 80))
+      nStdHeight := Iif(!Empty(::nLineMax), ::nStdHeight / (::nLineMax / nStdLineW), ::nStdHeight)
 
       IF ::lElite
          nMode ++
@@ -262,10 +261,10 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
       IF ::oFont != NIL
          ::oFont:Release()
       ENDIF
-      
+
       ::oFont := oFont
 
-      ::oPrinter:SetFont( ::oFont )
+      ::oPrinter:SetFont(::oFont)
       ::nCharW := ::oPrinter:GetTextWidth( "ABCDEFGHIJ", oFont ) / 10
       ::lChanged := .F.
 
@@ -277,13 +276,12 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
   Added by DF7BE:
   Should act like a "printer reset"
   (Set back to default values).
-*/   
+*/
 METHOD SetDefaultMode() CLASS HWinPrn
 
-   ::SetMode( .F., .F. , 6, .F. , .F. , .F. , 0 , 0 )
+   ::SetMode(.F., .F., 6, .F., .F., .F., 0, 0)
 
    RETURN NIL
-
 
 METHOD SetY( nYvalue ) CLASS HWinPrn
 
@@ -291,22 +289,20 @@ METHOD SetY( nYvalue ) CLASS HWinPrn
    nYvalue := 0
   ENDIF
   ::Y := nYvalue
-  
+
  RETURN nYvalue
 
- METHOD SetX( nYvalue ) CLASS HWinPrn
+METHOD SetX( nYvalue ) CLASS HWinPrn
 
   IF nYvalue == NIL
    nYvalue := 0
   ENDIF
   ::X := nYvalue
-  
- RETURN nYvalue
 
+RETURN nYvalue
 
 METHOD StartDoc( lPreview, cMetaName , lprbutton ) CLASS HWinPrn
 * Set lprbutton to .F., if preview dialog not shows the print button
-
 
    ::lDocStart := .T.
    ::oPrinter:StartDoc( lPreview, cMetaName , lprbutton )
@@ -316,7 +312,7 @@ METHOD StartDoc( lPreview, cMetaName , lprbutton ) CLASS HWinPrn
 
 METHOD NextPage() CLASS HWinPrn
 
-   IF ! ::lDocStart
+   IF !::lDocStart
       RETURN NIL
    ENDIF
    IF ::lPageStart
@@ -329,7 +325,7 @@ METHOD NextPage() CLASS HWinPrn
    IF ::oFont == NIL
       ::SetMode()
    ELSE
-      ::oPrinter:SetFont( ::oFont )
+      ::oPrinter:SetFont(::oFont)
    ENDIF
 
 #ifdef __GTK__
@@ -341,17 +337,16 @@ METHOD NextPage() CLASS HWinPrn
 
    RETURN NIL
 
-   
 /*
    DF7BE:
    Recovered from r2536 2016-06-16
    added support for bitmap object
 
-   xBitmap     : Name and path to bitmap file 
+   xBitmap     : Name and path to bitmap file
                  or bitmap object variable
    nAlign      : 0 - left, 1 - center, 2 - right, default = 0
    cBitmapName  : Name of resource, if xBitmap is bitmap object
- */   
+ */
 METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
 
    LOCAL i
@@ -363,21 +358,21 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
    // Variables not used
    // LOCAL oBitmap
 
-   IF ! ::lDocStart
+   IF !::lDocStart
       ::StartDoc()
    ENDIF
-   
+
    IF nAlign == NIL
      nAlign := 0  // 0 - left, 1 - center, 2 - right
    ENDIF
 
    bfromobj := .F.
 
-   cTmp := hwg_CreateTempfileName( , ".bmp")   
-   
+   cTmp := hwg_CreateTempfileName(NIL, ".bmp")
+
    // IF VALTYPE( xBitmap ) == "C" && does not work on GTK
-     * from file 
-     IF ! hb_fileexists( xBitmap )
+     * from file
+     IF !hb_fileexists( xBitmap )
       * xBitmap is a bitmap object
       bfromobj := .T.
       cImageName := IIF(EMPTY (cBitmapName), "" , cBitmapName)
@@ -439,10 +434,10 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
 
    IF bfromobj
    /* from object: need to read from temporary file */
-    ::oPrinter:Bitmap( ::x, ::y, ::x + aBmpSize[1], ::y + aBmpSize[2],, hBitmap, cTmp )
+    ::oPrinter:Bitmap(::x, ::y, ::x + aBmpSize[1], ::y + aBmpSize[2], NIL, hBitmap, cTmp)
     FERASE(cTmp)
    ELSE
-    ::oPrinter:Bitmap( ::x, ::y, ::x + aBmpSize[1], ::y + aBmpSize[2],, hBitmap, cImageName )
+    ::oPrinter:Bitmap(::x, ::y, ::x + aBmpSize[1], ::y + aBmpSize[2], NIL, hBitmap, cImageName)
    ENDIF 
    /* Height of bitmap, increase Y value */    
    i := aBmpSize[2]   &&   - ::nLineHeight  ==> DF7BE: not the correct size of bitmap !
@@ -474,7 +469,7 @@ METHOD PrintLine( cLine, lNewLine ) CLASS HWinPrn
    LOCAL slen
    LOCAL c
 
-   IF ! ::lDocStart
+   IF !::lDocStart
       ::StartDoc()
    ENDIF
 
@@ -494,9 +489,9 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
 
 
 #ifdef __GTK__
-   IF ::y + 3 * ( ::nLineHeight + ::nLined ) > ::oPrinter:nHeight
+   IF ::y + 3 * (::nLineHeight + ::nLined) > ::oPrinter:nHeight
 #else
-   IF ::y + 2 * ( ::nLineHeight + ::nLined ) > ::oPrinter:nHeight
+   IF ::y + 2 * (::nLineHeight + ::nLined) > ::oPrinter:nHeight
 #endif
       ::NextPage()
    ENDIF
@@ -515,7 +510,7 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
       ::y += ::nLineHeight + ::nLined
    ENDIF
 
-   IF cLine != NIL .AND. ! Empty(cLine)
+   IF cLine != NIL .AND. !Empty(cLine)
       slen := Len( cLine )
       i := 1
       i0 := 0
@@ -537,40 +532,40 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
                DO WHILE i <= slen .AND. SubStr(cLine, i, 1) == c
                   i ++
                ENDDO
-               ::oPrinter:Line( ::x, ::y + ( ::nLineHeight / 2 ), ::x + ( i - i0 ) * ::nCharW, ::y + ( ::nLineHeight / 2 ) )
+               ::oPrinter:Line(::x, ::y + (::nLineHeight / 2), ::x + (i - i0) * ::nCharW, ::y + (::nLineHeight / 2))
                ::x += ( i - i0 ) * ::nCharW
                i0 := 0
                LOOP
             ELSE
                IF j < 5         // Vertical Line ³º
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y, ::x + ( ::nCharW / 2 ), ::y + ::nLineHeight + ::nLined )
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y, ::x + (::nCharW / 2), ::y + ::nLineHeight + ::nLined)
                ELSEIF j < 9     // ÚÉÕÖ
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ), ::x + ::nCharW, ::y + ( ::nLineHeight / 2 ) )
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ), ::x + ( ::nCharW / 2 ), ::y + ::nLineHeight + ::nLined )
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y + (::nLineHeight / 2), ::x + ::nCharW, ::y + (::nLineHeight / 2))
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y + (::nLineHeight / 2), ::x + (::nCharW / 2), ::y + ::nLineHeight + ::nLined)
                ELSEIF j < 13    // ¿»·¸
-                  ::oPrinter:Line( ::x, ::y + ( ::nLineHeight / 2 ), ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ) )
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ), ::x + ( ::nCharW / 2 ), ::y + ::nLineHeight + ::nLined )
+                  ::oPrinter:Line(::x, ::y + (::nLineHeight / 2), ::x + (::nCharW / 2), ::y + (::nLineHeight / 2))
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y + (::nLineHeight / 2), ::x + (::nCharW / 2), ::y + ::nLineHeight + ::nLined)
                ELSEIF j < 17    // ÀÈÓÔ
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ), ::x + ::nCharW, ::y + ( ::nLineHeight / 2 ) )
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y, ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ) )
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y + (::nLineHeight / 2), ::x + ::nCharW, ::y + (::nLineHeight / 2))
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y, ::x + (::nCharW / 2), ::y + (::nLineHeight / 2))
                ELSEIF j < 21    // Ù¼½¾
-                  ::oPrinter:Line( ::x, ::y + ( ::nLineHeight / 2 ), ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ) )
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y, ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ) )
+                  ::oPrinter:Line(::x, ::y + (::nLineHeight / 2), ::x + (::nCharW / 2), ::y + (::nLineHeight / 2))
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y, ::x + (::nCharW / 2), ::y + (::nLineHeight / 2))
                ELSEIF j < 25    // ÂËÑÒ
-                  ::oPrinter:Line( ::x, ::y + ( ::nLineHeight / 2 ), ::x + ::nCharW, ::y + ( ::nLineHeight / 2 ) )
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ), ::x + ( ::nCharW / 2 ), ::y + ::nLineHeight + ::nLined )
+                  ::oPrinter:Line(::x, ::y + (::nLineHeight / 2), ::x + ::nCharW, ::y + (::nLineHeight / 2))
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y + (::nLineHeight / 2), ::x + (::nCharW / 2), ::y + ::nLineHeight + ::nLined)
                ELSEIF j < 29    // ÁÊÏÐ
-                  ::oPrinter:Line( ::x, ::y + ( ::nLineHeight / 2 ), ::x + ::nCharW, ::y + ( ::nLineHeight / 2 ) )
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y, ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ) )
+                  ::oPrinter:Line(::x, ::y + (::nLineHeight / 2), ::x + ::nCharW, ::y + (::nLineHeight / 2))
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y, ::x + (::nCharW / 2), ::y + (::nLineHeight / 2))
                ELSEIF j < 33    // ÃÌÆÇ
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ), ::x + ::nCharW, ::y + ( ::nLineHeight / 2 ) )
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y, ::x + ( ::nCharW / 2 ), ::y + ::nLineHeight + ::nLined )
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y + (::nLineHeight / 2), ::x + ::nCharW, ::y + (::nLineHeight / 2))
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y, ::x + (::nCharW / 2), ::y + ::nLineHeight + ::nLined)
                ELSEIF j < 37    // ´¹µ¶
-                  ::oPrinter:Line( ::x, ::y + ( ::nLineHeight / 2 ), ::x + ( ::nCharW / 2 ), ::y + ( ::nLineHeight / 2 ) )
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y, ::x + ( ::nCharW / 2 ), ::y + ::nLineHeight + ::nLined )
+                  ::oPrinter:Line(::x, ::y + (::nLineHeight / 2), ::x + (::nCharW / 2), ::y + (::nLineHeight / 2))
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y, ::x + (::nCharW / 2), ::y + ::nLineHeight + ::nLined)
                ELSE    // ÅÎ×Ø
-                  ::oPrinter:Line( ::x, ::y + ( ::nLineHeight / 2 ), ::x + ::nCharW, ::y + ( ::nLineHeight / 2 ) )
-                  ::oPrinter:Line( ::x + ( ::nCharW / 2 ), ::y, ::x + ( ::nCharW / 2 ), ::y + ::nLineHeight + ::nLined )
+                  ::oPrinter:Line(::x, ::y + (::nLineHeight / 2), ::x + ::nCharW, ::y + (::nLineHeight / 2))
+                  ::oPrinter:Line(::x + (::nCharW / 2), ::y, ::x + (::nCharW / 2), ::y + ::nLineHeight + ::nLined)
                ENDIF
                ::x += ::nCharW
             ENDIF
@@ -595,10 +590,8 @@ METHOD PrintText( cText ) CLASS HWinPrn
    IF ::lChanged
       ::SetMode()
    ENDIF
-   ::oPrinter:Say( IIf( ::cpFrom != ::cpTo, hb_Translate( cText, ::cpFrom, ::cpTo ), cText ), ;
-         ::x, ::y, ::oPrinter:nWidth, ::y + ::nLineHeight + ::nLined )
-   ::x += ( ::nCharW * Len( cText ) )
-
+   ::oPrinter:Say(IIf(::cpFrom != ::cpTo, hb_Translate(cText, ::cpFrom, ::cpTo), cText), ::x, ::y, ::oPrinter:nWidth, ::y + ::nLineHeight + ::nLined)
+   ::x += (::nCharW * Len(cText))
 
    RETURN NIL
 
@@ -625,7 +618,7 @@ METHOD PutCode( cLine ) CLASS HWinPrn
 
    IF !Empty(c) .AND. c < " "
       IF Asc( c ) == 31
-         ::InitValues( ,,,,,, Asc(Substr(cLine,2,1)) )
+         ::InitValues(NIL, NIL, NIL, NIL, NIL, NIL, Asc(Substr(cLine, 2, 1)))
          RETURN 2
       ELSE
          FOR i := 1 TO sLen
@@ -648,8 +641,8 @@ METHOD EndDoc() CLASS HWinPrn
    IF ::lDocStart
       ::oPrinter:EndDoc()
       ::lDocStart := .F.
-      IF __ObjHasMsg( ::oPrinter, "PREVIEW" ) .AND. ::oPrinter:lPreview
-         ::oPrinter:Preview( , , ::aTooltips,)
+      IF __ObjHasMsg(::oPrinter, "PREVIEW") .AND. ::oPrinter:lPreview
+         ::oPrinter:Preview(NIL, NIL, ::aTooltips, NIL)
       ENDIF
    ENDIF
 

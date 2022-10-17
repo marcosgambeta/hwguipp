@@ -16,27 +16,22 @@
 
 CLASS HStaticLink FROM HSTATIC
 
+   CLASS VAR winclass INIT "STATIC"
+
    DATA state
    DATA m_bFireChild INIT .F.
-
    DATA m_hHyperCursor
-
    DATA m_bMouseOver INIT .F.
-   DATA m_bVisited   INIT .F.
-
+   DATA m_bVisited INIT .F.
    DATA m_oTextFont
    DATA m_csUrl
    DATA dc
-   DATA dwFlags      INIT 0
-
+   DATA dwFlags INIT 0
    DATA m_sHoverColor
    DATA m_sLinkColor
    DATA m_sVisitedColor
 
-   CLASS VAR winclass INIT "STATIC"
-
-   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor )
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
    METHOD Activate()
    METHOD Init()
    METHOD onEvent( msg, wParam, lParam )
@@ -53,14 +48,12 @@ CLASS HStaticLink FROM HSTATIC
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor ) CLASS HStaticLink
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor) CLASS HStaticLink
 
    LOCAL oPrevFont
    LOCAL n
 
-   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp )
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp)
 
    DEFAULT vColor TO hwg_ColorRgb2N( 5, 34, 143 )
    DEFAULT lColor TO hwg_ColorRgb2N( 0, 0, 255 )
@@ -76,8 +69,7 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, b
 
    IF ::oFont == NIL
       IF ::oParent:oFont != NIL
-         ::oFont := HFont():Add( ::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
-            ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut,,.T. )
+         ::oFont := HFont():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut, NIL, .T.)
       ELSE
          ::oFont := HFont():Add( "Serif", 0, 12,,,,,,,.T. )
       ENDIF
@@ -85,12 +77,11 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, b
       IF ::oFont:Underline  == 0
          oPrevFont := ::oFont
          ::oFont:Release()
-         ::oFont := HFont():Add( oPrevFont:name, oPrevFont:width, oPrevFont:height, ;
-            oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut,,.T. )
+         ::oFont := HFont():Add(oPrevFont:name, oPrevFont:width, oPrevFont:height, oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut, NIL, .T.)
       ENDIF
    ENDIF
 
-   IF ( n := hb_bitand( ::style, SS_TYPEMASK ) ) == SS_RIGHT
+   IF (n := hb_bitand(::style, SS_TYPEMASK)) == SS_RIGHT
       ::dwFlags := hb_bitor( DT_RIGHT, DT_WORDBREAK )
    ELSEIF n == SS_CENTER
       ::dwFlags := hb_bitor( SS_CENTER, DT_WORDBREAK )
@@ -108,8 +99,7 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, b
 METHOD Activate() CLASS HStaticLink
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createownbtn( ::oParent:handle, ::id, ;
-                                ::nX, ::nY, ::nWidth, ::nHeight )
+      ::handle := hwg_Createownbtn(::oParent:handle, ::id, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -117,15 +107,14 @@ RETURN NIL
 
 METHOD Init() CLASS HStaticLink
 
-   IF ! ::lInit
-      hwg_Setwindowobject( ::handle, Self )
+   IF !::lInit
+      hwg_Setwindowobject(::handle, Self)
    ENDIF
 
    RETURN NIL
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(lParam)
 
    IF msg == WM_PAINT
@@ -133,10 +122,10 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
    ELSEIF msg == WM_ERASEBKGND
       RETURN 1
    ELSEIF msg == WM_MOUSEMOVE
-      hwg_SetCursor( ::m_hHyperCursor, ::handle )
+      hwg_SetCursor(::m_hHyperCursor, ::handle)
       ::OnMouseMove( wParam )
    ELSEIF msg == WM_LBUTTONDOWN
-      hwg_SetCursor( ::m_hHyperCursor, ::handle )
+      hwg_SetCursor(::m_hHyperCursor, ::handle)
       ::OnClicked()
    ENDIF
 
@@ -173,13 +162,13 @@ METHOD OnClicked() CLASS HStaticLink
    // Variables not used
    // LOCAL nCtrlID
 
-   ::GoToLinkUrl( ::m_csUrl )
+   ::GoToLinkUrl(::m_csUrl)
 
    ::m_bVisited := .T.
 
    ::state := LBL_NORMAL
-   hwg_Invalidaterect( ::handle, 0 )
-   hwg_Setfocus( ::handle )
+   hwg_Invalidaterect(::handle, 0)
+   hwg_Setfocus(::handle)
 
    RETURN NIL
 
@@ -198,11 +187,11 @@ METHOD OnMouseMove( wParam ) CLASS HStaticLink
       IF !lEnter
 
          ::state := LBL_NORMAL
-         hwg_Invalidaterect( ::handle, 0 )
+         hwg_Invalidaterect(::handle, 0)
       ELSEIF ::state == LBL_NORMAL
 
          ::state := LBL_MOUSEOVER
-         hwg_Invalidaterect( ::handle, 0 )
+         hwg_Invalidaterect(::handle, 0)
       ENDIF
 
    ENDIF
@@ -220,15 +209,14 @@ METHOD Paint() CLASS HStaticLink
    ENDIF
 
    pps := hwg_Definepaintstru()
-   hDC := hwg_Beginpaint( ::handle, pps )
-   aCoors := hwg_Getclientrect( ::handle )
+   hDC := hwg_Beginpaint(::handle, pps)
+   aCoors := hwg_Getclientrect(::handle)
 
-   hwg_Selectobject( hDC, ::oFont:handle )
-   hwg_Settextcolor( hDC, Iif( ::state == LBL_NORMAL, ;
-         Iif( ::m_bVisited, ::m_sVisitedColor, ::m_sLinkColor ), ::m_sHoverColor ) )
+   hwg_Selectobject(hDC, ::oFont:handle)
+   hwg_Settextcolor(hDC, Iif(::state == LBL_NORMAL, Iif(::m_bVisited, ::m_sVisitedColor, ::m_sLinkColor), ::m_sHoverColor))
 
-   hwg_Drawtext( hDC, ::Title, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::dwFlags )
+   hwg_Drawtext(hDC, ::Title, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::dwFlags)
 
-   hwg_Endpaint( ::handle, pps )
+   hwg_Endpaint(::handle, pps)
 
    RETURN 0

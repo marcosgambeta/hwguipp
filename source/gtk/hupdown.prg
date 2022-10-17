@@ -17,21 +17,21 @@
 
 CLASS HUpDown INHERIT HControl
 
-   CLASS VAR winclass   INIT "EDIT"
+   CLASS VAR winclass INIT "EDIT"
+
    DATA bSetGet
    DATA nValue
    DATA nLower INIT 0
    DATA nUpper INIT 999
    DATA nUpDownWidth INIT 12
-   DATA lChanged    INIT .F.
+   DATA lChanged INIT .F.
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctoolt, tcolor, bcolor, nUpDWidth, nLower, nUpper )
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctoolt, tcolor, bcolor, nUpDWidth, nLower, nUpper)
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Refresh()
    METHOD Value( nValue ) SETGET
-   METHOD SetRange( n1, n2 )  INLINE hwg_SetRangeUpdown( ::handle, n1, n2 )
+   METHOD SetRange( n1, n2 )  INLINE hwg_SetRangeUpdown(::handle, n1, n2)
 
 ENDCLASS
 
@@ -69,17 +69,16 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
 
    ::bGetFocus := bGFocus
    ::bLostFocus := bLFocus
-   hwg_SetEvent( ::handle, "focus_in_event", WM_SETFOCUS, 0, 0 )
-   hwg_SetEvent( ::handle, "focus_out_event", WM_KILLFOCUS, 0, 0 )
+   hwg_SetEvent(::handle, "focus_in_event", WM_SETFOCUS, 0, 0)
+   hwg_SetEvent(::handle, "focus_out_event", WM_KILLFOCUS, 0, 0)
 
    RETURN Self
 
 METHOD Activate() CLASS HUpDown
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createupdowncontrol( ::oParent:handle, ;
-         ::nX, ::nY, ::nWidth, ::nHeight, Val( ::title ), ::nLower, ::nUpper )
-      hwg_Setwindowobject( ::handle, Self )
+      ::handle := hwg_Createupdowncontrol(::oParent:handle, ::nX, ::nY, ::nWidth, ::nHeight, Val(::title), ::nLower, ::nUpper)
+      hwg_Setwindowobject(::handle, Self)
       ::Init()
    ENDIF
 
@@ -91,7 +90,6 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HUpDown
    // LOCAL oParent := ::oParent
    // LOCAL nPos
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
@@ -99,7 +97,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HUpDown
    IF msg == WM_SETFOCUS
       IF ::bSetGet == NIL
          IF ::bGetFocus != NIL
-            Eval( ::bGetFocus, ::nValue := hwg_GetUpDown( ::handle ), Self )
+            Eval(::bGetFocus, ::nValue := hwg_GetUpDown(::handle), Self)
          ENDIF
       ELSE
          __When( Self )
@@ -115,13 +113,13 @@ METHOD Refresh()  CLASS HUpDown
    // LOCAL vari
 
    IF ::bSetGet != NIL
-      ::nValue := Eval( ::bSetGet )
+      ::nValue := Eval(::bSetGet)
       IF Str(::nValue) != ::title
          ::title := Str(::nValue)
-         hwg_SetUpDown( ::handle, ::nValue )
+         hwg_SetUpDown(::handle, ::nValue)
       ENDIF
    ELSE
-      hwg_SetUpDown( ::handle, Val( ::title ) )
+      hwg_SetUpDown(::handle, Val(::title))
    ENDIF
 
    RETURN NIL
@@ -130,14 +128,14 @@ METHOD Value( nValue ) CLASS HUpDown
 
    IF nValue != NIL
       IF HB_ISNUMERIC(nValue)
-         hwg_SetUpdown( ::handle, nValue )
+         hwg_SetUpdown(::handle, nValue)
          ::nValue := nValue
          IF ::bSetGet != NIL
-            Eval( ::bSetGet, nValue, Self )
+            Eval(::bSetGet, nValue, Self)
          ENDIF
       ENDIF
    ELSE
-      ::nValue := hwg_GetUpDown( ::handle )
+      ::nValue := hwg_GetUpDown(::handle)
    ENDIF
 
    RETURN ::nValue

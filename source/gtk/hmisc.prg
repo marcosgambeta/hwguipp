@@ -465,7 +465,7 @@ IF nlen1 != nlen2
  RETURN .F.
 ENDIF
 DO WHILE ( nnum <= nlen1 ) .AND. lende
- IF SUBSTR(mmemo1,nnum,1) != SUBSTR(mmemo2,nnum,1) 
+ IF SUBSTR(mmemo1,nnum,1) != SUBSTR(mmemo2,nnum,1)
    lende := .F.
  ENDIF
  nnum := nnum + 1
@@ -473,9 +473,7 @@ ENDDO
 
 RETURN lende
 
-
-FUNCTION hwg_MemoEdit(mpmemo , cTextTitME , cTextSave ,  cTextClose , ;
- cTTSave , cTTClose , oHCfont )
+FUNCTION hwg_MemoEdit(mpmemo, cTextTitME, cTextSave, cTextClose, cTTSave, cTTClose, oHCfont)
 
    LOCAL mvarbuff
    LOCAL varbuf
@@ -485,63 +483,58 @@ FUNCTION hwg_MemoEdit(mpmemo , cTextTitME , cTextSave ,  cTextClose , ;
    LOCAL owb2
    LOCAL bMemoMod
 
- IF cTextTitME == NIL
-   cTextTitME := "Memo Edit"
- ENDIF
+   IF cTextTitME == NIL
+      cTextTitME := "Memo Edit"
+   ENDIF
 
- IF cTextSave == NIL
-  cTextSave := "Save"
- ENDIF
+   IF cTextSave == NIL
+      cTextSave := "Save"
+   ENDIF
 
- IF cTextClose == NIL
-  cTextClose := "Close"
- ENDIF
+   IF cTextClose == NIL
+      cTextClose := "Close"
+   ENDIF
 
- IF cTTSave == NIL
-  cTTSave := "Save modifications and close"
- ENDIF
+   IF cTTSave == NIL
+      cTTSave := "Save modifications and close"
+   ENDIF
 
- IF cTTClose == NIL
-  cTTClose := "Close without saving modifications"
- ENDIF
+   IF cTTClose == NIL
+      cTTClose := "Close without saving modifications"
+   ENDIF
 
    mvarbuff := mpmemo
    varbuf   := mpmemo
-   
-   INIT DIALOG oModDlg title cTextTitME AT 0, 0 SIZE 400, 300 ON INIT { |o|o:center() }
+
+   INIT DIALOG oModDlg title cTextTitME AT 0, 0 SIZE 400, 300 ON INIT {|o|o:center()}
 
    IF oHCfont == NIL
-    @ 10, 10 HCEDIT oEdit SIZE oModDlg:nWidth - 20, 240   
+      @ 10, 10 HCEDIT oEdit SIZE oModDlg:nWidth - 20, 240
    ELSE
-    @ 10, 10 HCEDIT oEdit SIZE oModDlg:nWidth - 20, 240 ;
-       FONT  oHCfont
+      @ 10, 10 HCEDIT oEdit SIZE oModDlg:nWidth - 20, 240 FONT oHCfont
    ENDIF
 
-   @ 10, 252  ownerbutton owb2 TEXT cTextSave size 80, 24 ;
-      ON Click { || mvarbuff := oEdit , omoddlg:Close(), oModDlg:lResult := .T. } ;
-      TOOLTIP cTTSave
-   @ 100, 252 ownerbutton owb1 TEXT cTextClose size 80, 24 ON CLICK { ||oModDlg:close() } ;
-      TOOLTIP cTTClose
+   @ 10, 252 OWNERBUTTON owb2 TEXT cTextSave size 80, 24 ON Click {||mvarbuff := oEdit, omoddlg:Close(), oModDlg:lResult := .T.} TOOLTIP cTTSave
+   @ 100, 252 OWNERBUTTON owb1 TEXT cTextClose size 80, 24 ON CLICK {||oModDlg:close()} TOOLTIP cTTClose
 
    oEdit:SetText(mvarbuff)
 
    ACTIVATE DIALOG oModDlg
 
-   * is modified ? (.T.)
+   // is modified ? (.T.)
    bMemoMod := oEdit:lUpdated
    IF bMemoMod
-   * write out edited memo field
-     varbuf := oEdit:GetText()
+      // write out edited memo field
+      varbuf := oEdit:GetText()
    ENDIF
 
 RETURN varbuf
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~
+// === Unit conversions ===
+// ~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ~~~~~~~~~~~~~~~~~~~~~~~~
-* === Unit conversions ===
-* ~~~~~~~~~~~~~~~~~~~~~~~~
-
-* ===== Temperature conversions ==============
+// ===== Temperature conversions ==============
 
 FUNCTION hwg_TEMP_C2F( T )
 RETURN (T * 1.8) + 32.0
@@ -603,11 +596,11 @@ RETURN ( T * 1.25 ) + 273.15
 FUNCTION hwg_TEMP_R2RA( T )
 RETURN ( T * 2.25 ) + 32.0 + 459.67
 
-* ===== End of temperature conversions ==============
+// ===== End of temperature conversions ==============
 
-* ===== Other unit conversions =====================
+// ===== Other unit conversions =====================
 
-* in / cm
+// in / cm
 
 FUNCTION hwg_INCH2CM( I )
 RETURN I * 2.54
@@ -615,71 +608,71 @@ RETURN I * 2.54
 FUNCTION hwg_CM2INCH( cm )
 RETURN cm * 0.3937
 
-* feet / m
+// feet / m
 
 FUNCTION  hwg_FT2METER( ft )
 RETURN ft * 0.3048
 
-FUNCTION hwg_METER2FT( m )  
+FUNCTION hwg_METER2FT( m )
 RETURN m * 3.2808
 
-* mile / km
+// mile / km
 
-FUNCTION hwg_MILES2KM( mi ) 
+FUNCTION hwg_MILES2KM( mi )
 RETURN mi * 1.6093
 
 FUNCTION hwg_KM2MILES( km )
 RETURN  km * 0.6214
 
-* sqin / sq cm
+// sqin / sq cm
 
 FUNCTION hwg_SQIN2SQCM( sqin )
 RETURN sqin * 6.4516
 
-FUNCTION hwg_SQCM2SQIN( sqcm ) 
+FUNCTION hwg_SQCM2SQIN( sqcm )
 RETURN sqcm * 0.155
 
-* sqft / sq m
+// sqft / sq m
 
-FUNCTION hwg_SQFT2SQM( sqft ) 
+FUNCTION hwg_SQFT2SQM( sqft )
 RETURN sqft * 0.0929
 
-FUNCTION hwg_SQM2SQFT( sqm ) 
+FUNCTION hwg_SQM2SQFT( sqm )
 RETURN sqm * 10.7642
 
-* usoz / c.c. (Cubic cm)
+// usoz / c.c. (Cubic cm)
 
 FUNCTION hwg_USOZ2CC( usoz )
 RETURN usoz * 29.574
 
-FUNCTION hwg_CC2USOZ( cc ) 
+FUNCTION hwg_CC2USOZ( cc )
 RETURN cc * 0.0338
 
-* usgal / liter
+// usgal / liter
 
-FUNCTION hwg_USGAL2L( usgal ) 
+FUNCTION hwg_USGAL2L( usgal )
 RETURN usgal * 3.7854
 
-FUNCTION hwg_L2USGAL( l ) 
+FUNCTION hwg_L2USGAL( l )
 RETURN l * 0.2642
 
-* lb / kg
+// lb / kg
 
 FUNCTION  hwg_LB2KG( lb )
 RETURN lb * 0.4536
 
-FUNCTION hwg_KG2LB( kg ) 
+FUNCTION hwg_KG2LB( kg )
 RETURN kg * 2.2046
 
-* oz / g
+// oz / g
 
-FUNCTION hwg_OZ2GR( oz ) 
+FUNCTION hwg_OZ2GR( oz )
 RETURN oz * 28.35
 
 FUNCTION hwg_GR2OZ( gr )
 RETURN gr * 0.0353
 
-* Nautical mile / km
+// Nautical mile / km
 
 FUNCTION hwg_NML2KM(nml)
 RETURN nml * 1.852
@@ -687,28 +680,27 @@ RETURN nml * 1.852
 FUNCTION hwg_KM2NML(km)
 RETURN km * 0.5399568034557235
 
+// ===== End of unit conversions ==============
 
-* ===== End of unit conversions ==============
-
-* ================================= *
+// ================================= *
 FUNCTION hwg_KEYESCCLDLG (odlg)
-* ================================= *
- odlg:Close()
-RETURN NIL 
+// ================================= *
+odlg:Close()
+RETURN NIL
 
-* ================================= *
+// ================================= *
 FUNCTION hwg_ShowHelp(cHelptxt,cTitle,cClose,opFont,blmodus)
-* Shows a help window
-* ================================= *
-   
+// Shows a help window
+// ================================= *
+
    LOCAL oDlg
    LOCAL oheget
 
-* T: not modal (default is .F.)
- IF blmodus == NIL 
+// T: not modal (default is .F.)
+ IF blmodus == NIL
   blmodus := .F.
  ENDIF
- 
+
  IF cTitle == NIL
   cTitle := "No title for help window"
  ENDIF
@@ -719,34 +711,30 @@ ENDIF
 
 IF cClose == NIL
  cClose := "Close"
-ENDIF 
- 
+ENDIF
+
 IF opFont == NIL
 #ifdef __PLATFORM__WINDOWS
    PREPARE FONT opFont NAME "Courier" WIDTH 0 HEIGHT -16
 #else
-   PREPARE FONT opFont NAME "Sans" WIDTH 0 HEIGHT 12 
+   PREPARE FONT opFont NAME "Sans" WIDTH 0 HEIGHT 12
 #endif
-ENDIF 
+ENDIF
 
-  
-   INIT DIALOG oDlg TITLE cTitle ;
-        AT 204,25 SIZE 777, 440 FONT opFont
+   INIT DIALOG oDlg TITLE cTitle AT 204,25 SIZE 777, 440 FONT opFont
 
    SET KEY 0,VK_ESCAPE TO hwg_KEYESCCLDLG(oDlg)
-   @ 1,3 GET oheget VAR cHelptxt SIZE 772,384 NOBORDER ;
-      STYLE WS_VSCROLL + ES_AUTOHSCROLL + ES_MULTILINE + ES_READONLY + WS_BORDER + ES_NOHIDESEL
+   @ 1,3 GET oheget VAR cHelptxt SIZE 772, 384 NOBORDER STYLE WS_VSCROLL + ES_AUTOHSCROLL + ES_MULTILINE + ES_READONLY + WS_BORDER + ES_NOHIDESEL
 
-   @ 322,402 BUTTON cClose SIZE 100,32 ; 
-    ON CLICK {||oDlg:Close() }
+   @ 322,402 BUTTON cClose SIZE 100,32 ON CLICK {||oDlg:Close()}
 
-   IF blmodus  
-    ACTIVATE DIALOG oDlg NOMODAL
+   IF blmodus
+      ACTIVATE DIALOG oDlg NOMODAL
    ELSE
-    ACTIVATE DIALOG oDlg
+      ACTIVATE DIALOG oDlg
    ENDIF
 
- SET KEY 0,VK_ESCAPE TO  
+ SET KEY 0,VK_ESCAPE TO
 RETURN NIL
 
 * =======================================================
@@ -1117,7 +1105,7 @@ FUNCTION hwg_addextens(cfilename,cext,lcs)
 
 IF cfilename == NIL
  cfilename := ""
-ENDIF 
+ENDIF
 IF cext == NIL
  RETURN cfilename
 ENDIF 

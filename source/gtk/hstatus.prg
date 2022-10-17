@@ -13,12 +13,14 @@
 
 CLASS HStatus INHERIT HControl
 
-   CLASS VAR winclass   INIT "msctls_statusbar32"
+   CLASS VAR winclass INIT "msctls_statusbar32"
+
    DATA aParts
+
    METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint )
    METHOD Activate()
    METHOD Init()
-   METHOD SetText( t ) INLINE  hwg_WriteStatus( ::oParent,, t )
+   METHOD SetText( t ) INLINE  hwg_WriteStatus(::oParent, NIL, t)
 
 ENDCLASS
 
@@ -33,13 +35,13 @@ METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint ) CLASS
    RETURN Self
 
 METHOD Activate() CLASS HStatus
-   
+
    // Variables not used
    // LOCAL aCoors
 
    IF !Empty(::oParent:handle)
 
-      ::handle := hwg_Createstatuswindow( ::oParent:handle, ::id )
+      ::handle := hwg_Createstatuswindow(::oParent:handle, ::id)
 
       ::Init()
    ENDIF

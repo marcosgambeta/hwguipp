@@ -26,9 +26,10 @@ CLASS HMenu INHERIT HObject
 
    DATA handle
    DATA aMenu
-   METHOD New()  INLINE Self
-   METHOD End()  INLINE Hwg_DestroyMenu( ::handle )
-   METHOD Show( oWnd )
+
+   METHOD New() INLINE Self
+   METHOD End() INLINE Hwg_DestroyMenu(::handle)
+   METHOD Show(oWnd)
 
 ENDCLASS
 
@@ -39,7 +40,7 @@ METHOD Show( oWnd ) CLASS HMenu
       oWnd := HWindow():GetMain()
    ENDIF
    oWnd:oPopup := Self
-   Hwg_trackmenu( ::handle )
+   Hwg_trackmenu(::handle)
 
    RETURN NIL
 
@@ -51,7 +52,7 @@ FUNCTION Hwg_CreateMenu
       RETURN NIL
    ENDIF
 
-   RETURN { {}, , , hMenu }
+   RETURN { {}, NIL, NIL, hMenu }
 
 FUNCTION Hwg_SetMenu( oWnd, aMenu )
 
@@ -83,8 +84,7 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos, hWnd )
    ENDIF
 
    hSubMenu := hLast := aMenu[5]
-   hSubMenu := hwg__AddMenuItem( hSubMenu, cItem, nPos - 1, ;
-      Iif( Empty(hWnd), 0, hWnd ), nMenuId, , lSubMenu )
+   hSubMenu := hwg__AddMenuItem(hSubMenu, cItem, nPos - 1, Iif(Empty(hWnd), 0, hWnd), nMenuId, NIL, lSubMenu)
 
    IF nPos > Len( aMenu[1] )
       IF Empty(lSubmenu)
@@ -146,7 +146,7 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
       ELSE
          hMenu := hwg__CreatePopupMenu()
       ENDIF
-      aMenu := { aMenuInit, , , , hMenu }
+      aMenu := { aMenuInit, NIL, NIL, NIL, hMenu }
    ELSE
       hMenu := aMenuInit[5]
       nPos := Len( aMenuInit[1] )
@@ -162,14 +162,13 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
    nPos := 1
    DO WHILE nPos <= Len( aMenu[1] )
       IF HB_ISARRAY(aMenu[1, nPos, 1])
-         hwg_BuildMenu( aMenu, hWnd, , nPos )
+         hwg_BuildMenu( aMenu, hWnd, NIL, nPos )
       ELSE
          IF aMenu[1, nPos, 1] == NIL .OR. aMenu[1, nPos, 2] != NIL
             IF Len( aMenu[1,npos] ) == 4
                AAdd(aMenu[1, npos], NIL)
             ENDIF
-            aMenu[1,npos,5] := hwg__AddMenuItem( hMenu, aMenu[1,npos,2], ;
-               nPos, hWnd, aMenu[1,nPos,3], aMenu[1,npos,4], .F. )
+            aMenu[1, npos, 5] := hwg__AddMenuItem(hMenu, aMenu[1, npos, 2], nPos, hWnd, aMenu[1, nPos, 3], aMenu[1, npos, 4], .F.)
          ENDIF
       ENDIF
       nPos ++
@@ -230,8 +229,7 @@ FUNCTION Hwg_EndMenu()
    IF _nLevel > 0
       _nLevel --
    ELSE
-      hwg_BuildMenu( AClone( _aMenuDef ), Iif( _oWnd != NIL,_oWnd:handle,0 ), ;
-         _oWnd, , _lContext )
+      hwg_BuildMenu(AClone(_aMenuDef), Iif(_oWnd != NIL, _oWnd:handle, 0), _oWnd, NIL, _lContext)
       IF _oWnd != NIL .AND. !Empty(_aAccel)
          _oWnd:hAccel := hwg_Createacceleratortable( _oWnd )
       ENDIF
@@ -252,7 +250,6 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
    // Variables not used
    // LOCAL oBmp
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(lBitmap)
    HB_SYMBOL_UNUSED(lResource)
 

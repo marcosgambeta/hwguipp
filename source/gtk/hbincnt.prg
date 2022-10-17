@@ -31,22 +31,21 @@
 #define OBJ_SIZE      4
 #define OBJ_ADDR      5
 
-Static  cHead := "hwgbc"
+STATIC cHead := "hwgbc"
 
 CLASS HBinC
 
-   DATA   cName
-   DATA   handle
-   DATA   lWriteAble
-   DATA   nVerHigh, nVerLow
-   DATA   nItems
-   DATA   nCntLen
-   DATA   nCntBlocks
-   DATA   nPassLen
-
-   DATA   nFileLen
-
-   DATA   aObjects
+   DATA cName
+   DATA handle
+   DATA lWriteAble
+   DATA nVerHigh
+   DATA nVerLow
+   DATA nItems
+   DATA nCntLen
+   DATA nCntBlocks
+   DATA nPassLen
+   DATA nFileLen
+   DATA aObjects
 
    METHOD Create(cName, n)
    METHOD Open(cName, lWr)
@@ -67,7 +66,7 @@ METHOD Create(cName, n) CLASS HBinC
       n := 16
    ENDIF
 
-   IF ( ::handle := FCreate(cName) ) == -1
+   IF (::handle := FCreate(cName)) == -1
       RETURN NIL
    ENDIF
 
@@ -94,7 +93,7 @@ METHOD Open(cName, lWr) CLASS HBinC
 
    ::cName := cName
    ::lWriteAble := !Empty(lWr)
-   IF ( ::handle := FOpen(cName, Iif(::lWriteAble, FO_READWRITE, FO_READ)) ) == -1
+   IF (::handle := FOpen(cName, Iif(::lWriteAble, FO_READWRITE, FO_READ))) == -1
       RETURN NIL
    ENDIF
 
@@ -117,7 +116,7 @@ METHOD Open(cName, lWr) CLASS HBinC
    cBuf := Space(::nCntLen)
    FRead(::handle, @cBuf, ::nCntLen)
 
-   ::aObjects := Array( ::nItems )
+   ::aObjects := Array(::nItems)
    FOR i := 1 TO ::nItems
       nLen := Asc( Substr(cBuf, nAddr + 1) )
       arr := Array(5)
@@ -152,7 +151,7 @@ METHOD Add( cObjName, cType, cVal ) CLASS HBinC
    ENDIF
    cObjName := Lower(cObjName)
    cType := Padr( Lower(Left(cType, 4)), 4 )
-   IF Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) > 0
+   IF Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName}) > 0
       RETURN .F.
    ENDIF
 
@@ -194,7 +193,7 @@ METHOD Del( cObjName ) CLASS HBinC
       RETURN .F.
    ENDIF
    cObjName := Lower(cObjName)
-   IF ( n := Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) ) == 0
+   IF (n := Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})) == 0
       RETURN .F.
    ENDIF
 
@@ -221,7 +220,7 @@ METHOD Pack() CLASS HBinC
       RETURN .F.
    ENDIF
 
-   Aeval( ::aObjects, {|a| Iif(!Empty(a[OBJ_NAME]), (nItems++,nCntLen+=Len(a[OBJ_NAME])+CNT_FIX_LEN),.T.) } )
+   Aeval(::aObjects, {|a|Iif(!Empty(a[OBJ_NAME]), (nItems++,nCntLen+=Len(a[OBJ_NAME])+CNT_FIX_LEN),.T.)})
    IF nItems == ::nItems
       RETURN .T.
    ENDIF
@@ -239,7 +238,7 @@ METHOD Pack() CLASS HBinC
    s += cAddr + cSize + Chr(::nCntBlocks) + Chr(::nPassLen)
 
    nAddr := ::aObjects[1,OBJ_VAL]
-   FOR i := 1 TO Len( ::aObjects )
+   FOR i := 1 TO Len(::aObjects)
       a := ::aObjects[i]
       IF !Empty(a[OBJ_NAME])
          cAddr := Chr(nAddr / 16777216) + Chr((nAddr / 65536) % 256) + Chr((nAddr / 256) % 65536) + Chr(nAddr % 16777216)
@@ -252,7 +251,7 @@ METHOD Pack() CLASS HBinC
    FWrite(handle, s)
    FWrite(handle, Replicate(Chr(0), ::nCntBlocks * 2048 - Len(s)))
 
-   FOR i := 1 TO Len( ::aObjects )
+   FOR i := 1 TO Len(::aObjects)
       IF !Empty(::aObjects[i,OBJ_NAME])
          s := Space(::aObjects[i, OBJ_SIZE])
          FSeek(::handle, ::aObjects[i, OBJ_VAL], FS_SET)
@@ -279,7 +278,7 @@ METHOD Get( cObjName ) CLASS HBinC
    LOCAL cBuf
 
    cObjName := Lower(cObjName)
-   IF ( n := Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) ) == 0
+   IF (n := Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})) == 0
       RETURN NIL
    ENDIF
 
@@ -292,26 +291,26 @@ METHOD Get( cObjName ) CLASS HBinC
 METHOD Exist( cObjName )  CLASS HBinC
 
    cObjName := Lower(cObjName)
-   RETURN ( Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) ) != 0
+   RETURN (Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})) != 0
 
 METHOD GetPos( cObjName )  CLASS HBinC
 
   cObjName := Lower(cObjName)
   
-  RETURN  Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) 
+  RETURN Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})
   
   
 METHOD GetType( cObjName )
 
-  LOCAL n
-  LOCAL crettype := ""
+   LOCAL n
+   LOCAL crettype := ""
 
-  cObjName := Lower(cObjName)
-  
-  n:=  Ascan( ::aObjects, {|a|a[OBJ_NAME] == cObjName} ) 
+   cObjName := Lower(cObjName)
 
-  IF n > 0
-    crettype := ::aObjects[n,OBJ_TYPE]
-  ENDIF
-  
-  RETURN crettype
+   n := Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})
+
+   IF n > 0
+      crettype := ::aObjects[n,OBJ_TYPE]
+   ENDIF
+
+   RETURN crettype

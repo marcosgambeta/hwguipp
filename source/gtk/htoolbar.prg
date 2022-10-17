@@ -16,63 +16,59 @@
 
 CLASS HToolBar INHERIT HControl
 
-   DATA winclass INIT "ToolbarWindow32"
-   Data TEXT, id
-   CLASSDATA oSelected INIT NIL
-   DATA State INIT 0
-   Data ExStyle
-   Data bClick, cTooltip
+   CLASSDATA oSelected // INIT NIL
 
+   DATA winclass INIT "ToolbarWindow32"
+   DATA text
+   DATA id
+   DATA State INIT 0
+   DATA ExStyle
+   DATA bClick
+   DATA cTooltip
    DATA lPress INIT .F.
-   DATA lVertical  INIT .F.
+   DATA lVertical INIT .F.
    DATA lFlat
    DATA nOrder
-   Data aItem init {}
+   Data aItem INIT {}
    DATA Line
 
-   METHOD New( oWndParent,nId,nStyle,nX,nY,nWidth,nHeight,cCaption,oFont,bInit, ;
-                  bSize,bPaint,ctooltip,tcolor,bcolor,lTransp,lVertical,aItem)
-
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem)
    METHOD Activate()
    METHOD INIT()
    METHOD REFRESH()
-   METHOD AddButton(nBitIp,nId,bState,bStyle,cText,bClick,c,aMenu)  && a,s,d,f,g,h
+   METHOD AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu) // a,s,d,f,g,h
    METHOD onEvent( msg, wParam, lParam )
    METHOD EnableAllButtons()
    METHOD DisableAllButtons()
    METHOD EnableButtons(n)
    METHOD DisableButtons(n)
 
-
-
 ENDCLASS
 
 /* Added: lVertical */
-METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
-                  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp , lVertical, aItem ) CLASS hToolBar
+METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem) CLASS hToolBar
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(cCaption)
-   HB_SYMBOL_UNUSED(lTransp)   
+   HB_SYMBOL_UNUSED(lTransp)
 
-   Default  aItem to {}
-   ::Super:New( oWndParent,nId,nStyle,nX,nY,nWidth,nHeight,oFont,bInit, ;
-                  bSize,bPaint,ctooltip,tcolor,bcolor )
+   DEFAULT aItem TO {}
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::aItem := aItem
    ::lVertical := IIF( lVertical != NIL .AND. HB_ISLOGICAL(lVertical), lVertical, ::lVertical )
 
    ::Activate()
 
-Return Self
+RETURN Self
 
 METHOD Activate() CLASS hToolBar
-   IF !empty(::oParent:handle )
 
+   IF !empty(::oParent:handle )
       ::handle := hwg_Createtoolbar(::oParent:handle )
-      hwg_Setwindowobject( ::handle,Self )
+      hwg_Setwindowobject(::handle, Self)
       ::Init()
    ENDIF
+
 RETURN NIL
 
 METHOD INIT() CLASS hToolBar
@@ -91,7 +87,7 @@ METHOD INIT() CLASS hToolBar
 
    IF !::lInit
       ::Super:Init()
-      For n := 1 TO len( ::aItem )
+      For n := 1 TO len(::aItem)
 
          if HB_ISNUMERIC(::aItem[n, 1])
             IF !empty(::aItem[n, 1])
@@ -99,9 +95,9 @@ METHOD INIT() CLASS hToolBar
             ENDIF
          elseif HB_ISCHAR(::aItem[n, 1])
             if ".ico" $ lower(::aItem[n, 1]) //if ".ico" in lower(::aItem[n, 1])
-               oImage:=hIcon():AddFile( ::aItem[n, 1] )
+               oImage:=hIcon():AddFile(::aItem[n, 1])
             else
-               oImage:=hBitmap():AddFile( ::aItem[n, 1] )
+               oImage:=hBitmap():AddFile(::aItem[n, 1])
             endif
             if HB_ISOBJECT(oImage)
                aadd(aButton,Oimage:handle)
@@ -111,7 +107,7 @@ METHOD INIT() CLASS hToolBar
 
       NEXT n
 
-      if len( ::aItem ) >0
+      if len(::aItem) >0
          For Each aItem in ::aItem
 
             if aItem[4] == TBSTYLE_BUTTON
@@ -142,7 +138,7 @@ RETURN NIL
 
 METHOD AddButton(nBitIp,nId,bState,bStyle,cText,bClick,c,aMenu) CLASS hToolBar
    
-   LOCAL hMenu := NIL
+   LOCAL hMenu // := NIL
 
    DEFAULT nBitIp to -1
    DEFAULT bstate to TBSTATE_ENABLED
@@ -156,14 +152,13 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HToolbar
 
    LOCAL nPos
 
-   * Parameters not used
    HB_SYMBOL_UNUSED(lParam)
 
    IF msg == WM_LBUTTONUP
       nPos := ascan(::aItem,{|x| x[2] == wParam})
       if nPos>0
          IF ::aItem[nPos,7] != NIL
-            Eval( ::aItem[nPos,7] ,Self )
+            Eval(::aItem[nPos, 7] ,Self)
          ENDIF
       endif
    ENDIF
@@ -195,9 +190,9 @@ METHOD DisableAllButtons() class htoolbar
 RETURN Self
 
 METHOD EnableButtons(n) class htoolbar
-   hwg_Enablewindow( ::aItem[n, 11 ], .T. )
+   hwg_Enablewindow(::aItem[n, 11], .T.)
 RETURN Self
 
 METHOD DisableButtons(n) class htoolbar
-   hwg_Enablewindow( ::aItem[n, 11 ], .T. )
+   hwg_Enablewindow(::aItem[n, 11], .T.)
 RETURN Self

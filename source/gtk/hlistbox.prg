@@ -57,21 +57,21 @@
 
 CLASS HListBox INHERIT HControl
 
-CLASS VAR winclass   INIT "LISTBOX"
-   DATA  aItems
-   DATA  bSetGet
-   DATA  value         INIT 1
-   DATA  nItemHeight
-   DATA  bChangeSel
-   DATA  bkeydown, bDblclick
-   DATA  bValid
-   DATA  handle  // GtkWidget of listbox
+   CLASS VAR winclass INIT "LISTBOX"
 
-   METHOD New( oWndParent,nId,vari,bSetGet,nStyle,nX,nY,nWidth,nHeight, ;
-              aItems,oFont,bInit,bSize,bPaint,bChange,cTooltip,tColor,bcolor,bGFocus,bLFocus, bKeydown, bDblclick,bOther )
+   DATA aItems
+   DATA bSetGet
+   DATA value INIT 1
+   DATA nItemHeight
+   DATA bChangeSel
+   DATA bkeydown
+   DATA bDblclick
+   DATA bValid
+   DATA handle // GtkWidget of listbox
+
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther)
    METHOD Activate()
-   METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, ;
-                    bChange, cTooltip, bKeydown, bOther  )
+   METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, bKeydown, bOther)
    METHOD Init()
    METHOD Refresh()
    METHOD Requery()
@@ -87,13 +87,11 @@ CLASS VAR winclass   INIT "LISTBOX"
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, ;
-            bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus,bKeydown, bDblclick,bOther )  CLASS HListBox
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther) CLASS HListBox
 
    // removed: + LBS_DISABLENOSCROLL + LBS_NOTIFY  + LBS_NOINTEGRALHEIGHT
    nStyle   := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), WS_TABSTOP + WS_VSCROLL + WS_BORDER )
-   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
-              bSize, bPaint, cTooltip, tColor, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tColor, bcolor)
 
    ::value   := IIf( vari == NIL .OR. ValType( vari ) != "N", 0, vari )
    ::bSetGet := bSetGet
@@ -150,26 +148,23 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aIt
 METHOD Activate() CLASS HListBox
 * Make listbox visible
 
-   IF ! Empty(::oParent:handle)
+   IF !Empty(::oParent:handle)
      HWG_LISTBOXSHOW(::handle)
 /* 
-      ::handle := hwg_Createlistbox( ::oParent:handle, ::id, ;
-                                 ::style, ::nX, ::nY, ::nWidth, ::nHeight )
+      ::handle := hwg_Createlistbox(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
 */
-      hwg_Setwindowobject( ::handle, Self )
+      hwg_Setwindowobject(::handle, Self)
       hwg_WriteLog("hier")
    ENDIF
    
    RETURN NIL
 
    
-METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, ;
-                 bChange, cTooltip, bKeydown, bOther )  CLASS HListBox
+METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, bKeydown, bOther) CLASS HListBox
 
 /*
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-              bSize, bPaint, cTooltip )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip)
 
    ::value   := IIf( vari == NIL .OR. ValType( vari ) != "N", 1, vari )
    ::bSetGet := bSetGet
@@ -194,23 +189,23 @@ METHOD Init() CLASS HListBox
 
    LOCAL i
 
-   IF ! ::lInit
+   IF !::lInit
       ::nHolder := 1
-      hwg_Setwindowobject( ::handle, Self )
-//      HWG_INITLISTPROC( ::handle )
+      hwg_Setwindowobject(::handle, Self)
+//      HWG_INITLISTPROC(::handle)
       ::Super:Init()
       IF ::aItems != NIL
          IF ::value == NIL
             ::value := 1
          ENDIF
          IF !EMPTY(::nItemHeight)
- //           hwg_Sendmessage( ::handle, LB_SETITEMHEIGHT , 0, ::nItemHeight )
+ //           hwg_Sendmessage(::handle, LB_SETITEMHEIGHT, 0, ::nItemHeight)
          ENDIF
-//         hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0 )
-         FOR i := 1 TO Len( ::aItems )
-            hwg_Listboxaddstring( ::handle, ::aItems[i] )
+//         hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
+         FOR i := 1 TO Len(::aItems)
+            hwg_Listboxaddstring(::handle, ::aItems[i])
          NEXT
-//         hwg_Listboxsetstring( ::handle, ::value )
+//         hwg_Listboxsetstring(::handle, ::value)
       ENDIF
    ENDIF
    RETURN NIL
@@ -221,18 +216,18 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
    LOCAL nEval
 
    IF ::bOther != NIL
-      IF (nEval := Eval( ::bOther,Self,msg,wParam,lParam )) != -1 .AND. nEval != NIL
+      IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != -1 .AND. nEval != NIL
          RETURN 0
       ENDIF
    ENDIF
    wParam := hwg_PtrToUlong( wParam )
    IF msg == WM_KEYDOWN
       IF wParam = VK_TAB //.AND. nType < WND_DLG_RESOURCE
-         hwg_GetSkip( ::oParent, ::handle, , iif( hwg_IsCtrlShift(.f., .t.), -1, 1) )
+         hwg_GetSkip(::oParent, ::handle, NIL, iif(hwg_IsCtrlShift(.f., .t.), -1, 1))
       ENDIF
-         IF ::bKeyDown != NIL .and. ValType( ::bKeyDown ) == 'B'
-         nEval := Eval( ::bKeyDown, Self, wParam )
-         IF (HB_ISLOGICAL(nEval) .AND. ! nEval ) .OR. ( nEval != -1 .AND. nEval != NIL )
+         IF ::bKeyDown != NIL .and. ValType(::bKeyDown) == 'B'
+         nEval := Eval(::bKeyDown, Self, wParam)
+         IF (HB_ISLOGICAL(nEval) .AND. !nEval ) .OR. ( nEval != -1 .AND. nEval != NIL )
             RETURN 0
          ENDIF
       ENDIF
@@ -246,11 +241,11 @@ METHOD Requery() CLASS HListBox
 /*
    LOCAL i
 
-   hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0)
-   FOR i := 1 TO Len( ::aItems )
-      hwg_Listboxaddstring( ::handle, ::aItems[i] )
+   hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
+   FOR i := 1 TO Len(::aItems)
+      hwg_Listboxaddstring(::handle, ::aItems[i])
    NEXT
-   hwg_Listboxsetstring( ::handle, ::value )
+   hwg_Listboxsetstring(::handle, ::value)
    ::refresh()
 */   
    Return NIL
@@ -261,25 +256,25 @@ METHOD Refresh() CLASS HListBox
    LOCAL vari
    
    IF ::bSetGet != NIL
-      vari := Eval( ::bSetGet )
+      vari := Eval(::bSetGet)
    ENDIF
 
    ::value := IIf( vari == NIL .OR. ValType( vari ) != "N", 0, vari )
-   ::SetItem( ::value )
+   ::SetItem(::value)
   
    RETURN NIL
 
 METHOD SetItem( nPos ) CLASS HListBox
 
    ::value := nPos
-//   hwg_Sendmessage( ::handle, LB_SETCURSEL, nPos - 1, 0 )
+//   hwg_Sendmessage(::handle, LB_SETCURSEL, nPos - 1, 0)
 
    IF ::bSetGet != NIL
-      Eval( ::bSetGet, ::value )
+      Eval(::bSetGet, ::value)
    ENDIF
 
    IF ::bChangeSel != NIL
-      Eval( ::bChangeSel, ::value, Self )
+      Eval(::bChangeSel, ::value, Self)
    ENDIF
    
    RETURN NIL
@@ -287,7 +282,7 @@ METHOD SetItem( nPos ) CLASS HListBox
 METHOD onDblClick()  CLASS HListBox
 
   IF ::bDblClick != NIL
-      Eval( ::bDblClick, self, ::value )
+      Eval(::bDblClick, self, ::value)
    ENDIF
   
    RETURN NIL
@@ -296,19 +291,19 @@ METHOD onDblClick()  CLASS HListBox
 METHOD AddItems( p ) CLASS HListBox
 
    AAdd(::aItems, p)
-   hwg_Listboxaddstring( ::handle, p )
-//   hwg_Listboxsetstring( ::handle, ::value )
+   hwg_Listboxaddstring(::handle, p)
+//   hwg_Listboxsetstring(::handle, ::value)
    RETURN Self
    
 
 METHOD DeleteItem( nPos ) CLASS HListBox
 
-//   IF hwg_Sendmessage( ::handle, LB_DELETESTRING , nPos - 1, 0 ) >= 0 //<= LEN(ocombo:aitems)
-      ADel( ::Aitems, nPos )
-      ASize( ::Aitems, Len( ::aitems ) - 1 )
-      ::value := Min( Len( ::aitems ) , ::value )
+//   IF hwg_Sendmessage(::handle, LB_DELETESTRING , nPos - 1, 0) >= 0 // <= LEN(ocombo:aitems)
+      ADel(::Aitems, nPos)
+      ASize(::Aitems, Len(::aitems) - 1)
+      ::value := Min(Len(::aitems), ::value)
       IF ::bSetGet != NIL
-         Eval( ::bSetGet, ::value, Self )
+         Eval(::bSetGet, ::value, Self)
       ENDIF
       RETURN .T.
 //   ENDIF
@@ -319,8 +314,8 @@ METHOD Clear() CLASS HListBox
 
    ::aItems := { }
    ::value := 0
-//   hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0 )
-//   hwg_Listboxsetstring( ::handle, ::value )
+//   hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
+//   hwg_Listboxsetstring(::handle, ::value)
  
    RETURN .T.
 
@@ -331,7 +326,7 @@ METHOD onChange( oCtrl ) CLASS HListBox
 
    HB_SYMBOL_UNUSED(oCtrl)
 
-   nPos := hwg_Sendmessage( ::handle, LB_GETCURSEL, 0, 0 ) + 1
+   nPos := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
    ::SetItem( nPos )
 */
    RETURN NIL
@@ -346,10 +341,10 @@ METHOD When( oCtrl ) CLASS HListBox
 
     nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .or. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
    IF ::bSetGet != NIL
-      Eval( ::bSetGet, ::value, Self )
+      Eval(::bSetGet, ::value, Self)
    ENDIF
    IF ::bGetFocus != NIL
-      res := Eval( ::bGetFocus, ::Value, Self )
+      res := Eval(::bGetFocus, ::Value, Self)
       ::Setfocus()      
    ENDIF
    RETURN res
@@ -365,17 +360,17 @@ METHOD Valid( oCtrl ) CLASS HListBox
    HB_SYMBOL_UNUSED(oCtrl)
 
    IF ( oDlg := hwg_GetParentForm( Self ) ) == NIL .OR. oDlg:nLastKey != 27
-      ::value := hwg_Sendmessage( ::handle, LB_GETCURSEL, 0, 0 ) + 1
+      ::value := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
       IF ::bSetGet != NIL
-         Eval( ::bSetGet, ::value, Self )
+         Eval(::bSetGet, ::value, Self)
       ENDIF
       IF oDlg != NIL
          oDlg:nLastKey := 27
       ENDIF
       IF ::bLostFocus != NIL
-         res := Eval( ::bLostFocus, ::value, Self )
-         IF ! res
-            ::Setfocus( .T. ) //( ::handle )
+         res := Eval(::bLostFocus, ::value, Self)
+         IF !res
+            ::Setfocus( .T. ) // (::handle)
             IF oDlg != NIL
                oDlg:nLastKey := 0
             ENDIF
@@ -387,7 +382,7 @@ METHOD Valid( oCtrl ) CLASS HListBox
       ENDIF
    ENDIF
    IF Empty(hwg_Getfocus())
-       hwg_GetSkip( ::oParent, ::handle, 1 )
+       hwg_GetSkip(::oParent, ::handle, 1)
    ENDIF
 */   
    RETURN .T.
