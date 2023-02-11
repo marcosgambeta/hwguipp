@@ -25,26 +25,19 @@ HB_FUNC( HWG_SELECTFONT )
    PHB_ITEM aMetr = hb_itemArrayNew(9), temp;
 
    /* Initialize members of the CHOOSEFONT structure. */
-   if( pObj )
+   if( pObj != nullptr )
    {
       memset(&lf, 0, sizeof(LOGFONT));
       temp1 = GETOBJECTVAR(pObj, "NAME");
       HB_ITEMCOPYSTR(temp1, lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
       lf.lfFaceName[HB_SIZEOFARRAY(lf.lfFaceName) - 1] = '\0';
-      temp1 = GETOBJECTVAR(pObj, "WIDTH");
-      lf.lfWidth = hb_itemGetNI(temp1);
-      temp1 = GETOBJECTVAR(pObj, "HEIGHT");
-      lf.lfHeight = hb_itemGetNI(temp1);
-      temp1 = GETOBJECTVAR(pObj, "WEIGHT");
-      lf.lfWeight = hb_itemGetNI(temp1);
-      temp1 = GETOBJECTVAR(pObj, "CHARSET");
-      lf.lfCharSet = hb_itemGetNI(temp1);
-      temp1 = GETOBJECTVAR(pObj, "ITALIC");
-      lf.lfItalic = hb_itemGetNI(temp1);
-      temp1 = GETOBJECTVAR(pObj, "UNDERLINE");
-      lf.lfUnderline = hb_itemGetNI(temp1);
-      temp1 = GETOBJECTVAR(pObj, "STRIKEOUT");
-      lf.lfStrikeOut = hb_itemGetNI(temp1);
+      lf.lfWidth = hb_objDataGetNI(pObj, "WIDTH");
+      lf.lfHeight = hb_objDataGetNI(pObj, "HEIGHT");
+      lf.lfWeight = hb_objDataGetNI(pObj, "WEIGHT");
+      lf.lfCharSet = hb_objDataGetNI(pObj, "CHARSET");
+      lf.lfItalic = hb_objDataGetNI(pObj, "ITALIC");
+      lf.lfUnderline = hb_objDataGetNI(pObj, "UNDERLINE");
+      lf.lfStrikeOut = hb_objDataGetNI(pObj, "STRIKEOUT");
    }
 
    cf.lStructSize = sizeof(CHOOSEFONT);
