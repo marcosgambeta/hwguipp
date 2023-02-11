@@ -251,14 +251,12 @@ FUNCTION hwg_SetCtrlName(oCtrl, cName)
 
 HB_FUNC_STATIC( HCONTROL_DISABLE )
 {
-   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
-   EnableWindow(window, FALSE);
+   EnableWindow(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), FALSE);
 }
 
 HB_FUNC_STATIC( HCONTROL_ENABLE )
 {
-   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
-   EnableWindow(window, TRUE);
+   EnableWindow(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), TRUE);
 }
 
 #pragma ENDDUMP
