@@ -205,8 +205,7 @@ RETURN NIL
 
 HB_FUNC_STATIC( HICON_DRAW )
 {
-   HICON icon = static_cast<HICON>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
-   DrawIcon(hwg_par_HDC(1), hwg_par_int(2), hwg_par_int(3), icon);
+   DrawIcon(hwg_par_HDC(1), hwg_par_int(2), hwg_par_int(3), static_cast<HICON>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")));
 }
 
 #pragma ENDDUMP
