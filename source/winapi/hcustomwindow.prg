@@ -404,11 +404,11 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
       hb_objDataPutNI(self, "_NHEIGHT", hb_parni(4));
    }
 
-   MoveWindow(static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(self, "HANDLE", 0))),
-              hb_itemGetNI(hb_objSendMsg(self, "NX", 0)),
-              hb_itemGetNI(hb_objSendMsg(self, "NY", 0)),
-              hb_itemGetNI(hb_objSendMsg(self, "NWIDTH", 0)),
-              hb_itemGetNI(hb_objSendMsg(self, "NHEIGHT", 0)),
+   MoveWindow(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")),
+              hb_objDataGetNI(self, "NX"),
+              hb_objDataGetNI(self, "NY"),
+              hb_objDataGetNI(self, "NWIDTH"),
+              hb_objDataGetNI(self, "NHEIGHT"),
               TRUE);
 }
 
@@ -416,22 +416,19 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_HIDE )
 {
    PHB_ITEM self = hb_stackSelfItem();
    hb_objDataPutL(self, "_LHIDE", true);
-   ShowWindow(static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(self, "HANDLE", 0))), SW_HIDE);
+   ShowWindow(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")), SW_HIDE);
 }
 
 HB_FUNC_STATIC( HCUSTOMWINDOW_SHOW )
 {
    PHB_ITEM self = hb_stackSelfItem();
    hb_objDataPutL(self, "_LHIDE", false);
-   ShowWindow(static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(self, "HANDLE", 0))), SW_SHOW);
+   ShowWindow(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")), SW_SHOW);
 }
 
 HB_FUNC_STATIC( HCUSTOMWINDOW_REFRESH )
 {
-   RedrawWindow(static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0))),
-                nullptr,
-                nullptr,
-                RDW_ERASE | RDW_INVALIDATE | RDW_INTERNALPAINT | RDW_UPDATENOW);
+   RedrawWindow(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_INTERNALPAINT | RDW_UPDATENOW);
 }
 
 #pragma ENDDUMP
