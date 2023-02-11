@@ -890,7 +890,7 @@ STATIC FUNCTION onCloseQuery(o)
 
 HB_FUNC_STATIC( HWINDOW_CENTER )
 {
-   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
+   HWND window = static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"));
 
    RECT rect;
    int w, h, x, y;
@@ -907,26 +907,22 @@ HB_FUNC_STATIC( HWINDOW_CENTER )
 
 HB_FUNC_STATIC( HWINDOW_RESTORE )
 {
-   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
-   hb_retnl(static_cast<LONG>(SendMessage(window, WM_SYSCOMMAND, SC_RESTORE, 0)));
+   hb_retnl(static_cast<LONG>(SendMessage(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), WM_SYSCOMMAND, SC_RESTORE, 0)));
 }
 
 HB_FUNC_STATIC( HWINDOW_MAXIMIZE )
 {
-   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
-   hb_retnl(static_cast<LONG>(SendMessage(window, WM_SYSCOMMAND, SC_MAXIMIZE, 0)));
+   hb_retnl(static_cast<LONG>(SendMessage(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), WM_SYSCOMMAND, SC_MAXIMIZE, 0)));
 }
 
 HB_FUNC_STATIC( HWINDOW_MINIMIZE )
 {
-   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
-   hb_retnl(static_cast<LONG>(SendMessage(window, WM_SYSCOMMAND, SC_MINIMIZE, 0)));
+   hb_retnl(static_cast<LONG>(SendMessage(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), WM_SYSCOMMAND, SC_MINIMIZE, 0)));
 }
 
 HB_FUNC_STATIC( HWINDOW_CLOSE )
 {
-   HWND window = static_cast<HWND>(hb_itemGetPtr(hb_objSendMsg(hb_stackSelfItem(), "HANDLE", 0)));
-   hb_retnl(static_cast<LONG>(SendMessage(window, WM_SYSCOMMAND, SC_CLOSE, 0)));
+   hb_retnl(static_cast<LONG>(SendMessage(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), WM_SYSCOMMAND, SC_CLOSE, 0)));
 }
 
 #pragma ENDDUMP
