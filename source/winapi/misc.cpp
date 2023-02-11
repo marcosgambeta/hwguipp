@@ -733,7 +733,6 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    HDC hdc = hwg_par_HDC(1);
    //UINT h = hb_parni(2);
    PHB_ITEM pObject = hb_param(3, Harbour::Item::OBJECT);
-   PHB_ITEM p, p1, p2, temp;
    LONG i;
    HBRUSH hBrush;
    COLORREF cColor;
@@ -745,15 +744,12 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
       return;
    }
 
-   p = GETOBJECTVAR(pObject, "M_BRUSH");
-   p2 = GETOBJECTVAR(pObject, "M_TEXTCOLOR");
-   cColor = static_cast<COLORREF>(hb_itemGetNL(p2));
-   hBrush = static_cast<HBRUSH>(HB_GETHANDLE(p));
+   cColor = static_cast<COLORREF>(hb_objDataGetNL(pObject, "M_TEXTCOLOR"));
+   hBrush = static_cast<HBRUSH>(hb_objDataGetPtr(pObject, "M_BRUSH"));
 
    DeleteObject(hBrush);
 
-   p1 = GETOBJECTVAR(pObject, "M_BACKCOLOR");
-   i = hb_itemGetNL(p1);
+   i = hb_objDataGetNL(pObject, "M_BACKCOLOR");
    if( i == -1 )
    {
       hBrush = static_cast<HBRUSH>(GetStockObject(HOLLOW_BRUSH));
@@ -765,9 +761,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
       SetBkColor(hdc, static_cast<COLORREF>(i));
    }
 
-   temp = HB_PUTHANDLE(nullptr, hBrush);
-   SETOBJECTVAR(pObject, "_M_BRUSH", temp);
-   hb_itemRelease(temp);
+   hb_objDataPutPtr(pObject, "_M_BRUSH", hBrush);
 
    SetTextColor(hdc, cColor);
    HB_RETHANDLE(hBrush);
