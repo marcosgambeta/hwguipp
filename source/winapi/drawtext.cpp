@@ -7,11 +7,12 @@
 */
 
 #define OEMRESOURCE
+
 #include "hwingui.h"
 #include <commctrl.h>
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbapiitm.h"
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbapiitm.h>
 
 static PHB_ITEM aFontsList;
 static PHB_ITEM pFontsItemLast, pFontsItem;

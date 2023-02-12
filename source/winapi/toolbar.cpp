@@ -9,15 +9,14 @@
 #define HB_OS_WIN_32_USED
 
 #define OEMRESOURCE
+
 #include "hwingui.h"
 #include <commctrl.h>
 #include <winuser.h>
-
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbdate.h"
-#include "hbtrace.h"
-
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbdate.h>
+#include <hbtrace.h>
 /* Suppress compiler warnings */
 #include "incomp_pointer.h"
 #include "warnings.h"

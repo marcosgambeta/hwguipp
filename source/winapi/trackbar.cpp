@@ -18,8 +18,7 @@
 #include "guilib.h"
 #include <windows.h>
 #include <commctrl.h>
-
-#include "hbapi.h"
+#include <hbapi.h>
 
 HB_FUNC( HWG_INITTRACKBAR )
 {

@@ -10,12 +10,10 @@
 #if defined(__MINGW32__) || defined(__MINGW64__)
 #include <prsht.h>
 #endif
-
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbinit.h"
-
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbinit.h>
 #include "incomp_pointer.h"
 
 HMODULE hModule = nullptr;
@@ -53,7 +51,7 @@ HB_CALL_ON_STARTUP_END(_hwgui_module_init_)
    #pragma startup _hwgui_module_init_
 #elif defined(HB_DATASEG_STARTUP)
    #define HB_DATASEG_BODY    HB_DATASEG_FUNC(_hwgui_module_init_)
-   #include "hbiniseg.h"
+   #include <hbiniseg.h>
 #elif defined(HB_MSC_STARTUP) // support for old [x]Harbour version // TODO: verificar
    #if defined(HB_OS_WIN_64)
       #pragma section(HB_MSC_START_SEGMENT, long, read)

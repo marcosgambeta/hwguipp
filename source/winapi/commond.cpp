@@ -7,10 +7,11 @@
 */
 
 #define OEMRESOURCE
+
 #include "hwingui.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbapicls.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbapicls.h>
 
 /*
 HWG_SELECTFONT(oPar1) --> array

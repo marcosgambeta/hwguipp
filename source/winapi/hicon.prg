@@ -195,12 +195,12 @@ RETURN NIL
 #define OEMRESOURCE
 
 #include "hwingui.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbapicls.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbapicls.h>
 #include "missing.h"
-#include "math.h"
+#include <math.h>
 #include "incomp_pointer.h"
 
 HB_FUNC_STATIC( HICON_DRAW )

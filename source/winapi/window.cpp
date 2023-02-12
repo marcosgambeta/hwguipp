@@ -7,20 +7,18 @@
 */
 
 #define OEMRESOURCE
+
 #include "hwingui.h"
 #include <commctrl.h>
-
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbapicdp.h"
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbapicls.h"
-
+#include <hbapifs.h>
+#include <hbapiitm.h>
+#include <hbapicdp.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbapicls.h>
 #include <math.h>
 #include <float.h>
 #include <limits.h>
-
 /* Avoid warnings from GCC */
 #include "warnings.h"
 #include "incomp_pointer.h"

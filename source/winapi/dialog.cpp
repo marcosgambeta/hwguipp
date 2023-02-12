@@ -8,15 +8,12 @@
 
 // #define OEMRESOURCE
 #include "hwingui.h"
-
 #if defined(__MINGW32__) || defined(__MINGW64__)
 #include <prsht.h>
 #endif
-
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbapicls.h"
-
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbapicls.h>
 #include "incomp_pointer.h"
 
 #define  WM_PSPNOTIFY         WM_USER+1010

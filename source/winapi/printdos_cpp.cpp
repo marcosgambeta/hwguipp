@@ -12,12 +12,13 @@
    NTXTLINE(cFile)  -> nLines
 */
 
-#include "hbapi.h"
-#include "hbapiitm.h"
-#include "hbstack.h"
+#include <hbapi.h>
+#include <hbapiitm.h>
+#include <hbstack.h>
 #ifdef __XHARBOUR__
-#include "hbfast.h"
+#include <hbfast.h>
 #endif
+#include <windows.h>
 
 #undef LINE_MAX
 // #define LINE_MAX 4096
@@ -97,8 +98,6 @@ HB_FUNC( AFILLTEXT )
    hb_xfree(string);
    fclose(inFile);
 }
-
-#include <windows.h>
 
 HB_FUNC( HWG_WIN_ANSITOOEM )
 {

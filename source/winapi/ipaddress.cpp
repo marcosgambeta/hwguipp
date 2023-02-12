@@ -39,13 +39,11 @@
 ---------------------------------------------------------------------------*/
 
 #include "hwingui.h"
-
 #include <shlobj.h>
-
-#include "winreg.h"
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbapiitm.h"
+#include <winreg.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbapiitm.h>
 
 HB_FUNC_EXTERN( HWG_INITCOMMONCONTROLSEX );
 

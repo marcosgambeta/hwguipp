@@ -6,10 +6,9 @@
 */
 
 #include "hwingui.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
 #include "freeimage.h"
-
 #include "incomp_pointer.h"
 
 // parameters

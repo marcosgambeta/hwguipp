@@ -9,8 +9,8 @@
 #define HB_MEM_NUM_LEN  8
 
 #define OEMRESOURCE
+
 #include "hwingui.h"
-/* Standard C libraries */
 #include <commctrl.h>
 #include <math.h>
 #include <stdlib.h>
@@ -19,21 +19,16 @@
 #include <malloc.h>
 #include <time.h>
 #include <sys/stat.h>
-
-
-#include "hbmath.h"
-#include "hbapi.h"
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbapicls.h"
-#include "hbset.h"
-
+#include <hbmath.h>
+#include <hbapi.h>
+#include <hbapifs.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbapicls.h>
+#include <hbset.h>
 #include "missing.h"
-
 #include "incomp_pointer.h"
 #include "warnings.h"
-
 
 void hwg_writelog(const char * sFile, const char * sTraceMsg, ...)
 {

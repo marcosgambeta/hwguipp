@@ -12,7 +12,7 @@
 #include "hwingui.h"
 #include <commctrl.h>
 #include <shlobj.h>
-#include "hbapiitm.h"
+#include <hbapiitm.h>
 
 #if (defined(__MINGW32__) || defined(__MINGW64__)) && !defined(CDRF_NOTIFYSUBITEMDRAW)
 #define CDRF_NOTIFYSUBITEMDRAW  0x00000020

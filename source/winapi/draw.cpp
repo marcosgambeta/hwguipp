@@ -7,15 +7,17 @@
 */
 
 #define OEMRESOURCE
+
 #include "hwingui.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
 #include "missing.h"
-
-#include "math.h"
-
+#include <math.h>
 #include "incomp_pointer.h"
+#include <olectl.h>
+#include <ole2.h>
+#include <ocidl.h>
 
 #if defined(__BORLANDC__) && __BORLANDC__ == 0x0550
 #ifdef __cplusplus
@@ -985,10 +987,6 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    DeleteDC(dcImage);
    DeleteDC(dcTrans);
 }
-
-#include <olectl.h>
-#include <ole2.h>
-#include <ocidl.h>
 
 HB_FUNC( HWG_OPENIMAGE )
 {

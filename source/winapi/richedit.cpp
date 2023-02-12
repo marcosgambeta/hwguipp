@@ -6,18 +6,18 @@
  * www - http://www.kresin.ru
 */
 
+#define _RICHEDIT_VER	0x0200
+
 #include "hwingui.h"
 #if defined(__MINGW32__) || defined(__MINGW64__)
 #include <prsht.h>
 #endif
 #include <commctrl.h>
-#define _RICHEDIT_VER	0x0200
 #include <richedit.h>
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbdate.h"
-
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbdate.h>
 #include "incomp_pointer.h"
 
 LRESULT APIENTRY RichSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

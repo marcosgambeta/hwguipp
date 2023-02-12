@@ -375,7 +375,6 @@ FUNCTION hwg_GetItemByName(arr, cName)
 #include <hbvm.h>
 #include <hbstack.h>
 #include <hbapicls.h>
-
 /* Suppress compiler warnings */
 #include "incomp_pointer.h"
 #include "warnings.h"

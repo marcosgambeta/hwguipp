@@ -7,13 +7,12 @@
 */
 
 #define OEMRESOURCE
+
 #include "hwingui.h"
 #include <commctrl.h>
-
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
-
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
 #include "incomp_pointer.h"
 
 HB_FUNC( HWG_OPENPRINTER )

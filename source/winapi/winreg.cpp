@@ -48,11 +48,10 @@
 
 #include "hwingui.h"
 #include <shlobj.h>
-
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbapiitm.h"
-#include "winreg.h"
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbapiitm.h>
+#include <winreg.h>
 
 HB_FUNC( HWG_REGCLOSEKEY )
 {

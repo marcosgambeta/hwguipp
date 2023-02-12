@@ -10,7 +10,9 @@
 */
 
 #include "guilib.h"
-#include "windows.h"
+#include <windows.h>
+#include <hbapi.h>
+#include <hbapiitm.h>
 
 #define STATE_DEFAULT    1
 #define STATE_SELECTED   2
@@ -714,9 +716,6 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
    cxdib_BlendPalette(&(pshade->m_dOver), hicr, highlight);
    cxdib_Clone(&(pshade->m_dDown), &(pshade->m_dOver));
 }
-
-#include "hbapi.h"
-#include "hbapiitm.h"
 
 /*
 HWG_SHADE_NEW(nLeft, nTop, nRight, nBottom, lFlat) --> pShade

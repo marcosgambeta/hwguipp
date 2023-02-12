@@ -8,10 +8,8 @@
 
 #include "hwingui.h"
 #include <shlobj.h>
-
-#include "hbapi.h"
-#include "hbapiitm.h"
-
+#include <hbapi.h>
+#include <hbapiitm.h>
 #include "incomp_pointer.h"
 
 #define  ID_NOTIFYICON   1

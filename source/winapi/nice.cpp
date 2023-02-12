@@ -1,6 +1,6 @@
 /*
  * HWGUI - Harbour Win32 GUI library source code:
- * 
+ *
  *
  * Copyright 2003 Luiz Rafael Culik Guimaraes <culikr@brtrubo.com>
  * www - http://sites.uol.com.br/culikr/
@@ -8,11 +8,9 @@
 
 #include "hwingui.h"
 #include <commctrl.h>
-
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
-
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
 #include "incomp_pointer.h"
 
 #ifndef GRADIENT_FILL_RECT_H

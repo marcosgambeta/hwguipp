@@ -10,14 +10,13 @@
 
 #define _WIN32_WINNT 0x0400
 #define OEMRESOURCE
+
 #include <windows.h>
-
 #include "guilib.h"
-#include "hbapi.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
-
+#include <hbapi.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
 #include "incomp_pointer.h"
 
 /*

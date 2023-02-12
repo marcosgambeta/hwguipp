@@ -264,7 +264,6 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam) // TODO: nao utilizada - remover ?
 #include <hbvm.h>
 #include <hbstack.h>
 #include <hbapicls.h>
-
 /* Suppress compiler warnings */
 #include "incomp_pointer.h"
 #include "warnings.h"
