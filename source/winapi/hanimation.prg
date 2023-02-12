@@ -78,6 +78,7 @@ METHOD Open(cFileName) CLASS HAnimation
 
    RETURN NIL
 
+#if 0
 METHOD Play(nFrom, nTo, nRep) CLASS HAnimation
 
    nFrom := IIf(nFrom == NIL, 0, nFrom)
@@ -86,32 +87,129 @@ METHOD Play(nFrom, nTo, nRep) CLASS HAnimation
    hwg_Animate_Play(::handle, nFrom, nTo, nRep)
 
    RETURN Self
+#endif
 
+#if 0
 METHOD IsPlaying() CLASS HAnimation
 
    RETURN hwg_Animate_IsPlaying(::handle)
+#endif
 
+#if 0
 METHOD Seek(nFrame) CLASS HAnimation
 
    nFrame := IIf(nFrame == NIL, 0, nFrame)
    hwg_Animate_Seek(::handle, nFrame)
 
    RETURN Self
+#endif
 
+#if 0
 METHOD Stop() CLASS HAnimation
 
    hwg_Animate_Stop(::handle)
 
    RETURN Self
+#endif
 
+#if 0
 METHOD Close() CLASS HAnimation
 
    hwg_Animate_Close(::handle)
 
    RETURN NIL
+#endif
 
+#if 0
 METHOD Destroy() CLASS HAnimation
 
    hwg_Animate_Destroy(::handle)
 
    RETURN NIL
+#endif
+
+#pragma BEGINDUMP
+
+#include "hwingui.h"
+#include <commctrl.h>
+#include <hbapicls.h>
+
+HB_FUNC_STATIC( HANIMATION_PLAY )
+{
+  PHB_ITEM self = hb_stackSelfItem();
+  UINT from = HB_ISNUM(1) ? hb_parni(1) : 0;
+  UINT to   = HB_ISNUM(2) ? hb_parni(2) : -1;
+  UINT rep  = HB_ISNUM(3) ? hb_parni(3) : -1;
+  Animate_Play(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")), from, to, rep);
+  hb_itemReturn(self);
+}
+
+HB_FUNC_STATIC( HANIMATION_ISPLAYING )
+{
+  hb_retl(Animate_IsPlaying(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"))));
+}
+
+HB_FUNC_STATIC( HANIMATION_SEEK )
+{
+  PHB_ITEM self = hb_stackSelfItem();
+  UINT frame = HB_ISNUM(1) ? hb_parni(1) : 0;
+  Animate_Seek(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")), frame);
+  hb_itemReturn(self);
+}
+
+HB_FUNC_STATIC( HANIMATION_STOP )
+{
+  PHB_ITEM self = hb_stackSelfItem();
+  Animate_Stop(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")));
+  hb_itemReturn(self);
+}
+
+HB_FUNC_STATIC( HANIMATION_CLOSE )
+{
+  Animate_Close(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")));
+}
+
+HB_FUNC_STATIC( HANIMATION_DESTROY )
+{
+  DestroyWindow(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")));
+}
+
+/*
+HWG_ANIMATE_CREATE(hParent, nId, nStyle, nX, nY, nWidth, nHeight) --> handle
+*/
+HB_FUNC_STATIC( HWG_ANIMATE_CREATE )
+{
+  HWND hwnd = Animate_Create(hwg_par_HWND(1), hwg_par_UINT(2), hwg_par_DWORD(3), GetModuleHandle(nullptr));
+  MoveWindow(hwnd, hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7), TRUE);
+  HB_RETHANDLE(hwnd);
+}
+
+/*
+HWG_ANIMATE_OPEN(HWND, cName) --> NIL
+*/
+HB_FUNC_STATIC( HWG_ANIMATE_OPEN )
+{
+  void * hStr;
+  Animate_Open(hwg_par_HWND(1), HB_PARSTR(2, &hStr, nullptr));
+  hb_strfree(hStr);
+}
+
+/*
+HWG_ANIMATE_OPENEX(HWND, hInstance, cName|nName) --> NIL
+*/
+HB_FUNC_STATIC( HWG_ANIMATE_OPENEX )
+{
+  void * hResource;
+  LPCTSTR lpResource = HB_PARSTR(3, &hResource, nullptr);
+
+  if( !lpResource && HB_ISNUM(3) )
+  {
+    lpResource = MAKEINTRESOURCE(hb_parni(3));
+  }
+
+  Animate_OpenEx(hwg_par_HWND(1), reinterpret_cast<HINSTANCE>(hb_parnl(2)), lpResource); // TODO: hwg_par_HINSTANCE
+
+  hb_strfree(hResource);
+}
+
+#pragma ENDDUMP

@@ -2,7 +2,7 @@
 # Don't use this file directly.
 
 # windows
-{win}source/winapi/animat.cpp
+#{win}source/winapi/animat.cpp
 {win}source/winapi/button.cpp
 {win}source/winapi/combobox.cpp
 {win}source/winapi/commond.cpp
