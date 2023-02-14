@@ -6,7 +6,7 @@
  * www - https://github.com/marcosgambeta/
 */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 
 /*

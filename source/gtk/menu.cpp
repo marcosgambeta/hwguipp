@@ -6,19 +6,19 @@
  * www - http://www.kresin.ru
  */
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "gtk/gtk.h"
-#include "hwgtk.h"
+#include "hwgtk.hpp"
 
 #ifdef __XHARBOUR__
 #include "hbfast.h"
 #endif
 
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 #define  FLAG_DISABLED   1
 #define  FLAG_CHECK      2

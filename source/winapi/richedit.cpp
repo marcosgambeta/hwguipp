@@ -8,7 +8,7 @@
 
 #define _RICHEDIT_VER	0x0200
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #if defined(__MINGW32__) || defined(__MINGW64__)
 #include <prsht.h>
 #endif
@@ -18,7 +18,7 @@
 #include <hbvm.h>
 #include <hbstack.h>
 #include <hbdate.h>
-#include "incomp_pointer.h"
+#include "incomp_pointer.hpp"
 
 LRESULT APIENTRY RichSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

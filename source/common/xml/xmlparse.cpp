@@ -18,7 +18,7 @@
 #else
 #include "hbapicls.h"
 #endif
-#include "guilib.h"
+#include "guilib.hpp"
 
 void hwg_writelog( const char * sFile, const char * sTraceMsg, ... );
 

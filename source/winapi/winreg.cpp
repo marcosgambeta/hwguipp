@@ -46,7 +46,7 @@
  *
  */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <shlobj.h>
 #include <hbvm.h>
 #include <hbstack.h>

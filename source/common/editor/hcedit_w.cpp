@@ -59,14 +59,14 @@
 #include <windows.h>
 #include <tchar.h>
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbapifs.h"
 #include "hbvm.h"
 #include "hbstack.h"
 #include "hbapicdp.h"
-#include "guilib.h"
+#include "guilib.hpp"
 
 LRESULT CALLBACK WinCtrlProc( HWND, UINT, WPARAM, LPARAM );
 

@@ -257,7 +257,7 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam) // TODO: nao utilizada - remover ?
 
 #define OEMRESOURCE
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <winuser.h>
 #include <hbapiitm.h>
@@ -265,8 +265,8 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam) // TODO: nao utilizada - remover ?
 #include <hbstack.h>
 #include <hbapicls.h>
 /* Suppress compiler warnings */
-#include "incomp_pointer.h"
-#include "warnings.h"
+#include "incomp_pointer.hpp"
+#include "warnings.hpp"
 
 HB_FUNC_STATIC( HGRID_REFRESH )
 {

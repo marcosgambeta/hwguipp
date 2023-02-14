@@ -6,12 +6,12 @@
  * www - http://sites.uol.com.br/culikr/
 */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <hbapiitm.h>
 #include <hbvm.h>
 #include <hbstack.h>
-#include "incomp_pointer.h"
+#include "incomp_pointer.hpp"
 
 #ifndef GRADIENT_FILL_RECT_H
 

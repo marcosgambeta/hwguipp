@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include "hbapifs.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
@@ -19,10 +19,10 @@
 #else
 #include "hbapicls.h"
 #endif
-#include "hwgtk.h"
+#include "hwgtk.hpp"
 
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 #define WM_MOVE                           3
 #define WM_SIZE                           5

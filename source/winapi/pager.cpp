@@ -1,4 +1,4 @@
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 
 HB_FUNC( HWG_PAGERSETCHILD )

@@ -130,7 +130,7 @@ METHOD Destroy() CLASS HAnimation
 
 #pragma BEGINDUMP
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <hbapicls.h>
 

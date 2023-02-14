@@ -10,7 +10,7 @@
 
 #define OEMRESOURCE
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <winuser.h>
 #include <hbapiitm.h>
@@ -18,8 +18,8 @@
 #include <hbdate.h>
 #include <hbtrace.h>
 /* Suppress compiler warnings */
-#include "incomp_pointer.h"
-#include "warnings.h"
+#include "incomp_pointer.hpp"
+#include "warnings.hpp"
 
 LRESULT APIENTRY StaticSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

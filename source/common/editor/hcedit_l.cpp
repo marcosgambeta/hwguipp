@@ -60,14 +60,14 @@
 #include "hbapifs.h"
 #include "hbvm.h"
 #include "hbstack.h"
-#include "guilib.h"
+#include "guilib.hpp"
 
 #include <cairo.h>
 #include "gtk/gtk.h"
-#include "hwgtk.h"
+#include "hwgtk.hpp"
 
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 typedef struct
 {

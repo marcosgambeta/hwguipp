@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
@@ -15,7 +15,7 @@
 #include <cairo.h>
 #include "gtk/gtk.h"
 
-#include "hwgtk.h"
+#include "hwgtk.hpp"
 #ifdef __XHARBOUR__
 #include "hbfast.h"
 #endif
@@ -23,7 +23,7 @@
 #include <math.h>
 
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 extern GtkWidget * hMainWindow;
 extern GtkFixed *getFixedBox(GObject * handle);

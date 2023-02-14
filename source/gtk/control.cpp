@@ -11,7 +11,7 @@
  * www - http://sites.uol.com.br/culikr/
 */
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include "hbapifs.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
@@ -20,13 +20,13 @@
 #include <cairo.h>
 #include "gtk/gtk.h"
 
-#include "hwgtk.h"
+#include "hwgtk.hpp"
 #include "hbdate.h"
 #ifdef __XHARBOUR__
 #include "hbfast.h"
 #endif
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 #define SS_CENTER           1
 #define SS_RIGHT            2

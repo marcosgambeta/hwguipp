@@ -8,7 +8,7 @@
 
 #define OEMRESOURCE
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <hbapifs.h>
 #include <hbapiitm.h>
@@ -20,8 +20,8 @@
 #include <float.h>
 #include <limits.h>
 /* Avoid warnings from GCC */
-#include "warnings.h"
-#include "incomp_pointer.h"
+#include "warnings.hpp"
+#include "incomp_pointer.hpp"
 
 #define  FIRST_MDICHILD_ID     501
 #define  WND_MDICHILD          3

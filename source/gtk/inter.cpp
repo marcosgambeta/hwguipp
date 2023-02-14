@@ -7,7 +7,7 @@
  * Copyright 2020 Wilfried Brunken, DF7BE
 */
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include "hbapifs.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
@@ -24,7 +24,7 @@
 #include <malloc.h>
 
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 /* For GTK Windows cross development environment by DF7BE */
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)

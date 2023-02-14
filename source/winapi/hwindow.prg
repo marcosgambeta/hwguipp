@@ -877,15 +877,15 @@ STATIC FUNCTION onCloseQuery(o)
 
 #define OEMRESOURCE
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <winuser.h>
 #include <hbapiitm.h>
 #include <hbvm.h>
 #include <hbstack.h>
 #include <hbapicls.h>
 /* Suppress compiler warnings */
-#include "incomp_pointer.h"
-#include "warnings.h"
+#include "incomp_pointer.hpp"
+#include "warnings.hpp"
 
 HB_FUNC_STATIC( HWINDOW_CENTER )
 {

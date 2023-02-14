@@ -24,7 +24,7 @@
 #include <time.h>
 #include <sys/stat.h>
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include "hbmath.h"
 #include "hbapi.h"
 #include "hbapifs.h"
@@ -41,7 +41,7 @@
 #include <windows.h>
 #endif
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 static GtkClipboard * clipboard = nullptr;
 

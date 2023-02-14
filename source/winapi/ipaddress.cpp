@@ -38,7 +38,7 @@
 	Copyright 1999-2003, http://www.harbour-project.org/
 ---------------------------------------------------------------------------*/
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <shlobj.h>
 #include <winreg.h>
 #include <hbvm.h>

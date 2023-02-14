@@ -17,7 +17,7 @@ gcc -Wall -O3 -DHWG_USE_POINTER_ITEM -c -Iinclude -IC:\harbour64\core-master/inc
 the gcc ended immediately without any error messages nor creating object output file:
 The make systems say:
 mingw32-make.exe: Interrupt/Exception caught (code = 0xc0000005, addr = 0x00007FFDD11C0BC4)
-Need to add #include "hwingui.h" at the BEGINNING of the generated c file.
+Need to add #include "hwingui.hpp" at the BEGINNING of the generated c file.
 That not possible.
 Build HWGUI only with command:
   hbmk2 hwgui.hbp procmisc.hbp hbxml.hbp hwgdebug.hbp
@@ -27,7 +27,7 @@ Build HWGUI only with command:
 #pragma BEGINDUMP
 
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 
 #pragma ENDDUMP
 */

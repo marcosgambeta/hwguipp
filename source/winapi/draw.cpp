@@ -8,13 +8,13 @@
 
 #define OEMRESOURCE
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <hbapiitm.h>
 #include <hbvm.h>
 #include <hbstack.h>
-#include "missing.h"
+#include "missing.hpp"
 #include <math.h>
-#include "incomp_pointer.h"
+#include "incomp_pointer.hpp"
 #include <olectl.h>
 #include <ole2.h>
 #include <ocidl.h>

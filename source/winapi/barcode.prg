@@ -910,7 +910,7 @@ RETURN cBarra
 
 #pragma BEGINDUMP
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 
 /*
 RICH_RECTANGLE(hDC, nLeft, nTop, nRight, nBottom) --> .T.|.F.

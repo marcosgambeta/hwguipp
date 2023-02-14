@@ -8,7 +8,7 @@
 
 #define OEMRESOURCE
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <hbapiitm.h>
 #include <hbvm.h>

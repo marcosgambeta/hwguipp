@@ -6,7 +6,7 @@
  * www - http://sites.uol.com.br/culikr/
 */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #if defined(__MINGW32__) || defined(__MINGW64__)
 #include <prsht.h>
 #endif
@@ -14,7 +14,7 @@
 #include <hbvm.h>
 #include <hbstack.h>
 #include <hbinit.h>
-#include "incomp_pointer.h"
+#include "incomp_pointer.hpp"
 
 HMODULE hModule = nullptr;
 

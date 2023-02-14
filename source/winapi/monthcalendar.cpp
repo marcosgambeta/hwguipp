@@ -12,7 +12,7 @@
    #define _WIN32_WINNT   0x0400
 #endif
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include <windows.h>
 #include <commctrl.h>
 #include <hbapi.h>

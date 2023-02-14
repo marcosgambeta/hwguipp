@@ -49,7 +49,7 @@
 */
 
 #include <gtk/gtk.h>
-#include "hwingui.h"
+#include "hwingui.hpp"
 /*
 #if defined(__MINGW32__) || defined(__MINGW64__) || defined(__WATCOMC__)
 #include <prsht.h>

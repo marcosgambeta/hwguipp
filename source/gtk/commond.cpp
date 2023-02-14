@@ -6,18 +6,18 @@
  * www - http://www.kresin.ru
 */
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include "hbapifs.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "item.api"
 #include "gtk/gtk.h"
-#include "hwgtk.h"
+#include "hwgtk.hpp"
 #ifdef __XHARBOUR__
 #include "hbfast.h"
 #endif
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 extern GtkWidget * GetActiveWindow(void);
 extern void hwg_set_modal(GtkWindow * hDlg, GtkWindow * hParent);

@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <hbapiitm.h>
 #include <hbvm.h>

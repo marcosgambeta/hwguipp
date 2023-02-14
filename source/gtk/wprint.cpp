@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include "hbapi.h"
 #include "hbapifs.h"
 #include "hbapiitm.h"
@@ -18,7 +18,7 @@
 #include "cairo-svg.h"
 
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 #define DT_CENTER                   1
 #define DT_RIGHT                    2

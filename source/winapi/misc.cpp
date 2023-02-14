@@ -10,7 +10,7 @@
 
 #define OEMRESOURCE
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <math.h>
 #include <stdlib.h>
@@ -26,9 +26,9 @@
 #include <hbvm.h>
 #include <hbapicls.h>
 #include <hbset.h>
-#include "missing.h"
-#include "incomp_pointer.h"
-#include "warnings.h"
+#include "missing.hpp"
+#include "incomp_pointer.hpp"
+#include "warnings.hpp"
 
 void hwg_writelog(const char * sFile, const char * sTraceMsg, ...)
 {

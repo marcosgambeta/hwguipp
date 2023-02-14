@@ -5,11 +5,11 @@
  * www - http://www.kresin.ru
 */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <hbapiitm.h>
 #include <hbvm.h>
-#include "freeimage.h"
-#include "incomp_pointer.h"
+#include "freeimage.hpp"
+#include "incomp_pointer.hpp"
 
 // parameters
 #define hwg_par_FIBITMAP(n) ( FIBITMAP * ) hb_parnl(n)

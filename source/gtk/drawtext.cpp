@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
@@ -15,7 +15,7 @@
 #include <cairo.h>
 #include "gtk/gtk.h"
 
-#include "hwgtk.h"
+#include "hwgtk.hpp"
 
 #define DT_CENTER                   1
 #define DT_RIGHT                    2
@@ -25,7 +25,7 @@
 #endif
 
 /* Avoid warnings from GCC */
-#include "warnings.h"
+#include "warnings.hpp"
 
 extern void hwg_parse_color(HB_ULONG ncolor, GdkColor * pColor);
 extern void hwg_setcolor(cairo_t * cr, long int nColor);

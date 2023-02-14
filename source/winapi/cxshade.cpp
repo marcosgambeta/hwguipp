@@ -9,7 +9,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "guilib.h"
+#include "guilib.hpp"
 #include <windows.h>
 #include <hbapi.h>
 #include <hbapiitm.h>

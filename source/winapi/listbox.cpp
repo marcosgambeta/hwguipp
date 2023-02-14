@@ -8,7 +8,7 @@
  * Vic McClung
 */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #if defined(__MINGW32__) || defined(__MINGW64__)
 #include <prsht.h>
 #endif

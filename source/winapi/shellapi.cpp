@@ -6,11 +6,11 @@
  * www - http://www.kresin.ru
 */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <shlobj.h>
 #include <hbapi.h>
 #include <hbapiitm.h>
-#include "incomp_pointer.h"
+#include "incomp_pointer.hpp"
 
 #define  ID_NOTIFYICON   1
 #define  WM_NOTIFYICON   WM_USER+1000

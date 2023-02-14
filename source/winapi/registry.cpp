@@ -12,12 +12,12 @@
 #define OEMRESOURCE
 
 #include <windows.h>
-#include "guilib.h"
+#include "guilib.hpp"
 #include <hbapi.h>
 #include <hbapiitm.h>
 #include <hbvm.h>
 #include <hbstack.h>
-#include "incomp_pointer.h"
+#include "incomp_pointer.hpp"
 
 /*
  * Regcreatekey(handle, cKeyName) --> handle

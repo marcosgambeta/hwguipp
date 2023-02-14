@@ -9,7 +9,7 @@
   * Extended function Copyright 2006 Luiz Rafael Culik Guimaraes <luiz@xharbour.com.br>
   */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <shlobj.h>
 #include <hbapiitm.h>
