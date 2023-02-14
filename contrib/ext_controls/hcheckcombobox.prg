@@ -21,7 +21,7 @@
 #define TRANSPARENT        1
 
 #pragma begindump
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include "hbapiitm.h"
 #include "hbvm.h"
 

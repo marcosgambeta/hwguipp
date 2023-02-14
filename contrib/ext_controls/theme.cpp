@@ -6,16 +6,16 @@
  * www - http://sites.uol.com.br/culikr/
 */
 
-#include "hwingui.h"
+#include "hwingui.hpp"
 #include <commctrl.h>
 #include <uxtheme.h>
 #if defined(__DMC__)
-#include "missing.h"
+#include "missing.hpp"
 #endif
 #include "hbapiitm.h"
 
 /* Tickets #74,36,41 */
-#include "incomp_pointer.h"
+#include "incomp_pointer.hpp"
 
 //#include <tmschema.h>
 #ifndef BS_TYPEMASK

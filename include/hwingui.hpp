@@ -17,7 +17,7 @@
 #endif
 
 #include <windows.h>
-#include "guilib.h"
+#include "guilib.hpp"
 
 #if ((defined(_MSC_VER)&&(_MSC_VER<1300)&&!defined(__POCC__)) || defined(__WATCOMC__)|| defined(__DMC__))
    /* DF7BE:
