@@ -19,7 +19,8 @@
 #include <hbapiitm.h>
 #include <hbdate.h>
 
-HB_FUNC( HWG_INITMONTHCALENDAR )
+#if 0
+HB_FUNC( HWG_INITMONTHCALENDAR ) // moved to hmonthcalendar.prg as static function
 {
    RECT rc;
 
@@ -36,8 +37,10 @@ HB_FUNC( HWG_INITMONTHCALENDAR )
 
    HB_RETHANDLE(hMC);
 }
+#endif
 
-HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file Control.c
+#if 0
+HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file Control.c // // moved to hmonthcalendar.prg
 {
    PHB_ITEM pDate = hb_param(2, Harbour::Item::DATE);
 
@@ -60,8 +63,10 @@ HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file C
       MonthCal_SetCurSel(hwg_par_HWND(1), &sysTime);
    }
 }
+#endif
 
-HB_FUNC( HWG_GETMONTHCALENDARDATE ) // adaptation of hwg_Getdatepicker of file Control.c
+#if 0
+HB_FUNC( HWG_GETMONTHCALENDARDATE ) // adaptation of hwg_Getdatepicker of file Control.c // // moved to hmonthcalendar.prg
 {
    SYSTEMTIME st;
    char szDate[9];
@@ -72,3 +77,4 @@ HB_FUNC( HWG_GETMONTHCALENDARDATE ) // adaptation of hwg_Getdatepicker of file C
    szDate[8] = 0;
    hb_retds(szDate);
 }
+#endif

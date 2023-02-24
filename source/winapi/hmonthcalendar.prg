@@ -2,11 +2,9 @@
  * HWGUI - Harbour Win32 GUI library source code:
  * HMonthCalendar class
  *
- * Copyright 2004 Marcos Antonio Gambeta <marcos_gambeta@hotmail.com>
- * www - http://geocities.yahoo.com.br/marcosgambeta/
+ * Copyright 2004,2023 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
+ * www - http://github.com/marcosgambeta/
 */
-
-//--------------------------------------------------------------------------//
 
 #include "windows.ch"
 #include "hbclass.ch"
@@ -18,11 +16,9 @@
 #define MCS_NOTODAYCIRCLE        8
 #define MCS_NOTODAY             16
 
-//--------------------------------------------------------------------------//
-
 CLASS HMonthCalendar INHERIT HControl
 
-CLASS VAR winclass   INIT "SysMonthCal32"
+   CLASS VAR winclass INIT "SysMonthCal32"
 
    DATA dValue
    DATA bChange
@@ -32,11 +28,9 @@ CLASS VAR winclass   INIT "SysMonthCal32"
               lWeekNumbers)
    METHOD Activate()
    METHOD Init()
-   METHOD Value ( dValue ) SETGET
+   METHOD Value(dValue) SETGET
 
 ENDCLASS
-
-//--------------------------------------------------------------------------//
 
 METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
            oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
@@ -62,8 +56,6 @@ METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
    ::Activate()
    RETURN Self
 
-//--------------------------------------------------------------------------//
-
 METHOD Activate() CLASS HMonthCalendar
 
    IF !Empty(::oParent:handle)
@@ -72,8 +64,6 @@ METHOD Activate() CLASS HMonthCalendar
    ENDIF
 
    RETURN NIL
-
-//--------------------------------------------------------------------------//
 
 METHOD Init() CLASS HMonthCalendar
 
@@ -85,8 +75,6 @@ METHOD Init() CLASS HMonthCalendar
    ENDIF
 
    RETURN NIL
-
-//--------------------------------------------------------------------------//
 
 METHOD Value(dValue) CLASS HMonthCalendar
 
@@ -100,10 +88,7 @@ METHOD Value(dValue) CLASS HMonthCalendar
    ENDIF
    RETURN ::dValue
 
-
-//--------------------------------------------------------------------------//
-
-FUNCTION hwg_pCalendar(dstartdate, cTitle, cOK, cCancel, nx, ny, wid, hei )
+FUNCTION hwg_pCalendar(dstartdate, cTitle, cOK, cCancel, nx, ny, wid, hei)
 // Date picker command for all platforms in the design of original
 // Windows only DATEPICKER command
 
@@ -169,13 +154,10 @@ FUNCTION hwg_pCalendar(dstartdate, cTitle, cOK, cCancel, nx, ny, wid, hei )
 
    RETURN dnewdate
 
-  // --------------------------------------------------------------------------
-
 FUNCTION hwg_oDatepicker_bmp()
 // Returns the bimap object of image Datepick_Button2.bmp
-// (size 11 x 11 )
+// (size 11 x 11)
 // for the multi platform datepicker based on HMONTHCALENDAR class
-
 
 RETURN HBitmap():AddString("Datepick_Button", hwg_cHex2Bin(;
 "42 4D 6A 00 00 00 00 00 00 00 3E 00 00 00 28 00 " + ;
@@ -184,4 +166,82 @@ RETURN HBitmap():AddString("Datepick_Button", hwg_cHex2Bin(;
 "00 00 00 00 00 00 F0 FB FF 00 00 00 00 00 00 00 " + ;
 "00 00 00 00 00 00 00 00 00 00 04 00 00 00 0E 00 " + ;
 "00 00 1F 00 00 00 3F 80 00 00 00 00 00 00 00 00 " + ;
-"00 00 00 00 00 00 00 00 00 00 " ) )
+"00 00 00 00 00 00 00 00 00 00 "))
+
+#pragma BEGINDUMP
+
+#define _WIN32_IE      0x0500
+#define HB_OS_WIN_32_USED
+#ifndef _WIN32_WINNT
+   #define _WIN32_WINNT   0x0400
+#endif
+
+#include "guilib.hpp"
+#include <windows.h>
+#include <commctrl.h>
+#include <hbapi.h>
+#include <hbapiitm.h>
+#include <hbdate.h>
+
+HB_FUNC_STATIC( HWG_INITMONTHCALENDAR )
+{
+   RECT rc;
+
+   HWND hMC = CreateWindowEx(0,
+                             MONTHCAL_CLASS,
+                             "",
+                             static_cast<LONG>(hb_parnl(3)),
+                             hwg_par_int(4),
+                             hwg_par_int(5),
+                             hwg_par_int(6),
+                             hwg_par_int(7),
+                             hwg_par_HWND(1),
+                             reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+                             GetModuleHandle(nullptr),
+                             nullptr);
+
+   MonthCal_GetMinReqRect(hMC, &rc);
+
+   //Setwindowpos(hMC, nullptr, hb_parni(4), hb_parni(5), rc.right, rc.bottom, SWP_NOZORDER);
+   SetWindowPos(hMC, nullptr, hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7), SWP_NOZORDER);
+
+   HB_RETHANDLE(hMC);
+}
+
+HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file Control.c
+{
+   PHB_ITEM pDate = hb_param(2, Harbour::Item::DATE);
+
+   if( pDate )
+   {
+      SYSTEMTIME sysTime;
+      int lYear, lMonth, lDay;
+
+      hb_dateDecode(hb_itemGetDL(pDate), &lYear, &lMonth, &lDay);
+
+      sysTime.wYear = static_cast<unsigned short>(lYear);
+      sysTime.wMonth = static_cast<unsigned short>(lMonth);
+      sysTime.wDay = static_cast<unsigned short>(lDay);
+      sysTime.wDayOfWeek = 0;
+      sysTime.wHour = 0;
+      sysTime.wMinute = 0;
+      sysTime.wSecond = 0;
+      sysTime.wMilliseconds = 0;
+
+      MonthCal_SetCurSel(hwg_par_HWND(1), &sysTime);
+   }
+}
+
+HB_FUNC( HWG_GETMONTHCALENDARDATE ) // adaptation of hwg_Getdatepicker of file Control.c
+{
+   SYSTEMTIME st;
+   char szDate[9];
+
+   SendMessage(hwg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
+
+   hb_dateStrPut(szDate, st.wYear, st.wMonth, st.wDay);
+   szDate[8] = 0;
+   hb_retds(szDate);
+}
+
+#pragma ENDDUMP

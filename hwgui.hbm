@@ -21,7 +21,7 @@
 {win}source/winapi/menu.cpp
 {win}source/winapi/message.cpp
 {win}source/winapi/misc.cpp
-{win}source/winapi/monthcalendar.cpp
+#{win}source/winapi/monthcalendar.cpp
 {win}source/winapi/nice.cpp
 {win}source/winapi/pager.cpp
 {win}source/winapi/panel.cpp
