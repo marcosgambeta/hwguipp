@@ -7,7 +7,7 @@
 */
 
 #include "guilib.hpp"
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "item.api"

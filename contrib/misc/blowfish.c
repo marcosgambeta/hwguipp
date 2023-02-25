@@ -7,7 +7,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbvm.h"
 #include "hbapiitm.h"
 

@@ -12,7 +12,7 @@
    NTXTLINE(cFile)  -> nLines
 */
 
-#include <hbapi.h>
+#include <hbapi.hpp>
 #include <hbapiitm.h>
 #include <hbstack.h>
 #ifdef __XHARBOUR__

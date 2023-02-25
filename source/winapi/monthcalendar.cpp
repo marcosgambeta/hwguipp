@@ -15,7 +15,7 @@
 #include "guilib.hpp"
 #include <windows.h>
 #include <commctrl.h>
-#include <hbapi.h>
+#include <hbapi.hpp>
 #include <hbapiitm.h>
 #include <hbdate.h>
 

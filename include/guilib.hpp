@@ -6,7 +6,7 @@
 #ifndef GUILIB_H_
 #define GUILIB_H_
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 
 #define WND_DLG_RESOURCE      10
 #define WND_DLG_NORESOURCE    11

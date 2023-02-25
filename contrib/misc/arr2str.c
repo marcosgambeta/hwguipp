@@ -8,7 +8,7 @@
  * www - http://kresin.belgorod.su
 */
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "guilib.h"

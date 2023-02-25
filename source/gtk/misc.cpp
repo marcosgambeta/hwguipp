@@ -26,7 +26,7 @@
 
 #include "guilib.hpp"
 #include "hbmath.h"
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapifs.h"
 #include "hbapiitm.h"
 #include "hbvm.h"

@@ -8,7 +8,7 @@
 
 #include "hwingui.hpp"
 #include <shlobj.h>
-#include <hbapi.h>
+#include <hbapi.hpp>
 #include <hbapiitm.h>
 #include "incomp_pointer.hpp"
 

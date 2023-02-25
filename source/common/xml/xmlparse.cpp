@@ -9,7 +9,7 @@
 */
 
 #include <stdio.h>
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "hbapifs.h"

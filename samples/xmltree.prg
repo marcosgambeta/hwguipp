@@ -98,7 +98,7 @@ Return NIL
 
 #pragma BEGINDUMP
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "hbstack.h"

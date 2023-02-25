@@ -11,7 +11,7 @@
 
 #include "guilib.hpp"
 #include <windows.h>
-#include <hbapi.h>
+#include <hbapi.hpp>
 #include <hbapiitm.h>
 
 #define STATE_DEFAULT    1

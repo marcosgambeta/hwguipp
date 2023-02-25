@@ -15,7 +15,7 @@
 #include <windows.h>
 #include "htmlcore.h"           /* Declarations of the functions in DLL.c */
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "guilib.h"

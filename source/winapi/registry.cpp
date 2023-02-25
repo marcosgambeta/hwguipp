@@ -13,7 +13,7 @@
 
 #include <windows.h>
 #include "guilib.hpp"
-#include <hbapi.h>
+#include <hbapi.hpp>
 #include <hbapiitm.h>
 #include <hbvm.h>
 #include <hbstack.h>
