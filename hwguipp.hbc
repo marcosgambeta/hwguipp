@@ -23,7 +23,7 @@ libpaths=lib/${hb_plat}/${hb_comp}
 #{win}CFLAGS=-DUNICODE -DHWG_USE_POINTER_ITEM
 #{unix}CFLAGS=-DUNICODE -DHWG_USE_POINTER_ITEM "`pkg-config --cflags gtk+-2.0`"
 
-PRGFLAGS=-q -m -n -es2
+PRGFLAGS=-q -m -n -es2 -gc3
 {win}CFLAGS=-DHWG_USE_POINTER_ITEM
 {unix}CFLAGS=-DHWG_USE_POINTER_ITEM "`pkg-config --cflags gtk+-2.0`"
 
