@@ -8,9 +8,9 @@
 
 #include "hwingui.hpp"
 #include <commctrl.h>
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbstack.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
 #include "incomp_pointer.hpp"
 
 #ifndef GRADIENT_FILL_RECT_H

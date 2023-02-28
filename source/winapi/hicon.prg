@@ -195,10 +195,10 @@ RETURN NIL
 #define OEMRESOURCE
 
 #include "hwingui.hpp"
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbstack.h>
-#include <hbapicls.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
+#include <hbapicls.hpp>
 #include "missing.hpp"
 #include <math.h>
 #include "incomp_pointer.hpp"

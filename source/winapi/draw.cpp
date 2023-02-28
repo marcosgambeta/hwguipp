@@ -9,9 +9,9 @@
 #define OEMRESOURCE
 
 #include "hwingui.hpp"
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbstack.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
 #include "missing.hpp"
 #include <math.h>
 #include "incomp_pointer.hpp"

@@ -10,9 +10,9 @@
 
 #include "hwingui.hpp"
 #include <commctrl.h>
-#include <hbvm.h>
-#include <hbstack.h>
-#include <hbapiitm.h>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
+#include <hbapiitm.hpp>
 
 static PHB_ITEM aFontsList;
 static PHB_ITEM pFontsItemLast, pFontsItem;

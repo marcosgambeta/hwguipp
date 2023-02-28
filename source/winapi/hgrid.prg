@@ -260,10 +260,10 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam) // TODO: nao utilizada - remover ?
 #include "hwingui.hpp"
 #include <commctrl.h>
 #include <winuser.h>
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbstack.h>
-#include <hbapicls.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
+#include <hbapicls.hpp>
 /* Suppress compiler warnings */
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"

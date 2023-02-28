@@ -6,8 +6,8 @@
 */
 
 #include "hwingui.hpp"
-#include <hbapiitm.h>
-#include <hbvm.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 #include "freeimage.hpp"
 #include "incomp_pointer.hpp"
 

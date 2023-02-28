@@ -14,9 +14,9 @@
 #include <windows.h>
 #include "guilib.hpp"
 #include <hbapi.hpp>
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbstack.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
 #include "incomp_pointer.hpp"
 
 /*

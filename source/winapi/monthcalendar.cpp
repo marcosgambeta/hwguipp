@@ -16,8 +16,8 @@
 #include <windows.h>
 #include <commctrl.h>
 #include <hbapi.hpp>
-#include <hbapiitm.h>
-#include <hbdate.h>
+#include <hbapiitm.hpp>
+#include <hbdate.hpp>
 
 #if 0
 HB_FUNC( HWG_INITMONTHCALENDAR ) // moved to hmonthcalendar.prg as static function

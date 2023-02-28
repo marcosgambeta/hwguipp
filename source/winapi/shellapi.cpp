@@ -9,7 +9,7 @@
 #include "hwingui.hpp"
 #include <shlobj.h>
 #include <hbapi.hpp>
-#include <hbapiitm.h>
+#include <hbapiitm.hpp>
 #include "incomp_pointer.hpp"
 
 #define  ID_NOTIFYICON   1

@@ -10,10 +10,10 @@
 
 #include "hwingui.hpp"
 #include <commctrl.h>
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbapicls.h>
-#include <hbstack.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbapicls.hpp>
+#include <hbstack.hpp>
 
 #define  FLAG_DISABLED   1
 

@@ -12,9 +12,9 @@
 #if defined(__MINGW32__) || defined(__MINGW64__)
 #include <prsht.h>
 #endif
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbstack.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
 
 HB_FUNC( HWG_LISTBOXADDSTRING )
 {

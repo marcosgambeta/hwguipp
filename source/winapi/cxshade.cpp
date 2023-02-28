@@ -12,7 +12,7 @@
 #include "guilib.hpp"
 #include <windows.h>
 #include <hbapi.hpp>
-#include <hbapiitm.h>
+#include <hbapiitm.hpp>
 
 #define STATE_DEFAULT    1
 #define STATE_SELECTED   2

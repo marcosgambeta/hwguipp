@@ -10,12 +10,12 @@
 
 #include "hwingui.hpp"
 #include <commctrl.h>
-#include <hbapifs.h>
-#include <hbapiitm.h>
-#include <hbapicdp.h>
-#include <hbvm.h>
-#include <hbstack.h>
-#include <hbapicls.h>
+#include <hbapifs.hpp>
+#include <hbapiitm.hpp>
+#include <hbapicdp.hpp>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
+#include <hbapicls.hpp>
 #include <math.h>
 #include <float.h>
 #include <limits.h>

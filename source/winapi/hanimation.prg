@@ -132,7 +132,7 @@ METHOD Destroy() CLASS HAnimation
 
 #include "hwingui.hpp"
 #include <commctrl.h>
-#include <hbapicls.h>
+#include <hbapicls.hpp>
 
 HB_FUNC_STATIC( HANIMATION_PLAY )
 {

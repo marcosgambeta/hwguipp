@@ -48,9 +48,9 @@
 
 #include "hwingui.hpp"
 #include <shlobj.h>
-#include <hbvm.h>
-#include <hbstack.h>
-#include <hbapiitm.h>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
+#include <hbapiitm.hpp>
 #include <winreg.h>
 
 HB_FUNC( HWG_REGCLOSEKEY )

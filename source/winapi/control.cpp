@@ -13,10 +13,10 @@
 #include "hwingui.hpp"
 #include <commctrl.h>
 #include <winuser.h>
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbdate.h>
-#include <hbtrace.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbdate.hpp>
+#include <hbtrace.hpp>
 /* Suppress compiler warnings */
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"

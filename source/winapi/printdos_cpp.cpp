@@ -13,8 +13,8 @@
 */
 
 #include <hbapi.hpp>
-#include <hbapiitm.h>
-#include <hbstack.h>
+#include <hbapiitm.hpp>
+#include <hbstack.hpp>
 #ifdef __XHARBOUR__
 #include <hbfast.h>
 #endif

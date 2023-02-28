@@ -14,10 +14,10 @@
 #endif
 #include <commctrl.h>
 #include <richedit.h>
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbstack.h>
-#include <hbdate.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
+#include <hbdate.hpp>
 #include "incomp_pointer.hpp"
 
 LRESULT APIENTRY RichSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
