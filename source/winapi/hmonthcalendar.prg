@@ -36,6 +36,13 @@ METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
            oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
            lWeekNumbers) CLASS HMonthCalendar
 
+   IF pcount() == 0
+      ::Super:New(NIL, NIL, WS_TABSTOP, 0, 0, 200, 200, NIL, NIL, NIL, NIL, NIL, NIL, NIL)
+      HWG_InitCommonControlsEx()
+      ::Activate()
+      RETURN Self
+   ENDIF
+
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    nStyle += IIf(lNoToday == NIL .OR. !lNoToday, 0, MCS_NOTODAY)
    nStyle += IIf(lNoTodayCircle == NIL .OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE)
