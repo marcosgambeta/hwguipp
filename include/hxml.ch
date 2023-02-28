@@ -1,6 +1,4 @@
 /*
- * $Id: hxml.ch 1615 2011-02-18 13:53:35Z mlacecilia $
- *
  * Header file for HXMLDoc and HXMLNode classes
  */
 

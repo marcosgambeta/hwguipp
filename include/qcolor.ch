@@ -1,10 +1,8 @@
 /*
-* qcolor.ch 
+* qcolor.ch
 *
 * Harbour Project source code:
 * Header file to allow colors in qout()
-*
-* $Id: qcolor.ch 2928 2021-01-13 22:16:04Z df7be $
 *
 * Copyright 2015-2018 Alain Aupeix
 *

@@ -1,9 +1,7 @@
 /*
-  $Id: warnings.h 2947 2021-02-23 08:27:50Z df7be $
-  
   warnings.h
   
-  Suppress common warnings 
+  Suppress common warnings
   for GCC 
   
 */

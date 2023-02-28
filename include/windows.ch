@@ -1,7 +1,3 @@
-/*
- *$Id: windows.ch 3027 2021-10-31 07:41:30Z josequintas $
- */
-
 // HBMK_HAS_* are automatically created by HBMK when use HBC files, no extra setup
 
 #define WM_CREATE                       1

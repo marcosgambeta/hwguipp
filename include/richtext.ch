@@ -1,6 +1,4 @@
 /*
- * $Id: richtext.ch 1615 2011-02-18 13:53:35Z mlacecilia $
- *
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 ³        Class: RichText                                                   ³
 ³  Description: System for generating simple RTF files.                    ³

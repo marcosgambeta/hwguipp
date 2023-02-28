@@ -1,8 +1,3 @@
-/*
- *$Id: guilib.h 2845 2020-05-29 07:20:13Z df7be $
- */
-
-
 #ifndef GUILIB_H_
 #define GUILIB_H_
 

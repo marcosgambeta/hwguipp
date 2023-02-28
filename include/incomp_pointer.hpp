@@ -1,6 +1,4 @@
 /*
-  $Id: incomp_pointer.h 2922 2020-12-31 15:51:41Z df7be $
-
   incomp_pointer.h
 
   Suppress warning if a function pointer is cast to an incompatible function pointer

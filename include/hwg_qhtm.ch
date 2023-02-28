@@ -1,7 +1,3 @@
-/*
- * $Id: hwg_qhtm.ch 1615 2011-02-18 13:53:35Z mlacecilia $
-*/
-
 #ifndef __HWG_QHTM_CH__
 #define __HWG_QHTM_CH__
 

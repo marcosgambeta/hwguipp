@@ -1,10 +1,7 @@
 /*
- *$Id: guilib.ch 3060 2022-02-17 12:16:27Z alkresin $
- */
-/*
   ========== Define HWGUI release version ============
 */ 
-/* For note of latest official release version number */  
+/* For note of latest official release version number */
 #define HWG_VERSION         "1.0.0dev"
 /* For note of latest official release build */
 #define HWG_BUILD               0

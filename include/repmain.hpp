@@ -1,7 +1,3 @@
-/*
- *$Id: repmain.h 3020 2021-10-13 09:36:20Z alkresin $
- */
-
 #define FORM_WIDTH       1
 #define FORM_HEIGHT      2
 #define FORM_XKOEF       3

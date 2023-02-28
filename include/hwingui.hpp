@@ -1,7 +1,3 @@
-/*
- *$Id: hwingui.h 2912 2020-12-09 15:49:41Z df7be $
- */
-
 #define HB_OS_WIN_32_USED
 
 #ifndef _WIN32_WINNT

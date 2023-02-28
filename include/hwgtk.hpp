@@ -1,8 +1,3 @@
-/*
- * $Id: hwgtk.h 2737 2018-12-12 17:36:43Z alkresin $
- */
-
-
 typedef struct HWGUI_HDC_STRU
 {
   GtkWidget * widget;

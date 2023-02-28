@@ -1,6 +1,4 @@
 /*
- * $Id: gtk.ch 2950 2021-03-01 10:06:39Z df7be $
- *
  * Header file for a Linux GTK application
  *
  */

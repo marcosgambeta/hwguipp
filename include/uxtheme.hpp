@@ -1,8 +1,3 @@
-/*
- * $Id: uxtheme.h 1615 2011-02-18 13:53:35Z mlacecilia $
- *
-*/
-
 #ifndef _UXTHEME_H
 #define _UXTHEME_H
 

@@ -1,6 +1,3 @@
-/*
- *$Id: missing.h 2857 2020-06-21 08:36:33Z df7be $
- */
 #ifndef ___MISSING_H___
 #define ___MISSING_H___
 
