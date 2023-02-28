@@ -27,5 +27,3 @@
 #endif
 
 #endif /* _COMMON_GCC_WARNINGS */
-
-/* ============================= EOF of warnings.h ====================== */

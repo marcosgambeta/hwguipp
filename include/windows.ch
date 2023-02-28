@@ -1687,5 +1687,3 @@ ComboBox
 #define  TME_LEAVE             2
 
 #define HDM_GETITEMCOUNT    4608
-
-/* ======================= EOF of windows.ch ======================= */

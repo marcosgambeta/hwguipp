@@ -22,5 +22,3 @@
 #endif
 
 #endif /* _INCOMP_POINTER_WARNING */
-
-/* ============================= EOF of incomp_pointer.h ============================= */

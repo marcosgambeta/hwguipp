@@ -79,5 +79,3 @@
 */
 #define chid      chr(27)+"[?25l"
 #define csee      chr(27)+"[?25h"
-
-/* -------------------- EOF of qcolor.ch ----------------------- */

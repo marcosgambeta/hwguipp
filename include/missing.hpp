@@ -760,6 +760,3 @@ typedef struct {
 /* ============= End of section for OpenWatcom C ================= */
 
 #endif /* ___MISSING_H___ */
-
-/* ================ EOF of missing.h =================== */
-

@@ -76,5 +76,3 @@
 #define PRN_CHARSET_THAI        222         && CP874,  -iso8859-11
 #define PRN_CHARSET_EAST_EUROPE 238         && EE_CHARSET
 #define PRN_CHARSET_OEM         255
-
-* ================ EOF of prncharsets.ch =======

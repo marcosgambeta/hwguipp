@@ -97,5 +97,3 @@
 #define GTK_ICON_SIZE_BUTTON          4
 #define GTK_ICON_SIZE_DND             5
 #define GTK_ICON_SIZE_DIALOG          6
-
-/* ============================= EOF of gtk.ch =========================================== */
