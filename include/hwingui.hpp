@@ -38,10 +38,7 @@
     !defined( HB_EMULATE_STR_API )
    #include "hbwinuni.h"
 //    #include "hbwince.h"
-   #define HB_HAS_STR_FUNC
 #else
-   #undef HB_HAS_STR_FUNC
-
    #if !defined( HB_EMULATE_STR_API ) && defined( UNICODE )
       #define HB_EMULATE_STR_API
    #endif
