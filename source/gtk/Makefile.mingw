@@ -37,7 +37,7 @@ DEBUG_DIR=../common/debug
 EDITOR_DIR=../common/editor
 SRC_DIR=./
 
-CFLAGS = -Wall -O3 -DHWG_USE_POINTER_ITEM
+CFLAGS = -Wall -O3
 CFLAGS_GTK = $(shell pkg-config --cflags gtk+-2.0)
 CFLAGS += $(CFLAGS_GTK)
 

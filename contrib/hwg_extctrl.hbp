@@ -11,7 +11,5 @@
 
 -i../include
 
--cflag=-DHWG_USE_POINTER_ITEM
-
 ext_controls/*.cpp
 ext_controls/*.prg

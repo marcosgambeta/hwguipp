@@ -16,7 +16,7 @@ HWGDEBUG_DIR = source/debug
 ACTIVEX_DIR  = source/activex
 CONTRIB_DIR  = contrib
 
-CFLAGS = -W -Wall -O3 -DHWG_USE_POINTER_ITEM
+CFLAGS = -W -Wall -O3
 CFLAGS += -I$(INC_DIR)
 CFLAGS += $(C_USR)
 

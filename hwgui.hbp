@@ -21,7 +21,6 @@ hwguipp.hbc
 #-prgflag=-DUNICODE
 #-cflag=-DUNICODE
 #
-# -cflag=-DHWG_USE_POINTER_ITEM
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
 {mingw64}-cflag=-fpermissive

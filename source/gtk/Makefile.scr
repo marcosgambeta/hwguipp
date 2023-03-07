@@ -14,7 +14,7 @@ LIB_DIR = ../../lib
 PROCMISC_DIR=../common/procmisc
 XML_DIR=../common/xml
 
-CFLAGS = -W -Wall -O3 -DHWG_USE_POINTER_ITEM
+CFLAGS = -W -Wall -O3
 CFLAGS += `pkg-config --cflags gtk+-2.0`
 CFLAGS += -I$(INC_DIR)
 CFLAGS += $(C_USR)

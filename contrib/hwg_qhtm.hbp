@@ -11,7 +11,5 @@
 
 -i../include
 
--cflag=-DHWG_USE_POINTER_ITEM
-
 qhtm/*.c
 qhtm/*.prg

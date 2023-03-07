@@ -13,7 +13,7 @@
 
 /* ---- Bugfixing MinGW64 by DF7BE:
 With call
-gcc -Wall -O3 -DHWG_USE_POINTER_ITEM -c -Iinclude -IC:\harbour64\core-master/include -o obj/hsplash.o obj/hsplash.c
+gcc -Wall -O3 -c -Iinclude -IC:\harbour64\core-master/include -o obj/hsplash.o obj/hsplash.c
 the gcc ended immediately without any error messages nor creating object output file:
 The make systems say:
 mingw32-make.exe: Interrupt/Exception caught (code = 0xc0000005, addr = 0x00007FFDD11C0BC4)

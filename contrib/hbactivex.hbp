@@ -11,8 +11,6 @@
 
 -i../include
 
--cflag=-DHWG_USE_POINTER_ITEM
-
 activex/*.cpp
 activex/*.prg
 

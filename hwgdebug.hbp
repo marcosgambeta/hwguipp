@@ -15,7 +15,6 @@ hwguipp.hbc
 # Uncomment these two lines to build HwGUI in Unicode mode
 #-prgflag=-DUNICODE
 #-cflag=-DUNICODE
-# -cflag=-DHWG_USE_POINTER_ITEM
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
 source/common/debug/*.cpp

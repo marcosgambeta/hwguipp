@@ -17,8 +17,7 @@ if not exist obj md obj
 
    rem set path=d:\softools\mingw\bin
    rem set HARBOURFLAGS=-dUNICODE
-   rem set CFLAGS=-DHWG_USE_POINTER_ITEM -DUNICODE
-   set CFLAGS=-DHWG_USE_POINTER_ITEM
+   rem set CFLAGS=-DUNICODE
 
    mingw32-make.exe -f makefile.gcc
    if errorlevel 1 goto BUILD_ERR
