@@ -18,6 +18,7 @@
 #include <hbvm.hpp>
 #include <hbstack.hpp>
 #include "incomp_pointer.hpp"
+#include <hbwinuni.hpp>
 
 /*
  * Regcreatekey(handle, cKeyName) --> handle
@@ -25,17 +26,19 @@
 
 HB_FUNC( HWG_REGCREATEKEY )
 {
+   void * str;
    HKEY hkResult = nullptr;
    DWORD dwDisposition;
 
-   if( RegCreateKeyEx(reinterpret_cast<HKEY>(hb_parnl(1)), hb_parc(2), 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hkResult, &dwDisposition) == ERROR_SUCCESS )
+   if( RegCreateKeyEx(reinterpret_cast<HKEY>(hb_parnl(1)), HB_PARSTR(2, &str, nullptr), 0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hkResult, &dwDisposition) == ERROR_SUCCESS )
    {
       hb_retnl(reinterpret_cast<ULONG>(hkResult));
    }
    else
    {
       hb_retnl(-1);
-   }   
+   }
+   hb_strfree(str);
 }
 
 /*
@@ -44,16 +47,18 @@ HB_FUNC( HWG_REGCREATEKEY )
 
 HB_FUNC( HWG_REGOPENKEY )
 {
+   void * str;
    HKEY hkResult = nullptr;
 
-   if( RegOpenKeyEx(reinterpret_cast<HKEY>(hb_parnl(1)), hb_parc(2), 0, KEY_ALL_ACCESS, &hkResult) == ERROR_SUCCESS )
+   if( RegOpenKeyEx(reinterpret_cast<HKEY>(hb_parnl(1)), HB_PARSTR(2, &str, nullptr), 0, KEY_ALL_ACCESS, &hkResult) == ERROR_SUCCESS )
    {
       hb_retnl(reinterpret_cast<ULONG>(hkResult));
    }
    else
    {
       hb_retnl(-1);
-   }   
+   }
+   hb_strfree(str);
 }
 
 /*
@@ -71,7 +76,9 @@ HB_FUNC( HWG_REGCLOSEKEY )
 
 HB_FUNC( HWG_REGSETSTRING )
 {
-   if( RegSetValueEx(reinterpret_cast<HKEY>(hb_parnl(1)), hb_parc(2), 0, REG_SZ, ( BYTE * ) hb_parc(3), hb_parclen(3) + 1) == ERROR_SUCCESS )
+   void * str;
+
+   if( RegSetValueEx(reinterpret_cast<HKEY>(hb_parnl(1)), HB_PARSTR(2, &str, nullptr), 0, REG_SZ, ( BYTE * ) hb_parc(3), hb_parclen(3) + 1) == ERROR_SUCCESS )
    {
       hb_retnl(0);
    }
@@ -79,11 +86,15 @@ HB_FUNC( HWG_REGSETSTRING )
    {
       hb_retnl(-1);
    }
+
+   hb_strfree(str);
 }
 
 HB_FUNC( HWG_REGSETBINARY )
 {
-   if( RegSetValueEx(reinterpret_cast<HKEY>(hb_parnl(1)), hb_parc(2), 0, REG_BINARY, ( BYTE * ) hb_parc(3), hb_parclen(3) + 1) == ERROR_SUCCESS )
+   void * str;
+
+   if( RegSetValueEx(reinterpret_cast<HKEY>(hb_parnl(1)), HB_PARSTR(2, &str, nullptr), 0, REG_BINARY, ( BYTE * ) hb_parc(3), hb_parclen(3) + 1) == ERROR_SUCCESS )
    {
       hb_retnl(0);
    }
@@ -91,6 +102,8 @@ HB_FUNC( HWG_REGSETBINARY )
    {
       hb_retnl(-1);
    }
+
+   hb_strfree(str);
 }
 
 HB_FUNC( HWG_REGGETVALUE )

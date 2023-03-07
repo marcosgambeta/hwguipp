@@ -746,7 +746,7 @@ HB_FUNC( HWG_SAVEBITMAP )
    HANDLE hOldPal2 = nullptr;
    void * hString;
 
-   HDC hDC = CreateDC("DISPLAY", nullptr, nullptr, nullptr);
+   HDC hDC = CreateDC(TEXT("DISPLAY"), nullptr, nullptr, nullptr);
    int iBits = GetDeviceCaps(hDC, BITSPIXEL) * GetDeviceCaps(hDC, PLANES);
    DeleteDC(hDC);
 

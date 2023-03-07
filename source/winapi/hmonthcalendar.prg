@@ -196,7 +196,7 @@ HB_FUNC_STATIC( HWG_INITMONTHCALENDAR )
 
    HWND hMC = CreateWindowEx(0,
                              MONTHCAL_CLASS,
-                             "",
+                             TEXT(""),
                              static_cast<LONG>(hb_parnl(3)),
                              hwg_par_int(4),
                              hwg_par_int(5),
