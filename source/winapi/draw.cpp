@@ -1752,8 +1752,9 @@ HB_FUNC( HWG_DRAWGRADIENT )
                min_delta = 1000000;
                for( k = 0; k < 4; k++ )
                {
-                  delta = abs(pow(static_cast<long double>(candidates[k].x), 2) + pow(static_cast<long double>(candidates[k].y), 2) -
-                     pow(static_cast<long double>(radius[i]), 2));
+                  delta = abs(static_cast<long>(pow(static_cast<long double>(candidates[k].x), 2) +
+                                                pow(static_cast<long double>(candidates[k].y), 2) -
+                                                pow(static_cast<long double>(radius[i]), 2)));
                   if( delta < min_delta )
                   {
                      nearest_coord = k;

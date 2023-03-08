@@ -435,12 +435,18 @@ TEDIT * ted_init( void )
 
 HWND ted_create(HWND hwndParent, int id, DWORD dwStyle, int x, int y, int iWidth, int iHeight)
 {
-
-   return CreateWindowEx( 
-         ( dwStyle & WS_BORDER ) ? WS_EX_CLIENTEDGE : 0,
-         TEXT( "TEDIT" ), _T( "" ), dwStyle,
-         x, y, iWidth, iHeight, hwndParent, ( HMENU )(UINT_PTR) id,
-         GetModuleHandle(0), 0 );
+   return CreateWindowEx((dwStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0,
+                         TEXT("TEDIT"),
+                         TEXT(""),
+                         dwStyle,
+                         x,
+                         y,
+                         iWidth,
+                         iHeight,
+                         hwndParent,
+                         ( HMENU )(UINT_PTR) id,
+                         GetModuleHandle(0),
+                         0);
 }
 
 HB_FUNC( HCED_INITTEXTEDIT )
