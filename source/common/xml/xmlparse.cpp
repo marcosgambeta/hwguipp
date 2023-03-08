@@ -16,7 +16,7 @@
 #include "hbapicls.hpp"
 #include "guilib.hpp"
 
-void hwg_writelog( const char * sFile, const char * sTraceMsg, ... );
+void hwg_writelog(const char * sFile, const char * sTraceMsg, ...);
 
 #if (defined(_MSC_VER)&&(_MSC_VER>=1400))
    #define sscanf sscanf_s
@@ -52,34 +52,39 @@ static unsigned long ulOffset;
 static int nPredefsKol = XML_PREDEFS_KOL;
 
 static unsigned char *predefinedEntity1[] =
-      { ( unsigned char * ) "lt;", ( unsigned char * ) "gt;",
-         ( unsigned char * ) "amp;", ( unsigned char * ) "quot;",
-         ( unsigned char * ) "apos;", ( unsigned char * ) "nbsp;" };
-static unsigned char *predefinedEntity2 = ( unsigned char * ) "<>&\"\' ";
+{
+   reinterpret_cast<unsigned char*>(const_cast<char*>("lt;")),
+   reinterpret_cast<unsigned char*>(const_cast<char*>("gt;")),
+   reinterpret_cast<unsigned char*>(const_cast<char*>("amp;")),
+   reinterpret_cast<unsigned char*>(const_cast<char*>("quot;")),
+   reinterpret_cast<unsigned char*>(const_cast<char*>("apos;")),
+   reinterpret_cast<unsigned char*>(const_cast<char*>("nbsp;"))
+};
+static unsigned char *predefinedEntity2 = reinterpret_cast<unsigned char*>(const_cast<char*>("<>&\"\' "));
 
 static unsigned char **pEntity1 = nullptr;
 static unsigned char *pEntity2 = nullptr;
 
-void hbxml_error( int nError, unsigned char *ptr )
+void hbxml_error(int nError, unsigned char * ptr)
 {
    nParseError = nError;
    ulOffset = ptr - pStart;
 }
 
+/*
+HBXML_SETENTITY(ap) --> NIL
+*/
 HB_FUNC( HBXML_SETENTITY )
 {
-   PHB_ITEM pArray, pArr;
-   unsigned long ul, ulLen, ulItemLen;
-
    if( pEntity1 && predefinedEntity1 != pEntity1 )
    {
-      for( ul = 0; ul < ( unsigned long ) nPredefsKol; ul++ )
+      for( unsigned long ul = 0; ul < static_cast<unsigned long>(nPredefsKol); ul++ )
       {
-         hb_xfree( pEntity1[ul] );
+         hb_xfree(pEntity1[ul]);
       }
 
-      hb_xfree( pEntity1 );
-      hb_xfree( pEntity2 );
+      hb_xfree(pEntity1);
+      hb_xfree(pEntity2);
    }
 
    if( HB_ISNIL(1) )
@@ -90,34 +95,39 @@ HB_FUNC( HBXML_SETENTITY )
    }
    else
    {
-      pArray = hb_param( 1, Harbour::Item::ARRAY );
-      ulLen = ( unsigned long ) hb_arrayLen( pArray );
+      PHB_ITEM pArray = hb_param(1, Harbour::Item::ARRAY);
+      PHB_ITEM pArr;
+      unsigned long ulLen = static_cast<unsigned long>(hb_arrayLen(pArray));
+      unsigned long ulItemLen;
 
-      nPredefsKol = (int) ulLen;
-      pEntity1 = (unsigned char **) hb_xgrab( ulLen * sizeof(unsigned char *) );
-      pEntity2 = (unsigned char *) hb_xgrab( ulLen+1 );
+      nPredefsKol = static_cast<int>(ulLen);
+      pEntity1 = static_cast<unsigned char**>(hb_xgrab(ulLen * sizeof(unsigned char *)));
+      pEntity2 = static_cast<unsigned char*>(hb_xgrab(ulLen + 1));
       pEntity2[ulLen] = '\0';
 
-      for( ul = 1; ul <= ulLen; ul++ )
+      for( unsigned long ul = 1; ul <= ulLen; ul++ )
       {
-         pArr = (PHB_ITEM) hb_arrayGetItemPtr( pArray, ul );
-         ulItemLen = hb_arrayGetCLen( pArr, 1 );
-         pEntity1[ul-1] = (unsigned char *) hb_xgrab( ulItemLen+1 );
+         pArr = static_cast<PHB_ITEM>(hb_arrayGetItemPtr(pArray, ul));
+         ulItemLen = hb_arrayGetCLen(pArr, 1);
+         pEntity1[ul - 1] = static_cast<unsigned char*>(hb_xgrab(ulItemLen + 1));
          // hwg_writelog( nullptr, "set-12 %lu %lu %lu \r\n",ul, pEntity1[ul-1], ulItemLen );
-         memcpy( pEntity1[ul-1], hb_arrayGetCPtr( pArr, 1 ), ulItemLen );
-         pEntity1[ul-1][ulItemLen] = '\0';
-         pEntity2[ul-1] = * hb_arrayGetCPtr(pArr,2);
+         memcpy(pEntity1[ul - 1], hb_arrayGetCPtr(pArr, 1), ulItemLen);
+         pEntity1[ul - 1][ulItemLen] = '\0';
+         pEntity2[ul - 1] = * hb_arrayGetCPtr(pArr, 2);
       }
    }
 }
 
+/*
+HBXML_PRESAVE(cp) -->
+*/
 HB_FUNC( HBXML_PRESAVE )
 {
    PHB_ITEM pItem;
-   unsigned char *pBuffer = ( unsigned char * ) hb_parc(1), *pNew;
-   unsigned char *ptr, *ptr1, *ptrs, c;
+   unsigned char *pBuffer = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
+   unsigned char c;
    unsigned long ulLen = hb_parclen(1);
-   int iLenAdd = 0, iLen;
+   int iLenAdd = 0;
 
    if( !pEntity1 )
    {
@@ -125,39 +135,42 @@ HB_FUNC( HBXML_PRESAVE )
       pEntity2 = predefinedEntity2;
    }
 
-   ptr = pBuffer;
-   while( ( c = *ptr ) != 0 )
+   unsigned char * ptr = pBuffer;
+
+   while( (c = *ptr) != 0 )
    {
-      if( c != ' ' || ( ptr > pBuffer && *(ptr-1) == ' ' ) )
+      if( c != ' ' || (ptr > pBuffer && *(ptr - 1) == ' ') )
       {
-         for( ptrs = pEntity2; *ptrs; ptrs++ )
+         for( unsigned char * ptrs = pEntity2; *ptrs; ptrs++ )
          {
             if( *ptrs == c )
             {
-               iLenAdd += strlen( ( char * ) pEntity1[ptrs - pEntity2] );
+               iLenAdd += strlen(reinterpret_cast<char*>(pEntity1[ptrs - pEntity2]));
                break;
             }
          }
       }
       ptr++;
    }
+
    if( iLenAdd )
    {
-      pNew = ( unsigned char * ) hb_xgrab( ulLen + iLenAdd + 1 );
+      unsigned char * pNew = static_cast<unsigned char*>(hb_xgrab(ulLen + iLenAdd + 1));
       ptr = pBuffer;
-      ptr1 = pNew;
-      while( ( c = *ptr ) != 0 )
+      unsigned char * ptr1 = pNew;
+      while( (c = *ptr) != 0 )
       {
          *ptr1 = *ptr;
-         if( c != ' ' || ( ptr > pBuffer && *(ptr-1) == ' ' ) )
+         if( c != ' ' || (ptr > pBuffer && *(ptr - 1) == ' ') )
          {
-            for( ptrs = pEntity2; *ptrs; ptrs++ )
+            int iLen;
+            for( unsigned char * ptrs = pEntity2; *ptrs; ptrs++ )
             {
                if( *ptrs == c )
                {
-                  iLen = strlen( ( char * ) pEntity1[ptrs - pEntity2] );
+                  iLen = strlen(reinterpret_cast<char*>(pEntity1[ptrs - pEntity2]));
                   *ptr1++ = '&';
-                  memcpy( ptr1, pEntity1[ptrs - pEntity2], iLen );
+                  memcpy(ptr1, pEntity1[ptrs - pEntity2], iLen);
                   ptr1 += iLen - 1;
                   break;
                }
@@ -167,20 +180,21 @@ HB_FUNC( HBXML_PRESAVE )
          ptr1++;
       }
       *ptr1 = '\0';
-      pItem = hb_itemPutCLPtr( nullptr, ( char * ) pNew, ulLen + iLenAdd );
+      pItem = hb_itemPutCLPtr(nullptr, reinterpret_cast<char*>(pNew), ulLen + iLenAdd);
    }
    else
    {
-      pItem = hb_itemPutCL( nullptr, ( char * ) pBuffer, ulLen );
+      pItem = hb_itemPutCL(nullptr, reinterpret_cast<char*>(pBuffer), ulLen);
    }
-   hb_itemRelease( hb_itemReturn( pItem ) );
+
+   hb_itemRelease(hb_itemReturn(pItem));
 }
 
 /*
  * hbxml_pp( unsigned char * ptr, unsigned long ulLen )
  * Translation of the predefined entities ( &lt;, etc. )
  */
-PHB_ITEM hbxml_pp( unsigned char *ptr, unsigned long ulLen )
+PHB_ITEM hbxml_pp(unsigned char * ptr, unsigned long ulLen)
 {
    unsigned char *ptrStart = ptr;
    int i, nlen;
@@ -190,45 +204,45 @@ PHB_ITEM hbxml_pp( unsigned char *ptr, unsigned long ulLen )
    {
       if( *ptr == '&' )
       {
-         if( *( ptr + 1 ) == '#' )
+         if( *(ptr + 1) == '#' )
          {
             int iChar;
-            sscanf( ( char * ) ptr + 2, "%d", &iChar );
+            sscanf(reinterpret_cast<char*>(ptr) + 2, "%d", &iChar);
             *ptr = iChar;
             i = 1;
-            while( *( ptr + i + 1 ) >= '0' && *( ptr + i + 1 ) <= '9' )
+            while( *(ptr + i + 1) >= '0' && *(ptr + i + 1) <= '9' )
             {
                i++;
             }
-            if( *( ptr + i + 1 ) == ';' )
+            if( *(ptr + i + 1) == ';' )
             {
                i++;
             }
             ulLen -= i;
             for( ul1 = ul + 1; ul1 < ulLen; ul1++ )
             {
-               *( ptrStart + ul1 ) = *( ptrStart + ul1 + i );
+               *(ptrStart + ul1) = *(ptrStart + ul1 + i);
             }
          }
          else
          {
             for( i = 0; i < nPredefsKol; i++ )
             {
-               nlen = strlen( ( char * ) pEntity1[i] );
-               if( !memcmp( ptr + 1, pEntity1[i], nlen ) )
+               nlen = strlen(reinterpret_cast<char*>(pEntity1[i]));
+               if( !memcmp(ptr + 1, pEntity1[i], nlen) )
                {
                   *ptr = pEntity2[i];
                   ulLen -= nlen;
                   for( ul1 = ul + 1; ul1 < ulLen; ul1++ )
                   {
-                     *( ptrStart + ul1 ) = *( ptrStart + ul1 + nlen );
+                     *(ptrStart + ul1) = *(ptrStart + ul1 + nlen);
                   }
                   break;
                }
             }
             if( i == nPredefsKol )
             {
-               hbxml_error( XML_ERROR_WRONG_ENTITY, ptr );
+               hbxml_error(XML_ERROR_WRONG_ENTITY, ptr);
             }
          }
       }
@@ -236,11 +250,11 @@ PHB_ITEM hbxml_pp( unsigned char *ptr, unsigned long ulLen )
       ul++;
    }
    ptr = ptrStart;
-   SKIPTABSPACES( ptr );
-   ulLen -= ( ptr - ptrStart );
+   SKIPTABSPACES(ptr);
+   ulLen -= (ptr - ptrStart);
    if( !ulLen )
    {
-      return hb_itemPutC( nullptr, "" );
+      return hb_itemPutC(nullptr, "");
    }
    ptrStart = ptr;
    ptr = ptrStart + ulLen - 1;
@@ -249,17 +263,20 @@ PHB_ITEM hbxml_pp( unsigned char *ptr, unsigned long ulLen )
       ptr--;
       ulLen--;
    }
-   return hb_itemPutCL( nullptr, ( char * ) ptrStart, ulLen );
+   return hb_itemPutCL(nullptr, reinterpret_cast<char*>(ptrStart), ulLen);
 }
 
+/*
+HBXML_PRELOAD(cp1, np2) --> string
+*/
 HB_FUNC( HBXML_PRELOAD )
 {
-   unsigned char *ucSource = (unsigned char *)hb_parc(1);
+   unsigned char *ucSource = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
    unsigned char *ptr = ucSource;
    unsigned long ulNew = 0;
-   unsigned long ulLen = ((HB_ISNUM(2))? (unsigned long)hb_parnl(2) : (unsigned long)hb_parclen(1));
-   unsigned char *ptrnew = (unsigned char *) malloc( ulLen+1 );
-   int i, nlen;
+   unsigned long ulLen = HB_ISNUM(2) ? static_cast<unsigned long>(hb_parnl(2)) : static_cast<unsigned long>(hb_parclen(1));
+   unsigned char *ptrnew = static_cast<unsigned char*>(malloc(ulLen + 1));
+   int nlen;
    int iChar;
 
    if( !pEntity1 )
@@ -268,15 +285,15 @@ HB_FUNC( HBXML_PRELOAD )
       pEntity2 = predefinedEntity2;
    }
 
-   while( ((unsigned long)(ptr - ucSource)) < ulLen )
+   while( static_cast<unsigned long>(ptr - ucSource) < ulLen )
    {
       if( *ptr == '&' )
       {
-         if( *( ++ptr ) == '#' )
+         if( *(++ptr) == '#' )
          {
-            sscanf( ( char * ) ++ptr, "%d", &iChar );
-            *( ptrnew+ulNew ) = iChar;
-            while( *( ++ptr ) >= '0' && *ptr <= '9' );
+            sscanf(reinterpret_cast<char*>(++ptr), "%d", &iChar);
+            *(ptrnew+ulNew) = iChar;
+            while( *(++ptr) >= '0' && *ptr <= '9' );
             if( *ptr == ';' )
             {
                ptr++;
@@ -284,399 +301,391 @@ HB_FUNC( HBXML_PRELOAD )
          }
          else
          {
+            int i;
             for( i = 0; i < nPredefsKol; i++ )
             {
-               nlen = strlen( ( char * ) pEntity1[i] );
-               if( !memcmp( ptr, pEntity1[i], nlen ) )
+               nlen = strlen(reinterpret_cast<char*>(pEntity1[i]));
+               if( !memcmp(ptr, pEntity1[i], nlen) )
                {
-                  *( ptrnew+ulNew ) = pEntity2[i];
+                  *(ptrnew + ulNew) = pEntity2[i];
                   ptr += nlen;
                   break;
                }
             }
             if( i == nPredefsKol )
             {
-               *( ptrnew+ulNew ) = '&';
+               *(ptrnew + ulNew) = '&';
             }
          }
       }
       else
       {
-         *( ptrnew+ulNew ) = *ptr;
+         *(ptrnew + ulNew) = *ptr;
          ptr++;
       }
 
       ulNew++;
    }
    ptrnew[ulNew] = '\0';
-   hb_retclen( (const char*)ptrnew, ulNew );
-   free( ptrnew );
+   hb_retclen(reinterpret_cast<const char*>(ptrnew), ulNew);
+   free(ptrnew);
 }
 
-PHB_ITEM hbxml_getattr( unsigned char **pBuffer, int * lSingle )
+PHB_ITEM hbxml_getattr(unsigned char **pBuffer, int * lSingle)
 {
    unsigned char *ptr, cQuo;
    int iLen;
    int bPI = 0;
-   PHB_ITEM pArray = hb_itemNew( nullptr );
+   PHB_ITEM pArray = hb_itemNew(nullptr);
    PHB_ITEM pSubArray = nullptr;
    PHB_ITEM pTemp;
 
-   hb_arrayNew( pArray, 0 );
+   hb_arrayNew(pArray, 0);
    *lSingle = 0;
    if( **pBuffer == '<' )
    {
-      ( *pBuffer )++;
+      (*pBuffer)++;
       if( **pBuffer == '?' )
       {
          bPI = 1;
       }
-      SKIPTABSPACES( *pBuffer );     // go till tag name
-      SKIPCHARS( *pBuffer ); // skip tag name
-      if( *( *pBuffer - 1 ) == '/' || *( *pBuffer - 1 ) == '?' )
+      SKIPTABSPACES(*pBuffer);     // go till tag name
+      SKIPCHARS(*pBuffer); // skip tag name
+      if( *(*pBuffer - 1) == '/' || *(*pBuffer - 1) == '?' )
       {
-         ( *pBuffer )--;
+         (*pBuffer)--;
       }
       else
       {
-         SKIPTABSPACES( *pBuffer );
+         SKIPTABSPACES(*pBuffer);
       }
 
-      while( (unsigned long)(*pBuffer-pStart)<ulDataLen && **pBuffer != '>' )
+      while( static_cast<unsigned long>(*pBuffer - pStart) < ulDataLen && **pBuffer != '>' )
       {
-         if( (unsigned long)(*pBuffer-pStart) >= ulDataLen )
+         if( static_cast<unsigned long>(*pBuffer - pStart) >= ulDataLen )
          {
-            hbxml_error( XML_ERROR_TERMINATION, *pBuffer );
+            hbxml_error(XML_ERROR_TERMINATION, *pBuffer);
             break;
          }
          if( **pBuffer == '/' || **pBuffer == '?' )
          {
-            *lSingle = ( **pBuffer == '/' ) ? 1 : 2;
-            ( *pBuffer )++;
-            if( **pBuffer != '>' || ( *lSingle == 2 && !bPI ) )
+            *lSingle = (**pBuffer == '/') ? 1 : 2;
+            (*pBuffer)++;
+            if( **pBuffer != '>' || (*lSingle == 2 && !bPI) )
             {
-               hbxml_error( XML_ERROR_NOT_GT, *pBuffer );
+               hbxml_error(XML_ERROR_NOT_GT, *pBuffer);
             }
             break;
          }
          ptr = *pBuffer;
-         SKIPCHARS( *pBuffer );      // skip attribute name
+         SKIPCHARS(*pBuffer);      // skip attribute name
          iLen = *pBuffer - ptr;
          // add attribute name to result array
-         pSubArray = hb_itemNew( nullptr );
-         hb_arrayNew( pSubArray, 2 );
-         pTemp = hb_itemPutCL( nullptr, ( char * ) ptr, iLen );
-         hb_arraySet( pSubArray, 1, pTemp );
-         hb_itemRelease( pTemp );
+         pSubArray = hb_itemNew(nullptr);
+         hb_arrayNew(pSubArray, 2);
+         pTemp = hb_itemPutCL(nullptr, reinterpret_cast<char*>(ptr), iLen);
+         hb_arraySet(pSubArray, 1, pTemp);
+         hb_itemRelease(pTemp);
 
-         SKIPTABSPACES( *pBuffer );  // go till '='
+         SKIPTABSPACES(*pBuffer);  // go till '='
          if( **pBuffer == '=' )
          {
-            ( *pBuffer )++;
-            SKIPTABSPACES( *pBuffer );       // go till attribute value
+            (*pBuffer)++;
+            SKIPTABSPACES(*pBuffer);       // go till attribute value
             cQuo = **pBuffer;
             if( cQuo == '\"' || cQuo == '\'' )
             {
-               ( *pBuffer )++;
+               (*pBuffer)++;
             }
             else
             {
-               hbxml_error( XML_ERROR_NOT_QUOTE, *pBuffer );
+               hbxml_error(XML_ERROR_NOT_QUOTE, *pBuffer);
                break;
             }
             ptr = *pBuffer;
-            while( (unsigned long)(*pBuffer-pStart)<ulDataLen && **pBuffer != cQuo )
+            while( static_cast<unsigned long>(*pBuffer - pStart) < ulDataLen && **pBuffer != cQuo )
             {
-               ( *pBuffer )++;
+               (*pBuffer)++;
             }
-            if( (unsigned long)(*pBuffer-pStart) >= ulDataLen )
+            if( static_cast<unsigned long>(*pBuffer - pStart) >= ulDataLen )
             {
-               hbxml_error( XML_ERROR_NOT_QUOTE, *pBuffer );
+               hbxml_error(XML_ERROR_NOT_QUOTE, *pBuffer);
                break;
             }
             iLen = *pBuffer - ptr;
             // add attribute value to result array
-            pTemp = hb_itemPutCL( nullptr, ( char * ) ptr, (unsigned long)iLen );
-            hb_arraySet( pSubArray, 2, pTemp );
-            hb_itemRelease( pTemp );
-            ( *pBuffer )++;
+            pTemp = hb_itemPutCL(nullptr, reinterpret_cast<char*>(ptr), static_cast<unsigned long>(iLen));
+            hb_arraySet(pSubArray, 2, pTemp);
+            hb_itemRelease(pTemp);
+            (*pBuffer)++;
          }
-         hb_arrayAdd( pArray, pSubArray );
-         hb_itemRelease( pSubArray );
-         SKIPTABSPACES( *pBuffer );
+         hb_arrayAdd(pArray, pSubArray);
+         hb_itemRelease(pSubArray);
+         SKIPTABSPACES(*pBuffer);
       }
       if( nParseError )
       {
-         hb_itemRelease( pSubArray );
-         hb_itemRelease( pArray );
+         hb_itemRelease(pSubArray);
+         hb_itemRelease(pArray);
          return nullptr;
       }
       if( **pBuffer == '>' )
       {
-         ( *pBuffer )++;
+         (*pBuffer)++;
       }
    }
    return pArray;
 }
 
-void hbxml_getdoctype( PHB_ITEM pDoc, unsigned char **pBuffer )
+void hbxml_getdoctype(PHB_ITEM pDoc, unsigned char **pBuffer)
 {
    HB_SYMBOL_UNUSED(pDoc);
    while( **pBuffer != '>' )
    {
-      ( *pBuffer )++;
+      (*pBuffer)++;
    }
-   ( *pBuffer )++;
+   (*pBuffer)++;
 }
 
-PHB_ITEM hbxml_addnode( PHB_ITEM pParent )
+PHB_ITEM hbxml_addnode(PHB_ITEM pParent)
 {
-   PHB_ITEM pNode = hb_itemNew( nullptr );
-   PHB_DYNS pSym = hb_dynsymGet( "HXMLNODE" );
+   PHB_ITEM pNode = hb_itemNew(nullptr);
+   PHB_DYNS pSym = hb_dynsymGet("HXMLNODE");
 
-   hb_vmPushSymbol( hb_dynsymSymbol( pSym ) );
-   hb_vmPushNil(  );
+   hb_vmPushSymbol(hb_dynsymSymbol(pSym));
+   hb_vmPushNil();
    hb_vmDo(0);
 
-   hb_objSendMsg( hb_param( -1, Harbour::Item::ANY ), "NEW", 0 );
-   hb_itemCopy( pNode, hb_param( -1, Harbour::Item::ANY ) );
+   hb_objSendMsg(hb_param(-1, Harbour::Item::ANY), "NEW", 0);
+   hb_itemCopy(pNode, hb_param(-1, Harbour::Item::ANY));
 
-   hb_objSendMsg( pParent, "AITEMS", 0 );
-   hb_arrayAdd( hb_param( -1, Harbour::Item::ANY ), pNode );
+   hb_objSendMsg(pParent, "AITEMS", 0);
+   hb_arrayAdd(hb_param(-1, Harbour::Item::ANY), pNode);
 
    return pNode;
 }
 
-int hbxml_readComment( PHB_ITEM pParent, unsigned char **pBuffer )
+int hbxml_readComment(PHB_ITEM pParent, unsigned char **pBuffer)
 {
-   unsigned char *ptr;
-   PHB_ITEM pNode = hbxml_addnode( pParent );
-   PHB_ITEM pTemp;
+   PHB_ITEM pNode = hbxml_addnode(pParent);
 
-   pTemp = hb_itemPutNI( nullptr, XML_TYPE_COMMENT );
-   hb_objSendMsg( pNode, "_TYPE", 1, pTemp );
-   hb_itemRelease( pTemp );
+   PHB_ITEM pTemp = hb_itemPutNI(nullptr, XML_TYPE_COMMENT);
+   hb_objSendMsg(pNode, "_TYPE", 1, pTemp);
+   hb_itemRelease(pTemp);
 
-   ( *pBuffer ) += 4;
-   ptr = *pBuffer;
-   while( (unsigned long)(*pBuffer-pStart)<ulDataLen &&
-         ( **pBuffer != '-' || *( *pBuffer + 1 ) != '-' ||
-               *( *pBuffer + 2 ) != '>' ) )
+   (*pBuffer) += 4;
+   unsigned char * ptr = *pBuffer;
+   while( static_cast<unsigned long>(*pBuffer - pStart) < ulDataLen && (**pBuffer != '-' || *(*pBuffer + 1) != '-' || *(*pBuffer + 2) != '>') )
    {
-      ( *pBuffer )++;
+      (*pBuffer)++;
    }
 
-   if( (unsigned long)(*pBuffer-pStart) < ulDataLen )
+   if( static_cast<unsigned long>(*pBuffer - pStart) < ulDataLen )
    {
-      pTemp = hb_itemPutCL( nullptr, ( char * ) ptr, *pBuffer - ptr );
-      hb_objSendMsg( pNode, "AITEMS", 0 );
-      hb_arrayAdd( hb_param( -1, Harbour::Item::ANY ), pTemp );
-      hb_itemRelease( pTemp );
+      pTemp = hb_itemPutCL(nullptr, reinterpret_cast<char*>(ptr), *pBuffer - ptr);
+      hb_objSendMsg(pNode, "AITEMS", 0);
+      hb_arrayAdd(hb_param(-1, Harbour::Item::ANY), pTemp);
+      hb_itemRelease(pTemp);
 
-      ( *pBuffer ) += 3;
+      (*pBuffer) += 3;
    }
    else
    {
-      hbxml_error( XML_ERROR_TERMINATION, *pBuffer );
+      hbxml_error(XML_ERROR_TERMINATION, *pBuffer);
    }
 
-   hb_itemRelease( pNode );
-   return ( nParseError ) ? 0 : 1;
+   hb_itemRelease(pNode);
+   return nParseError ? 0 : 1;
 }
 
-int hbxml_readCDATA( PHB_ITEM pParent, unsigned char **pBuffer )
+int hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
 {
-   unsigned char *ptr;
-   PHB_ITEM pNode = hbxml_addnode( pParent );
-   PHB_ITEM pTemp;
+   PHB_ITEM pNode = hbxml_addnode(pParent);
 
-   pTemp = hb_itemPutNI( nullptr, XML_TYPE_CDATA );
-   hb_objSendMsg( pNode, "_TYPE", 1, pTemp );
-   hb_itemRelease( pTemp );
+   PHB_ITEM pTemp = hb_itemPutNI(nullptr, XML_TYPE_CDATA);
+   hb_objSendMsg(pNode, "_TYPE", 1, pTemp);
+   hb_itemRelease(pTemp);
 
-   ( *pBuffer ) += 9;
-   ptr = *pBuffer;
-   while( (unsigned long)(*pBuffer-pStart)<ulDataLen &&
-         ( **pBuffer != ']' || *( *pBuffer + 1 ) != ']' ||
-               *( *pBuffer + 2 ) != '>' ) )
+   (*pBuffer) += 9;
+   unsigned char * ptr = *pBuffer;
+   while( static_cast<unsigned long>(*pBuffer - pStart) < ulDataLen && (**pBuffer != ']' || *(*pBuffer + 1) != ']' || *(*pBuffer + 2) != '>') )
    {
-      ( *pBuffer )++;
+      (*pBuffer)++;
    }
-   
-   if( (unsigned long)(*pBuffer-pStart) < ulDataLen )
-   {
-      pTemp = hb_itemPutCL( nullptr, ( char * ) ptr, *pBuffer - ptr );
-      hb_objSendMsg( pNode, "AITEMS", 0 );
-      hb_arrayAdd( hb_param( -1, Harbour::Item::ANY ), pTemp );
-      hb_itemRelease( pTemp );
 
-      ( *pBuffer ) += 3;
+   if( static_cast<unsigned long>(*pBuffer - pStart) < ulDataLen )
+   {
+      pTemp = hb_itemPutCL(nullptr, reinterpret_cast<char*>(ptr), *pBuffer - ptr);
+      hb_objSendMsg(pNode, "AITEMS", 0);
+      hb_arrayAdd(hb_param(-1, Harbour::Item::ANY), pTemp);
+      hb_itemRelease(pTemp);
+
+      (*pBuffer) += 3;
    }
    else
    {
-      hbxml_error( XML_ERROR_TERMINATION, *pBuffer );
+      hbxml_error(XML_ERROR_TERMINATION, *pBuffer);
    }
 
-   hb_itemRelease( pNode );
-   return ( nParseError ) ? 0 : 1;
+   hb_itemRelease(pNode);
+   return nParseError ? 0 : 1;
 }
 
-int hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
+int hbxml_readElement(PHB_ITEM pParent, unsigned char **pBuffer)
 {
-   PHB_ITEM pNode = hbxml_addnode( pParent );
+   PHB_ITEM pNode = hbxml_addnode(pParent);
    PHB_ITEM pArray;
-   unsigned char *ptr, cNodeName[50];
-   PHB_ITEM pTemp;
-   int nLenNodeName;
+   unsigned char cNodeName[50];
    int lEmpty;
    int lSingle;
 
-   ( *pBuffer )++;
+   (*pBuffer)++;
    if( **pBuffer == '?' )
    {
-      ( *pBuffer )++;
+      (*pBuffer)++;
    }
-   ptr = *pBuffer;
-   SKIPCHARS( ptr );
-   nLenNodeName = ptr - *pBuffer - ( ( *( ptr - 1 ) == '/' ) ? 1 : 0 );
-   memcpy( cNodeName, *pBuffer, nLenNodeName );
+   unsigned char *ptr = *pBuffer;
+   SKIPCHARS(ptr);
+   int nLenNodeName = ptr - *pBuffer - ((*(ptr - 1) == '/') ? 1 : 0);
+   memcpy(cNodeName, *pBuffer, nLenNodeName);
    cNodeName[nLenNodeName] = '\0';
 
-   pTemp = hb_itemPutC( nullptr, ( char * ) cNodeName );
-   hb_objSendMsg( pNode, "_TITLE", 1, pTemp );
-   hb_itemRelease( pTemp );
+   PHB_ITEM pTemp = hb_itemPutC(nullptr, reinterpret_cast<char*>(cNodeName));
+   hb_objSendMsg(pNode, "_TITLE", 1, pTemp);
+   hb_itemRelease(pTemp);
 
-   ( *pBuffer )--;
+   (*pBuffer)--;
    if( **pBuffer == '?' )
    {
-      ( *pBuffer )--;
+      (*pBuffer)--;
    }
-   if( ( pArray = hbxml_getattr( pBuffer, &lSingle ) ) == nullptr || nParseError )
+   if( (pArray = hbxml_getattr(pBuffer, &lSingle)) == nullptr || nParseError )
    {
-      hb_itemRelease( pNode );
+      hb_itemRelease(pNode);
       return 0;
    }
    else
    {
-      hb_objSendMsg( pNode, "_AATTR", 1, pArray );
-      hb_itemRelease( pArray );
+      hb_objSendMsg(pNode, "_AATTR", 1, pArray);
+      hb_itemRelease(pArray);
    }
-   pTemp =
-         hb_itemPutNI( nullptr,
-         ( lSingle ) ? ( ( lSingle ==
-                     2 ) ? XML_TYPE_PI : XML_TYPE_SINGLE ) :
-         XML_TYPE_TAG );
-   hb_objSendMsg( pNode, "_TYPE", 1, pTemp );
-   hb_itemRelease( pTemp );
+   pTemp = hb_itemPutNI(nullptr, lSingle ? ((lSingle == 2) ? XML_TYPE_PI : XML_TYPE_SINGLE) : XML_TYPE_TAG);
+   hb_objSendMsg(pNode, "_TYPE", 1, pTemp);
+   hb_itemRelease(pTemp);
 
    if( !lSingle )
    {
-      while( 1 )
+      while( true )
       {
          ptr = *pBuffer;
          lEmpty = 1;
-         while( (unsigned long)(*pBuffer-pStart)<ulDataLen && **pBuffer != '<' )
+         while( static_cast<unsigned long>(*pBuffer - pStart) < ulDataLen && **pBuffer != '<' )
          {
-            if( lEmpty && ( **pBuffer != ' ' && **pBuffer != '\t' && **pBuffer != '\r' && **pBuffer != '\n' ) )
+            if( lEmpty && (**pBuffer != ' ' && **pBuffer != '\t' && **pBuffer != '\r' && **pBuffer != '\n') )
             {
                lEmpty = 0;
             }
-            ( *pBuffer )++;
+            (*pBuffer)++;
          }
-         if( (unsigned long)(*pBuffer-pStart) >= ulDataLen )
+         if( static_cast<unsigned long>(*pBuffer - pStart) >= ulDataLen )
          {
-            hbxml_error( XML_ERROR_WRONG_TAG_END, *pBuffer );
-            hb_itemRelease( pNode );
+            hbxml_error(XML_ERROR_WRONG_TAG_END, *pBuffer);
+            hb_itemRelease(pNode);
             return 0;
          }
          if( !lEmpty )
          {
-            pTemp = hbxml_pp( ptr, *pBuffer - ptr );
-            hb_objSendMsg( pNode, "AITEMS", 0 );
-            hb_arrayAdd( hb_param( -1, Harbour::Item::ANY ), pTemp );
-            hb_itemRelease( pTemp );
+            pTemp = hbxml_pp(ptr, *pBuffer - ptr);
+            hb_objSendMsg(pNode, "AITEMS", 0);
+            hb_arrayAdd(hb_param(-1, Harbour::Item::ANY), pTemp);
+            hb_itemRelease(pTemp);
             if( nParseError )
             {
-               hb_itemRelease( pNode );
+               hb_itemRelease(pNode);
                return 0;
             }
          }
 
-         if( *( *pBuffer + 1 ) == '/' )
+         if( *(*pBuffer + 1) == '/' )
          {
-            if( memcmp( *pBuffer + 2, cNodeName, nLenNodeName ) )
+            if( memcmp(*pBuffer + 2, cNodeName, nLenNodeName) )
             {
-               hbxml_error( XML_ERROR_WRONG_TAG_END, *pBuffer );
-               hb_itemRelease( pNode );
+               hbxml_error(XML_ERROR_WRONG_TAG_END, *pBuffer);
+               hb_itemRelease(pNode);
                return 0;
             }
             else
             {
-               while( (unsigned long)(*pBuffer-pStart)<ulDataLen && **pBuffer != '>' )
+               while( static_cast<unsigned long>(*pBuffer - pStart) < ulDataLen && **pBuffer != '>' )
                {
-                  ( *pBuffer )++;
+                  (*pBuffer)++;
                }
-               if( (unsigned long)(*pBuffer-pStart) >= ulDataLen )
+               if( static_cast<unsigned long>(*pBuffer - pStart) >= ulDataLen )
                {
-                  hbxml_error( XML_ERROR_WRONG_TAG_END, *pBuffer );
-                  hb_itemRelease( pNode );
+                  hbxml_error(XML_ERROR_WRONG_TAG_END, *pBuffer);
+                  hb_itemRelease(pNode);
                   return 0;
                }
-               ( *pBuffer )++;
+               (*pBuffer)++;
                break;
             }
          }
          else
          {
-            if( !memcmp( *pBuffer + 1, "!--", 3 ) )
+            if( !memcmp(*pBuffer + 1, "!--", 3) )
             {
-               if( !hbxml_readComment( pNode, pBuffer ) )
+               if( !hbxml_readComment(pNode, pBuffer) )
                {
-                  hb_itemRelease( pNode );
+                  hb_itemRelease(pNode);
                   return 0;
                }
             }
-            else if( !memcmp( *pBuffer + 1, "![CDATA[", 8 ) )
+            else if( !memcmp(*pBuffer + 1, "![CDATA[", 8) )
             {
-               if( !hbxml_readCDATA( pNode, pBuffer ) )
+               if( !hbxml_readCDATA(pNode, pBuffer) )
                {
-                  hb_itemRelease( pNode );
+                  hb_itemRelease(pNode);
                   return 0;
                }
             }
             else
             {
-               if( !hbxml_readElement( pNode, pBuffer ) )
+               if( !hbxml_readElement(pNode, pBuffer) )
                {
-                  hb_itemRelease( pNode );
+                  hb_itemRelease(pNode);
                   return 0;
                }
             }
          }
       }
    }
-   hb_itemRelease( pNode );
+   hb_itemRelease(pNode);
    return 1;
 }
 
+/*
+HBXML_GETATTR(cp1, np2) -->
+*/
 HB_FUNC( HBXML_GETATTR )
 {
-   unsigned char *pBuffer = (unsigned char *) hb_parc(1);
+   unsigned char *pBuffer = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
    int lSingle;
-
    pStart = pBuffer;
    ulDataLen = hb_parclen(1);
-   hb_itemReturn( hbxml_getattr( &pBuffer, &lSingle ) );
-   hb_storl( lSingle, 2 );
+   hb_itemReturn(hbxml_getattr(&pBuffer, &lSingle));
+   hb_storl(lSingle, 2);
 }
 
 /*
- * hbxml_Getdoc( PHB_ITEM pDoc, char * cData || HB_FHANDLE handle )
+ * hbxml_Getdoc(PHB_ITEM pDoc, char * cData || HB_FHANDLE handle)
  */
 
+/*
+HBXML_GETDOC(op1, cp2|np2) --> NIL|nError
+*/
 HB_FUNC( HBXML_GETDOC )
 {
-   PHB_ITEM pDoc = hb_param( 1, Harbour::Item::OBJECT );
+   PHB_ITEM pDoc = hb_param(1, Harbour::Item::OBJECT);
    unsigned char *ptr, *pBuffer = nullptr;
    int iMainTags = 0;
 
@@ -685,19 +694,20 @@ HB_FUNC( HBXML_GETDOC )
       pEntity1 = predefinedEntity1;
       pEntity2 = predefinedEntity2;
    }
+
    if( HB_ISCHAR(2) )
    {
-      ptr = ( unsigned char * ) hb_parc(2);
+      ptr = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(2)));
       ulDataLen = hb_parclen(2);
    }
    else if( HB_ISNUM(2) )
    {
-      HB_FHANDLE hInput = ( HB_FHANDLE ) hb_parnint(2);
+      HB_FHANDLE hInput = static_cast<HB_FHANDLE>(hb_parnint(2));
       unsigned long ulLen = hb_fsSeek(hInput, 0, FS_END), ulRead;
 
       hb_fsSeek(hInput, 0, FS_SET);
-      ptr = pBuffer = ( unsigned char * ) hb_xgrab( ulLen + 1 );
-      ulRead = hb_fsReadLarge( hInput, ( HB_BYTE * ) pBuffer, ulLen );
+      ptr = pBuffer = static_cast<unsigned char*>(hb_xgrab(ulLen + 1));
+      ulRead = hb_fsReadLarge(hInput, static_cast<HB_BYTE*>(pBuffer), ulLen);
       pBuffer[ulRead] = '\0';
       ulDataLen = ulRead;
    }
@@ -705,82 +715,87 @@ HB_FUNC( HBXML_GETDOC )
    {
       return;
    }
+
    pStart = ptr;
 
    if( !ptr )
    {
       nParseError = XML_ERROR_FILE;
-      hb_retni( nParseError );
+      hb_retni(nParseError);
       return;
    }
+
    nParseError = 0;
-   if( !memcmp( ptr, "\xEF\xBB\xBF", 3 ) )
+
+   if( !memcmp(ptr, "\xEF\xBB\xBF", 3) )
    {
       ptr += 3;
    }
-   SKIPTABSPACES( ptr );
+
+   SKIPTABSPACES(ptr);
+
    if( *ptr != '<' )
    {
-      hbxml_error( XML_ERROR_NOT_LT, ptr );
+      hbxml_error(XML_ERROR_NOT_LT, ptr);
    }
    else
    {
-      if( !memcmp( ptr + 1, "?xml", 4 ) )
+      if( !memcmp(ptr + 1, "?xml", 4) )
       {
          int lSingle;
-         PHB_ITEM pArray = hbxml_getattr( &ptr, &lSingle );
+         PHB_ITEM pArray = hbxml_getattr(&ptr, &lSingle);
          if( !pArray || nParseError )
          {
             if( pBuffer )
             {
-               hb_xfree( pBuffer );
+               hb_xfree(pBuffer);
             }
             if( pArray )
             {
-               hb_itemRelease( pArray );
+               hb_itemRelease(pArray);
             }
-            hb_retni( nParseError );
+            hb_retni(nParseError);
             return;
          }
-         hb_objSendMsg( pDoc, "_AATTR", 1, pArray );
-         hb_itemRelease( pArray );
-         SKIPTABSPACES( ptr );
+         hb_objSendMsg(pDoc, "_AATTR", 1, pArray);
+         hb_itemRelease(pArray);
+         SKIPTABSPACES(ptr);
       }
-      while( 1 )
+      while( true )
       {
-         if( !memcmp( ptr + 1, "!DOCTYPE", 8 ) )
+         if( !memcmp(ptr + 1, "!DOCTYPE", 8) )
          {
-            hbxml_getdoctype( pDoc, &ptr );
-            SKIPTABSPACES( ptr );
+            hbxml_getdoctype(pDoc, &ptr);
+            SKIPTABSPACES(ptr);
          }
-         else if( !memcmp( ptr + 1, "?xml", 4 ) )
+         else if( !memcmp(ptr + 1, "?xml", 4) )
          {
             while( *ptr != '>' )
             {
-               ptr ++;
+               ptr++;
             }
-            ptr ++;
-            SKIPTABSPACES( ptr );
+            ptr++;
+            SKIPTABSPACES(ptr);
          }
-         else if( !memcmp( ptr + 1, "!--", 3 ) )
+         else if( !memcmp(ptr + 1, "!--", 3) )
          {
             while( (*ptr != '>') || (*(ptr-1) != '-') || (*(ptr-2) != '-') )
             {
-               ptr ++;
+               ptr++;
             }
-            ptr ++;
-            SKIPTABSPACES( ptr );
+            ptr++;
+            SKIPTABSPACES(ptr);
          }
          else
          {
             break;
          }
       }
-      while( 1 )
+      while( true )
       {
-         if( !memcmp( ptr + 1, "!--", 3 ) )
+         if( !memcmp(ptr + 1, "!--", 3) )
          {
-            if( !hbxml_readComment( pDoc, &ptr ) )
+            if( !hbxml_readComment(pDoc, &ptr) )
             {
                break;
             }
@@ -789,15 +804,15 @@ HB_FUNC( HBXML_GETDOC )
          {
             if( iMainTags )
             {
-               hbxml_error( XML_ERROR_WRONG_END, ptr );
+               hbxml_error(XML_ERROR_WRONG_END, ptr);
             }
-            if( !hbxml_readElement( pDoc, &ptr ) )
+            if( !hbxml_readElement(pDoc, &ptr) )
             {
                break;
             }
             iMainTags++;
          }
-         SKIPTABSPACES( ptr );
+         SKIPTABSPACES(ptr);
          if( !*ptr )
          {
             break;
@@ -807,8 +822,8 @@ HB_FUNC( HBXML_GETDOC )
 
    if( pBuffer )
    {
-      hb_xfree( pBuffer );
+      hb_xfree(pBuffer);
    }
 
-   hb_retni( nParseError );
+   hb_retni(nParseError);
 }
