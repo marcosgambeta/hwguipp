@@ -1,9 +1,5 @@
-#
-# $Id: hwgui.hbc 3038 2021-12-30 22:54:34Z df7be $
-#
-
 # Include this file in hbmk2 command line to build an app:
-#   'hbmk2 hwguipp.hbc test.prg'
+# 'hbmk2 test.prg hwguipp.hbc'
 
 incpaths=include
 libpaths=lib/${hb_plat}/${hb_comp}
@@ -13,15 +9,9 @@ libpaths=lib/${hb_plat}/${hb_comp}
 {!hblib}libs=hwgui hwgdebug
 
 # --- Outdated, out of support ---
-#{win&!allmingw&!watcom&!hblib}libs=hbactivex hwg_extctrl hwg_qhtm
+#{win&!allmingw&&!hblib}libs=hbactivex hwg_extctrl hwg_qhtm
 
 {unix}ldflags+="`pkg-config --libs gtk+-2.0`"
-
-# Change 3 lines to build HwGUI in Unicode mode
-
-#PRGFLAGS=-DUNICODE -q -m -n -es2
-#{win}CFLAGS=-DUNICODE
-#{unix}CFLAGS=-DUNICODE "`pkg-config --cflags gtk+-2.0`"
 
 PRGFLAGS=-q -m -n -es2 -gc3
 {unix}CFLAGS="`pkg-config --cflags gtk+-2.0`"
