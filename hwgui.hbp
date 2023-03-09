@@ -1,7 +1,3 @@
-#
-# $Id: hwgui.hbp 2943 2021-02-20 17:32:38Z df7be $
-#
-
 -3rd=hbide_version=1.0
 -3rd=hbide_type=Lib
 -3rd=hbide_title=hwgui
@@ -17,10 +13,6 @@ hwguipp.hbc
 
 -gc3
 
-# Uncomment these two lines to build HwGUI in Unicode mode
-#-prgflag=-DUNICODE
-#-cflag=-DUNICODE
-#
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
 {mingw64}-cflag=-fpermissive
