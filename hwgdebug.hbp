@@ -1,7 +1,3 @@
-#
-# $Id: hwgdebug.hbp 2943 2021-02-20 17:32:38Z df7be $
-#
-
 hwguipp.hbc
 
 -hblib
@@ -12,9 +8,6 @@ hwguipp.hbc
 
 -gc3
 
-# Uncomment these two lines to build HwGUI in Unicode mode
-#-prgflag=-DUNICODE
-#-cflag=-DUNICODE
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
 source/common/debug/*.cpp
