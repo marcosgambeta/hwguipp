@@ -1,7 +1,3 @@
-#
-# $Id: hwguidyn.hbp 2960 2021-03-12 09:56:33Z df7be $
-#
-
 -stop={linux}
 
 hwguipp.hbc
@@ -10,11 +6,11 @@ hwguipp.hbc
 
 -shared
 
--o{bcc}lib/hwguidyn-bcc
-
--o{!bcc}lib/${hb_plat}/${hb_comp}/hwguidyn
+-olib/${hb_plat}/${hb_comp}/hwguidyn
 
 -w
+
+-gc3
 
 # "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 -cflag={bcc}-a8
