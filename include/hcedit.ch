@@ -1,19 +1,19 @@
-#xcommand @ <x>,<y> HCEDIT [ <oTEdit> ] ;
+#xcommand @ <nX>, <nY> HCEDIT [ <oTEdit> ] ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
             [ ON GETFOCUS <bGfocus> ]  ;
             [ ON LOSTFOCUS <bLfocus> ] ;
-            [ STYLE <nStyle> ]         ;
             [ <lNoVScr: NO VSCROLL> ]  ;
             [ <lNoBord: NO BORDER> ]   ;
-            [ FONT <oFont> ]           ;
+            [ STYLE <nStyle> ]         ;
           => ;
-    [<oTEdit> :=] HCEdit():New( <oWnd>,<nId>,<nStyle>,<x>,<y>,<width>,<height>, ;
-       <oFont>,<bInit>,<bSize>,<bDraw>,<color>,<bcolor>,<bGfocus>,<bLfocus>, ;
+    [<oTEdit> :=] HCEdit():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>, ;
+       <oFont>,<bInit>,<bSize>,<bDraw>,<nColor>,<nBackColor>,<bGfocus>,<bLfocus>, ;
        <.lNoVScr.>,<.lNoBord.> )

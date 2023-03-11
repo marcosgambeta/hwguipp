@@ -1,8 +1,9 @@
 // trackbar control
-#xcommand @ <x>,<y> TRACKBAR [ <oTrackBar> ]  ;
+#xcommand @ <nX>, <nY> TRACKBAR [ <oTrackBar> ]  ;
             [ OF <oWnd> ]                 ;
             [ ID <nId> ]                  ;
-            [ SIZE <width>, <height> ]    ;
+            [ SIZE <nWidth>, <nHeight> ]    ;
+            [ TOOLTIP <cTooltip> ]        ;
             [ RANGE <nLow>,<nHigh> ]      ;
             [ INIT <nInit> ]              ;
             [ ON INIT <bInit> ]           ;
@@ -10,17 +11,16 @@
             [ ON PAINT <bDraw> ]          ;
             [ ON CHANGE <bChange> ]       ;
             [ ON DRAG <bDrag> ]           ;
-            [ STYLE <nStyle> ]            ;
-            [ TOOLTIP <cTooltip> ]        ;
             [ < vertical : VERTICAL > ]   ;
             [ < autoticks : AUTOTICKS > ] ;
             [ < noticks : NOTICKS > ]     ;
             [ < both : BOTH > ]           ;
             [ < top : TOP > ]             ;
             [ < left : LEFT > ]           ;
+            [ STYLE <nStyle> ]            ;
           => ;
-    [<oTrackBar> :=] HTrackBar():New( <oWnd>,<nId>,<nInit>,<nStyle>,<x>,<y>,      ;
-        <width>,<height>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<bChange>,<bDrag>,<nLow>,<nHigh>,<.vertical.>,;
+    [<oTrackBar> :=] HTrackBar():New( <oWnd>,<nId>,<nInit>,<nStyle>,<nX>,<nY>,      ;
+        <nWidth>,<nHeight>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<bChange>,<bDrag>,<nLow>,<nHigh>,<.vertical.>,;
         Iif(<.autoticks.>,1,Iif(<.noticks.>,16,0)), ;
         Iif(<.both.>,8,Iif(<.top.>.or.<.left.>,4,0)) );
     [; hwg_SetCtrlName( <oTrackBar>,<(oTrackBar)> )]

@@ -1,15 +1,15 @@
 
 /*             */
-#xcommand @ <x>,<y> GRAPH [ <oGraph> DATA ] <aData> ;
+#xcommand @ <nX>, <nY> GRAPH [ <oGraph> DATA ] <aData> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
-            [ ON SIZE <bSize> ]        ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
             [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
+            [ TOOLTIP <cTooltip> ]       ;
+            [ ON SIZE <bSize> ]        ;
           => ;
-    [<oGraph> := ] HGraph():New( <oWnd>,<nId>,<aData>,<x>,<y>,<width>, ;
-        <height>,<oFont>,<bSize>,<ctoolt>,<color>,<bcolor> );
+    [<oGraph> := ] HGraph():New( <oWnd>,<nId>,<aData>,<nX>,<nY>,<nWidth>, ;
+        <nHeight>,<oFont>,<bSize>,<cTooltip>,<nColor>,<nBackColor> );
     [; hwg_SetCtrlName( <oGraph>,<(oGraph)> )]

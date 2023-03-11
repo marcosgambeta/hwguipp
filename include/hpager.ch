@@ -1,9 +1,9 @@
-#xcommand @ <x>,<y> PAGER [ <oTool> ] ;
+#xcommand @ <nX>, <nY> PAGER [ <oTool> ] ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ STYLE <nStyle> ]         ;
+            [ SIZE <nWidth>, <nHeight> ] ;
             [ <lVert: VERTICAL> ] ;
+            [ STYLE <nStyle> ]         ;
           => ;
-    [<oTool> := ] HPager():New( <oWnd>,<nId>,<nStyle>,<x>,<y>,<width>, <height>,,,,,,,,,<.lVert.>);
+    [<oTool> := ] HPager():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,<.lVert.>);
     [; hwg_SetCtrlName( <oTool>,<(oTool)> )]

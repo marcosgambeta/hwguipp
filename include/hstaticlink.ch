@@ -1,26 +1,26 @@
-
 //New Control
-#xcommand @ <x>,<y> SAY [ <oSay> CAPTION ] <caption> ;
+
+#xcommand @ <nX>, <nY> SAY [ <oSay> CAPTION ] <caption> ;
             [ OF <oWnd> ]              ;
             LINK <cLink>               ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
             [<lTransp: TRANSPARENT>]   ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
             [ STYLE <nStyle> ]         ;
             [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ VISITCOLOR <vcolor> ]    ;
             [ LINKCOLOR <lcolor> ]     ;
             [ HOVERCOLOR <hcolor> ]    ;
           => ;
-    [<oSay> := ] HStaticLink():New( <oWnd>, <nId>, <nStyle>, <x>, <y>, <width>, ;
-        <height>, <caption>, <oFont>, <bInit>, <bSize>, <bDraw>, <ctoolt>, ;
-        <color>, <bcolor>, <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
+    [<oSay> := ] HStaticLink():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, ;
+        <nHeight>, <caption>, <oFont>, <bInit>, <bSize>, <bDraw>, <cTooltip>, ;
+        <nColor>, <nBackColor>, <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
     [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
 
 
@@ -28,19 +28,19 @@
             [ OF <oWnd> ]              ;
             ID <nId>                   ;
             LINK <cLink>               ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
             [<lTransp: TRANSPARENT>]   ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
             [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ VISITCOLOR <vcolor> ]    ;
             [ LINKCOLOR <lcolor> ]     ;
             [ HOVERCOLOR <hcolor> ]    ;
           => ;
     [<oSay> := ] HStaticLink():Redefine( <oWnd>, <nId>, <cCaption>, ;
-        <oFont>, <bInit>, <bSize>, <bDraw>, <ctoolt>, <color>, <bcolor>,;
+        <oFont>, <bInit>, <bSize>, <bDraw>, <cTooltip>, <nColor>, <nBackColor>,;
         <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
     [; hwg_SetCtrlName( <oSay>,<(oSay)> )]

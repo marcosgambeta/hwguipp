@@ -1,56 +1,55 @@
-#xcommand @ <x>,<y> CHECKBOX [ <oCheck> CAPTION ] <caption> ;
+#xcommand @ <nX>, <nY> CHECKBOX [ <oCheck> CAPTION ] <caption> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ INIT <lInit> ]           ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
-            [<lTransp: TRANSPARENT>]   ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
             [ ON CLICK <bClick> ]      ;
             [ ON GETFOCUS <bGfocus> ]  ;
             [ ON LOSTFOCUS <bLfocus> ] ;
+            [ INIT <lInit> ]           ;
+            [<lTransp: TRANSPARENT>]   ;
             [ STYLE <nStyle> ]         ;
-            [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
           => ;
-    [<oCheck> := ] HCheckButton():New( <oWnd>,<nId>,<lInit>,,<nStyle>,<x>,<y>, ;
-         <width>,<height>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<ctoolt>,<color>,<bcolor>,<bGfocus>,<.lTransp.>,<bLfocus> );
+    [<oCheck> := ] HCheckButton():New( <oWnd>,<nId>,<lInit>,,<nStyle>,<nX>,<nY>, ;
+         <nWidth>,<nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<bGfocus>,<.lTransp.>,<bLfocus> );
     [; hwg_SetCtrlName( <oCheck>,<(oCheck)> )]
 
 #xcommand REDEFINE CHECKBOX [ <oCheck> ] ;
             [ OF <oWnd> ]              ;
             ID <nId>                   ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
-            [ INIT <lInit>    ]        ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
             [ ON CLICK <bClick> ]      ;
-            [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
+            [ INIT <lInit>    ]        ;
           => ;
     [<oCheck> := ] HCheckButton():Redefine( <oWnd>,<nId>,<lInit>,,<oFont>, ;
-          <bInit>,<bSize>,<bDraw>,<bClick>,<ctoolt>,<color>,<bcolor> );
+          <bInit>,<bSize>,<bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor> );
     [; hwg_SetCtrlName( <oCheck>,<(oCheck)> )]
 
 /* SAY ... GET system     */
 
-#xcommand @ <x>,<y> GET CHECKBOX [ <oCheck> VAR ] <vari>  ;
-            CAPTION  <caption>         ;
+#xcommand @ <nX>, <nY> GET CHECKBOX [ <oCheck> VAR ] <vari> CAPTION <caption> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ STYLE <nStyle> ]         ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]       ;
             [<lTransp: TRANSPARENT>]   ;
             [ <valid: VALID, ON CLICK> <bClick> ]     ;
-            [ STYLE <nStyle> ]         ;
-            [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
             [ WHEN <bWhen> ]           ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
@@ -58,21 +57,21 @@
           => ;
     [<oCheck> := ] HCheckButton():New( <oWnd>,<nId>,<vari>,              ;
                     {|v|Iif(v==Nil,<vari>,<vari>:=v)},                   ;
-                    <nStyle>,<x>,<y>,<width>,<height>,<caption>,<oFont>, ;
-                    <bInit>,<bSize>,,<bClick>,<ctoolt>,<color>,<bcolor>,<bWhen>,<.lTransp.>,<bLfocus> );
+                    <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<caption>,<oFont>, ;
+                    <bInit>,<bSize>,,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<bWhen>,<.lTransp.>,<bLfocus> );
     [; hwg_SetCtrlName( <oCheck>,<(oCheck)> )]
 
 #xcommand REDEFINE GET CHECKBOX [ <oCheck> VAR ] <vari>  ;
             [ OF <oWnd> ]              ;
             ID <nId>                   ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
-            [ <valid: VALID, ON CLICK> <bClick> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
             [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
+            [ TOOLTIP <cTooltip> ]       ;
+            [ <valid: VALID, ON CLICK> <bClick> ] ;
             [ WHEN <bWhen> ]           ;
           => ;
     [<oCheck> := ] HCheckButton():Redefine( <oWnd>,<nId>,<vari>, ;
                     {|v|Iif(v==Nil,<vari>,<vari>:=v)},           ;
-                    <oFont>,,,,<bClick>,<ctoolt>,<color>,<bcolor>,<bWhen> );
+                    <oFont>,,,,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<bWhen> );
     [; hwg_SetCtrlName( <oCheck>,<(oCheck)> )]

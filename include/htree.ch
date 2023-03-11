@@ -1,19 +1,19 @@
-#xcommand @ <x>,<y> TREE [ <oTree> ]   ;
+#xcommand @ <nX>, <nY> TREE [ <oTree> ]   ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
             [ FONT <oFont> ]           ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON CLICK <bClick> ]      ;
-            [ STYLE <nStyle> ]         ;
             [<lEdit: EDITABLE>]        ;
             [ BITMAP <aBmp>  [<res: FROM RESOURCE>] [ BITCOUNT <nBC> ] ]  ;
+            [ STYLE <nStyle> ]         ;
           => ;
-    [<oTree> := ] HTree():New( <oWnd>,<nId>,<nStyle>,<x>,<y>,<width>, ;
-             <height>,<oFont>,<bInit>,<bSize>,<color>,<bcolor>,<aBmp>,<.res.>,<.lEdit.>,<bClick>,<nBC> );
+    [<oTree> := ] HTree():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+             <nHeight>,<oFont>,<bInit>,<bSize>,<nColor>,<nBackColor>,<aBmp>,<.res.>,<.lEdit.>,<bClick>,<nBC> );
     [; hwg_SetCtrlName( <oTree>,<(oTree)> )]
 
 #xcommand INSERT NODE [ <oNode> CAPTION ] <cTitle>  ;

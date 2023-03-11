@@ -1,19 +1,19 @@
-#xcommand @ <x>,<y> BITMAP [ <oBmp> SHOW ] <bitmap> ;
+#xcommand @ <nX>, <nY> BITMAP [ <oBmp> SHOW ] <bitmap> ;
             [<res: FROM RESOURCE>]     ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ STRETCH <nStretch>]      ;
             [<lTransp: TRANSPARENT> [COLOR  <trcolor> ]] ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON CLICK <bClick> ]      ;
             [ ON DBLCLICK <bDblClick> ];
-            [ TOOLTIP <ctoolt> ]       ;
           => ;
-    [<oBmp> := ] HSayBmp():New( <oWnd>,<nId>,<x>,<y>,<width>, ;
-        <height>,<bitmap>,<.res.>,<bInit>,<bSize>,<ctoolt>,<bClick>,<bDblClick>,<.lTransp.>,<nStretch>,<trcolor>,<bcolor> );
+    [<oBmp> := ] HSayBmp():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
+        <nHeight>,<bitmap>,<.res.>,<bInit>,<bSize>,<cTooltip>,<bClick>,<bDblClick>,<.lTransp.>,<nStretch>,<trcolor>,<nBackColor> );
     [; hwg_SetCtrlName( <oBmp>,<(oBmp)> )]
 
 #xcommand REDEFINE BITMAP [ <oBmp> SHOW ] <bitmap> ;
@@ -22,8 +22,8 @@
             ID <nId>                   ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
-            [ TOOLTIP <ctoolt> ]       ;
+            [ TOOLTIP <cTooltip> ]       ;
           => ;
     [<oBmp> := ] HSayBmp():Redefine( <oWnd>,<nId>,<bitmap>,<.res.>, ;
-        <bInit>,<bSize>,<ctoolt> );
+        <bInit>,<bSize>,<cTooltip> );
     [; hwg_SetCtrlName( <oBmp>,<(oBmp)> )]

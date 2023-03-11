@@ -3,11 +3,11 @@
              [<lMdi: MDI>]                  ;
              [ APPNAME <appname> ]          ;
              [ TITLE <cTitle> ]             ;
-             [ AT <x>, <y> ]                ;
-             [ SIZE <width>, <height> ]     ;
+             [ AT <nX>, <nY> ]                ;
+             [ SIZE <nWidth>, <nHeight> ]     ;
              [ ICON <ico> ]                 ;
              [ SYSCOLOR <clr> ]             ;
-             [ <bclr: BACKCOLOR, COLOR> <bcolor> ] ;
+             [ <bclr: BACKCOLOR, COLOR> <nBackColor> ] ;
              [ BACKGROUND BITMAP <oBmp> ]   ;
              [ STYLE <nStyle> ]             ;
              [ EXCLUDE <nExclude> ]         ;
@@ -25,17 +25,17 @@
              [ HELPID <nHelpId> ]           ;
           => ;
    <oWnd> := HMainWindow():New( Iif(<.lMdi.>,WND_MDI,WND_MAIN), ;
-                   <ico>,<clr>,<nStyle>,<x>,<y>,<width>,<height>,<cTitle>, ;
+                   <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
                    <cMenu>,<nPos>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>,;
-                   <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<bcolor>,<nExclude> )
+                   <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>,<nExclude> )
 
 #xcommand INIT WINDOW <oWnd> MDICHILD       ;
              [ APPNAME <appname> ]          ;
              [ TITLE <cTitle> ]             ;
-             [ AT <x>, <y> ]                ;
-             [ SIZE <width>, <height> ]     ;
+             [ AT <nX>, <nY> ]                ;
+             [ SIZE <nWidth>, <nHeight> ]     ;
              [ ICON <ico> ]                 ;
-             [ <bclr: BACKCOLOR, COLOR> <bColor> ] ;
+             [ <bclr: BACKCOLOR, COLOR> <nBackColor> ] ;
              [ BACKGROUND BITMAP <oBmp> ]   ;
              [ STYLE <nStyle> ]             ;
              [ FONT <oFont> ]               ;
@@ -51,18 +51,18 @@
              [ HELPID <nHelpId> ]           ;
           => ;
    <oWnd> := HMdiChildWindow():New( ;
-                   <ico>,,<nStyle>,<x>,<y>,<width>,<height>,<cTitle>, ;
+                   <ico>,,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
                    <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
-                   <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<bColor> )
+                   <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
 
 #xcommand INIT WINDOW <oWnd> CHILD          ;
              APPNAME <appname>              ;
              [ TITLE <cTitle> ]             ;
-             [ AT <x>, <y> ]                ;
-             [ SIZE <width>, <height> ]     ;
+             [ AT <nX>, <nY> ]                ;
+             [ SIZE <nWidth>, <nHeight> ]     ;
              [ ICON <ico> ]                 ;
              [ SYSCOLOR <clr> ]             ;
-             [ <bclr: BACKCOLOR, COLOR> <bColor> ] ;
+             [ <bclr: BACKCOLOR, COLOR> <nBackColor> ] ;
              [ BACKGROUND BITMAP <oBmp> ]   ;
              [ STYLE <nStyle> ]             ;
              [ FONT <oFont> ]               ;
@@ -78,9 +78,9 @@
              [ HELPID <nHelpId> ]           ;
           => ;
    <oWnd> := HChildWindow():New( ;
-                   <ico>,<clr>,<nStyle>,<x>,<y>,<width>,<height>,<cTitle>, ;
+                   <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
                    <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
-                   <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<bColor> )
+                   <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
 
 #xcommand ACTIVATE WINDOW <oWnd> ;
                [<lNoShow: NOSHOW>] ;

@@ -1,8 +1,9 @@
-#xcommand @ <x>,<y> GRID <oGrid>        ;
+#xcommand @ <nX>, <nY> GRID <oGrid>        ;
             [ OF <oWnd> ]               ;
             [ ID <nId> ]                ;
-            [ STYLE <nStyle> ]          ;
-            [ SIZE <width>, <height> ]  ;
+            [ SIZE <nWidth>, <nHeight> ]  ;
+            [ COLOR <nColor> ]           ;
+            [ BACKCOLOR <bkcolor> ]     ;
             [ FONT <oFont> ]            ;
             [ ON INIT <bInit> ]         ;
             [ ON SIZE <bSize> ]         ;
@@ -17,16 +18,15 @@
             [ <lNoScroll: NOSCROLL> ]   ;
             [ <lNoBord: NOBORDER> ]     ;
             [ <lNoLines: NOGRIDLINES> ] ;
-            [ COLOR <color> ]           ;
-            [ BACKCOLOR <bkcolor> ]     ;
             [ <lNoHeader: NO HEADER> ]  ;
             [BITMAP <aBit>];
+            [ STYLE <nStyle> ]          ;
           => ;
-    <oGrid> := HGrid():New( <oWnd>, <nId>, <nStyle>, <x>, <y>, <width>, <height>,;
+    <oGrid> := HGrid():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>,;
                             <oFont>, <{bInit}>, <{bSize}>, <{bPaint}>, <{bEnter}>,;
                             <{bGfocus}>, <{bLfocus}>, <.lNoScroll.>, <.lNoBord.>,;
                             <{bKeyDown}>, <{bPosChg}>, <{bDispInfo}>, <nItemCount>,;
-                             <.lNoLines.>, <color>, <bkcolor>, <.lNoHeader.> ,<aBit>);
+                             <.lNoLines.>, <nColor>, <bkcolor>, <.lNoHeader.> ,<aBit>);
     [; hwg_SetCtrlName( <oGrid>,<(oGrid)> )]
 
 #xcommand ADD COLUMN TO GRID <oGrid>    ;

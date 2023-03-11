@@ -1,11 +1,11 @@
-#xcommand @ <x>,<y> TOOLBAR [ <oTool> ] ;
+#xcommand @ <nX>, <nY> TOOLBAR [ <oTool> ] ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
+            [ SIZE <nWidth>, <nHeight> ] ;
             [ STYLE <nStyle> ]         ;
             [ ITEMS <aItems> ] ;
           => ;
-    [<oTool> := ] Htoolbar():New( <oWnd>,<nId>,<nStyle>,<x>,<y>,<width>, <height>,,,,,,,,,,,<aItems>  );
+    [<oTool> := ] Htoolbar():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,,,<aItems>  );
     [; hwg_SetCtrlName( <oTool>,<(oTool)> )]
 
 #xcommand REDEFINE TOOLBAR  <oTool>    ;
@@ -25,11 +25,11 @@
           [ STYLE <bstyle> ];
           [ STATE <bstate>];
           [ TEXT <ctext> ] ;
-          [ TOOLTIP <c> ];
+          [ TOOLTIP <cTooltip> ];
           [ MENU <d>];
            ON CLICK <bclick>;
           =>;
-          <O>:AddButton(<nBitIp>,<nId>,<bstate>,<bstyle>,<ctext>,<bclick>,<c>,<d>)
+          <O>:AddButton(<nBitIp>,<nId>,<bstate>,<bstyle>,<ctext>,<bclick>,<cTooltip>,<d>)
 
 #xcommand ADD TOOLBUTTON  <O> ;
           ID <nId> ;
@@ -37,8 +37,8 @@
           [ STYLE <bstyle> ];
           [ STATE <bstate>];
           [ TEXT <ctext> ] ;
-          [ TOOLTIP <c> ];
+          [ TOOLTIP <cTooltip> ];
           [ MENU <d>];
            ON CLICK <bclick>;
           =>;
-          aadd(<O> ,\{<nBitIp>,<nId>,<bstate>,<bstyle>,,<ctext>,<bclick>,<c>,<d>,\})
+          aadd(<O> ,\{<nBitIp>,<nId>,<bstate>,<bstyle>,,<ctext>,<bclick>,<cTooltip>,<d>,\})

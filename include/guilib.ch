@@ -171,17 +171,17 @@
 
 #include "htimer.ch"
 
-#xcommand SET KEY [<lGlobal: GLOBAL>] <nctrl>,<nkey> [ OF <oDlg> ] TO [ <func> ] ;
+#xcommand SET KEY [ <lGlobal:GLOBAL> ] <nctrl>, <nkey> [ OF <oDlg> ] TO [ <func> ] ;
           => ;
     hwg_SetDlgKey( <oDlg>, <nctrl>, <nkey>, <{func}>, <.lGlobal.> )
 
 #include "hgraph.ch"
 
 /* open an .dll resource */
-#xcommand SET RESOURCES TO [<cName1>]  =>  hwg_LoadResource( <cName1> )
+#xcommand SET RESOURCES TO [ <cName1> ]  =>  hwg_LoadResource( <cName1> )
 
 /* open a binary container as resource */
-#xcommand SET RESOURCES CONTAINER TO [<cName>]  =>  hwg_SetResContainer( <cName> )
+#xcommand SET RESOURCES CONTAINER TO [ <cName> ]  =>  hwg_SetResContainer( <cName> )
 
 // Addded by jamaj
 #xcommand DEFAULT <uVar1> := <uVal1> ;
@@ -203,10 +203,10 @@
            => ;
       <oPtrObj>:=Printdos():New( <oPrinter>)
 
-#xcommand @ <x>,<y> PSAY  <vari>  ;
+#xcommand @ <nX>, <nY> PSAY <vari> ;
             [ PICTURE <cPicture> ] OF <oPtrObj>   ;
           => ;
-          <oPtrObj>:Say(<x>, <y>, <vari>, <cPicture>)
+          <oPtrObj>:Say(<nX>, <nY>, <vari>, <cPicture>)
 
 #xcommand  EJECT OF <oPtrObj> => <oPtrObj>:Eject()
 

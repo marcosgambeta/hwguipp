@@ -1,16 +1,16 @@
-#xcommand @ <x>, <y>  SHAPE [<oShape>] [OF <oWnd>] ;
+#xcommand @ <nX>, <nY> SHAPE [<oShape>] [OF <oWnd>] ;
              [ ID <nId> ]               ;
-             [ SIZE <width>, <height> ] ;
+             [ SIZE <nWidth>, <nHeight> ] ;
              [ BORDERWIDTH <nBorder> ]  ;
              [ CURVATURE <nCurvature>]  ;
              [ COLOR <tcolor> ]         ;
-             [ BACKCOLOR <bcolor> ]     ;
+             [ BACKCOLOR <nBackColor> ]     ;
              [ BORDERSTYLE <nbStyle>]   ;
              [ FILLSTYLE <nfStyle>]     ;
              [ BACKSTYLE <nbackStyle>]  ;
              [ ON INIT <bInit> ]        ;
              [ ON SIZE <bSize> ]        ;
           => ;
-          [ <oShape> := ] HShape():New(<oWnd>, <nId>, <x>, <y>, <width>, <height>, ;
-             <nBorder>, <nCurvature>, <nbStyle>,<nfStyle>, <tcolor>, <bcolor>, <bSize>,<bInit>,<nbackStyle>);
+          [ <oShape> := ] HShape():New(<oWnd>, <nId>, <nX>, <nY>, <nWidth>, <nHeight>, ;
+             <nBorder>, <nCurvature>, <nbStyle>,<nfStyle>, <tcolor>, <nBackColor>, <bSize>,<bInit>,<nbackStyle>);
           [; hwg_SetCtrlName( <oShape>,<(oShape)> )]

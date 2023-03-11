@@ -1,16 +1,16 @@
-#xcommand @ <x>,<y> ICON [ <oIco> SHOW ] <icon> ;
+#xcommand @ <nX>, <nY> ICON [ <oIco> SHOW ] <icon> ;
             [<res: FROM RESOURCE>]     ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON CLICK <bClick> ]      ;
             [ ON DBLCLICK <bDblClick> ];
-            [ TOOLTIP <ctoolt> ]       ;
           => ;
-    [<oIco> := ] HSayIcon():New( <oWnd>,<nId>,<x>,<y>,<width>, ;
-        <height>,<icon>,<.res.>,<bInit>,<bSize>,<ctoolt>,,<bClick>,<bDblClick> );
+    [<oIco> := ] HSayIcon():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
+        <nHeight>,<icon>,<.res.>,<bInit>,<bSize>,<cTooltip>,,<bClick>,<bDblClick> );
     [; hwg_SetCtrlName( <oIco>,<(oIco)> )]
 
 #xcommand REDEFINE ICON [ <oIco> SHOW ] <icon> ;
@@ -19,8 +19,8 @@
             ID <nId>                   ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
-            [ TOOLTIP <ctoolt> ]       ;
+            [ TOOLTIP <cTooltip> ]       ;
           => ;
     [<oIco> := ] HSayIcon():Redefine( <oWnd>,<nId>,<icon>,<.res.>, ;
-        <bInit>,<bSize>,<ctoolt> );
+        <bInit>,<bSize>,<cTooltip> );
     [; hwg_SetCtrlName( <oIco>,<(oIco)> )]

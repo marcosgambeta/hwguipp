@@ -1,9 +1,11 @@
-#xcommand @ <x>,<y> RICHEDIT [ <oEdit> TEXT ] <vari> ;
+#xcommand @ <nX>, <nY> RICHEDIT [ <oEdit> TEXT ] <vari> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]       ;
             [<lallowtabs: ALLOWTABS>]  ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
@@ -12,10 +14,8 @@
             [ ON CHANGE <bChange>]     ;
             [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
             [ STYLE <nStyle> ]         ;
-            [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
           => ;
-    [<oEdit> := ] HRichEdit():New( <oWnd>,<nId>,<vari>,<nStyle>,<x>,<y>,<width>, ;
-                    <height>,<oFont>,<bInit>,<bSize>,<bGfocus>, ;
-                    <bLfocus>,<ctoolt>,<color>,<bcolor>,<bOther>,<.lallowtabs.>,<bChange> );
+    [<oEdit> := ] HRichEdit():New( <oWnd>,<nId>,<vari>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+                    <nHeight>,<oFont>,<bInit>,<bSize>,<bGfocus>, ;
+                    <bLfocus>,<cTooltip>,<nColor>,<nBackColor>,<bOther>,<.lallowtabs.>,<bChange> );
     [; hwg_SetCtrlName( <oEdit>,<(oEdit)> )]

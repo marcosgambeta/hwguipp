@@ -1,15 +1,15 @@
-#xcommand @ <x>,<y> GROUPBOX [ <oGroup> CAPTION ] <caption> ;
+#xcommand @ <nX>, <nY> GROUPBOX [ <oGroup> CAPTION ] <caption> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
             [ FONT <oFont> ]           ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
             [ STYLE <nStyle> ]         ;
           => ;
-    [<oGroup> := ] HGroup():New( <oWnd>,<nId>,<nStyle>,<x>,<y>,<width>, ;
-             <height>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<color>,<bcolor> );
+    [<oGroup> := ] HGroup():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+             <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<nColor>,<nBackColor> );
     [; hwg_SetCtrlName( <oGroup>,<(oGroup)> )]

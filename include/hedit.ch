@@ -1,51 +1,53 @@
-#xcommand @ <x>,<y> EDITBOX [ <oEdit> CAPTION ] <caption> ;
+#xcommand @ <nX>, <nY> EDITBOX [ <oEdit> CAPTION ] <caption> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]      ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON GETFOCUS <bGfocus> ]  ;
             [ ON LOSTFOCUS <bLfocus> ] ;
             [ ON KEYDOWN <bKeyDown>]   ;
             [ ON CHANGE <bChange> ]    ;
-            [ STYLE <nStyle> ]         ;
             [<lnoborder: NOBORDER>]    ;
             [<lPassword: PASSWORD>]    ;
-            [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
+            [ STYLE <nStyle> ]         ;
           => ;
-    [<oEdit> := ] HEdit():New( <oWnd>,<nId>,<caption>,,<nStyle>,<x>,<y>,<width>, ;
-                    <height>,<oFont>,<bInit>,<bSize>,<bGfocus>, ;
-                    <bLfocus>,<ctoolt>,<color>,<bcolor>,,<.lnoborder.>,,<.lPassword.>, <bKeyDown>, <bChange> );
+    [<oEdit> := ] HEdit():New( <oWnd>,<nId>,<caption>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
+                    <nHeight>,<oFont>,<bInit>,<bSize>,<bGfocus>, ;
+                    <bLfocus>,<cTooltip>,<nColor>,<nBackColor>,,<.lnoborder.>,,<.lPassword.>, <bKeyDown>, <bChange> );
     [; hwg_SetCtrlName( <oEdit>,<(oEdit)> )]
 
 
 #xcommand REDEFINE EDITBOX [ <oEdit> ] ;
             [ OF <oWnd> ]              ;
             ID <nId>                   ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
             [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON GETFOCUS <bGfocus> ]  ;
             [ ON LOSTFOCUS <bLfocus> ] ;
-            [ TOOLTIP <ctoolt> ]       ;
           => ;
     [<oEdit> := ] HEdit():Redefine( <oWnd>,<nId>,,,<oFont>,<bInit>,<bSize>, ;
-                   <bGfocus>,<bLfocus>,<ctoolt>,<color>,<bcolor> );
+                   <bGfocus>,<bLfocus>,<cTooltip>,<nColor>,<nBackColor> );
     [; hwg_SetCtrlName( <oEdit>,<(oEdit)> )]
 
 /* SAY ... GET system     */
 
-#xcommand @ <x>,<y> GET [ <oEdit> VAR ]  <vari>  ;
+#xcommand @ <nX>, <nY> GET [ <oEdit> VAR ]  <vari>  ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ PICTURE <cPicture> ]     ;
             [ WHEN  <bGfocus> ]        ;
             [ VALID <bLfocus> ]        ;
@@ -55,30 +57,28 @@
             [ ON SIZE <bSize> ]        ;
             [<lPassword: PASSWORD>]    ;
             [ MAXLENGTH <nMaxLength> ] ;
-            [ STYLE <nStyle> ]         ;
             [<lnoborder: NOBORDER>]    ;
-            [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
+            [ STYLE <nStyle> ]         ;
           => ;
     [<oEdit> := ] HEdit():New( <oWnd>,<nId>,<vari>,               ;
                    {|v|Iif(v==Nil,<vari>,<vari>:=v)},             ;
-                   <nStyle>,<x>,<y>,<width>,<height>,<oFont>,<bInit>,<bSize>,  ;
-                   <bGfocus>,<bLfocus>,<ctoolt>,<color>,<bcolor>,<cPicture>,<.lnoborder.>,<nMaxLength>,<.lPassword.>,<bKeyDown>,<bChange> );
+                   <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>,  ;
+                   <bGfocus>,<bLfocus>,<cTooltip>,<nColor>,<nBackColor>,<cPicture>,<.lnoborder.>,<nMaxLength>,<.lPassword.>,<bKeyDown>,<bChange> );
     [; hwg_SetCtrlName( <oEdit>,<(oEdit)> )]
 
 #xcommand REDEFINE GET [ <oEdit> VAR ] <vari>  ;
             [ OF <oWnd> ]              ;
             ID <nId>                   ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ PICTURE <cPicture> ]     ;
             [ WHEN  <bGfocus> ]        ;
             [ VALID <bLfocus> ]        ;
             [ MAXLENGTH <nMaxLength> ] ;
-            [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
           => ;
     [<oEdit> := ] HEdit():Redefine( <oWnd>,<nId>,<vari>, ;
                    {|v|Iif(v==Nil,<vari>,<vari>:=v)},    ;
-                   <oFont>,,,<{bGfocus}>,<{bLfocus}>,<ctoolt>,<color>,<bcolor>,<cPicture>,<nMaxLength>,<(vari)> );
+                   <oFont>,,,<{bGfocus}>,<{bLfocus}>,<cTooltip>,<nColor>,<nBackColor>,<cPicture>,<nMaxLength>,<(vari)> );
     [; hwg_SetCtrlName( <oEdit>,<(oEdit)> )]

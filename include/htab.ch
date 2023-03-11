@@ -1,7 +1,7 @@
-#xcommand @ <x>,<y> TAB [ <oTab> ITEMS ] <aItems> ;
+#xcommand @ <nX>, <nY> TAB [ <oTab> ITEMS ] <aItems> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
+            [ SIZE <nWidth>, <nHeight> ] ;
             [ STYLE <nStyle> ]         ;
             [ FONT <oFont> ]           ;
             [ ON INIT <bInit> ]        ;
@@ -13,8 +13,8 @@
             [ ON LOSTFOCUS <bLostFocus>];
             [ BITMAP <aBmp>  [<res: FROM RESOURCE>] [ BITCOUNT <nBC> ] ]  ;
           => ;
-    [<oTab> := ] HTab():New( <oWnd>,<nId>,<nStyle>,<x>,<y>,<width>, ;
-             <height>,<oFont>,<bInit>,<bSize>,<bDraw>,<aItems>,<bChange>, <aBmp>, <.res.>,<nBC>,;
+    [<oTab> := ] HTab():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+             <nHeight>,<oFont>,<bInit>,<bSize>,<bDraw>,<aItems>,<bChange>, <aBmp>, <.res.>,<nBC>,;
              <bClick>, <bGetFocus>, <bLostFocus> );
     [; hwg_SetCtrlName( <oTab>,<(oTab)> )]
 
@@ -36,8 +36,8 @@
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
           => ;
-    [<oTab> := ] Htab():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, ,<color>,<bcolor>, , );
+    [<oTab> := ] Htab():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, ,<nColor>,<nBackColor>, , );
     [; hwg_SetCtrlName( <oTab>,<(oTab)> )]

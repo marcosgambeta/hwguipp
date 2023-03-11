@@ -1,41 +1,41 @@
-#xcommand @ <x>,<y> DATEPICKER [ <oPick> ]  ;
+#xcommand @ <nX>, <nY> DATEPICKER [ <oPick> ]  ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
-            [ INIT <dInit> ]           ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ ON INIT <bInit> ]        ;
             [ ON GETFOCUS <bGfocus> ]  ;
             [ ON LOSTFOCUS <bLfocus> ] ;
             [ ON CHANGE <bChange> ]    ;
+            [ INIT <dInit> ]           ;
             [ STYLE <nStyle> ]         ;
-            [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
           => ;
-    [<oPick> :=] HDatePicker():New( <oWnd>,<nId>,<dInit>,,<nStyle>,<x>,<y>, ;
-        <width>,<height>,<oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<ctoolt>, ;
-        <color>,<bcolor> );
+    [<oPick> :=] HDatePicker():New( <oWnd>,<nId>,<dInit>,,<nStyle>,<nX>,<nY>, ;
+        <nWidth>,<nHeight>,<oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<cTooltip>, ;
+        <nColor>,<nBackColor> );
     [; hwg_SetCtrlName( <oPick>,<(oPick)> )]
 
 /* SAY ... GET system     */
 
-#xcommand @ <x>,<y> GET DATEPICKER [ <oPick> VAR ] <vari> ;
+#xcommand @ <nX>, <nY> GET DATEPICKER [ <oPick> VAR ] <vari> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ COLOR <color> ]          ;
-            [ BACKCOLOR <bcolor> ]     ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ COLOR <nColor> ]          ;
+            [ BACKCOLOR <nBackColor> ]     ;
+            [ FONT <oFont> ]           ;
+            [ TOOLTIP <cTooltip> ]       ;
             [ WHEN <bGfocus> ]         ;
             [ VALID <bLfocus> ]        ;
             [ ON INIT <bInit> ]        ;
             [ ON CHANGE <bChange> ]    ;
             [ STYLE <nStyle> ]         ;
-            [ FONT <oFont> ]           ;
-            [ TOOLTIP <ctoolt> ]       ;
           => ;
     [<oPick> :=] HDatePicker():New( <oWnd>,<nId>,<vari>,    ;
                     {|v|Iif(v==Nil,<vari>,<vari>:=v)},      ;
-                    <nStyle>,<x>,<y>,<width>,<height>,      ;
-                    <oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<ctoolt>,<color>,<bcolor> );
+                    <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
+                    <oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<cTooltip>,<nColor>,<nBackColor> );
     [; hwg_SetCtrlName( <oPick>,<(oPick)> )]

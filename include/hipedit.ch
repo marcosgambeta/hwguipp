@@ -1,12 +1,12 @@
-#xcommand @ <x>,<y> GET IPADDRESS [ <oIp> VAR ] <vari> ;
+#xcommand @ <nX>, <nY> GET IPADDRESS [ <oIp> VAR ] <vari> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [ SIZE <width>, <height> ] ;
-            [ BACKCOLOR <bcolor> ]     ;
-            [ STYLE <nStyle> ]         ;
+            [ SIZE <nWidth>, <nHeight> ] ;
+            [ BACKCOLOR <nBackColor> ]     ;
             [ FONT <oFont> ]           ;
             [ ON GETFOCUS <bGfocus> ]      ;
             [ ON LOSTFOCUS <bLfocus> ]     ;
+            [ STYLE <nStyle> ]         ;
           => ;
-    [<oIp> := ] HIpEdit():New( <oWnd>,<nId>,<vari>,{|v| iif(v==Nil,<vari>,<vari>:=v)},<nStyle>,<x>,<y>,<width>,<height>,<oFont>, <bGfocus>, <bLfocus> );
+    [<oIp> := ] HIpEdit():New( <oWnd>,<nId>,<vari>,{|v| iif(v==Nil,<vari>,<vari>:=v)},<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>, <bGfocus>, <bLfocus> );
     [; hwg_SetCtrlName( <oIp>,<(oIp)> )]
