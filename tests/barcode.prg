@@ -1,5 +1,4 @@
-#include "guilib.ch"
-#include "windows.ch"
+#include "hwguipp.ch"
 
 #define CODE39          1
 #define CODE39CHECK     2

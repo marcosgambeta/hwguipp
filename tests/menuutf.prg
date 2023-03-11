@@ -1,4 +1,4 @@
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 REQUEST HB_CODEPAGE_UTF8
 

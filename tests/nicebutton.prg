@@ -1,5 +1,4 @@
-#include "guilib.ch"
-#include "windows.ch"
+#include "hwguipp.ch"
 
 PROCEDURE Main()
 

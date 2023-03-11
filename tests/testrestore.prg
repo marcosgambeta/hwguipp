@@ -1,4 +1,4 @@
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 PROCEDURE Main()
 
