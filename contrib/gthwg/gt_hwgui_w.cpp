@@ -1346,7 +1346,7 @@ HB_FUNC( GTHWG_SETWINDOW )
       }
    }
    ShowWindow(hWndMain, SW_SHOWNORMAL);
-   SetWindowLong(hWndMain, GWL_STYLE, GetWindowLong(hWndMain, GWL_STYLE) & ~WS_MAXIMIZEBOX);
+   SetWindowLongPtr(hWndMain, GWL_STYLE, GetWindowLongPtr(hWndMain, GWL_STYLE) & ~WS_MAXIMIZEBOX);
 
    //gthwg_ProcessMessages();
    hwg_doEvents();
@@ -1404,7 +1404,7 @@ HB_FUNC( GTHWG_SETPANEL )
       }
    }
    ShowWindow(hWndMain, SW_SHOWNORMAL);
-   SetWindowLong(hWndMain, GWL_STYLE, GetWindowLong(hWndMain, GWL_STYLE) & ~WS_MAXIMIZEBOX);
+   SetWindowLongPtr(hWndMain, GWL_STYLE, GetWindowLongPtr(hWndMain, GWL_STYLE) & ~WS_MAXIMIZEBOX);
 
    hwg_doEvents();
 

@@ -1185,11 +1185,11 @@ HB_FUNC( HWG_WINDOWSETRESIZE )
 
    if( iResizeable )
    {
-      SetWindowLong(handle, GWL_STYLE, GetWindowLong( handle, GWL_STYLE ) | (WS_SIZEBOX | WS_MAXIMIZEBOX));
+      SetWindowLongPtr(handle, GWL_STYLE, GetWindowLongPtr( handle, GWL_STYLE ) | (WS_SIZEBOX | WS_MAXIMIZEBOX));
    }
    else
    {
-      SetWindowLong(handle, GWL_STYLE, GetWindowLong( handle, GWL_STYLE ) & ~(WS_SIZEBOX | WS_MAXIMIZEBOX));
+      SetWindowLongPtr(handle, GWL_STYLE, GetWindowLongPtr( handle, GWL_STYLE ) & ~(WS_SIZEBOX | WS_MAXIMIZEBOX));
    }
 }
 

@@ -1137,7 +1137,7 @@ LRESULT OnNotifyCustomDraw( LPARAM pNotifyStruct )
 {
    LPNMCUSTOMDRAW pCustomDraw = ( LPNMCUSTOMDRAW ) pNotifyStruct;
    HWND m_hWnd = pCustomDraw->hdr.hwndFrom;
-   DWORD style = ( DWORD ) GetWindowLong( m_hWnd, GWL_STYLE );
+   DWORD style = ( DWORD ) GetWindowLongPtr( m_hWnd, GWL_STYLE );
 
    if( ( style & ( BS_BITMAP | BS_ICON ) ) == 0 || !hb_IsAppThemed(  ) ||
          !hb_IsThemeActive(  ) )

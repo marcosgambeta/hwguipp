@@ -233,7 +233,7 @@ HB_FUNC( HWG_MAKELONG )
 
 HB_FUNC( HWG_GETWINDOWLONG )
 {
-   hb_retnl(GetWindowLong(hwg_par_HWND(1), hb_parni(2)));
+   hb_retnl(GetWindowLongPtr(hwg_par_HWND(1), hb_parni(2)));
 }
 
 HB_FUNC( HWG_SETBKMODE )

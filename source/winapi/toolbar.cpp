@@ -95,7 +95,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
    PHB_ITEM pTemp;
 
    ULONG ulID;
-   DWORD style = GetWindowLong(hWndCtrl, GWL_STYLE);
+   DWORD style = GetWindowLongPtr(hWndCtrl, GWL_STYLE);
 
    //SendMessage(hWndCtrl, CCM_SETVERSION, static_cast<WPARAM>(4), 0);
 
