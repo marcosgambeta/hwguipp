@@ -28,3 +28,5 @@ source/common/procmisc/*.prg
 source/common/editor/*.prg
 
 {allmsvc}-cflag=-D_CRT_SECURE_NO_WARNINGS
+
+-inc
