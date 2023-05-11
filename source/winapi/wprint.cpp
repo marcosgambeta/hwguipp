@@ -280,35 +280,19 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
    HWND hWnd = hwg_par_HWND(1);
    HDC hDCref = GetDC(hWnd);
    void * hFileName;
-   // char cres[80];
 
-   /* Determine the picture frame dimensions.
-    * iWidthMM is the display width in millimeters.
-    * iHeightMM is the display height in millimeters.
-    * iWidthPels is the display width in pixels.
-    * iHeightPels is the display height in pixels
-    */
-
-   int iWidthMM = GetDeviceCaps(hDCref, HORZSIZE);
-   int iHeightMM = GetDeviceCaps(hDCref, VERTSIZE);
-   int iWidthPels = GetDeviceCaps(hDCref, HORZRES);
-   int iHeightPels = GetDeviceCaps(hDCref, VERTRES);
-
-   /*
-    * Retrieve the coordinates of the client rectangle, in pixels.
-    */
+   // Determine the picture frame dimensions.
+   int iWidthMM    = GetDeviceCaps(hDCref, HORZSIZE); // iWidthMM is the display width in millimeters.
+   int iHeightMM   = GetDeviceCaps(hDCref, VERTSIZE); // iHeightMM is the display height in millimeters.
+   int iWidthPels  = GetDeviceCaps(hDCref, HORZRES);  // iWidthPels is the display width in pixels.
+   int iHeightPels = GetDeviceCaps(hDCref, VERTRES);  // iHeightPels is the display height in pixels.
 
    RECT rc;
-   GetClientRect(hWnd, &rc);
-   // sprintf( cres,"%d %d %d %d %d %d %d %d",iWidthMM, iHeightMM, iWidthPels, iHeightPels,rc.left,rc.top,rc.right,rc.bottom );
-   // MessageBox(GetActiveWindow(), cres, "", MB_OK | MB_ICONINFORMATION);
+   GetClientRect(hWnd, &rc); // Retrieve the coordinates of the client rectangle, in pixels.
 
    /*
-    * Convert client coordinates to .01-mm units.
-    * Use iWidthMM, iWidthPels, iHeightMM, and
-    * iHeightPels to determine the number of
-    * .01-millimeter units per pixel in the x-
-    *  and y-directions.
+    * Convert client coordinates to .01-mm units. Use iWidthMM, iWidthPels, iHeightMM, and
+    * iHeightPels to determine the number of .01-millimeter units per pixel in the x- and y-directions.
     */
 
    rc.left = ( rc.left * iWidthMM * 100 ) / iWidthPels;
@@ -417,11 +401,6 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
    bool Result = false;
    HDC hDC = hwg_par_HDC(1);
 
-   OSVERSIONINFO osvi;
-   osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-   GetVersionEx(&osvi);
-   BOOL bW9X = ( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS );
-
    if( hDC != nullptr )
    {
       HANDLE hPrinter;
@@ -458,19 +437,16 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
                {
                   if( HB_ISCHAR(3) ) // this doesn't work for Win9X
                   {
-                     if( !bW9X )
-                     {
-                        void * hFormName;
-                        HB_SIZE len;
-                        LPCTSTR lpFormName = HB_PARSTR(3, &hFormName, &len);
+                     void * hFormName;
+                     HB_SIZE len;
+                     LPCTSTR lpFormName = HB_PARSTR(3, &hFormName, &len);
 
-                        if( lpFormName && len && len < CCHFORMNAME )
-                        {
-                           memcpy(pDevMode->dmFormName, lpFormName, (len + 1) * sizeof(TCHAR));
-                           dInit |= DM_FORMNAME;
-                        }
-                        hb_strfree(hFormName);
+                     if( lpFormName && len && len < CCHFORMNAME )
+                     {
+                        memcpy(pDevMode->dmFormName, lpFormName, (len + 1) * sizeof(TCHAR));
+                        dInit |= DM_FORMNAME;
                      }
+                     hb_strfree(hFormName);
                   }
                   else if( HB_ISNUM(3) && hb_parnl(3) ) // 22/02/2007 don't change if 0
                   {
@@ -518,21 +494,13 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 
                pDevMode->dmFields = dInit;
 
-               /* NOTES:
-                  For unknown reasons, Windows98/ME returns IDCANCEL if user clicks OK without changing anything in DocumentProperties.
-                  Therefore, we ignore the return value in Win9x, and assume user clicks OK.
-                  IOW, DocumentProperties is not cancelable in Win9X.
-                */
-               if( DocumentProperties(0, hPrinter, const_cast<LPTSTR>(lpPrinterName), pDevMode, pDevMode, fMode) == IDOK || bW9X )
+               if( DocumentProperties(0, hPrinter, const_cast<LPTSTR>(lpPrinterName), pDevMode, pDevMode, fMode) == IDOK )
                {
                   if( HB_ISBYREF(3) && !bCustomFormSize )
                   {
                      if( HB_ISCHAR(3) )
                      {
-                        if( !bW9X )
-                        {
-                           HB_STORSTR(reinterpret_cast<LPCTSTR>(pDevMode->dmFormName), 3);
-                        }
+                        HB_STORSTR(reinterpret_cast<LPCTSTR>(pDevMode->dmFormName), 3);
                      }
                      else
                      {
