@@ -56,25 +56,21 @@ HB_FUNC( HWG_INITTABCONTROL )
    tie.mask = TCIF_TEXT | TCIF_IMAGE;
    tie.iImage = iItems == 0 ? -1 : 0;
 
-   for( ULONG ul = 1; ul <= ulTabs; ul++ )
-   {
+   for( ULONG ul = 1; ul <= ulTabs; ul++ ) {
       void * hStr;
 
       tie.pszText = const_cast<LPTSTR>(HB_ARRAYGETSTR(pArr, ul, &hStr, nullptr));
-      if( tie.pszText == nullptr )
-      {
+      if( tie.pszText == nullptr ) {
          tie.pszText = const_cast<LPTSTR>(TEXT(""));
       }
 
-      if( TabCtrl_InsertItem(hTab, ul - 1, &tie) == -1 )
-      {
+      if( TabCtrl_InsertItem(hTab, ul - 1, &tie) == -1 ) {
          DestroyWindow(hTab);
          hTab = nullptr;
       }
       hb_strfree(hStr);
 
-      if( tie.iImage > -1 )
-      {
+      if( tie.iImage > -1 ) {
          tie.iImage++;
       }
    }
@@ -136,13 +132,10 @@ HB_FUNC( HWG_TAB_HITTEST )
    HWND hTab = hwg_par_HWND(1);
    int res;
 
-   if( hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3) )
-   {
+   if( hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3) ) {
       ht.pt.x = hb_parni(2);
       ht.pt.y = hb_parni(3);
-   }
-   else
-   {
+   } else {
       GetCursorPos(&(ht.pt));
       ScreenToClient(hTab, &(ht.pt));
    }
@@ -182,13 +175,11 @@ LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
    long int res;
    PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-   if( !pSym_onEvent )
-   {
+   if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
    }
 
-   if( pSym_onEvent && pObject )
-   {
+   if( pSym_onEvent && pObject ) {
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush(pObject);
       hb_vmPushLong(static_cast<LONG>(message));
@@ -197,25 +188,17 @@ LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
       HB_PUSHITEM(wParam);
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
-      if( HB_ISPOINTER(-1) )
-      {
+      if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
-      }
-      else
-      {
+      } else {
          res = hb_parnl(-1);
-         if( res == -1 )
-         {
+         if( res == -1 ) {
             return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
-         }
-         else
-         {
+         } else {
             return res;
          }
       }
-   }
-   else
-   {
+   } else {
       return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
    }
 }

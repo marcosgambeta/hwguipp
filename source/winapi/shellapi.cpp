@@ -34,8 +34,7 @@ static int (CALLBACK BrowseCallbackProc)(HWND hwnd, UINT uMsg, LPARAM lParam, LP
    {
       case BFFM_INITIALIZED:
       {
-         if( lpData != reinterpret_cast<LPARAM>(nullptr) )
-         {
+         if( lpData != reinterpret_cast<LPARAM>(nullptr) ) {
             SendMessage(hwnd, BFFM_SETSELECTION, lParam, lpData);
          }
       }
@@ -69,10 +68,8 @@ HB_FUNC( HWG_SELECTFOLDER )
 
    // Browse for a folder and return its PIDL. 
    pidlBrowse = SHBrowseForFolder(&bi);
-   if( pidlBrowse != nullptr )
-   {
-      if( SHGetPathFromIDList(pidlBrowse, lpBuffer) )
-      {
+   if( pidlBrowse != nullptr ) {
+      if( SHGetPathFromIDList(pidlBrowse, lpBuffer) ) {
          lpResult = lpBuffer;
       }
       CoTaskMemFree(pidlBrowse);
@@ -101,12 +98,9 @@ HB_FUNC( HWG_SHELLNOTIFYICON )
    HB_ITEMCOPYSTR(hb_param(4, Harbour::Item::ANY), tnid.szTip,
          HB_SIZEOFARRAY(tnid.szTip));
 
-   if( ( BOOL ) hb_parl(1) )
-   {
+   if( ( BOOL ) hb_parl(1) ) {
       Shell_NotifyIcon(NIM_ADD, &tnid);
-   }
-   else
-   {
+   } else {
       Shell_NotifyIcon(NIM_DELETE, &tnid);
    }
 }
@@ -124,13 +118,11 @@ HB_FUNC( HWG_SHELLMODIFYICON )
    tnid.cbSize = sizeof(NOTIFYICONDATA);
    tnid.hWnd = hwg_par_HWND(1);
    tnid.uID = ID_NOTIFYICON;
-   if( HB_ISNUM(2) || HB_ISPOINTER(2) )
-   {
+   if( HB_ISNUM(2) || HB_ISPOINTER(2) ) {
       tnid.uFlags |= NIF_ICON;
       tnid.hIcon = hwg_par_HICON(2);
    }
-   if( HB_ITEMCOPYSTR(hb_param(3, Harbour::Item::ANY), tnid.szTip, HB_SIZEOFARRAY(tnid.szTip)) > 0 )
-   {
+   if( HB_ITEMCOPYSTR(hb_param(3, Harbour::Item::ANY), tnid.szTip, HB_SIZEOFARRAY(tnid.szTip)) > 0 ) {
       tnid.uFlags |= NIF_TIP;
    }
 
@@ -152,8 +144,7 @@ HB_FUNC( HWG_SHELLEXECUTE )
    LPCTSTR lpDirectory;
 
    lpDirectory = HB_PARSTR(4, &hDirectory, nullptr);
-   if( lpDirectory == nullptr )
-   {
+   if( lpDirectory == nullptr ) {
       lpDirectory = TEXT("C:\\");
    }
 

@@ -44,8 +44,7 @@ HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file C
 {
    PHB_ITEM pDate = hb_param(2, Harbour::Item::DATE);
 
-   if( pDate )
-   {
+   if( pDate ) {
       SYSTEMTIME sysTime;
       int lYear, lMonth, lDay;
 

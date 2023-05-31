@@ -114,8 +114,7 @@ void Draw3dRect(HDC hDC, RECT* lprect, COLORREF clrTopLeft, COLORREF clrBottomRi
 
 void cxdib_Release(PCXDIB pdib)
 {
-   if( pdib->hDib )
-   {
+   if( pdib->hDib ) {
       free(pdib->hDib);
    }   
 }
@@ -127,8 +126,7 @@ WORD cxdib_GetPaletteSize(PCXDIB pdib)
 
 BYTE* cxdib_GetBits(PCXDIB pdib)
 {
-   if( pdib->hDib )
-   {
+   if( pdib->hDib ) {
       return (static_cast<BYTE*>(pdib->hDib) + *static_cast<LPDWORD>(pdib->hDib) + cxdib_GetPaletteSize(pdib));
    }
    return nullptr;
@@ -147,16 +145,14 @@ BOOL cxdib_IsValid(PCXDIB pdib)
 void cxdib_Clone(PCXDIB pdib, PCXDIB src)
 {
    cxdib_Create(pdib, src->m_bi.biWidth, src->m_bi.biHeight, src->m_bi.biBitCount);
-   if( pdib->hDib )
-   {
+   if( pdib->hDib ) {
       memcpy(pdib->hDib, src->hDib, cxdib_GetSize(pdib));
    }
 }
 
 void cxdib_Clear(PCXDIB pdib, BYTE bval)
 {
-   if( pdib->hDib )
-   {
+   if( pdib->hDib ) {
       memset(cxdib_GetBits(pdib), bval, pdib->m_bi.biSizeImage);
    }   
 }
@@ -166,32 +162,23 @@ HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
    LPBITMAPINFOHEADER  lpbi;	// pointer to BITMAPINFOHEADER
    DWORD               dwLen;	// size of memory block
 
-   if( pdib->hDib )
-   {
+   if( pdib->hDib ) {
       free(pdib->hDib);
    }
    pdib->hDib = nullptr;
 
    // Make sure bits per pixel is valid
-   if( wBitCount <= 1 )
-   {
+   if( wBitCount <= 1 ) {
       wBitCount = 1;
-   }
-   else if( wBitCount <= 4 )
-   {
+   } else if( wBitCount <= 4 ) {
       wBitCount = 4;
-   }
-   else if( wBitCount <= 8 )
-   {
+   } else if( wBitCount <= 8 ) {
       wBitCount = 8;
-   }
-   else
-   {
+   } else {
       wBitCount = 24;
    }
 
-   switch( wBitCount )
-   {
+   switch( wBitCount ) {
       case 1:
          pdib->m_nColors = 2;
          break;
@@ -227,8 +214,7 @@ HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 
    pdib->hDib = malloc(dwLen); // alloc memory block to store our bitmap
    // hDib = new (HDIB[dwLen]); //fixes allocation problem under Win2k
-   if( !pdib->hDib )
-   {
+   if( !pdib->hDib ) {
       return nullptr;
    }
    
@@ -242,8 +228,7 @@ HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 
 long cxdib_Draw(PCXDIB pdib, HDC pDC, long xoffset, long yoffset)
 {
-   if( pdib->hDib && pDC )
-   {
+   if( pdib->hDib && pDC ) {
       //palette must be correctly filled
       LPSTR lpDIB = static_cast<char*>(pdib->hDib);   //set image to hdc...
       SetStretchBltMode(pDC,COLORONCOLOR);
@@ -255,8 +240,7 @@ long cxdib_Draw(PCXDIB pdib, HDC pDC, long xoffset, long yoffset)
 
 long cxdib_Stretch(PCXDIB pdib, HDC pDC, long xoffset, long yoffset, long xsize, long ysize)
 {
-   if( pdib->hDib && pDC )
-   {
+   if( pdib->hDib && pDC ) {
       //palette must be correctly filled
       LPSTR lpDIB = static_cast<char*>(pdib->hDib);     //set image to hdc...
       SetStretchBltMode(pDC, COLORONCOLOR);
@@ -268,11 +252,9 @@ long cxdib_Stretch(PCXDIB pdib, HDC pDC, long xoffset, long yoffset, long xsize,
 
 void cxdib_SetPaletteIndex(PCXDIB pdib, BYTE idx, BYTE r, BYTE g, BYTE b)
 {
-   if( pdib->hDib && pdib->m_nColors )
-   {
+   if( pdib->hDib && pdib->m_nColors ) {
       BYTE * iDst = static_cast<BYTE*>(pdib->hDib) + sizeof(BITMAPINFOHEADER);
-      if( idx < pdib->m_nColors )
-      {
+      if( idx < pdib->m_nColors ) {
          long ldx = idx * sizeof(RGBQUAD);
          iDst[ldx++] = static_cast<BYTE>(b);
          iDst[ldx++] = static_cast<BYTE>(g);
@@ -284,12 +266,9 @@ void cxdib_SetPaletteIndex(PCXDIB pdib, BYTE idx, BYTE r, BYTE g, BYTE b)
 
 void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc)
 {
-   if( (pdib->hDib == nullptr) || (pdib->m_nColors == 0) )
-   {
+   if( (pdib->hDib == nullptr) || (pdib->m_nColors == 0) ) {
       return;
-   }
-   else
-   {
+   } else {
       BYTE * iDst = static_cast<BYTE*>(pdib->hDib) + sizeof(BITMAPINFOHEADER);
       long r, g, b;
       RGBQUAD* pPal = reinterpret_cast<RGBQUAD*>(iDst);
@@ -297,12 +276,10 @@ void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc)
       r = GetRValue(cr);
       g = GetGValue(cr);
       b = GetBValue(cr);
-      if( perc > 100 )
-      {
+      if( perc > 100 ) {
          perc = 100;
       }
-      for( long i = 0; i < pdib->m_nColors; i++ )
-      {
+      for( long i = 0; i < pdib->m_nColors; i++ ) {
          pPal[i].rgbBlue  = static_cast<BYTE>((pPal[i].rgbBlue * (100 - perc) + b * perc) / 100);
          pPal[i].rgbGreen = static_cast<BYTE>((pPal[i].rgbGreen * (100 - perc) + g * perc) / 100);
          pPal[i].rgbRed   = static_cast<BYTE>((pPal[i].rgbRed * (100 - perc) + r * perc) / 100);
@@ -314,8 +291,7 @@ void cxdib_SetPixelIndex(PCXDIB pdib, long x,long y,BYTE i)
 {
    BYTE * iDst;
 
-   if( (pdib->hDib == nullptr) || (pdib->m_nColors == 0) || (x < 0) || (y < 0) || (x >= pdib->m_bi.biWidth) || (y >= pdib->m_bi.biHeight) )
-   {
+   if( (pdib->hDib == nullptr) || (pdib->m_nColors == 0) || (x < 0) || (y < 0) || (x >= pdib->m_bi.biWidth) || (y >= pdib->m_bi.biHeight) ) {
       return;
    }
    iDst = cxdib_GetBits(pdib);
@@ -368,69 +344,48 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
    SetBkMode(pDC, TRANSPARENT);
 
    // Select the correct skin
-   if( state & STATE_DISABLED )
-   {  // DISABLED BUTTON
-      if( cxdib_IsValid(&(pshade->m_dDisabled)) )	// paint the skin
-      {
+   if( state & STATE_DISABLED ) {
+      // DISABLED BUTTON
+      if( cxdib_IsValid(&(pshade->m_dDisabled)) ) { // paint the skin
          cxdib_Draw(&(pshade->m_dDisabled), pDC, 0, 0);
       }
       // if needed, draw the standard 3D rectangular border
-      if( pshade->m_Border && (pshade->m_flat == FALSE) )
-      {
+      if( pshade->m_Border && (pshade->m_flat == FALSE) ) {
          DrawEdge(pDC, &r,EDGE_RAISED,BF_RECT);
       }
-   }
-   else
-   {
-      if( state & STATE_SELECTED )
-      {  //SELECTED (DOWN) BUTTON
-         if( cxdib_IsValid(&(pshade->m_dDown)) )
-         {
+   } else {
+      if( state & STATE_SELECTED ) {
+         //SELECTED (DOWN) BUTTON
+         if( cxdib_IsValid(&(pshade->m_dDown)) ) {
             cxdib_Draw(&(pshade->m_dDown), pDC, pshade->m_Border, pshade->m_Border);
          }
          // if needed, draw the standard 3D rectangular border
-         if( pshade->m_Border )
-         {
-            if( pshade->m_flat )
-            {
+         if( pshade->m_Border ) {
+            if( pshade->m_flat ) {
                 Draw3dRect(pDC, &r, GetSysColor(COLOR_BTNSHADOW), GetSysColor(COLOR_BTNHILIGHT));
-            }
-            else
-            {
+            } else {
                 DrawEdge(pDC, &r, EDGE_SUNKEN, BF_RECT);
             }
          }
-      }
-      else
-      {
-         if( cxdib_IsValid(&(pshade->m_dNormal)) )
-         {  // DEFAULT BUTTON
-            if( (state & STATE_OVER) && (cxdib_IsValid(&(pshade->m_dOver))) )
-            {
+      } else {
+         if( cxdib_IsValid(&(pshade->m_dNormal)) ) {
+            // DEFAULT BUTTON
+            if( (state & STATE_OVER) && (cxdib_IsValid(&(pshade->m_dOver))) ) {
                cxdib_Draw(&(pshade->m_dOver), pDC, 0, 0);
-            }
-            else
-            {
+            } else {
                cxdib_Draw(&(pshade->m_dNormal), pDC, 0, 0);
             }
          }
          // if needed, draw the standard 3D rectangular border
-         if( (pshade->m_Border) && ((state & STATE_OVER) || !(pshade->m_flat)) )
-         {
-            if( !(pshade->m_flat) )  // (state & STATE_DEFAULT)
-            {
+         if( (pshade->m_Border) && ((state & STATE_OVER) || !(pshade->m_flat)) ) {
+            if( !(pshade->m_flat) ) { // (state & STATE_DEFAULT)
                DrawEdge(pDC, &r, EDGE_SUNKEN, BF_RECT);
                InflateRect(&r, -1, -1);
                DrawEdge(pDC, &r, EDGE_RAISED, BF_RECT);
-            }
-            else
-            {
-               if( pshade->m_flat )
-               {
+            } else {
+               if( pshade->m_flat ) {
                   Draw3dRect(pDC,&r, GetSysColor(COLOR_BTNHILIGHT), GetSysColor(COLOR_BTNSHADOW));
-               }
-               else
-               {
+               } else {
                   DrawEdge(pDC, &r, EDGE_RAISED, BF_RECT);
                }
             }
@@ -438,8 +393,7 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
       }
       /*
       // paint the focus rect
-      if( (state & STATE_FOCUS) && (pshade->m_FocusRectMargin > 0) )
-      {
+      if( (state & STATE_FOCUS) && (pshade->m_FocusRectMargin > 0) ) {
          InflateRect(&r,-pshade->m_FocusRectMargin, -pshade->m_FocusRectMargin);
          cxdib_Draw(&(pshade->m_dh), pDC, 1+r.left, r.top);
          cxdib_Draw(&(pshade->m_dh), pDC, 1+r.left, r.bottom);
@@ -452,8 +406,7 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
    //copy in the real world
    BitBlt(pRealDC, 0, 0, cx, cy, hdcMem, 0, 0, SRCCOPY);
 
-   if( holdBitmap )
-   {
+   if( holdBitmap ) {
       SelectObject(hdcMem, holdBitmap);
    }
    DeleteDC(hdcMem);
@@ -474,8 +427,7 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
    long aa,bb;
    int grainx2;
 
-   if( prect )
-   {
+   if( prect ) {
       SetRect(&(pshade->m_rect), prect->left, prect->top, prect->right, prect->bottom);
    }
    sYSize = pshade->m_rect.bottom-pshade->m_rect.top;
@@ -488,8 +440,7 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
    //create the default bitmap
    cxdib_Create(&(pshade->m_dNormal), sXSize, sYSize, 8);
 
-   for( i = 0; i < 129; i++ )
-   {
+   for( i = 0; i < 129; i++ ) {
       r = ((128 - i) * GetRValue(locr) + i * GetRValue(midcr)) / 128;
       g = ((128 - i) * GetGValue(locr) + i * GetGValue(midcr)) / 128;
       b = ((128 - i) * GetBValue(locr) + i * GetBValue(midcr)) / 128;
@@ -497,8 +448,7 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
       cxdib_SetPaletteIndex(&(pshade->m_dh), static_cast<BYTE>(i), static_cast<BYTE>(r), static_cast<BYTE>(g), static_cast<BYTE>(b));
       cxdib_SetPaletteIndex(&(pshade->m_dv), static_cast<BYTE>(i), static_cast<BYTE>(r), static_cast<BYTE>(g), static_cast<BYTE>(b));
    }
-   for( i = 1; i < 129; i++ )
-   {
+   for( i = 1; i < 129; i++ ) {
       r = ((128 - i) * GetRValue(midcr) + i * GetRValue(hicr)) / 128;
       g = ((128 - i) * GetGValue(midcr) + i * GetGValue(hicr)) / 128;
       b = ((128 - i) * GetBValue(midcr) + i * GetBValue(hicr)) / 128;
@@ -511,16 +461,14 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
 
    iDst = cxdib_GetBits(&(pshade->m_dh));   //build the horiz. dotted focus bitmap
    j = static_cast<long>(pshade->m_dh.m_bi.biWidth);
-   for( i = 0; i < j; i++ )
-   {
+   for( i = 0; i < j; i++ ) {
       // iDst[i]=64+127*(i%2);	//soft
       iDst[i] = 255 * (i % 2);		//hard
    }
 
    iDst = cxdib_GetBits(&(pshade->m_dv));   //build the vert. dotted focus bitmap
    j = static_cast<long>(pshade->m_dv.m_bi.biWidth);
-   for( i = 0; i < j; i++ )
-   {
+   for( i = 0; i < j; i++ ) {
       // *iDst=64+127*(i%2);		//soft
       *iDst = 255 * (i % 2);		//hard
       iDst += 4;
@@ -534,26 +482,21 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
    idxmax = 255 - granularity;
    idxmin = granularity;
 
-   switch( shadeID )
-   {
+   switch( shadeID ) {
       case 8:	//SHS_METAL
          cxdib_Clear(&(pshade->m_dNormal), 0);
          // create the strokes
          k = 40;   //stroke granularity
-         for( a = 0; a < 200; a++ )
-         {
+         for( a = 0; a < 200; a++ ) {
             x = rand() / (RAND_MAX / sXSize); //stroke postion
             y = rand() / (RAND_MAX / sYSize); //stroke position
             xs = rand() / (RAND_MAX / HB_MIN(sXSize, sYSize)) / 2; //stroke lenght
             d = rand() / (RAND_MAX / k); //stroke color
-            for( i = 0; i < xs; i++ )
-            {
-               if( ((x - i) > 0) && ((y + i) < sYSize) )
-               {
+            for( i = 0; i < xs; i++ ) {
+               if( ((x - i) > 0) && ((y + i) < sYSize) ) {
                   cxdib_SetPixelIndex(&(pshade->m_dNormal), x - i, y + i, static_cast<BYTE>(d));
                }
-               if( ((x + i) < sXSize) && ((y - i) > 0) )
-               {
+               if( ((x + i) < sXSize) && ((y - i) > 0) ) {
                   cxdib_SetPixelIndex(&(pshade->m_dNormal), sXSize - x + i, y - i, static_cast<BYTE>(d));
                }
             }
@@ -561,10 +504,8 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
          //blend strokes with SHS_DIAGONAL
          posDst = iDst;
          a = (idxmax - idxmin-k) / 2;
-         for( i = 0; i < sYSize; i++ )
-         {
-            for( j = 0; j < sXSize; j++ )
-            {
+         for( i = 0; i < sYSize; i++ ) {
+            for( j = 0; j < sXSize; j++ ) {
                d = posDst[j] + ((a * i) / sYSize + (a * (sXSize - j)) / sXSize);
                posDst[j] = static_cast<BYTE>(d);
                posDst[j] += rand() / grainx2;
@@ -574,13 +515,11 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
          break;
       case 7:   // SHS_HARDBUMP
          //set horizontal bump
-         for( i = 0; i < sYSize; i++ )
-         {
+         for( i = 0; i < sYSize; i++ ) {
             k = (255 * i / sYSize) - 127;
             k = (k * (k * k) / 128) / 128;
             k = (k * (128 - granularity * 2)) / 128 + 128;
-            for( j = 0; j < sXSize; j++ )
-            {
+            for( j = 0; j < sXSize; j++ ) {
                posDst[j] = static_cast<BYTE>(k);
                posDst[j] += rand() / grainx2 - granularity;
             }
@@ -590,19 +529,15 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
           d = HB_MIN(16, sXSize / 6);  //max edge=16
           a = sYSize * sYSize / 4;
           posDst = iDst;
-          for( i = 0; i < sYSize; i++ )
-          {
+          for( i = 0; i < sYSize; i++ ) {
               y = i - sYSize / 2;
-              for( j = 0; j < sXSize; j++ )
-              {
+              for( j = 0; j < sXSize; j++ ) {
                  x = j - sXSize / 2;
                  xs = sXSize / 2 - d + (y * y * d) / a;
-                 if( x > xs )
-                 {
+                 if( x > xs ) {
                     posDst[j] = idxmin + static_cast<BYTE>(((sXSize - j) * 128) / d);
                  }
-                 if( (x + xs) < 0 )
-                 {
+                 if( (x + xs) < 0 ) {
                     posDst[j] = idxmax - static_cast<BYTE>((j * 128) / d);
                  }
                  posDst[j] += rand() / grainx2 - granularity;
@@ -611,20 +546,16 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
           }
           break;
       case 6: //SHS_SOFTBUMP
-          for( i = 0; i < sYSize; i++ )
-          {
+          for( i = 0; i < sYSize; i++ ) {
              h = (255 * i / sYSize) - 127;
-             for( j = 0; j < sXSize; j++ )
-             {
+             for( j = 0; j < sXSize; j++ ) {
                 k = (255 * (sXSize - j) / sXSize) - 127;
                 k = (h * (h * h) / 128) / 128 + (k * (k * k) / 128) / 128;
                 k = k * (128 - granularity) / 128 + 128;
-                if( k < idxmin )
-                {
+                if( k < idxmin ) {
                    k = idxmin;
                 }
-                if( k > idxmax )
-                {
+                if( k > idxmax ) {
                    k = idxmax;
                 }
                 posDst[j] = static_cast<BYTE>(k);
@@ -634,26 +565,22 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
           }
           break;
       case 5: // SHS_VBUMP
-         for( j = 0; j < sXSize; j++ )
-         {
+         for( j = 0; j < sXSize; j++ ) {
             k = (255 * (sXSize - j) / sXSize) - 127;
             k = (k * (k * k) / 128) / 128;
             k = (k * (128 - granularity)) / 128 + 128;
-            for( i = 0; i < sYSize; i++ )
-            {
+            for( i = 0; i < sYSize; i++ ) {
                posDst[j + i * bytes] = static_cast<BYTE>(k);
                posDst[j + i * bytes] += rand() / grainx2 - granularity;
             }
          }
          break;
       case 4: //SHS_HBUMP
-         for( i = 0; i < sYSize; i++ )
-         {
+         for( i = 0; i < sYSize; i++ ) {
             k = (255 * i / sYSize) - 127;
             k = (k * (k * k) / 128) / 128;
             k = (k * (128 - granularity)) / 128 + 128;
-            for( j = 0; j < sXSize; j++ )
-            {
+            for( j = 0; j < sXSize; j++ ) {
                posDst[j] = static_cast<BYTE>(k);
                posDst[j] += rand() / grainx2 - granularity;
             }
@@ -662,10 +589,8 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
          break;
       case 1:	//SHS_DIAGSHADE
          a = (idxmax - idxmin) / 2;
-         for( i = 0; i < sYSize; i++ )
-         {
-            for( j = 0; j < sXSize; j++ )
-            {
+         for( i = 0; i < sYSize; i++ ) {
+            for( j = 0; j < sXSize; j++ ) {
                 bb = a * (sXSize - j) / sXSize;
                 aa = idxmin + a * (i / sYSize);
 //                posDst[j] = static_cast<BYTE>( idxmin + a *( i / sYSize) + a * (sXSize-j) /sXSize );
@@ -677,11 +602,9 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
          break;
       case 2:	//SHS_HSHADE
          a = idxmax - idxmin;
-         for( i = 0; i < sYSize; i++ )
-         {
+         for( i = 0; i < sYSize; i++ ) {
             k = a * i / sYSize + idxmin;
-            for( j = 0; j < sXSize; j++ )
-            {
+            for( j = 0; j < sXSize; j++ ) {
                posDst[j] = static_cast<BYTE>(k);
                posDst[j] += rand() / grainx2 - granularity;
             }
@@ -690,21 +613,17 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
          break;
       case 3:	//SHS_VSHADE:
          a = idxmax - idxmin;
-         for( j = 0; j < sXSize; j++ )
-         {
+         for( j = 0; j < sXSize; j++ ) {
             k = a * (sXSize - j) / sXSize + idxmin;
-            for( i = 0; i < sYSize; i++ )
-            {
+            for( i = 0; i < sYSize; i++ ) {
                posDst[j + i * bytes] = static_cast<BYTE>(k);
                posDst[j + i * bytes] += rand() / grainx2 - granularity;
             }
          }
          break;
       default:	//SHS_NOISE
-         for( i = 0; i < sYSize; i++ )
-         {
-            for( j = 0; j < sXSize; j++ )
-            {
+         for( i = 0; i < sYSize; i++ ) {
+            for( j = 0; j < sXSize; j++ ) {
                posDst[j] = 128 + rand() / grainx2 - granularity;
             }
             posDst += bytes;
@@ -751,8 +670,7 @@ HB_FUNC( HWG_SHADE_SET )
    COLORREF color = HB_ISNIL(7) ? 0 : hwg_par_COLORREF(7);
    RECT rect;
 
-   if( !HB_ISNIL(7) )
-   {
+   if( !HB_ISNIL(7) ) {
       SetRect(&rect, hb_parni(7), hb_parni(8), hb_parni(9), hb_parni(10));
    }
 

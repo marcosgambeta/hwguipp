@@ -52,13 +52,11 @@ static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer, DWORD dw
 
    HB_SYMBOL_UNUSED(message);
 
-   if( s_pSymTest == nullptr )
-   {
+   if( s_pSymTest == nullptr ) {
       s_pSymTest = hb_dynsymGetCase("HWG_TIMERPROC");
    }
 
-   if( hb_dynsymIsFunction(s_pSymTest) )
-   {
+   if( hb_dynsymIsFunction(s_pSymTest) ) {
       hb_vmPushDynSym(s_pSymTest);
       hb_vmPushNil();   /* places NIL at self */
       //hb_vmPushLong(static_cast<LONG>(hWnd));    /* pushes parameters on to the hvm stack */

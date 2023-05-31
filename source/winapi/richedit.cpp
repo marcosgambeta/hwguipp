@@ -27,8 +27,7 @@ static WNDPROC wpOrigRichProc;
 
 HB_FUNC( HWG_INITRICHEDIT )
 {
-   if( !hRichEd )
-   {
+   if( !hRichEd ) {
       hRichEd = LoadLibrary(TEXT("riched20.dll"));
    }
 }
@@ -39,8 +38,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
    void * hText;
    LPCTSTR lpText;
 
-   if( !hRichEd )
-   {
+   if( !hRichEd ) {
       hRichEd = LoadLibrary(TEXT("riched20.dll"));
    }
 
@@ -59,8 +57,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
          GetModuleHandle(nullptr), nullptr);
 
    lpText = HB_PARSTR(8, &hText, nullptr);
-   if( lpText )
-   {
+   if( lpText ) {
       SendMessage(hCtrl, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(lpText));
    }
    hb_strfree(hText);
@@ -82,14 +79,12 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
    SendMessage(hCtrl, EM_EXGETSEL, 0, reinterpret_cast<LPARAM>(&chrOld));
    SendMessage(hCtrl, EM_HIDESELECTION, 1, 0);
 
-   if( HB_ISARRAY(2) )
-   {
+   if( HB_ISARRAY(2) ) {
       ULONG ulLen, ulLen1;
       PHB_ITEM pArr1;
       pArr = hb_param(2, Harbour::Item::ARRAY);
       ulLen = hb_arrayLen(pArr);
-      for( ULONG ul = 1; ul <= ulLen; ul++ )
-      {
+      for( ULONG ul = 1; ul <= ulLen; ul++ ) {
          pArr1 = hb_arrayGetItemPtr(pArr, ul);
          ulLen1 = hb_arrayLen(pArr1);
          chrNew.cpMin = hb_arrayGetNL(pArr1, 1) - 1;
@@ -98,61 +93,47 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
 
          memset(&cf, 0, sizeof(CHARFORMAT2));
          cf.cbSize = sizeof(CHARFORMAT2);
-         if( hb_itemType(hb_arrayGetItemPtr(pArr1, 3)) != Harbour::Item::NIL )
-         {
+         if( hb_itemType(hb_arrayGetItemPtr(pArr1, 3)) != Harbour::Item::NIL ) {
             cf.crTextColor = static_cast<COLORREF>(hb_arrayGetNL(pArr1, 3));
             cf.dwMask |= CFM_COLOR;
          }
-         if( ulLen1 > 3 && hb_itemType(hb_arrayGetItemPtr(pArr1, 4)) != Harbour::Item::NIL )
-         {
+         if( ulLen1 > 3 && hb_itemType(hb_arrayGetItemPtr(pArr1, 4)) != Harbour::Item::NIL ) {
             HB_ITEMCOPYSTR(hb_arrayGetItemPtr(pArr1, 4), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
             cf.szFaceName[HB_SIZEOFARRAY(cf.szFaceName) - 1] = '\0';
             cf.dwMask |= CFM_FACE;
          }
-         if( ulLen1 > 4 && hb_itemType(hb_arrayGetItemPtr(pArr1, 5)) != Harbour::Item::NIL )
-         {
+         if( ulLen1 > 4 && hb_itemType(hb_arrayGetItemPtr(pArr1, 5)) != Harbour::Item::NIL ) {
             cf.yHeight = hb_arrayGetNL(pArr1, 5);
             cf.dwMask |= CFM_SIZE;
          }
-         if( ulLen1 > 5 && hb_itemType(hb_arrayGetItemPtr(pArr1, 6)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 6) )
-         {
+         if( ulLen1 > 5 && hb_itemType(hb_arrayGetItemPtr(pArr1, 6)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 6) ) {
             cf.dwEffects |= CFE_BOLD;
          }
-         if( ulLen1 > 6 && hb_itemType(hb_arrayGetItemPtr(pArr1, 7)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 7) )
-         {
+         if( ulLen1 > 6 && hb_itemType(hb_arrayGetItemPtr(pArr1, 7)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 7) ) {
             cf.dwEffects |= CFE_ITALIC;
          }
-         if( ulLen1 > 7 && hb_itemType(hb_arrayGetItemPtr(pArr1, 8)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 8) )
-         {
+         if( ulLen1 > 7 && hb_itemType(hb_arrayGetItemPtr(pArr1, 8)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 8) ) {
             cf.dwEffects |= CFE_UNDERLINE;
          }
-         if( ulLen1 > 8 && hb_itemType(hb_arrayGetItemPtr(pArr1, 9)) != Harbour::Item::NIL )
-         {
+         if( ulLen1 > 8 && hb_itemType(hb_arrayGetItemPtr(pArr1, 9)) != Harbour::Item::NIL ) {
             cf.bCharSet = static_cast<BYTE>(hb_arrayGetNL(pArr1, 9));
             cf.dwMask |= CFM_CHARSET;
          }
-         if( ulLen1 > 9 && hb_itemType(hb_arrayGetItemPtr(pArr1, 10)) != Harbour::Item::NIL )
-         {
-            if( hb_arrayGetL(pArr1, 10) )
-            {
+         if( ulLen1 > 9 && hb_itemType(hb_arrayGetItemPtr(pArr1, 10)) != Harbour::Item::NIL ) {
+            if( hb_arrayGetL(pArr1, 10) ) {
                cf.dwEffects |= CFE_SUPERSCRIPT;
-            }
-            else
-            {
+            } else {
                cf.dwEffects |= CFE_SUBSCRIPT;
             }
             cf.dwMask |= CFM_SUPERSCRIPT;
          }
-         if( ulLen1 > 10 && hb_itemType(hb_arrayGetItemPtr(pArr1, 11)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 11) )
-         {
+         if( ulLen1 > 10 && hb_itemType(hb_arrayGetItemPtr(pArr1, 11)) != Harbour::Item::NIL && hb_arrayGetL(pArr1, 11) ) {
             cf.dwEffects |= CFE_PROTECTED;
          }
          cf.dwMask |= ( CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_PROTECTED );
          SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION, reinterpret_cast<LPARAM>(&cf));
       }
-   }
-   else
-   {
+   } else {
       /*   Set new selection   */
       chrNew.cpMin = hb_parnl(2) - 1;
       chrNew.cpMax = hb_parnl(3) - 1;
@@ -161,56 +142,44 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       memset(&cf, 0, sizeof(CHARFORMAT2));
       cf.cbSize = sizeof(CHARFORMAT2);
 
-      if( !HB_ISNIL(4) )
-      {
+      if( !HB_ISNIL(4) ) {
          cf.crTextColor = hwg_par_COLORREF(4);
          cf.dwMask |= CFM_COLOR;
       }
-      if( !HB_ISNIL(5) )
-      {
+      if( !HB_ISNIL(5) ) {
          HB_ITEMCOPYSTR(hb_param(5, Harbour::Item::ANY), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
          cf.szFaceName[HB_SIZEOFARRAY(cf.szFaceName) - 1] = '\0';
          cf.dwMask |= CFM_FACE;
       }
-      if( !HB_ISNIL(6) )
-      {
+      if( !HB_ISNIL(6) ) {
          cf.yHeight = hb_parnl(6);
          cf.dwMask |= CFM_SIZE;
       }
-      if( !HB_ISNIL(7) )
-      {
+      if( !HB_ISNIL(7) ) {
          cf.dwEffects |= ( hb_parl(7) ) ? CFE_BOLD : 0;
          cf.dwMask |= CFM_BOLD;
       }
-      if( !HB_ISNIL(8) )
-      {
+      if( !HB_ISNIL(8) ) {
          cf.dwEffects |= ( hb_parl(8) ) ? CFE_ITALIC : 0;
          cf.dwMask |= CFM_ITALIC;
       }
-      if( !HB_ISNIL(9) )
-      {
+      if( !HB_ISNIL(9) ) {
          cf.dwEffects |= ( hb_parl(9) ) ? CFE_UNDERLINE : 0;
          cf.dwMask |= CFM_UNDERLINE;
       }
-      if( !HB_ISNIL(10) )
-      {
+      if( !HB_ISNIL(10) ) {
          cf.bCharSet = hwg_par_BYTE(10);
          cf.dwMask |= CFM_CHARSET;
       }
-      if( !HB_ISNIL(11) )
-      {
-         if( hb_parl(9) )
-         {
+      if( !HB_ISNIL(11) ) {
+         if( hb_parl(9) ) {
             cf.dwEffects |= CFE_SUPERSCRIPT;
-         }
-         else
-         {
+         } else {
             cf.dwEffects |= CFE_SUBSCRIPT;
          }
          cf.dwMask |= CFM_SUPERSCRIPT;
       }
-      if( !HB_ISNIL(12) )
-      {
+      if( !HB_ISNIL(12) ) {
          cf.dwEffects |= CFE_PROTECTED;
          cf.dwMask |= CFM_PROTECTED;
       }
@@ -235,39 +204,32 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    memset(&cf, 0, sizeof(CHARFORMAT2));
    cf.cbSize = sizeof(CHARFORMAT2);
 
-   if( HB_ISNUM(2) )
-   {
+   if( HB_ISNUM(2) ) {
       cf.crTextColor = hwg_par_COLORREF(2);
       cf.dwMask |= CFM_COLOR;
    }
-   if( HB_ISCHAR(3) )
-   {
+   if( HB_ISCHAR(3) ) {
       HB_ITEMCOPYSTR(hb_param(3, Harbour::Item::ANY), cf.szFaceName, HB_SIZEOFARRAY(cf.szFaceName));
       cf.szFaceName[HB_SIZEOFARRAY(cf.szFaceName) - 1] = '\0';
       cf.dwMask |= CFM_FACE;
    }
 
-   if( HB_ISNUM(4) )
-   {
+   if( HB_ISNUM(4) ) {
       cf.yHeight = hb_parnl(4);
       cf.dwMask |= CFM_SIZE;
    }
 
-   if( !HB_ISNIL(5) )
-   {
+   if( !HB_ISNIL(5) ) {
       cf.dwEffects |= ( hb_parl(5) ) ? CFE_BOLD : 0;
    }
-   if( !HB_ISNIL(6) )
-   {
+   if( !HB_ISNIL(6) ) {
       cf.dwEffects |= ( hb_parl(6) ) ? CFE_ITALIC : 0;
    }
-   if( !HB_ISNIL(7) )
-   {
+   if( !HB_ISNIL(7) ) {
       cf.dwEffects |= ( hb_parl(7) ) ? CFE_UNDERLINE : 0;
    }
 
-   if( HB_ISNUM(8) )
-   {
+   if( HB_ISNUM(8) ) {
       cf.bCharSet = hwg_par_BYTE(8);
       cf.dwMask |= CFM_CHARSET;
    }
@@ -406,16 +368,13 @@ HB_FUNC( HWG_PRINTRTF )
 
    SendMessage(hwnd, EM_SETSEL, 0, static_cast<LPARAM>(-1));
    SendMessage(hwnd, EM_EXGETSEL, 0, reinterpret_cast<LPARAM>(&fr.chrg));
-   while( fr.chrg.cpMin < fr.chrg.cpMax && fSuccess )
-   {
+   while( fr.chrg.cpMin < fr.chrg.cpMax && fSuccess ) {
       fSuccess = StartPage(hdc) > 0;
-      if( !fSuccess )
-      {
+      if( !fSuccess ) {
          break;
       }
       cpMin = SendMessage(hwnd, EM_FORMATRANGE, TRUE, reinterpret_cast<LPARAM>(&fr));
-      if( cpMin <= fr.chrg.cpMin )
-      {
+      if( cpMin <= fr.chrg.cpMin ) {
          fSuccess = FALSE;
          break;
       }
@@ -438,13 +397,11 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
-   if( !pSym_onEvent )
-   {
+   if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
    }
 
-   if( pSym_onEvent && pObject )
-   {
+   if( pSym_onEvent && pObject ) {
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush(pObject);
       hb_vmPushLong(static_cast<LONG>(message));
@@ -452,17 +409,12 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
       hb_vmPushLong(static_cast<LONG>(lParam));
       hb_vmSend(3);
       res = hb_parnl(-1);
-      if( res == -1 )
-      {
+      if( res == -1 ) {
          return (CallWindowProc(wpOrigRichProc, hWnd, message, wParam, lParam));
-      }
-      else
-      {
+      } else {
          return res;
       }
-   }
-   else
-   {
+   } else {
       return (CallWindowProc(wpOrigRichProc, hWnd, message, wParam, lParam));
    }
 }
@@ -473,8 +425,7 @@ static DWORD CALLBACK RichStreamOutCallback(DWORD_PTR dwCookie, LPBYTE pbBuff, L
    DWORD dwW;
    HB_SYMBOL_UNUSED(pcb);
 
-   if( pFile == INVALID_HANDLE_VALUE )
-   {
+   if( pFile == INVALID_HANDLE_VALUE ) {
       return 0;
    }
 
@@ -500,8 +451,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
 
    lpFileName = HB_PARSTR(2, &hFileName, &nSize);
    hFile = CreateFile(lpFileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
-   if( hFile == INVALID_HANDLE_VALUE )
-   {
+   if( hFile == INVALID_HANDLE_VALUE ) {
       hb_retni(0);
       return;
    }
@@ -526,8 +476,7 @@ HB_FUNC( HWG_LOADRICHEDIT )
 
    lpFileName = HB_PARSTR(2, &hFileName, &nSize);
    hFile = CreateFile(lpFileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
-   if( hFile == INVALID_HANDLE_VALUE )
-   {
+   if( hFile == INVALID_HANDLE_VALUE ) {
       hb_retni(0);
       return;
    }

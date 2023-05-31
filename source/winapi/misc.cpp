@@ -34,17 +34,13 @@ void hwg_writelog(const char * sFile, const char * sTraceMsg, ...)
 {
    FILE *hFile;
 
-   if( sFile == nullptr )
-   {
+   if( sFile == nullptr ) {
       hFile = hb_fopen("ac.log", "a");
-   }
-   else
-   {
+   } else {
       hFile = hb_fopen(sFile, "a");
    }
 
-   if( hFile )
-   {
+   if( hFile ) {
       va_list ap;
 
       va_start(ap, sTraceMsg);
@@ -73,8 +69,7 @@ HB_FUNC( HWG_RELEASECAPTURE )
 
 HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 {
-   if( OpenClipboard(GetActiveWindow()) )
-   {
+   if( OpenClipboard(GetActiveWindow()) ) {
       HGLOBAL hglbCopy;
       char *lptstrCopy;
       void * hStr;
@@ -85,8 +80,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 
       lpStr = HB_PARSTRDEF(1, &hStr, &nLen);
       hglbCopy = GlobalAlloc(GMEM_DDESHARE, ( nLen + 1 ) * sizeof(TCHAR));
-      if( hglbCopy != nullptr )
-      {
+      if( hglbCopy != nullptr ) {
          // Lock the handle and copy the text to the buffer.
          lptstrCopy = ( char * ) GlobalLock(hglbCopy);
          memcpy(lptstrCopy, lpStr, nLen * sizeof(TCHAR));
@@ -110,21 +104,17 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
    HWND hWnd = reinterpret_cast<HWND>(hb_parnl(1)); // TODO: HB_PARHANDLE ?
    LPTSTR lpText = nullptr;
 
-   if( OpenClipboard(hWnd) )
-   {
+   if( OpenClipboard(hWnd) ) {
 #ifdef UNICODE
       HGLOBAL hglb = GetClipboardData(CF_UNICODETEXT);
 #else
       HGLOBAL hglb = GetClipboardData(CF_TEXT);
 #endif
-      if( hglb )
-      {
+      if( hglb ) {
          LPVOID lpMem = GlobalLock(hglb);
-         if( lpMem )
-         {
+         if( lpMem ) {
             HB_SIZE nSize = static_cast<HB_SIZE>(GlobalSize(hglb));
-            if( nSize )
-            {
+            if( nSize ) {
                lpText = ( LPTSTR ) hb_xgrab(nSize + 1);
                memcpy(lpText, lpMem, nSize);
                ((char*)lpText)[nSize] = 0;
@@ -135,8 +125,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
       CloseClipboard();
    }
    HB_RETSTR(lpText);
-   if( lpText )
-   {
+   if( lpText ) {
       hb_xfree(lpText);
    }   
 }
@@ -179,12 +168,9 @@ HB_FUNC( HWG_BITANDINVERSE )
 
 HB_FUNC( HWG_SETBIT )
 {
-   if( hb_pcount() < 3 || hb_parni(3) )
-   {
+   if( hb_pcount() < 3 || hb_parni(3) ) {
       hb_retnl(hb_parnl(1) | (1 << (hb_parni(2) - 1)));
-   }
-   else
-   {
+   } else {
       hb_retnl(hb_parnl(1) & ~(1 << (hb_parni(2) - 1)));
    }   
 }
@@ -233,15 +219,12 @@ HB_FUNC( HWG_SCREENTOCLIENT )
    PHB_ITEM aPoint = hb_itemArrayNew(2);
    PHB_ITEM temp;
 
-   if( hb_pcount() > 2 )
-   {
+   if( hb_pcount() > 2 ) {
       pt.x = hb_parnl(2);
       pt.y = hb_parnl(3);
 
       ScreenToClient(hwg_par_HWND(1), &pt);
-   }
-   else
-   {
+   } else {
       Array2Rect(hb_param(2, Harbour::Item::ARRAY), &R);
       ScreenToClient(hwg_par_HWND(1), ( LPPOINT ) ( void * ) &R);
       ScreenToClient(hwg_par_HWND(1), (( LPPOINT ) ( void * ) &R) + 1);
@@ -322,8 +305,7 @@ HB_FUNC( HWG_GETKEYNAMETEXT )
    TCHAR cText[MAX_PATH];
    int iRet = GetKeyNameText(hb_parnl(1), cText, MAX_PATH);
 
-   if( iRet )
-   {
+   if( iRet ) {
       HB_RETSTRLEN(cText, iRet);
    }   
 }
@@ -336,20 +318,16 @@ HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
    TCHAR sBuff[KL_NAMELENGTH];
    UINT num = GetKeyboardLayoutList(0, nullptr), i = 0;
 
-   do
-   {
+   do {
       GetKeyboardLayoutName(sBuff);
-      if( !lstrcmp(sBuff, lpLayout) )
-      {
+      if( !lstrcmp(sBuff, lpLayout) ) {
          break;
       }
       ActivateKeyboardLayout(0, 0);
       i++;
-   }
-   while( i < num );
+   } while( i < num );
    
-   if( i >= num )
-   {
+   if( i >= num ) {
       ActivateKeyboardLayout(curr, 0);
    }
    
@@ -367,19 +345,15 @@ HB_FUNC( HWG_PTS2PIX )
    HDC hDC;
    BOOL lDC = 1;
 
-   if( hb_pcount() > 1 && !HB_ISNIL(1) )
-   {
+   if( hb_pcount() > 1 && !HB_ISNIL(1) ) {
       hDC = hwg_par_HDC(2);
       lDC = 0;
-   }
-   else
-   {
+   } else {
       hDC = CreateDC(TEXT("DISPLAY"), nullptr, nullptr, nullptr);
    }
    
    hb_retni(MulDiv(hb_parni(1), GetDeviceCaps(hDC, LOGPIXELSY), 72));
-   if( lDC )
-   {
+   if( lDC ) {
       DeleteDC(hDC);
    }
 }
@@ -482,8 +456,7 @@ HB_FUNC( HWG_GETNEXTDLGTABITEM )
 
 HB_FUNC( HWG_SLEEP )
 {
-   if( hb_parinfo(1) )
-   {
+   if( hb_parinfo(1) ) {
       Sleep(hb_parnl(1));
    }
 }
@@ -495,32 +468,26 @@ HB_FUNC( HWG_KEYB_EVENT )
    int bCtrl = ( !(HB_ISNIL(4)) && hb_parl(4) ) ? TRUE : FALSE;
    int bAlt = ( !(HB_ISNIL(5)) && hb_parl(5) ) ? TRUE : FALSE;
 
-   if( bShift )
-   {
+   if( bShift ) {
       keybd_event(VK_SHIFT, 0, 0, 0);
    }
-   if( bCtrl )
-   {
+   if( bCtrl ) {
       keybd_event(VK_CONTROL, 0, 0, 0);
    }
-   if( bAlt )
-   {
+   if( bAlt ) {
       keybd_event(VK_MENU, 0, 0, 0);
    }
 
    keybd_event(hwg_par_BYTE(1), 0, dwFlags, 0);
    keybd_event(hwg_par_BYTE(1), 0, dwFlags | KEYEVENTF_KEYUP, 0);
 
-   if( bShift )
-   {
+   if( bShift ) {
       keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
    }
-   if( bCtrl )
-   {
+   if( bCtrl ) {
       keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0);
    }
-   if( bAlt )
-   {
+   if( bAlt ) {
       keybd_event(VK_MENU, 0, KEYEVENTF_KEYUP, 0);
    }
 }
@@ -532,20 +499,17 @@ HB_FUNC( HWG_SETSCROLLINFO )
    SCROLLINFO si;
    UINT fMask = ( hb_pcount() < 4 ) ? SIF_DISABLENOSCROLL : 0;
 
-   if( hb_pcount() > 3 && !HB_ISNIL(4) )
-   {
+   if( hb_pcount() > 3 && !HB_ISNIL(4) ) {
       si.nPos = hb_parni(4);
       fMask |= SIF_POS;
    }
 
-   if( hb_pcount() > 4 && !HB_ISNIL(5) )
-   {
+   if( hb_pcount() > 4 && !HB_ISNIL(5) ) {
       si.nPage = hb_parni(5);
       fMask |= SIF_PAGE;
    }
 
-   if( hb_pcount() > 5 && !HB_ISNIL(6) )
-   {
+   if( hb_pcount() > 5 && !HB_ISNIL(6) ) {
       si.nMin = 0;
       si.nMax = hb_parni(6);
       fMask |= SIF_RANGE;
@@ -569,8 +533,7 @@ HB_FUNC( HWG_GETSCROLLRANGE )
          &MinPos,               // address of variable that receives minimum position
          &MaxPos                // address of variable that receives maximum position
           );
-   if( hb_pcount() > 2 )
-   {
+   if( hb_pcount() > 2 ) {
       hb_storni(MinPos, 3);
       hb_storni(MaxPos, 4);
    }
@@ -732,8 +695,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    HBRUSH hBrush;
    COLORREF cColor;
 
-   if( !pObject )
-   {
+   if( !pObject ) {
       hb_retnl(reinterpret_cast<LONG>(GetStockObject(HOLLOW_BRUSH)));
       SetBkMode(hdc, TRANSPARENT);
       return;
@@ -745,13 +707,10 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    DeleteObject(hBrush);
 
    i = hb_objDataGetNL(pObject, "M_BACKCOLOR");
-   if( i == -1 )
-   {
+   if( i == -1 ) {
       hBrush = static_cast<HBRUSH>(GetStockObject(HOLLOW_BRUSH));
       SetBkMode(hdc, TRANSPARENT);
-   }
-   else
-   {
+   } else {
       hBrush = CreateSolidBrush(static_cast<COLORREF>(i));
       SetBkColor(hdc, static_cast<COLORREF>(i));
    }
@@ -804,10 +763,8 @@ HB_FUNC( HWG_LASTKEY )
 
    GetKeyboardState(kbBuffer);
 
-   for( i = 0; i < 256; i++ )
-   {
-      if( kbBuffer[i] & 0x80 )
-      {
+   for( i = 0; i < 256; i++ ) {
+      if( kbBuffer[i] & 0x80 ) {
          hb_retni(i);
          return;
       }
@@ -858,8 +815,7 @@ HB_FUNC( HWG_PROCESSRUN )
         nullptr,           // Use parent's starting directory
         &si,            // Pointer to STARTUPINFO structure
         &pi)           // Pointer to PROCESS_INFORMATION structure
-    ) 
-    {
+    ) {
         hb_ret();
         return;
     }
@@ -908,8 +864,7 @@ HB_FUNC( HWG_PROCESSRUN )
        nullptr,           // Use parent's starting directory
        &si,            // Pointer to STARTUPINFO structure
        &pi)           // Pointer to PROCESS_INFORMATION structure
-   )
-   {
+   ) {
        hb_strfree(hStr);
        hb_ret();
        return;
@@ -947,15 +902,13 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    sa.lpSecurityDescriptor = nullptr;
 
    // Create a pipe for the child process's STDOUT.
-   if( ! CreatePipe(&g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &sa, 0) )
-   {
+   if( ! CreatePipe(&g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &sa, 0) ) {
       hb_retni(1);
       return;
    }
 
    // Ensure the read handle to the pipe for STDOUT is not inherited.
-   if( ! SetHandleInformation(g_hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0) )
-   {
+   if( ! SetHandleInformation(g_hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0) ) {
       hb_retni(2);
       return;
    }
@@ -975,8 +928,7 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    bSuccess = CreateProcess(nullptr, (LPTSTR)HB_PARSTR(1, &hStr, nullptr), nullptr, nullptr, TRUE, CREATE_NEW_CONSOLE, nullptr, nullptr, &si, &pi);
    hb_strfree(hStr);
 
-   if( ! bSuccess )
-   {
+   if( ! bSuccess ) {
       hb_retni(3);
       return;
    }
@@ -987,32 +939,26 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    CloseHandle(pi.hThread);
    CloseHandle(g_hChildStd_OUT_Wr);
 
-   if( !HB_ISNIL(2) )
-   {
+   if( !HB_ISNIL(2) ) {
       hOut = CreateFile(HB_PARSTR(2, &hStr, nullptr), GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
       hb_strfree(hStr);
    }
 
-   while( 1 )
-   {
+   while( 1 ) {
       bSuccess = ReadFile(g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, nullptr);
-      if( ! bSuccess || dwRead == 0 )
-      {
+      if( ! bSuccess || dwRead == 0 ) {
          break;
       }
 
-      if( !HB_ISNIL(2) )
-      {
+      if( !HB_ISNIL(2) ) {
          bSuccess = WriteFile(hOut, chBuf, dwRead, &dwWritten, nullptr);
-         if( ! bSuccess )
-         {
+         if( ! bSuccess ) {
             break;
          }
       }
    }
 
-   if( !HB_ISNIL(2) )
-   {
+   if( !HB_ISNIL(2) ) {
       CloseHandle(hOut);
    }
    CloseHandle(g_hChildStd_OUT_Rd);
@@ -1022,12 +968,9 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 
 HB_FUNC( HWG_RUNAPP )
 {
-   if( HB_ISNIL(3) || !hb_parl(3) )
-   {
+   if( HB_ISNIL(3) || !hb_parl(3) ) {
       hb_retni(WinExec(hb_parc(1), (HB_ISNIL(2))? SW_SHOW : hwg_par_UINT(2)));
-   }
-   else
-   {
+   } else {
       STARTUPINFO si;
       PROCESS_INFORMATION pi;
       void * hStr;
@@ -1057,59 +1000,36 @@ BOOL hb_itemEqual(PHB_ITEM pItem1, PHB_ITEM pItem2)
 {
    BOOL fResult = 0;
 
-   if( HB_IS_NUMERIC(pItem1) )
-   {
-      if( HB_IS_NUMINT(pItem1) && HB_IS_NUMINT(pItem2) )
-      {
+   if( HB_IS_NUMERIC(pItem1) ) {
+      if( HB_IS_NUMINT(pItem1) && HB_IS_NUMINT(pItem2) ) {
          fResult = HB_ITEM_GET_NUMINTRAW(pItem1) == HB_ITEM_GET_NUMINTRAW(pItem2);
-      }
-      else
-      {
+      } else {
          fResult = HB_IS_NUMERIC(pItem2) && hb_itemGetND(pItem1) == hb_itemGetND(pItem2);
       }
-   }
-   else if( HB_IS_STRING(pItem1) )
-   {
+   } else if( HB_IS_STRING(pItem1) ) {
       fResult = HB_IS_STRING(pItem2) &&
                 pItem1->item.asString.length == pItem2->item.asString.length &&
                 memcmp(pItem1->item.asString.value, pItem2->item.asString.value, pItem1->item.asString.length) == 0;
-   }
-   else if( HB_IS_NIL(pItem1) )
-   {
+   } else if( HB_IS_NIL(pItem1) ) {
       fResult = HB_IS_NIL(pItem2);
-   }
-   else if( HB_IS_DATETIME(pItem1) )
-   {
-      if( HB_IS_TIMEFLAG(pItem1) && HB_IS_TIMEFLAG(pItem2) )
-      {
+   } else if( HB_IS_DATETIME(pItem1) ) {
+      if( HB_IS_TIMEFLAG(pItem1) && HB_IS_TIMEFLAG(pItem2) ) {
          fResult = HB_IS_DATETIME(pItem2) &&
                 pItem1->item.asDate.value == pItem2->item.asDate.value &&
                 pItem1->item.asDate.time == pItem2->item.asDate.time;
-      }
-      else
-      {
+      } else {
          fResult = HB_IS_DATE(pItem2) && pItem1->item.asDate.value == pItem2->item.asDate.value;
       }
 
-   }
-   else if( HB_IS_LOGICAL(pItem1) )
-   {
+   } else if( HB_IS_LOGICAL(pItem1) ) {
       fResult = HB_IS_LOGICAL(pItem2) && ( pItem1->item.asLogical.value ? pItem2->item.asLogical.value : ! pItem2->item.asLogical.value );
-   }
-   else if( HB_IS_ARRAY(pItem1) )
-   {
+   } else if( HB_IS_ARRAY(pItem1) ) {
       fResult = HB_IS_ARRAY(pItem2) && pItem1->item.asArray.value == pItem2->item.asArray.value;
-   }
-   else if( HB_IS_HASH(pItem1) )
-   {
+   } else if( HB_IS_HASH(pItem1) ) {
       fResult = HB_IS_HASH(pItem2) && pItem1->item.asHash.value == pItem2->item.asHash.value;
-   }
-   else if( HB_IS_POINTER(pItem1) )
-   {
+   } else if( HB_IS_POINTER(pItem1) ) {
       fResult = HB_IS_POINTER(pItem2) && pItem1->item.asPointer.value == pItem2->item.asPointer.value;
-   }
-   else if( HB_IS_BLOCK(pItem1) )
-   {
+   } else if( HB_IS_BLOCK(pItem1) ) {
       fResult = HB_IS_BLOCK(pItem2) && pItem1->item.asBlock.value == pItem2->item.asBlock.value;
    }
 
@@ -1323,32 +1243,24 @@ HB_FUNC( HWG_BIN2DC )
 
     /* Convert hex to bin */
 
-    for( i = 0; i < 16; i++ )
-     {
+    for( i = 0; i < 16; i++ ) {
  
           c = hwg_hexbin(szHex[i]);
           /* ignore, if not in 0 ... 1, A ... F */
-          if( c  != -1 )
-          {
+          if( c  != -1 ) {
            /* must be a pair of char,
               other values between the pairs of hex values are ignored */
-            if( od == 1 )
-            {
+            if( od == 1 ) {
                 od = 0;
-            }
-            else
-            {
+            } else {
                 od = 1;
             }
             /* 1. Halbbyte zwischenspeichern / Store first half byte */
-            if( od == 1)
-            {
+            if( od == 1) {
               p = c;
-            }
-            else
-            /* 2. Halbbyte verarbeiten, ganzes Byte ausspeichern 
+            } else {
+            /* 2. Halbbyte verarbeiten, ganzes Byte ausspeichern
                 / Process second half byte and store full byte */
-            {
               p = ( p * 16 ) + c;
               o = (unsigned char) p;
               bu[i / 2] = o;

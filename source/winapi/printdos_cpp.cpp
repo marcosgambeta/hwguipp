@@ -40,9 +40,7 @@ static int file_read ( FILE *stream, char *string )
       {
          string [cnbr] = '\0';
          return (ch == '\n' || cnbr);
-      }
-      else
-      {
+      } else {
          if ( cnbr < LINE_MAX && ch != '\r' )
          {
             string [cnbr++] = (char) ch;
@@ -103,8 +101,7 @@ HB_FUNC( HWG_WIN_ANSITOOEM )
 {
    PHB_ITEM pString = hb_param(1, Harbour::Item::STRING);
 
-   if( pString )
-   {
+   if( pString ) {
       int nLen = ( int ) hb_itemGetCLen(pString);
       const char * pszSrc = hb_itemGetCPtr(pString);
 
@@ -122,7 +119,7 @@ HB_FUNC( HWG_WIN_ANSITOOEM )
 
       hb_xfree(pszWide);
       hb_retclen_buffer(pszDst, nLen);
-   }
-   else
+   } else {
       hb_retc_null();
+   }
 }

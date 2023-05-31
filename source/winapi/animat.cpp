@@ -92,8 +92,7 @@ HB_FUNC( HWG_ANIMATE_OPENEX ) // moved to hanimation.prg as static function
    void * hResource;
    LPCTSTR lpResource = HB_PARSTR(3, &hResource, nullptr);
 
-   if( !lpResource && HB_ISNUM(3) )
-   {
+   if( !lpResource && HB_ISNUM(3) ) {
       lpResource = MAKEINTRESOURCE(hb_parni(3));
    }
 

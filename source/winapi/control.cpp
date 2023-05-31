@@ -57,8 +57,7 @@ HWG_INITCOMMONCONTROLSEX() --> NIL
 */
 HB_FUNC( HWG_INITCOMMONCONTROLSEX )
 {
-   if( !s_lInitCmnCtrl )
-   {
+   if( !s_lInitCmnCtrl ) {
       INITCOMMONCONTROLSEX i;
       i.dwSize = sizeof(INITCOMMONCONTROLSEX);
       i.dwICC = ICC_DATE_CLASSES | ICC_INTERNET_CLASSES | ICC_BAR_CLASSES | ICC_LISTVIEW_CLASSES | ICC_TAB_CLASSES | ICC_TREEVIEW_CLASSES;
@@ -156,31 +155,23 @@ HB_FUNC( HWG_INITSTATUS )
    hloc = LocalAlloc(LHND, sizeof(int) * nParts);
    lpParts = static_cast<LPINT>(LocalLock(hloc));
 
-   if( !pArray || hb_arrayGetNI(pArray, 1) == 0 )
-   {
+   if( !pArray || hb_arrayGetNI(pArray, 1) == 0 ) {
       // Get the coordinates of the parent window's client area.
       GetClientRect(hParent, &rcClient);
       // Calculate the right edge coordinate for each part, and
       // copy the coordinates to the array.
       nWidth = rcClient.right / nParts;
-      for( int i = 0; i < nParts; i++ )
-      {
+      for( int i = 0; i < nParts; i++ ) {
          lpParts[i] = nWidth;
          nWidth += nWidth;
       }
-   }
-   else
-   {
+   } else {
       nWidth = 0;
-      for( ULONG ul = 1; ul <= static_cast<ULONG>(nParts); ul++ )
-      {
+      for( ULONG ul = 1; ul <= static_cast<ULONG>(nParts); ul++ ) {
          j = hb_arrayGetNI(pArray, ul);
-         if( ul == static_cast<ULONG>(nParts) && j == 0 )
-         {
+         if( ul == static_cast<ULONG>(nParts) && j == 0 ) {
             nWidth = -1;
-         }
-         else
-         {
+         } else {
             nWidth += j;
          }
          lpParts[ul - 1] = nWidth;
@@ -230,8 +221,7 @@ HB_FUNC( HWG_CREATEIMAGELIST )
 
    himl = ImageList_Create(hb_parni(2), hb_parni(3), flags, ulLen, hb_parni(4));
 
-   for( ULONG ul = 1; ul <= ulLen; ul++ )
-   {
+   for( ULONG ul = 1; ul <= ulLen; ul++ ) {
       hbmp = static_cast<HBITMAP>(HB_GETPTRHANDLE(pArray, ul));
       ImageList_Add(himl, hbmp, nullptr);
       DeleteObject(hbmp);
@@ -270,12 +260,9 @@ HB_FUNC( HWG_LOADCURSOR )
    void * hStr;
    LPCTSTR lpStr = HB_PARSTR(1, &hStr, nullptr);
 
-   if( lpStr )
-   {
+   if( lpStr ) {
       HB_RETHANDLE(LoadCursor(GetModuleHandle(nullptr), lpStr));
-   }
-   else
-   {
+   } else {
       HB_RETHANDLE(LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(1))));
    }
    hb_strfree(hStr);
@@ -292,13 +279,10 @@ HB_FUNC( HWG_LOADCURSORFROMFILE )
    LPCTSTR ccurFname = HB_PARSTR(1, &hStr, nullptr);
 
    hCursor = LoadCursorFromFile(ccurFname);
-   if( hCursor == nullptr )
-   {
+   if( hCursor == nullptr ) {
       /* in case of error return default cursor "Arrow" */
       HB_RETHANDLE(LoadCursor(nullptr, IDC_ARROW));
-   }
-   else
-   {
+   } else {
       HB_RETHANDLE(hCursor);
    }
 
@@ -321,8 +305,7 @@ HB_FUNC( HWG_REGOWNBTN )
 
    WNDCLASS wndclass;
 
-   if( !bRegistered )
-   {
+   if( !bRegistered ) {
       wndclass.style = CS_OWNDC | CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
       wndclass.lpfnWndProc = WinCtrlProc;
       wndclass.cbClsExtra = 0;
@@ -343,8 +326,7 @@ HB_FUNC( HWG_REGBROWSE )
 {
    static bool bRegistered = false;
 
-   if( !bRegistered )
-   {
+   if( !bRegistered ) {
       WNDCLASS wndclass;
 
       wndclass.style = CS_OWNDC | CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
@@ -391,13 +373,11 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    long int res;
    PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-   if( !pSym_onEvent )
-   {
+   if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
    }
 
-   if( pSym_onEvent && pObject )
-   {
+   if( pSym_onEvent && pObject ) {
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush(pObject);
       hb_vmPushLong(static_cast<LONG>(message));
@@ -406,25 +386,17 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
       HB_PUSHITEM(wParam);
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
-      if( HB_ISPOINTER(-1) )
-      {
+      if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
-      }
-      else
-      {
+      } else {
          res = hb_parnl(-1);
-         if( res == -1 )
-         {
+         if( res == -1 ) {
             return (DefWindowProc(hWnd, message, wParam, lParam));
-         }
-         else
-         {
+         } else {
             return res;
          }
       }
-   }
-   else
-   {
+   } else {
       return (DefWindowProc(hWnd, message, wParam, lParam));
    }
 }
@@ -434,13 +406,11 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
    long int res;
    PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-   if( !pSym_onEvent )
-   {
+   if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
    }
 
-   if( pSym_onEvent && pObject )
-   {
+   if( pSym_onEvent && pObject ) {
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush(pObject);
       hb_vmPushLong(static_cast<LONG>(message));
@@ -449,25 +419,17 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
       HB_PUSHITEM(wParam);
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
-      if( HB_ISPOINTER(-1) )
-      {
+      if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
-      }
-      else
-      {
+      } else {
          res = hb_parnl(-1);
-         if( res == -1 )
-         {
+         if( res == -1 ) {
             return (CallWindowProc(wpOrigListProc, hWnd, message, wParam, lParam));
-         }
-         else
-         {
+         } else {
             return res;
          }
       }
-   }
-   else
-   {
+   } else {
       return (CallWindowProc(wpOrigListProc, hWnd, message, wParam, lParam));
    }
 }
@@ -487,13 +449,11 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
    long int res;
    PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-   if( !pSym_onEvent )
-   {
+   if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
    }
 
-   if( pSym_onEvent && pObject )
-   {
+   if( pSym_onEvent && pObject ) {
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush(pObject);
       hb_vmPushLong(static_cast<LONG>(message));
@@ -502,25 +462,17 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
       HB_PUSHITEM(wParam);
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
-      if( HB_ISPOINTER(-1) )
-      {
+      if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
-      }
-      else
-      {
+      } else {
          res = hb_parnl(-1);
-         if( res == -1 )
-         {
+         if( res == -1 ) {
             return (CallWindowProc(wpOrigTrackProc, hWnd, message, wParam, lParam));
-         }
-         else
-         {
+         } else {
             return res;
          }
       }
-   }
-   else
-   {
+   } else {
       return (CallWindowProc(wpOrigTrackProc, hWnd, message, wParam, lParam));
    }
 }
@@ -597,13 +549,11 @@ static BOOL AddBar(HWND pParent, HWND pBar, LPCTSTR pszText, HBITMAP pbmp, DWORD
 
    rbBand.fMask = RBBIM_STYLE;
    rbBand.fStyle = dwStyle;
-   if( pszText != nullptr )
-   {
+   if( pszText != nullptr ) {
       rbBand.fMask |= RBBIM_TEXT;
       rbBand.lpText = const_cast<LPTSTR>(pszText);
    }
-   if( pbmp != nullptr )
-   {
+   if( pbmp != nullptr ) {
       rbBand.fMask |= RBBIM_BACKGROUND;
       rbBand.hbmBack = static_cast<HBITMAP>(pbmp);
    }
@@ -618,8 +568,7 @@ static BOOL AddBar1(HWND pParent, HWND pBar, COLORREF clrFore, COLORREF clrBack,
    rbBand.fStyle = dwStyle;
    rbBand.clrFore = clrFore;
    rbBand.clrBack = clrBack;
-   if( pszText != nullptr )
-   {
+   if( pszText != nullptr ) {
       rbBand.fMask |= RBBIM_TEXT;
       rbBand.lpText = const_cast<LPTSTR>(pszText);
    }
@@ -669,12 +618,10 @@ HB_FUNC( HWG_CALLWINDOWPROC )
 HB_FUNC( HWG_BUTTONGETDLGCODE )
 {
    LPARAM lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(1));
-   if( lParam )
-   {
+   if( lParam ) {
       MSG *pMsg = reinterpret_cast<MSG*>(lParam);
 
-      if( pMsg && (pMsg->message == WM_KEYDOWN) && (pMsg->wParam == VK_TAB) )
-      {
+      if( pMsg && (pMsg->message == WM_KEYDOWN) && (pMsg->wParam == VK_TAB) ) {
          // don't interfere with tab processing
          hb_retnl(0);
          return;
@@ -686,12 +633,10 @@ HB_FUNC( HWG_BUTTONGETDLGCODE )
 HB_FUNC( HWG_GETDLGMESSAGE )
 {
    LPARAM lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(1));
-   if( lParam )
-   {
+   if( lParam ) {
       MSG *pMsg = reinterpret_cast<MSG*>(lParam);
 
-      if( pMsg )
-      {
+      if( pMsg ) {
          hb_retnl(pMsg->message);
          return;
       }

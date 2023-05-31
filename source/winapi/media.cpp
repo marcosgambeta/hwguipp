@@ -22,21 +22,16 @@ HB_FUNC( HWG_PLAYSOUND )
    HMODULE hmod = nullptr;
    DWORD fdwSound = SND_NODEFAULT | SND_FILENAME;
 
-   if( hb_parl(2) )
-   {
+   if( hb_parl(2) ) {
       fdwSound |= SND_SYNC;
-   }
-   else
-   {
+   } else {
       fdwSound |= SND_ASYNC;
    }
 
-   if( hb_parl(3) )
-   {
+   if( hb_parl(3) ) {
       fdwSound |= SND_LOOP;
    }
-   if( !lpSound )
-   {
+   if( !lpSound ) {
       fdwSound |= SND_PURGE;
    }
 
@@ -51,8 +46,7 @@ HB_FUNC( HWG_MCISENDSTRING )
 
    hb_retnl(static_cast<LONG>(mciSendString(HB_PARSTR(1, &hCommand, nullptr), cBuffer, HB_SIZEOFARRAY(cBuffer), HB_ISNIL(3) ? GetActiveWindow() : hwg_par_HWND(3))));
 
-   if( !HB_ISNIL(2) )
-   {
+   if( !HB_ISNIL(2) ) {
       HB_STORSTR(cBuffer, 2);
    }
    hb_strfree(hCommand);
@@ -85,8 +79,7 @@ HB_FUNC( HWG_NMCIOPEN )
 
    mciOpenParms.lpstrDeviceType = HB_PARSTR(1, &hDevice, nullptr);
    mciOpenParms.lpstrElementName = HB_PARSTR(2, &hName, nullptr);
-   if( mciOpenParms.lpstrElementName )
-   {
+   if( mciOpenParms.lpstrElementName ) {
       dwFlags |= MCI_OPEN_TYPE;
    }
 
@@ -107,13 +100,11 @@ HB_FUNC( HWG_NMCIPLAY )
 
    memset(&mciPlayParms, 0, sizeof(mciPlayParms));
 
-   if( (mciPlayParms.dwFrom = hb_parnl(2)) != 0 )
-   {
+   if( (mciPlayParms.dwFrom = hb_parnl(2)) != 0 ) {
       dwFlags |= MCI_FROM;
    }
 
-   if( (mciPlayParms.dwTo = hb_parnl(3)) != 0 )
-   {
+   if( (mciPlayParms.dwTo = hb_parnl(3)) != 0 ) {
       dwFlags |= MCI_TO;
    }
 

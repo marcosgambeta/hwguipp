@@ -63,12 +63,9 @@ HB_FUNC( HWG_SETRANGEUPDOWN )
 HB_FUNC( HWG_GETNOTIFYDELTAPOS )
 {
    int iItem = hb_parnl(2);
-   if( iItem < 2 )
-   {
+   if( iItem < 2 ) {
       hb_retni(static_cast<LONG>((static_cast<NMUPDOWN*>(HB_PARHANDLE(1)))->iPos));
-   }
-   else
-   {
+   } else {
       hb_retni(static_cast<LONG>((static_cast<NMUPDOWN*>(HB_PARHANDLE(1)))->iDelta));
    }
 }
@@ -83,13 +80,11 @@ LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
    long int res;
    PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-   if( !pSym_onEvent )
-   {
+   if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
    }
 
-   if( pSym_onEvent && pObject )
-   {
+   if( pSym_onEvent && pObject ) {
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush(pObject);
       hb_vmPushLong(static_cast<LONG>(message));
@@ -98,25 +93,17 @@ LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
       HB_PUSHITEM(wParam);
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
-      if( HB_ISPOINTER(-1) )
-      {
+      if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
-      }
-      else
-      {
+      } else {
          res = hb_parnl(-1);
-         if( res == -1 )
-         {
+         if( res == -1 ) {
             return (CallWindowProc(wpOrigUpDownProc, hWnd, message, wParam, lParam));
-         }
-         else
-         {
+         } else {
             return res;
          }
       }
-   }
-   else
-   {
+   } else {
       return (CallWindowProc(wpOrigUpDownProc, hWnd, message, wParam, lParam));
    }
 }

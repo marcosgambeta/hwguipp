@@ -383,23 +383,19 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
 {
    PHB_ITEM self = hb_stackSelfItem();
 
-   if( HB_ISNUM(1) )
-   {
+   if( HB_ISNUM(1) ) {
       hb_objDataPutNI(self, "_NX", hb_parni(1));
    }
 
-   if( HB_ISNUM(2) )
-   {
+   if( HB_ISNUM(2) ) {
       hb_objDataPutNI(self, "_NY", hb_parni(2));
    }
 
-   if( HB_ISNUM(3) )
-   {
+   if( HB_ISNUM(3) ) {
       hb_objDataPutNI(self, "_NWIDTH", hb_parni(3));
    }
 
-   if( HB_ISNUM(4) )
-   {
+   if( HB_ISNUM(4) ) {
       hb_objDataPutNI(self, "_NHEIGHT", hb_parni(4));
    }
 

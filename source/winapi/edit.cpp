@@ -34,8 +34,7 @@ HB_FUNC( HWG_CREATEEDIT )
    ULONG ulStyleEx = (ulStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0;
    HWND hWndEdit;
 
-   if( (ulStyle & WS_BORDER) ) // && (ulStyle & WS_DLGFRAME) )
-   {
+   if( (ulStyle & WS_BORDER) ) { // && (ulStyle & WS_DLGFRAME) )
       ulStyle &= ~WS_BORDER;
    }
 
@@ -53,12 +52,10 @@ HB_FUNC( HWG_CREATEEDIT )
                              nullptr
                              );
 
-   if( hb_pcount() > 7 )
-   {
+   if( hb_pcount() > 7 ) {
       void * hStr;
       LPCTSTR lpText = HB_PARSTR(8, &hStr, nullptr);
-      if( lpText )
-      {
+      if( lpText ) {
          SendMessage(hWndEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(lpText));
       }
       hb_strfree(hStr);
@@ -77,13 +74,11 @@ LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
    long int res;
    PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-   if( !pSym_onEvent )
-   {
+   if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
    }
 
-   if( pSym_onEvent && pObject )
-   {
+   if( pSym_onEvent && pObject ) {
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush(pObject);
       hb_vmPushLong(static_cast<LONG>(message));
@@ -92,25 +87,17 @@ LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
       HB_PUSHITEM(wParam);
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
-      if( HB_ISPOINTER(-1) )
-      {
+      if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
-      }
-      else
-      {
+      } else {
          res = hb_parnl(-1);
-         if( res == -1 )
-         {
+         if( res == -1 ) {
             return (CallWindowProc(wpOrigEditProc, hWnd, message, wParam, lParam));
-         }
-         else
-         {
+         } else {
             return res;
          }
       }
-   }
-   else
-   {
+   } else {
       return (CallWindowProc(wpOrigEditProc, hWnd, message, wParam, lParam));
    }
 }
