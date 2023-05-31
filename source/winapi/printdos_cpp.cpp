@@ -32,22 +32,19 @@ static int file_read ( FILE *stream, char *string )
 
    memset (string, ' ', LINE_MAX);
 
-   for (;;)
-   {
+   for( ;; ) {
       ch = fgetc (stream);
 
-      if ( (ch == '\n') ||  (ch == EOF) ||  (ch == 26) )
-      {
+      if( (ch == '\n') ||  (ch == EOF) ||  (ch == 26) ) {
          string [cnbr] = '\0';
          return (ch == '\n' || cnbr);
       } else {
-         if ( cnbr < LINE_MAX && ch != '\r' )
-         {
+         if( cnbr < LINE_MAX && ch != '\r' ) {
             string [cnbr++] = (char) ch;
          }
       }
 
-      if (cnbr >= LINE_MAX)
+      if( cnbr >= LINE_MAX )
       {
          string [LINE_MAX] = '\0';
          return (1);
@@ -58,36 +55,31 @@ static int file_read ( FILE *stream, char *string )
 //----------------------------------------------------------------------------//
 HB_FUNC( AFILLTEXT )
 {
-   FILE *inFile ;
-   const char *pSrc = hb_parc(1) ;
-   PHB_ITEM pArray = hb_itemNew(NULL);
-   PHB_ITEM pTemp = hb_itemNew(NULL);
-   char *string ;
+   const char * pSrc = hb_parc(1) ;
+   PHB_ITEM pArray = hb_itemNew(nullptr);
+   PHB_ITEM pTemp = hb_itemNew(nullptr);
 
-   if ( !pSrc )
-   {
+   if( !pSrc ) {
       hb_reta(0);
       return;
    }
 
-   if ( strlen(pSrc) == 0 )
-   {
-      hb_reta(0);
-      return;
-   }
-   inFile = fopen(pSrc, "r");
-
-   if ( !inFile )
-   {
+   if( strlen(pSrc) == 0 ) {
       hb_reta(0);
       return;
    }
 
-   string = (char*) hb_xgrab(LINE_MAX + 1);
+   FILE * inFile = fopen(pSrc, "r");
+
+   if( !inFile ) {
+      hb_reta(0);
+      return;
+   }
+
+   char * string = (char*) hb_xgrab(LINE_MAX + 1);
    hb_arrayNew(pArray, 0);
 
-   while ( file_read ( inFile, string ) )
-   {
+   while( file_read(inFile, string) ) {
       hb_arrayAddForward(pArray, hb_itemPutC(pTemp, string));
    }
 
@@ -105,17 +97,15 @@ HB_FUNC( HWG_WIN_ANSITOOEM )
       int nLen = ( int ) hb_itemGetCLen(pString);
       const char * pszSrc = hb_itemGetCPtr(pString);
 
-      int nWideLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, NULL, 0);
+      int nWideLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, nullptr, 0);
       LPWSTR pszWide = ( LPWSTR ) hb_xgrab(( nWideLen + 1 ) * sizeof(wchar_t));
-
-      char * pszDst;
 
       MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, pszWide, nWideLen);
 
-      nLen = WideCharToMultiByte(CP_OEMCP, 0, pszWide, nWideLen, NULL, 0, NULL, NULL);
-      pszDst = ( char * ) hb_xgrab(nLen + 1);
+      nLen = WideCharToMultiByte(CP_OEMCP, 0, pszWide, nWideLen, nullptr, 0, nullptr, nullptr);
+      char * pszDst = ( char * ) hb_xgrab(nLen + 1);
 
-      WideCharToMultiByte(CP_OEMCP, 0, pszWide, nWideLen, pszDst, nLen, NULL, NULL);
+      WideCharToMultiByte(CP_OEMCP, 0, pszWide, nWideLen, pszDst, nLen, nullptr, nullptr);
 
       hb_xfree(pszWide);
       hb_retclen_buffer(pszDst, nLen);
