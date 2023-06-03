@@ -31,7 +31,7 @@ static bool s_lToolTipBalloon = false;
 HB_FUNC( HWG_ADDTOOLTIP )
 {
    HWND hWnd = hwg_par_HWND(1);
-   TOOLINFO ti;
+   TOOLINFO ti{};
    int iStyle = 0;
    void * hStr;
 
@@ -48,7 +48,6 @@ HB_FUNC( HWG_ADDTOOLTIP )
       hb_retl(false);
       return;
    }
-   memset(&ti, 0, sizeof(TOOLINFO));
    ti.cbSize = sizeof(TOOLINFO);
    ti.uFlags = TTF_SUBCLASS | TTF_IDISHWND;
    ti.hwnd = GetParent(static_cast<HWND>(hWnd));
@@ -63,10 +62,9 @@ HB_FUNC( HWG_ADDTOOLTIP )
 HB_FUNC( HWG_DELTOOLTIP )
 {
    HWND hWnd = hwg_par_HWND(1);
-   TOOLINFO ti;
+   TOOLINFO ti{};
 
    if( s_hWndTT ) {
-      memset(&ti, 0, sizeof(TOOLINFO));
       ti.cbSize = sizeof(TOOLINFO);
       ti.uFlags = TTF_IDISHWND;
       ti.hwnd = GetParent(static_cast<HWND>(hWnd));

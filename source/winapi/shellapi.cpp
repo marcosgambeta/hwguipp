@@ -85,9 +85,7 @@ HB_FUNC( HWG_SELECTFOLDER )
 
 HB_FUNC( HWG_SHELLNOTIFYICON )
 {
-   NOTIFYICONDATA tnid;
-
-   memset(( void * ) &tnid, 0, sizeof(NOTIFYICONDATA));
+   NOTIFYICONDATA tnid{};
 
    tnid.cbSize = sizeof(NOTIFYICONDATA);
    tnid.hWnd = hwg_par_HWND(2);
@@ -111,9 +109,7 @@ HB_FUNC( HWG_SHELLNOTIFYICON )
 
 HB_FUNC( HWG_SHELLMODIFYICON )
 {
-   NOTIFYICONDATA tnid;
-
-   memset(( void * ) &tnid, 0, sizeof(NOTIFYICONDATA));
+   NOTIFYICONDATA tnid{};
 
    tnid.cbSize = sizeof(NOTIFYICONDATA);
    tnid.hWnd = hwg_par_HWND(1);

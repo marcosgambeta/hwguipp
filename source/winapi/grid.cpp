@@ -248,10 +248,8 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    LONG lCol = hb_parnl(2) - 1;
    void * hText;
    int iImage = hb_parni(6);
-   LVCOLUMN lvcolumn;
+   LVCOLUMN lvcolumn{};
    int iResult;
-
-   memset(&lvcolumn, 0, sizeof(lvcolumn));
 
    if( iImage > 0 ) {
       lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_IMAGE | LVCF_WIDTH;
@@ -285,13 +283,11 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    int iSubItemYesNo = lCol == 0 ? 0 : 1;
    void * hText;
    int iBitMap = hb_parni(5);
-   LVITEM lvi;
+   LVITEM lvi{};
    int iResult = 0;
    RECT rect;
 
    GetClientRect(hwndListView, &rect);
-
-   memset(&lvi, 0, sizeof(lvi));
 
    if( iBitMap >= 0 ) {
       lvi.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
@@ -401,10 +397,8 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    HWND hList = hwg_par_HWND(1);
    int Index = hb_parni(2);
    int Index2 = hb_parni(3);
-   LVITEM Item;
+   LVITEM Item{};
    TCHAR Buffer[256] = {0};
-
-   memset(&Item, '\0', sizeof(Item));
 
    Item.mask = LVIF_TEXT | LVIF_PARAM;
    Item.iItem = Index;

@@ -511,8 +511,7 @@ HB_FUNC( HWG_CREATEREBAR )
 HB_FUNC( HWG_REBARSETIMAGELIST )
 {
    HIMAGELIST p = (HB_ISNUM(2) || HB_ISPOINTER(2)) ? hwg_par_HIMAGELIST(2) : nullptr;
-   REBARINFO rbi;
-   memset(&rbi, '\0', sizeof(rbi));
+   REBARINFO rbi{};
    rbi.cbSize = sizeof(REBARINFO);
    rbi.fMask = (HB_ISNUM(2) || HB_ISPOINTER(2)) ? RBIM_IMAGELIST : 0;
    rbi.himl = (HB_ISNUM(2) || HB_ISPOINTER(2)) ? static_cast<HIMAGELIST>(p) : nullptr;
@@ -543,9 +542,7 @@ static BOOL _AddBar(HWND pParent, HWND pBar, REBARBANDINFO * pRBBI)
 
 static BOOL AddBar(HWND pParent, HWND pBar, LPCTSTR pszText, HBITMAP pbmp, DWORD dwStyle)
 {
-   REBARBANDINFO rbBand;
-
-   memset(&rbBand, '\0', sizeof(rbBand));
+   REBARBANDINFO rbBand{};
 
    rbBand.fMask = RBBIM_STYLE;
    rbBand.fStyle = dwStyle;
@@ -562,8 +559,7 @@ static BOOL AddBar(HWND pParent, HWND pBar, LPCTSTR pszText, HBITMAP pbmp, DWORD
 
 static BOOL AddBar1(HWND pParent, HWND pBar, COLORREF clrFore, COLORREF clrBack, LPCTSTR pszText, DWORD dwStyle)
 {
-   REBARBANDINFO rbBand;
-   memset(&rbBand, '\0', sizeof(rbBand));
+   REBARBANDINFO rbBand{};
    rbBand.fMask = RBBIM_STYLE | RBBIM_COLORS;
    rbBand.fStyle = dwStyle;
    rbBand.clrFore = clrFore;

@@ -199,9 +199,8 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
 HB_FUNC( HWG_RE_SETDEFAULT )
 {
    HWND hCtrl = hwg_par_HWND(1);
-   CHARFORMAT2 cf;
+   CHARFORMAT2 cf{};
 
-   memset(&cf, 0, sizeof(CHARFORMAT2));
    cf.cbSize = sizeof(CHARFORMAT2);
 
    if( HB_ISNUM(2) ) {

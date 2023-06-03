@@ -315,13 +315,11 @@ HB_FUNC( HWG_RELEASEDLGTEMPLATE )
  */
 HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
 {
-   PROPSHEETPAGE psp;
+   PROPSHEETPAGE psp{};
    PHB_ITEM pObj = hb_param(1, Harbour::Item::OBJECT), temp;
    void * hTitle = nullptr;
    LPDLGTEMPLATE pdlgtemplate;
    HPROPSHEETPAGE h;
-
-   memset(( void * ) &psp, 0, sizeof(PROPSHEETPAGE));
 
    psp.dwSize = sizeof(PROPSHEETPAGE);
    psp.hInstance = nullptr;

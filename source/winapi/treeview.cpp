@@ -113,9 +113,8 @@ HB_FUNC( HWG_TREEDELALLNODES )
 
 HB_FUNC( HWG_TREEGETSELECTED )
 {
-   TV_ITEM TreeItem;
+   TV_ITEM TreeItem{};
 
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeView_GetSelection(hwg_par_HWND(1));
 
@@ -130,9 +129,8 @@ HB_FUNC( HWG_TREEGETSELECTED )
 /*
 HB_FUNC( HWG_TREENODEHASCHILDREN )
 {
-   TV_ITEM TreeItem;
+   TV_ITEM TreeItem{};
 
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
    TreeItem.mask = TVIF_HANDLE | TVIF_CHILDREN;
    TreeItem.hItem = static_cast<HTREEITEM>(HB_PARHANDLE(2));
 
@@ -143,10 +141,9 @@ HB_FUNC( HWG_TREENODEHASCHILDREN )
 
 HB_FUNC( HWG_TREEGETNODETEXT )
 {
-   TV_ITEM TreeItem;
+   TV_ITEM TreeItem{};
    TCHAR ItemText[256] = {0};
 
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
    TreeItem.mask = TVIF_HANDLE | TVIF_TEXT;
    TreeItem.hItem = static_cast<HTREEITEM>(HB_PARHANDLE(2));
    TreeItem.pszText = ItemText;
@@ -161,11 +158,10 @@ HB_FUNC( HWG_TREEGETNODETEXT )
 
 HB_FUNC( HWG_TREESETITEM )
 {
-   TV_ITEM TreeItem;
+   TV_ITEM TreeItem{};
    int iType = hb_parni(3);
    void * hStr = nullptr;
 
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
    TreeItem.mask = TVIF_HANDLE;
    TreeItem.hItem = static_cast<HTREEITEM>(HB_PARHANDLE(2));
 
@@ -251,9 +247,8 @@ HB_FUNC( HWG_TREEHITTEST )
 
    if( ht.hItem ) {
       PHB_ITEM oNode; // = hb_itemNew(nullptr);
-      TV_ITEM TreeItem;
+      TV_ITEM TreeItem{};
 
-      memset(&TreeItem, 0, sizeof(TV_ITEM));
       TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
       TreeItem.hItem = ht.hItem;
 
@@ -270,9 +265,8 @@ HB_FUNC( HWG_TREEHITTEST )
 
 HB_FUNC( HWG_TREERELEASENODE )
 {
-   TV_ITEM TreeItem;
+   TV_ITEM TreeItem{};
 
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = static_cast<HTREEITEM>(HB_PARHANDLE(2));
 

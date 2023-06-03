@@ -353,10 +353,9 @@ HB_FUNC( HWG_GETMENUCAPTION )
       MessageBox(GetActiveWindow(), TEXT(""), TEXT("No Menu!"), MB_OK | MB_ICONINFORMATION);
       hb_retl(false);
    } else {
-      MENUITEMINFO mii;
+      MENUITEMINFO mii{};
       LPTSTR lpBuffer;
 
-      memset(&mii.cbSize, 0, sizeof(MENUITEMINFO));
       mii.cbSize = sizeof(MENUITEMINFO);
       mii.fMask = MIIM_TYPE;
       mii.fType = MFT_STRING;

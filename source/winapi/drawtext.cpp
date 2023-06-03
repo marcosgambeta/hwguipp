@@ -433,8 +433,7 @@ HB_FUNC( HWG_SELECTCLIPRGN )
 
 HB_FUNC( HWG_CREATEFONTINDIRECT )
 {
-   LOGFONT lf;
-   memset(&lf, 0, sizeof(LOGFONT));
+   LOGFONT lf{};
    lf.lfQuality = hb_parni(4);
    lf.lfHeight = hb_parni(3);
    lf.lfWeight = hb_parni(2);
@@ -461,11 +460,10 @@ int CALLBACK GetFontsCallback(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DW
 
 HB_FUNC( HWG_GETFONTSLIST )
 {
-   LOGFONT lf;
+   LOGFONT lf{};
    HWND hwnd=GetDesktopWindow();
    HDC hDC = GetDC(hwnd);
 
-   memset(&lf, 0, sizeof(lf));
    lf.lfCharSet = DEFAULT_CHARSET;
    aFontsList = hb_itemArrayNew(0);
    pFontsItem = hb_itemPutC(nullptr, "");

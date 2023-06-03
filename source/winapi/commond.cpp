@@ -19,7 +19,7 @@ HWG_SELECTFONT(oPar1) --> array
 HB_FUNC( HWG_SELECTFONT )
 {
    CHOOSEFONT cf;
-   LOGFONT lf;
+   LOGFONT lf{};
    HFONT hfont;
    PHB_ITEM pObj = HB_ISNIL(1) ? nullptr : hb_param(1, Harbour::Item::OBJECT);
    PHB_ITEM temp1;
@@ -27,7 +27,6 @@ HB_FUNC( HWG_SELECTFONT )
 
    /* Initialize members of the CHOOSEFONT structure. */
    if( pObj != nullptr ) {
-      memset(&lf, 0, sizeof(LOGFONT));
       temp1 = GETOBJECTVAR(pObj, "NAME");
       HB_ITEMCOPYSTR(temp1, lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
       lf.lfFaceName[HB_SIZEOFARRAY(lf.lfFaceName) - 1] = '\0';
@@ -108,7 +107,7 @@ HWG_SELECTFILE(cPar1|aPar1, cPar2|aPar2, cInitDir, cTitle) --> character
 */
 HB_FUNC( HWG_SELECTFILE )
 {
-   OPENFILENAME ofn;
+   OPENFILENAME ofn{};
    TCHAR buffer[1024];
    LPTSTR lpFilter;
    void * hTitle, * hInitDir;
@@ -170,7 +169,6 @@ HB_FUNC( HWG_SELECTFILE )
       return;
    }
 
-   memset(static_cast<void*>(&ofn), 0, sizeof(OPENFILENAME));
    ofn.lStructSize = sizeof(ofn);
    ofn.hwndOwner = GetActiveWindow();
    ofn.lpstrFilter = lpFilter;
@@ -197,7 +195,7 @@ HWG_SAVEFILE(cFilename, cPar2, cPar3, cInitDir, cTitle, lOFN_OVERWRITEPROMPT) --
 */
 HB_FUNC( HWG_SAVEFILE )
 {
-   OPENFILENAME ofn;
+   OPENFILENAME ofn{};
    TCHAR buffer[1024];
    void * hFileName, * hStr1, * hStr2, * hTitle, * hInitDir;
    LPCTSTR lpFileName, lpStr1, lpStr2;
@@ -225,7 +223,6 @@ HB_FUNC( HWG_SAVEFILE )
    hb_strfree(hStr1);
    hb_strfree(hStr2);
 
-   memset(static_cast<void*>(&ofn), 0, sizeof(OPENFILENAME));
    ofn.lStructSize = sizeof(ofn);
    ofn.hwndOwner = GetActiveWindow();
    ofn.lpstrFilter = lpFilter;
@@ -255,9 +252,7 @@ HWG_PRINTSETUP() --> hDC
 */
 HB_FUNC( HWG_PRINTSETUP )
 {
-   PRINTDLG pd;
-
-   memset(static_cast<void*>(&pd), 0, sizeof(PRINTDLG));
+   PRINTDLG pd{};
 
    pd.lStructSize = sizeof(PRINTDLG);
    // pd.hDevNames = nullptr;
@@ -299,11 +294,9 @@ HWG_CHOOSECOLOR(nColor|NIL, lCC_FULLOPEN|NIL) --> nColor
 */
 HB_FUNC( HWG_CHOOSECOLOR )
 {
-   CHOOSECOLOR cc;
+   CHOOSECOLOR cc{};
    COLORREF rgb[16];
    DWORD nStyle = (HB_ISLOG(2) && hb_parl(2)) ? CC_FULLOPEN : 0;
-
-   memset(static_cast<void*>(&cc), 0, sizeof(CHOOSECOLOR));
 
    cc.lStructSize = sizeof(CHOOSECOLOR);
    cc.hwndOwner = GetActiveWindow();
@@ -455,10 +448,8 @@ HWG_PRINTSETUPEX() --> character
 */
 HB_FUNC( HWG_PRINTSETUPEX )
 {
-   PRINTDLG pd;
+   PRINTDLG pd{};
    DEVMODE *pDevMode;
-
-   memset(static_cast<void*>(&pd), 0, sizeof(PRINTDLG));
 
    pd.lStructSize = sizeof(PRINTDLG);
    pd.Flags = PD_RETURNDC;
