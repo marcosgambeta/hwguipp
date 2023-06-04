@@ -46,8 +46,7 @@ HB_FUNC( HWG_TEXTOUT )
    PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    char * cText;
 
-   if( hb_parclen(4) > 0 )
-   {
+   if( hb_parclen(4) > 0 ) {
       cText = hwg_convert_to_utf8(hb_parc(4));
       pango_layout_set_text(hDC->layout, cText, - 1);
 
@@ -68,26 +67,21 @@ HB_FUNC( HWG_DRAWTEXT )
    int iWidth = hb_parni(5) - hb_parni(3);
    int bElli = (HB_ISLOG(8) && hb_parl(8)) ? 1 : 0;
 
-   if( hb_parclen(2) > 0 )
-   {
+   if( hb_parclen(2) > 0 ) {
       cText = hwg_convert_to_utf8(hb_parc(2));
       pango_layout_set_text(hDC->layout, cText, -1);
 
       pango_layout_get_pixel_extents(hDC->layout, &rc, nullptr);
-      if( bElli )
-      {
+      if( bElli ) {
          pango_layout_set_ellipsize(hDC->layout, PANGO_ELLIPSIZE_END);
       }
       pango_layout_set_width(hDC->layout, iWidth * PANGO_SCALE);
       pango_layout_set_justify(hDC->layout, 1);
       //pango_layout_set_width(hDC->layout, -1);
 
-      if( !HB_ISNIL(7) && (hb_parni(7) & (DT_CENTER | DT_RIGHT)) && (rc.width < (iWidth - 10)) )
-      {
+      if( !HB_ISNIL(7) && (hb_parni(7) & (DT_CENTER | DT_RIGHT)) && (rc.width < (iWidth - 10)) ) {
          pango_layout_set_alignment(hDC->layout, (hb_parni(7) & DT_CENTER) ? PANGO_ALIGN_CENTER : PANGO_ALIGN_RIGHT);
-      }
-      else
-      {
+      } else {
          pango_layout_set_alignment(hDC->layout, PANGO_ALIGN_LEFT);
       }
 
@@ -104,8 +98,7 @@ HB_FUNC( HWG_GETTEXTMETRIC )
    PangoContext * context;
    PangoFontMetrics * metrics;
 
-   if( !(hDC->hFont) )
-   {
+   if( !(hDC->hFont) ) {
       GtkStyle * style = gtk_widget_get_style(hDC->widget);
       hDC->hFont = style->font_desc;
    }
@@ -144,8 +137,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
    PangoRectangle rc;
    PHB_ITEM aMetr = hb_itemArrayNew(2);
 
-   if( HB_ISCHAR(2) && hb_parclen(2) > 0 )
-   {
+   if( HB_ISCHAR(2) && hb_parclen(2) > 0 ) {
       pango_layout_set_text(hDC->layout, cText, -1);
    }
    pango_layout_get_pixel_extents(hDC->layout, &rc, nullptr);
@@ -162,8 +154,7 @@ HB_FUNC( HWG_GETTEXTWIDTH )
    char * cText = hwg_convert_to_utf8(hb_parc(2));
    PangoRectangle rc;
 
-   if( HB_ISCHAR(2) && hb_parclen(2) > 0 )
-   {
+   if( HB_ISCHAR(2) && hb_parclen(2) > 0 ) {
       pango_layout_set_text(hDC->layout, cText, -1);
    }
    pango_layout_get_pixel_extents(hDC->layout, &rc, nullptr);
@@ -186,14 +177,12 @@ HB_FUNC( HWG_GETFONTSLIST )
    layout = pango_cairo_create_layout(cr);
    context = pango_layout_get_context(layout);
    pango_context_list_families(context, &families, &n_families);
-   if( n_families <= 0 )
-   {
+   if( n_families <= 0 ) {
       return;
    }
 
    aFonts = hb_itemArrayNew(n_families);
-   for( int i = 0; i < n_families; i++ )
-   {
+   for( int i = 0; i < n_families; i++ ) {
       hb_arraySetC(aFonts, i + 1, pango_font_family_get_name(families[i]));
    }
 
@@ -267,33 +256,26 @@ HB_FUNC( HWG_CREATEFONT )
 
    hFont = pango_font_description_new();
    pango_font_description_set_family(hFont, hb_parc(1));
-   if( !HB_ISNIL(6) )
-   {
+   if( !HB_ISNIL(6) ) {
       pango_font_description_set_style(hFont, (hb_parni(6)) ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
    }
    // pango_font_description_set_size(hFont, hb_parni(3) * PANGO_SCALE);
    pango_font_description_set_size(hFont, hb_parni(3));
-   if( !HB_ISNIL(4) )
-   {
+   if( !HB_ISNIL(4) ) {
       pango_font_description_set_weight(hFont, hb_parni(4));
    }
 
    h->type = HWGUI_OBJECT_FONT;
    h->hFont = hFont;
-   if( iUnder || iStrike )
-   {
+   if( iUnder || iStrike ) {
       h->attrs = pango_attr_list_new();
-      if( iUnder )
-      {
+      if( iUnder ) {
          pango_attr_list_insert(h->attrs, pango_attr_underline_new(PANGO_UNDERLINE_SINGLE));
       }
-      if( iStrike )
-      {
+      if( iStrike ) {
          pango_attr_list_insert(h->attrs, pango_attr_strikethrough_new(1));
       }
-   }
-   else
-   {
+   } else {
       h->attrs = nullptr;
    }
    HB_RETHANDLE(h);
@@ -308,16 +290,11 @@ HB_FUNC( HWG_SETCTRLFONT )
    GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    GtkWidget * hLabel = static_cast<GtkWidget*>(g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "label"));
 
-   if( GTK_IS_BUTTON(hCtrl) )
-   {
+   if( GTK_IS_BUTTON(hCtrl) ) {
       hCtrl = gtk_bin_get_child(GTK_BIN(hCtrl));
-   }
-   else if( GTK_IS_EVENT_BOX(hCtrl) )
-   {
+   } else if( GTK_IS_EVENT_BOX(hCtrl) ) {
       hCtrl = gtk_bin_get_child(GTK_BIN(hCtrl));
-   }
-   else if( hLabel )
-   {
+   } else if( hLabel ) {
       hCtrl = static_cast<GtkWidget*>(hLabel);
    }
 
@@ -331,8 +308,7 @@ HB_FUNC( HWG_SETCTRLFONT )
    char szData[256];
    const char * pName = gtk_widget_get_name(hCtrl);
 
-   if( pName && strncmp(pName, "Gtk", 3) != 0 )
-   {
+   if( pName && strncmp(pName, "Gtk", 3) != 0 ) {
       char * szFamily = pango_font_description_get_family(pFont->hFont);
       gint iHeight = pango_font_description_get_size(pFont->hFont);
       int iIta = (pango_font_description_get_style(pFont->hFont) == PANGO_STYLE_ITALIC) ? 1 : 0;

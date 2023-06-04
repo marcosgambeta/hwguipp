@@ -28,8 +28,7 @@ static int MessageBox(const char * cMsg, const char * cTitle, int message_type, 
    gcptr = hwg_convert_to_utf8(cMsg);
    dialog = gtk_message_dialog_new(GTK_WINDOW(GetActiveWindow()), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, message_type, button_type, "%s", gcptr);
    g_free(gcptr);
-   if( *cTitle )
-   {
+   if( *cTitle ) {
       gcptr = hwg_convert_to_utf8(cTitle);
       gtk_window_set_title(GTK_WINDOW(dialog), gcptr);
       g_free(gcptr);
@@ -87,8 +86,7 @@ HB_FUNC( HWG_MSGYESNOCANCEL )
    gcptr = hwg_convert_to_utf8(hb_parc(1));
    dialog = gtk_message_dialog_new(GTK_WINDOW(GetActiveWindow()), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, "%s", gcptr);
    g_free(gcptr);
-   if( *cTitle )
-   {
+   if( *cTitle ) {
       gcptr = hwg_convert_to_utf8(cTitle);
       gtk_window_set_title(GTK_WINDOW(dialog), gcptr);
       g_free(gcptr);

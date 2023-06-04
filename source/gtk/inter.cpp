@@ -69,8 +69,7 @@ HB_FUNC( HWG_GETLOCALEINFO )
 #else
    char * lokale;
    lokale = setlocale(LC_CTYPE, nullptr); /* only user setting, LC_ALL displays all locale settings */
-   if( lokale == nullptr ) /* Out of memory ? ==> return empty string */
-   {
+   if( lokale == nullptr ) { /* Out of memory ? ==> return empty string */
      lokale = "\0";
    }
    strncpy(puf, lokale, 127);  /* Avoid buffer overflow */
@@ -98,8 +97,7 @@ HB_FUNC( HWG_GETUTCTIMEDATE )
 /* Format: W,YYYYMMDD-HH:MM:SS */
   char cst[128] = {0};
   char * puf = malloc(25);
-  for( int i = 0 ; i < 128 ; i++ ) /* Fill string with zeroes to avoid buffer overflow on LINUX */
-  {
+  for( int i = 0 ; i < 128 ; i++ ) { /* Fill string with zeroes to avoid buffer overflow on LINUX */
     cst[i] = '\0';
   }
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
@@ -131,8 +129,7 @@ HB_FUNC( HWG_GETDATEANSI )
 /* Format: YYYYMMDD, based on local time */
   char cst[128] = {0};
   char * puf = malloc(25);
-  for( int i = 0 ; i < 128 ; i++ ) /* Fill string with zeroes to avoid buffer overflow on LINUX */
-  {
+  for( int i = 0 ; i < 128 ; i++ ) { /* Fill string with zeroes to avoid buffer overflow on LINUX */
     cst[i] = '\0';
   }
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
@@ -184,8 +181,7 @@ void hwg_strdebuglog(char * dest)
 {
    char c;
    char aus[1024] = {0};
-   for( size_t n = 0; n < sizeof(static_cast<char*>(dest)) ; ++n )
-   {
+   for( size_t n = 0; n < sizeof(static_cast<char*>(dest)) ; ++n ) {
       c = dest[n];
       c ? sprintf(aus, "'%c' ", c) : sprintf(aus, "'\\0' ");
       hwg_writelog(nullptr, aus);
