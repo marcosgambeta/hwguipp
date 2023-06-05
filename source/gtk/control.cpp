@@ -306,7 +306,6 @@ HB_FUNC( HWG_EDIT_GETTEXT )
    char * cptr;
 
    if( g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "multi") ) {
-   {
       GtkTextBuffer * buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(hCtrl));
       GtkTextIter iterStart, iterEnd;
 
