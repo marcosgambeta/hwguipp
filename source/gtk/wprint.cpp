@@ -53,7 +53,7 @@ HB_FUNC( HWG_SETAPPLOCALE )
    szAppLocale[hb_parclen(1)] = '\0';
 }
 #else
-#include "hwgtk.h"
+#include "hwgtk.hpp"
 #endif
 
 typedef struct HWGUI_PRINT_STRU
