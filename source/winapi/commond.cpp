@@ -470,7 +470,6 @@ HWG_GETOPENFILENAME(hWnd, cFilename, cTitle, cFilter, , cInitDir, cDefExt, nFilt
 */
 HB_FUNC( HWG_GETOPENFILENAME )
 {
-   OPENFILENAME ofn;
    TCHAR buffer[1024];
    void * hFileName, * hTitle, * hFilter, * hInitDir, * hDefExt;
    HB_SIZE nSize;
@@ -486,18 +485,18 @@ HB_FUNC( HWG_GETOPENFILENAME )
       lpFileBuff = HB_STRUNSHARE(&hFileName, lpFileName, nSize);
    }
 
-   ZeroMemory(&ofn, sizeof(ofn));
-   ofn.hInstance = GetModuleHandle(nullptr);
-   ofn.lStructSize = sizeof(ofn);
-   ofn.hwndOwner = (HB_ISNIL(1) ? GetActiveWindow() : hwg_par_HWND(1));
-   ofn.lpstrTitle = HB_PARSTR(3, &hTitle, nullptr);
-   ofn.lpstrFilter = HB_PARSTR(4, &hFilter, nullptr);
-   ofn.Flags = OFN_EXPLORER | OFN_ALLOWMULTISELECT;
+   OPENFILENAME ofn{};
+   ofn.hInstance       = GetModuleHandle(nullptr);
+   ofn.lStructSize     = sizeof(ofn);
+   ofn.hwndOwner       = HB_ISNIL(1) ? GetActiveWindow() : hwg_par_HWND(1);
+   ofn.lpstrTitle      = HB_PARSTR(3, &hTitle, nullptr);
+   ofn.lpstrFilter     = HB_PARSTR(4, &hFilter, nullptr);
+   ofn.Flags           = OFN_EXPLORER | OFN_ALLOWMULTISELECT;
    ofn.lpstrInitialDir = HB_PARSTR(6, &hInitDir, nullptr);
-   ofn.lpstrDefExt = HB_PARSTR(7, &hDefExt, nullptr);
-   ofn.nFilterIndex = hb_parni(8);
-   ofn.lpstrFile = lpFileBuff;
-   ofn.nMaxFile = nSize;
+   ofn.lpstrDefExt     = HB_PARSTR(7, &hDefExt, nullptr);
+   ofn.nFilterIndex    = hb_parni(8);
+   ofn.lpstrFile       = lpFileBuff;
+   ofn.nMaxFile        = nSize;
 
    if( GetOpenFileName(&ofn) ) {
       hb_stornl(ofn.nFilterIndex, 8);
