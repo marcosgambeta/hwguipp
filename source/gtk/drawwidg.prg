@@ -210,7 +210,7 @@ METHOD AddStandard( cId, nSize ) CLASS HBitmap
    LOCAL aBmpSize
    LOCAL cName
 
-   cName := cId + Iif( nSize==NIL, "", Str(nSize,1) )
+   cName := cId + Iif(nSize==NIL, "", Str(nSize,1))
    FOR EACH i IN ::aBitmaps
       IF i:name == cName
          i:nCounter ++
@@ -240,7 +240,7 @@ METHOD AddWindow( oWnd, x1, y1, width, height ) CLASS HBitmap
    IF x1 == NIL .OR. y1 == NIL
       x1 := 0; y1 := 0; width := oWnd:nWidth - 1; height := oWnd:nHeight - 1
    ENDIF
-   ::handle := hwg_Window2Bitmap( Iif( Empty(handle),oWnd:handle,handle ),x1,y1,width,height )
+   ::handle := hwg_Window2Bitmap( Iif(Empty(handle),oWnd:handle,handle),x1,y1,width,height )
    ::name := LTrim(hb_valToStr(oWnd:handle))
    aBmpSize  := hwg_Getbitmapsize(::handle)
    ::nWidth  := aBmpSize[1]
@@ -496,7 +496,7 @@ FUNCTION hwg_aCompare( arr1, arr2 )
    IF arr1 == NIL .AND. arr2 == NIL
       RETURN .T.
    ELSEIF Valtype( arr1 ) == Valtype( arr2 ) .AND. HB_ISARRAY(arr1) ;
-         .AND. ( nLen := Len( arr1 ) ) == Len( arr2 )
+         .AND. ( nLen := Len(arr1) ) == Len(arr2)
       FOR i := 1 TO nLen
          IF !( Valtype(arr1[i]) == Valtype(arr2[i]) ) .OR. !( arr1[i] == arr2[i] )
             RETURN .F.
@@ -691,7 +691,7 @@ EXIT PROCEDURE CleanDrawWidg
 FUNCTION hwg_FontSetCharset ( oFont, nCharSet  )
    
    LOCAL i
-   LOCAL nlen := Len( oFont:aFonts )
+   LOCAL nlen := Len(oFont:aFonts)
 
    IF nCharSet == NIL .OR. nCharSet == -1
     RETURN oFont

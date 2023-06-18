@@ -33,9 +33,9 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
    LOCAL i
    LOCAL nlen := Len(::aStyles)
 
-   nBorder := Iif( nBorder == NIL, 0, nBorder )
-   tColor := Iif( tColor == NIL, -1, tColor )
-   nOrient := Iif( nOrient == NIL .OR. nOrient > 9, 1, nOrient )
+   nBorder := Iif(nBorder == NIL, 0, nBorder)
+   tColor := Iif(tColor == NIL, -1, tColor)
+   nOrient := Iif(nOrient == NIL .OR. nOrient > 9, 1, nOrient)
 
    FOR i := 1 TO nlen
       IF hwg_aCompare(::aStyles[i]:aColors, aColors) .AND. ;

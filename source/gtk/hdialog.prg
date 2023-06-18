@@ -83,14 +83,14 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
    ::xResourceID := xResourceID
    ::type     := lType
    ::title    := cTitle
-   ::style    := iif( nStyle == NIL, 0, nStyle )
+   ::style    := iif(nStyle == NIL, 0, nStyle)
    ::bColor   := bColor
    ::oBmp     := oBmp
    ::oIcon    := oIcon
-   ::nY       := iif( y == NIL, 0, y )
-   ::nX       := iif( x == NIL, 0, x )
-   ::nWidth   := iif( width == NIL, 0, width )
-   ::nHeight  := iif( height == NIL, 0, Abs( height ) )
+   ::nY       := iif(y == NIL, 0, y)
+   ::nX       := iif(x == NIL, 0, x)
+   ::nWidth   := iif(width == NIL, 0, width)
+   ::nHeight  := iif(height == NIL, 0, Abs( height ))
    IF ::nWidth < 0
       ::nWidth  := Abs(::nWidth)
       ::nAdjust := 1
@@ -138,7 +138,7 @@ METHOD Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate ) CLASS 
    IF !lNoModal
       hParent := iif(::oParent != NIL .AND. __ObjHasMsg(::oParent, "HANDLE") ;
          .AND. !Empty(::oParent:handle), ::oParent:handle, ;
-         iif( ( oWnd := HWindow():GetMain() ) != NIL, oWnd:handle, NIL ) )
+         iif((oWnd := HWindow():GetMain()) != NIL, oWnd:handle, NIL ) )
       hwg_Set_Modal(::handle, hParent)
    ENDIF
 
@@ -232,7 +232,7 @@ METHOD GetActive() CLASS HDialog
    LOCAL handle := hwg_Getfocus()
    LOCAL i := Ascan(::Getlist, {|o|o:handle == handle})
 
-   RETURN iif( i == 0, NIL, ::Getlist[i] )
+   RETURN iif(i == 0, NIL, ::Getlist[i])
 
    // End of class
    // ------------------------------------
@@ -272,7 +272,7 @@ FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
    IF iParHigh == 0
       IF iParLow == IDOK
          hCtrl := hwg_Getfocus()
-         FOR i := Len( oDlg:GetList ) TO 1 STEP - 1
+         FOR i := Len(oDlg:GetList) TO 1 STEP - 1
             IF !oDlg:GetList[i]:lHide .AND. hwg_Iswindowenabled( oDlg:Getlist[i]:Handle )
                EXIT
             ENDIF
@@ -339,15 +339,15 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
 
 FUNCTION hwg_GetModalDlg
 
-   LOCAL i := Len( HDialog():aModalDialogs )
+   LOCAL i := Len(HDialog():aModalDialogs)
 
-   RETURN iif( i > 0, HDialog():aModalDialogs[i], NIL )
+   RETURN iif(i > 0, HDialog():aModalDialogs[i], NIL)
 
 FUNCTION hwg_GetModalHandle
 
-   LOCAL i := Len( HDialog():aModalDialogs )
+   LOCAL i := Len(HDialog():aModalDialogs)
 
-   RETURN iif( i > 0, HDialog():aModalDialogs[i]:handle, 0 )
+   RETURN iif(i > 0, HDialog():aModalDialogs[i]:handle, 0)
 
 FUNCTION hwg_EndDialog( handle )
 
@@ -394,7 +394,7 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block, lGlobal )
          RETURN .F.
       ELSE
          ADel( aKeys, i )
-         ASize( aKeys, Len( aKeys ) - 1 )
+         ASize( aKeys, Len(aKeys) - 1 )
       ENDIF
    ELSE
       IF ( i := Ascan( aKeys,{ |a|a[1] == nctrl .AND. a[2] == nkey } ) ) == 0

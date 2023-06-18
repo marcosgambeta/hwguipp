@@ -97,7 +97,7 @@ METHOD F( nId ) CLASS HCtrlTmpl
    
    LOCAL i
    LOCAL aControls := ::aControls
-   LOCAL nLen := Len( aControls )
+   LOCAL nLen := Len(aControls)
    LOCAL o
 
    FOR i := 1 TO nLen
@@ -177,7 +177,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
       Return o
    ENDIF */
 
-   IF Left( fname, 5 ) == "<?xml"
+   IF Left(fname, 5) == "<?xml"
       oDoc := HXMLDoc():ReadString( fname )
    ELSE
       ::cFormName := fname
@@ -201,9 +201,9 @@ METHOD Read(fname, cId) CLASS HFormTmpl
    ppScript(NIL, .T.)
    AAdd(::aForms, Self)
    aItems := oDoc:aItems[1]:aItems
-   FOR i := 1 TO Len( aItems )
+   FOR i := 1 TO Len(aItems)
       IF aItems[i]:title == "style"
-         FOR j := 1 TO Len( aItems[i]:aItems )
+         FOR j := 1 TO Len(aItems[i]:aItems)
             o := aItems[i]:aItems[j]
             IF o:title == "property"
                IF !Empty(o:aItems)
@@ -221,7 +221,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
       ELSEIF aItems[i]:title == "method"
          IF ( cName := Lower(aItems[i]:GetAttribute("name")) ) == "common"
             arr := scr_GetFuncsList( aItems[i]:aItems[1]:aItems[1] )
-            FOR j := 1 TO Len( arr )
+            FOR j := 1 TO Len(arr)
                cPre := "#xtranslate " + arr[j] + ;
                   "( <params,...> ) => callfunc('"  + ;
                   Upper(arr[j]) + "',\{ <params> \}, HFormTmpl():F("+LTrim(Str(::id))+"):aFuncs )"
@@ -308,10 +308,10 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
          IF nMode == NIL
             * lMdi := At("mdimain", Lower(xProperty)) > 0
             * lMdiChild := At("mdichild", Lower(xProperty)) > 0
-            nMode := Iif( Left( xProperty,3 ) == "dlg", 2, 1 )
+            nMode := Iif(Left(xProperty, 3) == "dlg", 2, 1)
          ENDIF
       ELSEIF ::aProp[i, 1] == "variables"
-         FOR j := 1 TO Len( xProperty )
+         FOR j := 1 TO Len(xProperty)
             Aadd(::aVars, Lower(xProperty[j]))
          NEXT
          // Styles below
@@ -378,7 +378,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
       NEXT
    ENDIF
    
-   oBmp := Iif( !Empty(cBitmap), HBitmap():addfile( cBitmap, NIL ), NIL )
+   oBmp := Iif(!Empty(cBitmap), HBitmap():addfile( cBitmap, NIL ), NIL)
 
    IF nMode == NIL .OR. nMode == 2
       INIT DIALOG ::oDlg TITLE cTitle         ;
@@ -397,14 +397,14 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
       IF lMdi
          INIT WINDOW ::oDlg MDI TITLE cTitle    ;
             AT nLeft, nTop SIZE nWidth, nHeight ;
-            STYLE Iif( nStyle > 0 , nStyle, NIL );
+            STYLE Iif(nStyle > 0 , nStyle, NIL);
             FONT oFont;
             BACKGROUND BITMAP oBmp ;
             ON GETFOCUS bGetFo
       ELSEIF lMdiChild
          INIT WINDOW ::oDlg  MDICHILD TITLE cTitle    ;
             AT nLeft, nTop SIZE nWidth, nHeight ;
-            STYLE Iif( nStyle > 0 , nStyle, NIL );
+            STYLE Iif(nStyle > 0 , nStyle, NIL);
             FONT oFont ;
             BACKGROUND BITMAP oBmp ;
             ON GETFOCUS bGetFo
@@ -414,7 +414,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
             AT nLeft, nTop SIZE -nWidth, -nHeight ;
             FONT oFont ;
             BACKGROUND BITMAP oBmp ;
-            STYLE Iif( nStyle > 0 , nStyle, NIL ) ;
+            STYLE Iif(nStyle > 0 , nStyle, NIL) ;
             ICON oIcon ;
             ON GETFOCUS bGetFo
 #ifndef __GTK__
@@ -462,14 +462,14 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
    FOR i := 1 TO Len(::oDlg:aControls)
       IF __ObjHasMsg(::oDlg:aControls[i], "ALEFT")
          a1 := ::oDlg:aControls[i]:aLeft
-         FOR i1 := 1 TO Len( a1 )
+         FOR i1 := 1 TO Len(a1)
             cTemp := Upper(a1[i1])
             IF (j1 := Ascan(::oDlg:aControls, {|o|o:objname != NIL .AND. o:objname == cTemp})) != 0
                a1[i1] := ::oDlg:aControls[j1]
             ENDIF
          NEXT
          a1 := ::oDlg:aControls[i]:aRight
-         FOR i1 := 1 TO Len( a1 )
+         FOR i1 := 1 TO Len(a1)
             cTemp := Upper(a1[i1])
             IF (j1 := Ascan(::oDlg:aControls, {|o|o:objname != NIL .AND. o:objname == cTemp})) != 0
                a1[i1] := ::oDlg:aControls[j1]
@@ -482,7 +482,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
       hwg_Setfocus( i:handle )
    ENDIF
 
-   ::oDlg:Activate( Iif( nMode == NIL .OR. nMode == 2 , ::lNoModal, NIL ) )
+   ::oDlg:Activate( Iif(nMode == NIL .OR. nMode == 2 , ::lNoModal, NIL) )
 
    IF !::lNoModal
       IF ::bFormExit != NIL
@@ -502,13 +502,13 @@ METHOD F( id, n ) CLASS HFormTmpl
       Return ::aForms[i]:aControls[n]
    ENDIF
 
-   RETURN Iif( i == 0, NIL, ::aForms[i] )
+   RETURN Iif(i == 0, NIL, ::aForms[i])
 
 METHOD Find( cId ) CLASS HFormTmpl
    
    LOCAL i := Ascan(::aForms, {|o|o:cId != NIL .AND. o:cId == cId})
 
-   RETURN Iif( i == 0, NIL, ::aForms[i] )
+   RETURN Iif(i == 0, NIL, ::aForms[i])
 
 METHOD Close() CLASS HFormTmpl
    
@@ -528,7 +528,7 @@ METHOD OnError( xValue ) CLASS HFormTmpl
    LOCAL lSet := .F.
    LOCAL lErr
 
-   IF PCount() > 0 .AND. Left( cMsg, 1 ) == "_"
+   IF PCount() > 0 .AND. Left(cMsg, 1) == "_"
       cMsg := SubStr(cMsg, 2)
       lSet := .T.
    ENDIF
@@ -598,7 +598,7 @@ STATIC FUNCTION ReadTree( oForm, aParent, oDesc )
    LOCAL oNode
    LOCAL subarr
 
-   FOR i := 1 TO Len( oDesc:aItems )
+   FOR i := 1 TO Len(oDesc:aItems)
       oNode := oDesc:aItems[i]
       IF oNode:type == HBXML_TYPE_CDATA
          aParent[1] := CompileMethod( oNode:aItems[1], oForm )
@@ -612,7 +612,7 @@ STATIC FUNCTION ReadTree( oForm, aParent, oDesc )
       ENDIF
    NEXT
 
-   RETURN Iif( Empty(aTree), NIL, aTree )
+   RETURN Iif(Empty(aTree), NIL, aTree)
 
 FUNCTION hwg_ParseMethod( cMethod )
 
@@ -634,7 +634,7 @@ FUNCTION hwg_ParseMethod( cMethod )
          IF !Empty(cLine)
             AAdd(arr, cLine)
          ENDIF
-         IF nPos2 == 0 .OR. Len( arr ) > 2
+         IF nPos2 == 0 .OR. Len(arr) > 2
             EXIT
          ELSE
             nPos1 := nPos2
@@ -642,10 +642,10 @@ FUNCTION hwg_ParseMethod( cMethod )
       ENDDO
    ENDIF
    IF Right( arr[1], 1 ) < " "
-      arr[1] := Left( arr[1], Len( arr[1] ) - 1 )
+      arr[1] := Left(arr[1], Len(arr[1]) - 1)
    ENDIF
-   IF Len( arr ) > 1 .AND. Right( arr[2], 1 ) < " "
-      arr[2] := Left( arr[2], Len( arr[2] ) - 1 )
+   IF Len(arr) > 1 .AND. Right( arr[2], 1 ) < " "
+      arr[2] := Left(arr[2], Len(arr[2]) - 1)
    ENDIF
 
    RETURN arr
@@ -663,7 +663,7 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
    IF cMethod = NIL .OR. Empty(cMethod)
       RETURN NIL
    ENDIF
-   IF oCtrl != NIL .AND. Left( oCtrl:oParent:Classname(), 2 ) == "HC"
+   IF oCtrl != NIL .AND. Left(oCtrl:oParent:Classname(), 2) == "HC"
       // hwg_WriteLog( oCtrl:cClass+" "+oCtrl:oParent:cClass+" "+ oCtrl:oParent:oParent:Classname() )
       nContainer := oForm:nContainer
    ENDIF
@@ -672,8 +672,8 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
    ELSE
       arr := hwg_ParseMethod( cMethod )
    ENDIF
-   IF Len( arr ) == 1
-      cCode := Iif( Lower(Left(arr[1], 6) ) == "return", LTrim(SubStr(arr[1], 8)), arr[1] )
+   IF Len(arr) == 1
+      cCode := Iif(Lower(Left(arr[1], 6) ) == "return", LTrim(SubStr(arr[1], 8)), arr[1])
       bOldError := ErrorBlock( { |e|CompileErr( e,cCode ) } )
       BEGIN SEQUENCE
          bRes := &( "{||" + ppScript( cCode ) + "}" )
@@ -681,8 +681,8 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
       ErrorBlock( bOldError )
       RETURN bRes
    ELSEIF !Empty(arr) .AND. Lower(Left(arr[1], 11)) == "parameters "
-      IF Len( arr ) == 2
-         cCode := Iif( Lower(Left(arr[2], 6)) == "return", LTrim(SubStr(arr[2], 8)), arr[2] )
+      IF Len(arr) == 2
+         cCode := Iif(Lower(Left(arr[2], 6)) == "return", LTrim(SubStr(arr[2], 8)), arr[2])
          cCode := "{|" + LTrim(SubStr(arr[1], 12)) + "|" + ppScript( cCode ) + "}"
          bOldError := ErrorBlock( { |e|CompileErr( e,cCode ) } )
          BEGIN SEQUENCE
@@ -695,10 +695,10 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
          arrExe := Array(2)
          arrExe[2] := RdScript(NIL, cMethod, 1, .T., cName)
          cCode :=  "{|" + LTrim(SubStr(arr[1], 12)) + ;
-            "|DoScript(HFormTmpl():F(" + LTrim(Str(oForm:id)) + Iif( nContainer != 0, "," + LTrim(Str(nContainer )), "" ) + "):" + ;
-            Iif( oCtrl == NIL, "aMethods[" + LTrim(Str(Len(oForm:aMethods ) + 1 )) + ",2,2],{", ;
+            "|DoScript(HFormTmpl():F(" + LTrim(Str(oForm:id)) + Iif(nContainer != 0, "," + LTrim(Str(nContainer )), "") + "):" + ;
+            Iif(oCtrl == NIL, "aMethods[" + LTrim(Str(Len(oForm:aMethods ) + 1 )) + ",2,2],{", ;
             cCode1 + ":aMethods[" + ;
-            LTrim(Str(Len(oCtrl:aMethods) + 1)) + ",2,2],{" ) + ;
+            LTrim(Str(Len(oCtrl:aMethods) + 1)) + ",2,2],{") + ;
             LTrim(SubStr(arr[1], 12)) + "})" + "}"
          arrExe[1] := &cCode
          RETURN arrExe
@@ -708,10 +708,10 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
    cCode1 := Iif(nContainer == 0, "aControls[" + LTrim(Str(Len(oForm:aControls))) + "]", "F(" + LTrim(Str(oCtrl:nId)) + ")")
    arrExe := Array(2)
    arrExe[2] := RdScript(NIL, cMethod, NIL, .T., cName)
-   cCode :=  "{||DoScript(HFormTmpl():F(" + LTrim(Str(oForm:id)) + Iif( nContainer != 0, "," + LTrim(Str(nContainer )), "" ) + "):" + ;
-      Iif( oCtrl == NIL, "aMethods[" + LTrim(Str(Len(oForm:aMethods ) + 1 )) + ",2,2])", ;
+   cCode :=  "{||DoScript(HFormTmpl():F(" + LTrim(Str(oForm:id)) + Iif(nContainer != 0, "," + LTrim(Str(nContainer )), "") + "):" + ;
+      Iif(oCtrl == NIL, "aMethods[" + LTrim(Str(Len(oForm:aMethods ) + 1 )) + ",2,2])", ;
       cCode1 + ":aMethods[" +   ;
-      LTrim(Str(Len(oCtrl:aMethods) + 1)) + ",2,2])" ) + "}"
+      LTrim(Str(Len(oCtrl:aMethods) + 1)) + ",2,2])") + "}"
    arrExe[1] := &cCode
 
    RETURN arrExe
@@ -738,9 +738,9 @@ STATIC FUNCTION ReadCtrl( oCtrlDesc, oContainer, oForm )
    oCtrl:aProp    := aProp
    oCtrl:aMethods := aMethods
 
-   FOR i := 1 TO Len( aItems )
+   FOR i := 1 TO Len(aItems)
       IF aItems[i]:title == "style"
-         FOR j := 1 TO Len( aItems[i]:aItems )
+         FOR j := 1 TO Len(aItems[i]:aItems)
             o := aItems[i]:aItems[j]
             IF o:title == "property"
                IF ( cName := Lower(o:GetAttribute("name")) ) == "varname"
@@ -800,7 +800,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       IF Lower(oCtrlTmpl:cClass) == "pagesheet"
          tmp_nSheet ++
          oParent:StartPage( Tabs[tmp_nSheet] )
-         FOR i := 1 TO Len( oCtrlTmpl:aControls )
+         FOR i := 1 TO Len(oCtrlTmpl:aControls)
             CreateCtrl( oParent, oCtrlTmpl:aControls[i], oForm )
          NEXT
          oParent:EndPage()
@@ -819,9 +819,9 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
                __mvPrivate( varname )
                IF SubStr(varname, 2) == "InitValue"
                   cInitName  := varname
-                  xInitValue := Iif( Left( varname,1 ) == "n", 1, Iif( Left(varname,1 ) == "c","", .F. ) )
+                  xInitValue := Iif(Left(varname, 1) == "n", 1, Iif(Left(varname,1 ) == "c","", .F.))
                ENDIF
-               stroka := Left( stroka, i - 1 ) + "m->" + SubStr(stroka, i)
+               stroka := Left(stroka, i - 1) + "m->" + SubStr(stroka, i)
                i := j + 4
             ELSE
                i := j + 1
@@ -835,7 +835,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    nId    := oCtrlTmpl:nId
    nStyle := 0
 
-   FOR i := 1 TO Len( oCtrlTmpl:aProp )
+   FOR i := 1 TO Len(oCtrlTmpl:aProp)
       xProperty := hwg_hfrm_GetProperty( oCtrlTmpl:aProp[i, 2] )
       cPName := oCtrlTmpl:aProp[i, 1]
       IF cPName == "geometry"
@@ -864,7 +864,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          ENDIF
       ELSEIF cPName == "styles"
          aStyles := {}
-         FOR j := 1 TO Len( xProperty )
+         FOR j := 1 TO Len(xProperty)
             Aadd(aStyles, hwg_HstyleFromXML(xProperty[j]))
          NEXT
       ELSEIF cPName == "border"
@@ -874,7 +874,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
             lNoBorder := .T.
          ENDIF
       ELSEIF cPName == "justify"
-         nStyle += Iif( xProperty == "Center", SS_CENTER, Iif( xProperty == "Right",SS_RIGHT,0 ) )
+         nStyle += Iif(xProperty == "Center", SS_CENTER, Iif(xProperty == "Right",SS_RIGHT,0))
       ELSEIF cPName == "multiline"
          IF xProperty
             nStyle += ES_MULTILINE
@@ -928,7 +928,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          ENDIF
       ENDIF
    NEXT
-   FOR i := 1 TO Len( oCtrlTmpl:aMethods )
+   FOR i := 1 TO Len(oCtrlTmpl:aMethods)
       IF ( cType := ValType( oCtrlTmpl:aMethods[i, 2] ) ) == "B"
          __mvPut( oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2] )
       ELSEIF cType == "A"
@@ -945,9 +945,9 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       ENDIF
 #endif
    ELSEIF oCtrlTmpl:cClass == "line"
-      nLength := Iif( lVertical == NIL .OR. !lVertical, nWidth, nHeight )
+      nLength := Iif(lVertical == NIL .OR. !lVertical, nWidth, nHeight)
    ELSEIF oCtrlTmpl:cClass == "browse"
-      brwType := Iif( brwType == NIL .OR. brwType == "Dbf", BRW_DATABASE, BRW_ARRAY )
+      brwType := Iif(brwType == NIL .OR. brwType == "Dbf", BRW_DATABASE, BRW_ARRAY)
    ELSEIF oCtrlTmpl:cClass == "trackbar"
       IF TickStyle == NIL .OR. TickStyle == "Auto"
          TickStyle := TBS_AUTOTICKS
@@ -965,7 +965,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       ENDIF
    ELSEIF oCtrlTmpl:cClass == "status" .OR. oCtrlTmpl:cClass == "toolbarbot"
       IF aParts != NIL
-         FOR i := 1 TO Len( aParts )
+         FOR i := 1 TO Len(aParts)
             aParts[i] := Val( aParts[i] )
          NEXT
       ENDIF
@@ -995,8 +995,8 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          __mvPrivate( "tmp_nSheet" )
          __mvPut( "tmp_nSheet", 0 )
       ENDIF
-      FOR i := 1 TO Len( oCtrlTmpl:aControls )
-         CreateCtrl( Iif( oCtrlTmpl:cClass == "group" .OR. oCtrlTmpl:cClass == "radiogroup",oParent,oCtrl ), oCtrlTmpl:aControls[i], oForm )
+      FOR i := 1 TO Len(oCtrlTmpl:aControls)
+         CreateCtrl( Iif(oCtrlTmpl:cClass == "group" .OR. oCtrlTmpl:cClass == "radiogroup",oParent,oCtrl), oCtrlTmpl:aControls[i], oForm )
       NEXT
       IF oCtrlTmpl:cClass == "radiogroup"
          HRadioGroup():EndGroup()
@@ -1120,7 +1120,7 @@ FUNCTION hwg_hfrm_Str2Arr( stroka )
    LOCAL pos1 := 2
    LOCAL pos2 := 1
 
-   IF Len( stroka ) > 2
+   IF Len(stroka) > 2
       DO WHILE pos2 > 0
          DO WHILE SubStr(stroka, pos1, 1) <= ' '
             pos1 ++
@@ -1139,7 +1139,7 @@ FUNCTION hwg_hfrm_Arr2Str(arr)
    LOCAL i
    LOCAL cType
 
-   FOR i := 1 TO Len( arr )
+   FOR i := 1 TO Len(arr)
       IF i > 1
          stroka += ","
       ENDIF
@@ -1158,7 +1158,7 @@ FUNCTION hwg_hfrm_GetProperty( xProp )
    LOCAL c
 
    IF HB_ISCHAR(xProp)
-      c := Left( xProp, 1 )
+      c := Left(xProp, 1)
       IF c == "["
          xProp := SubStr(xProp, 2, Len(Trim(xProp)) - 2)
       ELSEIF c == "."
@@ -1244,7 +1244,7 @@ METHOD READ(fname, cId) CLASS HRepTmpl
       RETURN o
    ENDIF
 
-   IF Left( fname, 5 ) == "<?xml"
+   IF Left(fname, 5) == "<?xml"
       oDoc := HXMLDoc():ReadString( fname )
    ELSE
       ::cFormName := fname
@@ -1276,9 +1276,9 @@ METHOD READ(fname, cId) CLASS HRepTmpl
    ppScript(NIL, .T.)
    AAdd(::aReports, Self)
    aItems := oDoc:aItems[1]:aItems
-   FOR i := 1 TO Len( aItems )
+   FOR i := 1 TO Len(aItems)
       IF aItems[i]:title == "style"
-         FOR j := 1 TO Len( aItems[i]:aItems )
+         FOR j := 1 TO Len(aItems[i]:aItems)
             o := aItems[i]:aItems[j]
             IF o:title == "property"
                IF !Empty(o:aItems)
@@ -1314,7 +1314,7 @@ METHOD READ(fname, cId) CLASS HRepTmpl
 
 METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
    
-   LOCAL oPrinter := Iif( printer != NIL, Iif( ValType(printer ) == "O",printer,HPrinter():New(printer, .T. ) ), HPrinter():New(NIL, .T.) )
+   LOCAL oPrinter := Iif(printer != NIL, Iif(ValType(printer ) == "O",printer,HPrinter():New(printer, .T. )), HPrinter():New(NIL, .T.))
    LOCAL i
    LOCAL j
    LOCAL aMethod
@@ -1371,9 +1371,9 @@ METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
       ENDIF
    NEXT
 #ifdef __GTK__
-   xTemp := hwg_gp_GetDeviceArea( oPrinter:hDC )
+   xTemp := hwg_gp_GetDeviceArea(oPrinter:hDC)
 #else
-   xTemp := hwg_GetDeviceArea( oPrinter:hDCPrn )
+   xTemp := hwg_GetDeviceArea(oPrinter:hDCPrn)
 #endif
    ::nKoefPix := ( ( xTemp[1]/xTemp[3] + xTemp[2]/xTemp[4] ) / 2 ) / 3.8
    oPrinter:SetMode( nOrientation, nDuplex )
@@ -1403,7 +1403,7 @@ METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
          ::PrintItem(::aControls[i])
       NEXT
       IF !Empty(aImgs)
-         FOR i := 1 TO Len( aImgs )
+         FOR i := 1 TO Len(aImgs)
             ::oPrinter:Bitmap( aImgs[i,1], aImgs[i,2], aImgs[i,3], aImgs[i,4], NIL, aImgs[i,5], aImgs[i,6] )
          NEXT
       ENDIF
@@ -1430,7 +1430,7 @@ METHOD PRINT( printer, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
 
 METHOD PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 ) CLASS HRepTmpl
    
-   LOCAL oPrinter := Iif( printer != NIL, Iif( ValType(printer ) == "O",printer,HPrinter():New(printer, .T. ) ), HPrinter():New(NIL, .T.) )
+   LOCAL oPrinter := Iif(printer != NIL, Iif(ValType(printer ) == "O",printer,HPrinter():New(printer, .T. )), HPrinter():New(NIL, .T.))
    LOCAL i
    LOCAL j
    LOCAL aMethod
@@ -1485,9 +1485,9 @@ METHOD PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 ) CLASS HRe
       ENDIF
    NEXT
 #ifdef __GTK__
-   xTemp := hwg_gp_GetDeviceArea( oPrinter:hDC )
+   xTemp := hwg_gp_GetDeviceArea(oPrinter:hDC)
 #else
-   xTemp := hwg_Getdevicearea( oPrinter:hDCPrn )
+   xTemp := hwg_Getdevicearea(oPrinter:hDCPrn)
 #endif
    ::nKoefPix := ( ( xTemp[1]/xTemp[3] + xTemp[2]/xTemp[4] ) / 2 ) / 3.8
    IF !Empty(nPageType) .AND. nPageType == PAGE_FIRST
@@ -1521,7 +1521,7 @@ METHOD PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 ) CLASS HRe
          ::PrintItem(::aControls[i])
       NEXT
       IF !Empty(aImgs)
-         FOR i := 1 TO Len( aImgs )
+         FOR i := 1 TO Len(aImgs)
             ::oPrinter:Bitmap( aImgs[i,1], aImgs[i,2], aImgs[i,3], aImgs[i,4], NIL, aImgs[i,5], aImgs[i,6] )
          NEXT
       ENDIF
@@ -1610,7 +1610,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
             ::lFinish := .F.
             DO WHILE !lLastCycle
                ::ny := 0
-               FOR i := 1 TO Len( oItem:aControls )
+               FOR i := 1 TO Len(oItem:aControls)
                   IF !::lNextPage .OR. oItem:aControls[i]:lMark
                      oItem:aControls[i]:lMark := ::lNextPage := .F.
                      IF __mvExist( "LSKIPITEM" )
@@ -1638,7 +1638,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
                ::lFinish := .T.
             ENDIF
          ELSE
-            FOR i := 1 TO Len( oItem:aControls )
+            FOR i := 1 TO Len(oItem:aControls)
                ::PrintItem( oItem:aControls[i] )
             NEXT
          ENDIF
@@ -1722,7 +1722,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
                ENDDO
                ::oPrinter:Say( SubStr(cText, nFirst, Len(cText) - nFirst + 1), x, ny, x2, ny + dy, nJustify, oItem:obj )
             ELSEIF ( xProperty := aGetSecond( oItem:aProp,"inrect" ) ) != NIL .AND. xProperty
-               nLen := Len( cText )
+               nLen := Len(cText)
                nw := ( x2 - x )/nLen - 1
                x1 := x
                FOR i := 1 TO nLen
@@ -1764,7 +1764,7 @@ METHOD ReleaseObj( aControls ) CLASS HRepTmpl
    
    LOCAL i
 
-   FOR i := 1 TO Len( aControls )
+   FOR i := 1 TO Len(aControls)
       IF !Empty(aControls[i]:aControls)
          ::ReleaseObj( aControls[i]:aControls )
       ELSE
@@ -1792,7 +1792,7 @@ METHOD Find( cId ) CLASS HRepTmpl
    
    LOCAL i := Ascan(::aReports, {|o|o:cId != NIL .AND. o:cId == cId})
 
-   RETURN Iif( i == 0, NIL, ::aReports[i] )
+   RETURN Iif(i == 0, NIL, ::aReports[i])
 
 METHOD CLOSE() CLASS HRepTmpl
    
@@ -1823,9 +1823,9 @@ STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
    oCtrl:aProp    := aProp
    oCtrl:aMethods := aMethods
 
-   FOR i := 1 TO Len( aItems )
+   FOR i := 1 TO Len(aItems)
       IF aItems[i]:title == "style"
-         FOR j := 1 TO Len( aItems[i]:aItems )
+         FOR j := 1 TO Len(aItems[i]:aItems)
             o := aItems[i]:aItems[j]
             IF o:title == "property"
                AAdd(aProp, {Lower(o:GetAttribute("name")), Iif(Empty(o:aItems ), "", hwg_hfrm_GetProperty(o:aItems[1]))})
@@ -1834,7 +1834,7 @@ STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
       ELSEIF aItems[i]:title == "method"
          AAdd(aMethods, {cName := Lower(aItems[i]:GetAttribute("name")), RdScript(NIL, aItems[i]:aItems[1]:aItems[1], NIL, .T., cName)})
       ELSEIF aItems[i]:title == "part"
-         ReadRepItem( aItems[i], Iif( oCtrl:cClass == "area",oCtrl,oContainer ) )
+         ReadRepItem( aItems[i], Iif(oCtrl:cClass == "area",oCtrl,oContainer) )
       ENDIF
    NEXT
    IF oCtrl:cClass $ "box.vline.hline" .OR. ( oCtrl:cClass == "label" .AND. ( ;
@@ -1849,7 +1849,7 @@ STATIC FUNCTION aGetSecond( arr, xFirst )
    
    LOCAL i := Ascan( arr, { |a|a[1] == xFirst } )
 
-   RETURN Iif( i == 0, NIL, arr[i,2] )
+   RETURN Iif(i == 0, NIL, arr[i,2])
 
 FUNCTION hwg_aSetSecond( arr, xFirst, xValue )
 
@@ -1892,11 +1892,11 @@ STATIC FUNCTION hrep_FontFromXML( oPrinter, oXmlNode, nKoeff, nFontH )
       height := Val( height ) * nKoeff
    ENDIF
 
-   weight := Iif( weight != NIL, Val( weight ), 400 )
+   weight := Iif(weight != NIL, Val( weight ), 400)
    IF charset != NIL
       charset := Val( charset )
    ENDIF
-   ita    := Iif( ita != NIL, Val( ita ), 0 )
-   under  := Iif( under != NIL, Val( under ), 0 )
+   ita    := Iif(ita != NIL, Val( ita ), 0)
+   under  := Iif(under != NIL, Val( under ), 0)
 
    RETURN oPrinter:AddFont( name, height, ( weight > 400 ), ( ita > 0 ), ( under > 0 ), charset )

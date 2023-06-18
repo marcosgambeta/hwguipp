@@ -55,7 +55,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::aItem := aItem
-   ::lVertical := IIF( lVertical != NIL .AND. HB_ISLOGICAL(lVertical), lVertical, ::lVertical )
+   ::lVertical := IIF(lVertical != NIL .AND. HB_ISLOGICAL(lVertical), lVertical, ::lVertical)
 
    ::Activate()
 

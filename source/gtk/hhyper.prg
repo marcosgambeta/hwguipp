@@ -65,7 +65,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
    ::m_hHyperCursor  := hwg_Loadcursor( GDK_HAND2 )
 
    ::state := LBL_INIT
-   ::title := iif( cCaption == NIL, "", cCaption )
+   ::title := iif(cCaption == NIL, "", cCaption)
 
    IF ::oFont == NIL
       IF ::oParent:oFont != NIL

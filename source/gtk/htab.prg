@@ -24,7 +24,7 @@ CLASS HTab INHERIT HControl
    METHOD Activate()
    METHOD Init()
    METHOD onEvent( msg, wParam, lParam )
-   METHOD SetTab( n )
+   METHOD SetTab(n)
    METHOD StartPage( cname )
    METHOD EndPage()
    METHOD GetActivePage( nFirst, nEnd )
@@ -49,15 +49,15 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
       bSize, bPaint )
 
    ::title   := ""
-   ::oFont   := iif( oFont == NIL, ::oParent:oFont, oFont )
-   ::aTabs   := iif( aTabs == NIL, {}, aTabs )
+   ::oFont   := iif(oFont == NIL, ::oParent:oFont, oFont)
+   ::aTabs   := iif(aTabs == NIL, {}, aTabs)
    ::bChange := bChange
 
    ::bChange2 := bChange
 
-   ::bGetFocus := iif( bGetFocus == NIL, NIL, bGetFocus )
-   ::bLostFocus := iif( bLostFocus == NIL, NIL, bLostFocus )
-   ::bAction   := iif( bClick == NIL, NIL, bClick )
+   ::bGetFocus := iif(bGetFocus == NIL, NIL, bGetFocus)
+   ::bLostFocus := iif(bLostFocus == NIL, NIL, bLostFocus)
+   ::bAction   := iif(bClick == NIL, NIL, bClick)
 
    ::Activate()
 
@@ -103,7 +103,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTab
 
    RETURN 0
 
-METHOD SetTab( n ) CLASS HTab
+METHOD SetTab(n) CLASS HTab
 
    hwg_SetCurrentTab(::handle, n)
 

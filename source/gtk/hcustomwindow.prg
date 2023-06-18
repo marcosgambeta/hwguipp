@@ -14,7 +14,7 @@
 STATIC aCustomEvents := { ;
    { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
    { ;
-   { |o, w|iif( o:bPaint != NIL, Eval( o:bPaint,o,w ), - 1 ) }, ;
+   { |o, w|iif(o:bPaint != NIL, Eval( o:bPaint,o,w ), - 1) }, ;
    { |o, w|onCommand( o, w ) },                ;     && |o, w, l| ==> |o, w|
    { |o, w, l|onSize( o, w, l ) },                ;
    { |o|onDestroy( o ) }                          ;
@@ -83,7 +83,7 @@ METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
       i := Iif(nId != NIL, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|o:handle == nHandle}))
    ENDIF
 
-   RETURN Iif( i == 0, NIL, ::aControls[i] )
+   RETURN Iif(i == 0, NIL, ::aControls[i])
 
 METHOD DelControl( oCtrl ) CLASS HCustomWindow
 
@@ -192,7 +192,7 @@ METHOD End()  CLASS HCustomWindow
    
    LOCAL aControls := ::aControls
    LOCAL i
-   LOCAL nLen := Len( aControls )
+   LOCAL nLen := Len(aControls)
 
    FOR i := 1 TO nLen
       aControls[i]:End()

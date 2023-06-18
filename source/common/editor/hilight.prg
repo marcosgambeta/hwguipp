@@ -115,7 +115,7 @@ Local oIni, oMod, oNode, i, nPos
          oIni := HXMLDoc():Read(cFile)
          IF !Empty(oIni:aItems) .AND. oIni:aItems[1]:title == "hilight"
             oIni := oIni:aItems[1]
-            FOR i := 1 TO Len( oIni:aItems )
+            FOR i := 1 TO Len(oIni:aItems)
                IF oIni:aItems[i]:title == "module" .AND. oIni:aItems[i]:GetAttribute( "type" ) == cSection
                   oMod := oIni:aItems[i]
                   EXIT
@@ -126,7 +126,7 @@ Local oIni, oMod, oNode, i, nPos
          oMod := cFile
       ENDIF
       IF !Empty(oMod)      
-         FOR i := 1 TO Len( oMod:aItems )
+         FOR i := 1 TO Len(oMod:aItems)
             oNode := oMod:aItems[i]
             IF oNode:title == "keywords"
                ::cCommands := " " + AllTrim(oNode:aItems[1]) + " "
@@ -138,7 +138,7 @@ Local oIni, oMod, oNode, i, nPos
                ::cMcomm1 := AllTrim(oNode:aItems[1])
                IF ( nPos := At(" ", ::cMcomm1) ) > 0
                   ::cMcomm2 := Ltrim(Substr(::cMcomm1, nPos + 1))
-                  ::cMcomm1 := Trim(Left( ::cMcomm1,nPos-1 ))
+                  ::cMcomm1 := Trim(Left(::cMcomm1,nPos - 1))
                ENDIF
             ELSEIF oNode:title == "case"
                IF oNode:GetAttribute( "value" ) == "on"
@@ -161,7 +161,7 @@ Local oIni, oMod, oNode, i, nPos
          ::cMcomm1 := AllTrim(cMcomm)
          IF !Empty(::cMcomm1) .AND. ( nPos := At(" ", ::cMcomm1) ) > 0
             ::cMcomm2 := Ltrim(Substr(::cMcomm1, nPos + 1))
-            ::cMcomm1 := Trim(Left( ::cMcomm1,nPos-1 ))
+            ::cMcomm1 := Trim(Left(::cMcomm1,nPos - 1))
          ENDIF
       ENDIF
       IF Valtype( lCase ) == 'L'
@@ -215,28 +215,28 @@ Local nPos, nPos1, nPrev, cWord, c
 
    aText := ::oEdit:aText
    cLine := aText[nLine]
-   nLen := hced_Len( ::oEdit,cLine )
+   nLen := hced_Len(::oEdit, cLine)
 
    IF Empty(::aDop)
-      ::aDop := Array( Len( ::oEdit:aText ) )
+      ::aDop := Array( Len(::oEdit:aText) )
       ::nDopChecked := 0
-   ELSEIF Len( ::aDop ) < Len( aText )
-      ::aDop := ASize( ::aDop, Len( aText ) )
+   ELSEIF Len(::aDop) < Len(aText)
+      ::aDop := ASize( ::aDop, Len(aText) )
    ENDIF
    IF ::nDopChecked < nLine - 1
       FOR i := ::nDopChecked + 1 TO nLine - 1
          ::Do( aText, i, .T. )
-         ::aDop[i] := Iif( ::lMultiComm, 1, 0 )
+         ::aDop[i] := Iif(::lMultiComm, 1, 0)
       NEXT
    ENDIF
-   lComm := Iif( nLine==1, .F., !Empty(::aDop[nLine - 1]) )
+   lComm := Iif(nLine==1, .F., !Empty(::aDop[nLine - 1]))
    ::nDopChecked := nLine
    ::aDop[nLine] := 0
 
    IF Empty(::cMcomm1)
       cm := ""
    ELSE
-      cm := Left( ::cMcomm1,1 )
+      cm := Left(::cMcomm1, 1)
       nLenM := Len(::cMcomm1)
    ENDIF
 
@@ -261,7 +261,7 @@ Local nPos, nPos1, nPrev, cWord, c
    IF Empty(::cScomm)
       cs := ""
    ELSE
-      cs := Left( ::cScomm,1 )
+      cs := Left(::cScomm, 1)
       nLenS := Len(::cScomm)
    ENDIF
 
@@ -275,7 +275,7 @@ Local nPos, nPos1, nPrev, cWord, c
             !( nLen - nPos > 1 .AND. Substr(cLine, nPos + 1, 1) == c .AND. Substr(cLine, nPos + 2, 1) == c )
             nPos1 := nPos
             IF ( nPos := hced_At(::oEdit, c, cLine, nPos1 + 1) ) == 0
-               nPos := hced_Len( ::oEdit,cLine )
+               nPos := hced_Len(::oEdit, cLine)
             ENDIF
             IF !lCheck
                ::AddItem( nPos1, nPos, HILIGHT_QUOTE )
@@ -283,15 +283,15 @@ Local nPos, nPos1, nPrev, cWord, c
 
          ELSEIF c == cs .AND. hced_Substr(::oEdit, cLine, nPos, nLenS) == ::cScomm
             IF !lCheck
-               ::AddItem( nPos, hced_Len( ::oEdit, cLine ), HILIGHT_COMM )
+               ::AddItem( nPos, hced_Len(::oEdit, cLine), HILIGHT_COMM )
             ENDIF
-            nPos := hced_Len( ::oEdit, cLine ) + 1
+            nPos := hced_Len(::oEdit, cLine) + 1
             EXIT
 
          ELSEIF c == cm .AND. hced_Substr(::oEdit, cLine, nPos, nLenM) == ::cMcomm1
             nPos1 := nPos
             IF ( nPos := hced_At(::oEdit, ::cMcomm2, cLine, nPos1 + 1) ) == 0
-               nPos := hced_Len( ::oEdit, cLine )
+               nPos := hced_Len(::oEdit, cLine)
                ::lMultiComm := .T.
                ::aDop[nLine] := 1
             ENDIF
@@ -334,7 +334,7 @@ METHOD AddItem( nPos1, nPos2, nType ) CLASS Hilight
 
    IF ::nItems > MAX_ITEMS
       Return NIL
-   ELSEIF ::nItems >= Len( ::aLineStru )
+   ELSEIF ::nItems >= Len(::aLineStru)
       Aadd(::aLineStru, Array(3))
    ENDIF
    ::nItems ++

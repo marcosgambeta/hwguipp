@@ -921,7 +921,7 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    BOOL bSuccess = CreateProcess(nullptr, (LPTSTR)HB_PARSTR(1, &hStr, nullptr), nullptr, nullptr, TRUE, CREATE_NEW_CONSOLE, nullptr, nullptr, &si, &pi);
    hb_strfree(hStr);
 
-   if( ! bSuccess ) {
+   if( !bSuccess ) {
       hb_retni(3);
       return;
    }
@@ -939,13 +939,13 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 
    while( 1 ) {
       bSuccess = ReadFile(g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, nullptr);
-      if( ! bSuccess || dwRead == 0 ) {
+      if( !bSuccess || dwRead == 0 ) {
          break;
       }
 
       if( !HB_ISNIL(2) ) {
          bSuccess = WriteFile(hOut, chBuf, dwRead, &dwWritten, nullptr);
-         if( ! bSuccess ) {
+         if( !bSuccess ) {
             break;
          }
       }
@@ -1014,7 +1014,7 @@ BOOL hb_itemEqual(PHB_ITEM pItem1, PHB_ITEM pItem2)
       }
 
    } else if( HB_IS_LOGICAL(pItem1) ) {
-      fResult = HB_IS_LOGICAL(pItem2) && ( pItem1->item.asLogical.value ? pItem2->item.asLogical.value : ! pItem2->item.asLogical.value );
+      fResult = HB_IS_LOGICAL(pItem2) && ( pItem1->item.asLogical.value ? pItem2->item.asLogical.value : !pItem2->item.asLogical.value );
    } else if( HB_IS_ARRAY(pItem1) ) {
       fResult = HB_IS_ARRAY(pItem2) && pItem1->item.asArray.value == pItem2->item.asArray.value;
    } else if( HB_IS_HASH(pItem1) ) {

@@ -49,8 +49,8 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle) CLASS HLenta
 
-   color := Iif( color == NIL, CLR_BLACK, color )
-   bColor := Iif( bColor == NIL, CLR_WHITE, bColor )
+   color := Iif(color == NIL, CLR_BLACK, color)
+   bColor := Iif(bColor == NIL, CLR_WHITE, bColor)
    ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont, NIL, bSize, bPaint, NIL, color, bcolor)
 
    ::title  := ""
@@ -210,7 +210,7 @@ METHOD Paint() CLASS HLenta
          i := 1
          DO WHILE y1 + nItemSize <= nLength .AND. ( nCurr := i + ::nFirst - 1 ) <= Len(::aItems)
             oStyle := Iif(nCurr == ::nSelected .AND. lStyleSele, aItemStyle[2], Iif(nCurr == ::nOver .AND. lStyleOver, aItemStyle[3], aItemStyle[1]))
-            cText := Iif( l1,::aItems[nCurr,1],::aItems[nCurr] )
+            cText := Iif(l1,::aItems[nCurr,1],::aItems[nCurr])
             IF lVertical
                oStyle:Draw(hDC, 0, y1, nW, y1 + nItemSize)
                IF !Empty(cText)

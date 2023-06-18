@@ -511,7 +511,7 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
    ENDIF
 
    IF cLine != NIL .AND. !Empty(cLine)
-      slen := Len( cLine )
+      slen := Len(cLine)
       i := 1
       i0 := 0
       DO WHILE i <= slen
@@ -613,8 +613,8 @@ METHOD PutCode( cLine ) CLASS HWinPrn
         }
 
    LOCAL i
-   LOCAL sLen := Len( aCodes )
-   LOCAL c := Left( cLine, 1 )
+   LOCAL sLen := Len(aCodes)
+   LOCAL c := Left(cLine, 1)
 
    IF !Empty(c) .AND. c < " "
       IF Asc( c ) == 31
@@ -622,9 +622,9 @@ METHOD PutCode( cLine ) CLASS HWinPrn
          RETURN 2
       ELSE
          FOR i := 1 TO sLen
-            IF Left( aCodes[i, 1], 1 ) == c .AND. At(aCodes[i, 1], Left(cLine, 3)) == 1
+            IF Left(aCodes[i, 1], 1) == c .AND. At(aCodes[i, 1], Left(cLine, 3)) == 1
                ::InitValues( aCodes[i, 2], aCodes[i, 3], aCodes[i, 4], aCodes[i, 5], aCodes[i, 6], aCodes[i, 7]  )
-               RETURN Len( aCodes[i, 1] )
+               RETURN Len(aCodes[i, 1])
             ENDIF
          NEXT
       ENDIF

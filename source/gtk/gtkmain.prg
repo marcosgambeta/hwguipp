@@ -23,11 +23,11 @@ FUNCTION hwg_ColorC2N( cColor )
    LOCAL n := 1
    LOCAL iValue
 
-   IF Left( cColor,1 ) == "#"
+   IF Left(cColor, 1) == "#"
       cColor := Substr(cColor, 2)
    ENDIF
    cColor := Trim(cColor)
-   FOR i := 1 TO Len( cColor )
+   FOR i := 1 TO Len(cColor)
       iValue := Asc( SubStr(cColor, i, 1) )
       IF iValue < 58 .AND. iValue > 47
          iValue -= 48
@@ -64,7 +64,7 @@ FUNCTION hwg_ColorN2C( nColor )
 
    RETURN s
 
-FUNCTION hwg_ColorN2RGB( nColor, nr, ng, nb )
+FUNCTION hwg_ColorN2RGB(nColor, nr, ng, nb)
 
    nr := nColor % 256
    ng := Int( nColor/256 ) % 256
@@ -80,10 +80,10 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes )
    IF Empty(cRes)
       cRes := ""
    ENDIF
-   nStyle := iif( nStyle == NIL, 0, nStyle )
-   nX := iif( nX == NIL, 210, nX )
-   nY := iif( nY == NIL, 10, nY )
-   nDlgStyle := iif( nDlgStyle == NIL, 0, nDlgStyle )
+   nStyle := iif(nStyle == NIL, 0, nStyle)
+   nX := iif(nX == NIL, 210, nX)
+   nY := iif(nY == NIL, 10, nY)
+   nDlgStyle := iif(nDlgStyle == NIL, 0, nDlgStyle)
 
    INIT DIALOG oModDlg TITLE cTitle AT nX, nY SIZE 300, 140 ;
       FONT oFont CLIPPER STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + nDlgStyle
@@ -115,7 +115,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
    LOCAL lNewFont := .F.
    LOCAL nChoice := 0
    LOCAL i
-   LOCAL aLen := Len( arr )
+   LOCAL aLen := Len(arr)
    LOCAL nLen := 0
    LOCAL addX := 20
    LOCAL addY := 20
@@ -150,11 +150,11 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
 
    IF HB_ISARRAY(arr[1])
       FOR i := 1 TO aLen
-         nLen := Max( nLen, Len( arr[i,1] ) )
+         nLen := Max( nLen, Len(arr[i,1]) )
       NEXT
    ELSE
       FOR i := 1 TO aLen
-         nLen := Max( nLen, Len( arr[i] ) )
+         nLen := Max( nLen, Len(arr[i]) )
       NEXT
    ENDIF
 
@@ -197,7 +197,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
    ENDIF
 
    IF cOk != NIL
-      x1 := Int( width/2 ) - iif( cCancel != NIL, 90, 40 )
+      x1 := Int( width/2 ) - iif(cCancel != NIL, 90, 40)
       @ x1, height - 36 BUTTON cOk SIZE 80, 30 ;
             ON CLICK { ||nChoice := oBrw:nCurrent, hwg_EndDialog( oDlg:handle ) } ;
             ON SIZE ANCHOR_BOTTOMABS

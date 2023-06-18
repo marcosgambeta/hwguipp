@@ -411,18 +411,18 @@ TEDIT * ted_init( void )
       bRegistered = TRUE;
    }
 
-   pted = ( TEDIT * ) hb_xgrab( sizeof( TEDIT ) );
+   pted = ( TEDIT * ) hb_xgrab(sizeof( TEDIT ));
    memset( pted, 0, sizeof( TEDIT ) );
 
    pted->iFonts = NUMBER_OF_FONTS;
    pted->pFontsScr =
-         ( TEDFONT * ) hb_xgrab( sizeof( TEDFONT ) * NUMBER_OF_FONTS );
+         ( TEDFONT * ) hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS);
    pted->pFontsPrn =
-         ( TEDFONT * ) hb_xgrab( sizeof( TEDFONT ) * NUMBER_OF_FONTS );
+         ( TEDFONT * ) hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS);
 
    pted->iAttrLen = TEDATTR_MAX;
-   pted->pattr = ( TEDATTR * ) hb_xgrab( sizeof( TEDATTR ) * TEDATTR_MAX );
-   pted->pattrf = ( int * ) hb_xgrab( sizeof( int ) * TEDATTRF_MAX );
+   pted->pattr = ( TEDATTR * ) hb_xgrab(sizeof( TEDATTR ) * TEDATTR_MAX);
+   pted->pattrf = ( int * ) hb_xgrab(sizeof( int ) * TEDATTRF_MAX);
    ted_ClearAttr( pted );
 
    return pted;
@@ -842,7 +842,7 @@ HB_FUNC( HCED_LINEOUT )
             (iFont? iFont-1 : 0) ;
       iHeight = HB_MAX( iHeight, font->tm.tmHeight + font->tm.tmExternalLeading ) + 1;
       iMaxAscent = HB_MAX( iMaxAscent, font->tm.tmAscent );
-      if( ! *( pted->pattrf+i ) ) {
+      if( !*( pted->pattrf+i ) ) {
          break;
       }   
       i ++;
@@ -900,7 +900,7 @@ HB_FUNC( HCED_COLOR2X )
          s[i] = '0';
       }
    }
-   hb_retclen( s,7 );
+   hb_retclen(s, 7);
 }
 
 HB_FUNC( HCED_X2COLOR )

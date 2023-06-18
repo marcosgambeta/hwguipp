@@ -66,8 +66,8 @@ METHOD EndGroup( nSelected )  CLASS HRadioGroup
 
    IF ::oGroupCurrent != NIL .AND. ( nLen := Len(::oGroupCurrent:aButtons) ) > 0
 
-      nSelected := iif( nSelected != NIL .AND. nSelected <= nLen .AND. nSelected > 0, ;
-         nSelected, ::oGroupCurrent:nValue )
+      nSelected := iif(nSelected != NIL .AND. nSelected <= nLen .AND. nSelected > 0, ;
+         nSelected, ::oGroupCurrent:nValue)
       IF nSelected != 0 .AND. nSelected <= nlen
          hwg_CheckButton(::oGroupCurrent:aButtons[nSelected]:handle, .T.)
       ENDIF

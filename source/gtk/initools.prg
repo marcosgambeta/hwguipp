@@ -72,22 +72,22 @@ FUNCTION Hwg_WriteIni( rubrique, param, value , inifile )
    LOCAL delmarker := "$*$"
 
    inicontent = MemoRead(inifile)
-   nblines = MLCount( inicontent, 150 )
+   nblines = MLCount(inicontent, 150)
    for rg = 1 TO nblines
-      txt = Trim(MemoLine( inicontent,150,rg ))
+      txt = Trim(MemoLine(inicontent, 150, rg))
       DO CASE
       CASE At("[", txt) > 0
-         myrubrique = iif( "[" + rubrique + "]" == txt, .T. , .F. )
+         myrubrique = iif("[" + rubrique + "]" == txt, .T. , .F.)
          newcontent += txt + Chr(10)
       CASE At(param, txt) > 0 .AND. myrubrique .AND. HB_ISCHAR(value)
          newcontent += param + "=" + value + Chr(10)
       CASE HB_ISARRAY(value) .AND. myrubrique
-         DO WHILE Len( Trim(MemoLine(inicontent,150,rg )) ) > 0
+         DO WHILE Len(Trim(MemoLine(inicontent,150,rg))) > 0
             rg ++
          ENDDO
          rgb = 1
-         for rga = 1 TO Len( value )
-            IF !Empty(value[rga]) .AND. Left( value[rga], 3 ) != delmarker
+         for rga = 1 TO Len(value)
+            IF !Empty(value[rga]) .AND. Left(value[rga], 3) != delmarker
                newcontent += param + AllTrim(Str(rgb)) + "=" + value[rga] + Chr(10)
                rgb ++
             ENDIF
@@ -98,7 +98,7 @@ FUNCTION Hwg_WriteIni( rubrique, param, value , inifile )
       ENDCASE
    next
    IF Right( newcontent, 2 ) == Chr(10) + Chr(10)
-      newcontent = Left( newcontent, Len( newcontent ) - 2 )
+      newcontent = Left(newcontent, Len(newcontent) - 2)
    ENDIF
    hb_memowrit( inifile, newcontent, .F. )
 

@@ -19,7 +19,7 @@ Function hwg_SetCtrlName( oCtrl, cName )
    
    LOCAL nPos
 
-   IF !Empty(cName) .AND. HB_ISCHAR(cName) .AND. ! "[" $ cName
+   IF !Empty(cName) .AND. HB_ISCHAR(cName) .AND. !("[" $ cName)
       IF ( nPos :=  RAt(":", cName) ) > 0 .OR. ( nPos :=  RAt(">", cName) ) > 0
          cName := SubStr(cName, nPos + 1)
       ENDIF
@@ -57,9 +57,9 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor) CLASS HControl
 
-   ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
-   ::id      := iif( nId == NIL, ::NewId(), nId )
-   ::style   := hb_bitor( iif( nStyle == NIL,0,nStyle ), WS_VISIBLE + WS_CHILD )
+   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::id      := iif(nId == NIL, ::NewId(), nId)
+   ::style   := hb_bitor( iif(nStyle == NIL,0,nStyle ), WS_VISIBLE + WS_CHILD)
    ::oFont   := oFont
    ::nX      := nX
    ::nY      := nY

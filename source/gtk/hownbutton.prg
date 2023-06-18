@@ -63,14 +63,14 @@ METHOD New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, bSize, bPai
 
    ::Super:New(oWndParent, nId,, nX, nY, nWidth, nHeight, font, bInit, bSize, bPaint, cTooltip)
 
-   ::lFlat   := Iif( lFlat == NIL, .F. , lFlat )
+   ::lFlat   := Iif(lFlat == NIL, .F. , lFlat)
    ::bClick  := bClick
    ::state   := OBTN_INIT
-   ::nOrder  := Iif( oWndParent == NIL, 0, Len( oWndParent:aControls ) )
+   ::nOrder  := Iif(oWndParent == NIL, 0, Len(oWndParent:aControls))
 
    ::aStyle  := aStyles
    ::title   := cText
-   ::tcolor  := Iif( color == NIL, 0, color )
+   ::tcolor  := Iif(color == NIL, 0, color)
    IF bColor != NIL
       ::bcolor := bcolor
       ::brush  := HBrush():Add( bcolor )
@@ -92,9 +92,9 @@ METHOD New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, bSize, bPai
          ::oBitmap := bmp
       ELSE
          * otherwise load from file or resource container
-         ::oBitmap := Iif( ( lResour != NIL .AND. lResour ) .OR. HB_ISNUMERIC(bmp), ;
+         ::oBitmap := Iif(( lResour != NIL .AND. lResour ) .OR. HB_ISNUMERIC(bmp), ;
             HBitmap():AddResource( bmp ), ;
-            HBitmap():AddFile( Iif(::cPath != NIL, ::cPath + bmp, bmp) ) )
+            HBitmap():AddFile( Iif(::cPath != NIL, ::cPath + bmp, bmp) ))
       ENDIF
       IF ::oBitmap != NIL .AND. lTr != NIL .AND. lTr
          ::lTransp := .T.
@@ -105,7 +105,7 @@ METHOD New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, bSize, bPai
    ::yb      := yb
    ::widthb  := widthb
    ::heightb := heightb
-   ::trColor := Iif( trColor != NIL, trColor, 16777215 )
+   ::trColor := Iif(trColor != NIL, trColor, 16777215)
 
    ::Activate()
 

@@ -30,8 +30,8 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
 
    HB_SYMBOL_UNUSED(bcolor)
 
-   ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
-   ::id      := iif( nId == NIL, ::NewId(), nId )
+   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::id      := iif(nId == NIL, ::NewId(), nId)
    ::title   := cCaption
    ::oGroup  := HRadioGroup():oGroupCurrent
    ::style   := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + iif(::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
@@ -64,8 +64,8 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
    ENDIF
 
    IF Left(::oParent:ClassName(), 6) == "HPANEL" .AND. hb_bitand(::oParent:style, SS_OWNERDRAW) != 0
-      ::oParent:SetPaintCB( PAINT_ITEM, {|h|Iif(!::lHide,hwg__DrawRadioBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,hwg_isButtonChecked(::handle),::title),.T.)}, "rb"+Ltrim(Str(::id)) )
-*      ::oParent:SetPaintCB( PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawRadioBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,hwg_isButtonChecked(::handle),::title),.T.)}, "rb"+Ltrim(Str(::id)) )
+      ::oParent:SetPaintCB(PAINT_ITEM, {|h|Iif(!::lHide,hwg__DrawRadioBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,hwg_isButtonChecked(::handle),::title),.T.)}, "rb"+Ltrim(Str(::id)))
+*      ::oParent:SetPaintCB(PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawRadioBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,hwg_isButtonChecked(::handle),::title),.T.)}, "rb"+Ltrim(Str(::id)))
    ENDIF
 
    RETURN Self

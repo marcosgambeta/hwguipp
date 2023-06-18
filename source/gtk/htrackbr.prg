@@ -48,13 +48,13 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis) CLASS HTrack
 
-   color := Iif( color == NIL, CLR_BLACK, color )
-   bColor := Iif( bColor == NIL, CLR_WHITE, bColor )
+   color := Iif(color == NIL, CLR_BLACK, color)
+   bColor := Iif(bColor == NIL, CLR_WHITE, bColor)
    ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, , , bSize, bPaint, , color, bcolor)
 
    ::title  := ""
    ::lVertical := (::nHeight > ::nWidth)
-   ::nSize := Iif( nSize == NIL, 12, nSize )
+   ::nSize := Iif(nSize == NIL, 12, nSize)
    //::nFrom  := Iif(::lVertical, Int(::nSize / 2), Int(::nSize / 2))
    ::nFrom  := Int(::nSize/2)
    ::nTo    := Iif(::lVertical, ::nHeight - 1 - Int(::nSize / 2), ::nWidth - 1 - Int(::nSize / 2))
@@ -259,7 +259,7 @@ METHOD Move( x1, y1, width, height ) CLASS HTrack
 METHOD Value( xValue ) CLASS HTrack
 
    IF xValue != NIL
-      xValue := Iif( xValue < 0, 0, Iif( xValue > 1, 1, xValue ) )
+      xValue := Iif(xValue < 0, 0, Iif(xValue > 1, 1, xValue))
       ::nCurr := xValue * (::nTo - ::nFrom) + ::nFrom
       ::Refresh()
    ELSE

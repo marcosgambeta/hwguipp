@@ -46,8 +46,8 @@ FUNCTION hwg_CreateTempfileName( cPrefix , cSuffix )
    LOCAL cPre
    LOCAL cSuff
   
-  cPre  := IIF( cPrefix == NIL , "e" , cPrefix )
-  cSuff := IIF( cSuffix == NIL , ".tmp" , cSuffix )
+  cPre  := IIF(cPrefix == NIL , "e" , cPrefix)
+  cSuff := IIF(cSuffix == NIL , ".tmp" , cSuffix)
   RETURN hwg_CompleteFullPath( hwg_GetTempDir() ) + cPre + Ltrim(Str(Int(Seconds()*100))) + cSuff
   
 FUNCTION hwg_CurDrive
@@ -542,7 +542,7 @@ RETURN (T * 1.8) + 32.0
 FUNCTION hwg_TEMP_C2K( T )
 RETURN T + 273.15
 
-FUNCTION hwg_TEMP_C2RA( T )
+FUNCTION hwg_TEMP_C2RA(T)
 RETURN (T * 1.8) + 32.0 + 459.67
 
 FUNCTION hwg_TEMP_C2R( T )
@@ -554,7 +554,7 @@ RETURN T - 273.15
 FUNCTION hwg_TEMP_K2F( T )
 RETURN (T * 1.8) - 459.67
 
-FUNCTION hwg_TEMP_K2RA( T )
+FUNCTION hwg_TEMP_K2RA(T)
 RETURN T * 1.8
 
 FUNCTION hwg_TEMP_K2R( T )
@@ -566,7 +566,7 @@ RETURN ( T - 32.0) / 1.8
 FUNCTION hwg_TEMP_F2K( T )
 RETURN ( T + 459.67) / 1.8
 
-FUNCTION hwg_TEMP_F2RA( T )
+FUNCTION hwg_TEMP_F2RA(T)
 RETURN T + 459.67
 
 FUNCTION hwg_TEMP_F2R( T )
@@ -593,7 +593,7 @@ RETURN ( T * 2.25 ) + 32.0
 FUNCTION hwg_TEMP_R2K( T )
 RETURN ( T * 1.25 ) + 273.15
 
-FUNCTION hwg_TEMP_R2RA( T )
+FUNCTION hwg_TEMP_R2RA(T)
 RETURN ( T * 2.25 ) + 32.0 + 459.67
 
 // ===== End of temperature conversions ==============
@@ -661,7 +661,7 @@ RETURN l * 0.2642
 FUNCTION  hwg_LB2KG( lb )
 RETURN lb * 0.4536
 
-FUNCTION hwg_KG2LB( kg )
+FUNCTION hwg_KG2LB(kg)
 RETURN kg * 2.2046
 
 // oz / g

@@ -301,13 +301,13 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    ELSE
       ::nTrackWidth := HTRACK_DEF_WIDTH
    ENDIF
-   nStyle := hb_bitor( Iif( nStyle == NIL,0,nStyle ), WS_CHILD + WS_VISIBLE +  ;
-      Iif( lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0 ) ) //+          ;
-      //Iif( ::lVScroll, WS_VSCROLL, 0 ) )
+   nStyle := hb_bitor( Iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE +  ;
+      Iif(lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0) ) //+          ;
+      //Iif(::lVScroll, WS_VSCROLL, 0) )
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, Iif( nWidth == NIL,0,nWidth ), ;
-      Iif( nHeight == NIL, 0, nHeight ), oFont, bInit, bSize, bPaint, , ;
-      Iif( tcolor == NIL, 0, tcolor ), Iif( bcolor == NIL, 16777215, bcolor ))
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, Iif(nWidth == NIL, 0, nWidth), ;
+      Iif(nHeight == NIL, 0, nHeight), oFont, bInit, bSize, bPaint, , ;
+      Iif(tcolor == NIL, 0, tcolor), Iif(bcolor == NIL, 16777215, bcolor))
 
    ::nBoundR := ::nClientWidth := ::nWidth - ::nTrackWidth
 
@@ -428,7 +428,7 @@ METHOD SetHili( xGroup, oFont, tColor, bColor ) CLASS HCEdit
    ENDIF
    arr := ::aHili[xGroup]
 
-   arr[1] := Iif( ValType( oFont ) == "O", ::AddFont( oFont ), Iif( Empty(oFont), 0, oFont ) )
+   arr[1] := Iif(ValType( oFont ) == "O", ::AddFont( oFont ), Iif(Empty(oFont), 0, oFont))
    arr[2] := tColor
    arr[3] := bColor
 
@@ -473,10 +473,10 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdit
 
       // hwg_writelog(x)
       &&
-      n :=  Iif( Asc( SubStr(x,0x12,1 ) ) >= 128, FCONTROL, Iif( Asc(SubStr(x,0x11,1 ) ) >= 128,FSHIFT,0 ) )
+      n :=  Iif(Asc(SubStr(x, 0x12, 1)) >= 128, FCONTROL, Iif(Asc(SubStr(x, 0x11, 1)) >= 128, FSHIFT, 0))
       &&                       18dec                                          17dec
-      n1 := Iif( Asc( SubStr(x,19,1 ) ) >= 128, FCONTROL, 0 )
-      n2 := Iif( Asc( SubStr(x,18,1 ) ) >= 128, FSHIFT ,0 )
+      n1 := Iif(Asc(SubStr(x, 19, 1)) >= 128, FCONTROL, 0)
+      n2 := Iif(Asc(SubStr(x, 18, 1)) >= 128, FSHIFT, 0)
       /*
         Keyboard buffer x has fixed length of 256 ( 0 ... 255 )
         FSHIFT=4,FCONTROL=8,FALT=16=0x10
@@ -575,7 +575,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdit
       ENDIF
 
    ELSEIF msg == WM_MOUSEWHEEL
-      n := Iif( ( n := hwg_HiWord( wParam ) ) > 32768, n - 65535, n )
+      n := Iif((n := hwg_HiWord(wParam)) > 32768, n - 65535, n)
       IF hb_bitand( hwg_LoWord( wParam ), MK_MBUTTON ) != 0
          IF n > 0
             ::PageUp()
@@ -647,7 +647,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdit
 
    IF aPointC[P_X] != ::aPointC[P_X] .OR. aPointC[P_Y] != ::aPointC[P_Y]
       IF !Empty(::oTrack)
-         n := Iif( ::nLines > 0, Int( ::nHeight/( ::aLines[1,AL_Y2] - ::aLines[1,AL_Y1] ) ), 0 )
+         n := Iif(::nLines > 0, Int(::nHeight / (::aLines[1, AL_Y2] - ::aLines[1, AL_Y1])), 0)
          nLinesAll := ::nLinesAll - n + 2
          IF ::lWrap
             n := (hced_LineNum(Self,1)-1) / nLinesAll
@@ -697,7 +697,7 @@ METHOD Paint( lReal ) CLASS HCEdit
       hDCReal := hwg_BeginPaint( ::area, pps )
       aCoors := hwg_GetClientRect( ::area )
       //hDC := hwg_CreateCompatibleDC( hDCReal, ;
-      //      Iif( !Empty(nDocWidth), nDocWidth, aCoors[3]-aCoors[1] ), aCoors[4]-aCoors[2] )
+      //      Iif(!Empty(nDocWidth), nDocWidth, aCoors[3] - aCoors[1] ), aCoors[4] - aCoors[2])
       hDC := hDCReal
       IF ::nShiftL > 0
          hwg_cairo_translate( hDC, -::nShiftL, 0 )
@@ -708,7 +708,7 @@ METHOD Paint( lReal ) CLASS HCEdit
 
       hDC := hwg_CreateCompatibleDC( hDCReal )
       hBitmap := hwg_CreateCompatibleBitmap( hDCReal, ;
-            Iif( !Empty(nDocWidth), Max(nDocWidth,aCoors[3]-aCoors[1])+::nShiftL, aCoors[3]-aCoors[1] ), aCoors[4]-aCoors[2] )
+            Iif(!Empty(nDocWidth), Max(nDocWidth, aCoors[3] - aCoors[1]) + ::nShiftL, aCoors[3] - aCoors[1]), aCoors[4] - aCoors[2])
       hwg_Selectobject( hDC, hBitmap )
 
 #endif
@@ -723,7 +723,7 @@ METHOD Paint( lReal ) CLASS HCEdit
       hDC := hDCReal
    ENDIF
 
-   ::nBoundR := Iif( !Empty(nDocWidth), nDocWidth, ::nClientWidth ) - ::nPadding
+   ::nBoundR := Iif(!Empty(nDocWidth), nDocWidth, ::nClientWidth) - ::nPadding
    hced_Setcolor( ::hEdit, ::tcolor, ::bColor )
    hced_SetPaint( ::hEdit, hDC,, ::nClientWidth, ::lWrap,, nDocWidth )
    IF lReal
@@ -736,8 +736,8 @@ METHOD Paint( lReal ) CLASS HCEdit
             hced_FillRect( ::hEdit, nDocWidth+::nMarginR, 0, ::nClientWidth+::nShiftL, ::nHeight )
          ENDIF
          hced_Setcolor( ::hEdit,, ::bColor )
-         hced_FillRect( ::hEdit, ::nBoundL, 0, Iif( ::nDocWidth+::nMarginR-::nShiftL < ::nClientWidth, ;
-               nDocWidth+::nMarginR,::nClientWidth ), ::nHeight )
+         hced_FillRect( ::hEdit, ::nBoundL, 0, Iif(::nDocWidth + ::nMarginR - ::nShiftL < ::nClientWidth, ;
+               nDocWidth + ::nMarginR, ::nClientWidth), ::nHeight)
       ELSE
          hced_FillRect( ::hEdit, 0, 0, ::nClientWidth, ::nHeight )
       ENDIF
@@ -757,7 +757,7 @@ METHOD Paint( lReal ) CLASS HCEdit
    IF !Empty(::aText)
       DO WHILE ( ++nLine + ::nLineF - 1 ) <= ::nTextLen
 
-         yNew := ::PaintLine( Iif( lReal, hDC, NIL ), yPos, nLine, .T., ::nBoundR )
+         yNew := ::PaintLine( Iif(lReal, hDC, NIL), yPos, nLine, .T., ::nBoundR )
 
          //IF yNew + ( ::aLines[nLine,AL_Y2] - ::aLines[nLine,AL_Y1] ) > ::nHeight
          IF yNew + BOTTOM_HEIGHT > ::nHeight
@@ -802,7 +802,7 @@ METHOD Paint( lReal ) CLASS HCEdit
 /* Added: nRight */
 METHOD PaintLine( hDC, yPos, nLine, lUse_aWrap, nRight ) CLASS HCEdit
    LOCAL lReal := !Empty(hDC), i, nPrinted, x1, x2, cLine, aLine, nTextLine := ::nLineF+nLine-1
-   LOCAL nWCharF := Iif( ::lWrap.AND.nLine==1, ::nWCharF, ::nPosF ), nWSublF := Iif( ::lWrap.AND.nLine==1, ::nWSublF, 1 ), num := ::nLines+1
+   LOCAL nWCharF := Iif(::lWrap .AND. nLine == 1, ::nWCharF, ::nPosF), nWSublF := Iif(::lWrap .AND. nLine == 1, ::nWSublF, 1), num := ::nLines+1
 
    IF lUse_aWrap == NIL
       lUse_aWrap := .F.
@@ -814,11 +814,11 @@ METHOD PaintLine( hDC, yPos, nLine, lUse_aWrap, nRight ) CLASS HCEdit
    DO WHILE .T.
 
       ::nLines ++
-      x1 := ::nBoundL + ::nMarginL + ::n4Separ + Iif( nWSublF==1, ::nIndent, 0 )
+      x1 := ::nBoundL + ::nMarginL + ::n4Separ + Iif(nWSublF == 1, ::nIndent, 0)
       x2 := ::nBoundR - ::nMarginR
 
-      IF ::nLines >= Len( ::aLines )
-         ::aLines := ASize( ::aLines, Len( ::aLines ) + 16 )
+      IF ::nLines >= Len(::aLines)
+         ::aLines := ASize( ::aLines, Len(::aLines) + 16 )
          FOR i := 0 TO 15
             ::aLines[Len(::aLines)-i] := Array( AL_LENGTH )
          NEXT
@@ -835,21 +835,21 @@ METHOD PaintLine( hDC, yPos, nLine, lUse_aWrap, nRight ) CLASS HCEdit
       IF ::lWrap .AND. ( lReal .OR. lUse_aWrap )
          nPrinted := hced_Len(Self,::aText[nTextLine])
          IF ::aWrap[nTextLine] != NIL
-            nPrinted := Iif( Len(::aWrap[nTextLine])>=nWSublF,::aWrap[nTextLine,nWSublF],nPrinted+1 ) - ;
-                  Iif( nWSublF==1,1,::aWrap[nTextLine,nWSublF-1] )
+            nPrinted := Iif(Len(::aWrap[nTextLine]) >= nWSublF, ::aWrap[nTextLine, nWSublF], nPrinted + 1) - ;
+                  Iif(nWSublF == 1, 1, ::aWrap[nTextLine, nWSublF - 1])
          ENDIF
          cLine := hced_Substr(Self, ::aText[nTextLine], nWCharF, nPrinted)
          ::MarkLine( nLine, lReal, nWSublF, nWCharF, ::nLines )
          hced_LineOut( ::hEdit, @x1, @yPos, @x2, cLine, nPrinted, ::nAlign, Iif(lReal,nRight,0), .F. )
       ELSE
          IF ::lWrap
-            cLine := Iif( nWCharF == 1, ::aText[nTextLine], hced_Substr(Self, ::aText[nTextLine], nWCharF) )
+            cLine := Iif(nWCharF == 1, ::aText[nTextLine], hced_Substr(Self, ::aText[nTextLine], nWCharF))
          ELSE
-            cLine := Iif( ::nPosF == 1, ::aText[nTextLine], hced_Substr(Self, ::aText[nTextLine], ::nPosF) )
+            cLine := Iif(::nPosF == 1, ::aText[nTextLine], hced_Substr(Self, ::aText[nTextLine], ::nPosF))
          ENDIF
 
-         ::MarkLine( nLine, lReal, Iif( ::lWrap, nWSublF, NIL), nWCharF, ::nLines )
-         nPrinted := hced_LineOut( ::hEdit, @x1, @yPos, @x2, cLine, hced_Len( Self, cLine ), ::nAlign, Iif(lReal,nRight,0) )
+         ::MarkLine( nLine, lReal, Iif(::lWrap, nWSublF, NIL), nWCharF, ::nLines )
+         nPrinted := hced_LineOut( ::hEdit, @x1, @yPos, @x2, cLine, hced_Len(Self, cLine), ::nAlign, Iif(lReal,nRight,0) )
       ENDIF
 
       aLine[AL_X1] := x1
@@ -870,7 +870,7 @@ METHOD PaintLine( hDC, yPos, nLine, lUse_aWrap, nRight ) CLASS HCEdit
 
       IF ::lWrap
          aLine[AL_SUBL] := nWSublF
-         IF nWCharF + nPrinted - 1 >= hced_Len( Self, ::aText[nTextLine] )
+         IF nWCharF + nPrinted - 1 >= hced_Len(Self, ::aText[nTextLine])
             EXIT
          ELSE
             nWCharF += nPrinted
@@ -906,10 +906,10 @@ METHOD MarkLine( nLine, lReal, nSubLine, nWCharF, nLineC ) CLASS HCEdit
    IF nLineC == NIL
       nLineC := 0
    ENDIF
-   nPos1 := Iif( nWCharF!=NIL, nWCharF, Iif( ::lWrap .AND. !Empty(::aWrap[nL]), ;
-         Iif(nSubLine==1,1,::aWrap[nL,nSubline-1]), ::nPosF ) )
-   nPos2 := Iif( ::lWrap .AND. !Empty(::aWrap[nL]).AND.nSubLine<Len(::aWrap[nL]), ;
-         ::aWrap[nL,nSubline]-1, Min( hced_Len(Self,::aText[nL]),STRING_MAX_LEN ) )
+   nPos1 := Iif(nWCharF != NIL, nWCharF, Iif(::lWrap .AND. !Empty(::aWrap[nL]), ;
+         Iif(nSubLine == 1, 1, ::aWrap[nL, nSubline - 1]), ::nPosF))
+   nPos2 := Iif(::lWrap .AND. !Empty(::aWrap[nL]).AND.nSubLine<Len(::aWrap[nL]), ;
+         ::aWrap[nL,nSubline]-1, Min( hced_Len(Self,::aText[nL]),STRING_MAX_LEN ))
 
    IF !Empty(::oHili)
       IF Empty(nSubLine) .OR. nSubLine == 1 .OR. nL != ::oHili:nLine
@@ -930,10 +930,10 @@ METHOD MarkLine( nLine, lReal, nSubLine, nWCharF, nLineC ) CLASS HCEdit
                IF aStru[i,2] >= nPos1 .AND. aStru[i,1] <= nPos2
                   x1 := Max( nPos1, aStru[i,1] ) - nPos1 + 1
                   x2 := Min( aStru[i,2],nPos2 ) - nPos1 + 1
-                  bColor := Iif( nLineC == ::nLineC .AND. ::bColorCur != ::bColor, ;
-                     ::bColorCur, Iif( aHili[3]==NIL, ::bColor, aHili[3] ) )
+                  bColor := Iif(nLineC == ::nLineC .AND. ::bColorCur != ::bColor, ;
+                     ::bColorCur, Iif(aHili[3]==NIL, ::bColor, aHili[3]))
                   hced_setAttr( ::hEdit, x1, x2 - x1 + 1, aHili[1], ;
-                     Iif( aHili[2]==NIL, ::tColor, aHili[2] ), bColor )
+                     Iif(aHili[2]==NIL, ::tColor, aHili[2]), bColor )
                ENDIF
             ENDIF
          NEXT
@@ -979,9 +979,9 @@ METHOD MarkLine( nLine, lReal, nSubLine, nWCharF, nLineC ) CLASS HCEdit
             RETURN NIL
          ENDIF
       ENDIF
-      IF x1 <= Len( ::aText[nL] )
-         IF x2 > Len( ::aText[nL] ) .OR. x2 <= 0
-            x2 := Len( ::aText[nL] ) + 1
+      IF x1 <= Len(::aText[nL])
+         IF x2 > Len(::aText[nL]) .OR. x2 <= 0
+            x2 := Len(::aText[nL]) + 1
          ENDIF
          hced_setAttr( ::hEdit, x1, x2 - x1, - 1, ::tColorSel, ::bColorSel )
       ENDIF
@@ -1041,14 +1041,14 @@ METHOD SetText( xText, cPageIn, cPageOut ) CLASS HCEdit
          ::aText := hb_aTokens( xText, Chr(10) )
       ENDIF
    ENDIF
-   ::nTextLen := Len( ::aText )
+   ::nTextLen := Len(::aText)
    DO WHILE ::aText[::nTextLen] == NIL
       ::nTextLen--
    ENDDO
 
    FOR i := 1 TO ::nTextLen
       IF ( c := Right(::aText[i],1) ) == Chr(13) .OR. c == Chr(10)
-         ::aText[i] := Left( ::aText[i],Len(::aText[i])-1 )
+         ::aText[i] := Left(::aText[i], Len(::aText[i]) - 1)
       ENDIF
       IF ( c := Left(::aText[i],1) ) == Chr(13) .OR. c == Chr(10)
          ::aText[i] := Substr(::aText[i], 2)
@@ -1062,7 +1062,7 @@ METHOD SetText( xText, cPageIn, cPageOut ) CLASS HCEdit
 
 #ifndef __PLATFORM__WINDOWS
    ::lUtf8 := .T.
-   ::Convert( cPageIn := Iif( Empty(cPageIn), "UTF8",cPageIn ), cPageOut := "UTF8" )
+   ::Convert( cPageIn := Iif(Empty(cPageIn), "UTF8",cPageIn), cPageOut := "UTF8" )
 #else
    ::Convert( cPageIn, cPageOut )
 #endif
@@ -1102,8 +1102,8 @@ METHOD Save( cFileName, cpSou ) CLASS HCEdit
          cpSou := ::cpSource
       ENDIF
       FOR i := 1 TO ::nTextLen
-         cLine := Iif( ::lStripSpaces, Trim(::aText[i] ), ::aText[i] )
-         FWrite(nHand, Iif( !Empty(cpSou), hb_Translate( cLIne, ::cp, cpSou ), cLine )  + cNewLine)
+         cLine := Iif(::lStripSpaces, Trim(::aText[i] ), ::aText[i])
+         FWrite(nHand, Iif(!Empty(cpSou), hb_Translate( cLIne, ::cp, cpSou ), cLine)  + cNewLine)
       NEXT
       FClose(nHand)
    ENDIF
@@ -1125,10 +1125,10 @@ METHOD AddFont( oFont, name, width, height , weight, ;
       StrikeOut := oFont:StrikeOut
    ENDIF
 
-   IF Charset == NIL .AND. Len( ::aFonts ) > 0
+   IF Charset == NIL .AND. Len(::aFonts) > 0
       Charset := ::aFonts[1]:CharSet
    ENDIF
-   FOR i := 1 TO Len( ::aFonts )
+   FOR i := 1 TO Len(::aFonts)
       IF ::aFonts[i]:name == name .AND.              ;
             ( ( Empty(::aFonts[i]:width) .AND. Empty(width) ) ;
             .OR. ::aFonts[i]:width == width ) .AND.  ;
@@ -1149,15 +1149,15 @@ METHOD AddFont( oFont, name, width, height , weight, ;
    hced_AddFont( ::hEdit, oFont:handle )
    AAdd(::aFonts, oFont)
 
-   RETURN Len( ::aFonts )
+   RETURN Len(::aFonts)
 
 METHOD SetFont( oFont ) CLASS HCEdit
    LOCAL i, oFont1, name, height
 
-   IF Len( ::aFonts ) > 1
-      FOR i := 2 TO Len( ::aFonts )
-         name := Iif( ::oFont:name == ::aFonts[i]:name, oFont:name, ::aFonts[i]:name )
-         height := Iif( ::oFont:height == ::aFonts[i]:height, oFont:height, Int( ::aFonts[i]:height*oFont:height/::oFont:height) )
+   IF Len(::aFonts) > 1
+      FOR i := 2 TO Len(::aFonts)
+         name := Iif(::oFont:name == ::aFonts[i]:name, oFont:name, ::aFonts[i]:name)
+         height := Iif(::oFont:height == ::aFonts[i]:height, oFont:height, Int( ::aFonts[i]:height*oFont:height/::oFont:height))
          oFont1 := HFont():Add( name, ::aFonts[i]:width, height , ::aFonts[i]:weight, ;
             ::aFonts[i]:CharSet, ::aFonts[i]:Italic, ::aFonts[i]:Underline, ::aFonts[i]:StrikeOut,, .T. )
          ::aFonts[i] := oFont1
@@ -1210,7 +1210,7 @@ METHOD SetCaretPos( nType, p1, p2 ) CLASS HCEdit
       xPos := ::nClientWidth
    ENDIF
    //hwg_writelog( str(::nLineC)+" "+str(::nLineF)+ " "+valtype(::aLines[::nLineC,AL_LINE]) )
-   ::MarkLine( Iif( ::lWrap, ::aLines[::nLineC,AL_LINE]-::nLineF+1, ::nLineC ), .F., Iif( ::lWrap, hced_SubLine( Self, ::nLineC ), NIL ) )
+   ::MarkLine( Iif(::lWrap, ::aLines[::nLineC,AL_LINE]-::nLineF+1, ::nLineC), .F., Iif(::lWrap, hced_SubLine( Self, ::nLineC ), NIL) )
    IF x1 == NIL
       xPos += ::nShiftL
       cLine := hced_SubLine( Self, ::nLineC, SB_TEXT )
@@ -1220,9 +1220,9 @@ METHOD SetCaretPos( nType, p1, p2 ) CLASS HCEdit
       x1 := hced_ExactCaretPos( ::hEdit, cLine, ::aLines[::nLineC,AL_X1], ;
          Iif(Empty(xPos),::nBoundL,xPos), ::aLines[::nLineC,AL_Y1], lSet, ::nShiftL )
    ELSE
-      cLine := Iif( x1 == 0, "", hced_Substr(Self, hced_SubLine(Self, ::nLineC, SB_TEXT), ::nPosF, x1) )
+      cLine := Iif(x1 == 0, "", hced_Substr(Self, hced_SubLine(Self, ::nLineC, SB_TEXT), ::nPosF, x1))
       x1 := hced_ExactCaretPos( ::hEdit, ;
-         Iif( hced_Len( Self, cLine ) <= x1, cLine, hced_Left( Self, cLine, x1 ) ), ;
+         Iif(hced_Len(Self, cLine) <= x1, cLine, hced_Left(Self, cLine, x1)), ;
          ::aLines[::nLineC,AL_X1], - 1, ::aLines[::nLineC,AL_Y1], lSet, ::nShiftL )
    ENDIF
    ::nPosC := x1
@@ -1279,8 +1279,8 @@ METHOD onKeyDown( nKeyCode, lParam, nCtrl ) CLASS HCEdit
 
    IF nCtrl == NIL
       cLine := hwg_Getkeyboardstate( lParam )
-      nCtrl := Iif( Asc( SubStr(cLine,0x12,1 ) ) >= 128, FCONTROL, 0 ) + ;
-            Iif( Asc(SubStr(cLine,0x11,1 ) ) >= 128,FSHIFT,0 )
+      nCtrl := Iif(Asc( SubStr(cLine,0x12,1 ) ) >= 128, FCONTROL, 0) + ;
+            Iif(Asc(SubStr(cLine,0x11,1 ) ) >= 128,FSHIFT,0)
 
    ENDIF
 
@@ -1325,7 +1325,7 @@ METHOD onKeyDown( nKeyCode, lParam, nCtrl ) CLASS HCEdit
 // Cursor right : This block catches AltGr + ~ (Tilde) , so ignored, Bug fixed (DF7BE)
    IF nKeyCode == VK_RIGHT
 #endif
-      n := Iif( hwg_checkBit( nctrl,FBITCTRL ), ::aLines[nLine,AL_NCHARS] - ::nPosC, 1 )
+      n := Iif(hwg_checkBit( nctrl,FBITCTRL ), ::aLines[nLine,AL_NCHARS] - ::nPosC, 1)
       l := .F.
       DO WHILE --n >= 0
          IF ::lWrap .AND. ::nDocFormat > 0 .AND. ::nShiftL+::nClientWidth < nDocWidth .AND. ;
@@ -1360,7 +1360,7 @@ METHOD onKeyDown( nKeyCode, lParam, nCtrl ) CLASS HCEdit
       ENDIF
 
    ELSEIF nKeyCode == VK_LEFT  // Cursor left
-      n := Iif( hwg_checkBit( nctrl,FBITCTRL ), ::nPosC, 1 )
+      n := Iif(hwg_checkBit( nctrl,FBITCTRL ), ::nPosC, 1)
       ntmp1 := ntmp2 := ::nPosC
       l := .F.
       DO WHILE --n >= 0
@@ -1413,8 +1413,8 @@ METHOD onKeyDown( nKeyCode, lParam, nCtrl ) CLASS HCEdit
       IF ::lWrap .AND. ::nDocFormat > 0 .AND. ::nShiftL+::nClientWidth < nDocWidth
          ::nShiftL := nDocWidth - ::nClientWidth
          lInvAll := .T.
-      ELSEIF !::lWrap .AND. ::aLines[nLine,AL_NCHARS] < hced_Len( Self, ::aText[::aLines[nLine,AL_LINE]] )
-         ::nPosF := Max( Int( ( ( hced_Len( Self, ::aText[::aLines[nLine,AL_LINE]] ) - ;
+      ELSEIF !::lWrap .AND. ::aLines[nLine,AL_NCHARS] < hced_Len(Self, ::aText[::aLines[nLine,AL_LINE]])
+         ::nPosF := Max( Int( ( ( hced_Len(Self, ::aText[::aLines[nLine,AL_LINE]]) - ;
                ::aLines[nLine,AL_NCHARS] ) ) * 7 / 6 ), 1 )
          ::Paint( .F. )
          lInvAll := .T.
@@ -1431,7 +1431,7 @@ METHOD onKeyDown( nKeyCode, lParam, nCtrl ) CLASS HCEdit
       IF hwg_checkBit( nctrl,FBITSHIFT )
          ::PCopy( ::aPointC, ::aPointM2 )
          lUnSel := .F.
-         IF Len( ::aLines ) > ::nLineC
+         IF Len(::aLines) > ::nLineC
             hced_Invalidaterect( ::hEdit, 0, 0, ::aLines[::nLineC,AL_Y1], ::nClientWidth, ;
                ::aLines[::nLineC+1,AL_Y2] )
          ENDIF
@@ -1504,7 +1504,7 @@ METHOD onKeyDown( nKeyCode, lParam, nCtrl ) CLASS HCEdit
       ENDIF
    ELSEIF ( nKeyCode == 65 .OR. nKeyCode == 97 ) .AND. hwg_checkBit( nctrl,FBITCTRL )   // 'A'
       ::Pcopy( { 1, 1 }, ::aPointM1 )
-      ::Pcopy( { hced_Len( Self, ::aText[::nTextLen] ) + 1, ::nTextLen }, ::aPointM2 )
+      ::Pcopy( { hced_Len(Self, ::aText[::nTextLen]) + 1, ::nTextLen }, ::aPointM2 )
       lUnSel := .F.
       lInvAll := .T.
    ELSEIF ( nKeyCode == 67 .OR. nKeyCode == 99 ) .AND. hwg_checkBit( nctrl,FBITCTRL )   // 'C'
@@ -1595,12 +1595,12 @@ METHOD PutChar( nKeyCode ) CLASS HCEdit
                IF --nLine <= 0
                   RETURN NIL
                ENDIF
-               nPos := hced_Len( Self, ::aText[nLine] ) + 1
+               nPos := hced_Len(Self, ::aText[nLine]) + 1
             ELSE
                nPos --
             ENDIF
          ENDIF
-         IF nPos > hced_Len( Self, ::aText[nLine] )
+         IF nPos > hced_Len(Self, ::aText[nLine])
             IF nLine < ::nTextLen
                ::DelText( { nPos, nLine }, { 1,nLine+1 } )
             ENDIF
@@ -1622,7 +1622,7 @@ METHOD LineDown() CLASS HCEdit
    ELSEIF !::lWrap .AND. ::nLineF + ::nLines - 1 < ::nTextLen
       ::nLineF ++
    ELSEIF ::lWrap .AND. ( ::aLines[::nLines,AL_LINE] < ::nTextLen .OR. ;
-         ::aLines[::nLines,AL_FIRSTC]+::aLines[::nLines,AL_NCHARS] < hced_Len( Self,::aText[::nTextLen] ) )
+         ::aLines[::nLines,AL_FIRSTC]+::aLines[::nLines,AL_NCHARS] < hced_Len(Self,::aText[::nTextLen]) )
       IF ::nLines > 1
          IF ::aLines[2,AL_FIRSTC] == 1
             ::nLineF ++
@@ -1674,7 +1674,7 @@ METHOD LineUp( lChgPos ) CLASS HCEdit
          ENDIF
       ELSE
          ::nWSublF --
-         ::nWCharF := Iif( ::nWSublF==1, 1, ::aWrap[::nLineF,::nWSublF-1] )
+         ::nWCharF := Iif(::nWSublF==1, 1, ::aWrap[::nLineF,::nWSublF-1])
       ENDIF
    ELSE
       RETURN NIL
@@ -1728,13 +1728,13 @@ METHOD PageUp() CLASS HCEdit
                nWSublF --
             ELSEIF ::nLineF > 1
                ::nLineF --
-               nWSublF := Iif( Empty(::aWrap[::nLineF]), 1, Len(::aWrap[::nLineF]) + 1 )
+               nWSublF := Iif(Empty(::aWrap[::nLineF]), 1, Len(::aWrap[::nLineF]) + 1)
             ELSE
                EXIT
             ENDIF
          NEXT
          ::nWSublF := nWSublF
-         ::nWCharF := Iif( Empty(::aWrap[::nLineF]) .OR. nWSublF==1, 1, ::aWrap[::nLineF,::nWSublF-1] )
+         ::nWCharF := Iif(Empty(::aWrap[::nLineF]) .OR. nWSublF==1, 1, ::aWrap[::nLineF,::nWSublF-1])
       ELSE
          ::nLineF -= ( n - 1 )
          IF ::nLineF <= 0
@@ -1769,23 +1769,23 @@ METHOD Top() CLASS HCEdit
 METHOD Bottom() CLASS HCEdit
    LOCAL nNewF, nNewC, nWSublF, n, i
 
-   n := Iif( ::nLines > 0, Max( 1, Int( ::nHeight/(::aLines[1,AL_Y2] - ::aLines[1,AL_Y1] ) ) ), 0 )
+   n := Iif(::nLines > 0, Max( 1, Int( ::nHeight/(::aLines[1,AL_Y2] - ::aLines[1,AL_Y1] ) ) ), 0)
    IF n > ::nLinesAll
       nNewF := 1
       nNewC := ::nLinesAll
    ELSEIF ::lWrap
       nNewF := ::nTextLen
-      nWSublF := Iif( Empty(::aWrap[nNewF]), 1, Len(::aWrap[nNewF]) + 1 )
+      nWSublF := Iif(Empty(::aWrap[nNewF]), 1, Len(::aWrap[nNewF]) + 1)
       FOR i := 1 TO n-1
          IF nWSublF > 1
             nWSublF --
          ELSE
             nNewF --
-            nWSublF := Iif( Empty(::aWrap[nNewF]), 1, Len(::aWrap[nNewF]) + 1 )
+            nWSublF := Iif(Empty(::aWrap[nNewF]), 1, Len(::aWrap[nNewF]) + 1)
          ENDIF
       NEXT
       ::nWSublF := nWSublF
-      ::nWCharF := Iif( Empty(::aWrap[nNewF]) .OR. nWSublF==1, 1, ::aWrap[nNewF,::nWSublF-1] )
+      ::nWCharF := Iif(Empty(::aWrap[nNewF]) .OR. nWSublF==1, 1, ::aWrap[nNewF,::nWSublF-1])
       nNewC := n
    ELSE
       nNewF := Max( 1, ::nTextLen - n + 1 )
@@ -1809,7 +1809,7 @@ METHOD GOTO( nLine ) CLASS HCEdit
    IF ::nLines <= 0 .AND. ::nTextLen > 2
       ::Paint( .F. )
    ENDIF
-   IF ( n := Iif( ::nLines > 0, Int( ::nHeight/(::aLines[1,AL_Y2] - ::aLines[1,AL_Y1] ) ), 0 ) ) > 0
+   IF ( n := Iif(::nLines > 0, Int( ::nHeight/(::aLines[1,AL_Y2] - ::aLines[1,AL_Y1] ) ), 0) ) > 0
       ::nWCharF := ::nWSublF := 1
       IF ::lWrap
          ::nLineF := nLine
@@ -1854,7 +1854,7 @@ METHOD onVScroll( wParam ) CLASS HCEdit
    ELSEIF nCode == SB_PAGEUP
       ::PageUp()
    ELSEIF nCode = SB_THUMBPOSITION .OR. nCode = SB_THUMBTRACK
-      n := Iif( ::nLines > 0, Int( ::nHeight/(::aLines[1,AL_Y2] - ::aLines[1,AL_Y1] ) ), 0 )
+      n := Iif(::nLines > 0, Int( ::nHeight/(::aLines[1,AL_Y2] - ::aLines[1,AL_Y1] ) ), 0)
       IF n > 0
          nPages := Int( ::nLinesAll/n ) + 1
          //hwg_writelog( "    "+str(npos)+"/"+str(npages) )
@@ -1867,14 +1867,14 @@ METHOD onVScroll( wParam ) CLASS HCEdit
             IF ::lWrap
                i := nL := 0
                DO WHILE ++i <= ::nTextLen
-                  nL += Iif( Empty(::aWrap[i]), 1, Len(::aWrap[i])+1 )
+                  nL += Iif(Empty(::aWrap[i]), 1, Len(::aWrap[i])+1)
                   IF nL >= n
                      EXIT
                   ENDIF
                ENDDO
                ::nLineF := i
-               ::nWSublF := Iif( nL == n .OR. Empty(::aWrap[i]), 1, Len(::aWrap[i])-(nL-n)+2 )
-               ::nWCharF := Iif( nL == n .OR. Empty(::aWrap[i]), 1, ::aWrap[i,Len(::aWrap[i])-(nL-n)+1] )
+               ::nWSublF := Iif(nL == n .OR. Empty(::aWrap[i]), 1, Len(::aWrap[i])-(nL-n)+2)
+               ::nWCharF := Iif(nL == n .OR. Empty(::aWrap[i]), 1, ::aWrap[i,Len(::aWrap[i])-(nL-n)+1])
             ELSE
                ::nLineF := n
             ENDIF
@@ -1937,7 +1937,7 @@ METHOD GetText( P1, P2, lTabs ) CLASS HCEdit
    ENDIF
    FOR i := Pstart[P_Y] TO Pend[P_Y]
       cLine := hced_Substr(Self, ::aText[i], nPos1 := Iif(i == Pstart[P_Y], Pstart[P_X], 1), ;
-         Iif( i == Pend[P_Y], Pend[P_X], hced_Len( Self, ::aText[i] ) + 1 ) - nPos1 )
+         Iif(i == Pend[P_Y], Pend[P_X], hced_Len(Self, ::aText[i]) + 1) - nPos1 )
       IF lTabs .AND. ::lTabs .AND. Space(::nTabLen) $ cLine
          cLine := Strtran( cLine, Space(::nTabLen), Chr(9) )
       ENDIF
@@ -1970,14 +1970,14 @@ METHOD DelText( P1, P2, lChgPos ) CLASS HCEdit
 
    IF Pstart[P_Y] == Pend[P_Y]
       i := Pstart[P_Y]
-      ::aText[i] := hced_Left( Self, ::aText[i], Pstart[P_X] - 1 ) + hced_Substr(Self, ::aText[i], Pend[P_X])
+      ::aText[i] := hced_Left(Self, ::aText[i], Pstart[P_X] - 1) + hced_Substr(Self, ::aText[i], Pend[P_X])
    ELSE
       FOR i := Pend[P_Y] TO Pstart[P_Y] STEP - 1
          IF i == Pstart[P_Y]
             IF Pstart[P_X] == 1
                ::DelLine( i )
             ELSE
-               ::aText[i] := hced_Left( Self, ::aText[i], Pstart[P_X] - 1 ) + cRest
+               ::aText[i] := hced_Left(Self, ::aText[i], Pstart[P_X] - 1) + cRest
             ENDIF
          ELSEIF i == Pend[P_Y]
             IF Pstart[P_X] == 1
@@ -2007,7 +2007,7 @@ METHOD DelText( P1, P2, lChgPos ) CLASS HCEdit
       IF ( i := hced_P2Screen( Self, Pstart[P_Y], @nPos ) ) <= 0
          ::nLineF := Pstart[P_Y]
          ::nWSublF := hced_P2SubLine( Self, Pstart[P_Y], Pstart[P_X] )
-         ::nWCharF := Iif( ::nWSublF==1, 1, ::aWrap[Pstart[P_Y],::nWSublF-1] )
+         ::nWCharF := Iif(::nWSublF==1, 1, ::aWrap[Pstart[P_Y],::nWSublF-1])
          ::nLineC := 1
       ELSE
          ::nLineC := i
@@ -2036,10 +2036,10 @@ METHOD InsText( aPoint, cText, lOver, lChgPos ) CLASS HCEdit
    ELSE
       aText := hb_aTokens( cText, Chr(10) )
    ENDIF
-   nTextLen := Len( aText )
+   nTextLen := Len(aText)
    FOR i := 1 TO nTextLen
       IF ( c := Right(aText[i],1) ) == Chr(13) .OR. c == Chr(10)
-         aText[i] := Left( aText[i],Len(aText[i])-1 )
+         aText[i] := Left(aText[i], Len(aText[i]) - 1)
       ENDIF
       IF ( c := Left(aText[i],1) ) == Chr(13) .OR. c == Chr(10)
          aText[i] := Substr(aText[i], 2)
@@ -2050,10 +2050,10 @@ METHOD InsText( aPoint, cText, lOver, lChgPos ) CLASS HCEdit
       lChgPos := .T.
    ENDIF
    nPos := nPos1 := aPoint[P_X]
-   nSubl := Iif( ::lWrap .AND. ::aWrap[nLine] != NIL, Len(::aWrap[nLine]), 0 )
+   nSubl := Iif(::lWrap .AND. ::aWrap[nLine] != NIL, Len(::aWrap[nLine]), 0)
 
    nLineNew := nLine + nTextLen - 1
-   nPos2 := Iif( Len(aText) == 1, nPos + hced_Len( Self, cText ), hced_Len( Self, Atail(aText) ) + 1 )
+   nPos2 := Iif(Len(aText) == 1, nPos + hced_Len(Self, cText), hced_Len(Self, Atail(aText)) + 1)
    ::Undo( nLine, nPos1, nLineNew, nPos2, Iif(lOver==NIL.OR.!lOver,1,2), cText )
 
    IF lOver == NIL .OR. !lOver
@@ -2061,7 +2061,7 @@ METHOD InsText( aPoint, cText, lOver, lChgPos ) CLASS HCEdit
          ::aText[nLine] := hced_Stuff( Self, ::aText[nLine], nPos, 0, cText )
       ELSE
          cRest := hced_Substr(Self, ::aText[nLine], nPos)
-         ::aText[nLine] := hced_Left( Self, ::aText[nLine], nPos - 1 ) + aText[1]
+         ::aText[nLine] := hced_Left(Self, ::aText[nLine], nPos - 1) + aText[1]
          IF Empty(::aText[nLine])
             // For properties of this paragraph (aStru) remained with it
             ::AddLine( nLine)
@@ -2069,18 +2069,18 @@ METHOD InsText( aPoint, cText, lOver, lChgPos ) CLASS HCEdit
             l := .T.
          ENDIF
          FOR i := 2 TO nTextLen
-            IF !l .OR. i < Len( aText )
+            IF !l .OR. i < Len(aText)
                ::AddLine( nLine + i - 1 )
             ENDIF
             ::aText[nLine+i-1] := aText[i]
-            IF i == Len( aText )
+            IF i == Len(aText)
                ::aText[nLine+i-1] += cRest
             ENDIF
          NEXT
       ENDIF
       ::Scan( nLine, nLineNew )
    ELSE
-      i := hced_Len( Self, cText )
+      i := hced_Len(Self, cText)
       cRest := hced_Substr(Self, ::aText[nLine], nPos, i)
       ::aText[nLine] := hced_Stuff( Self, ::aText[nLine], nPos, i, cText )
       cText := cRest
@@ -2095,10 +2095,10 @@ METHOD InsText( aPoint, cText, lOver, lChgPos ) CLASS HCEdit
    IF lChgPos
       nSub := ::nLinesAll + 1
       IF ( i := hced_P2Screen( Self, nLineNew, @nPos, @nSub ) ) > ::nLines .AND. ;
-            Iif( ::nLines > 0, ::nHeight-::aLines[::nLines,AL_Y2]<=BOTTOM_HEIGHT, .T. )
+            Iif(::nLines > 0, ::nHeight-::aLines[::nLines,AL_Y2]<=BOTTOM_HEIGHT, .T.)
          ::nLineF := nLineNew
          ::nWSublF := nSub
-         ::nWCharF := Iif( nSub==1, 1, ::aWrap[nLineNew,nSub-1] )
+         ::nWCharF := Iif(nSub==1, 1, ::aWrap[nLineNew,nSub-1])
          ::LineUp( .F. )
          ::nLineC := Min( 2, ::nTextLen - ::nLineF + 1 )
          ::Paint( .F. )
@@ -2117,13 +2117,13 @@ METHOD InsText( aPoint, cText, lOver, lChgPos ) CLASS HCEdit
       ENDIF
    ENDIF
 
-   IF Len( aText ) > 1 .OR. lInvAll
+   IF Len(aText) > 1 .OR. lInvAll
       hced_Invalidaterect( ::hEdit, 0, 0, 0, ::nClientWidth, ::nHeight )
    ELSE
       hced_Invalidaterect( ::hEdit, 0, 0, ::aLines[Max(Min(::nLineC,nLineC)-1,1),AL_Y1], ;
-         ::nClientWidth, Iif( ::nLineC==nLineC .AND. ;
+         ::nClientWidth, Iif(::nLineC==nLineC .AND. ;
          nSubl == Iif(::lWrap.AND.::aWrap[nLine]!=NIL,Len(::aWrap[nLine]),0), ;
-         ::aLines[nLineC,AL_Y2], ::nHeight ) )
+         ::aLines[nLineC,AL_Y2], ::nHeight) )
    ENDIF
    ::lUpdated := .T.
 
@@ -2131,10 +2131,10 @@ METHOD InsText( aPoint, cText, lOver, lChgPos ) CLASS HCEdit
 
 METHOD AddLine( nLine ) CLASS HCEdit
 
-   IF ::nTextLen == Len( ::aText )
-      ASize( ::aText, Len( ::aText ) + 32 )
+   IF ::nTextLen == Len(::aText)
+      ASize( ::aText, Len(::aText) + 32 )
       IF ::lWrap
-         ASize( ::aWrap, Len( ::aText ) )
+         ASize( ::aWrap, Len(::aText) )
       ENDIF
    ENDIF
    ::nTextLen ++
@@ -2169,7 +2169,7 @@ METHOD SetWrap( lWrap, lInit ) CLASS HCEdit
    LOCAL lWrapOld := ::lWrap
 
    IF lWrap != NIL
-      lInit := Iif( lInit==NIL, .F., lInit )
+      lInit := Iif(lInit==NIL, .F., lInit)
       ::lWrap := lWrap
       ::nLineC := 1
       ::nPosF := ::nPosC := 1
@@ -2254,7 +2254,7 @@ METHOD Scan( nl1, nl2, hDC, nWidth, nHeight ) CLASS HCEdit
       //hwg_Selectobject( hDC, hBitmap )
 #endif
       IF Empty(::nKoeffScr)
-         i := hwg_Getdevicearea( hDC )
+         i := hwg_Getdevicearea(hDC)
          ::nKoeffScr := ( i[1]/i[3] )
       ENDIF
       nWidth := ::nClientWidth := aCoors[3] - aCoors[1]
@@ -2265,7 +2265,7 @@ METHOD Scan( nl1, nl2, hDC, nWidth, nHeight ) CLASS HCEdit
          ::nMarginR := Round( ::aDocMargins[2] * ::nKoeffScr, 0 )
          ::nDocWidth := nDocWidth := Int( ::nKoeffScr * HPrinter():aPaper[::nDocFormat, Iif(::nDocOrient == 0, 2, 3)] ) - ::nMarginR
       ENDIF
-      ::nBoundR := Iif( !Empty(nDocWidth), nDocWidth, ::nClientWidth ) - ::nPadding
+      ::nBoundR := Iif(!Empty(nDocWidth), nDocWidth, ::nClientWidth) - ::nPadding
       nHeight := ::nHeight
       hced_SetPaint( ::hEdit, hDC,, nWidth, ::lWrap,, nDocWidth )
    ELSE
@@ -2273,11 +2273,11 @@ METHOD Scan( nl1, nl2, hDC, nWidth, nHeight ) CLASS HCEdit
    ENDIF
    ::lScan := .T.
 
-   nl1 := Iif( nl1==NIL, 1, nl1 )
-   nl2 := Iif( nl2==NIL, ::nTextLen, nl2 )
+   nl1 := Iif(nl1==NIL, 1, nl1)
+   nl2 := Iif(nl2==NIL, ::nTextLen, nl2)
    IF nl1 != 1 .OR. nl2 != ::nTextLen
       FOR i := nl1 TO nl2
-         ::nLinesAll -= Iif( Empty(::aWrap[i]), 1, Len(::aWrap[i])+1 )
+         ::nLinesAll -= Iif(Empty(::aWrap[i]), 1, Len(::aWrap[i])+1)
       NEXT
    ELSE
       ::nLinesAll := 0
@@ -2325,7 +2325,7 @@ METHOD Scan( nl1, nl2, hDC, nWidth, nHeight ) CLASS HCEdit
          yPos := yNew
       ENDDO
       IF ( ::nWCharF := ::aLines[::nLines,AL_FIRSTC]+::aLines[::nLines,AL_NCHARS] ) ;
-            < hced_Len( Self,::aText[nLine+::nLineF-1] )
+            < hced_Len(Self,::aText[nLine+::nLineF-1])
          ::nWSublF := ::nLines - nLines + 1
          ::nLineF += nLine - 1
       ELSE
@@ -2358,7 +2358,7 @@ METHOD Scan( nl1, nl2, hDC, nWidth, nHeight ) CLASS HCEdit
    RETURN NIL
 
 METHOD Undo( nLine1, nPos1, nLine2, nPos2, nOper, cText ) CLASS HCEdit
-   LOCAL nUndo := Iif( Empty(::aUndo), 0, Len( ::aUndo ) ), nMax
+   LOCAL nUndo := Iif(Empty(::aUndo), 0, Len(::aUndo)), nMax
 
    IF ::nMaxUndo == 0
       RETURN NIL
@@ -2405,7 +2405,7 @@ METHOD Undo( nLine1, nPos1, nLine2, nPos2, nOper, cText ) CLASS HCEdit
          ::InsText( {::aUndo[nUndo,UNDO_POS1],::aUndo[nUndo,UNDO_LINE1]}, ::aUndo[nUndo,UNDO_TEXT] )
       ENDIF
       ::nMaxUndo := nMax
-      ::aUndo := Iif( nUndo==1, NIL, ASize( ::aUndo, nUndo-1 ) )
+      ::aUndo := Iif(nUndo==1, NIL, ASize( ::aUndo, nUndo-1 ))
    ENDIF
    RETURN NIL
 
@@ -2417,7 +2417,7 @@ METHOD Print( nDocFormat, nDocOrient, nMarginL, nMarginR, nMarginT, nMarginB ) C
    INIT PRINTER oPrinter NAME ".buffer" PIXEL
 
    IF nDocFormat == NIL
-      nDocFormat := Iif( ::nDocFormat==0, 2, ::nDocFormat ); nDocOrient := ::nDocOrient
+      nDocFormat := Iif(::nDocFormat==0, 2, ::nDocFormat); nDocOrient := ::nDocOrient
       nMarginL := ::aDocMargins[1]; nMarginR := ::aDocMargins[2]; nMarginT := ::aDocMargins[3]; nMarginB := ::aDocMargins[4]
    ENDIF
 
@@ -2467,12 +2467,12 @@ METHOD PrintLine( oPrinter, yPos, nL ) CLASS HCEdit
       ::oHili:Do( Self, nL )
    ENDIF
    DO WHILE .T.
-      nLenOld := Len( oPrinter:aPages[oPrinter:nPage] )
-      nMarginL := ::nMarginL + Iif( nSubl==1, ::nIndent, 0 )
-      nPrinted := hced_Len( Self,::aText[nL] )
+      nLenOld := Len(oPrinter:aPages[oPrinter:nPage])
+      nMarginL := ::nMarginL + Iif(nSubl==1, ::nIndent, 0)
+      nPrinted := hced_Len(Self,::aText[nL])
       IF ::aWrap[nL] != NIL
-         nPos1 := Iif( nSubl == 1, 1, ::aWrap[nL,nSubl-1] )
-         nPrinted := Iif( Len(::aWrap[nL])>=nSubl,::aWrap[nL,nSubl],nPrinted+1 ) - nPos1
+         nPos1 := Iif(nSubl == 1, 1, ::aWrap[nL,nSubl-1])
+         nPrinted := Iif(Len(::aWrap[nL])>=nSubl,::aWrap[nL,nSubl],nPrinted+1) - nPos1
       ENDIF
       IF nPrinted > 0
          cLine := hced_Substr(Self, ::aText[nL], nPos1, nPrinted)
@@ -2492,7 +2492,7 @@ METHOD PrintLine( oPrinter, yPos, nL ) CLASS HCEdit
                NEXT
             ENDIF
          ENDIF
-         i := Left( cAttr,1 )
+         i := Left(cAttr, 1)
          x2 := 1; nHeight := 0; x1 := 2; aTemp := {}
          DO WHILE .T.
             IF x1 > Len(cAttr) .OR. i != Substr(cAttr, x1, 1)
@@ -2515,16 +2515,16 @@ METHOD PrintLine( oPrinter, yPos, nL ) CLASS HCEdit
             ENDIF
             x1 ++
          ENDDO
-         x2 := ::nMarginL + Iif( nSubl==1, ::nIndent, 0 )
+         x2 := ::nMarginL + Iif(nSubl==1, ::nIndent, 0)
          x1 := nMarginL - x2
          nMarginL := x2
-         x2 := Iif( Empty(::nBoundR), ::nDocWidth, ::nBoundR ) - ::nMarginR - ::nMarginL
+         x2 := Iif(Empty(::nBoundR), ::nDocWidth, ::nBoundR) - ::nMarginR - ::nMarginL
          IF ::nAlign == DT_CENTER
             nMarginL += Round( ( x2 - x1 ) / 2, 0 )
          ELSEIF ::nAlign == DT_RIGHT
             nMarginL += x2 - x1
          ENDIF
-         FOR i := 1 TO Len( aTemp )
+         FOR i := 1 TO Len(aTemp)
             oPrinter:Say( aTemp[i,1], nMarginL, yPos, nMarginL+aTemp[i,3], yPos+nHeight,, ::aFonts[aTemp[i,2]] )
             nMarginL += aTemp[i,3]
          NEXT
@@ -2533,14 +2533,14 @@ METHOD PrintLine( oPrinter, yPos, nL ) CLASS HCEdit
          nHeight := hwg_GetTextSize( oPrinter:hDCPrn, "A" )[2]
       ENDIF
       IF yPos + nHeight > ::nMarginB
-         oPrinter:aPages[oPrinter:nPage] := Left( oPrinter:aPages[oPrinter:nPage], nLenOld )
+         oPrinter:aPages[oPrinter:nPage] := Left(oPrinter:aPages[oPrinter:nPage], nLenOld)
          oPrinter:EndPage()
          oPrinter:StartPage()
          yPos := ::nMarginT
       ELSE
          nSubl ++
          yPos += nHeight
-         IF Empty(::aWrap[nL]) .OR. Len( ::aWrap[nL] ) < nSubl-1
+         IF Empty(::aWrap[nL]) .OR. Len(::aWrap[nL]) < nSubl-1
             EXIT
          ENDIF
       ENDIF
@@ -2550,8 +2550,8 @@ METHOD PrintLine( oPrinter, yPos, nL ) CLASS HCEdit
 
 METHOD Move( x1, y1, width, height ) CLASS HCEdit
 
-   LOCAL nw := Iif( Empty(::oTrack).OR.::oTrack:lHide, 0, ;
-      Iif( HB_ISNUMERIC(::oTrack), ::oTrack, ::oTrack:nWidth ) )
+   LOCAL nw := Iif(Empty(::oTrack).OR.::oTrack:lHide, 0, ;
+      Iif(HB_ISNUMERIC(::oTrack), ::oTrack, ::oTrack:nWidth))
 
    //hwg_writelog( "1> "+Iif(x1==NIL,"nil",str(x1)) + " " + Iif(width==NIL,"nil",str(width)) + " " + str(nw) + " " + str(::nWidth) )
    ::Super:Move( x1, y1, Iif(!Empty(width),width-nw,width), height )
@@ -2599,7 +2599,7 @@ FUNCTION hced_LineNum( oEdit, nL )
    IF oEdit:SetWrap()
       nLine := oEdit:aLines[nL,AL_LINE]
       FOR i := 1 TO nLine - 1
-         n += Iif( Empty(oEdit:aWrap[i]), 1, Len(oEdit:aWrap[i]) + 1 )
+         n += Iif(Empty(oEdit:aWrap[i]), 1, Len(oEdit:aWrap[i]) + 1)
       NEXT
       n += oEdit:aLines[nL,AL_SUBL]
    ELSE
@@ -2617,7 +2617,7 @@ STATIC FUNCTION hced_SubLine( oEdit, nL, nOper )
    LOCAL i, nLine := oEdit:aLines[nL,AL_LINE]
    LOCAL n   && := 0
 
-   nOper := Iif( Empty(nOper), 1, nOper )
+   nOper := Iif(Empty(nOper), 1, nOper)
    IF oEdit:SetWrap() .AND. !Empty(oEdit:aWrap[nLine])
       IF nOper == SB_LINES
          n := Len(oEdit:aWrap[nLine]) + 1
@@ -2631,13 +2631,13 @@ STATIC FUNCTION hced_SubLine( oEdit, nL, nOper )
          IF nOper == SB_REST
             n := Len(oEdit:aWrap[nLine]) + 1 - n
          ELSEIF nOper == SB_TEXT
-            i := Iif( n == 1, 1, oEdit:aWrap[nLine,n-1] )
+            i := Iif(n == 1, 1, oEdit:aWrap[nLine,n-1])
             n := hced_Substr(oEdit, oEdit:aText[nLine], i, ;
-               Iif( n>Len(oEdit:aWrap[nLine]), hced_Len(oEdit,oEdit:aText[nLine])+1,oEdit:aWrap[nLine,n] ) - i )
+               Iif(n>Len(oEdit:aWrap[nLine]), hced_Len(oEdit,oEdit:aText[nLine])+1,oEdit:aWrap[nLine,n]) - i )
          ENDIF
       ENDIF
    ELSE
-      n := Iif( nOper==SB_LINE, 1, Iif( nOper==SB_LINES, 1, Iif( nOper==SB_REST, 0, oEdit:aText[nLine] ) ) )
+      n := Iif(nOper==SB_LINE, 1, Iif(nOper==SB_LINES, 1, Iif(nOper==SB_REST, 0, oEdit:aText[nLine])))
    ENDIF
    RETURN n
 
@@ -2648,7 +2648,7 @@ STATIC FUNCTION hced_P2Screen( oEdit, y, x, nSub )
       IF y < nL
          RETURN -1
       ENDIF
-      nSub := Iif( Empty(nSub), oEdit:nLines, nSub )
+      nSub := Iif(Empty(nSub), oEdit:nLines, nSub)
       n := 1
       IF !Empty(oEdit:aWrap[nL])
          i := oEdit:nWSublF
@@ -2672,7 +2672,7 @@ STATIC FUNCTION hced_P2Screen( oEdit, y, x, nSub )
          RETURN n
       ENDIF
       DO WHILE ++nL < y .AND. n <= nSub
-         n += Iif( Empty(oEdit:aWrap[nL]), 1, Len(oEdit:aWrap[nL])+1 )
+         n += Iif(Empty(oEdit:aWrap[nL]), 1, Len(oEdit:aWrap[nL])+1)
       ENDDO
       IF nL == y .AND. n <= nSub
          n ++
@@ -2697,7 +2697,7 @@ STATIC FUNCTION hced_P2SubLine( oEdit, y, x )
    LOCAL i
 
    IF oEdit:SetWrap() .AND. !Empty(oEdit:aWrap[y])
-      FOR i := 1 TO Len( oEdit:aWrap[y] )
+      FOR i := 1 TO Len(oEdit:aWrap[y])
          IF oEdit:aWrap[y,i] > x
             RETURN i
          ENDIF
@@ -2711,7 +2711,7 @@ STATIC FUNCTION onTrack( oEdit, oTrack )
    LOCAL nInPage, nLine, nLinesAll, i, nL, nPos := oTrack:Value
    LOCAL nLineF, nWSublF, nWCharF, lChg := .F.
 
-   nInPage := Iif( oEdit:nLines > 0, Int( oEdit:nHeight/(oEdit:aLines[1,AL_Y2] - oEdit:aLines[1,AL_Y1] ) ), 0 )
+   nInPage := Iif(oEdit:nLines > 0, Int( oEdit:nHeight/(oEdit:aLines[1,AL_Y2] - oEdit:aLines[1,AL_Y1] ) ), 0)
    nLinesAll := oEdit:nLinesAll - nInPage + 2
    // hwg_writelog( "1> nPos: " + str(nPos,7,4)+" nInPage: "+str(nInPage)+" nLines: "+str(oEdit:nLines) )
    IF oEdit:nLinesAll > nInPage //n > 0
@@ -2720,14 +2720,14 @@ STATIC FUNCTION onTrack( oEdit, oTrack )
       IF oEdit:SetWrap()
          i := nL := 0
          DO WHILE ++i <= oEdit:nTextLen
-            nL += Iif( Empty(oEdit:aWrap[i]), 1, Len(oEdit:aWrap[i])+1 )
+            nL += Iif(Empty(oEdit:aWrap[i]), 1, Len(oEdit:aWrap[i])+1)
             IF nL >= nLine
                EXIT
             ENDIF
          ENDDO
          nLineF := i
-         nWSublF := Iif( nL == nLine .OR. Empty(oEdit:aWrap[i]), 1, Len(oEdit:aWrap[i])-(nL-nLine)+2 )
-         nWCharF := Iif( nL == nLine .OR. Empty(oEdit:aWrap[i]), 1, oEdit:aWrap[i,Len(oEdit:aWrap[i])-(nL-nLine)+1] )
+         nWSublF := Iif(nL == nLine .OR. Empty(oEdit:aWrap[i]), 1, Len(oEdit:aWrap[i])-(nL-nLine)+2)
+         nWCharF := Iif(nL == nLine .OR. Empty(oEdit:aWrap[i]), 1, oEdit:aWrap[i,Len(oEdit:aWrap[i])-(nL-nLine)+1])
          IF nLineF != oEdit:nLineF .OR. nWSublF != oEdit:nWSublF .OR. nWCharF != oEdit:nWCharF
             oEdit:nLineF := nLineF
             oEdit:nWSublF := nWSublF
@@ -2787,18 +2787,18 @@ Function hced_Stuff( oEdit, cLine, nPos, nChars, cIns )
 Function hced_Substr(oEdit, cLine, nPos, nChars)
 #ifndef __XHARBOUR__
    IF oEdit:lUtf8
-      RETURN Iif( nChars==NIL, hb_utf8Substr(cLine, nPos), hb_utf8Substr(cLine, nPos, nChars) )
+      RETURN Iif(nChars==NIL, hb_utf8Substr(cLine, nPos), hb_utf8Substr(cLine, nPos, nChars))
    ENDIF
 #endif
-   RETURN Iif( nChars==NIL, Substr(cLine, nPos), Substr(cLine, nPos, nChars) )
+   RETURN Iif(nChars==NIL, Substr(cLine, nPos), Substr(cLine, nPos, nChars))
 
-Function hced_Left( oEdit, cLine, nPos )
+Function hced_Left(oEdit, cLine, nPos)
 #ifndef __XHARBOUR__
    IF oEdit:lUtf8
-      RETURN hb_utf8Left( cLine, nPos )
+      RETURN hb_utf8Left(cLine, nPos)
    ENDIF
 #endif
-   RETURN Left( cLine, nPos  )
+   RETURN Left(cLine, nPos)
 
 Function hced_Right( oEdit, cLine, nPos )
 #ifndef __XHARBOUR__
@@ -2808,13 +2808,13 @@ Function hced_Right( oEdit, cLine, nPos )
 #endif
    RETURN Right( cLine, nPos  )
 
-Function hced_Len( oEdit, cLine )
+Function hced_Len(oEdit, cLine)
 #ifndef __XHARBOUR__
    IF oEdit:lUtf8
-      RETURN hb_utf8Len( cLine )
+      RETURN hb_utf8Len(cLine)
    ENDIF
 #endif
-   RETURN Len( cLine )
+   RETURN Len(cLine)
 
 Function hced_At(oEdit, cFind, cLine, nStart, nEnd)
 #ifndef __XHARBOUR__
@@ -2835,7 +2835,7 @@ Function hced_RAt(oEdit, cFind, cLine, nStart, nEnd)
 Function hced_NextPos( oEdit, cLine, nPos )
 #ifndef __XHARBOUR__
    IF oEdit:lUtf8
-      RETURN nPos + Len( hced_Substr(oEdit, cLine, nPos, 1) )
+      RETURN nPos + Len(hced_Substr(oEdit, cLine, nPos, 1))
    ENDIF
 #endif
    RETURN nPos + 1

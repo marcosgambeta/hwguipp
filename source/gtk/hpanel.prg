@@ -34,14 +34,14 @@ CLASS HPanel INHERIT HControl
    METHOD DrawItems(hDC, aCoors)
    METHOD Paint()
    METHOD Move( x1, y1, width, height )
-   METHOD SetPaintCB( nId, block, cId )
+   METHOD SetPaintCB(nId, block, cId)
    METHOD Drag( xPos, yPos )
 
 ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bColor, oStyle) CLASS HPanel
 
-   LOCAL oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
+   LOCAL oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
 
    IF !Empty(bPaint) .OR. bColor != NIL .OR. oStyle != NIL
       nStyle := hb_bitor( nStyle, SS_OWNERDRAW )
@@ -120,7 +120,7 @@ METHOD DrawItems(hDC, aCoors) CLASS HPanel
       aCoors := hwg_Getclientrect(::handle)
    ENDIF
    IF !Empty(aCB := hwg_getPaintCB(::aPaintCB, PAINT_ITEM))
-      FOR i := 1 TO Len( aCB )
+      FOR i := 1 TO Len(aCB)
          Eval( aCB[i], Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
       NEXT
    ENDIF
@@ -181,7 +181,7 @@ METHOD Move( x1, y1, width, height )  CLASS HPanel
 
    RETURN NIL
 
-METHOD SetPaintCB( nId, block, cId ) CLASS HPanel
+METHOD SetPaintCB(nId, block, cId) CLASS HPanel
 
    LOCAL i
    LOCAL nLen
@@ -243,7 +243,7 @@ ENDCLASS
 
 METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts ) CLASS HPanelStS
 
-   oWndParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
+   oWndParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    IF bColor == NIL
       bColor := 0xeeeeee
    ENDIF
@@ -253,7 +253,7 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPar
 *      oWndParent:nWidth, nHeight, bInit, { |o, w, h|o:Move( 0, h - o:nHeight ) }, bPaint, bcolor )
 
    ::Anchor := ANCHOR_LEFTABS + ANCHOR_RIGHTABS
-   ::oFont := iif( oFont == NIL, ::oParent:oFont, oFont )
+   ::oFont := iif(oFont == NIL, ::oParent:oFont, oFont)
    ::oStyle := oStyle
    IF !Empty(aParts)
       ::aParts := aParts
@@ -288,7 +288,7 @@ METHOD PaintText(hDC) CLASS HPanelStS
    hwg_Settransparentmode(hDC, .T.)
    oldTColor := hwg_Settextcolor(hDC, ::tcolor)
    FOR i := 1 TO Len(::aParts)
-      x1 := iif( i == 1, 4, x2 + 4 )
+      x1 := iif(i == 1, 4, x2 + 4)
       IF ::aParts[i] == 0
          x2 := x1 + Int( nWidth/ (Len(::aParts ) - i + 1 ) )
       ELSE
@@ -350,7 +350,7 @@ METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyl
    LOCAL btnMax
    LOCAL btnMin
 
-   oWndParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
+   oWndParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    IF bColor == NIL
       bColor := 0xeeeeee
    ENDIF
@@ -360,9 +360,9 @@ METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyl
    ::title := cText
    ::xt := xt
    ::yt := yt
-   ::oFont := Iif( oFont == NIL, ::oParent:oFont, oFont )
+   ::oFont := Iif(oFont == NIL, ::oParent:oFont, oFont)
    ::oStyle := oStyle
-   ::tColor := Iif( tcolor==NIL, 0, tcolor )
+   ::tColor := Iif(tcolor==NIL, 0, tcolor)
    ::lDragWin := .T.
    ::lPreDef := .F.
 

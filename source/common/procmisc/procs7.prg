@@ -26,8 +26,8 @@ FUNCTION RDSTR(han, strbuf, poz, buflen)
          stro += SubStr(strbuf, 1, poz)
       ELSE
          stro += RTrim(SubStr(strbuf, oldpoz))
-         poz  := oldpoz + Len( stro )
-         IF Len( stro ) == 0
+         poz  := oldpoz + Len(stro)
+         IF Len(stro) == 0
             RETURN ""
          ENDIF
       ENDIF
@@ -36,7 +36,7 @@ FUNCTION RDSTR(han, strbuf, poz, buflen)
       poz  += oldpoz - 1
    ENDIF
    poz ++
-   poz1 := Len( stro )
+   poz1 := Len(stro)
    IF poz1 > 2 .AND. Right( stro, 1 ) $ Chr(13) + Chr(10)
       IF SubStr(stro, poz1 - 1, 1) $ Chr(13) + Chr(10)
          poz1 --
@@ -54,11 +54,11 @@ FUNCTION getNextVar( stroka, varValue )
       RETURN ""
    ELSE
       IF ( iPosEnd := Find_Z( stroka ) ) == 0
-         iPosEnd := iif( Right( stroka, 1 ) = ';', Len( stroka ), Len( stroka ) + 1 )
+         iPosEnd := iif(Right( stroka, 1 ) = ';', Len(stroka), Len(stroka) + 1)
       ENDIF
-      ipos3    := Find_Z( Left( stroka, iPosEnd - 1 ), ':' )
+      ipos3    := Find_Z( Left(stroka, iPosEnd - 1), ':' )
       varName  := RTrim(LTrim(Left(stroka, iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
-      varValue := iif( iPos3 != 0, LTrim(SubStr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), NIL )
+      varValue := iif(iPos3 != 0, LTrim(SubStr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), NIL)
       stroka   := SubStr(stroka, iPosEnd + 1)
    ENDIF
 
@@ -68,7 +68,7 @@ FUNCTION FIND_Z( stroka, symb )
 
    LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0, 0 }
 
-   symb := iif( symb = NIL, ",", symb )
+   symb := iif(symb = NIL, ",", symb)
    DO WHILE .T.
       poz := At(symb, SubStr(stroka, poz1))
       IF poz = 0
@@ -108,29 +108,29 @@ FUNCTION CutExten( fname )
 
    LOCAL i
 
-   RETURN iif( ( i := RAt('.', fname) ) = 0, fname, SubStr(fname, 1, i - 1) )
+   RETURN iif(( i := RAt('.', fname) ) = 0, fname, SubStr(fname, 1, i - 1))
 
 FUNCTION FilExten( fname )
 
    LOCAL i
 
-   RETURN iif( ( i := RAt('.', fname) ) = 0, "", SubStr(fname, i + 1) )
+   RETURN iif(( i := RAt('.', fname) ) = 0, "", SubStr(fname, i + 1))
 
 FUNCTION FilePath( fname )
 
    LOCAL i
 
-   RETURN iif( ( i := RAt('\', fname) ) = 0, ;
-      iif( ( i := RAt('/', fname) ) = 0, "", Left( fname, i ) ), ;
-      Left( fname, i ) )
+   RETURN iif(( i := RAt('\', fname) ) = 0, ;
+      iif(( i := RAt('/', fname) ) = 0, "", Left(fname, i)), ;
+      Left(fname, i))
 
 FUNCTION CutPath( fname )
 
    LOCAL i
 
-   RETURN iif( ( i := RAt('\', fname) ) = 0, ;
-      iif( ( i := RAt('/', fname) ) = 0, fname, SubStr(fname, i + 1) ), ;
-      SubStr(fname, i + 1) )
+   RETURN iif(( i := RAt('\', fname) ) = 0, ;
+      iif(( i := RAt('/', fname) ) = 0, fname, SubStr(fname, i + 1)), ;
+      SubStr(fname, i + 1))
 
 FUNCTION AddPath( fname, cPath )
 

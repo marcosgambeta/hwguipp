@@ -214,7 +214,7 @@ TEDFONT * ted_setfont( TEDIT * pted, PHWGUI_FONT hwg_font, int iNum, HB_BOOL bPr
 int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *iRealLen,
       int iWidth, HB_BOOL bWrap, HB_BOOL bLastInFew )
 {
-   int i, i1, iReal, xpos, iTextWidth, iDLen = strlen( szDelimiters );
+   int i, i1, iReal, xpos, iTextWidth, iDLen = strlen(szDelimiters);
    PangoRectangle rc;
    gchar * ptr;
 
@@ -464,7 +464,7 @@ HB_FUNC( HCED_INITTEXTEDIT )
 
 HB_FUNC( HCED_CREATETEXTEDIT )
 {
-   TEDIT *pted = ( TEDIT * ) hb_xgrab( sizeof( TEDIT ) );
+   TEDIT *pted = ( TEDIT * ) hb_xgrab(sizeof( TEDIT ));
    GtkWidget *vbox, *hbox;
    GtkWidget *vscroll, *hscroll;
    GtkWidget *area;
@@ -564,12 +564,12 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    pted->area = area;
    pted->iInterline = 3;
    pted->iFonts = NUMBER_OF_FONTS;
-   pted->pFontsScr = ( TEDFONT * ) hb_xgrab( sizeof( TEDFONT ) * NUMBER_OF_FONTS );
-   pted->pFontsPrn = ( TEDFONT * ) hb_xgrab( sizeof( TEDFONT ) * NUMBER_OF_FONTS );
+   pted->pFontsScr = ( TEDFONT * ) hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS);
+   pted->pFontsPrn = ( TEDFONT * ) hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS);
 
    pted->iAttrLen = TEDATTR_MAX;
-   pted->pattr = ( TEDATTR * ) hb_xgrab( sizeof( TEDATTR ) * TEDATTR_MAX );
-   pted->pattrf = ( int * ) hb_xgrab( sizeof( int ) * TEDATTRF_MAX );
+   pted->pattr = ( TEDATTR * ) hb_xgrab(sizeof( TEDATTR ) * TEDATTR_MAX);
+   pted->pattrf = ( int * ) hb_xgrab(sizeof( int ) * TEDATTRF_MAX);
    ted_ClearAttr( pted );
 
    HB_RETHANDLE( pted );
@@ -793,7 +793,7 @@ HB_FUNC( HCED_EXACTCARETPOS )
    int y1 = hb_parni(5);
    HB_BOOL bSet = (HB_ISNIL(6))? 1 : hb_parl(6);
    int i, j, lasti, iReqLen, iRealLen, iPrinted = 0, iTextWidth;
-   int iLen = g_utf8_strlen( szText, hb_parclen(2) );
+   int iLen = g_utf8_strlen(szText, hb_parclen(2));
    TEDATTR *pattr = pted->pattr;
    cairo_t *cr;
    PangoLayout * layout;
@@ -877,8 +877,7 @@ HB_FUNC( HCED_INVALIDATERECT )
       x2 = alloc.width;
       y2 = alloc.height;
    }
-   gtk_widget_queue_draw_area( widget, x1, y1,
-        x2 - x1 + 1, y2 - y1 + 1 );
+   gtk_widget_queue_draw_area(widget, x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 
 }
 
@@ -933,7 +932,7 @@ HB_FUNC( HCED_LINEOUT )
       font = ( (pted->hDCPrn)? pted->pFontsPrn : pted->pFontsScr ) +
             (iFont? iFont-1 : 0) ;
       iHeight = ( iHeight > font->iHeight )? iHeight : font->iHeight;
-      if( ! *( pted->pattrf+i ) ) {
+      if( !*( pted->pattrf+i ) ) {
          break;
       }
       i ++;
@@ -1000,7 +999,7 @@ HB_FUNC( HCED_COLOR2X )
          s[i] = '0';
       }
    }
-   hb_retclen( s,7 );
+   hb_retclen(s,7);
 }
 
 HB_FUNC( HCED_X2COLOR )

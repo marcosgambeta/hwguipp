@@ -108,12 +108,12 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, NIL, NIL, color, bcolor)
 
    ::title   := ""
-   ::Type    := iif( lResour == NIL, .F. , lResour )
+   ::Type    := iif(lResour == NIL, .F. , lResour)
    ::bClick := bClick
 
    IF aImages != NIL .AND. !Empty(aImages)
       ::aImages := {}
-      FOR i := 1 TO Len( aImages )
+      FOR i := 1 TO Len(aImages)
          AAdd(::aImages, iif(::Type, hwg_BmpFromRes(aImages[i]), hwg_Openimage(AddPath(aImages[i], HBitmap():cPath))))
       NEXT
    ENDIF
@@ -204,9 +204,9 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HTree
       ::ButtonRDown( lParam )
 
    ELSEIF msg == WM_MOUSEWHEEL
-      ::MouseWheel( hwg_Loword(wParam),      ;
-         iif( hwg_Hiword(wParam) > 32768, ;
-         hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam) ) )
+      ::MouseWheel(hwg_Loword(wParam),      ;
+         iif(hwg_Hiword(wParam) > 32768, ;
+         hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam)))
 
    ELSEIF msg == WM_DESTROY
       ::End()
@@ -337,7 +337,7 @@ METHOD PaintNode(hDC, oNode, nNode, nLine) CLASS HTree
    IF nNode > 1 .OR. oNode:nLevel > 1
       hwg_Drawline(hDC, x1 + 5, y1, x1 + 5, iif(Empty(oNode:aItems), y1 + 9, y1 + 4))
    ENDIF
-   IF nNode < Len( oNode:oParent:aItems )
+   IF nNode < Len(oNode:oParent:aItems)
       hwg_Drawline(hDC, x1 + 5, iif(Empty(oNode:aItems), y1 + 9, y1 + 12), x1 + 5, y1 + ::height + 1)
    ENDIF
    IF !Empty(oNode:aItems)
@@ -361,7 +361,7 @@ METHOD PaintNode(hDC, oNode, nNode, nLine) CLASS HTree
    ENDIF
 
    nTextWidth := hwg_GetTextWidth(hDC, oNode:title)
-   x1 += ::nIndent + iif( !Empty(aBmpSize), aBmpSize[1] + 4, 0 )
+   x1 += ::nIndent + iif(!Empty(aBmpSize), aBmpSize[1] + 4, 0)
    IF ::oSelected == oNode
       hwg_Settextcolor(hDC, ::tcolorSel)
       hwg_Fillrect(hDC, x1, y1, x1 + nTextWidth, y1 + (::height + 1), ::brushSel:handle)
@@ -487,7 +487,7 @@ METHOD GoDown( n ) CLASS HTree
    IF ::rowCurrCount < ::rowCount .OR. Empty(::aScreen[::rowCurrCount]:NextNode())
       RETURN 0
    ENDIF
-   ::oFirst := iif( n == 1, ::oFirst:NextNode(), ::aScreen[::rowCurrCount] )
+   ::oFirst := iif(n == 1, ::oFirst:NextNode(), ::aScreen[::rowCurrCount])
    hwg_Redrawwindow(::area)
 
    RETURN 0
@@ -581,11 +581,11 @@ STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
    
    LOCAL i
    LOCAL j
-   LOCAL iLen := Len( aItems )
+   LOCAL iLen := Len(aItems)
 
    FOR i := 1 TO iLen
       IF lDelImages .AND. !Empty(aItems[i]:aImages)
-         FOR j := 1 TO Len( aItems[i]:aImages )
+         FOR j := 1 TO Len(aItems[i]:aImages)
             IF aItems[i]:aImages[j] != NIL
                hwg_Deleteobject( aItems[i]:aImages[j] )
                aItems[i]:aImages[j] := NIL

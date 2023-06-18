@@ -48,22 +48,22 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
 
    ::oTree := oTree
    ::oParent := oParent
-   ::nLevel  := iif( __ObjHasMsg( oParent, "NLEVEL" ), oParent:nLevel + 1, 1 )
+   ::nLevel  := iif(__ObjHasMsg( oParent, "NLEVEL" ), oParent:nLevel + 1, 1)
    ::bClick := bClick
-   ::title := iif( Empty(cTitle), "", cTitle )
+   ::title := iif(Empty(cTitle), "", cTitle)
    ::handle := ++ oTree:nNodeCount
 
    IF aImages != NIL .AND. !Empty(aImages)
       ::aImages := {}
-      FOR i := 1 TO Len( aImages )
+      FOR i := 1 TO Len(aImages)
          AAdd(::aImages, iif(oTree:Type, hwg_BmpFromRes(aImages[i]), hwg_Openimage(AddPath(aImages[i], HBitmap():cPath))))
       NEXT
    ENDIF
 
-   nPos := iif( oPrev == NIL, 2, 0 )
+   nPos := iif(oPrev == NIL, 2, 0)
    IF oPrev == NIL .AND. oNext != NIL
-      op := iif( oNext:oParent == NIL, oNext:oTree, oNext:oParent )
-      FOR i := 1 TO Len( op:aItems )
+      op := iif(oNext:oParent == NIL, oNext:oTree, oNext:oParent)
+      FOR i := 1 TO Len(op:aItems)
          IF op:aItems[i]:handle == oNext:handle
             EXIT
          ENDIF
@@ -76,7 +76,7 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
       ENDIF
    ENDIF
 
-   aItems := iif( oParent == NIL, oTree:aItems, oParent:aItems )
+   aItems := iif(oParent == NIL, oTree:aItems, oParent:aItems)
    IF nPos == 2
       AAdd(aItems, Self)
    ELSEIF nPos == 1
@@ -121,7 +121,7 @@ METHOD DELETE( lInternal ) CLASS HTreeNode
       aItems := iif(::oParent == NIL, ::oTree:aItems, ::oParent:aItems)
       j := AScan( aItems, { | o | o:handle == h } )
       ADel( aItems, j )
-      ASize( aItems, Len( aItems ) - 1 )
+      ASize( aItems, Len(aItems) - 1 )
    ENDIF
 
    RETURN NIL
@@ -131,7 +131,7 @@ METHOD getNodeIndex() CLASS HTreeNode
    LOCAL aItems := ::oParent:aItems
    LOCAL nNode
 
-   FOR nNode := 1 TO Len( aItems )
+   FOR nNode := 1 TO Len(aItems)
       IF aItems[nNode] == Self
          EXIT
       ENDIF
@@ -158,7 +158,7 @@ METHOD PrevNode( nNode, lSkip ) CLASS HTreeNode
       nNode --
       oNode := ::oParent:aItems[nNode]
       IF oNode:lExpanded .AND. Empty(lSkip)
-         nNode := Len( oNode:aItems )
+         nNode := Len(oNode:aItems)
          oNode := oNode:aItems[nNode]
       ENDIF
    ENDIF
@@ -190,11 +190,11 @@ STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
    
    LOCAL i
    LOCAL j
-   LOCAL iLen := Len( aItems )
+   LOCAL iLen := Len(aItems)
 
    FOR i := 1 TO iLen
       IF lDelImages .AND. !Empty(aItems[i]:aImages)
-         FOR j := 1 TO Len( aItems[i]:aImages )
+         FOR j := 1 TO Len(aItems[i]:aImages)
             IF aItems[i]:aImages[j] != NIL
                hwg_Deleteobject( aItems[i]:aImages[j] )
                aItems[i]:aImages[j] := NIL

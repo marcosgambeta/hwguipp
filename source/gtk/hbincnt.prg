@@ -75,7 +75,7 @@ METHOD Create(cName, n) CLASS HBinC
    ::nVerHigh := VER_HIGH
    ::nVerLow := VER_LOW
    ::nItems  := ::nCntLen := ::nPassLen := 0
-   ::nCntBlocks := Iif( n <= 18, 1, 2 + Int( (n-18)/21 ) )
+   ::nCntBlocks := Iif(n <= 18, 1, 2 + Int( (n-18)/21 ))
    ::nFileLen := ::nCntBlocks*2048
    ::aObjects := {}
 
@@ -99,7 +99,7 @@ METHOD Open(cName, lWr) CLASS HBinC
 
    cBuf := Space(HEAD_LEN)
    FRead(::handle, @cBuf, HEAD_LEN)
-   IF Left( cBuf,5 ) != cHead
+   IF Left(cBuf, 5) != cHead
       FClose(::handle)
       RETURN NIL
    ENDIF
@@ -156,8 +156,8 @@ METHOD Add( cObjName, cType, cVal ) CLASS HBinC
    ENDIF
 
    nAddress := ::nFileLen
-   nSize := Len( cVal )
-   nAddr := Iif( Empty(::aObjects), 0, ::aObjects[Len(::aObjects),OBJ_ADDR] + Len(::aObjects[Len(::aObjects),OBJ_NAME]) + CNT_FIX_LEN )
+   nSize := Len(cVal)
+   nAddr := Iif(Empty(::aObjects), 0, ::aObjects[Len(::aObjects),OBJ_ADDR] + Len(::aObjects[Len(::aObjects),OBJ_NAME]) + CNT_FIX_LEN)
    Aadd(::aObjects, {cObjName, cType, nAddress, nSize, nAddr})
 
    IF HEAD_LEN + ::nPassLen + ::nCntLen + Len(cObjName) + CNT_FIX_LEN > ::nCntBlocks*2048

@@ -35,8 +35,8 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, 
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor)
 
-   ::lTransp := Iif( lTransp = NIL, .F. , lTransp )
-   ::trcolor := Iif( trcolor = NIL, 16777215, trcolor )
+   ::lTransp := Iif(lTransp = NIL, .F. , lTransp)
+   ::trcolor := Iif(trcolor = NIL, 16777215, trcolor)
    ::nBorder := 0
    ::tColor := 0
 
@@ -44,10 +44,10 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, 
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := Iif( lRes .OR. HB_ISNUMERIC(Image),     ;
+      ::oImage := Iif(lRes .OR. HB_ISNUMERIC(Image),     ;
          HBitmap():AddResource( Image ), ;
-         iif( HB_ISCHAR(Image),     ;
-         HBitmap():AddFile( Image ), Image ) )
+         iif(HB_ISCHAR(Image),     ;
+         HBitmap():AddFile( Image ), Image))
       IF !Empty(::oImage)
          IF nWidth == NIL .OR. nHeight == NIL
             ::nWidth  := ::oImage:nWidth

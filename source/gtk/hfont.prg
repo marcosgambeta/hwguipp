@@ -40,16 +40,16 @@ METHOD Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnde
    LOCAL i
    LOCAL nlen := Len(::aFonts)
 
-   nHeight  := iif( nHeight == NIL, 13, Abs( nHeight ) )
+   nHeight  := iif(nHeight == NIL, 13, Abs( nHeight ))
    IF lLinux == NIL .OR. !lLinux
       nHeight -= 3
    ENDIF
-   nWidth := iif( nWidth == NIL, 0, nWidth )
-   fnWeight := iif( fnWeight == NIL, 0, fnWeight )
-   fdwCharSet := iif( fdwCharSet == NIL, 0, fdwCharSet )
-   fdwItalic := iif( fdwItalic == NIL, 0, fdwItalic )
-   fdwUnderline := iif( fdwUnderline == NIL, 0, fdwUnderline )
-   fdwStrikeOut := iif( fdwStrikeOut == NIL, 0, fdwStrikeOut )
+   nWidth := iif(nWidth == NIL, 0, nWidth)
+   fnWeight := iif(fnWeight == NIL, 0, fnWeight)
+   fdwCharSet := iif(fdwCharSet == NIL, 0, fdwCharSet)
+   fdwItalic := iif(fdwItalic == NIL, 0, fdwItalic)
+   fdwUnderline := iif(fdwUnderline == NIL, 0, fdwUnderline)
+   fdwStrikeOut := iif(fdwStrikeOut == NIL, 0, fdwStrikeOut)
 
    FOR i := 1 TO nlen
       IF ::aFonts[i]:name == fontName .AND.          ;
@@ -211,14 +211,14 @@ METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight) CLASS HF
    LOCAL StrikeOut
 
    IF lBold != NIL
-      weight = iif( lBold, FW_BOLD, FW_REGULAR )
+      weight = iif(lBold, FW_BOLD, FW_REGULAR)
    ELSE
       weight := ::weight
    ENDIF
-   Italic    := iif( lItalic = NIL, ::Italic, iif( lItalic, 1, 0 ) )
-   Underline := iif( lUnder  = NIL, ::Underline, iif( lUnder , 1, 0 ) )
-   StrikeOut := iif( lStrike = NIL, ::StrikeOut, iif( lStrike , 1, 0 ) )
-   nheight   := iif( nheight = NIL, ::height, nheight )
-   nCharSet  := iif( nCharSet = NIL, ::CharSet, nCharSet )
+   Italic    := iif(lItalic = NIL, ::Italic, iif(lItalic, 1, 0))
+   Underline := iif(lUnder  = NIL, ::Underline, iif(lUnder , 1, 0))
+   StrikeOut := iif(lStrike = NIL, ::StrikeOut, iif(lStrike , 1, 0))
+   nheight   := iif(nheight = NIL, ::height, nheight)
+   nCharSet  := iif(nCharSet = NIL, ::CharSet, nCharSet)
 
 RETURN HFont():Add(::name, ::width, nheight, weight, nCharSet, Italic, Underline, StrikeOut, NIL, (nHeight == ::height))

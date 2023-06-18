@@ -30,12 +30,12 @@ METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
    
    LOCAL i
 
-   nStyle := iif( nStyle == NIL, PS_SOLID, nStyle )
-   nWidth := iif( nWidth == NIL, 1, nWidth )
+   nStyle := iif(nStyle == NIL, PS_SOLID, nStyle)
+   nWidth := iif(nWidth == NIL, 1, nWidth)
    IF nStyle != PS_SOLID
       nWidth := 1
    ENDIF
-   nColor := iif( nColor == NIL, 0, nColor )
+   nColor := iif(nColor == NIL, 0, nColor)
 
    For EACH i in ::aPens
       IF i:style == nStyle .AND. ;
@@ -59,12 +59,12 @@ METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
    
    LOCAL i
 
-   nStyle := iif( nStyle == NIL, PS_SOLID, nStyle )
-   nWidth := iif( nWidth == NIL, 1, nWidth )
+   nStyle := iif(nStyle == NIL, PS_SOLID, nStyle)
+   nWidth := iif(nWidth == NIL, 1, nWidth)
    IF nStyle != PS_SOLID
       nWidth := 1
    ENDIF
-   nColor := iif( nColor == NIL, 0, nColor )
+   nColor := iif(nColor == NIL, 0, nColor)
 
    For EACH i in ::aPens
       IF i:style == nStyle .AND. ;
