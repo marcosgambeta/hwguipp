@@ -19,20 +19,20 @@ static PHB_ITEM pFontsItemLast, pFontsItem;
 
 HB_FUNC( HWG_DEFINEPAINTSTRU )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof(PAINTSTRUCT));
+   PAINTSTRUCT * pps = static_cast<PAINTSTRUCT*>(hb_xgrab(sizeof(PAINTSTRUCT)));
    HB_RETHANDLE(pps);
 }
 
 HB_FUNC( HWG_BEGINPAINT )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(2);
+   PAINTSTRUCT * pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(2));
    HDC hDC = BeginPaint(hwg_par_HWND(1), pps);
    HB_RETHANDLE(hDC);
 }
 
 HB_FUNC( HWG_ENDPAINT )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(2);
+   PAINTSTRUCT * pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(2));
    EndPaint(hwg_par_HWND(1), pps);
    hb_xfree(pps);
 }
@@ -150,7 +150,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
    PHB_ITEM aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;
 
-   GetTextExtentPoint32( hwg_par_HDC(1), lpText, nLen, &sz );
+   GetTextExtentPoint32(hwg_par_HDC(1), lpText, nLen, &sz);
    hb_strfree(hText);
 
    temp = hb_itemPutNL(nullptr, sz.cx);
@@ -223,7 +223,7 @@ HB_FUNC( HWG_GETWINDOWRECT )
 
 HB_FUNC( HWG_GETCLIENTAREA )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(1);
+   PAINTSTRUCT * pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
