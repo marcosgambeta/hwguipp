@@ -31,14 +31,10 @@ STATIC y__size := 0, x__size := 0
 #endif
 #define STR_BUFLEN  1024
 
-#ifndef __XHARBOUR__
 REQUEST __PP_STDRULES
 REQUEST OS
 REQUEST HB_COMPILER
 REQUEST HB_VERSION
-#else
-REQUEST VERSION
-#endif
 
 FUNCTION OpenScript( fname, scrkod )
 
