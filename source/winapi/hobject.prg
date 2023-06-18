@@ -11,9 +11,7 @@
 #include "guilib.ch"
 #include "error.ch"
 
-#ifndef __XHARBOUR__
 REQUEST HB_GT_GUI_DEFAULT
-#endif
 
 CLASS HObject
 

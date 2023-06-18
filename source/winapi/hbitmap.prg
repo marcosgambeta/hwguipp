@@ -250,17 +250,7 @@ METHOD RELEASE() CLASS HBitmap
 
    ::nCounter--
    IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      FOR EACH i IN ::aBitmaps
-         IF i:handle == ::handle
-            hwg_Deleteobject(::handle)
-            ADel(::aBitmaps, hB_enumIndex())
-            ASize(::aBitmaps, nlen - 1)
-            EXIT
-         ENDIF
-      NEXT
-#else
-      FOR i := 1 TO nlen
+      FOR i := 1 TO nlen // TODO: FOR EACH
          IF ::aBitmaps[i]:handle == ::handle
             hwg_Deleteobject(::handle)
             ADel(::aBitmaps, i)
@@ -268,7 +258,6 @@ METHOD RELEASE() CLASS HBitmap
             EXIT
          ENDIF
       NEXT
-#endif
    ENDIF
 
 RETURN NIL

@@ -36,21 +36,12 @@ METHOD AddFile(name) CLASS HFreeImage
    
    LOCAL i
 
-   #ifdef __XHARBOUR__
-      FOR EACH i IN ::aImages
-         IF i:name == name
-            i:nCounter++
-            RETURN i
-         ENDIF
-      NEXT
-   #else
-      FOR i := 1 TO Len(::aImages)
-         IF ::aImages[i]:name == name
-            ::aImages[i]:nCounter++
-            RETURN ::aImages[i]
-         ENDIF
-      NEXT
-   #endif
+   FOR i := 1 TO Len(::aImages) // TODO: FOR EACH
+      IF ::aImages[i]:name == name
+         ::aImages[i]:nCounter++
+         RETURN ::aImages[i]
+      ENDIF
+   NEXT
    IF Empty(::handle := hwg_Fi_load(name))
       RETURN NIL
    ENDIF
@@ -96,31 +87,17 @@ METHOD Release() CLASS HFreeImage
 
    ::nCounter--
    IF ::nCounter == 0
-      #ifdef __XHARBOUR__
-         FOR EACH i IN ::aImages
-            IF i:handle == ::handle
-               hwg_Fi_unload(::handle)
-               IF ::hBitmap != NIL
-                  hwg_Deleteobject(::hBitmap)
-               ENDIF
-               ADel(::aImages, hB_enumIndex())
-               ASize(::aImages, nlen - 1)
-               EXIT
+      FOR i := 1 TO nlen // TODO: FOR EACH
+         IF ::aImages[i]:handle == ::handle
+            hwg_Fi_unload(::handle)
+            IF ::hBitmap != NIL
+               hwg_Deleteobject(::hBitmap)
             ENDIF
-         NEXT
-      #else
-         FOR i := 1 TO nlen
-            IF ::aImages[i]:handle == ::handle
-               hwg_Fi_unload(::handle)
-               IF ::hBitmap != NIL
-                  hwg_Deleteobject(::hBitmap)
-               ENDIF
-               ADel(::aImages, i)
-               ASize(::aImages, nlen - 1)
-               EXIT
-            ENDIF
-         NEXT
-      #endif
+            ADel(::aImages, i)
+            ASize(::aImages, nlen - 1)
+            EXIT
+         ENDIF
+      NEXT
    ENDIF
    RETURN NIL
 

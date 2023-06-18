@@ -650,24 +650,15 @@ FUNCTION hwg_ReleaseAllWindows(hWnd)
 
    //  Vamos mandar destruir as filhas
    // Destroi as CHILD's desta MAIN
-#ifdef __XHARBOUR__
-   LOCAL oItem
-   FOR EACH oItem IN HWindow():aWindows
-      IF oItem:oParent != NIL .AND. oItem:oParent:handle == hWnd
-         hwg_Sendmessage(oItem:handle, WM_CLOSE, 0, 0)
-      ENDIF
-   NEXT
-#else
    nCont := Len(HWindow():aWindows)
 
-   FOR iCont := nCont TO 1 STEP - 1
+   FOR iCont := nCont TO 1 STEP - 1 // TODO: FOR EACH
 
       IF HWindow():aWindows[iCont]:oParent != NIL .AND. HWindow():aWindows[iCont]:oParent:handle == hWnd
          hwg_Sendmessage(HWindow():aWindows[iCont]:handle, WM_CLOSE, 0, 0)
       ENDIF
 
    NEXT
-#endif
 
    IF HWindow():aWindows[1]:handle == hWnd
       hwg_Postquitmessage(0)

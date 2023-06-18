@@ -142,12 +142,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
       name := hwg_Selectfile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath(name), FilePath(name), "Locate " + name) // "*.jpg;*.gif;*.bmp;*.ico"
       DirChange(cCurDir)
    ENDIF
-   #ifdef __XHARBOUR__
-   hb_FNameSplit(name, NIL, NIL, @cFext)
-   IF Empty(cFext)
-   #else
    IF Empty(hb_fNameExt(name))
-   #endif
       name += ".ico"
    ENDIF
    ::handle := hwg_Loadimage(0, name, IMAGE_ICON, nWidth, nHeight, LR_DEFAULTSIZE + LR_LOADFROMFILE + LR_SHARED)
@@ -167,17 +162,7 @@ METHOD RELEASE() CLASS HIcon
 
    ::nCounter--
    IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      FOR EACH i IN ::aIcons
-         IF i:handle == ::handle
-            hwg_Deleteobject(::handle)
-            ADel(::aIcons, hb_enumindex())
-            ASize(::aIcons, nlen - 1)
-            EXIT
-         ENDIF
-      NEXT
-#else
-      FOR i := 1 TO nlen
+      FOR i := 1 TO nlen // TODO: FOR EACH
          IF ::aIcons[i]:handle == ::handle
             hwg_Deleteobject(::handle)
             ADel(::aIcons, i)
@@ -185,7 +170,6 @@ METHOD RELEASE() CLASS HIcon
             EXIT
          ENDIF
       NEXT
-#endif
    ENDIF
 
 RETURN NIL

@@ -155,11 +155,7 @@ METHOD Init() CLASS HComboBox
             hwg_Comboaddstring(::handle, iif(HB_ISARRAY(::aItems[i]), ::aItems[i, 1], ::aItems[i]))
          NEXT
          IF ::lText
-#ifdef __XHARBOUR__
-            i := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}))
-#else
             i := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
-#endif
             hwg_Combosetstring(::handle, i)
          ELSE
             hwg_Combosetstring(::handle, ::xValue)
@@ -199,11 +195,7 @@ METHOD Refresh(xVal) CLASS HComboBox
       NEXT
 
       IF ::lText
-#ifdef __XHARBOUR__
-         i := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), AScan(::aItems, {|s|s == ::xValue}))
-#else
          i := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
-#endif
          hwg_Combosetstring(::handle, i)
       ELSE
          hwg_Combosetstring(::handle, ::xValue)
@@ -257,11 +249,7 @@ METHOD Value ( xValue ) CLASS HComboBox
 
    IF xValue != NIL
       IF HB_ISCHAR(xValue)
-#ifdef __XHARBOUR__
-         xValue := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}))
-#else
          xValue := Iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
-#endif
       ENDIF
       ::SetItem(xValue)
 

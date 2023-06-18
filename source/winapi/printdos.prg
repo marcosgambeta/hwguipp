@@ -115,11 +115,7 @@ METHOD New(oPorta) CLASS PrintDos
             ::oPorta := oPtrName
          ENDIF
       ELSEIF oPorta == "SELECT"
-         #ifdef __XHARBOUR__
-            oPtrSetup := hwg_Printsetupdos(@::nStartPage, @::nEndPage, @::nCopy)
-         #else
-            oPtrSetup := hwg_Printsetupdos()
-         #endif
+         oPtrSetup := hwg_Printsetupdos()
          IF oPtrSetup == NIL
             hwg_Msginfo("Error, file to:ERROR.TXT")
             ::oPorta := "Error.txt"

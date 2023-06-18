@@ -35,11 +35,6 @@
 #include "dbstruct.ch"
 #include "hbclass.ch"
 
-#ifdef __XHARBOUR__
-#xtranslate hb_tokenGet([<x>,<n>,<c>] ) =>  __StrToken(<x>,<n>,<c>)
-#xtranslate hb_tokenPtr([<x>,<n>,<c>] ) =>  __StrTkPtr(<x>,<n>,<c>)
-#endif
-
 REQUEST DBGOTOP, DBGOTO, DBGOBOTTOM, DBSKIP, RECCOUNT, RECNO, EOF, BOF
 
 /*
@@ -2299,16 +2294,12 @@ STATIC FUNCTION FldStr(oBrw, numf)
             cRes := Dtoc(vartmp)
             EXIT
          CASE "T"
-#ifdef __XHARBOUR__
-            cRes := Space(23)
-#else
             IF vartmp == NIL
                cRes := Space(23)
             ELSE
                //cRes := PadR(HB_TSTOSTR(vartmp, .T.), oBrw:aColumns[numf]:length)
                cRes := HB_TSTOSTR(vartmp, .T.)
             ENDIF
-#endif
             EXIT
          CASE "L"
             //cRes := PadR(iif(vartmp, "T", "F"), oBrw:aColumns[numf]:length)

@@ -115,17 +115,7 @@ METHOD RELEASE() CLASS HFont
 
    ::nCounter--
    IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      FOR EACH i IN ::aFonts
-         IF i:handle == ::handle
-            hwg_Deleteobject(::handle)
-            ADel(::aFonts, hb_enumindex())
-            ASize(::aFonts, nlen - 1)
-            EXIT
-         ENDIF
-      NEXT
-#else
-      FOR i := 1 TO nlen
+      FOR i := 1 TO nlen // TODO: FOR EACH
          IF ::aFonts[i]:handle == ::handle
             hwg_Deleteobject(::handle)
             ADel(::aFonts, i)
@@ -133,7 +123,6 @@ METHOD RELEASE() CLASS HFont
             EXIT
          ENDIF
       NEXT
-#endif
    ENDIF
 
    RETURN NIL
