@@ -21,7 +21,7 @@ FUNCTION hwg_aCompare(arr1, arr2)
       RETURN .T.
    ELSEIF Valtype(arr1) == Valtype(arr2) .AND. HB_ISARRAY(arr1) .AND. (nLen := Len(arr1)) == Len(arr2)
       FOR i := 1 TO nLen
-         IF !( Valtype(arr1[i]) == Valtype(arr2[i]) ) .OR. !( arr1[i] == arr2[i] )
+         IF !(Valtype(arr1[i]) == Valtype(arr2[i])) .OR. !(arr1[i] == arr2[i])
             RETURN .F.
          ENDIF
       NEXT
@@ -223,7 +223,7 @@ RETURN
 DF7BE: only needed for WinAPI, on GTK/LINUX charset is UTF-8 forever.
 All other attributes are not modified.
 */
-FUNCTION hwg_FontSetCharset ( oFont, nCharSet  )
+FUNCTION hwg_FontSetCharset(oFont, nCharSet)
 
    LOCAL oItem
 
