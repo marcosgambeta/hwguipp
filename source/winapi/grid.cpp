@@ -86,7 +86,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
 
    COL.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT | LVCF_SUBITEM;
    COL.cx = hb_parni(3);
-   COL.pszText = ( LPTSTR ) HB_PARSTRDEF(4, &hText, nullptr);
+   COL.pszText = const_cast<LPTSTR>(HB_PARSTRDEF(4, &hText, nullptr));
    COL.iSubItem = hb_parni(2) - 1;
    COL.fmt = hb_parni(5);
    if( iImage > 0 ) {
@@ -130,7 +130,7 @@ HB_FUNC( HWG_LISTVIEW_GETFIRSTITEM )
 
 HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
 {
-   LV_DISPINFO *pDispInfo = ( LV_DISPINFO * ) HB_PARHANDLE(1);
+   LV_DISPINFO * pDispInfo = static_cast<LV_DISPINFO*>(HB_PARHANDLE(1));
 
    int iItem = pDispInfo->item.iItem;
    int iSubItem = pDispInfo->item.iSubItem;
@@ -142,7 +142,7 @@ HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
 
 HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
 {
-   LV_DISPINFO *pDispInfo = ( LV_DISPINFO * ) HB_PARHANDLE(1);
+   LV_DISPINFO * pDispInfo = static_cast<LV_DISPINFO*>(HB_PARHANDLE(1));
 
    if( pDispInfo->item.mask & LVIF_TEXT ) {
       HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->item.pszText, pDispInfo->item.cchTextMax);
@@ -257,13 +257,13 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
       lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_WIDTH;
    }
 
-   lvcolumn.pszText = ( LPTSTR ) HB_PARSTR(3, &hText, nullptr);
+   lvcolumn.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hText, nullptr));
    lvcolumn.iSubItem = lCol;
    lvcolumn.cx = hb_parni(4);
    lvcolumn.fmt = hb_parni(5);
    lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
-   if( SendMessage(static_cast<HWND>(hwndListView), ( UINT ) LVM_INSERTCOLUMN, static_cast<WPARAM>(static_cast<int>(lCol)), reinterpret_cast<LPARAM>(&lvcolumn)) == -1 ) {
+   if( SendMessage(static_cast<HWND>(hwndListView), LVM_INSERTCOLUMN, static_cast<WPARAM>(static_cast<int>(lCol)), reinterpret_cast<LPARAM>(&lvcolumn)) == -1 ) {
       iResult = 0;
    } else {
       iResult = 1;
@@ -294,18 +294,18 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    } else {
       lvi.mask = LVIF_TEXT | LVIF_STATE;
    }
-   
+
    lvi.iImage = iBitMap >= 0 ? lCol : -1;
    lvi.state = 0;
    lvi.stateMask = 0;
-   lvi.pszText = ( LPTSTR ) HB_PARSTR(4, &hText, nullptr);
+   lvi.pszText = const_cast<LPTSTR>(HB_PARSTR(4, &hText, nullptr));
    lvi.iItem = lLin;
    lvi.iSubItem = lCol;
 
-   switch ( iSubItemYesNo )
+   switch( iSubItemYesNo )
    {
       case 0:
-         if( SendMessage(static_cast<HWND>(hwndListView), ( UINT ) LVM_INSERTITEM, static_cast<WPARAM>(0), reinterpret_cast<LPARAM>(&lvi)) == -1 ) {
+         if( SendMessage(hwndListView, LVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&lvi)) == -1 ) {
             iResult = 0;
          } else {
             iResult = 1;
@@ -313,7 +313,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
          break;
 
       case 1:
-         if( SendMessage(static_cast<HWND>(hwndListView), ( UINT ) LVM_SETITEM, static_cast<WPARAM>(0), reinterpret_cast<LPARAM>(&lvi) ) == FALSE ) {
+         if( SendMessage(hwndListView, LVM_SETITEM, 0, reinterpret_cast<LPARAM>(&lvi) ) == FALSE ) {
             iResult = 0;
          } else {
             iResult = 1;
@@ -331,7 +331,7 @@ HB_FUNC( HWG_LISTVIEWSELECTALL )
 {
    HWND hList = hwg_par_HWND(1);
    ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
-   SendMessage(hList, LVM_ENSUREVISIBLE, static_cast<WPARAM>(-1), FALSE);
+   SendMessage(hList, LVM_ENSUREVISIBLE, -1, FALSE);
    ListView_SetItemState(hList, -1, LVIS_SELECTED, LVIS_SELECTED);
    hb_retl(true);
 }
@@ -339,10 +339,10 @@ HB_FUNC( HWG_LISTVIEWSELECTALL )
 HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
 {
    HWND hList = hwg_par_HWND(1);
-   int items = SendMessage(hList, LVM_GETITEMCOUNT, static_cast<WPARAM>(0), static_cast<LPARAM>(0));
+   int items = SendMessage(hList, LVM_GETITEMCOUNT, 0, 0);
    items--;
    ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
-   SendMessage(hList, LVM_ENSUREVISIBLE, static_cast<WPARAM>(items), FALSE);
+   SendMessage(hList, LVM_ENSUREVISIBLE, items, FALSE);
    ListView_SetItemState(hList, items, LVIS_SELECTED, LVIS_SELECTED);
    ListView_SetItemState(hList, items, LVIS_FOCUSED, LVIS_FOCUSED);
    hb_retl(true);
@@ -350,7 +350,7 @@ HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
 
 LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
 {
-   LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
+   LPNMLVCUSTOMDRAW lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
    PHB_ITEM pColor;
 
    switch ( lplvcd->nmcd.dwDrawStage )
@@ -415,7 +415,7 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
 
 int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
-   PSORTINFO pSortInfo = ( PSORTINFO ) lParamSort;
+   PSORTINFO pSortInfo = reinterpret_cast<PSORTINFO>(lParamSort);
    //int nResult      = 0;
    int nColumnNo = pSortInfo->nColumnNo;
    HWND pListControl = pSortInfo->pListControl;
@@ -424,8 +424,8 @@ int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
    TCHAR szB[256] = {0};
    int rc;
 
-   ListView_GetItemText(pListControl, ( INT ) lParam1, nColumnNo, szA, HB_SIZEOFARRAY(szA));
-   ListView_GetItemText(pListControl, ( INT ) lParam2, nColumnNo, szB, HB_SIZEOFARRAY(szB));
+   ListView_GetItemText(pListControl, lParam1, nColumnNo, szA, HB_SIZEOFARRAY(szA));
+   ListView_GetItemText(pListControl, lParam2, nColumnNo, szB, HB_SIZEOFARRAY(szB));
 
    rc = lstrcmp(szA, szB);
    if( !nAscendingSortOrder ) {
@@ -439,35 +439,35 @@ HB_FUNC( HWG_LISTVIEWSORTINFONEW )
 {
    //PSORTINFO p = (PSORTINFO) hb_xgrab(sizeof(SortInfo));
    //LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) hb_parnl(1);
-   PSORTINFO p;
 
    if( HB_ISPOINTER(2) ) {
       return;
    }
 
-   p = ( PSORTINFO ) hb_xgrab(sizeof(SortInfo));
+   PSORTINFO p = static_cast<PSORTINFO>(hb_xgrab(sizeof(SortInfo)));
 
    if( p ) {
       p->pListControl = nullptr;
       p->nColumnNo = -1;
       p->nAscendingSortOrder = FALSE;
    }
-   hb_retptr(( void * ) p);
+
+   hb_retptr(p);
 }
 
 HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
 {
-   PSORTINFO p = ( PSORTINFO ) hb_parptr(3);
+   PSORTINFO p = static_cast<PSORTINFO>(hb_parptr(3));
 
    if( p ) {
       hb_xfree(p);
-   }   
+   }
 }
 
 HB_FUNC( HWG_LISTVIEWSORT )
 {
-   PSORTINFO p = ( PSORTINFO ) hb_parptr(3);
-   LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) HB_PARHANDLE(2);
+   PSORTINFO p = static_cast<PSORTINFO>(hb_parptr(3));
+   LPNMLISTVIEW phdNotify = static_cast<LPNMLISTVIEW>(HB_PARHANDLE(2));
 
    if( phdNotify->iSubItem == p->nColumnNo ) {
       p->nAscendingSortOrder = !p->nAscendingSortOrder;
