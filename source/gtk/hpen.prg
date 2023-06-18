@@ -84,17 +84,7 @@ METHOD RELEASE() CLASS HPen
 
    ::nCounter --
    IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      For EACH i  in ::aPens
-         IF i:handle == ::handle
-            hwg_Deleteobject(::handle)
-            ADel(::aPens, hb_EnumIndex())
-            ASize(::aPens, nlen - 1)
-            EXIT
-         ENDIF
-      NEXT
-#else
-      For i := 1 TO nlen
+      For i := 1 TO nlen // TODO: FOR EACH
          IF ::aPens[i]:handle == ::handle
             hwg_Deleteobject(::handle)
             ADel(::aPens, i)
@@ -102,7 +92,6 @@ METHOD RELEASE() CLASS HPen
             EXIT
          ENDIF
       NEXT
-#endif
    ENDIF
 
    RETURN NIL

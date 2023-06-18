@@ -10,14 +10,12 @@
 #include "hwgui.ch"
 REQUEST HB_CODEPAGE_UTF8
 #define _( x ) hb_i18n_gettext(x)
-#ifndef __XHARBOUR__
 #xcommand TRY              => s_bError := errorBlock( {|oErr| break( oErr ) } ) ;;
       BEGIN SEQUENCE
 #xcommand CATCH [<!oErr!>] => errorBlock( s_bError ) ;;
       RECOVER [USING <oErr>] <- oErr -> ;;
       ErrorBlock( s_bError )
 #command FINALLY           => ALWAYS
-#endif
 MEMVAR inierror, delmarker
 
    // ============================================================================

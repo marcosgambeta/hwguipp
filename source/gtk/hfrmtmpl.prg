@@ -6,10 +6,6 @@
  * www - http://www.kresin.ru
 */
 
-#ifdef __XHARBOUR__
-#xtranslate HB_AT(<x,...>) => AT(<x>)
-#endif
-
 #ifndef G_CONSOLE_MODE
 STATIC aClass := { "label", "button", "checkbox",       ;
       "radiobutton", "editbox", "group", "radiogroup",  ;
@@ -532,11 +528,7 @@ METHOD OnError( xValue ) CLASS HFormTmpl
       cMsg := SubStr(cMsg, 2)
       lSet := .T.
    ENDIF
-#ifdef __XHARBOUR__
-   lErr := (Ascan(::aVars, {|s|s == cMsg}) == 0)
-#else
    lErr := (hb_Ascan(::aVars, cMsg, NIL, NIL, .T.) == 0)
-#endif
    IF !lErr
       IF lSet
          IF ::lNoModal

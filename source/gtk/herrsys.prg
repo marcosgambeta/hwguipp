@@ -60,11 +60,7 @@ STATIC FUNCTION DefError( oError )
 
    n := 2
    WHILE !Empty(ProcName( n ))
-#ifdef __XHARBOUR__
-      cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
-#else
       cMessage += Chr(13) + Chr(10) + "Called from " + ProcName( n ) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
-#endif
    ENDDO
 
    MemoWrit( LogInitialPath + "Error.log", cMessage )

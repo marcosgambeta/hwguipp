@@ -219,11 +219,7 @@ METHOD Value ( xValue ) CLASS HComboBox
 
    IF xValue != NIL
       IF HB_ISCHAR(xValue)
-#ifdef __XHARBOUR__
-         xValue := iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), AScan(::aItems, {|s|s == xValue}))
-#else
          xValue := iif(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
-#endif
       ENDIF
       ::SetItem( xValue )
 

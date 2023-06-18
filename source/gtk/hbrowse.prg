@@ -13,11 +13,6 @@
 #include "dbstruct.ch"
 #include "hbclass.ch"
 
-#ifdef __XHARBOUR__
-#xtranslate hb_tokenGet([<x>,<n>,<c>] ) =>  __StrToken(<x>,<n>,<c>)
-#xtranslate hb_tokenPtr([<x>,<n>,<c>] ) =>  __StrTkPtr(<x>,<n>,<c>)
-#endif
-
 REQUEST DBGOTOP, DBGOTO, DBGOBOTTOM, DBSKIP, RECCOUNT, RECNO, EOF, BOF
 
 /*

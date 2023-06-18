@@ -266,17 +266,7 @@ METHOD Release() CLASS HBitmap
 
    ::nCounter --
    IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      For EACH i IN ::aBitmaps
-         IF i:handle == ::handle
-            hwg_Deleteobject(::handle)
-            ADel(::aBitmaps, hb_EnumIndex())
-            ASize(::aBitmaps, nlen - 1)
-            EXIT
-         ENDIF
-      NEXT
-#else
-      For i := 1 TO nlen
+      For i := 1 TO nlen // TODO: FOR EACH
          IF ::aBitmaps[i]:handle == ::handle
             hwg_Deleteobject(::handle)
             ADel(::aBitmaps, i)
@@ -284,7 +274,6 @@ METHOD Release() CLASS HBitmap
             EXIT
          ENDIF
       NEXT
-#endif
    ENDIF
 
    RETURN NIL
@@ -465,17 +454,7 @@ METHOD RELEASE() CLASS HIcon
 
    ::nCounter --
    IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      For EACH i IN ::aIcons
-         IF i:handle == ::handle
-            hwg_Deleteobject(::handle)
-            ADel(::aIcons, hb_EnumIndex())
-            ASize(::aIcons, nlen - 1)
-            EXIT
-         ENDIF
-      NEXT
-#else
-      For i := 1 TO nlen
+      For i := 1 TO nlen // TODO: FOR EACH
          IF ::aIcons[i]:handle == ::handle
             hwg_Deleteobject(::handle)
             ADel(::aIcons, i)
@@ -483,7 +462,6 @@ METHOD RELEASE() CLASS HIcon
             EXIT
          ENDIF
       NEXT
-#endif
    ENDIF
 
    RETURN NIL

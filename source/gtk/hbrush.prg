@@ -48,17 +48,7 @@ METHOD RELEASE() CLASS HBrush
 
    ::nCounter --
    IF ::nCounter == 0
-#ifdef __XHARBOUR__
-      For EACH i IN ::aBrushes
-         IF i:handle == ::handle
-            hwg_Deleteobject(::handle)
-            ADel(::aBrushes, hb_EnumIndex())
-            ASize(::aBrushes, nlen - 1)
-            EXIT
-         ENDIF
-      NEXT
-#else
-      For i := 1 TO nlen
+      For i := 1 TO nlen // TODO: FOR EACH
          IF ::aBrushes[i]:handle == ::handle
             hwg_Deleteobject(::handle)
             ADel(::aBrushes, i)
@@ -66,7 +56,6 @@ METHOD RELEASE() CLASS HBrush
             EXIT
          ENDIF
       NEXT
-#endif
    ENDIF
 
    RETURN NIL
