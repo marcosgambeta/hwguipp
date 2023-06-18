@@ -22,5 +22,3 @@ SET HWG_LIBS=-lhwgui -lprocmisc -lhbxml -lhwgdebug
 
 
 hbmk2 editor.hbp -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib %HWG_LIBS% -gui
-
-REM ======= EOF of bldow.bat =========

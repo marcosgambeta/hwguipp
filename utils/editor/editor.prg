@@ -2497,5 +2497,3 @@ STATIC FUNCTION GetVal_nTop
 #else
    RETURN 40
 #endif
-
-* ================== EOF of editor.prg =======================

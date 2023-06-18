@@ -93,6 +93,3 @@ gcc -Wall -mwindows -ohwgrun.exe hwgrun.o -L%MINGW%\lib -L%HRB_LIB_DIR% -L%HWGUI
 
 del tutor.c
 del tutor.o
-
-
-REM ------------ EOF of bldgtkwin.bat --------------------

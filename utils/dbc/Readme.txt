@@ -80,6 +80,3 @@ With DbcH you can:
 -    copy to/paste from Windows clipboard
 -    convert memos between dbt and fpt format
 -    pack memos 
-
-====================== EOF of Readme.txt ===========================
-

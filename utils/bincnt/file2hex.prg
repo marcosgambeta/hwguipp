@@ -88,6 +88,3 @@ LOCAL fname, hd, varbuf, ccdir
 
 
 RETURN NIL
-
-
-* ============== EOF of file2hex.prg =================

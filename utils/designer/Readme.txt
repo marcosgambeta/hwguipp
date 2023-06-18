@@ -129,6 +129,3 @@ Contents:
      'GET', have a 'Varname' property - the name of the
      corresponding variable, which will also be declared as
      'Private' at the beginning of HFormTmpl():Show(). 
-
-================ EOF of Readme.txt =================
-

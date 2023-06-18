@@ -251,6 +251,3 @@ ERASE &ctempoutfile
 ERASE &ctempoutficv 
   
 RETURN NIL
-
-
-* ==================================== EOF of hwlblsample.prg ================================

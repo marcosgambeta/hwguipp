@@ -115,6 +115,3 @@ del %1.c
 del %1.map
 del %1.obj
 del b32.bc
-
-REM ========================== EOF of bld.bat ======================
-

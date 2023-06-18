@@ -24,6 +24,3 @@ REM no effect visible
 
 REM and link
 hbmk2 editor -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib -lhwgui -lprocmisc -lhbxml -lhwgdebug -gui
-
-
-REM ======= EOF of bldedgw.bat =========

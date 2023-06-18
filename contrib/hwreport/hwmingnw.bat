@@ -120,5 +120,3 @@ del propert.o
 del printrpt.o
 del repexec.o
 del example.o
-
-REM ------------ EOF of hwmingnw.bat --------------------

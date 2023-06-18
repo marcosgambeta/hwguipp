@@ -181,8 +181,3 @@ See special instructions for your C Compiler in directory
 and sub directories (for example valid environment settings).
 
 Start the batch file for your compiler.
-
-
-
-
-* ================== EOF of Readme.txt ====================

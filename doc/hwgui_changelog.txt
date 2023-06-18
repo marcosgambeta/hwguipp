@@ -24843,7 +24843,3 @@
    * source/Makefile
    + source/misc.c
      * Committed changes, included in the patch (29.10.2003)
-
-* ======================= EOF of Changelog =======================
-
-

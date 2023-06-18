@@ -69,5 +69,3 @@ FUNCTION TESTS
   ,  "Test of Unit conversion functions")
  
  RETURN NIL
-
-* ======================= EOF of testunitc.prg =============================

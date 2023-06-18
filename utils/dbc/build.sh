@@ -41,5 +41,3 @@ rm modistru.c
 rm move.c
 rm query.c
 rm view.c
-
-# ================= EOF of build.sh ====================

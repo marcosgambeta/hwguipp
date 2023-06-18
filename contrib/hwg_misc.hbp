@@ -15,7 +15,3 @@ misc/*.c
 misc/*.prg
 
 #-stop{allmingw}
-
-
-# ======================= EOF of hwg_misc.hbp ===========================
-

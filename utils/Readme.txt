@@ -111,8 +111,3 @@
    build.sh      for LINUX with GTK+2
    hbmk.sh       alternative script using the Harbour hbmk2 utility, 
                  calls hwgrun.hbp and tutor.hbp
-         
-
-    
-
-========================== EOF of Readme.txt ==================================

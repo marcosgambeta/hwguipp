@@ -71,5 +71,3 @@ REM SET INCLUDE=%_INCLUDE%
 REM SET _INCLUDE=
 REM SET LIB=%_LIB%
 REM SET _LIB=
-
-REM ===================== EOF of make_w32.bat ================================

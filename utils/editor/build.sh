@@ -38,5 +38,3 @@ gcc editor.c hcediext.c calc.c -oeditor -I $HRB_INC -I $HWGUI_INC -I ../../../so
 
 rm *.c 2>/dev/null
 rm *.o 2>/dev/null
-
-# ========= EOF of build.sh ==========

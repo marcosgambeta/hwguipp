@@ -189,6 +189,3 @@ End ==> any key
 
    [2] Project CLLOG at Sourceforge:
        https://sourceforge.net/projects/cllog/ 
-
-
-   ==================== EOF of Readme.txt =============================

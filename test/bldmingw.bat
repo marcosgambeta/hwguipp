@@ -50,5 +50,3 @@ REM especially for this case
 hbmk2 %1 Ticket60.rc %HBWINBC% -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib %HWGUI_LIBS%
 
 REM hbmk2 %1 %HBWINBC% -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib %HWGUI_LIBS%
-
-REM ---- EOF of bldmingw.bat ----

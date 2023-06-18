@@ -94,6 +94,3 @@ gcc -Wall -mwindows -o%PRGNAME%.exe %PRGNAME%.o %PRGNAME2%.o %PRGNAME3%.o -L%MIN
 
 del %PRGNAME%.c
 del %PRGNAME%.o
-
-
-REM ================ EOF of bldgtk.bat =================

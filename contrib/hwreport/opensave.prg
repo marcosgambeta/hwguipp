@@ -493,5 +493,3 @@ STATIC FUNCTION WriteScript( han, cScript, lPrg )
    ENDIF
 
    RETURN NIL
-
-   // ================================= EOF of opensave.prg ===================================

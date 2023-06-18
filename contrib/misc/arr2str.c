@@ -268,6 +268,3 @@ HB_FUNC( STRING2ARRAY )
 
    hb_itemRelease( hb_itemReturn( pItem ) );
 }
-
-/* ==================== EOF of arr2str.c =========================== */
-

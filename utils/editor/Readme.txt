@@ -60,11 +60,3 @@ Source code:
 
 editor.hbp        Makefile for hbmk2 utility
 editor_linux.hbp  Makefile for hbmk2 utility on GTK/LINUX
-
-
--------------------------- EOF of Readme.txt -------------------------
-
-
- 
-
-

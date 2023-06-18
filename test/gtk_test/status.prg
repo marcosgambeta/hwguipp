@@ -112,6 +112,3 @@ local array:={"one", "two", "three", "four"}
    ENDIF
 */
 Return NIL
-
-* ======================== EOF of status.prg ==============================
-

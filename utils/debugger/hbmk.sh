@@ -6,6 +6,3 @@
 #
 # Add -trace for debug output 
 hbmk2 debugger_linux.hbp
-
-
-# ======================= EOF of hbmk.sh =============================

@@ -100,9 +100,3 @@ Created by DF7BE, 2020-09-07.
        Load the bitmap file, goto menu "Modify size" and set the desired
        file size (recommeded default size for Icons is 48 x 48 pixels), and save the
        image as "Windows icon". Now they are OK.
-                      
-          
-
-
-* =============== EOF of Readme.txt ================================
-  

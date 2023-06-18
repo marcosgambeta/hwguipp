@@ -38,5 +38,3 @@ gcc hwgrun.c -ohwgrun -I $HRB_INC -L $HRB_LIB -L $HWGUI_LIB -Wl,--start-group $H
 
 rm tutor.c
 rm hwgrun.c
-
-# =================== EOF of build.sh =======================

@@ -29,5 +29,3 @@ SET HWG_LIBS=-lhwgui -lprocmisc -lhbxml -lhwgdebug
 
 REM %XHB% defined in hwmake.hbp
 hbmk2 hwmake.hbp hwmake.rc -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib %HWG_LIBS% -gui
-
-REM ======= EOF of bldow.bat =========

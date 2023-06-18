@@ -885,5 +885,3 @@ RETURN NIL
 
 FUNCTION ADD_HELPLINE(chtext)
 RETURN chtext + CHR(13) + CHR(10) 
-
-* =================================== EOF of memdump.prg ========================================

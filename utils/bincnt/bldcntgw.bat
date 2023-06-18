@@ -22,6 +22,3 @@ REM   gcc -I. -I%HRB_DIR%\include -Wall -c  hctrl.c -o  hctrl.o
 
 REM and link
 hbmk2 bincnt  -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib -lhwgui -lprocmisc -lhbxml -lhwgdebug -gui
-
-
-REM ======= EOF of bldcntgw.bat =========

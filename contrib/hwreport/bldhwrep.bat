@@ -90,5 +90,3 @@ del *.c
 del *.map
 del *.obj
 del b32.bc
-
-REM ====================== EOF of bldhwrep.bat =========================

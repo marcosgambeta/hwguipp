@@ -388,5 +388,3 @@ STATIC FUNCTION EndFOpt( oDlg )
    oDlg:Close()
 
    RETURN .T.
-
-   // ============================= EOF of propert.prg ==============================

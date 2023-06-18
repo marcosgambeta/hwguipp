@@ -1041,5 +1041,3 @@ PROCEDURE RES_DOS_SCR
   SET CURSOR ON
   @ dos_row, dos_col
 RETURN
-
-* ================== EOF of lbledit.prg ==================================

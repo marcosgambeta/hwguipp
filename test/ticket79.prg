@@ -56,7 +56,3 @@ LOCAL oodt , codt , nget
    oDlg:Activate()
    
 RETURN NIL
-
-* =========================== EOF of ticket79.prg ===============================
-   
-

@@ -16,6 +16,3 @@ REM configure HWGUI install (current dir is utils\designer )
 set HWGUI_INSTALL=..\..
 
 hbmk2 dbchw dbchw2.rc -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib -lhwgui -lprocmisc -lhbxml -lhwgdebug -gui
-
-
-REM ======= EOF of blddbcow.bat =========

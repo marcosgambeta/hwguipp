@@ -35,5 +35,3 @@ $HRB_BIN/harbour hwgdebug -n -i$HRB_INC -i$HWGUI_INC -w2 -d__LINUX__ -d__GTK__
 #$HRB_BIN/harbour hwgdebug -n -i$HRB_INC -i$HWGUI_INC -w2 -d__LINUX__ -d__GTK__ -d__HCEDIT__ 
 gcc hwgdebug.c -ohwgdebug -I$HRB_INC -L$HRB_LIB -L$HWGUI_LIB -Wl,--start-group $HWGUI_LIBS $HARBOUR_LIBS  -Wl,--end-group `pkg-config --libs gtk+-2.0` $SYSTEM_LIBS
 rm hwgdebug.c
-
-# ================== EOF of build.sh ==================

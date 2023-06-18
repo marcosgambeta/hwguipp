@@ -102,5 +102,3 @@ FUNCTION MyReport
    hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "End of report", 522, 932, 160, 20, 0,, HFont():Add( "MS Sans Serif",0, - 13 ) )
 
    RETURN aPaintRep
-
-   // ============================= EOF of example.prg ================================

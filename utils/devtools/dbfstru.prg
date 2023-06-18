@@ -195,6 +195,3 @@ FUNCTION PADCENTER    && = PADC
   zl = INT(zahl / 2)
   zr = zahl - zl
 RETURN REPLICATE(fzeichen,zl) + SUBSTR(padc_stri,1,padc_laen) + REPLICATE(fzeichen,zr)
-
-
-* ================== EOF of dbfstru.prg ==================================

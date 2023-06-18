@@ -476,5 +476,3 @@ https://sourceforge.net/projects/cllog/
 
 A lot of inline comments are in german language.
 We add translations to english during the developing process step by step.
- 
-======================= EOF of port.txt ========================================

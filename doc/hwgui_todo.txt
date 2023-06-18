@@ -246,7 +246,3 @@ Old entries, must be checked (is bugfixing done ?)
 - STYLE DT_VCENTER in SAY not function perfectly the back change to dark gray
 - CHILD possibility change de backgrond color
 - PANEL possibility change de backgrond color
-
-
-* ======== EOF of todo.txt =============================
-

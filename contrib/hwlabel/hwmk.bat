@@ -25,5 +25,3 @@ REM Added: -n -w
 REM -w3 : Lots of warnings
 
 hbmk2 %PRGNAME%.prg -n -w -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib -lhwgui -lprocmisc -lhbxml -lhwgdebug -gui -dENGLISH
-
-REM ---- EOF of hwmk.bat ----

@@ -12,8 +12,3 @@ Also for documentation purposes or storing
 intermediate state of a case or task.
 
 These programs are no official sample programs !
-
-
-* =============== EOF of Readme.txt ===============
-
-

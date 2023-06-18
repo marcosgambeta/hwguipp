@@ -79,8 +79,3 @@ hwg_msgInfo( "Input: " + DTOC(dinput) + CHR(10) + ;
   ,cTitle)
 
 RETURN NIL
-
-
-* ==================================== EOF of juldate.prg ========================================
-
-

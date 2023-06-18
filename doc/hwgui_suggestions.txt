@@ -70,6 +70,3 @@ In Browse include the comand ON CLICKHEADER
 Analyzed for ->
 Made For     ->
 It's possible (  ) Yes   (  ) No
-
-* =================== EOF of Suggestions =======================
-

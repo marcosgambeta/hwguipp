@@ -88,14 +88,3 @@ by the Harbour compiler.
 In the last step, start the port to HWGUI to get a modern style GUI program.
 
 Read file "doc/port.txt" for details.
-
-
-===================== EOF of Readme.txt ===============================
-
-
-
-
-  
-
-- 
-  

@@ -37,5 +37,4 @@ fi
 
 
 # EXIT
-# ====== EOF of build.sh =====
 

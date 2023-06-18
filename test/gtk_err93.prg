@@ -81,6 +81,3 @@ FUNCTION CHECK_FILE ( cfi )
   QUIT
  ENDIF 
 RETURN NIL
-
-* ================================= EOF of gtk_err93.prg =============================================
-    

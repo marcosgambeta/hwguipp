@@ -112,6 +112,4 @@ FUNCTION Test2()
     hb_mutexUnLock( mutex1 )
 
    
-   RETURN NIL   
-
-* ====================== EOF of Ticket27.prg ==========================
+   RETURN NIL

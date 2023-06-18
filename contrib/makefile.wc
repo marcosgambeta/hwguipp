@@ -147,6 +147,3 @@ $(OBJ_DIR)\hrectex.c : $(CTRL_DIR)\hrectex.prg
 
 $(OBJ_DIR)\hrectex.obj : $(OBJ_DIR)\hrectex.c
    $(CC_EXE) $(CFLAGS) -fo$@ $**
-
-
-# =================== EOF of makefile.wc ==================

@@ -370,7 +370,3 @@ STATIC FUNCTION ChangeFont( oCtrl, n )
    oCtrl:SetFont( oFont )
 
    RETURN NIL
-   
-* ================================= EOF of tutor.prg ===============================
-
-   

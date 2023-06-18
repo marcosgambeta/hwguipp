@@ -89,5 +89,3 @@ FUNCTION Teste
   RETURN NIL
 
 Return NIL
-
-* ================= EOF of sample.prg =================

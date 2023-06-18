@@ -12,6 +12,3 @@ Only for experimental use.
 The Icon's are created with gfie64
 (Greenfish Icon Editor on Windows 10)
 bases on file hwgui.bmp
-
-======================== EOF of Readme.txt =========================
- 

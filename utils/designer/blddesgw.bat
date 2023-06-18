@@ -30,8 +30,3 @@ REM   windres designer.rc designer_res.o
 
 REM and link
 hbmk2 designer designer.rc  -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib -lhwgui -lprocmisc -lhbxml -lhwgdebug -gui
-
-
-
-
-REM ======= EOF of blddesgw.bat =========

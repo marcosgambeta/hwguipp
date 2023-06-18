@@ -7,6 +7,3 @@
 # Add -trace for debug output 
 hbmk2 tutor_linux.hbp
 hbmk2  hwgrun_linux.hbp
-
-
-# ======================= EOF of hbmk.sh =============================

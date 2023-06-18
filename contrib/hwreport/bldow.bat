@@ -30,5 +30,3 @@ REM %XHB%
 
 REM hbmk2 hwreport2.hbp repbuild2.rc -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib %HWG_LIBS% -gui
 hbmk2 hwreport.hbp -I%HWGUI_INSTALL%\include -L%HWGUI_INSTALL%\lib %HWG_LIBS% -gui
-
-REM ======= EOF of bldow.bat =========
