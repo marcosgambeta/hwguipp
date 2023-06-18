@@ -178,5 +178,3 @@ FUNCTION hwg_GetDirSep()
 #else
  RETURN "/"
 #endif
-
-* ===== EOF of proc7.prg =====

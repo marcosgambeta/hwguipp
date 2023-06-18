@@ -696,5 +696,3 @@ FUNCTION WndOpen(ysize, xsize)
    WndOut( "",, .T. )
 RETURN NIL
 #endif
-
-* ================================ EOF of procscri.prg =========================================

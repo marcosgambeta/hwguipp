@@ -138,5 +138,3 @@ clean:
 	-del /F ..\..\obj\*.o
 	-del /F ..\..\obj\*.c
 	-del /F ..\..\lib\*.a
-
-# ====== EOF of Makefile.mingw =========

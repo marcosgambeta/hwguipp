@@ -29,5 +29,3 @@ if not exist ..\..\obj md ..\..\obj
 
 REM  -d  Print lots of debugging information.
 make -fMakefile.mingw
-REM ============ EOF of build.bat =================
-

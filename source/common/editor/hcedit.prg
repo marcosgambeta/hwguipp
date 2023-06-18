@@ -2811,6 +2811,3 @@ Function hced_NextPos( oEdit, cLine, nPos )
       RETURN nPos + Len(hced_Substr(oEdit, cLine, nPos, 1))
    ENDIF
    RETURN nPos + 1
-
-* ====================== EOF of hcedit.prg =====================
-
