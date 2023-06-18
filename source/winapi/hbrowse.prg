@@ -2029,7 +2029,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
          IF Dbinfo(DBI_ISREADONLY)
             RETURN NIL
          ENDIF
-         ::varbuf := (::alias) -> (Eval(oColumn:block, NIL, Self, fipos))
+         ::varbuf := (::alias)->(Eval(oColumn:block, NIL, Self, fipos))
       ELSE
          ::varbuf := Eval(oColumn:block, NIL, Self, fipos)
       ENDIF
@@ -2178,8 +2178,8 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
             IF ::lAppMode
                ::lAppMode := .F.
                IF ::type == BRW_DATABASE
-                  (::alias) -> (dbAppend())
-                  (::alias) -> (Eval(oColumn:block, ::varbuf, Self, fipos))
+                  (::alias)->(dbAppend())
+                  (::alias)->(Eval(oColumn:block, ::varbuf, Self, fipos))
                   UNLOCK
                ELSE
                   IF HB_ISARRAY(::aArray[1])
@@ -2200,8 +2200,8 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
                ::Refresh()
             ELSE
                IF ::type == BRW_DATABASE
-                  IF (::alias) -> (RLock())
-                     (::alias) -> (Eval(oColumn:block, ::varbuf, Self, fipos))
+                  IF (::alias)->(RLock())
+                     (::alias)->(Eval(oColumn:block, ::varbuf, Self, fipos))
                   ELSE
                      hwg_Msgstop(::cTextLockRec) /* Can't lock the record! */
                   ENDIF
@@ -2266,9 +2266,9 @@ STATIC FUNCTION FldStr(oBrw, numf)
 
       IF oBrw:type == BRW_DATABASE
          IF oBrw:aRelation
-            vartmp := (oBrw:aColAlias[numf]) -> (Eval(oBrw:aColumns[numf]:block, NIL, oBrw, numf))
+            vartmp := (oBrw:aColAlias[numf])->(Eval(oBrw:aColumns[numf]:block, NIL, oBrw, numf))
          ELSE
-            vartmp := (oBrw:alias) -> (Eval(oBrw:aColumns[numf]:block, NIL, oBrw, numf))
+            vartmp := (oBrw:alias)->(Eval(oBrw:aColumns[numf]:block, NIL, oBrw, numf))
          ENDIF
       ELSE
          vartmp := Eval(oBrw:aColumns[numf]:block, NIL, oBrw, numf)

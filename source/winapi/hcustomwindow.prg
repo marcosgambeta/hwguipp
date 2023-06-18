@@ -313,7 +313,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
 
    FOR EACH oItem IN aControls
       IF HB_ISBLOCK(oItem:bSize)
-         //  { |o, w, l| onSize(o, w, l) }
+         //  {|o, w, l|onSize(o, w, l)}
          Eval(oItem:bSize, oItem, hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
    NEXT

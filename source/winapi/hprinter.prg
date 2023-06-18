@@ -712,10 +712,10 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    INIT DIALOG oDlg TITLE cTitle ;
       At 40, 10 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() ;
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + WS_MAXIMIZEBOX + WS_CLIPCHILDREN ;
-      ON INIT { | o | o:Maximize(), ::ResizePreviewDlg(oCanvas, 1) } ;
-      ON EXIT { || oCanvas:brush := NIL, .T. }
+      ON INIT {|o|o:Maximize(), ::ResizePreviewDlg(oCanvas, 1)} ;
+      ON EXIT {||oCanvas:brush := NIL, .T.}
 
-   oDlg:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg(oCanvas, NIL, msg, wParam, lParam) }
+   oDlg:bScroll := {|oWnd, msg, wParam, lParam|HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg(oCanvas, NIL, msg, wParam, lParam)}
    oDlg:brush := HBrush():Add(11316396)
 
    @ 0, 0 PANEL oToolBar SIZE 88, oDlg:nHeight
@@ -723,19 +723,19 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    // Canvas should fill ALL the available space
    @ oToolBar:nWidth, 0 PANEL oCanvas ;
       SIZE oDlg:nWidth - oToolBar:nWidth, oDlg:nHeight ;
-      ON SIZE { | o, x, y | o:Move(NIL, NIL, x - oToolBar:nWidth, y), ::ResizePreviewDlg(o) } ;
-      ON PAINT { || ::PaintDoc(oCanvas) } STYLE WS_VSCROLL + WS_HSCROLL
+      ON SIZE {|o, x, y|o:Move(NIL, NIL, x - oToolBar:nWidth, y), ::ResizePreviewDlg(o)} ;
+      ON PAINT {||::PaintDoc(oCanvas)} STYLE WS_VSCROLL + WS_HSCROLL
 
-   oCanvas:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg(oCanvas, NIL, msg, wParam, lParam) }
+   oCanvas:bScroll := {|oWnd, msg, wParam, lParam|HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg(oCanvas, NIL, msg, wParam, lParam)}
    IF !::lUseMeta
-      oCanvas:bOther := { |o,m,wp,lp|HB_SYMBOL_UNUSED(wp),Iif(m==WM_LBUTTONDBLCLK,MessProc(Self,o,lp),-1) }
+      oCanvas:bOther := {|o, m, wp, lp|HB_SYMBOL_UNUSED(wp), Iif(m == WM_LBUTTONDBLCLK, MessProc(Self, o, lp), -1)}
       SET KEY FCONTROL, ASC("S") TO ::SaveScript()
    ENDIF
    // DON'T CHANGE NOR REMOVE THE FOLLOWING LINE !
    // I need it to have the correct side-effect to avoid flickering !!!
    oCanvas:brush := 0
 
-   @ 3, 2 OWNERBUTTON oBtn OF oToolBar ON CLICK { || hwg_EndDialog() } ;
+   @ 3, 2 OWNERBUTTON oBtn OF oToolBar ON CLICK {||hwg_EndDialog()} ;
       SIZE oToolBar:nWidth - 6, 24 TEXT cmExit FONT oFont              ;  // "Exit"
       TOOLTIP Iif(aTooltips != NIL, aTooltips[1], "Exit Preview")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 1 .AND. aBitmaps[2] != NIL
@@ -747,7 +747,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    @ 1, 31 LINE LENGTH oToolBar:nWidth - 1
 
   IF ::lprbutton  
-   @ 3, 36 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::PrintDoc() } ;
+   @ 3, 36 OWNERBUTTON oBtn OF oToolBar ON CLICK {||::PrintDoc()} ;
       SIZE oToolBar:nWidth - 6, 24 TEXT cmPrint FONT oFont           ;  // "Print"
       TOOLTIP Iif(aTooltips != NIL, aTooltips[2], "Print file")
   ENDIF
@@ -759,7 +759,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 66 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::PrintDlg(aTooltips) } ;
+   @ 3, 66 OWNERBUTTON oBtn OF oToolBar ON CLICK {||::PrintDlg(aTooltips)} ;
       SIZE oToolBar:nWidth - 6, 24 TEXT cmDialog FONT oFont          ;  // "Dialog"
       TOOLTIP Iif(aTooltips != NIL .AND. Len(aTooltips) > 8, aTooltips[9], "Print dialog")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 8 .AND. aBitmaps[9] != NIL
@@ -770,10 +770,10 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    @ 3, 92 COMBOBOX oSayPage ITEMS aPage of oToolBar ;
       SIZE oToolBar:nWidth - 6, 24 COLOR "fff000" backcolor 12507070 DISPLAYCOUNT 4;
-      ON CHANGE { || ::ChangePage(oCanvas, oSayPage, NIL, oSayPage:GetValue()) } STYLE WS_VSCROLL
+      ON CHANGE {||::ChangePage(oCanvas, oSayPage, NIL, oSayPage:GetValue())} STYLE WS_VSCROLL
 
 
-   @ 3, 116 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ChangePage(oCanvas, oSayPage, 0) } ;
+   @ 3, 116 OWNERBUTTON oBtn OF oToolBar ON CLICK {||::ChangePage(oCanvas, oSayPage, 0)} ;
       SIZE oToolBar:nWidth - 6, 24 TEXT "|<<" FONT oFont                 ;
       TOOLTIP Iif(aTooltips != NIL, aTooltips[3], "First page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 3 .AND. aBitmaps[4] != NIL
@@ -782,7 +782,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 140 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ChangePage(oCanvas, oSayPage, 1) } ;
+   @ 3, 140 OWNERBUTTON oBtn OF oToolBar ON CLICK {||::ChangePage(oCanvas, oSayPage, 1)} ;
       SIZE oToolBar:nWidth - 6, 24 TEXT ">" FONT oFont                  ;
       TOOLTIP Iif(aTooltips != NIL, aTooltips[4], "Next page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 4 .AND. aBitmaps[5] != NIL
@@ -791,7 +791,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 164 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ChangePage(oCanvas, oSayPage, -1) } ;
+   @ 3, 164 OWNERBUTTON oBtn OF oToolBar ON CLICK {||::ChangePage(oCanvas, oSayPage, -1)} ;
       SIZE oToolBar:nWidth - 6, 24 TEXT "<" FONT oFont    ;
       TOOLTIP Iif(aTooltips != NIL, aTooltips[5], "Previous page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 5 .AND. aBitmaps[6] != NIL
@@ -800,7 +800,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 188 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ChangePage(oCanvas, oSayPage, 2) } ;
+   @ 3, 188 OWNERBUTTON oBtn OF oToolBar ON CLICK {||::ChangePage(oCanvas, oSayPage, 2)} ;
       SIZE oToolBar:nWidth - 6, 24 TEXT ">>|" FONT oFont   ;
       TOOLTIP Iif(aTooltips != NIL, aTooltips[6], "Last page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 6 .AND. aBitmaps[7] != NIL
@@ -811,7 +811,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    @ 1, 219 LINE LENGTH oToolBar:nWidth - 1
 
-   @ 3, 222 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg(oCanvas, -1) } ;
+   @ 3, 222 OWNERBUTTON oBtn OF oToolBar ON CLICK {||::ResizePreviewDlg(oCanvas, -1)} ;
       SIZE oToolBar:nWidth - 6, 24 TEXT "(-)" FONT oFont   ;
       TOOLTIP Iif(aTooltips != NIL, aTooltips[7], "Zoom out")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 7 .AND. aBitmaps[8] != NIL
@@ -820,7 +820,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 246 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg(oCanvas, 1) } ;
+   @ 3, 246 OWNERBUTTON oBtn OF oToolBar ON CLICK {||::ResizePreviewDlg(oCanvas, 1)} ;
       SIZE oToolBar:nWidth - 6, 24 TEXT "(+)" FONT oFont   ;
       TOOLTIP Iif(aTooltips != NIL, aTooltips[8], "Zoom in")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 8 .AND. aBitmaps[9] != NIL
@@ -1231,7 +1231,7 @@ METHOD PrintDlg(aTooltips) CLASS HPrinter
    TOOLTIP aTooltips[21]   // "Enter range of pages"
    oGet:Disable()
 
-   @  20, 150  BUTTON aTooltips[19] SIZE 80, 32 ON CLICK { ||oDlg:lResult := .T., hwg_EndDialog() }  // "Print"
+   @  20, 150  BUTTON aTooltips[19] SIZE 80, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}  // "Print"
    @ 120, 150  BUTTON aTooltips[20] ID IDCANCEL SIZE 80, 32   // "Cancel"
 
    ACTIVATE DIALOG oDlg

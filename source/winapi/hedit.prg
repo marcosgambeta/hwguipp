@@ -103,7 +103,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFon
          ::oParent:AddEvent(EN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})
       //ENDIF
       ::oParent:AddEvent(EN_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))})
-      ::bValid := { |o|__Valid(o) }
+      ::bValid := {|o|__Valid(o)}
    ELSE
       IF bGfocus != NIL
          ::oParent:AddEvent(EN_SETFOCUS, ::id, bGfocus)
@@ -412,7 +412,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bGfocus, bL
       ::bLostFocus := bLFocus
       ::oParent:AddEvent(EN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})
       ::oParent:AddEvent(EN_KILLFOCUS, ::id, {|o, id|__Valid(o:FindControl(id))})
-      ::bValid := { |o|__Valid(o) }
+      ::bValid := {|o|__Valid(o)}
    ELSE
       IF bGfocus != NIL
          ::oParent:AddEvent(EN_SETFOCUS, ::id, bGfocus)

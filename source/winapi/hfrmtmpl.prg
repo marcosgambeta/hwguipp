@@ -264,7 +264,7 @@ METHOD Show(nMode, p1, p2, p3) CLASS HFormTmpl
    LOCAL oIcon := NIL
    LOCAL cBitmap := NIL
    LOCAL oBmp := NIL
-   LOCAL bGetFo := { |o| HFormTmpl():oActive := o }
+   LOCAL bGetFo := {|o|HFormTmpl():oActive := o}
 
    // Not used variables
    // LOCAL lval := .F.
@@ -968,7 +968,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
             aParts[i] := Val(aParts[i])
          NEXT
       ENDIF
-      onInit := { |o|o:Move(NIL, NIL, o:nWidth - 1) }
+      onInit := {|o|o:Move(NIL, NIL, o:nWidth - 1)}
    ENDIF
   
    oCtrl := &stroka

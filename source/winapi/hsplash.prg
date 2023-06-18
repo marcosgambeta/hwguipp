@@ -63,7 +63,7 @@ METHOD Create(cFile, oTime, oResource) CLASS HSplash
 
    INIT DIALOG oDlg TITLE "" ;
         At 0, 0 SIZE aWidth, aHeigth  STYLE WS_POPUP + DS_CENTER + WS_VISIBLE + WS_DLGFRAME ;
-        BACKGROUND bitmap bitmap ON INIT { || ::CountSeconds(oTime, oDlg) }
+        BACKGROUND bitmap bitmap ON INIT {||::CountSeconds(oTime, oDlg)}
 
    oDlg:Activate()
    ::oTimer:END()
@@ -72,6 +72,6 @@ METHOD Create(cFile, oTime, oResource) CLASS HSplash
 
 METHOD CountSeconds(oTime, oDlg)
 
-   SET TIMER ::oTimer OF oDlg VALUE oTime  ACTION { || hwg_EndDialog(hwg_GetModalHandle()) }
+   SET TIMER ::oTimer OF oDlg VALUE oTime  ACTION {||hwg_EndDialog(hwg_GetModalHandle())}
 
    RETURN NIL

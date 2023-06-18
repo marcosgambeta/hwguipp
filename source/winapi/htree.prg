@@ -237,9 +237,9 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
    METHOD FindChild(h)
    METHOD GetSelected()   INLINE hwg_Treegetselected(::handle)
-   METHOD EditLabel(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle) }
-   METHOD Expand(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle) }
-   METHOD Select(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle) }
+   METHOD EditLabel(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle)}
+   METHOD Expand(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle)}
+   METHOD Select(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle)}
    METHOD Clean()
    METHOD Notify(lParam)
    METHOD END()

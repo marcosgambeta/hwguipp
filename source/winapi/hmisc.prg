@@ -505,7 +505,7 @@ FUNCTION hwg_MemoEdit(mpmemo, cTextTitME, cTextSave, cTextClose, cTTSave, cTTClo
    mvarbuff := mpmemo
    varbuf   := mpmemo
 
-   INIT DIALOG oModDlg title cTextTitME AT 0, 0 SIZE 400, 300 ON INIT { |o|o:center() }
+   INIT DIALOG oModDlg title cTextTitME AT 0, 0 SIZE 400, 300 ON INIT {|o|o:center()}
 
    IF oHCfont == NIL
     @ 10, 10 HCEDIT oEdit SIZE oModDlg:nWidth - 20, 240
@@ -515,9 +515,9 @@ FUNCTION hwg_MemoEdit(mpmemo, cTextTitME, cTextSave, cTextClose, cTTSave, cTTClo
    ENDIF
 
    @ 10, 252  ownerbutton owb2 TEXT cTextSave size 80, 24 ;
-      ON Click { || mvarbuff := oEdit, omoddlg:Close(), oModDlg:lResult := .T. } ;
+      ON Click {||mvarbuff := oEdit, omoddlg:Close(), oModDlg:lResult := .T.} ;
       TOOLTIP cTTSave
-   @ 100, 252 ownerbutton owb1 TEXT cTextClose size 80, 24 ON CLICK { ||oModDlg:close() } ;
+   @ 100, 252 ownerbutton owb1 TEXT cTextClose size 80, 24 ON CLICK {||oModDlg:close()} ;
       TOOLTIP cTTClose
 
    oEdit:SetText(mvarbuff)

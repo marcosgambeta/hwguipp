@@ -261,7 +261,7 @@ METHOD SetupTimer() CLASS HAlert
    AAdd(::anTimerIDs, nTimer)
 
    // Hopefully this won't clash - a nasty error to find if it does
-   // SET TIMER ::oTimer OF ::oDlg ID nTimer VALUE (::Time * 1000) ACTION { || Hwg_EndDialog(::oDlg:handle), ::RemoveTimer(nTimer) }
+   // SET TIMER ::oTimer OF ::oDlg ID nTimer VALUE (::Time * 1000) ACTION {||Hwg_EndDialog(::oDlg:handle), ::RemoveTimer(nTimer)}
    ::oTimer := HTimer():New(::oDlg, nTimer, (::Time * 1000), {||Hwg_EndDialog(::oDlg:handle), ::RemoveTimer(nTimer)}) //; ::oTimer:name := "::oTimer"
 
 RETURN NIL
@@ -322,9 +322,9 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
    // Minimum button
    nButtonWidth := nFontWidth * 15
    // Widest button (add two chars of padding)
-   aeval(acOptions, { |x| nButtonWidth := max(nButtonWidth, Hwg_GetTextSize(hDC, x)[1] + 2 * nFontWidth) })
+   aeval(acOptions, {|x|nButtonWidth := max(nButtonWidth, Hwg_GetTextSize(hDC, x)[1] + 2 * nFontWidth)})
    // Widest line of text
-   aeval(aMessage := StringToArray(cMessage, chr(10)), { |x| nMessageWidth := max(nMessageWidth, Hwg_GetTextSize(hDC, x)[1] + 2 * nFontWidth) })
+   aeval(aMessage := StringToArray(cMessage, chr(10)), {|x|nMessageWidth := max(nMessageWidth, Hwg_GetTextSize(hDC, x)[1] + 2 * nFontWidth)})
    // Height of text
    nMessageHeight := len(aMessage) * nFontHeight
 
@@ -352,8 +352,8 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
       ICON Iif(::lTitleIcon, ::oIcon, NIL) ;        // Visible in task switch (alt-tab) & on title bar
       STYLE ALERTSTYLE ;
       FONT ::oFont ;
-      ON INIT { |oWin| Hwg_Alert_CenterWindow(oWin:handle), Iif(!::lCloseButton, hwg_Alert_DisableCloseButton(oWin:handle), ), Iif(::Time > 0, ::SetupTimer(), ) } ;
-      ON EXIT { |oWin| HB_SYMBOL_UNUSED(oWin), Iif(!::Modal, ::ReleaseNonModalAlert(.F.), .T.) }
+      ON INIT {|oWin|Hwg_Alert_CenterWindow(oWin:handle), Iif(!::lCloseButton, hwg_Alert_DisableCloseButton(oWin:handle), NIL), Iif(::Time > 0, ::SetupTimer(), NIL)} ;
+      ON EXIT {|oWin|HB_SYMBOL_UNUSED(oWin), Iif(!::Modal, ::ReleaseNonModalAlert(.F.), .T.)}
 
    @ 2 * nFontWidth, nFontHeight ICON ::oIcon
 
@@ -362,12 +362,12 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
    IF nOptions > 0
       @ nButtonLeft, nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
          BUTTON acOptions[1] ID 100 SIZE nButtonWidth, 1.7 * nFontHeight ;
-         ON CLICK { |oCtl| HB_SYMBOL_UNUSED(oCtl), ::nChoice := 1, Iif(::OptionActions != NIL, eval(::OptionActions[1] ), ), Hwg_EndDialog(::oDlg:handle) } ;
+         ON CLICK {|oCtl|HB_SYMBOL_UNUSED(oCtl), ::nChoice := 1, Iif(::OptionActions != NIL, eval(::OptionActions[1]), NIL), Hwg_EndDialog(::oDlg:handle)} ;
          STYLE WS_TABSTOP + BS_DEFPUSHBUTTON
       FOR i := 2 TO nOptions
          @ nButtonLeft + (i - 1) * (nButtonWidth + nFontWidth), nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
             BUTTON acOptions[i] ID i + 100 SIZE nButtonWidth, 1.7 * nFontHeight ;
-            ON CLICK { |oCtl| ::nChoice := oCtl:id - 100, Iif(::OptionActions != NIL, eval(::OptionActions[oCtl:id - 100]), ), Hwg_EndDialog(::oDlg:handle) } ;
+            ON CLICK {|oCtl|::nChoice := oCtl:id - 100, Iif(::OptionActions != NIL, eval(::OptionActions[oCtl:id - 100]), NIL), Hwg_EndDialog(::oDlg:handle)} ;
             STYLE WS_TABSTOP
       NEXT
    ENDIF

@@ -175,20 +175,16 @@ METHOD EndPage() CLASS HTab
    ::oDefaultParent := ::oTemp
    ::oTemp := NIL
 
-   ::bChange = { |o, n|o:ChangePage(n) }
+   ::bChange = {|o, n|o:ChangePage(n)}
 
    RETURN NIL
 
 METHOD ChangePage(nPage) CLASS HTab
 
    IF !Empty(::aPages)
-
       ::HidePage(::nActive)
-
       ::nActive := nPage
-
       ::ShowPage(::nActive)
-
    ENDIF
 
    IF HB_ISBLOCK(::bChange2)

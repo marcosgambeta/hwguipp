@@ -15,10 +15,10 @@ CLASS HBrwflt INHERIT HBrowse
 
    DATA lDescend INIT .F.              // Descend Order?
    DATA lFilter INIT .F.               // Filtered? (atribuition is automatic in method "New()").
-   DATA bFirst INIT { || DBGOTOP() }     // Block to place pointer in first record of condition filter. (Ex.: DbGoTop(), DbSeek(), etc.).
-   DATA bLast  INIT { || dbGoBottom() }  // Block to place pointer in last record of condition filter. (Ex.: DbGoBottom(), DbSeek(), etc.).
-   DATA bWhile INIT { || .T. }           // Clausule "while". Return logical.
-   DATA bFor INIT { || .T. }             // Clausule "for". Return logical.
+   DATA bFirst INIT {||DBGOTOP()}     // Block to place pointer in first record of condition filter. (Ex.: DbGoTop(), DbSeek(), etc.).
+   DATA bLast  INIT {||dbGoBottom()}  // Block to place pointer in last record of condition filter. (Ex.: DbGoBottom(), DbSeek(), etc.).
+   DATA bWhile INIT {||.T.}           // Clausule "while". Return logical.
+   DATA bFor INIT {||.T.}             // Clausule "for". Return logical.
    DATA nLastRecordFilter INIT 0       // Save the last record of filter.
    DATA nFirstRecordFilter INIT 0      // Save the first record of filter.
 
@@ -68,21 +68,21 @@ METHOD InitBrw()  CLASS HBrwFlt
    IF ::lFilter
       ::nLastRecordFilter  := ::nFirstRecordFilter := 0
       IF ::lDescend
-         ::bSkip     := { |o, n| (::alias) -> ( FltSkip(o, n, .T.) ) }
-         ::bGoTop    := { |o| (::alias) -> ( FltGoBottom(o) ) }
-         ::bGoBot    := { |o| (::alias) -> ( FltGoTop(o) ) }
-         ::bEof      := { |o| (::alias) -> ( FltBOF(o) ) }
-         ::bBof      := { |o| (::alias) -> ( FltEOF(o) ) }
+         ::bSkip     := {|o, n|(::alias)->(FltSkip(o, n, .T.))}
+         ::bGoTop    := {|o|(::alias)->(FltGoBottom(o))}
+         ::bGoBot    := {|o|(::alias)->(FltGoTop(o))}
+         ::bEof      := {|o|(::alias)->(FltBOF(o))}
+         ::bBof      := {|o|(::alias)->(FltEOF(o))}
       ELSE
-         ::bSkip     := { |o, n| (::alias) -> ( FltSkip(o, n, .F.) ) }
-         ::bGoTop    := { |o| (::alias) -> ( FltGoTop(o) ) }
-         ::bGoBot    := { |o| (::alias) -> ( FltGoBottom(o) ) }
-         ::bEof      := { |o| (::alias) -> ( FltEOF(o) ) }
-         ::bBof      := { |o| (::alias) -> ( FltBOF(o) ) }
+         ::bSkip     := {|o, n|(::alias)->(FltSkip(o, n, .F.))}
+         ::bGoTop    := {|o|(::alias)->(FltGoTop(o))}
+         ::bGoBot    := {|o|(::alias)->(FltGoBottom(o))}
+         ::bEof      := {|o|(::alias)->(FltEOF(o))}
+         ::bBof      := {|o|(::alias)->(FltBOF(o))}
       ENDIF
-      ::bRcou     := { |o| (::alias) -> ( FltRecCount(o) ) }
-      ::bRecnoLog := ::bRecno := { |o| (::alias) -> ( FltRecNo(o) ) }
-      ::bGoTo     := { |o, n|(::alias) -> ( FltGoTo(o, n) ) }
+      ::bRcou     := {|o|(::alias)->(FltRecCount(o))}
+      ::bRecnoLog := ::bRecno := {|o|(::alias)->(FltRecNo(o))}
+      ::bGoTo     := {|o, n|(::alias)->(FltGoTo(o, n))}
    ENDIF
 
    RETURN NIL

@@ -70,7 +70,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aIte
          ::oParent:AddEvent(LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))})
       ENDIF
       ::oParent:AddEvent(LBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))})
-      ::bValid := { | o | ::Valid(o) }
+      ::bValid := {|o|::Valid(o)}
    ELSE
       IF bGFocus != NIL
          ::oParent:AddEvent(LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))})

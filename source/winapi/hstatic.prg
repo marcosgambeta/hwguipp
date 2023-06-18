@@ -40,7 +40,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
       ::extStyle += WS_EX_TRANSPARENT
       ::nStyleDraw := iif(Empty(nStyle), 0, nStyle)
       nStyle := SS_OWNERDRAW
-      bPaint := { |o, p| o:paint(p) }
+      bPaint := {|o, p|o:paint(p)}
    ENDIF
 
    // Enabling style for tooltips

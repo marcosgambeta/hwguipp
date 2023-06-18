@@ -36,7 +36,7 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor)
 
-   ::bPaint := { | o, lpdis | o:Paint(lpdis) }
+   ::bPaint := {|o, lpdis|o:Paint(lpdis)}
    ::lTransp := Iif(lTransp = NIL, .F., lTransp)
    ::nStretch := Iif(nStretch = NIL, 0, nStretch)
    ::trcolor := Iif(trcolor = NIL, NIL, trcolor)
@@ -62,7 +62,7 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
 METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) CLASS HSayBmp
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
-   ::bPaint := { | o, lpdis | o:Paint(lpdis) }
+   ::bPaint := {|o, lpdis|o:Paint(lpdis)}
    ::lTransp := iif(lTransp = NIL, .F., lTransp)
    ::nBorder := 0
    ::tColor := 0
