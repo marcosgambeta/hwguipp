@@ -379,7 +379,7 @@ METHOD InitCode39(lCheck) CLASS BarCode
       m    := At(cCar, cCars)
       IF n > 0 // TODO: verificar
          cBarra := cBarra + aBarras[m]
-         nCheck += ( m - 1 )
+         nCheck += (m - 1)
       END
    NEXT
 
@@ -511,7 +511,7 @@ METHOD InitCode128(cMode) CLASS BarCode
          ENDIF
       ENDIF
 
-      nSum += ( nCar - 1 ) * nCount
+      nSum += (nCar - 1) * nCount
       cTemp := cTemp + aCode[nCar]
 
    NEXT
@@ -565,7 +565,7 @@ METHOD InitEAN13() CLASS BarCode
       s2 := s2 + Val(SubStr(k, (n * 2), 1))
    NEXT
 
-   control := ( s2 * 3 ) + s1
+   control := (s2 * 3) + s1
    l := 10
    DO WHILE control > l
       l := l + 10
@@ -641,7 +641,7 @@ METHOD InitUPC(nLen) CLASS BarCode
       s2 := s2 + Val(SubStr(k, n + 1, 1))
    NEXT
 
-   control := ( s1 * 3 ) + s2
+   control := (s1 * 3) + s2
    l := 10
    DO WHILE control > l
       l := l + 10
@@ -710,7 +710,7 @@ METHOD InitCodabar() CLASS BarCode
    LOCAL cCode := Upper(::cText)
 
    FOR n := 1 TO Len(cCode)
-      IF ( nCar := At(SubStr(cCode, n, 1), cChar) ) > 0
+      IF (nCar := At(SubStr(cCode, n, 1), cChar)) > 0
          cBarra += abar[nCar]
       ENDIF
    NEXT
@@ -822,7 +822,7 @@ METHOD InitInterleave25(lMode) CLASS BarCode
    DEFAULT lMode := .F.
 
    nLen   := Len(cCode)
-   IF ( nLen % 2 = 1 .AND. !lMode )
+   IF (nLen % 2 = 1 .AND. !lMode)
       nLen++
       cCode += "0"
    ENDIF
