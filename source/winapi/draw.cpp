@@ -1260,7 +1260,7 @@ HB_FUNC( HWG_MODIFYSTYLE )
    DWORD dwStyle = GetWindowLongPtr(static_cast<HWND>(hWnd), GWL_STYLE);
    DWORD a = hb_parnl(2);
    DWORD b = hb_parnl(3);
-   DWORD dwNewStyle = ( dwStyle & ~a ) | b;
+   DWORD dwNewStyle = (dwStyle & ~a) | b;
    SetWindowLongPtr(hWnd, GWL_STYLE, dwNewStyle);
 }
 
@@ -1322,34 +1322,39 @@ HB_FUNC( HWG_DRAWGRADIENT )
    int convert[4][2] = {{-1, 1}, {1, 1}, {1, -1}, {-1, -1}};
    long x, y;
 
-   if( !pArrColor || ( user_colors_num = hb_arrayLen(pArrColor) ) == 0 ) {
+   if( !pArrColor || (user_colors_num = hb_arrayLen(pArrColor)) == 0 ) {
       return;
    }
 
    if( user_colors_num >= 2 ) {
-      colors_num = ( user_colors_num <= GRADIENT_MAX_COLORS ) ? user_colors_num : GRADIENT_MAX_COLORS;
-      user_stops_num = ( pArrStop ) ? hb_arrayLen(pArrStop) : 0;
+      colors_num = (user_colors_num <= GRADIENT_MAX_COLORS) ? user_colors_num : GRADIENT_MAX_COLORS;
+      user_stops_num = pArrStop ? hb_arrayLen(pArrStop) : 0;
 
-      type = ( type >= 1 && type <= 9 ) ? type : 1;
-      if( type == 1 || type == 2 ) {
-         isV = 1;
+      type = (type >= 1 && type <= 9) ? type : 1;
+      switch( type ) {
+         case 1:
+         case 2:
+            isV = 1;
+            break;
+         case 3:
+         case 4:
+            isH = 1;
+            break;
+         case 5:
+         case 6:
+         case 7:
+         case 8:
+            isD = 1;
+            break;
+         case 9:
+            isR = 1;
+            x_center = (x2 - x1) / 2 + x1;
+            y_center = (y2 - y1) / 2 + y1;
+            gr_radius = sqrt(pow(static_cast<long double>(x2 - x1), 2) + pow(static_cast<long double>(y2 - y1), 2)) / 2;
       }
-      if( type == 3 || type == 4 ) {
-         isH = 1;
-      }
-      if( type >= 5 && type <= 8 ) {
-         isD = 1;
-      }
-      if( type == 9 ) {
-         isR = 1;
-         x_center = (x2 - x1) / 2 + x1;
-         y_center = (y2 - y1) / 2 + y1;
-         gr_radius = sqrt(pow(static_cast<long double>(x2 - x1), 2) + pow(static_cast<long double>(y2 - y1), 2)) / 2;
-      }
-
       // calculate stops and colors for our gradient
       for( int i = 0; i < colors_num; i++ ) {
-         stop = ( i < user_stops_num ) ? hb_arrayGetND(pArrStop, i+1) : 1. / (colors_num-1) * i;
+         stop = (i < user_stops_num) ? hb_arrayGetND(pArrStop, i+1) : 1. / (colors_num-1) * i;
          if( isV ) {
             coord_stop = floor(stop * (y2 - y1 + 1) + 0.5);
             if( type == 1 ) {
@@ -1379,7 +1384,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
          }
 
          color = hb_arrayGetNL(pArrColor, i+1);
-         index = ( type == 2 || type == 4 || type == 6 || type == 8 ) ? colors_num-1-i : i;
+         index = (type == 2 || type == 4 || type == 6 || type == 8) ? colors_num-1-i : i;
          red[index]   = color % 256;
          green[index] = color / 256 % 256;
          blue[index]  = color / 256 / 256 % 256;
@@ -1401,25 +1406,25 @@ HB_FUNC( HWG_DRAWGRADIENT )
          // 2. Array of GRADIENT_RECT structures that
          // reference the TRIVERTEX vertices.
          for( int i = 1; i < colors_num; i++ ) {
-            vertex[(i-1)*2].x     = ( isH ) ? stop_x[i-1] : x1;
-            vertex[(i-1)*2].y     = ( isV ) ? stop_y[i-1] : y1;
-            vertex[(i-1)*2].Red   = (COLOR16) (red[i-1] * 256);
-            vertex[(i-1)*2].Green = (COLOR16) (green[i-1] * 256);
-            vertex[(i-1)*2].Blue  = (COLOR16) (blue[i-1] * 256);
+            vertex[(i-1)*2].x     = isH ? stop_x[i-1] : x1;
+            vertex[(i-1)*2].y     = isV ? stop_y[i-1] : y1;
+            vertex[(i-1)*2].Red   = static_cast<COLOR16>(red[i-1] * 256);
+            vertex[(i-1)*2].Green = static_cast<COLOR16>(green[i-1] * 256);
+            vertex[(i-1)*2].Blue  = static_cast<COLOR16>(blue[i-1] * 256);
             vertex[(i-1)*2].Alpha = 0x0000;
 
-            vertex[(i-1)*2+1].x     = ( isH ) ? stop_x[i] : x2 + 1;
-            vertex[(i-1)*2+1].y     = ( isV ) ? stop_y[i] : y2 + 1;
-            vertex[(i-1)*2+1].Red   = (COLOR16) (red[i] * 256);
-            vertex[(i-1)*2+1].Green = (COLOR16) (green[i] * 256);
-            vertex[(i-1)*2+1].Blue  = (COLOR16) (blue[i] * 256);
+            vertex[(i-1)*2+1].x     = isH ? stop_x[i] : x2 + 1;
+            vertex[(i-1)*2+1].y     = isV ? stop_y[i] : y2 + 1;
+            vertex[(i-1)*2+1].Red   = static_cast<COLOR16>(red[i] * 256);
+            vertex[(i-1)*2+1].Green = static_cast<COLOR16>(green[i] * 256);
+            vertex[(i-1)*2+1].Blue  = static_cast<COLOR16>(blue[i] * 256);
             vertex[(i-1)*2+1].Alpha = 0x0000;
 
             gRect[i-1].UpperLeft  = (i-1)*2;
             gRect[i-1].LowerRight = (i-1)*2+1;
          }
 
-         fill_type = ( isV ) ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H;
+         fill_type = isV ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H;
 
          // drawing gradient on the bitmap in the memory device context
          GradientFill(hDC_mem, vertex, (colors_num - 1) * 2, gRect, (colors_num - 1), fill_type);
@@ -1440,7 +1445,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
             DeleteObject(hPen);
             DeleteObject(hBrush);
          }
-         if( ( isV && stop_y[colors_num-1] < y2 + 1 ) || ( isH && stop_x[colors_num-1] < x2 + 1 ) ) {
+         if( (isV && stop_y[colors_num-1] < y2 + 1) || (isH && stop_x[colors_num-1] < x2 + 1) ) {
             hPen = CreatePen(PS_SOLID, 1, RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]));
             hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
             hBrush = CreateSolidBrush(RGB(red[colors_num-1], green[colors_num-1], blue[colors_num-1]));
@@ -1469,9 +1474,9 @@ HB_FUNC( HWG_DRAWGRADIENT )
 
          for( int i = 1; i < colors_num; i++ ) {
             section_len = stop_x[i] - stop_x[i-1];
-            red_step = (double)( red[i] - red[i-1] ) / section_len;
-            green_step = (double)( green[i] - green[i-1] ) / section_len;
-            blue_step = (double)( blue[i] - blue[i-1] ) / section_len;
+            red_step = static_cast<double>(red[i] - red[i-1]) / section_len;
+            green_step = static_cast<double>(green[i] - green[i-1]) / section_len;
+            blue_step = static_cast<double>(blue[i] - blue[i-1]) / section_len;
             for( j = stop_x[i-1], k = 0; j <= stop_x[i]; j++, k++ ) {
                cur_red = floor(red[i-1] + k * red_step + 0.5);
                cur_green = floor(green[i-1] + k * green_step + 0.5);
@@ -1497,13 +1502,13 @@ HB_FUNC( HWG_DRAWGRADIENT )
             SelectObject(hDC_mem, hBrush);
 
             edge[0].x = x1;
-            edge[0].y = ( is_5_6 ) ? y2 : y1;
+            edge[0].y = is_5_6 ? y2 : y1;
             edge[1].x = stop_x[0] + x2 - x1;
-            edge[1].y = ( is_5_6 ) ? y2 : y1;
+            edge[1].y = is_5_6 ? y2 : y1;
             edge[2].x = stop_x[0] - 1;
-            edge[2].y = ( is_5_6 ) ? y1 : y2;
+            edge[2].y = is_5_6 ? y1 : y2;
             edge[3].x = 2*x1 - x2 - 1;
-            edge[3].y = ( is_5_6 ) ? y1 : y2;
+            edge[3].y = is_5_6 ? y1 : y2;
 
             Polygon(hDC_mem, edge, 4);
 
@@ -1518,13 +1523,13 @@ HB_FUNC( HWG_DRAWGRADIENT )
             SelectObject(hDC_mem, hBrush);
 
             edge[0].x = x2;
-            edge[0].y = ( is_5_6 ) ? y1 : y2;
+            edge[0].y = is_5_6 ? y1 : y2;
             edge[1].x = stop_x[colors_num-1] + 1;
-            edge[1].y = ( is_5_6 ) ? y1 : y2;
+            edge[1].y = is_5_6 ? y1 : y2;
             edge[2].x = stop_x[colors_num-1] + x2 - x1 + 2;
-            edge[2].y = ( is_5_6 ) ? y2 : y1;
+            edge[2].y = is_5_6 ? y2 : y1;
             edge[3].x = 2*x2 - x1 + 1;
-            edge[3].y = ( is_5_6 ) ? y2 : y1;
+            edge[3].y = is_5_6 ? y2 : y1;
 
             Polygon(hDC_mem, edge, 4);
 
@@ -1556,9 +1561,9 @@ HB_FUNC( HWG_DRAWGRADIENT )
 
          for( int i = colors_num-1; i > 0; i-- ) {
             section_len = stop_x[i] - stop_x[i-1];
-            red_step = (double)( red[i-1] - red[i] ) / section_len;
-            green_step = (double)( green[i-1] - green[i] ) / section_len;
-            blue_step = (double)( blue[i-1] - blue[i] ) / section_len;
+            red_step = static_cast<double>(red[i-1] - red[i]) / section_len;
+            green_step = static_cast<double>(green[i-1] - green[i]) / section_len;
+            blue_step = static_cast<double>(blue[i-1] - blue[i]) / section_len;
             for( j = stop_x[i], k = 0; j >= stop_x[i-1]; j--, k++ ) {
                cur_red = floor(red[i] + k * red_step + 0.5);
                cur_green = floor(green[i] + k * green_step + 0.5);
@@ -1582,10 +1587,10 @@ HB_FUNC( HWG_DRAWGRADIENT )
 
    // We draw polygon that looks like rectangle with rounded corners.
    // WinAPI allows to fill this figure with brush.
-   user_radiuses_num = ( pArrRadius ) ? hb_arrayLen(pArrRadius) : 0;
+   user_radiuses_num = pArrRadius ? hb_arrayLen(pArrRadius) : 0;
    for( int i = 0; i < 4; i++ ) {
-      radius[i] = ( i < user_radiuses_num ) ? hb_arrayGetNI(pArrRadius, i+1) : 0;
-      radius[i] = ( radius[i] >= 0 ) ? radius[i] : 0;
+      radius[i] = (i < user_radiuses_num) ? hb_arrayGetNI(pArrRadius, i+1) : 0;
+      radius[i] = (radius[i] >= 0) ? radius[i] : 0;
    }
 
    center[0].x = x1 + radius[0];
@@ -1650,9 +1655,9 @@ HB_FUNC( HWG_DRAWGRADIENT )
             }
          }
 
-         cycle_start = ( i%2 == 0 ) ? SECTORS_NUM : 0;
-         cycle_stop = ( i%2 == 0 ) ? -1 : SECTORS_NUM + 1;
-         cycle_step = ( i%2 == 0 ) ? -1 : 1;
+         cycle_start = (i%2 == 0) ? SECTORS_NUM : 0;
+         cycle_stop = (i%2 == 0) ? -1 : SECTORS_NUM + 1;
+         cycle_step = (i%2 == 0) ? -1 : 1;
          for( j = cycle_start; j != cycle_stop; j += cycle_step ) {
             x = convert[i][0] * coords[j].x + center[i].x;
             y = convert[i][1] * coords[j].y + center[i].y;
