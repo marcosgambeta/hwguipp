@@ -133,21 +133,21 @@ typedef struct
 #define WS_HSCROLL     1048576     // 0x00100000L
 #define WS_BORDER      8388608
 
-extern void hwg_setcolor( cairo_t * cr, long int nColor );
+extern void hwg_setcolor(cairo_t * cr, long int nColor);
 extern PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 extern void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue);
-extern void SetWindowObject( GtkWidget * hWnd, PHB_ITEM pObject );
+extern void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject);
 extern void set_signal(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3);
 extern void set_event(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3);
-extern void cb_signal( GtkWidget * widget, gchar * data );
-extern void all_signal_connect( gpointer hWnd );
-extern gint cb_signal_size( GtkWidget *widget, GtkAllocation *allocation, gpointer data );
-extern GtkFixed *getFixedBox( GObject * handle );
-extern void hwg_gtk_drawedge( PHWGUI_HDC hDC, int left, int top, int right, int bottom, unsigned int iType );
+extern void cb_signal(GtkWidget * widget, gchar * data);
+extern void all_signal_connect(gpointer hWnd);
+extern gint cb_signal_size(GtkWidget *widget, GtkAllocation *allocation, gpointer data);
+extern GtkFixed *getFixedBox(GObject * handle);
+extern void hwg_gtk_drawedge(PHWGUI_HDC hDC, int left, int top, int right, int bottom, unsigned int iType);
 
 gchar * szDelimiters = " .,-";
 
-void wrlog( const char * sFile, const char * sTraceMsg, ... )
+void wrlog(const char * sFile, const char * sTraceMsg, ...)
 {
    FILE *hFile;
 
@@ -160,27 +160,27 @@ void wrlog( const char * sFile, const char * sTraceMsg, ... )
    if( hFile ) {
       va_list ap;
 
-      va_start( ap, sTraceMsg );
-      vfprintf( hFile, sTraceMsg, ap );
-      va_end( ap );
+      va_start(ap, sTraceMsg);
+      vfprintf(hFile, sTraceMsg, ap);
+      va_end(ap);
 
       fclose(hFile);
    }
 
 }
 
-int hced_utf8bytes( char * szText, int iLen )
+int hced_utf8bytes(char * szText, int iLen)
 {
    char * ptr = szText;
 
    while( iLen -- && *ptr ) {
-      ptr = g_utf8_next_char( ptr );
+      ptr = g_utf8_next_char(ptr);
    }   
 
-   return ( ptr - szText );
+   return (ptr - szText);
 }
 
-TEDFONT * ted_setfont( TEDIT * pted, PHWGUI_FONT hwg_font, int iNum, HB_BOOL bPrn )
+TEDFONT * ted_setfont(TEDIT * pted, PHWGUI_FONT hwg_font, int iNum, HB_BOOL bPrn)
 {
    TEDFONT * pFont;
 
@@ -190,11 +190,11 @@ TEDFONT * ted_setfont( TEDIT * pted, PHWGUI_FONT hwg_font, int iNum, HB_BOOL bPr
    }
    if( iNum >= pted->iFonts ) {
       pted->iFonts += NUMBER_OF_FONTS;
-      pted->pFontsScr = hb_xrealloc( pted->pFontsScr, sizeof( TEDFONT ) * pted->iFonts );
-      pted->pFontsPrn = hb_xrealloc( pted->pFontsPrn, sizeof( TEDFONT ) * pted->iFonts );
+      pted->pFontsScr = hb_xrealloc(pted->pFontsScr, sizeof(TEDFONT) * pted->iFonts);
+      pted->pFontsPrn = hb_xrealloc(pted->pFontsPrn, sizeof(TEDFONT) * pted->iFonts);
    }
 
-   pFont = ( (bPrn)? pted->pFontsPrn : pted->pFontsScr ) + iNum;
+   pFont = (bPrn ? pted->pFontsPrn : pted->pFontsScr) + iNum;
 
    pFont->iWidth = 0;
    pFont->hwg_font = hwg_font;
@@ -207,29 +207,28 @@ TEDFONT * ted_setfont( TEDIT * pted, PHWGUI_FONT hwg_font, int iNum, HB_BOOL bPr
  * writes to the 4 parameter (iRealLen) the width in chars
  */
 
-int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *iRealLen,
-      int iWidth, HB_BOOL bWrap, HB_BOOL bLastInFew )
+int ted_CalcItemWidth(PangoLayout * layout, char *szText, TEDFONT *font, int *iRealLen, int iWidth, HB_BOOL bWrap, HB_BOOL bLastInFew)
 {
    int i, i1, iReal, xpos, iTextWidth, iDLen = strlen(szDelimiters);
    PangoRectangle rc;
    gchar * ptr;
 
-   pango_layout_set_font_description( layout, font->hwg_font->hFont );
+   pango_layout_set_font_description(layout, font->hwg_font->hFont);
 
    if( !font->iWidth ) {
-      pango_layout_set_text( layout, "aA", 2 );
-      pango_layout_get_pixel_extents( layout, &rc, nullptr );
+      pango_layout_set_text(layout, "aA", 2);
+      pango_layout_get_pixel_extents(layout, &rc, nullptr);
       font->iWidth = rc.width / 2;
-      font->iHeight = PANGO_DESCENT( rc );
+      font->iHeight = PANGO_DESCENT(rc);
 
-      pango_layout_set_text( layout, "a", 1 );
-      pango_layout_get_pixel_extents( layout, &rc, nullptr );
+      pango_layout_set_text(layout, "a", 1);
+      pango_layout_get_pixel_extents(layout, &rc, nullptr);
       font->ixAdd = PANGO_LBEARING(rc);
       font->iSpace = PANGO_RBEARING(rc);
-      //wrlog( nullptr, "a lBear = %d rBear= %d width= %d\r\n",PANGO_LBEARING(rc),PANGO_RBEARING(rc), rc.width );
+      //wrlog(nullptr, "a lBear = %d rBear= %d width= %d\r\n",PANGO_LBEARING(rc),PANGO_RBEARING(rc), rc.width);
 
-      pango_layout_set_text( layout, "  a", 3 );
-      pango_layout_get_pixel_extents( layout, &rc, nullptr );
+      pango_layout_set_text(layout, "  a", 3);
+      pango_layout_get_pixel_extents(layout, &rc, nullptr);
       font->iSpace = (PANGO_RBEARING(rc) - font->iSpace)/2;
    }
 
@@ -238,17 +237,17 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
       iReal = *iRealLen;
    }
    
-   pango_layout_set_text( layout, szText, hced_utf8bytes( szText, iReal ) );
-   pango_layout_get_pixel_extents( layout, &rc, nullptr );
+   pango_layout_set_text(layout, szText, hced_utf8bytes(szText, iReal));
+   pango_layout_get_pixel_extents(layout, &rc, nullptr);
    iTextWidth = PANGO_RBEARING(rc) + font->ixAdd;
 
    if( iTextWidth > iWidth ) {
       for( i = iReal - 1; i > 0; i-- ) {
          if( bWrap ) {
-            ptr = g_utf8_offset_to_pointer( szText, i );
+            ptr = g_utf8_offset_to_pointer(szText, i);
             i1 = i;
             while( i > 0 && !g_utf8_strchr(szDelimiters, iDLen, g_utf8_get_char(ptr)) ) {
-               ptr = g_utf8_prev_char( ptr );
+               ptr = g_utf8_prev_char(ptr);
                i --;
             }
             if( !i && !bLastInFew ) { //if( !i )
@@ -256,8 +255,8 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
                break;
             }
          }
-         pango_layout_set_text( layout, szText, hced_utf8bytes( szText, i ) );
-         pango_layout_get_pixel_extents( layout, &rc, nullptr );
+         pango_layout_set_text(layout, szText, hced_utf8bytes(szText, i));
+         pango_layout_get_pixel_extents(layout, &rc, nullptr);
          iTextWidth = PANGO_RBEARING(rc) + font->ixAdd;
          if( iTextWidth <= iWidth ) {
             break;
@@ -271,7 +270,7 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
 
       if( bWrap && iReal < *iRealLen ) {
          i = i1;
-         ptr = g_utf8_offset_to_pointer( szText, i );
+         ptr = g_utf8_offset_to_pointer(szText, i);
          while( i && !g_utf8_strchr(szDelimiters, iDLen, g_utf8_get_char(ptr)) &&
                !g_utf8_strchr(szDelimiters, iDLen, g_utf8_get_char(ptr = g_utf8_prev_char(ptr))) ) {
             i --;
@@ -279,18 +278,18 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
          if( i || bLastInFew ) {
          //if( i )
             i1 = i;
-         }   
+         }
       }
       for( i = iReal + 1; i <= *iRealLen; i++ ) {
          if( bWrap ) {
-            ptr = g_utf8_offset_to_pointer( szText, i );
+            ptr = g_utf8_offset_to_pointer(szText, i);
             while( i < *iRealLen && !g_utf8_strchr(szDelimiters,iDLen,g_utf8_get_char(ptr)) ) {
                i ++;
-               ptr = g_utf8_next_char( ptr );
+               ptr = g_utf8_next_char(ptr);
             }
          }
-         pango_layout_set_text( layout, szText, hced_utf8bytes( szText, i ) );
-         pango_layout_get_pixel_extents( layout, &rc, nullptr );
+         pango_layout_set_text(layout, szText, hced_utf8bytes(szText, i));
+         pango_layout_get_pixel_extents(layout, &rc, nullptr);
          iTextWidth = PANGO_RBEARING(rc) + font->ixAdd;
          if( iTextWidth > iWidth ) {
             break;
@@ -305,7 +304,7 @@ int ted_CalcItemWidth( PangoLayout * layout, char *szText, TEDFONT *font, int *i
    return xpos;
 }
 
-int ted_CalcLineWidth( TEDIT * pted, char *szText, int iLen, int iWidth, int * iRealWidth, short int bWrap )
+int ted_CalcLineWidth(TEDIT * pted, char *szText, int iLen, int iWidth, int * iRealWidth, short int bWrap)
 {
    TEDATTR *pattr = pted->pattr;
    int i, lasti, iReqLen, iRealLen, iPrinted = 0;
@@ -313,16 +312,16 @@ int ted_CalcLineWidth( TEDIT * pted, char *szText, int iLen, int iWidth, int * i
 
    *iRealWidth = 0;
    for( i = 0, lasti = 0; i <= iLen; i++ ) {
-      if( i == iLen || ( pattr + i )->iFont != ( pattr + lasti )->iFont ) {
+      if( i == iLen || (pattr + i)->iFont != (pattr + lasti)->iFont ) {
          iReqLen = i - lasti;
-         ptr = szText + hced_utf8bytes( szText, lasti );
+         ptr = szText + hced_utf8bytes(szText, lasti);
          while( ptr > szText && *(g_utf8_prev_char(ptr)) == ' ' ) {
             ptr --; iReqLen ++;
          }
          iRealLen = iReqLen;
-         *iRealWidth += ted_CalcItemWidth( pted->hDCScr->layout, ptr,
+         *iRealWidth += ted_CalcItemWidth(pted->hDCScr->layout, ptr,
                pted->pFontsScr + (pattr + lasti)->iFont, &iRealLen,
-               iWidth - *iRealWidth, pted->bWrap, lasti );
+               iWidth - *iRealWidth, pted->bWrap, lasti);
 
          iPrinted += iRealLen;
          if( iRealLen < iReqLen ) {
@@ -335,25 +334,24 @@ int ted_CalcLineWidth( TEDIT * pted, char *szText, int iLen, int iWidth, int * i
    return iPrinted;
 }
 
-int ted_TextOut( TEDIT * pted, int xpos, int ypos, int iHeight,
-      int iMaxAscent, char *szText, TEDATTR * pattr, int iLen )
+int ted_TextOut(TEDIT * pted, int xpos, int ypos, int iHeight, int iMaxAscent, char *szText, TEDATTR * pattr, int iLen)
 {
    PangoRectangle rc;
    long fg, bg;
    PHWGUI_HDC hDC = (pted->hDCPrn)? pted->hDCPrn : pted->hDCScr;
-   TEDFONT *font = ( (pted->hDCPrn)? pted->pFontsPrn : pted->pFontsScr ) + pattr->iFont;
+   TEDFONT *font = (pted->hDCPrn ? pted->pFontsPrn : pted->pFontsScr) + pattr->iFont;
    int iWidth;
 
    hDC->hFont = font->hwg_font->hFont;
-   pango_layout_set_font_description( hDC->layout, hDC->hFont );
+   pango_layout_set_font_description(hDC->layout, hDC->hFont);
    if( font->hwg_font->attrs ) {
-      pango_layout_set_attributes( hDC->layout, font->hwg_font->attrs );
+      pango_layout_set_attributes(hDC->layout, font->hwg_font->attrs);
    } else {
-      pango_layout_set_attributes( hDC->layout, nullptr );
+      pango_layout_set_attributes(hDC->layout, nullptr);
    }
 
-   fg = ( pattr->fg == pattr->bg )? pted->fg : pattr->fg;
-   bg = ( pattr->fg == pattr->bg )? pted->bg : pattr->bg;
+   fg = (pattr->fg == pattr->bg) ? pted->fg : pattr->fg;
+   bg = (pattr->fg == pattr->bg) ? pted->bg : pattr->bg;
    if( fg != pted->fg_curr ) {
       hDC->fcolor = fg;
       pted->fg_curr = fg;
@@ -364,61 +362,60 @@ int ted_TextOut( TEDIT * pted, int xpos, int ypos, int iHeight,
    }
 
    /* get size of text */
-   pango_layout_set_text( hDC->layout, szText, hced_utf8bytes( szText, iLen ) );
+   pango_layout_set_text(hDC->layout, szText, hced_utf8bytes(szText, iLen));
    /* Wrap mode off */
-   pango_layout_set_width( hDC->layout, -1 );
-   pango_layout_get_pixel_extents( hDC->layout, &rc, nullptr );
+   pango_layout_set_width(hDC->layout, -1);
+   pango_layout_get_pixel_extents(hDC->layout, &rc, nullptr);
    iWidth = PANGO_RBEARING(rc) + font->ixAdd;
 
    if( hDC->bcolor != -1 ) {
-      hwg_setcolor( hDC->cr, hDC->bcolor );
-      cairo_rectangle( hDC->cr, (gdouble)xpos, (gdouble)ypos,
-            (iLen==1 && *szText==' ')? (gdouble)font->iSpace : (gdouble)iWidth,
-            (gdouble)PANGO_DESCENT(rc)+pted->iInterline );
-      cairo_fill( hDC->cr );
+      hwg_setcolor(hDC->cr, hDC->bcolor);
+      cairo_rectangle(hDC->cr, (gdouble) xpos, (gdouble) ypos,
+            (iLen == 1 && *szText == ' ')? (gdouble) font->iSpace : (gdouble) iWidth,
+            (gdouble) PANGO_DESCENT(rc) + pted->iInterline);
+      cairo_fill(hDC->cr);
    }
 
-   hwg_setcolor( hDC->cr, (hDC->fcolor != -1)? hDC->fcolor : 0 );
-   cairo_move_to( hDC->cr, (gdouble)xpos, (gdouble)ypos );
-   pango_cairo_show_layout( hDC->cr, hDC->layout );
+   hwg_setcolor(hDC->cr, (hDC->fcolor != -1) ? hDC->fcolor : 0);
+   cairo_move_to(hDC->cr, (gdouble) xpos, (gdouble) ypos);
+   pango_cairo_show_layout(hDC->cr, hDC->layout);
 
    return iWidth;
 }
 
-int ted_LineOut( TEDIT * pted, int x1, int ypos, char *szText, int iPrinted, int iHeight, int iRight )
+int ted_LineOut(TEDIT * pted, int x1, int ypos, char *szText, int iPrinted, int iHeight, int iRight)
 {
    TEDATTR *pattr = pted->pattr;
    int i, lasti, iReqLen, iRealLen;
    int iMaxAscent = 0;
    char * ptr;
 
-   //wrlog( nullptr, "Lineout-1\r\n" );
+   //wrlog(nullptr, "Lineout-1\r\n");
 
    if( pted->hDCPrn ) {
-      x1 = (int) ( x1 * pted->dKoeff );
+      x1 = (int) (x1 * pted->dKoeff);
    }
 
    if( iPrinted ) {
       for( i = 0, lasti = 0; i <= iPrinted; i++ ) {
          /* if the colour or font changes, then need to output */
-         if( i == iPrinted ||
-               ( pattr + i )->fg != ( pattr + lasti )->fg ||
-               ( pattr + i )->bg != ( pattr + lasti )->bg ||
-               ( pattr + i )->iFont != ( pattr + lasti )->iFont ) {
+         if(    i == iPrinted
+             || (pattr + i)->fg != (pattr + lasti)->fg
+             || (pattr + i)->bg != (pattr + lasti)->bg
+             || (pattr + i)->iFont != (pattr + lasti)->iFont ) {
             if( i < iPrinted ) {
                iReqLen = i - lasti;
             } else {
                iReqLen = iPrinted - lasti;
             }
-            //wrlog( nullptr, "x1 = %u ypos= %u len = %u \r\n", x1, ypos, iReqLen );
-            ptr = szText + hced_utf8bytes( szText, lasti );
+            //wrlog(nullptr, "x1 = %u ypos= %u len = %u \r\n", x1, ypos, iReqLen);
+            ptr = szText + hced_utf8bytes(szText, lasti);
             while( ptr > szText && *(g_utf8_prev_char(ptr)) == ' ' ) {
                ptr --; iReqLen ++;
             }
             iRealLen = iReqLen;
-            x1 += ted_TextOut( pted, x1, ypos, iHeight, iMaxAscent,
-                        ptr, pattr + lasti, iRealLen );
-            // wrlog( nullptr, "x1 = %u \r\n", x1 );
+            x1 += ted_TextOut(pted, x1, ypos, iHeight, iMaxAscent, ptr, pattr + lasti, iRealLen);
+            // wrlog(nullptr, "x1 = %u \r\n", x1);
             if( iRealLen != iReqLen ) {
                break;
             }
@@ -428,30 +425,29 @@ int ted_LineOut( TEDIT * pted, int x1, int ypos, char *szText, int iPrinted, int
    }
 
    if( !pted->hDCPrn ) {
-      hwg_setcolor( pted->hDCScr->cr, pted->bg );
-      cairo_rectangle( pted->hDCScr->cr, (gdouble)x1, (gdouble)ypos,
-            (gdouble)(iRight), (gdouble)iHeight );
-      cairo_fill( pted->hDCScr->cr );
+      hwg_setcolor(pted->hDCScr->cr, pted->bg);
+      cairo_rectangle(pted->hDCScr->cr, (gdouble) x1, (gdouble) ypos, (gdouble) iRight, (gdouble) iHeight);
+      cairo_fill(pted->hDCScr->cr);
    }
    if( pted->iyCaretPos - pted->nBorder == ypos ) {
       /* Draw the caret */
       if( !iPrinted ) {
          pted->ixCaretPos = x1;
       }
-      hwg_setcolor( pted->hDCScr->cr, (pted->hDCScr->fcolor != -1)? pted->hDCScr->fcolor : 0 );
-      cairo_move_to( pted->hDCScr->cr, (gdouble)pted->ixCaretPos, (gdouble)pted->iyCaretPos );
-      cairo_line_to( pted->hDCScr->cr, (gdouble)pted->ixCaretPos, (gdouble)pted->iyCaretPos+iHeight );
-      cairo_stroke( pted->hDCScr->cr );
+      hwg_setcolor(pted->hDCScr->cr, (pted->hDCScr->fcolor != -1)? pted->hDCScr->fcolor : 0);
+      cairo_move_to(pted->hDCScr->cr, (gdouble)pted->ixCaretPos, (gdouble)pted->iyCaretPos);
+      cairo_line_to(pted->hDCScr->cr, (gdouble)pted->ixCaretPos, (gdouble)pted->iyCaretPos+iHeight);
+      cairo_stroke(pted->hDCScr->cr);
       pted->iCaretHeight = iHeight;
    }
 
    return x1;
 }
 
-void ted_ClearAttr( TEDIT *pted )
+void ted_ClearAttr(TEDIT *pted)
 {
-   memset( pted->pattr, 0, sizeof( TEDATTR ) * pted->iAttrLen );
-   memset( pted->pattrf, 0, sizeof( int ) * TEDATTRF_MAX );
+   memset(pted->pattr, 0, sizeof(TEDATTR) * pted->iAttrLen);
+   memset(pted->pattrf, 0, sizeof(int) * TEDATTRF_MAX);
 }
 
 HB_FUNC( HCED_INITTEXTEDIT )
@@ -460,89 +456,92 @@ HB_FUNC( HCED_INITTEXTEDIT )
 
 HB_FUNC( HCED_CREATETEXTEDIT )
 {
-   TEDIT *pted = ( TEDIT * ) hb_xgrab(sizeof( TEDIT ));
+   TEDIT *pted = ( TEDIT * ) hb_xgrab(sizeof(TEDIT));
    GtkWidget *vbox, *hbox;
    GtkWidget *vscroll, *hscroll;
    GtkWidget *area;
    GtkFixed *box;
-   PHB_ITEM pObject = hb_param( 1, Harbour::Item::OBJECT ), temp;
+   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT), temp;
    GObject *handle;
-   int nLeft = hb_itemGetNI( GetObjectVar(pObject, "NLEFT") );
-   int nTop = hb_itemGetNI( GetObjectVar(pObject, "NTOP") );
-   int nWidth = hb_itemGetNI( GetObjectVar(pObject, "NWIDTH") );
-   int nHeight = hb_itemGetNI( GetObjectVar(pObject, "NHEIGHT") );
-   unsigned long int ulStyle =
-         hb_itemGetNL( GetObjectVar(pObject, "STYLE") );
+   int nLeft = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
+   int nTop = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
+   int nWidth = hb_itemGetNI(GetObjectVar(pObject, "NWIDTH"));
+   int nHeight = hb_itemGetNI(GetObjectVar(pObject, "NHEIGHT"));
+   unsigned long int ulStyle = hb_itemGetNL(GetObjectVar(pObject, "STYLE"));
 
    temp = GetObjectVar(pObject, "OPARENT");
-   handle = ( GObject * ) HB_GETHANDLE( GetObjectVar(temp, "HANDLE") );
+   handle = ( GObject * ) HB_GETHANDLE(GetObjectVar(temp, "HANDLE"));
 
-   hbox = gtk_hbox_new( FALSE, 0 );
-   vbox = gtk_vbox_new( FALSE, 0 );
+   hbox = gtk_hbox_new(FALSE, 0);
+   vbox = gtk_vbox_new(FALSE, 0);
 
    area = gtk_drawing_area_new();
 
-   gtk_box_pack_start( GTK_BOX( hbox ), vbox, TRUE, TRUE, 0 );
+   gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
    if( ulStyle & WS_VSCROLL ) {
 #if GTK_MAJOR_VERSION -0 < 3
       GtkObject *adjV;
 #else
       GtkAdjustment *adjV;
 #endif
-      adjV = gtk_adjustment_new( 0.0, 0.0, 101.0, 1.0, 10.0, 10.0 );
-      vscroll = gtk_vscrollbar_new( GTK_ADJUSTMENT( adjV ) );
-      gtk_box_pack_end( GTK_BOX( hbox ), vscroll, FALSE, FALSE, 0 );
+      adjV = gtk_adjustment_new(0.0, 0.0, 101.0, 1.0, 10.0, 10.0);
+      vscroll = gtk_vscrollbar_new(GTK_ADJUSTMENT(adjV));
+      gtk_box_pack_end(GTK_BOX(hbox), vscroll, FALSE, FALSE, 0);
 
-      temp = HB_PUTHANDLE( nullptr, adjV );
+      temp = HB_PUTHANDLE(nullptr, adjV);
       SetObjectVar(pObject, "_HSCROLLV", temp);
-      hb_itemRelease( temp );
+      hb_itemRelease(temp);
 
-      SetWindowObject( ( GtkWidget * ) adjV, pObject );
+      SetWindowObject(( GtkWidget * ) adjV, pObject);
       set_signal(( gpointer ) adjV, "value_changed", WM_VSCROLL, 0, 0);
    }
 
-   gtk_box_pack_start( GTK_BOX( vbox ), area, TRUE, TRUE, 0 );
+   gtk_box_pack_start(GTK_BOX(vbox), area, TRUE, TRUE, 0);
    if( ulStyle & WS_HSCROLL ) {
 #if GTK_MAJOR_VERSION -0 < 3
       GtkObject *adjH;
 #else
       GtkAdjustment *adjH;
 #endif
-      adjH = gtk_adjustment_new( 0.0, 0.0, 101.0, 1.0, 10.0, 10.0 );
-      hscroll = gtk_hscrollbar_new( GTK_ADJUSTMENT( adjH ) );
-      gtk_box_pack_end( GTK_BOX( vbox ), hscroll, FALSE, FALSE, 0 );
+      adjH = gtk_adjustment_new(0.0, 0.0, 101.0, 1.0, 10.0, 10.0);
+      hscroll = gtk_hscrollbar_new(GTK_ADJUSTMENT(adjH));
+      gtk_box_pack_end(GTK_BOX(vbox), hscroll, FALSE, FALSE, 0);
 
-      temp = HB_PUTHANDLE( nullptr, adjH );
+      temp = HB_PUTHANDLE(nullptr, adjH);
       SetObjectVar(pObject, "_HSCROLLH", temp);
-      hb_itemRelease( temp );
+      hb_itemRelease(temp);
 
-      SetWindowObject( ( GtkWidget * ) adjH, pObject );
+      SetWindowObject(( GtkWidget * ) adjH, pObject);
       set_signal(( gpointer ) adjH, "value_changed", WM_HSCROLL, 0, 0);
    }
 
-   box = getFixedBox( handle );
+   box = getFixedBox(handle);
    if( box ) {
-      gtk_fixed_put( box, hbox, nLeft, nTop );
+      gtk_fixed_put(box, hbox, nLeft, nTop);
    }
-   gtk_widget_set_size_request( hbox, nWidth, nHeight );
+   gtk_widget_set_size_request(hbox, nWidth, nHeight);
 
-   temp = HB_PUTHANDLE( nullptr, area );
+   temp = HB_PUTHANDLE(nullptr, area);
    SetObjectVar(pObject, "_AREA", temp);
-   hb_itemRelease( temp );
+   hb_itemRelease(temp);
 
-   SetWindowObject( area, pObject );
+   SetWindowObject(area, pObject);
 #if GTK_MAJOR_VERSION -0 < 3
       set_event(( gpointer ) area, "expose_event", WM_PAINT, 0, 0);
 #else
       set_event(( gpointer ) area, "draw", WM_PAINT, 0, 0);
 #endif
 
-   gtk_widget_set_can_focus( area, 1 );
+   gtk_widget_set_can_focus(area, 1);
 
-   gtk_widget_add_events( area, GDK_BUTTON_PRESS_MASK |
-         GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK |
-         GDK_POINTER_MOTION_MASK | GDK_SCROLL_MASK | GDK_FOCUS_CHANGE_MASK );
-   g_signal_connect( area, "size-allocate", G_CALLBACK (cb_signal_size), nullptr );
+   gtk_widget_add_events(area,   GDK_BUTTON_PRESS_MASK
+                               | GDK_BUTTON_RELEASE_MASK
+                               | GDK_KEY_PRESS_MASK
+                               | GDK_KEY_RELEASE_MASK
+                               | GDK_POINTER_MOTION_MASK
+                               | GDK_SCROLL_MASK
+                               | GDK_FOCUS_CHANGE_MASK);
+   g_signal_connect(area, "size-allocate", G_CALLBACK (cb_signal_size), nullptr);
    set_event(( gpointer ) area, "focus_in_event", 0, 0, 0);
    set_event(( gpointer ) area, "focus_out_event", 0, 0, 0);
    set_event(( gpointer ) area, "button_press_event", 0, 0, 0);
@@ -552,28 +551,28 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    set_event(( gpointer ) area, "key_release_event", 0, 0, 0);
    set_event(( gpointer ) area, "scroll_event", 0, 0, 0);
 
-   all_signal_connect( ( gpointer ) area );
+   all_signal_connect(( gpointer ) area);
 
-   memset( pted, 0, sizeof( TEDIT ) );
+   memset(pted, 0, sizeof(TEDIT));
 
    pted->widget = hbox;
    pted->area = area;
    pted->iInterline = 3;
    pted->iFonts = NUMBER_OF_FONTS;
-   pted->pFontsScr = ( TEDFONT * ) hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS);
-   pted->pFontsPrn = ( TEDFONT * ) hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS);
+   pted->pFontsScr = ( TEDFONT * ) hb_xgrab(sizeof(TEDFONT) * NUMBER_OF_FONTS);
+   pted->pFontsPrn = ( TEDFONT * ) hb_xgrab(sizeof(TEDFONT) * NUMBER_OF_FONTS);
 
    pted->iAttrLen = TEDATTR_MAX;
-   pted->pattr = ( TEDATTR * ) hb_xgrab(sizeof( TEDATTR ) * TEDATTR_MAX);
-   pted->pattrf = ( int * ) hb_xgrab(sizeof( int ) * TEDATTRF_MAX);
-   ted_ClearAttr( pted );
+   pted->pattr = ( TEDATTR * ) hb_xgrab(sizeof(TEDATTR) * TEDATTR_MAX);
+   pted->pattrf = ( int * ) hb_xgrab(sizeof(int) * TEDATTRF_MAX);
+   ted_ClearAttr(pted);
 
-   HB_RETHANDLE( pted );
+   HB_RETHANDLE(pted);
 }
 
 HB_FUNC( HCED_GETHANDLE )
 {
-   HB_RETHANDLE( ( void * ) ( ( TEDIT * ) HB_PARHANDLE(1) )->widget );
+   HB_RETHANDLE(( void * ) ( ( TEDIT * ) HB_PARHANDLE(1) )->widget);
 }
 
 HB_FUNC( HCED_SETHANDLE )
@@ -584,11 +583,11 @@ HB_FUNC( HCED_RELEASE )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
 
-   hb_xfree( pted->pFontsScr );
-   hb_xfree( pted->pFontsPrn );
-   hb_xfree( pted->pattr );
-   hb_xfree( pted->pattrf );
-   hb_xfree( pted );
+   hb_xfree(pted->pFontsScr);
+   hb_xfree(pted->pFontsPrn);
+   hb_xfree(pted->pattr);
+   hb_xfree(pted->pattrf);
+   hb_xfree(pted);
 }
 
 HB_FUNC( HCED_CLEARFONTS )
@@ -600,7 +599,7 @@ HB_FUNC( HCED_CLEARFONTS )
 
 HB_FUNC( HCED_ADDFONT )
 {
-   ted_setfont( ( TEDIT * ) HB_PARHANDLE(1), ( PHWGUI_FONT ) HB_PARHANDLE(2), -1, 0 );
+   ted_setfont(( TEDIT * ) HB_PARHANDLE(1), ( PHWGUI_FONT ) HB_PARHANDLE(2), -1, 0);
 }
 
 HB_FUNC( HCED_SETFONT )
@@ -610,8 +609,7 @@ HB_FUNC( HCED_SETFONT )
    if( iFont > 0 ) {
       iFont --;
    }
-   ted_setfont( ( TEDIT * ) HB_PARHANDLE(1), ( PHWGUI_FONT ) HB_PARHANDLE(2),
-         iFont, (HB_ISNIL(4))? 0 : hb_parl(4) );
+   ted_setfont(( TEDIT * ) HB_PARHANDLE(1), ( PHWGUI_FONT ) HB_PARHANDLE(2), iFont, (HB_ISNIL(4))? 0 : hb_parl(4));
 }
 
 HB_FUNC( HCED_SETCOLOR )
@@ -628,7 +626,7 @@ HB_FUNC( HCED_SETCOLOR )
 
 HB_FUNC( HCED_CLEARATTR )
 {
-   ted_ClearAttr( ( ( TEDIT * ) HB_PARHANDLE(1) ) );
+   ted_ClearAttr((( TEDIT * ) HB_PARHANDLE(1)));
 }
 
 /*
@@ -646,9 +644,8 @@ HB_FUNC( HCED_SETATTR )
    if( iPos + i >= pted->iAttrLen ) {
       iLen = pted->iAttrLen;
       pted->iAttrLen = iPos + i + 128;
-      pted->pattr = ( TEDATTR * ) hb_xrealloc( pted->pattr,
-            sizeof(TEDATTR) * pted->iAttrLen );
-      memset( pted->pattr + iLen, 0, sizeof( TEDATTR ) * ( pted->iAttrLen-iLen ) );
+      pted->pattr = ( TEDATTR * ) hb_xrealloc(pted->pattr, sizeof(TEDATTR) * pted->iAttrLen);
+      memset(pted->pattr + iLen, 0, sizeof(TEDATTR) * (pted->iAttrLen-iLen));
    }
 
    for( ; i; i--,pattr++ ) {
@@ -727,11 +724,10 @@ HB_FUNC( HCED_FILLRECT )
 
    if( !pted->hDCPrn ) {
 
-      hwg_setcolor( pted->hDCScr->cr, pted->bg );
+      hwg_setcolor(pted->hDCScr->cr, pted->bg);
       pted->bg_curr = pted->bg;
-      cairo_rectangle( pted->hDCScr->cr, (gdouble)x1, (gdouble)y1,
-            (gdouble)(x2-x1+1), (gdouble)(hb_parni(5)-y1+1) );
-      cairo_fill( pted->hDCScr->cr );
+      cairo_rectangle(pted->hDCScr->cr, (gdouble)x1, (gdouble)y1, (gdouble)(x2-x1+1), (gdouble)(hb_parni(5)-y1+1));
+      cairo_fill(pted->hDCScr->cr);
    }
 }
 
@@ -754,19 +750,19 @@ HB_FUNC( HCED_KILLCARET )
 HB_FUNC( HCED_GETXCARETPOS )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
-   hb_retni( pted->ixCaretPos - pted->nBorder );
+   hb_retni(pted->ixCaretPos - pted->nBorder);
 }
 
 HB_FUNC( HCED_GETYCARETPOS )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
-   hb_retni( pted->iyCaretPos - pted->nBorder );
+   hb_retni(pted->iyCaretPos - pted->nBorder);
 }
 
 HB_FUNC( HCED_GETCARETHEIGHT )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
-   hb_retni( pted->iCaretHeight );
+   hb_retni(pted->iCaretHeight);
 }
 
 HB_FUNC( HCED_SETCARETPOS )
@@ -797,7 +793,7 @@ HB_FUNC( HCED_EXACTCARETPOS )
 
    if( iLen > 0 ) {
       cr = gdk_cairo_create(gtk_widget_get_window(pted->area));
-      layout = pango_cairo_create_layout( cr );
+      layout = pango_cairo_create_layout(cr);
 
       if( xpos < 0 ) {
          xpos = pted->iWidth + 1;
@@ -808,12 +804,10 @@ HB_FUNC( HCED_EXACTCARETPOS )
       for( i = 0, lasti = 0; i <= iLen; i++ ) {
          if( i == iLen || ( pattr + i )->iFont != ( pattr + lasti )->iFont ) {
             iReqLen = i - lasti;
-            ptr = szText + hced_utf8bytes( szText, lasti );
+            ptr = szText + hced_utf8bytes(szText, lasti);
             iRealLen = iReqLen;
 
-            x1 += ted_CalcItemWidth( layout, ptr,
-                  pted->pFontsScr + (pattr + lasti)->iFont, &iRealLen,
-                  xpos - x1, 0, lasti );
+            x1 += ted_CalcItemWidth(layout, ptr, pted->pFontsScr + (pattr + lasti)->iFont, &iRealLen, xpos - x1, 0, lasti);
 
             j = iRealLen - 1;
             while( j >= 0 && *( ptr+hced_utf8bytes(ptr,j) ) == ' ' ) {
@@ -829,9 +823,9 @@ HB_FUNC( HCED_EXACTCARETPOS )
       }
       if( xpos <= pted->iWidth ) {
          if( *(szText+iPrinted) ) {
-            ptr = szText + hced_utf8bytes( szText,iPrinted );
-            pango_layout_set_text( layout, ptr, hced_utf8bytes( ptr,1 ) );
-            pango_layout_get_pixel_extents( layout, &rc, nullptr );
+            ptr = szText + hced_utf8bytes(szText,iPrinted);
+            pango_layout_set_text(layout, ptr, hced_utf8bytes(ptr,1));
+            pango_layout_get_pixel_extents(layout, &rc, nullptr);
             iTextWidth = PANGO_RBEARING(rc) + (pted->pFontsScr + (pattr + iPrinted)->iFont)->ixAdd;
             if( (x1 + iTextWidth - xpos) < ( xpos - x1 ) ) {
                x1 += iTextWidth;
@@ -839,18 +833,18 @@ HB_FUNC( HCED_EXACTCARETPOS )
             }
          }
       }
-      g_object_unref( (GObject*) layout );
-      cairo_destroy( cr );
+      g_object_unref((GObject*) layout);
+      cairo_destroy(cr);
    }
 
    iPrinted ++;
    if( bSet ) {
-      x1 -= ( HB_ISNIL(7)? 0 : hb_parni(7) );
+      x1 -= (HB_ISNIL(7) ? 0 : hb_parni(7));
       pted->ixCaretPos = x1 + pted->nBorder;
       pted->iyCaretPos = y1 + pted->nBorder;
    }
 
-   hb_retni( iPrinted );
+   hb_retni(iPrinted);
 
 }
 
@@ -867,7 +861,7 @@ HB_FUNC( HCED_INVALIDATERECT )
       y2 = hb_parni(6);
    } else {
       GtkAllocation alloc;
-      gtk_widget_get_allocation( widget, &alloc );
+      gtk_widget_get_allocation(widget, &alloc);
 
       x1 = y1 = 0;
       x2 = alloc.width;
@@ -880,7 +874,7 @@ HB_FUNC( HCED_INVALIDATERECT )
 HB_FUNC( HCED_SETFOCUS )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
-   gtk_widget_grab_focus( (GtkWidget*) pted->area );
+   gtk_widget_grab_focus((GtkWidget*) pted->area);
 }
 
 
@@ -901,15 +895,15 @@ HB_FUNC( HCED_LINEOUT )
    int iRealWidth, i, iFont;
    int iHeight = 0;
 
-   pango_layout_set_alignment( pted->hDCScr->layout, PANGO_ALIGN_LEFT );
+   pango_layout_set_alignment(pted->hDCScr->layout, PANGO_ALIGN_LEFT);
    if( bCalc ) {
       if( pted->iDocWidth ) {
-         iPrinted = ted_CalcLineWidth( pted, szText, iLen, pted->iDocWidth-x1, &iRealWidth, pted->bWrap );
+         iPrinted = ted_CalcLineWidth(pted, szText, iLen, pted->iDocWidth-x1, &iRealWidth, pted->bWrap);
       } else {
-         iPrinted = ted_CalcLineWidth( pted, szText, iLen, x2-x1, &iRealWidth, pted->bWrap );
+         iPrinted = ted_CalcLineWidth(pted, szText, iLen, x2-x1, &iRealWidth, pted->bWrap);
       }
    } else {
-      iPrinted = ted_CalcLineWidth( pted, szText, iLen, 30000, &iRealWidth, 0 );
+      iPrinted = ted_CalcLineWidth(pted, szText, iLen, 30000, &iRealWidth, 0);
    }
 
    if( iAlign ) {
@@ -924,11 +918,10 @@ HB_FUNC( HCED_LINEOUT )
 
    i = 0;
    while( i < TEDATTRF_MAX ) {
-      iFont = *( pted->pattrf + i );
-      font = ( (pted->hDCPrn)? pted->pFontsPrn : pted->pFontsScr ) +
-            (iFont? iFont-1 : 0) ;
-      iHeight = ( iHeight > font->iHeight )? iHeight : font->iHeight;
-      if( !*( pted->pattrf+i ) ) {
+      iFont = *(pted->pattrf + i);
+      font = (pted->hDCPrn ? pted->pFontsPrn : pted->pFontsScr) + (iFont ? iFont - 1 : 0);
+      iHeight = (iHeight > font->iHeight) ? iHeight : font->iHeight;
+      if( !*(pted->pattrf + i) ) {
          break;
       }
       i ++;
@@ -936,14 +929,14 @@ HB_FUNC( HCED_LINEOUT )
    pted->iCaretHeight = iHeight;
 
    if( iRight ) {
-      pted->x2 = ted_LineOut( pted, x1, ypos, szText, iPrinted, iHeight, iRight );
+      pted->x2 = ted_LineOut(pted, x1, ypos, szText, iPrinted, iHeight, iRight);
    }
 
-   hb_storni( pted->x1, 2 );
-   hb_storni( pted->x2, 4 );
+   hb_storni(pted->x1, 2);
+   hb_storni(pted->x2, 4);
    pted->ypos = ypos + iHeight + pted->iInterline;
-   hb_storni( pted->ypos, 3 );
-   hb_retni( (iCalculated)? iCalculated : iPrinted );
+   hb_storni(pted->ypos, 3);
+   hb_retni(iCalculated ? iCalculated : iPrinted);
 }
 
 HB_FUNC( HCED_SETBORDER )
@@ -967,19 +960,19 @@ HB_FUNC( HCED_DRAWBORDER )
    }
 
    if( pted->nBorder == 1 ) {
-      hwg_setcolor( pted->hDCScr->cr, pted->lBorderClr );
-      cairo_move_to( pted->hDCScr->cr, 0, 0 );
-      cairo_line_to( pted->hDCScr->cr, nWidth, 0 );  // to right
-      cairo_move_to( pted->hDCScr->cr, 0, 0 );
-      cairo_line_to( pted->hDCScr->cr, 0, nHeight );  // to bottom
-      cairo_move_to( pted->hDCScr->cr, nWidth, 0 );
-      cairo_line_to( pted->hDCScr->cr, nWidth, nHeight );
-      cairo_move_to( pted->hDCScr->cr, 0, nHeight );
-      cairo_line_to( pted->hDCScr->cr, nWidth, nHeight );
+      hwg_setcolor(pted->hDCScr->cr, pted->lBorderClr);
+      cairo_move_to(pted->hDCScr->cr, 0, 0);
+      cairo_line_to(pted->hDCScr->cr, nWidth, 0);  // to right
+      cairo_move_to(pted->hDCScr->cr, 0, 0);
+      cairo_line_to(pted->hDCScr->cr, 0, nHeight);  // to bottom
+      cairo_move_to(pted->hDCScr->cr, nWidth, 0);
+      cairo_line_to(pted->hDCScr->cr, nWidth, nHeight);
+      cairo_move_to(pted->hDCScr->cr, 0, nHeight);
+      cairo_line_to(pted->hDCScr->cr, nWidth, nHeight);
 
-      cairo_stroke( pted->hDCScr->cr );
+      cairo_stroke(pted->hDCScr->cr);
    } else {
-      hwg_gtk_drawedge( pted->hDCScr, 0, 0, nWidth, nHeight, 6 );
+      hwg_gtk_drawedge(pted->hDCScr, 0, 0, nWidth, nHeight, 6);
    }
 }
 
@@ -989,7 +982,7 @@ HB_FUNC( HCED_COLOR2X )
    int i;
    long int n = hb_parnl(1);
 
-   sprintf(s,"#%2X%2X%2X", (unsigned int)(n%256), (unsigned int)((n/256)%256), (unsigned int)((n/65536)%256) );
+   sprintf(s,"#%2X%2X%2X", (unsigned int)(n%256), (unsigned int)((n/256)%256), (unsigned int)((n/65536)%256));
    for( i=0; i<7; i++ ) {
       if( s[i] == ' ' ) {
          s[i] = '0';
@@ -1002,6 +995,6 @@ HB_FUNC( HCED_X2COLOR )
 {
    int i1, i2, i3;
 
-   sscanf( hb_parc(1),"#%2X%2X%2X", &i1, &i2, &i3 );
-   hb_retnl( i3*65536 + i2*256 + i1 );
+   sscanf(hb_parc(1),"#%2X%2X%2X", &i1, &i2, &i3);
+   hb_retnl(i3*65536 + i2*256 + i1);
 }
