@@ -1,6 +1,4 @@
 /*
- * $Id: hxmldoc.prg 2943 2021-02-20 17:32:38Z df7be $
- *
  * Harbour XML Library
  * HXmlDoc class
  *

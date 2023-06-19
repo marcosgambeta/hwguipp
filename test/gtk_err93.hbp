@@ -1,7 +1,3 @@
-#
-# $Id: gtk_err93.hbp 3063 2022-02-22 22:55:43Z df7be $
-#
-
 # Special parameters for LINUX/GTK
 {linux}-lm
 {linux}-static

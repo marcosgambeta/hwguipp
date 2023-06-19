@@ -2,8 +2,6 @@
 REM
 REM hwmingnw.bat
 REM
-REM  $Id: hwmingnw_gtk.bat 2931 2021-01-23 18:41:53Z df7be $
-REM
 REM Created by DF7BE 2019-09-27
 REM Script building sample application
 REM for HWGUI on Windows with GTK+

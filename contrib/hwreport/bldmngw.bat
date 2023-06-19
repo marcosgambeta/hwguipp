@@ -1,6 +1,5 @@
 @echo off
 REM build HWGUI hwreport for MinGW32 on Windows
-REM $Id: bldmngw.bat 3011 2021-10-05 07:10:20Z alkresin $
 REM by DF7BE
 REM 2020-07-01
 

@@ -1,8 +1,6 @@
 *
 * lbldump.prg
 *
-* $Id: lbldump.prg 3075 2022-05-27 04:30:02Z df7be $
-*
 * HWGUI - Harbour Win32 and Linux (GTK) GUI library
 *
 * Label dumper

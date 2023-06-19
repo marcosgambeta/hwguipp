@@ -1,6 +1,4 @@
 /*
- * $Id: hhtml.prg 2534 2016-06-08 09:45:01Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * HHtml class
  *

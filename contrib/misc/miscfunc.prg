@@ -1,7 +1,3 @@
-/*
- *$Id: miscfunc.prg 2331 2014-12-24 08:22:58Z alkresin $
- */
-
 FUNCTION ADDMETHOD( oObjectName, cMethodName, pFunction )
 
    IF ValType( oObjectName ) = "O" .AND. ! Empty(cMethodName)

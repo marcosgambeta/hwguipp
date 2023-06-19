@@ -1,8 +1,6 @@
 DbcH
 ----
 
- $Id: Readme.txt 3070 2022-05-03 08:53:46Z df7be $
-
 Text from http://kresin.ru/en/dbc.html.
 (2022-04-27)
 

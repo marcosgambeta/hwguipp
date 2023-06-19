@@ -1,6 +1,5 @@
 @echo off
 REM build designer for OpenWatCom C compiler on Windows
-REM $Id: blddeswc.bat 2858 2020-06-22 06:29:41Z df7be $
 REM by DF7BE
 
 REM before use, set environment with script:

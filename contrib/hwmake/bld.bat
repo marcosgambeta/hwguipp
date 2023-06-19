@@ -2,8 +2,6 @@
 REM
 REM bld.bat
 REM
-REM $Id: bld.bat 2860 2020-07-03 09:28:23Z df7be $
-REM
 REM Build script for HWGUI utility hwmake for Borland C compiler
 REM
 REM Some images lost (not checked in)

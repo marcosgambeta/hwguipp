@@ -1,7 +1,5 @@
 @echo off
 REM
-REM $Id$
-REM
 REM create gtk+-Libraries of hwgui for Win32
 REM (Cross develop environment on Windows for GTK)
 REM

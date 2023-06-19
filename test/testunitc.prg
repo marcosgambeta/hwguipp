@@ -1,8 +1,6 @@
 *
 * testunitc.prg
 *
-* $Id: testunitc.prg 2931 2021-01-23 18:41:53Z df7be $ 
-*
 * HWGUI - Harbour Win32 and Linux (GTK) GUI library
 *
 * Test program for unit conversion functions

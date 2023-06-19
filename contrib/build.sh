@@ -1,8 +1,6 @@
 #!/bin/bash
 # build.sh
 #
-# $Id: build.sh 2828 2020-04-14 13:47:16Z df7be $
-#
 # Building contrib libraries of HWGUI
 
 CLEAN()

@@ -1,6 +1,4 @@
 /*
- * $Id: editor.prg 2525 2016-02-01 11:04:38Z alkresin $
- *
  * Designer
  * Simple code editor
  *

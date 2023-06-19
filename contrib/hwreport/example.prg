@@ -1,8 +1,6 @@
 /*
  * Example of printing reports, using HWReport
  *
- * $Id: example.prg 3020 2021-10-13 09:36:20Z alkresin $
- *
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  * www - http://www.kresin.ru
 */

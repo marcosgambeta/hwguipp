@@ -1,4 +1,3 @@
-# $Id: Makefile.scr 2975 2021-04-23 12:10:46Z alkresin $
 # Building of libhwgui.a - Harbour Linux (GTK) GUI library
 
 # by default build Harbour platform native binaries

@@ -3,9 +3,6 @@ HWGUI collection of hints and FAQ for developers
 
 Created 2020-11-16 by DF7BE.
 
- $Id: HWGUI_dev.txt 2904 2020-11-16 16:38:27Z df7be $
-
-
 Please add new entires with date (YYYY-MM-DD) and Sourceforge.net
 userid.
 

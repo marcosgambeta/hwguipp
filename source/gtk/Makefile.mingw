@@ -1,4 +1,3 @@
-# $Id$
 # Building of libhwgui.a - Harbour Linux (GTK) GUI library
 # Modified by DF7BE for Win32 / MingW
 # GCC : C:\hmg.3.3.1\MINGW\bin via PATH (Script pfad.bat)

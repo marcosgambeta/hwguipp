@@ -1,5 +1,4 @@
 /*
- * $Id: view.prg 2317 2014-12-16 06:34:20Z alkresin $
  * DBCHW - DBC ( Harbour + HWGUI )
  * Views save and load functions
  *

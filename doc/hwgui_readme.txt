@@ -1,8 +1,6 @@
 *
 * Readme.txt
 *
-* $Id: Readme.txt 3037 2021-12-24 12:35:52Z df7be $
-*
 
 Welcome to HWGUI.
 HwGUI is a cross-platform GUI library for Harbour, it is written on C and Harbour.

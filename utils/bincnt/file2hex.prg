@@ -1,8 +1,6 @@
 *
 * file2hex.prg
 *
-* $Id: file2hex.prg 2880 2020-09-12 13:53:25Z df7be $
-*
 * HWGUI - Harbour Win32 GUI and GTK library source code:
 *
 * Utility to dump a (binary) file

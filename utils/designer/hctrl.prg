@@ -1,6 +1,4 @@
 /*
- * $Id: hctrl.prg 2780 2019-02-28 13:37:14Z alkresin $
- *
  * Designer
  * HControlGen class
  *

@@ -1,5 +1,4 @@
 /*
- * $Id: commands.prg 2604 2016-09-17 11:03:31Z alkresin $
  * DBCHW - DBC ( Harbour + HWGUI )
  * Commands ( Replace, delete, ... )
  *

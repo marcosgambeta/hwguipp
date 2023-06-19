@@ -1,6 +1,5 @@
 @echo off
 REM build HWGUI hwreport for OpenWatCom C on Windows
-REM $Id: bldow.bat 3038 2021-12-30 22:54:34Z df7be $
 REM by DF7BE
 REM 2020-06-30
 

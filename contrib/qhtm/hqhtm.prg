@@ -1,6 +1,4 @@
 /*
- * $Id: hqhtm.prg 2012 2013-03-07 09:03:56Z alkresin $
-
  * HWGUI - Harbour Win32 GUI library source code:
  * HQhtm class
  *

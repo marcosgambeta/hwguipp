@@ -1,6 +1,4 @@
 /*
- * $Id: bincnt.prg 2856 2020-06-19 10:41:43Z alkresin $
- *
  * Binary container manager
  *
  * Copyright 2014 Alexander S.Kresin <alex@kresin.ru>

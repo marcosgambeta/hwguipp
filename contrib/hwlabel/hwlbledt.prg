@@ -1,9 +1,6 @@
 *
 * hwlbledt.prg
 *
-*
-* $Id: hwlbledt.prg 3079 2022-06-16 21:18:33Z df7be $
-*
 * HWGUI - Harbour Win32 and Linux (GTK) GUI library
 *
 * Label editor for HWGUI

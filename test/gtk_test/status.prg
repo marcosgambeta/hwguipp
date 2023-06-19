@@ -1,8 +1,6 @@
 *
 * Bug Ticket #70 Test reported by Alain Aupaix.
 *
-* $Id: status.prg 2902 2020-11-15 09:19:19Z df7be $
-*
 
 #include "hwgui.ch"
 

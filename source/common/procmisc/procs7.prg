@@ -1,6 +1,4 @@
 /*
- * $Id: procs7.prg 2944 2021-02-21 13:51:10Z df7be $
- *
  * Common procedures
  *
  *

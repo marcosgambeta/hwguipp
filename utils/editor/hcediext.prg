@@ -1,6 +1,4 @@
 /*
- * $Id: hcediext.prg 2825 2020-04-07 21:06:45Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * The Extended edit control
  *

@@ -1,6 +1,5 @@
 @echo off
 REM build HWGUI editor for MINGW (gcc) on Windows
-REM $Id: bldedgw.bat 2807 2020-03-06 14:50:59Z df7be $
 REM by DF7BE
 REM 2019-09-09
 

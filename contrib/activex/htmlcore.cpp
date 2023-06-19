@@ -1,6 +1,4 @@
 /*
- * $Id: htmlcore.c 2793 2019-09-10 13:01:25Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * ActiveX container
  *

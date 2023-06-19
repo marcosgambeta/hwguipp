@@ -5,8 +5,6 @@
 *  Free Software under property of the
 *  GNU General Public License
 *
-*  $Id: dbfstru.prg 3076 2022-05-31 15:54:47Z df7be $
-*
 *   HWGUI - Harbour Win32 and Linux (GTK) GUI library
 *
 *   Structure display of DBF files

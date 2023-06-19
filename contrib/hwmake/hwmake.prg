@@ -1,6 +1,4 @@
 /*
- *$Id: hwmake.prg 2859 2020-07-01 09:08:33Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library 
  * 
  * HwMake

@@ -5,8 +5,6 @@ Copyright (c) 2020 DF7BE Wilfried Brunken
 Creative Commons License CC BY-SA 2.0 de
 (for this file)
 
- $Id: port.txt 3037 2021-12-24 12:35:52Z df7be $
-
  
 A little guide to port old Clipper programs to HWGUI
 ____________________________________________________

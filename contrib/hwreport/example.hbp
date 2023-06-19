@@ -1,7 +1,3 @@
-#
-# $Id: example.hbp 3012 2021-10-05 08:35:32Z alkresin $
-#
-
 # Compiles the HWREPORT example program
 
 #-stop={linux}

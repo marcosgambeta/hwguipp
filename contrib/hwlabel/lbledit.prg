@@ -3,8 +3,6 @@
 *
 * HWGUI - Harbour Win32 and Linux (GTK) GUI library
 *
-*  $Id: lbledit.prg 3079 2022-06-16 21:18:33Z df7be $
-*
 * Copyright 2022 Wilfried Brunken, DF7BE 
 * https://sourceforge.net/projects/cllog/
 *

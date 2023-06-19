@@ -1,6 +1,4 @@
 /*
- * $Id: procscri.prg 2946 2021-02-22 22:43:07Z df7be $
- *
  * Common procedures
  * Scripts
  *

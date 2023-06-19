@@ -2,8 +2,6 @@
 REM
 REM Build script HWGUI hwreport for Borland C Compiler
 REM
-REM $Id: bldhwrep.bat 3011 2021-10-05 07:10:20Z alkresin $
-REM
 REM Before usage, start environment script:
 REM ..\..\samples\dev\env\pfad_bc.bat
 REM

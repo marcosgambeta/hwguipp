@@ -1,5 +1,4 @@
 /*----------------------------------------------------------------------
-* $Id: qhtm.h 1615 2011-02-18 13:53:35Z mlacecilia $
 
 Copyright (c) 1998 Gipsysoft. All Rights Reserved.
 Please see the file "licence.txt" for licencing details.

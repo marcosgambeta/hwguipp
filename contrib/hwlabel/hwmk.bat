@@ -1,7 +1,6 @@
 @echo off
 REM
 REM hwmk.bat
-REM $Id: hwmk.bat 3079 2022-06-16 21:18:33Z df7be $
 REM Batch file compiling single prg with HWGUI
 REM
 REM

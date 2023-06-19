@@ -1,8 +1,6 @@
 
 Readme file for Binary Resource Management in HWGUI programs.
 
-$Id: Readme.txt 3055 2022-02-10 12:27:43Z df7be $
-
 Created by DF7BE, 2020-09-07.
 
 

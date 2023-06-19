@@ -1,6 +1,4 @@
 /*
- * $Id: tutor.prg 2979 2021-04-26 07:39:25Z alkresin $
- *
  * HWGUI Tutorial
  *
  * Copyright 2013 Alexander S.Kresin <alex@kresin.ru>

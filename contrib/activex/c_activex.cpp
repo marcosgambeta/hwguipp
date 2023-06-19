@@ -1,7 +1,4 @@
 /*
- * $Id: c_activex.c 2948 2021-02-26 10:18:20Z df7be $
- */
-/*
  * ooHG source code:
  * ActiveX control
  *

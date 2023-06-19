@@ -1,6 +1,4 @@
 /*
- * $Id: XMLRUN.prg 2146 2013-07-15 08:41:30Z alkresin $
- *
  * The Runtime for xml (create from designer.exe)
  *
  * Build : batch file Bldxml.bat

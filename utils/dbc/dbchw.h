@@ -1,7 +1,3 @@
-/*
- * $Id: dbchw.h 2718 2018-12-05 06:30:40Z alkresin $
- */
-
 #define AF_LEN               10
 #define AF_NAME               1
 #define AF_EXCLU              2

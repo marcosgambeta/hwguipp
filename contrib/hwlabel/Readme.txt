@@ -3,8 +3,6 @@
   By Wilfried Brunken, DF7BE
   Created June 2022.
 
-  $Id: Readme.txt 3079 2022-06-16 21:18:33Z df7be $
-
   Deutsche Beschreibung in Datei "Readme_de.txt" !
 
 Contents

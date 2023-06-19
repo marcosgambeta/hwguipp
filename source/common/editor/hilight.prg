@@ -1,8 +1,4 @@
 /*
- * $Id: hilight.prg 3031 2021-11-12 10:55:12Z alkresin $
- */
-
-/*
  * HWGUI - Harbour Win32 GUI library source code:
  * The highliting class
  *

@@ -1,6 +1,4 @@
 /*
- * $Id: hformgen.prg 2771 2019-01-25 08:48:33Z alkresin $
- *
  * Designer
  * HFormGen class
  *

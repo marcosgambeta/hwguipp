@@ -1,8 +1,6 @@
 *
 * Ticket27.prg
 *
-* $Id: Ticket27.prg 2888 2020-09-29 21:14:14Z df7be $ 
-*
 * HWGUI - Harbour Win32 and Linux (GTK) GUI library
 *
 * Test program for support Ticket #27:

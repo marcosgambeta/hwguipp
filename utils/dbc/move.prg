@@ -1,5 +1,4 @@
 /*
- * $Id: move.prg 2322 2014-12-17 07:32:55Z alkresin $
  * DBCHW - DBC ( Harbour + HWGUI )
  * Move functions ( Locate, seek, ... )
  *

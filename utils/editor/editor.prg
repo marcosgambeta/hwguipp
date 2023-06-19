@@ -1,6 +1,4 @@
 /*
- * $Id: editor.prg 3069 2022-04-08 09:55:06Z alkresin $
- *
  * Simple editor
  *
  * Copyright 2014 Alexander Kresin <alex@kresin.ru>

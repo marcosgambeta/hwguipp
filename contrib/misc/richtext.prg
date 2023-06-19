@@ -1,7 +1,4 @@
 /*
- * $Id: richtext.prg 2957 2021-03-08 23:32:43Z df7be $
- */
-/*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 ³        Class: RichText                                                   ³
 ³  Description: System for generating simple RTF files.                    ³

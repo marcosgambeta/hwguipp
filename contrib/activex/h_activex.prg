@@ -1,7 +1,4 @@
 /*
- * $Id: h_activex.prg 2534 2016-06-08 09:45:01Z alkresin $
- */
-/*
  * ooHG source code:
  * ActiveX control
  *

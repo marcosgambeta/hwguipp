@@ -1,4 +1,3 @@
-# $Id: makefile.linux 2992 2021-05-12 08:31:32Z alkresin $
 # makefile for gcc compiler/Linux
 # Building of contrib libs - HWGUI
 

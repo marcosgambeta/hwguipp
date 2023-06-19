@@ -1,6 +1,4 @@
 /*
- * $Id: designer.prg 2858 2020-06-22 06:29:41Z df7be $
- *
  * Designer
  * Main file
  *

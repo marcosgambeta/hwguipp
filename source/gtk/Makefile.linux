@@ -1,4 +1,3 @@
-# $Id: Makefile.linux 3022 2021-10-26 15:52:06Z alkresin $
 # Building of libhwgui.a - Harbour Linux (GTK) GUI library
 
 ifeq ($(HB_ROOT),)

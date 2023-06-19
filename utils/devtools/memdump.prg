@@ -1,8 +1,6 @@
 *
 * memdump.prg
 *
-* $Id: memdump.prg 3073 2022-05-18 21:37:51Z df7be $ 
-*
 * HWGUI - Harbour Win32 and Linux (GTK) GUI library
 *
 * Developers utility:

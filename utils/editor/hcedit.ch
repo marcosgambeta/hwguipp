@@ -1,7 +1,3 @@
-/*
- * $Id: hcedit.ch 2394 2015-04-30 11:03:15Z alkresin $
- */
-
 #define HCEDIT_VERSION   "1.0"
 
 #xcommand @ <x>,<y> HCEDITEXT [ <oTEdit> ] ;

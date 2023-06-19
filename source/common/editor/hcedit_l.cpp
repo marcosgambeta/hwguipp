@@ -1,8 +1,4 @@
 /*
- * $Id: hcedit_l.c 2947 2021-02-23 08:27:50Z df7be $
- */
-
-/*
  * HWGUI - Harbour Linux (GTK) GUI library source code:
  * The Edit control - C level
  *

@@ -2,8 +2,6 @@
 #
 # build.sh
 #
-# $Id: build.sh 2861 2020-07-04 10:49:11Z df7be $
-#
 # Script buildung HWGUI editor utility for LINUX/GTK
 #
 # Configure path to Harbour to your own needs

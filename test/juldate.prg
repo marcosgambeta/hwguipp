@@ -1,8 +1,6 @@
 *
 * juldate.prg
 *
-* $Id: juldate.prg 3070 2022-05-03 08:53:46Z df7be $ 
-*
 * HWGUI - Harbour Win32 and Linux (GTK) GUI library
 *
 * Test program for Julian date converting functions

@@ -1,6 +1,4 @@
 /*
- * $Id: scrdebug.prg 2941 2021-02-20 08:55:14Z df7be $
- *
  * Common procedures
  * Scripts Debugger
  *

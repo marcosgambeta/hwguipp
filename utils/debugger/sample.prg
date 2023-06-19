@@ -3,8 +3,6 @@
 *
 * sample.prg
 *
-* $Id: sample.prg 2890 2020-10-05 20:46:23Z df7be $
-*
 * Sample for demonstrate the HWGUI debugger
 *
 * For details read file "readme.eng".

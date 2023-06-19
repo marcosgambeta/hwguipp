@@ -1,5 +1,3 @@
-  $Id: protocol.txt 2167 2013-07-23 09:34:57Z alkresin $
-
   The debugger protocol version 3
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -1,7 +1,5 @@
 Readme for HWGUI Designer
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  $Id: Readme.txt 3034 2021-12-12 13:35:23Z df7be $
   
 Additional information by DF7BE:
 

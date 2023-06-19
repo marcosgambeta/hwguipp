@@ -1,5 +1,4 @@
 /*
- * $Id: dbchw.prg 2964 2021-03-15 09:00:37Z df7be $
  * DBCHW - DBC ( Harbour + HWGUI )
  * Main file
  *

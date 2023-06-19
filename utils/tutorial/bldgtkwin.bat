@@ -2,8 +2,6 @@
 REM
 REM bldgtkwin.bat
 REM
-REM  $Id: bldgtkwin.bat 2941 2021-02-20 08:55:14Z df7be $
-REM
 REM Created by DF7BE 2020-08-23
 REM Script building tutorial
 REM for HWGUI on Windows with GTK+

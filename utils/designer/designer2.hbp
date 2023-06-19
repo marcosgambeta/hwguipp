@@ -1,7 +1,3 @@
-#
-# $Id: designer.hbp 1985 2012-12-28 09:32:09Z omm $
-#
-
 ..\..\hwguipp.hbc
 -n -w
 designer.prg

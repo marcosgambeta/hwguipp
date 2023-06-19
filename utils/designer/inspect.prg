@@ -1,6 +1,4 @@
 /*
- * $Id: inspect.prg 2755 2018-12-21 11:28:28Z alkresin $
- *
  * Designer
  * Object Inspector
  *

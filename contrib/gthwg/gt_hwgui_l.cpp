@@ -1,5 +1,4 @@
 /*
- * $Id: gt_hwgui_l.c 3008 2021-10-02 14:04:58Z alkresin $
  * GTHWGUI, Video subsystem, based on HwGUI ( GTK Linux version )
  *
  * Copyright 2021 Alexander S.Kresin <alex@kresin.ru>

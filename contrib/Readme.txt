@@ -1,8 +1,6 @@
 *
 * Readme for HWGUI contrib
 *
-* $Id: Readme.txt 3010 2021-10-04 13:06:12Z alkresin $
-*
 * Additional programs and libraries for HWGUI.
 *
 * For detailed instructions read 

@@ -1,5 +1,4 @@
 /*
- * $Id: modistru.prg 2718 2018-12-05 06:30:40Z alkresin $
  * DBCHW - DBC ( Harbour + HWGUI )
  * Database structure handling
  *

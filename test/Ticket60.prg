@@ -2,8 +2,6 @@
  *
  * Ticket60.prg
  *
- * $Id: Ticket60.prg 2886 2020-09-27 09:57:11Z df7be $
- *
  * HWGUI - Harbour Win32 and Linux (GTK) GUI library
  *
  * Test program for Bug Ticket #60:

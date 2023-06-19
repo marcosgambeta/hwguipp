@@ -1,8 +1,6 @@
 HwGUI rich text Editor
 ----------------------
 
- $Id: Readme.txt 2895 2020-10-18 10:00:28Z df7be $
-
 Program Author: Alexander S. Kresin
 
 

@@ -1,7 +1,3 @@
-/*
- * $Id: Suggestions 2891 2020-10-10 22:00:28Z df7be $
- */
-
 /
  * The archive if destines to inform new suggestions to be done
  * Use This format

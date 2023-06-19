@@ -1,6 +1,5 @@
 @echo off
 REM build HWGUI debugger for OpenWatCom C on Windows
-REM $Id: bldow.bat 2859 2020-07-01 09:08:33Z df7be $
 REM by DF7BE
 REM 2020-06-30
 

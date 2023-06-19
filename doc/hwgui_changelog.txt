@@ -1,7 +1,3 @@
-/*
- * $Id: Changelog 3082 2022-06-20 05:36:01Z df7be $
- */
-
 /* Use this format for the entry headers:
    YYYY-MM-DD HH:MM UTC[-|+]hhmm Your Full Name <your_email@address>
    For example:

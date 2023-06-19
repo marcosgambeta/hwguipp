@@ -1,8 +1,6 @@
 #!/bin/bash
 #
 # build.sh
-#
-# $Id: build.sh 2861 2020-07-04 10:49:11Z df7be $
 # 
 # Build shell script build debugger on LINUX/GTK
 # 

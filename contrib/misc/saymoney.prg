@@ -1,6 +1,4 @@
 /*
- * $Id: saymoney.prg 1966 2012-12-25 12:06:43Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * Main prg level functions
  *

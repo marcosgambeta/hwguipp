@@ -1,5 +1,4 @@
 /*
- * $Id: procs_c.c 2396 2015-05-07 08:20:46Z alkresin $
  * Set of functions
  *
  * Copyright 2013 Alexander S.Kresin <alex@kresin.ru>

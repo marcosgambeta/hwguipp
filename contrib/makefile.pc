@@ -1,4 +1,3 @@
-# $Id: makefile.pc,v 1.16 2007/03/27 21:07:02 richardroesnadi Exp $
 # makefile for Pelles C 32 bits
 # Building of hwgui.lib - Harbour Win32 GUI library
 
@@ -43,8 +42,8 @@ $(QHTM_LIB) : $(QHTM_LIB_OBJS)
 
 
 # ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-# ³ QHTM.LIB Dependencies  ³Û
-# ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙÛ
+# ?QHTM.LIB Dependencies  ³Û
+# ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ?
 #  ßßßßßßßßßßßßßßßßßßßßßßßßßß
 
 $(OBJ_DIR)\hqhtm.c : $(SRC_DIR)\qhtm\hqhtm.prg

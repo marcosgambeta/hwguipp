@@ -1,8 +1,6 @@
 
   Readme.txt for "devtools"
 
-  $Id: Readme.txt 3079 2022-06-16 21:18:33Z df7be $
-
    In this subdirectory "utils\devtools" you find some more helpful utilities<br>
    for programming and bugfixing of Clipper, Harbour and HWGUI programs.
 

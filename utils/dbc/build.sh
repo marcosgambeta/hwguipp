@@ -1,7 +1,5 @@
 #!/bin/bash
 # build.sh
-#
-# $Id: build.sh 2847 2020-05-30 21:46:20Z df7be $
 # 
 # Build shell script build dbc on LINUX/GTK
 # 

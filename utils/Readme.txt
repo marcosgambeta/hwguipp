@@ -2,8 +2,6 @@
  Readme for HWGUI utilities
  __________________________
  
-  $Id: Readme.txt 3072 2022-05-16 20:40:40Z df7be $
- 
  Here you find some important utility programs for
  developers of HWGUI programs.
  

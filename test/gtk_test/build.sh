@@ -1,8 +1,6 @@
 #!/bin/bash
 #
 # build.sh
-# 
-# $Id: build.sh 2886 2020-09-27 09:57:11Z df7be $
 #
 # Shell script building HWGUI samples for LINUX/GTK
 #

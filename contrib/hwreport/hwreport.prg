@@ -1,6 +1,4 @@
 /*
- * $Id: hwreport.prg 3065 2022-03-02 11:50:38Z alkresin $
- *
  * Repbuild - Visual Report Builder
  * Main file
  *

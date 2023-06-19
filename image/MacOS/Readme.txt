@@ -1,6 +1,3 @@
-
-$Id: Readme.txt 3040 2022-01-04 23:17:36Z df7be $
-
 Icon files for MacOS
 --------------------
 

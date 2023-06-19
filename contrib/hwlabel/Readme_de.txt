@@ -4,8 +4,6 @@ Readme-Datei für den Ausdruck von Adressen-Aufklebern "labels" mit "hwlabel".
 
 English description in file "Readme.txt" !
 
-  $Id: Readme_de.txt 3079 2022-06-16 21:18:33Z df7be $
-
 Inhalt
 ------
 

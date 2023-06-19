@@ -2,8 +2,6 @@
 REM
 REM bldgtk.bat
 REM
-REM  $Id: bldgtk.bat 2895 2020-10-18 10:00:28Z df7be $
-REM
 REM Created by DF7BE 2020-08-24
 REM Script building the Binary Container Manager
 REM for HWGUI on Windows with GTK+

@@ -1,6 +1,4 @@
 /*
- * $Id: arr2str.c 2883 2020-09-19 07:42:30Z df7be $
- *
  * HWGUI - Harbour Win32 GUI library source code:
  * Array / String conversion functions
  *
