@@ -17,9 +17,6 @@
 
 // #include "hwgtk.h"
 #include "hbdate.h"
-#ifdef __XHARBOUR__
-#include "hbfast.h"
-#endif
 
 #include <malloc.h>
 

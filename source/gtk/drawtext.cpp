@@ -20,10 +20,6 @@
 #define DT_CENTER                   1
 #define DT_RIGHT                    2
 
-#ifdef __XHARBOUR__
-#include "hbfast.h"
-#endif
-
 /* Avoid warnings from GCC */
 #include "warnings.hpp"
 

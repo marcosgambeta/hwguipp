@@ -14,11 +14,7 @@
 #include <locale.h>
 #include "gtk/gtk.h"
 #include "gdk/gdkkeysyms.h"
-#ifdef __XHARBOUR__
-#include "hbfast.h"
-#else
 #include "hbapicls.h"
-#endif
 #include "hwgtk.hpp"
 
 /* Avoid warnings from GCC */

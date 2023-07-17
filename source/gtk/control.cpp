@@ -22,9 +22,6 @@
 
 #include "hwgtk.hpp"
 #include "hbdate.h"
-#ifdef __XHARBOUR__
-#include "hbfast.h"
-#endif
 /* Avoid warnings from GCC */
 #include "warnings.hpp"
 

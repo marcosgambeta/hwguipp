@@ -13,9 +13,6 @@
 #include "item.api"
 #include "gtk/gtk.h"
 #include "hwgtk.hpp"
-#ifdef __XHARBOUR__
-#include "hbfast.h"
-#endif
 /* Avoid warnings from GCC */
 #include "warnings.hpp"
 
