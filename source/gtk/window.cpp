@@ -7,14 +7,14 @@
 */
 
 #include "guilib.hpp"
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapifs.hpp>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 #include "item.api"
 #include <locale.h>
 #include "gtk/gtk.h"
 #include "gdk/gdkkeysyms.h"
-#include "hbapicls.h"
+#include <hbapicls.hpp>
 #include "hwgtk.hpp"
 
 /* Avoid warnings from GCC */

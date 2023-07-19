@@ -25,15 +25,15 @@
 #include <sys/stat.h>
 
 #include "guilib.hpp"
-#include "hbmath.h"
+#include <hbmath.hpp>
 #include <hbapi.hpp>
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbset.h"
+#include <hbapifs.hpp>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbset.hpp>
 #include "item.api"
-#include "hbtypes.h"
-#include "hbwinuni.h"
+#include <hbtypes.hpp>
+#include <hbwinuni.hpp>
 #include <unistd.h>
 #include "gtk/gtk.h"
 #include "gdk/gdkkeysyms.h"

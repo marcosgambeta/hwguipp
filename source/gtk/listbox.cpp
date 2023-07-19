@@ -55,9 +55,9 @@
 #include <prsht.h>
 #endif
 */
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbstack.hpp>
 
 /*
  hwg_Listboxaddstring(handle, cItem)

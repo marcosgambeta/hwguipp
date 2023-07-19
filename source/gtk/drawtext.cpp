@@ -8,8 +8,8 @@
 
 #include "guilib.hpp"
 #include <hbapi.hpp>
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 #include "item.api"
 
 #include <cairo.h>

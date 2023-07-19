@@ -8,9 +8,9 @@
 
 #include "guilib.hpp"
 #include <hbapi.hpp>
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapifs.hpp>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 
 #include <locale.h>
 #include "gtk/gtk.h"

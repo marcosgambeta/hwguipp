@@ -8,15 +8,15 @@
 */
 
 #include "guilib.hpp"
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapifs.hpp>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 #include "item.api"
-#include "hbtypes.h"
-#include "hbwinuni.h"
+#include <hbtypes.hpp>
+#include <hbwinuni.hpp>
 
 // #include "hwgtk.h"
-#include "hbdate.h"
+#include <hbdate.hpp>
 
 #include <malloc.h>
 

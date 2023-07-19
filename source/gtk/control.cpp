@@ -12,16 +12,16 @@
 */
 
 #include "guilib.hpp"
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapifs.hpp>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 #include "item.api"
 
 #include <cairo.h>
 #include "gtk/gtk.h"
 
 #include "hwgtk.hpp"
-#include "hbdate.h"
+#include <hbdate.hpp>
 /* Avoid warnings from GCC */
 #include "warnings.hpp"
 

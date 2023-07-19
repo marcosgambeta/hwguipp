@@ -7,9 +7,9 @@
 */
 
 #include "guilib.hpp"
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapifs.hpp>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 #include "item.api"
 #include "gtk/gtk.h"
 #include "hwgtk.hpp"
