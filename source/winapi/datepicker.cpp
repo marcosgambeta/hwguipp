@@ -64,7 +64,7 @@ HB_FUNC( HWG_SETDATEPICKER )
          lMinute = st.wMinute;
          lSecond = st.wSecond;
       } else {
-         const char * szTime =  hb_parc(3);
+         auto szTime =  hb_parc(3);
          if( szTime ) {
             ulLen = strlen(szTime);
             if( ulLen >= 4 ) {

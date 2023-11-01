@@ -1174,7 +1174,7 @@ HB_FUNC( HWG_BIN2DC )
     double pbyNumber;
     int i;
     unsigned char o;
-    unsigned char bu[8];     /* Buffer with binary contents of double value */ 
+    unsigned char bu[8];     /* Buffer with binary contents of double value */
     unsigned char szHex[17]; /* The hex string from parameter 1 + null byte*/
 
 
@@ -1185,12 +1185,11 @@ HB_FUNC( HWG_BIN2DC )
     /* For Borland C the variables must declare extra */
     HB_USHORT uiWidth;
     HB_USHORT uiDec;
-    const char *name;
 
   /* init vars */
-  
+
   pbyNumber = 0;
-  
+
     szHex[0] = '\0';
     szHex[1] = '\0';
     szHex[2] = '\0';
@@ -1203,7 +1202,7 @@ HB_FUNC( HWG_BIN2DC )
     szHex[9] = '\0';
     szHex[10] = '\0';
     szHex[11] = '\0';
-    szHex[12] = '\0'; 
+    szHex[12] = '\0';
     szHex[13] = '\0';
     szHex[14] = '\0';
     szHex[15] = '\0';
@@ -1212,7 +1211,7 @@ HB_FUNC( HWG_BIN2DC )
 
     p = 0;
     c = 0;
-    od = 0;  
+    od = 0;
 
     // Internal I2BIN for Len
 
@@ -1223,14 +1222,14 @@ HB_FUNC( HWG_BIN2DC )
     uiDec = static_cast<HB_USHORT>(hb_parni(3));
 
 
-    name = hb_parc(1);
+    auto name = hb_parc(1);
 
     // hwg_writelog(nullptr,name);
- 
+
     memcpy(&szHex,name,16);
 
     szHex[16] = '\0';
- 
+
     // hwg_writelog(nullptr,szHex);
 
     /* Convert hex to bin */

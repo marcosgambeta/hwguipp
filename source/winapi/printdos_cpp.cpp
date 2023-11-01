@@ -55,7 +55,7 @@ static int file_read ( FILE *stream, char *string )
 //----------------------------------------------------------------------------//
 HB_FUNC( AFILLTEXT )
 {
-   const char * pSrc = hb_parc(1) ;
+   auto pSrc = hb_parc(1) ;
    PHB_ITEM pArray = hb_itemNew(nullptr);
    PHB_ITEM pTemp = hb_itemNew(nullptr);
 

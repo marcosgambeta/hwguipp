@@ -204,7 +204,7 @@ HB_FUNC( HWG_FI_LOAD )
    pGetfiffromfile = reinterpret_cast<FREEIMAGE_GETFIFFROMFILENAME>(s_getFunction(reinterpret_cast<FARPROC>(pGetfiffromfile), "_FreeImage_GetFIFFromFilename@4"));
 
    if( pGetfiffromfile && pLoad ) {
-      const char * name = hb_parc(1);
+      auto name = hb_parc(1);
       hb_retnl(reinterpret_cast<ULONG>(pLoad(pGetfiffromfile(name), name, (hb_pcount() > 1) ? hb_parni(2) : 0)));
    } else {
       hb_retnl(0);
@@ -219,7 +219,7 @@ HB_FUNC( HWG_FI_LOADTYPE )
    pLoad = reinterpret_cast<FREEIMAGE_LOAD>(s_getFunction(reinterpret_cast<FARPROC>(pLoad), "_FreeImage_Load@12"));
 
    if( pLoad ) {
-      const char * name = hb_parc(2);
+      auto name = hb_parc(2);
       hb_retnl(reinterpret_cast<ULONG>(pLoad(static_cast<enum FREE_IMAGE_FORMAT>(hb_parni(1)), name, (hb_pcount() > 2) ? hb_parni(3) : 0)));
    } else {
       hb_retnl(0);
@@ -232,7 +232,7 @@ HB_FUNC( HWG_FI_SAVE )
    pGetfiffromfile = reinterpret_cast<FREEIMAGE_GETFIFFROMFILENAME>(s_getFunction(reinterpret_cast<FARPROC>(pGetfiffromfile), "_FreeImage_GetFIFFromFilename@4"));
 
    if( pGetfiffromfile && pSave ) {
-      const char * name = hb_parc(2);
+      auto name = hb_parc(2);
       hb_retl(pSave(pGetfiffromfile(name), hwg_par_FIBITMAP(1), name, (hb_pcount() > 2) ? hb_parni(3) : 0));
    } else {
       hb_retl(false);
@@ -247,7 +247,7 @@ HB_FUNC( HWG_FI_SAVETYPE )
    pSave = reinterpret_cast<FREEIMAGE_SAVE>(s_getFunction(reinterpret_cast<FARPROC>(pSave), "_FreeImage_Save@16"));
 
    if( pSave ) {
-      const char * name = hb_parc(3);
+      auto name = hb_parc(3);
       hb_retl(pSave(static_cast<FREE_IMAGE_FORMAT>(hb_parni(1)), hwg_par_FIBITMAP(2), name, (hb_pcount() > 3) ? hb_parni(4) : 0));
    } else {
       hb_retl(false);
@@ -683,8 +683,7 @@ HB_FUNC( HWG_FI_LOADFROMMEM )
    pLoadFromHandle = reinterpret_cast<FREEIMAGE_LOADFROMHANDLE>(s_getFunction(reinterpret_cast<FARPROC>(pLoadFromHandle), "_FreeImage_LoadFromHandle@16"));
 
    if( pLoadFromHandle ) {
-      const char *image = hb_parc(1);
-      const char *cType;
+      auto image = hb_parc(1);
       FREE_IMAGE_FORMAT fif;
       FreeImageIO io;
 
@@ -693,7 +692,7 @@ HB_FUNC( HWG_FI_LOADFROMMEM )
       io.tell_proc = _TellProc;
       io.seek_proc = _SeekProc;
 
-      cType = hb_parc(2);
+      auto cType = hb_parc(2);
       if( cType ) {
          if( !hb_stricmp(cType, "jpg") ) {
             fif = FIF_JPEG;

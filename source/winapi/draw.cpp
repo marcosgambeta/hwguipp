@@ -942,7 +942,7 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
 
 HB_FUNC( HWG_OPENIMAGE )
 {
-   const char *cFileName = hb_parc(1);
+   auto cFileName = hb_parc(1);
    BOOL bString = (HB_ISNIL(2)) ? 0 : hb_parl(2);
    int iType = (HB_ISNIL(3)) ? IMAGE_BITMAP : hb_parni(3);
    int iFileSize;
