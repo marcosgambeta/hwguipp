@@ -190,7 +190,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
 {
    HGLOBAL hgbl;
    PWORD p, pend;
-   PHB_ITEM pControls, pControl, temp;
+   PHB_ITEM pControl, temp;
    LONG baseUnit = GetDialogBaseUnits();
    int baseunitX = LOWORD(baseUnit), baseunitY = HIWORD(baseUnit);
    long lTemplateSize = 15;
@@ -205,7 +205,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
    /* clear styles which needs different dialog template */
    ulStyle &= ~(DS_SETFONT | DS_SHELLFONT);
 
-   pControls = hb_itemNew(GETOBJECTVAR(pObj, "ACONTROLS"));
+   auto pControls = hb_itemNew(GETOBJECTVAR(pObj, "ACONTROLS"));
    ulControls = hb_arrayLen(pControls);
 
    lTemplateSize += s_nWideStringLen(GETOBJECTVAR(pObj, "TITLE"));

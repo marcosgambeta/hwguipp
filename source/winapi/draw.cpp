@@ -87,7 +87,7 @@ BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)
 PHB_ITEM Rect2Array(RECT * rc)
 {
    PHB_ITEM aRect = hb_itemArrayNew(4);
-   PHB_ITEM element = hb_itemNew(nullptr);
+   auto element = hb_itemNew(nullptr);
 
    hb_arraySet(aRect, 1, hb_itemPutNL(element, rc->left));
    hb_arraySet(aRect, 2, hb_itemPutNL(element, rc->top));
