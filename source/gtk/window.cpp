@@ -107,7 +107,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
    GtkFixed * box;
    GdkPixmap * background;
    GtkStyle * style;
-   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
+   auto pObject = hb_param(1, Harbour::Item::OBJECT);
    gchar * gcTitle = hwg_convert_to_utf8(hb_parcx(3));
    int x = hb_parnl(7);
    int y = hb_parnl(8);
@@ -187,7 +187,7 @@ HB_FUNC( HWG_CREATEDLG )
    GtkFixed * box;
    GdkPixmap * background;
    GtkStyle * style;
-   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
+   auto pObject = hb_param(1, Harbour::Item::OBJECT);
    gchar * gcTitle = hwg_convert_to_utf8(hb_itemGetCPtr(GetObjectVar(pObject, "TITLE")));
    int x = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
    int y = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));

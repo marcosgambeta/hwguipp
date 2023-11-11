@@ -90,7 +90,7 @@ HB_FUNC( HWG_SELECTFONT )
    //GTK_FONT_SELECTION(GTK_FONT_SELECTION_DIALOG(fontseldlg)->fontsel);
 
    if( hb_pcount() > 0 && !HB_ISNIL(1) ) {
-      PHB_ITEM pObj = hb_param(1, Harbour::Item::OBJECT);
+      auto pObj = hb_param(1, Harbour::Item::OBJECT);
       const char * ptr = hb_itemGetCPtr(GetObjectVar(pObj, "NAME"));
       int height = hb_itemGetNI(GetObjectVar(pObj, "HEIGHT"));
       int weight = hb_itemGetNI(GetObjectVar(pObj, "WEIGHT"));
