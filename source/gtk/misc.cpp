@@ -542,7 +542,7 @@ HB_FUNC( HWG_BIN2DC )
 
    HB_USHORT uiDec = static_cast<HB_USHORT>(hb_parni(3));
 
-   const char * name = hb_parc(1);
+   auto name = hb_parc(1);
 
    memcpy(&szHex, name, 16);
 
