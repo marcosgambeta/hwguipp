@@ -147,14 +147,13 @@ HB_FUNC( HWG_INITSTATUS )
    HWND hStatus = hwg_par_HWND(2);
    RECT rcClient;
    HLOCAL hloc;
-   LPINT lpParts;
    int nWidth, j;
    auto nParts = hb_parni(3);
    auto pArray = hb_param(4, Harbour::Item::ARRAY);
 
    // Allocate an array for holding the right edge coordinates.
    hloc = LocalAlloc(LHND, sizeof(int) * nParts);
-   lpParts = static_cast<LPINT>(LocalLock(hloc));
+   auto lpParts = static_cast<LPINT>(LocalLock(hloc));
 
    if( !pArray || hb_arrayGetNI(pArray, 1) == 0 ) {
       // Get the coordinates of the parent window's client area.
@@ -372,7 +371,7 @@ HB_FUNC( HWG_INITWINCTRL )
 LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
@@ -405,7 +404,7 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
@@ -448,7 +447,7 @@ HB_FUNC( HWG_INITTRACKPROC )
 LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
@@ -608,15 +607,15 @@ HB_FUNC( HWG_DEFWINDOWPROC )
 
 HB_FUNC( HWG_CALLWINDOWPROC )
 {
-   WNDPROC wpProc = reinterpret_cast<WNDPROC>(static_cast<ULONG_PTR>(hb_parnl(1)));
+   auto wpProc = reinterpret_cast<WNDPROC>(static_cast<ULONG_PTR>(hb_parnl(1)));
    hb_retnl(CallWindowProc(wpProc, hwg_par_HWND(2), hb_parnl(3), static_cast<WPARAM>(hb_parnl(4)), hwg_par_LPARAM(5)));
 }
 
 HB_FUNC( HWG_BUTTONGETDLGCODE )
 {
-   LPARAM lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(1));
+   auto lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(1));
    if( lParam ) {
-      MSG *pMsg = reinterpret_cast<MSG*>(lParam);
+      auto pMsg = reinterpret_cast<MSG*>(lParam);
 
       if( pMsg && (pMsg->message == WM_KEYDOWN) && (pMsg->wParam == VK_TAB) ) {
          // don't interfere with tab processing
@@ -629,9 +628,9 @@ HB_FUNC( HWG_BUTTONGETDLGCODE )
 
 HB_FUNC( HWG_GETDLGMESSAGE )
 {
-   LPARAM lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(1));
+   auto lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(1));
    if( lParam ) {
-      MSG *pMsg = reinterpret_cast<MSG*>(lParam);
+      auto pMsg = reinterpret_cast<MSG*>(lParam);
 
       if( pMsg ) {
          hb_retnl(pMsg->message);

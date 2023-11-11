@@ -116,7 +116,7 @@ HWG_GETDLGITEMTEXT(hWnd, nID, nMaxSize) --> cText
 HB_FUNC( HWG_GETDLGITEMTEXT )
 {
    USHORT uiLen = hwg_par_int(3);
-   LPTSTR lpText = static_cast<LPTSTR>(hb_xgrab((uiLen + 1) * sizeof(TCHAR)));
+   auto lpText = static_cast<LPTSTR>(hb_xgrab((uiLen + 1) * sizeof(TCHAR)));
    GetDlgItemText(hwg_par_HWND(1), hwg_par_int(2), lpText, uiLen);
    HB_RETSTR(lpText);
    hb_xfree(lpText);
@@ -129,8 +129,8 @@ HB_FUNC( HWG_GETEDITTEXT )
 {
    HWND hDlg = hwg_par_HWND(1);
    int id = hwg_par_int(2);
-   USHORT uiLen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
-   LPTSTR lpText = static_cast<LPTSTR>(hb_xgrab((uiLen + 2) * sizeof(TCHAR)));
+   auto uiLen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
+   auto lpText = static_cast<LPTSTR>(hb_xgrab((uiLen + 2) * sizeof(TCHAR)));
    GetDlgItemText(hDlg, id, lpText, uiLen + 1);
    HB_RETSTR(lpText);
    hb_xfree(lpText);
@@ -167,9 +167,7 @@ HB_FUNC( HWG_GETNOTIFYCODE )
 
 static LPWORD s_lpwAlign(LPWORD lpIn)
 {
-   ULONG ul;
-
-   ul = reinterpret_cast<ULONG>(lpIn);
+   auto ul = reinterpret_cast<ULONG>(lpIn);
    ul += 3;
    ul >>= 2;
    ul <<= 2;
@@ -189,7 +187,7 @@ static int s_nWideStringLen(PHB_ITEM pItem)
 static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwidth, int dheight, ULONG ulStyle)
 {
    HGLOBAL hgbl;
-   PWORD p, pend;
+   PWORD pend;
    PHB_ITEM pControl, temp;
    LONG baseUnit = GetDialogBaseUnits();
    int baseunitX = LOWORD(baseUnit), baseunitY = HIWORD(baseUnit);
@@ -225,7 +223,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
       return nullptr;
    }
 
-   p = static_cast<PWORD>(GlobalLock(hgbl));
+   auto p = static_cast<PWORD>(GlobalLock(hgbl));
    pend = p + lTemplateSize;
 
    *p++ = 1;                    // DlgVer
@@ -469,14 +467,13 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPAR
 {
    // PHB_DYNS pSymTest;
    long int res;
-   PHB_ITEM pObject;
 
    if( uMsg == WM_INITDIALOG ) {
       hb_objDataPutNL(reinterpret_cast<PHB_ITEM>(lParam), "_NHOLDER", 1);
       hb_objDataPutPtr(reinterpret_cast<PHB_ITEM>(lParam), "_HANDLE", hDlg);
       SetWindowObject(hDlg, reinterpret_cast<PHB_ITEM>(lParam));
    }
-   pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hDlg, GWLP_USERDATA));
+   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hDlg, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
@@ -509,7 +506,6 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPAR
 static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject;
 
    if( uMsg == WM_INITDIALOG ) {
       hb_objDataPutNL(reinterpret_cast<PHB_ITEM>(lParam), "_NHOLDER", 1);
@@ -538,7 +534,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       }
    }
 
-   pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hDlg, GWLP_USERDATA));
+   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hDlg, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
@@ -572,10 +568,9 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
 static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject;
 
    if( uMsg == WM_INITDIALOG ) {
-      PHB_ITEM pObj = reinterpret_cast<PHB_ITEM>(reinterpret_cast<PROPSHEETPAGE*>(lParam)->lParam);
+      auto pObj = reinterpret_cast<PHB_ITEM>(reinterpret_cast<PROPSHEETPAGE*>(lParam)->lParam);
 
       hb_objDataPutNL(pObj, "_NHOLDER", 1);
       hb_objDataPutPtr(pObj, "_HANDLE", hDlg);
@@ -606,7 +601,7 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       }
    }
 
-   pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hDlg, GWLP_USERDATA));
+   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hDlg, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");

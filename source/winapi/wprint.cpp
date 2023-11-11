@@ -32,7 +32,7 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
 {
    DWORD dwNeeded, dwReturned;
    EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 4, nullptr, 0, &dwNeeded, &dwReturned);
-   PRINTER_INFO_4 * pinfo4 = static_cast<PRINTER_INFO_4*>(hb_xgrab(dwNeeded));
+   auto pinfo4 = static_cast<PRINTER_INFO_4*>(hb_xgrab(dwNeeded));
    EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 4, reinterpret_cast<PBYTE>(pinfo4), dwNeeded, &dwNeeded, &dwReturned);
    HDC hDC = CreateDC(nullptr, pinfo4->pPrinterName, nullptr, nullptr);
    if( hb_pcount() > 0 ) {
@@ -111,7 +111,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
    if( hPrinter != nullptr ) {
       /* Determine the size of DEVMODE structure */
       long int nSize = DocumentProperties(nullptr, hPrinter, const_cast<LPTSTR>(lpPrinterName), nullptr, nullptr, 0);
-      PDEVMODE pdm = static_cast<PDEVMODE>(GlobalAlloc(GPTR, nSize));
+      auto pdm = static_cast<PDEVMODE>(GlobalAlloc(GPTR, nSize));
 
       /* Get the printer mode */
       DocumentProperties(nullptr, hPrinter, const_cast<LPTSTR>(lpPrinterName), pdm, nullptr, DM_OUT_BUFFER);

@@ -55,7 +55,7 @@
 
 HB_FUNC( HWG_REGCLOSEKEY )
 {
-   HKEY hwHandle = static_cast<HKEY>(hb_parnl(1));
+   auto hwHandle = static_cast<HKEY>(hb_parnl(1));
 
    if( RegCloseKey(hwHandle) == ERROR_SUCCESS ) {
       hb_retnl(ERROR_SUCCESS);
@@ -66,7 +66,7 @@ HB_FUNC( HWG_REGCLOSEKEY )
 
 HB_FUNC( HWG_REGOPENKEYEX )
 {
-   HKEY hwKey = static_cast<HKEY>(hb_parnl(1));
+   auto hwKey = static_cast<HKEY>(hb_parnl(1));
    void * hValue;
    LPCTSTR lpValue = HB_PARSTRDEF(2, &hValue, nullptr);
    HKEY phwHandle;
@@ -85,7 +85,7 @@ HB_FUNC( HWG_REGOPENKEYEX )
 
 HB_FUNC( HWG_REGQUERYVALUEEX )
 {
-   HKEY hwKey = static_cast<HKEY>(hb_parnl(1));
+   auto hwKey = static_cast<HKEY>(hb_parnl(1));
    DWORD lpType = hb_parnl(4);
    DWORD lpcbData = 0;
    void * hValue;
@@ -94,7 +94,7 @@ HB_FUNC( HWG_REGQUERYVALUEEX )
    LONG lError = RegQueryValueEx(hwKey, lpValue, nullptr, &lpType, nullptr, &lpcbData);
 
    if( lError == ERROR_SUCCESS ) {
-      BYTE * lpData = static_cast<BYTE*>(memset(hb_xgrab(lpcbData + 1), 0, lpcbData + 1));
+      auto lpData = static_cast<BYTE*>(memset(hb_xgrab(lpcbData + 1), 0, lpcbData + 1));
       lError = RegQueryValueEx(hwKey, lpValue, nullptr, &lpType, lpData, &lpcbData);
       if( lError > 0 ) {
          hb_retni(-1);

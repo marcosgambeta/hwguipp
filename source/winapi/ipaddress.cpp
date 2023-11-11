@@ -73,10 +73,10 @@ HB_FUNC( HWG_GETIPADDRESS )
 
    SendMessage(hwg_par_HWND(1), IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(static_cast<LPDWORD>(&pdwAddr)));
 
-   BYTE v1 = static_cast<BYTE>(FIRST_IPADDRESS(pdwAddr));
-   BYTE v2 = static_cast<BYTE>(SECOND_IPADDRESS(pdwAddr));
-   BYTE v3 = static_cast<BYTE>(THIRD_IPADDRESS(pdwAddr));
-   BYTE v4 = static_cast<BYTE>(FOURTH_IPADDRESS(pdwAddr));
+   auto v1 = static_cast<BYTE>(FIRST_IPADDRESS(pdwAddr));
+   auto v2 = static_cast<BYTE>(SECOND_IPADDRESS(pdwAddr));
+   auto v3 = static_cast<BYTE>(THIRD_IPADDRESS(pdwAddr));
+   auto v4 = static_cast<BYTE>(FOURTH_IPADDRESS(pdwAddr));
 
    hb_reta(4);
    hb_storvni(static_cast<INT>(v1), -1, 1);

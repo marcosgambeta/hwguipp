@@ -91,7 +91,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
    /* HWND hToolTip = hwg_par_HWND(4); */
    auto pArray = hb_param(2, Harbour::Item::ARRAY);
    auto iButtons = hb_parni(3);
-   TBBUTTON * tb = static_cast<struct _TBBUTTON*>(hb_xgrab(iButtons * sizeof(TBBUTTON)));
+   auto tb = static_cast<struct _TBBUTTON*>(hb_xgrab(iButtons * sizeof(TBBUTTON)));
    PHB_ITEM pTemp;
 
    ULONG ulID;
@@ -156,13 +156,12 @@ HB_FUNC( HWG_TOOLBAR_LOADSTANDARTIMAGE )
    TBADDBITMAP tbab;
    HWND hWndCtrl = hwg_par_HWND(1);
    auto iIDB = hb_parni(2);
-   HIMAGELIST himl;
 
    tbab.hInst = HINST_COMMCTRL;
    tbab.nID = iIDB; // IDB_HIST_SMALL_COLOR / IDB_VIEW_SMALL_COLOR / IDB_VIEW_SMALL_COLOR;
 
    SendMessage(hWndCtrl, TB_ADDBITMAP, 0, reinterpret_cast<LPARAM>(&tbab));
-   himl = reinterpret_cast<HIMAGELIST>(SendMessage(hWndCtrl, TB_GETIMAGELIST, 0, 0));
+   auto himl = reinterpret_cast<HIMAGELIST>(SendMessage(hWndCtrl, TB_GETIMAGELIST, 0, 0));
    hb_retni(static_cast<int>(ImageList_GetImageCount(himl)));
 }
 
@@ -173,8 +172,8 @@ HB_FUNC( HWG_IMAGELIST_GETIMAGECOUNT )
 
 HB_FUNC( HWG_TOOLBAR_SETDISPINFO )
 {
-   //LPTOOLTIPTEXT pDispInfo = static_cast<LPTOOLTIPTEXT>(HB_PARHANDLE(1));
-   LPNMTTDISPINFO pDispInfo = static_cast<LPNMTTDISPINFO>(HB_PARHANDLE(1));
+   //auto pDispInfo = static_cast<LPTOOLTIPTEXT>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LPNMTTDISPINFO>(HB_PARHANDLE(1));
 
    if( pDispInfo ) {
       HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->szText, HB_SIZEOFARRAY(pDispInfo->szText));
@@ -190,15 +189,15 @@ HB_FUNC( HWG_TOOLBAR_SETDISPINFO )
 
 HB_FUNC( HWG_TOOLBAR_GETDISPINFOID )
 {
-   //LPTOOLTIPTEXT pDispInfo = static_cast<LPTOOLTIPTEXT>(hb_parnl(1));
-   LPNMTTDISPINFO pDispInfo = static_cast<LPNMTTDISPINFO>(HB_PARHANDLE(1));
+   //auto pDispInfo = static_cast<LPTOOLTIPTEXT>(hb_parnl(1));
+   auto pDispInfo = static_cast<LPNMTTDISPINFO>(HB_PARHANDLE(1));
    DWORD idButton = pDispInfo->hdr.idFrom;
    hb_retnl(idButton);
 }
 
 HB_FUNC( HWG_TOOLBAR_GETINFOTIP )
 {
-   LPNMTBGETINFOTIP pDispInfo = static_cast<LPNMTBGETINFOTIP>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LPNMTBGETINFOTIP>(HB_PARHANDLE(1));
    if( pDispInfo && pDispInfo->cchTextMax > 0 ) {
       HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->pszText, pDispInfo->cchTextMax);
       pDispInfo->pszText[pDispInfo->cchTextMax - 1] = 0;
@@ -207,21 +206,21 @@ HB_FUNC( HWG_TOOLBAR_GETINFOTIP )
 
 HB_FUNC( HWG_TOOLBAR_GETINFOTIPID )
 {
-   LPNMTBGETINFOTIP pDispInfo = static_cast<LPNMTBGETINFOTIP>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LPNMTBGETINFOTIP>(HB_PARHANDLE(1));
    DWORD idButton = pDispInfo->iItem;
    hb_retnl(idButton);
 }
 
 HB_FUNC( HWG_TOOLBAR_IDCLICK )
 {
-   LPNMMOUSE pDispInfo = static_cast<LPNMMOUSE>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LPNMMOUSE>(HB_PARHANDLE(1));
    DWORD idButton = pDispInfo->dwItemSpec;
    hb_retnl(idButton);
 }
 
 HB_FUNC( HWG_TOOLBAR_SUBMENU )
 {
-   LPNMTOOLBAR lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
+   auto lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
    RECT rc = {0, 0, 0, 0};
    TPMPARAMS tpm;
    HMENU hPopupMenu;
@@ -250,7 +249,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENU )
 
 HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
 {
-   LPNMTOOLBAR lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
+   auto lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
    RECT rc = {0, 0, 0, 0};
    TPMPARAMS tpm;
    HMENU hPopupMenu = hwg_par_HMENU(2);
@@ -272,6 +271,6 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
 
 HB_FUNC( HWG_TOOLBAR_SUBMENUEXGETID )
 {
-   LPNMTOOLBAR lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
+   auto lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
    hb_retnl(static_cast<LONG>(lpnmTB->iItem));
 }

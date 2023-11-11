@@ -130,7 +130,7 @@ HB_FUNC( HWG_LISTVIEW_GETFIRSTITEM )
 
 HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
 {
-   LV_DISPINFO * pDispInfo = static_cast<LV_DISPINFO*>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LV_DISPINFO*>(HB_PARHANDLE(1));
 
    int iItem = pDispInfo->item.iItem;
    int iSubItem = pDispInfo->item.iSubItem;
@@ -142,7 +142,7 @@ HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
 
 HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
 {
-   LV_DISPINFO * pDispInfo = static_cast<LV_DISPINFO*>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LV_DISPINFO*>(HB_PARHANDLE(1));
 
    if( pDispInfo->item.mask & LVIF_TEXT ) {
       HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->item.pszText, pDispInfo->item.cchTextMax);
@@ -350,7 +350,7 @@ HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
 
 LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
 {
-   LPNMLVCUSTOMDRAW lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
+   auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
    PHB_ITEM pColor;
 
    switch ( lplvcd->nmcd.dwDrawStage )
@@ -368,12 +368,10 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
       case CDDS_SUBITEM | CDDS_ITEMPREPAINT:
       {
          // LONG ptemp;
-         COLORREF ColorText;
-         COLORREF ColorBack;
 
          pColor = hb_arrayGetItemPtr(pArray, lplvcd->iSubItem + 1);
-         ColorText = static_cast<COLORREF>(hb_arrayGetNL(pColor, 1));
-         ColorBack = static_cast<COLORREF>(hb_arrayGetNL(pColor, 2));
+         auto ColorText = static_cast<COLORREF>(hb_arrayGetNL(pColor, 1));
+         auto ColorBack = static_cast<COLORREF>(hb_arrayGetNL(pColor, 2));
          lplvcd->clrText = ColorText;
          lplvcd->clrTextBk = ColorBack;
 
@@ -386,7 +384,7 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
 HB_FUNC( HWG_PROCESSCUSTU )
 {
    /* HWND hWnd = hwg_par_HWND(1); */
-   LPARAM lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(2));
+   auto lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(2));
    auto pColor = hb_param(3, Harbour::Item::ARRAY);
 
    hb_retnl(static_cast<LONG>(ProcessCustomDraw(lParam, pColor)));
@@ -415,7 +413,7 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
 
 int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
-   PSORTINFO pSortInfo = reinterpret_cast<PSORTINFO>(lParamSort);
+   auto pSortInfo = reinterpret_cast<PSORTINFO>(lParamSort);
    //int nResult      = 0;
    int nColumnNo = pSortInfo->nColumnNo;
    HWND pListControl = pSortInfo->pListControl;
@@ -444,7 +442,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFONEW )
       return;
    }
 
-   PSORTINFO p = static_cast<PSORTINFO>(hb_xgrab(sizeof(SortInfo)));
+   auto p = static_cast<PSORTINFO>(hb_xgrab(sizeof(SortInfo)));
 
    if( p ) {
       p->pListControl = nullptr;
@@ -457,7 +455,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFONEW )
 
 HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
 {
-   PSORTINFO p = static_cast<PSORTINFO>(hb_parptr(3));
+   auto p = static_cast<PSORTINFO>(hb_parptr(3));
 
    if( p ) {
       hb_xfree(p);
@@ -466,8 +464,8 @@ HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
 
 HB_FUNC( HWG_LISTVIEWSORT )
 {
-   PSORTINFO p = static_cast<PSORTINFO>(hb_parptr(3));
-   LPNMLISTVIEW phdNotify = static_cast<LPNMLISTVIEW>(HB_PARHANDLE(2));
+   auto p = static_cast<PSORTINFO>(hb_parptr(3));
+   auto phdNotify = static_cast<LPNMLISTVIEW>(HB_PARHANDLE(2));
 
    if( phdNotify->iSubItem == p->nColumnNo ) {
       p->nAscendingSortOrder = !p->nAscendingSortOrder;

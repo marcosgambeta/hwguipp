@@ -101,7 +101,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 
 HB_FUNC( HWG_GETCLIPBOARDTEXT )
 {
-   HWND hWnd = reinterpret_cast<HWND>(hb_parnl(1)); // TODO: HB_PARHANDLE ?
+   auto hWnd = reinterpret_cast<HWND>(hb_parnl(1)); // TODO: HB_PARHANDLE ?
    LPTSTR lpText = nullptr;
 
    if( OpenClipboard(hWnd) ) {
@@ -113,7 +113,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
       if( hglb ) {
          LPVOID lpMem = GlobalLock(hglb);
          if( lpMem ) {
-            HB_SIZE nSize = static_cast<HB_SIZE>(GlobalSize(hglb));
+            auto nSize = static_cast<HB_SIZE>(GlobalSize(hglb));
             if( nSize ) {
                lpText = ( LPTSTR ) hb_xgrab(nSize + 1);
                memcpy(lpText, lpMem, nSize);
@@ -690,8 +690,6 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    //UINT h = hb_parni(2);
    auto pObject = hb_param(3, Harbour::Item::OBJECT);
    LONG i;
-   HBRUSH hBrush;
-   COLORREF cColor;
 
    if( !pObject ) {
       hb_retnl(reinterpret_cast<LONG>(GetStockObject(HOLLOW_BRUSH)));
@@ -699,8 +697,8 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
       return;
    }
 
-   cColor = static_cast<COLORREF>(hb_objDataGetNL(pObject, "M_TEXTCOLOR"));
-   hBrush = static_cast<HBRUSH>(hb_objDataGetPtr(pObject, "M_BRUSH"));
+   auto cColor = static_cast<COLORREF>(hb_objDataGetNL(pObject, "M_TEXTCOLOR"));
+   auto hBrush = static_cast<HBRUSH>(hb_objDataGetPtr(pObject, "M_BRUSH"));
 
    DeleteObject(hBrush);
 
@@ -1181,8 +1179,6 @@ HB_FUNC( HWG_BIN2DC )
     int od;     /* odd even sign / gerade - ungerade */
 
     /* For Borland C the variables must declare extra */
-    HB_USHORT uiWidth;
-    HB_USHORT uiDec;
 
   /* init vars */
 
@@ -1213,11 +1209,11 @@ HB_FUNC( HWG_BIN2DC )
 
     // Internal I2BIN for Len
 
-    uiWidth = static_cast<HB_USHORT>(hb_parni(2));
+   auto uiWidth = static_cast<HB_USHORT>(hb_parni(2));
 
     // Internal I2BIN for Dec
 
-    uiDec = static_cast<HB_USHORT>(hb_parni(3));
+   auto uiDec = static_cast<HB_USHORT>(hb_parni(3));
 
 
     auto name = hb_parc(1);

@@ -90,7 +90,7 @@ HB_FUNC( HBXML_SETENTITY )
    } else {
       auto pArray = hb_param(1, Harbour::Item::ARRAY);
       PHB_ITEM pArr;
-      unsigned long ulLen = static_cast<unsigned long>(hb_arrayLen(pArray));
+      auto ulLen = static_cast<unsigned long>(hb_arrayLen(pArray));
       unsigned long ulItemLen;
 
       nPredefsKol = static_cast<int>(ulLen);
@@ -116,7 +116,7 @@ HBXML_PRESAVE(cp) -->
 HB_FUNC( HBXML_PRESAVE )
 {
    PHB_ITEM pItem;
-   unsigned char *pBuffer = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
+   auto pBuffer = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
    unsigned char c;
    unsigned long ulLen = hb_parclen(1);
    int iLenAdd = 0;
@@ -141,7 +141,7 @@ HB_FUNC( HBXML_PRESAVE )
    }
 
    if( iLenAdd ) {
-      unsigned char * pNew = static_cast<unsigned char*>(hb_xgrab(ulLen + iLenAdd + 1));
+      auto pNew = static_cast<unsigned char*>(hb_xgrab(ulLen + iLenAdd + 1));
       ptr = pBuffer;
       unsigned char * ptr1 = pNew;
       while( (c = *ptr) != 0 ) {
@@ -237,11 +237,11 @@ HBXML_PRELOAD(cp1, np2) --> string
 */
 HB_FUNC( HBXML_PRELOAD )
 {
-   unsigned char *ucSource = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
+   auto ucSource = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
    unsigned char *ptr = ucSource;
    unsigned long ulNew = 0;
    unsigned long ulLen = HB_ISNUM(2) ? static_cast<unsigned long>(hb_parnl(2)) : static_cast<unsigned long>(hb_parclen(1));
-   unsigned char *ptrnew = static_cast<unsigned char*>(malloc(ulLen + 1));
+   auto ptrnew = static_cast<unsigned char*>(malloc(ulLen + 1));
    int nlen;
    int iChar;
 
@@ -568,7 +568,7 @@ HBXML_GETATTR(cp1, np2) -->
 */
 HB_FUNC( HBXML_GETATTR )
 {
-   unsigned char *pBuffer = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
+   auto pBuffer = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
    int lSingle;
    pStart = pBuffer;
    ulDataLen = hb_parclen(1);
@@ -598,7 +598,7 @@ HB_FUNC( HBXML_GETDOC )
       ptr = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(2)));
       ulDataLen = hb_parclen(2);
    } else if( HB_ISNUM(2) ) {
-      HB_FHANDLE hInput = static_cast<HB_FHANDLE>(hb_parnint(2));
+      auto hInput = static_cast<HB_FHANDLE>(hb_parnint(2));
       unsigned long ulLen = hb_fsSeek(hInput, 0, FS_END), ulRead;
 
       hb_fsSeek(hInput, 0, FS_SET);

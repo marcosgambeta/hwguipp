@@ -154,12 +154,11 @@ void cxdib_Clear(PCXDIB pdib, BYTE bval)
 {
    if( pdib->hDib ) {
       memset(cxdib_GetBits(pdib), bval, pdib->m_bi.biSizeImage);
-   }   
+   }
 }
 
 HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 {
-   LPBITMAPINFOHEADER  lpbi;	// pointer to BITMAPINFOHEADER
    DWORD               dwLen;	// size of memory block
 
    if( pdib->hDib ) {
@@ -217,10 +216,10 @@ HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
    if( !pdib->hDib ) {
       return nullptr;
    }
-   
+
    // use our bitmap info structure to fill in first part of
    // our DIB with the BITMAPINFOHEADER
-   lpbi = static_cast<LPBITMAPINFOHEADER>(pdib->hDib);
+   auto lpbi = static_cast<LPBITMAPINFOHEADER>(pdib->hDib); // pointer to BITMAPINFOHEADER
    *lpbi = pdib->m_bi;
 
    return pdib->hDib; //return handle to the DIB
@@ -271,7 +270,7 @@ void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc)
    } else {
       BYTE * iDst = static_cast<BYTE*>(pdib->hDib) + sizeof(BITMAPINFOHEADER);
       long r, g, b;
-      RGBQUAD* pPal = reinterpret_cast<RGBQUAD*>(iDst);
+      auto pPal = reinterpret_cast<RGBQUAD*>(iDst);
 
       r = GetRValue(cr);
       g = GetGValue(cr);
@@ -300,7 +299,7 @@ void cxdib_SetPixelIndex(PCXDIB pdib, long x,long y,BYTE i)
 
 PCXSHADE cxshade_New(RECT * prect, BOOL lFlat)
 {
-   PCXSHADE pshade = static_cast<PCXSHADE>(malloc(sizeof(CXSHADE)));
+   auto pshade = static_cast<PCXSHADE>(malloc(sizeof(CXSHADE)));
 
    memset(pshade, 0, sizeof(CXSHADE));
    SetRect(&(pshade->m_rect), prect->left, prect->top, prect->right, prect->bottom);
@@ -329,7 +328,6 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
    RECT r;
 
    HBITMAP hBitmap;           //create a destination for raster operations
-   HBITMAP holdBitmap;
    HDC hdcMem;	              //create a memory DC to avoid flicker
    HDC pDC;
 
@@ -339,7 +337,7 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
    pDC = hdcMem;      //(just use pRealDC to paint directly the screen)
 
    hBitmap = CreateCompatibleBitmap(pRealDC, cx, cy);
-   holdBitmap = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmap)); //select the destination for MemDC
+   auto holdBitmap = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmap)); //select the destination for MemDC
 
    SetBkMode(pDC, TRANSPARENT);
 
@@ -416,7 +414,7 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
 // #include "stdio.h"
 void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granularity, BYTE highlight, BYTE coloring, COLORREF color, RECT * prect)
 {
-   long	sXSize, sYSize, bytes, j, i, k, h;
+   long	sXSize, sYSize, bytes, i, k, h;
    BYTE	*iDst, *posDst;
    //get the button base colors
    COLORREF hicr  = (palette)? 16777215 : GetSysColor(COLOR_BTNHIGHLIGHT);
@@ -460,7 +458,7 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
    cxdib_BlendPalette(&(pshade->m_dNormal), color, coloring);  //color the palette
 
    iDst = cxdib_GetBits(&(pshade->m_dh));   //build the horiz. dotted focus bitmap
-   j = static_cast<long>(pshade->m_dh.m_bi.biWidth);
+   auto j = static_cast<long>(pshade->m_dh.m_bi.biWidth);
    for( i = 0; i < j; i++ ) {
       // iDst[i]=64+127*(i%2);	//soft
       iDst[i] = 255 * (i % 2);		//hard
@@ -661,7 +659,7 @@ HWG_SHADE_SET(pshade, shadeID, palette, granularity, highlight, coloring, color,
 */
 HB_FUNC( HWG_SHADE_SET )
 {
-   PCXSHADE pshade = static_cast<PCXSHADE>(HB_PARHANDLE(1));
+   auto pshade = static_cast<PCXSHADE>(HB_PARHANDLE(1));
    UINT shadeID = HB_ISNIL(2) ? SHS_SOFTBUMP : hb_parni(2);
    BYTE palette = HB_ISNIL(3) ? 0 : hwg_par_BYTE(3);
    BYTE granularity = HB_ISNIL(4) ? 8 : hwg_par_BYTE(4);

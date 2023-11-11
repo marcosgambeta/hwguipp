@@ -119,9 +119,8 @@ HB_FUNC( HWG_TREEGETSELECTED )
    TreeItem.hItem = TreeView_GetSelection(hwg_par_HWND(1));
 
    if( TreeItem.hItem ) {
-      PHB_ITEM oNode; // = hb_itemNew(nullptr);
       SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&TreeItem));
-      oNode = reinterpret_cast<PHB_ITEM>(TreeItem.lParam);
+      auto oNode = reinterpret_cast<PHB_ITEM>(TreeItem.lParam);
       hb_itemReturn(oNode);
    }
 }
@@ -202,26 +201,22 @@ HB_FUNC( HWG_TREEGETNOTIFY )
          break;
       }
       case TREE_GETNOTIFY_PARAM: {
-         PHB_ITEM oNode; // = hb_itemNew(nullptr);
-         oNode = reinterpret_cast<PHB_ITEM>(((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemNew.lParam));
+         auto oNode = reinterpret_cast<PHB_ITEM>(((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemNew.lParam));
          hb_itemReturn(oNode);
          break;
       }
       case TREE_GETNOTIFY_EDITPARAM: {
-         PHB_ITEM oNode; // = hb_itemNew(nullptr);
-         oNode = reinterpret_cast<PHB_ITEM>((static_cast<TV_DISPINFO*>(HB_PARHANDLE(1)))->item.lParam);
+         auto oNode = reinterpret_cast<PHB_ITEM>((static_cast<TV_DISPINFO*>(HB_PARHANDLE(1)))->item.lParam);
          hb_itemReturn(oNode);
          break;
       }
       case TREE_GETNOTIFY_OLDPARAM: {
-         PHB_ITEM oNode; // = hb_itemNew(nullptr);
-         oNode = reinterpret_cast<PHB_ITEM>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemOld.lParam);
+         auto oNode = reinterpret_cast<PHB_ITEM>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemOld.lParam);
          hb_itemReturn(oNode);
          break;
       }
       case TREE_GETNOTIFY_EDIT: {
-         TV_DISPINFO *tv;
-         tv = static_cast<TV_DISPINFO*>(HB_PARHANDLE(1));
+         auto tv = static_cast<TV_DISPINFO*>(HB_PARHANDLE(1));
          HB_RETSTR((tv->item.pszText) ? tv->item.pszText : TEXT(""));
       }
    }
@@ -246,14 +241,13 @@ HB_FUNC( HWG_TREEHITTEST )
    SendMessage(hTree, TVM_HITTEST, 0, reinterpret_cast<LPARAM>(&ht));
 
    if( ht.hItem ) {
-      PHB_ITEM oNode; // = hb_itemNew(nullptr);
       TV_ITEM TreeItem{};
 
       TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
       TreeItem.hItem = ht.hItem;
 
       SendMessage(hTree, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&TreeItem));
-      oNode = reinterpret_cast<PHB_ITEM>(TreeItem.lParam);
+      auto oNode = reinterpret_cast<PHB_ITEM>(TreeItem.lParam);
       hb_itemReturn(oNode);
       if( hb_pcount() > 3 ) {
          hb_storni(static_cast<int>(ht.flags), 4);
@@ -286,7 +280,7 @@ HB_FUNC( HWG_INITTREEVIEW )
 LRESULT APIENTRY TreeViewSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");

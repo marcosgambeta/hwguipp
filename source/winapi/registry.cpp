@@ -97,7 +97,7 @@ HB_FUNC( HWG_REGSETBINARY )
 
 HB_FUNC( HWG_REGGETVALUE )
 {
-   HKEY hKey = reinterpret_cast<HKEY>(hb_parnl(1));
+   auto hKey = reinterpret_cast<HKEY>(hb_parnl(1));
    LPTSTR lpValueName = ( LPTSTR ) hb_parc(2);
    DWORD lpType = 0;
    LPBYTE lpData;

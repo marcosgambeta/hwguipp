@@ -99,7 +99,7 @@ PHB_ITEM Rect2Array(RECT * rc)
 
 HB_FUNC( HWG_GETPPSRECT )
 {
-   PAINTSTRUCT * pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
+   auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
    PHB_ITEM aMetr = Rect2Array(&pps->rcPaint);
    hb_itemReturn(aMetr);
    hb_itemRelease(aMetr);
@@ -107,8 +107,8 @@ HB_FUNC( HWG_GETPPSRECT )
 
 HB_FUNC( HWG_GETPPSERASE )
 {
-   PAINTSTRUCT * pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
-   BOOL fErase = reinterpret_cast<BOOL>(&pps->fErase);
+   auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
+   auto fErase = reinterpret_cast<BOOL>(&pps->fErase);
    hb_retni(fErase);
 }
 
@@ -421,7 +421,6 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    COLORREF crOldBack = SetBkColor(hDC, 0x00FFFFFF);
    COLORREF crOldText = SetTextColor(hDC, 0);
    HBITMAP bitmapTrans;
-   HBITMAP pOldBitmapImage, pOldBitmapTrans;
    BITMAP bitmap;
    HDC dcImage, dcTrans;
    auto x = hb_parni(3);
@@ -433,12 +432,12 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    dcImage = CreateCompatibleDC(hDC);
    dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
-   pOldBitmapImage = static_cast<HBITMAP>(SelectObject(dcImage, hBitmap));
+   auto pOldBitmapImage = static_cast<HBITMAP>(SelectObject(dcImage, hBitmap));
    GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
    // Create the mask bitmap
    bitmapTrans = CreateBitmap(bitmap.bmWidth, bitmap.bmHeight, 1, 1, nullptr);
    // Select the mask bitmap into the appropriate dc
-   pOldBitmapTrans = static_cast<HBITMAP>(SelectObject(dcTrans, bitmapTrans));
+   auto pOldBitmapTrans = static_cast<HBITMAP>(SelectObject(dcTrans, bitmapTrans));
    // Build mask based on transparent colour
    SetBkColor(dcImage, trColor);
    if( nWidthDest && (nWidthDest != bitmap.bmWidth || nHeightDest != bitmap.bmHeight) ) {
@@ -599,7 +598,6 @@ HB_FUNC( HWG_OPENBITMAP )
 {
    BITMAPFILEHEADER bmfh;
    BITMAPINFOHEADER bmih;
-   LPBITMAPINFO lpbmi;
    DWORD dwRead;
    LPVOID lpvBits;
    HBITMAP hbm;
@@ -621,7 +619,7 @@ HB_FUNC( HWG_OPENBITMAP )
    /* Allocate memory for the BITMAPINFO structure. */
 
    HGLOBAL hmem1 = GlobalAlloc(GHND, sizeof(BITMAPINFOHEADER) + ((1 << bmih.biBitCount) * sizeof(RGBQUAD)));
-   lpbmi = static_cast<LPBITMAPINFO>(GlobalLock(hmem1));
+   auto lpbmi = static_cast<LPBITMAPINFO>(GlobalLock(hmem1));
 
    /*  Load BITMAPINFOHEADER into the BITMAPINFO  structure. */
    lpbmi->bmiHeader.biSize = bmih.biSize;
@@ -701,7 +699,6 @@ HB_FUNC( HWG_SAVEBITMAP )
    BITMAP Bitmap0;
    BITMAPFILEHEADER bmfHdr;
    BITMAPINFOHEADER bi;
-   LPBITMAPINFOHEADER lpbi;
    HANDLE fh;
    HANDLE hDib;
    HANDLE hPal;
@@ -736,7 +733,7 @@ HB_FUNC( HWG_SAVEBITMAP )
    bi.biClrUsed = 256;
    dwBmBitsSize = ((Bitmap0.bmWidth * wBitCount + 31) & ~31) / 8 * Bitmap0.bmHeight;
    hDib = GlobalAlloc(GHND, dwBmBitsSize + dwPaletteSize + sizeof(BITMAPINFOHEADER));
-   lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDib));
+   auto lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDib));
    *lpbi = bi;
 
    hPal = GetStockObject(DEFAULT_PALETTE);
@@ -851,7 +848,7 @@ HB_FUNC( HWG_RELEASEDC )
 
 HB_FUNC( HWG_GETDRAWITEMINFO )
 {
-   DRAWITEMSTRUCT * lpdis = static_cast<DRAWITEMSTRUCT*>(HB_PARHANDLE(1));      //hb_parnl(1);
+   auto lpdis = static_cast<DRAWITEMSTRUCT*>(HB_PARHANDLE(1));      //hb_parnl(1);
    PHB_ITEM aMetr = hb_itemArrayNew(9);
    PHB_ITEM temp;
 
@@ -903,7 +900,6 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    HDC hDC = hwg_par_HDC(1);
    HBITMAP hBitmap = hwg_par_HBITMAP(2);
    HBITMAP bitmapgray;
-   HBITMAP pOldBitmapImage, pOldbitmapgray;
    BITMAP bitmap;
    HDC dcImage, dcTrans;
    auto x = hb_parni(3);
@@ -916,12 +912,12 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    dcImage = CreateCompatibleDC(hDC);
    dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
-   pOldBitmapImage = static_cast<HBITMAP>(SelectObject(dcImage, hBitmap));
+   auto pOldBitmapImage = static_cast<HBITMAP>(SelectObject(dcImage, hBitmap));
    GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
    // Create the mask bitmap
    bitmapgray = CreateBitmap(bitmap.bmWidth, bitmap.bmHeight, 1, 1, nullptr);
    // Select the mask bitmap into the appropriate dc
-   pOldbitmapgray = static_cast<HBITMAP>(SelectObject(dcTrans, bitmapgray));
+   auto pOldbitmapgray = static_cast<HBITMAP>(SelectObject(dcTrans, bitmapgray));
    // Build mask based on transparent colour
    SetBkColor(dcImage, RGB(255, 255, 255));
    BitBlt(dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCCOPY);
@@ -1209,7 +1205,7 @@ HB_FUNC( HWG_PTINRECT )
 
 HB_FUNC( HWG_GETMEASUREITEMINFO )
 {
-   MEASUREITEMSTRUCT * lpdis = static_cast<MEASUREITEMSTRUCT*>(HB_PARHANDLE(1));        //hb_parnl(1);
+   auto lpdis = static_cast<MEASUREITEMSTRUCT*>(HB_PARHANDLE(1));        //hb_parnl(1);
    PHB_ITEM aMetr = hb_itemArrayNew(5);
    PHB_ITEM temp;
 

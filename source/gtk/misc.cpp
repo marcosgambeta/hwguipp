@@ -267,7 +267,7 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 {
    /* Ensure that output of command does interfere with stdout */
    fflush(stdin);
-   FILE * cmd_file = static_cast<FILE*>(popen(hb_parc(1), "r"));
+   auto cmd_file = static_cast<FILE*>(popen(hb_parc(1), "r"));
    FILE * hOut;
    char buf[CHUNK_LEN];
    int bytes_read, iOutExist = 0, iExitCode;
@@ -536,11 +536,11 @@ HB_FUNC( HWG_BIN2DC )
 
    // Internal I2BIN for Len
 
-   HB_USHORT uiWidth = static_cast<HB_USHORT>(hb_parni(2));
+   auto uiWidth = static_cast<HB_USHORT>(hb_parni(2));
 
    // Internal I2BIN for Dec
 
-   HB_USHORT uiDec = static_cast<HB_USHORT>(hb_parni(3));
+   auto uiDec = static_cast<HB_USHORT>(hb_parni(3));
 
    auto name = hb_parc(1);
 

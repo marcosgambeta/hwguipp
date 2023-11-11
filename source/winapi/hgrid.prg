@@ -270,7 +270,7 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam) // TODO: nao utilizada - remover ?
 
 HB_FUNC_STATIC( HGRID_REFRESH )
 {
-   HWND window = static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"));
+   auto window = static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"));
    LRESULT first = ListView_GetTopIndex(window);
    LRESULT last = first + ListView_GetCountPerPage(window);
    ListView_RedrawItems(window, first, last);
@@ -278,7 +278,7 @@ HB_FUNC_STATIC( HGRID_REFRESH )
 
 HB_FUNC_STATIC( HGRID_REFRESHLINE )
 {
-   HWND window = static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"));
+   auto window = static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"));
    LRESULT first = ListView_GetNextItem(window, -1, LVNI_ALL | LVNI_SELECTED) + 1;
    ListView_Update(window, first - 1);
 }

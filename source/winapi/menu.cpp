@@ -301,7 +301,7 @@ HB_FUNC( HWG_CREATEACCELERATORTABLE )
    auto pArray = hb_param(1, Harbour::Item::ARRAY);
    PHB_ITEM pSubArr;
    ULONG ulEntries = hb_arrayLen(pArray);
-   LPACCEL lpaccl = static_cast<LPACCEL>(hb_xgrab(sizeof(ACCEL) * ulEntries));
+   auto lpaccl = static_cast<LPACCEL>(hb_xgrab(sizeof(ACCEL) * ulEntries));
    for( ULONG ul = 1; ul <= ulEntries; ul++ ) {
       pSubArr = hb_arrayGetItemPtr(pArray, ul);
       lpaccl[ul - 1].fVirt = static_cast<BYTE>(hb_arrayGetNL(pSubArr, 1)) | FNOINVERT | FVIRTKEY;
@@ -354,14 +354,13 @@ HB_FUNC( HWG_GETMENUCAPTION )
       hb_retl(false);
    } else {
       MENUITEMINFO mii{};
-      LPTSTR lpBuffer;
 
       mii.cbSize = sizeof(MENUITEMINFO);
       mii.fMask = MIIM_TYPE;
       mii.fType = MFT_STRING;
       GetMenuItemInfo(hMenu, hwg_par_UINT(2), FALSE, &mii);
       mii.cch++;
-      lpBuffer = static_cast<LPTSTR>(hb_xgrab(mii.cch * sizeof(TCHAR)));
+      auto lpBuffer = static_cast<LPTSTR>(hb_xgrab(mii.cch * sizeof(TCHAR)));
       lpBuffer[0] = '\0';
       mii.dwTypeData = lpBuffer;
       if( GetMenuItemInfo(hMenu, hwg_par_UINT(2), FALSE, &mii) ) {
@@ -508,7 +507,7 @@ HB_FUNC( HWG_ENABLEMENUSYSTEMITEM )
 {
    UINT uEnable = (hb_pcount() < 3 || !HB_ISLOG(3) || hb_parl(3)) ? MF_ENABLED : MF_GRAYED;
    UINT uFlag = (hb_pcount() < 4 || !HB_ISLOG(4) || hb_parl(4)) ? MF_BYCOMMAND : MF_BYPOSITION;
-   HMENU hMenu = static_cast<HMENU>(GetSystemMenu(hwg_par_HWND(1), 0));
+   auto hMenu = static_cast<HMENU>(GetSystemMenu(hwg_par_HWND(1), 0));
    if( !hMenu ) {
       hb_retl(false);
    } else {

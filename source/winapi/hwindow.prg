@@ -880,7 +880,7 @@ STATIC FUNCTION onCloseQuery(o)
 
 HB_FUNC_STATIC( HWINDOW_CENTER )
 {
-   HWND window = static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"));
+   auto window = static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"));
 
    RECT rect;
    int w, h, x, y;

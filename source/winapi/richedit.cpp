@@ -303,7 +303,6 @@ HB_FUNC( HWG_RE_FINDTEXT )
 {
    HWND hCtrl = hwg_par_HWND(1);
    FINDTEXTEX ft;
-   LONG lPos;
    LONG lFlag = ((HB_ISNIL(4) || !hb_parl(4)) ? 0 : FR_MATCHCASE) |
          ((HB_ISNIL(5) || !hb_parl(5)) ? 0 : FR_WHOLEWORD) |
          ((HB_ISNIL(6) || !hb_parl(6)) ? FR_DOWN : 0);
@@ -313,7 +312,7 @@ HB_FUNC( HWG_RE_FINDTEXT )
    ft.chrg.cpMax = -1;
    ft.lpstrText = ( LPTSTR ) HB_PARSTR(2, &hString, nullptr);
 
-   lPos = static_cast<LONG>(SendMessage(hCtrl, EM_FINDTEXTEX, static_cast<WPARAM>(lFlag), reinterpret_cast<LPARAM>(&ft)));
+   auto lPos = static_cast<LONG>(SendMessage(hCtrl, EM_FINDTEXTEX, static_cast<WPARAM>(lFlag), reinterpret_cast<LPARAM>(&ft)));
    hb_strfree(hString);
    hb_retnl(lPos);
 }
@@ -420,7 +419,7 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 
 static DWORD CALLBACK RichStreamOutCallback(DWORD_PTR dwCookie, LPBYTE pbBuff, LONG cb, LONG * pcb)
 {
-   HANDLE pFile = reinterpret_cast<HANDLE>(dwCookie);
+   auto pFile = reinterpret_cast<HANDLE>(dwCookie);
    DWORD dwW;
    HB_SYMBOL_UNUSED(pcb);
 
@@ -434,7 +433,7 @@ static DWORD CALLBACK RichStreamOutCallback(DWORD_PTR dwCookie, LPBYTE pbBuff, L
 
 static DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb)
 {
-   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
+   auto hFile = reinterpret_cast<HANDLE>(dwCookie);
    return !ReadFile(hFile, lpBuff, cb, reinterpret_cast<DWORD*>(pcb), nullptr);
 }
 

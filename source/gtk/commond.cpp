@@ -23,9 +23,9 @@ extern PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname);
 
 void store_font(gpointer fontseldlg)
 {
-   char * szFontName = static_cast<char*>(gtk_font_selection_dialog_get_font_name(static_cast<GtkFontSelectionDialog*>(fontseldlg)));
+   auto szFontName = static_cast<char*>(gtk_font_selection_dialog_get_font_name(static_cast<GtkFontSelectionDialog*>(fontseldlg)));
    PangoFontDescription * hFont = pango_font_description_from_string(szFontName);
-   PHWGUI_FONT h = static_cast<PHWGUI_FONT>(hb_xgrab(sizeof(HWGUI_FONT)));
+   auto h = static_cast<PHWGUI_FONT>(hb_xgrab(sizeof(HWGUI_FONT)));
    PHB_ITEM aMetr = hb_itemArrayNew(9);
    PHB_ITEM temp;
 
@@ -187,7 +187,6 @@ HB_FUNC( HWG_SELECTFILE )
 {
    GtkWidget * selector_archivo;
    gint resultado;
-   GtkImage * preview;
    PHB_ITEM pArrTip = ((HB_ISARRAY(1)) ? hb_param(1, Harbour::Item::ARRAY) : nullptr);
    PHB_ITEM pArrMsk = ((hb_pcount() > 1 && HB_ISARRAY(2)) ? hb_param(2, Harbour::Item::ARRAY) : nullptr);
    const char * cTip = (HB_ISCHAR(1)) ? hb_parc(1) : nullptr;
@@ -222,7 +221,7 @@ HB_FUNC( HWG_SELECTFILE )
 
    gtk_file_chooser_set_current_folder(static_cast<GtkFileChooser*>(selector_archivo), cDir);
 
-   preview = static_cast<GtkImage*>(gtk_image_new());
+   auto preview = static_cast<GtkImage*>(gtk_image_new());
    gtk_file_chooser_set_preview_widget(static_cast<GtkFileChooser*>(selector_archivo), static_cast<GtkWidget*>(preview));
    g_signal_connect(selector_archivo, "update-preview", G_CALLBACK(selefile_preview), preview);
 
@@ -272,7 +271,7 @@ HB_FUNC( HWG_CHOOSECOLOR )
    colorsel = GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection(reinterpret_cast<GtkColorSelectionDialog*>(colorseldlg)));
 
    if( hb_pcount() > 0 && !HB_ISNIL(1) ) {
-      HB_ULONG ulColor = static_cast<HB_ULONG>(hb_parnl(1));
+      auto ulColor = static_cast<HB_ULONG>(hb_parnl(1));
       GdkColor color;
       hwg_parse_color(ulColor, &color);
       gtk_color_selection_set_previous_color(colorsel, &color);
@@ -330,7 +329,6 @@ HB_FUNC( HWG_SELECTFILEEX )
    gint resultado;
    const char * cTitle = (HB_ISCHAR(1)) ? hb_parc(1) : "Select a file";
    const char * cDir = (hb_pcount() > 1 && HB_ISCHAR(2)) ? hb_parc(2) : "";
-   GtkImage * preview;
    PHB_ITEM pArray = ((hb_pcount() > 2 && HB_ISARRAY(3)) ? hb_param(3, Harbour::Item::ARRAY) : nullptr), pArr1;
    int bMulti = (HB_ISLOG(4)) ? hb_parl(4) : 0;
    char * filename;
@@ -377,7 +375,7 @@ HB_FUNC( HWG_SELECTFILEEX )
    // Definicion del previsualizador
    // ------------------------------
 
-   preview = reinterpret_cast<GtkImage*>(gtk_image_new());
+   auto preview = reinterpret_cast<GtkImage*>(gtk_image_new());
    gtk_file_chooser_set_preview_widget(reinterpret_cast<GtkFileChooser*>(selector_archivo), reinterpret_cast<GtkWidget*>(preview));
    g_signal_connect(selector_archivo, "update-preview", G_CALLBACK(actualiza_preview), preview);
 

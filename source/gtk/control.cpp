@@ -161,7 +161,7 @@ HB_FUNC( HWG_CREATESTATIC )
 HB_FUNC( HWG_STATIC_SETTEXT )
 {
    gchar * gcTitle = hwg_convert_to_utf8(hb_parcx(2));
-   GtkLabel * hLabel = static_cast<GtkLabel*>(g_object_get_data(static_cast<GObject*>(HB_PARHANDLE(1)), "label"));
+   auto hLabel = static_cast<GtkLabel*>(g_object_get_data(static_cast<GObject*>(HB_PARHANDLE(1)), "label"));
    gtk_label_set_text(hLabel, gcTitle);
    g_free(gcTitle);
 }
@@ -184,7 +184,7 @@ HB_FUNC( HWG_CREATEBUTTON )
    gchar * gcTitle = hwg_convert_to_utf8(cTitle);
 
    if( (ulStyle & 0xf) == BS_AUTORADIOBUTTON ) {
-      GSList * group = static_cast<GSList*>(HB_PARHANDLE(2));
+      auto group = static_cast<GSList*>(HB_PARHANDLE(2));
       hCtrl = gtk_radio_button_new_with_label(group, gcTitle);
       group = gtk_radio_button_get_group(reinterpret_cast<GtkRadioButton*>(hCtrl));
       HB_STOREHANDLE(group, 2);
@@ -215,7 +215,7 @@ HB_FUNC( HWG_CREATEBUTTON )
 HB_FUNC( HWG_BUTTON_SETTEXT )
 {
    gchar * gcTitle = hwg_convert_to_utf8(hb_parcx(2));
-   GtkWidget * hBtn = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hBtn = static_cast<GtkWidget*>(HB_PARHANDLE(1));
 
    gtk_button_set_label(reinterpret_cast<GtkButton*>(hBtn), gcTitle);
    g_free(gcTitle);
@@ -285,7 +285,7 @@ HB_FUNC( HWG_CREATEEDIT )
 
 HB_FUNC( HWG_EDIT_SETTEXT )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    gchar * gcTitle = hwg_convert_to_utf8(hb_parcx(2));
 
    if( g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "multi") ) {
@@ -299,7 +299,7 @@ HB_FUNC( HWG_EDIT_SETTEXT )
 
 HB_FUNC( HWG_EDIT_GETTEXT )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    char * cptr;
 
    if( g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "multi") ) {
@@ -354,7 +354,7 @@ HB_FUNC( HWG_EDIT_GETSELPOS )
 
 HB_FUNC( HWG_EDIT_SET_OVERMODE )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    gboolean bOver;
 
    if( g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "multi") ) {
@@ -399,7 +399,7 @@ HB_FUNC( HWG_CREATECOMBO )
 
 HB_FUNC( HWG_COMBOSETARRAY )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    auto pArray = hb_param(2, Harbour::Item::ARRAY);
    HB_ULONG ulKol;
 
@@ -514,7 +514,6 @@ HB_FUNC( HWG_CREATEBROWSE )
    GtkFixed * box;
    auto pObject = hb_param(1, Harbour::Item::OBJECT);
    PHB_ITEM temp;
-   GObject * handle;
    int nLeft = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
    int nTop = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
    int nWidth = hb_itemGetNI(GetObjectVar(pObject, "NWIDTH"));
@@ -522,7 +521,7 @@ HB_FUNC( HWG_CREATEBROWSE )
    unsigned long int ulStyle = hb_itemGetNL(GetObjectVar(pObject, "STYLE"));
 
    temp = GetObjectVar(pObject, "OPARENT");
-   handle = static_cast<GObject*>(HB_GETHANDLE(GetObjectVar(temp, "HANDLE")));
+   auto handle = static_cast<GObject*>(HB_GETHANDLE(GetObjectVar(temp, "HANDLE")));
 
    hbox = gtk_hbox_new(FALSE, 0);
    vbox = gtk_vbox_new(FALSE, 0);
@@ -605,7 +604,7 @@ HB_FUNC( HWG_CREATEBROWSE )
 
 HB_FUNC( HWG_GETADJVALUE )
 {
-   GtkAdjustment * adj = static_cast<GtkAdjustment*>(HB_PARHANDLE(1));
+   auto adj = static_cast<GtkAdjustment*>(HB_PARHANDLE(1));
    int iOption = (HB_ISNIL(2)) ? 0 : hb_parni(2);
 
    if( iOption == 0 ) {
@@ -628,7 +627,7 @@ HB_FUNC( HWG_GETADJVALUE )
  */
 HB_FUNC( HWG_SETADJOPTIONS )
 {
-   GtkAdjustment * adj = static_cast<GtkAdjustment*>(HB_PARHANDLE(1));
+   auto adj = static_cast<GtkAdjustment*>(HB_PARHANDLE(1));
    gdouble value;
    int lChanged = 0;
 
@@ -696,7 +695,7 @@ HB_FUNC( HWG_CREATETABCONTROL )
 
 HB_FUNC( HWG_ADDTAB )
 {
-   GtkNotebook * nb = static_cast<GtkNotebook*>(HB_PARHANDLE(1));
+   auto nb = static_cast<GtkNotebook*>(HB_PARHANDLE(1));
    GtkWidget * box = gtk_fixed_new();
    GtkWidget * hLabel;
    char * cLabel = hwg_convert_to_utf8(hb_parc(2));
@@ -718,7 +717,7 @@ HB_FUNC( HWG_DELETETAB )
 
 HB_FUNC( HWG_SETTABNAME )
 {
-   GtkNotebook * nb = static_cast<GtkNotebook*>(HB_PARHANDLE(1));
+   auto nb = static_cast<GtkNotebook*>(HB_PARHANDLE(1));
    gchar * gcTitle = hwg_convert_to_utf8(hb_parc(3));
 
    gtk_notebook_set_tab_label_text(nb, gtk_notebook_get_nth_page(nb, hb_parni(2) - 1), gcTitle);
@@ -763,17 +762,16 @@ HB_FUNC( HWG_CREATEPANEL )
    GtkWidget * vbox, * hbox;
    GtkWidget * vscroll = nullptr, * hscroll = nullptr;
    GtkWidget * hCtrl;
-   GtkFixed * box, * fbox;
-   GObject * handle;
+   GtkFixed * box;
    auto pObject = hb_param(1, Harbour::Item::OBJECT);
    PHB_ITEM temp;
    HB_ULONG ulStyle = hb_parnl(3);
    gint nWidth = hb_parnl(6), nHeight = hb_parnl(7);
 
    temp = GetObjectVar(pObject, "OPARENT");
-   handle = static_cast<GObject*>(HB_GETHANDLE(GetObjectVar(temp, "HANDLE")));
+   auto handle = static_cast<GObject*>(HB_GETHANDLE(GetObjectVar(temp, "HANDLE")));
 
-   fbox = reinterpret_cast<GtkFixed*>(gtk_fixed_new());
+   auto fbox = reinterpret_cast<GtkFixed*>(gtk_fixed_new());
 
    hbox = gtk_hbox_new(FALSE, 0);
    vbox = gtk_vbox_new(FALSE, 0);
@@ -1022,7 +1020,7 @@ HB_FUNC( HWG_SETCURSOR )
 
 HB_FUNC( HWG_MOVEWIDGET )
 {
-   GtkWidget * widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    GtkWidget * ch_widget = nullptr;
    GtkWidget * parent;
 
@@ -1078,8 +1076,8 @@ HB_FUNC( HWG_UPDATEPROGRESSBAR )
 
 HB_FUNC( HWG_SETPROGRESSBAR )
 {
-   GtkWidget * widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
-   gdouble b = static_cast<gdouble>(hb_parnd(2));
+   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto b = static_cast<gdouble>(hb_parnd(2));
 
    //gtk_progress_bar_update(GTK_PROGRESS_BAR(widget), b);
    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(widget), b);
@@ -1095,7 +1093,7 @@ HB_FUNC( HWG_SETPROGRESSBAR )
  */
 HB_FUNC( HWG_RESETPROGRESSBAR )
 {
-   GtkWidget * widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
 
    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(widget), 0.0);
    gtk_progress_bar_update(GTK_PROGRESS_BAR(widget), 0.0);
@@ -1107,8 +1105,8 @@ HB_FUNC( HWG_RESETPROGRESSBAR )
 HB_FUNC( HWG_CREATESTATUSWINDOW )
 {
    GtkWidget * w, * h;
-   GObject * handle = static_cast<GObject*>(HB_PARHANDLE(1));
-   GtkWidget * vbox = static_cast<GtkWidget*>(g_object_get_data(handle, "vbox"));
+   auto handle = static_cast<GObject*>(HB_PARHANDLE(1));
+   auto vbox = static_cast<GtkWidget*>(g_object_get_data(handle, "vbox"));
 
    // w  = gtk_statusbar_new() ;
    h = gtk_hseparator_new();
@@ -1124,7 +1122,7 @@ HB_FUNC( HWG_CREATESTATUSWINDOW )
 HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    char * cText = hwg_convert_to_utf8(hb_parcx(3));
-   GtkWidget * w = static_cast<GtkWidget*>(hb_parptr(1));
+   auto w = static_cast<GtkWidget*>(hb_parptr(1));
 
    //hb_retni(gtk_statusbar_push(GTK_STATUSBAR(w), iStatus, cText));
    gtk_label_set_text(reinterpret_cast<GtkLabel*>(w), cText);
@@ -1133,7 +1131,7 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
 
 static void toolbar_clicked(GtkWidget * item, gpointer user_data)
 {
-   PHB_ITEM pData = static_cast<PHB_ITEM>(user_data);
+   auto pData = static_cast<PHB_ITEM>(user_data);
    hb_vmEvalBlock(static_cast<PHB_ITEM>(pData));
    HB_SYMBOL_UNUSED(item);
 }
@@ -1147,7 +1145,7 @@ HB_FUNC( HWG_CREATETOOLBAR )
    // GtkWidget * toolbutton1;
    // GtkWidget * toolbutton2;
    // gint tmp_toolbar_icon_size;
-   GObject * handle = static_cast<GObject*>(HB_PARHANDLE(1));
+   auto handle = static_cast<GObject*>(HB_PARHANDLE(1));
    GtkFixed * box = getFixedBox(handle);
    GtkWidget * vbox = gtk_widget_get_parent(reinterpret_cast<GtkWidget*>(box));
    gtk_box_pack_start(GTK_BOX(vbox), hCtrl, FALSE, FALSE, 0);
@@ -1158,7 +1156,7 @@ HB_FUNC( HWG_CREATETOOLBARBUTTON )
 {
 #if GTK_CHECK_VERSION(2, 4, 1)
    GtkWidget * toolbutton1, * img;
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    PHWGUI_PIXBUF szFile = HB_ISPOINTER(2) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(2)) : nullptr;
    const char * szLabel = HB_ISCHAR(3) ? hb_parc(3) : nullptr;
    HB_BOOL lSep = hb_parl(4);
@@ -1190,16 +1188,16 @@ HB_FUNC( HWG_CREATETOOLBARBUTTON )
 
 HB_FUNC( HWG_TOOLBAR_SETACTION )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    PHB_ITEM pItem = hb_itemParam(2);
    g_signal_connect(hCtrl, "clicked", G_CALLBACK(toolbar_clicked), static_cast<void*>(pItem));
 }
 
 static void tabchange_clicked(GtkNotebook * item, GtkWidget * Page, guint pagenum, gpointer user_data)
 {
-   PHB_ITEM pData = static_cast<PHB_ITEM>(user_data);
+   auto pData = static_cast<PHB_ITEM>(user_data);
    gpointer dwNewLong = g_object_get_data(reinterpret_cast<GObject*>(item), "obj");
-   PHB_ITEM pObject = static_cast<PHB_ITEM>(dwNewLong);
+   auto pObject = static_cast<PHB_ITEM>(dwNewLong);
    PHB_ITEM Disk = hb_itemPutNL(nullptr, pagenum + 1);
 
    HB_SYMBOL_UNUSED(Page);
@@ -1209,7 +1207,7 @@ static void tabchange_clicked(GtkNotebook * item, GtkWidget * Page, guint pagenu
 
 HB_FUNC( HWG_TAB_SETACTION )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    PHB_ITEM pItem = hb_itemParam(2);
    g_signal_connect(hCtrl, "switch-page", G_CALLBACK(tabchange_clicked), static_cast<void*>(pItem));
 }
@@ -1233,7 +1231,7 @@ HB_FUNC( HWG_SETMONTHCALENDARDATE )
    auto pDate = hb_param(2, Harbour::Item::DATE);
 
    if( pDate ) {
-      GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+      auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
 #ifndef HARBOUR_OLD_VERSION
       int lYear, lMonth, lDay;
 #else
@@ -1251,7 +1249,7 @@ HB_FUNC( HWG_SETMONTHCALENDARDATE )
 
 HB_FUNC( HWG_GETMONTHCALENDARDATE )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    char szDate[9];
 #ifndef HARBOUR_OLD_VERSION
    int lYear, lMonth, lDay;
@@ -1285,7 +1283,7 @@ HB_FUNC( HWG_CREATEIMAGE )
 
 HB_FUNC( HWG_MONTHCALENDAR_SETACTION )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    PHB_ITEM pItem = hb_itemParam(2);
    g_signal_connect(hCtrl, "day-selected", G_CALLBACK(toolbar_clicked), static_cast<void*>(pItem));
 }
@@ -1295,7 +1293,7 @@ void hwg_parse_color(HB_ULONG ncolor, GdkColor * pColor);
 #if GTK_MAJOR_VERSION - 0 < 3
 HB_FUNC( HWG_SETFGCOLOR )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    GtkStateType iType = (HB_ISNIL(3)) ? GTK_STATE_NORMAL : hb_parni(3);
 
    GtkWidget * label;
@@ -1324,7 +1322,7 @@ HB_FUNC( HWG_SETFGCOLOR )
 
 HB_FUNC( HWG_SETBGCOLOR )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    HB_ULONG hColor = hb_parnl(2);
    GdkColor color;
 
@@ -1342,7 +1340,7 @@ HB_FUNC( HWG_SETBGCOLOR )
 
 HB_FUNC( HWG_SETFGCOLOR )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    char szData[128], szColor[8];
    const char * pName = gtk_widget_get_name(hCtrl);
 
@@ -1356,7 +1354,7 @@ HB_FUNC( HWG_SETFGCOLOR )
 
 HB_FUNC( HWG_SETBGCOLOR )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
    char szData[128], szColor[8];
    const char * pName = gtk_widget_get_name(hCtrl);
 
@@ -1377,7 +1375,7 @@ HB_FUNC( HWG_CREATESPLITTER )
    // HB_ULONG ulStyle = hb_parnl(3);
    GtkWidget * hCtrl;
    GtkFixed * box;
-   //GtkFixed * fbox = static_cast<GtkFixed*>(gtk_fixed_new());
+   //auto fbox = static_cast<GtkFixed*>(gtk_fixed_new());
 
    hCtrl = gtk_drawing_area_new();
    g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "draw", static_cast<gpointer>(hCtrl));

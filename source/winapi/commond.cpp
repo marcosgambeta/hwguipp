@@ -200,7 +200,7 @@ HB_FUNC( HWG_SAVEFILE )
    void * hFileName, * hStr1, * hStr2, * hTitle, * hInitDir;
    LPCTSTR lpFileName, lpStr1, lpStr2;
    HB_SIZE nSize, nLen1, nLen2;
-   LPTSTR lpFilter, lpFileBuff;
+   LPTSTR lpFileBuff;
 
    lpFileName = HB_PARSTR(1, &hFileName, &nSize);
    if( nSize < 1024 ) {
@@ -215,7 +215,7 @@ HB_FUNC( HWG_SAVEFILE )
    lpStr1 = HB_PARSTRDEF(2, &hStr1, &nLen1);
    lpStr2 = HB_PARSTRDEF(3, &hStr2, &nLen2);
 
-   lpFilter = static_cast<LPTSTR>(hb_xgrab((nLen1 + nLen2 + 4) * sizeof(TCHAR)));
+   auto lpFilter = static_cast<LPTSTR>(hb_xgrab((nLen1 + nLen2 + 4) * sizeof(TCHAR)));
    memset(lpFilter, 0, (nLen1 + nLen2 + 4) * sizeof(TCHAR));
    memcpy(lpFilter, lpStr1, nLen1 * sizeof(TCHAR));
    memcpy(lpFilter + nLen1 + 1, lpStr2, nLen2 * sizeof(TCHAR));
@@ -276,7 +276,7 @@ HB_FUNC( HWG_PRINTSETUP )
    if( PrintDlg(&pd) ) {
       if( pd.hDevNames ) {
          if( hb_pcount() > 0 ) {
-            LPDEVNAMES lpdn = static_cast<LPDEVNAMES>(GlobalLock(pd.hDevNames));
+            auto lpdn = static_cast<LPDEVNAMES>(GlobalLock(pd.hDevNames));
             HB_STORSTR(reinterpret_cast<LPCTSTR>(lpdn) + lpdn->wDeviceOffset, 1);
             GlobalUnlock(pd.hDevNames);
          }
@@ -405,9 +405,8 @@ HWG_PRINTPORTNAME() --> character
 HB_FUNC( HWG_PRINTPORTNAME )
 {
    if( !s_fPName && s_pd.hDevNames ) {
-      LPDEVNAMES lpDevNames;
       s_fPName = TRUE;
-      lpDevNames = static_cast<LPDEVNAMES>(GlobalLock(s_pd.hDevNames));
+      auto lpDevNames = static_cast<LPDEVNAMES>(GlobalLock(s_pd.hDevNames));
       HB_RETSTR(reinterpret_cast<LPCTSTR>(lpDevNames) + lpDevNames->wOutputOffset);
       GlobalUnlock(s_pd.hDevNames);
    }

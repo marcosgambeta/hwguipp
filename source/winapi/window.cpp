@@ -448,7 +448,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
 {
    HWND hWnd = nullptr;
    auto pObj = hb_param(1, Harbour::Item::OBJECT);
-   DWORD style = static_cast<DWORD>(hb_objDataGetNL(pObj, "STYLE"));
+   auto style = static_cast<DWORD>(hb_objDataGetNL(pObj, "STYLE"));
    int y = hb_objDataGetNI(pObj, "NTOP");
    int x = hb_objDataGetNI(pObj, "NLEFT");
    int width = hb_objDataGetNI(pObj, "NWIDTH");
@@ -561,7 +561,7 @@ HB_FUNC( HWG_SETWINDOWTEXT )
 HB_FUNC( HWG_GETWINDOWTEXT )
 {
    HWND hWnd = hwg_par_HWND(1);
-   ULONG ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0));
+   auto ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0));
    LPTSTR cText = ( TCHAR * ) hb_xgrab((ulLen + 1) * sizeof(TCHAR));
 
    ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXT, static_cast<WPARAM>(ulLen + 1), reinterpret_cast<LPARAM>(cText)));
@@ -969,8 +969,6 @@ HB_FUNC( HWG_UPDATEWINDOW )
 
 LONG GetFontDialogUnits(HWND h, HFONT f)
 {
-   HFONT hFont;
-   HFONT hFontOld;
    LONG avgWidth;
    HDC hDc;
    LPCTSTR tmp = TEXT("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
@@ -983,8 +981,8 @@ LONG GetFontDialogUnits(HWND h, HFONT f)
 
    //with the current font attributes, select the font
    //hFont = f;//GetStockObject(ANSI_VAR_FONT);
-   hFont = static_cast<HFONT>(GetStockObject(ANSI_VAR_FONT));
-   hFontOld = static_cast<HFONT>(SelectObject(hDc, hFont));
+   auto hFont = static_cast<HFONT>(GetStockObject(ANSI_VAR_FONT));
+   auto hFontOld = static_cast<HFONT>(SelectObject(hDc, hFont));
 
    //get its length, then calculate the average character width
 
@@ -1007,7 +1005,7 @@ HB_FUNC( HWG_GETFONTDIALOGUNITS )
 HB_FUNC( HWG_GETTOOLBARID )
 {
    HWND hMytoolMenu = hwg_par_HWND(1);
-   WPARAM wp = static_cast<WPARAM>(hb_parnl(2));
+   auto wp = static_cast<WPARAM>(hb_parnl(2));
    UINT uId;
 
    if( SendMessage(hMytoolMenu, TB_MAPACCELERATOR, static_cast<WPARAM>(wp), reinterpret_cast<LPARAM>(&uId)) != 0 ) {

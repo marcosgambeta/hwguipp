@@ -78,7 +78,7 @@ HB_FUNC( HWG_INITUPDOWNPROC )
 LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");

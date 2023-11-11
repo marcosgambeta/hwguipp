@@ -39,7 +39,7 @@ HB_FUNC( HWG_DELETEDC )
  */
 HB_FUNC( HWG_TEXTOUT )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    char * cText;
 
    if( hb_parclen(4) > 0 ) {
@@ -57,7 +57,7 @@ HB_FUNC( HWG_TEXTOUT )
 
 HB_FUNC( HWG_DRAWTEXT )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    char * cText;
    PangoRectangle rc;
    int iWidth = hb_parni(5) - hb_parni(3);
@@ -90,7 +90,7 @@ HB_FUNC( HWG_DRAWTEXT )
 
 HB_FUNC( HWG_GETTEXTMETRIC )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    PangoContext * context;
    PangoFontMetrics * metrics;
 
@@ -128,7 +128,7 @@ HB_FUNC( HWG_GETTEXTMETRIC )
 
 HB_FUNC( HWG_GETTEXTSIZE )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    char * cText = hwg_convert_to_utf8(hb_parc(2));
    PangoRectangle rc;
    PHB_ITEM aMetr = hb_itemArrayNew(2);
@@ -146,7 +146,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
 
 HB_FUNC( HWG_GETTEXTWIDTH )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    char * cText = hwg_convert_to_utf8(hb_parc(2));
    PangoRectangle rc;
 
@@ -190,14 +190,14 @@ HB_FUNC( HWG_GETFONTSLIST )
 
 HB_FUNC( HWG_SETTEXTCOLOR )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    hb_retnl(hDC->fcolor);
    hDC->fcolor = hb_parnl(2);
 }
 
 HB_FUNC( HWG_SETBKCOLOR )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    hb_retnl(hDC->bcolor);
    hDC->bcolor = hb_parnl(2);
 }
@@ -208,13 +208,13 @@ HB_FUNC( HWG_SETTRANSPARENTMODE )
 
 HB_FUNC( HWG_GETTEXTCOLOR )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    hb_retnl(hDC->fcolor);
 }
 
 HB_FUNC( HWG_GETBKCOLOR )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    hb_retnl(hDC->bcolor);
 }
 
@@ -226,7 +226,7 @@ HB_FUNC( HWG_EXTTEXTOUT )
 HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    char * cText = hwg_convert_to_utf8(hb_parcx(3));
-   GtkWidget * w = static_cast<GtkWidget*>(hb_parptr(1));
+   auto w = static_cast<GtkWidget*>(hb_parptr(1));
    int iStatus = hb_parni(2) - 1;
 
    hb_retni(gtk_statusbar_push(GTK_STATUSBAR(w), iStatus, cText));
@@ -236,7 +236,7 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
 
 HB_FUNC( HWG_WINDOWFROMDC )
 {
-   PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    HB_RETHANDLE(static_cast<GtkWidget*>(hDC->widget));
 }
 
@@ -246,7 +246,7 @@ HB_FUNC( HWG_WINDOWFROMDC )
 HB_FUNC( HWG_CREATEFONT )
 {
    PangoFontDescription * hFont;
-   PHWGUI_FONT h = static_cast<PHWGUI_FONT>(hb_xgrab(sizeof(HWGUI_FONT)));
+   auto h = static_cast<PHWGUI_FONT>(hb_xgrab(sizeof(HWGUI_FONT)));
    int iUnder = (!HB_ISNIL(7) && hb_parni(7) > 0)? 1 : 0;
    int iStrike = (!HB_ISNIL(8) && hb_parni(8) > 0)? 1 : 0;
 
@@ -283,8 +283,8 @@ HB_FUNC( HWG_CREATEFONT )
 #if GTK_MAJOR_VERSION - 0 < 3
 HB_FUNC( HWG_SETCTRLFONT )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
-   GtkWidget * hLabel = static_cast<GtkWidget*>(g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "label"));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hLabel = static_cast<GtkWidget*>(g_object_get_data(reinterpret_cast<GObject*>(hCtrl), "label"));
 
    if( GTK_IS_BUTTON(hCtrl) ) {
       hCtrl = gtk_bin_get_child(GTK_BIN(hCtrl));
@@ -299,8 +299,8 @@ HB_FUNC( HWG_SETCTRLFONT )
 #else
 HB_FUNC( HWG_SETCTRLFONT )
 {
-   GtkWidget * hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
-   PHWGUI_FONT pFont = static_cast<PHWGUI_FONT>(HB_PARHANDLE(3));
+   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto pFont = static_cast<PHWGUI_FONT>(HB_PARHANDLE(3));
    char szData[256];
    const char * pName = gtk_widget_get_name(hCtrl);
 

@@ -130,7 +130,6 @@ HB_FUNC( HWG_TAB_HITTEST )
 {
    TC_HITTESTINFO ht;
    HWND hTab = hwg_par_HWND(1);
-   int res;
 
    if( hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3) ) {
       ht.pt.x = hb_parni(2);
@@ -140,7 +139,7 @@ HB_FUNC( HWG_TAB_HITTEST )
       ScreenToClient(hTab, &(ht.pt));
    }
 
-   res = static_cast<int>(SendMessage(hTab, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&ht)));
+   auto res = static_cast<int>(SendMessage(hTab, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&ht)));
 
    hb_storni(ht.flags, 4);
    hb_retni(res);
@@ -173,7 +172,7 @@ HB_FUNC( HWG_INITTABPROC )
 LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
       pSym_onEvent = hb_dynsymFindName("ONEVENT");

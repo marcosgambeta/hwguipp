@@ -67,7 +67,7 @@ typedef struct HWGUI_PRINT_STRU
 
 PHWGUI_PRINT hwg_openprinter(int iFormType)
 {
-   PHWGUI_PRINT print = static_cast<PHWGUI_PRINT>(hb_xgrab(sizeof(HWGUI_PRINT)));
+   auto print = static_cast<PHWGUI_PRINT>(hb_xgrab(sizeof(HWGUI_PRINT)));
    GtkPaperSize * pSize = gtk_paper_size_new((iFormType == 8) ? GTK_PAPER_NAME_A3 : GTK_PAPER_NAME_A4);
 
 #ifdef G_CONSOLE_MODE
@@ -101,10 +101,10 @@ HB_FUNC( HWG_GETPRINTERS )
 
    if( hInput != -1 ) {
       HB_ULONG ulLen = hb_fsSeek(hInput, 0, FS_END);
-      unsigned char * cBuffer, * ptr, * ptr1;
+      unsigned char * ptr, * ptr1;
 
       hb_fsSeek(hInput, 0, FS_SET);
-      cBuffer = static_cast<unsigned char*>(hb_xgrab(ulLen + 1));
+      auto cBuffer = static_cast<unsigned char*>(hb_xgrab(ulLen + 1));
       ulLen = hb_fsReadLarge(hInput, cBuffer, ulLen);
       cBuffer[ulLen] = '\0';
 
@@ -159,7 +159,7 @@ HB_FUNC( HWG_GETPRINTERS )
 
 HB_FUNC( HWG_SETPRINTERMODE )
 {
-   PHWGUI_PRINT print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
+   auto print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
 
    gtk_page_setup_set_orientation(print->page_setup, (hb_parni(2) == 1) ? GTK_PAGE_ORIENTATION_PORTRAIT : GTK_PAGE_ORIENTATION_LANDSCAPE);
    if( HB_ISNUM(3) ) {
@@ -170,7 +170,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
 
 HB_FUNC( HWG_CLOSEPRINTER )
 {
-   PHWGUI_PRINT print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
+   auto print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
 
    g_object_unref(G_OBJECT(print->page_setup));
    if( print->cName ) {
@@ -405,7 +405,7 @@ static void print_destroy(GtkWidget * widget)
 
 static int print_time(GtkWidget * widget)
 {
-   PHWGUI_PRINT print = static_cast<PHWGUI_PRINT>(g_object_get_data(static_cast<GObject*>(widget), "print"));
+   auto print = static_cast<PHWGUI_PRINT>(g_object_get_data(static_cast<GObject*>(widget), "print"));
    char buf[48];
    gint x = 240 + (print->count % 100);
 
@@ -433,8 +433,8 @@ static int print_time(GtkWidget * widget)
 static void print_run(GtkWidget * widget)
 {
    if( !g_object_get_data(static_cast<GObject*>(widget), "flag") ) {
-      GtkPrintOperation * operation = static_cast<GtkPrintOperation*>(g_object_get_data(static_cast<GObject*>(widget), "oper"));
-      PHWGUI_PRINT print = static_cast<PHWGUI_PRINT>(g_object_get_data(static_cast<GObject*>(widget), "print"));
+      auto operation = static_cast<GtkPrintOperation*>(g_object_get_data(static_cast<GObject*>(widget), "oper"));
+      auto print = static_cast<PHWGUI_PRINT>(g_object_get_data(static_cast<GObject*>(widget), "print"));
       GtkPrintSettings * settings = gtk_print_settings_new();
       GtkPrintOperationResult res;
       GtkWidget * btn;
@@ -513,7 +513,7 @@ static void print_init(GtkPrintOperation * operation, PHWGUI_PRINT print)
 
 HB_FUNC( HWG_GP_PRINT )
 {
-   PHWGUI_PRINT print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
+   auto print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
    int i;
    auto iPages = hb_parni(3);
    auto iOper = hb_parni(4);
@@ -624,7 +624,7 @@ HB_FUNC( HWG_GP_PRINT )
  */
 HB_FUNC( HWG_GP_GETDEVICEAREA )
 {
-   PHWGUI_PRINT print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
+   auto print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
 
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;

@@ -101,7 +101,7 @@ HB_FUNC( HWG__ADDMENUITEM )
  */
 HB_FUNC( HWG__SETMENU )
 {
-   GObject * handle = static_cast<GObject*>(HB_PARHANDLE(1));
+   auto handle = static_cast<GObject*>(HB_PARHANDLE(1));
    GtkFixed * box = getFixedBox(handle);
    GtkWidget * vbox = gtk_widget_get_parent(reinterpret_cast<GtkWidget*>(box));
    gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(HB_PARHANDLE(2)), FALSE, FALSE, 0);
@@ -118,7 +118,7 @@ HB_FUNC( HWG_GETMENUHANDLE )
 
 HB_FUNC( HWG__CHECKMENUITEM )
 {
-   GtkCheckMenuItem * check_menu_item = static_cast<GtkCheckMenuItem*>(HB_PARHANDLE(1));
+   auto check_menu_item = static_cast<GtkCheckMenuItem*>(HB_PARHANDLE(1));
    g_signal_handlers_block_matched(reinterpret_cast<gpointer>(check_menu_item), G_SIGNAL_MATCH_FUNC, 0, 0, 0, G_CALLBACK(cb_signal), 0);
    gtk_check_menu_item_set_active(check_menu_item, (HB_ISNIL(2)) ? 1 : hb_parl(2));
    g_signal_handlers_unblock_matched(static_cast<gpointer>(check_menu_item), G_SIGNAL_MATCH_FUNC, 0, 0, 0, G_CALLBACK(cb_signal), 0);
@@ -126,13 +126,13 @@ HB_FUNC( HWG__CHECKMENUITEM )
 
 HB_FUNC( HWG__ISCHECKEDMENUITEM )
 {
-   GtkCheckMenuItem * check_menu_item = static_cast<GtkCheckMenuItem*>(HB_PARHANDLE(1));
+   auto check_menu_item = static_cast<GtkCheckMenuItem*>(HB_PARHANDLE(1));
    hb_retl(gtk_check_menu_item_get_active(check_menu_item));
 }
 
 HB_FUNC( HWG__ENABLEMENUITEM )
 {
-   GtkMenuItem * menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
+   auto menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
    gtk_widget_set_sensitive(reinterpret_cast<GtkWidget*>(menu_item), (HB_ISNIL(2)) ? 1 : hb_parl(2));
 }
 
@@ -187,7 +187,7 @@ HB_FUNC( HWG_DESTROYACCELERATORTABLE )
 
 HB_FUNC( HWG__SETMENUCAPTION )
 {
-   GtkMenuItem * menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
+   auto menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
    gchar * gcptr = hwg_convert_to_utf8(hb_parc(2));
    gtk_label_set_text(reinterpret_cast<GtkLabel*>(gtk_bin_get_child(reinterpret_cast<GtkBin*>(menu_item))), gcptr);
    g_free(gcptr);
@@ -195,7 +195,7 @@ HB_FUNC( HWG__SETMENUCAPTION )
 
 HB_FUNC( HWG__DELETEMENU )
 {
-   GtkMenuItem * menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
+   auto menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
    gtk_container_remove(reinterpret_cast<GtkContainer*>(gtk_widget_get_parent((reinterpret_cast<GtkWidget*>(menu_item)))), reinterpret_cast<GtkWidget*>(menu_item));
 }
 

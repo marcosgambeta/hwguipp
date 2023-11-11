@@ -184,7 +184,7 @@ HB_FUNC( HWG_FI_END )
 
 HB_FUNC( HWG_FI_VERSION )
 {
-   FREEIMAGE_GETVERSION pFunc = reinterpret_cast<FREEIMAGE_GETVERSION>(s_getFunction(nullptr, "_FreeImage_GetVersion@0"));
+   auto pFunc = reinterpret_cast<FREEIMAGE_GETVERSION>(s_getFunction(nullptr, "_FreeImage_GetVersion@0"));
 
    hb_retc(pFunc ? pFunc() : "");
 }
@@ -349,7 +349,7 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
    }
 
    // lock memory and get pointer to it
-   LPBITMAPINFOHEADER lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB)); // pointer to BITMAPINFOHEADER
+   auto lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hDIB)); // pointer to BITMAPINFOHEADER
 
    // use our bitmap info structure to fill in first part of
    // our DIB with the BITMAPINFOHEADER
@@ -425,8 +425,7 @@ HB_FUNC( HWG_FI_FI2DIBEX )
    if( _dib ) {
       // Get equivalent DIB size
       long dib_size = sizeof(BITMAPINFOHEADER);
-      BYTE *dib;
-      BYTE *p_dib, *bits;
+      BYTE *bits;
       BITMAPINFOHEADER *bih;
       RGBQUAD *pal;
 
@@ -435,11 +434,11 @@ HB_FUNC( HWG_FI_FI2DIBEX )
 
       // Allocate a DIB
       hMem = GlobalAlloc(GHND, dib_size);
-      dib = static_cast<BYTE*>(GlobalLock(hMem));
+      auto dib = static_cast<BYTE*>(GlobalLock(hMem));
 
       memset(dib, 0, dib_size);
 
-      p_dib = static_cast<BYTE*>(dib);
+      auto p_dib = static_cast<BYTE*>(dib);
 
       // Copy the BITMAPINFOHEADER
       bih = pGetinfoHead(_dib);
@@ -539,7 +538,7 @@ static int ColorCount(int bpp)
 static int BmiColorCount(LPBITMAPINFOHEADER lpbi)
 {
    if( lpbi->biSize == sizeof(BITMAPCOREHEADER) ) {
-      LPBITMAPCOREHEADER lpbc = reinterpret_cast<LPBITMAPCOREHEADER>(lpbi);
+      auto lpbc = reinterpret_cast<LPBITMAPCOREHEADER>(lpbi);
       return 1 << lpbc->bcBitCount;
    } else if( lpbi->biClrUsed == 0 ) {
       return ColorCount(lpbi->biBitCount);
@@ -556,8 +555,8 @@ static int DibNumColors(VOID FAR * pv)
 static LPBYTE DibBits(LPBITMAPINFOHEADER lpdib)
 // Given a pointer to a locked DIB, return a pointer to the actual bits (pixels)
 {
-   DWORD dwColorTableSize = static_cast<DWORD>(DibNumColors(lpdib) * sizeof(RGBQUAD));
-   LPBYTE lpBits = reinterpret_cast<LPBYTE>(lpdib) + lpdib->biSize + dwColorTableSize;
+   auto dwColorTableSize = static_cast<DWORD>(DibNumColors(lpdib) * sizeof(RGBQUAD));
+   auto lpBits = reinterpret_cast<LPBYTE>(lpdib) + lpdib->biSize + dwColorTableSize;
 
    return lpBits;
 }                               // end DibBits
@@ -567,11 +566,11 @@ static LPBYTE DibBits(LPBITMAPINFOHEADER lpdib)
 */
 HB_FUNC( HWG_FI_DIB2FI )
 {
-   HANDLE hdib = reinterpret_cast<HANDLE>(hb_parnl(1));
+   auto hdib = reinterpret_cast<HANDLE>(hb_parnl(1));
 
    if( hdib ) {
       FIBITMAP *dib;
-      LPBITMAPINFOHEADER lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hdib));
+      auto lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hdib));
 
       pConvertFromRawBits = reinterpret_cast<FREEIMAGE_CONVERTFROMRAWBITS>(s_getFunction(reinterpret_cast<FARPROC>(pConvertFromRawBits), "_FreeImage_ConvertFromRawBits@36"));
       pGetPalette = reinterpret_cast<FREEIMAGE_GETPALETTE>(s_getFunction(reinterpret_cast<FARPROC>(pGetPalette), "_FreeImage_GetPalette@4"));
@@ -587,7 +586,7 @@ HB_FUNC( HWG_FI_DIB2FI )
          if( pGetBPP(dib) <= 8 ) {
             // Convert palette entries
             RGBQUAD *pal = pGetPalette(dib);
-            RGBQUAD *dibpal = reinterpret_cast<RGBQUAD*>(reinterpret_cast<LPBYTE>(lpbi) + lpbi->biSize);
+            auto dibpal = reinterpret_cast<RGBQUAD*>(reinterpret_cast<LPBYTE>(lpbi) + lpbi->biSize);
 
             for( int i = 0; i < BmiColorCount(lpbi); i++ ) {
                pal[i].rgbRed      = dibpal[i].rgbRed;
@@ -643,7 +642,7 @@ HB_FUNC( HWG_FI_REMOVECHANNEL )
 
 unsigned DLL_CALLCONV _ReadProc(void *buffer, unsigned size, unsigned count, fi_handle handle)
 {
-   BYTE *tmp = static_cast<BYTE*>(buffer);
+   auto tmp = static_cast<BYTE*>(buffer);
    HB_SYMBOL_UNUSED(handle);
 
    for( unsigned u = 0; u < count; u++ ) {
@@ -843,7 +842,7 @@ HB_FUNC( HWG_FI_FLIPVERTICAL )
 
 HB_FUNC( HWG_FI_GETPIXELINDEX )
 {
-   BYTE value = static_cast<BYTE>(-1);
+   auto value = static_cast<BYTE>(-1);
    pGetPixelIndex = reinterpret_cast<FREEIMAGE_GETPIXELINDEX>(s_getFunction(reinterpret_cast<FARPROC>(pGetPixelIndex), "_FreeImage_GetPixelIndex@16"));
 
    BOOL lRes = pGetPixelIndex(hwg_par_FIBITMAP(1), hb_parni(2), hb_parni(3), &value);
