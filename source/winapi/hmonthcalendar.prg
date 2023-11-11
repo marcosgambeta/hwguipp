@@ -217,7 +217,7 @@ HB_FUNC_STATIC( HWG_INITMONTHCALENDAR )
 
 HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file Control.c
 {
-   PHB_ITEM pDate = hb_param(2, Harbour::Item::DATE);
+   auto pDate = hb_param(2, Harbour::Item::DATE);
 
    if( pDate )
    {

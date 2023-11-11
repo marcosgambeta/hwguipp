@@ -298,7 +298,7 @@ HWG_CREATEACCELERATORTABLE(aAccel) --> hAccel
 */
 HB_FUNC( HWG_CREATEACCELERATORTABLE )
 {
-   PHB_ITEM pArray = hb_param(1, Harbour::Item::ARRAY);
+   auto pArray = hb_param(1, Harbour::Item::ARRAY);
    PHB_ITEM pSubArr;
    ULONG ulEntries = hb_arrayLen(pArray);
    LPACCEL lpaccl = static_cast<LPACCEL>(hb_xgrab(sizeof(ACCEL) * ulEntries));

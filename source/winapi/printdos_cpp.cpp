@@ -91,7 +91,7 @@ HB_FUNC( AFILLTEXT )
 
 HB_FUNC( HWG_WIN_ANSITOOEM )
 {
-   PHB_ITEM pString = hb_param(1, Harbour::Item::STRING);
+   auto pString = hb_param(1, Harbour::Item::STRING);
 
    if( pString ) {
       int nLen = ( int ) hb_itemGetCLen(pString);

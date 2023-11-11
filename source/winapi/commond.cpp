@@ -137,8 +137,8 @@ HB_FUNC( HWG_SELECTFILE )
          LPCTSTR lpStr2;
          HB_SIZE nLen2;
       } *pArrStr;
-      PHB_ITEM pArr1 = hb_param(1, Harbour::Item::ARRAY);
-      PHB_ITEM pArr2 = hb_param(2, Harbour::Item::ARRAY);
+      auto pArr1 = hb_param(1, Harbour::Item::ARRAY);
+      auto pArr2 = hb_param(2, Harbour::Item::ARRAY);
       HB_SIZE n, nArrLen = hb_arrayLen(pArr1), nSize;
       LPTSTR ptr;
 

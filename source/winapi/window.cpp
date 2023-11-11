@@ -73,7 +73,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
    WNDCLASS wndclass;
    HANDLE hInstance = GetModuleHandle(nullptr);
    DWORD ExStyle = 0;
-   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
+   auto pObject = hb_param(1, Harbour::Item::OBJECT);
    void * hAppName, * hTitle, * hMenu;
    LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, nullptr);
    LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, nullptr);
@@ -239,7 +239,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
    HWND hWnd = nullptr;
    WNDCLASS wndclass;
    HMODULE /*HANDLE*/ hInstance = GetModuleHandle(nullptr);
-   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
+   auto pObject = hb_param(1, Harbour::Item::OBJECT);
    void * hAppName, * hTitle, * hMenu;
    LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, nullptr);
    LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, nullptr);
@@ -318,7 +318,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
    HWND hWnd;
    WNDCLASS wndclass, wc;
    HANDLE hInstance = GetModuleHandle(nullptr);
-   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
+   auto pObject = hb_param(1, Harbour::Item::OBJECT);
    void * hAppName, * hTitle, * hMenu;
    LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, nullptr);
    LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, nullptr);
@@ -447,7 +447,7 @@ HB_FUNC( HWG_ACTIVATEMDIWINDOW )
 HB_FUNC( HWG_CREATEMDICHILDWINDOW )
 {
    HWND hWnd = nullptr;
-   PHB_ITEM pObj = hb_param(1, Harbour::Item::OBJECT);
+   auto pObj = hb_param(1, Harbour::Item::OBJECT);
    DWORD style = static_cast<DWORD>(hb_objDataGetNL(pObj, "STYLE"));
    int y = hb_objDataGetNI(pObj, "NTOP");
    int x = hb_objDataGetNI(pObj, "NLEFT");
@@ -832,7 +832,7 @@ HB_FUNC( HWG_EXITPROCESS )
 HB_FUNC( HWG_DECREASEHOLDERS )
 {
 /*
-   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
+   auto pObject = hb_param(1, Harbour::Item::OBJECT);
    #ifndef  UIHOLDERS
    if( pObject->item.asArray.value->ulHolders )
       pObject->item.asArray.value->ulHolders--;

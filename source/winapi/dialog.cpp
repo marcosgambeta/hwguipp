@@ -32,7 +32,7 @@ int iDialogs = 0;
 
 HB_FUNC( HWG_DIALOGBOX )
 {
-   PHB_ITEM pObject = hb_param(2, Harbour::Item::OBJECT);
+   auto pObject = hb_param(2, Harbour::Item::OBJECT);
    PHB_ITEM pData = GETOBJECTVAR(pObject, "XRESOURCEID");
    void * hResource;
    LPCTSTR lpResource = HB_ITEMGETSTR(pData, &hResource, nullptr);
@@ -51,7 +51,7 @@ HB_FUNC( HWG_DIALOGBOX )
 */
 HB_FUNC( HWG_CREATEDIALOG )
 {
-   PHB_ITEM pObject = hb_param(2, Harbour::Item::OBJECT);
+   auto pObject = hb_param(2, Harbour::Item::OBJECT);
    HWND hDlg;
    PHB_ITEM pData = GETOBJECTVAR(pObject, "XRESOURCEID");
    void * hResource;
@@ -316,7 +316,8 @@ HB_FUNC( HWG_RELEASEDLGTEMPLATE )
 HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
 {
    PROPSHEETPAGE psp{};
-   PHB_ITEM pObj = hb_param(1, Harbour::Item::OBJECT), temp;
+   auto pObj = hb_param(1, Harbour::Item::OBJECT);
+   PHB_ITEM temp;
    void * hTitle = nullptr;
    LPDLGTEMPLATE pdlgtemplate;
    HPROPSHEETPAGE h;
@@ -376,7 +377,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
  */
 HB_FUNC( HWG__PROPERTYSHEET )
 {
-   PHB_ITEM pArr = hb_param(2, Harbour::Item::ARRAY);
+   auto pArr = hb_param(2, Harbour::Item::ARRAY);
    int nPages = hb_parni(3), i;
    HPROPSHEETPAGE psp[10];
    PROPSHEETHEADER psh;
@@ -423,7 +424,7 @@ HB_FUNC( HWG__PROPERTYSHEET )
 HB_FUNC( HWG_CREATEDLGINDIRECT )
 {
    LPDLGTEMPLATE pdlgtemplate;
-   PHB_ITEM pObject = hb_param(2, Harbour::Item::OBJECT);
+   auto pObject = hb_param(2, Harbour::Item::OBJECT);
    BOOL fFree = FALSE;
 
    if( hb_pcount() > 7 && !HB_ISNIL(8) ) {
@@ -447,7 +448,7 @@ Hwg_DlgBoxIndirect(hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle)
 */
 HB_FUNC( HWG_DLGBOXINDIRECT )
 {
-   PHB_ITEM pObject = hb_param(2, Harbour::Item::OBJECT);
+   auto pObject = hb_param(2, Harbour::Item::OBJECT);
    ULONG ulStyle = ((hb_pcount() > 6 && !HB_ISNIL(7)) ? static_cast<ULONG>(hb_parnd(7)) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU); // | DS_SETFONT;
    int x1 = hb_parni(3), y1 = hb_parni(4), dwidth = hb_parni(5), dheight = hb_parni(6);
    LPDLGTEMPLATE pdlgtemplate = s_CreateDlgTemplate(pObject, x1, y1, dwidth, dheight, ulStyle);

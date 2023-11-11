@@ -51,7 +51,7 @@ HB_FUNC( HWG_TREEADDNODE )
    TV_INSERTSTRUCT is;
 
    int nPos = hb_parni(5);
-   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT);
+   auto pObject = hb_param(1, Harbour::Item::OBJECT);
    void * hStr;
 
    tvi.iImage = 0;

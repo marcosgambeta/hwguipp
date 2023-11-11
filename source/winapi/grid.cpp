@@ -387,7 +387,7 @@ HB_FUNC( HWG_PROCESSCUSTU )
 {
    /* HWND hWnd = hwg_par_HWND(1); */
    LPARAM lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(2));
-   PHB_ITEM pColor = hb_param(3, Harbour::Item::ARRAY);
+   auto pColor = hb_param(3, Harbour::Item::ARRAY);
 
    hb_retnl(static_cast<LONG>(ProcessCustomDraw(lParam, pColor)));
 }

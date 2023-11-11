@@ -690,7 +690,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 {
    HDC hdc = hwg_par_HDC(1);
    //UINT h = hb_parni(2);
-   PHB_ITEM pObject = hb_param(3, Harbour::Item::OBJECT);
+   auto pObject = hb_param(3, Harbour::Item::OBJECT);
    LONG i;
    HBRUSH hBrush;
    COLORREF cColor;
@@ -1095,7 +1095,7 @@ HB_FUNC( HWG_ALERT_GETWINDOW )
 
 HB_FUNC( HWG_STOD )
 {
-   PHB_ITEM pDateString = hb_param(1, Harbour::Item::STRING);
+   auto pDateString = hb_param(1, Harbour::Item::STRING);
 
    hb_retds(hb_itemGetCLen(pDateString) >= 7 ? hb_itemGetCPtr(pDateString) : nullptr);
 }

@@ -48,7 +48,7 @@ HB_FUNC( HWG_CREATETABCONTROL )
 HB_FUNC( HWG_INITTABCONTROL )
 {
    HWND hTab = hwg_par_HWND(1);
-   PHB_ITEM pArr = hb_param(2, Harbour::Item::ARRAY);
+   auto pArr = hb_param(2, Harbour::Item::ARRAY);
    int iItems = hb_parnl(3);
    TC_ITEM tie;
    ULONG ulTabs = hb_arrayLen(pArr);

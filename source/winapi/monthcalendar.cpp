@@ -42,7 +42,7 @@ HB_FUNC( HWG_INITMONTHCALENDAR ) // moved to hmonthcalendar.prg as static functi
 #if 0
 HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file Control.c // // moved to hmonthcalendar.prg
 {
-   PHB_ITEM pDate = hb_param(2, Harbour::Item::DATE);
+   auto pDate = hb_param(2, Harbour::Item::DATE);
 
    if( pDate ) {
       SYSTEMTIME sysTime;
