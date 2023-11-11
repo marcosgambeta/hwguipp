@@ -88,7 +88,7 @@ HB_FUNC( HBXML_SETENTITY )
       pEntity1 = predefinedEntity1;
       pEntity2 = predefinedEntity2;
    } else {
-      PHB_ITEM pArray = hb_param(1, Harbour::Item::ARRAY);
+      auto pArray = hb_param(1, Harbour::Item::ARRAY);
       PHB_ITEM pArr;
       unsigned long ulLen = static_cast<unsigned long>(hb_arrayLen(pArray));
       unsigned long ulItemLen;
@@ -585,7 +585,7 @@ HBXML_GETDOC(op1, cp2|np2) --> NIL|nError
 */
 HB_FUNC( HBXML_GETDOC )
 {
-   PHB_ITEM pDoc = hb_param(1, Harbour::Item::OBJECT);
+   auto pDoc = hb_param(1, Harbour::Item::OBJECT);
    unsigned char *ptr, *pBuffer = nullptr;
    int iMainTags = 0;
 

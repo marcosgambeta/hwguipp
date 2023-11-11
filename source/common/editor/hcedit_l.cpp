@@ -461,7 +461,8 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    GtkWidget *vscroll, *hscroll;
    GtkWidget *area;
    GtkFixed *box;
-   PHB_ITEM pObject = hb_param(1, Harbour::Item::OBJECT), temp;
+   auto pObject = hb_param(1, Harbour::Item::OBJECT);
+   PHB_ITEM temp;
    GObject *handle;
    int nLeft = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
    int nTop = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
