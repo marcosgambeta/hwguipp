@@ -605,7 +605,7 @@ HB_FUNC( HCED_ADDFONT )
 
 HB_FUNC( HCED_SETFONT )
 {
-   int iFont = hb_parni(3);
+   auto iFont = hb_parni(3);
 
    if( iFont > 0 ) {
       iFont --;
@@ -636,7 +636,9 @@ HB_FUNC( HCED_CLEARATTR )
 HB_FUNC( HCED_SETATTR )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
-   int iPos = hb_parni(2), i = hb_parni(3), iLen;
+   auto iPos = hb_parni(2);
+   auto i = hb_parni(3);
+   int iLen;
    int iFont = hb_parni(4)-1;
    long fg = (long) hb_parnl(5);
    long bg = (long) hb_parnl(6);
@@ -661,7 +663,8 @@ HB_FUNC( HCED_SETATTR )
 HB_FUNC( HCED_ADDATTRFONT )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
-   int i = 0, iFont = hb_parni(2);
+   int i = 0;
+   auto iFont = hb_parni(2);
 
    while( i < TEDATTRF_MAX && *( pted->pattrf+i ) ) {
       if( *( pted->pattrf+i ) == iFont ) {
@@ -720,7 +723,7 @@ HB_FUNC( HCED_FILLRECT )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
    int x1 = (HB_ISNIL(2))? 0:hb_parni(2); // + pted->xBorder;
-   int y1 = hb_parni(3);
+   auto y1 = hb_parni(3);
    int x2 = (HB_ISNIL(4))? pted->iWidth:hb_parni(4);
 
    if( !pted->hDCPrn ) {
@@ -781,9 +784,9 @@ HB_FUNC( HCED_EXACTCARETPOS )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
    char * szText = (char*)hb_parc(2), *ptr;
-   int x1 = hb_parni(3);
-   int xpos = hb_parni(4);
-   int y1 = hb_parni(5);
+   auto x1 = hb_parni(3);
+   auto xpos = hb_parni(4);
+   auto y1 = hb_parni(5);
    HB_BOOL bSet = (HB_ISNIL(6))? 1 : hb_parl(6);
    int i, j, lasti, iReqLen, iRealLen, iPrinted = 0, iTextWidth;
    int iLen = g_utf8_strlen(szText, hb_parclen(2));
@@ -889,10 +892,13 @@ HB_FUNC( HCED_LINEOUT )
    char *szText = ( char * )hb_parc(5);
    int iRight = (HB_ISNIL(8))? 0 : hb_parni(8);
    short int bCalc = (HB_ISNIL(9))? 1 : hb_parl(9);
-   int x1 = hb_parni(2), ypos = hb_parni(3);
+   auto x1 = hb_parni(2);
+   auto ypos = hb_parni(3);
    //int x1 = hb_parni(2) + pted->xBorder, ypos = hb_parni(3) + pted->yBorder;
-   int x2 = hb_parni(4), iLen = hb_parni(6);
-   int iPrinted, iCalculated = 0, iAlign = hb_parni(7);
+   auto x2 = hb_parni(4);
+   auto iLen = hb_parni(6);
+   int iPrinted, iCalculated = 0;
+   auto iAlign = hb_parni(7);
    int iRealWidth, i, iFont;
    int iHeight = 0;
 
@@ -954,7 +960,8 @@ HB_FUNC( HCED_SETBORDER )
 HB_FUNC( HCED_DRAWBORDER )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
-   int nWidth = hb_parni(2), nHeight = hb_parni(3);
+   auto nWidth = hb_parni(2);
+   auto nHeight = hb_parni(3);
 
    if( !pted->nBorder ) {
       return;

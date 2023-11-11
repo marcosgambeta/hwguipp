@@ -904,10 +904,10 @@ HB_FUNC( HWG_SETWINDOWPOS )
    BOOL res;
    HWND hWnd = (HB_ISNUM(1) || HB_ISPOINTER(1)) ? hwg_par_HWND(1) : nullptr;
    HWND hWndInsertAfter = (HB_ISNUM(2) || HB_ISPOINTER(2)) ? hwg_par_HWND(2) : nullptr;
-   int X = hb_parni(3);
-   int Y = hb_parni(4);
-   int cx = hb_parni(5);
-   int cy = hb_parni(6);
+   auto X = hb_parni(3);
+   auto Y = hb_parni(4);
+   auto cx = hb_parni(5);
+   auto cy = hb_parni(6);
    UINT uFlags = hb_parni(7);
 
    res = SetWindowPos(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);

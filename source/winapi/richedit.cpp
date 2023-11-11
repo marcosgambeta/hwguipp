@@ -243,8 +243,8 @@ HB_FUNC( HWG_RE_SETDEFAULT )
 HB_FUNC( HWG_RE_CHARFROMPOS )
 {
    HWND hCtrl = hwg_par_HWND(1);
-   int x = hb_parni(2);
-   int y = hb_parni(3);
+   auto x = hb_parni(2);
+   auto y = hb_parni(3);
    ULONG ul;
    POINTL pp;
 
@@ -278,7 +278,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
 HB_FUNC( HWG_RE_GETLINE )
 {
    HWND hCtrl = hwg_par_HWND(1);
-   int nLine = hb_parni(2);
+   auto nLine = hb_parni(2);
    ULONG uLineIndex = SendMessage(hCtrl, EM_LINEINDEX, static_cast<WPARAM>(nLine), 0);
    ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, static_cast<WPARAM>(uLineIndex), 0);
    LPTSTR lpBuf = ( LPTSTR ) hb_xgrab((ul + 4) * sizeof(TCHAR));
@@ -321,8 +321,8 @@ HB_FUNC( HWG_RE_FINDTEXT )
 HB_FUNC( HWG_RE_SETZOOM )
 {
    HWND hwnd = hwg_par_HWND(1);
-   int nNum = hb_parni(2);
-   int nDen = hb_parni(3);
+   auto nNum = hb_parni(2);
+   auto nDen = hb_parni(3);
    hb_retnl(( BOOL ) SendMessage(hwnd, EM_SETZOOM, nNum, nDen));
 }
 
@@ -336,8 +336,8 @@ HB_FUNC( HWG_RE_ZOOMOFF )
 HB_FUNC( HWG_RE_GETZOOM )
 {
    HWND hwnd = hwg_par_HWND(1);
-   int nNum = hb_parni(2);
-   int nDen = hb_parni(3);
+   auto nNum = hb_parni(2);
+   auto nDen = hb_parni(3);
    hb_retnl(( BOOL ) SendMessage(hwnd, EM_GETZOOM, reinterpret_cast<WPARAM>(&nNum), reinterpret_cast<LPARAM>(&nDen)));
    hb_storni(nNum, 2);
    hb_storni(nDen, 3);

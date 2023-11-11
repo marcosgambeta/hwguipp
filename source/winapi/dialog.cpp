@@ -378,7 +378,8 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
 HB_FUNC( HWG__PROPERTYSHEET )
 {
    auto pArr = hb_param(2, Harbour::Item::ARRAY);
-   int nPages = hb_parni(3), i;
+   auto nPages = hb_parni(3);
+   int i;
    HPROPSHEETPAGE psp[10];
    PROPSHEETHEADER psh;
    void * hCaption;
@@ -450,7 +451,10 @@ HB_FUNC( HWG_DLGBOXINDIRECT )
 {
    auto pObject = hb_param(2, Harbour::Item::OBJECT);
    ULONG ulStyle = ((hb_pcount() > 6 && !HB_ISNIL(7)) ? static_cast<ULONG>(hb_parnd(7)) : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU); // | DS_SETFONT;
-   int x1 = hb_parni(3), y1 = hb_parni(4), dwidth = hb_parni(5), dheight = hb_parni(6);
+   auto x1 = hb_parni(3);
+   auto y1 = hb_parni(4);
+   auto dwidth = hb_parni(5);
+   auto dheight = hb_parni(6);
    LPDLGTEMPLATE pdlgtemplate = s_CreateDlgTemplate(pObject, x1, y1, dwidth, dheight, ulStyle);
    DialogBoxIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), reinterpret_cast<DLGPROC>(s_ModalDlgProc), reinterpret_cast<LPARAM>(pObject));
    s_ReleaseDlgTemplate(pdlgtemplate);

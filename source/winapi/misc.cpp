@@ -267,10 +267,8 @@ HB_FUNC( HWG_GETCURSORPOS )
 
 HB_FUNC( HWG_SETCURSORPOS )
 {
-   int x, y;
-
-   x = hb_parni(1);
-   y = hb_parni(2);
+   auto x = hb_parni(1);
+   auto y = hb_parni(2);
 
    SetCursorPos(x, y);
 }

@@ -64,8 +64,8 @@ HB_CALL_ON_STARTUP_END(_hwgui_module_init_)
 HB_FUNC( HWG_FINDRESOURCE )
 {
    HRSRC hHRSRC;
-   int iName = hb_parni(2); // "WindowsXP.Manifest";
-   int iType = hb_parni(3); // RT_MANIFEST = 24
+   auto iName = hb_parni(2); // "WindowsXP.Manifest";
+   auto iType = hb_parni(3); // RT_MANIFEST = 24
    void * hString;
 
    hModule = GetModuleHandle(HB_PARSTR(1, &hString, nullptr));

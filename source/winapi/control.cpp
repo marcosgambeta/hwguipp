@@ -148,7 +148,8 @@ HB_FUNC( HWG_INITSTATUS )
    RECT rcClient;
    HLOCAL hloc;
    LPINT lpParts;
-   int nWidth, j, nParts = hb_parni(3);
+   int nWidth, j;
+   auto nParts = hb_parni(3);
    auto pArray = hb_param(4, Harbour::Item::ARRAY);
 
    // Allocate an array for holding the right edge coordinates.

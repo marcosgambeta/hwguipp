@@ -481,7 +481,7 @@ HB_FUNC( HCED_ADDFONT )
 
 HB_FUNC( HCED_SETFONT )
 {
-   int iFont = hb_parni(3);
+   auto iFont = hb_parni(3);
 
    if( iFont > 0 ) {
       iFont --;
@@ -517,7 +517,9 @@ HB_FUNC( HCED_CLEARATTR )
 HB_FUNC( HCED_SETATTR )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
-   int iPos = hb_parni(2), i = hb_parni(3), iLen;
+   auto iPos = hb_parni(2);
+   auto i = hb_parni(3);
+   int iLen;
    int iFont = hb_parni(4)-1;
    COLORREF fg = (COLORREF) hb_parnl(5);
    COLORREF bg = (COLORREF) hb_parnl(6);
@@ -549,7 +551,8 @@ HB_FUNC( HCED_SETATTR )
 HB_FUNC( HCED_ADDATTRFONT )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
-   int i = 0, iFont = hb_parni(2);
+   int i = 0;
+   auto iFont = hb_parni(2);
 
    while( i < TEDATTRF_MAX && *( pted->pattrf+i ) ) {
       if( *( pted->pattrf+i ) == iFont ) {
@@ -567,7 +570,7 @@ HB_FUNC( HCED_SETVSCROLL )
 {
    TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
    SCROLLINFO si;
-   int iPages = hb_parni(4);
+   auto iPages = hb_parni(4);
 
    si.cbSize = sizeof( SCROLLINFO );
    si.fMask = SIF_PAGE | SIF_POS | SIF_RANGE | SIF_DISABLENOSCROLL;
@@ -708,7 +711,9 @@ HB_FUNC( HCED_EXACTCARETPOS )
    char * szText = ( char * ) hb_parc(2);
    int iLen = hb_parclen(2);
 #endif
-   int x1 = hb_parni(3), xpos = hb_parni(4), y1 = hb_parni(5);
+   auto x1 = hb_parni(3);
+   auto xpos = hb_parni(4);
+   auto y1 = hb_parni(5);
    short int bSet = (short int)((HB_ISNIL(6))? 1 : hb_parl(6));
    int iShiftL = ( HB_ISNIL(7)? 0 : hb_parni(7) );
    int iPrinted = 0, iRealWidth;
@@ -800,8 +805,12 @@ HB_FUNC( HCED_LINEOUT )
 #endif
    int iRight = (HB_ISNIL(8))? 0 : hb_parni(8);
    short int bCalc = (short int) ( (HB_ISNIL(9))? 1 : hb_parl(9) );
-   int x1 = hb_parni(2), ypos = hb_parni(3), x2 = hb_parni(4), iLen = hb_parni(6);
-   int iPrinted, iCalculated = 0, iAlign = hb_parni(7);
+   auto x1 = hb_parni(2);
+   auto ypos = hb_parni(3);
+   auto x2 = hb_parni(4);
+   auto iLen = hb_parni(6);
+   int iPrinted, iCalculated = 0;
+   auto iAlign = hb_parni(7);
    int iRealWidth, i, iFont;
    int iHeight = 0, iMaxAscent = 0;
 

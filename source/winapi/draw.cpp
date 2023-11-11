@@ -144,10 +144,10 @@ HB_FUNC( HWG_LINETO )
 HB_FUNC( HWG_RECTANGLE )
 {
    HDC hDC = hwg_par_HDC(1);
-   int x1 = hb_parni(2);
-   int y1 = hb_parni(3);
-   int x2 = hb_parni(4);
-   int y2 = hb_parni(5);
+   auto x1 = hb_parni(2);
+   auto y1 = hb_parni(3);
+   auto x2 = hb_parni(4);
+   auto y2 = hb_parni(5);
    MoveToEx(hDC, x1, y1, nullptr);
    LineTo(hDC, x2, y1);
    LineTo(hDC, x2, y2);
@@ -182,10 +182,10 @@ HB_FUNC( HWG_ELLIPSE )
 HB_FUNC( HWG_DRAWGRID )
 {
    HDC hDC = hwg_par_HDC(1);
-   int x1 = hb_parni(2);
-   int y1 = hb_parni(3);
-   int x2 = hb_parni(4);
-   int y2 = hb_parni(5);
+   auto x1 = hb_parni(2);
+   auto y1 = hb_parni(3);
+   auto x2 = hb_parni(4);
+   auto y2 = hb_parni(5);
    int n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
    COLORREF lColor = (HB_ISNIL(7)) ? 0 : hwg_par_COLORREF(7);
 
@@ -215,11 +215,11 @@ HB_FUNC( HWG_FILLRECT )
 HB_FUNC( HWG_ARC )
 {
    HDC hDC = hwg_par_HDC(1);
-   int xc = hb_parni(2);
-   int yc = hb_parni(3);
-   int radius = hb_parni(4);
-   int iAngle1 = hb_parni(5);
-   int iAngle2 = hb_parni(6);
+   auto xc = hb_parni(2);
+   auto yc = hb_parni(3);
+   auto radius = hb_parni(4);
+   auto iAngle1 = hb_parni(5);
+   auto iAngle2 = hb_parni(6);
    iAngle1 = iAngle2 - iAngle1;
    iAngle2 = 360 - iAngle2;
    int x1 = xc + radius * cos(iAngle2 * M_PI / 180);
@@ -233,7 +233,7 @@ HB_FUNC( HWG_ARC )
  */
 HB_FUNC( HWG_ROUNDRECT )
 {
-   int iWidth = hb_parni(6);
+   auto iWidth = hb_parni(6);
    int iHeight = (HB_ISNIL(7)) ? iWidth : hb_parni(7);
    hb_parl(RoundRect(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), iWidth * 2, iHeight * 2));
 }
@@ -424,8 +424,8 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    HBITMAP pOldBitmapImage, pOldBitmapTrans;
    BITMAP bitmap;
    HDC dcImage, dcTrans;
-   int x = hb_parni(3);
-   int y = hb_parni(4);
+   auto x = hb_parni(3);
+   auto y = hb_parni(4);
    int nWidthDest = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
    int nHeightDest = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : 0;
 
@@ -906,8 +906,8 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    HBITMAP pOldBitmapImage, pOldbitmapgray;
    BITMAP bitmap;
    HDC dcImage, dcTrans;
-   int x = hb_parni(3);
-   int y = hb_parni(4);
+   auto x = hb_parni(3);
+   auto y = hb_parni(4);
 
    SetBkColor(hDC, GetSysColor(COLOR_BTNHIGHLIGHT));
    //SetTextColor(hDC, GetSysColor(COLOR_BTNFACE));
@@ -1114,8 +1114,8 @@ HB_FUNC( HWG_CREATECOMPATIBLEBITMAP )
 HB_FUNC( HWG_INFLATERECT )
 {
    RECT pRect;
-   int x = hb_parni(2);
-   int y = hb_parni(3);
+   auto x = hb_parni(2);
+   auto y = hb_parni(3);
 
    if( HB_ISARRAY(1) ) {
       Array2Rect(hb_param(1, Harbour::Item::ARRAY), &pRect);
@@ -1294,7 +1294,10 @@ HB_FUNC( HWG_MODIFYSTYLE )
 HB_FUNC( HWG_DRAWGRADIENT )
 {
    HDC hDC = hwg_par_HDC(1);
-   int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
+   auto x1 = hb_parni(2);
+   auto y1 = hb_parni(3);
+   auto x2 = hb_parni(4);
+   auto y2 = hb_parni(5);
    int type = (HB_ISNUM(6)) ? hb_parni(6) : 1;
    auto pArrColor = hb_param(7, Harbour::Item::ARRAY);
    long int color;

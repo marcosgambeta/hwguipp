@@ -90,7 +90,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
    HWND hWndCtrl = hwg_par_HWND(1);
    /* HWND hToolTip = hwg_par_HWND(4); */
    auto pArray = hb_param(2, Harbour::Item::ARRAY);
-   int iButtons = hb_parni(3);
+   auto iButtons = hb_parni(3);
    TBBUTTON * tb = static_cast<struct _TBBUTTON*>(hb_xgrab(iButtons * sizeof(TBBUTTON)));
    PHB_ITEM pTemp;
 
@@ -155,7 +155,7 @@ HB_FUNC( HWG_TOOLBAR_LOADSTANDARTIMAGE )
 {
    TBADDBITMAP tbab;
    HWND hWndCtrl = hwg_par_HWND(1);
-   int iIDB = hb_parni(2);
+   auto iIDB = hb_parni(2);
    HIMAGELIST himl;
 
    tbab.hInst = HINST_COMMCTRL;

@@ -163,7 +163,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
 
    gtk_page_setup_set_orientation(print->page_setup, (hb_parni(2) == 1) ? GTK_PAGE_ORIENTATION_PORTRAIT : GTK_PAGE_ORIENTATION_LANDSCAPE);
    if( HB_ISNUM(3) ) {
-      int iDuplex = hb_parni(3);
+      auto iDuplex = hb_parni(3);
       print->duplex = (iDuplex < 2) ? 0 : ((iDuplex == 2) ? GTK_PRINT_DUPLEX_VERTICAL : GTK_PRINT_DUPLEX_HORIZONTAL);
    }
 }
@@ -514,8 +514,9 @@ static void print_init(GtkPrintOperation * operation, PHWGUI_PRINT print)
 HB_FUNC( HWG_GP_PRINT )
 {
    PHWGUI_PRINT print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
-   int i, iPages = hb_parni(3);
-   int iOper = hb_parni(4);
+   int i;
+   auto iPages = hb_parni(3);
+   auto iOper = hb_parni(4);
    int iPage = HB_ISNIL(6) ? 0 : hb_parni(6);
 
    if( print->cName ) {

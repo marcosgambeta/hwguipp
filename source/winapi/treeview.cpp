@@ -50,7 +50,7 @@ HB_FUNC( HWG_TREEADDNODE )
    TV_ITEM tvi;
    TV_INSERTSTRUCT is;
 
-   int nPos = hb_parni(5);
+   auto nPos = hb_parni(5);
    auto pObject = hb_param(1, Harbour::Item::OBJECT);
    void * hStr;
 
@@ -159,7 +159,7 @@ HB_FUNC( HWG_TREEGETNODETEXT )
 HB_FUNC( HWG_TREESETITEM )
 {
    TV_ITEM TreeItem{};
-   int iType = hb_parni(3);
+   auto iType = hb_parni(3);
    void * hStr = nullptr;
 
    TreeItem.mask = TVIF_HANDLE;
@@ -190,7 +190,7 @@ HB_FUNC( HWG_TREESETITEM )
 
 HB_FUNC( HWG_TREEGETNOTIFY )
 {
-   int iType = hb_parni(2);
+   auto iType = hb_parni(2);
 
    switch( iType ) {
       case TREE_GETNOTIFY_HANDLE: {

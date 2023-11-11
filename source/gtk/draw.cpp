@@ -106,7 +106,8 @@ HB_FUNC( HWG_INVALIDATERECT )
 HB_FUNC( HWG_RECTANGLE )
 {
    PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   int x1 = hb_parni(2), y1 = hb_parni(3);
+   auto x1 = hb_parni(2);
+   auto y1 = hb_parni(3);
    cairo_rectangle(hDC->cr, static_cast<gdouble>(x1), static_cast<gdouble>(y1), static_cast<gdouble>(hb_parni(4) - x1 + 1), static_cast<gdouble>(hb_parni(5) - y1 + 1));
    cairo_stroke(hDC->cr);
 }
@@ -139,7 +140,10 @@ HB_FUNC( HWG_PIE )
 HB_FUNC( HWG_ELLIPSE )
 {
    PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
+   auto x1 = hb_parni(2);
+   auto y1 = hb_parni(3);
+   auto x2 = hb_parni(4);
+   auto y2 = hb_parni(5);
    cairo_arc(hDC->cr, static_cast<double>(x1) + (x2 - x1) / 2, static_cast<double>(y1) + (y2 - y1) / 2, static_cast<double>(x2 - x1) / 2, 0, 6.28);
    cairo_stroke(hDC->cr);
 }
@@ -150,7 +154,8 @@ HB_FUNC( HWG_ARC )
    PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    gdouble x1 = hb_parnd(2), y1 = hb_parnd(3);
    gdouble radius = hb_parnd(4);
-   int iAngle1 = hb_parni(5), iAngle2 = hb_parni(6);
+   auto iAngle1 = hb_parni(5);
+   auto iAngle2 = hb_parni(6);
    cairo_new_sub_path(hDC->cr);
    cairo_arc(hDC->cr, x1, y1, radius, iAngle1 * M_PI / 180., iAngle2 * M_PI / 180.);
    //cairo_close_path(hDC->cr);
@@ -161,7 +166,10 @@ HB_FUNC( HWG_ARC )
 HB_FUNC( HWG_DRAWGRID )
 {
    PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 = hb_parni(5);
+   auto x1 = hb_parni(2);
+   auto y1 = hb_parni(3);
+   auto x2 = hb_parni(4);
+   auto y2 = hb_parni(5);
    int n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
    unsigned int uiColor = (HB_ISNIL(7)) ? 0 : static_cast<unsigned int>(hb_parnl(7));
 
@@ -176,7 +184,8 @@ HB_FUNC( HWG_DRAWGRID )
 
 HB_FUNC( HWG_FILLRECT )
 {
-   int x1 = hb_parni(2), y1 = hb_parni(3);
+   auto x1 = hb_parni(2);
+   auto y1 = hb_parni(3);
    PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    PHWGUI_BRUSH brush = static_cast<PHWGUI_BRUSH>(HB_PARHANDLE(6));
    hwg_setcolor(hDC->cr, brush->color);
@@ -195,7 +204,8 @@ HB_FUNC( HWG_ARC )
    PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    gdouble x1 = hb_parnd(2), y1 = hb_parnd(3);
    gdouble radius = hb_parnd(4);
-   int iAngle1 = hb_parni(5), iAngle2 = hb_parni(6);
+   auto iAngle1 = hb_parni(5);
+   auto iAngle2 = hb_parni(6);
    cairo_new_sub_path(hDC->cr);
    cairo_arc(hDC->cr, x1, y1, radius, iAngle1 * M_PI / 180., iAngle2 * M_PI / 180.);
    //cairo_close_path(hDC->cr);
@@ -226,10 +236,10 @@ HB_FUNC( HWG_REDRAWWINDOW )
 HB_FUNC( HWG_DRAWBUTTON )
 {
    PHWGUI_HDC hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   int left = hb_parni(2);
-   int top = hb_parni(3);
-   int right = hb_parni(4);
-   int bottom = hb_parni(5);
+   auto left = hb_parni(2);
+   auto top = hb_parni(3);
+   auto right = hb_parni(4);
+   auto bottom = hb_parni(5);
    unsigned int iType = hb_parni(6);
    GtkStyle * style = gtk_widget_get_style(hDC->widget);
 

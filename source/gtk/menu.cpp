@@ -172,7 +172,7 @@ HB_FUNC( HWG__CREATEACCELERATORTABLE )
  */
 HB_FUNC( HWG__ADDACCELERATOR )
 {
-   int iControl = hb_parni(3);
+   auto iControl = hb_parni(3);
    GdkModifierType nType = (iControl == FSHIFT) ? GDK_SHIFT_MASK : ((iControl == FCONTROL) ? GDK_CONTROL_MASK : ((iControl == FALT) ? GDK_MOD1_MASK : 0));
    gtk_widget_add_accelerator(static_cast<GtkWidget*>(HB_PARHANDLE(2)), "activate", static_cast<GtkAccelGroup*>(HB_PARHANDLE(1)), static_cast<guint>(hb_parni(4)), nType, 0);
 }
