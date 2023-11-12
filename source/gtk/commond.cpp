@@ -91,7 +91,7 @@ HB_FUNC( HWG_SELECTFONT )
 
    if( hb_pcount() > 0 && !HB_ISNIL(1) ) {
       auto pObj = hb_param(1, Harbour::Item::OBJECT);
-      const char * ptr = hb_itemGetCPtr(GetObjectVar(pObj, "NAME"));
+      auto ptr = hb_itemGetCPtr(GetObjectVar(pObj, "NAME"));
       int height = hb_itemGetNI(GetObjectVar(pObj, "HEIGHT"));
       int weight = hb_itemGetNI(GetObjectVar(pObj, "WEIGHT"));
       int italic = hb_itemGetNI(GetObjectVar(pObj, "ITALIC"));
