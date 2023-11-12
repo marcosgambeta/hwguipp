@@ -34,7 +34,7 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
    EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 4, nullptr, 0, &dwNeeded, &dwReturned);
    auto pinfo4 = static_cast<PRINTER_INFO_4*>(hb_xgrab(dwNeeded));
    EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 4, reinterpret_cast<PBYTE>(pinfo4), dwNeeded, &dwNeeded, &dwReturned);
-   HDC hDC = CreateDC(nullptr, pinfo4->pPrinterName, nullptr, nullptr);
+   auto hDC = CreateDC(nullptr, pinfo4->pPrinterName, nullptr, nullptr);
    if( hb_pcount() > 0 ) {
       HB_STORSTR(pinfo4->pPrinterName, 1);
    }
@@ -266,7 +266,7 @@ HWG_CREATEENHMETAFILE(HWND, fileName) --> HDC
 HB_FUNC( HWG_CREATEENHMETAFILE )
 {
    auto hWnd = hwg_par_HWND(1);
-   HDC hDCref = GetDC(hWnd);
+   auto hDCref = GetDC(hWnd);
    void * hFileName;
 
    // Determine the picture frame dimensions.
@@ -288,7 +288,7 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
    rc.right = ( rc.right * iWidthMM * 100 ) / iWidthPels;
    rc.bottom = ( rc.bottom * iHeightMM * 100 ) / iHeightPels;
 
-   HDC hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR(2, &hFileName, nullptr), &rc, nullptr);
+   auto hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR(2, &hFileName, nullptr), &rc, nullptr);
    ReleaseDC(hWnd, hDCref);
    HB_RETHANDLE(hDCmeta);
    hb_strfree(hFileName);
@@ -322,7 +322,7 @@ HB_FUNC( HWG_CREATEMETAFILE )
 
    RECT rc{0, 0, iWidthMM * 100, iHeightMM * 100};
 
-   HDC hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR(2, &hFileName, nullptr), &rc, nullptr);
+   auto hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR(2, &hFileName, nullptr), &rc, nullptr);
    HB_RETHANDLE(hDCmeta);
    hb_strfree(hFileName);
 }

@@ -970,14 +970,13 @@ HB_FUNC( HWG_UPDATEWINDOW )
 LONG GetFontDialogUnits(HWND h, HFONT f)
 {
    LONG avgWidth;
-   HDC hDc;
    LPCTSTR tmp = TEXT("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
    SIZE sz;
 
    HB_SYMBOL_UNUSED(f);
 
    //get the hdc to the main window
-   hDc = GetDC(h);
+   auto hDc = GetDC(h);
 
    //with the current font attributes, select the font
    //hFont = f;//GetStockObject(ANSI_VAR_FONT);
@@ -1079,7 +1078,7 @@ HB_FUNC( HWG_CLEARKEYBOARD )
 HB_FUNC( HWG_PAINTWINDOW )
 {
    PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof(PAINTSTRUCT));
-   HDC hDC = BeginPaint(hwg_par_HWND(1), pps);
+   auto hDC = BeginPaint(hwg_par_HWND(1), pps);
    BOOL fErase = pps->fErase;
    RECT rc = pps->rcPaint;
    HBRUSH hBrush = (HB_ISNIL(2)) ? reinterpret_cast<HBRUSH>(COLOR_3DFACE + 1) : hwg_par_HBRUSH(2);

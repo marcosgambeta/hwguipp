@@ -285,7 +285,7 @@ HB_FUNC( HWG_FI_GETIMAGETYPE )
 HB_FUNC( HWG_FI_2BITMAP )
 {
    FIBITMAP * dib = hwg_par_FIBITMAP(1);
-   HDC hDC = GetDC(0);
+   auto hDC = GetDC(0);
 
    pGetbits = reinterpret_cast<FREEIMAGE_GETBITS>(s_getFunction(reinterpret_cast<FARPROC>(pGetbits), "_FreeImage_GetBits@4"));
    pGetinfo = reinterpret_cast<FREEIMAGE_GETINFO>(s_getFunction(reinterpret_cast<FARPROC>(pGetinfo), "_FreeImage_GetInfo@4"));
@@ -516,7 +516,7 @@ HB_FUNC( HWG_FI_BMP2FI )
       pGetheight = reinterpret_cast<FREEIMAGE_GETHEIGHT>(s_getFunction(reinterpret_cast<FARPROC>(pGetheight), "_FreeImage_GetHeight@4"));
 
       if( pAllocate && pGetbits && pGetinfo && pGetheight ) {
-         HDC hDC = GetDC(nullptr);
+         auto hDC = GetDC(nullptr);
 
          GetObject(hbmp, sizeof(BITMAP), static_cast<LPVOID>(&bm));
          dib = pAllocate(bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0);

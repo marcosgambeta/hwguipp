@@ -353,8 +353,8 @@ HB_FUNC( HWG_WINDOW2BITMAP )
    auto hWnd = hwg_par_HWND(1);
    //BOOL lFull = (HB_ISNIL(2)) ? 0 : static_cast<BOOL>(hb_parl(2));
    //HDC hDC = ( lFull ) ? GetWindowDC(hWnd) : GetDC(hWnd);
-   HDC hDC = GetWindowDC(hWnd);
-   HDC hDCmem = CreateCompatibleDC(hDC);
+   auto hDC = GetWindowDC(hWnd);
+   auto hDCmem = CreateCompatibleDC(hDC);
    int x1 = HB_ISNUM(2) ? hb_parni(2) : 0;
    int y1 = HB_ISNUM(3) ? hb_parni(3) : 0;
    int width = HB_ISNUM(4) ? hb_parni(4) : 0;
@@ -391,7 +391,7 @@ HB_FUNC( HWG_WINDOW2BITMAP )
 HB_FUNC( HWG_DRAWBITMAP )
 {
    auto hDC = hwg_par_HDC(1);
-   HDC hDCmem = CreateCompatibleDC(hDC);
+   auto hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = (HB_ISNIL(3)) ? SRCCOPY : hwg_par_DWORD(3);
    auto hBitmap = hwg_par_HBITMAP(2);
    BITMAP bitmap;
@@ -422,15 +422,14 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    COLORREF crOldText = SetTextColor(hDC, 0);
    HBITMAP bitmapTrans;
    BITMAP bitmap;
-   HDC dcImage, dcTrans;
    auto x = hb_parni(3);
    auto y = hb_parni(4);
    int nWidthDest = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
    int nHeightDest = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : 0;
 
    // Create two memory dcs for the image and the mask
-   dcImage = CreateCompatibleDC(hDC);
-   dcTrans = CreateCompatibleDC(hDC);
+   auto dcImage = CreateCompatibleDC(hDC);
+   auto dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
    auto pOldBitmapImage = static_cast<HBITMAP>(SelectObject(dcImage, hBitmap));
    GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
@@ -477,7 +476,7 @@ SpreadBitmap(hDC, hBitmap [, nLeft, nTop, nRight, nBottom])
 HB_FUNC( HWG_SPREADBITMAP )
 {
    auto hDC = hwg_par_HDC(1);
-   HDC hDCmem = CreateCompatibleDC(hDC);
+   auto hDCmem = CreateCompatibleDC(hDC);
    //DWORD dwraster = (HB_ISNIL(3)) ? SRCCOPY : hwg_par_DWORD(3);
    auto hBitmap = hwg_par_HBITMAP(2);
    BITMAP bitmap;
@@ -518,7 +517,7 @@ CenterBitmap(hDC, hWnd, hBitmap, style, brush)
 HB_FUNC( HWG_CENTERBITMAP )
 {
    auto hDC = hwg_par_HDC(1);
-   HDC hDCmem = CreateCompatibleDC(hDC);
+   auto hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = (HB_ISNIL(4)) ? SRCCOPY : hwg_par_DWORD(4);
    auto hBitmap = hwg_par_HBITMAP(3);
    BITMAP bitmap;
@@ -705,7 +704,7 @@ HB_FUNC( HWG_SAVEBITMAP )
    HANDLE hOldPal2 = nullptr;
    void * hString;
 
-   HDC hDC = CreateDC(TEXT("DISPLAY"), nullptr, nullptr, nullptr);
+   auto hDC = CreateDC(TEXT("DISPLAY"), nullptr, nullptr, nullptr);
    int iBits = GetDeviceCaps(hDC, BITSPIXEL) * GetDeviceCaps(hDC, PLANES);
    DeleteDC(hDC);
 
@@ -901,7 +900,6 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    auto hBitmap = hwg_par_HBITMAP(2);
    HBITMAP bitmapgray;
    BITMAP bitmap;
-   HDC dcImage, dcTrans;
    auto x = hb_parni(3);
    auto y = hb_parni(4);
 
@@ -909,8 +907,8 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    //SetTextColor(hDC, GetSysColor(COLOR_BTNFACE));
    SetTextColor(hDC, GetSysColor(COLOR_BTNSHADOW));
    // Create two memory dcs for the image and the mask
-   dcImage = CreateCompatibleDC(hDC);
-   dcTrans = CreateCompatibleDC(hDC);
+   auto dcImage = CreateCompatibleDC(hDC);
+   auto dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
    auto pOldBitmapImage = static_cast<HBITMAP>(SelectObject(dcImage, hBitmap));
    GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));

@@ -328,12 +328,11 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
    RECT r;
 
    HBITMAP hBitmap;           //create a destination for raster operations
-   HDC hdcMem;	              //create a memory DC to avoid flicker
    HDC pDC;
 
    SetRect(&r, pshade->m_rect.left, pshade->m_rect.top, pshade->m_rect.right, pshade->m_rect.bottom);
 
-   hdcMem = CreateCompatibleDC(pRealDC);
+   auto hdcMem = CreateCompatibleDC(pRealDC); //create a memory DC to avoid flicker
    pDC = hdcMem;      //(just use pRealDC to paint directly the screen)
 
    hBitmap = CreateCompatibleBitmap(pRealDC, cx, cy);

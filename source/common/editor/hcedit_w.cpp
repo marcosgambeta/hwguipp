@@ -141,7 +141,7 @@ int hced_utf8bytes( char * szText, int iLen )
      }
      if( n == 0 ) {
         --iLen;
-     }   
+     }
   }
   return (int) ul;
 }
@@ -150,7 +150,6 @@ int hced_utf8bytes( char * szText, int iLen )
 TEDFONT * ted_setfont( TEDIT * pted, HFONT hFont, int iNum, short int bPrn  )
 {
    TEDFONT * pFont;
-   HDC hDC;
    HANDLE hold;
    SIZE sz;
 
@@ -166,7 +165,7 @@ TEDFONT * ted_setfont( TEDIT * pted, HFONT hFont, int iNum, short int bPrn  )
 
    pFont = ( (bPrn)? pted->pFontsPrn : pted->pFontsScr ) + iNum;
 
-   hDC = GetDC(0);
+   auto hDC = GetDC(0);
    hold = SelectObject( hDC, hFont );
    GetTextMetrics( hDC, &(pFont->tm) );
    GetTextExtentPoint32( hDC, TEXT("aA"), 2, &sz );

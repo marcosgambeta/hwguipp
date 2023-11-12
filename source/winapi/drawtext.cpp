@@ -26,7 +26,7 @@ HB_FUNC( HWG_DEFINEPAINTSTRU )
 HB_FUNC( HWG_BEGINPAINT )
 {
    auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(2));
-   HDC hDC = BeginPaint(hwg_par_HWND(1), pps);
+   auto hDC = BeginPaint(hwg_par_HWND(1), pps);
    HB_RETHANDLE(hDC);
 }
 
@@ -290,7 +290,7 @@ HB_FUNC( HWG_GETBKCOLOR )
 /*
 HB_FUNC( HWG_GETTEXTSIZE )
 {
-   HDC hdc = GetDC(hwg_par_HWND(1));
+   auto hdc = GetDC(hwg_par_HWND(1));
    SIZE size;
    PHB_ITEM aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;
@@ -462,7 +462,7 @@ HB_FUNC( HWG_GETFONTSLIST )
 {
    LOGFONT lf{};
    HWND hwnd=GetDesktopWindow();
-   HDC hDC = GetDC(hwnd);
+   auto hDC = GetDC(hwnd);
 
    lf.lfCharSet = DEFAULT_CHARSET;
    aFontsList = hb_itemArrayNew(0);
