@@ -468,7 +468,7 @@ HB_FUNC( HWG_FI_FI2DIBEX )
 HB_FUNC( HWG_FI_DRAW )
 {
    FIBITMAP *dib = hwg_par_FIBITMAP(1);
-   HDC hDC = hwg_par_HDC(2);
+   auto hDC = hwg_par_HDC(2);
    int nWidth = static_cast<int>(hb_parnl(3)), nHeight = static_cast<int>(hb_parnl(4));
    int nDestWidth, nDestHeight;
    POINT pp[2];

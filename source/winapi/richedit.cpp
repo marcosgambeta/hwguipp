@@ -345,7 +345,7 @@ HB_FUNC( HWG_RE_GETZOOM )
 HB_FUNC( HWG_PRINTRTF )
 {
    auto hwnd = hwg_par_HWND(1);
-   HDC hdc = hwg_par_HDC(2);
+   auto hdc = hwg_par_HDC(2);
    FORMATRANGE fr;
    BOOL fSuccess = TRUE;
    int cxPhysOffset = GetDeviceCaps(hdc, PHYSICALOFFSETX);

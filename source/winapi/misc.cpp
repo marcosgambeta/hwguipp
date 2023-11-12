@@ -686,7 +686,7 @@ HB_FUNC( HWG_BUTTON1GETSCREENCLIENT )
 
 HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 {
-   HDC hdc = hwg_par_HDC(1);
+   auto hdc = hwg_par_HDC(1);
    //UINT h = hb_parni(2);
    auto pObject = hb_param(3, Harbour::Item::OBJECT);
    LONG i;

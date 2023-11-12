@@ -208,7 +208,7 @@ HWG_GETDEVICEAREA() --> array
 */
 HB_FUNC( HWG_GETDEVICEAREA )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    PHB_ITEM temp;
    PHB_ITEM aMetr = hb_itemArrayNew(11);
 
@@ -299,7 +299,7 @@ HWG_CREATEMETAFILE(HDC, fileName) --> HDC
 */
 HB_FUNC( HWG_CREATEMETAFILE )
 {
-   HDC hDCref = hwg_par_HDC(1);
+   auto hDCref = hwg_par_HDC(1);
    void * hFileName;
 
    /* Determine the picture frame dimensions.
@@ -348,7 +348,7 @@ HWG_PLAYENHMETAFILE(HDC, HENHMETAFILE, left, top, right, bottom) --> numeric
 */
 HB_FUNC( HWG_PLAYENHMETAFILE )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    RECT rc;
 
    if( hb_pcount() > 2 ) {
@@ -368,7 +368,7 @@ HWG_PRINTENHMETAFILE(HDC, HENHMETAFILE) --> numeric
 */
 HB_FUNC( HWG_PRINTENHMETAFILE )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
 
    RECT rc;
    SetRect(&rc, 0, 0, GetDeviceCaps(hDC, HORZRES), GetDeviceCaps(hDC, VERTRES));
@@ -384,7 +384,7 @@ HWG_SETDOCUMENTPROPERTIES(HDC, printerName, formName|paperSize, orientation, cop
 HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 {
    bool Result = false;
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
 
    if( hDC != nullptr ) {
       HANDLE hPrinter;

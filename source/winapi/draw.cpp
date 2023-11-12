@@ -143,7 +143,7 @@ HB_FUNC( HWG_LINETO )
 
 HB_FUNC( HWG_RECTANGLE )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    auto x1 = hb_parni(2);
    auto y1 = hb_parni(3);
    auto x2 = hb_parni(4);
@@ -162,7 +162,7 @@ HB_FUNC( HWG_BOX )
 
 HB_FUNC( HWG_DRAWLINE )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    MoveToEx(hDC, hb_parni(2), hb_parni(3), nullptr);
    LineTo(hDC, hb_parni(4), hb_parni(5));
 }
@@ -181,7 +181,7 @@ HB_FUNC( HWG_ELLIPSE )
 
 HB_FUNC( HWG_DRAWGRID )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    auto x1 = hb_parni(2);
    auto y1 = hb_parni(3);
    auto x2 = hb_parni(4);
@@ -214,7 +214,7 @@ HB_FUNC( HWG_FILLRECT )
  */
 HB_FUNC( HWG_ARC )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    auto xc = hb_parni(2);
    auto yc = hb_parni(3);
    auto radius = hb_parni(4);
@@ -259,7 +259,7 @@ HB_FUNC( HWG_REDRAWWINDOW )
 HB_FUNC( HWG_DRAWBUTTON )
 {
    RECT rc;
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    UINT iType = hb_parni(6);
 
    rc.left = hb_parni(2);
@@ -390,7 +390,7 @@ HB_FUNC( HWG_WINDOW2BITMAP )
  */
 HB_FUNC( HWG_DRAWBITMAP )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = (HB_ISNIL(3)) ? SRCCOPY : hwg_par_DWORD(3);
    HBITMAP hBitmap = hwg_par_HBITMAP(2);
@@ -415,7 +415,7 @@ HB_FUNC( HWG_DRAWBITMAP )
  */
 HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    HBITMAP hBitmap = hwg_par_HBITMAP(2);
    COLORREF trColor = (HB_ISNIL(5)) ? 0x00FFFFFF : hwg_par_COLORREF(5);
    COLORREF crOldBack = SetBkColor(hDC, 0x00FFFFFF);
@@ -476,7 +476,7 @@ SpreadBitmap(hDC, hBitmap [, nLeft, nTop, nRight, nBottom])
 */
 HB_FUNC( HWG_SPREADBITMAP )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    //DWORD dwraster = (HB_ISNIL(3)) ? SRCCOPY : hwg_par_DWORD(3);
    HBITMAP hBitmap = hwg_par_HBITMAP(2);
@@ -517,7 +517,7 @@ CenterBitmap(hDC, hWnd, hBitmap, style, brush)
 */
 HB_FUNC( HWG_CENTERBITMAP )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = (HB_ISNIL(4)) ? SRCCOPY : hwg_par_DWORD(4);
    HBITMAP hBitmap = hwg_par_HBITMAP(3);
@@ -897,7 +897,7 @@ HB_FUNC( HWG_GETDRAWITEMINFO )
  */
 HB_FUNC( HWG_DRAWGRAYBITMAP )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    HBITMAP hBitmap = hwg_par_HBITMAP(2);
    HBITMAP bitmapgray;
    BITMAP bitmap;
@@ -1061,28 +1061,28 @@ HB_FUNC( HWG_SETMAPMODE )
 
 HB_FUNC( HWG_SETWINDOWORGEX )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    SetWindowOrgEx(hDC, hb_parni(2), hb_parni(3), nullptr);
    hb_stornl(0, 4);
 }
 
 HB_FUNC( HWG_SETWINDOWEXTEX )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    SetWindowExtEx(hDC, hb_parni(2), hb_parni(3), nullptr);
    hb_stornl(0, 4);
 }
 
 HB_FUNC( HWG_SETVIEWPORTORGEX )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    SetViewportOrgEx(hDC, hb_parni(2), hb_parni(3), nullptr);
    hb_stornl(0, 4);
 }
 
 HB_FUNC( HWG_SETVIEWPORTEXTEX )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    SetViewportExtEx(hDC, hb_parni(2), hb_parni(3), nullptr);
    hb_stornl(0, 4);
 }
@@ -1289,7 +1289,7 @@ HB_FUNC( HWG_MODIFYSTYLE )
  */
 HB_FUNC( HWG_DRAWGRADIENT )
 {
-   HDC hDC = hwg_par_HDC(1);
+   auto hDC = hwg_par_HDC(1);
    auto x1 = hb_parni(2);
    auto y1 = hb_parni(3);
    auto x2 = hb_parni(4);
