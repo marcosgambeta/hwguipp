@@ -381,7 +381,7 @@ FUNCTION hwg_GetItemByName(arr, cName)
 
 HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
 {
-   PHB_ITEM self = hb_stackSelfItem();
+   auto self = hb_stackSelfItem();
 
    if( HB_ISNUM(1) ) {
       hb_objDataPutNI(self, "_NX", hb_parni(1));
@@ -409,14 +409,14 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
 
 HB_FUNC_STATIC( HCUSTOMWINDOW_HIDE )
 {
-   PHB_ITEM self = hb_stackSelfItem();
+   auto self = hb_stackSelfItem();
    hb_objDataPutL(self, "_LHIDE", true);
    ShowWindow(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")), SW_HIDE);
 }
 
 HB_FUNC_STATIC( HCUSTOMWINDOW_SHOW )
 {
-   PHB_ITEM self = hb_stackSelfItem();
+   auto self = hb_stackSelfItem();
    hb_objDataPutL(self, "_LHIDE", false);
    ShowWindow(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")), SW_SHOW);
 }

@@ -136,7 +136,7 @@ METHOD Destroy() CLASS HAnimation
 
 HB_FUNC_STATIC( HANIMATION_PLAY )
 {
-  PHB_ITEM self = hb_stackSelfItem();
+  auto self = hb_stackSelfItem();
   UINT from = HB_ISNUM(1) ? hb_parni(1) : 0;
   UINT to   = HB_ISNUM(2) ? hb_parni(2) : -1;
   UINT rep  = HB_ISNUM(3) ? hb_parni(3) : -1;
@@ -151,7 +151,7 @@ HB_FUNC_STATIC( HANIMATION_ISPLAYING )
 
 HB_FUNC_STATIC( HANIMATION_SEEK )
 {
-  PHB_ITEM self = hb_stackSelfItem();
+  auto self = hb_stackSelfItem();
   UINT frame = HB_ISNUM(1) ? hb_parni(1) : 0;
   Animate_Seek(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")), frame);
   hb_itemReturn(self);
@@ -159,7 +159,7 @@ HB_FUNC_STATIC( HANIMATION_SEEK )
 
 HB_FUNC_STATIC( HANIMATION_STOP )
 {
-  PHB_ITEM self = hb_stackSelfItem();
+  auto self = hb_stackSelfItem();
   Animate_Stop(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")));
   hb_itemReturn(self);
 }
