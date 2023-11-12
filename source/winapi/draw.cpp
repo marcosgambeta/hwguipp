@@ -350,7 +350,7 @@ HB_FUNC( HWG_LOADBITMAP )
  */
 HB_FUNC( HWG_WINDOW2BITMAP )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    //BOOL lFull = (HB_ISNIL(2)) ? 0 : static_cast<BOOL>(hb_parl(2));
    //HDC hDC = ( lFull ) ? GetWindowDC(hWnd) : GetDC(hWnd);
    HDC hDC = GetWindowDC(hWnd);
@@ -1252,7 +1252,7 @@ HB_FUNC( HWG_GETWINDOWDC )
 
 HB_FUNC( HWG_MODIFYSTYLE )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    DWORD dwStyle = GetWindowLongPtr(static_cast<HWND>(hWnd), GWL_STYLE);
    DWORD a = hb_parnl(2);
    DWORD b = hb_parnl(3);

@@ -127,7 +127,7 @@ HWG_GETEDITTEXT(hWnd, nID) --> cText
 */
 HB_FUNC( HWG_GETEDITTEXT )
 {
-   HWND hDlg = hwg_par_HWND(1);
+   auto hDlg = hwg_par_HWND(1);
    int id = hwg_par_int(2);
    auto uiLen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
    auto lpText = static_cast<LPTSTR>(hb_xgrab((uiLen + 2) * sizeof(TCHAR)));

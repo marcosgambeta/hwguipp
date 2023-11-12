@@ -26,7 +26,8 @@ HWG_CREATEPROGRESSBAR(hParentWindow, nRange, ...)
 */
 HB_FUNC( HWG_CREATEPROGRESSBAR )
 {
-   HWND hPBar, hParentWindow = hwg_par_HWND(1);
+   HWND hPBar;
+   auto hParentWindow = hwg_par_HWND(1);
    RECT rcClient;
    ULONG ulStyle;
    int cyVScroll = GetSystemMetrics(SM_CYVSCROLL);

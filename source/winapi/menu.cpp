@@ -279,7 +279,7 @@ HWG_TRACKMENU(hMenu, nX, nY, hWnd, nFlags) --> .T.|.F.
 */
 HB_FUNC( HWG_TRACKMENU )
 {
-   HWND hWnd = hwg_par_HWND(4);
+   auto hWnd = hwg_par_HWND(4);
    SetForegroundWindow(hWnd);
    hb_retl(TrackPopupMenu(hwg_par_HMENU(1), HB_ISNIL(5) ? TPM_RIGHTALIGN : hwg_par_UINT(5), hwg_par_int(2), hwg_par_int(3), 0, hWnd, nullptr));
    PostMessage(hWnd, 0, 0, 0);

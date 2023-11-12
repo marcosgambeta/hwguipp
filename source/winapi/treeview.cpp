@@ -228,7 +228,7 @@ HB_FUNC( HWG_TREEGETNOTIFY )
 HB_FUNC( HWG_TREEHITTEST )
 {
    TV_HITTESTINFO ht;
-   HWND hTree = hwg_par_HWND(1);
+   auto hTree = hwg_par_HWND(1);
 
    if( hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3) ) {
       ht.pt.x = hb_parni(2);

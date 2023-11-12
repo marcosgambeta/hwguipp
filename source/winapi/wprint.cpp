@@ -265,7 +265,7 @@ HWG_CREATEENHMETAFILE(HWND, fileName) --> HDC
 */
 HB_FUNC( HWG_CREATEENHMETAFILE )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    HDC hDCref = GetDC(hWnd);
    void * hFileName;
 

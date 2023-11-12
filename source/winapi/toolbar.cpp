@@ -87,8 +87,8 @@ HB_FUNC( HWG_CREATETOOLBAR )
 
 HB_FUNC( HWG_TOOLBARADDBUTTONS )
 {
-   HWND hWndCtrl = hwg_par_HWND(1);
-   /* HWND hToolTip = hwg_par_HWND(4); */
+   auto hWndCtrl = hwg_par_HWND(1);
+   /* auto hToolTip = hwg_par_HWND(4); */
    auto pArray = hb_param(2, Harbour::Item::ARRAY);
    auto iButtons = hb_parni(3);
    auto tb = static_cast<struct _TBBUTTON*>(hb_xgrab(iButtons * sizeof(TBBUTTON)));
@@ -154,7 +154,7 @@ HB_FUNC( HWG_TOOLBAR_LOADIMAGE )
 HB_FUNC( HWG_TOOLBAR_LOADSTANDARTIMAGE )
 {
    TBADDBITMAP tbab;
-   HWND hWndCtrl = hwg_par_HWND(1);
+   auto hWndCtrl = hwg_par_HWND(1);
    auto iIDB = hb_parni(2);
 
    tbab.hInst = HINST_COMMCTRL;
@@ -225,7 +225,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENU )
    TPMPARAMS tpm;
    HMENU hPopupMenu;
    HMENU hMenuLoaded;
-   HWND g_hwndMain = hwg_par_HWND(3);
+   auto g_hwndMain = hwg_par_HWND(3);
    HANDLE g_hinst = GetModuleHandle(0);
 
    SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmTB->iItem), reinterpret_cast<LPARAM>(&rc));
@@ -253,7 +253,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
    RECT rc = {0, 0, 0, 0};
    TPMPARAMS tpm;
    HMENU hPopupMenu = hwg_par_HMENU(2);
-   HWND g_hwndMain = hwg_par_HWND(3);
+   auto g_hwndMain = hwg_par_HWND(3);
 
    SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmTB->iItem), reinterpret_cast<LPARAM>(&rc));
 

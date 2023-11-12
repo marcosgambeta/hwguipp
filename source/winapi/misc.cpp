@@ -660,8 +660,8 @@ HB_FUNC( HWG_GETUSERNAME )
 
 HB_FUNC( HWG_EDIT1UPDATECTRL )
 {
-   HWND hChild = hwg_par_HWND(1);
-   HWND hParent = hwg_par_HWND(2);
+   auto hChild = hwg_par_HWND(1);
+   auto hParent = hwg_par_HWND(2);
    RECT *rect = nullptr;
 
    GetWindowRect(hChild, rect);
@@ -674,8 +674,8 @@ HB_FUNC( HWG_EDIT1UPDATECTRL )
 
 HB_FUNC( HWG_BUTTON1GETSCREENCLIENT )
 {
-   HWND hChild = hwg_par_HWND(1);
-   HWND hParent = hwg_par_HWND(2);
+   auto hChild = hwg_par_HWND(1);
+   auto hParent = hwg_par_HWND(2);
    RECT *rect = nullptr;
 
    GetWindowRect(hChild, rect);

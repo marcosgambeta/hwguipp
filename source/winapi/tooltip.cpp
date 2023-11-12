@@ -30,7 +30,7 @@ static bool s_lToolTipBalloon = false;
 
 HB_FUNC( HWG_ADDTOOLTIP )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    TOOLINFO ti{};
    int iStyle = 0;
    void * hStr;
@@ -61,7 +61,7 @@ HB_FUNC( HWG_ADDTOOLTIP )
 
 HB_FUNC( HWG_DELTOOLTIP )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    TOOLINFO ti{};
 
    if( s_hWndTT ) {
@@ -77,7 +77,7 @@ HB_FUNC( HWG_DELTOOLTIP )
 
 HB_FUNC( HWG_SETTOOLTIPTITLE )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
 
    if( s_hWndTT ) {
       TOOLINFO ti;

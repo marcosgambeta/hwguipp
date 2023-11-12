@@ -143,8 +143,8 @@ HB_FUNC( HWG_CREATESTATUSWINDOW )
 
 HB_FUNC( HWG_INITSTATUS )
 {
-   HWND hParent = hwg_par_HWND(1);
-   HWND hStatus = hwg_par_HWND(2);
+   auto hParent = hwg_par_HWND(1);
+   auto hStatus = hwg_par_HWND(2);
    RECT rcClient;
    HLOCAL hloc;
    int nWidth, j;

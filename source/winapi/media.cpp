@@ -110,7 +110,7 @@ HB_FUNC( HWG_NMCIPLAY )
 HB_FUNC( HWG_NMCIWINDOW )
 {
    MCI_ANIM_WINDOW_PARMS mciWindowParms;
-   HWND hWnd = hwg_par_HWND(2);
+   auto hWnd = hwg_par_HWND(2);
 
    mciWindowParms.hWnd = hWnd;
 

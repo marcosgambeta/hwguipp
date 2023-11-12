@@ -71,7 +71,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
  */
 HB_FUNC( HWG_RE_SETCHARFORMAT )
 {
-   HWND hCtrl = hwg_par_HWND(1);
+   auto hCtrl = hwg_par_HWND(1);
    CHARRANGE chrOld, chrNew;
    CHARFORMAT2 cf;
    PHB_ITEM pArr;
@@ -198,7 +198,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
  */
 HB_FUNC( HWG_RE_SETDEFAULT )
 {
-   HWND hCtrl = hwg_par_HWND(1);
+   auto hCtrl = hwg_par_HWND(1);
    CHARFORMAT2 cf{};
 
    cf.cbSize = sizeof(CHARFORMAT2);
@@ -242,7 +242,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
  */
 HB_FUNC( HWG_RE_CHARFROMPOS )
 {
-   HWND hCtrl = hwg_par_HWND(1);
+   auto hCtrl = hwg_par_HWND(1);
    auto x = hb_parni(2);
    auto y = hb_parni(3);
    ULONG ul;
@@ -259,7 +259,7 @@ HB_FUNC( HWG_RE_CHARFROMPOS )
  */
 HB_FUNC( HWG_RE_GETTEXTRANGE )
 {
-   HWND hCtrl = hwg_par_HWND(1);
+   auto hCtrl = hwg_par_HWND(1);
    TEXTRANGE tr;
    ULONG ul;
 
@@ -277,7 +277,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
  */
 HB_FUNC( HWG_RE_GETLINE )
 {
-   HWND hCtrl = hwg_par_HWND(1);
+   auto hCtrl = hwg_par_HWND(1);
    auto nLine = hb_parni(2);
    ULONG uLineIndex = SendMessage(hCtrl, EM_LINEINDEX, static_cast<WPARAM>(nLine), 0);
    ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, static_cast<WPARAM>(uLineIndex), 0);
@@ -301,7 +301,7 @@ HB_FUNC( HWG_RE_INSERTTEXT )
  */
 HB_FUNC( HWG_RE_FINDTEXT )
 {
-   HWND hCtrl = hwg_par_HWND(1);
+   auto hCtrl = hwg_par_HWND(1);
    FINDTEXTEX ft;
    LONG lFlag = ((HB_ISNIL(4) || !hb_parl(4)) ? 0 : FR_MATCHCASE) |
          ((HB_ISNIL(5) || !hb_parl(5)) ? 0 : FR_WHOLEWORD) |
@@ -319,7 +319,7 @@ HB_FUNC( HWG_RE_FINDTEXT )
 
 HB_FUNC( HWG_RE_SETZOOM )
 {
-   HWND hwnd = hwg_par_HWND(1);
+   auto hwnd = hwg_par_HWND(1);
    auto nNum = hb_parni(2);
    auto nDen = hb_parni(3);
    hb_retnl(( BOOL ) SendMessage(hwnd, EM_SETZOOM, nNum, nDen));
@@ -328,13 +328,13 @@ HB_FUNC( HWG_RE_SETZOOM )
 
 HB_FUNC( HWG_RE_ZOOMOFF )
 {
-   HWND hwnd = hwg_par_HWND(1);
+   auto hwnd = hwg_par_HWND(1);
    hb_retnl(( BOOL ) SendMessage(hwnd, EM_SETZOOM, 0, 0L));
 }
 
 HB_FUNC( HWG_RE_GETZOOM )
 {
-   HWND hwnd = hwg_par_HWND(1);
+   auto hwnd = hwg_par_HWND(1);
    auto nNum = hb_parni(2);
    auto nDen = hb_parni(3);
    hb_retnl(( BOOL ) SendMessage(hwnd, EM_GETZOOM, reinterpret_cast<WPARAM>(&nNum), reinterpret_cast<LPARAM>(&nDen)));
@@ -344,7 +344,7 @@ HB_FUNC( HWG_RE_GETZOOM )
 
 HB_FUNC( HWG_PRINTRTF )
 {
-   HWND hwnd = hwg_par_HWND(1);
+   auto hwnd = hwg_par_HWND(1);
    HDC hdc = hwg_par_HDC(2);
    FORMATRANGE fr;
    BOOL fSuccess = TRUE;
@@ -440,7 +440,7 @@ static DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG
 HB_FUNC( HWG_SAVERICHEDIT )
 {
 
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    HANDLE hFile;
    EDITSTREAM es;
    void * hFileName;
@@ -465,7 +465,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
 HB_FUNC( HWG_LOADRICHEDIT )
 {
 
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    HANDLE hFile;
    EDITSTREAM es;
    void * hFileName;

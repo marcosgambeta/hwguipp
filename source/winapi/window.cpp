@@ -249,7 +249,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
    int y = hb_parnl(9);
    int width = hb_parnl(10);
    int height = hb_parnl(11);
-   HWND hParent = hwg_par_HWND(12);
+   auto hParent = hwg_par_HWND(12);
    BOOL fRegistered = TRUE;
 
    if( !GetClassInfo( hInstance, lpAppName, &wndclass ) ) {
@@ -560,7 +560,7 @@ HB_FUNC( HWG_SETWINDOWTEXT )
 
 HB_FUNC( HWG_GETWINDOWTEXT )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    auto ulLen = static_cast<ULONG>(SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0));
    LPTSTR cText = ( TCHAR * ) hb_xgrab((ulLen + 1) * sizeof(TCHAR));
 
@@ -841,7 +841,7 @@ HB_FUNC( HWG_DECREASEHOLDERS )
       pObject->item.asArray.value->uiHolders--;
    #endif
 */
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
    if( pObject ) {
@@ -862,7 +862,7 @@ HB_FUNC( HWG_REMOVETOPMOST )
 
 HB_FUNC( HWG_CHILDWINDOWFROMPOINT )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    HWND child;
    POINT pt;
 
@@ -875,7 +875,7 @@ HB_FUNC( HWG_CHILDWINDOWFROMPOINT )
 
 HB_FUNC( HWG_WINDOWFROMPOINT )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    HWND child;
    POINT pt;
 
@@ -938,7 +938,7 @@ HB_FUNC( HWG_SETASTYLE )
 
 HB_FUNC( HWG_BRINGTOTOP )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    //DWORD ForegroundThreadID;
    //DWORD    ThisThreadID;
    //DWORD      timeout;
@@ -963,7 +963,7 @@ HB_FUNC( HWG_BRINGTOTOP )
 
 HB_FUNC( HWG_UPDATEWINDOW )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    UpdateWindow(hWnd);
 }
 
@@ -1004,7 +1004,7 @@ HB_FUNC( HWG_GETFONTDIALOGUNITS )
 
 HB_FUNC( HWG_GETTOOLBARID )
 {
-   HWND hMytoolMenu = hwg_par_HWND(1);
+   auto hMytoolMenu = hwg_par_HWND(1);
    auto wp = static_cast<WPARAM>(hb_parnl(2));
    UINT uId;
 
@@ -1042,7 +1042,7 @@ HB_FUNC( HWG_MINMAXWINDOW )
 
 HB_FUNC( HWG_GETWINDOWPLACEMENT )
 {
-   HWND hWnd = hwg_par_HWND(1);
+   auto hWnd = hwg_par_HWND(1);
    WINDOWPLACEMENT wp;
 
    wp.length = sizeof(WINDOWPLACEMENT);
@@ -1098,7 +1098,7 @@ HB_FUNC( HWG_GETBACKBRUSH )
 
 HB_FUNC( HWG_WINDOWSETRESIZE )
 {
-   HWND handle = hwg_par_HWND(1);
+   auto handle = hwg_par_HWND(1);
    int iResizeable = (HB_ISNIL(2))? 0 : hb_parl(2);
 
    if( iResizeable ) {

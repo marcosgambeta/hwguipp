@@ -47,7 +47,7 @@ HB_FUNC( HWG_CREATETABCONTROL )
 
 HB_FUNC( HWG_INITTABCONTROL )
 {
-   HWND hTab = hwg_par_HWND(1);
+   auto hTab = hwg_par_HWND(1);
    auto pArr = hb_param(2, Harbour::Item::ARRAY);
    int iItems = hb_parnl(3);
    TC_ITEM tie;
@@ -91,7 +91,7 @@ HB_FUNC( HWG_ADDTABDIALOG )
 {
    TC_ITEM tie;
    void * hStr;
-   HWND pWnd = hwg_par_HWND(4);
+   auto pWnd = hwg_par_HWND(4);
 
    tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
    tie.lParam = reinterpret_cast<LPARAM>(pWnd);
@@ -129,7 +129,7 @@ HB_FUNC( HWG_SETTABNAME )
 HB_FUNC( HWG_TAB_HITTEST )
 {
    TC_HITTESTINFO ht;
-   HWND hTab = hwg_par_HWND(1);
+   auto hTab = hwg_par_HWND(1);
 
    if( hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3) ) {
       ht.pt.x = hb_parni(2);

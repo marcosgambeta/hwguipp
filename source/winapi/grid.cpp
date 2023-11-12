@@ -40,7 +40,7 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pColor);
 
 HB_FUNC( HWG_LISTVIEW_CREATE )
 {
-   HWND hwnd = hwg_par_HWND(1);
+   auto hwnd = hwg_par_HWND(1);
    HWND handle;
    int style = LVS_SHOWSELALWAYS | hb_parni(7);
 
@@ -215,7 +215,7 @@ HB_FUNC( HWG_LISTVIEW_HITTEST )
 
 HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
 {
-   HWND hList = hwg_par_HWND(1);
+   auto hList = hwg_par_HWND(1);
    HIMAGELIST p = hwg_par_HIMAGELIST(2);
 
 // #ifdef __BORLANDC__
@@ -230,7 +230,7 @@ HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
 
 HB_FUNC( HWG_LISTVIEW_SETVIEW )
 {
-   HWND hWndListView = hwg_par_HWND(1);
+   auto hWndListView = hwg_par_HWND(1);
    DWORD dwView = hb_parnl(2);
 
    DWORD dwStyle = GetWindowLongPtr(hWndListView, GWL_STYLE);
@@ -244,7 +244,7 @@ HB_FUNC( HWG_LISTVIEW_SETVIEW )
 
 HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
 {
-   HWND hwndListView = hwg_par_HWND(1);
+   auto hwndListView = hwg_par_HWND(1);
    LONG lCol = hb_parnl(2) - 1;
    void * hText;
    auto iImage = hb_parni(6);
@@ -277,7 +277,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
 
 HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 {
-   HWND hwndListView = hwg_par_HWND(1);
+   auto hwndListView = hwg_par_HWND(1);
    LONG lLin = hb_parnl(2) - 1;
    LONG lCol = hb_parnl(3) - 1;
    int iSubItemYesNo = lCol == 0 ? 0 : 1;
@@ -329,7 +329,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 
 HB_FUNC( HWG_LISTVIEWSELECTALL )
 {
-   HWND hList = hwg_par_HWND(1);
+   auto hList = hwg_par_HWND(1);
    ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
    SendMessage(hList, LVM_ENSUREVISIBLE, -1, FALSE);
    ListView_SetItemState(hList, -1, LVIS_SELECTED, LVIS_SELECTED);
@@ -338,7 +338,7 @@ HB_FUNC( HWG_LISTVIEWSELECTALL )
 
 HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
 {
-   HWND hList = hwg_par_HWND(1);
+   auto hList = hwg_par_HWND(1);
    int items = SendMessage(hList, LVM_GETITEMCOUNT, 0, 0);
    items--;
    ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
@@ -383,7 +383,7 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
 
 HB_FUNC( HWG_PROCESSCUSTU )
 {
-   /* HWND hWnd = hwg_par_HWND(1); */
+   /* auto hWnd = hwg_par_HWND(1); */
    auto lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(2));
    auto pColor = hb_param(3, Harbour::Item::ARRAY);
 
@@ -392,7 +392,7 @@ HB_FUNC( HWG_PROCESSCUSTU )
 
 HB_FUNC( HWG_LISTVIEWGETITEM )
 {
-   HWND hList = hwg_par_HWND(1);
+   auto hList = hwg_par_HWND(1);
    auto Index = hb_parni(2);
    auto Index2 = hb_parni(3);
    LVITEM Item{};
