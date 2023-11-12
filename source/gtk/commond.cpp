@@ -92,9 +92,9 @@ HB_FUNC( HWG_SELECTFONT )
    if( hb_pcount() > 0 && !HB_ISNIL(1) ) {
       auto pObj = hb_param(1, Harbour::Item::OBJECT);
       auto ptr = hb_itemGetCPtr(GetObjectVar(pObj, "NAME"));
-      int height = hb_itemGetNI(GetObjectVar(pObj, "HEIGHT"));
-      int weight = hb_itemGetNI(GetObjectVar(pObj, "WEIGHT"));
-      int italic = hb_itemGetNI(GetObjectVar(pObj, "ITALIC"));
+      auto height = hb_itemGetNI(GetObjectVar(pObj, "HEIGHT"));
+      auto weight = hb_itemGetNI(GetObjectVar(pObj, "WEIGHT"));
+      auto italic = hb_itemGetNI(GetObjectVar(pObj, "ITALIC"));
       char szFont[256];
 
       sprintf(szFont, "%s %s %s %d", ptr, ((weight < 700) ? "" : "BOLD"), ((italic == 0) ? "" : "ITALIC"), height);

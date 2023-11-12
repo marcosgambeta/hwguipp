@@ -449,10 +449,10 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
    HWND hWnd = nullptr;
    auto pObj = hb_param(1, Harbour::Item::OBJECT);
    auto style = static_cast<DWORD>(hb_objDataGetNL(pObj, "STYLE"));
-   int y = hb_objDataGetNI(pObj, "NTOP");
-   int x = hb_objDataGetNI(pObj, "NLEFT");
-   int width = hb_objDataGetNI(pObj, "NWIDTH");
-   int height = hb_objDataGetNI(pObj, "NHEIGHT");
+   auto y = hb_objDataGetNI(pObj, "NTOP");
+   auto x = hb_objDataGetNI(pObj, "NLEFT");
+   auto width = hb_objDataGetNI(pObj, "NWIDTH");
+   auto height = hb_objDataGetNI(pObj, "NHEIGHT");
    void * hTitle;
    LPCTSTR lpTitle = HB_ITEMGETSTR(GETOBJECTVAR(pObj, "TITLE"), &hTitle, nullptr);
 

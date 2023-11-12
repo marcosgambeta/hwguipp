@@ -185,10 +185,10 @@ HB_FUNC( HWG_CREATEDLG )
    GtkStyle * style;
    auto pObject = hb_param(1, Harbour::Item::OBJECT);
    gchar * gcTitle = hwg_convert_to_utf8(hb_itemGetCPtr(GetObjectVar(pObject, "TITLE")));
-   int x = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
-   int y = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
-   int width = hb_itemGetNI(GetObjectVar(pObject, "NWIDTH"));
-   int height = hb_itemGetNI(GetObjectVar(pObject, "NHEIGHT"));
+   auto x = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
+   auto y = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
+   auto width = hb_itemGetNI(GetObjectVar(pObject, "NWIDTH"));
+   auto height = hb_itemGetNI(GetObjectVar(pObject, "NHEIGHT"));
    auto pIcon = GetObjectVar(pObject, "OICON");
    auto pBmp = GetObjectVar(pObject, "OBMP");
    PHWGUI_PIXBUF szFile = nullptr;

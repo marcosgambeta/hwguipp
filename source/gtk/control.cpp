@@ -512,10 +512,10 @@ HB_FUNC( HWG_CREATEBROWSE )
    GtkWidget * area;
    GtkFixed * box;
    auto pObject = hb_param(1, Harbour::Item::OBJECT);
-   int nLeft = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
-   int nTop = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
-   int nWidth = hb_itemGetNI(GetObjectVar(pObject, "NWIDTH"));
-   int nHeight = hb_itemGetNI(GetObjectVar(pObject, "NHEIGHT"));
+   auto nLeft = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
+   auto nTop = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
+   auto nWidth = hb_itemGetNI(GetObjectVar(pObject, "NWIDTH"));
+   auto nHeight = hb_itemGetNI(GetObjectVar(pObject, "NHEIGHT"));
    unsigned long int ulStyle = hb_itemGetNL(GetObjectVar(pObject, "STYLE"));
 
    auto temp = GetObjectVar(pObject, "OPARENT");
