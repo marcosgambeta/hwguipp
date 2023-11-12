@@ -115,7 +115,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
          if( lpMem ) {
             auto nSize = static_cast<HB_SIZE>(GlobalSize(hglb));
             if( nSize ) {
-               lpText = ( LPTSTR ) hb_xgrab(nSize + 1);
+               lpText = static_cast<LPTSTR>(hb_xgrab(nSize + 1));
                memcpy(lpText, lpMem, nSize);
                ((char*)lpText)[nSize] = 0;
             }

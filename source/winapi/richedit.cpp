@@ -266,7 +266,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
    tr.chrg.cpMin = hb_parnl(2) - 1;
    tr.chrg.cpMax = hb_parnl(3) - 1;
 
-   tr.lpstrText = ( LPTSTR ) hb_xgrab((tr.chrg.cpMax - tr.chrg.cpMin + 2) * sizeof(TCHAR));
+   tr.lpstrText = static_cast<LPTSTR>(hb_xgrab((tr.chrg.cpMax - tr.chrg.cpMin + 2) * sizeof(TCHAR)));
    ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
    HB_RETSTRLEN(tr.lpstrText, ul);
    hb_xfree(tr.lpstrText);

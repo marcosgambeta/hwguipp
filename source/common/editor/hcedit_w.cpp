@@ -409,14 +409,12 @@ TEDIT * ted_init( void )
    memset( pted, 0, sizeof( TEDIT ) );
 
    pted->iFonts = NUMBER_OF_FONTS;
-   pted->pFontsScr =
-         ( TEDFONT * ) hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS);
-   pted->pFontsPrn =
-         ( TEDFONT * ) hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS);
+   pted->pFontsScr = static_cast<TEDFONT*>(hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS));
+   pted->pFontsPrn = static_cast<TEDFONT*>(hb_xgrab(sizeof( TEDFONT ) * NUMBER_OF_FONTS));
 
    pted->iAttrLen = TEDATTR_MAX;
-   pted->pattr = ( TEDATTR * ) hb_xgrab(sizeof( TEDATTR ) * TEDATTR_MAX);
-   pted->pattrf = ( int * ) hb_xgrab(sizeof( int ) * TEDATTRF_MAX);
+   pted->pattr = static_cast<TEDATTR*>(hb_xgrab(sizeof( TEDATTR ) * TEDATTR_MAX));
+   pted->pattrf = static_cast<int*>(hb_xgrab(sizeof( int ) * TEDATTRF_MAX));
    ted_ClearAttr( pted );
 
    return pted;

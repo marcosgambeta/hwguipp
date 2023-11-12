@@ -395,7 +395,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
          LONG lSize = DocumentProperties(0, hPrinter, const_cast<LPTSTR>(lpPrinterName), pDevMode, pDevMode, 0);
 
          if( lSize > 0 ) {
-            pDevMode = ( PDEVMODE ) hb_xgrab(lSize);
+            pDevMode = static_cast<PDEVMODE>(hb_xgrab(lSize));
 
             if( pDevMode && DocumentProperties(0, hPrinter, const_cast<LPTSTR>(lpPrinterName), pDevMode, pDevMode, DM_OUT_BUFFER) == IDOK ) { // Get the current settings
                bool bAskUser = HB_ISBYREF(3) || HB_ISBYREF(4) || HB_ISBYREF(5) || HB_ISBYREF(6) || HB_ISBYREF(7) || HB_ISBYREF(8) || HB_ISBYREF(9) || HB_ISBYREF(10); // x 20070421

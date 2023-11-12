@@ -106,7 +106,7 @@ HB_FUNC( HWG_REGGETVALUE )
 
    if( RegQueryValueEx(hKey, lpValueName, nullptr, nullptr, nullptr, &lpcbData) == ERROR_SUCCESS ) {
       length = ( int ) lpcbData;
-      lpData = ( LPBYTE ) hb_xgrab(length + 1);
+      lpData = static_cast<LPBYTE>(hb_xgrab(length + 1));
       if( RegQueryValueEx(hKey, lpValueName, nullptr, &lpType, lpData, &lpcbData) == ERROR_SUCCESS ) {
          hb_retclen(( char * ) lpData, (lpType == REG_SZ || lpType == REG_MULTI_SZ || lpType == REG_EXPAND_SZ) ? length - 1 : length);
          if( hb_pcount() > 2 ) {
