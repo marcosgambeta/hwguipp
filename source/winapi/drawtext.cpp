@@ -98,13 +98,12 @@ HB_FUNC( HWG_GETTEXTMETRIC )
 {
    TEXTMETRIC tm;
    auto aMetr = hb_itemArrayNew(8);
-   PHB_ITEM temp;
 
    GetTextMetrics(hwg_par_HDC(1),   // handle of device context
          &tm                    // address of text metrics structure
          );
 
-   temp = hb_itemPutNL(nullptr, tm.tmHeight);
+   auto temp = hb_itemPutNL(nullptr, tm.tmHeight);
    hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
@@ -148,12 +147,11 @@ HB_FUNC( HWG_GETTEXTSIZE )
    LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
    SIZE sz;
    auto aMetr = hb_itemArrayNew(2);
-   PHB_ITEM temp;
 
    GetTextExtentPoint32(hwg_par_HDC(1), lpText, nLen, &sz);
    hb_strfree(hText);
 
-   temp = hb_itemPutNL(nullptr, sz.cx);
+   auto temp = hb_itemPutNL(nullptr, sz.cx);
    hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
@@ -169,11 +167,10 @@ HB_FUNC( HWG_GETCLIENTRECT )
 {
    RECT rc;
    auto aMetr = hb_itemArrayNew(4);
-   PHB_ITEM temp;
 
    GetClientRect(hwg_par_HWND(1), &rc);
 
-   temp = hb_itemPutNL(nullptr, rc.left);
+   auto temp = hb_itemPutNL(nullptr, rc.left);
    hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
@@ -197,11 +194,10 @@ HB_FUNC( HWG_GETWINDOWRECT )
 {
    RECT rc;
    auto aMetr = hb_itemArrayNew(4);
-   PHB_ITEM temp;
 
    GetWindowRect(hwg_par_HWND(1), &rc);
 
-   temp = hb_itemPutNL(nullptr, rc.left);
+   auto temp = hb_itemPutNL(nullptr, rc.left);
    hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
@@ -225,9 +221,8 @@ HB_FUNC( HWG_GETCLIENTAREA )
 {
    auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
    auto aMetr = hb_itemArrayNew(4);
-   PHB_ITEM temp;
 
-   temp = hb_itemPutNL(nullptr, pps->rcPaint.left);
+   auto temp = hb_itemPutNL(nullptr, pps->rcPaint.left);
    hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
@@ -293,7 +288,6 @@ HB_FUNC( HWG_GETTEXTSIZE )
    auto hdc = GetDC(hwg_par_HWND(1));
    SIZE size;
    auto aMetr = hb_itemArrayNew(2);
-   PHB_ITEM temp;
    void * hString;
 
    GetTextExtentPoint32(hdc, HB_PARSTR(2, &hString, nullptr),
@@ -303,7 +297,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
    );
    hb_strfree(hString);
 
-   temp = hb_itemPutNI(nullptr, size.cx);
+   auto temp = hb_itemPutNI(nullptr, size.cx);
    hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 

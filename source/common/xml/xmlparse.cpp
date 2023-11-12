@@ -405,7 +405,7 @@ int hbxml_readComment(PHB_ITEM pParent, unsigned char **pBuffer)
 {
    PHB_ITEM pNode = hbxml_addnode(pParent);
 
-   PHB_ITEM pTemp = hb_itemPutNI(nullptr, XML_TYPE_COMMENT);
+   auto pTemp = hb_itemPutNI(nullptr, XML_TYPE_COMMENT);
    hb_objSendMsg(pNode, "_TYPE", 1, pTemp);
    hb_itemRelease(pTemp);
 
@@ -434,7 +434,7 @@ int hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
 {
    PHB_ITEM pNode = hbxml_addnode(pParent);
 
-   PHB_ITEM pTemp = hb_itemPutNI(nullptr, XML_TYPE_CDATA);
+   auto pTemp = hb_itemPutNI(nullptr, XML_TYPE_CDATA);
    hb_objSendMsg(pNode, "_TYPE", 1, pTemp);
    hb_itemRelease(pTemp);
 
@@ -477,7 +477,7 @@ int hbxml_readElement(PHB_ITEM pParent, unsigned char **pBuffer)
    memcpy(cNodeName, *pBuffer, nLenNodeName);
    cNodeName[nLenNodeName] = '\0';
 
-   PHB_ITEM pTemp = hb_itemPutC(nullptr, reinterpret_cast<char*>(cNodeName));
+   auto pTemp = hb_itemPutC(nullptr, reinterpret_cast<char*>(cNodeName));
    hb_objSendMsg(pNode, "_TITLE", 1, pTemp);
    hb_itemRelease(pTemp);
 

@@ -230,9 +230,8 @@ HB_FUNC( HWG_GETDEVICEAREA )
    GdkScreen * screen = gdk_screen_get_default();
 
    auto aMetr = hb_itemArrayNew(4);
-   PHB_ITEM temp;
 
-   temp = hb_itemPutNL(nullptr, static_cast<HB_LONG>(gdk_screen_get_width(screen)));
+   auto temp = hb_itemPutNL(nullptr, static_cast<HB_LONG>(gdk_screen_get_width(screen)));
    hb_itemArrayPut(aMetr, 1, temp);
 
    hb_itemPutNL(temp, static_cast<HB_LONG>(gdk_screen_get_height(screen)));

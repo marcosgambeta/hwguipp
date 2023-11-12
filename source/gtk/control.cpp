@@ -337,9 +337,8 @@ HB_FUNC( HWG_EDIT_GETSELPOS )
    gint start, end;
    if( gtk_editable_get_selection_bounds((static_cast<GtkEditable*>(HB_PARHANDLE(1))), &start, &end)) {
       auto aSel = hb_itemArrayNew(2);
-      PHB_ITEM temp;
 
-      temp = hb_itemPutNL(nullptr, start);
+      auto temp = hb_itemPutNL(nullptr, start);
       hb_itemArrayPut(aSel, 1, temp);
       hb_itemRelease(temp);
 
@@ -1198,7 +1197,7 @@ static void tabchange_clicked(GtkNotebook * item, GtkWidget * Page, guint pagenu
    auto pData = static_cast<PHB_ITEM>(user_data);
    gpointer dwNewLong = g_object_get_data(reinterpret_cast<GObject*>(item), "obj");
    auto pObject = static_cast<PHB_ITEM>(dwNewLong);
-   PHB_ITEM Disk = hb_itemPutNL(nullptr, pagenum + 1);
+   auto Disk = hb_itemPutNL(nullptr, pagenum + 1);
 
    HB_SYMBOL_UNUSED(Page);
    hb_vmEvalBlockV(static_cast<PHB_ITEM>(pData), 2, pObject, Disk);

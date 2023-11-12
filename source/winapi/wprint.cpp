@@ -209,10 +209,9 @@ HWG_GETDEVICEAREA() --> array
 HB_FUNC( HWG_GETDEVICEAREA )
 {
    auto hDC = hwg_par_HDC(1);
-   PHB_ITEM temp;
    auto aMetr = hb_itemArrayNew(11);
 
-   temp = hb_itemPutNL(nullptr, GetDeviceCaps(hDC, HORZRES));
+   auto temp = hb_itemPutNL(nullptr, GetDeviceCaps(hDC, HORZRES));
    hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
