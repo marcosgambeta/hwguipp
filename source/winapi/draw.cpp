@@ -393,7 +393,7 @@ HB_FUNC( HWG_DRAWBITMAP )
    auto hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = (HB_ISNIL(3)) ? SRCCOPY : hwg_par_DWORD(3);
-   HBITMAP hBitmap = hwg_par_HBITMAP(2);
+   auto hBitmap = hwg_par_HBITMAP(2);
    BITMAP bitmap;
    int nWidthDest = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
    int nHeightDest = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : 0;
@@ -416,7 +416,7 @@ HB_FUNC( HWG_DRAWBITMAP )
 HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 {
    auto hDC = hwg_par_HDC(1);
-   HBITMAP hBitmap = hwg_par_HBITMAP(2);
+   auto hBitmap = hwg_par_HBITMAP(2);
    COLORREF trColor = (HB_ISNIL(5)) ? 0x00FFFFFF : hwg_par_COLORREF(5);
    COLORREF crOldBack = SetBkColor(hDC, 0x00FFFFFF);
    COLORREF crOldText = SetTextColor(hDC, 0);
@@ -479,7 +479,7 @@ HB_FUNC( HWG_SPREADBITMAP )
    auto hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    //DWORD dwraster = (HB_ISNIL(3)) ? SRCCOPY : hwg_par_DWORD(3);
-   HBITMAP hBitmap = hwg_par_HBITMAP(2);
+   auto hBitmap = hwg_par_HBITMAP(2);
    BITMAP bitmap;
    RECT rc;
    int nLeft;
@@ -520,7 +520,7 @@ HB_FUNC( HWG_CENTERBITMAP )
    auto hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = (HB_ISNIL(4)) ? SRCCOPY : hwg_par_DWORD(4);
-   HBITMAP hBitmap = hwg_par_HBITMAP(3);
+   auto hBitmap = hwg_par_HBITMAP(3);
    BITMAP bitmap;
    RECT rc;
    HBRUSH hBrush = (HB_ISNIL(5)) ? reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1) : hwg_par_HBRUSH(5);
@@ -690,7 +690,7 @@ HB_FUNC( HWG_OPENBITMAP )
  */
 HB_FUNC( HWG_SAVEBITMAP )
 {
-   HBITMAP hBitmap = hwg_par_HBITMAP(2);
+   auto hBitmap = hwg_par_HBITMAP(2);
    WORD wBitCount;
    DWORD dwPaletteSize = 0;
    DWORD dwBmBitsSize;
@@ -898,7 +898,7 @@ HB_FUNC( HWG_GETDRAWITEMINFO )
 HB_FUNC( HWG_DRAWGRAYBITMAP )
 {
    auto hDC = hwg_par_HDC(1);
-   HBITMAP hBitmap = hwg_par_HBITMAP(2);
+   auto hBitmap = hwg_par_HBITMAP(2);
    HBITMAP bitmapgray;
    BITMAP bitmap;
    HDC dcImage, dcTrans;
