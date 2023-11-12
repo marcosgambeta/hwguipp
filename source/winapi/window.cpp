@@ -1077,7 +1077,7 @@ HB_FUNC( HWG_CLEARKEYBOARD )
 
 HB_FUNC( HWG_PAINTWINDOW )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof(PAINTSTRUCT));
+   auto pps = static_cast<PAINTSTRUCT*>(hb_xgrab(sizeof(PAINTSTRUCT)));
    auto hDC = BeginPaint(hwg_par_HWND(1), pps);
    BOOL fErase = pps->fErase;
    RECT rc = pps->rcPaint;

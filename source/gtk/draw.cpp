@@ -482,11 +482,10 @@ HB_FUNC( HWG_GETBITMAPSIZE )
 */
 HB_FUNC( HWG_OPENBITMAP )
 {
-   PHWGUI_PIXBUF hpix;
    GdkPixbuf * handle = gdk_pixbuf_new_from_file(hb_parc(1), nullptr);
 
    if( handle ) {
-      hpix = static_cast<PHWGUI_PIXBUF>(hb_xgrab(sizeof(HWGUI_PIXBUF)));
+      auto hpix = static_cast<PHWGUI_PIXBUF>(hb_xgrab(sizeof(HWGUI_PIXBUF)));
       hpix->type = HWGUI_OBJECT_PIXBUF;
       hpix->handle = handle;
       hpix->trcolor = -1;
@@ -511,7 +510,6 @@ HB_FUNC( HWG_SAVEBITMAP )
   */
 HB_FUNC( HWG_OPENIMAGE )
 {
-   PHWGUI_PIXBUF hpix;
    short int iString = (HB_ISNIL(2)) ? 0 : hb_parl(2);
    GdkPixbuf * handle;
 
@@ -528,7 +526,7 @@ HB_FUNC( HWG_OPENIMAGE )
    }
 
    if( handle ) {
-      hpix = static_cast<PHWGUI_PIXBUF>(hb_xgrab(sizeof(HWGUI_PIXBUF)));
+      auto hpix = static_cast<PHWGUI_PIXBUF>(hb_xgrab(sizeof(HWGUI_PIXBUF)));
       hpix->type = HWGUI_OBJECT_PIXBUF;
       hpix->handle = handle;
       hpix->trcolor = -1;

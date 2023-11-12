@@ -435,7 +435,7 @@ int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 
 HB_FUNC( HWG_LISTVIEWSORTINFONEW )
 {
-   //PSORTINFO p = (PSORTINFO) hb_xgrab(sizeof(SortInfo));
+   //auto p = static_cast<PSORTINFO>(hb_xgrab(sizeof(SortInfo)));
    //LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) hb_parnl(1);
 
    if( HB_ISPOINTER(2) ) {

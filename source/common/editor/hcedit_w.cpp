@@ -385,7 +385,6 @@ void ted_ClearAttr( TEDIT *pted )
 TEDIT * ted_init( void )
 {
    static short int bRegistered = FALSE;
-   TEDIT *pted;
 
    if( !bRegistered ) {
       WNDCLASS wndclass;
@@ -406,7 +405,7 @@ TEDIT * ted_init( void )
       bRegistered = TRUE;
    }
 
-   pted = ( TEDIT * ) hb_xgrab(sizeof( TEDIT ));
+   auto pted = static_cast<TEDIT*>(hb_xgrab(sizeof(TEDIT)));
    memset( pted, 0, sizeof( TEDIT ) );
 
    pted->iFonts = NUMBER_OF_FONTS;

@@ -281,7 +281,7 @@ HB_FUNC( HWG_RE_GETLINE )
    auto nLine = hb_parni(2);
    ULONG uLineIndex = SendMessage(hCtrl, EM_LINEINDEX, static_cast<WPARAM>(nLine), 0);
    ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, static_cast<WPARAM>(uLineIndex), 0);
-   LPTSTR lpBuf = ( LPTSTR ) hb_xgrab((ul + 4) * sizeof(TCHAR));
+   auto lpBuf = static_cast<LPTSTR>(hb_xgrab((ul + 4) * sizeof(TCHAR)));
 
    *(reinterpret_cast<ULONG*>(lpBuf)) = ul;
    ul = SendMessage(hCtrl, EM_GETLINE, nLine, reinterpret_cast<LPARAM>(lpBuf));

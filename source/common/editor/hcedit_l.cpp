@@ -456,7 +456,7 @@ HB_FUNC( HCED_INITTEXTEDIT )
 
 HB_FUNC( HCED_CREATETEXTEDIT )
 {
-   TEDIT *pted = ( TEDIT * ) hb_xgrab(sizeof(TEDIT));
+   auto pted = static_cast<TEDIT*>(hb_xgrab(sizeof(TEDIT)));
    GtkWidget *vbox, *hbox;
    GtkWidget *vscroll, *hscroll;
    GtkWidget *area;

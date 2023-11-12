@@ -76,7 +76,7 @@ HB_FUNC( AFILLTEXT )
       return;
    }
 
-   char * string = (char*) hb_xgrab(LINE_MAX + 1);
+   auto string = static_cast<char*>(hb_xgrab(LINE_MAX + 1));
    hb_arrayNew(pArray, 0);
 
    while( file_read(inFile, string) ) {
@@ -98,12 +98,12 @@ HB_FUNC( HWG_WIN_ANSITOOEM )
       const char * pszSrc = hb_itemGetCPtr(pString);
 
       int nWideLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, nullptr, 0);
-      LPWSTR pszWide = ( LPWSTR ) hb_xgrab(( nWideLen + 1 ) * sizeof(wchar_t));
+      auto pszWide = static_cast<LPWSTR>(hb_xgrab((nWideLen + 1) * sizeof(wchar_t)));
 
       MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, pszWide, nWideLen);
 
       nLen = WideCharToMultiByte(CP_OEMCP, 0, pszWide, nWideLen, nullptr, 0, nullptr, nullptr);
-      char * pszDst = ( char * ) hb_xgrab(nLen + 1);
+      auto pszDst = static_cast<char*>(hb_xgrab(nLen + 1));
 
       WideCharToMultiByte(CP_OEMCP, 0, pszWide, nWideLen, pszDst, nLen, nullptr, nullptr);
 
