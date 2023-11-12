@@ -97,7 +97,7 @@ HB_FUNC( HWG_DRAWTEXT )
 HB_FUNC( HWG_GETTEXTMETRIC )
 {
    TEXTMETRIC tm;
-   PHB_ITEM aMetr = hb_itemArrayNew(8);
+   auto aMetr = hb_itemArrayNew(8);
    PHB_ITEM temp;
 
    GetTextMetrics(hwg_par_HDC(1),   // handle of device context
@@ -147,7 +147,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
    HB_SIZE nLen;
    LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
    SIZE sz;
-   PHB_ITEM aMetr = hb_itemArrayNew(2);
+   auto aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;
 
    GetTextExtentPoint32(hwg_par_HDC(1), lpText, nLen, &sz);
@@ -168,7 +168,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
 HB_FUNC( HWG_GETCLIENTRECT )
 {
    RECT rc;
-   PHB_ITEM aMetr = hb_itemArrayNew(4);
+   auto aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
    GetClientRect(hwg_par_HWND(1), &rc);
@@ -196,7 +196,7 @@ HB_FUNC( HWG_GETCLIENTRECT )
 HB_FUNC( HWG_GETWINDOWRECT )
 {
    RECT rc;
-   PHB_ITEM aMetr = hb_itemArrayNew(4);
+   auto aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
    GetWindowRect(hwg_par_HWND(1), &rc);
@@ -224,7 +224,7 @@ HB_FUNC( HWG_GETWINDOWRECT )
 HB_FUNC( HWG_GETCLIENTAREA )
 {
    auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
-   PHB_ITEM aMetr = hb_itemArrayNew(4);
+   auto aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
    temp = hb_itemPutNL(nullptr, pps->rcPaint.left);
@@ -292,7 +292,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
 {
    auto hdc = GetDC(hwg_par_HWND(1));
    SIZE size;
-   PHB_ITEM aMetr = hb_itemArrayNew(2);
+   auto aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;
    void * hString;
 

@@ -23,7 +23,8 @@ HB_FUNC( HWG_SELECTFONT )
    HFONT hfont;
    PHB_ITEM pObj = HB_ISNIL(1) ? nullptr : hb_param(1, Harbour::Item::OBJECT);
    PHB_ITEM temp1;
-   PHB_ITEM aMetr = hb_itemArrayNew(9), temp;
+   auto aMetr = hb_itemArrayNew(9);
+   PHB_ITEM  temp;
 
    /* Initialize members of the CHOOSEFONT structure. */
    if( pObj != nullptr ) {

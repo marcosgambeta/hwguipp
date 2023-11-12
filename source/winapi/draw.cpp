@@ -86,7 +86,7 @@ BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)
 
 PHB_ITEM Rect2Array(RECT * rc)
 {
-   PHB_ITEM aRect = hb_itemArrayNew(4);
+   auto aRect = hb_itemArrayNew(4);
    auto element = hb_itemNew(nullptr);
 
    hb_arraySet(aRect, 1, hb_itemPutNL(element, rc->left));
@@ -537,7 +537,7 @@ HB_FUNC( HWG_CENTERBITMAP )
 HB_FUNC( HWG_GETBITMAPSIZE )
 {
    BITMAP bitmap;
-   PHB_ITEM aMetr = hb_itemArrayNew(4);
+   auto aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
    int nret;
 
@@ -567,7 +567,7 @@ HB_FUNC( HWG_GETBITMAPSIZE )
 HB_FUNC( HWG_GETICONSIZE )
 {
    ICONINFO iinfo;
-   PHB_ITEM aMetr = hb_itemArrayNew(3);
+   auto aMetr = hb_itemArrayNew(3);
    PHB_ITEM temp;
 
    int nret = GetIconInfo(hwg_par_HICON(1), &iinfo);
@@ -848,7 +848,7 @@ HB_FUNC( HWG_RELEASEDC )
 HB_FUNC( HWG_GETDRAWITEMINFO )
 {
    auto lpdis = static_cast<DRAWITEMSTRUCT*>(HB_PARHANDLE(1));      //hb_parnl(1);
-   PHB_ITEM aMetr = hb_itemArrayNew(9);
+   auto aMetr = hb_itemArrayNew(9);
    PHB_ITEM temp;
 
    temp = hb_itemPutNL(nullptr, lpdis->itemID);
@@ -1204,7 +1204,7 @@ HB_FUNC( HWG_PTINRECT )
 HB_FUNC( HWG_GETMEASUREITEMINFO )
 {
    auto lpdis = static_cast<MEASUREITEMSTRUCT*>(HB_PARHANDLE(1));        //hb_parnl(1);
-   PHB_ITEM aMetr = hb_itemArrayNew(5);
+   auto aMetr = hb_itemArrayNew(5);
    PHB_ITEM temp;
 
    temp = hb_itemPutNL(nullptr, lpdis->CtlType);

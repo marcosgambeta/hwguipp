@@ -746,7 +746,7 @@ HB_FUNC( HWG_GETCLIENTAREA )
 {
    auto pps = static_cast<PHWGUI_PPS>(HB_PARHANDLE(1));
    GtkWidget * widget = pps->hDC->widget;
-   PHB_ITEM aMetr = hb_itemArrayNew(4);
+   auto aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
 
    if( getFixedBox(reinterpret_cast<GObject*>(widget)) ) {
@@ -764,7 +764,7 @@ HB_FUNC( HWG_GETCLIENTAREA )
 HB_FUNC( HWG_GETCLIENTRECT )
 {
    auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
-   PHB_ITEM aMetr = hb_itemArrayNew(4);
+   auto aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
 
    if( getFixedBox(reinterpret_cast<GObject*>(widget)) ) {
@@ -782,7 +782,7 @@ HB_FUNC( HWG_GETCLIENTRECT )
 HB_FUNC( HWG_GETWINDOWRECT )
 {
    auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
-   PHB_ITEM aMetr = hb_itemArrayNew(4);
+   auto aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
    gtk_widget_get_allocation(widget, &alloc);
 

@@ -193,7 +193,7 @@ HB_FUNC( HWG_COS )
 HB_FUNC( HWG_CLIENTTOSCREEN )
 {
    POINT pt;
-   PHB_ITEM aPoint = hb_itemArrayNew(2);
+   auto aPoint = hb_itemArrayNew(2);
    PHB_ITEM temp;
 
    pt.x = hb_parnl(2);
@@ -216,7 +216,7 @@ HB_FUNC( HWG_SCREENTOCLIENT )
 {
    POINT pt;
    RECT R;
-   PHB_ITEM aPoint = hb_itemArrayNew(2);
+   auto aPoint = hb_itemArrayNew(2);
    PHB_ITEM temp;
 
    if( hb_pcount() > 2 ) {
@@ -248,7 +248,7 @@ HB_FUNC( HWG_SCREENTOCLIENT )
 HB_FUNC( HWG_GETCURSORPOS )
 {
    POINT pt;
-   PHB_ITEM aPoint = hb_itemArrayNew(2);
+   auto aPoint = hb_itemArrayNew(2);
    PHB_ITEM temp;
 
    GetCursorPos(&pt);

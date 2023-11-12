@@ -626,7 +626,7 @@ HB_FUNC( HWG_GP_GETDEVICEAREA )
 {
    auto print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
 
-   PHB_ITEM aMetr = hb_itemArrayNew(4);
+   auto aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
    temp = hb_itemPutNL(nullptr, static_cast<HB_LONG>(gtk_page_setup_get_page_width(print->page_setup, GTK_UNIT_POINTS)));

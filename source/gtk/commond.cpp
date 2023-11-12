@@ -26,7 +26,7 @@ void store_font(gpointer fontseldlg)
    auto szFontName = static_cast<char*>(gtk_font_selection_dialog_get_font_name(static_cast<GtkFontSelectionDialog*>(fontseldlg)));
    PangoFontDescription * hFont = pango_font_description_from_string(szFontName);
    auto h = static_cast<PHWGUI_FONT>(hb_xgrab(sizeof(HWGUI_FONT)));
-   PHB_ITEM aMetr = hb_itemArrayNew(9);
+   auto aMetr = hb_itemArrayNew(9);
    PHB_ITEM temp;
 
    h->type = HWGUI_OBJECT_FONT;
@@ -389,11 +389,10 @@ HB_FUNC( HWG_SELECTFILEEX )
          if( bMulti ) {
             GSList * gsli = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(selector_archivo));
             if( gsli && gsli->data ) {
-               PHB_ITEM aFiles;
                GSList * pgs = gsli;
                guint uiLen = g_slist_length(gsli);
                int i1 = 0;
-               aFiles = hb_itemArrayNew(uiLen);
+               auto aFiles = hb_itemArrayNew(uiLen);
                while( pgs ) {
                   hb_arraySetC(aFiles, ++i1, static_cast<char*>(pgs->data));
                   pgs = pgs->next;

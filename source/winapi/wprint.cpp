@@ -73,7 +73,7 @@ HB_FUNC( HWG_GETPRINTERS )
    }
 
    if( dwReturned ) {
-      PHB_ITEM aMetr = hb_itemArrayNew(dwReturned);
+      auto aMetr = hb_itemArrayNew(dwReturned);
       PHB_ITEM temp = nullptr;
 
       for( int i = 0; i < static_cast<int>(dwReturned); i++ ) {
@@ -210,7 +210,7 @@ HB_FUNC( HWG_GETDEVICEAREA )
 {
    auto hDC = hwg_par_HDC(1);
    PHB_ITEM temp;
-   PHB_ITEM aMetr = hb_itemArrayNew(11);
+   auto aMetr = hb_itemArrayNew(11);
 
    temp = hb_itemPutNL(nullptr, GetDeviceCaps(hDC, HORZRES));
    hb_itemArrayPut(aMetr, 1, temp);

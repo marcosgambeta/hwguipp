@@ -336,7 +336,7 @@ HB_FUNC( HWG_EDIT_GETSELPOS )
 {
    gint start, end;
    if( gtk_editable_get_selection_bounds((static_cast<GtkEditable*>(HB_PARHANDLE(1))), &start, &end)) {
-      PHB_ITEM aSel = hb_itemArrayNew(2);
+      auto aSel = hb_itemArrayNew(2);
       PHB_ITEM temp;
 
       temp = hb_itemPutNL(nullptr, start);

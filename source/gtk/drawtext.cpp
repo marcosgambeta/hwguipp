@@ -131,7 +131,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
    auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
    char * cText = hwg_convert_to_utf8(hb_parc(2));
    PangoRectangle rc;
-   PHB_ITEM aMetr = hb_itemArrayNew(2);
+   auto aMetr = hb_itemArrayNew(2);
 
    if( HB_ISCHAR(2) && hb_parclen(2) > 0 ) {
       pango_layout_set_text(hDC->layout, cText, -1);
@@ -167,7 +167,6 @@ HB_FUNC( HWG_GETFONTSLIST )
    PangoContext * context;
    PangoFontFamily ** families;
    int n_families;
-   PHB_ITEM aFonts;
 
    cr = gdk_cairo_create(gtk_widget_get_window(widget));
    layout = pango_cairo_create_layout(cr);
@@ -177,7 +176,7 @@ HB_FUNC( HWG_GETFONTSLIST )
       return;
    }
 
-   aFonts = hb_itemArrayNew(n_families);
+   auto aFonts = hb_itemArrayNew(n_families);
    for( int i = 0; i < n_families; i++ ) {
       hb_arraySetC(aFonts, i + 1, pango_font_family_get_name(families[i]));
    }

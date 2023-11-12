@@ -847,7 +847,7 @@ HB_FUNC( HWG_REMOVETOPMOST )
 HB_FUNC( HWG_GETWINDOWPOS )
 {
    gint x, y;
-   PHB_ITEM aMetr = hb_itemArrayNew(2);
+   auto aMetr = hb_itemArrayNew(2);
    gtk_window_get_position(static_cast<GtkWindow*>(HB_PARHANDLE(1)), &x, &y);
    hb_itemPutNL(hb_arrayGetItemPtr(aMetr, 1), x);
    hb_itemPutNL(hb_arrayGetItemPtr(aMetr, 2), y);
