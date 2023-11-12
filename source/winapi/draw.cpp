@@ -418,8 +418,8 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    auto hDC = hwg_par_HDC(1);
    auto hBitmap = hwg_par_HBITMAP(2);
    COLORREF trColor = (HB_ISNIL(5)) ? 0x00FFFFFF : hwg_par_COLORREF(5);
-   COLORREF crOldBack = SetBkColor(hDC, 0x00FFFFFF);
-   COLORREF crOldText = SetTextColor(hDC, 0);
+   auto crOldBack = SetBkColor(hDC, 0x00FFFFFF);
+   auto crOldText = SetTextColor(hDC, 0);
    HBITMAP bitmapTrans;
    BITMAP bitmap;
    auto x = hb_parni(3);
