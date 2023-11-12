@@ -48,7 +48,7 @@ PCXDIB cxdib_New(void);
 void cxdib_Release(PCXDIB pdib);
 BOOL cxdib_IsWin30Dib(PCXDIB pdib);
 WORD cxdib_GetPaletteSize(PCXDIB pdib);
-BYTE* cxdib_GetBits(PCXDIB pdib);
+BYTE * cxdib_GetBits(PCXDIB pdib);
 long cxdib_GetSize(PCXDIB pdib);
 BOOL cxdib_IsValid(PCXDIB pdib);
 void cxdib_Clone(PCXDIB pdib, PCXDIB src);
@@ -86,16 +86,14 @@ COLORREF cxshade_SetTextColor(PCXSHADE pshade, COLORREF new_color);
 
 void Draw3dRect(HDC hDC, RECT* lprect, COLORREF clrTopLeft, COLORREF clrBottomRight)
 {
-   RECT r;
-   int x, y, cx, cy;
-
-   x = lprect->left;
-   y = lprect->top;
-   cx = lprect->right - lprect->left;
-   cy = lprect->bottom - lprect->top;
+   int x = lprect->left;
+   int y = lprect->top;
+   int cx = lprect->right - lprect->left;
+   int cy = lprect->bottom - lprect->top;
 
    SetBkColor(hDC, clrTopLeft);
 
+   RECT r;
    SetRect(&r, x, y, x + cx - 1, y + 1);
    ExtTextOut(hDC, 0, 0, ETO_OPAQUE, &r, nullptr, 0, nullptr);
 
@@ -109,14 +107,13 @@ void Draw3dRect(HDC hDC, RECT* lprect, COLORREF clrTopLeft, COLORREF clrBottomRi
 
    SetRect(&r, x, y + cy, x + cx, y + cy - 1);
    ExtTextOut(hDC, 0, 0, ETO_OPAQUE, &r, nullptr, 0, nullptr);
-
 }
 
 void cxdib_Release(PCXDIB pdib)
 {
    if( pdib->hDib ) {
       free(pdib->hDib);
-   }   
+   }
 }
 
 WORD cxdib_GetPaletteSize(PCXDIB pdib)
@@ -159,8 +156,6 @@ void cxdib_Clear(PCXDIB pdib, BYTE bval)
 
 HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 {
-   DWORD               dwLen;	// size of memory block
-
    if( pdib->hDib ) {
       free(pdib->hDib);
    }
@@ -209,7 +204,7 @@ HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
    // calculate size of memory block required to store the DIB.  This
    // block should be big enough to hold the BITMAPINFOHEADER, the color
    // table, and the bits
-   dwLen = cxdib_GetSize(pdib);
+   DWORD dwLen = cxdib_GetSize(pdib); // size of memory block
 
    pdib->hDib = malloc(dwLen); // alloc memory block to store our bitmap
    // hDib = new (HDIB[dwLen]); //fixes allocation problem under Win2k
@@ -229,7 +224,7 @@ long cxdib_Draw(PCXDIB pdib, HDC pDC, long xoffset, long yoffset)
 {
    if( pdib->hDib && pDC ) {
       //palette must be correctly filled
-      LPSTR lpDIB = static_cast<char*>(pdib->hDib);   //set image to hdc...
+      LPSTR lpDIB = static_cast<char*>(pdib->hDib); // set image to hdc...
       SetStretchBltMode(pDC,COLORONCOLOR);
       SetDIBitsToDevice(pDC, xoffset, yoffset, pdib->m_bi.biWidth, pdib->m_bi.biHeight, 0, 0, 0, pdib->m_bi.biHeight, cxdib_GetBits(pdib), reinterpret_cast<BITMAPINFO*>(lpDIB), DIB_RGB_COLORS);
       return 1;
@@ -240,8 +235,8 @@ long cxdib_Draw(PCXDIB pdib, HDC pDC, long xoffset, long yoffset)
 long cxdib_Stretch(PCXDIB pdib, HDC pDC, long xoffset, long yoffset, long xsize, long ysize)
 {
    if( pdib->hDib && pDC ) {
-      //palette must be correctly filled
-      LPSTR lpDIB = static_cast<char*>(pdib->hDib);     //set image to hdc...
+      // palette must be correctly filled
+      LPSTR lpDIB = static_cast<char*>(pdib->hDib); // set image to hdc...
       SetStretchBltMode(pDC, COLORONCOLOR);
       StretchDIBits(pDC, xoffset, yoffset, xsize, ysize, 0, 0, pdib->m_bi.biWidth, pdib->m_bi.biHeight, cxdib_GetBits(pdib), reinterpret_cast<BITMAPINFO*>(lpDIB), DIB_RGB_COLORS, SRCCOPY);
       return 1;
@@ -252,13 +247,13 @@ long cxdib_Stretch(PCXDIB pdib, HDC pDC, long xoffset, long yoffset, long xsize,
 void cxdib_SetPaletteIndex(PCXDIB pdib, BYTE idx, BYTE r, BYTE g, BYTE b)
 {
    if( pdib->hDib && pdib->m_nColors ) {
-      BYTE * iDst = static_cast<BYTE*>(pdib->hDib) + sizeof(BITMAPINFOHEADER);
+      auto iDst = static_cast<BYTE*>(pdib->hDib) + sizeof(BITMAPINFOHEADER);
       if( idx < pdib->m_nColors ) {
          long ldx = idx * sizeof(RGBQUAD);
-         iDst[ldx++] = static_cast<BYTE>(b);
-         iDst[ldx++] = static_cast<BYTE>(g);
-         iDst[ldx++] = static_cast<BYTE>(r);
-         iDst[ldx] = static_cast<BYTE>(0);
+         iDst[ldx++] = b;
+         iDst[ldx++] = g;
+         iDst[ldx++] = r;
+         iDst[ldx] = 0;
       }
    }
 }
@@ -268,13 +263,11 @@ void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc)
    if( (pdib->hDib == nullptr) || (pdib->m_nColors == 0) ) {
       return;
    } else {
-      BYTE * iDst = static_cast<BYTE*>(pdib->hDib) + sizeof(BITMAPINFOHEADER);
-      long r, g, b;
+      auto iDst = static_cast<BYTE*>(pdib->hDib) + sizeof(BITMAPINFOHEADER);
       auto pPal = reinterpret_cast<RGBQUAD*>(iDst);
-
-      r = GetRValue(cr);
-      g = GetGValue(cr);
-      b = GetBValue(cr);
+      long r = GetRValue(cr);
+      long g = GetGValue(cr);
+      long b = GetBValue(cr);
       if( perc > 100 ) {
          perc = 100;
       }
@@ -288,25 +281,21 @@ void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc)
 
 void cxdib_SetPixelIndex(PCXDIB pdib, long x,long y,BYTE i)
 {
-   BYTE * iDst;
-
    if( (pdib->hDib == nullptr) || (pdib->m_nColors == 0) || (x < 0) || (y < 0) || (x >= pdib->m_bi.biWidth) || (y >= pdib->m_bi.biHeight) ) {
       return;
    }
-   iDst = cxdib_GetBits(pdib);
+   BYTE * iDst = cxdib_GetBits(pdib);
    iDst[(pdib->m_bi.biHeight - y - 1)*pdib->m_LineWidth + x] = i;
 }
 
 PCXSHADE cxshade_New(RECT * prect, BOOL lFlat)
 {
    auto pshade = static_cast<PCXSHADE>(malloc(sizeof(CXSHADE)));
-
    memset(pshade, 0, sizeof(CXSHADE));
    SetRect(&(pshade->m_rect), prect->left, prect->top, prect->right, prect->bottom);
    pshade->m_Border = 1;                   //draw 3D border
    pshade->m_FocusRectMargin = 4;          //focus dotted rect margin
    pshade->m_flat = lFlat;
-
    return pshade;
 }
 
@@ -325,17 +314,14 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
 {
    int cx = pshade->m_rect.right  - pshade->m_rect.left;
    int cy = pshade->m_rect.bottom - pshade->m_rect.top;
+
    RECT r;
-
-   HBITMAP hBitmap;           //create a destination for raster operations
-   HDC pDC;
-
    SetRect(&r, pshade->m_rect.left, pshade->m_rect.top, pshade->m_rect.right, pshade->m_rect.bottom);
 
    auto hdcMem = CreateCompatibleDC(pRealDC); //create a memory DC to avoid flicker
-   pDC = hdcMem;      //(just use pRealDC to paint directly the screen)
+   HDC pDC = hdcMem;      //(just use pRealDC to paint directly the screen)
 
-   hBitmap = CreateCompatibleBitmap(pRealDC, cx, cy);
+   HBITMAP hBitmap = CreateCompatibleBitmap(pRealDC, cx, cy); //create a destination for raster operations
    auto holdBitmap = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmap)); //select the destination for MemDC
 
    SetBkMode(pDC, TRANSPARENT);
@@ -413,7 +399,7 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
 // #include "stdio.h"
 void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granularity, BYTE highlight, BYTE coloring, COLORREF color, RECT * prect)
 {
-   long	sXSize, sYSize, bytes, i, k, h;
+   long	bytes, i, k, h;
    BYTE	*iDst, *posDst;
    //get the button base colors
    COLORREF hicr  = (palette)? 16777215 : GetSysColor(COLOR_BTNHIGHLIGHT);
@@ -427,8 +413,8 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
    if( prect ) {
       SetRect(&(pshade->m_rect), prect->left, prect->top, prect->right, prect->bottom);
    }
-   sYSize = pshade->m_rect.bottom-pshade->m_rect.top;
-   sXSize = pshade->m_rect.right-pshade->m_rect.left;
+   long	sYSize = pshade->m_rect.bottom-pshade->m_rect.top;
+   long	sXSize = pshade->m_rect.right-pshade->m_rect.left;
 
    //create the horizontal focus bitmap
    cxdib_Create(&(pshade->m_dh), HB_MAX(1, sXSize-2 * pshade->m_FocusRectMargin-1), 1, 8);
@@ -639,9 +625,8 @@ HWG_SHADE_NEW(nLeft, nTop, nRight, nBottom, lFlat) --> pShade
 HB_FUNC( HWG_SHADE_NEW )
 {
    RECT rect;
-   PCXSHADE pshade;
    SetRect(&rect, hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4));
-   pshade = cxshade_New(&rect, HB_ISNIL(5) ? 0 : hb_parl(5));
+   PCXSHADE pshade = cxshade_New(&rect, HB_ISNIL(5) ? 0 : hb_parl(5));
    HB_RETHANDLE(pshade);
 }
 
