@@ -189,8 +189,8 @@ HB_FUNC( HWG_CREATEDLG )
    int y = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
    int width = hb_itemGetNI(GetObjectVar(pObject, "NWIDTH"));
    int height = hb_itemGetNI(GetObjectVar(pObject, "NHEIGHT"));
-   PHB_ITEM pIcon = GetObjectVar(pObject, "OICON");
-   PHB_ITEM pBmp = GetObjectVar(pObject, "OBMP");
+   auto pIcon = GetObjectVar(pObject, "OICON");
+   auto pBmp = GetObjectVar(pObject, "OBMP");
    PHWGUI_PIXBUF szFile = nullptr;
    PHWGUI_PIXBUF szBackFile = nullptr;
 

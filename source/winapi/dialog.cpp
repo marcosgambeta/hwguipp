@@ -33,7 +33,7 @@ int iDialogs = 0;
 HB_FUNC( HWG_DIALOGBOX )
 {
    auto pObject = hb_param(2, Harbour::Item::OBJECT);
-   PHB_ITEM pData = GETOBJECTVAR(pObject, "XRESOURCEID");
+   auto pData = GETOBJECTVAR(pObject, "XRESOURCEID");
    void * hResource;
    LPCTSTR lpResource = HB_ITEMGETSTR(pData, &hResource, nullptr);
 
@@ -53,7 +53,7 @@ HB_FUNC( HWG_CREATEDIALOG )
 {
    auto pObject = hb_param(2, Harbour::Item::OBJECT);
    HWND hDlg;
-   PHB_ITEM pData = GETOBJECTVAR(pObject, "XRESOURCEID");
+   auto pData = GETOBJECTVAR(pObject, "XRESOURCEID");
    void * hResource;
    LPCTSTR lpResource = HB_ITEMGETSTR(pData, &hResource, nullptr);
 

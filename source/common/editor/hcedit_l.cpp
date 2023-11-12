@@ -462,7 +462,6 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    GtkWidget *area;
    GtkFixed *box;
    auto pObject = hb_param(1, Harbour::Item::OBJECT);
-   PHB_ITEM temp;
    GObject *handle;
    int nLeft = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
    int nTop = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
@@ -470,7 +469,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    int nHeight = hb_itemGetNI(GetObjectVar(pObject, "NHEIGHT"));
    unsigned long int ulStyle = hb_itemGetNL(GetObjectVar(pObject, "STYLE"));
 
-   temp = GetObjectVar(pObject, "OPARENT");
+   auto temp = GetObjectVar(pObject, "OPARENT");
    handle = ( GObject * ) HB_GETHANDLE(GetObjectVar(temp, "HANDLE"));
 
    hbox = gtk_hbox_new(FALSE, 0);

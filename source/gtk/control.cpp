@@ -512,14 +512,13 @@ HB_FUNC( HWG_CREATEBROWSE )
    GtkWidget * area;
    GtkFixed * box;
    auto pObject = hb_param(1, Harbour::Item::OBJECT);
-   PHB_ITEM temp;
    int nLeft = hb_itemGetNI(GetObjectVar(pObject, "NLEFT"));
    int nTop = hb_itemGetNI(GetObjectVar(pObject, "NTOP"));
    int nWidth = hb_itemGetNI(GetObjectVar(pObject, "NWIDTH"));
    int nHeight = hb_itemGetNI(GetObjectVar(pObject, "NHEIGHT"));
    unsigned long int ulStyle = hb_itemGetNL(GetObjectVar(pObject, "STYLE"));
 
-   temp = GetObjectVar(pObject, "OPARENT");
+   auto temp = GetObjectVar(pObject, "OPARENT");
    auto handle = static_cast<GObject*>(HB_GETHANDLE(GetObjectVar(temp, "HANDLE")));
 
    hbox = gtk_hbox_new(FALSE, 0);
@@ -763,11 +762,10 @@ HB_FUNC( HWG_CREATEPANEL )
    GtkWidget * hCtrl;
    GtkFixed * box;
    auto pObject = hb_param(1, Harbour::Item::OBJECT);
-   PHB_ITEM temp;
    HB_ULONG ulStyle = hb_parnl(3);
    gint nWidth = hb_parnl(6), nHeight = hb_parnl(7);
 
-   temp = GetObjectVar(pObject, "OPARENT");
+   auto temp = GetObjectVar(pObject, "OPARENT");
    auto handle = static_cast<GObject*>(HB_GETHANDLE(GetObjectVar(temp, "HANDLE")));
 
    auto fbox = reinterpret_cast<GtkFixed*>(gtk_fixed_new());
