@@ -443,13 +443,13 @@ HB_FUNC( HCED_INITTEXTEDIT )
 
 HB_FUNC( HCED_CREATETEXTEDIT )
 {
-   hb_retptr(ted_create(( HWND ) hb_parptr(1), hb_parni(2), ( DWORD ) hb_parnl(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)));
+   hb_retptr(ted_create(hwg_par_HWND(1), hb_parni(2), ( DWORD ) hb_parnl(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)));
 }
 
 HB_FUNC( HCED_SETHANDLE )
 {
    // hb_retptr( ( void * ) ( ( TEDIT * ) hb_parptr(1) )->handle );
-   ( ( TEDIT * ) hb_parptr(1) )->handle = ( HWND ) hb_parptr(2);
+   ( ( TEDIT * ) hb_parptr(1) )->handle = hwg_par_HWND(2);
 }
 
 HB_FUNC( HCED_RELEASE )

@@ -95,7 +95,7 @@ HB_FUNC( HWG_CREATEACTIVEX )
          HB_ISNIL(6) ? CW_USEDEFAULT : hb_parni(6),    // nTop
          HB_ISNIL(7) ? 544 : hb_parni(7),      // nWidth
          HB_ISNIL(8) ? 375 : hb_parni(8),      // nHeight
-         HB_ISNIL(9) ? HWND_DESKTOP : ( HWND ) hb_parptr(9),    // oParent:handle
+         HB_ISNIL(9) ? HWND_DESKTOP : hwg_par_HWND(9),    // oParent:handle
          // HB_ISNIL( 10 ) ? NULL                : (HMENU) hb_parnl( 10 ),  // Id
          // GetModuleHandle(0),
          0, 0, NULL );
@@ -108,7 +108,7 @@ HB_FUNC( HWG_ATLAXGETDISP )
 {
    IUnknown *pUnk = NULL;
    IDispatch *pDisp;
-   HWND hCtrl = ( HWND ) hb_parptr(1);
+   auto hCtrl = hwg_par_HWND(1);
 
    _Ax_Init(  );
    AtlAxGetControl( hCtrl, &pUnk );

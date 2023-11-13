@@ -40,31 +40,31 @@ HB_FUNC( HWGAX_OLEUNINITIALIZE )
 
 HB_FUNC( HWGAX_EMBEDBROWSEROBJECT )
 {
-   hb_retl( !EmbedBrowserObject( ( HWND ) hb_parptr(1) ) );
+   hb_retl( !EmbedBrowserObject( hwg_par_HWND(1) ) );
 }
 
 HB_FUNC( HWGAX_UNEMBEDBROWSEROBJECT )
 {
-   UnEmbedBrowserObject( ( HWND ) hb_parptr(1) );
+   UnEmbedBrowserObject( hwg_par_HWND(1) );
 }
 
 HB_FUNC( HWGAX_DISPLAYHTMLPAGE )
 {
-   DisplayHTMLPage( ( HWND ) hb_parptr(1), hb_parc(2) );
+   DisplayHTMLPage( hwg_par_HWND(1), hb_parc(2) );
 }
 
 HB_FUNC( HWGAX_DISPLAYHTMLSTR )
 {
-   DisplayHTMLStr(( HWND ) hb_parptr(1), hb_parc(2));
+   DisplayHTMLStr(hwg_par_HWND(1), hb_parc(2));
 }
 
 HB_FUNC( HWGAX_RESIZEBROWSER )
 {
-   ResizeBrowser( ( HWND ) hb_parptr(1), ( DWORD ) hb_parnl(2),
+   ResizeBrowser( hwg_par_HWND(1), ( DWORD ) hb_parnl(2),
          ( DWORD ) hb_parnl(3) );
 }
 
 HB_FUNC( HWGAX_DOPAGEACTION )
 {
-   DoPageAction( ( HWND ) hb_parptr(1), ( DWORD ) hb_parnl(2) );
+   DoPageAction( hwg_par_HWND(1), ( DWORD ) hb_parnl(2) );
 }
