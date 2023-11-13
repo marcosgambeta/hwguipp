@@ -470,7 +470,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    unsigned long int ulStyle = hb_itemGetNL(GetObjectVar(pObject, "STYLE"));
 
    auto temp = GetObjectVar(pObject, "OPARENT");
-   handle = ( GObject * ) HB_GETHANDLE(GetObjectVar(temp, "HANDLE"));
+   handle = ( GObject * ) hb_itemGetPtr(GetObjectVar(temp, "HANDLE"));
 
    hbox = gtk_hbox_new(FALSE, 0);
    vbox = gtk_vbox_new(FALSE, 0);

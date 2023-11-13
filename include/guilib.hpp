@@ -14,7 +14,7 @@
 #define HB_PARHANDLE( n )        hb_parptr( n ) // deprecated
 #define HB_STOREHANDLE( h, n )   hb_storptr( ( void * ) ( h ), n ) // deprecated
 #define HB_PUTHANDLE( i, h )     hb_itemPutPtr( i, ( void * ) ( h ) ) // deprecated
-#define HB_GETHANDLE( i )        hb_itemGetPtr( i )
+#define HB_GETHANDLE( i )        hb_itemGetPtr( i ) // deprecated
 #define HB_GETPTRHANDLE( i ,n )  hb_arrayGetPtr( i , n )
 #define HB_PUSHITEM( i )         hb_vmPushPointer( ( void * )i )
 

@@ -519,7 +519,7 @@ HB_FUNC( HWG_CREATEBROWSE )
    unsigned long int ulStyle = hb_itemGetNL(GetObjectVar(pObject, "STYLE"));
 
    auto temp = GetObjectVar(pObject, "OPARENT");
-   auto handle = static_cast<GObject*>(HB_GETHANDLE(GetObjectVar(temp, "HANDLE")));
+   auto handle = static_cast<GObject*>(hb_itemGetPtr(GetObjectVar(temp, "HANDLE")));
 
    hbox = gtk_hbox_new(FALSE, 0);
    vbox = gtk_vbox_new(FALSE, 0);
@@ -766,7 +766,7 @@ HB_FUNC( HWG_CREATEPANEL )
    gint nWidth = hb_parnl(6), nHeight = hb_parnl(7);
 
    auto temp = GetObjectVar(pObject, "OPARENT");
-   auto handle = static_cast<GObject*>(HB_GETHANDLE(GetObjectVar(temp, "HANDLE")));
+   auto handle = static_cast<GObject*>(hb_itemGetPtr(GetObjectVar(temp, "HANDLE")));
 
    auto fbox = reinterpret_cast<GtkFixed*>(gtk_fixed_new());
 
