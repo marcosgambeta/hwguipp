@@ -635,7 +635,7 @@ HWG_SHADE_RELEASE(pShade)
 */
 HB_FUNC( HWG_SHADE_RELEASE )
 {
-   cxshade_Release(static_cast<PCXSHADE>(HB_PARHANDLE(1)));
+   cxshade_Release(static_cast<PCXSHADE>(hb_parptr(1)));
 }
 
 /*
@@ -643,7 +643,7 @@ HWG_SHADE_SET(pshade, shadeID, palette, granularity, highlight, coloring, color,
 */
 HB_FUNC( HWG_SHADE_SET )
 {
-   auto pshade = static_cast<PCXSHADE>(HB_PARHANDLE(1));
+   auto pshade = static_cast<PCXSHADE>(hb_parptr(1));
    UINT shadeID = HB_ISNIL(2) ? SHS_SOFTBUMP : hb_parni(2);
    BYTE palette = HB_ISNIL(3) ? 0 : hwg_par_BYTE(3);
    BYTE granularity = HB_ISNIL(4) ? 8 : hwg_par_BYTE(4);
@@ -664,5 +664,5 @@ HWG_SHADE_DRAW(pshade, hDC, nState) --> NIL
 */
 HB_FUNC( HWG_SHADE_DRAW )
 {
-   cxshade_Draw(static_cast<PCXSHADE>(HB_PARHANDLE(1)), hwg_par_HDC(2), hb_parni(3));
+   cxshade_Draw(static_cast<PCXSHADE>(hb_parptr(1)), hwg_par_HDC(2), hb_parni(3));
 }

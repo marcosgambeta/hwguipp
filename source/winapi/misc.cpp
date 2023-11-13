@@ -101,7 +101,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 
 HB_FUNC( HWG_GETCLIPBOARDTEXT )
 {
-   auto hWnd = reinterpret_cast<HWND>(hb_parnl(1)); // TODO: HB_PARHANDLE ?
+   auto hWnd = reinterpret_cast<HWND>(hb_parnl(1)); // TODO: hb_parptr ?
    LPTSTR lpText = nullptr;
 
    if( OpenClipboard(hWnd) ) {
@@ -409,7 +409,7 @@ HB_FUNC( HWG_GETDESKTOPHEIGHT )
 
 HB_FUNC( HWG_GETHELPDATA )
 {
-   HB_RETHANDLE(reinterpret_cast<LONG>(((static_cast<HELPINFO FAR*>(HB_PARHANDLE(1)))->hItemHandle)));
+   HB_RETHANDLE(reinterpret_cast<LONG>(((static_cast<HELPINFO FAR*>(hb_parptr(1)))->hItemHandle)));
 }
 
 HB_FUNC( HWG_WINHELP )
@@ -733,7 +733,7 @@ HB_FUNC( HWG_PTRTOULONG )
 
 HB_FUNC( HWG_ISPTREQ )
 {
-   hb_retl(HB_PARHANDLE(1) == HB_PARHANDLE(2));
+   hb_retl(hb_parptr(1) == hb_parptr(2));
 }
 
 HB_FUNC( HWG_OUTPUTDEBUGSTRING )

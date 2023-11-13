@@ -75,10 +75,10 @@ HB_FUNC( HWG_TREEADDNODE )
    is.DUMMYUNIONNAME.item = tvi;
 #endif
 
-   is.hParent = (HB_ISNIL(3) ? nullptr : static_cast<HTREEITEM>(HB_PARHANDLE(3)));
+   is.hParent = (HB_ISNIL(3) ? nullptr : static_cast<HTREEITEM>(hb_parptr(3)));
 
    switch( nPos ) {
-      case 0: is.hInsertAfter = static_cast<HTREEITEM>(HB_PARHANDLE(4)); break;
+      case 0: is.hInsertAfter = static_cast<HTREEITEM>(hb_parptr(4)); break;
       case 1: is.hInsertAfter = TVI_FIRST; break;
       case 2: is.hInsertAfter = TVI_LAST;
    }
@@ -102,7 +102,7 @@ HB_FUNC( HWG_TREEADDNODE )
 /*
 HB_FUNC( HWG_TREEDELNODE )
 {
-   hb_parl(TreeView_DeleteItem(hwg_par_HWND(1), static_cast<HTREEITEM>(HB_PARHANDLE(2))));
+   hb_parl(TreeView_DeleteItem(hwg_par_HWND(1), static_cast<HTREEITEM>(hb_parptr(2))));
 }
 
 HB_FUNC( HWG_TREEDELALLNODES )
@@ -131,7 +131,7 @@ HB_FUNC( HWG_TREENODEHASCHILDREN )
    TV_ITEM TreeItem{};
 
    TreeItem.mask = TVIF_HANDLE | TVIF_CHILDREN;
-   TreeItem.hItem = static_cast<HTREEITEM>(HB_PARHANDLE(2));
+   TreeItem.hItem = static_cast<HTREEITEM>(hb_parptr(2));
 
    SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, static_cast<LPARAM>(&TreeItem));
    hb_retni(TreeItem.cChildren);
@@ -144,7 +144,7 @@ HB_FUNC( HWG_TREEGETNODETEXT )
    TCHAR ItemText[256] = {0};
 
    TreeItem.mask = TVIF_HANDLE | TVIF_TEXT;
-   TreeItem.hItem = static_cast<HTREEITEM>(HB_PARHANDLE(2));
+   TreeItem.hItem = static_cast<HTREEITEM>(hb_parptr(2));
    TreeItem.pszText = ItemText;
    TreeItem.cchTextMax = 256;
 
@@ -162,7 +162,7 @@ HB_FUNC( HWG_TREESETITEM )
    void * hStr = nullptr;
 
    TreeItem.mask = TVIF_HANDLE;
-   TreeItem.hItem = static_cast<HTREEITEM>(HB_PARHANDLE(2));
+   TreeItem.hItem = static_cast<HTREEITEM>(hb_parptr(2));
 
    switch( iType ) {
       case TREE_SETITEM_TEXT:
@@ -193,30 +193,30 @@ HB_FUNC( HWG_TREEGETNOTIFY )
 
    switch( iType ) {
       case TREE_GETNOTIFY_HANDLE: {
-         HB_RETHANDLE(static_cast<HTREEITEM>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemNew.hItem));
+         HB_RETHANDLE(static_cast<HTREEITEM>((static_cast<NM_TREEVIEW*>(hb_parptr(1)))->itemNew.hItem));
          break;
       }
       case TREE_GETNOTIFY_ACTION: {
-         hb_retni(static_cast<UINT>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->action));
+         hb_retni(static_cast<UINT>((static_cast<NM_TREEVIEW*>(hb_parptr(1)))->action));
          break;
       }
       case TREE_GETNOTIFY_PARAM: {
-         auto oNode = reinterpret_cast<PHB_ITEM>(((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemNew.lParam));
+         auto oNode = reinterpret_cast<PHB_ITEM>(((static_cast<NM_TREEVIEW*>(hb_parptr(1)))->itemNew.lParam));
          hb_itemReturn(oNode);
          break;
       }
       case TREE_GETNOTIFY_EDITPARAM: {
-         auto oNode = reinterpret_cast<PHB_ITEM>((static_cast<TV_DISPINFO*>(HB_PARHANDLE(1)))->item.lParam);
+         auto oNode = reinterpret_cast<PHB_ITEM>((static_cast<TV_DISPINFO*>(hb_parptr(1)))->item.lParam);
          hb_itemReturn(oNode);
          break;
       }
       case TREE_GETNOTIFY_OLDPARAM: {
-         auto oNode = reinterpret_cast<PHB_ITEM>((static_cast<NM_TREEVIEW*>(HB_PARHANDLE(1)))->itemOld.lParam);
+         auto oNode = reinterpret_cast<PHB_ITEM>((static_cast<NM_TREEVIEW*>(hb_parptr(1)))->itemOld.lParam);
          hb_itemReturn(oNode);
          break;
       }
       case TREE_GETNOTIFY_EDIT: {
-         auto tv = static_cast<TV_DISPINFO*>(HB_PARHANDLE(1));
+         auto tv = static_cast<TV_DISPINFO*>(hb_parptr(1));
          HB_RETSTR((tv->item.pszText) ? tv->item.pszText : TEXT(""));
       }
    }
@@ -262,7 +262,7 @@ HB_FUNC( HWG_TREERELEASENODE )
    TV_ITEM TreeItem{};
 
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
-   TreeItem.hItem = static_cast<HTREEITEM>(HB_PARHANDLE(2));
+   TreeItem.hItem = static_cast<HTREEITEM>(hb_parptr(2));
 
    if( TreeItem.hItem ) {
       SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&TreeItem));
@@ -296,7 +296,7 @@ LRESULT APIENTRY TreeViewSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LP
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {

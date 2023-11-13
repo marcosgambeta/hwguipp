@@ -210,7 +210,7 @@ HWG_ACTIVATEMAINWINDOW(lShow, hAccel|NIL, lMaximize, lMinimize) --> NIL
 */
 HB_FUNC( HWG_ACTIVATEMAINWINDOW )
 {
-   hwg_ActivateMainWindow(hb_parl(1), (HB_ISNIL(2) ? nullptr : static_cast<HACCEL>(HB_PARHANDLE(2))), ((HB_ISLOG(3) && hb_parl(3)) ? 1 : 0), ((HB_ISLOG(4) && hb_parl(4)) ? 1 : 0));
+   hwg_ActivateMainWindow(hb_parl(1), (HB_ISNIL(2) ? nullptr : static_cast<HACCEL>(hb_parptr(2))), ((HB_ISLOG(3) && hb_parl(3)) ? 1 : 0), ((HB_ISLOG(4) && hb_parl(4)) ? 1 : 0));
 }
 
 /*
@@ -447,7 +447,7 @@ HWG_ACTIVATEMDIWINDOW() --> NIL
 */
 HB_FUNC( HWG_ACTIVATEMDIWINDOW )
 {
-   HACCEL hAcceler = (HB_ISNIL(2)) ? nullptr : static_cast<HACCEL>(HB_PARHANDLE(2));
+   HACCEL hAcceler = (HB_ISNIL(2)) ? nullptr : static_cast<HACCEL>(hb_parptr(2));
    MSG msg;
 
    if( hb_parl(1) ) {
@@ -521,8 +521,8 @@ HB_FUNC( HWG_SENDMESSAGE )
 
    hb_retnl(static_cast<LONG>(SendMessage(hwg_par_HWND(1),  // handle of destination window
             hwg_par_UINT(2),  // message to send
-            HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(HB_PARHANDLE(3)) : static_cast<WPARAM>(hb_parnl(3)),
-            lpText ? reinterpret_cast<LPARAM>(lpText) : (HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(HB_PARHANDLE(4)) : hwg_par_LPARAM(4))
+            HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(hb_parptr(3)) : static_cast<WPARAM>(hb_parnl(3)),
+            lpText ? reinterpret_cast<LPARAM>(lpText) : (HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(hb_parptr(4)) : hwg_par_LPARAM(4))
           )));
    hb_strfree(hText);
 }
@@ -537,8 +537,8 @@ HB_FUNC( HWG_SENDMESSPTR )
 
    HB_RETHANDLE(SendMessage(hwg_par_HWND(1),  // handle of destination window
                hwg_par_UINT(2),  // message to send
-               HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(HB_PARHANDLE(3)) : static_cast<WPARAM>(hb_parnl(3)),
-               lpText ? reinterpret_cast<LPARAM>(lpText) : (HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(HB_PARHANDLE(4)) : hwg_par_LPARAM(4))
+               HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(hb_parptr(3)) : static_cast<WPARAM>(hb_parnl(3)),
+               lpText ? reinterpret_cast<LPARAM>(lpText) : (HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(hb_parptr(4)) : hwg_par_LPARAM(4))
           ));
    hb_strfree(hText);
 }
@@ -550,8 +550,8 @@ HB_FUNC( HWG_POSTMESSAGE )
 {
    hb_retnl(static_cast<LONG>(PostMessage(hwg_par_HWND(1),  // handle of destination window
                hwg_par_UINT(2),  // message to send
-               HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(HB_PARHANDLE(3)) : static_cast<WPARAM>(hb_parnl(3)),
-               HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(HB_PARHANDLE(4)) : hwg_par_LPARAM(4)
+               HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(hb_parptr(3)) : static_cast<WPARAM>(hb_parnl(3)),
+               HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(hb_parptr(4)) : hwg_par_LPARAM(4)
           )));
 }
 
@@ -630,7 +630,7 @@ HWG_SETWINDOWFONT(HWND, p2, p3) --> NIL
 HB_FUNC( HWG_SETWINDOWFONT )
 {
    SendMessage(hwg_par_HWND(1), WM_SETFONT,
-      HB_ISPOINTER(2) ? reinterpret_cast<WPARAM>(HB_PARHANDLE(2)) : static_cast<WPARAM>(hb_parnl(2)),
+      HB_ISPOINTER(2) ? reinterpret_cast<WPARAM>(hb_parptr(2)) : static_cast<WPARAM>(hb_parnl(2)),
       MAKELPARAM(((HB_ISNIL(3)) ? 0 : hb_parl(3)), 0));
 }
 
@@ -816,7 +816,7 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LP
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {
@@ -849,7 +849,7 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, L
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {
@@ -891,7 +891,7 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {
@@ -1131,7 +1131,7 @@ HWG_GETFONTDIALOGUNITS(HWND, HFONT) --> numeric
 */
 HB_FUNC( HWG_GETFONTDIALOGUNITS )
 {
-   hb_retnl(GetFontDialogUnits(hwg_par_HWND(1), static_cast<HFONT>(HB_PARHANDLE(2))));
+   hb_retnl(GetFontDialogUnits(hwg_par_HWND(1), static_cast<HFONT>(hb_parptr(2))));
 }
 
 /*
@@ -1163,7 +1163,7 @@ HWG_MINMAXWINDOW(p1, p2, p3, p4, p5, p6) --> NIL
 */
 HB_FUNC( HWG_MINMAXWINDOW )
 {
-   MINMAXINFO *lpMMI = static_cast<MINMAXINFO*>(HB_PARHANDLE(2));
+   MINMAXINFO *lpMMI = static_cast<MINMAXINFO*>(hb_parptr(2));
    DWORD m_fxMin;
    DWORD m_fyMin;
    DWORD m_fxMax;

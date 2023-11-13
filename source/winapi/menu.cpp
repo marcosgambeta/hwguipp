@@ -318,7 +318,7 @@ HWG_DESTROYACCELERATORTABLE(hAccel) --> .T.|.F.
 */
 HB_FUNC( HWG_DESTROYACCELERATORTABLE )
 {
-   hb_retl(DestroyAcceleratorTable(static_cast<HACCEL>(HB_PARHANDLE(1))));
+   hb_retl(DestroyAcceleratorTable(static_cast<HACCEL>(hb_parptr(1))));
 }
 
 /*

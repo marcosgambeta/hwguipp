@@ -162,7 +162,7 @@ HB_FUNC( HWG_ISDLGBUTTONCHECKED )
 
 HB_FUNC( HWG_GETNOTIFYCODE )
 {
-   hb_retnl(static_cast<LONG>((static_cast<NMHDR*>(HB_PARHANDLE(1)))->code));
+   hb_retnl(static_cast<LONG>((static_cast<NMHDR*>(hb_parptr(1)))->code));
 }
 
 static LPWORD s_lpwAlign(LPWORD lpIn)
@@ -489,7 +489,7 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPAR
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {
@@ -550,7 +550,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {
@@ -617,7 +617,7 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return (LRESULT) HB_PARHANDLE(-1);
+         return (LRESULT) hb_parptr(-1);
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {
@@ -647,10 +647,10 @@ static LRESULT CALLBACK s_PSPProcRelease(HWND hwnd, UINT uMsg, LPPROPSHEETPAGE p
 
 HB_FUNC( HWG_GETNOTIFYCODEFROM )
 {
-   HB_RETHANDLE(((static_cast<NMHDR*>(HB_PARHANDLE(1)))->hwndFrom));
+   HB_RETHANDLE(((static_cast<NMHDR*>(hb_parptr(1)))->hwndFrom));
 }
 
 HB_FUNC( HWG_GETNOTIFYIDFROM )
 {
-   hb_retnl(static_cast<LONG>((static_cast<NMHDR*>(HB_PARHANDLE(1)))->idFrom));
+   hb_retnl(static_cast<LONG>((static_cast<NMHDR*>(hb_parptr(1)))->idFrom));
 }

@@ -102,7 +102,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
 {
    void * hPrinterName;
    LPCTSTR lpPrinterName = HB_PARSTR(1, &hPrinterName, nullptr);
-   HANDLE hPrinter = HB_ISNIL(2) ? nullptr : static_cast<HANDLE>(HB_PARHANDLE(2));
+   HANDLE hPrinter = HB_ISNIL(2) ? nullptr : static_cast<HANDLE>(hb_parptr(2));
 
    if( hPrinter == nullptr ) {
       OpenPrinter(const_cast<LPTSTR>(lpPrinterName), &hPrinter, nullptr);
@@ -143,7 +143,7 @@ HWG_CLOSEPRINTER(HANDLE) --> NIL
 */
 HB_FUNC( HWG_CLOSEPRINTER )
 {
-   ClosePrinter(static_cast<HANDLE>(HB_PARHANDLE(1)));
+   ClosePrinter(static_cast<HANDLE>(hb_parptr(1)));
 }
 
 /*
@@ -339,7 +339,7 @@ HWG_DELETEENHMETAFILE(HENHMETAFILE) --> HANDLE
 */
 HB_FUNC( HWG_DELETEENHMETAFILE )
 {
-   HB_RETHANDLE(static_cast<LONG>(DeleteEnhMetaFile(static_cast<HENHMETAFILE>(HB_PARHANDLE(1)))));
+   HB_RETHANDLE(static_cast<LONG>(DeleteEnhMetaFile(static_cast<HENHMETAFILE>(hb_parptr(1)))));
 }
 
 /*
@@ -359,7 +359,7 @@ HB_FUNC( HWG_PLAYENHMETAFILE )
       GetClientRect(WindowFromDC(hDC), &rc);
    }
 
-   hb_retnl(static_cast<LONG>(PlayEnhMetaFile(hDC, static_cast<HENHMETAFILE>(HB_PARHANDLE(2)), &rc)));
+   hb_retnl(static_cast<LONG>(PlayEnhMetaFile(hDC, static_cast<HENHMETAFILE>(hb_parptr(2)), &rc)));
 }
 
 /*
@@ -373,7 +373,7 @@ HB_FUNC( HWG_PRINTENHMETAFILE )
    SetRect(&rc, 0, 0, GetDeviceCaps(hDC, HORZRES), GetDeviceCaps(hDC, VERTRES));
 
    StartPage(hDC);
-   hb_retnl(static_cast<LONG>(PlayEnhMetaFile(hDC, static_cast<HENHMETAFILE>(HB_PARHANDLE(2)), &rc)));
+   hb_retnl(static_cast<LONG>(PlayEnhMetaFile(hDC, static_cast<HENHMETAFILE>(hb_parptr(2)), &rc)));
    EndPage(hDC);
 }
 

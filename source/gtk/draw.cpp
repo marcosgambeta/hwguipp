@@ -69,7 +69,7 @@ GdkPixbuf * alpha2pixbuf(GdkPixbuf * hPixIn, long int nColor)
  */
 HB_FUNC( HWG_ALPHA2PIXBUF )
 {
-   auto obj = static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(1));
+   auto obj = static_cast<PHWGUI_PIXBUF>(hb_parptr(1));
    GdkPixbuf * handle;
    long int nColor = hb_parnl(2);
 
@@ -83,7 +83,7 @@ HB_FUNC( HWG_ALPHA2PIXBUF )
 
 HB_FUNC( HWG_INVALIDATERECT )
 {
-   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto widget = static_cast<GtkWidget*>(hb_parptr(1));
    int x1, y1, x2, y2;
 
    if( hb_pcount() > 2 ) {
@@ -105,7 +105,7 @@ HB_FUNC( HWG_INVALIDATERECT )
 
 HB_FUNC( HWG_RECTANGLE )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    auto x1 = hb_parni(2);
    auto y1 = hb_parni(3);
    cairo_rectangle(hDC->cr, static_cast<gdouble>(x1), static_cast<gdouble>(y1), static_cast<gdouble>(hb_parni(4) - x1 + 1), static_cast<gdouble>(hb_parni(5) - y1 + 1));
@@ -114,20 +114,20 @@ HB_FUNC( HWG_RECTANGLE )
 
 HB_FUNC( HWG_MOVETO )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    cairo_move_to(hDC->cr, static_cast<gdouble>(hb_parni(2)), static_cast<gdouble>(hb_parni(3)));
 }
 
 HB_FUNC( HWG_LINETO )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    cairo_line_to(hDC->cr, static_cast<gdouble>(hb_parni(2)), static_cast<gdouble>(hb_parni(3)));
    cairo_stroke(hDC->cr);
 }
 
 HB_FUNC( HWG_DRAWLINE )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    cairo_move_to(hDC->cr, static_cast<gdouble>(hb_parni(2)), static_cast<gdouble>(hb_parni(3)));
    cairo_line_to(hDC->cr, static_cast<gdouble>(hb_parni(4)), static_cast<gdouble>(hb_parni(5)));
    cairo_stroke(hDC->cr);
@@ -139,7 +139,7 @@ HB_FUNC( HWG_PIE )
 
 HB_FUNC( HWG_ELLIPSE )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    auto x1 = hb_parni(2);
    auto y1 = hb_parni(3);
    auto x2 = hb_parni(4);
@@ -151,7 +151,7 @@ HB_FUNC( HWG_ELLIPSE )
 /*
 HB_FUNC( HWG_ARC )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    gdouble x1 = hb_parnd(2), y1 = hb_parnd(3);
    gdouble radius = hb_parnd(4);
    auto iAngle1 = hb_parni(5);
@@ -165,7 +165,7 @@ HB_FUNC( HWG_ARC )
 
 HB_FUNC( HWG_DRAWGRID )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    auto x1 = hb_parni(2);
    auto y1 = hb_parni(3);
    auto x2 = hb_parni(4);
@@ -186,8 +186,8 @@ HB_FUNC( HWG_FILLRECT )
 {
    auto x1 = hb_parni(2);
    auto y1 = hb_parni(3);
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   auto brush = static_cast<PHWGUI_BRUSH>(HB_PARHANDLE(6));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
+   auto brush = static_cast<PHWGUI_BRUSH>(hb_parptr(6));
    hwg_setcolor(hDC->cr, brush->color);
    cairo_rectangle(hDC->cr, static_cast<gdouble>(x1), static_cast<gdouble>(y1), static_cast<gdouble>(hb_parni(4) - x1 + 1), static_cast<gdouble>(hb_parni(5) - y1 + 1));
    cairo_fill( hDC->cr );
@@ -201,7 +201,7 @@ HB_FUNC( HWG_FILLRECT )
  */
 HB_FUNC( HWG_ARC )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    gdouble x1 = hb_parnd(2), y1 = hb_parnd(3);
    gdouble radius = hb_parnd(4);
    auto iAngle1 = hb_parni(5);
@@ -214,7 +214,7 @@ HB_FUNC( HWG_ARC )
 
 HB_FUNC( HWG_ROUNDRECT )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    gdouble x1 = hb_parnd(2), y1 = hb_parnd(3), x2 = hb_parnd(4), y2 = hb_parnd(5);
    gdouble radius = hb_parnd(6);
    cairo_arc(hDC->cr, x1 + radius, y1 + radius, radius, M_PI, 3 * M_PI / 2);
@@ -227,7 +227,7 @@ HB_FUNC( HWG_ROUNDRECT )
 
 HB_FUNC( HWG_REDRAWWINDOW )
 {
-   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto widget = static_cast<GtkWidget*>(hb_parptr(1));
    GtkAllocation alloc;
    gtk_widget_get_allocation(widget, &alloc);
    gtk_widget_queue_draw_area(widget, 0, 0, alloc.width, alloc.height);
@@ -235,7 +235,7 @@ HB_FUNC( HWG_REDRAWWINDOW )
 
 HB_FUNC( HWG_DRAWBUTTON )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    auto left = hb_parni(2);
    auto top = hb_parni(3);
    auto right = hb_parni(4);
@@ -314,7 +314,7 @@ void hwg_gtk_drawedge(PHWGUI_HDC hDC, int left, int top, int right, int bottom, 
  */
 HB_FUNC( HWG_GTK_DRAWEDGE )
 {
-   hwg_gtk_drawedge(static_cast<PHWGUI_HDC>(HB_PARHANDLE(1)), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6));
+   hwg_gtk_drawedge(static_cast<PHWGUI_HDC>(hb_parptr(1)), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6));
 }
 
 HB_FUNC( HWG_LOADICON )
@@ -334,7 +334,7 @@ HB_FUNC( HWG_LOADBITMAP )
  */
 HB_FUNC( HWG_WINDOW2BITMAP )
 {
-   auto hCtrl = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hCtrl = static_cast<GtkWidget*>(hb_parptr(1));
    GdkPixbuf * pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, 0, 8, hb_parni(4), hb_parni(5));
 
 #if GTK_MAJOR_VERSION - 0 < 3
@@ -357,8 +357,8 @@ HB_FUNC( HWG_WINDOW2BITMAP )
  */
 HB_FUNC( HWG_DRAWBITMAP )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   auto obj = static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(2));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
+   auto obj = static_cast<PHWGUI_PIXBUF>(hb_parptr(2));
    GdkPixbuf * pixbuf;
    gint x =  hb_parni(4);
    gint y =  hb_parni(5);
@@ -383,8 +383,8 @@ HB_FUNC( HWG_DRAWBITMAP )
  */
 HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   auto obj = static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(2));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
+   auto obj = static_cast<PHWGUI_PIXBUF>(hb_parptr(2));
    GdkPixbuf * pixbuf;
    gint x =  hb_parni(3);
    gint y =  hb_parni(4);
@@ -414,8 +414,8 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 
 HB_FUNC( HWG_SPREADBITMAP )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   auto obj = static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(2));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
+   auto obj = static_cast<PHWGUI_PIXBUF>(hb_parptr(2));
    GtkWidget * widget = hDC->widget;
    GdkPixbuf * pixbuf;
    int nWidth, nHeight, x1, x2, y1, y2, nw, nh;
@@ -459,7 +459,7 @@ HB_FUNC( HWG_SPREADBITMAP )
 
 HB_FUNC( HWG_GETBITMAPSIZE )
 {
-   auto obj = static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(1));
+   auto obj = static_cast<PHWGUI_PIXBUF>(hb_parptr(1));
    PHB_ITEM aMetr = _itemArrayNew(2);
    PHB_ITEM temp;
 
@@ -498,7 +498,7 @@ HB_FUNC( HWG_OPENBITMAP )
  */
 HB_FUNC( HWG_SAVEBITMAP )
 {
-   PHWGUI_PIXBUF hpix = HB_PARHANDLE(2);
+   PHWGUI_PIXBUF hpix = hb_parptr(2);
    const char * szType = (HB_ISCHAR(3)) ? hb_parc(3) : "bmp";
    hb_retl(gdk_pixbuf_save(hpix->handle, hb_parc(1), szType, nullptr, nullptr));
 }
@@ -570,10 +570,10 @@ HB_FUNC( HWG_CREATESOLIDBRUSH )
 
 HB_FUNC( HWG_SELECTOBJECT )
 {
-   auto obj = static_cast<HWGUI_HDC_OBJECT*>(HB_PARHANDLE(2));
+   auto obj = static_cast<HWGUI_HDC_OBJECT*>(hb_parptr(2));
 
    if( obj ) {
-      auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+      auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
 
       if( obj->type == HWGUI_OBJECT_PEN ) {
          hwg_setcolor(hDC->cr, (reinterpret_cast<PHWGUI_PEN>(obj))->color);
@@ -599,7 +599,7 @@ HB_FUNC( HWG_SELECTOBJECT )
 
 HB_FUNC( HWG_DELETEOBJECT )
 {
-   auto obj = static_cast<HWGUI_HDC_OBJECT*>(HB_PARHANDLE(1));
+   auto obj = static_cast<HWGUI_HDC_OBJECT*>(hb_parptr(1));
 
    if( obj->type == HWGUI_OBJECT_PEN ) {
       hb_xfree(obj);
@@ -624,8 +624,8 @@ HB_FUNC( HWG_DEFINEPAINTSTRU )
 
 HB_FUNC( HWG_BEGINPAINT )
 {
-   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
-   auto pps = static_cast<PHWGUI_PPS>(HB_PARHANDLE(2));
+   auto widget = static_cast<GtkWidget*>(hb_parptr(1));
+   auto pps = static_cast<PHWGUI_PPS>(hb_parptr(2));
    auto hDC = static_cast<PHWGUI_HDC>(hb_xgrab(sizeof(HWGUI_HDC)));
 
    memset(hDC, 0, sizeof(HWGUI_HDC));
@@ -644,7 +644,7 @@ HB_FUNC( HWG_BEGINPAINT )
 
 HB_FUNC( HWG_ENDPAINT )
 {
-   auto pps = static_cast<PHWGUI_PPS>(HB_PARHANDLE(2));
+   auto pps = static_cast<PHWGUI_PPS>(hb_parptr(2));
    PHWGUI_HDC hDC = pps->hDC;
 
    if( hDC->layout ) {
@@ -657,7 +657,7 @@ HB_FUNC( HWG_ENDPAINT )
 HB_FUNC( HWG_GETDC )
 {
    auto hDC = static_cast<PHWGUI_HDC>(hb_xgrab(sizeof(HWGUI_HDC)));
-   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto widget = static_cast<GtkWidget*>(hb_parptr(1));
 
    memset(hDC, 0, sizeof(HWGUI_HDC));
    hDC->widget = widget;
@@ -673,7 +673,7 @@ HB_FUNC( HWG_GETDC )
 
 HB_FUNC( HWG_RELEASEDC )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(2));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(2));
 
    if( hDC->layout ) {
       g_object_unref(reinterpret_cast<GObject*>(hDC->layout));
@@ -689,7 +689,7 @@ HB_FUNC( HWG_RELEASEDC )
 HB_FUNC( HWG_CREATECOMPATIBLEDC )
 {
    auto hDCdest = static_cast<PHWGUI_HDC>(hb_xgrab(sizeof(HWGUI_HDC)));
-   auto hDCsource = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDCsource = static_cast<PHWGUI_HDC>(hb_parptr(1));
 
    memset(hDCdest, 0, sizeof(HWGUI_HDC));
    hDCdest->widget = hDCsource->widget;
@@ -706,8 +706,8 @@ HB_FUNC( HWG_CREATECOMPATIBLEDC )
 
 HB_FUNC( HWG_BITBLT )
 {
-   auto hDCdest = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   auto hDCsource = static_cast<PHWGUI_HDC>(HB_PARHANDLE(6));
+   auto hDCdest = static_cast<PHWGUI_HDC>(hb_parptr(1));
+   auto hDCsource = static_cast<PHWGUI_HDC>(hb_parptr(6));
 
    cairo_set_source_surface(hDCdest->cr, hDCsource->surface, hb_parni(2), hb_parni(3));
    cairo_paint(hDCdest->cr);
@@ -715,7 +715,7 @@ HB_FUNC( HWG_BITBLT )
 
 HB_FUNC( HWG_CAIRO_TRANSLATE )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    cairo_translate(hDC->cr, hb_parni(2), hb_parni(3));
 }
 
@@ -729,8 +729,8 @@ HB_FUNC( HWG_GETDRAWITEMINFO )
 HB_FUNC( HWG_DRAWGRAYBITMAP )
 {
 /*
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
-   auto obj = static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(2));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
+   auto obj = static_cast<PHWGUI_PIXBUF>(hb_parptr(2));
    gint x = hb_parni(3);
    gint y = hb_parni(4);
 
@@ -744,7 +744,7 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
 
 HB_FUNC( HWG_GETCLIENTAREA )
 {
-   auto pps = static_cast<PHWGUI_PPS>(HB_PARHANDLE(1));
+   auto pps = static_cast<PHWGUI_PPS>(hb_parptr(1));
    GtkWidget * widget = pps->hDC->widget;
    auto aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
@@ -763,7 +763,7 @@ HB_FUNC( HWG_GETCLIENTAREA )
 
 HB_FUNC( HWG_GETCLIENTRECT )
 {
-   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto widget = static_cast<GtkWidget*>(hb_parptr(1));
    auto aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
 
@@ -781,7 +781,7 @@ HB_FUNC( HWG_GETCLIENTRECT )
 
 HB_FUNC( HWG_GETWINDOWRECT )
 {
-   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto widget = static_cast<GtkWidget*>(hb_parptr(1));
    auto aMetr = hb_itemArrayNew(4);
    GtkAllocation alloc;
    gtk_widget_get_allocation(widget, &alloc);
@@ -812,7 +812,7 @@ void hwg_prepare_cairo_colors(long int nColor, gdouble * r, gdouble * g, gdouble
  */
 HB_FUNC( HWG_DRAWGRADIENT )
 {
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    gdouble x1 = hb_parnd(2), y1 = hb_parnd(3), x2 = hb_parnd(4), y2 = hb_parnd(5);
    gint type = (HB_ISNUM(6)) ? hb_parni(6) : 1;
    auto pArrColor = hb_param(7, Harbour::Item::ARRAY);
@@ -922,7 +922,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
 HB_FUNC( HWG__DRAWCOMBO )
 {
 #if GTK_MAJOR_VERSION - 0 < 3
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    auto x1 = static_cast<gdouble>(hb_parni(2));
    auto y1 = static_cast<gdouble>(hb_parni(3));
    auto x2 = static_cast<gdouble>(hb_parni(4));
@@ -949,7 +949,7 @@ HB_FUNC( HWG__DRAWCOMBO )
 HB_FUNC( HWG__DRAWCHECKBTN )
 {
 #if GTK_MAJOR_VERSION - 0 < 3
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    auto x1 = static_cast<gdouble>(hb_parni(2));
    auto y1 = static_cast<gdouble>(hb_parni(3));
    auto y2 = static_cast<gdouble>(hb_parni(5));
@@ -990,7 +990,7 @@ HB_FUNC( HWG__DRAWCHECKBTN )
 HB_FUNC( HWG__DRAWRADIOBTN )
 {
 #if GTK_MAJOR_VERSION -0 < 3
-   auto hDC = static_cast<PHWGUI_HDC>(HB_PARHANDLE(1));
+   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
    auto x1 = static_cast<gdouble>(hb_parni(2));
    auto y1 = static_cast<gdouble>(hb_parni(3));
    auto y2 = static_cast<gdouble>(hb_parni(5));

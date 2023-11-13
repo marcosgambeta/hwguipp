@@ -25,14 +25,14 @@ HB_FUNC( HWG_DEFINEPAINTSTRU )
 
 HB_FUNC( HWG_BEGINPAINT )
 {
-   auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(2));
+   auto pps = static_cast<PAINTSTRUCT*>(hb_parptr(2));
    auto hDC = BeginPaint(hwg_par_HWND(1), pps);
    HB_RETHANDLE(hDC);
 }
 
 HB_FUNC( HWG_ENDPAINT )
 {
-   auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(2));
+   auto pps = static_cast<PAINTSTRUCT*>(hb_parptr(2));
    EndPaint(hwg_par_HWND(1), pps);
    hb_xfree(pps);
 }
@@ -219,7 +219,7 @@ HB_FUNC( HWG_GETWINDOWRECT )
 
 HB_FUNC( HWG_GETCLIENTAREA )
 {
-   auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
+   auto pps = static_cast<PAINTSTRUCT*>(hb_parptr(1));
    auto aMetr = hb_itemArrayNew(4);
 
    auto temp = hb_itemPutNL(nullptr, pps->rcPaint.left);
@@ -392,7 +392,7 @@ HB_FUNC( HWG_CREATEFONT )
 */
 HB_FUNC( HWG_SETCTRLFONT )
 {
-   SendDlgItemMessage(hwg_par_HWND(1), hb_parni(2), WM_SETFONT, reinterpret_cast<WPARAM>(HB_PARHANDLE(3)), 0L);
+   SendDlgItemMessage(hwg_par_HWND(1), hb_parni(2), WM_SETFONT, reinterpret_cast<WPARAM>(hb_parptr(3)), 0L);
 }
 
 HB_FUNC( HWG_CREATERECTRGN )

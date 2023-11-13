@@ -79,7 +79,7 @@ LRESULT APIENTRY StaticSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {

@@ -11,7 +11,7 @@
 #define ST_ALIGN_OVERLAP      3     // Icon/bitmap on the same space as text
 
 #define HB_RETHANDLE( h )        hb_retptr( ( void * ) ( h ) )
-#define HB_PARHANDLE( n )        hb_parptr( n )
+#define HB_PARHANDLE( n )        hb_parptr( n ) // deprecated
 #define HB_STOREHANDLE( h, n )   hb_storptr( ( void * ) ( h ), n )
 #define HB_PUTHANDLE( i, h )     hb_itemPutPtr( i, ( void * ) ( h ) )
 #define HB_GETHANDLE( i )        hb_itemGetPtr( i )
@@ -85,20 +85,20 @@
 #endif
 
 // macros for parameters /* TODO: remover casts desnecessários) */
-#define hwg_par_HWND(n) static_cast<HWND>(HB_PARHANDLE(n))
+#define hwg_par_HWND(n) static_cast<HWND>(hb_parptr(n))
 #define hwg_par_WPARAM(n) static_cast<WPARAM>(hb_parni(n))
 #define hwg_par_int(n) static_cast<int>(hb_parni(n))
 #define hwg_par_LPARAM(n) static_cast<LPARAM>(hb_parnl(n))
-#define hwg_par_HICON(n) static_cast<HICON>(HB_PARHANDLE(n))
-#define hwg_par_HDC(n) static_cast<HDC>(HB_PARHANDLE(n))
-#define hwg_par_HRGN(n) static_cast<HRGN>(HB_PARHANDLE(n))
-#define hwg_par_HBRUSH(n) static_cast<HBRUSH>(HB_PARHANDLE(n))
-#define hwg_par_HBITMAP(n) static_cast<HBITMAP>(HB_PARHANDLE(n))
-#define hwg_par_HIMAGELIST(n) static_cast<HIMAGELIST>(HB_PARHANDLE(n))
+#define hwg_par_HICON(n) static_cast<HICON>(hb_parptr(n))
+#define hwg_par_HDC(n) static_cast<HDC>(hb_parptr(n))
+#define hwg_par_HRGN(n) static_cast<HRGN>(hb_parptr(n))
+#define hwg_par_HBRUSH(n) static_cast<HBRUSH>(hb_parptr(n))
+#define hwg_par_HBITMAP(n) static_cast<HBITMAP>(hb_parptr(n))
+#define hwg_par_HIMAGELIST(n) static_cast<HIMAGELIST>(hb_parptr(n))
 #define hwg_par_UINT(n) static_cast<UINT>(hb_parni(n))
 #define hwg_par_DWORD(n) static_cast<DWORD>(hb_parnl(n))
 #define hwg_par_COLORREF(n) static_cast<COLORREF>(hb_parnl(n))
-#define hwg_par_HMENU(n) static_cast<HMENU>(HB_PARHANDLE(n))
+#define hwg_par_HMENU(n) static_cast<HMENU>(hb_parptr(n))
 #define hwg_par_BYTE(n) static_cast<BYTE>(hb_parni(n))
 #define hwg_par_UINT_PTR(n) static_cast<UINT_PTR>(hb_parni(n))
-#define hwg_par_HGDIOBJ(n) static_cast<HGDIOBJ>(HB_PARHANDLE(n))
+#define hwg_par_HGDIOBJ(n) static_cast<HGDIOBJ>(hb_parptr(n))

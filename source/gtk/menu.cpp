@@ -86,12 +86,12 @@ HB_FUNC( HWG__ADDMENUITEM )
       HB_RETHANDLE(hSubMenu);
    } else {
       char buf[40] = {0};
-      sprintf(buf, "0 %ld %ld", hb_parnl(5),reinterpret_cast<HB_LONG>(HB_PARHANDLE(4)));
+      sprintf(buf, "0 %ld %ld", hb_parnl(5),reinterpret_cast<HB_LONG>(hb_parptr(4)));
       g_signal_connect(G_OBJECT(hMenu), "activate", G_CALLBACK(cb_signal), static_cast<gpointer>(g_strdup(buf)));
 
       HB_RETHANDLE(hMenu);
    }
-   gtk_menu_shell_append(GTK_MENU_SHELL(HB_PARHANDLE(1)), hMenu);
+   gtk_menu_shell_append(GTK_MENU_SHELL(hb_parptr(1)), hMenu);
 
    gtk_widget_show(hMenu);
 }
@@ -101,12 +101,12 @@ HB_FUNC( HWG__ADDMENUITEM )
  */
 HB_FUNC( HWG__SETMENU )
 {
-   auto handle = static_cast<GObject*>(HB_PARHANDLE(1));
+   auto handle = static_cast<GObject*>(hb_parptr(1));
    GtkFixed * box = getFixedBox(handle);
    GtkWidget * vbox = gtk_widget_get_parent(reinterpret_cast<GtkWidget*>(box));
-   gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(HB_PARHANDLE(2)), FALSE, FALSE, 0);
-   gtk_box_reorder_child(GTK_BOX(vbox), static_cast<GtkWidget*>(HB_PARHANDLE(2)), 0);
-   gtk_widget_show(static_cast<GtkWidget*>(HB_PARHANDLE(2)));
+   gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(hb_parptr(2)), FALSE, FALSE, 0);
+   gtk_box_reorder_child(GTK_BOX(vbox), static_cast<GtkWidget*>(hb_parptr(2)), 0);
+   gtk_widget_show(static_cast<GtkWidget*>(hb_parptr(2)));
    hb_retl(1);
 }
 
@@ -118,7 +118,7 @@ HB_FUNC( HWG_GETMENUHANDLE )
 
 HB_FUNC( HWG__CHECKMENUITEM )
 {
-   auto check_menu_item = static_cast<GtkCheckMenuItem*>(HB_PARHANDLE(1));
+   auto check_menu_item = static_cast<GtkCheckMenuItem*>(hb_parptr(1));
    g_signal_handlers_block_matched(reinterpret_cast<gpointer>(check_menu_item), G_SIGNAL_MATCH_FUNC, 0, 0, 0, G_CALLBACK(cb_signal), 0);
    gtk_check_menu_item_set_active(check_menu_item, (HB_ISNIL(2)) ? 1 : hb_parl(2));
    g_signal_handlers_unblock_matched(static_cast<gpointer>(check_menu_item), G_SIGNAL_MATCH_FUNC, 0, 0, 0, G_CALLBACK(cb_signal), 0);
@@ -126,24 +126,24 @@ HB_FUNC( HWG__CHECKMENUITEM )
 
 HB_FUNC( HWG__ISCHECKEDMENUITEM )
 {
-   auto check_menu_item = static_cast<GtkCheckMenuItem*>(HB_PARHANDLE(1));
+   auto check_menu_item = static_cast<GtkCheckMenuItem*>(hb_parptr(1));
    hb_retl(gtk_check_menu_item_get_active(check_menu_item));
 }
 
 HB_FUNC( HWG__ENABLEMENUITEM )
 {
-   auto menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
+   auto menu_item = static_cast<GtkMenuItem*>(hb_parptr(1));
    gtk_widget_set_sensitive(reinterpret_cast<GtkWidget*>(menu_item), (HB_ISNIL(2)) ? 1 : hb_parl(2));
 }
 
 HB_FUNC( HWG__ISENABLEDMENUITEM )
 {
-   hb_retl(gtk_widget_is_sensitive(static_cast<GtkWidget*>(HB_PARHANDLE(1))));
+   hb_retl(gtk_widget_is_sensitive(static_cast<GtkWidget*>(hb_parptr(1))));
 }
 
 HB_FUNC( HWG_TRACKMENU )
 {
-   gtk_menu_popup(static_cast<GtkMenu*>(HB_PARHANDLE(1)), nullptr, nullptr, nullptr, nullptr, 3, gtk_get_current_event_time());
+   gtk_menu_popup(static_cast<GtkMenu*>(hb_parptr(1)), nullptr, nullptr, nullptr, nullptr, 3, gtk_get_current_event_time());
 }
 
 HB_FUNC( HWG_DESTROYMENU )
@@ -159,7 +159,7 @@ HB_FUNC( HWG_DESTROYMENU )
 HB_FUNC( HWG__CREATEACCELERATORTABLE )
 {
    GtkAccelGroup * accel_group = gtk_accel_group_new();
-   gtk_window_add_accel_group(GTK_WINDOW(HB_PARHANDLE(1)), accel_group);
+   gtk_window_add_accel_group(GTK_WINDOW(hb_parptr(1)), accel_group);
    HB_RETHANDLE(accel_group);
 }
 
@@ -174,7 +174,7 @@ HB_FUNC( HWG__ADDACCELERATOR )
 {
    auto iControl = hb_parni(3);
    GdkModifierType nType = (iControl == FSHIFT) ? GDK_SHIFT_MASK : ((iControl == FCONTROL) ? GDK_CONTROL_MASK : ((iControl == FALT) ? GDK_MOD1_MASK : 0));
-   gtk_widget_add_accelerator(static_cast<GtkWidget*>(HB_PARHANDLE(2)), "activate", static_cast<GtkAccelGroup*>(HB_PARHANDLE(1)), static_cast<guint>(hb_parni(4)), nType, 0);
+   gtk_widget_add_accelerator(static_cast<GtkWidget*>(hb_parptr(2)), "activate", static_cast<GtkAccelGroup*>(hb_parptr(1)), static_cast<guint>(hb_parni(4)), nType, 0);
 }
 
 /*
@@ -182,12 +182,12 @@ HB_FUNC( HWG__ADDACCELERATOR )
  */
 HB_FUNC( HWG_DESTROYACCELERATORTABLE )
 {
-   g_object_unref(G_OBJECT(HB_PARHANDLE(1)));
+   g_object_unref(G_OBJECT(hb_parptr(1)));
 }
 
 HB_FUNC( HWG__SETMENUCAPTION )
 {
-   auto menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
+   auto menu_item = static_cast<GtkMenuItem*>(hb_parptr(1));
    gchar * gcptr = hwg_convert_to_utf8(hb_parc(2));
    gtk_label_set_text(reinterpret_cast<GtkLabel*>(gtk_bin_get_child(reinterpret_cast<GtkBin*>(menu_item))), gcptr);
    g_free(gcptr);
@@ -195,7 +195,7 @@ HB_FUNC( HWG__SETMENUCAPTION )
 
 HB_FUNC( HWG__DELETEMENU )
 {
-   auto menu_item = static_cast<GtkMenuItem*>(HB_PARHANDLE(1));
+   auto menu_item = static_cast<GtkMenuItem*>(hb_parptr(1));
    gtk_container_remove(reinterpret_cast<GtkContainer*>(gtk_widget_get_parent((reinterpret_cast<GtkWidget*>(menu_item)))), reinterpret_cast<GtkWidget*>(menu_item));
 }
 

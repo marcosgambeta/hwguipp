@@ -572,7 +572,7 @@ HB_FUNC( HCED_CREATETEXTEDIT )
 
 HB_FUNC( HCED_GETHANDLE )
 {
-   HB_RETHANDLE(( void * ) ( ( TEDIT * ) HB_PARHANDLE(1) )->widget);
+   HB_RETHANDLE(( void * ) ( ( TEDIT * ) hb_parptr(1) )->widget);
 }
 
 HB_FUNC( HCED_SETHANDLE )
@@ -581,7 +581,7 @@ HB_FUNC( HCED_SETHANDLE )
 
 HB_FUNC( HCED_RELEASE )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
 
    hb_xfree(pted->pFontsScr);
    hb_xfree(pted->pFontsPrn);
@@ -592,14 +592,14 @@ HB_FUNC( HCED_RELEASE )
 
 HB_FUNC( HCED_CLEARFONTS )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
 
    pted->iFontsCurr = 0;
 }
 
 HB_FUNC( HCED_ADDFONT )
 {
-   ted_setfont(( TEDIT * ) HB_PARHANDLE(1), ( PHWGUI_FONT ) HB_PARHANDLE(2), -1, 0);
+   ted_setfont(( TEDIT * ) hb_parptr(1), ( PHWGUI_FONT ) hb_parptr(2), -1, 0);
 }
 
 HB_FUNC( HCED_SETFONT )
@@ -609,12 +609,12 @@ HB_FUNC( HCED_SETFONT )
    if( iFont > 0 ) {
       iFont --;
    }
-   ted_setfont(( TEDIT * ) HB_PARHANDLE(1), ( PHWGUI_FONT ) HB_PARHANDLE(2), iFont, (HB_ISNIL(4))? 0 : hb_parl(4));
+   ted_setfont(( TEDIT * ) hb_parptr(1), ( PHWGUI_FONT ) hb_parptr(2), iFont, (HB_ISNIL(4))? 0 : hb_parl(4));
 }
 
 HB_FUNC( HCED_SETCOLOR )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
 
    if( HB_ISNUM(2) ) {
       pted->fg = (long) hb_parnl(2);
@@ -626,7 +626,7 @@ HB_FUNC( HCED_SETCOLOR )
 
 HB_FUNC( HCED_CLEARATTR )
 {
-   ted_ClearAttr((( TEDIT * ) HB_PARHANDLE(1)));
+   ted_ClearAttr((( TEDIT * ) hb_parptr(1)));
 }
 
 /*
@@ -634,7 +634,7 @@ HB_FUNC( HCED_CLEARATTR )
  */
 HB_FUNC( HCED_SETATTR )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    auto iPos = hb_parni(2);
    auto i = hb_parni(3);
    int iLen;
@@ -661,7 +661,7 @@ HB_FUNC( HCED_SETATTR )
 
 HB_FUNC( HCED_ADDATTRFONT )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    int i = 0;
    auto iFont = hb_parni(2);
 
@@ -683,10 +683,10 @@ HB_FUNC( HCED_SETVSCROLL )
 
 HB_FUNC( HCED_SETPAINT )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
 
-   pted->hDCScr = (HB_ISNIL(2))? nullptr : (PHWGUI_HDC) HB_PARHANDLE(2);
-   pted->hDCPrn = (HB_ISNIL(3))? nullptr : (PHWGUI_HDC) HB_PARHANDLE(3);
+   pted->hDCScr = (HB_ISNIL(2))? nullptr : (PHWGUI_HDC) hb_parptr(2);
+   pted->hDCPrn = (HB_ISNIL(3))? nullptr : (PHWGUI_HDC) hb_parptr(3);
 
    if( !HB_ISNIL(4) ) {
       pted->iWidth = hb_parni(4);
@@ -707,7 +707,7 @@ HB_FUNC( HCED_SETPAINT )
 
 HB_FUNC( HCED_SETWIDTH )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
 
    if( !HB_ISNIL(2) ) {
       pted->iWidth = hb_parni(2);
@@ -720,7 +720,7 @@ HB_FUNC( HCED_SETWIDTH )
 
 HB_FUNC( HCED_FILLRECT )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    int x1 = (HB_ISNIL(2))? 0:hb_parni(2); // + pted->xBorder;
    auto y1 = hb_parni(3);
    int x2 = (HB_ISNIL(4))? pted->iWidth:hb_parni(4);
@@ -752,25 +752,25 @@ HB_FUNC( HCED_KILLCARET )
 
 HB_FUNC( HCED_GETXCARETPOS )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    hb_retni(pted->ixCaretPos - pted->nBorder);
 }
 
 HB_FUNC( HCED_GETYCARETPOS )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    hb_retni(pted->iyCaretPos - pted->nBorder);
 }
 
 HB_FUNC( HCED_GETCARETHEIGHT )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    hb_retni(pted->iCaretHeight);
 }
 
 HB_FUNC( HCED_SETCARETPOS )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
 
    pted->ixCaretPos = hb_parni(2) + pted->nBorder;
    pted->iyCaretPos = hb_parni(3) + pted->nBorder;
@@ -781,7 +781,7 @@ HB_FUNC( HCED_SETCARETPOS )
  */
 HB_FUNC( HCED_EXACTCARETPOS )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    char * szText = (char*)hb_parc(2), *ptr;
    auto x1 = hb_parni(3);
    auto xpos = hb_parni(4);
@@ -853,7 +853,7 @@ HB_FUNC( HCED_EXACTCARETPOS )
 
 HB_FUNC( HCED_INVALIDATERECT )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    GtkWidget * widget = pted->area;
    int x1, y1, x2, y2;
 
@@ -876,7 +876,7 @@ HB_FUNC( HCED_INVALIDATERECT )
 
 HB_FUNC( HCED_SETFOCUS )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    gtk_widget_grab_focus((GtkWidget*) pted->area);
 }
 
@@ -886,7 +886,7 @@ HB_FUNC( HCED_SETFOCUS )
  */
 HB_FUNC( HCED_LINEOUT )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    TEDFONT *font;
    char *szText = ( char * )hb_parc(5);
    int iRight = (HB_ISNIL(8))? 0 : hb_parni(8);
@@ -947,7 +947,7 @@ HB_FUNC( HCED_LINEOUT )
 
 HB_FUNC( HCED_SETBORDER )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    if( HB_ISNUM(2) ) {
       pted->nBorder = hb_parnl(2);
    }
@@ -958,7 +958,7 @@ HB_FUNC( HCED_SETBORDER )
 
 HB_FUNC( HCED_DRAWBORDER )
 {
-   TEDIT *pted = ( TEDIT * ) HB_PARHANDLE(1);
+   TEDIT *pted = ( TEDIT * ) hb_parptr(1);
    auto nWidth = hb_parni(2);
    auto nHeight = hb_parni(3);
 

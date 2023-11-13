@@ -172,7 +172,7 @@ HB_FUNC( HWG_PTRTOULONG )
 
 HB_FUNC( HWG_ISPTREQ )
 {
-   hb_retl(HB_PARHANDLE(1) == HB_PARHANDLE(2));
+   hb_retl(hb_parptr(1) == hb_parptr(2));
 }
 
 HB_FUNC( HWG_SIN )
@@ -197,17 +197,17 @@ HB_FUNC( HWG_GETDESKTOPHEIGHT )
 
 HB_FUNC( HWG_HIDEWINDOW )
 {
-   gtk_widget_hide(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
+   gtk_widget_hide(static_cast<GtkWidget*>(hb_parptr(1)));
 }
 
 HB_FUNC( HWG_SHOWWINDOW )
 {
-   gtk_widget_show(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
+   gtk_widget_show(static_cast<GtkWidget*>(hb_parptr(1)));
 }
 
 HB_FUNC( HWG_SHOWALL )
 {
-   gtk_widget_show_all(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
+   gtk_widget_show_all(static_cast<GtkWidget*>(hb_parptr(1)));
 }
 
 HB_FUNC( HWG_SENDMESSAGE )

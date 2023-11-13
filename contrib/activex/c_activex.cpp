@@ -95,7 +95,7 @@ HB_FUNC( HWG_CREATEACTIVEX )
          HB_ISNIL(6) ? CW_USEDEFAULT : hb_parni(6),    // nTop
          HB_ISNIL(7) ? 544 : hb_parni(7),      // nWidth
          HB_ISNIL(8) ? 375 : hb_parni(8),      // nHeight
-         HB_ISNIL(9) ? HWND_DESKTOP : ( HWND ) HB_PARHANDLE(9),    // oParent:handle
+         HB_ISNIL(9) ? HWND_DESKTOP : ( HWND ) hb_parptr(9),    // oParent:handle
          // HB_ISNIL( 10 ) ? NULL                : (HMENU) hb_parnl( 10 ),  // Id
          // GetModuleHandle(0),
          0, 0, NULL );
@@ -108,7 +108,7 @@ HB_FUNC( HWG_ATLAXGETDISP )
 {
    IUnknown *pUnk = NULL;
    IDispatch *pDisp;
-   HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
+   HWND hCtrl = ( HWND ) hb_parptr(1);
 
    _Ax_Init(  );
    AtlAxGetControl( hCtrl, &pUnk );
@@ -567,7 +567,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
    DWORD dwCookie = 0;
 
 #if defined( __XHARBOUR__ )
-   device_interface *pdevice_interface = ( device_interface * ) HB_PARHANDLE(1);
+   device_interface *pdevice_interface = ( device_interface * ) hb_parptr(1);
 #else
    device_interface *pdevice_interface = ( device_interface * ) hb_oleItemGet( hb_param( 1, HB_IT_ANY ) );
 #endif
@@ -696,7 +696,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
 //------------------------------------------------------------------------------
 HB_FUNC( HWG_SHUTDOWNCONNECTIONPOINT )
 {
-   MyRealIEventHandler *this = ( MyRealIEventHandler * ) HB_PARHANDLE(1);
+   MyRealIEventHandler *this = ( MyRealIEventHandler * ) hb_parptr(1);
    if( this->pIConnectionPoint )
    {
       this->pIConnectionPoint->lpVtbl->Unadvise( this->pIConnectionPoint,
@@ -711,7 +711,7 @@ HB_FUNC( HWG_SHUTDOWNCONNECTIONPOINT )
 HB_FUNC( HWG_RELEASEDISPATCH )
 {
 #if defined( __XHARBOUR__ )
-   IDispatch *pObj = ( IDispatch * ) HB_PARHANDLE(1);
+   IDispatch *pObj = ( IDispatch * ) hb_parptr(1);
 #else
    IDispatch *pObj = ( IDispatch * ) hb_oleItemGet( hb_param( 1, HB_IT_ANY ) );
 #endif

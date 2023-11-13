@@ -99,7 +99,7 @@ PHB_ITEM Rect2Array(RECT * rc)
 
 HB_FUNC( HWG_GETPPSRECT )
 {
-   auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
+   auto pps = static_cast<PAINTSTRUCT*>(hb_parptr(1));
    PHB_ITEM aMetr = Rect2Array(&pps->rcPaint);
    hb_itemReturn(aMetr);
    hb_itemRelease(aMetr);
@@ -107,7 +107,7 @@ HB_FUNC( HWG_GETPPSRECT )
 
 HB_FUNC( HWG_GETPPSERASE )
 {
-   auto pps = static_cast<PAINTSTRUCT*>(HB_PARHANDLE(1));
+   auto pps = static_cast<PAINTSTRUCT*>(hb_parptr(1));
    auto fErase = reinterpret_cast<BOOL>(&pps->fErase);
    hb_retni(fErase);
 }
@@ -845,7 +845,7 @@ HB_FUNC( HWG_RELEASEDC )
 
 HB_FUNC( HWG_GETDRAWITEMINFO )
 {
-   auto lpdis = static_cast<DRAWITEMSTRUCT*>(HB_PARHANDLE(1));      //hb_parnl(1);
+   auto lpdis = static_cast<DRAWITEMSTRUCT*>(hb_parptr(1));      //hb_parnl(1);
    auto aMetr = hb_itemArrayNew(9);
 
    auto temp = hb_itemPutNL(nullptr, lpdis->itemID);
@@ -1200,7 +1200,7 @@ HB_FUNC( HWG_PTINRECT )
 
 HB_FUNC( HWG_GETMEASUREITEMINFO )
 {
-   auto lpdis = static_cast<MEASUREITEMSTRUCT*>(HB_PARHANDLE(1));        //hb_parnl(1);
+   auto lpdis = static_cast<MEASUREITEMSTRUCT*>(hb_parptr(1));        //hb_parnl(1);
    auto aMetr = hb_itemArrayNew(5);
 
    auto temp = hb_itemPutNL(nullptr, lpdis->CtlType);

@@ -112,9 +112,9 @@ HB_FUNC( HWG_INITMAINWINDOW )
    int width = hb_parnl(9);
    int height = hb_parnl(10);
    /* Icon */
-   PHWGUI_PIXBUF szFile = HB_ISPOINTER(5) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(5)) : nullptr;
+   PHWGUI_PIXBUF szFile = HB_ISPOINTER(5) ? static_cast<PHWGUI_PIXBUF>(hb_parptr(5)) : nullptr;
    /* Background image */
-   PHWGUI_PIXBUF szBackFile = HB_ISPOINTER(11) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(11)) : nullptr;
+   PHWGUI_PIXBUF szBackFile = HB_ISPOINTER(11) ? static_cast<PHWGUI_PIXBUF>(hb_parptr(11)) : nullptr;
 
    /* Background style*/
    style = gtk_style_new();
@@ -263,7 +263,7 @@ HB_FUNC( HWG_CREATEDLG )
 HB_FUNC( HWG_ACTIVATEMAINWINDOW )
 {
 /*
-   auto hWnd = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hWnd = static_cast<GtkWidget*>(hb_parptr(1));
 
    if( !HB_ISNIL(3) && hb_parl(3) ) {
       gtk_window_maximize(static_cast<GtkWindow*>(hWnd));
@@ -279,7 +279,7 @@ HB_FUNC( HWG_ACTIVATEMAINWINDOW )
 
 HB_FUNC( HWG_ACTIVATEDIALOG )
 {
-   // gtk_widget_show_all(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
+   // gtk_widget_show_all(static_cast<GtkWidget*>(hb_parptr(1)));
    if( HB_ISNIL(2) || !hb_parl(2) ) {
       gtk_main();
    }
@@ -597,13 +597,13 @@ void set_signal(gpointer handle, const char * cSignal, long int p1, long int p2,
 
 HB_FUNC( HWG_SETSIGNAL )
 {
-   auto p = static_cast<gpointer>(HB_PARHANDLE(1));
-   set_signal(static_cast<gpointer>(p), hb_parc(2), hb_parnl(3), hb_parnl(4), reinterpret_cast<long int>(HB_PARHANDLE(5)));
+   auto p = static_cast<gpointer>(hb_parptr(1));
+   set_signal(static_cast<gpointer>(p), hb_parc(2), hb_parnl(3), hb_parnl(4), reinterpret_cast<long int>(hb_parptr(5)));
 }
 
 HB_FUNC( HWG_EMITSIGNAL )
 {
-   g_signal_emit_by_name(G_OBJECT(HB_PARHANDLE(1)), const_cast<char*>(hb_parc(2)));
+   g_signal_emit_by_name(G_OBJECT(hb_parptr(1)), const_cast<char*>(hb_parc(2)));
 }
 
 void set_event(gpointer handle, const char * cSignal, long int p1, long int p2, long int p3)
@@ -616,7 +616,7 @@ void set_event(gpointer handle, const char * cSignal, long int p1, long int p2, 
 
 HB_FUNC( HWG_SETEVENT )
 {
-   auto p = static_cast<gpointer>(HB_PARHANDLE(1));
+   auto p = static_cast<gpointer>(hb_parptr(1));
    set_event(p, const_cast<char*>(hb_parc(2)), hb_parnl(3), hb_parnl(4), hb_parnl(5));
 }
 
@@ -655,7 +655,7 @@ HB_FUNC( HWG_GETACTIVEWINDOW )
 
 HB_FUNC( HWG_SETWINDOWOBJECT )
 {
-   SetWindowObject(static_cast<GtkWidget*>(HB_PARHANDLE(1)), hb_param(2, Harbour::Item::OBJECT));
+   SetWindowObject(static_cast<GtkWidget*>(hb_parptr(1)), hb_param(2, Harbour::Item::OBJECT));
 }
 
 void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject)
@@ -674,7 +674,7 @@ void SetWindowObject(GtkWidget * hWnd, PHB_ITEM pObject)
 
 HB_FUNC( HWG_GETWINDOWOBJECT )
 {
-   gpointer dwNewLong = g_object_get_data(static_cast<GObject*>(HB_PARHANDLE(1)), "obj");
+   gpointer dwNewLong = g_object_get_data(static_cast<GObject*>(hb_parptr(1)), "obj");
 
    if( dwNewLong ) {
       hb_itemReturn(static_cast<PHB_ITEM>(dwNewLong));
@@ -686,26 +686,26 @@ HB_FUNC( HWG_GETWINDOWOBJECT )
 HB_FUNC( HWG_SETWINDOWTEXT )
 {
    gchar * gcTitle = hwg_convert_to_utf8(hb_parcx(2));
-   gtk_window_set_title(GTK_WINDOW(HB_PARHANDLE(1)), gcTitle);
+   gtk_window_set_title(GTK_WINDOW(hb_parptr(1)), gcTitle);
    g_free(gcTitle);
 }
 
 HB_FUNC( HWG_GETWINDOWTEXT )
 {
-   char * cTitle = const_cast<char*>(gtk_window_get_title(GTK_WINDOW(HB_PARHANDLE(1))));
+   char * cTitle = const_cast<char*>(gtk_window_get_title(GTK_WINDOW(hb_parptr(1))));
    hb_retc(cTitle);
 }
 
 HB_FUNC( HWG_ENABLEWINDOW )
 {
-   auto widget = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto widget = static_cast<GtkWidget*>(hb_parptr(1));
    HB_BOOL lEnable = hb_parl(2);
    gtk_widget_set_sensitive(widget, lEnable);
 }
 
 HB_FUNC( HWG_ISWINDOWENABLED )
 {
-   hb_retl(gtk_widget_is_sensitive(static_cast<GtkWidget*>(HB_PARHANDLE(1))));
+   hb_retl(gtk_widget_is_sensitive(static_cast<GtkWidget*>(hb_parptr(1))));
 }
 
 HB_FUNC( HWG_ISICONIC )
@@ -715,7 +715,7 @@ HB_FUNC( HWG_ISICONIC )
 
 HB_FUNC( HWG_MOVEWINDOW )
 {
-   auto hWnd = static_cast<GtkWidget*>(HB_PARHANDLE(1));
+   auto hWnd = static_cast<GtkWidget*>(hb_parptr(1));
 
    if( !HB_ISNIL(2) || !HB_ISNIL(3) ) {
       gtk_window_move(GTK_WINDOW(hWnd), hb_parni(2), hb_parni(3));
@@ -727,7 +727,7 @@ HB_FUNC( HWG_MOVEWINDOW )
 
 HB_FUNC( HWG_CENTERWINDOW )
 {
-   auto hWnd = static_cast<GtkWindow*>(HB_PARHANDLE(1));
+   auto hWnd = static_cast<GtkWindow*>(hb_parptr(1));
    gint width = 0, height = 0;
    gtk_window_get_size(hWnd, &width, &height);
    gtk_window_move(hWnd, (gdk_screen_width() - width) / 2, (gdk_screen_height() - height) / 2);
@@ -736,17 +736,17 @@ HB_FUNC( HWG_CENTERWINDOW )
 
 HB_FUNC( HWG_WINDOWMAXIMIZE )
 {
-   gtk_window_maximize(static_cast<GtkWindow*>(HB_PARHANDLE(1)));
+   gtk_window_maximize(static_cast<GtkWindow*>(hb_parptr(1)));
 }
 
 HB_FUNC( HWG_RESTOREWINDOW )
 {
-   gtk_window_unmaximize(static_cast<GtkWindow*>(HB_PARHANDLE(1)));
+   gtk_window_unmaximize(static_cast<GtkWindow*>(hb_parptr(1)));
 }
 
 HB_FUNC( HWG_WINDOWMINIMIZE )
 {
-   gtk_window_iconify(static_cast<GtkWindow*>(HB_PARHANDLE(1)));
+   gtk_window_iconify(static_cast<GtkWindow*>(hb_parptr(1)));
 }
 
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname)
@@ -766,7 +766,7 @@ void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue) // TO
 
 HB_FUNC( HWG_RELEASEOBJECT )
 {
-   auto hWnd = static_cast<GObject*>(HB_PARHANDLE(1));
+   auto hWnd = static_cast<GObject*>(hb_parptr(1));
    gpointer dwNewLong = g_object_get_data(hWnd, "obj");
 
    if( dwNewLong ) {
@@ -779,14 +779,14 @@ HB_FUNC( HWG_RELEASEOBJECT )
 
 HB_FUNC( HWG_SETFOCUS )
 {
-   auto hObj = static_cast<GObject*>(HB_PARHANDLE(1));
+   auto hObj = static_cast<GObject*>(hb_parptr(1));
    GtkWidget * handle = gtk_window_get_focus(gtk_window_list_toplevels()->data);
 
    if( hObj ) {
       if( g_object_get_data(hObj, "window") ) {
-         gtk_window_present(static_cast<GtkWindow*>(HB_PARHANDLE(1)));
+         gtk_window_present(static_cast<GtkWindow*>(hb_parptr(1)));
       } else {
-         gtk_widget_grab_focus(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
+         gtk_widget_grab_focus(static_cast<GtkWidget*>(hb_parptr(1)));
       }
    }
 
@@ -800,7 +800,7 @@ HB_FUNC( HWG_GETFOCUS )
 
 HB_FUNC( HWG_DESTROYWINDOW )
 {
-   gtk_widget_destroy(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
+   gtk_widget_destroy(static_cast<GtkWidget*>(hb_parptr(1)));
 }
 
 void hwg_set_modal(GtkWindow * hDlg, GtkWindow * hParent)
@@ -813,12 +813,12 @@ void hwg_set_modal(GtkWindow * hDlg, GtkWindow * hParent)
 
 HB_FUNC( HWG_SET_MODAL )
 {
-   hwg_set_modal(static_cast<GtkWindow*>(HB_PARHANDLE(1)), static_cast<GtkWindow*>((!HB_ISNIL(2)) ? HB_PARHANDLE(2) : nullptr));
+   hwg_set_modal(static_cast<GtkWindow*>(hb_parptr(1)), static_cast<GtkWindow*>((!HB_ISNIL(2)) ? hb_parptr(2) : nullptr));
 }
 
 HB_FUNC( HWG_WINDOWSETRESIZE )
 {
-   auto handle = static_cast<GtkWindow*>(HB_PARHANDLE(1));
+   auto handle = static_cast<GtkWindow*>(hb_parptr(1));
    gint width = 0, height = 0, bResize = hb_parl(2);
 
    //if( !bResize ) {
@@ -830,25 +830,25 @@ HB_FUNC( HWG_WINDOWSETRESIZE )
 
 HB_FUNC( HWG_WINDOWSETDECORATED )
 {
-   auto handle = static_cast<GtkWindow*>(HB_PARHANDLE(1));
+   auto handle = static_cast<GtkWindow*>(hb_parptr(1));
    gtk_window_set_decorated(handle ,hb_parl(2));
 }
 
 HB_FUNC( HWG_SETTOPMOST )
 {
-   gtk_window_set_keep_above(static_cast<GtkWindow*>(HB_PARHANDLE(1)), TRUE);
+   gtk_window_set_keep_above(static_cast<GtkWindow*>(hb_parptr(1)), TRUE);
 }
 
 HB_FUNC( HWG_REMOVETOPMOST )
 {
-   gtk_window_set_keep_above(static_cast<GtkWindow*>(HB_PARHANDLE(1)), FALSE);
+   gtk_window_set_keep_above(static_cast<GtkWindow*>(hb_parptr(1)), FALSE);
 }
 
 HB_FUNC( HWG_GETWINDOWPOS )
 {
    gint x, y;
    auto aMetr = hb_itemArrayNew(2);
-   gtk_window_get_position(static_cast<GtkWindow*>(HB_PARHANDLE(1)), &x, &y);
+   gtk_window_get_position(static_cast<GtkWindow*>(hb_parptr(1)), &x, &y);
    hb_itemPutNL(hb_arrayGetItemPtr(aMetr, 1), x);
    hb_itemPutNL(hb_arrayGetItemPtr(aMetr, 2), y);
    hb_itemRelease(hb_itemReturn(aMetr));
@@ -892,7 +892,7 @@ HB_FUNC( HWG_KEYTOUTF8 )
 
 HB_FUNC( HWG_SEND_KEY )
 {
-   gtk_test_widget_send_key(static_cast<GtkWidget*>(HB_PARHANDLE(1)), static_cast<guint>(hb_parni(2)), static_cast<GdkModifierType>(hb_parni(3)));
+   gtk_test_widget_send_key(static_cast<GtkWidget*>(hb_parptr(1)), static_cast<guint>(hb_parni(2)), static_cast<GdkModifierType>(hb_parni(3)));
 }
 
 static gint snooper(GtkWidget * grab_widget, GdkEventKey * event, gpointer func_data)
@@ -949,12 +949,12 @@ HB_FUNC( HWG_EXITPROC )
 
 HB_FUNC( HWG_DEICONIFY ) /* maximize  */
 {
-   gtk_window_deiconify(static_cast<GtkWindow*>(HB_PARHANDLE(1)));
+   gtk_window_deiconify(static_cast<GtkWindow*>(hb_parptr(1)));
 }
 
 HB_FUNC( HWG_ICONIFY )   /* minimize */
 {
-   gtk_window_iconify(static_cast<GtkWindow*>(HB_PARHANDLE(1)));
+   gtk_window_iconify(static_cast<GtkWindow*>(hb_parptr(1)));
 }
 
 /*
@@ -965,12 +965,12 @@ HB_FUNC( HWG_ICONIFY )   /* minimize */
 /*
 HB_FUNC( HWG_SHELLMODIFYICON )
 {
-   PHWGUI_PIXBUF szFile = HB_ISPOINTER(2) ? static_cast<PHWGUI_PIXBUF>(HB_PARHANDLE(2)) : nullptr;
+   PHWGUI_PIXBUF szFile = HB_ISPOINTER(2) ? static_cast<PHWGUI_PIXBUF>(hb_parptr(2)) : nullptr;
    if( szFile ) {
-      gtk_window_set_icon(static_cast<GtkWindow*>(HB_PARHANDLE(1)), szFile->handle);
+      gtk_window_set_icon(static_cast<GtkWindow*>(hb_parptr(1)), szFile->handle);
       gtk_window_set_default_icon(szFile->handle);
-      gtk_window_iconify(static_cast<GtkWindow*>(HB_PARHANDLE(1)));
-      gtk_window_deiconify(static_cast<GtkWindow*>(HB_PARHANDLE(1)));
+      gtk_window_iconify(static_cast<GtkWindow*>(hb_parptr(1)));
+      gtk_window_deiconify(static_cast<GtkWindow*>(hb_parptr(1)));
    }
 }
 */

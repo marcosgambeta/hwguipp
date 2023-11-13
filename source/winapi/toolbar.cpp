@@ -172,8 +172,8 @@ HB_FUNC( HWG_IMAGELIST_GETIMAGECOUNT )
 
 HB_FUNC( HWG_TOOLBAR_SETDISPINFO )
 {
-   //auto pDispInfo = static_cast<LPTOOLTIPTEXT>(HB_PARHANDLE(1));
-   auto pDispInfo = static_cast<LPNMTTDISPINFO>(HB_PARHANDLE(1));
+   //auto pDispInfo = static_cast<LPTOOLTIPTEXT>(hb_parptr(1));
+   auto pDispInfo = static_cast<LPNMTTDISPINFO>(hb_parptr(1));
 
    if( pDispInfo ) {
       HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->szText, HB_SIZEOFARRAY(pDispInfo->szText));
@@ -190,14 +190,14 @@ HB_FUNC( HWG_TOOLBAR_SETDISPINFO )
 HB_FUNC( HWG_TOOLBAR_GETDISPINFOID )
 {
    //auto pDispInfo = static_cast<LPTOOLTIPTEXT>(hb_parnl(1));
-   auto pDispInfo = static_cast<LPNMTTDISPINFO>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LPNMTTDISPINFO>(hb_parptr(1));
    DWORD idButton = pDispInfo->hdr.idFrom;
    hb_retnl(idButton);
 }
 
 HB_FUNC( HWG_TOOLBAR_GETINFOTIP )
 {
-   auto pDispInfo = static_cast<LPNMTBGETINFOTIP>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LPNMTBGETINFOTIP>(hb_parptr(1));
    if( pDispInfo && pDispInfo->cchTextMax > 0 ) {
       HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->pszText, pDispInfo->cchTextMax);
       pDispInfo->pszText[pDispInfo->cchTextMax - 1] = 0;
@@ -206,21 +206,21 @@ HB_FUNC( HWG_TOOLBAR_GETINFOTIP )
 
 HB_FUNC( HWG_TOOLBAR_GETINFOTIPID )
 {
-   auto pDispInfo = static_cast<LPNMTBGETINFOTIP>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LPNMTBGETINFOTIP>(hb_parptr(1));
    DWORD idButton = pDispInfo->iItem;
    hb_retnl(idButton);
 }
 
 HB_FUNC( HWG_TOOLBAR_IDCLICK )
 {
-   auto pDispInfo = static_cast<LPNMMOUSE>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LPNMMOUSE>(hb_parptr(1));
    DWORD idButton = pDispInfo->dwItemSpec;
    hb_retnl(idButton);
 }
 
 HB_FUNC( HWG_TOOLBAR_SUBMENU )
 {
-   auto lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
+   auto lpnmTB = static_cast<LPNMTOOLBAR>(hb_parptr(1));
    RECT rc = {0, 0, 0, 0};
    TPMPARAMS tpm;
    HMENU hPopupMenu;
@@ -249,7 +249,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENU )
 
 HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
 {
-   auto lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
+   auto lpnmTB = static_cast<LPNMTOOLBAR>(hb_parptr(1));
    RECT rc = {0, 0, 0, 0};
    TPMPARAMS tpm;
    HMENU hPopupMenu = hwg_par_HMENU(2);
@@ -271,6 +271,6 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
 
 HB_FUNC( HWG_TOOLBAR_SUBMENUEXGETID )
 {
-   auto lpnmTB = static_cast<LPNMTOOLBAR>(HB_PARHANDLE(1));
+   auto lpnmTB = static_cast<LPNMTOOLBAR>(hb_parptr(1));
    hb_retnl(static_cast<LONG>(lpnmTB->iItem));
 }

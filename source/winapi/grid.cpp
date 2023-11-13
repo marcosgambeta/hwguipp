@@ -130,7 +130,7 @@ HB_FUNC( HWG_LISTVIEW_GETFIRSTITEM )
 
 HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
 {
-   auto pDispInfo = static_cast<LV_DISPINFO*>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LV_DISPINFO*>(hb_parptr(1));
 
    int iItem = pDispInfo->item.iItem;
    int iSubItem = pDispInfo->item.iSubItem;
@@ -142,7 +142,7 @@ HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
 
 HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
 {
-   auto pDispInfo = static_cast<LV_DISPINFO*>(HB_PARHANDLE(1));
+   auto pDispInfo = static_cast<LV_DISPINFO*>(hb_parptr(1));
 
    if( pDispInfo->item.mask & LVIF_TEXT ) {
       HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->item.pszText, pDispInfo->item.cchTextMax);
@@ -157,7 +157,7 @@ HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
 
 HB_FUNC( HWG_LISTVIEW_GETGRIDKEY )
 {
-#define pnm ((LV_KEYDOWN *) HB_PARHANDLE(1) )
+#define pnm ((LV_KEYDOWN *) hb_parptr(1) )
 
    hb_retnl(static_cast<LPARAM>(pnm->wVKey));
 
@@ -384,7 +384,7 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
 HB_FUNC( HWG_PROCESSCUSTU )
 {
    /* auto hWnd = hwg_par_HWND(1); */
-   auto lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(2));
+   auto lParam = reinterpret_cast<LPARAM>(hb_parptr(2));
    auto pColor = hb_param(3, Harbour::Item::ARRAY);
 
    hb_retnl(static_cast<LONG>(ProcessCustomDraw(lParam, pColor)));
@@ -465,7 +465,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
 HB_FUNC( HWG_LISTVIEWSORT )
 {
    auto p = static_cast<PSORTINFO>(hb_parptr(3));
-   auto phdNotify = static_cast<LPNMLISTVIEW>(HB_PARHANDLE(2));
+   auto phdNotify = static_cast<LPNMLISTVIEW>(hb_parptr(2));
 
    if( phdNotify->iSubItem == p->nColumnNo ) {
       p->nAscendingSortOrder = !p->nAscendingSortOrder;

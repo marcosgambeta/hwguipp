@@ -188,7 +188,7 @@ HB_FUNC( HWG_INITSTATUS )
 
 HB_FUNC( HWG_GETNOTIFYSBPARTS )
 {
-   hb_retnl(static_cast<LONG>(((static_cast<NMMOUSE*>(HB_PARHANDLE(1)))->dwItemSpec)));
+   hb_retnl(static_cast<LONG>(((static_cast<NMMOUSE*>(hb_parptr(1)))->dwItemSpec)));
 }
 
 HB_FUNC( HWG_GETTIMEPICKER )
@@ -205,7 +205,7 @@ HB_FUNC( HWG_GETTIMEPICKER )
 
 HB_FUNC( HWG_GETNOTIFYKEYDOWN )
 {
-   hb_retni(static_cast<WORD>((static_cast<TC_KEYDOWN*>(HB_PARHANDLE(1)))->wVKey));
+   hb_retni(static_cast<WORD>((static_cast<TC_KEYDOWN*>(hb_parptr(1)))->wVKey));
 }
 
 /*
@@ -291,7 +291,7 @@ HB_FUNC( HWG_LOADCURSORFROMFILE )
 
 HB_FUNC( HWG_SETCURSOR )
 {
-   HB_RETHANDLE(SetCursor(static_cast<HCURSOR>(HB_PARHANDLE(1))));
+   HB_RETHANDLE(SetCursor(static_cast<HCURSOR>(hb_parptr(1))));
 }
 
 HB_FUNC( HWG_GETCURSOR )
@@ -387,7 +387,7 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {
@@ -420,7 +420,7 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {
@@ -463,7 +463,7 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(HB_PARHANDLE(-1));
+         return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
          res = hb_parnl(-1);
          if( res == -1 ) {
@@ -613,7 +613,7 @@ HB_FUNC( HWG_CALLWINDOWPROC )
 
 HB_FUNC( HWG_BUTTONGETDLGCODE )
 {
-   auto lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(1));
+   auto lParam = reinterpret_cast<LPARAM>(hb_parptr(1));
    if( lParam ) {
       auto pMsg = reinterpret_cast<MSG*>(lParam);
 
@@ -628,7 +628,7 @@ HB_FUNC( HWG_BUTTONGETDLGCODE )
 
 HB_FUNC( HWG_GETDLGMESSAGE )
 {
-   auto lParam = reinterpret_cast<LPARAM>(HB_PARHANDLE(1));
+   auto lParam = reinterpret_cast<LPARAM>(hb_parptr(1));
    if( lParam ) {
       auto pMsg = reinterpret_cast<MSG*>(lParam);
 

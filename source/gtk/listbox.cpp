@@ -78,13 +78,13 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
 */
 
    /* Add item */
-   gtk_container_add(GTK_CONTAINER(HB_PARHANDLE(1)), item);
+   gtk_container_add(GTK_CONTAINER(hb_parptr(1)), item);
 
    /* Visible --- */
    gtk_widget_show(item);
 
    /*
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), LB_ADDSTRING, 0, static_cast<LPARAM>(HB_PARSTR(2, &hString, nullptr)));
+   SendMessage(static_cast<HWND>(hb_parptr(1)), LB_ADDSTRING, 0, static_cast<LPARAM>(HB_PARSTR(2, &hString, nullptr)));
    */
    hb_strfree(hString);
 }
@@ -95,7 +95,7 @@ hwg_Listboxsetstring(::handle, ::value)
 /*
 HB_FUNC( HWG_LISTBOXSETSTRING )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), LB_SETCURSEL, static_cast<WPARAM>(hb_parni(2)) - 1, 0);
+   SendMessage(static_cast<HWND>(hb_parptr(1)), LB_SETCURSEL, static_cast<WPARAM>(hb_parni(2)) - 1, 0);
 }
 */
 
@@ -135,7 +135,7 @@ void listitem_selected(GtkWidget * widget, gpointer * data)
 //         WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
 //         hb_parni(4), hb_parni(5),  /* x, y       */
 //         hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
-//         ( HWND ) HB_PARHANDLE(1),    /* parent window    */
+//         ( HWND ) hb_parptr(1),    /* parent window    */
 //         ( HMENU ) hb_parni(2),       /* listbox ID      */
 //         GetModuleHandle( nullptr ),
 //         nullptr );
@@ -151,7 +151,7 @@ void listitem_selected(GtkWidget * widget, gpointer * data)
 /*
 HB_FUNC( HWG_LISTBOXDELETESTRING )
 {
-   SendMessage(static_cast<HWND>(HB_PARHANDLE(1)), LB_DELETESTRING, 0, static_cast<LPARAM>(0));
+   SendMessage(static_cast<HWND>(hb_parptr(1)), LB_DELETESTRING, 0, static_cast<LPARAM>(0));
 }
 */
 
@@ -162,8 +162,8 @@ HB_FUNC( HWG_LISTBOXSHOWMAIN )
 {
    /* Make listbox visible */
    GtkWidget * fenster;
-   fenster = HB_PARHANDLE(1);
-   gtk_container_add(GTK_CONTAINER(fenster), HB_PARHANDLE(2)); /* par 2 = hlistbox */
+   fenster = hb_parptr(1);
+   gtk_container_add(GTK_CONTAINER(fenster), hb_parptr(2)); /* par 2 = hlistbox */
    gtk_widget_show(static_cast<GtkWidget*>(fenster));
 }
 
@@ -172,5 +172,5 @@ hwg_ListBoxShow(hlistbox)
 */
 HB_FUNC( HWG_LISTBOXSHOW )
 {
-   gtk_widget_show(static_cast<GtkWidget*>(HB_PARHANDLE(1)));
+   gtk_widget_show(static_cast<GtkWidget*>(hb_parptr(1)));
 }
