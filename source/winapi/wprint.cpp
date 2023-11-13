@@ -131,7 +131,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
 
       // создадим контекст устройства принтера
       hb_retptr(CreateDC(nullptr, lpPrinterName, nullptr, pdm));
-      HB_STOREHANDLE(hPrinter, 2);
+      hb_storptr(hPrinter, 2);
       GlobalFree(pdm);
    }
 

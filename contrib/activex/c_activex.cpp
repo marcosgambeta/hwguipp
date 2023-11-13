@@ -685,7 +685,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
 #endif
 
       pThis->pEvents = hb_itemNew( hb_param( 3, HB_IT_ANY ) );
-      HB_STOREHANDLE( pThis, 2 );
+      hb_storptr( pThis, 2 );
 
    }
 

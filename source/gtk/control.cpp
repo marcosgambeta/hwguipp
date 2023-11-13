@@ -187,7 +187,7 @@ HB_FUNC( HWG_CREATEBUTTON )
       auto group = static_cast<GSList*>(hb_parptr(2));
       hCtrl = gtk_radio_button_new_with_label(group, gcTitle);
       group = gtk_radio_button_get_group(reinterpret_cast<GtkRadioButton*>(hCtrl));
-      HB_STOREHANDLE(group, 2);
+      hb_storptr(group, 2);
    } else if( (ulStyle & 0xf) == BS_AUTO3STATE ) {
       hCtrl = gtk_check_button_new_with_label(gcTitle);
    } else if( (ulStyle & 0xf) == BS_GROUPBOX ) {
