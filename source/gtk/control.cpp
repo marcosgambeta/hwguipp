@@ -91,7 +91,7 @@ GtkWidget * getDrawing(GObject * handle)
 
 HB_FUNC( HWG_GETDRAWING )
 {
-   HB_RETHANDLE(getDrawing(static_cast<GObject*>(hb_parptr(1))));
+   hb_retptr(getDrawing(static_cast<GObject*>(hb_parptr(1))));
 }
 
 HB_FUNC( HWG_STOCKBITMAP )
@@ -109,7 +109,7 @@ HB_FUNC( HWG_STOCKBITMAP )
       hpix->type = HWGUI_OBJECT_PIXBUF;
       hpix->handle = handle;
       hpix->trcolor = -1;
-      HB_RETHANDLE(hpix);
+      hb_retptr(hpix);
    }
 }
 
@@ -155,7 +155,7 @@ HB_FUNC( HWG_CREATESTATIC )
       set_event(static_cast<gpointer>(hCtrl), "draw", WM_PAINT, 0, 0);
 #endif
    }
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_STATIC_SETTEXT )
@@ -209,7 +209,7 @@ HB_FUNC( HWG_CREATEBUTTON )
    }
    gtk_widget_set_size_request(hCtrl, hb_parni(6), hb_parni(7));
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_BUTTON_SETTEXT )
@@ -280,7 +280,7 @@ HB_FUNC( HWG_CREATEEDIT )
    set_event(static_cast<gpointer>(hCtrl), "button_press_event", 0, 0, 0);
 
    all_signal_connect(static_cast<gpointer>(hCtrl));
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_EDIT_SETTEXT )
@@ -393,7 +393,7 @@ HB_FUNC( HWG_CREATECOMBO )
    }
    gtk_widget_set_size_request(hCtrl, hb_parni(6), hb_parni(7));
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_COMBOSETARRAY )
@@ -484,7 +484,7 @@ HB_FUNC( HWG_CREATEUPDOWNCONTROL )
    }
    gtk_widget_set_size_request(hCtrl, hb_parni(4), hb_parni(5));
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_SETUPDOWN )
@@ -597,7 +597,7 @@ HB_FUNC( HWG_CREATEBROWSE )
    //gtk_widget_show_all(hbox);
    all_signal_connect(static_cast<gpointer>(area));
    g_object_set_data(reinterpret_cast<GObject*>(hbox), "draw", static_cast<gpointer>(area));
-   HB_RETHANDLE(hbox);
+   hb_retptr(hbox);
 }
 
 HB_FUNC( HWG_GETADJVALUE )
@@ -688,7 +688,7 @@ HB_FUNC( HWG_CREATETABCONTROL )
 
    g_signal_connect(hCtrl, "switch-page", G_CALLBACK(cb_signal_tab), nullptr);
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_ADDTAB )
@@ -705,7 +705,7 @@ HB_FUNC( HWG_ADDTAB )
 
    g_object_set_data(reinterpret_cast<GObject*>(nb), "fbox", static_cast<gpointer>(box));
 
-   HB_RETHANDLE(nb);
+   hb_retptr(nb);
 }
 
 HB_FUNC( HWG_DELETETAB )
@@ -749,7 +749,7 @@ HB_FUNC( HWG_CREATESEP )
    }
    gtk_widget_set_size_request(hCtrl, hb_parni(5), hb_parni(6));
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 /*
@@ -855,7 +855,7 @@ HB_FUNC( HWG_CREATEPANEL )
    set_event(static_cast<gpointer>(hCtrl), "motion_notify_event", 0, 0, 0);
    all_signal_connect(static_cast<gpointer>(hCtrl));
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_DESTROYPANEL )
@@ -896,7 +896,7 @@ HB_FUNC( HWG_CREATEOWNBTN )
    set_event(static_cast<gpointer>(hCtrl), "leave_notify_event", 0, 0, 0);
    all_signal_connect(static_cast<gpointer>(hCtrl));
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_ADDTOOLTIP )
@@ -979,7 +979,7 @@ HB_FUNC( HWG_LOADCURSOR )
    if( HB_ISCHAR(1) ) {
       // hb_retnl(static_cast<HB_LONG>(LoadCursor(GetModuleHandle(nullptr), hb_parc(1))));
    } else {
-      HB_RETHANDLE(gdk_cursor_new(static_cast<GdkCursorType>(hb_parni(1))));
+      hb_retptr(gdk_cursor_new(static_cast<GdkCursorType>(hb_parni(1))));
    }
 }
 
@@ -999,9 +999,9 @@ HB_FUNC( HWG_LOADCURSORFROMFILE )
       /* Returns handle to GdkCursor */
       cursor = gdk_cursor_new_from_pixbuf(display, pHandle, hb_parni(2), hb_parni(3));
       /* g_free(pHandle);   core dump with invalid pointer */
-      HB_RETHANDLE(cursor);
+      hb_retptr(cursor);
    } else {
-      HB_RETHANDLE(gdk_cursor_new(static_cast<GdkCursorType>(GDK_ARROW)));
+      hb_retptr(gdk_cursor_new(static_cast<GdkCursorType>(GDK_ARROW)));
    }
 }
 
@@ -1062,7 +1062,7 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
       gtk_fixed_put(box, hCtrl, hb_parni(3), hb_parni(4));
    }
    gtk_widget_set_size_request(hCtrl, hb_parni(5), hb_parni(6));
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_UPDATEPROGRESSBAR )
@@ -1113,7 +1113,7 @@ HB_FUNC( HWG_CREATESTATUSWINDOW )
    gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(h), FALSE, FALSE, 0);
    gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(w), FALSE, FALSE, 0);
 
-   HB_RETHANDLE(w);
+   hb_retptr(w);
 }
 
 HB_FUNC( HWG_WRITESTATUSWINDOW )
@@ -1146,7 +1146,7 @@ HB_FUNC( HWG_CREATETOOLBAR )
    GtkFixed * box = getFixedBox(handle);
    GtkWidget * vbox = gtk_widget_get_parent(reinterpret_cast<GtkWidget*>(box));
    gtk_box_pack_start(GTK_BOX(vbox), hCtrl, FALSE, FALSE, 0);
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_CREATETOOLBARBUTTON )
@@ -1179,7 +1179,7 @@ HB_FUNC( HWG_CREATETOOLBARBUTTON )
    gtk_widget_show(toolbutton1);
    gtk_container_add(GTK_CONTAINER(hCtrl), toolbutton1);
 
-   HB_RETHANDLE(toolbutton1);
+   hb_retptr(toolbutton1);
 #endif
 }
 
@@ -1220,7 +1220,7 @@ HB_FUNC( HWG_INITMONTHCALENDAR )
       gtk_fixed_put(box, hCtrl, hb_parni(3), hb_parni(4));
    }
    gtk_widget_set_size_request(hCtrl, hb_parni(5), hb_parni(6));
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_SETMONTHCALENDARDATE )
@@ -1275,7 +1275,7 @@ HB_FUNC( HWG_CREATEIMAGE )
       gtk_fixed_put(box, hCtrl, hb_parni(3), hb_parni(4));
    }
    gtk_widget_set_size_request(hCtrl, hb_parni(5), hb_parni(6));
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_MONTHCALENDAR_SETACTION )
@@ -1405,7 +1405,7 @@ HB_FUNC( HWG_CREATESPLITTER )
    set_event(static_cast<gpointer>(hCtrl), "motion_notify_event", 0, 0, 0);
 
    all_signal_connect(static_cast<gpointer>(hCtrl));
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_CSSLOAD )

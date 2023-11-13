@@ -10,7 +10,7 @@
 #define ST_ALIGN_HORIZ_RIGHT  2     // Icon/bitmap on the right, text on the left
 #define ST_ALIGN_OVERLAP      3     // Icon/bitmap on the same space as text
 
-#define HB_RETHANDLE( h )        hb_retptr( ( void * ) ( h ) )
+#define HB_RETHANDLE( h )        hb_retptr( ( void * ) ( h ) ) // deprecated
 #define HB_PARHANDLE( n )        hb_parptr( n ) // deprecated
 #define HB_STOREHANDLE( h, n )   hb_storptr( ( void * ) ( h ), n )
 #define HB_PUTHANDLE( i, h )     hb_itemPutPtr( i, ( void * ) ( h ) )

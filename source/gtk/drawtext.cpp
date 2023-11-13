@@ -236,7 +236,7 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
 HB_FUNC( HWG_WINDOWFROMDC )
 {
    auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
-   HB_RETHANDLE(static_cast<GtkWidget*>(hDC->widget));
+   hb_retptr(static_cast<GtkWidget*>(hDC->widget));
 }
 
 /* CreateFont(fontName, nWidth, hHeight [,fnWeight] [,fdwCharSet],
@@ -273,7 +273,7 @@ HB_FUNC( HWG_CREATEFONT )
    } else {
       h->attrs = nullptr;
    }
-   HB_RETHANDLE(h);
+   hb_retptr(h);
 }
 
 /*

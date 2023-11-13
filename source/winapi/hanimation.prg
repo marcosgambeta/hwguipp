@@ -181,7 +181,7 @@ HB_FUNC_STATIC( HWG_ANIMATE_CREATE )
 {
   HWND hwnd = Animate_Create(hwg_par_HWND(1), hwg_par_UINT(2), hwg_par_DWORD(3), GetModuleHandle(nullptr));
   MoveWindow(hwnd, hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7), TRUE);
-  HB_RETHANDLE(hwnd);
+  hb_retptr(hwnd);
 }
 
 /*

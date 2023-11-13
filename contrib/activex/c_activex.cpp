@@ -100,7 +100,7 @@ HB_FUNC( HWG_CREATEACTIVEX )
          // GetModuleHandle(0),
          0, 0, NULL );
 
-   HB_RETHANDLE( hWndCtrl );
+   hb_retptr( hWndCtrl );
 
 }
 
@@ -116,7 +116,7 @@ HB_FUNC( HWG_ATLAXGETDISP )
    pUnk->lpVtbl->Release( pUnk );
 
 #if defined( __XHARBOUR__ )
-   HB_RETHANDLE( pDisp );
+   hb_retptr( pDisp );
 #else
    hb_oleItemPut( hb_stackReturnItem(), pDisp );
 #endif

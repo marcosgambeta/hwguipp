@@ -74,8 +74,8 @@ HB_FUNC( HWG_FINDRESOURCE )
 
    if( IS_INTRESOURCE(iName) ) {
       hHRSRC = FindResource(static_cast<HMODULE>(hModule), MAKEINTRESOURCE(iName), MAKEINTRESOURCE(iType));
-      HB_RETHANDLE(hHRSRC);
+      hb_retptr(hHRSRC);
    } else {
-      HB_RETHANDLE(0);
+      hb_retptr(0);
    }
 }

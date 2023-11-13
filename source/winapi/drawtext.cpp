@@ -20,14 +20,14 @@ static PHB_ITEM pFontsItemLast, pFontsItem;
 HB_FUNC( HWG_DEFINEPAINTSTRU )
 {
    auto pps = static_cast<PAINTSTRUCT*>(hb_xgrab(sizeof(PAINTSTRUCT)));
-   HB_RETHANDLE(pps);
+   hb_retptr(pps);
 }
 
 HB_FUNC( HWG_BEGINPAINT )
 {
    auto pps = static_cast<PAINTSTRUCT*>(hb_parptr(2));
    auto hDC = BeginPaint(hwg_par_HWND(1), pps);
-   HB_RETHANDLE(hDC);
+   hb_retptr(hDC);
 }
 
 HB_FUNC( HWG_ENDPAINT )
@@ -352,7 +352,7 @@ HWG_WINDOWFROMDC(hDC) --> hWnd
 */
 HB_FUNC( HWG_WINDOWFROMDC )
 {
-   HB_RETHANDLE(WindowFromDC(hwg_par_HDC(1)));
+   hb_retptr(WindowFromDC(hwg_par_HDC(1)));
 }
 
 /*
@@ -384,7 +384,7 @@ HB_FUNC( HWG_CREATEFONT )
          HB_PARSTR(1, &hString, nullptr) // pointer to typeface name string
           );
    hb_strfree(hString);
-   HB_RETHANDLE(hFont);
+   hb_retptr(hFont);
 }
 
 /*
@@ -397,7 +397,7 @@ HB_FUNC( HWG_SETCTRLFONT )
 
 HB_FUNC( HWG_CREATERECTRGN )
 {
-   HB_RETHANDLE(CreateRectRgn(hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4)));
+   hb_retptr(CreateRectRgn(hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4)));
 }
 
 /*
@@ -412,7 +412,7 @@ HB_FUNC( HWG_CREATERECTRGNINDIRECT )
    rc.right = hb_parni(4);
    rc.bottom = hb_parni(5);
 
-   HB_RETHANDLE(CreateRectRgnIndirect(&rc));
+   hb_retptr(CreateRectRgnIndirect(&rc));
 }
 
 HB_FUNC( HWG_EXTSELECTCLIPRGN )
@@ -434,7 +434,7 @@ HB_FUNC( HWG_CREATEFONTINDIRECT )
    HB_ITEMCOPYSTR(hb_param(1, Harbour::Item::ANY), lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
    lf.lfFaceName[HB_SIZEOFARRAY(lf.lfFaceName) - 1] = '\0';
 
-   HB_RETHANDLE(CreateFontIndirect(&lf));
+   hb_retptr(CreateFontIndirect(&lf));
 }
 
 #if __HARBOUR__ - 0 > 0x030000

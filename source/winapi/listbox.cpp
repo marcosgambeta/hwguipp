@@ -44,7 +44,7 @@ HB_FUNC( HWG_CREATELISTBOX )
          GetModuleHandle(nullptr),
          nullptr);
 
-   HB_RETHANDLE(hListbox);
+   hb_retptr(hListbox);
 }
 
 HB_FUNC( HWG_LISTBOXDELETESTRING )

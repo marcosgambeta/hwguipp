@@ -57,7 +57,7 @@ HB_FUNC( HWG_LISTVIEW_CREATE )
          hwg_par_int(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6),
          hwnd, reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);
 
-   HB_RETHANDLE(handle);
+   hb_retptr(handle);
 }
 
 HB_FUNC( HWG_LISTVIEW_INIT )

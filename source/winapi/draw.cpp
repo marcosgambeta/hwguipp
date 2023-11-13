@@ -308,10 +308,10 @@ HB_FUNC( HWG_DRAWEDGE )
 HB_FUNC( HWG_LOADICON )
 {
    if( HB_ISNUM(1) ) {
-      HB_RETHANDLE(LoadIcon(nullptr, MAKEINTRESOURCE(hb_parni(1))));
+      hb_retptr(LoadIcon(nullptr, MAKEINTRESOURCE(hb_parni(1))));
    } else {
       void * hString;
-      HB_RETHANDLE(LoadIcon(GetModuleHandle(nullptr), HB_PARSTR(1, &hString, nullptr)));
+      hb_retptr(LoadIcon(GetModuleHandle(nullptr), HB_PARSTR(1, &hString, nullptr)));
       hb_strfree(hString);
    }
 }
@@ -320,7 +320,7 @@ HB_FUNC( HWG_LOADIMAGE )
 {
    void * hString = nullptr;
 
-   HB_RETHANDLE(LoadImage(HB_ISNIL(1) ? GetModuleHandle(nullptr) : reinterpret_cast<HINSTANCE>(hb_parnl(1)),      // handle of the instance that contains the image
+   hb_retptr(LoadImage(HB_ISNIL(1) ? GetModuleHandle(nullptr) : reinterpret_cast<HINSTANCE>(hb_parnl(1)),      // handle of the instance that contains the image
                HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : HB_PARSTR(2, &hString, nullptr),       // name or identifier of image
                hwg_par_UINT(3),  // type of image
                hb_parni(4),   // desired width
@@ -334,13 +334,13 @@ HB_FUNC( HWG_LOADBITMAP )
 {
    if( HB_ISNUM(1) ) {
       if( !HB_ISNIL(2) && hb_parl(2) ) {
-         HB_RETHANDLE(LoadBitmap(nullptr, MAKEINTRESOURCE(hb_parni(1))));
+         hb_retptr(LoadBitmap(nullptr, MAKEINTRESOURCE(hb_parni(1))));
       } else {
-         HB_RETHANDLE(LoadBitmap(GetModuleHandle(nullptr), MAKEINTRESOURCE(hb_parni(1))));
+         hb_retptr(LoadBitmap(GetModuleHandle(nullptr), MAKEINTRESOURCE(hb_parni(1))));
       }
    } else {
       void * hString;
-      HB_RETHANDLE(LoadBitmap(GetModuleHandle(nullptr), HB_PARSTR(1, &hString, nullptr)));
+      hb_retptr(LoadBitmap(GetModuleHandle(nullptr), HB_PARSTR(1, &hString, nullptr)));
       hb_strfree(hString);
    }
 }
@@ -382,7 +382,7 @@ HB_FUNC( HWG_WINDOW2BITMAP )
 
    DeleteDC(hDCmem);
    DeleteDC(hDC);
-   HB_RETHANDLE(hBitmap);
+   hb_retptr(hBitmap);
 }
 
 /*
@@ -604,7 +604,7 @@ HB_FUNC( HWG_OPENBITMAP )
    HANDLE hfbm = CreateFile(HB_PARSTR(1, &hString, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_READONLY, nullptr);
    hb_strfree(hString);
    if( (reinterpret_cast<long int>(hfbm)) <= 0 ) {
-      HB_RETHANDLE(nullptr);
+      hb_retptr(nullptr);
       return;
    }
    /* Retrieve the BITMAPFILEHEADER structure. */
@@ -679,7 +679,7 @@ HB_FUNC( HWG_OPENBITMAP )
    GlobalFree(hmem2);
    CloseHandle(hfbm);
 
-   HB_RETHANDLE(hbm);
+   hb_retptr(hbm);
 }
 
 /*
@@ -784,7 +784,7 @@ HB_FUNC( HWG_GETSYSCOLOR )
 
 HB_FUNC( HWG_GETSYSCOLORBRUSH )
 {
-   HB_RETHANDLE(GetSysColorBrush(hb_parni(1)));
+   hb_retptr(GetSysColorBrush(hb_parni(1)));
 }
 
 /*
@@ -792,7 +792,7 @@ HWG_CREATEPEN(nStyle, nWidth, nColor) --> hPen
 */
 HB_FUNC( HWG_CREATEPEN )
 {
-   HB_RETHANDLE(CreatePen(hb_parni(1), hb_parni(2), hwg_par_COLORREF(3)));
+   hb_retptr(CreatePen(hb_parni(1), hb_parni(2), hwg_par_COLORREF(3)));
 }
 
 /*
@@ -800,7 +800,7 @@ HWG_CREATESOLIDBRUSH(nColor) --> hBrush
 */
 HB_FUNC( HWG_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE(CreateSolidBrush(hwg_par_COLORREF(1)));
+   hb_retptr(CreateSolidBrush(hwg_par_COLORREF(1)));
 }
 
 /*
@@ -808,7 +808,7 @@ HWG_CREATEHATCHBRUSH(nPar1, nColor) --> nBrush
 */
 HB_FUNC( HWG_CREATEHATCHBRUSH )
 {
-   HB_RETHANDLE(CreateHatchBrush(hb_parni(1), hwg_par_COLORREF(2)));
+   hb_retptr(CreateHatchBrush(hb_parni(1), hwg_par_COLORREF(2)));
 }
 
 /*
@@ -816,7 +816,7 @@ HWG_SELECTOBJECT(hDC, hGdiObj) --> hObject
 */
 HB_FUNC( HWG_SELECTOBJECT )
 {
-   HB_RETHANDLE(SelectObject(hwg_par_HDC(1), hwg_par_HGDIOBJ(2)));
+   hb_retptr(SelectObject(hwg_par_HDC(1), hwg_par_HGDIOBJ(2)));
 }
 
 /*
@@ -832,7 +832,7 @@ HWG_GETDC(hWnd) --> hDC
 */
 HB_FUNC( HWG_GETDC )
 {
-   HB_RETHANDLE(GetDC(hwg_par_HWND(1)));
+   hb_retptr(GetDC(hwg_par_HWND(1)));
 }
 
 /*
@@ -840,7 +840,7 @@ HWG_RELEASEDC(hWnd, hDC) --> handle
 */
 HB_FUNC( HWG_RELEASEDC )
 {
-   HB_RETHANDLE(ReleaseDC(hwg_par_HWND(1), hwg_par_HDC(2)));
+   hb_retptr(reinterpret_cast<void*>(ReleaseDC(hwg_par_HWND(1), hwg_par_HDC(2))));
 }
 
 HB_FUNC( HWG_GETDRAWITEMINFO )
@@ -946,14 +946,14 @@ HB_FUNC( HWG_OPENIMAGE )
       iFileSize = hb_parclen(1);
       hG = GlobalAlloc(GPTR, iFileSize);
       if( !hG ) {
-         HB_RETHANDLE(0);
+         hb_retptr(0);
          return;
       }
       memcpy(static_cast<void*>(hG), static_cast<void*>(const_cast<char*>(cFileName)), iFileSize);
    } else {
       fp = fopen(cFileName, "rb");
       if( !fp ) {
-         HB_RETHANDLE(0);
+         hb_retptr(0);
          return;
       }
 
@@ -962,7 +962,7 @@ HB_FUNC( HWG_OPENIMAGE )
       hG = GlobalAlloc(GPTR, iFileSize);
       if( !hG ) {
          fclose(fp);
-         HB_RETHANDLE(0);
+         hb_retptr(0);
          return;
       }
       fseek(fp, 0, SEEK_SET);
@@ -974,7 +974,7 @@ HB_FUNC( HWG_OPENIMAGE )
 
    if( !pStream ) {
       GlobalFree(hG);
-      HB_RETHANDLE(0);
+      hb_retptr(0);
       return;
    }
 
@@ -989,7 +989,7 @@ HB_FUNC( HWG_OPENIMAGE )
    GlobalFree(hG);
 
    if( !pPic ) {
-      HB_RETHANDLE(0);
+      hb_retptr(0);
       return;
    }
 
@@ -1001,7 +1001,7 @@ HB_FUNC( HWG_OPENIMAGE )
       pPic->lpVtbl->get_Handle(pPic, static_cast<OLE_HANDLE*>(static_cast<void*>(&hBitmap)));
 #endif
 
-      HB_RETHANDLE(CopyImage(hBitmap, IMAGE_BITMAP, 0, 0, LR_COPYRETURNORG));
+      hb_retptr(CopyImage(hBitmap, IMAGE_BITMAP, 0, 0, LR_COPYRETURNORG));
    } else if( iType == IMAGE_ICON ) {
       HICON hIcon = 0;
 #if defined(__cplusplus)
@@ -1010,7 +1010,7 @@ HB_FUNC( HWG_OPENIMAGE )
       pPic->lpVtbl->get_Handle(pPic, static_cast<OLE_HANDLE*>(static_cast<void*>(&hIcon)));
 #endif
 
-      HB_RETHANDLE(CopyImage(hIcon, IMAGE_ICON, 0, 0, 0));
+      hb_retptr(CopyImage(hIcon, IMAGE_ICON, 0, 0, 0));
    } else {
       HCURSOR hCur = 0;
 #if defined(__cplusplus)
@@ -1019,7 +1019,7 @@ HB_FUNC( HWG_OPENIMAGE )
       pPic->lpVtbl->get_Handle(pPic, static_cast<OLE_HANDLE*>(static_cast<void*>(&hCur)));
 #endif
 
-      HB_RETHANDLE(CopyImage(hCur, IMAGE_CURSOR, 0, 0, 0));
+      hb_retptr(CopyImage(hCur, IMAGE_CURSOR, 0, 0, 0));
    }
 
 #if defined(__cplusplus)
@@ -1046,7 +1046,7 @@ HB_FUNC( HWG_RESTOREDC )
 
 HB_FUNC( HWG_CREATECOMPATIBLEDC )
 {
-   HB_RETHANDLE(CreateCompatibleDC(hwg_par_HDC(1)));
+   hb_retptr(CreateCompatibleDC(hwg_par_HDC(1)));
 }
 
 HB_FUNC( HWG_SETMAPMODE )
@@ -1099,7 +1099,7 @@ HB_FUNC( HWG_BITBLT )
 
 HB_FUNC( HWG_CREATECOMPATIBLEBITMAP )
 {
-   HB_RETHANDLE(CreateCompatibleBitmap(hwg_par_HDC(1), hb_parni(2), hb_parni(3)));
+   hb_retptr(CreateCompatibleBitmap(hwg_par_HDC(1), hb_parni(2), hb_parni(3)));
 }
 
 HB_FUNC( HWG_INFLATERECT )
@@ -1241,7 +1241,7 @@ HWG_GETWINDOWDC(hWnd) --> hDC
 */
 HB_FUNC( HWG_GETWINDOWDC )
 {
-   HB_RETHANDLE(GetWindowDC(hwg_par_HWND(1)));
+   hb_retptr(GetWindowDC(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWG_MODIFYSTYLE )

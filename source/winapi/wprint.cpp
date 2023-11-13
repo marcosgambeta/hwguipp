@@ -21,7 +21,7 @@ HWG_OPENPRINTER(cDevice) --> HDC
 HB_FUNC( HWG_OPENPRINTER )
 {
    void * hText;
-   HB_RETHANDLE(CreateDC(nullptr, HB_PARSTR(1, &hText, nullptr), nullptr, nullptr));
+   hb_retptr(CreateDC(nullptr, HB_PARSTR(1, &hText, nullptr), nullptr, nullptr));
    hb_strfree(hText);
 }
 
@@ -40,7 +40,7 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
    }
 
    hb_xfree(pinfo4);
-   HB_RETHANDLE(hDC);
+   hb_retptr(hDC);
 }
 
 /*
@@ -130,7 +130,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
       DocumentProperties(nullptr, hPrinter, const_cast<LPTSTR>(lpPrinterName), pdm, pdm, DM_OUT_BUFFER | DM_IN_BUFFER);
 
       // создадим контекст устройства принтера
-      HB_RETHANDLE(CreateDC(nullptr, lpPrinterName, nullptr, pdm));
+      hb_retptr(CreateDC(nullptr, lpPrinterName, nullptr, pdm));
       HB_STOREHANDLE(hPrinter, 2);
       GlobalFree(pdm);
    }
@@ -289,7 +289,7 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
 
    auto hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR(2, &hFileName, nullptr), &rc, nullptr);
    ReleaseDC(hWnd, hDCref);
-   HB_RETHANDLE(hDCmeta);
+   hb_retptr(hDCmeta);
    hb_strfree(hFileName);
 }
 
@@ -322,7 +322,7 @@ HB_FUNC( HWG_CREATEMETAFILE )
    RECT rc{0, 0, iWidthMM * 100, iHeightMM * 100};
 
    auto hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR(2, &hFileName, nullptr), &rc, nullptr);
-   HB_RETHANDLE(hDCmeta);
+   hb_retptr(hDCmeta);
    hb_strfree(hFileName);
 }
 
@@ -331,7 +331,7 @@ HWG_CLOSEENHMETAFILE(HDC) --> HANDLE
 */
 HB_FUNC( HWG_CLOSEENHMETAFILE )
 {
-   HB_RETHANDLE(CloseEnhMetaFile(hwg_par_HDC(1)));
+   hb_retptr(CloseEnhMetaFile(hwg_par_HDC(1)));
 }
 
 /*
@@ -339,7 +339,7 @@ HWG_DELETEENHMETAFILE(HENHMETAFILE) --> HANDLE
 */
 HB_FUNC( HWG_DELETEENHMETAFILE )
 {
-   HB_RETHANDLE(static_cast<LONG>(DeleteEnhMetaFile(static_cast<HENHMETAFILE>(hb_parptr(1)))));
+   hb_retptr(reinterpret_cast<void*>(static_cast<LONG>(DeleteEnhMetaFile(static_cast<HENHMETAFILE>(hb_parptr(1))))));
 }
 
 /*

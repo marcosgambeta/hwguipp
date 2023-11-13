@@ -132,7 +132,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
 
 HB_FUNC( HWG_GETSTOCKOBJECT )
 {
-   HB_RETHANDLE(GetStockObject(hb_parni(1)));
+   hb_retptr(GetStockObject(hb_parni(1)));
 }
 
 HB_FUNC( HWG_LOWORD )
@@ -409,7 +409,7 @@ HB_FUNC( HWG_GETDESKTOPHEIGHT )
 
 HB_FUNC( HWG_GETHELPDATA )
 {
-   HB_RETHANDLE(reinterpret_cast<LONG>(((static_cast<HELPINFO FAR*>(hb_parptr(1)))->hItemHandle)));
+   hb_retptr(reinterpret_cast<void*>(reinterpret_cast<LONG>(((static_cast<HELPINFO FAR*>(hb_parptr(1)))->hItemHandle))));
 }
 
 HB_FUNC( HWG_WINHELP )
@@ -446,7 +446,7 @@ HB_FUNC( HWG_WINHELP )
 
 HB_FUNC( HWG_GETNEXTDLGTABITEM )
 {
-   HB_RETHANDLE(GetNextDlgTabItem(hwg_par_HWND(1), hwg_par_HWND(2), hb_parl(3)));
+   hb_retptr(GetNextDlgTabItem(hwg_par_HWND(1), hwg_par_HWND(2), hb_parl(3)));
 }
 
 HB_FUNC( HWG_SLEEP )
@@ -711,7 +711,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    hb_objDataPutPtr(pObject, "_M_BRUSH", hBrush);
 
    SetTextColor(hdc, cColor);
-   HB_RETHANDLE(hBrush);
+   hb_retptr(hBrush);
 }
 
 HB_FUNC( HWG_GETKEYBOARDCOUNT )
@@ -723,7 +723,7 @@ HB_FUNC( HWG_GETKEYBOARDCOUNT )
 
 HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
 {
-   HB_RETHANDLE(GetNextDlgGroupItem(hwg_par_HWND(1), hwg_par_HWND(2), hb_parl(3)));
+   hb_retptr(GetNextDlgGroupItem(hwg_par_HWND(1), hwg_par_HWND(2), hb_parl(3)));
 }
 
 HB_FUNC( HWG_PTRTOULONG )

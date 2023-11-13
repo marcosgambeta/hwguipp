@@ -913,7 +913,7 @@ HB_FUNC( GTHWG_CREATEPANEL )
 {
 
    hWndMain = hb_parptr(1);
-   HB_RETHANDLE( gthwg_CreatePane( hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5) ) );
+   hb_retptr( gthwg_CreatePane( hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5) ) );
 }
 
 HB_FUNC( GTHWG_SETWINDOW )

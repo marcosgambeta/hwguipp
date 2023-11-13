@@ -140,7 +140,7 @@ LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 HB_FUNC( HWG_CREATEROUNDRECTRGN )
 {
    HRGN Res = CreateRoundRectRgn(hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6));
-   HB_RETHANDLE(Res);
+   hb_retptr(Res);
 }
 
 HB_FUNC( HWG_SETWINDOWRGN ) // TODO: reinterpret_cast<HRGN>(hb_parnl(2)) ?
@@ -191,7 +191,7 @@ HB_FUNC( HWG_CREATENICEBTN )
          GetModuleHandle(nullptr), nullptr);
    hb_strfree(hTitle);
 
-   HB_RETHANDLE(hWndPanel);
+   hb_retptr(hWndPanel);
 }
 
 HB_FUNC( HWG_ISMOUSEOVER )

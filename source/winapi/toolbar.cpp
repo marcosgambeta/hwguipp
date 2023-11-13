@@ -77,7 +77,7 @@ HB_FUNC( HWG_CREATETOOLBAR )
          GetModuleHandle(nullptr),
          nullptr);
 
-   HB_RETHANDLE(hWndCtrl);
+   hb_retptr(hWndCtrl);
 }
 
 /*

@@ -627,7 +627,7 @@ HB_FUNC( HWG_SHADE_NEW )
    RECT rect;
    SetRect(&rect, hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4));
    PCXSHADE pshade = cxshade_New(&rect, HB_ISNIL(5) ? 0 : hb_parl(5));
-   HB_RETHANDLE(pshade);
+   hb_retptr(pshade);
 }
 
 /*

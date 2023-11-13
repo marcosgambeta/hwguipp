@@ -62,7 +62,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
    }
    hb_strfree(hText);
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 /*
@@ -458,7 +458,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
 
    SendMessage(hWnd, EM_STREAMOUT, static_cast<WPARAM>(SF_RTF), reinterpret_cast<LPARAM>(&es));
    CloseHandle(hFile);
-   HB_RETHANDLE(hFile);
+   hb_retptr(hFile);
 
 }
 
@@ -482,5 +482,5 @@ HB_FUNC( HWG_LOADRICHEDIT )
    es.pfnCallback = EditStreamCallback;
    SendMessage(hWnd, EM_STREAMIN, static_cast<WPARAM>(SF_RTF), reinterpret_cast<LPARAM>(&es));
    CloseHandle(hFile);
-   HB_RETHANDLE(hFile);
+   hb_retptr(hFile);
 }

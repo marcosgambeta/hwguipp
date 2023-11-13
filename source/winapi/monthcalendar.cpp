@@ -35,7 +35,7 @@ HB_FUNC( HWG_INITMONTHCALENDAR ) // moved to hmonthcalendar.prg as static functi
    //Setwindowpos(hMC, nullptr, hb_parni(4), hb_parni(5), rc.right, rc.bottom, SWP_NOZORDER);
    SetWindowPos(hMC, nullptr, hb_parni(4), hb_parni(5), hb_parni(6),hb_parni(7), SWP_NOZORDER);
 
-   HB_RETHANDLE(hMC);
+   hb_retptr(hMC);
 }
 #endif
 

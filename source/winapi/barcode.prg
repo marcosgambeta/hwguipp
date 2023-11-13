@@ -925,7 +925,7 @@ RICH_CREATEPEN(nStyle, nWidth, nColor) --> hPen
 */
 HB_FUNC_STATIC( RICH_CREATEPEN )
 {
-   HB_RETHANDLE(CreatePen(hwg_par_int(1), hwg_par_int(2), hwg_par_COLORREF(3)));
+   hb_retptr(CreatePen(hwg_par_int(1), hwg_par_int(2), hwg_par_COLORREF(3)));
 }
 
 /*
@@ -933,7 +933,7 @@ RICH_SELECTOBJECT(hDC, hGdiObj) --> hGdiObj
 */
 HB_FUNC_STATIC( RICH_SELECTOBJECT )
 {
-   HB_RETHANDLE(SelectObject(hwg_par_HDC(1), hwg_par_HGDIOBJ(2)));
+   hb_retptr(SelectObject(hwg_par_HDC(1), hwg_par_HGDIOBJ(2)));
 }
 
 /*
@@ -941,7 +941,7 @@ RICH_CREATESOLIDBRUSH(nColor) --> hBrush
 */
 HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE(CreateSolidBrush(hwg_par_COLORREF(1)));
+   hb_retptr(CreateSolidBrush(hwg_par_COLORREF(1)));
 }
 
 #pragma ENDDUMP

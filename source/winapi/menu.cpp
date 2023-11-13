@@ -23,7 +23,7 @@ HWG__CREATEMENU() --> hMenu
 HB_FUNC( HWG__CREATEMENU )
 {
    HMENU hMenu = CreateMenu();
-   HB_RETHANDLE(hMenu);
+   hb_retptr(hMenu);
 }
 
 /*
@@ -32,7 +32,7 @@ HWG__CREATEPOPUPMENU() --> hMenu
 HB_FUNC( HWG__CREATEPOPUPMENU )
 {
    HMENU hMenu = CreatePopupMenu();
-   HB_RETHANDLE(hMenu);
+   hb_retptr(hMenu);
 }
 
 /*
@@ -76,7 +76,7 @@ HB_FUNC( HWG__ADDMENUITEM )
 
       uFlags |= MF_POPUP;
       InsertMenu(hwg_par_HMENU(1), hwg_par_UINT(3), uFlags, reinterpret_cast<UINT_PTR>(hSubMenu), lpNewItem);
-      HB_RETHANDLE(hSubMenu);
+      hb_retptr(hSubMenu);
 
       // Code to set the ID of submenus, the API seems to assume that you wouldn't really want to,
       // but if you are used to getting help via IDs for popups in 16bit, then this will help you.
@@ -132,9 +132,9 @@ HB_FUNC( HWG__CREATESUBMENU )
    mii.hSubMenu = hSubMenu;
 
    if( SetMenuItemInfo(hwg_par_HMENU(1), hwg_par_UINT(2), FALSE, &mii) ) {
-      HB_RETHANDLE(hSubMenu);
+      hb_retptr(hSubMenu);
    } else {
-      HB_RETHANDLE(nullptr);
+      hb_retptr(nullptr);
    }
 }
 
@@ -152,7 +152,7 @@ HWG_GETMENUHANDLE(hWnd) --> lHandle
 HB_FUNC( HWG_GETMENUHANDLE )
 {
    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? hwg_par_HWND(1) : aWindows[0];
-   HB_RETHANDLE(GetMenu(handle));
+   hb_retptr(GetMenu(handle));
 }
 
 // hwg_CheckMenuItem(xMenu, idItem, lCheck)
@@ -310,7 +310,7 @@ HB_FUNC( HWG_CREATEACCELERATORTABLE )
    }
    HACCEL h = CreateAcceleratorTable(lpaccl, static_cast<int>(ulEntries));
    hb_xfree(lpaccl);
-   HB_RETHANDLE(h);
+   hb_retptr(h);
 }
 
 /*

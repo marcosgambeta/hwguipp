@@ -61,7 +61,7 @@ HB_FUNC( HWG_CREATEEDIT )
       hb_strfree(hStr);
    }
 
-   HB_RETHANDLE(hWndEdit);
+   hb_retptr(hWndEdit);
 }
 
 HB_FUNC( HWG_INITEDITPROC )

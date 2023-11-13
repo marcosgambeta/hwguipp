@@ -212,7 +212,7 @@ HB_FUNC_STATIC( HWG_INITMONTHCALENDAR )
    //Setwindowpos(hMC, nullptr, hb_parni(4), hb_parni(5), rc.right, rc.bottom, SWP_NOZORDER);
    SetWindowPos(hMC, nullptr, hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7), SWP_NOZORDER);
 
-   HB_RETHANDLE(hMC);
+   hb_retptr(hMC);
 }
 
 HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file Control.c

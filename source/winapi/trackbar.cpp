@@ -34,7 +34,7 @@ HB_FUNC( HWG_INITTRACKBAR )
                                  GetModuleHandle(nullptr),
                                  nullptr);
 
-   HB_RETHANDLE(hTrackBar);
+   hb_retptr(hTrackBar);
 }
 
 HB_FUNC( HWG_TRACKBARSETRANGE )

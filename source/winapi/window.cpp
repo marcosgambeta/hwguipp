@@ -131,7 +131,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
    hb_strfree(hTitle);
    hb_strfree(hMenu);
 
-   HB_RETHANDLE(hWnd);
+   hb_retptr(hWnd);
 }
 
 /*
@@ -312,7 +312,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       SetWindowObject(hWnd, pObject);
    }
 
-   HB_RETHANDLE(hWnd);
+   hb_retptr(hWnd);
 
    hb_strfree(hAppName);
    hb_strfree(hTitle);
@@ -404,7 +404,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
                SetWindowObject(hWnd, pObject);
 
                aWindows[0] = hWnd;
-               HB_RETHANDLE(hWnd);
+               hb_retptr(hWnd);
             }
          }
       }
@@ -439,7 +439,7 @@ HB_FUNC( HWG_INITCLIENTWINDOW )
                             static_cast<LPVOID>(&ccs));
 
    aWindows[1] = hWnd;
-   HB_RETHANDLE(hWnd);
+   hb_retptr(hWnd);
 }
 
 /*
@@ -507,7 +507,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
             reinterpret_cast<LPARAM>(&pObj)   // application-defined value
              );
    }
-   HB_RETHANDLE(hWnd);
+   hb_retptr(hWnd);
    hb_strfree(hTitle);
 }
 
@@ -535,11 +535,11 @@ HB_FUNC( HWG_SENDMESSPTR )
    void * hText;
    LPCTSTR lpText = HB_PARSTR(4, &hText, nullptr);
 
-   HB_RETHANDLE(SendMessage(hwg_par_HWND(1),  // handle of destination window
+   hb_retptr(reinterpret_cast<void*>(SendMessage(hwg_par_HWND(1),  // handle of destination window
                hwg_par_UINT(2),  // message to send
                HB_ISPOINTER(3) ? reinterpret_cast<WPARAM>(hb_parptr(3)) : static_cast<WPARAM>(hb_parnl(3)),
                lpText ? reinterpret_cast<LPARAM>(lpText) : (HB_ISPOINTER(4) ? reinterpret_cast<LPARAM>(hb_parptr(4)) : hwg_par_LPARAM(4))
-          ));
+          )));
    hb_strfree(hText);
 }
 
@@ -560,7 +560,7 @@ HWG_SETFOCUS(HWND) --> handle
 */
 HB_FUNC( HWG_SETFOCUS )
 {
-   HB_RETHANDLE(SetFocus(hwg_par_HWND(1)));
+   hb_retptr(SetFocus(hwg_par_HWND(1)));
 }
 
 /*
@@ -568,7 +568,7 @@ HWG_GETFOCUS() --> handle
 */
 HB_FUNC( HWG_GETFOCUS )
 {
-   HB_RETHANDLE(GetFocus());
+   hb_retptr(GetFocus());
 }
 
 /*
@@ -712,7 +712,7 @@ HWG_GETACTIVEWINDOW() --> handle
 */
 HB_FUNC( HWG_GETACTIVEWINDOW )
 {
-   HB_RETHANDLE(GetActiveWindow());
+   hb_retptr(GetActiveWindow());
 }
 
 /*
@@ -762,7 +762,7 @@ HB_FUNC( HWG_FINDWINDOW )
 {
    void * hClassName;
    void * hWindowName;
-   HB_RETHANDLE(FindWindow(HB_PARSTR(1, &hClassName, nullptr), HB_PARSTR(2, &hWindowName, nullptr)));
+   hb_retptr(FindWindow(HB_PARSTR(1, &hClassName, nullptr), HB_PARSTR(2, &hWindowName, nullptr)));
    hb_strfree(hClassName);
    hb_strfree(hWindowName);
 }
@@ -991,7 +991,7 @@ HB_FUNC( HWG_CHILDWINDOWFROMPOINT )
    POINT pt;
    pt.x = hb_parnl(2);
    pt.y = hb_parnl(3);
-   HB_RETHANDLE(ChildWindowFromPoint(hwg_par_HWND(1), pt));
+   hb_retptr(ChildWindowFromPoint(hwg_par_HWND(1), pt));
 }
 
 /*
@@ -1003,7 +1003,7 @@ HB_FUNC( HWG_WINDOWFROMPOINT )
    pt.x = hb_parnl(2);
    pt.y = hb_parnl(3);
    ClientToScreen(hwg_par_HWND(1), &pt);
-   HB_RETHANDLE(WindowFromPoint(pt));
+   hb_retptr(WindowFromPoint(pt));
 }
 
 /*
@@ -1021,7 +1021,7 @@ HWG_MAKELPARAM(np1, np2) --> handle
 HB_FUNC( HWG_MAKELPARAM )
 {
    LPARAM p = MAKELPARAM((static_cast<WORD>(hb_parnl(1))), (static_cast<WORD>(hb_parnl(2))));
-   HB_RETHANDLE(p);
+   hb_retptr(reinterpret_cast<void*>(p));
 }
 
 /*
@@ -1252,7 +1252,7 @@ HWG_GETBACKBRUSH(HWND) --> handle
 */
 HB_FUNC( HWG_GETBACKBRUSH )
 {
-   HB_RETHANDLE(GetCurrentObject(GetDC(hwg_par_HWND(1)), OBJ_BRUSH));
+   hb_retptr(GetCurrentObject(GetDC(hwg_par_HWND(1)), OBJ_BRUSH));
 }
 
 /*

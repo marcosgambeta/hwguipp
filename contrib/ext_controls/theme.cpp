@@ -1999,7 +1999,7 @@ HB_FUNC( HWG_GETTHEMESYSCOLOR )
    HWND hTheme = ( HWND ) hb_parptr(1);
    int iColor = ( int ) hb_parnl(2);
 
-   HB_RETHANDLE( hb_GetThemeSysColor( hTheme, iColor ) );
+   hb_retptr(reinterpret_cast<void*>(hb_GetThemeSysColor(hTheme, iColor)));
 }
 
 
@@ -2041,8 +2041,8 @@ HB_FUNC( HWG_GETWINDOWTHEME )
      //Windows XP detected
       HTHEME hTheme; // = (HTHEME) hb_parptr(1) ;
       hTheme = hb_GetWindowTheme( (HWND) hb_parptr(1) );
-      HB_RETHANDLE ( hTheme );
+      hb_retptr( hTheme );
    }
    else
-      HB_RETHANDLE (0);
+      hb_retptr(0);
 }

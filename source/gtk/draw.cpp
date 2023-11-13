@@ -348,7 +348,7 @@ HB_FUNC( HWG_WINDOW2BITMAP )
       hpix->type = HWGUI_OBJECT_PIXBUF;
       hpix->handle = pixbuf;
       hpix->trcolor = -1;
-      HB_RETHANDLE(hpix);
+      hb_retptr(hpix);
    }
 }
 
@@ -489,7 +489,7 @@ HB_FUNC( HWG_OPENBITMAP )
       hpix->type = HWGUI_OBJECT_PIXBUF;
       hpix->handle = handle;
       hpix->trcolor = -1;
-      HB_RETHANDLE(hpix);
+      hb_retptr(hpix);
    }
 }
 
@@ -530,7 +530,7 @@ HB_FUNC( HWG_OPENIMAGE )
       hpix->type = HWGUI_OBJECT_PIXBUF;
       hpix->handle = handle;
       hpix->trcolor = -1;
-      HB_RETHANDLE(hpix);
+      hb_retptr(hpix);
    }
 }
 
@@ -557,7 +557,7 @@ HB_FUNC( HWG_CREATEPEN )
    hpen->style = hb_parni(1);
    hpen->width = hb_parnd(2);
    hpen->color = hb_parnl(3);
-   HB_RETHANDLE(hpen);
+   hb_retptr(hpen);
 }
 
 HB_FUNC( HWG_CREATESOLIDBRUSH )
@@ -565,7 +565,7 @@ HB_FUNC( HWG_CREATESOLIDBRUSH )
    auto hbrush = static_cast<PHWGUI_BRUSH>(hb_xgrab(sizeof(HWGUI_BRUSH)));
    hbrush->type = HWGUI_OBJECT_BRUSH;
    hbrush->color = hb_parnl(1);
-   HB_RETHANDLE(hbrush);
+   hb_retptr(hbrush);
 }
 
 HB_FUNC( HWG_SELECTOBJECT )
@@ -594,7 +594,7 @@ HB_FUNC( HWG_SELECTOBJECT )
          }
       }
    }
-   HB_RETHANDLE(nullptr);
+   hb_retptr(nullptr);
 }
 
 HB_FUNC( HWG_DELETEOBJECT )
@@ -619,7 +619,7 @@ HB_FUNC( HWG_DEFINEPAINTSTRU )
 {
    auto pps = static_cast<PHWGUI_PPS>(hb_xgrab(sizeof(HWGUI_PPS)));
    pps->hDC = nullptr;
-   HB_RETHANDLE(pps);
+   hb_retptr(pps);
 }
 
 HB_FUNC( HWG_BEGINPAINT )
@@ -639,7 +639,7 @@ HB_FUNC( HWG_BEGINPAINT )
 
    pps->hDC = hDC;
 
-   HB_RETHANDLE(hDC);
+   hb_retptr(hDC);
 }
 
 HB_FUNC( HWG_ENDPAINT )
@@ -668,7 +668,7 @@ HB_FUNC( HWG_GETDC )
    hDC->layout = pango_cairo_create_layout(hDC->cr);
    hDC->fcolor = hDC->bcolor = -1;
 
-   HB_RETHANDLE(hDC);
+   hb_retptr(hDC);
 }
 
 HB_FUNC( HWG_RELEASEDC )
@@ -701,7 +701,7 @@ HB_FUNC( HWG_CREATECOMPATIBLEDC )
    hDCdest->layout = pango_cairo_create_layout(hDCdest->cr);
    hDCdest->fcolor = hDCdest->bcolor = -1;
 
-   HB_RETHANDLE(hDCdest);
+   hb_retptr(hDCdest);
 }
 
 HB_FUNC( HWG_BITBLT )

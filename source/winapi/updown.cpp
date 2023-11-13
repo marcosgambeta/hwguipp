@@ -30,7 +30,7 @@ HWG_CREATEUPDOWNCONTROL(hParent, nID, nStyle, nX, nY, nWidth, nHeight, hBuddy, n
 */
 HB_FUNC( HWG_CREATEUPDOWNCONTROL ) // TODO: CreateUpDownControl is obsolet
 {
-   HB_RETHANDLE(CreateUpDownControl(WS_CHILD | WS_BORDER | WS_VISIBLE | hb_parni(3),
+   hb_retptr(CreateUpDownControl(WS_CHILD | WS_BORDER | WS_VISIBLE | hb_parni(3),
                                     hb_parni(4),
                                     hb_parni(5),
                                     hb_parni(6),

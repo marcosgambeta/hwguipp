@@ -65,7 +65,7 @@ HB_FUNC( HWG_CREATEDIALOG )
    hb_strfree(hResource);
 
    ShowWindow(hDlg, SW_SHOW);
-   HB_RETHANDLE(hDlg);
+   hb_retptr(hDlg);
 }
 
 /*
@@ -81,7 +81,7 @@ HWG_GETDLGITEM(hWnd, nID) --> hWnd
 */
 HB_FUNC( HWG_GETDLGITEM )
 {
-   HB_RETHANDLE(GetDlgItem(hwg_par_HWND(1), hwg_par_int(2)));
+   hb_retptr(GetDlgItem(hwg_par_HWND(1), hwg_par_int(2)));
 }
 
 /*
@@ -363,7 +363,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
    }
 
    h = CreatePropertySheetPage(&psp);
-   HB_RETHANDLE(h);
+   hb_retptr(h);
    //if( pdlgtemplate ) {
    //   s_ReleaseDlgTemplate(pdlgtemplate);
    //}
@@ -413,7 +413,7 @@ HB_FUNC( HWG__PROPERTYSHEET )
 #endif
    psh.pfnCallback = nullptr;
 
-   HB_RETHANDLE(PropertySheet(&psh));
+   hb_retptr(reinterpret_cast<void*>(PropertySheet(&psh)));
    hb_strfree(hCaption);
 }
 
@@ -647,7 +647,7 @@ static LRESULT CALLBACK s_PSPProcRelease(HWND hwnd, UINT uMsg, LPPROPSHEETPAGE p
 
 HB_FUNC( HWG_GETNOTIFYCODEFROM )
 {
-   HB_RETHANDLE(((static_cast<NMHDR*>(hb_parptr(1)))->hwndFrom));
+   hb_retptr(((static_cast<NMHDR*>(hb_parptr(1)))->hwndFrom));
 }
 
 HB_FUNC( HWG_GETNOTIFYIDFROM )

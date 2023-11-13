@@ -45,7 +45,7 @@ HB_FUNC( HWG_CREATEBUTTON )
                               GetModuleHandle(nullptr),
                               nullptr);
    hb_strfree(hStr);
-   HB_RETHANDLE(hBtn);
+   hb_retptr(hBtn);
 }
 
 HB_FUNC( HWG_INITBUTTONPROC )

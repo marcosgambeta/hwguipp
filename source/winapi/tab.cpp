@@ -42,7 +42,7 @@ HB_FUNC( HWG_CREATETABCONTROL )
                             GetModuleHandle(nullptr),
                             nullptr
                             );
-   HB_RETHANDLE(hTab);
+   hb_retptr(hTab);
 }
 
 HB_FUNC( HWG_INITTABCONTROL )

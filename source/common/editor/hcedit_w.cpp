@@ -438,17 +438,17 @@ HWND ted_create(HWND hwndParent, int id, DWORD dwStyle, int x, int y, int iWidth
 
 HB_FUNC( HCED_INITTEXTEDIT )
 {
-   HB_RETHANDLE( ted_init() );
+   hb_retptr( ted_init() );
 }
 
 HB_FUNC( HCED_CREATETEXTEDIT )
 {
-   HB_RETHANDLE(ted_create(( HWND ) hb_parptr(1), hb_parni(2), ( DWORD ) hb_parnl(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)));
+   hb_retptr(ted_create(( HWND ) hb_parptr(1), hb_parni(2), ( DWORD ) hb_parnl(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)));
 }
 
 HB_FUNC( HCED_SETHANDLE )
 {
-   // HB_RETHANDLE( ( void * ) ( ( TEDIT * ) hb_parptr(1) )->handle );
+   // hb_retptr( ( void * ) ( ( TEDIT * ) hb_parptr(1) )->handle );
    ( ( TEDIT * ) hb_parptr(1) )->handle = ( HWND ) hb_parptr(2);
 }
 

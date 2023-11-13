@@ -52,7 +52,7 @@ HB_FUNC( HWG_CREATESTATIC )
       }
     */
 
-   HB_RETHANDLE(hWndCtrl);
+   hb_retptr(hWndCtrl);
 }
 
 HB_FUNC( HWG_INITSTATICPROC )

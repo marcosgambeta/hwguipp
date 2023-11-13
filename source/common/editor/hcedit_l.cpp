@@ -567,12 +567,12 @@ HB_FUNC( HCED_CREATETEXTEDIT )
    pted->pattrf = static_cast<int*>(hb_xgrab(sizeof(int) * TEDATTRF_MAX));
    ted_ClearAttr(pted);
 
-   HB_RETHANDLE(pted);
+   hb_retptr(pted);
 }
 
 HB_FUNC( HCED_GETHANDLE )
 {
-   HB_RETHANDLE(( void * ) ( ( TEDIT * ) hb_parptr(1) )->widget);
+   hb_retptr(( void * ) ( ( TEDIT * ) hb_parptr(1) )->widget);
 }
 
 HB_FUNC( HCED_SETHANDLE )

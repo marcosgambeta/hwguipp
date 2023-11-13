@@ -93,7 +93,7 @@ HB_FUNC( HWG_CREATEOWNBTN )
          hwg_par_HWND(1),
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
          GetModuleHandle(nullptr), nullptr);
-   HB_RETHANDLE(hWndPanel);
+   hb_retptr(hWndPanel);
 }
 
 /*
@@ -109,7 +109,7 @@ HB_FUNC( HWG_CREATEBROWSE )
       hwg_par_HWND(1), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
       GetModuleHandle(nullptr), nullptr);
    hb_strfree(hStr);
-   HB_RETHANDLE(hWndBrw);
+   hb_retptr(hWndBrw);
 }
 
 /* CreateStatusWindow - creates a status window and divides it into
@@ -138,7 +138,7 @@ HB_FUNC( HWG_CREATESTATUSWINDOW )
          GetModuleHandle(nullptr),       // handle to application instance
          nullptr);                // no window creation data
 
-   HB_RETHANDLE(hwndStatus);
+   hb_retptr(hwndStatus);
 }
 
 HB_FUNC( HWG_INITSTATUS )
@@ -227,7 +227,7 @@ HB_FUNC( HWG_CREATEIMAGELIST )
       DeleteObject(hbmp);
    }
 
-   HB_RETHANDLE(himl);
+   hb_retptr(himl);
 }
 
 HB_FUNC( HWG_IMAGELIST_ADD )
@@ -247,12 +247,12 @@ HB_FUNC( HWG_DESTROYIMAGELIST )
 
 HB_FUNC( HWG_GETPARENT )
 {
-   HB_RETHANDLE(GetParent(hwg_par_HWND(1)));
+   hb_retptr(GetParent(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWG_GETANCESTOR )
 {
-   HB_RETHANDLE(GetAncestor(hwg_par_HWND(1), hb_parni(2)));
+   hb_retptr(GetAncestor(hwg_par_HWND(1), hb_parni(2)));
 }
 
 HB_FUNC( HWG_LOADCURSOR )
@@ -261,9 +261,9 @@ HB_FUNC( HWG_LOADCURSOR )
    LPCTSTR lpStr = HB_PARSTR(1, &hStr, nullptr);
 
    if( lpStr ) {
-      HB_RETHANDLE(LoadCursor(GetModuleHandle(nullptr), lpStr));
+      hb_retptr(LoadCursor(GetModuleHandle(nullptr), lpStr));
    } else {
-      HB_RETHANDLE(LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(1))));
+      hb_retptr(LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(1))));
    }
    hb_strfree(hStr);
 }
@@ -281,9 +281,9 @@ HB_FUNC( HWG_LOADCURSORFROMFILE )
    hCursor = LoadCursorFromFile(ccurFname);
    if( hCursor == nullptr ) {
       /* in case of error return default cursor "Arrow" */
-      HB_RETHANDLE(LoadCursor(nullptr, IDC_ARROW));
+      hb_retptr(LoadCursor(nullptr, IDC_ARROW));
    } else {
-      HB_RETHANDLE(hCursor);
+      hb_retptr(hCursor);
    }
 
    hb_strfree(hStr);
@@ -291,12 +291,12 @@ HB_FUNC( HWG_LOADCURSORFROMFILE )
 
 HB_FUNC( HWG_SETCURSOR )
 {
-   HB_RETHANDLE(SetCursor(static_cast<HCURSOR>(hb_parptr(1))));
+   hb_retptr(SetCursor(static_cast<HCURSOR>(hb_parptr(1))));
 }
 
 HB_FUNC( HWG_GETCURSOR )
 {
-   HB_RETHANDLE(GetCursor());
+   hb_retptr(GetCursor());
 }
 
 HB_FUNC( HWG_REGOWNBTN )
@@ -488,7 +488,7 @@ HB_FUNC( HWG_CREATEPAGER )
          hwg_par_HWND(1),    /* parent window    */
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle(nullptr), nullptr);
-   HB_RETHANDLE(hWndPanel);
+   hb_retptr(hWndPanel);
 }
 
 HB_FUNC( HWG_CREATEREBAR )
@@ -505,7 +505,7 @@ HB_FUNC( HWG_CREATEREBAR )
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
          GetModuleHandle(nullptr),
          nullptr);
-   HB_RETHANDLE(hWndCtrl);
+   hb_retptr(hWndCtrl);
 }
 
 HB_FUNC( HWG_REBARSETIMAGELIST )

@@ -41,7 +41,7 @@ HB_FUNC( HWG_CREATEDATEPICKER )
                                nullptr
                                );
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_SETDATEPICKER )

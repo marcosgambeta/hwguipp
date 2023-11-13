@@ -140,7 +140,7 @@ void listitem_selected(GtkWidget * widget, gpointer * data)
 //         GetModuleHandle( nullptr ),
 //         nullptr );
 
-   HB_RETHANDLE(hlistbox);
+   hb_retptr(hlistbox);
 }
 
 /*

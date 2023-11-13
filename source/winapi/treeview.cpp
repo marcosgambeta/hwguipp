@@ -42,7 +42,7 @@ HB_FUNC( HWG_CREATETREE )
       SendMessage(hCtrl, TVM_SETBKCOLOR, 0, hwg_par_LPARAM(9));
    }
 
-   HB_RETHANDLE(hCtrl);
+   hb_retptr(hCtrl);
 }
 
 HB_FUNC( HWG_TREEADDNODE )
@@ -83,7 +83,7 @@ HB_FUNC( HWG_TREEADDNODE )
       case 2: is.hInsertAfter = TVI_LAST;
    }
 
-   HB_RETHANDLE(SendMessage(hwg_par_HWND(2), TVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&is)));
+   hb_retptr(reinterpret_cast<void*>(SendMessage(hwg_par_HWND(2), TVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&is))));
 
    if( tvi.mask & TVIF_IMAGE ) {
       if( tvi.iImage ) {
@@ -193,7 +193,7 @@ HB_FUNC( HWG_TREEGETNOTIFY )
 
    switch( iType ) {
       case TREE_GETNOTIFY_HANDLE: {
-         HB_RETHANDLE(static_cast<HTREEITEM>((static_cast<NM_TREEVIEW*>(hb_parptr(1)))->itemNew.hItem));
+         hb_retptr(static_cast<HTREEITEM>((static_cast<NM_TREEVIEW*>(hb_parptr(1)))->itemNew.hItem));
          break;
       }
       case TREE_GETNOTIFY_ACTION: {

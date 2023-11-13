@@ -33,7 +33,7 @@ HB_FUNC( HWG_CREATEPANEL )
          hwg_par_HWND(1),
          reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
          GetModuleHandle(nullptr), nullptr);
-   HB_RETHANDLE(hWndPanel);
+   hb_retptr(hWndPanel);
    // SS_ETCHEDHORZ
 }
 

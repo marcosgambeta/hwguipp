@@ -40,7 +40,7 @@ HB_FUNC( HWG_CREATECOMBO )
                                 GetModuleHandle(nullptr),
                                 nullptr);
 
-   HB_RETHANDLE(hCombo);
+   hb_retptr(hCombo);
 }
 
 /*

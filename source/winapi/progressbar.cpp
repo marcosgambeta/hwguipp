@@ -65,7 +65,7 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
    SendMessage(hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, hb_parni(2)));
    SendMessage(hPBar, PBM_SETSTEP, static_cast<WPARAM>(1), 0);
 
-   HB_RETHANDLE(hPBar);
+   hb_retptr(hPBar);
 }
 
 /*

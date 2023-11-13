@@ -28,12 +28,12 @@ extern GtkFixed * getFixedBox(GObject * handle);
  */
 HB_FUNC( HWG__CREATEMENU )
 {
-   HB_RETHANDLE(gtk_menu_bar_new());
+   hb_retptr(gtk_menu_bar_new());
 }
 
 HB_FUNC( HWG__CREATEPOPUPMENU )
 {
-   HB_RETHANDLE(gtk_menu_new());
+   hb_retptr(gtk_menu_new());
 }
 
 /*
@@ -83,13 +83,13 @@ HB_FUNC( HWG__ADDMENUITEM )
    if( !HB_ISNIL(7) && hb_parl(7) ) {
       GtkWidget * hSubMenu = gtk_menu_new();
       gtk_menu_item_set_submenu(GTK_MENU_ITEM(hMenu), hSubMenu);
-      HB_RETHANDLE(hSubMenu);
+      hb_retptr(hSubMenu);
    } else {
       char buf[40] = {0};
       sprintf(buf, "0 %ld %ld", hb_parnl(5),reinterpret_cast<HB_LONG>(hb_parptr(4)));
       g_signal_connect(G_OBJECT(hMenu), "activate", G_CALLBACK(cb_signal), static_cast<gpointer>(g_strdup(buf)));
 
-      HB_RETHANDLE(hMenu);
+      hb_retptr(hMenu);
    }
    gtk_menu_shell_append(GTK_MENU_SHELL(hb_parptr(1)), hMenu);
 
@@ -160,7 +160,7 @@ HB_FUNC( HWG__CREATEACCELERATORTABLE )
 {
    GtkAccelGroup * accel_group = gtk_accel_group_new();
    gtk_window_add_accel_group(GTK_WINDOW(hb_parptr(1)), accel_group);
-   HB_RETHANDLE(accel_group);
+   hb_retptr(accel_group);
 }
 
 #define FSHIFT    4

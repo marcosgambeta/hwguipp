@@ -175,7 +175,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
    }
 
    hMainWindow = hWnd;
-   HB_RETHANDLE(hWnd);
+   hb_retptr(hWnd);
 }
 
 HB_FUNC( HWG_CREATEDLG )
@@ -254,7 +254,7 @@ HB_FUNC( HWG_CREATEDLG )
       gtk_widget_set_style(GTK_WIDGET(hWnd), GTK_STYLE(style));
    }
 
-   HB_RETHANDLE(hWnd);
+   hb_retptr(hWnd);
 }
 
 /*
@@ -650,7 +650,7 @@ GtkWidget * GetActiveWindow(void)
 
 HB_FUNC( HWG_GETACTIVEWINDOW )
 {
-   HB_RETHANDLE(GetActiveWindow());
+   hb_retptr(GetActiveWindow());
 }
 
 HB_FUNC( HWG_SETWINDOWOBJECT )
@@ -790,12 +790,12 @@ HB_FUNC( HWG_SETFOCUS )
       }
    }
 
-   HB_RETHANDLE(handle);
+   hb_retptr(handle);
 }
 
 HB_FUNC( HWG_GETFOCUS )
 {
-   HB_RETHANDLE(gtk_window_get_focus(gtk_window_list_toplevels()->data));
+   hb_retptr(gtk_window_get_focus(gtk_window_list_toplevels()->data));
 }
 
 HB_FUNC( HWG_DESTROYWINDOW )
