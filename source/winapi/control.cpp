@@ -222,7 +222,7 @@ HB_FUNC( HWG_CREATEIMAGELIST )
    himl = ImageList_Create(hb_parni(2), hb_parni(3), flags, ulLen, hb_parni(4));
 
    for( ULONG ul = 1; ul <= ulLen; ul++ ) {
-      hbmp = static_cast<HBITMAP>(HB_GETPTRHANDLE(pArray, ul));
+      hbmp = static_cast<HBITMAP>(hb_arrayGetPtr(pArray, ul));
       ImageList_Add(himl, hbmp, nullptr);
       DeleteObject(hbmp);
    }
