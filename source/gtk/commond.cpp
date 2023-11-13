@@ -33,7 +33,7 @@ void store_font(gpointer fontseldlg)
    h->hFont = hFont;
    h->attrs = nullptr;
 
-   temp = HB_PUTHANDLE(nullptr, h);
+   temp = hb_itemPutPtr(nullptr, h);
    hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 

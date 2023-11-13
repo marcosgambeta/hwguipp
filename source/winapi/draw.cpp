@@ -856,7 +856,7 @@ HB_FUNC( HWG_GETDRAWITEMINFO )
    hb_itemArrayPut(aMetr, 2, temp);
    hb_itemRelease(temp);
 
-   temp = HB_PUTHANDLE(nullptr, lpdis->hDC);
+   temp = hb_itemPutPtr(nullptr, lpdis->hDC);
    hb_itemArrayPut(aMetr, 3, temp);
    hb_itemRelease(temp);
 

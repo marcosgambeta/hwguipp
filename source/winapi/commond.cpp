@@ -71,7 +71,7 @@ HB_FUNC( HWG_SELECTFONT )
 
    hfont = CreateFontIndirect(cf.lpLogFont);
 
-   temp = HB_PUTHANDLE(nullptr, hfont);
+   temp = hb_itemPutPtr(nullptr, hfont);
    hb_itemArrayPut(aMetr, 1, temp);
 
    HB_ITEMPUTSTR(temp, lf.lfFaceName);

@@ -537,7 +537,7 @@ HB_FUNC( HWG_CREATEBROWSE )
       vscroll = gtk_vscrollbar_new(GTK_ADJUSTMENT(adjV));
       gtk_box_pack_end(GTK_BOX(hbox), vscroll, FALSE, FALSE, 0);
 
-      temp = HB_PUTHANDLE(nullptr, adjV);
+      temp = hb_itemPutPtr(nullptr, adjV);
       SetObjectVar(pObject, "_HSCROLLV", temp);
       hb_itemRelease(temp);
 
@@ -556,7 +556,7 @@ HB_FUNC( HWG_CREATEBROWSE )
       hscroll = gtk_hscrollbar_new(GTK_ADJUSTMENT(adjH));
       gtk_box_pack_end(GTK_BOX(vbox), hscroll, FALSE, FALSE, 0);
 
-      temp = HB_PUTHANDLE(nullptr, adjH);
+      temp = hb_itemPutPtr(nullptr, adjH);
       SetObjectVar(pObject, "_HSCROLLH", temp);
       hb_itemRelease(temp);
 
@@ -570,7 +570,7 @@ HB_FUNC( HWG_CREATEBROWSE )
    }
    gtk_widget_set_size_request(hbox, nWidth, nHeight);
 
-   temp = HB_PUTHANDLE(nullptr, area);
+   temp = hb_itemPutPtr(nullptr, area);
    SetObjectVar(pObject, "_AREA", temp);
    hb_itemRelease(temp);
 
@@ -791,7 +791,7 @@ HB_FUNC( HWG_CREATEPANEL )
       vscroll = gtk_vscrollbar_new(GTK_ADJUSTMENT(adjV));
       gtk_box_pack_end(GTK_BOX(hbox), vscroll, FALSE, FALSE, 0);
 
-      temp = HB_PUTHANDLE(nullptr, adjV);
+      temp = hb_itemPutPtr(nullptr, adjV);
       SetObjectVar(pObject, "_HSCROLLV", temp);
       hb_itemRelease(temp);
 
@@ -811,7 +811,7 @@ HB_FUNC( HWG_CREATEPANEL )
       hscroll = gtk_hscrollbar_new(GTK_ADJUSTMENT(adjH));
       gtk_box_pack_end(GTK_BOX(vbox), hscroll, FALSE, FALSE, 0);
 
-      temp = HB_PUTHANDLE(nullptr, adjH);
+      temp = hb_itemPutPtr(nullptr, adjH);
       SetObjectVar(pObject, "_HSCROLLH", temp);
       hb_itemRelease(temp);
 
@@ -834,7 +834,7 @@ HB_FUNC( HWG_CREATEPANEL )
 
    g_object_set_data(reinterpret_cast<GObject*>(hCtrl), "fbox", static_cast<gpointer>(fbox));
 
-   temp = HB_PUTHANDLE(nullptr, hbox);
+   temp = hb_itemPutPtr(nullptr, hbox);
    SetObjectVar(pObject, "_HBOX", temp);
    hb_itemRelease(temp);
 

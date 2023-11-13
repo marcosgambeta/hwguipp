@@ -248,7 +248,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
    for( ULONG ul = 1; ul <= ulControls; ul++ ) {
       pControl = hb_arrayGetItemPtr(pControls, ul);
 
-      temp = HB_PUTHANDLE(nullptr, -1);
+      temp = hb_itemPutPtr(nullptr, reinterpret_cast<void*>(-1));
       SETOBJECTVAR(pControl, "_HANDLE", temp);
       hb_itemRelease(temp);
 
