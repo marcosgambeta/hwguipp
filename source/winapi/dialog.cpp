@@ -485,8 +485,8 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPAR
       hb_vmPushLong(static_cast<LONG>(uMsg));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
@@ -546,8 +546,8 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       hb_vmPushLong(static_cast<LONG>(uMsg));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
@@ -613,8 +613,8 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       hb_vmPushLong(static_cast<LONG>(uMsg));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
          return (LRESULT) hb_parptr(-1);

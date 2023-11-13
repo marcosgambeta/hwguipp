@@ -121,7 +121,7 @@ LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
       hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
       hb_vmPushNil();         /* places NIL at self */
       //hb_vmPushLong(static_cast<LONG>(hWnd));   /* pushes parameters on to the hvm stack */
-      HB_PUSHITEM(hWnd);
+      hb_vmPushPointer(hWnd);
       hb_vmPushLong(static_cast<LONG>(message));
       hb_vmPushLong(static_cast<LONG>(wParam));
       hb_vmPushLong(static_cast<LONG>(lParam));

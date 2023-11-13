@@ -60,7 +60,7 @@ static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer, DWORD dw
       hb_vmPushDynSym(s_pSymTest);
       hb_vmPushNil();   /* places NIL at self */
       //hb_vmPushLong(static_cast<LONG>(hWnd));    /* pushes parameters on to the hvm stack */
-      HB_PUSHITEM(hWnd);
+      hb_vmPushPointer(hWnd);
       hb_vmPushLong(static_cast<LONG>(idTimer));
       //hb_vmPushLong(static_cast<LONG>(dwTime));
       hb_vmDo(2);             /* where iArgCount is the number of pushed parameters */

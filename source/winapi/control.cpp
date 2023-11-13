@@ -383,8 +383,8 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
       hb_vmPushLong(static_cast<LONG>(message));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
@@ -416,8 +416,8 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
       hb_vmPushLong(static_cast<LONG>(message));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
@@ -459,8 +459,8 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
       hb_vmPushLong(static_cast<LONG>(message));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));

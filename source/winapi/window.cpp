@@ -812,8 +812,8 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LP
       hb_vmPushLong(static_cast<LONG>(message));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
@@ -845,8 +845,8 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, L
       hb_vmPushLong(static_cast<LONG>(message));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
@@ -887,8 +887,8 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
       hb_vmPushLong(static_cast<LONG>(message));
 //      hb_vmPushLong(static_cast<LONG>(wParam));
 //      hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(wParam);
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));

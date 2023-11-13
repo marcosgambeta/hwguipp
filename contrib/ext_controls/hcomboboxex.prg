@@ -47,7 +47,7 @@ LRESULT APIENTRY ComboSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
       hb_vmPushLong(static_cast<LONG>(message));
       hb_vmPushLong(static_cast<LONG>(wParam));
       //hb_vmPushLong(static_cast<LONG>(lParam));
-      HB_PUSHITEM(lParam);
+      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
