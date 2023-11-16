@@ -30,10 +30,8 @@ static int (CALLBACK BrowseCallbackProc)(HWND hwnd, UINT uMsg, LPARAM lParam, LP
    // If the BFFM_INITIALIZED message is received
    // set the path to the start path.
    lParam = TRUE;
-   switch ( uMsg )
-   {
-      case BFFM_INITIALIZED:
-      {
+   switch( uMsg ) {
+      case BFFM_INITIALIZED: {
          if( lpData != reinterpret_cast<LPARAM>(nullptr) ) {
             SendMessage(hwnd, BFFM_SETSELECTION, lParam, lpData);
          }
