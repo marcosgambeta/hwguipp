@@ -418,8 +418,7 @@ HB_FUNC( HWG_WINHELP )
    UINT style;
    void * hStr;
 
-   switch ( hb_parni(3) )
-   {
+   switch( hb_parni(3) ) {
       case 0:
          style = HELP_FINDER;
          context = 0;
@@ -1101,8 +1100,7 @@ int hwg_hexbin(int cha)
     int o;
 
     gross = toupper(cha);
-    switch (gross)
-    {
+    switch( gross ) {
      case 48:  /* 0 */
      o = 0;
      break;
