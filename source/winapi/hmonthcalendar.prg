@@ -190,7 +190,7 @@ RETURN HBitmap():AddString("Datepick_Button", hwg_cHex2Bin(;
 #include <hbapiitm.hpp>
 #include <hbdate.hpp>
 
-HB_FUNC_STATIC( HWG_INITMONTHCALENDAR )
+HB_FUNC( HWG_INITMONTHCALENDAR )
 {
    RECT rc;
 
