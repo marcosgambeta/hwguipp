@@ -1,70 +1,70 @@
-*
-* hwlbledt.prg
-*
-* HWGUI - Harbour Win32 and Linux (GTK) GUI library
-*
-* Label editor for HWGUI
-*
-* Copyright 2022 Wilfried Brunken, DF7BE 
-* https://sourceforge.net/projects/cllog/
-*
-* License:
-* GNU General Public License
-* with special exceptions of HWGUI.
-* See file "license.txt" for details of
-* HWGUI project at
-*  https://sourceforge.net/projects/hwgui/
-*
-* This is the port of a label editor to HWGUI. 
-* The label editor is almost implememented in Clipper
-* in the utility RL.EXE, in S'87 as LABEL.EXE.
-* This work based on the label editor of project "CLLOG"
-* which is written for Harbour as a console application.
-*
-* Codepages stored in label:
-* Recent setting of codepage is IBM DE858.
-* (OK for most european countries with Euro currency sign)
-*
-* The following C structure presents the structure of a *.LBL-File
-* ( total size fixed 1034 bytes )
-* Die folgende C-Struktur gibt den Inhalt einer LBL-Datei wieder
-* (ingesamt 1034 Bytes fix)
-*
-* #define INFO_COUNT 16
-* #define INFO_SIZE 60
+//
+// hwlbledt.prg
+//
+// HWGUI - Harbour Win32 and Linux (GTK) GUI library
+//
+// Label editor for HWGUI
+//
+// Copyright 2022 Wilfried Brunken, DF7BE
+// https://sourceforge.net/projects/cllog/
+//
+// License:
+// GNU General Public License
+// with special exceptions of HWGUI.
+// See file "license.txt" for details of
+// HWGUI project at
+//  https://sourceforge.net/projects/hwgui/
+//
+// This is the port of a label editor to HWGUI.
+// The label editor is almost implememented in Clipper
+// in the utility RL.EXE, in S'87 as LABEL.EXE.
+// This work based on the label editor of project "CLLOG"
+// which is written for Harbour as a console application.
+//
+// Codepages stored in label:
+// Recent setting of codepage is IBM DE858.
+// (OK for most european countries with Euro currency sign)
+//
+// The following C structure presents the structure of a *.LBL-File
+// ( total size fixed 1034 bytes )
+// Die folgende C-Struktur gibt den Inhalt einer LBL-Datei wieder
+// (ingesamt 1034 Bytes fix)
+//
+// #define INFO_COUNT 16
+// #define INFO_SIZE 60
 
-* LBL file structure *
-* typedef struct
-* {
-*  char sign1;
-*  char remarks[60];
-*  short height;
-*  short width;
-*  short left_marg;
-*  short label_line;
-*  short label_space;      (spaces between labels, vert. Abstand)
-*  short label_across;
-*  char info[INFO_COUNT][INFO_SIZE]; (16 x 60 = 960 bytes)
-*  char sign2;
-* } LABEL_STRUC;
+// LBL file structure *
+// typedef struct
+// {
+//  char sign1;
+//  char remarks[60];
+//  short height;
+//  short width;
+//  short left_marg;
+//  short label_line;
+//  short label_space;      (spaces between labels, vert. Abstand)
+//  short label_across;
+//  char info[INFO_COUNT][INFO_SIZE]; (16 x 60 = 960 bytes)
+//  char sign2;
+// } LABEL_STRUC;
 
-* #define INFO_COUNT 16
-* #define INFO_SIZE 60
-*
-* Offset                            Hex   /  Dec
-* typedef struct
-* {
-*   char sign1;                   /* 0000  /  0     */
-*   char remarks[60];             /* 0001  /  1     */  /* Not NULL terminated */
-*   short height;                 /* 003D  /  61    */
-*   short width;                  /* 003F  /  63    */
-*   short left_marg;              /* 0041  /  65    */  (left margin, linker Rand) 
-*   short label_line;             /* 0043  /  67    */  (lines between labels,  horiz.Abstand)
-*   short label_space;            /* 0045  /  69    */  (Spaces between labels, vert. Abstand  0 .. 120 )
-*   short label_across;           /* 0047  /  71    */
-*   char info[INFO_COUNT][INFO_SIZE]; /* 16 x 60 = 960 bytes */ /* 0049 / 73  */
-*   char sign2;                   /* 0409  / 1033   */
-* } LABEL_STRUC;  /* Total 1034 bytes */
+// #define INFO_COUNT 16
+// #define INFO_SIZE 60
+//
+// Offset                            Hex   /  Dec
+// typedef struct
+// {
+//   char sign1;                   /* 0000  /  0     */
+//   char remarks[60];             /* 0001  /  1     */  /* Not NULL terminated */
+//   short height;                 /* 003D  /  61    */
+//   short width;                  /* 003F  /  63    */
+//   short left_marg;              /* 0041  /  65    */  (left margin, linker Rand)
+//   short label_line;             /* 0043  /  67    */  (lines between labels,  horiz.Abstand)
+//   short label_space;            /* 0045  /  69    */  (Spaces between labels, vert. Abstand  0 .. 120 )
+//   short label_across;           /* 0047  /  71    */
+//   char info[INFO_COUNT][INFO_SIZE]; /* 16 x 60 = 960 bytes */ /* 0049 / 73  */
+//   char sign2;                   /* 0409  / 1033   */
+// } LABEL_STRUC;  /* Total 1034 bytes */
 
 /*
  Offset for contents  (Hex / Dec )
@@ -86,176 +86,176 @@
  Line 16 : 03CD / 973
 */
 
-*
-* For better return of a value of a complete label by a function,
-* the complete label structure is stored in a 2 dimensional
-* array as "STATIC alabelmem".
-* The structure of this array is detailed in inline comments of
-* FUNCTION hwlabel__LBL_READ(). 
-*
-* This source can be used as a standalone program or
-* as a "library" to integrate the label editor in your own application.
-* For this case add switch
-* -dHWLBLEDIT into your compile script
-* and call the main dialog in your app by
-* HWLBLEDIT() .
+//
+// For better return of a value of a complete label by a function,
+// the complete label structure is stored in a 2 dimensional
+// array as "STATIC alabelmem".
+// The structure of this array is detailed in inline comments of
+// FUNCTION hwlabel__LBL_READ().
+//
+// This source can be used as a standalone program or
+// as a "library" to integrate the label editor in your own application.
+// For this case add switch
+// -dHWLBLEDIT into your compile script
+// and call the main dialog in your app by
+// HWLBLEDIT() .
 
-    * Status:
-    *  WinAPI   :  Yes
-    *  GTK/Linux:  Yes
-    *  GTK/Win  :  Yes 
+    // Status:
+    //  WinAPI   :  Yes
+    //  GTK/Linux:  Yes
+    //  GTK/Win  :  Yes
 
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*  Supported languages:
-*  - English
-*  - German
-* * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  Supported languages:
+//  - English
+//  - German
+// * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* =========================================================================================
-* Function list
-* ~~~~~~~~~~~~~
-*
-* ~~~~~~~~~~~~~~ MAIN section ~~~~~~~~~~~~~~~~~~~
-* For standalone label editor program.
-* (deactivate them by compiler switch "HWLBLEDIT" for integration in your own HWGUI application)
-*
-* FUNCTION HWLBLEDIT()              && Additional pre dialog (optional)
-* FUNCTION hwlabel_maininit()       && Init all variables for main function
+// =========================================================================================
+// Function list
+// ~~~~~~~~~~~~~
+//
+// ~~~~~~~~~~~~~~ MAIN section ~~~~~~~~~~~~~~~~~~~
+// For standalone label editor program.
+// (deactivate them by compiler switch "HWLBLEDIT" for integration in your own HWGUI application)
+//
+// FUNCTION HWLBLEDIT()              // Additional pre dialog (optional)
+// FUNCTION hwlabel_maininit()       // Init all variables for main function
 
-* ~~~~~~ Functions for label editor ~~~~~~~~~~
-* FUNCTION hwlabel_lbledit          && Dialog label editor
-* FUNCTION hwlabel_langinit         && Initializes the language settings
-* FUNCTION hwlabel_resetdefs        && Reset all label parameters
-* FUNCTION hwlabel_LOAD_LABEL       && Dialog load label
-* FUNCTION hwlabel_SAVE_LABEL       && Dialog save label
-* FUNCTION hwlabel_newlbl           && New label, clean edit area
-* FUNCTION hwlabel__LBL_READ        && Read the label file and copy the contents into label array
-* FUNCTION hwlabel_LBL_WRITE        && Write label file
-* FUNCTION hwlabel_LBL_DEFAULTS     && Set the default values of the variables
-* FUNCTION hwlabel__LBL_LINES       && Returns the number of lines (heigth of label)
-* FUNCTION hwlabel_countcont        && Count the filled contents of a label.
-* FUNCTION hwlabel_mod              && Interface function for modified label.
-* FUNCTION hwlbledit_exit           && Exit dialog check for modified label and query
-* FUNCTION hwlabel_reset_mod        && Reset modified
-* FUNCTION hwlabel_str_nolabel      && Returns string for "no label set"
-* FUNCTION hwlabel_warncont()       && Warnung query message, if height reduced
-* FUNCTION hwlabel_ccontents        && Clean unused contents
-* FUNCTION hwlabel_addextens        && Add file extension, if not passed with file name
-* FUNCTION hwlabel_translcp         && Translates codepages for label file
-*
-* Store and read language setting from file
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* (can be used optional)
-* STATIC FUNCTION READ_LANGINI      && Read language setting from language.ini
-* STATIC FUNCTION LANG_READ_TEXT    && Reads a text record from a binary file
-* STATIC FUNCTION WRIT_LANGINI      && Write language setting to language.ini
-* STATIC FUNCTION Select_LangDia && Dialog for select a language.
-* STATIC FUNCTION __frm_CcomboSelect && Common Combobox Selection
-*
-* NLS support
-* ~~~~~~~~~~~
-* FUNCTION hwlabel_NLS_SetLang      && Sets the desired language for NLS
-* FUNCTION hwlabel_DOS_INIT_DE      && Initialisation sequence for DOS / CP437 and CP858
-* FUNCTION hwlabel_MSGS_EN          && Set Message array for english language
-* FUNCTION hwlabel_MSGS_DE          && Set message array for german language
-*
-* =========================================================================================
-*
-* Add the label editor into your own HWGUI application:
-*
-* - Copy this file into the source code directory of your application.
-* - Add this source code file to your makefile (Makefile or *.hbp) or
-*   by command "SET PROCEDURE TO ...".
-* - Add -d__LINUX__ to your options for hbmk2 utility into makefile for LINUX or in *.hbp file.
-* - Free "#define HWLBLEDIT" in the header of this source file to deactivate
-*   the MAIN function.
-* - Add the call of FUNCTION hwlabel_lbledit(clangf)
-*   in the menu of your application.
-*   If you have your own language selection dialog,
-*   pass the language value to parameter "clangf".
-*   Valid values of clangf see array initilization of "aLanguages"
-*   in the function code of FUNCTION hwlabel_lbledinit().
-*   If clangf is NIL, the default language "English" is selected.
-*
-*   Samples for *.hbp files in the HWGUI directory "samples":
-*    samples\demodbf.hbp
-*   and many more.
-*
-* =========================================================================================
-*
-* This version of "hwlabel" supports the english (default) and german language.
-* Feel free to extend the source code of hwlabel with your language.
-* Here the instructions to add a new language.
-* Send us the modified source code to commit it in the subversion repository to add
-* it into the next HWGUI release.
-*
-* Values for name and abbreviation of the new language (only ASCII characters):
-* Default is:
-*   clangset := "English"
-*   clang    := "EN"   && only in upper case
-* For example german:
-*   clangset := "Deutsch" 
-*   clang    := "DE"
-* For example russian:
-*   clangset := "Russian"
-*   clang    := "RU"
-*
-*
-* - Add REQUEST command(s) needed for codepage(s) for the language to add.
-*   (For Windows and LINUX, mostly UTF-8  )
-*
-* - hwlabel_helptxt_xx()
-*   Create a new function and fill it with help text,
-*   For example: hwlabel_helptxt_RU()
-*   Dont't forget to handle both, Windows codepages and UTF-8 character set
-*   (In german only 8 characters differs, the rest is ASCII)
-*   Also for all other functions !
-*
-* - hwlabel_Mainhlp()
-*   Add block for new language. 
-*
-*   Use function hwg__isUnicode() to decide for Windows or UTF-8 codepages.
-*   Some editors like Notepad++ support Windows and UTF-8 codepages.
-* 
-* - Extend array with name of language in FUNCTION hwlabel_langinit():
-*   aLanguages := { "English", "Deutsch" , "Russian" }
-*   Please in alphabetical order, but English at the beginning.
-*
-* - Extend CASE block with new language in FUNCTION hwlabel_NLS_SetLang(cname,omain)
-*
-* - FUNCTION hwlabel_MSGS_xx:
-*   Create a new function and fill it with messages text, for example
-*   hwlabel_MSGS_RU().
-*   Copy the english version "hwlabel_MSGS_EN" as template.
-*
-* - FUNCTION hwlabel_DOS_INIT_xx:
-*   Create a new function and initialisize special characters outside ASCII
-*   for Windows codepages and UTF-8, optional
-*
-* - Add the new functions to the function list.
-*
-* - Add the language in comment line in the header of this file:
-*   "Supported languages:"
-*
-*   Hint: Some editors like Notepadd++ handle UTF-8 and Windows character sets
-*   by switching via the main menu.
-*   For Windows and DOS characters it is strictly recomended, to set
-*   your preferred editor to UTF-8 and code the special characters
-*   for Windows and MS-DOS with the CHR() function. 
-*
-* Additional information:
-* - Use hwg_Array_Len() for check of empty array. The function LEN() crashes,
-*   if the array to check is empty, for example:
-*    atestarray := {}
-*    n := LEN(atestarray)             && crashes here
-*    n := hwg_Array_Len(atestarray)   && OK 
-*    IF n < 1
-*     * Empty array ...
-*     ....
-*    ENDIF
-* ============================================================================================
-*
-* #define HWLBLEDIT
+// ~~~~~~ Functions for label editor ~~~~~~~~~~
+// FUNCTION hwlabel_lbledit          // Dialog label editor
+// FUNCTION hwlabel_langinit         // Initializes the language settings
+// FUNCTION hwlabel_resetdefs        // Reset all label parameters
+// FUNCTION hwlabel_LOAD_LABEL       // Dialog load label
+// FUNCTION hwlabel_SAVE_LABEL       // Dialog save label
+// FUNCTION hwlabel_newlbl           // New label, clean edit area
+// FUNCTION hwlabel__LBL_READ        // Read the label file and copy the contents into label array
+// FUNCTION hwlabel_LBL_WRITE        // Write label file
+// FUNCTION hwlabel_LBL_DEFAULTS     // Set the default values of the variables
+// FUNCTION hwlabel__LBL_LINES       // Returns the number of lines (heigth of label)
+// FUNCTION hwlabel_countcont        // Count the filled contents of a label.
+// FUNCTION hwlabel_mod              // Interface function for modified label.
+// FUNCTION hwlbledit_exit           // Exit dialog check for modified label and query
+// FUNCTION hwlabel_reset_mod        // Reset modified
+// FUNCTION hwlabel_str_nolabel      // Returns string for "no label set"
+// FUNCTION hwlabel_warncont()       // Warnung query message, if height reduced
+// FUNCTION hwlabel_ccontents        // Clean unused contents
+// FUNCTION hwlabel_addextens        // Add file extension, if not passed with file name
+// FUNCTION hwlabel_translcp         // Translates codepages for label file
+//
+// Store and read language setting from file
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// (can be used optional)
+// STATIC FUNCTION READ_LANGINI      // Read language setting from language.ini
+// STATIC FUNCTION LANG_READ_TEXT    // Reads a text record from a binary file
+// STATIC FUNCTION WRIT_LANGINI      // Write language setting to language.ini
+// STATIC FUNCTION Select_LangDia // Dialog for select a language.
+// STATIC FUNCTION __frm_CcomboSelect // Common Combobox Selection
+//
+// NLS support
+// ~~~~~~~~~~~
+// FUNCTION hwlabel_NLS_SetLang      // Sets the desired language for NLS
+// FUNCTION hwlabel_DOS_INIT_DE      // Initialisation sequence for DOS / CP437 and CP858
+// FUNCTION hwlabel_MSGS_EN          // Set Message array for english language
+// FUNCTION hwlabel_MSGS_DE          // Set message array for german language
+//
+// =========================================================================================
+//
+// Add the label editor into your own HWGUI application:
+//
+// - Copy this file into the source code directory of your application.
+// - Add this source code file to your makefile (Makefile or *.hbp) or
+//   by command "SET PROCEDURE TO ...".
+// - Add -d__LINUX__ to your options for hbmk2 utility into makefile for LINUX or in *.hbp file.
+// - Free "#define HWLBLEDIT" in the header of this source file to deactivate
+//   the MAIN function.
+// - Add the call of FUNCTION hwlabel_lbledit(clangf)
+//   in the menu of your application.
+//   If you have your own language selection dialog,
+//   pass the language value to parameter "clangf".
+//   Valid values of clangf see array initilization of "aLanguages"
+//   in the function code of FUNCTION hwlabel_lbledinit().
+//   If clangf is NIL, the default language "English" is selected.
+//
+//   Samples for *.hbp files in the HWGUI directory "samples":
+//    samples\demodbf.hbp
+//   and many more.
+//
+// =========================================================================================
+//
+// This version of "hwlabel" supports the english (default) and german language.
+// Feel free to extend the source code of hwlabel with your language.
+// Here the instructions to add a new language.
+// Send us the modified source code to commit it in the subversion repository to add
+// it into the next HWGUI release.
+//
+// Values for name and abbreviation of the new language (only ASCII characters):
+// Default is:
+//   clangset := "English"
+//   clang    := "EN"   // only in upper case
+// For example german:
+//   clangset := "Deutsch"
+//   clang    := "DE"
+// For example russian:
+//   clangset := "Russian"
+//   clang    := "RU"
+//
+//
+// - Add REQUEST command(s) needed for codepage(s) for the language to add.
+//   (For Windows and LINUX, mostly UTF-8  )
+//
+// - hwlabel_helptxt_xx()
+//   Create a new function and fill it with help text,
+//   For example: hwlabel_helptxt_RU()
+//   Dont't forget to handle both, Windows codepages and UTF-8 character set
+//   (In german only 8 characters differs, the rest is ASCII)
+//   Also for all other functions !
+//
+// - hwlabel_Mainhlp()
+//   Add block for new language.
+//
+//   Use function hwg__isUnicode() to decide for Windows or UTF-8 codepages.
+//   Some editors like Notepad++ support Windows and UTF-8 codepages.
+//
+// - Extend array with name of language in FUNCTION hwlabel_langinit():
+//   aLanguages := { "English", "Deutsch" , "Russian" }
+//   Please in alphabetical order, but English at the beginning.
+//
+// - Extend CASE block with new language in FUNCTION hwlabel_NLS_SetLang(cname,omain)
+//
+// - FUNCTION hwlabel_MSGS_xx:
+//   Create a new function and fill it with messages text, for example
+//   hwlabel_MSGS_RU().
+//   Copy the english version "hwlabel_MSGS_EN" as template.
+//
+// - FUNCTION hwlabel_DOS_INIT_xx:
+//   Create a new function and initialisize special characters outside ASCII
+//   for Windows codepages and UTF-8, optional
+//
+// - Add the new functions to the function list.
+//
+// - Add the language in comment line in the header of this file:
+//   "Supported languages:"
+//
+//   Hint: Some editors like Notepadd++ handle UTF-8 and Windows character sets
+//   by switching via the main menu.
+//   For Windows and DOS characters it is strictly recomended, to set
+//   your preferred editor to UTF-8 and code the special characters
+//   for Windows and MS-DOS with the CHR() function.
+//
+// Additional information:
+// - Use hwg_Array_Len() for check of empty array. The function LEN() crashes,
+//   if the array to check is empty, for example:
+//    atestarray := {}
+//    n := LEN(atestarray)             // crashes here
+//    n := hwg_Array_Len(atestarray)   // OK
+//    IF n < 1
+//     * Empty array ...
+//     ....
+//    ENDIF
+// ============================================================================================
+//
+// #define HWLBLEDIT
 
 #include "hwgui.ch"
 #ifdef __GTK__
@@ -267,68 +267,68 @@
 #include "hbclass.ch"
 #include "hwgextern.ch"
 
-* Free this for adding the label editor in an
-* own HWGUI application (deactivate MAIN function)
-* #define HWLBLEDIT
+// Free this for adding the label editor in an
+// own HWGUI application (deactivate MAIN function)
+// #define HWLBLEDIT
 
 
-* ==== REQUESTs =====
+// ==== REQUESTs =====
 #ifdef __LINUX__
-* LINUX Codepage
+// LINUX Codepage
 REQUEST HB_CODEPAGE_UTF8
 REQUEST HB_CODEPAGE_UTF8EX
 #endif
 
-* Other languages
+// Other languages
 
-* ==== German ====
+// ==== German ====
 REQUEST HB_LANG_DE
-* Windows codepage
+// Windows codepage
 REQUEST HB_CODEPAGE_DEWIN
-* For label with Euro currency sign
+// For label with Euro currency sign
 REQUEST HB_CODEPAGE_DE858
 
-* ==== ???? =====
+// ==== ???? =====
 
 
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* STATIC variables
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// STATIC variables
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   STATIC aLanguages ,  clangset , clang , aMsg
-  *      Marker for new label
-  *      v
-*  STATIC blbl_neu
+  //      Marker for new label
+  //      v
+//  STATIC blbl_neu
 
 
-* === NLS German ===
-* Special signs german and Euro currency sign
-*        AE      OE       UE       ae      oe       ue       sz
+// === NLS German ===
+// Special signs german and Euro currency sign
+//        AE      OE       UE       ae      oe       ue       sz
   STATIC CAGUML, COGUML , CUGUML , CAKUML, COKUML , CUKUML , CSZUML , EURO
-* Code for variable name
-*        !----- C for char-Variable, fixed
-*        !+---- A = AE , O = OE , U = UE , SZ = see above
-*        !!+--- G = gross / upper case  K = klein / lower case
-*        !!!+-- UML for "Umlaut"
-*        !!!! 
-*       CAGUML
-*        !!
-*        ++ "SZ" for ss (sharp "s", ss is not greek beta sign !!!)
-* ==================
-*
+// Code for variable name
+//        !----- C for char-Variable, fixed
+//        !+---- A = AE , O = OE , U = UE , SZ = see above
+//        !!+--- G = gross / upper case  K = klein / lower case
+//        !!!+-- UML for "Umlaut"
+//        !!!!
+//       CAGUML
+//        !!
+//        ++ "SZ" for ss (sharp "s", ss is not greek beta sign !!!)
+// ==================
+//
 
-* Label file name
+// Label file name
 
 STATIC  lblname
 
 
-* Variables with recent label values for editing (edit area)
-*       (is filled with load from file and saved to label file)
+// Variables with recent label values for editing (edit area)
+//       (is filled with load from file and saved to label file)
 STATIC c_REM,n_NUMZ,n_BR,n_LM,n_HZR,N_VZR,n_LPZ, ;
 c_INH1, c_INH2, c_INH3, c_INH4 , c_INH5 , c_INH6, ;
 c_INH7, c_INH8, c_INH9, c_INH10 , c_INH11, c_INH12 , c_INH13, c_INH14, c_INH15, c_INH16
 
-* Variables save old edit area
+// Variables save old edit area
 STATIC c_REM_old,n_NUMZ_old,n_BR_old,n_LM_old,n_HZR_old,N_VZR_old,n_LPZ_old, ;
 c_INH1_old, c_INH2_old, c_INH3_old, c_INH4_old , c_INH5_old , c_INH6_old, ;
 c_INH7_old, c_INH8_old, c_INH9_old, c_INH10_old , c_INH11_old, c_INH12_old , ;
@@ -336,16 +336,16 @@ c_INH13_old, c_INH14_old, c_INH15_old, c_INH16_old
 
 
 
-* ==============================================
+// ==============================================
 #ifdef HWLBLEDIT
 FUNCTION HWLBLEDIT()
 #else
 FUNCTION MAIN()
 #endif
-* FUNCTION Label_Editor
-* (modify, if the label editor is called
-*  by your application)  
-* ============================================== 
+// FUNCTION Label_Editor
+// (modify, if the label editor is called
+//  by your application)
+// ==============================================
 
 LOCAL olbleditMain , oFontMain
 LOCAL cValicon , oIcon
@@ -358,7 +358,7 @@ hwlabel_maininit()
 #ifdef __PLATFORM__WINDOWS
    PREPARE FONT oFontMain NAME "MS Sans Serif" WIDTH 0 HEIGHT -14
 #else
-   PREPARE FONT oFontMain NAME "Sans" WIDTH 0 HEIGHT 12 
+   PREPARE FONT oFontMain NAME "Sans" WIDTH 0 HEIGHT 12
 #endif
 
 #ifdef HWLBLEDIT
@@ -372,19 +372,19 @@ hwlabel_maininit()
 #endif
 
 
-* Main Menu
+// Main Menu
         MENU OF olbleditMain
-         MENU TITLE aMsg[4]  && "&File" 
-             MENUITEM aMsg[5]  ACTION {|| olbleditMain:Close() } && "&Quit"
+         MENU TITLE aMsg[4]  // "&File"
+             MENUITEM aMsg[5]  ACTION {|| olbleditMain:Close() } // "&Quit"
          ENDMENU
-         MENU TITLE aMsg[29] && "&Label" 
-             MENUITEM aMsg[8] ACTION hwlabel_lbledit() && "&Edit", Start the label editor
+         MENU TITLE aMsg[29] // "&Label"
+             MENUITEM aMsg[8] ACTION hwlabel_lbledit() // "&Edit", Start the label editor
          ENDMENU
-         MENU TITLE aMsg[14]  && Configuration
-            MENUITEM aMsg[13] ACTION  Select_LangDia(aLanguages,olbleditMain)  && Language  
+         MENU TITLE aMsg[14]  // Configuration
+            MENUITEM aMsg[13] ACTION  Select_LangDia(aLanguages,olbleditMain)  // Language
          ENDMENU
         ENDMENU
-        
+
 #ifdef HWLBLEDIT
         ACTIVATE DIALOG olbleditMain
 #else
@@ -393,39 +393,39 @@ hwlabel_maininit()
 
 RETURN NIL
 
-* ======================================================
-*  FUNCTIONS
-* ======================================================
+// ======================================================
+//  FUNCTIONS
+// ======================================================
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_maininit()
-* Init all variables for main function
-* ==============================================
+// Init all variables for main function
+// ==============================================
  hwlabel_langinit()
 RETURN NIL
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_lbledinit(clangf)
-* Initialize the static variables of
-* the label editor and
-* reads language.ini for language selection.
-* This function is called at the beginning
-* of the function for the main dialog
-* of the label editor: hwlabel_lbledit()
-*
-* Language setting procedure:
-* If file not exists, the default values
-* for english language are initialized.
-* clangf:
-* Force this language setting with
-* reading setting from file "language.ini".
-* This is useful, if you want to call
-* the label from your own HWGUI application
-* with an own language settings dialog.
-* Valid values of clangf
-* see array initilization of "aLanguages"
-* in this function code.
-* ==============================================
+// Initialize the static variables of
+// the label editor and
+// reads language.ini for language selection.
+// This function is called at the beginning
+// of the function for the main dialog
+// of the label editor: hwlabel_lbledit()
+//
+// Language setting procedure:
+// If file not exists, the default values
+// for english language are initialized.
+// clangf:
+// Force this language setting with
+// reading setting from file "language.ini".
+// This is useful, if you want to call
+// the label from your own HWGUI application
+// with an own language settings dialog.
+// Valid values of clangf
+// see array initilization of "aLanguages"
+// in this function code.
+// ==============================================
 SET EXACT ON
 
 SET DATE GERMAN  // DD.MM.YYYY also OK for Russian
@@ -434,36 +434,36 @@ SET CENTURY ON
 READINSERT(.T.)
 
 
-* Preset default values
+// Preset default values
 hwlabel_LBL_DEFAULTS()
-* For remembering old values
-hwlabel_reset_mod() 
+// For remembering old values
+hwlabel_reset_mod()
 
-* blbl_neu := .F.  && Kennzeichnung fuer ein neues Label
-                 && marker for new label
+// blbl_neu := .F.  // Kennzeichnung fuer ein neues Label
+                 // marker for new label
 
  hwlabel_langinit(clangf)
 
 
 
-* String for "No label" dependant on language setting
+// String for "No label" dependant on language setting
 lblname := hwlabel_str_nolabel()
 
 RETURN NIL
 
 
-* ============================================================
+// ============================================================
 FUNCTION hwlabel_langinit(clangf)
-* Initializes the language settings
-* clangf : Sets the language,
-* if label editor is integrated in an own application.
-* Values valid see preset of array "aLanguages".
-* If NIL:
-* Try to get language from file "language.ini",
-* if not existing, set to default "English".
-* ============================================================
+// Initializes the language settings
+// clangf : Sets the language,
+// if label editor is integrated in an own application.
+// Values valid see preset of array "aLanguages".
+// If NIL:
+// Try to get language from file "language.ini",
+// if not existing, set to default "English".
+// ============================================================
 
-/* Names of supported languages, use only ANSI charset, displayed in language selection dialog */ 
+/* Names of supported languages, use only ANSI charset, displayed in language selection dialog */
    aLanguages := { "English", "Deutsch" }
 
 /* Initialization with default language english */
@@ -471,50 +471,50 @@ FUNCTION hwlabel_langinit(clangf)
    clangset := "English"
    clang    := "EN"
 
-* Load default messages in english
+// Load default messages in english
 aMsg := hwlabel_MSGS_EN()
 
 IF clangf == NIL
-* Read ini file for recent language setting
+// Read ini file for recent language setting
   clangset := READ_LANGINI()
 ELSE
-  clangset := clangf 
+  clangset := clangf
 ENDIF
-  * hwg_msginfo(clangset)  && Debug 
+  // hwg_msginfo(clangset)  // Debug
   hwlabel_NLS_SetLang(clangset)
 
 RETURN NIL
 
-* ============================================================
+// ============================================================
 FUNCTION hwlabel_lbledit(clangf,cCpLocWin,cCpLocLINUX,cCpLabel)
-* Dialog label editor
-* === This is the main dialog function of the label editor ===
-* clangf : Set Dialog language:
-*         "English" (Default)
-*         "Deutsch" : German
-*         "??" : Feel free to add your language,
-*                see for instructions in the
-*                inline comments.
-*
-* This is the complete label editor.
-* You can call this code in your
-* application.
-*
-* Parameters for codepage:
-* See description of function hwlabel_translcp()
-*
-* 
-* ============================================================
+// Dialog label editor
+// === This is the main dialog function of the label editor ===
+// clangf : Set Dialog language:
+//         "English" (Default)
+//         "Deutsch" : German
+//         "??" : Feel free to add your language,
+//                see for instructions in the
+//                inline comments.
+//
+// This is the complete label editor.
+// You can call this code in your
+// application.
+//
+// Parameters for codepage:
+// See description of function hwlabel_translcp()
+//
+//
+// ============================================================
 LOCAL cValicon , oIcon
 LOCAL olbldlg , oFontMain, oSay
-*
+//
 
 hwlabel_lbledinit(clangf)
 
 cValicon     := hwg_cHex2Bin ( hwlbl_IconHex() )
 oIcon        := HIcon():AddString( "hwlabel" , cValicon )
 
-lblname := aMsg[26]   && "<NO LABEL>"
+lblname := aMsg[26]   // "<NO LABEL>"
 
 
 #ifdef __PLATFORM__WINDOWS
@@ -525,31 +525,31 @@ lblname := aMsg[26]   && "<NO LABEL>"
 
        INIT DIALOG olbldlg TITLE aMsg[1] ;
         FONT oFontMain SIZE 500, 300 ;
-        ICON oIcon 
+        ICON oIcon
 //        ON EXIT {|| hwlbledit_exit() }
 
         MENU OF olbldlg
-         MENU TITLE aMsg[4]    && File
-             MENUITEM aMsg[5] ACTION  {|| olbldlg:Close() }  && Quit
+         MENU TITLE aMsg[4]    // File
+             MENUITEM aMsg[5] ACTION  {|| olbldlg:Close() }  // Quit
              MENUITEM aMsg[32] ACTION  {|| hwlabel_newlbl() , ;
-                lblname := aMsg[26] ,  oSay:SetText(lblname)  }  && New
+                lblname := aMsg[26] ,  oSay:SetText(lblname)  }  // New
              MENUITEM aMsg[6] ACTION  {|| lblname := hwlabel_LOAD_LABEL(lblname,cCpLocWin,cCpLocLINUX,cCpLabel) , ;
-                oSay:SetText(lblname) }  && Load
+                oSay:SetText(lblname) }  // Load
              MENUITEM aMsg[7] ACTION  {|| lblname := hwlabel_SAVE_LABEL(lblname,cCpLocWin,cCpLocLINUX,cCpLabel) , ;
-                oSay:SetText(lblname) }  && Save 
+                oSay:SetText(lblname) }  // Save
          ENDMENU
 
-         MENU TITLE aMsg[8]    && Edit
-             MENUITEM aMsg[9]  ACTION _frm_hwlabel_par()  && Parameters 
+         MENU TITLE aMsg[8]    // Edit
+             MENUITEM aMsg[9]  ACTION _frm_hwlabel_par()  // Parameters
              MENUITEM aMsg[10] ACTION ;
-             hwlabel_frm_lbl_contents(hwlabel__LBL_LINES(),"")  && Contents
-                                                                        &&  cHelp added later
+             hwlabel_frm_lbl_contents(hwlabel__LBL_LINES(),"")  // Contents
+                                                                        //  cHelp added later
          ENDMENU
 
 
-         MENU TITLE aMsg[11]  && Help
-             MENUITEM aMsg[15] ACTION  hwlabel_Mainhlp(clangset,0) && Help
-             MENUITEM aMsg[12] ACTION  hwlabel_About()          && About
+         MENU TITLE aMsg[11]  // Help
+             MENUITEM aMsg[15] ACTION  hwlabel_Mainhlp(clangset,0) // Help
+             MENUITEM aMsg[12] ACTION  hwlabel_About()          // About
         ENDMENU
 
        ENDMENU
@@ -558,194 +558,194 @@ lblname := aMsg[26]   && "<NO LABEL>"
 
    ACTIVATE DIALOG olbldlg
 
-   * Modified ?
-   
+   // Modified ?
+
    IF hwlabel_mod() .OR. lblname == hwlabel_str_nolabel()
-     IF  hwg_Msgyesno(aMsg[44],aMsg[28])   && 44= "Parameter(s) are modified, Save ?" 28 = "Label Editor"
+     IF  hwg_Msgyesno(aMsg[44],aMsg[28])   // 44= "Parameter(s) are modified, Save ?" 28 = "Label Editor"
        hwlabel_SAVE_LABEL(cCpLocWin,cCpLocLINUX,cCpLabel)
-     ENDIF 
+     ENDIF
    ENDIF
 
-   
+
 RETURN NIL
 
-* ============================================================
+// ============================================================
 FUNCTION hwlabel_resetdefs()
-* Reset all label parameters
-* ============================================================
+// Reset all label parameters
+// ============================================================
 
  hwlabel_LBL_DEFAULTS()
  hwlabel_reset_mod()
 RETURN NIL
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_LOAD_LABEL(clblfile,cCpLocWin,cCpLocLINUX,cCpLabel)
-* Dialog load label
-* Returns name of labelfile,
-* if cancel or error,
-* otherwise old name returned
-* clblfile : Name of previous label file name
-*
-* ==============================================
-LOCAL cfilename , mypath , lsucc 
+// Dialog load label
+// Returns name of labelfile,
+// if cancel or error,
+// otherwise old name returned
+// clblfile : Name of previous label file name
+//
+// ==============================================
+LOCAL cfilename , mypath , lsucc
 
-* Old parameters modified ?
-* Then they must be saved before (or dismiss)
+// Old parameters modified ?
+// Then they must be saved before (or dismiss)
 IF hwlabel_mod()
   IF .NOT. hwg_Msgyesno(aMsg[55],aMsg[56])
-   * Cancel  
+   * Cancel
    RETURN ""
   ENDIF
 ENDIF
 
-* Preset with current directory
+// Preset with current directory
 mypath := hwg_CurDir()
 
 #ifdef __GTK__
-*                                                   v "Label files( *.lbl )"  
-*                                                   v                     v All files
+//                                                   v "Label files( *.lbl )"
+//                                                   v                     v All files
  cfilename := hwg_SelectFileEx(,,{{ aMsg[31] ,"*.lbl" },{ aMsg[30] ,"*"}} )
 
 #else
-*                                           v "Label files( *.lbl )"
+//                                           v "Label files( *.lbl )"
 cfilename := hwg_Selectfile( aMsg[31] ,"*.lbl", mypath )
 #endif
-* Check for cancel 
+// Check for cancel
  IF EMPTY(cfilename)
   * Cancel
-  cfilename := clblfile  
+  cfilename := clblfile
   RETURN hwlabel_LBL_DEFAULTS()
  ENDIF
-* Read label file and return array with label contents
+// Read label file and return array with label contents
  lsucc := hwlabel__LBL_READ(cfilename,cCpLocWin,cCpLocLINUX,cCpLabel)
-* In case of error : set the label array with default values
+// In case of error : set the label array with default values
 
 IF .NOT. lsucc
- hwg_MsgStop( aMsg[37] , aMsg[1] )       && Error loading lbl file
- cfilename := clblfile 
+ hwg_MsgStop( aMsg[37] , aMsg[1] )       // Error loading lbl file
+ cfilename := clblfile
  hwlabel_LBL_DEFAULTS()
  RETURN hwlabel_str_nolabel()
-ENDIF 
+ENDIF
 
 
 hwlabel_reset_mod()
 
-* Set new filename in STATIC for display
+// Set new filename in STATIC for display
 lblname := cfilename
 
 RETURN cfilename
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_SAVE_LABEL(clblfile,cCpLocWin,cCpLocLINUX,cCpLabel)
-* Dialog save label
-* Return the name of the label file written
-* ==============================================
+// Dialog save label
+// Return the name of the label file written
+// ==============================================
 LOCAL cnewfn
 
-IF lblname == hwlabel_str_nolabel()  && "<NO LABEL>"
- * Ask for new label file name
+IF lblname == hwlabel_str_nolabel()  // "<NO LABEL>"
+ // Ask for new label file name
   cnewfn := hwlabel_selfilenew(aMsg[47],aMsg[48],aMsg[49],aMsg[50],aMsg[51])
- * 47  = cloctext  := "Label files ( *.lbl )"
- * 48  = clocmsk   := "*.lbl"
- * 49  = clocallf  := "All files" (GTK)
- * 50  = cTextadd1 := "Enter name of new label file"  (Windows)
- * 51  = cTextadd2 := "Save Label File" (Windows)
-  IF EMPTY(cnewfn)   && Cancelled
+ // 47  = cloctext  := "Label files ( *.lbl )"
+ // 48  = clocmsk   := "*.lbl"
+ // 49  = clocallf  := "All files" (GTK)
+ // 50  = cTextadd1 := "Enter name of new label file"  (Windows)
+ // 51  = cTextadd2 := "Save Label File" (Windows)
+  IF EMPTY(cnewfn)   // Cancelled
    RETURN hwlabel_str_nolabel()
   ENDIF
-   * Set new filename
+   // Set new filename
    lblname := cnewfn
-     * Add extension, if not exist
+     // Add extension, if not exist
 #ifdef __PLATFORM__WINDOWS
    lblname := hwlabel_addextens(lblname,"lbl")
 #else
    lblname := hwlabel_addextens(lblname,"lbl",.T.)
 #endif
 ELSE
-    IF .NOT. hwlabel_mod() 
-       hwg_MsgInfo(aMsg[46],aMsg[28])  &&  28  = "Label Editor", 46 = "Nothing to save"
+    IF .NOT. hwlabel_mod()
+       hwg_MsgInfo(aMsg[46],aMsg[28])  //  28  = "Label Editor", 46 = "Nothing to save"
        RETURN hwlabel_str_nolabel()
-    ENDIF  
+    ENDIF
 ENDIF
 
 
  IF hwlabel_LBL_WRITE(lblname,aMsg,cCpLocWin,cCpLocLINUX,cCpLabel)
-  * Reset modified
+  // Reset modified
    hwlabel_reset_mod()
  ENDIF
 
- 
+
 RETURN lblname
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_selfilenew(cloctext,clocmsk,clocallf,cTextadd1,cTextadd2)
-* Interface funktion for selecting a new file
-* independant of GTK or not
-*
-* Sample for passing parameters:
-* cloctext  := "XBase source code( *.prg )"
-* clocmsk   := "*.prg"
-* clocallf  := "All files" (GTK)
-* cTextadd1 := "Enter name of new file"  (Windows)
-* cTextadd2 := "Save File" (Windows)
-* ==============================================
+// Interface funktion for selecting a new file
+// independant of GTK or not
+//
+// Sample for passing parameters:
+// cloctext  := "XBase source code( *.prg )"
+// clocmsk   := "*.prg"
+// clocallf  := "All files" (GTK)
+// cTextadd1 := "Enter name of new file"  (Windows)
+// cTextadd2 := "Save File" (Windows)
+// ==============================================
 LOCAL fname , cstartvz
-* Get current directory as start directory
-cstartvz := Curdir() 
+// Get current directory as start directory
+cstartvz := Curdir()
 
 IF cloctext == NIL
   cloctext  := "Text files( *.txt )"
 ENDIF
-IF clocmsk == NIL  
+IF clocmsk == NIL
   clocmsk   := "*.txt"
 ENDIF
-IF clocallf == NIL 
-  clocallf  := "All files" && (GTK)
+IF clocallf == NIL
+  clocallf  := "All files" // (GTK)
 ENDIF
-IF cTextadd1 == NIL  
-  cTextadd1 := "Enter name of new file" &&  (Windows)
+IF cTextadd1 == NIL
+  cTextadd1 := "Enter name of new file" //  (Windows)
 ENDIF
-IF cTextadd2 == NIL  
-  cTextadd2 := "Save File" && (Windows)
-ENDIF  
+IF cTextadd2 == NIL
+  cTextadd2 := "Save File" // (Windows)
+ENDIF
 
 #ifdef __GTK__
  fname := hwg_SelectFileEx(,,{{ cloctext,clocmsk },{ clocallf ,"*"}} )
 #else
   fname := hwg_SaveFile( cTextadd1,cloctext,clocmsk,cstartvz,cTextadd2 )
 #endif
-* Check for cancel 
+// Check for cancel
  IF EMPTY(fname)
- * Cancel
+ // Cancel
   RETURN ""
- ENDIF 
+ ENDIF
  RETURN  fname
- 
-* ==============================================
+
+// ==============================================
 FUNCTION hwlabel_addextens(cfilename,cext,lcs)
-* Add file extension "cext",
-* if not passed with "cfilename"
-* If cext NIL, original name is returned
-* Pass "cext" without previous ".".
-* It is recommended, to pass cext in lower case.
-* lcs : Set to .T., if case sensitive.
-*       This is recommended for LINUX/UNIX.
-*       On Windows set to .F. (Default).
-* For example:
-* #ifdef __PLATFORM__WINDOWS
-*   lblname := hwlabel_addextens(lblname,"lbl")
-* #else
-*   lblname := hwlabel_addextens(lblname,"lbl",.T.)
-* #endif
-* ==============================================
+// Add file extension "cext",
+// if not passed with "cfilename"
+// If cext NIL, original name is returned
+// Pass "cext" without previous ".".
+// It is recommended, to pass cext in lower case.
+// lcs : Set to .T., if case sensitive.
+//       This is recommended for LINUX/UNIX.
+//       On Windows set to .F. (Default).
+// For example:
+// #ifdef __PLATFORM__WINDOWS
+//   lblname := hwlabel_addextens(lblname,"lbl")
+// #else
+//   lblname := hwlabel_addextens(lblname,"lbl",.T.)
+// #endif
+// ==============================================
 LOCAL nposi , fna , ce
 IF cfilename == NIL
  cfilename := ""
-ENDIF 
+ENDIF
 IF cext == NIL
  RETURN cfilename
-ENDIF 
+ENDIF
 IF EMPTY(cext)
  RETURN cfilename
 ENDIF
@@ -756,21 +756,21 @@ ENDIF
 IF lcs
  cfilename := UPPER(cfilename)
  ce := "." + UPPER(cext)
-ELSE  
+ELSE
   ce := "." + cext
 ENDIF
 nposi := RAT(ce,cfilename)
 IF nposi == 0
  fna := fna + "." + cext
-ENDIF 
+ENDIF
 RETURN fna
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_reset_mod()
-* Reset modified
-* (Copy new values to old values)
-* ==============================================
+// Reset modified
+// (Copy new values to old values)
+// ==============================================
 
 c_REM_old := c_REM
 n_NUMZ_old := n_NUMZ
@@ -779,7 +779,7 @@ n_LM_old := n_LM
 n_HZR_old := n_HZR
 n_VZR_old := n_VZR
 n_LPZ_old := n_LPZ
-* Contents
+// Contents
 c_INH1_old := c_INH1
 c_INH2_old := c_INH2
 c_INH3_old := c_INH3
@@ -800,14 +800,14 @@ c_INH16_old := c_INH16
 
 RETURN NIL
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_mod()
-* Interface function for modified label.
-* Access to static variables.
-* Return values see
-* FUNCTION hwlabel_modx()
-* ==============================================
-LOCAL lmod 
+// Interface function for modified label.
+// Access to static variables.
+// Return values see
+// FUNCTION hwlabel_modx()
+// ==============================================
+LOCAL lmod
 
 lmod := .F.
 
@@ -891,78 +891,78 @@ RETURN lmod
 
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel__LBL_READ(clblfname,cCpLocWin,cCpLocLINUX,cCpLabel)
-* Read the label file and copy the contents into
-* static variables
-* Label lesen und Inhalte auf Label Array verteilen
-* Returns .T., if success,
-* Returns .F. in case of error
-* or cancel.
-*
-* Parameters for codepages:
-* See description of function hwlabel_translcp()
-* ==============================================
+// Read the label file and copy the contents into
+// static variables
+// Label lesen und Inhalte auf Label Array verteilen
+// Returns .T., if success,
+// Returns .F. in case of error
+// or cancel.
+//
+// Parameters for codepages:
+// See description of function hwlabel_translcp()
+// ==============================================
 LOCAL handle
-*     Index variable
-*     !  Buffer (1034 bytes)
-*     !  !        Number of bytes 
-*     !  !        !
-*     v  v        v 
+//     Index variable
+//     !  Buffer (1034 bytes)
+//     !  !        Number of bytes
+//     !  !        !
+//     v  v        v
 LOCAL I, Puffer , anzbytes
-* Puffer : the file buffer for label file
-* anzbytes : byte counter
+// Puffer : the file buffer for label file
+// anzbytes : byte counter
 
 LOCAL Z1, Z2
-* this array stores the contents of a label, 16 elements
+// this array stores the contents of a label, 16 elements
 LOCAL MINH,INH
 
 
-* A label have a fixed size of 1034
-* so fill buffer with spaces before reading
+// A label have a fixed size of 1034
+// so fill buffer with spaces before reading
 
 Puffer := SPACE(1034)
 
-* Open label file
+// Open label file
 
 handle := FOPEN(clblfname,2)
 IF handle == -1
- hwg_MsgStop(aMsg[37],aMsg[3])  && 37 = Error reading label file, 3 = File access error
+ hwg_MsgStop(aMsg[37],aMsg[3])  // 37 = Error reading label file, 3 = File access error
  FCLOSE(handle)
   RETURN .F.
 ENDIF
 
-anzbytes := FREAD(handle,@Puffer,1034)  && Read complete label file
+anzbytes := FREAD(handle,@Puffer,1034)  // Read complete label file
 // hwg_MsgInfo("Bytes read: " + STR(anzbytes),"Debug")
 IF anzbytes != 1034
-* "Error reading label file, not 1034 bytes","File error" 
- hwg_MsgStop(aMsg[24],aMsg[3])  && 24 = Error reading label file, not 1034 bytes,  3 = File access error
+// "Error reading label file, not 1034 bytes","File error"
+ hwg_MsgStop(aMsg[24],aMsg[3])  // 24 = Error reading label file, not 1034 bytes,  3 = File access error
  FCLOSE(handle)
  RETURN .F.
 ENDIF
 
-* Create empty array for label contents
+// Create empty array for label contents
 MINH := {}
 FOR I := 1 TO 16
  AADD(MINH,SPACE(60))
 NEXT
 
-Z1 := SUBSTR(Puffer,1,1)           && Markierung CHR(2) / Mark CHR(2)
-c_REM := SUBSTR(Puffer,2,60)         && Bemerkung  L=60  / Remarks length=60
-n_NUMZ := ASC(SUBSTR(Puffer,62,2))   && Zeilenanzahl (height of label, number of lines) 1..16
-n_BR := ASC(SUBSTR(Puffer,64,2))     && Spaltenbreite (width of label) 1..120
-n_LM := ASC(SUBSTR(Puffer,66,2))     && Linker Rand (left margin)      0..250
-n_HZR := ASC(SUBSTR(Puffer,68,2))    && Horiz. Abst. (lines between labels)  0..16
-n_VZR := ASC(SUBSTR(Puffer,70,2))    && Vert. Abstand (spaces between labels ) 0 ... 120
-n_LPZ := ASC(SUBSTR(Puffer,72,2))    && Anzahl Label/Zeile  (number of labels across) 1 .. 5
-INH := SUBSTR(Puffer,74,960)       && Labelinhalte / Contents of label (16 * 60 = 960)   >  NUMZ * 60
-Z2 := SUBSTR(Puffer,1034,1)        && Endemarkierung CHR(2) / Mark of end CHR(2)
+Z1 := SUBSTR(Puffer,1,1)           // Markierung CHR(2) / Mark CHR(2)
+c_REM := SUBSTR(Puffer,2,60)         // Bemerkung  L=60  / Remarks length=60
+n_NUMZ := ASC(SUBSTR(Puffer,62,2))   // Zeilenanzahl (height of label, number of lines) 1..16
+n_BR := ASC(SUBSTR(Puffer,64,2))     // Spaltenbreite (width of label) 1..120
+n_LM := ASC(SUBSTR(Puffer,66,2))     // Linker Rand (left margin)      0..250
+n_HZR := ASC(SUBSTR(Puffer,68,2))    // Horiz. Abst. (lines between labels)  0..16
+n_VZR := ASC(SUBSTR(Puffer,70,2))    // Vert. Abstand (spaces between labels ) 0 ... 120
+n_LPZ := ASC(SUBSTR(Puffer,72,2))    // Anzahl Label/Zeile  (number of labels across) 1 .. 5
+INH := SUBSTR(Puffer,74,960)       // Labelinhalte / Contents of label (16 * 60 = 960)   >  NUMZ * 60
+Z2 := SUBSTR(Puffer,1034,1)        // Endemarkierung CHR(2) / Mark of end CHR(2)
 
 
-* Extract the contents
-* Inhalte aufteilen
+// Extract the contents
+// Inhalte aufteilen
 
-* First fill empty 
+// First fill empty
 c_INH1 := SPACE(60)
 c_INH2 := SPACE(60)
 c_INH3 := SPACE(60)
@@ -982,14 +982,14 @@ c_INH16 := SPACE(60)
 
 IF n_NUMZ > 16
  n_NUMZ := 16
-ENDIF 
+ENDIF
 
-FOR I := 1 TO n_NUMZ && 16
+FOR I := 1 TO n_NUMZ // 16
   MINH[I] := SUBSTR(INH,IIF(I == 1, ( I - 1 ) * 60,((I - 1) * 60) + 1 ), 60)
 NEXT
 
-* Use SUBSTR(), because translated characters from UTF-8 could be longer than 1 byte,
-* so the total length of every contents line must be trimmed to exact 60 bytes
+// Use SUBSTR(), because translated characters from UTF-8 could be longer than 1 byte,
+// so the total length of every contents line must be trimmed to exact 60 bytes
 
 c_INH1   := SUBSTR(hwlabel_translcp(MINH[1],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
 c_INH2   := SUBSTR(hwlabel_translcp(MINH[2],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
@@ -1009,40 +1009,40 @@ c_INH15  := SUBSTR(hwlabel_translcp(MINH[15],0,cCpLocWin,cCpLocLINUX,cCpLabel),1
 c_INH16  := SUBSTR(hwlabel_translcp(MINH[16],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
 
   IF LEN(Puffer) != 1034
-   hwg_MsgStop(aMsg[59],aMsg[60])  && 59 = "Error: Buffer size not 1034 bytes", 60 =  "Load label file"
+   hwg_MsgStop(aMsg[59],aMsg[60])  // 59 = "Error: Buffer size not 1034 bytes", 60 =  "Load label file"
    RETURN .F.
   ENDIF
 
-* Codepage conversion
+// Codepage conversion
  c_REM := hwlabel_translcp(c_REM,0,cCpLocWin,cCpLocLINUX,cCpLabel)
- * ... and for label contents, see above
- 
+ // ... and for label contents, see above
+
   FCLOSE(handle)
 
 RETURN .T.
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_LBL_WRITE(dateiname,aMsg,cCpLocWin,cCpLocLINUX,cCpLabel)
-* Write label file
-* aMsg : Array with messages, language specific
-* The label file name was passed by
-* "dateiname". 
-* Returns:
-* .T., if file accessfull written
-* .F., if cancelled or file error
-* Parameters for codepages:
-* See description of function hwlabel_translcp()
-* ==============================================
+// Write label file
+// aMsg : Array with messages, language specific
+// The label file name was passed by
+// "dateiname".
+// Returns:
+// .T., if file accessfull written
+// .F., if cancelled or file error
+// Parameters for codepages:
+// See description of function hwlabel_translcp()
+// ==============================================
 
 LOCAL Z1,Z2,INH
 LOCAL REM, NUMZ, BR, LM , HZR , VZR , LPZ
 LOCAL I , MINH , handle
-LOCAL Pu  && Output file buffer
+LOCAL Pu  // Output file buffer
 
 
 
-* Values to local variables 
+// Values to local variables
 
  Z1   := CHR(2)
  REM  := c_REM
@@ -1054,13 +1054,13 @@ LOCAL Pu  && Output file buffer
  LPZ  := n_LPZ
  Z2   := CHR(2)
 
- * Codepage conversion for remarks
- 
+ // Codepage conversion for remarks
+
  REM  := hwlabel_translcp(REM,1,cCpLocWin,cCpLocLINUX,cCpLabel)
 
 
- MINH := {}    && Array with 16 elements
- 
+ MINH := {}    // Array with 16 elements
+
  AADD(MINH,c_INH1)
  AADD(MINH,c_INH2)
  AADD(MINH,c_INH3)
@@ -1077,77 +1077,77 @@ LOCAL Pu  && Output file buffer
  AADD(MINH,c_INH14)
  AADD(MINH,c_INH15)
  AADD(MINH,c_INH16)
- 
-* Copy array with contents into one variable (60 x 16 = 960)
-* + Codepage conversion
+
+// Copy array with contents into one variable (60 x 16 = 960)
+// + Codepage conversion
 INH := ""
 FOR I := 1 TO 16
  INH := INH + PADR( hwlabel_translcp(MINH[I],1,cCpLocWin,cCpLocLINUX,cCpLabel) ,60)
-NEXT 
+NEXT
 
 
 
-* Assemble the complete file buffer
-* 1034 chars
+// Assemble the complete file buffer
+// 1034 chars
 
 Pu := Z1 + REM + I2BIN(NUMZ) + I2BIN(BR) + I2BIN(LM) + ;
   I2BIN(HZR) + I2BIN(VZR) + I2BIN(LPZ) + ;
   PADR(INH,960) + Z2
-  
+
 IF LEN(Pu) != 1034
-  hwg_MsgStop(aMsg[59],aMsg[51])  && 59 = "Error: Buffer size not 1034 bytes", 51 =  "Save Label File")
+  hwg_MsgStop(aMsg[59],aMsg[51])  // 59 = "Error: Buffer size not 1034 bytes", 51 =  "Save Label File")
   RETURN .F.
 ENDIF
 
  IF FILE(dateiname)
-   IF .NOT. hwg_Msgyesno(aMsg[43],dateiname)   && "File exists, overwrite ?"
+   IF .NOT. hwg_Msgyesno(aMsg[43],dateiname)   // "File exists, overwrite ?"
     RETURN .F.
-   ENDIF 
+   ENDIF
   ERASE &dateiname
  ENDIF
 
   handle := FCREATE(dateiname,0)
 
   IF handle == -1
-   * cannot create
-   * Error writing label file
+   // cannot create
+   // Error writing label file
    hwg_MsgStop( aMsg[2], aMsg[3] + ": " + dateiname)
    FCLOSE(handle)
    RETURN .F.
   ELSE
    FSEEK(handle,0,0)
-  ENDIF 
+  ENDIF
 
   FWRITE(handle,Pu,1034)
 
-  FCLOSE(handle) 
+  FCLOSE(handle)
 
 RETURN .T.
 
-* ------------------------------------------
+// ------------------------------------------
 FUNCTION hwlabel_LBL_DEFAULTS()
-* Set the default values of the variables
-* (e.g. for init or new label)
-* Returns a label array with default values
-* and empty contents
-* ------------------------------------------
-* LOCAL Z1,Z2
-* LOCAL I 
+// Set the default values of the variables
+// (e.g. for init or new label)
+// Returns a label array with default values
+// and empty contents
+// ------------------------------------------
+// LOCAL Z1,Z2
+// LOCAL I
 
 
 
- * Z1 := CHR(2)
- c_REM := SPACE(60)   && Bemerkung (Remarks)  L=60
- n_NUMZ := 5          && Zeilenanzahl (height of label) 1..16
- n_BR := 35           && Spaltenbreite (width of label) 1..120
- n_LM := 0            && Linker Rand (left margin)      0..250
- n_HZR := 1           && Horizontaler Abstand  (lines between labels)  0..16
- n_VZR := 0           && Vertikaler Abstand (spaces between labels ) 0 ... 120
- n_LPZ := 1           && Anzahl Label/Zeile  (number of labels across) 1 ..5
- * Z2 := CHR(2)       && Abschlussbyte ( byte at EOF )
+ // Z1 := CHR(2)
+ c_REM := SPACE(60)   // Bemerkung (Remarks)  L=60
+ n_NUMZ := 5          // Zeilenanzahl (height of label) 1..16
+ n_BR := 35           // Spaltenbreite (width of label) 1..120
+ n_LM := 0            // Linker Rand (left margin)      0..250
+ n_HZR := 1           // Horizontaler Abstand  (lines between labels)  0..16
+ n_VZR := 0           // Vertikaler Abstand (spaces between labels ) 0 ... 120
+ n_LPZ := 1           // Anzahl Label/Zeile  (number of labels across) 1 ..5
+ // Z2 := CHR(2)       // Abschlussbyte ( byte at EOF )
 
- * Contents: Lines with 16 elements, size 60, empty
- 
+ // Contents: Lines with 16 elements, size 60, empty
+
 c_INH1 := SPACE(60)
 c_INH2 := SPACE(60)
 c_INH3 := SPACE(60)
@@ -1164,22 +1164,22 @@ c_INH13 := SPACE(60)
 c_INH14 := SPACE(60)
 c_INH15 := SPACE(60)
 c_INH16 := SPACE(60)
- 
+
 
 RETURN NIL
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_newlbl()
-* New label, clean edit area
-* Before cleaning edit area,
-* check for modified contents and
-* ask for saving, if modified.
-* ==============================================
+// New label, clean edit area
+// Before cleaning edit area,
+// check for modified contents and
+// ask for saving, if modified.
+// ==============================================
 
  IF hwlabel_mod()
   IF .NOT. hwg_Msgyesno(aMsg[57],aMsg[58])
-  * Cancel  
+  // Cancel
    RETURN ""
   ENDIF
 ENDIF
@@ -1188,20 +1188,20 @@ ENDIF
 hwlabel_resetdefs()
 lblname := hwlabel_str_nolabel()
 // hwlabel_reset_mod()
- 
+
 RETURN NIL
 
 
-* ==============================================
+// ==============================================
 FUNCTION _frm_hwlabel_par()
-* Dialog edit label parameters
-* and contents
-* ==============================================
+// Dialog edit label parameters
+// and contents
+// ==============================================
 LOCAL frm_hwlabel_par
 
 LOCAL oLabel1  , oLabel2,  oLabel3  ,  oLabel4 ,  oLabel5
-LOCAL oLabel6  , oLabel7,  oLabel8 ,  oLabel9 ,   oLabel10 
-LOCAL oLabel11 , oLabel12, oLabel13 , oLabel14 , oLabel15 
+LOCAL oLabel6  , oLabel7,  oLabel8 ,  oLabel9 ,   oLabel10
+LOCAL oLabel11 , oLabel12, oLabel13 , oLabel14 , oLabel15
 LOCAL oLabel16 , oLabel17, oLabel18 , oLabel19 , oLabel20
 LOCAL oLabel21 , oLabel22 , oLabel23 , oLabel24
 LOCAL oButton1 , oButton2, oButton3, oButton4
@@ -1212,20 +1212,20 @@ LOCAL labbruch
 LOCAL ngetlmr, ngetlmr2 , nwithtxtdes, noldheigth
 
 
-* Save old settings
+// Save old settings
 //  alabel_old := alabelmem
-  
-labbruch := .T.  && Allow cancel with ESC key
 
-ngetlmr     := 300               && left margin of GET field (started with 220)
-ngetlmr2    := ngetlmr + 105     && Additional info (started with 325 = 220 + 105 )
-nwithtxtdes := 250              && width of desciptive text before edit box  20 ==> 15
+labbruch := .T.  // Allow cancel with ESC key
 
-#ifdef __GTK__ 
+ngetlmr     := 300               // left margin of GET field (started with 220)
+ngetlmr2    := ngetlmr + 105     // Additional info (started with 325 = 220 + 105 )
+nwithtxtdes := 250              // width of desciptive text before edit box  20 ==> 15
+
+#ifdef __GTK__
      SET KEY 0,VK_ESCAPE TO hwg_KEYESCCLDLG(frm_hwlabel_par)
 #endif
 
-* Copy parameter values into local variables
+// Copy parameter values into local variables
 
  REM   := hwg_GET_Helper(c_REM,60)
  NUMZ  := n_NUMZ
@@ -1235,100 +1235,100 @@ nwithtxtdes := 250              && width of desciptive text before edit box  20 
  VZR   := n_VZR
  LPZ   := n_LPZ
 
-* Remember old label height for warning lost of contents
+// Remember old label height for warning lost of contents
 
 noldheigth := NUMZ
 
 
-  INIT DIALOG frm_hwlabel_par TITLE aMsg[39] ;  && "Label parameters"
+  INIT DIALOG frm_hwlabel_par TITLE aMsg[39] ;  // "Label parameters"
     AT 439,33 SIZE 946,543 NOEXIT;
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 30,24 SAY oLabel1 CAPTION aMsg[40] + " :"  SIZE 208,22   && "Edit parameters for
-   @ 30,53 SAY oLabel2 CAPTION lblname  SIZE 530,22 ;         && "filename"
+   @ 30,24 SAY oLabel1 CAPTION aMsg[40] + " :"  SIZE 208,22   // "Edit parameters for
+   @ 30,53 SAY oLabel2 CAPTION lblname  SIZE 530,22 ;         // "filename"
         STYLE WS_BORDER
 
    @ ngetlmr,84 GET oEditbox1 VAR REM SIZE 587,24 ;
         STYLE WS_BORDER
-   @ 30,87 SAY oLabel3 CAPTION aMsg[16] + ":"  SIZE nwithtxtdes,22           && "Remarks"
-   @ 30,114 SAY oLabel11 CAPTION "(" + aMsg[41] + ")" SIZE 285,22   && "(Maximal 60 characters)"
+   @ 30,87 SAY oLabel3 CAPTION aMsg[16] + ":"  SIZE nwithtxtdes,22           // "Remarks"
+   @ 30,114 SAY oLabel11 CAPTION "(" + aMsg[41] + ")" SIZE 285,22   // "(Maximal 60 characters)"
 
-   @ ngetlmr2,151 SAY oLabel10 CAPTION "(" + aMsg[42] + ")" SIZE 250,22  && "(Range, default in brackets)"
-                                                                              && Width: 316 ==> 250
+   @ ngetlmr2,151 SAY oLabel10 CAPTION "(" + aMsg[42] + ")" SIZE 250,22  // "(Range, default in brackets)"
+                                                                              // Width: 316 ==> 250
 
-* Numerical parameters   
+// Numerical parameters
    @ ngetlmr,195 GET oEditbox2 VAR NUMZ SIZE 85,24 ;
         STYLE WS_BORDER ;
         PICTURE "99" VALID {|| hwlabel_valid_num(NUMZ,1,16) }
    @ ngetlmr2,195 SAY oLabel12 CAPTION "1..16 (5)"  SIZE 80,22
-   @ 30,196 SAY oLabel4 CAPTION aMsg[17] + ":" SIZE nwithtxtdes,22    && "Heigth of label:"
+   @ 30,196 SAY oLabel4 CAPTION aMsg[17] + ":" SIZE nwithtxtdes,22    // "Heigth of label:"
 
 
    @ ngetlmr,230 GET oEditbox3 VAR BR SIZE 85,24 ;
         STYLE WS_BORDER ;
         PICTURE "999" VALID {|| hwlabel_valid_num(BR,1,120) }
-        
-   @ 30,231 SAY oLabel5 CAPTION aMsg[18] + ":"  SIZE 121,22   && "Width of label:"
+
+   @ 30,231 SAY oLabel5 CAPTION aMsg[18] + ":"  SIZE 121,22   // "Width of label:"
    @ ngetlmr2,231 SAY oLabel13 CAPTION "1..120 (35)"  SIZE 87,22
 
 
    @ ngetlmr,265 GET oEditbox4 VAR LM SIZE 85,24 ;
         STYLE WS_BORDER ;
         PICTURE "999" VALID {|| hwlabel_valid_num(LM,0,250) }
-   @ 30,266 SAY oLabel6 CAPTION aMsg[19] + ":"  SIZE 94,22    && "Left margin:"
+   @ 30,266 SAY oLabel6 CAPTION aMsg[19] + ":"  SIZE 94,22    // "Left margin:"
    @ ngetlmr2,266 SAY oLabel14 CAPTION "0..250 (0)"  SIZE 80,22
 
 
    @ ngetlmr,300 GET oEditbox5 VAR HZR SIZE 85,24 ;
         STYLE WS_BORDER ;
         PICTURE "99" VALID {|| hwlabel_valid_num(HZR,0,16) }
-   @ 30,301 SAY oLabel7 CAPTION aMsg[20] + ":" SIZE 163,22   && "Lines between labels:"
+   @ 30,301 SAY oLabel7 CAPTION aMsg[20] + ":" SIZE 163,22   // "Lines between labels:"
    @ ngetlmr2,301 SAY oLabel15 CAPTION "0..16 (1)"  SIZE 80,22
 
 
    @ ngetlmr,335 GET oEditbox6 VAR VZR SIZE 85,24 ;
         STYLE WS_BORDER ;
         PICTURE "999" VALID {|| hwlabel_valid_num(VZR,0,120) }
-   @ 30,336 SAY oLabel8 CAPTION aMsg[21] + ":" SIZE 169,22   && "Spaces between labels:" 
+   @ 30,336 SAY oLabel8 CAPTION aMsg[21] + ":" SIZE 169,22   // "Spaces between labels:"
    @ ngetlmr2,336 SAY oLabel16 CAPTION "0 ... 120 (0)"  SIZE 91,22
 
 
    @ ngetlmr,370 GET oEditbox7 VAR LPZ SIZE 85,24 ;
         STYLE WS_BORDER ;
         PICTURE "9" VALID {|| hwlabel_valid_num(LPZ,1,5) }
-   @ 30,371 SAY oLabel9 CAPTION aMsg[22] + ":"  SIZE 166,22  && "Number of label across:"  
+   @ 30,371 SAY oLabel9 CAPTION aMsg[22] + ":"  SIZE 166,22  // "Number of label across:"
    @ ngetlmr2,371 SAY oLabel17 CAPTION "1 .. 5 (1)"  SIZE 89,22
 
 IF clangset <> "English"
-* Additional english desription of parameters 
+// Additional english desription of parameters
   @ 665,151 SAY oLabel18 CAPTION "English:"  SIZE 80,22
   @ 600,196 SAY oLabel19 CAPTION "Heigth of label"  SIZE 166,22
   @ 600,231 SAY oLabel20 CAPTION "Width of label"  SIZE 166,22
-  @ 600,266 SAY oLabel21 CAPTION "Left margin"  SIZE 166,22 
+  @ 600,266 SAY oLabel21 CAPTION "Left margin"  SIZE 166,22
   @ 600,301 SAY oLabel22 CAPTION "Lines between labels"  SIZE 166,22
   @ 600,336 SAY oLabel23 CAPTION "Spaces between labels"  SIZE 166,22
   @ 600,371 SAY oLabel24 CAPTION "Number of label across"  SIZE 166,22
 ENDIF
 
-* Buttons
+// Buttons
 
-* If new heigt lower than the warning query appeared:
-* No  : Set height to prevous value and stay in parameter edit dialog
-* Yes : Accept new value and leave edit dialog  
-   @ 34,415 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80,32 ;     && OK ("Continue")
+// If new heigt lower than the warning query appeared:
+// No  : Set height to prevous value and stay in parameter edit dialog
+// Yes : Accept new value and leave edit dialog
+   @ 34,415 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80,32 ;     // OK ("Continue")
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK { | | ;
          IIF(NUMZ < noldheigth , IIF(hwlabel_warncont(), ;
            (  labbruch := .F. , frm_hwlabel_par:Close() ) ,  ;
            (  NUMZ := noldheigth  , oEditbox2:Value(NUMZ) )  ) ;
-        ,  ( labbruch := .F. , frm_hwlabel_par:Close() ) ) } 
+        ,  ( labbruch := .F. , frm_hwlabel_par:Close() ) ) }
 
-   @ 165,415 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80,32 ;    && "Cancel"
+   @ 165,415 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80,32 ;    // "Cancel"
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK { | | frm_hwlabel_par:Close() }
 
-   @ 336,415 BUTTON oButton4 CAPTION aMsg[54]    SIZE 169,32 ;  && "Set default values"
+   @ 336,415 BUTTON oButton4 CAPTION aMsg[54]    SIZE 169,32 ;  // "Set default values"
         STYLE WS_TABSTOP+BS_FLAT  ;
         ON CLICK { | | ;
          REM   := Space(60) , ;
@@ -1347,7 +1347,7 @@ ENDIF
          oEditbox7:Value(LPZ)   ;
         }
 
-   @ 668,415 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80,32 ;    && "Help"
+   @ 668,415 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80,32 ;    // "Help"
         STYLE WS_TABSTOP+BS_FLAT  ;
         ON CLICK { | | hwlabel_Mainhlp(clangset,1) }
 
@@ -1360,24 +1360,24 @@ ENDIF
 
 
  IF labbruch
-   * Check for modifications
+   // Check for modifications
    // alabel_old
-   // ==> Executed at close of edit dialog 
+   // ==> Executed at close of edit dialog
    RETURN .F.
  ENDIF
 
- 
-* Store parameters back to STATIC vars
+
+// Store parameters back to STATIC vars
 
  c_REM := PADR(REM,60)
  n_NUMZ := NUMZ
- n_BR := BR 
+ n_BR := BR
  n_LM := LM
  n_HZR := HZR
  n_VZR := VZR
  n_LPZ := LPZ
 
-* Clean unused contents
+// Clean unused contents
   hwlabel_ccontents(NUMZ)
 
 //  hwg_MsgInfo("Parameter stored","Debug")
@@ -1387,26 +1387,26 @@ ENDIF
 RETURN frm_hwlabel_par:lresult
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_ccontents(nnumz)
-* Clean unused contents
-* nnumz : The recent height of label,
-*         all lines above this position
-*         are cleared with 60 spaces.
-* ==============================================
+// Clean unused contents
+// nnumz : The recent height of label,
+//         all lines above this position
+//         are cleared with 60 spaces.
+// ==============================================
 LOCAL iconut
 IF nnumz == NIL
  RETURN NIL
 ENDIF
 
 IF nnumz > 15
- * Nothing to do
+ // Nothing to do
  RETURN NIL
-ENDIF 
+ENDIF
 IF nnumz > 14
  c_INH16 := SPACE(60)
   RETURN NIL
-ENDIF 
+ENDIF
 IF nnumz > 13
  c_INH16 := SPACE(60)
  c_INH15 := SPACE(60)
@@ -1549,7 +1549,7 @@ IF nnumz > 1
  c_INH4  := SPACE(60)
  c_INH3  := SPACE(60)
  RETURN NIL
-ENDIF 
+ENDIF
 IF nnumz > 0
  c_INH16 := SPACE(60)
  c_INH15 := SPACE(60)
@@ -1567,50 +1567,50 @@ IF nnumz > 0
  c_INH3  := SPACE(60)
  c_INH2  := SPACE(60)
 ENDIF
-  
+
 RETURN NIL
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_warncont()
-* Warnung query message, if height reduced
-* ==============================================
-RETURN hwg_MsgYesNo(aMsg[53],aMsg[52])  && 52 = Warning
+// Warnung query message, if height reduced
+// ==============================================
+RETURN hwg_MsgYesNo(aMsg[53],aMsg[52])  // 52 = Warning
 
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_valid_num(nvalchk,nfromval,ntoval)
-* VALID function for checking numeric value ranges.
-*
-* nvalchk  : value to check
-* nfromval : range from
-* ntoval   : range to
-*
-* ==============================================
+// VALID function for checking numeric value ranges.
+//
+// nvalchk  : value to check
+// nfromval : range from
+// ntoval   : range to
+//
+// ==============================================
 LOCAL cfr,cto
-cfr := ALLTRIM(STR(nfromval)) && for displayed message
+cfr := ALLTRIM(STR(nfromval)) // for displayed message
 cto := ALLTRIM(STR(ntoval))
 IF (nvalchk >= nfromval) .AND. (nvalchk <= ntoval)
  RETURN .T.
 ENDIF
 hwg_MsgStop("Range from " + cfr + " to " + cto)
-RETURN .F. 
+RETURN .F.
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_frm_lbl_contents(nLines, cHelp)
-* Dialog edit label contents
-* nLines : Number of lines for edit
-*          Depends on parameter  
-* aCnt   : Array with contents of label,
-*          NIL for new label
-* cHelp  : Help text 
-* ==============================================
+// Dialog edit label contents
+// nLines : Number of lines for edit
+//          Depends on parameter
+// aCnt   : Array with contents of label,
+//          NIL for new label
+// cHelp  : Help text
+// ==============================================
 LOCAL frm_lbl_contents
 
-LOCAL oLabel1, oLabel2, oLabel3, oLabel4, oLabel5 
-LOCAL oLabel6, oLabel7, oLabel8, oLabel9, oLabel10 
+LOCAL oLabel1, oLabel2, oLabel3, oLabel4, oLabel5
+LOCAL oLabel6, oLabel7, oLabel8, oLabel9, oLabel10
 LOCAL oLabel11, oLabel12, oLabel13, oLabel14, oLabel15
 LOCAL oLabel16, oLabel17
 LOCAL oEditbox1, oEditbox2, oEditbox3, oEditbox4, oEditbox5
@@ -1618,11 +1618,11 @@ LOCAL oEditbox6, oEditbox7, oEditbox8, oEditbox9, oEditbox10
 LOCAL oEditbox11, oEditbox12, oEditbox13, oEditbox14, oEditbox15
 LOCAL oEditbox16
 LOCAL oButton1, oButton2, oButton3
-LOCAL i , iconut, bCancel 
+LOCAL i , iconut, bCancel
 LOCAL nlauf2 , lmod
 
 LOCAL cCnt1, cCnt2, cCnt3, cCnt4, cCnt5, cCnt6, cCnt7, cCnt8, ;
-     cCnt9, cCnt10, cCnt11, cCnt12, cCnt13, cCnt14, cCnt15, cCnt16   
+     cCnt9, cCnt10, cCnt11, cCnt12, cCnt13, cCnt14, cCnt15, cCnt16
 
 
 bCancel := .T.
@@ -1630,13 +1630,13 @@ lmod := .F.
 
 IF nLines == NIL
   nLines := 1
-ENDIF  
+ENDIF
 
    IF nLines > 16
      nLines := 16
    ENDIF
 
-* Copy label contents from static buffer to local varianles
+// Copy label contents from static buffer to local varianles
 
 cCnt1 := PADR(c_INH1,60)
 cCnt2 := PADR(c_INH2,60)
@@ -1656,7 +1656,7 @@ cCnt15 := PADR(c_INH15,60)
 cCnt16 := PADR(c_INH16,60)
 
 
-* The hwg_GET_Helper() for GTK
+// The hwg_GET_Helper() for GTK
 
 cCnt1  :=  hwg_GET_Helper(cCnt1,60)
 cCnt2  :=  hwg_GET_Helper(cCnt2,60)
@@ -1673,8 +1673,8 @@ cCnt12 :=  hwg_GET_Helper(cCnt12,60)
 cCnt13 :=  hwg_GET_Helper(cCnt13,60)
 cCnt14 :=  hwg_GET_Helper(cCnt14,60)
 cCnt15 :=  hwg_GET_Helper(cCnt15,60)
-cCnt16 :=  hwg_GET_Helper(cCnt16,60) 
- 
+cCnt16 :=  hwg_GET_Helper(cCnt16,60)
+
 
 
   INIT DIALOG frm_lbl_contents TITLE "Edit contents of label" ;
@@ -1682,24 +1682,24 @@ cCnt16 :=  hwg_GET_Helper(cCnt16,60)
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 5,19 SAY oLabel1 CAPTION aMsg[33]  SIZE 707,22 ;   && "Contents of label"
-        STYLE SS_CENTER 
+   @ 5,19 SAY oLabel1 CAPTION aMsg[33]  SIZE 707,22 ;   // "Contents of label"
+        STYLE SS_CENTER
 
 IF nLines > 0
    @ 110,60 GET oEditbox1 VAR cCnt1  SIZE 550,24 ;
         STYLE WS_BORDER
-   @ 50,61 SAY oLabel2 CAPTION "1:"  SIZE 45,22 
-ENDIF   
+   @ 50,61 SAY oLabel2 CAPTION "1:"  SIZE 45,22
+ENDIF
 IF nLines > 1
    @ 110,95 GET oEditbox2 VAR cCnt2  SIZE 550,24 ;
         STYLE WS_BORDER
    @ 50,96 SAY oLabel3 CAPTION "2:"  SIZE 45,22
 ENDIF
-IF nLines > 2   
+IF nLines > 2
    @ 110,130 GET oEditbox3 VAR cCnt3  SIZE 550,24 ;
         STYLE WS_BORDER
    @ 50,131 SAY oLabel4 CAPTION "3:"  SIZE 45,22
-ENDIF   
+ENDIF
 IF nLines > 3
    @ 110,165 GET oEditbox4 VAR cCnt4  SIZE 550,24 ;
         STYLE WS_BORDER
@@ -1763,24 +1763,24 @@ ENDIF
 IF nLines > 15
    @ 110,585 GET oEditbox16 VAR cCnt16 SIZE 550,24 ;
         STYLE WS_BORDER
-   @ 50,586 SAY oLabel17 CAPTION "16:"  SIZE 45,22 
+   @ 50,586 SAY oLabel17 CAPTION "16:"  SIZE 45,22
 ENDIF
 
-* --- Buttons ---
-   @ 528,640 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80,32 ;  && "Help"
+// --- Buttons ---
+   @ 528,640 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80,32 ;  // "Help"
         STYLE WS_TABSTOP+BS_FLAT ;
                 ON CLICK {|| hwlabel_Mainhlp(clangset,2) }
-   @ 112,641 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80,32 ;  && "OK"
+   @ 112,641 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80,32 ;  // "OK"
         STYLE WS_TABSTOP+BS_FLAT ;
-        ON CLICK {|| bCancel := .F. , frm_lbl_contents:Close() }  
-   @ 245,643 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80,32 ; && "Cancel"
+        ON CLICK {|| bCancel := .F. , frm_lbl_contents:Close() }
+   @ 245,643 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80,32 ; // "Cancel"
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| frm_lbl_contents:Close() }
 
    ACTIVATE DIALOG frm_lbl_contents
 
-   * Trim edited fields
-   
+   // Trim edited fields
+
    cCnt1 := PADR(cCnt1,60)
    cCnt2 := PADR(cCnt2,60)
    cCnt3 := PADR(cCnt3,60)
@@ -1797,11 +1797,11 @@ ENDIF
    cCnt14 := PADR(cCnt14,60)
    cCnt15 := PADR(cCnt15,60)
    cCnt16 := PADR(cCnt16,60)
-   
+
 
    IF .NOT. bCancel
-   * Store contents back
-   
+   // Store contents back
+
   c_INH1  := cCnt1
   c_INH2  := cCnt2
   c_INH3  := cCnt3
@@ -1818,92 +1818,92 @@ ENDIF
   c_INH14 := cCnt14
   c_INH15 := cCnt15
   c_INH16 := cCnt16
-   
+
 
  ENDIF
 
 RETURN frm_lbl_contents:lresult
 
-* ==============================================
+// ==============================================
 FUNCTION hwlbledit_exit()
-* Exit dialog check for modified label and query
-* ==============================================
+// Exit dialog check for modified label and query
+// ==============================================
 IF hwlabel_mod()
-RETURN hwg_MsgYesNo(aMsg[45],aMsg[28])  && 28 = Label Editor , 45 = Label is modified, ignore modifications ?
+RETURN hwg_MsgYesNo(aMsg[45],aMsg[28])  // 28 = Label Editor , 45 = Label is modified, ignore modifications ?
 ENDIF
 RETURN .T.
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_translcp(cInput,nmode,cCpLocWin,cCpLocLINUX,cCpLabel)
-* Translates codepages for label file
-*
-* Parameters:
-* Default values in ()
-*
-* cInput      : The Input String to translate ("")
-* nmode       : Direction of translation (0):
-*               0 = Label to local (Windows,LINUX)
-*               1 = Local (Windows,LINUX) to label
-* cCpLocWin   : Name of local codepage for display and printing
-*               on Windows OS ("DEWIN")
-* cCpLocLINUX : Name of local codepage for display and printing
-*               on LINUX OS ("UTF8EX")
-* cCpLabel    : Name of codepage for label file
-*               ("DE858")
-* 
-* The used operating system is automatically
-* detected by compiler switch. 
-* ==============================================
+// Translates codepages for label file
+//
+// Parameters:
+// Default values in ()
+//
+// cInput      : The Input String to translate ("")
+// nmode       : Direction of translation (0):
+//               0 = Label to local (Windows,LINUX)
+//               1 = Local (Windows,LINUX) to label
+// cCpLocWin   : Name of local codepage for display and printing
+//               on Windows OS ("DEWIN")
+// cCpLocLINUX : Name of local codepage for display and printing
+//               on LINUX OS ("UTF8EX")
+// cCpLabel    : Name of codepage for label file
+//               ("DE858")
+//
+// The used operating system is automatically
+// detected by compiler switch.
+// ==============================================
 LOCAL cOutput, cloccp
 
 cOutput := ""
 
 IF nmode == NIL
   nmode := 0
-ENDIF 
+ENDIF
 
 IF cInput == NIL
  cInput := ""
-ENDIF 
+ENDIF
 
 IF cCpLocWin == NIL
    cCpLocWin := "DEWIN"
-ENDIF   
+ENDIF
 IF cCpLocLINUX == NIL
    cCpLocLINUX := "UTF8EX"
-ENDIF   
+ENDIF
 IF cCpLabel == NIL
    cCpLabel := "DE858"
-ENDIF   
+ENDIF
 
 #ifdef __PLATFORM__WINDOWS
  cloccp := cCpLocWin
 #else
  cloccp := cCpLocLINUX
-#endif 
+#endif
 
 IF nmode == 0
   cOutput := hb_Translate( cInput, cCpLabel , cloccp   )
 ELSE
   cOutput := hb_Translate( cInput, cloccp   , cCpLabel )
-ENDIF 
+ENDIF
 
 
 
 RETURN cOutput
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_countcont()
-* Count the filled contents of a label.
-* aforcount : Can be an array with full contents
-*             or only an array of 16 elements with
-*             label contents.
-* ==============================================
+// Count the filled contents of a label.
+// aforcount : Can be an array with full contents
+//             or only an array of 16 elements with
+//             label contents.
+// ==============================================
 
 
 IF EMPTY(c_INH1)
  RETURN 0
-ENDIF 
+ENDIF
 IF EMPTY(c_INH2)
  RETURN 1
 ENDIF
@@ -1952,115 +1952,115 @@ ENDIF
 
 RETURN 16
 
-* === Functions for hmisc.prg ===
+// === Functions for hmisc.prg ===
 
 
 
 
-* ------------------------------------------------
-* ---- Messages ( National language support ) ----
-* ----- Internationalization ---------------------
-* ------------------------------------------------
+// ------------------------------------------------
+// ---- Messages ( National language support ) ----
+// ----- Internationalization ---------------------
+// ------------------------------------------------
 
-     
 
-* ==============================================
+
+// ==============================================
 FUNCTION hwlabel_DOS_INIT_DE()
-* Initialisation sequence for DOS / CP437 and CP858
-* Also for english
-* Returns the Values in an array.
-* Umlaute and Euro Currency sign
-* ==============================================
+// Initialisation sequence for DOS / CP437 and CP858
+// Also for english
+// Returns the Values in an array.
+// Umlaute and Euro Currency sign
+// ==============================================
 
 
-* The output array is filled with this sheme:
-* aUmlaute[1] : CAGUML && AE Upper
-* aUmlaute[2] : COGUML && OE
-* aUmlaute[3] : CUGUML && UE
-* aUmlaute[4] : CAKUML && AE Lower
-* aUmlaute[5] : COKUML && OE
-* aUmlaute[6] : CUKUML && UE
-* aUmlaute[7] : CSZUML && SZ Sharp "S"
-* aUmlaute[8] : Euro   && Euro currency sign
-*
-* ============================================== 
+// The output array is filled with this sheme:
+// aUmlaute[1] : CAGUML // AE Upper
+// aUmlaute[2] : COGUML // OE
+// aUmlaute[3] : CUGUML // UE
+// aUmlaute[4] : CAKUML // AE Lower
+// aUmlaute[5] : COKUML // OE
+// aUmlaute[6] : CUKUML // UE
+// aUmlaute[7] : CSZUML // SZ Sharp "S"
+// aUmlaute[8] : Euro   // Euro currency sign
+//
+// ==============================================
 LOCAL aUmlaute := {}
 
-CAGUML := CHR(142)  && AE
-COGUML := CHR(153)  && OE
-CUGUML := CHR(154)  && UE
-CAKUML := CHR(132)  && AE
-COKUML := CHR(148)  && OE
-CUKUML := CHR(129)  && UE
-CSZUML := CHR(225)  && SZ
-EURO   := CHR(213)  && CP858 : xD5 or 213
+CAGUML := CHR(142)  // AE
+COGUML := CHR(153)  // OE
+CUGUML := CHR(154)  // UE
+CAKUML := CHR(132)  // AE
+COKUML := CHR(148)  // OE
+CUKUML := CHR(129)  // UE
+CSZUML := CHR(225)  // SZ
+EURO   := CHR(213)  // CP858 : xD5 or 213
 
-* Create array with special signs
-/* 1 */ AADD(aUmlaute, CAGUML )  && AE Upper
-/* 2 */ AADD(aUmlaute, COGUML )  && OE 
-/* 3 */ AADD(aUmlaute, CUGUML )  && UE
-/* 4 */ AADD(aUmlaute, CAKUML )  && AE Lower
-/* 5 */ AADD(aUmlaute, COKUML )  && OE
-/* 6 */ AADD(aUmlaute, CUKUML )  && UE
-/* 7 */ AADD(aUmlaute, CSZUML )  && SZ  Sharp "S"
-/* 8 */ AADD(aUmlaute, EURO   )  && Euro currency sign
+// Create array with special signs
+/* 1 */ AADD(aUmlaute, CAGUML )  // AE Upper
+/* 2 */ AADD(aUmlaute, COGUML )  // OE
+/* 3 */ AADD(aUmlaute, CUGUML )  // UE
+/* 4 */ AADD(aUmlaute, CAKUML )  // AE Lower
+/* 5 */ AADD(aUmlaute, COKUML )  // OE
+/* 6 */ AADD(aUmlaute, CUKUML )  // UE
+/* 7 */ AADD(aUmlaute, CSZUML )  // SZ  Sharp "S"
+/* 8 */ AADD(aUmlaute, EURO   )  // Euro currency sign
 
 
 RETURN aUmlaute
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_GUI_INIT_DE()
-* Initialisation sequence for GUI (messages)
-* Umlaute and Euro Currency sign
-* ==============================================
+// Initialisation sequence for GUI (messages)
+// Umlaute and Euro Currency sign
+// ==============================================
 LOCAL aUmlaute := {}
 #ifdef __LINUX__
-* Linux / UTF8
-CAGUML := "Ä"  && AE
-COGUML := "Ö"  && OE
-CUGUML := "Ü"  && UE
-CAKUML := "ä"  && AE
-COKUML := "ö"  && OE
-CUKUML := "ü"  && UE
-CSZUML := "ß"  && SZ
+// Linux / UTF8
+CAGUML := "Ä"  // AE
+COGUML := "Ö"  // OE
+CUGUML := "Ü"  // UE
+CAKUML := "ä"  // AE
+COKUML := "ö"  // OE
+CUKUML := "ü"  // UE
+CSZUML := "ß"  // SZ
 EURO   := "€"
-#else 
-* Windows (WIN1252)
-CAGUML := CHR(196)  && AE
-COGUML := CHR(214)  && OE
-CUGUML := CHR(220)  && UE
-CAKUML := CHR(228)  && AE
-COKUML := CHR(246)  && OE
-CUKUML := CHR(252)  && UE
-CSZUML := CHR(223)  && SZ
+#else
+// Windows (WIN1252)
+CAGUML := CHR(196)  // AE
+COGUML := CHR(214)  // OE
+CUGUML := CHR(220)  // UE
+CAKUML := CHR(228)  // AE
+COKUML := CHR(246)  // OE
+CUKUML := CHR(252)  // UE
+CSZUML := CHR(223)  // SZ
 EURO   := CHR(128)
 #endif
 
-AADD(aUmlaute, CAGUML )  && AE
-AADD(aUmlaute, COGUML )  && OE
-AADD(aUmlaute, CUGUML )  && UE
-AADD(aUmlaute, CAKUML )  && AE
-AADD(aUmlaute, COKUML )  && OE
-AADD(aUmlaute, CUKUML )  && UE
-AADD(aUmlaute, CSZUML )  && SZ
+AADD(aUmlaute, CAGUML )  // AE
+AADD(aUmlaute, COGUML )  // OE
+AADD(aUmlaute, CUGUML )  // UE
+AADD(aUmlaute, CAKUML )  // AE
+AADD(aUmlaute, COKUML )  // OE
+AADD(aUmlaute, CUKUML )  // UE
+AADD(aUmlaute, CSZUML )  // SZ
 AADD(aUmlaute, EURO )
 
 
 RETURN aUmlaute
 
-* ------------------------------------------
+// ------------------------------------------
 FUNCTION hwlabel_MSGS_EN()
-* Set message array for english language
-* Total number of messages: 33, reserved: 0
-* ------------------------------------------
-* Don't forget, that strings containing "&" are part of a menu system.
+// Set message array for english language
+// Total number of messages: 33, reserved: 0
+// ------------------------------------------
+// Don't forget, that strings containing "&" are part of a menu system.
 LOCAL aMsg
 aMsg := {}
 
-/*  1  */ AADD(aMsg,"HWLABEL Label Editor")     && Title of main window
+/*  1  */ AADD(aMsg,"HWLABEL Label Editor")     // Title of main window
 /*  2  */ AADD(aMsg,"Error writing label file")
 /*  3  */ AADD(aMsg,"File access error")
-* Main Menu
+// Main Menu
 /*  4  */ AADD(aMsg,"&File")
 /*  5  */ AADD(aMsg,"&Quit")
 /*  6  */ AADD(aMsg,"&Load")
@@ -2073,15 +2073,15 @@ aMsg := {}
 /* 13  */ AADD(aMsg,"&Language")
 /* 14  */ AADD(aMsg,"&Configuration")
 /* 15  */ AADD(aMsg,"Help")
-* Label Parameters  / Range as comment
-/* 16  */ AADD(aMsg,"Remarks")                  && L=60
-/* 17  */ AADD(aMsg,"Height of label")          && 1..16
-/* 18  */ AADD(aMsg,"Width of label")           && 1..120
-/* 19  */ AADD(aMsg,"Left margin")              && 0..250
-/* 20  */ AADD(aMsg,"Lines between labels")     && 0..16
-/* 21  */ AADD(aMsg,"Spaces between labels")    && 0 ... 120
-/* 22  */ AADD(aMsg,"Number of labels across")  && 1 .. 5
-* Other messages
+// Label Parameters  / Range as comment
+/* 16  */ AADD(aMsg,"Remarks")                  // L=60
+/* 17  */ AADD(aMsg,"Height of label")          // 1..16
+/* 18  */ AADD(aMsg,"Width of label")           // 1..120
+/* 19  */ AADD(aMsg,"Left margin")              // 0..250
+/* 20  */ AADD(aMsg,"Lines between labels")     // 0..16
+/* 21  */ AADD(aMsg,"Spaces between labels")    // 0 ... 120
+/* 22  */ AADD(aMsg,"Number of labels across")  // 1 .. 5
+// Other messages
 /* 23  */ AADD(aMsg,"Close")
 /* 24  */ AADD(aMsg,"Error reading label file, not 1034 bytes")
 /* 25  */ AADD(aMsg,"Label files")
@@ -2106,11 +2106,11 @@ aMsg := {}
 /* 44  */ AADD(aMsg,"Parameter(s) are modified, Save ?")
 /* 45  */ AADD(aMsg,"Label is modified, ignore modifications ?")
 /* 46  */ AADD(aMsg,"Nothing to save")
-/* 47  */ AADD(aMsg,"Label files ( *.lbl )")         && cloctext
-/* 48  */ AADD(aMsg,"*.lbl")                          && clocmsk
-/* 49  */ AADD(aMsg,"All files")                      && clocallf (GTK)
-/* 50  */ AADD(aMsg,"Enter name of new label file")  && cTextadd1 (Windows)
-/* 51  */ AADD(aMsg,"Save Label File")                && cTextadd2 (Windows)
+/* 47  */ AADD(aMsg,"Label files ( *.lbl )")         // cloctext
+/* 48  */ AADD(aMsg,"*.lbl")                          // clocmsk
+/* 49  */ AADD(aMsg,"All files")                      // clocallf (GTK)
+/* 50  */ AADD(aMsg,"Enter name of new label file")  // cTextadd1 (Windows)
+/* 51  */ AADD(aMsg,"Save Label File")                // cTextadd2 (Windows)
 /* 52  */ AADD(aMsg,"Warning")
 /* 53  */ AADD(aMsg,"If height is reduced, the corresponding contents is lost" + CHR(10) + "No = Cancel")
 /* 54  */ AADD(aMsg,"Set default values")
@@ -2127,28 +2127,28 @@ aMsg := {}
 RETURN aMsg
 
 
-* ------------------------------------------
+// ------------------------------------------
 FUNCTION hwlabel_MSGS_DE()
-* Set message array for german language
-* 
-* ------------------------------------------
-* aUmlaute[1] : CAGUML && AE Upper
-* aUmlaute[2] : COGUML && OE
-* aUmlaute[3] : CUGUML && UE
-* aUmlaute[4] : CAKUML && AE Lower
-* aUmlaute[5] : COKUML && OE
-* aUmlaute[6] : CUKUML && UE
-* aUmlaute[7] : CSZUML && SZ Sharp "S"
-* aUmlaute[8] : Euro   && Euro currency sign
-* ------------------------------------------
+// Set message array for german language
+//
+// ------------------------------------------
+// aUmlaute[1] : CAGUML // AE Upper
+// aUmlaute[2] : COGUML // OE
+// aUmlaute[3] : CUGUML // UE
+// aUmlaute[4] : CAKUML // AE Lower
+// aUmlaute[5] : COKUML // OE
+// aUmlaute[6] : CUKUML // UE
+// aUmlaute[7] : CSZUML // SZ Sharp "S"
+// aUmlaute[8] : Euro   // Euro currency sign
+// ------------------------------------------
 LOCAL aMsg , aUmlaute
 aMsg := {}
 aUmlaute := hwlabel_GUI_INIT_DE()
 
-/*  1  */ AADD(aMsg,"HWLABEL Label Editor")     && Title of main window
+/*  1  */ AADD(aMsg,"HWLABEL Label Editor")     // Title of main window
 /*  2  */ AADD(aMsg,"Schreibfehler Label-Datei")
 /*  3  */ AADD(aMsg,"Dateizugriffsfehler")
-* Main Menu / Hauptmenue
+// Main Menu / Hauptmenue
 /*  4  */ AADD(aMsg,"&Datei")
 /*  5  */ AADD(aMsg,"&Beenden")
 /*  6  */ AADD(aMsg,"&Laden")
@@ -2161,15 +2161,15 @@ aUmlaute := hwlabel_GUI_INIT_DE()
 /* 13  */ AADD(aMsg,"&Sprache")
 /* 14  */ AADD(aMsg,"&Einstellungen")
 /* 15  */ AADD(aMsg,"&Hilfe")
-* Label Parameters  / english / Range as comment
-/* 16  */ AADD(aMsg,"Bemerkung (remarks)")                                      && Remarks L=60
-/* 17  */ AADD(aMsg,"Zeilenanzahl (H" + aUmlaute[5] + "he)")                  && Height of label 1..16
-/* 18  */ AADD(aMsg,"Spaltenbreite")                                           && Width of label 1..120
-/* 19  */ AADD(aMsg,"Linker Rand")                                             && Left margin 0..250
-/* 20  */ AADD(aMsg,"Horizontaler Abstand")       && (Zeilen)                    && Lines between labels 0..16
-/* 21  */ AADD(aMsg,"Vertikaler Abstand")    && (Leerzeichen)                     && Spaces between labels 0 ... 120
-/* 22  */ AADD(aMsg,"Anzahl Label/Zeile ")                                     && Number of labels across 1 .. 5
-* Other messages
+// Label Parameters  / english / Range as comment
+/* 16  */ AADD(aMsg,"Bemerkung (remarks)")                                      // Remarks L=60
+/* 17  */ AADD(aMsg,"Zeilenanzahl (H" + aUmlaute[5] + "he)")                  // Height of label 1..16
+/* 18  */ AADD(aMsg,"Spaltenbreite")                                           // Width of label 1..120
+/* 19  */ AADD(aMsg,"Linker Rand")                                             // Left margin 0..250
+/* 20  */ AADD(aMsg,"Horizontaler Abstand")       // (Zeilen)                    // Lines between labels 0..16
+/* 21  */ AADD(aMsg,"Vertikaler Abstand")    // (Leerzeichen)                     // Spaces between labels 0 ... 120
+/* 22  */ AADD(aMsg,"Anzahl Label/Zeile ")                                     // Number of labels across 1 .. 5
+// Other messages
 /* 23  */ AADD(aMsg,"Schlie" + aUmlaute[7] + "en")
 /* 24  */ AADD(aMsg,"Lesefehler: Label-Datei, nicht 1034 Bytes")
 /* 25  */ AADD(aMsg,"Label-Dateien")
@@ -2192,14 +2192,14 @@ aUmlaute := hwlabel_GUI_INIT_DE()
 /* 41  */ AADD(aMsg,"Maximal 60 Zeichen" )
 /* 42  */ AADD(aMsg,"Wertebereich, Default in Klammern" )
 /* 43  */ AADD(aMsg,"Datei existiert, " + aUmlaute[3] + "berschreiben ?")
-/* 44  */ AADD(aMsg,"Parameter wurden ge" + aUmlaute[4] + "ndert, Speichern ?") 
+/* 44  */ AADD(aMsg,"Parameter wurden ge" + aUmlaute[4] + "ndert, Speichern ?")
 /* 45  */ AADD(aMsg,"Label wurde ge" + aUmlaute[4] + "ndert,  ?")
 /* 46  */ AADD(aMsg,"Keine " + aUmlaute[1]  + "nderung abzuspeichern")
-/* 47  */ AADD(aMsg,"Label-Dateien ( *.lbl )")             && cloctext
-/* 48  */ AADD(aMsg,"*.lbl")                                 && clocmsk
-/* 49  */ AADD(aMsg,"Alle Dateien")                         && clocallf (GTK)
-/* 50  */ AADD(aMsg,"Geben Sie einen Namen f"+ aUmlaute[6] + "r eine neue Label-Datei ein")  && cTextadd1 (Windows)
-/* 51  */ AADD(aMsg,"Label-Datei sichern")                 && cTextadd2 (Windows)
+/* 47  */ AADD(aMsg,"Label-Dateien ( *.lbl )")             // cloctext
+/* 48  */ AADD(aMsg,"*.lbl")                                 // clocmsk
+/* 49  */ AADD(aMsg,"Alle Dateien")                         // clocallf (GTK)
+/* 50  */ AADD(aMsg,"Geben Sie einen Namen f"+ aUmlaute[6] + "r eine neue Label-Datei ein")  // cTextadd1 (Windows)
+/* 51  */ AADD(aMsg,"Label-Datei sichern")                 // cTextadd2 (Windows)
 /* 52  */ AADD(aMsg,"Warnung")
 /* 53  */ AADD(aMsg,"Wird die H" + aUmlaute[5] + "he verringert, so gehen betroffene Inhalte verloren" + CHR(10) + "Nein=Abbruch")
 /* 54  */ AADD(aMsg,"Setze Standardwerte")
@@ -2212,26 +2212,26 @@ aUmlaute := hwlabel_GUI_INIT_DE()
 /* 61  */ AADD(aMsg,"HWLABEL Hilfe")
 /* 62  */ AADD(aMsg,"Keine Hilfe verf" + aUmlaute[6] + "gbar")
 
-* aUmlaute[1]  = AE
-* aUmlaute[2]  = OE
-* aUmlaute[3]  = UE
-* aUmlaute[4]  = ae
-* aUmlaute[5]  = oe
-* aUmlaute[6]  = ue
-* aUmlaute[7]  = sz
-* aUmlaute[8]  = EURO
- 
-RETURN aMsg 
+// aUmlaute[1]  = AE
+// aUmlaute[2]  = OE
+// aUmlaute[3]  = UE
+// aUmlaute[4]  = ae
+// aUmlaute[5]  = oe
+// aUmlaute[6]  = ue
+// aUmlaute[7]  = sz
+// aUmlaute[8]  = EURO
 
-* ------------------------------------------
+RETURN aMsg
+
+// ------------------------------------------
 FUNCTION hwlabel_helptxt_EN(ntopic)
-* Help text for label contents
-* ntopic : A numeric value for specifying
-* the displayed help text.
-* 0 : (Default) Main menu of label editor
-* 1 : Label parameter 
-* 2 : Label contents
-* ------------------------------------------
+// Help text for label contents
+// ntopic : A numeric value for specifying
+// the displayed help text.
+// 0 : (Default) Main menu of label editor
+// 1 : Label parameter
+// 2 : Label contents
+// ------------------------------------------
 LOCAL lf := CHR(13) + CHR(10)
 
 IF ntopic == NIL
@@ -2266,7 +2266,7 @@ ENDIF
 
 IF ntopic == 1
  RETURN "Edit Parameter for labels." + lf + ;
-    "The following parameters are served for editing:" + lf + lf + ;  
+    "The following parameters are served for editing:" + lf + lf + ;
     "Left margin:" + lf +  ;
     "Defines the start position for the printout of " + lf + ;
     "the first label. At print of labels, this value is " + lf + ;
@@ -2296,7 +2296,7 @@ IF ntopic == 1
       " of the last line was adjusted automatically." ;
        + lf +  ;
       "Range is 1 to 5"
-ENDIF  
+ENDIF
 
 IF ntopic == 2
 RETURN  "Contents of label:" + lf + lf + ;
@@ -2383,7 +2383,7 @@ RETURN  "Contents of label:" + lf + lf + ;
       "many space in the contents section." + ;
       lf +  ;
      "The function NOSKIP() ist also available in library module" + CHR(34) + "libhwlabel.prg" + CHR(34) + "." + ;
-      lf + lf + ; 
+      lf + lf + ;
       lf +  ;
       "If your modifcation of the contents section is complete," + lf + "you can save the label file, " + lf + ;
       "(except you habe pressed the ESC key or the cancel button)." + ;
@@ -2411,28 +2411,28 @@ RETURN  "Contents of label:" + lf + lf + ;
       "in the related program documentation."
 ENDIF
 
-* Not specified topic
-* No help available
-hwg_MsgStop(aMsg[62],aMsg[61]) 
+// Not specified topic
+// No help available
+hwg_MsgStop(aMsg[62],aMsg[61])
 
 RETURN ""
 
 
-* ------------------------------------------
+// ------------------------------------------
 FUNCTION hwlabel_helptxt_DE(ntopic)
-* Help text for label contents (German)
-* ------------------------------------------
+// Help text for label contents (German)
+// ------------------------------------------
 LOCAL lf := CHR(13) + CHR(10)
 LOCAL aUmlaute
 LOCAL CAGUML, COGUML , CUGUML , CAKUML, COKUML , CUKUML , CSZUML , EURO
 aUmlaute := hwlabel_GUI_INIT_DE()
-CAGUML := aUmlaute[1]  && AE
-COGUML := aUmlaute[2]  && OE
-CUGUML := aUmlaute[3]  && UE
-CAKUML := aUmlaute[4]  && ae
-COKUML := aUmlaute[5]  && oe
-CUKUML := aUmlaute[6]  && ue
-CSZUML := aUmlaute[7]  && sz
+CAGUML := aUmlaute[1]  // AE
+COGUML := aUmlaute[2]  // OE
+CUGUML := aUmlaute[3]  // UE
+CAKUML := aUmlaute[4]  // ae
+COKUML := aUmlaute[5]  // oe
+CUKUML := aUmlaute[6]  // ue
+CSZUML := aUmlaute[7]  // sz
 EURO   := aUmlaute[8]
 
 IF ntopic == NIL
@@ -2470,7 +2470,7 @@ IF ntopic == 0
 
 ENDIF
 
-IF ntopic == 1 
+IF ntopic == 1
  RETURN "Eingabe der Parameter f" + CUKUML + "r die Aufkleber." + lf + ;
   "Die folgenden Parameter werden zur Eingabe angeboten:" + lf + lf + ;
   "Linker Rand (left margin):" + lf +  ;
@@ -2496,7 +2496,7 @@ IF ntopic == 1
   "Wertebereich 0 bis 16, Default ist 0." + ;
      + lf +  ;
   "W" + CAKUML + "hlen Sie in jedem Fall den " + ;
-  "Wert 0, wenn Sie einreihige Klebeetiketten verwenden."  + lf + lf + ; 
+  "Wert 0, wenn Sie einreihige Klebeetiketten verwenden."  + lf + lf + ;
   "Horizontaler Abstand (lines between labels) : " + lf +  ;
   "Legt die Anzahl der Leerzeilen zwischen den einzelnen Reihen" + ;
   " der Etiketten fest." + lf +  ;
@@ -2504,15 +2504,15 @@ IF ntopic == 1
   "Label pro Zeile (number of lab. across) : "  + lf +  ;
   "Ist die Anzahl der Bahnen, der nebeneinander zu druckenden" + ;
   " Etiketten." + ;
-  + lf +  ;  
+  + lf +  ;
   "Falls mehrere Etiketten nebeneinander liegen," + ;
   " wird die Ausgabe auf der letzten Zeile automatisch angepa" + ;
   CSZUML + "t." + ;
   + lf +  ;
-  "Wertebereich ist 1 bis 5"   
+  "Wertebereich ist 1 bis 5"
 ENDIF
 
-IF ntopic == 2 
+IF ntopic == 2
 RETURN "Label-Inhalt:" + lf + lf + ;
       "Abh" + CAKUML + "ngig von der ausgew" + CAKUML + "hlten H" + ;
       COKUML + "he wird Ihnen eine identische Anzahl " + ;
@@ -2602,7 +2602,7 @@ RETURN "Label-Inhalt:" + lf + lf + ;
       lf +  ;
      "Die Funktion NOSKIP() ist bereits in der Bibliothek " + CHR(34) + "libhwlabel.prg" + CHR(34) + ;
      "implementiert." + ;
-      lf + lf + ; 
+      lf + lf + ;
      "Wenn Sie nun alle Eingaben gemacht haben, wird das Label gespeichert, " + lf + ;
      "(au" + CSZUML + "er Sie haben die ESC-Taste gedr" + CUKUML + "ckt oder" + lf + ;
       "den " + CHR(34) + "Abbruch" + CHR(34) + " Knopf bet" + CAKUML + "tigt)." + ;
@@ -2634,145 +2634,145 @@ RETURN "Label-Inhalt:" + lf + lf + ;
 
 ENDIF
 
-* Nicht benanntes Hilfe-Thema
-* Keine Hilfe verfuegbar
+// Nicht benanntes Hilfe-Thema
+// Keine Hilfe verfuegbar
 hwg_MsgStop(aMsg[62],aMsg[61])
 RETURN ""
 
-* ------------------------------------------ 
+// ------------------------------------------
 FUNCTION hwlabel_About()
-* ------------------------------------------
+// ------------------------------------------
 Hwg_MsgInfo("HWGUI label editor Version 1.0" + CHR(10) + ;
 "Copyright 2022 W.Brunken, DF7BE","About")
-RETURN NIL 
+RETURN NIL
 
-* ------------------------------------------
+// ------------------------------------------
 FUNCTION hwlabel_Mainhlp(clang,ndlg)
-* Shows the help window by dialog.
-* 
-* ndlg:
-* The topic of help text displayed
-* 0 : Main dialog (Default)
-* 1 : Parameters
-* 2 : Contents
-* clang :
-* Language to display.
-* Pass here the value of the static
-* variable "clangset". 
-* Default is English.
-* For valid value see
-* FUNCTION hwlabel_langinit()
-* ------------------------------------------
+// Shows the help window by dialog.
+//
+// ndlg:
+// The topic of help text displayed
+// 0 : Main dialog (Default)
+// 1 : Parameters
+// 2 : Contents
+// clang :
+// Language to display.
+// Pass here the value of the static
+// variable "clangset".
+// Default is English.
+// For valid value see
+// FUNCTION hwlabel_langinit()
+// ------------------------------------------
 
 IF clang == NIL
  clang := "English"
 ENDIF
 
-* Default 
+// Default
 IF clang == "English"
-* 61 = "HWLABEL Help" , 23 = "Close"
-hwg_ShowHelp(hwlabel_helptxt_EN(ndlg),aMsg[61],aMsg[23],,.T.) 
+// 61 = "HWLABEL Help" , 23 = "Close"
+hwg_ShowHelp(hwlabel_helptxt_EN(ndlg),aMsg[61],aMsg[23],,.T.)
 ENDIF
-* Other languages
+// Other languages
 IF clang == "Deutsch"
-* 61 =  "HWLABEL Hilfe" , 23 = "Schliessen"
+// 61 =  "HWLABEL Hilfe" , 23 = "Schliessen"
 hwg_ShowHelp(hwlabel_helptxt_DE(ndlg),aMsg[61],aMsg[23],,.T.)
 ENDIF
 
 
 RETURN NIL
 
-* ------------------------------------------
+// ------------------------------------------
 FUNCTION hwlabel_str_nolabel()
-* Returns string for "no label set" 
+// Returns string for "no label set"
 RETURN aMsg[26]
-* ------------------------------------------
+// ------------------------------------------
 
 
-* =========== FUNCTIONS for MAIN ==================================
+// =========== FUNCTIONS for MAIN ==================================
 
-* ---------------------------------------------
+// ---------------------------------------------
 STATIC FUNCTION hwlabel_NLS_SetLang(cname)
-* Sets the desired language for NLS
-* Default: "English"
-* Additional languages:
-* "Deutsch" Germany @ Euro
-* ---------------------------------------------
+// Sets the desired language for NLS
+// Default: "English"
+// Additional languages:
+// "Deutsch" Germany @ Euro
+// ---------------------------------------------
 
 /* Add case block for every new language */
   DO CASE
-   CASE cname == "Deutsch"  && Germany @ Euro
+   CASE cname == "Deutsch"  // Germany @ Euro
       clangset := "Deutsch"
       clang    := "DE"
       aMsg     := hwlabel_MSGS_DE()
-   * Add here more languages
-   *  CASE cname == "xxxxxx"
-   OTHERWISE                && Default EN
+   // Add here more languages
+   //  CASE cname == "xxxxxx"
+   OTHERWISE                // Default EN
       clangset := "English"
       clang    := "EN"
       aMsg     := hwlabel_MSGS_EN()
  ENDCASE
 
-RETURN NIL 
+RETURN NIL
 
 
-* ---------------------------------------------
-* STATIC FUNCTION CONV_NLS_Value()
+// ---------------------------------------------
+// STATIC FUNCTION CONV_NLS_Value()
 
 
 
-* --------------------------------------------
+// --------------------------------------------
 STATIC FUNCTION Select_LangDia(acItems,omlblmnu)
-* Dialog for select a language.
-* acItems : List of languages, pass STATIC array aLanguages
-* omlblmnu : Obeject of calling dialog. 
-* --------------------------------------------
+// Dialog for select a language.
+// acItems : List of languages, pass STATIC array aLanguages
+// omlblmnu : Obeject of calling dialog.
+// --------------------------------------------
 LOCAL result
  result := __frm_CcomboSelect(acItems,"Language","Please Select a language", ;
    200 , "OK" , "Cancel", "Help" , "Need Help : " , "HELP !" )
  IF result != 0
-  * set to new language, if modified
-  clangset := aLanguages[result] 
+  // set to new language, if modified
+  clangset := aLanguages[result]
   hwlabel_NLS_SetLang(clangset)
   hwg_MsgInfo("Language set to " + clangset,"Language Setting")
-  * Write to ini file, if modified
+  // Write to ini file, if modified
   WRIT_LANGINI(clangset)
   hwg_MsgInfo(aMsg[27],aMsg[28])
   omlblmnu:Close()
  ENDIF
 RETURN NIL
 
-* ==========================================
+// ==========================================
 STATIC FUNCTION __frm_CcomboSelect(apItems, cpTitle, cpLabel, npOffset, cpOK, cpCancel, cpHelp , cpHTopic , cpHVar , npreset)
-* Common Combobox Selection
-* One combobox flexible.
-* Parameters: (Default values in brackets)
-* apItems  : Array with items (empty)
-* cpTitle  : Title for dialog ("Select Item")
-* cpLabel  : Headline         ("Select Item")
-* npOffset : Number of pixels for windows size offset, y axis (0)
-*            recommended value: depends of number of items:
-*            npOffset = (n - 1) * 30 (not exact)
-* cpOK     : Button caption   ("OK")
-* cpCancel : Button caption   ("Cancel")
-* cpHelp   : Button caption   ("Help")
-* cpHTopic : HELP() : Topic   ("") 
-* cpHVar   : HELP() : Variable Name ("")
-* npreset  : Preserve position (1) 
-*
-* Sample call :
-*
-* LOCAL result,acItems
-* acItems := {"One","Two","Three"} 
-* result := __frm_CcomboSelect(acItems,"Combo selection","Please Select an item", ;
-*  0 , "OK" , "Cancel", "Help" , "Need Help : " , "HELP !" )
-* returns: index number of item, if cancel: 0
-* ============================================ 
+// Common Combobox Selection
+// One combobox flexible.
+// Parameters: (Default values in brackets)
+// apItems  : Array with items (empty)
+// cpTitle  : Title for dialog ("Select Item")
+// cpLabel  : Headline         ("Select Item")
+// npOffset : Number of pixels for windows size offset, y axis (0)
+//            recommended value: depends of number of items:
+//            npOffset = (n - 1) * 30 (not exact)
+// cpOK     : Button caption   ("OK")
+// cpCancel : Button caption   ("Cancel")
+// cpHelp   : Button caption   ("Help")
+// cpHTopic : HELP() : Topic   ("")
+// cpHVar   : HELP() : Variable Name ("")
+// npreset  : Preserve position (1)
+//
+// Sample call :
+//
+// LOCAL result,acItems
+// acItems := {"One","Two","Three"}
+// result := __frm_CcomboSelect(acItems,"Combo selection","Please Select an item", ;
+//  0 , "OK" , "Cancel", "Help" , "Need Help : " , "HELP !" )
+// returns: index number of item, if cancel: 0
+// ============================================
 LOCAL oDlgcCombo1
 LOCAL aITEMS , cTitle, cLabel, nOffset, cOK, cCancel, cHelp , cHTopic , cHVar
 LOCAL oLabel1, oCombobox1, oButton1, oButton2, oButton3 , nType , yofs, bcancel ,nRetu
 
-* Parameter check
+// Parameter check
  cTitle  := "Select Item"
  cLabel  := "Select Item"
  nOffset := 0
@@ -2782,11 +2782,11 @@ LOCAL oLabel1, oCombobox1, oButton1, oButton2, oButton3 , nType , yofs, bcancel 
  cHTopic := ""
  cHVar   := ""
  nRetu   := 0
- 
+
 aITEMS := {}
 IF .NOT. apItems == NIL
  aITEMS := apItems
-ENDIF 
+ENDIF
 IF .NOT. cpTitle == NIL
  cTitle := cpTitle
 ENDIF
@@ -2800,7 +2800,7 @@ IF .NOT. cpOK == NIL
  cOK  :=  cpOK
 ENDIF
 IF .NOT. cpCancel == NIL
- cCancel :=  cpCancel 
+ cCancel :=  cpCancel
 ENDIF
 IF .NOT. cpHelp == NIL
  cHelp :=  cpHelp
@@ -2818,19 +2818,19 @@ ENDIF
 
 bcancel := .T.
 yofs := nOffset + 120
-* y positions of elements:
-* Label1       : 44
-* Buttons      : 445  : ==> yofs
-* Combobox     : 84   : 
-* Dialog size  : 565  : ==> yofs + 60
-*
+// y positions of elements:
+// Label1       : 44
+// Buttons      : 445  : ==> yofs
+// Combobox     : 84   :
+// Dialog size  : 565  : ==> yofs + 60
+//
   INIT DIALOG oDlgcCombo1 TITLE cTitle ;
     AT 578,79 SIZE 516, yofs + 80;
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
    @ 67,44 SAY oLabel1 CAPTION cLabel SIZE 378,22 ;
-        STYLE SS_CENTER   
+        STYLE SS_CENTER
    @ 66,84 GET COMBOBOX oCombobox1 VAR nType ITEMS aITEMS SIZE 378,96
    @ 58 , yofs  BUTTON oButton1 CAPTION cOK SIZE 80,32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || nRetu := nType , bcancel := .F. , oDlgcCombo1:Close() }
@@ -2840,28 +2840,28 @@ yofs := nOffset + 120
 //        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || HELP( cHTopic ,PROCLINE(), cHVar ) }
 
    ACTIVATE DIALOG oDlgcCombo1
-* RETURN oDlgcCombo1:lresult
+// RETURN oDlgcCombo1:lresult
 RETURN nRetu
 
-* ================================= *
+// ================================= *
 FUNCTION hwlabel_debug(varname,xv1,xv2)
-* Display debug info.
-* 1 or 2 variables of same type.
-* (type of xv1 was autmatically detected,
-*  so xv2 must be of same type, if 
-*  passed)
-* xv2 could be NIL
-* ================================= *
+// Display debug info.
+// 1 or 2 variables of same type.
+// (type of xv1 was autmatically detected,
+//  so xv2 must be of same type, if
+//  passed)
+// xv2 could be NIL
+// ================================= *
 LOCAL ctype, coutput, lxv2nil
 lxv2nil := .F.
 IF varname == NIL
   varname := ""
 ELSE
-  varname := ALLTRIM(varname) + " : " 
+  varname := ALLTRIM(varname) + " : "
 ENDIF
-IF xv2 == NIL 
+IF xv2 == NIL
   lxv2nil := .T.
-ENDIF 
+ENDIF
 ctype := VALTYPE(xv1)
   IF ctype == "B"
     hwg_MsgInfo("Block","Debug")
@@ -2878,7 +2878,7 @@ ctype := VALTYPE(xv1)
     ELSE
       coutput := varname + "ANSI: " + DTOS(xv1) + "<"  + CHR(10) + ">" +  DTOS(xv2)+ "<"
     ENDIF
-    hwg_MsgInfo(coutput,"Debug") 
+    hwg_MsgInfo(coutput,"Debug")
   ELSEIF ctype == "L"
     IF lxv2nil
      coutput := varname + ">" + IIF(xv1,".T.",".F." ) + "<"
@@ -2898,51 +2898,51 @@ ctype := VALTYPE(xv1)
 
 RETURN NIL
 
-* ================================= *
+// ================================= *
 STATIC FUNCTION READ_LANGINI()
-*  Read language setting from language.ini
-*  If file not exists, the function
-*  returns as default value
-*  "English"
-* ================================= *
+//  Read language setting from language.ini
+//  If file not exists, the function
+//  returns as default value
+//  "English"
+// ================================= *
 LOCAL clangdef, csprach
-*               read buffer
-*               !                file name
-*               !                !
-*               v                v
+//               read buffer
+//               !                file name
+//               !                !
+//               v                v
 LOCAL handle, puffer, eBlock, dateiname
  dateiname := "language.ini"
  puffer = ""
- clangdef := "English"  && Default
- 
+ clangdef := "English"  // Default
+
 IF FILE(dateiname)
-* Read from file
- handle := FOPEN(dateiname,0)     && FO_READ
+// Read from file
+ handle := FOPEN(dateiname,0)     // FO_READ
  IF FERROR() <> 0
-    * RETURN ""
-    * File error: return the default value
+    // RETURN ""
+    // File error: return the default value
     FCLOSE(handle)
     RETURN clangdef
   ENDIF
- * FSEEK(handle,0,2)
-  puffer := LANG_READ_TEXT(handle)  && 1. Satz lesen, read first record
-  * hwg_msginfo("puffer=" + puffer,"Debug")
+ // FSEEK(handle,0,2)
+  puffer := LANG_READ_TEXT(handle)  // 1. Satz lesen, read first record
+  // hwg_msginfo("puffer=" + puffer,"Debug")
   FCLOSE(handle)
 ENDIF
 
  IF .NOT. EMPTY(puffer)
    clangdef := puffer
  ENDIF
-  
+
 
 RETURN clangdef
 
-* ================================= *
+// ================================= *
 STATIC FUNCTION LANG_READ_TEXT(h)
-* Reads a text record from a binary file
-* h : file handle
-*
-* ================================= *
+// Reads a text record from a binary file
+// h : file handle
+//
+// ================================= *
  LOCAL p , p1 , se , r
 
  p := ""
@@ -2957,35 +2957,35 @@ STATIC FUNCTION LANG_READ_TEXT(h)
   ENDIF
 
   p := p + p1
-  && Detect end of line
+  // Detect end of line
   IF ( p1 == CHR(10) )
    se := 0
   ENDIF
  ENDDO
-*  Remove "Return" from String
+//  Remove "Return" from String
  p := STRTRAN(p,CHR(10),"")
  r := STRTRAN(p,CHR(13),"")
 RETURN r
 
-* ================================= *
+// ================================= *
 STATIC FUNCTION WRIT_LANGINI(cplang)
-*  Write language setting to language.ini
-* cplang : Value to write into file,
-* for example :
-*  "English"  (Default)
-*  "Deutsch"
-* Returns forever NIL
-* ================================= *
+//  Write language setting to language.ini
+// cplang : Value to write into file,
+// for example :
+//  "English"  (Default)
+//  "Deutsch"
+// Returns forever NIL
+// ================================= *
 LOCAL clang, Puffer, Laenge, dat_handle , dateiname
-dateiname := "language.ini"  && file name
-clang :=  "English"          && Default language
+dateiname := "language.ini"  // file name
+clang :=  "English"          // Default language
 IF cplang != NIL
   clang := ALLTRIM(cplang)
 ENDIF
 
-* Write to file
+// Write to file
  IF .NOT. FILE(dateiname)
-   dat_handle := FCREATE(dateiname,0)  && FC_NORMAL
+   dat_handle := FCREATE(dateiname,0)  // FC_NORMAL
  ELSE
    Erase &dateiname
    dat_handle := FCREATE(dateiname,0)
@@ -2993,32 +2993,32 @@ ENDIF
  IF dat_handle != -1
   FSEEK (dat_handle,0,2)
  ENDIF
- * Write record
+ // Write record
  Puffer := clang + CHR(13) + CHR(10)
  Laenge := LEN(Puffer)
  FWRITE(dat_handle,Puffer, Laenge)
- 
-* Optional: here output of error message at file IO error possible
-*  IF FWRITE(dat_handle,Puffer, Laenge) != Laenge
-*  * Error message
-*  ENDIF
+
+// Optional: here output of error message at file IO error possible
+//  IF FWRITE(dat_handle,Puffer, Laenge) != Laenge
+//  // Error message
+//  ENDIF
  FCLOSE(dat_handle)
 RETURN NIL
 
 
-* ==============================================
-FUNCTION hwlabel__LBL_LINES() 
-* Returns the number of lines (heigth of label)
-* of recent label in the edit buffer
-* (type = N)
-* ==============================================
+// ==============================================
+FUNCTION hwlabel__LBL_LINES()
+// Returns the number of lines (heigth of label)
+// of recent label in the edit buffer
+// (type = N)
+// ==============================================
 RETURN n_NUMZ
 
-* ================================= *
+// ================================= *
 FUNCTION hwlbl_IconHex()
-* Hex value for icon "hwlabel.ico"
-* Size 48x48
-* ================================= *
+// Hex value for icon "hwlabel.ico"
+// Size 48x48
+// ================================= *
 RETURN ;
 "00 00 01 00 01 00 30 30 00 00 01 00 08 00 A8 0E " + ;
 "00 00 16 00 00 00 28 00 00 00 30 00 00 00 60 00 " + ;

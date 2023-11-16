@@ -1,62 +1,62 @@
-*
-* libhwlabel.prg
-*
-* HWGUI - Harbour Win32 and Linux (GTK) GUI library
-*
-* Label library for HWGUI
-* "HWLABEL"
-*
-* Copyright 2022 Wilfried Brunken, DF7BE 
-* https://sourceforge.net/projects/cllog/
-*
-* License:
-* GNU General Public License
-* with special exceptions of HWGUI.
-* See file "license.txt" for details of
-* HWGUI project at
-*  https://sourceforge.net/projects/hwgui/
-*
-* This is the port of a label feature of Clipper/Harbour to HWGUI.
-* This is the function library need to add to your HWGUI
-* application.
-*
-* Codepages stored in label:
-* Recent setting of codepage is IBM DE858.
-* (OK for most european countries with Euro currency sign)
-*
+//
+// libhwlabel.prg
+//
+// HWGUI - Harbour Win32 and Linux (GTK) GUI library
+//
+// Label library for HWGUI
+// "HWLABEL"
+//
+// Copyright 2022 Wilfried Brunken, DF7BE
+// https://sourceforge.net/projects/cllog/
+//
+// License:
+// GNU General Public License
+// with special exceptions of HWGUI.
+// See file "license.txt" for details of
+// HWGUI project at
+//  https://sourceforge.net/projects/hwgui/
+//
+// This is the port of a label feature of Clipper/Harbour to HWGUI.
+// This is the function library need to add to your HWGUI
+// application.
+//
+// Codepages stored in label:
+// Recent setting of codepage is IBM DE858.
+// (OK for most european countries with Euro currency sign)
+//
 
-    
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*  Supported languages:
-*  - English
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* =========================================================================================
-* Function list
-* ~~~~~~~~~~~~~
-*
-* FUNCTION hwlabel_translcp2        && Translates codepages for label file
-* FUNCTION hwlabel_setO             && Copies the object var into static var (for better handling)
-* FUNCTION hwlabel_getO             && Returns the HWinprn object from STATIC variable
-* FUNCTION hwlabel_transfi          && Convert codepage from input to output file.
-* FUNCTION hwlabel_filerln          && Read line from a text file.
-* FUNCTION hwlabel_REM_CR           && Remove MacOS line ending (CR)
-* FUNCTION hwlabel_Writeln          && Write one line into text file.
-* FUNCTION hwlabel_WRI_TXTDOS       && Write the line with Windows/DOS line ending
-* FUNCTION hwlabel_REM_FILEEXT      && Remove file extension, for Windows and LINUX both.
-* FUNCTION hwlabel_MAX(a,b)         && Returns the max value of a or b
-* FUNCTION hwlabel_OPENR            && Opens a text file for reading 
-*
-* ~~~~~~ Shortend functions for label contents ~~~~~~
-* FUNCTION NOSKIP           && For empty lines in labels
-* FUNCTION   S(n)           && (C)  SPACE(n)
-* FUNCTION   P(s,n)         && (C)  PADR(s,n)
-* FUNCTION   C(n)           && (C)  CHR(n)
-* FUNCTION   R(s,n)         && (C)  REPLICATE(s,n)
-* FUNCTION   T(s,p)         && (C)  TRANSFORM(s,p)
-* FUNCTION   A(s)           && (C)  ALLTRIM(s)
-*
-* ============================================================================================
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  Supported languages:
+//  - English
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// =========================================================================================
+// Function list
+// ~~~~~~~~~~~~~
+//
+// FUNCTION hwlabel_translcp2        // Translates codepages for label file
+// FUNCTION hwlabel_setO             // Copies the object var into static var (for better handling)
+// FUNCTION hwlabel_getO             // Returns the HWinprn object from STATIC variable
+// FUNCTION hwlabel_transfi          // Convert codepage from input to output file.
+// FUNCTION hwlabel_filerln          // Read line from a text file.
+// FUNCTION hwlabel_REM_CR           // Remove MacOS line ending (CR)
+// FUNCTION hwlabel_Writeln          // Write one line into text file.
+// FUNCTION hwlabel_WRI_TXTDOS       // Write the line with Windows/DOS line ending
+// FUNCTION hwlabel_REM_FILEEXT      // Remove file extension, for Windows and LINUX both.
+// FUNCTION hwlabel_MAX(a,b)         // Returns the max value of a or b
+// FUNCTION hwlabel_OPENR            // Opens a text file for reading
+//
+// ~~~~~~ Shortend functions for label contents ~~~~~~
+// FUNCTION NOSKIP           // For empty lines in labels
+// FUNCTION   S(n)           // (C)  SPACE(n)
+// FUNCTION   P(s,n)         // (C)  PADR(s,n)
+// FUNCTION   C(n)           // (C)  CHR(n)
+// FUNCTION   R(s,n)         // (C)  REPLICATE(s,n)
+// FUNCTION   T(s,p)         // (C)  TRANSFORM(s,p)
+// FUNCTION   A(s)           // (C)  ALLTRIM(s)
+//
+// ============================================================================================
 
 #include "hwgui.ch"
 #ifdef __GTK__
@@ -70,72 +70,72 @@
 
 STATIC oWinPrn
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_setO(o)
-* Copies the object var into static var
-* (for better handling)
-* ==============================================
+// Copies the object var into static var
+// (for better handling)
+// ==============================================
 oWinPrn := o
 RETURN NIL
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_getO()
-* Returns the HWinprn object from STATIC variable
-* ==============================================
+// Returns the HWinprn object from STATIC variable
+// ==============================================
 RETURN oWinPrn
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_OPENR(ctxtfilename,cErrorMsg,cErrorTitle )
-* Opens a text file for reading 
-* Returns it's handle.
-* If open error, an error Message
-* is displayed.
-* ctxtfilename : Filename for file to open
-* cErrorMsg    : Error message, default in englisch 
-* cErrorTitle  : Title, default in englisch
-* ==============================================
+// Opens a text file for reading
+// Returns it's handle.
+// If open error, an error Message
+// is displayed.
+// ctxtfilename : Filename for file to open
+// cErrorMsg    : Error message, default in englisch
+// cErrorTitle  : Title, default in englisch
+// ==============================================
 LOCAL handle
 
 IF ctxtfilename == NIL
   ctxtfilename := ""
-ENDIF  
+ENDIF
 IF cErrorMsg == NIL
   cErrorMsg := "Open error " + ctxtfilename
 ENDIF
 IF cErrorTitle == NIL
   cErrorTitle := "HWLABEL Error"
 ENDIF
-  
+
  handle := FOPEN(ctxtfilename,0)
  IF handle < 0
-   * ... handle open error
+   // ... handle open error
    hwg_MsgStop(cErrorMsg,cErrorTitle)
   ENDIF
  RETURN handle
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_transfi(cfnam1,cfnam2,cCpLocWin,cCpLocLINUX,cCpLabel)
-* Convert codepage from input to output file.
-* cfnam1  : Input filename created by LABEL FORM ... command
-* cfnam2  : Output filename with translated contents
-* Returns .T., if success.
-* ==============================================
-* The empty sign CHR(255) is on Windows printable (&yuml;),
-* so convert it to empty string here.
-* (y with double points)
+// Convert codepage from input to output file.
+// cfnam1  : Input filename created by LABEL FORM ... command
+// cfnam2  : Output filename with translated contents
+// Returns .T., if success.
+// ==============================================
+// The empty sign CHR(255) is on Windows printable (&yuml;),
+// so convert it to empty string here.
+// (y with double points)
 LOCAL lsucc , handle , handler , cbuffer , lEOF
 lsucc := .T.
 
-* Open for read
+// Open for read
  handler := FOPEN(cfnam1,0)
  IF handler < 0
-   * ... handle open error
+   // ... handle open error
    RETURN .F.
  ENDIF
- 
-* Open for overwrite
+
+// Open for overwrite
 IF .NOT. FILE(cfnam2)
-   handle = FCREATE(cfnam2,0)  && FC_NORMAL
+   handle = FCREATE(cfnam2,0)  // FC_NORMAL
  ELSE
    Erase &cfnam2
    handle = FCREATE(cfnam2,0)
@@ -143,116 +143,116 @@ IF .NOT. FILE(cfnam2)
  IF handle != -1
   FSEEK (handle,0,2)
  ENDIF
- 
+
  lEOF := .F.
- 
-DO WHILE .NOT. lEOF 
- 
+
+DO WHILE .NOT. lEOF
+
   cbuffer := hwlabel_filerln(handler)
   IF cbuffer == ""
     lEOF := .T.
   ELSE
-  * Remove CR line ending
+  // Remove CR line ending
    cbuffer := hwlabel_REM_CR(cbuffer)
-  * Translation
-  * First suppress the NOSKIP character
+  // Translation
+  // First suppress the NOSKIP character
   cbuffer := STRTRAN(cbuffer , CHR(255) , "")
-  * Supress line with 0x1a = CHR(26) "SUB" at EOF
+  // Supress line with 0x1a = CHR(26) "SUB" at EOF
   IF SUBSTR(cbuffer,1,1) != CHR(26)
-  * And now translate to local codepage
+  // And now translate to local codepage
   cbuffer := hwlabel_translcp2(cbuffer,0,cCpLocWin,cCpLocLINUX,cCpLabel)
-  * Write line to output 
+  // Write line to output
   lsucc := hwlabel_Writeln(handle,cbuffer,cfnam2)
     IF .NOT. lsucc
-    * Stop processiing in case of write error
+    // Stop processiing in case of write error
        lEOF := .T.
-    ENDIF && ! lsucc
-   ENDIF && SUB
-  ENDIF && cbuffer == ""
-  
-ENDDO 
+    ENDIF // ! lsucc
+   ENDIF // SUB
+  ENDIF // cbuffer == ""
 
-* Close files
-FCLOSE(handler) 
-FCLOSE(handle) 
+ENDDO
+
+// Close files
+FCLOSE(handler)
+FCLOSE(handle)
 
 RETURN lsucc
 
 
-* ================================= * 
+// ================================= *
 FUNCTION hwlabel_filerln(handle)
-* Read line from a text file.
-* It is not important, if line ending
-* is CRLF or LF or CR.
-*
-* returns:
-* The line read
-* Empty line      : " "
-* EOF or error    : "" (empty string)
-*
-* CRLF : 0x0D + 0x0A =  CHR(13) + CHR(10) (Windows/DOS)  
-* CR   = 0x0D = CHR(13) (only CR for MacOS) 
-* LF   = 0x0A = CHR(10) (only LF for UNIX/LINUX)
-* The returned line ended with MacOS line ending
-* CR , so you need to handle this
-* for example with
-*  hwlabel_REM_CR()
-* ================================= *
- LOCAL anzbytes , anzbytes2 , puffer , puffer2 , bEOL , cZeile , bMacOS 
+// Read line from a text file.
+// It is not important, if line ending
+// is CRLF or LF or CR.
+//
+// returns:
+// The line read
+// Empty line      : " "
+// EOF or error    : "" (empty string)
+//
+// CRLF : 0x0D + 0x0A =  CHR(13) + CHR(10) (Windows/DOS)
+// CR   = 0x0D = CHR(13) (only CR for MacOS)
+// LF   = 0x0A = CHR(10) (only LF for UNIX/LINUX)
+// The returned line ended with MacOS line ending
+// CR , so you need to handle this
+// for example with
+//  hwlabel_REM_CR()
+// ================================= *
+ LOCAL anzbytes , anzbytes2 , puffer , puffer2 , bEOL , cZeile , bMacOS
  anzbytes := 1
  bEOL := .F.
  cZeile := ""
  bMacOS := .F.
- * Buffer may not be empty, otherwise FREAD() reads nothing !
+ // Buffer may not be empty, otherwise FREAD() reads nothing !
  puffer := " "
  puffer2 := " "
- 
+
     DO WHILE ( anzbytes != 0 ) .AND. ( .NOT. bEOL )
-       anzbytes := FREAD(handle,@puffer,1)  && Read 1 Byte
+       anzbytes := FREAD(handle,@puffer,1)  // Read 1 Byte
        IF anzbytes != 1
-        * Last line may be without line ending
+        // Last line may be without line ending
          IF .NOT. EMPTY(cZeile)
          RETURN cZeile
         ELSE
          RETURN ""
         ENDIF
        ENDIF
-       * Detect MacOS: First appearance of CR alone
-       * Erkennen von MacOS: erstes Auftreten von CR alleine
+       // Detect MacOS: First appearance of CR alone
+       // Erkennen von MacOS: erstes Auftreten von CR alleine
        IF ( .NOT. bMacOS ) .AND. ( puffer == CHR(13) )
-       * Bereits Zeilenende erreicht
+       // Bereits Zeilenende erreicht
          bEOL := .T.
-         && get actual file pointer
-         * position := FSEEK (adifhand , 0 , 1 )
-         * Pre read (2nd read sequence)
-          anzbytes2 := FREAD(handle,@puffer2,1)  && Read 1 byte / 
+         // get actual file pointer
+         // position := FSEEK (adifhand , 0 , 1 )
+         // Pre read (2nd read sequence)
+          anzbytes2 := FREAD(handle,@puffer2,1)  // Read 1 byte /
          IF anzbytes2 != 1
-          * Optional last line with line ending
+          // Optional last line with line ending
           IF .NOT. EMPTY(cZeile)
            RETURN cZeile
           ELSE
            RETURN ""
           ENDIF
          ENDIF
-         * Line ending for Windows: must be LF (continue reading)
+         // Line ending for Windows: must be LF (continue reading)
          IF .NOT. ( puffer2 == CHR(10) )
-           * Windows : ignore read character
+           // Windows : ignore read character
            bMacOS := .T.
-           * puffer := puffer2
-           * Set file pointer one byte backwards (is first character of following line)
+           // puffer := puffer2
+           // Set file pointer one byte backwards (is first character of following line)
            FSEEK (handle, -1 , 1 )
          ENDIF
        ELSE
-         * UNIX / LINUX (only LF)
-          IF puffer == CHR(10) 
+         // UNIX / LINUX (only LF)
+          IF puffer == CHR(10)
            bEOL := .T.
-           * Ignore EOL character
+           // Ignore EOL character
            puffer := ""
           ENDIF
-       ENDIF 
-        * Otherwise complete the line   
+       ENDIF
+        // Otherwise complete the line
         cZeile := cZeile + puffer
-       * Prefill buffer for next read
+       // Prefill buffer for next read
        puffer := " "
      ENDDO
     IF EMPTY(cZeile)
@@ -260,10 +260,10 @@ FUNCTION hwlabel_filerln(handle)
     ENDIF
 RETURN cZeile
 
-* ================================= * 
+// ================================= *
 FUNCTION hwlabel_REM_CR(czeile)
-* Remove MacOS line ending (CR)
-* ================================= *
+// Remove MacOS line ending (CR)
+// ================================= *
 LOCAL nlaenge , czl
 IF czeile == NIL
  czeile := ""
@@ -277,22 +277,22 @@ IF nlaenge > 0
 ENDIF
 RETURN czl
 
-* ------------------------
+// ------------------------
 FUNCTION hwlabel_Writeln(ha,s,dateiname)
-* Write one line into text file.
-* ha  : Handle of open file
-* s   : Text buffer for 1 line
-* dateiname : File name inserted in
-*             error message 
-* ------------------------
+// Write one line into text file.
+// ha  : Handle of open file
+// s   : Text buffer for 1 line
+// dateiname : File name inserted in
+//             error message
+// ------------------------
  LOCAL zs_s_rc
- 
+
  IF dateiname == NIL
     dateiname := "<unknown>"
-  ENDIF 
- 
- 
-  zs_s_rc := hwlabel_WRI_TXTDOS(ha,s)   && Windows/DOS line ending fixed
+  ENDIF
+
+
+  zs_s_rc := hwlabel_WRI_TXTDOS(ha,s)   // Windows/DOS line ending fixed
    IF .NOT. zs_s_rc
      hwg_MsgStop( "FATAL: File access error " + dateiname )
      RETURN .F.
@@ -300,11 +300,11 @@ FUNCTION hwlabel_Writeln(ha,s,dateiname)
 RETURN .T.
 
 
-* ================================= *
+// ================================= *
 FUNCTION hwlabel_WRI_TXTDOS(dat_handle,dat_text)
-* Write the line with Windows/DOS
-* line ending
-* ================================= *
+// Write the line with Windows/DOS
+// line ending
+// ================================= *
  LOCAL Puffer,Laenge
  Puffer = dat_text + CHR(13) + CHR(10)
  Laenge = LEN(Puffer)
@@ -314,221 +314,221 @@ FUNCTION hwlabel_WRI_TXTDOS(dat_handle,dat_text)
 RETURN .F.
 
 
-* ==============================================
+// ==============================================
 FUNCTION hwlabel_translcp2(cInput,nmode,cCpLocWin,cCpLocLINUX,cCpLabel)
-* Translates codepages for label file
-* 
-* This is the same function as "hwlabel_translcp()"
-* of "hwlbledt.prg", but was renamed to avoid symbol
-* conflicts linking your programm containing code of
-* this library and "hwlbledt.prg".
-*
-* Parameters:
-* Default values in ()
-*
-* cInput      : The Input String to translate ("")
-* nmode       : Direction of translation (0):
-*               0 = Label to local (Windows,LINUX)
-*               1 = Local (Windows,LINUX) to label
-* cCpLocWin   : Name of local codepage for display and printing
-*               on Windows OS ("DEWIN")
-* cCpLocLINUX : Name of local codepage for display and printing
-*               on LINUX OS ("UTF8EX")
-* cCpLabel    : Name of codepage for label file
-*               ("DE858")
-* 
-* The used operating system is automatically
-* detected by compiler switch. 
-* ==============================================
+// Translates codepages for label file
+//
+// This is the same function as "hwlabel_translcp()"
+// of "hwlbledt.prg", but was renamed to avoid symbol
+// conflicts linking your programm containing code of
+// this library and "hwlbledt.prg".
+//
+// Parameters:
+// Default values in ()
+//
+// cInput      : The Input String to translate ("")
+// nmode       : Direction of translation (0):
+//               0 = Label to local (Windows,LINUX)
+//               1 = Local (Windows,LINUX) to label
+// cCpLocWin   : Name of local codepage for display and printing
+//               on Windows OS ("DEWIN")
+// cCpLocLINUX : Name of local codepage for display and printing
+//               on LINUX OS ("UTF8EX")
+// cCpLabel    : Name of codepage for label file
+//               ("DE858")
+//
+// The used operating system is automatically
+// detected by compiler switch.
+// ==============================================
 LOCAL cOutput, cloccp
 
 cOutput := ""
 
 IF nmode == NIL
   nmode := 0
-ENDIF 
+ENDIF
 
 IF cInput == NIL
  cInput := ""
-ENDIF 
+ENDIF
 
 IF cCpLocWin == NIL
    cCpLocWin := "DEWIN"
-ENDIF   
+ENDIF
 IF cCpLocLINUX == NIL
    cCpLocLINUX := "UTF8EX"
-ENDIF   
+ENDIF
 IF cCpLabel == NIL
    cCpLabel := "DE858"
-ENDIF   
+ENDIF
 
 #ifdef __PLATFORM__WINDOWS
  cloccp := cCpLocWin
 #else
  cloccp := cCpLocLINUX
-#endif 
+#endif
 
 IF nmode == 0
   cOutput := hb_Translate( cInput, cCpLabel , cloccp   )
 ELSE
   cOutput := hb_Translate( cInput, cloccp   , cCpLabel )
-ENDIF 
+ENDIF
 
 RETURN cOutput
 
-* =======================================================
+// =======================================================
 FUNCTION hwlabel_REM_FILEEXT(dateiname)
-* Remove file extension, for
-* Windows and LINUX both.
-* dateiname : filename with extension
-* =======================================================
+// Remove file extension, for
+// Windows and LINUX both.
+// dateiname : filename with extension
+// =======================================================
 LOCAL cf , npos, nvz1 , nvz2 , nvz
 cf := dateiname
-* PATH : Search for / or \  beginning at end of String.
-* (for Windows and LINUX)
-* Path could contain "." !
+// PATH : Search for / or \  beginning at end of String.
+// (for Windows and LINUX)
+// Path could contain "." !
 nvz1 := RAT("/",cf)
 nvz2 := RAT("\",cf)
 nvz := hwlabel_MAX(nvz1,nvz2)
-* Search for "." beginning at end of String.
+// Search for "." beginning at end of String.
 npos := RAT(".", cf)
 IF npos != 0
-* If . not found, return original file name, has no extension
+// If . not found, return original file name, has no extension
  IF .NOT. ( nvz > npos)
-  * The . is not in directory name below
-  * Strip extension
-  cf := SUBSTR(cf,1,npos - 1)   
- ENDIF 
+  // The . is not in directory name below
+  // Strip extension
+  cf := SUBSTR(cf,1,npos - 1)
+ ENDIF
 ENDIF
 RETURN cf
 
-* =======================================================
+// =======================================================
 FUNCTION hwlabel_MAX(a,b)
-* Returns the max value of a or b 
-* ======================================================= 
+// Returns the max value of a or b
+// =======================================================
 IF a >= b
  RETURN a
 ENDIF
 RETURN b
 
 
-* =======================================================
+// =======================================================
 FUNCTION hwlabel_HexDump(cinfield,ldisp)
-* Returns hex value for debugging,
-* all values in one line
-* and display it, if ldisp set to .T. (Default)
-* =======================================================
+// Returns hex value for debugging,
+// all values in one line
+// and display it, if ldisp set to .T. (Default)
+// =======================================================
 LOCAL chexstr
 IF ldisp == NIL
  ldisp := .T.
-ENDIF 
+ENDIF
 chexstr := hwg_HEX_DUMP (cinfield, 0)
 IF ldisp
  hwg_MsgInfo(chexstr,"Debug Hex String")
 ENDIF
 RETURN chexstr
 
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Functions for use in label file
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Functions for use in label file
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ==========
-* Set modes
-* ==========
+// ==========
+// Set modes
+// ==========
 
 
 
-*   METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset )
+//   METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset )
 
 FUNCTION SET_NCH(nChars)
-* Set Charset
+// Set Charset
  oWinPrn:SetMode( , , , , , , , nChars )
-RETURN "" 
+RETURN ""
 
 // "Some character sizes: "
-// SET_SMA() + "Small" + SET_DEF() + "Default" 
+// SET_SMA() + "Small" + SET_DEF() + "Default"
 // SET_SML() + "Smaller" + SET_DEF() + "Default"
 // SET_VSM() + "Very small" + SET_DEF() + "Default"
 
 FUNCTION SET_DEF()
-*  Default
-* See hwinprn.prg, METHOD SetDefaultMode() CLASS HWinPrn, about line 252
+//  Default
+// See hwinprn.prg, METHOD SetDefaultMode() CLASS HWinPrn, about line 252
 oWinPrn:SetMode( .F., .F. , 6, .F. , .F. , .F. , 0 , 0 )
-* oWinPrn:SetMode( .F.,.F. )
-RETURN "" 
+// oWinPrn:SetMode( .F.,.F. )
+RETURN ""
 
 FUNCTION SET_SMA()
-*   Small
+//   Small
 oWinPrn:SetMode( .T. )
 RETURN ""
 
 FUNCTION SET_SML()
-* Smaller
+// Smaller
 oWinPrn:SetMode( .F.,.T. )
 RETURN ""
 
 FUNCTION SET_VSM()
-* Very small
+// Very small
 oWinPrn:SetMode( .T.,.T. )
-RETURN "" 
+RETURN ""
 
 
-* ================================= *
+// ================================= *
 FUNCTION NOSKIP(e)
-* For  label printing:
-* Returns CHR(255), not printable,
-* if e (a string) is empty.
-* * Otherwise the value of e is returned
-* is passed.
-*
-* Reason:
-* Lines defined in label file, but
-* left empty are not printed.
-* It seems, that this line is not
-* existing. This causes an
-* misfunction in the design,
-* the following lines are moved to top.  
-*
-*  Gibt das Zeichen 255 (nicht abdruckbar)
-*  zurueck, wenn e leer ist (String),
-*  sonst wird der Inhalt von e so
-*  wie uebergeben, zurueckgegeben.
-*  Hintergrund: Zeilen die zwar
-*  in der LBL-Datei definiert sind,
-*  aber leer sind, werden nicht ausgegeben,
-*  ( d.h. beim Drucken unterdrueckt )
-*  so dass die nachfolgenden Zeilen nachruecken
-*  und somit das Layout nicht mehr stimmt.
-* ================================= *
+// For  label printing:
+// Returns CHR(255), not printable,
+// if e (a string) is empty.
+// // Otherwise the value of e is returned
+// is passed.
+//
+// Reason:
+// Lines defined in label file, but
+// left empty are not printed.
+// It seems, that this line is not
+// existing. This causes an
+// misfunction in the design,
+// the following lines are moved to top.
+//
+//  Gibt das Zeichen 255 (nicht abdruckbar)
+//  zurueck, wenn e leer ist (String),
+//  sonst wird der Inhalt von e so
+//  wie uebergeben, zurueckgegeben.
+//  Hintergrund: Zeilen die zwar
+//  in der LBL-Datei definiert sind,
+//  aber leer sind, werden nicht ausgegeben,
+//  ( d.h. beim Drucken unterdrueckt )
+//  so dass die nachfolgenden Zeilen nachruecken
+//  und somit das Layout nicht mehr stimmt.
+// ================================= *
 RETURN IF( ! EMPTY(e) , e , CHR(255) )
 
-* Short function call's
+// Short function call's
 
-FUNCTION   S(n)        && (C)  SPACE(n)
+FUNCTION   S(n)        // (C)  SPACE(n)
 RETURN SPACE(n)
 
-FUNCTION   P(s,n)      && (C)  PADR(s,n)
+FUNCTION   P(s,n)      // (C)  PADR(s,n)
 RETURN PADR(s,n)
 
-FUNCTION   C(n)        && (C)  CHR(n)
+FUNCTION   C(n)        // (C)  CHR(n)
 RETURN CHR(n)
 
-FUNCTION   R(s,n)      && (C)  REPLICATE(s,n)
+FUNCTION   R(s,n)      // (C)  REPLICATE(s,n)
 RETURN REPLICATE(s,n)
 
-FUNCTION   T(s,p)      && (C)  TRANSFORM(s,p)
+FUNCTION   T(s,p)      // (C)  TRANSFORM(s,p)
 RETURN TRANSFORM(s,p)
 
-FUNCTION   A(s)        && (C)  ALLTRIM(s)
+FUNCTION   A(s)        // (C)  ALLTRIM(s)
 RETURN ALLTRIM(s)
 
-* ~~~~~~~~ End of label functions ~~~~~~~~~~
+// ~~~~~~~~ End of label functions ~~~~~~~~~~
 
-* ================================= *
+// ================================= *
 FUNCTION hwlbl_IconHex()
-* Hex value for icon "hwlabel.ico"
-* Size 48x48
-* ================================= *
+// Hex value for icon "hwlabel.ico"
+// Size 48x48
+// ================================= *
 RETURN ;
 "00 00 01 00 01 00 30 30 00 00 01 00 08 00 A8 0E " + ;
 "00 00 16 00 00 00 28 00 00 00 30 00 00 00 60 00 " + ;
