@@ -353,31 +353,24 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
    auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
    PHB_ITEM pColor;
 
-   switch ( lplvcd->nmcd.dwDrawStage )
-   {
-      case CDDS_PREPAINT:
-      {
+   switch( lplvcd->nmcd.dwDrawStage ) {
+      case CDDS_PREPAINT: {
          return CDRF_NOTIFYITEMDRAW;
       }
-
-      case CDDS_ITEMPREPAINT:
-      {
+      case CDDS_ITEMPREPAINT: {
          return CDRF_NOTIFYSUBITEMDRAW;
       }
-
-      case CDDS_SUBITEM | CDDS_ITEMPREPAINT:
-      {
+      case CDDS_SUBITEM | CDDS_ITEMPREPAINT: {
          // LONG ptemp;
-
          pColor = hb_arrayGetItemPtr(pArray, lplvcd->iSubItem + 1);
          auto ColorText = static_cast<COLORREF>(hb_arrayGetNL(pColor, 1));
          auto ColorBack = static_cast<COLORREF>(hb_arrayGetNL(pColor, 2));
          lplvcd->clrText = ColorText;
          lplvcd->clrTextBk = ColorBack;
-
          return CDRF_NEWFONT;
       }
    }
+
    return CDRF_DODEFAULT;
 }
 
