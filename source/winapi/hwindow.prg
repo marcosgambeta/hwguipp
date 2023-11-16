@@ -883,14 +883,13 @@ HB_FUNC_STATIC( HWINDOW_CENTER )
    auto window = static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"));
 
    RECT rect;
-   int w, h, x, y;
 
    GetWindowRect(window, &rect);
 
-   w = rect.right - rect.left;
-   h = rect.bottom - rect.top;
-   x = GetSystemMetrics(SM_CXSCREEN);
-   y = GetSystemMetrics(SM_CYSCREEN);
+   int w = rect.right - rect.left;
+   int h = rect.bottom - rect.top;
+   int x = GetSystemMetrics(SM_CXSCREEN);
+   int y = GetSystemMetrics(SM_CYSCREEN);
 
    SetWindowPos(window, HWND_TOP, (x - w) / 2, (y - h) / 2, 0, 0, SWP_NOSIZE + SWP_NOACTIVATE + SWP_FRAMECHANGED + SWP_NOSENDCHANGING);
 }
