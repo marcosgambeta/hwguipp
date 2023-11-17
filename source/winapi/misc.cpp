@@ -70,19 +70,16 @@ HB_FUNC( HWG_RELEASECAPTURE )
 HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 {
    if( OpenClipboard(GetActiveWindow()) ) {
-      HGLOBAL hglbCopy;
-      char *lptstrCopy;
-      void * hStr;
-      HB_SIZE nLen;
-      LPCTSTR lpStr;
 
       EmptyClipboard();
 
-      lpStr = HB_PARSTRDEF(1, &hStr, &nLen);
-      hglbCopy = GlobalAlloc(GMEM_DDESHARE, ( nLen + 1 ) * sizeof(TCHAR));
+      void * hStr;
+      HB_SIZE nLen;
+      LPCTSTR lpStr = HB_PARSTRDEF(1, &hStr, &nLen);
+      HGLOBAL hglbCopy = GlobalAlloc(GMEM_DDESHARE, (nLen + 1) * sizeof(TCHAR));
       if( hglbCopy != nullptr ) {
          // Lock the handle and copy the text to the buffer.
-         lptstrCopy = ( char * ) GlobalLock(hglbCopy);
+         char * lptstrCopy = static_cast<char*>(GlobalLock(hglbCopy));
          memcpy(lptstrCopy, lpStr, nLen * sizeof(TCHAR));
          lptstrCopy[nLen * sizeof(TCHAR)] = 0;
          GlobalUnlock(hglbCopy);
