@@ -386,7 +386,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
             hb_retni(-3);
          } else {
             // Create frame window
-            hWnd = CreateWindow(lpAppName,
+            hWnd = CreateWindowEx(0, lpAppName,
                                 lpTitle,
                                 WS_OVERLAPPEDWINDOW,
                                 x,
@@ -426,7 +426,7 @@ HB_FUNC( HWG_INITCLIENTWINDOW )
    ccs.hWindowMenu = GetSubMenu(GetMenu(aWindows[0]), nPos);
    ccs.idFirstChild = FIRST_MDICHILD_ID;
 
-   HWND hWnd = CreateWindow(TEXT("MDICLIENT"),
+   HWND hWnd = CreateWindowEx(0, TEXT("MDICLIENT"),
                             nullptr,
                             WS_CHILD | WS_CLIPCHILDREN | MDIS_ALLCHILDSTYLES,
                             hwg_par_int(3),

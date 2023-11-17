@@ -40,7 +40,7 @@ HB_FUNC( HWG_ADDTOOLTIP )
    }
 
    if( !s_hWndTT ) {
-      s_hWndTT = CreateWindow(TOOLTIPS_CLASS, nullptr, WS_POPUP | TTS_ALWAYSTIP | iStyle,
+      s_hWndTT = CreateWindowEx(0, TOOLTIPS_CLASS, nullptr, WS_POPUP | TTS_ALWAYSTIP | iStyle,
          CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
          nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
    }

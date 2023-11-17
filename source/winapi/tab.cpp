@@ -30,7 +30,7 @@ HWG_CREATETABCONTROL(hParent, nID, nStyle, nX, nY, nWidth, nHeight) --> hTab
 */
 HB_FUNC( HWG_CREATETABCONTROL )
 {
-   HWND hTab = CreateWindow(WC_TABCONTROL,
+   HWND hTab = CreateWindowEx(0, WC_TABCONTROL,
                             nullptr,
                             WS_CHILD | WS_VISIBLE | hb_parnl(3),
                             hwg_par_int(4),

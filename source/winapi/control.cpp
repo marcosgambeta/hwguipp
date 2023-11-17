@@ -86,7 +86,7 @@ HB_FUNC( HWG_MOVEWINDOW )
 */
 HB_FUNC( HWG_CREATEOWNBTN )
 {
-   HWND hWndPanel = CreateWindow(TEXT("OWNBTN"),  /* predefined class  */
+   HWND hWndPanel = CreateWindowEx(0, TEXT("OWNBTN"),  /* predefined class  */
          nullptr,                  /* no window title   */
          WS_CHILD | WS_VISIBLE | SS_GRAYRECT | SS_OWNERDRAW,
          hwg_par_int(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6),
@@ -480,7 +480,7 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 HB_FUNC( HWG_CREATEPAGER )
 {
    BOOL bVert = hb_parl(8);
-   HWND hWndPanel = CreateWindow(WC_PAGESCROLLER,   /* predefined class  */
+   HWND hWndPanel = CreateWindowEx(0, WC_PAGESCROLLER,   /* predefined class  */
          nullptr,                  /* no window title   */
          WS_CHILD | WS_VISIBLE | bVert ? PGS_VERT : PGS_HORZ | hb_parnl(3),   /* style  */
          hwg_par_int(4), hwg_par_int(5),  /* x, y       */
