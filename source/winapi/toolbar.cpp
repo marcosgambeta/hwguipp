@@ -66,7 +66,7 @@ HB_FUNC( HWG_CREATETOOLBAR )
    ULONG ulStyle = hb_parnl(3);
    ULONG ulExStyle = ((!HB_ISNIL(8)) ? hb_parnl(8) : 0) | ((ulStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0);
 
-   HWND hWndCtrl = CreateWindowEx(ulExStyle,   /* extended style */
+   auto hWndCtrl = CreateWindowEx(ulExStyle,   /* extended style */
          TOOLBARCLASSNAME,      /* predefined class  */
          nullptr,                  /* title   -   TBSTYLE_TRANSPARENT | */
          WS_CHILD | WS_OVERLAPPED | WS_VISIBLE | TBSTYLE_ALTDRAG | TBSTYLE_TOOLTIPS |  TBSTYLE_WRAPABLE | CCS_TOP | CCS_NORESIZE | ulStyle, /* style  */

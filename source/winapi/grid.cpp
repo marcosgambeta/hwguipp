@@ -41,7 +41,6 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pColor);
 HB_FUNC( HWG_LISTVIEW_CREATE )
 {
    auto hwnd = hwg_par_HWND(1);
-   HWND handle;
    int style = LVS_SHOWSELALWAYS | hb_parni(7);
 
    if( hb_parl(8) ) {
@@ -52,7 +51,7 @@ HB_FUNC( HWG_LISTVIEW_CREATE )
       style = style | LVS_NOSCROLL;
    }
 
-   handle = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, nullptr,
+   auto handle = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, nullptr,
          style,
          hwg_par_int(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6),
          hwnd, reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);

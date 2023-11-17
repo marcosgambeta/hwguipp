@@ -32,7 +32,7 @@ HWG_CREATEBUTTON(hParentWIndow, nButtonID, nStyle, nX, nY, nWidth, nHeight, cCap
 HB_FUNC( HWG_CREATEBUTTON )
 {
    void * hStr;
-   HWND hBtn = CreateWindowEx(0,
+   auto hBtn = CreateWindowEx(0,
                               TEXT("BUTTON"),
                               HB_PARSTR(8, &hStr, nullptr),
                               WS_CHILD | WS_VISIBLE | hwg_par_DWORD(3),

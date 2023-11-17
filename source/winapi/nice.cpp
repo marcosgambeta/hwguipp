@@ -176,12 +176,11 @@ HB_FUNC( HWG_REGNICE )
 
 HB_FUNC( HWG_CREATENICEBTN )
 {
-   HWND hWndPanel;
    ULONG ulStyle =
          HB_ISNUM(3) ? hb_parnl(3) : WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
    void * hTitle;
 
-   hWndPanel = CreateWindowEx(hb_parni(8), TEXT("NICEBUTT"),       /* predefined class  */
+   auto hWndPanel = CreateWindowEx(hb_parni(8), TEXT("NICEBUTT"),       /* predefined class  */
          HB_PARSTR(9, &hTitle, nullptr), /* no window title   */
          WS_CHILD | WS_VISIBLE | ulStyle,       /* style  */
          hwg_par_int(4), hwg_par_int(5),  /* x, y       */

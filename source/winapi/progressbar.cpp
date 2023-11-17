@@ -26,7 +26,6 @@ HWG_CREATEPROGRESSBAR(hParentWindow, nRange, ...)
 */
 HB_FUNC( HWG_CREATEPROGRESSBAR )
 {
-   HWND hPBar;
    auto hParentWindow = hwg_par_HWND(1);
    RECT rcClient;
    ULONG ulStyle;
@@ -48,7 +47,7 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
       nheight = cyVScroll;
    }
 
-   hPBar = CreateWindowEx(0,
+   auto hPBar = CreateWindowEx(0,
                           PROGRESS_CLASS,
                           nullptr,
                           WS_CHILD | WS_VISIBLE | ulStyle,

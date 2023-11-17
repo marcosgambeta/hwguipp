@@ -51,7 +51,7 @@ HB_FUNC( HWG_INITIPADDRESS )
 {
    HB_FUNC_EXEC( HWG_INITCOMMONCONTROLSEX );
 
-   HWND hIpAddress = CreateWindowEx(WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT(""), hb_parni(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7),
+   auto hIpAddress = CreateWindowEx(WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT(""), hb_parni(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7),
       hwg_par_HWND(1), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr); // TODO: hb_parni(3) -> hb_parnl(3)
 
    hb_retptr(hIpAddress);

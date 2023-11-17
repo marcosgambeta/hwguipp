@@ -86,7 +86,7 @@ HB_FUNC( HWG_MOVEWINDOW )
 */
 HB_FUNC( HWG_CREATEOWNBTN )
 {
-   HWND hWndPanel = CreateWindowEx(0, TEXT("OWNBTN"),  /* predefined class  */
+   auto hWndPanel = CreateWindowEx(0, TEXT("OWNBTN"),  /* predefined class  */
          nullptr,                  /* no window title   */
          WS_CHILD | WS_VISIBLE | SS_GRAYRECT | SS_OWNERDRAW,
          hwg_par_int(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6),
@@ -103,7 +103,7 @@ HB_FUNC( HWG_CREATEBROWSE )
 {
    DWORD dwStyle = hb_parnl(3);
    void * hStr;
-   HWND hWndBrw = CreateWindowEx((dwStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0,
+   auto hWndBrw = CreateWindowEx((dwStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0,
       TEXT("BROWSE"), HB_PARSTR(8, &hStr, nullptr), WS_CHILD | WS_VISIBLE | dwStyle,
       hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7),
       hwg_par_HWND(1), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
@@ -127,7 +127,7 @@ HB_FUNC( HWG_CREATESTATUSWINDOW )
    InitCommonControls();
 
    // Create the status window.
-   HWND hwndStatus = CreateWindowEx(0,      // style
+   auto hwndStatus = CreateWindowEx(0,      // style
          STATUSCLASSNAME,       // name of status window class
          nullptr,                  // no text when first created
          SBARS_SIZEGRIP |       // includes a sizing grip
@@ -480,7 +480,7 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 HB_FUNC( HWG_CREATEPAGER )
 {
    BOOL bVert = hb_parl(8);
-   HWND hWndPanel = CreateWindowEx(0, WC_PAGESCROLLER,   /* predefined class  */
+   auto hWndPanel = CreateWindowEx(0, WC_PAGESCROLLER,   /* predefined class  */
          nullptr,                  /* no window title   */
          WS_CHILD | WS_VISIBLE | bVert ? PGS_VERT : PGS_HORZ | hb_parnl(3),   /* style  */
          hwg_par_int(4), hwg_par_int(5),  /* x, y       */
@@ -495,7 +495,7 @@ HB_FUNC( HWG_CREATEREBAR )
 {
    ULONG ulStyle = hb_parnl(3);
    ULONG ulExStyle = ((!HB_ISNIL(8)) ? hb_parnl(8) : 0) | ((ulStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0) | WS_EX_TOOLWINDOW;
-   HWND hWndCtrl = CreateWindowEx(ulExStyle,   /* extended style */
+   auto hWndCtrl = CreateWindowEx(ulExStyle,   /* extended style */
          REBARCLASSNAME,        /* predefined class  */
          nullptr,                  /* title   */
          WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_VARHEIGHT | CCS_NODIVIDER | ulStyle,   /* style  */

@@ -27,7 +27,7 @@ static WNDPROC wpOrigDatePickerProc;
 
 HB_FUNC( HWG_CREATEDATEPICKER )
 {
-   HWND hCtrl = CreateWindowEx(WS_EX_CLIENTEDGE,
+   auto hCtrl = CreateWindowEx(WS_EX_CLIENTEDGE,
                                TEXT("SYSDATETIMEPICK32"),
                                nullptr,
                                hb_parnl(7) | WS_CHILD | WS_VISIBLE | WS_TABSTOP,

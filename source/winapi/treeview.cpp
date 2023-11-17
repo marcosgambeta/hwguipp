@@ -30,7 +30,7 @@ HWG_CREATETREE(hParent, nControlId, nStyle, nX, nY, nWidth, nHeight) --> nCtrl
 */
 HB_FUNC( HWG_CREATETREE )
 {
-   HWND hCtrl = CreateWindowEx(WS_EX_CLIENTEDGE, WC_TREEVIEW, 0, WS_CHILD | WS_VISIBLE | WS_TABSTOP | hb_parnl(3),
+   auto hCtrl = CreateWindowEx(WS_EX_CLIENTEDGE, WC_TREEVIEW, 0, WS_CHILD | WS_VISIBLE | WS_TABSTOP | hb_parnl(3),
       hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7),
       hwg_par_HWND(1), reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
       GetModuleHandle(nullptr), nullptr);

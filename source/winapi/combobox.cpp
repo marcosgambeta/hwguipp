@@ -27,7 +27,7 @@ HWG_CREATECOMBO(hParentWIndow, nComboID, nStyle, x, y, nWidth, nHeight, cInitial
 */
 HB_FUNC( HWG_CREATECOMBO )
 {
-   HWND hCombo = CreateWindowEx(0,
+   auto hCombo = CreateWindowEx(0,
                                 TEXT("COMBOBOX"),
                                 TEXT(""),
                                 WS_CHILD | WS_VISIBLE | hwg_par_DWORD(3),

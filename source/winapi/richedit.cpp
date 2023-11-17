@@ -34,7 +34,6 @@ HB_FUNC( HWG_INITRICHEDIT )
 
 HB_FUNC( HWG_CREATERICHEDIT )
 {
-   HWND hCtrl;
    void * hText;
    LPCTSTR lpText;
 
@@ -42,7 +41,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
       hRichEd = LoadLibrary(TEXT("riched20.dll"));
    }
 
-   hCtrl = CreateWindowEx(0,   /* extended style    */
+   auto hCtrl = CreateWindowEx(0,   /* extended style    */
 #ifdef UNICODE
          TEXT("RichEdit20W"), /* predefined class  */
 #else

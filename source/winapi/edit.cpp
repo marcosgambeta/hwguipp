@@ -32,13 +32,12 @@ HB_FUNC( HWG_CREATEEDIT )
 {
    ULONG ulStyle = hb_parnl(3);
    ULONG ulStyleEx = (ulStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0;
-   HWND hWndEdit;
 
    if( (ulStyle & WS_BORDER) ) { // && (ulStyle & WS_DLGFRAME) )
       ulStyle &= ~WS_BORDER;
    }
 
-   hWndEdit = CreateWindowEx(ulStyleEx,
+   auto hWndEdit = CreateWindowEx(ulStyleEx,
                              TEXT("EDIT"),
                              nullptr,
                              WS_CHILD | WS_VISIBLE | ulStyle,
