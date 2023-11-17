@@ -26,13 +26,18 @@
 */
 HB_FUNC( HWG_CREATEPANEL )
 {
-   auto hWndPanel = CreateWindowEx(0, TEXT("PANEL"),   /* predefined class  */
-         nullptr,                  /* no window title   */
-         WS_CHILD | WS_VISIBLE | SS_GRAYRECT | SS_OWNERDRAW | CCS_TOP | hb_parnl(3),
-         hwg_par_int(4), hwg_par_int(5),  hwg_par_int(6), hwg_par_int(7),
-         hwg_par_HWND(1),
-         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-         GetModuleHandle(nullptr), nullptr);
+   auto hWndPanel = CreateWindowEx(0,
+                                   TEXT("PANEL"),
+                                   nullptr,
+                                   WS_CHILD | WS_VISIBLE | SS_GRAYRECT | SS_OWNERDRAW | CCS_TOP | hb_parnl(3),
+                                   hwg_par_int(4),
+                                   hwg_par_int(5),
+                                   hwg_par_int(6),
+                                   hwg_par_int(7),
+                                   hwg_par_HWND(1),
+                                   reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+                                   GetModuleHandle(nullptr),
+                                   nullptr);
    hb_retptr(hWndPanel);
    // SS_ETCHEDHORZ
 }

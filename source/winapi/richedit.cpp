@@ -41,19 +41,22 @@ HB_FUNC( HWG_CREATERICHEDIT )
       hRichEd = LoadLibrary(TEXT("riched20.dll"));
    }
 
-   auto hCtrl = CreateWindowEx(0,   /* extended style    */
-#ifdef UNICODE
-         TEXT("RichEdit20W"), /* predefined class  */
-#else
-         TEXT("RichEdit20A"), /* predefined class  */
-#endif
-         nullptr,                  /* title   */
-         WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
-         hwg_par_int(4), hwg_par_int(5),  /* x, y   */
-         hwg_par_int(6), hwg_par_int(7),  /* nWidth, nHeight */
-         hwg_par_HWND(1),    /* parent window    */
-         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
-         GetModuleHandle(nullptr), nullptr);
+   auto hCtrl = CreateWindowEx(0,
+                               #ifdef UNICODE
+                               TEXT("RichEdit20W"),
+                               #else
+                               TEXT("RichEdit20A"),
+                               #endif
+                               nullptr,
+                               WS_CHILD | WS_VISIBLE | hb_parnl(3),
+                               hwg_par_int(4),
+                               hwg_par_int(5),
+                               hwg_par_int(6),
+                               hwg_par_int(7),
+                               hwg_par_HWND(1),
+                               reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+                               GetModuleHandle(nullptr),
+                               nullptr);
 
    lpText = HB_PARSTR(8, &hText, nullptr);
    if( lpText ) {

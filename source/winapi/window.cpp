@@ -386,17 +386,18 @@ HB_FUNC( HWG_INITMDIWINDOW )
             hb_retni(-3);
          } else {
             // Create frame window
-            hWnd = CreateWindowEx(0, lpAppName,
-                                lpTitle,
-                                WS_OVERLAPPEDWINDOW,
-                                x,
-                                y,
-                                (!width) ? static_cast<LONG>(CW_USEDEFAULT) : width,
-                                (!height) ? static_cast<LONG>(CW_USEDEFAULT) : height,
-                                nullptr,
-                                nullptr,
-                                static_cast<HINSTANCE>(hInstance),
-                                nullptr);
+            hWnd = CreateWindowEx(0,
+                                  lpAppName,
+                                  lpTitle,
+                                  WS_OVERLAPPEDWINDOW,
+                                  x,
+                                  y,
+                                  (!width) ? static_cast<LONG>(CW_USEDEFAULT) : width,
+                                  (!height) ? static_cast<LONG>(CW_USEDEFAULT) : height,
+                                  nullptr,
+                                  nullptr,
+                                  static_cast<HINSTANCE>(hInstance),
+                                  nullptr);
             if( !hWnd ) {
                hb_retni(-4);
             } else {
@@ -426,17 +427,18 @@ HB_FUNC( HWG_INITCLIENTWINDOW )
    ccs.hWindowMenu = GetSubMenu(GetMenu(aWindows[0]), nPos);
    ccs.idFirstChild = FIRST_MDICHILD_ID;
 
-   auto hWnd = CreateWindowEx(0, TEXT("MDICLIENT"),
-                            nullptr,
-                            WS_CHILD | WS_CLIPCHILDREN | MDIS_ALLCHILDSTYLES,
-                            hwg_par_int(3),
-                            hwg_par_int(4),
-                            hwg_par_int(5),
-                            hwg_par_int(6),
-                            aWindows[0],
-                            nullptr,
-                            GetModuleHandle(nullptr),
-                            static_cast<LPVOID>(&ccs));
+   auto hWnd = CreateWindowEx(0,
+                              TEXT("MDICLIENT"),
+                              nullptr,
+                              WS_CHILD | WS_CLIPCHILDREN | MDIS_ALLCHILDSTYLES,
+                              hwg_par_int(3),
+                              hwg_par_int(4),
+                              hwg_par_int(5),
+                              hwg_par_int(6),
+                              aWindows[0],
+                              nullptr,
+                              GetModuleHandle(nullptr),
+                              static_cast<LPVOID>(&ccs));
 
    aWindows[1] = hWnd;
    hb_retptr(hWnd);

@@ -32,14 +32,18 @@ HB_FUNC( HWG_CREATESTATIC )
 {
    ULONG ulStyle = hb_parnl(3);
    ULONG ulExStyle = ((!HB_ISNIL(8)) ? hb_parnl(8) : 0) | ((ulStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0);
-   auto hWndCtrl = CreateWindowEx(ulExStyle, TEXT("STATIC"),      /* predefined class  */
-         nullptr,                  /* title   */
-         WS_CHILD | WS_VISIBLE | ulStyle,
-         hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7),
-         hwg_par_HWND(1),
-         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-         GetModuleHandle(nullptr),
-         nullptr);
+   auto hWndCtrl = CreateWindowEx(ulExStyle,
+                                  TEXT("STATIC"),
+                                  nullptr,
+                                  WS_CHILD | WS_VISIBLE | ulStyle,
+                                  hwg_par_int(4),
+                                  hwg_par_int(5),
+                                  hwg_par_int(6),
+                                  hwg_par_int(7),
+                                  hwg_par_HWND(1),
+                                  reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+                                  GetModuleHandle(nullptr),
+                                  nullptr);
 
    /*
       if( hb_pcount() > 7 ) {

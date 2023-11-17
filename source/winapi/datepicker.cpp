@@ -38,8 +38,7 @@ HB_FUNC( HWG_CREATEDATEPICKER )
                                hwg_par_HWND(1),
                                reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
                                GetModuleHandle(nullptr),
-                               nullptr
-                               );
+                               nullptr);
 
    hb_retptr(hCtrl);
 }

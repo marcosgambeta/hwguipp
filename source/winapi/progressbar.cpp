@@ -48,18 +48,17 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
    }
 
    auto hPBar = CreateWindowEx(0,
-                          PROGRESS_CLASS,
-                          nullptr,
-                          WS_CHILD | WS_VISIBLE | ulStyle,
-                          x1,
-                          y1,
-                          nwidth,
-                          nheight,
-                          hParentWindow,
-                          nullptr,
-                          GetModuleHandle(nullptr),
-                          nullptr
-                          );
+                               PROGRESS_CLASS,
+                               nullptr,
+                               WS_CHILD | WS_VISIBLE | ulStyle,
+                               x1,
+                               y1,
+                               nwidth,
+                               nheight,
+                               hParentWindow,
+                               nullptr,
+                               GetModuleHandle(nullptr),
+                               nullptr);
 
    SendMessage(hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, hb_parni(2)));
    SendMessage(hPBar, PBM_SETSTEP, static_cast<WPARAM>(1), 0);

@@ -38,18 +38,17 @@ HB_FUNC( HWG_CREATEEDIT )
    }
 
    auto hWndEdit = CreateWindowEx(ulStyleEx,
-                             TEXT("EDIT"),
-                             nullptr,
-                             WS_CHILD | WS_VISIBLE | ulStyle,
-                             hwg_par_int(4),
-                             hwg_par_int(5),
-                             hwg_par_int(6),
-                             hwg_par_int(7),
-                             hwg_par_HWND(1),
-                             reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-                             GetModuleHandle(nullptr),
-                             nullptr
-                             );
+                                  TEXT("EDIT"),
+                                  nullptr,
+                                  WS_CHILD | WS_VISIBLE | ulStyle,
+                                  hwg_par_int(4),
+                                  hwg_par_int(5),
+                                  hwg_par_int(6),
+                                  hwg_par_int(7),
+                                  hwg_par_HWND(1),
+                                  reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+                                  GetModuleHandle(nullptr),
+                                  nullptr);
 
    if( hb_pcount() > 7 ) {
       void * hStr;

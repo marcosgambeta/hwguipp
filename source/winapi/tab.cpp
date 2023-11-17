@@ -30,18 +30,18 @@ HWG_CREATETABCONTROL(hParent, nID, nStyle, nX, nY, nWidth, nHeight) --> hTab
 */
 HB_FUNC( HWG_CREATETABCONTROL )
 {
-   auto hTab = CreateWindowEx(0, WC_TABCONTROL,
-                            nullptr,
-                            WS_CHILD | WS_VISIBLE | hb_parnl(3),
-                            hwg_par_int(4),
-                            hwg_par_int(5),
-                            hwg_par_int(6),
-                            hwg_par_int(7),
-                            hwg_par_HWND(1),
-                            reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-                            GetModuleHandle(nullptr),
-                            nullptr
-                            );
+   auto hTab = CreateWindowEx(0,
+                              WC_TABCONTROL,
+                              nullptr,
+                              WS_CHILD | WS_VISIBLE | hb_parnl(3),
+                              hwg_par_int(4),
+                              hwg_par_int(5),
+                              hwg_par_int(6),
+                              hwg_par_int(7),
+                              hwg_par_HWND(1),
+                              reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+                              GetModuleHandle(nullptr),
+                              nullptr);
    hb_retptr(hTab);
 }
 

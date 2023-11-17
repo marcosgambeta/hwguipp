@@ -24,11 +24,18 @@ HB_FUNC( HWG_INITMONTHCALENDAR ) // moved to hmonthcalendar.prg as static functi
 {
    RECT rc;
 
-   auto hMC = CreateWindowEx(0, MONTHCAL_CLASS, "", static_cast<LONG>(hb_parnl(3)),
-      hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7),
-      hwg_par_HWND(1),
-      reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-      GetModuleHandle(nullptr), nullptr);
+   auto hMC = CreateWindowEx(0,
+                             MONTHCAL_CLASS,
+                             "",
+                             hb_parnl(3),
+                             hwg_par_int(4),
+                             hwg_par_int(5),
+                             hwg_par_int(6),
+                             hwg_par_int(7),
+                             hwg_par_HWND(1),
+                             reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+                             GetModuleHandle(nullptr),
+                             nullptr);
 
    MonthCal_GetMinReqRect(hMC, &rc);
 

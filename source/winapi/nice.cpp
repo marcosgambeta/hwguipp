@@ -180,14 +180,18 @@ HB_FUNC( HWG_CREATENICEBTN )
          HB_ISNUM(3) ? hb_parnl(3) : WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
    void * hTitle;
 
-   auto hWndPanel = CreateWindowEx(hb_parni(8), TEXT("NICEBUTT"),       /* predefined class  */
-         HB_PARSTR(9, &hTitle, nullptr), /* no window title   */
-         WS_CHILD | WS_VISIBLE | ulStyle,       /* style  */
-         hwg_par_int(4), hwg_par_int(5),  /* x, y       */
-         hwg_par_int(6), hwg_par_int(7),  /* nWidth, nHeight */
-         hwg_par_HWND(1),    /* parent window    */
-         reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),       /* control ID  */
-         GetModuleHandle(nullptr), nullptr);
+   auto hWndPanel = CreateWindowEx(hb_parni(8),
+                                   TEXT("NICEBUTT"),
+                                   HB_PARSTR(9, &hTitle, nullptr),
+                                   WS_CHILD | WS_VISIBLE | ulStyle,
+                                   hwg_par_int(4),
+                                   hwg_par_int(5),
+                                   hwg_par_int(6),
+                                   hwg_par_int(7),
+                                   hwg_par_HWND(1),
+                                   reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
+                                   GetModuleHandle(nullptr),
+                                   nullptr);
    hb_strfree(hTitle);
 
    hb_retptr(hWndPanel);
