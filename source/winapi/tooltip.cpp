@@ -28,10 +28,12 @@
 static HWND s_hWndTT = nullptr;
 static bool s_lToolTipBalloon = false;
 
+/*
+HWG_ADDTOOLTIP(HWND, cText) --> .T.|.F.
+*/
 HB_FUNC( HWG_ADDTOOLTIP )
 {
    auto hWnd = hwg_par_HWND(1);
-   TOOLINFO ti{};
    int iStyle = 0;
    void * hStr;
 
@@ -57,6 +59,8 @@ HB_FUNC( HWG_ADDTOOLTIP )
       hb_retl(false);
       return;
    }
+
+   TOOLINFO ti{};
    ti.cbSize = sizeof(TOOLINFO);
    ti.uFlags = TTF_SUBCLASS | TTF_IDISHWND;
    ti.hwnd = GetParent(static_cast<HWND>(hWnd));
@@ -68,12 +72,15 @@ HB_FUNC( HWG_ADDTOOLTIP )
    hb_strfree(hStr);
 }
 
+/*
+HWG_DELTOOLTIP(HWND) --> NIL
+*/
 HB_FUNC( HWG_DELTOOLTIP )
 {
    auto hWnd = hwg_par_HWND(1);
-   TOOLINFO ti{};
 
    if( s_hWndTT ) {
+      TOOLINFO ti{};
       ti.cbSize = sizeof(TOOLINFO);
       ti.uFlags = TTF_IDISHWND;
       ti.hwnd = GetParent(static_cast<HWND>(hWnd));
@@ -84,14 +91,17 @@ HB_FUNC( HWG_DELTOOLTIP )
    }
 }
 
+/*
+HWG_SETTOOLTIPTITLE(HWND, cTitle) --> .T.|.F.
+*/
 HB_FUNC( HWG_SETTOOLTIPTITLE )
 {
    auto hWnd = hwg_par_HWND(1);
 
    if( s_hWndTT ) {
-      TOOLINFO ti;
       void * hStr;
 
+      TOOLINFO ti{};
       ti.cbSize = sizeof(TOOLINFO);
       ti.uFlags = TTF_IDISHWND;
       ti.hwnd = GetParent(static_cast<HWND>(hWnd));
@@ -105,17 +115,26 @@ HB_FUNC( HWG_SETTOOLTIPTITLE )
    }
 }
 
+/*
+HWG_GETTOOLTIPHANDLE() --> pointer
+*/
 HB_FUNC( HWG_GETTOOLTIPHANDLE )
 {
    hb_retptr(s_hWndTT);
 }
 
+/*
+HWG_SETTOOLTIPBALLOON(lToolTipBalloon) --> NIL
+*/
 HB_FUNC( HWG_SETTOOLTIPBALLOON )
 {
    s_lToolTipBalloon = hb_parl(1);
    s_hWndTT = nullptr;
 }
 
+/*
+HWG_GETTOOLTIPBALLOON() --> .T.|.F.
+*/
 HB_FUNC( HWG_GETTOOLTIPBALLOON )
 {
    hb_retl(s_lToolTipBalloon);
