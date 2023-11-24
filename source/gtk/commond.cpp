@@ -391,7 +391,7 @@ HB_FUNC( HWG_SELECTFILEEX )
             if( gsli && gsli->data ) {
                GSList * pgs = gsli;
                guint uiLen = g_slist_length(gsli);
-               int i1 = 0;
+               auto i1 = 0;
                auto aFiles = hb_itemArrayNew(uiLen);
                while( pgs ) {
                   hb_arraySetC(aFiles, ++i1, static_cast<char*>(pgs->data));

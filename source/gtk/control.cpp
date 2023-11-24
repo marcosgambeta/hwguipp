@@ -627,7 +627,7 @@ HB_FUNC( HWG_SETADJOPTIONS )
 {
    auto adj = static_cast<GtkAdjustment*>(hb_parptr(1));
    gdouble value;
-   int lChanged = 0;
+   auto lChanged = 0;
 
    if( !HB_ISNIL(2) && ((value = static_cast<gdouble>(hb_parnl(2))) != gtk_adjustment_get_value(adj)) ) {
       gtk_adjustment_set_value(adj, value);

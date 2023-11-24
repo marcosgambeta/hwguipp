@@ -76,7 +76,7 @@ HB_FUNC( HWG_GETPRINTERS )
       auto aMetr = hb_itemArrayNew(dwReturned);
       PHB_ITEM temp = nullptr;
 
-      for( int i = 0; i < static_cast<int>(dwReturned); i++ ) {
+      for( auto i = 0; i < static_cast<int>(dwReturned); i++ ) {
          if( pinfo4 != nullptr ) {
             temp = HB_ITEMPUTSTR(nullptr, pinfo4->pPrinterName);
             pinfo4++;

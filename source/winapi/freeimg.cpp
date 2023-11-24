@@ -588,7 +588,7 @@ HB_FUNC( HWG_FI_DIB2FI )
             RGBQUAD *pal = pGetPalette(dib);
             auto dibpal = reinterpret_cast<RGBQUAD*>(reinterpret_cast<LPBYTE>(lpbi) + lpbi->biSize);
 
-            for( int i = 0; i < BmiColorCount(lpbi); i++ ) {
+            for( auto i = 0; i < BmiColorCount(lpbi); i++ ) {
                pal[i].rgbRed      = dibpal[i].rgbRed;
                pal[i].rgbGreen    = dibpal[i].rgbGreen;
                pal[i].rgbBlue     = dibpal[i].rgbBlue;

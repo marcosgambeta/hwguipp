@@ -175,7 +175,7 @@ HB_FUNC( HWG_INITSTATUS )
       // Calculate the right edge coordinate for each part, and
       // copy the coordinates to the array.
       nWidth = rcClient.right / nParts;
-      for( int i = 0; i < nParts; i++ ) {
+      for( auto i = 0; i < nParts; i++ ) {
          lpParts[i] = nWidth;
          nWidth += nWidth;
       }

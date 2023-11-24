@@ -53,7 +53,7 @@ HB_FUNC( HWG_SETDATEPICKER )
       SYSTEMTIME sysTime, st;
       int lYear, lMonth, lDay;
       int lHour, lMinute;
-      int lMilliseconds = 0;
+      auto lMilliseconds = 0;
       int lSecond;
 
       hb_dateDecode(hb_itemGetDL(pDate), &lYear, &lMonth, &lDay);

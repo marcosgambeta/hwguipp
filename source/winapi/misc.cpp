@@ -748,11 +748,10 @@ HB_FUNC( HWG_GETSYSTEMMETRICS )
 HB_FUNC( HWG_LASTKEY )
 {
    BYTE kbBuffer[256];
-   int i;
 
    GetKeyboardState(kbBuffer);
 
-   for( i = 0; i < 256; i++ ) {
+   for( auto i = 0; i < 256; i++ ) {
       if( kbBuffer[i] & 0x80 ) {
          hb_retni(i);
          return;

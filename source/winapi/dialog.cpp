@@ -27,7 +27,7 @@ static LRESULT CALLBACK s_PSPProcRelease(HWND, UINT, LPPROPSHEETPAGE);
 #define	WND_DLG_NORESOURCE     11
 
 HWND * aDialogs = nullptr;
-static int s_nDialogs = 0;
+static auto s_nDialogs = 0;
 int iDialogs = 0;
 
 HB_FUNC( HWG_DIALOGBOX )

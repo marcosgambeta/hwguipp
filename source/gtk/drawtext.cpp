@@ -177,7 +177,7 @@ HB_FUNC( HWG_GETFONTSLIST )
    }
 
    auto aFonts = hb_itemArrayNew(n_families);
-   for( int i = 0; i < n_families; i++ ) {
+   for( auto i = 0; i < n_families; i++ ) {
       hb_arraySetC(aFonts, i + 1, pango_font_family_get_name(families[i]));
    }
 

@@ -266,7 +266,8 @@ int ted_CalcLineWidth( TEDIT * pted, char *szText, int iLen, int iWidth, int * i
 #endif
 {
    TEDATTR *pattr = pted->pattr;
-   int i, lasti, iRealLen, iPrinted = 0;
+   int i, lasti, iRealLen;
+   auto iPrinted = 0;
 
    *iRealWidth = 0;
    for( i = 0, lasti = 0; i <= iLen; i++ ) {
@@ -547,7 +548,7 @@ HB_FUNC( HCED_SETATTR )
 HB_FUNC( HCED_ADDATTRFONT )
 {
    TEDIT *pted = ( TEDIT * ) hb_parptr(1);
-   int i = 0;
+   auto i = 0;
    auto iFont = hb_parni(2);
 
    while( i < TEDATTRF_MAX && *( pted->pattrf+i ) ) {
@@ -805,10 +806,12 @@ HB_FUNC( HCED_LINEOUT )
    auto ypos = hb_parni(3);
    auto x2 = hb_parni(4);
    auto iLen = hb_parni(6);
-   int iPrinted, iCalculated = 0;
+   int iPrinted;
+   auto iCalculated = 0;
    auto iAlign = hb_parni(7);
-   int iRealWidth, i, iFont;
-   int iHeight = 0, iMaxAscent = 0;
+   int iRealWidth, iFont;
+   auto iHeight = 0;
+   auto iMaxAscent = 0;
 
    if( iLen ) {
       if( bCalc ) {
@@ -836,10 +839,10 @@ HB_FUNC( HCED_LINEOUT )
    pted->x1 = x1;
    pted->x2 = x1 + iRealWidth;
 
-   i = 0;
+   auto i = 0;
    while( i < TEDATTRF_MAX ) {
       iFont = *( pted->pattrf + i );
-      font = ( (pted->hDCPrn)? pted->pFontsPrn : pted->pFontsScr ) + 
+      font = ( (pted->hDCPrn)? pted->pFontsPrn : pted->pFontsScr ) +
             (iFont? iFont-1 : 0) ;
       iHeight = HB_MAX( iHeight, font->tm.tmHeight + font->tm.tmExternalLeading ) + 1;
       iMaxAscent = HB_MAX( iMaxAscent, font->tm.tmAscent );

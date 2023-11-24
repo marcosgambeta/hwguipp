@@ -28,7 +28,8 @@
 //----------------------------------------------------------------------------//
 static int file_read ( FILE *stream, char *string )
 {
-   int ch, cnbr = 0;
+   int ch;
+   auto cnbr = 0;
 
    memset (string, ' ', LINE_MAX);
 

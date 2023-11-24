@@ -119,7 +119,7 @@ HB_FUNC( HBXML_PRESAVE )
    auto pBuffer = reinterpret_cast<unsigned char*>(const_cast<char*>(hb_parc(1)));
    unsigned char c;
    unsigned long ulLen = hb_parclen(1);
-   int iLenAdd = 0;
+   auto iLenAdd = 0;
 
    if( !pEntity1 ) {
       pEntity1 = predefinedEntity1;
@@ -289,7 +289,7 @@ PHB_ITEM hbxml_getattr(unsigned char **pBuffer, int * lSingle)
 {
    unsigned char *ptr, cQuo;
    int iLen;
-   int bPI = 0;
+   auto bPI = 0;
    PHB_ITEM pArray = hb_itemNew(nullptr);
    PHB_ITEM pSubArray = nullptr;
    PHB_ITEM pTemp;
@@ -587,7 +587,7 @@ HB_FUNC( HBXML_GETDOC )
 {
    auto pDoc = hb_param(1, Harbour::Item::OBJECT);
    unsigned char *ptr, *pBuffer = nullptr;
-   int iMainTags = 0;
+   auto iMainTags = 0;
 
    if( !pEntity1 ) {
       pEntity1 = predefinedEntity1;

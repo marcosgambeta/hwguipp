@@ -68,7 +68,7 @@ HB_FUNC( HWG_LISTVIEW_CREATE )
 
 HB_FUNC( HWG_LISTVIEW_INIT )
 {
-   int style = 0;
+   auto style = 0;
 
    if( !hb_parl(3) ) {
       style = style | LVS_EX_GRIDLINES;
@@ -290,7 +290,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    void * hText;
    auto iBitMap = hb_parni(5);
    LVITEM lvi{};
-   int iResult = 0;
+   auto iResult = 0;
    RECT rect;
 
    GetClientRect(hwndListView, &rect);

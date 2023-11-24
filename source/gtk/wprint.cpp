@@ -195,7 +195,7 @@ void long2rgb(long int nColor, double * pr, double * pg, double * pb)
 
 static void draw_page(cairo_t * cr, const char * cpage)
 {
-   int iPathExist = 0;
+   auto iPathExist = 0;
    char * ptr, * ptre;
    char cBuf[512];
    double x1, y1, x2, y2;

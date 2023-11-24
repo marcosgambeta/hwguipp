@@ -307,7 +307,8 @@ int ted_CalcItemWidth(PangoLayout * layout, char *szText, TEDFONT *font, int *iR
 int ted_CalcLineWidth(TEDIT * pted, char *szText, int iLen, int iWidth, int * iRealWidth, short int bWrap)
 {
    TEDATTR *pattr = pted->pattr;
-   int i, lasti, iReqLen, iRealLen, iPrinted = 0;
+   int i, lasti, iReqLen, iRealLen;
+   auto iPrinted = 0;
    char * ptr;
 
    *iRealWidth = 0;
@@ -387,7 +388,7 @@ int ted_LineOut(TEDIT * pted, int x1, int ypos, char *szText, int iPrinted, int 
 {
    TEDATTR *pattr = pted->pattr;
    int i, lasti, iReqLen, iRealLen;
-   int iMaxAscent = 0;
+   auto iMaxAscent = 0;
    char * ptr;
 
    //wrlog(nullptr, "Lineout-1\r\n");
@@ -662,7 +663,7 @@ HB_FUNC( HCED_SETATTR )
 HB_FUNC( HCED_ADDATTRFONT )
 {
    TEDIT *pted = ( TEDIT * ) hb_parptr(1);
-   int i = 0;
+   auto i = 0;
    auto iFont = hb_parni(2);
 
    while( i < TEDATTRF_MAX && *( pted->pattrf+i ) ) {
@@ -896,10 +897,11 @@ HB_FUNC( HCED_LINEOUT )
    //int x1 = hb_parni(2) + pted->xBorder, ypos = hb_parni(3) + pted->yBorder;
    auto x2 = hb_parni(4);
    auto iLen = hb_parni(6);
-   int iPrinted, iCalculated = 0;
+   int iPrinted;
+   auto iCalculated = 0;
    auto iAlign = hb_parni(7);
-   int iRealWidth, i, iFont;
-   int iHeight = 0;
+   int iRealWidth, iFont;
+   auto iHeight = 0;
 
    pango_layout_set_alignment(pted->hDCScr->layout, PANGO_ALIGN_LEFT);
    if( bCalc ) {
@@ -922,7 +924,7 @@ HB_FUNC( HCED_LINEOUT )
    pted->x1 = x1;
    pted->x2 = x1 + iRealWidth;
 
-   i = 0;
+   auto i = 0;
    while( i < TEDATTRF_MAX ) {
       iFont = *(pted->pattrf + i);
       font = (pted->hDCPrn ? pted->pFontsPrn : pted->pFontsScr) + (iFont ? iFont - 1 : 0);

@@ -34,7 +34,7 @@ HWG_ADDTOOLTIP(HWND, cText) --> .T.|.F.
 HB_FUNC( HWG_ADDTOOLTIP )
 {
    auto hWnd = hwg_par_HWND(1);
-   int iStyle = 0;
+   auto iStyle = 0;
    void * hStr;
 
    if( s_lToolTipBalloon ) {

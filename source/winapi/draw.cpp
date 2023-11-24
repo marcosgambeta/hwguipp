@@ -1297,8 +1297,14 @@ HB_FUNC( HWG_DRAWGRADIENT )
    auto pArrStop = hb_param(8, Harbour::Item::ARRAY);
    double stop;
    int stop_x[GRADIENT_MAX_COLORS], stop_y[GRADIENT_MAX_COLORS], coord_stop;
-   int isH = 0, isV = 0, isD = 0, is_5_6 = 0, isR = 0;
-   int x_center = 0, y_center = 0, gr_radius = 0;
+   auto isH = 0;
+   auto isV = 0;
+   auto isD = 0;
+   auto is_5_6 = 0;
+   auto isR = 0;
+   auto x_center = 0;
+   auto y_center = 0;
+   auto gr_radius = 0;
    auto pArrRadius = hb_param(9, Harbour::Item::ARRAY);
    int radius[4];
    double angle, angle_step, coord_x, coord_y, min_delta, delta;
@@ -1346,7 +1352,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
             gr_radius = sqrt(pow(static_cast<long double>(x2 - x1), 2) + pow(static_cast<long double>(y2 - y1), 2)) / 2;
       }
       // calculate stops and colors for our gradient
-      for( int i = 0; i < colors_num; i++ ) {
+      for( auto i = 0; i < colors_num; i++ ) {
          stop = (i < user_stops_num) ? hb_arrayGetND(pArrStop, i+1) : 1. / (colors_num-1) * i;
          if( isV ) {
             coord_stop = floor(stop * (y2 - y1 + 1) + 0.5);
@@ -1581,7 +1587,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
    // We draw polygon that looks like rectangle with rounded corners.
    // WinAPI allows to fill this figure with brush.
    user_radiuses_num = pArrRadius ? hb_arrayLen(pArrRadius) : 0;
-   for( int i = 0; i < 4; i++ ) {
+   for( auto i = 0; i < 4; i++ ) {
       radius[i] = (i < user_radiuses_num) ? hb_arrayGetNI(pArrRadius, i+1) : 0;
       radius[i] = (radius[i] >= 0) ? radius[i] : 0;
    }
@@ -1595,7 +1601,7 @@ HB_FUNC( HWG_DRAWGRADIENT )
    center[3].x = x1 + radius[3];
    center[3].y = y2 - radius[3];
 
-   for( int i = 0; i < 4; i++ ) {
+   for( auto i = 0; i < 4; i++ ) {
       if( radius[i] == 0 ) {
          // This is not rounded corner.
          polygon[polygon_len].x = center[i].x;

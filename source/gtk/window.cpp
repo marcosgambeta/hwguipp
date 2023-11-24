@@ -624,7 +624,7 @@ void all_signal_connect(gpointer hWnd)
 {
    char buf[20] = {0};
 
-   for( int i = 0; i < NUMBER_OF_SIGNALS; i++ ) {
+   for( auto i = 0; i < NUMBER_OF_SIGNALS; i++ ) {
       sprintf(buf, "%d 0 0", aSignals[i].msg);
       g_signal_connect(hWnd, aSignals[i].cName, G_CALLBACK(cb_signal), g_strdup(buf));
    }
