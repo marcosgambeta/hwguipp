@@ -49,7 +49,7 @@ LRESULT APIENTRY SplitterProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 LRESULT APIENTRY ListSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT APIENTRY TrackSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-static bool s_lInitCmnCtrl = false;
+static auto s_lInitCmnCtrl = false;
 static WNDPROC wpOrigTrackProc, wpOrigListProc;
 
 /*
@@ -315,7 +315,7 @@ HB_FUNC( HWG_GETCURSOR )
 
 HB_FUNC( HWG_REGOWNBTN )
 {
-   static bool bRegistered = false;
+   static auto bRegistered = false;
 
    WNDCLASS wndclass;
 
@@ -338,7 +338,7 @@ HB_FUNC( HWG_REGOWNBTN )
 
 HB_FUNC( HWG_REGBROWSE )
 {
-   static bool bRegistered = false;
+   static auto bRegistered = false;
 
    if( !bRegistered ) {
       WNDCLASS wndclass;

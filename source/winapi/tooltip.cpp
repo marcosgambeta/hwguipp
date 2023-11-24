@@ -26,7 +26,7 @@
 #endif
 
 static HWND s_hWndTT = nullptr;
-static bool s_lToolTipBalloon = false;
+static auto s_lToolTipBalloon = false;
 
 /*
 HWG_ADDTOOLTIP(HWND, cText) --> .T.|.F.

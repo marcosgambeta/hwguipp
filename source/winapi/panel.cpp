@@ -44,7 +44,7 @@ HB_FUNC( HWG_CREATEPANEL )
 
 HB_FUNC( HWG_REGPANEL )
 {
-   static bool bRegistered = false;
+   static auto bRegistered = false;
 
    if( !bRegistered ) {
       WNDCLASS wndclass;

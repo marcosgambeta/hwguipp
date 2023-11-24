@@ -382,7 +382,7 @@ HWG_SETDOCUMENTPROPERTIES(HDC, printerName, formName|paperSize, orientation, cop
 */
 HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 {
-   bool Result = false;
+   auto Result = false;
    auto hDC = hwg_par_HDC(1);
 
    if( hDC != nullptr ) {
