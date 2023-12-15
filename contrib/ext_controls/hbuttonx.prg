@@ -52,9 +52,9 @@ CLASS HButtonX INHERIT HButton
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD HButtonX:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor, bGFocus) CLASS HButtonX
+      tcolor, bColor, bGFocus)
 
    nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), BS_PUSHBUTTON + BS_NOTIFY )
    ::lFlat := hb_bitand( nStyle, BS_FLAT ) != 0
@@ -79,8 +79,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
-      cTooltip, tcolor, bColor, cCaption, bGFocus ) CLASS HButtonX
+METHOD HButtonX:Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
+      cTooltip, tcolor, bColor, cCaption, bGFocus )
 
    ::super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
       bSize, bPaint, cTooltip, tcolor, bColor)
@@ -101,7 +101,7 @@ METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
 
    RETURN Self
 
-METHOD Init() CLASS HButtonX
+METHOD HButtonX:Init()
 
    IF ! ::lInit
       IF !( hwg_GetParentForm( Self ):classname == ::oParent:classname .AND. ;
@@ -116,7 +116,7 @@ METHOD Init() CLASS HButtonX
 
    RETURN  NIL
 
-METHOD onevent( msg, wParam, lParam ) CLASS HButtonX
+METHOD HButtonX:onevent( msg, wParam, lParam )
 
    IF msg = WM_SETFOCUS .AND. ::oParent:oParent = NIL
    ELSEIF msg = WM_KILLFOCUS
@@ -159,7 +159,7 @@ METHOD onevent( msg, wParam, lParam ) CLASS HButtonX
 
    RETURN - 1
 
-METHOD onClick()  CLASS HButtonX
+METHOD HButtonX:onClick()
 
    IF ::bClick != NIL
       Eval( ::bClick, Self, ::id )
@@ -167,7 +167,7 @@ METHOD onClick()  CLASS HButtonX
 
    RETURN NIL
 
-METHOD NoteCaption( cNote )  CLASS HButtonX
+METHOD HButtonX:NoteCaption( cNote )
 
    IF cNote != NIL
       IF hb_bitor( ::Style, BS_COMMANDLINK ) > 0
@@ -178,7 +178,7 @@ METHOD NoteCaption( cNote )  CLASS HButtonX
 
    RETURN ::cNote
 
-METHOD onGetFocus()  CLASS HButtonX
+METHOD HButtonX:onGetFocus()
    LOCAL res := .T. , nSkip
 
    /*
@@ -201,7 +201,7 @@ METHOD onGetFocus()  CLASS HButtonX
 
    RETURN res
 
-METHOD onLostFocus()  CLASS HButtonX
+METHOD HButtonX:onLostFocus()
 
    IF ::lflat
       hwg_Invalidaterect( ::oParent:Handle, 1 , ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight  )

@@ -129,8 +129,8 @@ CLASS HComboBoxEx INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, ;
-           lEdit, lText, bGFocus, tcolor, bcolor, bLFocus, bIChange, nDisplay, nhItem, ncWidth, nMaxLength) CLASS HComboBoxEx
+METHOD HComboBoxEx:New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, ;
+           lEdit, lText, bGFocus, tcolor, bcolor, bLFocus, bIChange, nDisplay, nhItem, ncWidth, nMaxLength)
 
    IF !Empty(nDisplay) .AND. nDisplay > 0
       nStyle := hb_bitor( nStyle, CBS_NOINTEGRALHEIGHT  + WS_VSCROLL )
@@ -212,7 +212,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 
    RETURN Self
 
-METHOD Activate() CLASS HComboBoxEx
+METHOD HComboBoxEx:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createcombo( ::oParent:handle, ::id, ;
@@ -223,8 +223,8 @@ METHOD Activate() CLASS HComboBoxEx
 
    RETURN NIL
 
-METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus, bLFocus, bIChange, ;
-                nDisplay, nMaxLength, ledit, ltext, aCheck) CLASS HComboBoxEx
+METHOD HComboBoxEx:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus, bLFocus, bIChange, ;
+                nDisplay, nMaxLength, ledit, ltext, aCheck)
 
    HB_SYMBOL_UNUSED(bLFocus)
 
@@ -292,7 +292,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
 
    RETURN Self
 
-METHOD INIT() CLASS HComboBoxEx
+METHOD HComboBoxEx:INIT()
 
    LOCAL LongComboWidth
    LOCAL NewLongComboWidth
@@ -352,7 +352,7 @@ METHOD INIT() CLASS HComboBoxEx
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam) CLASS HComboBoxEx
+METHOD HComboBoxEx:onEvent(msg, wParam, lParam)
 
    LOCAL oCtrl
 
@@ -434,7 +434,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HComboBoxEx
 
    RETURN -1
 
-METHOD MaxLength(nMaxLength) CLASS HComboBoxEx
+METHOD HComboBoxEx:MaxLength(nMaxLength)
 
    IF nMaxLength != NIL .AND. ::lEdit
       hwg_Sendmessage(::handle, CB_LIMITTEXT, nMaxLength, 0)
@@ -443,7 +443,7 @@ METHOD MaxLength(nMaxLength) CLASS HComboBoxEx
 
    RETURN ::nMaxLength
 
-METHOD Requery(aItems, xValue) CLASS HComboBoxEx
+METHOD HComboBoxEx:Requery(aItems, xValue)
 
    hwg_Sendmessage(::handle, CB_RESETCONTENT, 0, 0)
    IF aItems != NIL
@@ -458,7 +458,7 @@ METHOD Requery(aItems, xValue) CLASS HComboBoxEx
 
    RETURN NIL
 
-METHOD Refresh() CLASS HComboBoxEx
+METHOD HComboBoxEx:Refresh()
 
    LOCAL vari
 
@@ -489,7 +489,7 @@ METHOD Refresh() CLASS HComboBoxEx
 
    RETURN NIL
 
-METHOD SetItem(nPos) CLASS HComboBoxEx
+METHOD HComboBoxEx:SetItem(nPos)
 
    IF ::lText
       IF nPos > 0
@@ -516,7 +516,7 @@ METHOD SetItem(nPos) CLASS HComboBoxEx
 
    RETURN NIL
 
-METHOD SetValue(xItem) CLASS HComboBoxEx
+METHOD HComboBoxEx:SetValue(xItem)
 
    LOCAL nPos
 
@@ -534,7 +534,7 @@ METHOD SetValue(xItem) CLASS HComboBoxEx
 
    RETURN NIL
 
-METHOD GetValue() CLASS HComboBoxEx
+METHOD HComboBoxEx:GetValue()
 
    LOCAL nPos := hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0) + 1
 
@@ -561,7 +561,7 @@ METHOD GetValue() CLASS HComboBoxEx
 
    RETURN ::value
 
-METHOD GetValueBound(xItem) CLASS HComboBoxEx
+METHOD HComboBoxEx:GetValueBound(xItem)
 
    LOCAL nPos := hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0) + 1
 
@@ -583,7 +583,7 @@ METHOD GetValueBound(xItem) CLASS HComboBoxEx
 
    RETURN ::ValueBound
 
-METHOD DisplayValue(cValue) CLASS HComboBoxEx
+METHOD HComboBoxEx:DisplayValue(cValue)
 
    IF cValue != NIL
       IF ::lEdit .AND. HB_ISCHAR(cValue)
@@ -594,7 +594,7 @@ METHOD DisplayValue(cValue) CLASS HComboBoxEx
 
    RETURN iif( ! ::lEdit, hwg_Getwindowtext( ::handle ), ::cDisplayValue )
 
-METHOD DeleteItem(xIndex) CLASS HComboBoxEx
+METHOD HComboBoxEx:DeleteItem(xIndex)
 
    LOCAL nIndex
 
@@ -615,7 +615,7 @@ METHOD DeleteItem(xIndex) CLASS HComboBoxEx
 
    RETURN .F.
 
-METHOD AddItem(cItem, cItemBound, nPos) CLASS HComboBoxEx
+METHOD HComboBoxEx:AddItem(cItem, cItemBound, nPos)
 
    LOCAL nCount
 
@@ -647,7 +647,7 @@ METHOD AddItem(cItem, cItemBound, nPos) CLASS HComboBoxEx
 
    RETURN nCount
 
-METHOD SetCueBanner(cText, lShowFoco) CLASS HComboBoxEx
+METHOD HComboBoxEx:SetCueBanner(cText, lShowFoco)
 
    LOCAL lRet := .F.
 
@@ -657,7 +657,7 @@ METHOD SetCueBanner(cText, lShowFoco) CLASS HComboBoxEx
 
    RETURN lRet
 
-METHOD InteractiveChange() CLASS HComboBoxEx
+METHOD HComboBoxEx:InteractiveChange()
 
    LOCAL npos := hwg_Sendmessage(::handle, CB_GETEDITSEL, 0, 0)
 
@@ -671,7 +671,7 @@ METHOD InteractiveChange() CLASS HComboBoxEx
 
    RETURN NIL
 
-METHOD onSelect() CLASS HComboBoxEx
+METHOD HComboBoxEx:onSelect()
 
    IF HB_ISBLOCK(::bSelect)
       // ::oparent:lSuspendMsgsHandling := .T.
@@ -681,7 +681,7 @@ METHOD onSelect() CLASS HComboBoxEx
 
    RETURN .T.
 
-METHOD onChange(lForce) CLASS HComboBoxEx
+METHOD HComboBoxEx:onChange(lForce)
 
    IF ! hwg_Selffocus( ::handle ) .AND. Empty(lForce)
       RETURN NIL
@@ -700,7 +700,7 @@ METHOD onChange(lForce) CLASS HComboBoxEx
 
    RETURN NIL
 
-METHOD When() CLASS HComboBoxEx
+METHOD HComboBoxEx:When()
 
    LOCAL res := .T.
    LOCAL oParent
@@ -734,7 +734,7 @@ METHOD When() CLASS HComboBoxEx
 
    RETURN res
 
-METHOD Valid() CLASS HComboBoxEx
+METHOD HComboBoxEx:Valid()
 
    LOCAL oDlg
    LOCAL nSkip
@@ -778,7 +778,7 @@ METHOD Valid() CLASS HComboBoxEx
 
    RETURN .T.
 
-METHOD RowSource(xSource) CLASS HComboBoxEx
+METHOD HComboBoxEx:RowSource(xSource)
 
    IF xSource != NIL
       IF HB_ISARRAY(xSource)
@@ -793,7 +793,7 @@ METHOD RowSource(xSource) CLASS HComboBoxEx
 
    RETURN ::xRowSource
 
-METHOD Populate() CLASS HComboBoxEx
+METHOD HComboBoxEx:Populate()
 
    LOCAL cAlias
    LOCAL nRecno

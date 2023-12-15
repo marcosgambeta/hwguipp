@@ -39,8 +39,8 @@ CLASS HContainerEx INHERIT HControl, HScrollArea
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize, ;
-      lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther) CLASS HContainerEx
+METHOD HContainerEx:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize, ;
+      lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther)
 
    ::lTABSTOP :=  nStyle = WS_TABSTOP
    ::bPaint   := { | o, p | o:paint( p ) }
@@ -65,7 +65,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize
   RETURN Self
 
 //---------------------------------------------------------------------------
-METHOD Activate() CLASS HContainerEx
+METHOD HContainerEx:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic( ::oParent:handle, ::id, ::style, ;
@@ -90,7 +90,7 @@ METHOD Activate() CLASS HContainerEx
 
    RETURN NIL
 
-METHOD Init() CLASS HContainerEx
+METHOD HContainerEx:Init()
 
    IF ! ::lInit
       ::Super:init()
@@ -103,7 +103,7 @@ METHOD Init() CLASS HContainerEx
 
    RETURN  NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HContainerEx
+METHOD HContainerEx:onEvent( msg, wParam, lParam )
    LOCAL nEval
 
    IF ::bOther != NIL
@@ -134,7 +134,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HContainerEx
 
    RETURN ::Super:onEvent( msg, wParam, lParam )
 
-METHOD Visible( lVisibled ) CLASS HContainerEx
+METHOD HContainerEx:Visible( lVisibled )
 
    IF lVisibled != NIL
       IF lVisibled
@@ -148,7 +148,7 @@ METHOD Visible( lVisibled ) CLASS HContainerEx
    RETURN ::xVisible
 
 //---------------------------------------------------------------------------
-METHOD Paint( lpdis ) CLASS HContainerEx
+METHOD HContainerEx:Paint( lpdis )
    LOCAL drawInfo, hDC
    LOCAL x1, y1, x2, y2
 

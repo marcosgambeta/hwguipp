@@ -111,7 +111,7 @@ ENDCLASS
 
    //----------------------------------------------------//
 
-METHOD New(cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bcolor, bClick) CLASS HColumnEx
+METHOD HColumnEx:New(cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bcolor, bClick)
 
    ::heading   := iif( cHeading == NIL, "", cHeading )
    ::block     := block
@@ -135,7 +135,7 @@ METHOD New(cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPi
 
    RETURN Self
 
-METHOD Visible( lVisible ) CLASS HColumnEx
+METHOD HColumnEx:Visible( lVisible )
 
    IF lVisible != NIL
       IF ! lVisible
@@ -148,21 +148,21 @@ METHOD Visible( lVisible ) CLASS HColumnEx
 
    RETURN ! ::lHide
 
-METHOD Hide( ) CLASS HColumnEx
+METHOD HColumnEx:Hide( )
 
    ::lHide := .T.
    ::oParent:Refresh()
 
    RETURN ::lHide
 
-METHOD Show( ) CLASS HColumnEx
+METHOD HColumnEx:Show( )
 
    ::lHide := .F.
    ::oParent:Refresh()
 
    RETURN ::lHide
 
-METHOD Editable( lEditable ) CLASS HColumnEx
+METHOD HColumnEx:Editable( lEditable )
 
    IF lEditable != NIL
       ::lEditable := lEditable
@@ -172,7 +172,7 @@ METHOD Editable( lEditable ) CLASS HColumnEx
 
    RETURN ::lEditable
 
-METHOD SortMark( nSortMark ) CLASS HColumnEx
+METHOD HColumnEx:SortMark( nSortMark )
 
    IF nSortMark != NIL
       AEval( ::oParent:aColumns, { | c | c:nSortMark := 0 } )
@@ -184,7 +184,7 @@ METHOD SortMark( nSortMark ) CLASS HColumnEx
 
    RETURN ::nSortMark
 
-METHOD Value( xValue ) CLASS HColumnEx
+METHOD HColumnEx:Value( xValue )
    LOCAL varbuf
 
    IF xValue != NIL
@@ -390,10 +390,10 @@ ENDCLASS
 
    //----------------------------------------------------//
 
-METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD HBrowseEx:New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
-      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, bRclick, bChgRowCol, ctooltip) CLASS HBrowseEx
+      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, bRclick, bChgRowCol, ctooltip)
 
    lNoVScroll := iif( lNoVScroll = NIL , .F. , lNoVScroll )
    nStyle := hb_bitor( iif( nStyle == NIL, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
@@ -447,7 +447,7 @@ METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, 
 
    //----------------------------------------------------//
 
-METHOD Activate() CLASS HBrowseEx
+METHOD HBrowseEx:Activate()
 
    IF ! Empty(::oParent:handle)
       ::handle := hwg_Createbrowse( ::oParent:handle, ::id, ;
@@ -459,7 +459,7 @@ METHOD Activate() CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD Init() CLASS HBrowseEx
+METHOD HBrowseEx:Init()
 
    IF ! ::lInit
       ::nHolder := 1
@@ -475,7 +475,7 @@ METHOD Init() CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD SetMargin( nTop, nRight, nBottom, nLeft )  CLASS HBrowseEx
+METHOD HBrowseEx:SetMargin( nTop, nRight, nBottom, nLeft )
    LOCAL aOldMargin := AClone( ::aMargin )
 
    IF nTop == NIL
@@ -497,7 +497,7 @@ METHOD SetMargin( nTop, nRight, nBottom, nLeft )  CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD SetRowHeight( nPixels ) CLASS HBrowseEx
+METHOD HBrowseEx:SetRowHeight( nPixels )
    LOCAL nOldPixels
 
    nOldPixels := ::forceHeight
@@ -519,7 +519,7 @@ METHOD SetRowHeight( nPixels ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD onEvent( msg, wParam, lParam )  CLASS HBrowseEx
+METHOD HBrowseEx:onEvent( msg, wParam, lParam )
    LOCAL oParent, cKeyb, nCtrl, nPos, lBEof, iParHigh, iParLow
    LOCAL nRecStart, nRecStop, nRet, nShiftAltCtrl
 
@@ -845,7 +845,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD Redefine( lType, oWndParent, nId, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus ) CLASS HBrowseEx
+METHOD HBrowseEx:Redefine( lType, oWndParent, nId, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus )
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint)
 
@@ -864,14 +864,14 @@ METHOD Redefine( lType, oWndParent, nId, oFont, bInit, bSize, bPaint, bEnter, bG
 
    //----------------------------------------------------//
 
-METHOD FindBrowse( nId ) CLASS HBrowseEx
+METHOD HBrowseEx:FindBrowse( nId )
    LOCAL i := AScan( ::aItemsList, { | o | o:id == nId }, 1, ::iItems )
 
    RETURN iif( i > 0, ::aItemsList[i], NIL )
 
    //----------------------------------------------------//
 
-METHOD AddColumn( oColumn ) CLASS HBrowseEx
+METHOD HBrowseEx:AddColumn( oColumn )
 
    LOCAL n, arr
 
@@ -889,7 +889,7 @@ METHOD AddColumn( oColumn ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD InsColumn( oColumn, nPos ) CLASS HBrowseEx
+METHOD HBrowseEx:InsColumn( oColumn, nPos )
 
    LOCAL n, arr
 
@@ -950,7 +950,7 @@ STATIC FUNCTION InitColumn( oBrw, oColumn, n )
 
    //----------------------------------------------------//
 
-METHOD DelColumn( nPos ) CLASS HBrowseEx
+METHOD HBrowseEx:DelColumn( nPos )
 
    ADel( ::aColumns, nPos )
    ASize( ::aColumns, Len( ::aColumns ) - 1 )
@@ -960,7 +960,7 @@ METHOD DelColumn( nPos ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD END() CLASS HBrowseEx
+METHOD HBrowseEx:END()
 
    ::Super:END()
    IF ::brush != NIL
@@ -980,7 +980,7 @@ METHOD END() CLASS HBrowseEx
 
    RETURN NIL
 
-METHOD ShowMark( lShowMark ) CLASS HBrowseEx
+METHOD HBrowseEx:ShowMark( lShowMark )
 
    IF lShowMark != NIL
       ::nShowMark := iif( lShowMark, 12, 0 )
@@ -990,7 +990,7 @@ METHOD ShowMark( lShowMark ) CLASS HBrowseEx
 
    RETURN ::lDeleteMark
 
-METHOD DeleteMark( lDeleteMark ) CLASS HBrowseEx
+METHOD HBrowseEx:DeleteMark( lDeleteMark )
 
    IF lDeleteMark != NIL
       IF ::Type == BRW_DATABASE
@@ -1002,7 +1002,7 @@ METHOD DeleteMark( lDeleteMark ) CLASS HBrowseEx
 
    RETURN ::lDeleteMark
 
-METHOD ShowColToolTips( lParam ) CLASS HBrowseEx
+METHOD HBrowseEx:ShowColToolTips( lParam )
    LOCAL pt, cTip := ""
 
    IF Ascan( ::aColumns, { | c | c:Hint != .F. .OR. c:Tooltip != NIL } ) = 0
@@ -1023,7 +1023,7 @@ METHOD ShowColToolTips( lParam ) CLASS HBrowseEx
 
    RETURN NIL
 
-METHOD SetRefresh( nSeconds ) CLASS HBrowseEx
+METHOD HBrowseEx:SetRefresh( nSeconds )
 
    IF nSeconds != NIL //.AND. ::Type == BRW_DATABASE
       IF ::oTimer != NIL
@@ -1043,7 +1043,7 @@ METHOD SetRefresh( nSeconds ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD InitBrw( nType, lInit )  CLASS HBrowseEx
+METHOD HBrowseEx:InitBrw( nType, lInit )
    LOCAL cAlias := Alias()
 
    DEFAULT lInit TO .F.
@@ -1111,7 +1111,7 @@ METHOD InitBrw( nType, lInit )  CLASS HBrowseEx
 
    RETURN NIL
 
-METHOD LinkMaster( cLinkMaster ) CLASS HBrowseEx
+METHOD HBrowseEx:LinkMaster( cLinkMaster )
 
    IF cLinkMaster  != NIL
       ::lFilter := iif( ! Empty(cLinkMaster), .T. , ::lFilter )
@@ -1145,7 +1145,7 @@ METHOD LinkMaster( cLinkMaster ) CLASS HBrowseEx
 
    RETURN ::cLinkMaster
 
-METHOD FILTER( lFilter ) CLASS HBrowseEx
+METHOD HBrowseEx:FILTER( lFilter )
 
    IF lFilter != NIL .AND. ::Type == BRW_DATABASE
       IF  Empty(::Alias)
@@ -1209,7 +1209,7 @@ METHOD FILTER( lFilter ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD Rebuild() CLASS HBrowseEx
+METHOD HBrowseEx:Rebuild()
    LOCAL i, j, oColumn, xSize, nColLen, nHdrLen, nCount, fontsize
 
    IF ::brush != NIL
@@ -1281,7 +1281,7 @@ METHOD Rebuild() CLASS HBrowseEx
 
    RETURN NIL
 
-METHOD AutoFit( ) CLASS HBrowseEx
+METHOD HBrowseEx:AutoFit( )
    LOCAL nlen , i, aCoors, nXincRelative
 
    IF ::AutoColumnFit = 2
@@ -1316,7 +1316,7 @@ METHOD AutoFit( ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD Paint( lLostFocus )  CLASS HBrowseEx
+METHOD HBrowseEx:Paint( lLostFocus )
    LOCAL aCoors, aMetr, cursor_row, tmp, nRows, nRowsFill
    LOCAL pps, hDC
    LOCAL oldfont, aMetrHead,  nRecFilter
@@ -1634,7 +1634,7 @@ METHOD Paint( lLostFocus )  CLASS HBrowseEx
    //----------------------------------------------------//
    // TODO: hb_tokenGet() can create problems.... can't have separator as first char
 
-METHOD HeaderOut( hDC ) CLASS HBrowseEx
+METHOD HBrowseEx:HeaderOut( hDC )
    LOCAL x, oldc, fif, xSize, lFixed := .F. , xSizeMax
    LOCAL oPen, oldBkColor
    LOCAL oColumn, nLine, cStr, cNWSE, oPenHdr, oPenLight
@@ -1842,7 +1842,7 @@ METHOD HeaderOut( hDC ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD SeparatorOut( hDC, nRowsFill ) CLASS HBrowseEx
+METHOD HBrowseEx:SeparatorOut( hDC, nRowsFill )
    LOCAL i, x, fif, xSize, lFixed := .F. , xSizeMax
    LOCAL bColor
    LOCAL oColumn, oPen, oPenLight, oPenFree
@@ -1947,7 +1947,7 @@ METHOD SeparatorOut( hDC, nRowsFill ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD FooterOut( hDC ) CLASS HBrowseEx
+METHOD HBrowseEx:FooterOut( hDC )
    LOCAL x, fif, xSize, oPen, nLine, cStr
    LOCAL oColumn, aColorFoot, oldBkColor, oldTColor, oBrush
    LOCAL nPixelFooterHeight, nY, lFixed := .F.
@@ -2071,7 +2071,7 @@ METHOD FooterOut( hDC ) CLASS HBrowseEx
 
    //-------------- -Row--  --Col-- ------------------------------//
 
-METHOD LineOut( nRow, nCol, hDC, lSelected, lClear ) CLASS HBrowseEx
+METHOD HBrowseEx:LineOut( nRow, nCol, hDC, lSelected, lClear )
    LOCAL x, nColumn, sviv, xSize, lFixed := .F. , xSizeMax
    LOCAL j, ob, bw, bh, y1, hBReal, oPen
    LOCAL oldBkColor, oldTColor, oldBk1Color, oldT1Color
@@ -2298,7 +2298,7 @@ METHOD LineOut( nRow, nCol, hDC, lSelected, lClear ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD SetColumn( nCol ) CLASS HBrowseEx
+METHOD HBrowseEx:SetColumn( nCol )
    LOCAL nColPos, lPaint := .F.
    LOCAL lEditable := ::lEditable .OR. ::Highlight
 
@@ -2375,7 +2375,7 @@ STATIC FUNCTION LINELEFT( oBrw )
 
    //----------------------------------------------------//
 
-METHOD DoVScroll( wParam ) CLASS HBrowseEx
+METHOD HBrowseEx:DoVScroll( wParam )
    LOCAL nScrollCode := hwg_Loword( wParam )
 
    IF nScrollCode == SB_LINEDOWN
@@ -2411,7 +2411,7 @@ METHOD DoVScroll( wParam ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD DoHScroll( wParam ) CLASS HBrowseEx
+METHOD HBrowseEx:DoHScroll( wParam )
    LOCAL nScrollCode := hwg_Loword( wParam )
    LOCAL nPos
    LOCAL oldLeft := ::nLeftCol, nLeftCol, colpos, oldPos := ::colpos
@@ -2476,7 +2476,7 @@ METHOD DoHScroll( wParam ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD LINEDOWN( lMouse ) CLASS HBrowseEx
+METHOD HBrowseEx:LINEDOWN( lMouse )
 
    Eval( ::bSkip, Self, 1 )
    IF Eval( ::bEof, Self )
@@ -2533,7 +2533,7 @@ METHOD LINEDOWN( lMouse ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD LINEUP() CLASS HBrowseEx
+METHOD HBrowseEx:LINEUP()
 
    Eval( ::bSkip, Self, - 1 )
    IF Eval( ::bBof, Self )
@@ -2561,7 +2561,7 @@ METHOD LINEUP() CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD PAGEUP() CLASS HBrowseEx
+METHOD HBrowseEx:PAGEUP()
    LOCAL STEP, lBof := .F.
 
    IF ::rowPos > 1
@@ -2594,7 +2594,7 @@ METHOD PAGEUP() CLASS HBrowseEx
  *
 */
 
-METHOD PAGEDOWN() CLASS HBrowseEx
+METHOD HBrowseEx:PAGEDOWN()
    LOCAL nRows := ::rowCurrCount
    LOCAL STEP := iif( nRows > ::rowPos, nRows - ::rowPos, nRows )
 
@@ -2617,7 +2617,7 @@ METHOD PAGEDOWN() CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD BOTTOM( lPaint ) CLASS HBrowseEx
+METHOD HBrowseEx:BOTTOM( lPaint )
 
    IF ::Type == BRW_ARRAY
       ::nCurrent := ::nRecords
@@ -2639,7 +2639,7 @@ METHOD BOTTOM( lPaint ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD TOP() CLASS HBrowseEx
+METHOD HBrowseEx:TOP()
 
    ::rowPos := 1
    Eval( ::bGoTop, Self )
@@ -2652,7 +2652,7 @@ METHOD TOP() CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD ButtonDown( lParam, lReturnRowCol ) CLASS HBrowseEx
+METHOD HBrowseEx:ButtonDown( lParam, lReturnRowCol )
 
    LOCAL nLine
    LOCAL STEP, res
@@ -2774,7 +2774,7 @@ METHOD ButtonDown( lParam, lReturnRowCol ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD ButtonUp( lParam ) CLASS HBrowseEx
+METHOD HBrowseEx:ButtonUp( lParam )
 
    LOCAL xPos := hwg_Loword( lParam ), x, x1, i
 
@@ -2821,7 +2821,7 @@ METHOD ButtonUp( lParam ) CLASS HBrowseEx
 
    RETURN NIL
 
-METHOD SELECT() CLASS HBrowseEx
+METHOD HBrowseEx:SELECT()
    LOCAL i
 
    IF ( i := AScan( ::aSelected, Eval( ::bRecno, Self ) ) ) > 0
@@ -2835,7 +2835,7 @@ METHOD SELECT() CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD ButtonRDown( lParam ) CLASS HBrowseEx
+METHOD HBrowseEx:ButtonRDown( lParam )
    LOCAL nLine
    LOCAL xm, x1, fif
    LOCAL acolumns := {}, nCols := 1, xSize := 0
@@ -2892,7 +2892,7 @@ METHOD ButtonRDown( lParam ) CLASS HBrowseEx
 
    RETURN NIL
 
-METHOD ButtonDbl( lParam ) CLASS HBrowseEx
+METHOD HBrowseEx:ButtonDbl( lParam )
    LOCAL nLine := Int( iif( ::lDispHead , ( ( hwg_Hiword( lParam ) - ( ::nHeadHeight * ::nHeadRows ) ) / ( ::height + 1 ) + 1 )  ,;
       hwg_Hiword( lParam ) / ( ::height + 1 ) + 1  ) )
 
@@ -2905,7 +2905,7 @@ METHOD ButtonDbl( lParam ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD MouseMove( wParam, lParam ) CLASS HBrowseEx
+METHOD HBrowseEx:MouseMove( wParam, lParam )
    LOCAL xPos := hwg_Loword( lParam ), yPos := hwg_Hiword( lParam )
    LOCAL x := ::x1, i, res := .F.
    LOCAL nLastColumn 
@@ -2968,7 +2968,7 @@ METHOD MouseMove( wParam, lParam ) CLASS HBrowseEx
 
    //----------------------------------------------------------------------------//
 
-METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos ) CLASS HBrowseEx
+METHOD HBrowseEx:MouseWheel( nKeys, nDelta, nXPos, nYPos )
 
    HB_SYMBOL_UNUSED(nXPos)
    HB_SYMBOL_UNUSED(nYPos)
@@ -2989,7 +2989,7 @@ METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos ) CLASS HBrowseEx
 
    RETURN NIL
 
-METHOD onClick( ) CLASS HBrowseEx
+METHOD HBrowseEx:onClick( )
    LOCAL  lRes := .F.
 
    IF ::bEnter != NIL
@@ -3005,7 +3005,7 @@ METHOD onClick( ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD Edit( wParam, lParam ) CLASS HBrowseEx
+METHOD HBrowseEx:Edit( wParam, lParam )
    LOCAL fipos, x1, y1, fif, nWidth, lReadExit, rowPos
    LOCAL oColumn, aCoors, nChoic, bInit, oGet, Type
    LOCAL oComboFont, oCombo, oBtn
@@ -3247,7 +3247,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowseEx
 
    RETURN NIL
 
-METHOD EditLogical( wParam, lParam ) CLASS HBrowseEx
+METHOD HBrowseEx:EditLogical( wParam, lParam )
 
    HB_SYMBOL_UNUSED(lParam)
 
@@ -3290,7 +3290,7 @@ METHOD EditLogical( wParam, lParam ) CLASS HBrowseEx
 
    RETURN .T.
 
-METHOD EditEvent( oCtrl, msg, wParam, lParam )
+METHOD HBrowseEx:EditEvent( oCtrl, msg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(lParam)
 
@@ -3305,7 +3305,7 @@ METHOD EditEvent( oCtrl, msg, wParam, lParam )
 
    RETURN - 1
 
-METHOD onClickColumn( value, oGet, oBtn ) CLASS HBrowseEx
+METHOD HBrowseEx:onClickColumn( value, oGet, oBtn )
    LOCAL oColumn := ::aColumns[::fipos]
 
    IF ValType( value ) = "D"
@@ -3322,7 +3322,7 @@ METHOD onClickColumn( value, oGet, oBtn ) CLASS HBrowseEx
 
    RETURN NIL
 
-METHOD WhenColumn( value, oGet ) CLASS HBrowseEx
+METHOD HBrowseEx:WhenColumn( value, oGet )
    LOCAL res := .T.
    LOCAL oColumn := ::aColumns[::fipos]
 
@@ -3339,7 +3339,7 @@ METHOD WhenColumn( value, oGet ) CLASS HBrowseEx
 
    RETURN res
 
-METHOD ValidColumn( value, oGet, oBtn ) CLASS HBrowseEx
+METHOD HBrowseEx:ValidColumn( value, oGet, oBtn )
    LOCAL res := .T.
    LOCAL oColumn := ::aColumns[::fipos]
 
@@ -3367,7 +3367,7 @@ METHOD ValidColumn( value, oGet, oBtn ) CLASS HBrowseEx
 
    RETURN res
 
-METHOD ChangeRowCol( nRowColChange ) CLASS HBrowseEx
+METHOD HBrowseEx:ChangeRowCol( nRowColChange )
 
    // 0 (default) No change.
    // 1 Row change
@@ -3387,7 +3387,7 @@ METHOD ChangeRowCol( nRowColChange ) CLASS HBrowseEx
 
    RETURN ! Empty(res)
 
-METHOD When() CLASS HBrowseEx
+METHOD HBrowseEx:When()
    LOCAL nSkip, res := .T.
 
    /*
@@ -3407,7 +3407,7 @@ METHOD When() CLASS HBrowseEx
 
    RETURN res
 
-METHOD Valid() CLASS HBrowseEx
+METHOD HBrowseEx:Valid()
    LOCAL res
 
    IF ::HighlightStyle = 0 .OR. ::HighlightStyle = 3
@@ -3426,7 +3426,7 @@ METHOD Valid() CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD RefreshLine() CLASS HBrowseEx
+METHOD HBrowseEx:RefreshLine()
    LOCAL nInternal := ::internal[1]
 
    ::internal[1] := 0
@@ -3437,7 +3437,7 @@ METHOD RefreshLine() CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD Refresh( lFull, lLineUp ) CLASS HBrowseEx
+METHOD HBrowseEx:Refresh( lFull, lLineUp )
 
    IF lFull == NIL .OR. lFull
       IF ::lFilter
@@ -3465,7 +3465,7 @@ METHOD Refresh( lFull, lLineUp ) CLASS HBrowseEx
 
    //----------------------------------------------------//
 
-METHOD FldStr(oBrw, numf) CLASS HBrowseEx
+METHOD HBrowseEx:FldStr(oBrw, numf)
    LOCAL cRes, vartmp, Type, pict
 
    IF numf <= Len( oBrw:aColumns )
@@ -3529,7 +3529,7 @@ METHOD FldStr(oBrw, numf) CLASS HBrowseEx
 
    RETURN cRes
 
-METHOD ShowSizes() CLASS HBrowseEx
+METHOD HBrowseEx:ShowSizes()
    LOCAL cText := ""
 
    AEval( ::aColumns, ;

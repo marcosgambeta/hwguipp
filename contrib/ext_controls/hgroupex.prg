@@ -43,7 +43,7 @@ CLASS HGroupEx INHERIT HGroup
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor, lTransp, oRGroup) CLASS HGroupEx
+METHOD HGroupEx:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor, lTransp, oRGroup)
 
    ::oRGroup := oRGroup
    ::oBrush := iif( bColor != NIL, ::brush, NIL )
@@ -53,7 +53,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
    RETURN Self
 
-METHOD Init() CLASS HGroupEx
+METHOD HGroupEx:Init()
    LOCAL nbs
 
    IF ! ::lInit
@@ -81,7 +81,7 @@ METHOD Init() CLASS HGroupEx
 
    RETURN NIL
 
-METHOD PAINT( lpdis ) CLASS HGroupEx
+METHOD HGroupEx:PAINT( lpdis )
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
    LOCAL DC := drawInfo[3]
    LOCAL ppnOldPen, pnFrmDark,   pnFrmLight, iUpDist

@@ -54,7 +54,7 @@ CLASS VAR winclass   INIT "msctls_statusbar32"
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight) CLASS HStatusEx
+METHOD HStatusEx:New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight)
 
    bSize  := IIf( bSize != NIL, bSize, { | o, x, y | o:Move( 0, y - ::nStatusHeight, x, ::nStatusHeight ) } )
    nStyle := hb_bitor( IIf( nStyle == NIL, 0, nStyle ), ;
@@ -70,7 +70,7 @@ METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick
 
    RETURN Self
 
-METHOD Activate() CLASS HStatusEx
+METHOD HStatusEx:Activate()
 
    IF ! Empty(::oParent:handle)
       ::handle := hwg_CreateStatusWindow( ::oParent:handle, ::id )
@@ -79,7 +79,7 @@ METHOD Activate() CLASS HStatusEx
    ENDIF
    RETURN NIL
 
-METHOD Init() CLASS HStatusEx
+METHOD HStatusEx:Init()
    IF ! ::lInit
       IF ! Empty(::aParts)
          hwg_InitStatus( ::oParent:handle, ::handle, Len( ::aParts ), ::aParts )
@@ -88,8 +88,8 @@ METHOD Init() CLASS HStatusEx
    ENDIF
    RETURN  NIL
 
-METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-                 bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts )  CLASS HStatusEx
+METHOD HStatusEx:Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
+                 bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts )
 
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)
@@ -100,7 +100,7 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
    ::aParts := aParts
    RETURN Self
 
-METHOD Notify( lParam ) CLASS HStatusEx
+METHOD HStatusEx:Notify( lParam )
 
 LOCAL nCode := hwg_GetNotifyCode( lParam )
 LOCAL nParts := hwg_GetNotifySBParts( lParam ) - 1
@@ -123,7 +123,7 @@ LOCAL nParts := hwg_GetNotifySBParts( lParam ) - 1
    ENDCASE
    RETURN NIL
 
-METHOD StatusHeight( nHeight  ) CLASS HStatusEx
+METHOD HStatusEx:StatusHeight( nHeight  )
    LOCAL aCoors
 
    IF nHeight != NIL
@@ -144,7 +144,7 @@ METHOD StatusHeight( nHeight  ) CLASS HStatusEx
    ENDIF
    RETURN ::nStatusHeight
 
-METHOD GetTextPanel( nPart ) CLASS HStatusEx
+METHOD HStatusEx:GetTextPanel( nPart )
    LOCAL ntxtLen, cText := ""
 
    ntxtLen := hwg_SendMessage( ::handle, SB_GETTEXTLENGTH, nPart - 1, 0 )
@@ -152,7 +152,7 @@ METHOD GetTextPanel( nPart ) CLASS HStatusEx
    hwg_SendMessage( ::handle, SB_GETTEXT, nPart - 1, @cText )
    RETURN cText
 
-METHOD SetTextPanel( nPart, cText, lRedraw ) CLASS HStatusEx
+METHOD HStatusEx:SetTextPanel( nPart, cText, lRedraw )
    hwg_SendMessage( ::handle, SB_SETTEXT, nPart - 1, cText )
    IF lRedraw != NIL .AND. lRedraw
       hwg_RedrawWindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
@@ -160,7 +160,7 @@ METHOD SetTextPanel( nPart, cText, lRedraw ) CLASS HStatusEx
 
    RETURN NIL
    
-METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatusEx
+METHOD HStatusEx:SetIconPanel( nPart, cIcon, nWidth, nHeight )
    Local oIcon
 
    DEFAULT nWidth := 16
@@ -178,7 +178,7 @@ METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatusEx
 
    RETURN NIL
 
-METHOD Resize( xIncrSize ) CLASS HStatusEx   
+METHOD HStatusEx:Resize( xIncrSize )
    LOCAL i
    
    IF ! Empty(::aParts)

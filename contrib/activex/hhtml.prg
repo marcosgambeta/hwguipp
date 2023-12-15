@@ -35,7 +35,7 @@ CLASS HHtml // INHERIT HControl
    METHOD End()
 ENDCLASS
 
-METHOD New(oParent) CLASS HHtml
+METHOD HHtml:New(oParent)
 
    IF !hwgax_OleInitialize()
       hwg_Msgstop( "Can't open OLE!","HHtml():New()" )
@@ -48,7 +48,7 @@ METHOD New(oParent) CLASS HHtml
 
 Return Self
 
-METHOD Activate CLASS HHtml
+METHOD HHtml:Activate()
 
    IF !Empty(::oParent:handle)
      ::oParent:oEmbedded := Self
@@ -58,13 +58,13 @@ METHOD Activate CLASS HHtml
    ENDIF
 Return NIL
 
-METHOD Resize( width, height ) CLASS HHtml
+METHOD HHtml:Resize( width, height )
 
    // writelog( str(width)+" "+str(height) +" / " + str(::oParent:nwidth)+" "+str(::oParent:nheight) )
    hwgax_ResizeBrowser(::oParent:handle, width, height )
 Return NIL
 
-METHOD End() CLASS HHtml
+METHOD HHtml:End()
 
    hwgax_UnEmbedBrowserObject( ::oParent:handle )
 Return NIL

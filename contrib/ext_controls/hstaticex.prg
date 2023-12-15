@@ -55,9 +55,9 @@ CLASS HStaticEx INHERIT HStatic
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD HStaticEx:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
-      bColor, lTransp, bClick, bDblClick, bOther) CLASS HStaticEx
+      bColor, lTransp, bClick, bDblClick, bOther)
 
    nStyle := iif( nStyle = NIL, 0, nStyle )
    ::nStyleHS := nStyle - hb_bitand( nStyle,  WS_VISIBLE + WS_DISABLED + WS_CLIPSIBLINGS + ;
@@ -91,8 +91,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, cTooltip, tcolor, bColor, lTransp, bClick, bDblClick, bOther ) CLASS HStaticEx
+METHOD HStaticEx:Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
+      bSize, bPaint, cTooltip, tcolor, bColor, lTransp, bClick, bDblClick, bOther )
 
    IF ( lTransp != NIL .AND. lTransp )
       ::extStyle := hb_bitor( ::extStyle, WS_EX_TRANSPARENT )
@@ -116,7 +116,7 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 
    RETURN Self
 
-METHOD Init() CLASS HStaticEx
+METHOD HStaticEx:Init()
 
    IF ! ::lInit
       ::Super:init()
@@ -135,7 +135,7 @@ METHOD Init() CLASS HStaticEx
 
    RETURN  NIL
 
-METHOD OnEvent( msg, wParam, lParam ) CLASS  HStaticEx
+METHOD HStaticEx:OnEvent( msg, wParam, lParam )
    LOCAL nEval, pos
 
    IF ::bOther != NIL
@@ -166,7 +166,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS  HStaticEx
 
    RETURN - 1
 
-METHOD SetValue( cValue )  CLASS HStaticEx
+METHOD HStaticEx:SetValue( cValue )
 
    ::Auto_Size( cValue )
    IF ::backstyle = TRANSPARENT .AND. ::Title != cValue .AND. hwg_Iswindowvisible( ::handle )
@@ -182,7 +182,7 @@ METHOD SetValue( cValue )  CLASS HStaticEx
 
    RETURN NIL
 
-METHOD Paint( lpDis ) CLASS HStaticEx
+METHOD HStaticEx:Paint( lpDis )
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpDis )
    LOCAL client_rect, szText
    LOCAL dwtext, nstyle, brBackground
@@ -219,7 +219,7 @@ METHOD Paint( lpDis ) CLASS HStaticEx
 
    RETURN NIL
 
-METHOD onClick()  CLASS HStaticEx
+METHOD HStaticEx:onClick()
 
    IF ::bClick != NIL
       Eval( ::bClick, Self, ::id )
@@ -227,7 +227,7 @@ METHOD onClick()  CLASS HStaticEx
 
    RETURN NIL
 
-METHOD onDblClick()  CLASS HStaticEx
+METHOD HStaticEx:onDblClick()
 
    IF ::bDblClick != NIL
       Eval( ::bDblClick, Self, ::id )
@@ -235,7 +235,7 @@ METHOD onDblClick()  CLASS HStaticEx
 
    RETURN NIL
 
-METHOD Auto_Size( cValue ) CLASS HStaticEx
+METHOD HStaticEx:Auto_Size( cValue )
    LOCAL  ASize, nLeft, nAlign
 
    IF ::autosize

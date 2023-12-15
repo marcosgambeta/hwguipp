@@ -27,7 +27,7 @@ CLASS HQhtm INHERIT HControl
 ENDCLASS
 
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, bInit, bSize, bLink, bSubmit, fname, resname) CLASS HQhtm
+METHOD HQhtm:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, bInit, bSize, bLink, bSubmit, fname, resname)
 
    // ::classname:= "HQHTM"
    ::oParent := Iif( oWndParent==NIL, ::oDefaultParent, oWndParent )
@@ -54,7 +54,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, bInit
 
 Return Self
 
-METHOD Activate CLASS HQhtm
+METHOD HQhtm:Activate()
    IF ::oParent:handle != 0
       ::handle := CreateQHTM( ::oParent:handle, ::id, ;
                   ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
@@ -64,7 +64,7 @@ METHOD Activate CLASS HQhtm
    ENDIF
 Return NIL
 
-METHOD Redefine( oWndParent,nId,caption,bInit,bSize,bLink,bSubmit,fname,resname ) CLASS HQhtm
+METHOD HQhtm:Redefine( oWndParent,nId,caption,bInit,bSize,bLink,bSubmit,fname,resname )
    // ::classname:= "HQHTM"
    ::oParent := Iif( oWndParent==NIL, ::oDefaultParent, oWndParent )
    ::id      := nId
@@ -86,7 +86,7 @@ METHOD Redefine( oWndParent,nId,caption,bInit,bSize,bLink,bSubmit,fname,resname 
 
 Return Self
 
-METHOD Init CLASS HQhtm
+METHOD HQhtm:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -102,7 +102,7 @@ METHOD Init CLASS HQhtm
 
 Return NIL
 
-METHOD Notify( lParam ) CLASS HQhtm
+METHOD HQhtm:Notify( lParam )
 Local cLink := QHTM_GetNotify( lParam )
 
    IF ::bLink == NIL .OR. !Eval( ::bLink,Self,cLink )
@@ -142,7 +142,7 @@ CLASS HQhtmButton INHERIT HButton
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bClick, ctooltip) CLASS HQhtmButton
+METHOD HQhtmButton:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bClick, ctooltip)
 
    ::cHtml := cCaption
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, "", , bInit, bSize, , bClick, ctooltip)
@@ -150,7 +150,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
 Return Self
 
-METHOD Redefine( oWndParent,nId,cCaption,oFont,bInit,bSize,bClick,ctooltip) CLASS HQhtmButton
+METHOD HQhtmButton:Redefine( oWndParent,nId,cCaption,oFont,bInit,bSize,bClick,ctooltip)
 
    ::cHtml := cCaption
    ::Super:Redefine( oWndParent,nId,,bInit,bSize,,bClick,ctooltip )
@@ -158,7 +158,7 @@ METHOD Redefine( oWndParent,nId,cCaption,oFont,bInit,bSize,bClick,ctooltip) CLAS
 
 Return Self
 
-METHOD Init() CLASS HQhtmButton
+METHOD HQhtmButton:Init()
 
    ::Super:Init()
    IF ::oFont == NIL .AND. ::oParent:oFont == NIL
