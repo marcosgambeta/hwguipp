@@ -26,7 +26,7 @@ CLASS HRadioButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor) CLASS HRadioButton
+METHOD HRadioButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor)
 
    HB_SYMBOL_UNUSED(bcolor)
 
@@ -70,7 +70,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
 
    RETURN Self
 
-METHOD Activate() CLASS HRadioButton
+METHOD HRadioButton:Activate()
 
    LOCAL groupHandle := ::oGroup:handle
 
@@ -83,7 +83,7 @@ METHOD Activate() CLASS HRadioButton
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HRadioButton
+METHOD HRadioButton:onEvent( msg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
@@ -98,7 +98,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HRadioButton
 
    RETURN NIL
 
-METHOD Value( lValue ) CLASS HRadioButton
+METHOD HRadioButton:Value( lValue )
    IF lValue != NIL
       hwg_CheckButton(::handle, .T.)
    ENDIF

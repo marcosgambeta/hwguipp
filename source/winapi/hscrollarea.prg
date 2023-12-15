@@ -31,7 +31,7 @@ CLASS HScrollArea INHERIT HObject
 
 ENDCLASS
 
-METHOD RedefineScrollbars() CLASS HScrollArea
+METHOD HScrollArea:RedefineScrollbars()
 
    ::rect := hwg_Getclientrect(::handle)
    IF ::nScrollBars > - 1 .AND. ::bScroll = NIL
@@ -49,7 +49,7 @@ METHOD RedefineScrollbars() CLASS HScrollArea
 
    RETURN NIL
 
-METHOD SetupScrollbars() CLASS HScrollArea
+METHOD HScrollArea:SetupScrollbars()
    
    LOCAL tempRect
    LOCAL nwMax
@@ -112,7 +112,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
 
    RETURN NIL
 
-METHOD ResetScrollbars() CLASS HScrollArea
+METHOD HScrollArea:ResetScrollbars()
 
    // Reset our window scrolling information
    LOCAL lMaximized := hwg_Getwindowplacement(::handle) == SW_MAXIMIZE

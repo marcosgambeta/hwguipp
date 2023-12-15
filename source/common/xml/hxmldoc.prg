@@ -40,7 +40,7 @@ CLASS HXMLNode
 ENDCLASS
 
 /* Added: cValue */
-METHOD New(cTitle, type, aAttr, cValue) CLASS HXMLNode
+METHOD HXMLNode:New(cTitle, type, aAttr, cValue)
 
    IF cTitle != NIL
       ::title := cTitle
@@ -55,13 +55,13 @@ METHOD New(cTitle, type, aAttr, cValue) CLASS HXMLNode
 
 RETURN Self
 
-METHOD Add(xItem) CLASS HXMLNode
+METHOD HXMLNode:Add(xItem)
 
    Aadd(::aItems, xItem)
 
 RETURN xItem
 
-METHOD GetAttribute(cName, cType, xDefault) CLASS HXMLNode
+METHOD HXMLNode:GetAttribute(cName, cType, xDefault)
 
    LOCAL i := Ascan(::aAttr, {|a|a[1] == cName})
 
@@ -77,7 +77,7 @@ METHOD GetAttribute(cName, cType, xDefault) CLASS HXMLNode
 
 RETURN xDefault
 
-METHOD SetAttribute(cName, cValue) CLASS HXMLNode
+METHOD HXMLNode:SetAttribute(cName, cValue)
 
    LOCAL i := Ascan(::aAttr, {|a|a[1] == cName})
 
@@ -89,7 +89,7 @@ METHOD SetAttribute(cName, cValue) CLASS HXMLNode
 
    RETURN .T.
 
-METHOD DelAttribute(cName) CLASS HXMLNode
+METHOD HXMLNode:DelAttribute(cName)
 
    LOCAL i := Ascan(::aAttr, {|a|a[1] == cName})
 
@@ -100,7 +100,7 @@ METHOD DelAttribute(cName) CLASS HXMLNode
 
 RETURN .T.
 
-METHOD Save(handle, level) CLASS HXMLNode
+METHOD HXMLNode:Save(handle, level)
 
    LOCAL i
    LOCAL s := Space(level * 2) + "<"
@@ -194,7 +194,7 @@ METHOD Save(handle, level) CLASS HXMLNode
 RETURN ""
 
 /* Added: block */
-METHOD Find(cTitle, nStart, block) CLASS HXMLNode
+METHOD HXMLNode:Find(cTitle, nStart, block)
 
    LOCAL i
 
@@ -233,7 +233,7 @@ CLASS HXMLDoc INHERIT HXMLNode
 
 ENDCLASS
 
-METHOD New(encoding) CLASS HXMLDoc
+METHOD HXMLDoc:New(encoding)
 
    IF encoding != NIL
       Aadd(::aAttr, {"version", "1.0"})
@@ -243,7 +243,7 @@ METHOD New(encoding) CLASS HXMLDoc
 RETURN Self
 
 /* Added: buffer */
-METHOD Read(fname, buffer) CLASS HXMLDoc
+METHOD HXMLDoc:Read(fname, buffer)
 
    LOCAL han
 
@@ -264,7 +264,7 @@ METHOD Read(fname, buffer) CLASS HXMLDoc
 
 RETURN Iif(::nLastErr == 0, Self, NIL)
 
-METHOD Save(fname, lNoHeader) CLASS HXMLDoc
+METHOD HXMLDoc:Save(fname, lNoHeader)
 
    LOCAL handle := -2
    LOCAL cEncod

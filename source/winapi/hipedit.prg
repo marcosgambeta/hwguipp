@@ -34,7 +34,7 @@ CLASS HIPedit INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bGetFocus, bKillFocus) CLASS HIPedit
+METHOD HIPedit:New(oWndParent, nId, aValue, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bGetFocus, bKillFocus)
 
    nStyle   := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont)
@@ -63,14 +63,14 @@ METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nX, nY, nWidth, nHeight, oF
 
    RETURN Self
 
-METHOD Activate() CLASS HIPedit
+METHOD HIPedit:Activate()
    IF !Empty(::oParent:handle)
       ::handle := hwg_Initipaddress(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN NIL
 
-METHOD Init() CLASS HIPedit
+METHOD HIPedit:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -80,7 +80,7 @@ METHOD Init() CLASS HIPedit
 
    RETURN NIL
 
-METHOD Value(aValue) CLASS HIPedit
+METHOD HIPedit:Value(aValue)
 
    IF aValue != NIL
       hwg_Setipaddress(::handle, aValue[1], aValue[2], aValue[3], aValue[4])
@@ -92,13 +92,13 @@ METHOD Value(aValue) CLASS HIPedit
    RETURN ::aValue
 
 
-METHOD Clear() CLASS HIPedit
+METHOD HIPedit:Clear()
    hwg_Clearipaddress(::handle)
    ::aValue := { 0, 0, 0, 0 }
    RETURN (::aValue)
 
 
-METHOD END() CLASS HIPedit
+METHOD HIPedit:END()
 
    // Nothing to do here, yet!
    ::Super:END()

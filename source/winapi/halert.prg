@@ -155,13 +155,13 @@ CLASS HAlert
 
 ENDCLASS
 
-METHOD Init(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions, nCharSet) CLASS HAlert
+METHOD HAlert:Init(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions, nCharSet)
 
    ::SetVars(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions, nCharSet)
 
 RETURN Self
 
-METHOD SetVars(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions, nCharSet) CLASS HAlert
+METHOD HAlert:SetVars(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions, nCharSet)
 
    IF cTitle != NIL
       ::Title := cTitle
@@ -210,7 +210,7 @@ METHOD SetVars(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime
 
 RETURN NIL
 
-METHOD ResetVars() CLASS HAlert
+METHOD HAlert:ResetVars()
 
    ::Title := "Alert"
    ::Font := "Tahoma"
@@ -231,7 +231,7 @@ METHOD ResetVars() CLASS HAlert
 
 RETURN NIL
 
-METHOD ReleaseNonModalAlert(lViaCode) CLASS HAlert
+METHOD HAlert:ReleaseNonModalAlert(lViaCode)
 
    DEFAULT lViaCode TO .T.
 
@@ -249,7 +249,7 @@ METHOD ReleaseNonModalAlert(lViaCode) CLASS HAlert
 
 RETURN .T.
 
-METHOD SetupTimer() CLASS HAlert
+METHOD HAlert:SetupTimer()
 
    LOCAL nTimer
 
@@ -266,7 +266,7 @@ METHOD SetupTimer() CLASS HAlert
 
 RETURN NIL
 
-METHOD RemoveTimer(nTimerID) CLASS HAlert
+METHOD HAlert:RemoveTimer(nTimerID)
 
    LOCAL nIDPos
 
@@ -277,7 +277,7 @@ METHOD RemoveTimer(nTimerID) CLASS HAlert
 
 RETURN .T.
 
-METHOD Alert(cMessage, acOptions) CLASS HAlert
+METHOD HAlert:Alert(cMessage, acOptions)
 
    LOCAL hDC
    LOCAL hOldFont
@@ -395,7 +395,7 @@ METHOD Alert(cMessage, acOptions) CLASS HAlert
 
 RETURN ::nChoice
 
-METHOD UpdateMessage(cMessage)
+METHOD HAlert:UpdateMessage(cMessage)
 
    cMessage := STRTRAN(cMessage, ";", Chr(10))
    //::oMessage:autosize := .T.

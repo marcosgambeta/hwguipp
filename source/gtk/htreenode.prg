@@ -35,7 +35,7 @@ CLASS HTreeNode INHERIT HObject
 
 ENDCLASS
 
-METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeNode
+METHOD HTreeNode:New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
 
    LOCAL aItems
    LOCAL i
@@ -96,14 +96,14 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages ) CLASS HTreeN
 
    RETURN Self
 
-METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages ) CLASS HTreeNode
+METHOD HTreeNode:AddNode( cTitle, oPrev, oNext, bClick, aImages )
    
    LOCAL oParent := Self
    LOCAL oNode := HTreeNode():New(::oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
 
    RETURN oNode
 
-METHOD DELETE( lInternal ) CLASS HTreeNode
+METHOD HTreeNode:DELETE( lInternal )
    
    LOCAL h := ::handle
    LOCAL j
@@ -126,7 +126,7 @@ METHOD DELETE( lInternal ) CLASS HTreeNode
 
    RETURN NIL
 
-METHOD getNodeIndex() CLASS HTreeNode
+METHOD HTreeNode:getNodeIndex()
    
    LOCAL aItems := ::oParent:aItems
    LOCAL nNode
@@ -139,7 +139,7 @@ METHOD getNodeIndex() CLASS HTreeNode
 
    RETURN nNode
 
-METHOD PrevNode( nNode, lSkip ) CLASS HTreeNode
+METHOD HTreeNode:PrevNode( nNode, lSkip )
    
    LOCAL oNode
 
@@ -165,7 +165,7 @@ METHOD PrevNode( nNode, lSkip ) CLASS HTreeNode
 
    RETURN oNode
 
-METHOD NextNode( nNode, lSkip ) CLASS HTreeNode
+METHOD HTreeNode:NextNode( nNode, lSkip )
    
    LOCAL oNode
 

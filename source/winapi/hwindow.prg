@@ -189,8 +189,8 @@ CLASS HWindow INHERIT HCustomWindow, HScrollArea
 ENDCLASS
 
 
-METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-           cAppName, oBmp, cHelp, nHelpId, bColor) CLASS HWindow
+METHOD HWindow:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+           cAppName, oBmp, cHelp, nHelpId, bColor)
 
    HB_SYMBOL_UNUSED(clr)
    HB_SYMBOL_UNUSED(cMenu)
@@ -242,13 +242,13 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit,
 
    RETURN Self
 
-METHOD AddItem(oWnd) CLASS HWindow
+METHOD HWindow:AddItem(oWnd)
 
    AAdd(::aWindows, oWnd)
 
    RETURN NIL
 
-METHOD DelItem(oWnd) CLASS HWindow
+METHOD HWindow:DelItem(oWnd)
 
    LOCAL i
    LOCAL h := oWnd:handle
@@ -260,17 +260,17 @@ METHOD DelItem(oWnd) CLASS HWindow
 
    RETURN NIL
 
-METHOD FindWindow(hWnd) CLASS HWindow
+METHOD HWindow:FindWindow(hWnd)
 
    LOCAL i := Ascan(::aWindows, {|o|hwg_Isptreq(o:handle, hWnd)})
 
    RETURN Iif(i == 0, NIL, ::aWindows[i])
 
-METHOD GetMain() CLASS HWindow
+METHOD HWindow:GetMain()
 
    RETURN Iif(Len(::aWindows) > 0, Iif(::aWindows[1]:type == WND_MAIN, ::aWindows[1], Iif(Len(::aWindows) > 1, ::aWindows[2], NIL)), NIL)
 
-METHOD EvalKeyList(nKey, bPressed) CLASS HWindow
+METHOD HWindow:EvalKeyList(nKey, bPressed)
 
    LOCAL cKeyb
    LOCAL nctrl
@@ -313,8 +313,8 @@ CLASS HMainWindow INHERIT HWindow
 
 ENDCLASS
 
-METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-           cAppName, oBmp, cHelp, nHelpId, bColor, nExclude) CLASS HMainWindow
+METHOD HMainWindow:New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+           cAppName, oBmp, cHelp, nHelpId, bColor, nExclude)
 
    LOCAL hbrush
 
@@ -361,7 +361,7 @@ METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, 
 
    RETURN Self
 
-METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMainWindow
+METHOD HMainWindow:Activate(lShow, lMaximized, lMinimized, lCentered, bActivate)
 
    LOCAL oWndClient
    LOCAL handle
@@ -396,7 +396,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HMainWindow
+METHOD HMainWindow:onEvent(msg, wParam, lParam)
 
    // hwg_writelog(str(msg) + str(wParam) + str(lParam))
 
@@ -454,7 +454,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HMainWindow
 
    RETURN -1
 
-METHOD InitTray(oNotifyIcon, bNotify, oNotifyMenu, cTooltip) CLASS HMainWindow
+METHOD HMainWindow:InitTray(oNotifyIcon, bNotify, oNotifyMenu, cTooltip)
 
    ::bNotify     := bNotify
    ::oNotifyMenu := oNotifyMenu
@@ -473,8 +473,8 @@ CLASS HMDIChildWindow INHERIT HWindow
 
 ENDCLASS
 
-METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-           cAppName, oBmp, cHelp, nHelpId, bColor) CLASS HMDIChildWindow
+METHOD HMDIChildWindow:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+           cAppName, oBmp, cHelp, nHelpId, bColor)
 
    ::Super:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
                cAppName, oBmp, cHelp, nHelpId, bColor)
@@ -483,7 +483,7 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit,
 
    RETURN Self
 
-METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMDIChildWindow
+METHOD HMDIChildWindow:Activate(lShow, lMaximized, lMinimized, lCentered, bActivate)
 
    HB_SYMBOL_UNUSED(lShow)
    HB_SYMBOL_UNUSED(lMaximized)
@@ -510,7 +510,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMDIC
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HMDIChildWindow
+METHOD HMDIChildWindow:onEvent(msg, wParam, lParam)
 
    SWITCH msg
 
@@ -564,8 +564,8 @@ CLASS HChildWindow INHERIT HWindow
 
 ENDCLASS
 
-METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-           cAppName, oBmp, cHelp, nHelpId, bColor) CLASS HChildWindow
+METHOD HChildWindow:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+           cAppName, oBmp, cHelp, nHelpId, bColor)
 
    ::Super:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
                cAppName, oBmp, cHelp, nHelpId, bColor)
@@ -584,14 +584,14 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, bInit,
 
    RETURN Self
 
-METHOD Activate(lShow) CLASS HChildWindow
+METHOD HChildWindow:Activate(lShow)
 
    hwg_CreateGetList(Self)
    Hwg_ActivateChildWindow((lShow == NIL .OR. lShow), ::handle)
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HChildWindow
+METHOD HChildWindow:onEvent(msg, wParam, lParam)
 
    SWITCH msg
 

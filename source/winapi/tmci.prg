@@ -33,7 +33,7 @@ ENDCLASS
 
 //----------------------------------------------------------------------------//
 
-METHOD New(cDevice, cFileName) CLASS TMci
+METHOD TMci:New(cDevice, cFileName)
 
    DEFAULT cDevice TO ""
 
@@ -47,7 +47,7 @@ METHOD New(cDevice, cFileName) CLASS TMci
 
 //----------------------------------------------------------------------------//
 
-METHOD SendStr(cMciStr) CLASS TMci
+METHOD TMci:SendStr(cMciStr)
 
    LOCAL cBuffer := ::cBuffer
 
@@ -57,7 +57,7 @@ METHOD SendStr(cMciStr) CLASS TMci
    RETURN NIL
 
 //----------------------------------------------------------------------------//
-METHOD lOpen() CLASS TMci
+METHOD TMci:lOpen()
    
    LOCAL nId
    
@@ -65,7 +65,7 @@ METHOD lOpen() CLASS TMci
    ::nId := nId
    RETURN ::nError == 0
 
-METHOD cGetError() CLASS Tmci
+METHOD TMci:cGetError()
    
    LOCAL cError
    

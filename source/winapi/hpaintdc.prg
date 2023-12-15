@@ -21,7 +21,7 @@ CLASS HPAINTDC FROM HDC
 
 ENDCLASS
 
-METHOD NEW(nWnd) CLASS HPAINTDC
+METHOD HPAINTDC:NEW(nWnd)
 
    ::Super:new()
    ::m_ps   := hwg_Definepaintstru()
@@ -30,7 +30,7 @@ METHOD NEW(nWnd) CLASS HPAINTDC
 
    RETURN Self
 
-METHOD END () CLASS HPAINTDC
+METHOD HPAINTDC:END()
 
    hwg_Endpaint(::m_hWnd, ::m_ps)
    ::m_hDC       := NIL

@@ -47,7 +47,7 @@ CLASS HToolButton INHERIT HObject
 
 ENDCLASS
 
-METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu) CLASS  HToolButton
+METHOD HToolButton:New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu)
 
    ::Name := cName
    ::iD := nId
@@ -64,7 +64,7 @@ METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMe
 
    RETURN Self
 
-METHOD Caption(cText)  CLASS HToolButton
+METHOD HToolButton:Caption(cText)
 
    IF cText != NIL
       ::Title := cText
@@ -73,7 +73,7 @@ METHOD Caption(cText)  CLASS HToolButton
 
    RETURN ::Title
 
-METHOD onClick()  CLASS HToolButton
+METHOD HToolButton:onClick()
 
    IF HB_ISBLOCK(::bClick)
       Eval(::bClick, self, ::id)
@@ -81,7 +81,7 @@ METHOD onClick()  CLASS HToolButton
 
    RETURN NIL
 
-METHOD Enabled(lEnabled) CLASS HToolButton
+METHOD HToolButton:Enabled(lEnabled)
 
    IF lEnabled != NIL
       IF lEnabled
@@ -94,7 +94,7 @@ METHOD Enabled(lEnabled) CLASS HToolButton
 
    RETURN ::lEnabled
 
-METHOD Pressed(lPressed) CLASS HToolButton
+METHOD HToolButton:Pressed(lPressed)
    
    LOCAL nState
 
@@ -106,7 +106,7 @@ METHOD Pressed(lPressed) CLASS HToolButton
 
    RETURN ::lPressed
 
-METHOD Checked(lcheck) CLASS HToolButton
+METHOD HToolButton:Checked(lcheck)
    
    LOCAL nState
 

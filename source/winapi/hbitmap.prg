@@ -38,7 +38,7 @@ ENDCLASS
 /*
  Stores a bitmap in a file from object
 */
-METHOD OBMP2FILE(cfilename, name) CLASS HBitmap
+METHOD HBitmap:OBMP2FILE(cfilename, name)
 
    LOCAL i
    LOCAL hbmp
@@ -58,7 +58,7 @@ METHOD OBMP2FILE(cfilename, name) CLASS HBitmap
 
 RETURN NIL
 
-METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
+METHOD HBitmap:AddResource(name, nFlags, lOEM, nWidth, nHeight)
 
    LOCAL lPreDefined := .F.
    LOCAL i
@@ -103,7 +103,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
 
 RETURN Self
 
-METHOD AddStandard(nId) CLASS HBitmap
+METHOD HBitmap:AddStandard(nId)
 
    LOCAL i
    LOCAL aBmpSize
@@ -128,7 +128,7 @@ METHOD AddStandard(nId) CLASS HBitmap
 
 RETURN Self
 
-METHOD AddFile(name, hDC, lTransparent, nWidth, nHeight) CLASS HBitmap
+METHOD HBitmap:AddFile(name, hDC, lTransparent, nWidth, nHeight)
 
    LOCAL i
    LOCAL aBmpSize
@@ -181,7 +181,7 @@ METHOD AddFile(name, hDC, lTransparent, nWidth, nHeight) CLASS HBitmap
 
 RETURN Self
 
-METHOD AddString(name, cVal, nWidth, nHeight) CLASS HBitmap
+METHOD HBitmap:AddString(name, cVal, nWidth, nHeight)
 
    LOCAL oBmp
    LOCAL aBmpSize
@@ -213,7 +213,7 @@ METHOD AddString(name, cVal, nWidth, nHeight) CLASS HBitmap
 
 RETURN Self
 
-METHOD AddWindow(oWnd, x1, y1, width, height) CLASS HBitmap
+METHOD HBitmap:AddWindow(oWnd, x1, y1, width, height)
 
    LOCAL aBmpSize
 
@@ -233,7 +233,7 @@ METHOD AddWindow(oWnd, x1, y1, width, height) CLASS HBitmap
 
 RETURN Self
 
-METHOD Draw(hDC, x1, y1, width, height) CLASS HBitmap
+METHOD HBitmap:Draw(hDC, x1, y1, width, height)
 
    IF ::nTransparent < 0
       hwg_Drawbitmap(hDC, ::handle, NIL, x1, y1, width, height)
@@ -243,7 +243,7 @@ METHOD Draw(hDC, x1, y1, width, height) CLASS HBitmap
 
 RETURN NIL
 
-METHOD RELEASE() CLASS HBitmap
+METHOD HBitmap:RELEASE()
 
    LOCAL i
    LOCAL nlen := Len(::aBitmaps)

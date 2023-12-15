@@ -29,7 +29,7 @@ CLASS HSayBmp INHERIT HSayImage
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, ctoolt, bClick, bDblClick, lTransp, nStretch, trcolor, bColor) CLASS HSayBmp
+METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, ctoolt, bClick, bDblClick, lTransp, nStretch, trcolor, bColor)
 
    HB_SYMBOL_UNUSED(nStretch)
 
@@ -61,7 +61,7 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, 
 
    RETURN Self
 
-METHOD INIT() CLASS HSayBmp
+METHOD HSayBmp:INIT()
 
    IF !::lInit
       ::Super:Init()
@@ -70,7 +70,7 @@ METHOD INIT() CLASS HSayBmp
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HSayBmp
+METHOD HSayBmp:onEvent( msg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
@@ -81,7 +81,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSayBmp
 
    RETURN 0
 
-METHOD Paint() CLASS HSayBmp
+METHOD HSayBmp:Paint()
 
    LOCAL hDC := hwg_Getdc(::handle)
 
@@ -110,7 +110,7 @@ METHOD Paint() CLASS HSayBmp
 
    RETURN NIL
 
-METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
+METHOD HSayBmp:ReplaceBitmap( Image, lRes )
 
    IF ::oImage != NIL
       ::oImage:Release()

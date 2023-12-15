@@ -43,8 +43,8 @@ CLASS HSplash
 
 ENDCLASS
 
-METHOD Create(cFile, oTime, oResource) CLASS HSplash
-   
+METHOD HSplash:Create(cFile, oTime, oResource)
+
    LOCAL aWidth
    LOCAL aHeigth
    LOCAL bitmap
@@ -70,7 +70,7 @@ METHOD Create(cFile, oTime, oResource) CLASS HSplash
 
    RETURN Self
 
-METHOD CountSeconds(oTime, oDlg)
+METHOD HSplash:CountSeconds(oTime, oDlg)
 
    SET TIMER ::oTimer OF oDlg VALUE oTime  ACTION {||hwg_EndDialog(hwg_GetModalHandle())}
 

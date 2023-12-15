@@ -152,9 +152,9 @@ CLASS HWindow INHERIT HCustomWindow
 
 ENDCLASS
 
-METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
+METHOD HWindow:New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-      cAppName, oBmp, cHelp, nHelpId ) CLASS HWindow
+      cAppName, oBmp, cHelp, nHelpId )
 
    HB_SYMBOL_UNUSED(clr)
    HB_SYMBOL_UNUSED(cMenu)
@@ -197,13 +197,13 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
 
    RETURN Self
 
-METHOD AddItem( oWnd ) CLASS HWindow
+METHOD HWindow:AddItem( oWnd )
 
    AAdd(::aWindows, oWnd)
 
    RETURN NIL
 
-METHOD DelItem( oWnd ) CLASS HWindow
+METHOD HWindow:DelItem( oWnd )
 
    LOCAL i
 
@@ -214,19 +214,19 @@ METHOD DelItem( oWnd ) CLASS HWindow
 
    RETURN NIL
 
-METHOD FindWindow( hWnd ) CLASS HWindow
+METHOD HWindow:FindWindow( hWnd )
 
    // LOCAL i := Ascan(::aWindows, {|o|o:handle == hWnd})
 
    // Return Iif(i == 0, NIL, ::aWindows[i])
    RETURN hwg_Getwindowobject( hWnd )
 
-METHOD GetMain() CLASS HWindow
+METHOD HWindow:GetMain()
 
    RETURN iif(Len(::aWindows) > 0, iif(::aWindows[1]:type == WND_MAIN, ::aWindows[1], iif(Len(::aWindows) > 1, ::aWindows[2], NIL)), NIL)
 
 /* Added: nctrl */
-METHOD EvalKeyList( nKey, nctrl ) CLASS HWindow
+METHOD HWindow:EvalKeyList( nKey, nctrl )
 
    LOCAL nPos
 
@@ -276,9 +276,9 @@ CLASS HMainWindow INHERIT HWindow
 
 ENDCLASS
 
-METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,   ;
+METHOD HMainWindow:New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,   ;
       oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-      cAppName, oBmp, cHelp, nHelpId, bColor, nExclude ) CLASS HMainWindow
+      cAppName, oBmp, cHelp, nHelpId, bColor, nExclude )
 
     LOCAL  hbackground
 
@@ -309,7 +309,7 @@ METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,
    RETURN Self
 
 /* Added: lMaximize, lMinimize, lCentered, bActivate */
-METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMainWindow
+METHOD HMainWindow:Activate( lShow, lMaximize, lMinimize, lCentered, bActivate )
 
    LOCAL aCoors
    LOCAL aRect
@@ -360,7 +360,7 @@ METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate ) CLASS HMain
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
+METHOD HMainWindow:onEvent( msg, wParam, lParam )
 
    LOCAL i
 
@@ -376,14 +376,14 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
 
    RETURN 0
 
-METHOD InitTray() CLASS HMainWindow
+METHOD HMainWindow:InitTray()
    RETURN NIL
    
-METHOD DEICONIFY() CLASS HMainWindow 
+METHOD HMainWindow:DEICONIFY()
    hwg_deiconify(::handle)
   RETURN NIL
 
-METHOD ICONIFY()  CLASS HMainWindow
+METHOD HMainWindow:ICONIFY()
    hwg_iconify(::handle)
   RETURN NIL
 

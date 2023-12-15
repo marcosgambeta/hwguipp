@@ -24,8 +24,8 @@ CLASS HStatic INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctoolt, tcolor, bcolor, lTransp ) CLASS HStatic
+METHOD HStatic:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
+      bSize, bPaint, ctoolt, tcolor, bcolor, lTransp )
 
    ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
@@ -39,7 +39,7 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, b
 
    RETURN Self
 
-METHOD Activate() CLASS HStatic
+METHOD HStatic:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::extStyle, ::title)
@@ -51,7 +51,7 @@ METHOD Activate() CLASS HStatic
 
    RETURN NIL
 
-METHOD Init()  CLASS HStatic
+METHOD HStatic:Init()
 
    IF !::lInit
       ::Super:Init()

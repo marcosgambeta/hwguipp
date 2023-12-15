@@ -48,7 +48,7 @@ CLASS HStaticLink FROM HSTATIC
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor) CLASS HStaticLink
+METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
 
    LOCAL oPrevFont
    LOCAL n
@@ -96,7 +96,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
    RETURN Self
 
 
-METHOD Activate() CLASS HStaticLink
+METHOD HStaticLink:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createownbtn(::oParent:handle, ::id, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -105,7 +105,7 @@ METHOD Activate() CLASS HStaticLink
 
 RETURN NIL
 
-METHOD Init() CLASS HStaticLink
+METHOD HStaticLink:Init()
 
    IF !::lInit
       hwg_Setwindowobject(::handle, Self)
@@ -113,7 +113,7 @@ METHOD Init() CLASS HStaticLink
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
+METHOD HStaticLink:onEvent( msg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(lParam)
 
@@ -131,33 +131,33 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
 
    RETURN - 1
 
-METHOD GoToLinkUrl( csLink ) CLASS HStaticLink
+METHOD HStaticLink:GoToLinkUrl( csLink )
 
    RETURN hwg_Shellexecute( csLink )
 
-METHOD SetLinkUrl( csUrl ) CLASS HStaticLink
+METHOD HStaticLink:SetLinkUrl( csUrl )
 
    ::m_csUrl := csUrl
 
    RETURN NIL
 
-METHOD GetLinkUrl() CLASS HStaticLink
+METHOD HStaticLink:GetLinkUrl()
 
    RETURN ::m_csUrl
 
-METHOD SetVisitedColor( sVisitedColor ) CLASS HStaticLink
+METHOD HStaticLink:SetVisitedColor( sVisitedColor )
 
    ::m_sVisitedColor := sVisitedColor
 
    RETURN NIL
 
-METHOD SetHoverColor( cHoverColor ) CLASS HStaticLink
+METHOD HStaticLink:SetHoverColor( cHoverColor )
 
    ::m_sHoverColor := cHoverColor
 
    RETURN NIL
 
-METHOD OnClicked() CLASS HStaticLink
+METHOD HStaticLink:OnClicked()
 
    // Variables not used
    // LOCAL nCtrlID
@@ -172,13 +172,13 @@ METHOD OnClicked() CLASS HStaticLink
 
    RETURN NIL
 
-METHOD SetLinkColor( sLinkColor ) CLASS HStaticLink
+METHOD HStaticLink:SetLinkColor( sLinkColor )
 
    ::m_sLinkColor := sLinkColor
 
    RETURN NIL
 
-METHOD OnMouseMove( wParam ) CLASS HStaticLink
+METHOD HStaticLink:OnMouseMove( wParam )
 
    LOCAL lEnter := ( hb_bitand( wParam,16 ) > 0 )
 
@@ -198,7 +198,7 @@ METHOD OnMouseMove( wParam ) CLASS HStaticLink
 
    RETURN 0
 
-METHOD Paint() CLASS HStaticLink
+METHOD HStaticLink:Paint()
 
    LOCAL pps
    LOCAL hDC

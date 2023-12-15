@@ -29,7 +29,7 @@ CLASS HCheckButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor, bGFocus) CLASS HCheckButton
+METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor, bGFocus)
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
@@ -55,7 +55,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCap
 
    RETURN Self
 
-METHOD Activate() CLASS HCheckButton
+METHOD HCheckButton:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
@@ -65,7 +65,7 @@ METHOD Activate() CLASS HCheckButton
 
    RETURN NIL
    
-METHOD Disable() CLASS HCheckButton
+METHOD HCheckButton:Disable()
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
       hwg_Setwindowobject(::handle, Self)
@@ -75,7 +75,7 @@ METHOD Disable() CLASS HCheckButton
 
    RETURN NIL   
 
-METHOD Init() CLASS HCheckButton
+METHOD HCheckButton:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -86,7 +86,7 @@ METHOD Init() CLASS HCheckButton
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
+METHOD HCheckButton:onEvent( msg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
@@ -99,7 +99,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
 
    RETURN NIL
 
-METHOD Refresh() CLASS HCheckButton
+METHOD HCheckButton:Refresh()
    
    LOCAL var
 
@@ -112,7 +112,7 @@ METHOD Refresh() CLASS HCheckButton
 
    RETURN NIL
 
-METHOD Value( lValue ) CLASS HCheckButton
+METHOD HCheckButton:Value( lValue )
 
    IF lValue != NIL
       IF ValType( lValue ) != "L"

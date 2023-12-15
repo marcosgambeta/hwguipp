@@ -42,7 +42,7 @@ CLASS HTab INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus) CLASS HTab
+METHOD HTab:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus)
    
    LOCAL i
    LOCAL aBmpSize
@@ -78,7 +78,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize
 
    RETURN Self
 
-METHOD Activate() CLASS HTab
+METHOD HTab:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createtabcontrol(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -87,7 +87,7 @@ METHOD Activate() CLASS HTab
 
    RETURN NIL
 
-METHOD Init() CLASS HTab
+METHOD HTab:Init()
    
    LOCAL i
 
@@ -109,7 +109,7 @@ METHOD Init() CLASS HTab
 
    RETURN NIL
 /*
-METHOD onEvent(msg, wParam, lParam) CLASS HTab
+METHOD HTab:onEvent(msg, wParam, lParam)
 
    LOCAL iParHigh
    LOCAL iParLow
@@ -127,13 +127,13 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTab
 
    Return - 1
 */
-METHOD SetTab(n) CLASS HTab
+METHOD HTab:SetTab(n)
 
    hwg_Sendmessage(::handle, TCM_SETCURFOCUS, n - 1, 0)
 
    RETURN NIL
 
-METHOD StartPage(cname, oDlg) CLASS HTab
+METHOD HTab:StartPage(cname, oDlg)
 
    ::oTemp := ::oDefaultParent
    ::oDefaultParent := Self
@@ -154,7 +154,7 @@ METHOD StartPage(cname, oDlg) CLASS HTab
 
    RETURN NIL
 
-METHOD EndPage() CLASS HTab
+METHOD HTab:EndPage()
 
    IF !::lResourceTab
       ::aPages[::nActive, 2] := Len(::aControls) - ::aPages[::nActive, 1]
@@ -179,7 +179,7 @@ METHOD EndPage() CLASS HTab
 
    RETURN NIL
 
-METHOD ChangePage(nPage) CLASS HTab
+METHOD HTab:ChangePage(nPage)
 
    IF !Empty(::aPages)
       ::HidePage(::nActive)
@@ -193,7 +193,7 @@ METHOD ChangePage(nPage) CLASS HTab
 
    RETURN NIL
 
-METHOD HidePage(nPage) CLASS HTab
+METHOD HTab:HidePage(nPage)
    
    LOCAL i
    LOCAL nFirst
@@ -211,7 +211,7 @@ METHOD HidePage(nPage) CLASS HTab
 
    RETURN NIL
 
-METHOD ShowPage(nPage) CLASS HTab
+METHOD HTab:ShowPage(nPage)
    
    LOCAL i
    LOCAL nFirst
@@ -241,7 +241,7 @@ METHOD ShowPage(nPage) CLASS HTab
 
    RETURN NIL
 
-METHOD GetActivePage(nFirst, nEnd) CLASS HTab
+METHOD HTab:GetActivePage(nFirst, nEnd)
 
    IF !::lResourceTab
       IF !Empty(::aPages)
@@ -255,7 +255,7 @@ METHOD GetActivePage(nFirst, nEnd) CLASS HTab
 
    Return ::nActive
 
-METHOD DeletePage(nPage) CLASS HTab
+METHOD HTab:DeletePage(nPage)
 
    LOCAL nFirst
    LOCAL nEnd
@@ -296,7 +296,7 @@ METHOD DeletePage(nPage) CLASS HTab
 
    Return ::nActive
 
-METHOD Notify(lParam) CLASS HTab
+METHOD HTab:Notify(lParam)
    
    LOCAL nCode := hwg_Getnotifycode(lParam)
 
@@ -326,7 +326,7 @@ METHOD Notify(lParam) CLASS HTab
    Return - 1
 
 /* aItem and cCaption added */
-METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem) CLASS hTab
+METHOD HTab:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
 
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)

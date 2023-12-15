@@ -46,7 +46,7 @@ CLASS HToolBar INHERIT HControl
 ENDCLASS
 
 /* Added: lVertical */
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem) CLASS hToolBar
+METHOD hToolBar:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem)
 
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)
@@ -61,7 +61,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
 
 RETURN Self
 
-METHOD Activate() CLASS hToolBar
+METHOD hToolBar:Activate()
 
    IF !empty(::oParent:handle )
       ::handle := hwg_Createtoolbar(::oParent:handle )
@@ -71,7 +71,7 @@ METHOD Activate() CLASS hToolBar
 
 RETURN NIL
 
-METHOD INIT() CLASS hToolBar
+METHOD hToolBar:INIT()
 
    LOCAL n
    LOCAL aButton := {}
@@ -128,7 +128,7 @@ METHOD INIT() CLASS hToolBar
    ENDIF
 RETURN NIL
 
-METHOD AddButton(nBitIp,nId,bState,bStyle,cText,bClick,c,aMenu) CLASS hToolBar
+METHOD hToolBar:AddButton(nBitIp,nId,bState,bStyle,cText,bClick,c,aMenu)
    
    LOCAL hMenu // := NIL
 
@@ -140,7 +140,7 @@ METHOD AddButton(nBitIp,nId,bState,bStyle,cText,bClick,c,aMenu) CLASS hToolBar
    AAdd(::aItem, {nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, 0})
 RETURN Self
 
-METHOD onEvent( msg, wParam, lParam )  CLASS HToolbar
+METHOD hToolBar:onEvent( msg, wParam, lParam )
 
    LOCAL nPos
 
@@ -156,14 +156,14 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HToolbar
    ENDIF
 Return  NIL
 
-METHOD REFRESH() class htoolbar
+METHOD hToolBar:REFRESH()
    if ::lInit
       ::lInit := .f.
    endif
    ::init()
 return NIL
 
-METHOD EnableAllButtons() class htoolbar
+METHOD hToolBar:EnableAllButtons()
    
    LOCAL xItem
 
@@ -172,7 +172,7 @@ METHOD EnableAllButtons() class htoolbar
    Next
 RETURN Self
 
-METHOD DisableAllButtons() class htoolbar
+METHOD hToolBar:DisableAllButtons()
    
    LOCAL xItem
 
@@ -181,10 +181,10 @@ METHOD DisableAllButtons() class htoolbar
    Next
 RETURN Self
 
-METHOD EnableButtons(n) class htoolbar
+METHOD hToolBar:EnableButtons(n)
    hwg_Enablewindow(::aItem[n, 11], .T.)
 RETURN Self
 
-METHOD DisableButtons(n) class htoolbar
+METHOD hToolBar:DisableButtons(n)
    hwg_Enablewindow(::aItem[n, 11], .T.)
 RETURN Self

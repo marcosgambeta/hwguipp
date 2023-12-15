@@ -49,7 +49,7 @@ ENDCLASS
 /*
  Stores a bitmap in a file from object
 */
-METHOD OBMP2FILE(cfilename, name) CLASS HBitmap
+METHOD HBitmap:OBMP2FILE(cfilename, name)
 
    LOCAL i
    LOCAL hbmp
@@ -70,7 +70,7 @@ METHOD OBMP2FILE(cfilename, name) CLASS HBitmap
 RETURN NIL    
 
 
-METHOD AddResource( name ) CLASS HBitmap
+METHOD HBitmap:AddResource( name )
 /*
  *  name : resource name in container, not file name.
  *  returns an object to bitmap, if resource successfully added
@@ -126,7 +126,7 @@ METHOD AddResource( name ) CLASS HBitmap
 
    // RETURN NIL
 
-METHOD AddFile(name, HDC, lTransparent, nWidth, nHeight) CLASS HBitmap
+METHOD HBitmap:AddFile(name, HDC, lTransparent, nWidth, nHeight)
    
    LOCAL i
    LOCAL aBmpSize
@@ -157,7 +157,7 @@ METHOD AddFile(name, HDC, lTransparent, nWidth, nHeight) CLASS HBitmap
 
    RETURN Self
 
-METHOD AddString( name, cVal ) CLASS HBitmap
+METHOD HBitmap:AddString( name, cVal )
 /*
   Add name to resource container (array ::aBitmaps)
   and add image to resource container.
@@ -204,7 +204,7 @@ METHOD AddString( name, cVal ) CLASS HBitmap
 
    RETURN Self
 
-METHOD AddStandard( cId, nSize ) CLASS HBitmap
+METHOD HBitmap:AddStandard( cId, nSize )
    
    LOCAL i
    LOCAL aBmpSize
@@ -230,7 +230,7 @@ METHOD AddStandard( cId, nSize ) CLASS HBitmap
 
    RETURN Self
 
-METHOD AddWindow( oWnd, x1, y1, width, height ) CLASS HBitmap
+METHOD HBitmap:AddWindow( oWnd, x1, y1, width, height )
    
    LOCAL aBmpSize
    LOCAL handle := hwg_GetDrawing( oWnd:handle )
@@ -249,7 +249,7 @@ METHOD AddWindow( oWnd, x1, y1, width, height ) CLASS HBitmap
 
    RETURN Self
 
-METHOD Draw(hDC, x1, y1, width, height) CLASS HBitmap
+METHOD HBitmap:Draw(hDC, x1, y1, width, height)
 
    IF ::nTransparent < 0
       hwg_Drawbitmap(hDC, ::handle, NIL, x1, y1, width, height)
@@ -259,7 +259,7 @@ METHOD Draw(hDC, x1, y1, width, height) CLASS HBitmap
 
    RETURN NIL
 
-METHOD Release() CLASS HBitmap
+METHOD HBitmap:Release()
    
    LOCAL i
    LOCAL nlen := Len(::aBitmaps)
@@ -298,7 +298,7 @@ CLASS HIcon INHERIT HObject
 
 ENDCLASS
 
-METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
+METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
 // For compatibility to WinAPI the parameters nFlags and lOEM are dummys
    
    LOCAL i
@@ -354,7 +354,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
 
    RETURN Self
 
-METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
+METHOD HIcon:AddFile(name, nWidth, nHeight)
 
    LOCAL i
    LOCAL aBmpSize
@@ -408,7 +408,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
  name : Name of resource
  cVal : Binary contents of *.ico file
  */
-METHOD AddString(name, cVal, nWidth, nHeight) CLASS HIcon
+METHOD HIcon:AddString(name, cVal, nWidth, nHeight)
 
    LOCAL i
    LOCAL cTmp
@@ -447,7 +447,7 @@ METHOD AddString(name, cVal, nWidth, nHeight) CLASS HIcon
    RETURN Self
 
 
-METHOD RELEASE() CLASS HIcon
+METHOD HIcon:RELEASE()
    
    LOCAL i
    LOCAL nlen := Len(::aIcons)

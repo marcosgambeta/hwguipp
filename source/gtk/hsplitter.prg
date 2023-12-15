@@ -38,7 +38,7 @@ CLASS HSplitter INHERIT HControl
 ENDCLASS
 
 /* bPaint ==> bDraw */
-METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle) CLASS HSplitter
+METHOD HSplitter:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle)
 
    ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, bDraw, NIL, iif(color == NIL, 0, color), bcolor )
 
@@ -54,7 +54,7 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor
 
    RETURN Self
 
-METHOD Activate() CLASS HSplitter
+METHOD HSplitter:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createsplitter(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -63,7 +63,7 @@ METHOD Activate() CLASS HSplitter
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
+METHOD HSplitter:onEvent( msg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(wParam)
 
@@ -96,7 +96,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
 
    Return - 1
 
-METHOD Init() CLASS HSplitter
+METHOD HSplitter:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -105,7 +105,7 @@ METHOD Init() CLASS HSplitter
 
    RETURN NIL
 
-METHOD Paint() CLASS HSplitter
+METHOD HSplitter:Paint()
    
    LOCAL hDC
    LOCAL aCoors
@@ -125,13 +125,13 @@ METHOD Paint() CLASS HSplitter
 
    RETURN NIL
 /*
-METHOD Move( x1, y1, width, height )  CLASS HSplitter
+METHOD HSplitter:Move( x1, y1, width, height )
 
    ::Super:Move( x1, y1, width, height, .T. )
 
    RETURN NIL
 */
-METHOD Drag( xPos, yPos ) CLASS HSplitter
+METHOD HSplitter:Drag( xPos, yPos )
    
    LOCAL nFrom
    LOCAL nTo
@@ -158,7 +158,7 @@ METHOD Drag( xPos, yPos ) CLASS HSplitter
 
    RETURN NIL
 
-METHOD DragAll( xPos, yPos ) CLASS HSplitter
+METHOD HSplitter:DragAll( xPos, yPos )
    
    LOCAL i
    LOCAL oCtrl

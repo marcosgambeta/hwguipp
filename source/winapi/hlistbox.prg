@@ -41,8 +41,8 @@ CLASS VAR winclass   INIT "LISTBOX"
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, ;
-           bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther)  CLASS HListBox
+METHOD HListBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, ;
+           bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther)
 
    nStyle   := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP + WS_VSCROLL + LBS_DISABLENOSCROLL + LBS_NOTIFY + LBS_NOINTEGRALHEIGHT + WS_BORDER)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tColor, bcolor)
@@ -86,14 +86,14 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aIte
 
    RETURN Self
 
-METHOD Activate() CLASS HListBox
+METHOD HListBox:Activate()
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createlistbox(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN NIL
 
-METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, bKeydown, bOther) CLASS HListBox
+METHOD HListBox:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, bKeydown, bOther)
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip)
 
@@ -114,7 +114,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
    ENDIF
    RETURN Self
 
-METHOD Init() CLASS HListBox
+METHOD HListBox:Init()
    
    LOCAL i
 
@@ -139,7 +139,7 @@ METHOD Init() CLASS HListBox
    ENDIF
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam) CLASS HListBox
+METHOD HListBox:onEvent(msg, wParam, lParam)
 
    LOCAL nEval
 
@@ -164,7 +164,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HListBox
    ENDIF
    RETURN -1
 
-METHOD Requery() CLASS HListBox
+METHOD HListBox:Requery()
    
    LOCAL i
 
@@ -177,7 +177,7 @@ METHOD Requery() CLASS HListBox
    Return NIL
 
 
-METHOD Refresh() CLASS HListBox
+METHOD HListBox:Refresh()
    
    LOCAL vari
    
@@ -189,7 +189,7 @@ METHOD Refresh() CLASS HListBox
    ::SetItem(::value)
    RETURN NIL
 
-METHOD SetItem(nPos) CLASS HListBox
+METHOD HListBox:SetItem(nPos)
    ::value := nPos
    hwg_Sendmessage(::handle, LB_SETCURSEL, nPos - 1, 0)
 
@@ -202,20 +202,20 @@ METHOD SetItem(nPos) CLASS HListBox
    ENDIF
    RETURN NIL
 
-METHOD onDblClick()  CLASS HListBox
+METHOD HListBox:onDblClick()
    IF HB_ISBLOCK(::bDblClick)
       Eval(::bDblClick, self, ::value)
    ENDIF
    RETURN NIL
 
-METHOD AddItems(p) CLASS HListBox
+METHOD HListBox:AddItems(p)
 
    AAdd(::aItems, p)
    hwg_Listboxaddstring(::handle, p)
    hwg_Listboxsetstring(::handle, ::value)
    RETURN Self
 
-METHOD DeleteItem(nPos) CLASS HListBox
+METHOD HListBox:DeleteItem(nPos)
 
    IF hwg_Sendmessage(::handle, LB_DELETESTRING, nPos - 1, 0) >= 0 // <= LEN(ocombo:aitems)
       ADel(::Aitems, nPos)
@@ -228,7 +228,7 @@ METHOD DeleteItem(nPos) CLASS HListBox
    ENDIF
    RETURN .F.
 
-METHOD Clear() CLASS HListBox
+METHOD HListBox:Clear()
    ::aItems := { }
    ::value := 0
    hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
@@ -236,7 +236,7 @@ METHOD Clear() CLASS HListBox
    RETURN .T.
 
 
-METHOD onChange(oCtrl) CLASS HListBox
+METHOD HListBox:onChange(oCtrl)
    
    LOCAL nPos
 
@@ -248,7 +248,7 @@ METHOD onChange(oCtrl) CLASS HListBox
    RETURN NIL
 
 
-METHOD When(oCtrl) CLASS HListBox
+METHOD HListBox:When(oCtrl)
    
    LOCAL res := .T.
    
@@ -271,7 +271,7 @@ METHOD When(oCtrl) CLASS HListBox
    RETURN res
 
 
-METHOD Valid(oCtrl) CLASS HListBox
+METHOD HListBox:Valid(oCtrl)
    
    LOCAL res
    LOCAL oDlg

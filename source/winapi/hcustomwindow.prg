@@ -63,7 +63,7 @@ CLASS HCustomWindow INHERIT HObject
 
 ENDCLASS
 
-METHOD FindControl(nId, nHandle) CLASS HCustomWindow
+METHOD HCustomWindow:FindControl(nId, nHandle)
 
    LOCAL i
 
@@ -76,7 +76,7 @@ METHOD FindControl(nId, nHandle) CLASS HCustomWindow
 
    RETURN Iif(i == 0, NIL, ::aControls[i])
 
-METHOD DelControl(oCtrl) CLASS HCustomWindow
+METHOD HCustomWindow:DelControl(oCtrl)
 
    LOCAL h := oCtrl:handle
    LOCAL id := oCtrl:id
@@ -114,7 +114,7 @@ METHOD DelControl(oCtrl) CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD SetColor(tcolor, bColor, lRepaint) CLASS HCustomWindow
+METHOD HCustomWindow:SetColor(tcolor, bColor, lRepaint)
 
    IF tcolor != NIL
       ::tcolor := tcolor
@@ -137,7 +137,7 @@ METHOD SetColor(tcolor, bColor, lRepaint) CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
+METHOD HCustomWindow:onEvent(msg, wParam, lParam)
 
    SWITCH msg
    CASE WM_NOTIFY         ; RETURN onNotify(Self, wParam, lParam)
@@ -157,7 +157,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
 
    RETURN -1
 
-METHOD End() CLASS HCustomWindow
+METHOD HCustomWindow:End()
 
    LOCAL aControls
    LOCAL i
@@ -176,7 +176,7 @@ METHOD End() CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD OnError() CLASS HCustomWindow
+METHOD HCustomWindow:OnError()
 
    LOCAL cMsg := __GetMessage()
    LOCAL oError

@@ -54,8 +54,8 @@ CLASS HEdit INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
-           tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword, bKeyDown, bChange) CLASS HEdit
+METHOD HEdit:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
+           tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword, bKeyDown, bChange)
 
    IF pcount() == 0
       ::Super:New(NIL, NIL, WS_TABSTOP + WS_BORDER, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL, 0, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT))
@@ -119,7 +119,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFon
 
    RETURN Self
 
-METHOD Activate() CLASS HEdit
+METHOD HEdit:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createedit(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
@@ -128,7 +128,7 @@ METHOD Activate() CLASS HEdit
 
    RETURN NIL
 
-METHOD Init()  CLASS HEdit
+METHOD HEdit:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -143,7 +143,7 @@ METHOD Init()  CLASS HEdit
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam) CLASS HEdit
+METHOD HEdit:onEvent(msg, wParam, lParam)
 
    LOCAL oParent := ::oParent
    LOCAL nPos
@@ -393,7 +393,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
 
    RETURN -1
 
-METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, tcolor, bcolor, cPicture, nMaxLength)  CLASS HEdit
+METHOD HEdit:Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, tcolor, bcolor, cPicture, nMaxLength)
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, NIL, ctooltip, tcolor, iif(bcolor == NIL, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
 
@@ -424,7 +424,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bGfocus, bL
 
    RETURN Self
 
-METHOD Refresh()  CLASS HEdit
+METHOD HEdit:Refresh()
 
    LOCAL vari
 
@@ -450,7 +450,7 @@ METHOD Refresh()  CLASS HEdit
 
    RETURN NIL
 
-METHOD Value(xValue) CLASS HEdit
+METHOD HEdit:Value(xValue)
 
    LOCAL vari
 
@@ -481,7 +481,7 @@ METHOD Value(xValue) CLASS HEdit
 
    RETURN vari
 
-METHOD SelStart(nStart) CLASS HEdit
+METHOD HEdit:SelStart(nStart)
 
    IF nStart != NIL
       hwg_Sendmessage(::handle, EM_SETSEL, nStart, nStart)
@@ -491,7 +491,7 @@ METHOD SelStart(nStart) CLASS HEdit
 
    RETURN nStart
 
-METHOD SelLength(nLength) CLASS HEdit
+METHOD HEdit:SelLength(nLength)
 
    LOCAL nStart
 
@@ -505,7 +505,7 @@ METHOD SelLength(nLength) CLASS HEdit
 
    RETURN nLength
 
-METHOD ParsePict(cPicture, vari) CLASS HEdit
+METHOD HEdit:ParsePict(cPicture, vari)
 
    LOCAL nAt
    LOCAL i

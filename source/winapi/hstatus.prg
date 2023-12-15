@@ -24,7 +24,7 @@ CLASS HStatus INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint) CLASS HStatus
+METHOD HStatus:New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint)
 
    bSize  := iif(bSize != NIL, bSize, {|o, x, y|o:Move(0, y - 20, x, 20)})
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS)
@@ -36,7 +36,7 @@ METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint) CLASS H
 
    RETURN Self
 
-METHOD Activate() CLASS HStatus
+METHOD HStatus:Activate()
    
    LOCAL aCoors
 
@@ -51,7 +51,7 @@ METHOD Activate() CLASS HStatus
 
    RETURN NIL
 
-METHOD Init() CLASS HStatus
+METHOD HStatus:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -62,7 +62,7 @@ METHOD Init() CLASS HStatus
 
    RETURN  NIL
 
-METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts)  CLASS hStatus
+METHOD HStatus:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts)
 
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)

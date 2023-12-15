@@ -157,7 +157,7 @@ ENDCLASS
 //  Description:
 //-----------------------------------------------------------------------------
 
-METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, nColText, nColPane, lHorz, lTransparent, nPinWidth) CLASS Barcode
+METHOD Barcode:New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, nColText, nColPane, lHorz, lTransparent, nPinWidth)
 
    DEFAULT nWidth       := 200
    DEFAULT nHeight      := 20
@@ -188,7 +188,7 @@ RETURN Self
 //         Name: ShowBarcode
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD ShowBarcode() CLASS BarCode
+METHOD Barcode:ShowBarcode()
 
    LOCAL cCode
    LOCAL cCode2
@@ -228,7 +228,7 @@ RETURN NIL
 //         Name: CreateBarcode
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD CreateBarcode(cCode) CLASS BarCode
+METHOD Barcode:CreateBarcode(cCode)
 
    LOCAL i
    LOCAL hPen
@@ -309,7 +309,7 @@ RETURN NIL
 //         Name: InitCode39
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitCode39(lCheck) CLASS BarCode
+METHOD Barcode:InitCode39(lCheck)
 
    LOCAL cCars := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *$/+%"
    LOCAL aBarras := { ;
@@ -394,7 +394,7 @@ RETURN cBarra
 //         Name: InitCode128
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitCode128(cMode) CLASS BarCode
+METHOD Barcode:InitCode128(cMode)
 
    LOCAL aCode := { ;
          "212222", "222122", "222221", "121223", "121322", "131222", ;
@@ -532,7 +532,7 @@ RETURN cBarra
 //         Name: InitEAN13
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitEAN13() CLASS BarCode
+METHOD Barcode:InitEAN13()
 
    LOCAL derecha := "1110010110011011011001000010101110010011101010000100010010010001110100"
    LOCAL izda1   := "0001101001100100100110111101010001101100010101111011101101101110001011"
@@ -612,7 +612,7 @@ RETURN cadena
 //         Name: InitUPC
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitUPC(nLen) CLASS BarCode
+METHOD Barcode:InitUPC(nLen)
 
    LOCAL derecha := "1110010110011011011001000010101110010011101010000100010010010001110100"
    LOCAL izda1   := "0001101001100100100110111101010001101100010101111011101101101110001011"
@@ -681,7 +681,7 @@ RETURN cadena
 //         Name: InitE13BL
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitE13BL(nLen) CLASS BarCode
+METHOD Barcode:InitE13BL(nLen)
 
    nLen := Int(nLen / 2)
 
@@ -692,7 +692,7 @@ RETURN "101" + Replicate("0", nLen * 7) + "01010" + Replicate("0", nLen * 7) + "
 //         Name: InitCodabar
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitCodabar() CLASS BarCode
+METHOD Barcode:InitCodabar()
 
    //this system not test the start/end code
 
@@ -722,7 +722,7 @@ RETURN cBarra
 //         Name: InitSup5
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitSub5() CLASS BarCode
+METHOD Barcode:InitSub5()
 
    LOCAL izda1   := "0001101001100100100110111101010001101100010101111011101101101110001011"
    LOCAL izda2   := "0100111011001100110110100001001110101110010000101001000100010010010111"
@@ -761,7 +761,7 @@ RETURN cBarras
 //         Name: InitIndustrial25
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitIndustrial25(lCheck) CLASS BarCode
+METHOD Barcode:InitIndustrial25(lCheck)
 
    LOCAL n
    LOCAL aBar     := {"00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010"}
@@ -804,7 +804,7 @@ RETURN cBarra
 //         Name: InitInterleave25
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitInterleave25(lMode) CLASS BarCode
+METHOD Barcode:InitInterleave25(lMode)
 
    LOCAL n
    LOCAL m
@@ -866,7 +866,7 @@ RETURN cBar
 //         Name: InitIndust25
 //  Description:
 //-----------------------------------------------------------------------------
-METHOD InitMatrix25(lCheck) CLASS BarCode
+METHOD Barcode:InitMatrix25(lCheck)
 
    LOCAL n
    LOCAL aBar   := {"00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010"}

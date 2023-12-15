@@ -38,7 +38,7 @@ CLASS HProgressBar INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical) CLASS HProgressBar
+METHOD HProgressBar:New(oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
 
    ::Style := iif(lvertical != NIL .AND. lVertical, PBS_VERTICAL, 0)
    ::Style += iif(nAnimation != NIL .AND. nAnimation > 0, PBS_MARQUEE, 0)
@@ -55,7 +55,7 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRange, bInit, bSiz
 
    RETURN Self
 
-METHOD Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
+METHOD HProgressBar:Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
 
    HB_SYMBOL_UNUSED(lVertical)
 
@@ -75,7 +75,7 @@ METHOD Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPaint, ctooltip,
   METHOD NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, bInit, bSize, bPaint, ctooltip)
 */
 
-METHOD NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, lPercent) CLASS HProgressBar
+METHOD HProgressBar:NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, lPercent)
 
    // ::classname:= "HPROGRESSBAR"
    ::style    := WS_CHILD + WS_VISIBLE
@@ -110,7 +110,7 @@ METHOD NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, lPercent) 
 
    RETURN Self
 
-METHOD Activate() CLASS HProgressBar
+METHOD HProgressBar:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createprogressbar(::oParent:handle, ::maxPos, ::style, ::nX, ::nY, ::nWidth, iif(::nHeight = 0, NIL, ::nHeight))
@@ -119,7 +119,7 @@ METHOD Activate() CLASS HProgressBar
 
    RETURN NIL
 
-METHOD Init()  CLASS HProgressBar
+METHOD HProgressBar:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -133,7 +133,7 @@ METHOD Init()  CLASS HProgressBar
 
    RETURN NIL
 
-METHOD STEP(cTitle)
+METHOD HProgressBar:STEP(cTitle)
 
    ::nCount++
    IF ::nCount == ::nLimit
@@ -149,7 +149,7 @@ METHOD STEP(cTitle)
    RETURN NIL
 
 // Added by DF7BE
-METHOD RESET(cTitle)
+METHOD HProgressBar:RESET(cTitle)
 
    IF cTitle != NIL
       hwg_Setwindowtext(::oParent:handle, cTitle)
@@ -158,7 +158,7 @@ METHOD RESET(cTitle)
 
    RETURN NIL
 
-METHOD SET(cTitle, nPos) CLASS HProgressBar
+METHOD HProgressBar:SET(cTitle, nPos)
 
    IF cTitle != NIL
       hwg_Setwindowtext(::oParent:handle, cTitle)
@@ -169,7 +169,7 @@ METHOD SET(cTitle, nPos) CLASS HProgressBar
 
    RETURN NIL
 
-METHOD SetLabel(cCaption) CLASS HProgressBar
+METHOD HProgressBar:SetLabel(cCaption)
 
    IF cCaption != NIL .AND. ::lNewBox
       ::LabelBox:SetText(cCaption)
@@ -177,7 +177,7 @@ METHOD SetLabel(cCaption) CLASS HProgressBar
 
    RETURN NIL
 
-METHOD CLOSE()
+METHOD HProgressBar:CLOSE()
 
    hwg_Destroywindow(::handle)
    IF ::lNewBox

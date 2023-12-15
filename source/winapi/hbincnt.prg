@@ -57,11 +57,11 @@ CLASS HBinC
    METHOD Exist(cObjName)
    METHOD Get(cObjName)
    METHOD GetPos(cObjName)
-   METHOD GetType(cObjName)   
+   METHOD GetType(cObjName)
 
 ENDCLASS
 
-METHOD Create(cName, n) CLASS HBinC
+METHOD HBinC:Create(cName, n)
    
    IF n == NIL
       n := 16
@@ -84,7 +84,7 @@ METHOD Create(cName, n) CLASS HBinC
 
    RETURN Self
 
-METHOD Open(cName, lWr) CLASS HBinC
+METHOD HBinC:Open(cName, lWr)
    
    LOCAL cBuf
    LOCAL i
@@ -134,12 +134,12 @@ METHOD Open(cName, lWr) CLASS HBinC
 
    RETURN Self
 
-METHOD Close() CLASS HBinC
+METHOD HBinC:Close()
 
    FClose(::handle)
    RETURN NIL
 
-METHOD Add(cObjName, cType, cVal) CLASS HBinC
+METHOD HBinC:Add(cObjName, cType, cVal)
    
    LOCAL nAddress
    LOCAL nSize
@@ -185,7 +185,7 @@ METHOD Add(cObjName, cType, cVal) CLASS HBinC
 
    RETURN .T.
 
-METHOD Del(cObjName) CLASS HBinC
+METHOD HBinC:Del(cObjName)
    
    LOCAL n
 
@@ -203,7 +203,7 @@ METHOD Del(cObjName) CLASS HBinC
 
    RETURN .T.
 
-METHOD Pack() CLASS HBinC
+METHOD HBinC:Pack()
    
    LOCAL i
    LOCAL nItems := 0
@@ -272,7 +272,7 @@ METHOD Pack() CLASS HBinC
 
    RETURN .T.
 
-METHOD Get(cObjName) CLASS HBinC
+METHOD HBinC:Get(cObjName)
    
    LOCAL n
    LOCAL cBuf
@@ -288,19 +288,19 @@ METHOD Get(cObjName) CLASS HBinC
 
    RETURN cBuf
 
-METHOD Exist(cObjName)  CLASS HBinC
+METHOD HBinC:Exist(cObjName)
 
    cObjName := Lower(cObjName)
    RETURN (Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})) != 0
    
-METHOD GetPos(cObjName)  CLASS HBinC
+METHOD HBinC:GetPos(cObjName)
 
   cObjName := Lower(cObjName)
   
   RETURN Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName}) 
   
   
-METHOD GetType(cObjName)
+METHOD HBinC:GetType(cObjName)
 
   LOCAL n
   LOCAL crettype := ""

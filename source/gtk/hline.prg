@@ -22,7 +22,7 @@ CLASS HLine INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, lVert, nX, nY, nLength, bSize ) CLASS HLine
+METHOD HLine:New( oWndParent, nId, lVert, nX, nY, nLength, bSize )
 
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, NIL, NIL, NIL, NIL, bSize, { |o, lp|o:Paint( lp ) } )
 
@@ -40,7 +40,7 @@ METHOD New( oWndParent, nId, lVert, nX, nY, nLength, bSize ) CLASS HLine
 
    RETURN Self
 
-METHOD Activate() CLASS HLine
+METHOD HLine:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_CreateSep(::oParent:handle, ::lVert, ::nX, ::nY, ::nWidth, ::nHeight)

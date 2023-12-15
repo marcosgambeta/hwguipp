@@ -34,7 +34,7 @@ CLASS HTimer INHERIT HObject
 
 ENDCLASS
 
-METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
+METHOD HTimer:New( oParent, nId, value, bAction, lOnce )
 
    ::oParent := iif(oParent == NIL, HWindow():GetMain(), oParent)
    IF nId == NIL
@@ -54,7 +54,7 @@ METHOD New( oParent, nId, value, bAction, lOnce ) CLASS HTimer
 
    RETURN Self
 
-METHOD Interval( n ) CLASS HTimer
+METHOD HTimer:Interval( n )
 
    LOCAL nOld := ::value
    LOCAL nId
@@ -72,7 +72,7 @@ METHOD Interval( n ) CLASS HTimer
 
    RETURN nOld
 
-METHOD End() CLASS HTimer
+METHOD HTimer:End()
    
    LOCAL i
 

@@ -60,8 +60,8 @@ CLASS HDialog INHERIT HWindow
 
 ENDCLASS
 
-METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, lClipper, ;
-           oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable) CLASS HDialog
+METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, lClipper, ;
+           oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable)
 
    IF pcount() == 0
       ::style          := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
@@ -133,7 +133,7 @@ METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
 
    RETURN Self
 
-METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HDialog
+METHOD HDialog:Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
 
    LOCAL oWnd
    LOCAL hParent
@@ -206,7 +206,7 @@ METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate) CLASS HD
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam) CLASS HDialog
+METHOD HDialog:onEvent(msg, wParam, lParam)
 
    LOCAL nPos
    LOCAL oTab
@@ -267,7 +267,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
 
    RETURN 0
 
-METHOD DelItem() CLASS HDialog
+METHOD HDialog:DelItem()
 
    LOCAL i
 
@@ -285,13 +285,13 @@ METHOD DelItem() CLASS HDialog
 
    RETURN NIL
 
-METHOD FindDialog(hWnd) CLASS HDialog
+METHOD HDialog:FindDialog(hWnd)
 
    LOCAL i := Ascan(::aDialogs, {|o|hwg_Isptreq(o:handle, hWnd)})
 
    RETURN Iif(i == 0, NIL, ::aDialogs[i])
 
-METHOD GetActive() CLASS HDialog
+METHOD HDialog:GetActive()
 
    LOCAL handle := hwg_Getfocus()
    LOCAL i := Ascan(::Getlist, {|o|hwg_Isptreq(o:handle, handle)})

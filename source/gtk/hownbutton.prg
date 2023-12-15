@@ -58,8 +58,8 @@ CLASS HOwnButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bClick, lflat, cText, color, font, xt, yt, widtht, heightt, ;
-   bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, cTooltip, lEnabled, lCheck, bColor) CLASS HOwnButton
+METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bClick, lflat, cText, color, font, xt, yt, widtht, heightt, ;
+   bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, cTooltip, lEnabled, lCheck, bColor)
 
    ::Super:New(oWndParent, nId,, nX, nY, nWidth, nHeight, font, bInit, bSize, bPaint, cTooltip)
 
@@ -111,7 +111,7 @@ METHOD New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, bSize, bPai
 
    RETURN Self
 
-METHOD Activate() CLASS HOwnButton
+METHOD HOwnButton:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createownbtn(::oParent:handle, ::id, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -125,7 +125,7 @@ METHOD Activate() CLASS HOwnButton
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
+METHOD HOwnButton:onEvent( msg, wParam, lParam )
 
    STATIC h
 
@@ -158,7 +158,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
 
    RETURN 0
 
-METHOD Init() CLASS HOwnButton
+METHOD HOwnButton:Init()
 
    LOCAL bColor
 
@@ -172,7 +172,7 @@ METHOD Init() CLASS HOwnButton
 
    RETURN NIL
 
-METHOD Paint() CLASS HOwnButton
+METHOD HOwnButton:Paint()
    
    LOCAL hDC := hwg_Getdc(::handle)
    LOCAL aCoors
@@ -267,7 +267,7 @@ METHOD Paint() CLASS HOwnButton
 
    RETURN NIL
 
-METHOD MouseMove( wParam, lParam )  CLASS HOwnButton
+METHOD HOwnButton:MouseMove( wParam, lParam )
    
    LOCAL lEnter := ( hb_bitand( wParam,16 ) > 0 )
    // Variables not used
@@ -295,7 +295,7 @@ METHOD MouseMove( wParam, lParam )  CLASS HOwnButton
 
    RETURN NIL
 
-METHOD MDown()  CLASS HOwnButton
+METHOD HOwnButton:MDown()
 
    IF ::state != OBTN_PRESSED
       ::state := OBTN_PRESSED
@@ -308,7 +308,7 @@ METHOD MDown()  CLASS HOwnButton
 
    RETURN NIL
 
-METHOD MUp() CLASS HOwnButton
+METHOD HOwnButton:MUp()
 
    IF ::state == OBTN_PRESSED
       IF !::lPress
@@ -335,7 +335,7 @@ METHOD MUp() CLASS HOwnButton
 
    RETURN NIL
 
-METHOD SetTimer( nPeriod )  CLASS HOwnButton
+METHOD HOwnButton:SetTimer( nPeriod )
 
    IF nPeriod == NIL
       IF !Empty(::oTimer)
@@ -350,7 +350,7 @@ METHOD SetTimer( nPeriod )  CLASS HOwnButton
 
    RETURN NIL
 
-METHOD RELEASE()  CLASS HOwnButton
+METHOD HOwnButton:RELEASE()
 
    ::lPress := .F.
    ::state := OBTN_NORMAL
@@ -358,7 +358,7 @@ METHOD RELEASE()  CLASS HOwnButton
 
    RETURN NIL
 
-METHOD End()  CLASS HOwnButton
+METHOD HOwnButton:End()
 
    ::Super:End()
    ::oFont := NIL
@@ -373,7 +373,7 @@ METHOD End()  CLASS HOwnButton
 
    RETURN NIL
 
-METHOD Enable() CLASS HOwnButton
+METHOD HOwnButton:Enable()
 
    hwg_Enablewindow(::handle, .T.)
    ::lEnabled := .T.
@@ -381,7 +381,7 @@ METHOD Enable() CLASS HOwnButton
 
    RETURN NIL
 
-METHOD Disable() CLASS HOwnButton
+METHOD HOwnButton:Disable()
 
    ::state   := OBTN_INIT
    ::lEnabled := .F.

@@ -30,7 +30,7 @@ CLASS HIcon INHERIT HObject
 
 ENDCLASS
 
-METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
+METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
 
    LOCAL lPreDefined := .F.
    LOCAL i
@@ -87,7 +87,7 @@ RETURN Self
 name : Name of resource
 cVal : Binary contents of *.ico file
 */
-METHOD AddString(name, cVal, nWidth, nHeight) CLASS HIcon
+METHOD HIcon:AddString(name, cVal, nWidth, nHeight)
 
    LOCAL cTmp //, oreturn
    LOCAL aIconSize
@@ -115,7 +115,7 @@ METHOD AddString(name, cVal, nWidth, nHeight) CLASS HIcon
 
 RETURN Self // oreturn
 
-METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
+METHOD HIcon:AddFile(name, nWidth, nHeight)
 
    LOCAL i
    LOCAL aIconSize
@@ -155,7 +155,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
 
 RETURN Self
 
-METHOD RELEASE() CLASS HIcon
+METHOD HIcon:RELEASE()
 
    LOCAL i
    LOCAL nlen := Len(::aIcons)

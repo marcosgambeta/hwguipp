@@ -25,7 +25,7 @@ CLASS HButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor) CLASS HButton
+METHOD HButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor)
 
    nStyle := hb_bitor( iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON )
    ::Super:New(oWndParent, nId, nStyle, nX, nY, iif(nWidth == NIL, 90, nWidth), iif(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
@@ -43,7 +43,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
 
    RETURN Self
 
-METHOD Activate() CLASS HButton
+METHOD HButton:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
@@ -53,7 +53,7 @@ METHOD Activate() CLASS HButton
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam )  CLASS HButton
+METHOD HButton:onEvent( msg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)

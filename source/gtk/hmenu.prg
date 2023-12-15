@@ -34,7 +34,7 @@ CLASS HMenu INHERIT HObject
 ENDCLASS
 
 /* Removed: xPos, yPos, lWnd */
-METHOD Show( oWnd ) CLASS HMenu
+METHOD HMenu:Show( oWnd )
 
    IF !Empty(HWindow():GetMain())
       oWnd := HWindow():GetMain()

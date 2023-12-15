@@ -62,8 +62,8 @@ CLASS HToolBar INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem, nWSize, nHSize, nIndent, nIDB) CLASS hToolBar
+METHOD hToolBar:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, oFont, bInit, ;
+      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem, nWSize, nHSize, nIndent, nIDB)
 
    DEFAULT  aitem TO { }
 
@@ -113,7 +113,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, oFont, bI
 
    RETURN Self
 
-METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)  CLASS hToolBar
+METHOD hToolBar:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
 
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)
@@ -129,7 +129,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip
 
    RETURN Self
 
-METHOD Activate() CLASS hToolBar
+METHOD hToolBar:Activate()
 
    IF !Empty(::oParent:handle)
       ::lCreate := .T.
@@ -139,7 +139,7 @@ METHOD Activate() CLASS hToolBar
 
    RETURN NIL
 
-METHOD INIT() CLASS hToolBar
+METHOD hToolBar:INIT()
 
    IF !::lInit
       IF ::Line != NIL
@@ -151,7 +151,7 @@ METHOD INIT() CLASS hToolBar
 
    RETURN NIL
 
-METHOD CREATETOOL() CLASS hToolBar
+METHOD hToolBar:CREATETOOL()
    
    LOCAL n
    LOCAL n1
@@ -273,7 +273,7 @@ METHOD CREATETOOL() CLASS hToolBar
 
    RETURN NIL
 
-METHOD Notify(lParam) CLASS hToolBar
+METHOD hToolBar:Notify(lParam)
 
    LOCAL nCode :=  hwg_Getnotifycode(lParam)
    LOCAL nId
@@ -311,7 +311,7 @@ METHOD Notify(lParam) CLASS hToolBar
 
    RETURN 0
 
-METHOD AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nIndex) CLASS hToolBar
+METHOD hToolBar:AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nIndex)
    
    LOCAL hMenu := NIL
    LOCAL oButton
@@ -346,7 +346,7 @@ METHOD AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nI
 
    RETURN oButton
 
-METHOD RESIZE(xIncrSize, lWidth, lHeight) CLASS hToolBar
+METHOD hToolBar:RESIZE(xIncrSize, lWidth, lHeight)
    
    LOCAL nSize
 
@@ -374,7 +374,7 @@ METHOD RESIZE(xIncrSize, lWidth, lHeight) CLASS hToolBar
 
    RETURN NIL
 
-METHOD onAnchor(x, y, w, h) CLASS hToolBar
+METHOD hToolBar:onAnchor(x, y, w, h)
 
    IF ::Super:onAnchor(x, y, w, h)
       ::Resize(iif(x > 0, w / x, 1), .T., .T.)

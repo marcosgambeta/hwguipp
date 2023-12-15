@@ -23,7 +23,7 @@ CLASS HPanelStS INHERIT HPANEL
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts) CLASS HPanelStS
+METHOD HPanelStS:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts)
 
    oWndParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    IF bColor == NIL
@@ -52,7 +52,7 @@ METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPart
 
 RETURN Self
 
-METHOD Write(cText, nPart, lRedraw) CLASS HPanelStS
+METHOD HPanelStS:Write(cText, nPart, lRedraw)
 
    ::aText[Iif(nPart==NIL, 1, nPart)] := cText
    IF !HB_ISLOGICAL(lRedraw) .OR. lRedraw
@@ -61,7 +61,7 @@ METHOD Write(cText, nPart, lRedraw) CLASS HPanelStS
 
 RETURN NIL
 
-METHOD PaintText(hDC) CLASS HPanelStS
+METHOD HPanelStS:PaintText(hDC)
 
    LOCAL i
    LOCAL x1
@@ -91,7 +91,7 @@ METHOD PaintText(hDC) CLASS HPanelStS
 
 RETURN NIL
 
-METHOD Paint() CLASS HPanelStS
+METHOD HPanelStS:Paint()
 
    LOCAL pps
    LOCAL hDC

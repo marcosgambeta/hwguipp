@@ -42,9 +42,9 @@ CLASS HTrackBar INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
+METHOD HTrackBar:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
            bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
-           lVertical, TickStyle, TickMarks) CLASS HTrackBar
+           lVertical, TickStyle, TickMarks)
 
    IF TickStyle == NIL
       TickStyle := TBS_AUTOTICKS
@@ -72,14 +72,14 @@ METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
 
 RETURN Self
 
-METHOD Activate() CLASS HTrackBar
+METHOD HTrackBar:Activate()
    IF !Empty(::oParent:handle)
       ::handle := hwg_inittrackbar(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::nLow, ::nHigh)
       ::Init()
    ENDIF
 RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
+METHOD HTrackBar:onEvent(msg, wParam, lParam)
 
    LOCAL aCoors
 
@@ -111,7 +111,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
 
 RETURN -1
 
-METHOD Init() CLASS HTrackBar
+METHOD HTrackBar:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -127,7 +127,7 @@ METHOD Init() CLASS HTrackBar
 
    RETURN NIL
 
-METHOD Value(nValue) CLASS HTrackBar
+METHOD HTrackBar:Value(nValue)
 
    IF nValue != NIL
       IF HB_ISNUMERIC(nValue)

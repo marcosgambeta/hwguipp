@@ -21,7 +21,7 @@ CLASS HSayIcon INHERIT HSayImage
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, ctooltip, lOEM, bClick, bDblClick) CLASS HSayIcon
+METHOD HSayIcon:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, ctooltip, lOEM, bClick, bDblClick)
 
    ::Super:New(oWndParent, nId, SS_ICON, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick)
 
@@ -42,7 +42,7 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, 
 
 
 /* Image ==> xImage */   
-METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip) CLASS HSayIcon
+METHOD HSayIcon:Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip)
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
 
@@ -55,7 +55,7 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip) CLASS HSa
 
    RETURN Self
 
-METHOD Init() CLASS HSayIcon
+METHOD HSayIcon:Init()
 
    IF !::lInit
       ::Super:Init()

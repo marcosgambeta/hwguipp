@@ -214,7 +214,7 @@ CLASS HBDebugger
 
 ENDCLASS
 
-METHOD New() CLASS HBDebugger
+METHOD HBDebugger:New()
 
    t_oDebugger := Self
 
@@ -225,7 +225,7 @@ METHOD New() CLASS HBDebugger
 
 RETURN Self
 
-METHOD Activate() CLASS HBDebugger
+METHOD HBDebugger:Activate()
 
    ::LoadCallStack()
 
@@ -239,13 +239,13 @@ METHOD Activate() CLASS HBDebugger
 
 RETURN NIL
 
-METHOD CodeblockTrace()
+METHOD HBDebugger:CodeblockTrace()
 
    __dbgSetCBTrace( ::pInfo, ::lCBTrace )
 
 RETURN NIL
 
-METHOD GetExprValue(xExpr, lValid) CLASS HBDebugger
+METHOD HBDebugger:GetExprValue(xExpr, lValid)
 
    LOCAL xResult
    LOCAL bOldError
@@ -271,17 +271,17 @@ METHOD GetExprValue(xExpr, lValid) CLASS HBDebugger
 
 RETURN xResult
 
-METHOD GetSourceFiles() CLASS HBDebugger
+METHOD HBDebugger:GetSourceFiles()
 
 RETURN __dbgGetSourceFiles( ::pInfo )
 
-METHOD GO() CLASS HBDebugger
+METHOD HBDebugger:GO()
 
    __dbgSetGo( ::pInfo )
 
 RETURN NIL
 
-METHOD HandleEvent() CLASS HBDebugger
+METHOD HBDebugger:HandleEvent()
 
    LOCAL nKey
    LOCAL p1
@@ -461,7 +461,7 @@ METHOD HandleEvent() CLASS HBDebugger
 
 RETURN NIL
 
-METHOD LoadCallStack() CLASS HBDebugger
+METHOD HBDebugger:LoadCallStack()
 
    LOCAL i
    LOCAL nDebugLevel
@@ -487,7 +487,7 @@ METHOD LoadCallStack() CLASS HBDebugger
 
 RETURN NIL
 
-METHOD QUIT() CLASS HBDebugger
+METHOD HBDebugger:QUIT()
 
    __dbgSetQuit( ::pInfo )
    t_oDebugger := NIL
@@ -496,7 +496,7 @@ METHOD QUIT() CLASS HBDebugger
 
 RETURN NIL
 
-METHOD ShowCodeLine(nProc) CLASS HBDebugger
+METHOD HBDebugger:ShowCodeLine(nProc)
 
    LOCAL nLine
    LOCAL cPrgName
@@ -528,7 +528,7 @@ METHOD ShowCodeLine(nProc) CLASS HBDebugger
 
 RETURN NIL
 
-METHOD VarGetInfo(aVar) CLASS HBDebugger
+METHOD HBDebugger:VarGetInfo(aVar)
 
    LOCAL cType := Left(aVar[VAR_TYPE], 1)
    LOCAL uValue := ::VarGetValue( aVar )
@@ -544,7 +544,7 @@ METHOD VarGetInfo(aVar) CLASS HBDebugger
 
 RETURN ""
 
-METHOD VarGetValue(aVar) CLASS HBDebugger
+METHOD HBDebugger:VarGetValue(aVar)
 
    LOCAL cType := Left(aVar[VAR_TYPE], 1)
 
@@ -559,7 +559,7 @@ METHOD VarGetValue(aVar) CLASS HBDebugger
 
 RETURN NIL
 
-METHOD VarSetValue(aVar, uValue) CLASS HBDebugger
+METHOD HBDebugger:VarSetValue(aVar, uValue)
 
    LOCAL nProcLevel
    LOCAL cType := Left(aVar[VAR_TYPE], 1)

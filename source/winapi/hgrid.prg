@@ -67,8 +67,8 @@ CLASS HGrid INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWnd, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoScroll, lNoBord, ;
-   bKeyDown, bPosChg, bDispInfo, nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit) CLASS HGrid
+METHOD HGrid:New(oWnd, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoScroll, lNoBord, ;
+   bKeyDown, bPosChg, bDispInfo, nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit)
 
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), LVS_SHOWSELALWAYS + WS_TABSTOP + IIf(lNoBord, 0, WS_BORDER) + LVS_REPORT + LVS_OWNERDATA + LVS_SINGLESEL)
    ::Super:New(oWnd, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint)
@@ -97,7 +97,7 @@ METHOD New(oWnd, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPai
 
    RETURN Self
 
-METHOD Activate() CLASS HGrid
+METHOD HGrid:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Listview_create(::oParent:handle, ::id, ::nX, ::nY, ::nWidth, ::nHeight, ::style, ::lNoHeader, ::lNoScroll)
@@ -106,7 +106,7 @@ METHOD Activate() CLASS HGrid
 
    RETURN NIL
 
-METHOD Init() CLASS HGrid
+METHOD HGrid:Init()
 
    LOCAL i
    LOCAL aButton := {}
@@ -157,7 +157,7 @@ METHOD Init() CLASS HGrid
 
    RETURN NIL
 
-METHOD Notify(lParam) CLASS HGrid
+METHOD HGrid:Notify(lParam)
 
    LOCAL aCord
    LOCAL nCode := hwg_Getnotifycode(lParam)

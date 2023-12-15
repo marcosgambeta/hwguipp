@@ -33,8 +33,8 @@ CLASS HDatePicker INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bGfocus, bLfocus, bChange, ;
-           ctooltip, tcolor, bcolor) CLASS HDatePicker
+METHOD HDatePicker:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bGfocus, bLfocus, bChange, ;
+           ctooltip, tcolor, bcolor)
 
    HWG_InitCommonControlsEx()
 
@@ -72,7 +72,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFon
 
    RETURN Self
 
-METHOD Activate() CLASS HDatePicker
+METHOD HDatePicker:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createdatepicker(::oParent:handle, ::id, ::nX, ::nY, ::nWidth, ::nHeight, ::style)
@@ -81,7 +81,7 @@ METHOD Activate() CLASS HDatePicker
 
    RETURN NIL
 
-METHOD Init() CLASS HDatePicker
+METHOD HDatePicker:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -94,7 +94,7 @@ METHOD Init() CLASS HDatePicker
 
    RETURN NIL
 
-METHOD Refresh() CLASS HDatePicker
+METHOD HDatePicker:Refresh()
 
    IF HB_ISBLOCK(::bSetGet)
       ::dValue := Eval(::bSetGet, NIL, Self)
@@ -108,7 +108,7 @@ METHOD Refresh() CLASS HDatePicker
 
    RETURN NIL
 
-METHOD Value(dValue) CLASS HDatePicker
+METHOD HDatePicker:Value(dValue)
 
    IF dValue != NIL
       IF ValType(dValue) == "D"

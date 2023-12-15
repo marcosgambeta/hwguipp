@@ -38,7 +38,7 @@ CLASS HComboBox INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid) CLASS HComboBox
+METHOD HComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid)
 
    IF lEdit == NIL
       lEdit := .F.
@@ -85,7 +85,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aIte
 
    RETURN Self
 
-METHOD Activate() CLASS HComboBox
+METHOD HComboBox:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createcombo(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -95,7 +95,7 @@ METHOD Activate() CLASS HComboBox
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
+METHOD HComboBox:onEvent( msg, wParam, lParam )
 
    LOCAL i
 
@@ -132,7 +132,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
    RETURN 0
 
 /* Removed: aCombo, nCurrent */
-METHOD Init() CLASS HComboBox
+METHOD HComboBox:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -154,7 +154,7 @@ METHOD Init() CLASS HComboBox
 
    RETURN NIL
 
-METHOD Refresh( xVal ) CLASS HComboBox
+METHOD HComboBox:Refresh( xVal )
 
    LOCAL vari
 
@@ -182,7 +182,7 @@ METHOD Refresh( xVal ) CLASS HComboBox
 
    RETURN NIL
 
-METHOD SetItem( nPos ) CLASS HComboBox
+METHOD HComboBox:SetItem( nPos )
 
    IF ::lText
       ::xValue := iif(HB_ISARRAY(::aItems[nPos]), ::aItems[nPos,1], ::aItems[nPos])
@@ -202,7 +202,7 @@ METHOD SetItem( nPos ) CLASS HComboBox
 
    RETURN NIL
 
-METHOD GetValue( nItem ) CLASS HComboBox
+METHOD HComboBox:GetValue( nItem )
    
    LOCAL nPos := hwg_ComboGet(::handle)
    LOCAL vari := iif(!Empty(::aItems) .AND. nPos > 0, iif(HB_ISARRAY(::aItems[1]), ::aItems[nPos,1], ::aItems[nPos]), "")
@@ -215,7 +215,7 @@ METHOD GetValue( nItem ) CLASS HComboBox
 
    RETURN iif(l .AND. nItem != NIL, iif(nItem > 0 .AND. nItem <= Len(::aItems[nPos] ), ::aItems[nPos,nItem], NIL), ::xValue)
 
-METHOD Value ( xValue ) CLASS HComboBox
+METHOD HComboBox:Value ( xValue )
 
    IF xValue != NIL
       IF HB_ISCHAR(xValue)
@@ -228,7 +228,7 @@ METHOD Value ( xValue ) CLASS HComboBox
 
    RETURN ::GetValue()
 
-METHOD End() CLASS HComboBox
+METHOD HComboBox:End()
 
    hwg_ReleaseObject(::handle)
    ::Super:End()

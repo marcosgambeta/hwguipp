@@ -47,9 +47,9 @@ CLASS HRichEdit INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
+METHOD HRichEdit:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
-      tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder) CLASS HRichEdit
+      tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder)
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
       iif(lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0))
@@ -78,7 +78,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
 
    RETURN Self
 
-METHOD Activate() CLASS HRichEdit
+METHOD HRichEdit:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createrichedit(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
@@ -87,7 +87,7 @@ METHOD Activate() CLASS HRichEdit
 
    RETURN NIL
 
-METHOD Init()  CLASS HRichEdit
+METHOD HRichEdit:Init()
 
    IF !::lInit
       ::nHolder := 1
@@ -103,7 +103,7 @@ METHOD Init()  CLASS HRichEdit
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HRichEdit
+METHOD HRichEdit:onEvent(msg, wParam, lParam)
 
    LOCAL nDelta
 
@@ -155,7 +155,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HRichEdit
 
    Return - 1
 
-METHOD Setcolor(tColor, bColor, lRedraw)  CLASS HRichEdit
+METHOD HRichEdit:Setcolor(tColor, bColor, lRedraw)
 
    IF tcolor != NIL
       hwg_re_SetDefault(::handle, tColor)
@@ -167,7 +167,7 @@ METHOD Setcolor(tColor, bColor, lRedraw)  CLASS HRichEdit
 
    RETURN NIL
 
-METHOD ReadOnly(lreadOnly)
+METHOD HRichEdit:ReadOnly(lreadOnly)
 
    IF lreadOnly != NIL
       IF !Empty(hwg_Sendmessage(::handle, EM_SETREADONLY, iif(lReadOnly, 1, 0), 0))
@@ -177,7 +177,7 @@ METHOD ReadOnly(lreadOnly)
 
    RETURN ::lReadOnly
 
-METHOD UpdatePos() CLASS HRichEdit
+METHOD HRichEdit:UpdatePos()
 
    LOCAL npos := hwg_Sendmessage(::handle, EM_GETSEL, 0, 0)
    LOCAL pos1 := hwg_Loword(npos) + 1
@@ -192,7 +192,7 @@ METHOD UpdatePos() CLASS HRichEdit
 
    RETURN nPos
 
-METHOD onChange() CLASS HRichEdit
+METHOD HRichEdit:onChange()
 
    IF HB_ISBLOCK(::bChange)
       Eval(::bChange, ::gettext(), Self)
@@ -200,14 +200,14 @@ METHOD onChange() CLASS HRichEdit
 
    RETURN NIL
 
-METHOD When() CLASS HRichEdit
+METHOD HRichEdit:When()
 
    ::title := ::GetText()
    Eval(::bGetFocus, ::title, Self)
 
    RETURN .T.
 
-METHOD Valid() CLASS HRichEdit
+METHOD HRichEdit:Valid()
 
    ::title := ::GetText()
    Eval(::bLostFocus, ::title, Self)

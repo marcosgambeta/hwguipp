@@ -46,7 +46,7 @@ CLASS VAR winclass   INIT "STATIC"
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor) CLASS HGraph
+METHOD HGraph:New(oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor)
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont, NIL, ;
               bSize, {|o, lpdis|o:Paint(lpdis)}, ctooltip, ;
@@ -60,20 +60,20 @@ METHOD New(oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, bSize, ctoo
 
    RETURN Self
 
-METHOD Activate() CLASS HGraph
+METHOD HGraph:Activate()
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN NIL
 
-METHOD Init()  CLASS HGraph
+METHOD HGraph:Init()
    IF !::lInit
       ::Super:Init()
    ENDIF
    RETURN NIL
 
-METHOD CalcMinMax() CLASS HGraph
+METHOD HGraph:CalcMinMax()
    
    LOCAL i
    LOCAL j
@@ -136,7 +136,7 @@ METHOD CalcMinMax() CLASS HGraph
 
    RETURN NIL
 
-METHOD Paint(lpdis) CLASS HGraph
+METHOD HGraph:Paint(lpdis)
 
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
    LOCAL hDC := drawInfo[3]
@@ -287,7 +287,7 @@ METHOD Paint(lpdis) CLASS HGraph
 
    RETURN NIL
 
-METHOD Rebuild(aValues, nType, nLineType, nPointSize) CLASS HGraph
+METHOD HGraph:Rebuild(aValues, nType, nLineType, nPointSize)
 
    ::aValues := aValues
    IF nType != NIL

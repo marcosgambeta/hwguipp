@@ -47,7 +47,7 @@ CLASS VAR winclass INIT "PANEL"
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle) CLASS HLenta
+METHOD HLenta:New(oWndParent, nId, nX, nY, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle)
 
    color := Iif(color == NIL, CLR_BLACK, color)
    bColor := Iif(bColor == NIL, CLR_WHITE, bColor)
@@ -65,7 +65,7 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, oFont, bSize, bPaint, bClic
 
    RETURN Self
 
-METHOD Activate() CLASS HLenta
+METHOD HLenta:Activate()
    
    LOCAL handle := ::oParent:handle
 
@@ -80,7 +80,7 @@ METHOD Activate() CLASS HLenta
 
    RETURN NIL
 
-METHOD Init() CLASS HLenta
+METHOD HLenta:Init()
 
    IF !::lInit
 
@@ -94,7 +94,7 @@ METHOD Init() CLASS HLenta
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam) CLASS HLenta
+METHOD HLenta:onEvent(msg, wParam, lParam)
 
    LOCAL xPos
    LOCAL yPos
@@ -171,7 +171,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HLenta
 
    RETURN - 1
 
-METHOD Paint() CLASS HLenta
+METHOD HLenta:Paint()
 
 #ifdef __PLATFORM__UNIX
    LOCAL hDC := hwg_Getdc(::handle)
@@ -285,7 +285,7 @@ METHOD Paint() CLASS HLenta
 
    RETURN NIL
 
-METHOD Drag(xPos, yPos) CLASS HLenta
+METHOD HLenta:Drag(xPos, yPos)
 
    LOCAL nLength := Iif(::lVertical, ::nHeight, ::nWidth)
    LOCAL nKolItems := Len(::aItems)
@@ -309,7 +309,7 @@ METHOD Drag(xPos, yPos) CLASS HLenta
 
    RETURN NIL
 
-METHOD Value(nValue) CLASS HLenta
+METHOD HLenta:Value(nValue)
 
    IF nValue != NIL .AND. nValue >= 0 .AND. !Empty(::aItems) .AND. nValue <= Len(::aItems)
       ::nSelected := nValue

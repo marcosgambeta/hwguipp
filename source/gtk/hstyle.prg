@@ -28,7 +28,7 @@ CLASS HStyle INHERIT HObject
 
 ENDCLASS
 
-METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
+METHOD HStyle:New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap )
 
    LOCAL i
    LOCAL nlen := Len(::aStyles)
@@ -66,7 +66,7 @@ METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap ) CLASS HStyle
 
    RETURN Self
 
-METHOD Draw(hDC, nLeft, nTop, nRight, nBottom) CLASS HStyle
+METHOD HStyle:Draw(hDC, nLeft, nTop, nRight, nBottom)
 
    IF ::oBitmap == NIL
       hwg_drawGradient(hDC, nLeft, nTop, nRight, nBottom, ::nOrient, ::aColors,, ::aCorners)

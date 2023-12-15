@@ -26,7 +26,7 @@ CLASS HPen INHERIT HObject
 
 ENDCLASS
 
-METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
+METHOD HPen:Add( nStyle, nWidth, nColor )
    
    LOCAL i
 
@@ -55,7 +55,7 @@ METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
 
    RETURN Self
 
-METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
+METHOD HPen:Get( nStyle, nWidth, nColor )
    
    LOCAL i
 
@@ -77,7 +77,7 @@ METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
 
    RETURN NIL
 
-METHOD RELEASE() CLASS HPen
+METHOD HPen:RELEASE()
    
    LOCAL i
    LOCAL nlen := Len(::aPens)

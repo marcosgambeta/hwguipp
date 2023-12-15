@@ -39,7 +39,7 @@ CLASS HPanel INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bColor, oStyle) CLASS HPanel
+METHOD HPanel:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bColor, oStyle)
 
    LOCAL oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
 
@@ -53,7 +53,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPain
 
    RETURN Self
 
-METHOD Activate() CLASS HPanel
+METHOD HPanel:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createpanel(Self, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -62,7 +62,7 @@ METHOD Activate() CLASS HPanel
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam )  CLASS HPanel
+METHOD HPanel:onEvent( msg, wParam, lParam )
 
    IF msg == WM_MOUSEMOVE
       IF ::lDragWin .AND. ::lCaptured
@@ -95,7 +95,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HPanel
 
    RETURN ::Super:onEvent( msg, wParam, lParam )
 
-METHOD Init() CLASS HPanel
+METHOD HPanel:Init()
 
    IF !::lInit
       IF ::bSize == NIL .AND. Empty(::Anchor)
@@ -111,7 +111,7 @@ METHOD Init() CLASS HPanel
 
    RETURN NIL
 
-METHOD DrawItems(hDC, aCoors) CLASS HPanel
+METHOD HPanel:DrawItems(hDC, aCoors)
 
    LOCAL i
    LOCAL aCB
@@ -127,7 +127,7 @@ METHOD DrawItems(hDC, aCoors) CLASS HPanel
 
    RETURN NIL
 
-METHOD Paint() CLASS HPanel
+METHOD HPanel:Paint()
 
    LOCAL hDC
    LOCAL aCoors
@@ -150,7 +150,7 @@ METHOD Paint() CLASS HPanel
 
    RETURN NIL
 
-METHOD Move( x1, y1, width, height )  CLASS HPanel
+METHOD HPanel:Move( x1, y1, width, height )
 
    LOCAL lMove := .F.
    LOCAL lSize := .F.
@@ -181,7 +181,7 @@ METHOD Move( x1, y1, width, height )  CLASS HPanel
 
    RETURN NIL
 
-METHOD SetPaintCB(nId, block, cId) CLASS HPanel
+METHOD HPanel:SetPaintCB(nId, block, cId)
 
    LOCAL i
    LOCAL nLen
@@ -213,7 +213,7 @@ METHOD SetPaintCB(nId, block, cId) CLASS HPanel
 
    RETURN NIL
 
-METHOD Drag( xPos, yPos ) CLASS HPanel
+METHOD HPanel:Drag( xPos, yPos )
 
    LOCAL oWnd := hwg_getParentForm( Self )
 
@@ -241,7 +241,7 @@ CLASS HPanelStS INHERIT HPANEL
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts ) CLASS HPanelStS
+METHOD HPanelStS:New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts )
 
    oWndParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    IF bColor == NIL
@@ -265,7 +265,7 @@ METHOD New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aPar
 
    RETURN Self
 
-METHOD Write(cText, nPart, lRedraw) CLASS HPanelStS
+METHOD HPanelStS:Write(cText, nPart, lRedraw)
 
    ::aText[Iif(nPart==NIL,1,nPart)] := cText
    IF ValType( lRedraw ) != "L" .OR. lRedraw
@@ -274,7 +274,7 @@ METHOD Write(cText, nPart, lRedraw) CLASS HPanelStS
 
    RETURN NIL
 
-METHOD PaintText(hDC) CLASS HPanelStS
+METHOD HPanelStS:PaintText(hDC)
 
    LOCAL i
    LOCAL x1
@@ -304,7 +304,7 @@ METHOD PaintText(hDC) CLASS HPanelStS
 
    RETURN NIL
 
-METHOD Paint() CLASS HPanelStS
+METHOD HPanelStS:Paint()
 
    LOCAL pps
    LOCAL hDC
@@ -344,7 +344,7 @@ CLASS HPanelHea INHERIT HPANEL
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyle, cText, xt, yt, lBtnClose, lBtnMax, lBtnMin) CLASS HPanelHea
+METHOD HPanelHea:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyle, cText, xt, yt, lBtnClose, lBtnMax, lBtnMin)
 
    LOCAL btnClose
    LOCAL btnMax
@@ -389,7 +389,7 @@ METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyl
 
    RETURN Self
 
-METHOD SetText( c , lrefresh) CLASS HPanelHea
+METHOD HPanelHea:SetText( c , lrefresh)
 // DF7BE: Set lrefresh to .T. for refreshing the header text
 // (compatibility to INLINE definition)
 
@@ -419,7 +419,7 @@ METHOD SetText( c , lrefresh) CLASS HPanelHea
 RETURN NIL
 
 
-METHOD SetSysbtnColor( tColor, bColor )
+METHOD HPanelHea:SetSysbtnColor( tColor, bColor )
 
    LOCAL oBtn
    LOCAL oPen1
@@ -442,7 +442,7 @@ METHOD SetSysbtnColor( tColor, bColor )
    ENDIF
    RETURN NIL
 
-METHOD PaintText(hDC) CLASS HPanelHea
+METHOD HPanelHea:PaintText(hDC)
 
    LOCAL x1
    LOCAL y1
@@ -464,7 +464,7 @@ METHOD PaintText(hDC) CLASS HPanelHea
 
    RETURN NIL
 
-METHOD Paint() CLASS HPanelHea
+METHOD HPanelHea:Paint()
 
    LOCAL pps
    LOCAL hDC

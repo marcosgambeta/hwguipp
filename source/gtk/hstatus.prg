@@ -24,7 +24,7 @@ CLASS HStatus INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint ) CLASS HStatus
+METHOD HStatus:New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint )
 
    nStyle := hb_bitor( iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS )
    ::Super:New( oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
@@ -34,7 +34,7 @@ METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint ) CLASS
 
    RETURN Self
 
-METHOD Activate() CLASS HStatus
+METHOD HStatus:Activate()
 
    // Variables not used
    // LOCAL aCoors
@@ -48,7 +48,7 @@ METHOD Activate() CLASS HStatus
 
    RETURN NIL
 
-METHOD Init() CLASS HStatus
+METHOD HStatus:Init()
 
    IF !::lInit
       ::Super:Init()

@@ -32,10 +32,10 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
+METHOD HBrwflt:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
-      lDescend, bWhile, bFirst, bLast, bFor, bRClick) CLASS HBrwflt
+      lDescend, bWhile, bFirst, bLast, bFor, bRClick)
 
    ::lDescend := Iif(lDescend == NIL, .F., lDescend)
 
@@ -61,7 +61,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, lNoBorder, ;
       lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick)
 
-METHOD InitBrw()  CLASS HBrwFlt
+METHOD HBrwflt:InitBrw()
 
    ::Super:InitBrw()
 
@@ -87,7 +87,7 @@ METHOD InitBrw()  CLASS HBrwFlt
 
    RETURN NIL
 
-METHOD Refresh(lFull) CLASS HBrwFlt
+METHOD HBrwflt:Refresh(lFull)
 
    IF lFull == NIL .OR. lFull
       IF ::lFilter

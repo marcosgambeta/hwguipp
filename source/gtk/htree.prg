@@ -88,11 +88,11 @@ CLASS HTree INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
-      bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC ) CLASS HTree
-   
+METHOD HTree:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
+      bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC )
+
    LOCAL i
-   
+
    // Variables not used
    // LOCAL aBmpSize
 
@@ -125,7 +125,7 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
 
    RETURN Self
 
-METHOD Init() CLASS HTree
+METHOD HTree:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -133,7 +133,7 @@ METHOD Init() CLASS HTree
 
    RETURN NIL
 
-METHOD Activate() CLASS HTree
+METHOD HTree:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbrowse( Self )
@@ -142,7 +142,7 @@ METHOD Activate() CLASS HTree
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam )  CLASS HTree
+METHOD HTree:onEvent( msg, wParam, lParam )
 
    LOCAL retValue := -1
    // Variables not used
@@ -214,7 +214,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HTree
 
    RETURN retValue
 
-METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages ) CLASS HTree
+METHOD HTree:AddNode( cTitle, oPrev, oNext, bClick, aImages )
    
    LOCAL oNode := HTreeNode():New( Self, Self, oPrev, oNext, cTitle, bClick, aImages )
 
@@ -222,7 +222,7 @@ METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages ) CLASS HTree
 
    RETURN oNode
 
-METHOD SELECT( oNode, lNoRedraw ) CLASS HTree
+METHOD HTree:SELECT( oNode, lNoRedraw )
 
    LOCAL oParent := oNode
 
@@ -243,7 +243,7 @@ METHOD SELECT( oNode, lNoRedraw ) CLASS HTree
 
    RETURN NIL
 
-METHOD Clean() CLASS HTree
+METHOD HTree:Clean()
 
    ::lEmpty := .T.
    ReleaseTree(::aItems, .T.)
@@ -255,13 +255,13 @@ METHOD Clean() CLASS HTree
 
    RETURN NIL
 
-METHOD Refresh() CLASS HTree
+METHOD HTree:Refresh()
 
    hwg_Redrawwindow(::area)
 
    RETURN NIL
 
-METHOD Paint() CLASS HTree
+METHOD HTree:Paint()
    
    LOCAL hDC
    LOCAL aCoors
@@ -323,7 +323,7 @@ METHOD Paint() CLASS HTree
    RETURN NIL
 
 /* Added: nNode */
-METHOD PaintNode(hDC, oNode, nNode, nLine) CLASS HTree
+METHOD HTree:PaintNode(hDC, oNode, nNode, nLine)
    
    LOCAL y1 := (::height + 1) * (nLine - 1) + 1
    LOCAL x1 := 10 + oNode:nLevel * ::nIndent
@@ -381,7 +381,7 @@ METHOD PaintNode(hDC, oNode, nNode, nLine) CLASS HTree
 
    RETURN NIL
 
-METHOD ButtonDown( lParam )  CLASS HTree
+METHOD HTree:ButtonDown( lParam )
    
    LOCAL nLine := Int( hwg_Hiword(lParam) / (::height + 1) ) + 1
    LOCAL xm := hwg_Loword(lParam)
@@ -415,13 +415,13 @@ METHOD ButtonDown( lParam )  CLASS HTree
 
    RETURN 0
 
-METHOD ButtonUp( lParam ) CLASS HTree
+METHOD HTree:ButtonUp( lParam )
 
    HB_SYMBOL_UNUSED(lParam)
 
    RETURN 0
 
-METHOD ButtonDbl( lParam ) CLASS HTree
+METHOD HTree:ButtonDbl( lParam )
    
    LOCAL nLine := Int( hwg_Hiword(lParam) / (::height + 1) ) + 1
    LOCAL xm := hwg_Loword(lParam)
@@ -449,7 +449,7 @@ METHOD ButtonDbl( lParam ) CLASS HTree
 
    RETURN 0
 
-METHOD ButtonRDown( lParam ) CLASS HTree
+METHOD HTree:ButtonRDown( lParam )
    
    LOCAL nLine := Int( hwg_Hiword(lParam) / (::height + 1) ) + 1
    LOCAL xm := hwg_Loword(lParam)
@@ -477,7 +477,7 @@ METHOD ButtonRDown( lParam ) CLASS HTree
 
    RETURN 0
 
-METHOD GoDown( n ) CLASS HTree
+METHOD HTree:GoDown( n )
 
    IF Empty(::aItems)
       RETURN 0
@@ -492,7 +492,7 @@ METHOD GoDown( n ) CLASS HTree
 
    RETURN 0
 
-METHOD GoUp( n ) CLASS HTree
+METHOD HTree:GoUp( n )
 
    IF Empty(::aItems)
       RETURN 0
@@ -511,7 +511,7 @@ METHOD GoUp( n ) CLASS HTree
 
    RETURN 0
 
-METHOD MouseWheel( nKeys, nDelta )  CLASS HTree
+METHOD HTree:MouseWheel( nKeys, nDelta )
 
    IF hb_bitand( nKeys, MK_MBUTTON ) != 0
       IF nDelta > 0
@@ -529,11 +529,11 @@ METHOD MouseWheel( nKeys, nDelta )  CLASS HTree
 
    RETURN 0
 
-METHOD DoHScroll() CLASS HTree
+METHOD HTree:DoHScroll()
 
    RETURN 0
 
-METHOD DoVScroll() CLASS HTree
+METHOD HTree:DoVScroll()
    
    LOCAL nScrollV := hwg_getAdjValue(::hScrollV)
 
@@ -554,7 +554,7 @@ METHOD DoVScroll() CLASS HTree
 
    RETURN 0
 
-METHOD End() CLASS HTree
+METHOD HTree:End()
 
    LOCAL j
 

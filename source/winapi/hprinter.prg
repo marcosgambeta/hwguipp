@@ -141,7 +141,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
 RETURN aTooltips
 
-METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn) CLASS HPrinter
+METHOD HPrinter:New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn)
 
    LOCAL aPrnCoors
    LOCAL cPrinterName
@@ -230,11 +230,11 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
 
    RETURN Self
 
-METHOD DefaultLang() CLASS HPrinter
+METHOD HPrinter:DefaultLang()
   ::aLangTexts := hwg_HPrinter_LangArray_EN()
 RETURN NIL  
 
-METHOD SetMode(nOrientation, nDuplex) CLASS HPrinter
+METHOD HPrinter:SetMode(nOrientation, nDuplex)
 
    LOCAL hPrinter := ::hPrinter
    LOCAL hDC
@@ -270,7 +270,7 @@ METHOD SetMode(nOrientation, nDuplex) CLASS HPrinter
    ENDIF
    RETURN .F.
 
-METHOD AddFont(fontName, nHeight, lBold, lItalic, lUnderline, nCharset) CLASS HPrinter
+METHOD HPrinter:AddFont(fontName, nHeight, lBold, lItalic, lUnderline, nCharset)
 
    LOCAL oFont
 
@@ -282,7 +282,7 @@ METHOD AddFont(fontName, nHeight, lBold, lItalic, lUnderline, nCharset) CLASS HP
       Iif(lItalic != NIL .AND. lItalic, 255, 0), Iif(lUnderline != NIL .AND. lUnderline, 1, 0))
    RETURN oFont
 
-METHOD End() CLASS HPrinter
+METHOD HPrinter:End()
 
    IF !Empty(::hDCPrn)
       IF ::lBuffPrn
@@ -300,7 +300,7 @@ METHOD End() CLASS HPrinter
 
    RETURN NIL
 
-METHOD ReleaseRes() CLASS HPrinter
+METHOD HPrinter:ReleaseRes()
    
    LOCAL i
 
@@ -327,7 +327,7 @@ METHOD ReleaseRes() CLASS HPrinter
 
    RETURN NIL
 
-METHOD Recalc(x1, y1, x2, y2) CLASS HPrinter
+METHOD HPrinter:Recalc(x1, y1, x2, y2)
 
    IF ::lmm
       x1 := Round(x1 * ::nHRes, 1)
@@ -338,7 +338,7 @@ METHOD Recalc(x1, y1, x2, y2) CLASS HPrinter
 
    RETURN NIL
 
-METHOD Box(x1, y1, x2, y2, oPen, oBrush) CLASS HPrinter
+METHOD HPrinter:Box(x1, y1, x2, y2, oPen, oBrush)
 
    ::Recalc(@x1, @y1, @x2, @y2)
 
@@ -367,7 +367,7 @@ METHOD Box(x1, y1, x2, y2, oPen, oBrush) CLASS HPrinter
 
    RETURN NIL
 
-METHOD Line(x1, y1, x2, y2, oPen) CLASS HPrinter
+METHOD HPrinter:Line(x1, y1, x2, y2, oPen)
 
    ::Recalc(@x1, @y1, @x2, @y2)
 
@@ -392,7 +392,7 @@ METHOD Line(x1, y1, x2, y2, oPen) CLASS HPrinter
 
    RETURN NIL
 
-METHOD Say(cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor) CLASS HPrinter
+METHOD HPrinter:Say(cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor)
 
    LOCAL hFont
    LOCAL nOldTC
@@ -450,7 +450,7 @@ METHOD Say(cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor) CLASS HPr
 
    RETURN NIL
 
-METHOD Bitmap(x1, y1, x2, y2, nOpt, hBitmap, cImageName) CLASS HPrinter
+METHOD HPrinter:Bitmap(x1, y1, x2, y2, nOpt, hBitmap, cImageName)
 
    ::Recalc(@x1, @y1, @x2, @y2)
 
@@ -467,7 +467,7 @@ METHOD Bitmap(x1, y1, x2, y2, nOpt, hBitmap, cImageName) CLASS HPrinter
 
    RETURN NIL
 
-METHOD GetTextWidth(cString, oFont) CLASS HPrinter
+METHOD HPrinter:GetTextWidth(cString, oFont)
 
    LOCAL arr
    LOCAL hFont
@@ -483,7 +483,7 @@ METHOD GetTextWidth(cString, oFont) CLASS HPrinter
 
    RETURN Iif(::lmm, Int(arr[1] / ::nHRes), arr[1])
 
-METHOD StartDoc(lPreview, cScriptFile, lprbutton) CLASS HPrinter
+METHOD HPrinter:StartDoc(lPreview, cScriptFile, lprbutton)
 
    LOCAL nRes := 0
    
@@ -515,7 +515,7 @@ METHOD StartDoc(lPreview, cScriptFile, lprbutton) CLASS HPrinter
 
    RETURN nRes
 
-METHOD EndDoc() CLASS HPrinter
+METHOD HPrinter:EndDoc()
 
    LOCAL  nRes := 0
    
@@ -532,7 +532,7 @@ METHOD EndDoc() CLASS HPrinter
 
    RETURN nRes
 
-METHOD StartPage() CLASS HPrinter
+METHOD HPrinter:StartPage()
 
    LOCAL nRes := 0
    
@@ -553,7 +553,7 @@ METHOD StartPage() CLASS HPrinter
 
    RETURN nRes
 
-METHOD EndPage() CLASS HPrinter
+METHOD HPrinter:EndPage()
 
    LOCAL nLen
    LOCAL nRes := 0
@@ -570,7 +570,7 @@ METHOD EndPage() CLASS HPrinter
 
    RETURN nRes
 
-METHOD LoadScript(cScriptFile) CLASS HPrinter
+METHOD HPrinter:LoadScript(cScriptFile)
 
    LOCAL arr
    LOCAL i
@@ -600,7 +600,7 @@ METHOD LoadScript(cScriptFile) CLASS HPrinter
 
    RETURN !Empty(::aPages)
 
-METHOD SaveScript(cScriptFile) CLASS HPrinter
+METHOD HPrinter:SaveScript(cScriptFile)
 
    LOCAL han
    LOCAL i
@@ -627,7 +627,7 @@ METHOD SaveScript(cScriptFile) CLASS HPrinter
 
    RETURN NIL
 
-METHOD ReleaseMeta() CLASS HPrinter
+METHOD HPrinter:ReleaseMeta()
 
    LOCAL i
    LOCAL nLen
@@ -644,7 +644,7 @@ METHOD ReleaseMeta() CLASS HPrinter
 
    RETURN NIL
 
-METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
+METHOD HPrinter:Preview(cTitle, aBitmaps, aTooltips, aBootUser)
 
 /*
 aBootUser[1] : oBtn:bClick
@@ -858,7 +858,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    RETURN NIL
 
-METHOD ChangePage(oCanvas, oSayPage, n, nPage) CLASS hPrinter
+METHOD HPrinter:ChangePage(oCanvas, oSayPage, n, nPage)
 
    IF nPage == NIL
       IF n == 0
@@ -888,7 +888,7 @@ METHOD ChangePage(oCanvas, oSayPage, n, nPage) CLASS hPrinter
  nZoom: zoom factor: -1 or 1, NIL if scroll message
 */
 
-METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) CLASS hPrinter
+METHOD HPrinter:ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam)
 
    LOCAL nWidth
    LOCAL nHeight
@@ -1058,7 +1058,7 @@ METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) CLASS hPrinter
 
    RETURN NIL
 
-METHOD PaintDoc(oWnd) CLASS HPrinter
+METHOD HPrinter:PaintDoc(oWnd)
 
    LOCAL pps
    LOCAL hDC
@@ -1125,7 +1125,7 @@ METHOD PaintDoc(oWnd) CLASS HPrinter
 
    RETURN NIL
 
-METHOD PrintDoc(nPage) CLASS HPrinter
+METHOD HPrinter:PrintDoc(nPage)
    
    LOCAL hDCBuff
    LOCAL cPrinterName
@@ -1200,7 +1200,7 @@ METHOD PrintDoc(nPage) CLASS HPrinter
 
    RETURN NIL
 
-METHOD PrintDlg(aTooltips) CLASS HPrinter
+METHOD HPrinter:PrintDlg(aTooltips)
    
    LOCAL oDlg
    LOCAL oGet
@@ -1259,7 +1259,7 @@ METHOD PrintDlg(aTooltips) CLASS HPrinter
 
    RETURN NIL
 
-METHOD PrintScript(hDC, nPage, x1, y1, x2, y2) CLASS HPrinter
+METHOD HPrinter:PrintScript(hDC, nPage, x1, y1, x2, y2)
 
    LOCAL i
    LOCAL j

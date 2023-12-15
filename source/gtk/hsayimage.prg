@@ -25,7 +25,7 @@ CLASS HSayImage INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor) CLASS HSayImage
+METHOD HSayImage:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor)
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, Iif(nWidth != NIL, nWidth, 0), iif(nHeight != NIL, nHeight, 0), NIL, bInit, bSize, NIL, ctoolt, NIL, bColor)
 
@@ -35,7 +35,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctool
 
    RETURN Self
 
-METHOD Activate() CLASS HSayImage
+METHOD HSayImage:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)

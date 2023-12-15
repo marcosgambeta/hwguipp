@@ -28,7 +28,7 @@ CLASS HRadioGroup INHERIT HObject
 
 ENDCLASS
 
-METHOD New( vari, bSetGet ) CLASS HRadioGroup
+METHOD HRadioGroup:New( vari, bSetGet )
 
    ::oGroupCurrent := Self
    ::aButtons := {}
@@ -42,8 +42,8 @@ METHOD New( vari, bSetGet ) CLASS HRadioGroup
 
    RETURN Self
 
-METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, tcolor, bColor ) CLASS HRadioGroup
+METHOD HRadioGroup:NewRg( oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, ;
+      cCaption, oFont, bInit, bSize, tcolor, bColor )
 
    ::oGroupCurrent := Self
    ::aButtons := {}
@@ -60,7 +60,7 @@ METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, ;
 
    RETURN Self
 
-METHOD EndGroup( nSelected )  CLASS HRadioGroup
+METHOD HRadioGroup:EndGroup( nSelected )
    
    LOCAL nLen
 
@@ -76,7 +76,7 @@ METHOD EndGroup( nSelected )  CLASS HRadioGroup
 
    RETURN NIL
 
-METHOD Value( nValue ) CLASS HRadioGroup
+METHOD HRadioGroup:Value( nValue )
    
    LOCAL nLen
 

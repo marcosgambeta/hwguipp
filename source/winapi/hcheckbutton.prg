@@ -29,8 +29,8 @@ CLASS HCheckButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
-      bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lTransp, bLFocus) CLASS HCheckButton
+METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
+      bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lTransp, bLFocus)
 
    IF pcount() == 0
       ::Super:New(NIL, NIL, BS_AUTO3STATE + WS_TABSTOP, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL, NIL, NIL)
@@ -66,7 +66,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCap
 
    RETURN Self
 
-METHOD Activate() CLASS HCheckButton
+METHOD HCheckButton:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
@@ -75,7 +75,7 @@ METHOD Activate() CLASS HCheckButton
 
    RETURN NIL
 
-METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus) CLASS HCheckButton
+METHOD HCheckButton:Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus)
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
@@ -91,7 +91,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bCl
 
    RETURN Self
 
-METHOD Init() CLASS HCheckButton
+METHOD HCheckButton:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -102,7 +102,7 @@ METHOD Init() CLASS HCheckButton
 
    RETURN NIL
 
-METHOD Refresh() CLASS HCheckButton
+METHOD HCheckButton:Refresh()
 
    LOCAL var
 
@@ -115,21 +115,21 @@ METHOD Refresh() CLASS HCheckButton
 
    RETURN NIL
 
-METHOD Disable() CLASS HCheckButton
+METHOD HCheckButton:Disable()
 
    ::Super:Disable()
    hwg_Sendmessage(::handle, BM_SETCHECK, BST_INDETERMINATE, 0)
 
    RETURN NIL
 
-METHOD Enable() CLASS HCheckButton
+METHOD HCheckButton:Enable()
 
    ::Super:Enable()
    hwg_Sendmessage(::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0)
 
    RETURN NIL
 
-METHOD Value(lValue) CLASS HCheckButton
+METHOD HCheckButton:Value(lValue)
 
    IF lValue != NIL
       IF ValType(lValue) != "L"

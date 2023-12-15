@@ -16,8 +16,8 @@ CLASS HSayIcon INHERIT HSayImage
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
-      bSize, ctoolt ) CLASS HSayIcon
+METHOD HSayIcon:New( oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
+      bSize, ctoolt )
 
    ::Super:New( oWndParent, nId, SS_ICON, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt )
 

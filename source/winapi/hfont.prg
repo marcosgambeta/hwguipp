@@ -28,7 +28,7 @@ CLASS HFont INHERIT HObject
 
 ENDCLASS
 
-METHOD Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle) CLASS HFont
+METHOD HFont:Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle)
 
    LOCAL i
    LOCAL nlen := Len(::aFonts)
@@ -78,7 +78,7 @@ METHOD Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderl
 
    RETURN Self
 
-METHOD SELECT(oFont, nCharSet) CLASS HFont
+METHOD HFont:SELECT(oFont, nCharSet)
    
    LOCAL af := hwg_Selectfont(oFont)
 
@@ -88,7 +88,7 @@ METHOD SELECT(oFont, nCharSet) CLASS HFont
 
    RETURN ::Add(af[2], af[3], af[4], af[5], iif(Empty(nCharSet), af[6], nCharSet), af[7], af[8], af[9], af[1])
 
-METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight) CLASS HFont
+METHOD HFont:SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight)
    
    LOCAL weight
    LOCAL Italic
@@ -108,7 +108,7 @@ METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight) CLASS HF
 
    RETURN HFont():Add(::name, ::width, nheight, weight, nCharSet, Italic, Underline, StrikeOut) // ::handle)
 
-METHOD RELEASE() CLASS HFont
+METHOD HFont:RELEASE()
    
    LOCAL i
    LOCAL nlen := Len(::aFonts)
@@ -128,7 +128,7 @@ METHOD RELEASE() CLASS HFont
    RETURN NIL
 
 /* DF7BE: For debugging purposes */
-METHOD PrintFont()  CLASS HFont
+METHOD HFont:PrintFont()
 //        fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
 // Type:  C         N       N         N         N           N          N             N
 // - 9999 means NIL
@@ -163,7 +163,7 @@ RETURN "Font Name=" + fontName + " Width=" + ALLTRIM(STR(nWidth)) + " Height=" +
    apffrarr := oFont1:Props2Arr()
    oFont2 := HFont():Add(apffrarr[1], apffrarr[2], apffrarr[3], apffrarr[4], apffrarr[5], apffrarr[6], apffrarr[7], apffrarr[8])
  */
-METHOD Props2Arr() CLASS HFont
+METHOD HFont:Props2Arr()
 //        fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
 //        1         2       3         4         5           6          7             8
    LOCAL fontName

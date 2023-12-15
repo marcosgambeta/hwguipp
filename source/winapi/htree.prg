@@ -88,7 +88,7 @@ CLASS HTreeNode INHERIT HObject
 
 ENDCLASS
 
-METHOD New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages) CLASS HTreeNode
+METHOD HTreeNode:New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
    
    LOCAL aItems
    LOCAL i
@@ -168,14 +168,14 @@ METHOD New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages) CLASS HTreeNod
 
    RETURN Self
 
-METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages) CLASS HTreeNode
+METHOD HTreeNode:AddNode(cTitle, oPrev, oNext, bClick, aImages)
    
    LOCAL oParent := Self
    LOCAL oNode := HTreeNode():New(::oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
 
    RETURN oNode
 
-METHOD Delete(lInternal) CLASS HTreeNode
+METHOD HTreeNode:Delete(lInternal)
    
    LOCAL h := ::handle
    LOCAL j
@@ -201,7 +201,7 @@ METHOD Delete(lInternal) CLASS HTreeNode
 
    RETURN NIL
 
-METHOD FindChild(h) CLASS HTreeNode
+METHOD HTreeNode:FindChild(h)
    
    LOCAL aItems := ::aItems
    LOCAL i
@@ -246,8 +246,8 @@ CLASS VAR winclass   INIT "SysTreeView32"
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
-           bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC) CLASS HTree
+METHOD HTree:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
+           bInit, bSize, color, bcolor, aImages, lResour, lEditLabels, bClick, nBC)
    
    LOCAL i
    LOCAL aBmpSize
@@ -278,7 +278,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
 
    RETURN Self
 
-METHOD Init() CLASS HTree
+METHOD HTree:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -289,7 +289,7 @@ METHOD Init() CLASS HTree
 
    RETURN NIL
 
-METHOD Activate() CLASS HTree
+METHOD HTree:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createtree(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::tcolor, ::bcolor)
@@ -298,14 +298,14 @@ METHOD Activate() CLASS HTree
 
    RETURN NIL
 
-METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages) CLASS HTree
+METHOD HTree:AddNode(cTitle, oPrev, oNext, bClick, aImages)
    
    LOCAL oNode := HTreeNode():New(Self, NIL, oPrev, oNext, cTitle, bClick, aImages)
 
    ::lEmpty := .F.
    RETURN oNode
 
-METHOD FindChild(h) CLASS HTree
+METHOD HTree:FindChild(h)
    
    LOCAL aItems := ::aItems
    LOCAL i
@@ -323,7 +323,7 @@ METHOD FindChild(h) CLASS HTree
    NEXT
    RETURN NIL
 
-METHOD Clean() CLASS HTree
+METHOD HTree:Clean()
 
    ::lEmpty := .T.
    ReleaseTree(::aItems)
@@ -332,7 +332,7 @@ METHOD Clean() CLASS HTree
 
    RETURN NIL
 
-METHOD Notify(lParam)  CLASS HTree
+METHOD HTree:Notify(lParam)
    
    LOCAL nCode := hwg_Getnotifycode(lParam)
    LOCAL oItem
@@ -401,7 +401,7 @@ METHOD Notify(lParam)  CLASS HTree
 
    RETURN 0
 
-METHOD End() CLASS HTree
+METHOD HTree:End()
 
    ::Super:End()
 

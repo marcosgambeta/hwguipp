@@ -29,7 +29,7 @@ CLASS HMonthCalendar INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, lWeekNumbers) CLASS HMonthCalendar
+METHOD HMonthCalendar:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, lWeekNumbers)
 
    HB_SYMBOL_UNUSED(lNoToday)
    HB_SYMBOL_UNUSED(lNoTodayCircle)
@@ -42,7 +42,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, oFont, bInit,
 
 RETURN Self
 
-METHOD Activate() CLASS HMonthCalendar
+METHOD HMonthCalendar:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Initmonthcalendar(::oParent:handle, NIL, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -53,7 +53,7 @@ METHOD Activate() CLASS HMonthCalendar
 
 RETURN NIL
 
-METHOD Init() CLASS HMonthCalendar
+METHOD HMonthCalendar:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -64,7 +64,7 @@ METHOD Init() CLASS HMonthCalendar
 
 RETURN NIL
 
-METHOD Value(dValue) CLASS HMonthCalendar
+METHOD HMonthCalendar:Value(dValue)
 
    IF dValue != NIL
       IF ValType(dValue) == "D" .AND. !Empty(dValue)

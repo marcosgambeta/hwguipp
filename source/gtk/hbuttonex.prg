@@ -27,7 +27,7 @@ CLASS HButtonEX INHERIT HButton
 END CLASS
 
 /* Removed: bClick  Added: hBitmap, iStyle, Transp */
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, hBitmap, iStyle, hIcon, Transp) CLASS HButtonEx
+METHOD HButtonEx:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, hBitmap, iStyle, hIcon, Transp)
 
    HB_SYMBOL_UNUSED(Transp)
    HB_SYMBOL_UNUSED(iStyle)
@@ -39,7 +39,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
 
    RETURN Self
 
-METHOD Activate() CLASS HButtonEX
+METHOD HButtonEx:Activate()
 
    IF !Empty(::oParent:handle)
       IF !Empty(::hBitmap)

@@ -19,7 +19,7 @@ CLASS HGroup INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor) CLASS HGroup
+METHOD HGroup:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor)
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_GROUPBOX)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, NIL, tcolor, bColor)
@@ -29,7 +29,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
 
    RETURN Self
 
-METHOD Activate() CLASS HGroup
+METHOD HGroup:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)

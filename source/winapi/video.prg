@@ -33,7 +33,7 @@ ENDCLASS
 //----------------------------------------------------------------------------//
 
 /*  removed: bWhen, bValid */
-METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CLASS TVideo
+METHOD TVideo:New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid)
 
    DEFAULT nWidth TO 200, nHeight TO 200, cFileName TO "", lNoBorder TO .F.
 
@@ -60,7 +60,7 @@ METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CLASS T
 
 //----------------------------------------------------------------------------//
 
-METHOD ReDefine(nId, cFileName, oDlg, bWhen, bValid) CLASS TVideo
+METHOD TVideo:ReDefine(nId, cFileName, oDlg, bWhen, bValid)
 
    ::nId      = nId
    ::cAviFile = cFileName
@@ -75,7 +75,7 @@ METHOD ReDefine(nId, cFileName, oDlg, bWhen, bValid) CLASS TVideo
 
 //----------------------------------------------------------------------------//
 
-METHOD Initiate() CLASS TVideo
+METHOD TVideo:Initiate()
 
    ::Super:Init()
    ::oMci:lOpen()

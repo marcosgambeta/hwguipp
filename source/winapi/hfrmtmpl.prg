@@ -79,7 +79,7 @@ CLASS HCtrlTmpl
 
 ENDCLASS
 
-METHOD F(nId) CLASS HCtrlTmpl
+METHOD HCtrlTmpl:F(nId)
    
    LOCAL i
    LOCAL aControls := ::aControls
@@ -136,14 +136,14 @@ CLASS HFormTmpl
 
 ENDCLASS
 
-METHOD DefaultLang() CLASS HFormTmpl
+METHOD HFormTmpl:DefaultLang()
   ::cTextCantOpenF      := "Can't open"
   ::cTextInvClMemb      := "Invalid class member"
   ::cTextFrmRepDescnotF := "Form description isn't found"
   ::cTextRepDescnotF    := "Report description isn't found"
 RETURN NIL
 
-METHOD Read(fname, cId) CLASS HFormTmpl
+METHOD HFormTmpl:Read(fname, cId)
    
    LOCAL oDoc
    LOCAL i
@@ -232,7 +232,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
 
    RETURN Self
 
-METHOD Show(nMode, p1, p2, p3) CLASS HFormTmpl
+METHOD HFormTmpl:Show(nMode, p1, p2, p3)
    
    LOCAL i
    LOCAL j
@@ -490,7 +490,7 @@ METHOD Show(nMode, p1, p2, p3) CLASS HFormTmpl
 
    RETURN NIL
 
-METHOD F(id, n) CLASS HFormTmpl
+METHOD HFormTmpl:F(id, n)
    
    LOCAL i := Ascan(::aForms, {|o|o:id == id})
 
@@ -500,13 +500,13 @@ METHOD F(id, n) CLASS HFormTmpl
 
    RETURN Iif(i == 0, NIL, ::aForms[i])
 
-METHOD Find(cId) CLASS HFormTmpl
+METHOD HFormTmpl:Find(cId)
    
    LOCAL i := Ascan(::aForms, {|o|o:cId != NIL .AND. o:cId == cId})
 
    RETURN Iif(i == 0, NIL, ::aForms[i])
 
-METHOD Close() CLASS HFormTmpl
+METHOD HFormTmpl:Close()
    
    LOCAL i := Ascan(::aForms, {|o|o:id == ::id})
 
@@ -517,7 +517,7 @@ METHOD Close() CLASS HFormTmpl
 
    RETURN NIL
 
-METHOD OnError(xValue) CLASS HFormTmpl
+METHOD HFormTmpl:OnError(xValue)
 
    LOCAL cMsg := Lower(__GetMessage())
    LOCAL oError
@@ -1242,11 +1242,11 @@ CLASS HRepTmpl
 
 ENDCLASS
 
-METHOD DefaultLang() CLASS HRepTmpl
+METHOD HRepTmpl:DefaultLang()
   ::cTextFrmRepDescnotF := "Form description isn't found"
 RETURN NIL
 
-METHOD READ(fname, cId) CLASS HRepTmpl
+METHOD HRepTmpl:READ(fname, cId)
    
    LOCAL oDoc
    LOCAL i
@@ -1324,7 +1324,7 @@ METHOD READ(fname, cId) CLASS HRepTmpl
 
    RETURN Self
 
-METHOD PRINT(printer, lPreview, p1, p2, p3, p4, p5) CLASS HRepTmpl
+METHOD HRepTmpl:PRINT(printer, lPreview, p1, p2, p3, p4, p5)
    
    LOCAL oPrinter := Iif(printer != NIL, Iif(HB_ISOBJECT(printer), printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
    LOCAL i
@@ -1428,7 +1428,7 @@ METHOD PRINT(printer, lPreview, p1, p2, p3, p4, p5) CLASS HRepTmpl
 
    RETURN NIL
 
-METHOD PrintAsPage(printer, nPageType, lPreview, p1, p2, p3, p4, p5) CLASS HRepTmpl
+METHOD HRepTmpl:PrintAsPage(printer, nPageType, lPreview, p1, p2, p3, p4, p5)
    
    LOCAL oPrinter := Iif(printer != NIL, Iif(HB_ISOBJECT(printer), printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
    LOCAL i
@@ -1534,7 +1534,7 @@ METHOD PrintAsPage(printer, nPageType, lPreview, p1, p2, p3, p4, p5) CLASS HRepT
 
    RETURN NIL
 
-METHOD PrintItem(oItem) CLASS HRepTmpl
+METHOD HRepTmpl:PrintItem(oItem)
    
    LOCAL aMethod
    LOCAL lRes := .T.
@@ -1746,7 +1746,7 @@ METHOD PrintItem(oItem) CLASS HRepTmpl
 
    RETURN NIL
 
-METHOD ReleaseObj(aControls) CLASS HRepTmpl
+METHOD HRepTmpl:ReleaseObj(aControls)
    
    LOCAL i
 
@@ -1772,13 +1772,13 @@ METHOD ReleaseObj(aControls) CLASS HRepTmpl
 
    RETURN NIL
 
-METHOD Find(cId) CLASS HRepTmpl
+METHOD HRepTmpl:Find(cId)
    
    LOCAL i := Ascan(::aReports, {|o|o:cId != NIL .AND. o:cId == cId})
 
    RETURN Iif(i == 0, NIL, ::aReports[i])
 
-METHOD CLOSE() CLASS HRepTmpl
+METHOD HRepTmpl:CLOSE()
    
    LOCAL i := Ascan(::aReports, {|o|o:id == ::id})
 

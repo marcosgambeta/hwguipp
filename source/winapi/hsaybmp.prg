@@ -31,8 +31,8 @@ CLASS HSayBmp INHERIT HSayImage
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
-      bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, trcolor, bColor) CLASS HSayBmp
+METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
+      bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, trcolor, bColor)
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor)
 
@@ -59,7 +59,7 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, ;
    RETURN Self
 
 /* Image ==> xImage */   
-METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) CLASS HSayBmp
+METHOD HSayBmp:Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp)
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    ::bPaint := {|o, lpdis|o:Paint(lpdis)}
@@ -73,7 +73,7 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) 
 
    RETURN Self
 
-METHOD Init() CLASS HSayBmp
+METHOD HSayBmp:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -84,7 +84,7 @@ METHOD Init() CLASS HSayBmp
 
    RETURN NIL
 
-METHOD Paint(lpdis) CLASS HSayBmp
+METHOD HSayBmp:Paint(lpdis)
    
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
    LOCAL n
@@ -126,7 +126,7 @@ METHOD Paint(lpdis) CLASS HSayBmp
 
    RETURN NIL
 
-METHOD ReplaceBitmap(Image, lRes) CLASS HSayBmp
+METHOD HSayBmp:ReplaceBitmap(Image, lRes)
 
    IF ::oImage != NIL
       ::oImage:Release()

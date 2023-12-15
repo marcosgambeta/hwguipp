@@ -19,7 +19,7 @@ CLASS HCLIENTDC FROM HDC
 
 ENDCLASS
 
-METHOD NEW(nWnd) CLASS HCLIENTDC
+METHOD HCLIENTDC:NEW(nWnd)
 
    ::Super:new()
    ::m_hWnd := nWnd
@@ -27,7 +27,7 @@ METHOD NEW(nWnd) CLASS HCLIENTDC
 
    RETURN Self
 
-METHOD END () CLASS HCLIENTDC
+METHOD HCLIENTDC:END()
 
    hwg_Releasedc(::m_hWnd, ::m_hDC)
    ::m_hDC       := NIL

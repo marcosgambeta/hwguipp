@@ -24,7 +24,7 @@ CLASS HBrush INHERIT HObject
 
 ENDCLASS
 
-METHOD Add( nColor ) CLASS HBrush
+METHOD HBrush:Add( nColor )
    
    LOCAL i
 
@@ -41,7 +41,7 @@ METHOD Add( nColor ) CLASS HBrush
 
    RETURN Self
 
-METHOD RELEASE() CLASS HBrush
+METHOD HBrush:RELEASE()
    
    LOCAL i
    LOCAL nlen := Len(::aBrushes)

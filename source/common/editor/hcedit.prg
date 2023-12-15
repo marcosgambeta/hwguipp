@@ -273,7 +273,7 @@ CLASS HCEdit INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, tcolor, bcolor, bGfocus, bLfocus, lNoVScroll, lNoBorder) CLASS HCEdit
+METHOD HCEdit:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, tcolor, bcolor, bGfocus, bLfocus, lNoVScroll, lNoBorder)
 
    ::DefaultLang()
 
@@ -326,18 +326,18 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
 
    RETURN Self
 
-METHOD DefaultLang() CLASS HCEdit
+METHOD HCEdit:DefaultLang()
   ::aLangTexts := hwg_HPrinter_LangArray_EN()
 RETURN NIL
 
-METHOD Open(cFileName, cPageIn, cPageOut) CLASS HCEdit
+METHOD HCEdit:Open(cFileName, cPageIn, cPageOut)
 
    ::SetText(MemoRead(cFileName), cPageIn, cPageOut)
    ::cFileName := cFileName
 
    RETURN NIL
 
-METHOD Activate() CLASS HCEdit
+METHOD HCEdit:Activate()
 
 #ifdef __GTK__
    LOCAL nw
@@ -363,7 +363,7 @@ METHOD Activate() CLASS HCEdit
 
    RETURN NIL
 
-METHOD Init() CLASS HCEdit
+METHOD HCEdit:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -399,7 +399,7 @@ METHOD Init() CLASS HCEdit
 
    RETURN NIL
 
-METHOD SetHili(xGroup, oFont, tColor, bColor) CLASS HCEdit
+METHOD HCEdit:SetHili(xGroup, oFont, tColor, bColor)
 
    LOCAL arr
 
@@ -418,7 +418,7 @@ METHOD SetHili(xGroup, oFont, tColor, bColor) CLASS HCEdit
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam) CLASS HCEdit
+METHOD HCEdit:onEvent(msg, wParam, lParam)
 
    LOCAL n
    LOCAL lRes := -1
@@ -677,7 +677,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HCEdit
 
    RETURN lRes
 
-METHOD Paint(lReal) CLASS HCEdit
+METHOD HCEdit:Paint(lReal)
    
    LOCAL pps
    LOCAL hDCReal
@@ -812,7 +812,7 @@ METHOD Paint(lReal) CLASS HCEdit
    RETURN NIL
 
 /* Added: nRight */
-METHOD PaintLine(hDC, yPos, nLine, lUse_aWrap, nRight) CLASS HCEdit
+METHOD HCEdit:PaintLine(hDC, yPos, nLine, lUse_aWrap, nRight)
    
    LOCAL lReal := !Empty(hDC)
    LOCAL i
@@ -917,7 +917,7 @@ METHOD PaintLine(hDC, yPos, nLine, lUse_aWrap, nRight) CLASS HCEdit
    RETURN yPos
 
 /* Added: nWCharF, nLineC */
-METHOD MarkLine(nLine, lReal, nSubLine, nWCharF, nLineC) CLASS HCEdit
+METHOD HCEdit:MarkLine(nLine, lReal, nSubLine, nWCharF, nLineC)
 
    LOCAL nPos1
    LOCAL nPos2
@@ -1015,7 +1015,7 @@ METHOD MarkLine(nLine, lReal, nSubLine, nWCharF, nLineC) CLASS HCEdit
 
    RETURN NIL
 
-METHOD End() CLASS HCEdit
+METHOD HCEdit:End()
 
    IF !Empty(::oHili)
       ::oHili:End()
@@ -1027,7 +1027,7 @@ METHOD End() CLASS HCEdit
 
    RETURN NIL
 
-METHOD Convert(cPageIn, cPageOut)
+METHOD HCEdit:Convert(cPageIn, cPageOut)
    
    LOCAL i
    LOCAL l := (cPageIn != NIL .AND. !Empty(hb_cdpUniId(cPageIn)) .AND. ;
@@ -1050,7 +1050,7 @@ METHOD Convert(cPageIn, cPageOut)
 
    RETURN .F.
 
-METHOD SetText(xText, cPageIn, cPageOut) CLASS HCEdit
+METHOD HCEdit:SetText(xText, cPageIn, cPageOut)
 
    LOCAL nPos
    LOCAL i
@@ -1114,7 +1114,7 @@ METHOD SetText(xText, cPageIn, cPageOut) CLASS HCEdit
    RETURN NIL
 
 /* Added: cpSou */
-METHOD Save(cFileName, cpSou) CLASS HCEdit
+METHOD HCEdit:Save(cFileName, cpSou)
    
    LOCAL nHand
    LOCAL i
@@ -1143,7 +1143,7 @@ METHOD Save(cFileName, cpSou) CLASS HCEdit
 
    RETURN NIL
 
-METHOD AddFont(oFont, name, width, height , weight, CharSet, Italic, Underline, StrikeOut) CLASS HCEdit
+METHOD HCEdit:AddFont(oFont, name, width, height , weight, CharSet, Italic, Underline, StrikeOut)
 
    LOCAL i
 
@@ -1183,7 +1183,7 @@ METHOD AddFont(oFont, name, width, height , weight, CharSet, Italic, Underline, 
 
    RETURN Len(::aFonts)
 
-METHOD SetFont(oFont) CLASS HCEdit
+METHOD HCEdit:SetFont(oFont)
    
    LOCAL i
    LOCAL oFont1
@@ -1207,7 +1207,7 @@ METHOD SetFont(oFont) CLASS HCEdit
 
    RETURN NIL
 
-METHOD SetCaretPos(nType, p1, p2) CLASS HCEdit
+METHOD HCEdit:SetCaretPos(nType, p1, p2)
    
    LOCAL lSet := .T.
    LOCAL lInfo := .F.
@@ -1304,7 +1304,7 @@ METHOD SetCaretPos(nType, p1, p2) CLASS HCEdit
 #define FBITALTGR  65027
 
 
-METHOD onKeyDown(nKeyCode, lParam, nCtrl) CLASS HCEdit
+METHOD HCEdit:onKeyDown(nKeyCode, lParam, nCtrl)
    
    LOCAL cLine
    LOCAL lUnsel := .T.
@@ -1610,7 +1610,7 @@ METHOD onKeyDown(nKeyCode, lParam, nCtrl) CLASS HCEdit
 
    RETURN 0
 
-METHOD PutChar(nKeyCode) CLASS HCEdit
+METHOD HCEdit:PutChar(nKeyCode)
 
    LOCAL nLine
    LOCAL nPos
@@ -1675,7 +1675,7 @@ METHOD PutChar(nKeyCode) CLASS HCEdit
 
    RETURN NIL
 
-METHOD LineDown() CLASS HCEdit
+METHOD HCEdit:LineDown()
 
    LOCAL y
 
@@ -1709,7 +1709,7 @@ METHOD LineDown() CLASS HCEdit
    RETURN NIL
 
 /* Added: lChgPos */
-METHOD LineUp(lChgPos) CLASS HCEdit
+METHOD HCEdit:LineUp(lChgPos)
 
    LOCAL y
    // Variables not used
@@ -1752,7 +1752,7 @@ METHOD LineUp(lChgPos) CLASS HCEdit
 
    RETURN NIL
 
-METHOD PageDown() CLASS HCEdit
+METHOD HCEdit:PageDown()
 
    LOCAL y
 
@@ -1779,7 +1779,7 @@ METHOD PageDown() CLASS HCEdit
 
    RETURN NIL
 
-METHOD PageUp() CLASS HCEdit
+METHOD HCEdit:PageUp()
    
    LOCAL y
    LOCAL n
@@ -1819,7 +1819,7 @@ METHOD PageUp() CLASS HCEdit
 
    RETURN NIL
 
-METHOD Top() CLASS HCEdit
+METHOD HCEdit:Top()
 
    IF ::nLineF != 1 .OR. ::nLineC != 1 .OR. ::nPosC != 1 .OR. ::nPosF != 1 .OR. ::nWCharF != 1
       ::nLineF := ::nLineC := ::nWCharF := ::nWSublF := 1
@@ -1831,7 +1831,7 @@ METHOD Top() CLASS HCEdit
 
    RETURN NIL
 
-METHOD Bottom() CLASS HCEdit
+METHOD HCEdit:Bottom()
 
    LOCAL nNewF
    LOCAL nNewC
@@ -1873,7 +1873,7 @@ METHOD Bottom() CLASS HCEdit
 
    RETURN NIL
 
-METHOD GOTO(nLine) CLASS HCEdit
+METHOD HCEdit:GOTO(nLine)
 
    LOCAL n
 
@@ -1903,7 +1903,7 @@ METHOD GOTO(nLine) CLASS HCEdit
    RETURN NIL
 
 /*
-METHOD onVScroll(wParam) CLASS HCEdit
+METHOD HCEdit:onVScroll(wParam)
    
    LOCAL nCode := hwg_Loword(wParam)
    LOCAL nPos := hwg_Hiword(wParam)
@@ -1963,7 +1963,7 @@ METHOD onVScroll(wParam) CLASS HCEdit
    RETURN 0
 */
 
-METHOD PCopy(Psource, Pdest) CLASS HCEdit
+METHOD HCEdit:PCopy(Psource, Pdest)
 
    IF Empty(Pdest)
       Pdest := Array(P_LENGTH)
@@ -1977,7 +1977,7 @@ METHOD PCopy(Psource, Pdest) CLASS HCEdit
 
    RETURN Pdest
 
-METHOD PCmp(P1, P2) CLASS HCEdit
+METHOD HCEdit:PCmp(P1, P2)
 
    IF P2[P_Y] > P1[P_Y] .OR. (P2[P_Y] == P1[P_Y] .AND. P2[P_X] > P1[P_X])
       RETURN -1
@@ -1987,7 +1987,7 @@ METHOD PCmp(P1, P2) CLASS HCEdit
 
    RETURN 0
 
-METHOD GetText(P1, P2, lTabs) CLASS HCEdit
+METHOD HCEdit:GetText(P1, P2, lTabs)
    
    LOCAL cText := ""
    LOCAL Pstart
@@ -2029,7 +2029,7 @@ METHOD GetText(P1, P2, lTabs) CLASS HCEdit
 
    RETURN cText
 
-METHOD DelText(P1, P2, lChgPos) CLASS HCEdit
+METHOD HCEdit:DelText(P1, P2, lChgPos)
    
    LOCAL i
    LOCAL Pstart
@@ -2108,7 +2108,7 @@ METHOD DelText(P1, P2, lChgPos) CLASS HCEdit
 
    RETURN NIL
 
-METHOD InsText(aPoint, cText, lOver, lChgPos) CLASS HCEdit
+METHOD HCEdit:InsText(aPoint, cText, lOver, lChgPos)
 
    LOCAL aText
    LOCAL nLine := aPoint[P_Y]
@@ -2226,7 +2226,7 @@ METHOD InsText(aPoint, cText, lOver, lChgPos) CLASS HCEdit
 
    RETURN NIL
 
-METHOD AddLine(nLine) CLASS HCEdit
+METHOD HCEdit:AddLine(nLine)
 
    IF ::nTextLen == Len(::aText)
       ASize(::aText, Len(::aText) + 32)
@@ -2244,7 +2244,7 @@ METHOD AddLine(nLine) CLASS HCEdit
 
    RETURN NIL
 
-METHOD DelLine(nLine) CLASS HCEdit
+METHOD HCEdit:DelLine(nLine)
 
    ADel(::aText, nLine)
    IF ::lWrap
@@ -2256,13 +2256,13 @@ METHOD DelLine(nLine) CLASS HCEdit
 
    RETURN NIL
 
-METHOD Refresh() CLASS HCEdit
+METHOD HCEdit:Refresh()
 
    hced_Invalidaterect(::hEdit, 0, 0, 0, ::nClientWidth, ::nHeight)
 
    RETURN NIL
 
-METHOD SetWrap(lWrap, lInit) CLASS HCEdit
+METHOD HCEdit:SetWrap(lWrap, lInit)
 
    LOCAL lWrapOld := ::lWrap
 
@@ -2293,7 +2293,7 @@ METHOD SetWrap(lWrap, lInit) CLASS HCEdit
 
    RETURN lWrapOld
 
-METHOD SetPadding(nValue) CLASS HCEdit
+METHOD HCEdit:SetPadding(nValue)
 
    LOCAL nPadding := ::nPadding
 
@@ -2303,7 +2303,7 @@ METHOD SetPadding(nValue) CLASS HCEdit
 
    RETURN nPadding
 
-METHOD SetBorder(nThick, nColor) CLASS HCEdit
+METHOD HCEdit:SetBorder(nThick, nColor)
 
 #ifdef __GTK__
    IF nThick > 0
@@ -2315,7 +2315,7 @@ METHOD SetBorder(nThick, nColor) CLASS HCEdit
    hced_SetBorder(::hEdit, nThick, nColor)
    RETURN NIL
 
-METHOD Highlighter(oHili) CLASS HCEdit
+METHOD HCEdit:Highlighter(oHili)
 
    IF oHili == NIL
       ::oHili := NIL
@@ -2325,7 +2325,7 @@ METHOD Highlighter(oHili) CLASS HCEdit
    RETURN NIL
 
 /* Added:  nl1, nl2, hDC, nWidth, nHeight */
-METHOD Scan(nl1, nl2, hDC, nWidth, nHeight) CLASS HCEdit
+METHOD HCEdit:Scan(nl1, nl2, hDC, nWidth, nHeight)
    
    LOCAL lNested := ::lScan
    LOCAL aCoors
@@ -2466,7 +2466,7 @@ METHOD Scan(nl1, nl2, hDC, nWidth, nHeight) CLASS HCEdit
 #endif
    RETURN NIL
 
-METHOD Undo(nLine1, nPos1, nLine2, nPos2, nOper, cText) CLASS HCEdit
+METHOD HCEdit:Undo(nLine1, nPos1, nLine2, nPos2, nOper, cText)
    
    LOCAL nUndo := Iif(Empty(::aUndo), 0, Len(::aUndo))
    LOCAL nMax
@@ -2521,7 +2521,7 @@ METHOD Undo(nLine1, nPos1, nLine2, nPos2, nOper, cText) CLASS HCEdit
    ENDIF
    RETURN NIL
 
-METHOD Print(nDocFormat, nDocOrient, nMarginL, nMarginR, nMarginT, nMarginB) CLASS HCEdit
+METHOD HCEdit:Print(nDocFormat, nDocOrient, nMarginL, nMarginR, nMarginT, nMarginB)
 
    LOCAL nL
    LOCAL yPos
@@ -2588,7 +2588,7 @@ METHOD Print(nDocFormat, nDocOrient, nMarginL, nMarginR, nMarginT, nMarginB) CLA
 
    RETURN NIL
 
-METHOD PrintLine(oPrinter, yPos, nL) CLASS HCEdit
+METHOD HCEdit:PrintLine(oPrinter, yPos, nL)
 
    LOCAL nPrinted
    LOCAL nSubl := 1
@@ -2692,7 +2692,7 @@ METHOD PrintLine(oPrinter, yPos, nL) CLASS HCEdit
 
    RETURN yPos
 
-METHOD Move(x1, y1, width, height) CLASS HCEdit
+METHOD HCEdit:Move(x1, y1, width, height)
 
    LOCAL nw := Iif(Empty(::oTrack).OR.::oTrack:lHide, 0, Iif(HB_ISNUMERIC(::oTrack), ::oTrack, ::oTrack:nWidth))
 
@@ -2706,7 +2706,7 @@ METHOD Move(x1, y1, width, height) CLASS HCEdit
 
    RETURN NIL
 
-METHOD ShowTrackBar(lShow, nTrackWidth) CLASS HCEdit
+METHOD HCEdit:ShowTrackBar(lShow, nTrackWidth)
 
    IF lShow
       IF Empty(::oTrack)

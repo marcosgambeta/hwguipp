@@ -39,7 +39,7 @@ CLASS HPanel INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bcolor, oStyle) CLASS HPanel
+METHOD HPanel:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bcolor, oStyle)
 
    LOCAL oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
 
@@ -70,7 +70,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPain
 
 RETURN Self
 
-METHOD Activate() CLASS HPanel
+METHOD HPanel:Activate()
 
    LOCAL handle := ::oParent:handle
 
@@ -81,7 +81,7 @@ METHOD Activate() CLASS HPanel
 
 RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam) CLASS HPanel
+METHOD HPanel:onEvent(msg, wParam, lParam)
 
    SWITCH msg
 
@@ -146,7 +146,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HPanel
 
 RETURN ::Super:onEvent(msg, wParam, lParam)
 
-METHOD Init() CLASS HPanel
+METHOD HPanel:Init()
 
    IF !::lInit
       IF ::bSize == NIL .AND. Empty(::Anchor)
@@ -164,7 +164,7 @@ METHOD Init() CLASS HPanel
 
 RETURN NIL
 
-METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor) CLASS HPanel
+METHOD HPanel:Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor)
 
    LOCAL oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
 
@@ -182,7 +182,7 @@ METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor) 
 
 RETURN Self
 
-METHOD DrawItems(hDC, aCoors) CLASS HPanel
+METHOD HPanel:DrawItems(hDC, aCoors)
 
    LOCAL i
    LOCAL aCB
@@ -198,7 +198,7 @@ METHOD DrawItems(hDC, aCoors) CLASS HPanel
 
 RETURN NIL
 
-METHOD Paint() CLASS HPanel
+METHOD HPanel:Paint()
 
    LOCAL pps
    LOCAL hDC
@@ -237,7 +237,7 @@ METHOD Paint() CLASS HPanel
 
 RETURN NIL
 
-METHOD Release() CLASS HPanel
+METHOD HPanel:Release()
 
    IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
@@ -256,7 +256,7 @@ METHOD Release() CLASS HPanel
 
 RETURN NIL
 
-METHOD Hide() CLASS HPanel
+METHOD HPanel:Hide()
 
    LOCAL oItem
 
@@ -285,7 +285,7 @@ METHOD Hide() CLASS HPanel
 
 RETURN NIL
 
-METHOD Show() CLASS HPanel
+METHOD HPanel:Show()
 
    LOCAL oItem
 
@@ -315,7 +315,7 @@ METHOD Show() CLASS HPanel
 
 RETURN NIL
 
-METHOD SetPaintCB(nId, block, cId) CLASS HPanel
+METHOD HPanel:SetPaintCB(nId, block, cId)
 
    LOCAL i
    LOCAL nLen
@@ -348,7 +348,7 @@ METHOD SetPaintCB(nId, block, cId) CLASS HPanel
 
 RETURN NIL
 
-METHOD Drag(xPos, yPos) CLASS HPanel
+METHOD HPanel:Drag(xPos, yPos)
 
    LOCAL oWnd := hwg_getParentForm(Self)
 

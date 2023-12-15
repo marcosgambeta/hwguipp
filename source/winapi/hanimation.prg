@@ -31,7 +31,7 @@ CLASS HAnimation INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cFilename, lAutoPlay, lCenter, lTransparent, xResID) CLASS HAnimation
+METHOD HAnimation:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cFilename, lAutoPlay, lCenter, lTransparent, xResID)
 
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE)
    nStyle += IIf(lAutoPlay == NIL .OR. lAutoPlay, ACS_AUTOPLAY, 0)
@@ -47,7 +47,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cFilename, lAutoPla
 
    RETURN Self
 
-METHOD Activate() CLASS HAnimation
+METHOD HAnimation:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Animate_Create(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -56,7 +56,7 @@ METHOD Activate() CLASS HAnimation
 
    RETURN NIL
 
-METHOD Init() CLASS HAnimation
+METHOD HAnimation:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -69,7 +69,7 @@ METHOD Init() CLASS HAnimation
 
    RETURN NIL
 
-METHOD Open(cFileName) CLASS HAnimation
+METHOD HAnimation:Open(cFileName)
 
    IF cFileName != NIL
       ::cFileName := cFileName
@@ -79,7 +79,7 @@ METHOD Open(cFileName) CLASS HAnimation
    RETURN NIL
 
 #if 0
-METHOD Play(nFrom, nTo, nRep) CLASS HAnimation
+METHOD HAnimation:Play(nFrom, nTo, nRep)
 
    nFrom := IIf(nFrom == NIL, 0, nFrom)
    nTo   := IIf(nTo == NIL, -1, nTo)
@@ -90,13 +90,13 @@ METHOD Play(nFrom, nTo, nRep) CLASS HAnimation
 #endif
 
 #if 0
-METHOD IsPlaying() CLASS HAnimation
+METHOD HAnimation:IsPlaying()
 
    RETURN hwg_Animate_IsPlaying(::handle)
 #endif
 
 #if 0
-METHOD Seek(nFrame) CLASS HAnimation
+METHOD HAnimation:Seek(nFrame)
 
    nFrame := IIf(nFrame == NIL, 0, nFrame)
    hwg_Animate_Seek(::handle, nFrame)
@@ -105,7 +105,7 @@ METHOD Seek(nFrame) CLASS HAnimation
 #endif
 
 #if 0
-METHOD Stop() CLASS HAnimation
+METHOD HAnimation:Stop()
 
    hwg_Animate_Stop(::handle)
 
@@ -113,7 +113,7 @@ METHOD Stop() CLASS HAnimation
 #endif
 
 #if 0
-METHOD Close() CLASS HAnimation
+METHOD HAnimation:Close()
 
    hwg_Animate_Close(::handle)
 
@@ -121,7 +121,7 @@ METHOD Close() CLASS HAnimation
 #endif
 
 #if 0
-METHOD Destroy() CLASS HAnimation
+METHOD HAnimation:Destroy()
 
    hwg_Animate_Destroy(::handle)
 

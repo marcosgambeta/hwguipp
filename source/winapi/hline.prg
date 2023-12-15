@@ -23,7 +23,7 @@ CLASS HLine INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, lVert, nX, nY, nLength, bSize) CLASS HLine
+METHOD HLine:New(oWndParent, nId, lVert, nX, nY, nLength, bSize)
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, NIL, NIL, NIL, NIL, bSize, {|o, lp|o:Paint(lp)})
 
@@ -44,7 +44,7 @@ METHOD New(oWndParent, nId, lVert, nX, nY, nLength, bSize) CLASS HLine
 
    RETURN Self
 
-METHOD Activate() CLASS HLine
+METHOD HLine:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -53,7 +53,7 @@ METHOD Activate() CLASS HLine
 
    RETURN NIL
 
-METHOD Paint(lpdis) CLASS HLine
+METHOD HLine:Paint(lpdis)
    
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
    LOCAL hDC := drawInfo[3]

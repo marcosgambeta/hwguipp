@@ -26,7 +26,7 @@ CLASS HStatic INHERIT HControl // TODO: HLabel é um nome mais adequado para a cl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
+METHOD HStatic:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
 
    IF pcount() == 0
       ::Super:New(NIL, NIL, 0, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL, NIL, NIL)
@@ -60,7 +60,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bI
 
    RETURN Self
 
-METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
+METHOD HStatic:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
 
    HB_SYMBOL_UNUSED(cCaption) // TODO: verificar porque foi marcado como HB_SYMBOL_UNUSED
    HB_SYMBOL_UNUSED(lTransp)
@@ -81,7 +81,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, cTooltip
 
    RETURN Self
 
-METHOD Activate() CLASS HStatic
+METHOD HStatic:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::extStyle)
@@ -90,7 +90,7 @@ METHOD Activate() CLASS HStatic
 
    RETURN NIL
 
-METHOD Init() CLASS HStatic
+METHOD HStatic:Init()
 
    IF !::lInit
       ::Super:init()
@@ -101,7 +101,7 @@ METHOD Init() CLASS HStatic
 
    RETURN  NIL
 
-METHOD Paint(lpDis) CLASS HStatic
+METHOD HStatic:Paint(lpDis)
    
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpDis)
    LOCAL hDC := drawInfo[3]
@@ -123,7 +123,7 @@ METHOD Paint(lpDis) CLASS HStatic
 
    RETURN NIL
 
-METHOD SetText(c) CLASS HStatic
+METHOD HStatic:SetText(c)
 
    ::Super:SetText(c)
    IF hb_bitand(::extStyle, WS_EX_TRANSPARENT) != 0
@@ -133,7 +133,7 @@ METHOD SetText(c) CLASS HStatic
 
    RETURN NIL
 
-METHOD Refresh() CLASS HStatic
+METHOD HStatic:Refresh()
 
    IF hb_bitand(::extStyle, WS_EX_TRANSPARENT) != 0
       hwg_Invalidaterect(::oParent:handle, 1, ::nX, ::nY, ::nX + ::nWidth, ::nY + ::nHeight)

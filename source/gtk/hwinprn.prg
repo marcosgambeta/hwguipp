@@ -21,7 +21,7 @@
 /*
   Some notes how to explain the work flow of the
   HWINPRN class:
-  Every method adding lines or settings into the document to print  
+  Every method adding lines or settings into the document to print
   collect records in an Array aPages[] initialized by method New() of HPRINTER class.
   These methods are for example:
   SetMode(), PrintLine(), PrintBitmap(), NextPage().
@@ -128,7 +128,7 @@ CLASS HWinPrn
 
 ENDCLASS
 
-METHOD New( cPrinter, cpFrom, cpTo, nFormType , nCharset ) CLASS HWinPrn
+METHOD HWinPrn:New( cPrinter, cpFrom, cpTo, nFormType , nCharset )
 
    ::SetLanguage() // Start with default english
 
@@ -155,7 +155,7 @@ METHOD New( cPrinter, cpFrom, cpTo, nFormType , nCharset ) CLASS HWinPrn
    RETURN Self
 
 
-METHOD SetLanguage(apTooltips, apBootUser) CLASS HWinPrn
+METHOD HWinPrn:SetLanguage(apTooltips, apBootUser)
 * NLS: Sets the message and control texts to print preview dialog
 * Are stored in arrays:   ::aTooltips[], ::aBootUser[]
 
@@ -173,7 +173,7 @@ METHOD SetLanguage(apTooltips, apBootUser) CLASS HWinPrn
 //   ENDIF
 RETURN NIL
 
-METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset ) CLASS HWinPrn
+METHOD HWinPrn:InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset )
 
    IF lElite != NIL
       ::lElite := lElite
@@ -203,7 +203,7 @@ METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , 
 
    RETURN NIL
 
-METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset) CLASS HWinPrn
+METHOD HWinPrn:SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset)
 
 #ifdef __GTK__
    LOCAL cFont := "monospace"
@@ -277,13 +277,13 @@ METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCh
   Should act like a "printer reset"
   (Set back to default values).
 */
-METHOD SetDefaultMode() CLASS HWinPrn
+METHOD HWinPrn:SetDefaultMode()
 
    ::SetMode(.F., .F., 6, .F., .F., .F., 0, 0)
 
    RETURN NIL
 
-METHOD SetY( nYvalue ) CLASS HWinPrn
+METHOD HWinPrn:SetY( nYvalue )
 
   IF nYvalue == NIL
    nYvalue := 0
@@ -292,7 +292,7 @@ METHOD SetY( nYvalue ) CLASS HWinPrn
 
  RETURN nYvalue
 
-METHOD SetX( nYvalue ) CLASS HWinPrn
+METHOD HWinPrn:SetX( nYvalue )
 
   IF nYvalue == NIL
    nYvalue := 0
@@ -301,7 +301,7 @@ METHOD SetX( nYvalue ) CLASS HWinPrn
 
 RETURN nYvalue
 
-METHOD StartDoc( lPreview, cMetaName , lprbutton ) CLASS HWinPrn
+METHOD HWinPrn:StartDoc( lPreview, cMetaName , lprbutton )
 * Set lprbutton to .F., if preview dialog not shows the print button
 
    ::lDocStart := .T.
@@ -310,7 +310,7 @@ METHOD StartDoc( lPreview, cMetaName , lprbutton ) CLASS HWinPrn
 
    RETURN NIL
 
-METHOD NextPage() CLASS HWinPrn
+METHOD HWinPrn:NextPage()
 
    IF !::lDocStart
       RETURN NIL
@@ -347,7 +347,7 @@ METHOD NextPage() CLASS HWinPrn
    nAlign      : 0 - left, 1 - center, 2 - right, default = 0
    cBitmapName  : Name of resource, if xBitmap is bitmap object
  */
-METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
+METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
 
    LOCAL i
    LOCAL cTmp
@@ -451,7 +451,7 @@ METHOD PrintBitmap( xBitmap, nAlign , cBitmapName ) CLASS HWinPrn
   RETURN NIL
 
    
-METHOD NewLine()  CLASS HWinPrn
+METHOD HWinPrn:NewLine()
     ::PrintLine( "" , .T. )
     ::SetX()
     ::y += ::nLineHeight
@@ -461,7 +461,7 @@ METHOD NewLine()  CLASS HWinPrn
    RETURN NIL   
 
    
-METHOD PrintLine( cLine, lNewLine ) CLASS HWinPrn
+METHOD HWinPrn:PrintLine( cLine, lNewLine )
    
    LOCAL i
    LOCAL i0
@@ -585,7 +585,7 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
 
    RETURN NIL
 
-METHOD PrintText( cText ) CLASS HWinPrn
+METHOD HWinPrn:PrintText( cText )
 
    IF ::lChanged
       ::SetMode()
@@ -595,7 +595,7 @@ METHOD PrintText( cText ) CLASS HWinPrn
 
    RETURN NIL
 
-METHOD PutCode( cLine ) CLASS HWinPrn
+METHOD HWinPrn:PutCode( cLine )
 
    STATIC aCodes := {   ;
           { Chr(27) + '@', .f., .f., 6, .f., .f., .f. },  ;     /* Reset */
@@ -632,7 +632,7 @@ METHOD PutCode( cLine ) CLASS HWinPrn
 
    RETURN 1
 
-METHOD EndDoc() CLASS HWinPrn
+METHOD HWinPrn:EndDoc()
 
    IF ::lPageStart
       ::oPrinter:EndPage()
@@ -648,7 +648,7 @@ METHOD EndDoc() CLASS HWinPrn
 
    RETURN NIL
 
-METHOD END() CLASS HWinPrn
+METHOD HWinPrn:END()
 
    ::EndDoc()
    ::oFont:Release()

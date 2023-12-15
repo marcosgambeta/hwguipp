@@ -44,7 +44,7 @@ CLASS VAR winclass INIT "STATIC"
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis) CLASS HTrack
+METHOD HTrack:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis)
 
    color := Iif(color == NIL, CLR_BLACK, color)
    bColor := Iif(bColor == NIL, CLR_WHITE, bColor)
@@ -65,14 +65,14 @@ METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bPaint, color, bcolo
 
    RETURN Self
 
-METHOD Activate() CLASS HTrack
+METHOD HTrack:Activate()
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam) CLASS HTrack
+METHOD HTrack:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
 
@@ -117,7 +117,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrack
 
    RETURN - 1
 
-METHOD Init() CLASS HTrack
+METHOD HTrack:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -130,7 +130,7 @@ METHOD Init() CLASS HTrack
 
    RETURN NIL
 
-METHOD Paint() CLASS HTrack
+METHOD HTrack:Paint()
 
    LOCAL nHalf
    LOCAL nw
@@ -195,7 +195,7 @@ METHOD Paint() CLASS HTrack
 
    RETURN NIL
 
-METHOD Drag(xPos, yPos) CLASS HTrack
+METHOD HTrack:Drag(xPos, yPos)
 
    LOCAL nCurr := ::nCurr
    LOCAL nHalf := Int(::nSize/2)
@@ -228,7 +228,7 @@ METHOD Drag(xPos, yPos) CLASS HTrack
 
    RETURN NIL
 
-METHOD Move(x1, y1, width, height) CLASS HTrack
+METHOD HTrack:Move(x1, y1, width, height)
 
    LOCAL xValue := (::nCurr - ::nFrom) / (::nTo - ::nFrom)
 
@@ -249,7 +249,7 @@ METHOD Move(x1, y1, width, height) CLASS HTrack
 
    RETURN NIL
 
-METHOD Value(xValue) CLASS HTrack
+METHOD HTrack:Value(xValue)
 
    IF xValue != NIL
       xValue := Iif(xValue < 0, 0, Iif(xValue > 1, 1, xValue))

@@ -24,8 +24,8 @@ CLASS HRadioButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
-      bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp) CLASS HRadioButton
+METHOD HRadioButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
+      bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp)
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id      := iif(nId == NIL, ::NewId(), nId)
@@ -71,7 +71,7 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
 
    RETURN Self
 
-METHOD Activate() CLASS HRadioButton
+METHOD HRadioButton:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::title)
@@ -81,7 +81,7 @@ METHOD Activate() CLASS HRadioButton
    RETURN NIL
 
 /* Parameter lInit was removed a long time ago */
-METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor) CLASS HRadioButton
+METHOD HRadioButton:Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor)
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id      := nId
@@ -117,7 +117,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
 
    RETURN Self
 
-METHOD Value(lValue) CLASS HRadioButton
+METHOD HRadioButton:Value(lValue)
    IF lValue != NIL
       hwg_Sendmessage(::handle, BM_SETCHECK, Iif(lValue, BST_CHECKED, BST_UNCHECKED), 0)
    ENDIF

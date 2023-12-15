@@ -24,7 +24,7 @@ CLASS HPanelHea INHERIT HPANEL
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyle, cText, xt, yt, lBtnClose, lBtnMax, lBtnMin) CLASS HPanelHea
+METHOD HPanelHea:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyle, cText, xt, yt, lBtnClose, lBtnMax, lBtnMin)
 
    LOCAL nBtnSize
    LOCAL btnClose
@@ -76,7 +76,7 @@ METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyl
 
 RETURN Self
 
-METHOD SetText(c, lrefresh) CLASS HPanelHea
+METHOD HPanelHea:SetText(c, lrefresh)
 // DF7BE: Set lrefresh to .T. for refreshing the header text
 // (compatibility to INLINE definition)
 
@@ -104,7 +104,7 @@ METHOD SetText(c, lrefresh) CLASS HPanelHea
 
 RETURN NIL
 
-METHOD SetSysbtnColor(tColor, bColor) CLASS HPanelHea
+METHOD HPanelHea:SetSysbtnColor(tColor, bColor)
 
    LOCAL oBtn
    LOCAL oPen1
@@ -131,7 +131,7 @@ METHOD SetSysbtnColor(tColor, bColor) CLASS HPanelHea
 
 RETURN NIL
 
-METHOD PaintText(hDC) CLASS HPanelHea
+METHOD HPanelHea:PaintText(hDC)
 
    LOCAL x1
    LOCAL y1
@@ -152,7 +152,7 @@ METHOD PaintText(hDC) CLASS HPanelHea
 
 RETURN NIL
 
-METHOD Paint() CLASS HPanelHea
+METHOD HPanelHea:Paint()
 
    LOCAL pps
    LOCAL hDC

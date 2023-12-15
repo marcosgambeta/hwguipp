@@ -35,8 +35,8 @@ CLASS HTab INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus  ) CLASS HTab
+METHOD HTab:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
+      oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus  )
 
    // Variables not used
    // LOCAL i, aBmpSize
@@ -63,7 +63,7 @@ METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
 
    RETURN Self
 
-METHOD Activate() CLASS HTab
+METHOD HTab:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createtabcontrol(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -73,7 +73,7 @@ METHOD Activate() CLASS HTab
 
    RETURN NIL
 
-METHOD Init() CLASS HTab
+METHOD HTab:Init()
    
    LOCAL i
    LOCAL h
@@ -90,7 +90,7 @@ METHOD Init() CLASS HTab
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HTab
+METHOD HTab:onEvent( msg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(lParam)
 
@@ -103,13 +103,13 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTab
 
    RETURN 0
 
-METHOD SetTab(n) CLASS HTab
+METHOD HTab:SetTab(n)
 
    hwg_SetCurrentTab(::handle, n)
 
    RETURN NIL
 
-METHOD StartPage( cname ) CLASS HTab
+METHOD HTab:StartPage( cname )
    
    LOCAL i
 
@@ -124,7 +124,7 @@ METHOD StartPage( cname ) CLASS HTab
 
    RETURN NIL
 
-METHOD EndPage() CLASS HTab
+METHOD HTab:EndPage()
 
    ::aPages[::nActive, 2] := Len(::aControls) - ::aPages[::nActive, 1]
    ::aPages[::nActive, 3] := .T.
@@ -135,7 +135,7 @@ METHOD EndPage() CLASS HTab
 
    RETURN NIL
 
-METHOD GetActivePage( nFirst, nEnd ) CLASS HTab
+METHOD HTab:GetActivePage( nFirst, nEnd )
    IF !Empty(::aPages)
       nFirst := ::aPages[::nActive, 1] + 1
       nEnd   := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
@@ -146,7 +146,7 @@ METHOD GetActivePage( nFirst, nEnd ) CLASS HTab
 
    Return ::nActive
 
-METHOD DeletePage( nPage ) CLASS HTab
+METHOD HTab:DeletePage( nPage )
 
    LOCAL nFirst
    LOCAL nEnd

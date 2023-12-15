@@ -75,7 +75,7 @@ CLASS HilightBase INHERIT HOBJECT
 
 ENDCLASS
 
-METHOD End() CLASS HilightBase
+METHOD HilightBase:End()
    ::oEdit := NIL
    RETURN NIL
 
@@ -97,7 +97,7 @@ CLASS Hilight INHERIT HilightBase
    METHOD AddItem( nPos1, nPos2, nType )
 ENDCLASS
 
-METHOD New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase) CLASS Hilight
+METHOD Hilight:New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase)
 Local oIni, oMod, oNode, i, nPos
 
    ::aLineStru := Array( 20,3 )
@@ -171,7 +171,7 @@ Local oIni, oMod, oNode, i, nPos
 
 Return Self
 
-METHOD Set( oEdit ) CLASS Hilight
+METHOD Hilight:Set( oEdit )
 Local oHili := Hilight():New()
 
    oHili:cCommands := ::cCommands
@@ -188,7 +188,7 @@ Return oHili
  *  lCheck - if .T., checks for multiline comments only
  */
 /* Added: oEdit */
-METHOD Do( oEdit, nLine, lCheck ) CLASS Hilight
+METHOD Hilight:Do( oEdit, nLine, lCheck )
 Local aText, cLine, nLen, nLenS, nLenM, i, lComm
 Local cs, cm
 Local nPos, nPos1, nPrev, cWord, c
@@ -322,7 +322,7 @@ Local nPos, nPos1, nPrev, cWord, c
    
 Return NIL
 
-METHOD AddItem( nPos1, nPos2, nType ) CLASS Hilight
+METHOD Hilight:AddItem( nPos1, nPos2, nType )
 
    IF ::nItems > MAX_ITEMS
       Return NIL

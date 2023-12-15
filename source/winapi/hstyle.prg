@@ -27,7 +27,7 @@ CLASS HStyle INHERIT HObject
    METHOD Draw(hDC, nLeft, nTop, nRight, nBottom)
 ENDCLASS
 
-METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap) CLASS HStyle
+METHOD HStyle:New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap)
 
    LOCAL i
    LOCAL nlen := Len(::aStyles)
@@ -64,7 +64,7 @@ METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap) CLASS HStyle
 
    RETURN Self
 
-METHOD Draw(hDC, nLeft, nTop, nRight, nBottom) CLASS HStyle
+METHOD HStyle:Draw(hDC, nLeft, nTop, nRight, nBottom)
 
    LOCAL n1
    LOCAL n2

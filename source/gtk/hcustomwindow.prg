@@ -72,7 +72,7 @@ CLASS HCustomWindow INHERIT HObject
 
 ENDCLASS
 
-METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
+METHOD HCustomWindow:FindControl( nId, nHandle )
 
    LOCAL i
 
@@ -85,7 +85,7 @@ METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
 
    RETURN Iif(i == 0, NIL, ::aControls[i])
 
-METHOD DelControl( oCtrl ) CLASS HCustomWindow
+METHOD HCustomWindow:DelControl( oCtrl )
 
    LOCAL id := oCtrl:id
    LOCAL h
@@ -123,7 +123,7 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD Move( x1, y1, width, height )  CLASS HCustomWindow
+METHOD HCustomWindow:Move( x1, y1, width, height )
 
    hwg_Movewindow(::handle, x1, y1, width, height)
    IF !__ObjHasMsg( Self, "AWINDOWS" )
@@ -143,13 +143,13 @@ METHOD Move( x1, y1, width, height )  CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD Refresh() CLASS HCustomWindow
+METHOD HCustomWindow:Refresh()
 
    hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
 
    RETURN NIL
 
-METHOD Setcolor( tcolor, bcolor, lRepaint ) CLASS HCustomWindow
+METHOD HCustomWindow:Setcolor( tcolor, bcolor, lRepaint )
 
    IF tcolor != NIL
       ::tcolor  := tcolor
@@ -175,7 +175,7 @@ METHOD Setcolor( tcolor, bcolor, lRepaint ) CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HCustomWindow
+METHOD HCustomWindow:onEvent( msg, wParam, lParam )
    
    LOCAL i
 
@@ -188,7 +188,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCustomWindow
 
    RETURN 0
 
-METHOD End()  CLASS HCustomWindow
+METHOD HCustomWindow:End()
    
    LOCAL aControls := ::aControls
    LOCAL i
@@ -202,7 +202,7 @@ METHOD End()  CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD OnError() CLASS HCustomWindow
+METHOD HCustomWindow:OnError()
 
    LOCAL cMsg := __GetMessage()
    LOCAL oError

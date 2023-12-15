@@ -54,7 +54,7 @@ CLASS HEdit INHERIT HControl
 ENDCLASS
 
 /* Added: lPassword */
-METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctoolt, tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword) CLASS HEdit
+METHOD HEdit:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctoolt, tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword)
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP + iif(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) + iif(lPassword == NIL .OR. !lPassword, 0, ES_PASSWORD))
 
@@ -98,7 +98,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFon
 
    RETURN Self
 
-METHOD Activate() CLASS HEdit
+METHOD HEdit:Activate()
   
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createedit(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -108,7 +108,7 @@ METHOD Activate() CLASS HEdit
    
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
+METHOD HEdit:onEvent( msg, wParam, lParam )
    
    LOCAL oParent
    LOCAL nPos
@@ -290,7 +290,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
 
    RETURN 0
 
-METHOD Init()  CLASS HEdit
+METHOD HEdit:Init()
 
    IF !::lInit
       ::Super:Init()
@@ -300,7 +300,7 @@ METHOD Init()  CLASS HEdit
 
    RETURN NIL
 
-METHOD Refresh()  CLASS HEdit
+METHOD HEdit:Refresh()
    
    LOCAL vari
 
@@ -323,7 +323,7 @@ METHOD Refresh()  CLASS HEdit
 
    RETURN NIL
 
-METHOD Value( xValue ) CLASS HEdit
+METHOD HEdit:Value( xValue )
 
    LOCAL vari
 
@@ -354,7 +354,7 @@ METHOD Value( xValue ) CLASS HEdit
 
    RETURN vari
 
-METHOD ParsePict( cPicture, vari ) CLASS HEdit
+METHOD HEdit:ParsePict( cPicture, vari )
    
    LOCAL nAt
    LOCAL i

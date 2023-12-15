@@ -129,7 +129,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
   
 RETURN aTooltips  
 
-METHOD New( cPrinter, lmm, nFormType ) CLASS HPrinter
+METHOD HPrinter:New( cPrinter, lmm, nFormType )
 
    LOCAL aPrnCoors
 
@@ -178,11 +178,11 @@ METHOD New( cPrinter, lmm, nFormType ) CLASS HPrinter
 
    RETURN Self
 
-METHOD DefaultLang() CLASS HPrinter
+METHOD HPrinter:DefaultLang()
   ::aLangTexts := hwg_HPrinter_LangArray_EN()
 RETURN NIL  
 
-METHOD SetMode( nOrientation, nDuplex ) CLASS HPrinter
+METHOD HPrinter:SetMode( nOrientation, nDuplex )
    
    LOCAL x
 
@@ -201,7 +201,7 @@ METHOD SetMode( nOrientation, nDuplex ) CLASS HPrinter
 
    RETURN .T.
 
-METHOD Recalc( x1, y1, x2, y2 ) CLASS HPrinter
+METHOD HPrinter:Recalc( x1, y1, x2, y2 )
 
    IF ::lmm
       x1 := Round( x1 * ::nHRes, 1 )
@@ -213,7 +213,7 @@ METHOD Recalc( x1, y1, x2, y2 ) CLASS HPrinter
    RETURN NIL
 
 /* Added: , nCharset */   
-METHOD AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset ) CLASS HPrinter
+METHOD HPrinter:AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset )
    
    LOCAL oFont
    
@@ -228,7 +228,7 @@ METHOD AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset ) CLASS
 
    RETURN oFont
 
-METHOD SetFont( oFont )  CLASS HPrinter
+METHOD HPrinter:SetFont( oFont )
    
    LOCAL oFontOld := ::oFont
 
@@ -236,7 +236,7 @@ METHOD SetFont( oFont )  CLASS HPrinter
 
    RETURN oFontOld
 
-METHOD AddPen( nWidth, style, color ) CLASS HPrinter
+METHOD HPrinter:AddPen( nWidth, style, color )
    
    LOCAL oPen
 
@@ -247,7 +247,7 @@ METHOD AddPen( nWidth, style, color ) CLASS HPrinter
 
    RETURN oPen
 
-METHOD SetPen( nWidth, style, color )  CLASS HPrinter
+METHOD HPrinter:SetPen( nWidth, style, color )
    
    LOCAL oPenOld := ::oPen
 
@@ -255,7 +255,7 @@ METHOD SetPen( nWidth, style, color )  CLASS HPrinter
 
    RETURN oPenOld
 
-METHOD End() CLASS HPrinter
+METHOD HPrinter:End()
 
    IF !Empty(::hDC)
       IF ::lBuffPrn
@@ -268,7 +268,7 @@ METHOD End() CLASS HPrinter
 
    RETURN NIL
 
-METHOD Box( x1, y1, x2, y2, oPen ) CLASS HPrinter
+METHOD HPrinter:Box( x1, y1, x2, y2, oPen )
 
    IF oPen == NIL
       oPen := ::oPen
@@ -293,7 +293,7 @@ METHOD Box( x1, y1, x2, y2, oPen ) CLASS HPrinter
 
    RETURN NIL
 
-METHOD Line( x1, y1, x2, y2, oPen ) CLASS HPrinter
+METHOD HPrinter:Line( x1, y1, x2, y2, oPen )
 
    IF oPen == NIL
       oPen := ::oPen
@@ -318,7 +318,7 @@ METHOD Line( x1, y1, x2, y2, oPen ) CLASS HPrinter
 
    RETURN NIL
 
-METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont ) CLASS HPrinter
+METHOD HPrinter:Say( cString, x1, y1, x2, y2, nOpt, oFont )
 
    IF y2 > ::nHeight
       RETURN NIL
@@ -350,7 +350,7 @@ METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont ) CLASS HPrinter
   
    RETURN NIL
 
-METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap, cImageName ) CLASS HPrinter
+METHOD HPrinter:Bitmap( x1, y1, x2, y2, nOpt, hBitmap, cImageName )
 
    HB_SYMBOL_UNUSED(hBitmap)
 
@@ -370,7 +370,7 @@ METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap, cImageName ) CLASS HPrinter
 
    RETURN NIL
 
-METHOD StartDoc( lPreview, cScriptFile , lprbutton ) CLASS HPrinter
+METHOD HPrinter:StartDoc( lPreview, cScriptFile , lprbutton )
 
    IF lprbutton == NIL
       ::lprbutton := .T.
@@ -387,7 +387,7 @@ METHOD StartDoc( lPreview, cScriptFile , lprbutton ) CLASS HPrinter
 
    RETURN NIL
 
-METHOD EndDoc() CLASS HPrinter
+METHOD HPrinter:EndDoc()
 
    IF !Empty(::cScriptFile)
       ::SaveScript()
@@ -399,21 +399,21 @@ METHOD EndDoc() CLASS HPrinter
 
    RETURN NIL
 
-METHOD StartPage() CLASS HPrinter
+METHOD HPrinter:StartPage()
 
    ::nPage ++
    AAdd(::aPages, "page," + LTrim(Str(::nPage)) + "," + iif(::lmm, "mm,", "px,") + iif(::nOrient == 1, "p", "l") + crlf)
 
    RETURN NIL
 
-METHOD EndPage() CLASS HPrinter
+METHOD HPrinter:EndPage()
 
    ::lastFont := ::lastPen := NIL
    hb_gcStep()
 
    RETURN NIL
 
-METHOD LoadScript( cScriptFile ) CLASS HPrinter
+METHOD HPrinter:LoadScript( cScriptFile )
    
    LOCAL arr
    LOCAL i
@@ -443,7 +443,7 @@ METHOD LoadScript( cScriptFile ) CLASS HPrinter
 
    RETURN !Empty(::aPages)
 
-METHOD SaveScript( cScriptFile ) CLASS HPrinter
+METHOD HPrinter:SaveScript( cScriptFile )
 
    LOCAL han
    LOCAL i
@@ -475,7 +475,7 @@ METHOD SaveScript( cScriptFile ) CLASS HPrinter
 
 #define TOOL_SIDE_WIDTH  88
 
-METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
+METHOD HPrinter:Preview( cTitle, aBitmaps, aTooltips, aBootUser )
 
 /*
 aBootUser[1] : oBtn:bClick
@@ -665,7 +665,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    RETURN NIL
 
-METHOD PaintDoc( oCanvas ) CLASS HPrinter
+METHOD HPrinter:PaintDoc( oCanvas )
    
    LOCAL pps
    LOCAL hDC
@@ -724,8 +724,8 @@ METHOD PaintDoc( oCanvas ) CLASS HPrinter
 
    RETURN NIL
 
-METHOD PrintDoc()
-   
+METHOD HPrinter:PrintDoc()
+
    LOCAL nOper := 0
    LOCAL cExt
 
@@ -741,7 +741,7 @@ METHOD PrintDoc()
 
    RETURN NIL
 
-METHOD ChangePage( oCanvas, oSayPage, n, nPage ) CLASS HPrinter
+METHOD HPrinter:ChangePage( oCanvas, oSayPage, n, nPage )
    
    LOCAL nCurrPage := ::nCurrPage
    LOCAL cMetaName
@@ -796,7 +796,7 @@ CLASS HGP_Font INHERIT HObject
 
 ENDCLASS
 
-METHOD Add( fontName, nHeight , fnWeight, fdwItalic, fdwUnderline ) CLASS HGP_Font
+METHOD HGP_Font:Add( fontName, nHeight , fnWeight, fdwItalic, fdwUnderline )
 
    LOCAL i
    LOCAL nlen := Len(::aFonts)
@@ -824,7 +824,7 @@ METHOD Add( fontName, nHeight , fnWeight, fdwItalic, fdwUnderline ) CLASS HGP_Fo
 
    RETURN Self
 
-METHOD Equal( fontName, nHeight , fnWeight, fdwItalic, fdwUnderline )
+METHOD HGP_Font:Equal( fontName, nHeight , fnWeight, fdwItalic, fdwUnderline )
 
    IF ::name == fontName .AND.          ;
          ::height == nHeight .AND.         ;
@@ -837,7 +837,7 @@ METHOD Equal( fontName, nHeight , fnWeight, fdwItalic, fdwUnderline )
 
    RETURN .F.
 
-METHOD RELEASE( lAll ) CLASS HGP_Font
+METHOD HGP_Font:RELEASE( lAll )
    
    LOCAL i
    LOCAL nlen := Len(::aFonts)
@@ -873,7 +873,7 @@ CLASS HGP_Pen INHERIT HObject
 
 ENDCLASS
 
-METHOD Add( nWidth, style, color ) CLASS HGP_Pen
+METHOD HGP_Pen:Add( nWidth, style, color )
 
    LOCAL i
 
@@ -895,7 +895,7 @@ METHOD Add( nWidth, style, color ) CLASS HGP_Pen
 
    RETURN Self
 
-METHOD RELEASE() CLASS HGP_Pen
+METHOD HGP_Pen:RELEASE()
    
    LOCAL i
    LOCAL nlen := Len(::aPens)

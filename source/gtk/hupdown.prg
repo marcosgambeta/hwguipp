@@ -35,9 +35,9 @@ CLASS HUpDown INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
+METHOD HUpDown:New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctoolt, tcolor, bcolor,   ;
-      nUpDWidth, nLower, nUpper ) CLASS HUpDown
+      nUpDWidth, nLower, nUpper )
 
    nStyle   := hb_bitor( iif(nStyle == NIL,0,nStyle), WS_TABSTOP )
    ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
@@ -74,7 +74,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
 
    RETURN Self
 
-METHOD Activate() CLASS HUpDown
+METHOD HUpDown:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createupdowncontrol(::oParent:handle, ::nX, ::nY, ::nWidth, ::nHeight, Val(::title), ::nLower, ::nUpper)
@@ -84,7 +84,7 @@ METHOD Activate() CLASS HUpDown
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HUpDown
+METHOD HUpDown:onEvent( msg, wParam, lParam )
 
    // Variables not used
    // LOCAL oParent := ::oParent
@@ -107,7 +107,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HUpDown
    ENDIF
    RETURN 0
 
-METHOD Refresh()  CLASS HUpDown
+METHOD HUpDown:Refresh()
 
    // Variables not used
    // LOCAL vari
@@ -124,7 +124,7 @@ METHOD Refresh()  CLASS HUpDown
 
    RETURN NIL
 
-METHOD Value( nValue ) CLASS HUpDown
+METHOD HUpDown:Value( nValue )
 
    IF nValue != NIL
       IF HB_ISNUMERIC(nValue)

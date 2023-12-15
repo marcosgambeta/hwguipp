@@ -55,7 +55,7 @@ CLASS HControl INHERIT HCustomWindow
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor) CLASS HControl
+METHOD HControl:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id      := iif(nId == NIL, ::NewId(), nId)
@@ -81,13 +81,13 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize
    RETURN Self
 
 /* Removed:  lDop  */
-METHOD NewId() CLASS HControl
+METHOD HControl:NewId()
 
    LOCAL nId := ::oParent:nChildId++
 
 RETURN nId
 
-METHOD INIT() CLASS HControl
+METHOD HControl:INIT()
 
    LOCAL o
 
@@ -113,17 +113,17 @@ METHOD INIT() CLASS HControl
 
    RETURN NIL
 
-METHOD Disable() CLASS HControl
+METHOD HControl:Disable()
 
    hwg_Enablewindow(::handle, .F.)
 RETURN NIL
 
-METHOD Enable() CLASS HControl
+METHOD HControl:Enable()
 
    hwg_Enablewindow(::handle, .T.)
 RETURN NIL
 
-METHOD Enabled( lEnabled ) CLASS HControl
+METHOD HControl:Enabled( lEnabled )
 
    IF lEnabled != NIL
       IF lEnabled
@@ -138,7 +138,7 @@ METHOD Enabled( lEnabled ) CLASS HControl
    RETURN hwg_Iswindowenabled(::handle)
 
 /* Added: lMoveParent */
-METHOD Move( x1, y1, width, height, lMoveParent )  CLASS HControl
+METHOD HControl:Move( x1, y1, width, height, lMoveParent )
    
    LOCAL lMove := .F.
    LOCAL lSize := .F.
@@ -165,7 +165,7 @@ METHOD Move( x1, y1, width, height, lMoveParent )  CLASS HControl
 
    RETURN NIL
 
-METHOD End() CLASS HControl
+METHOD HControl:End()
 
    ::Super:End()
    IF ::tooltip != NIL
@@ -175,7 +175,7 @@ METHOD End() CLASS HControl
 
    RETURN NIL
 
-METHOD onAnchor( x, y, w, h ) CLASS HControl
+METHOD HControl:onAnchor( x, y, w, h )
    
    LOCAL nAnchor
    LOCAL nXincRelative

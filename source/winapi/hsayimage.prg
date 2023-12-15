@@ -25,7 +25,7 @@ CLASS HSayImage INHERIT HControl
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor) CLASS HSayImage
+METHOD HSayImage:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor)
 
    nStyle := hb_bitor(nStyle, SS_NOTIFY)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, Iif(nWidth != NIL, nWidth, 0), iif(nHeight != NIL, nHeight, 0), NIL, bInit, bSize, NIL, ctooltip, NIL, bColor)
@@ -41,13 +41,13 @@ METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctool
    RETURN Self
 
 /* Parameters bClick, bDblClick were removed a long time ago */
-METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip) CLASS HSayImage
+METHOD HSayImage:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, NIL, bInit, bSize, NIL, ctooltip)
 
    RETURN Self
 
-METHOD Activate() CLASS HSayImage
+METHOD HSayImage:Activate()
 
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
@@ -56,7 +56,7 @@ METHOD Activate() CLASS HSayImage
 
    RETURN NIL
 
-METHOD onClick()  CLASS HSayImage
+METHOD HSayImage:onClick()
 
    IF HB_ISBLOCK(::bClick)
       Eval(::bClick, Self)
@@ -64,7 +64,7 @@ METHOD onClick()  CLASS HSayImage
 
    RETURN NIL
 
-METHOD onDblClick()  CLASS HSayImage
+METHOD HSayImage:onDblClick()
 
    IF HB_ISBLOCK(::bDblClick)
       Eval(::bDblClick, Self)
