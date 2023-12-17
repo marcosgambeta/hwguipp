@@ -61,7 +61,7 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
                                nullptr);
 
    SendMessage(hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, hb_parni(2)));
-   SendMessage(hPBar, PBM_SETSTEP, static_cast<WPARAM>(1), 0);
+   SendMessage(hPBar, PBM_SETSTEP, 1, 0);
 
    hb_retptr(hPBar);
 }
@@ -80,7 +80,7 @@ HB_FUNC( HWG_UPDATEPROGRESSBAR )
 */
 HB_FUNC( HWG_RESETPROGRESSBAR )
 {
-   SendMessage(hwg_par_HWND(1), PBM_SETPOS, static_cast<WPARAM>(0), 0);
+   SendMessage(hwg_par_HWND(1), PBM_SETPOS, 0, 0);
 }
 
 /*

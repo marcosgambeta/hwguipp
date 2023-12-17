@@ -555,7 +555,7 @@ static BOOL _AddBar(HWND pParent, HWND pBar, REBARBANDINFO * pRBBI)
 
    pRBBI->cxMinChild = size.cx;
    pRBBI->cyMinChild = size.cy;
-   bResult = SendMessage(pParent, RB_INSERTBAND, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(pRBBI));
+   bResult = SendMessage(pParent, RB_INSERTBAND, -1, reinterpret_cast<LPARAM>(pRBBI));
 
    return bResult;
 }

@@ -99,7 +99,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
    ULONG ulID;
    DWORD style = GetWindowLongPtr(hWndCtrl, GWL_STYLE);
 
-   //SendMessage(hWndCtrl, CCM_SETVERSION, static_cast<WPARAM>(4), 0);
+   //SendMessage(hWndCtrl, CCM_SETVERSION, 4, 0);
 
    SetWindowLongPtr(hWndCtrl, GWL_STYLE, style | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT);
 
