@@ -800,7 +800,6 @@ HB_FUNC( HWG_RESETWINDOWPOS )
 */
 static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   long int res;
    auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
@@ -820,7 +819,7 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LP
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return DefWindowProc(hWnd, message, wParam, lParam);
          } else {
@@ -834,7 +833,6 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LP
 
 static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   long int res;
    auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
@@ -853,7 +851,7 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, L
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return DefFrameProc(hWnd, aWindows[1], message, wParam, lParam);
          } else {
@@ -867,8 +865,6 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, L
 
 static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   long int res;
-
    if( message == WM_NCCREATE ) {
       LPMDICREATESTRUCT cs = static_cast<LPMDICREATESTRUCT>((reinterpret_cast<LPCREATESTRUCT>(lParam))->lpCreateParams);
       PHB_ITEM *pObj = reinterpret_cast<PHB_ITEM*>(cs->lParam);
@@ -895,7 +891,7 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return DefMDIChildProc(hWnd, message, wParam, lParam);
          } else {

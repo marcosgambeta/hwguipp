@@ -384,7 +384,6 @@ HB_FUNC( HWG_INITWINCTRL )
 
 LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   long int res;
    auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
@@ -403,7 +402,7 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return (DefWindowProc(hWnd, message, wParam, lParam));
          } else {
@@ -417,7 +416,6 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 
 LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   long int res;
    auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
@@ -436,7 +434,7 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return (CallWindowProc(wpOrigListProc, hWnd, message, wParam, lParam));
          } else {
@@ -460,7 +458,6 @@ HB_FUNC( HWG_INITTRACKPROC )
 
 LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   long int res;
    auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
@@ -479,7 +476,7 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return (CallWindowProc(wpOrigTrackProc, hWnd, message, wParam, lParam));
          } else {

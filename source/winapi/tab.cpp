@@ -171,7 +171,6 @@ HB_FUNC( HWG_INITTABPROC )
 
 LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   long int res;
    auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    if( !pSym_onEvent ) {
@@ -190,7 +189,7 @@ LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
          } else {

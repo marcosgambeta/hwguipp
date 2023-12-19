@@ -466,7 +466,6 @@ HB_FUNC( HWG_DIALOGBASEUNITS )
 static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
    // PHB_DYNS pSymTest;
-   long int res;
 
    if( uMsg == WM_INITDIALOG ) {
       hb_objDataPutNL(reinterpret_cast<PHB_ITEM>(lParam), "_NHOLDER", 1);
@@ -491,7 +490,7 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPAR
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return FALSE;
          } else {
@@ -505,8 +504,6 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPAR
 
 static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-   long int res;
-
    if( uMsg == WM_INITDIALOG ) {
       hb_objDataPutNL(reinterpret_cast<PHB_ITEM>(lParam), "_NHOLDER", 1);
       hb_objDataPutPtr(reinterpret_cast<PHB_ITEM>(lParam), "_HANDLE", hDlg);
@@ -552,7 +549,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       if( HB_ISPOINTER(-1) ) {
          return reinterpret_cast<LRESULT>(hb_parptr(-1));
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return FALSE;
          } else {
@@ -567,8 +564,6 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
 
 static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-   long int res;
-
    if( uMsg == WM_INITDIALOG ) {
       auto pObj = reinterpret_cast<PHB_ITEM>(reinterpret_cast<PROPSHEETPAGE*>(lParam)->lParam);
 
@@ -619,7 +614,7 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       if( HB_ISPOINTER(-1) ) {
          return (LRESULT) hb_parptr(-1);
       } else {
-         res = hb_parnl(-1);
+         long int res = hb_parnl(-1);
          if( res == -1 ) {
             return FALSE;
          } else {
