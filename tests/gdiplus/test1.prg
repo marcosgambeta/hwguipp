@@ -12,8 +12,6 @@
 PROCEDURE Main()
 
    LOCAL oDialog
-   LOCAL pGraphics
-   LOCAL pImage
 
    waGdiplusStartup()
 
