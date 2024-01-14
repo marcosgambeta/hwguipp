@@ -26,6 +26,8 @@ PROCEDURE Main()
          waGdipDeleteGraphics(pGraphics)
       }
 
+   @ 800 - 100 - 20, 600 - 32 - 20 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDialog:Close()}
+
    ACTIVATE DIALOG oDialog
 
    waGdiplusShutdown()
