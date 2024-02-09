@@ -16,189 +16,214 @@
 /* Avoid warnings from GCC */
 #include "warnings.hpp"
 
-#define  FLAG_DISABLED   1
-#define  FLAG_CHECK      2
+#define FLAG_DISABLED 1
+#define FLAG_CHECK 2
 
-extern GtkWidget * aWindows[];
-extern void cb_signal(GtkWidget * widget, gchar * data);
-extern GtkFixed * getFixedBox(GObject * handle);
+extern GtkWidget *aWindows[];
+extern void cb_signal(GtkWidget *widget, gchar *data);
+extern GtkFixed *getFixedBox(GObject *handle);
 
 /*
  *  CreateMenu() --> hMenu
  */
-HB_FUNC( HWG__CREATEMENU )
+HB_FUNC(HWG__CREATEMENU)
 {
-   hb_retptr(gtk_menu_bar_new());
+  hb_retptr(gtk_menu_bar_new());
 }
 
-HB_FUNC( HWG__CREATEPOPUPMENU )
+HB_FUNC(HWG__CREATEPOPUPMENU)
 {
-   hb_retptr(gtk_menu_new());
+  hb_retptr(gtk_menu_new());
 }
 
 /*
  *  AddMenuItem(hMenu, cCaption, nPos, hWnd, nId, fState, lSubMenu) --> hMenuItem
  */
 
-HB_FUNC( HWG__ADDMENUITEM )
+HB_FUNC(HWG__ADDMENUITEM)
 {
-   GtkWidget * hMenu;
-   HB_BOOL lString = HB_FALSE, lCheck = HB_FALSE, lStock = FALSE;
-   const char * lpNewItem = nullptr;
+  GtkWidget *hMenu;
+  HB_BOOL lString = HB_FALSE, lCheck = HB_FALSE, lStock = FALSE;
+  const char *lpNewItem = nullptr;
 
-   if( HB_ISCHAR(2) ) {
-      const char * ptr;
-      lpNewItem	= hb_parc(2);
-      ptr = lpNewItem;
-      if( *ptr == '%' ) {
-         lStock = TRUE;
-      } else {
-         while( *ptr ) {
-            if( *ptr != ' ' && *ptr != '-' ) {
-               lString = TRUE;
-               break;
-            }
-            ptr ++;
-         }
+  if (HB_ISCHAR(2))
+  {
+    const char *ptr;
+    lpNewItem = hb_parc(2);
+    ptr = lpNewItem;
+    if (*ptr == '%')
+    {
+      lStock = TRUE;
+    }
+    else
+    {
+      while (*ptr)
+      {
+        if (*ptr != ' ' && *ptr != '-')
+        {
+          lString = TRUE;
+          break;
+        }
+        ptr++;
       }
-   }
-   if( !HB_ISNIL(6) && (hb_parni(6) & FLAG_CHECK) ) {
-      lCheck = TRUE;
-   }
+    }
+  }
+  if (!HB_ISNIL(6) && (hb_parni(6) & FLAG_CHECK))
+  {
+    lCheck = TRUE;
+  }
 
-   if( lCheck ) {
-      gchar * gcptr = hwg_convert_to_utf8(lpNewItem);
-      hMenu = gtk_check_menu_item_new_with_mnemonic(gcptr);
-      g_free(gcptr);
-   } else if( lStock ) {
-      hMenu = static_cast<GtkWidget*>(gtk_image_menu_item_new_from_stock(lpNewItem + 1, nullptr));
-   } else if( lString ) {
-      gchar * gcptr = hwg_convert_to_utf8(lpNewItem);
-      hMenu = static_cast<GtkWidget*>(gtk_menu_item_new_with_mnemonic(gcptr));
-      g_free(gcptr);
-   } else {
-      hMenu = static_cast<GtkWidget*>(gtk_separator_menu_item_new());
-   }
+  if (lCheck)
+  {
+    gchar *gcptr = hwg_convert_to_utf8(lpNewItem);
+    hMenu = gtk_check_menu_item_new_with_mnemonic(gcptr);
+    g_free(gcptr);
+  }
+  else if (lStock)
+  {
+    hMenu = static_cast<GtkWidget *>(gtk_image_menu_item_new_from_stock(lpNewItem + 1, nullptr));
+  }
+  else if (lString)
+  {
+    gchar *gcptr = hwg_convert_to_utf8(lpNewItem);
+    hMenu = static_cast<GtkWidget *>(gtk_menu_item_new_with_mnemonic(gcptr));
+    g_free(gcptr);
+  }
+  else
+  {
+    hMenu = static_cast<GtkWidget *>(gtk_separator_menu_item_new());
+  }
 
-   if( !HB_ISNIL(7) && hb_parl(7) ) {
-      GtkWidget * hSubMenu = gtk_menu_new();
-      gtk_menu_item_set_submenu(GTK_MENU_ITEM(hMenu), hSubMenu);
-      hb_retptr(hSubMenu);
-   } else {
-      char buf[40] = {0};
-      sprintf(buf, "0 %ld %ld", hb_parnl(5),reinterpret_cast<HB_LONG>(hb_parptr(4)));
-      g_signal_connect(G_OBJECT(hMenu), "activate", G_CALLBACK(cb_signal), static_cast<gpointer>(g_strdup(buf)));
+  if (!HB_ISNIL(7) && hb_parl(7))
+  {
+    GtkWidget *hSubMenu = gtk_menu_new();
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(hMenu), hSubMenu);
+    hb_retptr(hSubMenu);
+  }
+  else
+  {
+    char buf[40] = {0};
+    sprintf(buf, "0 %ld %ld", hb_parnl(5), reinterpret_cast<HB_LONG>(hb_parptr(4)));
+    g_signal_connect(G_OBJECT(hMenu), "activate", G_CALLBACK(cb_signal), static_cast<gpointer>(g_strdup(buf)));
 
-      hb_retptr(hMenu);
-   }
-   gtk_menu_shell_append(GTK_MENU_SHELL(hb_parptr(1)), hMenu);
+    hb_retptr(hMenu);
+  }
+  gtk_menu_shell_append(GTK_MENU_SHELL(hb_parptr(1)), hMenu);
 
-   gtk_widget_show(hMenu);
+  gtk_widget_show(hMenu);
 }
 
 /*
  * SetMenu(hWnd, hMenu) --> lResult
  */
-HB_FUNC( HWG__SETMENU )
+HB_FUNC(HWG__SETMENU)
 {
-   auto handle = static_cast<GObject*>(hb_parptr(1));
-   GtkFixed * box = getFixedBox(handle);
-   GtkWidget * vbox = gtk_widget_get_parent(reinterpret_cast<GtkWidget*>(box));
-   gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget*>(hb_parptr(2)), FALSE, FALSE, 0);
-   gtk_box_reorder_child(GTK_BOX(vbox), static_cast<GtkWidget*>(hb_parptr(2)), 0);
-   gtk_widget_show(static_cast<GtkWidget*>(hb_parptr(2)));
-   hb_retl(1);
+  auto handle = static_cast<GObject *>(hb_parptr(1));
+  GtkFixed *box = getFixedBox(handle);
+  GtkWidget *vbox = gtk_widget_get_parent(reinterpret_cast<GtkWidget *>(box));
+  gtk_box_pack_start(GTK_BOX(vbox), static_cast<GtkWidget *>(hb_parptr(2)), FALSE, FALSE, 0);
+  gtk_box_reorder_child(GTK_BOX(vbox), static_cast<GtkWidget *>(hb_parptr(2)), 0);
+  gtk_widget_show(static_cast<GtkWidget *>(hb_parptr(2)));
+  hb_retl(1);
 }
 
-HB_FUNC( HWG_GETMENUHANDLE )
+HB_FUNC(HWG_GETMENUHANDLE)
 {
-   // HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? static_cast<HWND>(hb_parnl(1)) : aWindows[0];
-   // hb_retnl(static_cast<HB_LONG>(GetMenu(handle)));
+  // HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? static_cast<HWND>(hb_parnl(1)) : aWindows[0];
+  // hb_retnl(static_cast<HB_LONG>(GetMenu(handle)));
 }
 
-HB_FUNC( HWG__CHECKMENUITEM )
+HB_FUNC(HWG__CHECKMENUITEM)
 {
-   auto check_menu_item = static_cast<GtkCheckMenuItem*>(hb_parptr(1));
-   g_signal_handlers_block_matched(reinterpret_cast<gpointer>(check_menu_item), G_SIGNAL_MATCH_FUNC, 0, 0, 0, G_CALLBACK(cb_signal), 0);
-   gtk_check_menu_item_set_active(check_menu_item, (HB_ISNIL(2)) ? 1 : hb_parl(2));
-   g_signal_handlers_unblock_matched(static_cast<gpointer>(check_menu_item), G_SIGNAL_MATCH_FUNC, 0, 0, 0, G_CALLBACK(cb_signal), 0);
+  auto check_menu_item = static_cast<GtkCheckMenuItem *>(hb_parptr(1));
+  g_signal_handlers_block_matched(reinterpret_cast<gpointer>(check_menu_item), G_SIGNAL_MATCH_FUNC, 0, 0, 0,
+                                  G_CALLBACK(cb_signal), 0);
+  gtk_check_menu_item_set_active(check_menu_item, (HB_ISNIL(2)) ? 1 : hb_parl(2));
+  g_signal_handlers_unblock_matched(static_cast<gpointer>(check_menu_item), G_SIGNAL_MATCH_FUNC, 0, 0, 0,
+                                    G_CALLBACK(cb_signal), 0);
 }
 
-HB_FUNC( HWG__ISCHECKEDMENUITEM )
+HB_FUNC(HWG__ISCHECKEDMENUITEM)
 {
-   auto check_menu_item = static_cast<GtkCheckMenuItem*>(hb_parptr(1));
-   hb_retl(gtk_check_menu_item_get_active(check_menu_item));
+  auto check_menu_item = static_cast<GtkCheckMenuItem *>(hb_parptr(1));
+  hb_retl(gtk_check_menu_item_get_active(check_menu_item));
 }
 
-HB_FUNC( HWG__ENABLEMENUITEM )
+HB_FUNC(HWG__ENABLEMENUITEM)
 {
-   auto menu_item = static_cast<GtkMenuItem*>(hb_parptr(1));
-   gtk_widget_set_sensitive(reinterpret_cast<GtkWidget*>(menu_item), (HB_ISNIL(2)) ? 1 : hb_parl(2));
+  auto menu_item = static_cast<GtkMenuItem *>(hb_parptr(1));
+  gtk_widget_set_sensitive(reinterpret_cast<GtkWidget *>(menu_item), (HB_ISNIL(2)) ? 1 : hb_parl(2));
 }
 
-HB_FUNC( HWG__ISENABLEDMENUITEM )
+HB_FUNC(HWG__ISENABLEDMENUITEM)
 {
-   hb_retl(gtk_widget_is_sensitive(static_cast<GtkWidget*>(hb_parptr(1))));
+  hb_retl(gtk_widget_is_sensitive(static_cast<GtkWidget *>(hb_parptr(1))));
 }
 
-HB_FUNC( HWG_TRACKMENU )
+HB_FUNC(HWG_TRACKMENU)
 {
-   gtk_menu_popup(static_cast<GtkMenu*>(hb_parptr(1)), nullptr, nullptr, nullptr, nullptr, 3, gtk_get_current_event_time());
+  gtk_menu_popup(static_cast<GtkMenu *>(hb_parptr(1)), nullptr, nullptr, nullptr, nullptr, 3,
+                 gtk_get_current_event_time());
 }
 
-HB_FUNC( HWG_DESTROYMENU )
+HB_FUNC(HWG_DESTROYMENU)
 {
-/*
-   hb_retl(DestroyMenu(static_cast<HMENU>(hb_parnl(1))));
-*/
+  /*
+     hb_retl(DestroyMenu(static_cast<HMENU>(hb_parnl(1))));
+  */
 }
 
 /*
  * hwg__CreateAcceleratorTable( hWnd )
  */
-HB_FUNC( HWG__CREATEACCELERATORTABLE )
+HB_FUNC(HWG__CREATEACCELERATORTABLE)
 {
-   GtkAccelGroup * accel_group = gtk_accel_group_new();
-   gtk_window_add_accel_group(GTK_WINDOW(hb_parptr(1)), accel_group);
-   hb_retptr(accel_group);
+  GtkAccelGroup *accel_group = gtk_accel_group_new();
+  gtk_window_add_accel_group(GTK_WINDOW(hb_parptr(1)), accel_group);
+  hb_retptr(accel_group);
 }
 
-#define FSHIFT    4
-#define FCONTROL  8
-#define FALT     16
+#define FSHIFT 4
+#define FCONTROL 8
+#define FALT 16
 
 /*
  * hwg__AddAccelerator(hAccelTable, hMenuitem, nControl, nKey)
  */
-HB_FUNC( HWG__ADDACCELERATOR )
+HB_FUNC(HWG__ADDACCELERATOR)
 {
-   auto iControl = hb_parni(3);
-   GdkModifierType nType = (iControl == FSHIFT) ? GDK_SHIFT_MASK : ((iControl == FCONTROL) ? GDK_CONTROL_MASK : ((iControl == FALT) ? GDK_MOD1_MASK : 0));
-   gtk_widget_add_accelerator(static_cast<GtkWidget*>(hb_parptr(2)), "activate", static_cast<GtkAccelGroup*>(hb_parptr(1)), static_cast<guint>(hb_parni(4)), nType, 0);
+  auto iControl = hb_parni(3);
+  GdkModifierType nType = (iControl == FSHIFT)
+                              ? GDK_SHIFT_MASK
+                              : ((iControl == FCONTROL) ? GDK_CONTROL_MASK : ((iControl == FALT) ? GDK_MOD1_MASK : 0));
+  gtk_widget_add_accelerator(static_cast<GtkWidget *>(hb_parptr(2)), "activate",
+                             static_cast<GtkAccelGroup *>(hb_parptr(1)), static_cast<guint>(hb_parni(4)), nType, 0);
 }
 
 /*
  * DestroyAcceleratorTable(hAccel)
  */
-HB_FUNC( HWG_DESTROYACCELERATORTABLE )
+HB_FUNC(HWG_DESTROYACCELERATORTABLE)
 {
-   g_object_unref(G_OBJECT(hb_parptr(1)));
+  g_object_unref(G_OBJECT(hb_parptr(1)));
 }
 
-HB_FUNC( HWG__SETMENUCAPTION )
+HB_FUNC(HWG__SETMENUCAPTION)
 {
-   auto menu_item = static_cast<GtkMenuItem*>(hb_parptr(1));
-   gchar * gcptr = hwg_convert_to_utf8(hb_parc(2));
-   gtk_label_set_text(reinterpret_cast<GtkLabel*>(gtk_bin_get_child(reinterpret_cast<GtkBin*>(menu_item))), gcptr);
-   g_free(gcptr);
+  auto menu_item = static_cast<GtkMenuItem *>(hb_parptr(1));
+  gchar *gcptr = hwg_convert_to_utf8(hb_parc(2));
+  gtk_label_set_text(reinterpret_cast<GtkLabel *>(gtk_bin_get_child(reinterpret_cast<GtkBin *>(menu_item))), gcptr);
+  g_free(gcptr);
 }
 
-HB_FUNC( HWG__DELETEMENU )
+HB_FUNC(HWG__DELETEMENU)
 {
-   auto menu_item = static_cast<GtkMenuItem*>(hb_parptr(1));
-   gtk_container_remove(reinterpret_cast<GtkContainer*>(gtk_widget_get_parent((reinterpret_cast<GtkWidget*>(menu_item)))), reinterpret_cast<GtkWidget*>(menu_item));
+  auto menu_item = static_cast<GtkMenuItem *>(hb_parptr(1));
+  gtk_container_remove(
+      reinterpret_cast<GtkContainer *>(gtk_widget_get_parent((reinterpret_cast<GtkWidget *>(menu_item)))),
+      reinterpret_cast<GtkWidget *>(menu_item));
 }
 
-HB_FUNC( HWG_DRAWMENUBAR )
+HB_FUNC(HWG_DRAWMENUBAR)
 {
 }

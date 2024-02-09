@@ -7,7 +7,7 @@
  * Listbox class and accompanying code added Feb 22nd, 2004 by
  * Vic McClung
  * Port trial to GTK by DF7BE .
-*/
+ */
 
 /*
  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -62,31 +62,31 @@
 /*
  hwg_Listboxaddstring(handle, cItem)
 */
-HB_FUNC( HWG_LISTBOXADDSTRING )
+HB_FUNC(HWG_LISTBOXADDSTRING)
 {
-   void * hString;
-   GtkWidget * item;
+  void *hString;
+  GtkWidget *item;
 
-   HB_PARSTR(2, &hString, nullptr);
+  HB_PARSTR(2, &hString, nullptr);
 
-   /*  Create a list item  */
-   item = gtk_list_item_new_with_label(hString);
+  /*  Create a list item  */
+  item = gtk_list_item_new_with_label(hString);
 
-   /*  Configure the "select" event  */
-/*
-   gtk_signal_connect(GTK_OBJECT(item), "select", GTK_SIGNAL_FUNC(listitem_selected), sText);
-*/
+  /*  Configure the "select" event  */
+  /*
+     gtk_signal_connect(GTK_OBJECT(item), "select", GTK_SIGNAL_FUNC(listitem_selected), sText);
+  */
 
-   /* Add item */
-   gtk_container_add(GTK_CONTAINER(hb_parptr(1)), item);
+  /* Add item */
+  gtk_container_add(GTK_CONTAINER(hb_parptr(1)), item);
 
-   /* Visible --- */
-   gtk_widget_show(item);
+  /* Visible --- */
+  gtk_widget_show(item);
 
-   /*
-   SendMessage(static_cast<HWND>(hb_parptr(1)), LB_ADDSTRING, 0, static_cast<LPARAM>(HB_PARSTR(2, &hString, nullptr)));
-   */
-   hb_strfree(hString);
+  /*
+  SendMessage(static_cast<HWND>(hb_parptr(1)), LB_ADDSTRING, 0, static_cast<LPARAM>(HB_PARSTR(2, &hString, nullptr)));
+  */
+  hb_strfree(hString);
 }
 
 /*
@@ -102,45 +102,46 @@ HB_FUNC( HWG_LISTBOXSETSTRING )
 /*
 hwg_Createlistbox(hParentWIndow, nListboxID, Style, x, y, nWidth, nHeight)
 */
-HB_FUNC( HWG_CREATELISTBOX )
+HB_FUNC(HWG_CREATELISTBOX)
 {
-   GtkWidget * hlistbox;
+  GtkWidget *hlistbox;
 
-   hlistbox = gtk_list_new();
+  hlistbox = gtk_list_new();
 
-/*
-   gtk_signal_connect(GTK_OBJECT(listbox), "selection_changed", GTK_SIGNAL_FUNC(listbox_changed), "selection_changed");
-...>
-void listitem_selected(GtkWidget * widget, gpointer * data)
-{
-   g_print("item selected - %s\n", data);
-}
-*/
+  /*
+     gtk_signal_connect(GTK_OBJECT(listbox), "selection_changed", GTK_SIGNAL_FUNC(listbox_changed),
+  "selection_changed");
+  ...>
+  void listitem_selected(GtkWidget * widget, gpointer * data)
+  {
+     g_print("item selected - %s\n", data);
+  }
+  */
 
-   /* Set listbox style */
-   gtk_list_set_selection_mode(GTK_LIST(hlistbox), GTK_SELECTION_BROWSE);
-   /* Set position */
+  /* Set listbox style */
+  gtk_list_set_selection_mode(GTK_LIST(hlistbox), GTK_SELECTION_BROWSE);
+  /* Set position */
 
-   /* Set listbox sizes */
+  /* Set listbox sizes */
 
-   if( hlistbox )
-   {
-      gtk_fixed_put(GTK_FIXED(hlistbox), hlistbox, hb_parni(4), hb_parni(5));    /* x, y */
-   }
+  if (hlistbox)
+  {
+    gtk_fixed_put(GTK_FIXED(hlistbox), hlistbox, hb_parni(4), hb_parni(5)); /* x, y */
+  }
 
-   gtk_widget_set_size_request(hlistbox, hb_parni(6), hb_parni(7));  /* nWidth, nHeight */
+  gtk_widget_set_size_request(hlistbox, hb_parni(6), hb_parni(7)); /* nWidth, nHeight */
 
-//   HWND hListbox = CreateWindow( TEXT( "LISTBOX" ),     /* predefined class  */
-//         TEXT( "" ),                    /*   */
-//         WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
-//         hb_parni(4), hb_parni(5),  /* x, y       */
-//         hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
-//         hwg_par_HWND(1),    /* parent window    */
-//         ( HMENU ) hb_parni(2),       /* listbox ID      */
-//         GetModuleHandle( nullptr ),
-//         nullptr );
+  //   HWND hListbox = CreateWindow( TEXT( "LISTBOX" ),     /* predefined class  */
+  //         TEXT( "" ),                    /*   */
+  //         WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
+  //         hb_parni(4), hb_parni(5),  /* x, y       */
+  //         hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
+  //         hwg_par_HWND(1),    /* parent window    */
+  //         ( HMENU ) hb_parni(2),       /* listbox ID      */
+  //         GetModuleHandle( nullptr ),
+  //         nullptr );
 
-   hb_retptr(hlistbox);
+  hb_retptr(hlistbox);
 }
 
 /*
@@ -158,19 +159,19 @@ HB_FUNC( HWG_LISTBOXDELETESTRING )
 /*
 hwg_ListBoxShowMain(hparent, hlistbox)
 */
-HB_FUNC( HWG_LISTBOXSHOWMAIN )
+HB_FUNC(HWG_LISTBOXSHOWMAIN)
 {
-   /* Make listbox visible */
-   GtkWidget * fenster;
-   fenster = hb_parptr(1);
-   gtk_container_add(GTK_CONTAINER(fenster), hb_parptr(2)); /* par 2 = hlistbox */
-   gtk_widget_show(static_cast<GtkWidget*>(fenster));
+  /* Make listbox visible */
+  GtkWidget *fenster;
+  fenster = hb_parptr(1);
+  gtk_container_add(GTK_CONTAINER(fenster), hb_parptr(2)); /* par 2 = hlistbox */
+  gtk_widget_show(static_cast<GtkWidget *>(fenster));
 }
 
 /*
 hwg_ListBoxShow(hlistbox)
 */
-HB_FUNC( HWG_LISTBOXSHOW )
+HB_FUNC(HWG_LISTBOXSHOW)
 {
-   gtk_widget_show(static_cast<GtkWidget*>(hb_parptr(1)));
+  gtk_widget_show(static_cast<GtkWidget *>(hb_parptr(1)));
 }

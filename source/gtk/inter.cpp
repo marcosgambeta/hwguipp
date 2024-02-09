@@ -5,7 +5,7 @@
  * Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
  * www - http://www.kresin.ru
  * Copyright 2020 Wilfried Brunken, DF7BE
-*/
+ */
 
 #include "guilib.hpp"
 #include <hbapifs.hpp>
@@ -45,7 +45,7 @@ WINBASEAPI LANGID WINAPI GetUserDefaultUILanguage(void);
 #endif
 
 /* from hwingui.h */
-extern void hwg_writelog(const char * sFile, const char * sTraceMsg, ...);
+extern void hwg_writelog(const char *sFile, const char *sTraceMsg, ...);
 
 /*
  Some troubleshootings:
@@ -53,80 +53,85 @@ extern void hwg_writelog(const char * sFile, const char * sTraceMsg, ...);
   Use hb_retc().
 */
 
-HB_FUNC( HWG_GETLOCALEINFO )
+HB_FUNC(HWG_GETLOCALEINFO)
 /* Port to GTK added by DF7BE */
 {
-   char * puf = malloc(128);
+  char *puf = malloc(128);
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
-   TCHAR szBuffer[] = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"; /* l=20 */
-   GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SLIST, szBuffer, HB_SIZEOFARRAY(szBuffer));
-   strncpy(puf, szBuffer, 24);
-   hb_retc(puf);
-   free(puf);
+  TCHAR szBuffer[] = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"; /* l=20 */
+  GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SLIST, szBuffer, HB_SIZEOFARRAY(szBuffer));
+  strncpy(puf, szBuffer, 24);
+  hb_retc(puf);
+  free(puf);
 #else
-   char * lokale;
-   lokale = setlocale(LC_CTYPE, nullptr); /* only user setting, LC_ALL displays all locale settings */
-   if( lokale == nullptr ) { /* Out of memory ? ==> return empty string */
-     lokale = "\0";
-   }
-   strncpy(puf, lokale, 127);  /* Avoid buffer overflow */
-//   hwg_writelog(nullptr, puf);
-   hb_retc(puf);
-   free(puf);
+  char *lokale;
+  lokale = setlocale(LC_CTYPE, nullptr); /* only user setting, LC_ALL displays all locale settings */
+  if (lokale == nullptr)
+  { /* Out of memory ? ==> return empty string */
+    lokale = "\0";
+  }
+  strncpy(puf, lokale, 127); /* Avoid buffer overflow */
+                             //   hwg_writelog(nullptr, puf);
+  hb_retc(puf);
+  free(puf);
 #endif
 }
 
-HB_FUNC( HWG_GETLOCALEINFON )
+HB_FUNC(HWG_GETLOCALEINFON)
 {
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
-/* returns Windows LCID, type is int.
-    Windows only , on other OSs available, returns forever -1. */
-   int lio;
-   lio = GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SLIST, nullptr, 0);
-   hb_retni(lio);
+  /* returns Windows LCID, type is int.
+      Windows only , on other OSs available, returns forever -1. */
+  int lio;
+  lio = GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SLIST, nullptr, 0);
+  hb_retni(lio);
 #else
-   hb_retni(-1);
+  hb_retni(-1);
 #endif
 }
 
-HB_FUNC( HWG_GETUTCTIMEDATE )
+HB_FUNC(HWG_GETUTCTIMEDATE)
 {
-/* Format: W,YYYYMMDD-HH:MM:SS */
+  /* Format: W,YYYYMMDD-HH:MM:SS */
   char cst[128] = {0};
-  char * puf = malloc(25);
-  for( int i = 0 ; i < 128 ; i++ ) { /* Fill string with zeroes to avoid buffer overflow on LINUX */
+  char *puf = malloc(25);
+  for (int i = 0; i < 128; i++)
+  { /* Fill string with zeroes to avoid buffer overflow on LINUX */
     cst[i] = '\0';
   }
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
   SYSTEMTIME st = {0};
   GetSystemTime(&st);
-  sprintf(cst, "%01d.%04d%02d%02d-%02d:%02d:%02d", st.wDayOfWeek, st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
+  sprintf(cst, "%01d.%04d%02d%02d-%02d:%02d:%02d", st.wDayOfWeek, st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute,
+          st.wSecond);
   strncpy(puf, cst, 24);
   hb_retc(puf);
   free(puf);
 #else
-/* Note for possible extensions:
-    tm.tm_yday;    Days since Jan. 1: 0-365
-    tm.tm_isdst;   +1 Daylight Savings Time, 0 No DST,
-                     * -1 don't know
-   Use localtime ( &T ); for local time
-*/
+  /* Note for possible extensions:
+      tm.tm_yday;    Days since Jan. 1: 0-365
+      tm.tm_isdst;   +1 Daylight Savings Time, 0 No DST,
+                       * -1 don't know
+     Use localtime ( &T ); for local time
+  */
   time_t T = time(nullptr);
-  struct tm tm = * gmtime(&T);
+  struct tm tm = *gmtime(&T);
   /* tm.tm_wday: Days since Sunday (0-6) */
-  sprintf(cst, "%01d,%04d%02d%02d-%02d:%02d:%02d", tm.tm_wday, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+  sprintf(cst, "%01d,%04d%02d%02d-%02d:%02d:%02d", tm.tm_wday, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour,
+          tm.tm_min, tm.tm_sec);
   strncpy(puf, cst, 24);
   hb_retc(puf);
   free(puf);
 #endif
 }
 
-HB_FUNC( HWG_GETDATEANSI )
+HB_FUNC(HWG_GETDATEANSI)
 {
-/* Format: YYYYMMDD, based on local time */
+  /* Format: YYYYMMDD, based on local time */
   char cst[128] = {0};
-  char * puf = malloc(25);
-  for( int i = 0 ; i < 128 ; i++ ) { /* Fill string with zeroes to avoid buffer overflow on LINUX */
+  char *puf = malloc(25);
+  for (int i = 0; i < 128; i++)
+  { /* Fill string with zeroes to avoid buffer overflow on LINUX */
     cst[i] = '\0';
   }
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
@@ -137,14 +142,14 @@ HB_FUNC( HWG_GETDATEANSI )
   hb_retc(puf);
   free(puf);
 #else
-/* Note for possible extensions:
-    tm.tm_yday;    Days since Jan. 1: 0-365
-    tm.tm_isdst;   +1 Daylight Savings Time, 0 No DST,
-                     * -1 don't know
-   Use localtime ( &T ); for local time
-*/
+  /* Note for possible extensions:
+      tm.tm_yday;    Days since Jan. 1: 0-365
+      tm.tm_isdst;   +1 Daylight Savings Time, 0 No DST,
+                       * -1 don't know
+     Use localtime ( &T ); for local time
+  */
   time_t T = time(nullptr);
-  struct tm tm = * localtime(&T);
+  struct tm tm = *localtime(&T);
   /* tm.tm_wday: Days since Sunday (0-6) */
   sprintf(cst, "%04d%02d%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
   strncpy(puf, cst, 24);
@@ -153,16 +158,16 @@ HB_FUNC( HWG_GETDATEANSI )
 #endif
 }
 
-HB_FUNC( HWG_DEFUSERLANG )
+HB_FUNC(HWG_DEFUSERLANG)
 /* Windows only , on other OSs available, returns forever "-1". */
 {
-  char * puf = malloc(25);
+  char *puf = malloc(25);
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
   char clang[25] = {0};
-  LANGID l;  /* ==> WORD */
+  LANGID l; /* ==> WORD */
   l = GetUserDefaultUILanguage();
   sprintf(clang, "%d", l);
-  strncpy(puf, clang , 24);
+  strncpy(puf, clang, 24);
   hb_retc(puf);
   free(puf);
 #else
@@ -173,14 +178,15 @@ HB_FUNC( HWG_DEFUSERLANG )
 #endif
 }
 
-void hwg_strdebuglog(char * dest)
+void hwg_strdebuglog(char *dest)
 /* writes a string in logfile ac.log, only for debugging */
 {
-   char c;
-   char aus[1024] = {0};
-   for( size_t n = 0; n < sizeof(static_cast<char*>(dest)) ; ++n ) {
-      c = dest[n];
-      c ? sprintf(aus, "'%c' ", c) : sprintf(aus, "'\\0' ");
-      hwg_writelog(nullptr, aus);
-   }
+  char c;
+  char aus[1024] = {0};
+  for (size_t n = 0; n < sizeof(static_cast<char *>(dest)); ++n)
+  {
+    c = dest[n];
+    c ? sprintf(aus, "'%c' ", c) : sprintf(aus, "'\\0' ");
+    hwg_writelog(nullptr, aus);
+  }
 }
