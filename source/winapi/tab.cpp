@@ -4,7 +4,7 @@
  *
  * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
  * www - http://www.kresin.ru
-*/
+ */
 
 #define HB_OS_WIN_32_USED
 
@@ -28,175 +28,185 @@ static WNDPROC wpOrigTabProc;
 /*
 HWG_CREATETABCONTROL(hParent, nID, nStyle, nX, nY, nWidth, nHeight) --> hTab
 */
-HB_FUNC( HWG_CREATETABCONTROL )
+HB_FUNC(HWG_CREATETABCONTROL)
 {
-   auto hTab = CreateWindowEx(0,
-                              WC_TABCONTROL,
-                              nullptr,
-                              WS_CHILD | WS_VISIBLE | hb_parnl(3),
-                              hwg_par_int(4),
-                              hwg_par_int(5),
-                              hwg_par_int(6),
-                              hwg_par_int(7),
-                              hwg_par_HWND(1),
-                              reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-                              GetModuleHandle(nullptr),
-                              nullptr);
-   hb_retptr(hTab);
+  auto hTab =
+      CreateWindowEx(0, WC_TABCONTROL, nullptr, WS_CHILD | WS_VISIBLE | hb_parnl(3), hwg_par_int(4), hwg_par_int(5),
+                     hwg_par_int(6), hwg_par_int(7), hwg_par_HWND(1),
+                     reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);
+  hb_retptr(hTab);
 }
 
-HB_FUNC( HWG_INITTABCONTROL )
+HB_FUNC(HWG_INITTABCONTROL)
 {
-   auto hTab = hwg_par_HWND(1);
-   auto pArr = hb_param(2, Harbour::Item::ARRAY);
-   int iItems = hb_parnl(3);
-   TC_ITEM tie;
-   ULONG ulTabs = hb_arrayLen(pArr);
+  auto hTab = hwg_par_HWND(1);
+  auto pArr = hb_param(2, Harbour::Item::ARRAY);
+  int iItems = hb_parnl(3);
+  TC_ITEM tie;
+  ULONG ulTabs = hb_arrayLen(pArr);
 
-   tie.mask = TCIF_TEXT | TCIF_IMAGE;
-   tie.iImage = iItems == 0 ? -1 : 0;
+  tie.mask = TCIF_TEXT | TCIF_IMAGE;
+  tie.iImage = iItems == 0 ? -1 : 0;
 
-   for( ULONG ul = 1; ul <= ulTabs; ul++ ) {
-      void * hStr;
+  for (ULONG ul = 1; ul <= ulTabs; ul++)
+  {
+    void *hStr;
 
-      tie.pszText = const_cast<LPTSTR>(HB_ARRAYGETSTR(pArr, ul, &hStr, nullptr));
-      if( tie.pszText == nullptr ) {
-         tie.pszText = const_cast<LPTSTR>(TEXT(""));
-      }
+    tie.pszText = const_cast<LPTSTR>(HB_ARRAYGETSTR(pArr, ul, &hStr, nullptr));
+    if (tie.pszText == nullptr)
+    {
+      tie.pszText = const_cast<LPTSTR>(TEXT(""));
+    }
 
-      if( TabCtrl_InsertItem(hTab, ul - 1, &tie) == -1 ) {
-         DestroyWindow(hTab);
-         hTab = nullptr;
-      }
-      hb_strfree(hStr);
+    if (TabCtrl_InsertItem(hTab, ul - 1, &tie) == -1)
+    {
+      DestroyWindow(hTab);
+      hTab = nullptr;
+    }
+    hb_strfree(hStr);
 
-      if( tie.iImage > -1 ) {
-         tie.iImage++;
-      }
-   }
+    if (tie.iImage > -1)
+    {
+      tie.iImage++;
+    }
+  }
 }
 
-HB_FUNC( HWG_ADDTAB )
+HB_FUNC(HWG_ADDTAB)
 {
-   TC_ITEM tie;
-   void * hStr;
-   tie.mask = TCIF_TEXT | TCIF_IMAGE;
-   tie.iImage = -1;
-   tie.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
-   TabCtrl_InsertItem(hwg_par_HWND(1), hb_parni(2), &tie);
-   hb_strfree(hStr);
+  TC_ITEM tie;
+  void *hStr;
+  tie.mask = TCIF_TEXT | TCIF_IMAGE;
+  tie.iImage = -1;
+  tie.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
+  TabCtrl_InsertItem(hwg_par_HWND(1), hb_parni(2), &tie);
+  hb_strfree(hStr);
 }
 
-HB_FUNC( HWG_ADDTABDIALOG )
+HB_FUNC(HWG_ADDTABDIALOG)
 {
-   TC_ITEM tie;
-   void * hStr;
-   auto pWnd = hwg_par_HWND(4);
+  TC_ITEM tie;
+  void *hStr;
+  auto pWnd = hwg_par_HWND(4);
 
-   tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
-   tie.lParam = reinterpret_cast<LPARAM>(pWnd);
-   tie.iImage = -1;
-   tie.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
-   TabCtrl_InsertItem(hwg_par_HWND(1), hb_parni(2), &tie);
-   hb_strfree(hStr);
+  tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
+  tie.lParam = reinterpret_cast<LPARAM>(pWnd);
+  tie.iImage = -1;
+  tie.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
+  TabCtrl_InsertItem(hwg_par_HWND(1), hb_parni(2), &tie);
+  hb_strfree(hStr);
 }
 
-HB_FUNC( HWG_DELETETAB )
+HB_FUNC(HWG_DELETETAB)
 {
-   TabCtrl_DeleteItem(hwg_par_HWND(1), hb_parni(2));
+  TabCtrl_DeleteItem(hwg_par_HWND(1), hb_parni(2));
 }
 
-HB_FUNC( HWG_GETCURRENTTAB )
+HB_FUNC(HWG_GETCURRENTTAB)
 {
-   hb_retni(TabCtrl_GetCurSel(hwg_par_HWND(1)) + 1);
+  hb_retni(TabCtrl_GetCurSel(hwg_par_HWND(1)) + 1);
 }
 
-HB_FUNC( HWG_SETTABSIZE )
+HB_FUNC(HWG_SETTABSIZE)
 {
-   SendMessage(hwg_par_HWND(1), TCM_SETITEMSIZE, 0, MAKELPARAM(hb_parni(2), hb_parni(3)));
+  SendMessage(hwg_par_HWND(1), TCM_SETITEMSIZE, 0, MAKELPARAM(hb_parni(2), hb_parni(3)));
 }
 
-HB_FUNC( HWG_SETTABNAME )
+HB_FUNC(HWG_SETTABNAME)
 {
-   TC_ITEM tie;
-   void * hStr;
-   tie.mask = TCIF_TEXT;
-   tie.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
-   TabCtrl_SetItem(hwg_par_HWND(1), hb_parni(2)-1, &tie);
-   hb_strfree(hStr);
+  TC_ITEM tie;
+  void *hStr;
+  tie.mask = TCIF_TEXT;
+  tie.pszText = const_cast<LPTSTR>(HB_PARSTR(3, &hStr, nullptr));
+  TabCtrl_SetItem(hwg_par_HWND(1), hb_parni(2) - 1, &tie);
+  hb_strfree(hStr);
 }
 
-HB_FUNC( HWG_TAB_HITTEST )
+HB_FUNC(HWG_TAB_HITTEST)
 {
-   TC_HITTESTINFO ht;
-   auto hTab = hwg_par_HWND(1);
+  TC_HITTESTINFO ht;
+  auto hTab = hwg_par_HWND(1);
 
-   if( hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3) ) {
-      ht.pt.x = hb_parni(2);
-      ht.pt.y = hb_parni(3);
-   } else {
-      GetCursorPos(&(ht.pt));
-      ScreenToClient(hTab, &(ht.pt));
-   }
+  if (hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3))
+  {
+    ht.pt.x = hb_parni(2);
+    ht.pt.y = hb_parni(3);
+  }
+  else
+  {
+    GetCursorPos(&(ht.pt));
+    ScreenToClient(hTab, &(ht.pt));
+  }
 
-   auto res = static_cast<int>(SendMessage(hTab, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&ht)));
+  auto res = static_cast<int>(SendMessage(hTab, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&ht)));
 
-   hb_storni(ht.flags, 4);
-   hb_retni(res);
+  hb_storni(ht.flags, 4);
+  hb_retni(res);
 }
 
-HB_FUNC( HWG_TABITEMPOS )
+HB_FUNC(HWG_TABITEMPOS)
 {
-   RECT pRect;
-   TabCtrl_GetItemRect(hwg_par_HWND(1), hb_parni(2), &pRect);
-   hb_itemRelease(hb_itemReturn(Rect2Array(&pRect)));
+  RECT pRect;
+  TabCtrl_GetItemRect(hwg_par_HWND(1), hb_parni(2), &pRect);
+  hb_itemRelease(hb_itemReturn(Rect2Array(&pRect)));
 }
 
-HB_FUNC( HWG_GETTABNAME )
+HB_FUNC(HWG_GETTABNAME)
 {
-   TC_ITEM tie;
-   TCHAR d[255] = {0};
+  TC_ITEM tie;
+  TCHAR d[255] = {0};
 
-   tie.mask = TCIF_TEXT;
-   tie.cchTextMax = HB_SIZEOFARRAY(d) - 1;
-   tie.pszText = d;
-   TabCtrl_GetItem(hwg_par_HWND(1), hb_parni(2) - 1, static_cast<LPTCITEM>(&tie));
-   HB_RETSTR(tie.pszText);
+  tie.mask = TCIF_TEXT;
+  tie.cchTextMax = HB_SIZEOFARRAY(d) - 1;
+  tie.pszText = d;
+  TabCtrl_GetItem(hwg_par_HWND(1), hb_parni(2) - 1, static_cast<LPTCITEM>(&tie));
+  HB_RETSTR(tie.pszText);
 }
 
-HB_FUNC( HWG_INITTABPROC )
+HB_FUNC(HWG_INITTABPROC)
 {
-   wpOrigTabProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hwg_par_HWND(1), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabSubclassProc)));
+  wpOrigTabProc = reinterpret_cast<WNDPROC>(
+      SetWindowLongPtr(hwg_par_HWND(1), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabSubclassProc)));
 }
 
 LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+  auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-   if( !pSym_onEvent ) {
-      pSym_onEvent = hb_dynsymFindName("ONEVENT");
-   }
+  if (!pSym_onEvent)
+  {
+    pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
-   if( pSym_onEvent && pObject ) {
-      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
-      hb_vmPush(pObject);
-      hb_vmPushLong(static_cast<LONG>(message));
-//      hb_vmPushLong(static_cast<LONG>(wParam));
-//      hb_vmPushLong(static_cast<LONG>(lParam));
-      hb_vmPushPointer(reinterpret_cast<void*>(wParam));
-      hb_vmPushPointer(reinterpret_cast<void*>(lParam));
-      hb_vmSend(3);
-      if( HB_ISPOINTER(-1) ) {
-         return reinterpret_cast<LRESULT>(hb_parptr(-1));
-      } else {
-         long int res = hb_parnl(-1);
-         if( res == -1 ) {
-            return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
-         } else {
-            return res;
-         }
+  if (pSym_onEvent && pObject)
+  {
+    hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+    hb_vmPush(pObject);
+    hb_vmPushLong(static_cast<LONG>(message));
+    //      hb_vmPushLong(static_cast<LONG>(wParam));
+    //      hb_vmPushLong(static_cast<LONG>(lParam));
+    hb_vmPushPointer(reinterpret_cast<void *>(wParam));
+    hb_vmPushPointer(reinterpret_cast<void *>(lParam));
+    hb_vmSend(3);
+    if (HB_ISPOINTER(-1))
+    {
+      return reinterpret_cast<LRESULT>(hb_parptr(-1));
+    }
+    else
+    {
+      long int res = hb_parnl(-1);
+      if (res == -1)
+      {
+        return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
       }
-   } else {
-      return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
-   }
+      else
+      {
+        return res;
+      }
+    }
+  }
+  else
+  {
+    return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
+  }
 }

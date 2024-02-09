@@ -4,7 +4,7 @@
  *
  * Copyright 2004,2022 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
  * www - https://github.com/marcosgambeta/
-*/
+ */
 
 #include "hwingui.hpp"
 #include <commctrl.h>

@@ -4,12 +4,12 @@
  *
  * Copyright 2004 Marcos Antonio Gambeta <marcos_gambeta@hotmail.com>
  * www - http://geocities.yahoo.com.br/marcosgambeta/
-*/
+ */
 
-#define _WIN32_IE      0x0500
+#define _WIN32_IE 0x0500
 #define HB_OS_WIN_32_USED
 #ifndef _WIN32_WINNT
-   #define _WIN32_WINNT   0x0400
+#define _WIN32_WINNT 0x0400
 #endif
 
 #include "guilib.hpp"

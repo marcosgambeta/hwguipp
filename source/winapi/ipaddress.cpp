@@ -29,13 +29,13 @@
 
  Parts of this project are based upon:
 
-	"Harbour GUI framework for Win32"
- 	Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- 	Copyright 2001 Antonio Linares <alinares@fivetech.com>
-	www - http://www.harbour-project.org
+    "Harbour GUI framework for Win32"
+    Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+    Copyright 2001 Antonio Linares <alinares@fivetech.com>
+    www - http://www.harbour-project.org
 
-	"Harbour Project"
-	Copyright 1999-2003, http://www.harbour-project.org/
+    "Harbour Project"
+    Copyright 1999-2003, http://www.harbour-project.org/
 ---------------------------------------------------------------------------*/
 
 #include "hwingui.hpp"
@@ -45,57 +45,49 @@
 #include <hbstack.hpp>
 #include <hbapiitm.hpp>
 
-HB_FUNC_EXTERN( HWG_INITCOMMONCONTROLSEX );
+HB_FUNC_EXTERN(HWG_INITCOMMONCONTROLSEX);
 
-HB_FUNC( HWG_INITIPADDRESS )
+HB_FUNC(HWG_INITIPADDRESS)
 {
-   HB_FUNC_EXEC( HWG_INITCOMMONCONTROLSEX );
+  HB_FUNC_EXEC(HWG_INITCOMMONCONTROLSEX);
 
-   auto hIpAddress = CreateWindowEx(WS_EX_CLIENTEDGE,
-                                    WC_IPADDRESS,
-                                    TEXT(""),
-                                    hb_parnl(3),
-                                    hwg_par_int(4),
-                                    hwg_par_int(5),
-                                    hwg_par_int(6),
-                                    hwg_par_int(7),
-                                    hwg_par_HWND(1),
-                                    reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))),
-                                    GetModuleHandle(nullptr),
-                                    nullptr);
+  auto hIpAddress =
+      CreateWindowEx(WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT(""), hb_parnl(3), hwg_par_int(4), hwg_par_int(5),
+                     hwg_par_int(6), hwg_par_int(7), hwg_par_HWND(1),
+                     reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);
 
-   hb_retptr(hIpAddress);
+  hb_retptr(hIpAddress);
 }
 
-HB_FUNC( HWG_SETIPADDRESS )
+HB_FUNC(HWG_SETIPADDRESS)
 {
-   BYTE v1 = hwg_par_BYTE(2);
-   BYTE v2 = hwg_par_BYTE(3);
-   BYTE v3 = hwg_par_BYTE(4);
-   BYTE v4 = hwg_par_BYTE(5);
+  BYTE v1 = hwg_par_BYTE(2);
+  BYTE v2 = hwg_par_BYTE(3);
+  BYTE v3 = hwg_par_BYTE(4);
+  BYTE v4 = hwg_par_BYTE(5);
 
-   SendMessage(hwg_par_HWND(1), IPM_SETADDRESS, 0, MAKEIPADDRESS(v1, v2, v3, v4));
+  SendMessage(hwg_par_HWND(1), IPM_SETADDRESS, 0, MAKEIPADDRESS(v1, v2, v3, v4));
 }
 
-HB_FUNC( HWG_GETIPADDRESS )
+HB_FUNC(HWG_GETIPADDRESS)
 {
-   DWORD pdwAddr;
+  DWORD pdwAddr;
 
-   SendMessage(hwg_par_HWND(1), IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(static_cast<LPDWORD>(&pdwAddr)));
+  SendMessage(hwg_par_HWND(1), IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(static_cast<LPDWORD>(&pdwAddr)));
 
-   auto v1 = static_cast<BYTE>(FIRST_IPADDRESS(pdwAddr));
-   auto v2 = static_cast<BYTE>(SECOND_IPADDRESS(pdwAddr));
-   auto v3 = static_cast<BYTE>(THIRD_IPADDRESS(pdwAddr));
-   auto v4 = static_cast<BYTE>(FOURTH_IPADDRESS(pdwAddr));
+  auto v1 = static_cast<BYTE>(FIRST_IPADDRESS(pdwAddr));
+  auto v2 = static_cast<BYTE>(SECOND_IPADDRESS(pdwAddr));
+  auto v3 = static_cast<BYTE>(THIRD_IPADDRESS(pdwAddr));
+  auto v4 = static_cast<BYTE>(FOURTH_IPADDRESS(pdwAddr));
 
-   hb_reta(4);
-   hb_storvni(static_cast<INT>(v1), -1, 1);
-   hb_storvni(static_cast<INT>(v2), -1, 2);
-   hb_storvni(static_cast<INT>(v3), -1, 3);
-   hb_storvni(static_cast<INT>(v4), -1, 4);
+  hb_reta(4);
+  hb_storvni(static_cast<INT>(v1), -1, 1);
+  hb_storvni(static_cast<INT>(v2), -1, 2);
+  hb_storvni(static_cast<INT>(v3), -1, 3);
+  hb_storvni(static_cast<INT>(v4), -1, 4);
 }
 
-HB_FUNC( HWG_CLEARIPADDRESS )
+HB_FUNC(HWG_CLEARIPADDRESS)
 {
-   SendMessage(hwg_par_HWND(1), IPM_CLEARADDRESS, 0, 0);
+  SendMessage(hwg_par_HWND(1), IPM_CLEARADDRESS, 0, 0);
 }

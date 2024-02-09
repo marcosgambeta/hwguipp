@@ -4,7 +4,7 @@
  *
  * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
  * www - http://www.kresin.ru
-*/
+ */
 
 #define HB_OS_WIN_32_USED
 
@@ -32,37 +32,41 @@ static void CALLBACK s_timerProc(HWND, UINT, UINT, DWORD);
       the TimerProc, this way I can receive WM_TIMER messages
       inside an ON OTHER MESSAGES code block
 */
-HB_FUNC( HWG_SETTIMER )
+HB_FUNC(HWG_SETTIMER)
 {
-   SetTimer(hwg_par_HWND(1), hwg_par_UINT_PTR(2), hwg_par_UINT(3), hb_pcount() == 3 ?  reinterpret_cast<TIMERPROC>(reinterpret_cast<UINT_PTR>(s_timerProc)) : nullptr);
+  SetTimer(hwg_par_HWND(1), hwg_par_UINT_PTR(2), hwg_par_UINT(3),
+           hb_pcount() == 3 ? reinterpret_cast<TIMERPROC>(reinterpret_cast<UINT_PTR>(s_timerProc)) : nullptr);
 }
 
 /*
  *  KillTimer(hWnd, idTimer)
  */
 
-HB_FUNC( HWG_KILLTIMER )
+HB_FUNC(HWG_KILLTIMER)
 {
-   hb_retl(KillTimer(hwg_par_HWND(1), hwg_par_UINT_PTR(2)));
+  hb_retl(KillTimer(hwg_par_HWND(1), hwg_par_UINT_PTR(2)));
 }
 
-static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer, DWORD dwTime) /* DWORD dwTime as last parameter unused */
+static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer,
+                                 DWORD dwTime) /* DWORD dwTime as last parameter unused */
 {
-   static PHB_DYNS s_pSymTest = nullptr;
+  static PHB_DYNS s_pSymTest = nullptr;
 
-   HB_SYMBOL_UNUSED(message);
+  HB_SYMBOL_UNUSED(message);
 
-   if( s_pSymTest == nullptr ) {
-      s_pSymTest = hb_dynsymGetCase("HWG_TIMERPROC");
-   }
+  if (s_pSymTest == nullptr)
+  {
+    s_pSymTest = hb_dynsymGetCase("HWG_TIMERPROC");
+  }
 
-   if( hb_dynsymIsFunction(s_pSymTest) ) {
-      hb_vmPushDynSym(s_pSymTest);
-      hb_vmPushNil();   /* places NIL at self */
-      //hb_vmPushLong(static_cast<LONG>(hWnd));    /* pushes parameters on to the hvm stack */
-      hb_vmPushPointer(hWnd);
-      hb_vmPushLong(static_cast<LONG>(idTimer));
-      //hb_vmPushLong(static_cast<LONG>(dwTime));
-      hb_vmDo(2);             /* where iArgCount is the number of pushed parameters */
-   }
+  if (hb_dynsymIsFunction(s_pSymTest))
+  {
+    hb_vmPushDynSym(s_pSymTest);
+    hb_vmPushNil(); /* places NIL at self */
+    // hb_vmPushLong(static_cast<LONG>(hWnd));    /* pushes parameters on to the hvm stack */
+    hb_vmPushPointer(hWnd);
+    hb_vmPushLong(static_cast<LONG>(idTimer));
+    // hb_vmPushLong(static_cast<LONG>(dwTime));
+    hb_vmDo(2); /* where iArgCount is the number of pushed parameters */
+  }
 }
