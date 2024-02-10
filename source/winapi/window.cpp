@@ -31,7 +31,8 @@ static LRESULT CALLBACK s_FrameWndProc(HWND, UINT, WPARAM, LPARAM);
 static LRESULT CALLBACK s_MDIChildWndProc(HWND, UINT, WPARAM, LPARAM);
 
 static HHOOK s_KeybHook = nullptr;
-HWND aWindows[2] = {0, 0};
+HWND MDIFrameWindow = nullptr;
+HWND MDIClientWindow = nullptr;
 PHB_DYNS pSym_onEvent = nullptr;
 PHB_DYNS pSym_keylist = nullptr;
 static LPCTSTR s_szChild = TEXT("MDICHILD");
@@ -96,7 +97,7 @@ HB_FUNC(HWG_INITMAINWINDOW)
   auto width = hb_parni(11);
   auto height = hb_parni(12);
 
-  if (!aWindows[0])
+  if (MDIFrameWindow == nullptr)
   {
     wndclass.style = CS_OWNDC | CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
     wndclass.lpfnWndProc = s_MainWndProc;
@@ -125,7 +126,7 @@ HB_FUNC(HWG_INITMAINWINDOW)
       hb_objDataPutNL(pObject, "_NHOLDER", 1);
       SetWindowObject(hWnd, pObject);
 
-      aWindows[0] = hWnd;
+      MDIFrameWindow = hWnd;
     }
   }
   hb_strfree(hAppName);
@@ -147,7 +148,7 @@ HB_FUNC(HWG_CENTERWINDOW)
 
   if (hb_parni(2) == WND_MDICHILD)
   {
-    GetWindowRect(static_cast<HWND>(aWindows[1]), &rectcli);
+    GetWindowRect(static_cast<HWND>(MDIClientWindow), &rectcli);
     x = rectcli.right - rectcli.left;
     y = rectcli.bottom - rectcli.top;
     w = rect.right - rect.left;
@@ -181,12 +182,12 @@ void ProcessMessage(MSG msg, HACCEL hAcceler, BOOL lMdi)
 
   if (i == iDialogs)
   {
-    if (lMdi && TranslateMDISysAccel(aWindows[1], &msg))
+    if (lMdi && TranslateMDISysAccel(MDIClientWindow, &msg))
     {
       return;
     }
 
-    if (!hAcceler || !TranslateAccelerator(aWindows[0], hAcceler, &msg))
+    if (!hAcceler || !TranslateAccelerator(MDIFrameWindow, hAcceler, &msg))
     {
       TranslateMessage(&msg);
       DispatchMessage(&msg);
@@ -209,7 +210,7 @@ void hwg_ActivateMainWindow(BOOL bShow, HACCEL hAcceler, BOOL bMaximize, BOOL bM
 
   if (bShow)
   {
-    ShowWindow(aWindows[0], bMaximize ? SW_SHOWMAXIMIZED : (bMinimize ? SW_SHOWMINIMIZED : SW_SHOWNORMAL));
+    ShowWindow(MDIFrameWindow, bMaximize ? SW_SHOWMAXIMIZED : (bMinimize ? SW_SHOWMINIMIZED : SW_SHOWNORMAL));
   }
 
   while (GetMessage(&msg, nullptr, 0, 0))
@@ -366,7 +367,7 @@ HB_FUNC(HWG_INITMDIWINDOW)
   auto width = hb_parni(10);
   auto height = hb_parni(11);
 
-  if (aWindows[0])
+  if (MDIFrameWindow != nullptr)
   {
     hb_retni(-1);
   }
@@ -396,9 +397,9 @@ HB_FUNC(HWG_INITMDIWINDOW)
       wc.hIcon =
           (hb_pcount() > 4 && !HB_ISNIL(5)) ? hwg_par_HICON(5) : LoadIcon(static_cast<HINSTANCE>(hInstance), TEXT(""));
       // TODO: revisar linha abaixo
-      // wc.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? hwg_par_HBRUSH(6) :
-      // reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
-      wc.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
+      wc.hbrBackground = (hb_pcount() > 5 && !HB_ISNIL(6)) ? hwg_par_HBRUSH(6) :
+      reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
+      //wc.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
       wc.lpszMenuName = nullptr;
       wc.cbWndExtra = 0;
       wc.lpszClassName = s_szChild;
@@ -427,7 +428,7 @@ HB_FUNC(HWG_INITMDIWINDOW)
           hb_objDataPutNL(pObject, "_NHOLDER", 1);
           SetWindowObject(hWnd, pObject);
 
-          aWindows[0] = hWnd;
+          MDIFrameWindow = hWnd;
           hb_retptr(hWnd);
         }
       }
@@ -447,14 +448,14 @@ HB_FUNC(HWG_INITCLIENTWINDOW)
   int nPos = (hb_pcount() > 1 && !HB_ISNIL(2)) ? hb_parni(2) : 0;
 
   // Create client window
-  ccs.hWindowMenu = GetSubMenu(GetMenu(aWindows[0]), nPos);
+  ccs.hWindowMenu = GetSubMenu(GetMenu(MDIFrameWindow), nPos);
   ccs.idFirstChild = FIRST_MDICHILD_ID;
 
   auto hWnd = CreateWindowEx(0, TEXT("MDICLIENT"), nullptr, WS_CHILD | WS_CLIPCHILDREN | MDIS_ALLCHILDSTYLES,
-                             hwg_par_int(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), aWindows[0], nullptr,
+                             hwg_par_int(3), hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), MDIFrameWindow, nullptr,
                              GetModuleHandle(nullptr), static_cast<LPVOID>(&ccs));
 
-  aWindows[1] = hWnd;
+  MDIClientWindow = hWnd;
   hb_retptr(hWnd);
 }
 
@@ -468,16 +469,16 @@ HB_FUNC(HWG_ACTIVATEMDIWINDOW)
 
   if (hb_parl(1))
   {
-    ShowWindow(aWindows[0], (HB_ISLOG(3) && hb_parl(3))
+    ShowWindow(MDIFrameWindow, (HB_ISLOG(3) && hb_parl(3))
                                 ? SW_SHOWMAXIMIZED
                                 : ((HB_ISLOG(4) && hb_parl(4)) ? SW_SHOWMINIMIZED : SW_SHOWNORMAL));
-    ShowWindow(aWindows[1], SW_SHOW);
+    ShowWindow(MDIClientWindow, SW_SHOW);
   }
 
   while (GetMessage(&msg, nullptr, 0, 0))
   {
     // ProcessMessage(msg, hAcceler, 0);
-    ProcessMdiMessage(aWindows[0], aWindows[1], msg, hAcceler);
+    ProcessMdiMessage(MDIFrameWindow, MDIClientWindow, msg, hAcceler);
   }
 }
 
@@ -511,7 +512,7 @@ HB_FUNC(HWG_CREATEMDICHILDWINDOW)
     style = style | static_cast<int>(hb_parnl(2));
   }
 
-  if (aWindows[0])
+  if (MDIFrameWindow != nullptr)
   {
     hWnd = CreateMDIWindow(
 #if (((defined(_MSC_VER) && (_MSC_VER <= 1200))))
@@ -526,7 +527,7 @@ HB_FUNC(HWG_CREATEMDICHILDWINDOW)
         y,                              // vertical position of window
         width,                          // width of window
         height,                         // height of window
-        static_cast<HWND>(aWindows[1]), // handle to parent window (MDI client)
+        static_cast<HWND>(MDIClientWindow), // handle to parent window (MDI client)
         GetModuleHandle(nullptr),       // handle to application instance
         reinterpret_cast<LPARAM>(&pObj) // application-defined value
     );
@@ -894,7 +895,7 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, L
       long int res = hb_parnl(-1);
       if (res == -1)
       {
-        return DefFrameProc(hWnd, aWindows[1], message, wParam, lParam);
+        return DefFrameProc(hWnd, MDIClientWindow, message, wParam, lParam);
       }
       else
       {
@@ -904,7 +905,7 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, L
   }
   else
   {
-    return DefFrameProc(hWnd, aWindows[1], message, wParam, lParam);
+    return DefFrameProc(hWnd, MDIClientWindow, message, wParam, lParam);
   }
 }
 

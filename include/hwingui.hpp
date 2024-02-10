@@ -47,7 +47,8 @@ extern void SetWindowObject( HWND hWnd, PHB_ITEM pObject );
 extern PHB_ITEM Rect2Array( RECT * rc );
 extern BOOL Array2Rect( PHB_ITEM aRect, RECT * rc );
 
-extern HWND aWindows[];
+extern HWND MDIFrameWindow;
+extern HWND MDIClientWindow;
 extern HWND *aDialogs;
 extern int iDialogs;
 extern HMODULE hModule;

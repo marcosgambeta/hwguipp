@@ -163,7 +163,7 @@ HWG_GETMENUHANDLE(hWnd) --> lHandle
 */
 HB_FUNC(HWG_GETMENUHANDLE)
 {
-  HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? hwg_par_HWND(1) : aWindows[0];
+  HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? hwg_par_HWND(1) : MDIFrameWindow;
   hb_retptr(GetMenu(handle));
 }
 
@@ -183,7 +183,7 @@ HB_FUNC(HWG_CHECKMENUITEM)
   }
   else
   {
-    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : aWindows[0];
+    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : MDIFrameWindow;
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
@@ -215,7 +215,7 @@ HB_FUNC(HWG_ISCHECKEDMENUITEM)
   }
   else
   {
-    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : aWindows[0];
+    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : MDIFrameWindow;
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
@@ -249,7 +249,7 @@ HB_FUNC(HWG_ENABLEMENUITEM)
   }
   else
   {
-    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : aWindows[0];
+    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : MDIFrameWindow;
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
@@ -283,7 +283,7 @@ HB_FUNC(HWG_ISENABLEDMENUITEM)
   }
   else
   {
-    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : aWindows[0];
+    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : MDIFrameWindow;
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
@@ -307,7 +307,7 @@ HWG_DELETEMENU(hMenu, nPosition) --> NIL
 */
 HB_FUNC(HWG_DELETEMENU)
 {
-  HMENU hMenu = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HMENU(1)) : GetMenu(aWindows[0]);
+  HMENU hMenu = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HMENU(1)) : GetMenu(MDIFrameWindow);
 
   if (hMenu)
   {
@@ -388,7 +388,7 @@ HB_FUNC(HWG_GETMENUCAPTION)
   }
   else
   {
-    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : aWindows[0];
+    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : MDIFrameWindow;
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
@@ -438,7 +438,7 @@ HB_FUNC(HWG_SETMENUCAPTION)
   }
   else
   {
-    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : aWindows[0];
+    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : MDIFrameWindow;
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
@@ -600,7 +600,7 @@ HB_FUNC(HWG_SETMENUBACKCOLOR)
   }
   else
   {
-    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : aWindows[0];
+    HWND handle = (hb_pcount() > 0 && !HB_ISNIL(1)) ? (hwg_par_HWND(1)) : MDIFrameWindow;
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
