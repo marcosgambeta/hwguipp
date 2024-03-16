@@ -18,18 +18,21 @@ PROCEDURE Main()
 
    waGdipLoadImageFromFile("harbour.gif", @pImage)
 
-   INIT WINDOW oMainWindow MAIN TITLE "Test" SIZE 800, 600 ;
-      ON PAINT {||
-         LOCAL pPS
-         LOCAL pDC
-         LOCAL pGraphics
-         pPS := hwg_DefinePaintStru()
-         pDC := hwg_BeginPaint(oMainWindow:handle, pPS)
-         waGdipCreateFromHDC(pDC, @pGraphics)
-         waGdipDrawImageRect(pGraphics, pImage, 0, 0, oMainWindow:nWidth, oMainWindow:nHeight)
-         waGdipDeleteGraphics(pGraphics)
-         hwg_EndPaint(oMainWindow:handle, pPS)
+   INIT WINDOW oMainWindow MAIN TITLE "Test" SIZE 800, 600
+
+   oMainWindow:bPaint := {||
+      LOCAL pPS
+      LOCAL pDC
+      LOCAL pGraphics
+      pPS := hwg_DefinePaintStru()
+      pDC := hwg_BeginPaint(oMainWindow:handle, pPS)
+      waGdipCreateFromHDC(pDC, @pGraphics)
+      waGdipDrawImageRect(pGraphics, pImage, 0, 0, oMainWindow:nWidth, oMainWindow:nHeight)
+      waGdipDeleteGraphics(pGraphics)
+      hwg_EndPaint(oMainWindow:handle, pPS)
       }
+
+   oMainWindow:bSize := {||hwg_RedrawWindow(oMainWindow:handle, RDW_ERASE + RDW_INVALIDATE)}
 
    ACTIVATE WINDOW oMainWindow
 

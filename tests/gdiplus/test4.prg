@@ -12,14 +12,16 @@
 PROCEDURE Main()
 
    LOCAL oDialog
+   LOCAL oButton
    LOCAL pImage
 
    waGdiplusStartup()
 
    waGdipLoadImageFromFile("harbour.gif", @pImage)
 
-   INIT DIALOG oDialog TITLE "Test" SIZE 800, 600 ;
-      ON PAINT {||
+   INIT DIALOG oDialog TITLE "Test" SIZE 800, 600
+
+   oDialog:bPaint := {||
          LOCAL pPS
          LOCAL pDC
          LOCAL pGraphics
@@ -31,7 +33,12 @@ PROCEDURE Main()
          hwg_EndPaint(hwg_GetModalHandle(), pPS)
       }
 
-   @ 800 - 100 - 20, 600 - 32 - 20 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDialog:Close()}
+   oDialog:bSize := {|o, x, y|
+      oButton:Move(x - 100 - 20, y - 32 - 20, 100, 32)
+      hwg_RedrawWindow(oDialog:handle, RDW_ERASE + RDW_INVALIDATE)
+      }
+
+   @ 800 - 100 - 20, 600 - 32 - 20 BUTTON oButton CAPTION "Ok" SIZE 100, 32 ON CLICK {||oDialog:Close()}
 
    ACTIVATE DIALOG oDialog
 
