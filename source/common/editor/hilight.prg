@@ -65,13 +65,13 @@
 Static cSpaces := e" \t", cQuotes := e"\"\'"
 
 CLASS HilightBase INHERIT HOBJECT
-   DATA   oEdit   
-   DATA   lCase      INIT .F.      // A flag - are the keywords case sensitive
-   DATA   aLineStru, nItems, nLine
+   DATA oEdit
+   DATA lCase INIT .F.      // A flag - are the keywords case sensitive
+   DATA aLineStru, nItems, nLine
 
-   METHOD New()   INLINE  Self
+   METHOD New() INLINE Self
    METHOD End()
-   METHOD Do()    INLINE  (::nItems := 0,NIL)
+   METHOD Do() INLINE (::nItems := 0, NIL)
 
 ENDCLASS
 
@@ -82,18 +82,18 @@ METHOD HilightBase:End()
 
 CLASS Hilight INHERIT HilightBase
 
-   DATA   cCommands                // A list of keywords (commands), divided by space
-   DATA   cFuncs                   // A list of keywords (functions), divided by space
-   DATA   cScomm                   // A string, which starts single line comments
-   DATA   cMcomm1, cMcomm2         // Start and end strings for multiline comments
+   DATA cCommands                // A list of keywords (commands), divided by space
+   DATA cFuncs                   // A list of keywords (functions), divided by space
+   DATA cScomm                   // A string, which starts single line comments
+   DATA cMcomm1, cMcomm2         // Start and end strings for multiline comments
 
-   DATA   lMultiComm
-   DATA   aDop, nDopChecked
+   DATA lMultiComm
+   DATA aDop, nDopChecked
 
    METHOD New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase)
    METHOD Set( oEdit )
    METHOD Do( oEdit, nLine, lCheck )
-   METHOD UpdSource( nLine )  INLINE  ( ::nDopChecked := nLine-1 )
+   METHOD UpdSource( nLine ) INLINE (::nDopChecked := nLine - 1)
    METHOD AddItem( nPos1, nPos2, nType )
 ENDCLASS
 

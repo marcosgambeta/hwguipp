@@ -143,11 +143,11 @@ CLASS HWindow INHERIT HCustomWindow
    METHOD FindWindow( hWnd )
    METHOD GetMain()
    METHOD EvalKeyList( nKey, nctrl )
-   METHOD Center()   INLINE Hwg_CenterWindow(::handle)
-   METHOD RESTORE()  INLINE hwg_RestoreWindow(::handle)
+   METHOD Center() INLINE Hwg_CenterWindow(::handle)
+   METHOD RESTORE() INLINE hwg_RestoreWindow(::handle)
    METHOD Maximize() INLINE hwg_WindowMaximize(::handle)
    METHOD Minimize() INLINE hwg_WindowMinimize(::handle)
-   METHOD CLOSE()    INLINE iif(!onDestroy( Self ), .F. , hwg_DestroyWindow(::handle))
+   METHOD CLOSE() INLINE iif(!onDestroy( Self ), .F. , hwg_DestroyWindow(::handle))
    METHOD SetTitle( cTitle ) INLINE hwg_Setwindowtext(::handle, ::title := cTitle)
 
 ENDCLASS

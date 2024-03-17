@@ -14,8 +14,8 @@
 
 CLASS HSayBmp INHERIT HSayImage
 
-   DATA nOffsetV  INIT 0
-   DATA nOffsetH  INIT 0
+   DATA nOffsetV INIT 0
+   DATA nOffsetH INIT 0
    DATA nZoom
    DATA lTransp, trcolor
    DATA nStretch

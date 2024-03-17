@@ -67,7 +67,7 @@ CLASS HColumn INHERIT HObject
    // WHT. 27.07.2002
    DATA tcolor, bcolor, brush
    DATA oFont
-   DATA lEditable  INIT .F.      // Is the column editable
+   DATA lEditable INIT .F.      // Is the column editable
    DATA lResizable INIT .T.      // Is the column resizable
    DATA aList                    // Array of possible values for a column -
                                  // combobox will be used while editing the cell
@@ -149,45 +149,45 @@ METHOD HColumn:SetPaintCB(nId, block, cId)
 
 CLASS HBrowse INHERIT HControl
 
-   DATA winclass   INIT "BROWSE"
-   DATA active     INIT .T.
-   DATA lChanged   INIT .F.
-   DATA lDispHead  INIT .T.                    // Should I display headers ?
-   DATA lDispSep   INIT .T.                    // Should I display separators ?
+   DATA winclass INIT "BROWSE"
+   DATA active INIT .T.
+   DATA lChanged INIT .F.
+   DATA lDispHead INIT .T.                    // Should I display headers ?
+   DATA lDispSep INIT .T.                    // Should I display separators ?
 
    DATA lRefrLinesOnly INIT .F.
-   DATA lRefrHead  INIT .T.
-   DATA lRefrBmp   INIT .F.
+   DATA lRefrHead INIT .T.
+   DATA lRefrBmp INIT .F.
    DATA lBuffering INIT .F.
    DATA hBitmap
 
-   DATA aColAlias  INIT {}
-   DATA aRelation  INIT .F.
+   DATA aColAlias INIT {}
+   DATA aRelation INIT .F.
    DATA aColumns                               // HColumn's array
    DATA nRowHeight INIT 0                      // Predefined height of a row
    DATA nRowTextHeight                         // A max text height in a row
    DATA rowCount                               // Number of visible data rows
-   DATA rowPos     INIT 1                      // Current row position
-   DATA rowPosOld  INIT 1  HIDDEN              // Current row position (after :Paint())
+   DATA rowPos INIT 1                      // Current row position
+   DATA rowPosOld INIT 1 HIDDEN              // Current row position (after :Paint())
    DATA rowCurrCount INIT 0                    // Current number of rows
-   DATA colPos     INIT 1                      // Current column position
+   DATA colPos INIT 1                      // Current column position
    DATA nColumns                               // Number of visible data columns
    DATA nLeftCol                               // Leftmost column
    DATA freeze                                 // Number of columns to freeze
    DATA nRecords                               // Number of records in browse
-   DATA nCurrent   INIT 1                      // Current record
+   DATA nCurrent INIT 1                      // Current record
    DATA aArray                                 // An array browsed if this is BROWSE ARRAY
-   DATA recCurr    INIT 0
+   DATA recCurr INIT 0
    DATA oStyleHead                             // An HStyle object to draw the header
    DATA oStyleFoot                             // An HStyle object to draw the footer
    DATA oStyleCell                             // An HStyle object to draw the cell
    DATA headColor                              // Header text color
-   DATA sepColor   INIT 12632256               // Separators color
+   DATA sepColor INIT 12632256               // Separators color
    DATA oPenSep, oPenHdr, oPen3d
-   DATA lSep3d     INIT .F.
-   DATA aPadding   INIT {4, 2, 4, 2}
-   DATA aHeadPadding   INIT {4, 0, 4, 0}
-   DATA lInFocus   INIT .F.                    // Set focus in :Paint()
+   DATA lSep3d INIT .F.
+   DATA aPadding INIT {4, 2, 4, 2}
+   DATA aHeadPadding INIT {4, 0, 4, 0}
+   DATA lInFocus INIT .F.                    // Set focus in :Paint()
    DATA varbuf                                 // Used on Edit()
    DATA tcolorSel, bcolorSel, brushSel, htbColor, httColor // Hilite Text Back Color
    DATA bSkip, bGoTo, bGoTop, bGoBot, bEof, bBof
@@ -200,12 +200,12 @@ CLASS HBrowse INHERIT HControl
    DATA x1, y1, x2, y2, width, height
    DATA minHeight INIT 0
    DATA lEditable INIT .T.
-   DATA lAppable  INIT .F.
-   DATA lAppMode  INIT .F.
+   DATA lAppable INIT .F.
+   DATA lAppMode INIT .F.
    DATA lAutoEdit INIT .F.
-   DATA lUpdated  INIT .F.
+   DATA lUpdated INIT .F.
    DATA lAppended INIT .F.
-   DATA lEditing  INIT .F.                     // .T., if a field is edited now
+   DATA lEditing INIT .F.                     // .T., if a field is edited now
    DATA lAdjRight INIT .T.                     // Adjust last column to right
    DATA nHeadRows INIT 1                       // Rows in header
    DATA nFootRows INIT 0                       // Rows in footer
@@ -219,8 +219,8 @@ CLASS HBrowse INHERIT HControl
    // --- International Language Support for internal dialogs ---
    DATA cTextTitME INIT "Memo Edit"
    DATA cTextClose INIT "Close"   // Button
-   DATA cTextSave  INIT "Save"
-   DATA cTextMod   INIT "Memo was modified, save ?"
+   DATA cTextSave INIT "Save"
+   DATA cTextMod INIT "Memo was modified, save ?"
    DATA cTextLockRec INIT "Can't lock the record!"
 
    METHOD New(lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, ;

@@ -13,14 +13,15 @@
 
 CLASS HListBox INHERIT HControl
 
-CLASS VAR winclass   INIT "LISTBOX"
-   DATA  aItems
-   DATA  bSetGet
-   DATA  value         INIT 1
-   DATA  nItemHeight
-   DATA  bChangeSel
-   DATA  bkeydown, bDblclick
-   DATA  bValid
+   CLASS VAR winclass INIT "LISTBOX"
+   
+   DATA aItems
+   DATA bSetGet
+   DATA value INIT 1
+   DATA nItemHeight
+   DATA bChangeSel
+   DATA bkeydown, bDblclick
+   DATA bValid
 
    METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
               aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther)
@@ -51,7 +52,7 @@ METHOD HListBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHei
    ::bSetGet := bSetGet
 
    IF aItems == NIL
-      ::aItems := { }
+      ::aItems := {}
    ELSE
       ::aItems  := aItems
    ENDIF
@@ -103,7 +104,7 @@ METHOD HListBox:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, b
     ::bOther := bOther
 
    IF aItems == NIL
-      ::aItems := { }
+      ::aItems := {}
    ELSE
       ::aItems  := aItems
    ENDIF
@@ -229,7 +230,7 @@ METHOD HListBox:DeleteItem(nPos)
    RETURN .F.
 
 METHOD HListBox:Clear()
-   ::aItems := { }
+   ::aItems := {}
    ::value := 0
    hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
    hwg_Listboxsetstring(::handle, ::value)

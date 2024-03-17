@@ -20,8 +20,8 @@ STATIC _aMenuDef, _oWnd, _aAccel, _nLevel, _Id, _oMenu, _oBitmap
 CLASS HMenu INHERIT HObject
    DATA handle
    DATA aMenu
-   METHOD New()  INLINE Self
-   METHOD END()  INLINE Hwg_DestroyMenu(::handle)
+   METHOD New() INLINE Self
+   METHOD END() INLINE Hwg_DestroyMenu(::handle)
    METHOD Show(oWnd, xPos, yPos, lWnd)
 ENDCLASS
 
@@ -99,7 +99,7 @@ FUNCTION Hwg_AddMenuItem(aMenu, cItem, nMenuId, lSubMenu, bItem, nPos)
          aMenu[1, nPos] := { bItem, cItem, nMenuId, 0 }
          
       ELSE
-         aMenu[1, nPos] := { { }, cItem, nMenuId, 0, hSubMenu }
+         aMenu[1, nPos] := { {}, cItem, nMenuId, 0, hSubMenu }
       ENDIF
       RETURN aMenu[1, nPos]
    ENDIF
@@ -191,9 +191,9 @@ FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle)
    LOCAL i
    
    IF oWnd != NIL
-      _aMenuDef := { }
-      _aAccel   := { }
-      _oBitmap  := { }
+      _aMenuDef := {}
+      _aAccel   := {}
+      _oBitmap  := {}
       _oWnd     := oWnd
       _oMenu    := NIL
       _nLevel   := 0
@@ -210,8 +210,8 @@ FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle)
    RETURN .T.
 
 FUNCTION Hwg_ContextMenu()
-   _aMenuDef := { }
-   _oBitmap  := { }
+   _aMenuDef := {}
+   _oBitmap  := {}
    _oWnd := NIL
    _nLevel := 0
    _Id := CONTEXTMENU_FIRST_ID

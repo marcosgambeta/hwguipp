@@ -40,7 +40,7 @@ CLASS HStaticLink FROM HSTATIC
    METHOD GetLinkUrl()
    METHOD SetVisitedColor( sVisitedColor )
    METHOD SetHoverColor( cHoverColor )
-   METHOD SetFireChild( lFlag )  INLINE ::m_bFireChild := lFlag
+   METHOD SetFireChild( lFlag ) INLINE ::m_bFireChild := lFlag
    METHOD OnClicked()
    METHOD SetLinkColor( sLinkColor )
    METHOD Paint()

@@ -12,11 +12,12 @@
 
 CLASS HFont INHERIT HObject
 
-   CLASS VAR aFonts   INIT { }
+   CLASS VAR aFonts INIT {}
+
    DATA handle
    DATA name, width, height, weight
    DATA charset, italic, Underline, StrikeOut
-   DATA nCounter   INIT 1
+   DATA nCounter INIT 1
 
    METHOD Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle)
    METHOD SELECT(oFont, nCharSet)

@@ -25,8 +25,8 @@ CLASS HXMLNode
 
    DATA title
    DATA type
-   DATA aItems  INIT {}
-   DATA aAttr   INIT {}
+   DATA aItems INIT {}
+   DATA aAttr INIT {}
    DATA cargo
 
    METHOD New(cTitle, type, aAttr, cValue)

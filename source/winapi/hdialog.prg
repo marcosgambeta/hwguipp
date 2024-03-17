@@ -30,22 +30,22 @@ STATIC aSheet := NIL
 CLASS HDialog INHERIT HWindow
 
 #ifdef MT_EXPERIMENTAL
-   METHOD aDialogs          INLINE aDialogs()
-   METHOD aModalDialogs     INLINE aModalDialogs()
+   METHOD aDialogs INLINE aDialogs()
+   METHOD aModalDialogs INLINE aModalDialogs()
 #else
-   CLASS VAR aDialogs       SHARED INIT {}
-   CLASS VAR aModalDialogs  SHARED INIT {}
+   CLASS VAR aDialogs SHARED INIT {}
+   CLASS VAR aModalDialogs SHARED INIT {}
 #endif
 
-   DATA lModal   INIT .T.
-   DATA lResult  INIT .F.     // Becomes TRUE if the OK button is pressed
+   DATA lModal INIT .T.
+   DATA lResult INIT .F.     // Becomes TRUE if the OK button is pressed
    DATA lExitOnEnter INIT .T. // Set it to False, if dialog shouldn't be ended after pressing ENTER key,
    // Added by Sandro Freire
-   DATA lExitOnEsc   INIT .T. // Set it to False, if dialog shouldn't be ended after pressing ENTER key,
+   DATA lExitOnEsc INIT .T. // Set it to False, if dialog shouldn't be ended after pressing ENTER key,
    // Added by Sandro Freire
-   DATA lRouteCommand  INIT .F.
+   DATA lRouteCommand INIT .F.
    DATA xResourceID
-   DATA lClosable    INIT .T.
+   DATA lClosable INIT .T.
    DATA nInitState
 
    METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, lClipper, ;

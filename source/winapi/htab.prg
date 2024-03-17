@@ -13,14 +13,15 @@
 
 CLASS HTab INHERIT HControl
 
-   CLASS VAR winclass   INIT "SysTabControl32"
-   DATA  aTabs
-   DATA  aPages  INIT {}
-   DATA  bChange, bChange2
-   DATA  hIml, aImages, Image1, Image2
-   DATA  oTemp
-   DATA  bAction
-   DATA  lResourceTab INIT .F.
+   CLASS VAR winclass INIT "SysTabControl32"
+   
+   DATA aTabs
+   DATA aPages INIT {}
+   DATA bChange, bChange2
+   DATA hIml, aImages, Image1, Image2
+   DATA oTemp
+   DATA bAction
+   DATA lResourceTab INIT .F.
 
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus)
    METHOD Activate()
@@ -38,7 +39,7 @@ CLASS HTab INHERIT HControl
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
 
    HIDDEN:
-   DATA  nActive  INIT 0         // Active Page
+   DATA nActive INIT 0         // Active Page
 
 ENDCLASS
 

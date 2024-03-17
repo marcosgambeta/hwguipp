@@ -12,23 +12,24 @@
 
 CLASS HUpDown INHERIT HControl
 
-   CLASS VAR winclass   INIT "EDIT"
+   CLASS VAR winclass INIT "EDIT"
+   
    DATA bSetGet
    DATA nValue
    DATA hUpDown, idUpDown, styleUpDown
    DATA nLower INIT 0
    DATA nUpper INIT 999
    DATA nUpDownWidth INIT 12
-   DATA lChanged    INIT .F.
+   DATA lChanged INIT .F.
 
    METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, nUpDWidth, nLower, nUpper)
    METHOD Activate()
    METHOD Init()
    METHOD Value(nValue) SETGET
-   METHOD SetRange(n1, n2)  INLINE hwg_SetRangeUpdown(::hUpDown, n1, n2)
+   METHOD SetRange(n1, n2) INLINE hwg_SetRangeUpdown(::hUpDown, n1, n2)
    METHOD Refresh()
-   METHOD Hide()          INLINE ( hwg_Hidewindow(::hUpDown), ::Super:Hide() )
-   METHOD Show()          INLINE ( hwg_Showwindow(::hUpDown), ::Super:Show() )
+   METHOD Hide() INLINE ( hwg_Hidewindow(::hUpDown), ::Super:Hide() )
+   METHOD Show() INLINE ( hwg_Showwindow(::hUpDown), ::Super:Show() )
 
 ENDCLASS
 

@@ -12,7 +12,7 @@
 
 CLASS HStatus INHERIT HControl
 
-   CLASS VAR winclass   INIT "msctls_statusbar32"
+   CLASS VAR winclass INIT "msctls_statusbar32"
 
    DATA aParts
 

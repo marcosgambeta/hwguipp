@@ -22,14 +22,14 @@ CLASS HToolButton INHERIT HObject
    DATA id
    DATA nBitIp INIT - 1
    DATA bState INIT TBSTATE_ENABLED
-   DATA bStyle INIT  0x0000
+   DATA bStyle INIT 0x0000
    DATA tooltip
    DATA aMenu INIT {}
    DATA hMenu
    DATA Title
-   DATA lEnabled  INIT .T. HIDDEN
-   DATA lChecked  INIT .F. HIDDEN
-   DATA lPressed  INIT .F. HIDDEN
+   DATA lEnabled INIT .T. HIDDEN
+   DATA lChecked INIT .F. HIDDEN
+   DATA lPressed INIT .F. HIDDEN
    DATA bClick
    DATA oParent
    //DATA oFont   // not implemented

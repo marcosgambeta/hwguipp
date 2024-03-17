@@ -24,7 +24,7 @@ CLASS hrebar INHERIT HControl
    DATA lVert
    DATA hTool
    DATA m_nWidth, m_nHeight
-   DATA aBands INIT  {}
+   DATA aBands INIT {}
 
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
@@ -41,7 +41,7 @@ METHOD hrebar:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oF
 
    HB_SYMBOL_UNUSED(cCaption)
 
-   DEFAULT  lvert  TO .F.
+   DEFAULT lvert TO .F.
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, RBS_BANDBORDERS), WS_CHILD)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    ::Title := ""
@@ -55,7 +55,7 @@ METHOD hrebar:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, c
 
    HB_SYMBOL_UNUSED(cCaption)
 
-   DEFAULT  lVert TO .F.
+   DEFAULT lVert TO .F.
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
 

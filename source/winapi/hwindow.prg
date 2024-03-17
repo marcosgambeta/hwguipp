@@ -145,11 +145,11 @@ FUNCTION hwg_onDestroy(oWnd)
 CLASS HWindow INHERIT HCustomWindow, HScrollArea
 
 #ifdef MT_EXPERIMENTAL
-   METHOD aWindows       INLINE aWindows()
+   METHOD aWindows INLINE aWindows()
 #else
-   CLASS VAR aWindows    SHARED INIT {}
+   CLASS VAR aWindows SHARED INIT {}
 #endif
-   CLASS VAR szAppName   SHARED INIT "HwGUI_App"
+   CLASS VAR szAppName SHARED INIT "HwGUI_App"
    CLASS VAR aKeysGlobal SHARED INIT {}
 
    DATA menu
@@ -157,14 +157,14 @@ CLASS HWindow INHERIT HCustomWindow, HScrollArea
    DATA hAccel
    DATA oIcon
    DATA oBmp
-   DATA lUpdated      INIT .F.     // TRUE, if any GET is changed
-   DATA lClipper      INIT .F.
-   DATA GetList       INIT {}      // The array of GET items in the dialog
-   DATA KeyList       INIT {}      // The array of keys ( as Clipper's SET KEY )
-   DATA nLastKey      INIT 0
+   DATA lUpdated INIT .F.     // TRUE, if any GET is changed
+   DATA lClipper INIT .F.
+   DATA GetList INIT {}      // The array of GET items in the dialog
+   DATA KeyList INIT {}      // The array of keys ( as Clipper's SET KEY )
+   DATA nLastKey INIT 0
    DATA bCloseQuery
    DATA bActivate
-   DATA nAdjust       INIT 0
+   DATA nAdjust INIT 0
    DATA tColorinFocus INIT -1
    DATA bColorinFocus INIT -1
 

@@ -13,10 +13,10 @@
 
 CLASS HScrollArea INHERIT HObject
 
-   DATA nCurWidth    INIT 0
-   DATA nCurHeight   INIT 0
-   DATA nVScrollPos   INIT 0
-   DATA nHScrollPos   INIT 0
+   DATA nCurWidth INIT 0
+   DATA nCurHeight INIT 0
+   DATA nVScrollPos INIT 0
+   DATA nHScrollPos INIT 0
    DATA rect
    DATA nScrollBars INIT - 1
    DATA lAutoScroll INIT .T.

@@ -24,8 +24,8 @@ CLASS HTimer INHERIT HObject
    DATA lOnce INIT .F.
    DATA name
    /*
-   ACCESS Interval     INLINE ::value
-   ASSIGN Interval(x)  INLINE ::value := x, ::End(), ;
+   ACCESS Interval INLINE ::value
+   ASSIGN Interval(x) INLINE ::value := x, ::End(), ;
          Iif(x == 0, .T., ::tag := hwg_SetTimer(::id, x))
    */
    METHOD Interval(n) SETGET

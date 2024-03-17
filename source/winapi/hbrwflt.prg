@@ -16,7 +16,7 @@ CLASS HBrwflt INHERIT HBrowse
    DATA lDescend INIT .F.              // Descend Order?
    DATA lFilter INIT .F.               // Filtered? (atribuition is automatic in method "New()").
    DATA bFirst INIT {||DBGOTOP()}     // Block to place pointer in first record of condition filter. (Ex.: DbGoTop(), DbSeek(), etc.).
-   DATA bLast  INIT {||dbGoBottom()}  // Block to place pointer in last record of condition filter. (Ex.: DbGoBottom(), DbSeek(), etc.).
+   DATA bLast INIT {||dbGoBottom()}  // Block to place pointer in last record of condition filter. (Ex.: DbGoBottom(), DbSeek(), etc.).
    DATA bWhile INIT {||.T.}           // Clausule "while". Return logical.
    DATA bFor INIT {||.T.}             // Clausule "for". Return logical.
    DATA nLastRecordFilter INIT 0       // Save the last record of filter.

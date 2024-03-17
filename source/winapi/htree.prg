@@ -76,14 +76,14 @@ CLASS HTreeNode INHERIT HObject
 
    DATA handle
    DATA oTree, oParent
-   DATA aItems INIT { }
+   DATA aItems INIT {}
    DATA bClick
 
    METHOD New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
    METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
    METHOD Delete(lInternal)
    METHOD FindChild(h)
-   METHOD GetText()  INLINE hwg_Treegetnodetext(::oTree:handle, ::handle)
+   METHOD GetText() INLINE hwg_Treegetnodetext(::oTree:handle, ::handle)
    METHOD SetText(cText) INLINE hwg_Treesetitem(::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText)
 
 ENDCLASS
@@ -222,9 +222,9 @@ METHOD HTreeNode:FindChild(h)
 
 CLASS HTree INHERIT HControl
 
-CLASS VAR winclass   INIT "SysTreeView32"
+   CLASS VAR winclass INIT "SysTreeView32"
 
-   DATA aItems INIT { }
+   DATA aItems INIT {}
    DATA oSelected
    DATA hIml, aImages, Image1, Image2
    DATA bItemChange, bExpand, bRClick, bDblClick, bClick
@@ -236,7 +236,7 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD Activate()
    METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
    METHOD FindChild(h)
-   METHOD GetSelected()   INLINE hwg_Treegetselected(::handle)
+   METHOD GetSelected() INLINE hwg_Treegetselected(::handle)
    METHOD EditLabel(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle)}
    METHOD Expand(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle)}
    METHOD Select(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle)}
@@ -261,7 +261,7 @@ METHOD HTree:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
    ::bClick := bClick
 
    IF aImages != NIL .AND. !Empty(aImages)
-      ::aImages := { }
+      ::aImages := {}
       FOR i := 1 TO Len(aImages)
          AAdd(::aImages, Upper(aImages[i]))
          aImages[i] := IIf(lResour != NIL .AND. lResour, hwg_BmpFromRes(aImages[i]), hwg_Openbitmap(AddPath(aImages[i], HBitmap():cPath)))
@@ -328,7 +328,7 @@ METHOD HTree:Clean()
    ::lEmpty := .T.
    ReleaseTree(::aItems)
    hwg_Sendmessage(::handle, TVM_DELETEITEM, 0, TVI_ROOT)
-   ::aItems := { }
+   ::aItems := {}
 
    RETURN NIL
 

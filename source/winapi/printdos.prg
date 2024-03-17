@@ -45,7 +45,7 @@ CLASS PrintDos
    DATA nEndPage init 0
    DATA nCopy init 1
    // --- International Language Support for internal dialogs --
-   DATA aLangTexts  INIT {}
+   DATA aLangTexts INIT {}
    // Print Preview Dialog with sub dialog:
    // The messages and control text's are delivered by other classes, calling
    // the method Preview() in Parameter aTooltips as an array.

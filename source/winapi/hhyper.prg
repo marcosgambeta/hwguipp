@@ -24,10 +24,10 @@ CLASS HStaticLink FROM HSTATIC
    DATA m_hHyperCursor INIT hwg_Loadcursor(32649)
 
    DATA m_bMouseOver INIT .F.
-   DATA m_bVisited   INIT .F.
+   DATA m_bVisited INIT .F.
 
    DATA m_csUrl
-   DATA dwFlags      INIT 0
+   DATA dwFlags INIT 0
 
    DATA m_sHoverColor
    DATA m_sLinkColor
@@ -45,7 +45,7 @@ CLASS HStaticLink FROM HSTATIC
    METHOD GetLinkUrl()
    METHOD SetVisitedColor(sVisitedColor)
    METHOD SetHoverColor(cHoverColor)
-   METHOD SetFireChild(lFlag)  INLINE ::m_bFireChild := lFlag
+   METHOD SetFireChild(lFlag) INLINE ::m_bFireChild := lFlag
    METHOD OnClicked()
    METHOD SetLinkColor(sLinkColor)
    METHOD Paint()

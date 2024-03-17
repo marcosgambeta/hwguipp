@@ -31,7 +31,7 @@ CLASS HUpDown INHERIT HControl
    METHOD onEvent( msg, wParam, lParam )
    METHOD Refresh()
    METHOD Value( nValue ) SETGET
-   METHOD SetRange( n1, n2 )  INLINE hwg_SetRangeUpdown(::handle, n1, n2)
+   METHOD SetRange( n1, n2 ) INLINE hwg_SetRangeUpdown(::handle, n1, n2)
 
 ENDCLASS
 

@@ -12,8 +12,9 @@
 
 CLASS HRadioButton INHERIT HControl
 
-   CLASS VAR winclass   INIT "BUTTON"
-   DATA  oGroup
+   CLASS VAR winclass INIT "BUTTON"
+   
+   DATA oGroup
    DATA bClick
 
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;

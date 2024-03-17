@@ -74,7 +74,7 @@ CLASS HCtrlTmpl
    DATA aControls INIT {}
    DATA aProp, aMethods
 
-   METHOD New(oParent)   INLINE (::oParent := oParent, AAdd(oParent:aControls, Self), Self)
+   METHOD New(oParent) INLINE (::oParent := oParent, AAdd(oParent:aControls, Self), Self)
    METHOD F(nId)
 
 ENDCLASS
@@ -98,37 +98,38 @@ METHOD HCtrlTmpl:F(nId)
 
 CLASS HFormTmpl
 
-   CLASS VAR aForms   INIT {}
-   CLASS VAR maxId    INIT 0
+   CLASS VAR aForms INIT {}
+   CLASS VAR maxId INIT 0
    CLASS VAR oActive
+   
    DATA cFormName
    DATA oDlg
-   DATA aControls     INIT {}
+   DATA aControls INIT {}
    DATA aProp
    DATA aMethods
-   DATA aVars         INIT {}
-   DATA aNames        INIT {}
+   DATA aVars INIT {}
+   DATA aNames INIT {}
    DATA pVars
    DATA aFuncs
    DATA id
    DATA cId
-   DATA nContainer    INIT 0
-   DATA nCtrlId       INIT CONTROL_FIRST_ID
-   DATA lDebug        INIT .F.
-   DATA lNoModal      INIT .F.
+   DATA nContainer INIT 0
+   DATA nCtrlId INIT CONTROL_FIRST_ID
+   DATA lDebug INIT .F.
+   DATA lNoModal INIT .F.
    DATA bDlgExit, bFormExit
    DATA cargo
    // --- International Language Support for internal dialogs --
-   DATA cTextCantOpenF      INIT "Can't open"
-   DATA cTextInvClMemb      INIT "Invalid class member"
+   DATA cTextCantOpenF INIT "Can't open"
+   DATA cTextInvClMemb INIT "Invalid class member"
    DATA cTextFrmRepDescnotF INIT "Form description isn't found"
    // DATA cTextRepDescnotF    INIT "Report description isn't found" ==> Class HRepTmpl
 
-   METHOD DefaultLang()   
+   METHOD DefaultLang()
    METHOD Read(fname, cId)
    METHOD Show(nMode, p1, p2, p3)  // p1 ... p3 : params
-   METHOD ShowMain(params)   INLINE ::Show(1, params)
-   METHOD ShowModal(params)  INLINE ::Show(2, params)
+   METHOD ShowMain(params) INLINE ::Show(1, params)
+   METHOD ShowModal(params) INLINE ::Show(2, params)
    METHOD Close()
    METHOD F(id, n)
    METHOD Find(cId)
@@ -1205,22 +1206,23 @@ CLASS HRepItem
    DATA y2
    DATA lMark INIT .F.
 
-   METHOD New(oParent)   INLINE (::oParent := oParent, AAdd(oParent:aControls, Self), Self)
+   METHOD New(oParent) INLINE (::oParent := oParent, AAdd(oParent:aControls, Self), Self)
 
 ENDCLASS
 
 CLASS HRepTmpl
 
    CLASS VAR aReports INIT {}
-   CLASS VAR maxId    INIT 0
+   CLASS VAR maxId INIT 0
    CLASS VAR aFontTable
-   DATA aControls     INIT {}
+   
+   DATA aControls INIT {}
    DATA cFormName
    DATA aProp
    DATA aMethods
-   DATA aVars         INIT {}
+   DATA aVars INIT {}
    DATA aFuncs
-   DATA lDebug        INIT .F.
+   DATA lDebug INIT .F.
    DATA id
    DATA cId
 

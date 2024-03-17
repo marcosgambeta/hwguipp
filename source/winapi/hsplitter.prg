@@ -13,17 +13,17 @@
 
 CLASS HSplitter INHERIT HControl
 
-CLASS VAR winclass INIT "STATIC"
+   CLASS VAR winclass INIT "STATIC"
 
    DATA aLeft
    DATA aRight
    DATA lVertical
    DATA oStyle
-   DATA lRepaint    INIT .F.
+   DATA lRepaint INIT .F.
    DATA nFrom, nTo
    DATA hCursor
-   DATA lCaptured   INIT .F.
-   DATA lMoved      INIT .F.
+   DATA lCaptured INIT .F.
+   DATA lMoved INIT .F.
    DATA bEndDrag
 
    METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle)

@@ -13,7 +13,7 @@
 CLASS HIcon INHERIT HObject
 
    CLASS VAR cPath SHARED
-   CLASS VAR aIcons   INIT {}
+   CLASS VAR aIcons INIT {}
    CLASS VAR lSelFile INIT .F.
 
    DATA handle

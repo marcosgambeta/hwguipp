@@ -22,7 +22,7 @@
 
 CLASS HTrackBar INHERIT HControl
 
-   CLASS VAR winclass   INIT "msctls_trackbar32"
+   CLASS VAR winclass INIT "msctls_trackbar32"
 
    DATA nValue
    DATA bChange
@@ -38,7 +38,7 @@ CLASS HTrackBar INHERIT HControl
    METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
    METHOD Value(nValue) SETGET
-   METHOD GetNumTics()  INLINE hwg_Sendmessage(::handle, TBM_GETNUMTICS, 0, 0)
+   METHOD GetNumTics() INLINE hwg_Sendmessage(::handle, TBM_GETNUMTICS, 0, 0)
 
 ENDCLASS
 

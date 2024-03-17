@@ -33,7 +33,7 @@ CLASS HBitmap INHERIT HObject
    DATA nWidth
    DATA nHeight
    DATA nTransparent INIT -1
-   DATA nCounter     INIT 1
+   DATA nCounter INIT 1
 
    METHOD AddResource(name)
    METHOD AddFile(name, HDC, lTransparent, nWidth, nHeight)

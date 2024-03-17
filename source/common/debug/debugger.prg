@@ -173,26 +173,26 @@ CLASS HBDebugger
 
    VAR cPrgName
 
-   VAR aVars             INIT {}
-   VAR aBreakPoints      INIT {}
-   VAR aCallStack        INIT {}    // stack of procedures with debug info
-   VAR aProcStack        INIT {}    // stack of all procedures
+   VAR aVars INIT {}
+   VAR aBreakPoints INIT {}
+   VAR aCallStack INIT {}    // stack of procedures with debug info
+   VAR aProcStack INIT {}    // stack of all procedures
    VAR nProcLevel                   // procedure level where the debugger is currently
-   VAR aModules          INIT {}    // array of modules with static and GLOBAL variables
-   VAR nWatches          INIT 0
+   VAR aModules INIT {}    // array of modules with static and GLOBAL variables
+   VAR nWatches INIT 0
 
-   VAR nSpeed            INIT 0
+   VAR nSpeed INIT 0
 
-   VAR lViewStack        INIT .F.
-   VAR lShowLocals       INIT .F.
-   VAR lShowPrivate      INIT .F.
-   VAR lShowPublic       INIT .F.
-   VAR lShowStatic       INIT .F.
-   VAR lShowWatch        INIT .F.
+   VAR lViewStack INIT .F.
+   VAR lShowLocals INIT .F.
+   VAR lShowPrivate INIT .F.
+   VAR lShowPublic INIT .F.
+   VAR lShowStatic INIT .F.
+   VAR lShowWatch INIT .F.
    VAR lGo                          // stores if GO was requested
-   VAR lActive           INIT .F.
-   VAR lCBTrace          INIT .T.   // stores if codeblock tracing is allowed
-   VAR lRunAtStartup     INIT .T.
+   VAR lActive INIT .F.
+   VAR lCBTrace INIT .T.   // stores if codeblock tracing is allowed
+   VAR lRunAtStartup INIT .T.
 
    METHOD New()
    METHOD Activate()

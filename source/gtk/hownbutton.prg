@@ -49,7 +49,7 @@ CLASS HOwnButton INHERIT HControl
    METHOD MouseMove( wParam, lParam )
    METHOD MDown()
    METHOD MUp()
-   METHOD Press()   INLINE (::lPress := .T., ::MDown())
+   METHOD Press() INLINE (::lPress := .T., ::MDown())
    METHOD SetTimer( nPeriod )
    METHOD RELEASE()
    METHOD End()

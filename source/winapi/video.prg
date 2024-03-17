@@ -17,8 +17,8 @@
 CLASS TVideo FROM hControl
 
 
-   DATA   oMci
-   DATA   cAviFile
+   DATA oMci
+   DATA cAviFile
 
    METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CONSTRUCTOR
 

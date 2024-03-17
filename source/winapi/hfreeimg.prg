@@ -17,12 +17,13 @@
 
 CLASS HFreeImage INHERIT HObject
 
-CLASS VAR aImages   INIT { }
+   CLASS VAR aImages INIT {}
+   
    DATA handle
    DATA hBitmap
    DATA name
    DATA nWidth, nHeight
-   DATA nCounter   INIT 1
+   DATA nCounter INIT 1
 
    METHOD AddFile(name)
    METHOD AddFromVar(cImage, cType)
@@ -105,8 +106,8 @@ METHOD HFreeImage:Release()
 
 CLASS HSayFImage INHERIT HSayImage
 
-   DATA nOffsetV  INIT 0
-   DATA nOffsetH  INIT 0
+   DATA nOffsetV INIT 0
+   DATA nOffsetH INIT 0
    DATA nZoom
 
    METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, ctooltip, cType)

@@ -21,21 +21,21 @@ CLASS HEdit INHERIT HControl
 
    CLASS VAR winclass INIT "EDIT"
 
-   DATA lMultiLine  INIT .F.
-   DATA cType       INIT "C"
+   DATA lMultiLine INIT .F.
+   DATA cType INIT "C"
    DATA bSetGet
    DATA bValid
    DATA cPicFunc
    DATA cPicMask
    DATA lPicComplex INIT .F.
-   DATA lFirst      INIT .T.
-   DATA lChanged    INIT .F.
-   DATA lNoPaste    INIT .F.
-   DATA nMaxLength  INIT NIL // TODO: INIT desnecessário, pois NIL é o valor padrão
+   DATA lFirst INIT .T.
+   DATA lChanged INIT .F.
+   DATA lNoPaste INIT .F.
+   DATA nMaxLength INIT NIL // TODO: INIT desnecessário, pois NIL é o valor padrão
    DATA bkeydown
    DATA bkeyup
    DATA bchange
-   DATA aColorOld   INIT {0, 0}
+   DATA aColorOld INIT {0, 0}
    DATA bColorBlock
 
    METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;

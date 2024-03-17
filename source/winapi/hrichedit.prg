@@ -13,22 +13,22 @@
 CLASS HRichEdit INHERIT HControl
 
 #ifdef UNICODE
-
    CLASS VAR winclass INIT "RichEdit20W"
 #else
    CLASS VAR winclass INIT "RichEdit20A"
 #endif
-   DATA lChanged   INIT .F.
-   DATA lSetFocus  INIT .T.
+   
+   DATA lChanged INIT .F.
+   DATA lSetFocus INIT .T.
    DATA lAllowTabs INIT .F.
-   DATA lctrltab   HIDDEN
-   DATA lReadOnly  INIT .F.
-   DATA Col        INIT 0
-   DATA Line       INIT 0
+   DATA lctrltab HIDDEN
+   DATA lReadOnly INIT .F.
+   DATA Col INIT 0
+   DATA Line INIT 0
    DATA LinesTotal INIT 0
-   DATA SelStart   INIT 0
-   DATA SelText    INIT 0
-   DATA SelLength  INIT 0
+   DATA SelStart INIT 0
+   DATA SelText INIT 0
+   DATA SelLength INIT 0
    DATA bChange
 
    METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;

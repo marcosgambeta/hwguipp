@@ -16,21 +16,21 @@ STATIC crlf := e"\r\n"
 
 CLASS HPrinter INHERIT HObject
 
-   CLASS VAR aPaper  INIT { { "A3", 297, 420 }, { "A4", 210, 297 }, { "A5", 148, 210 }, ;
+   CLASS VAR aPaper INIT { { "A3", 297, 420 }, { "A4", 210, 297 }, { "A5", 148, 210 }, ;
       { "A6", 105, 148 } }
 
-   DATA hDCPrn     INIT 0
+   DATA hDCPrn INIT 0
    DATA hDC
    DATA cPrinterName
-   DATA hPrinter   INIT 0
+   DATA hPrinter INIT 0
    DATA lPreview
    DATA nWidth, nHeight, nPWidth, nPHeight
    DATA nHRes, nVRes                     // Resolution ( pixels/mm )
-   DATA nOrient        INIT 1
+   DATA nOrient INIT 1
    DATA nPage
 
-   DATA lBuffPrn   INIT .F.
-   DATA lUseMeta   INIT .F.
+   DATA lBuffPrn INIT .F.
+   DATA lUseMeta INIT .F.
    DATA lastPen, lastFont
    DATA aPages, aJob
    DATA aFonts INIT {}
@@ -38,25 +38,25 @@ CLASS HPrinter INHERIT HObject
    DATA oFont, oPen
    DATA cScriptFile
 
-   DATA lmm  INIT .F.
+   DATA lmm INIT .F.
    DATA nCurrPage, oTrackV, oTrackH
    DATA nZoom, xOffset, yOffset, x1, y1, x2, y2
 
-   DATA memDC       HIDDEN    // dc offscreen
-   DATA memBitmap   HIDDEN    // bitmap offscreen
+   DATA memDC HIDDEN    // dc offscreen
+   DATA memBitmap HIDDEN    // bitmap offscreen
    DATA NeedsRedraw INIT .T.  // if offscreen needs redrawing...
-   DATA FormType       INIT 0
-   DATA BinNumber      INIT 0
-   DATA Copies         INIT 1
-   DATA fDuplexType    INIT 0      HIDDEN
-   DATA fPrintQuality  INIT 0      HIDDEN
-   DATA PaperLength    INIT 0                        // Value is * 1/10 of mm   1000 = 10cm
-   DATA PaperWidth     INIT 0                        //   "    "    "     "       "     "
+   DATA FormType INIT 0
+   DATA BinNumber INIT 0
+   DATA Copies INIT 1
+   DATA fDuplexType INIT 0 HIDDEN
+   DATA fPrintQuality INIT 0 HIDDEN
+   DATA PaperLength INIT 0                        // Value is * 1/10 of mm   1000 = 10cm
+   DATA PaperWidth INIT 0                        //   "    "    "     "       "     "
    DATA TopMargin
    DATA BottomMargin
    DATA LeftMargin
    DATA RightMargin
-   DATA lprbutton      INIT .T.
+   DATA lprbutton INIT .T.
    // --- International Language Support for internal dialogs --
    DATA aLangTexts
    // Print Preview Dialog with sub dialog:
@@ -77,10 +77,10 @@ CLASS HPrinter INHERIT HObject
    METHOD DefaultLang()
    METHOD SetMode(nOrientation, nDuplex)
    METHOD AddFont(fontName, nHeight, lBold, lItalic, lUnderline, nCharset)
-   METHOD SetFont(oFont)  INLINE (::oFont := oFont, hwg_Selectobject(::hDC, oFont:handle) )
-   METHOD Settextcolor(nColor)  INLINE hwg_Settextcolor(::hDC, nColor)
-   METHOD SetTBkColor(nColor)   INLINE hwg_Setbkcolor(::hDC, nColor)
-   METHOD Setbkmode(lmode)   INLINE hwg_Setbkmode(::hDC, IIF(lmode, 1, 0))
+   METHOD SetFont(oFont) INLINE (::oFont := oFont, hwg_Selectobject(::hDC, oFont:handle) )
+   METHOD Settextcolor(nColor) INLINE hwg_Settextcolor(::hDC, nColor)
+   METHOD SetTBkColor(nColor) INLINE hwg_Setbkcolor(::hDC, nColor)
+   METHOD Setbkmode(lmode) INLINE hwg_Setbkmode(::hDC, IIF(lmode, 1, 0))
    METHOD Recalc(x1, y1, x2, y2)
    METHOD StartDoc(lPreview, cScriptFile, lprbutton)
    METHOD EndDoc()
@@ -666,7 +666,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    LOCAL oBtn
    LOCAL oCanvas
    LOCAL i
-   LOCAL aPage // := { }
+   LOCAL aPage // := {}
    LOCAL oFont := HFont():Add("Times New Roman", 0, -13, 700)
    LOCAL lTransp := ( aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
 

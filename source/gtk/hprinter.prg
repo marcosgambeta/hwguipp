@@ -90,7 +90,7 @@ CLASS HPrinter INHERIT HObject
    METHOD PaintDoc( oCanvas )
    METHOD PrintDoc()
    METHOD ChangePage( oCanvas, oSayPage, n, nPage )
-   METHOD GetTextWidth( cString, oFont )  INLINE hwg_gp_GetTextSize(::hDC, cString, oFont:name, oFont:height)
+   METHOD GetTextWidth( cString, oFont ) INLINE hwg_gp_GetTextSize(::hDC, cString, oFont:name, oFont:height)
 
 ENDCLASS
 
@@ -496,7 +496,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    LOCAL oCanvas
    LOCAL i
    LOCAL nLastPage := Len(::aPages)
-   LOCAL aPage := { }
+   LOCAL aPage := {}
    LOCAL oFont := HFont():Add( "Times New Roman", 0, - 13, 700 )
    LOCAL lTransp := ( aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
    // Variables not used

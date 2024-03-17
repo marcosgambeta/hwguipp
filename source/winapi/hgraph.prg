@@ -12,22 +12,23 @@
 
 CLASS HGraph INHERIT HControl
 
-CLASS VAR winclass   INIT "STATIC"
+   CLASS VAR winclass INIT "STATIC"
+   
    DATA aValues                      // Data array
    DATA aSignX, aSignY               // Signs arrays for X and Y axes
-   DATA nGraphs    INIT 1            // Number of lines in a line chart
+   DATA nGraphs INIT 1            // Number of lines in a line chart
    DATA nType                        // Graph type: 1 - line chart, 2 - bar histogram
-   DATA nLineType  INIT 1            // Connecting lines for ::nType == 1 (line chart):
+   DATA nLineType INIT 1            // Connecting lines for ::nType == 1 (line chart):
                                      //   0 - no lines, 1 - between poits, 2 - vertical
    DATA nPointSize INIT 2            // A point width/height for ::nLineType == 1
-   DATA lGridX     INIT .F.          // Should I draw grid lines for X axis
-   DATA lGridY     INIT .F.          // Should I draw grid lines for Y axis
-   DATA lGridXMid  INIT .T.          // Should I shift X axis grid line to a middle of a bar
-   DATA lPositive  INIT .F.
-   DATA x1Def      INIT 10           // A left indent
-   DATA x2Def      INIT 10           // A right indent
-   DATA y1Def      INIT 10           // A top indent
-   DATA y2Def      INIT 10           // A bottom indent
+   DATA lGridX INIT .F.          // Should I draw grid lines for X axis
+   DATA lGridY INIT .F.          // Should I draw grid lines for Y axis
+   DATA lGridXMid INIT .T.          // Should I shift X axis grid line to a middle of a bar
+   DATA lPositive INIT .F.
+   DATA x1Def INIT 10           // A left indent
+   DATA x2Def INIT 10           // A right indent
+   DATA y1Def INIT 10           // A top indent
+   DATA y2Def INIT 10           // A bottom indent
    DATA colorCoor INIT 0xffffff      // A color for signs
    DATA colorGrid INIT 0xaaaaaa      // A color for axes and grid lines
    DATA aColors                      // Colors for each line

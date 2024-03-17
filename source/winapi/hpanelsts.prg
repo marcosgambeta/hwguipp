@@ -17,7 +17,7 @@ CLASS HPanelStS INHERIT HPANEL
 
    METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts)
    METHOD Write(cText, nPart, lRedraw)
-   METHOD SetText(cText)    INLINE ::Write(cText, NIL, .T.)
+   METHOD SetText(cText) INLINE ::Write(cText, NIL, .T.)
    METHOD PaintText(hDC)
    METHOD Paint()
 

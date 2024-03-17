@@ -59,7 +59,8 @@ METHOD HRect:New(oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle)
 //---------------------------------------------------------------------------
 CLASS HRect_Line INHERIT HControl
 
-CLASS VAR winclass   INIT "STATIC"
+   CLASS VAR winclass INIT "STATIC"
+   
    DATA lVert
    DATA oPen
 
@@ -170,7 +171,8 @@ METHOD HContainer:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nStyle, bSi
 
 CLASS HDrawShape INHERIT HControl
 
-CLASS VAR winclass   INIT "STATIC"
+   CLASS VAR winclass INIT "STATIC"
+   
    DATA oPen, oBrush
    DATA ncStyle, nbStyle, nfStyle
    DATA nCurvature

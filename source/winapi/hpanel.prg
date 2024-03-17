@@ -16,9 +16,9 @@ CLASS HPanel INHERIT HControl
    DATA oEmbedded
    DATA bScroll
    DATA oStyle
-   DATA aPaintCB    INIT {}         // Array of items to draw: { cIt, bDraw(hDC,aCoors) }
-   DATA lDragWin    INIT .F.
-   DATA lCaptured   INIT .F.
+   DATA aPaintCB INIT {}         // Array of items to draw: { cIt, bDraw(hDC,aCoors) }
+   DATA lDragWin INIT .F.
+   DATA lCaptured INIT .F.
    DATA hCursor
    DATA nOldX, nOldY HIDDEN
    DATA lResizeX, lResizeY, nSize HIDDEN

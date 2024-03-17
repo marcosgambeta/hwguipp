@@ -71,7 +71,7 @@ CLASS HDialog INHERIT HWindow
    METHOD DelItem( oWnd, lModal )
    METHOD FindDialog( hWnd )
    METHOD GetActive()
-   METHOD CLOSE()    INLINE hwg_EndDialog(::handle)
+   METHOD CLOSE() INLINE hwg_EndDialog(::handle)
 
 ENDCLASS
 

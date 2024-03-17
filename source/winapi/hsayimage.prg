@@ -12,14 +12,15 @@
 
 CLASS HSayImage INHERIT HControl
 
-   CLASS VAR winclass   INIT "STATIC"
-   DATA  oImage
+   CLASS VAR winclass INIT "STATIC"
+   
+   DATA oImage
    DATA bClick, bDblClick
 
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor)
    METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    METHOD Activate()
-   METHOD END()  INLINE (::Super:END(), iif(::oImage != NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL)
+   METHOD END() INLINE (::Super:END(), iif(::oImage != NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL)
    METHOD onClick()
    METHOD onDblClick()
 

@@ -26,14 +26,14 @@ CLASS VAR winclass INIT "PANEL"
    DATA nItemSize
    DATA aItemStyle
    DATA oFont, oPen
-   DATA lDrawNext    INIT .T.
-   DATA lPressed     INIT .F.
-   DATA lMoved       INIT .F.
-   DATA nFirst       INIT 1
-   DATA nSelected    INIT 0
-   DATA nOver        INIT 0
-   DATA nShift       INIT 0
-   DATA nDragKoef    INIT 1
+   DATA lDrawNext INIT .T.
+   DATA lPressed INIT .F.
+   DATA lMoved INIT .F.
+   DATA nFirst INIT 1
+   DATA nSelected INIT 0
+   DATA nOver INIT 0
+   DATA nShift INIT 0
+   DATA nDragKoef INIT 1
    DATA xPos, yPos
    DATA bClick
 

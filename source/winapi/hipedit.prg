@@ -16,7 +16,8 @@
 
 CLASS HIPedit INHERIT HControl
 
-   CLASS VAR winclass   INIT "SysIPAddress32"
+   CLASS VAR winclass INIT "SysIPAddress32"
+   
    DATA bSetGet
    DATA bChange
    DATA bKillFocus
@@ -30,7 +31,7 @@ CLASS HIPedit INHERIT HControl
    METHOD END()
 
    HIDDEN:
-   DATA  aValue           // Valor atual
+   DATA aValue           // Valor atual
 
 ENDCLASS
 

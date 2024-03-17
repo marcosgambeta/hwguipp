@@ -13,8 +13,9 @@
 CLASS HRadioGroup INHERIT HObject
 
    CLASS VAR oGroupCurrent
+   
    DATA aButtons
-   DATA nValue  INIT 1
+   DATA nValue INIT 1
    DATA bSetGet
    DATA oHGroup
 
@@ -22,7 +23,7 @@ CLASS HRadioGroup INHERIT HObject
    METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor)
    METHOD EndGroup(nSelected)
    METHOD Value(nValue) SETGET
-   METHOD Refresh()   INLINE iif(HB_ISBLOCK(::bSetGet), ::Value := Eval(::bSetGet), .T.)
+   METHOD Refresh() INLINE iif(HB_ISBLOCK(::bSetGet), ::Value := Eval(::bSetGet), .T.)
 
 ENDCLASS
 

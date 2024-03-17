@@ -14,8 +14,8 @@ CLASS HControl INHERIT HCustomWindow
 
    DATA id
    DATA tooltip
-   DATA lInit   INIT .F.
-   DATA Anchor  INIT 0
+   DATA lInit INIT .F.
+   DATA Anchor INIT 0
 
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
    METHOD NewId()

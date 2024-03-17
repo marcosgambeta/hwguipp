@@ -22,14 +22,14 @@
 
 CLASS HTrack INHERIT HControl
 
-CLASS VAR winclass INIT "STATIC"
+   CLASS VAR winclass INIT "STATIC"
 
    DATA lVertical
    DATA oStyleBar, oStyleSlider
-   DATA lAxis    INIT .T.
+   DATA lAxis INIT .T.
    DATA nFrom, nTo, nCurr, nSize
    DATA oPen1, oPen2, tColor2
-   DATA lCaptured   INIT .F.
+   DATA lCaptured INIT .F.
    DATA bEndDrag
    DATA bChange
 

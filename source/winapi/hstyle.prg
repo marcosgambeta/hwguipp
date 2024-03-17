@@ -12,7 +12,7 @@
 
 CLASS HStyle INHERIT HObject
 
-   CLASS VAR aStyles   INIT { }
+   CLASS VAR aStyles INIT {}
 
    DATA id
    DATA nOrient

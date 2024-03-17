@@ -12,10 +12,11 @@
 
 CLASS HPen INHERIT HObject
 
-   CLASS VAR aPens   INIT { }
+   CLASS VAR aPens INIT {}
+   
    DATA handle
    DATA style, width, color
-   DATA nCounter   INIT 1
+   DATA nCounter INIT 1
 
    METHOD Add(nStyle, nWidth, nColor)
    METHOD Get(nStyle, nWidth, nColor)

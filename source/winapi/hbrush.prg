@@ -12,10 +12,10 @@
 
 CLASS HBrush INHERIT HObject
 
-   CLASS VAR aBrushes   INIT { }
+   CLASS VAR aBrushes INIT {}
    DATA handle
    DATA COLOR
-   DATA nHatch   INIT 99
+   DATA nHatch INIT 99
    DATA nCounter INIT 1
 
    METHOD Add(nColor, nHatch)

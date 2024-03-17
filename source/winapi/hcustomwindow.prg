@@ -15,7 +15,7 @@ CLASS HCustomWindow INHERIT HObject
 
    CLASS VAR oDefaultParent SHARED
 
-   DATA handle        INIT 0
+   DATA handle INIT 0
    DATA oParent
    DATA title
    DATA TYPE
@@ -31,12 +31,12 @@ CLASS HCustomWindow INHERIT HObject
    DATA bcolor
    DATA brush
    DATA style
-   DATA extStyle      INIT 0
-   DATA lHide         INIT .F.
+   DATA extStyle INIT 0
+   DATA lHide INIT .F.
    DATA oFont
-   DATA aEvents       INIT {}
-   DATA aNotify       INIT {}
-   DATA aControls     INIT {}
+   DATA aEvents INIT {}
+   DATA aNotify INIT {}
+   DATA aControls INIT {}
    DATA bInit
    DATA bDestroy
    DATA bSize
@@ -44,9 +44,9 @@ CLASS HCustomWindow INHERIT HObject
    DATA bGetFocus
    DATA bLostFocus
    DATA bOther
-   DATA HelpId        INIT 0
-   DATA nHolder       INIT 0
-   DATA nChildId      INIT 34000
+   DATA HelpId INIT 0
+   DATA nHolder INIT 0
+   DATA nChildId INIT 34000
 
    METHOD AddControl(oCtrl) INLINE AAdd(::aControls, oCtrl)
    METHOD DelControl(oCtrl)

@@ -97,7 +97,7 @@ METHOD HListBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHei
    ::bSetGet := bSetGet
 
    IF aItems == NIL
-      ::aItems := { }
+      ::aItems := {}
    ELSE
       ::aItems  := aItems
    ENDIF
@@ -172,7 +172,7 @@ METHOD HListBox:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, b
     ::bOther := bOther
 
    IF aItems == NIL
-      ::aItems := { }
+      ::aItems := {}
    ELSE
       ::aItems  := aItems
    ENDIF
@@ -312,7 +312,7 @@ METHOD HListBox:DeleteItem( nPos )
 
 METHOD HListBox:Clear()
 
-   ::aItems := { }
+   ::aItems := {}
    ::value := 0
 //   hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
 //   hwg_Listboxsetstring(::handle, ::value)
@@ -393,7 +393,7 @@ STATIC FUNCTION AddLItems (h,it)
     LOCAL i
     
     IF it == NIL
-      it := { }
+      it := {}
     ENDIF  
     IF .NOT. EMPTY(it)
      FOR i := 1 TO LEN(it)

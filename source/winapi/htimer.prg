@@ -14,16 +14,16 @@
 
 CLASS HTimer INHERIT HObject
 
-   CLASS VAR aTimers   INIT {}
+   CLASS VAR aTimers INIT {}
 
    DATA id
    DATA value
-   DATA lOnce          INIT .F.
+   DATA lOnce INIT .F.
    DATA oParent
    DATA bAction
    /*
-   ACCESS Interval     INLINE ::value
-   ASSIGN Interval(x)  INLINE ::value := x, Iif(x == 0, ::End(), hwg_SetTimer(::oParent:handle, ::id, x))
+   ACCESS Interval INLINE ::value
+   ASSIGN Interval(x) INLINE ::value := x, Iif(x == 0, ::End(), hwg_SetTimer(::oParent:handle, ::id, x))
    */
    METHOD Interval(n) SETGET
    METHOD New(oParent, nId, value, bAction, lOnce)

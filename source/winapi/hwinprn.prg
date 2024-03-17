@@ -69,35 +69,36 @@
 
 CLASS HWinPrn
 
-   CLASS VAR nStdHeight SHARED  INIT NIL
-   CLASS VAR cPrinterName SHARED  INIT NIL
-   DATA   oPrinter
-   DATA   nFormType INIT 9
-   DATA   oFont
-   DATA   nLineHeight, nLined
-   DATA   nCharW
-   DATA   x, y
-   DATA   cPseudo   INIT "ƒÕ≥∫⁄…’÷øª∑∏¿»”‘ŸºΩæ¬À—“¡ œ–√Ã∆«¥πµ∂≈Œ◊ÿ"
-   DATA   lElite    INIT .F.
-   DATA   lCond     INIT .F.
-   DATA   nLineInch INIT 6
-   DATA   lBold     INIT .F.
-   DATA   lItalic   INIT .F.
-   DATA   lUnder    INIT .F.
-   DATA   nLineMax  INIT 0
-   DATA   lChanged  INIT .F.
-
-   DATA   cpFrom, cpTo
-   DATA   nTop      INIT 5
-   DATA   nBottom   INIT 5
-   DATA   nLeft     INIT 5
-   DATA   nRight    INIT 5
+   CLASS VAR nStdHeight SHARED INIT NIL
+   CLASS VAR cPrinterName SHARED INIT NIL
    
-   DATA   nCharset  INIT 0   //  Charset (N) Default: 0, 204 = Russian
+   DATA oPrinter
+   DATA nFormType INIT 9
+   DATA oFont
+   DATA nLineHeight, nLined
+   DATA nCharW
+   DATA x, y
+   DATA cPseudo INIT "ƒÕ≥∫⁄…’÷øª∑∏¿»”‘ŸºΩæ¬À—“¡ œ–√Ã∆«¥πµ∂≈Œ◊ÿ"
+   DATA lElite INIT .F.
+   DATA lCond INIT .F.
+   DATA nLineInch INIT 6
+   DATA lBold INIT .F.
+   DATA lItalic INIT .F.
+   DATA lUnder INIT .F.
+   DATA nLineMax INIT 0
+   DATA lChanged INIT .F.
+
+   DATA cpFrom, cpTo
+   DATA nTop INIT 5
+   DATA nBottom INIT 5
+   DATA nLeft INIT 5
+   DATA nRight INIT 5
+
+   DATA nCharset INIT 0   //  Charset (N) Default: 0, 204 = Russian
 
    // --- International Language Support for internal dialogs --
-   DATA aTooltips   INIT {}  // Array with tooltips messages for print preview dialog
-   DATA aBootUser   INIT {}  // Array with control  messages for print preview dialog  (optional usage)
+   DATA aTooltips INIT {}  // Array with tooltips messages for print preview dialog
+   DATA aBootUser INIT {}  // Array with control  messages for print preview dialog  (optional usage)
 
 
    METHOD New(cPrinter, cpFrom, cpTo, nFormType, nCharset)
@@ -118,12 +119,12 @@ CLASS HWinPrn
    METHOD END()
 
 #ifdef __GTK__
-   METHOD SetMetaFile(cMetafile)    INLINE ::oPrinter:cScriptFile := cMetafile
+   METHOD SetMetaFile(cMetafile) INLINE ::oPrinter:cScriptFile := cMetafile
 #endif
 
    HIDDEN:
-   DATA lDocStart   INIT .F.
-   DATA lPageStart  INIT .F.
+   DATA lDocStart INIT .F.
+   DATA lPageStart INIT .F.
    DATA lFirstLine
 
 ENDCLASS

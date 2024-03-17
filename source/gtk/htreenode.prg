@@ -27,7 +27,7 @@ CLASS HTreeNode INHERIT HObject
    METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
    METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages )
    METHOD DELETE(lInternal)
-   METHOD GetText()  INLINE ::title
+   METHOD GetText() INLINE ::title
    METHOD SetText( cText ) INLINE ::title := cText
    METHOD getNodeIndex()
    METHOD PrevNode( nNode, lSkip )

@@ -12,7 +12,7 @@
 
 CLASS HLine INHERIT HControl
 
-   CLASS VAR winclass   INIT "STATIC"
+   CLASS VAR winclass INIT "STATIC"
 
    DATA lVert
    DATA oPenLight, oPenGray

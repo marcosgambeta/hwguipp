@@ -12,16 +12,17 @@
 
 CLASS HProgressBar INHERIT HControl
 
-   CLASS VAR winclass   INIT "msctls_progress32"
-   DATA  maxPos
-   DATA  nRange
-   DATA  lNewBox
-   DATA  nCount INIT 0
-   DATA  nLimit
-   DATA  nAnimation
-   DATA  LabelBox
-   DATA  nPercent INIT 0
-   DATA  lPercent INIT .F.
+   CLASS VAR winclass INIT "msctls_progress32"
+   
+   DATA maxPos
+   DATA nRange
+   DATA lNewBox
+   DATA nCount INIT 0
+   DATA nLimit
+   DATA nAnimation
+   DATA LabelBox
+   DATA nPercent INIT 0
+   DATA lPercent INIT .F.
 
    METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
    METHOD NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, lPercent)

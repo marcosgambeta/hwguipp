@@ -123,97 +123,97 @@ STATIC cNewLine := e"\r\n"
 
 CLASS HCEdit INHERIT HControl
 
-   CLASS VAR winclass  INIT "TEDIT"
+   CLASS VAR winclass INIT "TEDIT"
 
-   DATA   hEdit
-   DATA   oTrack
-   DATA   cFileName
-   DATA   aText, nTextLen
-   DATA   nMaxLines    INIT 0
-   DATA   cp, cpSource
-   DATA   lUtf8        INIT .F.
-   DATA   aWrap, nLinesAll
-   DATA   nDocFormat   INIT 0
-   DATA   nDocOrient   INIT 0
-   DATA   aDocMargins  INIT { 10,10,10,10 }
-   DATA   nKoeffScr
+   DATA hEdit
+   DATA oTrack
+   DATA cFileName
+   DATA aText, nTextLen
+   DATA nMaxLines INIT 0
+   DATA cp, cpSource
+   DATA lUtf8 INIT .F.
+   DATA aWrap, nLinesAll
+   DATA nDocFormat INIT 0
+   DATA nDocOrient INIT 0
+   DATA aDocMargins INIT { 10,10,10,10 }
+   DATA nKoeffScr
 
-   DATA   lShowNumbers INIT .F.
-   DATA   lReadOnly    INIT .F.
-   DATA   lUpdated     INIT .F.
-   DATA   lInsert      INIT .T.
-   DATA   lNoPaste     INIT .F.
+   DATA lShowNumbers INIT .F.
+   DATA lReadOnly INIT .F.
+   DATA lUpdated INIT .F.
+   DATA lInsert INIT .T.
+   DATA lNoPaste INIT .F.
 
-   DATA   nShiftL      INIT 0
-   DATA   nBoundL      INIT 0
-   DATA   nBoundR
-   DATA   nBoundT      INIT 0
-   DATA   nMarginL     INIT 0
-   DATA   nMarginR     INIT 0
-   DATA   nMarginT     INIT 0
-   DATA   nMarginB     INIT 0
+   DATA nShiftL INIT 0
+   DATA nBoundL INIT 0
+   DATA nBoundR
+   DATA nBoundT INIT 0
+   DATA nMarginL INIT 0
+   DATA nMarginR INIT 0
+   DATA nMarginT INIT 0
+   DATA nMarginB INIT 0
 
-   DATA   n4Number     INIT 0
-   DATA   n4Separ      INIT 0
-   DATA   bColorCur    INIT 16449510      // A bacground color for a current line
-   DATA   tcolorSel    INIT 16777215
-   DATA   bcolorSel    INIT 16744448
-   DATA   nClrDesk     INIT 8421504
-   DATA   nAlign       INIT 0             // 0 - Left, 1 - Center, 2 - Right
-   DATA   nIndent      INIT 0
-   DATA   nDefFont     INIT 0
+   DATA n4Number INIT 0
+   DATA n4Separ INIT 0
+   DATA bColorCur INIT 16449510      // A bacground color for a current line
+   DATA tcolorSel INIT 16777215
+   DATA bcolorSel INIT 16744448
+   DATA nClrDesk INIT 8421504
+   DATA nAlign INIT 0             // 0 - Left, 1 - Center, 2 - Right
+   DATA nIndent INIT 0
+   DATA nDefFont INIT 0
 
-   DATA   nLineF       INIT 1
-   DATA   nPosF        INIT 1
-   DATA   aLines, nLines, nLineC, nPosC
+   DATA nLineF INIT 1
+   DATA nPosF INIT 1
+   DATA aLines, nLines, nLineC, nPosC
 
-   DATA   nWCharF      INIT 1             // (:lWrap) a position in
+   DATA nWCharF INIT 1             // (:lWrap) a position in
                                           // :aText[::nLineF] - first line beginning
-   DATA   nWSublF      INIT 1             // (:lWrap) a subline of ::nLineF - first line
-   DATA   aFonts       INIT {}
-   DATA   aFontsPrn    INIT {}
-   DATA   oPenNum
+   DATA nWSublF INIT 1             // (:lWrap) a subline of ::nLineF - first line
+   DATA aFonts INIT {}
+   DATA aFontsPrn INIT {}
+   DATA oPenNum
 
-   DATA   nCaret       INIT 0
-   DATA   lChgCaret    INIT .F.
-   DATA   lSetFocus    INIT .F.
-   DATA   bChangePos, bKeyDown, bClickDoub, bRClick
-   DATA   bAfter
+   DATA nCaret INIT 0
+   DATA lChgCaret INIT .F.
+   DATA lSetFocus INIT .F.
+   DATA bChangePos, bKeyDown, bClickDoub, bRClick
+   DATA bAfter
 
-   DATA   lMDown       INIT .F.
-   DATA   aPointC, aPointM1, aPointM2
+   DATA lMDown INIT .F.
+   DATA aPointC, aPointM1, aPointM2
 
-   DATA   nTabLen      INIT 4
-   DATA   lTabs        INIT .F.
-   DATA   lStripSpaces INIT .T.
-   //DATA   lVScroll
-   DATA   nTrackWidth  INIT 0
-   DATA   nClientWidth
-   DATA   nDocWidth
-   DATA   nLastKey     INIT 0
+   DATA nTabLen INIT 4
+   DATA lTabs INIT .F.
+   DATA lStripSpaces INIT .T.
+   //DATA lVScroll
+   DATA nTrackWidth INIT 0
+   DATA nClientWidth
+   DATA nDocWidth
+   DATA nLastKey INIT 0
 
 #ifdef __GTK__
    DATA area
-   DATA hScrollV  INIT NIL
-   DATA hScrollH  INIT NIL
-   DATA nScrollV  INIT 0
-   DATA nScrollH  INIT 0
+   DATA hScrollV INIT NIL
+   DATA hScrollH INIT NIL
+   DATA nScrollV INIT 0
+   DATA nScrollH INIT 0
 #endif
 
-   DATA   nMaxUndo     INIT 10
-   DATA   aUndo
+   DATA nMaxUndo INIT 10
+   DATA aUndo
 
-   DATA   oHili
-   DATA   aHili     PROTECTED
-   DATA   lWrap     INIT .F. PROTECTED
-   DATA   nPadding  INIT 0   PROTECTED
+   DATA oHili
+   DATA aHili PROTECTED
+   DATA lWrap INIT .F. PROTECTED
+   DATA nPadding INIT 0 PROTECTED
 #ifdef __GTK__
-   DATA   lPainted  INIT .F. PROTECTED
-   DATA   lNeedScan INIT .F. PROTECTED
+   DATA lPainted INIT .F. PROTECTED
+   DATA lNeedScan INIT .F. PROTECTED
 #endif
-   DATA   lScan     INIT .F. PROTECTED
+   DATA lScan INIT .F. PROTECTED
    // --- International Language Support for internal dialogs --
-   DATA aLangTexts  INIT {}
+   DATA aLangTexts INIT {}
    // Print Preview Dialog with sub dialog:
    // The messages and control text's are delivered by other classes, calling
    // the method Preview() in Parameter aTooltips as an array.

@@ -36,16 +36,16 @@ CLASS HGrid INHERIT HControl
 
    CLASS VAR winclass INIT "SYSLISTVIEW32"
 
-   DATA aBitMaps  INIT {}
+   DATA aBitMaps INIT {}
    DATA ItemCount
    DATA color
    DATA bkcolor
-   DATA aColumns  INIT {}
-   DATA nRow      INIT 0
-   DATA nCol      INIT 0
+   DATA aColumns INIT {}
+   DATA nRow INIT 0
+   DATA nCol INIT 0
    DATA lNoScroll INIT .F.
    DATA lNoBorder INIT .F.
-   DATA lNoLines  INIT .F.
+   DATA lNoLines INIT .F.
    DATA lNoHeader INIT .F.
    DATA bEnter
    DATA bKeyDown

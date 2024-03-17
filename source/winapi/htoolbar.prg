@@ -19,6 +19,7 @@
 CLASS HToolBar INHERIT HControl
 
    CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(NIL, 1, RT_MANIFEST)) SHARED
+   
    DATA winclass INIT "ToolbarWindow32"
    DATA TEXT, id
    CLASSDATA oSelected INIT NIL
@@ -28,21 +29,21 @@ CLASS HToolBar INHERIT HControl
 
    DATA lPress INIT .F.
    DATA lFlat
-   DATA lTransp    INIT .F. //
-   DATA lVertical  INIT .F. //
-   DATA lCreate    INIT .F. HIDDEN
-   DATA lResource  INIT .F. HIDDEN
+   DATA lTransp INIT .F. //
+   DATA lVertical INIT .F. //
+   DATA lCreate INIT .F. HIDDEN
+   DATA lResource INIT .F. HIDDEN
    DATA nOrder
    DATA BtnWidth, BtnHeight
    DATA nIDB
-   DATA aButtons    INIT {}
+   DATA aButtons INIT {}
    DATA aSeparators INIT {}
-   DATA aItem       INIT {}
+   DATA aItem INIT {}
    DATA Line
    DATA nIndent
    DATA nwSize, nHSize
    DATA nDrop
-   DATA lNoThemes   INIT .F.
+   DATA lNoThemes INIT .F.
 
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem, nWSize, nHSize, nIndent, nIDB)
@@ -65,7 +66,7 @@ ENDCLASS
 METHOD hToolBar:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem, nWSize, nHSize, nIndent, nIDB)
 
-   DEFAULT  aitem TO { }
+   DEFAULT aitem TO {}
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), iif(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, CCS_NODIVIDER, 0))
    nHeight += iif(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 1, 0)
@@ -118,7 +119,7 @@ METHOD hToolBar:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint,
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)
 
-   DEFAULT  aItem TO { }
+   DEFAULT aItem TO {}
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
    ::aItem := aItem

@@ -35,18 +35,18 @@ Static  cHead := "hwgbc"
 
 CLASS HBinC
 
-   DATA   cName
-   DATA   handle
-   DATA   lWriteAble
-   DATA   nVerHigh, nVerLow
-   DATA   nItems
-   DATA   nCntLen
-   DATA   nCntBlocks
-   DATA   nPassLen
+   DATA cName
+   DATA handle
+   DATA lWriteAble
+   DATA nVerHigh, nVerLow
+   DATA nItems
+   DATA nCntLen
+   DATA nCntBlocks
+   DATA nPassLen
 
-   DATA   nFileLen
+   DATA nFileLen
 
-   DATA   aObjects
+   DATA aObjects
 
    METHOD Create(cName, n)
    METHOD Open(cName, lWr)
