@@ -7,7 +7,7 @@
 
 // for MS-Windows only
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 PROCEDURE Main()
 

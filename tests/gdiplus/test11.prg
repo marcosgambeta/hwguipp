@@ -10,7 +10,7 @@
 // texture.png generated with:
 // https://cpetry.github.io/TextureGenerator-Online/
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 PROCEDURE Main()
 

@@ -12,7 +12,7 @@
 
 // same as test10, but loading image and creating texture only one time
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 PROCEDURE Main()
 
