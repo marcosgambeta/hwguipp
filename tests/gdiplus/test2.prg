@@ -1,5 +1,5 @@
 /*
- * HWGUI++ test
+ * HWGUI++/GDI+ test
  *
  * Copyright (c) 2024 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
  *
@@ -13,6 +13,7 @@ PROCEDURE Main()
 
    LOCAL oDialog
 
+   // initialize GDI+
    waGdiplusStartup()
 
    INIT DIALOG oDialog TITLE "Test" SIZE 800, 600 ;
@@ -35,12 +36,14 @@ PROCEDURE Main()
       hwg_EndPaint(oDialog:handle, pPS)
       }
 
+   // update window if resized
    oDialog:bSize := {||hwg_Redrawwindow(oDialog:handle, RDW_ERASE + RDW_INVALIDATE)}
 
    @ 800 - 100 - 20, 600 - 32 - 20 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDialog:Close()}
 
    ACTIVATE DIALOG oDialog
 
+   // finalize GDI+
    waGdiplusShutdown()
 
 RETURN

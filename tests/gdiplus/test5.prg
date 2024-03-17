@@ -1,5 +1,5 @@
 /*
- * HWGUI++ test
+ * HWGUI++/GDI+ test
  *
  * Copyright (c) 2024 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
  *
@@ -14,8 +14,10 @@ PROCEDURE Main()
    LOCAL oMainWindow
    LOCAL pImage
 
+   // initialize GDI+
    waGdiplusStartup()
 
+   // load image
    waGdipLoadImageFromFile("harbour.gif", @pImage)
 
    INIT WINDOW oMainWindow MAIN TITLE "Test" SIZE 800, 600
@@ -32,12 +34,15 @@ PROCEDURE Main()
       hwg_EndPaint(oMainWindow:handle, pPS)
       }
 
+   // update window if resized
    oMainWindow:bSize := {||hwg_RedrawWindow(oMainWindow:handle, RDW_ERASE + RDW_INVALIDATE)}
 
    ACTIVATE WINDOW oMainWindow
 
+   // dispose image
    waGdipDisposeImage(pImage)
 
+   // finalize GDI+
    waGdiplusShutdown()
 
 RETURN

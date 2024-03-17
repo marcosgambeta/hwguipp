@@ -14,6 +14,7 @@ PROCEDURE Main()
    LOCAL oDialog
    LOCAL oButton
 
+   // initialize GDI+
    waGdiplusStartup()
 
    INIT DIALOG oDialog TITLE "Test" SIZE 800, 600
@@ -35,6 +36,7 @@ PROCEDURE Main()
       hwg_EndPaint(hwg_GetModalHandle(), pPS)
       }
 
+   // update window if resized
    oDialog:bSize := {|o, x, y|
       oButton:Move(x - 100 - 20, y - 32 - 20)
       hwg_RedrawWindow(oDialog:handle, RDW_ERASE + RDW_INVALIDATE)
@@ -44,6 +46,7 @@ PROCEDURE Main()
 
    ACTIVATE DIALOG oDialog
 
+   // finalize GDI+
    waGdiplusShutdown()
 
 RETURN

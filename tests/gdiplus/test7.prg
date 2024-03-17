@@ -13,6 +13,7 @@ PROCEDURE Main()
 
    LOCAL oMainWindow
 
+   // initialize GDI+
    waGdiplusStartup()
 
    INIT WINDOW oMainWindow MAIN TITLE "Test" SIZE 800, 600 ON EXIT {||hwg_MsgYesNo("Confirm exit ?")}
@@ -52,6 +53,7 @@ PROCEDURE Main()
 
    ACTIVATE WINDOW oMainWindow MAXIMIZED
 
+   // finalize GDI+
    waGdiplusShutdown()
 
 RETURN

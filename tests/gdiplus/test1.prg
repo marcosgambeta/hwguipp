@@ -1,5 +1,5 @@
 /*
- * HWGUI++ test
+ * HWGUI++/GDI+ test
  *
  * Copyright (c) 2024 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
  *
@@ -13,6 +13,7 @@ PROCEDURE Main()
 
    LOCAL oDialog
 
+   // initialize GDI+
    waGdiplusStartup()
 
    INIT DIALOG oDialog TITLE "Test" SIZE 800, 600
@@ -31,6 +32,7 @@ PROCEDURE Main()
 
    ACTIVATE DIALOG oDialog
 
+   // finalize GDI+
    waGdiplusShutdown()
 
 RETURN
