@@ -27,7 +27,7 @@
 
 STATIC crossCursor := NIL
 STATIC arrowCursor := NIL
-STATIC vCursor     := NIL
+STATIC vCursor := NIL
 
 CLASS HTree INHERIT HControl
 
@@ -107,8 +107,8 @@ METHOD HTree:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
    ENDIF
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, NIL, NIL, color, bcolor)
 
-   ::title   := ""
-   ::Type    := iif(lResour == NIL, .F. , lResour)
+   ::title := ""
+   ::Type := iif(lResour == NIL, .F. , lResour)
    ::bClick := bClick
 
    IF aImages != NIL .AND. !Empty(aImages)

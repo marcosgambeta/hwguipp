@@ -64,8 +64,8 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
    DEFAULT lColor TO hwg_ColorRgb2N(0, 0, 255)
    DEFAULT hColor TO hwg_ColorRgb2N(255, 0, 0)
    ::m_csUrl := cLink
-   ::m_sHoverColor   := hColor
-   ::m_sLinkColor    := lColor
+   ::m_sHoverColor := hColor
+   ::m_sLinkColor := lColor
    ::m_sVisitedColor := vColor
 
    ::state := LBL_INIT
@@ -120,8 +120,8 @@ METHOD HStaticLink:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPai
    DEFAULT hColor TO hwg_ColorRgb2N(255, 0, 0)
    ::state := LBL_INIT
    ::m_csUrl := cLink
-   ::m_sHoverColor   := hColor
-   ::m_sLinkColor    := lColor
+   ::m_sHoverColor := hColor
+   ::m_sLinkColor := lColor
    ::m_sVisitedColor := vColor
 
    IF ::oFont == NIL
@@ -136,8 +136,8 @@ METHOD HStaticLink:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPai
       ENDIF
    ENDIF
 
-   ::title   := cCaption
-   ::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
+   ::title := cCaption
+   ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
 
    hwg_RegOwnBtn()
 

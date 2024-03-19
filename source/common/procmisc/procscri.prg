@@ -60,7 +60,7 @@ LOCAL aFormCode, aFormName
             ELSEIF LEFT(stroka, 6) == "#BLOCK"
                scom := Upper(Ltrim(Substr(stroka, 8)))
                IF scom == scrkod
-                  rejim     := - 1
+                  rejim := - 1
                   aFormCode := {}
                   aFormName := {}
                ENDIF
@@ -79,7 +79,7 @@ LOCAL aFormCode, aFormName
                FCLOSE(han)
                RETURN NIL
             ENDIF
-            rejim  := 0
+            rejim := 0
             scrkod := aFormCode[i]
          ENDIF
       ENDDO
@@ -482,8 +482,8 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
                SetDebugger()
             ENDIF
          ELSE
-            stroka    := Substr(aScript[2, iscr], 2)
-            lParam    := ( Left(aScript[2, iscr], 1) == "/" )
+            stroka := Substr(aScript[2, iscr], 2)
+            lParam := ( Left(aScript[2, iscr], 1) == "/" )
             bOldError := Errorblock( { | e | MacroError( 2, e ) } )
             BEGIN SEQUENCE
                j := 1
@@ -627,7 +627,7 @@ STATIC w__buf
    IF y__size == 0
       y__size := 5
       x__size := 30
-      prnew   := .T.
+      prnew := .T.
    ELSEIF prnew == NIL
       prnew := .F.
    ENDIF
@@ -672,10 +672,10 @@ FUNCTION WndGet( sout, varget, spict )
 LOCAL y1, x1, y2, x2, oldc
 LOCAL GetList := {}
    WndOut( sout )
-   y1   := 13 - INT( y__size / 2 )
-   x1   := 41 - INT( x__size / 2 )
-   y2   := y1 + y__size
-   x2   := x1 + x__size
+   y1 := 13 - INT( y__size / 2 )
+   x1 := 41 - INT( x__size / 2 )
+   y2 := y1 + y__size
+   x2 := x1 + x__size
    oldc := SETCOLOR( "N/W" )
    IF LEN(sout) + IIF(spict = "@D", 8, LEN(spict)) > x__size - 3
       SCROLL( y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1 )

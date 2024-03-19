@@ -32,7 +32,7 @@ REQUEST DBGOTOP, DBGOTO, DBGOBOTTOM, DBSKIP, RECCOUNT, RECNO, EOF, BOF
 
    STATIC crossCursor := NIL
    STATIC arrowCursor := NIL
-   STATIC vCursor     := NIL
+   STATIC vCursor := NIL
    STATIC xDrag
 
 CLASS HColumn INHERIT HObject
@@ -75,20 +75,20 @@ ENDCLASS
 
 METHOD HColumn:New( cHeading, block, type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick )
 
-   ::heading   := iif(cHeading == NIL, "", cHeading)
-   ::block     := block
-   ::type      := type
-   ::length    := length
-   ::dec       := dec
+   ::heading := iif(cHeading == NIL, "", cHeading)
+   ::block := block
+   ::type := type
+   ::length := length
+   ::dec := dec
    ::lEditable := iif(lEditable != NIL, lEditable, .F.)
-   ::nJusHead  := iif(nJusHead == NIL, DT_LEFT, nJusHead)  // Por default      / For default
-   ::nJusLin   := iif(nJusLin == NIL, DT_LEFT, nJusLin)  // Justif.Izquierda / Justify left
-   ::picture   := cPict
-   ::bValid    := bValid
-   ::bWhen     := bWhen
-   ::aList     := aItem
+   ::nJusHead := iif(nJusHead == NIL, DT_LEFT, nJusHead)  // Por default      / For default
+   ::nJusLin := iif(nJusLin == NIL, DT_LEFT, nJusLin)  // Justif.Izquierda / Justify left
+   ::picture := cPict
+   ::bValid := bValid
+   ::bWhen := bWhen
+   ::aList := aItem
    ::bColorBlock := bColorBlock
-   ::bHeadClick  := bHeadClick
+   ::bHeadClick := bHeadClick
 
    RETURN Self
 
@@ -263,15 +263,15 @@ METHOD HBrowse:New( lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFo
    IF oFont == NIL
       ::oFont := ::oParent:oFont
    ENDIF
-   ::bEnter  := bEnter
+   ::bEnter := bEnter
    ::bRClick := bRClick
-   ::bGetFocus   := bGFocus
-   ::bLostFocus  := bLFocus
+   ::bGetFocus := bGFocus
+   ::bLostFocus := bLFocus
 
-   ::lAppable    := iif(lAppend == NIL, .F., lAppend)
-   ::lAutoEdit   := iif(lAutoedit == NIL, .F., lAutoedit)
-   ::bUpdate     := bUpdate
-   ::bKeyDown    := bKeyDown
+   ::lAppable := iif(lAppend == NIL, .F., lAppend)
+   ::lAutoEdit := iif(lAutoedit == NIL, .F., lAutoedit)
+   ::bUpdate := bUpdate
+   ::bKeyDown := bKeyDown
    ::bPosChanged := bPosChg
    IF lMultiSelect != NIL .AND. lMultiSelect
       ::aSelected := {}
@@ -292,8 +292,8 @@ METHOD HBrowse:New( lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFo
 METHOD HBrowse:DefaultLang()
    ::cTextTitME := "Memo Edit"
    ::cTextClose := "Close"   // Button
-   ::cTextSave  := "Save"
-   ::cTextMod   := "Memo was modified, save ?"
+   ::cTextSave := "Save"
+   ::cTextMod := "Memo was modified, save ?"
    ::cTextLockRec := "Can't lock the record!"
    RETURN Self
 
@@ -533,7 +533,7 @@ METHOD HBrowse:InitBrw( nType )
       ::nLeftCol := 1
       ::lRefrLinesOnly := .F.
       ::lRefrHead := .T.
-      ::aArray   := NIL
+      ::aArray := NIL
       ::freeze := ::height := 0
 
       IF Empty(crossCursor)
@@ -545,25 +545,25 @@ METHOD HBrowse:InitBrw( nType )
    ::rowPos := ::rowPosOld := ::nCurrent := ::colpos := 1
 
    IF ::type == BRW_DATABASE
-      ::alias   := Alias()
-      ::bSkip     :=  { |o, n| HB_SYMBOL_UNUSED(o), (::alias)->(dbSkip(n)) }
-      ::bGoTop    :=  { || (::alias)->(DBGOTOP()) }
-      ::bGoBot    :=  { || (::alias)->(dbGoBottom()) }
-      ::bEof      :=  { || (::alias)->(Eof()) }
-      ::bBof      :=  { || (::alias)->(Bof()) }
-      ::bRcou     :=  { || (::alias)->(RecCount()) }
-      ::bRecnoLog := ::bRecno  := { ||(::alias)->(RecNo()) }
-      ::bGoTo     :=  { |o, n| HB_SYMBOL_UNUSED(o), (::alias)->(dbGoto(n)) }
+      ::alias := Alias()
+      ::bSkip :=  { |o, n| HB_SYMBOL_UNUSED(o), (::alias)->(dbSkip(n)) }
+      ::bGoTop :=  { || (::alias)->(DBGOTOP()) }
+      ::bGoBot :=  { || (::alias)->(dbGoBottom()) }
+      ::bEof :=  { || (::alias)->(Eof()) }
+      ::bBof :=  { || (::alias)->(Bof()) }
+      ::bRcou :=  { || (::alias)->(RecCount()) }
+      ::bRecnoLog := ::bRecno := { ||(::alias)->(RecNo()) }
+      ::bGoTo :=  { |o, n| HB_SYMBOL_UNUSED(o), (::alias)->(dbGoto(n)) }
 
    ELSEIF ::type == BRW_ARRAY
-      ::bSKip   := { | o, x | ARSKIP( o, x ) }
-      ::bGoTop  := { | o | o:nCurrent := 1 }
-      ::bGoBot  := { | o | o:nCurrent := o:nRecords }
-      ::bEof    := { | o | o:nCurrent > o:nRecords }
-      ::bBof    := { | o | o:nCurrent == 0 }
-      ::bRcou   := { | o | Len(o:aArray) }
-      ::bRecnoLog := ::bRecno  := { | o | o:nCurrent }
-      ::bGoTo   := { | o, n | o:nCurrent := n }
+      ::bSKip := { | o, x | ARSKIP( o, x ) }
+      ::bGoTop := { | o | o:nCurrent := 1 }
+      ::bGoBot := { | o | o:nCurrent := o:nRecords }
+      ::bEof := { | o | o:nCurrent > o:nRecords }
+      ::bBof := { | o | o:nCurrent == 0 }
+      ::bRcou := { | o | Len(o:aArray) }
+      ::bRecnoLog := ::bRecno := { | o | o:nCurrent }
+      ::bGoTo := { | o, n | o:nCurrent := n }
       ::bScrollPos := { |o, n, lEof, nPos|hwg_VScrollPos( o, n, lEof, nPos ) }
 
    ENDIF
@@ -601,9 +601,9 @@ METHOD HBrowse:Rebuild(hDC)
       ::brush := HBrush():Add(::bcolor)
    ENDIF
    IF ::bcolorSel != NIL
-      ::brushSel  := HBrush():Add(::bcolorSel)
+      ::brushSel := HBrush():Add(::bcolorSel)
    ENDIF
-   ::nLeftCol  := ::freeze + 1
+   ::nLeftCol := ::freeze + 1
    ::lEditable := .F.
    ::minHeight := ::nRowTextHeight := ::width := 0
 
@@ -1088,7 +1088,7 @@ METHOD HBrowse:LineOut( nstroka, vybfld, hDC, lSelected, lClear )
    ENDIF
    IF ::nRecords > 0
       oldBkColor := hwg_Setbkcolor(hDC, iif(lSelected,::bcolorSel,::bcolor))
-      oldTColor  := hwg_Settextcolor(hDC, iif(lSelected,::tcolorSel,::tcolor))
+      oldTColor := hwg_Settextcolor(hDC, iif(lSelected,::tcolorSel,::tcolor))
       * fldname := Space(8)
       nCol := ::nPaintCol := iif(::freeze > 0, 1, ::nLeftCol)
       ::nPaintRow := nstroka
@@ -1607,7 +1607,7 @@ METHOD HBrowse:ButtonDown( lParam )
    step := nLine - ::rowPos
 
    ::lBtnDbl := .F.
-   x1  := ::x1
+   x1 := ::x1
    fif := iif(::freeze > 0, 1, ::nLeftCol)
 
    DO WHILE fif < (::nLeftCol + ::nColumns) .AND. fif <= Len(::aColumns) .AND. x1 + ::aColumns[fif]:width < xm
@@ -1686,7 +1686,7 @@ METHOD HBrowse:ButtonRDown( lParam )
    ENDIF
 
    nLine := iif(ym < ::y1, 0, Int( (ym - ::y1 ) / (::height + 1 ) ) + 1)
-   x1  := ::x1
+   x1 := ::x1
    fif := iif(::freeze > 0, 1, ::nLeftCol)
 
    DO WHILE fif < (::nLeftCol + ::nColumns) .AND. x1 + ::aColumns[fif]:width < xm
@@ -1896,7 +1896,7 @@ METHOD HBrowse:Edit( wParam, lParam )
          ELSE
             RETURN NIL
          ENDIF
-         x1  := ::x1
+         x1 := ::x1
          fif := iif(::freeze > 0, 1, ::nLeftCol)
          DO WHILE fif < fipos
             x1 += ::aColumns[fif]:width
@@ -2175,7 +2175,7 @@ STATIC FUNCTION FLDCOUNT( oBrw, xstrt, xend, fld1 )
          EXIT
       ENDIF
       klf ++
-      i   := iif(i = oBrw:freeze, fld1, i + 1)
+      i := iif(i = oBrw:freeze, fld1, i + 1)
       IF i > Len(oBrw:aColumns)
          EXIT
       ENDIF
@@ -2187,7 +2187,7 @@ FUNCTION hwg_CREATEARLIST( oBrw, arr )
 
    LOCAL i
 
-   oBrw:type  := BRW_ARRAY
+   oBrw:type := BRW_ARRAY
    oBrw:aArray := arr
    IF Len(oBrw:aColumns) == 0
       // oBrw:aColumns := {}
@@ -2209,7 +2209,7 @@ PROCEDURE ARSKIP( oBrw, kolskip )
    LOCAL tekzp1
 
    IF oBrw:nRecords != 0
-      tekzp1   := oBrw:nCurrent
+      tekzp1 := oBrw:nCurrent
       oBrw:nCurrent += kolskip + iif(tekzp1 = 0, 1, 0)
       IF oBrw:nCurrent < 1
          oBrw:nCurrent := 0
@@ -2226,7 +2226,7 @@ FUNCTION hwg_CreateList( oBrw, lEditable )
    LOCAL nArea := Select()
    LOCAL kolf := FCount()
 
-   oBrw:alias   := Alias()
+   oBrw:alias := Alias()
 
    oBrw:aColumns := {}
    FOR i := 1 TO kolf

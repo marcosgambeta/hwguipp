@@ -31,24 +31,24 @@ METHOD HRadioButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCapti
    HB_SYMBOL_UNUSED(bcolor)
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
-   ::id      := iif(nId == NIL, ::NewId(), nId)
-   ::title   := cCaption
-   ::oGroup  := HRadioGroup():oGroupCurrent
-   ::style   := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + iif(::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
-   ::oFont   := oFont
-   ::nX      := nX
-   ::nY      := nY
-   ::nWidth  := nWidth
+   ::id := iif(nId == NIL, ::NewId(), nId)
+   ::title := cCaption
+   ::oGroup := HRadioGroup():oGroupCurrent
+   ::style := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + iif(::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
+   ::oFont := oFont
+   ::nX := nX
+   ::nY := nY
+   ::nWidth := nWidth
    ::nHeight := nHeight
-   ::bInit   := bInit
+   ::bInit := bInit
    IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
-      ::bSize   := bSize
+      ::bSize := bSize
    ENDIF
-   ::bPaint  := bPaint
+   ::bPaint := bPaint
    ::tooltip := ctoolt
-   ::tcolor  := tcolor
+   ::tcolor := tcolor
 
    ::Activate()
    ::oParent:AddControl( Self )

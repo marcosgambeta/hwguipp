@@ -51,12 +51,12 @@ METHOD HToolButton:New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClic
 
    ::Name := cName
    ::iD := nId
-   ::title  := cText
+   ::title := cText
    ::nBitIp := nBitIp
    ::bState := bState
    ::bStyle := bStyle
    ::tooltip := ctip
-   ::bClick  := bClick
+   ::bClick := bClick
    ::aMenu := amenu
    ::oParent := oParent
    __objAddData(::oParent, cName)

@@ -530,8 +530,8 @@ METHOD HEdit:ParsePict(cPicture, vari)
             ::cPicFunc := ""
          ENDIF
       ELSE
-         ::cPicFunc   := ""
-         ::cPicMask   := cPicture
+         ::cPicFunc := ""
+         ::cPicMask := cPicture
       ENDIF
       IF Empty(::nMaxLength) .AND. !Empty(::cPicMask) .AND. !(::cPicFunc == "@R")
          ::nMaxLength := Len(::cPicMask)
@@ -745,7 +745,7 @@ STATIC FUNCTION INPUT(oEdit, cChar, nPos)
       ENDIF
 
       IF !Empty(oEdit:cPicMask)
-         cPic  := SubStr(oEdit:cPicMask, nPos, 1)
+         cPic := SubStr(oEdit:cPicMask, nPos, 1)
          cChar := Transform(cChar, cPic)
          SWITCH cPic
          CASE "A"

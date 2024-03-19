@@ -51,10 +51,10 @@ METHOD HStyle:New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap )
       ENDIF
    NEXT
 
-   ::aColors  := aColors
-   ::nOrient  := nOrient
-   ::nBorder  := nBorder
-   ::tColor   := tColor
+   ::aColors := aColors
+   ::nOrient := nOrient
+   ::nBorder := nBorder
+   ::tColor := tColor
    ::aCorners := aCorners
    ::oBitmap := oBitmap
    IF nBorder > 0

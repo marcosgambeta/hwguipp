@@ -46,11 +46,11 @@ METHOD HPanel:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize
    ::Super:New(oWndParent, nId, nStyle, nX, nY, iif(nWidth == NIL, 0, nWidth), iif(nHeight == NIL, 0, nHeight), oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bcolor)
 
    IF bcolor != NIL
-      ::brush  := HBrush():Add(bcolor)
+      ::brush := HBrush():Add(bcolor)
       ::bcolor := bcolor
    ENDIF
    ::oStyle := oStyle
-   ::bPaint   := bPaint
+   ::bPaint := bPaint
    ::lResizeX := (::nWidth == 0)
    ::lResizeY := (::nHeight == 0)
    IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:Type == WND_MDI
@@ -171,11 +171,11 @@ METHOD HPanel:Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, b
    ::Super:New(oWndParent, nId, 0, 0, 0, iif(nWidth == NIL, 0, nWidth), iif(nHeight != NIL, nHeight, 0), oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bcolor)
 
    IF bcolor != NIL
-      ::brush  := HBrush():Add(bcolor)
+      ::brush := HBrush():Add(bcolor)
       ::bcolor := bcolor
    ENDIF
 
-   ::bPaint   := bPaint
+   ::bPaint := bPaint
    ::lResizeX := (::nWidth == 0)
    ::lResizeY := (::nHeight == 0)
    hwg_RegPanel()
@@ -211,8 +211,8 @@ METHOD HPanel:Paint()
       RETURN Eval(::bPaint, Self)
    ENDIF
 
-   pps    := hwg_Definepaintstru()
-   hDC    := hwg_Beginpaint(::handle, pps)
+   pps := hwg_Definepaintstru()
+   hDC := hwg_Beginpaint(::handle, pps)
    aCoors := hwg_Getclientrect(::handle)
 
    IF !Empty(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))

@@ -42,16 +42,16 @@ METHOD HBrwflt:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
    IF HB_ISBLOCK(bFirst) .OR. HB_ISBLOCK(bFor) .OR. HB_ISBLOCK(bWhile)
       ::lFilter := .T.
       IF HB_ISBLOCK(bFirst)
-         ::bFirst  := bFirst
+         ::bFirst := bFirst
       ENDIF
       IF HB_ISBLOCK(bLast)
-         ::bLast   := bLast
+         ::bLast := bLast
       ENDIF
       IF HB_ISBLOCK(bWhile)
-         ::bWhile  := bWhile
+         ::bWhile := bWhile
       ENDIF
       IF HB_ISBLOCK(bFor)
-         ::bFor    := bFor
+         ::bFor := bFor
       ENDIF
    ELSE
       ::lFilter := .F.
@@ -66,23 +66,23 @@ METHOD HBrwflt:InitBrw()
    ::Super:InitBrw()
 
    IF ::lFilter
-      ::nLastRecordFilter  := ::nFirstRecordFilter := 0
+      ::nLastRecordFilter := ::nFirstRecordFilter := 0
       IF ::lDescend
-         ::bSkip     := {|o, n|(::alias)->(FltSkip(o, n, .T.))}
-         ::bGoTop    := {|o|(::alias)->(FltGoBottom(o))}
-         ::bGoBot    := {|o|(::alias)->(FltGoTop(o))}
-         ::bEof      := {|o|(::alias)->(FltBOF(o))}
-         ::bBof      := {|o|(::alias)->(FltEOF(o))}
+         ::bSkip := {|o, n|(::alias)->(FltSkip(o, n, .T.))}
+         ::bGoTop := {|o|(::alias)->(FltGoBottom(o))}
+         ::bGoBot := {|o|(::alias)->(FltGoTop(o))}
+         ::bEof := {|o|(::alias)->(FltBOF(o))}
+         ::bBof := {|o|(::alias)->(FltEOF(o))}
       ELSE
-         ::bSkip     := {|o, n|(::alias)->(FltSkip(o, n, .F.))}
-         ::bGoTop    := {|o|(::alias)->(FltGoTop(o))}
-         ::bGoBot    := {|o|(::alias)->(FltGoBottom(o))}
-         ::bEof      := {|o|(::alias)->(FltEOF(o))}
-         ::bBof      := {|o|(::alias)->(FltBOF(o))}
+         ::bSkip := {|o, n|(::alias)->(FltSkip(o, n, .F.))}
+         ::bGoTop := {|o|(::alias)->(FltGoTop(o))}
+         ::bGoBot := {|o|(::alias)->(FltGoBottom(o))}
+         ::bEof := {|o|(::alias)->(FltEOF(o))}
+         ::bBof := {|o|(::alias)->(FltBOF(o))}
       ENDIF
-      ::bRcou     := {|o|(::alias)->(FltRecCount(o))}
+      ::bRcou := {|o|(::alias)->(FltRecCount(o))}
       ::bRecnoLog := ::bRecno := {|o|(::alias)->(FltRecNo(o))}
-      ::bGoTo     := {|o, n|(::alias)->(FltGoTo(o, n))}
+      ::bGoTo := {|o, n|(::alias)->(FltGoTo(o, n))}
    ENDIF
 
    RETURN NIL
@@ -182,7 +182,7 @@ STATIC FUNCTION FltBOF(oBrw)
    IF Bof()
       lRet := .T.
    ELSE
-      // cKey  := IndexKey()
+      // cKey := IndexKey()
       nRecord := FltRecNo(oBrw)
 
       xValue := OrdKeyNo() //&(cKey)

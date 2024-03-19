@@ -50,12 +50,12 @@ METHOD HTrack:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bPaint, color
    bColor := Iif(bColor == NIL, CLR_WHITE, bColor)
    ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, bPaint, NIL, color, bcolor)
 
-   ::title  := ""
+   ::title := ""
    ::lVertical := (::nHeight > ::nWidth)
    ::nSize := Iif(nSize == NIL, 12, nSize)
-   ::nFrom  := Int(::nSize/2)
-   ::nTo    := Iif(::lVertical, ::nHeight - 1 - Int(::nSize / 2), ::nWidth - 1 - Int(::nSize / 2))
-   ::nCurr  := ::nFrom
+   ::nFrom := Int(::nSize/2)
+   ::nTo := Iif(::lVertical, ::nHeight - 1 - Int(::nSize / 2), ::nWidth - 1 - Int(::nSize / 2))
+   ::nCurr := ::nFrom
    ::oStyleBar := oStyleBar
    ::oStyleSlider := oStyleSlider
    ::lAxis := ( lAxis == NIL .OR. lAxis )
@@ -236,13 +236,13 @@ METHOD HTrack:Move(x1, y1, width, height)
    HB_SYMBOL_UNUSED(y1)
 
    IF ::lVertical .AND. !Empty(height) .AND. height != ::nHeight
-      ::nFrom  := Int(::nSize/2)
-      ::nTo    := height-1-Int(::nSize/2)
-      ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom
+      ::nFrom := Int(::nSize/2)
+      ::nTo := height-1-Int(::nSize/2)
+      ::nCurr := xValue * (::nTo - ::nFrom) + ::nFrom
    ELSEIF !::lVertical .AND. !Empty(width) .AND. width != ::nWidth
-      ::nFrom  := Int(::nSize/2)
-      ::nTo    := width-1-Int(::nSize/2)
-      ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom
+      ::nFrom := Int(::nSize/2)
+      ::nTo := width-1-Int(::nSize/2)
+      ::nCurr := xValue * (::nTo - ::nFrom) + ::nFrom
    ENDIF
 
    ::Super:Move(x1, y1, width, height)

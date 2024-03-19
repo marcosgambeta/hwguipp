@@ -73,7 +73,7 @@ METHOD HPanelStS:PaintText(hDC)
       hwg_Selectobject(hDC, ::oFont:handle)
    ENDIF
    hwg_Settransparentmode(hDC, .T.)
-   oldTColor  := hwg_Settextcolor(hDC, ::tcolor)
+   oldTColor := hwg_Settextcolor(hDC, ::tcolor)
    FOR i := 1 TO Len(::aParts)
       x1 := Iif(i == 1, 4, x2 + 4)
       IF ::aParts[i] == 0

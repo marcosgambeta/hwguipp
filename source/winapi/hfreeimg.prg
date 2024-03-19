@@ -47,7 +47,7 @@ METHOD HFreeImage:AddFile(name)
       RETURN NIL
    ENDIF
    ::name := name
-   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nWidth := hwg_Fi_getwidth(::handle)
    ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
@@ -59,7 +59,7 @@ METHOD HFreeImage:AddFromVar(cImage, cType)
       RETURN NIL
    ENDIF
    ::name := LTrim(Str(::handle))
-   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nWidth := hwg_Fi_getwidth(::handle)
    ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
@@ -69,7 +69,7 @@ METHOD HFreeImage:FromBitmap(oBitmap)
 
    ::handle := hwg_Fi_bmp2fi(oBitmap:handle)
    ::name := LTrim(Str(oBitmap:handle))
-   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nWidth := hwg_Fi_getwidth(::handle)
    ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
@@ -123,14 +123,14 @@ METHOD HSayFImage:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bIni
    IF Image != NIL
       ::oImage := IIf(HB_ISCHAR(Image), IIf(cType != NIL, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image)), Image)
       IF nWidth == NIL
-         nWidth  := ::oImage:nWidth
+         nWidth := ::oImage:nWidth
          nHeight := ::oImage:nHeight
       ENDIF
    ENDIF
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip)
    // ::classname:= "HSAYFIMAGE"
 
-   ::bPaint  := {|o, lpdis|o:Paint(lpdis)}
+   ::bPaint := {|o, lpdis|o:Paint(lpdis)}
 
    ::Activate()
 
@@ -143,7 +143,7 @@ METHOD HSayFImage:Redefine(oWndParent, nId, Image, bInit, bSize, ctooltip)
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    // ::classname:= "HSAYFIMAGE"
 
-   ::bPaint  := {|o, lpdis|o:Paint(lpdis)}
+   ::bPaint := {|o, lpdis|o:Paint(lpdis)}
 
    RETURN Self
 

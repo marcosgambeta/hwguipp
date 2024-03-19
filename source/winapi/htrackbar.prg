@@ -55,17 +55,17 @@ METHOD HTrackBar:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
    IF bPaint != NIL
       TickStyle := hb_bitor(TickStyle, TBS_AUTOTICKS)
    ENDIF
-   nstyle   := hb_bitor(IIF(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
-   nstyle   += IIF(lVertical != NIL .AND. lVertical, TBS_VERT, 0)
-   nstyle   += TickStyle + TickMarks
+   nstyle := hb_bitor(IIF(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
+   nstyle += IIF(lVertical != NIL .AND. lVertical, TBS_VERT, 0)
+   nstyle += TickStyle + TickMarks
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, NIL, bInit, bSize, bPaint, cTooltip)
 
-   ::nValue     := IIF(HB_ISNUMERIC(vari), vari, 0)
-   ::bChange    := bChange
+   ::nValue := IIF(HB_ISNUMERIC(vari), vari, 0)
+   ::bChange := bChange
    ::bThumbDrag := bDrag
-   ::nLow       := IIF(nLow == NIL, 0, nLow)
-   ::nHigh      := IIF(nHigh == NIL, 100, nHigh)
+   ::nLow := IIF(nLow == NIL, 0, nLow)
+   ::nHigh := IIF(nHigh == NIL, 100, nHigh)
 
    HWG_InitCommonControlsEx()
    ::Activate()

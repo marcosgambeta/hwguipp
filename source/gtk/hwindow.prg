@@ -33,7 +33,7 @@ FUNCTION hwg_onWndSize( oWnd, wParam, lParam )
    oWnd:Super:onEvent( WM_SIZE, wParam, lParam )
    //hwg_writelog( "on size "+str(oWnd:nheight)+"/"+str(hwg_Hiword(lParam)) )
    IF oWnd:nAdjust == 0
-      oWnd:nWidth  := w
+      oWnd:nWidth := w
       oWnd:nHeight := h
    ENDIF
    IF HB_ISBLOCK( oWnd:bSize )
@@ -51,7 +51,7 @@ FUNCTION hwg_onMove( oWnd, wParam, lParam )
 
    //hwg_WriteLog( "onMove: "+str(oWnd:nX)+" "+str(oWnd:nY)+" -> "+str(hwg_Loword(lParam))+str(hwg_Hiword(lParam))+" "+str(apos[1])+" "+str(apos[2]) )
    oWnd:nX := apos[1] //hwg_Loword(lParam)
-   oWnd:nY  := apos[2] //hwg_Hiword(lParam)
+   oWnd:nY := apos[2] //hwg_Hiword(lParam)
 
    RETURN 0
 
@@ -161,26 +161,26 @@ METHOD HWindow:New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFon
    HB_SYMBOL_UNUSED(cHelp)
 
    ::oDefaultParent := Self
-   ::title    := cTitle
-   ::style    := iif(nStyle == NIL, 0, nStyle)
-   ::oIcon    := oIcon
-   ::oBmp     := oBmp
-   ::nY       := iif(y == NIL, 0, y)
-   ::nX       := iif(x == NIL, 0, x)
-   ::nWidth   := iif(width == NIL, 0, width)
-   ::nHeight  := iif(height == NIL, 0, Abs( height ))
+   ::title := cTitle
+   ::style := iif(nStyle == NIL, 0, nStyle)
+   ::oIcon := oIcon
+   ::oBmp := oBmp
+   ::nY := iif(y == NIL, 0, y)
+   ::nX := iif(x == NIL, 0, x)
+   ::nWidth := iif(width == NIL, 0, width)
+   ::nHeight := iif(height == NIL, 0, Abs( height ))
    IF ::nWidth < 0
-      ::nWidth   := Abs(::nWidth)
+      ::nWidth := Abs(::nWidth)
       ::nAdjust := 1
    ENDIF
-   ::oFont    := oFont
-   ::bInit    := bInit
+   ::oFont := oFont
+   ::bInit := bInit
    ::bDestroy := bExit
-   ::bSize    := bSize
-   ::bPaint   := bPaint
-   ::bGetFocus  := bGFocus
+   ::bSize := bSize
+   ::bPaint := bPaint
+   ::bGetFocus := bGFocus
    ::bLostFocus := bLFocus
-   ::bOther     := bOther
+   ::bOther := bOther
    IF cAppName != NIL
       ::szAppName := cAppName
    ENDIF

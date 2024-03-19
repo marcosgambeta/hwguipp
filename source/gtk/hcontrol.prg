@@ -58,20 +58,20 @@ ENDCLASS
 METHOD HControl:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
-   ::id      := iif(nId == NIL, ::NewId(), nId)
-   ::style   := hb_bitor( iif(nStyle == NIL,0,nStyle ), WS_VISIBLE + WS_CHILD)
-   ::oFont   := oFont
-   ::nX      := nX
-   ::nY      := nY
-   ::nWidth  := nWidth
+   ::id := iif(nId == NIL, ::NewId(), nId)
+   ::style := hb_bitor( iif(nStyle == NIL,0,nStyle ), WS_VISIBLE + WS_CHILD)
+   ::oFont := oFont
+   ::nX := nX
+   ::nY := nY
+   ::nWidth := nWidth
    ::nHeight := nHeight
-   ::bInit   := bInit
+   ::bInit := bInit
    IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
-      ::bSize   := bSize
+      ::bSize := bSize
    ENDIF
-   ::bPaint  := bPaint
+   ::bPaint := bPaint
    ::tooltip := ctoolt
    ::tColor := tColor
    ::bColor := bColor

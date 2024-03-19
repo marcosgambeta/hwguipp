@@ -63,21 +63,21 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
 
    ::Super:New(oWndParent, nId,, nX, nY, nWidth, nHeight, font, bInit, bSize, bPaint, cTooltip)
 
-   ::lFlat   := Iif(lFlat == NIL, .F. , lFlat)
-   ::bClick  := bClick
-   ::state   := OBTN_INIT
-   ::nOrder  := Iif(oWndParent == NIL, 0, Len(oWndParent:aControls))
+   ::lFlat := Iif(lFlat == NIL, .F. , lFlat)
+   ::bClick := bClick
+   ::state := OBTN_INIT
+   ::nOrder := Iif(oWndParent == NIL, 0, Len(oWndParent:aControls))
 
-   ::aStyle  := aStyles
-   ::title   := cText
-   ::tcolor  := Iif(color == NIL, 0, color)
+   ::aStyle := aStyles
+   ::title := cText
+   ::tcolor := Iif(color == NIL, 0, color)
    IF bColor != NIL
       ::bcolor := bcolor
-      ::brush  := HBrush():Add( bcolor )
+      ::brush := HBrush():Add( bcolor )
    ENDIF
-   ::xt      := xt
-   ::yt      := yt
-   ::widtht  := widtht
+   ::xt := xt
+   ::yt := yt
+   ::widtht := widtht
    ::heightt := heightt
 
    IF lEnabled != NIL
@@ -101,9 +101,9 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
          //hwg_alpha2pixbuf(::oBitmap:handle, ::trColor)
       ENDIF
    ENDIF
-   ::xb      := xb
-   ::yb      := yb
-   ::widthb  := widthb
+   ::xb := xb
+   ::yb := yb
+   ::widthb := widthb
    ::heightb := heightb
    ::trColor := Iif(trColor != NIL, trColor, 16777215)
 
@@ -383,7 +383,7 @@ METHOD HOwnButton:Enable()
 
 METHOD HOwnButton:Disable()
 
-   ::state   := OBTN_INIT
+   ::state := OBTN_INIT
    ::lEnabled := .F.
    hwg_Redrawwindow(::handle)
    hwg_Enablewindow(::handle, .F.)

@@ -282,9 +282,9 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       oBrw:AddColumn(HColumn():New(NIL, {|value, o|(value), (o:alias)->(FieldGet(nField))}, "C", nLen))
    ENDIF
 
-   oBrw:oFont    := oFont
-   oBrw:bSize    := {|o, x, y|o:Move(NIL, NIL, x - addX, y - addY)}
-   oBrw:bEnter   := {|o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle)}
+   oBrw:oFont := oFont
+   oBrw:bSize := {|o, x, y|o:Move(NIL, NIL, x - addX, y - addY)}
+   oBrw:bEnter := {|o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle)}
    oBrw:bKeyDown := {| o, key | ( o ), iif(key == 27, (hwg_EndDialog(oDlg:handle), .F.), .T.)}
 
    oBrw:lDispHead := .F.

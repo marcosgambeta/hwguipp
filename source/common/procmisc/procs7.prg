@@ -10,21 +10,21 @@ FUNCTION RDSTR(han, strbuf, poz, buflen)
    LOCAL stro := "", rez, oldpoz, poz1
 
    oldpoz := poz
-   poz    := At(Chr(10), SubStr(strbuf, poz))
+   poz := At(Chr(10), SubStr(strbuf, poz))
    IF poz = 0
       IF han != NIL
          stro += SubStr(strbuf, oldpoz)
-         rez  := FRead(han, @strbuf, buflen)
+         rez := FRead(han, @strbuf, buflen)
          IF rez = 0
             RETURN ""
          ELSEIF rez < buflen
             strbuf := SubStr(strbuf, 1, rez) + Chr(10) + Chr(13)
          ENDIF
-         poz  := At(Chr(10), strbuf)
+         poz := At(Chr(10), strbuf)
          stro += SubStr(strbuf, 1, poz)
       ELSE
          stro += RTrim(SubStr(strbuf, oldpoz))
-         poz  := oldpoz + Len(stro)
+         poz := oldpoz + Len(stro)
          IF Len(stro) == 0
             RETURN ""
          ENDIF
@@ -54,10 +54,10 @@ FUNCTION getNextVar( stroka, varValue )
       IF ( iPosEnd := Find_Z( stroka ) ) == 0
          iPosEnd := iif(Right( stroka, 1 ) = ';', Len(stroka), Len(stroka) + 1)
       ENDIF
-      ipos3    := Find_Z( Left(stroka, iPosEnd - 1), ':' )
-      varName  := RTrim(LTrim(Left(stroka, iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
+      ipos3 := Find_Z( Left(stroka, iPosEnd - 1), ':' )
+      varName := RTrim(LTrim(Left(stroka, iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
       varValue := iif(iPos3 != 0, LTrim(SubStr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), NIL)
-      stroka   := SubStr(stroka, iPosEnd + 1)
+      stroka := SubStr(stroka, iPosEnd + 1)
    ENDIF
 
    RETURN varName

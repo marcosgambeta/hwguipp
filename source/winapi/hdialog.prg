@@ -64,13 +64,13 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
            oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable)
 
    IF pcount() == 0
-      ::style          := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
+      ::style := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
       ::oDefaultParent := Self
-      ::nY             := 0
-      ::nX             := 0
-      ::nWidth         := 0
-      ::nHeight        := 0
-      ::type           := WND_DLG_NORESOURCE
+      ::nY := 0
+      ::nX := 0
+      ::nWidth := 0
+      ::nHeight := 0
+      ::type := WND_DLG_NORESOURCE
       RETURN Self
    ENDIF
 
@@ -91,32 +91,32 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
       ::style := nStyle
    ENDIF
    ::oDefaultParent := Self
-   ::xResourceID    := xResourceID
-   ::type           := lType
-   ::title          := cTitle
-   ::oBmp           := oBmp
-   ::oIcon          := oIcon
-   ::nY             := Iif(y == NIL, 0, y)
-   ::nX             := Iif(x == NIL, 0, x)
-   ::nWidth         := Iif(width == NIL, 0, width)
-   ::nWidth         := Iif(width == NIL, 0, width)
-   ::nHeight        := Iif(height == NIL, 0, Abs(height))
+   ::xResourceID := xResourceID
+   ::type := lType
+   ::title := cTitle
+   ::oBmp := oBmp
+   ::oIcon := oIcon
+   ::nY := Iif(y == NIL, 0, y)
+   ::nX := Iif(x == NIL, 0, x)
+   ::nWidth := Iif(width == NIL, 0, width)
+   ::nWidth := Iif(width == NIL, 0, width)
+   ::nHeight := Iif(height == NIL, 0, Abs(height))
    IF ::nWidth < 0
-      ::nWidth      := Abs(::nWidth)
+      ::nWidth := Abs(::nWidth)
       //::nAdjust := 1
    ENDIF
-   ::oFont          := oFont
-   ::bInit          := bInit
-   ::bDestroy       := bExit
-   ::bSize          := bSize
-   ::bPaint         := bPaint
-   ::bGetFocus      := bGFocus
-   ::bLostFocus     := bLFocus
-   ::bOther         := bOther
-   ::lClipper       := Iif(lClipper == NIL, .F., lClipper)
-   ::lExitOnEnter   := Iif(lExitOnEnter == NIL, .T., !lExitOnEnter)
-   ::lExitOnEsc     := Iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
-   ::lClosable      := Iif(lNoClosable == NIL, .T., !lNoClosable)
+   ::oFont := oFont
+   ::bInit := bInit
+   ::bDestroy := bExit
+   ::bSize := bSize
+   ::bPaint := bPaint
+   ::bGetFocus := bGFocus
+   ::bLostFocus := bLFocus
+   ::bOther := bOther
+   ::lClipper := Iif(lClipper == NIL, .F., lClipper)
+   ::lExitOnEnter := Iif(lExitOnEnter == NIL, .T., !lExitOnEnter)
+   ::lExitOnEsc := Iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
+   ::lClosable := Iif(lNoClosable == NIL, .T., !lNoClosable)
 
    IF bColor != NIL
       ::brush := HBrush():Add(bColor)
@@ -161,8 +161,8 @@ METHOD HDialog:Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
          ::AddItem()
          Hwg_DialogBox(hParent, Self)
       ELSE
-         ::lModal  := .F.
-         ::handle  := 0
+         ::lModal := .F.
+         ::handle := 0
          ::lResult := .F.
          ::AddItem()
          Hwg_CreateDialog(hParent, Self)
@@ -175,8 +175,8 @@ METHOD HDialog:Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
          ::AddItem()
          Hwg_DlgBoxIndirect(hParent, Self, ::nX, ::nY, ::nWidth, ::nHeight, ::style)
       ELSE
-         ::lModal  := .F.
-         ::handle  := 0
+         ::lModal := .F.
+         ::handle := 0
          ::lResult := .F.
          ::AddItem()
          Hwg_CreateDlgIndirect(hParent, Self, ::nX, ::nY, ::nWidth, ::nHeight, ::style)
@@ -346,7 +346,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
    ELSE
 */
       aCoors := hwg_Getwindowrect(oDlg:handle)
-      oDlg:nWidth  := aCoors[3] - aCoors[1]
+      oDlg:nWidth := aCoors[3] - aCoors[1]
       oDlg:nHeight := aCoors[4] - aCoors[2]
 //   ENDIF
 

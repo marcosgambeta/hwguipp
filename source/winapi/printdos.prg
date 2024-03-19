@@ -90,21 +90,21 @@ METHOD PrintDos:New(oPorta)
 
    ::DefaultLang()
 
-   ::cCompr   := oCompress[::oPrintStyle]
-   ::cNormal  := oNormal[::oPrintStyle]
-   ::cDouble  := oDouble[::oPrintStyle]
-   ::cBold    := oBold[::oPrintStyle]       //Added by  por Fernando Athayde
-   ::cUnBold  := oUnBold[::oPrintStyle]       //Added by  por Fernando Athayde
-   ::cEject   := oFORMFEED
-   ::nProw    := 0
-   ::nPcol    := 0
-   ::oTopMar  := 0
+   ::cCompr := oCompress[::oPrintStyle]
+   ::cNormal := oNormal[::oPrintStyle]
+   ::cDouble := oDouble[::oPrintStyle]
+   ::cBold := oBold[::oPrintStyle]       //Added by  por Fernando Athayde
+   ::cUnBold := oUnBold[::oPrintStyle]       //Added by  por Fernando Athayde
+   ::cEject := oFORMFEED
+   ::nProw := 0
+   ::nPcol := 0
+   ::oTopMar := 0
    ::oAns2Oem := .T.
    ::oLeftMar := 0
-   ::oText    := ""
+   ::oText := ""
 
    IF Empty(oPorta) //
-      ::oPorta       := "LPT1"
+      ::oPorta := "LPT1"
    ELSE
       IF oPorta == "DEFAULT"
          oPtrName := hwg_Printportname()
@@ -133,7 +133,7 @@ METHOD PrintDos:New(oPorta)
             ENDIF
          ENDIF
       ELSE
-         ::oPorta     := oPorta
+         ::oPorta := oPorta
       ENDIF
    ENDIF
 

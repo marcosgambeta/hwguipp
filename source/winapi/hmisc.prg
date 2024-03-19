@@ -44,7 +44,7 @@ FUNCTION hwg_CreateTempfileName(cPrefix, cSuffix)
    LOCAL cPre
    LOCAL cSuff
   
-  cPre  := IIF(cPrefix == NIL, "e", cPrefix)
+  cPre := IIF(cPrefix == NIL, "e", cPrefix)
   cSuff := IIF(cSuffix == NIL, ".tmp", cSuffix)
   RETURN hwg_CompleteFullPath(hwg_GetTempDir()) + cPre + Ltrim(Str(Int(Seconds()*100))) + cSuff
   
@@ -245,7 +245,7 @@ FUNCTION hwg_HEX_DUMP (cinfield, npmode, cpVarName)
      cccprint := "."
     ENDIF
     // convert single character to hex
-    ccchex  := hwg_NUMB2HEX(nccchar)
+    ccchex := hwg_NUMB2HEX(nccchar)
     // collect hex and printable chars in outline
     cccprline := cccprline + cccprint + " "
     ccchexline := ccchexline + ccchex + " "
@@ -503,7 +503,7 @@ FUNCTION hwg_MemoEdit(mpmemo, cTextTitME, cTextSave, cTextClose, cTTSave, cTTClo
  ENDIF
 
    mvarbuff := mpmemo
-   varbuf   := mpmemo
+   varbuf := mpmemo
 
    INIT DIALOG oModDlg title cTextTitME AT 0, 0 SIZE 400, 300 ON INIT {|o|o:center()}
 
@@ -928,19 +928,19 @@ FUNCTION hwg_Date2JulianDay(dDate,nhour,nminutes,nseconds)
    LOCAL ngreg
 
 IF nhour == NIL
- nhour     := 0
+ nhour := 0
 ENDIF
 IF nminutes == NIL
- nminutes  := 0
+ nminutes := 0
 ENDIF
 IF nseconds == NIL
- nseconds  := 0
+ nseconds := 0
 ENDIF
 
 
-nyear  := YEAR(dDate)
+nyear := YEAR(dDate)
 nmonth := MONTH(dDate)
-nday   := DAY(dDate)
+nday := DAY(dDate)
 
     IF nmonth <= 2
        nmonth := nmonth + 12
@@ -983,8 +983,8 @@ FUNCTION hwg_JulianDay2Date(z)
    nRound_4 := INT(nFour)
    nYear := nRound_4 * 4
    nRound_4 := (nRound_4 * 1461) - 13
-   d  := z - nRound_4
-   i  := 1
+   d := z - nRound_4
+   i := 1
    d1 := 0
    DO WHILE (d1 >= 0) .AND. (i < 5)
       IF i == 1

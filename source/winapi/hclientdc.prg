@@ -30,7 +30,7 @@ METHOD HCLIENTDC:NEW(nWnd)
 METHOD HCLIENTDC:END()
 
    hwg_Releasedc(::m_hWnd, ::m_hDC)
-   ::m_hDC       := NIL
+   ::m_hDC := NIL
    ::m_hAttribDC := NIL
 
    RETURN NIL

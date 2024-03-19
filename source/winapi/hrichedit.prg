@@ -57,7 +57,7 @@ METHOD HRichEdit:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, NIL, ctooltip, tcolor, iif(bcolor == NIL, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
 
-   ::title  := vari
+   ::title := vari
    ::bOther := bOther
    ::bChange := bChange
    ::lAllowTabs := iif(Empty(lAllowTabs), ::lAllowTabs, lAllowTabs)

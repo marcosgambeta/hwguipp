@@ -42,7 +42,7 @@ METHOD HProgressBar:New( oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRang
 
    ::Super:New( oWndParent, nId, NIL, nX, nY, nWidth, nHeight, NIL, bInit, bSize, bPaint, ctooltip )
 
-   ::maxPos  := iif(maxPos == NIL, 20, maxPos)
+   ::maxPos := iif(maxPos == NIL, 20, maxPos)
    ::lNewBox := .F.
    ::nLimit := iif(nRange != NIL, Int( nRange/::maxPos ), 1)
 
@@ -54,18 +54,18 @@ METHOD HProgressBar:New( oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRang
 METHOD HProgressBar:NewBox( cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit )
 
    // ::classname:= "HPROGRESSBAR"
-   ::style   := WS_CHILD + WS_VISIBLE
+   ::style := WS_CHILD + WS_VISIBLE
    nWidth := iif(nWidth == NIL, 220, nWidth)
    nHeight := iif(nHeight == NIL, 60, nHeight)
-   nX      := iif(nX == NIL, 0, nX)
-   nY      := iif(nY == NIL, 0, nY)
-   nWidth  := iif(nWidth == NIL, 220, nWidth)
+   nX := iif(nX == NIL, 0, nX)
+   nY := iif(nY == NIL, 0, nY)
+   nWidth := iif(nWidth == NIL, 220, nWidth)
    nHeight := iif(nHeight == NIL, 60, nHeight)
-   ::nX    := 20
-   ::nY    := 25
-   ::nWidth  := nWidth - 40
-   ::nheight  := 20
-   ::maxPos  := iif(maxPos == NIL, 20, maxPos)
+   ::nX := 20
+   ::nY := 25
+   ::nWidth := nWidth - 40
+   ::nheight := 20
+   ::maxPos := iif(maxPos == NIL, 20, maxPos)
    ::lNewBox := .T.
    ::nLimit := iif(nRange != NIL, Int( nRange/::maxPos ), 1)
 

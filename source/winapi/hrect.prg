@@ -80,10 +80,10 @@ METHOD HRect_Line:New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColo
    ::title := ""
    ::lVert := IIf(lVert == NIL, .F., lVert)
    IF ::lVert
-      ::nWidth  := 10
+      ::nWidth := 10
       ::nHeight := IIf(nLength == NIL, 20, nLength)
    ELSE
-      ::nWidth  := IIf(nLength == NIL, 20, nLength)
+      ::nWidth := IIf(nLength == NIL, 20, nLength)
       ::nHeight := 10
    ENDIF
    ::oPen := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(nColor))

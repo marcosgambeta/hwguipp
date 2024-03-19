@@ -26,11 +26,11 @@ ENDCLASS
 
 METHOD HStatus:New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint)
 
-   bSize  := iif(bSize != NIL, bSize, {|o, x, y|o:Move(0, y - 20, x, 20)})
+   bSize := iif(bSize != NIL, bSize, {|o, x, y|o:Move(0, y - 20, x, 20)})
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS)
    ::Super:New(oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint)
 
-   ::aParts  := aParts
+   ::aParts := aParts
 
    ::Activate()
 
@@ -69,7 +69,7 @@ METHOD HStatus:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, 
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
-   ::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
+   ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
    ::aparts := aparts
 
    RETURN Self

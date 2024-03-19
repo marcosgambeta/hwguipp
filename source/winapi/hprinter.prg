@@ -205,13 +205,13 @@ METHOD HPrinter:New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lPropri
       ENDIF
 
       aPrnCoors := hwg_Getdevicearea(::hDCPrn)
-      ::nHRes   := aPrnCoors[1] / aPrnCoors[3]
-      ::nVRes   := aPrnCoors[2] / aPrnCoors[4]
+      ::nHRes := aPrnCoors[1] / aPrnCoors[3]
+      ::nVRes := aPrnCoors[2] / aPrnCoors[4]
       IF ::lBuffPrn
-         ::nWidth  := Iif(nFormType == DMPAPER_A3, 297, 210)
+         ::nWidth := Iif(nFormType == DMPAPER_A3, 297, 210)
          ::nHeight := Iif(nFormType == DMPAPER_A3, 420, 297)
          IF !::lmm
-            ::nWidth  := Round(::nHRes * ::nWidth, 0)
+            ::nWidth := Round(::nHRes * ::nWidth, 0)
             ::nHeight := Round(::nVRes * ::nHeight, 0)
          ENDIF
          IF ::nOrient == 2
@@ -220,9 +220,9 @@ METHOD HPrinter:New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lPropri
             ::nWidth := nTemp
          ENDIF
       ELSE
-         ::nWidth  := Iif(::lmm, aPrnCoors[3], aPrnCoors[1])
+         ::nWidth := Iif(::lmm, aPrnCoors[3], aPrnCoors[1])
          ::nHeight := Iif(::lmm, aPrnCoors[4], aPrnCoors[2])
-         ::nPWidth  := Iif(::lmm, aPrnCoors[8], aPrnCoors[1])
+         ::nPWidth := Iif(::lmm, aPrnCoors[8], aPrnCoors[1])
          ::nPHeight := Iif(::lmm, aPrnCoors[9], aPrnCoors[2])
       ENDIF
       //hwg_writelog(str(::nWidth) + "/" + str(::nHeight) + "/" + str(::nPWidth) + "/" + str(::nPHeight) + "/" + str(::nHRes) + "/" + str(::nVRes))
@@ -259,12 +259,12 @@ METHOD HPrinter:SetMode(nOrientation, nDuplex)
          ::hDCPrn := hDC
          ::hPrinter := hPrinter
          aPrnCoors := hwg_Getdevicearea(::hDCPrn)
-         ::nWidth  := Iif(::lmm, aPrnCoors[3], aPrnCoors[1])
+         ::nWidth := Iif(::lmm, aPrnCoors[3], aPrnCoors[1])
          ::nHeight := Iif(::lmm, aPrnCoors[4], aPrnCoors[2])
-         ::nPWidth  := Iif(::lmm, aPrnCoors[8], aPrnCoors[1])
+         ::nPWidth := Iif(::lmm, aPrnCoors[8], aPrnCoors[1])
          ::nPHeight := Iif(::lmm, aPrnCoors[9], aPrnCoors[2])
-         ::nHRes   := aPrnCoors[1] / aPrnCoors[3]
-         ::nVRes   := aPrnCoors[2] / aPrnCoors[4]
+         ::nHRes := aPrnCoors[1] / aPrnCoors[3]
+         ::nVRes := aPrnCoors[2] / aPrnCoors[4]
          RETURN .T.
       ENDIF
    ENDIF
@@ -680,12 +680,12 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    // Button and title default captions
    // "Print preview -", see above
-   cmExit         := "Exit"
-   cmPrint        := "Print"
-   cmDialog       := "Dialog"
-//   cBootUser3     := "User Button"
-//   cBootUser4     := "User Button"
-   cmTitle        := "Print preview - " + ::cPrinterName
+   cmExit := "Exit"
+   cmPrint := "Print"
+   cmDialog := "Dialog"
+//   cBootUser3 := "User Button"
+//   cBootUser4 := "User Button"
+   cmTitle := "Print preview - " + ::cPrinterName
 
    /* Parameter cTitle preferred */
    IF cTitle == NIL
@@ -697,9 +697,9 @@ FUNCTION hwg_HPrinter_LangArray_EN()
     cTitle := cmTitle
    ENDIF
    IF aTooltips != NIL
-      cmPrint    := aTooltips[11]
-      cmExit     := aTooltips[12]
-      cmDialog   := aTooltips[13]
+      cmPrint := aTooltips[11]
+      cmExit := aTooltips[12]
+      cmDialog := aTooltips[13]
  //     cBootUser3 := aTooltips[14]
  //     cBootUser4 := aTooltips[15]
    ENDIF
@@ -739,8 +739,8 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       SIZE oToolBar:nWidth - 6, 24 TEXT cmExit FONT oFont              ;  // "Exit"
       TOOLTIP Iif(aTooltips != NIL, aTooltips[1], "Exit Preview")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 1 .AND. aBitmaps[2] != NIL
-      oBtn:oBitmap  := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[2]), HBitmap():AddFile(aBitmaps[2]))
-      oBtn:title    := NIL
+      oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[2]), HBitmap():AddFile(aBitmaps[2]))
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -755,7 +755,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 2 .AND. aBitmaps[3] != NIL
       oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[3]), HBitmap():AddFile(aBitmaps[3]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -764,7 +764,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       TOOLTIP Iif(aTooltips != NIL .AND. Len(aTooltips) > 8, aTooltips[9], "Print dialog")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 8 .AND. aBitmaps[9] != NIL
       oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[9]), HBitmap():AddFile(aBitmaps[9]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -778,7 +778,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       TOOLTIP Iif(aTooltips != NIL, aTooltips[3], "First page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 3 .AND. aBitmaps[4] != NIL
       oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[4]), HBitmap():AddFile(aBitmaps[4]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -787,7 +787,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       TOOLTIP Iif(aTooltips != NIL, aTooltips[4], "Next page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 4 .AND. aBitmaps[5] != NIL
       oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[5]), HBitmap():AddFile(aBitmaps[5]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -796,7 +796,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       TOOLTIP Iif(aTooltips != NIL, aTooltips[5], "Previous page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 5 .AND. aBitmaps[6] != NIL
       oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[6]), HBitmap():AddFile(aBitmaps[6]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -805,7 +805,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       TOOLTIP Iif(aTooltips != NIL, aTooltips[6], "Last page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 6 .AND. aBitmaps[7] != NIL
       oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[7]), HBitmap():AddFile(aBitmaps[7]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -816,7 +816,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       TOOLTIP Iif(aTooltips != NIL, aTooltips[7], "Zoom out")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 7 .AND. aBitmaps[8] != NIL
       oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[8]), HBitmap():AddFile(aBitmaps[8]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -825,7 +825,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       TOOLTIP Iif(aTooltips != NIL, aTooltips[8], "Zoom in")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 8 .AND. aBitmaps[9] != NIL
       oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBitmaps[9]), HBitmap():AddFile(aBitmaps[9]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -842,7 +842,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
       IF aBootUser[2] != NIL
          oBtn:oBitmap := Iif(aBitmaps[1], HBitmap():AddResource(aBootUser[2]), HBitmap():AddFile(aBootUser[2]))
-         oBtn:title   := NIL
+         oBtn:title := NIL
          oBtn:lTransp := lTransp
       ENDIF
 
@@ -1084,13 +1084,13 @@ METHOD HPrinter:PaintDoc(oWnd)
       ::memDC:Createcompatibledc(hDC)
       ::memBitmap := hwg_Createcompatiblebitmap(hDC, Rect[3] - Rect[1], Rect[4] - Rect[2])
       ::memDC:Selectobject(::memBitmap)
-      Brush           := HBrush():Add(hwg_Getsyscolor(COLOR_3DHILIGHT + 1)):handle
-      BrushWhite      := HBrush():Add(hwg_ColorRgb2N(255, 255, 255)):handle
-      BrushBlack      := HBrush():Add(hwg_ColorRgb2N(0, 0, 0)):handle
-      BrushLine       := HBrush():Add(hwg_ColorRgb2N(102, 100, 92)):handle
+      Brush := HBrush():Add(hwg_Getsyscolor(COLOR_3DHILIGHT + 1)):handle
+      BrushWhite := HBrush():Add(hwg_ColorRgb2N(255, 255, 255)):handle
+      BrushBlack := HBrush():Add(hwg_ColorRgb2N(0, 0, 0)):handle
+      BrushLine := HBrush():Add(hwg_ColorRgb2N(102, 100, 92)):handle
       BrushBackground := HBrush():Add(hwg_ColorRgb2N(204, 200, 184)):handle
-      BrushShadow     := HBrush():Add(hwg_ColorRgb2N(178, 175, 161)):handle
-      BrushBorder     := HBrush():Add(hwg_ColorRgb2N(129, 126, 115)):handle
+      BrushShadow := HBrush():Add(hwg_ColorRgb2N(178, 175, 161)):handle
+      BrushBorder := HBrush():Add(hwg_ColorRgb2N(129, 126, 115)):handle
    ENDIF
 
    IF ::NeedsRedraw
@@ -1148,9 +1148,9 @@ METHOD HPrinter:PrintDoc(nPage)
 
          nWidth := ::nWidth; nHeight := ::nHeight; nHres := ::nHres; nVres := ::nVres
          aPrnCoors := hwg_Getdevicearea(::hDCPrn)
-         ::nHRes   := aPrnCoors[1] / aPrnCoors[3]
-         ::nVRes   := aPrnCoors[2] / aPrnCoors[4]
-         ::nWidth  := Iif(::lmm, aPrnCoors[3], aPrnCoors[1])
+         ::nHRes := aPrnCoors[1] / aPrnCoors[3]
+         ::nVRes := aPrnCoors[2] / aPrnCoors[4]
+         ::nWidth := Iif(::lmm, aPrnCoors[3], aPrnCoors[1])
          ::nHeight := Iif(::lmm, aPrnCoors[4], aPrnCoors[2])
          IF ::nOrient == 2
             ::SetMode(::nOrient)

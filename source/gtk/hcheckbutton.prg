@@ -41,7 +41,7 @@ METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, 
    ::Activate()
 
    ::bLostFocus := bClick
-   ::bGetFocus  := bGFocus
+   ::bGetFocus := bGFocus
 
    hwg_SetSignal(::handle, "clicked", WM_LBUTTONUP, 0, 0)
    IF bGFocus != NIL

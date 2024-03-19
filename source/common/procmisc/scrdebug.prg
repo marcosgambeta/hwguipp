@@ -15,7 +15,7 @@ STATIC i_scr := 0
 STATIC oDlgFont, oScrFont, oBmpCurr, oBmpPoint
 STATIC nAnimaTime
 STATIC aBreakPoints
-STATIC aBreaks  := {}
+STATIC aBreaks := {}
 STATIC aWatches := {}
 STATIC aScriptCurr
 STATIC nScriptSch := 0
@@ -162,7 +162,7 @@ STATIC FUNCTION dlgDebugClose()
    SetDebugger( .F. )
    SetDebugRun()
    aBreakPoints := aScriptCurr := NIL
-   aBreaks  := {}
+   aBreaks := {}
    aWatches := {}
    oScrFont:Release()
    oDlgFont:Release()

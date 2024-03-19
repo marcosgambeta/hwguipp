@@ -51,7 +51,7 @@ FUNCTION hwg_onWndSize(oWnd, wParam, lParam)
    oWnd:Super:onEvent(WM_SIZE, wParam, lParam)
 
    IF wParam != SIZE_MINIMIZED
-      oWnd:nWidth  := aCoors[3] - aCoors[1]
+      oWnd:nWidth := aCoors[3] - aCoors[1]
       oWnd:nHeight := aCoors[4] - aCoors[2]
    ENDIF
 
@@ -197,26 +197,26 @@ METHOD HWindow:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont
    HB_SYMBOL_UNUSED(cHelp)
 
    ::oDefaultParent := Self
-   ::title    := cTitle
-   ::style    := Iif(nStyle == NIL, 0, nStyle)
-   ::oIcon    := oIcon
-   ::oBmp     := oBmp
-   ::nY       := Iif(y == NIL, 0, y)
-   ::nX       := iif(x == NIL, 0, x)
-   ::nWidth   := Iif(width == NIL, 0, width)
-   ::nHeight  := Iif(height == NIL, 0, Abs(height))
+   ::title := cTitle
+   ::style := Iif(nStyle == NIL, 0, nStyle)
+   ::oIcon := oIcon
+   ::oBmp := oBmp
+   ::nY := Iif(y == NIL, 0, y)
+   ::nX := iif(x == NIL, 0, x)
+   ::nWidth := Iif(width == NIL, 0, width)
+   ::nHeight := Iif(height == NIL, 0, Abs(height))
    IF ::nWidth < 0
-      ::nWidth   := Abs(::nWidth)
+      ::nWidth := Abs(::nWidth)
       ::nAdjust := 1
    ENDIF
-   ::oFont    := oFont
-   ::bInit    := bInit
+   ::oFont := oFont
+   ::bInit := bInit
    ::bDestroy := bExit
-   ::bSize    := bSize
-   ::bPaint   := bPaint
-   ::bGetFocus  := bGFocus
+   ::bSize := bSize
+   ::bPaint := bPaint
+   ::bGetFocus := bGFocus
    ::bLostFocus := bLFocus
-   ::bOther     := bOther
+   ::bOther := bOther
 
    IF bColor != NIL
       ::brush := HBrush():Add(bColor)
@@ -456,7 +456,7 @@ METHOD HMainWindow:onEvent(msg, wParam, lParam)
 
 METHOD HMainWindow:InitTray(oNotifyIcon, bNotify, oNotifyMenu, cTooltip)
 
-   ::bNotify     := bNotify
+   ::bNotify := bNotify
    ::oNotifyMenu := oNotifyMenu
    ::oNotifyIcon := oNotifyIcon
    hwg_Shellnotifyicon(.T., ::handle, oNotifyIcon:handle, cTooltip)

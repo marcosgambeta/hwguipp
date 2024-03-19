@@ -47,7 +47,7 @@ ENDCLASS
 
 METHOD HDC:NEW()
 
-   ::m_hDC       := NIL
+   ::m_hDC := NIL
    ::m_hAttribDC := NIL
 
    RETURN Self

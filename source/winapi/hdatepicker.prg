@@ -50,7 +50,7 @@ METHOD HDatePicker:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, n
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, NIL, NIL, ctooltip, tcolor, bcolor)
 
-   ::dValue  := iif(vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari)
+   ::dValue := iif(vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari)
    ::bSetGet := bSetGet
    ::bChange := bChange
 

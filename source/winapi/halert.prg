@@ -484,8 +484,8 @@ FUNCTION HWG_Alert_CenterWindow(hWnd)
    LOCAL aPoint       // Multiple Uses                         // [2]
    LOCAL aChild       // Screen Coordinates of Child Window    // [4]
 
-   aChild   := Hwg_GetWindowRect(hWnd)
-   nCWidth  := aChild[3] - aChild[1]
+   aChild := Hwg_GetWindowRect(hWnd)
+   nCWidth := aChild[3] - aChild[1]
    nCHeight := aChild[4] - aChild[2]
 
    hWndParent := hwg_Alert_GetWindow(hWnd, GW_OWNER)

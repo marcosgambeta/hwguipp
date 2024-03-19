@@ -55,17 +55,17 @@ METHOD HNiceButton:New(oWndParent, nId, nStyle, nStyleEx, nX, nY, nWidth, nHeigh
    DEFAULT b := ::b
    DEFAULT r := ::r
 
-   ::lFlat   := .T.
-   ::bClick  := bClick
-   ::nOrder  := IIf(oWndParent == NIL, 0, Len(oWndParent:aControls))
+   ::lFlat := .T.
+   ::bClick := bClick
+   ::nOrder := IIf(oWndParent == NIL, 0, Len(oWndParent:aControls))
    ::ExStyle := nStyleEx
-   ::text    := cText
-   ::r       := r
-   ::g       := g
-   ::b       := b
-   ::nY      := nY
-   ::nX      := nX
-   ::nWidth  := nWidth
+   ::text := cText
+   ::r := r
+   ::g := g
+   ::b := b
+   ::nY := nY
+   ::nX := nX
+   ::nWidth := nWidth
    ::nHeight := nHeight
 
    hwg_Regnice()
@@ -81,13 +81,13 @@ METHOD HNiceButton:Redefine(oWndParent, nId, nStyleEx, bInit, bClick, cText, cTo
    DEFAULT b := ::b
    DEFAULT r := ::r
 
-   ::lFlat   := .T.
-   ::bClick  := bClick
+   ::lFlat := .T.
+   ::bClick := bClick
    ::ExStyle := nStyleEx
-   ::text    := cText
-   ::r       := r
-   ::g       := g
-   ::b       := b
+   ::text := cText
+   ::r := r
+   ::g := g
+   ::b := b
 
    hwg_Regnice()
 
@@ -167,11 +167,11 @@ METHOD HNiceButton:Create()
 //   LOCAL x
 //   LOCAL y
 
-   Rct    := hwg_Getclientrect(::handle)
-//   x      := Rct[1]
-//   y      := Rct[2]
-   w      := Rct[3] - Rct[1]
-   h      := Rct[4] - Rct[2]
+   Rct := hwg_Getclientrect(::handle)
+//   x := Rct[1]
+//   y := Rct[2]
+   w := Rct[3] - Rct[1]
+   h := Rct[4] - Rct[2]
    Region := hwg_Createroundrectrgn(0, 0, w, h, h * 0.90, h * 0.90)
    hwg_Setwindowrgn(::Handle, Region, .T.)
    hwg_Invalidaterect(::Handle, 0, 0)
@@ -217,8 +217,8 @@ METHOD HNiceButton:MouseMove(wParam, lParam)
       ENDIF
 
 //      aCoors := hwg_Getclientrect(::handle)
-//      xPos   := hwg_Loword(lParam)
-//      yPos   := hwg_Hiword(lParam)
+//      xPos := hwg_Loword(lParam)
+//      yPos := hwg_Hiword(lParam)
 
       IF ::state == OBTN_NORMAL
          ::state := OBTN_MOUSOVER
@@ -272,7 +272,7 @@ METHOD HNiceButton:PAINT()
    LOCAL y
    LOCAL w
    LOCAL h
-   LOCAL T       //  := Space(2048)
+   LOCAL T       // := Space(2048)
    //  *******************
 
 // Variables not used
@@ -283,14 +283,14 @@ METHOD HNiceButton:PAINT()
 // Warning W0032  Variable 'T' is assigned but not used in function 'HNICEBUTTON_PAINT(276)'
 //
 
-   Rct  := hwg_Getclientrect(::Handle)
-   x    := Rct[1]
-   y    := Rct[2]
-   w    := Rct[3] - Rct[1]
-   h    := Rct[4] - Rct[2]
+   Rct := hwg_Getclientrect(::Handle)
+   x := Rct[1]
+   y := Rct[2]
+   w := Rct[3] - Rct[1]
+   h := Rct[4] - Rct[2]
    XCtr := ( Rct[1] + Rct[3] ) / 2
    YCtr := ( Rct[2] + Rct[4] ) / 2
-   T    := hwg_Getwindowtext(::Handle)
+   T := hwg_Getwindowtext(::Handle)
    // **********************************
    //         Draw our control
    // **********************************

@@ -48,18 +48,18 @@ METHOD HTab:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, 
    LOCAL i
    LOCAL aBmpSize
 
-   nStyle   := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint)
 
-   ::title   := ""
-   ::oFont   := iif(oFont == NIL, ::oParent:oFont, oFont)
-   ::aTabs   := iif(aTabs == NIL, {}, aTabs)
+   ::title := ""
+   ::oFont := iif(oFont == NIL, ::oParent:oFont, oFont)
+   ::aTabs := iif(aTabs == NIL, {}, aTabs)
    ::bChange := bChange
    ::bChange2 := bChange
 
    ::bGetFocus := iif(bGetFocus == NIL, NIL, bGetFocus)
    ::bLostFocus := iif(bLostFocus == NIL, NIL, bLostFocus)
-   ::bAction   := iif(bClick == NIL, NIL, bClick)
+   ::bAction := iif(bClick == NIL, NIL, bClick)
 
    IF aImages != NIL
       ::aImages := {}
@@ -119,7 +119,7 @@ METHOD HTab:onEvent(msg, wParam, lParam)
    IF msg == WM_COMMAND
       IF ::aEvents != NIL
          iParHigh := hwg_Hiword(wParam)
-         iParLow  := hwg_Loword(wParam)
+         iParLow := hwg_Loword(wParam)
          IF ( nPos := Ascan(::aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
             Eval(::aEvents[nPos, 3], Self, iParLow)
          ENDIF
@@ -202,7 +202,7 @@ METHOD HTab:HidePage(nPage)
 
    IF !::lResourceTab
       nFirst := ::aPages[nPage, 1] + 1
-      nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
+      nEnd := ::aPages[nPage, 1] + ::aPages[nPage, 2]
       FOR i := nFirst TO nEnd
          ::aControls[i]:Hide()
       NEXT
@@ -220,7 +220,7 @@ METHOD HTab:ShowPage(nPage)
 
    IF !::lResourceTab
       nFirst := ::aPages[nPage, 1] + 1
-      nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
+      nEnd := ::aPages[nPage, 1] + ::aPages[nPage, 2]
       FOR i := nFirst TO nEnd
          ::aControls[i]:Show()
       NEXT
@@ -247,10 +247,10 @@ METHOD HTab:GetActivePage(nFirst, nEnd)
    IF !::lResourceTab
       IF !Empty(::aPages)
          nFirst := ::aPages[::nActive, 1] + 1
-         nEnd   := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
+         nEnd := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
       ELSE
          nFirst := 1
-         nEnd   := Len(::aControls)
+         nEnd := Len(::aControls)
       ENDIF
    ENDIF
 
@@ -270,7 +270,7 @@ METHOD HTab:DeletePage(nPage)
    ELSE
 
       nFirst := ::aPages[nPage, 1] + 1
-      nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
+      nEnd := ::aPages[nPage, 1] + ::aPages[nPage, 2]
       FOR i := nEnd TO nFirst STEP -1
          ::DelControl(::aControls[i])
       NEXT

@@ -42,12 +42,12 @@ METHOD HSplitter:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, col
 
    ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, bDraw, NIL, iif(color == NIL, 0, color), bcolor )
 
-   ::title  := ""
-   ::aLeft  := iif(aLeft == NIL, {}, aLeft)
+   ::title := ""
+   ::aLeft := iif(aLeft == NIL, {}, aLeft)
    ::aRight := iif(aRight == NIL, {}, aRight)
    ::lVertical := (::nHeight > ::nWidth)
-   ::nFrom  := nFrom
-   ::nTo    := nTo
+   ::nFrom := nFrom
+   ::nTo := nTo
    ::oStyle := oStyle
 
    ::Activate()

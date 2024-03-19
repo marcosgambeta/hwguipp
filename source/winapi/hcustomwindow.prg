@@ -192,15 +192,15 @@ METHOD HCustomWindow:OnError()
    NEXT
 
    oError := ErrorNew()
-   oError:severity    := ES_ERROR
-   oError:genCode     := EG_LIMIT
-   oError:subSystem   := "HCUSTOMWINDOW"
-   oError:subCode     := 0
+   oError:severity := ES_ERROR
+   oError:genCode := EG_LIMIT
+   oError:subSystem := "HCUSTOMWINDOW"
+   oError:subCode := 0
    oError:description := "Invalid class member"
-   oError:canRetry    := .F.
-   oError:canDefault  := .F.
-   oError:fileName    := ""
-   oError:osCode      := 0
+   oError:canRetry := .F.
+   oError:canDefault := .F.
+   oError:fileName := ""
+   oError:osCode := 0
 
    Eval(ErrorBlock(), oError)
    __errInHandler()

@@ -47,10 +47,10 @@ METHOD HProgressBar:New(oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRange
 
    ::Super:New(oWndParent, nId, ::Style, nX, nY, nWidth, nHeight, NIL, bInit, bSize, bPaint, ctooltip)
 
-   ::maxPos  := iif(maxPos == NIL, 20, maxPos)
+   ::maxPos := iif(maxPos == NIL, 20, maxPos)
    ::lNewBox := .F.
-   ::nRange  := iif(nRange != NIL .AND. nRange != 0, nRange, 100)
-   ::nLimit  := iif(nRange != NIL, Int(::nRange / ::maxPos ), 1)
+   ::nRange := iif(nRange != NIL .AND. nRange != 0, nRange, 100)
+   ::nLimit := iif(nRange != NIL, Int(::nRange / ::maxPos ), 1)
 
    ::Activate()
 
@@ -62,12 +62,12 @@ METHOD HProgressBar:Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPai
 
    ::Super:New(oWndParent,nId, 0, 0, 0, 0, 0, NIL, bInit, bSize, bPaint, ctooltip, NIL, NIL)
    HWG_InitCommonControlsEx()
-   //::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
-   ::maxPos      := iif(maxPos == NIL, 20, maxPos)
-   ::lNewBox     := .F.
-   ::nRange      := iif(nRange != NIL .AND. nRange != 0, nRange, 100)
-   ::nLimit      := iif(nRange != NIL, Int(::nRange / ::maxPos), 1)
-   ::nAnimation  := nAnimation
+   //::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
+   ::maxPos := iif(maxPos == NIL, 20, maxPos)
+   ::lNewBox := .F.
+   ::nRange := iif(nRange != NIL .AND. nRange != 0, nRange, 100)
+   ::nLimit := iif(nRange != NIL, Int(::nRange / ::maxPos), 1)
+   ::nAnimation := nAnimation
 
    RETURN Self
 
@@ -79,18 +79,18 @@ METHOD HProgressBar:Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPai
 METHOD HProgressBar:NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, lPercent)
 
    // ::classname:= "HPROGRESSBAR"
-   ::style    := WS_CHILD + WS_VISIBLE
-   nWidth     := iif(nWidth == NIL, 220, nWidth)
-   nHeight    := iif(nHeight == NIL, 55, nHeight)
-   nX         := iif(nX == NIL, 0, nX)
-   nY         := iif(nY == NIL, 0, nY)
-   ::nX       := 20
-   ::nY       := 25
-   ::nWidth   := nWidth - 40
-   ::maxPos   := iif(maxPos == NIL, 20, maxPos)
-   ::lNewBox  := .T.
-   ::nRange   := iif(nRange != NIL .AND. nRange != 0, nRange, 100)
-   ::nLimit   := iif(nRange != NIL, Int(::nRange / ::maxPos), 1)
+   ::style := WS_CHILD + WS_VISIBLE
+   nWidth := iif(nWidth == NIL, 220, nWidth)
+   nHeight := iif(nHeight == NIL, 55, nHeight)
+   nX := iif(nX == NIL, 0, nX)
+   nY := iif(nY == NIL, 0, nY)
+   ::nX := 20
+   ::nY := 25
+   ::nWidth := nWidth - 40
+   ::maxPos := iif(maxPos == NIL, 20, maxPos)
+   ::lNewBox := .T.
+   ::nRange := iif(nRange != NIL .AND. nRange != 0, nRange, 100)
+   ::nLimit := iif(nRange != NIL, Int(::nRange / ::maxPos), 1)
    ::lPercent := lPercent
 
    INIT DIALOG ::oParent TITLE cTitle       ;

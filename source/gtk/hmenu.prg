@@ -190,14 +190,14 @@ FUNCTION Hwg_BeginMenu( oWnd, nId, cTitle )
    IF oWnd != NIL
       _lContext := .F.
       _aMenuDef := {}
-      _aAccel   := {}
-      _oBitmap  := {}
-      _oWnd     := oWnd
-      _oMenu    := NIL
-      _nLevel   := 0
-      _Id       := iif(nId == NIL, MENU_FIRST_ID, nId)
+      _aAccel := {}
+      _oBitmap := {}
+      _oWnd := oWnd
+      _oMenu := NIL
+      _nLevel := 0
+      _Id := iif(nId == NIL, MENU_FIRST_ID, nId)
    ELSE
-      nId   := iif(nId == NIL, ++ _Id, nId)
+      nId := iif(nId == NIL, ++ _Id, nId)
       aMenu := _aMenuDef
       FOR i := 1 TO _nLevel
          aMenu := Atail( aMenu )[1]
@@ -216,8 +216,8 @@ FUNCTION Hwg_ContextMenu()
 
    _lContext := .T.
    _aMenuDef := {}
-   _oBitmap  := {}
-   _oWnd   := NIL
+   _oBitmap := {}
+   _oWnd := NIL
    _nLevel := 0
    _Id := CONTEXTMENU_FIRST_ID
    _oMenu := HMenu():New()
@@ -234,10 +234,10 @@ FUNCTION Hwg_EndMenu()
          _oWnd:hAccel := hwg_Createacceleratortable( _oWnd )
       ENDIF
       _aMenuDef := NIL
-      _oBitmap  := NIL
-      _aAccel   := NIL
-      _oWnd     := NIL
-      _oMenu    := NIL
+      _oBitmap := NIL
+      _aAccel := NIL
+      _oWnd := NIL
+      _oMenu := NIL
    ENDIF
 
    RETURN .T.

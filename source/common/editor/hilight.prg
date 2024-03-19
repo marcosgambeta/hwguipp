@@ -175,11 +175,11 @@ METHOD Hilight:Set( oEdit )
 Local oHili := Hilight():New()
 
    oHili:cCommands := ::cCommands
-   oHili:cFuncs    := ::cFuncs
-   oHili:cScomm    := ::cScomm
-   oHili:cMcomm1   := ::cMcomm1
-   oHili:cMcomm2   := ::cMcomm2
-   oHili:oEdit     := oEdit
+   oHili:cFuncs := ::cFuncs
+   oHili:cScomm := ::cScomm
+   oHili:cMcomm1 := ::cMcomm1
+   oHili:cMcomm2 := ::cMcomm2
+   oHili:oEdit := oEdit
 
 Return oHili
 

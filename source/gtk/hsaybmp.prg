@@ -50,7 +50,7 @@ METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit,
          HBitmap():AddFile( Image ), Image))
       IF !Empty(::oImage)
          IF nWidth == NIL .OR. nHeight == NIL
-            ::nWidth  := ::oImage:nWidth
+            ::nWidth := ::oImage:nWidth
             ::nHeight := ::oImage:nHeight
          ENDIF
       ELSE

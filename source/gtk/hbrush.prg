@@ -36,7 +36,7 @@ METHOD HBrush:Add( nColor )
    NEXT
 
    ::handle := hwg_Createsolidbrush( nColor )
-   ::color  := nColor
+   ::color := nColor
    AAdd(::aBrushes, Self)
 
    RETURN Self

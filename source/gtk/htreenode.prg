@@ -48,7 +48,7 @@ METHOD HTreeNode:New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
 
    ::oTree := oTree
    ::oParent := oParent
-   ::nLevel  := iif(__ObjHasMsg( oParent, "NLEVEL" ), oParent:nLevel + 1, 1)
+   ::nLevel := iif(__ObjHasMsg( oParent, "NLEVEL" ), oParent:nLevel + 1, 1)
    ::bClick := bClick
    ::title := iif(Empty(cTitle), "", cTitle)
    ::handle := ++ oTree:nNodeCount

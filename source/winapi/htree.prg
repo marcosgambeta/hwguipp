@@ -256,8 +256,8 @@ METHOD HTree:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       IIf(lEditLabels == NIL .OR. !lEditLabels, 0, TVS_EDITLABELS))
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, NIL, NIL, color, bcolor)
 
-   ::title   := ""
-   ::Type    := IIf(lResour == NIL, .F., lResour)
+   ::title := ""
+   ::Type := IIf(lResour == NIL, .F., lResour)
    ::bClick := bClick
 
    IF aImages != NIL .AND. !Empty(aImages)
@@ -386,14 +386,14 @@ METHOD HTree:Notify(lParam)
 
    CASE -3
       IF HB_ISBLOCK(::bDblClick)
-         oItem  := hwg_Treehittest(::handle, NIL, NIL, @nAct)
+         oItem := hwg_Treehittest(::handle, NIL, NIL, @nAct)
          Eval(::bDblClick, Self, oItem, nAct)
       ENDIF
       EXIT
 
    CASE -5
       IF HB_ISBLOCK(::bRClick)
-         oItem  := hwg_Treehittest(::handle, NIL, NIL, @nAct)
+         oItem := hwg_Treehittest(::handle, NIL, NIL, @nAct)
          Eval(::bRClick, Self, oItem, nAct)
       ENDIF
 

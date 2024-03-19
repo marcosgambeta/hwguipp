@@ -81,31 +81,31 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
 
    ::oDefaultParent := Self
    ::xResourceID := xResourceID
-   ::type     := lType
-   ::title    := cTitle
-   ::style    := iif(nStyle == NIL, 0, nStyle)
-   ::bColor   := bColor
-   ::oBmp     := oBmp
-   ::oIcon    := oIcon
-   ::nY       := iif(y == NIL, 0, y)
-   ::nX       := iif(x == NIL, 0, x)
-   ::nWidth   := iif(width == NIL, 0, width)
-   ::nHeight  := iif(height == NIL, 0, Abs( height ))
+   ::type := lType
+   ::title := cTitle
+   ::style := iif(nStyle == NIL, 0, nStyle)
+   ::bColor := bColor
+   ::oBmp := oBmp
+   ::oIcon := oIcon
+   ::nY := iif(y == NIL, 0, y)
+   ::nX := iif(x == NIL, 0, x)
+   ::nWidth := iif(width == NIL, 0, width)
+   ::nHeight := iif(height == NIL, 0, Abs( height ))
    IF ::nWidth < 0
-      ::nWidth  := Abs(::nWidth)
+      ::nWidth := Abs(::nWidth)
       ::nAdjust := 1
    ENDIF
-   ::oFont    := oFont
-   ::bInit    := bInit
+   ::oFont := oFont
+   ::bInit := bInit
    ::bDestroy := bExit
-   ::bSize    := bSize
-   ::bPaint   := bPaint
-   ::bGetFocus  := bGFocus
+   ::bSize := bSize
+   ::bPaint := bPaint
+   ::bGetFocus := bGFocus
    ::bLostFocus := bLFocus
-   ::bOther     := bOther
-   ::lClipper   := iif(lClipper == NIL, .F., lClipper)
+   ::bOther := bOther
+   ::lClipper := iif(lClipper == NIL, .F., lClipper)
    ::lExitOnEnter := iif(lExitOnEnter == NIL, .T., !lExitOnEnter)
-   ::lExitOnEsc  := iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
+   ::lExitOnEsc := iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
 
    IF ::style > 0 .AND. hb_bitand(::style, DS_CENTER) > 0
       ::nX := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
@@ -117,7 +117,7 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
 
 /* Added: lMaximized, lMinimized, lCentered, bActivate */
 METHOD HDialog:Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate )
-   
+
    LOCAL hParent
    LOCAL oWnd
    LOCAL aCoors

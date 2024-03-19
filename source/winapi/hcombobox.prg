@@ -77,7 +77,7 @@ METHOD HComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHe
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
 
-   ::aItems  := aItems
+   ::aItems := aItems
 
    ::Activate()
 
@@ -118,7 +118,7 @@ METHOD HComboBox:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, 
       ::xValue := iif(vari == NIL .OR. ValType(vari) != "N", 1, vari)
    ENDIF
    ::bSetGet := bSetGet
-   ::aItems  := aItems
+   ::aItems := aItems
 
    IF bSetGet != NIL
       ::bChangeSel := bChange

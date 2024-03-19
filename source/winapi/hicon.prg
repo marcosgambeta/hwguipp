@@ -73,9 +73,9 @@ METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
    IF Empty(::handle)
       RETURN NIL
    ENDIF
-   ::name   := name
+   ::name := name
    aIconSize := hwg_Geticonsize(::handle)
-   ::nWidth  := aIconSize[1]
+   ::nWidth := aIconSize[1]
    ::nHeight := aIconSize[2]
    //hwg_writelog(Str(::nWidth) + "/" + str(::nHeight))
 
@@ -105,7 +105,7 @@ METHOD HIcon:AddString(name, cVal, nWidth, nHeight)
    ::handle := hwg_Loadimage(0, cTmp, IMAGE_ICON, nWidth, nHeight, LR_DEFAULTSIZE + LR_LOADFROMFILE + LR_SHARED)
    ::name := name
    aIconSize := hwg_Geticonsize(::handle)
-   ::nWidth  := aIconSize[1]
+   ::nWidth := aIconSize[1]
    ::nHeight := aIconSize[2]
 
    AAdd(::aIcons, Self)
@@ -138,7 +138,7 @@ METHOD HIcon:AddFile(name, nWidth, nHeight)
    name := AddPath(name, ::cPath)
    name := iif(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
-      cCurDir  := DiskName() + ":\" + CurDir()
+      cCurDir := DiskName() + ":\" + CurDir()
       name := hwg_Selectfile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath(name), FilePath(name), "Locate " + name) // "*.jpg;*.gif;*.bmp;*.ico"
       DirChange(cCurDir)
    ENDIF
@@ -148,7 +148,7 @@ METHOD HIcon:AddFile(name, nWidth, nHeight)
    ::handle := hwg_Loadimage(0, name, IMAGE_ICON, nWidth, nHeight, LR_DEFAULTSIZE + LR_LOADFROMFILE + LR_SHARED)
    ::name := cname
    aIconSize := hwg_Geticonsize(::handle)
-   ::nWidth  := aIconSize[1]
+   ::nWidth := aIconSize[1]
    ::nHeight := aIconSize[2]
 
    AAdd(::aIcons, Self)

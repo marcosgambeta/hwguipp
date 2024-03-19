@@ -54,8 +54,8 @@ STATIC aCtrls := { ;
 
 #define  CONTROL_FIRST_ID   34000
 
-STATIC aPenType  := { "SOLID", "DASH", "DOT", "DASHDOT", "DASHDOTDOT" }
-STATIC aJustify  := { "Left", "Center", "Right" }
+STATIC aPenType := { "SOLID", "DASH", "DOT", "DASHDOT", "DASHDOTDOT" }
+STATIC aJustify := { "Left", "Center", "Right" }
 
 REQUEST HSTATIC, HBUTTON, HCHECKBUTTON, HRADIOBUTTON, HEDIT, HGROUP, HSAYBMP, HSAYICON
 #ifndef __GTK__
@@ -138,10 +138,10 @@ CLASS HFormTmpl
 ENDCLASS
 
 METHOD HFormTmpl:DefaultLang()
-  ::cTextCantOpenF      := "Can't open"
-  ::cTextInvClMemb      := "Invalid class member"
+  ::cTextCantOpenF := "Can't open"
+  ::cTextInvClMemb := "Invalid class member"
   ::cTextFrmRepDescnotF := "Form description isn't found"
-  ::cTextRepDescnotF    := "Report description isn't found"
+  ::cTextRepDescnotF := "Report description isn't found"
 RETURN NIL
 
 METHOD HFormTmpl:Read(fname, cId)
@@ -277,9 +277,9 @@ METHOD HFormTmpl:Show(nMode, p1, p2, p3)
       xProperty := hwg_hfrm_GetProperty(::aProp[i, 2])
 
       IF ::aProp[i, 1] == "geometry"
-         nLeft   := Val(xProperty[1])
-         nTop    := Val(xProperty[2])
-         nWidth  := Val(xProperty[3])
+         nLeft := Val(xProperty[1])
+         nTop := Val(xProperty[2])
+         nWidth := Val(xProperty[3])
          nHeight := Val(xProperty[4])
       ELSEIF ::aProp[i, 1] == "caption"
          cTitle := xProperty
@@ -381,7 +381,7 @@ METHOD HFormTmpl:Show(nMode, p1, p2, p3)
          ON GETFOCUS bGetFo
       ::oDlg:lClipper := lClipper
       ::oDlg:lExitOnEnter := lExitOnEnter
-      ::oDlg:oParent  := Self
+      ::oDlg:oParent := Self
 
    ELSEIF nMode == 1
 
@@ -548,15 +548,15 @@ METHOD HFormTmpl:OnError(xValue)
    ENDIF
 
    oError := ErrorNew()
-   oError:severity    := ES_ERROR
-   oError:genCode     := EG_LIMIT
-   oError:subSystem   := "HFORMTMPL"
-   oError:subCode     := 0
+   oError:severity := ES_ERROR
+   oError:genCode := EG_LIMIT
+   oError:subSystem := "HFORMTMPL"
+   oError:subCode := 0
    oError:description := ::cTextInvClMemb   //  "Invalid class member"
-   oError:canRetry    := .F.
-   oError:canDefault  := .F.
-   oError:fileName    := ""
-   oError:osCode      := 0
+   oError:canRetry := .F.
+   oError:canDefault := .F.
+   oError:fileName := ""
+   oError:osCode := 0
 
    Eval(ErrorBlock(), oError)
    __errInHandler()
@@ -721,10 +721,10 @@ STATIC FUNCTION ReadCtrl(oCtrlDesc, oContainer, oForm)
    LOCAL aMethods := {}
    LOCAL aItems := oCtrlDesc:aItems
 
-   oCtrl:nId      := oForm:nCtrlId
+   oCtrl:nId := oForm:nCtrlId
    oForm:nCtrlId++
-   oCtrl:cClass   := oCtrlDesc:GetAttribute("class")
-   oCtrl:aProp    := aProp
+   oCtrl:cClass := oCtrlDesc:GetAttribute("class")
+   oCtrl:aProp := aProp
    oCtrl:aMethods := aMethods
 
    FOR i := 1 TO Len(aItems)
@@ -807,7 +807,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
                varname := SubStr(stroka, i, j - i)
                __mvPrivate(varname)
                IF SubStr(varname, 2) == "InitValue"
-                  cInitName  := varname
+                  cInitName := varname
                   xInitValue := Iif(Left(varname, 1) == "n", 1, Iif(Left(varname, 1) == "c", "", .F.))
                ENDIF
                stroka := Left(stroka, i - 1) + "m->" + SubStr(stroka, i)
@@ -820,17 +820,17 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          ENDIF
       ENDDO
    ENDIF
-   oPrnt  := oParent
-   nId    := oCtrlTmpl:nId
+   oPrnt := oParent
+   nId := oCtrlTmpl:nId
    nStyle := 0
 
    FOR i := 1 TO Len(oCtrlTmpl:aProp)
       xProperty := hwg_hfrm_GetProperty(oCtrlTmpl:aProp[i, 2])
       cPName := oCtrlTmpl:aProp[i, 1]
       IF cPName == "geometry"
-         nLeft   := Val(xProperty[1])
-         nTop    := Val(xProperty[2])
-         nWidth  := Val(xProperty[3])
+         nLeft := Val(xProperty[1])
+         nTop := Val(xProperty[2])
+         nWidth := Val(xProperty[3])
          nHeight := Val(xProperty[4])
          IF __ObjHasMsg(oParent, "ID")
             nLeft -= oParent:nX
@@ -1016,8 +1016,8 @@ FUNCTION hwg_Font2XML(oFont)
 
    hDC := hwg_Getdc(hWnd := hwg_Getactivewindow())
    IF Empty(nVertRes)
-      aMetr  := hwg_Getdevicearea(hDC)
-      nVertRes  := aMetr[2]
+      aMetr := hwg_Getdevicearea(hDC)
+      nVertRes := aMetr[2]
       nVertSize := aMetr[4]
    ENDIF
    hwg_Selectobject(hDC, oFont:handle)
@@ -1048,11 +1048,11 @@ FUNCTION hwg_hfrm_FontFromXML(oXmlNode, lReport)
    LOCAL hWnd
    LOCAL hDC
    LOCAL aMetr
-   LOCAL width  := oXmlNode:GetAttribute("width")
+   LOCAL width := oXmlNode:GetAttribute("width")
    LOCAL height := oXmlNode:GetAttribute("height")
    LOCAL weight := oXmlNode:GetAttribute("weight")
    LOCAL charset := oXmlNode:GetAttribute("charset")
-   LOCAL ita   := oXmlNode:GetAttribute("italic")
+   LOCAL ita := oXmlNode:GetAttribute("italic")
    LOCAL under := oXmlNode:GetAttribute("underline")
 
    IF width != NIL
@@ -1062,8 +1062,8 @@ FUNCTION hwg_hfrm_FontFromXML(oXmlNode, lReport)
       IF !Empty(lReport) .AND. ( i := At("M", height) ) != 0
          IF Empty(nVertRes)
             hDC := hwg_Getdc(hWnd := hwg_Getactivewindow())
-            aMetr  := hwg_Getdevicearea(hDC)
-            nVertRes  := aMetr[2]
+            aMetr := hwg_Getdevicearea(hDC)
+            nVertRes := aMetr[2]
             nVertSize := aMetr[4]
             hwg_Releasedc(hWnd, hDC)
          ENDIF
@@ -1352,16 +1352,16 @@ METHOD HRepTmpl:PRINT(printer, lPreview, p1, p2, p3, p4, p5)
    FOR i := 1 TO Len(::aProp)
       IF ::aProp[i, 1] == "paper size"
          IF Lower(::aProp[i, 2]) == "a4"
-            nPWidth  := 210
+            nPWidth := 210
             nPHeight := 297
          ELSEIF Lower(::aProp[i, 2]) == "a3"
-            nPWidth  := 297
+            nPWidth := 297
             nPHeight := 420
          ENDIF
       ELSEIF ::aProp[i, 1] == "orientation"
          IF Lower(::aProp[i, 2]) != "portrait"
-            xTemp    := nPWidth
-            nPWidth  := nPHeight
+            xTemp := nPWidth
+            nPWidth := nPHeight
             nPHeight := xTemp
             nOrientation := 2
          ENDIF
@@ -1456,16 +1456,16 @@ METHOD HRepTmpl:PrintAsPage(printer, nPageType, lPreview, p1, p2, p3, p4, p5)
    FOR i := 1 TO Len(::aProp)
       IF ::aProp[i, 1] == "paper size"
          IF Lower(::aProp[i, 2]) == "a4"
-            nPWidth  := 210
+            nPWidth := 210
             nPHeight := 297
          ELSEIF Lower(::aProp[i, 2]) == "a3"
-            nPWidth  := 297
+            nPWidth := 297
             nPHeight := 420
          ENDIF
       ELSEIF ::aProp[i, 1] == "orientation"
          IF Lower(::aProp[i, 2]) != "portrait"
-            xTemp    := nPWidth
-            nPWidth  := nPHeight
+            xTemp := nPWidth
+            nPWidth := nPHeight
             nPHeight := xTemp
             nOrientation := 2
          ENDIF
@@ -1587,10 +1587,10 @@ METHOD HRepTmpl:PrintItem(oItem)
    ENDIF
    IF lRes
       xProperty := aGetSecond(oItem:aProp, "geometry")
-      x   := Val(xProperty[1]) * ::nKoefX
-      y   := Val(xProperty[2]) * ::nKoefY
-      x2  := Val(xProperty[5]) * ::nKoefX
-      y2  := Val(xProperty[6]) * ::nKoefY
+      x := Val(xProperty[1]) * ::nKoefX
+      y := Val(xProperty[2]) * ::nKoefY
+      x2 := Val(xProperty[5]) * ::nKoefX
+      y2 := Val(xProperty[6]) * ::nKoefY
       // hwg_WriteLog(xProperty[1] + " " + xProperty[2])
 
       IF oItem:cClass == "area"
@@ -1806,8 +1806,8 @@ STATIC FUNCTION ReadRepItem(oCtrlDesc, oContainer)
    // Not used variables
    // LOCAL nPenWidth, nPenType
 
-   oCtrl:cClass   := oCtrlDesc:GetAttribute("class")
-   oCtrl:aProp    := aProp
+   oCtrl:cClass := oCtrlDesc:GetAttribute("class")
+   oCtrl:aProp := aProp
    oCtrl:aMethods := aMethods
 
    FOR i := 1 TO Len(aItems)
@@ -1860,9 +1860,9 @@ STATIC FUNCTION hrep_FontFromXML(oPrinter, oXmlNode, nKoeff, nFontH)
    LOCAL nPos
    LOCAL weight := oXmlNode:GetAttribute("weight")
    LOCAL charset := oXmlNode:GetAttribute("charset")
-   LOCAL ita   := oXmlNode:GetAttribute("italic")
+   LOCAL ita := oXmlNode:GetAttribute("italic")
    LOCAL under := oXmlNode:GetAttribute("underline")
-   LOCAL name  := oXmlNode:GetAttribute("name")
+   LOCAL name := oXmlNode:GetAttribute("name")
    LOCAL i
 
    IF HB_ISARRAY(HRepTmpl():aFontTable)
@@ -1883,7 +1883,7 @@ STATIC FUNCTION hrep_FontFromXML(oPrinter, oXmlNode, nKoeff, nFontH)
    IF charset != NIL
       charset := Val(charset)
    ENDIF
-   ita    := Iif(ita != NIL, Val(ita), 0)
-   under  := Iif(under != NIL, Val(under), 0)
+   ita := Iif(ita != NIL, Val(ita), 0)
+   under := Iif(under != NIL, Val(under), 0)
 
    RETURN oPrinter:AddFont(name, height, (weight > 400), (ita > 0), (under > 0), charset)

@@ -119,7 +119,7 @@ METHOD HBitmap:AddResource( name )
    // ELSE
    //     hwg_MsgInfo("Bitmap resource successfully loaded >" + name + "<" )     
    ENDIF
-   ::name   := name
+   ::name := name
    AAdd(::aBitmaps, Self)
 
    RETURN Self
@@ -147,8 +147,8 @@ METHOD HBitmap:AddFile(name, HDC, lTransparent, nWidth, nHeight)
    ::handle := hwg_Openimage( name )
    IF !Empty(::handle)
       ::name := name
-      aBmpSize  := hwg_Getbitmapsize(::handle)
-      ::nWidth  := aBmpSize[1]
+      aBmpSize := hwg_Getbitmapsize(::handle)
+      ::nWidth := aBmpSize[1]
       ::nHeight := aBmpSize[2]
       AAdd(::aBitmaps, Self)
    ELSE
@@ -193,8 +193,8 @@ METHOD HBitmap:AddString( name, cVal )
    IF !Empty(::handle)
       // hwg_Msginfo("Bitmap successfully loaded: >" + name + "<")
       ::name := name
-      aBmpSize  := hwg_Getbitmapsize(::handle)
-      ::nWidth  := aBmpSize[1]
+      aBmpSize := hwg_Getbitmapsize(::handle)
+      ::nWidth := aBmpSize[1]
       ::nHeight := aBmpSize[2]
       AAdd(::aBitmaps, Self)
    ELSE
@@ -222,9 +222,9 @@ METHOD HBitmap:AddStandard( cId, nSize )
    IF Empty(::handle)
       RETURN NIL
    ENDIF
-   ::name    := cName
-   aBmpSize  := hwg_Getbitmapsize(::handle)
-   ::nWidth  := aBmpSize[1]
+   ::name := cName
+   aBmpSize := hwg_Getbitmapsize(::handle)
+   ::nWidth := aBmpSize[1]
    ::nHeight := aBmpSize[2]
    AAdd(::aBitmaps, Self)
 
@@ -242,8 +242,8 @@ METHOD HBitmap:AddWindow( oWnd, x1, y1, width, height )
    ENDIF
    ::handle := hwg_Window2Bitmap( Iif(Empty(handle),oWnd:handle,handle),x1,y1,width,height )
    ::name := LTrim(hb_valToStr(oWnd:handle))
-   aBmpSize  := hwg_Getbitmapsize(::handle)
-   ::nWidth  := aBmpSize[1]
+   aBmpSize := hwg_Getbitmapsize(::handle)
+   ::nWidth := aBmpSize[1]
    ::nHeight := aBmpSize[2]
    AAdd(::aBitmaps, Self)
 
@@ -349,7 +349,7 @@ METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
       hwg_MsgStop("Can not add icon to resource container: >" + name + "<" )
       RETURN NIL
    ENDIF
-   ::name   := name
+   ::name := name
    AAdd(::aIcons, Self)
 
    RETURN Self
@@ -380,14 +380,14 @@ METHOD HIcon:AddFile(name, nWidth, nHeight)
    ::handle := hwg_Openimage( name )
    IF !Empty(::handle)
       ::name := name
-      aBmpSize  := hwg_Getbitmapsize(::handle)
+      aBmpSize := hwg_Getbitmapsize(::handle)
 
-//      ::nWidth  := aBmpSize[1]
+//      ::nWidth := aBmpSize[1]
 //      ::nHeight := aBmpSize[2]
       IF  nWidth > 0
        ::nWidth := nWidth
       ELSE
-       ::nWidth  := aBmpSize[1]
+       ::nWidth := aBmpSize[1]
       ENDIF
       IF nHeight > 0
        ::nHeight := nHeight
@@ -435,8 +435,8 @@ METHOD HIcon:AddString(name, cVal, nWidth, nHeight)
        FERASE(cTmp)
    IF !Empty(::handle)
       ::name := name
-      aBmpSize  := hwg_Getbitmapsize(::handle)
-      ::nWidth  := aBmpSize[1]
+      aBmpSize := hwg_Getbitmapsize(::handle)
+      ::nWidth := aBmpSize[1]
       ::nHeight := aBmpSize[2]
       AAdd(::aIcons, Self)
    ELSE

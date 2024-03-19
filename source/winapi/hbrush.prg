@@ -44,7 +44,7 @@ METHOD HBrush:Add(nColor, nHatch)
    ELSE
       ::handle := hwg_Createsolidbrush(nColor)
    ENDIF
-   ::color  := nColor
+   ::color := nColor
    AAdd(::aBrushes, Self)
 
    RETURN Self

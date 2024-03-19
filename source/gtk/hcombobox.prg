@@ -68,7 +68,7 @@ METHOD HComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHe
       Eval(::bSetGet, ::xValue, self)
    ENDIF
 
-   ::aItems  := aItems
+   ::aItems := aItems
 
    ::Activate()
    ::bValid := bValid

@@ -37,16 +37,16 @@ METHOD TVideo:New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid)
 
    DEFAULT nWidth TO 200, nHeight TO 200, cFileName TO "", lNoBorder TO .F.
 
-   ::nY        := nRow *  VID_CHARPIX_H  // 8
-   ::nX        := nCol * VID_CHARPIX_W   // 14
-   ::nHeight   := ::nY + nHeight - 1
-   ::nWidth    := ::nX + nWidth + 1
-   ::Style     := hb_bitor(WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0))
+   ::nY := nRow *  VID_CHARPIX_H  // 8
+   ::nX := nCol * VID_CHARPIX_W   // 14
+   ::nHeight := ::nY + nHeight - 1
+   ::nWidth := ::nX + nWidth + 1
+   ::Style := hb_bitor(WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0))
 
-   ::oParent   := IIf(oWnd == NIL, ::oDefaultParent, oWnd)
-   ::id        := IIf(nid == NIL, ::NewId(), nid)
-   ::cAviFile  := cFileName
-   ::oMci      := TMci():New("avivideo", cFileName)
+   ::oParent := IIf(oWnd == NIL, ::oDefaultParent, oWnd)
+   ::id := IIf(nid == NIL, ::NewId(), nid)
+   ::cAviFile := cFileName
+   ::oMci := TMci():New("avivideo", cFileName)
    ::Initiate()
 
    IF !Empty(::oparent:handle)

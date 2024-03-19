@@ -82,8 +82,8 @@ METHOD HAnimation:Open(cFileName)
 METHOD HAnimation:Play(nFrom, nTo, nRep)
 
    nFrom := IIf(nFrom == NIL, 0, nFrom)
-   nTo   := IIf(nTo == NIL, -1, nTo)
-   nRep  := IIf(nRep == NIL, -1, nRep)
+   nTo := IIf(nTo == NIL, -1, nTo)
+   nRep := IIf(nRep == NIL, -1, nRep)
    hwg_Animate_Play(::handle, nFrom, nTo, nRep)
 
    RETURN Self

@@ -124,7 +124,7 @@ METHOD hToolBar:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint,
    HWG_InitCommonControlsEx()
    ::aItem := aItem
 
-   ::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
+   ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
    ::nIndent := 1
    ::lResource := .T.
 

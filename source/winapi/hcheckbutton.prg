@@ -43,18 +43,18 @@ METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, 
    IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
-   nStyle   := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
+   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   ::title   := cCaption
-   ::lValue   := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
+   ::title := cCaption
+   ::lValue := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
    ::bSetGet := bSetGet
 
    ::Activate()
 
    ::bClick := bClick
    ::bLostFocus := bLFocus
-   ::bGetFocus  := bGFocus
+   ::bGetFocus := bGFocus
 
    ::oParent:AddEvent(BN_CLICKED, ::id, {|o, id|__Valid(o:FindControl(id))})
    IF bGFocus != NIL
@@ -79,11 +79,11 @@ METHOD HCheckButton:Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   ::lValue  := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
+   ::lValue := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
    ::bSetGet := bSetGet
 
    ::bClick := bClick
-   ::bGetFocus  := bGFocus
+   ::bGetFocus := bGFocus
    ::oParent:AddEvent(BN_CLICKED, ::id, {|o, id|__Valid(o:FindControl(id))})
    IF bGFocus != NIL
       ::oParent:AddEvent(BN_SETFOCUS, ::id, {|o, id|__When(o:FindControl(id))})

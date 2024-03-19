@@ -303,10 +303,10 @@ METHOD HCEdit:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, 
       ENDIF
    ENDIF
 
-   ::bGetFocus  := bGFocus
+   ::bGetFocus := bGFocus
    ::bLostFocus := bLFocus
 
-   ::aLines   := Array(64, AL_LENGTH)
+   ::aLines := Array(64, AL_LENGTH)
    ::aPointC := ::PCopy()
    ::aPointM1 := ::PCopy()
    ::aPointM2 := ::PCopy()

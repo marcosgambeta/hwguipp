@@ -48,16 +48,16 @@ METHOD HTab:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
    ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint )
 
-   ::title   := ""
-   ::oFont   := iif(oFont == NIL, ::oParent:oFont, oFont)
-   ::aTabs   := iif(aTabs == NIL, {}, aTabs)
+   ::title := ""
+   ::oFont := iif(oFont == NIL, ::oParent:oFont, oFont)
+   ::aTabs := iif(aTabs == NIL, {}, aTabs)
    ::bChange := bChange
 
    ::bChange2 := bChange
 
    ::bGetFocus := iif(bGetFocus == NIL, NIL, bGetFocus)
    ::bLostFocus := iif(bLostFocus == NIL, NIL, bLostFocus)
-   ::bAction   := iif(bClick == NIL, NIL, bClick)
+   ::bAction := iif(bClick == NIL, NIL, bClick)
 
    ::Activate()
 
@@ -138,10 +138,10 @@ METHOD HTab:EndPage()
 METHOD HTab:GetActivePage( nFirst, nEnd )
    IF !Empty(::aPages)
       nFirst := ::aPages[::nActive, 1] + 1
-      nEnd   := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
+      nEnd := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
    ELSE
       nFirst := 1
-      nEnd   := Len(::aControls)
+      nEnd := Len(::aControls)
    ENDIF
 
    Return ::nActive
@@ -153,7 +153,7 @@ METHOD HTab:DeletePage( nPage )
    LOCAL i
 
    nFirst := ::aPages[nPage, 1] + 1
-   nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
+   nEnd := ::aPages[nPage, 1] + ::aPages[nPage, 2]
    FOR i := nEnd TO nFirst STEP -1
       ::DelControl(::aControls[i])
    NEXT

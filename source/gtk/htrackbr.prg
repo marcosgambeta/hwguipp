@@ -52,13 +52,13 @@ METHOD HTrack:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bPaint, color
    bColor := Iif(bColor == NIL, CLR_WHITE, bColor)
    ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, , , bSize, bPaint, , color, bcolor)
 
-   ::title  := ""
+   ::title := ""
    ::lVertical := (::nHeight > ::nWidth)
    ::nSize := Iif(nSize == NIL, 12, nSize)
-   //::nFrom  := Iif(::lVertical, Int(::nSize / 2), Int(::nSize / 2))
-   ::nFrom  := Int(::nSize/2)
-   ::nTo    := Iif(::lVertical, ::nHeight - 1 - Int(::nSize / 2), ::nWidth - 1 - Int(::nSize / 2))
-   ::nCurr  := ::nFrom
+   //::nFrom := Iif(::lVertical, Int(::nSize / 2), Int(::nSize / 2))
+   ::nFrom := Int(::nSize/2)
+   ::nTo := Iif(::lVertical, ::nHeight - 1 - Int(::nSize / 2), ::nWidth - 1 - Int(::nSize / 2))
+   ::nCurr := ::nFrom
    ::oStyleBar := oStyleBar
    ::oStyleSlider := oStyleSlider
    ::lAxis := ( lAxis == NIL .OR. lAxis )
@@ -125,9 +125,9 @@ METHOD HTrack:Set( nSize, oStyleBar, oStyleSlider, lAxis, bPaint )
 
    IF nSize != NIL
       ::nSize := nSize
-      ::nFrom  := Int(::nSize/2)
-      ::nTo    := Iif(::lVertical, ::nHeight, ::nWidth) - 1 - Int(::nSize / 2)
-      ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom
+      ::nFrom := Int(::nSize/2)
+      ::nTo := Iif(::lVertical, ::nHeight, ::nWidth) - 1 - Int(::nSize / 2)
+      ::nCurr := xValue * (::nTo - ::nFrom) + ::nFrom
    ENDIF
    IF oStyleBar != NIL
       ::oStyleBar := oStyleBar
@@ -243,13 +243,13 @@ METHOD HTrack:Move( x1, y1, width, height )
    LOCAL xValue := (::nCurr - ::nFrom) / (::nTo - ::nFrom)
 
    IF ::lVertical .AND. !Empty(height) .AND. height != ::nHeight
-      ::nFrom  := Int(::nSize/2)
-      ::nTo    := height-1-Int(::nSize/2)
-      ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom
+      ::nFrom := Int(::nSize/2)
+      ::nTo := height-1-Int(::nSize/2)
+      ::nCurr := xValue * (::nTo - ::nFrom) + ::nFrom
    ELSEIF !::lVertical .AND. !Empty(width) .AND. width != ::nWidth
-      ::nFrom  := Int(::nSize/2)
-      ::nTo    := width-1-Int(::nSize/2)
-      ::nCurr  := xValue * (::nTo - ::nFrom) + ::nFrom
+      ::nFrom := Int(::nSize/2)
+      ::nTo := width-1-Int(::nSize/2)
+      ::nCurr := xValue * (::nTo - ::nFrom) + ::nFrom
    ENDIF
 
    ::Super:Move( x1, y1, width, height )

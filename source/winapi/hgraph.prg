@@ -54,7 +54,7 @@ METHOD HGraph:New(oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, bSiz
               IIf(tcolor == NIL, 0xFFFFFF, tcolor), IIf(bcolor == NIL, 0, bcolor))
 
    ::aValues := aValues
-   ::nType   := 1
+   ::nType := 1
    ::nGraphs := 1
 
    ::Activate()

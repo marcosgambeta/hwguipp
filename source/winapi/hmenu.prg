@@ -33,8 +33,8 @@ METHOD HMenu:Show(oWnd, xPos, yPos, lWnd)
    IF PCount() == 1 .OR. lWnd == NIL .OR. !lWnd
       IF PCount() == 1
          aCoor := hwg_GetCursorPos()
-         xPos  := aCoor[1]
-         yPos  := aCoor[2]
+         xPos := aCoor[1]
+         yPos := aCoor[2]
       ENDIF
       Hwg_trackmenu(::handle, xPos, yPos, oWnd:handle)
    ELSE
@@ -192,14 +192,14 @@ FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle)
    
    IF oWnd != NIL
       _aMenuDef := {}
-      _aAccel   := {}
-      _oBitmap  := {}
-      _oWnd     := oWnd
-      _oMenu    := NIL
-      _nLevel   := 0
-      _Id       := IIf(nId == NIL, MENU_FIRST_ID, nId)
+      _aAccel := {}
+      _oBitmap := {}
+      _oWnd := oWnd
+      _oMenu := NIL
+      _nLevel := 0
+      _Id := IIf(nId == NIL, MENU_FIRST_ID, nId)
    ELSE
-      nId   := IIf(nId == NIL, ++_Id, nId)
+      nId := IIf(nId == NIL, ++_Id, nId)
       aMenu := _aMenuDef
       FOR i := 1 TO _nLevel
          aMenu := ATail(aMenu)[1]
@@ -211,7 +211,7 @@ FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle)
 
 FUNCTION Hwg_ContextMenu()
    _aMenuDef := {}
-   _oBitmap  := {}
+   _oBitmap := {}
    _oWnd := NIL
    _nLevel := 0
    _Id := CONTEXTMENU_FIRST_ID
@@ -227,10 +227,10 @@ FUNCTION Hwg_EndMenu()
          _oWnd:hAccel := hwg_Createacceleratortable(_aAccel)
       ENDIF
       _aMenuDef := NIL
-      _oBitmap  := NIL
-      _aAccel   := NIL
-      _oWnd     := NIL
-      _oMenu    := NIL
+      _oBitmap := NIL
+      _aAccel := NIL
+      _oWnd := NIL
+      _oMenu := NIL
    ENDIF
    RETURN .T.
 

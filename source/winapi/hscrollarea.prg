@@ -40,7 +40,7 @@ METHOD HScrollArea:RedefineScrollbars()
          AEval(::aControls, {|o|::ncurHeight := Int(Max(o:nY + o:nHeight + VERT_PTS * 1, ::ncurHeight))})
       ENDIF
       IF ::nHscrollPos = 0
-         ::ncurWidth  := 0                                                           // * 4
+         ::ncurWidth := 0                                                           // * 4
          AEval(::aControls, {|o|::ncurWidth := Int(Max(o:nX + o:nWidth + HORZ_PTS * 1, ::ncurWidth))})
       ENDIF
       ::ResetScrollbars()

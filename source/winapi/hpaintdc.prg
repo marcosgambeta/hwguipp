@@ -24,7 +24,7 @@ ENDCLASS
 METHOD HPAINTDC:NEW(nWnd)
 
    ::Super:new()
-   ::m_ps   := hwg_Definepaintstru()
+   ::m_ps := hwg_Definepaintstru()
    ::m_hWnd := nWnd
    ::Attach(hwg_Beginpaint(::m_hWnd, ::m_ps))
 
@@ -33,7 +33,7 @@ METHOD HPAINTDC:NEW(nWnd)
 METHOD HPAINTDC:END()
 
    hwg_Endpaint(::m_hWnd, ::m_ps)
-   ::m_hDC       := NIL
+   ::m_hDC := NIL
    ::m_hAttribDC := NIL
 
    RETURN NIL

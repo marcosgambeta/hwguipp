@@ -54,17 +54,17 @@
 FUNCTION RDINI( fname, prm1, prm2, prm3, prm4 )
 
 LOCAL han, stroka, strfull, kolstr, poz1, vname, prblo, lTruncAr
-LOCAL lWinIni  := ( HB_ISARRAY(prm1) )
+LOCAL lWinIni := ( HB_ISARRAY(prm1) )
 LOCAL strbuf := Space(STR_BUFLEN), poz := STR_BUFLEN+1
 LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
 
    kolstr := 0
-   prblo  := .T.
+   prblo := .T.
    IF iniDbf
       USE (fname) NEW
       han := Iif(NetErr(), -1, 0)
    ELSE
-      han    := FOPEN(fname, FO_READ + FO_SHARED)
+      han := FOPEN(fname, FO_READ + FO_SHARED)
    ENDIF
    IF han != - 1
       strfull := ""
@@ -103,8 +103,8 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
             poz1 := AT("=", stroka)
             IF poz1 != 0
                lTruncAr := IIF(SUBSTR(stroka, poz1 - 1, 1) == '+', .F., .T.)
-               vname    := RTRIM(SUBSTR(stroka, 1, IIF(lTruncAr, poz1 - 1, poz1 - 2)))
-               stroka   := ALLTRIM(SUBSTR(stroka, poz1 + 1))
+               vname := RTRIM(SUBSTR(stroka, 1, IIF(lTruncAr, poz1 - 1, poz1 - 2)))
+               stroka := ALLTRIM(SUBSTR(stroka, poz1 + 1))
                IF lWinIni
                   AADD(prm1[LEN(prm1), 2], {UPPER(vname), stroka})
                ELSE
@@ -181,7 +181,7 @@ LOCAL poz1, len1, strv, newname
             strv := LTRIM(SUBSTR(stroka, 1, IIF(poz1 = 0, 9999, poz1 - 1)))
             IF ASC( strv ) = 123 .AND. SUBSTR(strv, 2, 1) != "|"
                AADD(&vname, {})
-               len1    := LEN(&vname)
+               len1 := LEN(&vname)
                newname := vname + "[" + LTRIM(STR(len1, 3)) + "]"
                RDARR( newname, strv )
             ELSE

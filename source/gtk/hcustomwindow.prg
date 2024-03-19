@@ -152,14 +152,14 @@ METHOD HCustomWindow:Refresh()
 METHOD HCustomWindow:Setcolor( tcolor, bcolor, lRepaint )
 
    IF tcolor != NIL
-      ::tcolor  := tcolor
+      ::tcolor := tcolor
       IF !Empty(::handle)
          hwg_Setfgcolor(::handle, ::tcolor)
       ENDIF
    ENDIF
 
    IF bcolor != NIL
-      ::bcolor  := bcolor
+      ::bcolor := bcolor
       IF !Empty(::handle)
          hwg_Setbgcolor(::handle, ::bcolor)
       ENDIF
@@ -218,15 +218,15 @@ METHOD HCustomWindow:OnError()
    NEXT
 
    oError := ErrorNew()
-   oError:severity    := ES_ERROR
-   oError:genCode     := EG_LIMIT
-   oError:subSystem   := "HCUSTOMWINDOW"
-   oError:subCode     := 0
+   oError:severity := ES_ERROR
+   oError:genCode := EG_LIMIT
+   oError:subSystem := "HCUSTOMWINDOW"
+   oError:subCode := 0
    oError:description := "Invalid class member"
-   oError:canRetry    := .F.
-   oError:canDefault  := .F.
-   oError:fileName    := ""
-   oError:osCode      := 0
+   oError:canRetry := .F.
+   oError:canDefault := .F.
+   oError:fileName := ""
+   oError:osCode := 0
 
    Eval( ErrorBlock(), oError )
    __errInHandler()

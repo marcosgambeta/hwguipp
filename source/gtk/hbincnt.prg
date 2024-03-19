@@ -74,7 +74,7 @@ METHOD HBinC:Create(cName, n)
    ::lWriteAble := .T.
    ::nVerHigh := VER_HIGH
    ::nVerLow := VER_LOW
-   ::nItems  := ::nCntLen := ::nPassLen := 0
+   ::nItems := ::nCntLen := ::nPassLen := 0
    ::nCntBlocks := Iif(n <= 18, 1, 2 + Int( (n-18)/21 ))
    ::nFileLen := ::nCntBlocks*2048
    ::aObjects := {}
@@ -105,9 +105,9 @@ METHOD HBinC:Open(cName, lWr)
    ENDIF
 
    ::nVerHigh := Asc( Substr(cBuf, 6, 1) )
-   ::nVerLow  := Asc( Substr(cBuf, 7, 1) )
-   ::nItems   := Asc( Substr(cBuf, 9, 1) ) * 256 + Asc( Substr(cBuf, 10, 1) )
-   ::nCntLen  := Asc( Substr(cBuf, 11, 1) ) * 65536 + Asc( Substr(cBuf, 12, 1) ) * 256 + Asc( Substr(cBuf, 13, 1) )
+   ::nVerLow := Asc( Substr(cBuf, 7, 1) )
+   ::nItems := Asc( Substr(cBuf, 9, 1) ) * 256 + Asc( Substr(cBuf, 10, 1) )
+   ::nCntLen := Asc( Substr(cBuf, 11, 1) ) * 65536 + Asc( Substr(cBuf, 12, 1) ) * 256 + Asc( Substr(cBuf, 13, 1) )
    ::nCntBlocks := Asc( Substr(cBuf, 14, 1) )
    ::nPassLen := Asc( Substr(cBuf, 15, 1) )
    ::nFileLen := FSeek(::handle, 0, FS_END)
@@ -122,7 +122,7 @@ METHOD HBinC:Open(cName, lWr)
       arr := Array(5)
       arr[OBJ_NAME] := Substr(cBuf, nAddr + 2, nLen)
       arr[OBJ_TYPE] := Substr(cBuf, nAddr + nLen + 2, 4)
-      arr[OBJ_VAL]  := Asc( Substr(cBuf, nAddr + nLen + 6, 1) ) * 16777216 + ;
+      arr[OBJ_VAL] := Asc( Substr(cBuf, nAddr + nLen + 6, 1) ) * 16777216 + ;
             Asc( Substr(cBuf, nAddr + nLen + 7, 1) ) * 65536 + Asc( Substr(cBuf, nAddr + nLen + 8, 1) ) * 256 + Asc( Substr(cBuf, nAddr + nLen + 9, 1) )
       arr[OBJ_SIZE] := Asc( Substr(cBuf, nAddr + nLen + 10, 1) ) * 16777216 + ;
             Asc( Substr(cBuf, nAddr + nLen + 11, 1) ) * 65536 + Asc( Substr(cBuf, nAddr + nLen + 12, 1) ) * 256 + Asc( Substr(cBuf, nAddr + nLen + 13, 1) )

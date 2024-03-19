@@ -30,15 +30,15 @@ METHOD HLine:New(oWndParent, nId, lVert, nX, nY, nLength, bSize)
    ::title := ""
    ::lVert := iif(lVert == NIL, .F., lVert)
    IF ::lVert
-      ::nWidth  := 10
+      ::nWidth := 10
       ::nHeight := iif(nLength == NIL, 20, nLength)
    ELSE
-      ::nWidth  := iif(nLength == NIL, 20, nLength)
+      ::nWidth := iif(nLength == NIL, 20, nLength)
       ::nHeight := 10
    ENDIF
 
    ::oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
-   ::oPenGray  := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
+   ::oPenGray := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
 
    ::Activate()
 

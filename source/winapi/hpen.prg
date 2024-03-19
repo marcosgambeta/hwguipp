@@ -43,9 +43,9 @@ METHOD HPen:Add(nStyle, nWidth, nColor)
    NEXT
 
    ::handle := hwg_Createpen(nStyle, nWidth, nColor)
-   ::style  := nStyle
-   ::width  := nWidth
-   ::color  := nColor
+   ::style := nStyle
+   ::width := nWidth
+   ::color := nColor
    AAdd(::aPens, Self)
 
    RETURN Self

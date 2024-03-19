@@ -90,16 +90,16 @@ ENDCLASS
 METHOD HListBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther)
 
    // removed: + LBS_DISABLENOSCROLL + LBS_NOTIFY  + LBS_NOINTEGRALHEIGHT
-   nStyle   := hb_bitor( IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP + WS_VSCROLL + WS_BORDER )
+   nStyle := hb_bitor( IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP + WS_VSCROLL + WS_BORDER )
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tColor, bcolor)
 
-   ::value   := IIf(vari == NIL .OR. ValType( vari ) != "N", 0, vari)
+   ::value := IIf(vari == NIL .OR. ValType( vari ) != "N", 0, vari)
    ::bSetGet := bSetGet
 
    IF aItems == NIL
       ::aItems := {}
    ELSE
-      ::aItems  := aItems
+      ::aItems := aItems
    ENDIF
 
 
@@ -166,7 +166,7 @@ METHOD HListBox:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, b
 /*
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip)
 
-   ::value   := IIf(vari == NIL .OR. ValType( vari ) != "N", 1, vari)
+   ::value := IIf(vari == NIL .OR. ValType( vari ) != "N", 1, vari)
    ::bSetGet := bSetGet
    ::bKeydown := bKeydown
     ::bOther := bOther
@@ -174,7 +174,7 @@ METHOD HListBox:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, b
    IF aItems == NIL
       ::aItems := {}
    ELSE
-      ::aItems  := aItems
+      ::aItems := aItems
    ENDIF
 
    IF bSetGet != NIL

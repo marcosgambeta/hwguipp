@@ -29,32 +29,32 @@ METHOD HRadioButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCapti
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp)
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
-   ::id      := iif(nId == NIL, ::NewId(), nId)
-   ::title   := cCaption
-   ::oGroup  := HRadioGroup():oGroupCurrent
+   ::id := iif(nId == NIL, ::NewId(), nId)
+   ::title := cCaption
+   ::oGroup := HRadioGroup():oGroupCurrent
    IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
-   ::style   := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
+   ::style := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
       iif(::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
-   ::oFont   := oFont
-   ::nX      := nX
-   ::nY      := nY
-   ::nWidth  := nWidth
+   ::oFont := oFont
+   ::nX := nX
+   ::nY := nY
+   ::nWidth := nWidth
    ::nHeight := nHeight
-   ::bInit   := bInit
+   ::bInit := bInit
    IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
-      ::bSize  := bSize
+      ::bSize := bSize
    ENDIF
-   ::bPaint  := bPaint
+   ::bPaint := bPaint
    ::tooltip := ctooltip
-   ::tcolor  := tcolor
+   ::tcolor := tcolor
    IF tColor != NIL .AND. bColor == NIL
       bColor := hwg_Getsyscolor(COLOR_3DFACE)
    ENDIF
-   ::bcolor  := bcolor
+   ::bcolor := bcolor
    IF bColor != NIL
       ::brush := HBrush():Add(bcolor)
    ENDIF
@@ -85,23 +85,23 @@ METHOD HRadioButton:Activate()
 METHOD HRadioButton:Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor)
 
    ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
-   ::id      := nId
-   ::oGroup  := HRadioGroup():oGroupCurrent
-   ::style   := ::nX := ::nY := ::nWidth := ::nHeight := 0
-   ::oFont   := oFont
-   ::bInit   := bInit
+   ::id := nId
+   ::oGroup := HRadioGroup():oGroupCurrent
+   ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
+   ::oFont := oFont
+   ::bInit := bInit
    IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
-      ::bSize  := bSize
+      ::bSize := bSize
    ENDIF
-   ::bPaint  := bPaint
+   ::bPaint := bPaint
    ::tooltip := ctooltip
-   ::tcolor  := tcolor
+   ::tcolor := tcolor
    IF tColor != NIL .AND. bColor == NIL
       bColor := hwg_Getsyscolor(COLOR_3DFACE)
    ENDIF
-   ::bcolor  := bcolor
+   ::bcolor := bcolor
    IF bColor != NIL
       ::brush := HBrush():Add(bcolor)
    ENDIF

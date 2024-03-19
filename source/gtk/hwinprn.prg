@@ -137,7 +137,7 @@ METHOD HWinPrn:New( cPrinter, cpFrom, cpTo, nFormType , nCharset )
       RETURN NIL
    ENDIF
    ::cpFrom := cpFrom
-   ::cpTo   := cpTo
+   ::cpTo := cpTo
 #ifdef __GTK__
    IF !Empty(cpTo)
       ::oPrinter:cdpIn := cpTo
@@ -242,7 +242,7 @@ METHOD HWinPrn:SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineM
          oFont:Release()
       ENDIF
 
-      nStdLineW  := Iif(::nFormType == 8, Iif(::oPrinter:nOrient == 2, 160, 113), Iif(::oPrinter:nOrient == 2, 113, 80))
+      nStdLineW := Iif(::nFormType == 8, Iif(::oPrinter:nOrient == 2, 160, 113), Iif(::oPrinter:nOrient == 2, 113, 80))
       nStdHeight := Iif(!Empty(::nLineMax), ::nStdHeight / (::nLineMax / nStdLineW), ::nStdHeight)
 
       IF ::lElite
@@ -393,7 +393,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
       IF hb_ValToStr(hBitmap) == "0x00000000"
         RETURN NIL
       ENDIF
-      aBmpSize  := hwg_Getbitmapsize( hBitmap )
+      aBmpSize := hwg_Getbitmapsize( hBitmap )
       cImageName := IIF(EMPTY (cBitmapName), xBitmap, cBitmapName)
       // FERASE(cTmp)
      ELSE
@@ -405,7 +405,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
       ENDIF  
       cImageName := IIF(EMPTY (cBitmapName), xBitmap, cBitmapName)
       //  aBmpSize[1] = width(x) aBmpSize[2] = height(y)
-      aBmpSize  := hwg_Getbitmapsize( hBitmap )
+      aBmpSize := hwg_Getbitmapsize( hBitmap )
    ENDIF  
   
 /* Page size overflow  ? ==> next page */ 

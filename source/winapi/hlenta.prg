@@ -53,7 +53,7 @@ METHOD HLenta:New(oWndParent, nId, nX, nY, nWidth, nHeight, oFont, bSize, bPaint
    bColor := Iif(bColor == NIL, CLR_WHITE, bColor)
    ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont, NIL, bSize, bPaint, NIL, color, bcolor)
 
-   ::title  := ""
+   ::title := ""
    ::lVertical := (::nHeight > ::nWidth)
    ::bClick := bClick
    ::aItems := aItems

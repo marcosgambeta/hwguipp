@@ -94,11 +94,11 @@ METHOD HBitmap:AddResource(name, nFlags, lOEM, nWidth, nHeight)
    IF Empty(::handle)
       RETURN NIL
    ENDIF
-   ::name    := name
-   aBmpSize  := hwg_Getbitmapsize(::handle)
-   ::nWidth  := aBmpSize[1]
+   ::name := name
+   aBmpSize := hwg_Getbitmapsize(::handle)
+   ::nWidth := aBmpSize[1]
    ::nHeight := aBmpSize[2]
-   ::nFlags  :=  nFlags
+   ::nFlags :=  nFlags
    AAdd(::aBitmaps, Self)
 
 RETURN Self
@@ -120,9 +120,9 @@ METHOD HBitmap:AddStandard(nId)
    IF Empty(::handle)
       RETURN NIL
    ENDIF
-   ::name    := name
-   aBmpSize  := hwg_Getbitmapsize(::handle)
-   ::nWidth  := aBmpSize[1]
+   ::name := name
+   aBmpSize := hwg_Getbitmapsize(::handle)
+   ::nWidth := aBmpSize[1]
    ::nHeight := aBmpSize[2]
    AAdd(::aBitmaps, Self)
 
@@ -152,7 +152,7 @@ METHOD HBitmap:AddFile(name, hDC, lTransparent, nWidth, nHeight)
    name := AddPath(name, ::cPath)
    name := iif(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
-      cCurDir  := DiskName() + ":\" + CurDir()
+      cCurDir := DiskName() + ":\" + CurDir()
       name := hwg_Selectfile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath(name), FilePath(name), "Locate " + name) // "*.jpg;*.gif;*.bmp;*.ico"
       DirChange(cCurDir)
    ENDIF
@@ -174,8 +174,8 @@ METHOD HBitmap:AddFile(name, hDC, lTransparent, nWidth, nHeight)
       RETURN NIL
    ENDIF
    ::name := cname
-   aBmpSize  := hwg_Getbitmapsize(::handle)
-   ::nWidth  := aBmpSize[1]
+   aBmpSize := hwg_Getbitmapsize(::handle)
+   ::nWidth := aBmpSize[1]
    ::nHeight := aBmpSize[2]
    AAdd(::aBitmaps, Self)
 
@@ -203,8 +203,8 @@ METHOD HBitmap:AddString(name, cVal, nWidth, nHeight)
    ::handle := hwg_Openimage(cVal, .T.)
    IF !Empty(::handle)
       ::name := name
-      aBmpSize  := hwg_Getbitmapsize(::handle)
-      ::nWidth  := aBmpSize[1]
+      aBmpSize := hwg_Getbitmapsize(::handle)
+      ::nWidth := aBmpSize[1]
       ::nHeight := aBmpSize[2]
       AAdd(::aBitmaps, Self)
    ELSE
@@ -226,8 +226,8 @@ METHOD HBitmap:AddWindow(oWnd, x1, y1, width, height)
 
    ::handle := hwg_Window2bitmap(oWnd:handle, x1, y1, width, height)
    ::name := LTrim(hb_valToStr(oWnd:handle))
-   aBmpSize  := hwg_Getbitmapsize(::handle)
-   ::nWidth  := aBmpSize[1]
+   aBmpSize := hwg_Getbitmapsize(::handle)
+   ::nWidth := aBmpSize[1]
    ::nHeight := aBmpSize[2]
    AAdd(::aBitmaps, Self)
 

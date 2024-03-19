@@ -59,10 +59,10 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
    DEFAULT lColor TO hwg_ColorRgb2N( 0, 0, 255 )
    DEFAULT hColor TO hwg_ColorRgb2N( 255, 0, 0 )
    ::m_csUrl := cLink
-   ::m_sHoverColor   := hColor
-   ::m_sLinkColor    := lColor
+   ::m_sHoverColor := hColor
+   ::m_sLinkColor := lColor
    ::m_sVisitedColor := vColor
-   ::m_hHyperCursor  := hwg_Loadcursor( GDK_HAND2 )
+   ::m_hHyperCursor := hwg_Loadcursor( GDK_HAND2 )
 
    ::state := LBL_INIT
    ::title := iif(cCaption == NIL, "", cCaption)

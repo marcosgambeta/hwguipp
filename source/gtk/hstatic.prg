@@ -30,7 +30,7 @@ METHOD HStatic:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, 
    ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
-   ::title   := cCaption
+   ::title := cCaption
    IF lTransp != NIL .AND. lTransp
       ::extStyle += WS_EX_TRANSPARENT
    ENDIF

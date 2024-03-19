@@ -78,17 +78,17 @@ METHOD HGrid:New(oWnd, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize
    ::bGfocus := bGfocus
    ::bLfocus := bLfocus
 
-   ::color   := color
+   ::color := color
    ::bkcolor := bkcolor
 
    ::lNoScroll := lNoScroll
    ::lNoBorder := lNoBord
-   ::lNoLines  := lNoLines
+   ::lNoLines := lNoLines
    ::lNoHeader := lNoHeader
 
-   ::bEnter    := bEnter
-   ::bKeyDown  := bKeyDown
-   ::bPosChg   := bPosChg
+   ::bEnter := bEnter
+   ::bKeyDown := bKeyDown
+   ::bPosChg := bPosChg
    ::bDispInfo := bDispInfo
 
    HWG_InitCommonControlsEx()

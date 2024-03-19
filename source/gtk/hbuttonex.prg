@@ -33,7 +33,7 @@ METHOD HButtonEx:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption,
    HB_SYMBOL_UNUSED(iStyle)
 
    ::hBitmap := hBitmap
-   ::hIcon   := hIcon
+   ::hIcon := hIcon
 
    ::super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor)
 
