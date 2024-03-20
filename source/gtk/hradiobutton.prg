@@ -107,10 +107,10 @@ METHOD HRadioButton:Value( lValue )
 STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:oGroup:nValue := Ascan( oCtrl:oGroup:aButtons, { |o|o:id == oCtrl:id } )
-   IF oCtrl:oGroup:bSetGet != NIL
+   IF hb_IsBlock(oCtrl:oGroup:bSetGet)
       Eval( oCtrl:oGroup:bSetGet, oCtrl:oGroup:nValue )
    ENDIF
-   IF oCtrl:bClick != NIL
+   IF hb_IsBlock(oCtrl:bClick)
       Eval( oCtrl:bClick, oCtrl, oCtrl:oGroup:nValue )
    ENDIF
 

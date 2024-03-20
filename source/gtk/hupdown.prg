@@ -96,7 +96,7 @@ METHOD HUpDown:onEvent( msg, wParam, lParam )
    //hwg_WriteLog( "UpDown: "+Str(msg,10)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
    IF msg == WM_SETFOCUS
       IF ::bSetGet == NIL
-         IF ::bGetFocus != NIL
+         IF hb_IsBlock(::bGetFocus)
             Eval(::bGetFocus, ::nValue := hwg_GetUpDown(::handle), Self)
          ENDIF
       ELSE
@@ -112,7 +112,7 @@ METHOD HUpDown:Refresh()
    // Variables not used
    // LOCAL vari
 
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       ::nValue := Eval(::bSetGet)
       IF Str(::nValue) != ::title
          ::title := Str(::nValue)
@@ -130,7 +130,7 @@ METHOD HUpDown:Value( nValue )
       IF HB_ISNUMERIC(nValue)
          hwg_SetUpdown(::handle, nValue)
          ::nValue := nValue
-         IF ::bSetGet != NIL
+         IF hb_IsBlock(::bSetGet)
             Eval(::bSetGet, nValue, Self)
          ENDIF
       ENDIF
@@ -143,7 +143,7 @@ METHOD HUpDown:Value( nValue )
 STATIC FUNCTION __When( oCtrl )
 
    oCtrl:Refresh()
-   IF oCtrl:bGetFocus != NIL
+   IF hb_IsBlock(oCtrl:bGetFocus)
       RETURN Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet ), oCtrl )
    ENDIF
 
@@ -152,10 +152,10 @@ STATIC FUNCTION __When( oCtrl )
 STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:nValue := hwg_GetUpDown( oCtrl:handle )
-   IF oCtrl:bSetGet != NIL
+   IF hb_IsBlock(oCtrl:bSetGet)
       Eval( oCtrl:bSetGet, oCtrl:nValue )
    ENDIF
-   IF oCtrl:bLostFocus != NIL .AND. !Eval( oCtrl:bLostFocus, oCtrl:nValue, oCtrl ) .OR. ;
+   IF hb_IsBlock(oCtrl:bLostFocus) .AND. !Eval( oCtrl:bLostFocus, oCtrl:nValue, oCtrl ) .OR. ;
          oCtrl:nValue > oCtrl:nUpper .OR. oCtrl:nValue < oCtrl:nLower
       hwg_Setfocus( oCtrl:handle )
    ENDIF

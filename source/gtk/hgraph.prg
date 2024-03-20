@@ -297,7 +297,7 @@ METHOD HGraph:Paint()
       NEXT
    ENDIF
 
-   IF !Empty(::bPaintItems)
+   IF hb_IsBlock(::bPaintItems)
       Eval(::bPaintItems, Self, hDC)
    ENDIF
 

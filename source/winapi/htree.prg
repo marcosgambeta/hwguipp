@@ -378,7 +378,7 @@ METHOD HTree:Notify(lParam)
    CASE TVN_ITEMEXPANDINGW
       oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_PARAM)
       IF HB_ISOBJECT(oItem)
-         IF ::bExpand != NIL
+         IF hb_IsBlock(::bExpand) // TODO: check '::bExpand' and execute 'oItem:oTree:bExpand' ?
             RETURN IIf(Eval(oItem:oTree:bExpand, oItem, hwg_Checkbit(hwg_Treegetnotify(lParam, TREE_GETNOTIFY_ACTION), TVE_EXPAND)), 0, 1)
          ENDIF
       ENDIF

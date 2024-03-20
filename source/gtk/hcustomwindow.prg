@@ -14,7 +14,7 @@
 STATIC aCustomEvents := { ;
    { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
    { ;
-   { |o, w|iif(o:bPaint != NIL, Eval( o:bPaint,o,w ), - 1) }, ;
+   { |o, w|iif(hb_IsBlock(o:bPaint), Eval( o:bPaint,o,w ), - 1) }, ;
    { |o, w|onCommand( o, w ) },                ;     && |o, w, l| ==> |o, w|
    { |o, w, l|onSize( o, w, l ) },                ;
    { |o|onDestroy( o ) }                          ;
@@ -182,7 +182,7 @@ METHOD HCustomWindow:onEvent( msg, wParam, lParam )
    // hwg_WriteLog( "== "+::Classname()+Str(msg)+Iif(wParam!=NIL,Str(wParam),"NIL")+Iif(lParam!=NIL,Str(lParam),"NIL") )
    IF ( i := Ascan( aCustomEvents[1],msg ) ) != 0
       RETURN Eval( aCustomEvents[2,i], Self, wParam, lParam )
-   ELSEIF ::bOther != NIL
+   ELSEIF hb_IsBlock(::bOther)
       RETURN Eval(::bOther, Self, msg, wParam, lParam)
    ENDIF
 
@@ -260,7 +260,7 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
    LOCAL y
 
    FOR EACH oItem in aControls
-      IF oItem:bSize != NIL
+      IF hb_IsBlock(oItem:bSize)
          IF wParam != 0
             x := wParam
             y := lParam

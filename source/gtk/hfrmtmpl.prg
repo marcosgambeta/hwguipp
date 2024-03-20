@@ -366,14 +366,14 @@ METHOD HFormTmpl:Show( nMode, p1, p2, p3 )
    FOR i := 1 TO Len(::aVars)
       __mvPrivate(::aVars[i])
    NEXT
-   
+
    IF ::lNoModal
       ::pVars := hb_hash()
       FOR i := 1 TO Len(::aVars)
          ::pVars[::aVars[i]] := NIL
       NEXT
    ENDIF
-   
+
    oBmp := Iif(!Empty(cBitmap), HBitmap():addfile( cBitmap, NIL ), NIL)
 
    IF nMode == NIL .OR. nMode == 2
@@ -481,7 +481,7 @@ METHOD HFormTmpl:Show( nMode, p1, p2, p3 )
    ::oDlg:Activate( Iif(nMode == NIL .OR. nMode == 2 , ::lNoModal, NIL) )
 
    IF !::lNoModal
-      IF ::bFormExit != NIL
+      IF hb_IsBlock(::bFormExit)
          xRes := Eval(::bFormExit)
       ENDIF
       ::Close()
@@ -569,13 +569,13 @@ FUNCTION hwg_hfrm_Exit( oDlg, nId )
 
    LOCAL oForm := HFormTmpl():F( nId )
 
-   IF !Empty(oForm:bDlgExit)
+   IF hb_IsBlock(oForm:bDlgExit)
       IF !Eval( oForm:bDlgExit, oDlg )
          RETURN .F.
       ENDIF
    ENDIF
    IF oForm:lNoModal
-      IF !Empty(oForm:bFormExit)
+      IF hb_IsBlock(oForm:bFormExit)
          Eval( oForm:bFormExit )
       ENDIF
       oForm:Close()

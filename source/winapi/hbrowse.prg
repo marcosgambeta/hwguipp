@@ -951,11 +951,11 @@ METHOD HBrowse:DrawHeader(hDC, nColumn, x1, y1, x2, y2)
    LOCAL block
    LOCAL i
 
-   IF !Empty(block := hwg_getPaintCB(aCB, PAINT_HEAD_ALL))
+   IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_HEAD_ALL))
       RETURN Eval(block, oColumn, hDC, x1, y1, x2, y2, nColumn)
    ENDIF
 
-   IF !Empty(block := hwg_getPaintCB(aCB, PAINT_HEAD_BACK))
+   IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_HEAD_BACK))
       Eval(block, oColumn, hDC, x1, y1, x2, y2, nColumn)
    ELSEIF oColumn:oStyleHead != NIL
       oColumn:oStyleHead:Draw(hDC, x1, y1, x2, y2)
@@ -1108,10 +1108,10 @@ METHOD HBrowse:FooterOut(hDC)
       ENDIF
       x2 := x + xSize - 1
       aCB := oColumn:aPaintCB
-      IF !Empty(block := hwg_getPaintCB(aCB, PAINT_FOOT_ALL))
+      IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_FOOT_ALL))
          RETURN Eval(block, oColumn, hDC, x, y1, x2, y2, fif)
       ELSE
-         IF !Empty(block := hwg_getPaintCB(aCB, PAINT_FOOT_BACK))
+         IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_FOOT_BACK))
             Eval(block, oColumn, hDC, x, y1, x2, y2, fif)
          ELSEIF oColumn:oStyleFoot != NIL
             oColumn:oStyleFoot:Draw(hDC, x, y1, x2, y2)
@@ -1211,7 +1211,7 @@ METHOD HBrowse:LineOut(nstroka, vybfld, hDC, lSelected, lClear)
 
       WHILE x < ::x2 - 2
          oColumn := ::aColumns[nCol]
-         IF oColumn:bColorBlock != NIL
+         IF hb_IsBlock(oColumn:bColorBlock)
             aCores := Eval(oColumn:bColorBlock, Self, nstroka, nCol)
             IF lSelected
                oColumn:tColor := iif(vybfld == i .AND. Len(aCores) >= 5 .AND. aCores[5] != NIL, aCores[5], aCores[3])
@@ -1235,10 +1235,10 @@ METHOD HBrowse:LineOut(nstroka, vybfld, hDC, lSelected, lClear)
          x2 := x + xSize - iif(::lSep3d, 2, 1)
          y1 := ::y1 + (::height + 1) * (nstroka - 1) + 1
          y2 := ::y1 + (::height + 1) * nstroka
-         IF !Empty(block := hwg_getPaintCB(aCB, PAINT_LINE_ALL))
+         IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_LINE_ALL))
             Eval(block, oColumn, hDC, x, y1, x2, y2, nCol)
          ELSE
-            IF !Empty(block := hwg_getPaintCB(aCB, PAINT_LINE_BACK))
+            IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_LINE_BACK))
                Eval(block, oColumn, hDC, x, y1, x2, y2, nCol)
             ELSEIF oColumn:oStyleCell != NIL
                oColumn:oStyleCell:Draw(hDC, x, y1, x2, y2)
@@ -2210,7 +2210,7 @@ METHOD HBrowse:Edit(wParam, lParam)
             ENDIF
 
             /* Execute block after changes are made */
-            IF ::bUpdate != NIL
+            IF hb_IsBlock(::bUpdate)
                Eval(::bUpdate, Self, fipos)
             END
 

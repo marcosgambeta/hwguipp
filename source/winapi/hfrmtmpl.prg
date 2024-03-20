@@ -570,13 +570,13 @@ FUNCTION hwg_hfrm_Exit(oDlg, nId)
 
    LOCAL oForm := HFormTmpl():F(nId)
 
-   IF !Empty(oForm:bDlgExit)
+   IF hb_IsBlock(oForm:bDlgExit)
       IF !Eval(oForm:bDlgExit, oDlg)
          RETURN .F.
       ENDIF
    ENDIF
    IF oForm:lNoModal
-      IF !Empty(oForm:bFormExit)
+      IF hb_IsBlock(oForm:bFormExit)
          Eval(oForm:bFormExit)
       ENDIF
       oForm:Close()

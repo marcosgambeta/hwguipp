@@ -103,7 +103,7 @@ METHOD HCheckButton:Refresh()
    
    LOCAL var
 
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       var := Eval(::bSetGet, NIL, NIL)
       ::lValue := iif(var == NIL, .F., var)
    ENDIF
@@ -119,7 +119,7 @@ METHOD HCheckButton:Value( lValue )
          lValue := .F.
       ENDIF
       hwg_CheckButton(::handle, lValue)
-      IF ::bSetGet != NIL
+      IF hb_IsBlock(::bSetGet)
          Eval(::bSetGet, lValue, Self)
       ENDIF
       RETURN (::lValue := lValue)
@@ -134,10 +134,10 @@ STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:lValue := hwg_IsButtonChecked( oCtrl:handle )
 
-   IF oCtrl:bSetGet != NIL
+   IF hb_IsBlock(oCtrl:bSetGet)
       Eval( oCtrl:bSetGet, oCtrl:lValue, oCtrl )
    ENDIF
-   IF oCtrl:bLostFocus != NIL .AND. ValType(res := Eval(oCtrl:bLostFocus, oCtrl, oCtrl:lValue)) == "L" .AND. !res
+   IF hb_IsBlock(oCtrl:bLostFocus) .AND. ValType(res := Eval(oCtrl:bLostFocus, oCtrl, oCtrl:lValue)) == "L" .AND. !res
       hwg_Setfocus( oCtrl:handle )
    ENDIF
 
@@ -149,7 +149,7 @@ STATIC FUNCTION __When( oCtrl )
 
    oCtrl:Refresh()
 
-   IF oCtrl:bGetFocus != NIL
+   IF hb_IsBlock(oCtrl:bGetFocus)
       res := Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet,, oCtrl ), oCtrl )
       IF HB_ISLOGICAL(res) .AND. !res
          hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )

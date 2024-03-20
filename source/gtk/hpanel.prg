@@ -71,11 +71,11 @@ METHOD HPanel:onEvent( msg, wParam, lParam )
    ELSEIF msg == WM_PAINT
       ::Paint()
    ELSEIF msg == WM_HSCROLL
-      IF ::bHScroll != NIL
+      IF hb_IsBlock(::bHScroll)
          Eval(::bHScroll, Self)
       ENDIF
    ELSEIF msg == WM_VSCROLL
-      IF ::bVScroll != NIL
+      IF hb_IsBlock(::bVScroll)
          Eval(::bVScroll, Self)
       ENDIF
    ELSEIF msg == WM_LBUTTONDOWN
@@ -133,12 +133,12 @@ METHOD HPanel:Paint()
    LOCAL aCoors
    LOCAL block
 
-   IF ::bPaint != NIL
+   IF hb_IsBlock(::bPaint)
       RETURN Eval(::bPaint, Self)
    ENDIF
    hDC := hwg_Getdc(::handle)
    aCoors := hwg_Getclientrect(::handle)
-   IF !Empty(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
+   IF hb_IsBlock(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
       Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
    ELSEIF ::oStyle == NIL
       hwg_Drawbutton(hDC, 0, 0, ::nWidth - 1, ::nHeight - 1, 5)
@@ -311,12 +311,12 @@ METHOD HPanelStS:Paint()
    LOCAL block
    LOCAL aCoors
 
-   IF ::bPaint != NIL
+   IF hb_IsBlock(::bPaint)
       RETURN Eval(::bPaint, Self)
    ENDIF
    pps := hwg_Definepaintstru()
    hDC := hwg_Beginpaint(::handle, pps)
-   IF !Empty(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
+   IF hb_IsBlock(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
       aCoors := hwg_Getclientrect(::handle)
       Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
    ELSEIF Empty(::oStyle)
@@ -475,14 +475,14 @@ METHOD HPanelHea:Paint()
    LOCAL x1
    LOCAL y1
 
-   IF ::bPaint != NIL
+   IF hb_IsBlock(::bPaint)
       RETURN Eval(::bPaint, Self)
    ENDIF
 
    pps := hwg_Definepaintstru()
    hDC := hwg_Beginpaint(::handle, pps)
 
-   IF !Empty(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
+   IF hb_IsBlock(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
       aCoors := hwg_Getclientrect(::handle)
       Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
    ELSEIF Empty(::oStyle)

@@ -133,7 +133,7 @@ METHOD HOwnButton:onEvent( msg, wParam, lParam )
       IF ::state == OBTN_INIT
          ::state := OBTN_NORMAL
       ENDIF
-      IF ::bPaint != NIL
+      IF hb_IsBlock(::bPaint)
          Eval(::bPaint, Self)
       ELSE
          ::Paint()
@@ -143,7 +143,7 @@ METHOD HOwnButton:onEvent( msg, wParam, lParam )
       h := hwg_Setfocus(::handle)
    ELSEIF msg == WM_LBUTTONDBLCLK
       /* Asmith 2017-06-06 workaround for touch terminals */
-      IF ::bClick != NIL .AND. Empty(::oTimer)
+      IF hb_IsBlock(::bClick) .AND. Empty(::oTimer)
          Eval(::bClick, Self, 0)
       ENDIF
 
@@ -326,7 +326,7 @@ METHOD HOwnButton:MUp()
          ::oTimer:End()
          ::oTimer := NIL
       ELSE
-         IF ::bClick != NIL
+         IF hb_IsBlock(::bClick)
             Eval(::bClick, Self)
          ENDIF
       ENDIF
@@ -392,7 +392,7 @@ METHOD HOwnButton:Disable()
 
 STATIC FUNCTION OwnBtnTimerProc( oBtn, nType )
 
-   IF oBtn:bClick != NIL
+   IF hb_IsBlock(oBtn:bClick)
       Eval( oBtn:bClick, oBtn, nType )
    ENDIF
 

@@ -59,7 +59,7 @@ METHOD HButton:onEvent( msg, wParam, lParam )
    HB_SYMBOL_UNUSED(lParam)
 
    IF msg == WM_LBUTTONUP
-      IF ::bClick != NIL
+      IF hb_IsBlock(::bClick)
          Eval(::bClick, Self)
       ENDIF
    ENDIF

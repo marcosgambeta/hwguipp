@@ -105,7 +105,7 @@ METHOD HPanelStS:Paint()
    pps := hwg_Definepaintstru()
    hDC := hwg_Beginpaint(::handle, pps)
 
-   IF !Empty(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
+   IF hb_IsBlock(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
       aCoors := hwg_Getclientrect(::handle)
       Eval(block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4])
    ELSEIF Empty(::oStyle)

@@ -92,7 +92,7 @@ FUNCTION hwg_TimerProc( idTimer )
    LOCAL b
    LOCAL oParent
 
-   IF i != 0 .AND. ValType( HTimer():aTimers[i]:bAction ) == "B"
+   IF i != 0 .AND. hb_IsBlock(HTimer():aTimers[i]:bAction)
       b := HTimer():aTimers[i]:bAction
       oParent := HTimer():aTimers[i]:oParent
       IF HTimer():aTimers[i]:lOnce

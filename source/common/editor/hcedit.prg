@@ -434,7 +434,7 @@ METHOD HCEdit:onEvent(msg, wParam, lParam)
 
    //hwg_writelog(STR(msg))
    ::PCopy(::aPointC, aPointC)
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
 //  Warning W0032  Variable 'N' is assigned but not used in function ...
 //      IF (n := Eval(::bOther, Self, msg, wParam, lParam)) != -1
 //  Devide into 2 instructions:
@@ -504,7 +504,7 @@ METHOD HCEdit:onEvent(msg, wParam, lParam)
          x := hwg_PtrToUlong(wParam)
 #endif
 *
-*        IF ::bKeyDown != NIL .AND. (n := Eval(::bKeyDown, Self, x, n, 1)) != -1
+*        IF hb_IsBlock(::bKeyDown) .AND. (n := Eval(::bKeyDown, Self, x, n, 1)) != -1
          IF ::bKeyDown != NIL  // .AND.
           n := Eval(::bKeyDown, Self, x, n, 1)
           IF n != -1
@@ -544,7 +544,7 @@ METHOD HCEdit:onEvent(msg, wParam, lParam)
       IF ::nCaret <= 0
          ::nCaret ++
       ENDIF
-      IF msg == WM_RBUTTONDOWN .AND. !Empty(::bRClick)
+      IF msg == WM_RBUTTONDOWN .AND. hb_IsBlock(::bRClick)
          Eval(::bRClick, Self)
       ENDIF
       EXIT
@@ -600,7 +600,7 @@ METHOD HCEdit:onEvent(msg, wParam, lParam)
       EXIT
 
    CASE WM_SETFOCUS
-      IF ::bGetFocus != NIL
+      IF hb_IsBlock(::bGetFocus)
          Eval(::bGetFocus, Self)
       ENDIF
       hced_InitCaret(::hEdit)
@@ -610,7 +610,7 @@ METHOD HCEdit:onEvent(msg, wParam, lParam)
       EXIT
 
    CASE WM_KILLFOCUS
-      IF ::bLostFocus != NIL
+      IF hb_IsBlock(::bLostFocus)
          Eval(::bLostFocus, Self)
       ENDIF
       hced_KillCaret(::hEdit)
@@ -619,7 +619,7 @@ METHOD HCEdit:onEvent(msg, wParam, lParam)
       EXIT
 
    CASE WM_LBUTTONDBLCLK
-      IF ::bClickDoub != NIL
+      IF hb_IsBlock(::bClickDoub)
          Eval(::bClickDoub, Self)
       ENDIF
       EXIT
@@ -663,12 +663,12 @@ METHOD HCEdit:onEvent(msg, wParam, lParam)
          ENDIF
          ::oTrack:Value := n
       ENDIF
-      IF ::bChangePos != NIL
+      IF hb_IsBlock(::bChangePos)
          Eval(::bChangePos, Self)
       ENDIF
    ENDIF
 
-   IF ::bAfter != NIL
+   IF hb_IsBlock(::bAfter)
       n := Eval(::bAfter, Self, msg, wParam, lParam)
       IF n != -1
          RETURN n
@@ -761,7 +761,7 @@ METHOD HCEdit:Paint(lReal)
    ELSE
       ::n4Number := ::n4Separ := 0
    ENDIF
-   IF ::bPaint != NIL
+   IF hb_IsBlock(::bPaint)
       Eval(::bPaint, Self, hDC)
    ENDIF
 
@@ -882,7 +882,7 @@ METHOD HCEdit:PaintLine(hDC, yPos, nLine, lUse_aWrap, nRight)
       IF lReal .AND. x1 > 0
          //hced_FillRect(::hEdit, ::nBoundL, aLine[AL_Y1], x1, yPos)
       ENDIF
-      IF lReal .AND. ::bPaint != NIL
+      IF lReal .AND. hb_IsBlock(::bPaint)
          Eval(::bPaint, Self, hDC, nTextLine, aLine[AL_Y1], yPos)
       ENDIF
 
@@ -1360,7 +1360,7 @@ METHOD HCEdit:onKeyDown(nKeyCode, lParam, nCtrl)
 
 
    ::lSetFocus := .T.
-   IF ::bKeyDown != NIL .AND. (nLine := Eval(::bKeyDown, Self, nKeyCode, nCtrl, 0)) != -1
+   IF hb_IsBlock(::bKeyDown) .AND. (nLine := Eval(::bKeyDown, Self, nKeyCode, nCtrl, 0)) != -1
       RETURN nLine
    ENDIF
    IF ::nLines <= 0

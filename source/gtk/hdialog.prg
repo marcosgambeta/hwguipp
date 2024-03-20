@@ -26,7 +26,7 @@ STATIC FUNCTION onDestroy( oDlg )
    LOCAL i
    LOCAL lRes
 
-   IF oDlg:bDestroy != NIL
+   IF hb_IsBlock(oDlg:bDestroy)
       IF ValType( lRes := Eval( oDlg:bDestroy, oDlg ) ) == "L" .AND. !lRes
          RETURN .F.
       ENDIF
@@ -177,7 +177,7 @@ METHOD HDialog:Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate 
    IF HB_ISBLOCK( bActivate )
       ::bActivate := bActivate
    ENDIF
-   IF ::bActivate != NIL
+   IF hb_IsBlock(::bActivate)
       Eval(::bActivate, Self)
    ENDIF
 
@@ -252,7 +252,7 @@ STATIC FUNCTION InitModalDlg( oDlg )
    IF oDlg:bColor != NIL
       hwg_SetBgColor( oDlg:handle, oDlg:bColor )
    ENDIF
-   IF oDlg:bInit != NIL
+   IF hb_IsBlock(oDlg:bInit)
       Eval( oDlg:bInit, oDlg )
    ENDIF
 
@@ -331,7 +331,7 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
    HB_SYMBOL_UNUSED(w)
    HB_SYMBOL_UNUSED(l)
 
-   IF oDlg:bGetFocus != NIL
+   IF hb_IsBlock(oDlg:bGetFocus)
       Eval( oDlg:bGetFocus, oDlg )
    ENDIF
 

@@ -87,7 +87,7 @@ METHOD HSplitter:onEvent( msg, wParam, lParam )
    ELSEIF msg == WM_LBUTTONUP
       ::DragAll()
       ::lCaptured := .F.
-      IF ::bEndDrag != NIL
+      IF hb_IsBlock(::bEndDrag)
          Eval(::bEndDrag, Self)
       ENDIF
    ELSEIF msg == WM_DESTROY
@@ -110,7 +110,7 @@ METHOD HSplitter:Paint()
    LOCAL hDC
    LOCAL aCoors
 
-   IF ::bPaint != NIL
+   IF hb_IsBlock(::bPaint)
       Eval(::bPaint, Self)
    ELSE
       hDC := hwg_Getdc(::handle)

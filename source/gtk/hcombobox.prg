@@ -63,7 +63,7 @@ METHOD HComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHe
       ::xValue := iif(vari == NIL .OR. ValType( vari ) != "N", 1, vari)
    ENDIF
 
-   IF bSetGet != NIL
+   IF hb_IsBlock(bSetGet)
       ::bSetGet := bSetGet
       Eval(::bSetGet, ::xValue, self)
    ENDIF
@@ -104,7 +104,7 @@ METHOD HComboBox:onEvent( msg, wParam, lParam )
 
    IF msg == EN_SETFOCUS
       IF ::bSetGet == NIL
-         IF ::bGetFocus != NIL
+         IF hb_IsBlock(::bGetFocus)
             i := hwg_ComboGet(::handle)
             Eval(::bGetFocus, iif(HB_ISARRAY(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
          ENDIF
@@ -113,7 +113,7 @@ METHOD HComboBox:onEvent( msg, wParam, lParam )
       ENDIF
    ELSEIF msg == EN_KILLFOCUS
       IF ::bSetGet == NIL
-         IF ::bLostFocus != NIL
+         IF hb_IsBlock(::bLostFocus)
             i := hwg_ComboGet(::handle)
             Eval(::bLostFocus, iif(HB_ISARRAY(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
          ENDIF
@@ -123,7 +123,7 @@ METHOD HComboBox:onEvent( msg, wParam, lParam )
 
    ELSEIF msg == CBN_SELCHANGE
       ::GetValue()
-      IF ::bChangeSel != NIL
+      IF hb_IsBlock(::bChangeSel)
          Eval(::bChangeSel, ::xValue, Self)
       ENDIF
 
@@ -146,7 +146,7 @@ METHOD HComboBox:Init()
             ENDIF
          ENDIF
          ::Value := ::xValue
-         IF ::bSetGet != NIL
+         IF hb_IsBlock(::bSetGet)
             Eval(::bSetGet, ::xValue, Self)
          ENDIF
       ENDIF
@@ -160,7 +160,7 @@ METHOD HComboBox:Refresh( xVal )
 
    IF xVal != NIL
       ::xValue := xVal
-   ELSEIF ::bSetGet != NIL
+   ELSEIF hb_IsBlock(::bSetGet)
       vari := Eval(::bSetGet, NIL, Self)
       IF ::lText
          ::xValue := iif(vari == NIL .OR. ValType( vari ) != "C", "", vari)
@@ -192,11 +192,11 @@ METHOD HComboBox:SetItem( nPos )
 
    hwg_ComboSet(::handle, nPos)
 
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, ::xValue, self)
    ENDIF
 
-   IF ::bChangeSel != NIL
+   IF hb_IsBlock(::bChangeSel)
       Eval(::bChangeSel, ::xValue, Self)
    ENDIF
 
@@ -209,7 +209,7 @@ METHOD HComboBox:GetValue( nItem )
    LOCAL l := nPos > 0 .AND. HB_ISARRAY(::aItems[nPos])
 
    ::xValue := iif(::lText, vari, nPos)
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
 
@@ -238,7 +238,7 @@ METHOD HComboBox:End()
 STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:GetValue()
-   IF oCtrl:bValid != NIL
+   IF hb_IsBlock(oCtrl:bValid)
       IF !Eval( oCtrl:bValid, oCtrl )
          hwg_Setfocus( oCtrl:handle )
          RETURN .F.
@@ -251,7 +251,7 @@ STATIC FUNCTION __When( oCtrl )
    
    LOCAL res
 
-   IF oCtrl:bGetFocus != NIL
+   IF hb_IsBlock(oCtrl:bGetFocus)
       res := Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet,, oCtrl ), oCtrl )
       IF !res
          hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )

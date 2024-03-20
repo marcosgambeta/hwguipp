@@ -94,7 +94,7 @@ STATIC FUNCTION onDestroy( oWnd )
    LOCAL i
    LOCAL lRes
 
-   IF oWnd:bDestroy != NIL
+   IF hb_IsBlock(oWnd:bDestroy)
       IF ValType( lRes := Eval( oWnd:bDestroy, oWnd ) ) == "L" .AND. !lRes
          RETURN .F.
       ENDIF
@@ -302,7 +302,7 @@ METHOD HMainWindow:New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, 
    IF ::bColor != NIL
       hwg_SetBgColor(::handle, ::bColor)
    ENDIF
-   IF ::bInit != NIL
+   IF hb_IsBlock(::bInit)
       Eval(::bInit, Self)
    ENDIF
 
@@ -344,7 +344,7 @@ METHOD HMainWindow:Activate( lShow, lMaximize, lMinimize, lCentered, bActivate )
       IF HB_ISBLOCK( bActivate )
          ::bActivate := bActivate
       ENDIF
-      IF ::bActivate != NIL
+      IF hb_IsBlock(::bActivate)
          Eval(::bActivate, Self)
       ENDIF
       IF !Empty(lMinimize)
@@ -426,7 +426,7 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
    HB_SYMBOL_UNUSED(w)
    HB_SYMBOL_UNUSED(l)
 
-   IF oDlg:bGetFocus != NIL
+   IF hb_IsBlock(oDlg:bGetFocus)
       Eval( oDlg:bGetFocus, oDlg )
    ENDIF
 

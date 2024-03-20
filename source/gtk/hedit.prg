@@ -115,7 +115,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
 
    // hwg_WriteLog( "Edit: "+Str(msg,10)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
    
-   IF ::bAnyEvent != NIL .AND. Eval(::bAnyEvent, Self, msg, wParam, lParam) != 0
+   IF hb_IsBlock(::bAnyEvent) .AND. Eval(::bAnyEvent, Self, msg, wParam, lParam) != 0
       RETURN 0
    ENDIF
 
@@ -129,7 +129,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
       IF lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
          ::aColorOld[1] := ::tcolor
          ::aColorOld[2] := ::bcolor
-         IF ::bColorBlock != NIL
+         IF hb_IsBlock(::bColorBlock)
             Eval(::bColorBlock, Self)
          ELSE
             ::Setcolor(Iif(oParent:tColorinFocus >= 0, oParent:tColorinFocus, tColorinFocus), Iif(oParent:bColorinFocus >= 0, oParent:bColorinFocus, bColorinFocus), .T.)
@@ -141,7 +141,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
       ENDIF
       hwg_edit_set_Overmode(::handle, !Set(_SET_INSERT))
       IF ::bSetGet == NIL
-         IF ::bGetFocus != NIL
+         IF hb_IsBlock(::bGetFocus)
             Eval(::bGetFocus, hwg_Edit_GetText(::handle), Self)
          ENDIF
       ELSE
@@ -153,7 +153,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
          ::Setcolor(::aColorOld[1], ::aColorOld[2], .T.)
       ENDIF
       IF ::bSetGet == NIL
-         IF ::bLostFocus != NIL
+         IF hb_IsBlock(::bLostFocus)
             Eval(::bLostFocus, hwg_Edit_GetText(::handle), Self)
          ENDIF
       ELSE
@@ -304,7 +304,7 @@ METHOD HEdit:Refresh()
    
    LOCAL vari
 
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       vari := Eval(::bSetGet, NIL, self)
 
       IF !Empty(::cPicFunc) .OR. !Empty(::cPicMask)
@@ -317,7 +317,7 @@ METHOD HEdit:Refresh()
    ELSE
       hwg_Edit_SetText(::handle, ::title)
    ENDIF
-   IF ::bColorBlock != NIL .AND. hwg_Isptreq(::handle, hwg_Getfocus())
+   IF hb_IsBlock(::bColorBlock) .AND. hwg_Isptreq(::handle, hwg_Getfocus())
       Eval(::bColorBlock, Self)
    ENDIF
 
@@ -334,7 +334,7 @@ METHOD HEdit:Value( xValue )
          ::title := xValue
       ENDIF
       hwg_Edit_SetText(::handle, ::title)
-      IF ::bSetGet != NIL
+      IF hb_IsBlock(::bSetGet)
          Eval(::bSetGet, xValue, Self)
       ENDIF
       RETURN xValue
@@ -712,7 +712,7 @@ STATIC FUNCTION __When( oCtrl )
 
    oCtrl:Refresh()
    //oCtrl:lFirst := .T.
-   IF oCtrl:bGetFocus != NIL
+   IF hb_IsBlock(oCtrl:bGetFocus)
       res := Eval( oCtrl:bGetFocus, oCtrl:title, oCtrl )
       IF !res
          hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )
@@ -722,7 +722,7 @@ STATIC FUNCTION __When( oCtrl )
    RETURN res
 
 STATIC FUNCTION __valid( oCtrl )
-   
+
    LOCAL vari
    LOCAL oDlg
 
@@ -749,7 +749,7 @@ STATIC FUNCTION __valid( oCtrl )
          IF oDlg != NIL
             oDlg:nLastKey := 27
          ENDIF
-         IF oCtrl:bLostFocus != NIL .AND. !Eval( oCtrl:bLostFocus, vari, oCtrl )
+         IF hb_IsBlock(oCtrl:bLostFocus) .AND. !Eval( oCtrl:bLostFocus, vari, oCtrl )
             hwg_Setfocus( oCtrl:handle )
             hwg_edit_SetPos( oCtrl:handle, 0 )
             IF oDlg != NIL

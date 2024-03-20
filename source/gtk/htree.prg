@@ -148,7 +148,7 @@ METHOD HTree:onEvent( msg, wParam, lParam )
    // Variables not used
    // LOCAL aCoors 
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       Eval(::bOther, Self, msg, wParam, lParam)
    ENDIF
 
@@ -157,12 +157,12 @@ METHOD HTree:onEvent( msg, wParam, lParam )
       retValue := 1
 
    ELSEIF msg == WM_SETFOCUS
-      IF ::bGetFocus != NIL
+      IF hb_IsBlock(::bGetFocus)
          Eval(::bGetFocus, Self)
       ENDIF
 
    ELSEIF msg == WM_KILLFOCUS
-      IF ::bLostFocus != NIL
+      IF hb_IsBlock(::bLostFocus)
          Eval(::bLostFocus, Self)
       ENDIF
 
@@ -231,9 +231,9 @@ METHOD HTree:SELECT( oNode, lNoRedraw )
       ( oParent := oParent:oParent ):lExpanded := .T.
    ENDDO
 
-   IF oNode:bClick != NIL
+   IF hb_IsBlock(oNode:bClick)
       Eval( oNode:bClick, oNode )
-   ELSEIF ::bClick != NIL
+   ELSEIF hb_IsBlock(::bClick)
       Eval(::bClick, oNode)
    ENDIF
 
@@ -440,7 +440,7 @@ METHOD HTree:ButtonDbl( lParam )
       hwg_Releasedc(::handle, hDC)
       IF xm >= x1 .AND. xm <= x1 + ::nIndent + nWidth
          ::Select( oNode, .T. )
-         IF ::bDblClick != NIL
+         IF hb_IsBlock(::bDblClick)
             Eval(::bDblClick, Self, oNode)
          ENDIF
          hwg_Redrawwindow(::area)
@@ -468,7 +468,7 @@ METHOD HTree:ButtonRDown( lParam )
       hwg_Releasedc(::handle, hDC)
       IF xm >= x1 .AND. xm <= x1 + ::nIndent + nWidth
          ::Select( oNode, .T. )
-         IF ::bRClick != NIL
+         IF hb_IsBlock(::bRClick)
             Eval(::bRClick, Self, oNode)
          ENDIF
          hwg_Redrawwindow(::area)
@@ -546,7 +546,7 @@ METHOD HTree:DoVScroll()
    ELSEIF nScrollV - ::nScrollV == - 10
       ::GoUp(2)
    ELSE
-      IF ::bScrollPos != NIL
+      IF hb_IsBlock(::bScrollPos)
          Eval(::bScrollPos, Self, SB_THUMBTRACK, .F., nScrollV)
       ENDIF
    ENDIF

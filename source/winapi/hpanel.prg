@@ -215,7 +215,7 @@ METHOD HPanel:Paint()
    hDC := hwg_Beginpaint(::handle, pps)
    aCoors := hwg_Getclientrect(::handle)
 
-   IF !Empty(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
+   IF hb_IsBlock(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
       Eval(block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4])
    ELSEIF ::oStyle == NIL
       oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))

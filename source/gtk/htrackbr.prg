@@ -99,7 +99,7 @@ METHOD HTrack:onEvent( msg, wParam, lParam )
 
    ELSEIF msg == WM_LBUTTONUP
       ::lCaptured := .F.
-      IF ::bEndDrag != NIL
+      IF hb_IsBlock(::bEndDrag)
          Eval(::bEndDrag, Self)
       ENDIF
       ::Refresh()
@@ -157,7 +157,7 @@ METHOD HTrack:Paint()
       ::oPen2 := HPen():Add( PS_SOLID, 1, ::tColor2 )
    ENDIF
 
-   IF ::bPaint != NIL
+   IF hb_IsBlock(::bPaint)
       Eval(::bPaint, Self, hDC)
    ELSE
 
@@ -232,7 +232,7 @@ METHOD HTrack:Drag( xPos, yPos )
    ENDIF
 
    ::Refresh()
-   IF nCurr != ::nCurr .AND. ::bChange != NIL
+   IF nCurr != ::nCurr .AND. hb_IsBlock(::bChange)
       Eval(::bChange, Self, ::Value)
    ENDIF
 

@@ -96,7 +96,7 @@ METHOD HTab:onEvent( msg, wParam, lParam )
 
    IF msg == WM_USER
       ::nActive := wParam
-      IF ::bChange2 != NIL .AND. ::aPages[::nActive, 3]
+      IF hb_IsBlock(::bChange2) .AND. ::aPages[::nActive, 3]
          Eval(::bChange2, Self, wParam)
       ENDIF
    ENDIF
