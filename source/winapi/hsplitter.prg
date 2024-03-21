@@ -11,6 +11,8 @@
 #include "guilib.ch"
 #include "common.ch"
 
+//-------------------------------------------------------------------------------------------------------------------//
+
 CLASS HSplitter INHERIT HControl
 
    CLASS VAR winclass INIT "STATIC"
@@ -36,10 +38,14 @@ CLASS HSplitter INHERIT HControl
 
 ENDCLASS
 
-/* bPaint ==> bDraw */
-METHOD HSplitter:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle)
+//-------------------------------------------------------------------------------------------------------------------//
 
-   ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, bDraw, NIL, Iif(color == NIL, 0, color), bcolor)
+/* bPaint ==> bDraw */
+METHOD HSplitter:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, ;
+   nTo, oStyle)
+
+   ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, ;
+      bDraw, NIL, IIf(color == NIL, 0, color), bcolor)
 
    ::title := ""
    ::aLeft := IIf(aLeft == NIL, {}, aLeft)
@@ -51,20 +57,28 @@ METHOD HSplitter:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, col
 
    ::Activate()
 
-   RETURN Self
+RETURN Self
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD HSplitter:Activate()
+
    IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
-   RETURN NIL
+
+RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD HSplitter:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
 
-   IF msg == WM_MOUSEMOVE
+   SWITCH msg
+
+   CASE WM_MOUSEMOVE
       IF ::hCursor == NIL
          ::hCursor := hwg_Loadcursor(IIf(::lVertical, IDC_SIZEWE, IDC_SIZENS))
       ENDIF
@@ -76,29 +90,42 @@ METHOD HSplitter:onEvent(msg, wParam, lParam)
             ::Drag(hwg_Loword(lParam), hwg_Hiword(lParam))
          ENDIF
       ENDIF
-   ELSEIF msg == WM_PAINT
+      EXIT
+
+   CASE WM_PAINT
       ::Paint()
-   ELSEIF msg == WM_ERASEBKGND
+      EXIT
+
+   CASE WM_ERASEBKGND
       IF ::brush != NIL
          hwg_Fillrect(wParam, 0, 0, ::nWidth, ::nHeight, ::brush:handle)
          RETURN 1
       ENDIF
-   ELSEIF msg == WM_LBUTTONDOWN
+      EXIT
+
+   CASE WM_LBUTTONDOWN
       Hwg_SetCursor(::hCursor)
       hwg_Setcapture(::handle)
       ::lCaptured := .T.
-   ELSEIF msg == WM_LBUTTONUP
+      EXIT
+
+   CASE WM_LBUTTONUP
       hwg_Releasecapture()
       ::DragAll()
       ::lCaptured := .F.
       IF HB_ISBLOCK(::bEndDrag)
          Eval(::bEndDrag, Self)
       ENDIF
-   ELSEIF msg == WM_DESTROY
-      ::END()
-   ENDIF
+      EXIT
 
-   RETURN - 1
+   CASE WM_DESTROY
+      ::END()
+
+   ENDSWITCH
+
+RETURN -1
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD HSplitter:Init()
 
@@ -109,10 +136,12 @@ METHOD HSplitter:Init()
       Hwg_InitWinCtrl(::handle)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD HSplitter:Paint()
-   
+
    LOCAL pps
    LOCAL hDC
    LOCAL aCoors
@@ -127,7 +156,6 @@ METHOD HSplitter:Paint()
       pps := hwg_Definepaintstru()
       hDC := hwg_Beginpaint(::handle, pps)
       aCoors := hwg_Getclientrect(::handle)
-
       IF ::oStyle == NIL
          x1 := aCoors[1] + IIf(::lVertical, 1, 5)
          y1 := aCoors[2] + IIf(::lVertical, 5, 1)
@@ -140,15 +168,17 @@ METHOD HSplitter:Paint()
       hwg_Endpaint(::handle, pps)
    ENDIF
 
-   RETURN NIL
+RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD HSplitter:Drag(xPos, yPos)
-   
+
    LOCAL nFrom
    LOCAL nTo
 
-   nFrom := Iif(::nFrom == NIL, 1, ::nFrom)
-   nTo := Iif(::nTo == NIL, Iif(::lVertical, ::oParent:nWidth - 1, ::oParent:nHeight - 1), ::nTo)
+   nFrom := IIf(::nFrom == NIL, 1, ::nFrom)
+   nTo := IIf(::nTo == NIL, IIf(::lVertical, ::oParent:nWidth - 1, ::oParent:nHeight - 1), ::nTo)
    IF ::lVertical
       IF xPos > 32000
          xPos -= 65535
@@ -167,10 +197,12 @@ METHOD HSplitter:Drag(xPos, yPos)
    hwg_MoveWindow(::handle, ::nX, ::nY, ::nWidth, ::nHeight)
    ::lMoved := .T.
 
-   RETURN NIL
+RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD HSplitter:DragAll(xPos, yPos)
-   
+
    LOCAL i
    LOCAL oCtrl
    LOCAL nDiff
@@ -209,10 +241,10 @@ METHOD HSplitter:DragAll(xPos, yPos)
       nWidth := wold := oCtrl:nWidth
       nHeight := hold := oCtrl:nHeight
       IF ::lVertical
-         nDiff := ::nX - ( oCtrl:nX + oCtrl:nWidth )
+         nDiff := ::nX - (oCtrl:nX + oCtrl:nWidth)
          nWidth += nDiff
       ELSE
-         nDiff := ::nY - ( oCtrl:nY + oCtrl:nHeight )
+         nDiff := ::nY - (oCtrl:nY + oCtrl:nHeight)
          nHeight += nDiff
       ENDIF
       oCtrl:Move(nX, nY, nWidth, nHeight)
@@ -220,4 +252,6 @@ METHOD HSplitter:DragAll(xPos, yPos)
    NEXT
    ::lMoved := .F.
 
-   RETURN NIL
+RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
