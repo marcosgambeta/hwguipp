@@ -673,9 +673,9 @@ METHOD HBrowse:Paint()
    LOCAL nRows
    LOCAL hDC
  
-   * Variables not used
-   * LOCAL oldAlias, pps
-   * LOCAL oldBkColor, oldTColor
+   // Variables not used
+   // LOCAL oldAlias, pps
+   // LOCAL oldBkColor, oldTColor
 
    IF !::active .OR. Empty(::aColumns)
       RETURN NIL
@@ -1076,8 +1076,8 @@ METHOD HBrowse:LineOut( nstroka, vybfld, hDC, lSelected, lClear )
    LOCAL aCB
    LOCAL block
 
-   * Variables not used
-   * dx, shablon, fldname, slen
+   // Variables not used
+   // dx, shablon, fldname, slen
    x := ::x1
    IF lClear == NIL
       lClear := .F.
@@ -1089,7 +1089,7 @@ METHOD HBrowse:LineOut( nstroka, vybfld, hDC, lSelected, lClear )
    IF ::nRecords > 0
       oldBkColor := hwg_Setbkcolor(hDC, iif(lSelected,::bcolorSel,::bcolor))
       oldTColor := hwg_Settextcolor(hDC, iif(lSelected,::tcolorSel,::tcolor))
-      * fldname := Space(8)
+      // fldname := Space(8)
       nCol := ::nPaintCol := iif(::freeze > 0, 1, ::nLeftCol)
       ::nPaintRow := nstroka
 
@@ -1856,8 +1856,8 @@ METHOD HBrowse:Edit( wParam, lParam )
 
    lSaveMem := .T.
 
-   * Variables not used   
-   * lReadExit
+   // Variables not used
+   // lReadExit
    
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
@@ -1923,11 +1923,11 @@ METHOD HBrowse:Edit( wParam, lParam )
          hwg_edit_SetPos(::oGet:handle, 0)
          ::oGet:bAnyEvent := { |o, msg, c| HB_SYMBOL_UNUSED(o),  GetEventHandler( Self, msg, c ) }
          ELSE  // memo edit
-         * ===================================== *
-         * Special dialog for memo edit (DF7BE)
-         * ===================================== *
+         // ===================================== *
+         // Special dialog for memo edit (DF7BE)
+         // ===================================== *
             INIT DIALOG oModDlg title ::cTextTitME AT 0, 0 SIZE 610, 410  ON INIT { |o|o:center() }
-            mvarbuff := ::varbuf  && DF7BE: inter variable avoids crash at store
+            mvarbuff := ::varbuf  // DF7BE: inter variable avoids crash at store
                // Debug: oModDlg:nWidth ==> set to 400
 //               @ 10, 10 HCEDIT oEdit SIZE oModDlg:nWidth - 20, 240 ;
 // DF7BE: The sizes of WinAPI are too small. Text was truncated at end of line.
@@ -1937,31 +1937,31 @@ METHOD HBrowse:Edit( wParam, lParam )
                @ 010, 340 ownerbutton owb2 TEXT ::cTextSave  size 100, 24 ON Click { || bclsbutt := .F. , mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
                @ 100, 340 ownerbutton owb1 TEXT ::cTextClose size 100, 24 ON CLICK { || mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
 //               @ 100, 340 ownerbutton owb1 TEXT ::cTextClose size 100, 24 ON CLICK { ||oModDlg:close() }
-                 * serve memo field for editing
+                 // serve memo field for editing
                 ::oEdit:SetText(mvarbuff)
             ACTIVATE DIALOG oModDlg
-          * is modified ? (.T.)
+          / is modified ? (.T.)
           bMemoMod := ::oEdit:lUpdated // on GTK forever .T.
           IF bMemoMod
-          * Close button pressed ? (Dismiss modification)
+          // Close button pressed ? (Dismiss modification)
             IF bclsbutt
-*         "Close" Button should be handled like "Cancel".
-*          Ask for saving, if  "Close" is pressed and the memo is modified
-*
-*            Ask and mark vor saving
+//         "Close" Button should be handled like "Cancel".
+//          Ask for saving, if  "Close" is pressed and the memo is modified
+//
+//            Ask and mark vor saving
              lSaveMem := hwg_Msgyesno(::cTextMod , ::cTextTitME)
             ENDIF
             IF lSaveMem
-             * write out edited memo field
+             // write out edited memo field
              ::varbuf := ::oEdit:GetText()
-             * Store new memo contents
+             // Store new memo contents
              VldBrwEdit( Self, fipos , .T. )
-             // hwg_MsgInfo("Memo saved")  && Debug
-            ENDIF  && lSaveMem
-           ENDIF   && bMemoMod
+             // hwg_MsgInfo("Memo saved")  // Debug
+            ENDIF  // lSaveMem
+           ENDIF   // bMemoMod
 //          ENDIF
           // ::lEditing := .F.
-          * ===================================== *
+          // ===================================== *
          ENDIF // memo edit
       ENDIF
    ENDIF
@@ -1971,7 +1971,7 @@ METHOD HBrowse:Edit( wParam, lParam )
 
 METHOD HBrowse:Repaint()
    /*
-     only internal usage: 
+     only internal usage:
      DF7BE : blank lines repainted, if lost.
      Reference: Bug Ticket #33
    */
@@ -1992,8 +1992,8 @@ STATIC FUNCTION GetEventHandler( oBrw, msg, cod )
    RETURN 0
 
 STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
-* Purpose: Store edited contents
-* Parameter oEdit only used, if memo edit is used.
+// Purpose: Store edited contents
+// Parameter oEdit only used, if memo edit is used.
 
    LOCAL oColumn := oBrw:aColumns[fipos]
    LOCAL nRec
@@ -2001,7 +2001,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
    LOCAL cErrMsgRecLock
    LOCAL bESCkey
    LOCAL nChoic := NIL
-   
+
    /* Mysterious behavior of Harbour on Ubuntu and LinuxMINT:
       Not ever found, that  ::cTextLockRec is not here
       reachable, this function not member of HBROWSE class */
@@ -2116,7 +2116,7 @@ STATIC FUNCTION FldStr(oBrw, numf)
 
    IF numf <= Len(oBrw:aColumns)
 
-      * pict := oBrw:aColumns[numf]:picture  && Double assigned
+      // pict := oBrw:aColumns[numf]:picture  // Double assigned
 
       IF oBrw:type == BRW_DATABASE
          vartmp := ( oBrw:alias ) -> ( Eval( oBrw:aColumns[numf]:block,,oBrw,numf ) )

@@ -119,7 +119,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
       RETURN 0
    ENDIF
 
-   IF msg == WM_SETFOCUS   && msg = 7
+   IF msg == WM_SETFOCUS   // msg = 7
       oParent := hwg_getParentForm( Self )
 
       // hwg_WriteLog("Edit: " + hwg_StrDebLog(lColorinFocus) + " " + ;

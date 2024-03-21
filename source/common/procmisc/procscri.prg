@@ -7,7 +7,7 @@
 */
 
 #include "fileio.ch"
-* #define __WINDOWS__
+// #define __WINDOWS__
 
 #ifndef __PLATFORM__WINDOWS
    #define DEF_SEP      '/'
@@ -380,8 +380,8 @@ Local n
       Alert( "Script execution error:;"+stroka )
    ENDIF
 #endif
-*   BREAK
-   * Warning W0028  Unreachable code
+//   BREAK
+   // Warning W0028  Unreachable code
 RETURN .T.
 
 STATIC FUNCTION Fou_If( rezArray, tmpArray, prju )
@@ -460,7 +460,7 @@ RETURN .F.
 FUNCTION DoScript( aScript, aParams )
 
 LOCAL arlen, stroka, varName, varValue, lDebug, lParam, j
- * Variables not used
+ // Variables not used
 #ifdef __PLATFORM__WINDOWS
 LOCAL lSetDebugger := .F.
 #endif
@@ -478,7 +478,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
       IF HB_ISCHAR(aScript[2, iscr])
          IF Left(aScript[2, iscr], 1) == "#"
             IF !lDebugger
-               * lSetDebugger := .T.
+               // lSetDebugger := .T.
                SetDebugger()
             ENDIF
          ELSE

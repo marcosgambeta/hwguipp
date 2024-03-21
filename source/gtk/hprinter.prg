@@ -111,30 +111,30 @@ FUNCTION hwg_HPrinter_LangArray_EN()
   /* 6  */ AAdd(aTooltips,"Last page")
   /* 7  */ AAdd(aTooltips,"Zoom out")
   /* 8  */ AAdd(aTooltips,"Zoom in")
-  /* 9  */ AAdd(aTooltips,"Print dialog") 
+  /* 9  */ AAdd(aTooltips,"Print dialog")
   // added (Titles and other Buttons)
-  /* 10 */ AAdd(aTooltips,"Print preview -") && Title
-  /* 11 */ AAdd(aTooltips,"Print")           && Button
-  /* 12 */ AAdd(aTooltips,"Exit")            && Button
-  /* 13 */ AAdd(aTooltips,"Dialog")          && Button
-  /* 14 */ AAdd(aTooltips,"User Button")     && aBootUser[3], Tooltip
-  /* 15 */ AAdd(aTooltips,"User Button")     && aBootUser[4]
+  /* 10 */ AAdd(aTooltips,"Print preview -") // Title
+  /* 11 */ AAdd(aTooltips,"Print")           // Button
+  /* 12 */ AAdd(aTooltips,"Exit")            // Button
+  /* 13 */ AAdd(aTooltips,"Dialog")          // Button
+  /* 14 */ AAdd(aTooltips,"User Button")     // aBootUser[3], Tooltip
+  /* 15 */ AAdd(aTooltips,"User Button")     // aBootUser[4]
   // Subdialog "Printer Dialog"
-  /* 16 */ AAdd(aTooltips,"All")             && Radio Button              "All"
-  /* 17 */ AAdd(aTooltips,"Current")         && Radio Button              "Current"
-  /* 18 */ AAdd(aTooltips,"Pages")           && Radio Button              "Pages"
-  /* 19 */ AAdd(aTooltips,"Print")           && Button                    "Print"
-  /* 20 */ AAdd(aTooltips,"Cancel")          && Button                    "Cancel"
-  /* 21 */ AAdd(aTooltips,"Enter range of pages") && Tooltip              "Enter range of pages"  
-  
-RETURN aTooltips  
+  /* 16 */ AAdd(aTooltips,"All")             // Radio Button              "All"
+  /* 17 */ AAdd(aTooltips,"Current")         // Radio Button              "Current"
+  /* 18 */ AAdd(aTooltips,"Pages")           // Radio Button              "Pages"
+  /* 19 */ AAdd(aTooltips,"Print")           // Button                    "Print"
+  /* 20 */ AAdd(aTooltips,"Cancel")          // Button                    "Cancel"
+  /* 21 */ AAdd(aTooltips,"Enter range of pages") // Tooltip              "Enter range of pages"
+
+RETURN aTooltips
 
 METHOD HPrinter:New( cPrinter, lmm, nFormType )
 
    LOCAL aPrnCoors
 
    ::DefaultLang()
-   
+
    IF lmm != NIL
       ::lmm := lmm
    ENDIF
@@ -507,26 +507,26 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    // "Print preview -", see above
    cmExit := "Exit"
    cmPrint := "Print"
-   * cmDialog := "Dialog"
-   * cBootUser3 := "User Button"
-   * cBootUser4 := "User Button"
+   // cmDialog := "Dialog"
+   // cBootUser3 := "User Button"
+   // cBootUser4 := "User Button"
    cmTitle := "Print preview"
-   
+
    /* Parameter cTitle preferred */
    IF cTitle == NIL
-    cTitle := cmTitle  
-    IF aTooltips != NIL  
+    cTitle := cmTitle
+    IF aTooltips != NIL
       cTitle := aTooltips[10]
     ENDIF
    ELSE
-    cTitle := cmTitle     
+    cTitle := cmTitle
    ENDIF
    IF aTooltips != NIL
       cmPrint := aTooltips[11]
       cmExit := aTooltips[12]
-      * cmDialog := aTooltips[13]
-      * cBootUser3 := aTooltips[14]
-      * cBootUser4 := aTooltips[15]
+      // cmDialog := aTooltips[13]
+      // cBootUser3 := aTooltips[14]
+      // cBootUser4 := aTooltips[15]
    ENDIF
    FOR i := 1 TO nLastPage
       AAdd(aPage, Str(i, 4) + ":" + Str(nLastPage, 4))
@@ -552,7 +552,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    SET KEY FCONTROL, Asc( "S" ) TO ::SaveScript()
 
    @ 3, 2 OWNERBUTTON oBtn ON CLICK { || hwg_EndDialog() } ;
-      SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT cmExit FONT oFont  ;  && "Exit"
+      SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT cmExit FONT oFont  ;  // "Exit"
       TOOLTIP iif(aTooltips != NIL, aTooltips[1], "Exit Preview")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 1 .AND. aBitmaps[2] != NIL
       oBtn:oBitmap := iif(aBitmaps[1], HBitmap():AddResource( aBitmaps[2] ), HBitmap():AddFile( aBitmaps[2] ))
@@ -562,11 +562,11 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    @ 1, 31 LINE LENGTH TOOL_SIDE_WIDTH - 1
 
-  IF ::lprbutton 
+  IF ::lprbutton
    @ 3, 36 OWNERBUTTON oBtn  ON CLICK { || ::PrintDoc() } ;
-      SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT cmPrint FONT oFont         ;  && "Print"
+      SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT cmPrint FONT oFont         ;  // "Print"
       TOOLTIP iif(aTooltips != NIL, aTooltips[2], "Print file")
-  ENDIF  
+  ENDIF
 
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 2 .AND. aBitmaps[3] != NIL
       oBtn:oBitmap := iif(aBitmaps[1], HBitmap():AddResource( aBitmaps[3] ), HBitmap():AddFile( aBitmaps[3] ))
@@ -666,7 +666,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    RETURN NIL
 
 METHOD HPrinter:PaintDoc( oCanvas )
-   
+
    LOCAL pps
    LOCAL hDC
    LOCAL aCoors
@@ -742,7 +742,7 @@ METHOD HPrinter:PrintDoc()
    RETURN NIL
 
 METHOD HPrinter:ChangePage( oCanvas, oSayPage, n, nPage )
-   
+
    LOCAL nCurrPage := ::nCurrPage
    LOCAL cMetaName
 
@@ -838,7 +838,7 @@ METHOD HGP_Font:Equal( fontName, nHeight , fnWeight, fdwItalic, fdwUnderline )
    RETURN .F.
 
 METHOD HGP_Font:RELEASE( lAll )
-   
+
    LOCAL i
    LOCAL nlen := Len(::aFonts)
 
@@ -896,7 +896,7 @@ METHOD HGP_Pen:Add( nWidth, style, color )
    RETURN Self
 
 METHOD HGP_Pen:RELEASE()
-   
+
    LOCAL i
    LOCAL nlen := Len(::aPens)
 
@@ -928,7 +928,7 @@ STATIC FUNCTION FScrollH( oCanvas )
    RETURN NIL
 
 STATIC FUNCTION MessProc( oPrinter, oPanel, lParam )
-   
+
    LOCAL xPos
    LOCAL yPos
    LOCAL nPage := oPrinter:nCurrPage

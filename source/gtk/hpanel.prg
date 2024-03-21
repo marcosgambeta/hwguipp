@@ -337,7 +337,7 @@ CLASS HPanelHea INHERIT HPANEL
    DATA lPreDef HIDDEN
 
    METHOD New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bcolor, oStyle, cText, xt, yt, lBtnClose, lBtnMax, lBtnMin)
-   METHOD SetText( c , lrefresh )  && INLINE (::title := c)
+   METHOD SetText( c , lrefresh )  // INLINE (::title := c)
    METHOD SetSysbtnColor( tColor, bColor )
    METHOD PaintText(hDC)
    METHOD Paint()

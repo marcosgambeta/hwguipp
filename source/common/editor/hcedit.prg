@@ -503,8 +503,8 @@ METHOD HCEdit:onEvent(msg, wParam, lParam)
 #else
          x := hwg_PtrToUlong(wParam)
 #endif
-*
-*        IF hb_IsBlock(::bKeyDown) .AND. (n := Eval(::bKeyDown, Self, x, n, 1)) != -1
+//
+//        IF hb_IsBlock(::bKeyDown) .AND. (n := Eval(::bKeyDown, Self, x, n, 1)) != -1
          IF ::bKeyDown != NIL  // .AND.
           n := Eval(::bKeyDown, Self, x, n, 1)
           IF n != -1
@@ -1208,7 +1208,7 @@ METHOD HCEdit:SetFont(oFont)
    RETURN NIL
 
 METHOD HCEdit:SetCaretPos(nType, p1, p2)
-   
+
    LOCAL lSet := .T.
    LOCAL lInfo := .F.
    LOCAL x1

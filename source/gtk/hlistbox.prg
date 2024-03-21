@@ -144,9 +144,9 @@ METHOD HListBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHei
 */
    RETURN Self
 
-   
+
 METHOD HListBox:Activate()
-* Make listbox visible
+// Make listbox visible
 
    IF !Empty(::oParent:handle)
      HWG_LISTBOXSHOW(::handle)

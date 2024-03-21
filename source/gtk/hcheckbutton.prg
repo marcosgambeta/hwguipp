@@ -49,7 +49,7 @@ METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, 
    ENDIF
 
    IF Left(::oParent:ClassName(), 6) == "HPANEL" .AND. hb_bitand(::oParent:style, SS_OWNERDRAW) != 0
-*      ::oParent:SetPaintCB(PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)))
+//      ::oParent:SetPaintCB(PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)))
       ::oParent:SetPaintCB(PAINT_ITEM, {|h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)))
    ENDIF
 

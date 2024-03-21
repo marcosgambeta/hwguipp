@@ -15,7 +15,7 @@ STATIC aCustomEvents := { ;
    { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
    { ;
    { |o, w|iif(hb_IsBlock(o:bPaint), Eval( o:bPaint,o,w ), - 1) }, ;
-   { |o, w|onCommand( o, w ) },                ;     && |o, w, l| ==> |o, w|
+   { |o, w|onCommand( o, w ) },                ;     // |o, w, l| ==> |o, w|
    { |o, w, l|onSize( o, w, l ) },                ;
    { |o|onDestroy( o ) }                          ;
    } ;

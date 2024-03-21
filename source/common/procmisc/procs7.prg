@@ -170,7 +170,7 @@ FUNCTION NextItem( stroka, lFirst, cSep )
    RETURN ""
 
 FUNCTION hwg_GetDirSep()
-* returns the directory seperator character OS dependant
+// returns the directory seperator character OS dependant
 #ifdef __PLATFORM__WINDOWS
  RETURN "\"
 #else

@@ -109,11 +109,11 @@ CLASS HWinPrn
    METHOD NextPage()
    METHOD NewLine()
    METHOD PrintLine( cLine, lNewLine )
-   METHOD PrintBitmap( xBitmap, nAlign , cBitmapName  )  && cImageName
+   METHOD PrintBitmap( xBitmap, nAlign , cBitmapName  )  // cImageName
    METHOD PrintText( cText )
    METHOD SetX( nYvalue )
    METHOD SetY( nYvalue )
-   METHOD PutCode( cLine )  && cText
+   METHOD PutCode( cLine )  // cText
    METHOD EndDoc()
    METHOD END()
 
@@ -256,7 +256,7 @@ METHOD HWinPrn:SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineM
       ::nLineHeight := ( nStdHeight / aKoef[nMode + 1] ) * ::oPrinter:nVRes
       ::nLined := ( 25.4 * ::oPrinter:nVRes ) / ::nLineInch - ::nLineHeight
 
-      oFont := ::oPrinter:AddFont( cFont, ::nLineHeight, ::lBold, ::lItalic, ::lUnder, ::nCharset ) && ::nCharset 204 = Russian
+      oFont := ::oPrinter:AddFont( cFont, ::nLineHeight, ::lBold, ::lItalic, ::lUnder, ::nCharset ) // ::nCharset 204 = Russian
 
       IF ::oFont != NIL
          ::oFont:Release()
@@ -370,13 +370,13 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
 
    cTmp := hwg_CreateTempfileName(NIL, ".bmp")
 
-   // IF VALTYPE( xBitmap ) == "C" && does not work on GTK
-     * from file
+   // IF VALTYPE( xBitmap ) == "C" // does not work on GTK
+     // from file
      IF !hb_fileexists( xBitmap )
-      * xBitmap is a bitmap object
+      // xBitmap is a bitmap object
       bfromobj := .T.
       cImageName := IIF(EMPTY (cBitmapName), "" , cBitmapName)
-      * Store into a temporary file
+      // Store into a temporary file
       /* DF7BE:
         Bug in GTK: gdk_pixbuf_save(pixbuff,handle,"bmp",&error,cFile,contents_encode,NULL)
         set the value of printer resolution (pixels per meter) to zero.
@@ -385,7 +385,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
         26 / c4 0e
         2a / c4 0e = 3780 dec.
         New function OBMP2FILE2( cTmp , cImageName ) saves the bmp object
-        correct to file.    
+        correct to file.
       */
       xBitmap:OBMP2FILE( cTmp , cImageName , "bmp" )
       hBitmap := hwg_Openbitmap( cTmp , ::oPrinter:hDC )
@@ -397,18 +397,18 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
       cImageName := IIF(EMPTY (cBitmapName), xBitmap, cBitmapName)
       // FERASE(cTmp)
      ELSE
-      * from file 
+      // from file
       hBitmap := hwg_Openbitmap( xBitmap, ::oPrinter:hDC )
       // hwg_msginfo(hb_valtostr(hBitmap))
       IF hb_ValToStr(hBitmap) == "0x00000000"
         RETURN NIL
-      ENDIF  
+      ENDIF
       cImageName := IIF(EMPTY (cBitmapName), xBitmap, cBitmapName)
       //  aBmpSize[1] = width(x) aBmpSize[2] = height(y)
       aBmpSize := hwg_Getbitmapsize( hBitmap )
-   ENDIF  
-  
-/* Page size overflow  ? ==> next page */ 
+   ENDIF
+
+/* Page size overflow  ? ==> next page */
 #ifdef __GTK__
    IF ::y + aBmpSize[2] + ::nLined > ::oPrinter:nHeight
 #else
@@ -416,20 +416,20 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
 #endif
       ::NextPage()
    ENDIF
-   
+
    ::x := ::nLeft * ::oPrinter:nHRes
    ::y += ::nLineHeight + ::nLined
 
-   IF nAlign == 1 .AND. ::x + aBmpSize[1] < ::oPrinter:nWidth 
+   IF nAlign == 1 .AND. ::x + aBmpSize[1] < ::oPrinter:nWidth
      ::x += ROUND( (::oPrinter:nWidth - ::x - aBmpSize[1] ) / 2, 0)
-  * HKrzak 2020-10-27 
+  // HKrzak 2020-10-27
    ELSEIF nAlign == 2
-     ::x += ROUND( (::oPrinter:nWidth - ::x - aBmpSize[1]), 0) 
+     ::x += ROUND( (::oPrinter:nWidth - ::x - aBmpSize[1]), 0)
    ENDIF
    IF ::lFirstLine
       ::lFirstLine := .F.
    ENDIF
-   * Paint bitmap
+   // Paint bitmap
    // hwg_msginfo(STR(::x) + CHR(10) + STR(::y) + CHR(10) + STR(aBmpSize[1]) + CHR(10) +  STR(aBmpSize[2]) )
 
    IF bfromobj
@@ -438,11 +438,11 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
     FERASE(cTmp)
    ELSE
     ::oPrinter:Bitmap(::x, ::y, ::x + aBmpSize[1], ::y + aBmpSize[2], NIL, hBitmap, cImageName)
-   ENDIF 
-   /* Height of bitmap, increase Y value */    
-   i := aBmpSize[2]   &&   - ::nLineHeight  ==> DF7BE: not the correct size of bitmap !
+   ENDIF
+   /* Height of bitmap, increase Y value */
+   i := aBmpSize[2]   //   - ::nLineHeight  ==> DF7BE: not the correct size of bitmap !
    IF i > 0
-       ::Y +=  i 
+       ::Y +=  i
    ENDIF
 
    // hwg_WriteLog(STR(::x) + CHR(10) + STR(::y) + CHR(10) ;
@@ -450,7 +450,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
 
   RETURN NIL
 
-   
+
 METHOD HWinPrn:NewLine()
     ::PrintLine( "" , .T. )
     ::SetX()
@@ -458,11 +458,11 @@ METHOD HWinPrn:NewLine()
      IF ::y < 0
        ::y := 0
      ENDIF
-   RETURN NIL   
+   RETURN NIL
 
-   
+
 METHOD HWinPrn:PrintLine( cLine, lNewLine )
-   
+
    LOCAL i
    LOCAL i0
    LOCAL j
@@ -476,16 +476,16 @@ METHOD HWinPrn:PrintLine( cLine, lNewLine )
    IF lNewLine == NIL
      lNewLine := .T.
    ENDIF
-   
-* HKrzak.Start 2020-10-25
-* Bug Ticket #64
+
+// HKrzak.Start 2020-10-25
+// Bug Ticket #64
 IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
      ::y += ::nLineHeight * cLine
      IF ::y < 0
        ::y := 0
      ENDIF
    ENDIF
-* HKrzak.End   
+// HKrzak.End
 
 
 #ifdef __GTK__
@@ -496,17 +496,17 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
       ::NextPage()
    ENDIF
 
-* HKrzak.Start 2020-10-25
-* Bug Ticket #64
+// HKrzak.Start 2020-10-25
+// Bug Ticket #64
    IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
      RETURN NIL
    ENDIF
-* HKrzak.End
+// HKrzak.End
 
    ::x := ::nLeft * ::oPrinter:nHRes
    IF ::lFirstLine
       ::lFirstLine := .F.
-   ELSEIF lNewLine 
+   ELSEIF lNewLine
       ::y += ::nLineHeight + ::nLined
    ENDIF
 

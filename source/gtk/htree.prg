@@ -297,9 +297,9 @@ METHOD HTree:Paint()
 
    ::width := aMetr[2]
    ::height := aMetr[1]
-   * x1 := aCoors[1] + 2
+   // x1 := aCoors[1] + 2
    y1 := aCoors[2] + 2
-   * x2 := aCoors[3] - 2
+   // x2 := aCoors[3] - 2
    y2 := aCoors[4] - 2
 
    ::rowCount := Int( ( y2 - y1 ) / (::height + 1) )
@@ -324,7 +324,7 @@ METHOD HTree:Paint()
 
 /* Added: nNode */
 METHOD HTree:PaintNode(hDC, oNode, nNode, nLine)
-   
+
    LOCAL y1 := (::height + 1) * (nLine - 1) + 1
    LOCAL x1 := 10 + oNode:nLevel * ::nIndent
    LOCAL i
@@ -382,7 +382,7 @@ METHOD HTree:PaintNode(hDC, oNode, nNode, nLine)
    RETURN NIL
 
 METHOD HTree:ButtonDown( lParam )
-   
+
    LOCAL nLine := Int( hwg_Hiword(lParam) / (::height + 1) ) + 1
    LOCAL xm := hwg_Loword(lParam)
    LOCAL x1

@@ -138,7 +138,7 @@ CLASS HFormTmpl
 
    METHOD DefaultLang()
    METHOD Read(fname, cId)
-   METHOD Show( nMode, p1, p2, p3 )  && params
+   METHOD Show( nMode, p1, p2, p3 )  // params
    METHOD ShowMain( params ) INLINE ::Show( 1, params )
    METHOD ShowModal( params ) INLINE ::Show( 2, params )
    METHOD Close()
@@ -272,8 +272,8 @@ METHOD HFormTmpl:Show( nMode, p1, p2, p3 )
    LOCAL bGetFo := { |o| HFormTmpl():oActive := o }
    // Variables not used
    // LOCAL lval := .F.
-   // LOCAL lMdi         && := .F.
-   // LOCAL lMdiChild    && := .F.
+   // LOCAL lMdi         // := .F.
+   // LOCAL lMdiChild    // := .F.
 
    MEMVAR oDlg
    PRIVATE oDlg
@@ -302,8 +302,8 @@ METHOD HFormTmpl:Show( nMode, p1, p2, p3 )
          nStyle := xProperty
       ELSEIF ::aProp[i, 1] == "formtype"
          IF nMode == NIL
-            * lMdi := At("mdimain", Lower(xProperty)) > 0
-            * lMdiChild := At("mdichild", Lower(xProperty)) > 0
+            // lMdi := At("mdimain", Lower(xProperty)) > 0
+            // lMdiChild := At("mdichild", Lower(xProperty)) > 0
             nMode := Iif(Left(xProperty, 3) == "dlg", 2, 1)
          ENDIF
       ELSEIF ::aProp[i, 1] == "variables"
@@ -551,7 +551,7 @@ METHOD HFormTmpl:OnError( xValue )
    oError:genCode := EG_LIMIT
    oError:subSystem := "HFORMTMPL"
    oError:subCode := 0
-   oError:description := ::cTextInvClMemb   &&  "Invalid class member"
+   oError:description := ::cTextInvClMemb   //  "Invalid class member"
    oError:canRetry := .F.
    oError:canDefault := .F.
    oError:fileName := ""

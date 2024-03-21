@@ -88,10 +88,10 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
    ENDIF
    IF bmp != NIL
       IF ValType( bmp ) == "O"
-         * Valid bitmap object
+         // Valid bitmap object
          ::oBitmap := bmp
       ELSE
-         * otherwise load from file or resource container
+         // otherwise load from file or resource container
          ::oBitmap := Iif(( lResour != NIL .AND. lResour ) .OR. HB_ISNUMERIC(bmp), ;
             HBitmap():AddResource( bmp ), ;
             HBitmap():AddFile( Iif(::cPath != NIL, ::cPath + bmp, bmp) ))
@@ -217,7 +217,7 @@ METHOD HOwnButton:Paint()
          ::widthb := ::oBitmap:nWidth
          ::heightb := ::oBitmap:nHeight
       ENDIF
-      * DF7BE bugfix: crashes here at bitmap resource, so added this:
+      // DF7BE bugfix: crashes here at bitmap resource, so added this:
       IF ::widthb == NIL
          nwidthb := 0
       ELSE
@@ -225,7 +225,7 @@ METHOD HOwnButton:Paint()
       ENDIF 
       // hwg_MsgIsNIL(aCoors[1],"aCoors[1]") 
       // hwg_MsgIsNIL(aCoors[3],"aCoors[3]") 
-      // hwg_MsgIsNIL(::widthb,"::widthb")    && passed NIL
+      // hwg_MsgIsNIL(::widthb,"::widthb")    // passed NIL
       
       // hwg_WriteLog("aCoors[3]=" + STR(aCoors[3]) + CHR(10) + "aCoors[1]=" + STR(aCoors[1]) )
       // hwg_WriteLog("::widthb=" + STR(::widthb) )

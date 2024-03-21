@@ -72,7 +72,7 @@ METHOD HProgressBar:NewBox( cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bEx
    INIT DIALOG ::oParent TITLE cTitle       ;
       AT nX, nY SIZE nWidth, nHeight   ;
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + iif(nY == 0, DS_CENTER, nY) + DS_SYSMODAL
-      * DF7BE: iif(nY == 0, DS_CENTER, 0)  ??? 
+      // DF7BE: iif(nY == 0, DS_CENTER, 0)  ??? 
 
    IF bExit != NIL
       ::oParent:bDestroy := bExit
@@ -117,7 +117,7 @@ METHOD HProgressBar:SET( cTitle, nPos )
       /*
        DF7BE: Ticket #52: avoid message:
        Gtk-CRITICAL ... IA__gtk_progress_set_percentage:
-       assertion 'percentage >= 0 && percentage <= 1.0' failed
+       assertion 'percentage >= 0 // percentage <= 1.0' failed
        if progbar reached end.
       */
       IF ( nPos >= 0  ) .AND. (nPos <= 1 ) 
@@ -132,7 +132,7 @@ METHOD HProgressBar:RESET()
  IF ::handle != NIL
     ::nCount := 0
     hwg_Resetprogressbar(::handle)
-    * hwg_Updateprogressbar(::handle)
+    // hwg_Updateprogressbar(::handle)
  ENDIF
 RETURN NIL
  

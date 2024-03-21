@@ -297,7 +297,7 @@ METHOD HMainWindow:New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, 
       ::handle := Hwg_InitMainWindow( Self, ::szAppName, cTitle, cMenu, ;
          iif(oIcon != NIL, oIcon:handle, NIL), ::Style, ::nX, ;
          ::nY, ::nWidth, ::nHeight, hbackground )
-         * DF7BE: background missing, added as 11th parameter
+         // DF7BE: background missing, added as 11th parameter
    ENDIF
    IF ::bColor != NIL
       hwg_SetBgColor(::handle, ::bColor)
@@ -433,7 +433,7 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
    RETURN 0
 
 
-* Prepare for future (if available on next GTK versions)
-* FUNCTION hwg_GTKShellnotifyicon( oIcon )
-*       hwg_ShellModifyIcon ( iif(oIcon != NIL, oIcon:handle, NIL) )
-*   RETURN NIL
+// Prepare for future (if available on next GTK versions)
+// FUNCTION hwg_GTKShellnotifyicon( oIcon )
+//       hwg_ShellModifyIcon ( iif(oIcon != NIL, oIcon:handle, NIL) )
+//   RETURN NIL

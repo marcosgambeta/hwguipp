@@ -193,7 +193,7 @@ Local aText, cLine, nLen, nLenS, nLenM, i, lComm
 Local cs, cm
 Local nPos, nPos1, nPrev, cWord, c
 
-   * Parameters not used
+   // Parameters not used
    HB_SYMBOL_UNUSED(oEdit)
 
    ::nItems := 0
