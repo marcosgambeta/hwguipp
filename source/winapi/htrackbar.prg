@@ -20,6 +20,8 @@
 #define CLR_WHITE    0xffffff
 #define CLR_BLACK    0x000000
 
+//-------------------------------------------------------------------------------------------------------------------//
+
 CLASS HTrackBar INHERIT HControl
 
    CLASS VAR winclass INIT "msctls_trackbar32"
@@ -31,9 +33,8 @@ CLASS HTrackBar INHERIT HControl
    DATA nHigh
    DATA hCursor
 
-   METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
-              bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
-              lVertical, TickStyle, TickMarks)
+   METHOD New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, cTooltip, bChange, bDrag, ;
+      nLow, nHigh, lVertical, TickStyle, TickMarks)
    METHOD Activate()
    METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
@@ -42,9 +43,17 @@ CLASS HTrackBar INHERIT HControl
 
 ENDCLASS
 
-METHOD HTrackBar:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
-           bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
-           lVertical, TickStyle, TickMarks)
+//-------------------------------------------------------------------------------------------------------------------//
+
+METHOD HTrackBar:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, cTooltip, bChange, ;
+   bDrag, nLow, nHigh, lVertical, TickStyle, TickMarks)
+
+   IF pcount() == 0
+      ::Super:New(NIL, NIL, WS_CHILD + WS_VISIBLE + WS_TABSTOP + TBS_AUTOTICKS, 0, 0, 0, 0, NIL, NIL, NIL, NIL, NIL)
+      HWG_InitCommonControlsEx()
+      ::Activate()
+      RETURN Self
+   ENDIF
 
    IF TickStyle == NIL
       TickStyle := TBS_AUTOTICKS
@@ -52,64 +61,80 @@ METHOD HTrackBar:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
    IF TickMarks == NIL
       TickMarks := 0
    ENDIF
-   IF bPaint != NIL
+   IF hb_IsBlock(bPaint)
       TickStyle := hb_bitor(TickStyle, TBS_AUTOTICKS)
    ENDIF
-   nstyle := hb_bitor(IIF(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
-   nstyle += IIF(lVertical != NIL .AND. lVertical, TBS_VERT, 0)
+   nstyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
+   nstyle += IIf(lVertical != NIL .AND. lVertical, TBS_VERT, 0)
    nstyle += TickStyle + TickMarks
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, NIL, bInit, bSize, bPaint, cTooltip)
 
-   ::nValue := IIF(HB_ISNUMERIC(vari), vari, 0)
+   ::nValue := IIf(HB_ISNUMERIC(vari), vari, 0)
    ::bChange := bChange
    ::bThumbDrag := bDrag
-   ::nLow := IIF(nLow == NIL, 0, nLow)
-   ::nHigh := IIF(nHigh == NIL, 100, nHigh)
+   ::nLow := IIf(nLow == NIL, 0, nLow)
+   ::nHigh := IIf(nHigh == NIL, 100, nHigh)
 
    HWG_InitCommonControlsEx()
    ::Activate()
 
 RETURN Self
 
+//-------------------------------------------------------------------------------------------------------------------//
+
 METHOD HTrackBar:Activate()
+
    IF !Empty(::oParent:handle)
       ::handle := hwg_inittrackbar(::oParent:handle, ::id, ::style, ::nX, ::nY, ::nWidth, ::nHeight, ::nLow, ::nHigh)
       ::Init()
    ENDIF
+
 RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD HTrackBar:onEvent(msg, wParam, lParam)
 
    LOCAL aCoors
 
-   IF msg == WM_PAINT
+   SWITCH msg
+
+   CASE WM_PAINT
       IF hb_IsBlock(::bPaint)
          Eval(::bPaint, Self)
          RETURN 0
       ENDIF
+      EXIT
 
-   ELSEIF msg == WM_MOUSEMOVE
+   CASE WM_MOUSEMOVE
       IF ::hCursor != NIL
          Hwg_SetCursor(::hCursor)
       ENDIF
+      EXIT
 
-   ELSEIF msg == WM_ERASEBKGND
+   CASE WM_ERASEBKGND
       IF ::brush != NIL
          aCoors := hwg_Getclientrect(::handle)
          hwg_Fillrect(wParam, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, ::brush:handle)
          RETURN 1
       ENDIF
+      EXIT
 
-   ELSEIF msg == WM_DESTROY
+   CASE WM_DESTROY
       ::End()
+      EXIT
 
-   ELSEIF hb_IsBlock(::bOther)
-      RETURN Eval(::bOther, Self, msg, wParam, lParam)
+   OTHERWISE
+      IF hb_IsBlock(::bOther)
+         RETURN Eval(::bOther, Self, msg, wParam, lParam)
+      ENDIF
 
-   ENDIF
+   ENDSWITCH
 
 RETURN -1
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD HTrackBar:Init()
 
@@ -117,15 +142,16 @@ METHOD HTrackBar:Init()
       ::Super:Init()
       hwg_trackbarsetrange(::handle, ::nLow, ::nHigh)
       hwg_Sendmessage(::handle, TBM_SETPOS, 1, ::nValue)
-
-      IF ::bPaint != NIL
+      IF hb_IsBlock(::bPaint)
          ::nHolder := 1
          hwg_Setwindowobject(::handle, Self)
          Hwg_InitTrackProc(::handle)
       ENDIF
    ENDIF
 
-   RETURN NIL
+RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD HTrackBar:Value(nValue)
 
@@ -138,4 +164,6 @@ METHOD HTrackBar:Value(nValue)
       ::nValue := hwg_Sendmessage(::handle, TBM_GETPOS, 0, 0)
    ENDIF
 
-   RETURN ::nValue
+RETURN ::nValue
+
+//-------------------------------------------------------------------------------------------------------------------//
