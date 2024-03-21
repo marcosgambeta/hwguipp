@@ -63,7 +63,7 @@ RETURN Self
 
 METHOD hToolBar:Activate()
 
-   IF !empty(::oParent:handle )
+   IF !Empty(::oParent:handle )
       ::handle := hwg_Createtoolbar(::oParent:handle )
       hwg_Setwindowobject(::handle, Self)
       ::Init()
@@ -90,7 +90,7 @@ METHOD hToolBar:INIT()
       For n := 1 TO len(::aItem)
 
          if HB_ISNUMERIC(::aItem[n, 1])
-            IF !empty(::aItem[n, 1])
+            IF !Empty(::aItem[n, 1])
                AAdd(aButton, ::aItem[n , 1])
             ENDIF
          elseif HB_ISCHAR(::aItem[n, 1])
@@ -115,7 +115,7 @@ METHOD hToolBar:INIT()
                aItem[11] := hwg_Createtoolbarbutton(::handle,aItem[1],aItem[6],.f.)
                aItem[2] := aItem:__enumIndex()
                hwg_Toolbar_setaction(aItem[11],aItem[7])
-               if !empty(aItem[8])
+               if !Empty(aItem[8])
                   hwg_Addtooltip(::handle, aItem[11],aItem[8])
                endif
             elseif aitem[4] == TBSTYLE_SEP

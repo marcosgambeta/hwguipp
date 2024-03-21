@@ -208,7 +208,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
       IF RIGHT( stroka, 1 ) == CHR(26)
          stroka := LEFT(stroka, LEN(stroka) - 1)
       ENDIF
-      IF !EMPTY(stroka) .AND. LEFT(stroka, 2) != "//"
+      IF !Empty(stroka) .AND. LEFT(stroka, 2) != "//"
 
          IF Left(stroka, 1) == "#"
             IF UPPER(Left(stroka, 7)) == "#ENDSCR"
@@ -427,14 +427,14 @@ LOCAL i, j, iloop := 0, bOldError
 
    j := LEN(rezArray)
    FOR i := j TO 1 STEP - 1
-      IF !EMPTY(tmpArray[i]) .AND. LEFT(tmpArray[i], 4) == "EXIT"
+      IF !Empty(tmpArray[i]) .AND. LEFT(tmpArray[i], 4) == "EXIT"
          rezArray[i] = &( "{||iscr:=" + LTRIM(STR(j + 1, 5)) + "}" )
          tmpArray[i] = ""
       ENDIF
-      IF !EMPTY(tmpArray[i]) .AND. LEFT(tmpArray[i], 4) == "LOOP"
+      IF !Empty(tmpArray[i]) .AND. LEFT(tmpArray[i], 4) == "LOOP"
          iloop := i
       ENDIF
-      IF !EMPTY(tmpArray[i]) .AND. (UPPER(LEFT(tmpArray[i], 8)) = "DO WHILE" .OR. UPPER(LEFT(tmpArray[i], 5)) = "WHILE")
+      IF !Empty(tmpArray[i]) .AND. (UPPER(LEFT(tmpArray[i], 8)) = "DO WHILE" .OR. UPPER(LEFT(tmpArray[i], 5)) = "WHILE")
          bOldError := ERRORBLOCK( { | e | MacroError(1,e,tmpArray[i] ) } )
          BEGIN SEQUENCE
             rezArray[i] = &("{||IIF(" + ALLTRIM(SUBSTR(tmpArray[i], ;

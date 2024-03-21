@@ -128,7 +128,7 @@ METHOD HListBox:Init()
          IF ::value == NIL
             ::value := 1
          ENDIF
-         IF !EMPTY(::nItemHeight)
+         IF !Empty(::nItemHeight)
             hwg_Sendmessage(::handle, LB_SETITEMHEIGHT, 0, ::nItemHeight)
          ENDIF
          hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)

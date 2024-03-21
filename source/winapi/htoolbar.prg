@@ -18,7 +18,7 @@
 
 CLASS HToolBar INHERIT HControl
 
-   CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(NIL, 1, RT_MANIFEST)) SHARED
+   CLASS VAR WindowsManifest INIT !Empty(hwg_Findresource(NIL, 1, RT_MANIFEST)) SHARED
    
    DATA winclass INIT "ToolbarWindow32"
    DATA TEXT, id
@@ -174,7 +174,7 @@ METHOD hToolBar:CREATETOOL()
       IF !::lCreate
          hwg_Destroywindow(::Handle)
          ::Activate()
-         //IF !EMPTY(::oFont)
+         //IF !Empty(::oFont)
          //::SetFont(::oFont)
          //ENDIF
       ENDIF

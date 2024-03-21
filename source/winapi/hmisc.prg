@@ -277,7 +277,7 @@ FUNCTION hwg_HEX_DUMP (cinfield, npmode, cpVarName)
   // complete as last line, if rest of recent line existing
   // HEX line 16 * 3 = 48
   // line with printable chars: 16 * 2 = 32
-  IF .NOT. EMPTY(ccchexline)  // nlinepos < 16
+  IF .NOT. Empty(ccchexline)  // nlinepos < 16
    DO CASE
       CASE nmode == 0
        coutfield := coutfield + ccchexline
@@ -347,7 +347,7 @@ FUNCTION hwg_BaseName(pFullpath)
  IF PCOUNT() == 0
    RETURN ""
  ENDIF
- IF EMPTY(pFullpath)
+ IF Empty(pFullpath)
    RETURN ""
  ENDIF
 
@@ -377,7 +377,7 @@ FUNCTION hwg_Dirname(pFullpath)
  IF PCOUNT() == 0
    RETURN ""
  ENDIF
- IF EMPTY(pFullpath)
+ IF Empty(pFullpath)
    RETURN ""
  ENDIF
 
@@ -423,7 +423,7 @@ FUNCTION hwg_CleanPathname(pSwithdbl)
  IF PCOUNT() == 0
    RETURN ""
  ENDIF
- IF EMPTY(pSwithdbl)
+ IF Empty(pSwithdbl)
    RETURN ""
  ENDIF
  cseparator = hwg_GetDirSep()
@@ -446,7 +446,7 @@ FUNCTION hwg_Array_Len(ato_check)
 IF ato_check == NIL
  RETURN 0
 ENDIF
-RETURN IIF(EMPTY(ato_check), 0, LEN(ato_check))
+RETURN IIF(Empty(ato_check), 0, LEN(ato_check))
 
 FUNCTION hwg_MemoCmp(mmemo1,mmemo2)
 
@@ -902,7 +902,7 @@ IF cANSIDate == NIL
  RETURN .F.
 ENDIF
 cANSIDate := ALLTRIM(cANSIDate)
-IF EMPTY(cANSIDate)
+IF Empty(cANSIDate)
  RETURN .F.
 ENDIF
 IF LEN(cANSIDate) != 8
@@ -913,7 +913,7 @@ cdate := DTOC(ddate)
 // Invalid date is "  .  .  ", so ...
 cdate := STRTRAN(cdate, " ", "")
 cdate := STRTRAN(cdate, ".", "")
-IF EMPTY(cdate)
+IF Empty(cdate)
  RETURN .F.
 ENDIF
 RETURN .T.
@@ -1117,7 +1117,7 @@ ENDIF
 IF cext == NIL
  RETURN cfilename
 ENDIF
-IF EMPTY(cext)
+IF Empty(cext)
  RETURN cfilename
 ENDIF
 IF lcs == NIL

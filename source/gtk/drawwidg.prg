@@ -608,7 +608,7 @@ FUNCTION hwg_Bitmap2tmpfile(objBitmap, cname, cfextn)
 // LOCAL ctmpbmpf
 // ctmpbmpf := hwg_Bitmap2tmpfile(obitmap, "sample", "bmp")
 // hwg_MsgInfo(ctmpbmpf,"Temporary image file")
-// IF .NOT. EMPTY(ctmpbmpf)
+// IF .NOT. Empty(ctmpbmpf)
 //  ...
 // ENDIF
 // ERASE &ctmpbmpf

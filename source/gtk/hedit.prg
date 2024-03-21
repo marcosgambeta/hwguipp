@@ -1048,7 +1048,7 @@ FUNCTION hwg_GET_Helper(cp_get,nlen)
   c_get := cp_get
 
 #ifdef __GTK__  
-  IF EMPTY(c_get)
+  IF Empty(c_get)
     c_get := ""
   ELSE
    IF nlen == NIL

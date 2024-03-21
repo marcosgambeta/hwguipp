@@ -132,7 +132,7 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
                   DO CASE
                   CASE stroka = "on" .OR. stroka = "ON" .OR. stroka = "On"
                      &vname := .T.
-                  CASE stroka = "off" .OR. stroka = "OFF" .OR. stroka = "Off" .OR. EMPTY(stroka)
+                  CASE stroka = "off" .OR. stroka = "OFF" .OR. stroka = "Off" .OR. Empty(stroka)
                      &vname := .F.
                   CASE ASC( stroka ) = 123 .AND. SUBSTR(stroka, 2, 1) != "|"  // {
                      RDARR( vname, stroka )
@@ -174,7 +174,7 @@ LOCAL poz1, len1, strv, newname
    IF poz1 != 0
       stroka := SUBSTR(stroka, 2, poz1 - 1)
       DO WHILE poz1 != 0
-         IF EMPTY(stroka)
+         IF Empty(stroka)
             EXIT
          ELSE
             poz1 := FIND_Z( stroka )

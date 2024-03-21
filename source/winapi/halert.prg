@@ -253,7 +253,7 @@ METHOD HAlert:SetupTimer()
 
    LOCAL nTimer
 
-   IF empty(::anTimerIDs)
+   IF Empty(::anTimerIDs)
       nTimer := ::TimerID
    ELSE
       nTimer := ::anTimerIDs[len(::anTimerIDs)] + 1
@@ -489,7 +489,7 @@ FUNCTION HWG_Alert_CenterWindow(hWnd)
    nCHeight := aChild[4] - aChild[2]
 
    hWndParent := hwg_Alert_GetWindow(hWnd, GW_OWNER)
-   IF EMPTY(hWndParent)
+   IF Empty(hWndParent)
       hWndParent := Hwg_GetParent(hWnd)
    ENDIF
 
