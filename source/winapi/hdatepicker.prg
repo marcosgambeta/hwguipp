@@ -96,7 +96,7 @@ METHOD HDatePicker:Init()
 
 METHOD HDatePicker:Refresh()
 
-   IF HB_ISBLOCK(::bSetGet)
+   IF hb_IsBlock(::bSetGet)
       ::dValue := Eval(::bSetGet, NIL, Self)
    ENDIF
 
@@ -114,7 +114,7 @@ METHOD HDatePicker:Value(dValue)
       IF ValType(dValue) == "D"
          hwg_Setdatepicker(::handle, dValue)
          ::dValue := dValue
-         IF HB_ISBLOCK(::bSetGet)
+         IF hb_IsBlock(::bSetGet)
             Eval(::bSetGet, dValue, Self)
          ENDIF
       ENDIF
@@ -128,10 +128,10 @@ STATIC FUNCTION __Change(oCtrl, nMess)
 
    IF (nMess == DTN_DATETIMECHANGE .AND. hwg_Sendmessage(oCtrl:handle, DTM_GETMONTHCAL, 0, 0) == 0) .OR. nMess == DTN_CLOSEUP
       oCtrl:dValue := hwg_Getdatepicker(oCtrl:handle)
-      IF HB_ISBLOCK(oCtrl:bSetGet)
+      IF hb_IsBlock(oCtrl:bSetGet)
          Eval(oCtrl:bSetGet, oCtrl:dValue, oCtrl)
       ENDIF
-      IF HB_ISBLOCK(oCtrl:bChange)
+      IF hb_IsBlock(oCtrl:bChange)
          Eval(oCtrl:bChange, oCtrl:dValue, oCtrl)
       ENDIF
    ENDIF
@@ -141,10 +141,10 @@ STATIC FUNCTION __Change(oCtrl, nMess)
 STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:dValue := hwg_Getdatepicker(oCtrl:handle)
-   IF HB_ISBLOCK(oCtrl:bSetGet)
+   IF hb_IsBlock(oCtrl:bSetGet)
       Eval(oCtrl:bSetGet, oCtrl:dValue, oCtrl)
    ENDIF
-   IF HB_ISBLOCK(oCtrl:bLostFocus) .AND. !Eval(oCtrl:bLostFocus, oCtrl:dValue, oCtrl)
+   IF hb_IsBlock(oCtrl:bLostFocus) .AND. !Eval(oCtrl:bLostFocus, oCtrl:dValue, oCtrl)
       RETURN .F.
    ENDIF
 

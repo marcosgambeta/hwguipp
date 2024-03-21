@@ -207,7 +207,7 @@ METHOD HPanel:Paint()
    LOCAL oPenLight
    LOCAL oPenGray
 
-   IF HB_ISBLOCK(::bPaint)
+   IF hb_IsBlock(::bPaint)
       RETURN Eval(::bPaint, Self)
    ENDIF
 

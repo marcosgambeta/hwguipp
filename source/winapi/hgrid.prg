@@ -164,12 +164,12 @@ METHOD HGrid:Notify(lParam)
 
    SWITCH nCode
    CASE LVN_KEYDOWN
-      IF HB_ISBLOCK(::bKeydown)
+      IF hb_IsBlock(::bKeydown)
          Eval(::bKeyDown, SELF, hwg_Listview_getgridkey(lParam))
       ENDIF
       EXIT
    CASE NM_DBLCLK
-      IF HB_ISBLOCK(::bEnter)
+      IF hb_IsBlock(::bEnter)
          aCord := hwg_Listview_hittest(::handle, hwg_GetCursorPos()[2] - hwg_GetWindowRect(::handle)[2], hwg_GetCursorPos()[1] - hwg_GetWindowRect(::handle)[1])
          ::nRow := aCord[1]
          ::nCol := aCord[2]
@@ -177,23 +177,23 @@ METHOD HGrid:Notify(lParam)
       ENDIF
       EXIT
    CASE NM_SETFOCUS
-      IF HB_ISBLOCK(::bGfocus)
+      IF hb_IsBlock(::bGfocus)
          Eval(::bGfocus, SELF)
       ENDIF
       EXIT
    CASE NM_KILLFOCUS
-      IF HB_ISBLOCK(::bLfocus)
+      IF hb_IsBlock(::bLfocus)
          Eval(::bLfocus, SELF)
       ENDIF
       EXIT
    CASE LVN_ITEMCHANGED
       ::nRow := ::Row()
-      IF HB_ISBLOCK(::bPosChg)
+      IF hb_IsBlock(::bPosChg)
          Eval(::bPosChg, SELF, hwg_Listview_getfirstitem(::handle))
       ENDIF
       EXIT
    CASE LVN_GETDISPINFO
-      IF HB_ISBLOCK(::bDispInfo)
+      IF hb_IsBlock(::bDispInfo)
          aCord := hwg_Listview_getdispinfo(lParam)
          ::nRow := aCord[1]
          ::nCol := aCord[2]
@@ -211,12 +211,12 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam) // TODO: nao utilizada - remover ?
 
    SWITCH nCode
    CASE LVN_KEYDOWN
-      IF HB_ISBLOCK(oCtrl:bKeydown)
+      IF hb_IsBlock(oCtrl:bKeydown)
          Eval(oCtrl:bKeyDown, oCtrl, hwg_Listview_getgridkey(lParam))
       ENDIF
       EXIT
    CASE NM_DBLCLK
-      IF HB_ISBLOCK(oCtrl:bEnter)
+      IF hb_IsBlock(oCtrl:bEnter)
          aCord := hwg_Listview_hittest(oCtrl:handle, hwg_GetCursorPos()[2] - hwg_GetWindowRect(oCtrl:handle)[2], hwg_GetCursorPos()[1] - hwg_GetWindowRect(oCtrl:handle)[1])
          oCtrl:nRow := aCord[1]
          oCtrl:nCol := aCord[2]
@@ -224,23 +224,23 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam) // TODO: nao utilizada - remover ?
       ENDIF
       EXIT
    CASE NM_SETFOCUS
-      IF HB_ISBLOCK(oCtrl:bGfocus)
+      IF hb_IsBlock(oCtrl:bGfocus)
          Eval(oCtrl:bGfocus, oCtrl)
       ENDIF
       EXIT
    CASE NM_KILLFOCUS
-      IF HB_ISBLOCK(oCtrl:bLfocus)
+      IF hb_IsBlock(oCtrl:bLfocus)
          Eval(oCtrl:bLfocus, oCtrl)
       ENDIF
       EXIT
    CASE LVN_ITEMCHANGED
       oCtrl:nRow := oCtrl:Row()
-      IF HB_ISBLOCK(oCtrl:bPosChg)
+      IF hb_IsBlock(oCtrl:bPosChg)
          Eval(oCtrl:bPosChg, oCtrl, hwg_Listview_getfirstitem(oCtrl:handle))
       ENDIF
       EXIT
    CASE LVN_GETDISPINFO
-      IF HB_ISBLOCK(oCtrl:bDispInfo)
+      IF hb_IsBlock(oCtrl:bDispInfo)
          aCord := hwg_Listview_getdispinfo(lParam)
          oCtrl:nRow := aCord[1]
          oCtrl:nCol := aCord[2]

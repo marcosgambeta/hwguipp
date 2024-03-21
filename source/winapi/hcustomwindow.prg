@@ -141,7 +141,7 @@ METHOD HCustomWindow:onEvent(msg, wParam, lParam)
 
    SWITCH msg
    CASE WM_NOTIFY         ; RETURN onNotify(Self, wParam, lParam)
-   CASE WM_PAINT          ; RETURN iif(HB_ISBLOCK(::bPaint), Eval(::bPaint, Self, wParam), -1)
+   CASE WM_PAINT          ; RETURN iif(hb_IsBlock(::bPaint), Eval(::bPaint, Self, wParam), -1)
    CASE WM_CTLCOLORSTATIC ; RETURN onCtlColor(Self, wParam, lParam)
    CASE WM_CTLCOLOREDIT   ; RETURN onCtlColor(Self, wParam, lParam)
    CASE WM_CTLCOLORBTN    ; RETURN onCtlColor(Self, wParam, lParam)
@@ -150,7 +150,7 @@ METHOD HCustomWindow:onEvent(msg, wParam, lParam)
    CASE WM_SIZE           ; RETURN onSize(Self, wParam, lParam)
    CASE WM_DESTROY        ; RETURN onDestroy(Self)
    OTHERWISE
-      IF HB_ISBLOCK(::bOther)
+      IF hb_IsBlock(::bOther)
          RETURN Eval(::bOther, Self, msg, wParam, lParam)
       ENDIF
    ENDSWITCH
@@ -283,7 +283,7 @@ STATIC FUNCTION onDrawItem(oWnd, wParam, lParam)
    LOCAL oCtrl
 
    wParam := hwg_PtrToUlong(wParam)
-   IF wParam != 0 .AND. (oCtrl := oWnd:FindControl(wParam)) != NIL .AND. HB_ISBLOCK(oCtrl:bPaint)
+   IF wParam != 0 .AND. (oCtrl := oWnd:FindControl(wParam)) != NIL .AND. hb_IsBlock(oCtrl:bPaint)
       Eval(oCtrl:bPaint, oCtrl, lParam)
       RETURN 1
    ENDIF
@@ -312,7 +312,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
    HB_SYMBOL_UNUSED(wParam)
 
    FOR EACH oItem IN aControls
-      IF HB_ISBLOCK(oItem:bSize)
+      IF hb_IsBlock(oItem:bSize)
          //  {|o, w, l|onSize(o, w, l)}
          Eval(oItem:bSize, oItem, hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
@@ -328,7 +328,7 @@ FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
       msg := hwg_Loword(wParam)
       SWITCH msg
       CASE TB_ENDTRACK
-         IF HB_ISBLOCK(oCtrl:bChange)
+         IF hb_IsBlock(oCtrl:bChange)
             Eval(oCtrl:bChange, oCtrl)
             RETURN 0
          ENDIF
@@ -336,13 +336,13 @@ FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
       CASE TB_THUMBTRACK
       CASE TB_PAGEUP
       CASE TB_PAGEDOWN
-         IF HB_ISBLOCK(oCtrl:bThumbDrag)
+         IF hb_IsBlock(oCtrl:bThumbDrag)
             Eval(oCtrl:bThumbDrag, oCtrl)
             RETURN 0
          ENDIF
       ENDSWITCH
    ELSE
-      IF HB_ISBLOCK(oWnd:bScroll)
+      IF hb_IsBlock(oWnd:bScroll)
          Eval(oWnd:bScroll, oWnd, msg, wParam, lParam)
          RETURN 0
       ENDIF

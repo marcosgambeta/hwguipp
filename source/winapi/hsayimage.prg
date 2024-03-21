@@ -59,7 +59,7 @@ METHOD HSayImage:Activate()
 
 METHOD HSayImage:onClick()
 
-   IF HB_ISBLOCK(::bClick)
+   IF hb_IsBlock(::bClick)
       Eval(::bClick, Self)
    ENDIF
 
@@ -67,7 +67,7 @@ METHOD HSayImage:onClick()
 
 METHOD HSayImage:onDblClick()
 
-   IF HB_ISBLOCK(::bDblClick)
+   IF hb_IsBlock(::bDblClick)
       Eval(::bDblClick, Self)
    ENDIF
 

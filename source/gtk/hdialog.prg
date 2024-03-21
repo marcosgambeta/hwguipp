@@ -174,7 +174,7 @@ METHOD HDialog:Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate 
    ELSEIF ::oParent != NIL .AND. __ObjHasMsg(::oParent, "nX")
       hwg_MoveWindow(::handle, ::oParent:nX + ::nX, ::oParent:nY + ::nY)
    ENDIF
-   IF HB_ISBLOCK( bActivate )
+   IF hb_IsBlock( bActivate )
       ::bActivate := bActivate
    ENDIF
    IF hb_IsBlock(::bActivate)

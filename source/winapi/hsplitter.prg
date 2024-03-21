@@ -113,7 +113,7 @@ METHOD HSplitter:onEvent(msg, wParam, lParam)
       hwg_Releasecapture()
       ::DragAll()
       ::lCaptured := .F.
-      IF HB_ISBLOCK(::bEndDrag)
+      IF hb_IsBlock(::bEndDrag)
          Eval(::bEndDrag, Self)
       ENDIF
       EXIT
@@ -150,7 +150,7 @@ METHOD HSplitter:Paint()
    LOCAL x2
    LOCAL y2
 
-   IF HB_ISBLOCK(::bPaint)
+   IF hb_IsBlock(::bPaint)
       Eval(::bPaint, Self)
    ELSE
       pps := hwg_Definepaintstru()

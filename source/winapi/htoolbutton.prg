@@ -75,7 +75,7 @@ METHOD HToolButton:Caption(cText)
 
 METHOD HToolButton:onClick()
 
-   IF HB_ISBLOCK(::bClick)
+   IF hb_IsBlock(::bClick)
       Eval(::bClick, self, ::id)
    ENDIF
 

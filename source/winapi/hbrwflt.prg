@@ -39,18 +39,18 @@ METHOD HBrwflt:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
 
    ::lDescend := Iif(lDescend == NIL, .F., lDescend)
 
-   IF HB_ISBLOCK(bFirst) .OR. HB_ISBLOCK(bFor) .OR. HB_ISBLOCK(bWhile)
+   IF hb_IsBlock(bFirst) .OR. hb_IsBlock(bFor) .OR. hb_IsBlock(bWhile)
       ::lFilter := .T.
-      IF HB_ISBLOCK(bFirst)
+      IF hb_IsBlock(bFirst)
          ::bFirst := bFirst
       ENDIF
-      IF HB_ISBLOCK(bLast)
+      IF hb_IsBlock(bLast)
          ::bLast := bLast
       ENDIF
-      IF HB_ISBLOCK(bWhile)
+      IF hb_IsBlock(bWhile)
          ::bWhile := bWhile
       ENDIF
-      IF HB_ISBLOCK(bFor)
+      IF hb_IsBlock(bFor)
          ::bFor := bFor
       ENDIF
    ELSE

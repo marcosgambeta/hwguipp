@@ -242,7 +242,7 @@ METHOD HNiceButton:MUp()
       IF !::lFlat
          hwg_SetNiceBtnSelected(NIL)
       ENDIF
-      IF HB_ISBLOCK(::bClick)
+      IF hb_IsBlock(::bClick)
          Eval(::bClick, ::oParent, ::id)
       ENDIF
    ENDIF

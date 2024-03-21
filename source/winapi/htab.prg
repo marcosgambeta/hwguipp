@@ -188,7 +188,7 @@ METHOD HTab:ChangePage(nPage)
       ::ShowPage(::nActive)
    ENDIF
 
-   IF HB_ISBLOCK(::bChange2)
+   IF hb_IsBlock(::bChange2)
       Eval(::bChange2, Self, nPage)
    ENDIF
 
@@ -304,22 +304,22 @@ METHOD HTab:Notify(lParam)
    //hwg_writelog(str(ncode))
    SWITCH nCode
    CASE TCN_SELCHANGE
-      IF HB_ISBLOCK(::bChange)
+      IF hb_IsBlock(::bChange)
          Eval(::bChange, Self, hwg_Getcurrenttab(::handle))
       ENDIF
       EXIT
    CASE TCN_CLICK
-      IF HB_ISBLOCK(::bAction)
+      IF hb_IsBlock(::bAction)
          Eval(::bAction, Self, hwg_Getcurrenttab(::handle))
       ENDIF
       EXIT
    CASE TCN_SETFOCUS
-      IF HB_ISBLOCK(::bGetFocus)
+      IF hb_IsBlock(::bGetFocus)
          Eval(::bGetFocus, Self, hwg_Getcurrenttab(::handle))
       ENDIF
       EXIT
    CASE TCN_KILLFOCUS
-      IF HB_ISBLOCK(::bLostFocus)
+      IF hb_IsBlock(::bLostFocus)
          Eval(::bLostFocus, Self, hwg_Getcurrenttab(::handle))
       ENDIF
    ENDSWITCH

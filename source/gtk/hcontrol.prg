@@ -99,7 +99,7 @@ METHOD HControl:INIT()
          hwg_SetCtrlFont(::handle, NIL, ::oParent:oFont:handle)
       ENDIF
       hwg_Addtooltip(::handle, ::tooltip)
-      IF HB_ISBLOCK(::bInit)
+      IF hb_IsBlock(::bInit)
          Eval(::bInit, Self)
       ENDIF
       ::Setcolor(::tcolor, ::bcolor)

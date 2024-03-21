@@ -160,7 +160,7 @@ METHOD HPanelHea:Paint()
    LOCAL aCoors
    LOCAL i
 
-   IF HB_ISBLOCK(::bPaint)
+   IF hb_IsBlock(::bPaint)
       RETURN Eval(::bPaint, Self)
    ENDIF
 

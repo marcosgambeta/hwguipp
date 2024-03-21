@@ -347,9 +347,9 @@ METHOD HTree:Notify(lParam)
       IF HB_ISOBJECT(oItem)
          oItem:oTree:oSelected := oItem
          IF !oItem:oTree:lEmpty
-            IF HB_ISBLOCK(oItem:bClick)
+            IF hb_IsBlock(oItem:bClick)
                Eval(oItem:bClick, oItem)
-            ELSEIF HB_ISBLOCK(oItem:oTree:bClick)
+            ELSEIF hb_IsBlock(oItem:oTree:bClick)
                Eval(oItem:oTree:bClick, oItem)
             ENDIF
          ENDIF
@@ -385,14 +385,14 @@ METHOD HTree:Notify(lParam)
       EXIT
 
    CASE -3
-      IF HB_ISBLOCK(::bDblClick)
+      IF hb_IsBlock(::bDblClick)
          oItem := hwg_Treehittest(::handle, NIL, NIL, @nAct)
          Eval(::bDblClick, Self, oItem, nAct)
       ENDIF
       EXIT
 
    CASE -5
-      IF HB_ISBLOCK(::bRClick)
+      IF hb_IsBlock(::bRClick)
          oItem := hwg_Treehittest(::handle, NIL, NIL, @nAct)
          Eval(::bRClick, Self, oItem, nAct)
       ENDIF

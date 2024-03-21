@@ -72,7 +72,7 @@ METHOD HComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHe
       ::xValue := iif(vari == NIL .OR. ValType(vari) != "N", 1, vari)
    ENDIF
 
-   IF HB_ISBLOCK(bSetGet)
+   IF hb_IsBlock(bSetGet)
       ::bSetGet := bSetGet
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
@@ -179,7 +179,7 @@ METHOD HComboBox:Refresh(xVal)
    IF !Empty(::aItems)
       IF xVal != NIL
          ::xValue := xVal
-      ELSEIF HB_ISBLOCK(::bSetGet)
+      ELSEIF hb_IsBlock(::bSetGet)
          vari := Eval(::bSetGet, NIL, Self)
          IF ::lText
             ::xValue := iif(vari == NIL .OR. ValType(vari) != "C", "", Trim(vari))
@@ -215,11 +215,11 @@ METHOD HComboBox:SetItem(nPos)
 
    hwg_Sendmessage(::handle, CB_SETCURSEL, nPos - 1, 0)
 
-   IF HB_ISBLOCK(::bSetGet)
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, ::xValue, self)
    ENDIF
 
-   IF HB_ISBLOCK(::bChangeSel)
+   IF hb_IsBlock(::bChangeSel)
       Eval(::bChangeSel, nPos, Self)
    ENDIF
 
@@ -239,7 +239,7 @@ METHOD HComboBox:GetValue(nItem)
          ::xValue := Iif(::lText, Iif(l, ::aItems[nPos, 1], ::aItems[nPos]), nPos)
       ENDIF
    ENDIF
-   IF HB_ISBLOCK(::bSetGet)
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, ::xValue, Self)
    ENDIF
 
@@ -281,15 +281,15 @@ STATIC FUNCTION __Valid(oCtrl)
          ELSE
             oCtrl:xValue := iif(oCtrl:lText, iif(HB_ISARRAY(oCtrl:aItems[nPos]), oCtrl:aItems[nPos, 1], oCtrl:aItems[nPos]), nPos)
          ENDIF
-         IF HB_ISBLOCK(oCtrl:bSetGet)
+         IF hb_IsBlock(oCtrl:bSetGet)
             Eval(oCtrl:bSetGet, oCtrl:xValue, oCtrl)
          ENDIF
-         IF HB_ISBLOCK(oCtrl:bChangeSel)
+         IF hb_IsBlock(oCtrl:bChangeSel)
             Eval(oCtrl:bChangeSel, nPos, oCtrl)
          ENDIF
       ENDIF
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com.br) 03/06/2006
-      IF HB_ISBLOCK(oCtrl:bValid)
+      IF hb_IsBlock(oCtrl:bValid)
          IF !Eval(oCtrl:bValid, oCtrl)
             hwg_Setfocus(oCtrl:handle)
             RETURN .F.
@@ -305,7 +305,7 @@ STATIC FUNCTION __When(oCtrl)
 
    //oCtrl:Refresh()
 
-   IF HB_ISBLOCK(oCtrl:bGetFocus)
+   IF hb_IsBlock(oCtrl:bGetFocus)
       IF oCtrl:bSetGet == NIL
          res := Eval(oCtrl:bGetFocus, oCtrl:xValue, oCtrl)
       ELSE

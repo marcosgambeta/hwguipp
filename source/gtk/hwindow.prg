@@ -36,7 +36,7 @@ FUNCTION hwg_onWndSize( oWnd, wParam, lParam )
       oWnd:nWidth := w
       oWnd:nHeight := h
    ENDIF
-   IF HB_ISBLOCK( oWnd:bSize )
+   IF hb_IsBlock( oWnd:bSize )
       Eval( oWnd:bSize, oWnd, hwg_Loword(lParam), hwg_Hiword(lParam) )
    ENDIF
 
@@ -341,7 +341,7 @@ METHOD HMainWindow:Activate( lShow, lMaximize, lMinimize, lCentered, bActivate )
          ENDIF
       ENDIF
       ::lActivated := .T.
-      IF HB_ISBLOCK( bActivate )
+      IF hb_IsBlock( bActivate )
          ::bActivate := bActivate
       ENDIF
       IF hb_IsBlock(::bActivate)

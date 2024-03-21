@@ -334,7 +334,7 @@ METHOD HBrowse:onEvent(msg, wParam, lParam)
    // hwg_WriteLog("Brw: " + Str(msg, 6) + " " + Str(hwg_PtrToUlong(wParam), 10)  +" " + Str(hwg_PtrToUlong(lParam), 10))
    IF ::active .AND. !Empty(::aColumns)
 
-      IF HB_ISBLOCK(::bOther)
+      IF hb_IsBlock(::bOther)
          Eval(::bOther, Self, msg, wParam, lParam)
       ENDIF
 
@@ -353,13 +353,13 @@ METHOD HBrowse:onEvent(msg, wParam, lParam)
          EXIT
 
       CASE WM_SETFOCUS
-         IF HB_ISBLOCK(::bGetFocus)
+         IF hb_IsBlock(::bGetFocus)
             Eval(::bGetFocus, Self)
          ENDIF
          EXIT
 
       CASE WM_KILLFOCUS
-         IF HB_ISBLOCK(::bLostFocus)
+         IF hb_IsBlock(::bLostFocus)
             Eval(::bLostFocus, Self)
          ENDIF
          EXIT
@@ -396,7 +396,7 @@ METHOD HBrowse:onEvent(msg, wParam, lParam)
 
       CASE WM_KEYDOWN
          wParam := hwg_PtrToUlong(wParam)
-         IF HB_ISBLOCK(::bKeyDown)
+         IF hb_IsBlock(::bKeyDown)
             IF !Eval(::bKeyDown, Self, wParam)
                RETURN 1
             ENDIF
@@ -921,7 +921,7 @@ METHOD HBrowse:Paint(lLostFocus)
    tmp := Eval(::bRecno, Self)
    IF ::recCurr != tmp
       ::recCurr := tmp
-      IF HB_ISBLOCK(::bPosChanged)
+      IF hb_IsBlock(::bPosChanged)
          Eval(::bPosChanged, Self, ::nCurrent)
       ENDIF
    ENDIF
@@ -1199,7 +1199,7 @@ METHOD HBrowse:LineOut(nstroka, vybfld, hDC, lSelected, lClear)
       lClear := .F.
    ENDIF
 
-   IF HB_ISBLOCK(::bLineOut)
+   IF hb_IsBlock(::bLineOut)
       Eval(::bLineOut, Self, lSelected)
    ENDIF
    IF ::nRecords > 0
@@ -1405,12 +1405,12 @@ METHOD HBrowse:DoVScroll(wParam)
       ::PAGEUP()
       EXIT
    CASE SB_THUMBPOSITION
-      IF HB_ISBLOCK(::bScrollPos)
+      IF hb_IsBlock(::bScrollPos)
          Eval(::bScrollPos, Self, SB_THUMBPOSITION, .F., hwg_Hiword(wParam))
       ENDIF
       EXIT
    CASE SB_THUMBTRACK
-      IF HB_ISBLOCK(::bScrollPos)
+      IF hb_IsBlock(::bScrollPos)
          Eval(::bScrollPos, Self, SB_THUMBTRACK, .F., hwg_Hiword(wParam))
       ENDIF
       EXIT
@@ -1460,13 +1460,13 @@ METHOD HBrowse:DoHScroll(wParam)
       ENDDO
       EXIT
    CASE SB_THUMBPOSITION
-      IF HB_ISBLOCK(::bHScrollPos)
+      IF hb_IsBlock(::bHScrollPos)
          Eval(::bHScrollPos, Self, SB_THUMBPOSITION, .F., hwg_Hiword(wParam))
          lMoveThumb := .F.
       ENDIF
       EXIT
    CASE SB_THUMBTRACK
-      IF HB_ISBLOCK(::bHScrollPos)
+      IF hb_IsBlock(::bHScrollPos)
          Eval(::bHScrollPos, Self, SB_THUMBTRACK, .F., hwg_Hiword(wParam))
          lMoveThumb := .F.
       ENDIF
@@ -1553,7 +1553,7 @@ METHOD HBrowse:LINEDOWN(lMouse)
       ::colPos := ::nLeftCol := colpos
    ENDIF
 
-   IF HB_ISBLOCK(::bScrollPos)
+   IF hb_IsBlock(::bScrollPos)
       Eval(::bScrollPos, Self, 1, .F.)
    ELSEIF ::nRecords > 1
       hwg_Getscrollrange(::handle, SB_VERT, @minPos, @maxPos)
@@ -1597,7 +1597,7 @@ METHOD HBrowse:LINEUP()
          hwg_Invalidaterect(::handle, 0, ::x1, ::y1 + (::height + 1) * ::rowPos - ::height, ::x2, ::y1 + (::height + 1) * ::rowPos)
       ENDIF
 
-      IF HB_ISBLOCK(::bScrollPos)
+      IF hb_IsBlock(::bScrollPos)
          Eval(::bScrollPos, Self, -1, .F.)
       ELSEIF ::nRecords > 1
          hwg_Getscrollrange(::handle, SB_VERT, @minPos, @maxPos)
@@ -1633,7 +1633,7 @@ METHOD HBrowse:PAGEUP()
       ENDIF
    ENDIF
 
-   IF HB_ISBLOCK(::bScrollPos)
+   IF hb_IsBlock(::bScrollPos)
       Eval(::bScrollPos, Self, -step, lBof)
    ELSEIF ::nRecords > 1
       hwg_Getscrollrange(::handle, SB_VERT, @minPos, @maxPos)
@@ -1658,7 +1658,7 @@ METHOD HBrowse:PAGEDOWN()
    Eval(::bSkip, Self, step)
    ::rowPos := Min(::nRecords, nRows)
 
-   IF HB_ISBLOCK(::bScrollPos)
+   IF hb_IsBlock(::bScrollPos)
       Eval(::bScrollPos, Self, step, Eval(::bEof, Self))
    ELSE
       hwg_Getscrollrange(::handle, SB_VERT, @minPos, @maxPos)
@@ -1759,7 +1759,7 @@ METHOD HBrowse:ButtonDown(lParam)
          Eval(::bSkip, Self, step)
          IF !Eval(::bEof, Self)
             ::rowPos := nLine
-            IF HB_ISBLOCK(::bScrollPos)
+            IF hb_IsBlock(::bScrollPos)
                Eval(::bScrollPos, Self, step, .F.)
             ELSEIF ::nRecords > 1
                hwg_Getscrollrange(hBrw, SB_VERT, @minPos, @maxPos)

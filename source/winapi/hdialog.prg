@@ -198,7 +198,7 @@ METHOD HDialog:Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
          ::Move(NIL, NIL, ::nWidth + (aCoors[3] - aCoors[1] - (aRect[3] - aRect[1])), ::nHeight + (aCoors[4] - aCoors[2] - (aRect[4] - aRect[2])))
       ENDIF
       */
-      IF HB_ISBLOCK(::bActivate)
+      IF hb_IsBlock(::bActivate)
          Eval(::bActivate, Self)
          ::bActivate := NIL
       ENDIF
@@ -330,7 +330,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
    CASE 16               ; oDlg:Center()
    ENDSWITCH
 
-   IF HB_ISBLOCK(oDlg:bInit)
+   IF hb_IsBlock(oDlg:bInit)
       IF ValType(nReturn := Eval(oDlg:bInit, oDlg)) != "N"
          nReturn := 1
       ENDIF
@@ -437,7 +437,7 @@ FUNCTION onDlgCommand(oDlg, wParam, lParam)
       IF aMenu[1, i, 1] != NIL
          Eval(aMenu[1, i, 1])
       ENDIF
-   ELSEIF __ObjHasMsg(oDlg, "OPOPUP") .AND. oDlg:oPopup != NIL .AND. (aMenu := Hwg_FindMenuItem(oDlg:oPopup:aMenu, iParLow, @i)) != NIL .AND. HB_ISBLOCK(aMenu[1, i, 1])
+   ELSEIF __ObjHasMsg(oDlg, "OPOPUP") .AND. oDlg:oPopup != NIL .AND. (aMenu := Hwg_FindMenuItem(oDlg:oPopup:aMenu, iParLow, @i)) != NIL .AND. hb_IsBlock(aMenu[1, i, 1])
       Eval(aMenu[1, i, 1])
    ENDIF
 
@@ -450,14 +450,14 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(lParam)
 
-   IF HB_ISBLOCK(oDlg:bActivate)
+   IF hb_IsBlock(oDlg:bActivate)
       b := oDlg:bActivate
       oDlg:bActivate := NIL
       Eval(b, oDlg)
    ENDIF
-   IF iParLow > 0 .AND. HB_ISBLOCK(oDlg:bGetFocus)
+   IF iParLow > 0 .AND. hb_IsBlock(oDlg:bGetFocus)
       Eval(oDlg:bGetFocus, oDlg)
-   ELSEIF iParLow == 0 .AND. HB_ISBLOCK(oDlg:bLostFocus)
+   ELSEIF iParLow == 0 .AND. hb_IsBlock(oDlg:bLostFocus)
       Eval(oDlg:bLostFocus, oDlg)
    ENDIF
 
@@ -494,14 +494,14 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
 
    SWITCH nCode
    CASE PSN_SETACTIVE
-      IF HB_ISBLOCK(oDlg:bGetFocus)
+      IF hb_IsBlock(oDlg:bGetFocus)
          res := Eval(oDlg:bGetFocus, oDlg)
       ENDIF
       // 'res' should be 0(Ok) or -1
       Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, -1))
       RETURN 1
    CASE PSN_KILLACTIVE
-      IF HB_ISBLOCK(oDlg:bLostFocus)
+      IF hb_IsBlock(oDlg:bLostFocus)
          res := Eval(oDlg:bLostFocus, oDlg)
       ENDIF
       // 'res' should be 0(Ok) or 1
@@ -510,7 +510,7 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
    CASE PSN_RESET
       EXIT
    CASE PSN_APPLY
-      IF HB_ISBLOCK(oDlg:bDestroy)
+      IF hb_IsBlock(oDlg:bDestroy)
          res := Eval(oDlg:bDestroy, oDlg)
          res := Iif(HB_ISLOGICAL(res), res, .T.)
       ENDIF
@@ -521,7 +521,7 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
       ENDIF
       RETURN 1
    OTHERWISE
-      IF HB_ISBLOCK(oDlg:bOther)
+      IF hb_IsBlock(oDlg:bOther)
          res := Eval(oDlg:bOther, oDlg, WM_NOTIFY, 0, lParam)
          Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, 1))
          RETURN 1
@@ -582,7 +582,7 @@ FUNCTION hwg_EndDialog(handle)
          RETURN NIL
       ENDIF
    ENDIF
-   IF HB_ISBLOCK(oDlg:bDestroy)
+   IF hb_IsBlock(oDlg:bDestroy)
       lRes := Eval(oDlg:bDestroy, oDlg)
       IF Valtype(lRes) != "L" .OR. lRes
          RETURN Iif(oDlg:lModal, Hwg__EndDialog(oDlg:handle), hwg_Destroywindow(oDlg:handle))

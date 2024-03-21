@@ -196,7 +196,7 @@ METHOD hToolBar:CREATETOOL()
    ENDIF
 
    FOR n := 1 TO Len(::aItem)
-      IF HB_ISBLOCK(::aItem[n, 7])
+      IF hb_IsBlock(::aItem[n, 7])
          //::oParent:AddEvent(BN_CLICKED, ::aItem[n, 2], ::aItem[n, 7])
       ENDIF
       IF HB_ISARRAY(::aItem[n, 9])
@@ -305,7 +305,7 @@ METHOD hToolBar:Notify(lParam)
    ELSEIF nCode == NM_CLICK
       nId := hwg_Toolbar_idclick(lParam)
       nPos := AScan(::aItem, {|x|x[2] == nId})
-      IF nPos > 0 .AND. HB_ISBLOCK(::aItem[nPos, 7])
+      IF nPos > 0 .AND. hb_IsBlock(::aItem[nPos, 7])
          Eval(::aItem[nPos, 7], ::aItem[nPos, 11], nId)
       ENDIF
    ENDIF

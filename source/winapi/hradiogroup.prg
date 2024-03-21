@@ -23,7 +23,7 @@ CLASS HRadioGroup INHERIT HObject
    METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, tcolor, bColor)
    METHOD EndGroup(nSelected)
    METHOD Value(nValue) SETGET
-   METHOD Refresh() INLINE iif(HB_ISBLOCK(::bSetGet), ::Value := Eval(::bSetGet), .T.)
+   METHOD Refresh() INLINE iif(hb_IsBlock(::bSetGet), ::Value := Eval(::bSetGet), .T.)
 
 ENDCLASS
 
@@ -88,7 +88,7 @@ METHOD HRadioGroup:Value(nValue)
       IF ( nLen := Len(::aButtons) ) > 0 .AND. nValue > 0 .AND. nValue <= nLen
          hwg_Checkradiobutton(::aButtons[nlen]:oParent:handle, ::aButtons[1]:id, ::aButtons[nLen]:id, ::aButtons[nValue]:id)
          ::nValue := nValue
-         IF HB_ISBLOCK(::bSetGet)
+         IF hb_IsBlock(::bSetGet)
             Eval(::bSetGet, nValue, Self)
          ENDIF
       ENDIF

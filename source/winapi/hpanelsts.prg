@@ -98,7 +98,7 @@ METHOD HPanelStS:Paint()
    LOCAL block
    LOCAL aCoors
 
-   IF HB_ISBLOCK(::bPaint)
+   IF hb_IsBlock(::bPaint)
       RETURN Eval(::bPaint, Self)
    ENDIF
 

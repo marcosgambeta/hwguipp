@@ -111,7 +111,7 @@ STATIC FUNCTION __GetFocus(oCtrl)
    
    LOCAL xRet
 
-   IF HB_ISBLOCK(oCtrl:bGetFocus)
+   IF hb_IsBlock(oCtrl:bGetFocus)
       xRet := Eval(oCtrl:bGetFocus, oCtrl)
    ENDIF
 
@@ -122,7 +122,7 @@ STATIC FUNCTION __KillFocus(oCtrl)
    
    LOCAL xRet
 
-   IF HB_ISBLOCK(oCtrl:bKillFocus)
+   IF hb_IsBlock(oCtrl:bKillFocus)
       xRet := Eval(oCtrl:bKillFocus, oCtrl)
    ENDIF
 

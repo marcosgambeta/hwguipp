@@ -73,7 +73,7 @@ METHOD HControl:INIT()
          ::oFont := ::oParent:oFont
          hwg_Setctrlfont(::oParent:handle, ::id, ::oParent:oFont:handle)
       ENDIF
-      IF HB_ISBLOCK(::bInit)
+      IF hb_IsBlock(::bInit)
          Eval(::bInit, Self)
       ENDIF
       ::lInit := .T.
