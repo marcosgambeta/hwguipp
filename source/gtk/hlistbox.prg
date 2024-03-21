@@ -395,7 +395,7 @@ STATIC FUNCTION AddLItems (h,it)
     IF it == NIL
       it := {}
     ENDIF  
-    IF .NOT. Empty(it)
+    IF !Empty(it)
      FOR i := 1 TO LEN(it)
        HWG_LISTBOXADDSTRING( h,it[i] )
      NEXT

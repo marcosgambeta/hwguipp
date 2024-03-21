@@ -279,7 +279,7 @@ FUNCTION hwg_HEX_DUMP (cinfield, npmode, cpVarName)
   * complete as last line, if rest of recent line existing
   * HEX line 16 * 3 = 48
   * line with printable chars: 16 * 2 = 32
-  IF  .NOT. Empty(ccchexline)  && nlinepos < 16
+  IF !Empty(ccchexline)  && nlinepos < 16
    DO CASE
       CASE nmode == 0
        coutfield := coutfield + ccchexline
@@ -431,7 +431,7 @@ FUNCTION hwg_CleanPathname ( pSwithdbl )
  cseparator = hwg_GetDirSep()
  bready := .F.
  sSwithdbl = ALLTRIM(pSwithdbl)
- DO WHILE .NOT. bready
+ DO WHILE !bready
  * Loop until
  * multi separators (for example "///") are reduced to "/"
   sSwithdbl := STRTRAN(sSwithdbl , cseparator + cseparator , cseparator)
@@ -857,7 +857,7 @@ lstop := .F.
      RETURN ""
   ENDIF
   FOR vni := 1 TO LEN(ce)
-   IF .NOT. lstop  
+   IF !lstop  
      if SUBSTR(e1,vni,1) == " "
       e1 := STUFF(e1,vni,1,"0")  && modify character at position vni to "0"
      ELSE
@@ -1073,7 +1073,7 @@ FUNCTION hwg_JulianDay2Date(z)
    
    * Check for Errors 
    * Could be for example "20991232". 
-   IF .NOT. hwg_checkANSIDate(cYear + cMonth + cday)
+   IF !hwg_checkANSIDate(cYear + cMonth + cday)
     RETURN ""
    ENDIF
 

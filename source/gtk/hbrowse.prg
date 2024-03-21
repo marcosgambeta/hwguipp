@@ -2019,7 +2019,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
     bESCkey := iif(oBrw:oGet:nLastKey  != GDK_Escape , .F. , .T.) /* GET */
    ENDIF
 
-   IF .NOT. bESCkey
+   IF !bESCkey
       IF oColumn:aList != NIL
          IF ValType( oBrw:varbuf ) == 'N'
             oBrw:varbuf := nChoic
@@ -2073,7 +2073,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
 
    oBrw:Refresh()
    // Execute block after changes are made
-   IF ( .NOT. bESCkey ) .AND. hb_IsBlock(oBrw:bUpdate)
+   IF ( !bESCkey ) .AND. hb_IsBlock(oBrw:bUpdate)
       Eval( oBrw:bUpdate, oBrw, fipos )
    ENDIF
    IF bmemo
