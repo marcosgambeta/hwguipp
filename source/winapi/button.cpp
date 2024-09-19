@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level controls functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level controls functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define HB_OS_WIN_32_USED
 
@@ -17,7 +17,7 @@
 #include <hbvm.hpp>
 #include <hbdate.hpp>
 #include <hbtrace.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
@@ -26,9 +26,7 @@ LRESULT APIENTRY ButtonSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
 // static WNDPROC wpOrigButtonProc;
 static LONG_PTR wpOrigButtonProc;
 
-/*
-HWG_CREATEBUTTON(hParentWIndow, nButtonID, nStyle, nX, nY, nWidth, nHeight, cCaption) --> hButton
-*/
+// HWG_CREATEBUTTON(hParentWIndow, nButtonID, nStyle, nX, nY, nWidth, nHeight, cCaption) --> hButton
 HB_FUNC(HWG_CREATEBUTTON)
 {
   void *hStr;

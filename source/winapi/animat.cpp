@@ -1,17 +1,15 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C++ functions for HAnimation class
- *
- * Copyright 2004,2022 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
- * www - https://github.com/marcosgambeta/
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C++ functions for HAnimation class
+//
+// Copyright 2004,2022 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
+// www - https://github.com/marcosgambeta/
+//
 
 #include "hwingui.hpp"
 #include <commctrl.h>
 
-/*
-HWG_ANIMATE_CREATE(hParent, nId, nStyle, nX, nY, nWidth, nHeight) --> handle
-*/
+// HWG_ANIMATE_CREATE(hParent, nId, nStyle, nX, nY, nWidth, nHeight) --> handle
 #if 0
 HB_FUNC( HWG_ANIMATE_CREATE ) // moved to hanimation.prg as static function
 {
@@ -21,9 +19,7 @@ HB_FUNC( HWG_ANIMATE_CREATE ) // moved to hanimation.prg as static function
 }
 #endif
 
-/*
-HWG_ANIMATE_OPEN(HWND, cName) --> NIL
-*/
+// HWG_ANIMATE_OPEN(HWND, cName) --> NIL
 #if 0
 HB_FUNC( HWG_ANIMATE_OPEN ) // moved to hanimation.prg as static function
 {
@@ -33,9 +29,7 @@ HB_FUNC( HWG_ANIMATE_OPEN ) // moved to hanimation.prg as static function
 }
 #endif
 
-/*
-HWG_ANIMATE_PLAY(HWND, nFrom, nTo, nReplay) --> NIL
-*/
+// HWG_ANIMATE_PLAY(HWND, nFrom, nTo, nReplay) --> NIL
 #if 0
 HB_FUNC( HWG_ANIMATE_PLAY ) // deprecated
 {
@@ -43,9 +37,7 @@ HB_FUNC( HWG_ANIMATE_PLAY ) // deprecated
 }
 #endif
 
-/*
-HWG_ANIMATE_SEEK(HWND, nFrame) --> NIL
-*/
+// HWG_ANIMATE_SEEK(HWND, nFrame) --> NIL
 #if 0
 HB_FUNC( HWG_ANIMATE_SEEK ) // deprecated
 {
@@ -53,9 +45,7 @@ HB_FUNC( HWG_ANIMATE_SEEK ) // deprecated
 }
 #endif
 
-/*
-HWG_ANIMATE_STOP(HWND) --> NIL
-*/
+// HWG_ANIMATE_STOP(HWND) --> NIL
 #if 0
 HB_FUNC( HWG_ANIMATE_STOP ) // deprecated
 {
@@ -63,9 +53,7 @@ HB_FUNC( HWG_ANIMATE_STOP ) // deprecated
 }
 #endif
 
-/*
-HWG_ANIMATE_CLOSE(HWND) --> NIL
-*/
+// HWG_ANIMATE_CLOSE(HWND) --> NIL
 #if 0
 HB_FUNC( HWG_ANIMATE_CLOSE ) // deprecated
 {
@@ -73,9 +61,7 @@ HB_FUNC( HWG_ANIMATE_CLOSE ) // deprecated
 }
 #endif
 
-/*
-HWG_ANIMATE_DESTROY(HWND) --> NIL
-*/
+// HWG_ANIMATE_DESTROY(HWND) --> NIL
 #if 0
 HB_FUNC( HWG_ANIMATE_DESTROY ) // deprecated
 {
@@ -83,9 +69,7 @@ HB_FUNC( HWG_ANIMATE_DESTROY ) // deprecated
 }
 #endif
 
-/*
-HWG_ANIMATE_OPENEX(HWND, hInstance, cName|nName) --> NIL
-*/
+// HWG_ANIMATE_OPENEX(HWND, hInstance, cName|nName) --> NIL
 #if 0
 HB_FUNC( HWG_ANIMATE_OPENEX ) // moved to hanimation.prg as static function
 {
@@ -102,9 +86,7 @@ HB_FUNC( HWG_ANIMATE_OPENEX ) // moved to hanimation.prg as static function
 }
 #endif
 
-/*
-HWG_ANIMATE_ISPLAYING(HWND) --> .T.|.F.
-*/
+// HWG_ANIMATE_ISPLAYING(HWND) --> .T.|.F.
 #if 0
 HB_FUNC( HWG_ANIMATE_ISPLAYING ) // deprecated
 {

@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level common dialogs functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level common dialogs functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define OEMRESOURCE
 
@@ -13,9 +13,7 @@
 #include <hbvm.hpp>
 #include <hbapicls.hpp>
 
-/*
-HWG_SELECTFONT(oPar1) --> array
-*/
+// HWG_SELECTFONT(oPar1) --> array
 HB_FUNC(HWG_SELECTFONT)
 {
   CHOOSEFONT cf;
@@ -26,7 +24,7 @@ HB_FUNC(HWG_SELECTFONT)
   auto aMetr = hb_itemArrayNew(9);
   PHB_ITEM temp;
 
-  /* Initialize members of the CHOOSEFONT structure. */
+  // Initialize members of the CHOOSEFONT structure.
   if (pObj != nullptr)
   {
     temp1 = GETOBJECTVAR(pObj, "NAME");
@@ -58,7 +56,7 @@ HB_FUNC(HWG_SELECTFONT)
   cf.nSizeMin = 0;
   cf.nSizeMax = 0;
 
-  /* Display the CHOOSEFONT common-dialog box. */
+  // Display the CHOOSEFONT common-dialog box.
 
   if (!ChooseFont(&cf))
   {
@@ -67,9 +65,9 @@ HB_FUNC(HWG_SELECTFONT)
     return;
   }
 
-  /* Create a logical font based on the user's   */
-  /* selection and return a handle identifying   */
-  /* that font.                                  */
+  // Create a logical font based on the user's
+  // selection and return a handle identifying
+  // that font.
 
   hfont = CreateFontIndirect(cf.lpLogFont);
 
@@ -105,9 +103,7 @@ HB_FUNC(HWG_SELECTFONT)
   hb_itemRelease(hb_itemReturn(aMetr));
 }
 
-/*
-HWG_SELECTFILE(cPar1|aPar1, cPar2|aPar2, cInitDir, cTitle) --> character
-*/
+// HWG_SELECTFILE(cPar1|aPar1, cPar2|aPar2, cInitDir, cTitle) --> character
 HB_FUNC(HWG_SELECTFILE)
 {
   OPENFILENAME ofn{};
@@ -203,9 +199,7 @@ HB_FUNC(HWG_SELECTFILE)
   hb_strfree(hTitle);
 }
 
-/*
-HWG_SAVEFILE(cFilename, cPar2, cPar3, cInitDir, cTitle, lOFN_OVERWRITEPROMPT) --> character
-*/
+// HWG_SAVEFILE(cFilename, cPar2, cPar3, cInitDir, cTitle, lOFN_OVERWRITEPROMPT) --> character
 HB_FUNC(HWG_SAVEFILE)
 {
   OPENFILENAME ofn{};
@@ -267,9 +261,7 @@ HB_FUNC(HWG_SAVEFILE)
   hb_strfree(hTitle);
 }
 
-/*
-HWG_PRINTSETUP() --> hDC
-*/
+// HWG_PRINTSETUP() --> hDC
 HB_FUNC(HWG_PRINTSETUP)
 {
   PRINTDLG pd{};
@@ -314,9 +306,7 @@ HB_FUNC(HWG_PRINTSETUP)
   }
 }
 
-/*
-HWG_CHOOSECOLOR(nColor|NIL, lCC_FULLOPEN|NIL) --> nColor
-*/
+// HWG_CHOOSECOLOR(nColor|NIL, lCC_FULLOPEN|NIL) --> nColor
 HB_FUNC(HWG_CHOOSECOLOR)
 {
   CHOOSECOLOR cc{};
@@ -350,9 +340,7 @@ static unsigned long Get_SerialNumber(LPCTSTR RootPathName)
   return SerialNumber;
 }
 
-/*
-HWG_HDGETSERIAL(cPar) --> numeric
-*/
+// HWG_HDGETSERIAL(cPar) --> numeric
 HB_FUNC(HWG_HDGETSERIAL)
 {
   void *hStr;
@@ -360,17 +348,13 @@ HB_FUNC(HWG_HDGETSERIAL)
   hb_strfree(hStr);
 }
 
-/*
- The functions added by extract for the Minigui Lib Open Source project
- Copyright 2002 Roberto Lopez <roblez@ciudad.com.ar>
- http://www.geocities.com/harbour_minigui/
- HB_FUNC( GETPRIVATEPROFILESTRING )
- HB_FUNC( WRITEPRIVATEPROFILESTRING )
-*/
+// The functions added by extract for the Minigui Lib Open Source project
+// Copyright 2002 Roberto Lopez <roblez@ciudad.com.ar>
+// http://www.geocities.com/harbour_minigui/
+// HB_FUNC( GETPRIVATEPROFILESTRING )
+// HB_FUNC( WRITEPRIVATEPROFILESTRING )
 
-/*
-HWG_GETPRIVATEPROFILESTRING(cSection, cEntry, cDefault, cFilename) --> character
-*/
+// HWG_GETPRIVATEPROFILESTRING(cSection, cEntry, cDefault, cFilename) --> character
 HB_FUNC(HWG_GETPRIVATEPROFILESTRING)
 {
   TCHAR buffer[1024];
@@ -395,9 +379,7 @@ HB_FUNC(HWG_GETPRIVATEPROFILESTRING)
   hb_strfree(hFileName);
 }
 
-/*
-HWG_WRITEPRIVATEPROFILESTRING(cSection, cEntry, cData, cFilename) --> logical
-*/
+// HWG_WRITEPRIVATEPROFILESTRING(cSection, cEntry, cData, cFilename) --> logical
 HB_FUNC(HWG_WRITEPRIVATEPROFILESTRING)
 {
   void *hSection, *hEntry, *hData, *hFileName;
@@ -433,9 +415,7 @@ static void StartPrn(void)
   }
 }
 
-/*
-HWG_PRINTPORTNAME() --> character
-*/
+// HWG_PRINTPORTNAME() --> character
 HB_FUNC(HWG_PRINTPORTNAME)
 {
   if (!s_fPName && s_pd.hDevNames)
@@ -447,9 +427,7 @@ HB_FUNC(HWG_PRINTPORTNAME)
   }
 }
 
-/*
-HWG_PRINTSETUPDOS() --> hDC
-*/
+// HWG_PRINTSETUPDOS() --> hDC
 HB_FUNC(HWG_PRINTSETUPDOS)
 {
   StartPrn();
@@ -480,9 +458,7 @@ HB_FUNC(HWG_PRINTSETUPDOS)
   }
 }
 
-/*
-HWG_PRINTSETUPEX() --> character
-*/
+// HWG_PRINTSETUPEX() --> character
 HB_FUNC(HWG_PRINTSETUPEX)
 {
   PRINTDLG pd{};
@@ -503,9 +479,7 @@ HB_FUNC(HWG_PRINTSETUPEX)
   }
 }
 
-/*
-HWG_GETOPENFILENAME(hWnd, cFilename, cTitle, cFilter, , cInitDir, cDefExt, nFilterIndex) --> character
-*/
+// HWG_GETOPENFILENAME(hWnd, cFilename, cTitle, cFilter, , cInitDir, cDefExt, nFilterIndex) --> character
 HB_FUNC(HWG_GETOPENFILENAME)
 {
   TCHAR buffer[1024];

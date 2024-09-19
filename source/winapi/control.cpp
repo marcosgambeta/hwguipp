@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level controls functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level controls functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define HB_OS_WIN_32_USED
 
@@ -17,7 +17,7 @@
 #include <hbvm.hpp>
 #include <hbdate.hpp>
 #include <hbtrace.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
@@ -37,11 +37,11 @@ HB_EXTERN_END
 #define TB_GETIMAGELIST (WM_USER + 49)
 #endif
 
-/*
+#if 0
 #if _MSC_VER
 #define snprintf _snprintf
 #endif
-*/
+#endif
 
 // LRESULT CALLBACK OwnBtnProc(HWND, UINT, WPARAM, LPARAM);
 LRESULT CALLBACK WinCtrlProc(HWND, UINT, WPARAM, LPARAM);
@@ -52,9 +52,7 @@ LRESULT APIENTRY TrackSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 static auto s_lInitCmnCtrl = false;
 static WNDPROC wpOrigTrackProc, wpOrigListProc;
 
-/*
-HWG_INITCOMMONCONTROLSEX() --> NIL
-*/
+// HWG_INITCOMMONCONTROLSEX() --> NIL
 HB_FUNC(HWG_INITCOMMONCONTROLSEX)
 {
   if (!s_lInitCmnCtrl)
@@ -68,9 +66,7 @@ HB_FUNC(HWG_INITCOMMONCONTROLSEX)
   }
 }
 
-/*
-HWG_MOVEWINDOW(HWND, nLeft, nTop, nRight, nBottom, lRepaint) --> NIL
-*/
+// HWG_MOVEWINDOW(HWND, nLeft, nTop, nRight, nBottom, lRepaint) --> NIL
 HB_FUNC(HWG_MOVEWINDOW)
 {
   RECT rc;
@@ -80,9 +76,7 @@ HB_FUNC(HWG_MOVEWINDOW)
              (hb_pcount() < 6) ? TRUE : hb_parl(6));
 }
 
-/*
-   CreateOwnBtn(hParentWIndow, nBtnControlID, x, y, nWidth, nHeight)
-*/
+// CreateOwnBtn(hParentWIndow, nBtnControlID, x, y, nWidth, nHeight)
 HB_FUNC(HWG_CREATEOWNBTN)
 {
   auto hWndPanel =
@@ -92,9 +86,7 @@ HB_FUNC(HWG_CREATEOWNBTN)
   hb_retptr(hWndPanel);
 }
 
-/*
-   CreateBrowse(hParentWIndow, nControlID, nStyle, x, y, nWidth, nHeight, cTitle)
-*/
+// CreateBrowse(hParentWIndow, nControlID, nStyle, x, y, nWidth, nHeight, cTitle)
 HB_FUNC(HWG_CREATEBROWSE)
 {
   DWORD dwStyle = hb_parnl(3);
@@ -107,15 +99,14 @@ HB_FUNC(HWG_CREATEBROWSE)
   hb_retptr(hWndBrw);
 }
 
-/* CreateStatusWindow - creates a status window and divides it into
-     the specified number of parts.
- Returns the handle to the status window.
- hwndParent - parent window for the status window
- nStatusID - child window identifier
- nParts - number of parts into which to divide the status window
- pArray - Array with Lengths of parts, if first item == 0, status window
-          will be divided into equal parts.
-*/
+// CreateStatusWindow - creates a status window and divides it into
+//   the specified number of parts.
+// Returns the handle to the status window.
+// hwndParent - parent window for the status window
+// nStatusID - child window identifier
+// nParts - number of parts into which to divide the status window
+// pArray - Array with Lengths of parts, if first item == 0, status window
+//          will be divided into equal parts.
 HB_FUNC(HWG_CREATESTATUSWINDOW)
 {
   // Ensure that the common control DLL is loaded.
@@ -204,9 +195,7 @@ HB_FUNC(HWG_GETNOTIFYKEYDOWN)
   hb_retni(static_cast<WORD>((static_cast<TC_KEYDOWN *>(hb_parptr(1)))->wVKey));
 }
 
-/*
- * CreateImagelist(array, cx, cy, nGrow, flags)
- */
+// CreateImagelist(array, cx, cy, nGrow, flags)
 HB_FUNC(HWG_CREATEIMAGELIST)
 {
   auto pArray = hb_param(1, Harbour::Item::ARRAY);
@@ -268,9 +257,7 @@ HB_FUNC(HWG_LOADCURSOR)
   hb_strfree(hStr);
 }
 
-/*
-hwg_LoadCursorFromFile(ccurFname)
-*/
+// hwg_LoadCursorFromFile(ccurFname)
 HB_FUNC(HWG_LOADCURSORFROMFILE)
 {
   void *hStr;
@@ -281,7 +268,7 @@ HB_FUNC(HWG_LOADCURSORFROMFILE)
   hCursor = LoadCursorFromFile(ccurFname);
   if (hCursor == nullptr)
   {
-    /* in case of error return default cursor "Arrow" */
+    // in case of error return default cursor "Arrow"
     hb_retptr(LoadCursor(nullptr, IDC_ARROW));
   }
   else
@@ -674,7 +661,7 @@ HB_FUNC(HWG_GETDLGMESSAGE)
   hb_retnl(0);
 }
 
-HB_FUNC(HWG_GETUTCTIMEDATE) /* Format: W,YYYYMMDD-HH:MM:SS */
+HB_FUNC(HWG_GETUTCTIMEDATE) // Format: W,YYYYMMDD-HH:MM:SS
 {
   SYSTEMTIME st = {0};
   TCHAR cst[41] = {0};
@@ -684,7 +671,7 @@ HB_FUNC(HWG_GETUTCTIMEDATE) /* Format: W,YYYYMMDD-HH:MM:SS */
   HB_RETSTR(cst);
 }
 
-HB_FUNC(HWG_GETDATEANSI) /* Format: YYYYMMDD, based on local time */
+HB_FUNC(HWG_GETDATEANSI) // Format: YYYYMMDD, based on local time
 {
   SYSTEMTIME lt = {0};
   TCHAR cst[41] = {0};
@@ -695,23 +682,21 @@ HB_FUNC(HWG_GETDATEANSI) /* Format: YYYYMMDD, based on local time */
 
 HB_FUNC(HWG_GETLOCALEINFON)
 {
-  /* returns Windows LCID, type is int */
+  // returns Windows LCID, type is int
   hb_retni(GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SLIST, nullptr, 0));
 }
 
-HB_FUNC(HWG_DEFUSERLANG) /* Windows only, on other OSs available, returns forever "-1". */
+HB_FUNC(HWG_DEFUSERLANG) // Windows only, on other OSs available, returns forever "-1".
 {
   TCHAR clang[25] = {0};
-  LANGID l; /* ==> WORD */
+  LANGID l; // ==> WORD
   l = GetUserDefaultUILanguage();
   sprintf((char *)clang, "%d", l);
   HB_RETSTR(clang);
 }
 
-/*
- DF7BE : Ticket #64
- hwg_ShowCursor(lcursor)
-*/
+//  DF7BE : Ticket #64
+//  hwg_ShowCursor(lcursor)
 HB_FUNC(HWG_SHOWCURSOR)
 {
   hb_retni(ShowCursor(hb_parl(1)));
