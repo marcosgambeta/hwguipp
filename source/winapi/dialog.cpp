@@ -170,6 +170,7 @@ HB_FUNC(HWG_GETNOTIFYCODE)
   hb_retnl(static_cast<LONG>((static_cast<NMHDR *>(hb_parptr(1)))->code));
 }
 
+#if 0
 static LPWORD s_lpwAlign(LPWORD lpIn)
 {
   auto ul = reinterpret_cast<ULONG>(lpIn);
@@ -178,6 +179,18 @@ static LPWORD s_lpwAlign(LPWORD lpIn)
   ul <<= 2;
   return reinterpret_cast<LPWORD>(ul);
 }
+#else
+static LPWORD s_lpwAlign(LPWORD lpIn)
+{
+  ULONG_PTR ul;
+
+  ul = (ULONG_PTR)lpIn;
+  ul += 3;
+  ul >>= 2;
+  ul <<= 2;
+  return (LPWORD)ul;
+}
+#endif
 
 static HB_SIZE s_nCopyAnsiToWideChar(LPWORD lpWCStr, PHB_ITEM pItem, HB_SIZE size)
 {
