@@ -6,6 +6,10 @@
  * www - http://www.kresin.ru
  */
 
+#if !defined(_HB_API_INTERNAL_)
+#define _HB_API_INTERNAL_
+#endif
+
 #define OEMRESOURCE
 
 #include "hwingui.hpp"
@@ -88,7 +92,8 @@ BOOL Array2Rect(PHB_ITEM aRect, RECT *rc)
   return FALSE;
 }
 
-PHB_ITEM Rect2Array(RECT *rc)
+#if 0
+PHB_ITEM Rect2Array(RECT *rc) // using heap
 {
   auto aRect = hb_itemArrayNew(4);
   auto element = hb_itemNew(nullptr);
@@ -100,6 +105,19 @@ PHB_ITEM Rect2Array(RECT *rc)
   hb_itemRelease(element);
   return aRect;
 }
+#else
+PHB_ITEM Rect2Array(RECT *rc) // using stack
+{
+  auto aRect = hb_itemArrayNew(4);
+  _HB_ITEM element{};
+  hb_arraySet(aRect, 1, hb_itemPutNL(&element, rc->left));
+  hb_arraySet(aRect, 2, hb_itemPutNL(&element, rc->top));
+  hb_arraySet(aRect, 3, hb_itemPutNL(&element, rc->right));
+  hb_arraySet(aRect, 4, hb_itemPutNL(&element, rc->bottom));
+  element.clear();
+  return aRect;
+}
+#endif
 
 HB_FUNC(HWG_GETPPSRECT)
 {
