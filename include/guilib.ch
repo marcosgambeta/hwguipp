@@ -1,3 +1,6 @@
+#ifndef _GUILIB_CH_
+#define _GUILIB_CH_
+
 /*
   ========== Define HWGUI release version ============
 */ 
@@ -235,3 +238,5 @@
 #include "hrebar.ch"
 #include "hshape.ch"
 #include "hcedit.ch"
+
+#endif // _GUILIB_CH_
