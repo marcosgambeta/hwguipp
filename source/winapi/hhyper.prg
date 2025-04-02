@@ -4,7 +4,7 @@
 //
 
 #include <hbclass.ch>
-#include "common.ch"
+#include <common.ch>
 #include "hwgui.ch"
 
 #define _HYPERLINK_EVENT   WM_USER + 101

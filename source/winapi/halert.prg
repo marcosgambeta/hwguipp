@@ -58,7 +58,7 @@
  *
  */
 
-#include "common.ch"
+#include <common.ch>
 #include <hbclass.ch>
 #include "guilib.ch"
 #include "windows.ch"

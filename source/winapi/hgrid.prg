@@ -18,7 +18,7 @@ TODO: 1) In line edit
 
 #include "hwgui.ch"
 #include <hbclass.ch>
-#include "common.ch"
+#include <common.ch>
 
 #define LVS_REPORT              1
 #define LVS_SINGLESEL           4
