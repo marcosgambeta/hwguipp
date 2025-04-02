@@ -6,7 +6,7 @@
  * www - http://kresin.belgorod.su
 */
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hbclass.ch"
 #include "hwg_qhtm.ch"
 

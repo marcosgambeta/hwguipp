@@ -1,7 +1,7 @@
 *
 * Ticket #69 by Alain Aupaix
 *
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 REQUEST HB_CODEPAGE_UTF8
 

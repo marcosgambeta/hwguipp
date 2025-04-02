@@ -26,7 +26,7 @@
 */
 
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 memvar n, cMsgErr, isdemo
 Static oMain, oForm, oFont, oBar := NIL

@@ -12,7 +12,7 @@
     *  GTK/Win  :  Yes
 
 REQUEST HB_CODEPAGE_PTISO, HB_CODEPAGE_PT850
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 FUNCTION Main()
    LOCAL oModDlg, oEditbox, onome, obar

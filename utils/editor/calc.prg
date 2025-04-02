@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hbmemvar.ch"
 
 #define P_X             1

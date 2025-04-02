@@ -29,7 +29,7 @@
  
 #include "hbclass.ch"
 #include "hbgtinfo.ch"
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 #define HB_GTI_EXTENDED                   1000
 #define HB_GTI_NOTIFIERBLOCKGUI           ( HB_GTI_EXTENDED + 10 )

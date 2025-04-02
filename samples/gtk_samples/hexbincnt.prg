@@ -52,7 +52,7 @@
 * so we strictly recommend to convert your images into one of this both
 * formats for multi platform applications.
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 FUNCTION Main
 

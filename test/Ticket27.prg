@@ -13,7 +13,7 @@
     *  GTK/Win  :  No 
  
  
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 Static mutex1
 Static cgetrx1 , cgetrx2 

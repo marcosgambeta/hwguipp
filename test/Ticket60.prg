@@ -14,7 +14,7 @@
     *  GTK/Linux:  No
     *  GTK/Win  :  No
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 ***********************
 FUNCTION Main()

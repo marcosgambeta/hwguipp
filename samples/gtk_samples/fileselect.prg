@@ -21,7 +21,7 @@
 * Use hwg_&SelectfileEx() instead.
 
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 FUNCTION Main
 LOCAL oFormMain, oFontMain

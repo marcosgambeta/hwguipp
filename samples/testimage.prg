@@ -17,7 +17,7 @@
     *  GTK/Win  :  Yes
 
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #ifdef __GTK__
 #include "gtk.ch"
 #endif

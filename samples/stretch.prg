@@ -18,7 +18,7 @@
 
 * Tiled: In German "gekachelt" 
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #ifdef __GTK__
 #include "gtk.ch"
 #endif

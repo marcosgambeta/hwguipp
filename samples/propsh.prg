@@ -18,7 +18,7 @@
 // #include "windows.ch"
 // #include "guilib.ch"
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "common.ch"
 #ifdef __XHARBOUR__
    #include "ttable.ch"

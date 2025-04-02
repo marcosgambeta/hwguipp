@@ -1,7 +1,7 @@
 // We create here a new control, which can be
 // used as a replacement for a track bar,
 // which has not gtk version.
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hbclass.ch"
 #define CLR_WHITE    0xffffff
 #define CLR_BLACK    0x000000

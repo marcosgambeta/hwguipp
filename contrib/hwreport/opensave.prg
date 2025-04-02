@@ -9,7 +9,7 @@
    // Modifications by DF7BE:
    // Port of Borland C resources to HWGUI commands
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "repbuild.h"
 #include "repmain.h"
 #include "fileio.ch"

@@ -26,7 +26,7 @@
 * Use hwg_CurDir() vor correct path value with
 * drive letter. 
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 FUNCTION MAIN
 

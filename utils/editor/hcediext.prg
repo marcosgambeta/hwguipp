@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
  */
 #include "hbclass.ch"
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 #define  HILI_LEN       8
 

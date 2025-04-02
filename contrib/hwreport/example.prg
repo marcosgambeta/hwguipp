@@ -6,7 +6,7 @@
 */
 
 #include "fileio.ch"
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "repmain.h"
 
 FUNCTION Main()

@@ -13,7 +13,7 @@
    On LINUX always use of UTF-8 , so the selection menu is suppressed
 */
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hxml.ch"
 #include "hcedit.ch"
 

@@ -28,7 +28,7 @@ STATIC oStyleNormal, oStylePressed, oStyleOver
 STATIC inilNightDesign,nNightOffset
 STATIC oFont	
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 FUNCTION MAIN()
 Local oDlg, oPanel, oPaneTop , oButton

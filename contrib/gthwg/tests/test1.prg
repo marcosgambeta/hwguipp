@@ -51,7 +51,7 @@ FUNCTION Main
 
    RETURN NIL
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 STATIC FUNCTION CreateWindow()
 

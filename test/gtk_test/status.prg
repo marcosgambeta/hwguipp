@@ -2,7 +2,7 @@
 * Bug Ticket #70 Test reported by Alain Aupaix.
 *
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 
 memvar oMain, oStatus, rg, oFont

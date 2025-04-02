@@ -51,7 +51,7 @@
  *
  */
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hxml.ch"
 #include "fileio.ch"
 

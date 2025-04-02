@@ -22,7 +22,7 @@
  
  */
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 
 FUNCTION Main()

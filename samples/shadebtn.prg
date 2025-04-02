@@ -3,7 +3,7 @@
  *
 */
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 Function Main
 Local oMainWindow, oFont

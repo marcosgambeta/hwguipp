@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 #define TEST_PRINT
 

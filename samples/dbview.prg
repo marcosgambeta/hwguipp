@@ -31,7 +31,7 @@
     15  : IBM 858 with Euro currency sign
 */
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #ifdef __GTK__
 #include "gtk.ch"
 #endif

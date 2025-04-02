@@ -34,7 +34,7 @@
   
  */
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hwgextern.ch"
 
 EXTERNAL DBCREATE, DBUSEAREA, DBCREATEINDEX, DBSEEK, DBCLOSEAREA, DBSELECTAREA, DBUNLOCK, DBUNLOCKALL

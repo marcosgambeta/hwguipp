@@ -10,7 +10,7 @@
  *
 */
 
-#INCLUDE "hwgui.CH"
+#include "hwguipp.ch"
 
 FUNCTION Main
 

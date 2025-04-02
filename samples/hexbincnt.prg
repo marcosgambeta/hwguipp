@@ -52,7 +52,7 @@
 * so we strictly recommend to convert your images into one of this both
 * formats for multi platform applications.
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 MEMVAR cHexAstro , cHexok , cHexopen , cHexexit , cHexdoor , cHexnext    // Hex dumps
 MEMVAR cValAstro , cValok , cValopen , cValexit , cValdoor , cValnext    // Resource contents

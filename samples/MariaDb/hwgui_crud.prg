@@ -1,7 +1,7 @@
 #require "rddsql"
 #require "sddodbc" //SQLMIX
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "set.ch"
 #include "dbinfo.ch"
 

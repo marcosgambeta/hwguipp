@@ -46,7 +46,7 @@
 * We will realize this as soon as posible.
 * 
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 FUNCTION Main
 

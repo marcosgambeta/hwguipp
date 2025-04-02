@@ -31,7 +31,7 @@
 */
 
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 * #include "tab.rh"
 #ifdef __GTK__
 #include "gtk.ch"

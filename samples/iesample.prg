@@ -27,7 +27,7 @@
 * check the development environment for ActiveX
 *
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 Function Main
 Local oMainWnd, oPanelTool, oPanelIE, oFont

@@ -6,7 +6,7 @@
   * IA__gtk_window_set_transient_for: assertion 'window != parent' failed
   *
   *
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "common.ch"
 #ifdef __XHARBOUR__
    #include "ttable.ch"

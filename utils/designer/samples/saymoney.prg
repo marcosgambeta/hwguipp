@@ -1,4 +1,4 @@
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 FUNCTION _saymoney
 PRIVATE oEditbox1, oLabel2, oOwnerbutton1, oLSay, oOwnerbutton2, oOwnerbutton3

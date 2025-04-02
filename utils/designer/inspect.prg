@@ -7,7 +7,7 @@
 */
 
 #include "fileio.ch"
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "designer.ch"
 
 STATIC oCombo, oBrw1, oBrw2

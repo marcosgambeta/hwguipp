@@ -8,7 +8,7 @@
 
 #include "fileio.ch"
 #include "hbclass.ch"
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hxml.ch"
 #include "designer.ch"
 

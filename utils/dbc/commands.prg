@@ -7,7 +7,7 @@
 */
 
 #include "fileio.ch"
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "dbchw.h"
 
 Memvar improc, nServerType, cServerPath, cDataCPage, aFiles, oMainFont, aDateF, mypath

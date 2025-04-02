@@ -47,7 +47,7 @@
 */
 
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "common.ch"
 // #include "windows.ch"
 #ifdef __GTK__

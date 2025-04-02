@@ -17,7 +17,7 @@
    //    columna. 27.07.2002. WHT.                                             //
    //////////////////////////////////////////////////////////////////////////////
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hwg_extctrl.ch"
 
 #include "common.ch"

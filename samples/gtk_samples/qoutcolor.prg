@@ -58,7 +58,7 @@
 
 
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "qcolor.ch"
 
 
