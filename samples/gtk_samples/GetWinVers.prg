@@ -18,8 +18,7 @@
    return values on non Windows operation systems (GTK)
 */
 
-#include "windows.ch" 
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 Function Main
 Local oMainWindow

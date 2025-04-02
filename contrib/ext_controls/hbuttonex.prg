@@ -6,9 +6,8 @@
  * www - http://sites.uol.com.br/culikr/
 */
 
-#include "windows.ch"
 #include "hbclass.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 #include "common.ch"
 
 #translate :hBitmap       => :m_csbitmaps\[1\]

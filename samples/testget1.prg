@@ -26,8 +26,7 @@
     *  GTK/Win  :  No
 
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 
 

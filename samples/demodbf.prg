@@ -9,8 +9,7 @@
  *
  */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 MEMVAR Form_Main , oDir
 MEMVAR Gt_Cod, Gt_Name, Gt_Adress, Gt_Fone, Gt_e_Mail

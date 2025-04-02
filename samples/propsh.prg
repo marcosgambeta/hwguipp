@@ -15,9 +15,6 @@
  * Also the programm freezes, if compiled with BCC.
 */
 
-// #include "windows.ch"
-// #include "guilib.ch"
-
 #include "hwguipp.ch"
 #include "common.ch"
 #ifdef __XHARBOUR__

@@ -13,8 +13,7 @@
     *  GTK/Linux:  Yes  ==> other sample
     *  GTK/Win  :  Yes  ==> other sample
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 Static oMain, oForm, oFont, oBar := NIL
 

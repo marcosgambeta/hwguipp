@@ -18,8 +18,7 @@
 #ifdef __GTK__
 #include "gtk.ch"
 #endif
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 MEMVAR oWndMain
 

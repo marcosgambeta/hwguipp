@@ -7,8 +7,7 @@
 */
 
 #include "hbclass.ch"
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 #include "hxml.ch"
 
 #define ES_SAVESEL 0x00008000

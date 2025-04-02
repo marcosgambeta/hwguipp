@@ -36,8 +36,7 @@
 
 #include "hbclass.ch"
 #include "common.ch"
-#include "guilib.ch"
-#include "windows.ch"
+#include "hwguipp.ch"
 
 #include "richtext.ch"
 CLASS RichText

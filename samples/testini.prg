@@ -3,8 +3,7 @@
  * testini.prg - Test to use files ini 
  */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 Function Main
 

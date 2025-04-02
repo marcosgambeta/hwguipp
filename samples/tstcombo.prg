@@ -20,8 +20,7 @@
 */
 
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 Static oMain, oForm, oFont, oBar
 

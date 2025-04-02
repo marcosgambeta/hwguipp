@@ -4,8 +4,7 @@
 
 #include "common.ch"
 #include "richtext.ch"
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 STATIC oPrinter,aSize:={280,220}
 

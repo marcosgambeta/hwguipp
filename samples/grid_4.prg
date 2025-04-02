@@ -13,8 +13,7 @@
     *  GTK/Linux:  No
     *  GTK/Win  :  No
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 #include "common.ch"
 
 Static oMain, oForm, oFont, oGrid

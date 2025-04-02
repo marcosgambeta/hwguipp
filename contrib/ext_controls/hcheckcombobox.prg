@@ -12,9 +12,8 @@
  * www - http://kresin.belgorod.su
 */
 
-#include "windows.ch"
 #include "hbclass.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 #include "common.ch"
 
 #define CB_GETDROPPEDSTATE          343

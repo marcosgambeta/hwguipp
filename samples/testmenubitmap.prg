@@ -33,8 +33,7 @@
 *   (source\winapi\menu.prg)
 
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 
 Function Main

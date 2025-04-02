@@ -13,8 +13,7 @@
 // biblioteca HWGUI (Classe HMonthCalendar).
 //================================================================//
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 //================================================================//
 

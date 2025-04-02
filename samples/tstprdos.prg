@@ -33,8 +33,7 @@
 *************************************************************************************
 
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 #include "fileio.ch"
  
 #define PF_BUFFERS   2048

@@ -28,8 +28,7 @@
 
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 #include "repbuild.h"
 #include "repmain.h"
 
