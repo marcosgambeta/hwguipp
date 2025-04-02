@@ -69,7 +69,7 @@
 #include "hbdebug.ch"   /* for "nMode" of __dbgEntry */
 #include "hbmemvar.ch"
 
-#include "inkey.ch"
+#include <inkey.ch>
 #include "set.ch"
 
    /* Information structure stored in DATA aCallStack */

@@ -6,7 +6,7 @@
 // www - http://www.kresin.ru
 //
 
-#include "inkey.ch"
+#include <inkey.ch>
 #include <hbclass.ch>
 #include "hwgui.ch"
 

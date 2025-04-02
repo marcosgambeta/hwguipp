@@ -8,7 +8,7 @@
 
 #include "gtk.ch"
 #include "hwgui.ch"
-#include "inkey.ch"
+#include <inkey.ch>
 #include "dbstruct.ch"
 #include <hbclass.ch>
 
