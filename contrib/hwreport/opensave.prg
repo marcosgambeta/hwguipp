@@ -12,7 +12,7 @@
 #include "hwguipp.ch"
 #include "repbuild.h"
 #include "repmain.h"
-#include "fileio.ch"
+#include <fileio.ch>
 #ifdef __XHARBOUR__
 #include "ttable.ch"
 #endif

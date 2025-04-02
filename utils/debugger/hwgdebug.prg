@@ -53,7 +53,7 @@
 
 #include "hwguipp.ch"
 #include "hxml.ch"
-#include "fileio.ch"
+#include <fileio.ch>
 
 #define MODE_INPUT      1
 #define MODE_INIT       2

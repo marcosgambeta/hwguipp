@@ -27,7 +27,7 @@
 #include <dbstruct.ch>
 #include <common.ch>
 #include <inkey.ch>
-#include "fileio.CH"
+#include <fileio.ch>
 
 #DEFINE FALSE .F.
 #DEFINE TRUE .T.

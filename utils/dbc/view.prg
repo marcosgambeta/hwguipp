@@ -8,7 +8,7 @@
 
 #include "hwguipp.ch"
 #include "dbchw.h"
-#include "fileio.ch"
+#include <fileio.ch>
 
 STATIC crlf := e"\r\n"
 
