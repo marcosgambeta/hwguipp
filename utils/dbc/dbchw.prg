@@ -9,7 +9,7 @@
 #include "hwguipp.ch"
 #include "dbchw.h"
 #include <dbstruct.ch>
-#include "error.ch"
+#include <error.ch>
 #ifdef RDD_ADS
 #include "ads.ch"
 #endif
