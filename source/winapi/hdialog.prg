@@ -7,7 +7,7 @@
 //
 
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "guilib.ch"
 
 #define  WM_PSPNOTIFY         WM_USER+1010

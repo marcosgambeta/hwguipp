@@ -6,7 +6,7 @@
 // www - http://www.kresin.ru
 //
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "windows.ch"
 #include "guilib.ch"
 

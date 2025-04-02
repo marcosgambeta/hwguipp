@@ -6,7 +6,7 @@
 // Copyright 2006 Richard Roesnadi <roesnadi8@yahoo.co.id>
 //
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "guilib.ch"
 #include "windows.ch"
 

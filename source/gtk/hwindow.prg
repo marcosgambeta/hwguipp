@@ -6,7 +6,7 @@
 // www - http://www.kresin.ru
 //
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwgui.ch"
 REQUEST HWG_ENDWINDOW
 #define  FIRST_MDICHILD_ID     501

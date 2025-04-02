@@ -7,7 +7,7 @@
 //
 
 #include "hwgui.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 CLASS HTab INHERIT HControl
 

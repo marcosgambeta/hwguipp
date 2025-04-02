@@ -6,7 +6,7 @@
 //
 
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 //-----------------------------------------------------------------
 CLASS HRect INHERIT HControl

@@ -7,7 +7,7 @@
 //
 
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "guilib.ch"
 
 #define  MENU_FIRST_ID   32000

@@ -5,7 +5,7 @@
 // for HwGUI By Alexander Kresin
 //
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "windows.ch"
 #include "guilib.ch"
 #include "fileio.ch"

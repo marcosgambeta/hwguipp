@@ -7,7 +7,7 @@
 //
 
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "guilib.ch"
 
 CLASS HStatic INHERIT HControl // TODO: HLabel é um nome mais adequado para a classe

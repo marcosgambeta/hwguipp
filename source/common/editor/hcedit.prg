@@ -57,7 +57,7 @@
    \@µ~{}[] and Euro Currency sign are not reached.
 */
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwgui.ch"
 #include "hxml.ch"
 

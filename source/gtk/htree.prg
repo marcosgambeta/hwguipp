@@ -10,7 +10,7 @@
 #include "hwgui.ch"
 #include "inkey.ch"
 #include "dbstruct.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 #ifndef SB_HORZ
 #define SB_HORZ             0

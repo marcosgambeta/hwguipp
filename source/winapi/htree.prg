@@ -7,7 +7,7 @@
 //
 
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "guilib.ch"
 
 #define TVM_DELETEITEM       4353   // (TV_FIRST + 1) 0x1101

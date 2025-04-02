@@ -7,7 +7,7 @@
 //
 
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "guilib.ch"
 
 #define DTN_DATETIMECHANGE    -759

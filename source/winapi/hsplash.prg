@@ -8,7 +8,7 @@
 
 #include "guilib.ch"
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 /* ---- Bugfixing MinGW64 by DF7BE:
 With call

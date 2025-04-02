@@ -12,7 +12,7 @@
 //
 
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "guilib.ch"
 
 CLASS HButtonEX INHERIT HButton

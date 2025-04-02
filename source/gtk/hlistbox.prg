@@ -50,7 +50,7 @@
 #include "gtk.ch"
 #endif
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "guilib.ch"
 #include "common.ch"
 

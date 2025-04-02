@@ -6,7 +6,7 @@
 // www - http://sites.uol.com.br/culikr/
 //
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "windows.ch"
 #include "guilib.ch"
 

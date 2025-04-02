@@ -6,7 +6,7 @@
 // www - http://www.kresin.ru
 //
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwgui.ch"
 
 #define  MENU_FIRST_ID   32000

@@ -7,7 +7,7 @@
 //
 
 #include "inkey.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwgui.ch"
 
 CLASS HOwnButton INHERIT HControl

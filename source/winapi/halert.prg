@@ -59,7 +59,7 @@
  */
 
 #include "common.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "guilib.ch"
 #include "windows.ch"
 #include "halert.ch"
