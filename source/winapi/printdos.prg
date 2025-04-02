@@ -1,10 +1,10 @@
-/*
- * CLASS PrintDos
- *
- * Copyright (c) Sandro Freire <sandrorrfreire@yahoo.com.br>
- * for HwGUI By Alexander Kresin
- *
- */
+//
+// CLASS PrintDos
+//
+// Copyright (c) Sandro Freire <sandrorrfreire@yahoo.com.br>
+// for HwGUI By Alexander Kresin
+//
+
 #include "hbclass.ch"
 #include "windows.ch"
 #include "guilib.ch"

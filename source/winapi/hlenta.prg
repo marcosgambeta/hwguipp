@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HLenta class
- *
- * Copyright 2021 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HLenta class
+//
+// Copyright 2021 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hwgui.ch"
 #include "hbclass.ch"

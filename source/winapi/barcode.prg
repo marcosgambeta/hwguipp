@@ -1,10 +1,10 @@
-/*
- * Create Barcode for HWGUI application
- *
- * see example at utils\designer\samples\barcode.xml
- *
- * Copyright 2006 Richard Roesnadi <roesnadi8@yahoo.co.id>
-*/
+//
+// Create Barcode for HWGUI application
+//
+// see example at utils\designer\samples\barcode.xml
+//
+// Copyright 2006 Richard Roesnadi <roesnadi8@yahoo.co.id>
+//
 
 #include "hbclass.ch"
 #include "guilib.ch"

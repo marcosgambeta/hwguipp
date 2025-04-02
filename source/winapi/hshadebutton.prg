@@ -1,11 +1,11 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HShadeButton class, inherited from HOwnButton
- * It implements some kind of owner drawn buttons
- *
- * Copyright 2006 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HShadeButton class, inherited from HOwnButton
+// It implements some kind of owner drawn buttons
+//
+// Copyright 2006 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hbclass.ch"
 #include "hwgui.ch"

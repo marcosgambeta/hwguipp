@@ -1,15 +1,15 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HFreeImage - Image handling class
- *
- * To use this class you need to have the FreeImage library
- * http://freeimage.sourceforge.net/
- * Authors: Floris van den Berg (flvdberg@wxs.nl) and
- *          Hervé Drolon (drolon@infonie.fr)
- *
- * Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HFreeImage - Image handling class
+//
+// To use this class you need to have the FreeImage library
+// http://freeimage.sourceforge.net/
+// Authors: Floris van den Berg (flvdberg@wxs.nl) and
+//          Hervé Drolon (drolon@infonie.fr)
+//
+// Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hbclass.ch"
 #include "windows.ch"

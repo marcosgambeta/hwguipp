@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HBrowse class - browse databases and arrays
- *
- * Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HBrowse class - browse databases and arrays
+//
+// Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
    // Modificaciones y Agregados. 27.07.2002, WHT.de la Argentina ///////////////
    // 1) En el metodo HColumn se agregaron las DATA: "nJusHead" y "nJustLin",  //

@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HTrack class
- *
- * HTrack class
- * Copyright 2021 Alexander S.Kresin <alex@kresin.ru>
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HTrack class
+//
+// HTrack class
+// Copyright 2021 Alexander S.Kresin <alex@kresin.ru>
+//
 
 #include "windows.ch"
 #include "hbclass.ch"

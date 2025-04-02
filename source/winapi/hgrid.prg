@@ -1,10 +1,10 @@
- /*
- * HWGUI - Harbour Win32 GUI library source code:
- * HGrid class
- *
- * Copyright 2004 Rodrigo Moreno <rodrigo_moreno@yahoo.com>
- *
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HGrid class
+//
+// Copyright 2004 Rodrigo Moreno <rodrigo_moreno@yahoo.com>
+//
+//
 
 /*
 TODO: 1) In line edit

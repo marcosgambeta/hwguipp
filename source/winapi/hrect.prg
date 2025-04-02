@@ -1,9 +1,9 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level class HRect (Panel)
- *
- * Copyright 2004 Ricardo de Moura Marques <ricardo.m.marques@caixa.gov.br>
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level class HRect (Panel)
+//
+// Copyright 2004 Ricardo de Moura Marques <ricardo.m.marques@caixa.gov.br>
+//
 
 #include "windows.ch"
 #include "hbclass.ch"

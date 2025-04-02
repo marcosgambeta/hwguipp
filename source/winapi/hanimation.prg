@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HAnimation class
- *
- * Copyright 2004,2022 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
- * www - https://github.com/marcosgambeta/
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HAnimation class
+//
+// Copyright 2004,2022 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
+// www - https://github.com/marcosgambeta/
+//
 
 #include "windows.ch"
 #include "hbclass.ch"

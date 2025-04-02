@@ -1,10 +1,9 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HListBox class
- *
- * Copyright 2004 Vic McClung
- *
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HListBox class
+//
+// Copyright 2004 Vic McClung
+//
 
 #include "windows.ch"
 #include "hbclass.ch"

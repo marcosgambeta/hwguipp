@@ -1,11 +1,10 @@
-/*
- * HwGUI Harbour Win32 Gui Copyright (c) Alexander Kresin
- *
- * HwGUI HSplash Class
- *
- * Copyright (c) Sandro R. R. Freire <sandrorrfreire@yahoo.com.br>
- *
- */
+//
+// HwGUI Harbour Win32 Gui Copyright (c) Alexander Kresin
+//
+// HwGUI HSplash Class
+//
+// Copyright (c) Sandro R. R. Freire <sandrorrfreire@yahoo.com.br>
+//
 
 #include "guilib.ch"
 #include "windows.ch"

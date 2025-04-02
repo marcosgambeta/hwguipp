@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HGroup class
- *
- * Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HGroup class
+//
+// Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "windows.ch"
 #include "hbclass.ch"

@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HPAINTDC Class
- *
- * Copyright 2005 Luiz Rafael Culik Guimaraes <culikr@brtrubo.com>
- * www - http://sites.uol.com.br/culikr/
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HPAINTDC Class
+//
+// Copyright 2005 Luiz Rafael Culik Guimaraes <culikr@brtrubo.com>
+// www - http://sites.uol.com.br/culikr/
+//
 
 #include "hbclass.ch"
 #include "hwgui.ch"

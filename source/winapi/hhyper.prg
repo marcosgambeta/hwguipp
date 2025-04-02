@@ -1,8 +1,7 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HStaticLink class
- *
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HStaticLink class
+//
 
 #include "hbclass.ch"
 #include "common.ch"

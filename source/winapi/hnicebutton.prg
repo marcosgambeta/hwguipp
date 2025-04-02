@@ -1,9 +1,9 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- *
- * Copyright 2004 Luiz Rafael Culik Guimaraes <culikr@brtrubo.com>
- * www - http://sites.uol.com.br/culikr/
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+//
+// Copyright 2004 Luiz Rafael Culik Guimaraes <culikr@brtrubo.com>
+// www - http://sites.uol.com.br/culikr/
+//
 
 #include "windows.ch"
 #include "inkey.ch"

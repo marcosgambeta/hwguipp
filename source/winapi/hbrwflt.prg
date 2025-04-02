@@ -1,12 +1,12 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HBrwFlt class - browse filtered databases
- *
- * Copyright 2016 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- *
- * Code provided by By Luiz Henrique dos Santos (luizhsantos@gmail.com)
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HBrwFlt class - browse filtered databases
+//
+// Copyright 2016 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
+// Code provided by By Luiz Henrique dos Santos (luizhsantos@gmail.com)
+//
 
 #include "hwgui.ch"
 #include "hbclass.ch"
