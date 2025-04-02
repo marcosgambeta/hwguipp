@@ -49,9 +49,8 @@
 #ifdef __GTK__
 #include "gtk.ch"
 #endif
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 #include <common.ch>
 
 CLASS HListBox INHERIT HControl

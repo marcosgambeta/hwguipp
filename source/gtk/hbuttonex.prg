@@ -11,9 +11,8 @@
 // www - http://sites.uol.com.br/culikr/
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 CLASS HButtonEX INHERIT HButton
 

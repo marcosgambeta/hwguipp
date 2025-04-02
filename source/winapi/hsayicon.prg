@@ -6,9 +6,8 @@
 // www - http://www.kresin.ru
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 #define STM_SETIMAGE        370    // 0x0172
 

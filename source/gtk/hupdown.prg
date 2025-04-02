@@ -6,9 +6,8 @@
 // www - http://www.kresin.ru
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 #ifndef UDS_SETBUDDYINT
 #define UDS_SETBUDDYINT     2

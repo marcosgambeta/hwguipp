@@ -6,9 +6,8 @@
 // www - http://www.kresin.ru
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 CLASS HStatic INHERIT HControl // TODO: HLabel é um nome mais adequado para a classe
 

@@ -6,9 +6,8 @@
 // www - http://www.kresin.ru
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 #include <error.ch>
 
 CLASS HScrollArea INHERIT HObject

@@ -13,9 +13,8 @@
 // Ubuntu-Linux
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 CLASS HProgressBar INHERIT HControl
 

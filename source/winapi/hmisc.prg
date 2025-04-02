@@ -12,9 +12,8 @@
 // Copyright 2020 Wilfried Brunken, DF7BE
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 // ================================= *
 FUNCTION hwg_IsLeapYear(nyear)

@@ -12,8 +12,7 @@
 //
 
 #include <hbclass.ch>
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 CLASS HFreeImage INHERIT HObject
 

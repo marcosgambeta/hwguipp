@@ -6,10 +6,9 @@
 // www - http://www.kresin.ru
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
 #include "hblang.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 #define WM_IME_CHAR      646
 

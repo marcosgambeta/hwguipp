@@ -7,8 +7,7 @@
 //
 
 #include <hbclass.ch>
-#include "guilib.ch"
-#include "windows.ch"
+#include "hwguipp.ch"
 
 //#DEFINE __DEVELOP__
 

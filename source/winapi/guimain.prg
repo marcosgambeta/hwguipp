@@ -6,8 +6,7 @@
 // www - http://www.kresin.ru
 //
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 FUNCTION hwg_InitControls(oWnd, lNoActivate)
 

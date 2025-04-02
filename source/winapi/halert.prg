@@ -60,8 +60,7 @@
 
 #include <common.ch>
 #include <hbclass.ch>
-#include "guilib.ch"
-#include "windows.ch"
+#include "hwguipp.ch"
 #include "halert.ch"
 
 #define GW_OWNER            4

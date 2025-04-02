@@ -6,9 +6,8 @@
 // www - https://github.com/marcosgambeta/
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 CLASS HAnimation INHERIT HControl
 

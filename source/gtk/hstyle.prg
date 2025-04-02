@@ -7,8 +7,7 @@
 //
 
 #include <hbclass.ch>
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 CLASS HStyle INHERIT HObject
 

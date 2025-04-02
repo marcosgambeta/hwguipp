@@ -6,9 +6,8 @@
 // Copyright 2021 Alexander S.Kresin <alex@kresin.ru>
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 #define TBS_AUTOTICKS                1
 #define TBS_VERT                     2

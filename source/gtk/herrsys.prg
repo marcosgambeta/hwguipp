@@ -8,8 +8,7 @@
 
 #include <common.ch>
 #include <error.ch>
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 STATIC LogInitialPath := ""
 

@@ -6,9 +6,8 @@
 // www - http://github.com/marcosgambeta/
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
-#include "guilib.ch"
+#include "hwguipp.ch"
 
 #define MCS_DAYSTATE             1
 #define MCS_MULTISELECT          2
