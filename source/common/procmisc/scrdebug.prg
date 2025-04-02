@@ -6,7 +6,7 @@
 //         www - http://kresin.belgorod.su
 //
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 STATIC oDlgDebug := NIL
 STATIC oBrwData, oBrwScript, oSplit, oPanel, oEditExpr, oEditRes

@@ -7,11 +7,11 @@
 //
 
 #include "gtk.ch"
-#include "hwgui.ch"
 #include <inkey.ch>
 #include <dbinfo.ch>
 #include <dbstruct.ch>
 #include <hbclass.ch>
+#include "hwguipp.ch"
 
 REQUEST DBGOTOP, DBGOTO, DBGOBOTTOM, DBSKIP, RECCOUNT, RECNO, EOF, BOF
 

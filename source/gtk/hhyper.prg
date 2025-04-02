@@ -6,7 +6,7 @@
 #include "gtk.ch"
 #include <hbclass.ch>
 #include <common.ch>
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 #define LBL_INIT           0
 #define LBL_NORMAL         1

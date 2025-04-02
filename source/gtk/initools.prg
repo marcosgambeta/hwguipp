@@ -8,7 +8,8 @@
 // Linux version Alain Aupeix <alain.aupeix@wanadoo.fr>
 //
 
-#include "hwgui.ch"
+#include "hwguipp.ch"
+
 REQUEST HB_CODEPAGE_UTF8
 #define _( x ) hb_i18n_gettext(x)
 #xcommand TRY              => s_bError := errorBlock( {|oErr| break( oErr ) } ) ;;

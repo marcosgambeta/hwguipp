@@ -8,8 +8,8 @@
 // Code provided by By Luiz Henrique dos Santos (luizhsantos@gmail.com)
 //
 
-#include "hwgui.ch"
 #include <hbclass.ch>
+#include "hwguipp.ch"
 
 CLASS HBrwflt INHERIT HBrowse
 

@@ -58,7 +58,7 @@
 */
 
 #include <hbclass.ch>
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hxml.ch"
 
 #define WM_MOUSEACTIVATE    33  // 0x0021

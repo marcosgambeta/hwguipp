@@ -8,7 +8,7 @@
 
 #include <hbclass.ch>
 #include "hblang.ch"
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 #ifndef DLGC_WANTARROWS
 #define DLGC_WANTARROWS     1      /* Control wants arrow keys         */

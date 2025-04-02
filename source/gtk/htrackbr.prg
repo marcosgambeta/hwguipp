@@ -9,8 +9,8 @@
 //
 
 #include "gtk.ch"
-#include "hwgui.ch"
 #include <hbclass.ch>
+#include "hwguipp.ch"
 
 #define CLR_WHITE    0xffffff
 #define CLR_BLACK    0x000000

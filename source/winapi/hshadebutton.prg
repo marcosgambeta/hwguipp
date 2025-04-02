@@ -8,7 +8,7 @@
 //
 
 #include <hbclass.ch>
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 #define STATE_DEFAULT    1
 #define STATE_SELECTED   2

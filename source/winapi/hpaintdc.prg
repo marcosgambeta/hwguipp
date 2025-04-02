@@ -7,7 +7,7 @@
 //
 
 #include <hbclass.ch>
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 CLASS HPAINTDC FROM HDC
 

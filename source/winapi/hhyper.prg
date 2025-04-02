@@ -5,7 +5,7 @@
 
 #include <hbclass.ch>
 #include <common.ch>
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 #define _HYPERLINK_EVENT   WM_USER + 101
 #define LBL_INIT           0

@@ -7,7 +7,7 @@
 //
 
 #include <hbclass.ch>
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 #define  MENU_FIRST_ID   32000
 #define  CONTEXTMENU_FIRST_ID   32900

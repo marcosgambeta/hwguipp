@@ -7,10 +7,10 @@
 //
 
 #include "gtk.ch"
-#include "hwgui.ch"
 #include <inkey.ch>
 #include <dbstruct.ch>
 #include <hbclass.ch>
+#include "hwguipp.ch"
 
 #ifndef SB_HORZ
 #define SB_HORZ             0

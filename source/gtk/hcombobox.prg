@@ -7,7 +7,7 @@
 //
 
 #include <hbclass.ch>
-#include "hwgui.ch"
+#include "hwguipp.ch"
 
 #ifndef CBN_SELCHANGE
 #define CBN_SELCHANGE       1

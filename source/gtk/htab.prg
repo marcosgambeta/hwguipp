@@ -6,8 +6,8 @@
 // www - http://www.kresin.ru
 //
 
-#include "hwgui.ch"
 #include <hbclass.ch>
+#include "hwguipp.ch"
 
 CLASS HTab INHERIT HControl
 

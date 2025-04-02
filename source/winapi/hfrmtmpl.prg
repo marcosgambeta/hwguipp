@@ -49,7 +49,7 @@ STATIC aCtrls := { ;
 
 #include <hbclass.ch>
 #include <error.ch>
-#include "hwgui.ch"
+#include "hwguipp.ch"
 #include "hxml.ch"
 
 #define  CONTROL_FIRST_ID   34000

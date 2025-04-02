@@ -55,8 +55,8 @@
 
 */
 
-#include "hwgui.ch"
 #include <hbclass.ch>
+#include "hwguipp.ch"
 
 
 #define   STD_HEIGHT      4
