@@ -1,12 +1,13 @@
-/*
- * HWGUI - Harbour Linux GUI library
- *
- * HwMake
- * Copyright 2004 Sandro R. R. Freire <sandrorrfreire@yahoo.com.br>
- * www - http://www.hwgui.net
- *
- * Linux version Alain Aupeix <alain.aupeix@wanadoo.fr>
-*/
+//
+// HWGUI - Harbour Linux GUI library
+//
+// HwMake
+// Copyright 2004 Sandro R. R. Freire <sandrorrfreire@yahoo.com.br>
+// www - http://www.hwgui.net
+//
+// Linux version Alain Aupeix <alain.aupeix@wanadoo.fr>
+//
+
 #include "hwgui.ch"
 REQUEST HB_CODEPAGE_UTF8
 #define _( x ) hb_i18n_gettext(x)

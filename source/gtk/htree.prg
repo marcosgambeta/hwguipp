@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Linux (GTK) GUI library source code:
- * HBrowse class - browse databases and arrays
- *
- * Copyright 2013 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Linux (GTK) GUI library source code:
+// HBrowse class - browse databases and arrays
+//
+// Copyright 2013 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "gtk.ch"
 #include "hwgui.ch"

@@ -1,15 +1,15 @@
-/*
- * HWGUI - Harbour Linux (GTK) GUI library source code:
- * HButtonEx class
- *
- * Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- *
- * ButtonEx class
- *
- * Copyright 2008 Luiz Rafael Culik Guimaraes <luiz at xharbour.com.br >
- * www - http://sites.uol.com.br/culikr/
-*/
+//
+// HWGUI - Harbour Linux (GTK) GUI library source code:
+// HButtonEx class
+//
+// Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
+// ButtonEx class
+//
+// Copyright 2008 Luiz Rafael Culik Guimaraes <luiz at xharbour.com.br >
+// www - http://sites.uol.com.br/culikr/
+//
 
 #include "windows.ch"
 #include "hbclass.ch"

@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Linux (GTK) GUI library source code:
- * Pens, brushes, fonts, bitmaps, icons handling
- *
- * Copyright 2005 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Linux (GTK) GUI library source code:
+// Pens, brushes, fonts, bitmaps, icons handling
+//
+// Copyright 2005 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hbclass.ch"
 #include "windows.ch"

@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Linux (GTK) GUI library source code:
- * HOwnButton class, which implements owner drawn buttons
- *
- * Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Linux (GTK) GUI library source code:
+// HOwnButton class, which implements owner drawn buttons
+//
+// Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "inkey.ch"
 #include "hbclass.ch"

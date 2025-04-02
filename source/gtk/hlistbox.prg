@@ -1,12 +1,11 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HListBox class
- *
- * Copyright 2004 Vic McClung
- *
- * Modified by DF7BE for GTK port trial (April 2020)
- *
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HListBox class
+//
+// Copyright 2004 Vic McClung
+//
+// Modified by DF7BE for GTK port trial (April 2020)
+//
 
 /*
  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

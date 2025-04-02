@@ -1,12 +1,12 @@
-/*
- * HWGUI - Harbour Linux (GTK) GUI library source code:
- * HTrack class - Substitute for WinAPI HTRACKBAR
- *
- * Copyright 2021 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- *
- * Copyright 2021 DF7BE
-*/
+//
+// HWGUI - Harbour Linux (GTK) GUI library source code:
+// HTrack class - Substitute for WinAPI HTRACKBAR
+//
+// Copyright 2021 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
+// Copyright 2021 DF7BE
+//
 
 #include "gtk.ch"
 #include "hwgui.ch"

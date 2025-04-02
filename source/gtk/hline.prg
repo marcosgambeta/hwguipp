@@ -1,11 +1,10 @@
-/*
- * HWGUI - Harbour Linux (GTK) GUI library source code:
- * HLine class
- *
- * Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- *
-*/
+//
+// HWGUI - Harbour Linux (GTK) GUI library source code:
+// HLine class
+//
+// Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "windows.ch"
 #include "hbclass.ch"

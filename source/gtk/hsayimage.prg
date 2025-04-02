@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Linux (GTK) GUI library source code:
- * HSayImage class
- *
- * Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Linux (GTK) GUI library source code:
+// HSayImage class
+//
+// Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hbclass.ch"
 #include "hwgui.ch"

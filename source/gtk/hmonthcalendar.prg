@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HMonthCalendar class
- *
- * Copyright 2008 Luiz Rafael Culik (luiz at xharbour.com.br
- * www - http://www.xharbour.org
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HMonthCalendar class
+//
+// Copyright 2008 Luiz Rafael Culik (luiz at xharbour.com.br
+// www - http://www.xharbour.org
+//
 
 #include "hbclass.ch"
 #include "guilib.ch"

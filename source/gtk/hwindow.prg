@@ -1,10 +1,11 @@
-/*
- * HWGUI - Harbour Linux (GTK) GUI library source code:
- * HWindow class
- *
- * Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// HWGUI - Harbour Linux (GTK) GUI library source code:
+// HWindow class
+//
+// Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
+
 #include "hbclass.ch"
 #include "hwgui.ch"
 REQUEST HWG_ENDWINDOW

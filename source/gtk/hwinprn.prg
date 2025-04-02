@@ -1,22 +1,22 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HWinPrn class
- *
- * Copyright 2005 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- *
- * Modifications by DF7BE:
- * - New parameter "nCharset" for 
- *   selecting international charachter sets
- *   Data and methods for National Language Support
- *
- * - New method SetDefaultMode():
- *   should act like a "printer reset"
- *   (Set back to default values).
- *
- * - Recovered METHOD PrintBitmap
- *   (Ticket #64, TNX HKrzak)
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HWinPrn class
+//
+// Copyright 2005 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
+// Modifications by DF7BE:
+// - New parameter "nCharset" for
+//   selecting international charachter sets
+//   Data and methods for National Language Support
+//
+// - New method SetDefaultMode():
+//   should act like a "printer reset"
+//   (Set back to default values).
+//
+// - Recovered METHOD PrintBitmap
+//   (Ticket #64, TNX HKrzak)
+//
 
 /*
   Some notes how to explain the work flow of the

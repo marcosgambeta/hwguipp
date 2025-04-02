@@ -1,18 +1,17 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HProgressBar class
- *
- * Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
-/*
- * Copyright 2008 Luiz Rafal Culik Guimaraes <luiz at xharbour.com.br>
- * port for linux version
- *
- * Bugfix by DF7BE September 2020
- * Checked on Windows Cross Development Environment and
- * Ubuntu-Linux 
-*/
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HProgressBar class
+//
+// Copyright 2004 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
+// Copyright 2008 Luiz Rafal Culik Guimaraes <luiz at xharbour.com.br>
+// port for linux version
+//
+// Bugfix by DF7BE September 2020
+// Checked on Windows Cross Development Environment and
+// Ubuntu-Linux
+//
 
 #include "windows.ch"
 #include "hbclass.ch"
