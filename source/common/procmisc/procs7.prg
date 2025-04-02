@@ -1,10 +1,10 @@
-/*
- * Common procedures
- *
- *
- * Author: Alexander S.Kresin <alex@kresin.ru>
- *         www - http://www.kresin.ru
-*/
+//
+// Common procedures
+//
+//
+// Author: Alexander S.Kresin <alex@kresin.ru>
+//         www - http://www.kresin.ru
+//
 
 FUNCTION RDSTR(han, strbuf, poz, buflen)
    LOCAL stro := "", rez, oldpoz, poz1

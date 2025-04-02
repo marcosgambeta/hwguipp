@@ -1,10 +1,10 @@
-/*
- * Common procedures
- * Ini files reading
- *
- * Author: Alexander S.Kresin <alex@belacy.belgorod.su>
- *         www - http://kresin.belgorod.su
-*/
+//
+// Common procedures
+// Ini files reading
+//
+// Author: Alexander S.Kresin <alex@belacy.belgorod.su>
+//         www - http://kresin.belgorod.su
+//
 
 /*
  Function Rdini scans file line by line, creates variables ( if they doesn't

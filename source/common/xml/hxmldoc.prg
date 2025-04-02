@@ -1,10 +1,10 @@
-/*
- * Harbour XML Library
- * HXmlDoc class
- *
- * Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
-*/
+//
+// Harbour XML Library
+// HXmlDoc class
+//
+// Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hbclass.ch"
 #include "fileio.ch"

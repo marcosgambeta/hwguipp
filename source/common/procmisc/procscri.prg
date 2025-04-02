@@ -1,10 +1,10 @@
-/*
- * Common procedures
- * Scripts
- *
- * Author: Alexander S.Kresin <alex@belacy.belgorod.su>
- *         www - http://kresin.belgorod.su
-*/
+//
+// Common procedures
+// Scripts
+//
+// Author: Alexander S.Kresin <alex@belacy.belgorod.su>
+//         www - http://kresin.belgorod.su
+//
 
 #include "fileio.ch"
 // #define __WINDOWS__

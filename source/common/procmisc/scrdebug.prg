@@ -1,10 +1,10 @@
-/*
- * Common procedures
- * Scripts Debugger
- *
- * Author: Alexander S.Kresin <alex@belacy.belgorod.su>
- *         www - http://kresin.belgorod.su
-*/
+//
+// Common procedures
+// Scripts Debugger
+//
+// Author: Alexander S.Kresin <alex@belacy.belgorod.su>
+//         www - http://kresin.belgorod.su
+//
 
 #include "hwgui.ch"
 
