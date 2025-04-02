@@ -35,7 +35,7 @@
 */
 
 #include <hbclass.ch>
-#include "common.ch"
+#include <common.ch>
 #include "hwguipp.ch"
 
 #include "richtext.ch"

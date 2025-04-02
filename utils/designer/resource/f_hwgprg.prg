@@ -1059,7 +1059,7 @@ FUNCTION Ctrl2Prg
    //Fwrite(han,'#include "windows.ch"'+ hb_OsNewline())
    //Fwrite(han,'#include "guilib.ch"' + hb_OsNewline()+ hb_OsNewline())
    FWrite(han, '#include "hwguipp.ch"' + hb_OsNewline())
-   FWrite(han, '#include "common.ch"' + hb_OsNewline())
+   FWrite(han, '#include <common.ch>' + hb_OsNewline())
    FWrite(han, '#ifdef __XHARBOUR__' + hb_OsNewline())
    FWrite(han, '   #include "ttable.ch"' + hb_OsNewline())
    FWrite(han, '#endif' + hb_OsNewline() + hb_OsNewline())

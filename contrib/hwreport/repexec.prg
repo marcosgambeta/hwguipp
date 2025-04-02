@@ -9,7 +9,7 @@
 #include "hwguipp.ch"
 #include "repmain.h"
 #include "fileio.ch"
-#include "common.ch"
+#include <common.ch>
 
 REQUEST DBUSEAREA, RECNO, DBSKIP, DBGOTOP, DBCLOSEAREA
 

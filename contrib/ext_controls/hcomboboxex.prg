@@ -14,7 +14,7 @@
 
 #include <hbclass.ch>
 #include "hwguipp.ch"
-#include "common.ch"
+#include <common.ch>
 
 #DEFINE CB_SHOWDROPDOWN             335
 #define CB_GETDROPPEDSTATE          343

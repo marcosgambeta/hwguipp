@@ -8,7 +8,7 @@
 
 #include <hbclass.ch>
 #include "hwguipp.ch"
-#include "common.ch"
+#include <common.ch>
 
 #translate :hBitmap       => :m_csbitmaps\[1\]
 #translate :dwWidth       => :m_csbitmaps\[2\]

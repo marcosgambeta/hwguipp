@@ -25,7 +25,7 @@
 #include <hbclass.ch>
 #include "hxml.ch"
 #include "dbStruct.ch"
-#include "Common.ch"
+#include <common.ch>
 #include "inkey.ch"
 #include "fileio.CH"
 

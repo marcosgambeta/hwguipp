@@ -11,7 +11,7 @@
 */
 
 #include "hwguipp.ch"
-#include "common.ch"
+#include <common.ch>
 
 #translate hwg_ColorRgb2N( <nRed>, <nGreen>, <nBlue> ) => ( <nRed> + ( <nGreen> * 256 ) + ( <nBlue> * 65536 ) )
 

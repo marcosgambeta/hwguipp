@@ -14,7 +14,7 @@
 
 #include <hbclass.ch>
 #include "hwguipp.ch"
-#include "common.ch"
+#include <common.ch>
 
 #define CB_GETDROPPEDSTATE          343
 #define TRANSPARENT        1

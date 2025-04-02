@@ -2,7 +2,7 @@
  * The sample implemented by Sandro Freire <sandrorrfreire@yahoo.com.br>
  */
 
-#include "common.ch"
+#include <common.ch>
 #include "richtext.ch"
 #include "hwguipp.ch"
 

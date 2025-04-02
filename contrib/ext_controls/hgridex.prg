@@ -10,7 +10,7 @@
 
 #include "hwguipp.ch"
 #include <hbclass.ch>
-#include "common.ch"
+#include <common.ch>
 #define LVS_REPORT              1
 #define LVS_SINGLESEL           4
 #define LVS_SHOWSELALWAYS       8

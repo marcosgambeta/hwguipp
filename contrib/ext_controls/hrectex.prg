@@ -7,7 +7,7 @@
 
 #include <hbclass.ch>
 #include "hwguipp.ch"
-#include "common.ch"
+#include <common.ch>
 
 #DEFINE TRANSPARENT 1
 

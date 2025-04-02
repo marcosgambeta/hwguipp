@@ -33,7 +33,7 @@
 #include "repmain.h"
 
    // #include "hwgui.ch"
-#include "common.ch"
+#include <common.ch>
 #ifdef __XHARBOUR__
 #include "ttable.ch"
 #endif

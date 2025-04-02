@@ -14,7 +14,7 @@
     *  GTK/Win  :  No
 
 #include "hwguipp.ch"
-#include "common.ch"
+#include <common.ch>
 
 Static oMain, oForm, oFont, oGrid
 
