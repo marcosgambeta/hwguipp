@@ -1,5 +1,8 @@
 // HBMK_HAS_* are automatically created by HBMK when use HBC files, no extra setup
 
+#ifndef _WINDOWS_CH_
+#define _WINDOWS_CH_
+
 #define WM_CREATE                       1
 #define WM_DESTROY                      2
 #define WM_MOVE                         3
@@ -1683,3 +1686,5 @@ ComboBox
 #define  TME_LEAVE             2
 
 #define HDM_GETITEMCOUNT    4608
+
+#endif // _WINDOWS_CH_
