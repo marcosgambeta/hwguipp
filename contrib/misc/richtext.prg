@@ -34,7 +34,7 @@
 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
 */
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "common.ch"
 #include "hwguipp.ch"
 

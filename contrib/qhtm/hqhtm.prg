@@ -7,7 +7,7 @@
 */
 
 #include "hwguipp.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwg_qhtm.ch"
 
 CLASS HQhtm INHERIT HControl

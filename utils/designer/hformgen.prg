@@ -7,7 +7,7 @@
 */
 
 #include "fileio.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwguipp.ch"
 #include "hxml.ch"
 #include "designer.ch"

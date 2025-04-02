@@ -12,7 +12,7 @@
  * www - http://kresin.belgorod.su
 */
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwguipp.ch"
 #include "common.ch"
 

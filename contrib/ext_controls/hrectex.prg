@@ -5,7 +5,7 @@
  * Copyright 2004 Ricardo de Moura Marques <ricardo.m.marques@caixa.gov.br>
 */
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwguipp.ch"
 #include "common.ch"
 

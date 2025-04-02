@@ -7,7 +7,7 @@
 */
 
 #include "hwguipp.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hxml.ch"
 
 Static aBDown := { NIL,0,0,.F. }

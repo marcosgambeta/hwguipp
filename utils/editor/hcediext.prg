@@ -5,7 +5,7 @@
  * Copyright 2014 Alexander Kresin <alex@kresin.ru>
  * www - http://www.kresin.ru
  */
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwguipp.ch"
 
 #define  HILI_LEN       8

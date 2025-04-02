@@ -22,7 +22,7 @@
  */
 
 #include "windows.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 //-----------------------------------------------------------------------------------------------//
 CLASS HActiveX FROM HControl

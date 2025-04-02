@@ -6,7 +6,7 @@
  * www - http://www.kresin.ru
 */
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwguipp.ch"
 #include "hxml.ch"
 

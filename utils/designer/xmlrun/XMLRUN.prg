@@ -22,7 +22,7 @@
 
 #include "hwguipp.ch"
 #include "hbextern.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hxml.ch"
 #include "dbStruct.ch"
 #include "Common.ch"

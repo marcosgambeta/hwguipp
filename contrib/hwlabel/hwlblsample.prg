@@ -38,7 +38,7 @@
 #ifdef __XHARBOUR__
    #include "ttable.ch"
 #endif
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwgextern.ch"
 
 // ==== REQUESTs =====

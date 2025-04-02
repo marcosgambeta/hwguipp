@@ -27,7 +27,7 @@
 */
 
  
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hbgtinfo.ch"
 #include "hwguipp.ch"
 

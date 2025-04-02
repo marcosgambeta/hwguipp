@@ -264,7 +264,7 @@
 #ifdef __XHARBOUR__
    #include "ttable.ch"
 #endif
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hwgextern.ch"
 
 // Free this for adding the label editor in an

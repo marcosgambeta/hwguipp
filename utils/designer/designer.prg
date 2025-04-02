@@ -7,7 +7,7 @@
 */
 
 #include "hwguipp.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "hxml.ch"
 #include "designer.ch"
 #include "hwgextern.ch"

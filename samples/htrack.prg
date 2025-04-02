@@ -2,7 +2,7 @@
 // used as a replacement for a track bar,
 // which has not gtk version.
 #include "hwguipp.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #define CLR_WHITE    0xffffff
 #define CLR_BLACK    0x000000
 #define CLR_BROWN_1  0x154780

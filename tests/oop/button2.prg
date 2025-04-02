@@ -14,7 +14,7 @@ PROCEDURE Main()
 
 RETURN
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 CLASS MyDialog FROM HDialog
 
