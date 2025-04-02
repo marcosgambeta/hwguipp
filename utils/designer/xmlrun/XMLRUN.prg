@@ -26,7 +26,7 @@
 #include "hxml.ch"
 #include "dbStruct.ch"
 #include <common.ch>
-#include "inkey.ch"
+#include <inkey.ch>
 #include "fileio.CH"
 
 #DEFINE FALSE .F.

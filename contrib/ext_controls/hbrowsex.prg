@@ -21,7 +21,7 @@
 #include "hwg_extctrl.ch"
 
 #include <common.ch>
-#include "inkey.ch"
+#include <inkey.ch>
 #include "dbstruct.ch"
 #include <hbclass.ch>
 
