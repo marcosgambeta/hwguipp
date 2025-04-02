@@ -6,7 +6,7 @@
 //         www - http://kresin.belgorod.su
 //
 
-#include "fileio.ch"
+#include <fileio.ch>
 // #define __WINDOWS__
 
 #ifndef __PLATFORM__WINDOWS

@@ -52,7 +52,7 @@
 // If you do not wish that, delete this exception notice.
 // $END_LICENSE$
 
-#include "fileio.ch"
+#include <fileio.ch>
 
 #define DEBUG_PROTO_VERSION     3
 

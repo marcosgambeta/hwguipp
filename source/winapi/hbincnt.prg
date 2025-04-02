@@ -8,7 +8,7 @@
 
 #include "hwgui.ch"
 #include <hbclass.ch>
-#include "fileio.ch"
+#include <fileio.ch>
 
 /* Data structure:
  * Header: "hwgbc" ver(2b) reserve(1b)  N items  Contents Len  Contents blocks  Pass Length Pass info

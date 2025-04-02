@@ -7,7 +7,7 @@
 //
 
 #include <hbclass.ch>
-#include "fileio.ch"
+#include <fileio.ch>
 #include "hxml.ch"
 
 #define XML_ERROR_FILEOPEN     11
