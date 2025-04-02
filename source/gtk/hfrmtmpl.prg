@@ -49,7 +49,7 @@ STATIC aCtrls := { ;
 #endif
 
 #include <hbclass.ch>
-#include "error.ch"
+#include <error.ch>
 #include "hwgui.ch"
 #include "hxml.ch"
 

@@ -9,7 +9,7 @@
 #include "windows.ch"
 #include <hbclass.ch>
 #include "guilib.ch"
-#include "error.ch"
+#include <error.ch>
 
 STATIC aCustomEvents := { ;
    { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;

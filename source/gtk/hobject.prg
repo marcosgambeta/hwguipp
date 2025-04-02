@@ -9,7 +9,7 @@
 #include "windows.ch"
 #include <hbclass.ch>
 #include "guilib.ch"
-#include "error.ch"
+#include <error.ch>
 
    //ANNOUNCE HB_GTSYS
    REQUEST HB_GT_CGI_DEFAULT
