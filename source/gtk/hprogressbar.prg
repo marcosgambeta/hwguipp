@@ -40,9 +40,9 @@ METHOD HProgressBar:New( oWndParent, nId, nX, nY, nWidth, nHeight, maxPos, nRang
 
    ::Super:New( oWndParent, nId, NIL, nX, nY, nWidth, nHeight, NIL, bInit, bSize, bPaint, ctooltip )
 
-   ::maxPos := iif(maxPos == NIL, 20, maxPos)
+   ::maxPos := IIf(maxPos == NIL, 20, maxPos)
    ::lNewBox := .F.
-   ::nLimit := iif(nRange != NIL, Int( nRange/::maxPos ), 1)
+   ::nLimit := IIf(nRange != NIL, Int( nRange/::maxPos ), 1)
 
    ::Activate()
 
@@ -53,24 +53,24 @@ METHOD HProgressBar:NewBox( cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bEx
 
    // ::classname:= "HPROGRESSBAR"
    ::style := WS_CHILD + WS_VISIBLE
-   nWidth := iif(nWidth == NIL, 220, nWidth)
-   nHeight := iif(nHeight == NIL, 60, nHeight)
-   nX := iif(nX == NIL, 0, nX)
-   nY := iif(nY == NIL, 0, nY)
-   nWidth := iif(nWidth == NIL, 220, nWidth)
-   nHeight := iif(nHeight == NIL, 60, nHeight)
+   nWidth := IIf(nWidth == NIL, 220, nWidth)
+   nHeight := IIf(nHeight == NIL, 60, nHeight)
+   nX := IIf(nX == NIL, 0, nX)
+   nY := IIf(nY == NIL, 0, nY)
+   nWidth := IIf(nWidth == NIL, 220, nWidth)
+   nHeight := IIf(nHeight == NIL, 60, nHeight)
    ::nX := 20
    ::nY := 25
    ::nWidth := nWidth - 40
    ::nheight := 20
-   ::maxPos := iif(maxPos == NIL, 20, maxPos)
+   ::maxPos := IIf(maxPos == NIL, 20, maxPos)
    ::lNewBox := .T.
-   ::nLimit := iif(nRange != NIL, Int( nRange/::maxPos ), 1)
+   ::nLimit := IIf(nRange != NIL, Int( nRange/::maxPos ), 1)
 
    INIT DIALOG ::oParent TITLE cTitle       ;
       AT nX, nY SIZE nWidth, nHeight   ;
-      STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + iif(nY == 0, DS_CENTER, nY) + DS_SYSMODAL
-      // DF7BE: iif(nY == 0, DS_CENTER, 0)  ??? 
+      STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + IIf(nY == 0, DS_CENTER, nY) + DS_SYSMODAL
+      // DF7BE: IIf(nY == 0, DS_CENTER, 0)  ??? 
 
    IF bExit != NIL
       ::oParent:bDestroy := bExit

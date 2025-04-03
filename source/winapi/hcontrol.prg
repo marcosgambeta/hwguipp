@@ -32,9 +32,9 @@ ENDCLASS
 
 METHOD HControl:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 
-   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
-   ::id := iif(nId == NIL, ::NewId(), nId)
-   ::style := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_VISIBLE + WS_CHILD)
+   ::oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::id := IIf(nId == NIL, ::NewId(), nId)
+   ::style := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_VISIBLE + WS_CHILD)
    ::oFont := oFont
    ::nX := nX
    ::nY := nY
@@ -130,8 +130,8 @@ METHOD HControl:onAnchor(x, y, w, h)
    w9 := w1 := ::nWidth
    h9 := h1 := ::nHeight
    // *- calculo relativo
-   nXincRelative := iif(x > 0, w / x, 1)
-   nYincRelative := iif(y > 0, h / y, 1)
+   nXincRelative := IIf(x > 0, w / x, 1)
+   nYincRelative := IIf(y > 0, h / y, 1)
    // *- calculo ABSOLUTE
    nXincAbsolute := (w - x)
    nYincAbsolute := (h - y)

@@ -40,9 +40,9 @@ ENDCLASS
 
 METHOD HPanel:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bcolor, oStyle)
 
-   LOCAL oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   LOCAL oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
 
-   ::Super:New(oWndParent, nId, nStyle, nX, nY, iif(nWidth == NIL, 0, nWidth), iif(nHeight == NIL, 0, nHeight), oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bcolor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, IIf(nWidth == NIL, 0, nWidth), IIf(nHeight == NIL, 0, nHeight), oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bcolor)
 
    IF bcolor != NIL
       ::brush := HBrush():Add(bcolor)
@@ -149,10 +149,10 @@ METHOD HPanel:Init()
 
    IF !::lInit
       IF ::bSize == NIL .AND. Empty(::Anchor)
-         ::bSize := {|o, x, y|o:Move(iif(::nX > 0, x - ::nX, 0), ;
-            iif(::nY > 0, y - ::nHeight, 0), ;
-            iif(::nWidth == 0 .OR. ::lResizeX, x, ::nWidth), ;
-            iif(::nHeight == 0 .OR. ::lResizeY, y, ::nHeight)) }
+         ::bSize := {|o, x, y|o:Move(IIf(::nX > 0, x - ::nX, 0), ;
+            IIf(::nY > 0, y - ::nHeight, 0), ;
+            IIf(::nWidth == 0 .OR. ::lResizeX, x, ::nWidth), ;
+            IIf(::nHeight == 0 .OR. ::lResizeY, y, ::nHeight)) }
       ENDIF
 
       ::Super:Init()
@@ -165,9 +165,9 @@ RETURN NIL
 
 METHOD HPanel:Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor)
 
-   LOCAL oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   LOCAL oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
 
-   ::Super:New(oWndParent, nId, 0, 0, 0, iif(nWidth == NIL, 0, nWidth), iif(nHeight != NIL, nHeight, 0), oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bcolor)
+   ::Super:New(oWndParent, nId, 0, 0, 0, IIf(nWidth == NIL, 0, nWidth), IIf(nHeight != NIL, nHeight, 0), oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bcolor)
 
    IF bcolor != NIL
       ::brush := HBrush():Add(bcolor)

@@ -25,8 +25,8 @@ ENDCLASS
 
 METHOD HButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor)
 
-   nStyle := hb_bitor( iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON )
-   ::Super:New(oWndParent, nId, nStyle, nX, nY, iif(nWidth == NIL, 90, nWidth), iif(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
+   nStyle := hb_bitor( IIf(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON )
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, IIf(nWidth == NIL, 90, nWidth), IIf(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
 
    ::title := cCaption
    ::Activate()

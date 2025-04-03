@@ -108,13 +108,13 @@ METHOD HTree:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, NIL, NIL, color, bcolor)
 
    ::title := ""
-   ::Type := iif(lResour == NIL, .F. , lResour)
+   ::Type := IIf(lResour == NIL, .F. , lResour)
    ::bClick := bClick
 
    IF aImages != NIL .AND. !Empty(aImages)
       ::aImages := {}
       FOR i := 1 TO Len(aImages)
-         AAdd(::aImages, iif(::Type, hwg_BmpFromRes(aImages[i]), hwg_Openimage(AddPath(aImages[i], HBitmap():cPath))))
+         AAdd(::aImages, IIf(::Type, hwg_BmpFromRes(aImages[i]), hwg_Openimage(AddPath(aImages[i], HBitmap():cPath))))
       NEXT
    ENDIF
 
@@ -205,7 +205,7 @@ METHOD HTree:onEvent( msg, wParam, lParam )
 
    ELSEIF msg == WM_MOUSEWHEEL
       ::MouseWheel(hwg_Loword(wParam),      ;
-         iif(hwg_Hiword(wParam) > 32768, ;
+         IIf(hwg_Hiword(wParam) > 32768, ;
          hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam)))
 
    ELSEIF msg == WM_DESTROY
@@ -333,12 +333,12 @@ METHOD HTree:PaintNode(hDC, oNode, nNode, nLine)
    LOCAL nTextWidth
 
    hwg_Selectobject(hDC, ::oPenLine:handle)
-   hwg_Drawline(hDC, iif(Empty(oNode:aItems), x1 + 5, x1 + 1), y1 + 9, x1 + ::nIndent - 4, y1 + 9)
+   hwg_Drawline(hDC, IIf(Empty(oNode:aItems), x1 + 5, x1 + 1), y1 + 9, x1 + ::nIndent - 4, y1 + 9)
    IF nNode > 1 .OR. oNode:nLevel > 1
-      hwg_Drawline(hDC, x1 + 5, y1, x1 + 5, iif(Empty(oNode:aItems), y1 + 9, y1 + 4))
+      hwg_Drawline(hDC, x1 + 5, y1, x1 + 5, IIf(Empty(oNode:aItems), y1 + 9, y1 + 4))
    ENDIF
    IF nNode < Len(oNode:oParent:aItems)
-      hwg_Drawline(hDC, x1 + 5, iif(Empty(oNode:aItems), y1 + 9, y1 + 12), x1 + 5, y1 + ::height + 1)
+      hwg_Drawline(hDC, x1 + 5, IIf(Empty(oNode:aItems), y1 + 9, y1 + 12), x1 + 5, y1 + ::height + 1)
    ENDIF
    IF !Empty(oNode:aItems)
       hwg_Rectangle(hDC, x1, y1 + 4, x1 + 8, y1 + 12)
@@ -351,9 +351,9 @@ METHOD HTree:PaintNode(hDC, oNode, nNode, nLine)
    ENDIF
 
    IF !Empty(oNode:aImages)
-      hBmp := iif(::oSelected == oNode .AND. Len(oNode:aImages) > 1, oNode:aImages[2], oNode:aImages[1] )
+      hBmp := IIf(::oSelected == oNode .AND. Len(oNode:aImages) > 1, oNode:aImages[2], oNode:aImages[1] )
    ELSEIF !Empty(::aImages)
-      hBmp := iif(::oSelected == oNode .AND. Len(::aImages) > 1, ::aImages[2], ::aImages[1])
+      hBmp := IIf(::oSelected == oNode .AND. Len(::aImages) > 1, ::aImages[2], ::aImages[1])
    ENDIF
    IF !Empty(hBmp)
       aBmpSize := hwg_Getbitmapsize( hBmp )
@@ -361,7 +361,7 @@ METHOD HTree:PaintNode(hDC, oNode, nNode, nLine)
    ENDIF
 
    nTextWidth := hwg_GetTextWidth(hDC, oNode:title)
-   x1 += ::nIndent + iif(!Empty(aBmpSize), aBmpSize[1] + 4, 0)
+   x1 += ::nIndent + IIf(!Empty(aBmpSize), aBmpSize[1] + 4, 0)
    IF ::oSelected == oNode
       hwg_Settextcolor(hDC, ::tcolorSel)
       hwg_Fillrect(hDC, x1, y1, x1 + nTextWidth, y1 + (::height + 1), ::brushSel:handle)
@@ -487,7 +487,7 @@ METHOD HTree:GoDown( n )
    IF ::rowCurrCount < ::rowCount .OR. Empty(::aScreen[::rowCurrCount]:NextNode())
       RETURN 0
    ENDIF
-   ::oFirst := iif(n == 1, ::oFirst:NextNode(), ::aScreen[::rowCurrCount])
+   ::oFirst := IIf(n == 1, ::oFirst:NextNode(), ::aScreen[::rowCurrCount])
    hwg_Redrawwindow(::area)
 
    RETURN 0

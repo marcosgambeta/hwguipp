@@ -111,7 +111,7 @@ METHOD HListBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHei
     /* Create Listbox */
    ::handle := HWG_CREATELISTBOX()
 
-//   hwg_WriteLog(IIF(Empty(::handle),"E","F") )
+//   hwg_WriteLog(IIf(Empty(::handle),"E","F") )
 
     /* Listbox visble */
     ::Activate()
@@ -221,7 +221,7 @@ METHOD HListBox:onEvent( msg, wParam, lParam )
    wParam := hwg_PtrToUlong( wParam )
    IF msg == WM_KEYDOWN
       IF wParam == VK_TAB //.AND. nType < WND_DLG_RESOURCE
-         hwg_GetSkip(::oParent, ::handle, NIL, iif(hwg_IsCtrlShift(.f., .t.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, NIL, IIf(hwg_IsCtrlShift(.f., .t.), -1, 1))
       ENDIF
          IF hb_IsBlock(::bKeyDown)
          nEval := Eval(::bKeyDown, Self, wParam)

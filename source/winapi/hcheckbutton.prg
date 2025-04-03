@@ -42,11 +42,11 @@ METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, 
    IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::title := cCaption
-   ::lValue := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
+   ::lValue := IIf(vari == NIL .OR. ValType(vari) != "L", .F., vari)
    ::bSetGet := bSetGet
 
    ::Activate()
@@ -78,7 +78,7 @@ METHOD HCheckButton:Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   ::lValue := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
+   ::lValue := IIf(vari == NIL .OR. ValType(vari) != "L", .F., vari)
    ::bSetGet := bSetGet
 
    ::bClick := bClick
@@ -107,10 +107,10 @@ METHOD HCheckButton:Refresh()
 
    IF hb_IsBlock(::bSetGet)
       var := Eval(::bSetGet, NIL, NIL)
-      ::lValue := iif(var == NIL, .F., var)
+      ::lValue := IIf(var == NIL, .F., var)
    ENDIF
 
-   hwg_Sendmessage(::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0)
+   hwg_Sendmessage(::handle, BM_SETCHECK, IIf(::lValue, 1, 0), 0)
 
    RETURN NIL
 
@@ -124,7 +124,7 @@ METHOD HCheckButton:Disable()
 METHOD HCheckButton:Enable()
 
    ::Super:Enable()
-   hwg_Sendmessage(::handle, BM_SETCHECK, iif(::lValue, 1, 0), 0)
+   hwg_Sendmessage(::handle, BM_SETCHECK, IIf(::lValue, 1, 0), 0)
 
    RETURN NIL
 
@@ -134,7 +134,7 @@ METHOD HCheckButton:Value(lValue)
       IF ValType(lValue) != "L"
          lValue := .F.
       ENDIF
-      hwg_Sendmessage(::handle, BM_SETCHECK, iif(lValue, 1, 0), 0)
+      hwg_Sendmessage(::handle, BM_SETCHECK, IIf(lValue, 1, 0), 0)
       IF hb_IsBlock(::bSetGet)
          Eval(::bSetGet, lValue, Self)
       ENDIF

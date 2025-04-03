@@ -39,16 +39,16 @@ METHOD HFont:Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, f
    LOCAL i
    LOCAL nlen := Len(::aFonts)
 
-   nHeight := iif(nHeight == NIL, 13, Abs( nHeight ))
+   nHeight := IIf(nHeight == NIL, 13, Abs( nHeight ))
    IF lLinux == NIL .OR. !lLinux
       nHeight -= 3
    ENDIF
-   nWidth := iif(nWidth == NIL, 0, nWidth)
-   fnWeight := iif(fnWeight == NIL, 0, fnWeight)
-   fdwCharSet := iif(fdwCharSet == NIL, 0, fdwCharSet)
-   fdwItalic := iif(fdwItalic == NIL, 0, fdwItalic)
-   fdwUnderline := iif(fdwUnderline == NIL, 0, fdwUnderline)
-   fdwStrikeOut := iif(fdwStrikeOut == NIL, 0, fdwStrikeOut)
+   nWidth := IIf(nWidth == NIL, 0, nWidth)
+   fnWeight := IIf(fnWeight == NIL, 0, fnWeight)
+   fdwCharSet := IIf(fdwCharSet == NIL, 0, fdwCharSet)
+   fdwItalic := IIf(fdwItalic == NIL, 0, fdwItalic)
+   fdwUnderline := IIf(fdwUnderline == NIL, 0, fdwUnderline)
+   fdwStrikeOut := IIf(fdwStrikeOut == NIL, 0, fdwStrikeOut)
 
    FOR i := 1 TO nlen
       IF ::aFonts[i]:name == fontName .AND.          ;
@@ -135,14 +135,14 @@ METHOD HFont:PrintFont()
    LOCAL fdwUnderline
    LOCAL fdwStrikeOut
 
-   fontName := iif(::name == NIL , "<Empty>", ::name)
-   nWidth := iif(::width == NIL, - 9999, ::width)
-   nHeight := iif(::height == NIL , - 9999, ::height)
-   fnWeight := iif(::weight == NIL, - 9999, ::weight)
-   fdwCharSet := iif(::CharSet == NIL, - 9999, ::CharSet)
-   fdwItalic := iif(::Italic == NIL, - 9999, ::Italic)
-   fdwUnderline := iif(::Underline == NIL, - 9999, ::Underline)
-   fdwStrikeOut := iif(::StrikeOut == NIL, - 9999, ::StrikeOut)
+   fontName := IIf(::name == NIL , "<Empty>", ::name)
+   nWidth := IIf(::width == NIL, - 9999, ::width)
+   nHeight := IIf(::height == NIL , - 9999, ::height)
+   fnWeight := IIf(::weight == NIL, - 9999, ::weight)
+   fdwCharSet := IIf(::CharSet == NIL, - 9999, ::CharSet)
+   fdwItalic := IIf(::Italic == NIL, - 9999, ::Italic)
+   fdwUnderline := IIf(::Underline == NIL, - 9999, ::Underline)
+   fdwStrikeOut := IIf(::StrikeOut == NIL, - 9999, ::StrikeOut)
 
 RETURN "Font Name=" + fontName + " Width=" + ALLTRIM(STR(nWidth)) + " Height=" + ALLTRIM(STR(nHeight)) + ;
        " Weight=" + ALLTRIM(STR(fnWeight)) + " CharSet=" + ALLTRIM(STR(fdwCharSet)) + ;
@@ -171,14 +171,14 @@ METHOD HFont:Props2Arr()
    LOCAL fdwStrikeOut
    LOCAL aFontprops := {}
 
-   fontName := iif(::name == NIL , "<Empty>", ::name)
-   nWidth := iif(::width == NIL, - 9999, ::width)
-   nHeight := iif(::height == NIL , - 9999, ::height)
-   fnWeight := iif(::weight == NIL, - 9999, ::weight)
-   fdwCharSet := iif(::CharSet == NIL, - 9999, ::CharSet)
-   fdwItalic := iif(::Italic == NIL, - 9999, ::Italic)
-   fdwUnderline := iif(::Underline == NIL, - 9999, ::Underline)
-   fdwStrikeOut := iif(::StrikeOut == NIL, - 9999, ::StrikeOut)
+   fontName := IIf(::name == NIL , "<Empty>", ::name)
+   nWidth := IIf(::width == NIL, - 9999, ::width)
+   nHeight := IIf(::height == NIL , - 9999, ::height)
+   fnWeight := IIf(::weight == NIL, - 9999, ::weight)
+   fdwCharSet := IIf(::CharSet == NIL, - 9999, ::CharSet)
+   fdwItalic := IIf(::Italic == NIL, - 9999, ::Italic)
+   fdwUnderline := IIf(::Underline == NIL, - 9999, ::Underline)
+   fdwStrikeOut := IIf(::StrikeOut == NIL, - 9999, ::StrikeOut)
 
    AADD(aFontprops, fontName)  // C
    AADD(aFontprops, nWidth)    // all other of type N
@@ -199,14 +199,14 @@ METHOD HFont:SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight)
    LOCAL StrikeOut
 
    IF lBold != NIL
-      weight := iif(lBold, FW_BOLD, FW_REGULAR)
+      weight := IIf(lBold, FW_BOLD, FW_REGULAR)
    ELSE
       weight := ::weight
    ENDIF
-   Italic := iif(lItalic == NIL, ::Italic, iif(lItalic, 1, 0))
-   Underline := iif(lUnder == NIL, ::Underline, iif(lUnder , 1, 0))
-   StrikeOut := iif(lStrike == NIL, ::StrikeOut, iif(lStrike , 1, 0))
-   nheight := iif(nheight == NIL, ::height, nheight)
-   nCharSet := iif(nCharSet == NIL, ::CharSet, nCharSet)
+   Italic := IIf(lItalic == NIL, ::Italic, IIf(lItalic, 1, 0))
+   Underline := IIf(lUnder == NIL, ::Underline, IIf(lUnder , 1, 0))
+   StrikeOut := IIf(lStrike == NIL, ::StrikeOut, IIf(lStrike , 1, 0))
+   nheight := IIf(nheight == NIL, ::height, nheight)
+   nCharSet := IIf(nCharSet == NIL, ::CharSet, nCharSet)
 
 RETURN HFont():Add(::name, ::width, nheight, weight, nCharSet, Italic, Underline, StrikeOut, NIL, (nHeight == ::height))

@@ -47,24 +47,24 @@ METHOD HTab:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, 
    LOCAL i
    LOCAL aBmpSize
 
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint)
 
    ::title := ""
-   ::oFont := iif(oFont == NIL, ::oParent:oFont, oFont)
-   ::aTabs := iif(aTabs == NIL, {}, aTabs)
+   ::oFont := IIf(oFont == NIL, ::oParent:oFont, oFont)
+   ::aTabs := IIf(aTabs == NIL, {}, aTabs)
    ::bChange := bChange
    ::bChange2 := bChange
 
-   ::bGetFocus := iif(bGetFocus == NIL, NIL, bGetFocus)
-   ::bLostFocus := iif(bLostFocus == NIL, NIL, bLostFocus)
-   ::bAction := iif(bClick == NIL, NIL, bClick)
+   ::bGetFocus := IIf(bGetFocus == NIL, NIL, bGetFocus)
+   ::bLostFocus := IIf(bLostFocus == NIL, NIL, bLostFocus)
+   ::bAction := IIf(bClick == NIL, NIL, bClick)
 
    IF aImages != NIL
       ::aImages := {}
       FOR i := 1 TO Len(aImages)
          AAdd(::aImages, Upper(aImages[i]))
-         aImages[i] := iif(lResour, hwg_Loadbitmap(aImages[i]), hwg_Openbitmap(aImages[i]))
+         aImages[i] := IIf(lResour, hwg_Loadbitmap(aImages[i]), hwg_Openbitmap(aImages[i]))
       NEXT
       aBmpSize := hwg_Getbitmapsize(aImages[1])
       ::himl := hwg_Createimagelist(aImages, aBmpSize[1], aBmpSize[2], 12, nBC)
@@ -93,7 +93,7 @@ METHOD HTab:Init()
 
    IF !::lInit
       ::Super:Init()
-      hwg_Inittabcontrol(::handle, ::aTabs, IIF(::himl != NIL, ::himl, 0))
+      hwg_Inittabcontrol(::handle, ::aTabs, IIf(::himl != NIL, ::himl, 0))
       ::nHolder := 1
       hwg_Setwindowobject(::handle, Self)
 

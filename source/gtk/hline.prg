@@ -25,12 +25,12 @@ METHOD HLine:New( oWndParent, nId, lVert, nX, nY, nLength, bSize )
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, NIL, NIL, NIL, NIL, bSize, { |o, lp|o:Paint( lp ) } )
 
    ::title := ""
-   ::lVert := iif(lVert == NIL, .F. , lVert)
+   ::lVert := IIf(lVert == NIL, .F. , lVert)
    IF ::lVert
       ::nWidth := 10
-      ::nHeight := iif(nLength == NIL, 20, nLength)
+      ::nHeight := IIf(nLength == NIL, 20, nLength)
    ELSE
-      ::nWidth := iif(nLength == NIL, 20, nLength)
+      ::nWidth := IIf(nLength == NIL, 20, nLength)
       ::nHeight := 10
    ENDIF
 

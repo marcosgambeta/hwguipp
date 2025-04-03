@@ -88,7 +88,7 @@ METHOD HBitmap:AddResource(name, nFlags, lOEM, nWidth, nHeight)
    ELSEIF lOEM
       ::handle := hwg_Loadimage(0, Val(name), IMAGE_BITMAP, NIL, NIL, hb_bitor(nFlags, LR_SHARED))
    ELSE
-      ::handle := hwg_Loadimage(NIL, iif(lPreDefined, Val(name), name), IMAGE_BITMAP, nWidth, nHeight, nFlags)
+      ::handle := hwg_Loadimage(NIL, IIf(lPreDefined, Val(name), name), IMAGE_BITMAP, nWidth, nHeight, nFlags)
    ENDIF
    IF Empty(::handle)
       RETURN NIL
@@ -149,7 +149,7 @@ METHOD HBitmap:AddFile(name, hDC, lTransparent, nWidth, nHeight)
    NEXT
 
    name := AddPath(name, ::cPath)
-   name := iif(!File(name) .AND. File(cname), cname, name)
+   name := IIf(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
       cCurDir := DiskName() + ":\" + CurDir()
       name := hwg_Selectfile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath(name), FilePath(name), "Locate " + name) // "*.jpg;*.gif;*.bmp;*.ico"

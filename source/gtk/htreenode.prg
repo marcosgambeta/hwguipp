@@ -48,21 +48,21 @@ METHOD HTreeNode:New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
 
    ::oTree := oTree
    ::oParent := oParent
-   ::nLevel := iif(__ObjHasMsg( oParent, "NLEVEL" ), oParent:nLevel + 1, 1)
+   ::nLevel := IIf(__ObjHasMsg( oParent, "NLEVEL" ), oParent:nLevel + 1, 1)
    ::bClick := bClick
-   ::title := iif(Empty(cTitle), "", cTitle)
+   ::title := IIf(Empty(cTitle), "", cTitle)
    ::handle := ++ oTree:nNodeCount
 
    IF aImages != NIL .AND. !Empty(aImages)
       ::aImages := {}
       FOR i := 1 TO Len(aImages)
-         AAdd(::aImages, iif(oTree:Type, hwg_BmpFromRes(aImages[i]), hwg_Openimage(AddPath(aImages[i], HBitmap():cPath))))
+         AAdd(::aImages, IIf(oTree:Type, hwg_BmpFromRes(aImages[i]), hwg_Openimage(AddPath(aImages[i], HBitmap():cPath))))
       NEXT
    ENDIF
 
-   nPos := iif(oPrev == NIL, 2, 0)
+   nPos := IIf(oPrev == NIL, 2, 0)
    IF oPrev == NIL .AND. oNext != NIL
-      op := iif(oNext:oParent == NIL, oNext:oTree, oNext:oParent)
+      op := IIf(oNext:oParent == NIL, oNext:oTree, oNext:oParent)
       FOR i := 1 TO Len(op:aItems)
          IF op:aItems[i]:handle == oNext:handle
             EXIT
@@ -76,7 +76,7 @@ METHOD HTreeNode:New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
       ENDIF
    ENDIF
 
-   aItems := iif(oParent == NIL, oTree:aItems, oParent:aItems)
+   aItems := IIf(oParent == NIL, oTree:aItems, oParent:aItems)
    IF nPos == 2
       AAdd(aItems, Self)
    ELSEIF nPos == 1
@@ -118,7 +118,7 @@ METHOD HTreeNode:DELETE( lInternal )
       NEXT
    ENDIF
    IF lInternal == NIL
-      aItems := iif(::oParent == NIL, ::oTree:aItems, ::oParent:aItems)
+      aItems := IIf(::oParent == NIL, ::oTree:aItems, ::oParent:aItems)
       j := AScan( aItems, { | o | o:handle == h } )
       ADel( aItems, j )
       ASize( aItems, Len(aItems) - 1 )

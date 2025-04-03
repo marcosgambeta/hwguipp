@@ -39,9 +39,9 @@ METHOD HButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, o
       RETURN Self
    ENDIF
 
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON + WS_TABSTOP)
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON + WS_TABSTOP)
 
-   ::Super:New(oWndParent, nId, nStyle, nX, nY, iif(nWidth == NIL, 90, nWidth), iif(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, IIf(nWidth == NIL, 90, nWidth), IIf(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
    ::bClick := bClick
    ::title := cCaption
    ::Activate()

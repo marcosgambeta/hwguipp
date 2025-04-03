@@ -82,14 +82,14 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
    ::xResourceID := xResourceID
    ::type := lType
    ::title := cTitle
-   ::style := iif(nStyle == NIL, 0, nStyle)
+   ::style := IIf(nStyle == NIL, 0, nStyle)
    ::bColor := bColor
    ::oBmp := oBmp
    ::oIcon := oIcon
-   ::nY := iif(y == NIL, 0, y)
-   ::nX := iif(x == NIL, 0, x)
-   ::nWidth := iif(width == NIL, 0, width)
-   ::nHeight := iif(height == NIL, 0, Abs( height ))
+   ::nY := IIf(y == NIL, 0, y)
+   ::nX := IIf(x == NIL, 0, x)
+   ::nWidth := IIf(width == NIL, 0, width)
+   ::nHeight := IIf(height == NIL, 0, Abs( height ))
    IF ::nWidth < 0
       ::nWidth := Abs(::nWidth)
       ::nAdjust := 1
@@ -102,9 +102,9 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
    ::bGetFocus := bGFocus
    ::bLostFocus := bLFocus
    ::bOther := bOther
-   ::lClipper := iif(lClipper == NIL, .F., lClipper)
-   ::lExitOnEnter := iif(lExitOnEnter == NIL, .T., !lExitOnEnter)
-   ::lExitOnEsc := iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
+   ::lClipper := IIf(lClipper == NIL, .F., lClipper)
+   ::lExitOnEnter := IIf(lExitOnEnter == NIL, .T., !lExitOnEnter)
+   ::lExitOnEsc := IIf(lExitOnEsc == NIL, .T., !lExitOnEsc)
 
    IF ::style > 0 .AND. hb_bitand(::style, DS_CENTER) > 0
       ::nX := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
@@ -135,9 +135,9 @@ METHOD HDialog:Activate( lNoModal, lMaximized, lMinimized, lCentered, bActivate 
    ::AddItem( Self, !lNoModal )
 
    IF !lNoModal
-      hParent := iif(::oParent != NIL .AND. __ObjHasMsg(::oParent, "HANDLE") ;
+      hParent := IIf(::oParent != NIL .AND. __ObjHasMsg(::oParent, "HANDLE") ;
          .AND. !Empty(::oParent:handle), ::oParent:handle, ;
-         iif((oWnd := HWindow():GetMain()) != NIL, oWnd:handle, NIL ) )
+         IIf((oWnd := HWindow():GetMain()) != NIL, oWnd:handle, NIL ) )
       hwg_Set_Modal(::handle, hParent)
    ENDIF
 
@@ -200,7 +200,7 @@ METHOD HDialog:onEvent( msg, wParam, lParam )
 
 METHOD HDialog:AddItem( oWnd, lModal )
 
-   AAdd(iif(lModal, ::aModalDialogs, ::aDialogs), oWnd)
+   AAdd(IIf(lModal, ::aModalDialogs, ::aDialogs), oWnd)
 
    RETURN NIL
 
@@ -231,7 +231,7 @@ METHOD HDialog:GetActive()
    LOCAL handle := hwg_Getfocus()
    LOCAL i := Ascan(::Getlist, {|o|o:handle == handle})
 
-   RETURN iif(i == 0, NIL, ::Getlist[i])
+   RETURN IIf(i == 0, NIL, ::Getlist[i])
 
    // End of class
    // ------------------------------------
@@ -340,13 +340,13 @@ FUNCTION hwg_GetModalDlg
 
    LOCAL i := Len(HDialog():aModalDialogs)
 
-   RETURN iif(i > 0, HDialog():aModalDialogs[i], NIL)
+   RETURN IIf(i > 0, HDialog():aModalDialogs[i], NIL)
 
 FUNCTION hwg_GetModalHandle
 
    LOCAL i := Len(HDialog():aModalDialogs)
 
-   RETURN iif(i > 0, HDialog():aModalDialogs[i]:handle, 0)
+   RETURN IIf(i > 0, HDialog():aModalDialogs[i]:handle, 0)
 
 FUNCTION hwg_EndDialog( handle )
 

@@ -54,7 +54,7 @@ CLASS HToolBar INHERIT HControl
    METHOD CreateTool()
    METHOD AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nIndex)
    METHOD Notify(lParam)
-   METHOD EnableButton(idButton, lEnable) INLINE hwg_Sendmessage(::handle, TB_ENABLEBUTTON, Int(idButton), hwg_Makelong(iif(lEnable, 1, 0), 0))
+   METHOD EnableButton(idButton, lEnable) INLINE hwg_Sendmessage(::handle, TB_ENABLEBUTTON, Int(idButton), hwg_Makelong(IIf(lEnable, 1, 0), 0))
    METHOD ShowButton(idButton) INLINE hwg_Sendmessage(::handle, TB_HIDEBUTTON, Int(idButton), hwg_Makelong(0, 0))
    METHOD HideButton(idButton) INLINE hwg_Sendmessage(::handle, TB_HIDEBUTTON, Int(idButton), hwg_Makelong(1, 0))
    METHOD REFRESH() VIRTUAL
@@ -68,14 +68,14 @@ METHOD hToolBar:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, 
 
    DEFAULT aitem TO {}
 
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), iif(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, CCS_NODIVIDER, 0))
-   nHeight += iif(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 1, 0)
-   nWidth  -= iif(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 2, 0)
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), IIf(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, CCS_NODIVIDER, 0))
+   nHeight += IIf(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 1, 0)
+   nWidth  -= IIf(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 2, 0)
 
-   ::lTransp := iif(lTransp != NIL, lTransp, .F.)
-   ::lVertical := iif(lVertical != NIL .AND. HB_ISLOGICAL(lVertical), lVertical, ::lVertical)
+   ::lTransp := IIf(lTransp != NIL, lTransp, .F.)
+   ::lVertical := IIf(lVertical != NIL .AND. HB_ISLOGICAL(lVertical), lVertical, ::lVertical)
    IF ::lTransp  .OR. ::lVertical
-      nStyle += iif(::lTransp, TBSTYLE_TRANSPARENT, iif(::lVertical, CCS_VERT, 0))
+      nStyle += IIf(::lTransp, TBSTYLE_TRANSPARENT, IIf(::lVertical, CCS_VERT, 0))
    ENDIF
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
@@ -83,13 +83,13 @@ METHOD hToolBar:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, 
    ::BtnWidth :=  BtnWidth //!= NIL, BtnWidth, 32 )
    ::nIDB := nIDB
    ::aItem := aItem
-   ::nIndent := iif(nIndent != NIL, nIndent, 1)
-   ::nwSize := iif(nwSize != NIL .AND. nwSize > 11, nwSize, 16)
-   ::nhSize := iif(nhSize != NIL .AND. nhSize > 11, nhSize, ::nwSize - 1)
+   ::nIndent := IIf(nIndent != NIL, nIndent, 1)
+   ::nwSize := IIf(nwSize != NIL .AND. nwSize > 11, nwSize, 16)
+   ::nhSize := IIf(nhSize != NIL .AND. nhSize > 11, nhSize, ::nwSize - 1)
    //::lnoThemes := !hwg_Isthemeactive() .OR. !::WindowsManifest
    IF hb_bitand(::Style, WS_DLGFRAME + WS_BORDER + CCS_NODIVIDER) == 0
       IF !::lVertical
-         ::Line := HLine():New(oWndParent, NIL, NIL, nX, nY + nHeight + iif(::lnoThemes .AND. hb_bitand(nStyle, TBSTYLE_FLAT) > 0, 2, 1), nWidth)
+         ::Line := HLine():New(oWndParent, NIL, NIL, nX, nY + nHeight + IIf(::lnoThemes .AND. hb_bitand(nStyle, TBSTYLE_FLAT) > 0, 2, 1), nWidth)
       ELSE
          ::Line := HLine():New(oWndParent, NIL, ::lVertical, nX + nWidth + 1, nY, nHeight)
       ENDIF
@@ -205,7 +205,7 @@ METHOD hToolBar:CREATETOOL()
          aTemp := ::aItem[n, 9]
 
          FOR n1 := 1 TO Len(aTemp)
-            aTemp[n1, 1] := iif(aTemp[n1, 1] = "-", NIL, aTemp[n1, 1])
+            aTemp[n1, 1] := IIf(aTemp[n1, 1] = "-", NIL, aTemp[n1, 1])
             hwg__AddMenuItem(::aItem[n, 10], aTemp[n1, 1], -1, .F., aTemp[n1, 2], NIL, .F.)
             ::oParent:AddEvent(BN_CLICKED, aTemp[n1, 2], aTemp[n1, 3])
          NEXT
@@ -213,7 +213,7 @@ METHOD hToolBar:CREATETOOL()
       IF ::aItem[n, 4] = BTNS_SEP
          LOOP
       ENDIF
-      nDrop := Max(nDrop, iif(hb_bitand(::aItem[n, 4], BTNS_WHOLEDROPDOWN) != 0, 0, iif(hb_bitand(::aItem[n, 4], BTNS_DROPDOWN) != 0, 8, 0)))
+      nDrop := Max(nDrop, IIf(hb_bitand(::aItem[n, 4], BTNS_WHOLEDROPDOWN) != 0, 0, IIf(hb_bitand(::aItem[n, 4], BTNS_DROPDOWN) != 0, 8, 0)))
 
       IF HB_ISCHAR(::aItem[n, 1]) .OR. ::aItem[n, 1] > 1
          IF HB_ISCHAR(::aItem[n, 1]) .AND. At(".", ::aitem[n, 1]) != 0
@@ -257,13 +257,13 @@ METHOD hToolBar:CREATETOOL()
    ENDIF
    IF ::BtnWidth != NIL
       IF hb_bitand(::Style, CCS_NODIVIDER) > 0
-         nMax := iif(hb_bitand(::Style, WS_DLGFRAME + WS_BORDER) > 0, 4, 2)
+         nMax := IIf(hb_bitand(::Style, WS_DLGFRAME + WS_BORDER) > 0, 4, 2)
       ELSEIF hb_bitand(::Style, TBSTYLE_FLAT) > 0
          nMax := 2
       ENDIF
-      ::ndrop := nMax + iif(!::WindowsManifest, 0, nDrop)
+      ::ndrop := nMax + IIf(!::WindowsManifest, 0, nDrop)
       ::BtnHeight := Max(hwg_Hiword(hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0)), ::nHeight - ::nDrop - ;
-         iif(!::lnoThemes .AND. hb_bitand(::Style, TBSTYLE_FLAT) > 0, 0, 2))
+         IIf(!::lnoThemes .AND. hb_bitand(::Style, TBSTYLE_FLAT) > 0, 0, 2))
       IF !::lVertical
          hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::BtnWidth, ::BtnHeight))
       ELSE
@@ -332,7 +332,7 @@ METHOD hToolBar:AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, 
       DEFAULT cName TO "oToolButton" + LTrim(Str(Len(::aButtons) + 1))
       AAdd(::aButtons, {AllTrim(cName), nid})
    ELSE
-      bstate := iif(!(::lVertical .AND. Len(::aButtons) == 0), bState, 8) // TBSTATE_HIDE
+      bstate := IIf(!(::lVertical .AND. Len(::aButtons) == 0), bState, 8) // TBSTATE_HIDE
       DEFAULT nBitIp TO 0
       DEFAULT cName TO "oSeparator" + LTrim(Str(Len(::aSeparators) + 1))
       AAdd(::aSeparators, {cName, nid})
@@ -378,7 +378,7 @@ METHOD hToolBar:RESIZE(xIncrSize, lWidth, lHeight)
 METHOD hToolBar:onAnchor(x, y, w, h)
 
    IF ::Super:onAnchor(x, y, w, h)
-      ::Resize(iif(x > 0, w / x, 1), .T., .T.)
+      ::Resize(IIf(x > 0, w / x, 1), .T., .T.)
    ENDIF
 
    RETURN .T.

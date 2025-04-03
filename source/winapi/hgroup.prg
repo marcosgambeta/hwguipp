@@ -20,7 +20,7 @@ ENDCLASS
 
 METHOD HGroup:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor)
 
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_GROUPBOX)
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), BS_GROUPBOX)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, NIL, tcolor, bColor)
 
    ::title := cCaption

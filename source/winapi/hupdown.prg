@@ -36,7 +36,7 @@ METHOD HUpDown:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeig
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, ;
       nUpDWidth, nLower, nUpper)
 
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP)
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::idUpDown := ::NewId()

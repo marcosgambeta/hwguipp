@@ -37,7 +37,7 @@ METHOD HStatic:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, o
 
    IF lTransp != NIL .AND. lTransp
       ::extStyle += WS_EX_TRANSPARENT
-      ::nStyleDraw := iif(Empty(nStyle), 0, nStyle)
+      ::nStyleDraw := IIf(Empty(nStyle), 0, nStyle)
       nStyle := SS_OWNERDRAW
       bPaint := {|o, p|o:paint(p)}
    ENDIF

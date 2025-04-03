@@ -33,7 +33,7 @@ METHOD HSayIcon:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit
    IF ::oImage == NIL
       // Ticket #60
       // hwg_writelog("::oImage == NIL" + Str(nWidth) + "/" + str(nHeight))
-      ::oImage := iif(lRes .OR. HB_ISNUMERIC(Image), HIcon():AddResource(Image, nWidth, nHeight, NIL, lOEM), iif(HB_ISCHAR(Image), HIcon():AddFile(Image, nWidth, nHeight), Image))
+      ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image), HIcon():AddResource(Image, nWidth, nHeight, NIL, lOEM), IIf(HB_ISCHAR(Image), HIcon():AddFile(Image, nWidth, nHeight), Image))
    ENDIF
    ::Activate()
 
@@ -49,7 +49,7 @@ METHOD HSayIcon:Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip)
       lRes := .F.
    ENDIF
    IF ::oImage == NIL
-      ::oImage := iif(lRes .OR. HB_ISNUMERIC(xImage), HIcon():AddResource(xImage), iif(HB_ISCHAR(xImage), HIcon():AddFile(xImage), xImage))
+      ::oImage := IIf(lRes .OR. HB_ISNUMERIC(xImage), HIcon():AddResource(xImage), IIf(HB_ISCHAR(xImage), HIcon():AddFile(xImage), xImage))
    ENDIF
 
    RETURN Self

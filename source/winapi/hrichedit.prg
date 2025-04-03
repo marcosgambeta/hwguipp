@@ -50,16 +50,16 @@ METHOD HRichEdit:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, ;
       tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder)
 
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
-      iif(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0))
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
+      IIf(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0))
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
-      bSize, NIL, ctooltip, tcolor, iif(bcolor == NIL, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
+      bSize, NIL, ctooltip, tcolor, IIf(bcolor == NIL, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
 
    ::title := vari
    ::bOther := bOther
    ::bChange := bChange
-   ::lAllowTabs := iif(Empty(lAllowTabs), ::lAllowTabs, lAllowTabs)
+   ::lAllowTabs := IIf(Empty(lAllowTabs), ::lAllowTabs, lAllowTabs)
    ::lReadOnly := hb_bitand(nStyle, ES_READONLY) != 0
 
    hwg_InitRichEdit()
@@ -129,7 +129,7 @@ METHOD HRichEdit:onEvent(msg, wParam, lParam)
    ELSEIF msg == WM_KEYDOWN
       wParam := hwg_PtrToUlong(wParam)
       IF wParam == VK_TAB .AND. ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
-         hwg_GetSkip(::oParent, ::handle, iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ELSEIF wParam == VK_TAB
          hwg_Re_inserttext(::handle, Chr(VK_TAB))
@@ -145,9 +145,9 @@ METHOD HRichEdit:onEvent(msg, wParam, lParam)
       ENDIF
    ELSEIF msg == WM_MOUSEWHEEL
       nDelta := hwg_Hiword(wParam)
-      nDelta := iif(nDelta > 32768, nDelta - 65535, nDelta)
-      hwg_Sendmessage(::handle, EM_SCROLL, iif(nDelta > 0, SB_LINEUP, SB_LINEDOWN), 0)
-      hwg_Sendmessage(::handle, EM_SCROLL, iif(nDelta > 0, SB_LINEUP, SB_LINEDOWN), 0)
+      nDelta := IIf(nDelta > 32768, nDelta - 65535, nDelta)
+      hwg_Sendmessage(::handle, EM_SCROLL, IIf(nDelta > 0, SB_LINEUP, SB_LINEDOWN), 0)
+      hwg_Sendmessage(::handle, EM_SCROLL, IIf(nDelta > 0, SB_LINEUP, SB_LINEDOWN), 0)
    ELSEIF msg == WM_DESTROY
       ::End()
    ENDIF
@@ -169,7 +169,7 @@ METHOD HRichEdit:Setcolor(tColor, bColor, lRedraw)
 METHOD HRichEdit:ReadOnly(lreadOnly)
 
    IF lreadOnly != NIL
-      IF !Empty(hwg_Sendmessage(::handle, EM_SETREADONLY, iif(lReadOnly, 1, 0), 0))
+      IF !Empty(hwg_Sendmessage(::handle, EM_SETREADONLY, IIf(lReadOnly, 1, 0), 0))
          ::lReadOnly := lReadOnly
       ENDIF
    ENDIF

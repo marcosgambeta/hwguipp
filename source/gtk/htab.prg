@@ -49,15 +49,15 @@ METHOD HTab:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
       bSize, bPaint )
 
    ::title := ""
-   ::oFont := iif(oFont == NIL, ::oParent:oFont, oFont)
-   ::aTabs := iif(aTabs == NIL, {}, aTabs)
+   ::oFont := IIf(oFont == NIL, ::oParent:oFont, oFont)
+   ::aTabs := IIf(aTabs == NIL, {}, aTabs)
    ::bChange := bChange
 
    ::bChange2 := bChange
 
-   ::bGetFocus := iif(bGetFocus == NIL, NIL, bGetFocus)
-   ::bLostFocus := iif(bLostFocus == NIL, NIL, bLostFocus)
-   ::bAction := iif(bClick == NIL, NIL, bClick)
+   ::bGetFocus := IIf(bGetFocus == NIL, NIL, bGetFocus)
+   ::bLostFocus := IIf(bLostFocus == NIL, NIL, bLostFocus)
+   ::bAction := IIf(bClick == NIL, NIL, bClick)
 
    ::Activate()
 

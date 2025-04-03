@@ -77,7 +77,7 @@ FUNCTION Hwg_WriteIni( rubrique, param, value , inifile )
       txt := Trim(MemoLine(inicontent, 150, rg))
       DO CASE
       CASE At("[", txt) > 0
-         myrubrique := iif("[" + rubrique + "]" == txt, .T. , .F.)
+         myrubrique := IIf("[" + rubrique + "]" == txt, .T. , .F.)
          newcontent += txt + Chr(10)
       CASE At(param, txt) > 0 .AND. myrubrique .AND. HB_ISCHAR(value)
          newcontent += param + "=" + value + Chr(10)

@@ -57,7 +57,7 @@ METHOD HScrollArea:SetupScrollbars()
    LOCAL nPos
 
    tempRect := hwg_Getclientrect(::handle)
-   aMenu := iif(__objHasData(Self, "MENU"), ::menu, NIL)
+   aMenu := IIf(__objHasData(Self, "MENU"), ::menu, NIL)
    // Calculate how many scrolling increments for the client area
    IF ::Type == WND_MDICHILD //.AND. ::aRectSave != NIL
       nwMax := Max(::ncurWidth, tempRect[3]) //::maxWidth
@@ -68,7 +68,7 @@ METHOD HScrollArea:SetupScrollbars()
       nwMax := Max(::ncurWidth, ::Rect[3])
       nhMax := Max(::ncurHeight, ::Rect[4])
       ::nHorzInc := Int((nwMax - tempRect[3]) / HORZ_PTS + HORZ_PTS)
-      ::nVertInc := Int((nhMax - tempRect[4]) / VERT_PTS + VERT_PTS - iif(amenu != NIL, hwg_Getsystemmetrics(SM_CYMENU), 0))  // MENU
+      ::nVertInc := Int((nhMax - tempRect[4]) / VERT_PTS + VERT_PTS - IIf(amenu != NIL, hwg_Getsystemmetrics(SM_CYMENU), 0))  // MENU
    ENDIF
    // Set the vertical and horizontal scrolling info
    IF ::nScrollBars == 0 .OR. ::nScrollBars == 2

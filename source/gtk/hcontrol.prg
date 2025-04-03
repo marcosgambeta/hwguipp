@@ -55,9 +55,9 @@ ENDCLASS
 
 METHOD HControl:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
 
-   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
-   ::id := iif(nId == NIL, ::NewId(), nId)
-   ::style := hb_bitor( iif(nStyle == NIL,0,nStyle ), WS_VISIBLE + WS_CHILD)
+   ::oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::id := IIf(nId == NIL, ::NewId(), nId)
+   ::style := hb_bitor( IIf(nStyle == NIL,0,nStyle ), WS_VISIBLE + WS_CHILD)
    ::oFont := oFont
    ::nX := nX
    ::nY := nY
@@ -158,7 +158,7 @@ METHOD HControl:Move( x1, y1, width, height, lMoveParent )
       lSize := .T.
    ENDIF
    IF lMove .OR. lSize
-      hwg_MoveWidget(::handle, iif(lMove, ::nX, NIL), iif(lMove, ::nY, NIL), iif(lSize, ::nWidth, NIL), iif(lSize, ::nHeight, NIL), lMoveParent)
+      hwg_MoveWidget(::handle, IIf(lMove, ::nX, NIL), IIf(lMove, ::nY, NIL), IIf(lSize, ::nWidth, NIL), IIf(lSize, ::nHeight, NIL), lMoveParent)
    ENDIF
 
    RETURN NIL

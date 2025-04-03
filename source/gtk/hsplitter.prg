@@ -40,11 +40,11 @@ ENDCLASS
 /* bPaint ==> bDraw */
 METHOD HSplitter:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle)
 
-   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, bDraw, NIL, iif(color == NIL, 0, color), bcolor )
+   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, bDraw, NIL, IIf(color == NIL, 0, color), bcolor )
 
    ::title := ""
-   ::aLeft := iif(aLeft == NIL, {}, aLeft)
-   ::aRight := iif(aRight == NIL, {}, aRight)
+   ::aLeft := IIf(aLeft == NIL, {}, aLeft)
+   ::aRight := IIf(aRight == NIL, {}, aRight)
    ::lVertical := (::nHeight > ::nWidth)
    ::nFrom := nFrom
    ::nTo := nTo
@@ -136,8 +136,8 @@ METHOD HSplitter:Drag( xPos, yPos )
    LOCAL nFrom
    LOCAL nTo
 
-   nFrom := iif(::nFrom == NIL, 1, ::nFrom)
-   nTo := iif(::nTo == NIL, iif(::lVertical, ::oParent:nWidth - 1, ::oParent:nHeight - 1), ::nTo)
+   nFrom := IIf(::nFrom == NIL, 1, ::nFrom)
+   nTo := IIf(::nTo == NIL, IIf(::lVertical, ::oParent:nWidth - 1, ::oParent:nHeight - 1), ::nTo)
    IF ::lVertical
       IF xPos > 32000
          xPos -= 65535

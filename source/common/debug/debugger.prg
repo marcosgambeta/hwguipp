@@ -452,7 +452,7 @@ METHOD HBDebugger:HandleEvent()
 
       CASE CMD_CALC
          IF Left(p1, 1) == "?"
-            p1 := LTrim(SubStr(p1, iif(Left(p1, 2) == "??", 3, 2)))
+            p1 := LTrim(SubStr(p1, IIf(Left(p1, 2) == "??", 3, 2)))
          ENDIF
          hwg_dbg_Answer("value", __dbgValToStr(::GetExprValue(p1)))
 
@@ -514,16 +514,16 @@ METHOD HBDebugger:ShowCodeLine(nProc)
 
       IF !Empty(cPrgName)
          hwg_dbg_SetActiveLine(cPrgName, nLine, ;
-            iif(::lViewStack, SendStack(), NIL),  ;
-            iif(::lShowLocals, SendLocal(), ;
-            iif(::lShowStatic, SendStatic(), ;
-            iif(::lShowPrivate, SendPrivate(), ;
-            iif(::lShowPublic, SendPublic(), NIL)))), ;
-            iif(::lShowWatch .AND. (::nWatches > 0), SendWatch(), NIL), ;
-            iif(::lShowLocals, 1, ;
-            iif(::lShowPrivate, 2, ;
-            iif(::lShowPublic, 3, ;
-            iif(::lShowStatic, 4, NIL)))))
+            IIf(::lViewStack, SendStack(), NIL),  ;
+            IIf(::lShowLocals, SendLocal(), ;
+            IIf(::lShowStatic, SendStatic(), ;
+            IIf(::lShowPrivate, SendPrivate(), ;
+            IIf(::lShowPublic, SendPublic(), NIL)))), ;
+            IIf(::lShowWatch .AND. (::nWatches > 0), SendWatch(), NIL), ;
+            IIf(::lShowLocals, 1, ;
+            IIf(::lShowPrivate, 2, ;
+            IIf(::lShowPublic, 3, ;
+            IIf(::lShowStatic, 4, NIL)))))
       ENDIF
    ENDIF
 
@@ -602,9 +602,9 @@ STATIC FUNCTION SendStack()
 
    arr[1] := LTrim(Str(Len(aStack)))
    FOR i := 1 TO Len(aStack)
-      arr[j++] := iif(Empty(aStack[i,CSTACK_MODULE]), "", aStack[i,CSTACK_MODULE])
-      arr[j++] := iif(Empty(aStack[i,CSTACK_FUNCTION]), "Unknown", aStack[i,CSTACK_FUNCTION])
-      arr[j++] := iif(Empty(aStack[i,CSTACK_LINE]), "", LTrim(Str(aStack[i,CSTACK_LINE])))
+      arr[j++] := IIf(Empty(aStack[i,CSTACK_MODULE]), "", aStack[i,CSTACK_MODULE])
+      arr[j++] := IIf(Empty(aStack[i,CSTACK_FUNCTION]), "Unknown", aStack[i,CSTACK_FUNCTION])
+      arr[j++] := IIf(Empty(aStack[i,CSTACK_LINE]), "", LTrim(Str(aStack[i,CSTACK_LINE])))
    NEXT
 
    RETURN arr
@@ -759,15 +759,15 @@ STATIC FUNCTION SendAreas()
    n := 2
    FOR i := 1 TO nAreas
       SELECT( arr1[i] )
-      arr[++n] := iif(arr1[i] == nAlias, "*", "") + Alias()
+      arr[++n] := IIf(arr1[i] == nAlias, "*", "") + Alias()
       arr[++n] := hb_ntos( arr1[i] )
       arr[++n] := rddName()
       arr[++n] := hb_ntos( RecCount() )
       arr[++n] := hb_ntos( RecNo() )
-      arr[++n] := iif(Bof(), "Yes", "No")
-      arr[++n] := iif(Eof(), "Yes", "No")
-      arr[++n] := iif(Found(), "Yes", "No")
-      arr[++n] := iif(Deleted(), "Yes", "No")
+      arr[++n] := IIf(Bof(), "Yes", "No")
+      arr[++n] := IIf(Eof(), "Yes", "No")
+      arr[++n] := IIf(Found(), "Yes", "No")
+      arr[++n] := IIf(Deleted(), "Yes", "No")
       arr[++n] := dbFilter()
       IF !Empty(cName := OrdSetFocus())
          arr[++n] := LTrim(Str(OrdNumber(cName)))
@@ -936,7 +936,7 @@ FUNCTION __dbgValToStr(uVal)
       s := ""
       nLen := Min( 8, Len(uVal) )
       FOR i := 1 TO nLen
-         s += '"' + ValType( uVal[i] ) + '"' + iif(i == nLen, "", ", ")
+         s += '"' + ValType( uVal[i] ) + '"' + IIf(i == nLen, "", ", ")
       NEXT
       IF nLen < Len(uVal)
          s += ", ..."
@@ -944,7 +944,7 @@ FUNCTION __dbgValToStr(uVal)
       RETURN "Array(" + hb_ntos( Len(uVal) ) + "): { " + s + " }"
    CASE "C"
    CASE "M" ; RETURN '"' + uVal + '"'
-   CASE "L" ; RETURN iif(uVal, ".T.", ".F.")
+   CASE "L" ; RETURN IIf(uVal, ".T.", ".F.")
    CASE "D" ; RETURN Dtoc( uVal )
    CASE "T" ; RETURN hb_TToC( uVal )
    CASE "N" ; RETURN Str(uVal)

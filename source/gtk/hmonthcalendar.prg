@@ -36,7 +36,7 @@ METHOD HMonthCalendar:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight
    HB_SYMBOL_UNUSED(lWeekNumbers)
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, NIL, NIL, ctooltip)
-   ::dValue := iif(ValType(vari) == "D" .AND. !Empty(vari), vari, Date())
+   ::dValue := IIf(ValType(vari) == "D" .AND. !Empty(vari), vari, Date())
    ::bChange := bChange
    ::Activate()
 
