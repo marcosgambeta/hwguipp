@@ -114,7 +114,7 @@ METHOD HTrack:onEvent(msg, wParam, lParam)
    
    ENDSWITCH
 
-   RETURN - 1
+   RETURN -1
 
 METHOD HTrack:Init()
 

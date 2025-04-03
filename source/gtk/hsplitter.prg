@@ -94,7 +94,7 @@ METHOD HSplitter:onEvent( msg, wParam, lParam )
       ::End()
    ENDIF
 
-   Return - 1
+   Return -1
 
 METHOD HSplitter:Init()
 

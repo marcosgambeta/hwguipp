@@ -620,7 +620,7 @@ STATIC FUNCTION KeyRight(oEdit, nPos)
    // i, vari
 
    IF oEdit == NIL
-      Return - 1
+      Return -1
    ENDIF
    IF nPos == NIL
       nPos := hwg_Hiword(hwg_Sendmessage(oEdit:handle, EM_GETSEL, 0, 0)) + 1

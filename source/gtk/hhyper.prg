@@ -128,7 +128,7 @@ METHOD HStaticLink:onEvent( msg, wParam, lParam )
       ::OnClicked()
    ENDIF
 
-   RETURN - 1
+   RETURN -1
 
 METHOD HStaticLink:GoToLinkUrl( csLink )
 

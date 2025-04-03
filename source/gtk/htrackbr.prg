@@ -108,7 +108,7 @@ METHOD HTrack:onEvent( msg, wParam, lParam )
       ::END()
    ENDIF
 
-   RETURN - 1
+   RETURN -1
 
 METHOD HTrack:Init()
 

@@ -152,7 +152,7 @@ METHOD HRichEdit:onEvent(msg, wParam, lParam)
       ::End()
    ENDIF
 
-   Return - 1
+   Return -1
 
 METHOD HRichEdit:Setcolor(tColor, bColor, lRedraw)
 

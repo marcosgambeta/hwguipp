@@ -125,7 +125,7 @@ METHOD HTab:onEvent(msg, wParam, lParam)
       ENDIF
    ENDIF
 
-   Return - 1
+   Return -1
 */
 METHOD HTab:SetTab(n)
 

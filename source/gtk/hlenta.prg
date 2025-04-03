@@ -162,7 +162,7 @@ METHOD HLenta:onEvent( msg, wParam, lParam )
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
    ENDIF
 
-   RETURN - 1
+   RETURN -1
 
 METHOD HLenta:Paint()
 

@@ -485,7 +485,7 @@ METHOD HBrowse:onEvent(msg, wParam, lParam)
 
    ENDIF
 
-   RETURN - 1
+   RETURN -1
 
 METHOD HBrowse:Init()
 

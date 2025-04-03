@@ -395,7 +395,7 @@ FUNCTION hwg_ReleaseAllWindows( hWnd )
 
    HB_SYMBOL_UNUSED(hWnd)
 
-   return - 1
+   return -1
 
 STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 
