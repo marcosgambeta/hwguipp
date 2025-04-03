@@ -68,7 +68,7 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
    ::m_sVisitedColor := vColor
 
    ::state := LBL_INIT
-   ::title := iif(cCaption == NIL, "", cCaption)
+   ::title := IIf(cCaption == NIL, "", cCaption)
 
    // Test The Font the underline must be 1
    IF ::oFont == NIL
@@ -292,7 +292,7 @@ METHOD HStaticLink:Paint()
 
    hwg_Setbkmode(hDC, TRANSPARENT)
    hwg_Selectobject(hDC, ::oFont:handle)
-   hwg_Settextcolor(hDC, Iif(::state == LBL_NORMAL, Iif(::m_bVisited, ::m_sVisitedColor, ::m_sLinkColor), ::m_sHoverColor))
+   hwg_Settextcolor(hDC, IIf(::state == LBL_NORMAL, IIf(::m_bVisited, ::m_sVisitedColor, ::m_sLinkColor), ::m_sHoverColor))
 
    hwg_Drawtext(hDC, ::Title, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::dwFlags)
 

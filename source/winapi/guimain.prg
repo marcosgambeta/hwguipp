@@ -14,7 +14,7 @@ FUNCTION hwg_InitControls(oWnd, lNoActivate)
    LOCAL pArray := oWnd:aControls
    LOCAL lInit
 
-   lNoActivate := iif(lNoActivate == NIL, .F., lNoActivate)
+   lNoActivate := IIf(lNoActivate == NIL, .F., lNoActivate)
    IF pArray != NIL
       FOR i := 1 TO Len(pArray)
          // writelog("InitControl1" + str(pArray[i]:handle) + "/" + pArray[i]:classname + " " + str(pArray[i]:nWidth) + "/" + str(pArray[i]:nHeight))
@@ -24,7 +24,7 @@ FUNCTION hwg_InitControls(oWnd, lNoActivate)
             pArray[i]:Activate()
             pArray[i]:lInit := lInit
          ENDIF
-         IF IIF(HB_ISPOINTER(pArray[i]:handle), hwg_Ptrtoulong(pArray[i]:handle), pArray[i]:handle) <= 0
+         IF IIf(HB_ISPOINTER(pArray[i]:handle), hwg_Ptrtoulong(pArray[i]:handle), pArray[i]:handle) <= 0
          //IF Empty(pArray[i]:handle) .OR. hwg_isPtrneg1(pArray[i]:handle)
             pArray[i]:handle := hwg_Getdlgitem(oWnd:handle, pArray[i]:id)
             // writelog("InitControl2" + str(pArray[i]:handle) + "/" + pArray[i]:classname)
@@ -85,7 +85,7 @@ FUNCTION hwg_WriteStatus(oWnd, nPart, cText, lRedraw)
    ENDIF
    aControls := oWnd:aControls
    IF (i := Ascan(aControls, {|o|o:ClassName() = "HSTATUS"})) > 0
-      hwg_SendMessage(aControls[i]:handle, SB_SETTEXT, Iif(nPart == NIL, 0, nPart - 1), cText)
+      hwg_SendMessage(aControls[i]:handle, SB_SETTEXT, IIf(nPart == NIL, 0, nPart - 1), cText)
       IF lRedraw != NIL .AND. lRedraw
          hwg_Redrawwindow(aControls[i]:handle, RDW_ERASE + RDW_INVALIDATE)
       ENDIF
@@ -138,7 +138,7 @@ FUNCTION hwg_ColorN2C(nColor)
    FOR i := 0 to 2
       n1 := hb_BitAnd(hb_BitShift(nColor, -i * 8 - 4), 15)
       n2 := hb_BitAnd(hb_BitShift(nColor, -i * 8), 15)
-      s += Chr(Iif(n1 < 10, n1 + 48, n1 + 55)) + Chr(Iif(n2 < 10, n2 + 48, n2 + 55))
+      s += Chr(IIf(n1 < 10, n1 + 48, n1 + 55)) + Chr(IIf(n2 < 10, n2 + 48, n2 + 55))
    NEXT
 
 RETURN s
@@ -160,10 +160,10 @@ FUNCTION hwg_MsgGet(cTitle, cText, nStyle, x, y, nDlgStyle, cRes)
       cRes := ""
    ENDIF
 
-   nStyle := iif(nStyle == NIL, 0, nStyle)
-   x := iif(x == NIL, 210, x)
-   y := iif(y == NIL, 10, y)
-   nDlgStyle := iif(nDlgStyle == NIL, 0, nDlgStyle)
+   nStyle := IIf(nStyle == NIL, 0, nStyle)
+   x := IIf(x == NIL, 210, x)
+   y := IIf(y == NIL, 10, y)
+   nDlgStyle := IIf(nDlgStyle == NIL, 0, nDlgStyle)
 
    INIT DIALOG oDlg TITLE cTitle AT x, y SIZE 300, 140 FONT oFont CLIPPER STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + nDlgStyle
 
@@ -284,7 +284,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    oBrw:oFont := oFont
    oBrw:bSize := {|o, x, y|o:Move(NIL, NIL, x - addX, y - addY)}
    oBrw:bEnter := {|o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle)}
-   oBrw:bKeyDown := {| o, key | ( o ), iif(key == 27, (hwg_EndDialog(oDlg:handle), .F.), .T.)}
+   oBrw:bKeyDown := {| o, key | ( o ), IIf(key == 27, (hwg_EndDialog(oDlg:handle), .F.), .T.)}
 
    oBrw:lDispHead := .F.
    IF clrT != NIL
@@ -301,7 +301,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    ENDIF
 
    IF cOk != NIL
-      x1 := Int(width / 2) - iif(cCancel != NIL, 90, 40)
+      x1 := Int(width / 2) - IIf(cCancel != NIL, 90, 40)
       @ x1, height - 36 BUTTON cOk SIZE 80, 28 ON CLICK {||nChoice := oBrw:nCurrent, hwg_EndDialog(oDlg:handle)} ON SIZE {|o, x, y|(x), o:Move(NIL, y - 36)}
       IF cCancel != NIL
          @ x1 + 100, height - 36 BUTTON cCancel SIZE 80, 28 ON CLICK {||hwg_EndDialog(oDlg:handle)} ON SIZE {|o,x,y|o:Move(x - 100, y - 36) }
@@ -327,12 +327,12 @@ FUNCTION hwg_ShowProgress(nStep, maxPos, nRange, cTitle, oWnd, x1, y1, width, he
 
    SWITCH nStep
    CASE 0
-      nLimit := iif(nRange != NIL, Int(nRange / maxPos), 1)
+      nLimit := IIf(nRange != NIL, Int(nRange / maxPos), 1)
       iCou := 0
-      x1 := iif(x1 == NIL, 0, x1)
-      y1 := iif(x1 == NIL, 0, y1)
-      width := iif(width == NIL, 220, width)
-      height := iif(height == NIL, 55, height)
+      x1 := IIf(x1 == NIL, 0, x1)
+      y1 := IIf(x1 == NIL, 0, y1)
+      width := IIf(width == NIL, 220, width)
+      height := IIf(height == NIL, 55, height)
       IF x1 == 0
          nStyle += DS_CENTER
       ENDIF
@@ -475,7 +475,7 @@ FUNCTION hwg_Version(n)
          RETURN HWG_BUILD
       CASE 3
 #ifdef UNICODE
-         RETURN Iif(hwg__isUnicode(), 1, 0)
+         RETURN IIf(hwg__isUnicode(), 1, 0)
 #else
          RETURN 0
 #endif
@@ -506,7 +506,7 @@ FUNCTION hwg_TxtRect(cTxt, oWin, oFont)
    LOCAL aSize
    LOCAL hFont
 
-   oFont := iif(oFont != NIL, oFont, oWin:oFont)
+   oFont := IIf(oFont != NIL, oFont, oWin:oFont)
 
    hDC := hwg_Getdc(oWin:handle)
    IF oFont == NIL .AND. oWin:oParent != NIL
@@ -539,8 +539,8 @@ FUNCTION HWG_ScrollHV(oForm, msg, wParam, lParam)
    CASE WM_VSCROLL
    CASE WM_MOUSEWHEEL
       IF msg == WM_MOUSEWHEEL
-         nSBCode = iif(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
-         nSBCode = iif(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
+         nSBCode = IIf(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
+         nSBCode = IIf(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
       ENDIF
       // Handle vertical scrollbar messages
       SWITCH nSBCode

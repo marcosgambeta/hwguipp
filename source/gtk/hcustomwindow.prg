@@ -13,7 +13,7 @@
 STATIC s_aCustomEvents := { ;
    { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
    { ;
-   { |o, w|iif(hb_IsBlock(o:bPaint), Eval( o:bPaint,o,w ), - 1) }, ;
+   { |o, w|IIf(hb_IsBlock(o:bPaint), Eval( o:bPaint,o,w ), - 1) }, ;
    { |o, w|onCommand( o, w ) },                ;     // |o, w, l| ==> |o, w|
    { |o, w, l|onSize( o, w, l ) },                ;
    { |o|onDestroy( o ) }                          ;
@@ -79,10 +79,10 @@ METHOD HCustomWindow:FindControl( nId, nHandle )
       nId := Upper(nId)
       RETURN hwg_GetItemByName(::aControls, nId)
    ELSE
-      i := Iif(nId != NIL, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|o:handle == nHandle}))
+      i := IIf(nId != NIL, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|o:handle == nHandle}))
    ENDIF
 
-   RETURN Iif(i == 0, NIL, ::aControls[i])
+   RETURN IIf(i == 0, NIL, ::aControls[i])
 
 METHOD HCustomWindow:DelControl( oCtrl )
 
@@ -178,7 +178,7 @@ METHOD HCustomWindow:onEvent( msg, wParam, lParam )
    
    LOCAL i
 
-   // hwg_WriteLog( "== "+::Classname()+Str(msg)+Iif(wParam!=NIL,Str(wParam),"NIL")+Iif(lParam!=NIL,Str(lParam),"NIL") )
+   // hwg_WriteLog( "== "+::Classname()+Str(msg)+IIf(wParam!=NIL,Str(wParam),"NIL")+IIf(lParam!=NIL,Str(lParam),"NIL") )
    IF ( i := Ascan( s_aCustomEvents[1],msg ) ) != 0
       RETURN Eval( s_aCustomEvents[2,i], Self, wParam, lParam )
    ELSEIF hb_IsBlock(::bOther)

@@ -236,15 +236,15 @@ METHOD HWinPrn:SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMa
 
          oFont := ::oPrinter:AddFont(cFont, ::nStdHeight * ::oPrinter:nVRes)
 
-         nWidth := ::oPrinter:GetTextWidth(Replicate("A", Iif(::nFormType == 8, 113, 80)), oFont) / ::oPrinter:nHRes
+         nWidth := ::oPrinter:GetTextWidth(Replicate("A", IIf(::nFormType == 8, 113, 80)), oFont) / ::oPrinter:nHRes
          IF nWidth > nPWidth + 2 .OR. nWidth < nPWidth - 15
             ::nStdHeight := ::nStdHeight * ( nPWidth / nWidth )
          ENDIF
          oFont:Release()
       ENDIF
 
-      nStdLineW := Iif(::nFormType == 8, Iif(::oPrinter:nOrient == 2, 160, 113), Iif(::oPrinter:nOrient == 2, 113, 80))
-      nStdHeight := Iif(!Empty(::nLineMax), ::nStdHeight / (::nLineMax / nStdLineW), ::nStdHeight)
+      nStdLineW := IIf(::nFormType == 8, IIf(::oPrinter:nOrient == 2, 160, 113), IIf(::oPrinter:nOrient == 2, 113, 80))
+      nStdHeight := IIf(!Empty(::nLineMax), ::nStdHeight / (::nLineMax / nStdLineW), ::nStdHeight)
 
       IF ::lElite
          nMode++
@@ -380,11 +380,11 @@ METHOD HWinPrn:PrintBitmap(xBitmap, nAlign, cBitmapName)
      IF hb_ValToStr(hBitmap) == "0x00000000"
        RETURN NIL
      ENDIF  
-     cImageName := IIF(EMPTY (cBitmapName), xBitmap, cBitmapName)
+     cImageName := IIf(EMPTY (cBitmapName), xBitmap, cBitmapName)
      aBmpSize := hwg_Getbitmapsize(hBitmap)
    ELSE
      // xBitmap is a bitmap object
-     cImageName := IIF(EMPTY (cBitmapName), "", cBitmapName)
+     cImageName := IIf(EMPTY (cBitmapName), "", cBitmapName)
      // Store into a temporary file
      xBitmap:OBMP2FILE(cTmp, cBitmapName)
      hBitmap := hwg_Openbitmap(cTmp, ::oPrinter:hDC)

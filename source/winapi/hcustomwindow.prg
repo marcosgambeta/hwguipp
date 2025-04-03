@@ -49,7 +49,7 @@ CLASS HCustomWindow INHERIT HObject
 
    METHOD AddControl(oCtrl) INLINE AAdd(::aControls, oCtrl)
    METHOD DelControl(oCtrl)
-   METHOD AddEvent(nEvent, nId, bAction, lNotify) INLINE AAdd(iif(lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify), {nEvent, nId, bAction})
+   METHOD AddEvent(nEvent, nId, bAction, lNotify) INLINE AAdd(IIf(lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify), {nEvent, nId, bAction})
    METHOD FindControl(nId, nHandle)
    METHOD Hide()
    METHOD Show()
@@ -70,10 +70,10 @@ METHOD HCustomWindow:FindControl(nId, nHandle)
       nId := Upper(nId)
       RETURN hwg_GetItemByName(::aControls, nId)
    ELSE
-      i := Iif(nId != NIL, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|hwg_Isptreq(o:handle, nHandle)}))
+      i := IIf(nId != NIL, Ascan(::aControls, {|o|o:id == nId}), Ascan(::aControls, {|o|hwg_Isptreq(o:handle, nHandle)}))
    ENDIF
 
-   RETURN Iif(i == 0, NIL, ::aControls[i])
+   RETURN IIf(i == 0, NIL, ::aControls[i])
 
 METHOD HCustomWindow:DelControl(oCtrl)
 
@@ -140,7 +140,7 @@ METHOD HCustomWindow:onEvent(msg, wParam, lParam)
 
    SWITCH msg
    CASE WM_NOTIFY         ; RETURN onNotify(Self, wParam, lParam)
-   CASE WM_PAINT          ; RETURN iif(hb_IsBlock(::bPaint), Eval(::bPaint, Self, wParam), -1)
+   CASE WM_PAINT          ; RETURN IIf(hb_IsBlock(::bPaint), Eval(::bPaint, Self, wParam), -1)
    CASE WM_CTLCOLORSTATIC ; RETURN onCtlColor(Self, wParam, lParam)
    CASE WM_CTLCOLOREDIT   ; RETURN onCtlColor(Self, wParam, lParam)
    CASE WM_CTLCOLORBTN    ; RETURN onCtlColor(Self, wParam, lParam)

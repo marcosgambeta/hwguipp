@@ -30,11 +30,11 @@ ENDCLASS
 
 METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor, bGFocus)
 
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), BS_AUTO3STATE + WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
 
    ::title := cCaption
-   ::lValue := iif(vari == NIL .OR. ValType(vari) != "L", .F., vari)
+   ::lValue := IIf(vari == NIL .OR. ValType(vari) != "L", .F., vari)
    ::bSetGet := bSetGet
 
    ::Activate()
@@ -48,8 +48,8 @@ METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, 
    ENDIF
 
    IF Left(::oParent:ClassName(), 6) == "HPANEL" .AND. hb_bitand(::oParent:style, SS_OWNERDRAW) != 0
-//      ::oParent:SetPaintCB(PAINT_ITEM, {|o,h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)))
-      ::oParent:SetPaintCB(PAINT_ITEM, {|h|Iif(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)))
+//      ::oParent:SetPaintCB(PAINT_ITEM, {|o,h|IIf(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)))
+      ::oParent:SetPaintCB(PAINT_ITEM, {|h|IIf(!::lHide,hwg__DrawCheckBtn(h,::nX,::nY,::nX+::nWidth-1,::nY+::nHeight-1,::lValue,::title),.T.)}, "ch"+Ltrim(Str(::id)))
    ENDIF
 
    RETURN Self
@@ -104,7 +104,7 @@ METHOD HCheckButton:Refresh()
 
    IF hb_IsBlock(::bSetGet)
       var := Eval(::bSetGet, NIL, NIL)
-      ::lValue := iif(var == NIL, .F., var)
+      ::lValue := IIf(var == NIL, .F., var)
    ENDIF
 
    hwg_CheckButton(::handle, ::lValue)

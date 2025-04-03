@@ -21,13 +21,13 @@ CLASS HSayImage INHERIT HControl
 
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor)
    METHOD Activate()
-   METHOD END() INLINE (::Super:END(), iif(::oImage != NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL )
+   METHOD END() INLINE (::Super:END(), IIf(::oImage != NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL )
 
 ENDCLASS
 
 METHOD HSayImage:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor)
 
-   ::Super:New(oWndParent, nId, nStyle, nX, nY, Iif(nWidth != NIL, nWidth, 0), iif(nHeight != NIL, nHeight, 0), NIL, bInit, bSize, NIL, ctoolt, NIL, bColor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, IIf(nWidth != NIL, nWidth, 0), IIf(nHeight != NIL, nHeight, 0), NIL, bInit, bSize, NIL, ctoolt, NIL, bColor)
 
    ::title := ""
    ::bClick := bClick

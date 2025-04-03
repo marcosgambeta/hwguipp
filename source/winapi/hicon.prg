@@ -62,12 +62,12 @@ METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
    IF !Empty(oResCnt)
       IF !Empty(i := oResCnt:Get(name))
          ::handle := hwg_OpenImage(i, .T., IMAGE_CURSOR)
-         //hwg_writelog(Str(Len(i)) + "/" + Iif(Empty(::handle), "Err", "Ok"))
+         //hwg_writelog(Str(Len(i)) + "/" + IIf(Empty(::handle), "Err", "Ok"))
       ENDIF
    ELSEIF lOEM // LR_SHARED is required for OEM images
       ::handle := hwg_Loadimage(0, Val(name), IMAGE_ICON, nWidth, nHeight, hb_bitor(nFlags, LR_SHARED))
    ELSE
-      ::handle := hwg_Loadimage(NIL, iif(lPreDefined, Val(name), name), IMAGE_ICON, nWidth, nHeight, nFlags)
+      ::handle := hwg_Loadimage(NIL, IIf(lPreDefined, Val(name), name), IMAGE_ICON, nWidth, nHeight, nFlags)
    ENDIF
    IF Empty(::handle)
       RETURN NIL
@@ -135,7 +135,7 @@ METHOD HIcon:AddFile(name, nWidth, nHeight)
    NEXT
 
    name := AddPath(name, ::cPath)
-   name := iif(!File(name) .AND. File(cname), cname, name)
+   name := IIf(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
       cCurDir := DiskName() + ":\" + CurDir()
       name := hwg_Selectfile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath(name), FilePath(name), "Locate " + name) // "*.jpg;*.gif;*.bmp;*.ico"

@@ -190,7 +190,7 @@ METHOD HGraph:Paint(lpdis)
       NEXT
    ENDIF
    x0 := x1 + ( 0 - ::xmin ) / scaleX
-   y0 := Iif(::lPositive, y2, y2 - (0 - ::ymin) / scaleY)
+   y0 := IIf(::lPositive, y2, y2 - (0 - ::ymin) / scaleY)
 
    hwg_Fillrect(hDC, 0, 0, ::nWidth, ::nHeight, ::brush:handle)
    IF ::nType != 3
@@ -210,10 +210,10 @@ METHOD HGraph:Paint(lpdis)
          l1 := ( HB_ISNUMERIC(::aValues[i, 1]) )
          IF ::nType == 1
             FOR j := 2 TO nLen
-               px1 := Round(x1 + (Iif(l1, j - 1, ::aValues[i, j - 1, 1]) - ::xmin) / scaleX, 0)
-               py1 := Round(y2 - (Iif(l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2]) - ::ymin) / scaleY, 0)
-               px2 := Round(x1 + (Iif(l1, j, ::aValues[i, j, 1]) - ::xmin) / scaleX, 0)
-               py2 := Round(y2 - (Iif(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin) / scaleY, 0)
+               px1 := Round(x1 + (IIf(l1, j - 1, ::aValues[i, j - 1, 1]) - ::xmin) / scaleX, 0)
+               py1 := Round(y2 - (IIf(l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2]) - ::ymin) / scaleY, 0)
+               px2 := Round(x1 + (IIf(l1, j, ::aValues[i, j, 1]) - ::xmin) / scaleX, 0)
+               py2 := Round(y2 - (IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin) / scaleY, 0)
                IF px2 != px1
                   IF ::nLineType == 0
                      hwg_Rectangle(hDC, px1, py1, px1 + ::nPointSize - 1, py1 + ::nPointSize - 1)
@@ -232,9 +232,9 @@ METHOD HGraph:Paint(lpdis)
             ENDIF
             nWidth := Round(( x2 - x1 ) / ( nLen ), 0)
             FOR j := 1 TO nLen
-               IF Iif(l1, ::aValues[i, j], ::aValues[i, j, 2]) != NIL
+               IF IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) != NIL
                   px1 := Round(x1 + nWidth * ( j - 1 ) + 1, 0)
-                  py1 := Round(y2 - 2 - ( Iif(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin ) / scaleY, 0)
+                  py1 := Round(y2 - 2 - ( IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin ) / scaleY, 0)
                   hwg_Fillrect(hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle)
                ENDIF
             NEXT
@@ -260,7 +260,7 @@ METHOD HGraph:Paint(lpdis)
          IF py1 > y1 .AND. py1 < y2
             hwg_Drawline(hDC, x0 - 4, py1, x0 + 1, py1)
             IF ::aSignY[i, 2] != NIL
-               hwg_Drawtext(hDC, Iif(HB_ISCHAR(::aSignY[i, 2]), ::aSignY[i, 2], Ltrim(Str(::aSignY[i, 2]))), 0, py1 - 8, x0 - 4, py1 + 8, DT_RIGHT)
+               hwg_Drawtext(hDC, IIf(HB_ISCHAR(::aSignY[i, 2]), ::aSignY[i, 2], Ltrim(Str(::aSignY[i, 2]))), 0, py1 - 8, x0 - 4, py1 + 8, DT_RIGHT)
                IF ::lGridY
                   hwg_Drawline(hDC, x0 + 1, py1, x2, py1)
                ENDIF
@@ -274,10 +274,10 @@ METHOD HGraph:Paint(lpdis)
       ENDIF
       hwg_Settextcolor(hDC, ::colorCoor)
       FOR i := 1 TO Len(::aSignX)
-         px1 := Round(x1 + (::aSignX[i, 1] - ::xmin) / scaleX + Iif(::nType == 2 .AND. ::lGridXMid, nWidth / 2,0), 0)
+         px1 := Round(x1 + (::aSignX[i, 1] - ::xmin) / scaleX + IIf(::nType == 2 .AND. ::lGridXMid, nWidth / 2,0), 0)
          hwg_Drawline(hDC, px1, y0 + 4, px1, y0 - 1)
          IF ::aSignX[i, 2] != NIL
-            hwg_Drawtext(hDC, Iif(HB_ISCHAR(::aSignX[i, 2]), ::aSignX[i, 2], Ltrim(Str(::aSignX[i, 2]))), px1 - 40, y0 + 4, px1 + 40, y0 + 20, DT_CENTER)
+            hwg_Drawtext(hDC, IIf(HB_ISCHAR(::aSignX[i, 2]), ::aSignX[i, 2], Ltrim(Str(::aSignX[i, 2]))), px1 - 40, y0 + 4, px1 + 40, y0 + 20, DT_CENTER)
             IF ::lGridX
                hwg_Drawline(hDC, px1, y0 - 1, px1, y1)
             ENDIF

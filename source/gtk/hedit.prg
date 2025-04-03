@@ -56,9 +56,9 @@ ENDCLASS
 /* Added: lPassword */
 METHOD HEdit:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bGfocus, bLfocus, ctoolt, tcolor, bcolor, cPicture, lNoBorder, nMaxLength, lPassword)
 
-   nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_TABSTOP + iif(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) + iif(lPassword == NIL .OR. !lPassword, 0, ES_PASSWORD))
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP + IIf(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) + IIf(lPassword == NIL .OR. !lPassword, 0, ES_PASSWORD))
 
-   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize,, ctoolt, Iif(tcolor == NIL, 0, tcolor), Iif(bcolor == NIL, 0xffffff, bcolor))
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize,, ctoolt, IIf(tcolor == NIL, 0, tcolor), IIf(bcolor == NIL, 0xffffff, bcolor))
 
    IF vari != NIL
       ::cType := ValType( vari )
@@ -93,7 +93,7 @@ METHOD HEdit:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight
       hwg_SetSignal(::handle, "copy-clipboard", WM_COPY, 0, 0)
    ENDIF
    
-//   ::aColorOld[1] := iif(tcolor = NIL, 0, ::tcolor)
+//   ::aColorOld[1] := IIf(tcolor = NIL, 0, ::tcolor)
 //   ::aColorOld[2] := ::bcolor
 
    RETURN Self
@@ -132,7 +132,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
          IF hb_IsBlock(::bColorBlock)
             Eval(::bColorBlock, Self)
          ELSE
-            ::Setcolor(Iif(oParent:tColorinFocus >= 0, oParent:tColorinFocus, s_tColorinFocus), Iif(oParent:bColorinFocus >= 0, oParent:bColorinFocus, s_bColorinFocus), .T.)
+            ::Setcolor(IIf(oParent:tColorinFocus >= 0, oParent:tColorinFocus, s_tColorinFocus), IIf(oParent:bColorinFocus >= 0, oParent:bColorinFocus, s_bColorinFocus), .T.)
          ENDIF
       ENDIF
       IF ::lMouse
@@ -283,7 +283,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
  
       IF msg == WM_MOUSEWHEEL
          nPos := hwg_Hiword(wParam)
-         nPos := iif(nPos > 32768, nPos - 65535, nPos)
+         nPos := IIf(nPos > 32768, nPos - 65535, nPos)
       ENDIF
 */
    ENDIF
@@ -308,9 +308,9 @@ METHOD HEdit:Refresh()
       vari := Eval(::bSetGet, NIL, self)
 
       IF !Empty(::cPicFunc) .OR. !Empty(::cPicMask)
-         vari := Transform( vari, ::cPicFunc + iif(Empty(::cPicFunc), "", " ") + ::cPicMask )
+         vari := Transform( vari, ::cPicFunc + IIf(Empty(::cPicFunc), "", " ") + ::cPicMask )
       ELSE
-         vari := iif(::cType == "D", Dtoc(vari), iif(::cType == "N", Str(vari ), iif(::cType == "C", vari, "")))
+         vari := IIf(::cType == "D", Dtoc(vari), IIf(::cType == "N", Str(vari ), IIf(::cType == "C", vari, "")))
       ENDIF
       ::title := vari
       hwg_Edit_SetText(::handle, vari)
@@ -329,7 +329,7 @@ METHOD HEdit:Value( xValue )
 
    IF xValue != NIL
       IF !Empty(::cPicFunc) .OR. !Empty(::cPicMask)
-         ::title := Transform( xValue, ::cPicFunc + iif(Empty(::cPicFunc), "", " ") + ::cPicMask )
+         ::title := Transform( xValue, ::cPicFunc + IIf(Empty(::cPicFunc), "", " ") + ::cPicMask )
       ELSE
          ::title := xValue
       ENDIF
@@ -340,7 +340,7 @@ METHOD HEdit:Value( xValue )
       RETURN xValue
    ENDIF
 
-   vari := iif(Empty(::handle), ::title, hwg_Edit_GetText(::handle))
+   vari := IIf(Empty(::handle), ::title, hwg_Edit_GetText(::handle))
    IF !Empty(::cPicFunc) .OR. !Empty(::cPicMask)
       vari := UnTransform( Self, vari )
    ENDIF
@@ -510,7 +510,7 @@ STATIC FUNCTION KeyLeft(oEdit, nPos)
 
 STATIC FUNCTION DeleteChar( oEdit, lBack )
    
-   LOCAL nPos := hwg_edit_Getpos( oEdit:handle ) + iif(!lBack, 1, 0)
+   LOCAL nPos := hwg_edit_Getpos( oEdit:handle ) + IIf(!lBack, 1, 0)
    LOCAL nGetLen := Len(oEdit:cPicMask)
    LOCAL nLen
 
@@ -626,7 +626,7 @@ STATIC FUNCTION GetApplyKey( oEdit, cKey )
          vari := Val( vari )
       ENDIF
       IF !Empty(oEdit:cPicFunc) .OR. !Empty(oEdit:cPicMask)
-         oEdit:title := Transform( vari, oEdit:cPicFunc + iif(Empty(oEdit:cPicFunc), "", " ") + oEdit:cPicMask )
+         oEdit:title := Transform( vari, oEdit:cPicFunc + IIf(Empty(oEdit:cPicFunc), "", " ") + oEdit:cPicMask )
       ENDIF
       hwg_edit_Settext( oEdit:handle, oEdit:title )
       KeyRight( oEdit, nPos - 1 )
@@ -669,7 +669,7 @@ STATIC FUNCTION GetApplyKey( oEdit, cKey )
          ENDIF
          IF !Empty(oEdit:nMaxLength)
             i := Len(oEdit:cPicMask)
-            i := Iif(!Empty(i) .AND. i > oEdit:nMaxLength, i, oEdit:nMaxLength)
+            i := IIf(!Empty(i) .AND. i > oEdit:nMaxLength, i, oEdit:nMaxLength)
             IF i > ( nLen := hwg_Len(oEdit:title) )
                oEdit:title += Space(i - nLen)
             ENDIF
@@ -739,7 +739,7 @@ STATIC FUNCTION __valid( oCtrl )
             vari := CToD( vari )
          ELSEIF oCtrl:cType == "N"
             vari := Val( LTrim(vari) )
-            oCtrl:title := Transform( vari, oCtrl:cPicFunc + iif(Empty(oCtrl:cPicFunc), "", " ") + oCtrl:cPicMask )
+            oCtrl:title := Transform( vari, oCtrl:cPicFunc + IIf(Empty(oCtrl:cPicFunc), "", " ") + oCtrl:cPicMask )
             hwg_edit_Settext( oCtrl:handle, oCtrl:title )
          ELSEIF oCtrl:cType == "C" .AND. !Empty(oCtrl:nMaxLength)
             oCtrl:title := vari := PadR( vari, oCtrl:nMaxLength )
@@ -1027,18 +1027,18 @@ FUNCTION hwg_SetColorinFocus( lDef, tColor, bColor )
    RETURN .T.
 
 FUNCTION hwg_Chr(nCode)
-   RETURN Iif(hb_cdpSelect()=="UTF8", hwg_keyToUtf8( nCode ), Chr(nCode))
+   RETURN IIf(hb_cdpSelect()=="UTF8", hwg_keyToUtf8( nCode ), Chr(nCode))
 
 FUNCTION hwg_Substr(cString, nPos, nLen)
-   RETURN Iif(hb_cdpSelect()=="UTF8", ;
-      Iif(nLen==NIL, hb_utf8Substr(cString, nPos), hb_utf8Substr(cString, nPos, nLen)), ;
-      Iif(nLen==NIL, Substr(cString, nPos), Substr(cString, nPos, nLen)))
+   RETURN IIf(hb_cdpSelect()=="UTF8", ;
+      IIf(nLen==NIL, hb_utf8Substr(cString, nPos), hb_utf8Substr(cString, nPos, nLen)), ;
+      IIf(nLen==NIL, Substr(cString, nPos), Substr(cString, nPos, nLen)))
 
 FUNCTION hwg_Left(cString, nLen)
-   RETURN Iif(hb_cdpSelect()=="UTF8", hb_utf8Left(cString, nLen), Left(cString, nLen))
+   RETURN IIf(hb_cdpSelect()=="UTF8", hb_utf8Left(cString, nLen), Left(cString, nLen))
 
 FUNCTION hwg_Len(cString)
-   RETURN Iif(hb_cdpSelect()=="UTF8", hb_utf8Len(cString), Len(cString))
+   RETURN IIf(hb_cdpSelect()=="UTF8", hb_utf8Len(cString), Len(cString))
 
 
 FUNCTION hwg_GET_Helper(cp_get,nlen)

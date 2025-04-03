@@ -37,7 +37,7 @@ METHOD HBrwflt:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
       lDescend, bWhile, bFirst, bLast, bFor, bRClick)
 
-   ::lDescend := Iif(lDescend == NIL, .F., lDescend)
+   ::lDescend := IIf(lDescend == NIL, .F., lDescend)
 
    IF hb_IsBlock(bFirst) .OR. hb_IsBlock(bFor) .OR. hb_IsBlock(bWhile)
       ::lFilter := .T.
@@ -111,9 +111,9 @@ STATIC FUNCTION FltSkip(oBrw, nLines, lDesc)
    ENDIF
    IF nLines > 0
       FOR n := 1 TO nLines
-         SKIP IIF(lDesc, -1, +1)
+         SKIP IIf(lDesc, -1, +1)
          WHILE !Eof() .AND. Eval(oBrw:bWhile) .AND. !Eval(oBrw:bFor)
-            SKIP IIF(lDesc, -1, +1)
+            SKIP IIf(lDesc, -1, +1)
          ENDDO
       NEXT
    ELSEIF nLines < 0
@@ -125,10 +125,10 @@ STATIC FUNCTION FltSkip(oBrw, nLines, lDesc)
                FltGoBottom(oBrw)
             ENDIF
          ELSE
-            SKIP IIF(lDesc, +1, -1)
+            SKIP IIf(lDesc, +1, -1)
          ENDIF
          WHILE !Bof() .AND. Eval(oBrw:bWhile) .AND. !Eval(oBrw:bFor)
-            SKIP IIF(lDesc, +1, -1)
+            SKIP IIf(lDesc, +1, -1)
          ENDDO
       NEXT
    ENDIF

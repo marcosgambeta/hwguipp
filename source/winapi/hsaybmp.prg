@@ -36,9 +36,9 @@ METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit,
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick, bColor)
 
    ::bPaint := {|o, lpdis|o:Paint(lpdis)}
-   ::lTransp := Iif(lTransp = NIL, .F., lTransp)
-   ::nStretch := Iif(nStretch = NIL, 0, nStretch)
-   ::trcolor := Iif(trcolor = NIL, NIL, trcolor)
+   ::lTransp := IIf(lTransp = NIL, .F., lTransp)
+   ::nStretch := IIf(nStretch = NIL, 0, nStretch)
+   ::trcolor := IIf(trcolor = NIL, NIL, trcolor)
    ::nBorder := 0
    ::tColor := 0
 
@@ -46,7 +46,7 @@ METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit,
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := Iif(lRes .OR. HB_ISNUMERIC(Image), HBitmap():AddResource(Image), iif(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
+      ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image), HBitmap():AddResource(Image), IIf(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
       IF ::oImage != NIL .AND. ( nWidth == NIL .OR. nHeight == NIL )
          ::nWidth := ::oImage:nWidth
          ::nHeight := ::oImage:nHeight
@@ -62,13 +62,13 @@ METHOD HSayBmp:Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, l
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    ::bPaint := {|o, lpdis|o:Paint(lpdis)}
-   ::lTransp := iif(lTransp = NIL, .F., lTransp)
+   ::lTransp := IIf(lTransp = NIL, .F., lTransp)
    ::nBorder := 0
    ::tColor := 0
    IF lRes == NIL
       lRes := .F.
    ENDIF
-   ::oImage := iif(lRes .OR. HB_ISNUMERIC(xImage), HBitmap():AddResource(xImage), iif(HB_ISCHAR(xImage), HBitmap():AddFile(xImage), xImage))
+   ::oImage := IIf(lRes .OR. HB_ISNUMERIC(xImage), HBitmap():AddResource(xImage), IIf(HB_ISCHAR(xImage), HBitmap():AddFile(xImage), xImage))
 
    RETURN Self
 
@@ -135,7 +135,7 @@ METHOD HSayBmp:ReplaceBitmap(Image, lRes)
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := iif(lRes .OR. HB_ISNUMERIC(Image), HBitmap():AddResource(Image), iif(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
+      ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image), HBitmap():AddResource(Image), IIf(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
    ENDIF
 
    RETURN NIL

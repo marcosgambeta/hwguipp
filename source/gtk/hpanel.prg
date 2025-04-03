@@ -41,12 +41,12 @@ ENDCLASS
 
 METHOD HPanel:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bColor, oStyle)
 
-   LOCAL oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   LOCAL oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
 
    IF !Empty(bPaint) .OR. bColor != NIL .OR. oStyle != NIL
       nStyle := hb_bitor( nStyle, SS_OWNERDRAW )
    ENDIF
-   ::Super:New(oWndParent, nId, nStyle, nX, nY, iif(nWidth == NIL, 0, nWidth), nHeight, oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bColor)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, IIf(nWidth == NIL, 0, nWidth), nHeight, oParent:oFont, bInit, bSize, bPaint, NIL, NIL, bColor)
    ::oStyle := oStyle
    ::bPaint := bPaint
    ::Activate()
@@ -100,9 +100,9 @@ METHOD HPanel:Init()
    IF !::lInit
       IF ::bSize == NIL .AND. Empty(::Anchor)
          IF ::nHeight != 0 .AND. (::nWidth > ::nHeight .OR. ::nWidth == 0)
-            ::bSize := {|o, x, y|o:Move(NIL, iif(::nY > 0, y - ::nHeight, 0), x, ::nHeight)}
+            ::bSize := {|o, x, y|o:Move(NIL, IIf(::nY > 0, y - ::nHeight, 0), x, ::nHeight)}
          ELSEIF ::nWidth != 0 .AND. (::nHeight > ::nWidth .OR. ::nHeight == 0)
-            ::bSize := {|o, x, y|o:Move(iif(::nX > 0, x - ::nX, 0), NIL, ::nWidth, y)}
+            ::bSize := {|o, x, y|o:Move(IIf(::nX > 0, x - ::nX, 0), NIL, ::nWidth, y)}
          ENDIF
       ENDIF
       ::Super:Init()
@@ -172,7 +172,7 @@ METHOD HPanel:Move( x1, y1, width, height )
       lSize := .T.
    ENDIF
    IF lMove .OR. lSize
-      hwg_MoveWidget(::hbox, iif(lMove, ::nX, NIL), iif(lMove, ::nY, NIL), iif(lSize, ::nWidth, NIL), iif(lSize, ::nHeight, NIL), .F.)
+      hwg_MoveWidget(::hbox, IIf(lMove, ::nX, NIL), IIf(lMove, ::nY, NIL), IIf(lSize, ::nWidth, NIL), IIf(lSize, ::nHeight, NIL), .F.)
       IF lSize
          hwg_MoveWidget(::handle, NIL, NIL, ::nWidth, ::nHeight, .F.)
          hwg_Redrawwindow(::handle)
@@ -243,7 +243,7 @@ ENDCLASS
 
 METHOD HPanelStS:New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts )
 
-   oWndParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   oWndParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
    IF bColor == NIL
       bColor := 0xeeeeee
    ENDIF
@@ -253,7 +253,7 @@ METHOD HPanelStS:New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oS
 *      oWndParent:nWidth, nHeight, bInit, { |o, w, h|o:Move( 0, h - o:nHeight ) }, bPaint, bcolor )
 
    ::Anchor := ANCHOR_LEFTABS + ANCHOR_RIGHTABS
-   ::oFont := iif(oFont == NIL, ::oParent:oFont, oFont)
+   ::oFont := IIf(oFont == NIL, ::oParent:oFont, oFont)
    ::oStyle := oStyle
    IF !Empty(aParts)
       ::aParts := aParts
@@ -267,7 +267,7 @@ METHOD HPanelStS:New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oS
 
 METHOD HPanelStS:Write(cText, nPart, lRedraw)
 
-   ::aText[Iif(nPart==NIL,1,nPart)] := cText
+   ::aText[IIf(nPart==NIL,1,nPart)] := cText
    IF ValType( lRedraw ) != "L" .OR. lRedraw
       hwg_Invalidaterect(::handle, 0)
    ENDIF
@@ -288,7 +288,7 @@ METHOD HPanelStS:PaintText(hDC)
    hwg_Settransparentmode(hDC, .T.)
    oldTColor := hwg_Settextcolor(hDC, ::tcolor)
    FOR i := 1 TO Len(::aParts)
-      x1 := iif(i == 1, 4, x2 + 4)
+      x1 := IIf(i == 1, 4, x2 + 4)
       IF ::aParts[i] == 0
          x2 := x1 + Int( nWidth/ (Len(::aParts ) - i + 1 ) )
       ELSE
@@ -350,7 +350,7 @@ METHOD HPanelHea:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bco
    LOCAL btnMax
    LOCAL btnMin
 
-   oWndParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   oWndParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
    IF bColor == NIL
       bColor := 0xeeeeee
    ENDIF
@@ -360,9 +360,9 @@ METHOD HPanelHea:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bco
    ::title := cText
    ::xt := xt
    ::yt := yt
-   ::oFont := Iif(oFont == NIL, ::oParent:oFont, oFont)
+   ::oFont := IIf(oFont == NIL, ::oParent:oFont, oFont)
    ::oStyle := oStyle
-   ::tColor := Iif(tcolor==NIL, 0, tcolor)
+   ::tColor := IIf(tcolor==NIL, 0, tcolor)
    ::lDragWin := .T.
    ::lPreDef := .F.
 
@@ -377,7 +377,7 @@ METHOD HPanelHea:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bco
       IF !Empty(lBtnMax)
          @ 0, 0 OWNERBUTTON btnMax OF Self SIZE 1, 1 ;
             ON PAINT {|o|fPaintBtn(o)} ;
-            ON CLICK {||Iif(::lMaximized,::oParent:Restore(),::oParent:Maximize()),::lMaximized:=!::lMaximized}
+            ON CLICK {||IIf(::lMaximized,::oParent:Restore(),::oParent:Maximize()),::lMaximized:=!::lMaximized}
       ENDIF
       IF !Empty(lBtnMin)
          @ 0, 0 OWNERBUTTON btnMin OF Self SIZE 1, 1 ;
@@ -455,8 +455,8 @@ METHOD HPanelHea:PaintText(hDC)
       ENDIF
       hwg_Settransparentmode(hDC, .T.)
       oldTColor := hwg_Settextcolor(hDC, ::tcolor)
-      x1 := Iif(::xt == NIL, 4, ::xt)
-      y1 := Iif(::yt == NIL, 4, ::yt)
+      x1 := IIf(::xt == NIL, 4, ::xt)
+      y1 := IIf(::yt == NIL, 4, ::yt)
       hwg_Drawtext(hDC, ::title, x1, y1, ::nWidth - 4, ::nHeight - 4, DT_LEFT + DT_VCENTER)
       hwg_Settextcolor(hDC, oldTColor)
       hwg_Settransparentmode(hDC, .F.)

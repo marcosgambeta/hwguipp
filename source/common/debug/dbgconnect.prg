@@ -105,7 +105,7 @@ FUNCTION hwg_dbg_New()
       i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
       IF i > 0
          arr := hb_aTokens( Left(s_cBuffer, i), ;
-               Iif(hb_At(Chr(13), s_cBuffer, 1, i) > 0, Chr(13)+Chr(10), Chr(10)) )
+               IIf(hb_At(Chr(13), s_cBuffer, 1, i) > 0, Chr(13)+Chr(10), Chr(10)) )
          FOR i := 1 TO Len(arr)
             IF ( nPos := At("=", arr[i]) ) > 0
                cCmd := Lower(Trim(Left(arr[i], nPos - 1)))
@@ -140,7 +140,7 @@ FUNCTION hwg_dbg_New()
    ENDIF
 
    IF !Empty(cDir)
-      cDir += Iif(Right( cDir,1 ) $ "\/", "", hb_PS())
+      cDir += IIf(Right( cDir,1 ) $ "\/", "", hb_PS())
       IF File( cDir + cDebugger + ".d1" ) .AND. File( cDir + cDebugger + ".d2" )
          IF ( s_handl1 := FOpen(cDir + cDebugger + ".d1", FO_READ + FO_SHARED) ) != -1
             i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
@@ -157,9 +157,9 @@ FUNCTION hwg_dbg_New()
       ENDIF
    ENDIF
 
-   cFile := Iif(!Empty(cDir), cDir, hb_dirTemp()) + ;
-         Iif(( i := Rat('\', cFile) ) = 0, ;
-         Iif(( i := Rat('/', cFile) ) = 0, cFile, Substr(cFile, i + 1)), ;
+   cFile := IIf(!Empty(cDir), cDir, hb_dirTemp()) + ;
+         IIf(( i := Rat('\', cFile) ) = 0, ;
+         IIf(( i := Rat('/', cFile) ) = 0, cFile, Substr(cFile, i + 1)), ;
          Substr(cFile, i + 1))
 
    Ferase(cFile + ".d1")
@@ -172,7 +172,7 @@ FUNCTION hwg_dbg_New()
 
 #ifndef __PLATFORM__WINDOWS
    IF Empty(cExe)
-      cExe := Iif(File(cDebugger), "./", "") + cDebugger
+      cExe := IIf(File(cDebugger), "./", "") + cDebugger
    ENDIF
    // lRun := __dbgProcessRun( cExe, "-c" + cFile )
    hProcess := hb_processOpen(cExe + ' -c' + cFile)
@@ -259,8 +259,8 @@ FUNCTION hwg_dbg_SetActiveLine(cPrgName, nLine, aStack, aVars, aWatch, nVarType)
       NEXT
    ENDIF
    IF aVars != NIL
-      s += Iif(nVarType==1, ",valuelocal,", ;
-            Iif(nVarType==2, ",valuepriv,", Iif(nVarType==3, ",valuepubl,", ",valuestatic,"))) + aVars[1]
+      s += IIf(nVarType==1, ",valuelocal,", ;
+            IIf(nVarType==2, ",valuepriv,", IIf(nVarType==3, ",valuepubl,", ",valuestatic,"))) + aVars[1]
       nLen := Len(aVars)
       FOR i := 2 TO nLen
          s += "," + Str2Hex(aVars[i])
@@ -416,7 +416,7 @@ FUNCTION hwg_dbg_Answer(...)
       IF HB_ISARRAY(arr[i])
          lConvert := ( i > 1 .AND. HB_ISCHAR(arr[i-1]) .AND. Left(arr[i - 1], 5) == "value" )
          FOR j := 1 TO Len(arr[i])
-            s += Iif(j>1.AND.lConvert, Str2Hex(arr[i,j]), arr[i,j]) + ","
+            s += IIf(j>1.AND.lConvert, Str2Hex(arr[i,j]), arr[i,j]) + ","
          NEXT
       ELSE
          IF arr[i] == "value" .AND. i < Len(arr)
@@ -442,8 +442,8 @@ RETURN NIL
 
 FUNCTION hwg_dbg_Alert(cMessage)
 
-   LOCAL bCode := &(Iif(Type("hwg_msginfo()") == "UI", "{|s|hwg_msginfo(s)}", ;
-      Iif(Type("msginfo()") == "UI", "{|s|msginfo(s)}", "{|s|alert(s)}")))
+   LOCAL bCode := &(IIf(Type("hwg_msginfo()") == "UI", "{|s|hwg_msginfo(s)}", ;
+      IIf(Type("msginfo()") == "UI", "{|s|msginfo(s)}", "{|s|alert(s)}")))
 
    Eval( bCode, cMessage )
 
@@ -504,7 +504,7 @@ STATIC FUNCTION Int2Hex(n)
       RETURN "XX"
    ENDIF
 
-RETURN Chr(Iif(n1 < 10, n1 + 48, n1 + 55)) + Chr(Iif(n2 < 10, n2 + 48, n2 + 55))
+RETURN Chr(IIf(n1 < 10, n1 + 48, n1 + 55)) + Chr(IIf(n2 < 10, n2 + 48, n2 + 55))
 
 STATIC FUNCTION Str2Hex(stroka)
 

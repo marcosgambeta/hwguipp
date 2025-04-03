@@ -31,7 +31,7 @@ METHOD HPanelHea:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bco
    LOCAL btnMin
    LOCAL x1
 
-   oWndParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   oWndParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
    IF bColor == NIL
       bColor := 0xeeeeee
    ENDIF
@@ -41,9 +41,9 @@ METHOD HPanelHea:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bco
    ::title := cText
    ::xt := xt
    ::yt := yt
-   ::oFont := Iif(oFont == NIL, ::oParent:oFont, oFont)
+   ::oFont := IIf(oFont == NIL, ::oParent:oFont, oFont)
    ::oStyle := oStyle
-   ::tColor := Iif(tColor == NIL, 0, tColor)
+   ::tColor := IIf(tColor == NIL, 0, tColor)
    ::lDragWin := .T.
 
    IF !Empty(lBtnClose) .OR. !Empty(lBtnMax) .OR. !Empty(lBtnMin)
@@ -61,7 +61,7 @@ METHOD HPanelHea:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bco
          @ x1, Int((::nHeight-nBtnSize)/2) OWNERBUTTON btnMax OF Self SIZE nBtnSize, nBtnSize ;
             ON PAINT {|o|fPaintBtn(o)} ;
             ON SIZE ANCHOR_RIGHTABS ;
-            ON CLICK {||Iif(::lMaximized,::oParent:Restore(),::oParent:Maximize()),::lMaximized:=!::lMaximized}
+            ON CLICK {||IIf(::lMaximized,::oParent:Restore(),::oParent:Maximize()),::lMaximized:=!::lMaximized}
          x1 -= nBtnSize
       ENDIF
       IF !Empty(lBtnMin)
@@ -142,8 +142,8 @@ METHOD HPanelHea:PaintText(hDC)
       ENDIF
       hwg_Settransparentmode(hDC, .T.)
       oldTColor := hwg_Settextcolor(hDC, ::tcolor)
-      x1 := Iif(::xt == NIL, 4, ::xt)
-      y1 := Iif(::yt == NIL, 4, ::yt)
+      x1 := IIf(::xt == NIL, 4, ::xt)
+      y1 := IIf(::yt == NIL, 4, ::yt)
       hwg_Drawtext(hDC, ::title, x1, y1, ::nWidth - 4, ::nHeight - 4, DT_LEFT + DT_VCENTER)
       hwg_Settextcolor(hDC, oldTColor)
       hwg_Settransparentmode(hDC, .F.)

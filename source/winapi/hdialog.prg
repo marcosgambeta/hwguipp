@@ -51,7 +51,7 @@ CLASS HDialog INHERIT HWindow
               oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor, lNoClosable)
    METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
    METHOD onEvent(msg, wParam, lParam)
-   METHOD AddItem() INLINE AAdd(Iif(::lModal, ::aModalDialogs, ::aDialogs), Self)
+   METHOD AddItem() INLINE AAdd(IIf(::lModal, ::aModalDialogs, ::aDialogs), Self)
    METHOD DelItem()
    METHOD FindDialog(hWnd)
    METHOD GetActive()
@@ -95,11 +95,11 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
    ::title := cTitle
    ::oBmp := oBmp
    ::oIcon := oIcon
-   ::nY := Iif(y == NIL, 0, y)
-   ::nX := Iif(x == NIL, 0, x)
-   ::nWidth := Iif(width == NIL, 0, width)
-   ::nWidth := Iif(width == NIL, 0, width)
-   ::nHeight := Iif(height == NIL, 0, Abs(height))
+   ::nY := IIf(y == NIL, 0, y)
+   ::nX := IIf(x == NIL, 0, x)
+   ::nWidth := IIf(width == NIL, 0, width)
+   ::nWidth := IIf(width == NIL, 0, width)
+   ::nHeight := IIf(height == NIL, 0, Abs(height))
    IF ::nWidth < 0
       ::nWidth := Abs(::nWidth)
       //::nAdjust := 1
@@ -112,10 +112,10 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
    ::bGetFocus := bGFocus
    ::bLostFocus := bLFocus
    ::bOther := bOther
-   ::lClipper := Iif(lClipper == NIL, .F., lClipper)
-   ::lExitOnEnter := Iif(lExitOnEnter == NIL, .T., !lExitOnEnter)
-   ::lExitOnEsc := Iif(lExitOnEsc == NIL, .T., !lExitOnEsc)
-   ::lClosable := Iif(lNoClosable == NIL, .T., !lNoClosable)
+   ::lClipper := IIf(lClipper == NIL, .F., lClipper)
+   ::lExitOnEnter := IIf(lExitOnEnter == NIL, .T., !lExitOnEnter)
+   ::lExitOnEsc := IIf(lExitOnEsc == NIL, .T., !lExitOnEsc)
+   ::lClosable := IIf(lNoClosable == NIL, .T., !lNoClosable)
 
    IF bColor != NIL
       ::brush := HBrush():Add(bColor)
@@ -147,10 +147,10 @@ METHOD HDialog:Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
       ::oParent := hwg_GetModalDlg()
    ENDIF
    hwg_CreateGetList(Self)
-   hParent := Iif(::oParent != NIL .AND. __ObjHasMsg(::oParent, "HANDLE") .AND. !Empty(::oParent:handle), ;
-      ::oParent:handle, Iif((oWnd := HWindow():GetMain()) != NIL, oWnd:handle, hwg_Getactivewindow()))
+   hParent := IIf(::oParent != NIL .AND. __ObjHasMsg(::oParent, "HANDLE") .AND. !Empty(::oParent:handle), ;
+      ::oParent:handle, IIf((oWnd := HWindow():GetMain()) != NIL, oWnd:handle, hwg_Getactivewindow()))
 
-   ::nInitState := Iif(!Empty(lMaximized), SW_SHOWMAXIMIZED, Iif(!Empty(lMinimized), SW_SHOWMINIMIZED, Iif(!Empty(lCentered), 16, 0)))
+   ::nInitState := IIf(!Empty(lMaximized), SW_SHOWMAXIMIZED, IIf(!Empty(lMinimized), SW_SHOWMINIMIZED, IIf(!Empty(lCentered), 16, 0)))
 
    SWITCH ::type
 
@@ -288,14 +288,14 @@ METHOD HDialog:FindDialog(hWnd)
 
    LOCAL i := Ascan(::aDialogs, {|o|hwg_Isptreq(o:handle, hWnd)})
 
-   RETURN Iif(i == 0, NIL, ::aDialogs[i])
+   RETURN IIf(i == 0, NIL, ::aDialogs[i])
 
 METHOD HDialog:GetActive()
 
    LOCAL handle := hwg_Getfocus()
    LOCAL i := Ascan(::Getlist, {|o|hwg_Isptreq(o:handle, handle)})
 
-   RETURN Iif(i == 0, NIL, ::Getlist[i])
+   RETURN IIf(i == 0, NIL, ::Getlist[i])
 
 STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
 
@@ -478,7 +478,7 @@ STATIC FUNCTION onHelp(oDlg, wParam, lParam)
             oParent := oCtrl:oParent
             nHelpId := oParent:HelpId
          ENDIF
-         hwg_Winhelp(oDlg:handle, hwg_SetHelpFileName(), Iif(Empty(nHelpId), 3, 1), nHelpId)
+         hwg_Winhelp(oDlg:handle, hwg_SetHelpFileName(), IIf(Empty(nHelpId), 3, 1), nHelpId)
       ENDIF
    ENDIF
 
@@ -497,24 +497,24 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
          res := Eval(oDlg:bGetFocus, oDlg)
       ENDIF
       // 'res' should be 0(Ok) or -1
-      Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, -1))
+      Hwg_SetDlgResult(oDlg:handle, IIf(res, 0, -1))
       RETURN 1
    CASE PSN_KILLACTIVE
       IF hb_IsBlock(oDlg:bLostFocus)
          res := Eval(oDlg:bLostFocus, oDlg)
       ENDIF
       // 'res' should be 0(Ok) or 1
-      Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, 1))
+      Hwg_SetDlgResult(oDlg:handle, IIf(res, 0, 1))
       RETURN 1
    CASE PSN_RESET
       EXIT
    CASE PSN_APPLY
       IF hb_IsBlock(oDlg:bDestroy)
          res := Eval(oDlg:bDestroy, oDlg)
-         res := Iif(HB_ISLOGICAL(res), res, .T.)
+         res := IIf(HB_ISLOGICAL(res), res, .T.)
       ENDIF
       // 'res' should be 0(Ok) or 2
-      Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, 2))
+      Hwg_SetDlgResult(oDlg:handle, IIf(res, 0, 2))
       IF res
          oDlg:lResult := .T.
       ENDIF
@@ -522,7 +522,7 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
    OTHERWISE
       IF hb_IsBlock(oDlg:bOther)
          res := Eval(oDlg:bOther, oDlg, WM_NOTIFY, 0, lParam)
-         Hwg_SetDlgResult(oDlg:handle, Iif(res, 0, 1))
+         Hwg_SetDlgResult(oDlg:handle, IIf(res, 0, 1))
          RETURN 1
       ENDIF
    ENDSWITCH
@@ -559,13 +559,13 @@ FUNCTION hwg_GetModalDlg()
 
    LOCAL i := Len(HDialog():aModalDialogs)
 
-   RETURN Iif(i > 0, HDialog():aModalDialogs[i], NIL)
+   RETURN IIf(i > 0, HDialog():aModalDialogs[i], NIL)
 
 FUNCTION hwg_GetModalHandle()
 
    LOCAL i := Len(HDialog():aModalDialogs)
 
-   RETURN Iif(i > 0, HDialog():aModalDialogs[i]:handle, 0)
+   RETURN IIf(i > 0, HDialog():aModalDialogs[i]:handle, 0)
 
 FUNCTION hwg_EndDialog(handle)
 
@@ -584,13 +584,13 @@ FUNCTION hwg_EndDialog(handle)
    IF hb_IsBlock(oDlg:bDestroy)
       lRes := Eval(oDlg:bDestroy, oDlg)
       IF Valtype(lRes) != "L" .OR. lRes
-         RETURN Iif(oDlg:lModal, Hwg__EndDialog(oDlg:handle), hwg_Destroywindow(oDlg:handle))
+         RETURN IIf(oDlg:lModal, Hwg__EndDialog(oDlg:handle), hwg_Destroywindow(oDlg:handle))
       ELSE
          RETURN NIL
       ENDIF
    ENDIF
 
-   RETURN Iif(oDlg:lModal, Hwg__EndDialog(oDlg:handle), hwg_Destroywindow(oDlg:handle))
+   RETURN IIf(oDlg:lModal, Hwg__EndDialog(oDlg:handle), hwg_Destroywindow(oDlg:handle))
 
 FUNCTION hwg_SetDlgKey(oDlg, nctrl, nkey, block, lGlobal)
 

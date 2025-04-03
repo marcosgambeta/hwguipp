@@ -84,7 +84,7 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos, hWnd )
    ENDIF
 
    hSubMenu := s_hLast := aMenu[5]
-   hSubMenu := hwg__AddMenuItem(hSubMenu, cItem, nPos - 1, Iif(Empty(hWnd), 0, hWnd), nMenuId, NIL, lSubMenu)
+   hSubMenu := hwg__AddMenuItem(hSubMenu, cItem, nPos - 1, IIf(Empty(hWnd), 0, hWnd), nMenuId, NIL, lSubMenu)
 
    IF nPos > Len(aMenu[1])
       IF Empty(lSubmenu)
@@ -130,7 +130,7 @@ FUNCTION Hwg_GetSubMenuHandle( aMenu, nId )
    
    LOCAL aSubMenu := Hwg_FindMenuItem( aMenu, nId )
 
-   RETURN iif(aSubMenu == NIL, 0, aSubMenu[5])
+   RETURN IIf(aSubMenu == NIL, 0, aSubMenu[5])
 
 FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
 
@@ -195,9 +195,9 @@ FUNCTION Hwg_BeginMenu( oWnd, nId, cTitle )
       s__oWnd := oWnd
       s__oMenu := NIL
       s__nLevel := 0
-      s__Id := iif(nId == NIL, MENU_FIRST_ID, nId)
+      s__Id := IIf(nId == NIL, MENU_FIRST_ID, nId)
    ELSE
-      nId := iif(nId == NIL, ++ s__Id, nId)
+      nId := IIf(nId == NIL, ++ s__Id, nId)
       aMenu := s__aMenuDef
       FOR i := 1 TO s__nLevel
          aMenu := Atail( aMenu )[1]
@@ -229,7 +229,7 @@ FUNCTION Hwg_EndMenu()
    IF s__nLevel > 0
       s__nLevel --
    ELSE
-      hwg_BuildMenu(AClone(s__aMenuDef), Iif(s__oWnd != NIL, s__oWnd:handle, 0), s__oWnd, NIL, s__lContext)
+      hwg_BuildMenu(AClone(s__aMenuDef), IIf(s__oWnd != NIL, s__oWnd:handle, 0), s__oWnd, NIL, s__lContext)
       IF s__oWnd != NIL .AND. !Empty(s__aAccel)
          s__oWnd:hAccel := hwg_Createacceleratortable( s__oWnd )
       ENDIF
@@ -253,15 +253,15 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
    HB_SYMBOL_UNUSED(lBitmap)
    HB_SYMBOL_UNUSED(lResource)
 
-   lCheck := iif(lCheck == NIL, .F. , lCheck)
-   lDisabled := iif(lDisabled == NIL, .T. , !lDisabled)
-   nFlag := hb_bitor(iif(lCheck, FLAG_CHECK, 0), iif(lDisabled, 0, FLAG_DISABLED))
+   lCheck := IIf(lCheck == NIL, .F. , lCheck)
+   lDisabled := IIf(lDisabled == NIL, .T. , !lDisabled)
+   nFlag := hb_bitor(IIf(lCheck, FLAG_CHECK, 0), IIf(lDisabled, 0, FLAG_DISABLED))
 
    aMenu := s__aMenuDef
    FOR i := 1 TO s__nLevel
       aMenu := Atail( aMenu )[1]
    NEXT
-   nId := iif(nId == NIL .AND. cItem != NIL, ++ s__Id, nId)
+   nId := IIf(nId == NIL .AND. cItem != NIL, ++ s__Id, nId)
    IF !Empty(cItem)
       cItem := StrTran( cItem, "\t", "" )
       cItem := StrTran( cItem, "&", "_" )
@@ -299,7 +299,7 @@ FUNCTION Hwg_DefineAccelItem( nId, bItem, accFlag, accKey )
    FOR i := 1 TO s__nLevel
       aMenu := Atail( aMenu )[1]
    NEXT
-   nId := iif(nId == NIL, ++ s__Id, nId)
+   nId := IIf(nId == NIL, ++ s__Id, nId)
    AAdd(aMenu, {bItem, NIL, nId, .T., 0})
    AAdd(s__aAccel, {accFlag, accKey, nId})
 

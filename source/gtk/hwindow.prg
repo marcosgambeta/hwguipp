@@ -149,7 +149,7 @@ CLASS HWindow INHERIT HCustomWindow
    METHOD RESTORE() INLINE hwg_RestoreWindow(::handle)
    METHOD Maximize() INLINE hwg_WindowMaximize(::handle)
    METHOD Minimize() INLINE hwg_WindowMinimize(::handle)
-   METHOD CLOSE() INLINE iif(!onDestroy( Self ), .F. , hwg_DestroyWindow(::handle))
+   METHOD CLOSE() INLINE IIf(!onDestroy( Self ), .F. , hwg_DestroyWindow(::handle))
    METHOD SetTitle( cTitle ) INLINE hwg_Setwindowtext(::handle, ::title := cTitle)
 
 ENDCLASS
@@ -164,13 +164,13 @@ METHOD HWindow:New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFon
 
    ::oDefaultParent := Self
    ::title := cTitle
-   ::style := iif(nStyle == NIL, 0, nStyle)
+   ::style := IIf(nStyle == NIL, 0, nStyle)
    ::oIcon := oIcon
    ::oBmp := oBmp
-   ::nY := iif(y == NIL, 0, y)
-   ::nX := iif(x == NIL, 0, x)
-   ::nWidth := iif(width == NIL, 0, width)
-   ::nHeight := iif(height == NIL, 0, Abs( height ))
+   ::nY := IIf(y == NIL, 0, y)
+   ::nX := IIf(x == NIL, 0, x)
+   ::nWidth := IIf(width == NIL, 0, width)
+   ::nHeight := IIf(height == NIL, 0, Abs( height ))
    IF ::nWidth < 0
       ::nWidth := Abs(::nWidth)
       ::nAdjust := 1
@@ -220,19 +220,19 @@ METHOD HWindow:FindWindow( hWnd )
 
    // LOCAL i := Ascan(::aWindows, {|o|o:handle == hWnd})
 
-   // Return Iif(i == 0, NIL, ::aWindows[i])
+   // Return IIf(i == 0, NIL, ::aWindows[i])
    RETURN hwg_Getwindowobject( hWnd )
 
 METHOD HWindow:GetMain()
 
-   RETURN iif(Len(::aWindows) > 0, iif(::aWindows[1]:type == WND_MAIN, ::aWindows[1], iif(Len(::aWindows) > 1, ::aWindows[2], NIL)), NIL)
+   RETURN IIf(Len(::aWindows) > 0, IIf(::aWindows[1]:type == WND_MAIN, ::aWindows[1], IIf(Len(::aWindows) > 1, ::aWindows[2], NIL)), NIL)
 
 /* Added: nctrl */
 METHOD HWindow:EvalKeyList( nKey, nctrl )
 
    LOCAL nPos
 
-   nctrl := iif(nctrl == 2, FCONTROL, iif(nctrl == 1, FSHIFT, iif(nctrl == 4,FALT,0)))
+   nctrl := IIf(nctrl == 2, FCONTROL, IIf(nctrl == 1, FSHIFT, IIf(nctrl == 4,FALT,0)))
    //hwg_writelog( str(nKey)+"/"+str(nctrl) )
    IF !Empty(::KeyList)
       IF ( nPos := Ascan(::KeyList, {|a|a[1] == nctrl .AND. a[2] == nKey})) > 0
@@ -297,7 +297,7 @@ METHOD HMainWindow:New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, 
    IF lType == WND_MDI
    ELSEIF lType == WND_MAIN
       ::handle := Hwg_InitMainWindow( Self, ::szAppName, cTitle, cMenu, ;
-         iif(oIcon != NIL, oIcon:handle, NIL), ::Style, ::nX, ;
+         IIf(oIcon != NIL, oIcon:handle, NIL), ::Style, ::nX, ;
          ::nY, ::nWidth, ::nHeight, hbackground )
          // DF7BE: background missing, added as 11th parameter
    ENDIF
@@ -437,5 +437,5 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
 
 // Prepare for future (if available on next GTK versions)
 // FUNCTION hwg_GTKShellnotifyicon( oIcon )
-//       hwg_ShellModifyIcon ( iif(oIcon != NIL, oIcon:handle, NIL) )
+//       hwg_ShellModifyIcon ( IIf(oIcon != NIL, oIcon:handle, NIL) )
 //   RETURN NIL

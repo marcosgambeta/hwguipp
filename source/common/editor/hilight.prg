@@ -219,10 +219,10 @@ Local nPos, nPos1, nPrev, cWord, c
    IF ::nDopChecked < nLine - 1
       FOR i := ::nDopChecked + 1 TO nLine - 1
          ::Do( aText, i, .T. )
-         ::aDop[i] := Iif(::lMultiComm, 1, 0)
+         ::aDop[i] := IIf(::lMultiComm, 1, 0)
       NEXT
    ENDIF
-   lComm := Iif(nLine==1, .F., !Empty(::aDop[nLine - 1]))
+   lComm := IIf(nLine==1, .F., !Empty(::aDop[nLine - 1]))
    ::nDopChecked := nLine
    ::aDop[nLine] := 0
 
@@ -303,7 +303,7 @@ Local nPos, nPos1, nPrev, cWord, c
                 nPrev := nPos
                 nPos := hced_NextPos( ::oEdit, cLine, nPos )
             ENDDO
-            cWord := " " + Iif(::lCase, hced_Substr(::oEdit, cLine, nPos1, nPos - nPos1), Lower(hced_Substr(::oEdit, cLine, nPos1, nPos - nPos1))) + " "
+            cWord := " " + IIf(::lCase, hced_Substr(::oEdit, cLine, nPos1, nPos - nPos1), Lower(hced_Substr(::oEdit, cLine, nPos1, nPos - nPos1))) + " "
             //nPos --
             nPos := nPrev
             IF !Empty(::cCommands ) .AND. cWord $ ::cCommands

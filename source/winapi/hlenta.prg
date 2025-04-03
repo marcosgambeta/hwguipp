@@ -49,15 +49,15 @@ ENDCLASS
 
 METHOD HLenta:New(oWndParent, nId, nX, nY, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle)
 
-   color := Iif(color == NIL, CLR_BLACK, color)
-   bColor := Iif(bColor == NIL, CLR_WHITE, bColor)
+   color := IIf(color == NIL, CLR_BLACK, color)
+   bColor := IIf(bColor == NIL, CLR_WHITE, bColor)
    ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont, NIL, bSize, bPaint, NIL, color, bcolor)
 
    ::title := ""
    ::lVertical := (::nHeight > ::nWidth)
    ::bClick := bClick
    ::aItems := aItems
-   ::aItemStyle := Iif(Empty(aItemStyle), {HStyle():New({CLR_WHITE, CLR_GRAY_1}, 3), HStyle():New({CLR_GRAY_2}, 3)}, aItemStyle)
+   ::aItemStyle := IIf(Empty(aItemStyle), {HStyle():New({CLR_WHITE, CLR_GRAY_1}, 3), HStyle():New({CLR_GRAY_2}, 3)}, aItemStyle)
    ::nItemSize := nItemSize
    ::oPen := HPen():Add(PS_SOLID, 1, color)
 
@@ -123,7 +123,7 @@ METHOD HLenta:onEvent(msg, wParam, lParam)
             IF y1 > 0
                y1 := ::nItemSize - y1
             ENDIF
-            nPos := Iif(::lVertical, yPos - y1, xPos - y1)
+            nPos := IIf(::lVertical, yPos - y1, xPos - y1)
             IF nPos > 0
                IF ( nPos := Int(nPos / ::nItemSize) + ::nFirst) > Len(::aItems)
                   nPos := 0
@@ -188,8 +188,8 @@ METHOD HLenta:Paint()
    LOCAL cText
    LOCAL lVertical := ::lVertical
    LOCAL l1
-   LOCAL nW := Iif(::lVertical, ::nWidth, ::nHeight)
-   LOCAL nLength := Iif(::lVertical, ::nHeight, ::nWidth)
+   LOCAL nW := IIf(::lVertical, ::nWidth, ::nHeight)
+   LOCAL nLength := IIf(::lVertical, ::nHeight, ::nWidth)
    LOCAL aItemStyle := ::aItemStyle
    LOCAL lStyleOver := ( Len(aItemStyle)>2.AND.aItemStyle[3]!=NIL )
    LOCAL lStyleSele := ( Len(aItemStyle)>1.AND.aItemStyle[2]!=NIL )
@@ -216,8 +216,8 @@ METHOD HLenta:Paint()
          ENDIF
          i := 1
          DO WHILE y1 + nItemSize <= nLength .AND. ( nCurr := i + ::nFirst - 1 ) <= Len(::aItems)
-            oStyle := Iif(nCurr == ::nSelected .AND. lStyleSele, aItemStyle[2], Iif(nCurr == ::nOver .AND. lStyleOver, aItemStyle[3], aItemStyle[1]))
-            cText := Iif(l1, ::aItems[nCurr, 1], ::aItems[nCurr])
+            oStyle := IIf(nCurr == ::nSelected .AND. lStyleSele, aItemStyle[2], IIf(nCurr == ::nOver .AND. lStyleOver, aItemStyle[3], aItemStyle[1]))
+            cText := IIf(l1, ::aItems[nCurr, 1], ::aItems[nCurr])
             IF lVertical
                oStyle:Draw(hDC, 0, y1, nW, y1 + nItemSize)
                IF !Empty(cText)
@@ -287,14 +287,14 @@ METHOD HLenta:Paint()
 
 METHOD HLenta:Drag(xPos, yPos)
 
-   LOCAL nLength := Iif(::lVertical, ::nHeight, ::nWidth)
+   LOCAL nLength := IIf(::lVertical, ::nHeight, ::nWidth)
    LOCAL nKolItems := Len(::aItems)
    
    //hwg_Writelog("   " + Ltrim(Str(yPos)) + " " + Ltrim(Str(::yPos)) + " " + Ltrim(Str(::nShift)))
    IF nLength < ::nItemSize * nKolItems - 4 .AND. ((::lVertical .AND. Abs(yPos - ::yPos) > 2) .OR. (!::lVertical .AND. Abs(xPos - ::xPos) > 2))
       ::lMoved := .T.
       ::nOver := 0
-      ::nShift += Int(Iif(::lVertical, (::yPos - yPos), (::xPos - xPos)) * ::nDragKoef)
+      ::nShift += Int(IIf(::lVertical, (::yPos - yPos), (::xPos - xPos)) * ::nDragKoef)
       ::xPos := xPos; ::yPos := yPos
       IF ::nShift < 0
          ::nShift := 0
@@ -302,7 +302,7 @@ METHOD HLenta:Drag(xPos, yPos)
          ::nShift := Max(0, Int(nKolItems * ::nItemSize) - nLength + 2)
       ENDIF
       ::nFirst := Int(::nShift/::nItemSize)
-      ::nFirst += Iif(::nShift > ::nFirst * ::nItemSize, 2, 1)
+      ::nFirst += IIf(::nShift > ::nFirst * ::nItemSize, 2, 1)
       //hwg_Writelog(Ltrim(Str(::nShift)) + " " + Ltrim(Str(::nFirst)))
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
    ENDIF

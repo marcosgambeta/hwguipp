@@ -63,7 +63,7 @@ FUNCTION hwg_onWndSize(oWnd, wParam, lParam)
       RETURN 0
    ENDIF
 
-   RETURN Iif(!Empty(oWnd:type) .AND. oWnd:type >= WND_DLG_RESOURCE, 0, -1)
+   RETURN IIf(!Empty(oWnd:type) .AND. oWnd:type >= WND_DLG_RESOURCE, 0, -1)
 
 FUNCTION hwg_onAnchor(oWnd, wold, hold, wnew, hnew)
 
@@ -197,13 +197,13 @@ METHOD HWindow:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont
 
    ::oDefaultParent := Self
    ::title := cTitle
-   ::style := Iif(nStyle == NIL, 0, nStyle)
+   ::style := IIf(nStyle == NIL, 0, nStyle)
    ::oIcon := oIcon
    ::oBmp := oBmp
-   ::nY := Iif(y == NIL, 0, y)
-   ::nX := iif(x == NIL, 0, x)
-   ::nWidth := Iif(width == NIL, 0, width)
-   ::nHeight := Iif(height == NIL, 0, Abs(height))
+   ::nY := IIf(y == NIL, 0, y)
+   ::nX := IIf(x == NIL, 0, x)
+   ::nWidth := IIf(width == NIL, 0, width)
+   ::nHeight := IIf(height == NIL, 0, Abs(height))
    IF ::nWidth < 0
       ::nWidth := Abs(::nWidth)
       ::nAdjust := 1
@@ -263,11 +263,11 @@ METHOD HWindow:FindWindow(hWnd)
 
    LOCAL i := Ascan(::aWindows, {|o|hwg_Isptreq(o:handle, hWnd)})
 
-   RETURN Iif(i == 0, NIL, ::aWindows[i])
+   RETURN IIf(i == 0, NIL, ::aWindows[i])
 
 METHOD HWindow:GetMain()
 
-   RETURN Iif(Len(::aWindows) > 0, Iif(::aWindows[1]:type == WND_MAIN, ::aWindows[1], Iif(Len(::aWindows) > 1, ::aWindows[2], NIL)), NIL)
+   RETURN IIf(Len(::aWindows) > 0, IIf(::aWindows[1]:type == WND_MAIN, ::aWindows[1], IIf(Len(::aWindows) > 1, ::aWindows[2], NIL)), NIL)
 
 METHOD HWindow:EvalKeyList(nKey, bPressed)
 
@@ -278,8 +278,8 @@ METHOD HWindow:EvalKeyList(nKey, bPressed)
    HB_SYMBOL_UNUSED(bPressed)
 
    cKeyb := hwg_Getkeyboardstate()
-   nctrl := Iif(Asc(SubStr(cKeyb, VK_CONTROL + 1, 1)) >= 128, FCONTROL, Iif(Asc(SubStr(cKeyb, VK_SHIFT + 1, 1)) >= 128, FSHIFT, ;
-      Iif(Asc(SubStr(cKeyb, VK_MENU + 1, 1)) >= 128, FALT, 0 )))
+   nctrl := IIf(Asc(SubStr(cKeyb, VK_CONTROL + 1, 1)) >= 128, FCONTROL, IIf(Asc(SubStr(cKeyb, VK_SHIFT + 1, 1)) >= 128, FSHIFT, ;
+      IIf(Asc(SubStr(cKeyb, VK_MENU + 1, 1)) >= 128, FALT, 0 )))
 
    IF !Empty(::KeyList)
       IF (nPos := Ascan(::KeyList, {|a|a[1] == nctrl .AND. a[2] == nKey})) > 0
@@ -342,12 +342,12 @@ METHOD HMainWindow:New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, c
    IF lType == WND_MDI
 
       ::nMenuPos := nPos
-      ::handle := Hwg_InitMdiWindow(Self, ::szAppName, cTitle, cMenu, Iif(oIcon != NIL, oIcon:handle, NIL), hbrush, nStyle, ::nX, ::nY, ::nWidth, ::nHeight)
+      ::handle := Hwg_InitMdiWindow(Self, ::szAppName, cTitle, cMenu, IIf(oIcon != NIL, oIcon:handle, NIL), hbrush, nStyle, ::nX, ::nY, ::nWidth, ::nHeight)
 
    ELSEIF lType == WND_MAIN
 
-      ::handle := Hwg_InitMainWindow(Self, ::szAppName, cTitle, cMenu, Iif(oIcon != NIL, oIcon:handle, NIL), Iif(oBmp != NIL, -1, hbrush), ;
-         ::Style, Iif(nExclude == NIL, 0, nExclude), ::nX, ::nY, ::nWidth, ::nHeight)
+      ::handle := Hwg_InitMainWindow(Self, ::szAppName, cTitle, cMenu, IIf(oIcon != NIL, oIcon:handle, NIL), IIf(oBmp != NIL, -1, hbrush), ;
+         ::Style, IIf(nExclude == NIL, 0, nExclude), ::nX, ::nY, ::nWidth, ::nHeight)
 
       IF cHelp != NIL
          hwg_SetHelpFileName(cHelp)
@@ -571,8 +571,8 @@ METHOD HChildWindow:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, 
    ::oParent := HWindow():GetMain()
 
    IF HB_ISOBJECT(::oParent)
-      ::handle := Hwg_InitChildWindow(Self, ::szAppName, cTitle, cMenu, Iif(oIcon != NIL, oIcon:handle, NIL), ;
-         Iif(oBmp != NIL, -1, Iif(::brush != NIL, ::brush:handle, clr)), nStyle, ::nX, ::nY, ::nWidth, ::nHeight, ::oParent:handle)
+      ::handle := Hwg_InitChildWindow(Self, ::szAppName, cTitle, cMenu, IIf(oIcon != NIL, oIcon:handle, NIL), ;
+         IIf(oBmp != NIL, -1, IIf(::brush != NIL, ::brush:handle, clr)), nStyle, ::nX, ::nY, ::nWidth, ::nHeight, ::oParent:handle)
    ELSE
       hwg_Msgstop("Create Main window first !", "HChildWindow():New()")
       RETURN NIL
@@ -753,7 +753,7 @@ STATIC FUNCTION onSysCommand(oWnd, wParam)
    CASE SC_CLOSE
       IF hb_IsBlock(oWnd:bDestroy)
          i := Eval(oWnd:bDestroy, oWnd)
-         i := Iif(HB_ISLOGICAL(i), i, .T.)
+         i := IIf(HB_ISLOGICAL(i), i, .T.)
          IF !i
             RETURN 0
          ENDIF
@@ -780,7 +780,7 @@ STATIC FUNCTION onEndSession(oWnd)
 
    IF hb_IsBlock(oWnd:bDestroy)
       i := Eval(oWnd:bDestroy, oWnd)
-      i := Iif(HB_ISLOGICAL(i), i, .T.)
+      i := IIf(HB_ISLOGICAL(i), i, .T.)
       IF !i
          RETURN 0
       ENDIF

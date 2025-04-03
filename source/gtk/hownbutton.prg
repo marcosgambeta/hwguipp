@@ -63,14 +63,14 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
 
    ::Super:New(oWndParent, nId,, nX, nY, nWidth, nHeight, font, bInit, bSize, bPaint, cTooltip)
 
-   ::lFlat := Iif(lFlat == NIL, .F. , lFlat)
+   ::lFlat := IIf(lFlat == NIL, .F. , lFlat)
    ::bClick := bClick
    ::state := OBTN_INIT
-   ::nOrder := Iif(oWndParent == NIL, 0, Len(oWndParent:aControls))
+   ::nOrder := IIf(oWndParent == NIL, 0, Len(oWndParent:aControls))
 
    ::aStyle := aStyles
    ::title := cText
-   ::tcolor := Iif(color == NIL, 0, color)
+   ::tcolor := IIf(color == NIL, 0, color)
    IF bColor != NIL
       ::bcolor := bcolor
       ::brush := HBrush():Add( bcolor )
@@ -92,9 +92,9 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
          ::oBitmap := bmp
       ELSE
          // otherwise load from file or resource container
-         ::oBitmap := Iif(( lResour != NIL .AND. lResour ) .OR. HB_ISNUMERIC(bmp), ;
+         ::oBitmap := IIf(( lResour != NIL .AND. lResour ) .OR. HB_ISNUMERIC(bmp), ;
             HBitmap():AddResource( bmp ), ;
-            HBitmap():AddFile( Iif(::cPath != NIL, ::cPath + bmp, bmp) ))
+            HBitmap():AddFile( IIf(::cPath != NIL, ::cPath + bmp, bmp) ))
       ENDIF
       IF ::oBitmap != NIL .AND. lTr != NIL .AND. lTr
          ::lTransp := .T.
@@ -105,7 +105,7 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
    ::yb := yb
    ::widthb := widthb
    ::heightb := heightb
-   ::trColor := Iif(trColor != NIL, trColor, 16777215)
+   ::trColor := IIf(trColor != NIL, trColor, 16777215)
 
    ::Activate()
 
@@ -189,7 +189,7 @@ METHOD HOwnButton:Paint()
 
    IF !Empty(::aStyle)
       n := Len(::aStyle)
-      n := Iif(::state == OBTN_MOUSOVER, Iif(n > 2, 3, 1), Iif(::state == OBTN_PRESSED, Iif(n > 1, 2, 1), 1))
+      n := IIf(::state == OBTN_MOUSOVER, IIf(n > 2, 3, 1), IIf(::state == OBTN_PRESSED, IIf(n > 1, 2, 1), 1))
       ::aStyle[n]:Draw(hDC, 0, 0, aCoors[3], aCoors[4])
 
    ELSEIF ::lFlat
@@ -230,8 +230,8 @@ METHOD HOwnButton:Paint()
       // hwg_WriteLog("aCoors[3]=" + STR(aCoors[3]) + CHR(10) + "aCoors[1]=" + STR(aCoors[1]) )
       // hwg_WriteLog("::widthb=" + STR(::widthb) )
           
-      x1 := Iif(::xb != NIL .AND. ::xb != 0, ::xb, Round((aCoors[3] - aCoors[1] - nwidthb) / 2, 0))
-      y1 := Iif(::yb != NIL .AND. ::yb != 0, ::yb, Round((aCoors[4] - aCoors[2] - nwidthb) / 2, 0))
+      x1 := IIf(::xb != NIL .AND. ::xb != 0, ::xb, Round((aCoors[3] - aCoors[1] - nwidthb) / 2, 0))
+      y1 := IIf(::yb != NIL .AND. ::yb != 0, ::yb, Round((aCoors[4] - aCoors[2] - nwidthb) / 2, 0))
       IF ::lEnabled
          IF ::lTransp
             hwg_Drawtransparentbitmap(hDC, ::oBitmap:handle, x1, y1, ::trColor)
@@ -255,12 +255,12 @@ METHOD HOwnButton:Paint()
       ELSE
          hwg_Settextcolor(hDC, 0)
       ENDIF
-      x1 := Iif(::xt != NIL .AND. ::xt != 0, ::xt, aCoors[1] + 2)
-      y1 := Iif(::yt != NIL .AND. ::yt != 0, ::yt, Round((aCoors[4] - aCoors[2] - aMetr[1]) / 2, 0))
-      x2 := Iif(::widtht != NIL .AND. ::widtht != 0, ::xt + ::widtht - 1, aCoors[3] - 2)
-      y2 := Iif(::heightt != NIL .AND. ::heightt != 0, ::yt + ::heightt - 1, y1 + aMetr[1])
+      x1 := IIf(::xt != NIL .AND. ::xt != 0, ::xt, aCoors[1] + 2)
+      y1 := IIf(::yt != NIL .AND. ::yt != 0, ::yt, Round((aCoors[4] - aCoors[2] - aMetr[1]) / 2, 0))
+      x2 := IIf(::widtht != NIL .AND. ::widtht != 0, ::xt + ::widtht - 1, aCoors[3] - 2)
+      y2 := IIf(::heightt != NIL .AND. ::heightt != 0, ::yt + ::heightt - 1, y1 + aMetr[1])
       // hwg_Settransparentmode(hDC, .T.)
-      hwg_Drawtext(hDC, ::title, x1, y1, x2, y2, Iif(::xt != NIL .AND. ::xt != 0, DT_LEFT, DT_CENTER))
+      hwg_Drawtext(hDC, ::title, x1, y1, x2, y2, IIf(::xt != NIL .AND. ::xt != 0, DT_LEFT, DT_CENTER))
       // hwg_Settransparentmode(hDC, .F.)
    ENDIF
    hwg_Releasedc(::handle, hDC)

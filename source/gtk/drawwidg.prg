@@ -209,7 +209,7 @@ METHOD HBitmap:AddStandard( cId, nSize )
    LOCAL aBmpSize
    LOCAL cName
 
-   cName := cId + Iif(nSize==NIL, "", Str(nSize,1))
+   cName := cId + IIf(nSize==NIL, "", Str(nSize,1))
    FOR EACH i IN ::aBitmaps
       IF i:name == cName
          i:nCounter ++
@@ -239,7 +239,7 @@ METHOD HBitmap:AddWindow( oWnd, x1, y1, width, height )
    IF x1 == NIL .OR. y1 == NIL
       x1 := 0; y1 := 0; width := oWnd:nWidth - 1; height := oWnd:nHeight - 1
    ENDIF
-   ::handle := hwg_Window2Bitmap( Iif(Empty(handle),oWnd:handle,handle),x1,y1,width,height )
+   ::handle := hwg_Window2Bitmap( IIf(Empty(handle),oWnd:handle,handle),x1,y1,width,height )
    ::name := LTrim(hb_valToStr(oWnd:handle))
    aBmpSize := hwg_Getbitmapsize(::handle)
    ::nWidth := aBmpSize[1]

@@ -35,8 +35,8 @@ METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit,
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor)
 
-   ::lTransp := Iif(lTransp = NIL, .F. , lTransp)
-   ::trcolor := Iif(trcolor = NIL, 16777215, trcolor)
+   ::lTransp := IIf(lTransp = NIL, .F. , lTransp)
+   ::trcolor := IIf(trcolor = NIL, 16777215, trcolor)
    ::nBorder := 0
    ::tColor := 0
 
@@ -44,9 +44,9 @@ METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit,
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := Iif(lRes .OR. HB_ISNUMERIC(Image),     ;
+      ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image),     ;
          HBitmap():AddResource( Image ), ;
-         iif(HB_ISCHAR(Image),     ;
+         IIf(HB_ISCHAR(Image),     ;
          HBitmap():AddFile( Image ), Image))
       IF !Empty(::oImage)
          IF nWidth == NIL .OR. nHeight == NIL
@@ -120,7 +120,7 @@ METHOD HSayBmp:ReplaceBitmap( Image, lRes )
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := iif(lRes .OR. HB_ISNUMERIC(Image), HBitmap():AddResource(Image), iif(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
+      ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image), HBitmap():AddResource(Image), IIf(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
    ENDIF
 
    RETURN NIL

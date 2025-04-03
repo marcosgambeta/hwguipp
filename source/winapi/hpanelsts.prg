@@ -24,7 +24,7 @@ ENDCLASS
 
 METHOD HPanelStS:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oStyle, aParts)
 
-   oWndParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   oWndParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
    IF bColor == NIL
       bColor := 0xeeeeee
    ENDIF
@@ -39,7 +39,7 @@ METHOD HPanelStS:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oSt
       oWndParent:nWidth, nHeight, bInit, {|o, w, h|HB_SYMBOL_UNUSED(w), o:Move(0, h - o:nHeight)}, bPaint, bcolor)
    ::Anchor := ANCHOR_LEFTABS+ANCHOR_RIGHTABS
 
-   ::oFont := Iif(oFont == NIL, ::oParent:oFont, oFont)
+   ::oFont := IIf(oFont == NIL, ::oParent:oFont, oFont)
    ::oStyle := oStyle
    IF !Empty(aParts)
       ::aParts := aParts
@@ -53,7 +53,7 @@ RETURN Self
 
 METHOD HPanelStS:Write(cText, nPart, lRedraw)
 
-   ::aText[Iif(nPart==NIL, 1, nPart)] := cText
+   ::aText[IIf(nPart==NIL, 1, nPart)] := cText
    IF !HB_ISLOGICAL(lRedraw) .OR. lRedraw
       hwg_Invalidaterect(::handle, 0)
    ENDIF
@@ -74,7 +74,7 @@ METHOD HPanelStS:PaintText(hDC)
    hwg_Settransparentmode(hDC, .T.)
    oldTColor := hwg_Settextcolor(hDC, ::tcolor)
    FOR i := 1 TO Len(::aParts)
-      x1 := Iif(i == 1, 4, x2 + 4)
+      x1 := IIf(i == 1, 4, x2 + 4)
       IF ::aParts[i] == 0
          x2 := x1 + Int(nWidth / (Len(::aParts) - i + 1))
       ELSE

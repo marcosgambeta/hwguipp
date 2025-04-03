@@ -48,7 +48,7 @@ METHOD HXMLNode:New(cTitle, type, aAttr, cValue)
    IF aAttr != NIL
       ::aAttr := aAttr
    ENDIF
-   ::type := Iif(type != NIL, type, HBXML_TYPE_TAG)
+   ::type := IIf(type != NIL, type, HBXML_TYPE_TAG)
    IF cValue != NIL
       ::Add(cValue)
    ENDIF
@@ -174,7 +174,7 @@ METHOD HXMLNode:Save(handle, level)
    m->hxml_newline := .T.
    IF handle >= 0
       IF ::type == HBXML_TYPE_TAG
-         FWrite(handle, Iif(lNewLine, Space(level * 2), "") + "</" + ::title + ">" + s_cNewLine)
+         FWrite(handle, IIf(lNewLine, Space(level * 2), "") + "</" + ::title + ">" + s_cNewLine)
       ELSEIF ::type == HBXML_TYPE_CDATA
          FWrite(handle, "]]>" + s_cNewLine)
       ELSEIF ::type == HBXML_TYPE_COMMENT
@@ -182,7 +182,7 @@ METHOD HXMLNode:Save(handle, level)
       ENDIF
    ELSE
       IF ::type == HBXML_TYPE_TAG
-         s += Iif(lNewLine, Space(level * 2), "") + "</" + ::title + ">" + s_cNewLine
+         s += IIf(lNewLine, Space(level * 2), "") + "</" + ::title + ">" + s_cNewLine
       ELSEIF ::type == HBXML_TYPE_CDATA
          s += "]]>" + s_cNewLine
       ELSEIF ::type == HBXML_TYPE_COMMENT
@@ -262,7 +262,7 @@ METHOD HXMLDoc:Read(fname, buffer)
       Return NIL
    ENDIF
 
-RETURN Iif(::nLastErr == 0, Self, NIL)
+RETURN IIf(::nLastErr == 0, Self, NIL)
 
 METHOD HXMLDoc:Save(fname, lNoHeader)
 

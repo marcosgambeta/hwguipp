@@ -235,15 +235,15 @@ METHOD HWinPrn:SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineM
 
          oFont := ::oPrinter:AddFont( cFont, ::nStdHeight * ::oPrinter:nVRes )
 
-         nWidth := ::oPrinter:GetTextWidth(Replicate('A', Iif(::nFormType == 8, 113, 80)), oFont) / ::oPrinter:nHRes
+         nWidth := ::oPrinter:GetTextWidth(Replicate('A', IIf(::nFormType == 8, 113, 80)), oFont) / ::oPrinter:nHRes
          IF nWidth > nPWidth + 2 .OR. nWidth < nPWidth - 15
             ::nStdHeight := ::nStdHeight * ( nPWidth / nWidth )
          ENDIF
          oFont:Release()
       ENDIF
 
-      nStdLineW := Iif(::nFormType == 8, Iif(::oPrinter:nOrient == 2, 160, 113), Iif(::oPrinter:nOrient == 2, 113, 80))
-      nStdHeight := Iif(!Empty(::nLineMax), ::nStdHeight / (::nLineMax / nStdLineW), ::nStdHeight)
+      nStdLineW := IIf(::nFormType == 8, IIf(::oPrinter:nOrient == 2, 160, 113), IIf(::oPrinter:nOrient == 2, 113, 80))
+      nStdHeight := IIf(!Empty(::nLineMax), ::nStdHeight / (::nLineMax / nStdLineW), ::nStdHeight)
 
       IF ::lElite
          nMode ++
@@ -375,7 +375,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
      IF !hb_fileexists( xBitmap )
       // xBitmap is a bitmap object
       bfromobj := .T.
-      cImageName := IIF(EMPTY (cBitmapName), "" , cBitmapName)
+      cImageName := IIf(EMPTY (cBitmapName), "" , cBitmapName)
       // Store into a temporary file
       /* DF7BE:
         Bug in GTK: gdk_pixbuf_save(pixbuff,handle,"bmp",&error,cFile,contents_encode,NULL)
@@ -394,7 +394,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
         RETURN NIL
       ENDIF
       aBmpSize := hwg_Getbitmapsize( hBitmap )
-      cImageName := IIF(EMPTY (cBitmapName), xBitmap, cBitmapName)
+      cImageName := IIf(EMPTY (cBitmapName), xBitmap, cBitmapName)
       // FERASE(cTmp)
      ELSE
       // from file
@@ -403,7 +403,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
       IF hb_ValToStr(hBitmap) == "0x00000000"
         RETURN NIL
       ENDIF
-      cImageName := IIF(EMPTY (cBitmapName), xBitmap, cBitmapName)
+      cImageName := IIf(EMPTY (cBitmapName), xBitmap, cBitmapName)
       //  aBmpSize[1] = width(x) aBmpSize[2] = height(y)
       aBmpSize := hwg_Getbitmapsize( hBitmap )
    ENDIF

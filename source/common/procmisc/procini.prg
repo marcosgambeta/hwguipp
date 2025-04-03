@@ -63,7 +63,7 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
    prblo := .T.
    IF iniDbf
       USE (fname) NEW
-      han := Iif(NetErr(), -1, 0)
+      han := IIf(NetErr(), -1, 0)
    ELSE
       han := FOPEN(fname, FO_READ + FO_SHARED)
    ENDIF
@@ -71,7 +71,7 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
       strfull := ""
       DO WHILE .T.
          kolstr ++
-         stroka := Iif(iniDbf, RDSTRDBF(), RDSTR(han, @strbuf, @poz, STR_BUFLEN))
+         stroka := IIf(iniDbf, RDSTRDBF(), RDSTR(han, @strbuf, @poz, STR_BUFLEN))
          IF LEN(stroka) = 0
             EXIT
          ENDIF
@@ -103,8 +103,8 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
          ELSEIF ( prblo .OR. lWinIni ) .AND. Left(stroka, 1) != ";"
             poz1 := AT("=", stroka)
             IF poz1 != 0
-               lTruncAr := IIF(SUBSTR(stroka, poz1 - 1, 1) == '+', .F., .T.)
-               vname := RTRIM(SUBSTR(stroka, 1, IIF(lTruncAr, poz1 - 1, poz1 - 2)))
+               lTruncAr := IIf(SUBSTR(stroka, poz1 - 1, 1) == '+', .F., .T.)
+               vname := RTRIM(SUBSTR(stroka, 1, IIf(lTruncAr, poz1 - 1, poz1 - 2)))
                stroka := ALLTRIM(SUBSTR(stroka, poz1 + 1))
                IF lWinIni
                   AADD(prm1[LEN(prm1), 2], {UPPER(vname), stroka})
@@ -179,7 +179,7 @@ LOCAL poz1, len1, strv, newname
             EXIT
          ELSE
             poz1 := FIND_Z( stroka )
-            strv := LTRIM(SUBSTR(stroka, 1, IIF(poz1 = 0, 9999, poz1 - 1)))
+            strv := LTRIM(SUBSTR(stroka, 1, IIf(poz1 = 0, 9999, poz1 - 1)))
             IF ASC( strv ) = 123 .AND. SUBSTR(strv, 2, 1) != "|"
                AADD(&vname, {})
                len1 := LEN(&vname)
@@ -200,6 +200,6 @@ FIELD INICOND, INITEXT
    IF Eof()
       Return ""
    ENDIF
-   stroka := IIF(Empty(INICOND) .OR. &( INICOND ), Trim(INITEXT), "")
+   stroka := IIf(Empty(INICOND) .OR. &( INICOND ), Trim(INITEXT), "")
    SKIP
 RETURN stroka

@@ -27,15 +27,15 @@ ENDCLASS
 METHOD HRadioButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, ;
       bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, lTransp)
 
-   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
-   ::id := iif(nId == NIL, ::NewId(), nId)
+   ::oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::id := IIf(nId == NIL, ::NewId(), nId)
    ::title := cCaption
    ::oGroup := HRadioGroup():oGroupCurrent
    IF !Empty(lTransp)
       ::extStyle := WS_EX_TRANSPARENT
    ENDIF
-   ::style := hb_bitor(iif(nStyle == NIL, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
-      iif(::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
+   ::style := hb_bitor(IIf(nStyle == NIL, 0, nStyle), BS_AUTORADIOBUTTON + WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
+      IIf(::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
    ::oFont := oFont
    ::nX := nX
    ::nY := nY
@@ -83,7 +83,7 @@ METHOD HRadioButton:Activate()
 /* Parameter lInit was removed a long time ago */
 METHOD HRadioButton:Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor)
 
-   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id := nId
    ::oGroup := HRadioGroup():oGroupCurrent
    ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
@@ -119,7 +119,7 @@ METHOD HRadioButton:Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClic
 
 METHOD HRadioButton:Value(lValue)
    IF lValue != NIL
-      hwg_Sendmessage(::handle, BM_SETCHECK, Iif(lValue, BST_CHECKED, BST_UNCHECKED), 0)
+      hwg_Sendmessage(::handle, BM_SETCHECK, IIf(lValue, BST_CHECKED, BST_UNCHECKED), 0)
    ENDIF
    RETURN (hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1)
 

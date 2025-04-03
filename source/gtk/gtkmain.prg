@@ -59,7 +59,7 @@ FUNCTION hwg_ColorN2C( nColor )
    FOR i := 0 to 2
       n1 := hb_BitAnd( hb_BitShift( nColor,-i*8-4 ), 15 )
       n2 := hb_BitAnd( hb_BitShift( nColor,-i*8 ), 15 )
-      s += Chr(Iif(n1 < 10, n1 + 48, n1 + 55)) + Chr(Iif(n2 < 10, n2 + 48, n2 + 55))
+      s += Chr(IIf(n1 < 10, n1 + 48, n1 + 55)) + Chr(IIf(n2 < 10, n2 + 48, n2 + 55))
    NEXT
 
    RETURN s
@@ -80,10 +80,10 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes )
    IF Empty(cRes)
       cRes := ""
    ENDIF
-   nStyle := iif(nStyle == NIL, 0, nStyle)
-   nX := iif(nX == NIL, 210, nX)
-   nY := iif(nY == NIL, 10, nY)
-   nDlgStyle := iif(nDlgStyle == NIL, 0, nDlgStyle)
+   nStyle := IIf(nStyle == NIL, 0, nStyle)
+   nX := IIf(nX == NIL, 210, nX)
+   nY := IIf(nY == NIL, 10, nY)
+   nDlgStyle := IIf(nDlgStyle == NIL, 0, nDlgStyle)
 
    INIT DIALOG oModDlg TITLE cTitle AT nX, nY SIZE 300, 140 ;
       FONT oFont CLIPPER STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + nDlgStyle
@@ -197,7 +197,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
    ENDIF
 
    IF cOk != NIL
-      x1 := Int( width/2 ) - iif(cCancel != NIL, 90, 40)
+      x1 := Int( width/2 ) - IIf(cCancel != NIL, 90, 40)
       @ x1, height - 36 BUTTON cOk SIZE 80, 30 ;
             ON CLICK { ||nChoice := oBrw:nCurrent, hwg_EndDialog( oDlg:handle ) } ;
             ON SIZE ANCHOR_BOTTOMABS

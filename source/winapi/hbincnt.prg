@@ -76,7 +76,7 @@ METHOD HBinC:Create(cName, n)
    ::nVerHigh := VER_HIGH
    ::nVerLow := VER_LOW
    ::nItems := ::nCntLen := ::nPassLen := 0
-   ::nCntBlocks := Iif(n <= 18, 1, 2 + Int((n - 18) / 21))
+   ::nCntBlocks := IIf(n <= 18, 1, 2 + Int((n - 18) / 21))
    ::nFileLen := ::nCntBlocks*2048
    ::aObjects := {}
 
@@ -94,7 +94,7 @@ METHOD HBinC:Open(cName, lWr)
 
    ::cName := cName
    ::lWriteAble := !Empty(lWr)
-   IF (::handle := FOpen(cName, Iif(::lWriteAble, FO_READWRITE, FO_READ))) == -1
+   IF (::handle := FOpen(cName, IIf(::lWriteAble, FO_READWRITE, FO_READ))) == -1
       RETURN NIL
    ENDIF
 
@@ -158,7 +158,7 @@ METHOD HBinC:Add(cObjName, cType, cVal)
 
    nAddress := ::nFileLen
    nSize := Len(cVal)
-   nAddr := Iif(Empty(::aObjects), 0, ::aObjects[Len(::aObjects),OBJ_ADDR] + Len(::aObjects[Len(::aObjects),OBJ_NAME]) + CNT_FIX_LEN)
+   nAddr := IIf(Empty(::aObjects), 0, ::aObjects[Len(::aObjects),OBJ_ADDR] + Len(::aObjects[Len(::aObjects),OBJ_NAME]) + CNT_FIX_LEN)
    Aadd(::aObjects, {cObjName, cType, nAddress, nSize, nAddr})
 
    IF HEAD_LEN + ::nPassLen + ::nCntLen + Len(cObjName) + CNT_FIX_LEN > ::nCntBlocks*2048
@@ -220,7 +220,7 @@ METHOD HBinC:Pack()
       RETURN .F.
    ENDIF
 
-   Aeval(::aObjects, {|a| Iif(!Empty(a[OBJ_NAME]), (nItems++,nCntLen+=Len(a[OBJ_NAME])+CNT_FIX_LEN),.T.) })
+   Aeval(::aObjects, {|a| IIf(!Empty(a[OBJ_NAME]), (nItems++,nCntLen+=Len(a[OBJ_NAME])+CNT_FIX_LEN),.T.) })
    IF nItems == ::nItems
       RETURN .T.
    ENDIF

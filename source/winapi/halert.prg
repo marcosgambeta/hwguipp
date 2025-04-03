@@ -334,7 +334,7 @@ METHOD HAlert:Alert(cMessage, acOptions)
    ::oIcon := HIcon():AddResource(::Icon, NIL, NIL, NIL, .T.)
 
    // 1.7 seems to give the closest to MessageBox results
-   nDialogHeight := nFontHeight + max(nIconHeight, nMessageHeight) + Iif(nOptions > 0, nFontHeight + 1.7 * nFontHeight, 0) + nFontHeight
+   nDialogHeight := nFontHeight + max(nIconHeight, nMessageHeight) + IIf(nOptions > 0, nFontHeight + 1.7 * nFontHeight, 0) + nFontHeight
    nDialogWidth := 2 * nFontWidth + max(nIconWidth + 3 * nFontWidth + nMessageWidth, nOptions * nButtonWidth + (nOptions - 1) * nFontWidth) + nFontWidth
 
    // Buttons smaller than icon and message?
@@ -345,15 +345,15 @@ METHOD HAlert:Alert(cMessage, acOptions)
    ENDIF
 
    // Message shorter in y direction than icon?
-   nMessageTop := nFontHeight + Iif(nMessageHeight < nIconHeight, (nIconHeight - nMessageHeight) / 2, 0)
+   nMessageTop := nFontHeight + IIf(nMessageHeight < nIconHeight, (nIconHeight - nMessageHeight) / 2, 0)
 
    INIT DIALOG ::oDlg TITLE ::Title ;
       AT 0, 0 SIZE nDialogWidth, nDialogHeight ;
-      ICON Iif(::lTitleIcon, ::oIcon, NIL) ;        // Visible in task switch (alt-tab) & on title bar
+      ICON IIf(::lTitleIcon, ::oIcon, NIL) ;        // Visible in task switch (alt-tab) & on title bar
       STYLE ALERTSTYLE ;
       FONT ::oFont ;
-      ON INIT {|oWin|Hwg_Alert_CenterWindow(oWin:handle), Iif(!::lCloseButton, hwg_Alert_DisableCloseButton(oWin:handle), NIL), Iif(::Time > 0, ::SetupTimer(), NIL)} ;
-      ON EXIT {|oWin|HB_SYMBOL_UNUSED(oWin), Iif(!::Modal, ::ReleaseNonModalAlert(.F.), .T.)}
+      ON INIT {|oWin|Hwg_Alert_CenterWindow(oWin:handle), IIf(!::lCloseButton, hwg_Alert_DisableCloseButton(oWin:handle), NIL), IIf(::Time > 0, ::SetupTimer(), NIL)} ;
+      ON EXIT {|oWin|HB_SYMBOL_UNUSED(oWin), IIf(!::Modal, ::ReleaseNonModalAlert(.F.), .T.)}
 
    @ 2 * nFontWidth, nFontHeight ICON ::oIcon
 
@@ -362,12 +362,12 @@ METHOD HAlert:Alert(cMessage, acOptions)
    IF nOptions > 0
       @ nButtonLeft, nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
          BUTTON acOptions[1] ID 100 SIZE nButtonWidth, 1.7 * nFontHeight ;
-         ON CLICK {|oCtl|HB_SYMBOL_UNUSED(oCtl), ::nChoice := 1, Iif(::OptionActions != NIL, eval(::OptionActions[1]), NIL), Hwg_EndDialog(::oDlg:handle)} ;
+         ON CLICK {|oCtl|HB_SYMBOL_UNUSED(oCtl), ::nChoice := 1, IIf(::OptionActions != NIL, eval(::OptionActions[1]), NIL), Hwg_EndDialog(::oDlg:handle)} ;
          STYLE WS_TABSTOP + BS_DEFPUSHBUTTON
       FOR i := 2 TO nOptions
          @ nButtonLeft + (i - 1) * (nButtonWidth + nFontWidth), nFontHeight + max(nIconHeight, nMessageHeight) + nFontHeight ;
             BUTTON acOptions[i] ID i + 100 SIZE nButtonWidth, 1.7 * nFontHeight ;
-            ON CLICK {|oCtl|::nChoice := oCtl:id - 100, Iif(::OptionActions != NIL, eval(::OptionActions[oCtl:id - 100]), NIL), Hwg_EndDialog(::oDlg:handle)} ;
+            ON CLICK {|oCtl|::nChoice := oCtl:id - 100, IIf(::OptionActions != NIL, eval(::OptionActions[oCtl:id - 100]), NIL), Hwg_EndDialog(::oDlg:handle)} ;
             STYLE WS_TABSTOP
       NEXT
    ENDIF
