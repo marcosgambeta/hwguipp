@@ -12,9 +12,9 @@
 
 #define WM_IME_CHAR      646
 
-STATIC lColorinFocus := .F.
-STATIC tColorinFocus := 0x000000 // 0
-STATIC bColorinFocus := 0xffffcc // 16777164
+STATIC s_lColorinFocus := .F.
+STATIC s_tColorinFocus := 0x000000 // 0
+STATIC s_bColorinFocus := 0xffffcc // 16777164
 
 CLASS HEdit INHERIT HControl
 
@@ -371,19 +371,19 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
       EXIT
    CASE WM_SETFOCUS
       oParent := hwg_getParentForm(Self)
-      IF lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
+      IF s_lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
          ::aColorOld[1] := ::tcolor
          ::aColorOld[2] := ::bcolor
          IF hb_IsBlock(::bColorBlock)
             Eval(::bColorBlock, Self)
          ELSE
-            ::Setcolor(Iif(oParent:tColorinFocus >= 0, oParent:tColorinFocus, tColorinFocus), Iif(oParent:bColorinFocus >= 0, oParent:bColorinFocus, bColorinFocus), .T.)
+            ::Setcolor(Iif(oParent:tColorinFocus >= 0, oParent:tColorinFocus, s_tColorinFocus), Iif(oParent:bColorinFocus >= 0, oParent:bColorinFocus, s_bColorinFocus), .T.)
          ENDIF
       ENDIF
       EXIT
    CASE WM_KILLFOCUS
       oParent := hwg_getParentForm(Self)
-      IF lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
+      IF s_lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
          //::tColor := ::aColorOld[1]
          //::bColor := ::aColorOld[2]
          ::Setcolor(::aColorOld[1], ::aColorOld[2], .T.)
@@ -1173,12 +1173,12 @@ FUNCTION hwg_SetColorinFocus(lDef, tColor, bColor)
          lDef:bColorinFocus := bColor
       ENDIF
    ELSEIF HB_ISLOGICAL(lDef)
-      lColorinFocus := lDef
+      s_lColorinFocus := lDef
       IF tColor != NIL
-         tColorinFocus := tColor
+         s_tColorinFocus := tColor
       ENDIF
       IF bColor != NIL
-         bColorinFocus := bColor
+         s_bColorinFocus := bColor
       ENDIF
    ENDIF
 

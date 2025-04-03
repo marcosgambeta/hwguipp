@@ -16,9 +16,9 @@
 #define DLGC_WANTCHARS    128      /* Want WM_CHAR messages            */
 #endif
 
-STATIC lColorinFocus := .F.
-STATIC tColorinFocus := 0
-STATIC bColorinFocus := 16777164
+STATIC s_lColorinFocus := .F.
+STATIC s_tColorinFocus := 0
+STATIC s_bColorinFocus := 16777164
 
 CLASS HEdit INHERIT HControl
 
@@ -122,17 +122,17 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
    IF msg == WM_SETFOCUS   // msg = 7
       oParent := hwg_getParentForm( Self )
 
-      // hwg_WriteLog("Edit: " + hwg_StrDebLog(lColorinFocus) + " " + ;
+      // hwg_WriteLog("Edit: " + hwg_StrDebLog(s_lColorinFocus) + " " + ;
       //   Str(oParent:tColorinFocus,10) + " " + Str(oParent:bColorinFocus,10) + " " + ;
       //   hwg_StrDebNIL(::bColorBlock) ) 
 
-      IF lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
+      IF s_lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
          ::aColorOld[1] := ::tcolor
          ::aColorOld[2] := ::bcolor
          IF hb_IsBlock(::bColorBlock)
             Eval(::bColorBlock, Self)
          ELSE
-            ::Setcolor(Iif(oParent:tColorinFocus >= 0, oParent:tColorinFocus, tColorinFocus), Iif(oParent:bColorinFocus >= 0, oParent:bColorinFocus, bColorinFocus), .T.)
+            ::Setcolor(Iif(oParent:tColorinFocus >= 0, oParent:tColorinFocus, s_tColorinFocus), Iif(oParent:bColorinFocus >= 0, oParent:bColorinFocus, s_bColorinFocus), .T.)
          ENDIF
       ENDIF
       IF ::lMouse
@@ -149,7 +149,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
       ENDIF
    ELSEIF msg == WM_KILLFOCUS
       oParent := hwg_getParentForm( Self )
-      IF lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
+      IF s_lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
          ::Setcolor(::aColorOld[1], ::aColorOld[2], .T.)
       ENDIF
       IF ::bSetGet == NIL
@@ -1015,12 +1015,12 @@ FUNCTION hwg_SetColorinFocus( lDef, tColor, bColor )
          lDef:bColorinFocus := bColor
       ENDIF
    ELSEIF HB_ISLOGICAL(lDef)
-      lColorinFocus := lDef
+      s_lColorinFocus := lDef
       IF tColor != NIL
-         tColorinFocus := tColor
+         s_tColorinFocus := tColor
       ENDIF
       IF bColor != NIL
-         bColorinFocus := bColor
+         s_bColorinFocus := bColor
       ENDIF
    ENDIF
 

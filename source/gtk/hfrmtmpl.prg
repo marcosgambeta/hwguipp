@@ -7,7 +7,7 @@
 //
 
 #ifndef G_CONSOLE_MODE
-STATIC aClass := { "label", "button", "checkbox",       ;
+STATIC s_aClass := { "label", "button", "checkbox",       ;
       "radiobutton", "editbox", "group", "radiogroup",  ;
       "bitmap", "icon", "richedit", "datepicker",       ;
       "updown", "combobox", "line", "toolbar",          ;
@@ -16,7 +16,7 @@ STATIC aClass := { "label", "button", "checkbox",       ;
       "page", "tree", "status", "link", "menu",         ;
       "animation"     ;
       }
-STATIC aCtrls := { ;
+STATIC s_aCtrls := { ;
       "HStatic():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,ctooltip,TextColor,BackColor,lTransp)", ;
       "HButton():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,onClick,ctooltip,TextColor,BackColor)",  ;
       "HCheckButton():New(oPrnt,nId,lInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,onClick,ctooltip,TextColor,BackColor,onGetFocus,lTransp,onLostFocus)", ;
@@ -55,8 +55,8 @@ STATIC aCtrls := { ;
 
 #define  CONTROL_FIRST_ID   34000
 
-STATIC aPenType := { "SOLID", "DASH", "DOT", "DASHDOT", "DASHDOTDOT" }
-STATIC aJustify := { "Left", "Center", "Right" }
+STATIC s_aPenType := { "SOLID", "DASH", "DOT", "DASHDOT", "DASHDOTDOT" }
+STATIC s_aJustify := { "Left", "Center", "Right" }
 
 #ifndef G_CONSOLE_MODE
 REQUEST HSTATIC, HBUTTON, HCHECKBUTTON, HRADIOBUTTON, HEDIT, HGROUP, HSAYBMP, HSAYICON
@@ -774,7 +774,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    LOCAL cType
    LOCAL cPName
    LOCAL cCtrlName
-   LOCAL nCtrl := Ascan( aClass, oCtrlTmpl:cClass )
+   LOCAL nCtrl := Ascan( s_aClass, oCtrlTmpl:cClass )
    LOCAL xInitValue
    LOCAL cInitName
    LOCAL cVarName
@@ -801,7 +801,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    ENDIF
 
    /* Declaring of variables, which are in the appropriate 'New()' function */
-   stroka := aCtrls[nCtrl]
+   stroka := s_aCtrls[nCtrl]
    IF ( i := At("New(", stroka) ) != 0
       i += 4
       DO WHILE .T.
@@ -1656,7 +1656,7 @@ METHOD HRepTmpl:PrintItem( oItem )
 
       IF oItem:lPen .AND. oItem:oPen == NIL
          IF ( xProperty := aGetSecond( oItem:aProp,"pentype" ) ) != NIL
-            nPenType := Ascan( aPenType, xProperty ) - 1
+            nPenType := Ascan( s_aPenType, xProperty ) - 1
          ELSE
             nPenType := 0
          ENDIF
@@ -1688,7 +1688,7 @@ METHOD HRepTmpl:PrintItem( oItem )
             IF ( xProperty := aGetSecond( oItem:aProp,"justify" ) ) == NIL
                nJustify := 0
             ELSE
-               nJustify := Ascan( aJustify, xProperty ) - 1
+               nJustify := Ascan( s_aJustify, xProperty ) - 1
             ENDIF
             IF oItem:obj == NIL
                IF ( xProperty := aGetSecond( oItem:aProp,"font" ) ) != NIL

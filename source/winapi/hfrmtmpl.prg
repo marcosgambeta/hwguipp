@@ -6,8 +6,8 @@
 // www - http://www.kresin.ru
 //
 
-STATIC nVertRes, nVertSize
-STATIC aClass := { "label", "button", "checkbox",       ;
+STATIC s_nVertRes, s_nVertSize
+STATIC s_aClass := { "label", "button", "checkbox",       ;
       "radiobutton", "editbox", "group", "radiogroup",  ;
       "bitmap", "icon", "richedit", "datepicker",       ;
       "updown", "combobox", "line", "toolbar",          ;
@@ -16,7 +16,7 @@ STATIC aClass := { "label", "button", "checkbox",       ;
       "page", "tree", "status", "link", "menu",         ;
       "animation"     ;
       }
-STATIC aCtrls := { ;
+STATIC s_aCtrls := { ;
       "HStatic():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,ctooltip,TextColor,BackColor,lTransp)", ;
       "HButton():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,onClick,ctooltip,TextColor,BackColor)",  ;
       "HCheckButton():New(oPrnt,nId,lInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,onClick,ctooltip,TextColor,BackColor,onGetFocus,lTransp,onLostFocus)", ;
@@ -54,8 +54,8 @@ STATIC aCtrls := { ;
 
 #define  CONTROL_FIRST_ID   34000
 
-STATIC aPenType := { "SOLID", "DASH", "DOT", "DASHDOT", "DASHDOTDOT" }
-STATIC aJustify := { "Left", "Center", "Right" }
+STATIC s_aPenType := { "SOLID", "DASH", "DOT", "DASHDOT", "DASHDOTDOT" }
+STATIC s_aJustify := { "Left", "Center", "Right" }
 
 REQUEST HSTATIC, HBUTTON, HCHECKBUTTON, HRADIOBUTTON, HEDIT, HGROUP, HSAYBMP, HSAYICON
 #ifndef __GTK__
@@ -770,7 +770,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    LOCAL cType
    LOCAL cPName
    LOCAL cCtrlName
-   LOCAL nCtrl := Ascan(aClass, oCtrlTmpl:cClass)
+   LOCAL nCtrl := Ascan(s_aClass, oCtrlTmpl:cClass)
    LOCAL xInitValue
    LOCAL cInitName
    LOCAL cVarName
@@ -798,7 +798,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    ENDIF
 
    /* Declaring of variables, which are in the appropriate 'New()' function */
-   stroka := aCtrls[nCtrl]
+   stroka := s_aCtrls[nCtrl]
    IF ( i := At("New(", stroka) ) != 0
       i += 4
       DO WHILE .T.
@@ -1015,10 +1015,10 @@ FUNCTION hwg_Font2XML(oFont)
    LOCAL aTMetr
 
    hDC := hwg_Getdc(hWnd := hwg_Getactivewindow())
-   IF Empty(nVertRes)
+   IF Empty(s_nVertRes)
       aMetr := hwg_Getdevicearea(hDC)
-      nVertRes := aMetr[2]
-      nVertSize := aMetr[4]
+      s_nVertRes := aMetr[2]
+      s_nVertSize := aMetr[4]
    ENDIF
    hwg_Selectobject(hDC, oFont:handle)
    aTMetr := hwg_Gettextmetric(hDC)
@@ -1026,7 +1026,7 @@ FUNCTION hwg_Font2XML(oFont)
 
    AAdd(aAttr, {"name", oFont:name})
    AAdd(aAttr, {"width", LTrim(Str(oFont:width, 5))})
-   AAdd(aAttr, {"height", LTrim(Str(oFont:height, 5)) + "M" + LTrim(Str(Round((aTMetr[1] - aTMetr[5]) * nVertSize / nVertRes, 2), 5, 2))})
+   AAdd(aAttr, {"height", LTrim(Str(oFont:height, 5)) + "M" + LTrim(Str(Round((aTMetr[1] - aTMetr[5]) * s_nVertSize / s_nVertRes, 2), 5, 2))})
    IF oFont:weight != 0
       AAdd(aAttr, {"weight", LTrim(Str(oFont:weight, 5))})
    ENDIF
@@ -1060,15 +1060,15 @@ FUNCTION hwg_hfrm_FontFromXML(oXmlNode, lReport)
    ENDIF
    IF height != NIL
       IF !Empty(lReport) .AND. ( i := At("M", height) ) != 0
-         IF Empty(nVertRes)
+         IF Empty(s_nVertRes)
             hDC := hwg_Getdc(hWnd := hwg_Getactivewindow())
             aMetr := hwg_Getdevicearea(hDC)
-            nVertRes := aMetr[2]
-            nVertSize := aMetr[4]
+            s_nVertRes := aMetr[2]
+            s_nVertSize := aMetr[4]
             hwg_Releasedc(hWnd, hDC)
          ENDIF
-         // hwg_writelog(str(Val(height)) + "/" + Str(Round(Val(Substr(height,i+1)) * nVertRes / nVertSize, 0)))
-         height := - Round(Val(SubStr(height, i + 1)) * nVertRes / nVertSize, 0)
+         // hwg_writelog(str(Val(height)) + "/" + Str(Round(Val(Substr(height,i+1)) * s_nVertRes / s_nVertSize, 0)))
+         height := - Round(Val(SubStr(height, i + 1)) * s_nVertRes / s_nVertSize, 0)
       ELSE
          height := Val(height)
       ENDIF
@@ -1659,7 +1659,7 @@ METHOD HRepTmpl:PrintItem(oItem)
 
       IF oItem:lPen .AND. oItem:oPen == NIL
          IF ( xProperty := aGetSecond(oItem:aProp, "pentype") ) != NIL
-            nPenType := Ascan(aPenType, xProperty) - 1
+            nPenType := Ascan(s_aPenType, xProperty) - 1
          ELSE
             nPenType := 0
          ENDIF
@@ -1689,7 +1689,7 @@ METHOD HRepTmpl:PrintItem(oItem)
             IF ( xProperty := aGetSecond(oItem:aProp, "justify") ) == NIL
                nJustify := 0
             ELSE
-               nJustify := Ascan(aJustify, xProperty) - 1
+               nJustify := Ascan(s_aJustify, xProperty) - 1
             ENDIF
             IF oItem:obj == NIL
                IF ( xProperty := aGetSecond(oItem:aProp, "font") ) != NIL

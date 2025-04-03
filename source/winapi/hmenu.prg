@@ -14,7 +14,7 @@
 #define  FLAG_DISABLED   1
 #define  FLAG_CHECK      2
 
-STATIC _aMenuDef, _oWnd, _aAccel, _nLevel, _Id, _oMenu, _oBitmap
+STATIC s__aMenuDef, s__oWnd, s__aAccel, s__nLevel, s__Id, s__oMenu, s__oBitmap
 
 CLASS HMenu INHERIT HObject
    DATA handle
@@ -178,9 +178,9 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
    ENDDO
    IF hWnd != NIL .AND. oWnd != NIL
       Hwg_SetMenu(oWnd, aMenu)
-   ELSEIF _oMenu != NIL
-      _oMenu:handle := aMenu[5]
-      _oMenu:aMenu := aMenu
+   ELSEIF s__oMenu != NIL
+      s__oMenu:handle := aMenu[5]
+      s__oMenu:aMenu := aMenu
    ENDIF
    RETURN NIL
 
@@ -190,46 +190,46 @@ FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle)
    LOCAL i
    
    IF oWnd != NIL
-      _aMenuDef := {}
-      _aAccel := {}
-      _oBitmap := {}
-      _oWnd := oWnd
-      _oMenu := NIL
-      _nLevel := 0
-      _Id := IIf(nId == NIL, MENU_FIRST_ID, nId)
+      s__aMenuDef := {}
+      s__aAccel := {}
+      s__oBitmap := {}
+      s__oWnd := oWnd
+      s__oMenu := NIL
+      s__nLevel := 0
+      s__Id := IIf(nId == NIL, MENU_FIRST_ID, nId)
    ELSE
-      nId := IIf(nId == NIL, ++_Id, nId)
-      aMenu := _aMenuDef
-      FOR i := 1 TO _nLevel
+      nId := IIf(nId == NIL, ++s__Id, nId)
+      aMenu := s__aMenuDef
+      FOR i := 1 TO s__nLevel
          aMenu := ATail(aMenu)[1]
       NEXT
-      _nLevel++
+      s__nLevel++
       AAdd(aMenu, {{}, cTitle, nId, 0})
    ENDIF
    RETURN .T.
 
 FUNCTION Hwg_ContextMenu()
-   _aMenuDef := {}
-   _oBitmap := {}
-   _oWnd := NIL
-   _nLevel := 0
-   _Id := CONTEXTMENU_FIRST_ID
-   _oMenu := HMenu():New()
-   RETURN _oMenu
+   s__aMenuDef := {}
+   s__oBitmap := {}
+   s__oWnd := NIL
+   s__nLevel := 0
+   s__Id := CONTEXTMENU_FIRST_ID
+   s__oMenu := HMenu():New()
+   RETURN s__oMenu
 
 FUNCTION Hwg_EndMenu()
-   IF _nLevel > 0
-      _nLevel--
+   IF s__nLevel > 0
+      s__nLevel--
    ELSE
-      hwg_BuildMenu(AClone(_aMenuDef), IIf(_oWnd != NIL, _oWnd:handle, NIL), _oWnd, NIL, IIf(_oWnd != NIL, .F., .T.))
-      IF _oWnd != NIL .AND. _aAccel != NIL .AND. !Empty(_aAccel)
-         _oWnd:hAccel := hwg_Createacceleratortable(_aAccel)
+      hwg_BuildMenu(AClone(s__aMenuDef), IIf(s__oWnd != NIL, s__oWnd:handle, NIL), s__oWnd, NIL, IIf(s__oWnd != NIL, .F., .T.))
+      IF s__oWnd != NIL .AND. s__aAccel != NIL .AND. !Empty(s__aAccel)
+         s__oWnd:hAccel := hwg_Createacceleratortable(s__aAccel)
       ENDIF
-      _aMenuDef := NIL
-      _oBitmap := NIL
-      _aAccel := NIL
-      _oWnd := NIL
-      _oMenu := NIL
+      s__aMenuDef := NIL
+      s__oBitmap := NIL
+      s__aAccel := NIL
+      s__oWnd := NIL
+      s__oMenu := NIL
    ENDIF
    RETURN .T.
 
@@ -244,14 +244,14 @@ FUNCTION Hwg_DefineMenuItem(cItem, nId, bItem, lDisabled, accFlag, accKey, lBitm
    lDisabled := IIf(lDisabled == NIL, .F., lDisabled)
    nFlag := hb_bitor(IIf(lCheck, FLAG_CHECK, 0), IIf(lDisabled, FLAG_DISABLED, 0))
 
-   aMenu := _aMenuDef
-   FOR i := 1 TO _nLevel
+   aMenu := s__aMenuDef
+   FOR i := 1 TO s__nLevel
       aMenu := ATail(aMenu)[1]
    NEXT
    IF !Empty(cItem)
       cItem := StrTran(cItem, "\t", Chr(9))
    ENDIF
-   nId := IIf(nId == NIL .AND. cItem != NIL, ++_Id, nId)
+   nId := IIf(nId == NIL .AND. cItem != NIL, ++s__Id, nId)
    AAdd(aMenu, {bItem, cItem, nId, nFlag})
    IF lBitmap != NIL .OR. !Empty(lBitmap)
       IF lResource == NIL
@@ -262,12 +262,12 @@ FUNCTION Hwg_DefineMenuItem(cItem, nId, bItem, lDisabled, accFlag, accKey, lBitm
       ELSE
          oBmp := HBitmap():AddResource(lBitmap)
       ENDIF
-      AAdd(_oBitmap, {.T., oBmp:Handle, cItem, nId})
+      AAdd(s__oBitmap, {.T., oBmp:Handle, cItem, nId})
    ELSE
-      AAdd(_oBitmap, {.F., "", cItem, nId})
+      AAdd(s__oBitmap, {.F., "", cItem, nId})
    ENDIF
    IF accFlag != NIL .AND. accKey != NIL
-      AAdd(_aAccel, {accFlag, accKey, nId})
+      AAdd(s__aAccel, {accFlag, accKey, nId})
    ENDIF
    RETURN .T.
 
@@ -276,13 +276,13 @@ FUNCTION Hwg_DefineAccelItem(nId, bItem, accFlag, accKey)
    LOCAL aMenu
    LOCAL i
 
-   aMenu := _aMenuDef
-   FOR i := 1 TO _nLevel
+   aMenu := s__aMenuDef
+   FOR i := 1 TO s__nLevel
       aMenu := ATail(aMenu)[1]
    NEXT
-   nId := IIf(nId == NIL, ++_Id, nId)
+   nId := IIf(nId == NIL, ++s__Id, nId)
    AAdd(aMenu, {bItem, NIL, nId, 0})
-   AAdd(_aAccel, {accFlag, accKey, nId})
+   AAdd(s__aAccel, {accFlag, accKey, nId})
    RETURN .T.
 
 
@@ -316,11 +316,11 @@ STATIC FUNCTION SearchPosBitmap(nPos_Id)
    LOCAL nPos := 1
    LOCAL lBmp := { .F., "" }
 
-   IF _oBitmap != NIL
-      DO WHILE nPos <= Len(_oBitmap)
+   IF s__oBitmap != NIL
+      DO WHILE nPos <= Len(s__oBitmap)
 
-         IF _oBitmap[nPos][4] == nPos_Id
-            lBmp := { _oBitmap[nPos][1], _oBitmap[nPos][2], _oBitmap[nPos][3] }
+         IF s__oBitmap[nPos][4] == nPos_Id
+            lBmp := { s__oBitmap[nPos][1], s__oBitmap[nPos][2], s__oBitmap[nPos][3] }
          ENDIF
 
          nPos++

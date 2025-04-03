@@ -31,7 +31,7 @@
 #define OBJ_SIZE      4
 #define OBJ_ADDR      5
 
-Static  cHead := "hwgbc"
+Static s_cHead := "hwgbc"
 
 CLASS HBinC
 
@@ -80,7 +80,7 @@ METHOD HBinC:Create(cName, n)
    ::nFileLen := ::nCntBlocks*2048
    ::aObjects := {}
 
-   FWrite(::handle, cHead + Chr(::nVerHigh) + Chr(::nVerLow) + Replicate(Chr(0), 6) + Chr(::nCntBlocks) + Replicate(Chr(0), ::nCntBlocks * 2048 - 14))
+   FWrite(::handle, s_cHead + Chr(::nVerHigh) + Chr(::nVerLow) + Replicate(Chr(0), 6) + Chr(::nCntBlocks) + Replicate(Chr(0), ::nCntBlocks * 2048 - 14))
 
    RETURN Self
 
@@ -100,7 +100,7 @@ METHOD HBinC:Open(cName, lWr)
 
    cBuf := Space(HEAD_LEN)
    FRead(::handle, @cBuf, HEAD_LEN)
-   IF Left(cBuf, 5) != cHead
+   IF Left(cBuf, 5) != s_cHead
       FClose(::handle)
       RETURN NIL
    ENDIF
@@ -212,7 +212,7 @@ METHOD HBinC:Pack()
    LOCAL cAddr
    LOCAL cSize
    LOCAL a
-   LOCAL s := cHead + Chr(::nVerHigh) + Chr(::nVerLow) + Chr(0)
+   LOCAL s := s_cHead + Chr(::nVerHigh) + Chr(::nVerLow) + Chr(0)
    LOCAL handle
    LOCAL cTempName
 

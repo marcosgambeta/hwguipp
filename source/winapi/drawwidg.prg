@@ -9,7 +9,7 @@
 #include <hbclass.ch>
 #include "hwguipp.ch"
 
-STATIC oResCnt
+STATIC s_oResCnt
 
 FUNCTION hwg_aCompare(arr1, arr2)
 
@@ -34,8 +34,8 @@ FUNCTION hwg_BmpFromRes(cBmp)
    LOCAL handle
    LOCAL cBuff
 
-   IF !Empty(oResCnt)
-      IF !Empty(cBuff := oResCnt:Get(cBmp))
+   IF !Empty(s_oResCnt)
+      IF !Empty(cBuff := s_oResCnt:Get(cBmp))
          handle := hwg_OpenImage(cBuff, .T.)
       ENDIF
    ELSE
@@ -60,12 +60,12 @@ Returns .T., if container is opened successfully
 FUNCTION hwg_SetResContainer(cName)
 
    IF Empty(cName)
-      IF !Empty(oResCnt)
-         oResCnt:Close()
-         oResCnt := NIL
+      IF !Empty(s_oResCnt)
+         s_oResCnt:Close()
+         s_oResCnt := NIL
       ENDIF
    ELSE
-      IF Empty(oResCnt := HBinC():Open(cName))
+      IF Empty(s_oResCnt := HBinC():Open(cName))
          RETURN .F.
       ENDIF
    ENDIF
@@ -77,7 +77,7 @@ Returns .T., if a container is open
 */
 FUNCTION hwg_GetResContainerOpen()
 
-   IF !Empty(oResCnt)
+   IF !Empty(s_oResCnt)
       RETURN .T.
    ENDIF
 
@@ -90,8 +90,8 @@ otherwise NIL
 */
 FUNCTION hwg_GetResContainer()
 
-   IF !Empty(oResCnt)
-      RETURN oResCnt
+   IF !Empty(s_oResCnt)
+      RETURN s_oResCnt
    ENDIF
 
 RETURN NIL
@@ -111,7 +111,7 @@ FUNCTION hwg_ExtractResContItem2file(cfilename,cname)
    n := hwg_ResContItemPosition(cname)
 
    IF n > 0
-      hb_MemoWrit(cfilename, oResCnt:Get(oResCnt:aObjects[n, 1]))
+      hb_MemoWrit(cfilename, s_oResCnt:Get(s_oResCnt:aObjects[n, 1]))
       RETURN .T.
    ENDIF
 
@@ -129,7 +129,7 @@ FUNCTION hwg_ExtractResContItemType(cname)
    LOCAL cItemType := ""
 
    IF hwg_GetResContainerOpen()
-      cItemType := oResCnt:GetType(cname)
+      cItemType := s_oResCnt:GetType(cname)
    ENDIF
 
 RETURN cItemType
@@ -145,7 +145,7 @@ FUNCTION hwg_ResContItemPosition(cname)
    LOCAL i := 0
 
    IF hwg_GetResContainerOpen()
-      i := oResCnt:GetPos(cname)
+      i := s_oResCnt:GetPos(cname)
    ENDIF
 
 RETURN i
@@ -212,8 +212,8 @@ EXIT PROCEDURE CleanDrawWidg
    FOR EACH oItem IN HIcon():aIcons
       hwg_Deleteobject(oItem:handle)
    NEXT
-   IF !Empty(oResCnt)
-      oResCnt:Close()
+   IF !Empty(s_oResCnt)
+      s_oResCnt:Close()
    ENDIF
 
 RETURN

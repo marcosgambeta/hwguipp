@@ -10,13 +10,13 @@
 #include <error.ch>
 #include "hwguipp.ch"
 
-STATIC LogInitialPath := ""
-STATIC lErrOn := .F.
+STATIC s_LogInitialPath := ""
+STATIC s_lErrOn := .F.
 
 PROCEDURE hwg_ErrSys
 
    ErrorBlock({|oError|DefError(oError)})
-   LogInitialPath := "\" + CurDir() + IIf(Empty(CurDir()), "", "\")
+   s_LogInitialPath := "\" + CurDir() + IIf(Empty(CurDir()), "", "\")
 
    RETURN
 
@@ -68,9 +68,9 @@ STATIC FUNCTION DefError(oError)
 
    hwg_ReleaseTimers()
 
-   IF !lErrOn
-      lErrOn := .T.
-      MemoWrit(LogInitialPath + "Error.log", cMessage)
+   IF !s_lErrOn
+      s_lErrOn := .T.
+      MemoWrit(s_LogInitialPath + "Error.log", cMessage)
       ErrorPreview(cMessage)
    ENDIF
    hwg_EndWindow()
@@ -125,7 +125,7 @@ FUNCTION hwg_WriteLog(cText, fname)
    
    LOCAL nHand
 
-   fname := LogInitialPath + IIf(fname == NIL, "a.log", fname)
+   fname := s_LogInitialPath + IIf(fname == NIL, "a.log", fname)
    IF !File(fname)
       nHand := FCreate(fname)
    ELSE

@@ -11,7 +11,7 @@
 
 #define  WM_PSPNOTIFY         WM_USER+1010
 
-STATIC aSheet := NIL
+STATIC s_aSheet := NIL
 
 #ifdef MT_EXPERIMENTAL
    THREAD STATIC aDialogs := {}
@@ -536,7 +536,7 @@ FUNCTION hwg_PropertySheet(hParentWindow, aPages, cTitle, x1, y1, width, height,
    LOCAL aHandles := Array(Len(aPages))
    LOCAL aTemplates := Array(Len(aPages))
 
-   aSheet := Array(Len(aPages))
+   s_aSheet := Array(Len(aPages))
    FOR i := 1 TO Len(aPages)
       IF aPages[i]:type == WND_DLG_RESOURCE
          aHandles[i] := hwg__createpropertysheetpage(aPages[i])
@@ -544,7 +544,7 @@ FUNCTION hwg_PropertySheet(hParentWindow, aPages, cTitle, x1, y1, width, height,
          aTemplates[i] := hwg_Createdlgtemplate(aPages[i], x1, y1, width, height, WS_CHILD + WS_VISIBLE + WS_BORDER)
          aHandles[i] := hwg__createpropertysheetpage(aPages[i], aTemplates[i])
       ENDIF
-      aSheet[i] := { aHandles[i], aPages[i] }
+      s_aSheet[i] := { aHandles[i], aPages[i] }
    NEXT
    hSheet := hwg__propertysheet(hParentWindow, aHandles, Len(aHandles), cTitle, lModeless, lNoApply, lWizard)
    FOR i := 1 TO Len(aPages)

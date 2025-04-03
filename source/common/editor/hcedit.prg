@@ -116,7 +116,7 @@
 #define GDK_MOD1_MASK     4
 #endif
 
-STATIC cNewLine := e"\r\n"
+STATIC s_cNewLine := e"\r\n"
 
 // For multi OS request UTF8 forever
 // #ifdef __GTK__
@@ -1067,7 +1067,7 @@ METHOD HCEdit:SetText(xText, cPageIn, cPageOut)
       IF (nPos := At(Chr(10), xText)) == 0
          ::aText := hb_aTokens(xText, Chr(13))
       ELSEIF Substr(xText, nPos - 1, 1) == Chr(13)
-         ::aText := hb_aTokens(xText, cNewLine)
+         ::aText := hb_aTokens(xText, s_cNewLine)
       ELSE
          ::aText := hb_aTokens(xText, Chr(10))
       ENDIF
@@ -1137,7 +1137,7 @@ METHOD HCEdit:Save(cFileName, cpSou)
       ENDIF
       FOR i := 1 TO ::nTextLen
          cLine := Iif(::lStripSpaces, Trim(::aText[i]), ::aText[i])
-         FWrite(nHand, Iif(!Empty(cpSou), hb_Translate(cLIne, ::cp, cpSou), cLine)  + cNewLine)
+         FWrite(nHand, Iif(!Empty(cpSou), hb_Translate(cLIne, ::cp, cpSou), cLine)  + s_cNewLine)
       NEXT
       FClose(nHand)
    ENDIF
@@ -1627,7 +1627,7 @@ METHOD HCEdit:PutChar(nKeyCode)
 
    CASE VK_RETURN
       IF Empty(::nMaxLines) .OR. ::nMaxLines > ::nTextLen
-         ::InsText(::aPointC, cNewLine)
+         ::InsText(::aPointC, s_cNewLine)
          ::nPosF := ::nPosC := 1
       ENDIF
       EXIT
@@ -2024,7 +2024,7 @@ METHOD HCEdit:GetText(P1, P2, lTabs)
       ENDIF
       cText += cLine
       IF i != Pend[P_Y]
-         cText += cNewLine
+         cText += s_cNewLine
       ENDIF
    NEXT
 
@@ -2130,7 +2130,7 @@ METHOD HCEdit:InsText(aPoint, cText, lOver, lChgPos)
    IF (nPos := At(Chr(10), cText)) == 0
       aText := hb_aTokens(cText, Chr(13))
    ELSEIF Substr(cText, nPos - 1, 1) == Chr(13)
-      aText := hb_aTokens(cText, cNewLine)
+      aText := hb_aTokens(cText, s_cNewLine)
    ELSE
       aText := hb_aTokens(cText, Chr(10))
    ENDIF

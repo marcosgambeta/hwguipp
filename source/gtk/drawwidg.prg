@@ -9,7 +9,7 @@
 #include <hbclass.ch>
 #include "hwguipp.ch"
 
-Static oResCnt
+Static s_oResCnt
 
 #ifndef HS_HORIZONTAL
 #define HS_HORIZONTAL       0       /* ----- */
@@ -90,9 +90,9 @@ METHOD HBitmap:AddResource( name )
     * binary container and added it to resource container.
    */
 
-   // oResCnt (Static Memvar) is object of HBinC class
-   IF !Empty(oResCnt)
-      IF !Empty(i := oResCnt:Get( name ))
+   // s_oResCnt (Static Memvar) is object of HBinC class
+   IF !Empty(s_oResCnt)
+      IF !Empty(i := s_oResCnt:Get( name ))
        // DF7BE:
        // Store bmp in a temporary file
        // (otherwise the bmp is not loadable)
@@ -105,7 +105,7 @@ METHOD HBitmap:AddResource( name )
    ENDIF
    
    /*
-   IF !Empty(oResCnt) .AND. !Empty(cVal := oResCnt:Get( name ))
+   IF !Empty(s_oResCnt) .AND. !Empty(cVal := s_oResCnt:Get( name ))
       IF !Empty(oBmp := ::AddString( name, cVal ))
           RETURN oBmp
       ENDIF
@@ -331,9 +331,9 @@ METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
          RETURN i
       ENDIF
    NEXT
-   // oResCnt (Static Memvar) is object of HBinC class
-   IF !Empty(oResCnt)
-      IF !Empty(i := oResCnt:Get( name ))
+   // s_oResCnt (Static Memvar) is object of HBinC class
+   IF !Empty(s_oResCnt)
+      IF !Empty(i := s_oResCnt:Get( name ))
        // DF7BE:
        // Store icon in a temporary file
        // (otherwise the icon is not loadable)
@@ -490,8 +490,8 @@ FUNCTION hwg_BmpFromRes( cBmp )
    LOCAL cBuff
    LOCAL cTmp
 
-   IF !Empty(oResCnt)
-      IF !Empty(cBuff := oResCnt:Get( cBmp ))
+   IF !Empty(s_oResCnt)
+      IF !Empty(cBuff := s_oResCnt:Get( cBmp ))
          handle := hwg_OpenImage( cBuff, .T. )
          IF Empty(handle)
             // hb_memowrit( cTmp := "/tmp/e"+Ltrim(Str(Int(Seconds()*100))), cBuff )
@@ -521,12 +521,12 @@ FUNCTION hwg_SetResContainer( cName )
 // Returns .T., if container is opened successfully
 
    IF Empty(cName)
-      IF !Empty(oResCnt)
-         oResCnt:Close()
-         oResCnt := NIL
+      IF !Empty(s_oResCnt)
+         s_oResCnt:Close()
+         s_oResCnt := NIL
       ENDIF
    ELSE
-      IF Empty(oResCnt := HBinC():Open(cName))
+      IF Empty(s_oResCnt := HBinC():Open(cName))
          RETURN .F.
       ENDIF
    ENDIF
@@ -534,7 +534,7 @@ FUNCTION hwg_SetResContainer( cName )
 
 FUNCTION hwg_GetResContainerOpen()
 // Returns .T., if a container is open
-IF !Empty(oResCnt)
+IF !Empty(s_oResCnt)
  RETURN .T.
 ENDIF
 RETURN .F.
@@ -543,8 +543,8 @@ FUNCTION hwg_GetResContainer()
 // Returns the object of opened container,
 // otherwise NIL
 // (because the object variable is static)
-IF !Empty(oResCnt)
- RETURN oResCnt
+IF !Empty(s_oResCnt)
+ RETURN s_oResCnt
 ENDIF
 RETURN NIL
 
@@ -560,7 +560,7 @@ FUNCTION hwg_ExtractResContItem2file(cfilename,cname)
 
 n := hwg_ResContItemPosition(cname)
 IF n > 0
-    hb_MemoWrit( cfilename, oResCnt:Get( oResCnt:aObjects[n,1] ) )
+    hb_MemoWrit( cfilename, s_oResCnt:Get( s_oResCnt:aObjects[n,1] ) )
     RETURN .T.
 ENDIF
 RETURN .F.
@@ -576,7 +576,7 @@ FUNCTION hwg_ExtractResContItemType(cname)
    LOCAL cItemType := ""
 
 IF hwg_GetResContainerOpen()
- cItemType := oResCnt:GetType(cname)
+ cItemType := s_oResCnt:GetType(cname)
 ENDIF
 RETURN cItemType
 
@@ -589,7 +589,7 @@ FUNCTION hwg_ResContItemPosition(cname)
    LOCAL i := 0
 
 IF hwg_GetResContainerOpen()
- i := oResCnt:GetPos( cname )
+ i := s_oResCnt:GetPos( cname )
 ENDIF
 RETURN i
 
@@ -655,8 +655,8 @@ EXIT PROCEDURE CleanDrawWidg
    FOR EACH oItem IN HIcon():aIcons
       // hwg_Deleteobject(oItem:handle)
    NEXT
-   IF !Empty(oResCnt)
-      oResCnt:Close()
+   IF !Empty(s_oResCnt)
+      s_oResCnt:Close()
    ENDIF
 
    RETURN

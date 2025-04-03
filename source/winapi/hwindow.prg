@@ -16,10 +16,10 @@
 #define SIZE_MINIMIZED         1
 
 #ifdef MT_EXPERIMENTAL
-THREAD STATIC aWindows := {}
+THREAD STATIC s_aWindows := {}
 
 FUNCTION aWindows()
-RETURN aWindows
+RETURN s_aWindows
 #endif
 
 FUNCTION hwg_onWndSize(oWnd, wParam, lParam)

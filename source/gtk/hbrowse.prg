@@ -30,10 +30,10 @@ REQUEST DBGOTOP, DBGOTO, DBGOBOTTOM, DBSKIP, RECCOUNT, RECNO, EOF, BOF
 
    // #define DLGC_WANTALLKEYS    0x0004      /* Control wants all keys */
 
-   STATIC crossCursor := NIL
-   STATIC arrowCursor := NIL
-   STATIC vCursor := NIL
-   STATIC xDrag
+   STATIC s_crossCursor := NIL
+   STATIC s_arrowCursor := NIL
+   STATIC s_vCursor := NIL
+   STATIC s_xDrag
 
 CLASS HColumn INHERIT HObject
 
@@ -536,10 +536,10 @@ METHOD HBrowse:InitBrw( nType )
       ::aArray := NIL
       ::freeze := ::height := 0
 
-      IF Empty(crossCursor)
-         crossCursor := hwg_Loadcursor( GDK_CROSS )
-         arrowCursor := hwg_Loadcursor( GDK_LEFT_PTR )
-         vCursor := hwg_Loadcursor( GDK_SB_V_DOUBLE_ARROW )
+      IF Empty(s_crossCursor)
+         s_crossCursor := hwg_Loadcursor( GDK_CROSS )
+         s_arrowCursor := hwg_Loadcursor( GDK_LEFT_PTR )
+         s_vCursor := hwg_Loadcursor( GDK_SB_V_DOUBLE_ARROW )
       ENDIF
    ENDIF
    ::rowPos := ::rowPosOld := ::nCurrent := ::colpos := 1
@@ -1659,8 +1659,8 @@ METHOD HBrowse:ButtonDown( lParam )
 
    ELSEIF nLine == 0 .AND. ::nCursor == 1
       ::nCursor := 2
-      Hwg_SetCursor( vCursor, ::area )
-      xDrag := hwg_Loword(lParam)
+      Hwg_SetCursor( s_vCursor, ::area )
+      s_xDrag := hwg_Loword(lParam)
 
    ELSEIF ::lDispHead .AND. ;
          nLine >= - ::nHeadRows .AND. ;
@@ -1712,9 +1712,9 @@ METHOD HBrowse:ButtonUp( lParam )
    ENDIF
    IF ::nCursor == 2
       i := iif(::freeze > 0, 1, ::nLeftCol)
-      DO WHILE x < xDrag
+      DO WHILE x < s_xDrag
          x += ::aColumns[i]:width
-         IF Abs( x - xDrag ) < 10
+         IF Abs( x - s_xDrag ) < 10
             x1 := x - ::aColumns[i]:width
             EXIT
          ENDIF
@@ -1722,7 +1722,7 @@ METHOD HBrowse:ButtonUp( lParam )
       ENDDO
       IF xPos > x1
          ::aColumns[i]:width := xPos - x1
-         Hwg_SetCursor( arrowCursor, ::area )
+         Hwg_SetCursor( s_arrowCursor, ::area )
          ::nCursor := 0
          hwg_Invalidaterect( hBrw, 0 )
       ENDIF
@@ -1779,7 +1779,7 @@ METHOD HBrowse:MouseMove( wParam, lParam )
 
    IF ::lDispSep .AND. yPos <= ::height + 1
       IF wParam == 1 .AND. ::nCursor == 2
-         Hwg_SetCursor( vCursor, ::area )
+         Hwg_SetCursor( s_vCursor, ::area )
          res := .T.
       ELSE
          nLen := Len(::aColumns) - iif(::lAdjRight, 1, 0)
@@ -1792,7 +1792,7 @@ METHOD HBrowse:MouseMove( wParam, lParam )
                      ::nCursor := 1
                   ENDIF
                   // hwg_WriteLog( "Brw: Hwg_SetCursor 1" )
-                  Hwg_SetCursor(Iif(::nCursor == 1, crossCursor, vCursor), ::area)
+                  Hwg_SetCursor(Iif(::nCursor == 1, s_crossCursor, s_vCursor), ::area)
                   res := .T.
                ENDIF
                EXIT
@@ -1802,7 +1802,7 @@ METHOD HBrowse:MouseMove( wParam, lParam )
       ENDIF
       IF !res .AND. ::nCursor != 0
          // hwg_WriteLog( "Brw: Hwg_SetCursor 2" )
-         Hwg_SetCursor( arrowCursor, ::area )
+         Hwg_SetCursor( s_arrowCursor, ::area )
          ::nCursor := 0
       ENDIF
    ENDIF

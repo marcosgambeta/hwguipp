@@ -10,7 +10,7 @@
 #include "hwguipp.ch"
 #include <error.ch>
 
-STATIC aCustomEvents := { ;
+STATIC s_aCustomEvents := { ;
    { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
    { ;
    { |o, w|iif(hb_IsBlock(o:bPaint), Eval( o:bPaint,o,w ), - 1) }, ;
@@ -179,8 +179,8 @@ METHOD HCustomWindow:onEvent( msg, wParam, lParam )
    LOCAL i
 
    // hwg_WriteLog( "== "+::Classname()+Str(msg)+Iif(wParam!=NIL,Str(wParam),"NIL")+Iif(lParam!=NIL,Str(lParam),"NIL") )
-   IF ( i := Ascan( aCustomEvents[1],msg ) ) != 0
-      RETURN Eval( aCustomEvents[2,i], Self, wParam, lParam )
+   IF ( i := Ascan( s_aCustomEvents[1],msg ) ) != 0
+      RETURN Eval( s_aCustomEvents[2,i], Self, wParam, lParam )
    ELSEIF hb_IsBlock(::bOther)
       RETURN Eval(::bOther, Self, msg, wParam, lParam)
    ENDIF

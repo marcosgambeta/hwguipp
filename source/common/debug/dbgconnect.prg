@@ -79,12 +79,12 @@
 #define CMD_OBJECT             21
 #define CMD_ARRAY              22
 
-STATIC lDebugRun := .F.
-STATIC handl1
-STATIC handl2
-STATIC cBuffer
-STATIC nId1 := -1
-STATIC nId2 := 0
+STATIC s_lDebugRun := .F.
+STATIC s_handl1
+STATIC s_handl2
+STATIC s_cBuffer
+STATIC s_nId1 := -1
+STATIC s_nId2 := 0
 
 FUNCTION hwg_dbg_New()
 
@@ -99,13 +99,13 @@ FUNCTION hwg_dbg_New()
    LOCAL lRun
    LOCAL hProcess
 
-   cBuffer := Space(1024)
+   s_cBuffer := Space(1024)
 
-   IF File( cDebugger+".info" ) .AND. ( handl1 := FOpen(cDebugger + ".info", FO_READ) ) != -1
-      i := FRead(handl1, @cBuffer, Len(cBuffer))
+   IF File( cDebugger+".info" ) .AND. ( s_handl1 := FOpen(cDebugger + ".info", FO_READ) ) != -1
+      i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
       IF i > 0
-         arr := hb_aTokens( Left(cBuffer, i), ;
-               Iif(hb_At(Chr(13), cBuffer, 1, i) > 0, Chr(13)+Chr(10), Chr(10)) )
+         arr := hb_aTokens( Left(s_cBuffer, i), ;
+               Iif(hb_At(Chr(13), s_cBuffer, 1, i) > 0, Chr(13)+Chr(10), Chr(10)) )
          FOR i := 1 TO Len(arr)
             IF ( nPos := At("=", arr[i]) ) > 0
                cCmd := Lower(Trim(Left(arr[i], nPos - 1)))
@@ -119,22 +119,22 @@ FUNCTION hwg_dbg_New()
             ENDIF
          NEXT
       ENDIF
-      FClose(handl1)
+      FClose(s_handl1)
    ENDIF
 
    IF File( cFile + ".d1" ) .AND. File( cFile + ".d2" )
 
-      IF ( handl1 := FOpen(cFile + ".d1", FO_READ + FO_SHARED) ) != -1
-         i := FRead(handl1, @cBuffer, Len(cBuffer))
+      IF ( s_handl1 := FOpen(cFile + ".d1", FO_READ + FO_SHARED) ) != -1
+         i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
          IF ( i > 0 ) .AND. ;
-               Left(cBuffer, 4) == "init"
-            handl2 := FOpen(cFile + ".d2", FO_READWRITE + FO_SHARED)
-            IF handl2 != -1
-               lDebugRun := .T.
+               Left(s_cBuffer, 4) == "init"
+            s_handl2 := FOpen(cFile + ".d2", FO_READWRITE + FO_SHARED)
+            IF s_handl2 != -1
+               s_lDebugRun := .T.
                RETURN NIL
             ENDIF
          ENDIF
-         FClose(handl1)
+         FClose(s_handl1)
       ENDIF
 
    ENDIF
@@ -142,17 +142,17 @@ FUNCTION hwg_dbg_New()
    IF !Empty(cDir)
       cDir += Iif(Right( cDir,1 ) $ "\/", "", hb_PS())
       IF File( cDir + cDebugger + ".d1" ) .AND. File( cDir + cDebugger + ".d2" )
-         IF ( handl1 := FOpen(cDir + cDebugger + ".d1", FO_READ + FO_SHARED) ) != -1
-            i := FRead(handl1, @cBuffer, Len(cBuffer))
+         IF ( s_handl1 := FOpen(cDir + cDebugger + ".d1", FO_READ + FO_SHARED) ) != -1
+            i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
             IF ( i  > 0 ) .AND. ;
-                  Left(cBuffer, 4) == "init"
-               handl2 := FOpen(cDir + cDebugger + ".d2", FO_READWRITE + FO_SHARED)
-               IF handl2 != -1
-                  lDebugRun := .T.
+                  Left(s_cBuffer, 4) == "init"
+               s_handl2 := FOpen(cDir + cDebugger + ".d2", FO_READWRITE + FO_SHARED)
+               IF s_handl2 != -1
+                  s_lDebugRun := .T.
                   RETURN NIL
                ENDIF
             ENDIF
-            FClose(handl1)
+            FClose(s_handl1)
          ENDIF
       ENDIF
    ENDIF
@@ -165,10 +165,10 @@ FUNCTION hwg_dbg_New()
    Ferase(cFile + ".d1")
    Ferase(cFile + ".d2")
 
-   handl1 := FCreate(cFile + ".d1")
-   FClose(handl1)
-   handl2 := FCreate(cFile + ".d2")
-   FClose(handl2)
+   s_handl1 := FCreate(cFile + ".d1")
+   FClose(s_handl1)
+   s_handl2 := FCreate(cFile + ".d2")
+   FClose(s_handl2)
 
 #ifndef __PLATFORM__WINDOWS
    IF Empty(cExe)
@@ -187,10 +187,10 @@ FUNCTION hwg_dbg_New()
    IF !lRun
       hwg_dbg_Alert( cExe + " isn't available..." )
    ELSE
-      handl1 := FOpen(cFile + ".d1", FO_READ + FO_SHARED)
-      handl2 := FOpen(cFile + ".d2", FO_READWRITE + FO_SHARED)
-      IF handl1 != -1 .AND. handl2 != -1
-         lDebugRun := .T.
+      s_handl1 := FOpen(cFile + ".d1", FO_READ + FO_SHARED)
+      s_handl2 := FOpen(cFile + ".d2", FO_READWRITE + FO_SHARED)
+      IF s_handl1 != -1 .AND. s_handl2 != -1
+         s_lDebugRun := .T.
       ELSE
          hwg_dbg_Alert( "Can't open connection..." )
       ENDIF
@@ -204,9 +204,9 @@ STATIC FUNCTION hwg_dbg_Read()
    LOCAL s := ""
    LOCAL arr
 
-   FSeek(handl1, 0, 0)
-   DO WHILE ( n := Fread(handl1, @cBuffer, Len(cBuffer)) ) > 0
-      s += Left(cBuffer, n)
+   FSeek(s_handl1, 0, 0)
+   DO WHILE ( n := Fread(s_handl1, @s_cBuffer, Len(s_cBuffer)) ) > 0
+      s += Left(s_cBuffer, n)
       IF ( n := At(",!", s) ) > 0
          IF ( arr := hb_aTokens( Left(s, n + 1), "," ) ) != NIL .AND. Len(arr) > 2 .AND. arr[1] == arr[Len(arr)-1]
             RETURN arr
@@ -224,16 +224,16 @@ STATIC FUNCTION hwg_dbg_Send(...)
    LOCAL i
    LOCAL s := ""
 
-   FSeek(handl2, 0, 0)
+   FSeek(s_handl2, 0, 0)
    FOR i := 2 TO Len(arr)
       s += arr[i] + ","
    NEXT
    IF Len(s) > 800
-      FWrite(handl2, "!," + Space(Len(arr[1]) - 1) + s + arr[1] + ",!")
-      FSeek(handl2, 0, 0)
-      FWrite(handl2, arr[1] + ",")
+      FWrite(s_handl2, "!," + Space(Len(arr[1]) - 1) + s + arr[1] + ",!")
+      FSeek(s_handl2, 0, 0)
+      FWrite(s_handl2, arr[1] + ",")
    ELSE
-      FWrite(handl2, arr[1] + "," + s + arr[1] + ",!")
+      FWrite(s_handl2, arr[1] + "," + s + arr[1] + ",!")
    ENDIF
 
 RETURN NIL
@@ -244,11 +244,11 @@ FUNCTION hwg_dbg_SetActiveLine(cPrgName, nLine, aStack, aVars, aWatch, nVarType)
    LOCAL s := cPrgName + "," + Ltrim(Str(nLine))
    LOCAL nLen
 
-   IF !lDebugRun
+   IF !s_lDebugRun
       RETURN NIL
    ENDIF
 
-   IF nId2 == 0
+   IF s_nId2 == 0
       s += ",ver," + Ltrim(Str(DEBUG_PROTO_VERSION))
    ENDIF
    IF aStack != NIL
@@ -274,7 +274,7 @@ FUNCTION hwg_dbg_SetActiveLine(cPrgName, nLine, aStack, aVars, aWatch, nVarType)
       NEXT
    ENDIF
 
-   hwg_dbg_Send( "a"+Ltrim(Str(++nId2)), s  )
+   hwg_dbg_Send( "a"+Ltrim(Str(++s_nId2)), s  )
 
 RETURN NIL
 
@@ -282,7 +282,7 @@ FUNCTION hwg_dbg_Wait(nWait)
 
    HB_SYMBOL_UNUSED(nWait)
 
-   IF !lDebugRun
+   IF !s_lDebugRun
       RETURN NIL
    ENDIF
 
@@ -294,15 +294,15 @@ FUNCTION hwg_dbg_Input(p1, p2, p3)
    LOCAL cmd
    LOCAL arr
 
-   IF !lDebugRun
+   IF !s_lDebugRun
       RETURN CMD_GO
    ENDIF
 
    DO WHILE .T.
 
       IF !Empty(arr := hwg_dbg_Read())
-         IF ( n := Val( arr[1] ) ) > nId1 .AND. arr[Len(arr)] == "!"
-            nId1 := n
+         IF ( n := Val( arr[1] ) ) > s_nId1 .AND. arr[Len(arr)] == "!"
+            s_nId1 := n
             SWITCH arr[2]
             CASE "cmd"
                cmd := arr[3]
@@ -322,7 +322,7 @@ FUNCTION hwg_dbg_Input(p1, p2, p3)
                CASE "quit"
                   RETURN CMD_QUIT
                CASE "exit"
-                  lDebugRun := .F.
+                  s_lDebugRun := .F.
                   RETURN CMD_EXIT
                ENDSWITCH
                EXIT
@@ -391,7 +391,7 @@ FUNCTION hwg_dbg_Input(p1, p2, p3)
                ENDSWITCH
                EXIT
             ENDSWITCH
-            hwg_dbg_Send( "e"+Ltrim(Str(++nId2)) )
+            hwg_dbg_Send( "e"+Ltrim(Str(++s_nId2)) )
          ENDIF
       ENDIF
       hb_ReleaseCpu()
@@ -408,7 +408,7 @@ FUNCTION hwg_dbg_Answer(...)
    LOCAL s := ""
    LOCAL lConvert
 
-   IF !lDebugRun
+   IF !s_lDebugRun
       RETURN NIL
    ENDIF
 
@@ -426,7 +426,7 @@ FUNCTION hwg_dbg_Answer(...)
          ENDIF
       ENDIF
    NEXT
-   hwg_dbg_Send( "b"+Ltrim(Str(nId1)), Left(s, Len(s) - 1) )
+   hwg_dbg_Send( "b"+Ltrim(Str(s_nId1)), Left(s, Len(s) - 1) )
 
 RETURN NIL
 
@@ -434,7 +434,7 @@ FUNCTION hwg_dbg_Msg(cMessage)
 
    HB_SYMBOL_UNUSED(cMessage)
 
-   IF !lDebugRun
+   IF !s_lDebugRun
       RETURN NIL
    ENDIF
 
@@ -534,7 +534,7 @@ RETURN cRes
 EXIT PROCEDURE hwg_dbg_exit
 
    hwg_dbg_Send( "quit" )
-   FClose(handl1)
-   FClose(handl2)
+   FClose(s_handl1)
+   FClose(s_handl2)
 
 RETURN

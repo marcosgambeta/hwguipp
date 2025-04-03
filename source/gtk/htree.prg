@@ -25,9 +25,9 @@
 #define  CLR_MGREEN      8421440
 #define  CLR_VDBLUE     10485760
 
-STATIC crossCursor := NIL
-STATIC arrowCursor := NIL
-STATIC vCursor := NIL
+STATIC s_crossCursor := NIL // TODO: not used
+STATIC s_arrowCursor := NIL // TODO: not used
+STATIC s_vCursor := NIL // TODO: not used
 
 CLASS HTree INHERIT HControl
 

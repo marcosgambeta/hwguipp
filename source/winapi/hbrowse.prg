@@ -52,10 +52,10 @@ REQUEST DBGOTOP, DBGOTO, DBGOBOTTOM, DBSKIP, RECCOUNT, RECNO, EOF, BOF
 
    // #define DLGC_WANTALLKEYS    0x0004      /* Control wants all keys */
 
-STATIC ColSizeCursor := 0
-STATIC arrowCursor := 0
-STATIC oCursor := 0
-STATIC xDrag
+STATIC s_ColSizeCursor := 0
+STATIC s_arrowCursor := 0
+STATIC s_oCursor := 0
+STATIC s_xDrag
 
 CLASS HColumn INHERIT HObject
 
@@ -611,9 +611,9 @@ METHOD HBrowse:InitBrw(nType)
       ::aArray := NIL
       ::freeze := ::height := 0
 
-      IF Empty(ColSizeCursor)
-         ColSizeCursor := hwg_Loadcursor(IDC_SIZEWE)
-         arrowCursor := hwg_Loadcursor(IDC_ARROW)
+      IF Empty(s_ColSizeCursor)
+         s_ColSizeCursor := hwg_Loadcursor(IDC_SIZEWE)
+         s_arrowCursor := hwg_Loadcursor(IDC_ARROW)
       ENDIF
    ENDIF
    ::rowPos := ::rowPosOld := ::nCurrent := ::colpos := 1
@@ -1796,11 +1796,11 @@ METHOD HBrowse:ButtonDown(lParam)
          hwg_Sendmessage(hBrw, WM_PAINT, 0, 0)
       ENDIF
 
-   ELSEIF nLine == 0 .AND. hwg_isPtrEq(oCursor, ColSizeCursor)
+   ELSEIF nLine == 0 .AND. hwg_isPtrEq(s_oCursor, s_ColSizeCursor)
 
       ::lResizing := .T.
-      Hwg_SetCursor(oCursor)
-      xDrag := xm
+      Hwg_SetCursor(s_oCursor)
+      s_xDrag := xm
 
    ELSEIF nLine == 0 .AND. ::lDispHead .AND. fif <= Len(::aColumns) .AND. ::aColumns[fif]:bHeadClick != NIL
 
@@ -1846,9 +1846,9 @@ METHOD HBrowse:ButtonUp(lParam)
    IF ::lResizing
       x := ::x1
       i := iif(::freeze > 0, 1, ::nLeftCol)
-      DO WHILE x < xDrag
+      DO WHILE x < s_xDrag
          x += ::aColumns[i]:width
-         IF Abs(x - xDrag) < 10
+         IF Abs(x - s_xDrag) < 10
             x1 := x - ::aColumns[i]:width
             EXIT
          ENDIF
@@ -1856,8 +1856,8 @@ METHOD HBrowse:ButtonUp(lParam)
       ENDDO
       IF xPos > x1
          ::aColumns[i]:width := xPos - x1
-         Hwg_SetCursor(arrowCursor)
-         oCursor := 0
+         Hwg_SetCursor(s_arrowCursor)
+         s_oCursor := 0
          ::lResizing := .F.
          ::lRefrBmp := .T.
          hwg_Invalidaterect(hBrw, 0)
@@ -1911,7 +1911,7 @@ METHOD HBrowse:MouseMove(wParam, lParam)
    IF ::lDispSep .AND. yPos <= ::y1   //::height * ::nHeadRows + 1
       wParam := hwg_PtrToUlong(wParam)
       IF wParam == 1 .AND. ::lResizing
-         Hwg_SetCursor(oCursor)
+         Hwg_SetCursor(s_oCursor)
          res := .T.
       ELSE
          nLen := Len(::aColumns) - iif(::lAdjRight, 1, 0)
@@ -1920,10 +1920,10 @@ METHOD HBrowse:MouseMove(wParam, lParam)
             x += ::aColumns[i]:width
             IF Abs(x - xPos) < 8
                IF ::aColumns[i]:lResizable
-                  IF !hwg_isPtrEq(oCursor, ColSizeCursor)
-                     oCursor := ColSizeCursor
+                  IF !hwg_isPtrEq(s_oCursor, s_ColSizeCursor)
+                     s_oCursor := s_ColSizeCursor
                   ENDIF
-                  Hwg_SetCursor(oCursor)
+                  Hwg_SetCursor(s_oCursor)
                   res := .T.
                ENDIF
                EXIT
@@ -1931,9 +1931,9 @@ METHOD HBrowse:MouseMove(wParam, lParam)
             i := iif(i == ::freeze, ::nLeftCol, i + 1)
          ENDDO
       ENDIF
-      IF !res .AND. !Empty(oCursor)
-         Hwg_SetCursor(arrowCursor)
-         oCursor := 0
+      IF !res .AND. !Empty(s_oCursor)
+         Hwg_SetCursor(s_arrowCursor)
+         s_oCursor := 0
          ::lResizing := .F.
       ENDIF
    ENDIF

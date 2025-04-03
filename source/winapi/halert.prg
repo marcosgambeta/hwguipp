@@ -68,7 +68,7 @@
 #define ALERTSTYLE          WS_POPUPWINDOW + WS_VISIBLE + WS_CLIPSIBLINGS + WS_DLGFRAME + WS_OVERLAPPED + DS_3DLOOK + DS_MODALFRAME + DS_CENTER
 
 // The "default" alert setup is stored here, and will be used when simply calling Alert()
-STATIC soDefaultAlert
+STATIC s_soDefaultAlert
 
 CLASS HAlert
 
@@ -411,44 +411,44 @@ RETURN NIL
 
 FUNCTION hwg_Alert(cMessage, acOptions)
 
-   IF soDefaultAlert == NIL
-      soDefaultAlert := HAlert():New()
+   IF s_soDefaultAlert == NIL
+      s_soDefaultAlert := HAlert():New()
    ENDIF
 
-RETURN soDefaultAlert:Alert(cMessage, acOptions)
+RETURN s_soDefaultAlert:Alert(cMessage, acOptions)
 
 PROCEDURE SetDefaultAlert(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions)
 
-   IF soDefaultAlert == NIL
-      soDefaultAlert := HAlert():New(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions)
+   IF s_soDefaultAlert == NIL
+      s_soDefaultAlert := HAlert():New(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions)
    ELSE
-      soDefaultAlert:SetVars(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions)
+      s_soDefaultAlert:SetVars(cTitle, cFont, nFontSize, nIcon, acOptions, nAlign, lModal, nTime, lBeep, nBeepSound, lTitleIcon, lCloseButton, abOptionActions)
    ENDIF
 
 RETURN
 
 PROCEDURE ResetDefaultAlert()
 
-   IF soDefaultAlert == NIL
-      soDefaultAlert := HAlert():New()
+   IF s_soDefaultAlert == NIL
+      s_soDefaultAlert := HAlert():New()
    ELSE
-      soDefaultAlert:ResetVars()
+      s_soDefaultAlert:ResetVars()
    ENDIF
 
 RETURN
 
 FUNCTION hwg_GetDefaultAlert()
 
-   IF soDefaultAlert == NIL
-      soDefaultAlert := HAlert():New()
+   IF s_soDefaultAlert == NIL
+      s_soDefaultAlert := HAlert():New()
    ENDIF
 
-RETURN soDefaultAlert
+RETURN s_soDefaultAlert
 
 FUNCTION hwg_ReleaseDefaultAlert()
 
-   IF soDefaultAlert != NIL
-      soDefaultAlert:ReleaseNonModalAlert(.T.)
+   IF s_soDefaultAlert != NIL
+      s_soDefaultAlert:ReleaseNonModalAlert(.T.)
    ENDIF
 
 RETURN NIL

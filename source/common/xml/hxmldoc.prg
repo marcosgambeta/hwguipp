@@ -12,7 +12,7 @@
 
 #define XML_ERROR_FILEOPEN     11
 
-STATIC cNewLine := e"\r\n"
+STATIC s_cNewLine := e"\r\n"
 
 /*
  *  CLASS DEFINITION
@@ -127,17 +127,17 @@ METHOD HXMLNode:Save(handle, level)
       NEXT i
    ENDIF
    IF ::type == HBXML_TYPE_PI
-      s += "?>" + cNewLine
+      s += "?>" + s_cNewLine
       m->hxml_newline := .T.
    ELSEIF ::type == HBXML_TYPE_SINGLE
-      s += "/>" + cNewLine
+      s += "/>" + s_cNewLine
       m->hxml_newline := .T.
    ELSEIF ::type == HBXML_TYPE_TAG
       s += ">"
       IF Empty(::aItems) .OR. (Len(::aItems) == 1 .AND. HB_ISCHAR(::aItems[1]) .AND. Len(::aItems[1]) + Len(s) < 80)
          lNewLine := m->hxml_newline := .F.
       ELSE
-         s += cNewLine
+         s += s_cNewLine
          lNewLine := m->hxml_newline := .T.
       ENDIF
    ENDIF
@@ -154,7 +154,7 @@ METHOD HXMLNode:Save(handle, level)
               FWrite(handle, HBXML_PreSave(::aItems[i]))
            ENDIF
            IF lNewLine .AND. Right(::aItems[i], 1) != Chr(10)
-              FWrite(handle, cNewLine)
+              FWrite(handle, s_cNewLine)
            ENDIF
         ELSE
            IF ::type == HBXML_TYPE_CDATA .OR. ::type == HBXML_TYPE_COMMENT
@@ -163,7 +163,7 @@ METHOD HXMLNode:Save(handle, level)
               s += HBXML_PreSave(::aItems[i])
            ENDIF
            IF lNewLine .AND. Right(s, 1) != Chr(10)
-              s += cNewLine
+              s += s_cNewLine
            ENDIF
         ENDIF
         m->hxml_newline := .F.
@@ -174,19 +174,19 @@ METHOD HXMLNode:Save(handle, level)
    m->hxml_newline := .T.
    IF handle >= 0
       IF ::type == HBXML_TYPE_TAG
-         FWrite(handle, Iif(lNewLine, Space(level * 2), "") + "</" + ::title + ">" + cNewLine)
+         FWrite(handle, Iif(lNewLine, Space(level * 2), "") + "</" + ::title + ">" + s_cNewLine)
       ELSEIF ::type == HBXML_TYPE_CDATA
-         FWrite(handle, "]]>" + cNewLine)
+         FWrite(handle, "]]>" + s_cNewLine)
       ELSEIF ::type == HBXML_TYPE_COMMENT
-         FWrite(handle, "-->" + cNewLine)
+         FWrite(handle, "-->" + s_cNewLine)
       ENDIF
    ELSE
       IF ::type == HBXML_TYPE_TAG
-         s += Iif(lNewLine, Space(level * 2), "") + "</" + ::title + ">" + cNewLine
+         s += Iif(lNewLine, Space(level * 2), "") + "</" + ::title + ">" + s_cNewLine
       ELSEIF ::type == HBXML_TYPE_CDATA
-         s += "]]>" + cNewLine
+         s += "]]>" + s_cNewLine
       ELSEIF ::type == HBXML_TYPE_COMMENT
-         s += "-->" + cNewLine
+         s += "-->" + s_cNewLine
       ENDIF
       Return s
    ENDIF
@@ -279,7 +279,7 @@ METHOD HXMLDoc:Save(fname, lNoHeader)
          IF (cEncod := ::GetAttribute("encoding")) == NIL
             cEncod := "UTF-8"
          ENDIF
-         s := "<?xml version=" + Chr(34) + "1.0" + Chr(34) + " encoding=" + Chr(34) + cEncod + Chr(34) + "?>" + cNewLine
+         s := "<?xml version=" + Chr(34) + "1.0" + Chr(34) + " encoding=" + Chr(34) + cEncod + Chr(34) + "?>" + s_cNewLine
          IF fname != NIL
             FWrite(handle, s)
          ENDIF
