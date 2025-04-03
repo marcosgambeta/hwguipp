@@ -113,7 +113,7 @@ METHOD HEdit:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight
    ENDIF
    ::bChange := bChange
 
-   ::aColorOld[1] := IIf(tcolor = NIL, 0, ::tcolor)
+   ::aColorOld[1] := IIf(tcolor == NIL, 0, ::tcolor)
    ::aColorOld[2] := ::bcolor
 
    RETURN Self
@@ -291,7 +291,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
                IF !Empty(cClipboardText)
                   nPos := hwg_Hiword(hwg_Sendmessage(::handle, EM_GETSEL, 0, 0)) + 1
                   hwg_Sendmessage(::handle, EM_SETSEL, nPos - 1, nPos - 1)
-                  FOR nPos = 1 TO hwg_Len(cClipboardText)
+                  FOR nPos := 1 TO hwg_Len(cClipboardText)
                      GetApplyKey(Self, hwg_SubStr(cClipboardText, nPos, 1))
                   NEXT
                   nPos := hwg_Hiword(hwg_Sendmessage(::handle, EM_GETSEL, 0, 0)) + 1
@@ -989,7 +989,7 @@ STATIC FUNCTION Untransform(oEdit, cBuffer)
       IF "D" $ oEdit:cPicFunc
          FOR nFor := FirstEditable(oEdit) TO LastEditable(oEdit)
             IF !IsEditable(oEdit, nFor)
-               cBuffer = Left(cBuffer, nFor - 1) + Chr(1) + SubStr(cBuffer, nFor + 1)
+               cBuffer := Left(cBuffer, nFor - 1) + Chr(1) + SubStr(cBuffer, nFor + 1)
             ENDIF
          NEXT
       ELSE
@@ -1008,7 +1008,7 @@ STATIC FUNCTION Untransform(oEdit, cBuffer)
 
          FOR nFor := FirstEditable(oEdit) TO LastEditable(oEdit)
             IF !IsEditable(oEdit, nFor) .AND. SubStr(cBuffer, nFor, 1) != "."
-               cBuffer = Left(cBuffer, nFor - 1) + Chr(1) + SubStr(cBuffer, nFor + 1)
+               cBuffer := Left(cBuffer, nFor - 1) + Chr(1) + SubStr(cBuffer, nFor + 1)
             ENDIF
          NEXT
       ENDIF

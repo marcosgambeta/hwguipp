@@ -33,12 +33,12 @@ ENDCLASS
 METHOD HScrollArea:RedefineScrollbars()
 
    ::rect := hwg_Getclientrect(::handle)
-   IF ::nScrollBars > - 1 .AND. ::bScroll = NIL
-      IF ::nVscrollPos = 0
+   IF ::nScrollBars > - 1 .AND. ::bScroll == NIL
+      IF ::nVscrollPos == 0
          ::ncurHeight := 0                                                              //* 4
          AEval(::aControls, {|o|::ncurHeight := Int(Max(o:nY + o:nHeight + VERT_PTS * 1, ::ncurHeight))})
       ENDIF
-      IF ::nHscrollPos = 0
+      IF ::nHscrollPos == 0
          ::ncurWidth := 0                                                           // * 4
          AEval(::aControls, {|o|::ncurWidth := Int(Max(o:nX + o:nWidth + HORZ_PTS * 1, ::ncurWidth))})
       ENDIF
@@ -59,7 +59,7 @@ METHOD HScrollArea:SetupScrollbars()
    tempRect := hwg_Getclientrect(::handle)
    aMenu := iif(__objHasData(Self, "MENU"), ::menu, NIL)
    // Calculate how many scrolling increments for the client area
-   IF ::Type = WND_MDICHILD //.AND. ::aRectSave != NIL
+   IF ::Type == WND_MDICHILD //.AND. ::aRectSave != NIL
       nwMax := Max(::ncurWidth, tempRect[3]) //::maxWidth
       nhMax := Max(::ncurHeight, tempRect[4]) //::maxHeight
       ::nHorzInc := Int((nwMax - tempRect[3]) / HORZ_PTS)
@@ -71,7 +71,7 @@ METHOD HScrollArea:SetupScrollbars()
       ::nVertInc := Int((nhMax - tempRect[4]) / VERT_PTS + VERT_PTS - iif(amenu != NIL, hwg_Getsystemmetrics(SM_CYMENU), 0))  // MENU
    ENDIF
    // Set the vertical and horizontal scrolling info
-   IF ::nScrollBars = 0 .OR. ::nScrollBars = 2
+   IF ::nScrollBars == 0 .OR. ::nScrollBars == 2
       ::nHscrollMax := Max(0, ::nHorzInc)
       IF ::nHscrollMax < HORZ_PTS / 2
          //-  hwg_Scrollwindow(::Handle, ::nHscrollPos * HORZ_PTS, 0)
@@ -90,7 +90,7 @@ METHOD HScrollArea:SetupScrollbars()
          ENDIF
       ENDIF
    ENDIF
-   IF ::nScrollBars = 1 .OR. ::nScrollBars = 2
+   IF ::nScrollBars == 1 .OR. ::nScrollBars == 2
       ::nVscrollMax := Int(Max(0, ::nVertInc))
       IF ::nVscrollMax < VERT_PTS / 2
          //-  hwg_Scrollwindow(::Handle, 0, ::nVscrollPos * VERT_PTS)

@@ -353,7 +353,7 @@ FUNCTION hwg_BaseName(pFullpath)
 
  cseparator := hwg_GetDirSep()
  // Search separator backwards
- nPosifilna = RAT(cseparator,pFullpath)
+ nPosifilna := RAT(cseparator,pFullpath)
 
  IF nPosifilna == 0
    // Only filename
@@ -405,7 +405,7 @@ FUNCTION hwg_Dirname(pFullpath)
          // Only drive letter with ":" (for example C:)
          sFilePath := SUBSTR(sFullpath, 1, 2)
        ELSE
-        sFilePath = "."
+        sFilePath := "."
        ENDIF
      ENDIF
  ENDIF
@@ -426,9 +426,9 @@ FUNCTION hwg_CleanPathname(pSwithdbl)
  IF Empty(pSwithdbl)
    RETURN ""
  ENDIF
- cseparator = hwg_GetDirSep()
+ cseparator := hwg_GetDirSep()
  bready := .F.
- sSwithdbl = ALLTRIM(pSwithdbl)
+ sSwithdbl := ALLTRIM(pSwithdbl)
  DO WHILE !bready
  // Loop until
  // multi separators (for example "///") are reduced to "/"
@@ -1015,7 +1015,7 @@ FUNCTION hwg_JulianDay2Date(z)
    ELSE
       sz := 0
    ENDIF
-   IF (sz = -1) .AND. (d = 60)
+   IF (sz = -1) .AND. (d == 60)
       // 29th February
       cMonth := "02"
       cday := "29"

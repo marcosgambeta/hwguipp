@@ -653,7 +653,7 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
    LOCAL bOldError
    LOCAL bRes
 
-   IF cMethod = NIL .OR. Empty(cMethod)
+   IF cMethod == NIL .OR. Empty(cMethod)
       RETURN NIL
    ENDIF
    IF oCtrl != NIL .AND. Left(oCtrl:oParent:Classname(), 2) == "HC"

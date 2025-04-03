@@ -87,14 +87,14 @@ METHOD hToolBar:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, 
    ::nwSize := iif(nwSize != NIL .AND. nwSize > 11, nwSize, 16)
    ::nhSize := iif(nhSize != NIL .AND. nhSize > 11, nhSize, ::nwSize - 1)
    //::lnoThemes := !hwg_Isthemeactive() .OR. !::WindowsManifest
-   IF hb_bitand(::Style, WS_DLGFRAME + WS_BORDER + CCS_NODIVIDER) = 0
+   IF hb_bitand(::Style, WS_DLGFRAME + WS_BORDER + CCS_NODIVIDER) == 0
       IF !::lVertical
          ::Line := HLine():New(oWndParent, NIL, NIL, nX, nY + nHeight + iif(::lnoThemes .AND. hb_bitand(nStyle, TBSTYLE_FLAT) > 0, 2, 1), nWidth)
       ELSE
          ::Line := HLine():New(oWndParent, NIL, ::lVertical, nX + nWidth + 1, nY, nHeight)
       ENDIF
    ENDIF
-   IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI .AND. ::oParent:aOffset[2] + ::oParent:aOffset[3] = 0
+   IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI .AND. ::oParent:aOffset[2] + ::oParent:aOffset[3] == 0
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] += ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -179,7 +179,7 @@ METHOD hToolBar:CREATETOOL()
          //ENDIF
       ENDIF
    ELSE
-      FOR n = 1 TO Len(::aitem)
+      FOR n := 1 TO Len(::aitem)
          ::AddButton(::aitem[n, 1], ::aitem[n, 2], ::aitem[n, 3], ::aitem[n, 4], ::aitem[n, 6], ::aitem[n, 7], ::aitem[n, 8], ::aitem[n, 9], NIL, n)
       NEXT
    ENDIF
@@ -188,7 +188,7 @@ METHOD hToolBar:CREATETOOL()
    IF ::nIDB != NIL .AND. ::nIDB >= 0
       nlistimg := hwg_Toolbar_loadstandartimage(::handle, ::nIDB)
    ENDIF
-   IF hb_bitand(::Style, TBSTYLE_LIST) > 0 .AND. ::nwSize = NIL
+   IF hb_bitand(::Style, TBSTYLE_LIST) > 0 .AND. ::nwSize == NIL
       ::nwSize := Max(16, (::nHeight - 16))
    ENDIF
    IF ::nwSize != NIL
@@ -226,7 +226,7 @@ METHOD hToolBar:CREATETOOL()
             // AAdd(aButton, HBitmap():AddResource(::aitem[n, 1]):handle)
             hImage := HBitmap():AddResource(::aitem[n, 1], LR_LOADTRANSPARENT + LR_LOADMAP3DCOLORS, NIL, ::nwSize, ::nhSize):handle
          ENDIF
-         IF ( img := Ascan(aButton, hImage) ) = 0
+         IF ( img := Ascan(aButton, hImage) ) == 0
             AAdd(aButton, hImage)
             img := Len(aButton)
          ENDIF
@@ -244,7 +244,7 @@ METHOD hToolBar:CREATETOOL()
          hwg_Imagelist_add(hIm, aButton[nPos])
       NEXT
       hwg_Sendmessage(::Handle, TB_SETIMAGELIST, 0, hIm)
-   ELSEIF Len(aButton) = 0
+   ELSEIF Len(aButton) == 0
       hwg_Sendmessage(::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong(0, 0))
    ENDIF
    hwg_Sendmessage(::Handle, TB_SETINDENT, ::nIndent, 0)
@@ -322,7 +322,7 @@ METHOD hToolBar:AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, 
    DEFAULT bstyle TO 0x0000
    DEFAULT c TO ""
    DEFAULT ctext TO ""
-   IF nId = NIL .OR. Empty(nId)
+   IF nId == NIL .OR. Empty(nId)
       //IDTOOLBAR
       nId := Val(Right(Str(::id, 6), 1)) * IDMAXBUTTONTOOLBAR
       nId := nId + ::id + IDTOOLBAR + Len(::aButtons) + Len(::aSeparators) + 1
@@ -332,7 +332,7 @@ METHOD hToolBar:AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, 
       DEFAULT cName TO "oToolButton" + LTrim(Str(Len(::aButtons) + 1))
       AAdd(::aButtons, {AllTrim(cName), nid})
    ELSE
-      bstate := iif(!(::lVertical .AND. Len(::aButtons) = 0), bState, 8) // TBSTATE_HIDE
+      bstate := iif(!(::lVertical .AND. Len(::aButtons) == 0), bState, 8) // TBSTATE_HIDE
       DEFAULT nBitIp TO 0
       DEFAULT cName TO "oSeparator" + LTrim(Str(Len(::aSeparators) + 1))
       AAdd(::aSeparators, {cName, nid})
@@ -351,7 +351,7 @@ METHOD hToolBar:RESIZE(xIncrSize, lWidth, lHeight)
    
    LOCAL nSize
 
-   IF ::Anchor = 0 .OR. ( !lWidth .AND. !lHeight )
+   IF ::Anchor == 0 .OR. ( !lWidth .AND. !lHeight )
       RETURN NIL
    ENDIF
    nSize := hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0)

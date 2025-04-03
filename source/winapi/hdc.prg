@@ -221,10 +221,10 @@ METHOD HDC:Setarcdirection(nArcDirection)
    LOCAL nResult := 0
    
    IF (::m_hDC != ::m_hAttribDC)
-      nResult = hwg_Setarcdirection(::m_hDC, nArcDirection)
+      nResult := hwg_Setarcdirection(::m_hDC, nArcDirection)
    ENDIF
    IF !Empty(::m_hAttribDC)
-      nResult = hwg_Setarcdirection(::m_hAttribDC, nArcDirection)
+      nResult := hwg_Setarcdirection(::m_hAttribDC, nArcDirection)
    ENDIF
    RETURN nResult
 

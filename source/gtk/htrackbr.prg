@@ -221,12 +221,12 @@ METHOD HTrack:Drag( xPos, yPos )
    IF ::lVertical
       //::nCurr := Min(Max(::nTo, yPos), ::nFrom)
       IF ypos > 60000
-         ypos = 0
+         ypos := 0
       ENDIF
       ::nCurr := Min(Max(::nFrom, yPos), ::nTo)
    ELSE
       IF xpos > 60000
-         xpos = 0
+         xpos := 0
       ENDIF
       ::nCurr := Min(Max(::nFrom, xPos), ::nTo)
    ENDIF

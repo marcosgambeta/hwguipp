@@ -539,8 +539,8 @@ FUNCTION HWG_ScrollHV(oForm, msg, wParam, lParam)
    CASE WM_VSCROLL
    CASE WM_MOUSEWHEEL
       IF msg == WM_MOUSEWHEEL
-         nSBCode = IIf(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
-         nSBCode = IIf(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
+         nSBCode := IIf(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
+         nSBCode := IIf(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
       ENDIF
       // Handle vertical scrollbar messages
       SWITCH nSBCode

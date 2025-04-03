@@ -287,7 +287,7 @@ METHOD HCEdit:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, 
       ::nTrackWidth := HTRACK_DEF_WIDTH
    ENDIF
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE +  ;
-      IIf(lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0)) //+          ;
+      IIf(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0)) //+          ;
       //IIf(::lVScroll, WS_VSCROLL, 0))
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, IIf(nWidth == NIL, 0, nWidth), ;
@@ -1928,7 +1928,7 @@ METHOD HCEdit:onVScroll(wParam)
       ::PageDown()
    ELSEIF nCode == SB_PAGEUP
       ::PageUp()
-   ELSEIF nCode = SB_THUMBPOSITION .OR. nCode = SB_THUMBTRACK
+   ELSEIF nCode == SB_THUMBPOSITION .OR. nCode == SB_THUMBTRACK
       n := IIf(::nLines > 0, Int(::nHeight / (::aLines[1, AL_Y2] - ::aLines[1, AL_Y1])), 0)
       IF n > 0
          nPages := Int(::nLinesAll / n) + 1

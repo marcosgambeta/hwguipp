@@ -404,7 +404,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
         RETURN NIL
       ENDIF
       cImageName := IIf(EMPTY (cBitmapName), xBitmap, cBitmapName)
-      //  aBmpSize[1] = width(x) aBmpSize[2] = height(y)
+      //  aBmpSize[1] := width(x) aBmpSize[2] = height(y)
       aBmpSize := hwg_Getbitmapsize( hBitmap )
    ENDIF
 

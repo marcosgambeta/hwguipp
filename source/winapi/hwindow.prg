@@ -375,7 +375,7 @@ METHOD HMainWindow:Activate(lShow, lMaximized, lMinimized, lCentered, bActivate)
 
       oWndClient := HWindow():New(NIL, NIL, NIL, ::style, ::title, NIL, ::bInit, ::bDestroy, ::bSize, ::bPaint, ::bGetFocus, ::bLostFocus, ::bOther)
       handle := Hwg_InitClientWindow(oWndClient, ::nMenuPos, ::nX, ::nY + 60, ::nWidth, ::nHeight)
-      oWndClient:handle = handle
+      oWndClient:handle := handle
 
       IF !Empty(lCentered)
          ::Center()

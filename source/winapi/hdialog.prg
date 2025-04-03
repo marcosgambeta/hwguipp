@@ -77,13 +77,13 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
       ::style := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
    ELSEIF nStyle < 0 .AND. nStyle > -0x1000
       ::style := WS_POPUP + WS_VISIBLE
-      IF hb_bitand(Abs(nStyle), Abs(WND_NOTITLE)) = 0
+      IF hb_bitand(Abs(nStyle), Abs(WND_NOTITLE)) == 0
          ::style += WS_CAPTION
       ENDIF
-      IF hb_bitand(Abs(nStyle), WND_NOSYSMENU) = 0
+      IF hb_bitand(Abs(nStyle), WND_NOSYSMENU) == 0
          ::style += WS_SYSMENU
       ENDIF
-      IF hb_bitand(Abs(nStyle), WND_NOSIZEBOX) = 0
+      IF hb_bitand(Abs(nStyle), WND_NOSIZEBOX) == 0
          ::style += WS_SIZEBOX
       ENDIF
    ELSE
@@ -253,7 +253,7 @@ METHOD HDialog:onEvent(msg, wParam, lParam)
    CASE WM_HSCROLL
    CASE WM_VSCROLL
    CASE WM_MOUSEWHEEL
-      IF ::nScrollBars != -1 .AND. ::bScroll = NIL
+      IF ::nScrollBars != -1 .AND. ::bScroll == NIL
          hwg_ScrollHV(Self, msg, wParam, lParam)
       ENDIF
       hwg_onTrackScroll(Self, msg, wParam, lParam)

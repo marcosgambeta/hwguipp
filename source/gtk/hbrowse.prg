@@ -254,8 +254,8 @@ METHOD HBrowse:New( lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFo
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick )
 
    nStyle := hb_bitor( IIf(nStyle == NIL,0,nStyle), WS_CHILD + WS_VISIBLE +  ;
-      IIf(lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0) +            ;
-      IIf(lNoVScroll = NIL .OR. !lNoVScroll, WS_VSCROLL, 0) )
+      IIf(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) +            ;
+      IIf(lNoVScroll == NIL .OR. !lNoVScroll, WS_VSCROLL, 0) )
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, IIf(nWidth == NIL, 0, nWidth), IIf(nHeight == NIL, 0, nHeight), oFont, bInit, bSize, bPaint)
 
@@ -1235,7 +1235,7 @@ STATIC FUNCTION LINERIGHT( oBrw, lRefresh )
    ELSEIF oBrw:nColumns + oBrw:nLeftCol - oBrw:freeze - 1 < nColumns ;
          .AND. oBrw:nLeftCol < nColumns
       i := oBrw:nLeftCol + oBrw:nColumns
-      DO WHILE oBrw:nColumns + oBrw:nLeftCol - oBrw:freeze - 1 < nColumns .AND. oBrw:nLeftCol + oBrw:nColumns = i
+      DO WHILE oBrw:nColumns + oBrw:nLeftCol - oBrw:freeze - 1 < nColumns .AND. oBrw:nLeftCol + oBrw:nColumns == i
          oBrw:nLeftCol ++
       ENDDO
       oBrw:colpos := i - oBrw:nLeftCol + 1
@@ -1245,7 +1245,7 @@ STATIC FUNCTION LINERIGHT( oBrw, lRefresh )
       IF oBrw:hScrollH != NIL
          maxPos := hwg_getAdjValue( oBrw:hScrollH, 1 ) - hwg_getAdjValue( oBrw:hScrollH, 4 )
          fif := IIf(oBrw:lEditable, oBrw:colpos + oBrw:nLeftCol - 1, oBrw:nLeftCol)
-         nPos := IIf(fif == 1, 0, IIf(fif = nColumns, maxpos, Int((maxPos + 1) * fif / nColumns)))
+         nPos := IIf(fif == 1, 0, IIf(fif == nColumns, maxpos, Int((maxPos + 1) * fif / nColumns)))
          hwg_SetAdjOptions( oBrw:hScrollH, nPos )
          oBrw:nScrollH := nPos
       ENDIF
@@ -1287,7 +1287,7 @@ STATIC FUNCTION LINELEFT(oBrw, lRefresh)
       IF oBrw:hScrollH != NIL
          maxPos := hwg_getAdjValue( oBrw:hScrollH, 1 ) - hwg_getAdjValue( oBrw:hScrollH, 4 )
          fif := IIf(oBrw:lEditable, oBrw:colpos + oBrw:nLeftCol - 1, oBrw:nLeftCol)
-         nPos := IIf(fif == 1, 0, IIf(fif = nColumns, maxpos, Int((maxPos + 1) * fif / nColumns)))
+         nPos := IIf(fif == 1, 0, IIf(fif == nColumns, maxpos, Int((maxPos + 1) * fif / nColumns)))
          hwg_SetAdjOptions( oBrw:hScrollH, nPos )
          oBrw:nScrollH := nPos
       ENDIF
@@ -1434,7 +1434,7 @@ METHOD HBrowse:LINEUP( lMouse )
       Eval(::bGoTop, Self)
    ELSE
       ::rowPos --
-      IF ::rowPos = 0
+      IF ::rowPos == 0
          ::rowPos := 1
          hwg_Invalidaterect(::area, 0)
       ELSE
@@ -1646,7 +1646,7 @@ METHOD HBrowse:ButtonDown( lParam )
             ::colpos := fif - ::nLeftCol + 1 + :: freeze
             IF ::hScrollH != NIL
                maxPos := hwg_getAdjValue(::hScrollH, 1) - hwg_getAdjValue(::hScrollH, 4)
-               nPos := IIf(fif == 1, 0, IIf(fif = Len(::aColumns), maxpos, Int((maxPos + 1) * fif / Len(::aColumns))))
+               nPos := IIf(fif == 1, 0, IIf(fif == Len(::aColumns), maxpos, Int((maxPos + 1) * fif / Len(::aColumns))))
                hwg_SetAdjOptions(::hScrollH, nPos)
             ENDIF
             res := .T.
@@ -1881,7 +1881,7 @@ METHOD HBrowse:Edit( wParam, lParam )
       ENDIF
       type := IIf(oColumn:type == "U" .AND. ::varbuf != NIL, ValType(::varbuf), oColumn:type)
       IF type != "O"
-         IF oColumn:bWhen = NIL .OR. Eval( oColumn:bWhen )
+         IF oColumn:bWhen == NIL .OR. Eval( oColumn:bWhen )
             IF ::lAppMode
                IF type == "D"
                   ::varbuf := CToD( "" )
@@ -2181,7 +2181,7 @@ STATIC FUNCTION FLDCOUNT( oBrw, xstrt, xend, fld1 )
       ENDIF
    ENDDO
 
-   RETURN IIf(klf = 0, 1, klf)
+   RETURN IIf(klf == 0, 1, klf)
 
 FUNCTION hwg_CREATEARLIST( oBrw, arr )
 
@@ -2210,7 +2210,7 @@ PROCEDURE ARSKIP( oBrw, kolskip )
 
    IF oBrw:nRecords != 0
       tekzp1 := oBrw:nCurrent
-      oBrw:nCurrent += kolskip + IIf(tekzp1 = 0, 1, 0)
+      oBrw:nCurrent += kolskip + IIf(tekzp1 == 0, 1, 0)
       IF oBrw:nCurrent < 1
          oBrw:nCurrent := 0
       ELSEIF oBrw:nCurrent > oBrw:nRecords

@@ -26,7 +26,7 @@ METHOD HRect:New(oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle)
    LOCAL nCor1
    LOCAL nCor2
 
-   IF nStyle = NIL
+   IF nStyle == NIL
       nStyle := 3
    ENDIF
 
@@ -39,19 +39,19 @@ METHOD HRect:New(oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle)
    ENDIF
 
    DO CASE
-   CASE nStyle = 1
-      ::oLine1 = HRect_Line():New(oWndParent, NIL, .F., nLeft, nTop, nRight - nLeft, NIL, nCor1)
-      ::oLine3 = HRect_Line():New(oWndParent, NIL, .F., nLeft, nBottom, nRight - nLeft, NIL, nCor2)
+   CASE nStyle == 1
+      ::oLine1 := HRect_Line():New(oWndParent, NIL, .F., nLeft, nTop, nRight - nLeft, NIL, nCor1)
+      ::oLine3 := HRect_Line():New(oWndParent, NIL, .F., nLeft, nBottom, nRight - nLeft, NIL, nCor2)
 
-   CASE nStyle = 2
-      ::oLine2 = HRect_Line():New(oWndParent, NIL, .T., nLeft, nTop, nBottom - nTop, NIL, nCor1)
-      ::oLine4 = HRect_Line():New(oWndParent, NIL, .T., nRight, nTop, nBottom - nTop, NIL, nCor2)
+   CASE nStyle == 2
+      ::oLine2 := HRect_Line():New(oWndParent, NIL, .T., nLeft, nTop, nBottom - nTop, NIL, nCor1)
+      ::oLine4 := HRect_Line():New(oWndParent, NIL, .T., nRight, nTop, nBottom - nTop, NIL, nCor2)
 
    OTHERWISE
-      ::oLine1 = HRect_Line():New(oWndParent, NIL, .F., nLeft, nTop, nRight - nLeft, NIL, nCor1)
-      ::oLine2 = HRect_Line():New(oWndParent, NIL, .T., nLeft, nTop, nBottom - nTop, NIL, nCor1)
-      ::oLine3 = HRect_Line():New(oWndParent, NIL, .F., nLeft, nBottom, nRight - nLeft, NIL, nCor2)
-      ::oLine4 = HRect_Line():New(oWndParent, NIL, .T., nRight, nTop, nBottom - nTop, NIL, nCor2)
+      ::oLine1 := HRect_Line():New(oWndParent, NIL, .F., nLeft, nTop, nRight - nLeft, NIL, nCor1)
+      ::oLine2 := HRect_Line():New(oWndParent, NIL, .T., nLeft, nTop, nBottom - nTop, NIL, nCor1)
+      ::oLine3 := HRect_Line():New(oWndParent, NIL, .F., nLeft, nBottom, nRight - nLeft, NIL, nCor2)
+      ::oLine4 := HRect_Line():New(oWndParent, NIL, .T., nRight, nTop, nBottom - nTop, NIL, nCor2)
    ENDCASE
 
    RETURN Self
@@ -136,9 +136,9 @@ METHOD HShape:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurva
    /* Variable Self is reserved and cannot be overwritten ! */
    LOCAL oSelf
 
-   nBorder := IIf(nBorder = NIL, 1, nBorder)
-   nbStyle := IIf(nbStyle = NIL, PS_SOLID, nbStyle)
-   nfStyle := IIf(nfStyle = NIL, BS_TRANSPARENT, nfStyle)
+   nBorder := IIf(nBorder == NIL, 1, nBorder)
+   nbStyle := IIf(nbStyle == NIL, PS_SOLID, nbStyle)
+   nfStyle := IIf(nfStyle == NIL, BS_TRANSPARENT, nfStyle)
    nCurvature := nCurvature
 
    /* old : Self := ... */
@@ -159,8 +159,8 @@ METHOD HContainer:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nStyle, bSi
 
    LOCAL oSelf
 
-   nStyle := IIf(nStyle = NIL, 3, nStyle)  // FLAT
-   lnoBorder := IIf(lnoBorder = NIL, .F., lnoBorder)  // FLAT
+   nStyle := IIf(nStyle == NIL, 3, nStyle)  // FLAT
+   lnoBorder := IIf(lnoBorder == NIL, .F., lnoBorder)  // FLAT
 
    oSelf := HDrawShape():New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, NIL, NIL, nStyle, lnoBorder, NIL, NIL, NIL, NIL, bInit) //,bClick, bDblClick)
 
@@ -203,8 +203,8 @@ METHOD HDrawShape:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcol
    ::nTop := nTop
    ::nWidth := nWidth
    ::nHeight := nHeight
-   tcolor := IIf(tcolor = NIL, 0, tcolor)
-   bColor := IIf(bColor = NIL, hwg_Getsyscolor(COLOR_BTNFACE), bColor)
+   tcolor := IIf(tcolor == NIL, 0, tcolor)
+   bColor := IIf(bColor == NIL, hwg_Getsyscolor(COLOR_BTNFACE), bColor)
    ::lnoBorder := lnoBorder
    ::nBorder := nBorder
    ::nbStyle := nbStyle
@@ -268,7 +268,7 @@ METHOD HDrawShape:Paint(lpdis)
 
    hwg_Selectobject(hDC, ::oPen:handle)
    IF ::ncStyle != NIL
-      IF ::lnoBorder = .F.
+      IF ::lnoBorder == .F.
          IF ::ncStyle == 0      // RAISED
             hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_RAISED, BF_LEFT + BF_TOP + BF_RIGHT + BF_BOTTOM)  // raised  forte      8
          ELSEIF ::ncStyle == 1  // sunken
@@ -305,7 +305,7 @@ METHOD HDrawShape:Paint(lpdis)
 FUNCTION hwg_Rect(oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST)
 
 
-   IF lPress = NIL
+   IF lPress == NIL
       lPress := .F.
    ENDIF
 

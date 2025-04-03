@@ -51,7 +51,7 @@ METHOD HRichEdit:New(oWndParent, nId, vari, nStyle, nX, nY, nWidth, nHeight, ;
       tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder)
 
    nStyle := hb_bitor(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
-      iif(lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0))
+      iif(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0))
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, NIL, ctooltip, tcolor, iif(bcolor == NIL, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
@@ -114,11 +114,11 @@ METHOD HRichEdit:onEvent(msg, wParam, lParam)
    ENDIF
    
    // TODO: usar SWITCH
-   IF msg = WM_KEYUP .OR. msg == WM_LBUTTONDOWN .OR. msg == WM_LBUTTONUP // msg = WM_NOTIFY .OR.
+   IF msg == WM_KEYUP .OR. msg == WM_LBUTTONDOWN .OR. msg == WM_LBUTTONUP // msg == WM_NOTIFY .OR.
       ::updatePos()
    ELSEIF msg == WM_CHAR
       wParam := hwg_PtrToUlong(wParam)
-      IF wParam = VK_TAB
+      IF wParam == VK_TAB
          IF ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
             RETURN 0
          ENDIF
@@ -128,10 +128,10 @@ METHOD HRichEdit:onEvent(msg, wParam, lParam)
       ENDIF
    ELSEIF msg == WM_KEYDOWN
       wParam := hwg_PtrToUlong(wParam)
-      IF wParam = VK_TAB .AND. ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
+      IF wParam == VK_TAB .AND. ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
          hwg_GetSkip(::oParent, ::handle, iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
-      ELSEIF wParam = VK_TAB
+      ELSEIF wParam == VK_TAB
          hwg_Re_inserttext(::handle, Chr(VK_TAB))
          RETURN 0
       ELSEIF wParam == 27 // ESC

@@ -96,15 +96,15 @@ METHOD HFont:SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight)
    LOCAL StrikeOut
 
    IF lBold != NIL
-      weight = iif(lBold, FW_BOLD, FW_REGULAR)
+      weight := iif(lBold, FW_BOLD, FW_REGULAR)
    ELSE
       weight := ::weight
    ENDIF
-   Italic := iif(lItalic = NIL, ::Italic, iif(lItalic, 1, 0))
-   Underline := iif(lUnder  = NIL, ::Underline, iif(lUnder, 1, 0))
-   StrikeOut := iif(lStrike = NIL, ::StrikeOut, iif(lStrike, 1, 0))
-   nheight := iif(nheight = NIL, ::height, nheight)
-   nCharSet := iif(nCharSet = NIL, ::CharSet, nCharSet)
+   Italic := iif(lItalic == NIL, ::Italic, iif(lItalic, 1, 0))
+   Underline := iif(lUnder == NIL, ::Underline, iif(lUnder, 1, 0))
+   StrikeOut := iif(lStrike == NIL, ::StrikeOut, iif(lStrike, 1, 0))
+   nheight := iif(nheight == NIL, ::height, nheight)
+   nCharSet := iif(nCharSet == NIL, ::CharSet, nCharSet)
 
    RETURN HFont():Add(::name, ::width, nheight, weight, nCharSet, Italic, Underline, StrikeOut) // ::handle)
 

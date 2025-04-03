@@ -279,7 +279,7 @@ METHOD HBrowse:New(lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFon
       RETURN Self
    ENDIF
 
-   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + IIf(lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0) + IIf(lNoVScroll = NIL .OR. !lNoVScroll, WS_VSCROLL, 0))
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + IIf(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) + IIf(lNoVScroll == NIL .OR. !lNoVScroll, WS_VSCROLL, 0))
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, IIf(nWidth == NIL, 0, nWidth), IIf(nHeight == NIL, 0, nHeight), oFont, bInit, bSize, bPaint)
 
@@ -1356,7 +1356,7 @@ STATIC FUNCTION LINERIGHT(oBrw)
    ENDIF
    IF oBrw:nColumns + oBrw:nLeftCol - oBrw:freeze - 1 < Len(oBrw:aColumns) .AND. oBrw:nLeftCol < Len(oBrw:aColumns)
       i := oBrw:nLeftCol + oBrw:nColumns
-      DO WHILE oBrw:nColumns + oBrw:nLeftCol - oBrw:freeze - 1 < Len(oBrw:aColumns) .AND. oBrw:nLeftCol + oBrw:nColumns = i
+      DO WHILE oBrw:nColumns + oBrw:nLeftCol - oBrw:freeze - 1 < Len(oBrw:aColumns) .AND. oBrw:nLeftCol + oBrw:nColumns == i
          oBrw:nLeftCol++
       ENDDO
       oBrw:colpos := i - oBrw:nLeftCol + 1
@@ -1481,7 +1481,7 @@ METHOD HBrowse:DoHScroll(wParam)
       IF lMoveThumb
 
          fif := IIf(::lEditable, ::colpos + ::nLeftCol - 1, ::nLeftCol)
-         nPos := IIf(fif == 1, minPos, IIf(fif = Len(::aColumns), maxpos, Int((maxPos - minPos + 1) * fif / Len(::aColumns))))
+         nPos := IIf(fif == 1, minPos, IIf(fif == Len(::aColumns), maxpos, Int((maxPos - minPos + 1) * fif / Len(::aColumns))))
          hwg_Setscrollpos(::handle, SB_HORZ, nPos)
 
       ENDIF
@@ -1588,7 +1588,7 @@ METHOD HBrowse:LINEUP()
    ELSE
       ::rowPos--
       ::lRefrBmp := .T.
-      IF ::rowPos = 0
+      IF ::rowPos == 0
          ::rowPos := 1
          hwg_Invalidaterect(::handle, 0)
       ELSE
@@ -2030,7 +2030,7 @@ METHOD HBrowse:Edit(wParam, lParam)
       ENDIF
       type := IIf(oColumn:type == "U" .AND. ::varbuf != NIL, ValType(::varbuf), oColumn:type)
       IF type != "O"
-         IF oColumn:bWhen = NIL .OR. Eval(oColumn:bWhen)
+         IF oColumn:bWhen == NIL .OR. Eval(oColumn:bWhen)
             IF ::lAppMode
                // TODO: SWITCH
                IF type == "D"
@@ -2281,7 +2281,7 @@ STATIC FUNCTION FldStr(oBrw, numf)
             cRes := vartmp
             EXIT
          CASE "N"
-            IF vartmp = NIL
+            IF vartmp == NIL
                //cRes := PadL(Space(oBrw:aColumns[numf]:length + oBrw:aColumns[numf]:dec), oBrw:aColumns[numf]:length)
                cRes := " "
             ELSE
@@ -2340,7 +2340,7 @@ STATIC FUNCTION FLDCOUNT(oBrw, xstrt, xend, fld1)
       ENDIF
    ENDDO
 
-   RETURN IIf(klf = 0, 1, klf)
+   RETURN IIf(klf == 0, 1, klf)
 
 FUNCTION hwg_CREATEARLIST(oBrw, arr)
 
@@ -2369,7 +2369,7 @@ PROCEDURE ARSKIP(oBrw, nSkip)
 
    IF oBrw:nRecords != 0
       nCurrent1 := oBrw:nCurrent
-      oBrw:nCurrent += nSkip + IIf(nCurrent1 = 0, 1, 0)
+      oBrw:nCurrent += nSkip + IIf(nCurrent1 == 0, 1, 0)
       IF oBrw:nCurrent < 1
          oBrw:nCurrent := 0
       ELSEIF oBrw:nCurrent > oBrw:nRecords

@@ -35,8 +35,8 @@ METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit,
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, bInit, bSize, ctoolt, bClick, bDblClick, bColor)
 
-   ::lTransp := IIf(lTransp = NIL, .F. , lTransp)
-   ::trcolor := IIf(trcolor = NIL, 16777215, trcolor)
+   ::lTransp := IIf(lTransp == NIL, .F. , lTransp)
+   ::trcolor := IIf(trcolor == NIL, 16777215, trcolor)
    ::nBorder := 0
    ::tColor := 0
 

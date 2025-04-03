@@ -158,8 +158,8 @@ FUNCTION hwg_dbg_New()
    ENDIF
 
    cFile := IIf(!Empty(cDir), cDir, hb_dirTemp()) + ;
-         IIf(( i := Rat('\', cFile) ) = 0, ;
-         IIf(( i := Rat('/', cFile) ) = 0, cFile, Substr(cFile, i + 1)), ;
+         IIf(( i := Rat('\', cFile) ) == 0, ;
+         IIf(( i := Rat('/', cFile) ) == 0, cFile, Substr(cFile, i + 1)), ;
          Substr(cFile, i + 1))
 
    Ferase(cFile + ".d1")

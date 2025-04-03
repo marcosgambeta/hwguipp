@@ -93,7 +93,7 @@ METHOD HEdit:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight
       hwg_SetSignal(::handle, "copy-clipboard", WM_COPY, 0, 0)
    ENDIF
    
-//   ::aColorOld[1] := IIf(tcolor = NIL, 0, ::tcolor)
+//   ::aColorOld[1] := IIf(tcolor == NIL, 0, ::tcolor)
 //   ::aColorOld[2] := ::bcolor
 
    RETURN Self
@@ -119,7 +119,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
       RETURN 0
    ENDIF
 
-   IF msg == WM_SETFOCUS   // msg = 7
+   IF msg == WM_SETFOCUS   // msg == 7
       oParent := hwg_getParentForm( Self )
 
       // hwg_WriteLog("Edit: " + hwg_StrDebLog(s_lColorinFocus) + " " + ;
@@ -793,7 +793,7 @@ STATIC FUNCTION Untransform( oEdit, cBuffer )
       IF "D" $ oEdit:cPicFunc
          FOR nFor := FirstEditable( oEdit ) TO LastEditable( oEdit )
             IF !IsEditable( oEdit, nFor )
-               cBuffer = Left(cBuffer, nFor - 1) + Chr(1) + SubStr(cBuffer, nFor + 1)
+               cBuffer := Left(cBuffer, nFor - 1) + Chr(1) + SubStr(cBuffer, nFor + 1)
             ENDIF
          NEXT
       ELSE
@@ -812,7 +812,7 @@ STATIC FUNCTION Untransform( oEdit, cBuffer )
 
          FOR nFor := FirstEditable( oEdit ) TO LastEditable( oEdit )
             IF !IsEditable( oEdit, nFor ) .AND. SubStr(cBuffer, nFor, 1) != "."
-               cBuffer = Left(cBuffer, nFor - 1) + Chr(1) + SubStr(cBuffer, nFor + 1)
+               cBuffer := Left(cBuffer, nFor - 1) + Chr(1) + SubStr(cBuffer, nFor + 1)
             ENDIF
          NEXT
       ENDIF
@@ -924,7 +924,7 @@ STATIC FUNCTION DoPaste( oEdit )
    LOCAL nPos
 
    IF !Empty(cClipboardText)
-      FOR nPos = 1 TO hwg_Len(cClipboardText)
+      FOR nPos := 1 TO hwg_Len(cClipboardText)
          GetApplyKey( oEdit, hwg_SubStr(cClipboardText, nPos, 1) )
       NEXT
       oEdit:title := UnTransform( oEdit, hwg_Edit_GetText( oEdit:handle ) )

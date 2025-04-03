@@ -49,7 +49,7 @@ LOCAL aFormCode, aFormName
    IF han != - 1
       DO WHILE .T.
          stroka := RDSTR(han, @strbuf, @poz, STR_BUFLEN)
-         IF LEN(stroka) = 0
+         IF LEN(stroka) == 0
             EXIT
          ELSEIF rejim == 0 .AND. Left(stroka, 1) == "#"
             IF Upper(LEFT(stroka, 7)) == "#SCRIPT"
@@ -169,7 +169,7 @@ FUNCTION scr_GetFuncsList( strbuf )
 
    DO WHILE .T.
       cLine := RDSTR(, @strbuf, @poz, STR_BUFLEN)
-      IF Len(cLine) = 0
+      IF Len(cLine) == 0
          EXIT
       ENDIF
       cLine := AllTrim(cLine)
@@ -192,7 +192,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
 
    DO WHILE .T.
       cLine := RDSTR(han, @strbuf, @poz, STR_BUFLEN)
-      IF LEN(cLine) = 0
+      IF LEN(cLine) == 0
          EXIT
       ENDIF
       s_numlin ++
@@ -430,7 +430,7 @@ LOCAL i, j, iloop := 0, bOldError
    FOR i := j TO 1 STEP - 1
       IF !Empty(tmpArray[i]) .AND. LEFT(tmpArray[i], 4) == "EXIT"
          rezArray[i] = &( "{||iscr:=" + LTRIM(STR(j + 1, 5)) + "}" )
-         tmpArray[i] = ""
+         tmpArray[i] := ""
       ENDIF
       IF !Empty(tmpArray[i]) .AND. LEFT(tmpArray[i], 4) == "LOOP"
          iloop := i
@@ -446,12 +446,12 @@ LOCAL i, j, iloop := 0, bOldError
             RETURN .F.
          END SEQUENCE
          ERRORBLOCK( bOldError )
-         tmpArray[i] = ""
+         tmpArray[i] := ""
          AADD(rezArray, &("{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}"))
          AADD(tmpArray, "")
          IF iloop > 0
             rezArray[iloop] = &( "{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}" )
-            tmpArray[iloop] = ""
+            tmpArray[iloop] := ""
          ENDIF
          RETURN .T.
       ENDIF
@@ -660,7 +660,7 @@ STATIC w__buf
 */
          @ y1, x1, y2, x2 BOX ;
          CHR(218) + CHR(196) + CHR(191) + CHR(179) + CHR(217) + CHR(196) + CHR(192) + CHR(179) + CHR(32)
-      ELSEIF noscroll = NIL
+      ELSEIF noscroll == NIL
          SCROLL( y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1 )
       ENDIF
       @ y2 - 1, x1 + 2 SAY sout
@@ -686,7 +686,7 @@ LOCAL GetList := {}
    @ y2 - 1, x1 + 2 GET varget PICTURE spict
    READ
    SETCOLOR( oldc )
-RETURN IIf(LASTKEY() = 27, NIL, varget)
+RETURN IIf(LASTKEY() == 27, NIL, varget)
 
 FUNCTION WndOpen(ysize, xsize)
 

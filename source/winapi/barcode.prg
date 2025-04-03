@@ -216,7 +216,7 @@ METHOD Barcode:ShowBarcode()
 
    ::CreateBarcode(cCode)
 
-   IF ::nBCodeType = 7 .OR. ::nBCodeType = 9
+   IF ::nBCodeType == 7 .OR. ::nBCodeType == 9
       ::CreateBarcode(cCode2)
    ENDIF
 
@@ -281,13 +281,13 @@ METHOD Barcode:CreateBarcode(cCode)
    FOR i := 1 TO LEN(cCode)
 
       IF SUBSTR(cCode, i, 1) = "1"
-         IF ::lHorizontal = .T.
+         IF ::lHorizontal == .T.
             hwg_Rectangle(::hDC, nX, nY, nX + ::nHeight, (nY += ::nPinWidth))
          ELSE
             hwg_Rectangle(::hDC, nX, nY, (nX += ::nPinWidth), nY + ::nWidth)
          ENDIF
       ELSE
-         IF ::lHorizontal = .T.
+         IF ::lHorizontal == .T.
             nY += ::nPinWidth
          ELSE
             nX += ::nPinWidth
@@ -382,7 +382,7 @@ METHOD Barcode:InitCode39(lCheck)
       END
    NEXT
 
-   IF lCheck = .T.
+   IF lCheck == .T.
       cBarra += aBarras[nCheck % 43 + 1]
    END
 
@@ -485,7 +485,7 @@ METHOD Barcode:InitCode128(cMode)
       cCar := SubStr(cCode, n, 1)
 
       IF lCodeC
-         IF Len(cCode) = n                        // ultimo caracter
+         IF Len(cCode) == n                        // ultimo caracter
             cTemp += aCode[101]                 // SHIFT Code B
             nCar := Asc(cCar) - 31
          ELSE
@@ -821,7 +821,7 @@ METHOD Barcode:InitInterleave25(lMode)
    DEFAULT lMode := .F.
 
    nLen := Len(cCode)
-   IF (nLen % 2 = 1 .AND. !lMode)
+   IF (nLen % 2 == 1 .AND. !lMode)
       nLen++
       cCode += "0"
    ENDIF

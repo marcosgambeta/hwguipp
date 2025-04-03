@@ -113,7 +113,7 @@ METHOD HProgressBar:NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExi
 METHOD HProgressBar:Activate()
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createprogressbar(::oParent:handle, ::maxPos, ::style, ::nX, ::nY, ::nWidth, iif(::nHeight = 0, NIL, ::nHeight))
+      ::handle := hwg_Createprogressbar(::oParent:handle, ::maxPos, ::style, ::nX, ::nY, ::nWidth, iif(::nHeight == 0, NIL, ::nHeight))
       ::Init()
    ENDIF
 
