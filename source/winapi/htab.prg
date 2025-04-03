@@ -7,8 +7,8 @@
 //
 
 #include <hbclass.ch>
-#include "hwguipp.ch"
 #include <common.ch>
+#include "hwguipp.ch"
 
 CLASS HTab INHERIT HControl
 

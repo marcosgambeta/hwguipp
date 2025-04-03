@@ -7,8 +7,8 @@
 //
 
 #include <hbclass.ch>
-#include "hwguipp.ch"
 #include <error.ch>
+#include "hwguipp.ch"
 
 STATIC s_aCustomEvents := { ;
    { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;

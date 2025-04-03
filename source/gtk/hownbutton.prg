@@ -6,8 +6,8 @@
 // www - http://www.kresin.ru
 //
 
-#include <inkey.ch>
 #include <hbclass.ch>
+#include <inkey.ch>
 #include "hwguipp.ch"
 
 CLASS HOwnButton INHERIT HControl

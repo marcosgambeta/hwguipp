@@ -6,11 +6,11 @@
 // www - http://www.kresin.ru
 //
 
-#include "gtk.ch"
+#include <hbclass.ch>
 #include <inkey.ch>
 #include <dbstruct.ch>
-#include <hbclass.ch>
 #include "hwguipp.ch"
+#include "gtk.ch"
 
 #ifndef SB_HORZ
 #define SB_HORZ             0

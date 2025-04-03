@@ -8,9 +8,9 @@
 // Copyright 2021 DF7BE
 //
 
-#include "gtk.ch"
 #include <hbclass.ch>
 #include "hwguipp.ch"
+#include "gtk.ch"
 
 #define CLR_WHITE    0xffffff
 #define CLR_BLACK    0x000000

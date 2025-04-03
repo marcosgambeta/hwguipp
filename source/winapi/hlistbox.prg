@@ -6,8 +6,8 @@
 //
 
 #include <hbclass.ch>
-#include "hwguipp.ch"
 #include <common.ch>
+#include "hwguipp.ch"
 
 CLASS HListBox INHERIT HControl
 

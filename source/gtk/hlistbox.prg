@@ -23,7 +23,7 @@
  The coding follows the sample "listbox_sample.c"
  from Eric Harlow. Some lines are commented out,
  activate them during development in the future.
- 
+
  To actiave the port, add these two lines into the
  makefiles for GTK:
  $(LIB_DIR)/libhwgui.a : \
@@ -46,12 +46,12 @@
 */
 
 
+#include <hbclass.ch>
+#include <common.ch>
+#include "hwguipp.ch"
 #ifdef __GTK__
 #include "gtk.ch"
 #endif
-#include <hbclass.ch>
-#include "hwguipp.ch"
-#include <common.ch>
 
 CLASS HListBox INHERIT HControl
 

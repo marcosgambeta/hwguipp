@@ -7,8 +7,8 @@
 //
 
 #include <hbclass.ch>
-#include "gtk.ch"
 #include "hwguipp.ch"
+#include "gtk.ch"
 
 CLASS HSplitter INHERIT HControl
 

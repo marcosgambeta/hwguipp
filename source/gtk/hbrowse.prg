@@ -6,12 +6,12 @@
 // www - http://www.kresin.ru
 //
 
-#include "gtk.ch"
+#include <hbclass.ch>
 #include <inkey.ch>
 #include <dbinfo.ch>
 #include <dbstruct.ch>
-#include <hbclass.ch>
 #include "hwguipp.ch"
+#include "gtk.ch"
 
 REQUEST DBGOTOP, DBGOTO, DBGOBOTTOM, DBSKIP, RECCOUNT, RECNO, EOF, BOF
 

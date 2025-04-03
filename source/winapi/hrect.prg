@@ -5,8 +5,8 @@
 // Copyright 2004 Ricardo de Moura Marques <ricardo.m.marques@caixa.gov.br>
 //
 
-#include "windows.ch"
 #include <hbclass.ch>
+#include "windows.ch"
 
 //-----------------------------------------------------------------
 CLASS HRect INHERIT HControl

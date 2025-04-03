@@ -7,8 +7,9 @@
 //
 
 #include <hbclass.ch>
-#include "hwguipp.ch"
 #include <common.ch>
+#include "hwguipp.ch"
+
 #define BUF_SIZE  200
 
 //----------------------------------------------------------------------------//

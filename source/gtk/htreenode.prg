@@ -6,11 +6,11 @@
 // www - http://www.kresin.ru
 //
 
-#include "gtk.ch"
+#include <hbclass.ch>
 #include <inkey.ch>
 #include <dbstruct.ch>
-#include <hbclass.ch>
 #include "hwguipp.ch"
+#include "gtk.ch"
 
 CLASS HTreeNode INHERIT HObject
 

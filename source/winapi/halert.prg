@@ -58,8 +58,8 @@
  *
  */
 
-#include <common.ch>
 #include <hbclass.ch>
+#include <common.ch>
 #include "hwguipp.ch"
 #include "halert.ch"
 

@@ -5,10 +5,10 @@
 // www - http://sites.uol.com.br/culikr/
 //
 
-#include <inkey.ch>
 #include <hbclass.ch>
-#include "hwguipp.ch"
 #include <common.ch>
+#include <inkey.ch>
+#include "hwguipp.ch"
 
 #define TRANSPARENT 1
 

@@ -7,8 +7,8 @@
 //
 
 #include <hbclass.ch>
-#include "hwguipp.ch"
 #include <common.ch>
+#include "hwguipp.ch"
 
 STATIC s_crlf := e"\r\n"
 #define SCREEN_PRINTER ".buffer"

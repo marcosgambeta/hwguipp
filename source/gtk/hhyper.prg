@@ -3,10 +3,10 @@
 // HStaticLink class
 //
 
-#include "gtk.ch"
 #include <hbclass.ch>
 #include <common.ch>
 #include "hwguipp.ch"
+#include "gtk.ch"
 
 #define LBL_INIT           0
 #define LBL_NORMAL         1

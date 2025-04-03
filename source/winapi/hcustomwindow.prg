@@ -7,8 +7,8 @@
 //
 
 #include <hbclass.ch>
-#include "hwguipp.ch"
 #include <error.ch>
+#include "hwguipp.ch"
 
 CLASS HCustomWindow INHERIT HObject
 
