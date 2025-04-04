@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 // trackbar control
 #xcommand @ <nX>, <nY> TRACKBAR [ <oTrackBar> ]  ;
             [ OF <oWnd> ]                 ;

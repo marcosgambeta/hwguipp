@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 #xcommand @ <nX>, <nY> UPDOWN [ <oUpd> INIT ] <nInit> RANGE <nLower>,<nUpper>    ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;

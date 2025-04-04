@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 #xcommand @ <nX>, <nY> CHECKBOX [ <oCheck> CAPTION ] <caption> ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;

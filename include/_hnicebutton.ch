@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 // Nice Buttons by Luiz Rafael
 
 #xcommand @ <nX>, <nY> NICEBUTTON [ <oBut> CAPTION ] <caption> ;

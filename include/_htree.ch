@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 #xcommand @ <nX>, <nY> TREE [ <oTree> ]   ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;

@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 #xcommand @ <nX>, <nY> SHAPE [<oShape>] [OF <oWnd>] ;
              [ ID <nId> ]               ;
              [ SIZE <nWidth>, <nHeight> ] ;

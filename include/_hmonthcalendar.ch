@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 /*
 Command for MonthCalendar Class
 Added by Marcos Antonio Gambeta

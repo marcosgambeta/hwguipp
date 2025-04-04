@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 #xcommand INIT DIALOG <oDlg>                ;
              [<res: FROM RESOURCE> <Resid> ]         ;
              [ TITLE <cTitle> ]             ;

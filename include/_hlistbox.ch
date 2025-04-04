@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 /*By Vitor Maclung */
 // Commands for Listbox handling
 

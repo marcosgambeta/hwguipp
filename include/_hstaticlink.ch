@@ -1,3 +1,5 @@
+// NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 //New Control
 
 #xcommand @ <nX>, <nY> SAY [ <oSay> CAPTION ] <caption> ;
