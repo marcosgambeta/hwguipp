@@ -41,18 +41,18 @@
 
    /* Moved to windows.ch */
    //#define HDM_GETITEMCOUNT    4608
-   
+
 #define RT_MANIFEST         24
 
-   STATIC ColSizeCursor := 0
-   STATIC arrowCursor := 0
-   STATIC downCursor := 0
-   STATIC oCursor     := 0
-   STATIC oPen64
-   STATIC xDrag
-   STATIC xDragMove := 0
-   STATIC axPosMouseOver := { 0, 0 }
-   STATIC xToolTip
+   STATIC s_ColSizeCursor := 0
+   STATIC s_arrowCursor := 0
+   STATIC s_downCursor := 0
+   STATIC s_oCursor     := 0
+   STATIC s_oPen64
+   STATIC s_xDrag
+   STATIC s_xDragMove := 0
+   STATIC s_axPosMouseOver := { 0, 0 }
+   STATIC s_xToolTip
 
    //----------------------------------------------------//
 
@@ -971,8 +971,8 @@ METHOD HBrowseEx:END()
       ::brushSel:Release()
       ::brushSel := NIL
    ENDIF
-   IF oPen64 != NIL
-      oPen64:Release()
+   IF s_oPen64 != NIL
+      s_oPen64:Release()
    ENDIF
    IF ::oTimer != NIL
       ::oTimer:End()
@@ -1016,9 +1016,9 @@ METHOD HBrowseEx:ShowColToolTips( lParam )
    ELSEIF pt[1] = 0 .AND. pt[2] != 0 .AND. ::aColumns[pt[2]]:ToolTip != NIL
       cTip := ::aColumns[pt[2]]:ToolTip
    ENDIF
-   IF ! Empty(cTip) .OR. ! Empty(xToolTip)
+   IF ! Empty(cTip) .OR. ! Empty(s_xToolTip)
       hwg_Settooltiptitle( hwg_GetparentForm( Self ):handle, ::handle, cTip )
-      xToolTip := iif( ! Empty(cTip), cTip, iif( ! Empty(xToolTip), NIL, xToolTip ) )
+      s_xToolTip := iif( ! Empty(cTip), cTip, iif( ! Empty(s_xToolTip), NIL, s_xToolTip ) )
    ENDIF
 
    RETURN NIL
@@ -1065,12 +1065,12 @@ METHOD HBrowseEx:InitBrw( nType, lInit )
          ::internal  := { 15, 1 , 0, 0 }
          ::aArray     := NIL
          ::aMargin := { 1, 1, 0, 1 }
-         IF Empty(ColSizeCursor)
-            ColSizeCursor := hwg_Loadcursor( IDC_SIZEWE )
-            arrowCursor := hwg_Loadcursor( IDC_ARROW )
-            downCursor := hwg_Loadcursor( IDC_HAND )
+         IF Empty(s_ColSizeCursor)
+            s_ColSizeCursor := hwg_Loadcursor( IDC_SIZEWE )
+            s_arrowCursor := hwg_Loadcursor( IDC_ARROW )
+            s_downCursor := hwg_Loadcursor( IDC_HAND )
          ENDIF
-         oPen64 :=  HPen():Add( PS_SOLID, 1, hwg_ColorRgb2N( 156, 156, 156 ) )
+         s_oPen64 :=  HPen():Add( PS_SOLID, 1, hwg_ColorRgb2N( 156, 156, 156 ) )
       ENDIF
    ENDIF
 
@@ -1645,7 +1645,7 @@ METHOD HBrowseEx:HeaderOut( hDC )
    oldBkColor := hwg_Setbkcolor( hDC, hwg_Getsyscolor( COLOR_3DFACE ) )
 
    IF ::hTheme = NIL
-      hwg_Selectobject( hDC, oPen64:handle )
+      hwg_Selectobject( hDC, s_oPen64:handle )
       hwg_Rectangle( hDC, ;
          ::x1 - ::nShowMark - ::nDeleteMark , ;
          ::y1 - ( ::nHeadHeight * ::nHeadRows ) - ::nyHeight , ;
@@ -1729,7 +1729,7 @@ METHOD HBrowseEx:HeaderOut( hDC )
             IF ! oColumn:lHeadClick
                state := iif( ::hTheme != NIL, iif( ::xPosMouseOver > x .AND. ::xPosMouseOver < x + xsize - 3,;
                   PBS_HOT, PBS_NORMAL ), PBS_NORMAL )
-               axPosMouseOver  := iif( ::xPosMouseOver > x .AND. ::xPosMouseOver < x + xsize - 3, { x, x + xsize }, axPosMouseOver )
+               s_axPosMouseOver  := iif( ::xPosMouseOver > x .AND. ::xPosMouseOver < x + xsize - 3, { x, x + xsize }, s_axPosMouseOver )
             ELSE
                state := iif( ::hTheme != NIL, PBS_PRESSED, 6 )
                hwg_Inflaterect( @aItemRect, - 1, - 1 )
@@ -1797,7 +1797,7 @@ METHOD HBrowseEx:HeaderOut( hDC )
             { ::x1 - xSize - 1 , ::y1 - ( ::nHeadHeight * ::nHeadRows ) - ::nyHeight - 1, ;
             ::x1 + 1 ,  ::y1 + 1 }, NIL )
       ELSE
-         hwg_Selectobject( hDC, oPen64:handle )
+         hwg_Selectobject( hDC, s_oPen64:handle )
          hwg_Rectangle( hDC, ::x1 - xSize - 1, ::y1 - ( ::nHeadHeight * ::nHeadRows ) - ::nyHeight , ;
             ::x1 - 1 , ::y1  )
          hwg_Drawbutton( hDC, ::x1 - xSize - 0 , ::y1 - ( ::nHeadHeight * ::nHeadRows ) - ::nyHeight , ;
@@ -1806,7 +1806,7 @@ METHOD HBrowseEx:HeaderOut( hDC )
    ENDIF
 
    IF ::hTheme != NIL
-      hwg_Selectobject( hDC, oPen64:handle )
+      hwg_Selectobject( hDC, s_oPen64:handle )
       hwg_Rectangle( hDC, ;
          ::x1 - ::nShowMark - ::nDeleteMark , ;
          ::y1 , ;//- ( ::nHeadHeight * ::nHeadRows ) - ::nyHeight , ;
@@ -1823,10 +1823,10 @@ METHOD HBrowseEx:HeaderOut( hDC )
    IF ::oHeadFont <> NIL
       hwg_Selectobject( hDC, oldfont )
    ENDIF
-   IF ::lResizing .AND. xDragMove > 0
-      hwg_Selectobject( hDC, oPen64:handle )
-      //hwg_Rectangle( hDC, xDragMove , 1, xDragMove , 1 + ( ::nheight + 1 )  )
-      hwg_Drawline( hDC, xDragMove, 1, xDragMove , ( ::nHeadHeight * ::nHeadRows ) + ::nyHeight + 1 + ( ::rowCount * ( ::height + 1 + ::aMargin[3] ) ) )
+   IF ::lResizing .AND. s_xDragMove > 0
+      hwg_Selectobject( hDC, s_oPen64:handle )
+      //hwg_Rectangle( hDC, s_xDragMove , 1, s_xDragMove , 1 + ( ::nheight + 1 )  )
+      hwg_Drawline( hDC, s_xDragMove, 1, s_xDragMove , ( ::nHeadHeight * ::nHeadRows ) + ::nyHeight + 1 + ( ::rowCount * ( ::height + 1 + ::aMargin[3] ) ) )
    ENDIF
    IF ::lDispSep
       hwg_Deleteobject( oPen )
@@ -2054,7 +2054,7 @@ METHOD HBrowseEx:FooterOut( hDC )
       oPen:Release()
    ENDIF
    IF nMl > 0
-      hwg_Selectobject( hDC, oPen64:handle )
+      hwg_Selectobject( hDC, s_oPen64:handle )
       xSize := nMl
       IF ::hTheme != NIL
          aItemRect := {  ::x1 - xSize , nY , ::x1 - 1,  ::y2 + 1 }
@@ -2107,7 +2107,7 @@ METHOD HBrowseEx:LineOut( nRow, nCol, hDC, lSelected, lClear )
                ::y1 + ( ::height + 1 ) * ( ::nPaintRow - 1 ) + 1  , ;
                ::x1 - ::nDeleteMark - 1  , ; //IIF( ::lDeleteMark, -1, -2 ),  ;
             ::y1 + ( ::height + 1 ) * ::nPaintRow + 1, 1 )
-            hwg_Selectobject( hDC, oPen64:handle )
+            hwg_Selectobject( hDC, s_oPen64:handle )
             hwg_Rectangle( hDC, ::x1 - ::nShowMark - ::nDeleteMark - 1 , ::y1 + ( ::height + 1 ) * ( ::nPaintRow - 1 )  , ;
                ::x1  - ::nDeleteMark - 1 , ::y1 + ( ::height + 1 ) * ::nPaintRow - 0 ) //, IIF( Deleted(), hwg_Getstockobject(7), ::brush:handle ))
          ENDIF
@@ -2744,12 +2744,12 @@ METHOD HBrowseEx:ButtonDown( lParam, lReturnRowCol )
       ENDIF
 
    ELSEIF nLine == 0
-      IF hwg_Ptrtoulong( oCursor ) ==  hwg_Ptrtoulong( ColSizeCursor )
+      IF hwg_Ptrtoulong( s_oCursor ) ==  hwg_Ptrtoulong( s_ColSizeCursor )
          ::lResizing := .T.
          ::isMouseOver := .F.
-         Hwg_SetCursor( oCursor )
-         xDrag := hwg_Loword( lParam )
-         xDragMove := xDrag
+         Hwg_SetCursor( s_oCursor )
+         s_xDrag := hwg_Loword( lParam )
+         s_xDragMove := s_xDrag
          hwg_Invalidaterect( ::handle, 0 )
       ELSEIF ::lDispHead .AND.  nLine >= - ::nHeadRows .AND. ;
             fif <= Len( ::aColumns ) //.AND. ;
@@ -2782,10 +2782,10 @@ METHOD HBrowseEx:ButtonUp( lParam )
       x1 := 0
       x := ::x1
       i := iif( ::freeze > 0, 1, ::nLeftCol )
-      DO WHILE x < xDrag
+      DO WHILE x < s_xDrag
          IF !::aColumns[i]:lHide
             x += ::aColumns[i]:width
-            IF Abs( x - xDrag ) < 10 .AND. ::aColumns[i]:Resizable
+            IF Abs( x - s_xDrag ) < 10 .AND. ::aColumns[i]:Resizable
                x1 := x - ::aColumns[i]:width
                EXIT
             ENDIF
@@ -2794,10 +2794,10 @@ METHOD HBrowseEx:ButtonUp( lParam )
       ENDDO
       IF xPos > x1
          ::aColumns[i]:width := xPos - x1
-         Hwg_SetCursor( arrowCursor )
-         oCursor := 0
+         Hwg_SetCursor( s_arrowCursor )
+         s_oCursor := 0
          ::isMouseOver := .F.
-         //xDragMove := 0
+         //s_xDragMove := 0
          hwg_Invalidaterect( ::handle, 0 )
          ::lResizing := .F.
       ENDIF
@@ -2816,7 +2816,7 @@ METHOD HBrowseEx:ButtonUp( lParam )
       AEval( ::aColumns, { | c | c:lHeadClick := .F. } )
       hwg_Invalidaterect( ::handle, 0, ::x1, ::y1 - ::nHeadHeight * ::nHeadRows, ::x2, ::y1 )
       ::lHeadClick := .F.
-      Hwg_SetCursor( downCursor )
+      Hwg_SetCursor( s_downCursor )
    ENDIF
 
    RETURN NIL
@@ -2920,15 +2920,15 @@ METHOD HBrowseEx:MouseMove( wParam, lParam )
       RETURN NIL
    ENDIF
    IF ::isMouseOver
-      hwg_Invalidaterect( ::handle, 0, axPosMouseOver[1], ::y1 - ::nHeadHeight * ::nHeadRows, axPosMouseOver[2] , ::y1 )
+      hwg_Invalidaterect( ::handle, 0, s_axPosMouseOver[1], ::y1 - ::nHeadHeight * ::nHeadRows, s_axPosMouseOver[2] , ::y1 )
    ENDIF
    IF ::lDispHead .AND. ( yPos <= ::nHeadHeight * ::nHeadRows + 1 .OR. ; // ::height*::nHeadRows+1
       ( ::lResizing .AND. yPos > ::y1 ) ) .AND. ;
-         ( xPos >= ::x1 .AND. xPos <= Max( xDragMove, ::xAdjRight ) + 4 )
+         ( xPos >= ::x1 .AND. xPos <= Max( s_xDragMove, ::xAdjRight ) + 4 )
       IF wParam == MK_LBUTTON .AND. ::lResizing
-         Hwg_SetCursor( oCursor )
+         Hwg_SetCursor( s_oCursor )
          res := .T.
-         xDragMove := xPos
+         s_xDragMove := xPos
          ::isMouseOver := .T.
          hwg_Invalidaterect( ::handle, 0, xPos - 18 , ::y1 - ( ::nHeadHeight * ::nHeadRows ), xPos + 18 , ::y2 - ( ::nFootHeight * ::nFootRows ) - 1 )
       ELSE
@@ -2938,24 +2938,24 @@ METHOD HBrowseEx:MouseMove( wParam, lParam )
                x += ::aColumns[i]:width
                ::xPosMouseOver := xPos
                IF Abs( x - xPos ) < 8
-                  IF hwg_Ptrtoulong( oCursor ) != hwg_Ptrtoulong( ColSizeCursor )
-                     oCursor := ColSizeCursor
+                  IF hwg_Ptrtoulong( s_oCursor ) != hwg_Ptrtoulong( s_ColSizeCursor )
+                     s_oCursor := s_ColSizeCursor
                   ENDIF
-                  Hwg_SetCursor( oCursor )
+                  Hwg_SetCursor( s_oCursor )
                   res := .T.
                   EXIT
                ELSE
-                  oCursor := DownCursor
-                  Hwg_SetCursor( oCursor )
+                  s_oCursor := s_DownCursor
+                  Hwg_SetCursor( s_oCursor )
                   res := .T.
                ENDIF
             ENDIF
             i := iif( i == ::freeze, ::nLeftCol, i + 1 )
          ENDDO
       ENDIF
-      IF ! res .AND. ! Empty(oCursor)
-         Hwg_SetCursor( arrowCursor )
-         oCursor := 0
+      IF ! res .AND. ! Empty(s_oCursor)
+         Hwg_SetCursor( s_arrowCursor )
+         s_oCursor := 0
          ::lResizing := .F.
       ENDIF
       ::isMouseOver := iif( ::hTheme != NIL .AND. ::xPosMouseOver != 0, .T. , .F. )
@@ -3150,7 +3150,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
             ACTIVATE DIALOG ::oEditDlg
 
          ELSE // .AND. wParam != VK_RETURN
-            Hwg_SetCursor( arrowCursor )
+            Hwg_SetCursor( s_arrowCursor )
             IF wParam = VK_SPACE
                ::EditLogical( wParam )
             ENDIF
