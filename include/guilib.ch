@@ -3,7 +3,7 @@
 
 /*
   ========== Define HWGUI release version ============
-*/ 
+*/
 /* For note of latest official release version number */
 #define HWG_VERSION         "1.0.0dev"
 /* For note of latest official release build */
@@ -102,8 +102,8 @@
 
 // Commands for windows, dialogs handling
 
-#include "hwindow.ch"
-#include "hdialog.ch"
+#include "_hwindow.ch"
+#include "_hdialog.ch"
 
 #xcommand MENU FROM RESOURCE OF <oWnd> ON <id1> ACTION <b1>  ;
                                  [ ON <idn> ACTION <bn> ]    ;
@@ -117,31 +117,31 @@
 
 // Commands for control handling
 
-#include "hprogressbar.ch"
-#include "hstatus.ch"
-#include "hstatic.ch"
-#include "hsaybmp.ch"
-#include "hsayicon.ch"
-#include "hsayfimage.ch"
-#include "hline.ch"
-#include "hedit.ch"
-#include "hrichedit.ch"
-#include "hbutton.ch"
-#include "hgroup.ch"
-#include "htree.ch"
-#include "htab.ch"
-#include "hcheckbutton.ch"
-#include "hradiogroup.ch"
-#include "hradiobutton.ch"
-#include "hcombobox.ch"
-#include "hupdown.ch"
-#include "hpanel.ch"
-#include "hbrowse.ch"
-#include "hgrid.ch"
-#include "hownbutton.ch"
-#include "hshadebutton.ch"
-#include "hdatepicker.ch"
-#include "hsplitter.ch"
+#include "_hprogressbar.ch"
+#include "_hstatus.ch"
+#include "_hstatic.ch"
+#include "_hsaybmp.ch"
+#include "_hsayicon.ch"
+#include "_hsayfimage.ch"
+#include "_hline.ch"
+#include "_hedit.ch"
+#include "_hrichedit.ch"
+#include "_hbutton.ch"
+#include "_hgroup.ch"
+#include "_htree.ch"
+#include "_htab.ch"
+#include "_hcheckbutton.ch"
+#include "_hradiogroup.ch"
+#include "_hradiobutton.ch"
+#include "_hcombobox.ch"
+#include "_hupdown.ch"
+#include "_hpanel.ch"
+#include "_hbrowse.ch"
+#include "_hgrid.ch"
+#include "_hownbutton.ch"
+#include "_hshadebutton.ch"
+#include "_hdatepicker.ch"
+#include "_hsplitter.ch"
 
 #xcommand PREPARE FONT <oFont>       ;
              NAME <cName>            ;
@@ -170,15 +170,15 @@
 
 /*   Menu system     */
 
-#include "hmenu.ch"
+#include "_hmenu.ch"
 
-#include "htimer.ch"
+#include "_htimer.ch"
 
 #xcommand SET KEY [ <lGlobal:GLOBAL> ] <nctrl>, <nkey> [ OF <oDlg> ] TO [ <func> ] ;
           => ;
     hwg_SetDlgKey( <oDlg>, <nctrl>, <nkey>, <{func}>, <.lGlobal.> )
 
-#include "hgraph.ch"
+#include "_hgraph.ch"
 
 /* open an .dll resource */
 #xcommand SET RESOURCES TO [ <cName1> ]  =>  hwg_LoadResource( <cName1> )
@@ -192,7 +192,7 @@
                   <uVar1> := IIf( <uVar1> == nil, <uVal1>, <uVar1> ) ;;
                 [ <uVarN> := IIf( <uVarN> == nil, <uValN>, <uVarN> ); ]
 
-#include "hipedit.ch"
+#include "_hipedit.ch"
 
 #define ISOBJECT(c)    (Valtype(c) == "O")
 #define ISBLOCK(c)     (Valtype(c) == "B")
@@ -216,17 +216,17 @@
 #xcommand  END PRINTER <oPtrObj> => <oPtrObj>:End()
 
 /* Hprinter */
-#include "hprinter.ch"
+#include "_hprinter.ch"
 
-#include "hmonthcalendar.ch"
-#include "hlistbox.ch"
-#include "hsplash.ch"
-#include "hnicebutton.ch"
-#include "htrackbar.ch"
-#include "hanimation.ch"
-#include "hrect.ch"
-#include "hstaticlink.ch"
-#include "htoolbar.ch"
+#include "_hmonthcalendar.ch"
+#include "_hlistbox.ch"
+#include "_hsplash.ch"
+#include "_hnicebutton.ch"
+#include "_htrackbar.ch"
+#include "_hanimation.ch"
+#include "_hrect.ch"
+#include "_hstaticlink.ch"
+#include "_htoolbar.ch"
 
 #xcommand CREATE MENUBAR <o> => <o> := \{ \}
 
@@ -234,9 +234,9 @@
           => ;
           Aadd(<oWnd>, \{ <c>, <id1>, <{b1}> \})
 
-#include "hpager.ch"
-#include "hrebar.ch"
-#include "hshape.ch"
-#include "hcedit.ch"
+#include "_hpager.ch"
+#include "_hrebar.ch"
+#include "_hshape.ch"
+#include "_hcedit.ch"
 
 #endif // _GUILIB_CH_

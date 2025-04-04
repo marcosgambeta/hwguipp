@@ -104,7 +104,7 @@
              <nColor>,<nBackColor>,<.lTransp.>,<bClick>,<bDblClick>,<bOther> );;
           [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
 
-#include "hbuttonex.ch"
+#include "_hbuttonex.ch"
 
 #xcommand @ <nX>, <nY> GRIDEX <oGrid>      ;
             [ OF <oWnd> ]               ;
