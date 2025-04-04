@@ -2,6 +2,9 @@
  * Header file for HXMLDoc and HXMLNode classes
  */
 
+#ifndef HXML_CH
+#define HXML_CH
+
 #define HBXML_ERROR_NOT_LT        1
 #define HBXML_ERROR_NOT_GT        2
 #define HBXML_ERROR_WRONG_TAG_END 3
@@ -15,3 +18,5 @@
 #define HBXML_TYPE_COMMENT        2
 #define HBXML_TYPE_CDATA          3
 #define HBXML_TYPE_PI             4
+
+#endif // HXML_CH

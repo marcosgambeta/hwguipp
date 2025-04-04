@@ -1,3 +1,5 @@
+#ifndef HWGCOMPAT_CH
+#define HWGCOMPAT_CH
 
 #xtranslate Initipaddress([<n,...>])          => hwg_Initipaddress(<n>)
 #xtranslate Setipaddress([<n,...>])           => hwg_Setipaddress(<n>)
@@ -554,3 +556,5 @@
 #xtranslate cFileExt([<n,...>])      => hwg_cFileExt(<n>)
 // hqhtm.prg
 #xtranslate QhtmFormProc([<n,...>])      => hwg_QhtmFormProc(<n>)
+
+#endif HWGCOMPAT_CH

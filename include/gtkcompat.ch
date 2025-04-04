@@ -1,3 +1,5 @@
+#ifndef GTKCOMPAT_CH
+#define GTKCOMPAT_CH
 
 #xtranslate Selectfont([<n,...>])             => hwg_Selectfont(<n>)
 #xtranslate Selectfile([<n,...>])             => hwg_Selectfile(<n>)
@@ -175,3 +177,5 @@
 #xtranslate IsCheckedMenuItem([<n,...>])      => hwg_IsCheckedMenuItem(<n>)
 #xtranslate EnableMenuItem([<n,...>])      => hwg_EnableMenuItem(<n>)
 #xtranslate IsEnabledMenuItem([<n,...>])      => hwg_IsEnabledMenuItem(<n>)
+
+#endif // GTKCOMPAT_CH

@@ -10,6 +10,9 @@
 *
 */
 
+#ifndef QCOLOR_CH
+#define QCOLOR_CH
+
 /*
  Color definitions
  Définition des couleurs
@@ -77,3 +80,5 @@
 */
 #define chid      chr(27)+"[?25l"
 #define csee      chr(27)+"[?25h"
+
+#endif // QCOLOR_CH

@@ -28,6 +28,9 @@
  * linking the HWGUI library code into it.
  */
 
+#ifndef HALERT_CH
+#define HALERT_CH
+
 #ifndef IDI_APPLICATION
 #define IDI_APPLICATION         32512
 #define IDI_HAND                32513
@@ -61,3 +64,4 @@
 #define ALERT_CLOSEBUTTON       .t.
 #define ALERT_NOCLOSEBUTTON     .f.
 
+#endif HALERT_CH

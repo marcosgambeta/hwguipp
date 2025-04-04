@@ -1,3 +1,6 @@
+#ifndef REPMAIN_HPP
+#define REPMAIN_HPP
+
 #define FORM_WIDTH       1
 #define FORM_HEIGHT      2
 #define FORM_XKOEF       3
@@ -46,3 +49,4 @@
 #define ALIGN_RIGHT      1
 #define ALIGN_CENTER     2
 
+#endif // REPMAIN_HPP

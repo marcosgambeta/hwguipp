@@ -1,3 +1,6 @@
+#ifndef HWINGUI_HPP
+#define HWINGUI_HPP
+
 #define HB_OS_WIN_32_USED
 
 #ifndef _WIN32_WINNT
@@ -58,3 +61,5 @@ HB_EXTERN_END
 
 #define GETOBJECTVAR(obj, var)        hb_objSendMsg(obj, var, 0)
 #define SETOBJECTVAR(obj, var, val)   hb_objSendMsg(obj, var, 1, val)
+
+#endif // HWINGUI_HPP

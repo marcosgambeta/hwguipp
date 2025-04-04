@@ -1,3 +1,6 @@
+#ifndef HWGTK_H
+#define HWGTK_H
+
 typedef struct HWGUI_HDC_STRU
 {
   GtkWidget * widget;
@@ -54,3 +57,5 @@ typedef struct HWGUI_PIXBUF_STRU
 
 extern gchar * hwg_convert_to_utf8( const char * szText );
 extern gchar * hwg_convert_from_utf8( const char * szText );
+
+#endif // HWGTK_H

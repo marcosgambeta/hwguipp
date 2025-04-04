@@ -1,3 +1,6 @@
+#ifndef HWG_EXTCTRL_CH
+#define HWG_EXTCTRL_CH
+
 #xcommand @ <nX>, <nY> BROWSEEX [ <oBrw> ] ;
              [ <lArr: ARRAY> ]          ;
              [ <lDb: DATABASE> ]        ;
@@ -229,3 +232,5 @@
              <.edit.>,<.text.>,<bWhen>,<nColor>,<nBackColor>, ;
 						 <bValid>,<acheck>,<nDisplay>,<nhItem>,<ncWidth>, <aImages> );;
           [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
+
+#endif // HWG_EXTCTRL_CH
