@@ -1300,7 +1300,7 @@ noldheigth := NUMZ
    @ 30,371 SAY oLabel9 CAPTION aMsg[22] + ":"  SIZE 166,22  // "Number of label across:"
    @ ngetlmr2,371 SAY oLabel17 CAPTION "1 .. 5 (1)"  SIZE 89,22
 
-IF clangset <> "English"
+IF clangset != "English"
 // Additional english desription of parameters
   @ 665,151 SAY oLabel18 CAPTION "English:"  SIZE 80,22
   @ 600,196 SAY oLabel19 CAPTION "Heigth of label"  SIZE 166,22
@@ -2918,7 +2918,7 @@ LOCAL handle, puffer, eBlock, dateiname
 IF FILE(dateiname)
 // Read from file
  handle := FOPEN(dateiname,0)     // FO_READ
- IF FERROR() <> 0
+ IF FERROR() != 0
     // RETURN ""
     // File error: return the default value
     FCLOSE(handle)

@@ -71,7 +71,7 @@ FUNCTION ShowR(ar,bdebug)
 * --------------------------------------------
 LOCAL j, co , d , t
  d := .F.
- IF bdebug <> NIL
+ IF bdebug != NIL
   d := bdebug
  ENDIF
  IF d
@@ -205,7 +205,7 @@ FUNCTION browsBOX_ITEMTORI(obrows1, obrows2)
    cIt   := obrows1:aArray[nPosi,1]
    aIt := { cIt }
    * Search item in target browse box, if found, nothing to do (programing error)
-   IF browsBOX_ITEMFIND(obrows2,cIt) <> 0
+   IF browsBOX_ITEMFIND(obrows2,cIt) != 0
      RETURN NIL
    ENDIF
 //      dbg(obrows2)
@@ -238,7 +238,7 @@ FUNCTION browsBOX_ITEMTOLI(obrows1, obrows2)
    nPosi := obrows2:nCurrent
    cIt   := obrows2:aArray[nPosi,1]
    aIt := { cIt }
-   IF browsBOX_ITEMFIND(obrows1,cIt) <> 0
+   IF browsBOX_ITEMFIND(obrows1,cIt) != 0
      RETURN NIL
    ENDIF
    browsBOX_DelItem(obrows2, nPosi)

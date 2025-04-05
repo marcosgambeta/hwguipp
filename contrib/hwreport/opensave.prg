@@ -269,9 +269,9 @@ STATIC FUNCTION SaveRFile( fname, repName )
 
    IF File( fname )
       han := FOpen(fname, FO_READWRITE + FO_EXCLUSIVE)
-      IF han <> - 1
+      IF han != - 1
          hanOut := FCreate(mypath + "__rpt.tmp")
-         IF hanOut <> - 1
+         IF hanOut != - 1
             DO WHILE .T.
                stroka := RDSTR(han, @strbuf, @poz, 512)
                IF Len( stroka ) = 0

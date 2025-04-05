@@ -47,7 +47,7 @@ Private oSayT
    SET KEY 0,VK_F3 TO hwg_Msginfo("F3") 
    SET KEY 0,VK_RETURN TO hwg_Msginfo("Return") 
    
-   If lColor <> NIL
+   If lColor != NIL
       hwg_SetColorinFocus( lColor )
    EndIf
    

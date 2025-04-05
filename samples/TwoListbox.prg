@@ -65,7 +65,7 @@ FUNCTION ShowR(ar,bdebug)
 * --------------------------------------------
 LOCAL j, co , d , t
  d := .F.
- IF bdebug <> NIL
+ IF bdebug != NIL
   d := bdebug
  ENDIF
  IF d
@@ -166,7 +166,7 @@ FUNCTION LSTBOX_ITEMTORI(olst1, olst2)
    nPosi := olst1:value
    cIt   := olst1:aItems[nPosi]
    * Search item in target listbox, if found, nothing to do (programing error)
-   IF LSTBOX_ITEMFIND(olst2,cIt) <> 0
+   IF LSTBOX_ITEMFIND(olst2,cIt) != 0
      RETURN NIL
    ENDIF
    * delete in source listbox
@@ -191,7 +191,7 @@ FUNCTION LSTBOX_ITEMTOLI(olst1, olst2)
    ENDIF
    nPosi := olst2:value
    cIt   := olst2:aItems[nPosi]
-   IF LSTBOX_ITEMFIND(olst1,cIt) <> 0
+   IF LSTBOX_ITEMFIND(olst1,cIt) != 0
      RETURN NIL
    ENDIF
    olst2:DeleteItem( nPosi )

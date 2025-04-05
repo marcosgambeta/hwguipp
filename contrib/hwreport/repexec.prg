@@ -36,7 +36,7 @@ FUNCTION hwg_hwr_Open(fname, repName)
    LOCAL nFormWidth
 
    han := FOpen(fname, FO_READ + FO_SHARED)
-   IF han <> - 1
+   IF han != - 1
       DO WHILE .T.
          stroka := RDSTR(han, @strbuf, @poz, 512)
          IF Len( stroka ) = 0

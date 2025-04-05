@@ -365,7 +365,7 @@ function netuse(cDatabase, cAlias, lExclusive, nSeconds, cPassword)
       endif
 
       if ! neterr()                     // USE SUCCEEDS
-	 if cPassWord<>NIL
+	 if cPassWord != NIL
 	    sx_SetPass(cPassWord)
 	 endif
 

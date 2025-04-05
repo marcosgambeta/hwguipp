@@ -267,7 +267,7 @@ METHOD HComboBoxEx:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit
       ::bGetFocus  := bGFocus
       ::oParent:AddEvent( CBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
-      IF ::bSetGet <> NIL
+      IF ::bSetGet != NIL
          ::oParent:AddEvent( CBN_SELCHANGE, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )
       ELSEIF ::bChangeSel != NIL
          ::oParent:AddEvent( CBN_SELCHANGE, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )

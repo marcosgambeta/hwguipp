@@ -306,7 +306,7 @@ LOCAL aret,aret2,cmfiname
 MEMVAR cStMEMFILE, oLabel2, aumemdarr , amemdarr
 
 cmfiname := "test.mem"
-IF ( cStMEMFILE <> cmfiname ) .AND. ( cStMEMFILE <> "<NONE>" )
+IF ( cStMEMFILE != cmfiname ) .AND. ( cStMEMFILE != "<NONE>" )
  hwg_MsgStop("Press Clear button before test")
  RETURN NIL 
 ENDIF
@@ -464,7 +464,7 @@ DO CASE
   CASE cTyp == "C"
    ctsize := ncsize + ncdec * 256
    anzbyte2 := FREAD(handle,@Puffer,ctsize)
-   IF anzbyte2 <> ctsize
+   IF anzbyte2 != ctsize
      FILE_ERROR(anzbyte2)
      RETURN {}
    ENDIF 
@@ -487,7 +487,7 @@ DO CASE
 
   CASE cTyp == "D"
    anzbyte2 := FREAD(handle,@Puffd,8)
-  IF anzbyte2 <> 8
+  IF anzbyte2 != 8
       FILE_ERROR(anzbyte2)
       RETURN {}
    ENDIF
@@ -502,7 +502,7 @@ DO CASE
    CASE cTyp == "L"
 
    anzbyte2 := FREAD(handle,@Puffl,1)
-  IF anzbyte2 <> 1
+  IF anzbyte2 != 1
      FILE_ERROR(anzbyte2)
      RETURN {}
   ENDIF
@@ -510,7 +510,7 @@ DO CASE
 
   CASE cTyp == "N"
    anzbyte2 = FREAD(handle,@Puffn,8)
-   IF anzbyte2 <> 8
+   IF anzbyte2 != 8
       FILE_ERROR(anzbyte2)
       RETURN {}
    ENDIF

@@ -79,7 +79,7 @@ LOCAL MINH
 * Array for return
 LOCAL albl
 
-IF PCOUNT() <> 1
+IF PCOUNT() != 1
  ? "Usage: lbldump <file.lbl>"
  QUIT
 ENDIF 

@@ -40,12 +40,12 @@ FUNCTION SayDollar(nDollar)
         nCheck2 := 1
     ENDIF
 
-    IF nPJ=5.AND.xNum<>'0'
+    IF nPJ=5.AND.xNum != '0'
         mm := 1
         nCheck1 := 0
     ENDIF
 
-    IF xNum<>'0'.OR.xNum='0'.AND.nPJ=7.OR.xNum='0'.AND.nPJ=4
+    IF xNum != '0'.OR.xNum='0'.AND.nPJ=7.OR.xNum='0'.AND.nPJ=4
         nAA := 1
 
         DO CASE
@@ -68,7 +68,7 @@ FUNCTION SayDollar(nDollar)
                 nTest := 0
 
             CASE nPJ=4
-                IF nCheck1=0.OR.xNum<>'0'
+                IF nCheck1=0.OR.xNum != '0'
                     IF xMuch='ONE'
                         xLang2 = ' THOUSAND '
                     ELSE
@@ -128,7 +128,7 @@ FUNCTION SayDollar(nDollar)
     cDollar = RIGHT(cDollar,(nPJ-1))
     xMuch = xLang1
 
-    IF xNum<>'0'.OR.xNum='0'.AND.nPJ=7.OR.xNum='0'.AND.nPJ=4
+    IF xNum != '0'.OR.xNum='0'.AND.nPJ=7.OR.xNum='0'.AND.nPJ=4
         nAA = 1
         DO CASE
             CASE nPJ=8.OR.nPJ=5.OR.nPJ=2
@@ -149,7 +149,7 @@ FUNCTION SayDollar(nDollar)
                 ENDIF
                 nTest = 0
             CASE nPJ=4
-                IF nCheck1=0.OR.xNum<>'0'
+                IF nCheck1=0.OR.xNum != '0'
                     IF xMuch='ONE'
                         xLang2 = ' THOUSAND '
                     ELSE
@@ -216,7 +216,7 @@ FUNCTION SayRupiah(nAngka)
 
 	char:="0"+RIGHT( STR(nAngka,18,2) ,2)
 
-	kalimat+=IF(char<>"000"," koma "+tigades(char,1)+"sen","")
+	kalimat+=IF(char != "000"," koma "+tigades(char,1)+"sen","")
 
  RETURN (kalimat)
 
@@ -252,6 +252,6 @@ STATIC FUNCTION tigades( mvc, n)    // created: 28 mei 1993
                     "DELAPAN","SEMBILAN" }
 
 STATIC FUNCTION  bil(x)
- RETURN    iif( x<>"0", bil_asli[val(x)]+" ","")
+ RETURN    iif( x != "0", bil_asli[val(x)]+" ","")
 
 // eof SayRupiah

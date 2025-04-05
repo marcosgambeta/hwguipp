@@ -449,7 +449,7 @@ For Each i in oBrowse1:aArray
       fErase(cLogErro)
       fErase(cObjName)
       fErase(cFileNoExt(cObjName) + ".obj")
-      If ExecuteCommand(  cExeHarbour, cPrgName + " -o" + cObjName + " " + Alltrim(oPrgFlag:GetText()) + " -n -i"+cHarbour+"\include;"+cHwGUI+"\include"+If( !Empty(Alltrim(oIncFolder:GetText()) ), ";"+Alltrim(oIncFolder:GetText()), ""),  cFileNoExt( cObjName ) + ".log" ) <> 0
+      If ExecuteCommand(  cExeHarbour, cPrgName + " -o" + cObjName + " " + Alltrim(oPrgFlag:GetText()) + " -n -i"+cHarbour+"\include;"+cHwGUI+"\include"+If( !Empty(Alltrim(oIncFolder:GetText()) ), ";"+Alltrim(oIncFolder:GetText()), ""),  cFileNoExt( cObjName ) + ".log" ) != 0
   
          cErrText := Memoread(cLogErro) 
        
@@ -472,7 +472,7 @@ For Each i in oBrowse1:aArray
       cListObj += StrTran( cObjName, ".c", ".obj" ) + " " + CRLF
    EndIf   
    cRun := " -v -y -c " +Alltrim(oCFlag:GetText()) + " -O2 -tW -M -I"+cHarbour+"\include;"+cHwGUI+"\include;"+cBCC55+"\include " + "-o"+StrTran( cObjName, ".c", ".obj" ) + " " + cObjName
-   If ExecuteCommand( cBCC55 + "\bin\bcc32.exe", cRun ) <> 0
+   If ExecuteCommand( cBCC55 + "\bin\bcc32.exe", cRun ) != 0
       hwg_Msginfo("No Created Object files!", "HwMake" )
       Return NIL
    EndIF
@@ -489,7 +489,7 @@ Next
                         
 //ResourceFiles
 For Each i in oBrowse4:aArray     
-   If ExecuteCommand( cBCC55 + "\bin\brc32", "-r "+cFileNoExt(i)+" -fo"+cObj+"\"+cFileNoPath( cFileNoExt( i ) ) ) <> 0
+   If ExecuteCommand( cBCC55 + "\bin\brc32", "-r "+cFileNoExt(i)+" -fo"+cObj+"\"+cFileNoPath( cFileNoExt( i ) ) ) != 0
       hwg_Msginfo("Error in Resource File " + i + "!", "HwMake" )
       Return NIL
    EndIf   
@@ -517,7 +517,7 @@ EndIF
 
 Memowrit( cMainPrg + ".bc ", cMake )
 
-If ExecuteCommand( cBCC55 + "\bin\ilink32", "-v -Gn -aa -Tpe @"+cMainPrg + ".bc" ) <> 0
+If ExecuteCommand( cBCC55 + "\bin\ilink32", "-v -Gn -aa -Tpe @"+cMainPrg + ".bc" ) != 0
       hwg_Msginfo("No link file " + cMainPrg +"!", "HwMake" ) 
       Return NIL
 EndIf

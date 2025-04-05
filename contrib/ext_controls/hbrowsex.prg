@@ -1663,17 +1663,17 @@ METHOD HBrowseEx:HeaderOut( hDC )
    ENDIF
 
    x := ::x1
-   IF ::oHeadFont <> NIL
+   IF ::oHeadFont != NIL
       oldfont := hwg_Selectobject( hDC, ::oHeadFont:handle )
    ENDIF
-   IF ::headColor <> NIL
+   IF ::headColor != NIL
       oldc := hwg_Settextcolor( hDC, ::headColor )
    ENDIF
    fif := IIf(::freeze > 0, 1, ::nLeftCol)
 
    DO WHILE x < ::x2 - 2
       oColumn := ::aColumns[fif]
-      IF oColumn:headColor <> NIL
+      IF oColumn:headColor != NIL
          toldc := hwg_Settextcolor( hDC, oColumn:headColor )
       ENDIF
       xSize := oColumn:width
@@ -1780,7 +1780,7 @@ METHOD HBrowseEx:HeaderOut( hDC )
          ENDIF
       ENDIF
       x += xSize
-      IF oColumn:headColor <> NIL
+      IF oColumn:headColor != NIL
          hwg_Settextcolor( hDC, toldc )
       ENDIF
       fif := IIf(fif == ::freeze, ::nLeftCol, fif + 1)
@@ -1816,10 +1816,10 @@ METHOD HBrowseEx:HeaderOut( hDC )
       hwg_Drawline( hDC, ::xAdjRight, ::y1 - 1, ::x2 , ::y1 - 1  )
    ENDIF
    hwg_Setbkcolor( hDC, oldBkColor )
-   IF ::headColor <> NIL
+   IF ::headColor != NIL
       hwg_Settextcolor( hDC, oldc )
    ENDIF
-   IF ::oHeadFont <> NIL
+   IF ::oHeadFont != NIL
       hwg_Selectobject( hDC, oldfont )
    ENDIF
    IF ::lResizing .AND. s_xDragMove > 0
@@ -3069,11 +3069,11 @@ METHOD HBrowseEx:Edit( wParam, lParam )
          x1 := aCoors[1]
          y1 := aCoors[2] + 1
          lReadExit := Set( _SET_EXIT, .T. )
-         IF Type <> "L"
+         IF Type != "L"
             bInit := IIf(wParam == NIL .OR. wParam == 13 .OR. Empty(lParam), {|o|hwg_Movewindow(o:handle, x1, y1, nWidth, o:nHeight + 1)}, ;
                {|o|hwg_Movewindow(o:handle, x1, y1, nWidth, o:nHeight + 1), ;
                o:aControls[1]:Setfocus(), hwg_Postmessage( o:aControls[1]:handle, WM_CHAR, wParam, lParam ) } )
-            IF Type <> "M"
+            IF Type != "M"
                /* Bug Ticket #108 by Itamer M. Lins Jr,
                   WINE ESC and ENTER not working on get (edit) browse:
                   + DS_CONTROL removed */
@@ -3110,7 +3110,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
             ELSE
                IF Type == "L"
                   ::oEditDlg:lResult := .T.
-               ELSEIF Type <> "M"
+               ELSEIF Type != "M"
                   nHGet := Max( ( ::height - ( hwg_TxtRect( "N", self ) )[2] ) / 2 , 0 )
                   @ 0, nHGet GET oGet VAR ::varbuf       ;
                      SIZE nWidth - IIf(oColumn:bClick != NIL, 16, 1), ::height   ;
@@ -3565,7 +3565,7 @@ FUNCTION hwg_VScrollPosEx( oBrw, nType, lEof, nPos )
    ENDIF
    hwg_Getscrollrange( oBrw:handle, SB_VERT, @minPos, @maxPos )
    IF nPos == NIL
-      IF oBrw:Type <> BRW_DATABASE
+      IF oBrw:Type != BRW_DATABASE
          IF nType > 0 .AND. lEof
             Eval( oBrw:bSkip, oBrw, - 1 )
          ENDIF
