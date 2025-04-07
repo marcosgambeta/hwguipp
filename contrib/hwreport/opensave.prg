@@ -176,7 +176,7 @@ STATIC FUNCTION OpenFile( fname, repName )
             IF Len( stroka ) = 0
                EXIT
             ENDIF
-            IF Left( stroka, 1 ) == ";"
+            IF Left(stroka, 1) == ";"
                LOOP
             ENDIF
             IF nMode == 0
@@ -279,7 +279,7 @@ STATIC FUNCTION SaveRFile( fname, repName )
                ENDIF
                IF nMode == 0
                   IF ( lPrg .AND. Upper(Left(stroka, 8)) == "FUNCTION" ) ;
-                        .OR. ( !lPrg .AND. Left( stroka,1 ) == "#" .AND. ;
+                        .OR. ( !lPrg .AND. Left(stroka, 1) == "#" .AND. ;
                         Upper(SubStr(stroka, 2, 6)) == "REPORT" )
                      IF Upper(LTrim(SubStr(stroka, 9))) == Upper(repName)
                         nMode := 1
@@ -289,8 +289,8 @@ STATIC FUNCTION SaveRFile( fname, repName )
                   ENDIF
                   FWrite(hanOut, stroka + iif(Asc(Right(stroka, 1)) < 20, "", Chr(10)))
                ELSEIF nMode == 1
-                  IF ( lPrg .AND. Left( stroka,6 ) == "RETURN" ) ;
-                        .OR. ( !lPrg .AND. Left( stroka,1 ) == "#" .AND. ;
+                  IF ( lPrg .AND. Left(stroka, 6) == "RETURN" ) ;
+                        .OR. ( !lPrg .AND. Left(stroka, 1) == "#" .AND. ;
                         Upper(SubStr(stroka, 2, 6)) == "ENDREP" )
                      nMode := 0
                      IF lPrg
@@ -476,7 +476,7 @@ STATIC FUNCTION WriteScript( han, cScript, lPrg )
             ENDIF
             EXIT
          ENDIF
-         IF Left( stroka, 1 ) != Chr(10)
+         IF Left(stroka, 1) != Chr(10)
             IF lPrg
                cQuote := iif( !( '"' $ stroka ), '"', iif( !( "'" $ stroka ), "'", "[" ) )
                FWrite(han, iif( lFirst,"",";" + Chr(10 ) ) + Space(5) + iif( lFirst, "", "+ " ) + cQuote + stroka + cQuote + "+cEnd")

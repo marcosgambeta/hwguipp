@@ -808,7 +808,7 @@ METHOD HComboBoxEx:Populate()
    ENDIF
    xRowSource := iif( hb_IsArray( ::xRowSource[1] ), ::xRowSource[1, 1], ::xRowSource[1] )
    IF xRowSource != NIL .AND. ( i := At("->", xRowSource) ) > 0
-      cAlias := AllTrim(Left( xRowSource, i - 1 ))
+      cAlias := AllTrim(Left(xRowSource, i - 1))
       IF SELECT( cAlias ) = 0 .AND. ( i := At("(", cAlias) ) > 0
          cAlias := LTrim(SubStr(cAlias, i + 1))
       ENDIF

@@ -530,9 +530,9 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                   ENDIF
                ELSEIF Lower(cPropertyName) == "font"
                   Aadd(aProp, {cPropertyName, hwg_hfrm_FontFromXML(o:aItems[1], oDesigner:lReport)})
-               ELSEIF Left( Lower(cPropertyName),6 ) == "hstyle"
+               ELSEIF Left(Lower(cPropertyName), 6) == "hstyle"
                   Aadd(aProp, {cPropertyName, hwg_HstyleFromXML(o:aItems[1])})
-               ELSEIF Left( Lower(cPropertyName),6 ) == "styles"
+               ELSEIF Left(Lower(cPropertyName), 6) == "styles"
                   arr := {}
                   FOR j1 := 1 TO Len( o:aItems )
                      Aadd(arr, hwg_HstyleFromXML(o:aItems[j1]))
@@ -541,7 +541,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                ELSEIF Lower(cPropertyName) == "atree"
                   Aadd(aProp, {cPropertyName, ReadTree(NIL, o)})
                ELSEIF !Empty(o:aItems)
-                  cProperty := Left( o:aItems[1],1 )
+                  cProperty := Left(o:aItems[1], 1)
                   IF cProperty == '['
                      cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
                   ELSEIF cProperty == '.'
@@ -623,7 +623,7 @@ Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
                ELSEIF Lower(cPropertyName) == "font"
                   Aadd(aProp, {cPropertyName, hwg_hfrm_FontFromXML(o:aItems[1], oDesigner:lReport)})
                ELSEIF !Empty(o:aItems)
-                  cProperty := Left( o:aItems[1],1 )
+                  cProperty := Left(o:aItems[1], 1)
                   IF cProperty == '['
                      cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
                   ELSEIF cProperty == '.'
@@ -738,12 +738,12 @@ Local cProperty, i1
                   oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name","font" } } ) )
                   oNode1:Add( hwg_Font2XML( oCtrl:oFont ) )
                ENDIF
-            ELSEIF Left( Lower(oCtrl:aProp[j,1]),6 ) == "hstyle"
+            ELSEIF Left(Lower(oCtrl:aProp[j, 1]), 6) == "hstyle"
                IF HB_ISOBJECT(oCtrl:aProp[j,2])
                   oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name",Lower(oCtrl:aProp[j,1]) } } ) )
                   oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j,2] ) )
                ENDIF
-            ELSEIF Left( Lower(oCtrl:aProp[j,1]),6 ) == "styles"
+            ELSEIF Left(Lower(oCtrl:aProp[j, 1]), 6) == "styles"
                IF HB_ISARRAY(oCtrl:aProp[j, 2])
                   oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name","styles" } } ) )
                   oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j,2,1] ) )

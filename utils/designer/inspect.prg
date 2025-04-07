@@ -122,7 +122,7 @@ STATIC FUNCTION Edit1()
                varbuf := LTrim(Str(varbuf))
                lRes := .T.
             ENDIF
-         ELSEIF Left( aDataDef[j,5],6 ) == "hstyle"
+         ELSEIF Left(aDataDef[j, 5], 6) == "hstyle"
             varbuf := SelectStyle( varbuf )
             IF varbuf != NIL
                lRes := .T.

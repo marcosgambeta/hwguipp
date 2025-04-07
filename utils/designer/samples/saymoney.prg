@@ -54,7 +54,7 @@ FUNCTION SayDollar(nDollar)
     xLang2 := ''
     xLang1 := ''
     xMuch := 'ONE'
-    xNum = LEFT(cDollar,1)
+    xNum = Left(cDollar, 1)
 
     IF nPJ=6.AND.xNum='0'.OR.nPJ=5.AND.xNum='0'.AND.nCheck1=1
         nCheck1 := 1
@@ -248,7 +248,7 @@ FUNCTION SayRupiah(nAngka)
 
 //
 STATIC FUNCTION tigades( mvc, n)    // created: 28 mei 1993
- LOCAL say := "", x1 := left(mvc,1), x2:=subs(mvc,2,1), x3:=right(mvc,1)
+ LOCAL say := "", x1 := Left(mvc, 1), x2:=subs(mvc,2,1), x3:=right(mvc,1)
 
  IF n==4 .and. mvc=="001"
     RETURN "se"

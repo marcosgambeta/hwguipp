@@ -125,15 +125,15 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
 
              if right(included,3) == "Ext"
                 @ 540, 395 BUTTON "Close Bar"  SIZE 75,25 ;
-                   ON CLICK {|| Iif(oBar==NIL,hwg_Msgstop(cMsgErr),(iif(left(included,4)== "Auto",oTimer:End(), ),oBar:close(),oBar:=NIL,n:=0,oCreate:show())) }
+                   ON CLICK {|| Iif(oBar==NIL,hwg_Msgstop(cMsgErr),(iif(Left(included, 4)== "Auto",oTimer:End(), ),oBar:close(),oBar:=NIL,n:=0,oCreate:show())) }
              else
                 @ 540, 395 BUTTON "Close Bar"  SIZE 75,25 ;
-                   ON CLICK {|| Iif(oBar==NIL,hwg_Msgstop(cMsgErr),(iif(left(included,4)== "Auto",oTimer:End(), ),RES_PROGBAR(oBar),oBar:hide(),n:=0,oCreate:show())) }
+                   ON CLICK {|| Iif(oBar==NIL,hwg_Msgstop(cMsgErr),(iif(Left(included, 4)== "Auto",oTimer:End(), ),RES_PROGBAR(oBar),oBar:hide(),n:=0,oCreate:show())) }
              endif
              @ 620, 395 BUTTON "Close"      SIZE 75,25 ON CLICK {|| isdemo:=.f.,oForm:Close() }
 
         ACTIVATE DIALOG oForm
-        if left(included,4)== "Auto"
+        if Left(included, 4)== "Auto"
            oTimer:End()
         endif
 

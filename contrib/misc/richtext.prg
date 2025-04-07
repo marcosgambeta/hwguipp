@@ -623,7 +623,7 @@ FUNCTION FormatCode( cCode )
 ******************************************************************** */
 
    cCode := AllTrim(cCode)
-   IF ! ( Left( cCode, 1 ) == "\" )
+   IF ! ( Left(cCode, 1) == "\" )
       cCode := "\" + cCode
    ENDIF
 

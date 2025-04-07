@@ -288,7 +288,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
          cTagName := Substr(xText, nPos1 + 1, i - 1)
 
          nPos2 := hb_At(">", xText, nPos1)
-         IF Left( cTagName,1 ) == "/"
+         IF Left(cTagName, 1) == "/"
             IF cTagName == "/div" .OR. cTagName == "/p"
                IF !lDiv
                   ::lError := .T.
@@ -330,7 +330,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                nPosA := 1
                DO WHILE ( nPosS := hb_At("{", cStyles, nPosA) ) != 0
                   cClsName := AllTrim(StrTran(StrTran(Substr(cStyles, nPosA, nPosS - nPosA), Chr(13), ""), Chr(10), ""))
-                  IF Left( cClsName, 1 ) == "."
+                  IF Left(cClsName, 1) == "."
                      cClsName := Substr(cClsName, 2)
                   ENDIF
                   IF ( nPosA := hb_At("}", cStyles, nPosS) ) == 0
@@ -1366,7 +1366,7 @@ METHOD FindClass( xBase, xAttr, xNewClass ) CLASS HCEdiExt
    ENDIF
 
    FOR i := 1 TO Len( xAttr )
-      SWITCH Left( xAttr[i], 2 )
+      SWITCH Left(xAttr[i], 2)
       CASE "ct" ; aHili[2] := Val( Substr(xAttr[i], 3) )
          EXIT
       CASE "cb" ; aHili[3] := Val( Substr(xAttr[i], 3) )
@@ -2160,7 +2160,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
             ENDIF
             IF Len(::aStru[i,j]) >= OB_HREF
                cHref := ::aStru[i,j,OB_HREF]
-               IF lHtml .AND. Left( cHref, 5 ) == "goto:"
+               IF lHtml .AND. Left(cHref, 5) == "goto:"
                   cHref := Substr(cHref, 8)
                ENDIF
             ELSE
@@ -2203,13 +2203,13 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
             s += "</table>" + cNewL
          ENDIF
          cHref := ::aStru[i,1,OB_HREF]
-         IF lHtml .AND. Left( cHref,1 ) == "#"
+         IF lHtml .AND. Left(cHref, 1) == "#"
             cHref := Substr(cHref, 2)
             IF Empty(hb_FNameExt(cHRef)) .AND. ( j := Ascan( ::aBin, {|a|a[1]==cHref} ) ) > 0 ;
                   .AND. !Empty(::aBin[j,4])
                cHref += ::aBin[j,4]
             ENDIF
-         ELSEIF !Empty(lEmbed) .AND. Left( cHref,1 ) != "#"
+         ELSEIF !Empty(lEmbed) .AND. Left(cHref, 1) != "#"
             cHref = "#" + hb_FNameName( cHref )
          ENDIF
          s += "<img" + Iif( !Empty(::aStru[i,1,OB_CLS]), ' class="' + ::aStru[i,1,OB_CLS] + '"', "" ) ;

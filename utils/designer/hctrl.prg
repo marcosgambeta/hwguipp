@@ -77,7 +77,7 @@ Private value, oCtrl := Self
                ::aPaint := RdScript( ,oPaint:aItems[1]:aItems[1] )
             ENDIF
             IF ( bmp := oPaint:GetAttribute( "bmp" ) ) != NIL
-               IF Isdigit( Left( bmp,1 ) )
+               IF Isdigit( Left(bmp, 1) )
                   //::oBitmap := HBitmap():AddResource( Val(bmp) )
                   ::oBitmap := HBitmap():AddStandard( Val(bmp) )
                ELSEIF "." $ bmp
@@ -240,7 +240,7 @@ Local nLen := Len( cName )
 
    FOR i := 1 TO Len( aControls )
       IF( j := Ascan( aControls[i]:aProp, {|a|a[1]==cPropertyName} ) ) > 0
-         IF Left( aControls[i]:aProp[j,2],nLen ) == cName
+         IF Left(aControls[i]:aProp[j, 2], nLen) == cName
             Aadd(arr, Substr(aControls[i]:aProp[j, 2], nLen + 1))
          ENDIF
       ENDIF

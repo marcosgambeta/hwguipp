@@ -36,7 +36,7 @@ Private cCaption, x, y, nWidth, nHeight, nStyle, lClipper, oFont, tColor, bColor
       ENDIF
       stroka := Ltrim(stroka)
       IF nMode == 0
-         IF Left( stroka,1 ) == "#"
+         IF Left(stroka, 1) == "#"
             IF Upper(Substr(stroka, 2, 4)) == "FORM"
                stroka := Ltrim(Substr(stroka, 7))
                itemName := NextItem( stroka,.T. )
@@ -56,7 +56,7 @@ Private cCaption, x, y, nWidth, nHeight, nStyle, lClipper, oFont, tColor, bColor
             ENDIF
          ENDIF
       ELSEIF nMode == 1
-         IF Left( stroka,1 ) == "#"
+         IF Left(stroka, 1) == "#"
             IF Upper(Substr(stroka, 2, 7)) == "ENDFORM"
                Exit
             ENDIF

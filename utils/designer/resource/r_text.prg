@@ -26,12 +26,12 @@ Private cWidth, aVars
     IF LEN( stroka ) == 0
       EXIT
     ENDIF
-    IF Left( stroka,1 ) == ";"
+    IF Left(stroka, 1) == ";"
       LOOP
     ENDIF
     stroka := Ltrim(stroka)
     IF nMode == 0
-      IF Left( stroka,1 ) == "#"
+      IF Left(stroka, 1) == "#"
         IF Upper(Substr(stroka, 2, 6)) == "REPORT"
           stroka := Ltrim(Substr(stroka, 9))
           IF Empty(oForm:name) .OR. Upper(stroka) == Upper(oForm:name)
@@ -40,7 +40,7 @@ Private cWidth, aVars
         ENDIF
       ENDIF
     ELSEIF nMode == 1
-      IF Left( stroka,1 ) == "#"
+      IF Left(stroka, 1) == "#"
         IF Upper(Substr(stroka, 2, 6)) == "ENDREP"
           Exit
         ELSEIF Upper(Substr(stroka, 2, 6)) == "SCRIPT"
@@ -126,7 +126,7 @@ Private cWidth, aVars
         ENDIF
       ENDIF
     ELSEIF nMode == 2
-      IF Left( stroka,1 ) == "#" .AND. Upper(Substr(stroka, 2, 6)) == "ENDSCR"
+      IF Left(stroka, 1) == "#" .AND. Upper(Substr(stroka, 2, 6)) == "ENDSCR"
          nMode := 1
          IF itemName == "area"
            IF cm == "SL"

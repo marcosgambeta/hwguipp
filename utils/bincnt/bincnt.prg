@@ -158,8 +158,8 @@ STATIC FUNCTION CntAdd()
 
    IF !Empty(cFile)
       oEdit1:value := cFile
-      oEdit2:value := Left( CutExten( CutPath(cFile ) ), 32 )
-      oEdit3:value := Left( FilExten( cFile ), 4 )
+      oEdit2:value := Left(CutExten( CutPath(cFile ) ), 32)
+      oEdit3:value := Left(FilExten( cFile ), 4)
       hwg_WriteStatus( HWindow():GetMain(), 2, "Items: " + LTrim(Str(oContainer:nItems)) )
    ENDIF
 

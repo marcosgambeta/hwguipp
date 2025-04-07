@@ -342,7 +342,7 @@ FUNCTION C_APPEND()
                      FOR i := 1 TO Len(arr)
                         IF i <= Len( af )
                            xVal := arr[i]
-                           IF Left( xVal,1 ) == cQuo
+                           IF Left(xVal, 1) == cQuo
                               xVal := Substr(xVal, 2, Len(xVal) - 2)
                            ENDIF
                            IF cQuo+cQuo $ arr[i]
@@ -368,7 +368,7 @@ FUNCTION C_APPEND()
                            ELSEIF aFie[af[i],2] == "L"
                               FieldPut( af[i], ( xVal="T" ) )
                            ELSEIF aFie[af[i],2] == "C"
-                              FieldPut( af[i], Left( xVal, aFie[af[i],3] ) )
+                              FieldPut( af[i], Left(xVal, aFie[af[i],3]) )
                            ELSEIF aFie[af[i],2] == "M"
                               FieldPut( af[i], xVal )
                            ENDIF

@@ -525,11 +525,11 @@ function Usr2infStr(g,lKosong) && usr to informix str
        next
 
        *:Kalau 2 Char Pertama Adalah Angka
-       cPress:= if( left(c,2)=="99", cPress, "0"+cPress)
-            c:= if( left(c,2)=="99", c,      "9"+c)
+       cPress:= if( Left(c, 2)=="99", cPress, "0"+cPress)
+            c:= if( Left(c, 2)=="99", c,      "9"+c)
 
 	*:isi Hari
-        dd:=left(cPress,2)+"."
+        dd := Left(cPress, 2) + "."
 
 
 	if subst(c,3,3)="AAA"
@@ -559,7 +559,7 @@ function Usr2infStr(g,lKosong) && usr to informix str
 	   yy:=right(cPress,((len(c)-len(dd+mm))+nPot))
 
 	   if len(yy)==2
-	      yy:= left(dtos(date()),2)+yy
+	      yy := Left(dtos(date()), 2) + yy
 	   endif
 
       if  VALTYPE(ctod(dd+mm+yy))!="D"  .or. (ctod(dd+mm+yy)==ctod("  /  /  "))
@@ -582,7 +582,7 @@ function d2infstr(d) && date to informix style string
 
   if empty(d); return "           "; end
 
-  dd:=right(dtos(d),2);  yyyy:=left(dtos(d),4)
+  dd:=right(dtos(d),2);  yyyy := Left(dtos(d), 4)
 
   mmm:=subst("JanFebMarAprMeiJunJulAgtSepOktNopDes",month(d)*3-2,3)
 
@@ -594,7 +594,7 @@ function d2infstr(d) && date to informix style string
 
 function infstr2d(s) && informix string to date
 
- local dd:=left(s,2)+"/", yy:="/"+right(s,4), mm
+ local dd := Left(s, 2) + "/", yy := "/" + Right(s, 4), mm
 
  mm := str((at(subst(s, 4, 3), "JanFebMarAprMeiJunJulAgtSepOktNopDes") + 2) / 3, 2)
 

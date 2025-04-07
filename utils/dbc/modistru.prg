@@ -131,7 +131,7 @@ FUNCTION StruMan( lNew )
                         FieldPut( i, xValue )
                      ELSE
                         IF af[i,2] == "C"
-                           FieldPut( i, Left( xValue,af[i,3] ) )
+                           FieldPut( i, Left(xValue, af[i,3]) )
                         ELSEIF af[i,2] == "N"
                            FieldPut( i, 0 )
                            lOverFlow := .T.

@@ -210,12 +210,12 @@ FUNCTION Browse2Prg
    ENDDO
 
    IF nType = BRW_DATABASE
-      cAlias := Left( CutPath( cAlias ), At(".", CutPath(cAlias)) - 1 )
+      cAlias := Left(CutPath( cAlias ), At(".", CutPath(cAlias)) - 1)
       cAlias := Lower(Trim(iif((temp := oCtrl:GetProp("alias")) != NIL .AND. !Empty(temp), temp, calias)))
       cBrowser += Space(4) + cname + ":alias := '" + calias + "'" + hb_OsNewline()
       // abrir tablea
       //     IF (temp:=oCtrl:GetProp("filedbf")) != NIL //.AND. !EMPTY(temp)
-      //      cTmpAlias := Lower(LEFT(CutPath( temp ),AT(".",CutPath( temp ))-1))
+      //      cTmpAlias := Lower(Left(CutPath( temp ),AT(".",CutPath( temp ))-1))
       //      IF select(cTmpalias) = 0
       //        USE (value) NEW SHARED ALIAS (cTmpAlias) VIA "DBFCDX" //ftmp
       //SET INDEX TO (cTmpAlias)
@@ -242,7 +242,7 @@ FUNCTION Browse2Prg
          cBrowser += Space(4) + calias + "->(DBSETORDER('" + temp + "'))" + hb_OsNewline()
          &calias -> ( dbSetOrder( temp ) )
          cKey := &calias -> ( OrdKey( temp ) )
-         ckey := iif( At('+', ckey) > 0, Left( ckey, At('+',ckey ) - 1 ), ckey )
+         ckey := iif( At('+', ckey) > 0, Left(ckey, At('+', ckey) - 1 ), ckey )
       ENDIF
       crelexpr := iif( ( temp := oCtrl:GetProp("relationalexpr" ) ) != NIL .AND. !Empty(temp), Trim(temp), cKey )
       clink := iif( ( temp := oCtrl:GetProp("linkmaster" ) ) != NIL .AND. !Empty(temp), Trim(temp), "" )
@@ -809,7 +809,7 @@ FUNCTION Ctrl2Prg
             //cImagem += " BACKGROUND BITMAP HBitmap():AddFile('"+temp+"') "
             stroka += " ;" + hb_OsNewline() + Space(8) + "BITMAP " + "(HBitmap():AddFile('" + temp + "')):handle "
             IF !Empty(( temp := oCtrl:GetProp("pictureposition" ) ))
-               stroka += " ;" + hb_OsNewline() + Space(8) + "BSTYLE " + Left( temp, 1 )
+               stroka += " ;" + hb_OsNewline() + Space(8) + "BSTYLE " + Left(temp, 1)
             ENDIF
          ENDIF
       ENDIF

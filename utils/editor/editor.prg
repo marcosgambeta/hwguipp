@@ -1829,7 +1829,7 @@ STATIC FUNCTION setImage( lNew )
    ENDIF
 
    IF !lNew
-      lEmbed := ( Left( aStru[1,OB_HREF], 1 ) == "#" )
+      lEmbed := ( Left(aStru[1, OB_HREF], 1) == "#" )
       nAlign := aStru[1,OB_IALIGN] + 1
       IF !Empty(cClsName := aStru[1,OB_CLS])
          aAttr := oEdit:getClassAttr( cClsName )
@@ -1866,7 +1866,7 @@ STATIC FUNCTION setImage( lNew )
    IF oDlg:lResult
       IF lNew
          IF !Empty(fname)
-            IF nImage > 0 .AND. Left( fname,1 ) == "#"
+            IF nImage > 0 .AND. Left(fname, 1) == "#"
                oEdit:InsImage( , nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),NIL ), oEdit:aBin[nImage,2] )
             ELSEIF lEmbed
                oEdit:InsImage( , nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),NIL ), MemoRead(fname), Lower(hb_FNameExt(fname)) )
@@ -1874,13 +1874,13 @@ STATIC FUNCTION setImage( lNew )
                oEdit:InsImage( fname, nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),NIL ) )
             ENDIF
          ENDIF
-      ELSEIF lEmbed != ( Left( aStru[1,OB_HREF], 1 ) == "#" ) .OR. ;
+      ELSEIF lEmbed != ( Left(aStru[1, OB_HREF], 1) == "#" ) .OR. ;
             nAlign != (aStru[1,OB_IALIGN] + 1) .OR. nBorder != nb0
          aStru[1,OB_IALIGN] := nAlign - 1
          IF nBorder != nb0
             aStru[1,OB_CLS] := oEdit:FindClass( cClsName, { "bw" + LTrim(Str(nBorder)) }, .T. )
          ENDIF
-         IF lEmbed != ( Left( aStru[1,OB_HREF], 1 ) == "#" )
+         IF lEmbed != ( Left(aStru[1, OB_HREF], 1) == "#" )
             IF lEmbed
                cName := aStru[1,OB_HREF]
                IF !Empty(cBin := MemoRead(cName))

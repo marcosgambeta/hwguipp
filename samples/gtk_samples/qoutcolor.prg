@@ -26,7 +26,7 @@
            "${gGre}hwmake${noColor}"+chr(10)+ ;
            'echo ""'+chr(10)+ ;
            "sudo mkdir /usr/share/help/fr/hwmake 2>/dev/null"+chr(10)+ ;
-           "sudo cp * /usr/share/help/"+left(clanguage,2)+"/hwmake"+chr(10)+ ;
+           "sudo cp * /usr/share/help/"+Left(clanguage, 2)+"/hwmake"+chr(10)+ ;
            'echo ""'+chr(10)+ ;
            "echo -e ${gGre}"+_("Press a key to continue...")+"${nocolor}"+chr(10)+ ;
            "read"+chr(10)

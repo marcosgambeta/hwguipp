@@ -165,7 +165,7 @@ STATIC FUNCTION PreProc( s )
       nPos2 --
    ENDDO
    IF nPos2 < Len( cRes )
-      cRes := Left( cRes, nPos2 )
+      cRes := Left(cRes, nPos2)
    ENDIF
 
    RETURN cRes
@@ -196,7 +196,7 @@ STATIC FUNCTION CalcScr( aStru, nL, iTD, nL1 )
         IF Substr(cRes, nPos2, 1) == '.'
            nPos2 --
         ENDIF
-        cRes := Left( cRes, nPos2 )
+        cRes := Left(cRes, nPos2)
       ENDIF
       cRes := "(" + cRes + ")"
       IF iTD != NIL
@@ -331,7 +331,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
                IF Len( aStru[i] ) >= OB_ID .AND. !Empty(aStru[i,OB_ID])
                   IF Left(aStru[i,OB_ID],6) == cIdRes
                      IF --n == 0
-                        cExp := Left( cExp,nPos2-1 ) + ;
+                        cExp := Left(cExp, nPos2 - 1) + ;
                            Substr(oEdit:aText[j], aStru[i, 1], aStru[i, 2] - aStru[i, 1] + 1) + ;
                            Substr(cExp, nPos2 + 3)
                         nPos1 := nPos2 + aStru[i,2] - aStru[i,1]
@@ -441,7 +441,7 @@ STATIC FUNCTION CnvVal( xRes )
      IF Substr(cRes, nPos2, 1) == '.'
         nPos2 --
      ENDIF
-     cRes := Left( cRes, nPos2 )
+     cRes := Left(cRes, nPos2)
    ENDIF
 
    RETURN cRes
@@ -517,10 +517,10 @@ FUNCTION GetAt(cMet)
       nL := arrf[2]
       aStru := oEdiCurr:aStru[nL,arrf[1]]
       cOldVal := Ltrim(hced_SubStr(oEdiCurr, oEdiCurr:aText[nL], aStru[1], aStru[2] - aStru[1] + 1))
-      IF Left( cOldVal,1 ) == "("
+      IF Left(cOldVal, 1) == "("
          cOldVal := Substr(cOldVal, 2, Len(cOldVal) - 2)
       ENDIF
-      IF IsDigit( Left( cOldVal,1 ) )
+      IF IsDigit( Left(cOldVal, 1) )
          RETURN Val( Substr(cOldVal,1) )
       ELSE
          RETURN cOldVal

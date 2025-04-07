@@ -366,7 +366,7 @@ STATIC FUNCTION ReadParams( aParams )
    LOCAL i, cExt
 
    FOR i := 1 TO Len( aParams )
-      IF Left( aParams[i],1 ) $ "-/"
+      IF Left(aParams[i], 1) $ "-/"
       ELSEIF (cExt := Lower(FilExten(aParams[i]))) == "dbf"
          hb_cdpSelect( cAppCpage )
          Set( _SET_EXCLUSIVE, !lShared )
@@ -417,7 +417,7 @@ STATIC FUNCTION About
    sv := hb_version()
 #endif
    nPos := At("(", sv)
-   @ 290, 68 SAY Left( sv, nPos-1 ) SIZE 178, 20 STYLE SS_CENTER
+   @ 290, 68 SAY Left(sv, nPos - 1) SIZE 178, 20 STYLE SS_CENTER
 
    @ 298, 92 GROUPBOX "" SIZE 172, 36
    @ 300,108 SAY "Alexander Kresin, 2016" SIZE 168, 20 STYLE SS_CENTER

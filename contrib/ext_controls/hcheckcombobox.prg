@@ -184,7 +184,7 @@ METHOD hCheckComboBox:onEvent( msg, wParam, lParam )
    ELSEIF msg = WM_COMMAND
       IF hwg_Hiword( wParam ) = CBN_SELCHANGE
          nPos := hwg_Sendmessage( ::handle, CB_GETCURSEL, 0, 0 )
-         IF Left( ::Title, 2 ) == "\]" .OR. Left( ::Title, 2 ) == "\-"
+         IF Left(::Title, 2) == "\]" .OR. Left(::Title, 2) == "\-"
             RETURN 0
          ELSE
             ::nCurPos := nPos
@@ -214,8 +214,8 @@ METHOD hCheckComboBox:onEvent( msg, wParam, lParam )
 
       IF wParam = VK_HOME .OR. wParam = VK_END
          nPos := iif( wParam = VK_HOME, ;
-            Ascan( ::aItems, { | a | ! Left( a[1], 2 ) $ "\-" + Chr(0) + "\]" } , , ) , ;
-            RAscan( ::aItems, { | a | ! Left( a[1], 2 ) $ "\-" + Chr(0) + "\]" } , , ) )
+            Ascan( ::aItems, { | a | ! Left(a[1], 2) $ "\-" + Chr(0) + "\]" } , , ) , ;
+            RAscan( ::aItems, { | a | ! Left(a[1], 2) $ "\-" + Chr(0) + "\]" } , , ) )
          IF nPos - 1 != ::nCurPos
             hwg_Setfocus( NIL )
             hwg_Sendmessage( ::handle, CB_SETCURSEL, nPos - 1, 0 )
@@ -230,7 +230,7 @@ METHOD hCheckComboBox:onEvent( msg, wParam, lParam )
 
    ELSEIF msg = WM_KEYUP
       IF ( wParam = VK_DOWN .OR. wParam = VK_UP )
-         IF Left( ::Title, 2 ) == "\]" .OR. Left( ::Title, 2 ) == "\-"
+         IF Left(::Title, 2) == "\]" .OR. Left(::Title, 2) == "\-"
             RETURN 0
          ENDIF
       ENDIF
@@ -431,7 +431,7 @@ METHOD hCheckComboBox:Paint( lpDis )
       strtext := ""
    ENDIF
    ::Title := strtext
-   cTmp := Left( ::Title, 2 )
+   cTmp := Left(::Title, 2)
 
    IF cTmp == "\]" .OR. cTmp == "\-"
       IF ! lDroped
@@ -556,9 +556,9 @@ METHOD hCheckComboBox:EnabledItem( nItem, lEnabled )
 
    IF lEnabled != NIL
       IF nItem != NIL .AND. nItem > 0
-         IF lEnabled .AND. Left( ::aItems[nItem], 2 ) == "\]"
+         IF lEnabled .AND. Left(::aItems[nItem], 2) == "\]"
             cItem := SubStr(::aItems[nItem], 3)
-         ELSEIF ! lEnabled .AND. Left( ::aItems[nItem], 2 ) != "\]" .AND. Left( ::aItems[nItem], 2 ) != "\-"
+         ELSEIF ! lEnabled .AND. Left(::aItems[nItem], 2) != "\]" .AND. Left(::aItems[nItem], 2) != "\-"
             cItem := "\]" + ::aItems[nItem]
          ENDIF
          IF !Empty(cItem)
@@ -569,17 +569,17 @@ METHOD hCheckComboBox:EnabledItem( nItem, lEnabled )
       ENDIF
    ENDIF
 
-   RETURN  ! Left( ::aItems[nItem], 2 ) == "\]"
+   RETURN  ! Left(::aItems[nItem], 2) == "\]"
 
 METHOD hCheckComboBox:SkipItems( nNav )
    LOCAL nPos
    LOCAL strText := ""
 
    hwg_Comboboxgetlbtext( ::handle, ::nCurPos + nNav, @strText ) // NEXT
-   IF Left( strText, 2 ) == "\]" .OR. Left( strText, 2 ) == "\-"
+   IF Left(strText, 2) == "\]" .OR. Left(strText, 2) == "\-"
       nPos := iif( nNav > 0, ;
-         Ascan(  ::aItems, { | a | ! Left( a[1], 2 ) $ "\-" + Chr(0) + "\]" }, ::nCurPos + 2  ), ;
-         RAscan( ::aItems, { | a | ! Left( a[1], 2 ) $ "\-" + Chr(0) + "\]" }, ::nCurPos - 1, ) )
+         Ascan(  ::aItems, { | a | ! Left(a[1], 2) $ "\-" + Chr(0) + "\]" }, ::nCurPos + 2  ), ;
+         RAscan( ::aItems, { | a | ! Left(a[1], 2) $ "\-" + Chr(0) + "\]" }, ::nCurPos - 1, ) )
       nPos := iif( nPos = 0, ::nCurPos , nPos - 1 )
       hwg_Setfocus( NIL )
       hwg_Sendmessage( ::handle, CB_SETCURSEL, nPos , 0 )

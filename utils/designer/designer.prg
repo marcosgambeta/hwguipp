@@ -67,7 +67,7 @@ FUNCTION Main( p0, p1, p2 )
    IF p0 != NIL .AND. ( p0 == "-r" .OR. p0 == "/r" )
       oDesigner:lReport := .T.
       IF p1 != NIL
-         IF Left( p1, 1 ) $ "-/"
+         IF Left(p1, 1) $ "-/"
             p0 := p1
             p1 := p2
          ELSE
@@ -304,7 +304,7 @@ STATIC FUNCTION StartDes( oDlg, p1, cForm )
 
    hwg_Movewindow( oDlg:handle, 0, 0, 400, 210 )
 
-   IF p1 != NIL .AND. Left( p1, 1 ) $ "-/"
+   IF p1 != NIL .AND. Left(p1, 1) $ "-/"
       IF ( p1 := SubStr(p1, 2, 1) ) == "n"
          HFormGen():New()
       ELSEIF p1 == "f"

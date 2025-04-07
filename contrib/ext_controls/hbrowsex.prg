@@ -2354,7 +2354,7 @@ STATIC FUNCTION LINERIGHT( oBrw )
 //----------------------------------------------------//
 // Move the visible browse one step to the left
 
-STATIC FUNCTION LINELEFT( oBrw )
+STATIC FUNCTION LINELEFT(oBrw)
    LOCAL lEditable := oBrw:lEditable .OR. oBrw:Highlight
 
    IF lEditable .OR. oBrw:lAutoEdit
@@ -2420,7 +2420,7 @@ METHOD HBrowseEx:DoHScroll( wParam )
    ENDIF
 
    IF nScrollCode == SB_LINELEFT .OR. nScrollCode == SB_PAGELEFT
-      LineLeft( Self )
+      LineLeft(Self)
    ELSEIF nScrollCode == SB_LINERIGHT .OR. nScrollCode == SB_PAGERIGHT
       LineRight( Self )
    ELSEIF nScrollCode == SB_LEFT
@@ -2428,7 +2428,7 @@ METHOD HBrowseEx:DoHScroll( wParam )
       DO WHILE nLeftCol != ::nLeftCol .OR. colpos != ::colpos
          nLeftCol := ::nLeftCol
          colpos := ::colpos
-         LineLeft( Self )
+         LineLeft(Self)
       ENDDO
    ELSEIF nScrollCode == SB_RIGHT
       nLeftCol := colpos := 0
@@ -2448,7 +2448,7 @@ METHOD HBrowseEx:DoHScroll( wParam )
             LineRight( Self )
          ENDIF
          IF hwg_Hiword( wParam ) < ( ::colpos + ::nLeftCol - 1 )
-            LineLeft( Self )
+            LineLeft(Self)
          ENDIF
       ENDIF
    ENDIF
