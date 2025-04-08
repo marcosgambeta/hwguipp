@@ -500,9 +500,9 @@ Memvar oBrw, currentCP, currFname
                      IF af[i, 3] >= af0[af[i, 5], 3]
                         FieldPut( i, xValue )
                      ELSE
-                        IF af[i, 2] =="C"
+                        IF af[i, 2] == "C"
                            FieldPut( i, Left(xValue, af[i, 3]) )
-                        ELSEIF af[i, 2] =="N"
+                        ELSEIF af[i, 2] == "N"
                            FieldPut( i, 0 )
                            lOverFlow := .T.
                         ENDIF

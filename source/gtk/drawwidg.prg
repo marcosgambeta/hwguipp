@@ -209,7 +209,7 @@ METHOD HBitmap:AddStandard( cId, nSize )
    LOCAL aBmpSize
    LOCAL cName
 
-   cName := cId + IIf(nSize==NIL, "", Str(nSize, 1))
+   cName := cId + IIf(nSize == NIL, "", Str(nSize, 1))
    FOR EACH i IN ::aBitmaps
       IF i:name == cName
          i:nCounter ++

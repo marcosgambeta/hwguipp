@@ -534,7 +534,7 @@ Local lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
 Return NIL
 
 Static Function OpenIndex()
-Local fname, cExt := Iif( numdriv==1,"*.cdx", "*.ntx" )
+Local fname, cExt := Iif( numdriv == 1,"*.cdx", "*.ntx" )
 
    IF aFiles[improc, AF_LOCAL]
 #ifdef __GTK__
@@ -893,7 +893,7 @@ FUNCTION Calcul()
       END SEQUENCE
       ErrorBlock( bOldError )
       IF lRes
-         oSayRes:SetText( Iif( xRes==NIL, "Nil", Transform( xRes, "@B" ) ) )
+         oSayRes:SetText( Iif( xRes == NIL, "Nil", Transform( xRes, "@B" ) ) )
       ENDIF
       RETURN NIL
    }
@@ -1259,7 +1259,7 @@ STATIC FUNCTION EditRec()
    oBrowse:aArray := af
    oBrowse:AddColumn( HColumn():New( "",{|v,o|o:nCurrent},"N", 4, 0 ) )
    oBrowse:AddColumn( HColumn():New( "Field",{|v,o|o:aArray[o:nCurrent, 1]},"C", 12, 0 ) )
-   oBrowse:AddColumn( HColumn():New( "Value",{|v,o|Iif(v==NIL,o:aArray[o:nCurrent, 2],o:aArray[o:nCurrent, 2]:=v)},"C", 40, 0,.T. ) )
+   oBrowse:AddColumn( HColumn():New( "Value",{|v,o|Iif(v == NIL,o:aArray[o:nCurrent, 2],o:aArray[o:nCurrent, 2]:=v)},"C", 40, 0,.T. ) )
    oBrowse:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
 
    oBrowse:bcolorSel := BCOLOR_SEL
@@ -1322,7 +1322,7 @@ LOCAL cType, nLen, nDec, cPicture, rowPos
    IF ( cType := oBrw:aArray[nField, 3] ) == "C"
       cPicture := Replicate("X", nLen)
    ELSEIF cType == "N"
-      cPicture := Iif( nDec==0, Replicate("9",nLen), Replicate("9",nLen-1-nDec)+"."+Replicate("9",nDec) )
+      cPicture := Iif( nDec == 0, Replicate("9",nLen), Replicate("9",nLen-1-nDec)+"."+Replicate("9",nDec) )
       cBuff := Val( cBuff )
    ELSEIF cType == "D"
       cPicture := "@D"

@@ -259,8 +259,8 @@ FUNCTION hwg_dbg_SetActiveLine(cPrgName, nLine, aStack, aVars, aWatch, nVarType)
       NEXT
    ENDIF
    IF aVars != NIL
-      s += IIf(nVarType==1, ",valuelocal,", ;
-            IIf(nVarType==2, ",valuepriv,", IIf(nVarType==3, ",valuepubl,", ",valuestatic,"))) + aVars[1]
+      s += IIf(nVarType == 1, ",valuelocal,", ;
+            IIf(nVarType == 2, ",valuepriv,", IIf(nVarType == 3, ",valuepubl,", ",valuestatic,"))) + aVars[1]
       nLen := Len(aVars)
       FOR i := 2 TO nLen
          s += "," + Str2Hex(aVars[i])

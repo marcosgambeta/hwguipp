@@ -79,7 +79,7 @@ Local hDCwindow := hwg_Getdc( hwg_Getactivewindow() ), aTermMetr := hwg_Getdevic
    hwg_Deletedc( hDCwindow )
    DO WHILE .T.
       name := "Form"+Ltrim(Str(i))
-      IF Ascan( ::aForms,{|o|o:name==name} ) == 0
+      IF Ascan( ::aForms,{|o|o:name == name} ) == 0
         Exit
       ENDIF
       i ++
@@ -274,7 +274,7 @@ Private value, oCtrl
    IF aProp != NIL
       FOR i := 1 TO Len( aProp )
          cPropertyName := Lower(aProp[i, 1])
-         IF ( j := Ascan( ::aProp, {|a|Lower(a[1])==cPropertyName} ) ) != 0
+         IF ( j := Ascan( ::aProp, {|a|Lower(a[1]) == cPropertyName} ) ) != 0
             IF !Empty(aProp[i, 2])
                ::aProp[j, 2] := aProp[i, 2]
             ENDIF
@@ -285,7 +285,7 @@ Private value, oCtrl
       value := ::aProp[i, 2]
       IF value != NIL
          cPropertyName := Lower(::aProp[i, 1])
-         j := Ascan( oDesigner:aDataDef, {|a|a[1]==cPropertyName} )
+         j := Ascan( oDesigner:aDataDef, {|a|a[1] == cPropertyName} )
          IF j != 0 .AND. oDesigner:aDataDef[j, 3] != NIL
             EvalCode( oDesigner:aDataDef[j, 3] )
          ENDIF
@@ -311,7 +311,7 @@ Private value, oCtrl
         ON SIZE {|o,x,y|o:Move(,,x,y)} ON PAINT {|o|PaintPanel(o)}
       oPanel:aControls[1]:brush := HBrush():Add( 16777215 )
       oPanel:aControls[1]:bOther := {|o,m,wp,lp|MessagesProc(o,m,wp,lp)}
-      oPanel:bOther := {|o,m,wp,lp|Iif(m==WM_KEYUP,MessagesProc(o,m,wp,lp),-1)}
+      oPanel:bOther := {|o,m,wp,lp|Iif(m == WM_KEYUP,MessagesProc(o,m,wp,lp),-1)}
       ::oDlg:bOther := {|o,m,wp,lp|ScrollProc(o,m,wp,lp)}
    ELSE
       ::oDlg:bOther := {|o,m,wp,lp|MessagesProc(o,m,wp,lp)}
@@ -337,14 +337,14 @@ RETURN NIL
 METHOD GetProp( cName ) CLASS HFormGen
 Local i
   cName := Lower(cName)
-  i := Ascan( ::aProp,{|a|Lower(a[1])==cName} )
-Return Iif( i==0, NIL, ::aProp[i, 2] )
+  i := Ascan( ::aProp,{|a|Lower(a[1]) == cName} )
+Return Iif( i == 0, NIL, ::aProp[i, 2] )
 
 METHOD SetProp( xName,xValue ) CLASS HFormGen
 
    IF HB_ISCHAR(xName)
       xName := Lower(xName)
-      xName := Ascan( ::aProp,{|a|Lower(a[1])==xName} )
+      xName := Ascan( ::aProp,{|a|Lower(a[1]) == xName} )
    ENDIF
    IF xName != 0
       ::aProp[xName, 2] := xValue
@@ -406,16 +406,16 @@ Memvar aCtrlTable
       l2 := .F.
    ENDIF
    IF l2
-      i := Ascan( aCtrlTable,{|a|a[2]==cName} )
+      i := Ascan( aCtrlTable,{|a|a[2] == cName} )
    ELSE
-      i := Ascan( aCtrlTable,{|a|a[1]==cName} )
+      i := Ascan( aCtrlTable,{|a|a[1] == cName} )
    ENDIF
 Return Iif( i == 0, NIL, Iif( l2,aCtrlTable[i, 1],aCtrlTable[i, 2] ) )
 
 Static Function FileDlg( oFrm,lOpen )
 Local oDlg, aFormats := oDesigner:aFormats
 Local aCombo := {}, af := {}, oEdit1, oEdit2
-Local nType := 1, fname := Iif( lOpen.OR.oFrm:filename==NIL,"",oFrm:filename )
+Local nType := 1, fname := Iif( lOpen.OR.oFrm:filename == NIL,"",oFrm:filename )
 Local formname := Iif( lOpen,"",oFrm:name )
 Local i
 
@@ -545,7 +545,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                   IF cProperty == "["
                      cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
                   ELSEIF cProperty == "."
-                     cProperty := Iif( Substr(o:aItems[1], 2, 1)=="T","True","False" )
+                     cProperty := Iif( Substr(o:aItems[1], 2, 1) == "T","True","False" )
                   ELSEIF cProperty == "{"
                      cProperty := hwg_hfrm_Str2Arr( o:aItems[1] )
                   ELSE
@@ -555,7 +555,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                ENDIF
             ENDIF
          NEXT
-         IF Ascan( aProp,{|a|a[1]=="Name"} ) == 0
+         IF Ascan( aProp,{|a|a[1] == "Name"} ) == 0
             Aadd(aProp, {"Name", ""})
          ENDIF
          oCtrl := HControlGen():New( oDlg, oCtrlDesc:GetAttribute( "class" ), aProp )
@@ -572,7 +572,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
          ENDIF
       ELSEIF aItems[i]:title == "method"
          cName := aItems[i]:GetAttribute( "name" )
-         IF ( j := Ascan( oCtrl:aMethods, {|a|a[1]==cName} ) ) != 0
+         IF ( j := Ascan( oCtrl:aMethods, {|a|a[1] == cName} ) ) != 0
             oCtrl:aMethods[j, 2] := aItems[i]:aItems[1]:aItems[1]
          ENDIF
       ELSEIF aItems[i]:title == "part"
@@ -627,7 +627,7 @@ Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
                   IF cProperty == "["
                      cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
                   ELSEIF cProperty == "."
-                     cProperty := Iif( Substr(o:aItems[1], 2, 1)=="T","True","False" )
+                     cProperty := Iif( Substr(o:aItems[1], 2, 1) == "T","True","False" )
                   ELSEIF cProperty == "{"
                      cProperty := hwg_hfrm_Str2Arr( o:aItems[1] )
                   ELSE
@@ -640,7 +640,7 @@ Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
          oForm:CreateDialog( aProp )
       ELSEIF aItems[i]:title == "method"
          cPropertyName := aItems[i]:GetAttribute( "name" )
-         IF ( j := Ascan( oForm:aMethods, {|a|a[1]==cPropertyName} ) ) != 0
+         IF ( j := Ascan( oForm:aMethods, {|a|a[1] == cPropertyName} ) ) != 0
             oForm:aMethods[j, 2] := aItems[i]:aItems[1]:aItems[1]
          ENDIF
       ELSEIF aItems[i]:title == "part"
@@ -952,7 +952,7 @@ Local oCtrl, aCoors, nShift
    ELSEIF msg == WM_KEYUP
       wParam := hwg_PtrToUlong( wParam )
       nShift := Iif( Asc( SubStr(hwg_GetKeyboardState( lParam ), 0x12, 1 ) ) >= 128, 10, 1 )
-      oCtrl := GetCtrlSelected( Iif(oDlg:oParent:Classname()=="HDIALOG",oDlg:oParent,oDlg) )
+      oCtrl := GetCtrlSelected( Iif(oDlg:oParent:Classname() == "HDIALOG",oDlg:oParent,oDlg) )
       IF wParam == 40        // Down
          IF oCtrl != NIL
             SetBDown( , 0, 0, 0 )
@@ -1110,13 +1110,13 @@ Local oCtrl := GetCtrlSelected( oDlg ), resizeDirection, flag, i
    IF oCtrl != NIL .AND. ;
         ( resizeDirection := CheckResize( oCtrl,xPos,yPos ) ) > 0
       IF resizeDirection == 1 .OR. resizeDirection == 3
-         i := Ascan( oCtrl:aProp,{|a|Lower(a[1])=="width"} )
+         i := Ascan( oCtrl:aProp,{|a|Lower(a[1]) == "width"} )
          IF i != 0 .AND. ( Len( oCtrl:aProp[i] ) == 3 .OR. oDesigner:lReport )
             SetBDown( oCtrl,xPos,yPos,resizeDirection )
             Hwg_SetCursor( horzCursor )
          ENDIF
       ELSEIF resizeDirection == 2 .OR. resizeDirection == 4
-         i := Ascan( oCtrl:aProp,{|a|Lower(a[1])=="height"} )
+         i := Ascan( oCtrl:aProp,{|a|Lower(a[1]) == "height"} )
          IF i != 0 .AND. ( Len( oCtrl:aProp[i] ) == 3 .OR. oDesigner:lReport )
             SetBDown( oCtrl,xPos,yPos,resizeDirection )
             Hwg_SetCursor( vertCursor )
@@ -1124,7 +1124,7 @@ Local oCtrl := GetCtrlSelected( oDlg ), resizeDirection, flag, i
       ENDIF            
    ELSE
       IF ( oCtrl := CtrlByPos( oDlg,xPos,yPos ) ) != NIL
-         IF oCtrl:Adjust == 0 .AND. Ascan( oCtrl:aProp,{|a|Lower(a[1])=="left"} ) != 0
+         IF oCtrl:Adjust == 0 .AND. Ascan( oCtrl:aProp,{|a|Lower(a[1]) == "left"} ) != 0
             SetBDown( oCtrl,xPos,yPos, 0 )
          ELSE
             SetCtrlSelected( oCtrl:oParent,oCtrl )
@@ -1281,7 +1281,7 @@ Local i, nLeft := oCtrl:nLeft, oContainer
       IF oContainer != NIL .AND. oContainer:handle == oCtrl:oContainer:handle
          Return NIL
       ELSE
-         i := Ascan( oCtrl:oContainer:aControls,{|o|o:handle==oCtrl:handle} )
+         i := Ascan( oCtrl:oContainer:aControls,{|o|o:handle == oCtrl:handle} )
          IF i != 0
             Adel( oCtrl:oContainer:aControls,i )
             Asize( oCtrl:oContainer:aControls,Len(oCtrl:oContainer:aControls)-1 )
@@ -1300,8 +1300,8 @@ Local i, nLeft := oCtrl:nLeft, oContainer
             oCtrl:nPage ++
          ENDIF
       ENDIF
-      IF ( i := Ascan( oDlg:aControls,{|o|o:handle==oCtrl:handle} ) ) ;
-         < Ascan( oDlg:aControls,{|o|o:handle==oContainer:handle} )
+      IF ( i := Ascan( oDlg:aControls,{|o|o:handle == oCtrl:handle} ) ) ;
+         < Ascan( oDlg:aControls,{|o|o:handle == oContainer:handle} )
          hwg_Destroywindow( oCtrl:handle )
          aDel( oDlg:aControls,i )
          oDlg:aControls[Len(oDlg:aControls)] := oCtrl

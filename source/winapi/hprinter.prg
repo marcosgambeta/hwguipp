@@ -457,7 +457,7 @@ METHOD HPrinter:Bitmap(x1, y1, x2, y2, nOpt, hBitmap, cImageName)
       ::aPages[::nPage] += "img," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
          LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + ;
          IIf(nOpt == NIL, ",", LTrim(Str(nOpt)) + ",") + cImageName + s_crlf
-      IF !Empty(hBitmap) .AND. Ascan(::aBitmaps, {|a|a[1]==cImageName}) == 0
+      IF !Empty(hBitmap) .AND. Ascan(::aBitmaps, {|a|a[1] == cImageName}) == 0
          Aadd(::aBitmaps, {cImageName, hBitmap, .T.})
       ENDIF
    ELSE
@@ -1336,7 +1336,7 @@ METHOD HPrinter:PrintScript(hDC, nPage, x1, y1, x2, y2)
             nOpt := Val(hb_TokenPtr(arr[i], @nPos, ","))
             cTemp := SubStr(arr[i], nPos + 1)
 
-            IF ( j := Ascan(::aBitmaps, {|a|a[1]==cTemp}) ) == 0
+            IF ( j := Ascan(::aBitmaps, {|a|a[1] == cTemp}) ) == 0
                hBitmap := hwg_Openbitmap(cTemp, hDC)
                Aadd(::aBitmaps, {cTemp, hBitmap, .F.})
             ELSE

@@ -358,7 +358,7 @@ LOCAL oTab
 
    @ 20, 70 CHECKBOX "Check 1" SIZE 90, 20
    @ 20, 95 CHECKBOX "Check 2"  ;
-        SIZE 90, 20 COLOR Iif( nColor==NIL, 0x0000FF,nColor )
+        SIZE 90, 20 COLOR Iif( nColor == NIL, 0x0000FF,nColor )
 
    @ 160, 70 GROUPBOX "RadioGroup"  SIZE 130, 75
 

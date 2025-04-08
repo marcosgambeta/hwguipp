@@ -1027,18 +1027,18 @@ FUNCTION hwg_SetColorinFocus( lDef, tColor, bColor )
    RETURN .T.
 
 FUNCTION hwg_Chr(nCode)
-   RETURN IIf(hb_cdpSelect()=="UTF8", hwg_keyToUtf8( nCode ), Chr(nCode))
+   RETURN IIf(hb_cdpSelect() == "UTF8", hwg_keyToUtf8( nCode ), Chr(nCode))
 
 FUNCTION hwg_Substr(cString, nPos, nLen)
-   RETURN IIf(hb_cdpSelect()=="UTF8", ;
-      IIf(nLen==NIL, hb_utf8Substr(cString, nPos), hb_utf8Substr(cString, nPos, nLen)), ;
-      IIf(nLen==NIL, Substr(cString, nPos), Substr(cString, nPos, nLen)))
+   RETURN IIf(hb_cdpSelect() == "UTF8", ;
+      IIf(nLen == NIL, hb_utf8Substr(cString, nPos), hb_utf8Substr(cString, nPos, nLen)), ;
+      IIf(nLen == NIL, Substr(cString, nPos), Substr(cString, nPos, nLen)))
 
 FUNCTION hwg_Left(cString, nLen)
-   RETURN IIf(hb_cdpSelect()=="UTF8", hb_utf8Left(cString, nLen), Left(cString, nLen))
+   RETURN IIf(hb_cdpSelect() == "UTF8", hb_utf8Left(cString, nLen), Left(cString, nLen))
 
 FUNCTION hwg_Len(cString)
-   RETURN IIf(hb_cdpSelect()=="UTF8", hb_utf8Len(cString), Len(cString))
+   RETURN IIf(hb_cdpSelect() == "UTF8", hb_utf8Len(cString), Len(cString))
 
 
 FUNCTION hwg_GET_Helper(cp_get,nlen)

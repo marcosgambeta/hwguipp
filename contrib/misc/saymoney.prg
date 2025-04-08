@@ -210,7 +210,7 @@ FUNCTION SayRupiah(nAngka)
 
   FOR n:=1 to 5
     kalimat +=  tigades(subs(char,n*3-2, 3),n)
-    kata    :=  iif(subs(char,n*3-2, 3)=="000","",PECAHAN[n])
+    kata    :=  iif(subs(char,n*3-2, 3) == "000","",PECAHAN[n])
     kalimat +=  kata
   NEXT
 
@@ -226,13 +226,13 @@ FUNCTION SayRupiah(nAngka)
 STATIC FUNCTION tigades( mvc, n)    // created: 28 mei 1993
  LOCAL say := "", x1 := Left(mvc, 1), x2:=subs(mvc, 2, 1), x3:=right(mvc, 1)
 
- IF n==4 .and. mvc=="001"
+ IF n == 4 .and. mvc == "001"
     RETURN "se"
  ENDIF
- IF mvc=="000"; RETURN "";  end
+ IF mvc == "000"; RETURN "";  end
 
-       IF     x1=="0"   // do nothing
-       ELSEIF x1=="1";  say += "SERATUS "
+       IF     x1 == "0"   // do nothing
+       ELSEIF x1 == "1";  say += "SERATUS "
        ELSE;            say += bil(x1)+ "RATUS "
        ENDIF
 

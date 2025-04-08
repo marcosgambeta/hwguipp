@@ -208,8 +208,8 @@ FUNCTION hwg_hwr_Close(aPaintRep)
 
 FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 
-   LOCAL oPrinter := IIf( xPrn==NIL, HPrinter():New(xPrn), ;
-      Iif( Valtype(xPrn)=="O", xPrn, HPrinter():New(xPrn) ) )
+   LOCAL oPrinter := IIf( xPrn == NIL, HPrinter():New(xPrn), ;
+      Iif( Valtype(xPrn) == "O", xPrn, HPrinter():New(xPrn) ) )
    LOCAL aPrnCoors, prnXCoef, prnYCoef
    LOCAL iItem, aItem, nLineStartY := 0, nLineHeight := 0, nPHStart := 0
    LOCAL iPH := 0, iSL := 0, iEL := 0, iPF := 0, iEPF := 0, iDF := 0
@@ -508,7 +508,7 @@ FUNCTION hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, nYadd, lCalc )
       IF !Empty(aItem[ITEM_BITMAP])
         hBitmap := aItem[ITEM_BITMAP]:handle
         AAdd(aImgs, {x1, y1, x2, y2, hBitmap, aItem[ITEM_CAPTION]})
-        //hwg_writelog( "hBitmap: "+Iif(hBitmap==NIL,"Nil","Ok") )
+        //hwg_writelog( "hBitmap: "+Iif(hBitmap == NIL,"Nil","Ok") )
         //oPrinter:Bitmap( x1, y1, x2, y2,, hBitmap, aItem[ ITEM_CAPTION ] )
       ENDIF
       //hwg_Deleteobject( hBitmap )

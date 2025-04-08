@@ -274,7 +274,7 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
 
    /*
    IF lBitmap!=NIL .or. !Empty(lBitmap)
-      if lResource==NIL
+      if lResource == NIL
          lResource:=.F.
       Endif
       if !lResource
@@ -345,9 +345,9 @@ STATIC FUNCTION GetMenuByHandle( hWnd )
    ELSE
       IF ( oDlg := HDialog():FindDialog( hWnd ) ) != NIL
          aMenu := oDlg:menu
-      ELSEIF ( i := Ascan( HDialog():aModalDialogs,{ |o|Valtype(o:handle)==Valtype(hwnd) .AND. o:handle == hWnd } ) ) != 0
+      ELSEIF ( i := Ascan( HDialog():aModalDialogs,{ |o|Valtype(o:handle) == Valtype(hwnd) .AND. o:handle == hWnd } ) ) != 0
          aMenu := HDialog():aModalDialogs[i]:menu
-      ELSEIF ( i := Ascan( HWindow():aWindows,{ |o|Valtype(o:handle)==Valtype(hwnd) .AND. o:handle==hWnd } ) ) != 0
+      ELSEIF ( i := Ascan( HWindow():aWindows,{ |o|Valtype(o:handle) == Valtype(hwnd) .AND. o:handle == hWnd } ) ) != 0
          aMenu := HWindow():aWindows[i]:menu
       ENDIF
    ENDIF

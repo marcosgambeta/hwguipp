@@ -135,10 +135,10 @@ RETURN NIL
 Static Function SearchFile(oBrow, oFile)
 Local oTotReg:={}, i
 Local aSelect:=hwg_SelectMultipleFiles("xBase Files ("+oFile+")", oFile ) 
-if len(aSelect) ==0
+if len(aSelect) == 0
    return NIL
 endif
-if LEN(oBrow:aArray) == 1 .and. obrow:aArray[1]=="" 
+if LEN(oBrow:aArray) == 1 .and. obrow:aArray[1] == ""
    obrow:aArray := {}
 endif
 For i:=1 to Len(oBrow:aArray)

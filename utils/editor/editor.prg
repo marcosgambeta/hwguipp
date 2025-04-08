@@ -787,7 +787,7 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
       IF ( nColor := Hwg_ChooseColor( tColor ) ) != NIL
          tColor := nColor
          oSayTest:Setcolor( tColor,,.T. )
-         oSayTClr:SetText( Iif( tColor==0,"Default","#"+hwg_ColorN2C(tColor) ) )
+         oSayTClr:SetText( Iif( tColor == 0,"Default","#"+hwg_ColorN2C(tColor) ) )
          hwg_Redrawwindow( oSayTClr:handle, RDW_ERASE + RDW_INVALIDATE + + RDW_INTERNALPAINT + RDW_UPDATENOW )
       ENDIF
       RETURN .T.
@@ -796,7 +796,7 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
       IF ( nColor := Hwg_ChooseColor( bColor ) ) != NIL
          bColor := nColor
          oSayTest:Setcolor( ,bColor,.T. )
-         oSayBClr:SetText( Iif( bColor==16777215,"Default","#"+hwg_ColorN2C(bColor) ) )
+         oSayBClr:SetText( Iif( bColor == 16777215,"Default","#"+hwg_ColorN2C(bColor) ) )
          hwg_Redrawwindow( oSayBClr:handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW )
       ENDIF
       RETURN .T.
@@ -860,11 +860,11 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
       @ 10, nTop+188 GROUPBOX "Color" SIZE 360, 140
       @ 20, nTop+214 SAY "Text:" SIZE 120, 22 TRANSPARENT
       @ 150,nTop+210  BUTTON "Select" SIZE 100, 32 ON CLICK bColorT
-      @ 260,nTop+214 SAY oSayTClr CAPTION Iif( tColor==0,"Default","#"+hwg_ColorN2C(tColor) ) SIZE 90, 24 STYLE WS_BORDER BACKCOLOR 16777215
+      @ 260,nTop+214 SAY oSayTClr CAPTION Iif( tColor == 0,"Default","#"+hwg_ColorN2C(tColor) ) SIZE 90, 24 STYLE WS_BORDER BACKCOLOR 16777215
 
       @ 20, nTop+254 SAY "Background:" SIZE 120, 22 TRANSPARENT
       @ 150,nTop+250 BUTTON "Select" SIZE 100, 32 ON CLICK bColorB
-      @ 260,nTop+254 SAY oSayBClr CAPTION Iif( bColor==16777215,"Default","#"+hwg_ColorN2C(bColor) ) SIZE 90, 24 STYLE WS_BORDER BACKCOLOR 16777215
+      @ 260,nTop+254 SAY oSayBClr CAPTION Iif( bColor == 16777215,"Default","#"+hwg_ColorN2C(bColor) ) SIZE 90, 24 STYLE WS_BORDER BACKCOLOR 16777215
 
       @ 20, nTop+290 SAY oSayTest CAPTION "This is a sample" SIZE 340, 26 ;
          STYLE WS_BORDER + SS_CENTER COLOR tColor BACKCOLOR bcolor
@@ -1043,7 +1043,7 @@ STATIC FUNCTION setPara()
       @ 30, nTop+226 SAY "Width:" SIZE 100, 24 TRANSPARENT
       @ 150,nTop+220 GET nBWidth SIZE 60, 24 PICTURE "9"
       @ 240,nTop+220  BUTTON "Color" SIZE 80, 30 ;
-            ON CLICK {||Iif((nColor:=Hwg_ChooseColor(nBColor))==NIL,.T.,(nBColor:=nColor)) }
+            ON CLICK {||Iif((nColor:=Hwg_ChooseColor(nBColor)) == NIL,.T.,(nBColor:=nColor)) }
       IF !lFew
          @ 30, nTop+290 SAY "Anchor:" SIZE 100, 24 TRANSPARENT
          @ 170,nTop+290 GET cId SIZE 100, 24 MAXLENGTH 0
@@ -1248,7 +1248,7 @@ STATIC FUNCTION setBlock()
      LOCAL nColor
      IF ( nColor := Hwg_ChooseColor( nBColor ) ) != NIL
         nBColor := nColor
-        oSayClr:SetText( Iif( nBColor==0,"Default","#"+hwg_ColorN2C(nBColor) ) )
+        oSayClr:SetText( Iif( nBColor == 0,"Default","#"+hwg_ColorN2C(nBColor) ) )
      ENDIF
      RETURN .T.
    }
@@ -1305,7 +1305,7 @@ STATIC FUNCTION setBlock()
    @ 20,nTop+106 SAY "Width:" SIZE 100, 24 TRANSPARENT
    @ 140,nTop+100 GET UPDOWN nBorder RANGE 0, 8 SIZE 60, 30
    @ 220,nTop+100  BUTTON "Color" SIZE 80, 30 ON CLICK bClr
-   @ 320,nTop+104 SAY oSayClr CAPTION Iif( nBColor==0,"Default","#"+hwg_ColorN2C(nBColor) ) SIZE 90, 24 STYLE WS_BORDER BACKCOLOR 16777215
+   @ 320,nTop+104 SAY oSayClr CAPTION Iif( nBColor == 0,"Default","#"+hwg_ColorN2C(nBColor) ) SIZE 90, 24 STYLE WS_BORDER BACKCOLOR 16777215
 
    END PAGE of oTab
 
@@ -1357,7 +1357,7 @@ STATIC FUNCTION setTable( lNew )
      LOCAL nColor
      IF ( nColor := Hwg_ChooseColor( nBColor ) ) != NIL
         nBColor := nColor
-        oSayClr:SetText( Iif( nBColor==0,"Default","#"+hwg_ColorN2C(nBColor) ) )
+        oSayClr:SetText( Iif( nBColor == 0,"Default","#"+hwg_ColorN2C(nBColor) ) )
      ENDIF
      RETURN .T.
    }
@@ -1471,7 +1471,7 @@ STATIC FUNCTION setTable( lNew )
    @ 20,nTop+106 SAY "Width:" SIZE 100, 24 TRANSPARENT
    @ 140,nTop+100 GET UPDOWN nBorder RANGE 0, 8 SIZE 60, 30
    @ 220,nTop+100  BUTTON "Color" SIZE 80, 30 ON CLICK bClr
-   @ 320,nTop+104 SAY oSayClr CAPTION Iif( nBColor==0,"Default","#"+hwg_ColorN2C(nBColor) ) SIZE 90, 24 STYLE WS_BORDER BACKCOLOR 16777215
+   @ 320,nTop+104 SAY oSayClr CAPTION Iif( nBColor == 0,"Default","#"+hwg_ColorN2C(nBColor) ) SIZE 90, 24 STYLE WS_BORDER BACKCOLOR 16777215
 
    END PAGE of oTab
 
@@ -1682,7 +1682,7 @@ STATIC FUNCTION setAccess( n, lSpan )
       ENDIF
       l := !hwg_CheckBit( nOpt, n+1 )
       hwg_Checkmenuitem( , MENU_SNOWR+n-1, l )
-      alAcc[Iif(n==0, 7,n+3)] := l
+      alAcc[Iif(n == 0, 7,n+3)] := l
       IF l
          nOpt := hb_BitSet( nOpt, n )
       ELSE
@@ -1745,7 +1745,7 @@ STATIC FUNCTION InsUrl( nType )
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Insert URL"  ;
       AT 210, 10  SIZE 400, 190 FONT HWindow():GetMain():oFont ;
-      ON INIT {||Iif(nType==2,oProto:Disable(),.t.)}
+      ON INIT {||Iif(nType == 2,oProto:Disable(),.t.)}
 
    IF nType == 2
       nref := Ascan( aProto, "goto" )
@@ -1787,7 +1787,7 @@ STATIC FUNCTION InsUrl( nType )
          IF !Empty(aRefs)
             cHref := "goto://#" + aRefs[nref, 1]
          ELSEIF !Empty(cHref)
-            cHRef := cProto + "://" + Iif( cProto=="goto".AND.Left(cHRef, 1)!="#", "#", "" ) + cHref
+            cHRef := cProto + "://" + Iif( cProto == "goto".AND.Left(cHRef, 1)!="#", "#", "" ) + cHref
          ENDIF
          xAttr := oEdit:getClassAttr( "url" )
          oEdit:InsSpan( cName, xAttr, cHref )
@@ -1884,11 +1884,11 @@ STATIC FUNCTION setImage( lNew )
             IF lEmbed
                cName := aStru[1,OB_HREF]
                IF !Empty(cBin := MemoRead(cName))
-                  IF ( i := Ascan( oEdit:aBin, {|a|a[2]==cBin} ) ) > 0
+                  IF ( i := Ascan( oEdit:aBin, {|a|a[2] == cBin} ) ) > 0
                      aStru[1,OB_HREF] := "#" + oEdit:aBin[i, 1]
                   ELSE
                      i := 1
-                     DO WHILE !Empty(cName := "img_"+Ltrim(Str(i))) .AND. Ascan( oEdit:aBin, {|a|a[1]==cName} ) != 0
+                     DO WHILE !Empty(cName := "img_"+Ltrim(Str(i))) .AND. Ascan( oEdit:aBin, {|a|a[1] == cName} ) != 0
                         i ++
                      ENDDO
                      Aadd(oEdit:aBin, {cName, cBin, aStru[1, OB_OB]})
@@ -1896,7 +1896,7 @@ STATIC FUNCTION setImage( lNew )
                ENDIF
             ELSE
                cName := Substr(aStru[1, OB_HREF], 2)
-               IF ( i := Ascan( oEdit:aBin, {|a|a[1]==cName} ) ) > 0
+               IF ( i := Ascan( oEdit:aBin, {|a|a[1] == cName} ) ) > 0
                   hb_MemoWrit( cName, oEdit:aBin[i, 2] )
                   aStru[1,OB_HREF] := cName
                ENDIF
@@ -2282,9 +2282,9 @@ STATIC FUNCTION CnvCase( nType )
    IF !Empty(nL2 := oEdit:aPointM2[P_Y])
       nL1 := oEdit:aPointM1[P_Y]
       FOR i := nL1 TO nL2
-         nPos1 := Iif( i==nL1, oEdit:aPointM1[P_X], 1 )
+         nPos1 := Iif( i == nL1, oEdit:aPointM1[P_X], 1 )
          nLen := hced_Len( oEdit, oEdit:aText[i] )
-         nPos2 := Iif( i==nL2, oEdit:aPointM2[P_X]-1, nLen )
+         nPos2 := Iif( i == nL2, oEdit:aPointM2[P_X]-1, nLen )
          cTemp := hced_Substr(oEdit, oEdit:aText[i], nPos1, nPos2 - nPos1 + 1)
          IF nType == 1
             cTemp := Upper(cTemp)
@@ -2293,8 +2293,8 @@ STATIC FUNCTION CnvCase( nType )
          ELSEIF nType == 3
             cTemp := Upper(hced_Left(oEdit, cTemp, 1)) + Lower(hced_Substr(oEdit, cTemp, 2))
          ENDIF
-         oEdit:aText[i] := Iif( nPos1==1,"", hced_Left(oEdit,oEdit:aText[i],nPos1-1) ) + ;
-            cTemp + Iif( nPos2==nLen, "", hced_Substr(oEdit,oEdit:aText[i],nPos2+1) )
+         oEdit:aText[i] := Iif( nPos1 == 1,"", hced_Left(oEdit,oEdit:aText[i],nPos1-1) ) + ;
+            cTemp + Iif( nPos2 == nLen, "", hced_Substr(oEdit,oEdit:aText[i],nPos2+1) )
       NEXT
       oEdit:lUpdated := .T.
       oEdit:Refresh()

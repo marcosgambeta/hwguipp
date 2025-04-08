@@ -102,21 +102,21 @@ Private cWidth, aVars
           y := Val( NextItem( stroka ) )
           nHeight := 0
           IF cCaption == "EPF"
-            IF ( i := Ascan( arr,{|a|a[1]=="area".AND.a[7]=="PF"} ) ) != 0
+            IF ( i := Ascan( arr,{|a|a[1] == "area".AND.a[7] == "PF"} ) ) != 0
               arr[i, 5] := y - arr[i, 3]
             ENDIF
           ELSEIF cCaption == "EL"
           ELSE
             IF cCaption == "SL"
-              IF ( i := Ascan( arr,{|a|a[1]=="area".AND.a[7]=="PH"} ) ) != 0
+              IF ( i := Ascan( arr,{|a|a[1] == "area".AND.a[7] == "PH"} ) ) != 0
                 arr[i, 5] := y - arr[i, 3]
               ENDIF
             ELSEIF cCaption == "PF"
-              IF ( i := Ascan( arr,{|a|a[1]=="area".AND.a[7]=="SL"} ) ) != 0
+              IF ( i := Ascan( arr,{|a|a[1] == "area".AND.a[7] == "SL"} ) ) != 0
                 arr[i, 5] := y - arr[i, 3]
               ENDIF
             ELSEIF cCaption == "DF"
-              IF ( i := Ascan( arr,{|a|a[1]=="area".AND.a[7]=="SL"} ) ) != 0 .AND. arr[i, 5] == 0
+              IF ( i := Ascan( arr,{|a|a[1] == "area".AND.a[7] == "SL"} ) ) != 0 .AND. arr[i, 5] == 0
                 arr[i, 5] := y - arr[i, 3]
               ENDIF
               nHeight := Round( oForm:nPHeight*oForm:nKoeff, 0 ) - y
@@ -132,14 +132,14 @@ Private cWidth, aVars
            IF cm == "SL"
              arr[Len(arr), 6] := cCaption
            ELSE
-             IF ( i := Ascan( arr,{|a|a[1]=="area".AND.a[7]=="SL"} ) ) != 0
+             IF ( i := Ascan( arr,{|a|a[1] == "area".AND.a[7] == "SL"} ) ) != 0
                arr[i, 8] := cCaption
              ENDIF
            ENDIF
          ELSEIF itemName == "label"
            arr[Len(arr), 6] := cCaption
          ELSE
-           IF ( j := Ascan( oForm:aMethods,{|a|a[1]=="onRepInit"} ) ) != 0
+           IF ( j := Ascan( oForm:aMethods,{|a|a[1] == "onRepInit"} ) ) != 0
               oForm:aMethods[j, 2] := cCaption
            ENDIF
          ENDIF
@@ -154,8 +154,8 @@ Private cWidth, aVars
     ENDIF
   ENDDO
   Fclose(han)
-  arr := Asort( arr,,, {|z,y|z[3]<y[3].OR.(z[3]==y[3].AND.z[2]<y[2]).OR.(z[3]==y[3].AND.z[2]==y[2].AND.(z[4]>y[4].OR.z[5]>y[5]))} )
-  IF ( j := Ascan( arr,{|a|a[1]=="area".AND.a[7]=="PH"} ) ) > 1
+  arr := Asort( arr,,, {|z,y|z[3]<y[3].OR.(z[3] == y[3].AND.z[2]<y[2]).OR.(z[3] == y[3].AND.z[2] == y[2].AND.(z[4]>y[4].OR.z[5]>y[5]))} )
+  IF ( j := Ascan( arr,{|a|a[1] == "area".AND.a[7] == "PH"} ) ) > 1
     Aadd(arr, NIL)
     Ains( arr, 1 )
     arr[1] := { "area", 0, 0, 9999,arr[j+1, 3]-1,NIL,"DH",NIL }
@@ -179,24 +179,24 @@ Private cWidth, aVars
     x2      := Round( ( arr[i, 2]+arr[i, 4]-1 ) * xKoef, 2 )
     y2      := Round( ( arr[i, 3]+arr[i, 5]-1 ) * xKoef, 2 )
     IF arr[i, 1] == "area"
-      cCaption := Iif( arr[i, 7]=="PH","PageHeader",Iif( arr[i, 7]=="SL", ;
-          "Table",Iif( arr[i, 7]=="PF","PageFooter",Iif( arr[i, 7]=="DH","DocHeader","DocFooter" ) ) ) )
+      cCaption := Iif( arr[i, 7] == "PH","PageHeader",Iif( arr[i, 7] == "SL", ;
+          "Table",Iif( arr[i, 7] == "PF","PageFooter",Iif( arr[i, 7] == "DH","DocHeader","DocFooter" ) ) ) )
       oArea := HControlGen():New( oForm:oDlg:aControls[1]:aControls[1],"area",  ;
        { { "Left","0" }, { "Top",Ltrim(Str(y)) }, { "Width",cWidth }, ;
        { "Height",Ltrim(Str(nHeight)) }, { "Right",cWidth }, { "Bottom",Ltrim(Str(y2)) }, { "AreaType",cCaption } } )
       IF arr[i, 6] != NIL
-        j := Ascan( oArea:aMethods,{|a|a[1]=="onBegin"} )
+        j := Ascan( oArea:aMethods,{|a|a[1] == "onBegin"} )
         oArea:aMethods[j, 2] := arr[i, 6]
       ENDIF
       IF arr[i, 8] != NIL
-        j := Ascan( oArea:aMethods,{|a|a[1]=="onNextLine"} )
+        j := Ascan( oArea:aMethods,{|a|a[1] == "onNextLine"} )
         oArea:aMethods[j, 2] := arr[i, 8]
       ENDIF
     ELSEIF arr[i, 1] == "label"
       oCtrl := HControlGen():New( oForm:oDlg:aControls[1]:aControls[1],arr[i, 1], ;
        { { "Left",Ltrim(Str(x)) }, { "Top",Ltrim(Str(y)) }, { "Width",Ltrim(Str(nWidth)) }, ;
        { "Height",Ltrim(Str(nHeight)) }, { "Right",Ltrim(Str(x2)) }, { "Bottom",Ltrim(Str(y2)) }, ;
-       { "Caption",Iif(arr[i, 10]==1,"",arr[i, 7]) }, ;
+       { "Caption",Iif(arr[i, 10] == 1,"",arr[i, 7]) }, ;
        { "Justify",Iif(arr[i, 9]=0,"Left",Iif(arr[i, 9]=2,"Center","Right")) }, ;
        {"Font",arr[i, 8]} } )
       IF oArea != NIL
@@ -204,11 +204,11 @@ Private cWidth, aVars
         oCtrl:oContainer := oArea
       ENDIF
       IF arr[i, 10] == 1
-        j := Ascan( oCtrl:aMethods,{|a|a[1]=="Expression"} )
+        j := Ascan( oCtrl:aMethods,{|a|a[1] == "Expression"} )
         oCtrl:aMethods[j, 2] := "Return "+arr[i, 7]
       ENDIF
       IF arr[i, 6] != NIL
-        j := Ascan( oCtrl:aMethods,{|a|a[1]=="onBegin"} )
+        j := Ascan( oCtrl:aMethods,{|a|a[1] == "onBegin"} )
         oCtrl:aMethods[j, 2] := arr[i, 6]
       ENDIF
     ELSEIF arr[i, 1] == "bitmap"

@@ -66,7 +66,7 @@ FUNCTION EditScr( oEdit, aStru )
 
    LOCAL oDlg, oEdiScr, arr
 
-   INIT DIALOG oDlg TITLE Iif( aStru==NIL, "Insert", "Edit" ) + " script" ;
+   INIT DIALOG oDlg TITLE Iif( aStru == NIL, "Insert", "Edit" ) + " script" ;
       AT 100, 240  SIZE 600, 300  FONT HWindow():Getmain():oFont ;
       STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_MAXIMIZEBOX+WS_SIZEBOX ;
       ON INIT {||hwg_Movewindow(oDlg:handle, 100, 240, 600, 310)}
@@ -118,14 +118,14 @@ STATIC FUNCTION PreProc( s )
          ENDDO
          IF Substr(s, nPos1, 1) == ":"
             // A range for "Sum" function: Sum($C1:3) or Sum($R1:4)
-            cRes += "{" + Iif( c=="C","","," ) + Substr(s, nPos2 - 1, nPos1 - nPos2 + 1) + Iif( c=="C",",","" ) + ","
+            cRes += "{" + Iif( c == "C","","," ) + Substr(s, nPos2 - 1, nPos1 - nPos2 + 1) + Iif( c == "C",",","" ) + ","
             nPos1 := nPos2 := nPos1 + 1
             DO WHILE IsDigit( Substr(s, nPos1, 1) )
                nPos1 ++
             ENDDO
-            cRes += Iif( c=="C","","," ) + Substr(s, nPos2, nPos1 - nPos2) + Iif( c=="C",",","" ) + "}"
+            cRes += Iif( c == "C","","," ) + Substr(s, nPos2, nPos1 - nPos2) + Iif( c == "C",",","" ) + "}"
          ELSE
-            cRes += "Z(" + Iif( c=="C","","," ) + Substr(s, nPos2 - 1, nPos1 - nPos2 + 1) + ")"
+            cRes += "Z(" + Iif( c == "C","","," ) + Substr(s, nPos2 - 1, nPos1 - nPos2 + 1) + ")"
          ENDIF
       ELSEIF c == "M"
          nPos1 := nPos2 + 2
@@ -467,8 +467,8 @@ FUNCTION Z( nCol, nRow )
    nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3], 1,OB_TRNUM] + nRow
    cText := Ltrim(oEdiCurr:aStru[nL, 1, OB_OB, nCol, OB_ATEXT][1])
 
-   RETURN Iif( (c := Left(cText, 1))=="(", Val(Substr(cText, 2)), ;
-         Iif( IsDigit(c).OR.c=="-", Val(cText), cText ) )
+   RETURN Iif( (c := Left(cText, 1)) == "(", Val(Substr(cText, 2)), ;
+         Iif( IsDigit(c).OR.c == "-", Val(cText), cText ) )
 
 FUNCTION Sum( aCells )
 
@@ -496,14 +496,14 @@ FUNCTION Sum( aCells )
       nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3], 1,OB_TRNUM] + aCells[2]
       FOR i := aCells[2] TO aCells[4]
          cText := Ltrim(oEdiCurr:aStru[nL, 1, OB_OB, aCells[1], OB_ATEXT][1])
-         nSum += Iif( Left(cText, 1)=="(", Val(Substr(cText, 2)), Val(cText) )
+         nSum += Iif( Left(cText, 1) == "(", Val(Substr(cText, 2)), Val(cText) )
          nL ++
       NEXT
    ELSE
       nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3], 1,OB_TRNUM] + aCells[2]
       FOR i := aCells[1] TO aCells[3]
          cText := Ltrim(oEdiCurr:aStru[nL, 1, OB_OB, i, OB_ATEXT][1])
-         nSum += Iif( Left(cText, 1)=="(", Val(Substr(cText, 2)), Val(cText) )
+         nSum += Iif( Left(cText, 1) == "(", Val(Substr(cText, 2)), Val(cText) )
       NEXT
    ENDIF
 

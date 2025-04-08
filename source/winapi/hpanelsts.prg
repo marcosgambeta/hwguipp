@@ -53,7 +53,7 @@ RETURN Self
 
 METHOD HPanelStS:Write(cText, nPart, lRedraw)
 
-   ::aText[IIf(nPart==NIL, 1, nPart)] := cText
+   ::aText[IIf(nPart == NIL, 1, nPart)] := cText
    IF !HB_ISLOGICAL(lRedraw) .OR. lRedraw
       hwg_Invalidaterect(::handle, 0)
    ENDIF

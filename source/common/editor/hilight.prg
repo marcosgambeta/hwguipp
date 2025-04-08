@@ -222,7 +222,7 @@ Local nPos, nPos1, nPrev, cWord, c
          ::aDop[i] := IIf(::lMultiComm, 1, 0)
       NEXT
    ENDIF
-   lComm := IIf(nLine==1, .F., !Empty(::aDop[nLine - 1]))
+   lComm := IIf(nLine == 1, .F., !Empty(::aDop[nLine - 1]))
    ::nDopChecked := nLine
    ::aDop[nLine] := 0
 

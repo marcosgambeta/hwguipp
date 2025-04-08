@@ -267,7 +267,7 @@ METHOD HPanelStS:New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oS
 
 METHOD HPanelStS:Write(cText, nPart, lRedraw)
 
-   ::aText[IIf(nPart==NIL, 1,nPart)] := cText
+   ::aText[IIf(nPart == NIL, 1,nPart)] := cText
    IF ValType( lRedraw ) != "L" .OR. lRedraw
       hwg_Invalidaterect(::handle, 0)
    ENDIF
@@ -362,7 +362,7 @@ METHOD HPanelHea:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, tcolor, bco
    ::yt := yt
    ::oFont := IIf(oFont == NIL, ::oParent:oFont, oFont)
    ::oStyle := oStyle
-   ::tColor := IIf(tcolor==NIL, 0, tcolor)
+   ::tColor := IIf(tcolor == NIL, 0, tcolor)
    ::lDragWin := .T.
    ::lPreDef := .F.
 

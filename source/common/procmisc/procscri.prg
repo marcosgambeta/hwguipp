@@ -41,7 +41,7 @@ LOCAL han, stroka, scom, aScr, rejim := 0, i
 LOCAL strbuf := Space(STR_BUFLEN), poz := STR_BUFLEN+1
 LOCAL aFormCode, aFormName
 
-   scrkod := IIf(scrkod==NIL, "000", Upper(scrkod))
+   scrkod := IIf(scrkod == NIL, "000", Upper(scrkod))
    IF DEF_CH_SEP $ fname
       fname := StrTran( fname, DEF_CH_SEP, DEF_SEP )
    ENDIF
@@ -593,12 +593,12 @@ RETURN &("{||"+string+"}")
 
 FUNCTION SetDebugInfo( lDebug )
 
-   s_lDebugInfo := IIf(lDebug==NIL, .T., lDebug)
+   s_lDebugInfo := IIf(lDebug == NIL, .T., lDebug)
 RETURN .T.
 
 FUNCTION SetDebugger( lDebug )
 
-   s_lDebugger := IIf(lDebug==NIL, .T., lDebug)
+   s_lDebugger := IIf(lDebug == NIL, .T., lDebug)
 RETURN .T.
 
 FUNCTION SetDebugRun()
@@ -608,7 +608,7 @@ RETURN .T.
 
 Function RunScript( fname, scrname, args )
 Local scr := OpenScript( fname, scrname )
-Return IIf(scr==NIL, NIL, DoScript( scr, args ))
+Return IIf(scr == NIL, NIL, DoScript( scr, args ))
 
 #ifdef __PLATFORM__WINDOWS  // __WINDOWS__
 

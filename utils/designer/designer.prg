@@ -254,7 +254,7 @@ FUNCTION Main( p0, p1, p2 )
    hwg_Enablemenuitem( ,MENU_OINSP, .F. , .T. )
    hwg_Enablemenuitem( ,MENU_PREVIEW, .F. , .T. )
    IF oDesigner:nGrid > 0
-      hwg_Checkmenuitem( , Iif( oDesigner:nGrid==4, MENU_GRID4, MENU_GRID8 ), .T. )
+      hwg_Checkmenuitem( , Iif( oDesigner:nGrid == 4, MENU_GRID4, MENU_GRID8 ), .T. )
    ENDIF
 
 #ifdef INTEGRATED
@@ -661,13 +661,13 @@ STATIC FUNCTION SetGrid( nGrid )
    LOCAL i, j, aControls, lNeedAlign := .F.
 
    IF oDesigner:nGrid == nGrid
-      hwg_Checkmenuitem( , Iif( nGrid==4, MENU_GRID4, MENU_GRID8 ), .F. )
+      hwg_Checkmenuitem( , Iif( nGrid == 4, MENU_GRID4, MENU_GRID8 ), .F. )
       oDesigner:nGrid := 0
    ELSE
       IF oDesigner:nGrid > 0
-         hwg_Checkmenuitem( , Iif( nGrid==4, MENU_GRID8, MENU_GRID4 ), .F. )
+         hwg_Checkmenuitem( , Iif( nGrid == 4, MENU_GRID8, MENU_GRID4 ), .F. )
       ENDIF
-      hwg_Checkmenuitem( , Iif( nGrid==4, MENU_GRID4, MENU_GRID8 ), .T. )
+      hwg_Checkmenuitem( , Iif( nGrid == 4, MENU_GRID4, MENU_GRID8 ), .T. )
       oDesigner:nGrid := nGrid
 
       FOR i := 1 TO Len( HFormGen():aForms )

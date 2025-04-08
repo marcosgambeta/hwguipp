@@ -70,7 +70,7 @@ FUNCTION C_REPL
          IF r1 == 1
             Eval( oBrw:bGoTop, oBrw )
          ENDIF
-         DO WHILE !Eval( oBrw:bEof, oBrw ) .AND. Iif( r1==2, nNext-- > 0, .T. )
+         DO WHILE !Eval( oBrw:bEof, oBrw ) .AND. Iif( r1 == 2, nNext-- > 0, .T. )
             IF Empty(cFor) .OR. Eval( bFor )
                IF !aFiles[improc,AF_EXCLU]
                   rlock()
@@ -156,7 +156,7 @@ FUNCTION C_4( nAct )
       IF r1 == 1
          Eval( oBrw:bGoTop, oBrw )
       ENDIF
-      DO WHILE !Eval( oBrw:bEof, oBrw ) .AND. Iif( r1==2, nNext-- > 0, .T. )
+      DO WHILE !Eval( oBrw:bEof, oBrw ) .AND. Iif( r1 == 2, nNext-- > 0, .T. )
          IF Empty(cFor) .OR. Eval( bFor )
             IF nAct == 1
                IF !aFiles[improc,AF_EXCLU]
@@ -295,7 +295,7 @@ FUNCTION C_APPEND()
       ENDIF
 
       oMsg := DlgWait( "Append" )
-      cFile := Iif( lRemote.AND.r1==1, Trim(cPath), "" ) + Trim(cFile)
+      cFile := Iif( lRemote.AND.r1 == 1, Trim(cPath), "" ) + Trim(cFile)
       IF r1 == 1
 #ifdef RDD_ADS
          AdsSetServerType( nServerType := Iif( lRemote, 6, ADS_LOCAL_SERVER ) )
@@ -316,7 +316,7 @@ FUNCTION C_APPEND()
             NEXT
          ELSE
             FOR i := 1 TO Len( af )
-               af[i] := Ascan( aFie, {|a|Upper(a[1])==Upper(af[i])} )
+               af[i] := Ascan( aFie, {|a|Upper(a[1]) == Upper(af[i])} )
             NEXT
          ENDIF
          IF ( han := FOpen(cFile, FO_READ + FO_SHARED) ) != -1
@@ -488,7 +488,7 @@ FUNCTION C_COPY()
       ENDIF
 
       oMsg := DlgWait( "Append" )
-      cFile := Iif( lRemote.AND.r1==1, Trim(cPath), "" ) + Trim(cFile)
+      cFile := Iif( lRemote.AND.r1 == 1, Trim(cPath), "" ) + Trim(cFile)
       IF r1 == 1 .AND. r2 == 1
 #ifdef RDD_ADS
           AdsSetServerType( nServerType := Iif( lRemote, 6, ADS_LOCAL_SERVER ) )
@@ -532,7 +532,7 @@ FUNCTION C_COPY()
             NEXT
          ELSE
             FOR i := 1 TO Len( af )
-               af[i] := Ascan( aFie, {|a|Upper(a[1])==Upper(af[i])} )
+               af[i] := Ascan( aFie, {|a|Upper(a[1]) == Upper(af[i])} )
             NEXT
          ENDIF
          IF r2 == 1
@@ -544,10 +544,10 @@ FUNCTION C_COPY()
                s := ""
                FOR i := 1 TO Len( af )
                   xVal := FieldGet( af[i] )
-                  xVal := Iif( aFie[i, 2]=="N", Ltrim(Str(xval)), ;
-                     Iif( aFie[i, 2]=="D", Dtoc(xVal),;
-                     Iif( aFie[i, 2]=="L", Iif(xVal,"T","F"), Trim(xVal) ) ) )
-                  IF ( i==Len(af).AND.Empty(xVal) ) .OR. ( l := (cQuo $ xVal) ) ;
+                  xVal := Iif( aFie[i, 2] == "N", Ltrim(Str(xval)), ;
+                     Iif( aFie[i, 2] == "D", Dtoc(xVal),;
+                     Iif( aFie[i, 2] == "L", Iif(xVal,"T","F"), Trim(xVal) ) ) )
+                  IF ( i == Len(af).AND.Empty(xVal) ) .OR. ( l := (cQuo $ xVal) ) ;
                         .OR. cDelim2 $ xVal .OR. Chr(13)+Chr(10) $ xVal
                      IF l
                         xVal := Strtran( xVal, cQuo, cQuo+cQuo )

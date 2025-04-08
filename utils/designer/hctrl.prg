@@ -53,7 +53,7 @@ Private value, oCtrl := Self
       oPenSel := HPen():Add( PS_SOLID, 1, 255 )
    ENDIF
 
-   ::oParent := Iif( oWndParent==NIL,HFormGen():oDlgSelected,oWndParent )
+   ::oParent := Iif( oWndParent == NIL,HFormGen():oDlgSelected,oWndParent )
    ::id      := ::NewId()
    ::style   := WS_VISIBLE+WS_CHILD+WS_DISABLED+SS_OWNERDRAW
 
@@ -118,7 +118,7 @@ Private value, oCtrl := Self
    IF aProp != NIL
       FOR i := 1 TO Len( aProp )
          cPropertyName := Lower(aProp[i, 1])
-         IF ( j := Ascan( ::aProp, {|a|Lower(a[1])==cPropertyName} ) ) != 0
+         IF ( j := Ascan( ::aProp, {|a|Lower(a[1]) == cPropertyName} ) ) != 0
             ::aProp[j, 2] := aProp[i, 2]
          ENDIF
       NEXT
@@ -126,7 +126,7 @@ Private value, oCtrl := Self
    FOR i := 1 TO Len( ::aProp )
       value := ::aProp[i, 2]
       cPropertyName := Lower(::aProp[i, 1])
-      j := Ascan( oDesigner:aDataDef, {|a|a[1]==cPropertyName} )
+      j := Ascan( oDesigner:aDataDef, {|a|a[1] == cPropertyName} )
       IF value != NIL
          IF j != 0 .AND. oDesigner:aDataDef[j, 3] != NIL
             // pArray := oDesigner:aDataDef[j, 6]
@@ -140,7 +140,7 @@ Private value, oCtrl := Self
    IF xClass == "menu"
       ::nLeft := ::nTop := -1
    ELSE
-      ::title   := Iif( ::title==NIL,xClass,::title )
+      ::title   := Iif( ::title == NIL,xClass,::title )
       ::bPaint  := {|o,lp|o:Paint(lp)}
       ::bSize   := {|o,x,y|ctrlOnSize(o,x,y)}
       ::SetColor( ::tcolor,::bcolor )
@@ -194,14 +194,14 @@ Return NIL
 METHOD GetProp( cName,i ) CLASS HControlGen
 
   cName := Lower(cName)
-  i := Ascan( ::aProp,{|a|Lower(a[1])==cName} )
-Return Iif( i==0, NIL, ::aProp[i, 2] )
+  i := Ascan( ::aProp,{|a|Lower(a[1]) == cName} )
+Return Iif( i == 0, NIL, ::aProp[i, 2] )
 
 METHOD SetProp( xName,xValue )
 
    IF HB_ISCHAR(xName)
       xName := Lower(xName)
-      xName := Ascan( ::aProp,{|a|Lower(a[1])==xName} )
+      xName := Ascan( ::aProp,{|a|Lower(a[1]) == xName} )
    ENDIF
    IF xName != 0
       ::aProp[xName, 2] := xValue
@@ -239,7 +239,7 @@ Local cName := "o" + Upper(Left(oCtrl:cClass, 1)) + Substr(oCtrl:cClass, 2)
 Local nLen := Len( cName )
 
    FOR i := 1 TO Len( aControls )
-      IF( j := Ascan( aControls[i]:aProp, {|a|a[1]==cPropertyName} ) ) > 0
+      IF( j := Ascan( aControls[i]:aProp, {|a|a[1] == cPropertyName} ) ) > 0
          IF Left(aControls[i]:aProp[j, 2], nLen) == cName
             Aadd(arr, Substr(aControls[i]:aProp[j, 2], nLen + 1))
          ENDIF
@@ -404,7 +404,7 @@ Function GetBDown
 Return aBDown
 
 Function SetCtrlSelected( oDlg,oCtrl,n )
-Local oFrm := Iif( oDlg:oParent:Classname()=="HPANEL",oDlg:oParent:oParent:oParent,oDlg:oParent ), handle, i
+Local oFrm := Iif( oDlg:oParent:Classname() == "HPANEL",oDlg:oParent:oParent:oParent,oDlg:oParent ), handle, i
 
    IF ( oFrm:oCtrlSelected == NIL .AND. oCtrl != NIL ) .OR. ;
         ( oFrm:oCtrlSelected != NIL .AND. oCtrl == NIL ) .OR. ;
@@ -442,7 +442,7 @@ Local oFrm := Iif( oDlg:oParent:Classname()=="HPANEL",oDlg:oParent:oParent:oPare
 Return NIL
 
 Function GetCtrlSelected( oDlg )
-Return Iif( oDlg!=NIL,Iif( oDlg:oParent:Classname()=="HPANEL",oDlg:oParent:oParent:oParent:oCtrlSelected,oDlg:oParent:oCtrlSelected),NIL )
+Return Iif( oDlg!=NIL,Iif( oDlg:oParent:Classname() == "HPANEL",oDlg:oParent:oParent:oParent:oCtrlSelected,oDlg:oParent:oCtrlSelected),NIL )
 
 Function CheckResize( oCtrl,xPos,yPos )
    IF xPos > oCtrl:nLeft-5 .AND. xPos < oCtrl:nLeft+3 .AND. ;

@@ -168,7 +168,7 @@ Local bKeyDown := {|o,nKey|
    Return -1
    }
 
-   i := Ascan( oDesigner:aMethDef, {|a|a[1]==Lower(cMethName)} )
+   i := Ascan( oDesigner:aMethDef, {|a|a[1] == Lower(cMethName)} )
    cParamString := Iif( i == 0, "", oDesigner:aMethDef[i, 2] )
    INIT DIALOG oDlg TITLE "Edit '"+cMethName+"' method"          ;
       AT 100, 240  SIZE 600, 300  FONT oDesigner:oMainWnd:oFont    ;
@@ -314,13 +314,13 @@ Private nScheme, nType := 2, oTheme := HDTheme():New(), cScheme := ""
 
    IF oDlg:lResult
       FOR i := 1 TO Len( HDTheme():aThemes )
-         IF Ascan( aSchemes,{|a|Lower(a[1])==Lower(HDTheme():aThemes[i]:name)} ) == 0
+         IF Ascan( aSchemes,{|a|Lower(a[1]) == Lower(HDTheme():aThemes[i]:name)} ) == 0
             Adel( HDTheme():aThemes,i )
             Asize( HDTheme():aThemes,Len(HDTheme():aThemes)-1 )
          ENDIF
       NEXT
       FOR i := 1 TO Len( aSchemes )
-         j := Ascan( HDTheme():aThemes,{|o|Lower(o:name)==Lower(aSchemes[i, 1])} )
+         j := Ascan( HDTheme():aThemes,{|o|Lower(o:name) == Lower(aSchemes[i, 1])} )
          IF j == 0
             HDTheme():Add( aSchemes[i, 1] )
             j := Len( HDTheme():aThemes )
@@ -360,7 +360,7 @@ Memvar nScheme, nType, oTheme, cScheme
             hwg_Msgstop( "You must specify the theme name !", "Designer" )
             Return NIL
          ENDIF
-         IF Ascan( aSchemes,{|a|Lower(a[1])==Lower(cScheme)} ) == 0
+         IF Ascan( aSchemes,{|a|Lower(a[1]) == Lower(cScheme)} ) == 0
             Aadd(aSchemes, {cScheme, AClone(aSchemes[nScheme, 2]), ;
                 AClone(aSchemes[nScheme, 3]), AClone(aSchemes[nScheme, 4]), ;
                 AClone(aSchemes[nScheme, 5]), AClone(aSchemes[nScheme, 6])})

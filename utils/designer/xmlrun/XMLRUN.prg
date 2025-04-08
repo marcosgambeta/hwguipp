@@ -226,7 +226,7 @@ FUNCTION Main(fileXML)
  SET EPOCH TO 1960
 
 
- IF fileXML==NIL
+ IF fileXML == NIL
 
     filexml:=""
     IF FILE("XMLRUN.DEF")
@@ -256,7 +256,7 @@ RETURN TRUE
 
 
 FUNCTION rmatch(c,f)
- RETURN (ALLTRIM(c)=="" .or. UPPER(ALLTRIM(c))$UPPER(f))
+ RETURN (ALLTRIM(c) == "" .or. UPPER(ALLTRIM(c))$UPPER(f))
 
 
 
@@ -336,7 +336,7 @@ FUNCTION rmatch(c,f)
 function netuse(cDatabase, cAlias, lExclusive, nSeconds, cPassword)
    local lforever
    local lFirstPass := .T.
-   if(nSeconds==NIL, nSeconds:=20,)
+   if(nSeconds == NIL, nSeconds:=20,)
 
    lforever := (nSeconds == 0)
    keyboard chr(255)
@@ -383,7 +383,7 @@ function filelock(nSeconds)
    Local lforever
 
    lforever := (nSeconds == 0)
-   if(nSeconds==NIL, nSeconds:=20,)
+   if(nSeconds == NIL, nSeconds:=20,)
 
    IF Flock()
       return .t.
@@ -488,13 +488,13 @@ function Usr2infStr(g,lKosong) && usr to informix str
 
  if empty(cPress)
 
-    if lKosong==NIL
+    if lKosong == NIL
        return .T.
     endif
 
     hwg_Msginfo("Tidak boleh kosong")
     return .f.
-    //return iif(lKosong==NIL,.t.,.f.)
+    //return iif(lKosong == NIL,.t.,.f.)
  end
 
 
@@ -525,8 +525,8 @@ function Usr2infStr(g,lKosong) && usr to informix str
        next
 
        *:Kalau 2 Char Pertama Adalah Angka
-       cPress:= if( Left(c, 2)=="99", cPress, "0"+cPress)
-            c:= if( Left(c, 2)=="99", c,      "9"+c)
+       cPress:= if( Left(c, 2) == "99", cPress, "0"+cPress)
+            c:= if( Left(c, 2) == "99", c,      "9"+c)
 
 	*:isi Hari
         dd := Left(cPress, 2) + "."
@@ -558,11 +558,11 @@ function Usr2infStr(g,lKosong) && usr to informix str
 
 	   yy:=right(cPress,((len(c)-len(dd+mm))+nPot))
 
-	   if len(yy)==2
+	   if len(yy) == 2
 	      yy := Left(dtos(date()), 2) + yy
 	   endif
 
-      if  VALTYPE(ctod(dd+mm+yy))!="D"  .or. (ctod(dd+mm+yy)==ctod("  /  /  "))
+      if  VALTYPE(ctod(dd+mm+yy))!="D"  .or. (ctod(dd+mm+yy) == ctod("  /  /  "))
           hwg_Msgstop("Pengisian Tanggal Belum Benar!!!")
           return .f.
       else
