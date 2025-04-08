@@ -240,7 +240,7 @@ Return NIL
 Static Function editChgFont()
 Local oFont
 
-   IF ( oFont := HFont():Select( oEdit:oFont ) ) != NIL
+   IF ( oFont := HFont():Select(oEdit:oFont) ) != NIL
        oEdit:SetFont( oFont )
        oEdit:Refresh()
        HDTheme():oFont := oFont

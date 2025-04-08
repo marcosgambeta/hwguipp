@@ -39,8 +39,8 @@ FUNCTION hwg_scrDebug( aScript, iscr )
 
    IF s_oDlgDebug == NIL .AND. iscr > 0
 
-      s_oDlgFont := HFont():Add( "Georgia", 0,-15,, 204 )
-      s_oScrFont := HFont():Add( "Courier New", 0,-15,, 204 )
+      s_oDlgFont := HFont():Add("Georgia", 0, -15, , 204)
+      s_oScrFont := HFont():Add("Courier New", 0, -15, , 204)
 #ifndef __GTK__
       s_oBmpCurr := HBitmap():AddStandard(OBM_RGARROWD)
       s_oBmpPoint:= HBitmap():AddStandard(OBM_CHECK)

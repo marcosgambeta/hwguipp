@@ -12,11 +12,11 @@ FUNCTION STR2FONT
 PARAMETERS cFont
 PRIVATE oFont
    IF !Empty(cFont)
-      oFont := HFont():Add( NextItem( cFont,.T.,"," ), &&
-            Val(NextItem( cFont,,"," )),Val(NextItem( cFont,,"," )), &&
-            Val(NextItem( cFont,,"," )),Val(NextItem( cFont,,"," )), &&
-            Val(NextItem( cFont,,"," )),Val(NextItem( cFont,,"," )), &&
-            Val(NextItem( cFont,,"," )) )
+      oFont := HFont():Add(NextItem(cFont, .T., ","), &&
+            Val(NextItem(cFont, , ",")), Val(NextItem(cFont, , ",")), &&
+            Val(NextItem(cFont, , ",")), Val(NextItem(cFont, , ",")), &&
+            Val(NextItem(cFont, , ",")), Val(NextItem(cFont, , ",")), &&
+            Val(NextItem(cFont, , ",")))
    ENDIF
 Return oFont
 ENDFUNC

@@ -70,7 +70,7 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
       IF ::oParent:oFont != NIL
          ::oFont := HFont():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut, NIL, .T.)
       ELSE
-         ::oFont := HFont():Add( "Serif", 0, 12,,,,,,,.T. )
+         ::oFont := HFont():Add("Serif", 0, 12, , , , , , , .T.)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0

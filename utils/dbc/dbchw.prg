@@ -164,7 +164,7 @@ FUNCTION Main( ... )
    AdsSetFileType( Iif( numdriv == 1, 2,Iif( numdriv == 2, 1, 3 ) ) )
 #endif
 
-   oBrwFont := HFont():Add( aBrwFont[1], Val(aBrwFont[2]), Val(aBrwFont[3]) )
+   oBrwFont := HFont():Add(aBrwFont[1], Val(aBrwFont[2]), Val(aBrwFont[3]))
 
    IF lMdi
 #ifndef __GTK__
@@ -1167,7 +1167,7 @@ Local oFont, nHeight, i, nOld
       nHeight := oCtrl:oFont:height
       nOld := nHeight
       nHeight := Iif( nHeight<0, nHeight-n, nHeight+n )
-      oFont := HFont():Add( oCtrl:oFont:name, oCtrl:oFont:Width,nHeight,,oCtrl:oFont:Charset,,,,,.T. )
+      oFont := HFont():Add(oCtrl:oFont:name, oCtrl:oFont:Width, nHeight, , oCtrl:oFont:Charset, , , , , .T.)
       hwg_Setctrlfont( oCtrl:oParent:handle, oCtrl:id, ( oCtrl:oFont := oFont ):handle )
       IF __ObjHasMsg( oCtrl, "ACOLUMNS" )
          FOR i := 1 TO Len( oCtrl:aColumns )
@@ -1184,7 +1184,7 @@ Local oFont, nHeight, i, nOld
 Static Function ChangeBrwFont()
 Local nHold, nHeight, i, j, oBrw, oFont
 
-   IF !Empty(oFont := HFont():Select( m->oBrwFont ))
+   IF !Empty(oFont := HFont():Select(m->oBrwFont))
       m->oBrwFont := oFont
       nHeight := (m->oBrwFont):height
       FOR i := 1 TO OPENED_FILES_LIMIT

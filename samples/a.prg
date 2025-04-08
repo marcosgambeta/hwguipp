@@ -340,7 +340,7 @@ Return NIL
 
 Function DialogFromPrg( o )
 Local cTitle := "Dialog from prg", cText := "Input something"
-Local oModDlg, oFont := HFont():Add( "MS Sans Serif", 0, -13 )
+Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
 Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
 // Local aTabs := { "Monday","Tuesday","Wednesday","Thursday","Friday" }
 LOCAL oTab

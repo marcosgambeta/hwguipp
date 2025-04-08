@@ -87,7 +87,7 @@ FUNCTION gthwg_CreatePane( oWnd, nLeft, nTop, nWidth, nHeight, oFont, bSize )
 
 FUNCTION gthwg_AddFont( cName, nHeight, nWidth, nWeight, nQuality, nCodepage )
 
-   LOCAL oFont := HFont():Add( cName, nWidth, nHeight, nWeight, nCodePage ), oWnd
+   LOCAL oFont := HFont():Add(cName, nWidth, nHeight, nWeight, nCodePage), oWnd
 
    IF !Empty(oFont)
       IF !Empty(oWnd := HWindow():GetMain())

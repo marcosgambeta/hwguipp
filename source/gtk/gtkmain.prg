@@ -75,7 +75,7 @@ FUNCTION hwg_ColorN2RGB(nColor, nr, ng, nb)
 FUNCTION hwg_MsgGet( cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes )
 
    LOCAL oModDlg
-   LOCAL oFont := HFont():Add( "Sans", 0, 12 )
+   LOCAL oFont := HFont():Add("Sans", 0, 12)
 
    IF Empty(cRes)
       cRes := ""
@@ -137,7 +137,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
       nY := 10
    ENDIF
    IF oFont == NIL
-      oFont := HFont():Add( "Times", 0, 14 )
+      oFont := HFont():Add("Times", 0, 14)
       lNewFont := .T.
    ENDIF
    IF cOk != NIL

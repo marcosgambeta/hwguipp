@@ -3096,8 +3096,8 @@ METHOD HBrowseEx:Edit( wParam, lParam )
                   nChoic := AScan( oColumn:aList, ::varbuf )
                ENDIF
                oComboFont := IIf(::oFont == NIL, ;
-                  HFont():Add( "MS Sans Serif", 0, - 8 ), ;
-                  HFont():Add( ::oFont:name, ::oFont:width, ::oFont:height + 2 ) )
+                  HFont():Add("MS Sans Serif", 0, -8), ;
+                  HFont():Add(::oFont:name, ::oFont:width, ::oFont:height + 2) )
                @ 0, 0 GET COMBOBOX oCombo VAR nChoic ;
                   ITEMS oColumn:aList            ;
                   SIZE nWidth, ::height + 1      ;
@@ -3123,7 +3123,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
                   IF oColumn:bClick != NIL
                      IF Type != "D"
                         @ nWidth - 15, 0  OWNERBUTTON oBtn  SIZE 16, ::height - 0 ;
-                           TEXT '...'  FONT HFont():Add( 'MS Sans Serif', 0, - 10, 400, , , ) ;
+                           TEXT '...'  FONT HFont():Add("MS Sans Serif", 0, -10, 400) ;
                            COORDINATES 0, 1, 0, 0      ;
                            ON CLICK { | oColumn, oBtn | HB_SYMBOL_UNUSED(oColumn), ::onClickColumn( .T. , oGet, oBtn ) }
                         oBtn:themed :=  ::hTheme != NIL

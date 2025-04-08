@@ -299,7 +299,7 @@ Private value, oCtrl
       hwg_Releasedc( hwg_Getactivewindow(),hDC )
       ::SetPaper( ::GetProp("Paper Size"),::GetProp("Orientation") )
       IF ::oDlg:oFont == NIL
-         ::oDlg:oFont := HFont():Add( "Arial", 0,-13 )
+         ::oDlg:oFont := HFont():Add("Arial", 0, -13)
       ENDIF
       ::oDlg:style := hb_bitor( ::oDlg:style,WS_VSCROLL+WS_HSCROLL+WS_MAXIMIZEBOX )
 

@@ -496,7 +496,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    LOCAL i
    LOCAL nLastPage := Len(::aPages)
    LOCAL aPage := {}
-   LOCAL oFont := HFont():Add( "Times New Roman", 0, - 13, 700 )
+   LOCAL oFont := HFont():Add("Times New Roman", 0, -13, 700)
    LOCAL lTransp := ( aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
    // Variables not used
    // LOCAL oTimer

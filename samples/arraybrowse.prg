@@ -104,7 +104,7 @@ al_DOKs :=  { {"1"} , {"2"} , {"3"} , {"4"} }
       oBrwArr:acolumns[1]:length := 50
       oBrwArr:bcolorSel := 0x800080
       * FONT setting is mandatory, otherwise crashes with "Not exported method PROPS2ARR" 
-      oBrwArr:ofont := oFont // HFont():Add( "Arial", 0,-12 )
+      oBrwArr:ofont := oFont // HFont():Add("Arial", 0, -12)
 
       @ 10,  410 BUTTON oBtn1 CAPTION "Edit"    SIZE 60, 25  ON CLICK {|| BrwArrayEditElem(oBrwArr) } ;
         TOOLTIP "or ENTER: Edit element under cursor"
@@ -114,7 +114,7 @@ al_DOKs :=  { {"1"} , {"2"} , {"3"} , {"4"} }
         TOOLTIP "Delete element under cursor"
  
 
-      @ 260, 410 BUTTON oBtn4 CAPTION "OK " SIZE 80, 26 ; 
+      @ 260, 410 BUTTON oBtn4 CAPTION "OK " SIZE 80, 26 ;
          ON CLICK {|| hwg_EndDialog()}
 
    oDlg:Activate()

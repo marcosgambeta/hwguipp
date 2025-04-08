@@ -1177,7 +1177,7 @@ METHOD HCEdit:AddFont(oFont, name, width, height , weight, CharSet, Italic, Unde
    NEXT
 
    IF oFont == NIL
-      oFont := HFont():Add(name, width, height, weight, CharSet, Italic, Underline, StrikeOut,, .T.)
+      oFont := HFont():Add(name, width, height, weight, CharSet, Italic, Underline, StrikeOut, , .T.)
    ENDIF
    hced_AddFont(::hEdit, oFont:handle)
    AAdd(::aFonts, oFont)
@@ -1195,8 +1195,8 @@ METHOD HCEdit:SetFont(oFont)
       FOR i := 2 TO Len(::aFonts)
          name := IIf(::oFont:name == ::aFonts[i]:name, oFont:name, ::aFonts[i]:name)
          height := IIf(::oFont:height == ::aFonts[i]:height, oFont:height, Int(::aFonts[i]:height * oFont:height / ::oFont:height))
-         oFont1 := HFont():Add(name, ::aFonts[i]:width, height , ::aFonts[i]:weight, ;
-            ::aFonts[i]:CharSet, ::aFonts[i]:Italic, ::aFonts[i]:Underline, ::aFonts[i]:StrikeOut,, .T.)
+         oFont1 := HFont():Add(name, ::aFonts[i]:width, height, ::aFonts[i]:weight, ;
+            ::aFonts[i]:CharSet, ::aFonts[i]:Italic, ::aFonts[i]:Underline, ::aFonts[i]:StrikeOut, , .T.)
          ::aFonts[i] := oFont1
          hced_SetFont(::hEdit, oFont1:handle, i)
       NEXT

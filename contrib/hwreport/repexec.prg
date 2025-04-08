@@ -165,9 +165,9 @@ FUNCTION hwg_Hwr_AddItem( aPaintRep, nType, cCaption, nLeft, nTop, nWidth, nHeig
 
    IF !Empty(aItem[ ITEM_FONT ]) .AND. HB_ISCHAR(aItem[ITEM_FONT])
       arr := hb_ATokens( aItem[ ITEM_FONT ], ',' )
-      aItem[ ITEM_FONT ] := HFont():Add( arr[1], ;
+      aItem[ ITEM_FONT ] := HFont():Add(arr[1], ;
          Val( arr[2] ), Val( arr[3] ), Val( arr[4] ), Val( arr[5] ), ;
-         Val( arr[6] ), Val( arr[7] ), Val( arr[8] ) )
+         Val( arr[6] ), Val( arr[7] ), Val( arr[8] ))
    ENDIF
    IF !Empty(aItem[ ITEM_PEN ]) .AND. HB_ISCHAR(aItem[ITEM_PEN])
       arr := hb_ATokens( aItem[ ITEM_PEN ], ',' )
@@ -243,7 +243,7 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 #ifdef __GTK__
       PRIVATE oFontStandard := oPrinter:AddFont( "Arial", -13, .F., .F., .F., 204 )
 #else
-      PRIVATE oFontStandard := HFont():Add( "Arial", 0, - 13, 400, 204 )
+      PRIVATE oFontStandard := HFont():Add("Arial", 0, -13, 400, 204)
 #endif
    ENDIF
 
@@ -255,9 +255,9 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
             Round( oFont:height * prnYCoef, 0 ), (oFont:weight>400), ;
             (oFont:italic>0), .F., oFont:charset )
 #else
-         aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ] := HFont():Add( oFont:name, ;
+         aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ] := HFont():Add(oFont:name, ;
             oFont:width, Round( oFont:height * prnYCoef, 0 ), oFont:weight, ;
-            oFont:charset, oFont:italic )
+            oFont:charset, oFont:italic)
 #endif
       ENDIF
    NEXT

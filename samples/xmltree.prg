@@ -4,7 +4,7 @@ MEMVAR oFont
 
 Function Main
 Local oMainWindow
-Private oFont := HFont():Add( "MS Sans Serif", 0,-13 )
+Private oFont := HFont():Add("MS Sans Serif", 0, -13)
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" ;
      AT 200, 0 SIZE 400, 150

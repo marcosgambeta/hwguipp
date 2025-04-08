@@ -64,19 +64,19 @@ FUNCTION MyReport
 
    aPaintRep := hwg_hwr_Init( "MyReport", 210, 297, 735, "nStroka := 1" + crlf )
 
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Sample report - first 100 records of test.dbf", 132, 41, 513, 27, 2,, HFont():Add( "Arial", 0, - 18, 700, 204 ) )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Sample report - first 100 records of test.dbf", 132, 41, 513, 27, 2,, HFont():Add("Arial", 0, -18, 700, 204) )
    hwg_Hwr_AddItem( aPaintRep, TYPE_BITMAP, "../../image/logo.bmp", 94, 44, 68, 61 )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "2001", 320, 81, 89, 20, 2,, HFont():Add( "Arial", 0, - 18, 700, 204 ) )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "2001", 320, 81, 89, 20, 2,, HFont():Add("Arial", 0, -18, 700, 204) )
    hwg_Hwr_AddItem( aPaintRep, TYPE_HLINE, , 182, 106, 408, 6, 0, HPen():Add( 0, 1, 0 ) )
    hwg_Hwr_AddItem( aPaintRep, TYPE_MARKER, "PH", - 16, 172, 16, 10 )
    hwg_Hwr_AddItem( aPaintRep, TYPE_BOX, , 110, 174, 60, 40, 0, HPen():Add( 0, 1, 0 ) )
    hwg_Hwr_AddItem( aPaintRep, TYPE_BOX, , 168, 174, 200, 40, 0, HPen():Add( 0, 1, 0 ) )
    hwg_Hwr_AddItem( aPaintRep, TYPE_BOX, , 366, 174, 200, 40, 0, HPen():Add( 0, 1, 0 ) )
    hwg_Hwr_AddItem( aPaintRep, TYPE_BOX, , 564, 174, 60, 40, 0, HPen():Add( 0, 1, 0 ) )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Last name", 424, 183, 103, 20, 2,, HFont():Add( "MS Sans Serif", 0, -13 ) )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Nn", 123, 184, 33, 20, 2,, HFont():Add( "Arial", 0, - 13 ) )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "First name", 229, 184, 93, 20, 2,, HFont():Add( "MS Sans Serif", 0, - 13 ) )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Age", 578, 184, 37, 20, 2,, HFont():Add( "MS Sans Serif", 0, - 13 ) )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Last name", 424, 183, 103, 20, 2,, HFont():Add("MS Sans Serif", 0, -13) )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Nn", 123, 184, 33, 20, 2,, HFont():Add("Arial", 0, -13) )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "First name", 229, 184, 93, 20, 2,, HFont():Add("MS Sans Serif", 0, -13) )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Age", 578, 184, 37, 20, 2,, HFont():Add("MS Sans Serif", 0, -13) )
    cScr :=  "use test" + crlf ;
      + "go top" + crlf
    hwg_Hwr_AddItem( aPaintRep, TYPE_MARKER, "SL", -16, 218, 16, 10,,,,, cScr ) 
@@ -84,10 +84,10 @@ FUNCTION MyReport
    hwg_Hwr_AddItem( aPaintRep, TYPE_BOX, , 168, 218, 200, 26, 0, HPen():Add( 0, 1, 0 ) )
    hwg_Hwr_AddItem( aPaintRep, TYPE_BOX, , 366, 218, 201, 26, 0, HPen():Add( 0, 1, 0 ) )
    hwg_Hwr_AddItem( aPaintRep, TYPE_BOX, , 565, 218, 59, 26, 0, HPen():Add( 0, 1, 0 ) )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Str(nStroka,2)", 119, 220, 40, 17, 0,, HFont():Add( "Arial", 0, - 13 ), 1 )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "First", 179, 220, 182, 17, 0,, HFont():Add( "MS Sans Serif", 0, - 13 ), 1 )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Last", 381, 220, 176, 17, 0,, HFont():Add( "MS Sans Serif", 0, - 13 ), 1 )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Str(Age,2)", 578, 220, 36, 16, 0,, HFont():Add( "MS Sans Serif", 0, - 13 ), 1 )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Str(nStroka,2)", 119, 220, 40, 17, 0,, HFont():Add("Arial", 0, -13), 1 )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "First", 179, 220, 182, 17, 0,, HFont():Add("MS Sans Serif", 0, -13), 1 )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Last", 381, 220, 176, 17, 0,, HFont():Add("MS Sans Serif", 0, -13), 1 )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "Str(Age,2)", 578, 220, 36, 16, 0,, HFont():Add("MS Sans Serif", 0, -13), 1 )
    cScr :=  "skip" + crlf;
       + "nStroka++" + crlf;
       + "lLastCycle := (Recno()>=20)" + crlf
@@ -97,6 +97,6 @@ FUNCTION MyReport
    hwg_Hwr_AddItem( aPaintRep, TYPE_MARKER, "EPF", - 16, 875, 16, 10 )
    hwg_Hwr_AddItem( aPaintRep, TYPE_MARKER, "DF", - 16, 899, 16, 10 )
    hwg_Hwr_AddItem( aPaintRep, TYPE_HLINE, , 459, 924, 238, 6, 0, HPen():Add( 0, 1, 0 ) )
-   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "End of report", 522, 932, 160, 20, 0,, HFont():Add( "MS Sans Serif", 0, - 13 ) )
+   hwg_Hwr_AddItem( aPaintRep, TYPE_TEXT, "End of report", 522, 932, 160, 20, 0,, HFont():Add("MS Sans Serif", 0, -13) )
 
    RETURN aPaintRep

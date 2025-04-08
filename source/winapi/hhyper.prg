@@ -75,7 +75,7 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
       IF ::oParent:oFont != NIL
          ::oFont := HFONT():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut)
       ELSE
-         ::oFont := HFONT():Add("Arial", 0, -12, NIL, NIL, NIL, 1, NIL)
+         ::oFont := HFONT():Add("Arial", 0, -12, , , , 1)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0

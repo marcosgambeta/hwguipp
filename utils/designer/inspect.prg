@@ -107,7 +107,7 @@ STATIC FUNCTION Edit1()
                lRes := .T.
             ENDIF
          ELSEIF aDataDef[j, 5] == "font"
-            varbuf := HFont():Select( varbuf )
+            varbuf := HFont():Select(varbuf)
             IF varbuf != NIL
                lRes := .T.
             ENDIF

@@ -2228,7 +2228,7 @@ STATIC FUNCTION Zoom( n )
    LOCAL nHeight := oEdit:oFont:height
 
    nHeight := Iif( nHeight<0, nHeight-n, nHeight+n )
-   oEdit:SetFont( HFont():Add( oEdit:oFont:name, oEdit:oFont:Width,nHeight,,oEdit:oFont:Charset,,,,,.T. ) )
+   oEdit:SetFont( HFont():Add(oEdit:oFont:name, oEdit:oFont:Width, nHeight, , oEdit:oFont:Charset, , , , , .T.) )
 
    RETURN NIL
 
@@ -2391,8 +2391,7 @@ STATIC FUNCTION FontFromXML( oXmlNode )
       under := Val( under )
    ENDIF
 
-   RETURN HFont():Add( oXmlNode:GetAttribute( "name" ),  ;
-      width, height, weight, charset, ita, under,,,.T. )
+   RETURN HFont():Add(oXmlNode:GetAttribute("name"), width, height, weight, charset, ita, under, , , .T.)
 
 STATIC FUNCTION FontToXML( oFont, cTitle )
 

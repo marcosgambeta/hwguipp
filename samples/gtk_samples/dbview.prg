@@ -63,7 +63,7 @@ Private oBrw, oSay1, oSay2, oFont, DataCP, currentCP, currFname
    RDDSETDEFAULT( "DBFNTX" )
 *  RDDSETDEFAULT( "DBFCDX" )
    
-   oFont := HFont():Add( "Courier", 0,-14 )
+   oFont := HFont():Add("Courier", 0, -14)
    INIT WINDOW oWndMain MAIN TITLE "Dbf browse" AT 200, 100 SIZE 300, 300
 
    * Attention ! Menu Structure errors were not be detected by the Harbour compiler.
@@ -274,7 +274,7 @@ Memvar oBrw, oFont
 Return NIL
 
 Static Function NewIndex()
-Local oDlg, of := HFont():Add( "Courier", 0,-12 )
+Local oDlg, of := HFont():Add("Courier", 0, -12)
 Local cName := "", lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
 Local oMsg
 Memvar oBrw
@@ -407,7 +407,7 @@ Local oDlg
 Return oDlg
 
 Static Function ModiStru( lNew )
-Local oDlg, oBrowse, of := HFont():Add( "Courier", 0,-12 ), oMsg 
+Local oDlg, oBrowse, of := HFont():Add("Courier", 0, -12), oMsg 
 Local oGet1, oGet2, oGet3, oGet4
 Local af, af0, cName := "", nType := 1, cLen := "0", cDec := "0", i
 Local aTypes := { "Character","Numeric","Date","Logical" }
@@ -695,7 +695,7 @@ Memvar oBrw, oSay2
 Return NIL
 
 Static Function GetData( cRes, cTitle, cText )
-Local oModDlg, oFont := HFont():Add( "MS Sans Serif", 0,-13 )
+Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
 
    INIT DIALOG oModDlg TITLE cTitle AT 0, 0 SIZE 300, 140 ;
         FONT oFont CLIPPER STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_SIZEBOX+DS_CENTER

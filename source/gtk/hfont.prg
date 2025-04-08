@@ -154,8 +154,8 @@ RETURN "Font Name=" + fontName + " Width=" + ALLTRIM(STR(nWidth)) + " Height=" +
   Returns an array with font properties (for creating a copy of a font entry)
   Copy sample
    apffrarr := oFont1:Props2Arr()
-   oFont2 := HFont():Add( apffrarr[1], apffrarr[2], apffrarr[3], apffrarr[4], apffrarr[5], ;
-                apffrarr[6], apffrarr[7], apffrarr[8] )
+   oFont2 := HFont():Add(apffrarr[1], apffrarr[2], apffrarr[3], apffrarr[4], apffrarr[5], ;
+                apffrarr[6], apffrarr[7], apffrarr[8])
  */
 METHOD HFont:Props2Arr()
 //        fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut

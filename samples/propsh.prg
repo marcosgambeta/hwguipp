@@ -58,7 +58,7 @@ Local oFont
 #else
  PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12
 #endif
-* oFont := HFont():Add( "MS Sans Serif", 0,-11, 400,,,) // 8, "MS Sans Serif"
+* oFont := HFont():Add("MS Sans Serif", 0, -11, 400) // 8, "MS Sans Serif"
 
    // INIT DIALOG aDlg1 FROM RESOURCE  "PAGE_1" ON EXIT {||hwg_Msginfo("Exit"),.T.}
    // REDEFINE GET e1 ID 103

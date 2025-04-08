@@ -7,7 +7,7 @@
 
 Function Main
 Local oMainWindow
-Local oFont := HFont():Add( "MS Sans Serif", 0,-13 )
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
 Local oTree, oSplit, oTab
 LOCAL oGet
 

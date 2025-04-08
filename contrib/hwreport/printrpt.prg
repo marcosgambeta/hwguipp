@@ -53,7 +53,7 @@ FUNCTION _hwr_PrintRpt
 #ifdef __GTK__
    oFontStdPrn := oPrinter:AddFont( "Arial", -13, .F., .F., .F., 204 )
 #else
-   oFontStdPrn := HFont():Add( "Arial", 0, - 13, 400, 204 )
+   oFontStdPrn := HFont():Add("Arial", 0, -13, 400, 204)
 #endif
 
 #ifndef __GTK__
@@ -68,9 +68,9 @@ FUNCTION _hwr_PrintRpt
             Round( oFont:height * prnYCoef, 0 ), (oFont:weight>400), ;
             (oFont:italic>0), .F., oFont:charset )
 #else
-         aPaintRep[FORM_ITEMS,i,ITEM_GROUP] := HFont():Add( oFont:name, ;
+         aPaintRep[FORM_ITEMS,i,ITEM_GROUP] := HFont():Add(oFont:name, ;
             oFont:width, Round( oFont:height * fontKoef, 0 ), oFont:weight, ;
-            oFont:charset, oFont:italic )
+            oFont:charset, oFont:italic)
 #endif
          //hwg_writelog( str(ofont:height)+" "+str(prnycoef)+" "+str(aPaintRep[FORM_ITEMS, i, ITEM_GROUP]:height) )
       ENDIF

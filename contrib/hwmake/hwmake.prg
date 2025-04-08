@@ -122,7 +122,7 @@ Private oIcon := HIcon():AddResource("PIM")
       obrowse1:acolumns[1]:heading := "File Names"
       obrowse1:acolumns[1]:length := 50
       oBrowse1:bcolorSel := 0x800080
-      oBrowse1:ofont := HFont():Add( 'Arial', 0, -12 )
+      oBrowse1:ofont := HFont():Add("Arial", 0, -12)
       @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse1, "*.prg")}
       @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||BrwdelIten(oBrowse1)}
 
@@ -134,7 +134,7 @@ Private oIcon := HIcon():AddResource("PIM")
       obrowse2:acolumns[1]:heading := "File Names"
       obrowse2:acolumns[1]:length := 50
       oBrowse2:bcolorSel := 0x800080
-      oBrowse2:ofont := HFont():Add( 'Arial', 0, -12 )
+      oBrowse2:ofont := HFont():Add("Arial", 0, -12)
       @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse2, "*.c")}
       @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||BrwdelIten(oBrowse2)}
    END PAGE of oTAB
@@ -145,7 +145,7 @@ Private oIcon := HIcon():AddResource("PIM")
       obrowse3:acolumns[1]:heading := "File Names"
       obrowse3:acolumns[1]:length := 50
       oBrowse3:bcolorSel := 0x800080
-      oBrowse3:ofont := HFont():Add( 'Arial', 0, -12 )
+      oBrowse3:ofont := HFont():Add("Arial", 0, -12)
       @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse3, "*.lib")}
       @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||BrwdelIten(oBrowse3)}
    END PAGE of oTAB
@@ -156,7 +156,7 @@ Private oIcon := HIcon():AddResource("PIM")
       obrowse4:acolumns[1]:heading := "File Names"
       obrowse4:acolumns[1]:length := 50
       oBrowse4:bcolorSel := 0x800080
-      oBrowse4:ofont := HFont():Add( 'Arial', 0, -12 )
+      oBrowse4:ofont := HFont():Add("Arial", 0, -12)
       @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse4, "*.rc")}
       @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||BrwdelIten(oBrowse4)}
    END PAGE of oTAB

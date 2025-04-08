@@ -77,7 +77,7 @@ STATIC cHwg_image_dir := ".." + DIR_SEP + ".." + DIR_SEP + "image"
 STATIC cHrb_inc_dir := "", cHrb_bin_dir := ""
 
 FUNCTION Main
-   LOCAL oMain, oPanel, oFont := HFont():Add( "Georgia", 0, - 15 )
+   LOCAL oMain, oPanel, oFont := HFont():Add("Georgia", 0, -15)
    LOCAL oTree, oSplit, oBmp
 
    IF hwg__isUnicode()
@@ -361,8 +361,7 @@ STATIC FUNCTION ChangeFont( oCtrl, n )
    LOCAL oFont, nHeight := oCtrl:oFont:height
 
    nHeight := Iif( nHeight < 0, nHeight - n, nHeight + n )
-   oFont := HFont():Add( oCtrl:oFont:name,, nHeight,, ;
-      oCtrl:oFont:Charset,,,,, .T. )
+   oFont := HFont():Add(oCtrl:oFont:name, , nHeight, , oCtrl:oFont:Charset, , , , , .T.)
    //hwg_Setctrlfont( oCtrl:oParent:handle, oCtrl:id, oFont:handle )
 
    oCtrl:SetFont( oFont )

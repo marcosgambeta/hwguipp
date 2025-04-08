@@ -22,7 +22,7 @@ nValue:=0
         ON CLICK {|| Olsay:SETTEXT(SAYDOLLAR(nValue)) }
    @ 137, 57 SAY oLSay CAPTION "Label"  SIZE 281, 82  ;
          BACKCOLOR 8421504  ;
-        FONT HFont():Add( 'Arial', 0,-13, 400,, 255,)
+        FONT HFont():Add("Arial", 0, -13, 400, , 255)
    @ 21, 85 OWNERBUTTON oOwnerbutton2   SIZE 92, 28 ;
         STYLE WS_TABSTOP  ;
         TEXT 'SayRupiah()'  ;

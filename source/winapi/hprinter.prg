@@ -276,7 +276,7 @@ METHOD HPrinter:AddFont(fontName, nHeight, lBold, lItalic, lUnderline, nCharset)
    IF ::lmm .AND. nHeight != NIL
       nHeight := Round(nHeight * ::nVRes, 0)
    ENDIF
-   oFont := HFont():Add(fontName, NIL, nHeight, ;
+   oFont := HFont():Add(fontName, , nHeight, ;
       IIf(lBold != NIL .AND. lBold, 700, 400), nCharset, ;
       IIf(lItalic != NIL .AND. lItalic, 255, 0), IIf(lUnderline != NIL .AND. lUnderline, 1, 0))
    RETURN oFont
@@ -1360,7 +1360,7 @@ METHOD HPrinter:PrintScript(hDC, nPage, x1, y1, x2, y2)
             ENDIF
          NEXT
          IF j > Len(::aFonts)
-            oFont := HFont():Add(name, NIL, height, weight, charset, italic, underline)
+            oFont := HFont():Add(name, , height, weight, charset, italic, underline)
             Aadd(::aFonts, oFont)
          ELSE
             oFont := ::aFonts[j]

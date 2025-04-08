@@ -92,9 +92,9 @@ FUNCTION Main()
    oBrushLGray := HBrush():Add( CLR_LGRAY )
    oBrushGray  := HBrush():Add( CLR_GRAY )
 
-   oFontSmall := HFont():Add( "Courier", 0, -8 )
-   oFontStandard := HFont():Add( "Courier", 0, - 13, 400, 204 )
-   oFontDlg   := HFont():Add( "MS Sans Serif" , 0 , -13 )
+   oFontSmall := HFont():Add("Courier", 0, -8)
+   oFontStandard := HFont():Add("Courier", 0, -13, 400, 204)
+   oFontDlg   := HFont():Add("MS Sans Serif", 0, -13)
 
    INIT WINDOW oMainWindow MAIN TITLE "Visual Report Builder"    ;
       SIZE hwg_getDesktopWidth()-100, hwg_getDesktopHeight()-100 ;
@@ -785,7 +785,7 @@ STATIC FUNCTION LButtonUp( xPos, yPos )
          aItem[ITEM_PEN] := HPen():Add()
       ELSEIF nAddItem == TYPE_TEXT
          aItem[ITEM_FONT] := ;
-            iif( lastFont == NIL, HFont():Add( "Arial", 0, - 13 ), lastFont )
+            iif( lastFont == NIL, HFont():Add("Arial", 0, -13), lastFont )
       ELSEIF nAddItem == TYPE_MARKER
          aItem[ITEM_X1] := - aInitialSize[nAddItem, 1]
          aItem[ITEM_CAPTION] := aMarkers[nMarkerType]

@@ -236,9 +236,7 @@ Local under := oXmlNode:GetAttribute( "underline" )
   
   // default charset is NIL 
 
-Return HFont():Add( oXmlNode:GetAttribute( "name" ),  ;
-                    width, height, weight, charset,   ;
-                    ita, under )
+Return HFont():Add(oXmlNode:GetAttribute("name"), width, height, weight, charset, ita, under)
 
 Function hwg_Font2XML( oFont )
 Local aAttr := {}
