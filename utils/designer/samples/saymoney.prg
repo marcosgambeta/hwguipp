@@ -44,15 +44,15 @@ FUNCTION SayDollar(nDollar)
  LOCAL cDollar := RIGHT( LTRIM(STR(nDollar, 15) ), 11)
  LOCAL nAA := 1
  LOCAL nPJ := LEN(cDollar)
- LOCAL xSay := '', xLang2, xLang1, xMuch, xNum, xteen
+ LOCAL xSay := "", xLang2, xLang1, xMuch, xNum, xteen
  LOCAL mm := 0
  LOCAL nTest := 0
  LOCAL nCheck1 := 0
  LOCAL nCheck2 := 0
 
  DO WHILE nPJ>0
-    xLang2 := ''
-    xLang1 := ''
+    xLang2 := ""
+    xLang1 := ""
     xMuch := 'ONE'
     xNum = Left(cDollar, 1)
 

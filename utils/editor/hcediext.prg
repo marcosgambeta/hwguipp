@@ -2138,9 +2138,9 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
             aStruTbl := NIL
             s += "</table>" + cNewL
          ENDIF
-         s += "<div" + Iif( !Empty(::aStru[i, 1,OB_CLS]), ' class="' + ::aStru[i, 1,OB_CLS] + '"', '' ) + ;
-               Iif( Len(::aStru[i, 1])>=OB_ID.AND.!Empty(::aStru[i, 1,OB_ID]),' id="'+::aStru[i, 1,OB_ID]+'"','' ) + ;
-               Iif( !lHtml.AND.Len(::aStru[i, 1])>=OB_ACCESS.AND.!Empty(::aStru[i, 1,OB_ACCESS]),' access="'+hced_SaveAccInfo(::aStru[i, 1,OB_ACCESS])+'"','' ) + ;
+         s += "<div" + Iif( !Empty(::aStru[i, 1,OB_CLS]), ' class="' + ::aStru[i, 1,OB_CLS] + '"', "" ) + ;
+               Iif( Len(::aStru[i, 1])>=OB_ID.AND.!Empty(::aStru[i, 1,OB_ID]),' id="'+::aStru[i, 1,OB_ID]+'"',"" ) + ;
+               Iif( !lHtml.AND.Len(::aStru[i, 1])>=OB_ACCESS.AND.!Empty(::aStru[i, 1,OB_ACCESS]),' access="'+hced_SaveAccInfo(::aStru[i, 1,OB_ACCESS])+'"',"" ) + ;
                ::SaveTag( "div", i ) + '>'
          cLine := Trim(::aText[i] )
          nPos := Iif( i == nFrom .AND. nXFrom != -1, nXFrom, 1 )
@@ -2166,10 +2166,10 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
             ELSE
                cHref := ""
             ENDIF
-            cId := Iif( Len(::aStru[i,j])>=OB_ID.AND.!Empty(::aStru[i,j,OB_ID]),' id="'+::aStru[i,j,OB_ID]+'"','' )
+            cId := Iif( Len(::aStru[i,j])>=OB_ID.AND.!Empty(::aStru[i,j,OB_ID]),' id="'+::aStru[i,j,OB_ID]+'"',"" )
             nAcc := Iif( Len(::aStru[i,j])>=OB_ACCESS.AND.!Empty(::aStru[i,j,OB_ACCESS]), ::aStru[i,j,OB_ACCESS], 0 )
             cAcc := Iif( !lHtml.AND.hwg_SetBit(nAcc,BIT_CLCSCR, 0)!=0, ;
-                  ' access="'+hced_SaveAccInfo( nAcc ) +'"','' )
+                  ' access="'+hced_SaveAccInfo( nAcc ) +'"',"" )
             IF hwg_checkBit( nAcc, BIT_CLCSCR )
                cPart := hbxml_preSave( Iif( !Empty(cpSou).AND.!(cpSou==::cp), hb_Translate( cPart, ::cp, cpSou ), cPart ) )
                IF lHtml
@@ -2215,8 +2215,8 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
          s += "<img" + Iif( !Empty(::aStru[i, 1,OB_CLS]), ' class="' + ::aStru[i, 1,OB_CLS] + '"', "" ) ;
             + ' src="' + cHref + '"' + ;
             Iif( !Empty(xTemp:=::aStru[i, 1,OB_IALIGN]), ' align="' + Iif( xTemp==2, 'right"','center"' ), "" ) + ;
-            Iif( Len(::aStru[i, 1])>=OB_ID.and.!Empty(::aStru[i, 1,OB_ID]),' id="'+::aStru[i, 1,OB_ID]+'"','' ) + ;
-            Iif( !lHtml.AND.Len(::aStru[i, 1])>=OB_ACCESS.and.!Empty(::aStru[i, 1,OB_ACCESS]),' access="'+hced_SaveAccInfo(::aStru[i, 1,OB_ACCESS])+'"','' ) + ;
+            Iif( Len(::aStru[i, 1])>=OB_ID.and.!Empty(::aStru[i, 1,OB_ID]),' id="'+::aStru[i, 1,OB_ID]+'"',"" ) + ;
+            Iif( !lHtml.AND.Len(::aStru[i, 1])>=OB_ACCESS.and.!Empty(::aStru[i, 1,OB_ACCESS]),' access="'+hced_SaveAccInfo(::aStru[i, 1,OB_ACCESS])+'"',"" ) + ;
             ::SaveTag( "img", i ) + '/>' + cNewL
       ELSEIF ::aStru[i, 1,OB_TYPE] == "tr"
          IF nFrom > 1 .AND. aStruTbl == NIL
@@ -2271,7 +2271,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
                hb_Memowrit( ::aBin[i, 1], ::aBin[i, 2] )
             ELSE
                s += '<binary id="' + ::aBin[i, 1] + '"' + ;
-                     Iif( !Empty(::aBin[i, 4]), ' ext="'+::aBin[i, 4]+'"', '' ) + '>' + ;
+                     Iif( !Empty(::aBin[i, 4]), ' ext="'+::aBin[i, 4]+'"', "" ) + '>' + ;
                      hb_Base64Encode( ::aBin[i, 2] ) + '</binary>' + cNewL
             ENDIF
             aImages[j] := ""

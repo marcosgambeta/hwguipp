@@ -1064,13 +1064,13 @@ STATIC FUNCTION setPara()
          arr[3] != nIndent .OR. arr[4] != nAlign .OR. arr[5] != nBWidth .OR. arr[6] != nBColor
 
          IF arr[1] != nMarginL
-            AAdd(aAttr, "ml" + LTrim(Str(nMarginL)) + iif(lml, '%', ''))
+            AAdd(aAttr, "ml" + LTrim(Str(nMarginL)) + iif(lml, '%', ""))
          ENDIF
          IF arr[2] != nMarginR
-            AAdd(aAttr, "mr" + LTrim(Str(nMarginR)) + iif(lmr, '%', ''))
+            AAdd(aAttr, "mr" + LTrim(Str(nMarginR)) + iif(lmr, '%', ""))
          ENDIF
          IF arr[3] != nIndent
-            AAdd(aAttr, "ti" + LTrim(Str(nIndent)) + iif(lti, '%', ''))
+            AAdd(aAttr, "ti" + LTrim(Str(nIndent)) + iif(lti, '%', ""))
          ENDIF
          IF arr[4] != nAlign
             AAdd(aAttr, "ta" + LTrim(Str(nAlign - 1)))

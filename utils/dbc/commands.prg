@@ -552,9 +552,9 @@ FUNCTION C_COPY()
                      IF l
                         xVal := Strtran( xVal, cQuo, cQuo+cQuo )
                      ENDIF
-                     s += Iif( i>1,cDelim2,'' ) + cQuo + xVal + cQuo
+                     s += Iif( i>1,cDelim2,"" ) + cQuo + xVal + cQuo
                   ELSE
-                     s += Iif( i>1,cDelim2,'' ) + xVal
+                     s += Iif( i>1,cDelim2,"" ) + xVal
                   ENDIF
                NEXT
                FWrite(han, s + Chr(13) + Chr(10))

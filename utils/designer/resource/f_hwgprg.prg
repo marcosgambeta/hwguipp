@@ -291,7 +291,7 @@ FUNCTION Browse2Prg
             temp := SubStr(temp, 1, iif(At('+', temp) > 0, At('+', temp) - 1, Len(temp)))
             j := {}
             AEval( aTypes, { |aField| AAdd(j, aField[1]) } )
-            cHeader  := iif( cHeader == NIL .OR. Empty(cHeader) , '"' + temp + '"', '' + cHeader + '' )
+            cHeader  := iif( cHeader == NIL .OR. Empty(cHeader) , '"' + temp + '"', "" + cHeader + "" )
             IF m -> nLength = NIL
                m -> nLength := &cTmpAlias -> ( fieldlen( AScan(j,temp ) ) )
                m -> nLength := iif( m -> nLength = 0 , iif( Type("&cCampo" ) = "C",Len(&cCampo ), 10 ), m -> nLength )

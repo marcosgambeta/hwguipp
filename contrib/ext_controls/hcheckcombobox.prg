@@ -345,9 +345,9 @@ METHOD hCheckComboBox:RecalcText()
 
       strSeparator := hwg_Getlocaleinfo()
 
-      // If none found, the the ''
+      // If none found, the the ""
       IF Len( strSeparator ) == 0
-         strSeparator := ''
+         strSeparator := ""
       ENDIF
 
       strSeparator := RTrim(strSeparator)
