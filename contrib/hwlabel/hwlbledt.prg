@@ -548,7 +548,7 @@ lblname := aMsg[26]   // "<NO LABEL>"
 
 
          MENU TITLE aMsg[11]  // Help
-             MENUITEM aMsg[15] ACTION  hwlabel_Mainhlp(clangset,0) // Help
+             MENUITEM aMsg[15] ACTION  hwlabel_Mainhlp(clangset, 0) // Help
              MENUITEM aMsg[12] ACTION  hwlabel_About()          // About
         ENDMENU
 
@@ -925,14 +925,14 @@ Puffer := SPACE(1034)
 
 // Open label file
 
-handle := FOPEN(clblfname,2)
+handle := FOPEN(clblfname, 2)
 IF handle == -1
  hwg_MsgStop(aMsg[37],aMsg[3])  // 37 = Error reading label file, 3 = File access error
  FCLOSE(handle)
   RETURN .F.
 ENDIF
 
-anzbytes := FREAD(handle,@Puffer,1034)  // Read complete label file
+anzbytes := FREAD(handle,@Puffer, 1034)  // Read complete label file
 // hwg_MsgInfo("Bytes read: " + STR(anzbytes),"Debug")
 IF anzbytes != 1034
 // "Error reading label file, not 1034 bytes","File error"
@@ -947,16 +947,16 @@ FOR I := 1 TO 16
  AADD(MINH,SPACE(60))
 NEXT
 
-Z1 := SUBSTR(Puffer,1,1)           // Markierung CHR(2) / Mark CHR(2)
-c_REM := SUBSTR(Puffer,2,60)         // Bemerkung  L=60  / Remarks length=60
-n_NUMZ := ASC(SUBSTR(Puffer,62,2))   // Zeilenanzahl (height of label, number of lines) 1..16
-n_BR := ASC(SUBSTR(Puffer,64,2))     // Spaltenbreite (width of label) 1..120
-n_LM := ASC(SUBSTR(Puffer,66,2))     // Linker Rand (left margin)      0..250
-n_HZR := ASC(SUBSTR(Puffer,68,2))    // Horiz. Abst. (lines between labels)  0..16
-n_VZR := ASC(SUBSTR(Puffer,70,2))    // Vert. Abstand (spaces between labels ) 0 ... 120
-n_LPZ := ASC(SUBSTR(Puffer,72,2))    // Anzahl Label/Zeile  (number of labels across) 1 .. 5
-INH := SUBSTR(Puffer,74,960)       // Labelinhalte / Contents of label (16 * 60 = 960)   >  NUMZ * 60
-Z2 := SUBSTR(Puffer,1034,1)        // Endemarkierung CHR(2) / Mark of end CHR(2)
+Z1 := SUBSTR(Puffer, 1, 1)           // Markierung CHR(2) / Mark CHR(2)
+c_REM := SUBSTR(Puffer, 2, 60)         // Bemerkung  L=60  / Remarks length=60
+n_NUMZ := ASC(SUBSTR(Puffer, 62, 2))   // Zeilenanzahl (height of label, number of lines) 1..16
+n_BR := ASC(SUBSTR(Puffer, 64, 2))     // Spaltenbreite (width of label) 1..120
+n_LM := ASC(SUBSTR(Puffer, 66, 2))     // Linker Rand (left margin)      0..250
+n_HZR := ASC(SUBSTR(Puffer, 68, 2))    // Horiz. Abst. (lines between labels)  0..16
+n_VZR := ASC(SUBSTR(Puffer, 70, 2))    // Vert. Abstand (spaces between labels ) 0 ... 120
+n_LPZ := ASC(SUBSTR(Puffer, 72, 2))    // Anzahl Label/Zeile  (number of labels across) 1 .. 5
+INH := SUBSTR(Puffer, 74, 960)       // Labelinhalte / Contents of label (16 * 60 = 960)   >  NUMZ * 60
+Z2 := SUBSTR(Puffer, 1034, 1)        // Endemarkierung CHR(2) / Mark of end CHR(2)
 
 
 // Extract the contents
@@ -991,22 +991,22 @@ NEXT
 // Use SUBSTR(), because translated characters from UTF-8 could be longer than 1 byte,
 // so the total length of every contents line must be trimmed to exact 60 bytes
 
-c_INH1   := SUBSTR(hwlabel_translcp(MINH[1],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH2   := SUBSTR(hwlabel_translcp(MINH[2],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH3   := SUBSTR(hwlabel_translcp(MINH[3],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH4   := SUBSTR(hwlabel_translcp(MINH[4],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH5   := SUBSTR(hwlabel_translcp(MINH[5],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH6   := SUBSTR(hwlabel_translcp(MINH[6],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH7   := SUBSTR(hwlabel_translcp(MINH[7],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH8   := SUBSTR(hwlabel_translcp(MINH[8],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH9   := SUBSTR(hwlabel_translcp(MINH[9],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH10  := SUBSTR(hwlabel_translcp(MINH[10],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH11  := SUBSTR(hwlabel_translcp(MINH[11],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH12  := SUBSTR(hwlabel_translcp(MINH[12],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH13  := SUBSTR(hwlabel_translcp(MINH[13],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH14  := SUBSTR(hwlabel_translcp(MINH[14],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH15  := SUBSTR(hwlabel_translcp(MINH[15],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
-c_INH16  := SUBSTR(hwlabel_translcp(MINH[16],0,cCpLocWin,cCpLocLINUX,cCpLabel),1,60)
+c_INH1   := SUBSTR(hwlabel_translcp(MINH[1], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH2   := SUBSTR(hwlabel_translcp(MINH[2], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH3   := SUBSTR(hwlabel_translcp(MINH[3], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH4   := SUBSTR(hwlabel_translcp(MINH[4], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH5   := SUBSTR(hwlabel_translcp(MINH[5], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH6   := SUBSTR(hwlabel_translcp(MINH[6], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH7   := SUBSTR(hwlabel_translcp(MINH[7], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH8   := SUBSTR(hwlabel_translcp(MINH[8], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH9   := SUBSTR(hwlabel_translcp(MINH[9], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH10  := SUBSTR(hwlabel_translcp(MINH[10], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH11  := SUBSTR(hwlabel_translcp(MINH[11], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH12  := SUBSTR(hwlabel_translcp(MINH[12], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH13  := SUBSTR(hwlabel_translcp(MINH[13], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH14  := SUBSTR(hwlabel_translcp(MINH[14], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH15  := SUBSTR(hwlabel_translcp(MINH[15], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
+c_INH16  := SUBSTR(hwlabel_translcp(MINH[16], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
 
   IF LEN(Puffer) != 1034
    hwg_MsgStop(aMsg[59],aMsg[60])  // 59 = "Error: Buffer size not 1034 bytes", 60 =  "Load label file"
@@ -1014,7 +1014,7 @@ c_INH16  := SUBSTR(hwlabel_translcp(MINH[16],0,cCpLocWin,cCpLocLINUX,cCpLabel),1
   ENDIF
 
 // Codepage conversion
- c_REM := hwlabel_translcp(c_REM,0,cCpLocWin,cCpLocLINUX,cCpLabel)
+ c_REM := hwlabel_translcp(c_REM, 0,cCpLocWin,cCpLocLINUX,cCpLabel)
  // ... and for label contents, see above
 
   FCLOSE(handle)
@@ -1056,7 +1056,7 @@ LOCAL Pu  // Output file buffer
 
  // Codepage conversion for remarks
 
- REM  := hwlabel_translcp(REM,1,cCpLocWin,cCpLocLINUX,cCpLabel)
+ REM  := hwlabel_translcp(REM, 1,cCpLocWin,cCpLocLINUX,cCpLabel)
 
 
  MINH := {}    // Array with 16 elements
@@ -1082,7 +1082,7 @@ LOCAL Pu  // Output file buffer
 // + Codepage conversion
 INH := ""
 FOR I := 1 TO 16
- INH := INH + PADR( hwlabel_translcp(MINH[I],1,cCpLocWin,cCpLocLINUX,cCpLabel) ,60)
+ INH := INH + PADR( hwlabel_translcp(MINH[I], 1,cCpLocWin,cCpLocLINUX,cCpLabel) , 60)
 NEXT
 
 
@@ -1092,7 +1092,7 @@ NEXT
 
 Pu := Z1 + REM + I2BIN(NUMZ) + I2BIN(BR) + I2BIN(LM) + ;
   I2BIN(HZR) + I2BIN(VZR) + I2BIN(LPZ) + ;
-  PADR(INH,960) + Z2
+  PADR(INH, 960) + Z2
 
 IF LEN(Pu) != 1034
   hwg_MsgStop(aMsg[59],aMsg[51])  // 59 = "Error: Buffer size not 1034 bytes", 51 =  "Save Label File")
@@ -1106,7 +1106,7 @@ ENDIF
   ERASE &dateiname
  ENDIF
 
-  handle := FCREATE(dateiname,0)
+  handle := FCREATE(dateiname, 0)
 
   IF handle == -1
    // cannot create
@@ -1115,10 +1115,10 @@ ENDIF
    FCLOSE(handle)
    RETURN .F.
   ELSE
-   FSEEK(handle,0,0)
+   FSEEK(handle, 0, 0)
   ENDIF
 
-  FWRITE(handle,Pu,1034)
+  FWRITE(handle,Pu, 1034)
 
   FCLOSE(handle)
 
@@ -1227,7 +1227,7 @@ nwithtxtdes := 250              // width of desciptive text before edit box  20 
 
 // Copy parameter values into local variables
 
- REM   := hwg_GET_Helper(c_REM,60)
+ REM   := hwg_GET_Helper(c_REM, 60)
  NUMZ  := n_NUMZ
  BR    := n_BR
  LM    := n_LM
@@ -1241,74 +1241,74 @@ noldheigth := NUMZ
 
 
   INIT DIALOG frm_hwlabel_par TITLE aMsg[39] ;  // "Label parameters"
-    AT 439,33 SIZE 946,543 NOEXIT;
+    AT 439, 33 SIZE 946, 543 NOEXIT;
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 30,24 SAY oLabel1 CAPTION aMsg[40] + " :"  SIZE 208,22   // "Edit parameters for
-   @ 30,53 SAY oLabel2 CAPTION lblname  SIZE 530,22 ;         // "filename"
+   @ 30, 24 SAY oLabel1 CAPTION aMsg[40] + " :"  SIZE 208, 22   // "Edit parameters for
+   @ 30, 53 SAY oLabel2 CAPTION lblname  SIZE 530, 22 ;         // "filename"
         STYLE WS_BORDER
 
-   @ ngetlmr,84 GET oEditbox1 VAR REM SIZE 587,24 ;
+   @ ngetlmr, 84 GET oEditbox1 VAR REM SIZE 587, 24 ;
         STYLE WS_BORDER
-   @ 30,87 SAY oLabel3 CAPTION aMsg[16] + ":"  SIZE nwithtxtdes,22           // "Remarks"
-   @ 30,114 SAY oLabel11 CAPTION "(" + aMsg[41] + ")" SIZE 285,22   // "(Maximal 60 characters)"
+   @ 30, 87 SAY oLabel3 CAPTION aMsg[16] + ":"  SIZE nwithtxtdes, 22           // "Remarks"
+   @ 30, 114 SAY oLabel11 CAPTION "(" + aMsg[41] + ")" SIZE 285, 22   // "(Maximal 60 characters)"
 
-   @ ngetlmr2,151 SAY oLabel10 CAPTION "(" + aMsg[42] + ")" SIZE 250,22  // "(Range, default in brackets)"
+   @ ngetlmr2, 151 SAY oLabel10 CAPTION "(" + aMsg[42] + ")" SIZE 250, 22  // "(Range, default in brackets)"
                                                                               // Width: 316 ==> 250
 
 // Numerical parameters
-   @ ngetlmr,195 GET oEditbox2 VAR NUMZ SIZE 85,24 ;
+   @ ngetlmr, 195 GET oEditbox2 VAR NUMZ SIZE 85, 24 ;
         STYLE WS_BORDER ;
-        PICTURE "99" VALID {|| hwlabel_valid_num(NUMZ,1,16) }
-   @ ngetlmr2,195 SAY oLabel12 CAPTION "1..16 (5)"  SIZE 80,22
-   @ 30,196 SAY oLabel4 CAPTION aMsg[17] + ":" SIZE nwithtxtdes,22    // "Heigth of label:"
+        PICTURE "99" VALID {|| hwlabel_valid_num(NUMZ, 1, 16) }
+   @ ngetlmr2, 195 SAY oLabel12 CAPTION "1..16 (5)"  SIZE 80, 22
+   @ 30, 196 SAY oLabel4 CAPTION aMsg[17] + ":" SIZE nwithtxtdes, 22    // "Heigth of label:"
 
 
-   @ ngetlmr,230 GET oEditbox3 VAR BR SIZE 85,24 ;
+   @ ngetlmr, 230 GET oEditbox3 VAR BR SIZE 85, 24 ;
         STYLE WS_BORDER ;
-        PICTURE "999" VALID {|| hwlabel_valid_num(BR,1,120) }
+        PICTURE "999" VALID {|| hwlabel_valid_num(BR, 1, 120) }
 
-   @ 30,231 SAY oLabel5 CAPTION aMsg[18] + ":"  SIZE 121,22   // "Width of label:"
-   @ ngetlmr2,231 SAY oLabel13 CAPTION "1..120 (35)"  SIZE 87,22
+   @ 30, 231 SAY oLabel5 CAPTION aMsg[18] + ":"  SIZE 121, 22   // "Width of label:"
+   @ ngetlmr2, 231 SAY oLabel13 CAPTION "1..120 (35)"  SIZE 87, 22
 
 
-   @ ngetlmr,265 GET oEditbox4 VAR LM SIZE 85,24 ;
+   @ ngetlmr, 265 GET oEditbox4 VAR LM SIZE 85, 24 ;
         STYLE WS_BORDER ;
-        PICTURE "999" VALID {|| hwlabel_valid_num(LM,0,250) }
-   @ 30,266 SAY oLabel6 CAPTION aMsg[19] + ":"  SIZE 94,22    // "Left margin:"
-   @ ngetlmr2,266 SAY oLabel14 CAPTION "0..250 (0)"  SIZE 80,22
+        PICTURE "999" VALID {|| hwlabel_valid_num(LM, 0, 250) }
+   @ 30, 266 SAY oLabel6 CAPTION aMsg[19] + ":"  SIZE 94, 22    // "Left margin:"
+   @ ngetlmr2, 266 SAY oLabel14 CAPTION "0..250 (0)"  SIZE 80, 22
 
 
-   @ ngetlmr,300 GET oEditbox5 VAR HZR SIZE 85,24 ;
+   @ ngetlmr, 300 GET oEditbox5 VAR HZR SIZE 85, 24 ;
         STYLE WS_BORDER ;
-        PICTURE "99" VALID {|| hwlabel_valid_num(HZR,0,16) }
-   @ 30,301 SAY oLabel7 CAPTION aMsg[20] + ":" SIZE 163,22   // "Lines between labels:"
-   @ ngetlmr2,301 SAY oLabel15 CAPTION "0..16 (1)"  SIZE 80,22
+        PICTURE "99" VALID {|| hwlabel_valid_num(HZR, 0, 16) }
+   @ 30, 301 SAY oLabel7 CAPTION aMsg[20] + ":" SIZE 163, 22   // "Lines between labels:"
+   @ ngetlmr2, 301 SAY oLabel15 CAPTION "0..16 (1)"  SIZE 80, 22
 
 
-   @ ngetlmr,335 GET oEditbox6 VAR VZR SIZE 85,24 ;
+   @ ngetlmr, 335 GET oEditbox6 VAR VZR SIZE 85, 24 ;
         STYLE WS_BORDER ;
-        PICTURE "999" VALID {|| hwlabel_valid_num(VZR,0,120) }
-   @ 30,336 SAY oLabel8 CAPTION aMsg[21] + ":" SIZE 169,22   // "Spaces between labels:"
-   @ ngetlmr2,336 SAY oLabel16 CAPTION "0 ... 120 (0)"  SIZE 91,22
+        PICTURE "999" VALID {|| hwlabel_valid_num(VZR, 0, 120) }
+   @ 30, 336 SAY oLabel8 CAPTION aMsg[21] + ":" SIZE 169, 22   // "Spaces between labels:"
+   @ ngetlmr2, 336 SAY oLabel16 CAPTION "0 ... 120 (0)"  SIZE 91, 22
 
 
-   @ ngetlmr,370 GET oEditbox7 VAR LPZ SIZE 85,24 ;
+   @ ngetlmr, 370 GET oEditbox7 VAR LPZ SIZE 85, 24 ;
         STYLE WS_BORDER ;
-        PICTURE "9" VALID {|| hwlabel_valid_num(LPZ,1,5) }
-   @ 30,371 SAY oLabel9 CAPTION aMsg[22] + ":"  SIZE 166,22  // "Number of label across:"
-   @ ngetlmr2,371 SAY oLabel17 CAPTION "1 .. 5 (1)"  SIZE 89,22
+        PICTURE "9" VALID {|| hwlabel_valid_num(LPZ, 1, 5) }
+   @ 30, 371 SAY oLabel9 CAPTION aMsg[22] + ":"  SIZE 166, 22  // "Number of label across:"
+   @ ngetlmr2, 371 SAY oLabel17 CAPTION "1 .. 5 (1)"  SIZE 89, 22
 
 IF clangset != "English"
 // Additional english desription of parameters
-  @ 665,151 SAY oLabel18 CAPTION "English:"  SIZE 80,22
-  @ 600,196 SAY oLabel19 CAPTION "Heigth of label"  SIZE 166,22
-  @ 600,231 SAY oLabel20 CAPTION "Width of label"  SIZE 166,22
-  @ 600,266 SAY oLabel21 CAPTION "Left margin"  SIZE 166,22
-  @ 600,301 SAY oLabel22 CAPTION "Lines between labels"  SIZE 166,22
-  @ 600,336 SAY oLabel23 CAPTION "Spaces between labels"  SIZE 166,22
-  @ 600,371 SAY oLabel24 CAPTION "Number of label across"  SIZE 166,22
+  @ 665, 151 SAY oLabel18 CAPTION "English:"  SIZE 80, 22
+  @ 600, 196 SAY oLabel19 CAPTION "Heigth of label"  SIZE 166, 22
+  @ 600, 231 SAY oLabel20 CAPTION "Width of label"  SIZE 166, 22
+  @ 600, 266 SAY oLabel21 CAPTION "Left margin"  SIZE 166, 22
+  @ 600, 301 SAY oLabel22 CAPTION "Lines between labels"  SIZE 166, 22
+  @ 600, 336 SAY oLabel23 CAPTION "Spaces between labels"  SIZE 166, 22
+  @ 600, 371 SAY oLabel24 CAPTION "Number of label across"  SIZE 166, 22
 ENDIF
 
 // Buttons
@@ -1316,7 +1316,7 @@ ENDIF
 // If new heigt lower than the warning query appeared:
 // No  : Set height to prevous value and stay in parameter edit dialog
 // Yes : Accept new value and leave edit dialog
-   @ 34,415 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80,32 ;     // OK ("Continue")
+   @ 34, 415 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80, 32 ;     // OK ("Continue")
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK { | | ;
          IIF(NUMZ < noldheigth , IIF(hwlabel_warncont(), ;
@@ -1324,11 +1324,11 @@ ENDIF
            (  NUMZ := noldheigth  , oEditbox2:Value(NUMZ) )  ) ;
         ,  ( labbruch := .F. , frm_hwlabel_par:Close() ) ) }
 
-   @ 165,415 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80,32 ;    // "Cancel"
+   @ 165, 415 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80, 32 ;    // "Cancel"
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK { | | frm_hwlabel_par:Close() }
 
-   @ 336,415 BUTTON oButton4 CAPTION aMsg[54]    SIZE 169,32 ;  // "Set default values"
+   @ 336, 415 BUTTON oButton4 CAPTION aMsg[54]    SIZE 169, 32 ;  // "Set default values"
         STYLE WS_TABSTOP+BS_FLAT  ;
         ON CLICK { | | ;
          REM   := Space(60) , ;
@@ -1347,9 +1347,9 @@ ENDIF
          oEditbox7:Value(LPZ)   ;
         }
 
-   @ 668,415 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80,32 ;    // "Help"
+   @ 668, 415 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80, 32 ;    // "Help"
         STYLE WS_TABSTOP+BS_FLAT  ;
-        ON CLICK { | | hwlabel_Mainhlp(clangset,1) }
+        ON CLICK { | | hwlabel_Mainhlp(clangset, 1) }
 
 
    ACTIVATE DIALOG frm_hwlabel_par
@@ -1369,7 +1369,7 @@ ENDIF
 
 // Store parameters back to STATIC vars
 
- c_REM := PADR(REM,60)
+ c_REM := PADR(REM, 60)
  n_NUMZ := NUMZ
  n_BR := BR
  n_LM := LM
@@ -1638,142 +1638,142 @@ ENDIF
 
 // Copy label contents from static buffer to local varianles
 
-cCnt1 := PADR(c_INH1,60)
-cCnt2 := PADR(c_INH2,60)
-cCnt3 := PADR(c_INH3,60)
-cCnt4 := PADR(c_INH4,60)
-cCnt5 := PADR(c_INH5,60)
-cCnt6 := PADR(c_INH6,60)
-cCnt7 := PADR(c_INH7,60)
-cCnt8 := PADR(c_INH8,60)
-cCnt9 := PADR(c_INH9,60)
-cCnt10 := PADR(c_INH10,60)
-cCnt11 := PADR(c_INH11,60)
-cCnt12 := PADR(c_INH12,60)
-cCnt13 := PADR(c_INH13,60)
-cCnt14 := PADR(c_INH14,60)
-cCnt15 := PADR(c_INH15,60)
-cCnt16 := PADR(c_INH16,60)
+cCnt1 := PADR(c_INH1, 60)
+cCnt2 := PADR(c_INH2, 60)
+cCnt3 := PADR(c_INH3, 60)
+cCnt4 := PADR(c_INH4, 60)
+cCnt5 := PADR(c_INH5, 60)
+cCnt6 := PADR(c_INH6, 60)
+cCnt7 := PADR(c_INH7, 60)
+cCnt8 := PADR(c_INH8, 60)
+cCnt9 := PADR(c_INH9, 60)
+cCnt10 := PADR(c_INH10, 60)
+cCnt11 := PADR(c_INH11, 60)
+cCnt12 := PADR(c_INH12, 60)
+cCnt13 := PADR(c_INH13, 60)
+cCnt14 := PADR(c_INH14, 60)
+cCnt15 := PADR(c_INH15, 60)
+cCnt16 := PADR(c_INH16, 60)
 
 
 // The hwg_GET_Helper() for GTK
 
-cCnt1  :=  hwg_GET_Helper(cCnt1,60)
-cCnt2  :=  hwg_GET_Helper(cCnt2,60)
-cCnt3  :=  hwg_GET_Helper(cCnt3,60)
-cCnt4  :=  hwg_GET_Helper(cCnt4,60)
-cCnt5  :=  hwg_GET_Helper(cCnt5,60)
-cCnt6  :=  hwg_GET_Helper(cCnt6,60)
-cCnt7  :=  hwg_GET_Helper(cCnt7,60)
-cCnt8  :=  hwg_GET_Helper(cCnt8,60)
-cCnt9  :=  hwg_GET_Helper(cCnt9,60)
-cCnt10 :=  hwg_GET_Helper(cCnt10,60)
-cCnt11 :=  hwg_GET_Helper(cCnt11,60)
-cCnt12 :=  hwg_GET_Helper(cCnt12,60)
-cCnt13 :=  hwg_GET_Helper(cCnt13,60)
-cCnt14 :=  hwg_GET_Helper(cCnt14,60)
-cCnt15 :=  hwg_GET_Helper(cCnt15,60)
-cCnt16 :=  hwg_GET_Helper(cCnt16,60)
+cCnt1  :=  hwg_GET_Helper(cCnt1, 60)
+cCnt2  :=  hwg_GET_Helper(cCnt2, 60)
+cCnt3  :=  hwg_GET_Helper(cCnt3, 60)
+cCnt4  :=  hwg_GET_Helper(cCnt4, 60)
+cCnt5  :=  hwg_GET_Helper(cCnt5, 60)
+cCnt6  :=  hwg_GET_Helper(cCnt6, 60)
+cCnt7  :=  hwg_GET_Helper(cCnt7, 60)
+cCnt8  :=  hwg_GET_Helper(cCnt8, 60)
+cCnt9  :=  hwg_GET_Helper(cCnt9, 60)
+cCnt10 :=  hwg_GET_Helper(cCnt10, 60)
+cCnt11 :=  hwg_GET_Helper(cCnt11, 60)
+cCnt12 :=  hwg_GET_Helper(cCnt12, 60)
+cCnt13 :=  hwg_GET_Helper(cCnt13, 60)
+cCnt14 :=  hwg_GET_Helper(cCnt14, 60)
+cCnt15 :=  hwg_GET_Helper(cCnt15, 60)
+cCnt16 :=  hwg_GET_Helper(cCnt16, 60)
 
 
 
   INIT DIALOG frm_lbl_contents TITLE "Edit contents of label" ;
-    AT 443,0 SIZE 734,783 ;
+    AT 443, 0 SIZE 734, 783 ;
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 5,19 SAY oLabel1 CAPTION aMsg[33]  SIZE 707,22 ;   // "Contents of label"
+   @ 5, 19 SAY oLabel1 CAPTION aMsg[33]  SIZE 707, 22 ;   // "Contents of label"
         STYLE SS_CENTER
 
 IF nLines > 0
-   @ 110,60 GET oEditbox1 VAR cCnt1  SIZE 550,24 ;
+   @ 110, 60 GET oEditbox1 VAR cCnt1  SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,61 SAY oLabel2 CAPTION "1:"  SIZE 45,22
+   @ 50, 61 SAY oLabel2 CAPTION "1:"  SIZE 45, 22
 ENDIF
 IF nLines > 1
-   @ 110,95 GET oEditbox2 VAR cCnt2  SIZE 550,24 ;
+   @ 110, 95 GET oEditbox2 VAR cCnt2  SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,96 SAY oLabel3 CAPTION "2:"  SIZE 45,22
+   @ 50, 96 SAY oLabel3 CAPTION "2:"  SIZE 45, 22
 ENDIF
 IF nLines > 2
-   @ 110,130 GET oEditbox3 VAR cCnt3  SIZE 550,24 ;
+   @ 110, 130 GET oEditbox3 VAR cCnt3  SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,131 SAY oLabel4 CAPTION "3:"  SIZE 45,22
+   @ 50, 131 SAY oLabel4 CAPTION "3:"  SIZE 45, 22
 ENDIF
 IF nLines > 3
-   @ 110,165 GET oEditbox4 VAR cCnt4  SIZE 550,24 ;
+   @ 110, 165 GET oEditbox4 VAR cCnt4  SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,166 SAY oLabel5 CAPTION "4:"  SIZE 45,22
+   @ 50, 166 SAY oLabel5 CAPTION "4:"  SIZE 45, 22
 ENDIF
 IF nLines > 4
-   @ 110,200 GET oEditbox5 VAR cCnt5  SIZE 550,24 ;
+   @ 110, 200 GET oEditbox5 VAR cCnt5  SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,201 SAY oLabel6 CAPTION "5:"  SIZE 45,22
+   @ 50, 201 SAY oLabel6 CAPTION "5:"  SIZE 45, 22
 ENDIF
 IF nLines > 5
-   @ 110,235 GET oEditbox6 VAR cCnt6  SIZE 550,24 ;
+   @ 110, 235 GET oEditbox6 VAR cCnt6  SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,236 SAY oLabel7 CAPTION "6:"  SIZE 45,22
+   @ 50, 236 SAY oLabel7 CAPTION "6:"  SIZE 45, 22
 ENDIF
 IF nLines > 6
-   @ 110,271 GET oEditbox7 VAR cCnt7  SIZE 550,24 ;
+   @ 110, 271 GET oEditbox7 VAR cCnt7  SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,271 SAY oLabel8 CAPTION "7:"  SIZE 45,22
+   @ 50, 271 SAY oLabel8 CAPTION "7:"  SIZE 45, 22
 ENDIF
 IF nLines > 7
-   @ 110,305 GET oEditbox8 VAR cCnt8  SIZE 550,24 ;
+   @ 110, 305 GET oEditbox8 VAR cCnt8  SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,306 SAY oLabel9 CAPTION "8:"  SIZE 45,22
+   @ 50, 306 SAY oLabel9 CAPTION "8:"  SIZE 45, 22
 ENDIF
 IF nLines > 8
-   @ 110,340 GET oEditbox9 VAR cCnt9  SIZE 550,24 ;
+   @ 110, 340 GET oEditbox9 VAR cCnt9  SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,341 SAY oLabel10 CAPTION "9:"  SIZE 45,22
+   @ 50, 341 SAY oLabel10 CAPTION "9:"  SIZE 45, 22
 ENDIF
 IF nLines > 9
-   @ 110,375 GET oEditbox10 VAR cCnt10 SIZE 550,24 ;
+   @ 110, 375 GET oEditbox10 VAR cCnt10 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,376 SAY oLabel11 CAPTION "10:"  SIZE 45,22
+   @ 50, 376 SAY oLabel11 CAPTION "10:"  SIZE 45, 22
 ENDIF
 IF nLines > 10
-   @ 110,410 GET oEditbox11 VAR cCnt11 SIZE 550,24 ;
+   @ 110, 410 GET oEditbox11 VAR cCnt11 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,411 SAY oLabel12 CAPTION "11:"  SIZE 45,22
+   @ 50, 411 SAY oLabel12 CAPTION "11:"  SIZE 45, 22
 ENDIF
 IF nLines > 11
-   @ 110,445 GET oEditbox12 VAR cCnt12 SIZE 550,24 ;
+   @ 110, 445 GET oEditbox12 VAR cCnt12 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,446 SAY oLabel13 CAPTION "12:"  SIZE 45,22
+   @ 50, 446 SAY oLabel13 CAPTION "12:"  SIZE 45, 22
 ENDIF
 IF nLines > 12
-   @ 110,480 GET oEditbox13 VAR cCnt13 SIZE 550,24 ;
+   @ 110, 480 GET oEditbox13 VAR cCnt13 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,481 SAY oLabel14 CAPTION "13:"  SIZE 45,22
+   @ 50, 481 SAY oLabel14 CAPTION "13:"  SIZE 45, 22
 ENDIF
 IF nLines > 13
-   @ 110,515 GET oEditbox14 VAR cCnt14 SIZE 550,24 ;
+   @ 110, 515 GET oEditbox14 VAR cCnt14 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,516 SAY oLabel15 CAPTION "14:"  SIZE 45,22
+   @ 50, 516 SAY oLabel15 CAPTION "14:"  SIZE 45, 22
 ENDIF
 IF nLines > 14
-   @ 110,550 GET oEditbox15 VAR cCnt15 SIZE 550,24 ;
+   @ 110, 550 GET oEditbox15 VAR cCnt15 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,551 SAY oLabel16 CAPTION "15:"  SIZE 45,22
+   @ 50, 551 SAY oLabel16 CAPTION "15:"  SIZE 45, 22
 ENDIF
 IF nLines > 15
-   @ 110,585 GET oEditbox16 VAR cCnt16 SIZE 550,24 ;
+   @ 110, 585 GET oEditbox16 VAR cCnt16 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50,586 SAY oLabel17 CAPTION "16:"  SIZE 45,22
+   @ 50, 586 SAY oLabel17 CAPTION "16:"  SIZE 45, 22
 ENDIF
 
 // --- Buttons ---
-   @ 528,640 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80,32 ;  // "Help"
+   @ 528, 640 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80, 32 ;  // "Help"
         STYLE WS_TABSTOP+BS_FLAT ;
-                ON CLICK {|| hwlabel_Mainhlp(clangset,2) }
-   @ 112,641 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80,32 ;  // "OK"
+                ON CLICK {|| hwlabel_Mainhlp(clangset, 2) }
+   @ 112, 641 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80, 32 ;  // "OK"
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| bCancel := .F. , frm_lbl_contents:Close() }
-   @ 245,643 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80,32 ; // "Cancel"
+   @ 245, 643 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80, 32 ; // "Cancel"
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| frm_lbl_contents:Close() }
 
@@ -1781,22 +1781,22 @@ ENDIF
 
    // Trim edited fields
 
-   cCnt1 := PADR(cCnt1,60)
-   cCnt2 := PADR(cCnt2,60)
-   cCnt3 := PADR(cCnt3,60)
-   cCnt4 := PADR(cCnt4,60)
-   cCnt5 := PADR(cCnt5,60)
-   cCnt6 := PADR(cCnt6,60)
-   cCnt7 := PADR(cCnt7,60)
-   cCnt8 := PADR(cCnt8,60)
-   cCnt9 := PADR(cCnt9,60)
-   cCnt10 := PADR(cCnt10,60)
-   cCnt11 := PADR(cCnt11,60)
-   cCnt12 := PADR(cCnt12,60)
-   cCnt13 := PADR(cCnt13,60)
-   cCnt14 := PADR(cCnt14,60)
-   cCnt15 := PADR(cCnt15,60)
-   cCnt16 := PADR(cCnt16,60)
+   cCnt1 := PADR(cCnt1, 60)
+   cCnt2 := PADR(cCnt2, 60)
+   cCnt3 := PADR(cCnt3, 60)
+   cCnt4 := PADR(cCnt4, 60)
+   cCnt5 := PADR(cCnt5, 60)
+   cCnt6 := PADR(cCnt6, 60)
+   cCnt7 := PADR(cCnt7, 60)
+   cCnt8 := PADR(cCnt8, 60)
+   cCnt9 := PADR(cCnt9, 60)
+   cCnt10 := PADR(cCnt10, 60)
+   cCnt11 := PADR(cCnt11, 60)
+   cCnt12 := PADR(cCnt12, 60)
+   cCnt13 := PADR(cCnt13, 60)
+   cCnt14 := PADR(cCnt14, 60)
+   cCnt15 := PADR(cCnt15, 60)
+   cCnt16 := PADR(cCnt16, 60)
 
 
    IF .NOT. bCancel
@@ -2825,18 +2825,18 @@ yofs := nOffset + 120
 // Dialog size  : 565  : ==> yofs + 60
 //
   INIT DIALOG oDlgcCombo1 TITLE cTitle ;
-    AT 578,79 SIZE 516, yofs + 80;
+    AT 578, 79 SIZE 516, yofs + 80;
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 67,44 SAY oLabel1 CAPTION cLabel SIZE 378,22 ;
+   @ 67, 44 SAY oLabel1 CAPTION cLabel SIZE 378, 22 ;
         STYLE SS_CENTER
-   @ 66,84 GET COMBOBOX oCombobox1 VAR nType ITEMS aITEMS SIZE 378,96
-   @ 58 , yofs  BUTTON oButton1 CAPTION cOK SIZE 80,32 ;
+   @ 66, 84 GET COMBOBOX oCombobox1 VAR nType ITEMS aITEMS SIZE 378, 96
+   @ 58 , yofs  BUTTON oButton1 CAPTION cOK SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || nRetu := nType , bcancel := .F. , oDlgcCombo1:Close() }
-   @ 175, yofs  BUTTON oButton2 CAPTION cCancel SIZE 80,32 ;
+   @ 175, yofs  BUTTON oButton2 CAPTION cCancel SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || oDlgcCombo1:Close() }
-//   @ 375, yofs  BUTTON oButton3 CAPTION cHelp SIZE 80,32 ;
+//   @ 375, yofs  BUTTON oButton3 CAPTION cHelp SIZE 80, 32 ;
 //        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || HELP( cHTopic ,PROCLINE(), cHVar ) }
 
    ACTIVATE DIALOG oDlgcCombo1
@@ -2917,14 +2917,14 @@ LOCAL handle, puffer, eBlock, dateiname
 
 IF FILE(dateiname)
 // Read from file
- handle := FOPEN(dateiname,0)     // FO_READ
+ handle := FOPEN(dateiname, 0)     // FO_READ
  IF FERROR() != 0
     // RETURN ""
     // File error: return the default value
     FCLOSE(handle)
     RETURN clangdef
   ENDIF
- // FSEEK(handle,0,2)
+ // FSEEK(handle, 0, 2)
   puffer := LANG_READ_TEXT(handle)  // 1. Satz lesen, read first record
   // hwg_msginfo("puffer=" + puffer,"Debug")
   FCLOSE(handle)
@@ -2985,13 +2985,13 @@ ENDIF
 
 // Write to file
  IF .NOT. FILE(dateiname)
-   dat_handle := FCREATE(dateiname,0)  // FC_NORMAL
+   dat_handle := FCREATE(dateiname, 0)  // FC_NORMAL
  ELSE
    Erase &dateiname
-   dat_handle := FCREATE(dateiname,0)
+   dat_handle := FCREATE(dateiname, 0)
  ENDIF
  IF dat_handle != -1
-  FSEEK (dat_handle,0,2)
+  FSEEK (dat_handle, 0, 2)
  ENDIF
  // Write record
  Puffer := clang + CHR(13) + CHR(10)

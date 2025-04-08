@@ -133,7 +133,7 @@ FUNCTION CutPath( fname )
 FUNCTION AddPath( fname, cPath )
 
    IF Empty(FilePath( fname )) .AND. !Empty(cPath)
-      IF !( Right( cPath,1 ) $ "\/" )
+      IF !( Right( cPath, 1 ) $ "\/" )
 #ifndef __PLATFORM__WINDOWS
          cPath += "/"
 #else

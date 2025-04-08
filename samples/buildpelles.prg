@@ -50,84 +50,84 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
    PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -12
    
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "HwGUI Build For Pelles C Compiler" ;
-        AT 213,195 SIZE 513,265  font oFont
+        AT 213, 195 SIZE 513, 265  font oFont
 
-   @ 14,16 TAB oTAB ITEMS {} SIZE 391,242
+   @ 14, 16 TAB oTAB ITEMS {} SIZE 391, 242
 
    BEGIN PAGE "Config" Of oTAB
-      @  20,44 SAY oLabel1 CAPTION "Exe Name" SIZE 80,22  
-      @ 136,44 GET oExeName VAR vGt1 ID ID_EXENAME  SIZE 206,24  
+      @  20, 44 SAY oLabel1 CAPTION "Exe Name" SIZE 80, 22
+      @ 136, 44 GET oExeName VAR vGt1 ID ID_EXENAME  SIZE 206, 24
 
-      @  20,74 SAY oLabel2 CAPTION "Lib Folder" SIZE 80,22  
-      @ 136,74 GET oLibFolder  VAR vGt2 ID ID_LIBFOLDER SIZE 234,24  
+      @  20, 74 SAY oLabel2 CAPTION "Lib Folder" SIZE 80, 22
+      @ 136, 74 GET oLibFolder  VAR vGt2 ID ID_LIBFOLDER SIZE 234, 24
 
-      @  20,104 SAY oLabel3 CAPTION "Include Folder" SIZE 105,22  
-      @ 136,104 GET oIncFolder VAR vGt3 ID ID_INCFOLDER   SIZE 234,24  
+      @  20, 104 SAY oLabel3 CAPTION "Include Folder" SIZE 105, 22
+      @ 136, 104 GET oIncFolder VAR vGt3 ID ID_INCFOLDER   SIZE 234, 24
 
-      @  20,134 SAY oLabel4 CAPTION "PRG Flags" SIZE 80,22  
-      @ 136,134 GET oPrgFlag VAR vGt4 ID ID_PRGFLAG  SIZE 230,24  
+      @  20, 134 SAY oLabel4 CAPTION "PRG Flags" SIZE 80, 22
+      @ 136, 134 GET oPrgFlag VAR vGt4 ID ID_PRGFLAG  SIZE 230, 24
 
-      @  20,164 SAY oLabel5 CAPTION "C Flags" SIZE 80,22  
-      @ 136,164 GET oCFlag VAR vGt5  ID ID_CFLAG SIZE 230,24  
+      @  20, 164 SAY oLabel5 CAPTION "C Flags" SIZE 80, 22
+      @ 136, 164 GET oCFlag VAR vGt5  ID ID_CFLAG SIZE 230, 24
  
-      @  20,194 SAY oLabel6 CAPTION "Main PRG" SIZE 80,22  
-      @ 136,194 GET oMainPrg VAR vGt6 ID ID_PRGMAIN  SIZE 206,24  
-      @ 347,194 OWNERBUTTON    SIZE 24,24   ;
+      @  20, 194 SAY oLabel6 CAPTION "Main PRG" SIZE 80, 22
+      @ 136, 194 GET oMainPrg VAR vGt6 ID ID_PRGMAIN  SIZE 206, 24
+      @ 347, 194 OWNERBUTTON    SIZE 24, 24   ;
           ON CLICK {||searchFileName("xBase Files *.prg ", oMainPrg, "*.prg")};//       FLAT;
-          TEXT "..." ;//BITMAP "SEARCH" FROM RESOURCE TRANSPARENT COORDINATES 0,0,0,0 ;
+          TEXT "..." ;//BITMAP "SEARCH" FROM RESOURCE TRANSPARENT COORDINATES 0, 0, 0, 0 ;
           TOOLTIP "Search main file" 
 
    END PAGE of oTAB
    BEGIN PAGE "Prg (Files)" of oTAB
-      @ 21,29 BROWSE oBrowse1 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse1,"*.prg")};
-              STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341,170  
+      @ 21, 29 BROWSE oBrowse1 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse1,"*.prg")};
+              STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse1,aFiles1)
       obrowse1:acolumns[1]:heading := "File Names"
       obrowse1:acolumns[1]:length := 50
       oBrowse1:bcolorSel := 0x800080
-      oBrowse1:ofont := HFont():Add( "Arial",0,-12 )
-      @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse1, "*.prg")}  
-      @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse1:aArray, oBrowse1:nCurrent),oBrowse1:Refresh()}
+      oBrowse1:ofont := HFont():Add( "Arial", 0,-12 )
+      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse1, "*.prg")}
+      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||Adel(oBrowse1:aArray, oBrowse1:nCurrent),oBrowse1:Refresh()}
 
    END PAGE of oTAB
    BEGIN PAGE "C (Files)" of oTAB
-      @ 21,29 BROWSE oBrowse2 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse2, "*.c")};
-             STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341,170  
+      @ 21, 29 BROWSE oBrowse2 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse2, "*.c")};
+             STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse2,aFiles2)
       obrowse2:acolumns[1]:heading := "File Names"
       obrowse2:acolumns[1]:length := 50
       oBrowse2:bcolorSel := 0x800080
-      oBrowse2:ofont := HFont():Add( "Arial",0,-12 )
-      @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse2, "*.c")}  
-      @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse1:aArray, oBrowse2:nCurrent),oBrowse2:Refresh()}
+      oBrowse2:ofont := HFont():Add( "Arial", 0,-12 )
+      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse2, "*.c")}
+      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||Adel(oBrowse1:aArray, oBrowse2:nCurrent),oBrowse2:Refresh()}
    END PAGE of oTAB
    BEGIN PAGE "Lib (Files)" of oTAB
-      @ 21,29 BROWSE oBrowse3 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse3, "*.lib")};
-               STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341,170  
+      @ 21, 29 BROWSE oBrowse3 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse3, "*.lib")};
+               STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse3,aFiles3)
       obrowse3:acolumns[1]:heading := "File Names"
       obrowse3:acolumns[1]:length := 50
       oBrowse3:bcolorSel := 0x800080
-      oBrowse3:ofont := HFont():Add( "Arial",0,-12 )
-      @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse3, "*.lib")}  
-      @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse3:aArray, oBrowse3:nCurrent),oBrowse3:Refresh()}
+      oBrowse3:ofont := HFont():Add( "Arial", 0,-12 )
+      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse3, "*.lib")}
+      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||Adel(oBrowse3:aArray, oBrowse3:nCurrent),oBrowse3:Refresh()}
    END PAGE of oTAB
    BEGIN PAGE "Resource (Files)" of oTAB
-      @ 21,29 BROWSE oBrowse4 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse3, "*.rc")};
-              STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341,170  
+      @ 21, 29 BROWSE oBrowse4 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse3, "*.rc")};
+              STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse4,aFiles4)
       obrowse4:acolumns[1]:heading := "File Names"
       obrowse4:acolumns[1]:length := 50
       oBrowse4:bcolorSel := 0x800080
-      oBrowse4:ofont := HFont():Add( "Arial",0,-12 )
-      @ 10, 205 BUTTON "Add"     SIZE 60,25  on click {||SearchFile(oBrowse4, "*.rc")}  
-      @ 70, 205 BUTTON "Delete"  SIZE 60,25  on click {||Adel(oBrowse4:aArray, oBrowse4:nCurrent),oBrowse4:Refresh()}
+      oBrowse4:ofont := HFont():Add( "Arial", 0,-12 )
+      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse4, "*.rc")}
+      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||Adel(oBrowse4:aArray, oBrowse4:nCurrent),oBrowse4:Refresh()}
    END PAGE of oTAB
    
-   @ 419, 20 BUTTON oButton1 CAPTION "Build" on Click {||BuildApp()} SIZE 78,52  
-   @ 419, 80 BUTTON oButton2 CAPTION "Exit" on Click {||hwg_EndDialog()}  SIZE 78,52  
-   @ 419,140 BUTTON oButton3 CAPTION "Open" on Click {||ReadBuildFile()}  SIZE 78,52  
-   @ 419,200 BUTTON oButton4 CAPTION "Save" on Click {||SaveBuildFile()}  SIZE 78,52  
+   @ 419, 20 BUTTON oButton1 CAPTION "Build" on Click {||BuildApp()} SIZE 78, 52
+   @ 419, 80 BUTTON oButton2 CAPTION "Exit" on Click {||hwg_EndDialog()}  SIZE 78, 52
+   @ 419, 140 BUTTON oButton3 CAPTION "Open" on Click {||ReadBuildFile()}  SIZE 78, 52
+   @ 419, 200 BUTTON oButton4 CAPTION "Save" on Click {||SaveBuildFile()}  SIZE 78, 52
 
    ACTIVATE DIALOG oDlg
 RETURN NIL
@@ -324,7 +324,7 @@ voResFiles :=oBrowse4:aArray
 
 fwrite(oArq,"@echo off"+CRF)
 
-oName:=Substr(voPrgMain,1,Len(voPrgMain)-4)
+oName:=Substr(voPrgMain, 1,Len(voPrgMain)-4)
 lName:=""
 for i:=1 to Len(oName)
    if Substr(oName, -i, 1)="\"
@@ -344,7 +344,7 @@ if Len(voPrgFiles)>0
    
       if !empty(voPrgFiles[i])
  
-         oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
+         oName:=Substr(voPrgFiles[i], 1,Len(voPrgFiles[i])-4)
          lName:=""
          for g:=1 to Len(oName)
             if Substr(oName, -g, 1)="\"
@@ -403,7 +403,7 @@ fwrite(oArq,"ECHO "+vPelles+"\LIB\uuid.lib >> make.tmp"+CRF)
 fwrite(oArq,"ECHO "+vPelles+"\LIB\portio.lib >> make.tmp"+CRF)
 fwrite(oArq,"IF EXIST "+voExeName+".res echo "+voExeName+".res  >> make.tmp"+CRF)
 
-oName:=Substr(voPrgMain,1,Len(voPrgMain)-4) 
+oName:=Substr(voPrgMain, 1,Len(voPrgMain)-4) 
 
 fwrite(oArq,vHarbour+"\BIN\HARBOUR "+voPrgMain+;
 " -o"+oName+;
@@ -414,7 +414,7 @@ if Len(voPrgFiles)>0
 for i:=1 to Len(voPrgFiles)
     if !empty(voPrgFiles[i])
  
-       oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4) 
+       oName:=Substr(voPrgFiles[i], 1,Len(voPrgFiles[i])-4) 
        fwrite(oArq,vHarbour+"\BIN\HARBOUR "+voPrgFiles[i]+;
        " -o"+oName+;
        " -i"+vPelles+"\INCLUDE;"+vHarbour+"\INCLUDE;"+vHwGUI+"\INCLUDE"+iif(!empty(voIncFolder),";","")+voIncFolder+" "+voPrgFlag+" -n -q0 -es2 -gc0"+CRF)
@@ -422,14 +422,14 @@ for i:=1 to Len(voPrgFiles)
 Next
 endif
 
-oName:=Substr(voPrgMain,1,Len(voPrgMain)-4)
+oName:=Substr(voPrgMain, 1,Len(voPrgMain)-4)
 fwrite(oArq,vPelles+"\bin\pocc "+oName+".c "+voCFlag+" /Ze /D"+chr(34)+"NEED_DUMMY_RETURN"+chr(34)+" /D"+chr(34)+"__XCC__"+chr(34)+" /I"+chr(34)+"INCLUDE"+chr(34)+" /I"+chr(34)+vHarbour+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\WIN"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\MSVC"+chr(34)+" /D"+chr(34)+"HB_STATIC_STARTUP"+chr(34)+" /c"+CRF)
 
 
 if Len(voPrgFiles)>0
 for i:=1 to Len(voPrgFiles)
    if !empty(voPrgFiles[i])
-      oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
+      oName:=Substr(voPrgFiles[i], 1,Len(voPrgFiles[i])-4)
       fwrite(oArq,vPelles+"\bin\pocc "+oName+".c "+voCFlag+" /Ze /D"+chr(34)+"NEED_DUMMY_RETURN"+chr(34)+" /D"+chr(34)+"__XCC__"+chr(34)+" /I"+chr(34)+"INCLUDE"+chr(34)+" /I"+chr(34)+vHarbour+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\WIN"+chr(34)+" /I"+chr(34)+vPelles+"\INCLUDE\MSVC"+chr(34)+" /D"+chr(34)+"HB_STATIC_STARTUP"+chr(34)+" /c"+CRF)
   endif
 next
@@ -459,7 +459,7 @@ EndIf
 fwrite(oArq,vPelles+"\bin\POLINK /LIBPATH:"+vPelles+"\lib /OUT:"+voExeName+".EXE /MACHINE:IX86 /OPT:WIN98 /SUBSYSTEM:WINDOWS /FORCE:MULTIPLE @make.tmp >error.log"+CRF)
 fwrite(oArq,"DEL make.tmp"+CRF)
 
-oName:=Substr(voPrgMain,1,Len(voPrgMain)-4)
+oName:=Substr(voPrgMain, 1,Len(voPrgMain)-4)
 /*
 fwrite(oArq,"Del "+oName+".c "+CRF)
 fwrite(oArq,"Del "+oName+".map"+CRF)
@@ -467,7 +467,7 @@ fwrite(oArq,"Del "+oName+".obj"+CRF)
 
 for i:=1 to Len(voPrgFiles)
    if !empty(voPrgFiles[i])
-      oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
+      oName:=Substr(voPrgFiles[i], 1,Len(voPrgFiles[i])-4)
       fwrite(oArq,"Del "+oName+".c "+CRF)
       fwrite(oArq,"Del "+oName+".map"+CRF)
       fwrite(oArq,"Del "+oName+".obj"+CRF)
@@ -561,7 +561,7 @@ fwrite(oArq,"   $(QHTM_LIB)"+CRF+CRF)
 
  
 fwrite(oArq,"FILE_OBJS = \"+CRF)
-oName:=Substr(voPrgMain,1,Len(voPrgMain)-4)
+oName:=Substr(voPrgMain, 1,Len(voPrgMain)-4)
 /*lName:=""
 for i:=1 to Len(oName)
    if Substr(oName, -i, 1)="\"
@@ -582,7 +582,7 @@ if Len(voPrgFiles)>0
    
       if !empty(voPrgFiles[i])
  
-         oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4)
+         oName:=Substr(voPrgFiles[i], 1,Len(voPrgFiles[i])-4)
          lName:=""
 /*         for g:=1 to Len(oName)
             if Substr(oName, -g, 1)="\"
@@ -613,7 +613,7 @@ fwrite(oArq,voExeName+ ": $(FILE_OBJS)"+CRF)
 fwrite(oArq,"   $(LIB_EXE) /out:$@ $** "+CRF+CRF)
 
 
-oName:=Substr(voPrgMain,1,Len(voPrgMain)-4) 
+oName:=Substr(voPrgMain, 1,Len(voPrgMain)-4) 
 
 fwrite(oArq,oName+".c : "+voPrgMain+CRF)
 fwrite(oArq,"   $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@"+CRF+CRF)
@@ -622,20 +622,20 @@ if Len(voPrgFiles)>0
 for i:=1 to Len(voPrgFiles)
     if !empty(voPrgFiles[i])
  
-       oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4) 
+       oName:=Substr(voPrgFiles[i], 1,Len(voPrgFiles[i])-4) 
        fwrite(oArq,oName+".c : "+voPrgFiles[i]+CRF)
        fwrite(oArq,"   $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@"+CRF+CRF)
    ENDIF    
 Next
 endif
-oName:=Substr(voPrgMain,1,Len(voPrgMain)-4) 
+oName:=Substr(voPrgMain, 1,Len(voPrgMain)-4) 
 fwrite(oArq,oName+".obj : "+oName+".c"+CRF)
 fwrite(oArq,"   $(CC_EXE) $(CFLAGS) /Fo$@ $** "+CRF+CRF)
 
 if Len(voPrgFiles)>0 
 for i:=1 to Len(voPrgFiles)
     if !empty(voPrgFiles[i])
-       oName:=Substr(voPrgFiles[i],1,Len(voPrgFiles[i])-4) 
+       oName:=Substr(voPrgFiles[i], 1,Len(voPrgFiles[i])-4) 
        fwrite(oArq,oName+".obj : "+oName+".c"+CRF)
        fwrite(oArq, "   $(CC_EXE) $(CFLAGS) /Fo$@ $** "+CRF+CRF)
    ENDIF    
@@ -649,7 +649,7 @@ for i:=1 to Len(voCFiles)
        if !empty(oIncFolder)
           oInc:="/I"+chr(34)+voIncFolder+chr(34)
        endif
-       oName:=Substr(voCFiles[i],1,Len(voCFiles[i])-4)
+       oName:=Substr(voCFiles[i], 1,Len(voCFiles[i])-4)
 
        fwrite(oArq,oName+".obj : "+voCFiles[i]+CRF)
        fwrite(oArq, "   $(CC_EXE) $(CFLAGS) /Fo$@ $** "+CRF)

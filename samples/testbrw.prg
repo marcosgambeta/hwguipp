@@ -29,7 +29,7 @@ Function Main
 Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" ;
-     AT 200,0 SIZE 400,150
+     AT 200, 0 SIZE 400, 150
 
    * GTK: Submenus required, otherwise only display "Activate"
    MENU OF oMainWindow
@@ -47,9 +47,9 @@ Return NIL
 Function DlgGet
 LOCAL oBmp
 Local oModDlg, oBrw1, oBrw2
-Local aSample1 := { {"Alex",17,2500}, {"Victor",42,2200}, {"John",31,1800}, ;
-   {"Sebastian",35,2000}, {"Mike",54,2600}, {"Sardanapal",22,2350}, {"Sergey",30,2800}, {"Petr",42,2450} }
-Local aSample2 := { {.t.,"Line 1",10}, {.t.,"Line 2",22}, {.f.,"Line 3",40} }
+Local aSample1 := { {"Alex", 17, 2500}, {"Victor", 42, 2200}, {"John", 31, 1800}, ;
+   {"Sebastian", 35, 2000}, {"Mike", 54, 2600}, {"Sardanapal", 22, 2350}, {"Sergey", 30, 2800}, {"Petr", 42, 2450} }
+Local aSample2 := { {.t.,"Line 1", 10}, {.t.,"Line 2", 22}, {.f.,"Line 3", 40} }
 Local cValTrue
 
    INIT DIALOG oModDlg TITLE "About" AT 190, 10 SIZE 600, 320
@@ -81,8 +81,8 @@ Local cValTrue
    oBrw2:bcolorSel := oBrw2:htbColor := 0xeeeeee
    oBrw2:tcolorSel := 0xff0000
 
-   @ 210,260 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} ;
-       SIZE 180,36 FLAT                                ;
+   @ 210, 260 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} ;
+       SIZE 180, 36 FLAT                                ;
        TEXT "Close" COLOR 0x0000FF
 
    ACTIVATE DIALOG oModDlg

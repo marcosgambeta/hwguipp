@@ -50,7 +50,7 @@ FUNCTION RdView( fname )
             ENDIF
             numdriv := n
 #if defined( RDD_ADS )
-            AdsSetFileType( Iif( n == 1,2,Iif( n == 2,1,3 ) ) )
+            AdsSetFileType( Iif( n == 1, 2,Iif( n == 2, 1, 3 ) ) )
 #elif !defined( RDD_LETO )
             rddSetDefault( aDrivers[n] )
 #endif
@@ -80,13 +80,13 @@ FUNCTION RdView( fname )
          hwg_MsgStop( "View file error" )
       ELSE
          FOR i := 1 TO Len( aRel )
-            dbSelectArea( aFiles[aRel[i,1],AF_ALIAS] )
-            dbSetRelation( aRel[i,2], &( "{||" + aRel[i,3] + "}" ), aRel[i,3] )
+            dbSelectArea( aFiles[aRel[i, 1],AF_ALIAS] )
+            dbSetRelation( aRel[i, 2], &( "{||" + aRel[i, 3] + "}" ), aRel[i, 3] )
          NEXT
 
          FOR i := 1 TO Len( aFlt )
-            dbSelectArea( aFiles[aFlt[i,1],AF_ALIAS] )
-            F_Filter( aFiles[aFlt[i,1],AF_BRW], aFlt[i,2] )
+            dbSelectArea( aFiles[aFlt[i, 1],AF_ALIAS] )
+            F_Filter( aFiles[aFlt[i, 1],AF_BRW], aFlt[i, 2] )
             UpdBrowse()
          NEXT
       ENDIF

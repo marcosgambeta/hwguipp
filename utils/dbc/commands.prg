@@ -33,15 +33,15 @@ FUNCTION C_REPL
       SIZE 320, 250   ;
       FONT oMainFont
 
-   @ 10,10 GET COMBOBOX nField ITEMS af SIZE 120, 150
+   @ 10, 10 GET COMBOBOX nField ITEMS af SIZE 120, 150
 
-   @ 140,10 GROUPBOX "" SIZE 160, 80
+   @ 140, 10 GROUPBOX "" SIZE 160, 80
    GET RADIOGROUP r1
-   @ 150,24 RADIOBUTTON "All" SIZE 60, 20 
-   @ 150,44 RADIOBUTTON "Next" SIZE 60, 20 
-   @ 150,64 RADIOBUTTON "Rest" SIZE 60, 20 
+   @ 150, 24 RADIOBUTTON "All" SIZE 60, 20
+   @ 150, 44 RADIOBUTTON "Next" SIZE 60, 20
+   @ 150, 64 RADIOBUTTON "Rest" SIZE 60, 20
    END RADIOGROUP
-   @ 210,44 GET nNext SIZE 50, 24 PICTURE "9999"
+   @ 210, 44 GET nNext SIZE 50, 24 PICTURE "9999"
 
    @ 10, 80 SAY "with value: " SIZE 100, 22
    @ 10, 104 GET cVal SIZE 300, 24
@@ -115,13 +115,13 @@ FUNCTION C_4( nAct )
       Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
    ENDIF
 
-   @ 20,40 GROUPBOX "" SIZE 160, 80
+   @ 20, 40 GROUPBOX "" SIZE 160, 80
    GET RADIOGROUP r1
-   @ 30,50 RADIOBUTTON "All" SIZE 60, 20 
-   @ 30,70 RADIOBUTTON "Next" SIZE 60, 20 
-   @ 30,90 RADIOBUTTON "Rest" SIZE 60, 20 
+   @ 30, 50 RADIOBUTTON "All" SIZE 60, 20
+   @ 30, 70 RADIOBUTTON "Next" SIZE 60, 20
+   @ 30, 90 RADIOBUTTON "Rest" SIZE 60, 20
    END RADIOGROUP
-   @ 96,70 GET nNext SIZE 50, 24 PICTURE "9999"
+   @ 96, 70 GET nNext SIZE 50, 24 PICTURE "9999"
 
    @ 10, 130 SAY "For: " SIZE 60, 22
    @ 10, 152 GET cFor SIZE 300, 24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
@@ -239,34 +239,34 @@ FUNCTION C_APPEND()
       FONT oMainFont ON INIT bBtnDis
 
 #if defined( RDD_ADS ) .OR. defined( RDD_LETO )
-   @ 10,10 SAY "Server " SIZE 60,22 STYLE SS_RIGHT
-   @ 70,10 GET CHECKBOX lRemote CAPTION "Remote:" SIZE 80, 20 ON CLICK bBtnDis
-   @ 150,10 GET cPath SIZE 240,24
+   @ 10, 10 SAY "Server " SIZE 60, 22 STYLE SS_RIGHT
+   @ 70, 10 GET CHECKBOX lRemote CAPTION "Remote:" SIZE 80, 20 ON CLICK bBtnDis
+   @ 150, 10 GET cPath SIZE 240, 24
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
 #endif
 
-   @ 10,34 SAY "File name: " SIZE 80,22 STYLE SS_RIGHT
-   @ 90,34 GET cFile SIZE 220,24 PICTURE "@S128" STYLE ES_AUTOHSCROLL
+   @ 10, 34 SAY "File name: " SIZE 80, 22 STYLE SS_RIGHT
+   @ 90, 34 GET cFile SIZE 220, 24 PICTURE "@S128" STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
-   @ 310,34 BUTTON oBtnFile CAPTION "Browse" SIZE 80, 26 ON CLICK bFileBtn ON SIZE ANCHOR_RIGHTABS
+   @ 310, 34 BUTTON oBtnFile CAPTION "Browse" SIZE 80, 26 ON CLICK bFileBtn ON SIZE ANCHOR_RIGHTABS
 
-   @ 10,60 SAY "Fields: " SIZE 80,22 STYLE SS_RIGHT
-   @ 90,60 GET cFields SIZE 220,24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
+   @ 10, 60 SAY "Fields: " SIZE 80, 22 STYLE SS_RIGHT
+   @ 90, 60 GET cFields SIZE 220, 24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
 
    @ 10, 92 GROUPBOX "" SIZE 168, 172
    GET RADIOGROUP r1
-   @ 20,104 RADIOBUTTON "Dbf" SIZE 90, 20
-   @ 20,128 RADIOBUTTON "Sdf" SIZE 90, 20
-   @ 20,152 RADIOBUTTON "Delimited with" SIZE 112, 20 ON CLICK {||oDelim:Show()}
-   @ 20,176 RADIOBUTTON "Csv" SIZE 50, 20 ON CLICK {||oDelim2:Show(),oQuo:Show(),oDf:Show()}
+   @ 20, 104 RADIOBUTTON "Dbf" SIZE 90, 20
+   @ 20, 128 RADIOBUTTON "Sdf" SIZE 90, 20
+   @ 20, 152 RADIOBUTTON "Delimited with" SIZE 112, 20 ON CLICK {||oDelim:Show()}
+   @ 20, 176 RADIOBUTTON "Csv" SIZE 50, 20 ON CLICK {||oDelim2:Show(),oQuo:Show(),oDf:Show()}
    END RADIOGROUP
-   @ 136,152 GET oDelim VAR cDelim SIZE 28, 24 PICTURE "XX"
-   @ 70, 176 SAY "quote:" SIZE 72,24 STYLE SS_RIGHT
-   @ 142,176 GET oQuo VAR cQuo SIZE 24, 24 PICTURE "X"
-   @ 40, 200 SAY "delimiter:" SIZE 102,24 STYLE SS_RIGHT
-   @ 142,200 GET oDelim2 VAR cDelim2 SIZE 24, 24 PICTURE "X"
-   @ 24,224 GET COMBOBOX oDf VAr nDf ITEMS aDateF SIZE 140,24 DISPLAYCOUNT 5
+   @ 136, 152 GET oDelim VAR cDelim SIZE 28, 24 PICTURE "XX"
+   @ 70,  176 SAY "quote:" SIZE 72, 24 STYLE SS_RIGHT
+   @ 142, 176 GET oQuo VAR cQuo SIZE 24, 24 PICTURE "X"
+   @ 40,  200 SAY "delimiter:" SIZE 102, 24 STYLE SS_RIGHT
+   @ 142, 200 GET oDelim2 VAR cDelim2 SIZE 24, 24 PICTURE "X"
+   @ 24, 224 GET COMBOBOX oDf VAr nDf ITEMS aDateF SIZE 140, 24 DISPLAYCOUNT 5
 
    @ 10, 280 SAY "For: " SIZE 100, 22
    @ 10, 302 GET cFor SIZE 380, 24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
@@ -348,8 +348,8 @@ FUNCTION C_APPEND()
                            IF cQuo+cQuo $ arr[i]
                               xVal := Strtran( xVal, cQuo+cQuo, cQuo )
                            ENDIF
-                           IF aFie[af[i],2] == "N"
-                              IF Len( xVal ) > aFie[af[i],3]
+                           IF aFie[af[i], 2] == "N"
+                              IF Len( xVal ) > aFie[af[i], 3]
                                  IF nOverf == 0
                                     IF hwg_MsgYesNo( "Numeric field overflow! Continue?", "Warning" )
                                        nOverf := 1
@@ -363,13 +363,13 @@ FUNCTION C_APPEND()
                                  ENDIF
                               ENDIF
                               FieldPut( af[i], Val(xVal) )
-                           ELSEIF aFie[af[i],2] == "D"
+                           ELSEIF aFie[af[i], 2] == "D"
                               FieldPut( af[i], Ctod(xVal) )
-                           ELSEIF aFie[af[i],2] == "L"
+                           ELSEIF aFie[af[i], 2] == "L"
                               FieldPut( af[i], ( xVal="T" ) )
-                           ELSEIF aFie[af[i],2] == "C"
-                              FieldPut( af[i], Left(xVal, aFie[af[i],3]) )
-                           ELSEIF aFie[af[i],2] == "M"
+                           ELSEIF aFie[af[i], 2] == "C"
+                              FieldPut( af[i], Left(xVal, aFie[af[i], 3]) )
+                           ELSEIF aFie[af[i], 2] == "M"
                               FieldPut( af[i], xVal )
                            ENDIF
                         ENDIF
@@ -424,42 +424,42 @@ FUNCTION C_COPY()
       AT 0, 0 SIZE 400, 400 FONT oMainFont ON INIT bBtnDis
 
 #if defined( RDD_ADS ) .OR. defined( RDD_LETO )
-   @ 10,10 SAY "Server " SIZE 60,22 STYLE SS_RIGHT
-   @ 70,10 GET CHECKBOX lRemote CAPTION "Remote:" SIZE 80, 20 ON CLICK bBtnDis
-   @ 150,10 GET cPath SIZE 240,24
+   @ 10, 10 SAY "Server " SIZE 60, 22 STYLE SS_RIGHT
+   @ 70, 10 GET CHECKBOX lRemote CAPTION "Remote:" SIZE 80, 20 ON CLICK bBtnDis
+   @ 150, 10 GET cPath SIZE 240, 24
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
 #endif
 
-   @ 10,34 SAY "File name: " SIZE 80,22 STYLE SS_RIGHT
-   @ 90,34 GET cFile SIZE 220,24 PICTURE "@S128" STYLE ES_AUTOHSCROLL
+   @ 10, 34 SAY "File name: " SIZE 80, 22 STYLE SS_RIGHT
+   @ 90, 34 GET cFile SIZE 220, 24 PICTURE "@S128" STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
-   @ 310,34 BUTTON oBtnFile CAPTION "Browse" SIZE 80, 26 ON CLICK bFileBtn ON SIZE ANCHOR_RIGHTABS
+   @ 310, 34 BUTTON oBtnFile CAPTION "Browse" SIZE 80, 26 ON CLICK bFileBtn ON SIZE ANCHOR_RIGHTABS
 
-   @ 10,60 SAY "Fields: " SIZE 80,22 STYLE SS_RIGHT
-   @ 90,60 GET cFields SIZE 220,24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
+   @ 10, 60 SAY "Fields: " SIZE 80, 22 STYLE SS_RIGHT
+   @ 90, 60 GET cFields SIZE 220, 24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
 
    @ 10, 92 GROUPBOX "" SIZE 168, 172
    GET RADIOGROUP r1
-   @ 20,104 RADIOBUTTON "Dbf" SIZE 90, 20
-   @ 20,128 RADIOBUTTON "Sdf" SIZE 90, 20
-   @ 20,152 RADIOBUTTON "Delimited with" SIZE 112, 20 ON CLICK {||oDelim:Show()}
-   @ 20,176 RADIOBUTTON "Csv" SIZE 50, 20 ON CLICK {||oDelim2:Show(),oQuo:Show(),oDf:Show()}
+   @ 20, 104 RADIOBUTTON "Dbf" SIZE 90, 20
+   @ 20, 128 RADIOBUTTON "Sdf" SIZE 90, 20
+   @ 20, 152 RADIOBUTTON "Delimited with" SIZE 112, 20 ON CLICK {||oDelim:Show()}
+   @ 20, 176 RADIOBUTTON "Csv" SIZE 50, 20 ON CLICK {||oDelim2:Show(),oQuo:Show(),oDf:Show()}
    END RADIOGROUP
-   @ 136,152 GET oDelim VAR cDelim SIZE 28, 24 PICTURE "XX"
-   @ 70, 176 SAY "quote:" SIZE 72,24 STYLE SS_RIGHT
-   @ 142,176 GET oQuo VAR cQuo SIZE 24, 24 PICTURE "X"
-   @ 40, 200 SAY "delimiter:" SIZE 102,24 STYLE SS_RIGHT
-   @ 142,200 GET oDelim2 VAR cDelim2 SIZE 24, 24 PICTURE "X"
-   @ 24,224 GET COMBOBOX oDf VAr nDf ITEMS aDateF SIZE 140,24 DISPLAYCOUNT 5
+   @ 136, 152 GET oDelim VAR cDelim SIZE 28, 24 PICTURE "XX"
+   @ 70, 176 SAY "quote:" SIZE 72, 24 STYLE SS_RIGHT
+   @ 142, 176 GET oQuo VAR cQuo SIZE 24, 24 PICTURE "X"
+   @ 40, 200 SAY "delimiter:" SIZE 102, 24 STYLE SS_RIGHT
+   @ 142, 200 GET oDelim2 VAR cDelim2 SIZE 24, 24 PICTURE "X"
+   @ 24, 224 GET COMBOBOX oDf VAr nDf ITEMS aDateF SIZE 140, 24 DISPLAYCOUNT 5
 
    @ 200, 92 GROUPBOX "" SIZE 168, 88
    GET RADIOGROUP r2
-   @ 210,104 RADIOBUTTON "All" SIZE 90, 20 
-   @ 210,128 RADIOBUTTON "Next" SIZE 90, 20 ON CLICK {||oNext:Show()}
-   @ 210,152 RADIOBUTTON "Rest" SIZE 90, 20 
+   @ 210, 104 RADIOBUTTON "All" SIZE 90, 20
+   @ 210, 128 RADIOBUTTON "Next" SIZE 90, 20 ON CLICK {||oNext:Show()}
+   @ 210, 152 RADIOBUTTON "Rest" SIZE 90, 20
    END RADIOGROUP
-   @ 300,128 GET oNext VAR nNext SIZE 40, 24 PICTURE "9999"
+   @ 300, 128 GET oNext VAR nNext SIZE 40, 24 PICTURE "9999"
 
    @ 10, 280 SAY "For: " SIZE 100, 22
    @ 10, 302 GET cFor SIZE 380, 24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
@@ -544,9 +544,9 @@ FUNCTION C_COPY()
                s := ""
                FOR i := 1 TO Len( af )
                   xVal := FieldGet( af[i] )
-                  xVal := Iif( aFie[i,2]=="N", Ltrim(Str(xval)), ;
-                     Iif( aFie[i,2]=="D", Dtoc(xVal),;
-                     Iif( aFie[i,2]=="L", Iif(xVal,"T","F"), Trim(xVal) ) ) )
+                  xVal := Iif( aFie[i, 2]=="N", Ltrim(Str(xval)), ;
+                     Iif( aFie[i, 2]=="D", Dtoc(xVal),;
+                     Iif( aFie[i, 2]=="L", Iif(xVal,"T","F"), Trim(xVal) ) ) )
                   IF ( i==Len(af).AND.Empty(xVal) ) .OR. ( l := (cQuo $ xVal) ) ;
                         .OR. cDelim2 $ xVal .OR. Chr(13)+Chr(10) $ xVal
                      IF l
@@ -642,23 +642,23 @@ FUNCTION C_REL
    @ 20, 20 BROWSE oBrowse ARRAY SIZE 360, 120 STYLE WS_BORDER + WS_VSCROLL ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS
 
    oBrowse:aArray := arel
-   oBrowse:AddColumn( HColumn():New( "",{|v,o|o:nCurrent},"N",4,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Expression",{|v,o|o:aArray[o:nCurrent,1]},"C",30,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Child",{|v,o|o:aArray[o:nCurrent,2]},"C",10,0 ) )
+   oBrowse:AddColumn( HColumn():New( "",{|v,o|o:nCurrent},"N", 4, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Expression",{|v,o|o:aArray[o:nCurrent, 1]},"C", 30, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Child",{|v,o|o:aArray[o:nCurrent, 2]},"C", 10, 0 ) )
    oBrowse:bcolorSel := BCOLOR_SEL
    oBrowse:tcolorSel := TCOLOR_SEL
 
    cExpr := ""
-   @ 10,160 SAY "Expression: " SIZE 90, 22
-   @ 100,160 GET cExpr SIZE 280, 24 STYLE ES_AUTOHSCROLL
+   @ 10, 160 SAY "Expression: " SIZE 90, 22
+   @ 100, 160 GET cExpr SIZE 280, 24 STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_BOTTOMABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @ 10,184 SAY "To area: " SIZE 90, 22
-   @ 100,184 GET COMBOBOX nAlias ITEMS aals SIZE 120, 150
+   @ 10, 184 SAY "To area: " SIZE 90, 22
+   @ 100, 184 GET COMBOBOX nAlias ITEMS aals SIZE 120, 150
 
-   @ 40,230 BUTTON "Add" SIZE 80,30 ON CLICK bAdd ON SIZE ANCHOR_LEFTABS+ANCHOR_BOTTOMABS
-   @ 160,230 BUTTON "Clear all" SIZE 80,30 ON CLICK bClear ON SIZE ANCHOR_LEFTABS+ANCHOR_BOTTOMABS
-   @ 280,230 BUTTON "Close" SIZE 80,30 ON CLICK {||hwg_EndDialog()} ON SIZE ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
+   @ 40, 230 BUTTON "Add" SIZE 80, 30 ON CLICK bAdd ON SIZE ANCHOR_LEFTABS+ANCHOR_BOTTOMABS
+   @ 160, 230 BUTTON "Clear all" SIZE 80, 30 ON CLICK bClear ON SIZE ANCHOR_LEFTABS+ANCHOR_BOTTOMABS
+   @ 280, 230 BUTTON "Close" SIZE 80, 30 ON CLICK {||hwg_EndDialog()} ON SIZE ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
    oDlg:Activate()
 

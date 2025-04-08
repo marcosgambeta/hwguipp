@@ -210,12 +210,12 @@ FUNCTION Main(fileXML)
 
  HWG_InitCommonControlsEx()
 
- rddRegister("DBFCDX",1)
+ rddRegister("DBFCDX", 1)
  rddsetdefault("DBFCDX")
- rddRegister("SIXCDX",1)
+ rddRegister("SIXCDX", 1)
  rddsetdefault("SIXCDX")
 
- //rddRegister("ADS",1)
+ //rddRegister("ADS", 1)
  //rddsetdefault("ADS")
  //AdsSetServerType(1)
  //adsSetFileType(2)
@@ -230,7 +230,7 @@ FUNCTION Main(fileXML)
 
     filexml:=""
     IF FILE("XMLRUN.DEF")
-       filexml:=RTRIM(MEMOLINE( MEMOREAD("XMLRUN.DEF"),128,1))
+       filexml:=RTRIM(MEMOLINE( MEMOREAD("XMLRUN.DEF"), 128, 1))
     ENDIF
 
     IF !FILE(filexml)
@@ -350,7 +350,7 @@ function netuse(cDatabase, cAlias, lExclusive, nSeconds, cPassword)
          @ maxrow()-2, 00 clear
          @ maxrow()-1, 00 say ;
          padc([Trying to open database. Will keep trying for ] ;
-         + ltrim(str(nSeconds,4,1))+[ seconds],80)
+         + ltrim(str(nSeconds, 4, 1))+[ seconds], 80)
          @ maxrow(), 00 say padc([Hit Esc to abort], 80)
 	 */
 
@@ -422,14 +422,14 @@ function reclock(nSeconds)
       if DBRLOCK(OldPos)
          return .t.                     // LOCKED
       endif
-      hwg_Msgstop("Record is in use exclusive by another", alias()+" #"+str(oldpos,11))
+      hwg_Msgstop("Record is in use exclusive by another", alias()+" #"+str(oldpos, 11))
       inkey(.5)      // wait 1/2 second
       nSeconds = nSeconds - .5
    enddo
 
 
 
-   hwg_Msgstop("Record failed to locked", alias()+" #"+str(oldpos,11))
+   hwg_Msgstop("Record failed to locked", alias()+" #"+str(oldpos, 11))
 
    return .f.                           // NOT LOCKED
 
@@ -456,7 +456,7 @@ function addrec(nSeconds)
       @ maxrow()-2, 00 clear
       @ maxrow()-1, 00 say ;
       padc([Trying to add a record. Will keep trying for ] ;
-      + ltrim(str(nSeconds,4,1))+[ seconds],80)
+      + ltrim(str(nSeconds, 4, 1))+[ seconds], 80)
       @ maxrow(), 00 say padc([Hit Esc to abort], 80)
       */
 
@@ -521,7 +521,7 @@ function Usr2infStr(g,lKosong) && usr to informix str
        c:=""
 
        for i:=1 to nLen
-           c+= if(isdigit(subst(cPress,i,1)),"9","A")
+           c+= if(isdigit(subst(cPress,i, 1)),"9","A")
        next
 
        *:Kalau 2 Char Pertama Adalah Angka
@@ -532,9 +532,9 @@ function Usr2infStr(g,lKosong) && usr to informix str
         dd := Left(cPress, 2) + "."
 
 
-	if subst(c,3,3)="AAA"
+	if subst(c, 3, 3)="AAA"
 
-	   mm:=subst(cPress,3,3)
+	   mm:=subst(cPress, 3, 3)
 	   mm:=transform( lower(mm),"!xx")
 
 	   *:Koreksi untuk ejaan Inggris
@@ -546,13 +546,13 @@ function Usr2infStr(g,lKosong) && usr to informix str
 	   mm:=strtran( mm,"Dec","Des")
 	   mm:=strtran( mm,"Oct","Okt")
 
-           mm:=str((at(mm,"JanFebMarAprMeiJunJulAgtSepOktNopDes")+2)/3,2)+"."
+           mm:=str((at(mm,"JanFebMarAprMeiJunJulAgtSepOktNopDes")+2)/3, 2)+"."
 
 	   nPot--
 
         else
 
-	   mm:=subst(cpress,3,2)+"."
+	   mm:=subst(cpress, 3, 2)+"."
 
         end
 
@@ -582,9 +582,9 @@ function d2infstr(d) && date to informix style string
 
   if empty(d); return "           "; end
 
-  dd:=right(dtos(d),2);  yyyy := Left(dtos(d), 4)
+  dd:=right(dtos(d), 2);  yyyy := Left(dtos(d), 4)
 
-  mmm:=subst("JanFebMarAprMeiJunJulAgtSepOktNopDes",month(d)*3-2,3)
+  mmm:=subst("JanFebMarAprMeiJunJulAgtSepOktNopDes",month(d)*3-2, 3)
 
  return (dd+"-"+mmm+"-"+yyyy)
 

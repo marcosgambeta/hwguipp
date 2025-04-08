@@ -2059,31 +2059,31 @@ cMenInter:=space(n_bloque)
 lHecho:=.F.
 
 IF LoadPicture(cName,@nWidth,@nHeight,@ScreenResX,@ScreenResY) //NViewLib32( AllTrim(cName ))
-        aInches[1]:= ROUND(((nWidth/ScreenResX)*::nScale)+0.5,0)
-        aInches[2]:= ROUND(((nHeight/ScreenResY)*::nScale)+0.5,0)
+        aInches[1]:= ROUND(((nWidth/ScreenResX)*::nScale)+0.5, 0)
+        aInches[2]:= ROUND(((nHeight/ScreenResY)*::nScale)+0.5, 0)
    // Dimensiones de la imagen en twips
    IF EMPTY(aSize)
-                PictWidth:=ROUND(aInches[1]+0.5,0)*nPercent
-                PictHeight:=ROUND(aInches[2]+0.5,0)*nPercent
+                PictWidth:=ROUND(aInches[1]+0.5, 0)*nPercent
+                PictHeight:=ROUND(aInches[2]+0.5, 0)*nPercent
         ELSE
-                PictWidth:=ROUND((aSize[1]*::nScale)+0.5,0)
-                PictHeight:=ROUND((aSize[2]*::nScale)+0.5,0)
+                PictWidth:=ROUND((aSize[1]*::nScale)+0.5, 0)
+                PictHeight:=ROUND((aSize[2]*::nScale)+0.5, 0)
         ENDIF
    in:=fopen(cName)
    ::OpenGroup()
    ::TextCode("pict\jpegblip")
-   scale=ROUND((PictWidth*100/aInches[1])+0.5,0)
+   scale=ROUND((PictWidth*100/aInches[1])+0.5, 0)
    ::NumCode("picw",nWidth,.F.)
    ::NumCode("picwgoal",aInches[1],.F.)
           ::NumCode("picscalex",scale,.F.)
-   scale=ROUND((PictHeight*100/aInches[2])+0.5,0)
+   scale=ROUND((PictHeight*100/aInches[2])+0.5, 0)
    ::NumCode("pich",nHeight,.F.)
    ::NumCode("pichgoal",aInches[2],.F.)
    ::NumCode("picscaley",scale,.F.)
    do while !lHecho
            nBytes:=fread(in,@cMenInter,n_bloque)
            IF nBytes > 0
-              codigo:=PADL(L_DTOHEX(ASC(cMenInter)),2,"0")
+              codigo:=PADL(L_DTOHEX(ASC(cMenInter)), 2, "0")
          FWRITE(::hfile,codigo)
            else
                    lHecho:= .T.
@@ -2121,30 +2121,30 @@ IF cBRead > 0
                 ancho:=(aSize[1]*aInfo[5])
         ENDIF
 
-      bmHeight=ROUND((alto*1440/2540)+0.5,0)
-      bmWidth=ROUND((ancho*1440/2540)+0.5,0)
+      bmHeight=ROUND((alto*1440/2540)+0.5, 0)
+      bmWidth=ROUND((ancho*1440/2540)+0.5, 0)
 
-      PictHeight=ROUND((alto*1440/::oPrinter:nLogPixelY())+0.5,0)
-      PictWidth=ROUND((ancho*1440/::oPrinter:nLogPixelX())+0.5,0)
+      PictHeight=ROUND((alto*1440/::oPrinter:nLogPixelY())+0.5, 0)
+      PictWidth=ROUND((ancho*1440/::oPrinter:nLogPixelX())+0.5, 0)
       in:=fopen(cName)
       ::OpenGroup()
       ::TextCode("\pict\wmetafile8")
-      x = ROUND((bmWidth*2540/1440)+0.5,0)
+      x = ROUND((bmWidth*2540/1440)+0.5, 0)
       ::NumCode("picw",x,.F.)
       ::NumCode("picwgoal",bmWidth,.F.)
-      scale=ROUND((PictWidth*100/bmWidth)+0.5,0)
+      scale=ROUND((PictWidth*100/bmWidth)+0.5, 0)
       ::NumCode("picscalex",scale,.F.)
-      x = ROUND((bmHeight*2540/1440)+0.5,0)
+      x = ROUND((bmHeight*2540/1440)+0.5, 0)
       ::NumCode("pich",x,.F.)
       ::NumCode("pichgoal",bmHeight,.F.)
-      scale=ROUND((PictHeight*100/bmHeight)+0.5,0)
+      scale=ROUND((PictHeight*100/bmHeight)+0.5, 0)
       ::NumCode("picscaley",scale,.F.)
       ::OpenGroup()
-      fseek(in,cBRead,0)
+      fseek(in,cBRead, 0)
       do while !lHecho
          nBytes:=fread(in,@cMenInter,n_bloque)
          IF nBytes > 0
-            codigo:=PADL(L_DTOHEX(ASC(cMenInter)),2,"0")
+            codigo:=PADL(L_DTOHEX(ASC(cMenInter)), 2, "0")
             FWRITE(::hFile,codigo)
          else
             lHecho:= .T.
@@ -2174,7 +2174,7 @@ FUNCTION LoadPicture(cName,nWidth,nHeight,ScreenResX,ScreenResy)
    ENDIF
 
    cFarProc:=GetProc32(hDll,"NViewLibLoad",.t.,LONG,STRING,LONG)
-   uResult=CallDll32(cFarProc,cName,0)
+   uResult=CallDll32(cFarProc,cName, 0)
    cFarProc:=GetProc32(hDll,"GetWidth",.t.,_INT)
    nWidth=CallDll32(cFarProc)
    cFarProc:=GetProc32(hDll,"GetHeight",.t.,_INT)
@@ -2183,8 +2183,8 @@ FUNCTION LoadPicture(cName,nWidth,nHeight,ScreenResX,ScreenResy)
    oWnd:=GetWndDefault()
    hWnd:=oWnd:hWnd
    hdc:=hwg_Getdc(hWnd)
-   ScreenResX:=GETDEVICEC(hdc,88)
-   ScreenResY:=GETDEVICEC(hdc,90)
+   ScreenResX:=GETDEVICEC(hdc, 88)
+   ScreenResY:=GETDEVICEC(hdc, 90)
 
    RETURN .T.
 
@@ -2253,7 +2253,7 @@ METHOD RichText:Bmp2Wmf(cName,aSize,nPercent)
       DO WHILE !lHecho
          nBytes:=fread(in,@cMenInter,n_bloque)
          IF nBytes > 0
-            codigo:=PADL(L_DTOHEX(ASC(cMenInter)),2,"0")
+            codigo:=PADL(L_DTOHEX(ASC(cMenInter)), 2, "0")
             FWRITE(::hFile,codigo)
          ELSE
             lHecho:= .T.

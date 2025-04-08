@@ -38,7 +38,7 @@ IF .NOT. FILE(nameimg)
  hwg_msginfo("File >" + nameimg + "< not found","Error" )
 ENDIF
 
-INIT Dialog oDlg AT 0,0 SIZE 500,400 CLIPPER NOEXIT NOEXITESC
+INIT Dialog oDlg AT 0, 0 SIZE 500, 400 CLIPPER NOEXIT NOEXITESC
 * This command requires FreeImage
 *@ 30, 10 IMAGE oSayMain SHOW nameimg OF oDlg SIZE 100, 90
 *

@@ -25,7 +25,7 @@ FUNCTION Main
 
    CreateWindow()
 
-   SetMode( 30,90 )
+   SetMode( 30, 90 )
    nw := Min( 1920, hb_gtinfo( HB_GTI_DESKTOPWIDTH ) ) - 20
    nh := Min( 1080, hb_gtinfo( HB_GTI_DESKTOPHEIGHT ) ) - 84
    hb_gtinfo( HB_GTI_FONTWIDTH, Int( nw / ( MaxCol() + 1 ) ) )
@@ -35,12 +35,12 @@ FUNCTION Main
    SetColor( "W+/B" )
    clear screen
    @ 0, 0, MaxRow(), MaxCol() BOX "******** "
-   @ 4,5 SAY "Test"
+   @ 4, 5 SAY "Test"
    @ MaxRow() - 1, 1 SAY "---- " + Str(MaxRow() + 1, 3) + " X " + Str(MaxCol() + 1, 3) + " Desktop:" + Str(hb_gtinfo(HB_GTI_DESKTOPROWS), 3)
    @ MaxRow() - 1, 70 SAY "----"
    @ MaxRow(), 1 SAY "===="
    @ MaxRow(), 70 SAY "===="
-   @ 3,5 SAY "‚Ά¥¤¨β¥ β¥ªαβ:" GET cLogin
+   @ 3, 5 SAY "‚Ά¥¤¨β¥ β¥ªαβ:" GET cLogin
    READ
 
    hwg_writelog( "Login: " + cLogin )

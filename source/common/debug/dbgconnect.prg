@@ -140,7 +140,7 @@ FUNCTION hwg_dbg_New()
    ENDIF
 
    IF !Empty(cDir)
-      cDir += IIf(Right( cDir,1 ) $ "\/", "", hb_PS())
+      cDir += IIf(Right( cDir, 1 ) $ "\/", "", hb_PS())
       IF File( cDir + cDebugger + ".d1" ) .AND. File( cDir + cDebugger + ".d2" )
          IF ( s_handl1 := FOpen(cDir + cDebugger + ".d1", FO_READ + FO_SHARED) ) != -1
             i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
@@ -513,7 +513,7 @@ STATIC FUNCTION Str2Hex(stroka)
    LOCAL nLen := Len(stroka)
 
    FOR i := 1 to nLen
-      cRes += Int2Hex( Asc( Substr(stroka,i,1) ) )
+      cRes += Int2Hex( Asc( Substr(stroka,i, 1) ) )
    NEXT
 
 RETURN cRes

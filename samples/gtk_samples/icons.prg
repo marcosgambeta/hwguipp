@@ -60,7 +60,7 @@ oIconEXE := HIcon():AddFile(cImagepath + "ok.ico")
 * The background image was tiled, if size is smaller than window.
 INIT WINDOW oFormMain MAIN APPNAME "Hwgui sample" ;
    FONT oFontMain BACKGROUND BITMAP HBitmap():AddFile(cImageMain) ;
-   TITLE "Icon sample" AT 0,0 SIZE nPosX,nPosY-30 ;
+   TITLE "Icon sample" AT 0, 0 SIZE nPosX,nPosY-30 ;
    ICON oIconEXE STYLE WS_POPUP +  WS_CAPTION + WS_SYSMENU
 
    hwg_msginfo(cImageMain + CHR(10)+  cImagepath + "ok.ico" )
@@ -88,7 +88,7 @@ PARAMETERS cimgpfad
    ENDIF
 
    INIT DIALOG oModDlg TITLE "Dialog with background image" ;
-   AT 210,10  SIZE 300,300 ;
+   AT 210, 10  SIZE 300, 300 ;
    BACKGROUND BITMAP HBitmap():AddFile(cimgpfad + "astro.bmp" )
 
    ACTIVATE DIALOG oModDlg   

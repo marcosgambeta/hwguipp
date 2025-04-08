@@ -101,11 +101,11 @@ FUNCTION Test()
    ADD COLUMN TO GRID oGrid HEADER "Date"   WIDTH 100
    ADD COLUMN TO GRID oGrid HEADER "Memo"   WIDTH 200
 
-   @  10, 395 BUTTON "Insert" SIZE 75,25 ON CLICK {||OnKey(oGrid, VK_INSERT, aItems)}
-   @  90, 395 BUTTON "Change" SIZE 75,25 ON CLICK {||OnClick(oGrid, aItems)}
-   @ 170, 395 BUTTON "Delete" SIZE 75,25 ON CLICK {||OnKey(oGrid, VK_DELETE, aItems)}
+   @  10, 395 BUTTON "Insert" SIZE 75, 25 ON CLICK {||OnKey(oGrid, VK_INSERT, aItems)}
+   @  90, 395 BUTTON "Change" SIZE 75, 25 ON CLICK {||OnClick(oGrid, aItems)}
+   @ 170, 395 BUTTON "Delete" SIZE 75, 25 ON CLICK {||OnKey(oGrid, VK_DELETE, aItems)}
 
-   @ 620, 395 BUTTON "Close" SIZE 75,25 ON CLICK {||oForm:close()}
+   @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {||oForm:close()}
 
    ACTIVATE DIALOG oForm
 

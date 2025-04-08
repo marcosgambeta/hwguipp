@@ -176,7 +176,7 @@ METHOD HContainerEx:Paint( lpdis )
             hwg_Drawedge( hDC, x1, y2, x2, y1,BDR_RAISEDOUTER,BF_RIGHT)
          ENDIF
       ELSE
-         hwg_Drawedge( hDC, x1, y1, x2, y2,0,0)
+         hwg_Drawedge( hDC, x1, y1, x2, y2, 0, 0)
       ENDIF
       IF ::backStyle != TRANSPARENT
          IF ::Brush != NIL

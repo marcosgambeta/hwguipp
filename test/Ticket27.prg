@@ -27,7 +27,7 @@ FUNCTION Main()
    
     
    INIT WINDOW oMainW  ;
-   TITLE "Ticket #27 test sample" AT 0,0 SIZE 0 , 0
+   TITLE "Ticket #27 test sample" AT 0, 0 SIZE 0 , 0
 
    * Check for multithread support of used Harbour release 
    IF ! hb_mtvm()

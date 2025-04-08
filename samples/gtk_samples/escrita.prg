@@ -30,7 +30,7 @@ CHECK_FILE(cbmppref + "door.bmp")
 CHECK_FILE(cbmppref + "cancel.ico")
 
    INIT DIALOG oModDlg TITLE "Teste da Acentuação" ;
-      AT 210, 10  SIZE 300, 300 ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2,11], .F. ) }
+      AT 210, 10  SIZE 300, 300 ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
 
    @ 0, 0 toolbar oTool of oModDlg size 50, 100 ID 700
    TOOLBUTTON  otool ;
@@ -40,7 +40,7 @@ CHECK_FILE(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste1"  ;
       TOOLTIP "ola" ;
-      ON CLICK { |x, y|hwg_Msginfo( "ola" ), hwg_Enablewindow( oTool:aItem[2,11], .T. ) , hwg_Enablewindow( oTool:aItem[1,11], .F. ) }
+      ON CLICK { |x, y|hwg_Msginfo( "ola" ), hwg_Enablewindow( oTool:aItem[2, 11], .T. ) , hwg_Enablewindow( oTool:aItem[1, 11], .F. ) }
 
    TOOLBUTTON  otool ;
       ID 702 ;
@@ -49,7 +49,7 @@ CHECK_FILE(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste2"  ;
       TOOLTIP "ola2" ;
-      ON CLICK { |x, y|hwg_Msginfo( "ola1" ), hwg_Enablewindow( oTool:aItem[1,11], .T. ), hwg_Enablewindow( oTool:aItem[2,11], .F. ) }
+      ON CLICK { |x, y|hwg_Msginfo( "ola1" ), hwg_Enablewindow( oTool:aItem[1, 11], .T. ), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
 
    TOOLBUTTON  otool ;
       ID 703 ;

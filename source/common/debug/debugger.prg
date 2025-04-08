@@ -810,8 +810,8 @@ STATIC FUNCTION SendRec(cAlias)
    arr[2] := cAlias
    arr[3] := LTrim(Str((cAlias)->(RecNo())))
    FOR i := 1 TO nCount
-      arr[++j] := af[i,1]
-      arr[++j] := af[i,2]
+      arr[++j] := af[i, 1]
+      arr[++j] := af[i, 2]
       arr[++j] := LTrim(Str(af[i, 3]))
       arr[++j] := __dbgValToStr((cAlias)->(FieldGet(i)))
       IF Len(arr[j]) > VAR_MAX_LEN

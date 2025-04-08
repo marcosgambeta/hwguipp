@@ -8,27 +8,27 @@ PRIVATE oEditbox1, oLabel2, oOwnerbutton1, oLSay, oOwnerbutton2, oOwnerbutton3
 nValue:=0
 
   INIT DIALOG oDlg TITLE "Say Money Sample" ;
-    AT 309,214 SIZE 552,239 ;
+    AT 309, 214 SIZE 552, 239 ;
      STYLE DS_CENTER +WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 136,10 GET oEditbox1 VAR nValue  SIZE 158,24 ;
-        STYLE WS_BORDER     
-   @ 25,11 SAY oLabel2 CAPTION "Value"  SIZE 80,22   
-   @ 20,54 OWNERBUTTON oOwnerbutton1   SIZE 92,28 ;
+   @ 136, 10 GET oEditbox1 VAR nValue  SIZE 158, 24 ;
+        STYLE WS_BORDER
+   @ 25, 11 SAY oLabel2 CAPTION "Value"  SIZE 80, 22
+   @ 20, 54 OWNERBUTTON oOwnerbutton1   SIZE 92, 28 ;
         STYLE WS_TABSTOP  ;
         TEXT 'SayDollar()'  ;
         COORDINATES 0, 0, 0, 0  ;
         ON CLICK {|| Olsay:SETTEXT(SAYDOLLAR(nValue)) }
-   @ 137,57 SAY oLSay CAPTION "Label"  SIZE 281,82  ;
+   @ 137, 57 SAY oLSay CAPTION "Label"  SIZE 281, 82  ;
          BACKCOLOR 8421504  ;
-        FONT HFont():Add( 'Arial',0,-13,400,,255,)
-   @ 21,85 OWNERBUTTON oOwnerbutton2   SIZE 92,28 ;
+        FONT HFont():Add( 'Arial', 0,-13, 400,, 255,)
+   @ 21, 85 OWNERBUTTON oOwnerbutton2   SIZE 92, 28 ;
         STYLE WS_TABSTOP  ;
         TEXT 'SayRupiah()'  ;
         COORDINATES 0, 0, 0, 0  ;
         ON CLICK {|| Olsay:SETTEXT(SAYRUPIAH(nValue)) }
-   @ 434,161 OWNERBUTTON oOwnerbutton3   SIZE 28,28 ;
+   @ 434, 161 OWNERBUTTON oOwnerbutton3   SIZE 28, 28 ;
         STYLE WS_TABSTOP  ;
         TEXT 'OButton'  ;
         COORDINATES 0, 0, 0, 0  ;
@@ -41,7 +41,7 @@ RETURN oDlg:lresult
 
 FUNCTION SayDollar(nDollar)
 
- LOCAL cDollar := RIGHT( LTRIM(STR(nDollar, 15) ),11)
+ LOCAL cDollar := RIGHT( LTRIM(STR(nDollar, 15) ), 11)
  LOCAL nAA := 1
  LOCAL nPJ := LEN(cDollar)
  LOCAL xSay := '', xLang2, xLang1, xMuch, xNum, xteen
@@ -230,17 +230,17 @@ RETURN (xSay)
 FUNCTION SayRupiah(nAngka)
 
  LOCAL n, kata, kalimat:=IF(nAngka<0,"Minus ","")
- LOCAL char := strtran(str(ABS(INT(nAngka)),15)," ","0")
+ LOCAL char := strtran(str(ABS(INT(nAngka)), 15)," ","0")
 
   FOR n:=1 to 5
-    kalimat +=  tigades(subs(char,n*3-2,3),n)
-    kata    :=  iif(subs(char,n*3-2,3)=="000","",PECAHAN[n])
+    kalimat +=  tigades(subs(char,n*3-2, 3),n)
+    kata    :=  iif(subs(char,n*3-2, 3)=="000","",PECAHAN[n])
     kalimat +=  kata
   NEXT
 
-	char:="0"+RIGHT( STR(nAngka,18,2) ,2)
+	char:="0"+RIGHT( STR(nAngka, 18, 2) , 2)
 
-	kalimat+=IF(char != "000"," koma "+tigades(char,1)+"sen","")
+	kalimat+=IF(char != "000"," koma "+tigades(char, 1)+"sen","")
 
  RETURN (kalimat)
 
@@ -248,7 +248,7 @@ FUNCTION SayRupiah(nAngka)
 
 //
 STATIC FUNCTION tigades( mvc, n)    // created: 28 mei 1993
- LOCAL say := "", x1 := Left(mvc, 1), x2:=subs(mvc,2,1), x3:=right(mvc,1)
+ LOCAL say := "", x1 := Left(mvc, 1), x2:=subs(mvc, 2, 1), x3:=right(mvc, 1)
 
  IF n==4 .and. mvc=="001"
     RETURN "se"

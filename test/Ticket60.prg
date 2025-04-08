@@ -75,7 +75,7 @@ oIExcl := HIcon():AddResource( "ICON_2" , 8  , 8  )
 
 INIT WINDOW oMainW  ;
    FONT oFontMain  ;
-   TITLE "Ticket #60 test sample" AT 0,0 SIZE 300 , 200 ;
+   TITLE "Ticket #60 test sample" AT 0, 0 SIZE 300 , 200 ;
    ICON oIcon STYLE WS_POPUP +  WS_CAPTION + WS_SYSMENU ;
    BACKCOLOR  0x3C3940   
    

@@ -72,10 +72,10 @@ nBrwCharset := 0  // Do not modify with UTF-8 on LINUX
    RDDSETDEFAULT( "DBFNTX" )
 *  RDDSETDEFAULT( "DBFCDX" )
    
-   oFont := HFont():Add( "Courier",0,-14, , 0 )
+   oFont := HFont():Add( "Courier", 0, -14, , 0 )
    
    
-   INIT WINDOW oWndMain MAIN TITLE "Dbf browse" AT 200,100 SIZE 300,300
+   INIT WINDOW oWndMain MAIN TITLE "Dbf browse" AT 200, 100 SIZE 300, 300
 
    * Attention ! Menu Structure errors were not be detected by the Harbour compiler.
    *             In this case, the menu completely disappeared at run time.
@@ -155,8 +155,8 @@ nBrwCharset := 0  // Do not modify with UTF-8 on LINUX
      ENDMENU
    ENDMENU
    
-   @ 0,0 BROWSE oBrw                 ;
-      SIZE 300,272                   ;
+   @ 0, 0 BROWSE oBrw                 ;
+      SIZE 300, 272                   ;
       STYLE WS_VSCROLL + WS_HSCROLL  ;
       FONT oFont                     ;
       ON SIZE {|o,x,y|o:Move(,,x-1,y-28)}
@@ -165,14 +165,14 @@ nBrwCharset := 0  // Do not modify with UTF-8 on LINUX
       
    oBrw:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
 
-   @ 0,272 PANEL oPanel SIZE 0,26 ON SIZE {|o,x,y|o:Move(0,y-26,x-1)}
-   @ 5,4 SAY oSay1 CAPTION "" OF oPanel SIZE 150,22 FONT oFont
-   @ 160,4 SAY oSay2 CAPTION "" OF oPanel SIZE 100,22 FONT oFont
+   @ 0, 272 PANEL oPanel SIZE 0, 26 ON SIZE {|o,x,y|o:Move(0,y-26,x-1)}
+   @ 5, 4 SAY oSay1 CAPTION "" OF oPanel SIZE 150, 22 FONT oFont
+   @ 160, 4 SAY oSay2 CAPTION "" OF oPanel SIZE 100, 22 FONT oFont
    
-   hwg_Enablemenuitem( ,31010,.F. )
-   hwg_Enablemenuitem( ,31020,.F. )
-   hwg_Enablemenuitem( ,31030,.F. )
-   hwg_Enablemenuitem( ,31040,.F. )
+   hwg_Enablemenuitem( , 31010,.F. )
+   hwg_Enablemenuitem( , 31020,.F. )
+   hwg_Enablemenuitem( , 31030,.F. )
+   hwg_Enablemenuitem( , 31040,.F. )
 
    ACTIVATE WINDOW oWndMain
 
@@ -200,7 +200,7 @@ Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
       oBrw:active := .F.
       hwg_CreateList( oBrw,.T. )
       Aadd(oBrw:aColumns, NIL)
-      Ains( oBrw:aColumns,1 )
+      Ains( oBrw:aColumns, 1 )
       oBrw:aColumns[1] := HColumn():New("*", {|v, o|Iif(Deleted(), "*", " ")}, "C", 1, 0)
       oBrw:active := .T.
       oBrw:nHCCharset := nBrwCharset 
@@ -210,10 +210,10 @@ Memvar oBrw, oSay1, oSay2, DataCP, currentCP, currFname
       dbv_cLocate := dbv_cSeek := ""
       dbv_nRec := 0
       
-      hwg_Enablemenuitem( ,31010,.T. )
-      hwg_Enablemenuitem( ,31020,.T. )
-      hwg_Enablemenuitem( ,31030,.T. )
-      hwg_Enablemenuitem( ,31040,.T. )
+      hwg_Enablemenuitem( , 31010,.T. )
+      hwg_Enablemenuitem( , 31020,.T. )
+      hwg_Enablemenuitem( , 31030,.T. )
+      hwg_Enablemenuitem( , 31040,.T. )
 
    ENDIF
    
@@ -263,7 +263,7 @@ Memvar oBrw, oFont
    
    INIT DIALOG oDlg TITLE "Select Order" AT 0, 0 SIZE width + 2, height + 2 FONT oFont
 
-   @ 0,0 BROWSE oBrowse ARRAY       ;
+   @ 0, 0 BROWSE oBrowse ARRAY       ;
        SIZE width,height            ;
        FONT oFont                   ;
        STYLE WS_BORDER+WS_VSCROLL + WS_HSCROLL ;
@@ -289,7 +289,7 @@ Memvar oBrw, oFont
 Return NIL
 
 Static Function NewIndex()
-Local oDlg, of := HFont():Add( "Courier",0,-12 )
+Local oDlg, of := HFont():Add( "Courier", 0,-12 )
 Local cName := "", lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
 Local oMsg
 Memvar oBrw
@@ -299,26 +299,26 @@ Memvar oBrw
    ENDIF
 
    INIT DIALOG oDlg TITLE "Create Order" ;
-         AT 0,0         ;
-         SIZE 300,250   ;
+         AT 0, 0         ;
+         SIZE 300, 250   ;
          FONT of
          
-   @ 10,10 SAY "Order name:" SIZE 100,22
-   @ 110,1 GET cName SIZE 100,24
+   @ 10, 10 SAY "Order name:" SIZE 100, 22
+   @ 110, 1 GET cName SIZE 100, 24
    
-   @ 10,40 GET CHECKBOX lMulti CAPTION "Multibag" SIZE 100,22
-   @ 110,40 GET cTag SIZE 100,24
-   
-   @ 10,65 GET CHECKBOX lUniq CAPTION "Unique" SIZE 100,22
-   
-   @ 10,85 SAY "Expression:" SIZE 100,22
-   @ 10,107 GET cExpr SIZE 280,24
-         
-   @ 10,135 SAY "Condition:" SIZE 100,22
-   @ 10,157 GET cCond SIZE 280,24
-   
-   @  30,210  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
-   @ 170,210 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
+   @ 10, 40 GET CHECKBOX lMulti CAPTION "Multibag" SIZE 100, 22
+   @ 110, 40 GET cTag SIZE 100, 24
+
+   @ 10, 65 GET CHECKBOX lUniq CAPTION "Unique" SIZE 100, 22
+
+   @ 10, 85 SAY "Expression:" SIZE 100, 22
+   @ 10, 107 GET cExpr SIZE 280, 24
+
+   @ 10, 135 SAY "Condition:" SIZE 100, 22
+   @ 10, 157 GET cCond SIZE 280, 24
+
+   @  30, 210  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
+   @ 170, 210 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
    
@@ -412,17 +412,17 @@ Static Function DlgWait( cTitle )
 Local oDlg
 
    INIT DIALOG oDlg TITLE cTitle ;
-         AT 0,0                  ;
-         SIZE 100,50  STYLE DS_CENTER
+         AT 0, 0                  ;
+         SIZE 100, 50  STYLE DS_CENTER
 
-   @ 10, 20 SAY "Wait, please ..." SIZE 80,22
+   @ 10, 20 SAY "Wait, please ..." SIZE 80, 22
 
    ACTIVATE DIALOG oDlg NOMODAL
 
 Return oDlg
 
 Static Function ModiStru( lNew )
-Local oDlg, oBrowse, of := HFont():Add( "Courier",0,-12 ), oMsg 
+Local oDlg, oBrowse, of := HFont():Add( "Courier", 0,-12 ), oMsg 
 Local oGet1, oGet2, oGet3, oGet4
 Local af, af0, cName := "", nType := 1, cLen := "0", cDec := "0", i
 Local aTypes := { "Character","Numeric","Date","Logical" }
@@ -430,7 +430,7 @@ Local fname, cAlias, nRec, nOrd, lOverFlow := .F., xValue
 Memvar oBrw, currentCP, currFname
 
    IF lNew
-      af := { {"","",0,0} }
+      af := { {"","", 0, 0} }
    ELSE
       af0 := dbStruct()
       af  := dbStruct()
@@ -450,18 +450,18 @@ Memvar oBrw, currentCP, currFname
    oBrowse:AddColumn(HColumn():New("Length", {|v, o|o:aArray[o:nCurrent, 3]}, "N",  5, 0))
    oBrowse:AddColumn(HColumn():New("Dec",    {|v, o|o:aArray[o:nCurrent, 4]}, "N",  2, 0))
    
-   @ 10,230 GET oGet1 VAR cName SIZE 100,24
-   @ 120,230 GET COMBOBOX oGet2 VAR nType ITEMS aTypes SIZE 100,24
-   @ 230,230 GET oGet3 VAR cLen SIZE 50,24
-   @ 290,230 GET oGet4 VAR cDec SIZE 40,24
+   @ 10, 230 GET oGet1 VAR cName SIZE 100, 24
+   @ 120, 230 GET COMBOBOX oGet2 VAR nType ITEMS aTypes SIZE 100, 24
+   @ 230, 230 GET oGet3 VAR cLen SIZE 50, 24
+   @ 290, 230 GET oGet4 VAR cDec SIZE 40, 24
 
-   @ 20,270 BUTTON "Add" SIZE 80,30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4,1)}
-   @ 110,270 BUTTON "Insert" SIZE 80,30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4,2)}
-   @ 200,270 BUTTON "Change" SIZE 80,30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4,3)}
-   @ 290,270 BUTTON "Remove" SIZE 80,30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4,4)}
-   
-   @ 280,10  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
-   @ 280,50 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
+   @ 20, 270 BUTTON "Add" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4, 1)}
+   @ 110, 270 BUTTON "Insert" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4, 2)}
+   @ 200, 270 BUTTON "Change" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4, 3)}
+   @ 290, 270 BUTTON "Remove" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4, 4)}
+
+   @ 280, 10  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
+   @ 280, 50 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    ACTIVATE DIALOG oDlg
    
@@ -497,25 +497,25 @@ Memvar oBrw, currentCP, currFname
             APPEND BLANK
             FOR i := 1 TO Len(af)
                IF Len(af[i]) > 4
-                  xValue := (cAlias)->(FieldGet(af[i,5]))
-                  IF af[i,2] == af0[af[i,5],2] .AND. af[i,3] == af0[af[i,5],3]
+                  xValue := (cAlias)->(FieldGet(af[i, 5]))
+                  IF af[i, 2] == af0[af[i, 5], 2] .AND. af[i, 3] == af0[af[i, 5], 3]
                      FieldPut( i, xValue )
                   ELSE
-                     IF af[i,2] != af0[af[i,5],2]
-                        IF af[i,2] == "C" .AND. af0[af[i,5],2] == "N"
+                     IF af[i, 2] != af0[af[i, 5], 2]
+                        IF af[i, 2] == "C" .AND. af0[af[i, 5], 2] == "N"
                            xValue := Str(xValue, af0[af[i, 5], 3], af0[af[i, 5], 4])
-                        ELSEIF af[i,2] == "N" .AND. af0[af[i,5],2] == "C"
+                        ELSEIF af[i, 2] == "N" .AND. af0[af[i, 5], 2] == "C"
                            xValue := Val( Ltrim(xValue) )
                         ELSE
                            LOOP
                         ENDIF
                      ENDIF
-                     IF af[i,3] >= af0[af[i,5],3]
+                     IF af[i, 3] >= af0[af[i, 5], 3]
                         FieldPut( i, xValue )
                      ELSE
-                        IF af[i,2] =="C"
-                           FieldPut( i, Left(xValue, af[i,3]) )
-                        ELSEIF af[i,2] =="N"
+                        IF af[i, 2] =="C"
+                           FieldPut( i, Left(xValue, af[i, 3]) )
+                        ELSEIF af[i, 2] =="N"
                            FieldPut( i, 0 )
                            lOverFlow := .T.
                         ENDIF
@@ -561,15 +561,15 @@ Return NIL
 Static Function brw_onPosChg( oBrowse, oGet1, oGet2, oGet3, oGet4 )
 
 
-   oGet1:SetGet( oBrowse:aArray[oBrowse:nCurrent,1] )
+   oGet1:SetGet( oBrowse:aArray[oBrowse:nCurrent, 1] )
    oGet1:Refresh()
 
-   oGet2:SetItem( Ascan(aFieldTypes,oBrowse:aArray[oBrowse:nCurrent,2]) )
-   
-   oGet3:SetGet( Ltrim(Str(oBrowse:aArray[oBrowse:nCurrent,3])) )
+   oGet2:SetItem( Ascan(aFieldTypes,oBrowse:aArray[oBrowse:nCurrent, 2]) )
+
+   oGet3:SetGet( Ltrim(Str(oBrowse:aArray[oBrowse:nCurrent, 3])) )
    oGet3:Refresh()
 
-   oGet4:SetGet( Ltrim(Str(oBrowse:aArray[oBrowse:nCurrent,4])) )
+   oGet4:SetGet( Ltrim(Str(oBrowse:aArray[oBrowse:nCurrent, 4])) )
    oGet4:Refresh()
    
 Return NIL
@@ -596,10 +596,10 @@ Local cName, cType, nLen, nDec
             Ains(oBrowse:aArray, oBrowse:nCurrent)
             oBrowse:aArray[oBrowse:nCurrent] := Array(4)
          ENDIF
-         oBrowse:aArray[oBrowse:nCurrent,1] := cName
-         oBrowse:aArray[oBrowse:nCurrent,2] := cType
-         oBrowse:aArray[oBrowse:nCurrent,3] := nLen
-         oBrowse:aArray[oBrowse:nCurrent,4] := nDec
+         oBrowse:aArray[oBrowse:nCurrent, 1] := cName
+         oBrowse:aArray[oBrowse:nCurrent, 2] := cType
+         oBrowse:aArray[oBrowse:nCurrent, 3] := nLen
+         oBrowse:aArray[oBrowse:nCurrent, 4] := nDec
       ENDIF
    ENDIF
    oBrowse:Refresh()
@@ -617,7 +617,7 @@ Memvar oBrw
          EVAL( oBrw:bGoBot,oBrw )
       ENDIF
       oBrw:Refresh()
-      Eval( oBrw:bScrollPos,oBrw,0 )
+      Eval( oBrw:bScrollPos,oBrw, 0 )
    ENDIF
 
 Return NIL
@@ -636,7 +636,7 @@ Memvar oBrw, oSay2
          IF dbSeek(cKey)
             oSay2:SetText( "Found" )
             oBrw:Refresh()
-            Eval( oBrw:bScrollPos,oBrw,0 )
+            Eval( oBrw:bScrollPos,oBrw, 0 )
          ELSE
             oSay2:SetText( "Not Found" )
             Eval( oBrw:bGoTo, oBrw, nRec )
@@ -680,7 +680,7 @@ Memvar oBrw, oSay2
    IF Found()
       oSay2:SetText( "Found" )
       oBrw:Refresh()
-      Eval( oBrw:bScrollPos,oBrw,0 )
+      Eval( oBrw:bScrollPos,oBrw, 0 )
    ELSE
       oSay2:SetText( "Not Found" )
       Eval( oBrw:bGoTo, oBrw, nRec )
@@ -698,7 +698,7 @@ Memvar oBrw, oSay2
       IF Found()
          oSay2:SetText( "Found" )
          oBrw:Refresh()
-         Eval( oBrw:bScrollPos,oBrw,0 )
+         Eval( oBrw:bScrollPos,oBrw, 0 )
       ELSE
          oSay2:SetText( "Not Found" )
          Eval( oBrw:bGoTo, oBrw, nRec )
@@ -708,16 +708,16 @@ Memvar oBrw, oSay2
 Return NIL
 
 Static Function GetData( cRes, cTitle, cText )
-Local oModDlg, oFont := HFont():Add( "MS Sans Serif",0,-13 )
+Local oModDlg, oFont := HFont():Add( "MS Sans Serif", 0,-13 )
 
-   INIT DIALOG oModDlg TITLE cTitle AT 0,0 SIZE 300,140 ;
+   INIT DIALOG oModDlg TITLE cTitle AT 0, 0 SIZE 300, 140 ;
         FONT oFont CLIPPER STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_SIZEBOX+DS_CENTER
 
-   @ 20,10 SAY cText SIZE 260,22
-   @ 20,35 GET cres  SIZE 260,26
+   @ 20, 10 SAY cText SIZE 260, 22
+   @ 20, 35 GET cres  SIZE 260, 26
 
-   @ 20,95 BUTTON "Ok" ID IDOK SIZE 100,32
-   @ 180,95 BUTTON "Cancel" ID IDCANCEL SIZE 100,32
+   @ 20, 95 BUTTON "Ok" ID IDOK SIZE 100, 32
+   @ 180, 95 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    ACTIVATE DIALOG oModDlg
 
@@ -740,7 +740,7 @@ Static Function dbv_AppRec()
 
    APPEND BLANK
    oBrw:Refresh()
-   Eval( oBrw:bScrollPos,oBrw,0 )
+   Eval( oBrw:bScrollPos,oBrw, 0 )
    oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )
    oSay2:SetText( "" )
 RETURN .T.
@@ -754,7 +754,7 @@ Memvar oBrw, oSay1, oSay2
       PACK
       oMsg:Close()
       oBrw:Refresh()
-      Eval( oBrw:bScrollPos,oBrw,0 )
+      Eval( oBrw:bScrollPos,oBrw, 0 )
       oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )
       oSay2:SetText( "" )
    ENDIF
@@ -769,7 +769,7 @@ Memvar oBrw, oSay1, oSay2
       ZAP
       oMsg:Close()
       oBrw:Refresh()
-      Eval( oBrw:bScrollPos,oBrw,0 )
+      Eval( oBrw:bScrollPos,oBrw, 0 )
       oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )
       oSay2:SetText( "" )
    ENDIF

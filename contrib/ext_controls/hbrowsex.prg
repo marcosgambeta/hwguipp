@@ -620,7 +620,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
             iParLow  := hwg_Loword( wParam )           
             IF ( nPos := AScan( ::aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
                //IF !::lSuspendMsgsHandling
-                  Eval( ::aEvents[nPos,3], Self, iParLow )
+                  Eval( ::aEvents[nPos, 3], Self, iParLow )
                //ENDIF
             ENDIF
          ENDIF
@@ -1243,7 +1243,7 @@ METHOD HBrowseEx:Rebuild()
             ::minHeight := ::forceHeight
          ELSE
             FOR j := 1 TO Len(oColumn:aBitmaps)
-               IF hb_IsObject( oColumn:aBitmaps[j,2] )
+               IF hb_IsObject( oColumn:aBitmaps[j, 2] )
                   xSize := Max( xSize, oColumn:aBitmaps[j, 2]:nWidth + 2 )
                   ::minHeight := Max( ::minHeight, ::aMargin[1] + oColumn:aBitmaps[j, 2]:nHeight + ::aMargin[3] )
                ENDIF

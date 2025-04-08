@@ -308,12 +308,12 @@ FUNCTION Main(...)
       ON SIZE { |o, x, y|o:Move(, y - 104, x - 8) }
 
    oBrwRes:aArray := {}
-   oBrwRes:AddColumn(HColumn():New("", { |v,o|o:aArray[o:nCurrent,1] }, "C", 80, 0))
+   oBrwRes:AddColumn(HColumn():New("", { |v,o|o:aArray[o:nCurrent, 1] }, "C", 80, 0))
    oBrwRes:lDispHead := .F.
    oBrwRes:bcolor := CLR_LIGHT1
    oBrwRes:bcolorSel := oBrwRes:htbcolor := CLR_LGREEN
    oBrwRes:tcolorSel := oBrwRes:httcolor := 0
-   oBrwRes:bEnter := {|o|iif(o:nCurrent > 0 .AND. o:nCurrent <= o:nRecords, oEditExpr:value := o:aArray[o:nCurrent,2], .T.)}
+   oBrwRes:bEnter := {|o|iif(o:nCurrent > 0 .AND. o:nCurrent <= o:nRecords, oEditExpr:value := o:aArray[o:nCurrent, 2], .T.)}
 
    @ 4, 516 SAY oSayState CAPTION "" SIZE 80, 28 STYLE WS_BORDER + SS_CENTER ON SIZE { |o, x, y|o:Move(, y - 32) }
    SET KEY 0, VK_RETURN TO KeyPress(VK_RETURN)
@@ -1566,8 +1566,8 @@ STATIC FUNCTION StackToggle()
 
    LOCAL oBrw
    LOCAL bEnter := {|o|
-      IF Lower(cPrgName) != Lower(o:aArray[o:nCurrent,1])
-         SetPath(cPaths, o:aArray[o:nCurrent,1], .T.)
+      IF Lower(cPrgName) != Lower(o:aArray[o:nCurrent, 1])
+         SetPath(cPaths, o:aArray[o:nCurrent, 1], .T.)
       ENDIF
       SetCurrLine(Val(o:aArray[o:nCurrent, 3]), o:aArray[o:nCurrent, 1])
       RETURN .T.
@@ -1617,9 +1617,9 @@ STATIC FUNCTION ShowStack(arr, n)
          oBrw:aArray := Array(nLen, 3)
       ENDIF
       FOR i := 1 TO nLen
-         oBrw:aArray[i,1] := arr[++n]
-         oBrw:aArray[i,2] := arr[++n]
-         oBrw:aArray[i,3] := arr[++n]
+         oBrw:aArray[i, 1] := arr[++n]
+         oBrw:aArray[i, 2] := arr[++n]
+         oBrw:aArray[i, 3] := arr[++n]
       NEXT
       oBrw:Refresh()
    ENDIF
@@ -1748,9 +1748,9 @@ STATIC FUNCTION ShowVars(arr, n, nVarType)
          oBrw:aArray := Array(nLen, 3)
       ENDIF
       FOR i := 1 TO nLen
-         oBrw:aArray[i,1] := Hex2Str(arr[++n])
-         oBrw:aArray[i,2] := Hex2Str(arr[++n])
-         oBrw:aArray[i,3] := Hex2Str(arr[++n])
+         oBrw:aArray[i, 1] := Hex2Str(arr[++n])
+         oBrw:aArray[i, 2] := Hex2Str(arr[++n])
+         oBrw:aArray[i, 3] := Hex2Str(arr[++n])
       NEXT
       oBrw:aArray := ASort(oBrw:aArray, , , {|z, y|z[1] < y[1]})
       oBrw:Refresh()
@@ -1825,7 +1825,7 @@ STATIC FUNCTION ShowWatch(arr, n)
    IF !Empty(oWatchDlg)
       oBrw := oWatchDlg:aControls[1]
       FOR i := 1 TO nLen
-         oBrw:aArray[i,2] := Hex2Str(arr[++n])
+         oBrw:aArray[i, 2] := Hex2Str(arr[++n])
       NEXT
       oBrw:Refresh()
    ENDIF
@@ -1871,7 +1871,7 @@ STATIC FUNCTION InspectAreas()
       IF Empty(o:aArray)
          oSayRdd:SetText("No Workareas in use...")
       ELSE
-         //hwg_writelog(o:aArray[o:nCurrent,11] + " " + o:aArray[o:nCurrent,12])
+         //hwg_writelog(o:aArray[o:nCurrent, 11] + " " + o:aArray[o:nCurrent, 12])
          IF (nOrd := Val(o:aArray[o:nCurrent, 11])) == 0
             cOrd := ""
          ELSE

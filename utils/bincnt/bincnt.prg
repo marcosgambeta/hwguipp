@@ -74,9 +74,9 @@ FUNCTION Main( cContainer )
       ON SIZE { |o, x, y|o:Move( , , x, y - 32 ) }
 
    oBrw:aArray := {}
-   oBrw:AddColumn( HColumn():New( "Name",{ |value,o|o:aArray[o:nCurrent,1] },"C",32 ) )
-   oBrw:AddColumn( HColumn():New( "Type",{ |value,o|o:aArray[o:nCurrent,2] },"C",8 ) )
-   oBrw:AddColumn( HColumn():New( "Size",{ |value,o|o:aArray[o:nCurrent,4] },"N",14,0 ) )
+   oBrw:AddColumn( HColumn():New( "Name",{ |value,o|o:aArray[o:nCurrent, 1] },"C", 32 ) )
+   oBrw:AddColumn( HColumn():New( "Type",{ |value,o|o:aArray[o:nCurrent, 2] },"C", 8 ) )
+   oBrw:AddColumn( HColumn():New( "Size",{ |value,o|o:aArray[o:nCurrent, 4] },"N", 14, 0 ) )
 
    oBrw:oStyleHead := oStyle
    oBrw:bcolorSel := oBrw:htbcolor := 0xeeeeee
@@ -201,8 +201,8 @@ STATIC FUNCTION CntAdd()
 STATIC FUNCTION CntDel()
    LOCAL n := oBrw:nCurrent
 
-   IF hwg_MsgYesNo( "Really delete " + oContainer:aObjects[n,1] + "?" )
-      oContainer:Del( oContainer:aObjects[n,1] )
+   IF hwg_MsgYesNo( "Really delete " + oContainer:aObjects[n, 1] + "?" )
+      oContainer:Del( oContainer:aObjects[n, 1] )
       oBrw:Refresh()
    ENDIF
 
@@ -219,8 +219,8 @@ STATIC FUNCTION CntSave()
    fname := hwg_Savefile( "*.*", "( *.* )", "*.*", CurDir() )
 #endif
    IF !Empty(fname)
-      fname := hb_FNameExtSetDef( fname, oContainer:aObjects[n,2] )
-      hb_MemoWrit( fname, oContainer:Get( oContainer:aObjects[n,1] ) )
+      fname := hb_FNameExtSetDef( fname, oContainer:aObjects[n, 2] )
+      hb_MemoWrit( fname, oContainer:Get( oContainer:aObjects[n, 1] ) )
    ENDIF
 
    RETURN NIL
@@ -245,14 +245,14 @@ STATIC FUNCTION About()
    INIT DIALOG oDlg TITLE "About" ;
       AT 0, 0 SIZE 400, 320 FONT HWindow():GetMain():oFont COLOR 0xCCCCCC
 
-   @ 20, 40 SAY "Binary container manager" SIZE 360,26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
-   @ 20, 64 SAY "Version "+APP_VERSION SIZE 360,26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
-   @ 10, 100 SAY "Copyright 2014 Alexander S.Kresin" SIZE 380,26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
-   @ 20, 124 SAY "http://www.kresin.ru" LINK "http://www.kresin.ru" SIZE 360,26 STYLE SS_CENTER
+   @ 20, 40 SAY "Binary container manager" SIZE 360, 26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
+   @ 20, 64 SAY "Version "+APP_VERSION SIZE 360, 26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
+   @ 10, 100 SAY "Copyright 2014 Alexander S.Kresin" SIZE 380, 26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
+   @ 20, 124 SAY "http://www.kresin.ru" LINK "http://www.kresin.ru" SIZE 360, 26 STYLE SS_CENTER
    @ 20, 160 LINE LENGTH 360
-   @ 20, 180 SAY hwg_version() SIZE 360,26 STYLE SS_CENTER COLOR CLR_LBLUE0 TRANSPARENT
+   @ 20, 180 SAY hwg_version() SIZE 360, 26 STYLE SS_CENTER COLOR CLR_LBLUE0 TRANSPARENT
 
-   @ 120, 250 BUTTON "Close" ON CLICK {|| hwg_EndDialog()} SIZE 160,36
+   @ 120, 250 BUTTON "Close" ON CLICK {|| hwg_EndDialog()} SIZE 160, 36
 
    ACTIVATE DIALOG oDlg CENTER
 

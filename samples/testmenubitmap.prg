@@ -77,7 +77,7 @@ Private oMenu
  ENDIF
 
         INIT WINDOW oMain MAIN TITLE "Teste" ;
-             AT 0,0 ;//BACKGROUND BITMAP OBMP;
+             AT 0, 0 ;//BACKGROUND BITMAP OBMP;
              SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
                MENU OF oMain

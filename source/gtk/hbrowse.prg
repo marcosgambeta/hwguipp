@@ -106,7 +106,7 @@ METHOD HColumn:SetPaintCB(nId, block, cId)
 
    nLen := Len(::aPaintCB)
    FOR i := 1 TO nLen
-      IF ::aPaintCB[i,1] == nId .AND. ::aPaintCB[i,2] == cId
+      IF ::aPaintCB[i, 1] == nId .AND. ::aPaintCB[i, 2] == cId
          EXIT
       ENDIF
    NEXT
@@ -119,7 +119,7 @@ METHOD HColumn:SetPaintCB(nId, block, cId)
       IF i > nLen
          AAdd(::aPaintCB, {nId, cId, block})
       ELSE
-         ::aPaintCB[i,3] := block
+         ::aPaintCB[i, 3] := block
       ENDIF
    ENDIF
 
@@ -253,7 +253,7 @@ METHOD HBrowse:New( lType, oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFo
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, bRClick )
 
-   nStyle := hb_bitor( IIf(nStyle == NIL,0,nStyle), WS_CHILD + WS_VISIBLE +  ;
+   nStyle := hb_bitor( IIf(nStyle == NIL, 0,nStyle), WS_CHILD + WS_VISIBLE +  ;
       IIf(lNoBorder == NIL .OR. !lNoBorder, WS_BORDER, 0) +            ;
       IIf(lNoVScroll == NIL .OR. !lNoVScroll, WS_VSCROLL, 0) )
 
@@ -312,7 +312,7 @@ METHOD HBrowse:onEvent( msg, wParam, lParam )
    LOCAL aCoors
    LOCAL retValue := -1
 
-   // hwg_WriteLog( "Brw: "+Str(msg,6)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
+   // hwg_WriteLog( "Brw: "+Str(msg, 6)+"|"+Str(wParam, 10)+"|"+Str(lParam, 10) )
    IF ::active .AND. !Empty(::aColumns)
 
       IF hb_IsBlock(::bOther)
@@ -488,7 +488,7 @@ STATIC FUNCTION InitColumn( oBrw, oColumn, n )
    // DF7BE: If century is on, the length of date field must set to 10
    IF oColumn:type == "D"
      IF hwg_getCentury()
-      oColumn:length := Max(oColumn:length,10)
+      oColumn:length := Max(oColumn:length, 10)
      ENDIF
    ENDIF
    RETURN NIL
@@ -643,8 +643,8 @@ METHOD HBrowse:Rebuild(hDC)
       IF oColumn:aBitmaps != NIL
          xSize := 0
          FOR j := 1 TO Len(oColumn:aBitmaps)
-            IF ValType( oColumn:aBitmaps[j,2] ) == "O"
-               xSize := Max( xSize, oColumn:aBitmaps[j,2]:nWidth + 2 )
+            IF ValType( oColumn:aBitmaps[j, 2] ) == "O"
+               xSize := Max( xSize, oColumn:aBitmaps[j, 2]:nWidth + 2 )
                ::minHeight := Max(::minHeight, oColumn:aBitmaps[j, 2]:nHeight)
             ENDIF
          NEXT
@@ -1135,8 +1135,8 @@ METHOD HBrowse:LineOut( nstroka, vybfld, hDC, lSelected, lClear )
             IF !lClear
                IF oColumn:aBitmaps != NIL .AND. !Empty(oColumn:aBitmaps)
                   FOR j := 1 TO Len(oColumn:aBitmaps)
-                     IF Eval( oColumn:aBitmaps[j,1], Eval( oColumn:block,,Self,nCol ), lSelected )
-                        IF !Empty(ob := oColumn:aBitmaps[j,2])
+                     IF Eval( oColumn:aBitmaps[j, 1], Eval( oColumn:block,,Self,nCol ), lSelected )
+                        IF !Empty(ob := oColumn:aBitmaps[j, 2])
                            bh := ::height
                            bw := Int( ob:nWidth * ( ob:nHeight / ::height ) )
                            hwg_Drawbitmap(hDC, ob:handle, NIL, x + ::aPadding[1], y1 + ::aPadding[2], bw, bh)
@@ -1933,7 +1933,7 @@ METHOD HBrowse:Edit( wParam, lParam )
 // DF7BE: The sizes of WinAPI are too small. Text was truncated at end of line.
                @ 0, 30 HCEDIT ::oEdit SIZE 600, 300 ;
                     FONT ::oFont
-               // old 010, 252 - 100, 252 - sizes 80,24 (too small)
+               // old 010, 252 - 100, 252 - sizes 80, 24 (too small)
                @ 010, 340 ownerbutton owb2 TEXT ::cTextSave  size 100, 24 ON Click { || bclsbutt := .F. , mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
                @ 100, 340 ownerbutton owb1 TEXT ::cTextClose size 100, 24 ON CLICK { || mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
 //               @ 100, 340 ownerbutton owb1 TEXT ::cTextClose size 100, 24 ON CLICK { ||oModDlg:close() }
@@ -2247,7 +2247,7 @@ FUNCTION hwg_VScrollPos( oBrw, nType, lEof, nPos )
       IF nType > 0 .AND. lEof
          Eval( oBrw:bSkip, oBrw, - 1 )
       ENDIF
-      nPos := Round( ( maxPos/(oBrw:nRecords - 1 ) ) * ( Eval( oBrw:bRecnoLog,oBrw ) - 1 ),0 )
+      nPos := Round( ( maxPos/(oBrw:nRecords - 1 ) ) * ( Eval( oBrw:bRecnoLog,oBrw ) - 1 ), 0 )
       IF hwg_SetAdjOptions( oBrw:hScrollV, nPos )
           obrw:lSetAdj := .T.
       ENDIF
@@ -2306,12 +2306,12 @@ FUNCTION hwg_getPaintCB(arr, nId)
    IF !Empty(arr)
       nLen := Len(arr)
       FOR i := 1 TO nLen
-         IF arr[i,1] == nId
+         IF arr[i, 1] == nId
             IF nId < PAINT_LINE_ITEM
-               RETURN arr[i,3]
+               RETURN arr[i, 3]
             ELSE
                IF aRes == NIL
-                  aRes := { arr[i,3] }
+                  aRes := { arr[i, 3] }
                ELSE
                   AAdd(aRes, arr[i, 3])
                ENDIF

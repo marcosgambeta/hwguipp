@@ -274,7 +274,7 @@ METHOD HGraph:Paint(lpdis)
       ENDIF
       hwg_Settextcolor(hDC, ::colorCoor)
       FOR i := 1 TO Len(::aSignX)
-         px1 := Round(x1 + (::aSignX[i, 1] - ::xmin) / scaleX + IIf(::nType == 2 .AND. ::lGridXMid, nWidth / 2,0), 0)
+         px1 := Round(x1 + (::aSignX[i, 1] - ::xmin) / scaleX + IIf(::nType == 2 .AND. ::lGridXMid, nWidth / 2, 0), 0)
          hwg_Drawline(hDC, px1, y0 + 4, px1, y0 - 1)
          IF ::aSignX[i, 2] != NIL
             hwg_Drawtext(hDC, IIf(HB_ISCHAR(::aSignX[i, 2]), ::aSignX[i, 2], Ltrim(Str(::aSignX[i, 2]))), px1 - 40, y0 + 4, px1 + 40, y0 + 20, DT_CENTER)

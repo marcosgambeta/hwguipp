@@ -15,7 +15,7 @@ Public oAgent, oTimer
 
    INIT WINDOW oMainWindow MAIN TITLE "Example"  ;
      SYSCOLOR COLOR_3DLIGHT+1                    ;
-     AT 200,0 SIZE 600,380                       ;
+     AT 200, 0 SIZE 600, 380                       ;
      FONT oFont
 
    oAgent := win_OleCreateObject("Agent.Control.2")
@@ -28,18 +28,18 @@ Public oAgent, oTimer
       IF Empty(oChar) .OR. Empty(oChar:hObj)
          cText := "No default character !"
       ELSE
-         @ 480,20 BUTTON oBtnSpeak CAPTION "Speak!" SIZE 100,32  ON CLICK {||SpeakIt(oEdit)}
-         @ 480,60 BUTTON oBtnPause CAPTION "Pause"  SIZE 100,32 ;
+         @ 480, 20 BUTTON oBtnSpeak CAPTION "Speak!" SIZE 100, 32  ON CLICK {||SpeakIt(oEdit)}
+         @ 480, 60 BUTTON oBtnPause CAPTION "Pause"  SIZE 100, 32 ;
                ON CLICK {||SetPause()}
-         // @ 480,100 UPDOWN oUpDown INIT 10 RANGE 2,100 SIZE 100,30
+         // @ 480, 100 UPDOWN oUpDown INIT 10 RANGE 2, 100 SIZE 100, 30
       ENDIF
-      @ 480,250 BUTTON "Set Default"  SIZE 100,32  ON CLICK {||oAgent:showDefaultCharacterProperties()}
+      @ 480, 250 BUTTON "Set Default"  SIZE 100, 32  ON CLICK {||oAgent:showDefaultCharacterProperties()}
    ENDIF
 
-   @ 12,20 EDITBOX oEdit CAPTION hwg_Getclipboardtext() SIZE 460,310 ;
+   @ 12, 20 EDITBOX oEdit CAPTION hwg_Getclipboardtext() SIZE 460, 310 ;
       STYLE ES_MULTILINE+ES_AUTOVSCROLL
 
-   @ 480,300 BUTTON "Close"  SIZE 100,32  ON CLICK {||hwg_EndWindow()}
+   @ 480, 300 BUTTON "Close"  SIZE 100, 32  ON CLICK {||hwg_EndWindow()}
 
    SET TIMER oTimer OF oMainWindow VALUE 200 ACTION {||TimerFunc()}
 
@@ -48,7 +48,7 @@ Public oAgent, oTimer
 Return NIL
 
 Static Function SpeakIt( oEdit )
-// Local aTop := hwg_Clienttoscreen( oMainWindow:handle,0,0 )
+// Local aTop := hwg_Clienttoscreen( oMainWindow:handle, 0, 0 )
 
    oBtnSpeak:Disable()
    cText := hwg_Getedittext( oEdit:oParent:handle, oEdit:id )

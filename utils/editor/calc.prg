@@ -59,7 +59,7 @@
 REQUEST PI, COS, SIN, TAN, COT, ACOS, ASIN, ATAN, DTOR, RTOD
 
 STATIC oEdiCurr, cIdExp := "clcexp", cIdRes := "clcres"
-STATIC aCurrTD := { 0,0,0 }
+STATIC aCurrTD := { 0, 0, 0 }
 STATIC ceol := e"\r\n"
 
 FUNCTION EditScr( oEdit, aStru )
@@ -67,9 +67,9 @@ FUNCTION EditScr( oEdit, aStru )
    LOCAL oDlg, oEdiScr, arr
 
    INIT DIALOG oDlg TITLE Iif( aStru==NIL, "Insert", "Edit" ) + " script" ;
-      AT 100,240  SIZE 600,300  FONT HWindow():Getmain():oFont ;
+      AT 100, 240  SIZE 600, 300  FONT HWindow():Getmain():oFont ;
       STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_MAXIMIZEBOX+WS_SIZEBOX ;
-      ON INIT {||hwg_Movewindow(oDlg:handle,100,240,600,310)}
+      ON INIT {||hwg_Movewindow(oDlg:handle, 100, 240, 600, 310)}
 
    oEdiScr := HCEdit():New( ,,, 0, 0, 400, oDlg:nHeight, oDlg:oFont,, {|o,x,y|o:Move(,,x,y)} )
 
@@ -130,7 +130,7 @@ STATIC FUNCTION PreProc( s )
       ELSEIF c == 'M'
          nPos1 := nPos2 + 2
          cTemp := ""
-         DO WHILE !( (c := Substr(s,nPos1,1)) $ " :=!<>+-*/%,") .AND. !(c $ ceol)
+         DO WHILE !( (c := Substr(s,nPos1, 1)) $ " :=!<>+-*/%,") .AND. !(c $ ceol)
             cTemp += c
             nPos1 ++
          ENDDO
@@ -230,7 +230,7 @@ FUNCTION CalcAll( oEdit )
          IF Len( aStru[j] ) >= OB_HREF .AND. hwg_CheckBit( aStru[j,OB_ACCESS], BIT_CLCSCR )
             CalcScr( aStru[j], i )
             l := .T.
-         //ELSEIF Len( aStru[j] ) >= OB_ID .AND. !Empty(aStru[j,OB_ID]) .AND. Left(aStru[j,OB_ID],6) == cIdRes
+         //ELSEIF Len( aStru[j] ) >= OB_ID .AND. !Empty(aStru[j,OB_ID]) .AND. Left(aStru[j,OB_ID], 6) == cIdRes
          //   Calc( oEdit, i )
          ENDIF
       NEXT
@@ -244,7 +244,7 @@ FUNCTION CalcAll( oEdit )
                FOR j := 2 TO Len( aStruTD[i1] )
                   IF Len( aStruTD[i1,j] ) >= OB_HREF .AND. hwg_CheckBit( aStruTD[i1,j,OB_ACCESS], BIT_CLCSCR )
                      CalcScr( aStruTD[i1,j], i, n, i1 )
-                  ELSEIF Len( aStruTD[i1,j] ) >= OB_ID .AND. !Empty(aStruTD[i1,j,OB_ID]) .AND. Left(aStruTD[i1,j,OB_ID],6) == cIdRes
+                  ELSEIF Len( aStruTD[i1,j] ) >= OB_ID .AND. !Empty(aStruTD[i1,j,OB_ID]) .AND. Left(aStruTD[i1,j,OB_ID], 6) == cIdRes
                      Calc( oEdit, i, n, i1 )
                   ENDIF
                NEXT
@@ -272,7 +272,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
       arr := oEdit:GetPosInfo()
       nL := arr[1]
       IF Len( arr ) >= 7
-         aCurrTD[1] := arr[2]; aCurrTD[2] := oEdit:aStru[nL,1,OB_TRNUM]; aCurrTD[3] := nL
+         aCurrTD[1] := arr[2]; aCurrTD[2] := oEdit:aStru[nL, 1,OB_TRNUM]; aCurrTD[3] := nL
          iTD := arr[2]; nL1 := arr[4]
       ENDIF
       IF !Empty(arr[3]) .AND. Len( arr[3] ) >= OB_HREF .AND. ;
@@ -294,9 +294,9 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
    aStru := oEdit:aStru[nL1]
    FOR i := 2 TO Len( aStru )
       IF Len( aStru[i] ) >= OB_ID .AND. !Empty(aStru[i,OB_ID])
-         IF Left(aStru[i,OB_ID],6) == cIdExp
+         IF Left(aStru[i,OB_ID], 6) == cIdExp
             nStruExp := i
-         ELSEIF Left(aStru[i,OB_ID],6) == cIdRes
+         ELSEIF Left(aStru[i,OB_ID], 6) == cIdRes
             nStruRes := i
          ENDIF
       ENDIF
@@ -305,7 +305,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
    IF Empty(nStruExp)
       IF Empty(oEdit:aPointM2[P_Y])
          cExp := Trim(Iif(Empty(nStruRes), oEdit:aText[nL1], ;
-               Left(oEdit:aText[nL1],aStru[nStruRes,1]-1) ) )
+               Left(oEdit:aText[nL1],aStru[nStruRes, 1]-1) ) )
       ELSE
          cExp := Trim(oEdit:GetText( oEdit:aPointM1, oEdit:aPointM2 ))
          lNewExp := .T.
@@ -329,12 +329,12 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
             aStru := oEdit:aStru[j]
             FOR i := 2 TO Len( aStru )
                IF Len( aStru[i] ) >= OB_ID .AND. !Empty(aStru[i,OB_ID])
-                  IF Left(aStru[i,OB_ID],6) == cIdRes
+                  IF Left(aStru[i,OB_ID], 6) == cIdRes
                      IF --n == 0
                         cExp := Left(cExp, nPos2 - 1) + ;
                            Substr(oEdit:aText[j], aStru[i, 1], aStru[i, 2] - aStru[i, 1] + 1) + ;
                            Substr(cExp, nPos2 + 3)
-                        nPos1 := nPos2 + aStru[i,2] - aStru[i,1]
+                        nPos1 := nPos2 + aStru[i, 2] - aStru[i, 1]
                      ENDIF
                      EXIT
                   ENDIF
@@ -397,10 +397,10 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
             Aadd(aStru, cIdRes)
          ENDIF
       ELSE
-         n := aStru[nStruRes,2]-aStru[nStruRes,1]+1
-         oEdit:InsText( { aStru[nStruRes,1],nL1 }, cRes,, .F. )
-         oEdit:DelText( { aStru[nStruRes,1]+hced_Len(oEdit,cRes),nL1 }, ;
-               { aStru[nStruRes,1]+hced_Len(oEdit,cRes)+n,nL1 }, .F. )
+         n := aStru[nStruRes, 2]-aStru[nStruRes, 1]+1
+         oEdit:InsText( { aStru[nStruRes, 1],nL1 }, cRes,, .F. )
+         oEdit:DelText( { aStru[nStruRes, 1]+hced_Len(oEdit,cRes),nL1 }, ;
+               { aStru[nStruRes, 1]+hced_Len(oEdit,cRes)+n,nL1 }, .F. )
       ENDIF
       oEdit:lUpdated := .T.
    ENDIF
@@ -464,10 +464,10 @@ FUNCTION Z( nCol, nRow )
       RETURN NIL
    ENDIF
 
-   nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3],1,OB_TRNUM] + nRow
+   nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3], 1,OB_TRNUM] + nRow
    cText := Ltrim(oEdiCurr:aStru[nL, 1, OB_OB, nCol, OB_ATEXT][1])
 
-   RETURN Iif( (c := Left(cText,1))=="(", Val(Substr(cText,2)), ;
+   RETURN Iif( (c := Left(cText, 1))=="(", Val(Substr(cText, 2)), ;
          Iif( IsDigit(c).OR.c=='-', Val(cText), cText ) )
 
 FUNCTION Sum( aCells )
@@ -493,17 +493,17 @@ FUNCTION Sum( aCells )
    ENDIF
 
    IF aCells[1] == aCells[3]
-      nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3],1,OB_TRNUM] + aCells[2]
+      nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3], 1,OB_TRNUM] + aCells[2]
       FOR i := aCells[2] TO aCells[4]
          cText := Ltrim(oEdiCurr:aStru[nL, 1, OB_OB, aCells[1], OB_ATEXT][1])
-         nSum += Iif( Left(cText,1)=="(", Val(Substr(cText,2)), Val(cText) )
+         nSum += Iif( Left(cText, 1)=="(", Val(Substr(cText, 2)), Val(cText) )
          nL ++
       NEXT
    ELSE
-      nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3],1,OB_TRNUM] + aCells[2]
+      nL := aCurrTD[3] - oEdiCurr:aStru[aCurrTD[3], 1,OB_TRNUM] + aCells[2]
       FOR i := aCells[1] TO aCells[3]
          cText := Ltrim(oEdiCurr:aStru[nL, 1, OB_OB, i, OB_ATEXT][1])
-         nSum += Iif( Left(cText,1)=="(", Val(Substr(cText,2)), Val(cText) )
+         nSum += Iif( Left(cText, 1)=="(", Val(Substr(cText, 2)), Val(cText) )
       NEXT
    ENDIF
 
@@ -521,7 +521,7 @@ FUNCTION GetAt(cMet)
          cOldVal := Substr(cOldVal, 2, Len(cOldVal) - 2)
       ENDIF
       IF IsDigit( Left(cOldVal, 1) )
-         RETURN Val( Substr(cOldVal,1) )
+         RETURN Val( Substr(cOldVal, 1) )
       ELSE
          RETURN cOldVal
       ENDIF

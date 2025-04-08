@@ -63,7 +63,7 @@ oImg_Window := HBitmap():AddString( "Window" , cVal_Wbmp )
 oImg_Dialog := HBitmap():AddString( "Dialog" , cVal_Dbmp )
 
    INIT WINDOW oMainWindow TITLE "Dialog icon test" ;
-     AT 100,80 SIZE 300, 300 ICON oObj_Window
+     AT 100, 80 SIZE 300, 300 ICON oObj_Window
 
  
   nMainX := oMainWindow:nLeft + 60
@@ -78,23 +78,23 @@ oImg_Dialog := HBitmap():AddString( "Dialog" , cVal_Dbmp )
       ENDMENU
    ENDMENU
 
-   @  20, 0 SAY cCmd SIZE 250,40   
+   @  20, 0 SAY cCmd SIZE 250, 40   
 
 
 #ifdef __GTK__
 /* Does not work on Windows (Format *.ico) */
-   @  50,60 BITMAP oObj_Window  
-   @ 160,60 BITMAP oObj_Dialog
+   @  50, 60 BITMAP oObj_Window
+   @ 160, 60 BITMAP oObj_Dialog
    // --------------------
-   @  30, 150 SAY "Window icon" SIZE 80,32
-   @ 140, 150 SAY "Dialog icon" SIZE 80,32   
+   @  30, 150 SAY "Window icon" SIZE 80, 32
+   @ 140, 150 SAY "Dialog icon" SIZE 80, 32   
 #else 
 
    @  50, 60 BITMAP oImg_Window 
    @ 160, 60 BITMAP oImg_Dialog  
    
-   @  30, 150 SAY "Window Bitmap" SIZE 80,32
-   @ 140, 150 SAY "Dialog Bitmap" SIZE 80,32
+   @  30, 150 SAY "Window Bitmap" SIZE 80, 32
+   @ 140, 150 SAY "Dialog Bitmap" SIZE 80, 32
 #endif
 
 
@@ -109,8 +109,8 @@ LOCAL cTitle := "Dialog icon", oDialog
 LOCAL ctext  := "-- Dialog --"
 LOCAL ctxt   := "icon displayed with @x,y Bitmap" 
   
-//  INIT DIALOG oDialog TITLE cTitle AT oMainWindow:nLeft+60,oMainWindow:nTop+175  SIZE 400,400 ;
-   INIT DIALOG oDialog TITLE cTitle AT nMainX, nMainY SIZE 400,400 ;
+//  INIT DIALOG oDialog TITLE cTitle AT oMainWindow:nLeft+60,oMainWindow:nTop+175  SIZE 400, 400 ;
+   INIT DIALOG oDialog TITLE cTitle AT nMainX, nMainY SIZE 400, 400 ;
      ICON oObj_Dialog
 
       @ 10 , 20  SAY ctext SIZE 270, 90
@@ -128,7 +128,7 @@ LOCAL ctxt   := "icon displayed with @x,y Bitmap"
       @ 210, 118 BITMAP   oImg_Dialog
 #endif
 
-      @ 150,350 BUTTON "OK" SIZE 100, 32 ON CLICK {|| oDialog:Close() }
+      @ 150, 350 BUTTON "OK" SIZE 100, 32 ON CLICK {|| oDialog:Close() }
 
 
    ACTIVATE DIALOG oDialog

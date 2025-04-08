@@ -136,7 +136,7 @@ CLASS HCEdit INHERIT HControl
    DATA aWrap, nLinesAll
    DATA nDocFormat INIT 0
    DATA nDocOrient INIT 0
-   DATA aDocMargins INIT { 10,10,10,10 }
+   DATA aDocMargins INIT { 10, 10, 10, 10 }
    DATA nKoeffScr
 
    DATA lShowNumbers INIT .F.
@@ -658,7 +658,7 @@ METHOD HCEdit:onEvent(msg, wParam, lParam)
          n := IIf(::nLines > 0, Int(::nHeight / (::aLines[1, AL_Y2] - ::aLines[1, AL_Y1])), 0)
          nLinesAll := ::nLinesAll - n + 2
          IF ::lWrap
-            n := (hced_LineNum(Self,1)-1) / nLinesAll
+            n := (hced_LineNum(Self, 1)-1) / nLinesAll
          ELSE
             n := (::nLineF-1) / nLinesAll
          ENDIF
@@ -863,7 +863,7 @@ METHOD HCEdit:PaintLine(hDC, yPos, nLine, lUse_aWrap, nRight)
          ENDIF
          cLine := hced_Substr(Self, ::aText[nTextLine], nWCharF, nPrinted)
          ::MarkLine(nLine, lReal, nWSublF, nWCharF, ::nLines)
-         hced_LineOut(::hEdit, @x1, @yPos, @x2, cLine, nPrinted, ::nAlign, IIf(lReal,nRight,0), .F.)
+         hced_LineOut(::hEdit, @x1, @yPos, @x2, cLine, nPrinted, ::nAlign, IIf(lReal,nRight, 0), .F.)
       ELSE
          IF ::lWrap
             cLine := IIf(nWCharF == 1, ::aText[nTextLine], hced_Substr(Self, ::aText[nTextLine], nWCharF))
@@ -872,7 +872,7 @@ METHOD HCEdit:PaintLine(hDC, yPos, nLine, lUse_aWrap, nRight)
          ENDIF
 
          ::MarkLine(nLine, lReal, IIf(::lWrap, nWSublF, NIL), nWCharF, ::nLines)
-         nPrinted := hced_LineOut(::hEdit, @x1, @yPos, @x2, cLine, hced_Len(Self, cLine), ::nAlign, IIf(lReal,nRight,0))
+         nPrinted := hced_LineOut(::hEdit, @x1, @yPos, @x2, cLine, hced_Len(Self, cLine), ::nAlign, IIf(lReal,nRight, 0))
       ENDIF
 
       aLine[AL_X1] := x1
@@ -951,12 +951,12 @@ METHOD HCEdit:MarkLine(nLine, lReal, nSubLine, nWCharF, nLineC)
       IF ::oHili:nItems > 0
          aStru := ::oHili:aLineStru
          FOR i := 1 TO ::oHili:nItems
-            IF aStru[i,2] > 0 .AND. hb_hHaskey(::aHili, aStru[i, 3])
-               aHili := ::aHili[aStru[i,3]]
+            IF aStru[i, 2] > 0 .AND. hb_hHaskey(::aHili, aStru[i, 3])
+               aHili := ::aHili[aStru[i, 3]]
                IF aHili[1] > 0
                   hced_addAttrFont(::hEdit, aHili[1])
                ENDIF
-               IF aStru[i,2] >= nPos1 .AND. aStru[i,1] <= nPos2
+               IF aStru[i, 2] >= nPos1 .AND. aStru[i, 1] <= nPos2
                   x1 := Max(nPos1, aStru[i, 1]) - nPos1 + 1
                   x2 := Min(aStru[i, 2], nPos2) - nPos1 + 1
                   bColor := IIf(nLineC == ::nLineC .AND. ::bColorCur != ::bColor, ::bColorCur, IIf(aHili[3] == NIL, ::bColor, aHili[3]))
@@ -1078,10 +1078,10 @@ METHOD HCEdit:SetText(xText, cPageIn, cPageOut)
    ENDDO
 
    FOR i := 1 TO ::nTextLen
-      IF (c := Right(::aText[i],1)) == Chr(13) .OR. c == Chr(10)
+      IF (c := Right(::aText[i], 1)) == Chr(13) .OR. c == Chr(10)
          ::aText[i] := Left(::aText[i], Len(::aText[i]) - 1)
       ENDIF
-      IF (c := Left(::aText[i],1)) == Chr(13) .OR. c == Chr(10)
+      IF (c := Left(::aText[i], 1)) == Chr(13) .OR. c == Chr(10)
          ::aText[i] := Substr(::aText[i], 2)
       ENDIF
    NEXT
@@ -2136,10 +2136,10 @@ METHOD HCEdit:InsText(aPoint, cText, lOver, lChgPos)
    ENDIF
    nTextLen := Len(aText)
    FOR i := 1 TO nTextLen
-      IF (c := Right(aText[i],1)) == Chr(13) .OR. c == Chr(10)
+      IF (c := Right(aText[i], 1)) == Chr(13) .OR. c == Chr(10)
          aText[i] := Left(aText[i], Len(aText[i]) - 1)
       ENDIF
-      IF (c := Left(aText[i],1)) == Chr(13) .OR. c == Chr(10)
+      IF (c := Left(aText[i], 1)) == Chr(13) .OR. c == Chr(10)
          aText[i] := Substr(aText[i], 2)
       ENDIF
    NEXT
@@ -2549,7 +2549,7 @@ METHOD HCEdit:Print(nDocFormat, nDocOrient, nMarginL, nMarginR, nMarginT, nMargi
    ::nMarginL := nMarginL *oPrinter:nHRes
    ::nMarginR := nMarginR * oPrinter:nHRes
    yPos := ::nMarginT := nMarginT * oPrinter:nVRes
-   ::nMarginB := (HPrinter():aPaper[nDocFormat,3] - nMarginB) * oPrinter:nVRes
+   ::nMarginB := (HPrinter():aPaper[nDocFormat, 3] - nMarginB) * oPrinter:nVRes
 
    IF      ::nDocFormat != nDocFormat ;
       .OR. ::nDocOrient != nDocOrient ;
@@ -2626,8 +2626,8 @@ METHOD HCEdit:PrintLine(oPrinter, yPos, nL)
             IF ::oHili:nItems > 0
                aStru := ::oHili:aLineStru
                FOR i := 1 TO ::oHili:nItems
-                  IF aStru[i,2] >= nPos1 .AND. aStru[i,1] <= nPos1+nPrinted-1 .AND. hb_hHaskey(::aHili, aStru[i, 3])
-                     aHili := ::aHili[aStru[i,3]]
+                  IF aStru[i, 2] >= nPos1 .AND. aStru[i, 1] <= nPos1+nPrinted-1 .AND. hb_hHaskey(::aHili, aStru[i, 3])
+                     aHili := ::aHili[aStru[i, 3]]
                      IF !Empty(aHili[1]) .AND. aHili[1] > 1
                         x1 := Max(nPos1, aStru[i, 1]) - nPos1 + 1
                         x2 := Min(aStru[i, 2], nPos1 + nPrinted - 1) - nPos1 + 1
@@ -2671,7 +2671,7 @@ METHOD HCEdit:PrintLine(oPrinter, yPos, nL)
          ENDIF
          FOR i := 1 TO Len(aTemp)
             oPrinter:Say(aTemp[i, 1], nMarginL, yPos, nMarginL + aTemp[i, 3], yPos+nHeight, , ::aFonts[aTemp[i, 2]])
-            nMarginL += aTemp[i,3]
+            nMarginL += aTemp[i, 3]
          NEXT
       ELSE
          hwg_Selectobject(oPrinter:hDCPrn, ::aFonts[1]:handle)
@@ -2873,7 +2873,7 @@ STATIC FUNCTION onTrack(oEdit, oTrack)
 
    nInPage := IIf(oEdit:nLines > 0, Int(oEdit:nHeight / (oEdit:aLines[1, AL_Y2] - oEdit:aLines[1, AL_Y1])), 0)
    nLinesAll := oEdit:nLinesAll - nInPage + 2
-   // hwg_writelog("1> nPos: " + str(nPos,7,4)+" nInPage: "+str(nInPage)+" nLines: "+str(oEdit:nLines))
+   // hwg_writelog("1> nPos: " + str(nPos, 7, 4)+" nInPage: "+str(nInPage)+" nLines: "+str(oEdit:nLines))
    IF oEdit:nLinesAll > nInPage //n > 0
       nLine := Min(nLinesAll, Max(1, Int(nPos * nLinesAll)))
       //hwg_writelog("  2> nLine: " + str(nLine)+" nLinesAll: "+str(oEdit:nLinesAll))

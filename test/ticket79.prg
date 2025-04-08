@@ -24,7 +24,7 @@ LOCAL oWinMain
 
 INIT WINDOW oWinMain MAIN  ;
      SYSCOLOR COLOR_3DLIGHT+1 ;
-     TITLE "Test program Coloured GET" AT 0, 0 SIZE 600,400;
+     TITLE "Test program Coloured GET" AT 0, 0 SIZE 600, 400;
      STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
    MENU OF oWinMain
@@ -47,10 +47,10 @@ LOCAL oodt , codt , nget
  codt := "1234567890abc   "
  
    INIT DIALOG oDlg TITLE "Ticket #79" ;
-        AT 0,0 SIZE 300, 500  ;
+        AT 0, 0 SIZE 300, 500  ;
         STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
-   @ 10, 14 + (30 * nget) GET oodt VAR codt ID ID_ODT COLOR 0xFF0000 SIZE 474,24  
+   @ 10, 14 + (30 * nget) GET oodt VAR codt ID ID_ODT COLOR 0xFF0000 SIZE 474, 24
 
    oDlg:Activate()
    

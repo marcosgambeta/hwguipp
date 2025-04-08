@@ -160,7 +160,7 @@ Function Main
 * Main Menu 
 
    INIT WINDOW oMainWindow MAIN TITLE cTitle ;
-     AT 0,0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
+     AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
    // MENUITEM in main menu on GTK/Linux does not start the desired action 
    // Submenu needed 
@@ -332,15 +332,15 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
  
    oWinPrn:PrintLine( "abcdefghijklmnopqrstuvwxyz" )
    oWinPrn:PrintLine( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" )
-  
-   oWinPrn:PrintLine( ctl + REPLICATE(cvert,9) + ctd + REPLICATE(cvert, 15) + ctr )
+
+   oWinPrn:PrintLine( ctl + REPLICATE(cvert, 9) + ctd + REPLICATE(cvert, 15) + ctr )
    oWinPrn:PrintLine( chori + "   129.54" + chori + "           0.00" + chori )
-   oWinPrn:PrintLine( clr + REPLICATE(cvert,9) + cCross + REPLICATE(cvert, 15) + crl )
+   oWinPrn:PrintLine( clr + REPLICATE(cvert, 9) + cCross + REPLICATE(cvert, 15) + crl )
    oWinPrn:PrintLine( chori + "    17.88" + chori + "      961014.21" + chori )
-   oWinPrn:PrintLine( cbl + REPLICATE(cvert,9) + cbo + REPLICATE(cvert, 15) + cbr )   
+   oWinPrn:PrintLine( cbl + REPLICATE(cvert, 9) + cbo + REPLICATE(cvert, 15) + cbr )
    oWinPrn:PrintLine()
-   oWinPrn:PrintLine( ctl + REPLICATE(cvert,9) + ctd + REPLICATE(cvert, 15) + ctr )
-   oWinPrn:PrintLine( cbl + REPLICATE(cvert,9) + cbo + REPLICATE(cvert, 15) + cbr )   
+   oWinPrn:PrintLine( ctl + REPLICATE(cvert, 9) + ctd + REPLICATE(cvert, 15) + ctr )
+   oWinPrn:PrintLine( cbl + REPLICATE(cvert, 9) + cbo + REPLICATE(cvert, 15) + cbr )
 //   oWinPrn:PrintLine( "ÚÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿" )
 //   oWinPrn:PrintLine( "ÀÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ" )
 
@@ -367,7 +367,7 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
    oWinPrn:NextPage()
    oWinPrn:PrintLine( oWinPrn:oFont:name + " " + Str(oWinPrn:oFont:height) + " " + Str(oWinPrn:nCharW) + " " + Str(oWinPrn:nLineHeight) )
    FOR i := 1 TO 80
-      oWinPrn:PrintLine( Padl( i,3 ) + " --------" )
+      oWinPrn:PrintLine( Padl( i, 3 ) + " --------" )
    NEXT
    
    * Test 10 lines forward
@@ -578,7 +578,7 @@ LOCAL result, achrit, csel
   nchrs := result /* Position in COMBOBOX */
   csel := achrit[result] 
   * Get the number of printer char set before ":"
-  nPrCharset := VAL(SUBSTR(csel,1,AT(":",csel) - 1 ) )
+  nPrCharset := VAL(SUBSTR(csel, 1,AT(":",csel) - 1 ) )
   hwg_MsgInfo("Character Set is now: " + ALLTRIM(STR(nchrs)) + " Name: " + csel , ;
           "Printer Character Set")
  ENDIF
@@ -731,19 +731,19 @@ yofs := nOffset + 120
 * Dialog size  : 565  : ==> yofs + 60
 *
   INIT DIALOG oDlgcCombo1 TITLE cTitle ;
-    AT 578,79 SIZE 516, yofs + 80;
+    AT 578, 79 SIZE 516, yofs + 80;
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 67,44 SAY oLabel1 CAPTION cLabel SIZE 378,22 ;
-        STYLE SS_CENTER   
-   @ 66,84 GET COMBOBOX oCombobox1 VAR nType ITEMS aITEMS SIZE 378,96   
-   @ 58 , yofs  BUTTON oButton1 CAPTION cOK SIZE 80,32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || nRetu := nType , bcancel := .F. , oDlgcCombo1:Close() }  
-   @ 175, yofs  BUTTON oButton2 CAPTION cCancel SIZE 80,32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || oDlgcCombo1:Close() }  
-   @ 375, yofs  BUTTON oButton3 CAPTION cHelp SIZE 80,32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || HELP( cHTopic ,PROCLINE(), cHVar ) }  
+   @ 67, 44 SAY oLabel1 CAPTION cLabel SIZE 378, 22 ;
+        STYLE SS_CENTER
+   @ 66, 84 GET COMBOBOX oCombobox1 VAR nType ITEMS aITEMS SIZE 378, 96
+   @ 58 , yofs  BUTTON oButton1 CAPTION cOK SIZE 80, 32 ;
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || nRetu := nType , bcancel := .F. , oDlgcCombo1:Close() }
+   @ 175, yofs  BUTTON oButton2 CAPTION cCancel SIZE 80, 32 ;
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || oDlgcCombo1:Close() }
+   @ 375, yofs  BUTTON oButton3 CAPTION cHelp SIZE 80, 32 ;
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || HELP( cHTopic ,PROCLINE(), cHVar ) }
 
    ACTIVATE DIALOG oDlgcCombo1
 * RETURN oDlgcCombo1:lresult

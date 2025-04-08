@@ -251,7 +251,7 @@ STATIC FUNCTION UpdateProcent( oDlg, aItem )
 
    IF aItem[ITEM_BITMAP] != NIL
       aBmpSize := hwg_Getbitmapsize( aItem[ITEM_BITMAP]:handle )
-      oDlg:oLabel7:SetText( LTrim(Str(Round(aBmpSize[1] * nValue/100,0 ) )) + "x" + LTrim(Str(Round(aBmpSize[2] * nValue/100,0 ) )) )
+      oDlg:oLabel7:SetText( LTrim(Str(Round(aBmpSize[1] * nValue/100, 0 ) )) + "x" + LTrim(Str(Round(aBmpSize[2] * nValue/100, 0 ) )) )
    ENDIF
 
    RETURN NIL
@@ -264,7 +264,7 @@ STATIC FUNCTION InitBitmap( oDlg, aItem )
       oDlg:oEdit1:Value := aItem[ITEM_CAPTION]
       oDlg:oLabel6:SetText( LTrim(Str(aBmpSize[1] )) + "x" + LTrim(Str(aBmpSize[2] )) )
       oDlg:oLabel7:SetText( LTrim(Str(aItem[ITEM_WIDTH] )) + "x" + LTrim(Str(aItem[ITEM_HEIGHT] )) )
-      oDlg:oUpdown1:Value := Round( aItem[ITEM_WIDTH] * 100/aBmpSize[1],0 )
+      oDlg:oUpdown1:Value := Round( aItem[ITEM_WIDTH] * 100/aBmpSize[1], 0 )
    ENDIF
 
    RETURN .T.

@@ -148,7 +148,7 @@ METHOD hToolBar:onEvent( msg, wParam, lParam )
    IF msg == WM_LBUTTONUP
       nPos := ascan(::aItem,{|x| x[2] == wParam})
       if nPos>0
-         IF hb_IsBlock(::aItem[nPos,7])
+         IF hb_IsBlock(::aItem[nPos, 7])
             Eval(::aItem[nPos, 7] ,Self)
          ENDIF
       endif

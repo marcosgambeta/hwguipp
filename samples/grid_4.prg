@@ -28,7 +28,7 @@ Function Main()
         USE temp
                         
         INIT WINDOW oMain MAIN TITLE "File Viewer" ;
-             AT 0,0 ;
+             AT 0, 0 ;
              SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
                 MENU OF oMain
@@ -53,15 +53,15 @@ Function Test()
              STYLE DS_CENTER + WS_VISIBLE + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
              
                 
-            @ 10,10 GRID oGrid OF oForm SIZE 680,375;
+            @ 10, 10 GRID oGrid OF oForm SIZE 680, 375;
                      ITEMCOUNT Lastrec() ;
                      ON DISPINFO {|oCtrl, nRow, nCol| OnDispInfo( oCtrl, nRow, nCol ) } ;
                      NOGRIDLINES
 
              ADD COLUMN TO GRID oGrid HEADER "" WIDTH  800
                                                               
-             @ 620, 395 BUTTON "Close" SIZE 75,25 ON CLICK {|| oForm:Close() }                            
-             
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }                            
+
         ACTIVATE DIALOG oForm
 Return NIL
 

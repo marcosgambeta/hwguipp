@@ -140,7 +140,7 @@ METHOD HComboBox:Init()
          hwg_ComboSetArray(::handle, ::aItems)
          IF Empty(::xValue)
             IF ::lText
-               ::xValue := IIf(HB_ISARRAY(::aItems[1]), ::aItems[1,1], ::aItems[1])
+               ::xValue := IIf(HB_ISARRAY(::aItems[1]), ::aItems[1, 1], ::aItems[1])
             ELSE
                ::xValue := 1
             ENDIF
@@ -185,7 +185,7 @@ METHOD HComboBox:Refresh( xVal )
 METHOD HComboBox:SetItem( nPos )
 
    IF ::lText
-      ::xValue := IIf(HB_ISARRAY(::aItems[nPos]), ::aItems[nPos,1], ::aItems[nPos])
+      ::xValue := IIf(HB_ISARRAY(::aItems[nPos]), ::aItems[nPos, 1], ::aItems[nPos])
    ELSE
       ::xValue := nPos
    ENDIF
@@ -205,7 +205,7 @@ METHOD HComboBox:SetItem( nPos )
 METHOD HComboBox:GetValue( nItem )
    
    LOCAL nPos := hwg_ComboGet(::handle)
-   LOCAL vari := IIf(!Empty(::aItems) .AND. nPos > 0, IIf(HB_ISARRAY(::aItems[1]), ::aItems[nPos,1], ::aItems[nPos]), "")
+   LOCAL vari := IIf(!Empty(::aItems) .AND. nPos > 0, IIf(HB_ISARRAY(::aItems[1]), ::aItems[nPos, 1], ::aItems[nPos]), "")
    LOCAL l := nPos > 0 .AND. HB_ISARRAY(::aItems[nPos])
 
    ::xValue := IIf(::lText, vari, nPos)

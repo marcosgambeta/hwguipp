@@ -191,7 +191,7 @@ METHOD HDialog:onEvent( msg, wParam, lParam )
    LOCAL i
 
    IF ( i := Ascan( s_aMessModalDlg, { |a|a[1] == msg } ) ) != 0
-      RETURN Eval( s_aMessModalDlg[i,2], Self, wParam, lParam )
+      RETURN Eval( s_aMessModalDlg[i, 2], Self, wParam, lParam )
    ELSE
       Return ::Super:onEvent( msg, wParam, lParam )
    ENDIF
@@ -267,7 +267,7 @@ FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(lParam)
 
-   // hwg_WriteLog( Str(iParHigh,10)+"|"+Str(iParLow,10)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
+   // hwg_WriteLog( Str(iParHigh, 10)+"|"+Str(iParLow, 10)+"|"+Str(wParam, 10)+"|"+Str(lParam, 10) )
    IF iParHigh == 0
       IF iParLow == IDOK
          hCtrl := hwg_Getfocus()
@@ -399,7 +399,7 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block, lGlobal )
       IF ( i := Ascan( aKeys,{ |a|a[1] == nctrl .AND. a[2] == nkey } ) ) == 0
          AAdd(aKeys, {nctrl, nkey, block})
       ELSE
-         aKeys[i,3] := block
+         aKeys[i, 3] := block
       ENDIF
    ENDIF
 

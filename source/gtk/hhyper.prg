@@ -179,7 +179,7 @@ METHOD HStaticLink:SetLinkColor( sLinkColor )
 
 METHOD HStaticLink:OnMouseMove( wParam )
 
-   LOCAL lEnter := ( hb_bitand( wParam,16 ) > 0 )
+   LOCAL lEnter := ( hb_bitand( wParam, 16 ) > 0 )
 
    IF ::state != LBL_INIT
 

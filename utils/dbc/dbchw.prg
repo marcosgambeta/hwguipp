@@ -161,7 +161,7 @@ FUNCTION Main( ... )
 
 #ifdef RDD_ADS
    AdsSetServerType( nServerType )
-   AdsSetFileType( Iif( numdriv == 1,2,Iif( numdriv == 2,1,3 ) ) )
+   AdsSetFileType( Iif( numdriv == 1, 2,Iif( numdriv == 2, 1, 3 ) ) )
 #endif
 
    oBrwFont := HFont():Add( aBrwFont[1], Val(aBrwFont[2]), Val(aBrwFont[3]) )
@@ -176,7 +176,7 @@ FUNCTION Main( ... )
          ICON HIcon():AddResource("DBC")
       //ADD STATUS PARTS 140, 360, 0
       ADD STATUS PANEL TO oWndMain HEIGHT 28 BACKCOLOR 0xEEEEEE FONT oBrwFont PARTS 140, 360, 0
-      @ 0, 24 TAB oTabMain ITEMS {} SIZE 600,436 ON SIZE {|o,x,y|o:Move( ,,x,y-28-o:nTop ) }
+      @ 0, 24 TAB oTabMain ITEMS {} SIZE 600, 436 ON SIZE {|o,x,y|o:Move( ,,x,y-28-o:nTop ) }
       //{|o,x,y|ResizeBrwQ( o,x,y ) }
       oTabMain:bChange2 := {|o,n|Iif(Len(o:aControls)>=n,ChildGetFocus(n),.T.)}
    ENDIF
@@ -261,24 +261,24 @@ FUNCTION Main( ... )
       MENUITEM "&About" ACTION  About()
    ENDMENU
 
-   @ 0,0 PANEL oPanel OF oWndMain SIZE oWndMain:nWidth-2,24 ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
+   @ 0, 0 PANEL oPanel OF oWndMain SIZE oWndMain:nWidth-2, 24 ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @ 2,0 OWNERBUTTON aButtons[5] OF oPanel ON CLICK {||OpenFile()} ;
-       SIZE 24,24 FLAT BITMAP "OPEN" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Open file"
+   @ 2, 0 OWNERBUTTON aButtons[5] OF oPanel ON CLICK {||OpenFile()} ;
+       SIZE 24, 24 FLAT BITMAP "OPEN" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Open file"
 
-   @ 32,2 LINE OF oPanel LENGTH 22 VERTICAL
+   @ 32, 2 LINE OF oPanel LENGTH 22 VERTICAL
 
-   @ 36,0 OWNERBUTTON aButtons[1] OF oPanel ON CLICK {||GetBrwActive():Top()} ;
-       SIZE 24,24 FLAT BITMAP "TOP" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Top"
+   @ 36, 0 OWNERBUTTON aButtons[1] OF oPanel ON CLICK {||GetBrwActive():Top()} ;
+       SIZE 24, 24 FLAT BITMAP "TOP" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Top"
 
-   @ 60,0 OWNERBUTTON aButtons[2] OF oPanel ON CLICK {||GetBrwActive():Pageup()} ;
-       SIZE 24,24 FLAT BITMAP "PREV" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Page up"
+   @ 60, 0 OWNERBUTTON aButtons[2] OF oPanel ON CLICK {||GetBrwActive():Pageup()} ;
+       SIZE 24, 24 FLAT BITMAP "PREV" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Page up"
 
-   @ 84,0 OWNERBUTTON aButtons[3] OF oPanel ON CLICK {||GetBrwActive():Pagedown()} ;
-       SIZE 24,24 FLAT BITMAP "NEXT" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Page down"
+   @ 84, 0 OWNERBUTTON aButtons[3] OF oPanel ON CLICK {||GetBrwActive():Pagedown()} ;
+       SIZE 24, 24 FLAT BITMAP "NEXT" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Page down"
 
-   @ 108,0 OWNERBUTTON aButtons[4] OF oPanel ON CLICK {||GetBrwActive():Bottom()} ;
-       SIZE 24,24 FLAT BITMAP "BOTTOM" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Bottom"
+   @ 108, 0 OWNERBUTTON aButtons[4] OF oPanel ON CLICK {||GetBrwActive():Bottom()} ;
+       SIZE 24, 24 FLAT BITMAP "BOTTOM" FROM RESOURCE TRANSPARENT COLOR 12632256 TOOLTIP "Bottom"
 
    oWndMain:bActivate := {|| ReadParams( aParams ) }
 
@@ -420,7 +420,7 @@ STATIC FUNCTION About
    @ 290, 68 SAY Left(sv, nPos - 1) SIZE 178, 20 STYLE SS_CENTER
 
    @ 298, 92 GROUPBOX "" SIZE 172, 36
-   @ 300,108 SAY "Alexander Kresin, 2016" SIZE 168, 20 STYLE SS_CENTER
+   @ 300, 108 SAY "Alexander Kresin, 2016" SIZE 168, 20 STYLE SS_CENTER
 
    @ 288, 132 BUTTON "Close" SIZE 182, 32 ON CLICK { || hwg_EndDialog() } ;
 
@@ -442,24 +442,24 @@ Local oDlg, oBrowse, width, height, nChoice := 0, cOrder, nOrder := OrdNumber()+
    ENDDO
 
    INIT DIALOG oDlg TITLE "Select Order" ;
-         AT 0,0                  ;
-         SIZE 400,180            ;
+         AT 0, 0                  ;
+         SIZE 400, 180            ;
          FONT oMainFont
 
-   @ 0,0 BROWSE oBrowse ARRAY       ;
-       SIZE 400,180                 ;
+   @ 0, 0 BROWSE oBrowse ARRAY       ;
+       SIZE 400, 180                 ;
        FONT oMainFont               ;
        STYLE WS_BORDER+WS_VSCROLL + WS_HSCROLL ;
        ON SIZE {|o,x,y|o:Move(,,x,y)} ;
-       ON CLICK {|o|nChoice:=o:nCurrent,cOrder:=o:aArray[o:nCurrent,1],hwg_EndDialog(o:oParent:handle)}
+       ON CLICK {|o|nChoice:=o:nCurrent,cOrder:=o:aArray[o:nCurrent, 1],hwg_EndDialog(o:oParent:handle)}
 
    oBrowse:aArray := aIndex
-   oBrowse:AddColumn( HColumn():New( "OrdName",{|v,o|o:aArray[o:nCurrent,1]},"C",10,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Order key",{|v,o|o:aArray[o:nCurrent,2]},"C",Max(iLen,30),0 ) )
-   oBrowse:AddColumn( HColumn():New( "Filename",{|v,o|o:aArray[o:nCurrent,3]},"C",10,0 ) )
+   oBrowse:AddColumn( HColumn():New( "OrdName",{|v,o|o:aArray[o:nCurrent, 1]},"C", 10, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Order key",{|v,o|o:aArray[o:nCurrent, 2]},"C",Max(iLen, 30), 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Filename",{|v,o|o:aArray[o:nCurrent, 3]},"C", 10, 0 ) )
 
    oBrowse:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
-   oBrowse:aHeadPadding := { 4,2,4,2 }
+   oBrowse:aHeadPadding := { 4, 2, 4, 2 }
    oBrowse:oStyleHead := HStyle():New( { 0xffffff, 0xbbbbbb }, 1 )
    
    oBrowse:rowPos := nOrder
@@ -481,29 +481,29 @@ Local cName := CutPath(CutExten(aFiles[improc,AF_NAME]))
 Local lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
 
    INIT DIALOG oDlg TITLE "Create Order" ;
-         AT 0,0         ;
-         SIZE 300,250   ;
+         AT 0, 0         ;
+         SIZE 300, 250   ;
          FONT oMainFont
          
-   @ 10,10 SAY "Order name:" SIZE 100,22
-   @ 110,10 GET cName SIZE 100,24
-   
-   @ 10,40 GET CHECKBOX lMulti CAPTION "Multibag" SIZE 100,22
-   @ 110,40 GET cTag SIZE 100,24
-   
-   @ 10,65 GET CHECKBOX lUniq CAPTION "Unique" SIZE 100,22
-   
-   @ 10,85 SAY "Expression:" SIZE 100,22
-   @ 10,107 GET cExpr SIZE 280,24
-         
-   @ 10,135 SAY "Condition:" SIZE 100,22
-   @ 10,157 GET cCond SIZE 280,24
-   
-   @  30,210  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
-   @ 170,210 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
+   @ 10, 10 SAY "Order name:" SIZE 100, 22
+   @ 110, 10 GET cName SIZE 100, 24
+
+   @ 10, 40 GET CHECKBOX lMulti CAPTION "Multibag" SIZE 100, 22
+   @ 110, 40 GET cTag SIZE 100, 24
+
+   @ 10, 65 GET CHECKBOX lUniq CAPTION "Unique" SIZE 100, 22
+
+   @ 10, 85 SAY "Expression:" SIZE 100, 22
+   @ 10, 107 GET cExpr SIZE 280, 24
+
+   @ 10, 135 SAY "Condition:" SIZE 100, 22
+   @ 10, 157 GET cCond SIZE 280, 24
+
+   @  30, 210  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
+   @ 170, 210 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
-   
+
    IF oDlg:lResult
       IF !Empty(cName) .AND. ( !Empty(cTag) .OR. !lMulti ) .AND. !Empty(cExpr)
 
@@ -512,7 +512,7 @@ Local lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
          IF lMulti
             IF EMPTY(cCond)
                ORDCREATE(cName, RTRIM(cTag), RTRIM(cExpr), &("{||" + RTRIM(cExpr) + "}"), Iif(lUniq, .T., NIL))
-            ELSE                     
+            ELSE
                ordCondSet( RTRIM(cCond), &("{||"+RTRIM(cCond) + "}" ),,,,, RECNO(),,,, )
                ORDCREATE(cName, RTRIM(cTag), RTRIM(cExpr), &("{||" + RTRIM(cExpr) + "}"), Iif(lUniq, .T., NIL))
             ENDIF
@@ -610,10 +610,10 @@ Function DlgWait( cTitle )
 Local oDlg
 
    INIT DIALOG oDlg TITLE cTitle ;
-         AT 0,0                  ;
-         SIZE 160,50
+         AT 0, 0                  ;
+         SIZE 160, 50
 
-   @ 10, 20 SAY "Wait, please ..." SIZE 140,22
+   @ 10, 20 SAY "Wait, please ..." SIZE 140, 22
 
    ACTIVATE DIALOG oDlg NOMODAL CENTER
 
@@ -644,52 +644,52 @@ Local bFileBtn := {||
    }
 
    INIT DIALOG oDlg TITLE "Open file" ;
-         AT 0,0         ;
-         SIZE 400,280   ;
+         AT 0, 0         ;
+         SIZE 400, 280   ;
          FONT oMainFont ON INIT bBtnDis
 
 #if defined( RDD_ADS ) .OR. defined( RDD_LETO )
-   @ 10,10 SAY "Server " SIZE 60,22 STYLE SS_RIGHT
-   @ 70,10 GET CHECKBOX lRemote CAPTION "Remote:" SIZE 80, 20 ON CLICK bBtnDis
-   @ 150,10 GET cServerPath SIZE 240,24
+   @ 10, 10 SAY "Server " SIZE 60, 22 STYLE SS_RIGHT
+   @ 70, 10 GET CHECKBOX lRemote CAPTION "Remote:" SIZE 80, 20 ON CLICK bBtnDis
+   @ 150, 10 GET cServerPath SIZE 240, 24
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
 #endif
 
-   @ 10,34 SAY "File name: " SIZE 80,22 STYLE SS_RIGHT
+   @ 10, 34 SAY "File name: " SIZE 80, 22 STYLE SS_RIGHT
 
-   @ 90,34 GET oGetFile VAR cFile SIZE 220,24 PICTURE "@S128" STYLE ES_AUTOHSCROLL
+   @ 90, 34 GET oGetFile VAR cFile SIZE 220, 24 PICTURE "@S128" STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
-   @ 310,34 BUTTON oBtnFile CAPTION "Browse" SIZE 80, 26 ON CLICK bFileBtn ON SIZE ANCHOR_RIGHTABS
+   @ 310, 34 BUTTON oBtnFile CAPTION "Browse" SIZE 80, 26 ON CLICK bFileBtn ON SIZE ANCHOR_RIGHTABS
 
-   @ 10,60 SAY "Alias: " SIZE 80,22  STYLE SS_RIGHT
-   @ 90,60 GET alsname SIZE 110,24
+   @ 10, 60 SAY "Alias: " SIZE 80, 22  STYLE SS_RIGHT
+   @ 90, 60 GET alsname SIZE 110, 24
 
    @ 10, 92 GROUPBOX "" SIZE 180, 88
    @ 20, 116 GET CHECKBOX lExcl CAPTION "Exclusive" SIZE 120, 22
    @ 20, 140 GET CHECKBOX lRd CAPTION "Readonly" SIZE 120, 22
 
-   @ 210,92 GROUPBOX "" SIZE 180, 88
+   @ 210, 92 GROUPBOX "" SIZE 180, 88
 #ifdef RDD_ADS
    GET RADIOGROUP r1
-   @ 220,116 RADIOBUTTON "AXS_CDX" SIZE 120, 22
-   @ 220,140 RADIOBUTTON "AXS_NTX" SIZE 120, 22 
-   @ 220,164 RADIOBUTTON "AXS_ADT" SIZE 120, 22 
+   @ 220, 116 RADIOBUTTON "AXS_CDX" SIZE 120, 22
+   @ 220, 140 RADIOBUTTON "AXS_NTX" SIZE 120, 22
+   @ 220, 164 RADIOBUTTON "AXS_ADT" SIZE 120, 22
    END RADIOGROUP
 
-   @ 220,188 GET CHECKBOX lAxl CAPTION "Axslock" SIZE 120, 20
+   @ 220, 188 GET CHECKBOX lAxl CAPTION "Axslock" SIZE 120, 20
 #else
 #ifndef RDD_LETO
    GET RADIOGROUP r1
-   @ 220,116 RADIOBUTTON "DBFCDX" SIZE 120, 22
-   @ 220,140 RADIOBUTTON "DBFNTX" SIZE 120, 22
+   @ 220, 116 RADIOBUTTON "DBFCDX" SIZE 120, 22
+   @ 220, 140 RADIOBUTTON "DBFNTX" SIZE 120, 22
    END RADIOGROUP
 #endif
 #endif
 
-   @ 20,188 GET COMBOBOX nCp ITEMS aCpInfo SIZE 170,24 DISPLAYCOUNT 12
+   @ 20, 188 GET COMBOBOX nCp ITEMS aCpInfo SIZE 170, 24 DISPLAYCOUNT 12
 
-   @  30,228 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
-   @ 270,228 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
+   @  30, 228 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
+   @ 270, 228 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
 
@@ -701,7 +701,7 @@ Local bFileBtn := {||
 #ifdef RDD_ADS
       AdsSetServerType( nServerType := Iif( lRemote, 6, ADS_LOCAL_SERVER ) )
       numdriv := r1
-      AdsSetFileType( Iif( numdriv == 1,2,Iif( numdriv == 2,1,3 ) ) )
+      AdsSetFileType( Iif( numdriv == 1, 2,Iif( numdriv == 2, 1, 3 ) ) )
       AdsLocking( lAxl )
 #endif
 #ifdef RDD_LETO
@@ -741,7 +741,7 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
    LOCAL bCol1 := {|o,h,x1,y1,x2,y2|
       oStyle:Draw( h,x1,y1,x2,y2 )
       IF (oBrowse:alias)->(Deleted())
-         hwg_Settextcolor( h,0 )
+         hwg_Settextcolor( h, 0 )
          hwg_Settransparentmode( h, .T. )
          hwg_Drawtext( h, '*', x1, y1 + 6, x2, y2 - 4, 1 )
          hwg_Settransparentmode( h, .F. )
@@ -782,11 +782,11 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
       ELSE
          BEGIN PAGE Lower(Alias()) of oTabMain
 #ifdef __GTK__
-         @ 4,4 BROWSE oBrowse OF oTabMain DATABASE SIZE 592,426  ;
+         @ 4, 4 BROWSE oBrowse OF oTabMain DATABASE SIZE 592, 426  ;
              STYLE WS_BORDER+WS_VSCROLL ;
              ON SIZE {|o,x,y|o:Move(,,x-8,y-32)}
 #else
-         @ 0,30 BROWSE oBrowse OF oTabMain DATABASE SIZE oTabMain:nWidth, oTabMain:nHeight-36  ;
+         @ 0, 30 BROWSE oBrowse OF oTabMain DATABASE SIZE oTabMain:nWidth, oTabMain:nHeight-36  ;
              NOBORDER ;
              ON SIZE {|o,x,y|o:Move(,,x,y-36)}
 #endif
@@ -871,7 +871,7 @@ FUNCTION WriteTableInfo( n, cText )
       oBrw := GetBrwActive()
       oBrw:cargo[2,n] := cText
 #ifdef __GTK__
-      hwg_WriteStatus( HWindow():GetMain(), 1, oBrw:cargo[2,1]+", "+oBrw:cargo[2,2]+", "+oBrw:cargo[2,3] )
+      hwg_WriteStatus( HWindow():GetMain(), 1, oBrw:cargo[2, 1]+", "+oBrw:cargo[2, 2]+", "+oBrw:cargo[2, 3] )
 #else
       hwg_WriteStatus( HWindow():GetMain(), n, cText )
 #endif
@@ -899,21 +899,21 @@ FUNCTION Calcul()
    }
 
    INIT DIALOG oDlg TITLE "Calculator" ;
-         AT 0,0         ;
-         SIZE 400,150   ;
+         AT 0, 0         ;
+         SIZE 400, 150   ;
          FONT oMainFont
 
-   @ 10,10 SAY "Expression: " SIZE 90,22 STYLE SS_RIGHT
-   @ 100,10 GET cExpr SIZE 290,24
+   @ 10, 10 SAY "Expression: " SIZE 90, 22 STYLE SS_RIGHT
+   @ 100, 10 GET cExpr SIZE 290, 24
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
 
-   @ 10,40 BUTTON "Calc it!" SIZE 80, 26 ON CLICK bCalcBtn
+   @ 10, 40 BUTTON "Calc it!" SIZE 80, 26 ON CLICK bCalcBtn
 
-   @ 90,40 SAY oSayRes CAPTION "" SIZE 300,22 COLOR 16711680 BACKCOLOR 16777215 ;
+   @ 90, 40 SAY oSayRes CAPTION "" SIZE 300, 22 COLOR 16711680 BACKCOLOR 16777215 ;
          STYLE WS_BORDER ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS
 
-   @ 150,100 BUTTON "Close" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
-      
+   @ 150, 100 BUTTON "Close" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
+
    oDlg:Activate()
 
    RETURN NIL
@@ -954,15 +954,15 @@ FUNCTION Scripts( nAct )
    }
 
    INIT DIALOG oDlg TITLE "Script" ;
-         AT 0,0         ;
-         SIZE 400,250   ;
+         AT 0, 0         ;
+         SIZE 400, 250   ;
          FONT oMainFont
 
-   @ 10,10 BUTTON "Browse" SIZE 80, 26 ON CLICK bLoadBtn
-   @ 310,10 BUTTON "Execute" SIZE 80, 26 ON CLICK bCalcBtn
+   @ 10, 10 BUTTON "Browse" SIZE 80, 26 ON CLICK bLoadBtn
+   @ 310, 10 BUTTON "Execute" SIZE 80, 26 ON CLICK bCalcBtn
    @ 10, 40 EDITBOX oEdit1 CAPTION "" SIZE 380, 60 STYLE WS_VSCROLL + ES_MULTILINE
 
-   @ 150,200 BUTTON "Close" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
+   @ 150, 200 BUTTON "Close" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
 
@@ -982,12 +982,12 @@ FUNCTION ChildGetFocus( xWindow )
       IF !Empty(oBrw) .AND. HB_ISARRAY(oBrw:cargo)
          SELECT( improc := oBrw:cargo[1] )
 #ifdef __GTK
-         hwg_WriteStatus( HWindow():GetMain(), 1, oBrw:cargo[2,1]+", "+oBrw:cargo[2,2]+", "+oBrw:cargo[2,3] )
+         hwg_WriteStatus( HWindow():GetMain(), 1, oBrw:cargo[2, 1]+", "+oBrw:cargo[2, 2]+", "+oBrw:cargo[2, 3] )
          hwg_Setfocus( oBrw:area )
 #else
-         hwg_WriteStatus( HWindow():GetMain(), 1, oBrw:cargo[2,1] )
-         hwg_WriteStatus( HWindow():GetMain(), 2, oBrw:cargo[2,2] )
-         hwg_WriteStatus( HWindow():GetMain(), 3, oBrw:cargo[2,3] )
+         hwg_WriteStatus( HWindow():GetMain(), 1, oBrw:cargo[2, 1] )
+         hwg_WriteStatus( HWindow():GetMain(), 2, oBrw:cargo[2, 2] )
+         hwg_WriteStatus( HWindow():GetMain(), 3, oBrw:cargo[2, 3] )
          hwg_Setfocus( oBrw:handle )
 #endif
       ENDIF
@@ -1209,11 +1209,11 @@ Static Function Options()
       SIZE 300, 320   ;
       FONT oMainFont
 
-   @ 10,10 SAY "Main codepage: " SIZE 100,22 STYLE SS_RIGHT
-   @ 110,10 GET COMBOBOX nCp ITEMS aCpInfo SIZE 180,24 DISPLAYCOUNT 12
+   @ 10, 10 SAY "Main codepage: " SIZE 100, 22 STYLE SS_RIGHT
+   @ 110, 10 GET COMBOBOX nCp ITEMS aCpInfo SIZE 180, 24 DISPLAYCOUNT 12
 
-   @ 10,40 SAY "Date format: " SIZE 100,22 STYLE SS_RIGHT
-   @ 110,40 GET COMBOBOX nDf ITEMS aDateF SIZE 140,24 DISPLAYCOUNT Len(aDateF)
+   @ 10, 40 SAY "Date format: " SIZE 100, 22 STYLE SS_RIGHT
+   @ 110, 40 GET COMBOBOX nDf ITEMS aDateF SIZE 140, 24 DISPLAYCOUNT Len(aDateF)
 
    @  30, 268  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
    @ 170, 268 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
@@ -1234,14 +1234,14 @@ STATIC FUNCTION EditRec()
    LOCAL oDlg, oBrowse, af := Array( FCount(), 3 ), i, nFile := improc, oBrwM
 
    FOR i := 1 TO Len( af )
-      af[i,1] := dbFieldInfo( 1, i )
-      af[i,2] := FieldGet( i )
-      IF ( af[i,3] := dbFieldInfo( 2, i ) ) $ "NIBYZ842+^"
-         af[i,2] := Str(af[i, 2], dbFieldInfo(3, i), dbFieldInfo(4, i))
-      ELSEIF af[i,3] == "D"
-         af[i,2] := Dtoc( af[i,2] )
-      ELSEIF af[i,3] == "L"
-         af[i,2] := Iif( af[i,2], "T", "L" )
+      af[i, 1] := dbFieldInfo( 1, i )
+      af[i, 2] := FieldGet( i )
+      IF ( af[i, 3] := dbFieldInfo( 2, i ) ) $ "NIBYZ842+^"
+         af[i, 2] := Str(af[i, 2], dbFieldInfo(3, i), dbFieldInfo(4, i))
+      ELSEIF af[i, 3] == "D"
+         af[i, 2] := Dtoc( af[i, 2] )
+      ELSEIF af[i, 3] == "L"
+         af[i, 2] := Iif( af[i, 2], "T", "L" )
       ENDIF
    NEXT
 
@@ -1250,16 +1250,16 @@ STATIC FUNCTION EditRec()
       SIZE 440, 320   ;
       FONT oBrwFont
 
-   @ 20,20 BROWSE oBrowse ARRAY   ;
-       SIZE 400,230               ;
+   @ 20, 20 BROWSE oBrowse ARRAY   ;
+       SIZE 400, 230               ;
        STYLE WS_BORDER+WS_VSCROLL ;
        FONT oBrwFont              ;
        ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
    oBrowse:aArray := af
-   oBrowse:AddColumn( HColumn():New( "",{|v,o|o:nCurrent},"N",4,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Field",{|v,o|o:aArray[o:nCurrent,1]},"C",12,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Value",{|v,o|Iif(v==NIL,o:aArray[o:nCurrent,2],o:aArray[o:nCurrent,2]:=v)},"C",40,0,.T. ) )
+   oBrowse:AddColumn( HColumn():New( "",{|v,o|o:nCurrent},"N", 4, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Field",{|v,o|o:aArray[o:nCurrent, 1]},"C", 12, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Value",{|v,o|Iif(v==NIL,o:aArray[o:nCurrent, 2],o:aArray[o:nCurrent, 2]:=v)},"C", 40, 0,.T. ) )
    oBrowse:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
 
    oBrowse:bcolorSel := BCOLOR_SEL
@@ -1282,14 +1282,14 @@ STATIC FUNCTION EditRec()
 
       FOR i := 1 TO Len( af )
 
-         IF af[i,3] == "N"
-            af[i,2] := Val( af[i,2] )
-         ELSEIF af[i,3] == "D"
-            af[i,2] := Ctod( af[i,2] )
-         ELSEIF af[i,3] == "L"
-            af[i,2] := ( af[i,2] == "T" )
+         IF af[i, 3] == "N"
+            af[i, 2] := Val( af[i, 2] )
+         ELSEIF af[i, 3] == "D"
+            af[i, 2] := Ctod( af[i, 2] )
+         ELSEIF af[i, 3] == "L"
+            af[i, 2] := ( af[i, 2] == "T" )
          ENDIF
-         (oBrwM:Alias)->( FieldPut( i, af[i,2] ) )
+         (oBrwM:Alias)->( FieldPut( i, af[i, 2] ) )
       NEXT
 
       IF !aFiles[nFile, AF_EXCLU]
@@ -1314,12 +1314,12 @@ LOCAL cType, nLen, nDec, cPicture, rowPos
    oBrwM := aFiles[nFile, AF_BRW]
    oColumn := oBrw:aColumns[n]
    nField := oBrw:nCurrent
-   cBuff := oBrw:aArray[nField,2]
+   cBuff := oBrw:aArray[nField, 2]
 
    nLen := (oBrwM:Alias)->( dbFieldInfo( 3, nField ) )
    nDec := (oBrwM:Alias)->( dbFieldInfo( 4, nField ) )
 
-   IF ( cType := oBrw:aArray[nField,3] ) == "C"
+   IF ( cType := oBrw:aArray[nField, 3] ) == "C"
       cPicture := Replicate("X", nLen)
    ELSEIF cType == "N"
       cPicture := Iif( nDec==0, Replicate("9",nLen), Replicate("9",nLen-1-nDec)+"."+Replicate("9",nDec) )
@@ -1374,13 +1374,13 @@ LOCAL cType, nLen, nDec, cPicture, rowPos
    IF oDlg:lResult
 
       IF cType == "C"
-         oBrw:aArray[nField,2] := cBuff
+         oBrw:aArray[nField, 2] := cBuff
       ELSEIF cType == "N"
-         oBrw:aArray[nField,2] := Str(cBuff, nLen, nDec)
+         oBrw:aArray[nField, 2] := Str(cBuff, nLen, nDec)
       ELSEIF cType == "D"
-         oBrw:aArray[nField,2] := Dtoc( cBuff )
+         oBrw:aArray[nField, 2] := Dtoc( cBuff )
       ELSEIF cType == "L"
-         oBrw:aArray[nField,2] := Iif( cBuff $ "YT", "T", "L" )
+         oBrw:aArray[nField, 2] := Iif( cBuff $ "YT", "T", "L" )
       ENDIF
 
       hwg_Invalidaterect( oBrw:handle, 0, oBrw:x1, oBrw:y1 + ( oBrw:height + 1 ) * ( oBrw:rowPos - 2 ), oBrw:x2, oBrw:y1 + ( oBrw:height + 1 ) * oBrw:rowPos )

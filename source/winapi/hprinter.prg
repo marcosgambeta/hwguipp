@@ -1221,12 +1221,12 @@ METHOD HPrinter:PrintDlg(aTooltips)
       At 40, 10 SIZE 220, 230 STYLE DS_CENTER
 
    GET RADIOGROUP nChoic
-   @ 20,20 RADIOBUTTON aTooltips[16] SIZE 150, 22 ON CLICK {||oGet:Disable()}  // "All"
-   @ 20,46 RADIOBUTTON aTooltips[17] SIZE 150, 22 ON CLICK {||oGet:Disable()}  // "Current"
-   @ 20,70 RADIOBUTTON aTooltips[18] SIZE 150, 22 ON CLICK {||oGet:Enable()}   // "Pages", former ""
+   @ 20, 20 RADIOBUTTON aTooltips[16] SIZE 150, 22 ON CLICK {||oGet:Disable()}  // "All"
+   @ 20, 46 RADIOBUTTON aTooltips[17] SIZE 150, 22 ON CLICK {||oGet:Disable()}  // "Current"
+   @ 20, 70 RADIOBUTTON aTooltips[18] SIZE 150, 22 ON CLICK {||oGet:Enable()}   // "Pages", former ""
    END RADIOGROUP
 
-   @ 40,100 GET oGet VAR cpages SIZE 160, 24 ;
+   @ 40, 100 GET oGet VAR cpages SIZE 160, 24 ;
    TOOLTIP aTooltips[21]   // "Enter range of pages"
    oGet:Disable()
 

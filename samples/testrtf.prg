@@ -6,7 +6,7 @@
 #include "richtext.ch"
 #include "hwguipp.ch"
 
-STATIC oPrinter,aSize:={280,220}
+STATIC oPrinter,aSize:={280, 220}
 
 MEMVAR oMainWindow, oPanel , oFont , nColor, oBmp2 , cDir
 
@@ -63,7 +63,7 @@ LOCAL cTexto
    // Cajas de Texto
 
    BEGIN TEXTBOX oRtf;
-    SIZE {9.0,0.30} ;   // Tamaño Caja de texto
+    SIZE {9.0, 0.30} ;   // Tamaño Caja de texto
     TEXT "Cajas de Texto";
     FONTNUMBER 2;
     FONTSIZE 12 ;
@@ -93,8 +93,8 @@ LOCAL cTexto
    // Lineas
 
    LINEA oRtf;
-        INICIO {0.1,1.0};         //Inicio
-        FIN {10.0,1.0};          // Final
+        INICIO {0.1, 1.0};         //Inicio
+        FIN {10.0, 1.0};          // Final
         TIPO "SOLIDA"      // Tipo de linea
 
    NEW PARAGRAPH oRTF TEXT ""
@@ -125,9 +125,9 @@ LOCAL cTexto
    // Nueva definicion de tablas. Habia algunas propiedades de las celdas
    // que hacia que el MSWORD se quedara colgado.
 
-   anchos:={1.0,1.0,1.0,1.2,1.0,1.0,1.0,1.5,1.7}
+   anchos:={1.0, 1.0, 1.0, 1.2, 1.0, 1.0, 1.0, 1.5, 1.7}
    aMarca=ARRAY(9)
-   AFILL(aMarca,0)
+   AFILL(aMarca, 0)
    aMarca[7]:=25
    aMarca[9]:=25
         DEFINE NEWTABLE oRTF ;              // Specify the RTF object
@@ -204,7 +204,7 @@ MEMVAR cNomUser
 DEFINE RTF oRTF FILE cOutFile ;
     FONTS "Times New Roman", "Arial", "Courier New" ;
     FONTFAMILY "froman","fswiss","fmodern";
-        CHARSET 0,0,10;
+        CHARSET 0, 0, 10;
     FONTSIZE 12 ;
     TWIPFACTOR 1440
 
@@ -267,7 +267,7 @@ BEGIN HEADER oRTF
         FONTSIZE 9 ;                  // Use 9 Pt. font for the body rows
         CELLAPPEAR BOLD_OFF ;         // Normal cells unbolded
         COLUMNS 3;                    // Table has n Columns
-        CELLWIDTHS {0.98,5.71,0.71};  // Array of column widths
+        CELLWIDTHS {0.98, 5.71, 0.71};  // Array of column widths
         ROWHEIGHT .2  ;               // Minimum row height is .25"
         CELLBORDERS NONE              // Outline cells with thin border
 

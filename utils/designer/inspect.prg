@@ -46,8 +46,8 @@ FUNCTION InspOpen
    oBrw1:lDispHead := .F.
    oBrw1:sepColor  := hwg_Getsyscolor( COLOR_BTNSHADOW )
    oBrw1:aArray := aProp
-   oBrw1:AddColumn( HColumn():New( ,{ |v,o|iif(Empty(o:aArray[o:nCurrent,1] ),"","  " + o:aArray[o:nCurrent,1] ) },"C",12,0, .T. ) )
-   oBrw1:AddColumn( HColumn():New( ,hwg_ColumnArBlock(),"U",100,0, .T. ) )
+   oBrw1:AddColumn( HColumn():New( ,{ |v,o|iif(Empty(o:aArray[o:nCurrent, 1] ),"","  " + o:aArray[o:nCurrent, 1] ) },"C", 12, 0, .T. ) )
+   oBrw1:AddColumn( HColumn():New( ,hwg_ColumnArBlock(),"U", 100, 0, .T. ) )
    ENDPAGE OF oTab
 
    BEGIN PAGE "Events" OF oTab
@@ -63,8 +63,8 @@ FUNCTION InspOpen
    oBrw2:lDispHead := .F.
    oBrw2:sepColor  := hwg_Getsyscolor( COLOR_BTNSHADOW )
    oBrw2:aArray := aMethods
-   oBrw2:AddColumn( HColumn():New( ,{ |v,o|iif(Empty(o:aArray[o:nCurrent,1] ),"","  " + o:aArray[o:nCurrent,1] ) },"C",12,0, .T. ) )
-   oBrw2:AddColumn( HColumn():New( ,{ |v,o|iif(Empty(o:aArray[o:nCurrent,2] ),"",":" + o:aArray[o:nCurrent,1] ) },"C",100,0, .T. ) )
+   oBrw2:AddColumn( HColumn():New( ,{ |v,o|iif(Empty(o:aArray[o:nCurrent, 1] ),"","  " + o:aArray[o:nCurrent, 1] ) },"C", 12, 0, .T. ) )
+   oBrw2:AddColumn( HColumn():New( ,{ |v,o|iif(Empty(o:aArray[o:nCurrent, 2] ),"",":" + o:aArray[o:nCurrent, 1] ) },"C", 100, 0, .T. ) )
    ENDPAGE OF oTab
 
    ACTIVATE DIALOG oDesigner:oDlgInsp NOMODAL
@@ -177,7 +177,7 @@ STATIC FUNCTION Edit1()
 
          IF ( j := Ascan( oBrw1:aEvents, { |a|a[1] == CBN_KILLFOCUS .AND. ;
                a[2] == oGet:id } ) ) > 0
-            oBrw1:aEvents[j,3] := { ||VldBrwGet( oGet ) }
+            oBrw1:aEvents[j, 3] := { ||VldBrwGet( oGet ) }
          ELSE
             oBrw1:AddEvent( CBN_KILLFOCUS, oGet:id, { ||VldBrwGet( oGet ) } )
          ENDIF
@@ -201,13 +201,13 @@ STATIC FUNCTION Edit2()
       RETURN NIL
    ENDIF
    cargo := oBrw2:cargo := Eval( oBrw2:bRecno, oBrw2 )
-   IF ( value := EditMethod( aMethods[cargo,1],aMethods[cargo,2] ) ) != NIL ;
-         .AND. !( aMethods[cargo,2] == value )
-      aMethods[cargo,2] := value
+   IF ( value := EditMethod( aMethods[cargo, 1],aMethods[cargo, 2] ) ) != NIL ;
+         .AND. !( aMethods[cargo, 2] == value )
+      aMethods[cargo, 2] := value
       IF oCombo:value == 1
-         HFormGen():oDlgSelected:oParent:aMethods[cargo,2] := value
+         HFormGen():oDlgSelected:oParent:aMethods[cargo, 2] := value
       ELSE
-         GetCtrlSelected( HFormGen():oDlgSelected ):aMethods[cargo,2] := value
+         GetCtrlSelected( HFormGen():oDlgSelected ):aMethods[cargo, 2] := value
       ENDIF
       HFormGen():oDlgSelected:oParent:lChanged := .T.
       oBrw2:lUpdated := .T.
@@ -427,7 +427,7 @@ STATIC FUNCTION EditArray( arr )
    IF Empty(arr)
       AAdd(arr, ".....")
    ENDIF
-   INIT DIALOG oDlg TITLE "Edit " + aProp[nRec,1] + " array" ;
+   INIT DIALOG oDlg TITLE "Edit " + aProp[nRec, 1] + " array" ;
       AT 300, 280 SIZE 400, 300 FONT oDesigner:oMainWnd:oFont
 
    @ 0, 0 BROWSE oBrw ARRAY SIZE 400, 255  ;
@@ -437,7 +437,7 @@ STATIC FUNCTION EditArray( arr )
    oBrw:bcolorSel := 0x008000
    oBrw:lAppable := .T.
    oBrw:aArray := arr
-   oBrw:AddColumn( HColumn():New( ,{ |v,o|iif(v != NIL,o:aArray[o:nCurrent] := v,o:aArray[o:nCurrent] ) },"C",100,0, .T. ,,,Replicate("X",100 ) ) )
+   oBrw:AddColumn( HColumn():New( ,{ |v,o|iif(v != NIL,o:aArray[o:nCurrent] := v,o:aArray[o:nCurrent] ) },"C", 100, 0, .T. ,,,Replicate("X", 100 ) ) )
 
    @ 30, 265 BUTTON "Ok" SIZE 100, 32     ;
       ON SIZE { |o, x, y|o:Move( , y - 35, , ) }  ;
@@ -501,17 +501,17 @@ FUNCTION SelectAnchor( nAnchor )
 
    INIT DIALOG oDlg TITLE "Select anchor" AT 300, 280 SIZE 280, 354 FONT oDesigner:oMainWnd:oFont
 
-   @ 20,20 GET CHECKBOX c1 CAPTION "ANCHOR_TOPLEFT" SIZE 200, 24
-   @ 20,44 GET CHECKBOX c2 CAPTION "ANCHOR_TOPABS" SIZE 200, 24
-   @ 20,68 GET CHECKBOX c3 CAPTION "ANCHOR_LEFTABS" SIZE 200, 24
-   @ 20,92 GET CHECKBOX c4 CAPTION "ANCHOR_BOTTOMABS" SIZE 200, 24
-   @ 20,116 GET CHECKBOX c5 CAPTION "ANCHOR_RIGHTABS" SIZE 200, 24
-   @ 20,140 GET CHECKBOX c6 CAPTION "ANCHOR_TOPREL" SIZE 200, 24
-   @ 20,164 GET CHECKBOX c7 CAPTION "ANCHOR_LEFTREL" SIZE 200, 24
-   @ 20,188 GET CHECKBOX c8 CAPTION "ANCHOR_BOTTOMREL" SIZE 200, 24
-   @ 20,212 GET CHECKBOX c9 CAPTION "ANCHOR_RIGHTREL" SIZE 200, 24
-   @ 20,236 GET CHECKBOX c10 CAPTION "ANCHOR_HORFIX" SIZE 200, 24
-   @ 20,260 GET CHECKBOX c11 CAPTION "ANCHOR_VERTFIX" SIZE 200, 24
+   @ 20, 20 GET CHECKBOX c1 CAPTION "ANCHOR_TOPLEFT" SIZE 200, 24
+   @ 20, 44 GET CHECKBOX c2 CAPTION "ANCHOR_TOPABS" SIZE 200, 24
+   @ 20, 68 GET CHECKBOX c3 CAPTION "ANCHOR_LEFTABS" SIZE 200, 24
+   @ 20, 92 GET CHECKBOX c4 CAPTION "ANCHOR_BOTTOMABS" SIZE 200, 24
+   @ 20, 116 GET CHECKBOX c5 CAPTION "ANCHOR_RIGHTABS" SIZE 200, 24
+   @ 20, 140 GET CHECKBOX c6 CAPTION "ANCHOR_TOPREL" SIZE 200, 24
+   @ 20, 164 GET CHECKBOX c7 CAPTION "ANCHOR_LEFTREL" SIZE 200, 24
+   @ 20, 188 GET CHECKBOX c8 CAPTION "ANCHOR_BOTTOMREL" SIZE 200, 24
+   @ 20, 212 GET CHECKBOX c9 CAPTION "ANCHOR_RIGHTREL" SIZE 200, 24
+   @ 20, 236 GET CHECKBOX c10 CAPTION "ANCHOR_HORFIX" SIZE 200, 24
+   @ 20, 260 GET CHECKBOX c11 CAPTION "ANCHOR_VERTFIX" SIZE 200, 24
 
    @ 20, 310 BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
    @ 160, 310 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
@@ -565,7 +565,7 @@ FUNCTION SelectStyle( oStyle )
    LOCAL bAddClr := {||
       LOCAL nColor := Hwg_ChooseColor(), cVal := Trim(oGet1:Value)
       IF nColor != NIL
-         oGet1:Value := cVal + Iif(!Empty(cVal).AND.Right(cVal,1)!= ',',',',"") + '#' + hwg_ColorN2C(nColor)
+         oGet1:Value := cVal + Iif(!Empty(cVal).AND.Right(cVal, 1)!= ',',',',"") + '#' + hwg_ColorN2C(nColor)
          oDemoStyle:aColors := hb_ATokens( AllTrim(cColors),',' )
          Cnv_aColors( oDemoStyle:aColors )
          Demo( oDemo, oDemoStyle )
@@ -604,7 +604,7 @@ FUNCTION SelectStyle( oStyle )
    }
    LOCAL bUpdC := {||
       IF aCorners == NIL
-         aCorners := {0,0,0,0}
+         aCorners := {0, 0, 0, 0}
       ENDIF
       aCorners[1] := nUpLeft
       aCorners[2] := nUpRight
@@ -637,10 +637,10 @@ FUNCTION SelectStyle( oStyle )
          nOrient := oStyle:nOrient
          aCorners := oStyle:aCorners
          nBorder := oStyle:nBorder
-         nUpLeft := Iif( !Empty(aCorners).AND.Len(aCorners)>0,aCorners[1],0 )
-         nUpRight := Iif( !Empty(aCorners).AND.Len(aCorners)>1,aCorners[2],0 )
-         nDnRight := Iif( !Empty(aCorners).AND.Len(aCorners)>2,aCorners[3],0 )
-         nDnLeft := Iif( !Empty(aCorners).AND.Len(aCorners)>3,aCorners[4],0 )
+         nUpLeft := Iif( !Empty(aCorners).AND.Len(aCorners)>0,aCorners[1], 0 )
+         nUpRight := Iif( !Empty(aCorners).AND.Len(aCorners)>1,aCorners[2], 0 )
+         nDnRight := Iif( !Empty(aCorners).AND.Len(aCorners)>2,aCorners[3], 0 )
+         nDnLeft := Iif( !Empty(aCorners).AND.Len(aCorners)>3,aCorners[4], 0 )
       ENDIF
       oDemoStyle:aColors := oStyle:aColors
       oDemoStyle:nOrient := oStyle:nOrient
@@ -653,33 +653,33 @@ FUNCTION SelectStyle( oStyle )
       AT 300, 120 SIZE 320, 400 FONT oDesigner:oMainWnd:oFont ;
       ON INIT {||Iif(oStyle!=NIL,Demo( oDemo, oDemoStyle ),.t.)}
 
-   @ 20,16 GET oGet1 VAR cColors SIZE 200, 26 VALID bValid MAXLENGTH 36
-   @ 220,16 BUTTON "Add" SIZE 40, 28 ON CLICK bAddClr
+   @ 20, 16 GET oGet1 VAR cColors SIZE 200, 26 VALID bValid MAXLENGTH 36
+   @ 220, 16 BUTTON "Add" SIZE 40, 28 ON CLICK bAddClr
 
    GET RADIOGROUP nOrient
-   @ 20,60 RADIOBUTTON "vertical down" SIZE 140, 24 ON CLICK bRadio
-   @ 160,60 RADIOBUTTON "vertical up" SIZE 140, 24 ON CLICK bRadio
-   @ 20,84 RADIOBUTTON "horizontal right" SIZE 140, 24 ON CLICK bRadio
-   @ 160,84 RADIOBUTTON "horizontal left" SIZE 140, 24 ON CLICK bRadio
-   @ 20,108 RADIOBUTTON "diagonal right-up" SIZE 140, 24 ON CLICK bRadio
-   @ 160,108 RADIOBUTTON "diagonal left-dn" SIZE 140, 24 ON CLICK bRadio
-   @ 20,132 RADIOBUTTON "diagonal right-dn" SIZE 140, 24 ON CLICK bRadio
-   @ 160,132 RADIOBUTTON "diagonal left-up" SIZE 140, 24 ON CLICK bRadio
+   @ 20, 60 RADIOBUTTON "vertical down" SIZE 140, 24 ON CLICK bRadio
+   @ 160, 60 RADIOBUTTON "vertical up" SIZE 140, 24 ON CLICK bRadio
+   @ 20, 84 RADIOBUTTON "horizontal right" SIZE 140, 24 ON CLICK bRadio
+   @ 160, 84 RADIOBUTTON "horizontal left" SIZE 140, 24 ON CLICK bRadio
+   @ 20, 108 RADIOBUTTON "diagonal right-up" SIZE 140, 24 ON CLICK bRadio
+   @ 160, 108 RADIOBUTTON "diagonal left-dn" SIZE 140, 24 ON CLICK bRadio
+   @ 20, 132 RADIOBUTTON "diagonal right-dn" SIZE 140, 24 ON CLICK bRadio
+   @ 160, 132 RADIOBUTTON "diagonal left-up" SIZE 140, 24 ON CLICK bRadio
    END RADIOGROUP
 
    @ 20, 160 LINE LENGTH 280
 
-   @ 20, 172 SAY "Border:" SIZE 100,24
-   @ 120, 168 GET UPDOWN nBorder RANGE 0,10 SIZE 50,30 VALID bUpd
+   @ 20, 172 SAY "Border:" SIZE 100, 24
+   @ 120, 168 GET UPDOWN nBorder RANGE 0, 10 SIZE 50, 30 VALID bUpd
    @ 180, 168 BUTTON "Color" SIZE 80, 30 ON CLICK bBorderClr
 
    @ 20, 208 LINE LENGTH 280
 
-   @ 20, 220 SAY "Corners:" SIZE 80,24
-   @ 100, 216 GET UPDOWN nUpLeft RANGE 0,80 SIZE 50,30 VALID bUpdC
-   @ 180, 216 GET UPDOWN nUpRight RANGE 0,80 SIZE 50,30 VALID bUpdC
-   @ 100, 250 GET UPDOWN nDnLeft RANGE 0,80 SIZE 50,30 VALID bUpdC
-   @ 180, 250 GET UPDOWN nDnRight RANGE 0,80 SIZE 50,30 VALID bUpdC
+   @ 20, 220 SAY "Corners:" SIZE 80, 24
+   @ 100, 216 GET UPDOWN nUpLeft RANGE 0, 80 SIZE 50, 30 VALID bUpdC
+   @ 180, 216 GET UPDOWN nUpRight RANGE 0, 80 SIZE 50, 30 VALID bUpdC
+   @ 100, 250 GET UPDOWN nDnLeft RANGE 0, 80 SIZE 50, 30 VALID bUpdC
+   @ 180, 250 GET UPDOWN nDnRight RANGE 0, 80 SIZE 50, 30 VALID bUpdC
 
    @ 100, 310 PANEL oDemo SIZE 120, 36
 
@@ -692,7 +692,7 @@ FUNCTION SelectStyle( oStyle )
       IF !Empty(cColors)
          aColors := hb_ATokens( AllTrim(cColors),',' )
          Cnv_aColors( aColors )
-         IF aCorners != NIL .AND. aCorners[1] == 0 .AND. aCorners[2] == 0 .AND. aCorners[3] == 0 .AND. aCorners[4] == 0 
+         IF aCorners != NIL .AND. aCorners[1] == 0 .AND. aCorners[2] == 0 .AND. aCorners[3] == 0 .AND. aCorners[4] == 0
             aCorners := NIL
          ENDIF
          RETURN HStyle():New( aColors, nOrient, aCorners, nBorder, oDemoStyle:tColor )
@@ -704,9 +704,9 @@ FUNCTION SelectStyle( oStyle )
 STATIC FUNCTION Cnv_aColors( aColors )
    LOCAL i
    FOR i := 1 TO Len(aColors)
-      IF Left(aColors[i],1) == '#'
+      IF Left(aColors[i], 1) == '#'
          aColors[i] := hwg_ColorC2N( aColors[i] )
-      ELSEIF IsDigit( Left(aColors[i],1) )
+      ELSEIF IsDigit( Left(aColors[i], 1) )
          aColors[i] := Val(aColors[i])
       ELSE
          hwg_MsgStop( "Wrong colors string" )
@@ -742,17 +742,17 @@ FUNCTION SeleStyles( aStyles )
    @ 30, 20 BUTTON "Normal state" SIZE 180, 30 ON CLICK bClick
    ATail(oDlg:aControls):cargo := 1
 
-   @ 230,20 PANEL aDemo[1] SIZE 40, 40
+   @ 230, 20 PANEL aDemo[1] SIZE 40, 40
 
    @ 30, 70 BUTTON "Pressed" SIZE 180, 30 ON CLICK bClick
    ATail(oDlg:aControls):cargo := 2
 
-   @ 230,70 PANEL aDemo[2] SIZE 40, 40
+   @ 230, 70 PANEL aDemo[2] SIZE 40, 40
 
    @ 30, 120 BUTTON "Mouse over" SIZE 180, 30 ON CLICK bClick
    ATail(oDlg:aControls):cargo := 3
 
-   @ 230,120 PANEL aDemo[3] SIZE 40, 40
+   @ 230, 120 PANEL aDemo[3] SIZE 40, 40
 
    @ 20, 200 BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
    @ 200, 200 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }

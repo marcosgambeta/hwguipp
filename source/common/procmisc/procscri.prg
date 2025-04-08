@@ -196,7 +196,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
          EXIT
       ENDIF
       s_numlin ++
-      IF Right( cLine,1 ) == ';'
+      IF Right( cLine, 1 ) == ';'
          strfull += Left(cLine, Len(cLine) - 1)
          LOOP
       ELSE

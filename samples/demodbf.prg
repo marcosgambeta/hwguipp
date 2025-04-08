@@ -84,44 +84,44 @@ Private oBotNew, oBotEdit,oBotRet, oBotNext, oBotSave, oBottop, oBotBott, oBotDe
    CreateGets()
 
 
-    @ 2,3 OWNERBUTTON oBotNew OF Tel_Ferramentas  ON CLICK {|| CreateVariable(), CloseBotons(), Gt_Cod:Setfocus()  } ;
-       SIZE 44,38 FLAT ;
+    @ 2, 3 OWNERBUTTON oBotNew OF Tel_Ferramentas  ON CLICK {|| CreateVariable(), CloseBotons(), Gt_Cod:Setfocus()  } ;
+       SIZE 44, 38 FLAT ;
        TEXT "New"
 
-   @ 46,3 OWNERBUTTON oBotEdit OF Tel_Ferramentas ON CLICK {||EditRecord()} ;
-       SIZE 44,38 FLAT ;
+   @ 46, 3 OWNERBUTTON oBotEdit OF Tel_Ferramentas ON CLICK {||EditRecord()} ;
+       SIZE 44, 38 FLAT ;
        TEXT "Edit"
 
-   @ 89,3 OWNERBUTTON oBotSave OF Tel_Ferramentas ON CLICK {||OpenBotons(),SaveTab()} ;
-       SIZE 44,38 FLAT ;
+   @ 89, 3 OWNERBUTTON oBotSave OF Tel_Ferramentas ON CLICK {||OpenBotons(),SaveTab()} ;
+       SIZE 44, 38 FLAT ;
        TEXT "Save"
 
-   @132,3 OWNERBUTTON oBotRet OF Tel_Ferramentas  ON CLICK {||SkipTab(1)} ;
-       SIZE 44,38 FLAT ;
+   @132, 3 OWNERBUTTON oBotRet OF Tel_Ferramentas  ON CLICK {||SkipTab(1)} ;
+       SIZE 44, 38 FLAT ;
        TEXT "<--"
 
-   @175,3 OWNERBUTTON oBotNext OF Tel_Ferramentas  ON CLICK {||SkipTab(2)} ;
-       SIZE 44,38 FLAT ;
+   @175, 3 OWNERBUTTON oBotNext OF Tel_Ferramentas  ON CLICK {||SkipTab(2)} ;
+       SIZE 44, 38 FLAT ;
        TEXT "-->"
 
-   @218,3 OWNERBUTTON oBotTop OF Tel_Ferramentas  ON CLICK {||SkipTab(3)} ;
-       SIZE 44,38 FLAT ;
+   @218, 3 OWNERBUTTON oBotTop OF Tel_Ferramentas  ON CLICK {||SkipTab(3)} ;
+       SIZE 44, 38 FLAT ;
        TEXT "<-|"
 
-   @261,3 OWNERBUTTON oBotBott OF Tel_Ferramentas  ON CLICK {||SkipTab(4)} ;
-       SIZE 44,38 FLAT ;
+   @261, 3 OWNERBUTTON oBotBott OF Tel_Ferramentas  ON CLICK {||SkipTab(4)} ;
+       SIZE 44, 38 FLAT ;
        TEXT "|->"
 
-   @304,3 OWNERBUTTON oBotprint OF Tel_Ferramentas  ON CLICK {||hwg_Msginfo("In development")} ;
-       SIZE 44,38 FLAT ;
+   @304, 3 OWNERBUTTON oBotprint OF Tel_Ferramentas  ON CLICK {||hwg_Msginfo("In development")} ;
+       SIZE 44, 38 FLAT ;
        TEXT "Print"
 
-   @347,3 OWNERBUTTON oBotDelete OF Tel_Ferramentas ON CLICK {||DeleteRecord()} ;
-       SIZE 44,38 FLAT ;
+   @347, 3 OWNERBUTTON oBotDelete OF Tel_Ferramentas ON CLICK {||DeleteRecord()} ;
+       SIZE 44, 38 FLAT ;
        TEXT "Delete"
 
-   @390,3 OWNERBUTTON oBotClose OF Tel_Ferramentas  ON CLICK {||hwg_EndDialog()} ;
-       SIZE 44,38 FLAT ;
+   @390, 3 OWNERBUTTON oBotClose OF Tel_Ferramentas  ON CLICK {||hwg_EndDialog()} ;
+       SIZE 44, 38 FLAT ;
        TEXT "Close"
 
 
@@ -160,20 +160,20 @@ Return NIL
 Function CreateGets()
 *---------------------------------------------------------------------------------------
 
-@ 2, 60 Say "Cod"  SIZE 40,20
+@ 2, 60 Say "Cod"  SIZE 40, 20
 @65, 60 Get Gt_Cod VAR oCod PICTURE "999" STYLE WS_DISABLED  SIZE 100, 20
 
-@ 2,85 Say "Name" SIZE 50, 20
-@65,85 Get Gt_Name VAR oName  PICTURE REPLICATE("X",50)  STYLE WS_DISABLED  SIZE 310, 20
+@ 2, 85 Say "Name" SIZE 50, 20
+@65, 85 Get Gt_Name VAR oName  PICTURE REPLICATE("X", 50)  STYLE WS_DISABLED  SIZE 310, 20
 
-@ 2,110 Say "Adress" SIZE 50, 20
-@65,110 Get Gt_Adress VAR oAdress  PICTURE REPLICATE("X",50) STYLE WS_DISABLED SIZE 310, 20
+@ 2, 110 Say "Adress" SIZE 50, 20
+@65, 110 Get Gt_Adress VAR oAdress  PICTURE REPLICATE("X", 50) STYLE WS_DISABLED SIZE 310, 20
 
-@ 2,135 Say "Fone" SIZE 50, 20
-@65,135 Get Gt_Fone VAR oFone PICTURE REPLICATE("X",50) STYLE WS_DISABLED  SIZE 310, 20
+@ 2, 135 Say "Fone" SIZE 50, 20
+@65, 135 Get Gt_Fone VAR oFone PICTURE REPLICATE("X", 50) STYLE WS_DISABLED  SIZE 310, 20
 
-@ 2,160 Say "e_Mail" SIZE 50, 20
-@65,160 Get Gt_e_Mail VAR oe_Mail PICTURE REPLICATE("X",30)  STYLE WS_DISABLED  SIZE 190, 20
+@ 2, 160 Say "e_Mail" SIZE 50, 20
+@65, 160 Get Gt_e_Mail VAR oe_Mail PICTURE REPLICATE("X", 30)  STYLE WS_DISABLED  SIZE 190, 20
 
 Return NIL
 
@@ -229,7 +229,7 @@ Function SaveTab()
 
 if oOper=1
    Select TabDbf
-   oCod:=StrZero(val(oCod),3)
+   oCod:=StrZero(val(oCod), 3)
    Seek oCod
    If Found()
       hwg_Msginfo("Cod."+oCod+" no valid...","Mensagem")
@@ -301,10 +301,10 @@ Local vInd1:=oDir+"FORNECED.NTX"
 
 If !File(vArq)
    AADD(vTab,{"Cod    ", "C", 3, 0 })
-   AADD(vTab,{"Name     ", "C",50, 0 })
-   AADD(vTab,{"Adress  ", "C",50, 0 })
-   AADD(vTab,{"Fone  ", "C",50, 0 })
-   AADD(vTab,{"e_Mail  ", "C",30, 0 })
+   AADD(vTab,{"Name     ", "C", 50, 0 })
+   AADD(vTab,{"Adress  ", "C", 50, 0 })
+   AADD(vTab,{"Fone  ", "C", 50, 0 })
+   AADD(vTab,{"e_Mail  ", "C", 30, 0 })
    dBCreate(vArq, vTab)
 EndIf
 Use (vArq) Shared Alias TabDbf

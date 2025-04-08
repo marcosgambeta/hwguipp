@@ -194,7 +194,7 @@ METHOD HPanel:SetPaintCB(nId, block, cId)
    ENDIF
    nLen := Len(::aPaintCB)
    FOR i := 1 TO nLen
-      IF ::aPaintCB[i,1] == nId .AND. ::aPaintCB[i,2] == cId
+      IF ::aPaintCB[i, 1] == nId .AND. ::aPaintCB[i, 2] == cId
          EXIT
       ENDIF
    NEXT
@@ -207,7 +207,7 @@ METHOD HPanel:SetPaintCB(nId, block, cId)
       IF i > nLen
          AAdd(::aPaintCB, {nId, cId, block})
       ELSE
-         ::aPaintCB[i,3] := block
+         ::aPaintCB[i, 3] := block
       ENDIF
    ENDIF
 
@@ -267,7 +267,7 @@ METHOD HPanelStS:New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oS
 
 METHOD HPanelStS:Write(cText, nPart, lRedraw)
 
-   ::aText[IIf(nPart==NIL,1,nPart)] := cText
+   ::aText[IIf(nPart==NIL, 1,nPart)] := cText
    IF ValType( lRedraw ) != "L" .OR. lRedraw
       hwg_Invalidaterect(::handle, 0)
    ENDIF

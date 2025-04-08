@@ -113,7 +113,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
    LOCAL oParent
    LOCAL nPos
 
-   // hwg_WriteLog( "Edit: "+Str(msg,10)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
+   // hwg_WriteLog( "Edit: "+Str(msg, 10)+"|"+Str(wParam, 10)+"|"+Str(lParam, 10) )
    
    IF hb_IsBlock(::bAnyEvent) .AND. Eval(::bAnyEvent, Self, msg, wParam, lParam) != 0
       RETURN 0
@@ -123,7 +123,7 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
       oParent := hwg_getParentForm( Self )
 
       // hwg_WriteLog("Edit: " + hwg_StrDebLog(s_lColorinFocus) + " " + ;
-      //   Str(oParent:tColorinFocus,10) + " " + Str(oParent:bColorinFocus,10) + " " + ;
+      //   Str(oParent:tColorinFocus, 10) + " " + Str(oParent:bColorinFocus, 10) + " " + ;
       //   hwg_StrDebNIL(::bColorBlock) ) 
 
       IF s_lColorinFocus .OR. oParent:tColorinFocus >= 0 .OR. oParent:bColorinFocus >= 0 .OR. ::bColorBlock != NIL
@@ -248,15 +248,15 @@ METHOD HEdit:onEvent( msg, wParam, lParam )
                __Valid( Self )
             ENDIF
             RETURN 1
-         ELSEIF ( hwg_checkBit( lParam,1 ) .AND. wParam == GDK_Insert ) .OR. ;
-               ( hwg_checkBit( lParam,2 ) .AND. ( wParam == 86 .OR. wParam == 118 ) )
+         ELSEIF ( hwg_checkBit( lParam, 1 ) .AND. wParam == GDK_Insert ) .OR. ;
+               ( hwg_checkBit( lParam, 2 ) .AND. ( wParam == 86 .OR. wParam == 118 ) )
             // Paste
             IF ::bSetGet != NIL
                DoPaste( Self )
                RETURN 1
             ENDIF
          ELSEIF hwg_checkBit( lParam, 2 ) .AND. wParam == GDK_Insert .OR. ;
-               ( hwg_checkBit( lParam,2 ) .AND. ( wParam == 67 .OR. wParam == 99 ) )
+               ( hwg_checkBit( lParam, 2 ) .AND. ( wParam == 67 .OR. wParam == 99 ) )
             // Copy
             IF ::bSetGet != NIL
                DoCopy( Self )

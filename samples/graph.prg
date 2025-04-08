@@ -22,17 +22,17 @@ FUNCTION Main
    @ 0, 32 PANEL oPaneTop SIZE 400, 48 HSTYLE oStyleNormal ;
       ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @ 0,0 OWNERBUTTON OF oPaneTop SIZE 64,48 ;
+   @ 0, 0 OWNERBUTTON OF oPaneTop SIZE 64, 48 ;
          HSTYLES oStyleNormal, oStylePressed, oStyleOver TEXT "1" ;
          ON CLICK {||Graph1()}
-   @ 64,0 OWNERBUTTON OF oPaneTop SIZE 64,48 ;
+   @ 64, 0 OWNERBUTTON OF oPaneTop SIZE 64, 48 ;
          HSTYLES oStyleNormal, oStylePressed, oStyleOver TEXT "2" ;
          ON CLICK {||Graph2()}
-   //@ 128,0 OWNERBUTTON OF oPaneTop SIZE 64,48 ;
+   //@ 128, 0 OWNERBUTTON OF oPaneTop SIZE 64, 48 ;
    //      HSTYLES oStyleNormal, oStylePressed, oStyleOver TEXT "3" ;
    //      ON CLICK {||Graph3()}
 
-   @ 332,0 OWNERBUTTON OF oPaneTop SIZE 64,48 ;
+   @ 332, 0 OWNERBUTTON OF oPaneTop SIZE 64, 48 ;
          HSTYLES oStyleNormal, oStylePressed, oStyleOver TEXT "Exit" ;
          ON CLICK {||hwg_EndWindow()}
 

@@ -16,7 +16,7 @@ FUNCTION Main
    LOCAL oBrw, Form_Main
    // LOCAL oFontBtn 
 
-   PUBLIC aSample := { { .T. ,"Line 1",10 }, { .T. ,"Line 2",22 }, { .F. ,"Line 3",40 } }
+   PUBLIC aSample := { { .T. ,"Line 1", 10 }, { .T. ,"Line 2", 22 }, { .F. ,"Line 3", 40 } }
 
    // Not used
    // PREPARE FONT oFontBtn NAME "MS Sans Serif" WIDTH 0 HEIGHT - 12

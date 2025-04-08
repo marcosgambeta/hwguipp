@@ -38,7 +38,7 @@ METHOD HUpDown:New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHei
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctoolt, tcolor, bcolor,   ;
       nUpDWidth, nLower, nUpper )
 
-   nStyle := hb_bitor( IIf(nStyle == NIL,0,nStyle), WS_TABSTOP )
+   nStyle := hb_bitor( IIf(nStyle == NIL, 0,nStyle), WS_TABSTOP )
    ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
       bSize, bPaint, ctoolt, tcolor, bcolor )
 
@@ -92,7 +92,7 @@ METHOD HUpDown:onEvent( msg, wParam, lParam )
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
-   //hwg_WriteLog( "UpDown: "+Str(msg,10)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
+   //hwg_WriteLog( "UpDown: "+Str(msg, 10)+"|"+Str(wParam, 10)+"|"+Str(lParam, 10) )
    IF msg == WM_SETFOCUS
       IF ::bSetGet == NIL
          IF hb_IsBlock(::bGetFocus)

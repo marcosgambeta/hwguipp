@@ -269,7 +269,7 @@ METHOD HOwnButton:Paint()
 
 METHOD HOwnButton:MouseMove( wParam, lParam )
    
-   LOCAL lEnter := ( hb_bitand( wParam,16 ) > 0 )
+   LOCAL lEnter := ( hb_bitand( wParam, 16 ) > 0 )
    // Variables not used
    // LOCAL res := .F.
 
@@ -301,7 +301,7 @@ METHOD HOwnButton:MDown()
       ::state := OBTN_PRESSED
       hwg_Redrawwindow(::handle)
       IF ::nPeriod > 0
-         ::oTimer := HTimer():New( Self,, ::nPeriod, {|o|OwnBtnTimerProc(o,1)} )
+         ::oTimer := HTimer():New( Self,, ::nPeriod, {|o|OwnBtnTimerProc(o, 1)} )
          OwnBtnTimerProc( Self, 0 )
       ENDIF
    ENDIF

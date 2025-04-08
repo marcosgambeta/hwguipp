@@ -61,8 +61,8 @@ Local i, j, j1, cTheme, oTheme, oThemeXML, arr
                HDTheme():nSelected := j
             ENDIF
             FOR j1 := 1 TO Len( oThemeXML:aItems )
-               arr := { oThemeXML:aItems[j1]:GetAttribute("tcolor","N",0), ;
-                        oThemeXML:aItems[j1]:GetAttribute("bcolor","N",16777215), ;
+               arr := { oThemeXML:aItems[j1]:GetAttribute("tcolor","N", 0), ;
+                        oThemeXML:aItems[j1]:GetAttribute("bcolor","N", 16777215), ;
                         oThemeXML:aItems[j1]:GetAttribute("bold","L",.F.),   ;
                         oThemeXML:aItems[j1]:GetAttribute("italic","L",.F.) }
                IF oThemeXML:aItems[j1]:title == "normal"
@@ -169,11 +169,11 @@ Local bKeyDown := {|o,nKey|
    }
 
    i := Ascan( oDesigner:aMethDef, {|a|a[1]==Lower(cMethName)} )
-   cParamString := Iif( i == 0, "", oDesigner:aMethDef[i,2] )
+   cParamString := Iif( i == 0, "", oDesigner:aMethDef[i, 2] )
    INIT DIALOG oDlg TITLE "Edit '"+cMethName+"' method"          ;
-      AT 100,240  SIZE 600,300  FONT oDesigner:oMainWnd:oFont    ;
+      AT 100, 240  SIZE 600, 300  FONT oDesigner:oMainWnd:oFont    ;
       STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_MAXIMIZEBOX+WS_SIZEBOX ;
-      ON INIT {||ChangeTheme(HDTheme():nSelected),hwg_Movewindow(oDlg:handle,100,240,600,310)} ;
+      ON INIT {||ChangeTheme(HDTheme():nSelected),hwg_Movewindow(oDlg:handle, 100, 240, 600, 310)} ;
       ON EXIT {||Iif(oEdit:lUpdated.AND.hwg_Msgyesno("Code was changed! Save it?", "Designer"),(cMethod:=oEdit:GetText(),.T.),.T.)}
 
    MENU OF oDlg
@@ -181,7 +181,7 @@ Local bKeyDown := {|o,nKey|
          MENUITEM "&Font" ACTION editChgFont()
          MENU TITLE "&Select theme"
             FOR i := 1 TO Len( HDTheme():aThemes )
-               Hwg_DefineMenuItem( HDTheme():aThemes[i]:name, 1020+i, &( "{||ChangeTheme("+LTrim(Str(i,2))+"),HDTheme():lChanged:=.T.}" ) )
+               Hwg_DefineMenuItem( HDTheme():aThemes[i]:name, 1020+i, &( "{||ChangeTheme("+LTrim(Str(i, 2))+"),HDTheme():lChanged:=.T.}" ) )
             NEXT
          ENDMENU
          MENUITEM "&Configure" ACTION EditColors()
@@ -195,7 +195,7 @@ Local bKeyDown := {|o,nKey|
          SEPARATOR
          MENUITEM "&Select all"+Chr(9)+"Ctrl+A" ACTION oEdit:onKeyDown( Asc('A'),,FCONTROL )
       ENDMENU
-      MENUITEM "&Parameters" ACTION Iif(!Empty(cParamString).and.Upper(Left(oEdit:Gettext(),10))!="PARAMETERS",oEdit:InsText({1,1},"Parameters "+cParamString+cNewLine),.F.)
+      MENUITEM "&Parameters" ACTION Iif(!Empty(cParamString).and.Upper(Left(oEdit:Gettext(), 10))!="PARAMETERS",oEdit:InsText({1, 1},"Parameters "+cParamString+cNewLine),.F.)
       MENUITEM "&Exit" ACTION oDlg:Close()
    ENDMENU
 
@@ -218,9 +218,9 @@ Function ChangeTheme( nTheme )
 Local oTheme, oFont
 
    IF HDTheme():nSelected != NIL
-      hwg_Checkmenuitem( oDlg:handle,1020+HDTheme():nSelected, .F. )
+      hwg_Checkmenuitem( oDlg:handle, 1020+HDTheme():nSelected, .F. )
    ENDIF
-   hwg_Checkmenuitem( oDlg:handle,1020+nTheme, .T. )
+   hwg_Checkmenuitem( oDlg:handle, 1020+nTheme, .T. )
    HDTheme():nSelected := nTheme
    oTheme := HDTheme():aThemes[HDTheme():nSelected]
    oFont := HDTheme():oFont
@@ -269,46 +269,46 @@ Private nScheme, nType := 2, oTheme := HDTheme():New(), cScheme := ""
    NEXT
 
    INIT DIALOG oDlg TITLE "Color schemes" ;
-      AT 200,140 SIZE 440,355  FONT oDesigner:oMainWnd:oFont ;
+      AT 200, 140 SIZE 440, 355  FONT oDesigner:oMainWnd:oFont ;
       ON INIT {||UpdSample()}
 
-   @ 10,10 BUTTON "Delete scheme" SIZE 110,30 ON CLICK {||UpdSample(1)}
+   @ 10, 10 BUTTON "Delete scheme" SIZE 110, 30 ON CLICK {||UpdSample(1)}
 
-   @ 140,10 BROWSE oBrw ARRAY SIZE 130,80
+   @ 140, 10 BROWSE oBrw ARRAY SIZE 130, 80
    oBrw:bPosChanged := {||nScheme:=oBrw:nCurrent,UpdSample()}
    oBrw:aArray := aSchemes
-   oBrw:AddColumn( HColumn():New( ,{|v,o|o:aArray[o:nCurrent,1]},"C",15,0,.T. ) )
+   oBrw:AddColumn( HColumn():New( ,{|v,o|o:aArray[o:nCurrent, 1]},"C", 15, 0,.T. ) )
    oBrw:lDispHead := .F.
    nScheme := oBrw:nCurrent := oBrw:rowPos := HDTheme():nSelected
 
-   @ 290,10 GET cScheme SIZE 110,26
-   @ 290,40 BUTTON "Add scheme" SIZE 110,30 ON CLICK {||UpdSample(2)}
+   @ 290, 10 GET cScheme SIZE 110, 26
+   @ 290, 40 BUTTON "Add scheme" SIZE 110, 30 ON CLICK {||UpdSample(2)}
 
-   @ 10,120 GROUPBOX "" SIZE 140,140
+   @ 10, 120 GROUPBOX "" SIZE 140, 140
    RADIOGROUP
-   @ 20,130 RADIOBUTTON "Normal" SIZE 120,24 ON CLICK {||UpdSample(,2)}
-   @ 20,154 RADIOBUTTON "Keyword" SIZE 120,24 ON CLICK {||UpdSample(,3)}
-   @ 20,178 RADIOBUTTON "Comment" SIZE 120,24 ON CLICK {||UpdSample(,4)}
-   @ 20,202 RADIOBUTTON "Quote" SIZE 120,24 ON CLICK {||UpdSample(,5)}
-   @ 20,226 RADIOBUTTON "Number" SIZE 120,24 ON CLICK {||UpdSample(,6)}
+   @ 20, 130 RADIOBUTTON "Normal" SIZE 120, 24 ON CLICK {||UpdSample(, 2)}
+   @ 20, 154 RADIOBUTTON "Keyword" SIZE 120, 24 ON CLICK {||UpdSample(, 3)}
+   @ 20, 178 RADIOBUTTON "Comment" SIZE 120, 24 ON CLICK {||UpdSample(, 4)}
+   @ 20, 202 RADIOBUTTON "Quote" SIZE 120, 24 ON CLICK {||UpdSample(, 5)}
+   @ 20, 226 RADIOBUTTON "Number" SIZE 120, 24 ON CLICK {||UpdSample(, 6)}
    END RADIOGROUP SELECTED 1
 
-   @ 170,110 GROUPBOX "" SIZE 250,75
-   @ 180,127 SAY "Text color" SIZE 100,24
-   @ 280,125 SAY oSayT CAPTION "" SIZE 24,24
-   @ 305,127 BUTTON "..." SIZE 20,20 ON CLICK {||Iif((temp:=Hwg_ChooseColor(aSchemes[nScheme,nType][1],.F.))!=NIL,(aSchemes[nScheme,nType][1]:=temp,UpdSample()),.F.)}
-   @ 180,152 SAY "Background" SIZE 100,24
-   @ 280,150 SAY oSayB CAPTION "" SIZE 24,24
-   @ 305,152 BUTTON oBtn2 CAPTION "..." SIZE 20,20 ON CLICK {||Iif((temp:=Hwg_ChooseColor(aSchemes[nScheme,nType][2],.F.))!=NIL,(aSchemes[nScheme,nType][2]:=temp,UpdSample()),.F.)}
-   @ 350,125 CHECKBOX oCheckB CAPTION "Bold" SIZE 60,24 ON CLICK {||aSchemes[nScheme,nType][3]:=oCheckB:Value,UpdSample(),.t.}
-   @ 350,150 CHECKBOX oCheckI CAPTION "Italic" SIZE 60,24 ON CLICK {||aSchemes[nScheme,nType][4]:=oCheckI:Value,UpdSample(),.t.}
+   @ 170, 110 GROUPBOX "" SIZE 250, 75
+   @ 180, 127 SAY "Text color" SIZE 100, 24
+   @ 280, 125 SAY oSayT CAPTION "" SIZE 24, 24
+   @ 305, 127 BUTTON "..." SIZE 20, 20 ON CLICK {||Iif((temp:=Hwg_ChooseColor(aSchemes[nScheme,nType][1],.F.))!=NIL,(aSchemes[nScheme,nType][1]:=temp,UpdSample()),.F.)}
+   @ 180, 152 SAY "Background" SIZE 100, 24
+   @ 280, 150 SAY oSayB CAPTION "" SIZE 24, 24
+   @ 305, 152 BUTTON oBtn2 CAPTION "..." SIZE 20, 20 ON CLICK {||Iif((temp:=Hwg_ChooseColor(aSchemes[nScheme,nType][2],.F.))!=NIL,(aSchemes[nScheme,nType][2]:=temp,UpdSample()),.F.)}
+   @ 350, 125 CHECKBOX oCheckB CAPTION "Bold" SIZE 60, 24 ON CLICK {||aSchemes[nScheme,nType][3]:=oCheckB:Value,UpdSample(),.t.}
+   @ 350, 150 CHECKBOX oCheckI CAPTION "Italic" SIZE 60, 24 ON CLICK {||aSchemes[nScheme,nType][4]:=oCheckI:Value,UpdSample(),.t.}
 
    oEditC := HCEdit():New( ,,, 170, 190, 250, 100 )
    oEditC:HighLighter( HDTheme():oHili )
    oEditC:SetText( cText )
 
-   @ 60,310 BUTTON "Ok" SIZE 100,32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
-   @ 200,310 BUTTON "Cancel" ID IDCANCEL SIZE 100,32
+   @ 60, 310 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
+   @ 200, 310 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    oDlg:Activate()
 
@@ -320,16 +320,16 @@ Private nScheme, nType := 2, oTheme := HDTheme():New(), cScheme := ""
          ENDIF
       NEXT
       FOR i := 1 TO Len( aSchemes )
-         j := Ascan( HDTheme():aThemes,{|o|Lower(o:name)==Lower(aSchemes[i,1])} )
+         j := Ascan( HDTheme():aThemes,{|o|Lower(o:name)==Lower(aSchemes[i, 1])} )
          IF j == 0
-            HDTheme():Add( aSchemes[i,1] )
+            HDTheme():Add( aSchemes[i, 1] )
             j := Len( HDTheme():aThemes )
          ENDIF
-         HDTheme():aThemes[j]:normal  := aSchemes[i,2]
-         HDTheme():aThemes[j]:command := aSchemes[i,3]
-         HDTheme():aThemes[j]:comment := aSchemes[i,4]
-         HDTheme():aThemes[j]:quote   := aSchemes[i,5]
-         HDTheme():aThemes[j]:number  := aSchemes[i,6]
+         HDTheme():aThemes[j]:normal  := aSchemes[i, 2]
+         HDTheme():aThemes[j]:command := aSchemes[i, 3]
+         HDTheme():aThemes[j]:comment := aSchemes[i, 4]
+         HDTheme():aThemes[j]:quote   := aSchemes[i, 5]
+         HDTheme():aThemes[j]:number  := aSchemes[i, 6]
       NEXT
       HDTheme():lChanged := .T.
    ENDIF
@@ -347,7 +347,7 @@ Memvar nScheme, nType, oTheme, cScheme
             hwg_Msgstop( "Can't delete the only theme !", "Designer" )
             Return NIL
          ENDIF
-         IF hwg_Msgyesno( "Really delete the '" + aSchemes[nScheme,1] + "' theme ?", "Designer" )
+         IF hwg_Msgyesno( "Really delete the '" + aSchemes[nScheme, 1] + "' theme ?", "Designer" )
             Adel( aSchemes,nScheme )
             Asize( aSchemes,Len(aSchemes)-1 )
             nScheme := oBrw:nCurrent := oBrw:rowPos := 1
@@ -362,8 +362,8 @@ Memvar nScheme, nType, oTheme, cScheme
          ENDIF
          IF Ascan( aSchemes,{|a|Lower(a[1])==Lower(cScheme)} ) == 0
             Aadd(aSchemes, {cScheme, AClone(aSchemes[nScheme, 2]), ;
-                AClone(aSchemes[nScheme,3]), AClone(aSchemes[nScheme,4]), ;
-                AClone(aSchemes[nScheme,5]), AClone(aSchemes[nScheme,6])})
+                AClone(aSchemes[nScheme, 3]), AClone(aSchemes[nScheme, 4]), ;
+                AClone(aSchemes[nScheme, 5]), AClone(aSchemes[nScheme, 6])})
             oBrw:Refresh()
          ELSE
             hwg_Msgstop( "The " + cScheme + " theme exists already !", "Designer" )
@@ -380,11 +380,11 @@ Memvar nScheme, nType, oTheme, cScheme
    oCheckB:Value := aSchemes[nScheme,nType][3]
    oCheckI:Value := aSchemes[nScheme,nType][4]
 
-   oTheme:normal  := aSchemes[nScheme,2]
-   oTheme:command := aSchemes[nScheme,3]
-   oTheme:comment := aSchemes[nScheme,4]
-   oTheme:quote   := aSchemes[nScheme,5]
-   oTheme:number  := aSchemes[nScheme,6]
+   oTheme:normal  := aSchemes[nScheme, 2]
+   oTheme:command := aSchemes[nScheme, 3]
+   oTheme:comment := aSchemes[nScheme, 4]
+   oTheme:quote   := aSchemes[nScheme, 5]
+   oTheme:number  := aSchemes[nScheme, 6]
 
    IF nT == NIL
       oFont := oEditC:oFont

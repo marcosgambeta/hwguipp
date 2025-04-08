@@ -82,7 +82,7 @@ FUNCTION Hwg_WriteIni( rubrique, param, value , inifile )
       CASE At(param, txt) > 0 .AND. myrubrique .AND. HB_ISCHAR(value)
          newcontent += param + "=" + value + Chr(10)
       CASE HB_ISARRAY(value) .AND. myrubrique
-         DO WHILE Len(Trim(MemoLine(inicontent,150,rg))) > 0
+         DO WHILE Len(Trim(MemoLine(inicontent, 150,rg))) > 0
             rg ++
          ENDDO
          rgb := 1

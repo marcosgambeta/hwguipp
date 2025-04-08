@@ -185,14 +185,14 @@ FUNCTION Main ( fName )
       AT 200, 0 SIZE 600, 300 FONT oFontMain
 
    * Alexander S.Kresin - 2019-12-13
-   *    @ 0,272 PANEL oPanel SIZE 0,26 ON SIZE {|o,x,y|o:Move(0,y-26,x-1,y-8)}
+   *    @ 0, 272 PANEL oPanel SIZE 0, 26 ON SIZE {|o,x,y|o:Move(0,y-26,x-1,y-8)}
    * The third and forth parameters of the :Move() method are not left and bottom coordinates,
    * they are width and height. In this line you try to set height. which will overfill
    * a parent window. Don't know why, this causes a serious internal error in gtk.
    * So, just set a correct parameters:
-   *    @ 0,272 PANEL oPanel SIZE 0,26 ON SIZE {|o,x,y|o:Move(0,y-26,x-1,26)}
+   *    @ 0, 272 PANEL oPanel SIZE 0, 26 ON SIZE {|o,x,y|o:Move(0,y-26,x-1, 26)}
    * In fact, it isn't necessary to set height here at all, if you don't want to change it:
-   *    @ 0,272 PANEL oPanel SIZE 0,26 ON SIZE {|o,x,y|o:Move(0,y-26,x-1)}
+   *    @ 0, 272 PANEL oPanel SIZE 0, 26 ON SIZE {|o,x,y|o:Move(0,y-26,x-1)}
    *
    * old: ON SIZE {|o,x|o:Move(,,x)
 
@@ -201,39 +201,39 @@ FUNCTION Main ( fName )
    * LINUX and GTK cross development environment
    @ 80, 0 PANEL oToolBar SIZE oMainWindow:nWidth-80 , 30 STYLE SS_OWNERDRAW ;
          ON SIZE {|o,x,y|o:Move(0,y-30,x) } ON PAINT {|o| PaintTB( o ) }
-   @ 0,2 COMBOBOX oComboSiz ITEMS aComboSiz INIT Ascan( aComboSiz,cComboSizDef ) ;
+   @ 0, 2 COMBOBOX oComboSiz ITEMS aComboSiz INIT Ascan( aComboSiz,cComboSizDef ) ;
          SIZE 80, 26 DISPLAYCOUNT 6 ON CHANGE {||onBtnSize()} TOOLTIP "Font size in %"
    x1 := 2
 #else
    * Windows
    @ 0, 0 PANEL oToolBar SIZE oMainWindow:nWidth, 30 STYLE SS_OWNERDRAW ;
          ON SIZE {|o,x|o:Move(,,x) } ON PAINT {|o| PaintTB( o ) }
-   @ 0,2 COMBOBOX oComboSiz ITEMS aComboSiz OF oToolBar INIT Ascan( aComboSiz,cComboSizDef ) ;
+   @ 0, 2 COMBOBOX oComboSiz ITEMS aComboSiz OF oToolBar INIT Ascan( aComboSiz,cComboSizDef ) ;
          SIZE 80, 26 DISPLAYCOUNT 6 ON CHANGE {||onBtnSize()} TOOLTIP "Font size in %"
    x1 := 82
 #endif
 
    oToolBar:brush := 0
 
-   @ x1   ,0 OWNERBUTTON aButtons[1] OF oToolBar ON CLICK {|| onBtnStyle(1) } ;
-       SIZE 30,30 TEXT "B" FONT oMainWindow:oFont:SetFontStyle( .T. ) CHECK
+   @ x1   , 0 OWNERBUTTON aButtons[1] OF oToolBar ON CLICK {|| onBtnStyle(1) } ;
+       SIZE 30, 30 TEXT "B" FONT oMainWindow:oFont:SetFontStyle( .T. ) CHECK
    aButtons[1]:aStyle := { oStyle1,oStyle2,oStyle3 }
    aButtons[1]:cargo := "fb"
-   @ x1+30,0 OWNERBUTTON aButtons[2] OF oToolBar ON CLICK {|| onBtnStyle(2) } ;
-       SIZE 30,30 TEXT "I" FONT oMainWindow:oFont:SetFontStyle( .F.,,.T. ) CHECK
+   @ x1+30, 0 OWNERBUTTON aButtons[2] OF oToolBar ON CLICK {|| onBtnStyle(2) } ;
+       SIZE 30, 30 TEXT "I" FONT oMainWindow:oFont:SetFontStyle( .F.,,.T. ) CHECK
    aButtons[2]:aStyle := { oStyle1,oStyle2,oStyle3 }
    aButtons[2]:cargo := "fi"
-   @ x1+60,0 OWNERBUTTON aButtons[3] OF oToolBar ON CLICK {|| onBtnStyle(3) } ;
-       SIZE 30,30 TEXT "U" FONT oMainWindow:oFont:SetFontStyle( .F.,,.F.,.T. ) CHECK
+   @ x1+60, 0 OWNERBUTTON aButtons[3] OF oToolBar ON CLICK {|| onBtnStyle(3) } ;
+       SIZE 30, 30 TEXT "U" FONT oMainWindow:oFont:SetFontStyle( .F.,,.F.,.T. ) CHECK
    aButtons[3]:aStyle := { oStyle1,oStyle2,oStyle3 }
    aButtons[3]:cargo := "fu"
-   @ x1+90,0 OWNERBUTTON aButtons[4] OF oToolBar ON CLICK {|| onBtnStyle(4) } ;
-       SIZE 30,30 TEXT "S" FONT oMainWindow:oFont:SetFontStyle( .F.,,.F.,.F.,.T. ) CHECK
+   @ x1+90, 0 OWNERBUTTON aButtons[4] OF oToolBar ON CLICK {|| onBtnStyle(4) } ;
+       SIZE 30, 30 TEXT "S" FONT oMainWindow:oFont:SetFontStyle( .F.,,.F.,.F.,.T. ) CHECK
    aButtons[4]:aStyle := { oStyle1,oStyle2,oStyle3 }
    aButtons[4]:cargo := "fs"
 
-   @ x1+124,0 OWNERBUTTON OF oToolBar ON CLICK {|| onBtnColor() } ;
-       SIZE 30,30 TEXT "A" FONT oMainWindow:oFont:SetFontStyle( .T.,,.F.,.T. )
+   @ x1+124, 0 OWNERBUTTON OF oToolBar ON CLICK {|| onBtnColor() } ;
+       SIZE 30, 30 TEXT "A" FONT oMainWindow:oFont:SetFontStyle( .T.,,.F.,.T. )
 
    Atail(oToolBar:aControls):aStyle := { oStyle1,oStyle2,oStyle3 }
 
@@ -505,7 +505,7 @@ STATIC FUNCTION PaintRuler( o )
    aCoors := hwg_Getclientrect( o:handle )
 
    nBoundR := iif( !Empty(oEdit:nDocWidth), Min( aCoors[3], oEdit:nDocWidth + oEdit:nMarginR - oEdit:nShiftL ), aCoors[3] - 10 )
-   hwg_Fillrect( hDC, If( x < 0,0,x ), 4, nBoundR, 28, oBrush1:handle )
+   hwg_Fillrect( hDC, If( x < 0, 0,x ), 4, nBoundR, 28, oBrush1:handle )
    DO WHILE x <= ( nBoundR - n1cm )
       i ++
       x += n1cm
@@ -613,7 +613,7 @@ STATIC FUNCTION onChangePos( lInit )
                aButtons[i]:Release()
             ENDIF
          NEXT
-         cTmp := Iif( ( i := Ascan(aAttr,"fh") ) == 0, cComboSizDef, Substr(aAttr[i],3) )
+         cTmp := Iif( ( i := Ascan(aAttr,"fh") ) == 0, cComboSizDef, Substr(aAttr[i], 3) )
          IF ( i := Ascan( oComboSiz:aItems,cTmp ) ) != 0 .AND. oComboSiz:Value != i
             oComboSiz:Value := i
          ENDIF
@@ -653,14 +653,14 @@ STATIC FUNCTION onChangePos( lInit )
             nL := oEdit:aPointC[P_Y]
             aStru := oEdit:aStru
          ENDIF
-         IF aStru[nL,1,OB_TRNUM] > 1
+         IF aStru[nL, 1,OB_TRNUM] > 1
             lB := .F.
          ELSE
-            aStruTbl := aStru[nL,1,OB_TBL]
+            aStruTbl := aStru[nL, 1,OB_TBL]
             IF Len( aStruTbl[OB_OB] ) > 1
                lB := .F.
             ELSE
-               IF nL+1 <= Len(aStru) .AND. HB_ISCHAR(aStru[nL+1,1,1]) .AND. aStru[nL+1,1,1] == "tr"
+               IF nL+1 <= Len(aStru) .AND. HB_ISCHAR(aStru[nL+1, 1, 1]) .AND. aStru[nL+1, 1, 1] == "tr"
                   lB := .F.
                ENDIF
             ENDIF
@@ -720,9 +720,9 @@ STATIC FUNCTION insBlock()
 
    IF !Empty(oEdit:aPointM2[P_Y])
       nChoice := 2
-      @ 10,50 GET RADIOGROUP nChoice  CAPTION "" SIZE 280, 100
-      @ 40,80 RADIOBUTTON "Insert empty" SIZE 230, 24
-      @ 40,110 RADIOBUTTON "With selected lines" SIZE 230, 24
+      @ 10, 50 GET RADIOGROUP nChoice  CAPTION "" SIZE 280, 100
+      @ 40, 80 RADIOBUTTON "Insert empty" SIZE 230, 24
+      @ 40, 110 RADIOBUTTON "With selected lines" SIZE 230, 24
       END RADIOGROUP
    ENDIF
 
@@ -817,21 +817,21 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
          cFamily := SubStr(aAttr[i], 3)
       ENDIF
       IF ( i := Ascan( aAttr, "fh" ) ) != 0
-         IF ( i := Ascan( oComboSiz:aItems,Substr(aAttr[i],3) ) ) > 0
+         IF ( i := Ascan( oComboSiz:aItems,Substr(aAttr[i], 3) ) ) > 0
             nSize := i
          ENDIF
       ENDIF
       IF ( i := Ascan( aAttr, "fb" ) ) != 0
-         lb := ( Substr(aAttr[i],3,1) != '-' )
+         lb := ( Substr(aAttr[i], 3, 1) != '-' )
       ENDIF
       IF ( i := Ascan( aAttr, "fi" ) ) != 0
-         li := ( Substr(aAttr[i],3,1) != '-' )
+         li := ( Substr(aAttr[i], 3, 1) != '-' )
       ENDIF
       IF ( i := Ascan( aAttr, "fu" ) ) != 0
-         lu := ( Substr(aAttr[i],3,1) != '-' )
+         lu := ( Substr(aAttr[i], 3, 1) != '-' )
       ENDIF
       IF ( i := Ascan( aAttr, "fs" ) ) != 0
-         ls := ( Substr(aAttr[i],3,1) != '-' )
+         ls := ( Substr(aAttr[i], 3, 1) != '-' )
       ENDIF
    ENDIF
    tc := tColor; tb := bColor; nsb := nSize; nfb := nFamily
@@ -928,7 +928,7 @@ STATIC FUNCTION setCell()
       RETURN NIL
    ENDIF
 
-   cClsName := oEdit:aStru[oEdit:aPointC[P_Y],1,OB_OB,oEdit:aPointc[P_X],OB_CLS]
+   cClsName := oEdit:aStru[oEdit:aPointC[P_Y], 1,OB_OB,oEdit:aPointc[P_X],OB_CLS]
    IF !Empty(cClsName)
       aAttr := oEdit:getClassAttr( cClsName )
    ENDIF
@@ -975,14 +975,14 @@ STATIC FUNCTION setPara()
       lFew := .T.
    ELSE
       IF Len( arr1 := oEdit:GetPosInfo() ) >= 7
-         cClsName := arr1[7,1,OB_CLS]
-         IF Len( arr1[7,1] ) >= OB_ID
-            cId := arr1[7,1,OB_ID]
+         cClsName := arr1[7, 1,OB_CLS]
+         IF Len( arr1[7, 1] ) >= OB_ID
+            cId := arr1[7, 1,OB_ID]
          ENDIF
       ELSE
-         cClsName := oEdit:aStru[nl,1,OB_CLS]
-         IF Len( oEdit:aStru[nl,1] ) >= OB_ID
-            cId := oEdit:aStru[nl,1,OB_ID]
+         cClsName := oEdit:aStru[nl, 1,OB_CLS]
+         IF Len( oEdit:aStru[nl, 1] ) >= OB_ID
+            cId := oEdit:aStru[nl, 1,OB_ID]
          ENDIF
       ENDIF
    ENDIF
@@ -991,15 +991,15 @@ STATIC FUNCTION setPara()
       aAttr := oEdit:getClassAttr( cClsName )
       IF ( i := Ascan( aAttr, "ml" ) ) != 0
          nMarginL := Val( SubStr(aAttr[i], 3) )
-         lml := ( Right( aAttr[i],1 ) == '%' )
+         lml := ( Right( aAttr[i], 1 ) == '%' )
       ENDIF
       IF ( i := Ascan( aAttr, "mr" ) ) != 0
          nMarginR := Val( SubStr(aAttr[i], 3) )
-         lmr := ( Right( aAttr[i],1 ) == '%' )
+         lmr := ( Right( aAttr[i], 1 ) == '%' )
       ENDIF
       IF ( i := Ascan( aAttr, "ti" ) ) != 0
          nIndent := Val( SubStr(aAttr[i], 3) )
-         lti := ( Right( aAttr[i],1 ) == '%' )
+         lti := ( Right( aAttr[i], 1 ) == '%' )
       ENDIF
       IF ( i := Ascan( aAttr, "ta" ) ) != 0
          nAlign := Val( SubStr(aAttr[i], 3) ) + 1
@@ -1019,7 +1019,7 @@ STATIC FUNCTION setPara()
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Set paragraph properties"  ;
       AT 210, 10  SIZE 400, 460 FONT HWindow():GetMain():oFont
 
-   @ 10, 10 TAB oTab ITEMS {} SIZE 380,380 ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
+   @ 10, 10 TAB oTab ITEMS {} SIZE 380, 380 ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
    BEGIN PAGE "Layout" of oTab
 
@@ -1102,8 +1102,8 @@ STATIC FUNCTION setPara()
             oEdit:LoadEnv( arr1[1], arr1[2] )
             nl := arr1[4]
          ENDIF
-         IF Len( oEdit:aStru[nl,1] ) >= OB_ID
-            oEdit:aStru[nl,1,OB_ID] := cId
+         IF Len( oEdit:aStru[nl, 1] ) >= OB_ID
+            oEdit:aStru[nl, 1,OB_ID] := cId
          ELSE
             Aadd(oEdit:aStru[nl, 1], cId)
          ENDIF
@@ -1166,7 +1166,7 @@ STATIC FUNCTION setSpan()
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Set span properties"  ;
       AT 210, 10  SIZE 400, 460 FONT HWindow():GetMain():oFont
 
-   @ 10, 10 TAB oTab ITEMS {} SIZE 380,380 ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
+   @ 10, 10 TAB oTab ITEMS {} SIZE 380, 380 ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
    textTab( oTab, aAttr )
 
@@ -1261,15 +1261,15 @@ STATIC FUNCTION setBlock()
    PRIVATE nSize := Ascan( oComboSiz:aItems,cComboSizDef ), nsb, nfb
    PRIVATE lb := .F., li := .F., lu := .F., ls := .F., lbb, lib, lub, lsb
 
-   IF Len( oEdit:GetPosInfo() ) < 7 .OR. oEdit:aStru[nL,1,OB_TRNUM] > 1
+   IF Len( oEdit:GetPosInfo() ) < 7 .OR. oEdit:aStru[nL, 1,OB_TRNUM] > 1
       RETURN NIL
    ENDIF
 
-   aStruTbl := oEdit:aStru[nL,1,OB_TBL]
+   aStruTbl := oEdit:aStru[nL, 1,OB_TBL]
    IF Len( aStruTbl[OB_OB] ) > 1
       RETURN NIL
    ENDIF
-   IF nL+1 <= oEdit:nTextLen .AND. HB_ISCHAR(oEdit:aStru[nL+1,1,1]) .AND. oEdit:aStru[nL+1,1,1] == "tr"
+   IF nL+1 <= oEdit:nTextLen .AND. HB_ISCHAR(oEdit:aStru[nL+1, 1, 1]) .AND. oEdit:aStru[nL+1, 1, 1] == "tr"
       RETURN NIL
    ENDIF
 
@@ -1290,7 +1290,7 @@ STATIC FUNCTION setBlock()
    INIT DIALOG oDlg TITLE "Set block"  ;
       AT 20, 30 SIZE 460, 460 FONT HWindow():GetMain():oFont
 
-   @ 10, 10 TAB oTab ITEMS {} SIZE 440,380 ;
+   @ 10, 10 TAB oTab ITEMS {} SIZE 440, 380 ;
          ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
    BEGIN PAGE "Main" of oTab
@@ -1312,7 +1312,7 @@ STATIC FUNCTION setBlock()
    textTab( oTab, aAttr )
 
    @ 80, 410 BUTTON "Ok" ID IDOK SIZE 100, 32 ON SIZE ANCHOR_LEFTABS+ANCHOR_BOTTOMABS
-   @ 260,410 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
+   @ 260, 410 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
    ACTIVATE DIALOG oDlg
 
@@ -1407,7 +1407,7 @@ STATIC FUNCTION setTable( lNew )
 
    nTop := GetVal_nTop()
 
-   IF lNew == ( HB_ISCHAR(oEdit:aStru[nL,1,OB_TYPE]) .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr" )
+   IF lNew == ( HB_ISCHAR(oEdit:aStru[nL, 1,OB_TYPE]) .AND. oEdit:aStru[nL, 1,OB_TYPE] == "tr" )
       RETURN NIL
    ENDIF
 
@@ -1420,8 +1420,8 @@ STATIC FUNCTION setTable( lNew )
       NEXT
       aCols[1] += ( 100 - nAll )
    ELSE
-      nRows := oEdit:aStru[nL,1,OB_TRNUM]
-      aStruTbl := oEdit:aStru[nL-nRows+1,1,OB_TBL]
+      nRows := oEdit:aStru[nL, 1,OB_TRNUM]
+      aStruTbl := oEdit:aStru[nL-nRows+1, 1,OB_TBL]
       IF !Empty(cClsName := aStruTbl[OB_CLS])
          aAttr := oEdit:getClassAttr( cClsName )
          IF ( i := Ascan( aAttr, "bw" ) ) != 0
@@ -1433,7 +1433,7 @@ STATIC FUNCTION setTable( lNew )
       ENDIF
 
       i := 1
-      DO WHILE nL+i <= oEdit:nTextLen .AND. HB_ISCHAR(oEdit:aStru[nL+i,1,1]) .AND. oEdit:aStru[nL+i,1,1] == "tr"
+      DO WHILE nL+i <= oEdit:nTextLen .AND. HB_ISCHAR(oEdit:aStru[nL+i, 1, 1]) .AND. oEdit:aStru[nL+i, 1, 1] == "tr"
          i ++
          nRows ++
       ENDDO
@@ -1443,14 +1443,14 @@ STATIC FUNCTION setTable( lNew )
       nAlign := aStruTbl[OB_TALIGN] + 1
       aCols := Array( nCols )
       FOR i := 1 TO Len( aCols )
-         aCols[i] := Int( Abs( aStruTbl[OB_OB,i,1] ) )
+         aCols[i] := Int( Abs( aStruTbl[OB_OB,i, 1] ) )
       NEXT
    ENDIF
 
    INIT DIALOG oDlg TITLE Iif( lNew, "Insert", "Set" ) + " table"  ;
       AT 20, 30 SIZE 460, 460 FONT HWindow():GetMain():oFont
 
-   @ 10, 10 TAB oTab ITEMS {} SIZE 440,380 ON CHANGE bChgTab ;
+   @ 10, 10 TAB oTab ITEMS {} SIZE 440, 380 ON CHANGE bChgTab ;
          ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
    BEGIN PAGE "Main" of oTab
@@ -1479,8 +1479,8 @@ STATIC FUNCTION setTable( lNew )
 
    @ 10, nTop BROWSE oBrw ARRAY SIZE 260, 160 ON SIZE {|o,x,y|o:Move(,,,y-70)}
    oBrw:aArray := aCols
-   oBrw:AddColumn( HColumn():New( " Column N  ",{ |value,o|o:nCurrent },"N",2 ) )
-   oBrw:AddColumn( HColumn():New( "  Width, %",{ |value,o|o:aArray[o:nCurrent] },"N",2 ) )
+   oBrw:AddColumn( HColumn():New( " Column N  ",{ |value,o|o:nCurrent },"N", 2 ) )
+   oBrw:AddColumn( HColumn():New( "  Width, %",{ |value,o|o:aArray[o:nCurrent] },"N", 2 ) )
    oBrw:aColumns[2]:lEditable := .T.
    oBrw:aColumns[2]:bValid := bValid
    oBrw:aColumns[2]:picture := "99"
@@ -1490,7 +1490,7 @@ STATIC FUNCTION setTable( lNew )
    textTab( oTab, aAttr )
 
    @ 80, 410 BUTTON "Ok" ID IDOK SIZE 100, 32 ON SIZE ANCHOR_LEFTABS+ANCHOR_BOTTOMABS
-   @ 260,410 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
+   @ 260, 410 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
    ACTIVATE DIALOG oDlg
 
@@ -1525,12 +1525,12 @@ STATIC FUNCTION setTable( lNew )
             oEdit:lUpdated := .T.
          ENDIF
          FOR i := 1 TO Len( aCols )
-            IF aCols[i] != aStruTbl[OB_OB,i,1]
-               aStruTbl[OB_OB,i,1] := aCols[i]
+            IF aCols[i] != aStruTbl[OB_OB,i, 1]
+               aStruTbl[OB_OB,i, 1] := aCols[i]
                oEdit:lUpdated := .T.
             ENDIF
          NEXT
-         nLast := nL - oEdit:aStru[nL,1,OB_TRNUM] + nRows0
+         nLast := nL - oEdit:aStru[nL, 1,OB_TRNUM] + nRows0
          IF nRows < nRows0
             IF nL > nLast - (nRows0-nRows)
                oEdit:aPointC[P_Y] := nLast - (nRows0-nRows)
@@ -1597,26 +1597,26 @@ STATIC FUNCTION setDoc()
    @ 20, 20 SAY "Size:" SIZE 100, 24
    @ 120, 16 GET COMBOBOX nFormat ITEMS aCombo SIZE 120, 150
 
-   @ 20,60 GROUPBOX "Orientation" SIZE 200, 90
+   @ 20, 60 GROUPBOX "Orientation" SIZE 200, 90
 
    GET RADIOGROUP nOrient
-   @ 40,90 RADIOBUTTON "Portrait" SIZE 160, 22
-   @ 40,114 RADIOBUTTON "Landscape" SIZE 160, 22
+   @ 40, 90 RADIOBUTTON "Portrait" SIZE 160, 22
+   @ 40, 114 RADIOBUTTON "Landscape" SIZE 160, 22
    END RADIOGROUP
 
-   @ 20,170 GROUPBOX "Margins" SIZE 400, 120
+   @ 20, 170 GROUPBOX "Margins" SIZE 400, 120
 
    @ 40, 200 SAY "Left" SIZE 100, 24
-   @ 140,200 GET UPDOWN nMargL RANGE 0,80 SIZE 60,30
+   @ 140, 200 GET UPDOWN nMargL RANGE 0, 80 SIZE 60, 30
 
-   @ 240,200 SAY "Top" SIZE 100, 24
-   @ 340,200 GET UPDOWN nMargT RANGE 0,80 SIZE 60,30
+   @ 240, 200 SAY "Top" SIZE 100, 24
+   @ 340, 200 GET UPDOWN nMargT RANGE 0, 80 SIZE 60, 30
 
    @ 40, 240 SAY "Right" SIZE 100, 24
-   @ 140,240 GET UPDOWN nMargR RANGE 0,80 SIZE 60,30
+   @ 140, 240 GET UPDOWN nMargR RANGE 0, 80 SIZE 60, 30
 
-   @ 240,240 SAY "Bottom" SIZE 100, 24
-   @ 340,240 GET UPDOWN nMargB RANGE 0,80 SIZE 60,30
+   @ 240, 240 SAY "Bottom" SIZE 100, 24
+   @ 340, 240 GET UPDOWN nMargB RANGE 0, 80 SIZE 60, 30
 
    @  20, 320  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
    @ 220, 320 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
@@ -1632,10 +1632,10 @@ STATIC FUNCTION setDoc()
          oEdit:aDocMargins[2] := nMargR
          oEdit:aDocMargins[3] := nMargT
          oEdit:aDocMargins[4] := nMargB
-         oEdit:nMarginL := Round( nMargL*oEdit:nKoeffScr,0 )
-         oEdit:nMarginR := Round( nMargR*oEdit:nKoeffScr,0 )
-         oEdit:nMarginT := Round( nMargT*oEdit:nKoeffScr,0 )
-         oEdit:nMarginB := Round( nMargB*oEdit:nKoeffScr,0 )
+         oEdit:nMarginL := Round( nMargL*oEdit:nKoeffScr, 0 )
+         oEdit:nMarginR := Round( nMargR*oEdit:nKoeffScr, 0 )
+         oEdit:nMarginT := Round( nMargT*oEdit:nKoeffScr, 0 )
+         oEdit:nMarginB := Round( nMargB*oEdit:nKoeffScr, 0 )
       ELSE
          oEdit:nBoundL := FREE_BOUNDL
          oEdit:nDocOrient := oEdit:nMarginL := oEdit:nMarginR := oEdit:nMarginT := oEdit:nMarginB := 0
@@ -1682,7 +1682,7 @@ STATIC FUNCTION setAccess( n, lSpan )
       ENDIF
       l := !hwg_CheckBit( nOpt, n+1 )
       hwg_Checkmenuitem( , MENU_SNOWR+n-1, l )
-      alAcc[Iif(n==0,7,n+3)] := l
+      alAcc[Iif(n==0, 7,n+3)] := l
       IF l
          nOpt := hb_BitSet( nOpt, n )
       ELSE
@@ -1712,7 +1712,7 @@ STATIC FUNCTION SetText( oEd, cText )
    oEd:aStru := Array( Len( aText ) )
 
    FOR i := 1 TO Len( aText )
-      oEd:aStru[i] := { { 0,0,NIL } }
+      oEd:aStru[i] := { { 0, 0,NIL } }
       nLen := Len( aText[i] )
       nPos2 := 1
       DO WHILE ( nPos1 := hb_At("://", aText[i], nPos2) ) != 0
@@ -1754,7 +1754,7 @@ STATIC FUNCTION InsUrl( nType )
 
    @ 20, 10 SAY "Href:" SIZE 120, 22
    @ 10, 32 GET COMBOBOX oProto VAR cProto ITEMS aProto SIZE 90, 26 EDIT
-   @ 100,34 SAY "://" SIZE 40, 22
+   @ 100, 34 SAY "://" SIZE 40, 22
 
    IF nType == 1
       @ 140, 32 GET cHref SIZE 250, 26 STYLE ES_AUTOHSCROLL MAXLENGTH 0
@@ -1762,9 +1762,9 @@ STATIC FUNCTION InsUrl( nType )
       IF !Empty(aRefs := oEdit:Find( ,"",, .T. ))
          FOR nref := 1 TO Len( aRefs )
             IF Len( aRefs[nref] ) == 2
-               aRefs[nref,1] := oEdit:aStru[aRefs[nref,2],aRefs[nref,1],OB_ID]
+               aRefs[nref, 1] := oEdit:aStru[aRefs[nref, 2],aRefs[nref, 1],OB_ID]
             ELSE
-               aRefs[nref,1] := ""
+               aRefs[nref, 1] := ""
             ENDIF
          NEXT
       ENDIF
@@ -1785,9 +1785,9 @@ STATIC FUNCTION InsUrl( nType )
    IF oDlg:lResult
       IF ( ( nType == 1 .AND. !Empty(cHref) ) .OR. ( nType == 2 .AND. !Empty(aRefs) ) ) .AND. !Empty(cName)
          IF !Empty(aRefs)
-            cHref := "goto://#" + aRefs[nref,1]
+            cHref := "goto://#" + aRefs[nref, 1]
          ELSEIF !Empty(cHref)
-            cHRef := cProto + "://" + Iif( cProto=="goto".AND.Left(cHRef,1)!="#", "#", "" ) + cHref
+            cHRef := cProto + "://" + Iif( cProto=="goto".AND.Left(cHRef, 1)!="#", "#", "" ) + cHref
          ENDIF
          xAttr := oEdit:getClassAttr( "url" )
          oEdit:InsSpan( cName, xAttr, cHref )
@@ -1811,7 +1811,7 @@ STATIC FUNCTION setImage( lNew )
    }
    LOCAL bClick2 := {||
       IF !Empty(nImage := selectImage())
-         oGet1:value := fname := "#" + oEdit:aBin[nImage,1]
+         oGet1:value := fname := "#" + oEdit:aBin[nImage, 1]
       ENDIF
       RETURN .T.
    }
@@ -1846,8 +1846,8 @@ STATIC FUNCTION setImage( lNew )
    IF lNew
       @ 20, 10 GET oGet1 VAR fname SIZE 280, 26 STYLE ES_AUTOHSCROLL MAXLENGTH 0 ;
            ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
-      @ 300,10 BUTTON "File" SIZE 60, 32 ON CLICK bClick1 ON SIZE ANCHOR_TOPABS + ANCHOR_RIGHTABS
-      @ 360,10 BUTTON "Embedded" SIZE 100, 32 ON CLICK bClick2 ON SIZE ANCHOR_TOPABS + ANCHOR_RIGHTABS
+      @ 300, 10 BUTTON "File" SIZE 60, 32 ON CLICK bClick1 ON SIZE ANCHOR_TOPABS + ANCHOR_RIGHTABS
+      @ 360, 10 BUTTON "Embedded" SIZE 100, 32 ON CLICK bClick2 ON SIZE ANCHOR_TOPABS + ANCHOR_RIGHTABS
    ENDIF
 
    @ 20, 50 GET CHECKBOX lEmbed CAPTION "Keep an image embedded in the document ?" SIZE 440, 24
@@ -1867,7 +1867,7 @@ STATIC FUNCTION setImage( lNew )
       IF lNew
          IF !Empty(fname)
             IF nImage > 0 .AND. Left(fname, 1) == "#"
-               oEdit:InsImage( , nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),NIL ), oEdit:aBin[nImage,2] )
+               oEdit:InsImage( , nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),NIL ), oEdit:aBin[nImage, 2] )
             ELSEIF lEmbed
                oEdit:InsImage( , nAlign-1, Iif( nBorder>0,"bw" + LTrim(Str(nBorder)),NIL ), MemoRead(fname), Lower(hb_FNameExt(fname)) )
             ELSE
@@ -1885,7 +1885,7 @@ STATIC FUNCTION setImage( lNew )
                cName := aStru[1,OB_HREF]
                IF !Empty(cBin := MemoRead(cName))
                   IF ( i := Ascan( oEdit:aBin, {|a|a[2]==cBin} ) ) > 0
-                     aStru[1,OB_HREF] := "#" + oEdit:aBin[i,1]
+                     aStru[1,OB_HREF] := "#" + oEdit:aBin[i, 1]
                   ELSE
                      i := 1
                      DO WHILE !Empty(cName := "img_"+Ltrim(Str(i))) .AND. Ascan( oEdit:aBin, {|a|a[1]==cName} ) != 0
@@ -1897,7 +1897,7 @@ STATIC FUNCTION setImage( lNew )
             ELSE
                cName := Substr(aStru[1, OB_HREF], 2)
                IF ( i := Ascan( oEdit:aBin, {|a|a[1]==cName} ) ) > 0
-                  hb_MemoWrit( cName, oEdit:aBin[i,2] )
+                  hb_MemoWrit( cName, oEdit:aBin[i, 2] )
                   aStru[1,OB_HREF] := cName
                ENDIF
             ENDIF
@@ -1914,7 +1914,7 @@ STATIC FUNCTION selectImage()
    LOCAL oDlg, oBrw, oPanel
    LOCAL bPaint := {|o|
       LOCAL pps := hwg_Definepaintstru(), hDC := hwg_Beginpaint( o:handle, pps ), aCoors := hwg_Getclientrect( o:handle )
-      LOCAL oImg := oBrw:aArray[oBrw:nCurrent,3], nWidth, nHeight
+      LOCAL oImg := oBrw:aArray[oBrw:nCurrent, 3], nWidth, nHeight
 
       nWidth := Iif( oImg:nWidth > oPanel:nWidth-8, oPanel:nWidth-8, oImg:nWidth )
       nHeight := Int( oImg:nHeight * ( nWidth/oImg:nWidth ) )
@@ -1939,12 +1939,12 @@ STATIC FUNCTION selectImage()
    @ 200, 0 PANEL oPanel SIZE 200, oDlg:nHeight - 60 STYLE SS_OWNERDRAW ;
       ON PAINT bPaint ON SIZE {|o,x,y|o:Move( ,, x-o:nLeft, y-60)}
    oBrw:aArray := oEdit:aBin
-   oBrw:AddColumn( HColumn():New( ,{ |value,o|o:aArray[o:nCurrent,1] },"C",32 ) )
+   oBrw:AddColumn( HColumn():New( ,{ |value,o|o:aArray[o:nCurrent, 1] },"C", 32 ) )
    oBrw:bcolorSel := oBrw:htbColor := CLR_LBLUE
    oBrw:bColor := CLR_LIGHT1
    oBrw:tcolorSel := oBrw:httColor := CLR_BLACK
    oBrw:tcolor := CLR_BLACK
-   oBrw:bPosChanged := {||hwg_Invalidaterect(oPanel:handle,0,0,0,oPanel:nWidth,oPanel:nHeight)}
+   oBrw:bPosChanged := {||hwg_Invalidaterect(oPanel:handle, 0, 0, 0,oPanel:nWidth,oPanel:nHeight)}
 
    @ 32, 210 BUTTON "Ok" ID IDOK  SIZE 90, 32 ON SIZE ANCHOR_BOTTOMABS
    @ 276, 210 BUTTON "Cancel" ID IDCANCEL  SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS
@@ -1960,7 +1960,7 @@ STATIC FUNCTION selectImage()
 STATIC FUNCTION InsRows()
    LOCAL nL := oEdit:aPointC[P_Y], oDlg, nRows := 1
 
-   IF Valtype(oEdit:aStru[nL,1,1]) != "C" .OR. oEdit:aStru[nL,1,1] != "tr"
+   IF Valtype(oEdit:aStru[nL, 1, 1]) != "C" .OR. oEdit:aStru[nL, 1, 1] != "tr"
       RETURN NIL
    ENDIF
 
@@ -1986,19 +1986,19 @@ STATIC FUNCTION DelRow()
 
    LOCAL nL := oEdit:aPointC[P_Y], i
 
-   IF Valtype(oEdit:aStru[nL,1,1]) != "C" .OR. oEdit:aStru[nL,1,1] != "tr"
+   IF Valtype(oEdit:aStru[nL, 1, 1]) != "C" .OR. oEdit:aStru[nL, 1, 1] != "tr"
       RETURN NIL
    ENDIF
 
    IF nL == oEdit:nTextLen .OR. ;
-         !(HB_ISCHAR(oEdit:aStru[nL+1,1,1]) .AND. oEdit:aStru[nL+1,1,1] == "tr")
+         !(HB_ISCHAR(oEdit:aStru[nL+1, 1, 1]) .AND. oEdit:aStru[nL+1, 1, 1] == "tr")
       oEdit:aPointC[P_Y] := nL - 1
    ENDIF
 
    i := nL
    DO WHILE ++i <= oEdit:nTextLen .AND. ;
-         HB_ISCHAR(oEdit:aStru[i,1,1]) .AND. oEdit:aStru[i,1,1] == "tr"
-      oEdit:aStru[i,1,OB_TRNUM] --
+         HB_ISCHAR(oEdit:aStru[i, 1, 1]) .AND. oEdit:aStru[i, 1, 1] == "tr"
+      oEdit:aStru[i, 1,OB_TRNUM] --
    ENDDO
    oEdit:DelLine( nL )
    oEdit:Scan( nL )
@@ -2011,7 +2011,7 @@ STATIC FUNCTION InsCols( l2End )
 
    LOCAL nL := oEdit:aPointC[P_Y]
 
-   IF Valtype(oEdit:aStru[nL,1,1]) != "C" .OR. oEdit:aStru[nL,1,1] != "tr"
+   IF Valtype(oEdit:aStru[nL, 1, 1]) != "C" .OR. oEdit:aStru[nL, 1, 1] != "tr"
       RETURN NIL
    ENDIF
 
@@ -2027,7 +2027,7 @@ STATIC FUNCTION DelCol()
 
    LOCAL nL := oEdit:aPointC[P_Y]
 
-   IF Valtype(oEdit:aStru[nL,1,1]) != "C" .OR. oEdit:aStru[nL,1,1] != "tr"
+   IF Valtype(oEdit:aStru[nL, 1, 1]) != "C" .OR. oEdit:aStru[nL, 1, 1] != "tr"
       RETURN NIL
    ENDIF
 
@@ -2172,7 +2172,7 @@ STATIC FUNCTION CopyFormatted()
    LOCAL nL, nLTr, iTd
 
    nL := oEdit:aPointC[P_Y]
-   IF HB_ISCHAR(oEdit:aStru[nL,1,OB_TYPE]) .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr"
+   IF HB_ISCHAR(oEdit:aStru[nL, 1, OB_TYPE]) .AND. oEdit:aStru[nL, 1, OB_TYPE] == "tr"
       nLTr := nL
       iTd := oEdit:nPosC
       oEdit:LoadEnv( nL, iTd )
@@ -2203,7 +2203,7 @@ STATIC FUNCTION PasteFormatted()
          nL := oEdit:aPointC[P_Y]
          nLines := oEdit:nLines; nLineF := oEdit:nLineF; nLineC := oEdit:nLineC; nPosF := oEdit:nPosF; nPosC := oEdit:nPosC; nWCharF := oEdit:nWCharF; nWSublF := oEdit:nWSublF
 
-         IF HB_ISCHAR(oEdit:aStru[nL,1,OB_TYPE]) .AND. oEdit:aStru[nL,1,OB_TYPE] == "tr"
+         IF HB_ISCHAR(oEdit:aStru[nL, 1,OB_TYPE]) .AND. oEdit:aStru[nL, 1,OB_TYPE] == "tr"
             nLTr := nL
             iTd := oEdit:nPosC
             oEdit:LoadEnv( nL, iTd )
@@ -2251,8 +2251,8 @@ STATIC FUNCTION MarkRow( n )
       ELSEIF nRow1 > 0 .AND. nRow2 == 0
          nRow2 := nL
          aPointM2[P_Y] := nL; aPointM2[P_X] := hced_Len( oEdit,oEdit:aText[nL] ) + 1
-         IF Valtype( aStru[nL,1,OB_TYPE] ) != "N" .AND. aStru[nL,1,OB_TYPE] == "tr"
-            aStru[nL,1,OB_OPT] := TROPT_SEL
+         IF Valtype( aStru[nL, 1,OB_TYPE] ) != "N" .AND. aStru[nL, 1,OB_TYPE] == "tr"
+            aStru[nL, 1,OB_OPT] := TROPT_SEL
          ENDIF
          hwg_Enablemenuitem( , MENU_COPYF, .T., .T. )
          oEdit:Refresh()
@@ -2263,8 +2263,8 @@ STATIC FUNCTION MarkRow( n )
       IF nEnv > 0
          aPointM2[P_Y] := nL; aPointM2[P_X] := 2
          FOR i := nRow1 TO nL
-            IF Valtype( aStru[i,1,OB_TYPE] ) != "N" .AND. aStru[i,1,OB_TYPE] == "tr"
-               aStru[i,1,OB_OPT] := TROPT_SEL
+            IF Valtype( aStru[i, 1,OB_TYPE] ) != "N" .AND. aStru[i, 1,OB_TYPE] == "tr"
+               aStru[i, 1,OB_OPT] := TROPT_SEL
             ENDIF
          NEXT
       ELSE
@@ -2432,7 +2432,7 @@ STATIC FUNCTION Help(cHTopic , nPROCLINE , cHVar)
    ENDIF
 
    INIT DIALOG oDlgHelp TITLE "Help" AT 100, 50 ;
-         SIZE 400,400 FONT HWindow():GetMain():oFont ON EXIT {||oDlgHelp := NIL, .T.}
+         SIZE 400, 400 FONT HWindow():GetMain():oFont ON EXIT {||oDlgHelp := NIL, .T.}
    oDlgHelp:brush := 0
 
    oEdit := HCEdiExt():New( ,,, 0, 0, oDlgHelp:nWidth, oDlgHelp:nHeight, ;
@@ -2459,7 +2459,7 @@ STATIC FUNCTION Help(cHTopic , nPROCLINE , cHVar)
 
 STATIC FUNCTION About()
 
-   LOCAL oDlg, oStyle1, oStyle2, aRadius := { 8,8,8,8 }
+   LOCAL oDlg, oStyle1, oStyle2, aRadius := { 8, 8, 8, 8 }
 
    oStyle1 := HStyle():New( { 0xFFFFFF, CLR_GRAY1 }, 1, aRadius, )
    oStyle2 := HStyle():New( { 0xFFFFFF, CLR_GRAY1 }, 2, aRadius, )
@@ -2467,18 +2467,18 @@ STATIC FUNCTION About()
    INIT DIALOG oDlg TITLE "About" ;
       AT 0, 0 SIZE 400, 330 FONT HWindow():GetMain():oFont COLOR 0xCCCCCC
 
-   @ 20, 40 SAY "Editor" SIZE 360,26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
-   @ 20, 64 SAY "Version "+APP_VERSION SIZE 360,26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
-   @ 10, 100 SAY "Copyright 2015 Alexander S.Kresin" SIZE 380,26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
-   @ 20, 124 SAY "http://www.kresin.ru" LINK "http://www.kresin.ru" SIZE 360,26 STYLE SS_CENTER
+   @ 20, 40 SAY "Editor" SIZE 360, 26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
+   @ 20, 64 SAY "Version "+APP_VERSION SIZE 360, 26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
+   @ 10, 100 SAY "Copyright 2015 Alexander S.Kresin" SIZE 380, 26 STYLE SS_CENTER COLOR CLR_VDBLUE TRANSPARENT
+   @ 20, 124 SAY "http://www.kresin.ru" LINK "http://www.kresin.ru" SIZE 360, 26 STYLE SS_CENTER
    @ 20, 160 LINE LENGTH 360
-   @ 20, 180 SAY hwg_version() SIZE 360,26 STYLE SS_CENTER COLOR CLR_LBLUE0 TRANSPARENT
+   @ 20, 180 SAY hwg_version() SIZE 360, 26 STYLE SS_CENTER COLOR CLR_LBLUE0 TRANSPARENT
 
-   @ 120, 246 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} SIZE 160,36 ;
+   @ 120, 246 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} SIZE 160, 36 ;
           TEXT "Close" COLOR 0x0000FF
 
    Atail(oDlg:aControls):aStyle := { oStyle1, oStyle2 }
-   //Atail(oDlg:aControls):aRadius := { 8,8,8,8 }
+   //Atail(oDlg:aControls):aRadius := { 8, 8, 8, 8 }
 
    ACTIVATE DIALOG oDlg CENTER
 

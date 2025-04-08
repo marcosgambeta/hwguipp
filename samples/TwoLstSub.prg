@@ -46,7 +46,7 @@ Function Main
    aResult := {}
    
    INIT WINDOW oMainWindow MAIN TITLE "Example" ;
-     AT 0,0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
+     AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
    // MENUITEM in main menu on GTK/Linux does not start the desired action 
    // Submenu needed 
    MENU OF oMainWindow
@@ -116,18 +116,18 @@ LOCAL oItems1, oItems2
  
 
   INIT DIALOG _frm_2browsboxsel TITLE "Select Browsebox Items" ;
-    AT 536,148 SIZE 516,465 FONT oFont;
+    AT 536, 148 SIZE 516, 465 FONT oFont;
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 33,15 SAY oLabel1 CAPTION "Select items"  SIZE 441,22 ;
+   @ 33, 15 SAY oLabel1 CAPTION "Select items"  SIZE 441, 22 ;
         STYLE SS_CENTER
 
    // Please dimensionize size of both BROWSE windows so that it is enough space to display
    // all items in oItems1 with additional reserve about 20 pixels.
-   @ 34,56  BROWSE obrowsbox1  ARRAY oItems1 SIZE 150,96 FONT oFont  ;
+   @ 34, 56  BROWSE obrowsbox1  ARRAY oItems1 SIZE 150, 96 FONT oFont  ;
                    STYLE WS_BORDER  // NO VSCROLL
-   @ 308,56 BROWSE obrowsbox2  ARRAY oItems2 SIZE 150,96 FONT oFont  ;
+   @ 308, 56 BROWSE obrowsbox2  ARRAY oItems2 SIZE 150, 96 FONT oFont  ;
                    STYLE WS_BORDER // NO VSCROLL
    // Init Browse windows
      obrowsbox1:aArray := GetItems() // Fill source browse box with all items
@@ -141,20 +141,20 @@ LOCAL oItems1, oItems2
      obrowsbox1:active := .T.
      obrowsbox2:active := .T.
 
-   @ 207,92 BUTTON oButton1 CAPTION ">"   SIZE 80,32 ;
+   @ 207, 92 BUTTON oButton1 CAPTION ">"   SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTORI(obrowsbox1,obrowsbox2) }
-   @ 207,137 BUTTON oButton2 CAPTION ">>"   SIZE 80,32 ;
+   @ 207, 137 BUTTON oButton2 CAPTION ">>"   SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTORA(obrowsbox1,obrowsbox2,GetItems() ) }
-   @ 207,223 BUTTON oButton3 CAPTION "<"   SIZE 80,32 ;
+   @ 207, 223 BUTTON oButton3 CAPTION "<"   SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTOLI(obrowsbox1,obrowsbox2) }
-   @ 207,281 BUTTON oButton4 CAPTION "<<"   SIZE 80,32 ;
+   @ 207, 281 BUTTON oButton4 CAPTION "<<"   SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTOLA(obrowsbox1,obrowsbox2,GetItems() ) }
-   @ 36,345 BUTTON oButton5 CAPTION "OK"   SIZE 80,32 ;
+   @ 36, 345 BUTTON oButton5 CAPTION "OK"   SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-         { || oItemsR := obrowsbox2:aArray , _frm_2browsboxsel:Close() }  /* return content of target browsbox */ 
-   @ 158,345 BUTTON oButton6 CAPTION "Cancel"   SIZE 80,32 ;
+         { || oItemsR := obrowsbox2:aArray , _frm_2browsboxsel:Close() }  /* return content of target browsbox */
+   @ 158, 345 BUTTON oButton6 CAPTION "Cancel"   SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || _frm_2browsboxsel:Close() }
-   @ 367,345 BUTTON oButton7 CAPTION "Help"   SIZE 80,32 ;
+   @ 367, 345 BUTTON oButton7 CAPTION "Help"   SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || Hilfe() }
 
    ACTIVATE DIALOG _frm_2browsboxsel
@@ -202,7 +202,7 @@ FUNCTION browsBOX_ITEMTORI(obrows1, obrows2)
    ENDIF
    * Get selected item
    nPosi := obrows1:nCurrent
-   cIt   := obrows1:aArray[nPosi,1]
+   cIt   := obrows1:aArray[nPosi, 1]
    aIt := { cIt }
    * Search item in target browse box, if found, nothing to do (programing error)
    IF browsBOX_ITEMFIND(obrows2,cIt) != 0
@@ -236,7 +236,7 @@ FUNCTION browsBOX_ITEMTOLI(obrows1, obrows2)
     RETURN NIL
    ENDIF
    nPosi := obrows2:nCurrent
-   cIt   := obrows2:aArray[nPosi,1]
+   cIt   := obrows2:aArray[nPosi, 1]
    aIt := { cIt }
    IF browsBOX_ITEMFIND(obrows1,cIt) != 0
      RETURN NIL
@@ -281,7 +281,7 @@ FUNCTION browsBOX_ITEMFIND(obrows, cItem)
 LOCAL i
  //    hwg_msgInfo(STR(LEN(obrows:aArray)))
  FOR i := 1 TO LEN(obrows:aArray)
-  IF ALLTRIM(obrows:aArray[i,1]) == ALLTRIM(cItem)
+  IF ALLTRIM(obrows:aArray[i, 1]) == ALLTRIM(cItem)
    RETURN i
   ENDIF
  NEXT

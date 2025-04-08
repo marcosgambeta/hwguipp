@@ -54,8 +54,8 @@ Function Contacts_DBF
    Set Autopen On 
    hb_cdpSelect("UTF8EX")
 
-   aStructure := { { "idcontact" ,"+",04,0} ,; //Auto increment
-                   { "name"      ,"c",60,0} }
+   aStructure := { { "idcontact" ,"+", 04, 0} ,; //Auto increment
+                   { "name"      ,"c", 60, 0} }
 
    If !hb_vfexists("contacts.dbf")      
       If dbcreate("contacts.dbf",aStructure,"DBFCDX",.t.,"ctc") //Create and open with shared mode
@@ -82,8 +82,8 @@ Function Contacts_DBF
 
    Use contacts new shared alias "ctc"
 
-INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts Via DBFCDX" AT 0,0 size 1024,500 Font oFontDlg STYLE DS_CENTER
-   @ 10,080 browse oBrw DataBase Of oDlg size 360,400 Font oFontBrw ;
+INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts Via DBFCDX" AT 0, 0 size 1024, 500 Font oFontDlg STYLE DS_CENTER
+   @ 10, 080 browse oBrw DataBase Of oDlg size 360, 400 Font oFontBrw ;
    On PosChange {|| UpdateGets() }
 
    oBrw:Alias:="ctc"
@@ -97,26 +97,26 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts Via DBFCDX" AT 0,0 size 1024,500
    Add Column FieldBlock("name") to oBrw ;
    Header "Name" length 100
 
-   @ 370,005 Tab oTab Items {} size 600,430 of oDlg
+   @ 370, 005 Tab oTab Items {} size 600, 430 of oDlg
 
       BEGIN PAGE "Contacts" of oTab
 
          FieldsGet()
          
-         @ 010,010 GroupBox "ID" size 120,60
-         @ 020,030 Get oIdContact var nIdContact Picture "9999999999" size 090,30 STYLE ES_RIGHT 
+         @ 010, 010 GroupBox "ID" size 120, 60
+         @ 020, 030 Get oIdContact var nIdContact Picture "9999999999" size 090, 30 STYLE ES_RIGHT
 
-         @ 010,080 GroupBox "Name" size 500,60
-         @ 020,100 Get oName var cName size 470,30 //ToolTip "Name of contact"
+         @ 010, 080 GroupBox "Name" size 500, 60
+         @ 020, 100 Get oName var cName size 470, 30 //ToolTip "Name of contact"
 
-         @ 020,160 Get oPhantom var cPhantom size 0,0 //Phantom get to validate last get
+         @ 020, 160 Get oPhantom var cPhantom size 0, 0 //Phantom get to validate last get
 
       END Page Of oTab
 
-   @ 370,440 button oBtnSave   Caption "Save"   on click {||SaveContact(oDlg,lSQL)} size 90,50
-   @ 470,440 button oBtnAdd    Caption "Add"    on click {||NewContact()}           size 90,50
-   @ 570,440 button oBtnDel    Caption "Del"    on click {||DelContact(oDlg,lSQL)}  size 90,50
-   @ 670,440 button oBtnOnOff  Caption "On Off" on click {||DelOnOff(oDlg)}         size 90,50
+   @ 370, 440 button oBtnSave   Caption "Save"   on click {||SaveContact(oDlg,lSQL)} size 90, 50
+   @ 470, 440 button oBtnAdd    Caption "Add"    on click {||NewContact()}           size 90, 50
+   @ 570, 440 button oBtnDel    Caption "Del"    on click {||DelContact(oDlg,lSQL)}  size 90, 50
+   @ 670, 440 button oBtnOnOff  Caption "On Off" on click {||DelOnOff(oDlg)}         size 90, 50
 
 oDlg:Activate()
 
@@ -311,9 +311,9 @@ Function Contacts_MariaDB
    PREPARE FONT oFontDlg NAME "Z003" Width 0 Height 16
    PREPARE FONT oFontBrw NAME "Courier" Width 0 Height 14
 
-INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts using SQLMIX and MariaDB" AT 0,0 size 1024,500 Font oFontDlg STYLE DS_CENTER 
+INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts using SQLMIX and MariaDB" AT 0, 0 size 1024, 500 Font oFontDlg STYLE DS_CENTER
 
-   @ 10,080 browse oBrw DataBase Of oDlg size 360,400 Font oFontBrw ;   
+   @ 10, 080 browse oBrw DataBase Of oDlg size 360, 400 Font oFontBrw ;   
    On PosChange {|| UpdateGets() }
 
    oBrw:Alias:="ctc"
@@ -327,26 +327,26 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts using SQLMIX and MariaDB" AT 0,0
    Add Column FieldBlock("name") to oBrw ;
    Header "Name" length 100
 
-   @ 370,005 Tab oTab Items {} size 600,430 of oDlg
+   @ 370, 005 Tab oTab Items {} size 600, 430 of oDlg
 
       BEGIN PAGE "Contacts" of oTab
 
          FieldsGet()
          
-         @ 010,010 GroupBox "ID" size 120,60
-         @ 020,030 Get oIdContact var nIdContact Picture "9999999999" size 090,30 STYLE ES_RIGHT 
+         @ 010, 010 GroupBox "ID" size 120, 60
+         @ 020, 030 Get oIdContact var nIdContact Picture "9999999999" size 090, 30 STYLE ES_RIGHT
 
-         @ 010,080 GroupBox "Name" size 500,60
-         @ 020,100 Get oName var cName size 470,30 //ToolTip "Name of contact"
+         @ 010, 080 GroupBox "Name" size 500, 60
+         @ 020, 100 Get oName var cName size 470, 30 //ToolTip "Name of contact"
 
-         @ 020,160 Get oPhantom var cPhantom size 0,0 //Phantom get to validate last get
+         @ 020, 160 Get oPhantom var cPhantom size 0, 0 //Phantom get to validate last get
 
       END Page Of oTab
 
-   @ 370,440 button oBtnSave   Caption "Save"   on click {||SaveContact(oDlg,lSQL)} size 90,50
-   @ 470,440 button oBtnAdd    Caption "Add"    on click {||NewContact()}           size 90,50
-   @ 570,440 button oBtnDel    Caption "Del"    on click {||DelContact(oDlg,lSQL)}  size 90,50
-   @ 670,440 button oBtnOnOff  Caption "On Off" on click {||DelOnOff(oDlg)}         size 90,50
+   @ 370, 440 button oBtnSave   Caption "Save"   on click {||SaveContact(oDlg,lSQL)} size 90, 50
+   @ 470, 440 button oBtnAdd    Caption "Add"    on click {||NewContact()}           size 90, 50
+   @ 570, 440 button oBtnDel    Caption "Del"    on click {||DelContact(oDlg,lSQL)}  size 90, 50
+   @ 670, 440 button oBtnOnOff  Caption "On Off" on click {||DelOnOff(oDlg)}         size 90, 50
 
    oDlg:bActivate:={||oBrw:top(),oBrw:Refresh() }
 

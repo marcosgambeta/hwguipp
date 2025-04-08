@@ -23,7 +23,7 @@ Function Main
 Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "ADO Example" ;
-     AT 200,0 SIZE 400,150
+     AT 200, 0 SIZE 400, 150
 
    MENU OF oMainWindow
       MENUITEM "&Exit" ACTION hwg_EndWindow()
@@ -42,12 +42,12 @@ FUNCTION DlgADO()
    //cnSQL:Open(hb_cwd() + "teste.ado")
    cnSQL := RecordsetADO()
 
-   INIT DIALOG oModDlg TITLE "ADO BROWSE" AT 0,0 SIZE 1024,600
+   INIT DIALOG oModDlg TITLE "ADO BROWSE" AT 0, 0 SIZE 1024, 600
 
-   @ 20,10 BROWSE ARRAY oBrw SIZE 800,500 STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL
+   @ 20, 10 BROWSE ARRAY oBrw SIZE 800, 500 STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL
    oBrw:bOther := {|oBrw, msg, wParam, lParam| fKeyDown(oBrw, msg, wParam, lParam)}   
 
-   @ 500,540 OWNERBUTTON ON CLICK {||  hwg_EndDialog()} SIZE 180,36 FLAT TEXT "Close" COLOR 0x0000FF
+   @ 500, 540 OWNERBUTTON ON CLICK {||  hwg_EndDialog()} SIZE 180, 36 FLAT TEXT "Close" COLOR 0x0000FF
 
    oBrw:aArray := cnSQL
    oBrw:AddColumn(HColumn():New("Name",   {|v, o|(v), o:aArray:Fields("NAME"):Value}, "C", 30, 0, .F., DT_CENTER))
@@ -126,12 +126,12 @@ FUNCTION DlgDBF()
    CreateDBF( "test" )
    USE test 
 
-   INIT DIALOG oModDlg TITLE "ADO BROWSE" AT 0,0 SIZE 1024,600
+   INIT DIALOG oModDlg TITLE "ADO BROWSE" AT 0, 0 SIZE 1024, 600
 
-   @ 20,10 BROWSE oBrw DATABASE SIZE 800,500 STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL
+   @ 20, 10 BROWSE oBrw DATABASE SIZE 800, 500 STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL
    oBrw:bOther := {|oBrw, msg, wParam, lParam| fKeyDown(oBrw, msg, wParam, lParam)}   
 
-   @ 500,540 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} SIZE 180,36 FLAT TEXT "Close" COLOR 0x0000FF
+   @ 500, 540 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} SIZE 180, 36 FLAT TEXT "Close" COLOR 0x0000FF
 
    Add column FieldBlock("NAME")   to oBrw Header "Name"   Length 30 justify Line DT_LEFT
    Add column FieldBlock("ADRESS") to oBrw Header "Adress" Length 30 justify Line DT_LEFT

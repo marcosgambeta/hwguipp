@@ -34,7 +34,7 @@ Local oMainWnd, oPanelTool, oPanelIE, oFont
 Local oEdit, cUrl, oIE
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -15
-   INIT WINDOW oMainWnd TITLE "Example" AT 200,0 SIZE 500,400 FONT oFont
+   INIT WINDOW oMainWnd TITLE "Example" AT 200, 0 SIZE 500, 400 FONT oFont
 
    MENU OF oMainWnd
       MENU TITLE "File"
@@ -45,15 +45,15 @@ Local oEdit, cUrl, oIE
       ENDMENU
    ENDMENU
 
-    @ 0,0 PANEL oPanelTool SIZE 500,32
+    @ 0, 0 PANEL oPanelTool SIZE 500, 32
 
-    @ 5,4 EDITBOX oEdit CAPTION "http://kresin.belgorod.su" OF oPanelTool SIZE 400,24
-    @ 405,4 BUTTON "Go!" OF oPanelTool SIZE 30,24 ;
+    @ 5, 4 EDITBOX oEdit CAPTION "http://kresin.belgorod.su" OF oPanelTool SIZE 400, 24
+    @ 405, 4 BUTTON "Go!" OF oPanelTool SIZE 30, 24 ;
         ON CLICK {||Iif(!Empty(cUrl:=hwg_Getedittext(oEdit:oParent:handle,oEdit:id)),oIE:DisplayPage(cUrl),.T.)}
-    @ 435,4 BUTTON "Search" OF oPanelTool SIZE 55,24 ;
+    @ 435, 4 BUTTON "Search" OF oPanelTool SIZE 55, 24 ;
         ON CLICK {||Iif(!Empty(cUrl:=hwg_Getedittext(oEdit:oParent:handle,oEdit:id)),FindInGoogle(cUrl,oIE,oEdit),.T.)}
 
-    @ 0,34 PANEL oPanelIE SIZE 500,366 ON SIZE {|o,x,y|o:Move(,,x,y-34)}
+    @ 0, 34 PANEL oPanelIE SIZE 500, 366 ON SIZE {|o,x,y|o:Move(,,x,y-34)}
 
     oIE := HHtml():New(oPanelIE)
 

@@ -462,7 +462,7 @@ METHOD HPrinter:SaveScript( cScriptFile )
       FWrite(han, "job," + ;
             LTrim(Str(IIf(::lmm,::nWidth*::nHRes,::nWidth) )) + "," + ;
             LTrim(Str(IIf(::lmm,::nHeight*::nVRes,::nHeight) )) + "," + ;
-            LTrim(Str(::nHRes,11,4 )) + "," + LTrim(Str(::nVRes,11,4 )) + ",utf8" + s_crlf)
+            LTrim(Str(::nHRes, 11, 4 )) + "," + LTrim(Str(::nVRes, 11, 4 )) + ",utf8" + s_crlf)
 
       FOR i := 1 TO Len(::aPages)
          FWrite(han, ::aPages[i] + s_crlf)
@@ -539,7 +539,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    ::oBrush2 := HBrush():Add( 16777215 )
 
    INIT DIALOG oDlg TITLE cTitle AT 0, 0 ;
-         SIZE hwg_Getdesktopwidth()-12, hwg_Getdesktopheight()-12 ON INIT {||hwg_SetAdjOptions(oCanvas:hScrollV,,11,1,1,1),hwg_SetAdjOptions(oCanvas:hScrollH,,11,1,1,1)}
+         SIZE hwg_Getdesktopwidth()-12, hwg_Getdesktopheight()-12 ON INIT {||hwg_SetAdjOptions(oCanvas:hScrollV,, 11, 1, 1, 1),hwg_SetAdjOptions(oCanvas:hScrollH,, 11, 1, 1, 1)}
 
    @ TOOL_SIDE_WIDTH, 0 PANEL oCanvas SIZE oDlg:nWidth - TOOL_SIDE_WIDTH, oDlg:nHeight ;
       ON SIZE { | o, x, y | o:Move(NIL, NIL, x - TOOL_SIDE_WIDTH, y) } ;
@@ -693,11 +693,11 @@ METHOD HPrinter:PaintDoc( oCanvas )
       ELSE
          IF oCanvas:nScrollV != 0
             oCanvas:nScrollV := 0
-            hwg_SetAdjOptions( oCanvas:hScrollV,,11,1,1,1 )
+            hwg_SetAdjOptions( oCanvas:hScrollV,, 11, 1, 1, 1 )
          ENDIF
          IF oCanvas:nScrollH != 0
             oCanvas:nScrollH := 0
-            hwg_SetAdjOptions( oCanvas:hScrollH,,11,1,1,1 )
+            hwg_SetAdjOptions( oCanvas:hScrollH,, 11, 1, 1, 1 )
          ENDIF
       ENDIF
       ::x1 := IIf(aCoors[3] > nWidth, Int( ( aCoors[3] - nWidth ) / 2 ), 0)
@@ -729,7 +729,7 @@ METHOD HPrinter:PrintDoc()
    LOCAL cExt
 
    IF !Empty(::cPrinterName) .AND. (cExt := Lower(FilExten(::cPrinterName))) $ "pdf;ps;png;svg;"
-      nOper := IIf(cExt == "pdf", 1, IIf(cExt == "ps",2,IIf(cExt == "png",3,4)))
+      nOper := IIf(cExt == "pdf", 1, IIf(cExt == "ps", 2,IIf(cExt == "png", 3, 4)))
    ENDIF
    /*
      nOper:

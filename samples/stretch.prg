@@ -39,7 +39,7 @@ CHECK_FILE(cImageMain)
 
 
 // oBmp := HBitmap():AddFile(cImageMain,,.F.,hwg_Getdesktopwidth(),hwg_Getdesktopheight()-21)
-oBmp := HBitmap():AddFile(cImageMain,,.F.,301,160)
+oBmp := HBitmap():AddFile(cImageMain,,.F., 301, 160)
 * 301 x 160 is the original size of the bitmap image.
 
 // hwg_deb_is_object(oBmp) // Debug
@@ -59,9 +59,9 @@ hwg_msginfo("X=" + STR(nPosX) + CHR(10) + "Y=" + STR(nPosY) + CHR(10) + ;
 
 
 IF lStretch
-   INIT WINDOW oFormMain MAIN AT 0,0 SIZE nPosX , nPosY
+   INIT WINDOW oFormMain MAIN AT 0, 0 SIZE nPosX , nPosY
    
-   @ 110,0 BITMAP oBitmap  SHOW oBmp OF oFormMain ;
+   @ 110, 0 BITMAP oBitmap  SHOW oBmp OF oFormMain ;
     SIZE nPosX - 10, nPosY - 100 // Here resize of background image (stretch)
    // 301, 160
  
@@ -70,18 +70,18 @@ IF lStretch
    // the ON CLICK block does not work.
    // Say "0,0 BITMAP oBitmap" and you can realize the symptom.
  
-   @ 25,25 BUTTON oQuitButton CAPTION "Exit" SIZE 75,32 ; 
+   @ 25, 25 BUTTON oQuitButton CAPTION "Exit" SIZE 75, 32 ; 
    ON CLICK { | | oFormMain:Close() }
 
    oFormMain:Activate()
    
 ELSE
-   INIT WINDOW oFormMain APPNAME "Agenda Hwgui" MAIN AT 0,0 SIZE nPosX,nPosY BACKGROUND BITMAP oBmp
+   INIT WINDOW oFormMain APPNAME "Agenda Hwgui" MAIN AT 0, 0 SIZE nPosX,nPosY BACKGROUND BITMAP oBmp
     // Tiled: Side by side, not stretch
     // If the Button is here inside the background image, the
     // ON CLICK block works fine.
    
-      @ 25,25 BUTTON oQuitButton CAPTION "Exit" SIZE 75,32 ;
+      @ 25, 25 BUTTON oQuitButton CAPTION "Exit" SIZE 75, 32 ;
       ON CLICK { | | oFormMain:Close() } 
 
 

@@ -93,28 +93,28 @@ oastropng := HBitmap():AddString( "astro", cValAstro )
 
 INIT WINDOW oMainW  ;
    FONT oFontMain  ;
-   TITLE "Bitmap Hex container sample" AT 0,0 SIZE 300 , 200 ;
+   TITLE "Bitmap Hex container sample" AT 0, 0 SIZE 300 , 200 ;
    ICON oIcon STYLE WS_POPUP +  WS_CAPTION + WS_SYSMENU ;
  
    
 * @ 0, 0 TOOLBAR oToolbar OF oMainW SIZE  299 , 50 
- @ 0,0 PANEL oToolbar OF oMainW SIZE 300 , 50 ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS 
+ @ 0, 0 PANEL oToolbar OF oMainW SIZE 300 , 50 ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS 
 
 
 @ htab+(nbut*32), 3 OWNERBUTTON oFileOpen OF oToolbar ;
    ON CLICK { | | FileOpen()} ;
-   SIZE 28,24 FLAT ;
+   SIZE 28, 24 FLAT ;
    BITMAP oBitmap ;
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
    TOOLTIP "Open File"
    
    nbut += 1
 
-@ htab+(nbut*32),3 OWNERBUTTON oQuit OF oToolbar ;
+@ htab+(nbut*32), 3 OWNERBUTTON oQuit OF oToolbar ;
    ON CLICK { | | oMainW:Close()} ;
-   SIZE 28,24 FLAT ;
+   SIZE 28, 24 FLAT ;
    BITMAP oBMPExit ; 
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
    TOOLTIP "Terminate Program"
 
    
@@ -122,20 +122,20 @@ INIT WINDOW oMainW  ;
    nbut += 1
 
 * !!!!! PNG not supported   
-@ htab+(nbut*32),3 OWNERBUTTON oBtnDoor OF oToolbar ;
+@ htab+(nbut*32), 3 OWNERBUTTON oBtnDoor OF oToolbar ;
    ON CLICK { | | OpenDoor()} ;
-   SIZE 28,24 FLAT ;
+   SIZE 28, 24 FLAT ;
    BITMAP oPNGDoor ; 
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
    TOOLTIP "Open the door"
    
   nbut += 1 
 
-@ htab+(nbut*32),3 OWNERBUTTON oBtnjpeg OF oToolbar ;
+@ htab+(nbut*32), 3 OWNERBUTTON oBtnjpeg OF oToolbar ;
    ON CLICK { | | ClickJpeg()} ;
-   SIZE 28,24 FLAT ;
+   SIZE 28, 24 FLAT ;
    BITMAP ojpeg ; 
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
    TOOLTIP "JPEG image" 
   
 

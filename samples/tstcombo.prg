@@ -27,7 +27,7 @@ Static oMain, oForm, oFont, oBar
 Function Main()
 
         INIT WINDOW oMain MAIN TITLE "ComboBox Sample" ;
-             AT 0,0 ;
+             AT 0, 0 ;
              SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
                 MENU OF oMain
@@ -73,22 +73,22 @@ Function Test()
 #ifndef __GTK__
             @ 20, 80 GET COMBOBOX oCombo3 VAR xCombo ITEMS aItems SIZE 100, xSizeC EDIT TOOLTIP "Type any thing here"
 #endif            
-            @ 20,110 COMBOBOX oCombo4 ITEMS aItems SIZE 100, xSizeC // 150
-            @ 20,140 COMBOBOX oCombo5 ITEMS aItems SIZE 100, xSizeC TEXT // 150
-            @ 20,170 COMBOBOX oCombo6 ITEMS aItems SIZE 100, xSizeC EDIT // 150
+            @ 20, 110 COMBOBOX oCombo4 ITEMS aItems SIZE 100, xSizeC // 150
+            @ 20, 140 COMBOBOX oCombo5 ITEMS aItems SIZE 100, xSizeC TEXT // 150
+            @ 20, 170 COMBOBOX oCombo6 ITEMS aItems SIZE 100, xSizeC EDIT // 150
 
-            @ 20,200 GET cEdit SIZE 150,23
+            @ 20, 200 GET cEdit SIZE 150, 23
  
 
 #ifdef __GTK__
 * oCombo3:refresh() removed, because Combobox not initialized
-            @ 380, 395 BUTTON "Test"    SIZE 75,25 ON CLICK {|| xCombo := "Temp", nCombo := 2, oCombo1:refresh(), oCombo2:SetItem(3), oCombo4:SetItem(3), oCombo5:value := "Third", oCombo5:refresh(), oCombo6:SetItem(2) }
+            @ 380, 395 BUTTON "Test"    SIZE 75, 25 ON CLICK {|| xCombo := "Temp", nCombo := 2, oCombo1:refresh(), oCombo2:SetItem(3), oCombo4:SetItem(3), oCombo5:value := "Third", oCombo5:refresh(), oCombo6:SetItem(2) }
 #else
-            @ 380, 395 BUTTON "Test"    SIZE 75,25 ON CLICK {|| xCombo := "Temp", oCombo3:refresh(), nCombo := 2, oCombo1:refresh(), oCombo2:SetItem(3), oCombo4:SetItem(3), oCombo5:value := "Third", oCombo5:refresh(), oCombo6:SetItem(2) }
+            @ 380, 395 BUTTON "Test"    SIZE 75, 25 ON CLICK {|| xCombo := "Temp", oCombo3:refresh(), nCombo := 2, oCombo1:refresh(), oCombo2:SetItem(3), oCombo4:SetItem(3), oCombo5:value := "Third", oCombo5:refresh(), oCombo6:SetItem(2) }
 #endif
-            @ 460, 395 BUTTON "Combo 1" SIZE 75,25 ON CLICK {|| hwg_Msginfo(str(nCombo)) }
-            @ 540, 395 BUTTON "Combo 2" SIZE 75,25 ON CLICK {|| hwg_Msginfo(cCombo, xCombo) }
-            @ 620, 395 BUTTON "Close"   SIZE 75,25 ON CLICK {|| oForm:Close() }
+            @ 460, 395 BUTTON "Combo 1" SIZE 75, 25 ON CLICK {|| hwg_Msginfo(str(nCombo)) }
+            @ 540, 395 BUTTON "Combo 2" SIZE 75, 25 ON CLICK {|| hwg_Msginfo(cCombo, xCombo) }
+            @ 620, 395 BUTTON "Close"   SIZE 75, 25 ON CLICK {|| oForm:Close() }
 
         ACTIVATE DIALOG oForm
 Return NIL

@@ -32,7 +32,7 @@ LOCAL oWinMain
 
 INIT WINDOW oWinMain MAIN  ;
      SYSCOLOR COLOR_3DLIGHT+1 ;
-     TITLE "Sample program NICEBUTTON" AT 0, 0 SIZE 600,400;
+     TITLE "Sample program NICEBUTTON" AT 0, 0 SIZE 600, 400;
      STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
    MENU OF oWinMain
@@ -61,7 +61,7 @@ init dialog odlg  title "nice button test" ;
 AT 6, 15 SIZE 161, 127 FONT oFont ;
 STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_THICKFRAME+WS_MINIMIZEBOX+WS_MAXIMIZEBOX
 * 
-@ 10 ,10 NICEBUTTON o1 CAPTION "NICEBUTT" of odlg id IDC_1 size 40,40
+@ 10 , 10 NICEBUTTON o1 CAPTION "NICEBUTT" of odlg id IDC_1 size 40, 40
 
 * redefine nicebutton o1  caption "teste" of odlg id IDC_1 Red 125 Green 201 blue 36 ;
 *  STYLE WS_CHILD+WS_VISIBLE

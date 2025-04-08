@@ -41,7 +41,7 @@ LOCAL oFontMain , oMainW
 
 INIT WINDOW oMainW  ;
    FONT oFontMain  ;
-   TITLE "File2hex Utility converts binary files to hex value" AT 0,0 SIZE 300 , 250 ;
+   TITLE "File2hex Utility converts binary files to hex value" AT 0, 0 SIZE 300 , 250 ;
    STYLE WS_POPUP +  WS_CAPTION + WS_SYSMENU
 
         MENU OF oMainW
@@ -73,7 +73,7 @@ LOCAL fname, hd, varbuf, ccdir
  * Read selected file
  varbuf := MEMOREAD(fname)
  * Write Hexdump
- hd := hwg_HEX_DUMP(varbuf,2)
+ hd := hwg_HEX_DUMP(varbuf, 2)
  MEMOWRIT(ccdir + "hexdump.txt",hd)
  
  IF .NOT. EMPTY(hd)

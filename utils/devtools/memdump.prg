@@ -26,7 +26,7 @@
 * by the actual contents (one record).
 * The header has the following structure:
 * (1)  char mname[11]   && 10 + NIL
-* (12) char mtype       && C,D,L,N with top bit set hb_bitand(n,127)
+* (12) char mtype       && C,D,L,N with top bit set hb_bitand(n, 127)
 * (13) char mfiller[4]
 * (17) char mlen
 * (18) char mdec
@@ -63,7 +63,7 @@ FUNCTION MAIN()
 LOCAL oWinMain
 
 INIT WINDOW oWinMain MAIN  ;
-     TITLE "Utility Dump a MEM file" AT 0, 0 SIZE 600,400;
+     TITLE "Utility Dump a MEM file" AT 0, 0 SIZE 600, 400;
      STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
    MENU OF oWinMain
@@ -111,46 +111,46 @@ amemdarr  := aARR_EMPTY()
 aumemdarr := aARR_EMPTY()
 
   INIT DIALOG frm_memdump TITLE "Dump a MEM file" ;
-    AT 220,23 SIZE 1136,563 ;
+    AT 220, 23 SIZE 1136, 563 ;
     STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
 //     STYLE WS_SYSMENU + WS_SIZEBOX + WS_VISIBLE +  DS_CENTER
 
 
-   @ 36,25 SAY oLabel1 CAPTION "Dump of file :"  SIZE 153,22
-   @ 217,25 SAY oLabel2 CAPTION cStMEMFILE  SIZE 638,22 
+   @ 36, 25 SAY oLabel1 CAPTION "Dump of file :"  SIZE 153, 22
+   @ 217, 25 SAY oLabel2 CAPTION cStMEMFILE  SIZE 638, 22
 
 
-     @ 38,94 BROWSE oBrwArr ARRAY ;
-             STYLE WS_VSCROLL + WS_HSCROLL  SIZE 1044,306 ;
-             FONT oFont &&   SIZE 341,170
+     @ 38, 94 BROWSE oBrwArr ARRAY ;
+             STYLE WS_VSCROLL + WS_HSCROLL  SIZE 1044, 306 ;
+             FONT oFont &&   SIZE 341, 170
  
  
       UPDATE_BRW()
 
 
 
-   @ 40,430 BUTTON oButton1 CAPTION "Open MEM file"   SIZE 155,32 ;
+   @ 40, 430 BUTTON oButton1 CAPTION "Open MEM file"   SIZE 155, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
-        ON CLICK {|| dlgOpenMem() }       
-   @ 223,430 BUTTON oButton2 CAPTION "Exit"   SIZE 80,32 ;
+        ON CLICK {|| dlgOpenMem() }
+   @ 223, 430 BUTTON oButton2 CAPTION "Exit"   SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| frm_memdump:Close() }
-   @ 331,430 BUTTON oButton3 CAPTION "Save as text file"   SIZE 235,32 ;
+   @ 331, 430 BUTTON oButton3 CAPTION "Save as text file"   SIZE 235, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| dlgTextout() }
-   @ 594,430 BUTTON oButton4 CAPTION "Save as HTML file"   SIZE 235,32 ;
+   @ 594, 430 BUTTON oButton4 CAPTION "Save as HTML file"   SIZE 235, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| dlgHTMLout() }
-   @ 864,430 BUTTON oButton5 CAPTION "Help"   SIZE 80,32 ;
+   @ 864, 430 BUTTON oButton5 CAPTION "Help"   SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
-        ON CLICK {|| Show_Help() }  
-   @ 997,430 BUTTON oButton6 CAPTION "Test"   SIZE 80,32 ;
-        STYLE WS_TABSTOP+BS_FLAT ; 
+        ON CLICK {|| Show_Help() }
+   @ 997, 430 BUTTON oButton6 CAPTION "Test"   SIZE 80, 32 ;
+        STYLE WS_TABSTOP+BS_FLAT ;
          ON CLICK {|| Testdialog() }
 
-   @ 997,470 BUTTON oButton7 CAPTION "Clear"   SIZE 80,32 ;
-        STYLE WS_TABSTOP+BS_FLAT ; 
+   @ 997, 470 BUTTON oButton7 CAPTION "Clear"   SIZE 80, 32 ;
+        STYLE WS_TABSTOP+BS_FLAT ;
          ON CLICK {|| CLEAR_ALL(), DEL_TESTFI() }
 
       frm_memdump:Activate()
@@ -401,7 +401,7 @@ Puffn := SPACE(8)
 
 leof := .F.
 
-handle := FOPEN(cmemfname,2)
+handle := FOPEN(cmemfname, 2)
  IF handle == -1
   * cannot open file
    hwg_MsgStop("Can not open file >" + cmemfname + "<" )
@@ -412,7 +412,7 @@ handle := FOPEN(cmemfname,2)
 anzbytes := 32
 DO WHILE ( anzbytes == 32 ) .AND. ( .NOT. leof )
 * Read MEM_REC 
-anzbytes := FREAD(handle,@Puffer,32)
+anzbytes := FREAD(handle,@Puffer, 32)
 * EOF reached ?
 IF HB_FEOF(handle)
  leof := .T.
@@ -422,10 +422,10 @@ IF .NOT. leof
  
 aOutput := {} 
  
-cVarName := STRTRAN(SUBSTR(Puffer,1,10) , CHR(0) , "" )  && Buffer contains NULL bytes
-cTyp   := CHR(hb_bitand(ASC(SUBSTR(Puffer,12,1)),127))    &&  & 256
-ncsize := BIN2I(SUBSTR(Puffer,17,1) + CHR(0) )
-ncdec  := BIN2I(SUBSTR(Puffer,18,1) + CHR(0) )
+cVarName := STRTRAN(SUBSTR(Puffer, 1, 10) , CHR(0) , "" )  && Buffer contains NULL bytes
+cTyp   := CHR(hb_bitand(ASC(SUBSTR(Puffer, 12, 1)), 127))    &&  & 256
+ncsize := BIN2I(SUBSTR(Puffer, 17, 1) + CHR(0) )
+ncdec  := BIN2I(SUBSTR(Puffer, 18, 1) + CHR(0) )
 
 AADD(aOutput, "Record Nr.: " + ALLTRIM(STR(nreccount + 1 )) )
 AADD(aOutput, "Name : " + cVarName )
@@ -469,12 +469,12 @@ DO CASE
      RETURN {}
    ENDIF 
    lstop := .F.
-   ctemp := SUBSTR(Puffer,1,ctsize)
+   ctemp := SUBSTR(Puffer, 1,ctsize)
    * Need to cut after NULL byte   
    FOR i := 1 TO LEN(ctemp)  && ctsize
      IF .NOT. lstop
-      IF SUBSTR(ctemp,i,1) == CHR(0)
-       ctemp :=  SUBSTR(ctemp,1,i - 1)
+      IF SUBSTR(ctemp,i, 1) == CHR(0)
+       ctemp :=  SUBSTR(ctemp, 1,i - 1)
        lstop := .T.
       ENDIF
      ENDIF
@@ -483,15 +483,15 @@ DO CASE
    // hwg_WriteLog(ctemp)
 
    * Limit of contents line: ===================v
-   AADD(aOutput,"Contents  : " + SUBSTR(ctemp,1,50 ) )
+   AADD(aOutput,"Contents  : " + SUBSTR(ctemp, 1, 50 ) )
 
   CASE cTyp == "D"
-   anzbyte2 := FREAD(handle,@Puffd,8)
+   anzbyte2 := FREAD(handle,@Puffd, 8)
   IF anzbyte2 != 8
       FILE_ERROR(anzbyte2)
       RETURN {}
    ENDIF
-   cDateA := hwg_JulianDay2Date(hwg_Bin2D(hwg_HEX_DUMP(Puffd,0))  ) 
+   cDateA := hwg_JulianDay2Date(hwg_Bin2D(hwg_HEX_DUMP(Puffd, 0))  ) 
 
    AADD(aOutput, "Contents  : " + cDateA )
    
@@ -501,7 +501,7 @@ DO CASE
 
    CASE cTyp == "L"
 
-   anzbyte2 := FREAD(handle,@Puffl,1)
+   anzbyte2 := FREAD(handle,@Puffl, 1)
   IF anzbyte2 != 1
      FILE_ERROR(anzbyte2)
      RETURN {}
@@ -509,13 +509,13 @@ DO CASE
    AADD(aOutput, "Contents  : " + IIF( BIN2I(Puffl + CHR(0) ) == 0 , ".F." , ".T." ) )
 
   CASE cTyp == "N"
-   anzbyte2 = FREAD(handle,@Puffn,8)
+   anzbyte2 = FREAD(handle,@Puffn, 8)
    IF anzbyte2 != 8
       FILE_ERROR(anzbyte2)
       RETURN {}
    ENDIF
-//   hwg_MsgInfo(STRTRAN(SUBSTR(hwg_HEX_DUMP(Puffn,0),1,23)," ","") )
-   AADD(aOutput, ALLTRIM(STR(hwg_Bin2D(hwg_HEX_DUMP(Puffn,0),ncsize,ncdec) )) )
+//   hwg_MsgInfo(STRTRAN(SUBSTR(hwg_HEX_DUMP(Puffn, 0), 1, 23)," ","") )
+   AADD(aOutput, ALLTRIM(STR(hwg_Bin2D(hwg_HEX_DUMP(Puffn, 0),ncsize,ncdec) )) )
  ENDCASE  
 
  nreccount := nreccount + 1
@@ -587,7 +587,7 @@ FOR iind := 1 TO nal && loop records
   lstop := .F.
    FOR i := 1 TO LEN(ctemp)
      IF .NOT. lstop
-      IF SUBSTR(ctemp,i,2) == ": "
+      IF SUBSTR(ctemp,i, 2) == ": "
        ctemp :=  SUBSTR(ctemp,i + 2)
        lstop := .T.
       ENDIF
@@ -635,9 +635,9 @@ DELETE FILE (dateiname)
 
 * Open text file for output
  IF .NOT. FILE(dateiname)
-   handle_a = FCREATE(dateiname,0)  && FC_NORMAL
+   handle_a = FCREATE(dateiname, 0)  && FC_NORMAL
  ELSE
-   handle_a = FOPEN(dateiname,2)
+   handle_a = FOPEN(dateiname, 2)
  ENDIF
  IF handle_a == -1
    hwg_MsgStop("Open Error :" + dateiname)
@@ -705,9 +705,9 @@ DELETE FILE (dateiname)
 
 * Open text file for output
  IF .NOT. FILE(dateiname)
-   handle_a = FCREATE(dateiname,0)  && FC_NORMAL
+   handle_a = FCREATE(dateiname, 0)  && FC_NORMAL
  ELSE
-   handle_a = FOPEN(dateiname,2)
+   handle_a = FOPEN(dateiname, 2)
  ENDIF
  IF handle_a == -1
    hwg_MsgStop("Open Error :" + dateiname)
@@ -739,7 +739,7 @@ DELETE FILE (dateiname)
  
  * Write table item
  WRITE_LINE(handle_a,dateiname, "<tr>")
- WRITE_LINE(handle_a,dateiname, "<td align=left>" + aerg [iind,1] + "</td><td>" + aerg [iind,2] + "</td><td>" + aerg [iind,3] + "</td><td>" + aerg [iind,4] + "</td><td>" + aerg [iind,5] + "</td><td>" + aerg [iind,6] + "</td>" )
+ WRITE_LINE(handle_a,dateiname, "<td align=left>" + aerg [iind, 1] + "</td><td>" + aerg [iind, 2] + "</td><td>" + aerg [iind, 3] + "</td><td>" + aerg [iind, 4] + "</td><td>" + aerg [iind, 5] + "</td><td>" + aerg [iind, 6] + "</td>" )
  WRITE_LINE(handle_a,dateiname, "</tr>")
  
 // NEXT && memrec

@@ -91,13 +91,13 @@ Puffer := SPACE(1034)
 
 * Open label file
 
-handle := FOPEN(clblfname,2)
+handle := FOPEN(clblfname, 2)
 IF handle == -1
  ? "Error opening label file " , clblfname
  QUIT
 ENDIF
 
-anzbytes := FREAD(handle,@Puffer,1034)  && Read complete label file
+anzbytes := FREAD(handle,@Puffer, 1034)  && Read complete label file
 // ? "Bytes read: " + STR(anzbytes)
 IF anzbytes != 1034
  ? "Error reading label file, not 1034 bytes" 
@@ -110,16 +110,16 @@ FOR I := 1 TO 16
  AADD(MINH,"")
 NEXT
  
-Z1 := SUBSTR(Puffer,1,1)           && Markierung CHR(2) / Mark CHR(2)
-REM := SUBSTR(Puffer,2,60)         && Bemerkung  L=60  / Remarks length=60
-NUMZ := ASC(SUBSTR(Puffer,62,2))   && Zeilenanzahl (height of label, number of lines) 1..16
-BR := ASC(SUBSTR(Puffer,64,2))     && Spaltenbreite (width of label) 1..120
-LM := ASC(SUBSTR(Puffer,66,2))     && Linker Rand (left margin)      0..250
-HZR := ASC(SUBSTR(Puffer,68,2))    && Horiz. Abst. (lines between labels)  0..16
-VZR := ASC(SUBSTR(Puffer,70,2))    && Vert. Abstand (spaces between labels ) 0 ... 120
-LPZ := ASC(SUBSTR(Puffer,72,2))    && Anzahl Label/Zeile  (number of labels across) 1 .. 5
-INH := SUBSTR(Puffer,74,NUMZ * 60) && Labelinhalte / Contents of label
-Z2 := SUBSTR(Puffer,1034,1)        && Endemarkierung CHR(2) / Mark of end CHR(2)
+Z1 := SUBSTR(Puffer, 1, 1)           && Markierung CHR(2) / Mark CHR(2)
+REM := SUBSTR(Puffer, 2, 60)         && Bemerkung  L=60  / Remarks length=60
+NUMZ := ASC(SUBSTR(Puffer, 62, 2))   && Zeilenanzahl (height of label, number of lines) 1..16
+BR := ASC(SUBSTR(Puffer, 64, 2))     && Spaltenbreite (width of label) 1..120
+LM := ASC(SUBSTR(Puffer, 66, 2))     && Linker Rand (left margin)      0..250
+HZR := ASC(SUBSTR(Puffer, 68, 2))    && Horiz. Abst. (lines between labels)  0..16
+VZR := ASC(SUBSTR(Puffer, 70, 2))    && Vert. Abstand (spaces between labels ) 0 ... 120
+LPZ := ASC(SUBSTR(Puffer, 72, 2))    && Anzahl Label/Zeile  (number of labels across) 1 .. 5
+INH := SUBSTR(Puffer, 74,NUMZ * 60) && Labelinhalte / Contents of label
+Z2 := SUBSTR(Puffer, 1034, 1)        && Endemarkierung CHR(2) / Mark of end CHR(2)
 
 
 * Extract the contents

@@ -69,7 +69,7 @@ FUNCTION Main()
 
 #ifdef __GTK__
    INIT WINDOW oMainWindow MAIN TITLE "Example" ;
-   AT 200,0 SIZE 200,100 ;  // Needed for Ubuntu 16, otherwise not visible
+   AT 200, 0 SIZE 200, 100 ;  // Needed for Ubuntu 16, otherwise not visible
    ICON oIcon1   
 #else   
    INIT WINDOW oMainWindow MAIN TITLE "Example"
@@ -98,7 +98,7 @@ FUNCTION Main()
    ACTIVATE WINDOW oMainWindow
 #else    
    * InitTray( oNotifyIcon, bNotify, oNotifyMenu, cTooltip )
-   oMainWindow:InitTray( oIcon1, oTrayMenu:aMenu[1,1,1], oTrayMenu, "TestTray" )
+   oMainWindow:InitTray( oIcon1, oTrayMenu:aMenu[1, 1, 1], oTrayMenu, "TestTray" )
 
    ACTIVATE WINDOW oMainWindow NOSHOW
    oTrayMenu:End()

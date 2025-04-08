@@ -4,10 +4,10 @@ MEMVAR oFont
 
 Function Main
 Local oMainWindow
-Private oFont := HFont():Add( "MS Sans Serif",0,-13 )
+Private oFont := HFont():Add( "MS Sans Serif", 0,-13 )
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" ;
-     AT 200,0 SIZE 400,150
+     AT 200, 0 SIZE 400, 150
 
    MENU OF oMainWindow
       MENUITEM "&Exit" ACTION hwg_EndWindow()
@@ -31,23 +31,23 @@ Local oSplit, oSay
    ENDIF
 
    INIT DIALOG oDlg TITLE CutPath(fname)    ;
-   AT 210,10  SIZE 430,300                  ;
+   AT 210, 10  SIZE 430, 300                  ;
    FONT oFont                               ;
    ON INIT {||BuildTree(oTree,oXmlDoc:aItems,oSay)}
 
-   @ 10,10 TREE oTree OF oDlg SIZE 200,280 ;
+   @ 10, 10 TREE oTree OF oDlg SIZE 200, 280 ;
         EDITABLE ;
         BITMAP { "..\image\cl_fl.bmp","..\image\op_fl.bmp" } ;
         ON SIZE {|o,x,y|o:Move(,,,y-20)}
 
-   @ 214,10 SAY oSay CAPTION "" SIZE 206,280 STYLE WS_BORDER ;
+   @ 214, 10 SAY oSay CAPTION "" SIZE 206, 280 STYLE WS_BORDER ;
         ON SIZE {|o,x,y|o:Move(,,x-oSplit:nLeft-oSplit:nWidth-10,y-20)}
 
-   @ 214,10 EDITBOX oSay CAPTION "" SIZE 206,280 STYLE WS_VSCROLL+WS_HSCROLL+ES_MULTILINE+ES_READONLY ;
+   @ 214, 10 EDITBOX oSay CAPTION "" SIZE 206, 280 STYLE WS_VSCROLL+WS_HSCROLL+ES_MULTILINE+ES_READONLY ;
         ON SIZE {|o,x,y|o:Move(,,x-oSplit:nLeft-oSplit:nWidth-10,y-20)} ;
-        ON GETFOCUS {||hwg_Sendmessage(oSay:handle,EM_SETSEL,0,0)}
+        ON GETFOCUS {||hwg_Sendmessage(oSay:handle,EM_SETSEL, 0, 0)}
 
-   @ 210,10 SPLITTER oSplit SIZE 4,260 ;
+   @ 210, 10 SPLITTER oSplit SIZE 4, 260 ;
          DIVIDE {oTree} FROM {oSay} ;
          ON SIZE {|o,x,y|o:Move(,,,y-20)}
 
@@ -71,10 +71,10 @@ Local oNode, i, j, alen := Len(aItems), cText
          INSERT NODE oNode CAPTION aItems[i]:title TO oParent ON CLICK {|o|NodeOut(o,oSay)}
          oNode:cargo := ""
          FOR j := 1 TO Len(aItems[i]:aAttr)
-            IF ( cText := Utf82Ansi( aItems[i]:aAttr[j,2] ) ) != NIL
-               oNode:cargo += aItems[i]:aAttr[j,1]+" = "+cText+Chr(13)+Chr(10)
+            IF ( cText := Utf82Ansi( aItems[i]:aAttr[j, 2] ) ) != NIL
+               oNode:cargo += aItems[i]:aAttr[j, 1]+" = "+cText+Chr(13)+Chr(10)
             ELSE
-               oNode:cargo += aItems[i]:aAttr[j,1]+" = "+aItems[i]:aAttr[j,2]+Chr(13)+Chr(10)
+               oNode:cargo += aItems[i]:aAttr[j, 1]+" = "+aItems[i]:aAttr[j, 2]+Chr(13)+Chr(10)
             ENDIF
          NEXT
          IF !Empty(aItems[i]:aItems)

@@ -50,7 +50,7 @@
    STATIC crossCursor, vertCursor, horzCursor
    STATIC itemPressed := 0, mPos := { 0, 0 }
    STATIC itemBorder := 0, itemSized := 0, resizeDirection := 0
-   STATIC aInitialSize := { { 50,20 }, { 60,4 }, { 4,60 }, { 60,40 }, { 40,40 }, { 16,10 } }
+   STATIC aInitialSize := { { 50, 20 }, { 60, 4 }, { 4, 60 }, { 60, 40 }, { 40, 40 }, { 16, 10 } }
    STATIC aMarkers := { "PH", "SL", "EL", "PF", "EPF", "DF" }
    STATIC oPenDivider, oPenLine
    STATIC oBrushWhite, oBrushLGray, oBrushGray
@@ -101,7 +101,7 @@ FUNCTION Main()
       ICON oIcon COLOR COLOR_3DSHADOW                            ;
       ON EXIT {||_hwr_CloseReport() }
 
-   @ 0,0 PANEL oPanel SIZE oMainWindow:nWidth, oMainWindow:nHeight-24 ;
+   @ 0, 0 PANEL oPanel SIZE oMainWindow:nWidth, oMainWindow:nHeight-24 ;
       STYLE SS_OWNERDRAW ;
       ON PAINT {|o| PaintMain( o ) } ON SIZE {|o,x,y|o:Move( ,,x,y-24 )}
    oPanel:bOther := { |o, m, wp, lp|MessagesProc( o, m, wp, lp ) }
@@ -235,7 +235,7 @@ STATIC FUNCTION EndNewrep( oDlg )
 
    aPaintRep[FORM_Y] := 0
    hwg_Enablemenuitem( , 1, .T. , .F. )
-   hwg_WriteStatus(oMainWindow, 2, LTrim(Str(aPaintRep[FORM_WIDTH],4)) + "x" + ;
+   hwg_WriteStatus(oMainWindow, 2, LTrim(Str(aPaintRep[FORM_WIDTH], 4)) + "x" + ;
       LTrim(Str(aPaintRep[FORM_HEIGHT], 4)) + "  Items: " + LTrim(Str(Len(aPaintRep[FORM_ITEMS]))))
    oMainWindow:Refresh()
 
@@ -309,12 +309,12 @@ STATIC FUNCTION PaintMain( oWnd )
    oldBkColor := hwg_Setbkcolor( hDC, CLR_LGRAY )
    DO WHILE i <= aPaintRep[FORM_WIDTH]/10 .AND. i * n1cm < ( aCoors[3] - aCoors[1] - LEFT_INDENT )
       xt := x1 + i * n1cm
-      hwg_Drawline( hDC, xt + Round( n1cm/4,0 ), 0, xt + Round( n1cm/4,0 ), 4 )
-      hwg_Drawline( hDC, xt + Round( n1cm/2,0 ), 0, xt + Round( n1cm/2,0 ), 8 )
-      hwg_Drawline( hDC, xt + Round( n1cm * 3/4,0 ), 0, xt + Round( n1cm * 3/4,0 ), 4 )
+      hwg_Drawline( hDC, xt + Round( n1cm/4, 0 ), 0, xt + Round( n1cm/4, 0 ), 4 )
+      hwg_Drawline( hDC, xt + Round( n1cm/2, 0 ), 0, xt + Round( n1cm/2, 0 ), 8 )
+      hwg_Drawline( hDC, xt + Round( n1cm * 3/4, 0 ), 0, xt + Round( n1cm * 3/4, 0 ), 4 )
       hwg_Drawline( hDC, xt, 0, xt, 12 )
       IF i > 0 .AND. i < aPaintRep[FORM_WIDTH]/10
-         hwg_Drawtext( hDC, LTrim(Str(i,2 )), xt - 15, 12, xt + 15, TOP_INDENT - 5, DT_CENTER )
+         hwg_Drawtext( hDC, LTrim(Str(i, 2 )), xt - 15, 12, xt + 15, TOP_INDENT - 5, DT_CENTER )
       ENDIF
       i ++
    ENDDO
@@ -322,12 +322,12 @@ STATIC FUNCTION PaintMain( oWnd )
    i := 0
    DO WHILE i <= aPaintRep[FORM_HEIGHT]/10 .AND. i * n1cm < ( aCoors[4] - aCoors[2] - TOP_INDENT )
       yt := y1 + i * n1cm
-      hwg_Drawline( hDC, 0, yt + Round( n1cm/4,0 ), 4, yt + Round( n1cm/4,0 ) )
-      hwg_Drawline( hDC, 0, yt + Round( n1cm/2,0 ), 8, yt + Round( n1cm/2,0 ) )
-      hwg_Drawline( hDC, 0, yt + Round( n1cm * 3/4,0 ), 4, yt + Round( n1cm * 3/4,0 ) )
+      hwg_Drawline( hDC, 0, yt + Round( n1cm/4, 0 ), 4, yt + Round( n1cm/4, 0 ) )
+      hwg_Drawline( hDC, 0, yt + Round( n1cm/2, 0 ), 8, yt + Round( n1cm/2, 0 ) )
+      hwg_Drawline( hDC, 0, yt + Round( n1cm * 3/4, 0 ), 4, yt + Round( n1cm * 3/4, 0 ) )
       hwg_Drawline( hDC, 0, yt, 12, yt )
       IF i > 0 .AND. i < aPaintRep[FORM_HEIGHT]/10
-         hwg_Drawtext( hDC, LTrim(Str(i + nsteps * 2,2 )), 12, yt - 10, LEFT_INDENT - 12, yt + 10, DT_CENTER )
+         hwg_Drawtext( hDC, LTrim(Str(i + nsteps * 2, 2 )), 12, yt - 10, LEFT_INDENT - 12, yt + 10, DT_CENTER )
       ENDIF
       i ++
    ENDDO
@@ -350,7 +350,7 @@ STATIC FUNCTION PaintMain( oWnd )
    NEXT
    hwg_Setbkcolor( hDC, oldBkColor )
    /*
-   kolsteps := Round( ( Round(aPaintRep[FORM_HEIGHT] * aPaintRep[FORM_XKOEF],0 ) - ;
+   kolsteps := Round( ( Round(aPaintRep[FORM_HEIGHT] * aPaintRep[FORM_XKOEF], 0 ) - ;
       ( aCoors[4] - aCoors[2] - TOP_INDENT ) ) / step, 0 ) + 1
 
    IF lPreviewMode
@@ -409,7 +409,7 @@ STATIC FUNCTION PaintItem( hDC, aItem, aCoors )
          ENDIF
       ELSEIF aItem[ITEM_TYPE] == TYPE_MARKER
          hwg_Selectobject( hDC, oPenDivider:handle )
-         hwg_Drawline( hDC, LEFT_INDENT, y1, LEFT_INDENT - 1 + Round( aPaintRep[FORM_WIDTH] * aPaintRep[FORM_XKOEF],0 ), y1 )
+         hwg_Drawline( hDC, LEFT_INDENT, y1, LEFT_INDENT - 1 + Round( aPaintRep[FORM_WIDTH] * aPaintRep[FORM_XKOEF], 0 ), y1 )
          hwg_Selectobject( hDC, oFontSmall:handle )
          hwg_Drawtext( hDC, aItem[ITEM_CAPTION], x1, y1, x2, y2, DT_CENTER )
       ENDIF
@@ -540,7 +540,7 @@ STATIC FUNCTION VSCROLL( hWnd, nScrollCode, nNewPos )
    LOCAL aCoors := hwg_Getclientrect( hWnd )
 
    IF nScrollCode == SB_LINEDOWN
-      kolsteps := Round( ( Round(aPaintRep[FORM_HEIGHT] * aPaintRep[FORM_XKOEF],0 ) - ;
+      kolsteps := Round( ( Round(aPaintRep[FORM_HEIGHT] * aPaintRep[FORM_XKOEF], 0 ) - ;
          ( aCoors[4] - aCoors[2] - TOP_INDENT ) ) / step, 0 ) + 1
       IF nsteps < kolsteps
          aPaintRep[FORM_Y] += step
@@ -562,7 +562,7 @@ STATIC FUNCTION VSCROLL( hWnd, nScrollCode, nNewPos )
       ENDIF
    ELSEIF nScrollCode == SB_THUMBTRACK
       IF -- nNewPos != nsteps
-         kolsteps := Round( ( Round(aPaintRep[FORM_HEIGHT] * aPaintRep[FORM_XKOEF],0 ) - ;
+         kolsteps := Round( ( Round(aPaintRep[FORM_HEIGHT] * aPaintRep[FORM_XKOEF], 0 ) - ;
             ( aCoors[4] - aCoors[2] - TOP_INDENT ) ) / step, 0 ) + 1
          aPaintRep[FORM_Y] := nNewPos * step
          IF aPaintRep[FORM_Y]/step >= kolsteps
@@ -778,16 +778,16 @@ STATIC FUNCTION LButtonUp( xPos, yPos )
    y2 := y1 + Round( aPaintRep[FORM_HEIGHT] * aPaintRep[FORM_XKOEF], 0 ) - aPaintRep[FORM_Y] - 1
    IF nAddItem > 0 .AND. xPos > x1 .AND. xPos < x2 .AND. yPos > y1 .AND. yPos < y2
       AAdd(aPaintRep[FORM_ITEMS], {nAddItem, "", xPos - x1, ;
-         yPos - y1 + aPaintRep[FORM_Y], aInitialSize[nAddItem,1], ;
+         yPos - y1 + aPaintRep[FORM_Y], aInitialSize[nAddItem, 1], ;
          aInitialSize[nAddItem, 2], 0, NIL, NIL, 0, 0, NIL, STATE_SELECTED})
       aItem := Atail( aPaintRep[FORM_ITEMS] )
       IF nAddItem == TYPE_HLINE .OR. nAddItem == TYPE_VLINE .OR. nAddItem == TYPE_BOX
          aItem[ITEM_PEN] := HPen():Add()
       ELSEIF nAddItem == TYPE_TEXT
          aItem[ITEM_FONT] := ;
-            iif( lastFont == NIL, HFont():Add( "Arial",0, - 13 ), lastFont )
+            iif( lastFont == NIL, HFont():Add( "Arial", 0, - 13 ), lastFont )
       ELSEIF nAddItem == TYPE_MARKER
-         aItem[ITEM_X1] := - aInitialSize[nAddItem,1]
+         aItem[ITEM_X1] := - aInitialSize[nAddItem, 1]
          aItem[ITEM_CAPTION] := aMarkers[nMarkerType]
       ENDIF
       DeselectAll( Len( aPaintRep[FORM_ITEMS] ) )

@@ -106,7 +106,7 @@ IF cErrorTitle == NIL
   cErrorTitle := "HWLABEL Error"
 ENDIF
 
- handle := FOPEN(ctxtfilename,0)
+ handle := FOPEN(ctxtfilename, 0)
  IF handle < 0
    // ... handle open error
    hwg_MsgStop(cErrorMsg,cErrorTitle)
@@ -127,7 +127,7 @@ LOCAL lsucc , handle , handler , cbuffer , lEOF
 lsucc := .T.
 
 // Open for read
- handler := FOPEN(cfnam1,0)
+ handler := FOPEN(cfnam1, 0)
  IF handler < 0
    // ... handle open error
    RETURN .F.
@@ -135,13 +135,13 @@ lsucc := .T.
 
 // Open for overwrite
 IF .NOT. FILE(cfnam2)
-   handle = FCREATE(cfnam2,0)  // FC_NORMAL
+   handle = FCREATE(cfnam2, 0)  // FC_NORMAL
  ELSE
    Erase &cfnam2
-   handle = FCREATE(cfnam2,0)
+   handle = FCREATE(cfnam2, 0)
  ENDIF
  IF handle != -1
-  FSEEK (handle,0,2)
+  FSEEK (handle, 0, 2)
  ENDIF
 
  lEOF := .F.
@@ -158,9 +158,9 @@ DO WHILE .NOT. lEOF
   // First suppress the NOSKIP character
   cbuffer := STRTRAN(cbuffer , CHR(255) , "")
   // Supress line with 0x1a = CHR(26) "SUB" at EOF
-  IF SUBSTR(cbuffer,1,1) != CHR(26)
+  IF SUBSTR(cbuffer, 1, 1) != CHR(26)
   // And now translate to local codepage
-  cbuffer := hwlabel_translcp2(cbuffer,0,cCpLocWin,cCpLocLINUX,cCpLabel)
+  cbuffer := hwlabel_translcp2(cbuffer, 0,cCpLocWin,cCpLocLINUX,cCpLabel)
   // Write line to output
   lsucc := hwlabel_Writeln(handle,cbuffer,cfnam2)
     IF .NOT. lsucc
@@ -208,7 +208,7 @@ FUNCTION hwlabel_filerln(handle)
  puffer2 := " "
 
     DO WHILE ( anzbytes != 0 ) .AND. ( .NOT. bEOL )
-       anzbytes := FREAD(handle,@puffer,1)  // Read 1 Byte
+       anzbytes := FREAD(handle,@puffer, 1)  // Read 1 Byte
        IF anzbytes != 1
         // Last line may be without line ending
          IF .NOT. EMPTY(cZeile)
@@ -225,7 +225,7 @@ FUNCTION hwlabel_filerln(handle)
          // get actual file pointer
          // position := FSEEK (adifhand , 0 , 1 )
          // Pre read (2nd read sequence)
-          anzbytes2 := FREAD(handle,@puffer2,1)  // Read 1 byte /
+          anzbytes2 := FREAD(handle,@puffer2, 1)  // Read 1 byte /
          IF anzbytes2 != 1
           // Optional last line with line ending
           IF .NOT. EMPTY(cZeile)
@@ -397,7 +397,7 @@ IF npos != 0
  IF .NOT. ( nvz > npos)
   // The . is not in directory name below
   // Strip extension
-  cf := SUBSTR(cf,1,npos - 1)
+  cf := SUBSTR(cf, 1,npos - 1)
  ENDIF
 ENDIF
 RETURN cf

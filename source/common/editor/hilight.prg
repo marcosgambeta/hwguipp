@@ -101,7 +101,7 @@ ENDCLASS
 METHOD Hilight:New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase)
 Local oIni, oMod, oNode, i, nPos
 
-   ::aLineStru := Array( 20,3 )
+   ::aLineStru := Array( 20, 3 )
 
    IF !Empty(cFile)
       IF HB_ISCHAR(cFile)
@@ -331,9 +331,9 @@ METHOD Hilight:AddItem( nPos1, nPos2, nType )
       Aadd(::aLineStru, Array(3))
    ENDIF
    ::nItems ++
-   ::aLineStru[::nItems,1] := nPos1
-   ::aLineStru[::nItems,2] := nPos2
-   ::aLineStru[::nItems,3] := nType
+   ::aLineStru[::nItems, 1] := nPos1
+   ::aLineStru[::nItems, 2] := nPos2
+   ::aLineStru[::nItems, 3] := nType
    
 Return NIL
 

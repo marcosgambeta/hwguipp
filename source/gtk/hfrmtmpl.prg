@@ -811,7 +811,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
                __mvPrivate( varname )
                IF SubStr(varname, 2) == "InitValue"
                   cInitName := varname
-                  xInitValue := IIf(Left(varname, 1) == "n", 1, IIf(Left(varname,1 ) == "c","", .F.))
+                  xInitValue := IIf(Left(varname, 1) == "n", 1, IIf(Left(varname, 1 ) == "c","", .F.))
                ENDIF
                stroka := Left(stroka, i - 1) + "m->" + SubStr(stroka, i)
                i := j + 4
@@ -845,7 +845,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          ENDIF
       ELSEIF cPName == "font"
          oFont := hwg_hfrm_FontFromXML( xProperty )
-      ELSEIF Left(cPName,6) == "hstyle"
+      ELSEIF Left(cPName, 6) == "hstyle"
          oStyle := hwg_HStyleFromXML( xProperty )
          IF cPName == "hstylehead"
             oStyleHead := oStyle
@@ -866,7 +866,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
             lNoBorder := .T.
          ENDIF
       ELSEIF cPName == "justify"
-         nStyle += IIf(xProperty == "Center", SS_CENTER, IIf(xProperty == "Right",SS_RIGHT,0))
+         nStyle += IIf(xProperty == "Center", SS_CENTER, IIf(xProperty == "Right",SS_RIGHT, 0))
       ELSEIF cPName == "multiline"
          IF xProperty
             nStyle += ES_MULTILINE
@@ -1289,7 +1289,7 @@ METHOD HRepTmpl:READ(fname, cId)
             FOR j := 1 TO Len(::aFuncs[2])
                cPre := "#xtranslate " + ::aFuncs[2, j, 1] + "( <params,...> ) => callfunc('" + Upper(::aFuncs[2, j, 1]) + "',\{ <params> \}, oReport:aFuncs )"
                ppScript( cPre )
-               cPre := "#xtranslate " + ::aFuncs[2,j,1] + ;
+               cPre := "#xtranslate " + ::aFuncs[2,j, 1] + ;
                   "() => callfunc('"  + ;
                   Upper(::aFuncs[2, j, 1]) + "',, oReport:aFuncs )"
                ppScript( cPre )
@@ -1355,7 +1355,7 @@ METHOD HRepTmpl:PRINT( printer, lPreview, p1, p2, p3, p4, p5 )
             nDuplex := 3
          ENDIF
       ELSEIF ::aProp[i, 1] == "font"
-         xProperty := ::aProp[i,2]
+         xProperty := ::aProp[i, 2]
       ELSEIF ::aProp[i, 1] == "variables"
          FOR j := 1 TO Len(::aProp[i, 2])
             __mvPrivate(::aProp[i, 2][j])
@@ -1396,7 +1396,7 @@ METHOD HRepTmpl:PRINT( printer, lPreview, p1, p2, p3, p4, p5 )
       NEXT
       IF !Empty(aImgs)
          FOR i := 1 TO Len(aImgs)
-            ::oPrinter:Bitmap( aImgs[i,1], aImgs[i,2], aImgs[i,3], aImgs[i,4], NIL, aImgs[i,5], aImgs[i,6] )
+            ::oPrinter:Bitmap( aImgs[i, 1], aImgs[i, 2], aImgs[i, 3], aImgs[i, 4], NIL, aImgs[i, 5], aImgs[i, 6] )
          NEXT
       ENDIF
       oPrinter:EndPage()
@@ -1469,7 +1469,7 @@ METHOD HRepTmpl:PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 )
             nDuplex := 3
          ENDIF
       ELSEIF ::aProp[i, 1] == "font"
-         xProperty := ::aProp[i,2]
+         xProperty := ::aProp[i, 2]
       ELSEIF ::aProp[i, 1] == "variables"
          FOR j := 1 TO Len(::aProp[i, 2])
             __mvPrivate(::aProp[i, 2][j])
@@ -1514,7 +1514,7 @@ METHOD HRepTmpl:PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 )
       NEXT
       IF !Empty(aImgs)
          FOR i := 1 TO Len(aImgs)
-            ::oPrinter:Bitmap( aImgs[i,1], aImgs[i,2], aImgs[i,3], aImgs[i,4], NIL, aImgs[i,5], aImgs[i,6] )
+            ::oPrinter:Bitmap( aImgs[i, 1], aImgs[i, 2], aImgs[i, 3], aImgs[i, 4], NIL, aImgs[i, 5], aImgs[i, 6] )
          NEXT
       ENDIF
       oPrinter:EndPage()
@@ -1841,7 +1841,7 @@ STATIC FUNCTION aGetSecond( arr, xFirst )
    
    LOCAL i := Ascan( arr, { |a|a[1] == xFirst } )
 
-   RETURN IIf(i == 0, NIL, arr[i,2])
+   RETURN IIf(i == 0, NIL, arr[i, 2])
 
 FUNCTION hwg_aSetSecond( arr, xFirst, xValue )
 
@@ -1849,9 +1849,9 @@ FUNCTION hwg_aSetSecond( arr, xFirst, xValue )
    LOCAL xRet
 
    IF i != 0
-      xRet := arr[i,2]
+      xRet := arr[i, 2]
       IF xValue != NIL
-         arr[i,2] := xValue
+         arr[i, 2] := xValue
       ENDIF
    ELSEIF xValue != NIL
       AAdd(arr, {xFirst, xValue})

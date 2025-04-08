@@ -21,7 +21,7 @@ FUNCTION hwg_hwr_Init( cRepName, nWidth, nHeight, nFormWidth, cVars )
    LOCAL xKoef := 0
 
    nWidth := Iif( Empty(nWidth), 210, nWidth )
-   nHeight := Iif( Empty(nHeight),297,nHeight )
+   nHeight := Iif( Empty(nHeight), 297,nHeight )
    IF !Empty(nFormWidth)
       xKoef := nFormWidth / nWidth
    ENDIF
@@ -329,7 +329,7 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
       iItem := 1
       DO WHILE iItem <= Len( aPaintRep[ FORM_ITEMS ] )
          aItem := aPaintRep[ FORM_ITEMS, iItem ]
-         // WriteLog( Str(iItem,3)+": "+Str(aItem[ITEM_TYPE]) )
+         // WriteLog( Str(iItem, 3)+": "+Str(aItem[ITEM_TYPE]) )
          IF aItem[ ITEM_TYPE ] == TYPE_MARKER
             IF aItem[ ITEM_CAPTION ] == "PH"
                IF aItem[ ITEM_GROUP ] == 0
@@ -446,7 +446,7 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 
    IF !Empty(aImgs)
       FOR i := 1 TO Len( aImgs )
-         oPrinter:Bitmap( aImgs[i,1], aImgs[i,2], aImgs[i,3], aImgs[i,4], , aImgs[i,5], aImgs[i,6] )
+         oPrinter:Bitmap( aImgs[i, 1], aImgs[i, 2], aImgs[i, 3], aImgs[i, 4], , aImgs[i, 5], aImgs[i, 6] )
       NEXT
    ENDIF
 

@@ -17,7 +17,7 @@
 // English Say Money
 FUNCTION SayDollar(nDollar)
 
- LOCAL cDollar := RIGHT( LTRIM(STR(nDollar,15)),11)
+ LOCAL cDollar := RIGHT( LTRIM(STR(nDollar, 15)), 11)
  LOCAL nAA := 1
  LOCAL nPJ := LEN(cDollar)
  LOCAL xSay := '', xLang2, xLang1, xMuch, xNum, xteen
@@ -206,17 +206,17 @@ RETURN (xSay)
 FUNCTION SayRupiah(nAngka)
 
  LOCAL n, kata, kalimat:=IF(nAngka<0,"Minus ","")
- LOCAL char := strtran(str(ABS(INT(nAngka)),15)," ","0")
+ LOCAL char := strtran(str(ABS(INT(nAngka)), 15)," ","0")
 
   FOR n:=1 to 5
-    kalimat +=  tigades(subs(char,n*3-2,3),n)
-    kata    :=  iif(subs(char,n*3-2,3)=="000","",PECAHAN[n])
+    kalimat +=  tigades(subs(char,n*3-2, 3),n)
+    kata    :=  iif(subs(char,n*3-2, 3)=="000","",PECAHAN[n])
     kalimat +=  kata
   NEXT
 
-	char:="0"+RIGHT( STR(nAngka,18,2) ,2)
+	char:="0"+RIGHT( STR(nAngka, 18, 2) , 2)
 
-	kalimat+=IF(char != "000"," koma "+tigades(char,1)+"sen","")
+	kalimat+=IF(char != "000"," koma "+tigades(char, 1)+"sen","")
 
  RETURN (kalimat)
 
@@ -224,7 +224,7 @@ FUNCTION SayRupiah(nAngka)
 
 //
 STATIC FUNCTION tigades( mvc, n)    // created: 28 mei 1993
- LOCAL say := "", x1 := Left(mvc, 1), x2:=subs(mvc,2,1), x3:=right(mvc,1)
+ LOCAL say := "", x1 := Left(mvc, 1), x2:=subs(mvc, 2, 1), x3:=right(mvc, 1)
 
  IF n==4 .and. mvc=="001"
     RETURN "se"

@@ -20,17 +20,17 @@ hb_cdpSelect( "UTF8" )
 
 PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -12
 
-INIT WINDOW oMain TITLE "Trying to update status bar" AT 200,200 SIZE 100,100
+INIT WINDOW oMain TITLE "Trying to update status bar" AT 200, 200 SIZE 100, 100
 
    add status oStatus to oMain
 
    oStatus:SetText(" Trying to update status bar")
 //   hwg_WriteStatus( oStatus,,"Trying to update status bar",.t.)
 
-   @ 100,20 say "Click New to continue ..." SIZE 300,25
+   @ 100, 20 say "Click New to continue ..." SIZE 300, 25
 
-   @  50,50 OWNERBUTTON oNew TEXT "New" SIZE 100,25 ON CLICK {||newlang()} TOOLTIP "New lang"
-   @ 200,50 OWNERBUTTON oQuit TEXT "Close" SIZE 100,25 ON CLICK {||oMain:close()} TOOLTIP "Quit"
+   @  50, 50 OWNERBUTTON oNew TEXT "New" SIZE 100, 25 ON CLICK {||newlang()} TOOLTIP "New lang"
+   @ 200, 50 OWNERBUTTON oQuit TEXT "Close" SIZE 100, 25 ON CLICK {||oMain:close()} TOOLTIP "Quit"
 
 ACTIVATE WINDOW oMain
 
@@ -44,16 +44,16 @@ function newlang()
 
 qout("newlang")
 
-INIT DIALOG oNewLang TITLE "Add or update a language" AT oMain:nLeft+200,oMain:nTop-50 SIZE 400,100
+INIT DIALOG oNewLang TITLE "Add or update a language" AT oMain:nLeft+200,oMain:nTop-50 SIZE 400, 100
 
 
    oStatus:SetText(" from NewLang()...")
 //   hwg_WriteStatus( oStatus,,"from NewLang()...",.t.)
 
-   @ 10,20 say "Click Create to continue ... and compare qout() value and status texte" SIZE 400,25
+   @ 10, 20 say "Click Create to continue ... and compare qout() value and status texte" SIZE 400, 25
 
-   @  50,50 OWNERBUTTON TEXT "Create" SIZE 70, 32 ON CLICK {||Createlang()}
-   @ 200,50 OWNERBUTTON TEXT "Close"  SIZE 70, 32 ON CLICK {||hwg_endDialog()}
+   @  50, 50 OWNERBUTTON TEXT "Create" SIZE 70, 32 ON CLICK {||Createlang()}
+   @ 200, 50 OWNERBUTTON TEXT "Close"  SIZE 70, 32 ON CLICK {||hwg_endDialog()}
 
 ACTIVATE DIALOG oNewLang
 

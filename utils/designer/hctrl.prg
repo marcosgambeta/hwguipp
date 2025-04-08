@@ -10,7 +10,7 @@
 #include <hbclass.ch>
 #include "hxml.ch"
 
-Static aBDown := { NIL,0,0,.F. }
+Static aBDown := { NIL, 0, 0,.F. }
 Static oPenSel
 Static nAlignV := -1, nAlignH := -1
 
@@ -50,7 +50,7 @@ Memvar value, oCtrl
 Private value, oCtrl := Self
 
    IF oPenSel == NIL
-      oPenSel := HPen():Add( PS_SOLID,1,255 )
+      oPenSel := HPen():Add( PS_SOLID, 1, 255 )
    ENDIF
 
    ::oParent := Iif( oWndParent==NIL,HFormGen():oDlgSelected,oWndParent )
@@ -119,7 +119,7 @@ Private value, oCtrl := Self
       FOR i := 1 TO Len( aProp )
          cPropertyName := Lower(aProp[i, 1])
          IF ( j := Ascan( ::aProp, {|a|Lower(a[1])==cPropertyName} ) ) != 0
-            ::aProp[j,2] := aProp[i,2]
+            ::aProp[j, 2] := aProp[i, 2]
          ENDIF
       NEXT
    ENDIF
@@ -195,7 +195,7 @@ METHOD GetProp( cName,i ) CLASS HControlGen
 
   cName := Lower(cName)
   i := Ascan( ::aProp,{|a|Lower(a[1])==cName} )
-Return Iif( i==0, NIL, ::aProp[i,2] )
+Return Iif( i==0, NIL, ::aProp[i, 2] )
 
 METHOD SetProp( xName,xValue )
 
@@ -204,14 +204,14 @@ METHOD SetProp( xName,xValue )
       xName := Ascan( ::aProp,{|a|Lower(a[1])==xName} )
    ENDIF
    IF xName != 0
-      ::aProp[xName,2] := xValue
+      ::aProp[xName, 2] := xValue
    ENDIF
 Return xValue
 
 METHOD SetCoor( xName,nValue )
 
    IF oDesigner:lReport
-      nValue := Round( nValue/::oParent:oParent:oParent:oParent:nKoeff,1 )
+      nValue := Round( nValue/::oParent:oParent:oParent:oParent:nKoeff, 1 )
    ENDIF
    ::SetProp( xName,Ltrim(Str(nValue)) )
 
@@ -437,7 +437,7 @@ Local oFrm := Iif( oDlg:oParent:Classname()=="HPANEL",oDlg:oParent:oParent:oPare
             InspUpdCombo(0)
          ENDIF
       ENDIF
-      hwg_Sendmessage( handle,WM_PAINT,0,0 )
+      hwg_Sendmessage( handle,WM_PAINT, 0, 0 )
    ENDIF
 Return NIL
 
@@ -588,7 +588,7 @@ Local aTabs := oTab:GetProp( "Tabs" )
    hwg_Addtab( oTab:handle, Len( aTabs ), "New Page" )
    Aadd(aTabs, "New Page")
    InspUpdProp( "Tabs", aTabs )
-   hwg_Redrawwindow( oTab:handle,5 )
+   hwg_Redrawwindow( oTab:handle, 5 )
 Return NIL
 
 Function Page_Next( oTab )
@@ -598,7 +598,7 @@ Function Page_Prev( oTab )
 Return NIL
 
 Function Page_Upd( oTab, arr )
-Local i, nTabs := hwg_Sendmessage( oTab:handle,TCM_GETITEMCOUNT,0,0 )
+Local i, nTabs := hwg_Sendmessage( oTab:handle,TCM_GETITEMCOUNT, 0, 0 )
 
    FOR i := 1 TO Len( arr )
       IF i <= nTabs
@@ -644,7 +644,7 @@ Private nMaxId := 0
       IF oDlg:aControls[i]:cClass == "menu"
          aMenu := oDlg:aControls[i]:GetProp( "aTree" )
          IF aMenu == NIL
-            aMenu := oDlg:aControls[i]:SetProp( "aTree", { { ,"Menu",32000,NIL } } )
+            aMenu := oDlg:aControls[i]:SetProp( "aTree", { { ,"Menu", 32000,NIL } } )
          ENDIF
          aMenu := aClone( aMenu )
          EXIT
@@ -652,22 +652,22 @@ Private nMaxId := 0
    NEXT
 
    INIT DIALOG oDlg TITLE "Edit Menu" ;
-        AT 300,280 SIZE 400,350 FONT oDesigner:oMainWnd:oFont ;
+        AT 300, 280 SIZE 400, 350 FONT oDesigner:oMainWnd:oFont ;
         STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SIZEBOX ;
         ON INIT {||BuildTree( oTree,aMenu )}
 
-   @ 10,20 TREE oTree OF oDlg SIZE 200,240 STYLE WS_BORDER EDITABLE
+   @ 10, 20 TREE oTree OF oDlg SIZE 200, 240 STYLE WS_BORDER EDITABLE
    oTree:bItemChange := {|o,s|VldItemChange(aMenu,o,s)}
 
-   @ 240,20 BUTTON "Rename" SIZE 140,30 ON CLICK {||EditTree(aMenu,oTree,0)}
-   @ 240,60 BUTTON "Add item after" SIZE 140,30 ON CLICK {||EditTree(aMenu,oTree,1)}
-   @ 240,100 BUTTON "Add item before" SIZE 140,30 ON CLICK {||EditTree(aMenu,oTree,2)}
-   @ 240,140 BUTTON "Add child item" SIZE 140,30 ON CLICK {||EditTree(aMenu,oTree,3)}
-   @ 240,180 BUTTON "Delete" SIZE 140,30 ON CLICK {||EditTree(aMenu,oTree,4)}
-   @ 240,220 BUTTON "Edit code" SIZE 140,30 ON CLICK {||EditTree(aMenu,oTree,10)}
+   @ 240, 20 BUTTON "Rename" SIZE 140, 30 ON CLICK {||EditTree(aMenu,oTree, 0)}
+   @ 240, 60 BUTTON "Add item after" SIZE 140, 30 ON CLICK {||EditTree(aMenu,oTree, 1)}
+   @ 240, 100 BUTTON "Add item before" SIZE 140, 30 ON CLICK {||EditTree(aMenu,oTree, 2)}
+   @ 240, 140 BUTTON "Add child item" SIZE 140, 30 ON CLICK {||EditTree(aMenu,oTree, 3)}
+   @ 240, 180 BUTTON "Delete" SIZE 140, 30 ON CLICK {||EditTree(aMenu,oTree, 4)}
+   @ 240, 220 BUTTON "Edit code" SIZE 140, 30 ON CLICK {||EditTree(aMenu,oTree, 10)}
 
-   @ 40,290 BUTTON "Ok" SIZE 100,30 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
-   @ 260,290 BUTTON "Cancel" SIZE 100,30 ON CLICK {||hwg_EndDialog()}
+   @ 40, 290 BUTTON "Ok" SIZE 100, 30 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
+   @ 260, 290 BUTTON "Cancel" SIZE 100, 30 ON CLICK {||hwg_EndDialog()}
 
    oDlg:AddEvent( 0,IDOK,{||hwg_Setfocus(oDlg:aControls[2]:handle)} )
    oDlg:AddEvent( 0,IDCANCEL,{||hwg_Setfocus(oDlg:aControls[2]:handle)} )
@@ -683,11 +683,11 @@ Static Function BuildTree( oParent, aMenu )
 Local i := Len( aMenu ), oNode
 
    FOR i := 1 TO Len( aMenu )
-      INSERT NODE oNode CAPTION aMenu[i,2] TO oParent
-      oNode:cargo := aMenu[i,3]
-      nMaxId := Max( nMaxId,aMenu[i,3] )
+      INSERT NODE oNode CAPTION aMenu[i, 2] TO oParent
+      oNode:cargo := aMenu[i, 3]
+      nMaxId := Max( nMaxId,aMenu[i, 3] )
       IF HB_ISARRAY(aMenu[i, 1])
-         BuildTree( oNode, aMenu[i,1] )
+         BuildTree( oNode, aMenu[i, 1] )
       ENDIF
    NEXT
 
@@ -697,7 +697,7 @@ Static Function VldItemChange( aTree,oNode,cText )
 Local nPos, aSubarr
 
    IF ( aSubarr := FindTreeItem( aTree, oNode:cargo, @nPos ) ) != NIL
-      aSubarr[nPos,2] := cText
+      aSubarr[nPos, 2] := cText
    ENDIF
 Return .T.
 
@@ -705,10 +705,10 @@ Static Function FindTreeItem( aTree, nId, nPos )
 Local nPos1, aSubarr
    nPos := 1
    DO WHILE nPos <= Len( aTree )
-      IF aTree[npos,3] == nId
+      IF aTree[npos, 3] == nId
          Return aTree
       ELSEIF HB_ISARRAY(aTree[npos, 1])
-         IF ( aSubarr := FindTreeItem( aTree[nPos,1] , nId, @nPos1 ) ) != NIL
+         IF ( aSubarr := FindTreeItem( aTree[nPos, 1] , nId, @nPos1 ) ) != NIL
             nPos := nPos1
             Return aSubarr
          ENDIF
@@ -775,8 +775,8 @@ Local nPos, aSubarr
       nMaxId ++
       oNode:cargo := nMaxId
       IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) != NIL
-         IF Valtype( aSubarr[nPos,1] ) != "A"
-            aSubarr[nPos,1] := {}
+         IF Valtype( aSubarr[nPos, 1] ) != "A"
+            aSubarr[nPos, 1] := {}
          ENDIF
          Aadd(aSubarr[nPos, 1], {NIL, "New", nMaxId, NIL})
       ENDIF
@@ -792,8 +792,8 @@ Local nPos, aSubarr
 
    ELSEIF nAction == 10  // Edit code
       IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) != NIL
-         IF ( cMethod := EditMethod( oTree:oSelected:GetText(), aSubarr[nPos,4] ) ) != NIL
-            aSubarr[nPos,4] := cMethod
+         IF ( cMethod := EditMethod( oTree:oSelected:GetText(), aSubarr[nPos, 4] ) ) != NIL
+            aSubarr[nPos, 4] := cMethod
          ENDIF
       ENDIF
    ENDIF
@@ -810,7 +810,7 @@ Private nMaxId := 0
       IF oDlg:aControls[i]:cClass == "menu"
          aMenu := oDlg:aControls[i]:GetProp( "aTree" )
          IF aMenu == NIL
-            aMenu := oDlg:aControls[i]:SetProp( "aTree", { { ,"Menu",32000,NIL } } )
+            aMenu := oDlg:aControls[i]:SetProp( "aTree", { { ,"Menu", 32000,NIL } } )
          ENDIF
          aMenu := aClone( aMenu )
          EXIT

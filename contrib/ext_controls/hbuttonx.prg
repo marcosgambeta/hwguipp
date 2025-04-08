@@ -137,7 +137,7 @@ METHOD HButtonX:onevent( msg, wParam, lParam )
             hwg_GetSkip( ::oparent, ::handle,- 1 )
             RETURN 0
          ELSEIF wParam = VK_RIGHT .OR. wParam = VK_DOWN
-            hwg_GetSkip( ::oparent, ::handle,1 )
+            hwg_GetSkip( ::oparent, ::handle, 1 )
             RETURN 0
          ENDIF
       ENDIF

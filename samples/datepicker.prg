@@ -34,7 +34,7 @@ Local oMainWindow
  SET DATE GERMAN
 
    INIT WINDOW oMainWindow MAIN TITLE "Datepicker main dialog" ;
-     AT 200,0 SIZE 200,250
+     AT 200, 0 SIZE 200, 250
 
    MENU OF oMainWindow
      MENU TITLE "&Exit"
@@ -61,7 +61,7 @@ oFont := hwg_DefaultFont()
 daltdatum := d1
 
   INIT DIALOG oModDlg TITLE "Datepicker"  ;
-   AT 210,10  SIZE 350,300                  ;
+   AT 210, 10  SIZE 350, 300                  ;
    FONT oFont NOEXIT
 
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,7 +69,7 @@ daltdatum := d1
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *  v==> These are the original coordinates of DATEPICKER command    
-   @ 160,170 GET odGet VAR d1  ;
+   @ 160, 170 GET odGet VAR d1  ;
         STYLE WS_DLGFRAME   ;
         SIZE 80, 20 COLOR 0xFF0000
 *            ^==> This is the original size of DATEPICKER command
@@ -77,12 +77,12 @@ daltdatum := d1
 *    v==>  x = 160 + 81 (x value of GET + width of GET + 1 )
    @ 241, 170 OWNERBUTTON oDateOwb  ;
    ON CLICK { | | d1 := hwg_pCalendar(d1) , odGet:Value(d1) } ;
-   SIZE 12,12  ;            // Size of image + 1
+   SIZE 12, 12  ;            // Size of image + 1
    BITMAP hwg_oDatepicker_bmp() ; 
-   TRANSPARENT  COORDINATES 0,0,11,11 ; 
+   TRANSPARENT  COORDINATES 0, 0, 11, 11 ;
    TOOLTIP "Pick date from calendar"
 
-   @ 150,250 BUTTON "Close" ON CLICK {|| oModDlg:Close() } SIZE 100,40
+   @ 150, 250 BUTTON "Close" ON CLICK {|| oModDlg:Close() } SIZE 100, 40
 
    ACTIVATE DIALOG oModDlg
    oFont:Release()

@@ -90,7 +90,7 @@ Static lConnected := .F.
       ELSE
          SELECT 0
       ENDIF
-      IF !AdsCreateSqlStatement( ,Iif( numdriv==1,2,3 ) )
+      IF !AdsCreateSqlStatement( ,Iif( numdriv==1, 2, 3 ) )
          hwg_Msgstop( "Cannot create SQL statement" )
          IF !Empty(oldArea)
             Select( oldArea )

@@ -728,13 +728,13 @@ ENDIF
 
 
    INIT DIALOG oDlg TITLE cTitle ;
-        AT 204,25 SIZE 777, 440 FONT opFont
+        AT 204, 25 SIZE 777, 440 FONT opFont
 
    SET KEY 0,VK_ESCAPE TO hwg_KEYESCCLDLG(oDlg)
-   @ 1,3 GET oheget VAR cHelptxt SIZE 772,384 NOBORDER ;
+   @ 1, 3 GET oheget VAR cHelptxt SIZE 772, 384 NOBORDER ;
       STYLE WS_VSCROLL + ES_AUTOHSCROLL + ES_MULTILINE + ES_READONLY + WS_BORDER + ES_NOHIDESEL
 
-   @ 322,402 BUTTON cClose SIZE 100,32 ;
+   @ 322, 402 BUTTON cClose SIZE 100, 32 ;
     ON CLICK {||oDlg:Close() }
 
    IF blmodus

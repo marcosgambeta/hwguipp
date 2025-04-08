@@ -20,7 +20,7 @@ FUNCTION Main
 LOCAL oFormMain
 
 INIT WINDOW oFormMain MAIN  ;
-   TITLE "Hwgui sample for test of unit conversion functions" AT 0,0 SIZE 300,200 ;
+   TITLE "Hwgui sample for test of unit conversion functions" AT 0, 0 SIZE 300, 200 ;
    STYLE WS_POPUP +  WS_CAPTION + WS_SYSMENU
   MENU OF oFormMain
       MENU TITLE "&Exit"

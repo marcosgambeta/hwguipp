@@ -25,7 +25,7 @@ CHECK_FILE(cimg)
 
 
 INIT WINDOW oFormMain MAIN  ;
-   TITLE "Hwgui Test program gtk error" AT 0,0 SIZE 300,200 ;
+   TITLE "Hwgui Test program gtk error" AT 0, 0 SIZE 300, 200 ;
    STYLE WS_POPUP +  WS_CAPTION + WS_SYSMENU
   MENU OF oFormMain
       MENU TITLE "&Exit"
@@ -54,16 +54,16 @@ nbut := 0
 
 INIT DIALOG oWinDia ;
    FONT oFontMain  ;
-     TITLE "Test program gtk error dialog" AT 0, 0 SIZE 200,200;
+     TITLE "Test program gtk error dialog" AT 0, 0 SIZE 200, 200;
 //     STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
      
  @ 0, 0 TOOLBAR oToolbar OF oWinDia SIZE  199 , 50     
   
   @ htab+(nbut*32), 3 OWNERBUTTON /* OF oToolbar */ ;
       ON CLICK {||oWinDia:Close() } ;
-      SIZE 28,24   /* FLAT */ ;
+      SIZE 28, 24   /* FLAT */ ;
       BITMAP oObj_Exit TRANSPARENT COLOR 0xDCDAD5 ;
-      COORDINATES 0,4,0,0 ;
+      COORDINATES 0, 4, 0, 0 ;
       TOOLTIP "Quit"
       
    oWinDia:Activate()

@@ -52,7 +52,7 @@ Function Main
    
 
    INIT WINDOW oMainWindow MAIN TITLE "Debugger sample program" ;
-     AT 0,0 SIZE 600, 500
+     AT 0, 0 SIZE 600, 500
 
 
    MENU OF oMainWindow  

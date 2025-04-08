@@ -53,7 +53,7 @@ MEMVAR aGetsTab
 Function Main
 Local oMainWindow, oBtn, aCombo := {"First","Second" }, cTool := "Example", oFont
 Local aTabs := { "A","B","C","D","E","F","G","H","I","J","K","L","M","N" }, oTab
-Local acho := { {"First item",180}, {"Second item",200} }
+Local acho := { {"First item", 180}, {"Second item", 200} }
 Local oEdit, oGetTab, oTree, oItem, oCombo
 Local cExecprg
 Private aGetsTab := { "","","","","","","","","","","","","","" }
@@ -72,13 +72,13 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
    * increased size of main window
    INIT WINDOW oMainWindow MAIN TITLE "Example"  ;
      SYSCOLOR COLOR_3DLIGHT+1                    ;
-     AT 200,0 SIZE 600,400                       ;
+     AT 200, 0 SIZE 600, 400                       ;
      FONT oFont                                  ;
      ON EXIT {||hwg_Msgyesno("Really want to quit ?")}
 #else
    INIT WINDOW oMainWindow MAIN TITLE "Example"  ;
      SYSCOLOR COLOR_3DLIGHT+1                    ;
-     AT 200,0 SIZE 420,300                       ;
+     AT 200, 0 SIZE 420, 300                       ;
      FONT oFont                                  ;
      ON EXIT {||hwg_Msgyesno("Really want to quit ?")}
 #endif
@@ -94,46 +94,46 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
 * Functions for rich text format in source code file
 * source\winapi\richedit.c
      
-   @ 20,10 RICHEDIT oEdit TEXT "Hello, world !"  SIZE 200,30
+   @ 20, 10 RICHEDIT oEdit TEXT "Hello, world !"  SIZE 200, 30
 
    hwg_Re_setcharformat(oEdit:handle, {{1, 6, , , , .T.}, {8, 13, 255, , , , , .T.}})
 #else
-     @ 20,10 EDITBOX oEdit CAPTION "Hello, world !"  SIZE 200,30
+     @ 20, 10 EDITBOX oEdit CAPTION "Hello, world !"  SIZE 200, 30
 #endif   
 
 #ifdef __GTK__
-   @ 470,10 COMBOBOX oCombo ITEMS aCombo SIZE 100, 150 TOOLTIP "Combobox"
+   @ 470, 10 COMBOBOX oCombo ITEMS aCombo SIZE 100, 150 TOOLTIP "Combobox"
 #else
-   @ 270,10 COMBOBOX oCombo ITEMS aCombo SIZE 100, 150 TOOLTIP "Combobox"
+   @ 270, 10 COMBOBOX oCombo ITEMS aCombo SIZE 100, 150 TOOLTIP "Combobox"
 #endif   
 
-   @ 20,50 LINE LENGTH 100
+   @ 20, 50 LINE LENGTH 100
    
 #ifndef __GTK__
-   @ 20,60 TAB oTab ITEMS aTabs SIZE 140,100      ;
+   @ 20, 60 TAB oTab ITEMS aTabs SIZE 140, 100      ;
          STYLE TCS_FIXEDWIDTH+TCS_FORCELABELLEFT  ;
          ON CHANGE {|o,n|ChangeTab(o,oGetTab,n)}
-   // @ 20,60 TAB oTab ITEMS aTabs SIZE 90,100 STYLE TCS_FIXEDWIDTH+TCS_VERTICAL+TCS_FORCELABELLEFT+WS_CLIPSIBLINGS  // +TCS_RIGHT
+   // @ 20, 60 TAB oTab ITEMS aTabs SIZE 90, 100 STYLE TCS_FIXEDWIDTH+TCS_VERTICAL+TCS_FORCELABELLEFT+WS_CLIPSIBLINGS  // +TCS_RIGHT
    
-   hwg_Settabsize( oTab:handle,20,20 )
+   hwg_Settabsize( oTab:handle, 20, 20 )
    
-   @ 10,30 RICHEDIT oGetTab TEXT "" OF oTab SIZE 120,60 ;
+   @ 10, 30 RICHEDIT oGetTab TEXT "" OF oTab SIZE 120, 60 ;
           STYLE ES_MULTILINE
 #else
-   @ 20,60 TAB oTab ITEMS aTabs SIZE 340,100      ;
+   @ 20, 60 TAB oTab ITEMS aTabs SIZE 340, 100      ;
         STYLE TCS_FIXEDWIDTH+TCS_FORCELABELLEFT          
 #endif          
 
 #ifdef __GTK__
-   @ 280,15 SAY "" SIZE 70,22 STYLE WS_BORDER BACKCOLOR 12507070
+   @ 280, 15 SAY "" SIZE 70, 22 STYLE WS_BORDER BACKCOLOR 12507070
 #else
-   @ 180,60 SAY "" SIZE 70,22 STYLE WS_BORDER BACKCOLOR 12507070
+   @ 180, 60 SAY "" SIZE 70, 22 STYLE WS_BORDER BACKCOLOR 12507070
 #endif   
 
 #ifdef __GTK__
-   @ 270,170 TREE oTree SIZE 140,100 EDITABLE
+   @ 270, 170 TREE oTree SIZE 140, 100 EDITABLE
 #else
-   @ 270,60 TREE oTree SIZE 140,100 EDITABLE
+   @ 270, 60 TREE oTree SIZE 140, 100 EDITABLE
 #endif   
 
    oTree:AddNode( "First" )
@@ -143,9 +143,9 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
    oTree:AddNode( "Forth" )
 
 #ifdef __GTK__
-   @ 250,300 BUTTON "Close"  SIZE 150,30  ON CLICK {||hwg_EndWindow()} ON SIZE ANCHOR_BOTTOMABS
+   @ 250, 300 BUTTON "Close"  SIZE 150, 30  ON CLICK {||hwg_EndWindow()} ON SIZE ANCHOR_BOTTOMABS
 #else
-   @ 100,180 BUTTON "Close"  SIZE 150,30  ON CLICK {||hwg_EndWindow()} ON SIZE ANCHOR_BOTTOMABS
+   @ 100, 180 BUTTON "Close"  SIZE 150, 30  ON CLICK {||hwg_EndWindow()} ON SIZE ANCHOR_BOTTOMABS
 #endif   
 
    MENU OF oMainWindow
@@ -179,11 +179,11 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
 
 /*   
    aMenu := { ;
-     { { { {||hwg_Msginfo("Xxxx")},"XXXXX",130 }, ;
-         { ,,131 }, ;
-         { {||hwg_Msginfo("Yyyy")},"YYYYY",132 } ;
-       },"File",120 }, ;
-     { {||hwg_Msginfo("Help")},"Help",121 } ;
+     { { { {||hwg_Msginfo("Xxxx")},"XXXXX", 130 }, ;
+         { ,, 131 }, ;
+         { {||hwg_Msginfo("Yyyy")},"YYYYY", 132 } ;
+       },"File", 120 }, ;
+     { {||hwg_Msginfo("Help")},"Help", 121 } ;
    }
    hwg_BuildMenu( aMenu,hWnd,aMainWindow )
 */
@@ -198,7 +198,7 @@ LOCAL hinst
  hwg_MsgStop("hwg_Shellexecute() does not work at this time" + ;
   CHR(10) + "We will fix as soon as possible","Sorry") 
   
- hinst := hwg_Shellexecute("Sample.txt")    // ,"open",NIL,NIL,2))
+ hinst := hwg_Shellexecute("Sample.txt")    // ,"open",NIL,NIL, 2))
 *  ,hwg_Msginfo(str(oMainWindow:handle))
 *  ==> handles can not be converted by STR() (crashes)
 * hwg_Shellexecute() fails, use hwg_RunApp() for starting external apps.
@@ -223,15 +223,15 @@ Function PS1( oWnd )
 Local oDlg1, oDlg2
 
    INIT DIALOG oDlg1 TITLE "PAGE_1" STYLE WS_CHILD + WS_VISIBLE + WS_BORDER
-   @ 20,15 EDITBOX "" SIZE 160, 26 STYLE WS_BORDER
-   @ 10,50 LINE  LENGTH 200
+   @ 20, 15 EDITBOX "" SIZE 160, 26 STYLE WS_BORDER
+   @ 10, 50 LINE  LENGTH 200
 
    INIT DIALOG oDlg2 TITLE "PAGE_2" STYLE WS_CHILD + WS_VISIBLE + WS_BORDER
-   @ 20,35 EDITBOX "" SIZE 160, 26 STYLE WS_BORDER
+   @ 20, 35 EDITBOX "" SIZE 160, 26 STYLE WS_BORDER
    
    hwg_MsgIsNIL(hwg_Getactivewindow() )
 
-   hwg_PropertySheet( hwg_Getactivewindow(), { oDlg1, oDlg2 }, "Sheet Example",210,10,300,300 )
+   hwg_PropertySheet( hwg_Getactivewindow(), { oDlg1, oDlg2 }, "Sheet Example", 210, 10, 300, 300 )
 
 Return NIL
 #endif

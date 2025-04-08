@@ -34,7 +34,7 @@ Function Main()
 Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" ;
-     AT 200,0 SIZE 650,400
+     AT 200, 0 SIZE 650, 400
 
    MENU OF oMainWindow
       MENUITEM "&Exit" ACTION hwg_EndWindow()
@@ -47,8 +47,8 @@ Return NIL
 Function OpenConfig
 Local aDlg1, aDlg2, aCombo := { "Aaaa","Bbbb" }
 Local oBrw1, oBrw2
-Local aSample1 := { {"Alex",17}, {"Victor",42}, {"John",31} }
-Local aSample2 := { {"Line 1",10}, {"Line 2",22}, {"Line 3",40} }
+Local aSample1 := { {"Alex", 17}, {"Victor", 42}, {"John", 31} }
+Local aSample2 := { {"Line 1", 10}, {"Line 2", 22}, {"Line 3", 40} }
 Local e1 := "Xxxx"
 Local oEditbox1, oCheckbox1, oCombobox1
 Local oFont
@@ -58,7 +58,7 @@ Local oFont
 #else
  PREPARE FONT oFont NAME "Sans" WIDTH 0 HEIGHT 12
 #endif
-* oFont := HFont():Add( "MS Sans Serif",0,-11,400,,,) // 8, "MS Sans Serif"
+* oFont := HFont():Add( "MS Sans Serif", 0,-11, 400,,,) // 8, "MS Sans Serif"
 
    // INIT DIALOG aDlg1 FROM RESOURCE  "PAGE_1" ON EXIT {||hwg_Msginfo("Exit"),.T.}
    // REDEFINE GET e1 ID 103
@@ -66,25 +66,25 @@ Local oFont
 
 
     INIT DIALOG aDlg1 TITLE "Config1" ;
-    AT 10,10 SIZE 262,249 ;   // 210,297
+    AT 10, 10 SIZE 262, 249 ;   // 210, 297
     STYLE  WS_VISIBLE + WS_BORDER ;   // WS_CHILD freezes program
     FONT oFont ;
     ON EXIT {||hwg_Msginfo("Exit"),.T.}
 
 
 
-   @ 40,26 CHECKBOX "Checkbox" OF aDlg1 SIZE 120,22 ;
+   @ 40, 26 CHECKBOX "Checkbox" OF aDlg1 SIZE 120, 22 ;
             FONT oFont
    * not allowed :
    *           STYLE BS_AUTOCHECKBOX + WS_TABSTOP ;
    *           FONT oFont
 
-   @ 40,59 CHECKBOX "Checkbox" OF aDlg1 SIZE 80,22 ;
+   @ 40, 59 CHECKBOX "Checkbox" OF aDlg1 SIZE 80, 22 ;
             FONT oFont
 
 
-   @ 40,96 GET oEditbox1 VAR e1 ;
-        OF aDlg1 SIZE 80,24 ;
+   @ 40, 96 GET oEditbox1 VAR e1 ;
+        OF aDlg1 SIZE 80, 24 ;
         STYLE WS_CHILD + WS_VISIBLE + WS_BORDER ;
         FONT oFont
 
@@ -92,18 +92,18 @@ Local oFont
    * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    // INIT DIALOG aDlg2 FROM RESOURCE  "PAGE_2" ON EXIT {||.T.}
      INIT DIALOG aDlg2 TITLE "Config2" ;
-     AT 282,10  SIZE 346,249 ;  // 295,329
+     AT 282, 10  SIZE 346, 249 ;  // 295, 329
      STYLE WS_VISIBLE + WS_CAPTION ;
      FONT oFont ;
      ON EXIT {||.T.}
 
 
    // REDEFINE COMBOBOX aCombo ID 101
-     @ 18,47 COMBOBOX oCombobox1  ITEMS aCombo OF aDlg2 SIZE 63,80 ;
+     @ 18, 47 COMBOBOX oCombobox1  ITEMS aCombo OF aDlg2 SIZE 63, 80 ;
        STYLE CBS_DROPDOWNLIST + WS_TABSTOP ;
        FONT oFont
 
-     @ 18,83 CHECKBOX oCheckbox1 CAPTION "Checkbox" OF aDlg2 SIZE 120,22    ;
+     @ 18, 83 CHECKBOX oCheckbox1 CAPTION "Checkbox" OF aDlg2 SIZE 120, 22    ;
        FONT oFont
 
 
@@ -112,7 +112,7 @@ Local oFont
 
 
 
-   @ 103,17 BROWSE oBrw1 ARRAY OF aDlg2 SIZE 97,106 ;
+   @ 103, 17 BROWSE oBrw1 ARRAY OF aDlg2 SIZE 97, 106 ;
       STYLE WS_CHILD + WS_VISIBLE + WS_BORDER + WS_VSCROLL + WS_HSCROLL + WS_TABSTOP ;
       FONT oFont
 
@@ -127,7 +127,7 @@ Local oFont
 */
 
 
-   @ 213,17 BROWSE oBrw2 ARRAY OF aDlg2 SIZE 97,106 ;
+   @ 213, 17 BROWSE oBrw2 ARRAY OF aDlg2 SIZE 97, 106 ;
       STYLE WS_CHILD + WS_VISIBLE + WS_BORDER + WS_VSCROLL + WS_HSCROLL + WS_TABSTOP ;
       FONT oFont
 

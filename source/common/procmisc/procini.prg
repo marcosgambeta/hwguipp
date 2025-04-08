@@ -75,10 +75,10 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
          IF LEN(stroka) == 0
             EXIT
          ENDIF
-         IF Right( stroka,2 ) == '&&'
+         IF Right( stroka, 2 ) == '&&'
             strfull += Left(stroka, Len(stroka) - 2)
             LOOP
-         ELSEIF Right( stroka,1 ) == '&'
+         ELSEIF Right( stroka, 1 ) == '&'
             strfull += Left(stroka, Len(stroka) - 1)
             LOOP
          ELSE

@@ -25,10 +25,10 @@ FUNCTION StruMan( lNew )
    LOCAL currentCP := aFiles[improc,AF_CP], currFname := CutExten( aFiles[improc,AF_NAME] )
    LOCAL bChgPos := { |o|
 
-   oGet1:SetGet( o:aArray[o:nCurrent,1] )
-   oGet2:SetItem( Ascan( aFieldTypes,o:aArray[o:nCurrent,2] ) )
-   oGet3:SetGet( LTrim(Str(o:aArray[o:nCurrent,3] )) )
-   oGet4:SetGet( LTrim(Str(o:aArray[o:nCurrent,4] )) )
+   oGet1:SetGet( o:aArray[o:nCurrent, 1] )
+   oGet2:SetItem( Ascan( aFieldTypes,o:aArray[o:nCurrent, 2] ) )
+   oGet3:SetGet( LTrim(Str(o:aArray[o:nCurrent, 3] )) )
+   oGet4:SetGet( LTrim(Str(o:aArray[o:nCurrent, 4] )) )
    hwg_RefreshAllGets( oDlg )
 
    RETURN NIL
@@ -36,7 +36,7 @@ FUNCTION StruMan( lNew )
    }
 
    IF lNew
-      af := { { "","",0,0 } }
+      af := { { "","", 0, 0 } }
    ELSE
       oBrw := GetBrwActive()
       af0 := dbStruct()
@@ -56,11 +56,11 @@ FUNCTION StruMan( lNew )
    oBrowse:aHeadPadding := { 4, 2, 4, 2 }
    oBrowse:oStyleHead := HStyle():New( { 0xffffff, 0xbbbbbb }, 1 )
    oBrowse:aArray := af
-   oBrowse:AddColumn( HColumn():New( "",{ |v,o|o:nCurrent },"N",4,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Name",{ |v,o|o:aArray[o:nCurrent,1] },"C",14,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Type",{ |v,o|o:aArray[o:nCurrent,2] },"C",1,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Length",{ |v,o|o:aArray[o:nCurrent,3] },"N",5,0 ) )
-   oBrowse:AddColumn( HColumn():New( "Dec",{ |v,o|o:aArray[o:nCurrent,4] },"N",2,0 ) )
+   oBrowse:AddColumn( HColumn():New( "",{ |v,o|o:nCurrent },"N", 4, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Name",{ |v,o|o:aArray[o:nCurrent, 1] },"C", 14, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Type",{ |v,o|o:aArray[o:nCurrent, 2] },"C", 1, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Length",{ |v,o|o:aArray[o:nCurrent, 3] },"N", 5, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Dec",{ |v,o|o:aArray[o:nCurrent, 4] },"N", 2, 0 ) )
 
    @ 20, 230 GET oGet1 VAR cName SIZE 100, 24 PICTURE "XXXXXXXXXX"
    @ 130, 230 GET COMBOBOX oGet2 VAR nType ITEMS aTypes SIZE 100, 24
@@ -114,25 +114,25 @@ FUNCTION StruMan( lNew )
             APPEND BLANK
             FOR i := 1 TO Len( af )
                IF Len( af[i] ) > 4
-                  xValue := ( cAlias ) -> ( FieldGet( af[i,5] ) )
-                  IF af[i,2] == af0[af[i,5], 2] .AND. af[i,3] == af0[af[i,5], 3]
+                  xValue := ( cAlias ) -> ( FieldGet( af[i, 5] ) )
+                  IF af[i, 2] == af0[af[i, 5], 2] .AND. af[i, 3] == af0[af[i, 5], 3]
                      FieldPut( i, xValue )
                   ELSE
-                     IF af[i,2] != af0[af[i,5], 2]
-                        IF af[i,2] == "C" .AND. af0[af[i,5], 2] == "N"
+                     IF af[i, 2] != af0[af[i, 5], 2]
+                        IF af[i, 2] == "C" .AND. af0[af[i, 5], 2] == "N"
                            xValue := Str(xValue, af0[af[i, 5], 3], af0[af[i, 5], 4])
-                        ELSEIF af[i,2] == "N" .AND. af0[af[i,5], 2] == "C"
+                        ELSEIF af[i, 2] == "N" .AND. af0[af[i, 5], 2] == "C"
                            xValue := Val( LTrim(xValue) )
                         ELSE
                            LOOP
                         ENDIF
                      ENDIF
-                     IF af[i,3] >= af0[af[i,5], 3]
+                     IF af[i, 3] >= af0[af[i, 5], 3]
                         FieldPut( i, xValue )
                      ELSE
-                        IF af[i,2] == "C"
-                           FieldPut( i, Left(xValue, af[i,3]) )
-                        ELSEIF af[i,2] == "N"
+                        IF af[i, 2] == "C"
+                           FieldPut( i, Left(xValue, af[i, 3]) )
+                        ELSEIF af[i, 2] == "N"
                            FieldPut( i, 0 )
                            lOverFlow := .T.
                         ENDIF
@@ -192,7 +192,7 @@ STATIC FUNCTION UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
       cType := aFieldTypes[Eval(oGet2:bSetGet, , oGet2)]
       nLen  := Val( oGet3:SetGet() )
       nDec  := Val( oGet4:SetGet() )
-      IF oBrowse:nRecords == 1 .AND. Empty(oBrowse:aArray[oBrowse:nCurrent,1])
+      IF oBrowse:nRecords == 1 .AND. Empty(oBrowse:aArray[oBrowse:nCurrent, 1])
          nOperation := 3
       ENDIF
       IF nOperation == 1
@@ -203,10 +203,10 @@ STATIC FUNCTION UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
             AIns( oBrowse:aArray, oBrowse:nCurrent )
             oBrowse:aArray[oBrowse:nCurrent] := { "", "", 0, 0 }
          ENDIF
-         oBrowse:aArray[oBrowse:nCurrent,1] := cName
-         oBrowse:aArray[oBrowse:nCurrent,2] := cType
-         oBrowse:aArray[oBrowse:nCurrent,3] := nLen
-         oBrowse:aArray[oBrowse:nCurrent,4] := nDec
+         oBrowse:aArray[oBrowse:nCurrent, 1] := cName
+         oBrowse:aArray[oBrowse:nCurrent, 2] := cType
+         oBrowse:aArray[oBrowse:nCurrent, 3] := nLen
+         oBrowse:aArray[oBrowse:nCurrent, 4] := nDec
       ENDIF
    ENDIF
    oBrowse:Refresh()

@@ -76,8 +76,8 @@ TEMPS = DTOS(LUPDATE())
 
 ? "** structure of database " + db + " ***"
 
-? "Last update " + SUBSTR(TEMPS,3,2) + " " + SUBSTR(TEMPS,5,2) +  " " + ;
-   SUBSTR(TEMPS,7,2)
+? "Last update " + SUBSTR(TEMPS, 3, 2) + " " + SUBSTR(TEMPS, 5, 2) +  " " + ;
+   SUBSTR(TEMPS, 7, 2)
 ?
 
 ? "Data offset " + ALLTRIM(STR(HEADER()))
@@ -135,11 +135,11 @@ IF nmax != 0
     WAIT "Continue ==> any key"
    ENDIF
    IF CLIPPER
-     ? PADRIGHT(F_NAME[n],11) + " " + F_TYP[n] + "    " + ;
-      PADRIGHT(ALLTRIM(STR(l)),4) + TEMPS
+     ? PADRIGHT(F_NAME[n], 11) + " " + F_TYP[n] + "    " + ;
+      PADRIGHT(ALLTRIM(STR(l)), 4) + TEMPS
    ELSE
-      ? PADRIGHT(HF_NAME[n],11) + " " + HF_TYP[n] + "    " + ;
-      PADRIGHT(ALLTRIM(STR(l)),4) + TEMPS
+      ? PADRIGHT(HF_NAME[n], 11) + " " + HF_TYP[n] + "    " + ;
+      PADRIGHT(ALLTRIM(STR(l)), 4) + TEMPS
    ENDIF   
    zz = zz + 1
   NEXT
@@ -171,7 +171,7 @@ FUNCTION PADRIGHT    && = PADR
   IF  padr_stri == ""
     RETURN REPLICATE (fzeichen,padr_laen)
   ENDIF
-RETURN SUBSTR(padr_stri,1,padr_laen) + REPLICATE(fzeichen,padr_laen - LEN(SUBSTR(padr_stri,1,padr_laen)))
+RETURN SUBSTR(padr_stri, 1,padr_laen) + REPLICATE(fzeichen,padr_laen - LEN(SUBSTR(padr_stri, 1,padr_laen)))
 
 * ================================= *
 FUNCTION PADCENTER    && = PADC
@@ -189,7 +189,7 @@ FUNCTION PADCENTER    && = PADC
     RETURN REPLICATE(fzeichen,padc_laen)
   endif
 * Number of filler characteres to add stroed in variable "zahl"
-  zahl = padc_laen - LEN(SUBSTR(padc_stri,1,padc_laen))
+  zahl = padc_laen - LEN(SUBSTR(padc_stri, 1,padc_laen))
   zl = INT(zahl / 2)
   zr = zahl - zl
-RETURN REPLICATE(fzeichen,zl) + SUBSTR(padc_stri,1,padc_laen) + REPLICATE(fzeichen,zr)
+RETURN REPLICATE(fzeichen,zl) + SUBSTR(padc_stri, 1,padc_laen) + REPLICATE(fzeichen,zr)

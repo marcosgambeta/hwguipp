@@ -104,12 +104,12 @@ FUNCTION Main
 
    @ 710, 3 OWNERBUTTON oBtnRun OF oPanel ON CLICK { ||RunSample() } ;
       SIZE 80, 26 FLAT ;
-      TEXT "Run" COORDINATES 12,0,0,0 ;
-      BITMAP oBmp COORDINATES 52,0,0,0 TRANSPARENT COLOR 0xffffff ;
+      TEXT "Run" COORDINATES 12, 0, 0, 0 ;
+      BITMAP oBmp COORDINATES 52, 0, 0, 0 TRANSPARENT COLOR 0xffffff ;
       TOOLTIP "Run sample" ON SIZE ANCHOR_RIGHTABS
-   oBtnRun:aStyle := { HStyle():New( {0xffffff,0xdddddd}, 1,, 1 ), ;
-            HStyle():New( {0xffffff,0xdddddd}, 2,, 1 ), ;
-            HStyle():New( {0xffffff,0xdddddd}, 1,, 2, 8421440 ) }
+   oBtnRun:aStyle := { HStyle():New( {0xffffff, 0xdddddd}, 1,, 1 ), ;
+            HStyle():New( {0xffffff, 0xdddddd}, 2,, 1 ), ;
+            HStyle():New( {0xffffff, 0xdddddd}, 1,, 2, 8421440 ) }
    oBtnRun:Disable()
 
    @ 0, 32 TREE oTree SIZE 270, 568 ;
@@ -348,7 +348,7 @@ STATIC FUNCTION FindHwgrun()
 
    arr := hb_aTokens( "./" + hb_OsPathListSeparator() + GetEnv( "PATH" ), hb_OsPathListSeparator() )
    FOR i := 1 TO Len( arr )
-      cPath := arr[i] + Iif( Empty(arr[i]) .OR. Right( arr[i],1 ) $ "\/", ;
+      cPath := arr[i] + Iif( Empty(arr[i]) .OR. Right( arr[i], 1 ) $ "\/", ;
          "", cDefSep )
       IF File( cPath + cHwgRun )
          RETURN cPath

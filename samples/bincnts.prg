@@ -119,7 +119,7 @@ oastrobmp := HBitmap():AddResource("astro2")  // bmp
 
 INIT WINDOW oMainW  ;
    FONT oFontMain  ;
-   TITLE "Bitmap container sample" AT 0,0 SIZE 500 , 500 ;
+   TITLE "Bitmap container sample" AT 0, 0 SIZE 500 , 500 ;
    ICON oIcon STYLE WS_POPUP +  WS_CAPTION + WS_SYSMENU
 
 * GTK + Toolbar : If used, the Ownerbuttons are not visible !
@@ -130,7 +130,7 @@ INIT WINDOW oMainW  ;
 #endif
 
 * For ownerbuttons:
-* - Coordinates: pass the real size of image (old 0,4,0,0 for all)
+* - Coordinates: pass the real size of image (old 0, 4, 0, 0 for all)
 *   ==> 3rd and fourth parameter
 *   Set 1st and 2nd to centered image in the ownerbutton.
 * - GTK: Remove "OF oToolbar" and "FLAT"
@@ -142,17 +142,17 @@ INIT WINDOW oMainW  ;
    ON CLICK { | | FileOpen()} ;
    SIZE nxowb,nyowb  /* FLAT */  ;
    BITMAP oBitmap ;
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,0,16,16 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 0, 16, 16 ; 
    TOOLTIP "Open File" 
   
    nbut += 1
 
 
-@ htab+(nbut * nlowb),3 OWNERBUTTON oQuit /* OF oToolbar */ ;
+@ htab+(nbut * nlowb), 3 OWNERBUTTON oQuit /* OF oToolbar */ ;
    ON CLICK { | | oMainW:Close()} ;
    SIZE nxowb,nyowb /* FLAT */ ;
    BITMAP oBMPExit ; 
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,0,17,17 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 0, 17, 17 ; 
    TOOLTIP "Terminate Program"
    
    nbut += 1
@@ -165,17 +165,17 @@ INIT WINDOW oMainW  ;
    ON CLICK { | | FileOpen()} ;
    SIZE nxowb,nyowb  FLAT  ;
    BITMAP oBitmap ;
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
    TOOLTIP "Open File" 
   
    nbut += 1
 
 
-@ htab+(nbut * nlowb),3 OWNERBUTTON oQuit OF oToolbar  ;
+@ htab+(nbut * nlowb), 3 OWNERBUTTON oQuit OF oToolbar  ;
    ON CLICK { | | oMainW:Close()} ;
    SIZE nxowb,nyowb /* FLAT */ ;
    BITMAP oBMPExit ; 
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
    TOOLTIP "Terminate Program"
    
    nbut += 1
@@ -184,11 +184,11 @@ INIT WINDOW oMainW  ;
 
 * !!!!! PNG not supported on Windows
 #ifndef __PLATFORM__WINDOWS  
-@ htab+(nbut * nlowb ),3 OWNERBUTTON oBtnDoor /* OF oToolbar */ ;
+@ htab+(nbut * nlowb ), 3 OWNERBUTTON oBtnDoor /* OF oToolbar */ ;
    ON CLICK { | | OpenDoor()} ;
    SIZE nxowb,nyowb /* FLAT */ ;
    BITMAP oPNGDoor ; 
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,0,13,16 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 0, 13, 16 ; 
    TOOLTIP "Open the door"
    
   nbut += 1
@@ -196,19 +196,19 @@ INIT WINDOW oMainW  ;
 
 #ifdef __GTK__
 
-@ htab+(nbut * nlowb),3 OWNERBUTTON oBtnjpeg /* OF oToolbar */ ;
+@ htab+(nbut * nlowb), 3 OWNERBUTTON oBtnjpeg /* OF oToolbar */ ;
    ON CLICK { | | ClickJpeg()} ;
    SIZE nxowb,nyowb /* FLAT */ ;
    BITMAP ojpeg ; 
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,5,20,16 ; 
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 5, 20, 16 ;
    TOOLTIP "JPEG image"
 #else   
    
-@ htab+(nbut * nlowb),3 OWNERBUTTON oBtnjpeg  OF oToolbar  ;
+@ htab+(nbut * nlowb), 3 OWNERBUTTON oBtnjpeg  OF oToolbar  ;
    ON CLICK { | | ClickJpeg()} ;
    SIZE nxowb,nyowb  FLAT  ;
    BITMAP ojpeg ; 
-   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0,4,0,0 ;
+   TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
    TOOLTIP "JPEG image"
    
 #endif   

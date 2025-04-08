@@ -15,10 +15,10 @@ hb_cdpSelect( "UTF8" )
 
 run("wget https://www.vorwerk.fr/shop/thermomix/accessoires/filter/accessoires-thermomix/accessoires-tm31 -Obol.txt")
 cBol=memoread("bol.txt")
-nBol=mlcount(cBol,600)
+nBol=mlcount(cBol, 600)
 
 for rg=1 to nbol
-    txt=trim(memoline(cBol,600,rg))
+    txt=trim(memoline(cBol, 600,rg))
     do case
        case at("Bol avec poignée pour Thermomix TM 31",txt) > 0
             ok=.t.

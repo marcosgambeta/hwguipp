@@ -150,7 +150,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
 
    IF HB_ISARRAY(arr[1])
       FOR i := 1 TO aLen
-         nLen := Max( nLen, Len(arr[i,1]) )
+         nLen := Max( nLen, Len(arr[i, 1]) )
       NEXT
    ELSE
       FOR i := 1 TO aLen

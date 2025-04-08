@@ -500,17 +500,17 @@ METHOD PrintDos:Preview(fName, cTitle)
 
    INIT DIALOG oDlg TITLE cTitle At 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() on init {||hwg_Sendmessage(oedit1:handle, WM_VSCROLL, SB_TOP, 0)}
 
-//   @ 88,19 EDITBOX oEdit ID 1001 SIZE 548,465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
+//   @ 88, 19 EDITBOX oEdit ID 1001 SIZE 548, 465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
 //        COLOR oColor1 BACKCOLOR oColor2  //Blue to Black  // Original
-//   @ 88,19 EDITBOX oEdit ID 1001 SIZE 548,465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
+//   @ 88, 19 EDITBOX oEdit ID 1001 SIZE 548, 465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
 //        COLOR oColor1 BACKCOLOR oColor2 FONT oFont //Blue to Black  //Added by  por Fernando Athayde
    @ 88, 19 EDITBOX oedit1 CAPTION oEdit ID 1001 SIZE hwg_Getdesktopwidth() - 100, hwg_Getdesktopheight() - 100 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
       COLOR oColor1 BACKCOLOR oColor2 FONT oFont //Blue to Black  //Added by  por Fernando Athayde
 
 
-//   @ 88,19 EDITBOX oEdit ID 1001 SIZE 548,465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
+//   @ 88, 19 EDITBOX oEdit ID 1001 SIZE 548, 465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
 //        COLOR oColor1 BACKCOLOR oColor2  //Blue to Black  // Original
-//   @ 88,19 EDITBOX oEdit ID 1001 SIZE 548,465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
+//   @ 88, 19 EDITBOX oEdit ID 1001 SIZE 548, 465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
 //        COLOR oColor1 BACKCOLOR oColor2 FONT oFont //Blue to Black  //Added by  por Fernando Athayde
 //       COLOR 16711680 BACKCOLOR 16777215  //Black to Write
    @ 6, 30 BUTTON "<<"    ON CLICK {||nPage := PrintDosAnt(nPage, oText)} SIZE 69, 32 STYLE IIF(nPage == 1, WS_DISABLED, 0)

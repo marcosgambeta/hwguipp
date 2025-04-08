@@ -142,7 +142,7 @@ FUNCTION F_Filter( oBrw, cExpres )
             oBrw:bEof  :=  {|o| FEof(o) }
             oBrw:bBof  :=  {|o| FBof(o) }
             oBrw:bRecno := {|o| o:nCurrent }
-            hwg_WriteStatus( HMainWindow():GetMdiActive(), 1, LTrim(Str(oBrw:nRecords,10)) + " records filtered" )
+            hwg_WriteStatus( HMainWindow():GetMdiActive(), 1, LTrim(Str(oBrw:nRecords, 10)) + " records filtered" )
             lRes := .T.
          ELSE
             GO nrec
@@ -164,7 +164,7 @@ FUNCTION F_Filter( oBrw, cExpres )
       oBrw:bBof   := {|o|  (o:alias)->(Bof())}
       oBrw:bGoTo  := {|o,n|(o:alias)->(dbGoto(n) ) }
       oBrw:bRecno := {|o|  (o:alias)->(RecNo()) }     
-      hwg_WriteStatus( HMainWindow():GetMdiActive(), 1, LTrim(Str(RecCount(),10)) + " records" )
+      hwg_WriteStatus( HMainWindow():GetMdiActive(), 1, LTrim(Str(RecCount(), 10)) + " records" )
    ENDIF
 
    RETURN NIL

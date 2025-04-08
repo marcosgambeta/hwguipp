@@ -232,7 +232,7 @@ METHOD HWindow:EvalKeyList( nKey, nctrl )
 
    LOCAL nPos
 
-   nctrl := IIf(nctrl == 2, FCONTROL, IIf(nctrl == 1, FSHIFT, IIf(nctrl == 4,FALT,0)))
+   nctrl := IIf(nctrl == 2, FCONTROL, IIf(nctrl == 1, FSHIFT, IIf(nctrl == 4,FALT, 0)))
    //hwg_writelog( str(nKey)+"/"+str(nctrl) )
    IF !Empty(::KeyList)
       IF ( nPos := Ascan(::KeyList, {|a|a[1] == nctrl .AND. a[2] == nKey})) > 0

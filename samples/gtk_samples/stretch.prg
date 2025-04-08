@@ -49,22 +49,22 @@ hwg_msginfo("X=" + STR(nPosX) + CHR(10) + "Y=" + STR(nPosY) + CHR(10) + ;
 
 
 IF lStretch
-   INIT WINDOW oFormMain MAIN AT 0,0 SIZE nPosX , nPosY
+   INIT WINDOW oFormMain MAIN AT 0, 0 SIZE nPosX , nPosY
    
-   @ 0,0 BITMAP cImageMain SIZE nPosX - 10, nPosY - 100 // Here resize of background image (stretch)
+   @ 0, 0 BITMAP cImageMain SIZE nPosX - 10, nPosY - 100 // Here resize of background image (stretch)
    
    // Bug here: Error E0030  Syntax error "syntax error at 'SELF'"
-   // @ 25,25 BUTTON oQuitButton CAPTION "Exit" SIZE 75,18 ; 
+   // @ 25, 25 BUTTON oQuitButton CAPTION "Exit" SIZE 75, 18 ; 
    // ON CLICK { | | oFormMain::Close() }
 
    oFormMain:Activate()
    
 ELSE
-   INIT WINDOW oFormMain APPNAME "Agenda Hwgui" MAIN AT 0,0 SIZE nPosX,nPosY BACKGROUND BITMAP oBmp
+   INIT WINDOW oFormMain APPNAME "Agenda Hwgui" MAIN AT 0, 0 SIZE nPosX,nPosY BACKGROUND BITMAP oBmp
    // Tiled: Side by side, not stretch
    
       // Bug here: Error E0030  Syntax error "syntax error at 'SELF'"
-      // @ 25,25 BUTTON oQuitButton CAPTION "Exit" SIZE 75,18 ;
+      // @ 25, 25 BUTTON oQuitButton CAPTION "Exit" SIZE 75, 18 ;
       // ON CLICK { | | oFormMain::Close() } 
 
 

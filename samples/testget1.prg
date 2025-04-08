@@ -38,7 +38,7 @@ Local oMainWindow
  SET DATE GERMAN
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" ;
-     AT 200,0 SIZE 200,250
+     AT 200, 0 SIZE 200, 250
 
    MENU OF oMainWindow
      MENU TITLE "&Exit"
@@ -70,36 +70,36 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
 #endif 
 
    INIT DIALOG oModDlg TITLE "Get a value"  ;
-   AT 210,10  SIZE 350,300                  ;
+   AT 210, 10  SIZE 350, 300                  ;
    FONT oFont NOEXIT
 
    SET KEY 0,VK_F3 TO hwg_Msginfo("F3") 
    
 
-   @ 20,10 SAY "Input something:" SIZE 260, 22
-   @ 20,35 GET oGet VAR e1  ;
+   @ 20, 10 SAY "Input something:" SIZE 260, 22
+   @ 20, 35 GET oGet VAR e1  ;
         STYLE WS_DLGFRAME   ;
         SIZE 260, 26 COLOR 0xFF0000
 
-   @ 20,70 GET CHECKBOX c1 CAPTION "Check 1" SIZE 90, 20
-   @ 20,95 GET CHECKBOX c2 CAPTION "Check 2" SIZE 90, 20 COLOR 0x0000FF
+   @ 20, 70 GET CHECKBOX c1 CAPTION "Check 1" SIZE 90, 20
+   @ 20, 95 GET CHECKBOX c2 CAPTION "Check 2" SIZE 90, 20 COLOR 0x0000FF
 
-   @ 160,70 GROUPBOX "RadioGroup" SIZE 130, 75
+   @ 160, 70 GROUPBOX "RadioGroup" SIZE 130, 75
 
    GET RADIOGROUP r1
-   @ 180,90 RADIOBUTTON "Radio 1"  ;
+   @ 180, 90 RADIOBUTTON "Radio 1"  ;
         SIZE 90, 20 ON CLICK {||oGet:SetColor(0x0000FF,,.T.)}
-   @ 180,115 RADIOBUTTON "Radio 2" ;
+   @ 180, 115 RADIOBUTTON "Radio 2" ;
         SIZE 90, 20 ON CLICK {||oGet:SetColor(0xFF0000,,.T.)}
    END RADIOGROUP
 
 #ifdef __GTK__
-   @ 300,20 GET COMBOBOX oCombo VAR cm ITEMS aCombo SIZE 100, 150
+   @ 300, 20 GET COMBOBOX oCombo VAR cm ITEMS aCombo SIZE 100, 150
 #else
-   @ 20,120 GET COMBOBOX oCombo VAR cm ITEMS aCombo SIZE 100, 150
+   @ 20, 120 GET COMBOBOX oCombo VAR cm ITEMS aCombo SIZE 100, 150
 #endif
 
-   @ 20,170 GET UPDOWN upd RANGE 0,80 SIZE 50,30
+   @ 20, 170 GET UPDOWN upd RANGE 0, 80 SIZE 50, 30
 
 
 #ifdef __GTK__
@@ -109,7 +109,7 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *  v==> These are the original coordinates of DATEPICKER command    
-   @ 160,170 GET odGet VAR d1  ;
+   @ 160, 170 GET odGet VAR d1  ;
         STYLE WS_DLGFRAME   ;
         SIZE 80, 20 COLOR 0xFF0000
 *            ^==> This is the original size of DATEPICKER command
@@ -117,18 +117,18 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
 *    v==>  x = 160 + 81 (x value of GET + width of GET + 1 )
    @ 241, 170 OWNERBUTTON oDateOwb  ;
    ON CLICK { | | d1 := hwg_pCalendar(d1) , odGet:Value(d1) } ;
-   SIZE 12,12  ;            // Size of image + 1
+   SIZE 12, 12  ;            // Size of image + 1
    BITMAP hwg_oDatepicker_bmp() ; 
-   TRANSPARENT  COORDINATES 0,0,11,11 ; 
+   TRANSPARENT  COORDINATES 0, 0, 11, 11 ;
    TOOLTIP "Pick date from calendar"
 
     
 #else
-   @ 160,170 GET DATEPICKER d1 SIZE 80, 20
+   @ 160, 170 GET DATEPICKER d1 SIZE 80, 20
 #endif
 
-   @ 20,240 BUTTON "Ok" ID IDOK  SIZE 100, 32
-   @ 180,240 BUTTON "Cancel" ID IDCANCEL  SIZE 100, 32
+   @ 20, 240 BUTTON "Ok" ID IDOK  SIZE 100, 32
+   @ 180, 240 BUTTON "Cancel" ID IDCANCEL  SIZE 100, 32
 
    ACTIVATE DIALOG oModDlg
    oFont:Release()
@@ -137,7 +137,7 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
       hwg_Msginfo( e1 + chr(10) + chr(13) +                               ;
                "Check1 - " + Iif(c1,"On","Off") + chr(10) + chr(13) + ;
                "Check2 - " + Iif(c2,"On","Off") + chr(10) + chr(13) + ;
-               "Radio: " + Str(r1,1) + chr(10) + chr(13) +            ;
+               "Radio: " + Str(r1, 1) + chr(10) + chr(13) +            ;
                "Combo: " + aCombo[cm] + chr(10) + chr(13) +    ;
                "UpDown: "+Str(upd) + chr(10) + chr(13) +              ;
                "DatePicker: "+Dtoc(d1)                                ;
@@ -185,18 +185,18 @@ FUNCTION DLG_MONTHCALENDAR()
    oFont :=  hwg_DefaultFont()
    
    INIT DIALOG oDlg TITLE "Calendar" ;
-      AT 20,20 SIZE 450,300
+      AT 20, 20 SIZE 450, 300
 
 
 
-   @ 20,20 MONTHCALENDAR oMC ;
-      SIZE 250,250 ;
+   @ 20, 20 MONTHCALENDAR oMC ;
+      SIZE 250, 250 ;
       INIT dheute ;   // Date()
       FONT oFont WEEKNUMBERS
 
-    @ 300,60 BUTTON "Cancel" ON CLICK {|| oDlg:Close() } SIZE 100,40
-    @ 300,20 BUTTON "OK" ON CLICK {|| lcancel := .F. , dnewdate := oMC:Value  ,oDlg:Close() } SIZE 100,40
-    @ 300,100 BUTTON "Today" ON CLICK {|| oMC:Value := Date()} SIZE 100,40
+    @ 300, 60 BUTTON "Cancel" ON CLICK {|| oDlg:Close() } SIZE 100, 40
+    @ 300, 20 BUTTON "OK" ON CLICK {|| lcancel := .F. , dnewdate := oMC:Value  ,oDlg:Close() } SIZE 100, 40
+    @ 300, 100 BUTTON "Today" ON CLICK {|| oMC:Value := Date()} SIZE 100, 40
 
    ACTIVATE DIALOG oDlg 
 

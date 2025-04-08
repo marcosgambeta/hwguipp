@@ -51,7 +51,7 @@ function CreateChild(lClip)
    Local cImagdir := ".." + cdirsep + "image" + cdirsep 
 #endif   
 
-   Local cTitle := "Child Window #" + Str(len(aChilds)+1,2,0)
+   Local cTitle := "Child Window #" + Str(len(aChilds)+1, 2, 0)
    Local oIcon := HIcon():AddFile(cImagdir + "W.ico")
    Local oBmp  := HBitMap():AddFile(cImagdir + "logo.bmp")
    Local cMenu := ""
@@ -60,13 +60,13 @@ function CreateChild(lClip)
    DEFAULT lClip := .f.
 
     /*
-   oChild := HWindow():New(WND_CHILD , oIcon,0x0000FF,NIL,10,10,200,100,cTitle,cMenu,NIL,NIL, ;
+   oChild := HWindow():New(WND_CHILD , oIcon, 0x0000FF,NIL, 10, 10, 200, 100,cTitle,cMenu,NIL,NIL, ;
                           NIL,bExit,NIL,NIL,NIL,NIL,NIL, "Child_" + Alltrim(Str(len(aChilds))) , oBmp)
     */
    
    * The class HChildWindow is coded in file hwindow.prg at about line 517
    
-   oChild := HChildWindow():New(oIcon,0x0000FF,NIL,10,10,200,100,cTitle,cMenu,NIL,NIL, ;
+   oChild := HChildWindow():New(oIcon, 0x0000FF,NIL, 10, 10, 200, 100,cTitle,cMenu,NIL,NIL, ;
                           bExit,NIL,NIL,NIL,NIL,NIL, "Child_" + Alltrim(Str(len(aChilds))) , NIL)
 
    

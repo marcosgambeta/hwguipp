@@ -32,7 +32,7 @@ LOCAL nmin, nmaj, bwin, bwin7, bwin10
 
 
    INIT WINDOW oMainWindow MAIN TITLE "Windows Version" ;
-     AT 0,0 SIZE 100,100
+     AT 0, 0 SIZE 100, 100
 
    hwg_MsgInfo( ;
    "Windows    : " + LOGICAL2STR(bwin)   + CHR(10) + ;

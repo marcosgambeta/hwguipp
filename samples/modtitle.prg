@@ -30,10 +30,10 @@ PRIVATE oWndMain
       hwg_Settooltipballoon(.t.)
 #endif
 *   Parameter            Font Name,Breite,Hoehe 
-   oFont := HFont():Add( "Courier",0,-14 )
+   oFont := HFont():Add( "Courier", 0,-14 )
    
    INIT WINDOW oWndMain MAIN TITLE "Default title"  ;
-     AT 200,100 SIZE 500,500 ;
+     AT 200, 100 SIZE 500, 500 ;
      ON EXIT {||hwg_MsgYesNo("OK to quit ?")}
  
      MENU OF oWndMain

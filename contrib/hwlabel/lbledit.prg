@@ -66,7 +66,7 @@ REQUEST HB_CODEPAGE_DE858
 
 
 SET(_SET_CODEPAGE,"DE858")
-SETMODE(25,80)
+SETMODE(25, 80)
 
 
 
@@ -206,14 +206,14 @@ ELSE
 
  DO CLS
 
- @ 3,30 SAY "LBLEDIT Version 3.0.0"
- @ 4,30 SAY "Copyright (c) 2000-2022 DF7BE"
+ @ 3, 30 SAY "LBLEDIT Version 3.0.0"
+ @ 4, 30 SAY "Copyright (c) 2000-2022 DF7BE"
  IF CLIPPER .OR. DBFAST
- @ 5,30 SAY "Copyright (c) 1985-1993,"
- @ 6,30 SAY " Computer Associates International, Inc."
+ @ 5, 30 SAY "Copyright (c) 1985-1993,"
+ @ 6, 30 SAY " Computer Associates International, Inc."
  ENDIF
- @ 7,30 SAY "Under the property of the GNU Public Licence"
- @ 10,30 SAY "Please select label file"
+ @ 7, 30 SAY "Under the property of the GNU Public Licence"
+ @ 10, 30 SAY "Please select label file"
 
 
 // Select a label File
@@ -285,7 +285,7 @@ ELSE
 
 // Open file
 
-handle := FOPEN(lblname,2)
+handle := FOPEN(lblname, 2)
  IF handle == -1
   // Cannot open file
    ? "Can not open file >" + lblname + "<"
@@ -294,22 +294,22 @@ handle := FOPEN(lblname,2)
 
 // Read the label file and take the content into variables
 
-anzbytes=FREAD(handle,@Puffer,1034)
-Z1=SUBSTR(Puffer,1,1)           // Mark CHR(2)
-REM=SUBSTR(Puffer,2,60)         // Remarks length=60
-NUMZ=ASC(SUBSTR(Puffer,62,2))   // Height of label, number of lines 1..16
-BR=ASC(SUBSTR(Puffer,64,2))     // Width of label 1..120
-LM=ASC(SUBSTR(Puffer,66,2))     // Left margin      0..250
-HZR=ASC(SUBSTR(Puffer,68,2))    // Lines between labels  0..16
-VZR=ASC(SUBSTR(Puffer,70,2))    // Spaces between labels 0 ... 120
-LPZ=ASC(SUBSTR(Puffer,72,2))    // Number of labels across) 1 ..5
-INH=SUBSTR(Puffer,74,NUMZ*60)   // Contents of label
-Z2=SUBSTR(Puffer,1034,1)        // Mark of end CHR(2)
+anzbytes=FREAD(handle,@Puffer, 1034)
+Z1=SUBSTR(Puffer, 1, 1)           // Mark CHR(2)
+REM=SUBSTR(Puffer, 2, 60)         // Remarks length=60
+NUMZ=ASC(SUBSTR(Puffer, 62, 2))   // Height of label, number of lines 1..16
+BR=ASC(SUBSTR(Puffer, 64, 2))     // Width of label 1..120
+LM=ASC(SUBSTR(Puffer, 66, 2))     // Left margin      0..250
+HZR=ASC(SUBSTR(Puffer, 68, 2))    // Lines between labels  0..16
+VZR=ASC(SUBSTR(Puffer, 70, 2))    // Spaces between labels 0 ... 120
+LPZ=ASC(SUBSTR(Puffer, 72, 2))    // Number of labels across) 1 ..5
+INH=SUBSTR(Puffer, 74,NUMZ*60)   // Contents of label
+Z2=SUBSTR(Puffer, 1034, 1)        // Mark of end CHR(2)
 
 // Extract the label contents
 
 FOR I=1 TO 16
-  MINH[I]=SUBSTR(INH,IIF(I=1,(I-1)*60,((I-1)*60)+1),60)
+  MINH[I]=SUBSTR(INH,IIF(I=1,(I-1)*60,((I-1)*60)+1), 60)
 NEXT
 
 ENDIF
@@ -318,21 +318,21 @@ ENDIF
 // Edit it
 
 
-@ 11,0 SAY "Abort editing"
-@ 12,0 SAY "with ESC key"
+@ 11, 0 SAY "Abort editing"
+@ 12, 0 SAY "with ESC key"
 
 DO SET_TAB
 
- @ 0,10 SAY "Parameters for label : " + lblname
+ @ 0, 10 SAY "Parameters for label : " + lblname
 
-@ 1,0 SAY "Remarks : " GET REM
-@ 2,0 SAY "Heigth of label                    : " GET NUMZ   PICTURE "99"  RANGE 1,16
-@ 3,0 SAY "Width of label                     : " GET BR     PICTURE "999" RANGE 1,120
-@ 4,0 SAY "Left margin                        : " GET LM     PICTURE "999" RANGE 0,250
-@ 5,0 SAY "Lines between labels               : " GET HZR    PICTURE "99" RANGE 0,16
-@ 6,0 SAY "Spaces between labels)             : " GET VZR    PICTURE "999" RANGE 0,120
-@ 7,0 SAY "Number of labels    across         : " GET LPZ    PICTURE "9" RANGE 1,5
-@ 9,1 SAY "Contents :"
+@ 1, 0 SAY "Remarks : " GET REM
+@ 2, 0 SAY "Heigth of label                    : " GET NUMZ   PICTURE "99"  RANGE 1, 16
+@ 3, 0 SAY "Width of label                     : " GET BR     PICTURE "999" RANGE 1, 120
+@ 4, 0 SAY "Left margin                        : " GET LM     PICTURE "999" RANGE 0, 250
+@ 5, 0 SAY "Lines between labels               : " GET HZR    PICTURE "99" RANGE 0, 16
+@ 6, 0 SAY "Spaces between labels)             : " GET VZR    PICTURE "999" RANGE 0, 120
+@ 7, 0 SAY "Number of labels    across         : " GET LPZ    PICTURE "9" RANGE 1, 5
+@ 9, 1 SAY "Contents :"
 READ
 DO RESET_TAB
 
@@ -360,9 +360,9 @@ ENDIF
 
 
 FOR I=1 TO NUMZ
- MINH[I] = PADRIGHT(MINH[I],60)  // if extended
+ MINH[I] = PADRIGHT(MINH[I], 60)  // if extended
    // Preset empty lines for GET
- @ 8+I-1,14 SAY STR(I,2,0) + ":" GET MINH[I]    // CLIPPER
+ @ 8+I-1, 14 SAY STR(I, 2, 0) + ":" GET MINH[I]    // CLIPPER
 NEXT
 
 
@@ -395,28 +395,28 @@ NEXT
 
 Pu_neu := Z1+REM+I2BIN(NUMZ)+I2BIN(BR)+I2BIN(LM) + ;
   I2BIN(HZR)+I2BIN(VZR)+I2BIN(LPZ) + ;
-  PADRIGHT(INH,960)+Z2
+  PADRIGHT(INH, 960)+Z2
 
 IF blbl_neu
 
 // Create new file
 
-  handle := FCREATE(lblname,0)
+  handle := FCREATE(lblname, 0)
   IF handle == -1
    // cannot create
    // clear screen
    DO CLS
 
    SET CURSOR OFF
-   @ 0,0
+   @ 0, 0
      ? "Can not create file >" + lblname + "< !!"
    QUIT
   ENDIF
 ELSE
- FSEEK(handle,0,0)
+ FSEEK(handle, 0, 0)
 ENDIF
  // Write the file and close
- anzbytes := FWRITE(handle,Pu_neu,1034)
+ anzbytes := FWRITE(handle,Pu_neu, 1034)
 
 b_ok := FCLOSE(handle)
 
@@ -489,14 +489,14 @@ PROCEDURE HELP
 
 
  SET COLOR TO N/W,W/N,,,N/W  // Monochrome invers
- @ 3 , 5 CLEAR TO 23 ,70
- @ 3 , 5 TO 23 ,70 DOUBLE
+ @ 3 , 5 CLEAR TO 23 , 70
+ @ 3 , 5 TO 23 , 70 DOUBLE
 
   @ 4 , 10 SAY "Help information for procedure : " + prz
   @ 5 , 10 SAY "Variable : " + var + SPACE(6) + "Source line : " + STR(zei)
 
- @ 6 , 6  SAY REPLICATE(CHR(196),64)
- @ 21, 6  SAY REPLICATE(CHR(196),64)
+ @ 6 , 6  SAY REPLICATE(CHR(196), 64)
+ @ 21, 6  SAY REPLICATE(CHR(196), 64)
 
 //**  static help texts    ****
 
@@ -741,13 +741,13 @@ PROCEDURE HELP
 
   // Show the help text
 
-  @ 22 ,7 SAY "Close help with <ESC> key, scroll with " + CHR(24) + " " + ;
+  @ 22 , 7 SAY "Close help with <ESC> key, scroll with " + CHR(24) + " " + ;
                CHR(25) + " or PgUp,PgDown"
 
   // Help on Help unterdruecken
   SET KEY 28 TO
 
-  MEMOEDIT(a_text,7,6,20,69,.F.)
+  MEMOEDIT(a_text, 7, 6, 20, 69, .F.)
 
   DO EMPTY_TPUF
   KEYBOARD ""
@@ -785,10 +785,10 @@ FUNCTION PADCENTER(padc_stri,padc_laen,fzeichen)    // = PADC
     RETURN REPLICATE(fzeichen,padc_laen)
   endif
 // Number of filler characters  in "zahl"
-  zahl := padc_laen - LEN(SUBSTR(padc_stri,1,padc_laen))
+  zahl := padc_laen - LEN(SUBSTR(padc_stri, 1,padc_laen))
   zl := INT(zahl / 2)
   zr := zahl - zl
-RETURN REPLICATE(fzeichen,zl) + SUBSTR(padc_stri,1,padc_laen) + REPLICATE(fzeichen,zr)
+RETURN REPLICATE(fzeichen,zl) + SUBSTR(padc_stri, 1,padc_laen) + REPLICATE(fzeichen,zr)
 
 
 // ================================= *
@@ -806,7 +806,7 @@ FUNCTION PADRIGHT(padr_stri,padr_laen)  // PADR
   if  padr_stri == ""
     RETURN SPACE (padr_laen)
   endif
-RETURN SUBSTR(padr_stri,1,padr_laen) + SPACE(padr_laen - LEN(SUBSTR(padr_stri,1,padr_laen)))
+RETURN SUBSTR(padr_stri, 1,padr_laen) + SPACE(padr_laen - LEN(SUBSTR(padr_stri, 1,padr_laen)))
 
 
 // ================================= *
@@ -836,9 +836,9 @@ FUNCTION DATEI_AUSW
   t_Dateien[anzahl] := "<new label>"
 
  SCR_ARR_D(@t_Dateien)
- @ 2,4 TO 14,21 DOUBLE
- Wahl := ACHOICE(3,5,13,20,t_Dateien)
- @ 2,4 CLEAR TO 14,21
+ @ 2, 4 TO 14, 21 DOUBLE
+ Wahl := ACHOICE(3, 5, 13, 20,t_Dateien)
+ @ 2, 4 CLEAR TO 14, 21
  IF Wahl != 0
   gewaehlt := t_Dateien[Wahl]
  ELSE
@@ -1004,7 +1004,7 @@ PROCEDURE ALT_C
 //  Query
   SET COLOR TO (farbe_help)
   @ 10 , 10 CLEAR TO 12, 45
-  @ 10 , 10 TO 12 ,45 DOUBLE
+  @ 10 , 10 TO 12 , 45 DOUBLE
   @ 11 , 12 SAY "Quit program ? (Y/N)"
 // No cascaded GETS
   Antwort := INKEY(0)

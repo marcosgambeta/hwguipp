@@ -531,7 +531,7 @@ FUNCTION FindWidget( cClass )
 
    FOR i := 1 TO Len( aSet )
       IF aSet[i]:title == "set"
-         IF ( oNode := aSet[i]:Find( "widget",1,{ |o|o:GetAttribute("class" ) == cClass } ) ) != NIL
+         IF ( oNode := aSet[i]:Find( "widget", 1,{ |o|o:GetAttribute("class" ) == cClass } ) ) != NIL
             RETURN oNode
          ENDIF
       ENDIF

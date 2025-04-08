@@ -13,7 +13,7 @@ FUNCTION Main()
 LOCAL oWinMain
 
 INIT WINDOW oWinMain MAIN  ;
-     TITLE "Sample program new progbar" AT 0, 0 SIZE 600,400;
+     TITLE "Sample program new progbar" AT 0, 0 SIZE 600, 400;
      STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
    MENU OF oWinMain
@@ -31,7 +31,7 @@ RETURN NIL
 
 
 Function Test
-Local oDlg, oTrack, oSay, oFont := HFont():Add( "MS Sans Serif",0,-13 )
+Local oDlg, oTrack, oSay, oFont := HFont():Add( "MS Sans Serif", 0,-13 )
 Local bVolChange := {|o,n| 
       HB_SYMBOL_UNUSED(o)
       HB_SYMBOL_UNUSED(n)

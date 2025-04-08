@@ -15,7 +15,7 @@ Local oMainWindow
 * Private var1 := 10320.54  // DF7BE: not used
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" ;
-     AT 200,0 SIZE 400,150
+     AT 200, 0 SIZE 400, 150
 
 * DF7BE: Trouble: If main menu points have no subtite, only "Aktivieren" apprears
 
@@ -36,7 +36,7 @@ Local oMainWindow
 Return NIL
 
 Function DlgGet()
-Local oModDlg, oTimer // , oFont := HFont():Add( "MS Sans Serif",0,-13 )
+Local oModDlg, oTimer // , oFont := HFont():Add( "MS Sans Serif", 0,-13 )
 Local e1 := "Dialog from prg"
 Local e2 := Date()
 Local e3 := 10320.54
@@ -48,44 +48,44 @@ Local e7 := "Password"
 Private oSayT
 
    INIT DIALOG oModDlg CLIPPER NOEXIT TITLE "Get a value"  ;
-   AT 210,10  SIZE 300,320 ;
-   ON INIT {|| SetTimer(oModDlg,@oTimer)}   
+   AT 210, 10  SIZE 300, 320 ;
+   ON INIT {|| SetTimer(oModDlg,@oTimer)}
    // FONT oFont  
 
    SET KEY FSHIFT,VK_F3 TO hwg_Msginfo("Shift-F3") 
    SET KEY FCONTROL,VK_F3 TO hwg_Msginfo("Ctrl-F3") 
    SET KEY 0,VK_F3 TO hwg_Msginfo("F3") 
 
-   @ 20,10 SAY "Input something:" SIZE 260, 22
+   @ 20, 10 SAY "Input something:" SIZE 260, 22
 
-   @ 20,35 GET e1                       ;
+   @ 20, 35 GET e1                       ;
         PICTURE "XXXXXXXXXXXXXXX"       ;
         SIZE 260, 26
 
-   @ 20,65 GET e6                       ;
+   @ 20, 65 GET e6                       ;
         MAXLENGTH 15                    ;
         SIZE 260, 26
 
-   @ 20,95 GET e2  SIZE 260, 26
+   @ 20, 95 GET e2  SIZE 260, 26
 
-   @ 20,125 GET e3  SIZE 260, 26
+   @ 20, 125 GET e3  SIZE 260, 26
 
-   @ 20,155 GET e4                      ;
+   @ 20, 155 GET e4                      ;
         PICTURE "@R 99.999.999/9999-99" ;
         SIZE 260, 26
 
-   @ 20,185 GET e5                      ;
+   @ 20, 185 GET e5                      ;
         PICTURE "@e 999,999,999.99"     ;
         SIZE 260, 26
 
-   @ 20,215 GET e7                      ;
+   @ 20, 215 GET e7                      ;
         PASSWORD                        ;
         SIZE 260, 26
 
-   @  20,250  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oModDlg:lResult:=.T.,oModDlg:Close()}
-   @ 180,250 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
+   @  20, 250  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oModDlg:lResult:=.T.,oModDlg:Close()}
+   @ 180, 250 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
-   @ 100,295 SAY oSayT CAPTION "" SIZE 100,22 STYLE WS_BORDER + SS_CENTER ;
+   @ 100, 295 SAY oSayT CAPTION "" SIZE 100, 22 STYLE WS_BORDER + SS_CENTER ;
          COLOR 10485760 BACKCOLOR 12507070
 
    ReadExit( .T. )

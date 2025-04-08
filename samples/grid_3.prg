@@ -24,7 +24,7 @@ Function Main()
         CriaBase()
         
         INIT WINDOW oMain MAIN TITLE "Postgres Sample Using low level functions" ;
-             AT 0,0 ;
+             AT 0, 0 ;
              SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
                 MENU OF oMain
@@ -54,7 +54,7 @@ Function Test()
              AT 0, 0 SIZE 700, 425 ;
              STYLE DS_CENTER + WS_VISIBLE + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
                 
-             @ 10,10 GRID oGrid OF oForm SIZE 680,375;
+             @ 10, 10 GRID oGrid OF oForm SIZE 680, 375;
                      ITEMCOUNT 10000 ;
                      ON KEYDOWN {|oCtrl, key| OnKey(oCtrl, key) } ;
                      ON POSCHANGE {|oCtrl, nRow| OnPoschange(oCtrl, nRow) } ;
@@ -72,7 +72,7 @@ Function Test()
              ADD COLUMN TO GRID oGrid HEADER "Date" WIDTH 80
              ADD COLUMN TO GRID oGrid HEADER "Description" WIDTH 100
                                                               
-             @ 620, 395 BUTTON "Close" SIZE 75,25 ON CLICK {|| oForm:Close() }                            
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }
              
         ACTIVATE DIALOG oForm
                 

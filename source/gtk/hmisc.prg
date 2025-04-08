@@ -231,7 +231,7 @@ FUNCTION hwg_HEX_DUMP (cinfield, npmode, cpVarName)
   FOR nindexcnt := 1 TO nlength
     nlinepos := nlinepos + 1
     // extract single character to convert
-    cccchar := SUBSTR(cinfield,nindexcnt,1)
+    cccchar := SUBSTR(cinfield,nindexcnt, 1)
     // convert single character to number
     nccchar := ASC(cccchar)
     // is printable character below 0x80 (pure ASCII)
@@ -284,7 +284,7 @@ FUNCTION hwg_HEX_DUMP (cinfield, npmode, cpVarName)
       CASE nmode == 0
        coutfield := coutfield + ccchexline
       CASE nmode == 1
-       coutfield := coutfield + PADR(ccchexline,48) + ">> " +  PADR(cccprline,32) + hwg_EOLStyle()
+       coutfield := coutfield + PADR(ccchexline, 48) + ">> " +  PADR(cccprline, 32) + hwg_EOLStyle()
       CASE nmode == 2
        coutfield := coutfield + ccchexline + CHR(34) +  hwg_EOLStyle()
       CASE nmode == 3
@@ -396,16 +396,16 @@ FUNCTION hwg_Dirname ( pFullpath )
     sFilePath := cseparator
  ELSE
      IF nPosidirna != 0
-       sFilePath := SUBSTR(sFullpath,1,nPosidirna - 1)
+       sFilePath := SUBSTR(sFullpath, 1,nPosidirna - 1)
      ELSE
        // Special case:
        // recent directory (only filename)
        // or only drive letter
        // for example C:name
        // ==> set directory with "cd".
-       IF SUBSTR(sFullpath,2,1) == ":"
+       IF SUBSTR(sFullpath, 2, 1) == ":"
          // Only drive letter with ":" (for example C: )
-         sFilePath := SUBSTR(sFullpath,1,2)
+         sFilePath := SUBSTR(sFullpath, 1, 2)
        ELSE
         sFilePath := "."
        ENDIF
@@ -465,7 +465,7 @@ IF nlen1 != nlen2
  RETURN .F.
 ENDIF
 DO WHILE ( nnum <= nlen1 ) .AND. lende
- IF SUBSTR(mmemo1,nnum,1) != SUBSTR(mmemo2,nnum,1)
+ IF SUBSTR(mmemo1,nnum, 1) != SUBSTR(mmemo2,nnum, 1)
    lende := .F.
  ENDIF
  nnum := nnum + 1
@@ -721,12 +721,12 @@ IF opFont == NIL
 #endif
 ENDIF
 
-   INIT DIALOG oDlg TITLE cTitle AT 204,25 SIZE 777, 440 FONT opFont
+   INIT DIALOG oDlg TITLE cTitle AT 204, 25 SIZE 777, 440 FONT opFont
 
    SET KEY 0,VK_ESCAPE TO hwg_KEYESCCLDLG(oDlg)
-   @ 1,3 GET oheget VAR cHelptxt SIZE 772, 384 NOBORDER STYLE WS_VSCROLL + ES_AUTOHSCROLL + ES_MULTILINE + ES_READONLY + WS_BORDER + ES_NOHIDESEL
+   @ 1, 3 GET oheget VAR cHelptxt SIZE 772, 384 NOBORDER STYLE WS_VSCROLL + ES_AUTOHSCROLL + ES_MULTILINE + ES_READONLY + WS_BORDER + ES_NOHIDESEL
 
-   @ 322,402 BUTTON cClose SIZE 100,32 ON CLICK {||oDlg:Close()}
+   @ 322, 402 BUTTON cClose SIZE 100, 32 ON CLICK {||oDlg:Close()}
 
    IF blmodus
       ACTIVATE DIALOG oDlg NOMODAL
@@ -858,8 +858,8 @@ lstop := .F.
   ENDIF
   FOR vni := 1 TO LEN(ce)
    IF !lstop
-     if SUBSTR(e1,vni,1) == " "
-      e1 := STUFF(e1,vni,1,"0")  // modify character at position vni to "0"
+     if SUBSTR(e1,vni, 1) == " "
+      e1 := STUFF(e1,vni, 1,"0")  // modify character at position vni to "0"
      ELSE
       lstop := .T.               // Stop search, if no blank appeared
      ENDIF
@@ -871,7 +871,7 @@ RETURN crvalue
 
 FUNCTION hwg_Bin2D(chex,nlen,ndec)
 // hwg_msginfo(chex)
-RETURN hwg_Bin2DC(SUBSTR(STRTRAN(SUBSTR(chex,1,23) ," ","") ,1,16) ,nlen,ndec)
+RETURN hwg_Bin2DC(SUBSTR(STRTRAN(SUBSTR(chex, 1, 23) ," ","") , 1, 16) ,nlen,ndec)
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1084,9 +1084,9 @@ FUNCTION HWG_GET_TIME_SHIFT()
    LOCAL nhUTC
    LOCAL nhLocal
 
-nhUTC := VAL(SUBSTR(HWG_GETUTCTIMEDATE(),12,2  ))
+nhUTC := VAL(SUBSTR(HWG_GETUTCTIMEDATE(), 12, 2  ))
 // Format: W,YYYYMMDD-HH:MM:SS
-nhLocal := VAL(SUBSTR(TIME(),1,2))
+nhLocal := VAL(SUBSTR(TIME(), 1, 2))
 RETURN nhLocal - nhUTC
 
 FUNCTION hwg_Has_Win_Euro_Support()

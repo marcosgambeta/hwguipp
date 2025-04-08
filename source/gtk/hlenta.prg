@@ -210,7 +210,7 @@ METHOD HLenta:Paint()
          i := 1
          DO WHILE y1 + nItemSize <= nLength .AND. ( nCurr := i + ::nFirst - 1 ) <= Len(::aItems)
             oStyle := IIf(nCurr == ::nSelected .AND. lStyleSele, aItemStyle[2], IIf(nCurr == ::nOver .AND. lStyleOver, aItemStyle[3], aItemStyle[1]))
-            cText := IIf(l1,::aItems[nCurr,1],::aItems[nCurr])
+            cText := IIf(l1,::aItems[nCurr, 1],::aItems[nCurr])
             IF lVertical
                oStyle:Draw(hDC, 0, y1, nW, y1 + nItemSize)
                IF !Empty(cText)
@@ -227,7 +227,7 @@ METHOD HLenta:Paint()
                ENDIF
             ENDIF
             hwg_Settransparentmode(hDC, .F.)
-            IF l1 .AND. Len(::aItems[nCurr]) > 1 .AND. !Empty(ob := ::aItems[nCurr,2])
+            IF l1 .AND. Len(::aItems[nCurr]) > 1 .AND. !Empty(ob := ::aItems[nCurr, 2])
                ob:Draw(hDC, Int((nW - ob:nWidth) / 2), Int((nItemSize - ob:nHeight) / 2), ob:nWidth, ob:nHeight)
             ENDIF
             y1 += nItemSize

@@ -275,8 +275,8 @@ Private value, oCtrl
       FOR i := 1 TO Len( aProp )
          cPropertyName := Lower(aProp[i, 1])
          IF ( j := Ascan( ::aProp, {|a|Lower(a[1])==cPropertyName} ) ) != 0
-            IF !Empty(aProp[i,2])
-               ::aProp[j,2] := aProp[i,2]
+            IF !Empty(aProp[i, 2])
+               ::aProp[j, 2] := aProp[i, 2]
             ENDIF
          ENDIF
       NEXT
@@ -299,15 +299,15 @@ Private value, oCtrl
       hwg_Releasedc( hwg_Getactivewindow(),hDC )
       ::SetPaper( ::GetProp("Paper Size"),::GetProp("Orientation") )
       IF ::oDlg:oFont == NIL
-         ::oDlg:oFont := HFont():Add( "Arial",0,-13 )
+         ::oDlg:oFont := HFont():Add( "Arial", 0,-13 )
       ENDIF
       ::oDlg:style := hb_bitor( ::oDlg:style,WS_VSCROLL+WS_HSCROLL+WS_MAXIMIZEBOX )
 
       @ LEFT_INDENT,TOP_INDENT PANEL oPanel ;
-        SIZE Round(::nPWidth*::nKoeff,0)-1, Round(::nPHeight*::nKoeff,0)-1 ;
+        SIZE Round(::nPWidth*::nKoeff, 0)-1, Round(::nPHeight*::nKoeff, 0)-1 ;
         ON SIZE {||.T.} ON PAINT {|o|PaintPanel(o)}
       oPanel:brush := 0
-      @ 0,0 PANEL OF oPanel SIZE oPanel:nWidth,oPanel:nHeight ;
+      @ 0, 0 PANEL OF oPanel SIZE oPanel:nWidth,oPanel:nHeight ;
         ON SIZE {|o,x,y|o:Move(,,x,y)} ON PAINT {|o|PaintPanel(o)}
       oPanel:aControls[1]:brush := HBrush():Add( 16777215 )
       oPanel:aControls[1]:bOther := {|o,m,wp,lp|MessagesProc(o,m,wp,lp)}
@@ -338,7 +338,7 @@ METHOD GetProp( cName ) CLASS HFormGen
 Local i
   cName := Lower(cName)
   i := Ascan( ::aProp,{|a|Lower(a[1])==cName} )
-Return Iif( i==0, NIL, ::aProp[i,2] )
+Return Iif( i==0, NIL, ::aProp[i, 2] )
 
 METHOD SetProp( xName,xValue ) CLASS HFormGen
 
@@ -347,7 +347,7 @@ METHOD SetProp( xName,xValue ) CLASS HFormGen
       xName := Ascan( ::aProp,{|a|Lower(a[1])==xName} )
    ENDIF
    IF xName != 0
-      ::aProp[xName,2] := xValue
+      ::aProp[xName, 2] := xValue
    ENDIF
 Return NIL
 
@@ -367,7 +367,7 @@ Local ntemp, nx := ::nPWidth, ny := ::nPHeight
       ::nPHeight := ntemp
    ENDIF
    IF !Empty(::oDlg:aControls) .AND. ( nx != ::nPWidth .OR. ny != ::nPHeight )
-      ::oDlg:aControls[1]:Move( ,,Round(::nPWidth*::nKoeff,0)-1,Round(::nPHeight*::nKoeff,0)-1 )
+      ::oDlg:aControls[1]:Move( ,,Round(::nPWidth*::nKoeff, 0)-1,Round(::nPHeight*::nKoeff, 0)-1 )
    ENDIF
 
 Return NIL
@@ -410,7 +410,7 @@ Memvar aCtrlTable
    ELSE
       i := Ascan( aCtrlTable,{|a|a[1]==cName} )
    ENDIF
-Return Iif( i == 0, NIL, Iif( l2,aCtrlTable[i,1],aCtrlTable[i,2] ) )
+Return Iif( i == 0, NIL, Iif( l2,aCtrlTable[i, 1],aCtrlTable[i, 2] ) )
 
 Static Function FileDlg( oFrm,lOpen )
 Local oDlg, aFormats := oDesigner:aFormats
@@ -430,24 +430,24 @@ Local i
    NEXT
 
    INIT DIALOG oDlg TITLE Iif( lOpen,"Open form","Save form" ) ;
-       AT 50, 100 SIZE 310,250 FONT oDesigner:oMainWnd:oFont
+       AT 50, 100 SIZE 310, 250 FONT oDesigner:oMainWnd:oFont
 
-   @ 10,20 GET COMBOBOX nType ITEMS aCombo SIZE 140, 26 ;
-       ON CHANGE {||Iif(lOpen,.F.,(fname:=CutExten(fname)+Iif(!Empty(fname),"."+aFormats[af[nType],2],""),oEdit1:Refresh()))}
+   @ 10, 20 GET COMBOBOX nType ITEMS aCombo SIZE 140, 26 ;
+       ON CHANGE {||Iif(lOpen,.F.,(fname:=CutExten(fname)+Iif(!Empty(fname),"."+aFormats[af[nType], 2],""),oEdit1:Refresh()))}
 
-   @ 10,70 GET oEdit1 VAR fname  ;
+   @ 10, 70 GET oEdit1 VAR fname  ;
         STYLE ES_AUTOHSCROLL      ;
         SIZE 200, 26 MAXLENGTH 0
  
-   @ 210,70 BUTTON "Browse" SIZE 80, 26   ;
+   @ 210, 70 BUTTON "Browse" SIZE 80, 26   ;
         ON CLICK {||BrowFile(lOpen,af[nType],oEdit1,oEdit2)}
 
-   @ 10,110 SAY "Form name:" SIZE 80,22
+   @ 10, 110 SAY "Form name:" SIZE 80, 22
 
-   @ 10,135 GET oEdit2 VAR formname SIZE 140, 26 MAXLENGTH 0
+   @ 10, 135 GET oEdit2 VAR formname SIZE 140, 26 MAXLENGTH 0
 
-   @ 20,200 BUTTON "Ok" ID IDOK  SIZE 100, 32
-   @ 180,200 BUTTON "Cancel" ID IDCANCEL  SIZE 100, 32
+   @ 20, 200 BUTTON "Ok" ID IDOK  SIZE 100, 32
+   @ 180, 200 BUTTON "Cancel" ID IDCANCEL  SIZE 100, 32
 
    oDlg:Activate()
 
@@ -545,7 +545,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                   IF cProperty == '['
                      cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
                   ELSEIF cProperty == '.'
-                     cProperty := Iif( Substr(o:aItems[1],2,1)=="T","True","False" )
+                     cProperty := Iif( Substr(o:aItems[1], 2, 1)=="T","True","False" )
                   ELSEIF cProperty == '{'
                      cProperty := hwg_hfrm_Str2Arr( o:aItems[1] )
                   ELSE
@@ -573,7 +573,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
       ELSEIF aItems[i]:title == "method"
          cName := aItems[i]:GetAttribute( "name" )
          IF ( j := Ascan( oCtrl:aMethods, {|a|a[1]==cName} ) ) != 0
-            oCtrl:aMethods[j,2] := aItems[i]:aItems[1]:aItems[1]
+            oCtrl:aMethods[j, 2] := aItems[i]:aItems[1]:aItems[1]
          ENDIF
       ELSEIF aItems[i]:title == "part"
          IF Lower(aItems[i]:GetAttribute("class")) == "pagesheet"
@@ -627,7 +627,7 @@ Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
                   IF cProperty == '['
                      cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
                   ELSEIF cProperty == '.'
-                     cProperty := Iif( Substr(o:aItems[1],2,1)=="T","True","False" )
+                     cProperty := Iif( Substr(o:aItems[1], 2, 1)=="T","True","False" )
                   ELSEIF cProperty == '{'
                      cProperty := hwg_hfrm_Str2Arr( o:aItems[1] )
                   ELSE
@@ -641,7 +641,7 @@ Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
       ELSEIF aItems[i]:title == "method"
          cPropertyName := aItems[i]:GetAttribute( "name" )
          IF ( j := Ascan( oForm:aMethods, {|a|a[1]==cPropertyName} ) ) != 0
-            oForm:aMethods[j,2] := aItems[i]:aItems[1]:aItems[1]
+            oForm:aMethods[j, 2] := aItems[i]:aItems[1]:aItems[1]
          ENDIF
       ELSEIF aItems[i]:title == "part"
          ReadCtrls( Iif( oDesigner:lReport,oForm:oDlg:aControls[1]:aControls[1],oForm:oDlg ),aItems[i] )
@@ -684,18 +684,18 @@ Static Function WriteTree( aTree, oParent )
 Local i, oNode, type
 
    FOR i := 1 TO Len( aTree )
-      IF aTree[i,4] != NIL .OR. ( HB_ISARRAY(aTree[i, 1]) .AND. !Empty(aTree[i,1]) )
+      IF aTree[i, 4] != NIL .OR. ( HB_ISARRAY(aTree[i, 1]) .AND. !Empty(aTree[i, 1]) )
          type := HBXML_TYPE_TAG
       ELSE
          type := HBXML_TYPE_SINGLE
       ENDIF
       oNode := oParent:Add( HXMLNode():New( "item", type, ;
-             { { "name",aTree[i,2] },{ "id",Ltrim(Str(aTree[i,3])) } } ) )
-      IF aTree[i,4] != NIL
-         oNode:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,aTree[i,4] ) )
+             { { "name",aTree[i, 2] },{ "id",Ltrim(Str(aTree[i, 3])) } } ) )
+      IF aTree[i, 4] != NIL
+         oNode:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,aTree[i, 4] ) )
       ENDIF
-      IF HB_ISARRAY(aTree[i, 1]) .AND. !Empty(aTree[i,1])
-         WriteTree( aTree[i,1], oNode )
+      IF HB_ISARRAY(aTree[i, 1]) .AND. !Empty(aTree[i, 1])
+         WriteTree( aTree[i, 1], oNode )
       ENDIF
    NEXT
 Return NIL
@@ -719,7 +719,7 @@ Local cProperty, i1
           hwg_hfrm_Arr2Str({oCtrl:GetProp("Left"), oCtrl:GetProp("Top"), oCtrl:GetProp("Width"), oCtrl:GetProp("Height")})))
       ENDIF
       FOR j := 1 TO Len( oCtrl:aProp )
-         cPropertyName := Lower(oCtrl:aProp[j,1])
+         cPropertyName := Lower(oCtrl:aProp[j, 1])
          IF Ascan( aG,cPropertyName  ) != 0
             lDef := .T.
          /*
@@ -727,52 +727,52 @@ Local cProperty, i1
                 ( cPropertyName == "backcolor" .AND. oCtrl:bColor == hwg_Getsyscolor( COLOR_3DFACE ) )
             lDef := .T.
          */
-         ELSEIF ( cPropertyName == "name" .AND. Empty(oCtrl:aProp[j,2]) )
+         ELSEIF ( cPropertyName == "name" .AND. Empty(oCtrl:aProp[j, 2]) )
             lDef := .T.
          ELSE
             lDef := IsDefault( oCtrl, oCtrl:aProp[j] )
          ENDIF
          IF !lDef
-            IF Lower(oCtrl:aProp[j,1]) == "font"
+            IF Lower(oCtrl:aProp[j, 1]) == "font"
                IF oCtrl:oFont != NIL
                   oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name","font" } } ) )
                   oNode1:Add( hwg_Font2XML( oCtrl:oFont ) )
                ENDIF
             ELSEIF Left(Lower(oCtrl:aProp[j, 1]), 6) == "hstyle"
-               IF HB_ISOBJECT(oCtrl:aProp[j,2])
-                  oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name",Lower(oCtrl:aProp[j,1]) } } ) )
-                  oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j,2] ) )
+               IF HB_ISOBJECT(oCtrl:aProp[j, 2])
+                  oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name",Lower(oCtrl:aProp[j, 1]) } } ) )
+                  oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j, 2] ) )
                ENDIF
             ELSEIF Left(Lower(oCtrl:aProp[j, 1]), 6) == "styles"
                IF HB_ISARRAY(oCtrl:aProp[j, 2])
                   oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name","styles" } } ) )
-                  oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j,2,1] ) )
-                  oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j,2,2] ) )
-                  oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j,2,3] ) )
+                  oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j, 2, 1] ) )
+                  oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j, 2, 2] ) )
+                  oNode1:Add( hwg_HStyle2XML( oCtrl:aProp[j, 2, 3] ) )
                ENDIF
-            ELSEIF Lower(oCtrl:aProp[j,1]) == "atree"
+            ELSEIF Lower(oCtrl:aProp[j, 1]) == "atree"
                oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name","atree" } } ) )
-               WriteTree( oCtrl:aProp[j,2],oNode1 )
-            ELSEIF oCtrl:aProp[j,2] != NIL
-               IF oCtrl:aProp[j,3] == "C"
-                  cProperty := '[' + oCtrl:aProp[j,2] + ']'
-               ELSEIF oCtrl:aProp[j,3] == "N"
-                  cProperty := oCtrl:aProp[j,2]
-               ELSEIF oCtrl:aProp[j,3] == "L"
+               WriteTree( oCtrl:aProp[j, 2],oNode1 )
+            ELSEIF oCtrl:aProp[j, 2] != NIL
+               IF oCtrl:aProp[j, 3] == "C"
+                  cProperty := '[' + oCtrl:aProp[j, 2] + ']'
+               ELSEIF oCtrl:aProp[j, 3] == "N"
+                  cProperty := oCtrl:aProp[j, 2]
+               ELSEIF oCtrl:aProp[j, 3] == "L"
                   cProperty := Iif( Lower(oCtrl:aProp[j, 2]) == "true",".T.",".F." )
-               ELSEIF oCtrl:aProp[j,3] == "A"
+               ELSEIF oCtrl:aProp[j, 3] == "A"
                   cProperty := hwg_hfrm_Arr2Str(oCtrl:aProp[j, 2])
                ELSE
                   cProperty := ""
                ENDIF
-               oStyle:Add( HXMLNode():New( "property",,{ { "name",oCtrl:aProp[j,1] } },cProperty ) )
+               oStyle:Add( HXMLNode():New( "property",,{ { "name",oCtrl:aProp[j, 1] } },cProperty ) )
             ENDIF
          ENDIF
       NEXT
       FOR j := 1 TO Len( oCtrl:aMethods )
-         IF !Empty(oCtrl:aMethods[j,2])
-            oMeth := oNode:Add( HXMLNode():New( "method",,{ { "name",oCtrl:aMethods[j,1] } } ) )
-            oMeth:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,oCtrl:aMethods[j,2] ) )
+         IF !Empty(oCtrl:aMethods[j, 2])
+            oMeth := oNode:Add( HXMLNode():New( "method",,{ { "name",oCtrl:aMethods[j, 1] } } ) )
+            oMeth:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,oCtrl:aMethods[j, 2] ) )
          ENDIF
       NEXT
       IF !Empty(oCtrl:aControls)
@@ -805,32 +805,32 @@ Local oNode, oNode1, oStyle, i, i1, oMeth, cProperty, aControls
        hwg_hfrm_Arr2Str({oForm:oDlg:nLeft, oForm:oDlg:nTop, oForm:GetProp("Width"), oForm:GetProp("Height")})))
        //hwg_hfrm_Arr2Str({oForm:oDlg:nLeft, oForm:oDlg:nTop, oForm:oDlg:nWidth, oForm:oDlg:nHeight})))
    FOR i := 1 TO Len( oForm:aProp )
-      IF Ascan( aG, Lower(oForm:aProp[i,1]) ) == 0
-         IF Lower(oForm:aProp[i,1]) == "font"
+      IF Ascan( aG, Lower(oForm:aProp[i, 1]) ) == 0
+         IF Lower(oForm:aProp[i, 1]) == "font"
             IF oForm:oDlg:oFont != NIL
-               oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name",oForm:aProp[i,1] } } ) )
+               oNode1 := oStyle:Add( HXMLNode():New( "property",,{ { "name",oForm:aProp[i, 1] } } ) )
                oNode1:Add( hwg_Font2XML( oForm:oDlg:oFont ) )
             ENDIF
-         ELSEIF oForm:aProp[i,2] != NIL
-            IF oForm:aProp[i,3] == "C"
-               cProperty := '[' + oForm:aProp[i,2] + ']'
-            ELSEIF oForm:aProp[i,3] == "N"
-               cProperty := oForm:aProp[i,2]
-            ELSEIF oForm:aProp[i,3] == "L"
+         ELSEIF oForm:aProp[i, 2] != NIL
+            IF oForm:aProp[i, 3] == "C"
+               cProperty := '[' + oForm:aProp[i, 2] + ']'
+            ELSEIF oForm:aProp[i, 3] == "N"
+               cProperty := oForm:aProp[i, 2]
+            ELSEIF oForm:aProp[i, 3] == "L"
                cProperty := Iif( Lower(oForm:aProp[i, 2]) == "true",".T.",".F." )
-            ELSEIF oForm:aProp[i,3] == "A"
+            ELSEIF oForm:aProp[i, 3] == "A"
                cProperty := hwg_hfrm_Arr2Str(oForm:aProp[i, 2])
             ELSE
                cProperty := ""
             ENDIF
-            oStyle:Add( HXMLNode():New( "property",,{ { "name",oForm:aProp[i,1] } },cProperty ) )
+            oStyle:Add( HXMLNode():New( "property",,{ { "name",oForm:aProp[i, 1] } },cProperty ) )
          ENDIF
       ENDIF
    NEXT
    FOR i := 1 TO Len( oForm:aMethods )
-      IF !Empty(oForm:aMethods[i,2])
-         oMeth := oNode:Add( HXMLNode():New( "method",,{ { "name",oForm:aMethods[i,1] } } ) )
-         oMeth:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,oForm:aMethods[i,2] ) )
+      IF !Empty(oForm:aMethods[i, 2])
+         oMeth := oNode:Add( HXMLNode():New( "method",,{ { "name",oForm:aMethods[i, 1] } } ) )
+         oMeth:Add( HXMLNode():New( ,HBXML_TYPE_CDATA,,oForm:aMethods[i, 2] ) )
       ENDIF
    NEXT
    aControls := Iif( oDesigner:lReport,oForm:oDlg:aControls[1]:aControls[1]:aControls,oForm:oDlg:aControls )
@@ -864,30 +864,30 @@ Local x1 := LEFT_INDENT, y1 := TOP_INDENT, x2, y2, i, n1cm, xt, yt
       hwg_Setbkcolor( hDC,hwg_Getsyscolor(COLOR_3DLIGHT) )
       DO WHILE i*n1cm < (aCoors[3]-aCoors[1]-LEFT_INDENT)
          xt := x1+i*n1cm
-         hwg_Drawline( hDC,xt+Round(n1cm/4,0),0,xt+Round(n1cm/4,0),4 )
-         hwg_Drawline( hDC,xt+Round(n1cm/2,0),0,xt+Round(n1cm/2,0),8 )
-         hwg_Drawline( hDC,xt+Round(n1cm*3/4,0),0,xt+Round(n1cm*3/4,0),4 )
-         hwg_Drawline( hDC,xt,0,xt,12 )
+         hwg_Drawline( hDC,xt+Round(n1cm/4, 0), 0,xt+Round(n1cm/4, 0), 4 )
+         hwg_Drawline( hDC,xt+Round(n1cm/2, 0), 0,xt+Round(n1cm/2, 0), 8 )
+         hwg_Drawline( hDC,xt+Round(n1cm*3/4, 0), 0,xt+Round(n1cm*3/4, 0), 4 )
+         hwg_Drawline( hDC,xt, 0,xt, 12 )
          IF i > 0
-            hwg_Drawtext( hDC,Ltrim(Str(i+oForm:nXOffset/10,2)),xt-15,12,xt+15,TOP_INDENT-5,DT_CENTER )
+            hwg_Drawtext( hDC,Ltrim(Str(i+oForm:nXOffset/10, 2)),xt-15, 12,xt+15,TOP_INDENT-5,DT_CENTER )
          ENDIF
          i++
       ENDDO
       i := 0
       DO WHILE i*n1cm < (aCoors[4]-aCoors[2]-TOP_INDENT)
          yt := y1+i*n1cm
-         hwg_Drawline( hDC,0,yt+Round(n1cm/4,0),4,yt+Round(n1cm/4,0) )
-         hwg_Drawline( hDC,0,yt+Round(n1cm/2,0),8,yt+Round(n1cm/2,0) )
-         hwg_Drawline( hDC,0,yt+Round(n1cm*3/4,0),4,yt+Round(n1cm*3/4,0) )
-         hwg_Drawline( hDC,0,yt,12,yt )
+         hwg_Drawline( hDC, 0,yt+Round(n1cm/4, 0), 4,yt+Round(n1cm/4, 0) )
+         hwg_Drawline( hDC, 0,yt+Round(n1cm/2, 0), 8,yt+Round(n1cm/2, 0) )
+         hwg_Drawline( hDC, 0,yt+Round(n1cm*3/4, 0), 4,yt+Round(n1cm*3/4, 0) )
+         hwg_Drawline( hDC, 0,yt, 12,yt )
          IF i > 0
-            hwg_Drawtext( hDC,Ltrim(Str(i+oForm:nYOffset/10,2)),12,yt-10,LEFT_INDENT-12,yt+10,DT_CENTER )
+            hwg_Drawtext( hDC,Ltrim(Str(i+oForm:nYOffset/10, 2)), 12,yt-10,LEFT_INDENT-12,yt+10,DT_CENTER )
          ENDIF
          i++
       ENDDO
 #ifndef __GTK__
-      hwg_Setscrollinfo( oDlg:handle, SB_HORZ, 1, oForm:nXOffset/10+1, 1, Round((oForm:nPWidth-(aCoors[3]-LEFT_INDENT)/oForm:nKoeff)/10,0)+1 )
-      hwg_Setscrollinfo( oDlg:handle, SB_VERT, 1, oForm:nYOffset/10+1, 1, Round((oForm:nPHeight-(aCoors[4]-TOP_INDENT)/oForm:nKoeff)/10,0)+1 )
+      hwg_Setscrollinfo( oDlg:handle, SB_HORZ, 1, oForm:nXOffset/10+1, 1, Round((oForm:nPWidth-(aCoors[3]-LEFT_INDENT)/oForm:nKoeff)/10, 0)+1 )
+      hwg_Setscrollinfo( oDlg:handle, SB_VERT, 1, oForm:nYOffset/10+1, 1, Round((oForm:nPHeight-(aCoors[4]-TOP_INDENT)/oForm:nKoeff)/10, 0)+1 )
 #endif
    ELSE
       IF oDesigner:nGrid > 0
@@ -951,51 +951,51 @@ Local oCtrl, aCoors, nShift
       ENDIF
    ELSEIF msg == WM_KEYUP
       wParam := hwg_PtrToUlong( wParam )
-      nShift := Iif( Asc( SubStr(hwg_GetKeyboardState( lParam ),0x12,1 ) ) >= 128,10,1 )
+      nShift := Iif( Asc( SubStr(hwg_GetKeyboardState( lParam ), 0x12, 1 ) ) >= 128, 10, 1 )
       oCtrl := GetCtrlSelected( Iif(oDlg:oParent:Classname()=="HDIALOG",oDlg:oParent,oDlg) )
       IF wParam == 40        // Down
          IF oCtrl != NIL
-            SetBDown( ,0,0,0 )
+            SetBDown( , 0, 0, 0 )
             IF oDesigner:nGrid > 0
                nShift *= oDesigner:nGrid
                IF oCtrl:nTop % oDesigner:nGrid != 0
                   nShift -= oCtrl:nTop % oDesigner:nGrid
                ENDIF
             ENDIF
-            CtrlMove( oCtrl,0,nShift,.F. )
+            CtrlMove( oCtrl, 0,nShift,.F. )
          ENDIF
       ELSEIF wParam == 38    // Up
          IF oCtrl != NIL
-            SetBDown( ,0,0,0 )
+            SetBDown( , 0, 0, 0 )
             IF oDesigner:nGrid > 0
                nShift *= oDesigner:nGrid
                IF oCtrl:nTop % oDesigner:nGrid != 0
                   nShift += ( oCtrl:nTop % oDesigner:nGrid - oDesigner:nGrid )
                ENDIF
             ENDIF
-            CtrlMove( oCtrl,0,-nShift,.F. )
+            CtrlMove( oCtrl, 0,-nShift,.F. )
          ENDIF
       ELSEIF wParam == 39    // Right
          IF oCtrl != NIL
-            SetBDown( ,0,0,0 )
+            SetBDown( , 0, 0, 0 )
             IF oDesigner:nGrid > 0
                nShift *= oDesigner:nGrid
                IF oCtrl:nLeft % oDesigner:nGrid != 0
                   nShift -= oCtrl:nLeft % oDesigner:nGrid
                ENDIF
             ENDIF
-            CtrlMove( oCtrl,nShift,0,.F. )
+            CtrlMove( oCtrl,nShift, 0,.F. )
          ENDIF
       ELSEIF wParam == 37    // Left
          IF oCtrl != NIL
-            SetBDown( ,0,0,0 )
+            SetBDown( , 0, 0, 0 )
             IF oDesigner:nGrid > 0
                nShift *= oDesigner:nGrid
                IF oCtrl:nLeft % oDesigner:nGrid != 0
                   nShift += ( oCtrl:nLeft % oDesigner:nGrid - oDesigner:nGrid )
                ENDIF
             ENDIF
-            CtrlMove( oCtrl,-nShift,0,.F. )
+            CtrlMove( oCtrl,-nShift, 0,.F. )
          ENDIF
       ENDIF
    ENDIF
@@ -1026,7 +1026,7 @@ Local aCoors, nSize, x
          ENDIF
       ENDIF
       IF x != oDlg:oParent:nYOffset
-         oPanel:Move( , - Round(oDlg:oParent:nYOffset*oDlg:oParent:nKoeff,0 ) )
+         oPanel:Move( , - Round(oDlg:oParent:nYOffset*oDlg:oParent:nKoeff, 0 ) )
          IF oDlg:oParent:nYOffset + nSize >= oDlg:oParent:nPHeight
             hwg_Redrawwindow( oDlg:handle, RDW_ERASE + RDW_INVALIDATE )
          ELSE
@@ -1053,7 +1053,7 @@ Local aCoors, nSize, x
          ENDIF
       ENDIF
       IF x != oDlg:oParent:nXOffset
-         oPanel:Move( - Round(oDlg:oParent:nXOffset*oDlg:oParent:nKoeff,0 ) )
+         oPanel:Move( - Round(oDlg:oParent:nXOffset*oDlg:oParent:nKoeff, 0 ) )
          IF oDlg:oParent:nXOffset + nSize >= oDlg:oParent:nPWidth
             hwg_Redrawwindow( oDlg:handle, RDW_ERASE + RDW_INVALIDATE )
          ELSE
@@ -1125,7 +1125,7 @@ Local oCtrl := GetCtrlSelected( oDlg ), resizeDirection, flag, i
    ELSE
       IF ( oCtrl := CtrlByPos( oDlg,xPos,yPos ) ) != NIL
          IF oCtrl:Adjust == 0 .AND. Ascan( oCtrl:aProp,{|a|Lower(a[1])=="left"} ) != 0
-            SetBDown( oCtrl,xPos,yPos,0 )
+            SetBDown( oCtrl,xPos,yPos, 0 )
          ELSE
             SetCtrlSelected( oCtrl:oParent,oCtrl )
          ENDIF
@@ -1157,7 +1157,7 @@ Local aBDown, oCtrl, oContainer, i, nLeft, aProp, j, name
             CtrlMove( oCtrl,xPos,yPos,.T. )
             Container( oDlg,oCtrl )
          ENDIF
-         SetBDown( NIL,0,0,0 )
+         SetBDown( NIL, 0, 0, 0 )
       ENDIF
    ELSE 
       oContainer := CtrlByPos( oDlg,xPos,yPos )
@@ -1173,13 +1173,13 @@ Local aBDown, oCtrl, oContainer, i, nLeft, aProp, j, name
                Adel( aProp,i )
                j ++
             ELSEIF name == "left"
-               aProp[i,2] := Ltrim(Str(Iif(oDesigner:lReport,Round(xPos/oDlg:oParent:oParent:oParent:nKoeff,1),xPos)))
+               aProp[i, 2] := Ltrim(Str(Iif(oDesigner:lReport,Round(xPos/oDlg:oParent:oParent:oParent:nKoeff, 1),xPos)))
             ELSEIF name == "top"
-               aProp[i,2] := Ltrim(Str(Iif(oDesigner:lReport,Round(yPos/oDlg:oParent:oParent:oParent:nKoeff,1),yPos)))
+               aProp[i, 2] := Ltrim(Str(Iif(oDesigner:lReport,Round(yPos/oDlg:oParent:oParent:oParent:nKoeff, 1),yPos)))
             ENDIF
             IF oDesigner:lReport
                IF name == "right" .OR. name == "bottom"
-                  aProp[i,2] := "0"
+                  aProp[i, 2] := "0"
                ENDIF
             ENDIF
          NEXT
@@ -1194,8 +1194,8 @@ Local aBDown, oCtrl, oContainer, i, nLeft, aProp, j, name
       ELSE
          IF oDesigner:lReport
             oCtrl := HControlGen():New( oDlg,oDesigner:addItem, { ;
-              { "Left",Ltrim(Str(Round(xPos/oDlg:oParent:oParent:oParent:nKoeff,1))) }, ;
-              { "Top",Ltrim(Str(Round(yPos/oDlg:oParent:oParent:oParent:nKoeff,1))) } } )
+              { "Left",Ltrim(Str(Round(xPos/oDlg:oParent:oParent:oParent:nKoeff, 1))) }, ;
+              { "Top",Ltrim(Str(Round(yPos/oDlg:oParent:oParent:oParent:nKoeff, 1))) } } )
             oCtrl:SetCoor( "Right",oCtrl:nLeft+oCtrl:nWidth-1 )
             oCtrl:SetCoor( "Bottom",oCtrl:nTop+oCtrl:nHeight-1 )
          ELSE
@@ -1406,7 +1406,7 @@ Local i, nLeft, nTop, lSorted := .T., aTabs
    IF !lSorted
       /*
       IF oDesigner:lReport
-         Asort( aControls,,, {|z,y| Round(z:nTop/oForm:nKoeff,1)*10000+Round(z:nLeft/oForm:nKoeff,1) < Round(y:nTop/oForm:nKoeff,1)*10000+Round(y:nLeft/oForm:nKoeff,1) } )
+         Asort( aControls,,, {|z,y| Round(z:nTop/oForm:nKoeff, 1)*10000+Round(z:nLeft/oForm:nKoeff, 1) < Round(y:nTop/oForm:nKoeff, 1)*10000+Round(y:nLeft/oForm:nKoeff, 1) } )
       ELSE
       */
       Asort( aControls,,, {|z,y| z:nTop*10000+z:nLeft < y:nTop*10000+y:nLeft } )

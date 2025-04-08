@@ -57,7 +57,7 @@ METHOD HControl:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bIn
 
    ::oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id := IIf(nId == NIL, ::NewId(), nId)
-   ::style := hb_bitor( IIf(nStyle == NIL,0,nStyle ), WS_VISIBLE + WS_CHILD)
+   ::style := hb_bitor( IIf(nStyle == NIL, 0,nStyle ), WS_VISIBLE + WS_CHILD)
    ::oFont := oFont
    ::nX := nX
    ::nY := nY

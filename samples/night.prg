@@ -83,13 +83,13 @@ ENDIF
 	 
 IF inilNightDesign	 
 
-   @ 140,260 OWNERBUTTON SIZE 100,32 TEXT "Close" COLOR 0xffffff ;
+   @ 140, 260 OWNERBUTTON SIZE 100, 32 TEXT "Close" COLOR 0xffffff ;
          HSTYLES oStyleNormal, oStylePressed, oStyleOver ;
          ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS ;
          ON CLICK {|| oDlg:Close()}
 ELSE
 
-  @ 140,260 BUTTON oButton CAPTION "Close" SIZE 100,32 ;
+  @ 140, 260 BUTTON oButton CAPTION "Close" SIZE 100, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| oDlg:Close()}
 ENDIF		 
@@ -143,8 +143,8 @@ ENDIF
      * For you to do at your own needs : change colors of browse, 
      * see sample program "colrbloc.prg"
 
-     @ 21,50 BROWSE oBrwArr ARRAY ;
-             STYLE WS_VSCROLL + WS_HSCROLL   SIZE 100,170
+     @ 21, 50 BROWSE oBrwArr ARRAY ;
+             STYLE WS_VSCROLL + WS_HSCROLL   SIZE 100, 170
 
 	/* See arraybrowse.prg */		 
       hwg_CREATEARLIST(oBrwArr,al_DOKs)
@@ -157,13 +157,13 @@ ENDIF
 	 
 IF inilNightDesign
 
-   @ 200,260 OWNERBUTTON SIZE 100,32 TEXT "Close" COLOR 0xffffff ;
+   @ 200, 260 OWNERBUTTON SIZE 100, 32 TEXT "Close" COLOR 0xffffff ;
          HSTYLES oStyleNormal, oStylePressed, oStyleOver ;
           ON CLICK {|| oDlg:Close(oDlg) }
           
 *         ON SIZE ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS ;
 
-   @ 39,260 OWNERBUTTON SIZE 100,64 TEXT "Change header text" COLOR 0xffffff ;
+   @ 39, 260 OWNERBUTTON SIZE 100, 64 TEXT "Change header text" COLOR 0xffffff ;
          HSTYLES oStyleNormal, oStylePressed, oStyleOver ;
          ON CLICK {|| ChangeHeader(oPanel,.T.) }
          
@@ -171,10 +171,10 @@ IF inilNightDesign
        
 ELSE
 
-  @ 240,260 BUTTON oButton CAPTION "Close" SIZE 100,32 ;
+  @ 240, 260 BUTTON oButton CAPTION "Close" SIZE 100, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| oDlg:Close() }
-  @ 39,260 BUTTON oButton2 CAPTION "Change header text" SIZE 200,32 ;
+  @ 39, 260 BUTTON oButton2 CAPTION "Change header text" SIZE 200, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| ChangeHeader(oDlg,.F.) }
 ENDIF		 

@@ -24,7 +24,7 @@ LOCAL oMain
    mmemofield := ""
 
        INIT WINDOW oMain MAIN TITLE "File Viewer" ;
-             AT 0,0 ;
+             AT 0, 0 ;
              SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
                 MENU OF oMain

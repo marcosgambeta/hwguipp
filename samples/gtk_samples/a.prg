@@ -25,12 +25,12 @@ Private oBmp2
   ncolor := NIL
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" ;
-     AT 200,0 SIZE 400,150
+     AT 200, 0 SIZE 400, 150
      
-   @ 0,0 PANEL oPanel SIZE 0,32
-   @ 2,3 OWNERBUTTON OF oPanel ON CLICK {||FileOpen()} ;
-   SIZE 32,26 FLAT ;
-   BITMAP cImageDir+"new.bmp" TRANSPARENT COLOR 12632256 COORDINATES 0,4,0,0 ;
+   @ 0, 0 PANEL oPanel SIZE 0, 32
+   @ 2, 3 OWNERBUTTON OF oPanel ON CLICK {||FileOpen()} ;
+   SIZE 32, 26 FLAT ;
+   BITMAP cImageDir+"new.bmp" TRANSPARENT COLOR 12632256 COORDINATES 0, 4, 0, 0 ;
    TOOLTIP "Open File"
 
    MENU OF oMainWindow
@@ -86,7 +86,7 @@ fname := hwg_Selectfile("Dbf Files" , "*.dbf", mypath )
       nId := 111
 
       INIT DIALOG oModDlg TITLE "1"                    ;
-            AT 210,10  SIZE 500,300                    ;
+            AT 210, 10  SIZE 500, 300                    ;
             ON INIT {|o|hwg_Setwindowtext(o:handle,fname)} ;
             ON EXIT {|o|Fileclose(o)}
 /*
@@ -95,8 +95,8 @@ fname := hwg_Selectfile("Dbf Files" , "*.dbf", mypath )
          MENUITEM "&Exit" ACTION hwg_EndDialog( oModDlg:handle )
       ENDMENU
 */
-      @ 0,0 BROWSE oBrw DATABASE OF oModDlg ID nId ;
-            SIZE 500,300                           ;
+      @ 0, 0 BROWSE oBrw DATABASE OF oModDlg ID nId ;
+            SIZE 500, 300                           ;
             STYLE WS_VSCROLL + WS_HSCROLL          ;
             ON SIZE {|o,x,y|o:Move(,,x,y)}         ;
             ON GETFOCUS {|o|dbSelectArea(o:alias)}
@@ -132,52 +132,52 @@ return NIL
 
 Function DialogFromPrg()
 Local cTitle := "Dialog from prg", cText := "Input something"
-Local oModDlg, oFont := HFont():Add( "Serif",0,-13 ), oTab
+Local oModDlg, oFont := HFont():Add( "Serif", 0,-13 ), oTab
 Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
 
-   hwg_CheckMenuItem( ,1001, !hwg_IsCheckedMenuItem( ,1001 ) )
+   hwg_CheckMenuItem( , 1001, !hwg_IsCheckedMenuItem( , 1001 ) )
    
    INIT DIALOG oModDlg TITLE cTitle           ;
-   AT 210,10  SIZE 300,300                    ;
+   AT 210, 10  SIZE 300, 300                    ;
    FONT oFont                                 ;
    ON EXIT {||hwg_Msgyesno("Really exit ?")}
 
-   @ 20,10 SAY cText SIZE 260, 22
-   @ 20,35 EDITBOX oEdit CAPTION ""    ;
+   @ 20, 10 SAY cText SIZE 260, 22
+   @ 20, 35 EDITBOX oEdit CAPTION ""    ;
         STYLE WS_DLGFRAME              ;
         SIZE 260, 26 COLOR 0xFF0000
 
-   @ 20,70 CHECKBOX "Check 1" SIZE 90, 20
-   @ 20,95 CHECKBOX "Check 2"  ;
-        SIZE 90, 20 COLOR Iif( nColor==NIL,0x0000FF,nColor )
+   @ 20, 70 CHECKBOX "Check 1" SIZE 90, 20
+   @ 20, 95 CHECKBOX "Check 2"  ;
+        SIZE 90, 20 COLOR Iif( nColor==NIL, 0x0000FF,nColor )
 
-   @ 160,70 GROUPBOX "RadioGroup"  SIZE 130, 75
+   @ 160, 70 GROUPBOX "RadioGroup"  SIZE 130, 75
 
    RADIOGROUP
-   @ 180,90 RADIOBUTTON "Radio 1"  ;
+   @ 180, 90 RADIOBUTTON "Radio 1"  ;
         SIZE 90, 20 ON CLICK {||oEdit:SetColor(0x0000FF,,.T.)}
-   @ 180,115 RADIOBUTTON "Radio 2" ;
+   @ 180, 115 RADIOBUTTON "Radio 2" ;
         SIZE 90, 20 ON CLICK {||oEdit:SetColor(0xFF0000,,.T.)}
    END RADIOGROUP SELECTED 2
 
-   @ 20,120 COMBOBOX aCombo STYLE WS_TABSTOP ;
+   @ 20, 120 COMBOBOX aCombo STYLE WS_TABSTOP ;
         SIZE 100, 25
 
-   @ 20,160 UPDOWN 10 RANGE -10,50 SIZE 50,32 STYLE WS_BORDER
+   @ 20, 160 UPDOWN 10 RANGE -10, 50 SIZE 50, 32 STYLE WS_BORDER
 
-   @ 160,160 TAB oTab ITEMS {} SIZE 130,56
+   @ 160, 160 TAB oTab ITEMS {} SIZE 130, 56
    BEGIN PAGE "Monday" OF oTab
-      @ 20,10 GET vard SIZE 80,22 STYLE WS_BORDER
+      @ 20, 10 GET vard SIZE 80, 22 STYLE WS_BORDER
    END PAGE OF oTab
    BEGIN PAGE "Tuesday" OF oTab
-      @ 20,10 EDITBOX "" SIZE 80,22 STYLE WS_BORDER
+      @ 20, 10 EDITBOX "" SIZE 80, 22 STYLE WS_BORDER
    END PAGE OF oTab
 
-   @ 100,220 LINE LENGTH 100
+   @ 100, 220 LINE LENGTH 100
 
-   @ 20,240 BUTTON "Ok" OF oModDlg ID IDOK  ;
+   @ 20, 240 BUTTON "Ok" OF oModDlg ID IDOK  ;
         SIZE 100, 32 COLOR 0xFF0000
-   @ 180,240 BUTTON "Cancel" OF oModDlg ID IDCANCEL  ;
+   @ 180, 240 BUTTON "Cancel" OF oModDlg ID IDCANCEL  ;
         SIZE 100, 32
 
    ACTIVATE DIALOG oModDlg
@@ -202,8 +202,8 @@ BEGIN PAGE "Page 01" of oTab
 
   @ 30, 60 Get oGet1 VAR oVar1 SIZE 100, 26
   @ 30, 90 Get oGet2 VAR oVar2 SIZE 100, 26
-  @ 30,120 Get oGet3 VAR oVar3 SIZE 100, 26
-  @ 30,150 Get oGet4 VAR oVar4 SIZE 100, 26
+  @ 30, 120 Get oGet3 VAR oVar3 SIZE 100, 26
+  @ 30, 150 Get oGet4 VAR oVar4 SIZE 100, 26
 
 END PAGE of oTab
 
@@ -225,19 +225,19 @@ Local oPrinter, oFont
       Return NIL         
    ENDIF            
                               
-   oFont := oPrinter:AddFont( "sans",10 )
+   oFont := oPrinter:AddFont( "sans", 10 )
                   
    oPrinter:StartDoc()
    oPrinter:StartPage()
    oPrinter:SetFont( oFont )
-   oPrinter:Box( 5,5,oPrinter:nWidth-5,oPrinter:nHeight-5 )
-   oPrinter:Say( "Windows printing first sample !", 50,10,165,26,DT_CENTER,oFont  )
-   oPrinter:Line( 45,30,170,30 )
-   oPrinter:Line( 45,5,45,30 )
-   oPrinter:Line( 170,5,170,30 )
-   oPrinter:Say( "----------", 50,120,150,132,DT_CENTER  )
-   oPrinter:Box( 50,134,160,146 )
-   oPrinter:Say( "End Of Report", 50,135,160,146,DT_CENTER  )
+   oPrinter:Box( 5, 5,oPrinter:nWidth-5,oPrinter:nHeight-5 )
+   oPrinter:Say( "Windows printing first sample !", 50, 10, 165, 26,DT_CENTER,oFont  )
+   oPrinter:Line( 45, 30, 170, 30 )
+   oPrinter:Line( 45, 5, 45, 30 )
+   oPrinter:Line( 170, 5, 170, 30 )
+   oPrinter:Say( "----------", 50, 120, 150, 132,DT_CENTER  )
+   oPrinter:Box( 50, 134, 160, 146 )
+   oPrinter:Say( "End Of Report", 50, 135, 160, 146,DT_CENTER  )
    oPrinter:EndPage()
    oPrinter:EndDoc()
    oPrinter:Preview()

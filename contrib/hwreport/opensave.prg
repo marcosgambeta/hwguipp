@@ -109,12 +109,12 @@ STATIC FUNCTION EndOpen(lOpen)
          IF ( res := OpenFile( fname,@repName ) )
             aPaintRep[FORM_Y] := 0
             hwg_Enablemenuitem( ,IDM_VIEW1, .T., .T. )
-            hwg_Enablemenuitem( ,1, .T., .F. )
+            hwg_Enablemenuitem( , 1, .T., .F. )
             Hwindow():GetMain():Refresh()
          ELSE
             aPaintRep := NIL
             hwg_Enablemenuitem( ,IDM_VIEW1, .F., .T. )
-            hwg_Enablemenuitem( ,1, .F., .F. )
+            hwg_Enablemenuitem( , 1, .F., .F. )
          ENDIF
       ELSE
          res := SaveRFile( fname, repName )
