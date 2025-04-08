@@ -26,9 +26,9 @@ EXTERNAL HB_CODEPAGE_RU866, HB_CODEPAGE_RU1251, HB_CODEPAGE_RUKOI8, HB_CODEPAGE_
 EXTERNAL HB_HKEYS
 
 #ifndef __PLATFORM__WINDOWS
-#define DIR_SEP         '/'
+#define DIR_SEP         "/"
 #else
-#define DIR_SEP         '\'
+#define DIR_SEP         "\"
 #endif
 
 STATIC cHwg_include_dir, cHrb_inc_dir, cMod_Dir

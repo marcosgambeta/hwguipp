@@ -49,10 +49,10 @@ Local oBtSave
 Private cDirec:=DiskName()+":\"+CurDir()+"\"
 
 If !File(cDirec+"hwmake.ini")
-  Hwg_WriteIni( 'Config', 'Dir_HwGUI', "C:\HwGUI", cDirec+"hwmake.ini" )
-  Hwg_WriteIni( 'Config', 'Dir_HARBOUR', "C:\xHARBOUR", cDirec+"hwmake.ini" )
-  Hwg_WriteIni( 'Config', 'Dir_BCC55', "C:\BCC55", cDirec+"hwmake.ini" )
-  Hwg_WriteIni( 'Config', 'Dir_OBJ', "OBJ", cDirec+"hwmake.ini" )
+  Hwg_WriteIni( "Config", "Dir_HwGUI", "C:\HwGUI", cDirec+"hwmake.ini" )
+  Hwg_WriteIni( "Config", "Dir_HARBOUR", "C:\xHARBOUR", cDirec+"hwmake.ini" )
+  Hwg_WriteIni( "Config", "Dir_BCC55", "C:\BCC55", cDirec+"hwmake.ini" )
+  Hwg_WriteIni( "Config", "Dir_OBJ", "OBJ", cDirec+"hwmake.ini" )
 EndIf
 
 Private oImgNew  := hbitmap():addResource("NEW")
@@ -214,15 +214,15 @@ if empty(cFolderFile)
    Return NIL
 Endif
 oStatus:SetTextPanel(1,cFolderFile)      
-oExeName:SetText( Hwg_GetIni( 'Config', 'ExeName' , , cFolderFile ))
-oLibFolder:SetText(Hwg_GetIni( 'Config', 'LibFolder' , , cFolderFile ))
-oIncFolder:SetText(Hwg_GetIni( 'Config', 'IncludeFolder' , , cFolderFile ))
-oPrgFlag:SetText(Hwg_GetIni( 'Config', 'PrgFlags' , , cFolderFile ))
-oCFlag:SetText(Hwg_GetIni( 'Config', 'CFlags' , , cFolderFile ))
-oMainPrg:SetText(Hwg_GetIni( 'Config', 'PrgMain' , , cFolderFile ))
+oExeName:SetText( Hwg_GetIni( "Config", "ExeName" , , cFolderFile ))
+oLibFolder:SetText(Hwg_GetIni( "Config", "LibFolder" , , cFolderFile ))
+oIncFolder:SetText(Hwg_GetIni( "Config", "IncludeFolder" , , cFolderFile ))
+oPrgFlag:SetText(Hwg_GetIni( "Config", "PrgFlags" , , cFolderFile ))
+oCFlag:SetText(Hwg_GetIni( "Config", "CFlags" , , cFolderFile ))
+oMainPrg:SetText(Hwg_GetIni( "Config", "PrgMain" , , cFolderFile ))
 
 For i:=1 to 300
-    oSel1:=Hwg_GetIni( 'FilesPRG', Alltrim(Str(i)) , , cFolderFile )
+    oSel1:=Hwg_GetIni( "FilesPRG", Alltrim(Str(i)) , , cFolderFile )
     if !empty(oSel1) //.or. oSel1#NIL
         AADD(oBr1, oSel1)
     EndIf
@@ -230,21 +230,21 @@ Next
     
   
 For i:=1 to 300
-    oSel2:=Hwg_GetIni( 'FilesC', Alltrim(Str(i)) , , cFolderFile )
+    oSel2:=Hwg_GetIni( "FilesC", Alltrim(Str(i)) , , cFolderFile )
     if !empty(oSel2) //.or. oSel2#NIL
         AADD(oBr2, oSel2)
     EndIf
 Next
 
 For i:=1 to 300
-    oSel3:=Hwg_GetIni( 'FilesLIB', Alltrim(Str(i)) , , cFolderFile )
+    oSel3:=Hwg_GetIni( "FilesLIB", Alltrim(Str(i)) , , cFolderFile )
     if !empty(oSel3) //.or. oSel3#NIL
         AADD(oBr3, oSel3)
     EndIf
 Next
 
 For i:=1 to 300
-    oSel4:=Hwg_GetIni( 'FilesRES', Alltrim(Str(i)) , , cFolderFile )
+    oSel4:=Hwg_GetIni( "FilesRES", Alltrim(Str(i)) , , cFolderFile )
     if !empty(oSel4) //.or. oSel4#NIL
         AADD(oBr4, oSel4)
     EndIf
@@ -319,12 +319,12 @@ if file(cFolderFile)
      Return NIL
    EndIf
 EndIf     
-Hwg_WriteIni( 'Config', 'ExeName'       ,oExeName:GetText(), cFolderFile )
-Hwg_WriteIni( 'Config', 'LibFolder'     ,oLibFolder:GetText(), cFolderFile )
-Hwg_WriteIni( 'Config', 'IncludeFolder' ,oIncFolder:GetText(), cFolderFile )
-Hwg_WriteIni( 'Config', 'PrgFlags'      ,oPrgFlag:GetText(), cFolderFile )
-Hwg_WriteIni( 'Config', 'CFlags'        ,oCFlag:GetText(), cFolderFile )
-Hwg_WriteIni( 'Config', 'PrgMain'       ,oMainPrg:GetText(), cFolderFile )
+Hwg_WriteIni( "Config", "ExeName"       ,oExeName:GetText(), cFolderFile )
+Hwg_WriteIni( "Config", "LibFolder"     ,oLibFolder:GetText(), cFolderFile )
+Hwg_WriteIni( "Config", "IncludeFolder" ,oIncFolder:GetText(), cFolderFile )
+Hwg_WriteIni( "Config", "PrgFlags"      ,oPrgFlag:GetText(), cFolderFile )
+Hwg_WriteIni( "Config", "CFlags"        ,oCFlag:GetText(), cFolderFile )
+Hwg_WriteIni( "Config", "PrgMain"       ,oMainPrg:GetText(), cFolderFile )
 oNome:=""
 
 if Len(oBrowse1:aArray)>=1
@@ -332,7 +332,7 @@ if Len(oBrowse1:aArray)>=1
 
       if !empty(oBrowse1:aArray[i])
  
-         Hwg_WriteIni( 'FilesPRG', Alltrim(Str(i)),oBrowse1:aArray[i], cFolderFile )
+         Hwg_WriteIni( "FilesPRG", Alltrim(Str(i)),oBrowse1:aArray[i], cFolderFile )
    
       EndIf    
       
@@ -343,7 +343,7 @@ endif
 if Len(oBrowse2:aArray)>=1
    for i:=1 to Len(oBrowse2:aArray)
       if !empty(oBrowse2:aArray[i])
-         Hwg_WriteIni( 'FilesC', Alltrim(Str(i)),oBrowse2:aArray[i], cFolderFile )
+         Hwg_WriteIni( "FilesC", Alltrim(Str(i)),oBrowse2:aArray[i], cFolderFile )
      endif    
    Next     
 endif
@@ -351,7 +351,7 @@ endif
 if Len(oBrowse3:aArray)>=1
    for i:=1 to Len(oBrowse3:aArray)
       if !empty(oBrowse3:aArray[i])
-         Hwg_WriteIni( 'FilesLIB', Alltrim(Str(i)),oBrowse3:aArray[i], cFolderFile )
+         Hwg_WriteIni( "FilesLIB", Alltrim(Str(i)),oBrowse3:aArray[i], cFolderFile )
       endif   
    Next     
 endif   
@@ -359,7 +359,7 @@ endif
 if Len(oBrowse4:aArray)>=1
    for i:=1 to Len(oBrowse4:aArray)
       if !empty(oBrowse4:aArray[i])
-         Hwg_WriteIni( 'FilesRES', Alltrim(Str(i)),oBrowse4:aArray[i], cFolderFile )
+         Hwg_WriteIni( "FilesRES", Alltrim(Str(i)),oBrowse4:aArray[i], cFolderFile )
      endif   
    Next     
 endif   
@@ -400,10 +400,10 @@ If !Empty(cPathFile)
 EndIF   
 
 If File(cDirec+"hwmake.Ini")
-   cHwGUI  := lower(alltrim(Hwg_GetIni( 'Config', 'DIR_HwGUI'   , , cDirec+"hwmake.Ini" )))
-   cHarbour:= lower(alltrim(Hwg_GetIni( 'Config', 'DIR_HARBOUR' , , cDirec+"hwmake.Ini")))
-   cBCC55  := lower(alltrim(Hwg_GetIni( 'Config', 'DIR_BCC55'   , , cDirec+"hwmake.Ini" )))
-   cObj    := lower(alltrim(Hwg_GetIni( 'Config', 'DIR_OBJ'     , , cDirec+"hwmake.Ini" )))
+   cHwGUI  := lower(alltrim(Hwg_GetIni( "Config", "DIR_HwGUI"   , , cDirec+"hwmake.Ini" )))
+   cHarbour:= lower(alltrim(Hwg_GetIni( "Config", "DIR_HARBOUR" , , cDirec+"hwmake.Ini")))
+   cBCC55  := lower(alltrim(Hwg_GetIni( "Config", "DIR_BCC55"   , , cDirec+"hwmake.Ini" )))
+   cObj    := lower(alltrim(Hwg_GetIni( "Config", "DIR_OBJ"     , , cDirec+"hwmake.Ini" )))
 Else 
    cHwGUI  :="c:\hwgui"
    cHarbour:="c:\xharbour"
@@ -453,7 +453,7 @@ For Each i in oBrowse1:aArray
   
          cErrText := Memoread(cLogErro) 
        
-         lEnd     := 'C2006' $ cErrText .OR. 'No code generated' $ cErrText .or. "Error E" $ cErrText .or. "Error F" $ cErrText
+         lEnd     := "C2006" $ cErrText .OR. "No code generated" $ cErrText .or. "Error E" $ cErrText .or. "Error F" $ cErrText
          If lEnd
             ErrorPreview( Memoread(cLogErro) )
             Return NIL

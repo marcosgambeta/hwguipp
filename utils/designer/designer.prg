@@ -28,9 +28,9 @@
 #endif
 
 #ifdef __PLATFORM__WINDOWS
-   #define DIR_SEP  '\'
+   #define DIR_SEP  "\"
 #else
-   #define DIR_SEP  '/'
+   #define DIR_SEP  "/"
 #endif   
 
 REQUEST DBCREATE, DBUSEAREA, DBCREATEINDEX, DBSEEK, HB_ATOKENS, HB_FNAMENAME, HB_FNAMEDIR

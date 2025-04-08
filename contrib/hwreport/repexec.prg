@@ -73,7 +73,7 @@ FUNCTION hwg_hwr_Open(fname, repName)
                   ENDIF
                ENDIF
             ELSE
-               aLine := hb_ATokens( stroka, ';' )
+               aLine := hb_ATokens( stroka, ";" )
                IF ( itemName := aLine[1] ) == "FORM"
                   aPaintRep[ FORM_WIDTH ] := Val( aLine[2] )
                   aPaintRep[ FORM_HEIGHT ] := Val( aLine[3] )
@@ -164,13 +164,13 @@ FUNCTION hwg_Hwr_AddItem( aPaintRep, nType, cCaption, nLeft, nTop, nWidth, nHeig
    AAdd(aPaintRep[FORM_ITEMS], aItem := {nType, cCaption, nLeft, nTop, nWidth, nHeight, nAlign, cPen, cFont, nVarType, 0, NIL, 0})
 
    IF !Empty(aItem[ ITEM_FONT ]) .AND. HB_ISCHAR(aItem[ITEM_FONT])
-      arr := hb_ATokens( aItem[ ITEM_FONT ], ',' )
+      arr := hb_ATokens( aItem[ ITEM_FONT ], "," )
       aItem[ ITEM_FONT ] := HFont():Add(arr[1], ;
          Val( arr[2] ), Val( arr[3] ), Val( arr[4] ), Val( arr[5] ), ;
          Val( arr[6] ), Val( arr[7] ), Val( arr[8] ))
    ENDIF
    IF !Empty(aItem[ ITEM_PEN ]) .AND. HB_ISCHAR(aItem[ITEM_PEN])
-      arr := hb_ATokens( aItem[ ITEM_PEN ], ',' )
+      arr := hb_ATokens( aItem[ ITEM_PEN ], "," )
       aItem[ ITEM_PEN ] := HPen():Add( Val( arr[1] ), Val( arr[2]), Val( arr[3] ) )
    ENDIF
    IF aItem[ITEM_TYPE] == TYPE_BITMAP

@@ -122,7 +122,7 @@ METHOD HXMLNode:Save(handle, level)
    ENDIF
    IF ::type == HBXML_TYPE_TAG .OR. ::type == HBXML_TYPE_SINGLE
       FOR i := 1 TO Len(::aAttr)
-         //s += ' ' + ::aAttr[i, 1] + '="' + HBXML_PreSave(::aAttr[i, 2]) + '"'
+         //s += " " + ::aAttr[i, 1] + '="' + HBXML_PreSave(::aAttr[i, 2]) + '"'
          s += " " + ::aAttr[i, 1] + "=" + Chr(34) + ::aAttr[i, 2] + Chr(34)
       NEXT i
    ENDIF

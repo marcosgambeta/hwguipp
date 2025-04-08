@@ -77,7 +77,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
       s_oBrwScript:aArray := aScript[3]
 #ifdef __GTK__
       s_oBrwScript:rowCount := 5
-      s_oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),IIf(o:nCurrent==s_i_scr,'>',IIf(s_aBreakPoints!=NIL.AND.Ascan(s_aBreakPoints[2],s_oBrwScript:nCurrent)!=0,'*',' '))},"C", 1, 0))
+      s_oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),IIf(o:nCurrent==s_i_scr,">",IIf(s_aBreakPoints!=NIL.AND.Ascan(s_aBreakPoints[2],s_oBrwScript:nCurrent)!=0,"*"," "))},"C", 1, 0))
 #else
       s_oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),IIf(o:nCurrent==s_i_scr, 1,IIf(s_aBreakPoints!=NIL.AND.Ascan(s_aBreakPoints[2],s_oBrwScript:nCurrent)!=0, 2, 0))},"N", 1, 0))
       s_oBrwScript:aColumns[1]:aBitmaps := { { {|n|n==1},s_oBmpCurr },{ {|n|n==2},s_oBmpPoint } }

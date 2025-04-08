@@ -1406,7 +1406,7 @@ METHOD HCEdit:onKeyDown(nKeyCode, lParam, nCtrl)
             ENDIF
          ENDIF
          ::SetCaretPos(SETC_RIGHT)
-         IF hced_SubStr(Self, ::aText[::aPointC[P_Y]], ::nPosF + ::nPosC - 1, 1) == ' '
+         IF hced_SubStr(Self, ::aText[::aPointC[P_Y]], ::nPosF + ::nPosC - 1, 1) == " "
             l := .T.
          ELSEIF l
             EXIT
@@ -1433,7 +1433,7 @@ METHOD HCEdit:onKeyDown(nKeyCode, lParam, nCtrl)
             ::Paint(.F.)
             lInvAll := .T.
          ENDIF
-         IF hced_SubStr(Self, ::aText[::aPointC[P_Y]], ::nPosF + ::nPosC - 1, 1) == ' '
+         IF hced_SubStr(Self, ::aText[::aPointC[P_Y]], ::nPosF + ::nPosC - 1, 1) == " "
             l := .T.
          ELSEIF l
             IF ntmp2 < ntmp1

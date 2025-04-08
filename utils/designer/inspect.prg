@@ -565,8 +565,8 @@ FUNCTION SelectStyle( oStyle )
    LOCAL bAddClr := {||
       LOCAL nColor := Hwg_ChooseColor(), cVal := Trim(oGet1:Value)
       IF nColor != NIL
-         oGet1:Value := cVal + Iif(!Empty(cVal).AND.Right(cVal, 1)!= ',',',',"") + '#' + hwg_ColorN2C(nColor)
-         oDemoStyle:aColors := hb_ATokens( AllTrim(cColors),',' )
+         oGet1:Value := cVal + Iif(!Empty(cVal).AND.Right(cVal, 1)!= ",",",","") + "#" + hwg_ColorN2C(nColor)
+         oDemoStyle:aColors := hb_ATokens( AllTrim(cColors),"," )
          Cnv_aColors( oDemoStyle:aColors )
          Demo( oDemo, oDemoStyle )
       ENDIF
@@ -582,7 +582,7 @@ FUNCTION SelectStyle( oStyle )
       IF Empty(cColors)
          oDemoStyle:aColors := NIL
       ELSE
-         oDemoStyle:aColors := hb_ATokens( AllTrim(cColors),',' )
+         oDemoStyle:aColors := hb_ATokens( AllTrim(cColors),"," )
          Cnv_aColors( oDemoStyle:aColors )
       ENDIF
       Demo( oDemo, oDemoStyle )
@@ -690,7 +690,7 @@ FUNCTION SelectStyle( oStyle )
 
    IF oDlg:lResult
       IF !Empty(cColors)
-         aColors := hb_ATokens( AllTrim(cColors),',' )
+         aColors := hb_ATokens( AllTrim(cColors),"," )
          Cnv_aColors( aColors )
          IF aCorners != NIL .AND. aCorners[1] == 0 .AND. aCorners[2] == 0 .AND. aCorners[3] == 0 .AND. aCorners[4] == 0
             aCorners := NIL
@@ -704,7 +704,7 @@ FUNCTION SelectStyle( oStyle )
 STATIC FUNCTION Cnv_aColors( aColors )
    LOCAL i
    FOR i := 1 TO Len(aColors)
-      IF Left(aColors[i], 1) == '#'
+      IF Left(aColors[i], 1) == "#"
          aColors[i] := hwg_ColorC2N( aColors[i] )
       ELSEIF IsDigit( Left(aColors[i], 1) )
          aColors[i] := Val(aColors[i])

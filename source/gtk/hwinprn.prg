@@ -235,7 +235,7 @@ METHOD HWinPrn:SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineM
 
          oFont := ::oPrinter:AddFont( cFont, ::nStdHeight * ::oPrinter:nVRes )
 
-         nWidth := ::oPrinter:GetTextWidth(Replicate('A', IIf(::nFormType == 8, 113, 80)), oFont) / ::oPrinter:nHRes
+         nWidth := ::oPrinter:GetTextWidth(Replicate("A", IIf(::nFormType == 8, 113, 80)), oFont) / ::oPrinter:nHRes
          IF nWidth > nPWidth + 2 .OR. nWidth < nPWidth - 15
             ::nStdHeight := ::nStdHeight * ( nPWidth / nWidth )
          ENDIF
@@ -598,18 +598,18 @@ METHOD HWinPrn:PrintText( cText )
 METHOD HWinPrn:PutCode( cLine )
 
    STATIC aCodes := {   ;
-          { Chr(27) + '@', .f., .f., 6, .f., .f., .f. },  ;     /* Reset */
-          { Chr(27) + 'M', .t.,,,,, },  ;     /* Elite */
+          { Chr(27) + "@", .f., .f., 6, .f., .f., .f. },  ;     /* Reset */
+          { Chr(27) + "M", .t.,,,,, },  ;     /* Elite */
           { Chr(15),, .t.,,,, },      ;     /* Cond */
           { Chr(18),, .f.,,,, },      ;     /* Cancel Cond */
-          { Chr(27) + '0',,, 8,,, },    ;     /* 8 lines per inch */
-          { Chr(27) + '2',,, 6,,, },    ;     /* 6 lines per inch ( standard ) */
-          { Chr(27) + '-1',,,,,, .t. }, ;     /* underline */
-          { Chr(27) + '-0',,,,,, .f. }, ;     /* cancel underline */
-          { Chr(27) + '4',,,,, .t., },  ;     /* italic */
-          { Chr(27) + '5',,,,, .f., },  ;     /* cancel italic */
-          { Chr(27) + 'G',,,, .t.,, },  ;     /* bold */
-          { Chr(27) + 'H',,,, .f.,, }   ;     /* cancel bold */
+          { Chr(27) + "0",,, 8,,, },    ;     /* 8 lines per inch */
+          { Chr(27) + "2",,, 6,,, },    ;     /* 6 lines per inch ( standard ) */
+          { Chr(27) + "-1",,,,,, .t. }, ;     /* underline */
+          { Chr(27) + "-0",,,,,, .f. }, ;     /* cancel underline */
+          { Chr(27) + "4",,,,, .t., },  ;     /* italic */
+          { Chr(27) + "5",,,,, .f., },  ;     /* cancel italic */
+          { Chr(27) + "G",,,, .t.,, },  ;     /* bold */
+          { Chr(27) + "H",,,, .f.,, }   ;     /* cancel bold */
         }
 
    LOCAL i

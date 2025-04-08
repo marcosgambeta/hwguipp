@@ -157,7 +157,7 @@ Local oIni, oMod, oNode, i, nPos
             ::cMcomm1 := Trim(Left(::cMcomm1,nPos - 1))
          ENDIF
       ENDIF
-      IF Valtype( lCase ) == 'L'
+      IF Valtype( lCase ) == "L"
          ::lCase := lCase
       ENDIF
    ENDIF

@@ -62,9 +62,9 @@ REQUEST HB_CODEPAGE_UTF8
 #define HILIGHT_COMM    4
 
 #ifndef __PLATFORM__WINDOWS
-#define DIR_SEP         '/'
+#define DIR_SEP         "/"
 #else
-#define DIR_SEP         '\'
+#define DIR_SEP         "\"
 #endif
 
 STATIC oIni
@@ -169,10 +169,10 @@ STATIC FUNCTION ReadIni()
       NEXT
    ENDIF
 #ifndef __PLATFORM__WINDOWS
-   cHwg_image_dir := StrTran( cHwg_image_dir, '\', '/' )
-   cHwg_include_dir := StrTran( cHwg_include_dir, '\', '/' )
-   cHrb_inc_dir := StrTran( cHrb_inc_dir, '\', '/' )
-   cHrb_bin_dir := StrTran( cHrb_bin_dir, '\', '/' )
+   cHwg_image_dir := StrTran( cHwg_image_dir, "\", "/" )
+   cHwg_include_dir := StrTran( cHwg_include_dir, "\", "/" )
+   cHrb_inc_dir := StrTran( cHrb_inc_dir, "\", "/" )
+   cHrb_bin_dir := StrTran( cHrb_bin_dir, "\", "/" )
 #endif
 
    IF !File( cHwg_include_dir + DIR_SEP + "hwgui.ch" )

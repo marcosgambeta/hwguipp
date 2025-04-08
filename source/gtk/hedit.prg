@@ -389,13 +389,13 @@ METHOD HEdit:ParsePict( cPicture, vari )
 
    IF Empty(::cPicMask)
       IF ::cType == "D"
-         ::cPicMask := StrTran( Dtoc( CToD( Space(8 ) ) ), ' ', '9' )
+         ::cPicMask := StrTran( Dtoc( CToD( Space(8 ) ) ), " ", "9" )
       ELSEIF ::cType == "N"
          vari := Str(vari)
          IF ( nAt := At(".", vari) ) > 0
-            ::cPicMask := Replicate('9', nAt - 1) + "." + Replicate('9', Len(vari) - nAt)
+            ::cPicMask := Replicate("9", nAt - 1) + "." + Replicate("9", Len(vari) - nAt)
          ELSE
-            ::cPicMask := Replicate('9', Len(vari))
+            ::cPicMask := Replicate("9", Len(vari))
          ENDIF
       ENDIF
    ENDIF

@@ -104,7 +104,7 @@ STATIC FUNCTION PreProc( s )
 
    LOCAL cRes := "", nPos1 := 1, nPos2, c, cTemp
 
-   DO WHILE Substr(s, nPos1, 1) <= ' '
+   DO WHILE Substr(s, nPos1, 1) <= " "
       nPos1 ++
    ENDDO
    DO WHILE ( nPos2 := hb_At("$", s, nPos1) ) > 0        
@@ -127,17 +127,17 @@ STATIC FUNCTION PreProc( s )
          ELSE
             cRes += "Z(" + Iif( c=="C","","," ) + Substr(s, nPos2 - 1, nPos1 - nPos2 + 1) + ")"
          ENDIF
-      ELSEIF c == 'M'
+      ELSEIF c == "M"
          nPos1 := nPos2 + 2
          cTemp := ""
          DO WHILE !( (c := Substr(s,nPos1, 1)) $ " :=!<>+-*/%,") .AND. !(c $ ceol)
             cTemp += c
             nPos1 ++
          ENDDO
-         DO WHILE (c := Substr(s, nPos1, 1)) == ' '
+         DO WHILE (c := Substr(s, nPos1, 1)) == " "
             nPos1 ++
          ENDDO
-         IF c == ':'
+         IF c == ":"
             cRes += "SetAt('" + cTemp + "',"
             nPos1 += 2
             IF (nPos2 := hb_At(Chr(10), s, nPos1)) > 0
@@ -161,7 +161,7 @@ STATIC FUNCTION PreProc( s )
    ENDDO
    cRes += Substr(s, nPos1)
    nPos2 := Len( cRes )
-   DO WHILE Substr(cRes, nPos2, 1) <= ' '
+   DO WHILE Substr(cRes, nPos2, 1) <= " "
       nPos2 --
    ENDDO
    IF nPos2 < Len( cRes )
@@ -190,10 +190,10 @@ STATIC FUNCTION CalcScr( aStru, nL, iTD, nL1 )
       cRes := Trim(Transform(xReS, "@B"))
       IF HB_ISNUMERIC(xRes) .AND. Rat(".", cRes) > 0
         nPos2 := Len( cRes )
-        DO WHILE Substr(cRes, nPos2, 1) == '0'
+        DO WHILE Substr(cRes, nPos2, 1) == "0"
            nPos2 --
         ENDDO
-        IF Substr(cRes, nPos2, 1) == '.'
+        IF Substr(cRes, nPos2, 1) == "."
            nPos2 --
         ENDIF
         cRes := Left(cRes, nPos2)
@@ -314,7 +314,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
       cExp := Trim(Substr(oEdit:aText[nL1], aStru[nStruExp, 1], aStru[nStruExp, 2] - aStru[nStruExp, 1] + 1))
    ENDIF
 
-   IF !lNewExp .AND. Right( cExp, 1 ) == '='
+   IF !lNewExp .AND. Right( cExp, 1 ) == "="
       cExp := Trim(Left(cExp, Len(cExp) - 1))
       lEqExi := .T.
    ENDIF
@@ -375,7 +375,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
             nPos2 := Max( oEdit:aPointM1[P_X], oEdit:aPointM2[P_X] )
          ENDIF
          IF !lEqExi
-            oEdit:InsText( { nPos2,nL1 }, ' = ',, .F. )
+            oEdit:InsText( { nPos2,nL1 }, " = ",, .F. )
             nPos2 += 3
          ENDIF
          IF lNewExp
@@ -435,10 +435,10 @@ STATIC FUNCTION CnvVal( xRes )
    ENDIF
    IF HB_ISNUMERIC(xRes) .AND. Rat(".", cRes) > 0
      nPos2 := Len( cRes )
-     DO WHILE Substr(cRes, nPos2, 1) == '0'
+     DO WHILE Substr(cRes, nPos2, 1) == "0"
         nPos2 --
      ENDDO
-     IF Substr(cRes, nPos2, 1) == '.'
+     IF Substr(cRes, nPos2, 1) == "."
         nPos2 --
      ENDIF
      cRes := Left(cRes, nPos2)
@@ -468,7 +468,7 @@ FUNCTION Z( nCol, nRow )
    cText := Ltrim(oEdiCurr:aStru[nL, 1, OB_OB, nCol, OB_ATEXT][1])
 
    RETURN Iif( (c := Left(cText, 1))=="(", Val(Substr(cText, 2)), ;
-         Iif( IsDigit(c).OR.c=='-', Val(cText), cText ) )
+         Iif( IsDigit(c).OR.c=="-", Val(cText), cText ) )
 
 FUNCTION Sum( aCells )
 

@@ -75,10 +75,10 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
          IF LEN(stroka) == 0
             EXIT
          ENDIF
-         IF Right( stroka, 2 ) == '&&'
+         IF Right( stroka, 2 ) == "&&"
             strfull += Left(stroka, Len(stroka) - 2)
             LOOP
-         ELSEIF Right( stroka, 1 ) == '&'
+         ELSEIF Right( stroka, 1 ) == "&"
             strfull += Left(stroka, Len(stroka) - 1)
             LOOP
          ELSE
@@ -103,7 +103,7 @@ LOCAL iniDbf := ( Upper(FilExten(fname)) == "DBF" )
          ELSEIF ( prblo .OR. lWinIni ) .AND. Left(stroka, 1) != ";"
             poz1 := AT("=", stroka)
             IF poz1 != 0
-               lTruncAr := IIf(SUBSTR(stroka, poz1 - 1, 1) == '+', .F., .T.)
+               lTruncAr := IIf(SUBSTR(stroka, poz1 - 1, 1) == "+", .F., .T.)
                vname := RTRIM(SUBSTR(stroka, 1, IIf(lTruncAr, poz1 - 1, poz1 - 2)))
                stroka := ALLTRIM(SUBSTR(stroka, poz1 + 1))
                IF lWinIni

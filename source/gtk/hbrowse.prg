@@ -471,8 +471,8 @@ STATIC FUNCTION InitColumn( oBrw, oColumn, n )
       oColumn:type := ValType( Eval( oColumn:block,,oBrw,n ) )
    ENDIF
    IF oColumn:dec == NIL
-      IF oColumn:type == "N" .AND. At('.', Str(Eval(oColumn:block, NIL, oBrw, n))) != 0
-         oColumn:dec := Len(SubStr(Str(Eval(oColumn:block, NIL, oBrw, n)), At('.', Str(Eval(oColumn:block, NIL, oBrw, n))) + 1))
+      IF oColumn:type == "N" .AND. At(".", Str(Eval(oColumn:block, NIL, oBrw, n))) != 0
+         oColumn:dec := Len(SubStr(Str(Eval(oColumn:block, NIL, oBrw, n)), At(".", Str(Eval(oColumn:block, NIL, oBrw, n))) + 1))
       ELSE
          oColumn:dec := 0
       ENDIF
@@ -854,21 +854,21 @@ METHOD HBrowse:DrawHeader(hDC, nColumn, x1, y1, x2, y2)
 
    IF oColumn:cGrid != NIL
       hwg_Selectobject(hDC, ::oPenHdr:handle)
-      cStr := oColumn:cGrid + ';'
+      cStr := oColumn:cGrid + ";"
       FOR nLine := 1 TO ::nHeadRows
-         cNWSE := hb_tokenGet( @cStr, nLine, ';' )
+         cNWSE := hb_tokenGet( @cStr, nLine, ";" )
          ya := y1 + nHeight * nLine + ::aHeadPadding[2] + IIf(nLine == ::nHeadRows, ::aHeadPadding[4], 0)
          yb := y1 + nHeight * ( nLine - 1 ) + IIf(nLine == 1, 0, ::aHeadPadding[2])
-         IF At('S', cNWSE) != 0
+         IF At("S", cNWSE) != 0
             hwg_Drawline(hDC, x1, ya, x2, ya)
          ENDIF
-         IF At('N', cNWSE) != 0
+         IF At("N", cNWSE) != 0
             hwg_Drawline(hDC, x1, yb, x2, yb)
          ENDIF
-         IF At('E', cNWSE) != 0
+         IF At("E", cNWSE) != 0
             hwg_Drawline(hDC, x2 - 1, yb + 1, x2 - 1, ya)
          ENDIF
-         IF At('W', cNWSE) != 0
+         IF At("W", cNWSE) != 0
             hwg_Drawline(hDC, x1, yb + 1, x1, ya)
          ENDIF
       NEXT
@@ -1867,7 +1867,7 @@ METHOD HBrowse:Edit( wParam, lParam )
    fipos := ::colpos + ::nLeftCol - 1 - ::freeze
 
    oColumn := ::aColumns[fipos]
-   IF ::bEnter == NIL .OR. (ValType(lRes := Eval(::bEnter, Self, fipos, ::nCurrent)) == 'L' .AND. !lRes)
+   IF ::bEnter == NIL .OR. (ValType(lRes := Eval(::bEnter, Self, fipos, ::nCurrent)) == "L" .AND. !lRes)
       IF !oColumn:lEditable
          RETURN NIL
       ENDIF
@@ -2021,7 +2021,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
 
    IF !bESCkey
       IF oColumn:aList != NIL
-         IF ValType( oBrw:varbuf ) == 'N'
+         IF ValType( oBrw:varbuf ) == "N"
             oBrw:varbuf := nChoic
          ELSE
             oBrw:varbuf := oColumn:aList[nChoic]
@@ -2283,8 +2283,8 @@ STATIC FUNCTION CountToken( cStr, nMaxLen, nCount )
 
    nMaxLen := nCount := 0
    IF HB_ISCHAR(cStr)
-      IF ( ';' $ cStr )
-         cStr := hb_aTokens( cStr, ';' )
+      IF ( ";" $ cStr )
+         cStr := hb_aTokens( cStr, ";" )
       ELSE
          nMaxLen := Len(cStr)
          nCount := 1

@@ -186,7 +186,7 @@ STATIC FUNCTION CntAdd()
    @ 210, 20 BUTTON "Browse" SIZE 80, 26 ON CLICK bFile
 
    @ 10, 70 SAY "Object name:" SIZE 120, 22
-   @ 130, 70 GET oEdit2 VAR cObjName SIZE 160, 26 PICTURE Replicate('X', 32) MAXLENGTH 0
+   @ 130, 70 GET oEdit2 VAR cObjName SIZE 160, 26 PICTURE Replicate("X", 32) MAXLENGTH 0
 
    @ 10, 100 SAY "Type:" SIZE 120, 22
    @ 10, 100 GET oEdit3 VAR cType SIZE 80, 26 PICTURE "XXXX" MAXLENGTH 0

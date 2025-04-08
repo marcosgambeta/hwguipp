@@ -198,7 +198,7 @@ METHOD HBinC:Del( cObjName )
    ENDIF
 
    FSeek(::handle, HEAD_LEN + ::nPassLen + ::aObjects[n, OBJ_ADDR] + 1, FS_SET)
-   FWrite(::handle, Replicate(' ', Len(cObjName) + 4))
+   FWrite(::handle, Replicate(" ", Len(cObjName) + 4))
    ::aObjects[n,OBJ_NAME] := ::aObjects[n,OBJ_TYPE] := ""
 
    RETURN .T.

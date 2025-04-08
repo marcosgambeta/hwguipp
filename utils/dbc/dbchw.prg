@@ -743,7 +743,7 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
       IF (oBrowse:alias)->(Deleted())
          hwg_Settextcolor( h, 0 )
          hwg_Settransparentmode( h, .T. )
-         hwg_Drawtext( h, '*', x1, y1 + 6, x2, y2 - 4, 1 )
+         hwg_Drawtext( h, "*", x1, y1 + 6, x2, y2 - 4, 1 )
          hwg_Settransparentmode( h, .F. )
       ENDIF
       RETURN NIL

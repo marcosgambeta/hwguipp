@@ -588,7 +588,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
             nShiftAltCtrl := IIf(hwg_IsCtrlShift(.F., .T.), 1, 0)
             nShiftAltCtrl += IIf(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
             /*
-            IF ::bKeyDown != NIL .AND. ValType( ::bKeyDown ) == 'B' .AND. wParam != VK_TAB .AND. wParam != VK_RETURN
+            IF ::bKeyDown != NIL .AND. ValType( ::bKeyDown ) == "B" .AND. wParam != VK_TAB .AND. wParam != VK_RETURN
                IF Empty(nRet := Eval( ::bKeyDown, Self, wParam, nShiftAltCtrl, msg )) .AND. nRet != NIL
                   RETURN 0
                ENDIF
@@ -657,7 +657,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
          wParam := hwg_PtrToUlong( wParam )
          /*IF ( ( hwg_Checkbit( lParam, 25 ) .AND. wParam != 111 ) .OR.  ( wParam > 111 .AND. wParam < 124 ) .OR. ;
                wParam = VK_TAB .OR. wParam = VK_RETURN )   .AND. ; */
-         IF ::bKeyDown != NIL .AND. ValType( ::bKeyDown ) == 'B'
+         IF ::bKeyDown != NIL .AND. ValType( ::bKeyDown ) == "B"
             nShiftAltCtrl := IIf(hwg_IsCtrlShift(.F., .T.), 1, 0)
             nShiftAltCtrl += IIf(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
             nShiftAltCtrl += IIf(wParam > 111, 4, nShiftAltCtrl)
@@ -915,9 +915,9 @@ STATIC FUNCTION InitColumn( oBrw, oColumn, n )
    ENDIF
    oColumn:width := 0
    IF oColumn:dec == NIL
-      IF oColumn:Type == "N" .AND. At('.', Str(Eval(oColumn:block, , oBrw, n))) != 0
+      IF oColumn:Type == "N" .AND. At(".", Str(Eval(oColumn:block, , oBrw, n))) != 0
          oColumn:dec := Len(SubStr(Str(Eval(oColumn:block, , oBrw, n)), ;
-            At('.', Str(Eval(oColumn:block, , oBrw, n))) + 1))
+            At(".", Str(Eval(oColumn:block, , oBrw, n))) + 1))
       ELSE
          oColumn:dec := 0
       ENDIF
@@ -1704,19 +1704,19 @@ METHOD HBrowseEx:HeaderOut( hDC )
                   oPenHdr := HPen():Add( BS_SOLID, 1, 0 )
                ENDIF
                hwg_Selectobject( hDC, oPenHdr:handle )
-               cStr := oColumn:cGrid + ';'
+               cStr := oColumn:cGrid + ";"
                FOR nLine := 1 TO ::nHeadRows
-                  cNWSE := hb_tokenGet( @cStr, nLine, ';' )
-                  IF At('S', cNWSE) != 0
+                  cNWSE := hb_tokenGet( @cStr, nLine, ";" )
+                  IF At("S", cNWSE) != 0
                      hwg_Drawline( hDC, x - 1, ::y1 - ( ::nHeadHeight ) * ( ::nHeadRows - nLine ), x + xSize - 1, ::y1 - ( ::nHeadHeight ) * ( ::nHeadRows - nLine ) )
                   ENDIF
-                  IF At('N', cNWSE) != 0
+                  IF At("N", cNWSE) != 0
                      hwg_Drawline( hDC, x - 1, ::y1 - ( ::nHeadHeight ) * ( ::nHeadRows - nLine + 1 ), x + xSize - 1, ::y1 - ( ::nHeadHeight ) * ( ::nHeadRows - nLine + 1 ) )
                   ENDIF
-                  IF At('E', cNWSE) != 0
+                  IF At("E", cNWSE) != 0
                      hwg_Drawline( hDC, x + xSize - 2, ::y1 - ( ::nHeadHeight ) * ( ::nHeadRows - nLine + 1 ) + 1, x + xSize - 2, ::y1 - ( ::nHeadHeight ) * ( ::nHeadRows - nLine ) )
                   ENDIF
-                  IF At('W', cNWSE) != 0
+                  IF At("W", cNWSE) != 0
                      hwg_Drawline( hDC, x - 1, ::y1 - ( ::nHeadHeight ) * ( ::nHeadRows - nLine + 1 ) + 1, x - 1, ::y1 - ( ::nHeadHeight ) * ( ::nHeadRows - nLine ) )
                   ENDIF
                NEXT
@@ -1746,10 +1746,10 @@ METHOD HBrowseEx:HeaderOut( hDC )
             nMe := IIf(::ShowSortMark .AND. oColumn:SortMark > 0, IIf(oColumn:nJusHead - DT_VCENTER - DT_SINGLELINE == DT_LEFT, 18, 0), 0)
             nMd := IIf(::ShowSortMark .AND. oColumn:SortMark > 0, IIf(oColumn:nJusHead - DT_VCENTER - DT_SINGLELINE != DT_LEFT, 17, 0), ;
                IIf(oColumn:nJusHead - DT_VCENTER - DT_SINGLELINE == DT_RIGHT, 1, 0))
-            cStr := oColumn:heading + ';'
+            cStr := oColumn:heading + ";"
             FOR nLine := 1 TO ::nHeadRows
                aTxtSize := IIf(nLine == 1, hwg_TxtRect(cStr, Self), aTxtSize)
-               hwg_Drawtext(hDC, hb_tokenGet(@cStr, nLine, ';'), ;
+               hwg_Drawtext(hDC, hb_tokenGet(@cStr, nLine, ";"), ;
                   x + ::aMargin[4] + 1 + nMe, ;
                   ::y1 - (::nHeadHeight) * (::nHeadRows - nLine + 1) + ::aMargin[1] + 1, ;
                   x + xSize - (2 + ::aMargin[2] + nMd), ;
@@ -1971,7 +1971,7 @@ METHOD HBrowseEx:FooterOut( hDC )
          xSize := Max( ::x2 - x, xSize )
       ENDIF
       IF !oColumn:lHide
-         cStr := oColumn:footing + ';'
+         cStr := oColumn:footing + ";"
          aColorFoot := NIL
          IF oColumn:bColorFoot != NIL
             aColorFoot := Eval( oColumn:bColorFoot, Self )
@@ -2015,7 +2015,7 @@ METHOD HBrowseEx:FooterOut( hDC )
          ENDIF
          nY := ::y2 - nPixelFooterHeight
          FOR nLine := 1 TO ::nFootRows
-            hwg_Drawtext(hDC, hb_tokenGet(@cStr, nLine, ';'), ;
+            hwg_Drawtext(hDC, hb_tokenGet(@cStr, nLine, ";"), ;
                x + ::aMargin[4], ;
                nY + (nLine - 1) * (::nFootHeight + 1) + 1 + ::aMargin[1], ;
                x + xSize - (1 + ::aMargin[2]), ;
@@ -3089,7 +3089,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
             IF oColumn:aList != NIL  .AND. ( oColumn:bWhen = NIL .OR. Eval( oColumn:bWhen ) )
                ::oEditDlg:brush := - 1
                ::oEditDlg:nHeight := ::height + 1 // * 5
-               IF ValType( ::varbuf ) == 'N'
+               IF ValType( ::varbuf ) == "N"
                   nChoic := ::varbuf
                ELSE
                   ::varbuf := AllTrim(::varbuf)
@@ -3123,7 +3123,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
                   IF oColumn:bClick != NIL
                      IF Type != "D"
                         @ nWidth - 15, 0  OWNERBUTTON oBtn  SIZE 16, ::height - 0 ;
-                           TEXT '...'  FONT HFont():Add("MS Sans Serif", 0, -10, 400) ;
+                           TEXT "..."  FONT HFont():Add("MS Sans Serif", 0, -10, 400) ;
                            COORDINATES 0, 1, 0, 0      ;
                            ON CLICK { | oColumn, oBtn | HB_SYMBOL_UNUSED(oColumn), ::onClickColumn( .T. , oGet, oBtn ) }
                         oBtn:themed :=  ::hTheme != NIL
@@ -3162,7 +3162,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
 
          IF ::oEditDlg:lResult
             IF oColumn:aList != NIL
-               IF ValType( ::varbuf ) == 'N'
+               IF ValType( ::varbuf ) == "N"
                   ::varbuf := nChoic
                ELSE
                   ::varbuf := oColumn:aList[nChoic]
@@ -3614,7 +3614,7 @@ STATIC FUNCTION HdrToken( cStr, nMaxLen, nCount )
    LOCAL nL, nPos := 0
 
    nMaxLen := nCount := 0
-   cStr += ';'
+   cStr += ";"
 #ifdef __XHARBOUR__
    DO WHILE (nL := Len(__StrTkPtr(@cStr, @nPos, ";"))) != 0
 #else

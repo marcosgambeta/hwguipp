@@ -542,11 +542,11 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
                   Aadd(aProp, {cPropertyName, ReadTree(NIL, o)})
                ELSEIF !Empty(o:aItems)
                   cProperty := Left(o:aItems[1], 1)
-                  IF cProperty == '['
+                  IF cProperty == "["
                      cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
-                  ELSEIF cProperty == '.'
+                  ELSEIF cProperty == "."
                      cProperty := Iif( Substr(o:aItems[1], 2, 1)=="T","True","False" )
-                  ELSEIF cProperty == '{'
+                  ELSEIF cProperty == "{"
                      cProperty := hwg_hfrm_Str2Arr( o:aItems[1] )
                   ELSE
                      cProperty := o:aItems[1]
@@ -624,11 +624,11 @@ Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
                   Aadd(aProp, {cPropertyName, hwg_hfrm_FontFromXML(o:aItems[1], oDesigner:lReport)})
                ELSEIF !Empty(o:aItems)
                   cProperty := Left(o:aItems[1], 1)
-                  IF cProperty == '['
+                  IF cProperty == "["
                      cProperty := Substr(o:aItems[1], 2, Len(o:aItems[1]) - 2)
-                  ELSEIF cProperty == '.'
+                  ELSEIF cProperty == "."
                      cProperty := Iif( Substr(o:aItems[1], 2, 1)=="T","True","False" )
-                  ELSEIF cProperty == '{'
+                  ELSEIF cProperty == "{"
                      cProperty := hwg_hfrm_Str2Arr( o:aItems[1] )
                   ELSE
                      cProperty := o:aItems[1]
@@ -755,7 +755,7 @@ Local cProperty, i1
                WriteTree( oCtrl:aProp[j, 2],oNode1 )
             ELSEIF oCtrl:aProp[j, 2] != NIL
                IF oCtrl:aProp[j, 3] == "C"
-                  cProperty := '[' + oCtrl:aProp[j, 2] + ']'
+                  cProperty := "[" + oCtrl:aProp[j, 2] + "]"
                ELSEIF oCtrl:aProp[j, 3] == "N"
                   cProperty := oCtrl:aProp[j, 2]
                ELSEIF oCtrl:aProp[j, 3] == "L"
@@ -813,7 +813,7 @@ Local oNode, oNode1, oStyle, i, i1, oMeth, cProperty, aControls
             ENDIF
          ELSEIF oForm:aProp[i, 2] != NIL
             IF oForm:aProp[i, 3] == "C"
-               cProperty := '[' + oForm:aProp[i, 2] + ']'
+               cProperty := "[" + oForm:aProp[i, 2] + "]"
             ELSEIF oForm:aProp[i, 3] == "N"
                cProperty := oForm:aProp[i, 2]
             ELSEIF oForm:aProp[i, 3] == "L"

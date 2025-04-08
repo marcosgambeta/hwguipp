@@ -404,8 +404,8 @@ STATIC FUNCTION WriteToPrg( han, repName )
    FWrite(han, "FUNCTION " + repName + crlf + crlf + "   LOCAL aPaintRep, cEnd := Chr(13)+Chr(10)" + crlf + crlf)
 
    FWrite(han, '   aPaintRep := hwg_hwr_Init( "' + repName + '", ' ;
-      + LTrim(Str(aPaintRep[FORM_WIDTH] )) + ', ' + LTrim(Str(aPaintRep[FORM_HEIGHT])) + ;
-      ', ' + LTrim(Str(aMetr[1] - XINDENT )) + ')' + crlf)
+      + LTrim(Str(aPaintRep[FORM_WIDTH] )) + ", " + LTrim(Str(aPaintRep[FORM_HEIGHT])) + ;
+      ", " + LTrim(Str(aMetr[1] - XINDENT )) + ")" + crlf)
 
    IF !Empty(aPaintRep[FORM_VARS])
       FWrite(han, "   aPaintRep[FORM_VARS] := ;" + crlf)

@@ -266,7 +266,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
          IF ( i:=Ascan(aAttr,{|a|a[1]=="page"}) ) == 0
             ::nDocFormat := 0
          ELSE
-            xVal := hb_aTokens( aAttr[i, 2], ',' )
+            xVal := hb_aTokens( aAttr[i, 2], "," )
             IF Len( xVal ) > 5
                ::nDocFormat := Ascan( HPrinter():aPaper,{|a|a[1]==xVal[1]} )
                ::nDocOrient := Val( xVal[2] )
@@ -570,7 +570,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                   nInsCols ++
                ELSE
                   cVal := Iif( (i:=Ascan(aAttr,{|a|a[1]=="width"}))==0, "", aAttr[i, 2] )
-                  Aadd(aStruTbl[OB_OB], {Iif(Right(cVal, 1) == '%', -Val(cVal), Val(cVal)), 0, 0})
+                  Aadd(aStruTbl[OB_OB], {Iif(Right(cVal, 1) == "%", -Val(cVal), Val(cVal)), 0, 0})
                ENDIF
 
             ELSEIF cTagName == "table"
@@ -593,7 +593,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                   nAlign := Iif( Empty(cVal).or.cVal=="left", 0, Iif(cVal=="right", 2, 1 ) )
                   cVal := Iif( (i:=Ascan(aAttr,{|a|a[1]=="width"}))==0, "", aAttr[i, 2] )
                   aStruTbl :=  { "tbl", {}, cClsName, ;
-                     Iif( Right(cVal, 1)=='%',-Val(cVal),Val(cVal) ), nALign }
+                     Iif( Right(cVal, 1)=="%",-Val(cVal),Val(cVal) ), nALign }
                ENDIF
 
             ELSEIF cTagName == "binary"
@@ -1272,11 +1272,11 @@ METHOD AddClass( cName, cSource ) CLASS HCEdiExt
    LOCAL nMargL, nMargR, nIndent, nAlign, oPen, aPen
 
    DO WHILE .T.
-      IF ( i := At(':', cSource) ) == 0
+      IF ( i := At(":", cSource) ) == 0
          EXIT
       ENDIF
       cProp := Lower(Alltrim(Left(cSource, i - 1)))
-      IF ( nPos := hb_At(';', cSource, i) ) == 0
+      IF ( nPos := hb_At(";", cSource, i) ) == 0
          nPos := Len( cSource ) + 1
       ENDIF
       cValue := AllTrim(Substr(cSource, i + 1, nPos - i - 1))
@@ -1292,7 +1292,7 @@ METHOD AddClass( cName, cSource ) CLASS HCEdiExt
          name := cValue
          lFont := .T.
       ELSEIF cProp == "font-size"
-         IF Right(cValue, 1) == '%'
+         IF Right(cValue, 1) == "%"
             height := Int( Val(cValue) * ::oFont:height / 100 )
          ELSE
             height := Val(cValue)
@@ -1315,13 +1315,13 @@ METHOD AddClass( cName, cSource ) CLASS HCEdiExt
          ENDIF
          lFont := .T.
       ELSEIF cProp == "text-indent"
-         nIndent := Iif( Right(cValue, 1)=='%', -Val(cValue), Val(cValue) )
+         nIndent := Iif( Right(cValue, 1)=="%", -Val(cValue), Val(cValue) )
       ELSEIF cProp == "text-align"
          nAlign := Iif( cValue=="center", 1, Iif( cValue=="right", 2, 0 ) )
       ELSEIF cProp == "margin-left"
-         nMargL := Iif( Right(cValue, 1)=='%', -Val(cValue), Val(cValue) )
+         nMargL := Iif( Right(cValue, 1)=="%", -Val(cValue), Val(cValue) )
       ELSEIF cProp == "margin-right"
-         nMargR := Iif( Right(cValue, 1)=='%', -Val(cValue), Val(cValue) )
+         nMargR := Iif( Right(cValue, 1)=="%", -Val(cValue), Val(cValue) )
       ELSEIF cProp == "border"
          aPen := hb_aTokens( cValue )
          oPen := HPen():Add( , Val(aPen[1]), Iif( Len(aPen)>2, hced_X2Color(aPen[3]) ,NIL) )
@@ -1371,24 +1371,24 @@ METHOD FindClass( xBase, xAttr, xNewClass ) CLASS HCEdiExt
          EXIT
       CASE "cb" ; aHili[3] := Val( Substr(xAttr[i], 3) )
          EXIT
-      CASE "ml" ; aHili[4] := Iif( Right(cVal:=Substr(xAttr[i], 3), 1) == '%', -Val(cVal), Val(cVal) )
+      CASE "ml" ; aHili[4] := Iif( Right(cVal:=Substr(xAttr[i], 3), 1) == "%", -Val(cVal), Val(cVal) )
          EXIT
-      CASE "mr" ; aHili[5] := Iif( Right(cVal:=Substr(xAttr[i], 3), 1) == '%', -Val(cVal), Val(cVal) )
+      CASE "mr" ; aHili[5] := Iif( Right(cVal:=Substr(xAttr[i], 3), 1) == "%", -Val(cVal), Val(cVal) )
          EXIT
-      CASE "ti" ; aHili[6] := Iif( Right(cVal:=Substr(xAttr[i], 3), 1) == '%', -Val(cVal), Val(cVal) )
+      CASE "ti" ; aHili[6] := Iif( Right(cVal:=Substr(xAttr[i], 3), 1) == "%", -Val(cVal), Val(cVal) )
          EXIT
       CASE "ta" ; aHili[7] := Val( Substr(xAttr[i], 3) )
          EXIT
-      CASE "fb" ; lFont := .T. ; weight := Iif( Substr(xAttr[i], 3, 1)=='-', 400, 700 )
+      CASE "fb" ; lFont := .T. ; weight := Iif( Substr(xAttr[i], 3, 1)=="-", 400, 700 )
          EXIT
-      CASE "fi" ; lFont := .T. ; italic := Iif( Substr(xAttr[i], 3, 1)=='-', 0, 255 )
+      CASE "fi" ; lFont := .T. ; italic := Iif( Substr(xAttr[i], 3, 1)=="-", 0, 255 )
          EXIT
-      CASE "fu" ; lFont := .T. ; Underline := Iif( Substr(xAttr[i], 3, 1)=='-', 0, 255 )
+      CASE "fu" ; lFont := .T. ; Underline := Iif( Substr(xAttr[i], 3, 1)=="-", 0, 255 )
          EXIT
-      CASE "fs" ; lFont := .T. ; Strike := Iif( Substr(xAttr[i], 3, 1)=='-', 0, 255 )
+      CASE "fs" ; lFont := .T. ; Strike := Iif( Substr(xAttr[i], 3, 1)=="-", 0, 255 )
          EXIT
       CASE "fh" ; lFont := .T. ; cHeight := Substr(xAttr[i], 3)
-         height := Iif( Right(cHeight, 1) == '%', Int( Val(cHeight) * ::oFont:height / 100 ), Val(cHeight) )
+         height := Iif( Right(cHeight, 1) == "%", Int( Val(cHeight) * ::oFont:height / 100 ), Val(cHeight) )
          EXIT
       CASE "fn" ; lFont := .T. ; name := Substr(xAttr[i], 3)
          EXIT
@@ -2066,9 +2066,9 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
       ELSEIF Empty(lCompact)
          s += "<hwge" + Iif(Empty(::cpSource),"",' cp="' + ::cpSource + '"' ) + ;
                Iif(Empty(::nDocFormat),"",' page="' + HPrinter():aPaper[::nDocFormat, 1] ;
-               + ',' + Ltrim(Str(::nDocOrient)) + ',' + Ltrim(Str(::aDocMargins[1])) + ',' + ;
-               Ltrim(Str(::aDocMargins[2])) + ',' + Ltrim(Str(::aDocMargins[3])) + ',' + Ltrim(Str(::aDocMargins[4])) + '"' ) + ;
-               + ::SaveTag( "hwge" ) + '>' + cNewL
+               + "," + Ltrim(Str(::nDocOrient)) + "," + Ltrim(Str(::aDocMargins[1])) + "," + ;
+               Ltrim(Str(::aDocMargins[2])) + "," + Ltrim(Str(::aDocMargins[3])) + "," + Ltrim(Str(::aDocMargins[4])) + '"' ) + ;
+               + ::SaveTag( "hwge" ) + ">" + cNewL
       ENDIF
       IF !Empty(aClasses)
          s1 := ""
@@ -2141,7 +2141,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
          s += "<div" + Iif( !Empty(::aStru[i, 1,OB_CLS]), ' class="' + ::aStru[i, 1,OB_CLS] + '"', "" ) + ;
                Iif( Len(::aStru[i, 1])>=OB_ID.AND.!Empty(::aStru[i, 1,OB_ID]),' id="'+::aStru[i, 1,OB_ID]+'"',"" ) + ;
                Iif( !lHtml.AND.Len(::aStru[i, 1])>=OB_ACCESS.AND.!Empty(::aStru[i, 1,OB_ACCESS]),' access="'+hced_SaveAccInfo(::aStru[i, 1,OB_ACCESS])+'"',"" ) + ;
-               ::SaveTag( "div", i ) + '>'
+               ::SaveTag( "div", i ) + ">"
          cLine := Trim(::aText[i] )
          nPos := Iif( i == nFrom .AND. nXFrom != -1, nXFrom, 1 )
          FOR j := 2 TO Len( ::aStru[i] )
@@ -2174,18 +2174,18 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
                cPart := hbxml_preSave( Iif( !Empty(cpSou).AND.!(cpSou==::cp), hb_Translate( cPart, ::cp, cpSou ), cPart ) )
                IF lHtml
                   s += '<span class="'+::aStru[i,j,OB_CLS] + '"' + ;
-                        cId + ::SaveTag( "span", i, j ) + '>' + cPart + '</span>'
+                        cId + ::SaveTag( "span", i, j ) + ">" + cPart + '</span>'
                ELSE
                   s += '<span class="'+::aStru[i,j,OB_CLS] + '"' + ;
                         cId + cAcc + ' value="' + cPart + '"' + ;
-                        ::SaveTag( "span", i, j ) + '><![CDATA[' + cHref + ']]></span>'
+                        ::SaveTag( "span", i, j ) + "><![CDATA[" + cHref + "]]></span>"
                ENDIF
             ELSE
                xTemp := Iif( !Empty(cHref) .AND. ::aStru[i,j,OB_CLS]=="url", "", ' class="'+::aStru[i,j,OB_CLS] + '"' )
-               s += Iif( !Empty(cHref), '<a href="'+cHref+'"', '<span' ) + xTemp + ;
-                     cId + cAcc + ::SaveTag( "span", i, j ) + '>' + ;
+               s += Iif( !Empty(cHref), '<a href="'+cHref+'"', "<span" ) + xTemp + ;
+                     cId + cAcc + ::SaveTag( "span", i, j ) + ">" + ;
                      hbxml_preSave( Iif( !Empty(cpSou).AND.!(cpSou==::cp), hb_Translate( cPart, ::cp, cpSou ), cPart ) ) + ;
-                     Iif( !Empty(cHref), '</a>', '</span>' )
+                     Iif( !Empty(cHref), "</a>", "</span>" )
             ENDIF
          NEXT
          IF nPos <= hced_Len( Self, cLine )
@@ -2242,7 +2242,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
             s += "<td" + Iif( !Empty(::aStru[i, 1,OB_OB,j,OB_CLS]), ' class="' + ::aStru[i, 1,OB_OB,j,OB_CLS] + '"', "" ) ;
                + Iif( !Empty(::aStru[i, 1,OB_OB,j,OB_COLSPAN]), ' colspan="' + Ltrim(Str(::aStru[i, 1,OB_OB,j,OB_COLSPAN])) + '"', "" ) ;
                + Iif( !Empty(::aStru[i, 1,OB_OB,j,OB_ROWSPAN]), ' rowspan="' + Ltrim(Str(::aStru[i, 1,OB_OB,j,OB_ROWSPAN])) + '"', "" ) ;
-               + ::SaveTag( "td", i, j ) + '>' + cNewL
+               + ::SaveTag( "td", i, j ) + ">" + cNewL
             nTextLen := ::nTextLen; aText := ::aText; aStru := ::aStru
             ::aStru := aStru[i, 1, OB_OB, j, 2]
             ::aText := aStru[i, 1, OB_OB, j, OB_ATEXT]
@@ -2260,7 +2260,7 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
       aStruTbl := NIL
       s += "</table>" + cNewL
    ENDIF
-   
+
    IF !lNested
       ::lUpdated := .F.
       hbxml_SetEntity()
@@ -2271,8 +2271,8 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
                hb_Memowrit( ::aBin[i, 1], ::aBin[i, 2] )
             ELSE
                s += '<binary id="' + ::aBin[i, 1] + '"' + ;
-                     Iif( !Empty(::aBin[i, 4]), ' ext="'+::aBin[i, 4]+'"', "" ) + '>' + ;
-                     hb_Base64Encode( ::aBin[i, 2] ) + '</binary>' + cNewL
+                     Iif( !Empty(::aBin[i, 4]), ' ext="'+::aBin[i, 4]+'"', "" ) + ">" + ;
+                     hb_Base64Encode( ::aBin[i, 2] ) + "</binary>" + cNewL
             ENDIF
             aImages[j] := ""
          ENDIF
@@ -2281,9 +2281,9 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
          FOR i := 1 TO Len( aImages )
             IF !Empty(aImages[i])
                s += '<binary id="' + hb_FnameName( aImages[i] ) + '"' + ;
-                     ' ext="'+ hb_FnameExt( aImages[i] ) +'"' + '>' + ;
+                     ' ext="'+ hb_FnameExt( aImages[i] ) +'"' + ">" + ;
                      hb_Base64Encode( Iif( ::bImgLoad==NIL, MemoRead(aImages[i]), Eval(::bImgLoad,aImages[i],.T.) ) ) ;
-                     + '</binary>' + cNewL
+                     + "</binary>" + cNewL
             ENDIF
          NEXT
       ENDIF
@@ -2887,7 +2887,7 @@ FUNCTION hced_Stru4Pos( aStru, xPos, i, lExact )
       IF xPos < aStru[i, 1]
          RETURN NIL
       ELSEIF xPos <= aStru[i, 2]
-     
+
          IF Empty(lExact) .AND. Len( aStru[i] ) >= OB_HREF
             IF xPos + 1 <= aStru[i, 2]
                RETURN aStru[i]

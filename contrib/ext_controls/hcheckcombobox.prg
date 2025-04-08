@@ -352,7 +352,7 @@ METHOD hCheckComboBox:RecalcText()
 
       strSeparator := RTrim(strSeparator)
 
-      strSeparator += ' '
+      strSeparator += " "
 
       FOR i := 1 TO ncount
 
@@ -471,7 +471,7 @@ METHOD hCheckComboBox:Paint( lpDis )
          rcText[2] + ( rcText[4] - rcText[2] ) / 2 )
    ELSE
       hwg_Exttextout( dc, 0, 0, iif( ::lCheck, rcText[1], 0 ), rcText[2], rcText[3], rcText[4] )
-      hwg_Drawtext( dc, ' ' + strtext, rcText[1], rcText[2], rcText[3], rcText[4], DT_SINGLELINE + DT_VCENTER + DT_END_ELLIPSIS )
+      hwg_Drawtext( dc, " " + strtext, rcText[1], rcText[2], rcText[3], rcText[4], DT_SINGLELINE + DT_VCENTER + DT_END_ELLIPSIS )
    ENDIF
    IF hbitmap != 0
       hwg_Setbkmode( dc, TRANSPARENT )

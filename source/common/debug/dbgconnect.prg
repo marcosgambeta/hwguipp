@@ -158,8 +158,8 @@ FUNCTION hwg_dbg_New()
    ENDIF
 
    cFile := IIf(!Empty(cDir), cDir, hb_dirTemp()) + ;
-         IIf(( i := Rat('\', cFile) ) == 0, ;
-         IIf(( i := Rat('/', cFile) ) == 0, cFile, Substr(cFile, i + 1)), ;
+         IIf(( i := Rat("\", cFile) ) == 0, ;
+         IIf(( i := Rat("/", cFile) ) == 0, cFile, Substr(cFile, i + 1)), ;
          Substr(cFile, i + 1))
 
    Ferase(cFile + ".d1")
@@ -175,7 +175,7 @@ FUNCTION hwg_dbg_New()
       cExe := IIf(File(cDebugger), "./", "") + cDebugger
    ENDIF
    // lRun := __dbgProcessRun( cExe, "-c" + cFile )
-   hProcess := hb_processOpen(cExe + ' -c' + cFile)
+   hProcess := hb_processOpen(cExe + " -c" + cFile)
    lRun := ( hProcess != -1 .AND. hb_processValue( hProcess, .F. ) == -1 )
 #else
    IF Empty(cExe)

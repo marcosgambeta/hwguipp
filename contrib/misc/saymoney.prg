@@ -29,131 +29,131 @@ FUNCTION SayDollar(nDollar)
  DO WHILE nPJ>0
     xLang2 := ""
     xLang1 := ""
-    xMuch := 'ONE'
+    xMuch := "ONE"
     xNum = Left(cDollar, 1)
 
-    IF nPJ=6.AND.xNum='0'.OR.nPJ=5.AND.xNum='0'.AND.nCheck1=1
+    IF nPJ=6.AND.xNum="0".OR.nPJ=5.AND.xNum="0".AND.nCheck1=1
         nCheck1 := 1
     ENDIF
 
-    IF nPJ=5.AND.xNum='0'
+    IF nPJ=5.AND.xNum="0"
         nCheck2 := 1
     ENDIF
 
-    IF nPJ=5.AND.xNum != '0'
+    IF nPJ=5.AND.xNum != "0"
         mm := 1
         nCheck1 := 0
     ENDIF
 
-    IF xNum != '0'.OR.xNum='0'.AND.nPJ=7.OR.xNum='0'.AND.nPJ=4
+    IF xNum != "0".OR.xNum="0".AND.nPJ=7.OR.xNum="0".AND.nPJ=4
         nAA := 1
 
         DO CASE
             CASE nPJ=8.OR.nPJ=5.OR.nPJ=2
-                xLang2 = 'TY '
+                xLang2 = "TY "
                 nAA = 2
             CASE nPJ=7
-                IF xMuch ='ONE'
-                    xLang2  := ' MILLION '
+                IF xMuch ="ONE"
+                    xLang2  := " MILLION "
                 ELSE
-                    xLang2  := ' MILLIONS '
+                    xLang2  := " MILLIONS "
                 ENDIF
             CASE nPJ=6.OR.nPJ=3.OR.nPJ=9
                 nCheck2 = 0
-                IF xMuch ='ONE'
-                    xLang2  := ' HUNDRED '
+                IF xMuch ="ONE"
+                    xLang2  := " HUNDRED "
                 ELSE
-                    xLang2  := ' HUNDREDS '
+                    xLang2  := " HUNDREDS "
                 ENDIF
                 nTest := 0
 
             CASE nPJ=4
-                IF nCheck1=0.OR.xNum != '0'
-                    IF xMuch='ONE'
-                        xLang2 = ' THOUSAND '
+                IF nCheck1=0.OR.xNum != "0"
+                    IF xMuch="ONE"
+                        xLang2 = " THOUSAND "
                     ELSE
-                        xLang2 = ' THOUSANDS '
+                        xLang2 = " THOUSANDS "
                     ENDIF
                 ENDIF
         ENDCASE
     ENDIF
 
     DO CASE
-        CASE xNum='1'
+        CASE xNum="1"
             IF nPJ=7.OR.nPJ=1.OR.nPJ=10
                 nCheck1 = 0
-                xLang1 = 'ONE'
+                xLang1 = "ONE"
             ELSE
-                xLang1 = 'ONE'
+                xLang1 = "ONE"
             ENDIF
             IF nPJ=8.OR.nPJ=5.OR.nPJ=2.OR.nPJ=11
                 nTest = 1
             ENDIF
             IF nCheck2=1
-                xLang1 = 'ONE'
+                xLang1 = "ONE"
                 nCheck2 = 0
             ENDIF
             IF nPJ=4.AND.mm=1
-                xLang1 = 'ONE'
+                xLang1 = "ONE"
             ENDIF
             IF nCheck1=1
-                xLang1 = 'ONE'
+                xLang1 = "ONE"
             ENDIF
-        CASE xNum='2'
-            xLang1 = 'TWO'
+        CASE xNum="2"
+            xLang1 = "TWO"
             IF nAA=2
-                xLang1 = 'TWEEN'
+                xLang1 = "TWEEN"
             ENDIF
-        CASE xNum='3'
-            xLang1 = 'THREE'
+        CASE xNum="3"
+            xLang1 = "THREE"
             IF nAA=2
-                xLang1 = 'THIR'
+                xLang1 = "THIR"
             ENDIF
-        CASE xNum='4'
-            xLang1 = 'FOUR'
-        CASE xNum='5'
-            xLang1 = 'FIVE'
+        CASE xNum="4"
+            xLang1 = "FOUR"
+        CASE xNum="5"
+            xLang1 = "FIVE"
             IF nAA=2
-                xLang1 = 'FIF'
+                xLang1 = "FIF"
             ENDIF
-        CASE xNum='6'
-            xLang1 = 'SIX'
-        CASE xNum='7'
-            xLang1 = 'SEVEN'
-        CASE xNum='8'
-            xLang1 = 'EIGHT'
-        CASE xNum='9'
-            xLang1 = 'NINE'
+        CASE xNum="6"
+            xLang1 = "SIX"
+        CASE xNum="7"
+            xLang1 = "SEVEN"
+        CASE xNum="8"
+            xLang1 = "EIGHT"
+        CASE xNum="9"
+            xLang1 = "NINE"
     ENDCASE
     cDollar = RIGHT(cDollar,(nPJ-1))
     xMuch = xLang1
 
-    IF xNum != '0'.OR.xNum='0'.AND.nPJ=7.OR.xNum='0'.AND.nPJ=4
+    IF xNum != "0".OR.xNum="0".AND.nPJ=7.OR.xNum="0".AND.nPJ=4
         nAA = 1
         DO CASE
             CASE nPJ=8.OR.nPJ=5.OR.nPJ=2
-                xLang2 = 'TY '
+                xLang2 = "TY "
                 nAA = 2
             CASE nPJ=7
-                IF xMuch='ONE'
-                    xLang2 = ' MILLION '
+                IF xMuch="ONE"
+                    xLang2 = " MILLION "
                 ELSE
-                    xLang2 = ' MILLIONS '
+                    xLang2 = " MILLIONS "
                 ENDIF
             CASE nPJ=6.OR.nPJ=3
                 nCheck2 = 0
-                IF xMuch='ONE'
-                    xLang2 = ' HUNDRED '
+                IF xMuch="ONE"
+                    xLang2 = " HUNDRED "
                 ELSE
-                    xLang2 = ' HUNDREDS '
+                    xLang2 = " HUNDREDS "
                 ENDIF
                 nTest = 0
             CASE nPJ=4
-                IF nCheck1=0.OR.xNum != '0'
-                    IF xMuch='ONE'
-                        xLang2 = ' THOUSAND '
+                IF nCheck1=0.OR.xNum != "0"
+                    IF xMuch="ONE"
+                        xLang2 = " THOUSAND "
                     ELSE
-                        xLang2 = ' THOUSANDS '
+                        xLang2 = " THOUSANDS "
                     ENDIF
                 ENDIF
         ENDCASE
@@ -165,28 +165,28 @@ FUNCTION SayDollar(nDollar)
     IF nPJ=1.OR.nPJ=4.OR.nPJ=7
 
         IF nTest=1
-            IF xNum<='5'
-                IF xNum='0'
-                    xteen = 'TEN '
+            IF xNum<="5"
+                IF xNum="0"
+                    xteen = "TEN "
                 ENDIF
-                IF xNum='1'
-                    xteen = 'ELEVEN '
+                IF xNum="1"
+                    xteen = "ELEVEN "
                 ENDIF
-                IF xNum='2'
-                    xteen = 'TWELVE '
+                IF xNum="2"
+                    xteen = "TWELVE "
                 ENDIF
-                IF xNum='3'
-                    xteen = 'THIRTEEN '
+                IF xNum="3"
+                    xteen = "THIRTEEN "
                 ENDIF
-                IF xNum='4'
-                    xteen = 'FOURTEEN '
+                IF xNum="4"
+                    xteen = "FOURTEEN "
                 ENDIF
-                IF xNum='5'
-                    xteen = 'FIFTEEN '
+                IF xNum="5"
+                    xteen = "FIFTEEN "
                 ENDIF
                 xSay = xSay+xteen+xLang2
             ELSE
-                xteen = 'TEEN '
+                xteen = "TEEN "
                 xSay = xSay+xLang1+xteen+xLang2
             ENDIF
         ENDIF

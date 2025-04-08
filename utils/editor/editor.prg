@@ -822,16 +822,16 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
          ENDIF
       ENDIF
       IF ( i := Ascan( aAttr, "fb" ) ) != 0
-         lb := ( Substr(aAttr[i], 3, 1) != '-' )
+         lb := ( Substr(aAttr[i], 3, 1) != "-" )
       ENDIF
       IF ( i := Ascan( aAttr, "fi" ) ) != 0
-         li := ( Substr(aAttr[i], 3, 1) != '-' )
+         li := ( Substr(aAttr[i], 3, 1) != "-" )
       ENDIF
       IF ( i := Ascan( aAttr, "fu" ) ) != 0
-         lu := ( Substr(aAttr[i], 3, 1) != '-' )
+         lu := ( Substr(aAttr[i], 3, 1) != "-" )
       ENDIF
       IF ( i := Ascan( aAttr, "fs" ) ) != 0
-         ls := ( Substr(aAttr[i], 3, 1) != '-' )
+         ls := ( Substr(aAttr[i], 3, 1) != "-" )
       ENDIF
    ENDIF
    tc := tColor; tb := bColor; nsb := nSize; nfb := nFamily
@@ -991,15 +991,15 @@ STATIC FUNCTION setPara()
       aAttr := oEdit:getClassAttr( cClsName )
       IF ( i := Ascan( aAttr, "ml" ) ) != 0
          nMarginL := Val( SubStr(aAttr[i], 3) )
-         lml := ( Right( aAttr[i], 1 ) == '%' )
+         lml := ( Right( aAttr[i], 1 ) == "%" )
       ENDIF
       IF ( i := Ascan( aAttr, "mr" ) ) != 0
          nMarginR := Val( SubStr(aAttr[i], 3) )
-         lmr := ( Right( aAttr[i], 1 ) == '%' )
+         lmr := ( Right( aAttr[i], 1 ) == "%" )
       ENDIF
       IF ( i := Ascan( aAttr, "ti" ) ) != 0
          nIndent := Val( SubStr(aAttr[i], 3) )
-         lti := ( Right( aAttr[i], 1 ) == '%' )
+         lti := ( Right( aAttr[i], 1 ) == "%" )
       ENDIF
       IF ( i := Ascan( aAttr, "ta" ) ) != 0
          nAlign := Val( SubStr(aAttr[i], 3) ) + 1
@@ -1064,13 +1064,13 @@ STATIC FUNCTION setPara()
          arr[3] != nIndent .OR. arr[4] != nAlign .OR. arr[5] != nBWidth .OR. arr[6] != nBColor
 
          IF arr[1] != nMarginL
-            AAdd(aAttr, "ml" + LTrim(Str(nMarginL)) + iif(lml, '%', ""))
+            AAdd(aAttr, "ml" + LTrim(Str(nMarginL)) + iif(lml, "%", ""))
          ENDIF
          IF arr[2] != nMarginR
-            AAdd(aAttr, "mr" + LTrim(Str(nMarginR)) + iif(lmr, '%', ""))
+            AAdd(aAttr, "mr" + LTrim(Str(nMarginR)) + iif(lmr, "%", ""))
          ENDIF
          IF arr[3] != nIndent
-            AAdd(aAttr, "ti" + LTrim(Str(nIndent)) + iif(lti, '%', ""))
+            AAdd(aAttr, "ti" + LTrim(Str(nIndent)) + iif(lti, "%", ""))
          ENDIF
          IF arr[4] != nAlign
             AAdd(aAttr, "ta" + LTrim(Str(nAlign - 1)))

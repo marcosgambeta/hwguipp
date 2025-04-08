@@ -172,7 +172,7 @@ METHOD HPrinter:New( cPrinter, lmm, nFormType )
       ::nHeight := IIf(::lmm, aPrnCoors[4], aPrnCoors[2])
       ::nHRes := aPrnCoors[1] / aPrnCoors[3]
       ::nVRes := aPrnCoors[2] / aPrnCoors[4]
-      //hwg_WriteLog( "Printer:" + str(aPrnCoors[1])+str(aPrnCoors[2])+str(aPrnCoors[3])+str(aPrnCoors[4])+'/'+str(::nWidth)+'/'+str(::nHeight) )
+      //hwg_WriteLog( "Printer:" + str(aPrnCoors[1])+str(aPrnCoors[2])+str(aPrnCoors[3])+str(aPrnCoors[4])+"/"+str(::nWidth)+"/"+str(::nHeight) )
    ENDIF
 
    RETURN Self
