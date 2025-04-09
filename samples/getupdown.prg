@@ -52,7 +52,7 @@ FUNCTION MAIN
  *      I put this istruction to see the value
  *    nValue := o_Number:Value()
      nValue := o_Number   
-     hwg_msginfo("nValue =" + ALLTRIM(STR(nValue)) )
+     hwg_MsgInfo("nValue =" + AllTrim(Str(nValue)))
 
 RETURN NIL
 

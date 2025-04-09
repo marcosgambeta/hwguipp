@@ -145,7 +145,7 @@ STATIC FUNCTION CntOpen(fname)
       ELSE
          hwg_WriteStatus( HWindow():GetMain(), 1, "" )
          hwg_WriteStatus( HWindow():GetMain(), 2, "" )
-         hwg_MsgStop( "Error opening container" )
+         hwg_MsgStop("Error opening container")
       ENDIF
    ENDIF
 
@@ -168,7 +168,7 @@ STATIC FUNCTION CntAdd()
    }
    LOCAL bOk := {||
    IF Empty(cFileName) .OR. Empty(cObjName) .OR. Empty(cType)
-      hwg_MsgStop( "Fill all fields!" )
+      hwg_MsgStop("Fill all fields!")
       RETURN .F.
    ENDIF
    oContainer:Add( cObjName, cType, MemoRead(cFileName) )
@@ -201,7 +201,7 @@ STATIC FUNCTION CntAdd()
 STATIC FUNCTION CntDel()
    LOCAL n := oBrw:nCurrent
 
-   IF hwg_MsgYesNo( "Really delete " + oContainer:aObjects[n, 1] + "?" )
+   IF hwg_MsgYesNo("Really delete " + oContainer:aObjects[n, 1] + "?")
       oContainer:Del( oContainer:aObjects[n, 1] )
       oBrw:Refresh()
    ENDIF

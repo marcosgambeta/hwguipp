@@ -24,7 +24,7 @@ FUNCTION C_REPL
    improc := oBrw:cargo[1]
 
    IF aFiles[improc, AF_RDONLY]
-      hwg_Msgstop( "File is opened in readonly mode" )
+      hwg_MsgStop("File is opened in readonly mode")
       RETURN NIL
    ENDIF
 
@@ -58,7 +58,7 @@ FUNCTION C_REPL
 
    IF oDlg:lResult
       IF !Empty(cFor) .AND. Type( cFor ) != "L"
-         hwg_Msgstop( "Wrong expression!" )
+         hwg_MsgStop("Wrong expression!")
       ELSE
          IF !Empty(cFor)
             bFor := &( "{||" + cFor + "}" )
@@ -105,7 +105,7 @@ FUNCTION C_4( nAct )
       FONT oMainFont
 
    IF nAct <= 2 .AND. aFiles[improc, AF_RDONLY]
-      hwg_Msgstop( "File is opened in readonly mode" )
+      hwg_MsgStop("File is opened in readonly mode")
       RETURN NIL
    ENDIF
 
@@ -135,12 +135,12 @@ FUNCTION C_4( nAct )
    IF oDlg:lResult
 
       IF !Empty(cFor) .AND. Type( cFor ) != "L"
-         hwg_Msgstop( "Wrong 'FOR' expression!" )
+         hwg_MsgStop("Wrong 'FOR' expression!")
          RETURN NIL
       ENDIF
       IF nAct == 4 
          IF Empty(cExpr) .AND. Type( cExpr ) != "N"
-            hwg_Msgstop( "Wrong 'SUM' expression!" )
+            hwg_MsgStop("Wrong 'SUM' expression!")
             RETURN NIL
          ELSE
             bSum := &( "{||" + cExpr + "}" )
@@ -186,7 +186,7 @@ FUNCTION C_4( nAct )
       GO nrec
       oMsg:Close()
       IF nAct > 2
-         hwg_MsgInfo( Ltrim(Str(nCount)), "Result" )
+         hwg_MsgInfo(LTrim(Str(nCount)), "Result")
       ELSE
          UpdBrowse()
       ENDIF
@@ -230,7 +230,7 @@ FUNCTION C_APPEND()
    }
 
    IF aFiles[improc, AF_RDONLY]
-      hwg_Msgstop( "File is opened in readonly mode" )
+      hwg_MsgStop("File is opened in readonly mode")
       RETURN NIL
    ENDIF
 
@@ -280,11 +280,11 @@ FUNCTION C_APPEND()
    IF oDlg:lResult
 
       IF Empty(cFile)
-         hwg_Msgstop( "File name is absent" )
+         hwg_MsgStop("File name is absent")
          RETURN NIL
       ENDIF
       IF !Empty(cFor) .AND. Type( cFor ) != "L"
-         hwg_Msgstop( "Wrong 'FOR' expression!" )
+         hwg_MsgStop("Wrong 'FOR' expression!")
          RETURN NIL
       ENDIF
       IF !Empty(cFor)
@@ -351,7 +351,7 @@ FUNCTION C_APPEND()
                            IF aFie[af[i], 2] == "N"
                               IF Len( xVal ) > aFie[af[i], 3]
                                  IF nOverf == 0
-                                    IF hwg_MsgYesNo( "Numeric field overflow! Continue?", "Warning" )
+                                    IF hwg_MsgYesNo("Numeric field overflow! Continue?", "Warning")
                                        nOverf := 1
                                     ELSE
                                        nOverf := 2
@@ -473,11 +473,11 @@ FUNCTION C_COPY()
    IF oDlg:lResult
 
       IF Empty(cFile)
-         hwg_Msgstop( "File name is absent" )
+         hwg_MsgStop("File name is absent")
          RETURN NIL
       ENDIF
       IF !Empty(cFor) .AND. Type( cFor ) != "L"
-         hwg_Msgstop( "Wrong 'FOR' expression!" )
+         hwg_MsgStop("Wrong 'FOR' expression!")
          RETURN NIL
       ENDIF
       IF !Empty(cFor)
@@ -582,15 +582,15 @@ FUNCTION C_RPZ( nAct )
    improc := oBrw:cargo[1]
 
    IF !aFiles[improc, AF_EXCLU]
-      hwg_Msgstop( "File must be opened in exclusive mode" )
+      hwg_MsgStop("File must be opened in exclusive mode")
       RETURN NIL
    ENDIF
    IF aFiles[improc, AF_RDONLY]
-      hwg_Msgstop( "File is opened in readonly mode" )
+      hwg_MsgStop("File is opened in readonly mode")
       RETURN NIL
    ENDIF
 
-   IF hwg_MsgYesNo( "Really " + aTitle[nAct] + " " + aFiles[improc,AF_ALIAS] + "?", "Attention!" )
+   IF hwg_MsgYesNo("Really " + aTitle[nAct] + " " + aFiles[improc, AF_ALIAS] + "?", "Attention!")
 
       oMsg := DlgWait( aTitle[nAct] )
       IF nAct == 1

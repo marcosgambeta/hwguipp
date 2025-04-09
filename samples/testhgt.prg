@@ -89,7 +89,7 @@ FUNCTION Test()
 
    @ 340, 10 SHADEBUTTON SIZE 100, 36 EFFECT SHS_METAL  PALETTE PAL_METAL GRANULARITY 33 ;
          HIGHLIGHT 20 TEXT "Close" FONT oFont ;
-     ON CLICK {|| hwg_msginfo("Close Button pressed") }
+     ON CLICK {|| hwg_MsgInfo("Close Button pressed") }
      * 
    @ 340, 50 SHADEBUTTON SIZE 100, 36 EFFECT SHS_SOFTBUMP  PALETTE PAL_METAL GRANULARITY 33 HIGHLIGHT 20
 

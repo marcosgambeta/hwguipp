@@ -77,8 +77,7 @@ LOCAL fname, hd, varbuf, ccdir
  MEMOWRIT(ccdir + "hexdump.txt",hd)
  
  IF .NOT. EMPTY(hd)
-  hwg_MsgInfo("Hexdump of >" + fname + "< written to file" + CHR(10) + ;
-  ">" + ccdir + "hexdump.txt<")
+  hwg_MsgInfo("Hexdump of >" + fname + "< written to file" + Chr(10) + ">" + ccdir + "hexdump.txt<")
  ENDIF 
 
  * Test rewrite binary file 

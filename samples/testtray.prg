@@ -58,12 +58,12 @@ FUNCTION Main()
    oIcon2 := HIcon():AddFile(cimagedir + "cancel.ico")
    
    IF .NOT. FILE(cimagedir + "hwgui_16x16.ico")
-    hwg_msgstop("Icon not found: " + cimagedir + "hwgui_32x32.ico")
+    hwg_MsgStop("Icon not found: " + cimagedir + "hwgui_32x32.ico")
     RETURN NIL
    ENDIF
    
    IF .NOT. FILE(cimagedir + "cancel.ico")
-    hwg_msgstop("Icon not found: " + cimagedir + "cancel.ico")
+    hwg_MsgStop("Icon not found: " + cimagedir + "cancel.ico")
     RETURN NIL
    ENDIF
 
@@ -84,7 +84,7 @@ FUNCTION Main()
 #else   
    CONTEXT MENU oTrayMenu
 #endif    
-   MENUITEM "Message"  ACTION hwg_Msginfo( "Tray Message !" )
+   MENUITEM "Message"  ACTION hwg_MsgInfo("Tray Message !")
 #ifndef __GTK__
    * At this time there is no way to change the tray icon on LINUX on running application  
    MENUITEM "Change icon"  ACTION hwg_ShellModifyicon( oMainWindow:handle, oIcon2:handle )

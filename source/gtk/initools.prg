@@ -39,7 +39,7 @@ FUNCTION Hwg_GetIni( rubrique, param, defaut, inifile )
       ENDIF
       IF !iniError
          iniError := .T.
-         hwg_MsgExclamation( _( "Section" ) + " " + rubrique + _( "not found or incorrect ..." ) + Chr(10) + _( "Please, verify !!!" ), _( "File" ) + " " + hb_FNameNameExt( inifile ) + " " + _( "incorrect" ) )
+         hwg_MsgExclamation(_("Section") + " " + rubrique + _("not found or incorrect ...") + Chr(10) + _("Please, verify !!!"), _("File") + " " + hb_FNameNameExt(inifile) + " " + _("incorrect"))
       ENDIF
       RETURN inivalue
    ENDIF

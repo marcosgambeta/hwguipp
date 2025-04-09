@@ -90,9 +90,9 @@ daltdatum := d1
   * Check for modified / Cancel
     IF daltdatum == d1
      Ctext := "Date not modified or dialog cancelled"
-     hwg_Msginfo(Ctext)
+     hwg_MsgInfo(Ctext)
     ENDIF 
 
-    hwg_Msginfo(dtoc(d1))
+    hwg_MsgInfo(dtoc(d1))
 
 Return NIL

@@ -97,7 +97,7 @@ Return Self
 METHOD OpenR( fname )  CLASS HFormGen
 Local oForm := ::aForms[1]
 
-   IF !hwg_Msgyesno( "The form will be opened INSTEAD of current ! Are you agree ?", "Designer")
+   IF !hwg_MsgYesNo("The form will be opened INSTEAD of current ! Are you agree ?", "Designer")
       Return NIL
    ENDIF
    oDesigner:lSingleForm := .F.
@@ -140,7 +140,7 @@ Private oForm := Self, aCtrlTable
          InspSetCombo()
       ENDIF
       IF ::oDlg == NIL //.OR. Empty(::oDlg:aControls)
-         hwg_Msgstop( "Can't load the form", "Designer" )
+         hwg_MsgStop("Can't load the form", "Designer")
       ELSEIF !oDesigner:lSingleForm .AND. fname != NIL
          AddRecent( Self )
       ENDIF
@@ -155,7 +155,7 @@ Local i, j, name := ::name, oDlgSel
       lDlg := .F.
    ENDIF
    IF ::lChanged
-      IF hwg_Msgyesno( ::name + " was changed. Save it ?", "Designer" )
+      IF hwg_MsgYesNo(::name + " was changed. Save it ?", "Designer")
          ::Save()
       ENDIF
    ENDIF
@@ -200,7 +200,7 @@ Private oForm := Self, aCtrlTable
       lAs := .F.
    ENDIF
    IF !::lChanged .AND. !lAs
-      hwg_Msgstop( "Nothing to save", "Designer" )
+      hwg_MsgStop("Nothing to save", "Designer")
       Return NIL
    ENDIF
 
@@ -600,10 +600,10 @@ Local oDoc := Iif( cForm!=NIL, HXMLDoc():ReadString(cForm), HXMLDoc():Read(oForm
 Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
 
    IF Empty(oDoc:aItems)
-      hwg_Msgstop( "Can't open "+oForm:path+oForm:filename, "Designer" )
+      hwg_MsgStop("Can't open " + oForm:path + oForm:filename, "Designer")
       Return NIL
    ELSEIF oDoc:aItems[1]:title != "part" .OR. oDoc:aItems[1]:GetAttribute( "class" ) != Iif( oDesigner:lReport,"report","form" )
-      hwg_Msgstop( "Form description isn't found", "Designer" )
+      hwg_MsgStop("Form description isn't found", "Designer")
       Return NIL
    ENDIF
    oForm:cEncoding := oDoc:GetAttribute( "encoding" )
@@ -1438,7 +1438,7 @@ Local cTemp1, cTemp2, lc := .F.
 Local oTmpl
 
    IF HFormGen():oDlgSelected == NIL
-      hwg_Msgstop( "No Form in use!", "Designer" )
+      hwg_MsgStop("No Form in use!", "Designer")
       Return NIL
    ENDIF
 

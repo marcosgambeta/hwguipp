@@ -426,7 +426,7 @@ FUNCTION OpenFile( fname, lAdd )
       oEdit:nBoundL := Iif( oEdit:nDocFormat > 0, DOC_BOUNDL, FREE_BOUNDL )
       onChangePos( .T. )
       IF oEdit:lError
-         hwg_MsgStop( "Wrong file format!" )
+         hwg_MsgStop("Wrong file format!")
       ENDIF
       Add2Recent( fname )
    ENDIF
@@ -461,7 +461,7 @@ STATIC FUNCTION SaveFile( lAs, lHtml )
 
 STATIC FUNCTION CloseFile()
 
-   IF oEdit:lUpdated .AND. hwg_MsgYesNo( "Save changes ?" )
+   IF oEdit:lUpdated .AND. hwg_MsgYesNo("Save changes ?")
       SaveFile( .F. )
    ENDIF
 
@@ -1739,7 +1739,7 @@ STATIC FUNCTION InsUrl( nType )
 
    aPos := oEdit:GetPosInfo()
    IF aPos != NIL .AND. aPos[3] != NIL .AND. Len( aPos[3] ) >= OB_HREF
-      hwg_msgStop( "Can't insert URL into existing one" )
+      hwg_MsgStop("Can't insert URL into existing one")
       RETURN NIL
    ENDIF
 
@@ -2426,7 +2426,7 @@ STATIC FUNCTION Help(cHTopic , nPROCLINE , cHVar)
    ENDIF
 
    IF !File( cIniPath + "editor.hwge" )
-      hwg_msgStop( "Help file editor.hwge not found" )
+      hwg_MsgStop("Help file editor.hwge not found")
       RETURN NIL
    ENDIF
 

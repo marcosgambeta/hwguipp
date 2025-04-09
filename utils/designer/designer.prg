@@ -120,9 +120,9 @@ FUNCTION Main( p0, p1, p2 )
          MENUITEM "&New " + iif( !oDesigner:lReport, "Form", "Report" )  ACTION HFormGen():New()
          MENUITEM "&Open " + iif( !oDesigner:lReport, "Form", "Report" ) ACTION HFormGen():Open()
          SEPARATOR
-         MENUITEM "&Save " + iif( !oDesigner:lReport, "Form", "Report" )   ACTION iif( HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:Save(), hwg_Msgstop( "No Form in use!", "Designer" ) )
-         MENUITEM "&Save as ..." ACTION iif( HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:Save( .T. ), hwg_Msgstop( "No Form in use!" ) )
-         MENUITEM "&Close " + iif( !oDesigner:lReport, "Form", "Report" )  ACTION iif( HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:End(), hwg_Msgstop( "No Form in use!", "Designer" ) )
+         MENUITEM "&Save " + iif( !oDesigner:lReport, "Form", "Report" )   ACTION iif( HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:Save(), hwg_MsgStop("No Form in use!", "Designer") )
+         MENUITEM "&Save as ..." ACTION iif( HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:Save( .T. ), hwg_MsgStop("No Form in use!") )
+         MENUITEM "&Close " + iif( !oDesigner:lReport, "Form", "Report" )  ACTION iif( HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:End(), hwg_MsgStop("No Form in use!", "Designer") )
       ELSE
          IF !lOmmitMenuFile
             MENUITEM "&Open " + iif( !oDesigner:lReport, "Form", "Report" ) ACTION HFormGen():OpenR()
@@ -164,7 +164,7 @@ FUNCTION Main( p0, p1, p2 )
          MENUITEMCHECK "&BmpSelFile" ID MENU_BMPSEL ACTION hwg_Checkmenuitem( oDesigner:oMainWnd:handle, MENU_BMPSEL, HBitmap():lSelFile := !hwg_Ischeckedmenuitem( oDesigner:oMainWnd:handle,MENU_BMPSEL ) )
       ENDMENU
       MENU TITLE "&Help"
-         MENUITEM "&About" ACTION hwg_Msginfo( hwg_Version() + Chr(10)+Chr(13) + "Visual Designer", "About" )
+         MENUITEM "&About" ACTION hwg_MsgInfo(hwg_Version() + Chr(10) + Chr(13) + "Visual Designer", "About")
       ENDMENU
    ENDMENU
 
@@ -186,7 +186,7 @@ FUNCTION Main( p0, p1, p2 )
       @ 55, 6 LINE LENGTH 18 VERTICAL
 
       @ 60, 3 OWNERBUTTON OF oPanel       ;
-         ON CLICK {||iif(HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:Save(), hwg_Msgstop("No Form in use!"))} ;
+         ON CLICK {||iif(HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:Save(), hwg_MsgStop("No Form in use!"))} ;
          SIZE 24, 24 FLAT                ;
          BITMAP oDesigner:cBmpPath+"bmp_save.bmp" COORDINATES 0, 4, 0, 0 TRANSPARENT ;
          TOOLTIP "Save Form"
@@ -383,7 +383,7 @@ STATIC FUNCTION ReadIniFiles()
       oDesigner:oWidgetsSet := HXMLDoc():Read(cCurDir + cWidgetsFileName)
    ENDIF
    IF oDesigner:oWidgetsSet == NIL .OR. Empty(oDesigner:oWidgetsSet:aItems)
-      hwg_Msgstop( "Widgets file isn't found!", "Designer error" )
+      hwg_MsgStop("Widgets file isn't found!", "Designer error")
       RETURN .F.
    ENDIF
 
@@ -590,7 +590,7 @@ STATIC FUNCTION EndIde
    LOCAL nGrid := 0
 
    IF alen > 0
-      IF hwg_Msgyesno( "Are you really want to quit ?", "Designer" )
+      IF hwg_MsgYesNo("Are you really want to quit ?", "Designer")
          FOR i := Len( HFormGen():aForms ) TO 1 STEP - 1
             HFormGen():aForms[i]:End( , .F. )
          NEXT
@@ -684,7 +684,7 @@ STATIC FUNCTION SetGrid( nGrid )
          ENDIF
       NEXT
       IF lNeedAlign
-         IF hwg_MsgYesNo( "Align controls to grid?", "Alignment" )
+         IF hwg_MsgYesNo("Align controls to grid?", "Alignment")
             FOR i := 1 TO Len( HFormGen():aForms )
                AlignToGrid( HFormGen():aForms[i]:oDlg )
             NEXT

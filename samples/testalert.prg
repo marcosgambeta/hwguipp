@@ -55,7 +55,7 @@ procedure main()
         // Note default aOptions overriden with empty array
     hwg_Alert("We will be processing (well, sleeping and beeping) for 5s (not modal)  ...", { })
     for i := 1 to 5
-        Hwg_MsgBeep(MB_ICONEXCLAMATION)
+        hwg_MsgBeep(MB_ICONEXCLAMATION)
         Hwg_Sleep(1000)
     next
     hwg_ReleaseDefaultAlert()
@@ -72,11 +72,11 @@ procedure main()
         // Thread safe like this, straight Alert and friends are not.
     HAlert():Init():Alert("Our own temporary object alert", { "Good", "or", "Bad" })
 
-        // Compare alert() to Hwg_MsgYesNoCancel()
+        // Compare alert() to hwg_MsgYesNoCancel()
     hwg_Alert("hwg_Alert() returned " + ;
             HB_ValToStr(Alert("'ello 'ello;How are you?;I am alert();;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", ;
             { "Yes", "No", "Cancel" })))
-        // By way of comparison to MessageBox which is what Hwg_MsgYesNoCancel() calls
+        // By way of comparison to MessageBox which is what hwg_MsgYesNoCancel() calls
     hwg_Alert("Hwg_MsgYesNoCancel() returned " + ;
             HB_ValToStr(Hwg_MsgYesNoCancel("'ello 'ello" + chr(10) + "How are you?" + chr(10) + "I am Hwg_MsgYesNoCancel()" + chr(10) + chr(10) + ;
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", "Alert")))

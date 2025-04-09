@@ -113,10 +113,10 @@ METHOD HBitmap:AddResource( name )
    */
    
    IF Empty(::handle)
-      hwg_MsgStop("Can not add bitmap to resource container: >" + name + "<" )
+      hwg_MsgStop("Can not add bitmap to resource container: >" + name + "<")
       RETURN NIL
    // ELSE
-   //     hwg_MsgInfo("Bitmap resource successfully loaded >" + name + "<" )     
+   //     hwg_MsgInfo("Bitmap resource successfully loaded >" + name + "<")
    ENDIF
    ::name := name
    AAdd(::aBitmaps, Self)
@@ -190,14 +190,14 @@ METHOD HBitmap:AddString( name, cVal )
       FErase(cTmp)
    ENDIF
    IF !Empty(::handle)
-      // hwg_Msginfo("Bitmap successfully loaded: >" + name + "<")
+      // hwg_MsgInfo("Bitmap successfully loaded: >" + name + "<")
       ::name := name
       aBmpSize := hwg_Getbitmapsize(::handle)
       ::nWidth := aBmpSize[1]
       ::nHeight := aBmpSize[2]
       AAdd(::aBitmaps, Self)
    ELSE
-      hwg_MsgStop("Bitmap not loaded >" + name + "<" )
+      hwg_MsgStop("Bitmap not loaded >" + name + "<")
       RETURN NIL
    ENDIF
 
@@ -345,7 +345,7 @@ METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
       ENDIF
    ENDIF
    IF Empty(::handle)
-      hwg_MsgStop("Can not add icon to resource container: >" + name + "<" )
+      hwg_MsgStop("Can not add icon to resource container: >" + name + "<")
       RETURN NIL
    ENDIF
    ::name := name
@@ -606,7 +606,7 @@ FUNCTION hwg_Bitmap2tmpfile(objBitmap, cname, cfextn)
 // Don't forget to delete the temporary file after usage.
 // LOCAL ctmpbmpf
 // ctmpbmpf := hwg_Bitmap2tmpfile(obitmap, "sample", "bmp")
-// hwg_MsgInfo(ctmpbmpf,"Temporary image file")
+// hwg_MsgInfo(ctmpbmpf, "Temporary image file")
 // IF !Empty(ctmpbmpf)
 //  ...
 // ENDIF

@@ -53,8 +53,8 @@ nPosY := hwg_Getdesktopheight()
 lStretch := IIF( lStretch == NIL, lStretch := .T.,lStretch := .F.)
  
 * Display size of recent desktop, it is equal to the size of screen. 
-hwg_msginfo("X=" + STR(nPosX) + CHR(10) + "Y=" + STR(nPosY) + CHR(10) + ;
- "lStretch=" + IIF(lStretch,"True","False") ) 
+hwg_MsgInfo("X=" + Str(nPosX) + Chr(10) + "Y=" + Str(nPosY) + Chr(10) + ;
+ "lStretch=" + IIF(lStretch, "True", "False"))
 
 
 
@@ -93,7 +93,7 @@ RETURN NIL
 FUNCTION CHECK_FILE ( cfi )
 * Check, if file exist, otherwise terminate program
  IF .NOT. FILE( cfi )
-  Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
+  hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 
 RETURN NIL

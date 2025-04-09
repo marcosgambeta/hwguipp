@@ -60,7 +60,7 @@ Local oFont
 #endif
 * oFont := HFont():Add("MS Sans Serif", 0, -11, 400) // 8, "MS Sans Serif"
 
-   // INIT DIALOG aDlg1 FROM RESOURCE  "PAGE_1" ON EXIT {||hwg_Msginfo("Exit"),.T.}
+   // INIT DIALOG aDlg1 FROM RESOURCE  "PAGE_1" ON EXIT {||hwg_MsgInfo("Exit"),.T.}
    // REDEFINE GET e1 ID 103
 
 
@@ -69,7 +69,7 @@ Local oFont
     AT 10, 10 SIZE 262, 249 ;   // 210, 297
     STYLE  WS_VISIBLE + WS_BORDER ;   // WS_CHILD freezes program
     FONT oFont ;
-    ON EXIT {||hwg_Msginfo("Exit"),.T.}
+    ON EXIT {||hwg_MsgInfo("Exit"),.T.}
 
 
 

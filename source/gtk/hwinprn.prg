@@ -389,7 +389,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
       */
       xBitmap:OBMP2FILE( cTmp , cImageName , "bmp" )
       hBitmap := hwg_Openbitmap( cTmp , ::oPrinter:hDC )
-      // hwg_msginfo(hb_valtostr(hBitmap))
+      // hwg_MsgInfo(hb_valtostr(hBitmap))
       IF hb_ValToStr(hBitmap) == "0x00000000"
         RETURN NIL
       ENDIF
@@ -399,7 +399,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
      ELSE
       // from file
       hBitmap := hwg_Openbitmap( xBitmap, ::oPrinter:hDC )
-      // hwg_msginfo(hb_valtostr(hBitmap))
+      // hwg_MsgInfo(hb_valtostr(hBitmap))
       IF hb_ValToStr(hBitmap) == "0x00000000"
         RETURN NIL
       ENDIF
@@ -430,7 +430,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
       ::lFirstLine := .F.
    ENDIF
    // Paint bitmap
-   // hwg_msginfo(STR(::x) + CHR(10) + STR(::y) + CHR(10) + STR(aBmpSize[1]) + CHR(10) +  STR(aBmpSize[2]) )
+   // hwg_MsgInfo(Str(::x) + Chr(10) + Str(::y) + Chr(10) + Str(aBmpSize[1]) + Chr(10) + Str(aBmpSize[2]))
 
    IF bfromobj
    /* from object: need to read from temporary file */

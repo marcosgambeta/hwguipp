@@ -87,7 +87,7 @@ FUNCTION StruMan( lNew )
       oMsg = DlgWait( "Restructuring" )
       IF lNew
          CLOSE ALL
-         fname := hwg_MsgGet( "File creation", "Input new file name" )
+         fname := hwg_MsgGet("File creation", "Input new file name")
          IF Empty(fname)
             RETURN NIL
          ENDIF
@@ -147,7 +147,7 @@ FUNCTION StruMan( lNew )
             SKIP
          ENDDO
          IF lOverFlow
-            hwg_Msginfo( "There was overflow in Numeric field", "Warning!" )
+            hwg_MsgInfo("There was overflow in Numeric field", "Warning!")
          ENDIF
 
          CLOSE ALL

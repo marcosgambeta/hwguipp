@@ -2146,7 +2146,7 @@ METHOD HBrowse:Edit(wParam, lParam)
 //          Ask for saving, if  "Close" is pressed and the memo is modified
            IF lCancel
 //           Ask and mark vor saving
-            lSaveMem := hwg_Msgyesno(::cTextMod, ::cTextTitME)
+            lSaveMem := hwg_MsgYesNo(::cTextMod, ::cTextTitME)
            ENDIF
            IF lSaveMem
             // write out edited memo field
@@ -2479,7 +2479,7 @@ METHOD HBrowse:ShowSizes()
    LOCAL cText := ""
 
    AEval(::aColumns, {|v, e|(v), cText += ::aColumns[e]:heading + ": " + Str(Round(::aColumns[e]:width / 8, 0) - 2) + Chr(10) + Chr(13)})
-   hwg_Msginfo(cText)
+   hwg_MsgInfo(cText)
 
    RETURN NIL
 

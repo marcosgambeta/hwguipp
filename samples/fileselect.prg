@@ -120,9 +120,9 @@ RETURN NIL
 
  
 FUNCTION action_aborted
-  hwg_MsgStop("Selection Canceled","HWGUI Sample")
+  hwg_MsgStop("Selection Canceled", "HWGUI Sample")
 RETURN NIL
 
 FUNCTION action_selected(pcfname)
-  hwg_MsgInfo("Selection done: " + pcfname ,"HWGUI Sample")
+  hwg_MsgInfo("Selection done: " + pcfname, "HWGUI Sample")
 RETURN NIL

@@ -110,7 +110,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste1"  ;
       TOOLTIP "ola" ;
-      ON CLICK {|x, y|hwg_Msginfo("ola"), hwg_Enablewindow(oTool:aItem[2, 11], .T.), hwg_Enablewindow(oTool:aItem[1, 11], .F.)}
+      ON CLICK {|x, y|hwg_MsgInfo("ola"), hwg_Enablewindow(oTool:aItem[2, 11], .T.), hwg_Enablewindow(oTool:aItem[1, 11], .F.)}
 
    TOOLBUTTON  otool ;
       ID 702 ;
@@ -119,7 +119,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste2"  ;
       TOOLTIP "ola2" ;
-      ON CLICK {|x, y|hwg_Msginfo("ola1"), hwg_Enablewindow(oTool:aItem[1, 11], .T.), hwg_Enablewindow(oTool:aItem[2, 11], .F.)}
+      ON CLICK {|x, y|hwg_MsgInfo("ola1"), hwg_Enablewindow(oTool:aItem[1, 11], .T.), hwg_Enablewindow(oTool:aItem[2, 11], .F.)}
 
    TOOLBUTTON  otool ;
       ID 703 ;
@@ -128,14 +128,14 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "asdsa"  ;
       TOOLTIP "ola3" ;
-      ON CLICK {|x, y|hwg_Msginfo("ola2")}
+      ON CLICK {|x, y|hwg_MsgInfo("ola2")}
    TOOLBUTTON  otool ;
       ID 702 ;
       STYLE 1 ;
       STATE 4;
       TEXT "teste2"  ;
       TOOLTIP "ola2" ;
-      ON CLICK {|x, y|hwg_Msginfo("ola3")}
+      ON CLICK {|x, y|hwg_MsgInfo("ola3")}
    TOOLBUTTON  otool ;
       ID 702 ;
       BITMAP cbmppref + "door.bmp";  // DF7BE: tools.bmp does not exist, choose existing one
@@ -143,7 +143,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste2"  ;
       TOOLTIP "ola2" ;
-      ON CLICK {|x, y|hwg_Msginfo("ola4")}
+      ON CLICK {|x, y|hwg_MsgInfo("ola4")}
 
    TOOLBUTTON  otool ;
       ID 702 ;
@@ -152,7 +152,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste2"  ;
       TOOLTIP "ola2" ;
-      ON CLICK {|x, y|hwg_Msginfo("ola5")}
+      ON CLICK {|x, y|hwg_MsgInfo("ola5")}
 
 #else
 
@@ -167,7 +167,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oFileOpen  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK {||hwg_Msginfo("ola")}  ;
+   ON CLICK {||hwg_MsgInfo("ola")}  ;
    TEXT "teste1"  ;
    BITMAP oBmpNew ; // cbmppref + "new.bmp" ;
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
@@ -180,7 +180,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBook  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK {||hwg_Msginfo("ola1")}  ;
+   ON CLICK {||hwg_MsgInfo("ola1")}  ;
    TEXT "teste2"  ;
    BITMAP oBmpbook ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
@@ -194,7 +194,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
    
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBook  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK {||hwg_Msginfo("ola2")}  ;
+   ON CLICK {||hwg_MsgInfo("ola2")}  ;
    TEXT "asdsa"  ;
    BITMAP oIcoOK  ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
@@ -207,7 +207,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBook  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK {||hwg_Msginfo("ola4")}  ;
+   ON CLICK {||hwg_MsgInfo("ola4")}  ;
    TEXT "teste2"  ;
    BITMAP oBmpdoor ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
@@ -219,7 +219,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBook  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK {||hwg_Msginfo("ola5")}  ;
+   ON CLICK {||hwg_MsgInfo("ola5")}  ;
    TEXT "teste2"  ;
    BITMAP oIcoCancel  ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
@@ -256,16 +256,16 @@ noffset := 55
    ACTIVATE WINDOW oModDlg
 #endif   
 
-   hwg_Msginfo( meditbox , "Contents of variable meditbox")
-   hwg_Msginfo( OEDITBOX:TITLE , "Title of OEDITBOX")
-   hwg_Msginfo( mnome  , "Contents of variable mnome")
+   hwg_MsgInfo(meditbox, "Contents of variable meditbox")
+   hwg_MsgInfo(OEDITBOX:TITLE, "Title of OEDITBOX")
+   hwg_MsgInfo(mnome, "Contents of variable mnome")
 
    RETURN NIL
    
 FUNCTION CHECK_FILE ( cfi )
 * Check, if file exist, otherwise terminate program
  IF .NOT. FILE( cfi )
-  Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
+  hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 
 RETURN NIL

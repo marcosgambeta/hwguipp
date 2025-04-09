@@ -442,8 +442,8 @@ RETURN NIL
 
 FUNCTION hwg_dbg_Alert(cMessage)
 
-   LOCAL bCode := &(IIf(Type("hwg_msginfo()") == "UI", "{|s|hwg_msginfo(s)}", ;
-      IIf(Type("msginfo()") == "UI", "{|s|msginfo(s)}", "{|s|alert(s)}")))
+   LOCAL bCode := &(IIf(Type("hwg_MsgInfo()") == "UI", "{|s|hwg_MsgInfo(s)}", ;
+      IIf(Type("MsgInfo()") == "UI", "{|s|MsgInfo(s)}", "{|s|Alert(s)}")))
 
    Eval(bCode, cMessage)
 

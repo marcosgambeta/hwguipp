@@ -16,10 +16,10 @@ LOCAL oGet
 
    MENU OF oMainWindow 
       MENU TITLE "&File"
-         MENUITEM "&New" ACTION hwg_Msginfo("New")
-         MENUITEM "&Open" ACTION hwg_Msginfo("Open")
+         MENUITEM "&New" ACTION hwg_MsgInfo("New")
+         MENUITEM "&Open" ACTION hwg_MsgInfo("Open")
          SEPARATOR
-         MENUITEM "&Font" ACTION hwg_Msginfo("font")
+         MENUITEM "&Font" ACTION hwg_MsgInfo("font")
          SEPARATOR
          MENUITEM "&Exit" ACTION hwg_EndWindow()
       ENDMENU
@@ -35,9 +35,9 @@ LOCAL oGet
 
    @ 214, 35 TAB oTab ITEMS {} SIZE 206, 280 ;
         ON SIZE {|o,x,y|o:Move(,,x-oSplit:nLeft-oSplit:nWidth-10,y-20)} ;
-        ON CHANGE {|o|hwg_Msginfo(str(len(o:aPages)))}
+        ON CHANGE {|o|hwg_Msginfo(Str(Len(o:aPages)))}
 
-   @ 414, 10 BUTTON "X" SIZE 24, 24 ON CLICK {|| hwg_Msginfo( "Delete " + str(oTab:GetActivePage()) ), oTab:DeletePage( oTab:GetActivePage() ) } ;
+   @ 414, 10 BUTTON "X" SIZE 24, 24 ON CLICK {|| hwg_MsgInfo("Delete " + Str(oTab:GetActivePage())), oTab:DeletePage( oTab:GetActivePage() ) } ;
         ON SIZE {|o,x,y| o:Move( oTab:nLeft+oTab:nWidth-26 )} ;
  
    @ 210, 10 SPLITTER oSplit SIZE 4, 260 ;

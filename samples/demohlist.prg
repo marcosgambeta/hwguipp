@@ -28,7 +28,7 @@ Local oList, oItems:={"Item01","Item02","Item03","Item04"}
              OF oModDlg                  ;
              INIT 1 ;
              SIZE 210, 220            ;
-             ON INIT {||hwg_Msginfo("Teste")} ;
+             ON INIT {||hwg_MsgInfo("Teste")} ;
              TOOLTIP "Test ListBox"
 
    @  10, 280 BUTTON "Ok" ID IDOK SIZE 50, 32
@@ -36,7 +36,7 @@ Local oList, oItems:={"Item01","Item02","Item03","Item04"}
     oFont:Release()
 
    // show result
-   hwg_msgInfo(STR(oList:value),"Result of Listbox selection")
+   hwg_MsgInfo(Str(oList:value), "Result of Listbox selection")
 
    IF oModDlg:lResult
     ENDIF

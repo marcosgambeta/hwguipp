@@ -149,15 +149,15 @@ INIT WINDOW oMainW  ;
 RETURN NIL
 
 FUNCTION FileOpen
- hwg_msginfo("You have clicked >FileOpen<")
+ hwg_MsgInfo("You have clicked >FileOpen<")
 RETURN NIL
 
 FUNCTION OpenDoor
- hwg_msginfo("You have clicked >Open the door<")
+ hwg_MsgInfo("You have clicked >Open the door<")
 RETURN NIL
 
 FUNCTION ClickJpeg
- hwg_msginfo("You have clicked >JPEG image<")
+ hwg_MsgInfo("You have clicked >JPEG image<")
 RETURN NIL
 
 

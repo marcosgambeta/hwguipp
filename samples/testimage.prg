@@ -35,7 +35,7 @@ nameimg := ".." + cs + "image" + cs + "astro.bmp"
 */
 
 IF .NOT. FILE(nameimg)
- hwg_msginfo("File >" + nameimg + "< not found","Error" )
+ hwg_MsgInfo("File >" + nameimg + "< not found", "Error")
 ENDIF
 
 INIT Dialog oDlg AT 0, 0 SIZE 500, 400 CLIPPER NOEXIT NOEXITESC

@@ -108,7 +108,7 @@ METHOD PrintDos:New(oPorta)
       IF oPorta == "DEFAULT"
          oPtrName := hwg_Printportname()
          IF oPtrName == NIL
-            hwg_Msginfo("Error, file to:ERROR.TXT")
+            hwg_MsgInfo("Error, file to:ERROR.TXT")
             ::oPorta := "Error.txt"
          ELSE
             ::oPorta := oPtrName
@@ -116,12 +116,12 @@ METHOD PrintDos:New(oPorta)
       ELSEIF oPorta == "SELECT"
          oPtrSetup := hwg_Printsetupdos()
          IF oPtrSetup == NIL
-            hwg_Msginfo("Error, file to:ERROR.TXT")
+            hwg_MsgInfo("Error, file to:ERROR.TXT")
             ::oPorta := "Error.txt"
          ELSE
             oPtrName := hwg_Printportname()
             IF oPtrName == NIL
-               hwg_Msginfo("Error, file to:ERROR.TXT")
+               hwg_MsgInfo("Error, file to:ERROR.TXT")
                ::oPorta := "Error.txt"
             ELSE
                oPtrName := AllTrim(oPtrName)
@@ -340,7 +340,7 @@ METHOD PrintDos:PrinterFile(fname)
    LOCAL nRead
 
    IF !File(fname)
-      hwg_Msgstop("Error open file " + fname, "Error")
+      hwg_MsgStop("Error open file " + fname, "Error")
       RETURN .F.
    ENDIF
 
@@ -366,7 +366,7 @@ METHOD PrintDos:PrinterFile(fname)
 
    ELSE
 
-      hwg_Msgstop("Can't Open port")
+      hwg_MsgStop("Can't Open port")
       FClose(han)
 
    ENDIF
@@ -434,7 +434,7 @@ METHOD PrintDos:TxttoGraphic(fName, osize, oPreview)
       ENDDO
       FClose(han)
    ELSE
-      hwg_Msgstop("Can't open " + fName)
+      hwg_MsgStop("Can't open " + fName)
       RETURN .F.
    ENDIF
    oPrinter:EndPage()
@@ -482,7 +482,7 @@ METHOD PrintDos:Preview(fName, cTitle)
       ENDDO
       FClose(han)
    ELSE
-      hwg_Msgstop("Can't open " + fName)
+      hwg_MsgStop("Can't open " + fName)
       RETURN .F.
    ENDIF
 

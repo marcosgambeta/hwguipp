@@ -49,7 +49,7 @@ Private nColor, oBmp2
          SEPARATOR
          MENUITEM "&Font" ACTION oFont:=HFont():Select(oFont)
          MENUITEM "&Color" ACTION (nColor:=Hwg_ChooseColor(nColor,.F.), ;
-                     hwg_Msginfo(Iif(nColor!=NIL,str(nColor),"--"),"Color value"))
+                     hwg_MsgInfo(Iif(nColor != NIL, str(nColor), "--"), "Color value"))
          MENUITEM "&Test" ACTION test1()
          SEPARATOR
          MENUITEM "&Move Main Window" ACTION oMainWindow:Move(50, 60, 200, 300)
@@ -63,7 +63,7 @@ Private nColor, oBmp2
          MENUITEM "&Class HRect" ACTION RRectangle()
          SEPARATOR
          MENUITEM "&MsgGet" ;
-               ACTION hwg_Copystringtoclipboard(hwg_MsgGet("Dialog Sample","Input table name"))
+               ACTION hwg_Copystringtoclipboard(hwg_MsgGet("Dialog Sample", "Input table name"))
          MENUITEM "&Dialog from prg" ACTION DialogFromPrg()
          MENUITEM "&DOS print" ACTION PrintDos()
          // MENUITEM "&Windows print" ;
@@ -84,12 +84,12 @@ Private nColor, oBmp2
          MENUITEM "&About" ACTION OpenAbout()
          MENUITEM "&hwg_Window2bitmap" ACTION About2()
 #ifdef __XHARBOUR__
-         MENUITEM "&Version HwGUI and Compilator" ACTION hwg_Msginfo(HwG_Version()+Chr(10)+Chr(13)+version())
+         MENUITEM "&Version HwGUI and Compilator" ACTION hwg_MsgInfo(HwG_Version() + Chr(10) + Chr(13) + version())
 #else         
-         MENUITEM "&Version HwGUI and Compilator" ACTION hwg_Msginfo(HwG_Version()+Chr(10)+Chr(13)+hb_version())
+         MENUITEM "&Version HwGUI and Compilator" ACTION hwg_MsgInfo(HwG_Version() + Chr(10) + Chr(13) + hb_version())
 #endif         
-         MENUITEM "&Version HwGUI" ACTION hwg_Msginfo(HwG_Version())
-         MENUITEM "&Current dir" ACTION hwg_Msginfo(hwg_Getcurrentdir())
+         MENUITEM "&Version HwGUI" ACTION hwg_MsgInfo(HwG_Version())
+         MENUITEM "&Current dir" ACTION hwg_MsgInfo(hwg_Getcurrentdir())
       ENDMENU
       MENU TITLE "&Windows"
          MENUITEM "&Tile"  ;
@@ -140,12 +140,12 @@ Local e5 := 10320.54
         PICTURE "@e 999,999,999.99"     ;
         SIZE 260, 25
 
-   @ 20, 190  BUTTON "Ok" SIZE 100, 32 ON CLICK {||( hwg_Msginfo( e1 + chr(10) + chr(13) + ;
+   @ 20, 190  BUTTON "Ok" SIZE 100, 32 ON CLICK {||( hwg_MsgInfo(e1 + chr(10) + chr(13) + ;
                Dtoc(e2) + chr(10) + chr(13) + ;
                Str(e3) + chr(10) + chr(13) +  ;
                e4 + chr(10) + chr(13) +       ;
                Str(e5) + chr(10) + chr(13)    ;
-               ,"Results:" ) ,oChildWnd:Close() )}
+               , "Results:") ,oChildWnd:Close() )}
    @ 180, 190 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||oChildWnd:Close()}
 
    oChildWnd:Activate()
@@ -286,7 +286,7 @@ Local nId
       IF oFont != NIL
          oBrw:ofont := oFont
       ENDIF
-      AEval(oBrw:aColumns, {|o| o:bHeadClick := {|oB, n| hwg_Msginfo("Column number "+Str(n))}})
+      AEval(oBrw:aColumns, {|o|o:bHeadClick := {|oB, n|hwg_MsgInfo("Column number " + Str(n))}})
 
       ACTIVATE DIALOG oModDlg NOMODAL
    ENDIF
@@ -306,7 +306,7 @@ Local han := fcreate("LPT1", 0)
      fwrite(han, "---------------------------"+Chr(10)+Chr(13)+Chr(12))
      fclose(han)
   else
-     hwg_Msgstop("Can't open printer port!")
+     hwg_MsgStop("Can't open printer port!")
   endif
 return NIL
 
@@ -349,7 +349,7 @@ LOCAL oTab
    INIT DIALOG oModDlg TITLE cTitle           ;
    AT 210, 10 SIZE 300, 300                    ;
    FONT oFont                                 ;
-   ON EXIT {||hwg_Msgyesno("Really exit ?")}
+   ON EXIT {||hwg_MsgYesNo("Really exit ?")}
 
    @ 20, 10 SAY cText SIZE 260, 22
    @ 20, 35 EDITBOX oEdit CAPTION ""    ;
@@ -424,7 +424,7 @@ Local oGet3, oGet4, oVar3:="3", oVar4:="4", oGet5, oVar5 := "5"
 INIT DIALOG oDlg CLIPPER NOEXIT AT 0, 0 SIZE 200, 200
 
 @ 10, 10 TAB oTab ITEMS {} SIZE 180, 180 ;
-   ON LOSTFOCUS {||hwg_Msginfo("Lost Focus")};
+   ON LOSTFOCUS {||hwg_MsgInfo("Lost Focus")};
    ON INIT  {||hwg_Setfocus(oDlg:getlist[1]:handle)} ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
 BEGIN PAGE "Page 01" of oTab

@@ -261,20 +261,18 @@ RETURN NIL
 * =================================
 FUNCTION dlgAbout()
 * =================================
-hwg_MsgInfo( ;
-"HWGUI - Harbour Win32 and Linux (GTK) GUI library" + CHR(10) + CHR(10) + ;
-"Developers utility:" + CHR(10) + ;
-"Dump contents of a Clipper(Harbour) MEM file" + CHR(10) + ;
-CHR(10) + ;
-"Copyright 2022 Wilfried Brunken, DF7BE" + CHR(10) + ; 
-"https://sourceforge.net/projects/cllog/" + CHR(10) + ;
-"https://sourceforge.net/projects/hwgui/" + CHR(10) + ; 
-CHR(10) + ;
-"License:" + CHR(10) + ;
-"GNU General Public License" + CHR(10) + ;
-"with special exceptions of HWGUI." + CHR(10) + ;
-"See file " + CHR(34) + "license.txt" + CHR(34) + " for details." ;
- ,"About memdump.prg")
+hwg_MsgInfo("HWGUI - Harbour Win32 and Linux (GTK) GUI library" + Chr(10) + Chr(10) + ;
+           "Developers utility:" + Chr(10) + ;
+           "Dump contents of a Clipper(Harbour) MEM file" + Chr(10) + ;
+           Chr(10) + ;
+           "Copyright 2022 Wilfried Brunken, DF7BE" + Chr(10) + ;
+           "https://sourceforge.net/projects/cllog/" + Chr(10) + ;
+           "https://sourceforge.net/projects/hwgui/" + Chr(10) + ;
+           Chr(10) + ;
+           "License:" + Chr(10) + ;
+           "GNU General Public License" + Chr(10) + ;
+           "with special exceptions of HWGUI." + Chr(10) + ;
+           "See file " + Chr(34) + "license.txt" + Chr(34) + " for details.", "About memdump.prg")
  RETURN NIL
 
 * =================================
@@ -514,7 +512,7 @@ DO CASE
       FILE_ERROR(anzbyte2)
       RETURN {}
    ENDIF
-//   hwg_MsgInfo(STRTRAN(SUBSTR(hwg_HEX_DUMP(Puffn, 0), 1, 23)," ","") )
+//   hwg_MsgInfo(StrTran(SubStr(hwg_HEX_DUMP(Puffn, 0), 1, 23), " ", ""))
    AADD(aOutput, ALLTRIM(STR(hwg_Bin2D(hwg_HEX_DUMP(Puffn, 0),ncsize,ncdec) )) )
  ENDCASE  
 
@@ -537,7 +535,7 @@ FUNCTION FILE_ERROR(nbytes)
 IF nbytes == NIL
      hwg_MsgStop("File Read Error")
 ELSE
-     hwg_MsgStop("File Read Error at byte : " + ALLTRIM(STR(nbytes)) )
+     hwg_MsgStop("File Read Error at byte : " + AllTrim(Str(nbytes)))
 ENDIF
 RETURN NIL
 
@@ -652,7 +650,7 @@ DELETE FILE (dateiname)
   
  IF .NOT. WRITE_TEXT(handle_a, ;
     aerg [iind,iindr] )
-    hwg_MsgStop("Write ERROR: " + dateiname, "File write Error") 
+    hwg_MsgStop("Write ERROR: " + dateiname, "File write Error")
     RETURN NIL
  ENDIF
  
@@ -661,7 +659,7 @@ DELETE FILE (dateiname)
  * Blank line
  IF .NOT. WRITE_TEXT(handle_a, ;
     " " )
-    hwg_MsgStop("Write ERROR: " + dateiname, "File write Error") 
+    hwg_MsgStop("Write ERROR: " + dateiname, "File write Error")
     RETURN NIL
  ENDIF
  
@@ -747,7 +745,7 @@ DELETE FILE (dateiname)
  * Blank line
  IF .NOT. WRITE_TEXT(handle_a, ;
     " " )
-    hwg_MsgStop("Write ERROR: " + dateiname, "File write Error") 
+    hwg_MsgStop("Write ERROR: " + dateiname, "File write Error")
     RETURN NIL
  ENDIF
  
@@ -792,7 +790,7 @@ IF dateiname == NIL
 ENDIF 
 IF .NOT. WRITE_TEXT(handle_a, ;
     dat_text )
-    hwg_MsgStop("Write ERROR: " + dateiname, "File write Error") 
+    hwg_MsgStop("Write ERROR: " + dateiname, "File write Error")
     RETURN .F.
  ENDIF
  RETURN .T.

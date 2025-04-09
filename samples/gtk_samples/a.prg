@@ -39,7 +39,7 @@ Private oBmp2
          SEPARATOR
          MENUITEM "&Font" ACTION oFont:=HFont():Select(oFont)
          MENUITEM "&Color" ACTION (nColor:=Hwg_ChooseColor(nColor,.F.), ;
-                     hwg_Msginfo(Iif(nColor!=NIL,str(nColor),"--"),"Color value"))
+                     hwg_MsgInfo(Iif(nColor != NIL, str(nColor), "--"), "Color value"))
          SEPARATOR
          MENUITEM "&Move Main Window" ACTION oMainWindow:Move(50, 60, 200, 300)
          MENUITEM "&Exit" ACTION hwg_EndWindow()
@@ -50,7 +50,7 @@ Private oBmp2
          MENUITEM "&Test Tab" ACTION TestTab()
          SEPARATOR
          MENUITEM "&MsgGet" ;
-               ACTION hwg_Copystringtoclipboard(hwg_MsgGet("Dialog Sample","Input table name"))
+               ACTION hwg_Copystringtoclipboard(hwg_MsgGet("Dialog Sample", "Input table name"))
          MENUITEM "&Dialog from prg" ACTION DialogFromPrg()
          #ifdef TEST_PRINT         
          SEPARATOR
@@ -102,11 +102,11 @@ fname := hwg_Selectfile("Dbf Files" , "*.dbf", mypath )
             ON GETFOCUS {|o|dbSelectArea(o:alias)}
       hwg_CreateList( oBrw,.T. )
       oBrw:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
-      oBrw:bRClick := {|o,nCol,nRow|hwg_MsgInfo(str(nCol)+"/"+str(nRow))}
+      oBrw:bRClick := {|o,nCol,nRow|hwg_MsgInfo(Str(nCol) + "/" + Str(nRow))}
       IF oFont != NIL
          oBrw:ofont := oFont
       ENDIF
-      AEval(oBrw:aColumns, {|o| o:bHeadClick := {|oB, n| hwg_Msginfo("Column number "+Str(n))}})
+      AEval(oBrw:aColumns, {|o| o:bHeadClick := {|oB, n| hwg_MsgInfo("Column number " + Str(n))}})
 
       ACTIVATE DIALOG oModDlg NOMODAL
    ENDIF
@@ -126,7 +126,7 @@ Local han := fcreate("LPT1", 0)
      fwrite(han, "---------------------------"+Chr(10)+Chr(13)+Chr(12))
      fclose(han)
   else
-     hwg_Msgstop("Can't open printer port!")
+     hwg_MsgStop("Can't open printer port!")
   endif
 return NIL
 
@@ -140,7 +140,7 @@ Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
    INIT DIALOG oModDlg TITLE cTitle           ;
    AT 210, 10 SIZE 300, 300                    ;
    FONT oFont                                 ;
-   ON EXIT {||hwg_Msgyesno("Really exit ?")}
+   ON EXIT {||hwg_MsgYesNo("Really exit ?")}
 
    @ 20, 10 SAY cText SIZE 260, 22
    @ 20, 35 EDITBOX oEdit CAPTION ""    ;
@@ -195,7 +195,7 @@ INIT DIALOG oDlg CLIPPER NOEXIT AT 0, 0 SIZE 200, 200 ;
    ON INIT  {||hwg_Setfocus(oDlg:getlist[1]:handle)}
 
 @ 10, 10 TAB oTab ITEMS {} SIZE 180, 180 ;
-   ON LOSTFOCUS {||hwg_Msginfo("Lost Focus")}
+   ON LOSTFOCUS {||hwg_MsgInfo("Lost Focus")}
 
 
 BEGIN PAGE "Page 01" of oTab

@@ -64,8 +64,8 @@ Function Test()
                      BACKCOLOR 0xBEBEBE
                      
                      /*
-                     ON LOSTFOCUS {|| hwg_Msginfo("lost focus") } ;
-                     ON GETFOCUS {|| hwg_Msginfo("get focus")  }                     
+                     ON LOSTFOCUS {|| hwg_MsgInfo("lost focus") } ;
+                     ON GETFOCUS {|| hwg_MsgInfo("get focus")  }
                      */
 
              ADD COLUMN TO GRID oGrid HEADER "Code" WIDTH 50
@@ -79,15 +79,15 @@ Function Test()
 Return NIL
 
 Function OnKey( o, k )
-//    hwg_Msginfo(str(k))
-return NIL    
+//    hwg_MsgInfo(Str(k))
+return NIL
 
 Function OnPosChange( o, row )
-//    hwg_Msginfo( str(row) )
-return NIL    
+//    hwg_MsgInfo(Str(row))
+return NIL
 
 Function OnClick( o )
-//    hwg_Msginfo( "click" )
+//    hwg_MsgInfo("click")
 return NIL    
 
 Function OnDispInfo( o, x, y )
@@ -112,7 +112,7 @@ Function OnDispInfo( o, x, y )
         else
             lEof := .T.
             
-            hwg_Msginfo(res)
+            hwg_MsgInfo(res)
         
         endif
         PQclear(res)              
@@ -146,7 +146,7 @@ Function CriaBase()
         conn := PQConnect("test", "localhost", "Rodrigo", "moreno", 5432)
         
         if ISCHARACTER(conn)
-            hwg_Msginfo(conn)
+            hwg_MsgInfo(conn)
             quit
         endif
 

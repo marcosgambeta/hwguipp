@@ -151,7 +151,7 @@ nBrwCharset := 0  // Do not modify with UTF-8 on LINUX
        ENDMENU
      ENDMENU
      MENU TITLE "&Help"
-       MENUITEM "&About" ACTION hwg_Msginfo("Dbf Files Browser" + Chr(10) + "2005" )
+       MENUITEM "&About" ACTION hwg_MsgInfo("Dbf Files Browser" + Chr(10) + "2005")
      ENDMENU
    ENDMENU
    
@@ -343,7 +343,7 @@ Memvar oBrw
          ENDIF
          oMsg:Close()
       ELSE
-         hwg_Msgstop( "Fill necessary fields" )
+         hwg_MsgStop("Fill necessary fields")
       ENDIF
    ENDIF
    
@@ -470,7 +470,7 @@ Memvar oBrw, currentCP, currFname
       oMsg = DlgWait("Restructuring")
       IF lNew
          CLOSE ALL
-         fname := hwg_MsgGet("File creation","Input new file name")
+         fname := hwg_MsgGet("File creation", "Input new file name")
          IF Empty(fname)
             Return NIL
          ENDIF
@@ -530,7 +530,7 @@ Memvar oBrw, currentCP, currFname
             SKIP
          ENDDO
          IF lOverFlow
-            hwg_Msginfo( "There was overflow in Numeric field","Warning!" )
+            hwg_MsgInfo("There was overflow in Numeric field", "Warning!")
          ENDIF
 
          Close All
@@ -627,7 +627,7 @@ Local cKey, nRec
 Memvar oBrw, oSay2
 
    IF OrdNumber() == 0
-      hwg_Msgstop( "No active order !","Seek record" )
+      hwg_MsgStop("No active order !", "Seek record")
    ELSE
       cKey := GetData( dbv_cSeek,"Seek record","Input key:" )
       IF !Empty(cKey)
@@ -668,7 +668,7 @@ Memvar oBrw, oSay2
       ERRORBLOCK( bOldError )
 
       IF cType != "L"
-         hwg_Msgstop( "Wrong expression" )
+         hwg_MsgStop("Wrong expression")
       ELSE
          EXIT
       ENDIF
@@ -732,7 +732,7 @@ Return cRes
 
 STATIC FUNCTION MacroError( e )
 
-   hwg_Msgstop( hwg_ErrMsg(e),"Expression error" )
+   hwg_MsgStop(hwg_ErrMsg(e), "Expression error")
    BREAK
 RETURN .T.
 
@@ -749,7 +749,7 @@ Static Function dbv_Pack()
 Local oMsg, cTitle := "Packing database"
 Memvar oBrw, oSay1, oSay2
 
-   IF hwg_Msgyesno( "Are you really want it ?",cTitle )
+   IF hwg_MsgYesNo("Are you really want it ?", cTitle)
       oMsg = DlgWait( cTitle )
       PACK
       oMsg:Close()
@@ -764,7 +764,7 @@ Static Function dbv_Zap()
 Local oMsg, cTitle := "Zap database"
 Memvar oBrw, oSay1, oSay2
 
-   IF hwg_Msgyesno( "ALL DATA WILL BE LOST !!! Are you really want it ?",cTitle )
+   IF hwg_MsgYesNo("ALL DATA WILL BE LOST !!! Are you really want it ?", cTitle)
       oMsg = DlgWait( cTitle )
       ZAP
       oMsg:Close()

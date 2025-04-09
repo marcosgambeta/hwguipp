@@ -59,12 +59,12 @@ STATIC FUNCTION CreateWindow()
 
    MENU OF oWnd
       MENU TITLE "&File"
-         MENUITEM "&New" ACTION hwg_MsgInfo( "New!" )
+         MENUITEM "&New" ACTION hwg_MsgInfo("New!")
          SEPARATOR
          MENUITEM "&Exit" ACTION oWnd:Close()
       ENDMENU
       MENU TITLE "&Help"
-         MENUITEM "&About" ACTION hwg_MsgInfo( hwg_version()+Chr(13)+Chr(10)+"gt: " + hb_gtVersion(),"About" )
+         MENUITEM "&About" ACTION hwg_MsgInfo(hwg_version() + Chr(13) + Chr(10) + "gt: " + hb_gtVersion(), "About")
       ENDMENU
    ENDMENU
 

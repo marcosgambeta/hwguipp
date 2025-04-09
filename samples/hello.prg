@@ -74,13 +74,13 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
      SYSCOLOR COLOR_3DLIGHT+1                    ;
      AT 200, 0 SIZE 600, 400                       ;
      FONT oFont                                  ;
-     ON EXIT {||hwg_Msgyesno("Really want to quit ?")}
+     ON EXIT {||hwg_MsgYesNo("Really want to quit ?")}
 #else
    INIT WINDOW oMainWindow MAIN TITLE "Example"  ;
      SYSCOLOR COLOR_3DLIGHT+1                    ;
      AT 200, 0 SIZE 420, 300                       ;
      FONT oFont                                  ;
-     ON EXIT {||hwg_Msgyesno("Really want to quit ?")}
+     ON EXIT {||hwg_MsgYesNo("Really want to quit ?")}
 #endif
 
 #ifndef __GTK__
@@ -152,11 +152,11 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
       MENU TITLE "File"
 #ifndef __GTK__ 
            MENUITEM "Property sheet" ACTION ( hwg_MsgStop("The feature Property sheet is buggy yet ! " ;
-           + CHR(10) + "We will fix as soon as possible","Sorry" ) )
+           + Chr(10) + "We will fix as soon as possible","Sorry") )
 //         MENUITEM "Property sheet" ACTION Ps1(oMainWindow)  // old: Ps
 #endif         
          SEPARATOR
-         MENUITEM "YYYYY" ACTION hwg_MsgGet( "Example","Input anything")
+         MENUITEM "YYYYY" ACTION hwg_MsgGet("Example", "Input anything")
       ENDMENU
       MENU TITLE "Help"
          MENUITEM "About" ACTION hwg_Msginfo("About")
@@ -166,24 +166,24 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
       ENDMENU
       MENU TITLE "Third"
          MENUITEM "Wchoice" ACTION hwg_WChoice(acho, "Select", , , , , 15132390, , 0x008000)
-         MENUITEM "hwg_Selectfolder" ACTION hwg_Msginfo( hwg_Selectfolder("!!!") )
+         MENUITEM "hwg_Selectfolder" ACTION hwg_MsgInfo(hwg_SelectFolder("!!!"))
          MENU TITLE "Submenu"
          
             MENUITEM "hwg_RunApp" ACTION (hwg_RunApp(cExecprg))
             MENUITEM "hwg_Shellexecute" ACTION SHELL_EXEC()
             
-            MENUITEM "S2" ACTION hwg_Msgstop("S2")
+            MENUITEM "S2" ACTION hwg_MsgStop("S2")
          ENDMENU
       ENDMENU
    ENDMENU
 
 /*   
    aMenu := { ;
-     { { { {||hwg_Msginfo("Xxxx")},"XXXXX", 130 }, ;
+     { { { {||hwg_MsgInfo("Xxxx")},"XXXXX", 130 }, ;
          { ,, 131 }, ;
-         { {||hwg_Msginfo("Yyyy")},"YYYYY", 132 } ;
+         { {||hwg_MsgInfo("Yyyy")},"YYYYY", 132 } ;
        },"File", 120 }, ;
-     { {||hwg_Msginfo("Help")},"Help", 121 } ;
+     { {||hwg_MsgInfo("Help")},"Help", 121 } ;
    }
    hwg_BuildMenu( aMenu,hWnd,aMainWindow )
 */
@@ -196,17 +196,17 @@ FUNCTION SHELL_EXEC()
 LOCAL hinst
  
  hwg_MsgStop("hwg_Shellexecute() does not work at this time" + ;
-  CHR(10) + "We will fix as soon as possible","Sorry") 
+  Chr(10) + "We will fix as soon as possible", "Sorry")
   
  hinst := hwg_Shellexecute("Sample.txt")    // ,"open",NIL,NIL, 2))
-*  ,hwg_Msginfo(str(oMainWindow:handle))
+*  ,hwg_MsgInfo(Str(oMainWindow:handle))
 *  ==> handles can not be converted by STR() (crashes)
 * hwg_Shellexecute() fails, use hwg_RunApp() for starting external apps.
 *  Call of "d:\temp\podst.doc" makes no sense.
  *
  * Display the return code of hwg_Shellexecute(),
  * values less then 33 represent error codes. 
- hwg_MsgInfo(STR(hinst))
+ hwg_MsgInfo(Str(hinst))
 RETURN NIL
 
 #ifndef __GTK__
@@ -229,7 +229,7 @@ Local oDlg1, oDlg2
    INIT DIALOG oDlg2 TITLE "PAGE_2" STYLE WS_CHILD + WS_VISIBLE + WS_BORDER
    @ 20, 35 EDITBOX "" SIZE 160, 26 STYLE WS_BORDER
    
-   hwg_MsgIsNIL(hwg_Getactivewindow() )
+   hwg_MsgIsNIL(hwg_Getactivewindow())
 
    hwg_PropertySheet( hwg_Getactivewindow(), { oDlg1, oDlg2 }, "Sheet Example", 210, 10, 300, 300 )
 

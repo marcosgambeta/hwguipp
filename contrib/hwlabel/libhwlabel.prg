@@ -109,7 +109,7 @@ ENDIF
  handle := FOPEN(ctxtfilename, 0)
  IF handle < 0
    // ... handle open error
-   hwg_MsgStop(cErrorMsg,cErrorTitle)
+   hwg_MsgStop(cErrorMsg, cErrorTitle)
   ENDIF
  RETURN handle
 
@@ -294,7 +294,7 @@ FUNCTION hwlabel_Writeln(ha,s,dateiname)
 
   zs_s_rc := hwlabel_WRI_TXTDOS(ha,s)   // Windows/DOS line ending fixed
    IF .NOT. zs_s_rc
-     hwg_MsgStop( "FATAL: File access error " + dateiname )
+     hwg_MsgStop("FATAL: File access error " + dateiname)
      RETURN .F.
    ENDIF
 RETURN .T.
@@ -424,7 +424,7 @@ IF ldisp == NIL
 ENDIF
 chexstr := hwg_HEX_DUMP (cinfield, 0)
 IF ldisp
- hwg_MsgInfo(chexstr,"Debug Hex String")
+ hwg_MsgInfo(chexstr, "Debug Hex String")
 ENDIF
 RETURN chexstr
 

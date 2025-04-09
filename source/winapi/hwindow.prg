@@ -574,7 +574,7 @@ METHOD HChildWindow:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, 
       ::handle := Hwg_InitChildWindow(Self, ::szAppName, cTitle, cMenu, IIf(oIcon != NIL, oIcon:handle, NIL), ;
          IIf(oBmp != NIL, -1, IIf(::brush != NIL, ::brush:handle, clr)), nStyle, ::nX, ::nY, ::nWidth, ::nHeight, ::oParent:handle)
    ELSE
-      hwg_Msgstop("Create Main window first !", "HChildWindow():New()")
+      hwg_MsgStop("Create Main window first !", "HChildWindow():New()")
       RETURN NIL
    ENDIF
    IF hb_IsBlock(::bInit)

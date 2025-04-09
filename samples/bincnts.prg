@@ -243,8 +243,8 @@ ny1 := hwg_GetBitmapHeight( oastropng:handle )
   @ 60 , 150 BITMAP oastrobmp
 #endif
 
-hwg_MsgInfo( "nx1=" + ALLTRIM(STR(nx1)) + " ny1=" + ALLTRIM(STR(ny1)) + CHR(10) + ;
-             "nx2=" + ALLTRIM(STR(nx2)) + " ny2=" + ALLTRIM(STR(ny2)) )
+hwg_MsgInfo("nx1=" + ALLTRIM(STR(nx1)) + " ny1=" + ALLTRIM(STR(ny1)) + CHR(10) + ;
+            "nx2=" + ALLTRIM(STR(nx2)) + " ny2=" + ALLTRIM(STR(ny2)))
 
   
    oMainW:Activate()
@@ -252,21 +252,21 @@ hwg_MsgInfo( "nx1=" + ALLTRIM(STR(nx1)) + " ny1=" + ALLTRIM(STR(ny1)) + CHR(10) 
 RETURN NIL
 
 FUNCTION FileOpen
- hwg_msginfo("You have clicked >FileOpen<")
+ hwg_MsgInfo("You have clicked >FileOpen<")
 RETURN NIL
 
 FUNCTION OpenDoor
- hwg_msginfo("You have clicked >Open the door<")
+ hwg_MsgInfo("You have clicked >Open the door<")
 RETURN NIL
 
 FUNCTION ClickJpeg
- hwg_msginfo("You have clicked >JPEG image<")
+ hwg_MsgInfo("You have clicked >JPEG image<")
 RETURN NIL
 
 FUNCTION CHECK_FILE ( cfi )
 * Check, if file exist, otherwise terminate program
  IF .NOT. FILE( cfi )
-  Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
+  hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 
 RETURN NIL

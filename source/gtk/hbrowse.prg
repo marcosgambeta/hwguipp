@@ -1949,7 +1949,7 @@ METHOD HBrowse:Edit( wParam, lParam )
 //          Ask for saving, if  "Close" is pressed and the memo is modified
 //
 //            Ask and mark vor saving
-             lSaveMem := hwg_Msgyesno(::cTextMod , ::cTextTitME)
+             lSaveMem := hwg_MsgYesNo(::cTextMod, ::cTextTitME)
             ENDIF
             IF lSaveMem
              // write out edited memo field
@@ -2059,7 +2059,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
                ( oBrw:alias ) -> ( Eval(oColumn:block, oBrw:varbuf, oBrw, fipos) )
             ELSE
             /* Can't lock the record! */
-               hwg_Msgstop( cErrMsgRecLock )
+               hwg_MsgStop(cErrMsgRecLock)
             ENDIF
          ELSE
             Eval(oColumn:block, oBrw:varbuf, oBrw, fipos)

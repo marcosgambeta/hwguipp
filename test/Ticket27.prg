@@ -31,7 +31,7 @@ FUNCTION Main()
 
    * Check for multithread support of used Harbour release 
    IF ! hb_mtvm()
-     hwg_msginfo("No multithread support")
+     hwg_MsgInfo("No multithread support")
      oMainW:Close()
      QUIT
    ENDIF
@@ -44,8 +44,7 @@ FUNCTION Main()
    
    * Display get inputs:
    
-   hwg_msginfo("Get #1 : " + cgetrx1 + CHR(10) + ;
-               "Get #2 : " + cgetrx2 + CHR(10))
+   hwg_MsgInfo("Get #1 : " + cgetrx1 + Chr(10) + "Get #2 : " + cgetrx2 + Chr(10))
    
    oMainW:Close()
 

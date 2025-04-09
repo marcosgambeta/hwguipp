@@ -76,7 +76,7 @@ Local oList, oItemso := { { "Item01" } , { "Item02" } , { "Item03" } , { "Item04
    nPosi   := obrowsbox1:nCurrent
    cResult := obrowsbox1:aArray[nPosi, 1]
    // show result
-   hwg_msgInfo("Position: " + STR(nPosi) + " Value: " + cResult,"Result of Listbox selection")
+   hwg_MsgInfo("Position: " + Str(nPosi) + " Value: " + cResult, "Result of Listbox selection")
 
    IF oModDlg:lResult
     ENDIF

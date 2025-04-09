@@ -181,10 +181,10 @@ METHOD HFormTmpl:Read(fname, cId)
    ENDIF
 
    IF Empty(oDoc:aItems)
-      hwg_Msgstop(::cTextCantOpenF + " " + fname) // "Can't open "
+      hwg_MsgStop(::cTextCantOpenF + " " + fname) // "Can't open "
       RETURN NIL
    ELSEIF oDoc:aItems[1]:title != "part" .OR. oDoc:aItems[1]:GetAttribute( "class" ) != "form"
-      hwg_Msgstop(::cTextFrmRepDescnotF) // "Form description isn't found"
+      hwg_MsgStop(::cTextFrmRepDescnotF) // "Form description isn't found"
       RETURN NIL
    ENDIF
 
@@ -710,7 +710,7 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
 
 STATIC PROCEDURE CompileErr( e, stroka )
 
-   hwg_Msgstop(hwg_ErrMsg(e) + Chr(10) + Chr(13) + "in" + Chr(10) + Chr(13) + AllTrim(stroka), "Script compiling error")
+   hwg_MsgStop(hwg_ErrMsg(e) + Chr(10) + Chr(13) + "in" + Chr(10) + Chr(13) + AllTrim(stroka), "Script compiling error")
    BREAK( NIL )
 
 STATIC FUNCTION ReadCtrl( oCtrlDesc, oContainer, oForm )
@@ -1247,14 +1247,14 @@ METHOD HRepTmpl:READ(fname, cId)
 #ifdef G_CONSOLE_MODE
       Alert( "Can't open " + fname )
 #else
-      hwg_Msgstop( "Can't open " + fname )
+      hwg_MsgStop("Can't open " + fname)
 #endif
       RETURN NIL
    ELSEIF oDoc:aItems[1]:title != "part" .OR. oDoc:aItems[1]:GetAttribute( "class" ) != "report"
 #ifdef G_CONSOLE_MODE
       Alert( "Report description isn't found" )
 #else
-      hwg_Msgstop( "Report description isn't found" )
+      hwg_MsgStop("Report description isn't found")
 #endif
       RETURN NIL
    ENDIF

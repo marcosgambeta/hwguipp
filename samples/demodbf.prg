@@ -51,7 +51,7 @@ SET CENT ON
 
 
       MENU TITLE "&Help"
-         MENUITEM "&As" ACTION hwg_Msginfo("HwGUI Harbour Win32 GUI","Copyright (c) Alexander Kresin")
+         MENUITEM "&As" ACTION hwg_MsgInfo("HwGUI Harbour Win32 GUI", "Copyright (c) Alexander Kresin")
       ENDMENU
    ENDMENU
 
@@ -112,7 +112,7 @@ Private oBotNew, oBotEdit,oBotRet, oBotNext, oBotSave, oBottop, oBotBott, oBotDe
        SIZE 44, 38 FLAT ;
        TEXT "|->"
 
-   @304, 3 OWNERBUTTON oBotprint OF Tel_Ferramentas  ON CLICK {||hwg_Msginfo("In development")} ;
+   @304, 3 OWNERBUTTON oBotprint OF Tel_Ferramentas  ON CLICK {||hwg_MsgInfo("In development")} ;
        SIZE 44, 38 FLAT ;
        TEXT "Print"
 
@@ -232,7 +232,7 @@ if oOper=1
    oCod:=StrZero(val(oCod), 3)
    Seek oCod
    If Found()
-      hwg_Msginfo("Cod."+oCod+" no valid...","Mensagem")
+      hwg_MsgInfo("Cod." + oCod + " no valid...", "Mensagem")
       Return NIL
    Endif
    Append Blank
@@ -280,7 +280,7 @@ Function DeleteRecord()
 Select TabDbf
 Seek oCod
 If Found()
-   If hwg_Msgyesno("Delete Cod "+oCod ,"Mensagem")
+   If hwg_MsgYesNo("Delete Cod " + oCod ,"Mensagem")
       RLock()
       Delete
       Unlock

@@ -87,10 +87,10 @@ Static FUNCTION fKeyDown(oBrw, msg, wParam, lParam)
 LOCAL nKEY := hwg_PtrToUlong(wParam) //wParam
 IF msg == WM_KEYDOWN
    IF nKey = VK_F2
-      hwg_Msginfo("nRecords: " + Str(oBrw:nRecords) + hb_eol() +;
+      hwg_MsgInfo("nRecords: " + Str(oBrw:nRecords) + hb_eol() + ;
                   "Total:    " + Str(oBrw:aArray:RecordCount()) + hb_eol() + ;
                   "Recno:    " + Str(oBrw:nCurrent) + hb_eol() + ;
-                  "Abs:      " + Str(oBrw:aArray:AbsolutePosition)  )
+                  "Abs:      " + Str(oBrw:aArray:AbsolutePosition))
    ENDIF
 ENDIF
 RETURN .T.

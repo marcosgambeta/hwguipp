@@ -96,7 +96,7 @@ SET DATE ANSI  // YY(YY).MM.TT
  ndefaultcsrtype := 0  // not needed on WinAPI
 #endif 
  
- // hwg_msginfo(Str(ndefaultcsrtype))
+ // hwg_MsgInfo(Str(ndefaultcsrtype))
 
   INIT WINDOW Testfunc MAIN TITLE "Test Of Standalone HWGUI Functions" ;
     AT 1, 1 SIZE 770, 548 ;
@@ -263,15 +263,15 @@ FUNCTION Funkt ( rval, cType , cfunkt)
 * ====================================
  DO CASE
      CASE cType == "C"
-      hwg_MsgInfo("Return Value: >" + rval + "<", "Function: " + cfunkt )
+      hwg_MsgInfo("Return Value: >" + rval + "<", "Function: " + cfunkt)
      CASE cType == "N"
-      hwg_MsgInfo("Return Value: >" + ALLTRIM(STR(rval)) + "<", "Function: " + cfunkt )
+      hwg_MsgInfo("Return Value: >" + AllTrim(Str(rval)) + "<", "Function: " + cfunkt)
      CASE cType == "L"
-      hwg_MsgInfo("Return Value: >" + IIF(rval,"True","False") + "<", "Function: " + cfunkt )
+      hwg_MsgInfo("Return Value: >" + IIf(rval, "True", "False") + "<", "Function: " + cfunkt)
      CASE cType == "D"
-      hwg_MsgInfo("Return Value: >" + DTOC(rval) + "<", "Function: " + cfunkt )
+      hwg_MsgInfo("Return Value: >" + DToC(rval) + "<", "Function: " + cfunkt)
      CASE cType == "O"
-      hwg_MsgInfo("Return Value: >" + IIF(rval,"ON","OFF") + "<", "Function: " + cfunkt )
+      hwg_MsgInfo("Return Value: >" + IIf(rval, "ON", "OFF") + "<", "Function: " + cfunkt)
  ENDCASE
 
 RETURN NIL
@@ -299,22 +299,20 @@ FUNCTION TstButt_Act(obo)
 RETURN NIL
 
 FUNCTION fSUMM
-  hwg_Msginfo( ;
-       "OS(): " + OS() + CHR(10) + ;
-       "HWGUI++ Version  : " + hwg_Version() + CHR(10) + ;
-       "Windows : " + TotF(hwg_isWindows() )  + CHR(10) + ;
-       "Windows 7: " + TotF(hwg_isWin7() ) + CHR(10) + ;
-       "Windows 10: " + TotF(hwg_isWin10() ) + CHR(10) + ;
-       "Windows Maj.Vers.: " + N2STR(hwg_GetWinMajorVers() ) + CHR(10) + ;
-       "Windows Min.Vers.: " + N2STR(hwg_GetWinMinorVers() ) + CHR(10) + ;
-       "Unicode : " + TotF(hwg__isUnicode() ) + CHR(10) + ;
-       "Default user lang. :" + HWG_DEFUSERLANG() + CHR(10) +  ;
-       "Locale :" + hwg_GetLocaleInfo() + CHR(10) +  ;
-       "Locale (N) :" + N2STR(hwg_GetLocaleInfoN()) + CHR(10) +  ;
-       "UTC :" + HWG_GETUTCTIMEDATE() + CHR(10) +  ;
-       "GTK : " + TotF(bgtk)  + CHR(10) + ;
-       "Dir Separator: " + cDirSep ;
-   )
+  hwg_MsgInfo("OS(): " + OS() + Chr(10) + ;
+              "HWGUI++ Version  : " + hwg_Version() + Chr(10) + ;
+              "Windows : " + TotF(hwg_isWindows()) + Chr(10) + ;
+              "Windows 7: " + TotF(hwg_isWin7()) + Chr(10) + ;
+              "Windows 10: " + TotF(hwg_isWin10()) + Chr(10) + ;
+              "Windows Maj.Vers.: " + N2STR(hwg_GetWinMajorVers()) + Chr(10) + ;
+              "Windows Min.Vers.: " + N2STR(hwg_GetWinMinorVers()) + Chr(10) + ;
+              "Unicode : " + TotF(hwg__isUnicode()) + Chr(10) + ;
+              "Default user lang. :" + HWG_DEFUSERLANG() + Chr(10) + ;
+              "Locale :" + hwg_GetLocaleInfo() + Chr(10) + ;
+              "Locale (N) :" + N2STR(hwg_GetLocaleInfoN()) + Chr(10) + ;
+              "UTC :" + HWG_GETUTCTIMEDATE() + Chr(10) + ;
+              "GTK : " + TotF(bgtk)  + Chr(10) + ;
+              "Dir Separator: " + cDirSep)
 RETURN NIL
 
 FUNCTION GET_WINDIR
@@ -368,7 +366,7 @@ RETURN NIL
 FUNCTION Res_LeapYear(nyeart)
 LOCAL cRet  
  cRet := IIF(hwg_IsLeapYear(nyeart), "TRUE","FALSE") 
- hwg_MsgInfo("Result of Res_LeapYear(" + ALLTRIM(STR(nyeart)) + ")=" + cRet , "hwg_IsLeapYear()" )
+ hwg_MsgInfo("Result of Res_LeapYear(" + AllTrim(Str(nyeart)) + ")=" + cRet, "hwg_IsLeapYear()")
 RETURN NIL
 
 FUNCTION FILE_SEL()
@@ -388,7 +386,7 @@ IF EMPTY(fn)
 ENDIF 
 ctim := hwg_FileModTimeU(fn)
 hwg_MsgInfo("Modification date and time (UTC) of file" + ;
- CHR(10) + fn + " is :" + CHR(10) +  ctim, "Result of hwg_FileModTimeU()")
+ Chr(10) + fn + " is :" + Chr(10) + ctim, "Result of hwg_FileModTimeU()")
 RETURN NIL 
 
 FUNCTION Test_FileModTime()
@@ -399,5 +397,5 @@ IF EMPTY(fn)
 ENDIF 
 ctim := hwg_FileModTime(fn)
 hwg_MsgInfo("Modification date and time (local) of file" + ;
- CHR(10) + fn + " is :" + CHR(10) +  ctim, "Result of hwg_FileModTime()")
+ Chr(10) + fn + " is :" + Chr(10) + ctim, "Result of hwg_FileModTime()")
 RETURN NIL 

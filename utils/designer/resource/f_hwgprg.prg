@@ -219,7 +219,7 @@ FUNCTION Browse2Prg
       //      IF select(cTmpalias) = 0
       //        USE (value) NEW SHARED ALIAS (cTmpAlias) VIA "DBFCDX" //ftmp
       //SET INDEX TO (cTmpAlias)
-      //hwg_Msginfo(ALIAS())
+      //hwg_MsgInfo(ALIAS())
       //        lopen := .T.
       //      ENDIF
       //USE (temp) NEW ALIAS ftmp SHARED
@@ -940,7 +940,7 @@ FUNCTION Ctrl2Prg
                      iif( Len( cName ) == 1, cName[1], cName[2] ) + " }" , " " )
                   cname := oCtrl:GetProp( "Name" )
                   temp := oCtrl:GetProp( "value" ) //) != NIL
-                  //ON INIT {|| oTimer1 := HTimer():New( otESTE,, 5000,{|| OtIMER1:END(),hwg_Msginfo("oi"),hwg_EndDialog() } )}
+                  //ON INIT {|| oTimer1 := HTimer():New( otESTE,, 5000,{|| OtIMER1:END(),hwg_MsgInfo("oi"),hwg_EndDialog() } )}
                   stroka := "ON INIT {|| " + cName + " := HTimer():New( " + cFormName + ",," + temp + "," + stroka + " )}"
                   FWrite(han, " ; //OBJECT TIMER " + hb_OsNewline() + Space(8) + stroka)
                ELSE
@@ -1411,12 +1411,12 @@ FUNCTION Ctrl2Prg
    DO WHILE j <= aLen
       oCtrl := aControls[j]
 
-      //hwg_Msginfo( oCtrl:GetProp("Name") )
+      //hwg_MsgInfo(oCtrl:GetProp("Name"))
 
       i := 1
       DO WHILE i <= Len( oCtrl:aMethods )
 
-         //hwg_Msginfo( oCtrl:aMethods[i, 1] + " / " + oCtrl:aMethods[i, 2] )
+         //hwg_MsgInfo(oCtrl:aMethods[i, 1] + " / " + oCtrl:aMethods[i, 2])
 
          IF oCtrl:aMethods[i, 2] != NIL .AND. ! Empty(oCtrl:aMethods[i, 2])
 

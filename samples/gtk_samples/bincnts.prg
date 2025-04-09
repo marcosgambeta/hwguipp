@@ -149,25 +149,25 @@ INIT WINDOW oMainW  ;
 RETURN NIL
 
 FUNCTION FileOpen
- hwg_msginfo("You have clicked >FileOpen<")
+ hwg_MsgInfo("You have clicked >FileOpen<")
 RETURN NIL
 
 FUNCTION OpenDoor
- hwg_msginfo("You have clicked >Open the door<")
+ hwg_MsgInfo("You have clicked >Open the door<")
 RETURN NIL
 
 FUNCTION ClickJpeg
- hwg_msginfo("You have clicked >JPEG image<")
+ hwg_MsgInfo("You have clicked >JPEG image<")
 RETURN NIL
 
 FUNCTION Clickcnt
- hwg_msginfo("You have clicked >Container image<")
+ hwg_MsgInfo("You have clicked >Container image<")
 RETURN NIL
 
 FUNCTION CHECK_FILE ( cfi )
 * Check, if file exist, otherwise terminate program
  IF .NOT. FILE( cfi )
-  Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
+  Hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 
 RETURN NIL

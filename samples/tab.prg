@@ -86,7 +86,7 @@ LOCAL oCombobox1
 init dialog oDlg1 TITLE "DIALOG_1" clipper NOEXIT NOEXITESC AT 10, 25 SIZE 545, 394 ;
 FONT oFont ;
 STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_THICKFRAME+WS_MINIMIZEBOX+WS_MAXIMIZEBOX ;
-ON EXIT {||hwg_Msginfo("Exit"),.T.}
+ON EXIT {||hwg_MsgInfo("Exit"),.T.}
 
 * on init {|| buildtabPages(oTab,{adlg1,adlg2},{"pagina1","pagina2"})} ;
 
@@ -113,7 +113,7 @@ oTab:StartPage( "pagina2",aDlg2 ),    oTab:EndPage(),otab:changepage(1)
 //   FONT oFont ;
 //   STYLE WS_CHILD+WS_VISIBLE ;
 //   CLIPPER NOEXIT NOEXITESC ; 
-//   ON EXIT {||hwg_Msginfo("Exit"),.T.}
+//   ON EXIT {||hwg_MsgInfo("Exit"),.T.}
    
  
    @ 65, 92  CHECKBOX "Checkbox" SIZE 149, 22
@@ -139,7 +139,7 @@ oTab:StartPage( "pagina2",aDlg2 ),    oTab:EndPage(),otab:changepage(1)
 //   INIT DIALOG aDlg2  ;
 //   FONT oFont ;
 //   STYLE WS_CHILD+WS_VISIBLE ;
-//   CLIPPER NOEXIT NOEXITESC ON EXIT {||hwg_Msginfo("Exit"),.T.}
+//   CLIPPER NOEXIT NOEXITESC ON EXIT {||hwg_MsgInfo("Exit"),.T.}
    
    @ 36, 108 COMBOBOX oCombobox1 ITEMS aCombo SIZE 87, 96 ;
      STYLE CBS_DROPDOWNLIST+WS_TABSTOP   

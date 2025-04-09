@@ -8,7 +8,7 @@ chexdump := Convert_file("ok.ico")
 INIT WINDOW oMainW  ;
    TITLE "Dummy Main Window" AT 0, 0 SIZE 0 , 0
 
-hwg_Msginfo(chexdump)
+hwg_MsgInfo(chexdump)
 
 
 * ACTIVATE WINDOW oMainW

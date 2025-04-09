@@ -708,7 +708,7 @@ STATIC FUNCTION Cnv_aColors( aColors )
       ELSEIF IsDigit( Left(aColors[i], 1) )
          aColors[i] := Val(aColors[i])
       ELSE
-         hwg_MsgStop( "Wrong colors string" )
+         hwg_MsgStop("Wrong colors string")
          RETURN NIL
       ENDIF
    NEXT

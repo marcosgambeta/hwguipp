@@ -81,13 +81,13 @@ LOCAL j, co , d , t
  ENDIF
  co := ""
  IF LEN(ar) < 1
-   hwg_msgInfo("Result is empty",t)
+   hwg_MsgInfo("Result is empty", t)
    RETURN NIL
  ENDIF 
  FOR j := 1 TO LEN(ar)
   co := co + ar[j] + CHR(10)
  NEXT
- hwg_msgInfo(co,t)
+ hwg_MsgInfo(co, t)
 RETURN NIL
  
 * --------------------------------------------
@@ -279,7 +279,7 @@ FUNCTION browsBOX_ITEMFIND(obrows, cItem)
 * returns 0, if no match.
 * --------------------------------------------
 LOCAL i
- //    hwg_msgInfo(STR(LEN(obrows:aArray)))
+ //    hwg_MsgInfo(Str(Len(obrows:aArray)))
  FOR i := 1 TO LEN(obrows:aArray)
   IF ALLTRIM(obrows:aArray[i, 1]) == ALLTRIM(cItem)
    RETURN i
@@ -291,7 +291,7 @@ RETURN 0
 FUNCTION Hilfe
 * Display help window
 * --------------------------------------------
- hwg_MsgInfo("Need Help","HELP !")
+ hwg_MsgInfo("Need Help", "HELP !")
 RETURN NIL
 
 * --------------------------------------------
@@ -308,5 +308,5 @@ FUNCTION dbg(obr)
   IF m == 0
    s := s + "Empty Array"
   ENDIF 
-  hwg_MsgInfo(s,"Debug")
+  hwg_MsgInfo(s, "Debug")
 RETURN NIL

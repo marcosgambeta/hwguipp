@@ -28,7 +28,7 @@ csplashimg := ".." + cDirSep + "image" + cDirSep + "astro.jpg"
 * Check, if splash image exists,
 * otherwise the program freezes
  IF .NOT. FILE(csplashimg)
-   Hwg_MsgStop("Image >" + csplashimg  + "< not found !" + CHR(10) + ;
+   hwg_MsgStop("Image >" + csplashimg  + "< not found !" + Chr(10) + ;
     "Program will be terminated", "Splash image file")
    QUIT
  ENDIF 

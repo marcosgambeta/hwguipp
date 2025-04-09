@@ -75,13 +75,13 @@ LOCAL j, co , d , t
  ENDIF
  co := ""
  IF LEN(ar) < 1
-   hwg_msgInfo("Result is empty",t)
+   hwg_MsgInfo("Result is empty", t)
    RETURN NIL
  ENDIF 
  FOR j := 1 TO LEN(ar)
   co := co + ar[j] + CHR(10)
  NEXT
- hwg_msgInfo(co,t)
+ hwg_MsgInfo(co, t)
 RETURN NIL
  
 * --------------------------------------------
@@ -248,5 +248,5 @@ RETURN 0
 FUNCTION Hilfe
 * Display help window
 * --------------------------------------------
- hwg_MsgInfo("Need Help","HELP !")
+ hwg_MsgInfo("Need Help", "HELP !")
 RETURN NIL

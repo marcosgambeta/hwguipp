@@ -289,7 +289,7 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
 #else
    oWinPrn := HWinPrn():New(, "RU866", "RU1251", , nPrCharset) // 204
    oWinPrn:aTooltips := hwg_HPrinter_LangArray_RU()
-//   Hwg_MsgInfo("nCharset=" + STR(oWinPrn:nCharset),"Russian" )
+//   hwg_MsgInfo("nCharset=" + Str(oWinPrn:nCharset), "Russian")
 *   oWinPrn:StartDoc( .T. )
 *   oWinPrn:StartDoc( .T.,"temp_a2.pdf" )
    oWinPrn:StartDoc( lpreview,"temp_a2.pdf" , lprbutton)   
@@ -548,8 +548,8 @@ LOCAL result, achrit, csel , nchrs
    lPreview := IIF ( nmode > 0 , .T. , .F.)
    lprbutton :=  IIF ( nmode > 1 , .F. , .T. )
    
-   hwg_MsgInfo("Preview: " + Bool2string(lPreview) + CHR(10) + ;
-   "Print Button in preview: " + Bool2string(lprbutton),"Dialog mode settting")
+   hwg_MsgInfo("Preview: " + Bool2string(lPreview) + Chr(10) + ;
+      "Print Button in preview: " + Bool2string(lprbutton), "Dialog mode settting")
 RETURN NIL 
  
 * --------------------------------------------- 
@@ -575,8 +575,7 @@ LOCAL result, achrit, csel
   csel := achrit[result] 
   * Get the number of printer char set before ":"
   nPrCharset := VAL(SUBSTR(csel, 1,AT(":",csel) - 1 ) )
-  hwg_MsgInfo("Character Set is now: " + ALLTRIM(STR(nchrs)) + " Name: " + csel , ;
-          "Printer Character Set")
+  hwg_MsgInfo("Character Set is now: " + AllTrim(Str(nchrs)) + " Name: " + csel, "Printer Character Set")
  ENDIF
 RETURN NIL 
 
@@ -815,7 +814,7 @@ RETURN aps
 FUNCTION HELP(cTopic,nproc,cvar)
 * Display help window
 * --------------------------------------------
- hwg_MsgInfo(cTopic + " Line Number :" + ALLTRIM(STR(nproc)),cvar)
+ hwg_MsgInfo(cTopic + " Line Number :" + AllTrim(Str(nproc)), cvar)
 RETURN NIL
 
 * --------------------------------------------
@@ -828,7 +827,7 @@ LOCAL result
   * set to new language, if modified
   clangset := aLanguages[result] 
   NLS_SetLang(clangset)
-  hwg_MsgInfo("Language set to " + clangset,"Language Setting")
+  hwg_MsgInfo("Language set to " + clangset, "Language Setting")
  ENDIF
 RETURN NIL
 
@@ -838,7 +837,7 @@ FUNCTION CHECK_FILE ( cfi )
 * otherwise terminate program
 * --------------------------------------------
  IF .NOT. FILE( cfi )
-  Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
+  hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 
 RETURN NIL

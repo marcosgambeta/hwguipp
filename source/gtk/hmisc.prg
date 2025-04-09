@@ -779,9 +779,9 @@ FUNCTION hwg_IsNIL(xpara)
  RETURN .F.
 
 // =======================================================
-FUNCTION hwg_MsgIsNIL(xpara,ctitle)
+FUNCTION hwg_MsgIsNIL(xpara, ctitle)
 // Sample call:
-// hwg_MsgIsNIL(hwg_Getactivewindow() )
+// hwg_MsgIsNIL(hwg_Getactivewindow())
 // Only for debugging
 // =======================================================
 
@@ -797,9 +797,9 @@ IF ctitle == NIL
    ENDIF
 ELSE
    IF lrvalue
-     hwg_MsgInfo("NIL",ctitle)
+     hwg_MsgInfo("NIL", ctitle)
    ELSE
-     hwg_MsgInfo("NOT NIL",ctitle)
+     hwg_MsgInfo("NOT NIL", ctitle)
    ENDIF
 ENDIF
 RETURN lrvalue
@@ -870,7 +870,7 @@ RETURN crvalue
 
 
 FUNCTION hwg_Bin2D(chex,nlen,ndec)
-// hwg_msginfo(chex)
+// hwg_MsgInfo(chex)
 RETURN hwg_Bin2DC(SUBSTR(STRTRAN(SUBSTR(chex, 1, 23) ," ","") , 1, 16) ,nlen,ndec)
 
 

@@ -883,7 +883,7 @@ FUNCTION hwg_multibitor(...) // TODO: substituir por hb_bitor
 
    FOR EACH nItem IN aArgumentList
       IF ValType( nItem ) != "N"
-         hwg_Msginfo( "hwg_multibitor parameter not numeric set to zero", "Possible error" )
+         hwg_MsgInfo("hwg_multibitor parameter not numeric set to zero", "Possible error")
          nItem := 0
       ENDIF
       result := hb_bitor( result, nItem )

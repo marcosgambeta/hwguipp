@@ -380,7 +380,7 @@ STATIC FUNCTION OnKey(o, k, aItems)
       ENDIF
       EXIT
    CASE VK_DELETE
-      IF hwg_Msgyesno("Delete this record ?", "Warning")
+      IF hwg_MsgYesNo("Delete this record ?", "Warning")
          MyDelete(o)
       ENDIF
    ENDSWITCH

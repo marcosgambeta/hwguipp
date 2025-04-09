@@ -33,7 +33,7 @@ Return NIL
 
 Function ReadIni()
 Local cIniFile:="HwGui.ini"
-hwg_Msginfo( Hwg_GetIni( "Config", "WallParer" ,, cIniFile ) )
-hwg_Msginfo( Hwg_GetIni( "Config", "DirHwGUima",, cIniFile ) )
-hwg_Msginfo( Hwg_GetIni( "Print",  "Spoll"     ,, cIniFile ) )
+hwg_MsgInfo(Hwg_GetIni("Config", "WallParer", , cIniFile))
+hwg_MsgInfo(Hwg_GetIni("Config", "DirHwGUima", , cIniFile))
+hwg_MsgInfo(Hwg_GetIni("Print", "Spoll", , cIniFile))
 Return NIL

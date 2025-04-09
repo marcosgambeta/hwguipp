@@ -176,7 +176,7 @@ STATIC FUNCTION ReadIni()
 #endif
 
    IF !File( cHwg_include_dir + DIR_SEP + "hwgui.ch" )
-      hwg_MsgStop( "Set correct path to HwGUI in tutor.xml", "Hwgui.ch isn't found" )
+      hwg_MsgStop("Set correct path to HwGUI in tutor.xml", "Hwgui.ch isn't found")
    ENDIF
 
    IF !Empty(cHrb_inc_dir)
@@ -307,10 +307,10 @@ STATIC FUNCTION RunSample( oItem )
       IF !Empty(cHwgrunPath)
          hwg_RunApp( cHwgrunPath + "hwgrun __tmp.hrb" )
       ELSE
-         hwg_MsgStop( "HwgRun is absent, you need to compile it at first." )
+         hwg_MsgStop("HwgRun is absent, you need to compile it at first.")
       ENDIF
    ELSE
-      hwg_MsgStop( "Compile error" )
+      hwg_MsgStop("Compile error")
    ENDIF
 #else
 
@@ -324,13 +324,13 @@ STATIC FUNCTION RunSample( oItem )
             hb_Memowrit( "__tmp.hrb", cHrb )
             hwg_RunApp( cHwgrunPath + "hwgrun __tmp.hrb" )
          ELSE
-            hwg_MsgStop( "HwgRun is absent, you need to compile it at first." )
+            hwg_MsgStop("HwgRun is absent, you need to compile it at first.")
          ENDIF
       ELSE
          hb_hrbRun( cHrb )
       ENDIF
    ELSE
-      hwg_MsgStop( "Compile error" )
+      hwg_MsgStop("Compile error")
    ENDIF
 #endif
 

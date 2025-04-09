@@ -527,7 +527,7 @@ Local lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
          oMsg:Close()
          UpdBrowse()
       ELSE
-         hwg_MsgStop( "Fill necessary fields" )
+         hwg_MsgStop("Fill necessary fields")
       ENDIF
    ENDIF
    
@@ -543,7 +543,7 @@ Local fname, cExt := Iif( numdriv == 1,"*.cdx", "*.ntx" )
       fname := hwg_SelectFile( {"index files( "+cExt+" )","All files(*.*)"}, {cExt,"*.*"}, "\" + Curdir() + Iif( Empty(Curdir()), "", "\" ) )
 #endif
    ELSE
-      fname := hwg_MsgGet( "Open index", "Input file name:" )
+      fname := hwg_MsgGet("Open index", "Input file name:")
    ENDIF
 
    IF !Empty(fname)
@@ -695,7 +695,7 @@ Local bFileBtn := {||
 
    IF oDlg:lResult
       IF Empty(cFile)
-         hwg_MsgStop( "File name is absent!" )
+         hwg_MsgStop("File name is absent!")
          Return NIL
       ENDIF
 #ifdef RDD_ADS
@@ -888,7 +888,7 @@ FUNCTION Calcul()
       BEGIN SEQUENCE
          xRes := &( Trim(cExpr) )
       RECOVER
-         hwg_MsgStop( "Expression error" )
+         hwg_MsgStop("Expression error")
          lRes := .F.
       END SEQUENCE
       ErrorBlock( bOldError )
@@ -948,7 +948,7 @@ FUNCTION Scripts( nAct )
          ELSE
             DoScript( aScr )
          ENDIF
-         hwg_Msginfo( "Script executed" )
+         hwg_MsgInfo("Script executed")
       ENDIF
       RETURN NIL
    }
@@ -1063,7 +1063,7 @@ STATIC FUNCTION Fiopen(fname, alsname, pass)
       NEXT
       IF improc > OPENED_FILES_LIMIT
          improc := oldimp
-         hwg_Msgstop( "Too many opened files!" )
+         hwg_MsgStop("Too many opened files!")
          RETURN .F.
       ENDIF
       newimp := improc
@@ -1077,7 +1077,7 @@ STATIC FUNCTION Fiopen(fname, alsname, pass)
             dbUseArea( ,, fname, alsname,, lRdonly, cDataCpage )
          RECOVER USING oError
             IF oError:genCode == EG_BADALIAS .OR. oError:genCode == EG_DUPALIAS
-               IF Empty(alsname := hwg_MsgGet( "","Bad alias name, input other:" ))
+               IF Empty(alsname := hwg_MsgGet("", "Bad alias name, input other:"))
                   res := .F.
                ELSE
                   improc := newimp
@@ -1095,18 +1095,18 @@ STATIC FUNCTION Fiopen(fname, alsname, pass)
             SET( _SET_EXCLUSIVE, .F. )
             dbUseArea( , , fname, CutExten( iif( alsname = NIL, fname, alsname ) ), , lRdonly )
             IF NetErr()
-               hwg_Msgstop( strerr )
+               hwg_MsgStop(strerr)
                improc := oldimp
                RETURN .F.
             ENDIF
          ELSE
             improc := oldimp
-            hwg_Msgstop( strerr )
+            hwg_MsgStop(strerr)
             RETURN .F.
          ENDIF
       ELSEIF !res
          improc := oldimp
-         hwg_Msgstop( strerr )
+         hwg_MsgStop(strerr)
          RETURN .F.
       ENDIF
    ENDIF
@@ -1153,7 +1153,7 @@ FUNCTION WndOut()
 
 FUNCTION MsgSay( cText )
 
-   hwg_Msgstop( cText )
+   hwg_MsgStop(cText)
 
    RETURN NIL
 

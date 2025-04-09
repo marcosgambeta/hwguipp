@@ -262,7 +262,7 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
 #else
    oWinPrn := HWinPrn():New(, "RU866", "RU1251", , nPrCharset) // 204
    oWinPrn:aTooltips := hwg_HPrinter_LangArray_RU()
-//   Hwg_MsgInfo("nCharset=" + STR(oWinPrn:nCharset),"Russian" )
+//   hwg_MsgInfo("nCharset=" + Str(oWinPrn:nCharset), "Russian")
 *   oWinPrn:StartDoc( .T. )
    oWinPrn:StartDoc( .T.,"temp_a2.pdf" )
 #endif
@@ -399,7 +399,7 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
     use method SetY(n) to preset the position of the
     image, than say oWinPrn:PrintBitmap(...).
     Get the Y position by inserting:
-    hwg_MsgInfo(STR(oWinPrn:y) ) 
+    hwg_MsgInfo(Str(oWinPrn:y))
     Repeat this for every bitmap.
     
     That is done here in the following program lines.
@@ -446,7 +446,7 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
    oWinPrn:NextPage() // Text height is 12
    oWinPrn:PrintLine("From file >hwgui.bmp<")  // hwgui.bmp height = 160
 /* Get Y position */
-//   hwg_MsgInfo(STR(oWinPrn:y) ) 
+//   hwg_MsgInfo(Str(oWinPrn:y))
 //   oWinPrn:PrintBitmap( cImageDir + "hwgui.bmp" )
 /* Move forward up to the height of bitmap (0 + 160)  */
 
@@ -460,15 +460,15 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
 // Before workaround: This line is not visible.   
    // oWinPrn:PrintLine("From Hex value")
    oWinPrn:PrintLine("astro from hex value via temporary file")
-   // hwg_MsgInfo(STR(oWinPrn:y) )  // 184
+   // hwg_MsgInfo(Str(oWinPrn:y))  // 184
    oWinPrn:SetY(274)   // 184 + 90  
 //   oWinPrn:PrintBitmap( oBitmap1 ,   , "astro")
    oWinPrn:PrintLine("Center align")
-   // hwg_MsgInfo(STR(oWinPrn:y) )
+   // hwg_MsgInfo(Str(oWinPrn:y))
    oWinPrn:SetY(376)   // 286 + 90 
 //   oWinPrn:PrintBitmap( oBitmap1 , 1 , "astro")
    oWinPrn:PrintLine("Right align")
-//   hwg_MsgInfo(STR(oWinPrn:y) )
+//   hwg_MsgInfo(Str(oWinPrn:y))
 //   oWinPrn:PrintBitmap( oBitmap1 , 2 , "astro")   
    // oWinPrn:PrintLine("From Hex value, size x 4")
    // oWinPrn:PrintBitmap( oBitmap2 , , "astro")
@@ -579,8 +579,7 @@ LOCAL result, achrit, csel
   csel := achrit[result] 
   * Get the number of printer char set before ":"
   nPrCharset := VAL(SUBSTR(csel, 1,AT(":",csel) - 1 ) )
-  hwg_MsgInfo("Character Set is now: " + ALLTRIM(STR(nchrs)) + " Name: " + csel , ;
-          "Printer Character Set")
+  hwg_MsgInfo("Character Set is now: " + AllTrim(Str(nchrs)) + " Name: " + csel, "Printer Character Set")
  ENDIF
 RETURN NIL 
 
@@ -788,7 +787,7 @@ RETURN aps
 FUNCTION HELP(cTopic,nproc,cvar)
 * Display help window
 * --------------------------------------------
- hwg_MsgInfo(cTopic + " Line Number :" + ALLTRIM(STR(nproc)),cvar)
+ hwg_MsgInfo(cTopic + " Line Number :" + AllTrim(Str(nproc)), cvar)
 RETURN NIL
 
 * --------------------------------------------
@@ -801,7 +800,7 @@ LOCAL result
   * set to new language, if modified
   clangset := aLanguages[result] 
   NLS_SetLang(clangset)
-  hwg_MsgInfo("Language set to " + clangset,"Language Setting")
+  hwg_MsgInfo("Language set to " + clangset, "Language Setting")
  ENDIF
 RETURN NIL
 
@@ -811,7 +810,7 @@ FUNCTION CHECK_FILE ( cfi )
 * otherwise terminate program
 * --------------------------------------------
  IF .NOT. FILE( cfi )
-  Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
+  hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 
 RETURN NIL

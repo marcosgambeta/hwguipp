@@ -43,7 +43,7 @@ LOCAL cTexto
    IF Empty(cOutFile)
       Return NIL
    ENDIF
-   IF File( cOutFile ) .AND. !hwg_Msgyesno( "Recreate it ?",cOutFile+" already exists!" )
+   IF File( cOutFile ) .AND. !hwg_MsgYesNo("Recreate it ?", cOutFile + " already exists!")
       Return NIL
    ENDIF
 
@@ -179,7 +179,7 @@ LOCAL cTexto
 
    CLOSE RTF oRtf
 
-   hwg_Msginfo( cOutFile + " is created !" )
+   hwg_MsgInfo(cOutFile + " is created !")
 
 RETURN NIL
 

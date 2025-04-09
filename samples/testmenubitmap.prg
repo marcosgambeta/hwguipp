@@ -84,8 +84,8 @@ Private oMenu
                   MENU TITLE "Samples"
                      MENUITEM "&Exit"    ID 1001 ACTION oMain:Close()   BITMAP cbmpexit 
                      SEPARATOR                      
-                     MENUITEM "&New "    ID 1002 ACTION hwg_Msginfo("New")  BITMAP cbmpnew  
-                     MENUITEM "&Open"    ID 1003 ACTION hwg_Msginfo("Open") BITMAP cbmpopen 
+                     MENUITEM "&New "    ID 1002 ACTION hwg_MsgInfo("New")  BITMAP cbmpnew
+                     MENUITEM "&Open"    ID 1003 ACTION hwg_MsgInfo("Open") BITMAP cbmpopen 
                      MENUITEM "&Demo"    ID 1004 ACTION Test()
                      separator
                      MENUITEM "&Bitmap and a Text"  ID 1005 ACTION Test()
@@ -98,5 +98,5 @@ Private oMenu
 Return NIL
 
 Function Test()
-hwg_Msginfo("Test")
+hwg_MsgInfo("Test")
 Return NIL

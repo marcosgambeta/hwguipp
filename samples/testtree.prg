@@ -97,7 +97,7 @@ Static Function AddNode( oTree, nType )
 
    LOCAL cName, oTo
 
-   IF !Empty(cName := hwg_MsgGet( "Node name" ))
+   IF !Empty(cName := hwg_MsgGet("Node name"))
       oTo := Iif( oTree:oSelected:oParent == NIL, oTree, oTree:oSelected:oParent )
       IF nType == 0
          INSERT NODE cName TO oTree:oSelected

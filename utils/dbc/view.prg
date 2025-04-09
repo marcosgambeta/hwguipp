@@ -77,7 +77,7 @@ FUNCTION RdView( fname )
          ENDIF
       NEXT
       IF !res
-         hwg_MsgStop( "View file error" )
+         hwg_MsgStop("View file error")
       ELSE
          FOR i := 1 TO Len( aRel )
             dbSelectArea( aFiles[aRel[i, 1],AF_ALIAS] )

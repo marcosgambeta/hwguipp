@@ -30,16 +30,14 @@ LOCAL nmin, nmaj, bwin, bwin7, bwin10
    nmin    := hwg_GetWinMinorVers()
    nmaj    := hwg_GetWinMajorVers()
 
+   INIT WINDOW oMainWindow MAIN TITLE "Windows Version" AT 0, 0 SIZE 100, 100
 
-   INIT WINDOW oMainWindow MAIN TITLE "Windows Version" ;
-     AT 0, 0 SIZE 100, 100
+   hwg_MsgInfo("Windows    : " + Logical2Str(bwin) + Chr(10) + ;
+               "Windows 7  : " + Logical2Str(bwin7) + Chr(10) + ;
+               "Windows 10 : " + Logical2Str(bwin10) + Chr(10) + ;
+               "Major= " + AllTrim(Str(nmaj)) + Chr(10) + ;
+               "Minor= " + AllTrim(Str(nmin)), "Windows Version")
 
-   hwg_MsgInfo( ;
-   "Windows    : " + LOGICAL2STR(bwin)   + CHR(10) + ;
-   "Windows 7  : " + LOGICAL2STR(bwin7)  + CHR(10) + ; 
-   "Windows 10 : " + LOGICAL2STR(bwin10) + CHR(10) + ;
-   "Major= " + ALLTRIM(STR(nmaj)) + CHR(10) + ;
-   "Minor= " + ALLTRIM(STR(nmin)), "Windows Version")
   ACTIVATE WINDOW oMainWindow
 
 RETURN NIL

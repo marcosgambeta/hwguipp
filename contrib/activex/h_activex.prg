@@ -72,7 +72,7 @@ METHOD HActiveX:New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize)
       TRY
          ::oOle := ToleAuto():New(::hObj)
       CATCH oError
-         hwg_Msginfo( oError:Description )
+         hwg_MsgInfo(oError:Description)
       END
       ErrorBlock( bErrorBlock )
 #else
@@ -82,7 +82,7 @@ METHOD HActiveX:New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize)
          ::oOle:__hObj := ::hObj
       ENDIF
       IF Empty(::oOle:__hObj)
-         hwg_MsgStop( "Invalid argument to contructor!" )
+         hwg_MsgStop("Invalid argument to contructor!")
          RETURN NIL
       ENDIF
 #endif

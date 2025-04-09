@@ -61,9 +61,8 @@ FUNCTION TESTS
 
  FUNCTION TESTF(cFunkt, nFunkt, nExpected)
  
- hwg_MsgInfo(cFunkt + " :" + CHR(10) + ;
-     "Result: " + ALLTRIM(STR(nFunkt)) + CHR(10) + ;
-     "Expected: " + ALLTRIM(STR(nExpected)) ;
-  ,  "Test of Unit conversion functions")
+ hwg_MsgInfo(cFunkt + " :" + Chr(10) + ;
+   "Result: " + AllTrim(Str(nFunkt)) + Chr(10) + ;
+   "Expected: " + AllTrim(Str(nExpected)), "Test of Unit conversion functions")
  
  RETURN NIL

@@ -174,7 +174,7 @@ Local bKeyDown := {|o,nKey|
       AT 100, 240 SIZE 600, 300  FONT oDesigner:oMainWnd:oFont    ;
       STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_MAXIMIZEBOX+WS_SIZEBOX ;
       ON INIT {||ChangeTheme(HDTheme():nSelected),hwg_Movewindow(oDlg:handle, 100, 240, 600, 310)} ;
-      ON EXIT {||Iif(oEdit:lUpdated.AND.hwg_Msgyesno("Code was changed! Save it?", "Designer"),(cMethod:=oEdit:GetText(),.T.),.T.)}
+      ON EXIT {||Iif(oEdit:lUpdated .AND. hwg_MsgYesNo("Code was changed! Save it?", "Designer"),(cMethod:=oEdit:GetText(),.T.),.T.)}
 
    MENU OF oDlg
       MENU TITLE "&Options"
@@ -344,10 +344,10 @@ Memvar nScheme, nType, oTheme, cScheme
    IF nAction != NIL
       IF nAction == 1
          IF Len( aSchemes ) == 1
-            hwg_Msgstop( "Can't delete the only theme !", "Designer" )
+            hwg_MsgStop("Can't delete the only theme !", "Designer")
             Return NIL
          ENDIF
-         IF hwg_Msgyesno( "Really delete the '" + aSchemes[nScheme, 1] + "' theme ?", "Designer" )
+         IF hwg_MsgYesNo("Really delete the '" + aSchemes[nScheme, 1] + "' theme ?", "Designer")
             Adel( aSchemes,nScheme )
             Asize( aSchemes,Len(aSchemes)-1 )
             nScheme := oBrw:nCurrent := oBrw:rowPos := 1
@@ -357,7 +357,7 @@ Memvar nScheme, nType, oTheme, cScheme
          ENDIF
       ELSEIF nAction == 2
          IF Empty(cScheme)
-            hwg_Msgstop( "You must specify the theme name !", "Designer" )
+            hwg_MsgStop("You must specify the theme name !", "Designer")
             Return NIL
          ENDIF
          IF Ascan( aSchemes,{|a|Lower(a[1]) == Lower(cScheme)} ) == 0
@@ -366,7 +366,7 @@ Memvar nScheme, nType, oTheme, cScheme
                 AClone(aSchemes[nScheme, 5]), AClone(aSchemes[nScheme, 6])})
             oBrw:Refresh()
          ELSE
-            hwg_Msgstop( "The " + cScheme + " theme exists already !", "Designer" )
+            hwg_MsgStop("The " + cScheme + " theme exists already !", "Designer")
             Return NIL
          ENDIF
       ENDIF

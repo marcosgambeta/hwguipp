@@ -40,11 +40,11 @@ FUNCTION _APPMAIN( cFileName, cPar1, cPar2, cPar3, cPar4, cPar5, cPar6, cPar7, c
    LOCAL tHrb, tPrg
 
    IF Empty(cFileName)
-      hwg_Msginfo( "Harbour Runner - HwGUI version" + hb_Eol() +;
-              "Copyright 1999-2020, http://www.harbour-project.org" + hb_Eol() +;
-              Version() + ",  " + hwg_Version() + hb_Eol() +;
-              hb_Eol() +;
-              "Syntax:  hwgrun <hrbfile[.hrb]> [parameters]" )
+      hwg_MsgInfo("Harbour Runner - HwGUI version" + hb_Eol() + ;
+                  "Copyright 1999-2020, http://www.harbour-project.org" + hb_Eol() + ;
+                  Version() + ",  " + hwg_Version() + hb_Eol() + ;
+                  hb_Eol() + ;
+                  "Syntax:  hwgrun <hrbfile[.hrb]> [parameters]")
 
    ELSE
       ReadIni( cInitPath )
@@ -54,7 +54,7 @@ FUNCTION _APPMAIN( cFileName, cPar1, cPar2, cPar3, cPar4, cPar5, cPar6, cPar7, c
       IF !File( cFileName )
          IF !Empty(hb_fnameDir( cFileName )) .OR. Empty(cMod_Dir) .OR. ;
             !File( cFileName := hb_DirBase() + cMod_Dir + cFileName )
-            hwg_Msgstop( "Can't find " + hb_fnameName( cFileName ) )
+            hwg_Msgstop("Can't find " + hb_fnameName(cFileName))
             RETURN NIL
          ENDIF
       ENDIF
@@ -71,14 +71,14 @@ FUNCTION _APPMAIN( cFileName, cPar1, cPar2, cPar3, cPar4, cPar5, cPar6, cPar7, c
 
          IF lCompile
             IF Empty(cHwg_include_dir) .OR. !File( cHwg_include_dir + DIR_SEP + "hwgui.ch" )
-               hwg_MsgStop( "Set correct path to HwGUI headers in hwgrun.xml", "Hwgui.ch isn't found" )
+               hwg_MsgStop("Set correct path to HwGUI headers in hwgrun.xml", "Hwgui.ch isn't found")
                RETURN NIL
             ENDIF
             cIncPath := cHwg_include_dir + Iif( Empty(cHrb_inc_dir), "", ;
                   hb_OsPathListSeparator() + cHrb_inc_dir )
 
             IF Empty(cHrb := hb_compileBuf( "harbour", cFileName, "/n","/I"+cIncPath ))
-               hwg_MsgStop( "Error while compiling " + cFileName )
+               hwg_MsgStop("Error while compiling " + cFileName)
                RETURN NIL
             ENDIF
          ENDIF

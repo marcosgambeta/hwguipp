@@ -194,7 +194,7 @@ METHOD HColumnEx:Value( xValue )
             (::oParent:Alias)->(Eval(::block, varbuf, ::oParent, ::Column))
             (::oParent:Alias)->(dbUnlock())
          ELSE
-            hwg_Msgstop( "Can't lock the record!" )
+            hwg_MsgStop("Can't lock the record!")
          ENDIF
       ELSEIF ::oParent:nRecords  > 0
          Eval(::block, varbuf, ::oParent, ::Column)
@@ -3202,7 +3202,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
                      (::Alias)->(Eval(oColumn:block, ::varbuf, Self, fipos))
                      (::Alias)->(dbUnlock())
                   ELSE
-                     hwg_Msgstop( "Can't lock the record!" )
+                     hwg_MsgStop("Can't lock the record!")
                   ENDIF
                ELSE
                   Eval(oColumn:block, ::varbuf, Self, fipos)
@@ -3270,7 +3270,7 @@ METHOD HBrowseEx:EditLogical( wParam, lParam )
          (::Alias)->(Eval(::aColumns[::fipos]:block, !::varbuf, Self, ::fipos))
          (::Alias)->(dbUnlock())
       ELSE
-         hwg_Msgstop( "Can't lock the record!" )
+         hwg_MsgStop("Can't lock the record!")
       ENDIF
    ELSEIF ::nRecords  > 0
       IF wParam != VK_SPACE
@@ -3533,7 +3533,7 @@ METHOD HBrowseEx:ShowSizes()
 
    AEval(::aColumns, ;
       {|v, e|HB_SYMBOL_UNUSED(v), cText += ::aColumns[e]:heading + ": " + Str(Round(::aColumns[e]:width / 8, 0) - 2) + Chr(10) + Chr(13)})
-   hwg_Msginfo( cText )
+   hwg_MsgInfo(cText)
 
    RETURN NIL
 

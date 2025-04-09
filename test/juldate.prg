@@ -70,10 +70,9 @@ IF EMPTY(cdateo)
 ENDIF
 ddateo := hwg_STOD(cdateo)
 
-hwg_msgInfo( "Input: " + DTOC(dinput) + CHR(10) + ;
-"Julian Date : " + ALLTRIM(STR(njulian)) + CHR(10) + ;
-"Returned date : " + cdateo  + CHR(10) + ;
-"After hwg_STOD() : " +  DTOC(ddateo) + CHR(10) + cErro ;
-  ,cTitle)
+hwg_MsgInfo("Input: " + DToC(dinput) + Chr(10) + ;
+   "Julian Date : " + AllTrim(Str(njulian)) + Chr(10) + ;
+   "Returned date : " + cdateo  + Chr(10) + ;
+   "After hwg_STOD() : " + DToC(ddateo) + Chr(10) + cErro, cTitle)
 
 RETURN NIL

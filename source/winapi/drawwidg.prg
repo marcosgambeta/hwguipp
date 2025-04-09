@@ -163,7 +163,7 @@ empty string, if error occured.
 Don't forget to delete the temporary file after usage.
 LOCAL ctmpbmpf
 ctmpbmpf := hwg_Bitmap2tmpfile(obitmap, "sample", "bmp")
-hwg_MsgInfo(ctmpbmpf,"Temporary image file")
+hwg_MsgInfo(ctmpbmpf, "Temporary image file")
 IF !Empty(ctmpbmpf)
  ...
 ENDIF

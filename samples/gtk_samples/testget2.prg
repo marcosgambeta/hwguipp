@@ -52,9 +52,9 @@ Private oSayT
    ON INIT {|| SetTimer(oModDlg,@oTimer)}
    // FONT oFont  
 
-   SET KEY FSHIFT,VK_F3 TO hwg_Msginfo("Shift-F3") 
-   SET KEY FCONTROL,VK_F3 TO hwg_Msginfo("Ctrl-F3") 
-   SET KEY 0,VK_F3 TO hwg_Msginfo("F3") 
+   SET KEY FSHIFT,VK_F3 TO hwg_MsgInfo("Shift-F3")
+   SET KEY FCONTROL,VK_F3 TO hwg_MsgInfo("Ctrl-F3")
+   SET KEY 0,VK_F3 TO hwg_MsgInfo("F3")
 
    @ 20, 10 SAY "Input something:" SIZE 260, 22
 
@@ -95,14 +95,14 @@ Private oSayT
 
    // hwg_WriteLog( "End" )
    IF oModDlg:lResult
-      hwg_Msginfo( e1 + chr(10) + chr(13) +       ;
+      hwg_MsgInfo(e1 + chr(10) + chr(13) +       ;
                e6 + chr(10) + chr(13) +       ;
                Dtoc(e2) + chr(10) + chr(13) + ;
                Str(e3) + chr(10) + chr(13) +  ;
                e4 + chr(10) + chr(13) +       ;
                Str(e5) + chr(10) + chr(13) +  ;
                e7 + chr(10) + chr(13)         ;
-               ,"Results:" )
+               , "Results:")
    ENDIF
 
 Return NIL

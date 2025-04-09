@@ -43,8 +43,8 @@ nPosY := hwg_Getdesktopheight()
 lStretch := IIF( lStretch == NIL, lStretch := .T.,lStretch := .F.)
  
 * Display size of recent desktop, it is equal to the size of screen. 
-hwg_msginfo("X=" + STR(nPosX) + CHR(10) + "Y=" + STR(nPosY) + CHR(10) + ;
- "lStretch=" + IIF(lStretch,"True","False") ) 
+hwg_MsgInfo("X=" + Str(nPosX) + Chr(10) + "Y=" + Str(nPosY) + Chr(10) + ;
+ "lStretch=" + IIF(lStretch, "True", "False"))
 
 
 

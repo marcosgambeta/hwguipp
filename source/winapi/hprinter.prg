@@ -1426,7 +1426,7 @@ Static Function MessProc(oPrinter, oPanel, lParam)
    NEXT
    IF i <= Len(arr)
       hb_TokenPtr(arr[i], @nPos, ",")
-      IF !Empty(cTemp := hwg_MsgGet("", NIL, ES_AUTOHSCROLL, NIL, NIL, DS_CENTER, SubStr(arr[i], nPos + 1))) .AND. !(cTemp == SubStr(arr[i],nPos+1))
+      IF !Empty(cTemp := hwg_MsgGet("", , ES_AUTOHSCROLL, , , DS_CENTER, SubStr(arr[i], nPos + 1))) .AND. !(cTemp == SubStr(arr[i], nPos + 1))
          oPrinter:aPages[nPage] := ""
          FOR j := 1 TO Len(arr)
             IF j != i

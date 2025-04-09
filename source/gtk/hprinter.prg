@@ -456,7 +456,7 @@ METHOD HPrinter:SaveScript( cScriptFile )
    ENDIF
 
    IF !Empty(cScriptFile)
-      // hwg_MsgInfo("Scriptfile=" + cScriptFile )
+      // hwg_MsgInfo("Scriptfile=" + cScriptFile)
       // Default scriptfile is "temp_a2.ps"
       han := FCreate(cScriptFile)
       FWrite(han, "job," + ;
@@ -735,7 +735,7 @@ METHOD HPrinter:PrintDoc()
      nOper:
      0 - printer, 1 - pdf, 2 - ps, 3 - png, 4 - svg
    */
-   // hwg_msginfo("nOper=" + STR(nOper) )
+   // hwg_MsgInfo("nOper=" + Str(nOper))
    hwg_gp_Print(::hDC, ::aPages, Len(::aPages), nOper, ::cPrinterName)
 
    RETURN NIL
@@ -967,7 +967,7 @@ STATIC FUNCTION MessProc( oPrinter, oPanel, lParam )
       hb_TokenPtr( arr[i], @nPos, "," )
 
       cl := hwg_SetAppLocale( "UTF-8" )
-      cTemp := hwg_MsgGet( "", NIL, ES_AUTOHSCROLL, NIL, NIL, DS_CENTER, SubStr(arr[i], nPos + 1) )
+      cTemp := hwg_MsgGet("", , ES_AUTOHSCROLL, , , DS_CENTER, SubStr(arr[i], nPos + 1))
       hwg_SetAppLocale( cl )
       IF !Empty(cTemp) .AND. !( cTemp == SubStr(arr[i], nPos + 1) )
          oPrinter:aPages[nPage] := ""

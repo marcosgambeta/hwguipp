@@ -480,7 +480,7 @@ IF clangf == NIL
 ELSE
   clangset := clangf
 ENDIF
-  // hwg_msginfo(clangset)  // Debug
+  // hwg_MsgInfo(clangset)  // Debug
   hwlabel_NLS_SetLang(clangset)
 
 RETURN NIL
@@ -561,7 +561,7 @@ lblname := aMsg[26]   // "<NO LABEL>"
    // Modified ?
 
    IF hwlabel_mod() .OR. lblname == hwlabel_str_nolabel()
-     IF  hwg_Msgyesno(aMsg[44],aMsg[28])   // 44= "Parameter(s) are modified, Save ?" 28 = "Label Editor"
+     IF hwg_MsgYesNo(aMsg[44], aMsg[28])   // 44= "Parameter(s) are modified, Save ?" 28 = "Label Editor"
        hwlabel_SAVE_LABEL(cCpLocWin,cCpLocLINUX,cCpLabel)
      ENDIF
    ENDIF
@@ -592,7 +592,7 @@ LOCAL cfilename , mypath , lsucc
 // Old parameters modified ?
 // Then they must be saved before (or dismiss)
 IF hwlabel_mod()
-  IF .NOT. hwg_Msgyesno(aMsg[55],aMsg[56])
+  IF .NOT. hwg_MsgYesNo(aMsg[55], aMsg[56])
    * Cancel
    RETURN ""
   ENDIF
@@ -621,7 +621,7 @@ cfilename := hwg_Selectfile( aMsg[31] ,"*.lbl", mypath )
 // In case of error : set the label array with default values
 
 IF .NOT. lsucc
- hwg_MsgStop( aMsg[37] , aMsg[1] )       // Error loading lbl file
+ hwg_MsgStop(aMsg[37], aMsg[1])       // Error loading lbl file
  cfilename := clblfile
  hwlabel_LBL_DEFAULTS()
  RETURN hwlabel_str_nolabel()
@@ -664,7 +664,7 @@ IF lblname == hwlabel_str_nolabel()  // "<NO LABEL>"
 #endif
 ELSE
     IF .NOT. hwlabel_mod()
-       hwg_MsgInfo(aMsg[46],aMsg[28])  //  28  = "Label Editor", 46 = "Nothing to save"
+       hwg_MsgInfo(aMsg[46], aMsg[28])  //  28  = "Label Editor", 46 = "Nothing to save"
        RETURN hwlabel_str_nolabel()
     ENDIF
 ENDIF
@@ -927,16 +927,16 @@ Puffer := SPACE(1034)
 
 handle := FOPEN(clblfname, 2)
 IF handle == -1
- hwg_MsgStop(aMsg[37],aMsg[3])  // 37 = Error reading label file, 3 = File access error
+ hwg_MsgStop(aMsg[37], aMsg[3])  // 37 = Error reading label file, 3 = File access error
  FCLOSE(handle)
   RETURN .F.
 ENDIF
 
 anzbytes := FREAD(handle,@Puffer, 1034)  // Read complete label file
-// hwg_MsgInfo("Bytes read: " + STR(anzbytes),"Debug")
+// hwg_MsgInfo("Bytes read: " + STR(anzbytes), "Debug")
 IF anzbytes != 1034
 // "Error reading label file, not 1034 bytes","File error"
- hwg_MsgStop(aMsg[24],aMsg[3])  // 24 = Error reading label file, not 1034 bytes,  3 = File access error
+ hwg_MsgStop(aMsg[24], aMsg[3])  // 24 = Error reading label file, not 1034 bytes,  3 = File access error
  FCLOSE(handle)
  RETURN .F.
 ENDIF
@@ -1009,7 +1009,7 @@ c_INH15  := SUBSTR(hwlabel_translcp(MINH[15], 0,cCpLocWin,cCpLocLINUX,cCpLabel),
 c_INH16  := SUBSTR(hwlabel_translcp(MINH[16], 0,cCpLocWin,cCpLocLINUX,cCpLabel), 1, 60)
 
   IF LEN(Puffer) != 1034
-   hwg_MsgStop(aMsg[59],aMsg[60])  // 59 = "Error: Buffer size not 1034 bytes", 60 =  "Load label file"
+   hwg_MsgStop(aMsg[59], aMsg[60])  // 59 = "Error: Buffer size not 1034 bytes", 60 =  "Load label file"
    RETURN .F.
   ENDIF
 
@@ -1095,12 +1095,12 @@ Pu := Z1 + REM + I2BIN(NUMZ) + I2BIN(BR) + I2BIN(LM) + ;
   PADR(INH, 960) + Z2
 
 IF LEN(Pu) != 1034
-  hwg_MsgStop(aMsg[59],aMsg[51])  // 59 = "Error: Buffer size not 1034 bytes", 51 =  "Save Label File")
+  hwg_MsgStop(aMsg[59], aMsg[51])  // 59 = "Error: Buffer size not 1034 bytes", 51 =  "Save Label File")
   RETURN .F.
 ENDIF
 
  IF FILE(dateiname)
-   IF .NOT. hwg_Msgyesno(aMsg[43],dateiname)   // "File exists, overwrite ?"
+   IF .NOT. hwg_MsgYesNo(aMsg[43], dateiname)   // "File exists, overwrite ?"
     RETURN .F.
    ENDIF
   ERASE &dateiname
@@ -1111,7 +1111,7 @@ ENDIF
   IF handle == -1
    // cannot create
    // Error writing label file
-   hwg_MsgStop( aMsg[2], aMsg[3] + ": " + dateiname)
+   hwg_MsgStop(aMsg[2], aMsg[3] + ": " + dateiname)
    FCLOSE(handle)
    RETURN .F.
   ELSE
@@ -1178,7 +1178,7 @@ FUNCTION hwlabel_newlbl()
 // ==============================================
 
  IF hwlabel_mod()
-  IF .NOT. hwg_Msgyesno(aMsg[57],aMsg[58])
+  IF .NOT. hwg_MsgYesNo(aMsg[57], aMsg[58])
   // Cancel
    RETURN ""
   ENDIF
@@ -1380,7 +1380,7 @@ ENDIF
 // Clean unused contents
   hwlabel_ccontents(NUMZ)
 
-//  hwg_MsgInfo("Parameter stored","Debug")
+//  hwg_MsgInfo("Parameter stored", "Debug")
 
 
 
@@ -1575,7 +1575,7 @@ RETURN NIL
 FUNCTION hwlabel_warncont()
 // Warnung query message, if height reduced
 // ==============================================
-RETURN hwg_MsgYesNo(aMsg[53],aMsg[52])  // 52 = Warning
+RETURN hwg_MsgYesNo(aMsg[53], aMsg[52])  // 52 = Warning
 
 
 
@@ -1829,7 +1829,7 @@ FUNCTION hwlbledit_exit()
 // Exit dialog check for modified label and query
 // ==============================================
 IF hwlabel_mod()
-RETURN hwg_MsgYesNo(aMsg[45],aMsg[28])  // 28 = Label Editor , 45 = Label is modified, ignore modifications ?
+RETURN hwg_MsgYesNo(aMsg[45], aMsg[28])  // 28 = Label Editor , 45 = Label is modified, ignore modifications ?
 ENDIF
 RETURN .T.
 
@@ -2413,7 +2413,7 @@ ENDIF
 
 // Not specified topic
 // No help available
-hwg_MsgStop(aMsg[62],aMsg[61])
+hwg_MsgStop(aMsg[62], aMsg[61])
 
 RETURN ""
 
@@ -2636,14 +2636,13 @@ ENDIF
 
 // Nicht benanntes Hilfe-Thema
 // Keine Hilfe verfuegbar
-hwg_MsgStop(aMsg[62],aMsg[61])
+hwg_MsgStop(aMsg[62], aMsg[61])
 RETURN ""
 
 // ------------------------------------------
 FUNCTION hwlabel_About()
 // ------------------------------------------
-Hwg_MsgInfo("HWGUI label editor Version 1.0" + CHR(10) + ;
-"Copyright 2022 W.Brunken, DF7BE","About")
+Hwg_MsgInfo("HWGUI label editor Version 1.0" + CHR(10) + "Copyright 2022 W.Brunken, DF7BE", "About")
 RETURN NIL
 
 // ------------------------------------------
@@ -2734,10 +2733,10 @@ LOCAL result
   // set to new language, if modified
   clangset := aLanguages[result]
   hwlabel_NLS_SetLang(clangset)
-  hwg_MsgInfo("Language set to " + clangset,"Language Setting")
+  hwg_MsgInfo("Language set to " + clangset, "Language Setting")
   // Write to ini file, if modified
   WRIT_LANGINI(clangset)
-  hwg_MsgInfo(aMsg[27],aMsg[28])
+  hwg_MsgInfo(aMsg[27], aMsg[28])
   omlblmnu:Close()
  ENDIF
 RETURN NIL
@@ -2864,35 +2863,35 @@ IF xv2 == NIL
 ENDIF
 ctype := VALTYPE(xv1)
   IF ctype == "B"
-    hwg_MsgInfo("Block","Debug")
+    hwg_MsgInfo("Block", "Debug")
   ELSEIF ctype == "N"
     IF lxv2nil
      coutput := varname + ">" + ALLTRIM(STR(xv1)) + "<"
     ELSE
      coutput := varname + ">" + ALLTRIM(STR(xv1)) + "<"  + CHR(10) + ">" + ALLTRIM(STR(xv2)) + "<"
     ENDIF
-    hwg_MsgInfo(coutput,"Debug")
+    hwg_MsgInfo(coutput, "Debug")
   ELSEIF ctype == "D"
     IF lxv2nil
       coutput := varname + "ANSI: " + DTOS(xv1) + "<"
     ELSE
       coutput := varname + "ANSI: " + DTOS(xv1) + "<"  + CHR(10) + ">" +  DTOS(xv2)+ "<"
     ENDIF
-    hwg_MsgInfo(coutput,"Debug")
+    hwg_MsgInfo(coutput, "Debug")
   ELSEIF ctype == "L"
     IF lxv2nil
      coutput := varname + ">" + IIF(xv1,".T.",".F." ) + "<"
     ELSE
      coutput := varname + ">" + IIF(xv1,".T.",".F." ) + "<"  + CHR(10) + ">" + IIF(xv2,".T.",".F." ) + "<"
     ENDIF
-    hwg_MsgInfo(coutput,"Debug")
+    hwg_MsgInfo(coutput, "Debug")
   ELSEIF ctype == "C"
     IF lxv2nil
      coutput := varname + ">" + xv1 + "<"
     ELSE
      coutput := varname + ">" + xv1 + "<"  + CHR(10) + ">" + xv2 + "<"
     ENDIF
-    hwg_MsgInfo(coutput,"Debug")
+    hwg_MsgInfo(coutput, "Debug")
   ENDIF
 
 
@@ -2926,7 +2925,7 @@ IF FILE(dateiname)
   ENDIF
  // FSEEK(handle, 0, 2)
   puffer := LANG_READ_TEXT(handle)  // 1. Satz lesen, read first record
-  // hwg_msginfo("puffer=" + puffer,"Debug")
+  // hwg_MsgInfo("puffer=" + puffer, "Debug")
   FCLOSE(handle)
 ENDIF
 

@@ -227,10 +227,10 @@ if empty(oFolderFile)
    Return NIL
 Endif
 if file(oFolderFile)
-   If(hwg_Msgyesno("File "+oFolderFile+" EXIT ..Replace?"))
+   If(hwg_MsgYesNo("File " + oFolderFile + " EXIT ..Replace?"))
      Erase(oFolderFile)
    Else
-     hwg_Msginfo("No file SAVED.")
+     hwg_MsgInfo("No file SAVED.")
      Return NIL
    EndIf
 EndIf     
@@ -280,11 +280,11 @@ if Len(oBrowse4:aArray)>=1
    Next     
 endif   
 
-hwg_Msginfo("File "+oFolderFile+" saved","HwGUI Build")
+hwg_MsgInfo("File " + oFolderFile + " saved", "HwGUI Build")
 Return NIL
 
 Function BuildApp()
-If hwg_Msgyesno("Yes Compile to BAT, No compile to PoMake")
+If hwg_MsgYesNo("Yes Compile to BAT, No compile to PoMake")
    BuildBat()
 Else
    BuildPoMake()
@@ -479,7 +479,7 @@ fClose(oArq)
 __Run("Hwg_Build.bat>Error.log")
 
 if file(voExeName+".exe")
-   hwg_Msginfo("File "+ voExeName+".exe Build correct")
+   hwg_MsgInfo("File " + voExeName + ".exe Build correct")
 Else
    hwg_Shellexecute("NotePad error.log")
 Endif

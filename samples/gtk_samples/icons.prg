@@ -45,7 +45,7 @@ cImagepath := ".."+ cDirSep + "image" + cDirSep
 
 cImageMain := cImagepath + "hwgui.bmp"
 IF .NOT. FILE(cImageMain)
- hwg_msgstop("File not existing: " + cImageMain)
+ hwg_MsgStop("File not existing: " + cImageMain)
  QUIT
 ENDIF
 oBmp := HBitmap():AddFile(cImageMain)
@@ -63,7 +63,7 @@ INIT WINDOW oFormMain MAIN APPNAME "Hwgui sample" ;
    TITLE "Icon sample" AT 0, 0 SIZE nPosX,nPosY-30 ;
    ICON oIconEXE STYLE WS_POPUP +  WS_CAPTION + WS_SYSMENU
 
-   hwg_msginfo(cImageMain + CHR(10)+  cImagepath + "ok.ico" )
+   hwg_MsgInfo(cImageMain + Chr(10) + cImagepath + "ok.ico")
    
   MENU OF oFormMain
       MENU TITLE "&Exit"
@@ -84,7 +84,7 @@ PARAMETERS cimgpfad
  LOCAL oModDlg, obg
    obg := NIL 
    IF .NOT. FILE(cimgpfad + "astro.bmp")
-    hwg_msgStop("File " + cimgpfad + "astro.bmp" + " not found")
+    hwg_MsgStop("File " + cimgpfad + "astro.bmp" + " not found")
    ENDIF
 
    INIT DIALOG oModDlg TITLE "Dialog with background image" ;

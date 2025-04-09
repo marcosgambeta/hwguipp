@@ -54,13 +54,13 @@ LOCAL oFont , mreturn
  mreturn := hwg_MemoEdit(mmemofield , , , , , ,  oFont ) 
 * Modified ?
  IF hwg_MemoCmp(mmemofield , mreturn ) 
-  hwg_MsgInfo("Nothing to save","Memo Edit") 
+  hwg_MsgInfo("Nothing to save", "Memo Edit")
  ELSE
   * Save file
    IF MemoWrit(fname,mreturn)
-    hwg_MsgInfo("File written: " + fname,"Editor")
+    hwg_MsgInfo("File written: " + fname, "Editor")
    ELSE
-    hwg_MsgStop("Write error file : " + fname,"Editor" )
+    hwg_MsgStop("Write error file : " + fname, "Editor")
    ENDIF
  ENDIF
 

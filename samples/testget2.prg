@@ -19,7 +19,7 @@ Private var1 := 10320.54
       MENUITEM "&Get a value" ACTION DlgGet(.F.)
       MENUITEM "&Get using SetcolorinFocus" ACTION DlgGet(.T.)
       MENUITEM "&Text Ballon" ACTION TestBallon()
-      MENUITEM "&Hd Serial  " ACTION hwg_Msginfo( hwg_HdSerial("C:\"),"HD Serial number" )
+      MENUITEM "&Hd Serial  " ACTION hwg_MsgInfo( hwg_HdSerial("C:\"),"HD Serial number" )
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
@@ -42,10 +42,10 @@ Private oSayT
    FONT oFont ;
    ON INIT {|| hwg_Settimer(oModDlg,@oTimer)}
 
-   SET KEY FSHIFT,VK_F3 TO hwg_Msginfo("Shift-F3") 
-   SET KEY FCONTROL,VK_F3 TO hwg_Msginfo("Ctrl-F3") 
-   SET KEY 0,VK_F3 TO hwg_Msginfo("F3") 
-   SET KEY 0,VK_RETURN TO hwg_Msginfo("Return") 
+   SET KEY FSHIFT,VK_F3 TO hwg_MsgInfo("Shift-F3")
+   SET KEY FCONTROL,VK_F3 TO hwg_MsgInfo("Ctrl-F3")
+   SET KEY 0,VK_F3 TO hwg_MsgInfo("F3")
+   SET KEY 0,VK_RETURN TO hwg_MsgInfo("Return") 
    
    If lColor != NIL
       hwg_SetColorinFocus( lColor )
@@ -89,14 +89,14 @@ Private oSayT
    oTimer:End()
 
    IF oModDlg:lResult
-      hwg_Msginfo( e1 + chr(10) + chr(13) +       ;
-               e6 + chr(10) + chr(13) +       ;
-               Dtoc(e2) + chr(10) + chr(13) + ;
-               Str(e3) + chr(10) + chr(13) +  ;
-               e4 + chr(10) + chr(13) +       ;
-               Str(e5) + chr(10) + chr(13) +  ;
-               e7 + chr(10) + chr(13)         ;
-               ,"Results:" )
+      hwg_MsgInfo(e1 + Chr(10) + Chr(13) +       ;
+                  e6 + Chr(10) + Chr(13) +       ;
+                  DToC(e2) + Chr(10) + Chr(13) + ;
+                  Str(e3) + Chr(10) + Chr(13) +  ;
+                  e4 + Chr(10) + Chr(13) +       ;
+                  Str(e5) + Chr(10) + Chr(13) +  ;
+                  e7 + Chr(10) + Chr(13)         ;
+                  , "Results:")
    ENDIF
 
 Return NIL
@@ -122,7 +122,7 @@ Function TestBallon
    INIT DIALOG oWnd CLIPPER TITLE "Dialog text Balon" ;
       AT 100, 100 SIZE 140, 100
 
-   @ 20, 20 BUTTON "Button 1" ON CLICK {||hwg_Msginfo("Button 1")} SIZE 100, 40 ;
+   @ 20, 20 BUTTON "Button 1" ON CLICK {||hwg_MsgInfo("Button 1")} SIZE 100, 40 ;
        TOOLTIP "ToolTip do Button 1"
 
    ACTIVATE DIALOG oWnd

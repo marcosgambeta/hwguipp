@@ -79,7 +79,7 @@ FUNCTION EditScr( oEdit, aStru )
 
    ACTIVATE DIALOG oDlg
 
-   IF oEdiScr:lUpdated .AND. hwg_Msgyesno( "Code was changed! Save it?" )
+   IF oEdiScr:lUpdated .AND. hwg_MsgYesNo("Code was changed! Save it?")
       IF aStru != NIL
          aStru[OB_HREF] := oEdiScr:GetText()
          aStru[OB_EXEC] := NIL
@@ -364,7 +364,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
    ENDIF
    IF xRes == NIL
       IF !lAll
-         hwg_MsgStop( "Expression error", "Calculator" )
+         hwg_MsgStop("Expression error", "Calculator")
       ENDIF
    ELSE
       cRes := CnvVal(xRes)

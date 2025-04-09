@@ -72,7 +72,7 @@ FUNCTION hwg_ColorN2RGB(nColor, nr, ng, nb)
 
    RETURN { nr, ng, nb }
 
-FUNCTION hwg_MsgGet( cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes )
+FUNCTION hwg_MsgGet(cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes)
 
    LOCAL oModDlg
    LOCAL oFont := HFont():Add("Sans", 0, 12)

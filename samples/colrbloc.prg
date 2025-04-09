@@ -503,7 +503,7 @@ FUNCTION MsgD( cV1, cV2, cV3, cV4, cV5, cV6, cV7, cV8, cV9, cV10 )
        ENDIF
        cVar += "/"
    NEXT
-   hwg_Msginfo(Left(cVar, LEN(cVar) - 1))
+   hwg_MsgInfo(Left(cVar, LEN(cVar) - 1))
 RETURN NIL
 
 ******************************
@@ -512,7 +512,7 @@ FUNCTION CHECK_FILE ( cfi )
 * otherwise terminate program
 ******************************
  IF .NOT. FILE( cfi )
-  Hwg_MsgStop("File >" + cfi + "< not found, program terminated","File ERROR !")
+  hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 
 RETURN NIL

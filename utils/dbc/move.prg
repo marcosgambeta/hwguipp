@@ -61,7 +61,7 @@ FUNCTION Move( nMove )
          SEEK KEY
          IF !Found()
             GO nrec
-            hwg_Msgstop( "Record not found" )
+            hwg_MsgStop("Record not found")
          ELSE
             hwg_WriteStatus( oBrw:oParent, 3, "Found" )
          ENDIF
@@ -99,7 +99,7 @@ FUNCTION F_Locate( oBrw, cExpres )
       ENDIF
       IF ( aFiles[improc, AF_LFLT] .AND. !res ) .OR. ( !aFiles[improc, AF_LFLT] .AND. !Found() )
          GO nrec
-         hwg_Msgstop( "Record not found" )
+         hwg_MsgStop("Record not found")
       ELSE
          hwg_WriteStatus( HMainWindow():GetMdiActive(), 3, "Found" )
          IF aFiles[improc, AF_LFLT]
@@ -108,7 +108,7 @@ FUNCTION F_Locate( oBrw, cExpres )
       ENDIF
       UpdBrowse()
    ELSE
-      hwg_Msginfo( "Wrong expression" )
+      hwg_MsgInfo("Wrong expression")
    ENDIF
 
    RETURN NIL
@@ -146,11 +146,11 @@ FUNCTION F_Filter( oBrw, cExpres )
             lRes := .T.
          ELSE
             GO nrec
-            hwg_Msginfo( "Records not found" )
+            hwg_MsgInfo("Records not found")
          ENDIF
          UpdBrowse()
       ELSE
-         hwg_Msginfo( "Wrong expression" )
+         hwg_MsgInfo("Wrong expression")
       ENDIF
    ENDIF
    IF !lRes

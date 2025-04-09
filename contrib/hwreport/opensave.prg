@@ -31,7 +31,7 @@ FUNCTION _hwr_FileDlg( lOpen )
    LOCAL oRb1, oRb2,  oEdit1, oLabel1, oEdit2
 
    IF !lOpen .AND. ( aPaintRep == NIL .OR. Empty(aPaintRep[FORM_ITEMS]) )
-      hwg_Msgstop( "Nothing to save" )
+      hwg_MsgStop("Nothing to save")
       RETURN NIL
    ELSEIF lOpen
       _hwr_CloseReport()
@@ -135,7 +135,7 @@ FUNCTION _hwr_CloseReport
 
    IF aPaintRep != NIL
       IF aPaintRep[FORM_CHANGED] == .T.
-         IF hwg_Msgyesno( "Report was changed. Are you want to save it ?" )
+         IF hwg_MsgYesNo("Report was changed. Are you want to save it ?")
             _hwr_SaveReport()
          ENDIF
       ENDIF
@@ -151,7 +151,7 @@ FUNCTION _hwr_CloseReport
 FUNCTION _hwr_SaveReport
 
    IF ( aPaintRep == NIL .OR. Empty(aPaintRep[FORM_ITEMS]) )
-      hwg_Msgstop( "Nothing to save" )
+      hwg_MsgStop("Nothing to save")
       RETURN NIL
    ENDIF
    IF Empty(aPaintRep[FORM_FILENAME])
@@ -187,7 +187,7 @@ STATIC FUNCTION OpenFile( fname, repName )
                IF Upper(Left(stroka, 15)) == "LOCAL APAINTREP"
                   nMode := 11
                ELSE
-                  hwg_Msgstop( "Wrong function " + repname )
+                  hwg_MsgStop("Wrong function " + repname)
                   FClose(han)
                   RETURN .F.
                ENDIF
@@ -207,14 +207,14 @@ STATIC FUNCTION OpenFile( fname, repName )
          ENDDO
          FClose(han)
       ELSE
-         hwg_Msgstop( "Can't open " + fname )
+         hwg_MsgStop("Can't open " + fname)
          RETURN .F.
       ENDIF
    ELSE
       aPaintRep := hwg_hwr_Open(fname, repName)
    ENDIF
    IF aPaintRep == NIL .OR. Empty(aPaintRep[FORM_ITEMS])
-      hwg_Msgstop( repname + " not found or empty!" )
+      hwg_MsgStop(repname + " not found or empty!")
       res := .F.
    ELSE
       hwg_Enablemenuitem( , IDM_CLOSE, .T. , .T. )
@@ -305,7 +305,7 @@ STATIC FUNCTION SaveRFile( fname, repName )
                FClose(hanOut)
                FClose(han)
                IF FErase(fname) == - 1 .OR. FRename(mypath + "__rpt.tmp", fname) == - 1
-                  hwg_Msgstop( "Can't rename __rpt.tmp" )
+                  hwg_MsgStop("Can't rename __rpt.tmp")
                ELSE
                   res := .T.
                ENDIF
@@ -322,11 +322,11 @@ STATIC FUNCTION SaveRFile( fname, repName )
                res := .T.
             ENDIF
          ELSE
-            hwg_Msgstop( "Can't create __rpt.tmp" )
+            hwg_MsgStop("Can't create __rpt.tmp")
             FClose(han)
          ENDIF
       ELSE
-         hwg_Msgstop( "Can't open " + fname )
+         hwg_MsgStop("Can't open " + fname)
       ENDIF
    ELSE
       han := FCreate(fname)

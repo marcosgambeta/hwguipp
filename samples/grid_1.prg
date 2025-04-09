@@ -54,15 +54,15 @@ Function Test()
 Return NIL
 
 Function OnKey( o, k )
-//    hwg_Msginfo(str(k))
+//    hwg_MsgInfo(Str(k))
 return NIL    
 
 Function OnPosChange( o, row )
-//    hwg_Msginfo( str(row) )
+//    hwg_MsgInfo(Str(row))
 return NIL    
 
 Function OnClick( o )
-//    hwg_Msginfo( "click" )
+//    hwg_MsgInfo("click")
 return NIL
 
 Function OnDispInfo( o, x, y )

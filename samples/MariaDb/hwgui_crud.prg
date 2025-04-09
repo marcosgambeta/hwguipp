@@ -33,7 +33,7 @@ Function Test
       ENDMENU
       
       MENU TITLE "&Help"
-         MENUITEM "&About" ACTION hwg_Msginfo( HwG_Version(), "About" )
+         MENUITEM "&About" ACTION hwg_MsgInfo(HwG_Version(), "About")
       ENDMENU
       
    ENDMENU
@@ -150,7 +150,7 @@ Local cSQl
    If lSQL
       cSQL := "DELETE FROM contacts WHERE idcontact = " + hb_ntos(ctc->idcontact)  
       If rddInfo( RDDI_EXECUTE, cSQL ) 
-         Hwg_msgInfo("Record deleted.")
+         Hwg_MsgInfo("Record deleted.")
          ctc->(dbCloseArea())
          dbUseArea( .T., , "SELECT * FROM contacts", "ctc" )         
       Else
@@ -188,7 +188,7 @@ Local cSQL
    cName := oName:Value
 
    If empty(cName)
-      hwg_msgStop("Please enter with a name")
+      hwg_MsgStop("Please enter with a name")
       oName:SetFocus()
       hwg_edit_SetPos( oName:Handle, 0) //Set 1 position edit of get
       return .t.        
@@ -203,7 +203,7 @@ Local cSQL
             ctc->(dbCloseArea())  //Close table contact
             dbUseArea( .T., , "SELECT * FROM contacts", "ctc" ) //need open contacts table becouse new data.
          Else   
-            hwg_msginfo("Fail to add data")
+            hwg_MsgInfo("Fail to add data")
          EndIF
 
       Else
@@ -266,16 +266,16 @@ Function Contacts_MariaDB
    nConnection := rddInfo( RDDI_CONNECT, { "ODBC", "Server=127.0.0.1;Driver={MariaDB};dsn=;User=itamar;password=@itamar;database=test;" } )
    
    IF nConnection == 0
-      hwg_msgstop("Unable connect to server" +hb_eol() + rddInfo( RDDI_ERRORNO ) + hb_eol() + rddInfo( RDDI_ERROR ) )
+      hwg_MsgStop("Unable connect to server" + hb_eol() + rddInfo(RDDI_ERRORNO) + hb_eol() + rddInfo(RDDI_ERROR))
       RETURN .F.
    ENDIF
    
-    //hwg_msginfo("Number of conection:" + hb_ntos(nConnection))
+    //hwg_MsgInfo("Number of conection:" + hb_ntos(nConnection))
     If !rddInfo( RDDI_EXECUTE, "CREATE DATABASE IF NOT EXISTS `test`" )      
-       Hwg_msginfo("Fail to create database test of MariaDB")
+       Hwg_MsgInfo("Fail to create database test of MariaDB")
     EndIf
     If !rddInfo( RDDI_EXECUTE, "USE `test`" )
-       Hwg_msginfo("Fail to conect on database test of MariaDB")
+       Hwg_MsgInfo("Fail to conect on database test of MariaDB")
     EndIF
 
     dbUseArea( , , "SELECT COUNT(*) as nTot FROM information_schema.tables WHERE table_schema = 'test' AND table_name = 'contacts' ","RS" )
@@ -287,16 +287,16 @@ Function Contacts_MariaDB
           If rddInfo( RDDI_EXECUTE, "DROP TABLE contacts" )
              nTab := 0
           Else  
-             hwg_MsgStop("Fail to erase table contacts.")             
+             hwg_MsgStop("Fail to erase table contacts.")
           EndIF
        EndIf
     EndIf
 
     If empty(nTab) //make table contacts
        If rddInfo( RDDI_EXECUTE, "CREATE TABLE contacts ( idcontact MEDIUMINT NOT NULL AUTO_INCREMENT, NAME CHAR(60) NOT NULL, PRIMARY KEY (idcontact) )" )
-          Hwg_msginfo("Table contacts create on MariaDB")
+          Hwg_MsgInfo("Table contacts create on MariaDB")
        Else 
-          Hwg_msginfo("Fail to make table contacts")
+          Hwg_MsgInfo("Fail to make table contacts")
        EndIf
 
        If rddInfo( RDDI_EXECUTE, "INSERT INTO contacts (name) values ('JOSÉ DE ASSUMPÇÃO'),('MARIA ANTONIETA'), ('SNOOPY'), ('POPEYE')" )

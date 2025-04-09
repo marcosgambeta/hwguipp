@@ -73,7 +73,7 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
    AT 210, 10 SIZE 350, 300                  ;
    FONT oFont NOEXIT
 
-   SET KEY 0,VK_F3 TO hwg_Msginfo("F3") 
+   SET KEY 0,VK_F3 TO hwg_MsgInfo("F3") 
    
 
    @ 20, 10 SAY "Input something:" SIZE 260, 22
@@ -134,14 +134,14 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
    oFont:Release()
 
    IF oModDlg:lResult
-      hwg_Msginfo( e1 + chr(10) + chr(13) +                               ;
-               "Check1 - " + Iif(c1,"On","Off") + chr(10) + chr(13) + ;
-               "Check2 - " + Iif(c2,"On","Off") + chr(10) + chr(13) + ;
-               "Radio: " + Str(r1, 1) + chr(10) + chr(13) +            ;
-               "Combo: " + aCombo[cm] + chr(10) + chr(13) +    ;
-               "UpDown: "+Str(upd) + chr(10) + chr(13) +              ;
-               "DatePicker: "+Dtoc(d1)                                ;
-               ,"Results:" )
+      hwg_MsgInfo(e1 + Chr(10) + Chr(13) +                                 ;
+                  "Check1 - " + IIf(c1, "On", "Off") + Chr(10) + Chr(13) + ;
+                  "Check2 - " + IIf(c2, "On", "Off") + Chr(10) + Chr(13) + ;
+                  "Radio: " + Str(r1, 1) + Chr(10) + Chr(13) +             ;
+                  "Combo: " + aCombo[cm] + Chr(10) + Chr(13) +             ;
+                  "UpDown: " + Str(upd) + Chr(10) + chr(13) +              ;
+                  "DatePicker: " + DToC(d1)                                ;
+                  , "Results:")
    ENDIF
 Return NIL
 
@@ -156,9 +156,9 @@ LOCAL ddatum, daltdatum, Ctext
     * Check for modified / Cancel
     IF daltdatum == ddatum
      Ctext := "Date not modified or dialog cancelled"
-     hwg_Msginfo(Ctext)
+     hwg_MsgInfo(Ctext)
     ENDIF  
-    hwg_Msginfo(dtoc(ddatum))
+    hwg_MsgInfo(DToC(ddatum))
 
 RETURN NIL
 
@@ -209,9 +209,9 @@ FUNCTION DLG_MONTHCALENDAR()
    * Check for modified / Cancel
     IF daltdatum == dnewdate
      Ctext := "Date not modified or dialog cancelled"
-     hwg_Msginfo(Ctext)
+     hwg_MsgInfo(Ctext)
     ENDIF 
    
-   hwg_Msginfo(dtoc(dnewdate))
+   hwg_MsgInfo(DToC(dnewdate))
 
    RETURN NIL

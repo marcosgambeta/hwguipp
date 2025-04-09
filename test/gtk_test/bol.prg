@@ -26,11 +26,11 @@ for rg=1 to nbol
             loop
        case at("délai de livraison",txt) > 0 .and. ok
 //qout("disponible")
-            hwg_MsgInfo("Bol Thermomix TM31 disponible !!!","Disponibilité du bol TM31")
+            hwg_MsgInfo("Bol Thermomix TM31 disponible !!!", "Disponibilité du bol TM31")
             exit
        case at("non disponible",txt) > 0 .and. ok
 //qout("indisponible")
-            hwg_MsgStop("Bol Thermomix TM31 disponible !!!","Disponibilité du bol TM31")
+            hwg_MsgStop("Bol Thermomix TM31 disponible !!!", "Disponibilité du bol TM31")
             exit
     endcase
 next

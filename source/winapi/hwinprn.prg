@@ -376,7 +376,7 @@ METHOD HWinPrn:PrintBitmap(xBitmap, nAlign, cBitmapName)
        RETURN NIL
      ENDIF
      hBitmap := hwg_Openbitmap(xBitmap, ::oPrinter:hDC)
-     // hwg_msginfo(hb_valtostr(hBitmap))
+     // hwg_MsgInfo(hb_valtostr(hBitmap))
      IF hb_ValToStr(hBitmap) == "0x00000000"
        RETURN NIL
      ENDIF  
@@ -388,7 +388,7 @@ METHOD HWinPrn:PrintBitmap(xBitmap, nAlign, cBitmapName)
      // Store into a temporary file
      xBitmap:OBMP2FILE(cTmp, cBitmapName)
      hBitmap := hwg_Openbitmap(cTmp, ::oPrinter:hDC)
-     // hwg_msginfo(hb_valtostr(hBitmap))
+     // hwg_MsgInfo(hb_valtostr(hBitmap))
      IF hb_ValToStr(hBitmap) == "0x00000000"
        RETURN NIL
      ENDIF

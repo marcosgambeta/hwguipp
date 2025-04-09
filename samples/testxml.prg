@@ -189,7 +189,7 @@ Local oGet1, oGet2
          ENDIF
          FOR i := 1 TO Len( oXmlNode:aItems )
             IF Valtype( oXmlNode:aItems[i] ) == "C"
-               // hwg_msginfo(oXmlNode:aItems[i]  + "<>" + cInfo)
+               // hwg_MsgInfo(oXmlNode:aItems[i] + "<>" + cInfo)
                IF .NOT. (cInfo == oXmlNode:aItems[i] )
                 /* IF cInfo != oXmlNode:aItems[i] not working correct ! */
                   oXmlNode:aItems[i] := cInfo
@@ -268,10 +268,10 @@ Return NIL
 
 FUNCTION p_about
 #ifdef __GTK__
- hwg_MsgInfo("This sample demonstrates reading/writing" + CHR(10) + ;
- "XML file and handling menu items","HWGUI sample testxml.prg" + CHR(10) + ;
+ hwg_MsgInfo("This sample demonstrates reading/writing" + Chr(10) + ;
+ "XML file and handling menu items","HWGUI sample testxml.prg" + Chr(10) + ;
  "while run-time" + ;
- "OS() = " + OS() )
+ "OS() = " + OS())
 #else
  hwg_Shellabout("","")  // Windows only, shows the OS internal Win version display
                       // For multi platform application use OS(), shows

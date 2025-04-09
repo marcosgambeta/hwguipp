@@ -223,9 +223,9 @@ METHOD HOwnButton:Paint()
       ELSE
          nwidthb := ::widthb
       ENDIF 
-      // hwg_MsgIsNIL(aCoors[1],"aCoors[1]") 
-      // hwg_MsgIsNIL(aCoors[3],"aCoors[3]") 
-      // hwg_MsgIsNIL(::widthb,"::widthb")    // passed NIL
+      // hwg_MsgIsNIL(aCoors[1], "aCoors[1]")
+      // hwg_MsgIsNIL(aCoors[3], "aCoors[3]")
+      // hwg_MsgIsNIL(::widthb, "::widthb")    // passed NIL
       
       // hwg_WriteLog("aCoors[3]=" + STR(aCoors[3]) + CHR(10) + "aCoors[1]=" + STR(aCoors[1]) )
       // hwg_WriteLog("::widthb=" + STR(::widthb) )
