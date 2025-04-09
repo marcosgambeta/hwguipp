@@ -52,7 +52,7 @@ FUNCTION Move( nMove )
          cSeek := cExpr
          nrec := RecNo()
          IF Type( OrdKey() ) == "N"
-            key := Val( cExpr )
+            key := Val(cExpr)
          ELSEIF Type( OrdKey() ) = "D"
             key := CToD( Trim(cExpr) )
          ELSE
@@ -68,7 +68,7 @@ FUNCTION Move( nMove )
       ELSEIF nMove == 3
          F_Filter( oBrw, cExpr )
       ELSEIF nMove == 4
-         IF ( nrec := Val( cExpr ) ) != 0
+         IF (nrec := Val(cExpr)) != 0
             GO nrec
          ENDIF
       ENDIF
@@ -88,7 +88,7 @@ FUNCTION F_Locate( oBrw, cExpres )
       IF aFiles[improc, AF_LFLT]
          Fgotop( oBrw )
          DO WHILE !Feof( oBrw )
-            IF Eval( block )
+            IF Eval(block)
                res := .T.
                EXIT
             ENDIF

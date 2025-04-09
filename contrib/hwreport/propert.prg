@@ -169,7 +169,7 @@ STATIC FUNCTION InitLine( oDlg, aItem )
    RETURN .T.
 
 STATIC FUNCTION EndLine( oDlg, aItem )
-   LOCAL nWidth := Val( oDlg:oEdit1:Value )
+   LOCAL nWidth := Val(oDlg:oEdit1:Value)
    LOCAL oPen := aItem[ITEM_PEN]
    LOCAL iType := oDlg:oCombo1:Value - 1
 

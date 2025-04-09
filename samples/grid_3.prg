@@ -172,7 +172,7 @@ Function CriaBase()
 return NIL
 
 
-Function MyVal( xValue, type )
+Function MyVal(xValue, type)
     Local result
     
     if xValue == NIL

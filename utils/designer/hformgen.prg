@@ -258,7 +258,7 @@ Private value, oCtrl
                IF HB_ISCHAR(oFormDesc:aItems[i]:aItems[1]:aItems[1])
                   oFormDesc:aItems[i]:aItems[1]:aItems[1] := &( "{||" + oFormDesc:aItems[i]:aItems[1]:aItems[1] + "}" )
                ENDIF
-               xProperty := Eval( oFormDesc:aItems[i]:aItems[1]:aItems[1] )
+               xProperty := Eval(oFormDesc:aItems[i]:aItems[1]:aItems[1])
             ELSE
                xProperty := oFormDesc:aItems[i]:GetAttribute( "value" )
             ENDIF
@@ -667,7 +667,7 @@ Local j1, aItems := oCtrl:oXMLDesc:aItems, xProperty, cPropName := Lower(aPropIt
             IF HB_ISCHAR(aItems[j1]:aItems[1]:aItems[1])
                aItems[j1]:aItems[1]:aItems[1] := &( "{||" + aItems[j1]:aItems[1]:aItems[1] + "}" )
             ENDIF
-            xProperty := Eval( aItems[j1]:aItems[1]:aItems[1] )
+            xProperty := Eval(aItems[j1]:aItems[1]:aItems[1])
          ELSE
             xProperty := aItems[j1]:GetAttribute( "value" )
          ENDIF

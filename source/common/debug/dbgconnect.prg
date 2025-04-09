@@ -301,7 +301,7 @@ FUNCTION hwg_dbg_Input(p1, p2, p3)
    DO WHILE .T.
 
       IF !Empty(arr := hwg_dbg_Read())
-         IF ( n := Val( arr[1] ) ) > s_nId1 .AND. arr[Len(arr)] == "!"
+         IF ( n := Val(arr[1]) ) > s_nId1 .AND. arr[Len(arr)] == "!"
             s_nId1 := n
             SWITCH arr[2]
             CASE "cmd"
@@ -317,7 +317,7 @@ FUNCTION hwg_dbg_Input(p1, p2, p3)
                   RETURN CMD_NEXTR
                CASE "to"
                   p1 := arr[4]
-                  p2 := Val( arr[5] )
+                  p2 := Val(arr[5])
                   RETURN CMD_TOCURS
                CASE "quit"
                   RETURN CMD_QUIT
@@ -330,11 +330,11 @@ FUNCTION hwg_dbg_Input(p1, p2, p3)
                SWITCH arr[3]
                CASE "add"
                   p1 := arr[4]
-                  p2 := Val( arr[5] )
+                  p2 := Val(arr[5])
                   RETURN CMD_BADD
                CASE "del"
                   p1 := arr[4]
-                  p2 := Val( arr[5] )
+                  p2 := Val(arr[5])
                   RETURN CMD_BDEL
                ENDSWITCH
                EXIT
@@ -344,7 +344,7 @@ FUNCTION hwg_dbg_Input(p1, p2, p3)
                   p1 := Hex2Str(arr[4])
                   RETURN CMD_WADD
                CASE "del"
-                  p1 := Val( arr[4] )
+                  p1 := Val(arr[4])
                   RETURN CMD_WDEL
                ENDSWITCH
                EXIT
@@ -445,7 +445,7 @@ FUNCTION hwg_dbg_Alert(cMessage)
    LOCAL bCode := &(IIf(Type("hwg_msginfo()") == "UI", "{|s|hwg_msginfo(s)}", ;
       IIf(Type("msginfo()") == "UI", "{|s|msginfo(s)}", "{|s|alert(s)}")))
 
-   Eval( bCode, cMessage )
+   Eval(bCode, cMessage)
 
 RETURN NIL
 
@@ -471,7 +471,7 @@ FUNCTION hwg_dbg_Quit()
 
    bCode := &( cCode )
 
-RETURN Eval( bCode )
+RETURN Eval(bCode)
 
 STATIC FUNCTION Hex2Int(stroka)
 

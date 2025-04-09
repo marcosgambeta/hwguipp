@@ -53,7 +53,7 @@ METHOD HTimer:New( oParent, nId, value, bAction, lOnce )
 
    RETURN Self
 
-METHOD HTimer:Interval( n )
+METHOD HTimer:Interval(n)
 
    LOCAL nOld := ::value
    LOCAL nId
@@ -97,7 +97,7 @@ FUNCTION hwg_TimerProc( idTimer )
       IF HTimer():aTimers[i]:lOnce
          HTimer():aTimers[i]:End()
       ENDIF
-      Eval( b, oParent )
+      Eval(b, oParent)
       RETURN 1
    ENDIF
 

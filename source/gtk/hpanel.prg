@@ -121,7 +121,7 @@ METHOD HPanel:DrawItems(hDC, aCoors)
    ENDIF
    IF !Empty(aCB := hwg_getPaintCB(::aPaintCB, PAINT_ITEM))
       FOR i := 1 TO Len(aCB)
-         Eval( aCB[i], Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
+         Eval(aCB[i], Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4])
       NEXT
    ENDIF
 
@@ -139,7 +139,7 @@ METHOD HPanel:Paint()
    hDC := hwg_Getdc(::handle)
    aCoors := hwg_Getclientrect(::handle)
    IF hb_IsBlock(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
-      Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
+      Eval(block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4])
    ELSEIF ::oStyle == NIL
       hwg_Drawbutton(hDC, 0, 0, ::nWidth - 1, ::nHeight - 1, 5)
    ELSE
@@ -318,7 +318,7 @@ METHOD HPanelStS:Paint()
    hDC := hwg_Beginpaint(::handle, pps)
    IF hb_IsBlock(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
       aCoors := hwg_Getclientrect(::handle)
-      Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
+      Eval(block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4])
    ELSEIF Empty(::oStyle)
       ::oStyle := HStyle():New( { ::bColor }, 1, NIL, 0.4, 0 )
    ENDIF
@@ -484,7 +484,7 @@ METHOD HPanelHea:Paint()
 
    IF hb_IsBlock(block := hwg_getPaintCB(::aPaintCB, PAINT_BACK))
       aCoors := hwg_Getclientrect(::handle)
-      Eval( block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4] )
+      Eval(block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4])
    ELSEIF Empty(::oStyle)
       ::oStyle := HStyle():New( {::bColor}, 1 )
    ENDIF

@@ -808,10 +808,10 @@ STATIC FUNCTION textTab( oTab, aAttr, nTop )
 
    IF !Empty(aAttr)
       IF ( i := Ascan( aAttr, "ct" ) ) != 0
-         tColor := Val( SubStr(aAttr[i], 3) )
+         tColor := Val(SubStr(aAttr[i], 3))
       ENDIF
       IF ( i := Ascan( aAttr, "cb" ) ) != 0
-         bColor := Val( SubStr(aAttr[i], 3) )
+         bColor := Val(SubStr(aAttr[i], 3))
       ENDIF
       IF ( i := Ascan( aAttr, "fn" ) ) != 0
          cFamily := SubStr(aAttr[i], 3)
@@ -990,25 +990,25 @@ STATIC FUNCTION setPara()
    IF !Empty(cClsName)
       aAttr := oEdit:getClassAttr( cClsName )
       IF ( i := Ascan( aAttr, "ml" ) ) != 0
-         nMarginL := Val( SubStr(aAttr[i], 3) )
+         nMarginL := Val(SubStr(aAttr[i], 3))
          lml := ( Right( aAttr[i], 1 ) == "%" )
       ENDIF
       IF ( i := Ascan( aAttr, "mr" ) ) != 0
-         nMarginR := Val( SubStr(aAttr[i], 3) )
+         nMarginR := Val(SubStr(aAttr[i], 3))
          lmr := ( Right( aAttr[i], 1 ) == "%" )
       ENDIF
       IF ( i := Ascan( aAttr, "ti" ) ) != 0
-         nIndent := Val( SubStr(aAttr[i], 3) )
+         nIndent := Val(SubStr(aAttr[i], 3))
          lti := ( Right( aAttr[i], 1 ) == "%" )
       ENDIF
       IF ( i := Ascan( aAttr, "ta" ) ) != 0
-         nAlign := Val( SubStr(aAttr[i], 3) ) + 1
+         nAlign := Val(SubStr(aAttr[i], 3)) + 1
       ENDIF
       IF ( i := Ascan( aAttr, "bw" ) ) != 0
-         nBWidth := Val( SubStr(aAttr[i], 3) )
+         nBWidth := Val(SubStr(aAttr[i], 3))
       ENDIF
       IF ( i := Ascan( aAttr, "bc" ) ) != 0
-         nBColor := Val( SubStr(aAttr[i], 3) )
+         nBColor := Val(SubStr(aAttr[i], 3))
       ENDIF
    ENDIF
 
@@ -1276,10 +1276,10 @@ STATIC FUNCTION setBlock()
    IF !Empty(cClsName := aStruTbl[OB_CLS])
       aAttr := oEdit:getClassAttr( cClsName )
       IF ( i := Ascan( aAttr, "bw" ) ) != 0
-         nBorder := nBorder0 := Val( SubStr(aAttr[i], 3) )
+         nBorder := nBorder0 := Val(SubStr(aAttr[i], 3))
       ENDIF
       IF ( i := Ascan( aAttr, "bc" ) ) != 0
-         nBColor := nBColor0 := Val( SubStr(aAttr[i], 3) )
+         nBColor := nBColor0 := Val(SubStr(aAttr[i], 3))
       ENDIF
    ENDIF
    nWidth := Iif( Empty(aStruTbl[OB_TWIDTH]), 100, Abs(aStruTbl[OB_TWIDTH]) )
@@ -1425,10 +1425,10 @@ STATIC FUNCTION setTable( lNew )
       IF !Empty(cClsName := aStruTbl[OB_CLS])
          aAttr := oEdit:getClassAttr( cClsName )
          IF ( i := Ascan( aAttr, "bw" ) ) != 0
-            nBorder := nBorder0 := Val( SubStr(aAttr[i], 3) )
+            nBorder := nBorder0 := Val(SubStr(aAttr[i], 3))
          ENDIF
          IF ( i := Ascan( aAttr, "bc" ) ) != 0
-            nBColor := nBColor0 := Val( SubStr(aAttr[i], 3) )
+            nBColor := nBColor0 := Val(SubStr(aAttr[i], 3))
          ENDIF
       ENDIF
 
@@ -1497,7 +1497,7 @@ STATIC FUNCTION setTable( lNew )
    IF oDlg:lResult
       oEdit:lSetFocus := .T.
       IF Len( aCols ) != nCols
-         Eval( bChgTab, NIL, 2 )
+         Eval(bChgTab, NIL, 2)
       ENDIF
       FOR i := 1 TO Len( aCols )
          aCols[i] := - aCols[i]
@@ -1834,7 +1834,7 @@ STATIC FUNCTION setImage( lNew )
       IF !Empty(cClsName := aStru[1,OB_CLS])
          aAttr := oEdit:getClassAttr( cClsName )
          IF ( i := Ascan( aAttr, "bw" ) ) != 0
-            nBorder := Val( SubStr(aAttr[i], 3) )
+            nBorder := Val(SubStr(aAttr[i], 3))
          ENDIF
       ENDIF
    ENDIF
@@ -2373,22 +2373,22 @@ STATIC FUNCTION FontFromXML( oXmlNode )
    LOCAL under := oXmlNode:GetAttribute( "underline" )
 
    IF width != NIL
-      width := Val( width )
+      width := Val(width)
    ENDIF
    IF height != NIL
-      height := Val( height )
+      height := Val(height)
    ENDIF
    IF weight != NIL
-      weight := Val( weight )
+      weight := Val(weight)
    ENDIF
    IF charset != NIL
-      charset := Val( charset )
+      charset := Val(charset)
    ENDIF
    IF ita != NIL
-      ita := Val( ita )
+      ita := Val(ita)
    ENDIF
    IF under != NIL
-      under := Val( under )
+      under := Val(under)
    ENDIF
 
    RETURN HFont():Add(oXmlNode:GetAttribute("name"), width, height, weight, charset, ita, under, , , .T.)

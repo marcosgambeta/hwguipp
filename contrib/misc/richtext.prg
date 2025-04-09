@@ -382,7 +382,7 @@ METHOD RichText:Paragraph( cText, nFontNumber, nFontSize, cAppear, ;
    ::HAlignment( cHorzAlign )
 
    IF HB_ISARRAY(aTabPos)
-      AEval( aTabPos, { | x | ::NumCode( "tx", x ) } )
+      AEval(aTabPos, {|x|::NumCode("tx", x)})
    ENDIF
 
    ::NumCode( "li", nIndent )
@@ -700,8 +700,7 @@ METHOD RichText:DefineTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
    ::nCellPct := IIf( nCellPct < 1, nCellPct * 10000, nCellPct * 100 )
    // Porcentajes para cada celda
    i := 1
-   AEval( ::aColPct, { || ::aColPct[i] := IIf( ::aColPct[i] < 1, ::aColPct[i] * 10000, ;
-         ::aColPct[i] * 100 ), i ++ } )
+   AEval(::aColPct, {||::aColPct[i] := IIf(::aColPct[i] < 1, ::aColPct[i] * 10000, ::aColPct[i] * 100), i++})
    ::lTblNoSplit := lTblNoSplit
    ::nTblHdRows := nTblHdRows
    ::nTblHdHgt := nTblHdHgt
@@ -1764,8 +1763,7 @@ METHOD RichText:DefNewTable( cTblHAlign, nTblFntNum, nTblFntSize, ;
    ::nCellPct := IIf( nCellPct < 1, nCellPct * 10000, nCellPct * 100 )
    // Porcentajes para cada celda
    i := 1
-   AEval( ::aColPct, { || ::aColPct[i] := IIf( ::aColPct[i] < 1, ::aColPct[i] * 10000, ;
-         ::aColPct[i] * 100 ), i ++ } )
+   AEval(::aColPct, {||::aColPct[i] := IIf(::aColPct[i] < 1, ::aColPct[i] * 10000, ::aColPct[i] * 100), i++})
    ::lTblNoSplit := lTblNoSplit
    ::nTblHdRows := nTblHdRows
    ::nTblHdHgt := nTblHdHgt

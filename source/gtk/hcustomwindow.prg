@@ -13,7 +13,7 @@
 STATIC s_aCustomEvents := { ;
    { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
    { ;
-   { |o, w|IIf(hb_IsBlock(o:bPaint), Eval( o:bPaint,o,w ), - 1) }, ;
+   { |o, w|IIf(hb_IsBlock(o:bPaint), Eval(o:bPaint, o, w), - 1) }, ;
    { |o, w|onCommand( o, w ) },                ;     // |o, w, l| ==> |o, w|
    { |o, w, l|onSize( o, w, l ) },                ;
    { |o|onDestroy( o ) }                          ;
@@ -180,7 +180,7 @@ METHOD HCustomWindow:onEvent( msg, wParam, lParam )
 
    // hwg_WriteLog( "== "+::Classname()+Str(msg)+IIf(wParam!=NIL,Str(wParam),"NIL")+IIf(lParam!=NIL,Str(lParam),"NIL") )
    IF ( i := Ascan( s_aCustomEvents[1],msg ) ) != 0
-      RETURN Eval( s_aCustomEvents[2,i], Self, wParam, lParam )
+      RETURN Eval(s_aCustomEvents[2,i], Self, wParam, lParam)
    ELSEIF hb_IsBlock(::bOther)
       RETURN Eval(::bOther, Self, msg, wParam, lParam)
    ENDIF
@@ -227,7 +227,7 @@ METHOD HCustomWindow:OnError()
    oError:fileName := ""
    oError:osCode := 0
 
-   Eval( ErrorBlock(), oError )
+   Eval(ErrorBlock(), oError)
    __errInHandler()
 
    RETURN NIL
@@ -246,7 +246,7 @@ STATIC FUNCTION onCommand( oWnd, wParam )
 
    IF oWnd:aEvents != NIL .AND. ;
          ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
+      Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ENDIF
 
    RETURN 1
@@ -267,7 +267,7 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
             x := hwg_Loword(lParam)
             y := hwg_Hiword(lParam)
          ENDIF
-         Eval( oItem:bSize, oItem, x, y )
+         Eval(oItem:bSize, oItem, x, y)
          onSize( oItem, oItem:nWidth, oItem:nHeight )
       ENDIF
    NEXT
@@ -283,12 +283,12 @@ FUNCTION hwg_onTrackScroll( oWnd, wParam, lParam )
       msg := hwg_Loword ( wParam )
       IF msg == TB_ENDTRACK
          IF hb_IsBlock( oCtrl:bChange )
-            Eval( oCtrl:bChange, oCtrl )
+            Eval(oCtrl:bChange, oCtrl)
             RETURN 0
          ENDIF
       ELSEIF msg == TB_THUMBTRACK .OR. msg == TB_PAGEUP .OR. msg == TB_PAGEDOWN
          IF hb_IsBlock( oCtrl:bThumbDrag )
-            Eval( oCtrl:bThumbDrag, oCtrl )
+            Eval(oCtrl:bThumbDrag, oCtrl)
             RETURN 0
          ENDIF
       ENDIF

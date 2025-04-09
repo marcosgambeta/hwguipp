@@ -113,11 +113,11 @@ LOCAL nParts := hwg_GetNotifySBParts( lParam ) - 1
 
       CASE nCode == NM_DBLCLK
           IF ::bdblClick != NIL
-              Eval( ::bdblClick, Self, nParts )
+              Eval(::bdblClick, Self, nParts)
           ENDIF
       CASE nCode == NM_RCLICK
          IF ::bRClick != NIL
-             Eval( ::bRClick, Self, nParts )
+             Eval(::bRClick, Self, nParts)
          ENDIF
    ENDCASE
    RETURN NIL

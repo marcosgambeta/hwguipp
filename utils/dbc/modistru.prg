@@ -122,7 +122,7 @@ FUNCTION StruMan( lNew )
                         IF af[i, 2] == "C" .AND. af0[af[i, 5], 2] == "N"
                            xValue := Str(xValue, af0[af[i, 5], 3], af0[af[i, 5], 4])
                         ELSEIF af[i, 2] == "N" .AND. af0[af[i, 5], 2] == "C"
-                           xValue := Val( LTrim(xValue) )
+                           xValue := Val(LTrim(xValue))
                         ELSE
                            LOOP
                         ENDIF
@@ -190,8 +190,8 @@ STATIC FUNCTION UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, nOperation )
          RETURN NIL
       ENDIF
       cType := aFieldTypes[Eval(oGet2:bSetGet, , oGet2)]
-      nLen  := Val( oGet3:SetGet() )
-      nDec  := Val( oGet4:SetGet() )
+      nLen  := Val(oGet3:SetGet())
+      nDec  := Val(oGet4:SetGet())
       IF oBrowse:nRecords == 1 .AND. Empty(oBrowse:aArray[oBrowse:nCurrent, 1])
          nOperation := 3
       ENDIF

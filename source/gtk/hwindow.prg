@@ -39,7 +39,7 @@ FUNCTION hwg_onWndSize( oWnd, wParam, lParam )
       oWnd:nHeight := h
    ENDIF
    IF hb_IsBlock( oWnd:bSize )
-      Eval( oWnd:bSize, oWnd, hwg_Loword(lParam), hwg_Hiword(lParam) )
+      Eval(oWnd:bSize, oWnd, hwg_Loword(lParam), hwg_Hiword(lParam))
    ENDIF
 
    RETURN 0
@@ -97,7 +97,7 @@ STATIC FUNCTION onDestroy( oWnd )
    LOCAL lRes
 
    IF hb_IsBlock(oWnd:bDestroy)
-      IF ValType( lRes := Eval( oWnd:bDestroy, oWnd ) ) == "L" .AND. !lRes
+      IF ValType(lRes := Eval(oWnd:bDestroy, oWnd)) == "L" .AND. !lRes
          RETURN .F.
       ENDIF
       oWnd:bDestroy := NIL
@@ -412,13 +412,13 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    iParHigh := hwg_Hiword(wParam)
    iParLow := hwg_Loword(wParam)
    IF oWnd:aEvents != NIL .AND. ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
+      Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ELSEIF HB_ISARRAY(oWnd:menu) .AND. ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
-      Eval( aMenu[1, iCont, 1] )
+      Eval(aMenu[1, iCont, 1])
    ELSEIF oWnd:oPopup != NIL .AND. ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu,wParam,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
-      Eval( aMenu[1, iCont, 1] )
+      Eval(aMenu[1, iCont, 1])
    ELSEIF oWnd:oNotifyMenu != NIL .AND. ( aMenu := Hwg_FindMenuItem( oWnd:oNotifyMenu:aMenu,wParam,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
-      Eval( aMenu[1, iCont, 1] )
+      Eval(aMenu[1, iCont, 1])
    ENDIF
 
    RETURN 0
@@ -429,7 +429,7 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
    HB_SYMBOL_UNUSED(l)
 
    IF hb_IsBlock(oDlg:bGetFocus)
-      Eval( oDlg:bGetFocus, oDlg )
+      Eval(oDlg:bGetFocus, oDlg)
    ENDIF
 
    RETURN 0

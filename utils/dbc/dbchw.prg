@@ -463,7 +463,7 @@ Local oDlg, oBrowse, width, height, nChoice := 0, cOrder, nOrder := OrdNumber()+
    oBrowse:oStyleHead := HStyle():New( { 0xffffff, 0xbbbbbb }, 1 )
    
    oBrowse:rowPos := nOrder
-   Eval( oBrowse:bGoTo,oBrowse,nOrder )
+   Eval(oBrowse:bGoTo, oBrowse, nOrder)
    
    oDlg:Activate()
    
@@ -1283,7 +1283,7 @@ STATIC FUNCTION EditRec()
       FOR i := 1 TO Len( af )
 
          IF af[i, 3] == "N"
-            af[i, 2] := Val( af[i, 2] )
+            af[i, 2] := Val(af[i, 2])
          ELSEIF af[i, 3] == "D"
             af[i, 2] := Ctod( af[i, 2] )
          ELSEIF af[i, 3] == "L"
@@ -1323,7 +1323,7 @@ LOCAL cType, nLen, nDec, cPicture, rowPos
       cPicture := Replicate("X", nLen)
    ELSEIF cType == "N"
       cPicture := Iif( nDec == 0, Replicate("9",nLen), Replicate("9",nLen-1-nDec)+"."+Replicate("9",nDec) )
-      cBuff := Val( cBuff )
+      cBuff := Val(cBuff)
    ELSEIF cType == "D"
       cPicture := "@D"
       cBuff := Ctod( cBuff )

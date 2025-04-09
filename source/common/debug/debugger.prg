@@ -264,7 +264,7 @@ METHOD HBDebugger:GetExprValue(xExpr, lValid)
       xResult := oErr:operation + ": " + oErr:description
       IF HB_ISARRAY( oErr:args )
          xResult += "; arguments:"
-         AEval( oErr:args, { | x | xResult += " " + AllTrim(__dbgValToStr(x)) } )
+         AEval(oErr:args, {|x|xResult += " " + AllTrim(__dbgValToStr(x))})
       ENDIF
       lValid := .F.
    END SEQUENCE

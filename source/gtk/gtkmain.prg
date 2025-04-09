@@ -217,7 +217,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
 
 FUNCTION hwg_RefreshAllGets( oDlg )
 
-   AEval( oDlg:GetList, { |o|o:Refresh() } )
+   AEval(oDlg:GetList, {|o|o:Refresh()})
 
    RETURN NIL
 

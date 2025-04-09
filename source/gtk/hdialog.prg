@@ -26,7 +26,7 @@ STATIC FUNCTION onDestroy( oDlg )
    LOCAL lRes
 
    IF hb_IsBlock(oDlg:bDestroy)
-      IF ValType( lRes := Eval( oDlg:bDestroy, oDlg ) ) == "L" .AND. !lRes
+      IF ValType(lRes := Eval(oDlg:bDestroy, oDlg)) == "L" .AND. !lRes
          RETURN .F.
       ENDIF
       oDlg:bDestroy := NIL
@@ -191,7 +191,7 @@ METHOD HDialog:onEvent( msg, wParam, lParam )
    LOCAL i
 
    IF ( i := Ascan( s_aMessModalDlg, { |a|a[1] == msg } ) ) != 0
-      RETURN Eval( s_aMessModalDlg[i, 2], Self, wParam, lParam )
+      RETURN Eval(s_aMessModalDlg[i, 2], Self, wParam, lParam)
    ELSE
       Return ::Super:onEvent( msg, wParam, lParam )
    ENDIF
@@ -252,7 +252,7 @@ STATIC FUNCTION InitModalDlg( oDlg )
       hwg_SetBgColor( oDlg:handle, oDlg:bColor )
    ENDIF
    IF hb_IsBlock(oDlg:bInit)
-      Eval( oDlg:bInit, oDlg )
+      Eval(oDlg:bInit, oDlg)
    ENDIF
 
    RETURN 1
@@ -278,7 +278,7 @@ FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
          NEXT
          IF i != 0 .AND. oDlg:GetList[i]:handle == hCtrl
             IF __ObjHasMsg( oDlg:GetList[i], "BVALID" )
-               IF Eval( oDlg:GetList[i]:bValid, oDlg:GetList[i] ) .AND. ;
+               IF Eval(oDlg:GetList[i]:bValid, oDlg:GetList[i]) .AND. ;
                      oDlg:lExitOnEnter
                   oDlg:lResult := .T.
                   hwg_EndDialog( oDlg:handle )
@@ -302,7 +302,7 @@ FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
 
    IF oDlg:aEvents != NIL .AND. ;
          ( i := Ascan( oDlg:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      Eval( oDlg:aEvents[i, 3], oDlg, iParLow )
+      Eval(oDlg:aEvents[i, 3], oDlg, iParLow)
    ELSEIF iParHigh == 0 .AND. ( ;
          ( iParLow == IDOK .AND. oDlg:FindControl( IDOK ) != NIL ) .OR. ;
          iParLow == IDCANCEL )
@@ -316,11 +316,11 @@ FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
    ELSEIF __ObjHasMsg( oDlg, "MENU" ) .AND. HB_ISARRAY(oDlg:menu) .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:menu,iParLow,@i ) ) != NIL ;
          .AND. aMenu[1, i, 1] != NIL
-      Eval( aMenu[1, i, 1] )
+      Eval(aMenu[1, i, 1])
    ELSEIF __ObjHasMsg( oDlg, "OPOPUP" ) .AND. oDlg:oPopup != NIL .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:oPopup:aMenu,wParam,@i ) ) != NIL ;
          .AND. aMenu[1, i, 1] != NIL
-      Eval( aMenu[1, i, 1] )
+      Eval(aMenu[1, i, 1])
    ENDIF
 
    RETURN 1
@@ -331,7 +331,7 @@ STATIC FUNCTION onGetFocus( oDlg, w, l )
    HB_SYMBOL_UNUSED(l)
 
    IF hb_IsBlock(oDlg:bGetFocus)
-      Eval( oDlg:bGetFocus, oDlg )
+      Eval(oDlg:bGetFocus, oDlg)
    ENDIF
 
    RETURN 0

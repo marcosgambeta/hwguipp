@@ -85,7 +85,7 @@ FUNCTION Tool2Prg
       RETURN cTool
    ENDIF
 
-   cId := Val( iif( (temp := oCtrl:GetProp("Id" ) ) != NIL .AND. !Empty(temp ),temp ,"700" ) )
+   cId := Val(IIf((temp := oCtrl:GetProp("Id")) != NIL .AND. !Empty(temp), temp, "700"))
    FWrite(han, " ID " + LTrim(Str(cid)))
    //<O>:AddButton(<nBitIp>,<nId>,<bstate>,<bstyle>,<ctext>,<bclick>,<c>,<d>)
    IF Len( oCtrl:aControls ) > 0
@@ -195,7 +195,7 @@ FUNCTION Browse2Prg
       RETURN cBrowser
    ENDIF
 
-   nColumns := iif( ( temp := oCtrl:GetProp("ColumnsCount" ) ) != NIL .AND. !Empty(temp), Val( temp ) , 0 )
+   nColumns := iif( ( temp := oCtrl:GetProp("ColumnsCount" ) ) != NIL .AND. !Empty(temp), Val(temp) , 0 )
    nColunas := nColumns
    cBrowser += Space(4) + cname + ":aColumns := {}" + hb_OsNewline()
 
@@ -280,7 +280,7 @@ FUNCTION Browse2Prg
          cHeader := iif( ( temp := oCtrl1:GetProp("Heading" ) ) != NIL, "'" + temp + "'" , "" )
          cCampo  := Lower(iif((temp := oCtrl1:GetProp("FieldName")) != NIL .AND. !Empty(temp), "" + temp + "", FieldName(i)))
          cCampo  := Lower(iif((temp := oCtrl1:GetProp("FieldExpr")) != NIL .AND. !Empty(temp), "" + temp + "", ccampo))
-         m -> nLength := iif( ( temp := oCtrl1:GetProp("Length" ) ) != NIL, Val( temp ), temp )
+         m -> nLength := iif( ( temp := oCtrl1:GetProp("Length" ) ) != NIL, Val(temp), temp )
          IF nType = BRW_DATABASE
             cType  := Type( "&cCampo" )
             IF !( cAlias == cTmpAlias ) .AND. cTmpAlias $ cCampo
@@ -290,7 +290,7 @@ FUNCTION Browse2Prg
             // verificar se tem mais de um campo
             temp := SubStr(temp, 1, iif(At("+", temp) > 0, At("+", temp) - 1, Len(temp)))
             j := {}
-            AEval( aTypes, { |aField| AAdd(j, aField[1]) } )
+            AEval(aTypes, {|aField|AAdd(j, aField[1])})
             cHeader  := iif( cHeader == NIL .OR. Empty(cHeader) , '"' + temp + '"', "" + cHeader + "" )
             IF m -> nLength = NIL
                m -> nLength := &cTmpAlias -> ( fieldlen( AScan(j,temp ) ) )
@@ -699,7 +699,7 @@ FUNCTION Ctrl2Prg
             stroka += "} "
          ENDIF
          IF ( temp := oCtrl:GetProp( "nMaxLines" ) ) != NIL
-            nHeight :=  Val( temp )
+            nHeight :=  Val(temp)
          ELSE
             nHeight := 4
          ENDIF

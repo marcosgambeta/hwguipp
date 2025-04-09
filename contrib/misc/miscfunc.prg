@@ -19,7 +19,7 @@ FUNCTION ADDPROPERTY( oObjectName, cPropertyName, eNewValue )
       ENDIF
       IF !Empty(eNewValue)
          IF ValType( eNewValue ) = "B"
-            oObjectName: & ( cPropertyName ) := Eval( eNewValue )
+            oObjectName: & ( cPropertyName ) := Eval(eNewValue)
          ELSE
             oObjectName: & ( cPropertyName ) := eNewValue
          ENDIF

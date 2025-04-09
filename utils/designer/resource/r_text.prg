@@ -53,53 +53,53 @@ Private cWidth, aVars
       ELSE
         IF ( itemName := NextItem( stroka,.T. ) ) == "FORM"
           cWidth := NextItem( stroka )
-          nWidth := Val( cWidth )
-          nHeight:= Val( NextItem( stroka ) )
-          xKoef := nWidth / Val( NextItem( stroka ) )
+          nWidth := Val(cWidth)
+          nHeight:= Val(NextItem(stroka))
+          xKoef := nWidth / Val(NextItem(stroka))
           oForm:CreateDialog( { {"Left","300"}, {"Top","120"}, ;
               {"Width","500"},{"Height","400"},{"Caption",itemName}, ;
               {"Paper Size","A4"},{"Orientation",Iif(nWidth>nHeight,"Landscape","Portrait")} } )
         ELSEIF itemName == "TEXT"
           itemName := "label"
           cCaption := NextItem( stroka )
-          x := Val( NextItem( stroka ) )
-          y := Val( NextItem( stroka ) )
-          nWidth := Val( NextItem( stroka ) )
-          nHeight := Val( NextItem( stroka ) )
-          nAlign := Val( NextItem( stroka ) )
-          cFont := NextItem( stroka )
-          nVar := Val( NextItem( stroka ) )
+          x := Val(NextItem(stroka))
+          y := Val(NextItem(stroka))
+          nWidth := Val(NextItem(stroka))
+          nHeight := Val(NextItem(stroka))
+          nAlign := Val(NextItem(stroka))
+          cFont := NextItem(stroka)
+          nVar := Val(NextItem(stroka))
 
           oFont := CallFunc( "Str2Font", { cFont } )
           Aadd(arr, {itemName, x, y, nWidth, nHeight, NIL, cCaption, oFont, nAlign, nVar})
 
         ELSEIF itemName == "HLINE" .OR. itemName == "VLINE" .OR. itemName == "BOX"
           itemName := Lower(itemName)
-          x := Val( NextItem( stroka ) )
-          y := Val( NextItem( stroka ) )
-          nWidth := Val( NextItem( stroka ) )
-          nHeight:= Val( NextItem( stroka ) )
+          x := Val(NextItem(stroka))
+          y := Val(NextItem(stroka))
+          nWidth := Val(NextItem(stroka))
+          nHeight:= Val(NextItem(stroka))
           cFont  := NextItem( stroka )
-          nAlign := Val( NextItem( cFont,.T.,"," ) ) + 1
-          nVar   := Val( NextItem( cFont,,"," ) )
+          nAlign := Val(NextItem(cFont, .T., ",")) + 1
+          nVar   := Val(NextItem(cFont, , ","))
 
           Aadd(arr, {itemName, x, y, nWidth, nHeight, NIL, nAlign, nVar})
 
         ELSEIF itemName == "BITMAP"
           itemName := Lower(itemName)
           cCaption := NextItem( stroka )
-          x := Val( NextItem( stroka ) )
-          y := Val( NextItem( stroka ) )
-          nWidth := Val( NextItem( stroka ) )
-          nHeight := Val( NextItem( stroka ) )
+          x := Val(NextItem(stroka))
+          y := Val(NextItem(stroka))
+          nWidth := Val(NextItem(stroka))
+          nHeight := Val(NextItem(stroka))
 
           Aadd(arr, {itemName, x, y, nWidth, nHeight, NIL, cCaption})
 
         ELSEIF itemName == "MARKER"
           itemName := "area"
           cm := cCaption := NextItem( stroka )
-          x := Val( NextItem( stroka ) )
-          y := Val( NextItem( stroka ) )
+          x := Val(NextItem(stroka))
+          y := Val(NextItem(stroka))
           nHeight := 0
           IF cCaption == "EPF"
             IF ( i := Ascan( arr,{|a|a[1] == "area".AND.a[7] == "PF"} ) ) != 0

@@ -138,7 +138,7 @@ METHOD HStaticEx:OnEvent( msg, wParam, lParam )
    LOCAL nEval, pos
 
    IF ::bOther != NIL
-      IF ( nEval := Eval( ::bOther, Self, msg, wParam, lParam ) ) != - 1 .AND. nEval != NIL
+      IF ( nEval := Eval(::bOther, Self, msg, wParam, lParam) ) != - 1 .AND. nEval != NIL
          RETURN 0
       ENDIF
    ENDIF
@@ -221,7 +221,7 @@ METHOD HStaticEx:Paint( lpDis )
 METHOD HStaticEx:onClick()
 
    IF ::bClick != NIL
-      Eval( ::bClick, Self, ::id )
+      Eval(::bClick, Self, ::id)
    ENDIF
 
    RETURN NIL
@@ -229,7 +229,7 @@ METHOD HStaticEx:onClick()
 METHOD HStaticEx:onDblClick()
 
    IF ::bDblClick != NIL
-      Eval( ::bDblClick, Self, ::id )
+      Eval(::bDblClick, Self, ::id)
    ENDIF
 
    RETURN NIL

@@ -216,22 +216,22 @@ Local ita   := oXmlNode:GetAttribute( "italic" )
 Local under := oXmlNode:GetAttribute( "underline" )
 
   IF width != NIL
-     width := Val( width )
+     width := Val(width)
   ENDIF
   IF height != NIL
-     height := Val( height )
+     height := Val(height)
   ENDIF
   IF weight != NIL
-     weight := Val( weight )
+     weight := Val(weight)
   ENDIF
   IF charset != NIL
-     charset := Val( charset )
+     charset := Val(charset)
   ENDIF
   IF ita != NIL
-     ita := Val( ita )
+     ita := Val(ita)
   ENDIF
   IF under != NIL
-     under := Val( under )
+     under := Val(under)
   ENDIF
   
   // default charset is NIL 

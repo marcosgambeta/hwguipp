@@ -468,7 +468,7 @@ METHOD HBrowse:InsColumn( oColumn, nPos )
 STATIC FUNCTION InitColumn( oBrw, oColumn, n )
 
    IF oColumn:type == NIL
-      oColumn:type := ValType( Eval( oColumn:block,,oBrw,n ) )
+      oColumn:type := ValType(Eval(oColumn:block, , oBrw, n))
    ENDIF
    IF oColumn:dec == NIL
       IF oColumn:type == "N" .AND. At(".", Str(Eval(oColumn:block, NIL, oBrw, n))) != 0
@@ -479,7 +479,7 @@ STATIC FUNCTION InitColumn( oBrw, oColumn, n )
    ENDIF
    IF oColumn:length == NIL
       IF oColumn:picture != NIL
-         oColumn:length := Len(Transform( Eval( oColumn:block,,oBrw,n ), oColumn:picture ))
+         oColumn:length := Len(Transform(Eval(oColumn:block, , oBrw, n), oColumn:picture))
       ELSE
          oColumn:length := 10
       ENDIF
@@ -839,11 +839,11 @@ METHOD HBrowse:DrawHeader(hDC, nColumn, x1, y1, x2, y2)
    LOCAL i
 
    IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_HEAD_ALL))
-      RETURN Eval( block, oColumn, hDC, x1, y1, x2, y2, nColumn )
+      RETURN Eval(block, oColumn, hDC, x1, y1, x2, y2, nColumn)
    ENDIF
 
    IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_HEAD_BACK))
-      Eval( block, oColumn, hDC, x1, y1, x2, y2, nColumn )
+      Eval(block, oColumn, hDC, x1, y1, x2, y2, nColumn)
    ELSEIF oColumn:oStyleHead != NIL
       oColumn:oStyleHead:Draw(hDC, x1, y1, x2, y2)
    ELSEIF ::oStyleHead != NIL
@@ -889,7 +889,7 @@ METHOD HBrowse:DrawHeader(hDC, nColumn, x1, y1, x2, y2)
 
    IF !Empty(aCB := hwg_getPaintCB(aCB, PAINT_HEAD_ITEM))
       FOR i := 1 TO Len(aCB)
-         Eval( aCB[i], oColumn, hDC, x1, y1, x2, y2, nColumn )
+         Eval(aCB[i], oColumn, hDC, x1, y1, x2, y2, nColumn)
       NEXT
    ENDIF
 
@@ -990,10 +990,10 @@ METHOD HBrowse:FooterOut(hDC)
       x2 := x + xSize - 1
       aCB := oColumn:aPaintCB
       IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_FOOT_ALL))
-         RETURN Eval( block, oColumn, hDC, x, y1, x2, y2, fif )
+         RETURN Eval(block, oColumn, hDC, x, y1, x2, y2, fif)
       ELSE
          IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_FOOT_BACK))
-            Eval( block, oColumn, hDC, x, y1, x2, y2, fif )
+            Eval(block, oColumn, hDC, x, y1, x2, y2, fif)
          ELSEIF oColumn:oStyleFoot != NIL
             oColumn:oStyleFoot:Draw(hDC, x, y1, x2, y2)
          ELSEIF ::oStyleFoot != NIL
@@ -1022,7 +1022,7 @@ METHOD HBrowse:FooterOut(hDC)
          ENDIF
          IF !Empty(aCB := hwg_getPaintCB(aCB, PAINT_FOOT_ITEM))
             FOR i := 1 TO Len(aCB)
-               Eval( aCB[i], oColumn, hDC, x, y1, x2, y2, fif )
+               Eval(aCB[i], oColumn, hDC, x, y1, x2, y2, fif)
             NEXT
          ENDIF
       ENDIF
@@ -1096,7 +1096,7 @@ METHOD HBrowse:LineOut( nstroka, vybfld, hDC, lSelected, lClear )
       WHILE x < ::x2 - 2
          oColumn := ::aColumns[nCol]
          IF hb_IsBlock(oColumn:bColorBlock)
-            aCores := Eval( oColumn:bColorBlock, Self, nstroka, nCol )
+            aCores := Eval(oColumn:bColorBlock, Self, nstroka, nCol)
             IF lSelected
                oColumn:tColor := IIf(vybfld == i .AND. Len(aCores) >= 5 .AND. aCores[5] != NIL, aCores[5], aCores[3])
                oColumn:bColor := IIf(vybfld == i .AND. Len(aCores) >= 6 .AND. aCores[6] != NIL, aCores[6], aCores[4])
@@ -1120,10 +1120,10 @@ METHOD HBrowse:LineOut( nstroka, vybfld, hDC, lSelected, lClear )
          y1 := ::y1 + (::height + 1) * ( nstroka - 1 ) + 1
          y2 := ::y1 + (::height + 1) * nstroka
          IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_LINE_ALL))
-            Eval( block, oColumn, hDC, x, y1, x2, y2, nCol )
+            Eval(block, oColumn, hDC, x, y1, x2, y2, nCol)
          ELSE
             IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_LINE_BACK))
-               Eval( block, oColumn, hDC, x, y1, x2, y2, nCol )
+               Eval(block, oColumn, hDC, x, y1, x2, y2, nCol)
             ELSEIF oColumn:oStyleCell != NIL
                oColumn:oStyleCell:Draw(hDC, x, y1, x2, y2)
             ELSEIF ::oStyleCell != NIL
@@ -1135,7 +1135,7 @@ METHOD HBrowse:LineOut( nstroka, vybfld, hDC, lSelected, lClear )
             IF !lClear
                IF oColumn:aBitmaps != NIL .AND. !Empty(oColumn:aBitmaps)
                   FOR j := 1 TO Len(oColumn:aBitmaps)
-                     IF Eval( oColumn:aBitmaps[j, 1], Eval( oColumn:block,,Self,nCol ), lSelected )
+                     IF Eval(oColumn:aBitmaps[j, 1], Eval(oColumn:block, , Self, nCol), lSelected)
                         IF !Empty(ob := oColumn:aBitmaps[j, 2])
                            bh := ::height
                            bw := Int( ob:nWidth * ( ob:nHeight / ::height ) )
@@ -1163,7 +1163,7 @@ METHOD HBrowse:LineOut( nstroka, vybfld, hDC, lSelected, lClear )
                   ENDIF
                   IF !Empty(aCB := hwg_getPaintCB(aCB, PAINT_LINE_ITEM))
                      FOR j := 1 TO Len(aCB)
-                        Eval( aCB[j], oColumn, hDC, x, y1, x2, y2, nCol )
+                        Eval(aCB[j], oColumn, hDC, x, y1, x2, y2, nCol)
                      NEXT
                   ENDIF
                ENDIF
@@ -1875,13 +1875,13 @@ METHOD HBrowse:Edit( wParam, lParam )
          IF Dbinfo(DBI_ISREADONLY)
             RETURN NIL
          ENDIF
-         ::varbuf := (::alias) -> ( Eval( oColumn:block,,Self,fipos ) )
+         ::varbuf := (::alias) -> ( Eval(oColumn:block, , Self, fipos) )
       ELSE
-         ::varbuf := Eval( oColumn:block, NIL, Self, fipos )
+         ::varbuf := Eval(oColumn:block, , Self, fipos)
       ENDIF
       type := IIf(oColumn:type == "U" .AND. ::varbuf != NIL, ValType(::varbuf), oColumn:type)
       IF type != "O"
-         IF oColumn:bWhen == NIL .OR. Eval( oColumn:bWhen )
+         IF oColumn:bWhen == NIL .OR. Eval(oColumn:bWhen)
             IF ::lAppMode
                IF type == "D"
                   ::varbuf := CToD( "" )
@@ -2031,7 +2031,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
          oBrw:lAppMode := .F.
          IF oBrw:type == BRW_DATABASE
             ( oBrw:alias ) -> ( dbAppend() )
-            ( oBrw:alias ) -> ( Eval( oColumn:block,oBrw:varbuf,oBrw,fipos ) )
+            ( oBrw:alias ) -> ( Eval(oColumn:block, oBrw:varbuf, oBrw, fipos) )
             UNLOCK
          ELSE
             IF HB_ISARRAY(oBrw:aArray[1])
@@ -2043,7 +2043,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
                AAdd(oBrw:aArray, NIL)
             ENDIF
             oBrw:nCurrent := Len(oBrw:aArray)
-            Eval( oColumn:block, oBrw:varbuf, oBrw, fipos )
+            Eval(oColumn:block, oBrw:varbuf, oBrw, fipos)
          ENDIF
          IF oBrw:nRecords > 0
             oBrw:rowPos ++
@@ -2051,21 +2051,21 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
          oBrw:lAppended := .T.
          oBrw:Refresh()
       ELSE
-         IF ( nRec := Eval( oBrw:bRecno,oBrw ) ) != oBrw:nGetRec
-            Eval( oBrw:bGoTo, oBrw, oBrw:nGetRec )
+         IF ( nRec := Eval(oBrw:bRecno, oBrw) ) != oBrw:nGetRec
+            Eval(oBrw:bGoTo, oBrw, oBrw:nGetRec)
          ENDIF
          IF oBrw:type == BRW_DATABASE
             IF ( oBrw:alias ) -> ( RLock() )
-               ( oBrw:alias ) -> ( Eval( oColumn:block,oBrw:varbuf,oBrw,fipos ) )
+               ( oBrw:alias ) -> ( Eval(oColumn:block, oBrw:varbuf, oBrw, fipos) )
             ELSE
             /* Can't lock the record! */
                hwg_Msgstop( cErrMsgRecLock )
             ENDIF
          ELSE
-            Eval( oColumn:block, oBrw:varbuf, oBrw, fipos )
+            Eval(oColumn:block, oBrw:varbuf, oBrw, fipos)
          ENDIF
          IF nRec != oBrw:nGetRec
-            Eval( oBrw:bGoTo, oBrw, nRec )
+            Eval(oBrw:bGoTo, oBrw, nRec)
          ENDIF
          oBrw:lUpdated := .T.
       ENDIF
@@ -2074,7 +2074,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
    oBrw:Refresh()
    // Execute block after changes are made
    IF ( !bESCkey ) .AND. hb_IsBlock(oBrw:bUpdate)
-      Eval( oBrw:bUpdate, oBrw, fipos )
+      Eval(oBrw:bUpdate, oBrw, fipos)
    ENDIF
    IF bmemo
      oBrw:oParent:DelControl( oBrw:oEdit )
@@ -2119,9 +2119,9 @@ STATIC FUNCTION FldStr(oBrw, numf)
       // pict := oBrw:aColumns[numf]:picture  // Double assigned
 
       IF oBrw:type == BRW_DATABASE
-         vartmp := ( oBrw:alias ) -> ( Eval( oBrw:aColumns[numf]:block,,oBrw,numf ) )
+         vartmp := ( oBrw:alias ) -> ( Eval(oBrw:aColumns[numf]:block, , oBrw, numf) )
       ELSE
-         vartmp := Eval( oBrw:aColumns[numf]:block, NIL, oBrw, numf )
+         vartmp := Eval(oBrw:aColumns[numf]:block, , oBrw, numf)
       ENDIF
 
       pict := oBrw:aColumns[numf]:picture
@@ -2199,7 +2199,7 @@ FUNCTION hwg_CREATEARLIST( oBrw, arr )
          oBrw:AddColumn( HColumn():New(NIL, {|value, o|HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent]}) )
       ENDIF
    ENDIF
-   Eval( oBrw:bGoTop, oBrw )
+   Eval(oBrw:bGoTop, oBrw)
    oBrw:Refresh()
 
    RETURN NIL
@@ -2245,16 +2245,16 @@ FUNCTION hwg_VScrollPos( oBrw, nType, lEof, nPos )
 
    IF nPos == NIL
       IF nType > 0 .AND. lEof
-         Eval( oBrw:bSkip, oBrw, - 1 )
+         Eval(oBrw:bSkip, oBrw, -1)
       ENDIF
-      nPos := Round( ( maxPos/(oBrw:nRecords - 1 ) ) * ( Eval( oBrw:bRecnoLog,oBrw ) - 1 ), 0 )
+      nPos := Round( ( maxPos/(oBrw:nRecords - 1 ) ) * ( Eval(oBrw:bRecnoLog, oBrw) - 1 ), 0 )
       IF hwg_SetAdjOptions( oBrw:hScrollV, nPos )
           obrw:lSetAdj := .T.
       ENDIF
 
       oBrw:nScrollV := nPos
    ELSE
-      oldRecno := Eval( oBrw:bRecnoLog, oBrw )
+      oldRecno := Eval(oBrw:bRecnoLog, oBrw)
       newRecno := Round( ( oBrw:nRecords - 1 ) * nPos/ maxPos + 1, 0 )
       IF newRecno <= 0
          newRecno := 1
@@ -2262,7 +2262,7 @@ FUNCTION hwg_VScrollPos( oBrw, nType, lEof, nPos )
          newRecno := oBrw:nRecords
       ENDIF
       IF newRecno != oldRecno
-         Eval( oBrw:bSkip, oBrw, newRecno - oldRecno )
+         Eval(oBrw:bSkip, oBrw, newRecno - oldRecno)
          IF oBrw:rowCount - oBrw:rowPos > oBrw:nRecords - newRecno
             oBrw:rowPos := oBrw:rowCount - ( oBrw:nRecords - newRecno )
          ENDIF
@@ -2291,7 +2291,7 @@ STATIC FUNCTION CountToken( cStr, nMaxLen, nCount )
       ENDIF
    ENDIF
    IF HB_ISARRAY(cStr)
-      AEval( cStr, { |s|nMaxLen := Max( nMaxLen,Len(s ) ) } )
+      AEval(cStr, {|s|nMaxLen := Max(nMaxLen, Len(s))})
       nCount := Len(cStr)
    ENDIF
 

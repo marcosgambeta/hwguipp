@@ -48,7 +48,7 @@ METHOD HUpDown:New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHei
    IF vari != NIL
       IF ValType( vari ) != "N"
          vari := 0
-         Eval( bSetGet, vari )
+         Eval(bSetGet, vari)
       ENDIF
       ::title := Str(vari)
    ENDIF
@@ -143,7 +143,7 @@ STATIC FUNCTION __When( oCtrl )
 
    oCtrl:Refresh()
    IF hb_IsBlock(oCtrl:bGetFocus)
-      RETURN Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet ), oCtrl )
+      RETURN Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet), oCtrl)
    ENDIF
 
    RETURN .T.
@@ -152,9 +152,9 @@ STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:nValue := hwg_GetUpDown( oCtrl:handle )
    IF hb_IsBlock(oCtrl:bSetGet)
-      Eval( oCtrl:bSetGet, oCtrl:nValue )
+      Eval(oCtrl:bSetGet, oCtrl:nValue)
    ENDIF
-   IF hb_IsBlock(oCtrl:bLostFocus) .AND. !Eval( oCtrl:bLostFocus, oCtrl:nValue, oCtrl ) .OR. ;
+   IF hb_IsBlock(oCtrl:bLostFocus) .AND. !Eval(oCtrl:bLostFocus, oCtrl:nValue, oCtrl) .OR. ;
          oCtrl:nValue > oCtrl:nUpper .OR. oCtrl:nValue < oCtrl:nLower
       hwg_Setfocus( oCtrl:handle )
    ENDIF

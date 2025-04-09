@@ -286,10 +286,10 @@ METHOD HFormTmpl:Show( nMode, p1, p2, p3 )
       xProperty := hwg_hfrm_GetProperty(::aProp[i, 2])
 
       IF ::aProp[i, 1] == "geometry"
-         nLeft := Val( xProperty[1] )
-         nTop := Val( xProperty[2] )
-         nWidth := Val( xProperty[3] )
-         nHeight := Val( xProperty[4] )
+         nLeft := Val(xProperty[1])
+         nTop := Val(xProperty[2])
+         nWidth := Val(xProperty[3])
+         nHeight := Val(xProperty[4])
       ELSEIF ::aProp[i, 1] == "caption"
          cTitle := xProperty
       ELSEIF ::aProp[i, 1] == "font"
@@ -429,14 +429,14 @@ METHOD HFormTmpl:Show( nMode, p1, p2, p3 )
       ENDIF
       IF ::aMethods[i, 1] == "ondlginit"
          IF nMode == 1
-            Eval( block, Self )
+            Eval(block, Self)
          ELSE
             ::oDlg:bInit := block
          ENDIF
       ELSEIF ::aMethods[i, 1] == "ondlgactivate"
          ::oDlg:bActivate := block
       ELSEIF ::aMethods[i, 1] == "onforminit"
-         Eval( block, Self, p1, p2, p3 )
+         Eval(block, Self, p1, p2, p3)
       ELSEIF ::aMethods[i, 1] == "onpaint"
          ::oDlg:bPaint := block
       ELSEIF ::aMethods[i, 1] == "ondlgexit"
@@ -557,7 +557,7 @@ METHOD HFormTmpl:OnError( xValue )
    oError:fileName := ""
    oError:osCode := 0
 
-   Eval( ErrorBlock(), oError )
+   Eval(ErrorBlock(), oError)
    __errInHandler()
 
    RETURN NIL
@@ -570,13 +570,13 @@ FUNCTION hwg_hfrm_Exit( oDlg, nId )
    LOCAL oForm := HFormTmpl():F( nId )
 
    IF hb_IsBlock(oForm:bDlgExit)
-      IF !Eval( oForm:bDlgExit, oDlg )
+      IF !Eval(oForm:bDlgExit, oDlg)
          RETURN .F.
       ENDIF
    ENDIF
    IF oForm:lNoModal
       IF hb_IsBlock(oForm:bFormExit)
-         Eval( oForm:bFormExit )
+         Eval(oForm:bFormExit)
       ENDIF
       oForm:Close()
    ENDIF
@@ -831,10 +831,10 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       xProperty := hwg_hfrm_GetProperty( oCtrlTmpl:aProp[i, 2] )
       cPName := oCtrlTmpl:aProp[i, 1]
       IF cPName == "geometry"
-         nLeft := Val( xProperty[1] )
-         nTop := Val( xProperty[2] )
-         nWidth := Val( xProperty[3] )
-         nHeight := Val( xProperty[4] )
+         nLeft := Val(xProperty[1])
+         nTop := Val(xProperty[2])
+         nWidth := Val(xProperty[3])
+         nHeight := Val(xProperty[4])
          IF __ObjHasMsg( oParent, "ID" )
             nLeft -= oParent:nLeft
             nTop -= oParent:nTop
@@ -958,7 +958,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    ELSEIF oCtrlTmpl:cClass == "status" .OR. oCtrlTmpl:cClass == "toolbarbot"
       IF aParts != NIL
          FOR i := 1 TO Len(aParts)
-            aParts[i] := Val( aParts[i] )
+            aParts[i] := Val(aParts[i])
          NEXT
       ENDIF
       onInit := { |o|o:Move(NIL, NIL, o:nWidth - 1) }
@@ -1037,22 +1037,22 @@ FUNCTION hwg_hfrm_FontFromXML( oXmlNode, lDecr )
    LOCAL under := oXmlNode:GetAttribute( "underline" )
 
    IF width != NIL
-      width := Val( width )
+      width := Val(width)
    ENDIF
    IF height != NIL
-      height := Val( height )
+      height := Val(height)
    ENDIF
    IF weight != NIL
-      weight := Val( weight )
+      weight := Val(weight)
    ENDIF
    IF charset != NIL
-      charset := Val( charset )
+      charset := Val(charset)
    ENDIF
    IF ita != NIL
-      ita := Val( ita )
+      ita := Val(ita)
    ENDIF
    IF under != NIL
-      under := Val( under )
+      under := Val(under)
    ENDIF
 
    RETURN HFont():Add(oXmlNode:GetAttribute("name"), width, height, weight, charset, ita, under, NIL, NIL, lDecr)
@@ -1089,14 +1089,14 @@ FUNCTION hwg_HstyleFromXML( oXmlNode )
    IF !Empty(cColors)
       aColors := hwg_hfrm_Str2Arr( cColors )
       FOR i := 1 TO Len(aColors)
-         aColors[i] := Val( aColors[i] )
+         aColors[i] := Val(aColors[i])
       NEXT
       nOrient := oXmlNode:GetAttribute( "orient", "N", 1 )
    ENDIF
    IF !Empty(cCorners)
       aCorners := hwg_hfrm_Str2Arr( cCorners )
       FOR i := 1 TO Len(aCorners)
-         aCorners[i] := Val( aCorners[i] )
+         aCorners[i] := Val(aCorners[i])
       NEXT
    ENDIF
    nBorder := oXmlNode:GetAttribute( "border", "N", NIL )
@@ -1158,7 +1158,7 @@ FUNCTION hwg_hfrm_GetProperty( xProp )
       ELSEIF c == "{"
          xProp := hwg_hfrm_Str2Arr( xProp )
       ELSE
-         xProp := Val( xProp )
+         xProp := Val(xProp)
       ENDIF
    ENDIF
 
@@ -1560,7 +1560,7 @@ METHOD HRepTmpl:PrintItem( oItem )
       cText := aGetSecond( oItem:aProp, "areatype" )
       IF cText == "DocHeader"
          IF ::oPrinter:nPage > 1
-            ::nAOffSet := Val( aGetSecond( oItem:aProp,"geometry" )[4] ) * ::nKoefY
+            ::nAOffSet := Val(aGetSecond(oItem:aProp, "geometry")[4]) * ::nKoefY
             RETURN NIL
          ENDIF
       ELSEIF cText == "DocFooter"
@@ -1578,16 +1578,16 @@ METHOD HRepTmpl:PrintItem( oItem )
       IF ( aMethod := aGetSecond( oItem:aMethods,"condition" ) ) != NIL
          lRes := DoScript( aMethod )
          IF !lRes .AND. oItem:cClass == "area"
-            ::nAOffSet += Val( aGetSecond( oItem:aProp,"geometry" )[4] ) * ::nKoefY
+            ::nAOffSet += Val(aGetSecond(oItem:aProp, "geometry")[4]) * ::nKoefY
          ENDIF
       ENDIF
    ENDIF
    IF lRes
       xProperty := aGetSecond( oItem:aProp, "geometry" )
-      x := Val( xProperty[1] ) * ::nKoefX
-      y := Val( xProperty[2] ) * ::nKoefY
-      x2 := Val( xProperty[5] ) * ::nKoefX
-      y2 := Val( xProperty[6] ) * ::nKoefY
+      x := Val(xProperty[1]) * ::nKoefX
+      y := Val(xProperty[2]) * ::nKoefY
+      x2 := Val(xProperty[5]) * ::nKoefX
+      y2 := Val(xProperty[6]) * ::nKoefY
       // hwg_WriteLog( xProperty[1]+" "+xProperty[2] )
 
       IF oItem:cClass == "area"
@@ -1879,16 +1879,16 @@ STATIC FUNCTION hrep_FontFromXML( oPrinter, oXmlNode, nKoeff, nFontH )
    IF !Empty(nFontH)
       height := nFontH * nKoeff
    ELSEIF ( nPos := At("M", height) ) != 0
-      height := - Round( Val( SubStr(height,nPos + 1 ) ) * nKoeff, 0 )
+      height := - Round(Val(SubStr(height, nPos + 1)) * nKoeff, 0)
    ELSE
-      height := Val( height ) * nKoeff
+      height := Val(height) * nKoeff
    ENDIF
 
-   weight := IIf(weight != NIL, Val( weight ), 400)
+   weight := IIf(weight != NIL, Val(weight), 400)
    IF charset != NIL
-      charset := Val( charset )
+      charset := Val(charset)
    ENDIF
-   ita := IIf(ita != NIL, Val( ita ), 0)
-   under := IIf(under != NIL, Val( under ), 0)
+   ita := IIf(ita != NIL, Val(ita), 0)
+   under := IIf(under != NIL, Val(under), 0)
 
    RETURN oPrinter:AddFont( name, height, ( weight > 400 ), ( ita > 0 ), ( under > 0 ), charset )

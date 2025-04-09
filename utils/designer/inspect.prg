@@ -87,7 +87,7 @@ STATIC FUNCTION Edit1()
    IF oBrw1:SetColumn() == 1
       RETURN NIL
    ENDIF
-   oBrw1:cargo := Eval( oBrw1:bRecno, oBrw1 )
+   oBrw1:cargo := Eval(oBrw1:bRecno, oBrw1)
    IF oCombo:value == 1
       aCtrlProp := oCtrl:oParent:aProp
    ELSE
@@ -96,12 +96,12 @@ STATIC FUNCTION Edit1()
    oColumn := oBrw1:aColumns[2]
    cName := Lower(aProp[oBrw1:cargo, 1])
    j := Ascan( aDataDef, { |a|a[1] == cName } )
-   varbuf := Eval( oColumn:block, , oBrw1, 2 )
+   varbuf := Eval(oColumn:block, , oBrw1, 2)
 
    IF ( j != 0 .AND. aDataDef[j, 5] != NIL ) .OR. aCtrlProp[oBrw1:cargo, 3] == "A"
       IF j != 0 .AND. aDataDef[j, 5] != NIL
          IF aDataDef[j, 5] == "color"
-            varbuf := Hwg_ChooseColor( Val( varbuf ), .F. )
+            varbuf := Hwg_ChooseColor( Val(varbuf), .F. )
             IF varbuf != NIL
                varbuf := LTrim(Str(varbuf))
                lRes := .T.
@@ -200,7 +200,7 @@ STATIC FUNCTION Edit2()
    IF oBrw2:SetColumn() == 1
       RETURN NIL
    ENDIF
-   cargo := oBrw2:cargo := Eval( oBrw2:bRecno, oBrw2 )
+   cargo := oBrw2:cargo := Eval(oBrw2:bRecno, oBrw2)
    IF ( value := EditMethod( aMethods[cargo, 1],aMethods[cargo, 2] ) ) != NIL ;
          .AND. !( aMethods[cargo, 2] == value )
       aMethods[cargo, 2] := value
@@ -373,8 +373,8 @@ STATIC FUNCTION InspSetBrowse()
    oBrw1:aArray := aProp
    oBrw2:aArray := aMethods
 
-   Eval( oBrw1:bGoTop, oBrw1 )
-   Eval( oBrw2:bGoTop, oBrw2 )
+   Eval(oBrw1:bGoTop, oBrw1)
+   Eval(oBrw2:bGoTop, oBrw2)
    oBrw1:rowPos := 1
    oBrw2:rowPos := 1
    oBrw1:Refresh()
@@ -419,7 +419,7 @@ FUNCTION InspUpdProp( cName, xValue )
    RETURN NIL
 
 STATIC FUNCTION EditArray( arr )
-   LOCAL oDlg, oBrw, nRec := Eval( oBrw1:bRecno, oBrw1 ), i
+   LOCAL oDlg, oBrw, nRec := Eval(oBrw1:bRecno, oBrw1), i
 
    IF arr == NIL
       arr := {}

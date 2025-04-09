@@ -46,7 +46,7 @@ FUNCTION gthwg_CreatePane( oWnd, nLeft, nTop, nWidth, nHeight, oFont, bSize )
    LOCAL oPane
    LOCAL bOther := {|o,msg,wp,lp|
       IF msg == MSG_USER_SIZE
-         Eval( bSize, o, oPane, wp, lp )
+         Eval(bSize, o, oPane, wp, lp)
       ENDIF
       RETURN -1
    }

@@ -245,7 +245,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
    ::lHtml := .F.
 
    IF !Empty(::bImport)
-      aText := Eval( ::bImport, Self, xText, cPageIn, cPageOut )
+      aText := Eval(::bImport, Self, xText, cPageIn, cPageOut)
    ELSE
       DO WHILE nPos2 < Len(xText) .AND. Substr(xText, ++nPos2, 1) $ e" \t\r\n"
       ENDDO
@@ -269,11 +269,11 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
             xVal := hb_aTokens( aAttr[i, 2], "," )
             IF Len( xVal ) > 5
                ::nDocFormat := Ascan( HPrinter():aPaper,{|a|a[1] == xVal[1]} )
-               ::nDocOrient := Val( xVal[2] )
-               ::aDocMargins[1] := Val( xVal[3] )
-               ::aDocMargins[2] := Val( xVal[4] )
-               ::aDocMargins[3] := Val( xVal[5] )
-               ::aDocMargins[4] := Val( xVal[6] )
+               ::nDocOrient := Val(xVal[2])
+               ::aDocMargins[1] := Val(xVal[3])
+               ::aDocMargins[2] := Val(xVal[4])
+               ::aDocMargins[3] := Val(xVal[5])
+               ::aDocMargins[4] := Val(xVal[6])
             ENDIF
          ENDIF
          ::ReadTag( cTagName, aAttr )
@@ -804,7 +804,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdiExt
             ::aTdSel[2] := 0
          ENDIF
          IF !lChg .AND. ::bChangePos != NIL
-            Eval( ::bChangePos, Self )
+            Eval(::bChangePos, Self)
          ENDIF
       ENDIF
       IF !Empty(nlM2) .AND. ( Empty(::aPointM2[P_Y]) .OR. msg == WM_LBUTTONDOWN )
@@ -1367,9 +1367,9 @@ METHOD FindClass( xBase, xAttr, xNewClass ) CLASS HCEdiExt
 
    FOR i := 1 TO Len( xAttr )
       SWITCH Left(xAttr[i], 2)
-      CASE "ct" ; aHili[2] := Val( Substr(xAttr[i], 3) )
+      CASE "ct" ; aHili[2] := Val(Substr(xAttr[i], 3))
          EXIT
-      CASE "cb" ; aHili[3] := Val( Substr(xAttr[i], 3) )
+      CASE "cb" ; aHili[3] := Val(Substr(xAttr[i], 3))
          EXIT
       CASE "ml" ; aHili[4] := Iif( Right(cVal:=Substr(xAttr[i], 3), 1) == "%", -Val(cVal), Val(cVal) )
          EXIT
@@ -1377,7 +1377,7 @@ METHOD FindClass( xBase, xAttr, xNewClass ) CLASS HCEdiExt
          EXIT
       CASE "ti" ; aHili[6] := Iif( Right(cVal:=Substr(xAttr[i], 3), 1) == "%", -Val(cVal), Val(cVal) )
          EXIT
-      CASE "ta" ; aHili[7] := Val( Substr(xAttr[i], 3) )
+      CASE "ta" ; aHili[7] := Val(Substr(xAttr[i], 3))
          EXIT
       CASE "fb" ; lFont := .T. ; weight := Iif( Substr(xAttr[i], 3, 1) == "-", 400, 700 )
          EXIT
@@ -1392,11 +1392,11 @@ METHOD FindClass( xBase, xAttr, xNewClass ) CLASS HCEdiExt
          EXIT
       CASE "fn" ; lFont := .T. ; name := Substr(xAttr[i], 3)
          EXIT
-      CASE "ff" ; lFont := .T. ; nfont := Val( Substr(xAttr[i], 3) )
+      CASE "ff" ; lFont := .T. ; nfont := Val(Substr(xAttr[i], 3))
          EXIT
-      CASE "bw" ; lPen := .T. ; nBWidth := Val( Substr(xAttr[i], 3) )
+      CASE "bw" ; lPen := .T. ; nBWidth := Val(Substr(xAttr[i], 3))
          EXIT
-      CASE "bc" ; lPen := .T. ; nBColor := Val( Substr(xAttr[i], 3) )
+      CASE "bc" ; lPen := .T. ; nBColor := Val(Substr(xAttr[i], 3))
          EXIT
       ENDSWITCH
    NEXT

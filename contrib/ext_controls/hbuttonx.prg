@@ -161,7 +161,7 @@ METHOD HButtonX:onevent( msg, wParam, lParam )
 METHOD HButtonX:onClick()
 
    IF ::bClick != NIL
-      Eval( ::bClick, Self, ::id )
+      Eval(::bClick, Self, ::id)
    ENDIF
 
    RETURN NIL
@@ -187,7 +187,7 @@ METHOD HButtonX:onGetFocus()
    */
    IF ::bGetFocus != NIL
       nSkip := iif( hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
-      res := Eval( ::bGetFocus, ::title, Self )
+      res := Eval(::bGetFocus, ::title, Self)
       IF res != NIL .AND.  Empty(res)
          /*
          hwg_WhenSetFocus( Self, nSkip )
@@ -207,7 +207,7 @@ METHOD HButtonX:onLostFocus()
    ENDIF
    ::lnoWhen := .F.
    IF ::bLostFocus != NIL .AND. hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), hwg_getparentform( Self ):Handle )
-      Eval( ::bLostFocus, ::title, Self )
+      Eval(::bLostFocus, ::title, Self)
    ENDIF
 
    RETURN NIL

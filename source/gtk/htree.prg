@@ -232,7 +232,7 @@ METHOD HTree:SELECT( oNode, lNoRedraw )
    ENDDO
 
    IF hb_IsBlock(oNode:bClick)
-      Eval( oNode:bClick, oNode )
+      Eval(oNode:bClick, oNode)
    ELSEIF hb_IsBlock(::bClick)
       Eval(::bClick, oNode)
    ENDIF

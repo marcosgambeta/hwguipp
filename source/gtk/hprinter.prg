@@ -954,10 +954,10 @@ STATIC FUNCTION MessProc( oPrinter, oPanel, lParam )
    FOR i := 1 TO Len(arr)
       nPos := 0
       IF hb_TokenPtr( arr[i], @nPos, "," ) == "txt"
-         x1 := Round( Val( hb_TokenPtr( arr[i], @nPos, "," ) ) * nHRes / IIf(oPrinter:lmm, oPrinter:nHRes, 1), 0) + oPrinter:x1
-         y1 := Round( Val( hb_TokenPtr( arr[i], @nPos, "," ) ) * nVRes / IIf(oPrinter:lmm, oPrinter:nVRes, 1), 0) + oPrinter:y1
-         x2 := Round( Val( hb_TokenPtr( arr[i], @nPos, "," ) ) * nHRes / IIf(oPrinter:lmm, oPrinter:nHRes, 1), 0) + oPrinter:x1
-         y2 := Round( Val( hb_TokenPtr( arr[i], @nPos, "," ) ) * nVRes / IIf(oPrinter:lmm, oPrinter:nVRes, 1), 0) + oPrinter:y1
+         x1 := Round( Val(hb_TokenPtr(arr[i], @nPos, ",")) * nHRes / IIf(oPrinter:lmm, oPrinter:nHRes, 1), 0) + oPrinter:x1
+         y1 := Round( Val(hb_TokenPtr(arr[i], @nPos, ",")) * nVRes / IIf(oPrinter:lmm, oPrinter:nVRes, 1), 0) + oPrinter:y1
+         x2 := Round( Val(hb_TokenPtr(arr[i], @nPos, ",")) * nHRes / IIf(oPrinter:lmm, oPrinter:nHRes, 1), 0) + oPrinter:x1
+         y2 := Round( Val(hb_TokenPtr(arr[i], @nPos, ",")) * nVRes / IIf(oPrinter:lmm, oPrinter:nVRes, 1), 0) + oPrinter:y1
          IF xPos >= x1 .AND. xPos <= x2 .AND. yPos >= y1 .AND. yPos <= y2
             EXIT
          ENDIF

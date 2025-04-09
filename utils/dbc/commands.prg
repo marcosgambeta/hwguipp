@@ -68,10 +68,10 @@ FUNCTION C_REPL
 
          xVal := &cVal
          IF r1 == 1
-            Eval( oBrw:bGoTop, oBrw )
+            Eval(oBrw:bGoTop, oBrw)
          ENDIF
-         DO WHILE !Eval( oBrw:bEof, oBrw ) .AND. Iif( r1 == 2, nNext-- > 0, .T. )
-            IF Empty(cFor) .OR. Eval( bFor )
+         DO WHILE !Eval(oBrw:bEof, oBrw) .AND. Iif( r1 == 2, nNext-- > 0, .T. )
+            IF Empty(cFor) .OR. Eval(bFor)
                IF !aFiles[improc,AF_EXCLU]
                   rlock()
                ENDIF
@@ -80,7 +80,7 @@ FUNCTION C_REPL
                   UNLOCK
                ENDIF
             ENDIF
-            Eval( oBrw:bSkip, oBrw, 1 )
+            Eval(oBrw:bSkip, oBrw, 1)
          ENDDO
 
          GO nrec
@@ -154,10 +154,10 @@ FUNCTION C_4( nAct )
       oMsg := DlgWait( aTitle[nAct] )
 
       IF r1 == 1
-         Eval( oBrw:bGoTop, oBrw )
+         Eval(oBrw:bGoTop, oBrw)
       ENDIF
-      DO WHILE !Eval( oBrw:bEof, oBrw ) .AND. Iif( r1 == 2, nNext-- > 0, .T. )
-         IF Empty(cFor) .OR. Eval( bFor )
+      DO WHILE !Eval(oBrw:bEof, oBrw) .AND. Iif( r1 == 2, nNext-- > 0, .T. )
+         IF Empty(cFor) .OR. Eval(bFor)
             IF nAct == 1
                IF !aFiles[improc,AF_EXCLU]
                   rlock()
@@ -177,10 +177,10 @@ FUNCTION C_4( nAct )
             ELSEIF nAct == 3
                nCount ++
             ELSEIF nAct == 4
-               nCount += Eval( bSum )
+               nCount += Eval(bSum)
             ENDIF
          ENDIF
-         Eval( oBrw:bSkip, oBrw, 1 )
+         Eval(oBrw:bSkip, oBrw, 1)
       ENDDO
 
       GO nrec
@@ -540,7 +540,7 @@ FUNCTION C_COPY()
          ENDIF
          oldDf := Set( _SET_DATEFORMAT, aDatef[nDf] )
          DO WHILE !Eof()
-            IF Empty(bFor) .OR. Eval( bFor )
+            IF Empty(bFor) .OR. Eval(bFor)
                s := ""
                FOR i := 1 TO Len( af )
                   xVal := FieldGet( af[i] )

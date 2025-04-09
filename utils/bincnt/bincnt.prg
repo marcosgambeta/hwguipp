@@ -19,7 +19,7 @@ FUNCTION Main( cContainer )
    LOCAL oMainW, oMainFont, oMenuBrw
    LOCAL oStyle := HStyle():New( { 0xffffff, 0xbbbbbb } )
    LOCAL bRClick := {|o,nCol,nLine|
-      LOCAL n := nLine, nRec := Eval( o:bRecno,o )
+      LOCAL n := nLine, nRec := Eval(o:bRecno, o)
       IF n != nRec
          DO WHILE n != nRec
             IF n < nRec

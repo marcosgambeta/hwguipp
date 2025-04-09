@@ -239,7 +239,7 @@ STATIC FUNCTION __Valid( oCtrl )
 
    oCtrl:GetValue()
    IF hb_IsBlock(oCtrl:bValid)
-      IF !Eval( oCtrl:bValid, oCtrl )
+      IF !Eval(oCtrl:bValid, oCtrl)
          hwg_Setfocus( oCtrl:handle )
          RETURN .F.
       ENDIF
@@ -252,7 +252,7 @@ STATIC FUNCTION __When( oCtrl )
    LOCAL res
 
    IF hb_IsBlock(oCtrl:bGetFocus)
-      res := Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet,, oCtrl ), oCtrl )
+      res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, , oCtrl), oCtrl)
       IF !res
          hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )
       ENDIF

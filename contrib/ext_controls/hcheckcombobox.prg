@@ -127,7 +127,7 @@ METHOD hCheckComboBox:INIT()
       ::Super:Init()
 
       IF Len( ::acheck ) > 0
-         AEval( ::aCheck, { | a ,v| ::Setcheck(v, a ) } )
+         AEval(::aCheck, {|a ,v|::Setcheck(v, a)})
       ENDIF
       IF !Empty(::aItems) .AND. !Empty(::nhItem)
          FOR i := 1 TO Len( ::aItems )
@@ -277,7 +277,7 @@ METHOD hCheckComboBox:Requery()
 
    ::Super:Requery()
    IF Len( ::acheck ) > 0
-      AEval( ::aCheck, { | a ,v| ::Setcheck( v,a ) } )
+      AEval(::aCheck, {|a, v|::Setcheck(v, a)})
    ENDIF
    IF !Empty(::aItems) .AND. !Empty(::nhItem)
       FOR i := 1 TO Len( ::aItems )

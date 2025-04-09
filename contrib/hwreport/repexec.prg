@@ -75,14 +75,14 @@ FUNCTION hwg_hwr_Open(fname, repName)
             ELSE
                aLine := hb_ATokens( stroka, ";" )
                IF ( itemName := aLine[1] ) == "FORM"
-                  aPaintRep[ FORM_WIDTH ] := Val( aLine[2] )
-                  aPaintRep[ FORM_HEIGHT ] := Val( aLine[3] )
-                  nFormWidth := Val( aLine[4] )
+                  aPaintRep[ FORM_WIDTH ] := Val(aLine[2])
+                  aPaintRep[ FORM_HEIGHT ] := Val(aLine[3])
+                  nFormWidth := Val(aLine[4])
                   aPaintRep[ FORM_XKOEF ] := nFormWidth / aPaintRep[ FORM_WIDTH ]
                ELSEIF itemName == "TEXT"
-                  aItem := hwg_Hwr_AddItem( aPaintRep, 1, aLine[2], Val( aLine[3] ), ;
-                     Val( aLine[4] ), Val( aLine[5] ), Val( aLine[6] ), Val( aLine[7] ), ;
-                     0, aLine[8], Val( aLine[9] ) )
+                  aItem := hwg_Hwr_AddItem( aPaintRep, 1, aLine[2], Val(aLine[3]), ;
+                     Val(aLine[4]), Val(aLine[5]), Val(aLine[6]), Val(aLine[7]), ;
+                     0, aLine[8], Val(aLine[9]) )
 
                   IF aItem[ ITEM_X1 ] == NIL .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
                           aItem[ ITEM_Y1 ] == NIL .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
@@ -93,8 +93,8 @@ FUNCTION hwg_hwr_Open(fname, repName)
                   ENDIF
                ELSEIF itemName == "HLINE" .OR. itemName == "VLINE" .OR. itemName == "BOX"
                   aItem := hwg_Hwr_AddItem( aPaintRep, IIf( itemName == "HLINE", 2, IIf( itemName == "VLINE", 3, 4 ) ), ;
-                      "", Val( aLine[2] ), Val( aLine[3] ), Val( aLine[4] ), ;
-                      Val( aLine[5] ), 0, aLine[6] )
+                      "", Val(aLine[2]), Val(aLine[3]), Val(aLine[4]), ;
+                      Val(aLine[5]), 0, aLine[6] )
 
                   IF aItem[ ITEM_X1 ] == NIL .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
                               aItem[ ITEM_Y1 ] == NIL .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
@@ -105,7 +105,7 @@ FUNCTION hwg_hwr_Open(fname, repName)
                   ENDIF
                ELSEIF itemName == "BITMAP"
                   aItem := hwg_Hwr_AddItem( aPaintRep, 5, aLine[2], ;
-                      Val( aLine[3] ), Val( aLine[4] ), Val( aLine[5] ), Val( aLine[6] ) )
+                      Val(aLine[3]), Val(aLine[4]), Val(aLine[5]), Val(aLine[6]) )
 
                   IF aItem[ ITEM_X1 ] == NIL .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
                      aItem[ ITEM_Y1 ] == NIL .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
@@ -115,8 +115,8 @@ FUNCTION hwg_hwr_Open(fname, repName)
                      RETURN NIL
                   ENDIF
                ELSEIF itemName == "MARKER"
-                  aItem := hwg_Hwr_AddItem( aPaintRep, 6, aLine[2], Val( aLine[3] ), ;
-                      Val( aLine[4] ), Val( aLine[5] ), Val( aLine[6] ), Val( aLine[7] ) )
+                  aItem := hwg_Hwr_AddItem( aPaintRep, 6, aLine[2], Val(aLine[3]), ;
+                      Val(aLine[4]), Val(aLine[5]), Val(aLine[6]), Val(aLine[7]) )
                ENDIF
             ENDIF
          ELSEIF nMode == 2
@@ -166,12 +166,12 @@ FUNCTION hwg_Hwr_AddItem( aPaintRep, nType, cCaption, nLeft, nTop, nWidth, nHeig
    IF !Empty(aItem[ ITEM_FONT ]) .AND. HB_ISCHAR(aItem[ITEM_FONT])
       arr := hb_ATokens( aItem[ ITEM_FONT ], "," )
       aItem[ ITEM_FONT ] := HFont():Add(arr[1], ;
-         Val( arr[2] ), Val( arr[3] ), Val( arr[4] ), Val( arr[5] ), ;
-         Val( arr[6] ), Val( arr[7] ), Val( arr[8] ))
+         Val(arr[2]), Val(arr[3]), Val(arr[4]), Val(arr[5]), ;
+         Val(arr[6]), Val(arr[7]), Val(arr[8]))
    ENDIF
    IF !Empty(aItem[ ITEM_PEN ]) .AND. HB_ISCHAR(aItem[ITEM_PEN])
       arr := hb_ATokens( aItem[ ITEM_PEN ], "," )
-      aItem[ ITEM_PEN ] := HPen():Add( Val( arr[1] ), Val( arr[2]), Val( arr[3] ) )
+      aItem[ ITEM_PEN ] := HPen():Add( Val(arr[1]), Val(arr[2]), Val(arr[3]) )
    ENDIF
    IF aItem[ITEM_TYPE] == TYPE_BITMAP
       aItem[ITEM_BITMAP] := HBitmap():AddFile( aItem[ITEM_CAPTION] )

@@ -525,7 +525,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
                ENDDO
             ENDIF
 #endif
-            Eval( aScript[2, iscr] )
+            Eval(aScript[2, iscr])
             iscr ++
          ENDDO
 #ifdef __PLATFORM__WINDOWS // __WINDOWS__
@@ -536,7 +536,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
 #endif
       ELSE
          DO WHILE iscr > 0 .AND. iscr <= arlen
-            Eval( aScript[2, iscr] )
+            Eval(aScript[2, iscr])
             iscr ++
          ENDDO
       ENDIF

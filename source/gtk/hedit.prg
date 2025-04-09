@@ -347,7 +347,7 @@ METHOD HEdit:Value( xValue )
    IF ::cType == "D"
       vari := CToD( vari )
    ELSEIF ::cType == "N"
-      vari := Val( LTrim(vari) )
+      vari := Val(LTrim(vari))
    ELSEIF ::cType == "C" .AND. !Empty(::nMaxLength)
       vari := PadR( vari, ::nMaxLength )
    ENDIF
@@ -623,7 +623,7 @@ STATIC FUNCTION GetApplyKey( oEdit, cKey )
                vari := Left(vari, i - 1) + SubStr(vari, i + 1)
             ENDIF
          NEXT
-         vari := Val( vari )
+         vari := Val(vari)
       ENDIF
       IF !Empty(oEdit:cPicFunc) .OR. !Empty(oEdit:cPicMask)
          oEdit:title := Transform( vari, oEdit:cPicFunc + IIf(Empty(oEdit:cPicFunc), "", " ") + oEdit:cPicMask )
@@ -713,7 +713,7 @@ STATIC FUNCTION __When( oCtrl )
    oCtrl:Refresh()
    //oCtrl:lFirst := .T.
    IF hb_IsBlock(oCtrl:bGetFocus)
-      res := Eval( oCtrl:bGetFocus, oCtrl:title, oCtrl )
+      res := Eval(oCtrl:bGetFocus, oCtrl:title, oCtrl)
       IF !res
          hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )
       ENDIF
@@ -738,18 +738,18 @@ STATIC FUNCTION __valid( oCtrl )
             ENDIF
             vari := CToD( vari )
          ELSEIF oCtrl:cType == "N"
-            vari := Val( LTrim(vari) )
+            vari := Val(LTrim(vari))
             oCtrl:title := Transform( vari, oCtrl:cPicFunc + IIf(Empty(oCtrl:cPicFunc), "", " ") + oCtrl:cPicMask )
             hwg_edit_Settext( oCtrl:handle, oCtrl:title )
          ELSEIF oCtrl:cType == "C" .AND. !Empty(oCtrl:nMaxLength)
             oCtrl:title := vari := PadR( vari, oCtrl:nMaxLength )
          ENDIF
-         Eval( oCtrl:bSetGet, vari, oCtrl )
+         Eval(oCtrl:bSetGet, vari, oCtrl)
 
          IF oDlg != NIL
             oDlg:nLastKey := 27
          ENDIF
-         IF hb_IsBlock(oCtrl:bLostFocus) .AND. !Eval( oCtrl:bLostFocus, vari, oCtrl )
+         IF hb_IsBlock(oCtrl:bLostFocus) .AND. !Eval(oCtrl:bLostFocus, vari, oCtrl)
             hwg_Setfocus( oCtrl:handle )
             hwg_edit_SetPos( oCtrl:handle, 0 )
             IF oDlg != NIL

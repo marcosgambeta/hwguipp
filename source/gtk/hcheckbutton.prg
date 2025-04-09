@@ -134,7 +134,7 @@ STATIC FUNCTION __Valid( oCtrl )
    oCtrl:lValue := hwg_IsButtonChecked( oCtrl:handle )
 
    IF hb_IsBlock(oCtrl:bSetGet)
-      Eval( oCtrl:bSetGet, oCtrl:lValue, oCtrl )
+      Eval(oCtrl:bSetGet, oCtrl:lValue, oCtrl)
    ENDIF
    IF hb_IsBlock(oCtrl:bLostFocus) .AND. ValType(res := Eval(oCtrl:bLostFocus, oCtrl, oCtrl:lValue)) == "L" .AND. !res
       hwg_Setfocus( oCtrl:handle )
@@ -149,7 +149,7 @@ STATIC FUNCTION __When( oCtrl )
    oCtrl:Refresh()
 
    IF hb_IsBlock(oCtrl:bGetFocus)
-      res := Eval( oCtrl:bGetFocus, Eval( oCtrl:bSetGet,, oCtrl ), oCtrl )
+      res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, , oCtrl), oCtrl)
       IF HB_ISLOGICAL(res) .AND. !res
          hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )
       ENDIF

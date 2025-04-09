@@ -102,7 +102,7 @@ Private value, oCtrl := Self
                IF HB_ISCHAR(oXMLDesc:aItems[i]:aItems[1]:aItems[1])
                   oXMLDesc:aItems[i]:aItems[1]:aItems[1] := &( "{||" + oXMLDesc:aItems[i]:aItems[1]:aItems[1] + "}" )
                ENDIF
-               xProperty := Eval( oXMLDesc:aItems[i]:aItems[1]:aItems[1] )
+               xProperty := Eval(oXMLDesc:aItems[i]:aItems[1]:aItems[1])
             ELSE
                xProperty := oXMLDesc:aItems[i]:GetAttribute( "value" )
             ENDIF

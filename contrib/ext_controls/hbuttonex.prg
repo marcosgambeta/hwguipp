@@ -265,7 +265,7 @@ METHOD HButtonEx:onEvent(msg, wParam, lParam)
 
    // TODO: porque nesta posição da rotina ?
    IF HB_ISBLOCK(::bOther)
-      IF ( nEval := Eval( ::bOther, Self, msg, wParam, lParam ) ) != -1 .AND. nEval != NIL
+      IF ( nEval := Eval(::bOther, Self, msg, wParam, lParam) ) != -1 .AND. nEval != NIL
          RETURN 0
       ENDIF
    ENDIF

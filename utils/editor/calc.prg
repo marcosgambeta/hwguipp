@@ -367,7 +367,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
          hwg_MsgStop( "Expression error", "Calculator" )
       ENDIF
    ELSE
-      cRes := CnvVal( xRes )
+      cRes := CnvVal(xRes)
       IF Empty(nStruRes)
          nPos2 := Len(oEdit:aText[nL1]) + 1
          IF lNewExp
@@ -416,7 +416,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
    
    RETURN NIL
 
-STATIC FUNCTION CnvVal( xRes )
+STATIC FUNCTION CnvVal(xRes)
 
    LOCAL cRes := Valtype(xRes), nPos2
 
@@ -521,7 +521,7 @@ FUNCTION GetAt(cMet)
          cOldVal := Substr(cOldVal, 2, Len(cOldVal) - 2)
       ENDIF
       IF IsDigit( Left(cOldVal, 1) )
-         RETURN Val( Substr(cOldVal, 1) )
+         RETURN Val(Substr(cOldVal, 1))
       ELSE
          RETURN cOldVal
       ENDIF

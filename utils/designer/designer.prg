@@ -373,7 +373,7 @@ STATIC FUNCTION ReadIniFiles()
             oDesigner:aRecent[j] := Lower(Trim(oNode:aItems[j]:aItems[1]))
          NEXT
       ELSEIF oNode:title == "rep_zoom"
-         oDesigner:nRepZoom := Val( oNode:GetAttribute( "default" ) )
+         oDesigner:nRepZoom := Val(oNode:GetAttribute("default"))
       ENDIF
    NEXT
 
@@ -553,7 +553,7 @@ FUNCTION Evalcode( xCode )
    IF HB_ISARRAY(xCode)
       RETURN DoScript( xCode )
    ELSE
-      RETURN Eval( xCode )
+      RETURN Eval(xCode)
    ENDIF
 
    RETURN NIL

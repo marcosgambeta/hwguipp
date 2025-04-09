@@ -105,7 +105,7 @@ Return NIL
 METHOD HQhtm:Notify( lParam )
 Local cLink := QHTM_GetNotify( lParam )
 
-   IF ::bLink == NIL .OR. !Eval( ::bLink,Self,cLink )
+   IF ::bLink == NIL .OR. !Eval(::bLink, Self, cLink)
       IF "tp://" $ clink
          Return 0
       ELSE
@@ -124,7 +124,7 @@ Local oCtrl := hwg_FindSelf( hCtrl )
 
    IF oCtrl != NIL
       IF oCtrl:bSubmit != NIL
-         Eval( oCtrl:bSubmit,oCtrl,cMethod,cAction,cName,aFields )
+         Eval(oCtrl:bSubmit, oCtrl, cMethod, cAction, cName, aFields)
       ENDIF
    ENDIF
 

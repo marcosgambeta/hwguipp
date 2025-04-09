@@ -276,7 +276,7 @@ Memvar oBrw, oFont
    oBrowse:AddColumn(HColumn():New("Filename",  {|v, o|o:aArray[o:nCurrent, 3]}, "C", 10, 0))
    
    oBrowse:rowPos := nOrder
-   Eval( oBrowse:bGoTo,oBrowse,nOrder )
+   Eval(oBrowse:bGoTo, oBrowse, nOrder)
    
    oDlg:Activate()
    
@@ -505,7 +505,7 @@ Memvar oBrw, currentCP, currFname
                         IF af[i, 2] == "C" .AND. af0[af[i, 5], 2] == "N"
                            xValue := Str(xValue, af0[af[i, 5], 3], af0[af[i, 5], 4])
                         ELSEIF af[i, 2] == "N" .AND. af0[af[i, 5], 2] == "C"
-                           xValue := Val( Ltrim(xValue) )
+                           xValue := Val(Ltrim(xValue))
                         ELSE
                            LOOP
                         ENDIF
@@ -586,8 +586,8 @@ Local cName, cType, nLen, nDec
    ELSE
       cName := oGet1:SetGet()
       cType := aFieldTypes[Eval(oGet2:bSetGet, , oGet2)]
-      nLen  := Val( oGet3:SetGet() )
-      nDec  := Val( oGet4:SetGet() )
+      nLen  := Val(oGet3:SetGet())
+      nDec  := Val(oGet4:SetGet())
       IF nOperation == 1
          Aadd(oBrowse:aArray, {cName, cType, nLen, nDec})
       ELSE
@@ -607,17 +607,17 @@ Local cName, cType, nLen, nDec
 Return NIL
 
 Static Function dbv_Goto()
-Local nRec := Val( GetData( Ltrim(Str(dbv_nRec)),"Go to ...","Input record number:" ) )
+Local nRec := Val(GetData(LTrim(Str(dbv_nRec)), "Go to ...", "Input record number:"))
 Memvar oBrw
 
    IF nRec != 0
       dbv_nRec := nRec
       dbGoTo( nRec )
-      IF EVAL( oBrw:bEof,oBrw )
-         EVAL( oBrw:bGoBot,oBrw )
+      IF Eval(oBrw:bEof, oBrw)
+         Eval(oBrw:bGoBot, oBrw)
       ENDIF
       oBrw:Refresh()
-      Eval( oBrw:bScrollPos,oBrw, 0 )
+      Eval(oBrw:bScrollPos, oBrw, 0)
    ENDIF
 
 Return NIL
@@ -632,14 +632,14 @@ Memvar oBrw, oSay2
       cKey := GetData( dbv_cSeek,"Seek record","Input key:" )
       IF !Empty(cKey)
          dbv_cSeek := cKey
-         nRec := Eval( oBrw:bRecNo, oBrw )
+         nRec := Eval(oBrw:bRecNo, oBrw)
          IF dbSeek(cKey)
             oSay2:SetText( "Found" )
             oBrw:Refresh()
-            Eval( oBrw:bScrollPos,oBrw, 0 )
+            Eval(oBrw:bScrollPos, oBrw, 0)
          ELSE
             oSay2:SetText( "Not Found" )
-            Eval( oBrw:bGoTo, oBrw, nRec )
+            Eval(oBrw:bGoTo, oBrw, nRec)
          ENDIF
       ENDIF
    ENDIF
@@ -675,15 +675,15 @@ Memvar oBrw, oSay2
    ENDDO
 
    dbv_cLocate := cLocate
-   nRec := Eval( oBrw:bRecNo, oBrw )
+   nRec := Eval(oBrw:bRecNo, oBrw)
    LOCATE FOR &cLocate
    IF Found()
       oSay2:SetText( "Found" )
       oBrw:Refresh()
-      Eval( oBrw:bScrollPos,oBrw, 0 )
+      Eval(oBrw:bScrollPos, oBrw, 0)
    ELSE
       oSay2:SetText( "Not Found" )
-      Eval( oBrw:bGoTo, oBrw, nRec )
+      Eval(oBrw:bGoTo, oBrw, nRec)
    ENDIF
 
 Return NIL
@@ -693,15 +693,15 @@ Local nRec
 Memvar oBrw, oSay2
 
    IF !Empty(dbv_cLocate)
-      nRec := Eval( oBrw:bRecNo, oBrw )
+      nRec := Eval(oBrw:bRecNo, oBrw)
       CONTINUE
       IF Found()
          oSay2:SetText( "Found" )
          oBrw:Refresh()
-         Eval( oBrw:bScrollPos,oBrw, 0 )
+         Eval(oBrw:bScrollPos, oBrw, 0)
       ELSE
          oSay2:SetText( "Not Found" )
-         Eval( oBrw:bGoTo, oBrw, nRec )
+         Eval(oBrw:bGoTo, oBrw, nRec)
       ENDIF
    ENDIF
 
@@ -740,7 +740,7 @@ Static Function dbv_AppRec()
 
    APPEND BLANK
    oBrw:Refresh()
-   Eval( oBrw:bScrollPos,oBrw, 0 )
+   Eval(oBrw:bScrollPos, oBrw, 0)
    oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )
    oSay2:SetText( "" )
 RETURN .T.
@@ -754,7 +754,7 @@ Memvar oBrw, oSay1, oSay2
       PACK
       oMsg:Close()
       oBrw:Refresh()
-      Eval( oBrw:bScrollPos,oBrw, 0 )
+      Eval(oBrw:bScrollPos, oBrw, 0)
       oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )
       oSay2:SetText( "" )
    ENDIF
@@ -769,7 +769,7 @@ Memvar oBrw, oSay1, oSay2
       ZAP
       oMsg:Close()
       oBrw:Refresh()
-      Eval( oBrw:bScrollPos,oBrw, 0 )
+      Eval(oBrw:bScrollPos, oBrw, 0)
       oSay1:SetText( "Records: "+Ltrim(Str(Eval(oBrw:bRcou,oBrw))) )
       oSay2:SetText( "" )
    ENDIF

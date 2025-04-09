@@ -393,7 +393,7 @@ METHOD HOwnButton:Disable()
 STATIC FUNCTION OwnBtnTimerProc( oBtn, nType )
 
    IF hb_IsBlock(oBtn:bClick)
-      Eval( oBtn:bClick, oBtn, nType )
+      Eval(oBtn:bClick, oBtn, nType)
    ENDIF
 
    RETURN NIL
