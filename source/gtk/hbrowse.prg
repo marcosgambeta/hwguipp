@@ -1934,8 +1934,8 @@ METHOD HBrowse:Edit( wParam, lParam )
                @ 0, 30 HCEDIT ::oEdit SIZE 600, 300 ;
                     FONT ::oFont
                // old 010, 252 - 100, 252 - sizes 80, 24 (too small)
-               @ 010, 340 ownerbutton owb2 TEXT ::cTextSave  size 100, 24 ON Click { || bclsbutt := .F. , mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
-               @ 100, 340 ownerbutton owb1 TEXT ::cTextClose size 100, 24 ON CLICK { || mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
+               @ 010, 340 ownerbutton owb2 TEXT ::cTextSave SIZE 100, 24 ON Click { || bclsbutt := .F. , mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
+               @ 100, 340 ownerbutton owb1 TEXT ::cTextClose SIZE 100, 24 ON CLICK { || mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
 //               @ 100, 340 ownerbutton owb1 TEXT ::cTextClose size 100, 24 ON CLICK { ||oModDlg:close() }
                  // serve memo field for editing
                 ::oEdit:SetText(mvarbuff)

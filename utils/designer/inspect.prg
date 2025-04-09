@@ -19,7 +19,7 @@ MEMVAR oDesigner
 FUNCTION InspOpen
 
    INIT DIALOG oDesigner:oDlgInsp TITLE "Object Inspector" ;
-      AT 0, 280  SIZE 220, 300                     ;
+      AT 0, 280 SIZE 220, 300                     ;
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SIZEBOX ;
       FONT oDesigner:oMainWnd:oFont                   ;
       ON INIT { ||hwg_Movewindow( oDesigner:oDlgInsp:handle, 0, 280, 230, 280 ) }   ;

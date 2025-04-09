@@ -139,7 +139,7 @@ Local oGet1, oGet2
    
 
    INIT DIALOG oDlg TITLE Iif( nItem == 0,"New item","Change item" )  ;
-   AT 210, 10  SIZE 700, 150 FONT oFont  // old SIZE 300, 150
+   AT 210, 10 SIZE 700, 150 FONT oFont  // old SIZE 300, 150
 
    @ 20, 20 SAY "Name:" SIZE 60, 22
    

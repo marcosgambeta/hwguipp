@@ -56,23 +56,23 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
 
    BEGIN PAGE "Config" Of oTAB
       @  20, 44 SAY oLabel1 CAPTION "Exe Name" SIZE 80, 22
-      @ 136, 44 GET oExeName VAR vGt1 ID ID_EXENAME  SIZE 206, 24
+      @ 136, 44 GET oExeName VAR vGt1 ID ID_EXENAME SIZE 206, 24
 
       @  20, 74 SAY oLabel2 CAPTION "Lib Folder" SIZE 80, 22
       @ 136, 74 GET oLibFolder  VAR vGt2 ID ID_LIBFOLDER SIZE 234, 24
 
       @  20, 104 SAY oLabel3 CAPTION "Include Folder" SIZE 105, 22
-      @ 136, 104 GET oIncFolder VAR vGt3 ID ID_INCFOLDER   SIZE 234, 24
+      @ 136, 104 GET oIncFolder VAR vGt3 ID ID_INCFOLDER SIZE 234, 24
 
       @  20, 134 SAY oLabel4 CAPTION "PRG Flags" SIZE 80, 22
-      @ 136, 134 GET oPrgFlag VAR vGt4 ID ID_PRGFLAG  SIZE 230, 24
+      @ 136, 134 GET oPrgFlag VAR vGt4 ID ID_PRGFLAG SIZE 230, 24
 
       @  20, 164 SAY oLabel5 CAPTION "C Flags" SIZE 80, 22
       @ 136, 164 GET oCFlag VAR vGt5  ID ID_CFLAG SIZE 230, 24
  
       @  20, 194 SAY oLabel6 CAPTION "Main PRG" SIZE 80, 22
-      @ 136, 194 GET oMainPrg VAR vGt6 ID ID_PRGMAIN  SIZE 206, 24
-      @ 347, 194 OWNERBUTTON    SIZE 24, 24   ;
+      @ 136, 194 GET oMainPrg VAR vGt6 ID ID_PRGMAIN SIZE 206, 24
+      @ 347, 194 OWNERBUTTON SIZE 24, 24   ;
           ON CLICK {||searchFileName("xBase Files *.prg ", oMainPrg, "*.prg")};//       FLAT;
           TEXT "..." ;//BITMAP "SEARCH" FROM RESOURCE TRANSPARENT COORDINATES 0, 0, 0, 0 ;
           TOOLTIP "Search main file" 
@@ -80,54 +80,54 @@ PRIVATE oButton1, oExeName, oLabel1, oLibFolder, oButton4, oLabel2, oIncFolder, 
    END PAGE of oTAB
    BEGIN PAGE "Prg (Files)" of oTAB
       @ 21, 29 BROWSE oBrowse1 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse1,"*.prg")};
-              STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
+              STYLE WS_VSCROLL + WS_HSCROLL SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse1,aFiles1)
       obrowse1:acolumns[1]:heading := "File Names"
       obrowse1:acolumns[1]:length := 50
       oBrowse1:bcolorSel := 0x800080
       oBrowse1:ofont := HFont():Add("Arial", 0, -12)
-      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse1, "*.prg")}
-      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||Adel(oBrowse1:aArray, oBrowse1:nCurrent),oBrowse1:Refresh()}
+      @ 10, 205 BUTTON "Add" SIZE 60, 25  on click {||SearchFile(oBrowse1, "*.prg")}
+      @ 70, 205 BUTTON "Delete" SIZE 60, 25  on click {||Adel(oBrowse1:aArray, oBrowse1:nCurrent),oBrowse1:Refresh()}
 
    END PAGE of oTAB
    BEGIN PAGE "C (Files)" of oTAB
       @ 21, 29 BROWSE oBrowse2 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse2, "*.c")};
-             STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
+             STYLE WS_VSCROLL + WS_HSCROLL SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse2,aFiles2)
       obrowse2:acolumns[1]:heading := "File Names"
       obrowse2:acolumns[1]:length := 50
       oBrowse2:bcolorSel := 0x800080
       oBrowse2:ofont := HFont():Add("Arial", 0, -12)
-      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse2, "*.c")}
-      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||Adel(oBrowse1:aArray, oBrowse2:nCurrent),oBrowse2:Refresh()}
+      @ 10, 205 BUTTON "Add" SIZE 60, 25  on click {||SearchFile(oBrowse2, "*.c")}
+      @ 70, 205 BUTTON "Delete" SIZE 60, 25  on click {||Adel(oBrowse1:aArray, oBrowse2:nCurrent),oBrowse2:Refresh()}
    END PAGE of oTAB
    BEGIN PAGE "Lib (Files)" of oTAB
       @ 21, 29 BROWSE oBrowse3 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse3, "*.lib")};
-               STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
+               STYLE WS_VSCROLL + WS_HSCROLL SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse3,aFiles3)
       obrowse3:acolumns[1]:heading := "File Names"
       obrowse3:acolumns[1]:length := 50
       oBrowse3:bcolorSel := 0x800080
       oBrowse3:ofont := HFont():Add("Arial", 0, -12)
-      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse3, "*.lib")}
-      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||Adel(oBrowse3:aArray, oBrowse3:nCurrent),oBrowse3:Refresh()}
+      @ 10, 205 BUTTON "Add" SIZE 60, 25  on click {||SearchFile(oBrowse3, "*.lib")}
+      @ 70, 205 BUTTON "Delete" SIZE 60, 25  on click {||Adel(oBrowse3:aArray, oBrowse3:nCurrent),oBrowse3:Refresh()}
    END PAGE of oTAB
    BEGIN PAGE "Resource (Files)" of oTAB
       @ 21, 29 BROWSE oBrowse4 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse3, "*.rc")};
-              STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
+              STYLE WS_VSCROLL + WS_HSCROLL SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse4,aFiles4)
       obrowse4:acolumns[1]:heading := "File Names"
       obrowse4:acolumns[1]:length := 50
       oBrowse4:bcolorSel := 0x800080
       oBrowse4:ofont := HFont():Add("Arial", 0, -12)
-      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse4, "*.rc")}
-      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||Adel(oBrowse4:aArray, oBrowse4:nCurrent),oBrowse4:Refresh()}
+      @ 10, 205 BUTTON "Add" SIZE 60, 25  on click {||SearchFile(oBrowse4, "*.rc")}
+      @ 70, 205 BUTTON "Delete" SIZE 60, 25  on click {||Adel(oBrowse4:aArray, oBrowse4:nCurrent),oBrowse4:Refresh()}
    END PAGE of oTAB
    
    @ 419, 20 BUTTON oButton1 CAPTION "Build" on Click {||BuildApp()} SIZE 78, 52
-   @ 419, 80 BUTTON oButton2 CAPTION "Exit" on Click {||hwg_EndDialog()}  SIZE 78, 52
-   @ 419, 140 BUTTON oButton3 CAPTION "Open" on Click {||ReadBuildFile()}  SIZE 78, 52
-   @ 419, 200 BUTTON oButton4 CAPTION "Save" on Click {||SaveBuildFile()}  SIZE 78, 52
+   @ 419, 80 BUTTON oButton2 CAPTION "Exit" on Click {||hwg_EndDialog()} SIZE 78, 52
+   @ 419, 140 BUTTON oButton3 CAPTION "Open" on Click {||ReadBuildFile()} SIZE 78, 52
+   @ 419, 200 BUTTON oButton4 CAPTION "Save" on Click {||SaveBuildFile()} SIZE 78, 52
 
    ACTIVATE DIALOG oDlg
 RETURN NIL

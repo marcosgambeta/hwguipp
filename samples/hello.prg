@@ -94,11 +94,11 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
 * Functions for rich text format in source code file
 * source\winapi\richedit.c
      
-   @ 20, 10 RICHEDIT oEdit TEXT "Hello, world !"  SIZE 200, 30
+   @ 20, 10 RICHEDIT oEdit TEXT "Hello, world !" SIZE 200, 30
 
    hwg_Re_setcharformat(oEdit:handle, {{1, 6, , , , .T.}, {8, 13, 255, , , , , .T.}})
 #else
-     @ 20, 10 EDITBOX oEdit CAPTION "Hello, world !"  SIZE 200, 30
+     @ 20, 10 EDITBOX oEdit CAPTION "Hello, world !" SIZE 200, 30
 #endif   
 
 #ifdef __GTK__
@@ -143,9 +143,9 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
    oTree:AddNode( "Forth" )
 
 #ifdef __GTK__
-   @ 250, 300 BUTTON "Close"  SIZE 150, 30  ON CLICK {||hwg_EndWindow()} ON SIZE ANCHOR_BOTTOMABS
+   @ 250, 300 BUTTON "Close" SIZE 150, 30  ON CLICK {||hwg_EndWindow()} ON SIZE ANCHOR_BOTTOMABS
 #else
-   @ 100, 180 BUTTON "Close"  SIZE 150, 30  ON CLICK {||hwg_EndWindow()} ON SIZE ANCHOR_BOTTOMABS
+   @ 100, 180 BUTTON "Close" SIZE 150, 30  ON CLICK {||hwg_EndWindow()} ON SIZE ANCHOR_BOTTOMABS
 #endif   
 
    MENU OF oMainWindow

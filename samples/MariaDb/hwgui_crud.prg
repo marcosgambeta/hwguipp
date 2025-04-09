@@ -113,10 +113,10 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts Via DBFCDX" AT 0, 0 size 1024, 5
 
       END Page Of oTab
 
-   @ 370, 440 button oBtnSave   Caption "Save"   on click {||SaveContact(oDlg,lSQL)} size 90, 50
-   @ 470, 440 button oBtnAdd    Caption "Add"    on click {||NewContact()}           size 90, 50
-   @ 570, 440 button oBtnDel    Caption "Del"    on click {||DelContact(oDlg,lSQL)}  size 90, 50
-   @ 670, 440 button oBtnOnOff  Caption "On Off" on click {||DelOnOff(oDlg)}         size 90, 50
+   @ 370, 440 button oBtnSave   Caption "Save"   on click {||SaveContact(oDlg,lSQL)} SIZE 90, 50
+   @ 470, 440 button oBtnAdd    Caption "Add"    on click {||NewContact()} SIZE 90, 50
+   @ 570, 440 button oBtnDel    Caption "Del"    on click {||DelContact(oDlg,lSQL)} SIZE 90, 50
+   @ 670, 440 button oBtnOnOff  Caption "On Off" on click {||DelOnOff(oDlg)} SIZE 90, 50
 
 oDlg:Activate()
 
@@ -343,10 +343,10 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts using SQLMIX and MariaDB" AT 0, 
 
       END Page Of oTab
 
-   @ 370, 440 button oBtnSave   Caption "Save"   on click {||SaveContact(oDlg,lSQL)} size 90, 50
-   @ 470, 440 button oBtnAdd    Caption "Add"    on click {||NewContact()}           size 90, 50
-   @ 570, 440 button oBtnDel    Caption "Del"    on click {||DelContact(oDlg,lSQL)}  size 90, 50
-   @ 670, 440 button oBtnOnOff  Caption "On Off" on click {||DelOnOff(oDlg)}         size 90, 50
+   @ 370, 440 button oBtnSave   Caption "Save"   on click {||SaveContact(oDlg,lSQL)} SIZE 90, 50
+   @ 470, 440 button oBtnAdd    Caption "Add"    on click {||NewContact()} SIZE 90, 50
+   @ 570, 440 button oBtnDel    Caption "Del"    on click {||DelContact(oDlg,lSQL)} SIZE 90, 50
+   @ 670, 440 button oBtnOnOff  Caption "On Off" on click {||DelOnOff(oDlg)} SIZE 90, 50
 
    oDlg:bActivate:={||oBrw:top(),oBrw:Refresh() }
 

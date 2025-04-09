@@ -109,12 +109,12 @@ LOCAL cTitle := "Dialog icon", oDialog
 LOCAL ctext  := "-- Dialog --"
 LOCAL ctxt   := "icon displayed with @x,y Bitmap" 
   
-//  INIT DIALOG oDialog TITLE cTitle AT oMainWindow:nLeft+60,oMainWindow:nTop+175  SIZE 400, 400 ;
+//  INIT DIALOG oDialog TITLE cTitle AT oMainWindow:nLeft+60,oMainWindow:nTop+175 SIZE 400, 400 ;
    INIT DIALOG oDialog TITLE cTitle AT nMainX, nMainY SIZE 400, 400 ;
      ICON oObj_Dialog
 
       @ 10 , 20  SAY ctext SIZE 270, 90
-      @ 20 , 120 SAY ctxt  SIZE 180, 48
+      @ 20 , 120 SAY ctxt SIZE 180, 48
 
   
 

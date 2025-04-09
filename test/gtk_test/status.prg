@@ -53,7 +53,7 @@ INIT DIALOG oNewLang TITLE "Add or update a language" AT oMain:nLeft+200,oMain:n
    @ 10, 20 say "Click Create to continue ... and compare qout() value and status texte" SIZE 400, 25
 
    @  50, 50 OWNERBUTTON TEXT "Create" SIZE 70, 32 ON CLICK {||Createlang()}
-   @ 200, 50 OWNERBUTTON TEXT "Close"  SIZE 70, 32 ON CLICK {||hwg_endDialog()}
+   @ 200, 50 OWNERBUTTON TEXT "Close" SIZE 70, 32 ON CLICK {||hwg_endDialog()}
 
 ACTIVATE DIALOG oNewLang
 

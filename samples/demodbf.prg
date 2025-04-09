@@ -160,20 +160,20 @@ Return NIL
 Function CreateGets()
 *---------------------------------------------------------------------------------------
 
-@ 2, 60 Say "Cod"  SIZE 40, 20
-@65, 60 Get Gt_Cod VAR oCod PICTURE "999" STYLE WS_DISABLED  SIZE 100, 20
+@ 2, 60 Say "Cod" SIZE 40, 20
+@65, 60 Get Gt_Cod VAR oCod PICTURE "999" STYLE WS_DISABLED SIZE 100, 20
 
 @ 2, 85 Say "Name" SIZE 50, 20
-@65, 85 Get Gt_Name VAR oName  PICTURE REPLICATE("X", 50)  STYLE WS_DISABLED  SIZE 310, 20
+@65, 85 Get Gt_Name VAR oName  PICTURE REPLICATE("X", 50)  STYLE WS_DISABLED SIZE 310, 20
 
 @ 2, 110 Say "Adress" SIZE 50, 20
 @65, 110 Get Gt_Adress VAR oAdress  PICTURE REPLICATE("X", 50) STYLE WS_DISABLED SIZE 310, 20
 
 @ 2, 135 Say "Fone" SIZE 50, 20
-@65, 135 Get Gt_Fone VAR oFone PICTURE REPLICATE("X", 50) STYLE WS_DISABLED  SIZE 310, 20
+@65, 135 Get Gt_Fone VAR oFone PICTURE REPLICATE("X", 50) STYLE WS_DISABLED SIZE 310, 20
 
 @ 2, 160 Say "e_Mail" SIZE 50, 20
-@65, 160 Get Gt_e_Mail VAR oe_Mail PICTURE REPLICATE("X", 30)  STYLE WS_DISABLED  SIZE 190, 20
+@65, 160 Get Gt_e_Mail VAR oe_Mail PICTURE REPLICATE("X", 30)  STYLE WS_DISABLED SIZE 190, 20
 
 Return NIL
 

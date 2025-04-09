@@ -116,21 +116,21 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
                      endif
              endcase
 
-             @ 380, 395 BUTTON "Step Bar"   SIZE 75, 25 ;
+             @ 380, 395 BUTTON "Step Bar" SIZE 75, 25 ;
                 ON CLICK {|| n+=100,Iif(oBar == NIL,hwg_Msgstop(cMsgErr),oBar:Set(,n/100)),hb_run("wmctrl -a 'Testing ...'"),iif(n/100 == 100,RES_PROGBAR ( obar ), ) }
 
-             @ 460, 395 BUTTON "Reset Bar"   SIZE 75, 25 ;
+             @ 460, 395 BUTTON "Reset Bar" SIZE 75, 25 ;
                 ON CLICK {|| IIF(oBar == NIL , , RES_PROGBAR(oBar) ) , n:=0 }
              // IIF(oBar == NIL , .T. , RES_PROGBAR(oBar) )
 
              if right(included, 3) == "Ext"
-                @ 540, 395 BUTTON "Close Bar"  SIZE 75, 25 ;
+                @ 540, 395 BUTTON "Close Bar" SIZE 75, 25 ;
                    ON CLICK {|| Iif(oBar == NIL,hwg_Msgstop(cMsgErr),(iif(Left(included, 4)== "Auto",oTimer:End(), ),oBar:close(),oBar:=NIL,n:=0,oCreate:show())) }
              else
-                @ 540, 395 BUTTON "Close Bar"  SIZE 75, 25 ;
+                @ 540, 395 BUTTON "Close Bar" SIZE 75, 25 ;
                    ON CLICK {|| Iif(oBar == NIL,hwg_Msgstop(cMsgErr),(iif(Left(included, 4)== "Auto",oTimer:End(), ),RES_PROGBAR(oBar),oBar:hide(),n:=0,oCreate:show())) }
              endif
-             @ 620, 395 BUTTON "Close"      SIZE 75, 25 ON CLICK {|| isdemo:=.f.,oForm:Close() }
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| isdemo:=.f.,oForm:Close() }
 
         ACTIVATE DIALOG oForm
         if Left(included, 4)== "Auto"

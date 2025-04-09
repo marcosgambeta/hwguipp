@@ -1245,13 +1245,13 @@ noldheigth := NUMZ
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 30, 24 SAY oLabel1 CAPTION aMsg[40] + " :"  SIZE 208, 22   // "Edit parameters for
-   @ 30, 53 SAY oLabel2 CAPTION lblname  SIZE 530, 22 ;         // "filename"
+   @ 30, 24 SAY oLabel1 CAPTION aMsg[40] + " :" SIZE 208, 22   // "Edit parameters for
+   @ 30, 53 SAY oLabel2 CAPTION lblname SIZE 530, 22 ;         // "filename"
         STYLE WS_BORDER
 
    @ ngetlmr, 84 GET oEditbox1 VAR REM SIZE 587, 24 ;
         STYLE WS_BORDER
-   @ 30, 87 SAY oLabel3 CAPTION aMsg[16] + ":"  SIZE nwithtxtdes, 22           // "Remarks"
+   @ 30, 87 SAY oLabel3 CAPTION aMsg[16] + ":" SIZE nwithtxtdes, 22           // "Remarks"
    @ 30, 114 SAY oLabel11 CAPTION "(" + aMsg[41] + ")" SIZE 285, 22   // "(Maximal 60 characters)"
 
    @ ngetlmr2, 151 SAY oLabel10 CAPTION "(" + aMsg[42] + ")" SIZE 250, 22  // "(Range, default in brackets)"
@@ -1261,7 +1261,7 @@ noldheigth := NUMZ
    @ ngetlmr, 195 GET oEditbox2 VAR NUMZ SIZE 85, 24 ;
         STYLE WS_BORDER ;
         PICTURE "99" VALID {|| hwlabel_valid_num(NUMZ, 1, 16) }
-   @ ngetlmr2, 195 SAY oLabel12 CAPTION "1..16 (5)"  SIZE 80, 22
+   @ ngetlmr2, 195 SAY oLabel12 CAPTION "1..16 (5)" SIZE 80, 22
    @ 30, 196 SAY oLabel4 CAPTION aMsg[17] + ":" SIZE nwithtxtdes, 22    // "Heigth of label:"
 
 
@@ -1269,46 +1269,46 @@ noldheigth := NUMZ
         STYLE WS_BORDER ;
         PICTURE "999" VALID {|| hwlabel_valid_num(BR, 1, 120) }
 
-   @ 30, 231 SAY oLabel5 CAPTION aMsg[18] + ":"  SIZE 121, 22   // "Width of label:"
-   @ ngetlmr2, 231 SAY oLabel13 CAPTION "1..120 (35)"  SIZE 87, 22
+   @ 30, 231 SAY oLabel5 CAPTION aMsg[18] + ":" SIZE 121, 22   // "Width of label:"
+   @ ngetlmr2, 231 SAY oLabel13 CAPTION "1..120 (35)" SIZE 87, 22
 
 
    @ ngetlmr, 265 GET oEditbox4 VAR LM SIZE 85, 24 ;
         STYLE WS_BORDER ;
         PICTURE "999" VALID {|| hwlabel_valid_num(LM, 0, 250) }
-   @ 30, 266 SAY oLabel6 CAPTION aMsg[19] + ":"  SIZE 94, 22    // "Left margin:"
-   @ ngetlmr2, 266 SAY oLabel14 CAPTION "0..250 (0)"  SIZE 80, 22
+   @ 30, 266 SAY oLabel6 CAPTION aMsg[19] + ":" SIZE 94, 22    // "Left margin:"
+   @ ngetlmr2, 266 SAY oLabel14 CAPTION "0..250 (0)" SIZE 80, 22
 
 
    @ ngetlmr, 300 GET oEditbox5 VAR HZR SIZE 85, 24 ;
         STYLE WS_BORDER ;
         PICTURE "99" VALID {|| hwlabel_valid_num(HZR, 0, 16) }
    @ 30, 301 SAY oLabel7 CAPTION aMsg[20] + ":" SIZE 163, 22   // "Lines between labels:"
-   @ ngetlmr2, 301 SAY oLabel15 CAPTION "0..16 (1)"  SIZE 80, 22
+   @ ngetlmr2, 301 SAY oLabel15 CAPTION "0..16 (1)" SIZE 80, 22
 
 
    @ ngetlmr, 335 GET oEditbox6 VAR VZR SIZE 85, 24 ;
         STYLE WS_BORDER ;
         PICTURE "999" VALID {|| hwlabel_valid_num(VZR, 0, 120) }
    @ 30, 336 SAY oLabel8 CAPTION aMsg[21] + ":" SIZE 169, 22   // "Spaces between labels:"
-   @ ngetlmr2, 336 SAY oLabel16 CAPTION "0 ... 120 (0)"  SIZE 91, 22
+   @ ngetlmr2, 336 SAY oLabel16 CAPTION "0 ... 120 (0)" SIZE 91, 22
 
 
    @ ngetlmr, 370 GET oEditbox7 VAR LPZ SIZE 85, 24 ;
         STYLE WS_BORDER ;
         PICTURE "9" VALID {|| hwlabel_valid_num(LPZ, 1, 5) }
-   @ 30, 371 SAY oLabel9 CAPTION aMsg[22] + ":"  SIZE 166, 22  // "Number of label across:"
-   @ ngetlmr2, 371 SAY oLabel17 CAPTION "1 .. 5 (1)"  SIZE 89, 22
+   @ 30, 371 SAY oLabel9 CAPTION aMsg[22] + ":" SIZE 166, 22  // "Number of label across:"
+   @ ngetlmr2, 371 SAY oLabel17 CAPTION "1 .. 5 (1)" SIZE 89, 22
 
 IF clangset != "English"
 // Additional english desription of parameters
-  @ 665, 151 SAY oLabel18 CAPTION "English:"  SIZE 80, 22
-  @ 600, 196 SAY oLabel19 CAPTION "Heigth of label"  SIZE 166, 22
-  @ 600, 231 SAY oLabel20 CAPTION "Width of label"  SIZE 166, 22
-  @ 600, 266 SAY oLabel21 CAPTION "Left margin"  SIZE 166, 22
-  @ 600, 301 SAY oLabel22 CAPTION "Lines between labels"  SIZE 166, 22
-  @ 600, 336 SAY oLabel23 CAPTION "Spaces between labels"  SIZE 166, 22
-  @ 600, 371 SAY oLabel24 CAPTION "Number of label across"  SIZE 166, 22
+  @ 665, 151 SAY oLabel18 CAPTION "English:" SIZE 80, 22
+  @ 600, 196 SAY oLabel19 CAPTION "Heigth of label" SIZE 166, 22
+  @ 600, 231 SAY oLabel20 CAPTION "Width of label" SIZE 166, 22
+  @ 600, 266 SAY oLabel21 CAPTION "Left margin" SIZE 166, 22
+  @ 600, 301 SAY oLabel22 CAPTION "Lines between labels" SIZE 166, 22
+  @ 600, 336 SAY oLabel23 CAPTION "Spaces between labels" SIZE 166, 22
+  @ 600, 371 SAY oLabel24 CAPTION "Number of label across" SIZE 166, 22
 ENDIF
 
 // Buttons
@@ -1316,7 +1316,7 @@ ENDIF
 // If new heigt lower than the warning query appeared:
 // No  : Set height to prevous value and stay in parameter edit dialog
 // Yes : Accept new value and leave edit dialog
-   @ 34, 415 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80, 32 ;     // OK ("Continue")
+   @ 34, 415 BUTTON oButton1 CAPTION aMsg[34] SIZE 80, 32 ;     // OK ("Continue")
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK { | | ;
          IIF(NUMZ < noldheigth , IIF(hwlabel_warncont(), ;
@@ -1324,11 +1324,11 @@ ENDIF
            (  NUMZ := noldheigth  , oEditbox2:Value(NUMZ) )  ) ;
         ,  ( labbruch := .F. , frm_hwlabel_par:Close() ) ) }
 
-   @ 165, 415 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80, 32 ;    // "Cancel"
+   @ 165, 415 BUTTON oButton2 CAPTION aMsg[35] SIZE 80, 32 ;    // "Cancel"
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK { | | frm_hwlabel_par:Close() }
 
-   @ 336, 415 BUTTON oButton4 CAPTION aMsg[54]    SIZE 169, 32 ;  // "Set default values"
+   @ 336, 415 BUTTON oButton4 CAPTION aMsg[54] SIZE 169, 32 ;  // "Set default values"
         STYLE WS_TABSTOP+BS_FLAT  ;
         ON CLICK { | | ;
          REM   := Space(60) , ;
@@ -1347,7 +1347,7 @@ ENDIF
          oEditbox7:Value(LPZ)   ;
         }
 
-   @ 668, 415 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80, 32 ;    // "Help"
+   @ 668, 415 BUTTON oButton3 CAPTION aMsg[15] SIZE 80, 32 ;    // "Help"
         STYLE WS_TABSTOP+BS_FLAT  ;
         ON CLICK { | | hwlabel_Mainhlp(clangset, 1) }
 
@@ -1682,98 +1682,98 @@ cCnt16 :=  hwg_GET_Helper(cCnt16, 60)
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 5, 19 SAY oLabel1 CAPTION aMsg[33]  SIZE 707, 22 ;   // "Contents of label"
+   @ 5, 19 SAY oLabel1 CAPTION aMsg[33] SIZE 707, 22 ;   // "Contents of label"
         STYLE SS_CENTER
 
 IF nLines > 0
-   @ 110, 60 GET oEditbox1 VAR cCnt1  SIZE 550, 24 ;
+   @ 110, 60 GET oEditbox1 VAR cCnt1 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 61 SAY oLabel2 CAPTION "1:"  SIZE 45, 22
+   @ 50, 61 SAY oLabel2 CAPTION "1:" SIZE 45, 22
 ENDIF
 IF nLines > 1
-   @ 110, 95 GET oEditbox2 VAR cCnt2  SIZE 550, 24 ;
+   @ 110, 95 GET oEditbox2 VAR cCnt2 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 96 SAY oLabel3 CAPTION "2:"  SIZE 45, 22
+   @ 50, 96 SAY oLabel3 CAPTION "2:" SIZE 45, 22
 ENDIF
 IF nLines > 2
-   @ 110, 130 GET oEditbox3 VAR cCnt3  SIZE 550, 24 ;
+   @ 110, 130 GET oEditbox3 VAR cCnt3 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 131 SAY oLabel4 CAPTION "3:"  SIZE 45, 22
+   @ 50, 131 SAY oLabel4 CAPTION "3:" SIZE 45, 22
 ENDIF
 IF nLines > 3
-   @ 110, 165 GET oEditbox4 VAR cCnt4  SIZE 550, 24 ;
+   @ 110, 165 GET oEditbox4 VAR cCnt4 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 166 SAY oLabel5 CAPTION "4:"  SIZE 45, 22
+   @ 50, 166 SAY oLabel5 CAPTION "4:" SIZE 45, 22
 ENDIF
 IF nLines > 4
-   @ 110, 200 GET oEditbox5 VAR cCnt5  SIZE 550, 24 ;
+   @ 110, 200 GET oEditbox5 VAR cCnt5 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 201 SAY oLabel6 CAPTION "5:"  SIZE 45, 22
+   @ 50, 201 SAY oLabel6 CAPTION "5:" SIZE 45, 22
 ENDIF
 IF nLines > 5
-   @ 110, 235 GET oEditbox6 VAR cCnt6  SIZE 550, 24 ;
+   @ 110, 235 GET oEditbox6 VAR cCnt6 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 236 SAY oLabel7 CAPTION "6:"  SIZE 45, 22
+   @ 50, 236 SAY oLabel7 CAPTION "6:" SIZE 45, 22
 ENDIF
 IF nLines > 6
-   @ 110, 271 GET oEditbox7 VAR cCnt7  SIZE 550, 24 ;
+   @ 110, 271 GET oEditbox7 VAR cCnt7 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 271 SAY oLabel8 CAPTION "7:"  SIZE 45, 22
+   @ 50, 271 SAY oLabel8 CAPTION "7:" SIZE 45, 22
 ENDIF
 IF nLines > 7
-   @ 110, 305 GET oEditbox8 VAR cCnt8  SIZE 550, 24 ;
+   @ 110, 305 GET oEditbox8 VAR cCnt8 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 306 SAY oLabel9 CAPTION "8:"  SIZE 45, 22
+   @ 50, 306 SAY oLabel9 CAPTION "8:" SIZE 45, 22
 ENDIF
 IF nLines > 8
-   @ 110, 340 GET oEditbox9 VAR cCnt9  SIZE 550, 24 ;
+   @ 110, 340 GET oEditbox9 VAR cCnt9 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 341 SAY oLabel10 CAPTION "9:"  SIZE 45, 22
+   @ 50, 341 SAY oLabel10 CAPTION "9:" SIZE 45, 22
 ENDIF
 IF nLines > 9
    @ 110, 375 GET oEditbox10 VAR cCnt10 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 376 SAY oLabel11 CAPTION "10:"  SIZE 45, 22
+   @ 50, 376 SAY oLabel11 CAPTION "10:" SIZE 45, 22
 ENDIF
 IF nLines > 10
    @ 110, 410 GET oEditbox11 VAR cCnt11 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 411 SAY oLabel12 CAPTION "11:"  SIZE 45, 22
+   @ 50, 411 SAY oLabel12 CAPTION "11:" SIZE 45, 22
 ENDIF
 IF nLines > 11
    @ 110, 445 GET oEditbox12 VAR cCnt12 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 446 SAY oLabel13 CAPTION "12:"  SIZE 45, 22
+   @ 50, 446 SAY oLabel13 CAPTION "12:" SIZE 45, 22
 ENDIF
 IF nLines > 12
    @ 110, 480 GET oEditbox13 VAR cCnt13 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 481 SAY oLabel14 CAPTION "13:"  SIZE 45, 22
+   @ 50, 481 SAY oLabel14 CAPTION "13:" SIZE 45, 22
 ENDIF
 IF nLines > 13
    @ 110, 515 GET oEditbox14 VAR cCnt14 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 516 SAY oLabel15 CAPTION "14:"  SIZE 45, 22
+   @ 50, 516 SAY oLabel15 CAPTION "14:" SIZE 45, 22
 ENDIF
 IF nLines > 14
    @ 110, 550 GET oEditbox15 VAR cCnt15 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 551 SAY oLabel16 CAPTION "15:"  SIZE 45, 22
+   @ 50, 551 SAY oLabel16 CAPTION "15:" SIZE 45, 22
 ENDIF
 IF nLines > 15
    @ 110, 585 GET oEditbox16 VAR cCnt16 SIZE 550, 24 ;
         STYLE WS_BORDER
-   @ 50, 586 SAY oLabel17 CAPTION "16:"  SIZE 45, 22
+   @ 50, 586 SAY oLabel17 CAPTION "16:" SIZE 45, 22
 ENDIF
 
 // --- Buttons ---
-   @ 528, 640 BUTTON oButton3 CAPTION aMsg[15]   SIZE 80, 32 ;  // "Help"
+   @ 528, 640 BUTTON oButton3 CAPTION aMsg[15] SIZE 80, 32 ;  // "Help"
         STYLE WS_TABSTOP+BS_FLAT ;
                 ON CLICK {|| hwlabel_Mainhlp(clangset, 2) }
-   @ 112, 641 BUTTON oButton1 CAPTION aMsg[34]   SIZE 80, 32 ;  // "OK"
+   @ 112, 641 BUTTON oButton1 CAPTION aMsg[34] SIZE 80, 32 ;  // "OK"
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| bCancel := .F. , frm_lbl_contents:Close() }
-   @ 245, 643 BUTTON oButton2 CAPTION aMsg[35]   SIZE 80, 32 ; // "Cancel"
+   @ 245, 643 BUTTON oButton2 CAPTION aMsg[35] SIZE 80, 32 ; // "Cancel"
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| frm_lbl_contents:Close() }
 

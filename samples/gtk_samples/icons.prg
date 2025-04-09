@@ -88,7 +88,7 @@ PARAMETERS cimgpfad
    ENDIF
 
    INIT DIALOG oModDlg TITLE "Dialog with background image" ;
-   AT 210, 10  SIZE 300, 300 ;
+   AT 210, 10 SIZE 300, 300 ;
    BACKGROUND BITMAP HBitmap():AddFile(cimgpfad + "astro.bmp" )
 
    ACTIVATE DIALOG oModDlg   

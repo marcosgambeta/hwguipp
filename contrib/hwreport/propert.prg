@@ -62,13 +62,13 @@ STATIC FUNCTION StaticDlg( aItem )
       AT 0, 0 SIZE 500, 430 FONT oFontDlg ;
       ON INIT { || InitStatic( oModDlg, aItem ) }
 
-   @ 14, 6 SAY "Caption:"  SIZE 80, 22
+   @ 14, 6 SAY "Caption:" SIZE 80, 22
    @ 20, 33 EDITBOX oEdit1 CAPTION "" SIZE 425, 24
 
    @ 20, 70 GROUPBOX "Alignment" SIZE 100, 108
    RADIOGROUP
-   @ 28, 93 RADIOBUTTON oRb1 CAPTION "Left"    SIZE 80, 22
-   @ 28, 118 RADIOBUTTON oRb2 CAPTION "Right"  SIZE 76, 22
+   @ 28, 93 RADIOBUTTON oRb1 CAPTION "Left" SIZE 80, 22
+   @ 28, 118 RADIOBUTTON oRb2 CAPTION "Right" SIZE 76, 22
    @ 28, 145 RADIOBUTTON oRb3 CAPTION "Center" SIZE 83, 22
    END RADIOGROUP SELECTED Iif( aItem[ITEM_ALIGN] == 0, 1, Iif( aItem[ITEM_ALIGN] == 1, 2, 3 ) )
 
@@ -79,12 +79,12 @@ STATIC FUNCTION StaticDlg( aItem )
 
    @ 167, 70 GROUPBOX "Font" SIZE 161, 108
 
-   @ 354, 78 SAY "Type:"  SIZE 80, 22
+   @ 354, 78 SAY "Type:" SIZE 80, 22
 
    @ 350, 113 COMBOBOX oCombo ITEMS aVariables SIZE 92, 24 ;
       STYLE CBS_DROPDOWNLIST + WS_TABSTOP
 
-   @ 22, 185 SAY "Script:"  SIZE 80, 22
+   @ 22, 185 SAY "Script:" SIZE 80, 22
 
    @ 23, 211 EDITBOX oEdit2 CAPTION "" SIZE 457, 139 ;
       STYLE ES_AUTOHSCROLL + ES_MULTILINE + ES_AUTOVSCROLL + ES_WANTRETURN + WS_TABSTOP
@@ -92,7 +92,7 @@ STATIC FUNCTION StaticDlg( aItem )
    @ 25, 370 BUTTON "OK" SIZE 90, 28 ;
       STYLE WS_TABSTOP ON CLICK {|| EndStatic( oModDlg, aItem ) }
 
-   @ 390, 372 BUTTON "Cancel" ID IDCANCEL  SIZE 90, 28 ;
+   @ 390, 372 BUTTON "Cancel" ID IDCANCEL SIZE 90, 28 ;
       STYLE WS_TABSTOP
 
    ACTIVATE DIALOG oModDlg CENTER
@@ -144,8 +144,8 @@ STATIC FUNCTION LineDlg( aItem )
       AT 430, 255 SIZE 270, 160 FONT oFontDlg ;
       ON INIT { || InitLine( oModDlg, aItem ) }
 
-   @ 16, 10  SAY "Type:"       SIZE  60, 22
-   @ 170, 10  SAY "Line width:"  SIZE 90, 22
+   @ 16, 10  SAY "Type:" SIZE 60, 22
+   @ 170, 10  SAY "Line width:" SIZE 90, 22
 
    @ 16, 36 COMBOBOX oCombo1 ITEMS aPenStyles SIZE 120, 24 STYLE CBS_DROPDOWNLIST + WS_TABSTOP
 
@@ -194,7 +194,7 @@ FUNCTION BitmapDlg( aItem )
    DIALOG ACTIONS OF oModDlg ;
       ON EN_CHANGE, IDC_EDIT3 ACTION { ||UpdateProcent( oModDlg, aItem ) }
 
-   @ 49, 10 SAY "Bitmap file:"  SIZE 80, 22
+   @ 49, 10 SAY "Bitmap file:" SIZE 80, 22
 
    @ 10, 40 EDITBOX oEdit1 CAPTION "" SIZE 240, 24
 
@@ -219,7 +219,7 @@ FUNCTION BitmapDlg( aItem )
 
    @ 15, 240 BUTTON "OK" SIZE 90, 28 ;
       STYLE WS_TABSTOP ON CLICK { || EndBitmap( oModDlg, aItem ) }
-   @ 197, 240 BUTTON "Cancel" ID IDCANCEL  SIZE 90, 28 ;
+   @ 197, 240 BUTTON "Cancel" ID IDCANCEL SIZE 90, 28 ;
       STYLE WS_TABSTOP ON CLICK { || res := .F., oModDlg:Close() }
 
    oModDlg:Activate()
@@ -328,7 +328,7 @@ FUNCTION MarkFDlg( aItem )
 
    @ 26, 18 GROUPBOX "Type of a footer position" SIZE 207, 80
    RADIOGROUP
-   @ 35, 39 RADIOBUTTON oRb1 CAPTION "Fixed"             SIZE 185, 22
+   @ 35, 39 RADIOBUTTON oRb1 CAPTION "Fixed" SIZE 185, 22
    @ 35, 66 RADIOBUTTON oRb2 CAPTION "Dependent on list" SIZE 182, 22
    END RADIOGROUP SELECTED iif( aItem[ITEM_ALIGN] == 0, 1, 2 )
 

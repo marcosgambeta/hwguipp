@@ -37,7 +37,7 @@ FUNCTION Main()
    LOCAL cTitle
    
 #ifndef __GTK__
-   * Used by OWNERBUTTON's   
+   * Used by OWNERBUTTON's
    LOCAL oFileOpen , oBook
    LOCAL oBmpNew , oBmpbook , oIcoOK , oBmpdoor , oIcoCancel
 #endif   
@@ -83,15 +83,15 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
   This works not: the TOOLBUTTONS (with images) are not visible.
      
    INIT WINDOW oModDlg TITLE  cTitle ;
-      AT 210, 10  SIZE 300, 300  // ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
+      AT 210, 10 SIZE 300, 300  // ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
 * ON INIT crashes with "No exported method: REFRESH"
 */
 /* But this works fime */
    INIT DIALOG oModDlg TITLE cTitle ;
-      AT 210, 10  SIZE 300, 300 ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
+      AT 210, 10 SIZE 300, 300 ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
 #else
    INIT WINDOW oModDlg TITLE  cTitle ;
-      AT 210, 10  SIZE 501, 300 
+      AT 210, 10 SIZE 501, 300 
 #endif
 
 #ifdef __GTK__

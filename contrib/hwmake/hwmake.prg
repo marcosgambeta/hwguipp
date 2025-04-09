@@ -93,23 +93,23 @@ Private oIcon := HIcon():AddResource("PIM")
 
    BEGIN PAGE "Config" Of oTAB
       @  20, 44 SAY oLabel1 CAPTION "Exe Name" TRANSPARENT SIZE 80, 22
-      @ 136, 44 GET oExeName VAR vGt1 ID ID_EXENAME  SIZE 206, 24
+      @ 136, 44 GET oExeName VAR vGt1 ID ID_EXENAME SIZE 206, 24
 
       @  20, 74 SAY oLabel2 CAPTION "Lib Folder" TRANSPARENT SIZE 80, 22
       @ 136, 74 GET oLibFolder  VAR vGt2 ID ID_LIBFOLDER SIZE 234, 24
 
       @  20, 104 SAY oLabel3 CAPTION "Include Folder" TRANSPARENT SIZE 105, 22
-      @ 136, 104 GET oIncFolder VAR vGt3 ID ID_INCFOLDER   SIZE 234, 24
+      @ 136, 104 GET oIncFolder VAR vGt3 ID ID_INCFOLDER SIZE 234, 24
 
       @  20, 134 SAY oLabel4 CAPTION "PRG Flags" TRANSPARENT SIZE 80, 22
-      @ 136, 134 GET oPrgFlag VAR vGt4 ID ID_PRGFLAG  SIZE 234, 24
+      @ 136, 134 GET oPrgFlag VAR vGt4 ID ID_PRGFLAG SIZE 234, 24
 
       @  20, 164 SAY oLabel5 CAPTION "C Flags" TRANSPARENT SIZE 80, 22
       @ 136, 164 GET oCFlag VAR vGt5  ID ID_CFLAG SIZE 234, 24
 
       @  20, 194 SAY oLabel6 CAPTION "Main PRG" TRANSPARENT SIZE 80, 22
-      @ 136, 194 GET oMainPrg VAR vGt6 ID ID_PRGMAIN  SIZE 206, 24
-      @ 347, 194 OWNERBUTTON    SIZE 24, 24   ;
+      @ 136, 194 GET oMainPrg VAR vGt6 ID ID_PRGMAIN SIZE 206, 24
+      @ 347, 194 OWNERBUTTON SIZE 24, 24   ;
           ON CLICK {||searchFileName("xBase Files *.prg ", oMainPrg, "*.prg")};//       FLAT;
           TEXT "..." ;//BITMAP "SEARCH" FROM RESOURCE TRANSPARENT COORDINATES 0, 0, 0, 0 ;
           TOOLTIP "Search main file"
@@ -117,57 +117,57 @@ Private oIcon := HIcon():AddResource("PIM")
    END PAGE of oTAB
    BEGIN PAGE "Prg (Files)" of oTAB
       @ 21, 29 BROWSE oBrowse1 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse1,"*.prg")};
- 	            STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170
+ 	            STYLE WS_VSCROLL + WS_HSCROLL SIZE 341, 170
       hwg_CREATEARLIST(oBrowse1,aFiles1)
       obrowse1:acolumns[1]:heading := "File Names"
       obrowse1:acolumns[1]:length := 50
       oBrowse1:bcolorSel := 0x800080
       oBrowse1:ofont := HFont():Add("Arial", 0, -12)
-      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse1, "*.prg")}
-      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||BrwdelIten(oBrowse1)}
+      @ 10, 205 BUTTON "Add" SIZE 60, 25  on click {||SearchFile(oBrowse1, "*.prg")}
+      @ 70, 205 BUTTON "Delete" SIZE 60, 25  on click {||BrwdelIten(oBrowse1)}
 
    END PAGE of oTAB
    BEGIN PAGE "C (Files)" of oTAB
       @ 21, 29 BROWSE oBrowse2 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse2, "*.c")};
- 	            STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
+ 	            STYLE WS_VSCROLL + WS_HSCROLL SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse2,aFiles2)
       obrowse2:acolumns[1]:heading := "File Names"
       obrowse2:acolumns[1]:length := 50
       oBrowse2:bcolorSel := 0x800080
       oBrowse2:ofont := HFont():Add("Arial", 0, -12)
-      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse2, "*.c")}
-      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||BrwdelIten(oBrowse2)}
+      @ 10, 205 BUTTON "Add" SIZE 60, 25  on click {||SearchFile(oBrowse2, "*.c")}
+      @ 70, 205 BUTTON "Delete" SIZE 60, 25  on click {||BrwdelIten(oBrowse2)}
    END PAGE of oTAB
    BEGIN PAGE "Lib (Files)" of oTAB
       @ 21, 29 BROWSE oBrowse3 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse3, "*.lib")};
- 	            STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
+ 	            STYLE WS_VSCROLL + WS_HSCROLL SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse3,aFiles3)
       obrowse3:acolumns[1]:heading := "File Names"
       obrowse3:acolumns[1]:length := 50
       oBrowse3:bcolorSel := 0x800080
       oBrowse3:ofont := HFont():Add("Arial", 0, -12)
-      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse3, "*.lib")}
-      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||BrwdelIten(oBrowse3)}
+      @ 10, 205 BUTTON "Add" SIZE 60, 25  on click {||SearchFile(oBrowse3, "*.lib")}
+      @ 70, 205 BUTTON "Delete" SIZE 60, 25  on click {||BrwdelIten(oBrowse3)}
    END PAGE of oTAB
    BEGIN PAGE "Resource (Files)" of oTAB
       @ 21, 29 BROWSE oBrowse4 ARRAY of oTAB ON CLICK {||SearchFile(oBrowse3, "*.rc")};
- 	            STYLE WS_VSCROLL + WS_HSCROLL   SIZE 341, 170  
+ 	            STYLE WS_VSCROLL + WS_HSCROLL SIZE 341, 170  
       hwg_CREATEARLIST(oBrowse4,aFiles4)
       obrowse4:acolumns[1]:heading := "File Names"
       obrowse4:acolumns[1]:length := 50
       oBrowse4:bcolorSel := 0x800080
       oBrowse4:ofont := HFont():Add("Arial", 0, -12)
-      @ 10, 205 BUTTON "Add"     SIZE 60, 25  on click {||SearchFile(oBrowse4, "*.rc")}
-      @ 70, 205 BUTTON "Delete"  SIZE 60, 25  on click {||BrwdelIten(oBrowse4)}
+      @ 10, 205 BUTTON "Add" SIZE 60, 25  on click {||SearchFile(oBrowse4, "*.rc")}
+      @ 70, 205 BUTTON "Delete" SIZE 60, 25  on click {||BrwdelIten(oBrowse4)}
    END PAGE of oTAB
    * DF7BE : Syntax error
 /*
-   @ 419, 20 BUTTONex oBtBuild CAPTION "Build" BITMAP oImgBuild:Handle on Click {||BuildApp()}      SIZE 88, 52
-   @ 419, 80 BUTTONex oBtExit  CAPTION "Exit"  BITMAP oImgExit:Handle  on Click {||hwg_EndDialog()}     SIZE 88, 52
+   @ 419, 20 BUTTONex oBtBuild CAPTION "Build" BITMAP oImgBuild:Handle on Click {||BuildApp()} SIZE 88, 52
+   @ 419, 80 BUTTONex oBtExit  CAPTION "Exit"  BITMAP oImgExit:Handle  on Click {||hwg_EndDialog()} SIZE 88, 52
    @ 419, 140 BUTTONex oBtOpen  CAPTION "Open"  BITMAP oImgOpen:Handle  on Click {||ReadBuildFile()} SIZE 88, 52
    @ 419, 200 BUTTONex oBtSave  CAPTION "Save"  BITMAP oImgSave:Handle  on Click {||SaveBuildFile()} SIZE 88, 52
  */
-   @ 419, 20 BUTTON oBtBuild CAPTION "Build" on Click {||BuildApp()}      SIZE 88, 52
+   @ 419, 20 BUTTON oBtBuild CAPTION "Build" on Click {||BuildApp()} SIZE 88, 52
    @ 419, 80 BUTTON oBtExit  CAPTION "Exit"  on Click {||hwg_EndDialog()} SIZE 88, 52
    @ 419, 140 BUTTON oBtOpen  CAPTION "Open"  on Click {||ReadBuildFile()} SIZE 88, 52
    @ 419, 200 BUTTON oBtSave  CAPTION "Save"  on Click {||SaveBuildFile()} SIZE 88, 52
@@ -617,7 +617,7 @@ Local oSay, oBtExit
    PREPARE FONT oFontBtn NAME "MS Sans Serif" WIDTH 0 HEIGHT -13 ITALIC UNDERLINE
 
    INIT DIALOG oModDlg TITLE "About"     ;
-   AT 190, 10  SIZE 360, 200               ;
+   AT 190, 10 SIZE 360, 200               ;
    ICON oIcon                            ;
    FONT oFontDlg
 
@@ -643,9 +643,9 @@ Local oSay, oBtExit
 
    * DF7BE: Syntax error, not BUTTONex 
 /*   @ 40, 120 BUTTON oBtExit CAPTION "Close" BITMAP oImgExit:Handle ;
-    on Click { || hwg_EndDialog() }    SIZE 180, 35 */
+    on Click { || hwg_EndDialog() } SIZE 180, 35 */
    @ 40, 120 BUTTON oBtExit CAPTION "Close" ;
-    on Click { || hwg_EndDialog() }    SIZE 180, 35 
+    on Click { || hwg_EndDialog() } SIZE 180, 35 
 
    ACTIVATE DIALOG oModDlg
 

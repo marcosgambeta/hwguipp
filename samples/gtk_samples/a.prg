@@ -86,7 +86,7 @@ fname := hwg_Selectfile("Dbf Files" , "*.dbf", mypath )
       nId := 111
 
       INIT DIALOG oModDlg TITLE "1"                    ;
-            AT 210, 10  SIZE 500, 300                    ;
+            AT 210, 10 SIZE 500, 300                    ;
             ON INIT {|o|hwg_Setwindowtext(o:handle,fname)} ;
             ON EXIT {|o|Fileclose(o)}
 /*
@@ -138,7 +138,7 @@ Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
    hwg_CheckMenuItem( , 1001, !hwg_IsCheckedMenuItem( , 1001 ) )
    
    INIT DIALOG oModDlg TITLE cTitle           ;
-   AT 210, 10  SIZE 300, 300                    ;
+   AT 210, 10 SIZE 300, 300                    ;
    FONT oFont                                 ;
    ON EXIT {||hwg_Msgyesno("Really exit ?")}
 
@@ -151,7 +151,7 @@ Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
    @ 20, 95 CHECKBOX "Check 2"  ;
         SIZE 90, 20 COLOR Iif( nColor == NIL, 0x0000FF,nColor )
 
-   @ 160, 70 GROUPBOX "RadioGroup"  SIZE 130, 75
+   @ 160, 70 GROUPBOX "RadioGroup" SIZE 130, 75
 
    RADIOGROUP
    @ 180, 90 RADIOBUTTON "Radio 1"  ;

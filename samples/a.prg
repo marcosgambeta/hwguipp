@@ -128,9 +128,9 @@ Local e5 := 10320.54
         PICTURE "XXXXXXXXXXXXXXX"       ;
         SIZE 260, 25
 
-   @ 20, 80 GET e2  SIZE 260, 25
+   @ 20, 80 GET e2 SIZE 260, 25
 
-   @ 20, 105 GET e3  SIZE 260, 25
+   @ 20, 105 GET e3 SIZE 260, 25
 
    @ 20, 130 GET e4                      ;
         PICTURE "@R 99.999.999/9999-99" ;
@@ -156,7 +156,7 @@ function NoExit()
 Local oDlg, oGet, vGet:="Dialog if no close in ENTER or EXIT"
 
    INIT DIALOG oDlg TITLE "No Exit Enter and Esc"     ;
-   AT 190, 10  SIZE 360, 240   NOEXIT NOEXITESC
+   AT 190, 10 SIZE 360, 240   NOEXIT NOEXITESC
    @ 10, 10 GET oGet VAR vGET SIZE 200, 32
    @ 20, 190  BUTTON "Ok" SIZE 100, 32;
    ON CLICK {|| oDlg:Close()}
@@ -173,7 +173,7 @@ Local oSay
    PREPARE FONT oFontBtn NAME "MS Sans Serif" WIDTH 0 HEIGHT -13 ITALIC UNDERLINE
 
    INIT DIALOG oModDlg TITLE "About"     ;
-   AT 190, 10  SIZE 360, 300               ;
+   AT 190, 10 SIZE 360, 300               ;
    ICON oIcon                            ;
    ON EXIT {||oBmp2 := HBitmap():AddWindow(oBrw),.T.} ;
    FONT oFontDlg
@@ -239,7 +239,7 @@ LOCAL oModDlg
    ENDIF
 
    INIT DIALOG oModDlg TITLE "About2"   ;
-   AT 190, 10  SIZE 360, 240
+   AT 190, 10 SIZE 360, 240
 
    @ 10, 10 BITMAP oBmp2
 
@@ -267,7 +267,7 @@ Local nId
       nId := 111
 
       INIT DIALOG oModDlg TITLE "1"                    ;
-            AT 210, 10  SIZE 500, 300                    ;
+            AT 210, 10 SIZE 500, 300                    ;
             ON INIT {|o|hwg_Setwindowtext(o:handle,fname)} ;
             ON EXIT {|o|Fileclose(o)}
 
@@ -347,7 +347,7 @@ LOCAL oTab
 
    // o:bGetFocus := NIL
    INIT DIALOG oModDlg TITLE cTitle           ;
-   AT 210, 10  SIZE 300, 300                    ;
+   AT 210, 10 SIZE 300, 300                    ;
    FONT oFont                                 ;
    ON EXIT {||hwg_Msgyesno("Really exit ?")}
 
@@ -360,7 +360,7 @@ LOCAL oTab
    @ 20, 95 CHECKBOX "Check 2"  ;
         SIZE 90, 20 COLOR Iif( nColor == NIL, 0x0000FF,nColor )
 
-   @ 160, 70 GROUPBOX "RadioGroup"  SIZE 130, 75
+   @ 160, 70 GROUPBOX "RadioGroup" SIZE 130, 75
 
    RADIOGROUP
    @ 180, 90 RADIOBUTTON "Radio 1"  ;
@@ -467,7 +467,7 @@ LOCAL oCombo
 Private oProg
 
 INIT DIALOG oDlg TITLE "Progress Bar"    ;
-   AT 190, 10  SIZE 360, 240
+   AT 190, 10 SIZE 360, 240
 
 @ 10, 10 PROGRESSBAR oProg  ;
              OF oDlg        ;
@@ -497,7 +497,7 @@ function RRectangle()
 Local oDlg, oR1, oR2, oR3
 
 INIT DIALOG oDlg TITLE "Sample HRect"    ;
-   AT 190, 10  SIZE 600, 400
+   AT 190, 10 SIZE 600, 400
 
        @ 230,  10, 400, 100 RECT oR1 of oDlg PRESS
        @  10,  10, 200, 100 RECT oR2 of oDlg RECT_STYLE 3

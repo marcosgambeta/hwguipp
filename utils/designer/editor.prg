@@ -171,7 +171,7 @@ Local bKeyDown := {|o,nKey|
    i := Ascan( oDesigner:aMethDef, {|a|a[1] == Lower(cMethName)} )
    cParamString := Iif( i == 0, "", oDesigner:aMethDef[i, 2] )
    INIT DIALOG oDlg TITLE "Edit '"+cMethName+"' method"          ;
-      AT 100, 240  SIZE 600, 300  FONT oDesigner:oMainWnd:oFont    ;
+      AT 100, 240 SIZE 600, 300  FONT oDesigner:oMainWnd:oFont    ;
       STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_MAXIMIZEBOX+WS_SIZEBOX ;
       ON INIT {||ChangeTheme(HDTheme():nSelected),hwg_Movewindow(oDlg:handle, 100, 240, 600, 310)} ;
       ON EXIT {||Iif(oEdit:lUpdated.AND.hwg_Msgyesno("Code was changed! Save it?", "Designer"),(cMethod:=oEdit:GetText(),.T.),.T.)}

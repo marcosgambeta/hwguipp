@@ -96,7 +96,7 @@ METHOD HProgressBar:NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExi
       At nX, nY SIZE nWidth, nHeight   ;
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + /* WS_SYSMENU + */ WS_SIZEBOX + IIf(nY == 0, DS_CENTER, 0) + /* DS_SYSMODAL + */ DS_SETFOREGROUND + MB_USERICON
 
-   @ ::nX, nY + 5 SAY ::LabelBox CAPTION IIf(Empty(lPercent), "", "%")  SIZE ::nWidth, 19 STYLE SS_CENTER
+   @ ::nX, nY + 5 SAY ::LabelBox CAPTION IIf(Empty(lPercent), "", "%") SIZE ::nWidth, 19 STYLE SS_CENTER
 
    IF bExit != NIL
       ::oParent:bDestroy := bExit

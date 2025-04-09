@@ -446,8 +446,8 @@ Local i
 
    @ 10, 135 GET oEdit2 VAR formname SIZE 140, 26 MAXLENGTH 0
 
-   @ 20, 200 BUTTON "Ok" ID IDOK  SIZE 100, 32
-   @ 180, 200 BUTTON "Cancel" ID IDCANCEL  SIZE 100, 32
+   @ 20, 200 BUTTON "Ok" ID IDOK SIZE 100, 32
+   @ 180, 200 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    oDlg:Activate()
 

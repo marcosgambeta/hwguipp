@@ -92,7 +92,7 @@ Local oFont
    * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    // INIT DIALOG aDlg2 FROM RESOURCE  "PAGE_2" ON EXIT {||.T.}
      INIT DIALOG aDlg2 TITLE "Config2" ;
-     AT 282, 10  SIZE 346, 249 ;  // 295, 329
+     AT 282, 10 SIZE 346, 249 ;  // 295, 329
      STYLE WS_VISIBLE + WS_CAPTION ;
      FONT oFont ;
      ON EXIT {||.T.}

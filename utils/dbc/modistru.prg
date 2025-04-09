@@ -48,7 +48,7 @@ FUNCTION StruMan( lNew )
    lCanModif := ( !lNew .AND. aFiles[improc,AF_EXCLU] .AND. !aFiles[improc,AF_RDONLY] .AND. aFiles[improc,AF_LOCAL] )
 
    INIT DIALOG oDlg TITLE iif( lCanModif, "Modify", "View" ) + " structure" ;
-      AT 0, 0  SIZE 460, 330  FONT oMainFont
+      AT 0, 0 SIZE 460, 330  FONT oMainFont
 
    @ 20, 20 BROWSE oBrowse ARRAY SIZE 308, 190 ;
       STYLE WS_BORDER + WS_VSCROLL ON POSCHANGE bChgPos

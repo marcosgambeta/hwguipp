@@ -713,7 +713,7 @@ STATIC FUNCTION insBlock()
    ENDIF
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Insert block"  ;
-      AT 210, 10  SIZE 300, 230 FONT HWindow():GetMain():oFont
+      AT 210, 10 SIZE 300, 230 FONT HWindow():GetMain():oFont
 
    @ 20, 20 SAY "Style:" SIZE 90, 22 TRANSPARENT
    @ 110, 20 GET COMBOBOX nStyle ITEMS aStyles SIZE 160, 28 DISPLAYCOUNT 4
@@ -934,7 +934,7 @@ STATIC FUNCTION setCell()
    ENDIF
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Set cell properties"  ;
-      AT 210, 10  SIZE 400, 410 FONT HWindow():GetMain():oFont
+      AT 210, 10 SIZE 400, 410 FONT HWindow():GetMain():oFont
 
    textTab( , aAttr, 16 )
 
@@ -1017,7 +1017,7 @@ STATIC FUNCTION setPara()
    lbb := lb; lib := li; lub := lu; lsb := ls
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Set paragraph properties"  ;
-      AT 210, 10  SIZE 400, 460 FONT HWindow():GetMain():oFont
+      AT 210, 10 SIZE 400, 460 FONT HWindow():GetMain():oFont
 
    @ 10, 10 TAB oTab ITEMS {} SIZE 380, 380 ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
@@ -1164,7 +1164,7 @@ STATIC FUNCTION setSpan()
    ENDIF
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Set span properties"  ;
-      AT 210, 10  SIZE 400, 460 FONT HWindow():GetMain():oFont
+      AT 210, 10 SIZE 400, 460 FONT HWindow():GetMain():oFont
 
    @ 10, 10 TAB oTab ITEMS {} SIZE 380, 380 ON SIZE ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_BOTTOMABS+ANCHOR_RIGHTABS
 
@@ -1592,7 +1592,7 @@ STATIC FUNCTION setDoc()
    arr[1] := nFormat; arr[2] := nOrient; arr[3] := nMargL; arr[4] := nMargR; arr[5] := nMargT; arr[6] := nMargB
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Document properties"  ;
-      AT 210, 10  SIZE 440, 370 FONT HWindow():GetMain():oFont
+      AT 210, 10 SIZE 440, 370 FONT HWindow():GetMain():oFont
 
    @ 20, 20 SAY "Size:" SIZE 100, 24
    @ 120, 16 GET COMBOBOX nFormat ITEMS aCombo SIZE 120, 150
@@ -1744,7 +1744,7 @@ STATIC FUNCTION InsUrl( nType )
    ENDIF
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Insert URL"  ;
-      AT 210, 10  SIZE 400, 190 FONT HWindow():GetMain():oFont ;
+      AT 210, 10 SIZE 400, 190 FONT HWindow():GetMain():oFont ;
       ON INIT {||Iif(nType == 2,oProto:Disable(),.t.)}
 
    IF nType == 2
@@ -1858,8 +1858,8 @@ STATIC FUNCTION setImage( lNew )
    @ 20, 130 SAY "Border:" SIZE 96, 22
    @ 116, 130 GET UPDOWN nBorder RANGE 0, 4 SIZE 50, 30 STYLE WS_BORDER
 
-   @ 80, 202 BUTTON "Ok" ID IDOK  SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS
-   @ 300, 202 BUTTON "Cancel" ID IDCANCEL  SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS
+   @ 80, 202 BUTTON "Ok" ID IDOK SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS
+   @ 300, 202 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS
 
    ACTIVATE DIALOG oDlg
 
@@ -1946,8 +1946,8 @@ STATIC FUNCTION selectImage()
    oBrw:tcolor := CLR_BLACK
    oBrw:bPosChanged := {||hwg_Invalidaterect(oPanel:handle, 0, 0, 0,oPanel:nWidth,oPanel:nHeight)}
 
-   @ 32, 210 BUTTON "Ok" ID IDOK  SIZE 90, 32 ON SIZE ANCHOR_BOTTOMABS
-   @ 276, 210 BUTTON "Cancel" ID IDCANCEL  SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS
+   @ 32, 210 BUTTON "Ok" ID IDOK SIZE 90, 32 ON SIZE ANCHOR_BOTTOMABS
+   @ 276, 210 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS
 
    ACTIVATE DIALOG oDlg CENTER
 
@@ -1970,8 +1970,8 @@ STATIC FUNCTION InsRows()
    @ 20, 20 SAY "Rows:" SIZE 100, 22
    @ 120, 20 GET UPDOWN nRows RANGE 1, 100 SIZE 50, 30 STYLE WS_BORDER
 
-   @ 10, 100 BUTTON "Ok" ID IDOK  SIZE 80, 32
-   @ 110, 100 BUTTON "Cancel" ID IDCANCEL  SIZE 80, 32
+   @ 10, 100 BUTTON "Ok" ID IDOK SIZE 80, 32
+   @ 110, 100 BUTTON "Cancel" ID IDCANCEL SIZE 80, 32
 
    ACTIVATE DIALOG oDlg
 

@@ -120,7 +120,7 @@ LOCAL oItems1, oItems2
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 33, 15 SAY oLabel1 CAPTION "Select items"  SIZE 441, 22 ;
+   @ 33, 15 SAY oLabel1 CAPTION "Select items" SIZE 441, 22 ;
         STYLE SS_CENTER
 
    // Please dimensionize size of both BROWSE windows so that it is enough space to display
@@ -141,20 +141,20 @@ LOCAL oItems1, oItems2
      obrowsbox1:active := .T.
      obrowsbox2:active := .T.
 
-   @ 207, 92 BUTTON oButton1 CAPTION ">"   SIZE 80, 32 ;
+   @ 207, 92 BUTTON oButton1 CAPTION ">" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTORI(obrowsbox1,obrowsbox2) }
-   @ 207, 137 BUTTON oButton2 CAPTION ">>"   SIZE 80, 32 ;
+   @ 207, 137 BUTTON oButton2 CAPTION ">>" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTORA(obrowsbox1,obrowsbox2,GetItems() ) }
-   @ 207, 223 BUTTON oButton3 CAPTION "<"   SIZE 80, 32 ;
+   @ 207, 223 BUTTON oButton3 CAPTION "<" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTOLI(obrowsbox1,obrowsbox2) }
-   @ 207, 281 BUTTON oButton4 CAPTION "<<"   SIZE 80, 32 ;
+   @ 207, 281 BUTTON oButton4 CAPTION "<<" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTOLA(obrowsbox1,obrowsbox2,GetItems() ) }
-   @ 36, 345 BUTTON oButton5 CAPTION "OK"   SIZE 80, 32 ;
+   @ 36, 345 BUTTON oButton5 CAPTION "OK" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
          { || oItemsR := obrowsbox2:aArray , _frm_2browsboxsel:Close() }  /* return content of target browsbox */
-   @ 158, 345 BUTTON oButton6 CAPTION "Cancel"   SIZE 80, 32 ;
+   @ 158, 345 BUTTON oButton6 CAPTION "Cancel" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || _frm_2browsboxsel:Close() }
-   @ 367, 345 BUTTON oButton7 CAPTION "Help"   SIZE 80, 32 ;
+   @ 367, 345 BUTTON oButton7 CAPTION "Help" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { || Hilfe() }
 
    ACTIVATE DIALOG _frm_2browsboxsel

@@ -55,7 +55,7 @@ Local oList, oItemso := { { "Item01" } , { "Item02" } , { "Item03" } , { "Item04
 #endif 
 
    INIT DIALOG oModDlg TITLE "Test"  ;
-   AT 0, 0  SIZE 450, 350   ;
+   AT 0, 0 SIZE 450, 350   ;
    FONT oFont
 
    // Please dimensionize size of BROWSE window so that it is enough space to display
@@ -68,7 +68,7 @@ Local oList, oItemso := { { "Item01" } , { "Item02" } , { "Item03" } , { "Item04
     obrowsbox1:lDispHead := .F. // No Header
     obrowsbox1:active := .T.
 
-   @  10, 280 BUTTON "Ok" ID IDOK  SIZE 50, 32
+   @  10, 280 BUTTON "Ok" ID IDOK SIZE 50, 32
     ACTIVATE DIALOG oModDlg
     oFont:Release()
 

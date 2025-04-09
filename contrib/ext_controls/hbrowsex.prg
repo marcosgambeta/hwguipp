@@ -3122,7 +3122,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
                      WHEN { | oColumn, oGet | ::WhenColumn( oColumn, oGet, oBtn ) }
                   IF oColumn:bClick != NIL
                      IF Type != "D"
-                        @ nWidth - 15, 0  OWNERBUTTON oBtn  SIZE 16, ::height - 0 ;
+                        @ nWidth - 15, 0  OWNERBUTTON oBtn SIZE 16, ::height - 0 ;
                            TEXT "..."  FONT HFont():Add("MS Sans Serif", 0, -10, 400) ;
                            COORDINATES 0, 1, 0, 0      ;
                            ON CLICK { | oColumn, oBtn | HB_SYMBOL_UNUSED(oColumn), ::onClickColumn( .T. , oGet, oBtn ) }

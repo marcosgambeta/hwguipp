@@ -31,7 +31,7 @@ Local oSplit, oSay
    ENDIF
 
    INIT DIALOG oDlg TITLE CutPath(fname)    ;
-   AT 210, 10  SIZE 430, 300                  ;
+   AT 210, 10 SIZE 430, 300                  ;
    FONT oFont                               ;
    ON INIT {||BuildTree(oTree,oXmlDoc:aItems,oSay)}
 

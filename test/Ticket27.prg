@@ -65,9 +65,9 @@ FUNCTION Test1()
    
    INIT DIALOG oDlg ;
     TITLE "Multithread dialog #1" ;
-    AT 0 , 0  SIZE 600, 500
+    AT 0 , 0 SIZE 600, 500
 
-   @ 20 , 80 GET cTexto   SIZE 260, 25
+   @ 20 , 80 GET cTexto SIZE 260, 25
    @ 20 , 180 GET cTexto2 SIZE 260, 25
    
 
@@ -93,9 +93,9 @@ FUNCTION Test2()
    
    INIT DIALOG oDlg ;
     TITLE "Multithread dialog #2" ;
-    AT 30 , 30  SIZE 600, 500
+    AT 30 , 30 SIZE 600, 500
 
-   @ 20 , 80 GET cTexto   SIZE 260, 25
+   @ 20 , 80 GET cTexto SIZE 260, 25
    @ 20 , 180 GET cTexto2 SIZE 260, 25
    
 

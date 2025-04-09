@@ -48,7 +48,7 @@ Local e7 := "Password"
 Private oSayT
 
    INIT DIALOG oModDlg CLIPPER NOEXIT TITLE "Get a value"  ;
-   AT 210, 10  SIZE 300, 320 ;
+   AT 210, 10 SIZE 300, 320 ;
    ON INIT {|| SetTimer(oModDlg,@oTimer)}
    // FONT oFont  
 
@@ -66,9 +66,9 @@ Private oSayT
         MAXLENGTH 15                    ;
         SIZE 260, 26
 
-   @ 20, 95 GET e2  SIZE 260, 26
+   @ 20, 95 GET e2 SIZE 260, 26
 
-   @ 20, 125 GET e3  SIZE 260, 26
+   @ 20, 125 GET e3 SIZE 260, 26
 
    @ 20, 155 GET e4                      ;
         PICTURE "@R 99.999.999/9999-99" ;

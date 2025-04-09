@@ -61,7 +61,7 @@ oFont := hwg_DefaultFont()
 daltdatum := d1
 
   INIT DIALOG oModDlg TITLE "Datepicker"  ;
-   AT 210, 10  SIZE 350, 300                  ;
+   AT 210, 10 SIZE 350, 300                  ;
    FONT oFont NOEXIT
 
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

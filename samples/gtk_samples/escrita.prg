@@ -30,7 +30,7 @@ CHECK_FILE(cbmppref + "door.bmp")
 CHECK_FILE(cbmppref + "cancel.ico")
 
    INIT DIALOG oModDlg TITLE "Teste da Acentuação" ;
-      AT 210, 10  SIZE 300, 300 ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
+      AT 210, 10 SIZE 300, 300 ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
 
    @ 0, 0 toolbar oTool of oModDlg size 50, 100 ID 700
    TOOLBUTTON  otool ;

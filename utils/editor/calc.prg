@@ -67,7 +67,7 @@ FUNCTION EditScr( oEdit, aStru )
    LOCAL oDlg, oEdiScr, arr
 
    INIT DIALOG oDlg TITLE Iif( aStru == NIL, "Insert", "Edit" ) + " script" ;
-      AT 100, 240  SIZE 600, 300  FONT HWindow():Getmain():oFont ;
+      AT 100, 240 SIZE 600, 300  FONT HWindow():Getmain():oFont ;
       STYLE WS_POPUP+WS_VISIBLE+WS_CAPTION+WS_SYSMENU+WS_MAXIMIZEBOX+WS_SIZEBOX ;
       ON INIT {||hwg_Movewindow(oDlg:handle, 100, 240, 600, 310)}
 

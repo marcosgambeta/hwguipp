@@ -105,14 +105,14 @@ SET DATE ANSI  // YY(YY).MM.TT
 
    @ 25, 25 BUTTON oButton1 CAPTION "Exit" SIZE 75,nheight FONT oFont ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK { | | Testfunc:Close() }
-   @ 127, 25 BUTTON oButton2 CAPTION "CENTURY ON"   SIZE 120,nheight FONT oFont  ;
+   @ 127, 25 BUTTON oButton2 CAPTION "CENTURY ON" SIZE 120,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK  { | | CENT_ON() }
-   @ 277, 25 BUTTON oButton3 CAPTION "CENTURY OFF"   SIZE 120,nheight FONT oFont  ;
+   @ 277, 25 BUTTON oButton3 CAPTION "CENTURY OFF" SIZE 120,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK  { | | CENT_OFF() }
-   @ 407, 25 BUTTON oButton4 CAPTION "DATE()"   SIZE 120,nheight FONT oFont  ;
+   @ 407, 25 BUTTON oButton4 CAPTION "DATE()" SIZE 120,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
         { | |Funkt(DATE(),"D","DATE()") }
-   @ 537, 25 BUTTON oButton5 CAPTION "Summary"   SIZE 120,nheight FONT oFont  ;
+   @ 537, 25 BUTTON oButton5 CAPTION "Summary" SIZE 120,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
         { | |  fSUMM() }
    @ 25, 50 BUTTON oButton6 CAPTION "hwg_GetUTCTimeDate()" SIZE 218,nheight FONT oFont  ;
@@ -219,7 +219,7 @@ FUNCTION HIDE_CURSOR ( oFont , nheight , Testfunc )
 * For hiding mouse cursor on main window
 //     hmain := Testfunc:handle
 
-      INIT DIALOG odlg TITLE "Hide / show cursor"  AT 0, 0   SIZE 400 , 100 ;
+      INIT DIALOG odlg TITLE "Hide / show cursor"  AT 0, 0 SIZE 400 , 100 ;
       FONT oFont CLIPPER
 
 * Hide cursor only in dialog window.
@@ -273,19 +273,19 @@ FUNCTION Funkt ( rval, cType , cfunkt)
      CASE cType == "O"
       hwg_MsgInfo("Return Value: >" + IIF(rval,"ON","OFF") + "<", "Function: " + cfunkt )
  ENDCASE
- 
-RETURN NIL 
+
+RETURN NIL
 
 FUNCTION CENT_ON
  SET CENTURY ON
-RETURN NIL  
+RETURN NIL
 
 FUNCTION CENT_OFF
- SET CENTURY OFF 
+ SET CENTURY OFF
 RETURN NIL
 
 FUNCTION N2STR(numb)
-RETURN ALLTRIM(STR(numb) ) 
+RETURN ALLTRIM(STR(numb) )
 
 FUNCTION TotF(btf)
 RETURN IIF(btf,"True","False")
@@ -301,12 +301,12 @@ RETURN NIL
 FUNCTION fSUMM
   hwg_Msginfo( ;
        "OS(): " + OS() + CHR(10) + ;
-       "HWGUI++ Version  : " + hwg_Version() + CHR(10) + ;   
-       "Windows : " + TotF(hwg_isWindows() )  + CHR(10) + ; 
-       "Windows 7: " + TotF(hwg_isWin7() ) + CHR(10) + ; 
+       "HWGUI++ Version  : " + hwg_Version() + CHR(10) + ;
+       "Windows : " + TotF(hwg_isWindows() )  + CHR(10) + ;
+       "Windows 7: " + TotF(hwg_isWin7() ) + CHR(10) + ;
        "Windows 10: " + TotF(hwg_isWin10() ) + CHR(10) + ;
        "Windows Maj.Vers.: " + N2STR(hwg_GetWinMajorVers() ) + CHR(10) + ;
-       "Windows Min.Vers.: " + N2STR(hwg_GetWinMinorVers() ) + CHR(10) + ; 
+       "Windows Min.Vers.: " + N2STR(hwg_GetWinMinorVers() ) + CHR(10) + ;
        "Unicode : " + TotF(hwg__isUnicode() ) + CHR(10) + ;
        "Default user lang. :" + HWG_DEFUSERLANG() + CHR(10) +  ;
        "Locale :" + hwg_GetLocaleInfo() + CHR(10) +  ;
@@ -348,13 +348,13 @@ nyeart := YEAR( DATE() )  // Preset recent year
      STYLE WS_SYSMENU+WS_SIZEBOX+WS_VISIBLE
 
 
-   @ 54, 44 SAY oLabel1 CAPTION "Enter a year 1583 and higher"  SIZE 380, 22
-   @ 61, 102 GET oEditbox1 VAR nyeart  SIZE 325, 24 ;
+   @ 54, 44 SAY oLabel1 CAPTION "Enter a year 1583 and higher" SIZE 380, 22
+   @ 61, 102 GET oEditbox1 VAR nyeart SIZE 325, 24 ;
         STYLE WS_BORDER   PICTURE "9999"
-   @ 63, 181 BUTTON oButton1 CAPTION "OK"   SIZE 80, 32 ;
+   @ 63, 181 BUTTON oButton1 CAPTION "OK" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT   ;
         ON CLICK { | | Res_LeapYear(nyeart) }
-   @ 200, 181 BUTTON oButton2 CAPTION "Cancel"   SIZE 80, 32 ;
+   @ 200, 181 BUTTON oButton2 CAPTION "Cancel" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT   ;
         ON CLICK { | | oTestLeapYear:Close() }
 

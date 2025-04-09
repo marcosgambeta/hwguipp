@@ -144,7 +144,7 @@ ENDIF
      * see sample program "colrbloc.prg"
 
      @ 21, 50 BROWSE oBrwArr ARRAY ;
-             STYLE WS_VSCROLL + WS_HSCROLL   SIZE 100, 170
+             STYLE WS_VSCROLL + WS_HSCROLL SIZE 100, 170
 
 	/* See arraybrowse.prg */		 
       hwg_CREATEARLIST(oBrwArr,al_DOKs)

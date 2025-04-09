@@ -74,10 +74,10 @@ FUNCTION Teste
 
    INIT DIALOG oDlg ;
     TITLE "Debugger test sample, Function Teste" ;
-    AT 0 , 0  SIZE 300, 200
+    AT 0 , 0 SIZE 300, 200
 
-   @ 20 , 20 GET cTexto   SIZE 260, 25
-   @ 20 , 80 GET cTexto2  SIZE 260, 25
+   @ 20 , 20 GET cTexto SIZE 260, 25
+   @ 20 , 80 GET cTexto2 SIZE 260, 25
    
 
    @ 20 , 150  BUTTON "OK" SIZE 100, 32 ON CLICK {|| oDlg:Close() }

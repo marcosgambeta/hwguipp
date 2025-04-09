@@ -117,39 +117,39 @@ aumemdarr := aARR_EMPTY()
 //     STYLE WS_SYSMENU + WS_SIZEBOX + WS_VISIBLE +  DS_CENTER
 
 
-   @ 36, 25 SAY oLabel1 CAPTION "Dump of file :"  SIZE 153, 22
-   @ 217, 25 SAY oLabel2 CAPTION cStMEMFILE  SIZE 638, 22
+   @ 36, 25 SAY oLabel1 CAPTION "Dump of file :" SIZE 153, 22
+   @ 217, 25 SAY oLabel2 CAPTION cStMEMFILE SIZE 638, 22
 
 
      @ 38, 94 BROWSE oBrwArr ARRAY ;
-             STYLE WS_VSCROLL + WS_HSCROLL  SIZE 1044, 306 ;
-             FONT oFont &&   SIZE 341, 170
+             STYLE WS_VSCROLL + WS_HSCROLL SIZE 1044, 306 ;
+             FONT oFont && SIZE 341, 170
  
  
       UPDATE_BRW()
 
 
 
-   @ 40, 430 BUTTON oButton1 CAPTION "Open MEM file"   SIZE 155, 32 ;
+   @ 40, 430 BUTTON oButton1 CAPTION "Open MEM file" SIZE 155, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| dlgOpenMem() }
-   @ 223, 430 BUTTON oButton2 CAPTION "Exit"   SIZE 80, 32 ;
+   @ 223, 430 BUTTON oButton2 CAPTION "Exit" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| frm_memdump:Close() }
-   @ 331, 430 BUTTON oButton3 CAPTION "Save as text file"   SIZE 235, 32 ;
+   @ 331, 430 BUTTON oButton3 CAPTION "Save as text file" SIZE 235, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| dlgTextout() }
-   @ 594, 430 BUTTON oButton4 CAPTION "Save as HTML file"   SIZE 235, 32 ;
+   @ 594, 430 BUTTON oButton4 CAPTION "Save as HTML file" SIZE 235, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| dlgHTMLout() }
-   @ 864, 430 BUTTON oButton5 CAPTION "Help"   SIZE 80, 32 ;
+   @ 864, 430 BUTTON oButton5 CAPTION "Help" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
         ON CLICK {|| Show_Help() }
-   @ 997, 430 BUTTON oButton6 CAPTION "Test"   SIZE 80, 32 ;
+   @ 997, 430 BUTTON oButton6 CAPTION "Test" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
          ON CLICK {|| Testdialog() }
 
-   @ 997, 470 BUTTON oButton7 CAPTION "Clear"   SIZE 80, 32 ;
+   @ 997, 470 BUTTON oButton7 CAPTION "Clear" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
          ON CLICK {|| CLEAR_ALL(), DEL_TESTFI() }
 

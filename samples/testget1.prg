@@ -70,7 +70,7 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
 #endif 
 
    INIT DIALOG oModDlg TITLE "Get a value"  ;
-   AT 210, 10  SIZE 350, 300                  ;
+   AT 210, 10 SIZE 350, 300                  ;
    FONT oFont NOEXIT
 
    SET KEY 0,VK_F3 TO hwg_Msginfo("F3") 
@@ -127,8 +127,8 @@ Local odGet, oDateOwb   // For DATEPICKER substitute
    @ 160, 170 GET DATEPICKER d1 SIZE 80, 20
 #endif
 
-   @ 20, 240 BUTTON "Ok" ID IDOK  SIZE 100, 32
-   @ 180, 240 BUTTON "Cancel" ID IDCANCEL  SIZE 100, 32
+   @ 20, 240 BUTTON "Ok" ID IDOK SIZE 100, 32
+   @ 180, 240 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    ACTIVATE DIALOG oModDlg
    oFont:Release()
