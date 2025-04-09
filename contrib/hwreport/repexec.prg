@@ -67,27 +67,27 @@ FUNCTION hwg_hwr_Open(fname, repName)
                ELSEIF Upper(SubStr(stroka, 2, 6)) == "SCRIPT"
                   nMode := 2
                   IF aItem != NIL
-                     aItem[ ITEM_SCRIPT ] := ""
+                     aItem[ITEM_SCRIPT] := ""
                   ELSE
-                     aPaintRep[ FORM_VARS ] := ""
+                     aPaintRep[FORM_VARS] := ""
                   ENDIF
                ENDIF
             ELSE
                aLine := hb_ATokens( stroka, ";" )
                IF ( itemName := aLine[1] ) == "FORM"
-                  aPaintRep[ FORM_WIDTH ] := Val(aLine[2])
-                  aPaintRep[ FORM_HEIGHT ] := Val(aLine[3])
+                  aPaintRep[FORM_WIDTH] := Val(aLine[2])
+                  aPaintRep[FORM_HEIGHT] := Val(aLine[3])
                   nFormWidth := Val(aLine[4])
-                  aPaintRep[ FORM_XKOEF ] := nFormWidth / aPaintRep[ FORM_WIDTH ]
+                  aPaintRep[FORM_XKOEF] := nFormWidth / aPaintRep[FORM_WIDTH]
                ELSEIF itemName == "TEXT"
                   aItem := hwg_Hwr_AddItem( aPaintRep, 1, aLine[2], Val(aLine[3]), ;
                      Val(aLine[4]), Val(aLine[5]), Val(aLine[6]), Val(aLine[7]), ;
                      0, aLine[8], Val(aLine[9]) )
 
-                  IF aItem[ ITEM_X1 ] == NIL .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
-                          aItem[ ITEM_Y1 ] == NIL .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
-                          aItem[ ITEM_WIDTH ] == NIL .OR. aItem[ ITEM_WIDTH ] == 0 .OR. ;
-                          aItem[ ITEM_HEIGHT ] == NIL .OR. aItem[ ITEM_HEIGHT ] == 0
+                  IF aItem[ITEM_X1] == NIL .OR. aItem[ITEM_X1] == 0 .OR. ;
+                          aItem[ITEM_Y1] == NIL .OR. aItem[ITEM_Y1] == 0 .OR. ;
+                          aItem[ITEM_WIDTH] == NIL .OR. aItem[ITEM_WIDTH] == 0 .OR. ;
+                          aItem[ITEM_HEIGHT] == NIL .OR. aItem[ITEM_HEIGHT] == 0
                      hwg_MsgStop("Error: " + stroka)
                      RETURN NIL
                   ENDIF
@@ -96,10 +96,10 @@ FUNCTION hwg_hwr_Open(fname, repName)
                       "", Val(aLine[2]), Val(aLine[3]), Val(aLine[4]), ;
                       Val(aLine[5]), 0, aLine[6] )
 
-                  IF aItem[ ITEM_X1 ] == NIL .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
-                              aItem[ ITEM_Y1 ] == NIL .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
-                              aItem[ ITEM_WIDTH ] == NIL .OR. aItem[ ITEM_WIDTH ] == 0 .OR. ;
-                              aItem[ ITEM_HEIGHT ] == NIL .OR. aItem[ ITEM_HEIGHT ] == 0
+                  IF aItem[ITEM_X1] == NIL .OR. aItem[ITEM_X1] == 0 .OR. ;
+                              aItem[ITEM_Y1] == NIL .OR. aItem[ITEM_Y1] == 0 .OR. ;
+                              aItem[ITEM_WIDTH] == NIL .OR. aItem[ITEM_WIDTH] == 0 .OR. ;
+                              aItem[ITEM_HEIGHT] == NIL .OR. aItem[ITEM_HEIGHT] == 0
                      hwg_MsgStop("Error: " + stroka)
                      RETURN NIL
                   ENDIF
@@ -107,10 +107,10 @@ FUNCTION hwg_hwr_Open(fname, repName)
                   aItem := hwg_Hwr_AddItem( aPaintRep, 5, aLine[2], ;
                       Val(aLine[3]), Val(aLine[4]), Val(aLine[5]), Val(aLine[6]) )
 
-                  IF aItem[ ITEM_X1 ] == NIL .OR. aItem[ ITEM_X1 ] == 0 .OR. ;
-                     aItem[ ITEM_Y1 ] == NIL .OR. aItem[ ITEM_Y1 ] == 0 .OR. ;
-                     aItem[ ITEM_WIDTH ] == NIL .OR. aItem[ ITEM_WIDTH ] == 0 .OR. ;
-                     aItem[ ITEM_HEIGHT ] == NIL .OR. aItem[ ITEM_HEIGHT ] == 0
+                  IF aItem[ITEM_X1] == NIL .OR. aItem[ITEM_X1] == 0 .OR. ;
+                     aItem[ITEM_Y1] == NIL .OR. aItem[ITEM_Y1] == 0 .OR. ;
+                     aItem[ITEM_WIDTH] == NIL .OR. aItem[ITEM_WIDTH] == 0 .OR. ;
+                     aItem[ITEM_HEIGHT] == NIL .OR. aItem[ITEM_HEIGHT] == 0
                      hwg_MsgStop("Error: " + stroka)
                      RETURN NIL
                   ENDIF
@@ -124,9 +124,9 @@ FUNCTION hwg_hwr_Open(fname, repName)
                nMode := 1
             ELSE
                IF aItem != NIL
-                  aItem[ ITEM_SCRIPT ] += stroka + Chr(13) + Chr(10)
+                  aItem[ITEM_SCRIPT] += stroka + Chr(13) + Chr(10)
                ELSE
-                  aPaintRep[ FORM_VARS ] += stroka + Chr(13) + Chr(10)
+                  aPaintRep[FORM_VARS] += stroka + Chr(13) + Chr(10)
                ENDIF
             ENDIF
          ENDIF
@@ -136,11 +136,11 @@ FUNCTION hwg_hwr_Open(fname, repName)
       hwg_MsgStop("Can't open " + fname)
       RETURN NIL
    ENDIF
-   IF Empty(aPaintRep[ FORM_ITEMS ])
+   IF Empty(aPaintRep[FORM_ITEMS])
       hwg_MsgStop(repName + " not found or empty!")
       RETURN NIL
    ELSE
-      aPaintRep[ FORM_ITEMS ] := ASort( aPaintRep[ FORM_ITEMS ],,, {|z, y|z[ITEM_Y1] < y[ITEM_Y1] .OR. (z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] < y[ITEM_X1]) .OR. (z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] == y[ITEM_X1] .AND. (z[ITEM_WIDTH] < y[ITEM_WIDTH] .OR. z[ITEM_HEIGHT] < y[ITEM_HEIGHT]))} )
+      aPaintRep[FORM_ITEMS] := ASort( aPaintRep[FORM_ITEMS],,, {|z, y|z[ITEM_Y1] < y[ITEM_Y1] .OR. (z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] < y[ITEM_X1]) .OR. (z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] == y[ITEM_X1] .AND. (z[ITEM_WIDTH] < y[ITEM_WIDTH] .OR. z[ITEM_HEIGHT] < y[ITEM_HEIGHT]))} )
    ENDIF
    RETURN aPaintRep
 
@@ -163,15 +163,15 @@ FUNCTION hwg_Hwr_AddItem( aPaintRep, nType, cCaption, nLeft, nTop, nWidth, nHeig
 
    AAdd(aPaintRep[FORM_ITEMS], aItem := {nType, cCaption, nLeft, nTop, nWidth, nHeight, nAlign, cPen, cFont, nVarType, 0, NIL, 0})
 
-   IF !Empty(aItem[ ITEM_FONT ]) .AND. HB_ISCHAR(aItem[ITEM_FONT])
-      arr := hb_ATokens( aItem[ ITEM_FONT ], "," )
-      aItem[ ITEM_FONT ] := HFont():Add(arr[1], ;
+   IF !Empty(aItem[ITEM_FONT]) .AND. HB_ISCHAR(aItem[ITEM_FONT])
+      arr := hb_ATokens( aItem[ITEM_FONT], "," )
+      aItem[ITEM_FONT] := HFont():Add(arr[1], ;
          Val(arr[2]), Val(arr[3]), Val(arr[4]), Val(arr[5]), ;
          Val(arr[6]), Val(arr[7]), Val(arr[8]))
    ENDIF
-   IF !Empty(aItem[ ITEM_PEN ]) .AND. HB_ISCHAR(aItem[ITEM_PEN])
-      arr := hb_ATokens( aItem[ ITEM_PEN ], "," )
-      aItem[ ITEM_PEN ] := HPen():Add( Val(arr[1]), Val(arr[2]), Val(arr[3]) )
+   IF !Empty(aItem[ITEM_PEN]) .AND. HB_ISCHAR(aItem[ITEM_PEN])
+      arr := hb_ATokens( aItem[ITEM_PEN], "," )
+      aItem[ITEM_PEN] := HPen():Add( Val(arr[1]), Val(arr[2]), Val(arr[3]) )
    ENDIF
    IF aItem[ITEM_TYPE] == TYPE_BITMAP
       aItem[ITEM_BITMAP] := HBitmap():AddFile( aItem[ITEM_CAPTION] )
@@ -192,7 +192,7 @@ FUNCTION hwg_hwr_Close(aPaintRep)
 
    FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
       aItem := aPaintRep[FORM_ITEMS,i]
-      IF !Empty(aItem[ITEM_PEN]) .AND. Valtype( aItem[ ITEM_PEN ] ) == "O"
+      IF !Empty(aItem[ITEM_PEN]) .AND. Valtype( aItem[ITEM_PEN] ) == "O"
          aItem[ITEM_PEN]:Release()
       ENDIF
       IF !Empty(aItem[ITEM_FONT])
@@ -235,8 +235,8 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 #else
    aPrnCoors := hwg_Getdevicearea( hDC )
 #endif
-   prnXCoef := ( aPrnCoors[1] / aPaintRep[ FORM_WIDTH ] ) / aPaintRep[ FORM_XKOEF ]
-   prnYCoef := ( aPrnCoors[2] / aPaintRep[ FORM_HEIGHT ] ) / aPaintRep[ FORM_XKOEF ]
+   prnXCoef := ( aPrnCoors[1] / aPaintRep[FORM_WIDTH] ) / aPaintRep[FORM_XKOEF]
+   prnYCoef := ( aPrnCoors[2] / aPaintRep[FORM_HEIGHT] ) / aPaintRep[FORM_XKOEF]
    // writelog( oPrinter:cPrinterName + str(aPrnCoors[1])+str(aPrnCoors[2])+" / "+str(aPaintRep[FORM_WIDTH])+" "+str(aPaintRep[FORM_HEIGHT])+str(aPaintRep[FORM_XKOEF])+" / "+str(prnXCoef)+str(prnYCoef) )
 
    IF Type( "oFontStandard" ) = "U"
@@ -247,15 +247,15 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 #endif
    ENDIF
 
-   FOR i := 1 TO Len( aPaintRep[ FORM_ITEMS ] )
-      IF aPaintRep[ FORM_ITEMS, i, ITEM_TYPE ] == TYPE_TEXT
-         oFont := aPaintRep[ FORM_ITEMS, i, ITEM_FONT ]
+   FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
+      IF aPaintRep[FORM_ITEMS, i, ITEM_TYPE] == TYPE_TEXT
+         oFont := aPaintRep[FORM_ITEMS, i, ITEM_FONT]
 #ifdef __GTK__
-         aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ] := oPrinter:AddFont( oFont:name, ;
+         aPaintRep[FORM_ITEMS, i, ITEM_GROUP] := oPrinter:AddFont( oFont:name, ;
             Round( oFont:height * prnYCoef, 0 ), (oFont:weight>400), ;
             (oFont:italic>0), .F., oFont:charset )
 #else
-         aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ] := HFont():Add(oFont:name, ;
+         aPaintRep[FORM_ITEMS, i, ITEM_GROUP] := HFont():Add(oFont:name, ;
             oFont:width, Round( oFont:height * prnYCoef, 0 ), oFont:weight, ;
             oFont:charset, oFont:italic)
 #endif
@@ -277,30 +277,30 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
       ENDDO
    ENDIF
 
-   FOR iItem := 1 TO Len( aPaintRep[ FORM_ITEMS ] )
-      aItem := aPaintRep[ FORM_ITEMS, iItem ]
-      IF aItem[ ITEM_TYPE ] == TYPE_MARKER
-         aItem[ ITEM_GROUP ] := 0
-         IF aItem[ ITEM_CAPTION ] == "SL"
-            nLineStartY := aItem[ ITEM_Y1 ]
-            aItem[ ITEM_GROUP ] := 0
+   FOR iItem := 1 TO Len( aPaintRep[FORM_ITEMS] )
+      aItem := aPaintRep[FORM_ITEMS, iItem]
+      IF aItem[ITEM_TYPE] == TYPE_MARKER
+         aItem[ITEM_GROUP] := 0
+         IF aItem[ITEM_CAPTION] == "SL"
+            nLineStartY := aItem[ITEM_Y1]
+            aItem[ITEM_GROUP] := 0
             iSL := iItem
-         ELSEIF aItem[ ITEM_CAPTION ] == "EL"
-            nLineHeight := aItem[ ITEM_Y1 ] - nLineStartY
+         ELSEIF aItem[ITEM_CAPTION] == "EL"
+            nLineHeight := aItem[ITEM_Y1] - nLineStartY
             iEL := iItem
-         ELSEIF aItem[ ITEM_CAPTION ] == "PF"
-            nEndList := aItem[ ITEM_Y1 ]
+         ELSEIF aItem[ITEM_CAPTION] == "PF"
+            nEndList := aItem[ITEM_Y1]
             iPF := iItem
-         ELSEIF aItem[ ITEM_CAPTION ] == "EPF"
+         ELSEIF aItem[ITEM_CAPTION] == "EPF"
             iEPF := iItem
-         ELSEIF  aItem[ ITEM_CAPTION ] == "DF"
+         ELSEIF  aItem[ITEM_CAPTION] == "DF"
             iDF := iItem
             IF iPF == 0
-               nEndList := aItem[ ITEM_Y1 ]
+               nEndList := aItem[ITEM_Y1]
             ENDIF
-         ELSEIF aItem[ ITEM_CAPTION ] == "PH"
+         ELSEIF aItem[ITEM_CAPTION] == "PH"
             iPH := iItem
-            nPHStart := aItem[ ITEM_Y1 ]
+            nPHStart := aItem[ITEM_Y1]
          ENDIF
       ENDIF
    NEXT
@@ -327,29 +327,29 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 
    DO WHILE .T.
       iItem := 1
-      DO WHILE iItem <= Len( aPaintRep[ FORM_ITEMS ] )
-         aItem := aPaintRep[ FORM_ITEMS, iItem ]
+      DO WHILE iItem <= Len( aPaintRep[FORM_ITEMS] )
+         aItem := aPaintRep[FORM_ITEMS, iItem]
          // WriteLog( Str(iItem, 3)+": "+Str(aItem[ITEM_TYPE]) )
-         IF aItem[ ITEM_TYPE ] == TYPE_MARKER
-            IF aItem[ ITEM_CAPTION ] == "PH"
-               IF aItem[ ITEM_GROUP ] == 0
-                  aItem[ ITEM_GROUP ] := 1
+         IF aItem[ITEM_TYPE] == TYPE_MARKER
+            IF aItem[ITEM_CAPTION] == "PH"
+               IF aItem[ITEM_GROUP] == 0
+                  aItem[ITEM_GROUP] := 1
                   FOR i := 1 TO iPH - 1
-                     IF aPaintRep[ FORM_ITEMS, i, ITEM_TYPE ] == TYPE_BITMAP
-                        hwg_Hwr_PrintItem( oPrinter, aPaintRep[ FORM_ITEMS, i ], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
+                     IF aPaintRep[FORM_ITEMS, i, ITEM_TYPE] == TYPE_BITMAP
+                        hwg_Hwr_PrintItem( oPrinter, aPaintRep[FORM_ITEMS, i], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
                      ENDIF
                   NEXT
                ENDIF
-            ELSEIF aItem[ ITEM_CAPTION ] == "SL"
-               IF aItem[ ITEM_GROUP ] == 0
+            ELSEIF aItem[ITEM_CAPTION] == "SL"
+               IF aItem[ITEM_GROUP] == 0
                   // IF iPH == 0
                   FOR i := 1 TO iSL - 1
-                     IF aPaintRep[ FORM_ITEMS, i, ITEM_TYPE ] == TYPE_BITMAP
-                        hwg_Hwr_PrintItem( oPrinter, aPaintRep[ FORM_ITEMS, i ], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
+                     IF aPaintRep[FORM_ITEMS, i, ITEM_TYPE] == TYPE_BITMAP
+                        hwg_Hwr_PrintItem( oPrinter, aPaintRep[FORM_ITEMS, i], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
                      ENDIF
                   NEXT
                   // ENDIF
-                  aItem[ ITEM_GROUP ] := 1
+                  aItem[ITEM_GROUP] := 1
                   IF ! ScriptExecute( aItem )
                      oPrinter:EndPage()
                      oPrinter:EndDoc()
@@ -362,10 +362,10 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
                   ENDIF
                ENDIF
                lAddMode := .T.
-            ELSEIF aItem[ ITEM_CAPTION ] == "EL"
+            ELSEIF aItem[ITEM_CAPTION] == "EL"
                FOR i := iSL + 1 TO iEL - 1
-                  IF aPaintRep[ FORM_ITEMS, i, ITEM_TYPE ] == TYPE_BITMAP
-                     hwg_Hwr_PrintItem( oPrinter, aPaintRep[ FORM_ITEMS, i ], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
+                  IF aPaintRep[FORM_ITEMS, i, ITEM_TYPE] == TYPE_BITMAP
+                     hwg_Hwr_PrintItem( oPrinter, aPaintRep[FORM_ITEMS, i], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
                   ENDIF
                NEXT
                IF ! ScriptExecute( aItem )
@@ -397,10 +397,10 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
                ELSE
                   lAddMode := .F.
                ENDIF
-            ELSEIF aItem[ ITEM_CAPTION ] == "EPF"
+            ELSEIF aItem[ITEM_CAPTION] == "EPF"
                FOR i := iPF + 1 TO iEPF - 1
-                  IF aPaintRep[ FORM_ITEMS, i, ITEM_TYPE ] == TYPE_BITMAP
-                     hwg_Hwr_PrintItem( oPrinter, aPaintRep[ FORM_ITEMS, i ], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
+                  IF aPaintRep[FORM_ITEMS, i, ITEM_TYPE] == TYPE_BITMAP
+                     hwg_Hwr_PrintItem( oPrinter, aPaintRep[FORM_ITEMS, i], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
                   ENDIF
                NEXT
                IF ! lLastCycle
@@ -414,13 +414,13 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
                      iItem := iPH
                   ENDIF
                ENDIF
-            ELSEIF aItem[ ITEM_CAPTION ] == "DF"
+            ELSEIF aItem[ITEM_CAPTION] == "DF"
                lAddMode := .F.
-               IF aItem[ ITEM_ALIGN ] == 1
+               IF aItem[ITEM_ALIGN] == 1
                ENDIF
             ENDIF
          ELSE
-            IF aItem[ ITEM_TYPE ] == TYPE_TEXT
+            IF aItem[ITEM_TYPE] == TYPE_TEXT
                IF ! ScriptExecute( aItem )
                   oPrinter:EndPage()
                   oPrinter:EndDoc()
@@ -428,15 +428,15 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
                   RETURN .F.
                ENDIF
             ENDIF
-            IF aItem[ ITEM_TYPE ] != TYPE_BITMAP
+            IF aItem[ITEM_TYPE] != TYPE_BITMAP
                hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
             ENDIF
          ENDIF
          iItem ++
       ENDDO
-      FOR i := IIf( iSL == 0, 1, IIf( iDF > 0, iDF + 1, IIf( iPF > 0, iEPF + 1, iEL + 1 ) ) ) TO Len( aPaintRep[ FORM_ITEMS ] )
-         IF aPaintRep[ FORM_ITEMS, i, ITEM_TYPE ] == TYPE_BITMAP
-            hwg_Hwr_PrintItem( oPrinter, aPaintRep[ FORM_ITEMS, i ], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
+      FOR i := IIf( iSL == 0, 1, IIf( iDF > 0, iDF + 1, IIf( iPF > 0, iEPF + 1, iEL + 1 ) ) ) TO Len( aPaintRep[FORM_ITEMS] )
+         IF aPaintRep[FORM_ITEMS, i, ITEM_TYPE] == TYPE_BITMAP
+            hwg_Hwr_PrintItem( oPrinter, aPaintRep[FORM_ITEMS, i], prnXCoef, prnYCoef, IIf( lAddMode, nYadd, 0 ), .T. )
          ENDIF
       NEXT
       IF lFinish
@@ -457,10 +457,10 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
    ENDIF
    oPrinter:END()
 
-   FOR i := 1 TO Len( aPaintRep[ FORM_ITEMS ] )
-      IF aPaintRep[ FORM_ITEMS, i, ITEM_TYPE ] == TYPE_TEXT
-         aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ]:Release()
-         aPaintRep[ FORM_ITEMS, i, ITEM_GROUP ] := NIL
+   FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
+      IF aPaintRep[FORM_ITEMS, i, ITEM_TYPE] == TYPE_TEXT
+         aPaintRep[FORM_ITEMS, i, ITEM_GROUP]:Release()
+         aPaintRep[FORM_ITEMS, i, ITEM_GROUP] := NIL
       ENDIF
    NEXT
    aImgs := NIL
@@ -476,40 +476,40 @@ FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 
 FUNCTION hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, nYadd, lCalc )
 
-   LOCAL x1 := aItem[ ITEM_X1 ], y1 := aItem[ ITEM_Y1 ] + nYadd, x2, y2
+   LOCAL x1 := aItem[ITEM_X1], y1 := aItem[ITEM_Y1] + nYadd, x2, y2
    LOCAL hBitmap, stroka
 
-   x2 := x1 + aItem[ ITEM_WIDTH ] - 1
-   y2 := y1 + aItem[ ITEM_HEIGHT ] - 1
+   x2 := x1 + aItem[ITEM_WIDTH] - 1
+   y2 := y1 + aItem[ITEM_HEIGHT] - 1
    x1 := Round( x1 * prnXCoef, 0 )
    y1 := Round( y1 * prnYCoef, 0 )
    x2 := Round( x2 * prnXCoef, 0 )
    y2 := Round( y2 * prnYCoef, 0 )
 
-   IF aItem[ ITEM_TYPE ] == TYPE_TEXT
-      IF aItem[ ITEM_VAR ] > 0
-         stroka := IIf( lCalc, &( aItem[ ITEM_CAPTION ] ), "" )
+   IF aItem[ITEM_TYPE] == TYPE_TEXT
+      IF aItem[ITEM_VAR] > 0
+         stroka := IIf( lCalc, &( aItem[ITEM_CAPTION] ), "" )
       ELSE
-         stroka := aItem[ ITEM_CAPTION ]
+         stroka := aItem[ITEM_CAPTION]
       ENDIF
-      IF ! Empty(aItem[ ITEM_CAPTION ])
+      IF ! Empty(aItem[ITEM_CAPTION])
          oPrinter:Say( stroka, x1, y1, x2, y2, ;
-                       IIf( aItem[ ITEM_ALIGN ] == 0, DT_LEFT, IIf( aItem[ ITEM_ALIGN ] == 1, DT_RIGHT, DT_CENTER ) ), ;
-                       aItem[ ITEM_GROUP ] )
+                       IIf( aItem[ITEM_ALIGN] == 0, DT_LEFT, IIf( aItem[ITEM_ALIGN] == 1, DT_RIGHT, DT_CENTER ) ), ;
+                       aItem[ITEM_GROUP] )
       ENDIF
-   ELSEIF aItem[ ITEM_TYPE ] == TYPE_HLINE
-      oPrinter:Line( x1, Round( ( y1 + y2 ) / 2, 0 ), x2, Round( ( y1 + y2 ) / 2, 0 ), aItem[ ITEM_PEN ] )
-   ELSEIF aItem[ ITEM_TYPE ] == TYPE_VLINE
-      oPrinter:Line( Round( ( x1 + x2 ) / 2, 0 ), y1, Round( ( x1 + x2 ) / 2, 0 ), y2, aItem[ ITEM_PEN ] )
-   ELSEIF aItem[ ITEM_TYPE ] == TYPE_BOX
-      oPrinter:Box( x1, y1, x2, y2, aItem[ ITEM_PEN ] )
-   ELSEIF aItem[ ITEM_TYPE ] == TYPE_BITMAP
+   ELSEIF aItem[ITEM_TYPE] == TYPE_HLINE
+      oPrinter:Line( x1, Round( ( y1 + y2 ) / 2, 0 ), x2, Round( ( y1 + y2 ) / 2, 0 ), aItem[ITEM_PEN] )
+   ELSEIF aItem[ITEM_TYPE] == TYPE_VLINE
+      oPrinter:Line( Round( ( x1 + x2 ) / 2, 0 ), y1, Round( ( x1 + x2 ) / 2, 0 ), y2, aItem[ITEM_PEN] )
+   ELSEIF aItem[ITEM_TYPE] == TYPE_BOX
+      oPrinter:Box( x1, y1, x2, y2, aItem[ITEM_PEN] )
+   ELSEIF aItem[ITEM_TYPE] == TYPE_BITMAP
       //Aadd(aBitmaps, hBitmap := hwg_Openbitmap(aItem[ITEM_CAPTION], oPrinter:hDC))
       IF !Empty(aItem[ITEM_BITMAP])
         hBitmap := aItem[ITEM_BITMAP]:handle
         AAdd(aImgs, {x1, y1, x2, y2, hBitmap, aItem[ITEM_CAPTION]})
         //hwg_writelog( "hBitmap: "+Iif(hBitmap == NIL,"Nil","Ok") )
-        //oPrinter:Bitmap( x1, y1, x2, y2,, hBitmap, aItem[ ITEM_CAPTION ] )
+        //oPrinter:Bitmap( x1, y1, x2, y2,, hBitmap, aItem[ITEM_CAPTION] )
       ENDIF
       //hwg_Deleteobject( hBitmap )
    ENDIF
@@ -518,15 +518,15 @@ FUNCTION hwg_Hwr_PrintItem( oPrinter, aItem, prnXCoef, prnYCoef, nYadd, lCalc )
 
 STATIC FUNCTION ScriptExecute( aItem )
    LOCAL nError, nLineEr
-   IF aItem[ ITEM_SCRIPT ] != NIL .AND. ! Empty(aItem[ ITEM_SCRIPT ])
+   IF aItem[ITEM_SCRIPT] != NIL .AND. ! Empty(aItem[ITEM_SCRIPT])
       IF HB_ISCHAR(aItem[ITEM_SCRIPT])
-         IF ( aItem[ ITEM_SCRIPT ] := RdScript( , aItem[ ITEM_SCRIPT ] ) ) == NIL
+         IF ( aItem[ITEM_SCRIPT] := RdScript( , aItem[ITEM_SCRIPT] ) ) == NIL
             nError := CompileErr( @nLineEr )
             hwg_MsgStop("Script error (" + LTrim(Str(nError)) + "), line " + LTrim(Str(nLineEr)))
             RETURN .F.
          ENDIF
       ENDIF
-      DoScript( aItem[ ITEM_SCRIPT ] )
+      DoScript( aItem[ITEM_SCRIPT] )
       RETURN .T.
    ENDIF
    RETURN .T.
