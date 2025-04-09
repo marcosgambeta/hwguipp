@@ -218,7 +218,7 @@ METHOD HListBox:onEvent( msg, wParam, lParam )
          RETURN 0
       ENDIF
    ENDIF
-   wParam := hwg_PtrToUlong( wParam )
+   wParam := hwg_PtrToUlong(wParam)
    IF msg == WM_KEYDOWN
       IF wParam == VK_TAB //.AND. nType < WND_DLG_RESOURCE
          hwg_GetSkip(::oParent, ::handle, NIL, IIf(hwg_IsCtrlShift(.f., .t.), -1, 1))

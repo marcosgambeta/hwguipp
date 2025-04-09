@@ -518,8 +518,8 @@ STATIC FUNCTION KeyActions( nKey )
 STATIC FUNCTION MessagesProc( oWnd, msg, wParam, lParam )
    LOCAL hWnd := oWnd:handle
 
-   wParam := hwg_PtrToUlong( wParam )
-   lParam := hwg_PtrToUlong( lParam )
+   wParam := hwg_PtrToUlong(wParam)
+   lParam := hwg_PtrToUlong(lParam)
 
    IF msg == WM_VSCROLL
       Vscroll( hWnd, hwg_Loword( wParam ), hwg_Hiword( wParam ) )

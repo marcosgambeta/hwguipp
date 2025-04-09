@@ -142,7 +142,7 @@ METHOD HStaticEx:OnEvent( msg, wParam, lParam )
          RETURN 0
       ENDIF
    ENDIF
-   wParam := hwg_PtrToUlong( wParam )
+   wParam := hwg_PtrToUlong(wParam)
    IF msg == WM_ERASEBKGND
       RETURN 0
    ELSEIF msg = WM_KEYUP

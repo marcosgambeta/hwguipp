@@ -216,7 +216,7 @@ METHOD HButtonEx:onEvent(msg, wParam, lParam)
    LOCAL oParent
    LOCAL nEval
 
-   wParam := hwg_PtrToUlong( wParam )
+   wParam := hwg_PtrToUlong(wParam)
 
    SWITCH msg
 
@@ -273,7 +273,7 @@ METHOD HButtonEx:onEvent(msg, wParam, lParam)
    SWITCH msg
 
    CASE WM_KEYDOWN
-      IF hwg_CheckBit( hwg_Ptrtoulong( lParam ), 30 )  // the key was down before ?
+      IF hwg_CheckBit( hwg_PtrToUlong(lParam), 30 )  // the key was down before ?
          RETURN 0
       ENDIF
       SWITCH wParam

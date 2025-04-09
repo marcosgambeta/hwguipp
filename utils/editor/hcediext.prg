@@ -660,7 +660,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdiExt
                   aTbl1 := aStruTbl := ::aStru[nL-::aStru[nL, 1,OB_TRNUM]+1, 1,OB_TBL]
                ELSEIF ::aStru[nL, 1, 1] == "img"
                   IF msg == MESS_CHAR 
-                     IF ( nKey := hwg_PtrToUlong( wParam ) ) == VK_RETURN
+                     IF ( nKey := hwg_PtrToUlong(wParam) ) == VK_RETURN
                         IF nL == 1
                           ::AddLine( nL )
                           ::aText[nL] := ""
@@ -705,7 +705,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdiExt
          IF msg == WM_MOUSEMOVE.OR. msg == WM_LBUTTONDOWN .OR. msg == WM_LBUTTONUP ;
                .OR. msg == WM_RBUTTONDOWN .OR. msg == WM_CHAR .OR. msg == WM_KEYDOWN
             iTd := ::nPosC
-            nKey := hwg_PtrToUlong( wParam )
+            nKey := hwg_PtrToUlong(wParam)
             IF msg == WM_MOUSEMOVE.OR. msg == WM_LBUTTONDOWN .OR. msg == WM_LBUTTONUP ;
                   .OR. msg == WM_RBUTTONDOWN
                iTd := hced_td4Pos( Self, nL, hwg_LoWord( lParam ) )
@@ -741,13 +741,13 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdiExt
             ENDIF
             IF hwg_checkBit( j, 3 )
                IF ( msg == MESS_CHAR .OR. msg == WM_KEYDOWN ) .AND. ;
-                     ( ( nKey := hwg_PtrToUlong( wParam ) ) == VK_BACK .OR. nKey == VK_DELETE )
+                     ( ( nKey := hwg_PtrToUlong(wParam) ) == VK_BACK .OR. nKey == VK_DELETE )
                   msg := 0
                ENDIF
                ::lInsert := .F.
                ::lNoPaste := .T.
             ENDIF
-            IF hwg_checkBit( j, 4 ) .AND. msg == MESS_CHAR .AND. hwg_PtrToUlong( wParam ) == VK_RETURN
+            IF hwg_checkBit( j, 4 ) .AND. msg == MESS_CHAR .AND. hwg_PtrToUlong(wParam) == VK_RETURN
                msg := 0
             ENDIF
          ENDIF

@@ -583,7 +583,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
       ELSEIF msg == WM_VSCROLL
          ::DoVScroll( wParam )
       ELSEIF msg == WM_CHAR
-         wParam := hwg_PtrToUlong( wParam )
+         wParam := hwg_PtrToUlong(wParam)
          IF !hwg_Checkbit(lParam, 32)
             nShiftAltCtrl := IIf(hwg_IsCtrlShift(.F., .T.), 1, 0)
             nShiftAltCtrl += IIf(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
@@ -603,7 +603,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
          ENDIF
       ELSEIF msg == WM_GETDLGCODE
          ::isMouseOver := .F.
-         wParam := hwg_PtrToUlong( wParam )
+         wParam := hwg_PtrToUlong(wParam)
          IF wParam = VK_ESCAPE   .AND. ;          // DIALOG MODAL
                ( oParent := hwg_GetParentForm( Self ):FindControl( IDCANCEL ) ) != NIL .AND. !oParent:Enabled
             RETURN DLGC_WANTMESSAGE
@@ -625,7 +625,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
             ENDIF
          ENDIF
       ELSEIF msg == WM_KEYUP
-         wParam := hwg_PtrToUlong( wParam )
+         wParam := hwg_PtrToUlong(wParam)
          IF wParam == 17
             ::lCtrlPress := .F.
          ENDIF
@@ -654,7 +654,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
          ENDIF
          RETURN 1
       ELSEIF msg == WM_KEYDOWN //.AND. !::oParent:lSuspendMsgsHandling
-         wParam := hwg_PtrToUlong( wParam )
+         wParam := hwg_PtrToUlong(wParam)
          /*IF ( ( hwg_Checkbit( lParam, 25 ) .AND. wParam != 111 ) .OR.  ( wParam > 111 .AND. wParam < 124 ) .OR. ;
                wParam = VK_TAB .OR. wParam = VK_RETURN )   .AND. ; */
          IF ::bKeyDown != NIL .AND. ValType( ::bKeyDown ) == "B"
@@ -802,7 +802,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
          ::ButtonRDown( lParam )
       ELSEIF msg == WM_MOUSEMOVE //.AND. !::oParent:lSuspendMsgsHandling
          IF ::nWheelPress > 0
-            ::MouseWheel( hwg_Loword( wParam ), ::nWheelPress - hwg_PtrToUlong( lParam ) )
+            ::MouseWheel( hwg_Loword( wParam ), ::nWheelPress - hwg_PtrToUlong(lParam) )
          ELSE
             ::MouseMove( wParam, lParam )
             IF ::lHeadClick
@@ -2743,7 +2743,7 @@ METHOD HBrowseEx:ButtonDown( lParam, lReturnRowCol )
       ENDIF
 
    ELSEIF nLine == 0
-      IF hwg_Ptrtoulong( s_oCursor ) ==  hwg_Ptrtoulong( s_ColSizeCursor )
+      IF hwg_PtrToUlong(s_oCursor) ==  hwg_PtrToUlong(s_ColSizeCursor)
          ::lResizing := .T.
          ::isMouseOver := .F.
          Hwg_SetCursor( s_oCursor )
@@ -2763,7 +2763,7 @@ METHOD HBrowseEx:ButtonDown( lParam, lReturnRowCol )
          ::lHeadClick := .T.
       ENDIF
    ENDIF
-   IF ( hwg_Ptrtoulong( hwg_Getactivewindow() ) = hwg_Ptrtoulong( hwg_GetParentForm(Self ):Handle )  .OR. ;
+   IF ( hwg_PtrToUlong(hwg_Getactivewindow()) == hwg_PtrToUlong(hwg_GetParentForm(Self):Handle)  .OR. ;
          hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE )
       ::Setfocus()
       ::RefreshLine()
@@ -2910,7 +2910,7 @@ METHOD HBrowseEx:MouseMove( wParam, lParam )
    LOCAL nLastColumn 
    LOCAL currxPos := ::xPosMouseOver
 
-   wParam := hwg_PtrToUlong( wParam )
+   wParam := hwg_PtrToUlong(wParam)
    ::xPosMouseOver := 0
    ::isMouseOver := IIf(::lDispHead .AND. ::hTheme != NIL .AND. currxPos != 0, .T., .F.)
    nLastColumn := Len(::aColumns) // IIf(::lAdjRight, Len(::aColumns) - 1, Len(::aColumns))
@@ -2937,7 +2937,7 @@ METHOD HBrowseEx:MouseMove( wParam, lParam )
                x += ::aColumns[i]:width
                ::xPosMouseOver := xPos
                IF Abs( x - xPos ) < 8
-                  IF hwg_Ptrtoulong( s_oCursor ) != hwg_Ptrtoulong( s_ColSizeCursor )
+                  IF hwg_PtrToUlong(s_oCursor) != hwg_PtrToUlong(s_ColSizeCursor)
                      s_oCursor := s_ColSizeCursor
                   ENDIF
                   Hwg_SetCursor( s_oCursor )
@@ -3250,7 +3250,7 @@ METHOD HBrowseEx:EditLogical( wParam, lParam )
 
    HB_SYMBOL_UNUSED(lParam)
 
-   wParam := hwg_PtrToUlong( wParam )
+   wParam := hwg_PtrToUlong(wParam)
    IF !::aColumns[::fipos]:lEditable
       RETURN .F.
    ENDIF
@@ -3293,7 +3293,7 @@ METHOD HBrowseEx:EditEvent( oCtrl, msg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(lParam)
 
-   wParam := hwg_PtrToUlong( wParam )
+   wParam := hwg_PtrToUlong(wParam)
    IF ( msg = WM_KEYDOWN .AND. ( wParam = VK_RETURN  .OR. wParam = VK_TAB ) )
       RETURN - 1
    ELSEIF ( msg = WM_KEYDOWN .AND. wParam = VK_ESCAPE )

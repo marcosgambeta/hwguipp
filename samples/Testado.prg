@@ -84,7 +84,7 @@ FUNCTION ADOSkipper( cnSQL, nSkip )
 
 
 Static FUNCTION fKeyDown(oBrw, msg, wParam, lParam)
-LOCAL nKEY := hwg_PtrToUlong( wParam ) //wParam
+LOCAL nKEY := hwg_PtrToUlong(wParam) //wParam
 IF msg == WM_KEYDOWN
    IF nKey = VK_F2
       hwg_Msginfo("nRecords: " + Str(oBrw:nRecords) + hb_eol() +;

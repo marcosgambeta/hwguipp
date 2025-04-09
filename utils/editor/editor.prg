@@ -2044,7 +2044,7 @@ STATIC FUNCTION EditMessProc( o, msg, wParam, lParam )
    STATIC nShiftL := 0
 
    nLastMsg  := msg
-   nLastWpar := hwg_PtrToUlong( wParam )
+   nLastWpar := hwg_PtrToUlong(wParam)
    IF msg == WM_LBUTTONDBLCLK
       IF !Empty(arr := o:GetPosInfo( hwg_LoWord(lParam ), hwg_HiWord(lParam ) )) .AND. ;
             !Empty(arr[3]) .AND. Len( arr[3] ) >= OB_HREF
@@ -2081,7 +2081,7 @@ STATIC FUNCTION EdMsgAfter( o, msg, wParam, lParam )
 
    IF msg == WM_KEYDOWN
 
-      nKey := hwg_PtrToUlong( wParam )
+      nKey := hwg_PtrToUlong(wParam)
       IF nKey == VK_UP .OR. nKey == VK_DOWN .OR. nKey == VK_NEXT .OR. nKey == VK_PRIOR
          MarkRow(1)
       ENDIF
