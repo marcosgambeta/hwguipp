@@ -59,7 +59,7 @@ aItems := { "<empty>" }
           IF ! Empty(aItems)
              FOR i := 1 TO Len( aItems )
                 citem := aItems[i]
-                Hwg_DefineMenuItem( citem, 1020 + i, &( "{ | | NewItem("+LTrim(Str(i, 2))+")}" ) )
+                Hwg_DefineMenuItem( citem, 1020 + i, &( "{||NewItem(" + LTrim(Str(i, 2)) + ")}" ) )
                 * other behavior on GTK:
                 * the new item was appended at the end of the menu in the recent run.
              NEXT
@@ -118,7 +118,7 @@ LOCAL oGet1
          aMenu := oDialg:menu[1, 1]
          nId := aMenu[1][Len(aMenu[1])-2, 3]+1
          Hwg_AddMenuItem( aMenu, cName, nId, .F., ;
-              &( "{ | | NewItem("+LTrim(Str(nId-1020, 2))+")}" ), Len(aMenu[1])-1 )
+              &( "{||NewItem(" + LTrim(Str(nId - 1020, 2)) + ")}" ), Len(aMenu[1])-1 )
       ELSE
          * Modified  
          hwg_Setmenucaption( oDialg:handle, 1020+nItem, cName )

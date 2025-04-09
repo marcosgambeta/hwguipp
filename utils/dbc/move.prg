@@ -39,8 +39,8 @@ FUNCTION Move( nMove )
    @ 10, 32 GET cExpr SIZE 380, 24
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @  30, 90  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 270, 90 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @  30, 90  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 270, 90 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
 

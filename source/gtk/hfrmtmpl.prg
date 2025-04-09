@@ -269,7 +269,7 @@ METHOD HFormTmpl:Show( nMode, p1, p2, p3 )
    LOCAL oIcon := NIL
    LOCAL cBitmap := NIL
    LOCAL oBmp := NIL
-   LOCAL bGetFo := { |o| HFormTmpl():oActive := o }
+   LOCAL bGetFo := {|o|HFormTmpl():oActive := o}
    // Variables not used
    // LOCAL lval := .F.
    // LOCAL lMdi         // := .F.
@@ -666,7 +666,7 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
    ENDIF
    IF Len(arr) == 1
       cCode := IIf(Lower(Left(arr[1], 6) ) == "return", LTrim(SubStr(arr[1], 8)), arr[1])
-      bOldError := ErrorBlock( { |e|CompileErr( e,cCode ) } )
+      bOldError := ErrorBlock( {|e|CompileErr(e, cCode)} )
       BEGIN SEQUENCE
          bRes := &( "{||" + ppScript( cCode ) + "}" )
       END SEQUENCE
@@ -676,7 +676,7 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
       IF Len(arr) == 2
          cCode := IIf(Lower(Left(arr[2], 6)) == "return", LTrim(SubStr(arr[2], 8)), arr[2])
          cCode := "{|" + LTrim(SubStr(arr[1], 12)) + "|" + ppScript( cCode ) + "}"
-         bOldError := ErrorBlock( { |e|CompileErr( e,cCode ) } )
+         bOldError := ErrorBlock( {|e|CompileErr(e, cCode)} )
          BEGIN SEQUENCE
             bRes := &cCode
          END SEQUENCE
@@ -930,7 +930,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
 
    IF oCtrlTmpl:cClass == "combobox"
 #ifndef __GTK__
-      IF ( i := Ascan( oCtrlTmpl:aProp,{ |a|Lower(a[1] ) == "nmaxlines" } ) ) > 0
+      IF ( i := Ascan( oCtrlTmpl:aProp,{|a|Lower(a[1]) == "nmaxlines"} ) ) > 0
          nHeight := nHeight * nMaxLines
       ELSE
          nHeight := nHeight * 4
@@ -961,7 +961,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
             aParts[i] := Val(aParts[i])
          NEXT
       ENDIF
-      onInit := { |o|o:Move(NIL, NIL, o:nWidth - 1) }
+      onInit := {|o|o:Move(, , o:nWidth - 1)}
    ENDIF
    oCtrl := &stroka
    IF cVarName != NIL
@@ -1839,13 +1839,13 @@ STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
 
 STATIC FUNCTION aGetSecond( arr, xFirst )
    
-   LOCAL i := Ascan( arr, { |a|a[1] == xFirst } )
+   LOCAL i := Ascan( arr, {|a|a[1] == xFirst} )
 
    RETURN IIf(i == 0, NIL, arr[i, 2])
 
 FUNCTION hwg_aSetSecond( arr, xFirst, xValue )
 
-   LOCAL i := Ascan( arr, { |a|a[1] == xFirst } )
+   LOCAL i := Ascan( arr, {|a|a[1] == xFirst} )
    LOCAL xRet
 
    IF i != 0
@@ -1871,7 +1871,7 @@ STATIC FUNCTION hrep_FontFromXML( oPrinter, oXmlNode, nKoeff, nFontH )
    LOCAL i
 
    IF HB_ISARRAY(HRepTmpl():aFontTable)
-      IF ( i := Ascan( HRepTmpl():aFontTable,{ |a|Lower(a[1] ) == Lower(name ) } ) ) != 0
+      IF ( i := Ascan( HRepTmpl():aFontTable,{|a|Lower(a[1]) == Lower(name)} ) ) != 0
          name := HRepTmpl():aFontTable[i, 2]
       ENDIF
    ENDIF

@@ -105,7 +105,7 @@ STATIC FUNCTION onDestroy( oWnd )
    IF __ObjHasMsg( oWnd, "HACCEL" ) .AND. oWnd:hAccel != NIL
       hwg_Destroyacceleratortable( oWnd:hAccel )
    ENDIF
-   IF ( i := Ascan( HTimer():aTimers,{ |o|hwg_Isptreq( o:oParent:handle,oWnd:handle ) } ) ) != 0
+   IF ( i := Ascan( HTimer():aTimers,{|o|hwg_Isptreq(o:oParent:handle, oWnd:handle)} ) ) != 0
       HTimer():aTimers[i]:End()
    ENDIF
    oWnd:Super:onEvent( WM_DESTROY )
@@ -252,12 +252,12 @@ CLASS HMainWindow INHERIT HWindow
    CLASS VAR aMessages INIT { ;
       { WM_COMMAND, WM_SETFOCUS, WM_MOVE, WM_SIZE, WM_CLOSE, WM_DESTROY }, ;
       { ;
-      { |o, w, l|onCommand( o, w, l ) },        ;
-      { |o, w, l|onGetFocus( o, w, l ) },       ;
-      { |o, w, l|hwg_onMove( o, w, l ) },       ;
-      { |o, w, l|hwg_onWndSize( o, w, l ) },    ;
-      { |o|hwg_ReleaseAllWindows( o:handle ) }, ;
-      { |o|onDestroy( o ) }                 ;
+      {|o, w, l|onCommand(o, w, l)},        ;
+      {|o, w, l|onGetFocus(o, w, l)},       ;
+      {|o, w, l|hwg_onMove(o, w, l)},       ;
+      {|o, w, l|hwg_onWndSize(o, w, l)},    ;
+      {|o|hwg_ReleaseAllWindows(o:handle)}, ;
+      {|o|onDestroy(o)}                 ;
       } ;
       }
 
@@ -411,7 +411,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 
    iParHigh := hwg_Hiword(wParam)
    iParLow := hwg_Loword(wParam)
-   IF oWnd:aEvents != NIL .AND. ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
+   IF oWnd:aEvents != NIL .AND. ( iItem := Ascan( oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow} ) ) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ELSEIF HB_ISARRAY(oWnd:menu) .AND. ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval(aMenu[1, iCont, 1])

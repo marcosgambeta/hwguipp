@@ -12,12 +12,12 @@
 REQUEST HWG_ENDWINDOW
 
 STATIC s_aMessModalDlg := { ;
-      { WM_COMMAND, { |o,w,l|hwg_DlgCommand( o,w,l ) } },     ;
-      { WM_SIZE, { |o,w,l|hwg_onWndSize( o,w,l ) } },         ;
-      { WM_MOVE, { |o,w,l|hwg_onMove( o,w,l ) } },            ;
-      { WM_INITDIALOG, { |o,w,l|InitModalDlg( o,w,l ) } },    ;
-      { WM_DESTROY, { |o|onDestroy( o ) } },                  ;
-      { WM_SETFOCUS, { |o,w,l|onGetFocus( o,w,l ) } }         ;
+      { WM_COMMAND, {|o, w, l|hwg_DlgCommand(o, w, l)} },     ;
+      { WM_SIZE, {|o, w, l|hwg_onWndSize(o, w, l)} },         ;
+      { WM_MOVE, {|o, w, l|hwg_onMove(o, w, l)} },            ;
+      { WM_INITDIALOG, {|o, w, l|InitModalDlg(o, w, l)} },    ;
+      { WM_DESTROY, {|o|onDestroy(o)} },                  ;
+      { WM_SETFOCUS, {|o, w, l|onGetFocus(o, w, l)} }         ;
       }
 
 STATIC FUNCTION onDestroy( oDlg )
@@ -32,7 +32,7 @@ STATIC FUNCTION onDestroy( oDlg )
       oDlg:bDestroy := NIL
    ENDIF
 
-   IF ( i := Ascan( HTimer():aTimers,{ |o|hwg_Isptreq( o:oParent:handle,oDlg:handle ) } ) ) != 0
+   IF ( i := Ascan( HTimer():aTimers,{|o|hwg_Isptreq(o:oParent:handle, oDlg:handle) } ) ) != 0
       HTimer():aTimers[i]:End()
    ENDIF
 
@@ -190,7 +190,7 @@ METHOD HDialog:onEvent( msg, wParam, lParam )
    
    LOCAL i
 
-   IF ( i := Ascan( s_aMessModalDlg, { |a|a[1] == msg } ) ) != 0
+   IF ( i := Ascan( s_aMessModalDlg, {|a|a[1] == msg} ) ) != 0
       RETURN Eval(s_aMessModalDlg[i, 2], Self, wParam, lParam)
    ELSE
       Return ::Super:onEvent( msg, wParam, lParam )
@@ -301,7 +301,7 @@ FUNCTION hwg_DlgCommand( oDlg, wParam, lParam )
    ENDIF
 
    IF oDlg:aEvents != NIL .AND. ;
-         ( i := Ascan( oDlg:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
+         ( i := Ascan( oDlg:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow} ) ) > 0
       Eval(oDlg:aEvents[i, 3], oDlg, iParLow)
    ELSEIF iParHigh == 0 .AND. ( ;
          ( iParLow == IDOK .AND. oDlg:FindControl( IDOK ) != NIL ) .OR. ;
@@ -389,14 +389,14 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block, lGlobal )
 
    IF block == NIL
 
-      IF ( i := Ascan( aKeys,{ |a|a[1] == nctrl .AND. a[2] == nkey } ) ) == 0
+      IF ( i := Ascan( aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey} ) ) == 0
          RETURN .F.
       ELSE
          ADel( aKeys, i )
          ASize( aKeys, Len(aKeys) - 1 )
       ENDIF
    ELSE
-      IF ( i := Ascan( aKeys,{ |a|a[1] == nctrl .AND. a[2] == nkey } ) ) == 0
+      IF ( i := Ascan( aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey} ) ) == 0
          AAdd(aKeys, {nctrl, nkey, block})
       ELSE
          aKeys[i, 3] := block

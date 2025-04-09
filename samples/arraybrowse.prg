@@ -28,9 +28,9 @@
   Sample for read out the edited array:
 
   @ 360, 410 BUTTON oBtn4 CAPTION "OK " SIZE 80, 26 ;
-    ON CLICK { | | bCancel := .F. , ;
-    al_DOKs := oBrwArr:aArray , ;  
-    hwg_EndDialog() }
+    ON CLICK {||bCancel := .F., ;
+    al_DOKs := oBrwArr:aArray, ;
+    hwg_EndDialog()}
  
 */
 
@@ -95,7 +95,7 @@ al_DOKs :=  { {"1"} , {"2"} , {"3"} , {"4"} }
 */
 
      @ 21, 29 BROWSE oBrwArr ARRAY ;
-             ON CLICK { | | BrwArrayEditElem(oBrwArr) };
+             ON CLICK {||BrwArrayEditElem(oBrwArr)} ;
              STYLE WS_VSCROLL + WS_HSCROLL SIZE 341, 170
       * Pressing ENTER starts editing of element, too 
  
@@ -209,11 +209,11 @@ clgetf := cgetf
         STYLE WS_BORDER
    @ 38, 100 BUTTON oButton1 CAPTION "Save" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
-        ON CLICK { | | oDlg:Close() } ;
+        ON CLICK {||oDlg:Close()} ;
         TOOLTIP "Save changes and return to array browse list"
    @ 169, 100 BUTTON oButton2 CAPTION "Cancel" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ;
-        ON CLICK { | | lcancel := .T. , oDlg:Close() } ;
+        ON CLICK {||lcancel := .T., oDlg:Close()} ;
         TOOLTIP "Return to array browse list without saving modifications"
 
    ACTIVATE DIALOG oDlg

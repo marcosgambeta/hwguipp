@@ -181,7 +181,7 @@ Function Main
         MENUITEM aMainMenu[2] ACTION oMainWindow:Close() /* Quit */
       ENDMENU
       MENU TITLE aMainMenu[3] /* Print */
-         MENUITEM aMainMenu[4] ACTION { || PRINT_OUT(clangset,lpreview,lprbutton) }
+         MENUITEM aMainMenu[4] ACTION {||PRINT_OUT(clangset, lpreview, lprbutton)}
       ENDMENU
       MENU TITLE aMainMenu[5] /* Settings */
          MENUITEM aMainMenu[6] ACTION Select_LangChrs()  /* Charset */
@@ -736,11 +736,11 @@ yofs := nOffset + 120
         STYLE SS_CENTER
    @ 66, 84 GET COMBOBOX oCombobox1 VAR nType ITEMS aITEMS SIZE 378, 96
    @ 58 , yofs  BUTTON oButton1 CAPTION cOK SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || nRetu := nType , bcancel := .F. , oDlgcCombo1:Close() }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||nRetu := nType, bcancel := .F., oDlgcCombo1:Close()}
    @ 175, yofs  BUTTON oButton2 CAPTION cCancel SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || oDlgcCombo1:Close() }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||oDlgcCombo1:Close()}
    @ 375, yofs  BUTTON oButton3 CAPTION cHelp SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || HELP( cHTopic ,PROCLINE(), cHVar ) }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||HELP(cHTopic, PROCLINE(), cHVar)}
 
    ACTIVATE DIALOG oDlgcCombo1
 * RETURN oDlgcCombo1:lresult

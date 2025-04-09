@@ -546,25 +546,25 @@ METHOD HBrowse:InitBrw( nType )
 
    IF ::type == BRW_DATABASE
       ::alias := Alias()
-      ::bSkip :=  { |o, n| HB_SYMBOL_UNUSED(o), (::alias)->(dbSkip(n)) }
-      ::bGoTop :=  { || (::alias)->(DBGOTOP()) }
-      ::bGoBot :=  { || (::alias)->(dbGoBottom()) }
-      ::bEof :=  { || (::alias)->(Eof()) }
-      ::bBof :=  { || (::alias)->(Bof()) }
-      ::bRcou :=  { || (::alias)->(RecCount()) }
-      ::bRecnoLog := ::bRecno := { ||(::alias)->(RecNo()) }
-      ::bGoTo :=  { |o, n| HB_SYMBOL_UNUSED(o), (::alias)->(dbGoto(n)) }
+      ::bSkip :=  {|o, n|HB_SYMBOL_UNUSED(o), (::alias)->(dbSkip(n))}
+      ::bGoTop :=  {||(::alias)->(DBGOTOP())}
+      ::bGoBot :=  {||(::alias)->(dbGoBottom())}
+      ::bEof :=  {||(::alias)->(Eof())}
+      ::bBof :=  {||(::alias)->(Bof())}
+      ::bRcou :=  {||(::alias)->(RecCount())}
+      ::bRecnoLog := ::bRecno := {||(::alias)->(RecNo())}
+      ::bGoTo :=  {|o, n|HB_SYMBOL_UNUSED(o), (::alias)->(dbGoto(n))}
 
    ELSEIF ::type == BRW_ARRAY
-      ::bSKip := { | o, x | ARSKIP( o, x ) }
-      ::bGoTop := { | o | o:nCurrent := 1 }
-      ::bGoBot := { | o | o:nCurrent := o:nRecords }
-      ::bEof := { | o | o:nCurrent > o:nRecords }
-      ::bBof := { | o | o:nCurrent == 0 }
-      ::bRcou := { | o | Len(o:aArray) }
-      ::bRecnoLog := ::bRecno := { | o | o:nCurrent }
-      ::bGoTo := { | o, n | o:nCurrent := n }
-      ::bScrollPos := { |o, n, lEof, nPos|hwg_VScrollPos( o, n, lEof, nPos ) }
+      ::bSKip := {|o, x|ARSKIP(o, x)}
+      ::bGoTop := {|o|o:nCurrent := 1}
+      ::bGoBot := {|o|o:nCurrent := o:nRecords}
+      ::bEof := {|o|o:nCurrent > o:nRecords}
+      ::bBof := {|o|o:nCurrent == 0}
+      ::bRcou := {|o|Len(o:aArray)}
+      ::bRecnoLog := ::bRecno := {|o|o:nCurrent}
+      ::bGoTo := {|o, n|o:nCurrent := n}
+      ::bScrollPos := {|o, n, lEof, nPos|hwg_VScrollPos(o, n, lEof, nPos)}
 
    ENDIF
 
@@ -1917,16 +1917,16 @@ METHOD HBrowse:Edit( wParam, lParam )
             STYLE ES_AUTOHSCROLL           ;
             FONT ::oFont                   ;
             PICTURE oColumn:picture        ;
-            VALID { ||VldBrwEdit( Self, fipos ) }
+            VALID {||VldBrwEdit(Self, fipos)}
          ::oGet:Show()
          hwg_Setfocus(::oGet:handle)
          hwg_edit_SetPos(::oGet:handle, 0)
-         ::oGet:bAnyEvent := { |o, msg, c| HB_SYMBOL_UNUSED(o),  GetEventHandler( Self, msg, c ) }
+         ::oGet:bAnyEvent := {|o, msg, c|HB_SYMBOL_UNUSED(o), GetEventHandler(Self, msg, c)}
          ELSE  // memo edit
          // ===================================== *
          // Special dialog for memo edit (DF7BE)
          // ===================================== *
-            INIT DIALOG oModDlg title ::cTextTitME AT 0, 0 SIZE 610, 410  ON INIT { |o|o:center() }
+            INIT DIALOG oModDlg title ::cTextTitME AT 0, 0 SIZE 610, 410  ON INIT {|o|o:center()}
             mvarbuff := ::varbuf  // DF7BE: inter variable avoids crash at store
                // Debug: oModDlg:nWidth ==> set to 400
 //               @ 10, 10 HCEDIT oEdit SIZE oModDlg:nWidth - 20, 240 ;
@@ -1934,9 +1934,9 @@ METHOD HBrowse:Edit( wParam, lParam )
                @ 0, 30 HCEDIT ::oEdit SIZE 600, 300 ;
                     FONT ::oFont
                // old 010, 252 - 100, 252 - sizes 80, 24 (too small)
-               @ 010, 340 ownerbutton owb2 TEXT ::cTextSave SIZE 100, 24 ON Click { || bclsbutt := .F. , mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
-               @ 100, 340 ownerbutton owb1 TEXT ::cTextClose SIZE 100, 24 ON CLICK { || mvarbuff := ::oEdit , omoddlg:close(), oModDlg:lResult := .T. }
-//               @ 100, 340 ownerbutton owb1 TEXT ::cTextClose size 100, 24 ON CLICK { ||oModDlg:close() }
+               @ 010, 340 ownerbutton owb2 TEXT ::cTextSave SIZE 100, 24 ON Click {||bclsbutt := .F., mvarbuff := ::oEdit, omoddlg:close(), oModDlg:lResult := .T.}
+               @ 100, 340 ownerbutton owb1 TEXT ::cTextClose SIZE 100, 24 ON CLICK {||mvarbuff := ::oEdit, omoddlg:close(), oModDlg:lResult := .T.}
+//               @ 100, 340 ownerbutton owb1 TEXT ::cTextClose size 100, 24 ON CLICK {||oModDlg:close()}
                  // serve memo field for editing
                 ::oEdit:SetText(mvarbuff)
             ACTIVATE DIALOG oModDlg
@@ -2277,7 +2277,7 @@ FUNCTION hwg_VScrollPos( oBrw, nType, lEof, nPos )
 
 FUNCTION hwg_ColumnArBlock()
 
-   RETURN { |value, o, n| IIf(value == NIL, o:aArray[o:nCurrent,n], o:aArray[o:nCurrent,n] := value) }
+   RETURN {|value, o, n|IIf(value == NIL, o:aArray[o:nCurrent,n], o:aArray[o:nCurrent,n] := value)}
 
 STATIC FUNCTION CountToken( cStr, nMaxLen, nCount )
 

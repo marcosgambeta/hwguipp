@@ -104,7 +104,7 @@ FUNCTION Main()
    @ 0, 0 PANEL oPanel SIZE oMainWindow:nWidth, oMainWindow:nHeight-24 ;
       STYLE SS_OWNERDRAW ;
       ON PAINT {|o| PaintMain( o ) } ON SIZE {|o,x,y|o:Move( ,,x,y-24 )}
-   oPanel:bOther := { |o, m, wp, lp|MessagesProc( o, m, wp, lp ) }
+   oPanel:bOther := {|o, m, wp, lp|MessagesProc(o, m, wp, lp)}
 
    ADD STATUS TO oMainWindow ID IDCW_STATUS PARTS 240, 180, 0
 
@@ -182,7 +182,7 @@ STATIC FUNCTION About()
    @ 20, 160 LINE LENGTH 360
    @ 20, 180 SAY hwg_Version() SIZE 360, 26 STYLE SS_CENTER COLOR CLR_DBLUE
 
-   @ 150, 250 BUTTON "Close" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() } ON SIZE ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS + ANCHOR_LEFTABS
+   @ 150, 250 BUTTON "Close" SIZE 100, 32 ON CLICK {||hwg_EndDialog()} ON SIZE ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS + ANCHOR_LEFTABS
 
    ACTIVATE DIALOG oDlg
 
@@ -814,7 +814,7 @@ STATIC FUNCTION LButtonUp( xPos, yPos )
       aPaintRep[FORM_ITEMS,itemPressed,ITEM_STATE] := STATE_SELECTED
    ENDIF
    IF itemPressed > 0 .OR. itemSized > 0 .OR. nAddItem > 0
-      aPaintRep[FORM_ITEMS] := ASort( aPaintRep[FORM_ITEMS], , , { |z, y|z[ITEM_Y1] < y[ITEM_Y1] .OR. ( z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] < y[ITEM_X1] ) .OR. ( z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] == y[ITEM_X1] .AND. (z[ITEM_WIDTH] < y[ITEM_WIDTH] .OR. z[ITEM_HEIGHT] < y[ITEM_HEIGHT] ) ) } )
+      aPaintRep[FORM_ITEMS] := ASort( aPaintRep[FORM_ITEMS], , , {|z, y|z[ITEM_Y1] < y[ITEM_Y1] .OR. (z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] < y[ITEM_X1]) .OR. (z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] == y[ITEM_X1] .AND. (z[ITEM_WIDTH] < y[ITEM_WIDTH] .OR. z[ITEM_HEIGHT] < y[ITEM_HEIGHT]))} )
    ENDIF
    itemPressed := itemSized := itemBorder := nAddItem := 0
 

@@ -105,7 +105,7 @@ METHOD HRadioButton:Value( lValue )
 
 STATIC FUNCTION __Valid( oCtrl )
 
-   oCtrl:oGroup:nValue := Ascan( oCtrl:oGroup:aButtons, { |o|o:id == oCtrl:id } )
+   oCtrl:oGroup:nValue := Ascan( oCtrl:oGroup:aButtons, {|o|o:id == oCtrl:id} )
    IF hb_IsBlock(oCtrl:oGroup:bSetGet)
       Eval(oCtrl:oGroup:bSetGet, oCtrl:oGroup:nValue)
    ENDIF

@@ -51,8 +51,8 @@ FUNCTION C_REPL
    @ 10, 154 GET cFor SIZE 300, 24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @  30, 210  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 190, 210 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @  30, 210  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 190, 210 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
 
@@ -127,8 +127,8 @@ FUNCTION C_4( nAct )
    @ 10, 152 GET cFor SIZE 300, 24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @  30, 210  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 190, 210 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @  30, 210  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 190, 210 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
 
@@ -272,8 +272,8 @@ FUNCTION C_APPEND()
    @ 10, 302 GET cFor SIZE 380, 24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @  30, 348  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 190, 348 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @  30, 348  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 190, 348 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    ACTIVATE DIALOG oDlg CENTER
 
@@ -465,8 +465,8 @@ FUNCTION C_COPY()
    @ 10, 302 GET cFor SIZE 380, 24 PICTURE "@S256" STYLE ES_AUTOHSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @  50, 348  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 250, 348 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @  50, 348  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 250, 348 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    ACTIVATE DIALOG oDlg CENTER
 

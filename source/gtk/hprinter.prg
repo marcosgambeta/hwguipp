@@ -542,15 +542,15 @@ FUNCTION hwg_HPrinter_LangArray_EN()
          SIZE hwg_Getdesktopwidth()-12, hwg_Getdesktopheight()-12 ON INIT {||hwg_SetAdjOptions(oCanvas:hScrollV,, 11, 1, 1, 1),hwg_SetAdjOptions(oCanvas:hScrollH,, 11, 1, 1, 1)}
 
    @ TOOL_SIDE_WIDTH, 0 PANEL oCanvas SIZE oDlg:nWidth - TOOL_SIDE_WIDTH, oDlg:nHeight ;
-      ON SIZE { | o, x, y | o:Move(NIL, NIL, x - TOOL_SIDE_WIDTH, y) } ;
-      ON PAINT { || ::PaintDoc( oCanvas ) } STYLE SS_OWNERDRAW + WS_VSCROLL + WS_HSCROLL
+      ON SIZE {|o, x, y|o:Move(, , x - TOOL_SIDE_WIDTH, y)} ;
+      ON PAINT {||::PaintDoc(oCanvas)} STYLE SS_OWNERDRAW + WS_VSCROLL + WS_HSCROLL
 
-   oCanvas:bVScroll := { ||FScrollV(oCanvas) }
-   oCanvas:bHScroll := { ||FScrollH(oCanvas) }
-   oCanvas:bOther := { |o, m, wp, lp|HB_SYMBOL_UNUSED(wp), IIf(m == WM_LBUTTONDBLCLK, MessProc( Self,o,lp ), - 1) }
+   oCanvas:bVScroll := {||FScrollV(oCanvas)}
+   oCanvas:bHScroll := {||FScrollH(oCanvas)}
+   oCanvas:bOther := {|o, m, wp, lp|HB_SYMBOL_UNUSED(wp), IIf(m == WM_LBUTTONDBLCLK, MessProc(Self, o, lp), -1)}
    SET KEY FCONTROL, Asc( "S" ) TO ::SaveScript()
 
-   @ 3, 2 OWNERBUTTON oBtn ON CLICK { || hwg_EndDialog() } ;
+   @ 3, 2 OWNERBUTTON oBtn ON CLICK {||hwg_EndDialog()} ;
       SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT cmExit FONT oFont  ;  // "Exit"
       TOOLTIP IIf(aTooltips != NIL, aTooltips[1], "Exit Preview")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 1 .AND. aBitmaps[2] != NIL
@@ -562,7 +562,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    @ 1, 31 LINE LENGTH TOOL_SIDE_WIDTH - 1
 
   IF ::lprbutton
-   @ 3, 36 OWNERBUTTON oBtn  ON CLICK { || ::PrintDoc() } ;
+   @ 3, 36 OWNERBUTTON oBtn  ON CLICK {||::PrintDoc()} ;
       SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT cmPrint FONT oFont         ;  // "Print"
       TOOLTIP IIf(aTooltips != NIL, aTooltips[2], "Print file")
   ENDIF
@@ -575,9 +575,9 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    @ 3, 62 COMBOBOX oSayPage ITEMS aPage ;
       SIZE TOOL_SIDE_WIDTH - 6, 24 COLOR "fff000" backcolor 12507070 ;
-      ON CHANGE { || ::ChangePage( oCanvas, oSayPage, NIL, oSayPage:GetValue() ) } STYLE WS_VSCROLL
+      ON CHANGE {||::ChangePage(oCanvas, oSayPage, , oSayPage:GetValue()) } STYLE WS_VSCROLL
 
-   @ 3, 86 OWNERBUTTON oBtn ON CLICK { || ::ChangePage( oCanvas, oSayPage, 0 ) } ;
+   @ 3, 86 OWNERBUTTON oBtn ON CLICK {||::ChangePage(oCanvas, oSayPage, 0)} ;
       SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT "|<<" FONT oFont                 ;
       TOOLTIP IIf(aTooltips != NIL, aTooltips[3], "First page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 3 .AND. aBitmaps[4] != NIL
@@ -586,7 +586,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 110 OWNERBUTTON oBtn ON CLICK { || ::ChangePage( oCanvas, oSayPage, 1 ) } ;
+   @ 3, 110 OWNERBUTTON oBtn ON CLICK {||::ChangePage(oCanvas, oSayPage, 1)} ;
       SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT ">" FONT oFont                  ;
       TOOLTIP IIf(aTooltips != NIL, aTooltips[4], "Next page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 4 .AND. aBitmaps[5] != NIL
@@ -595,7 +595,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 134 OWNERBUTTON oBtn ON CLICK { || ::ChangePage( oCanvas, oSayPage, - 1 ) } ;
+   @ 3, 134 OWNERBUTTON oBtn ON CLICK {||::ChangePage(oCanvas, oSayPage, -1)} ;
       SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT "<" FONT oFont    ;
       TOOLTIP IIf(aTooltips != NIL, aTooltips[5], "Previous page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 5 .AND. aBitmaps[6] != NIL
@@ -604,7 +604,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 158 OWNERBUTTON oBtn ON CLICK { || ::ChangePage( oCanvas, oSayPage, 2 ) } ;
+   @ 3, 158 OWNERBUTTON oBtn ON CLICK {||::ChangePage(oCanvas, oSayPage, 2)} ;
       SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT ">>|" FONT oFont   ;
       TOOLTIP IIf(aTooltips != NIL, aTooltips[6], "Last page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 6 .AND. aBitmaps[7] != NIL
@@ -615,7 +615,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
    @ 1, 189 LINE LENGTH TOOL_SIDE_WIDTH - 1
 
-   @ 3, 192 OWNERBUTTON oBtn ON CLICK { || IIf(::nZoom > 0, (::nZoom--, hwg_Redrawwindow(oCanvas:handle)), .T.) } ;
+   @ 3, 192 OWNERBUTTON oBtn ON CLICK {||IIf(::nZoom > 0, (::nZoom--, hwg_Redrawwindow(oCanvas:handle)), .T.)} ;
       SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT "(-)" FONT oFont   ;
       TOOLTIP IIf(aTooltips != NIL, aTooltips[7], "Zoom out")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 7 .AND. aBitmaps[8] != NIL
@@ -624,7 +624,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 216 OWNERBUTTON oBtn ON CLICK { || ::nZoom ++ , hwg_Redrawwindow(oCanvas:handle) } ;
+   @ 3, 216 OWNERBUTTON oBtn ON CLICK {||::nZoom++, hwg_Redrawwindow(oCanvas:handle)} ;
       SIZE TOOL_SIDE_WIDTH - 6, 24 TEXT "(+)" FONT oFont   ;
       TOOLTIP IIf(aTooltips != NIL, aTooltips[8], "Zoom in")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 8 .AND. aBitmaps[9] != NIL

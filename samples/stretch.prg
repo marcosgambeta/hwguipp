@@ -71,7 +71,7 @@ IF lStretch
    // Say "0,0 BITMAP oBitmap" and you can realize the symptom.
  
    @ 25, 25 BUTTON oQuitButton CAPTION "Exit" SIZE 75, 32 ; 
-   ON CLICK { | | oFormMain:Close() }
+   ON CLICK {||oFormMain:Close()}
 
    oFormMain:Activate()
    
@@ -82,7 +82,7 @@ ELSE
     // ON CLICK block works fine.
    
       @ 25, 25 BUTTON oQuitButton CAPTION "Exit" SIZE 75, 32 ;
-      ON CLICK { | | oFormMain:Close() } 
+      ON CLICK {||oFormMain:Close()}
 
 
    oFormMain:Activate()

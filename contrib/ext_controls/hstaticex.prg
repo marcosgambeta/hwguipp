@@ -68,10 +68,10 @@ METHOD HStaticEx:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    IF ( lTransp != NIL .AND. lTransp )
       ::BackStyle := TRANSPARENT
       ::extStyle := hb_bitor( ::extStyle, WS_EX_TRANSPARENT )
-      bPaint := { | o, p | o:paint( p ) }
+      bPaint := {|o, p|o:paint(p)}
       nStyle += SS_OWNERDRAW - ::nStyleHS
    ELSEIF ::nStyleHS > 32 .OR. ::nStyleHS = 2
-      bPaint := { | o, p | o:paint( p ) }
+      bPaint := {|o, p|o:paint(p)}
       nStyle +=  SS_OWNERDRAW - ::nStyleHS
    ENDIF
 
@@ -83,10 +83,10 @@ METHOD HStaticEx:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    ::bClick := bClick
    IF ::id > 2
-      ::oParent:AddEvent( STN_CLICKED, ::id, { || ::onClick() } )
+      ::oParent:AddEvent( STN_CLICKED, ::id, {||::onClick()} )
    ENDIF
    ::bDblClick := bDblClick
-   ::oParent:AddEvent( STN_DBLCLK, ::id, { || ::onDblClick() } )
+   ::oParent:AddEvent( STN_DBLCLK, ::id, {||::onDblClick()} )
 
    RETURN Self
 
@@ -95,7 +95,7 @@ METHOD HStaticEx:Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 
    IF ( lTransp != NIL .AND. lTransp )
       ::extStyle := hb_bitor( ::extStyle, WS_EX_TRANSPARENT )
-      bPaint := { | o, p | o:paint( p ) }
+      bPaint := {|o, p|o:paint(p)}
       ::BackStyle := TRANSPARENT
    ENDIF
 
@@ -108,10 +108,10 @@ METHOD HStaticEx:Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
    ::bOther := bOther
    ::bClick := bClick
    IF ::id > 2
-      ::oParent:AddEvent( STN_CLICKED, ::id, { || ::onClick() } )
+      ::oParent:AddEvent( STN_CLICKED, ::id, {||::onClick()} )
    ENDIF
    ::bDblClick := bDblClick
-   ::oParent:AddEvent( STN_DBLCLK, ::id, { || ::onDblClick() } )
+   ::oParent:AddEvent( STN_DBLCLK, ::id, {||::onDblClick()} )
 
    RETURN Self
 

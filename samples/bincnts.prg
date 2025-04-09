@@ -139,7 +139,7 @@ INIT WINDOW oMainW  ;
 #ifdef __GTK__ 
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oFileOpen /* OF oToolbar */ ;
-   ON CLICK { | | FileOpen()} ;
+   ON CLICK {||FileOpen()} ;
    SIZE nxowb,nyowb  /* FLAT */  ;
    BITMAP oBitmap ;
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 0, 16, 16 ; 
@@ -149,7 +149,7 @@ INIT WINDOW oMainW  ;
 
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oQuit /* OF oToolbar */ ;
-   ON CLICK { | | oMainW:Close()} ;
+   ON CLICK {||oMainW:Close()} ;
    SIZE nxowb,nyowb /* FLAT */ ;
    BITMAP oBMPExit ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 0, 17, 17 ; 
@@ -162,7 +162,7 @@ INIT WINDOW oMainW  ;
 * If "OF oToolbar" is not added, the ON CLICK function does not work !
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oFileOpen  OF oToolbar  ;
-   ON CLICK { | | FileOpen()} ;
+   ON CLICK {||FileOpen()} ;
    SIZE nxowb,nyowb  FLAT  ;
    BITMAP oBitmap ;
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
@@ -172,7 +172,7 @@ INIT WINDOW oMainW  ;
 
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oQuit OF oToolbar  ;
-   ON CLICK { | | oMainW:Close()} ;
+   ON CLICK {||oMainW:Close()} ;
    SIZE nxowb,nyowb /* FLAT */ ;
    BITMAP oBMPExit ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
@@ -185,7 +185,7 @@ INIT WINDOW oMainW  ;
 * !!!!! PNG not supported on Windows
 #ifndef __PLATFORM__WINDOWS  
 @ htab+(nbut * nlowb ), 3 OWNERBUTTON oBtnDoor /* OF oToolbar */ ;
-   ON CLICK { | | OpenDoor()} ;
+   ON CLICK {||OpenDoor()} ;
    SIZE nxowb,nyowb /* FLAT */ ;
    BITMAP oPNGDoor ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 0, 13, 16 ; 
@@ -197,7 +197,7 @@ INIT WINDOW oMainW  ;
 #ifdef __GTK__
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBtnjpeg /* OF oToolbar */ ;
-   ON CLICK { | | ClickJpeg()} ;
+   ON CLICK {||ClickJpeg()} ;
    SIZE nxowb,nyowb /* FLAT */ ;
    BITMAP ojpeg ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 5, 20, 16 ;
@@ -205,7 +205,7 @@ INIT WINDOW oMainW  ;
 #else   
    
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBtnjpeg  OF oToolbar  ;
-   ON CLICK { | | ClickJpeg()} ;
+   ON CLICK {||ClickJpeg()} ;
    SIZE nxowb,nyowb  FLAT  ;
    BITMAP ojpeg ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;

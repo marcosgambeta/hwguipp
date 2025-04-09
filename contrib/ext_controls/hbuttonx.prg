@@ -64,15 +64,15 @@ METHOD HButtonX:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    ::bClick := bClick
    ::bGetFocus  := bGFocus
-   ::oParent:AddEvent( BN_SETFOCUS, ::id, { || ::onGetFocus() } )
-   ::oParent:AddEvent( BN_KILLFOCUS, ::id, { || ::onLostFocus() } )
+   ::oParent:AddEvent(BN_SETFOCUS, ::id, {||::onGetFocus()})
+   ::oParent:AddEvent(BN_KILLFOCUS, ::id, {||::onLostFocus()})
 
    IF ::id > IDCANCEL .OR. ::bClick != NIL
       IF ::id < IDABORT
-         hwg_GetParentForm( Self ):AddEvent( BN_CLICKED, ::id, { || ::onClick() } )
+         hwg_GetParentForm(Self):AddEvent(BN_CLICKED, ::id, {||::onClick()})
       ENDIF
       IF hwg_GetParentForm( Self ):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
-         ::oParent:AddEvent( BN_CLICKED, ::id, { || ::onClick() } )
+         ::oParent:AddEvent(BN_CLICKED, ::id, {||::onClick()})
       ENDIF
    ENDIF
 
@@ -86,15 +86,15 @@ METHOD HButtonX:Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, 
 
    ::title   := cCaption
    ::bGetFocus  := bGFocus
-   ::oParent:AddEvent( BN_SETFOCUS, ::id, { || ::onGetFocus() } )
-   ::oParent:AddEvent( BN_KILLFOCUS, ::id, { || ::onLostFocus() } )
+   ::oParent:AddEvent(BN_SETFOCUS, ::id, {||::onGetFocus()})
+   ::oParent:AddEvent(BN_KILLFOCUS, ::id, {||::onLostFocus()})
    ::bClick  := bClick
    IF ::id > IDCANCEL .OR. ::bClick != NIL
       IF ::id < IDABORT
-         hwg_GetParentForm( Self ):AddEvent( BN_CLICKED, ::id, { || ::onClick() } )
+         hwg_GetParentForm(Self):AddEvent(BN_CLICKED, ::id, {||::onClick()})
       ENDIF
       IF hwg_GetParentForm( Self ):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
-         ::oParent:AddEvent( BN_CLICKED, ::id, { || ::onClick() } )
+         ::oParent:AddEvent(BN_CLICKED, ::id, {||::onClick()})
       ENDIF
    ENDIF
 

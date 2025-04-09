@@ -34,7 +34,7 @@ METHOD HButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, o
    IF ::id == IDOK
       bClick := {||::oParent:lResult := .T., ::oParent:Close()}
    ELSEIF ::id == IDCANCEL
-      bClick := { ||::oParent:Close() }
+      bClick := {||::oParent:Close()}
    ENDIF
    ::bClick := bClick
    hwg_SetSignal(::handle, "clicked", WM_LBUTTONUP, 0, 0)

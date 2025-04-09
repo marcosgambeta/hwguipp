@@ -370,7 +370,7 @@ FUNCTION Bloco2Prg
    // Methods ( events ) for the control
    PRIVATE z , temp
 
-   z := AScan( aMetodos, { |aVal| aVal[1] == Lower(cmetodo) } )
+   z := AScan( aMetodos, {|aVal|aVal[1] == Lower(cmetodo)} )
    temp := iif( z > 0, aMetodos[z, 2] , "" )
 
    RETURN TEMP
@@ -927,7 +927,7 @@ FUNCTION Ctrl2Prg
                ELSE
                   IF lsubParameter
                      //temp :=  " {|" + temp + "| " +  cName +"("+ cFormParameters + ")  }"
-                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + "{ ||" + cName + "(" + cFormParameters + ")  }")
+                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + "{||" + cName + "(" + cFormParameters + ")}")
                   ELSE
 
                      FWrite(han, " ; " + hb_OsNewline() + Space(8) + cMethod + " {|" + temp + "| " + cName + "( " + temp + " ) }")
@@ -947,9 +947,9 @@ FUNCTION Ctrl2Prg
 
                   IF lsubParameter
                      //temp :=  " {|" + temp + "| " +  cName +"("+ cFormParameters + ")  }"
-                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + "{ ||" + cName + "(" + cFormParameters + ")  }")
+                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + "{||" + cName + "(" + cFormParameters + ")}")
                   ELSE
-                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + " {|" + temp + "| " +  iif( Len( cName ) == 1, cName[1], cName[2] ) + " }")
+                     FWrite(han, " ;" + hb_OsNewline() + Space(8) + cMethod + " {|" + temp + "|" +  iif( Len( cName ) == 1, cName[1], cName[2] ) + "}")
                   ENDIF
 
                ENDIF

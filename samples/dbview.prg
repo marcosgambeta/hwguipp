@@ -658,7 +658,7 @@ Memvar oBrw, oSay2
          Return NIL
       ENDIF
 
-      bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+      bOldError := ERRORBLOCK( {|e|MacroError(e)} )
       BEGIN SEQUENCE
          cType := Valtype( &cLocate )
       RECOVER

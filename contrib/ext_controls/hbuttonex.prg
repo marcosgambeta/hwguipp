@@ -102,7 +102,7 @@ METHOD HButtonEx:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::PictureMargin       := nPictureMargin
    ::lnoThemes           := lnoThemes
    ::bOther := bOther
-   bPaint := { | o, p | o:paint( p ) }
+   bPaint := {|o, p|o:paint(p)}
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
@@ -118,7 +118,7 @@ METHOD HButtonEx:Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick,
    DEFAULT Transp TO .T.
    DEFAULT lnoThemes  TO .F.
 
-   bPaint := { | o, p | o:paint( p ) }
+   bPaint := {|o, p|o:paint(p)}
    ::Super:Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
       cTooltip, tcolor, bColor, cCaption,  bGFocus  )
    ::bPaint  := bPaint	  
@@ -305,8 +305,8 @@ METHOD HButtonEx:onEvent(msg, wParam, lParam)
          IF HB_ISBLOCK(::bClick) .OR. ::id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
          ENDIF
-      ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif( HB_ISCHAR(o:title), ( pos := At("&", o:title) ) > 0 .AND. ;
-            wParam == Asc( Upper(SubStr(o:title, ++pos, 1)) ), ) } ) ) > 0
+      ELSEIF (nID := AScan(::oparent:acontrols, {|o|iif(HB_ISCHAR(o:title), (pos := At("&", o:title)) > 0 .AND. ;
+         wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),)})) > 0
          IF __ObjHasMsg( ::oParent:aControls[nID], "BCLICK" ) .AND. ;
                HB_ISBLOCK(::oParent:aControls[nID]:bClick) .OR. ::oParent:aControls[nID]:id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ::oParent:aControls[nID]:handle)
@@ -323,8 +323,8 @@ METHOD HButtonEx:onEvent(msg, wParam, lParam)
             IF HB_ISBLOCK(::bClick) .OR. ::id < 3
                hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
             ENDIF
-         ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif( HB_ISCHAR(o:title), ( pos := At("&", o:title) ) > 0 .AND. ;
-               wParam == Asc( Upper(SubStr(o:title, ++pos, 1)) ), ) } ) ) > 0
+         ELSEIF (nID := Ascan(::oparent:acontrols, {|o|iif(HB_ISCHAR(o:title), (pos := At("&", o:title)) > 0 .AND. ;
+            wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),)})) > 0
             IF __ObjHasMsg( ::oParent:aControls[nID], "BCLICK" ) .AND. ;
                   HB_ISBLOCK(::oParent:aControls[nID]:bClick) .OR. ::oParent:aControls[nID]:id < 3
                hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ::oParent:aControls[nID]:handle)

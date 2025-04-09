@@ -42,7 +42,7 @@ METHOD HContainerEx:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, n
       lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther)
 
    ::lTABSTOP :=  nStyle = WS_TABSTOP
-   ::bPaint   := { | o, p | o:paint( p ) }
+   ::bPaint   := {|o, p|o:paint(p)}
    nStyle := SS_OWNERDRAW + IIF( nStyle = WS_TABSTOP, WS_TABSTOP , 0 ) + hb_bitand( nStyle, SS_NOTIFY )
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, , bInit, bSize, ::bPaint,, tcolor, bColor)
 

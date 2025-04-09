@@ -83,12 +83,12 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
   This works not: the TOOLBUTTONS (with images) are not visible.
      
    INIT WINDOW oModDlg TITLE  cTitle ;
-      AT 210, 10 SIZE 300, 300  // ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
+      AT 210, 10 SIZE 300, 300  // ON INIT {||otool:refresh(), hwg_Enablewindow(oTool:aItem[2, 11], .F.)}
 * ON INIT crashes with "No exported method: REFRESH"
 */
 /* But this works fime */
    INIT DIALOG oModDlg TITLE cTitle ;
-      AT 210, 10 SIZE 300, 300 ON INIT { ||otool:refresh(), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
+      AT 210, 10 SIZE 300, 300 ON INIT {||otool:refresh(), hwg_Enablewindow(oTool:aItem[2, 11], .F.)}
 #else
    INIT WINDOW oModDlg TITLE  cTitle ;
       AT 210, 10 SIZE 501, 300 
@@ -110,7 +110,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste1"  ;
       TOOLTIP "ola" ;
-      ON CLICK { |x, y|hwg_Msginfo( "ola" ), hwg_Enablewindow( oTool:aItem[2, 11], .T. ) , hwg_Enablewindow( oTool:aItem[1, 11], .F. ) }
+      ON CLICK {|x, y|hwg_Msginfo("ola"), hwg_Enablewindow(oTool:aItem[2, 11], .T.), hwg_Enablewindow(oTool:aItem[1, 11], .F.)}
 
    TOOLBUTTON  otool ;
       ID 702 ;
@@ -119,7 +119,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste2"  ;
       TOOLTIP "ola2" ;
-      ON CLICK { |x, y|hwg_Msginfo( "ola1" ), hwg_Enablewindow( oTool:aItem[1, 11], .T. ), hwg_Enablewindow( oTool:aItem[2, 11], .F. ) }
+      ON CLICK {|x, y|hwg_Msginfo("ola1"), hwg_Enablewindow(oTool:aItem[1, 11], .T.), hwg_Enablewindow(oTool:aItem[2, 11], .F.)}
 
    TOOLBUTTON  otool ;
       ID 703 ;
@@ -128,14 +128,14 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "asdsa"  ;
       TOOLTIP "ola3" ;
-      ON CLICK { |x, y|hwg_Msginfo( "ola2" ) }
+      ON CLICK {|x, y|hwg_Msginfo("ola2")}
    TOOLBUTTON  otool ;
       ID 702 ;
       STYLE 1 ;
       STATE 4;
       TEXT "teste2"  ;
       TOOLTIP "ola2" ;
-      ON CLICK { |x, y|hwg_Msginfo( "ola3" ) }
+      ON CLICK {|x, y|hwg_Msginfo("ola3")}
    TOOLBUTTON  otool ;
       ID 702 ;
       BITMAP cbmppref + "door.bmp";  // DF7BE: tools.bmp does not exist, choose existing one
@@ -143,7 +143,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste2"  ;
       TOOLTIP "ola2" ;
-      ON CLICK { |x, y|hwg_Msginfo( "ola4" ) }
+      ON CLICK {|x, y|hwg_Msginfo("ola4")}
 
    TOOLBUTTON  otool ;
       ID 702 ;
@@ -152,7 +152,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
       STATE 4;
       TEXT "teste2"  ;
       TOOLTIP "ola2" ;
-      ON CLICK { |x, y|hwg_Msginfo( "ola5" ) }
+      ON CLICK {|x, y|hwg_Msginfo("ola5")}
 
 #else
 
@@ -167,7 +167,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oFileOpen  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK { | | hwg_Msginfo( "ola" )  }  ;
+   ON CLICK {||hwg_Msginfo("ola")}  ;
    TEXT "teste1"  ;
    BITMAP oBmpNew ; // cbmppref + "new.bmp" ;
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
@@ -180,7 +180,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBook  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK { | | hwg_Msginfo( "ola1" )  }  ;
+   ON CLICK {||hwg_Msginfo("ola1")}  ;
    TEXT "teste2"  ;
    BITMAP oBmpbook ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
@@ -194,7 +194,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
    
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBook  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK { | | hwg_Msginfo( "ola2" )  }  ;
+   ON CLICK {||hwg_Msginfo("ola2")}  ;
    TEXT "asdsa"  ;
    BITMAP oIcoOK  ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
@@ -207,7 +207,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBook  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK { | | hwg_Msginfo( "ola4" )  }  ;
+   ON CLICK {||hwg_Msginfo("ola4")}  ;
    TEXT "teste2"  ;
    BITMAP oBmpdoor ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;
@@ -219,7 +219,7 @@ oIcoCancel :=   HIcon():AddFile(cbmppref + "cancel.ico")
 
 @ htab+(nbut * nlowb), 3 OWNERBUTTON oBook  OF oTool  ; 
    SIZE nxowb,nyowb ;
-   ON CLICK { | | hwg_Msginfo( "ola5" )  }  ;
+   ON CLICK {||hwg_Msginfo("ola5")}  ;
    TEXT "teste2"  ;
    BITMAP oIcoCancel  ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;

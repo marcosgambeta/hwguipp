@@ -166,7 +166,7 @@ METHOD HColumnEx:Editable( lEditable )
 
    IF lEditable != NIL
       ::lEditable := lEditable
-      ::oParent:lEditable := lEditable .OR. Ascan( ::oParent:aColumns, { | c |  c:lEditable } ) > 0
+      ::oParent:lEditable := lEditable .OR. Ascan( ::oParent:aColumns, {|c|c:lEditable} ) > 0
       hwg_Redrawwindow( ::oParent:handle, RDW_INVALIDATE + RDW_INTERNALPAINT )
    ENDIF
 
@@ -277,10 +277,10 @@ CLASS HBrowseEx INHERIT HControl, HThemed
    DATA oHeadFont
    DATA lDescend INIT .F.              // Descend Order?
    DATA lFilter INIT .F.               // Filtered? (atribuition is automatic in method "New()").
-   DATA bFirst INIT { || DBGoTop() }     // Block to place pointer in first record of condition filter. (Ex.: DbGoTop(), DbSeek(), etc.).
-   DATA bLast  INIT { || dbGoBottom() }  // Block to place pointer in last record of condition filter. (Ex.: DbGoBottom(), DbSeek(), etc.).
-   DATA bWhile INIT { || .T. }           // Clausule "while". Return logical.
-   DATA bFor INIT { || .T. }             // Clausule "for". Return logical.
+   DATA bFirst INIT {||DBGoTop()}     // Block to place pointer in first record of condition filter. (Ex.: DbGoTop(), DbSeek(), etc.).
+   DATA bLast  INIT {||dbGoBottom()}  // Block to place pointer in last record of condition filter. (Ex.: DbGoBottom(), DbSeek(), etc.).
+   DATA bWhile INIT {||.T.}           // Clausule "while". Return logical.
+   DATA bFor INIT {||.T.}             // Clausule "for". Return logical.
    DATA nLastRecordFilter INIT 0       // Save the last record of filter.
    DATA nFirstRecordFilter INIT 0      // Save the first record of filter.
    DATA nPaintRow, nPaintCol                   // Row/Col being painted
@@ -647,7 +647,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
             IF oParent != NIL .AND. !Empty(oParent:KeyList)
                cKeyb := hwg_Getkeyboardstate()
                nCtrl := IIf(Asc(SubStr(cKeyb, VK_CONTROL + 1, 1)) >= 128, FCONTROL, IIf(Asc(SubStr(cKeyb, VK_SHIFT + 1, 1)) >= 128, FSHIFT, 0))
-               IF ( nPos := AScan( oParent:KeyList, { | a | a[1] == nCtrl .AND. a[2] == wParam } ) ) > 0
+               IF ( nPos := AScan( oParent:KeyList, {|a|a[1] == nCtrl .AND. a[2] == wParam} ) ) > 0
                   Eval(oParent:KeyList[nPos, 3], Self)
                ENDIF
             ENDIF
@@ -864,7 +864,7 @@ METHOD HBrowseEx:Redefine( lType, oWndParent, nId, oFont, bInit, bSize, bPaint, 
 //----------------------------------------------------//
 
 METHOD HBrowseEx:FindBrowse( nId )
-   LOCAL i := AScan( ::aItemsList, { | o | o:id == nId }, 1, ::iItems )
+   LOCAL i := AScan( ::aItemsList, {|o|o:id == nId}, 1, ::iItems )
 
    RETURN IIf(i > 0, ::aItemsList[i], NIL)
 
@@ -1028,12 +1028,12 @@ METHOD HBrowseEx:SetRefresh( nSeconds )
       IF ::oTimer != NIL
          ::oTimer:Interval := nSeconds * 1000
       ELSEIF nSeconds > 0
-         SET TIMER ::oTimer OF hwg_GetParentForm( Self ) VALUE ( nSeconds * 1000 )  ACTION { || IIf(hwg_Iswindowvisible(::Handle), ;
+         SET TIMER ::oTimer OF hwg_GetParentForm( Self ) VALUE ( nSeconds * 1000 )  ACTION {||IIf(hwg_Iswindowvisible(::Handle), ;
             (::internal[1] := 12, hwg_Invalidaterect(::handle, 0, ;
             ::x1, ;
             ::y1, ;
             ::x1+ ::xAdjRight, ;
-            ::y1 + ::rowCount * (::height + 1) + 1)), NIL) }
+            ::y1 + ::rowCount * (::height + 1) + 1)), NIL)}
       ENDIF
       ::nSetRefresh := nSeconds
    ENDIF
@@ -1080,22 +1080,22 @@ METHOD HBrowseEx:InitBrw( nType, lInit )
    IF ::Type == BRW_DATABASE
       ::Filter( ::lFilter )
    ELSEIF ::Type == BRW_ARRAY
-      ::bSkip      := { | o, n | ARSKIP( o, n ) }
-      ::bGoTop  := { | o | o:nCurrent := 1 }
-      ::bGoBot  := { | o | o:nCurrent := o:nRecords }
-      ::bEof    := { | o | o:nCurrent > o:nRecords }
-      ::bBof    := { | o | o:nCurrent == 0 }
-      ::bRcou   := { | o | Len(o:aArray) }
-      ::bRecnoLog := ::bRecno  := { | o | o:nCurrent }
-      ::bGoTo   := { | o, n | o:nCurrent := n }
-      ::bScrollPos := { | o, n, lEof, nPos | hwg_VScrollPosEx( o, n, lEof, nPos ) }
+      ::bSkip      := {|o, n|ARSKIP(o, n)}
+      ::bGoTop  := {|o|o:nCurrent := 1}
+      ::bGoBot  := {|o|o:nCurrent := o:nRecords}
+      ::bEof    := {|o|o:nCurrent > o:nRecords}
+      ::bBof    := {|o|o:nCurrent == 0}
+      ::bRcou   := {|o|Len(o:aArray)}
+      ::bRecnoLog := ::bRecno  := {|o|o:nCurrent}
+      ::bGoTo   := {|o, n|o:nCurrent := n}
+      ::bScrollPos := {|o, n, lEof, nPos|hwg_VScrollPosEx(o, n, lEof, nPos)}
       IF ::lFilter
          ::nLastRecordFilter  := 0
          ::nFirstRecordFilter := 0
          ::rowCurrCount := 0
-         ::bSkip     := { | o, n | aFltSkip( o, n, .F. )  }
-         ::bGoTop    := { | o | aFltGoTop( o  ) }
-         ::bGoBot    := { | o | aFltGoBottom( o )  }
+         ::bSkip     := {|o, n|aFltSkip(o, n, .F.)}
+         ::bGoTop    := {|o|aFltGoTop(o)}
+         ::bGoBot    := {|o|aFltGoBottom(o)}
       ENDIF
 
    ENDIF
@@ -1115,7 +1115,7 @@ METHOD HBrowseEx:LinkMaster( cLinkMaster )
    IF cLinkMaster  != NIL
       ::lFilter := IIf(!Empty(cLinkMaster), .T., ::lFilter)
       IF !Empty(::cLinkMaster) .AND. Empty(cLinkMaster)
-         ::bWhile    := { || .T. }
+         ::bWhile    := {||.T.}
       ENDIF
       ::cLinkMaster := Trim(cLinkMaster)
       IF Empty(::Alias)
@@ -1127,17 +1127,17 @@ METHOD HBrowseEx:LinkMaster( cLinkMaster )
             (::Alias)->(dbSetOrder(::ChildOrder))
          ENDIF
          IF !Empty(::RelationalExpr)
-            ::bFirst := { |  | (::Alias)->(dbSeek((::cLinkMaster)->(&(::RelationalExpr)), .F.)) }
-            ::bLast  := { |  | (::Alias)->(dbSeek((::cLinkMaster)->(&(::RelationalExpr)), .F., .T.)) }
-            ::bWhile := { |  | (::Alias)->((::cLinkMaster)->&(::RelationalExpr)) = (::cLinkMaster)->(&(::RelationalExpr)) }
+            ::bFirst := {||(::Alias)->(dbSeek((::cLinkMaster)->(&(::RelationalExpr)), .F.))}
+            ::bLast  := {||(::Alias)->(dbSeek((::cLinkMaster)->(&(::RelationalExpr)), .F., .T.))}
+            ::bWhile := {||(::Alias)->((::cLinkMaster)->&(::RelationalExpr)) = (::cLinkMaster)->(&(::RelationalExpr))}
             Eval(::bFirst, Self)
             ::rowCurrCount := 1
          ENDIF
       ELSE
          (::Alias)->(OrdScope(0))
          (::Alias)->(OrdScope(1))
-         ::bFirst := { |  | (::Alias)->(DBGoTop()) }
-         ::bLast  := { |  | (::Alias)->(dbGoBottom()) }
+         ::bFirst := {||(::Alias)->(DBGoTop())}
+         ::bLast  := {||(::Alias)->(dbGoBottom())}
          ::rowCurrCount := 0
       ENDIF
    ENDIF
@@ -1158,32 +1158,32 @@ METHOD HBrowseEx:FILTER( lFilter )
          ::nFirstRecordFilter := 0
          ::rowCurrCount := 0
          IF ::lDescend
-            ::bSkip     := { | o, n | (::Alias)->(FltSkip(o, n, .T.)) }
-            ::bGoTop    := { | o | (::Alias)->(FltGoBottom(o)) }
-            ::bGoBot    := { | o | (::Alias)->(FltGoTop(o)) }
-            ::bEof      := { | o | (::Alias)->(FltBOF(o)) }
-            ::bBof      := { | o | (::Alias)->(FltEOF(o)) }
+            ::bSkip     := {|o, n|(::Alias)->(FltSkip(o, n, .T.))}
+            ::bGoTop    := {|o|(::Alias)->(FltGoBottom(o))}
+            ::bGoBot    := {|o|(::Alias)->(FltGoTop(o))}
+            ::bEof      := {|o|(::Alias)->(FltBOF(o))}
+            ::bBof      := {|o|(::Alias)->(FltEOF(o))}
          ELSE
-            ::bSkip     := { | o, n | (::Alias)->(FltSkip(o, n, .F.)) }
-            ::bGoTop    := { | o | (::Alias)->(FltGoTop(o)) }
-            ::bGoBot    := { | o | (::Alias)->(FltGoBottom(o)) }
-            ::bEof      := { | o | (::Alias)->(FltEOF(o)) }
-            ::bBof      := { | o | (::Alias)->(FltBOF(o)) }
+            ::bSkip     := {|o, n|(::Alias)->(FltSkip(o, n, .F.))}
+            ::bGoTop    := {|o|(::Alias)->(FltGoTop(o))}
+            ::bGoBot    := {|o|(::Alias)->(FltGoBottom(o))}
+            ::bEof      := {|o|(::Alias)->(FltEOF(o))}
+            ::bBof      := {|o|(::Alias)->(FltBOF(o))}
          ENDIF
-         ::bRcou     := { || (::Alias)->(RecCount()) }
-         ::bRecnoLog := ::bRecno := { | o | (::Alias)->(FltRecNo(o)) }
-         ::bGoTo     := { | o, n | (::Alias)->(FltGoTo(o, n)) }
+         ::bRcou     := {||(::Alias)->(RecCount())}
+         ::bRecnoLog := ::bRecno := {|o|(::Alias)->(FltRecNo(o))}
+         ::bGoTo     := {|o, n|(::Alias)->(FltGoTo(o, n))}
       ELSE
-         ::bSkip     :=  { | o, n | HB_SYMBOL_UNUSED(o), (::Alias)->(dbSkip(n)) }
-         ::bGoTop    :=  { || (::Alias)->(DBGoTop()) }
-         ::bGoBot    :=  { || (::Alias)->(dbGoBottom()) }
-         ::bEof      :=  { || (::Alias)->(Eof()) }
-         ::bBof      :=  { || (::Alias)->(Bof()) }
-         ::bRcou     :=  { || (::Alias)->(RecCount()) }
-         ::bRecnoLog := ::bRecno  := { || (::Alias)->(RecNo()) }
-         ::bGoTo     := { | a, n | HB_SYMBOL_UNUSED(a), (::Alias)->(dbGoto(n)) }
-         ::bWhile    := { || .T. }
-         ::bFor      := { || .T. }
+         ::bSkip     :=  {|o, n|HB_SYMBOL_UNUSED(o), (::Alias)->(dbSkip(n))}
+         ::bGoTop    :=  {||(::Alias)->(DBGoTop())}
+         ::bGoBot    :=  {||(::Alias)->(dbGoBottom())}
+         ::bEof      :=  {||(::Alias)->(Eof())}
+         ::bBof      :=  {||(::Alias)->(Bof())}
+         ::bRcou     :=  {||(::Alias)->(RecCount())}
+         ::bRecnoLog := ::bRecno  := {||(::Alias)->(RecNo())}
+         ::bGoTo     := {|a, n|HB_SYMBOL_UNUSED(a), (::Alias)->(dbGoto(n))}
+         ::bWhile    := {||.T.}
+         ::bFor      := {||.T.}
       ENDIF
       ::lFilter := lFilter
    ELSEIF lFilter != NIL .AND. ::Type == BRW_ARRAY
@@ -1191,15 +1191,15 @@ METHOD HBrowseEx:FILTER( lFilter )
          ::nLastRecordFilter  := 0
          ::nFirstRecordFilter := 0
          ::rowCurrCount := 0
-         ::bSkip     := { | o, n | aFltSkip( o, n, .F. )  }
-         ::bGoTop    := { | o | aFltGoTop( o  ) }
-         ::bGoBot    := { | o | aFltGoBottom( o )  }
+         ::bSkip     := {|o, n|aFltSkip(o, n, .F.)}
+         ::bGoTop    := {|o|aFltGoTop(o)}
+         ::bGoBot    := {|o|aFltGoBottom(o)}
       ELSE
-         ::bSkip      := { | o, n | ARSKIP( o, n ) }
-         ::bGoTop  := { | o | o:nCurrent := 1 }
-         ::bGoBot  := { | o | o:nCurrent := o:nRecords }
-         ::bWhile    := { || .T. }
-         ::bFor      := { || .T. }
+         ::bSkip      := {|o, n|ARSKIP(o, n)}
+         ::bGoTop  := {|o|o:nCurrent := 1}
+         ::bGoBot  := {|o|o:nCurrent := o:nRecords}
+         ::bWhile    := {||.T.}
+         ::bFor      := {||.T.}
       ENDIF
       ::lFilter := lFilter
    ENDIF
@@ -1434,7 +1434,7 @@ METHOD HBrowseEx:Paint( lLostFocus )
          Eval(::bSkip, Self, ::internal[2] - ::rowPos)
       ENDIF
       //::oParent:lSuspendMsgsHandling := .T.
-      IF ::aSelected != NIL .AND. AScan( ::aSelected, { | x | x = Eval(::bRecno, Self) } ) > 0
+      IF ::aSelected != NIL .AND. AScan( ::aSelected, {|x|x = Eval(::bRecno, Self)} ) > 0
          ::LineOut( ::internal[2], 0, hDC, ! ::lResizing )
       ELSE
          ::LineOut( ::internal[2], 0, hDC, .F. )
@@ -1524,7 +1524,7 @@ METHOD HBrowseEx:Paint( lLostFocus )
          ENDIF
 
          // decide how to print the video row
-         IF ::aSelected != NIL .AND. AScan( ::aSelected, { | x | x = Eval(::bRecno, Self) } ) > 0
+         IF ::aSelected != NIL .AND. AScan( ::aSelected, {|x|x = Eval(::bRecno, Self)} ) > 0
             ::LineOut( cursor_row, 0, hDC, ! ::lResizing )
          ELSE
             ::LineOut( cursor_row, 0, hDC, .F. )
@@ -1773,7 +1773,7 @@ METHOD HBrowseEx:HeaderOut( hDC )
       ELSE
          xSize := 0
          IF fif = Len(::aColumns) .AND. !lFixed
-            fif := hb_RAscan( ::aColumns, { | c | c:lhide = .F. } ) - 1
+            fif := hb_RAscan( ::aColumns, {|c|c:lhide = .F.} ) - 1
             //::nPaintCol := nColumn
             x -= ::aColumns[fif + 1]:width
             lFixed := .T.
@@ -1909,7 +1909,7 @@ METHOD HBrowseEx:SeparatorOut( hDC, nRowsFill )
       ELSE
          xSize := 0
          IF fif = Len(::aColumns) .AND. !lFixed
-            fif := hb_RAscan( ::aColumns, { |c| c:lhide = .F. } ) - 1
+            fif := hb_RAscan( ::aColumns, {|c|c:lhide = .F.} ) - 1
             x -= ::aColumns[fif + 1]:width
             lFixed := .T.
          ENDIF
@@ -2034,7 +2034,7 @@ METHOD HBrowseEx:FooterOut( hDC )
       ELSE
          xSize := 0
          IF fif = Len(::aColumns) .AND. !lFixed
-            fif := hb_RASCAN( ::aColumns, { | c | c:lhide = .F. } ) - 1
+            fif := hb_RASCAN( ::aColumns, {|c|c:lhide = .F.} ) - 1
             x -= ::aColumns[fif + 1]:width
             lFixed := .T.
          ENDIF
@@ -2272,7 +2272,7 @@ METHOD HBrowseEx:LineOut( nRow, nCol, hDC, lSelected, lClear )
                nCol ++
             ENDIF
             IF nColumn = Len(::aColumns) .AND. !lFixed
-               nColumn := hb_RAscan( ::aColumns, { | c | c:lhide = .F. } ) - 1
+               nColumn := hb_RAscan( ::aColumns, {|c|c:lhide = .F.} ) - 1
                ::nPaintCol := nColumn
                x -= ::aColumns[::nPaintCol + 1]:width
                lFixed := .T.
@@ -2513,7 +2513,7 @@ METHOD HBrowseEx:LINEDOWN( lMouse )
       IF ::rowPos > 1
          ::rowPos --
       ENDIF
-      ::colPos := Max( 1,  Ascan( ::aColumns, { | c |  c:lEditable } ) )
+      ::colPos := Max( 1,  Ascan( ::aColumns, {|c|c:lEditable} ) )
       ::nLeftCol  := ::freeze + 1
    ENDIF
    IF !::lAppMode .OR. ::nLeftCol == 1
@@ -3082,9 +3082,9 @@ METHOD HBrowseEx:Edit( wParam, lParam )
                   At x1, y1 - IIf(oColumn:aList == NIL, 1, 0) ;
                   SIZE nWidth - 1, ::height + IIf(oColumn:aList == NIL, 1, 0) ;
                   ON INIT bInit ;
-                  ON OTHER MESSAGES { | o, m, w, l | ::EditEvent( o, m, w, l ) }
+                  ON OTHER MESSAGES {|o, m, w, l|::EditEvent(o, m, w, l)}
             ELSE
-               INIT DIALOG ::oEditDlg title "memo edit" At 0, 0 SIZE 400, 300 ON INIT { | o | o:center() }
+               INIT DIALOG ::oEditDlg title "memo edit" At 0, 0 SIZE 400, 300 ON INIT {|o|o:center()}
             ENDIF
             IF oColumn:aList != NIL  .AND. ( oColumn:bWhen = NIL .OR. Eval(oColumn:bWhen) )
                ::oEditDlg:brush := - 1
@@ -3103,10 +3103,10 @@ METHOD HBrowseEx:Edit( wParam, lParam )
                   SIZE nWidth, ::height + 1      ;
                   FONT oComboFont  ;
                   DISPLAYCOUNT  IIf(Len(oColumn:aList) > ::rowCount, ::rowCount - 1, Len(oColumn:aList)) ;
-                  VALID { || ::ValidColumn( nChoic, oCombo ) };
-                  WHEN { || ::WhenColumn( nChoic, oCombo ) }
+                  VALID {||::ValidColumn(nChoic, oCombo)};
+                  WHEN {||::WhenColumn(nChoic, oCombo)}
 
-               ::oEditDlg:AddEvent( 0, IDOK, { || ::oEditDlg:lResult := .T. , ::oEditDlg:close() } )
+               ::oEditDlg:AddEvent( 0, IDOK, {||::oEditDlg:lResult := .T., ::oEditDlg:close()} )
             ELSE
                IF Type == "L"
                   ::oEditDlg:lResult := .T.
@@ -3118,18 +3118,18 @@ METHOD HBrowseEx:Edit( wParam, lParam )
                      STYLE ES_AUTOHSCROLL           ;
                      FONT ::oFont                   ;
                      PICTURE IIf(Empty(oColumn:picture), NIL, oColumn:picture)   ;
-                     VALID { | oColumn, oGet | ::ValidColumn( oColumn, oGet, oBtn ) };
-                     WHEN { | oColumn, oGet | ::WhenColumn( oColumn, oGet, oBtn ) }
+                     VALID {|oColumn, oGet|::ValidColumn(oColumn, oGet, oBtn)};
+                     WHEN {|oColumn, oGet|::WhenColumn(oColumn, oGet, oBtn)}
                   IF oColumn:bClick != NIL
                      IF Type != "D"
                         @ nWidth - 15, 0  OWNERBUTTON oBtn SIZE 16, ::height - 0 ;
                            TEXT "..."  FONT HFont():Add("MS Sans Serif", 0, -10, 400) ;
                            COORDINATES 0, 1, 0, 0      ;
-                           ON CLICK { | oColumn, oBtn | HB_SYMBOL_UNUSED(oColumn), ::onClickColumn( .T. , oGet, oBtn ) }
+                           ON CLICK {|oColumn, oBtn|HB_SYMBOL_UNUSED(oColumn), ::onClickColumn(.T., oGet, oBtn)}
                         oBtn:themed :=  ::hTheme != NIL
                      ELSE
                         @ nWidth - 16, 0 DATEPICKER oBtn SIZE 16, ::height - 1  ;
-                           ON CHANGE { | value, oBtn |  ::onClickColumn( value, oGet, oBtn ) }
+                           ON CHANGE {|value, oBtn|::onClickColumn(value, oGet, oBtn)}
                      ENDIF
                   ENDIF
                   IF !Empty(wParam) .AND. wParam != 13 .AND. !Empty(lParam)
@@ -3138,8 +3138,8 @@ METHOD HBrowseEx:Edit( wParam, lParam )
                ELSE
                   oGet1 := ::varbuf
                   @ 10, 10 GET oGet1 SIZE ::oEditDlg:nWidth - 20, 240 FONT ::oFont Style WS_VSCROLL + WS_HSCROLL + ES_MULTILINE VALID oColumn:bValid
-                  @ 010, 252 ownerbutton owb2 TEXT "Save" size 80, 24 ON Click { || ::varbuf := oGet1, ::oEditDlg:close(), ::oEditDlg:lResult := .T. }
-                  @ 100, 252 ownerbutton owb1 TEXT "Close" size 80, 24 ON CLICK { || ::oEditDlg:close() }
+                  @ 010, 252 ownerbutton owb2 TEXT "Save" size 80, 24 ON Click {||::varbuf := oGet1, ::oEditDlg:close(), ::oEditDlg:lResult := .T.}
+                  @ 100, 252 ownerbutton owb1 TEXT "Close" size 80, 24 ON CLICK {||::oEditDlg:close()}
                ENDIF
             ENDIF
             IF Type != "L" .AND. ::nSetRefresh > 0
@@ -3769,7 +3769,7 @@ STATIC FUNCTION FltRecNo( oBrw )
 
 STATIC FUNCTION aFltSkip( oBrw, nLines )
    LOCAL n := Eval(oBrw:bRcou, oBrw)
-   LOCAL abSkip   := { | o, n | ARSKIP( o, n ) }
+   LOCAL abSkip   := {|o, n|ARSKIP(o, n)}
 
    nLines := IIf(nLines == NIL, 1, nLines)
    IF nLines > 0 .AND. n > 0
@@ -3799,7 +3799,7 @@ STATIC FUNCTION aFltSkip( oBrw, nLines )
    RETURN NIL
 
 STATIC FUNCTION aFltGoTop( oBrw )
-   LOCAL abSkip   := { | o, n | ARSKIP( o, n ) }
+   LOCAL abSkip   := {|o, n|ARSKIP(o, n)}
 
    IF oBrw:nFirstRecordFilter == 0
       oBrw:nCurrent := 1
@@ -3818,7 +3818,7 @@ STATIC FUNCTION aFltGoTop( oBrw )
    RETURN NIL
 
 STATIC FUNCTION aFltGoBottom( oBrw )
-   LOCAL abSkip   := { | o, n | ARSKIP( o, n ) }
+   LOCAL abSkip   := {|o, n|ARSKIP(o, n)}
 
    IF oBrw:nLastRecordFilter == 0
       oBrw:nCurrent := oBrw:nRecords

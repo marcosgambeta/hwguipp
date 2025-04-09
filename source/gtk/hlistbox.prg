@@ -123,18 +123,18 @@ METHOD HListBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHei
 /*
    IF bSetGet != NIL
       IF bGFocus != NIL
-         ::oParent:AddEvent( LBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
+         ::oParent:AddEvent( LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))} )
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )
-      ::bValid := { | o | ::Valid( o ) }
+      ::oParent:AddEvent( LBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))} )
+      ::bValid := {|o|::Valid(o)}
    ELSE
       IF bGFocus != NIL
-         ::oParent:AddEvent( LBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
+         ::oParent:AddEvent( LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))} )
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( LBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))} )
    ENDIF
    IF bChange != NIL .OR. bSetGet != NIL
-      ::oParent:AddEvent( LBN_SELCHANGE, ::id, { | o, id | ::onChange( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( LBN_SELCHANGE, ::id, {|o, id|::onChange(o:FindControl(id))} )
    ENDIF
    IF bDblclick != NIL
       ::oParent:AddEvent( LBN_DBLCLK, ::id, {|| ::onDblClick() } )
@@ -177,7 +177,7 @@ METHOD HListBox:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, b
 
    IF bSetGet != NIL
       ::bChangeSel := bChange
-      ::oParent:AddEvent( LBN_SELCHANGE, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, "onChange" )
+      ::oParent:AddEvent( LBN_SELCHANGE, Self, {|o, id|::Valid(o:FindControl(id))}, "onChange" )
    ENDIF
    RETURN Self
 */

@@ -98,7 +98,7 @@ METHOD hCheckComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, n
       nStyle := hwg_multibitor( CBS_DROPDOWNLIST, CBS_OWNERDRAWVARIABLE, CBS_HASSTRINGS )
    ENDIF
 
-   bPaint := { | o, p | o:paint( p ) }
+   bPaint := {|o, p|o:paint(p)}
 
    ::Super:New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, ;
@@ -108,7 +108,7 @@ METHOD hCheckComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, n
 
 METHOD hCheckComboBox:Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, ;
       bChange, ctooltip, bGFocus, acheck, aImages )
-      bPaint := { | o, p | o:paint( p ) }
+      bPaint := {|o, p|o:paint(p)}
      ::acheck := iif( acheck == NIL, {}, acheck )
      ::lCheck := iif( aImages == NIL, .T. , .F. )
      ::aImages := aImages
@@ -214,8 +214,8 @@ METHOD hCheckComboBox:onEvent( msg, wParam, lParam )
 
       IF wParam = VK_HOME .OR. wParam = VK_END
          nPos := iif( wParam = VK_HOME, ;
-            Ascan( ::aItems, { | a | ! Left(a[1], 2) $ "\-" + Chr(0) + "\]" } , , ) , ;
-            RAscan( ::aItems, { | a | ! Left(a[1], 2) $ "\-" + Chr(0) + "\]" } , , ) )
+            Ascan( ::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"} , , ) , ;
+            RAscan( ::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"} , , ) )
          IF nPos - 1 != ::nCurPos
             hwg_Setfocus( NIL )
             hwg_Sendmessage( ::handle, CB_SETCURSEL, nPos - 1, 0 )
@@ -578,8 +578,8 @@ METHOD hCheckComboBox:SkipItems( nNav )
    hwg_Comboboxgetlbtext( ::handle, ::nCurPos + nNav, @strText ) // NEXT
    IF Left(strText, 2) == "\]" .OR. Left(strText, 2) == "\-"
       nPos := iif( nNav > 0, ;
-         Ascan(  ::aItems, { | a | ! Left(a[1], 2) $ "\-" + Chr(0) + "\]" }, ::nCurPos + 2  ), ;
-         RAscan( ::aItems, { | a | ! Left(a[1], 2) $ "\-" + Chr(0) + "\]" }, ::nCurPos - 1, ) )
+         Ascan(  ::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ::nCurPos + 2  ), ;
+         RAscan( ::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ::nCurPos - 1, ) )
       nPos := iif( nPos = 0, ::nCurPos , nPos - 1 )
       hwg_Setfocus( NIL )
       hwg_Sendmessage( ::handle, CB_SETCURSEL, nPos , 0 )

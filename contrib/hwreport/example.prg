@@ -20,16 +20,16 @@ FUNCTION Main()
    INIT WINDOW oMainWindow MAIN TITLE "HWReport example" SIZE 240, 100
 
    @ 0, 0 PANEL oPanel OF oMainWindow ;
-      ON SIZE { |o, x|hwg_Movewindow( o:handle, 0, 0, x, 50 ) }
+      ON SIZE {|o, x|hwg_Movewindow(o:handle, 0, 0, x, 50)}
 
-   @ 2, 3  OWNERBUTTON OF oPanel ON CLICK { ||hwg_EndWindow() } ;
+   @ 2, 3  OWNERBUTTON OF oPanel ON CLICK {||hwg_EndWindow()} ;
       SIZE 80, 44 FLAT ;
       TEXT "Exit" COLOR 0x0000FF FONT oFont
 
-   @ 82, 3 OWNERBUTTON OF oPanel ON CLICK { ||Print1() } ;
+   @ 82, 3 OWNERBUTTON OF oPanel ON CLICK {||Print1()} ;
       SIZE 120, 22 FLAT ;
       TEXT "Print Example.rpt" COLOR 0xFF0000 FONT oFont
-   @ 82, 25 OWNERBUTTON OF oPanel ON CLICK { ||Print2() } ;
+   @ 82, 25 OWNERBUTTON OF oPanel ON CLICK {||Print2()} ;
       SIZE 120, 22 FLAT ;
       TEXT "Print MyReport()" COLOR 0xE60099 FONT oFont
 

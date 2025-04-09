@@ -185,29 +185,29 @@ METHOD HComboBoxEx:New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWid
    IF bSetGet != NIL
       IF bGFocus != NIL
          // ::lnoValid := .T.
-         ::oParent:AddEvent( CBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
+         ::oParent:AddEvent( CBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))} )
       ENDIF
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 03/06/2006
-      ::oParent:AddEvent( CBN_KILLFOCUS, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( CBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))} )
       //---------------------------------------------------------------------------
    ELSE
       IF bGFocus != NIL
          //::lnoValid := .T.
-         ::oParent:AddEvent( CBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
+         ::oParent:AddEvent( CBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))} )
       ENDIF
-      ::oParent:AddEvent( CBN_KILLFOCUS, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( CBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))} )
    ENDIF
    IF bChange != NIL .OR. bSetGet != NIL
-      ::oParent:AddEvent( CBN_SELCHANGE, ::id, { | o, id | ::onChange( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( CBN_SELCHANGE, ::id, {|o, id|::onChange(o:FindControl(id))} )
    ENDIF
 
    IF bIChange != NIL .AND. ::lEdit
       ::bchangeInt := bIChange
-      ::oParent:AddEvent( CBN_EDITUPDATE, ::id, { | o, id | ::InteractiveChange( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( CBN_EDITUPDATE, ::id, {|o, id|::InteractiveChange(o:FindControl(id))} )
    ENDIF
-   ::oParent:AddEvent( CBN_SELENDOK, ::id, { | o, id | ::onSelect( o:FindControl( id ) ) } )
-   ::oParent:AddEvent( CBN_DROPDOWN, ::id, { | o, id | ::onDropDown( o:FindControl( id ) ) } )
-   ::oParent:AddEvent( CBN_CLOSEUP, ::id, { || ::ldropshow := .F. } )
+   ::oParent:AddEvent( CBN_SELENDOK, ::id, {|o, id|::onSelect(o:FindControl(id))} )
+   ::oParent:AddEvent( CBN_DROPDOWN, ::id, {|o, id|::onDropDown(o:FindControl(id))} )
+   ::oParent:AddEvent( CBN_CLOSEUP, ::id, {||::ldropshow := .F.} )
 
    RETURN Self
 
@@ -265,29 +265,29 @@ METHOD HComboBoxEx:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit
    IF bSetGet != NIL
       ::bChangeSel := bChange
       ::bGetFocus  := bGFocus
-      ::oParent:AddEvent( CBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( CBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))} )
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
       IF ::bSetGet != NIL
-         ::oParent:AddEvent( CBN_SELCHANGE, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )
+         ::oParent:AddEvent( CBN_SELCHANGE, ::id, {|o, id|::Valid(o:FindControl(id))} )
       ELSEIF ::bChangeSel != NIL
-         ::oParent:AddEvent( CBN_SELCHANGE, ::id, { | o, id | ::Valid( o:FindControl( id ) ) } )
+         ::oParent:AddEvent( CBN_SELCHANGE, ::id, {|o, id|::Valid(o:FindControl(id))} )
       ENDIF
    ELSEIF bChange != NIL .AND. ::lEdit
       ::bChangeSel := bChange
-      ::oParent:AddEvent( CBN_SELCHANGE, ::id, { | o, id | ::onChange( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( CBN_SELCHANGE, ::id, {|o, id|::onChange(o:FindControl(id))} )
    ENDIF
 
    IF bGFocus != NIL .AND. bSetGet == NIL
-      ::oParent:AddEvent( CBN_SETFOCUS, ::id, { | o, id | ::When( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( CBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))} )
    ENDIF
    IF bIChange != NIL .AND. ::lEdit
       ::bchangeInt := bIChange
-      ::oParent:AddEvent( CBN_EDITUPDATE, ::id, { | o, id | ::InteractiveChange( o:FindControl( id ) ) } )
+      ::oParent:AddEvent( CBN_EDITUPDATE, ::id, {|o, id|::InteractiveChange(o:FindControl(id))} )
    ENDIF
 
-   ::oParent:AddEvent( CBN_SELENDOK, ::id, { | o, id | ::onSelect( o:FindControl( id ) ) } )
-   ::oParent:AddEvent( CBN_DROPDOWN, ::id, { | o, id | ::onDropDown( o:FindControl( id ) ) } )
-   ::oParent:AddEvent( CBN_CLOSEUP, ::id, { || ::ldropshow := .F. } )
+   ::oParent:AddEvent( CBN_SELENDOK, ::id, {|o, id|::onSelect(o:FindControl(id))} )
+   ::oParent:AddEvent( CBN_DROPDOWN, ::id, {|o, id|::onDropDown(o:FindControl(id))} )
+   ::oParent:AddEvent( CBN_CLOSEUP, ::id, {||::ldropshow := .F.} )
 
    RETURN Self
 

@@ -102,7 +102,7 @@ FUNCTION Main
 
    ADD TOP PANEL oPanel TO oMain HEIGHT 32 STYLE HStyle():New( { 0xffffff, 0xbbbbbb }, 1 )
 
-   @ 710, 3 OWNERBUTTON oBtnRun OF oPanel ON CLICK { ||RunSample() } ;
+   @ 710, 3 OWNERBUTTON oBtnRun OF oPanel ON CLICK {||RunSample()} ;
       SIZE 80, 26 FLAT ;
       TEXT "Run" COORDINATES 12, 0, 0, 0 ;
       BITMAP oBmp COORDINATES 52, 0, 0, 0 TRANSPARENT COLOR 0xffffff ;
@@ -115,11 +115,11 @@ FUNCTION Main
    @ 0, 32 TREE oTree SIZE 270, 568 ;
       EDITABLE ;
       BITMAP { "cl_fl.bmp", "op_fl.bmp" } ;
-      ON SIZE { |o, x, y|o:Move( , , , y - 32 ) }
+      ON SIZE {|o, x, y|o:Move(, , , y - 32)}
 
-   oTree:bDblClick := { |oTree, oItem|RunSample( oItem ) }
+   oTree:bDblClick := {|oTree, oItem|RunSample(oItem)}
 
-   oText := HCEdit():New( oMain, ,, 274, 32, 526, 568, oFont, , { |o, x, y|o:Move( ,,x - oSplit:nLeft - oSplit:nWidth,y - 32 ) } )
+   oText := HCEdit():New( oMain, ,, 274, 32, 526, 568, oFont, , {|o, x, y|o:Move(, , x - oSplit:nLeft - oSplit:nWidth, y - 32)} )
    IF hwg__isUnicode()
       oText:lUtf8 := .T.
    ENDIF
@@ -131,9 +131,9 @@ FUNCTION Main
 
    @ 270, 32 SPLITTER oSplit SIZE 4, 568 ;
       DIVIDE { oTree } FROM { oText } ;
-      ON SIZE { |o, x, y|o:Move( , , , y - 32 ) }
+      ON SIZE {|o, x, y|o:Move(, , , y - 32)}
 
-   oSplit:bEndDrag := { ||hwg_Redrawwindow( oText:handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW ) }
+   oSplit:bEndDrag := {||hwg_Redrawwindow(oText:handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)}
 
    SET KEY FCONTROL, VK_ADD TO ChangeFont( oText, 2 )
    SET KEY FCONTROL, VK_SUBTRACT TO ChangeFont( oText, - 2 )
@@ -200,18 +200,18 @@ STATIC FUNCTION BuildTree( oTree )
       FOR i := 1 TO Len( oInit:aItems )
          oNode1 := oInit:aItems[i]
          IF oNode1:title == "chapter"
-            INSERT NODE oTreeNode1 CAPTION oNode1:GetAttribute( "name", , "" ) TO oTree ON CLICK { |o|NodeOut( o ) }
+            INSERT NODE oTreeNode1 CAPTION oNode1:GetAttribute( "name", , "" ) TO oTree ON CLICK {|o|NodeOut(o)}
             oTreeNode1:cargo := { .F. , "" }
             FOR j := 1 TO Len( oNode1:aItems )
                oNode2 := oNode1:aItems[j]
                IF oNode2:title == "chapter"
-                  INSERT NODE oTreeNode2 CAPTION oNode2:GetAttribute( "name", , "" ) TO oTreeNode1 ON CLICK { |o|NodeOut( o ) }
+                  INSERT NODE oTreeNode2 CAPTION oNode2:GetAttribute( "name", , "" ) TO oTreeNode1 ON CLICK {|o|NodeOut(o)}
                   oTreeNode2:cargo := { .F. , "" }
                   FOR j1 := 1 TO Len( oNode2:aItems )
                      oNode3 := oNode2:aItems[j1]
                      IF oNode3:title == "module"
                         IF Empty(cTemp := oNode3:GetAttribute( "ver",,"" )) .OR. cTemp == cVer
-                           INSERT NODE oTNode CAPTION oNode3:GetAttribute( "name", , "" ) TO oTreeNode2 BITMAP { "book.bmp" } ON CLICK { |o|NodeOut( o ) }
+                           INSERT NODE oTNode CAPTION oNode3:GetAttribute( "name", , "" ) TO oTreeNode2 BITMAP { "book.bmp" } ON CLICK {|o|NodeOut(o)}
                            oTNode:cargo := { .T. , "" }
                            IF Empty(oTNode:cargo[2] := oNode3:GetAttribute( "file",,"" ))
                               IF !Empty(oNode3:aItems) .AND. HB_ISOBJECT(oNode3:aItems[1])
@@ -227,7 +227,7 @@ STATIC FUNCTION BuildTree( oTree )
                   NEXT
                ELSEIF oNode2:title == "module"
                   IF Empty(cTemp := oNode2:GetAttribute( "ver",,"" )) .OR. cTemp == cVer
-                     INSERT NODE oTNode CAPTION oNode2:GetAttribute( "name", , "" ) TO oTreeNode1 BITMAP { "book.bmp" } ON CLICK { |o|NodeOut( o ) }
+                     INSERT NODE oTNode CAPTION oNode2:GetAttribute( "name", , "" ) TO oTreeNode1 BITMAP { "book.bmp" } ON CLICK {|o|NodeOut(o)}
                      oTNode:cargo := { .T. , "" }
                      IF Empty(oTNode:cargo[2] := oNode2:GetAttribute( "file",,"" ))
                         IF !Empty(oNode2:aItems) .AND. HB_ISOBJECT(oNode2:aItems[1])
@@ -243,7 +243,7 @@ STATIC FUNCTION BuildTree( oTree )
             NEXT
          ELSEIF oNode1:title == "module"
             IF Empty(cTemp := oNode1:GetAttribute( "ver",,"" )) .OR. cTemp == cVer
-               INSERT NODE oTNode CAPTION oNode1:GetAttribute( "name", , "" ) TO oTree BITMAP { "book.bmp" } ON CLICK { |o|NodeOut( o ) }
+               INSERT NODE oTNode CAPTION oNode1:GetAttribute( "name", , "" ) TO oTree BITMAP { "book.bmp" } ON CLICK {|o|NodeOut(o)}
                oTNode:cargo := { .T. , "" }
                IF Empty(oTNode:cargo[2] := oNode1:GetAttribute( "file",,"" ))
                   IF !Empty(oNode1:aItems) .AND. HB_ISOBJECT(oNode1:aItems[1])
@@ -258,7 +258,7 @@ STATIC FUNCTION BuildTree( oTree )
       oTree:Select( oTree:aItems[1] )
    ENDIF
 
-   oTree:bExpand := { || .T. }
+   oTree:bExpand := {||.T.}
 
    RETURN NIL
 

@@ -55,7 +55,7 @@ function CreateChild(lClip)
    Local oIcon := HIcon():AddFile(cImagdir + "W.ico")
    Local oBmp  := HBitMap():AddFile(cImagdir + "logo.bmp")
    Local cMenu := ""
-   Local bExit := { | oSelf | hwg_Msginfo( "Bye!" , "Destroy message from " + oSelf:title )  }
+   Local bExit := {|oSelf|hwg_Msginfo("Bye!", "Destroy message from " + oSelf:title)}
 
    DEFAULT lClip := .f.
 

@@ -968,7 +968,7 @@ FUNCTION hwg_GetSkip( oParent, hCtrl, nSkip, lClipper )
    IF hCtrl == NIL
       i := 0
    ENDIF
-   IF hCtrl == NIL .OR. ( i := Ascan( oParent:Getlist,{ |o|o:handle == hCtrl } ) ) != 0
+   IF hCtrl == NIL .OR. ( i := Ascan( oParent:Getlist,{|o|o:handle == hCtrl} ) ) != 0
       IF ( aLen := Len(oParent:Getlist) ) > 1
          IF nSkip > 0
             DO WHILE ( i := i + nSkip ) <= aLen

@@ -23,7 +23,7 @@ FUNCTION StruMan( lNew )
    LOCAL aTypes := { "Character", "Numeric", "Date", "Logical" }
    LOCAL fname, cAlias, nRec, nOrd, lOverFlow := .F. , xValue
    LOCAL currentCP := aFiles[improc,AF_CP], currFname := CutExten( aFiles[improc,AF_NAME] )
-   LOCAL bChgPos := { |o|
+   LOCAL bChgPos := {|o|
 
    oGet1:SetGet( o:aArray[o:nCurrent, 1] )
    oGet2:SetItem( Ascan( aFieldTypes,o:aArray[o:nCurrent, 2] ) )
@@ -56,11 +56,11 @@ FUNCTION StruMan( lNew )
    oBrowse:aHeadPadding := { 4, 2, 4, 2 }
    oBrowse:oStyleHead := HStyle():New( { 0xffffff, 0xbbbbbb }, 1 )
    oBrowse:aArray := af
-   oBrowse:AddColumn( HColumn():New( "",{ |v,o|o:nCurrent },"N", 4, 0 ) )
-   oBrowse:AddColumn( HColumn():New( "Name",{ |v,o|o:aArray[o:nCurrent, 1] },"C", 14, 0 ) )
-   oBrowse:AddColumn( HColumn():New( "Type",{ |v,o|o:aArray[o:nCurrent, 2] },"C", 1, 0 ) )
-   oBrowse:AddColumn( HColumn():New( "Length",{ |v,o|o:aArray[o:nCurrent, 3] },"N", 5, 0 ) )
-   oBrowse:AddColumn( HColumn():New( "Dec",{ |v,o|o:aArray[o:nCurrent, 4] },"N", 2, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "",{|v, o|o:nCurrent},"N", 4, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Name",{|v, o|o:aArray[o:nCurrent, 1]},"C", 14, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Type",{|v, o|o:aArray[o:nCurrent, 2]},"C", 1, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Length",{|v, o|o:aArray[o:nCurrent, 3]},"N", 5, 0 ) )
+   oBrowse:AddColumn( HColumn():New( "Dec",{|v, o|o:aArray[o:nCurrent, 4]},"N", 2, 0 ) )
 
    @ 20, 230 GET oGet1 VAR cName SIZE 100, 24 PICTURE "XXXXXXXXXX"
    @ 130, 230 GET COMBOBOX oGet2 VAR nType ITEMS aTypes SIZE 100, 24
@@ -69,16 +69,16 @@ FUNCTION StruMan( lNew )
 
    IF ( lNew .AND. nServerType == LOCAL_SERVER ) .OR. lCanModif
 
-      @ 28, 270 BUTTON "Add" SIZE 80, 30 ON CLICK { ||UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, 1 ) }
-      @ 136, 270 BUTTON "Insert" SIZE 80, 30 ON CLICK { ||UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, 2 ) }
-      @ 246, 270 BUTTON "Replace" SIZE 80, 30 ON CLICK { ||UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, 3 ) }
-      @ 356, 270 BUTTON "Remove" SIZE 80, 30 ON CLICK { ||UpdStru( oBrowse, oGet1, oGet2, oGet3, oGet4, 4 ) }
+      @ 28, 270 BUTTON "Add" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse, oGet1, oGet2, oGet3, oGet4, 1)}
+      @ 136, 270 BUTTON "Insert" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse, oGet1, oGet2, oGet3, oGet4, 2)}
+      @ 246, 270 BUTTON "Replace" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse, oGet1, oGet2, oGet3, oGet4, 3)}
+      @ 356, 270 BUTTON "Remove" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse, oGet1, oGet2, oGet3, oGet4, 4)}
 
-      @ 344, 40 BUTTON iif( lNew, "Create", "Modify" ) SIZE 100, 40 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
+      @ 344, 40 BUTTON iif( lNew, "Create", "Modify" ) SIZE 100, 40 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    ELSEIF !lCanModif
       @ 28, 270 SAY "Open file in exclusive mode to modify it!" SIZE 360, 24
    ENDIF
-   @ 344, 100 BUTTON "Close" SIZE 100, 40 ON CLICK { ||hwg_EndDialog() }
+   @ 344, 100 BUTTON "Close" SIZE 100, 40 ON CLICK {||hwg_EndDialog()}
 
    ACTIVATE DIALOG oDlg
 

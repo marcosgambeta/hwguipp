@@ -47,7 +47,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
 #endif
       INIT DIALOG s_oDlgDebug TITLE ( "Script Debugger - " + aScript[1] ) AT 210, 10 SIZE 500, 300 ;
            FONT s_oDlgFont STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX ;
-           ON EXIT { || dlgDebugClose() }
+           ON EXIT {||dlgDebugClose()}
 
       MENU OF s_oDlgDebug
          MENUITEM "E&xit" ACTION s_oDlgDebug:Close()
@@ -61,7 +61,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
       ENDMENU
 
       @ 0, 0 BROWSE s_oBrwData ARRAY SIZE 500, 0 STYLE WS_BORDER + WS_VSCROLL ;
-          ON SIZE { | o, x | o:Move(,, x ) }
+          ON SIZE {|o, x|o:Move(, , x)}
 
       s_oBrwData:aArray := s_aWatches
       s_oBrwData:AddColumn(HColumn():New("", {|v, o|HB_SYMBOL_UNUSED(v), o:aArray[o:nCurrent, 1]}, "C", 30, 0))
@@ -72,7 +72,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
           ON SIZE {|o,x,y|o:Move(,,x,y-s_oSplit:nTop-s_oSplit:nHeight-64)}
 
       @ 0, 0 SPLITTER s_oSplit SIZE 600, 3 DIVIDE {s_oBrwData} FROM {s_oBrwScript} ;
-          ON SIZE { | o, x | o:Move(,, x ) }
+          ON SIZE {|o, x|o:Move(, , x)}
 
       s_oBrwScript:aArray := aScript[3]
 #ifdef __GTK__
@@ -204,7 +204,7 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
 #else
    IF !Empty(xRes := hwg_Getedittext( s_oEditExpr:oParent:handle, s_oEditExpr:id ))
 #endif
-      bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+      bOldError := ERRORBLOCK( {|e|MacroError(e)} )
       BEGIN SEQUENCE
          bCodeblock := &( "{||" + xRes + "}" )
       RECOVER
@@ -233,7 +233,7 @@ Return .T.
 Static Function CalcWatch( n )
 Local xRes, bOldError, lRes := .T., cType
 
-   bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+   bOldError := ERRORBLOCK( {|e|MacroError(e)} )
    BEGIN SEQUENCE
       xRes := Eval(s_aWatches[n, 2])
    RECOVER
@@ -269,7 +269,7 @@ Local xRes, bOldError, lRes := .T., cType
 #else
    IF !Empty(xRes := hwg_Getedittext( s_oEditExpr:oParent:handle, s_oEditExpr:id ))
 #endif
-      bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+      bOldError := ERRORBLOCK( {|e|MacroError(e)} )
       BEGIN SEQUENCE
          xRes := &xRes
       RECOVER

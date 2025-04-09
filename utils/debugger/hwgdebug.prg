@@ -300,33 +300,33 @@ FUNCTION Main(...)
    ENDMENU
    ENDMENU
 
-   @ 0, 0 TAB oTabMain ITEMS {} SIZE 600, 436 ON SIZE { |o, x, y|o:Move(, , x, y - 108) }
+   @ 0, 0 TAB oTabMain ITEMS {} SIZE 600, 436 ON SIZE {|o, x, y|o:Move(, , x, y - 108)}
    oTabMain:bChange2 := {|o, n|iif(Len(o:aControls) >= n, hwg_setfocus(o:acontrols[n]:handle), .T.)}
    CreateTextCtrl()
 
    @ 4, 444 BROWSE oBrwRes ARRAY SIZE 592, 72 STYLE WS_BORDER + WS_VSCROLL ;
-      ON SIZE { |o, x, y|o:Move(, y - 104, x - 8) }
+      ON SIZE {|o, x, y|o:Move(, y - 104, x - 8)}
 
    oBrwRes:aArray := {}
-   oBrwRes:AddColumn(HColumn():New("", { |v,o|o:aArray[o:nCurrent, 1] }, "C", 80, 0))
+   oBrwRes:AddColumn(HColumn():New("", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 80, 0))
    oBrwRes:lDispHead := .F.
    oBrwRes:bcolor := CLR_LIGHT1
    oBrwRes:bcolorSel := oBrwRes:htbcolor := CLR_LGREEN
    oBrwRes:tcolorSel := oBrwRes:httcolor := 0
    oBrwRes:bEnter := {|o|iif(o:nCurrent > 0 .AND. o:nCurrent <= o:nRecords, oEditExpr:value := o:aArray[o:nCurrent, 2], .T.)}
 
-   @ 4, 516 SAY oSayState CAPTION "" SIZE 80, 28 STYLE WS_BORDER + SS_CENTER ON SIZE { |o, x, y|o:Move(, y - 32) }
+   @ 4, 516 SAY oSayState CAPTION "" SIZE 80, 28 STYLE WS_BORDER + SS_CENTER ON SIZE {|o, x, y|o:Move(, y - 32)}
    SET KEY 0, VK_RETURN TO KeyPress(VK_RETURN)
    SET KEY 0, VK_UP TO KeyPress(VK_UP)
    SET KEY 0, VK_DOWN TO KeyPress(VK_DOWN)
-   @ 84, 516 EDITBOX oEditExpr CAPTION "" ID EDIT_RES SIZE 452, 26 STYLE ES_AUTOHSCROLL ON SIZE { |o, x, y|o:Move(, y - 32, x - 148) }
+   @ 84, 516 EDITBOX oEditExpr CAPTION "" ID EDIT_RES SIZE 452, 26 STYLE ES_AUTOHSCROLL ON SIZE {|o, x, y|o:Move(, y - 32, x - 148)}
    //oEditExpr := HCEdit():New(, EDIT_RES, , 84, 516, 452, 26, , , {|o,x,y|o:Move(,y-32,x-148)},,,,,, .T.)
    //oEditExpr:nMaxLines := 1
    //oEditExpr:bColorCur := oEditExpr:bColor
 
-   @ 536, 516 BUTTON "-" SIZE 24, 14 ON CLICK { ||PrevExpr(1) } ON SIZE { |o, x, y|o:Move(x - 64, y - 32) }
-   @ 536, 530 BUTTON "-" SIZE 24, 14 ON CLICK { ||PrevExpr(-1) } ON SIZE { |o, x, y|o:Move(x - 64, y - 18) }
-   @ 560, 516 BUTTON oBtnExp CAPTION "Ok" SIZE 36, 28 ON CLICK { ||Calc() } ON SIZE { |o, x, y|o:Move(x - 40, y - 32) }
+   @ 536, 516 BUTTON "-" SIZE 24, 14 ON CLICK {||PrevExpr(1)} ON SIZE {|o, x, y|o:Move(x - 64, y - 32)}
+   @ 536, 530 BUTTON "-" SIZE 24, 14 ON CLICK {||PrevExpr(-1)} ON SIZE {|o, x, y|o:Move(x - 64, y - 18)}
+   @ 560, 516 BUTTON oBtnExp CAPTION "Ok" SIZE 36, 28 ON CLICK {||Calc()} ON SIZE {|o, x, y|o:Move(x - 40, y - 32)}
 
    SetMode(MODE_INIT)
 
@@ -353,7 +353,7 @@ FUNCTION Main(...)
       hwg_Checkmenuitem(, MENU_CMDLINE, lViewCmd)
    ENDIF
 
-   SET TIMER oTimer OF oMainW VALUE 30 ACTION { ||TimerProc() }
+   SET TIMER oTimer OF oMainW VALUE 30 ACTION {||TimerProc()}
 
    ACTIVATE WINDOW oMainW
 

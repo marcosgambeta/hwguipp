@@ -117,10 +117,10 @@ procedure main()
 
     INIT WINDOW oMainWindow MAIN TITLE "Main Window" ;
         AT 200, 0 SIZE 420, 300 ;
-        ON INIT { || TestNonModalAlert() }
+        ON INIT {||TestNonModalAlert()}
 
     MENU OF oMainWindow
-        MENUITEM "E&xit" ACTION { || hwg_Alert("Goodbye;;BTW I'm centered on the app window"), oMainWindow:Close() }
+        MENUITEM "E&xit" ACTION {||hwg_Alert("Goodbye;;BTW I'm centered on the app window"), oMainWindow:Close()}
     ENDMENU
 
     ACTIVATE WINDOW oMainWindow

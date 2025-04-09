@@ -97,7 +97,7 @@ INIT WINDOW oMainW  ;
 *  @ 0, 0 PANEL oToolbar OF oMainW SIZE 300 , 50 ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS 
 
 @ htab+(nbut*32), 3 OWNERBUTTON oFileOpen OF oMainW ; // OF oToolbar ;
-   ON CLICK { | | FileOpen()} ;
+   ON CLICK {||FileOpen()} ;
    SIZE 28, 24 FLAT ;
    BITMAP oBitmap ;
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
@@ -106,7 +106,7 @@ INIT WINDOW oMainW  ;
    nbut += 1
 /*
 @ htab+(nbut*32), 3 OWNERBUTTON oQuit OF oToolbar ;
-   ON CLICK { | | oMainW:Close()} ;
+   ON CLICK {||oMainW:Close()} ;
    SIZE 28, 24 FLAT ;
    BITMAP oBMPExit ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
@@ -116,7 +116,7 @@ INIT WINDOW oMainW  ;
 
 * !!!!! PNG not supported on Windows  
 @ htab+(nbut*32), 3 OWNERBUTTON oBtnDoor OF oToolbar ;
-   ON CLICK { | | OpenDoor()} ;
+   ON CLICK {||OpenDoor()} ;
    SIZE 28, 24 FLAT ;
    BITMAP oPNGDoor ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
@@ -125,7 +125,7 @@ INIT WINDOW oMainW  ;
   nbut += 1 
 
 @ htab+(nbut*32), 3 OWNERBUTTON oBtnjpeg OF oToolbar ;
-   ON CLICK { | | ClickJpeg()} ;
+   ON CLICK {||ClickJpeg()} ;
    SIZE 28, 24 FLAT ;
    BITMAP ojpeg ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
@@ -134,7 +134,7 @@ INIT WINDOW oMainW  ;
   nbut += 1 
 
 @ htab+(nbut*32), 3 OWNERBUTTON obtncnts OF oToolbar ;
-   ON CLICK { | | Clickcnt()} ;
+   ON CLICK {||Clickcnt()} ;
    SIZE 28, 24 FLAT ;
    BITMAP obtncnt ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;

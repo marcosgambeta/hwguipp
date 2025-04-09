@@ -254,7 +254,7 @@ METHOD HBDebugger:GetExprValue(xExpr, lValid)
 
    lValid := .F.
 
-   bOldError := ErrorBlock( { |oErr|Break( oErr ) } )
+   bOldError := ErrorBlock( {|oErr|Break(oErr)} )
    BEGIN SEQUENCE
       xResult := __dbgGetExprValue( ::pInfo, xExpr, @lValid )
       IF !lValid
@@ -341,7 +341,7 @@ METHOD HBDebugger:HandleEvent()
          EXIT
 
       CASE CMD_BDEL
-         IF ( nAt := AScan( ::aBreakPoints, { |a|a[1] == p2 .AND. a[2] == p1 } ) ) == 0
+         IF ( nAt := AScan( ::aBreakPoints, {|a|a[1] == p2 .AND. a[2] == p1} ) ) == 0
             hwg_dbg_Answer( "err" )
          ELSE
             ADel( ::aBreakPoints, nAt )
@@ -477,7 +477,7 @@ METHOD HBDebugger:LoadCallStack()
 
    FOR i := nDebugLevel TO nCurrLevel
       nLevel := nCurrLevel - i + 1
-      nPos := AScan( ::aCallStack, { | a | a[CSTACK_LEVEL] == nLevel } )
+      nPos := AScan( ::aCallStack, {|a|a[CSTACK_LEVEL] == nLevel} )
       IF nPos > 0
          // a procedure with debug info
          ::aProcStack[i - nDebugLevel + 1] := ::aCallStack[nPos]
@@ -684,7 +684,7 @@ STATIC FUNCTION SendStatic()
    LOCAL xVal
 
    xVal := t_oDebugger:aProcStack[1, CSTACK_MODULE]
-   i := AScan( t_oDebugger:aModules, { |a| hb_FileMatch( a[MODULE_NAME], xVal ) } )
+   i := AScan( t_oDebugger:aModules, {|a|hb_FileMatch(a[MODULE_NAME], xVal)} )
    IF i > 0
       aVars := t_oDebugger:aModules[i, MODULE_STATICS]
       nAll := Len(aVars)
@@ -961,11 +961,11 @@ STATIC FUNCTION __dbgObjGetValue(oObject, cVar, lCanAcc)
    LOCAL xResult
    LOCAL oErr
 
-   BEGIN SEQUENCE WITH { || Break() }
+   BEGIN SEQUENCE WITH {||Break()}
       xResult := __dbgSENDMSG( nProcLevel, oObject, cVar )
       lCanAcc := .T.
    RECOVER
-      BEGIN SEQUENCE WITH { | oErr | Break( oErr ) }
+      BEGIN SEQUENCE WITH {|oErr|Break(oErr)}
          /* Try to access variables using class code level */
          xResult := __dbgSENDMSG( 0, oObject, cVar )
          lCanAcc := .T.

@@ -104,98 +104,98 @@ SET DATE ANSI  // YY(YY).MM.TT
 
 
    @ 25, 25 BUTTON oButton1 CAPTION "Exit" SIZE 75,nheight FONT oFont ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { | | Testfunc:Close() }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||Testfunc:Close()}
    @ 127, 25 BUTTON oButton2 CAPTION "CENTURY ON" SIZE 120,nheight FONT oFont  ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK  { | | CENT_ON() }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK  {||CENT_ON()}
    @ 277, 25 BUTTON oButton3 CAPTION "CENTURY OFF" SIZE 120,nheight FONT oFont  ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK  { | | CENT_OFF() }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK  {||CENT_OFF()}
    @ 407, 25 BUTTON oButton4 CAPTION "DATE()" SIZE 120,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | |Funkt(DATE(),"D","DATE()") }
+        {||Funkt(DATE(), "D", "DATE()")}
    @ 537, 25 BUTTON oButton5 CAPTION "Summary" SIZE 120,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | |  fSUMM() }
+        {||fSUMM()}
    @ 25, 50 BUTTON oButton6 CAPTION "hwg_GetUTCTimeDate()" SIZE 218,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-       { | |Funkt(hwg_GetUTCTimeDate(),"C","hwg_GetUTCTimeDate()") }
+       {||Funkt(hwg_GetUTCTimeDate(), "C", "hwg_GetUTCTimeDate()")}
    @ 250, 50 BUTTON oButton7 CAPTION "hwg_getCentury()" SIZE 218,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-       { | | Funkt(hwg_getCentury(),"O","hwg_getCentury()") }
+       {||Funkt(hwg_getCentury(), "O", "hwg_getCentury()")}
 
    /* Sample for a Windows only function,
       use a intermediate function with compiler switch for platform windows   */
    @ 505, 50 BUTTON oButton8 CAPTION "hwg_GetWindowsDir()" SIZE 218,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-       { | | Funkt(GET_WINDIR(),"C","hwg_GetWindowsDir()") }
+       {||Funkt(GET_WINDIR(), "C", "hwg_GetWindowsDir()")}
 
    @ 25, 75 BUTTON oButton9 CAPTION "hwg_GetTempDir()" SIZE 218,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-       { | |Funkt(hwg_GetTempDir(),"C","hwg_GetTempDir()") }
+       {||Funkt(hwg_GetTempDir(), "C", "hwg_GetTempDir()")}
 
    @ 250, 75 BUTTON oButton9 CAPTION "hwg_CreateTempfileName()" SIZE 218,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-       { | |Funkt(hwg_CreateTempfileName(),"C","hwg_CreateTempfileName()") }
+       {||Funkt(hwg_CreateTempfileName(), "C", "hwg_CreateTempfileName()")}
 
    @ 505, 75 BUTTON oButton12 CAPTION "GetWindowsDir Full" SIZE 218,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-       { | | Funkt(GET_WINDIR_FULL(),"C","GET_WINDIR_FULL()") }
+       {||Funkt(GET_WINDIR_FULL(), "C", "GET_WINDIR_FULL()")}
 
    @ 25, 100 BUTTON oButton10 CAPTION "Test Button" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-       { | | Hwg_MsgInfo("This is a test without any function") }
+       {||Hwg_MsgInfo("This is a test without any function")}
 
    @ 180, 100 BUTTON oButton11 CAPTION "Deactivate Test Button" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-       { | | TstButt_Deact(oButton10) }
+       {||TstButt_Deact(oButton10)}
 
    @ 340, 100 BUTTON oButton13 CAPTION "Activate Test Button" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-       { | | TstButt_Act(oButton10) }
+       {||TstButt_Act(oButton10)}
 
    @ 25 , 125 BUTTON oButton15 CAPTION "CurDir()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | Funkt(CurDir(),"C","CurDir()") }
+        {||Funkt(CurDir(), "C", "CurDir()")}
 
    @ 180 , 125 BUTTON oButton16 CAPTION "hwg_CurDir()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | Funkt(hwg_CurDir(),"C","hwg_CurDir()") }
+        {||Funkt(hwg_CurDir(), "C", "hwg_CurDir()")}
 
    @ 25 , 150 BUTTON oButton17 CAPTION "hwg_GetDateANSI()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | Funkt(hwg_GetDateANSI(),"C","hwg_GetDateANSI()") }
+        {||Funkt(hwg_GetDateANSI(), "C", "hwg_GetDateANSI()")}
 
    @ 180 , 150 BUTTON oButton18 CAPTION "hwg_GetUTCDateANSI()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | Funkt(hwg_GetUTCDateANSI(),"C","hwg_GetUTCDateANSI()") }
+        {||Funkt(hwg_GetUTCDateANSI(), "C", "hwg_GetUTCDateANSI()")}
 
    @ 340 , 150 BUTTON oButton19 CAPTION "hwg_GetUTCTime()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | Funkt(hwg_GetUTCTime(),"C","hwg_GetUTCTime()") }
+        {||Funkt(hwg_GetUTCTime(), "C", "hwg_GetUTCTime()")}
 
    * Hide / recovery of mouse cursor in extra dialog
    @ 25 , 175 BUTTON oButton20 CAPTION "Cursor functions" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | HIDE_CURSOR ( oFont , nheight , Testfunc) }
+        {||HIDE_CURSOR(oFont, nheight, Testfunc)}
 
    @ 25 , 200 BUTTON oButton22 CAPTION "hwg_IsLeapYear()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-                { | | TestLeapYear() }
+                {||TestLeapYear()}
 
    @ 180, 175 BUTTON oButton23 CAPTION "hwg_Has_Win_Euro_Support()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-                { | |  Funkt(hwg_Has_Win_Euro_Support(),"L","hwg_Has_Win_Euro_Support()" ) }
+                {||Funkt(hwg_Has_Win_Euro_Support(), "L", "hwg_Has_Win_Euro_Support()")}
 
    @ 340, 175 BUTTON oButton24 CAPTION "hwg_FileModTimeU()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-                { | |  Test_FileModTimeU() }
+                {||Test_FileModTimeU()}
 
    @ 505, 175 BUTTON oButton25 CAPTION "hwg_FileModTime()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-                { | |  Test_FileModTime() }
+                {||Test_FileModTime()}
 
    @ 505 , 150 BUTTON oButton26 CAPTION "hwg_Get_Time_Shift()" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | Funkt(hwg_Get_Time_Shift(),"N","hwg_Get_Time_Shift()") }
+        {||Funkt(hwg_Get_Time_Shift(), "N", "hwg_Get_Time_Shift()")}
 
 
 /* Disable buttons for Windows only functions */
@@ -228,16 +228,16 @@ FUNCTION HIDE_CURSOR ( oFont , nheight , Testfunc )
 
    @ 25 , 25 BUTTON oButton1 CAPTION "hwg_ShowCursor(.F.)" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | Funkt( ncursor := hwg_ShowCursor(.F.,hmain,ndefaultcsrtype),"N","hwg_ShowCursor(.F.)") , ;
-            hwg_Setfocus(oButton2:handle) }
+        {||Funkt(ncursor := hwg_ShowCursor(.F., hmain, ndefaultcsrtype), "N", "hwg_ShowCursor(.F.)"), ;
+            hwg_Setfocus(oButton2:handle)}
 
    @ 180 , 25 BUTTON oButton2 CAPTION "hwg_ShowCursor(.T.)" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | Funkt( ncursor := hwg_ShowCursor(.T.,hmain,ndefaultcsrtype),"N","hwg_ShowCursor(.T.)") }
+        {||Funkt(ncursor := hwg_ShowCursor(.T., hmain, ndefaultcsrtype), "N", "hwg_ShowCursor(.T.)")}
 
    @ 25 , 50 BUTTON oButton3 CAPTION "Return" SIZE 140,nheight FONT oFont  ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-        { | | odlg:Close }
+        {||odlg:Close}
 
   ACTIVATE DIALOG odlg
  
@@ -353,10 +353,10 @@ nyeart := YEAR( DATE() )  // Preset recent year
         STYLE WS_BORDER   PICTURE "9999"
    @ 63, 181 BUTTON oButton1 CAPTION "OK" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT   ;
-        ON CLICK { | | Res_LeapYear(nyeart) }
+        ON CLICK {||Res_LeapYear(nyeart)}
    @ 200, 181 BUTTON oButton2 CAPTION "Cancel" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT   ;
-        ON CLICK { | | oTestLeapYear:Close() }
+        ON CLICK {||oTestLeapYear:Close()}
 
    ACTIVATE DIALOG oTestLeapYear
 

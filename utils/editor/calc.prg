@@ -351,7 +351,7 @@ FUNCTION Calc( oEdit, nL, iTD, nL1 )
    ENDIF
 
    SET DECIMALS TO 8
-   bOldError := ErrorBlock( { |e|break( e ) } )
+   bOldError := ErrorBlock( {|e|break(e)} )
    BEGIN SEQUENCE
       xRes := &cExp
    RECOVER

@@ -60,9 +60,9 @@ Static lConnected := .F.
    @ 10, 10 GET cQuery SIZE 410, 180 STYLE ES_MULTILINE + ES_AUTOVSCROLL
    Atail( oDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @  30, 210 BUTTON "Execute" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
+   @  30, 210 BUTTON "Execute" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 160, 210 BUTTON "Save" SIZE 100, 32 ON CLICK bBtnSave
-   @ 290, 210 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @ 290, 210 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
 

@@ -54,7 +54,7 @@ Function Main
         MENUITEM "&Quit" ACTION oMainWindow:Close()
       ENDMENU
       MENU TITLE "&Teste"
-        MENUITEM "&Do it"ACTION { || aResult := Teste() }
+        MENUITEM "&Do it"ACTION {||aResult := Teste()}
       ENDMENU
       MENU TITLE "&Show Result"
         MENUITEM "&Show" ACTION ShowR(aResult)
@@ -142,20 +142,20 @@ LOCAL oItems1, oItems2
      obrowsbox2:active := .T.
 
    @ 207, 92 BUTTON oButton1 CAPTION ">" SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTORI(obrowsbox1,obrowsbox2) }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||browsBOX_ITEMTORI(obrowsbox1, obrowsbox2)}
    @ 207, 137 BUTTON oButton2 CAPTION ">>" SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTORA(obrowsbox1,obrowsbox2,GetItems() ) }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||browsBOX_ITEMTORA(obrowsbox1, obrowsbox2, GetItems())}
    @ 207, 223 BUTTON oButton3 CAPTION "<" SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTOLI(obrowsbox1,obrowsbox2) }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||browsBOX_ITEMTOLI(obrowsbox1, obrowsbox2)}
    @ 207, 281 BUTTON oButton4 CAPTION "<<" SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || browsBOX_ITEMTOLA(obrowsbox1,obrowsbox2,GetItems() ) }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||browsBOX_ITEMTOLA(obrowsbox1, obrowsbox2, GetItems())}
    @ 36, 345 BUTTON oButton5 CAPTION "OK" SIZE 80, 32 ;
         STYLE WS_TABSTOP+BS_FLAT ON CLICK ;
-         { || oItemsR := obrowsbox2:aArray , _frm_2browsboxsel:Close() }  /* return content of target browsbox */
+         {||oItemsR := obrowsbox2:aArray, _frm_2browsboxsel:Close()}  /* return content of target browsbox */
    @ 158, 345 BUTTON oButton6 CAPTION "Cancel" SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || _frm_2browsboxsel:Close() }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||_frm_2browsboxsel:Close()}
    @ 367, 345 BUTTON oButton7 CAPTION "Help" SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || Hilfe() }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||Hilfe()}
 
    ACTIVATE DIALOG _frm_2browsboxsel
 * Returns thze array with results.

@@ -52,7 +52,7 @@ ENDCLASS
 METHOD HGraph:New(oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor)
 
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont, NIL, ;
-      bSize, { |o, lpdis|o:Paint( lpdis ) }, ctooltip, ;
+      bSize, {|o, lpdis|o:Paint(lpdis)}, ctooltip, ;
       IIf(tcolor == NIL, 0xFFFFFF, tcolor), IIf(bcolor == NIL, 0, bcolor) )
 
    ::aValues := aValues

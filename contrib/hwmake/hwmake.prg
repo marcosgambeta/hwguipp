@@ -643,9 +643,9 @@ Local oSay, oBtExit
 
    * DF7BE: Syntax error, not BUTTONex 
 /*   @ 40, 120 BUTTON oBtExit CAPTION "Close" BITMAP oImgExit:Handle ;
-    on Click { || hwg_EndDialog() } SIZE 180, 35 */
+    on Click {||hwg_EndDialog()} SIZE 180, 35 */
    @ 40, 120 BUTTON oBtExit CAPTION "Close" ;
-    on Click { || hwg_EndDialog() } SIZE 180, 35 
+    on Click {||hwg_EndDialog()} SIZE 180, 35
 
    ACTIVATE DIALOG oModDlg
 

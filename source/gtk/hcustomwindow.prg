@@ -13,10 +13,10 @@
 STATIC s_aCustomEvents := { ;
    { WM_PAINT, WM_COMMAND, WM_SIZE, WM_DESTROY }, ;
    { ;
-   { |o, w|IIf(hb_IsBlock(o:bPaint), Eval(o:bPaint, o, w), - 1) }, ;
-   { |o, w|onCommand( o, w ) },                ;     // |o, w, l| ==> |o, w|
-   { |o, w, l|onSize( o, w, l ) },                ;
-   { |o|onDestroy( o ) }                          ;
+   {|o, w|IIf(hb_IsBlock(o:bPaint), Eval(o:bPaint, o, w), -1)}, ;
+   {|o, w|onCommand(o, w)},                ;     // |o, w, l| ==> |o, w|
+   {|o, w, l|onSize(o, w, l)},                ;
+   {|o|onDestroy(o)}                          ;
    } ;
    }
 
@@ -245,7 +245,7 @@ STATIC FUNCTION onCommand( oWnd, wParam )
    LOCAL iParLow := hwg_Loword(wParam)
 
    IF oWnd:aEvents != NIL .AND. ;
-         ( iItem := Ascan( oWnd:aEvents, { |a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
+         ( iItem := Ascan( oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow} ) ) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ENDIF
 

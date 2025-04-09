@@ -1045,7 +1045,7 @@ METHOD RichText:BorderCode( cBorderID )
          }
 
    cBorderID := Upper(RTrim(cBorderID))
-   n := AScan( aBorder, { | x | x[1] == cBorderID } )
+   n := AScan( aBorder, {|x|x[1] == cBorderID} )
    IF n > 0
       cBorderCode := aBorder[n][2]
    ENDIF
@@ -1077,7 +1077,7 @@ METHOD RichText:ShadeCode( cShadeID )
          }
 
    cShadeID := Upper(RTrim(cShadeID))
-   n := AScan( aShade, { | x | x[1] == cShadeID } )
+   n := AScan( aShade, {|x|x[1] == cShadeID} )
    IF n > 0
       cShadeCode := aShade[n][2]
    ENDIF

@@ -94,8 +94,8 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes )
    @ 20, 35 GET cres SIZE 260, 26 STYLE WS_DLGFRAME + WS_TABSTOP + nStyle
    Atail( oModDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @ 20, 95 BUTTON "Ok" ID IDOK SIZE 100, 32 ON CLICK { ||oModDlg:lResult := .T., hwg_EndDialog() } ON SIZE ANCHOR_BOTTOMABS
-   @ 180, 95 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON CLICK { ||hwg_EndDialog() } ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
+   @ 20, 95 BUTTON "Ok" ID IDOK SIZE 100, 32 ON CLICK {||oModDlg:lResult := .T., hwg_EndDialog()} ON SIZE ANCHOR_BOTTOMABS
+   @ 180, 95 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON CLICK {||hwg_EndDialog()} ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
    ACTIVATE DIALOG oModDlg
 
@@ -174,7 +174,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
 
    @ 0, 0 BROWSE oBrw ARRAY SIZE width, height - addY FONT oFont STYLE WS_BORDER ;
       ON SIZE {|o,x,y|o:Move( addX/2, 10, x - addX, y - addY )} ;
-      ON CLICK { |o|nChoice := o:nCurrent, hwg_EndDialog( o:oParent:handle ) }
+      ON CLICK {|o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle)}
 
    IF HB_ISARRAY(arr[1])
       oBrw:AddColumn(HColumn():New(NIL, {|value, o|HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent, 1]}, "C", nLen))
@@ -199,11 +199,11 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
    IF cOk != NIL
       x1 := Int( width/2 ) - IIf(cCancel != NIL, 90, 40)
       @ x1, height - 36 BUTTON cOk SIZE 80, 30 ;
-            ON CLICK { ||nChoice := oBrw:nCurrent, hwg_EndDialog( oDlg:handle ) } ;
+            ON CLICK {||nChoice := oBrw:nCurrent, hwg_EndDialog(oDlg:handle)} ;
             ON SIZE ANCHOR_BOTTOMABS
       IF cCancel != NIL
          @ x1 + 100, height - 36 BUTTON cCancel SIZE 80, 30 ;
-            ON CLICK { ||hwg_EndDialog( oDlg:handle ) } ;
+            ON CLICK {||hwg_EndDialog(oDlg:handle)} ;
             ON SIZE ANCHOR_BOTTOMABS
       ENDIF
    ENDIF
@@ -240,9 +240,9 @@ FUNCTION hwg_WriteStatus( oWnd, nPart, cText )
    LOCAL i
 
    aControls := oWnd:aControls
-   IF ( i := Ascan( aControls, { |o|o:ClassName() == "HSTATUS" } ) ) > 0
+   IF ( i := Ascan( aControls, {|o|o:ClassName() == "HSTATUS"} ) ) > 0
       hwg_Writestatuswindow( aControls[i]:handle, 0, cText )
-   ELSEIF ( i := Ascan( aControls, { |o|o:ClassName() = "HPANELSTS" } ) ) > 0
+   ELSEIF ( i := Ascan( aControls, {|o|o:ClassName() = "HPANELSTS"} ) ) > 0
       aControls[i]:Write(cText, nPart)
    ENDIF
 
@@ -255,7 +255,7 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
    LOCAL hParent := hwg_Getparent( hCtrl )
 
    IF hParent > 0
-      IF ( i := Ascan( HDialog():aModalDialogs,{ |o|o:handle == hParent } ) ) != 0
+      IF ( i := Ascan( HDialog():aModalDialogs,{|o|o:handle == hParent} ) ) != 0
          RETURN HDialog():aModalDialogs[i]
       ELSEIF ( oParent := HDialog():FindDialog( hParent ) ) != NIL
          RETURN oParent

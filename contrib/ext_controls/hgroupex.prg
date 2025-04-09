@@ -61,7 +61,7 @@ METHOD HGroupEx:Init()
          nbs := HWG_GETWINDOWSTYLE( ::handle )
          nbs := hwg_Modstyle( nbs, BS_TYPEMASK , BS_OWNERDRAW + WS_DISABLED )
          HWG_SETWINDOWSTYLE ( ::handle, nbs )
-         ::bPaint   := { | o, p | o:paint( p ) }
+         ::bPaint   := {|o, p|o:paint(p)}
       ENDIF
       IF ::oRGroup != NIL
          ::oRGroup:Handle := ::handle

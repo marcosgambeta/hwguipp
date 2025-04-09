@@ -71,12 +71,12 @@ FUNCTION Main( cContainer )
       SIZE 600, 510                    ;
       STYLE WS_VSCROLL                 ;
       FONT oMainFont                   ;
-      ON SIZE { |o, x, y|o:Move( , , x, y - 32 ) }
+      ON SIZE {|o, x, y|o:Move(, , x, y - 32)}
 
    oBrw:aArray := {}
-   oBrw:AddColumn( HColumn():New( "Name",{ |value,o|o:aArray[o:nCurrent, 1] },"C", 32 ) )
-   oBrw:AddColumn( HColumn():New( "Type",{ |value,o|o:aArray[o:nCurrent, 2] },"C", 8 ) )
-   oBrw:AddColumn( HColumn():New( "Size",{ |value,o|o:aArray[o:nCurrent, 4] },"N", 14, 0 ) )
+   oBrw:AddColumn( HColumn():New( "Name",{|value, o|o:aArray[o:nCurrent, 1]},"C", 32 ) )
+   oBrw:AddColumn( HColumn():New( "Type",{|value, o|o:aArray[o:nCurrent, 2]},"C", 8 ) )
+   oBrw:AddColumn( HColumn():New( "Size",{|value, o|o:aArray[o:nCurrent, 4]},"N", 14, 0 ) )
 
    oBrw:oStyleHead := oStyle
    oBrw:bcolorSel := oBrw:htbcolor := 0xeeeeee
@@ -153,7 +153,7 @@ STATIC FUNCTION CntOpen(fname)
 
 STATIC FUNCTION CntAdd()
    LOCAL oDlg, oEdit1, oEdit2, oEdit3, cFileName := "", cObjName := "", cType := ""
-   LOCAL bFile := { ||
+   LOCAL bFile := {||
    LOCAL cFile := hwg_Selectfile( "All files( *.* )", "*.*" )
 
    IF !Empty(cFile)
@@ -166,7 +166,7 @@ STATIC FUNCTION CntAdd()
    RETURN .T.
 
    }
-   LOCAL bOk := { ||
+   LOCAL bOk := {||
    IF Empty(cFileName) .OR. Empty(cObjName) .OR. Empty(cType)
       hwg_MsgStop( "Fill all fields!" )
       RETURN .F.

@@ -69,7 +69,7 @@ ENDIF
    // so the HEADER Panel appeared unter the menu bar
     MENU OF oDlg
      MENU TITLE "&File"
-       MENUITEM "Quit" ACTION  { || oDlg:Close() }
+       MENUITEM "Quit" ACTION  {||oDlg:Close()}
       ENDMENU
      MENU TITLE "&Dialog"
        MENUITEM "&Test dialog" ACTION TestDialog()
@@ -128,7 +128,7 @@ ENDIF
    
     MENU OF oDlg
      MENU TITLE "&Dialog"
-       MENUITEM "&Return" ACTION  { || oDlg:Close() }
+       MENUITEM "&Return" ACTION  {||oDlg:Close()}
       ENDMENU
      MENU TITLE "&Title"
        MENUITEM "&Test dialog" ACTION ChangeHeader()

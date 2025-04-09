@@ -80,7 +80,7 @@ METHOD HComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHe
    hwg_SetSignal(::handle, "changed", CBN_SELCHANGE, 0, 0)
 
    IF Left(::oParent:ClassName(), 6) == "HPANEL" .AND. hb_bitand(::oParent:style, SS_OWNERDRAW) != 0
-      ::oParent:SetPaintCB(PAINT_ITEM, { |o,h|HB_SYMBOL_UNUSED(o),IIf(!::lHide, hwg__DrawCombo(h,::nX + ::nWidth - 22,::nY,::nX + ::nWidth - 1,::nY + ::nHeight - 1 ), .T.) }, "hc" + LTrim(Str(::id)))
+      ::oParent:SetPaintCB(PAINT_ITEM, {|o, h|HB_SYMBOL_UNUSED(o), IIf(!::lHide, hwg__DrawCombo(h, ::nX + ::nWidth - 22, ::nY, ::nX + ::nWidth - 1, ::nY + ::nHeight - 1), .T.)}, "hc" + LTrim(Str(::id)))
    ENDIF
 
    RETURN Self

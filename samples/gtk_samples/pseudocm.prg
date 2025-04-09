@@ -26,7 +26,7 @@ FUNCTION Main
 
    MENU OF Form_Main
       MENU TITLE "&File"
-         MENUITEM "&Exit" ACTION { ||hwg_EndWindow() }
+         MENUITEM "&Exit" ACTION {||hwg_EndWindow()}
       ENDMENU
       MENU TITLE "&Status"
          MENUITEM "&Show" ACTION st_f4( oBrw:rowPos, aSample[oBrw:rowPos][2] )
@@ -34,17 +34,17 @@ FUNCTION Main
    ENDMENU
 
    CONTEXT MENU oMenuBrw
-      MENUITEM "Status" ACTION { ||st_f4( nrp, aSample[nrp][2] ) }
+      MENUITEM "Status" ACTION {||st_f4(nrp, aSample[nrp][2])}
    ENDMENU
 
    @ 160, 10 BROWSE oBrw ARRAY SIZE 180, 180 ;
       STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL ;
-      ON RIGHTCLICK { |o, nrow, ncol| SUBMNU_BRW( ncol, nrow ) }
+      ON RIGHTCLICK {|o, nrow, ncol|SUBMNU_BRW(ncol, nrow)}
 
    hwg_CREATEARLIST( oBrw, aSample )
 
    oBrw:aColumns[1]:aBitmaps := { ;
-      { { |l|l }, oBmp } ;
+      { {|l|l}, oBmp } ;
       }
    oBrw:aColumns[2]:length := 6
    oBrw:aColumns[3]:length := 4

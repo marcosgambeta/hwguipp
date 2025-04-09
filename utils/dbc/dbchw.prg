@@ -422,7 +422,7 @@ STATIC FUNCTION About
    @ 298, 92 GROUPBOX "" SIZE 172, 36
    @ 300, 108 SAY "Alexander Kresin, 2016" SIZE 168, 20 STYLE SS_CENTER
 
-   @ 288, 132 BUTTON "Close" SIZE 182, 32 ON CLICK { || hwg_EndDialog() } ;
+   @ 288, 132 BUTTON "Close" SIZE 182, 32 ON CLICK {||hwg_EndDialog()} ;
 
    oDlg:Activate()
 
@@ -596,7 +596,7 @@ Function GetBrwActive()
    IF lMdi
 #ifndef __GTK__
       IF !Empty(oWindow := HMainWindow():GetMdiActive())
-         i := Ascan( oWindow:aControls, { |o|o:classname() == "HBROWSE" } )
+         i := Ascan( oWindow:aControls, {|o|o:classname() == "HBROWSE"} )
       ENDIF
       oBrw := Iif( Empty(i), NIL, oWindow:aControls[i] )
 #endif
@@ -769,8 +769,8 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
          INIT WINDOW oWindow MDICHILD TITLE fname ;
             AT 0, 0                              ;
             STYLE WS_VISIBLE + WS_OVERLAPPEDWINDOW ;
-            ON GETFOCUS { |o|ChildGetFocus( o ) }  ;
-            ON EXIT { |o|ChildKill( o ) }
+            ON GETFOCUS {|o|ChildGetFocus(o)}  ;
+            ON EXIT {|o|ChildKill(o)}
 
          //ADD STATUS PARTS 140, 360, 0
          //ADD STATUS PANEL TO oWindow HEIGHT 28 HSTYLE oStyle PARTS 140, 360, 0
@@ -836,7 +836,7 @@ FUNCTION OpenDbf( fname, alsname, hChild, pass )
 #ifndef __GTK__
          oWindow := HWindow():FindWindow( hChild )
          IF oWindow != NIL .AND. ;
-               ( i := Ascan( oWindow:aControls, { |o|o:classname() == "HBROWSE" } ) ) > 0
+               ( i := Ascan( oWindow:aControls, {|o|o:classname() == "HBROWSE"} ) ) > 0
             oBrowse := oWindow:aControls[i]
             hwg_Sendmessage( HWindow():GetMain():handle, WM_MDIACTIVATE, hChild, 0 )
          ENDIF
@@ -884,7 +884,7 @@ FUNCTION WriteTableInfo( n, cText )
 FUNCTION Calcul()
    LOCAL oDlg, oSayRes, cExpr, xRes
    LOCAL bCalcBtn := {||
-      Local bOldError := ErrorBlock( { |e|break( e ) } ), lRes := .T.
+      Local bOldError := ErrorBlock( {|e|break(e)} ), lRes := .T.
       BEGIN SEQUENCE
          xRes := &( Trim(cExpr) )
       RECOVER
@@ -973,7 +973,7 @@ FUNCTION ChildGetFocus( xWindow )
 
    IF xWindow != NIL
       IF lMdi
-         IF ( i := Ascan( xWindow:aControls, { |o|o:classname() == "HBROWSE" } ) ) > 0
+         IF ( i := Ascan( xWindow:aControls, {|o|o:classname() == "HBROWSE"} ) ) > 0
             oBrw := xWindow:aControls[i]
          ENDIF
       ELSE
@@ -1000,7 +1000,7 @@ STATIC FUNCTION ChildKill( xWindow )
 
    IF xWindow != NIL
       IF lMdi
-         IF ( i := Ascan( xWindow:aControls, { |o|o:classname() == "HBROWSE" } ) ) > 0
+         IF ( i := Ascan( xWindow:aControls, {|o|o:classname() == "HBROWSE"} ) ) > 0
             oBrw := xWindow:aControls[i]
          ENDIF
       ELSE
@@ -1070,7 +1070,7 @@ STATIC FUNCTION Fiopen(fname, alsname, pass)
 
       alsname := Iif( Empty(alsname), CutExten( CutPath( fname ) ), alsname )
 
-      bOldError := ErrorBlock( { | e | break( e ) } )
+      bOldError := ErrorBlock( {|e|break(e)} )
       DO WHILE .T.
          BEGIN SEQUENCE
             SELECT( improc )
@@ -1215,8 +1215,8 @@ Static Function Options()
    @ 10, 40 SAY "Date format: " SIZE 100, 22 STYLE SS_RIGHT
    @ 110, 40 GET COMBOBOX nDf ITEMS aDateF SIZE 140, 24 DISPLAYCOUNT Len(aDateF)
 
-   @  30, 268  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 170, 268 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @  30, 268  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 170, 268 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
 
@@ -1268,8 +1268,8 @@ STATIC FUNCTION EditRec()
    oBrowse:bEnter := {|o,n|EdRec(o,n,nFile)}
 #endif
 
-   @  30, 268 BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() } ON SIZE ANCHOR_LEFTABS+ANCHOR_BOTTOMABS
-   @ 310, 268 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() } ON SIZE ANCHOR_RIGHTABS+ANCHOR_BOTTOMABS
+   @  30, 268 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()} ON SIZE ANCHOR_LEFTABS+ANCHOR_BOTTOMABS
+   @ 310, 268 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()} ON SIZE ANCHOR_RIGHTABS+ANCHOR_BOTTOMABS
 
    oDlg:Activate()
 
@@ -1350,9 +1350,9 @@ LOCAL cType, nLen, nDec, cPicture, rowPos
       INIT DIALOG oDlg AT x1, y1 - 1 ;
          STYLE WS_POPUP + 1 + WS_BORDER  ;
          SIZE nWidth, oBrw:height + iif( oColumn:aList == NIL, 1, 0 ) ;
-         ON INIT { |o|hwg_Movewindow( o:handle,x1,y1,nWidth,o:nHeight + 1 ) }
+         ON INIT {|o|hwg_Movewindow(o:handle, x1, y1, nWidth, o:nHeight + 1)}
    ELSE
-      INIT DIALOG oDlg TITLE "Memo edit" AT 0, 0 SIZE 400, 300 ON INIT { |o|o:center() }
+      INIT DIALOG oDlg TITLE "Memo edit" AT 0, 0 SIZE 400, 300 ON INIT {|o|o:center()}
    ENDIF
 
    IF cType != "M"
@@ -1365,8 +1365,8 @@ LOCAL cType, nLen, nDec, cPicture, rowPos
          VALID oColumn:bValid
    ELSE
       @ 10, 10 GET cBuff SIZE oDlg:nWidth - 20, 240 FONT oBrw:oFont STYLE WS_VSCROLL + WS_HSCROLL + ES_MULTILINE VALID oColumn:bValid
-      @ 10, 252 OWNERBUTTON TEXT "Save" SIZE 80, 24 ON CLICK { ||oDlg:Close(), oDlg:lResult := .T. }
-      @ 100, 252 OWNERBUTTON TEXT "Close" SIZE 80, 24 ON CLICK { ||oDlg:Close() }
+      @ 10, 252 OWNERBUTTON TEXT "Save" SIZE 80, 24 ON CLICK {||oDlg:Close(), oDlg:lResult := .T.}
+      @ 100, 252 OWNERBUTTON TEXT "Close" SIZE 80, 24 ON CLICK {||oDlg:Close()}
    ENDIF
 
    ACTIVATE DIALOG oDlg

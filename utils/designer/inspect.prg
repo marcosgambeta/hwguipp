@@ -22,20 +22,20 @@ FUNCTION InspOpen
       AT 0, 280 SIZE 220, 300                     ;
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SIZEBOX ;
       FONT oDesigner:oMainWnd:oFont                   ;
-      ON INIT { ||hwg_Movewindow( oDesigner:oDlgInsp:handle, 0, 280, 230, 280 ) }   ;
-      ON EXIT { ||oDesigner:oDlgInsp := NIL, hwg_Checkmenuitem( oDesigner:oMainWnd:handle, MENU_OINSP, .F. ), .T. }
+      ON INIT {||hwg_Movewindow(oDesigner:oDlgInsp:handle, 0, 280, 230, 280)}   ;
+      ON EXIT {||oDesigner:oDlgInsp := NIL, hwg_Checkmenuitem(oDesigner:oMainWnd:handle, MENU_OINSP, .F.), .T.}
 
    @ 0, 0 COMBOBOX oCombo ITEMS {} SIZE 220, 26 ;
       STYLE WS_VSCROLL                     ;
-      ON SIZE { |o, x, y|hwg_Movewindow( o:handle, 0, 0, x, ) } ;
-      ON CHANGE { ||ComboOnChg() }
+      ON SIZE {|o, x, y|hwg_Movewindow(o:handle, 0, 0, x,)} ;
+      ON CHANGE {||ComboOnChg()}
 
    @ 0, 28 TAB oTab ITEMS {} SIZE 220, 250 ;
-      ON SIZE { |o, x, y|hwg_Movewindow( o:handle, 0, 28, x, y - 28 ) }
+      ON SIZE {|o, x, y|hwg_Movewindow(o:handle, 0, 28, x, y - 28)}
 
    BEGIN PAGE "Properties" OF oTab
    @ 2, 30 BROWSE oBrw1 ARRAY SIZE 214, 218 STYLE WS_VSCROLL ;
-      ON CLICK { ||Edit1() } ON SIZE { |o, x, y|hwg_Movewindow( o:handle, 2, 30, x - 6, y - 32 ) }
+      ON CLICK {||Edit1()} ON SIZE {|o, x, y|hwg_Movewindow(o:handle, 2, 30, x - 6, y - 32)}
 #ifndef __GTK__
    oBrw1:tColor := hwg_Getsyscolor( COLOR_BTNTEXT )
    oBrw1:bColor := oBrw1:bColorSel := hwg_Getsyscolor( COLOR_BTNFACE )
@@ -46,13 +46,13 @@ FUNCTION InspOpen
    oBrw1:lDispHead := .F.
    oBrw1:sepColor  := hwg_Getsyscolor( COLOR_BTNSHADOW )
    oBrw1:aArray := aProp
-   oBrw1:AddColumn( HColumn():New( ,{ |v,o|iif(Empty(o:aArray[o:nCurrent, 1] ),"","  " + o:aArray[o:nCurrent, 1] ) },"C", 12, 0, .T. ) )
+   oBrw1:AddColumn( HColumn():New( ,{|v, o|iif(Empty(o:aArray[o:nCurrent, 1]),"","  " + o:aArray[o:nCurrent, 1] ) },"C", 12, 0, .T. ) )
    oBrw1:AddColumn( HColumn():New( ,hwg_ColumnArBlock(),"U", 100, 0, .T. ) )
    ENDPAGE OF oTab
 
    BEGIN PAGE "Events" OF oTab
    @ 2, 30 BROWSE oBrw2 ARRAY SIZE 214, 218 STYLE WS_VSCROLL ;
-      ON CLICK { ||Edit2() } ON SIZE { |o, x, y|hwg_Movewindow( o:handle, 2, 30, x - 6, y - 32 ) }
+      ON CLICK {||Edit2()} ON SIZE {|o, x, y|hwg_Movewindow(o:handle, 2, 30, x - 6, y - 32)}
 #ifndef __GTK__
    oBrw2:tColor := hwg_Getsyscolor( COLOR_BTNTEXT )
    oBrw2:bColor := oBrw2:bColorSel := hwg_Getsyscolor( COLOR_BTNFACE )
@@ -63,8 +63,8 @@ FUNCTION InspOpen
    oBrw2:lDispHead := .F.
    oBrw2:sepColor  := hwg_Getsyscolor( COLOR_BTNSHADOW )
    oBrw2:aArray := aMethods
-   oBrw2:AddColumn( HColumn():New( ,{ |v,o|iif(Empty(o:aArray[o:nCurrent, 1] ),"","  " + o:aArray[o:nCurrent, 1] ) },"C", 12, 0, .T. ) )
-   oBrw2:AddColumn( HColumn():New( ,{ |v,o|iif(Empty(o:aArray[o:nCurrent, 2] ),"",":" + o:aArray[o:nCurrent, 1] ) },"C", 100, 0, .T. ) )
+   oBrw2:AddColumn( HColumn():New( ,{|v, o|iif(Empty(o:aArray[o:nCurrent, 1]), "", "  " + o:aArray[o:nCurrent, 1])},"C", 12, 0, .T. ) )
+   oBrw2:AddColumn( HColumn():New( ,{|v, o|iif(Empty(o:aArray[o:nCurrent, 2]), "", ":" + o:aArray[o:nCurrent, 1])},"C", 100, 0, .T. ) )
    ENDPAGE OF oTab
 
    ACTIVATE DIALOG oDesigner:oDlgInsp NOMODAL
@@ -72,8 +72,8 @@ FUNCTION InspOpen
 
    InspSetCombo()
 
-   oDesigner:oDlgInsp:AddEvent( 0, IDOK, { ||DlgOk() } )
-   oDesigner:oDlgInsp:AddEvent( 0, IDCANCEL, { ||DlgCancel() } )
+   oDesigner:oDlgInsp:AddEvent( 0, IDOK, {||DlgOk()} )
+   oDesigner:oDlgInsp:AddEvent( 0, IDCANCEL, {||DlgCancel()} )
 
    RETURN NIL
 
@@ -95,7 +95,7 @@ STATIC FUNCTION Edit1()
    ENDIF
    oColumn := oBrw1:aColumns[2]
    cName := Lower(aProp[oBrw1:cargo, 1])
-   j := Ascan( aDataDef, { |a|a[1] == cName } )
+   j := Ascan( aDataDef, {|a|a[1] == cName} )
    varbuf := Eval(oColumn:block, , oBrw1, 2)
 
    IF ( j != 0 .AND. aDataDef[j, 5] != NIL ) .OR. aCtrlProp[oBrw1:cargo, 3] == "A"
@@ -142,7 +142,7 @@ STATIC FUNCTION Edit1()
 
       IF lRes
          cName := Lower(aProp[oBrw1:cargo, 1])
-         j := Ascan( aDataDef, { |a|a[1] == cName } )
+         j := Ascan( aDataDef, {|a|a[1] == cName} )
          value := aProp[oBrw1:cargo, 2] := varbuf
          aCtrlProp[oBrw1:cargo, 2] := value
          IF j != 0 .AND. aDataDef[j, 3] != NIL
@@ -175,18 +175,17 @@ STATIC FUNCTION Edit1()
             SIZE nWidth, oBrw1:height * 5  ;
             FONT oBrw1:oFont
 
-         IF ( j := Ascan( oBrw1:aEvents, { |a|a[1] == CBN_KILLFOCUS .AND. ;
-               a[2] == oGet:id } ) ) > 0
-            oBrw1:aEvents[j, 3] := { ||VldBrwGet( oGet ) }
+         IF (j := Ascan(oBrw1:aEvents, {|a|a[1] == CBN_KILLFOCUS .AND. a[2] == oGet:id})) > 0
+            oBrw1:aEvents[j, 3] := {||VldBrwGet(oGet)}
          ELSE
-            oBrw1:AddEvent( CBN_KILLFOCUS, oGet:id, { ||VldBrwGet( oGet ) } )
+            oBrw1:AddEvent( CBN_KILLFOCUS, oGet:id, {||VldBrwGet(oGet)} )
          ENDIF
       ELSE
          @ x1, y1 - 2 GET oGet VAR varbuf OF oBrw1  ;
             SIZE nWidth, oBrw1:height + 6        ;
             STYLE ES_AUTOHSCROLL               ;
             FONT oBrw1:oFont                   ;
-            VALID { ||VldBrwGet( oGet ) }
+            VALID {||VldBrwGet(oGet)}
          oGet:nMaxLength := 0
       ENDIF
       hwg_Setfocus( oGet:handle )
@@ -223,7 +222,7 @@ STATIC FUNCTION VldBrwGet( oGet )
 
    cName := Lower(aProp[oBrw1:cargo, 1])
 
-   j := Ascan( oDesigner:aDataDef, { |a|a[1] == cName } )
+   j := Ascan( oDesigner:aDataDef, {|a|a[1] == cName} )
 
    IF oGet:Classname() == "HCOMBOBOX"
       vari := hwg_Sendmessage( oGet:handle, CB_GETCURSEL, 0, 0 ) + 1
@@ -411,7 +410,7 @@ FUNCTION InspUpdProp( cName, xValue )
    LOCAL i
 
    cName := Lower(cName)
-   IF ( i := Ascan( aProp, { |a|Lower(a[1] ) == Lower(cName ) } ) ) > 0
+   IF ( i := Ascan( aProp, {|a|Lower(a[1]) == Lower(cName)} ) ) > 0
       aProp[i, 2] := xValue
       oBrw1:Refresh()
    ENDIF
@@ -431,19 +430,19 @@ STATIC FUNCTION EditArray( arr )
       AT 300, 280 SIZE 400, 300 FONT oDesigner:oMainWnd:oFont
 
    @ 0, 0 BROWSE oBrw ARRAY SIZE 400, 255  ;
-      ON SIZE { |o, x, y|o:Move( , , x, y - 45 ) }
+      ON SIZE {|o, x, y|o:Move(, , x, y - 45)}
 
    oBrw:bcolor := 15132390 // TODO: converter para hexadecimal
    oBrw:bcolorSel := 0x008000
    oBrw:lAppable := .T.
    oBrw:aArray := arr
-   oBrw:AddColumn( HColumn():New( ,{ |v,o|iif(v != NIL,o:aArray[o:nCurrent] := v,o:aArray[o:nCurrent] ) },"C", 100, 0, .T. ,,,Replicate("X", 100 ) ) )
+   oBrw:AddColumn( HColumn():New( ,{|v, o|iif(v != NIL, o:aArray[o:nCurrent] := v, o:aArray[o:nCurrent])},"C", 100, 0, .T. ,,,Replicate("X", 100 ) ) )
 
    @ 30, 265 BUTTON "Ok" SIZE 100, 32     ;
-      ON SIZE { |o, x, y|o:Move( , y - 35, , ) }  ;
-      ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
+      ON SIZE {|o, x, y|o:Move(, y - 35, ,)}  ;
+      ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 170, 265 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ;
-      ON SIZE { |o, x, y|o:Move( , y - 35, , ) }
+      ON SIZE {|o, x, y|o:Move(, y - 35, ,)}
 
    ACTIVATE DIALOG oDlg
 
@@ -513,8 +512,8 @@ FUNCTION SelectAnchor( nAnchor )
    @ 20, 236 GET CHECKBOX c10 CAPTION "ANCHOR_HORFIX" SIZE 200, 24
    @ 20, 260 GET CHECKBOX c11 CAPTION "ANCHOR_VERTFIX" SIZE 200, 24
 
-   @ 20, 310 BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 160, 310 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @ 20, 310 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 160, 310 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    ACTIVATE DIALOG oDlg
 
@@ -683,8 +682,8 @@ FUNCTION SelectStyle( oStyle )
 
    @ 100, 310 PANEL oDemo SIZE 120, 36
 
-   @ 20, 360 BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 200, 360 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @ 20, 360 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 200, 360 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    ACTIVATE DIALOG oDlg
 
@@ -754,8 +753,8 @@ FUNCTION SeleStyles( aStyles )
 
    @ 230, 120 PANEL aDemo[3] SIZE 40, 40
 
-   @ 20, 200 BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 200, 200 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @ 20, 200 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 200, 200 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    IF aStyles != NIL
       aDemo[1]:oStyle := aStyles[1]

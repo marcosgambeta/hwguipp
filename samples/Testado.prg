@@ -53,15 +53,15 @@ FUNCTION DlgADO()
    oBrw:AddColumn(HColumn():New("Name",   {|v, o|(v), o:aArray:Fields("NAME"):Value}, "C", 30, 0, .F., DT_CENTER))
    oBrw:AddColumn(HColumn():New("Adress", {|v, o|(v), o:aArray:Fields("ADRESS"):Value}, "C", 30, 0, .T., DT_CENTER, DT_LEFT))
 
-   oBrw:bSkip     := { | o, nSkip | ADOSkipper( o:aArray, nSkip ) }
-   oBrw:bGotop    := { | o | o:aArray:MoveFirst() }
-   oBrw:bGobot    := { | o | o:aArray:MoveLast() }
-   oBrw:bEof      := { | o | o:nCurrent > o:aArray:RecordCount() }
-   oBrw:bBof      := { | o | o:nCurrent == 0 }
-   oBrw:bRcou     := { | o | o:aArray:RecordCount() }
-   oBrw:bRecno    := { | o | o:aArray:AbsolutePosition }
+   oBrw:bSkip     := {|o, nSkip|ADOSkipper(o:aArray, nSkip)}
+   oBrw:bGotop    := {|o|o:aArray:MoveFirst()}
+   oBrw:bGobot    := {|o|o:aArray:MoveLast()}
+   oBrw:bEof      := {|o|o:nCurrent > o:aArray:RecordCount()}
+   oBrw:bBof      := {|o|o:nCurrent == 0}
+   oBrw:bRcou     := {|o|o:aArray:RecordCount()}
+   oBrw:bRecno    := {|o|o:aArray:AbsolutePosition}
    obrw:bRecnoLog := oBrw:bRecno
-   oBrw:bGOTO     := { | o, n | (o), o:aArray:Move( n - 1, 1 ) }
+   oBrw:bGOTO     := {|o, n|(o), o:aArray:Move(n - 1, 1)} // TODO: (o) ?
 
    ACTIVATE DIALOG oModDlg
 

@@ -1318,19 +1318,19 @@ ENDIF
 // Yes : Accept new value and leave edit dialog
    @ 34, 415 BUTTON oButton1 CAPTION aMsg[34] SIZE 80, 32 ;     // OK ("Continue")
         STYLE WS_TABSTOP+BS_FLAT ;
-        ON CLICK { | | ;
+        ON CLICK {|| ;
          IIF(NUMZ < noldheigth , IIF(hwlabel_warncont(), ;
            (  labbruch := .F. , frm_hwlabel_par:Close() ) ,  ;
            (  NUMZ := noldheigth  , oEditbox2:Value(NUMZ) )  ) ;
-        ,  ( labbruch := .F. , frm_hwlabel_par:Close() ) ) }
+        ,  ( labbruch := .F. , frm_hwlabel_par:Close() ) )}
 
    @ 165, 415 BUTTON oButton2 CAPTION aMsg[35] SIZE 80, 32 ;    // "Cancel"
         STYLE WS_TABSTOP+BS_FLAT ;
-        ON CLICK { | | frm_hwlabel_par:Close() }
+        ON CLICK {||frm_hwlabel_par:Close()}
 
    @ 336, 415 BUTTON oButton4 CAPTION aMsg[54] SIZE 169, 32 ;  // "Set default values"
         STYLE WS_TABSTOP+BS_FLAT  ;
-        ON CLICK { | | ;
+        ON CLICK {|| ;
          REM   := Space(60) , ;
          oEditbox1:Value(REM) , ;
          NUMZ  := 5 , ;
@@ -1349,7 +1349,7 @@ ENDIF
 
    @ 668, 415 BUTTON oButton3 CAPTION aMsg[15] SIZE 80, 32 ;    // "Help"
         STYLE WS_TABSTOP+BS_FLAT  ;
-        ON CLICK { | | hwlabel_Mainhlp(clangset, 1) }
+        ON CLICK {||hwlabel_Mainhlp(clangset, 1)}
 
 
    ACTIVATE DIALOG frm_hwlabel_par
@@ -2833,11 +2833,11 @@ yofs := nOffset + 120
         STYLE SS_CENTER
    @ 66, 84 GET COMBOBOX oCombobox1 VAR nType ITEMS aITEMS SIZE 378, 96
    @ 58 , yofs  BUTTON oButton1 CAPTION cOK SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || nRetu := nType , bcancel := .F. , oDlgcCombo1:Close() }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||nRetu := nType, bcancel := .F., oDlgcCombo1:Close()}
    @ 175, yofs  BUTTON oButton2 CAPTION cCancel SIZE 80, 32 ;
-        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || oDlgcCombo1:Close() }
+        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||oDlgcCombo1:Close()}
 //   @ 375, yofs  BUTTON oButton3 CAPTION cHelp SIZE 80, 32 ;
-//        STYLE WS_TABSTOP+BS_FLAT ON CLICK { || HELP( cHTopic ,PROCLINE(), cHVar ) }
+//        STYLE WS_TABSTOP+BS_FLAT ON CLICK {||HELP(cHTopic, PROCLINE(), cHVar)}
 
    ACTIVATE DIALOG oDlgcCombo1
 // RETURN oDlgcCombo1:lresult

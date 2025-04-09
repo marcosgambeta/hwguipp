@@ -68,7 +68,7 @@ METHOD HActiveX:New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize)
    ::hObj := hwg_Atlaxgetdisp( ::handle )
 
 #ifdef __XHARBOUR__
-      bErrorBlock := ErrorBlock( { |x| break( x ) } )
+      bErrorBlock := ErrorBlock({|x|break(x)})
       TRY
          ::oOle := ToleAuto():New(::hObj)
       CATCH oError

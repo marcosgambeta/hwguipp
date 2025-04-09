@@ -55,7 +55,7 @@ IF lStretch
    
    // Bug here: Error E0030  Syntax error "syntax error at 'SELF'"
    // @ 25, 25 BUTTON oQuitButton CAPTION "Exit" SIZE 75, 18 ; 
-   // ON CLICK { | | oFormMain::Close() }
+   // ON CLICK {||oFormMain::Close()}
 
    oFormMain:Activate()
    
@@ -65,7 +65,7 @@ ELSE
    
       // Bug here: Error E0030  Syntax error "syntax error at 'SELF'"
       // @ 25, 25 BUTTON oQuitButton CAPTION "Exit" SIZE 75, 18 ;
-      // ON CLICK { | | oFormMain::Close() } 
+      // ON CLICK {||oFormMain::Close()}
 
 
    oFormMain:Activate()

@@ -240,7 +240,7 @@ FUNCTION Main ( fName )
    @ 0, 30 PANEL oRuler SIZE oMainWindow:nWidth, 0 STYLE SS_OWNERDRAW ON SIZE {|o,x|o:Move(,,x) }
 
 * DF7BE: old SIZE  600, 270
-   @ 0, 30 HCEDITEXT oEdit SIZE 569, 260 ON SIZE { |o, x, y|o:Move( , oRuler:nHeight+oToolBar:nHeight, x, y-oRuler:nHeight-oToolBar:nHeight ) }
+   @ 0, 30 HCEDITEXT oEdit SIZE 569, 260 ON SIZE {|o, x, y|o:Move(, oRuler:nHeight + oToolBar:nHeight, x, y - oRuler:nHeight - oToolBar:nHeight)}
    oEdit:nIndent := 20
    IF hwg__isUnicode()
       oEdit:lUtf8 := .T.
@@ -263,7 +263,7 @@ FUNCTION Main ( fName )
    oEdit:aDefClasses := { "url","h1","h2","h3","h4","h5","i","bi","u","cite","code" }
    oEdit:bOther := {|o,m,wp,lp|EditMessProc( o,m,wp,lp )}
    oEdit:bAfter := {|o,m,wp,lp|EdMsgAfter( o,m,wp,lp )}
-   oEdit:bChangePos := { || onChangePos() }
+   oEdit:bChangePos := {||onChangePos()}
 
    MENU OF oMainWindow
       MENU TITLE "&File"
@@ -417,7 +417,7 @@ FUNCTION OpenFile( fname, lAdd )
    ENDIF
    IF !Empty(fname)
       IF !( Lower(hb_FNameExt(fname)) $ ".html;.hwge;" )
-         oEdit:bImport := { |o, cText| SetText( o, cText ) }
+         oEdit:bImport := {|o, cText|SetText(o, cText)}
       ENDIF
       oEdit:SetText( MemoRead(fname),,,, lAdd, Iif( !Empty(lAdd),oEdit:aPointC[P_Y],NIL ) )
       oEdit:cFileName := fname
@@ -481,7 +481,7 @@ STATIC FUNCTION PrintFile()
 STATIC FUNCTION SetRuler()
 
    IF Empty(oRuler:bPaint)
-      oRuler:bPaint := { |o| PaintRuler(o) }
+      oRuler:bPaint := {|o|PaintRuler(o)}
       oRuler:nHeight := 32
       oEdit:Move( , oRuler:nHeight+oToolBar:nHeight,, oEdit:nHeight - 28 )
       hwg_Checkmenuitem( ,MENU_RULER, .T. )
@@ -726,7 +726,7 @@ STATIC FUNCTION insBlock()
       END RADIOGROUP
    ENDIF
 
-   @  20, 170  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T., hwg_EndDialog() }
+   @  20, 170  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 180, 170 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    ACTIVATE DIALOG oDlg
@@ -938,7 +938,7 @@ STATIC FUNCTION setCell()
 
    textTab( , aAttr, 16 )
 
-   @  20, 360  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T., hwg_EndDialog() }
+   @  20, 360  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 280, 360 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    ACTIVATE DIALOG oDlg
@@ -1053,7 +1053,7 @@ STATIC FUNCTION setPara()
 
    textTab( oTab, aAttr )
 
-   @  20, 410  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
+   @  20, 410  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T. , hwg_EndDialog()}
    @ 220, 410 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    ACTIVATE DIALOG oDlg
@@ -1189,7 +1189,7 @@ STATIC FUNCTION setSpan()
 
    END PAGE of oTab
 
-   @  20, 410  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
+   @  20, 410  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 220, 410 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    ACTIVATE DIALOG oDlg
@@ -1244,7 +1244,7 @@ STATIC FUNCTION setBlock()
    LOCAL nL := oEdit:aPointC[P_Y]
    LOCAL aStruTbl, i, aAttr, nBorder, nBorder0, nBColor, nBColor0, nWidth, nAlign
    LOCAL cClsName, arr := { "Left", "Center", "Right" }
-   LOCAL bClr := { ||
+   LOCAL bClr := {||
      LOCAL nColor
      IF ( nColor := Hwg_ChooseColor( nBColor ) ) != NIL
         nBColor := nColor
@@ -1353,7 +1353,7 @@ STATIC FUNCTION setTable( lNew )
    LOCAL oBrw, aCols, nAll
    LOCAL nL := oEdit:aPointC[P_Y], nLast
    LOCAL aStruTbl, i
-   LOCAL bClr := { ||
+   LOCAL bClr := {||
      LOCAL nColor
      IF ( nColor := Hwg_ChooseColor( nBColor ) ) != NIL
         nBColor := nColor
@@ -1479,8 +1479,8 @@ STATIC FUNCTION setTable( lNew )
 
    @ 10, nTop BROWSE oBrw ARRAY SIZE 260, 160 ON SIZE {|o,x,y|o:Move(,,,y-70)}
    oBrw:aArray := aCols
-   oBrw:AddColumn( HColumn():New( " Column N  ",{ |value,o|o:nCurrent },"N", 2 ) )
-   oBrw:AddColumn( HColumn():New( "  Width, %",{ |value,o|o:aArray[o:nCurrent] },"N", 2 ) )
+   oBrw:AddColumn( HColumn():New( " Column N  ",{|value, o|o:nCurrent},"N", 2 ) )
+   oBrw:AddColumn( HColumn():New( "  Width, %",{|value, o|o:aArray[o:nCurrent]},"N", 2 ) )
    oBrw:aColumns[2]:lEditable := .T.
    oBrw:aColumns[2]:bValid := bValid
    oBrw:aColumns[2]:picture := "99"
@@ -1618,7 +1618,7 @@ STATIC FUNCTION setDoc()
    @ 240, 240 SAY "Bottom" SIZE 100, 24
    @ 340, 240 GET UPDOWN nMargB RANGE 0, 80 SIZE 60, 30
 
-   @  20, 320  BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
+   @  20, 320  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 220, 320 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    ACTIVATE DIALOG oDlg
@@ -1777,7 +1777,7 @@ STATIC FUNCTION InsUrl( nType )
    @ 10, 92 GET cName SIZE 380, 26 STYLE ES_AUTOHSCROLL MAXLENGTH 0 ;
         ON SIZE ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
-   @  20, 140 BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
+   @  20, 140 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 240, 140 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32
 
    ACTIVATE DIALOG oDlg
@@ -1939,7 +1939,7 @@ STATIC FUNCTION selectImage()
    @ 200, 0 PANEL oPanel SIZE 200, oDlg:nHeight - 60 STYLE SS_OWNERDRAW ;
       ON PAINT bPaint ON SIZE {|o,x,y|o:Move( ,, x-o:nLeft, y-60)}
    oBrw:aArray := oEdit:aBin
-   oBrw:AddColumn( HColumn():New( ,{ |value,o|o:aArray[o:nCurrent, 1] },"C", 32 ) )
+   oBrw:AddColumn( HColumn():New( ,{|value, o|o:aArray[o:nCurrent, 1]},"C", 32 ) )
    oBrw:bcolorSel := oBrw:htbColor := CLR_LBLUE
    oBrw:bColor := CLR_LIGHT1
    oBrw:tcolorSel := oBrw:httColor := CLR_BLACK
@@ -2128,8 +2128,8 @@ STATIC FUNCTION Find()
    @ 20, 56 GET CHECKBOX lSeaCase CAPTION "Case sensitive" SIZE 180, 24
    @ 20, 80 GET CHECKBOX lSeaRegex CAPTION "Regular expression" SIZE 180, 24
 
-   @  30, 220 BUTTON "Ok" SIZE 100, 32 ON CLICK { ||oDlg:lResult := .T. , hwg_EndDialog() }
-   @ 270, 220 BUTTON "Cancel" SIZE 100, 32 ON CLICK { ||hwg_EndDialog() }
+   @  30, 220 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
+   @ 270, 220 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    ACTIVATE DIALOG oDlg CENTER
 
@@ -2448,7 +2448,7 @@ STATIC FUNCTION Help(cHTopic , nPROCLINE , cHVar)
    oEdit:AddClass( "cite", "color: #007800; margin-left: 3%; margin-right: 3%;" )
    oEdit:aDefClasses := { "url","h1","h2","h3","h4","h5","i","cite" }
    oEdit:lReadOnly := .T.
-   oEdit:bOther := { |o, m, wp, lp|EditMessProc( o, m, wp, lp ) }
+   oEdit:bOther := {|o, m, wp, lp|EditMessProc(o, m, wp, lp)}
 
    ACTIVATE DIALOG oDlgHelp NOMODAL
 

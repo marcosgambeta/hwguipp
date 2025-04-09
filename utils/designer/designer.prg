@@ -106,12 +106,12 @@ FUNCTION Main( p0, p1, p2 )
 #ifdef INTEGRATED
    INIT DIALOG oDesigner:oMainWnd AT 0, 0 SIZE 400, 200 TITLE iif( !oDesigner:lReport, "Form", "Report" ) + " designer" ;
       FONT oFont                          ;
-      ON INIT { |o|StartDes( o, p0, p1 ) }   ;
-      ON EXIT { ||EndIde() }
+      ON INIT {|o|StartDes(o, p0, p1)}   ;
+      ON EXIT {||EndIde()}
 #else
    INIT WINDOW oDesigner:oMainWnd MAIN AT 0, 0 SIZE 400, 200 TITLE iif( !oDesigner:lReport, "Form", "Report" ) + " designer" ;
       FONT oFont                                                  ;
-      ON EXIT { ||EndIde() }
+      ON EXIT {||EndIde()}
 #endif
 
    MENU OF oDesigner:oMainWnd
@@ -168,17 +168,17 @@ FUNCTION Main( p0, p1, p2 )
       ENDMENU
    ENDMENU
 
-   //@ 0, 0 PANEL oPanel SIZE 400, 200 ON SIZE { |o, x, y|hwg_Movewindow( o:handle, 0, 0, x, y ) }
+   //@ 0, 0 PANEL oPanel SIZE 400, 200 ON SIZE {|o, x, y|hwg_Movewindow(o:handle, 0, 0, x, y)}
    @ 0, 0 PANEL oPanel SIZE 0, 30
 
    IF !oDesigner:lSingleForm
       @ 2, 3 OWNERBUTTON OF oPanel       ;
-         ON CLICK { ||HFormGen():New() } ;
+         ON CLICK {||HFormGen():New()} ;
          SIZE 24, 24 FLAT               ;
          BITMAP oDesigner:cBmpPath+"bmp_new.bmp" COORDINATES 0, 4, 0, 0 TRANSPARENT ;
          TOOLTIP "New Form"
       @ 26, 3 OWNERBUTTON OF oPanel       ;
-         ON CLICK { ||HFormGen():Open() } ;
+         ON CLICK {||HFormGen():Open()} ;
          SIZE 24, 24 FLAT                ;
          BITMAP oDesigner:cBmpPath+"bmp_open.bmp" COORDINATES 0, 4, 0, 0 TRANSPARENT ;
          TOOLTIP "Open Form"
@@ -186,17 +186,17 @@ FUNCTION Main( p0, p1, p2 )
       @ 55, 6 LINE LENGTH 18 VERTICAL
 
       @ 60, 3 OWNERBUTTON OF oPanel       ;
-         ON CLICK { ||iif( HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:Save(), hwg_Msgstop( "No Form in use!" ) ) } ;
+         ON CLICK {||iif(HFormGen():oDlgSelected != NIL, HFormGen():oDlgSelected:oParent:Save(), hwg_Msgstop("No Form in use!"))} ;
          SIZE 24, 24 FLAT                ;
          BITMAP oDesigner:cBmpPath+"bmp_save.bmp" COORDINATES 0, 4, 0, 0 TRANSPARENT ;
          TOOLTIP "Save Form"
    ENDIF
 
    //@ 3, 30 TAB oTab ITEMS {} OF oPanel SIZE 400, 210 FONT oFont ;
-   //   ON SIZE { |o, x, y|ArrangeBtn( o, x, y ) }
+   //   ON SIZE {|o, x, y|ArrangeBtn(o, x, y)}
 
    @ 3, 30 TAB oTab ITEMS {} SIZE 400, 170 FONT oFont ;
-      ON SIZE { |o, x, y|ArrangeBtn( o, x, y ) }
+      ON SIZE {|o, x, y|ArrangeBtn(o, x, y)}
 
    BuildSet( oTab )
 
@@ -406,7 +406,7 @@ STATIC FUNCTION BuildSet( oTab )
                   cBmp := oWidget:GetAttribute( "bmp" )
                   IF cText != NIL .OR. cBmp != NIL
                      oButton := HOwnButton():New( ,,, x1, 28, 30, 26, ;
-                        ,,, { |o, id|ClickBtn( o, id ) }, .T., ;
+                        ,,, {|o, id|ClickBtn(o, id)}, .T., ;
                         cText,,,,,,, ;
                         oDesigner:cBmpPath+Lower(cBmp)+".bmp", .F.,,,,, .F.,, ;
                         oWidget:GetAttribute( "name" ) )
@@ -509,7 +509,7 @@ FUNCTION DeleteCtrl()
 
    IF oDlg != NIL .AND. ( oCtrl := GetCtrlSelected( oDlg ) ) != NIL
       IF oCtrl:oContainer != NIL
-         i := Ascan( oCtrl:oContainer:aControls, { |o|o:handle == oCtrl:handle } )
+         i := Ascan( oCtrl:oContainer:aControls, {|o|o:handle == oCtrl:handle} )
          IF i != 0
             ADel( oCtrl:oContainer:aControls, i )
             ASize( oCtrl:oContainer:aControls, Len( oCtrl:oContainer:aControls ) - 1 )
@@ -531,7 +531,7 @@ FUNCTION FindWidget( cClass )
 
    FOR i := 1 TO Len( aSet )
       IF aSet[i]:title == "set"
-         IF ( oNode := aSet[i]:Find( "widget", 1,{ |o|o:GetAttribute("class" ) == cClass } ) ) != NIL
+         IF ( oNode := aSet[i]:Find( "widget", 1,{|o|o:GetAttribute("class") == cClass} ) ) != NIL
             RETURN oNode
          ENDIF
       ENDIF

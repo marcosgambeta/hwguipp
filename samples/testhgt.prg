@@ -46,7 +46,7 @@ ENDCLASS
 
 
 PROCEDURE Main
-   hb_ThreadStart( { || Test() } )
+   hb_ThreadStart( {||Test()} )
    hb_ThreadWaitForAll()
    RETURN
 
@@ -111,7 +111,7 @@ FUNCTION MainGT()
    IF Empty(MainWVT)
       MainWVT := HGT():New()
       MainWVT:Handle := hb_gtInfo( HB_GTI_WINHANDLE )
-      hb_gtInfo( HB_GTI_NOTIFIERBLOCKGUI, { | nEvent, ... | MainWVT:OnEvent( nEvent, ... ) } )
+      hb_gtInfo( HB_GTI_NOTIFIERBLOCKGUI, {|nEvent, ...|MainWVT:OnEvent(nEvent, ...)} )
       //MainWVT:IsGT := .T.
    ENDIF
 

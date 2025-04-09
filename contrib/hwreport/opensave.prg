@@ -38,7 +38,7 @@ FUNCTION _hwr_FileDlg( lOpen )
    ENDIF
 
    INIT DIALOG oDlg TITLE "" ;
-      AT 100, 100 SIZE 426, 250 FONT oFontDlg ON INIT { || InitOpen(lOpen) }
+      AT 100, 100 SIZE 426, 250 FONT oFontDlg ON INIT {||InitOpen(lOpen)}
 
    @ 29, 8 GROUPBOX "" SIZE 160, 76
    RADIOGROUP
@@ -52,13 +52,13 @@ FUNCTION _hwr_FileDlg( lOpen )
       STYLE ES_AUTOHSCROLL + WS_TABSTOP
 
    @ 296, 88 BUTTON "Browse" SIZE 90, 30 ;
-      STYLE WS_TABSTOP ON CLICK { ||BrowFile( lOpen ) }
+      STYLE WS_TABSTOP ON CLICK {||BrowFile(lOpen)}
 
    @ 28, 126 SAY oLabel1 CAPTION "Report name:" SIZE 144, 22
    @ 61, 153 EDITBOX oEdit2 CAPTION "" SIZE 96, 24
 
-   @ 26, 200 BUTTON "OK" SIZE 80, 32 STYLE WS_TABSTOP ON CLICK { || EndOpen(lOpen) }
-   @ 298, 200 BUTTON "Cancel" SIZE 80, 32 STYLE WS_TABSTOP ON CLICK { || oDlg:Close() }
+   @ 26, 200 BUTTON "OK" SIZE 80, 32 STYLE WS_TABSTOP ON CLICK {||EndOpen(lOpen)}
+   @ 298, 200 BUTTON "Cancel" SIZE 80, 32 STYLE WS_TABSTOP ON CLICK {||oDlg:Close()}
 
    oDlg:Activate()
 
@@ -230,7 +230,7 @@ STATIC FUNCTION OpenFile( fname, repName )
          ENDIF
       NEXT
       */
-      aPaintRep[FORM_ITEMS] := ASort( aPaintRep[FORM_ITEMS], , , { |z, y|z[ITEM_Y1] < y[ITEM_Y1] .OR. ( z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] < y[ITEM_X1] ) .OR. ( z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] == y[ITEM_X1] .AND. (z[ITEM_WIDTH] < y[ITEM_WIDTH] .OR. z[ITEM_HEIGHT] < y[ITEM_HEIGHT] ) ) } )
+      aPaintRep[FORM_ITEMS] := ASort( aPaintRep[FORM_ITEMS], , , {|z, y|z[ITEM_Y1] < y[ITEM_Y1] .OR. (z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] < y[ITEM_X1]) .OR. (z[ITEM_Y1] == y[ITEM_Y1] .AND. z[ITEM_X1] == y[ITEM_X1] .AND. (z[ITEM_WIDTH] < y[ITEM_WIDTH] .OR. z[ITEM_HEIGHT] < y[ITEM_HEIGHT]))} )
       IF !lPrg
          RecalcForm( aPaintRep, Round( aPaintRep[FORM_XKOEF] * aPaintRep[FORM_WIDTH], 0 ) )
       ENDIF

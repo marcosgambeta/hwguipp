@@ -86,7 +86,7 @@ METHOD HTreeNode:New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
    ELSE
       AAdd(aItems, NIL)
       h := oPrev:handle
-      IF ( i := AScan( aItems, { | o | o:handle == h } ) ) == 0
+      IF ( i := AScan( aItems, {|o|o:handle == h} ) ) == 0
          aItems[Len(aItems)] := Self
       ELSE
          AIns( aItems, i + 1 )
@@ -119,7 +119,7 @@ METHOD HTreeNode:DELETE( lInternal )
    ENDIF
    IF lInternal == NIL
       aItems := IIf(::oParent == NIL, ::oTree:aItems, ::oParent:aItems)
-      j := AScan( aItems, { | o | o:handle == h } )
+      j := AScan( aItems, {|o|o:handle == h} )
       ADel( aItems, j )
       ASize( aItems, Len(aItems) - 1 )
    ENDIF

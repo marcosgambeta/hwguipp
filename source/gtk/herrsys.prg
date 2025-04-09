@@ -14,7 +14,7 @@ STATIC s_LogInitialPath := ""
 
 PROCEDURE hwg_ErrSys
 
-   ErrorBlock( { | oError | DefError( oError ) } )
+   ErrorBlock( {|oError|DefError(oError)} )
    s_LogInitialPath := "/" + CurDir() + IIf(Empty(CurDir()), "", "/")
 
    RETURN
@@ -134,7 +134,7 @@ STATIC FUNCTION ErrorPreview( cMess )
    @ 10, 10 EDITBOX oEdit CAPTION cMess SIZE 380, 340 STYLE WS_VSCROLL + WS_HSCROLL + ES_MULTILINE + ES_READONLY ;
       COLOR 16777088 BACKCOLOR 0
 
-   @ 150, 360 BUTTON "Close" ON CLICK { ||hwg_EndDialog() } SIZE 100, 32
+   @ 150, 360 BUTTON "Close" ON CLICK {||hwg_EndDialog()} SIZE 100, 32
 
    oDlg:Activate()
 

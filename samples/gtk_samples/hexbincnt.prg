@@ -102,7 +102,7 @@ INIT WINDOW oMainW  ;
 
 
 @ htab+(nbut*32), 3 OWNERBUTTON oFileOpen OF oToolbar ;
-   ON CLICK { | | FileOpen()} ;
+   ON CLICK {||FileOpen()} ;
    SIZE 28, 24 FLAT ;
    BITMAP oBitmap ;
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
@@ -111,7 +111,7 @@ INIT WINDOW oMainW  ;
    nbut += 1
 
 @ htab+(nbut*32), 3 OWNERBUTTON oQuit OF oToolbar ;
-   ON CLICK { | | oMainW:Close()} ;
+   ON CLICK {||oMainW:Close()} ;
    SIZE 28, 24 FLAT ;
    BITMAP oBMPExit ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
@@ -123,7 +123,7 @@ INIT WINDOW oMainW  ;
 
 * !!!!! PNG not supported   
 @ htab+(nbut*32), 3 OWNERBUTTON oBtnDoor OF oToolbar ;
-   ON CLICK { | | OpenDoor()} ;
+   ON CLICK {||OpenDoor()} ;
    SIZE 28, 24 FLAT ;
    BITMAP oPNGDoor ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ; 
@@ -132,7 +132,7 @@ INIT WINDOW oMainW  ;
   nbut += 1 
 
 @ htab+(nbut*32), 3 OWNERBUTTON oBtnjpeg OF oToolbar ;
-   ON CLICK { | | ClickJpeg()} ;
+   ON CLICK {||ClickJpeg()} ;
    SIZE 28, 24 FLAT ;
    BITMAP ojpeg ; 
    TRANSPARENT COLOR 0xDCDAD5 COORDINATES 0, 4, 0, 0 ;

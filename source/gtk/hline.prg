@@ -22,7 +22,7 @@ ENDCLASS
 
 METHOD HLine:New( oWndParent, nId, lVert, nX, nY, nLength, bSize )
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, NIL, NIL, NIL, NIL, bSize, { |o, lp|o:Paint( lp ) } )
+   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, NIL, NIL, NIL, NIL, bSize, {|o, lp|o:Paint(lp)} )
 
    ::title := ""
    ::lVert := IIf(lVert == NIL, .F. , lVert)
