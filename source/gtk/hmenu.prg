@@ -273,7 +273,7 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
    ENDIF
 
    /*
-   IF lBitmap!=NIL .or. !Empty(lBitmap)
+   IF lBitmap != NIL .or. !Empty(lBitmap)
       if lResource == NIL
          lResource:=.F.
       Endif

@@ -410,7 +410,7 @@ Local oFrm := Iif( oDlg:oParent:Classname() == "HPANEL",oDlg:oParent:oParent:oPa
         ( oFrm:oCtrlSelected != NIL .AND. oCtrl == NIL ) .OR. ;
         ( oFrm:oCtrlSelected != NIL .AND. oCtrl != NIL .AND. ;
         oFrm:oCtrlSelected:handle != oCtrl:handle )
-      handle := Iif( oCtrl!=NIL,oCtrl:oParent:handle, ;
+      handle := Iif( oCtrl != NIL,oCtrl:oParent:handle, ;
                         oFrm:oCtrlSelected:oParent:handle )
       IF oFrm:oCtrlSelected != NIL
          hwg_Invalidaterect( oFrm:oCtrlSelected:oParent:handle, 1, ;
@@ -442,7 +442,7 @@ Local oFrm := Iif( oDlg:oParent:Classname() == "HPANEL",oDlg:oParent:oParent:oPa
 Return NIL
 
 Function GetCtrlSelected( oDlg )
-Return Iif( oDlg!=NIL,Iif( oDlg:oParent:Classname() == "HPANEL",oDlg:oParent:oParent:oParent:oCtrlSelected,oDlg:oParent:oCtrlSelected),NIL )
+Return Iif( oDlg != NIL,Iif( oDlg:oParent:Classname() == "HPANEL",oDlg:oParent:oParent:oParent:oCtrlSelected,oDlg:oParent:oCtrlSelected),NIL )
 
 Function CheckResize( oCtrl,xPos,yPos )
    IF xPos > oCtrl:nLeft-5 .AND. xPos < oCtrl:nLeft+3 .AND. ;

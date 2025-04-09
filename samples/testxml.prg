@@ -172,7 +172,7 @@ Local oGet1, oGet2
          oXmlNode := oXmlDoc:aItems[1]:Add( HXMLNode():New("item") )
          oXmlNode:SetAttribute( "name", cName )
          oXmlNode:Add( cInfo )
-         oXMLNode:Add( hwg_Font2XML( Iif( oFontNew!=NIL,oFontNew,oFont ) ) )
+         oXMLNode:Add( hwg_Font2XML( Iif( oFontNew != NIL,oFontNew,oFont ) ) )
          lIniChanged := .T.
 
          aMenu := oMainWindow:menu[1, 1]

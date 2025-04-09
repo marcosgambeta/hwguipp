@@ -191,8 +191,8 @@ METHOD HLenta:Paint()
    LOCAL nW := IIf(::lVertical, ::nWidth, ::nHeight)
    LOCAL nLength := IIf(::lVertical, ::nHeight, ::nWidth)
    LOCAL aItemStyle := ::aItemStyle
-   LOCAL lStyleOver := ( Len(aItemStyle)>2.AND.aItemStyle[3]!=NIL )
-   LOCAL lStyleSele := ( Len(aItemStyle)>1.AND.aItemStyle[2]!=NIL )
+   LOCAL lStyleOver := ( Len(aItemStyle)>2.AND.aItemStyle[3] != NIL )
+   LOCAL lStyleSele := ( Len(aItemStyle)>1.AND.aItemStyle[2] != NIL )
 
    IF hb_IsBlock(::bPaint)
       Eval(::bPaint, Self, hDC)

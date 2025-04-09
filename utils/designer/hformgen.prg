@@ -596,7 +596,7 @@ Local i, j, j1, arr, o, aRect, aProp := {}, aItems := oCtrlDesc:aItems, oCtrl, c
 Return NIL
 
 Static Function ReadForm( oForm,cForm )
-Local oDoc := Iif( cForm!=NIL, HXMLDoc():ReadString(cForm), HXMLDoc():Read(oForm:path + oForm:filename) )
+Local oDoc := Iif( cForm != NIL, HXMLDoc():ReadString(cForm), HXMLDoc():Read(oForm:path + oForm:filename) )
 Local i, j, aItems, o, aProp := {}, cPropertyName, aRect, aCoors, pos, cProperty
 
    IF Empty(oDoc:aItems)
@@ -1259,11 +1259,11 @@ Local oCtrl, oForm
             ELSE
                hwg_Enablemenuitem( oDesigner:oCtrlMenu,MENU_FIT,.F. )
             ENDIF
-            hwg_Enablemenuitem( oDesigner:oCtrlMenu,MENU_PASTE2,(oDesigner:oClipBrd!=NIL) )
+            hwg_Enablemenuitem( oDesigner:oCtrlMenu,MENU_PASTE2,(oDesigner:oClipBrd != NIL) )
             oDesigner:oCtrlMenu:Show( Iif(oDesigner:lReport,oDlg:oParent:oParent,oDlg),xPos,yPos,.T. )
          ENDIF
       ELSE
-         hwg_Enablemenuitem( oDesigner:oDlgMenu,MENU_PASTE2,(oDesigner:oClipBrd!=NIL) )
+         hwg_Enablemenuitem( oDesigner:oDlgMenu,MENU_PASTE2,(oDesigner:oClipBrd != NIL) )
          oDesigner:oDlgMenu:Show( Iif(oDesigner:lReport,oDlg:oParent:oParent,oDlg),xPos,yPos,.T. )
       ENDIF
    ENDIF

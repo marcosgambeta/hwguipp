@@ -650,7 +650,7 @@ FUNCTION SelectStyle( oStyle )
 
    INIT DIALOG oDlg TITLE "Select style" ;
       AT 300, 120 SIZE 320, 400 FONT oDesigner:oMainWnd:oFont ;
-      ON INIT {||Iif(oStyle!=NIL,Demo( oDemo, oDemoStyle ),.t.)}
+      ON INIT {||Iif(oStyle != NIL,Demo( oDemo, oDemoStyle ),.t.)}
 
    @ 20, 16 GET oGet1 VAR cColors SIZE 200, 26 VALID bValid MAXLENGTH 36
    @ 220, 16 BUTTON "Add" SIZE 40, 28 ON CLICK bAddClr

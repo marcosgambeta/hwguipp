@@ -178,7 +178,7 @@ METHOD HCustomWindow:onEvent( msg, wParam, lParam )
    
    LOCAL i
 
-   // hwg_WriteLog( "== "+::Classname()+Str(msg)+IIf(wParam!=NIL,Str(wParam),"NIL")+IIf(lParam!=NIL,Str(lParam),"NIL") )
+   // hwg_WriteLog( "== "+::Classname()+Str(msg)+IIf(wParam != NIL,Str(wParam),"NIL")+IIf(lParam != NIL,Str(lParam),"NIL") )
    IF ( i := Ascan( s_aCustomEvents[1],msg ) ) != 0
       RETURN Eval(s_aCustomEvents[2,i], Self, wParam, lParam)
    ELSEIF hb_IsBlock(::bOther)
