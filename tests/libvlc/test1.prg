@@ -10,6 +10,11 @@
 // Compile with:
 // hbmk2 hwguitest1 hblibvlc.hbc
 
+// Requisites to run the test:
+// libvlc plugins folder
+// libvlc.dll
+// libvlccore.dll
+
 #include "hwguipp.ch"
 
 FUNCTION Main()
