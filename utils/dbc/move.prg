@@ -82,7 +82,7 @@ FUNCTION F_Locate( oBrw, cExpres )
    LOCAL nrec, i, res, block
 
    cLocate := cExpres
-   IF ValType( &cLocate ) == "L"
+   IF hb_IsLogical(&cLocate)
       nrec := RecNo()
       block := &( "{||" + cLocate + "}" )
       IF aFiles[improc, AF_LFLT]

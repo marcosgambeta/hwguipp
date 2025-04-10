@@ -775,7 +775,7 @@ Local nPos, aSubarr
       nMaxId ++
       oNode:cargo := nMaxId
       IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) != NIL
-         IF Valtype( aSubarr[nPos, 1] ) != "A"
+         IF !hb_IsArray(aSubarr[nPos, 1])
             aSubarr[nPos, 1] := {}
          ENDIF
          Aadd(aSubarr[nPos, 1], {NIL, "New", nMaxId, NIL})

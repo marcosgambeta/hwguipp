@@ -413,7 +413,7 @@ METHOD HCEdit:SetHili(xGroup, oFont, tColor, bColor)
    ENDIF
    arr := ::aHili[xGroup]
 
-   arr[1] := IIf(ValType(oFont) == "O", ::AddFont(oFont), IIf(Empty(oFont), 0, oFont))
+   arr[1] := IIf(hb_IsObject(oFont), ::AddFont(oFont), IIf(Empty(oFont), 0, oFont))
    arr[2] := tColor
    arr[3] := bColor
 

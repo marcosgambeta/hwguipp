@@ -87,7 +87,7 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
       ::lCheck := lCheck
    ENDIF
    IF bmp != NIL
-      IF ValType( bmp ) == "O"
+      IF hb_IsObject(bmp)
          // Valid bitmap object
          ::oBitmap := bmp
       ELSE

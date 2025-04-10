@@ -330,7 +330,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
    ENDSWITCH
 
    IF hb_IsBlock(oDlg:bInit)
-      IF ValType(nReturn := Eval(oDlg:bInit, oDlg)) != "N"
+      IF !hb_IsNumeric(nReturn := Eval(oDlg:bInit, oDlg))
          nReturn := 1
       ENDIF
    ENDIF
@@ -362,7 +362,7 @@ STATIC FUNCTION onEraseBk(oDlg, hDC)
       ELSE
          aCoors := hwg_Getclientrect(oDlg:handle)
          IF oDlg:brush != NIL
-            IF ValType(oDlg:brush) != "N"
+            IF !hb_IsNumeric(oDlg:brush)
                hwg_Fillrect(hDC, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, oDlg:brush:handle)
             ENDIF
          ELSE
@@ -583,7 +583,7 @@ FUNCTION hwg_EndDialog(handle)
    ENDIF
    IF hb_IsBlock(oDlg:bDestroy)
       lRes := Eval(oDlg:bDestroy, oDlg)
-      IF Valtype(lRes) != "L" .OR. lRes
+      IF !hb_IsLogical(lRes) .OR. lRes
          RETURN IIf(oDlg:lModal, Hwg__EndDialog(oDlg:handle), hwg_Destroywindow(oDlg:handle))
       ELSE
          RETURN NIL

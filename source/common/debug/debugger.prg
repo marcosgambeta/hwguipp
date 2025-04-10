@@ -832,7 +832,7 @@ STATIC FUNCTION SendObject(cObjName)
    LOCAL xVal
 
    obj := t_oDebugger:GetExprValue( cObjName )
-   IF ValType( obj ) == "O"
+   IF hb_IsObject(obj)
       aVars := __objGetMsgList( obj )
       aMethods := __objGetMethodList( obj )
       arr := Array( ( Len(aVars ) + Len(aMethods ) ) * 3 + 1 )

@@ -1,6 +1,6 @@
 FUNCTION ADDMETHOD( oObjectName, cMethodName, pFunction )
 
-   IF ValType( oObjectName ) = "O" .AND. ! Empty(cMethodName)
+   IF hb_IsObject(oObjectName) .AND. ! Empty(cMethodName)
       IF ! __ObjHasMsg( oObjectName, cMethodName )
          __objAddMethod( oObjectName, cMethodName, pFunction )
       ENDIF
@@ -11,14 +11,14 @@ FUNCTION ADDMETHOD( oObjectName, cMethodName, pFunction )
 
 FUNCTION ADDPROPERTY( oObjectName, cPropertyName, eNewValue )
 
-   IF ValType( oObjectName ) = "O" .AND. ! Empty(cPropertyName)
+   IF hb_IsObject(oObjectName) .AND. ! Empty(cPropertyName)
       IF ! __objHasData( oObjectName, cPropertyName )
          IF Empty(__objAddData( oObjectName, cPropertyName ))
             RETURN .F.
          ENDIF
       ENDIF
       IF !Empty(eNewValue)
-         IF ValType( eNewValue ) = "B"
+         IF hb_IsBlock(eNewValue)
             oObjectName: & ( cPropertyName ) := Eval(eNewValue)
          ELSE
             oObjectName: & ( cPropertyName ) := eNewValue
@@ -31,7 +31,7 @@ FUNCTION ADDPROPERTY( oObjectName, cPropertyName, eNewValue )
 
 FUNCTION REMOVEPROPERTY( oObjectName, cPropertyName )
 
-   IF ValType( oObjectName ) = "O" .AND. ! Empty(cPropertyName) .AND. ;
+   IF hb_IsObject(oObjectName) .AND. ! Empty(cPropertyName) .AND. ;
          __objHasData( oObjectName, cPropertyName )
       RETURN Empty(__objDelData( oObjectName, cPropertyName ))
    ENDIF

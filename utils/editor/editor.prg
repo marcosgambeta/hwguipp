@@ -1960,7 +1960,7 @@ STATIC FUNCTION selectImage()
 STATIC FUNCTION InsRows()
    LOCAL nL := oEdit:aPointC[P_Y], oDlg, nRows := 1
 
-   IF Valtype(oEdit:aStru[nL, 1, 1]) != "C" .OR. oEdit:aStru[nL, 1, 1] != "tr"
+   IF !hb_IsChar(oEdit:aStru[nL, 1, 1]) .OR. oEdit:aStru[nL, 1, 1] != "tr"
       RETURN NIL
    ENDIF
 
@@ -1986,7 +1986,7 @@ STATIC FUNCTION DelRow()
 
    LOCAL nL := oEdit:aPointC[P_Y], i
 
-   IF Valtype(oEdit:aStru[nL, 1, 1]) != "C" .OR. oEdit:aStru[nL, 1, 1] != "tr"
+   IF !hb_IsChar(oEdit:aStru[nL, 1, 1]) .OR. oEdit:aStru[nL, 1, 1] != "tr"
       RETURN NIL
    ENDIF
 
@@ -2011,7 +2011,7 @@ STATIC FUNCTION InsCols( l2End )
 
    LOCAL nL := oEdit:aPointC[P_Y]
 
-   IF Valtype(oEdit:aStru[nL, 1, 1]) != "C" .OR. oEdit:aStru[nL, 1, 1] != "tr"
+   IF !hb_IsChar(oEdit:aStru[nL, 1, 1]) .OR. oEdit:aStru[nL, 1, 1] != "tr"
       RETURN NIL
    ENDIF
 
@@ -2027,7 +2027,7 @@ STATIC FUNCTION DelCol()
 
    LOCAL nL := oEdit:aPointC[P_Y]
 
-   IF Valtype(oEdit:aStru[nL, 1, 1]) != "C" .OR. oEdit:aStru[nL, 1, 1] != "tr"
+   IF !hb_IsChar(oEdit:aStru[nL, 1, 1]) .OR. oEdit:aStru[nL, 1, 1] != "tr"
       RETURN NIL
    ENDIF
 
@@ -2251,7 +2251,7 @@ STATIC FUNCTION MarkRow( n )
       ELSEIF nRow1 > 0 .AND. nRow2 == 0
          nRow2 := nL
          aPointM2[P_Y] := nL; aPointM2[P_X] := hced_Len( oEdit,oEdit:aText[nL] ) + 1
-         IF Valtype( aStru[nL, 1,OB_TYPE] ) != "N" .AND. aStru[nL, 1,OB_TYPE] == "tr"
+         IF !hb_IsNumeric(aStru[nL, 1,OB_TYPE]) .AND. aStru[nL, 1,OB_TYPE] == "tr"
             aStru[nL, 1,OB_OPT] := TROPT_SEL
          ENDIF
          hwg_Enablemenuitem( , MENU_COPYF, .T., .T. )
@@ -2263,7 +2263,7 @@ STATIC FUNCTION MarkRow( n )
       IF nEnv > 0
          aPointM2[P_Y] := nL; aPointM2[P_X] := 2
          FOR i := nRow1 TO nL
-            IF Valtype( aStru[i, 1,OB_TYPE] ) != "N" .AND. aStru[i, 1,OB_TYPE] == "tr"
+            IF !hb_IsNumeric(aStru[i, 1,OB_TYPE]) .AND. aStru[i, 1,OB_TYPE] == "tr"
                aStru[i, 1,OB_OPT] := TROPT_SEL
             ENDIF
          NEXT

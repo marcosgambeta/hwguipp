@@ -968,7 +968,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       oCtrl:cargo := cVarName
    ENDIF
 
-   IF !Empty(cCtrlName) .AND. Valtype(oCtrl) == "O"
+   IF !Empty(cCtrlName) .AND. hb_IsObject(oCtrl)
       __mvPut( cCtrlName, oCtrl )
       hwg_SetCtrlName( oCtrl, cCtrlName )
    ENDIF
@@ -1306,7 +1306,7 @@ METHOD HRepTmpl:READ(fname, cId)
 
 METHOD HRepTmpl:PRINT( printer, lPreview, p1, p2, p3, p4, p5 )
    
-   LOCAL oPrinter := IIf(printer != NIL, IIf(ValType(printer ) == "O",printer,HPrinter():New(printer, .T. )), HPrinter():New(NIL, .T.))
+   LOCAL oPrinter := IIf(printer != NIL, IIf(hb_IsObject(printer),printer,HPrinter():New(printer, .T. )), HPrinter():New(NIL, .T.))
    LOCAL i
    LOCAL j
    LOCAL aMethod
@@ -1422,7 +1422,7 @@ METHOD HRepTmpl:PRINT( printer, lPreview, p1, p2, p3, p4, p5 )
 
 METHOD HRepTmpl:PrintAsPage( printer, nPageType, lPreview, p1, p2, p3, p4, p5 )
 
-   LOCAL oPrinter := IIf(printer != NIL, IIf(ValType(printer ) == "O",printer,HPrinter():New(printer, .T. )), HPrinter():New(NIL, .T.))
+   LOCAL oPrinter := IIf(printer != NIL, IIf(hb_IsObject(printer),printer,HPrinter():New(printer, .T. )), HPrinter():New(NIL, .T.))
    LOCAL i
    LOCAL j
    LOCAL aMethod

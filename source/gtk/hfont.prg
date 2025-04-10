@@ -94,7 +94,7 @@ METHOD HFont:Select( oFont, cTitle )
    
    LOCAL af := hwg_Selectfont( oFont, cTitle )
 
-   IF Valtype( af ) != "A"
+   IF !hb_IsArray(af)
       RETURN NIL
    ENDIF
 

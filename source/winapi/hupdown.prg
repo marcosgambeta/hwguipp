@@ -44,7 +44,7 @@ METHOD HUpDown:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeig
       vari := 0
    ENDIF
    IF vari != NIL
-      IF ValType(vari) != "N"
+      IF !hb_IsNumeric(vari)
          vari := 0
          Eval(bSetGet, vari)
       ENDIF

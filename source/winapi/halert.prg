@@ -301,7 +301,7 @@ METHOD HAlert:Alert(cMessage, acOptions)
       RETURN 0
    ENDIF
 
-   IF valtype(cMessage) != "C"
+   IF !hb_IsChar(cMessage)
       cMessage := HB_ValToStr(cMessage)
    ENDIF
    cMessage := strtran(cMessage, ";", chr(10))

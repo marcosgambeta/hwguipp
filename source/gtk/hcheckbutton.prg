@@ -34,7 +34,7 @@ METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
 
    ::title := cCaption
-   ::lValue := IIf(vari == NIL .OR. ValType(vari) != "L", .F., vari)
+   ::lValue := IIf(vari == NIL .OR. !hb_IsLogical(vari), .F., vari)
    ::bSetGet := bSetGet
 
    ::Activate()
@@ -114,7 +114,7 @@ METHOD HCheckButton:Refresh()
 METHOD HCheckButton:Value( lValue )
 
    IF lValue != NIL
-      IF ValType( lValue ) != "L"
+      IF !hb_IsLogical(lValue)
          lValue := .F.
       ENDIF
       hwg_CheckButton(::handle, lValue)
@@ -136,7 +136,7 @@ STATIC FUNCTION __Valid( oCtrl )
    IF hb_IsBlock(oCtrl:bSetGet)
       Eval(oCtrl:bSetGet, oCtrl:lValue, oCtrl)
    ENDIF
-   IF hb_IsBlock(oCtrl:bLostFocus) .AND. ValType(res := Eval(oCtrl:bLostFocus, oCtrl, oCtrl:lValue)) == "L" .AND. !res
+   IF hb_IsBlock(oCtrl:bLostFocus) .AND. hb_IsLogical(res := Eval(oCtrl:bLostFocus, oCtrl, oCtrl:lValue)) .AND. !res
       hwg_Setfocus( oCtrl:handle )
    ENDIF
 

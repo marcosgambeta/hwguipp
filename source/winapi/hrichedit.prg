@@ -108,7 +108,7 @@ METHOD HRichEdit:onEvent(msg, wParam, lParam)
 
    IF hb_IsBlock(::bOther)
       nDelta := Eval(::bOther, Self, msg, wParam, lParam)
-      IF ValType(nDelta) != "N" .OR. nDelta > - 1
+      IF !hb_IsNumeric(nDelta) .OR. nDelta > - 1
          RETURN nDelta
       ENDIF
    ENDIF

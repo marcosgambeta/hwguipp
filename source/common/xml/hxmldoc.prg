@@ -202,7 +202,7 @@ METHOD HXMLNode:Find(cTitle, nStart, block)
       nStart := 1
    ENDIF
    DO WHILE .T.
-      i := Ascan(::aItems, {|a|Valtype(a) != "C" .AND. a:title == cTitle}, nStart)
+      i := Ascan(::aItems, {|a|!hb_IsChar(a) .AND. a:title == cTitle}, nStart)
       IF i == 0
          EXIT
       ELSE

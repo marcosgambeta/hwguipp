@@ -61,7 +61,7 @@ Function BuildTree( oParent,aItems,oSay )
 Local oNode, i, j, alen := Len(aItems), cText
 
    FOR i := 1 TO alen
-      IF ValType( aItems[i] ) == "C"
+      IF hb_IsChar(aItems[i])
          IF ( cText := Utf82Ansi( aItems[i] ) ) != NIL
             oParent:cargo += Chr(13)+Chr(10)+cText
          ELSE

@@ -827,7 +827,7 @@ STATIC FUNCTION DeleteItem()
    FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
       IF aPaintRep[FORM_ITEMS,i,ITEM_STATE] == STATE_SELECTED
          aItem := aPaintRep[FORM_ITEMS,i]
-         IF aItem[ITEM_PEN] != NIL .AND. Valtype( aItem[ITEM_PEN] ) == "O"
+         IF aItem[ITEM_PEN] != NIL .AND. hb_IsObject(aItem[ITEM_PEN])
             aItem[ITEM_PEN]:Release()
             aItem[ITEM_PEN] := NIL
          ENDIF

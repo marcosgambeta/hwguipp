@@ -370,7 +370,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
 
    cTmp := hwg_CreateTempfileName(NIL, ".bmp")
 
-   // IF VALTYPE( xBitmap ) == "C" // does not work on GTK
+   // IF hb_isChar(xBitmap) // does not work on GTK
      // from file
      IF !hb_fileexists( xBitmap )
       // xBitmap is a bitmap object

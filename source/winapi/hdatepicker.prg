@@ -49,7 +49,7 @@ METHOD HDatePicker:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, n
    nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, NIL, NIL, ctooltip, tcolor, bcolor)
 
-   ::dValue := IIf(vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari)
+   ::dValue := IIf(vari == NIL .OR. !hb_IsDate(vari), CToD(Space(8)), vari)
    ::bSetGet := bSetGet
    ::bChange := bChange
 
@@ -110,7 +110,7 @@ METHOD HDatePicker:Refresh()
 METHOD HDatePicker:Value(dValue)
 
    IF dValue != NIL
-      IF ValType(dValue) == "D"
+      IF hb_IsDate(dValue)
          hwg_Setdatepicker(::handle, dValue)
          ::dValue := dValue
          IF hb_IsBlock(::bSetGet)

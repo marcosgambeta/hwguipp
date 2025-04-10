@@ -127,7 +127,7 @@ FUNCTION Tool2Prg
                ENDIF
 
                //cMethod := " " + Upper(Substr(oCtrl:aMethods[i, 1], 1))
-               IF ValType( cName := Callfunc( "FUNC_NAME", { oCtrl1, k } ) ) == "C"
+               IF hb_IsChar(cName := Callfunc("FUNC_NAME", {oCtrl1, k}))
                   IF !Empty(cLocalParam)
                      // Substr(oCtrl1:aMethods[k, 2], 1, j)
                      IF lsubParameter
@@ -334,7 +334,7 @@ FUNCTION Browse2Prg
                   temp := ""
                ENDIF
                //cMethod := " " + Upper(Substr(oCtrl:aMethods[i, 1], 1))
-               IF ValType( cName := Callfunc( "FUNC_NAME", { oCtrl1, k } ) ) == "C"
+               IF hb_IsChar(cName := Callfunc("FUNC_NAME", {oCtrl1, k}))
                   temp :=  " {|" + temp + "| " +  cName + "( " + temp + " ) }"
                ELSE
                   temp := " {|" + temp + "| " + iif( Len( cName ) == 1, cName[1], cName[2] ) + " }"
@@ -916,7 +916,7 @@ FUNCTION Ctrl2Prg
 
             ENDIF
 
-            IF ValType( cName := Callfunc( "FUNC_NAME", { oCtrl, i } ) ) == "C"
+            IF hb_IsChar(cName := Callfunc("FUNC_NAME", {oCtrl, i}))
                //
                IF oCtrl:cClass == "timer"
                   stroka := " {|" + temp + "| " + cName + "( " + temp + " ) }"
@@ -1420,7 +1420,7 @@ FUNCTION Ctrl2Prg
 
          IF oCtrl:aMethods[i, 2] != NIL .AND. ! Empty(oCtrl:aMethods[i, 2])
 
-            IF ValType( cName := Callfunc( "FUNC_NAME", { oCtrl, i } ) ) == "C"
+            IF hb_IsChar(cName := Callfunc("FUNC_NAME", {oCtrl, i}))
 
                FWrite(han, "STATIC FUNCTION " + cName + hb_OsNewline())
                FWrite(han, oCtrl:aMethods[i, 2])

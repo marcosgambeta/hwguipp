@@ -268,7 +268,7 @@ METHOD HPanelStS:New( oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oS
 METHOD HPanelStS:Write(cText, nPart, lRedraw)
 
    ::aText[IIf(nPart == NIL, 1,nPart)] := cText
-   IF ValType( lRedraw ) != "L" .OR. lRedraw
+   IF !hb_IsLogical(lRedraw) .OR. lRedraw
       hwg_Invalidaterect(::handle, 0)
    ENDIF
 

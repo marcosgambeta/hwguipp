@@ -643,7 +643,7 @@ METHOD HBrowse:Rebuild(hDC)
       IF oColumn:aBitmaps != NIL
          xSize := 0
          FOR j := 1 TO Len(oColumn:aBitmaps)
-            IF ValType( oColumn:aBitmaps[j, 2] ) == "O"
+            IF hb_IsObject(oColumn:aBitmaps[j, 2])
                xSize := Max( xSize, oColumn:aBitmaps[j, 2]:nWidth + 2 )
                ::minHeight := Max(::minHeight, oColumn:aBitmaps[j, 2]:nHeight)
             ENDIF
@@ -1867,7 +1867,7 @@ METHOD HBrowse:Edit( wParam, lParam )
    fipos := ::colpos + ::nLeftCol - 1 - ::freeze
 
    oColumn := ::aColumns[fipos]
-   IF ::bEnter == NIL .OR. (ValType(lRes := Eval(::bEnter, Self, fipos, ::nCurrent)) == "L" .AND. !lRes)
+   IF ::bEnter == NIL .OR. (hb_IsLogical(lRes := Eval(::bEnter, Self, fipos, ::nCurrent)) .AND. !lRes)
       IF !oColumn:lEditable
          RETURN NIL
       ENDIF
@@ -2021,7 +2021,7 @@ STATIC FUNCTION VldBrwEdit( oBrw, fipos , bmemo )
 
    IF !bESCkey
       IF oColumn:aList != NIL
-         IF ValType( oBrw:varbuf ) == "N"
+         IF hb_IsNumeric(oBrw:varbuf)
             oBrw:varbuf := nChoic
          ELSE
             oBrw:varbuf := oColumn:aList[nChoic]

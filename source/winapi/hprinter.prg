@@ -165,7 +165,7 @@ METHOD HPrinter:New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lPropri
          ::Copies := nCopies
       ENDIF
    ENDIF
-   IF ValType(lProprierties) != "L"
+   IF !hb_IsLogical(lProprierties)
       lProprierties := .T.
    ENDIF
 

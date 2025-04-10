@@ -119,7 +119,7 @@ Local oGet1, oGet2
       oXmlNode := oXmlDoc:aItems[1]:aItems[nItem]
       cName := oXmlNode:GetAttribute( "name" )
       FOR i := 1 TO Len( oXmlNode:aItems )
-         IF Valtype( oXmlNode:aItems[i] ) == "C"
+         IF hb_IsChar(oXmlNode:aItems[i])
             cInfo := oXmlNode:aItems[i]
          ELSEIF oXmlNode:aItems[i]:title == "font"
             oItemFont := FontFromXML( oXmlNode:aItems[i] )
@@ -188,7 +188,7 @@ Local oGet1, oGet2
             hwg_Setmenucaption( , 1020+nItem, cName )
          ENDIF
          FOR i := 1 TO Len( oXmlNode:aItems )
-            IF Valtype( oXmlNode:aItems[i] ) == "C"
+            IF hb_IsChar(oXmlNode:aItems[i])
                // hwg_MsgInfo(oXmlNode:aItems[i] + "<>" + cInfo)
                IF .NOT. (cInfo == oXmlNode:aItems[i] )
                 /* IF cInfo != oXmlNode:aItems[i] not working correct ! */

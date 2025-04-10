@@ -166,9 +166,9 @@ METHOD HComboBoxEx:New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWid
    ENDIF
 
    IF ::lText
-      ::value := iif( vari == NIL .OR. ValType( vari ) != "C", "", vari )
+      ::value := iif( vari == NIL .OR. !hb_IsChar(vari), "", vari )
    ELSE
-      ::value := iif( vari == NIL .OR. ValType( vari ) != "N", 1, vari )
+      ::value := iif( vari == NIL .OR. ! hb_IsNumeric(vari), 1, vari )
    ENDIF
 
    aItems        := iif( aItems = NIL, {}, AClone( aItems ) )
@@ -249,9 +249,9 @@ METHOD HComboBoxEx:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit
    ::nDisplay := nDisplay
 
    IF ::lText
-      ::value := iif( vari == NIL .OR. ValType( vari ) != "C", "", vari )
+      ::value := iif( vari == NIL .OR. !hb_IsChar(vari), "", vari )
    ELSE
-      ::value := iif( vari == NIL .OR. ValType( vari ) != "N", 1, vari )
+      ::value := iif( vari == NIL .OR. !hb_IsNumeric(vari), 1, vari )
    ENDIF
    IF nMaxLength != NIL
       ::MaxLength := nMaxLength
@@ -468,9 +468,9 @@ METHOD HComboBoxEx:Refresh()
       ENDIF
       IF  ::columnBound = 1
          IF ::lText
-            ::value := iif( vari == NIL .OR. ValType( vari ) != "C", "", vari )
+            ::value := iif( vari == NIL .OR. !hb_IsChar(vari), "", vari )
          ELSE
-            ::value := iif( vari == NIL .OR. ValType( vari ) != "N", 1 , vari )
+            ::value := iif( vari == NIL .OR. !hb_IsNumeric(vari), 1 , vari )
          ENDIF
       ENDIF
    ENDIF
@@ -538,7 +538,7 @@ METHOD HComboBoxEx:GetValue()
    LOCAL nPos := hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0) + 1
 
    IF ::lText
-      IF ( ::lEdit .OR. ValType( ::Value ) != "C" ) .AND. nPos <= 1
+      IF ( ::lEdit .OR. !hb_IsChar(::Value) ) .AND. nPos <= 1
          ::Value := hwg_Getwindowtext( ::handle )
          nPos := hwg_Sendmessage(::handle, CB_FINDSTRINGEXACT, -1, ::value) + 1
       ELSEIF nPos > 0
@@ -882,7 +882,7 @@ FUNCTION hwg_multibitor(...) // TODO: substituir por hb_bitor
    LOCAL result := 0
 
    FOR EACH nItem IN aArgumentList
-      IF ValType( nItem ) != "N"
+      IF !hb_IsNumeric(nItem)
          hwg_MsgInfo("hwg_multibitor parameter not numeric set to zero", "Possible error")
          nItem := 0
       ENDIF

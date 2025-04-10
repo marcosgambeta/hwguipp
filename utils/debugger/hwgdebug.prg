@@ -758,7 +758,7 @@ STATIC FUNCTION TimerProc()
                   ENDDO
                   // Set Inspectors to nonactual state
                   FOR n := 1 TO Len(HDialog():aDialogs)
-                     IF ValType(xTmp := HDialog():aDialogs[n]:cargo) == "A" .AND. !Empty(xTmp) .AND. HB_ISCHAR(xTmp[1]) .AND. xTmp[1] == "f"
+                     IF hb_IsArray(xTmp := HDialog():aDialogs[n]:cargo) .AND. !Empty(xTmp) .AND. HB_ISCHAR(xTmp[1]) .AND. xTmp[1] == "f"
                         xTmp[2] := .F.
                         HDialog():aDialogs[n]:aControls[2]:Setcolor(0, 255, .T.)
                      ENDIF

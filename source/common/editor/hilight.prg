@@ -115,7 +115,7 @@ Local oIni, oMod, oNode, i, nPos
                ENDIF
             NEXT
          ENDIF
-      ELSEIF Valtype( cFile ) == "O"
+      ELSEIF hb_IsObject(cFile)
          oMod := cFile
       ENDIF
       IF !Empty(oMod)      
@@ -157,7 +157,7 @@ Local oIni, oMod, oNode, i, nPos
             ::cMcomm1 := Trim(Left(::cMcomm1,nPos - 1))
          ENDIF
       ENDIF
-      IF Valtype( lCase ) == "L"
+      IF hb_IsLogical(lCase)
          ::lCase := lCase
       ENDIF
    ENDIF

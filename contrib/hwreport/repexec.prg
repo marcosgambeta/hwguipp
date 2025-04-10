@@ -192,7 +192,7 @@ FUNCTION hwg_hwr_Close(aPaintRep)
 
    FOR i := 1 TO Len( aPaintRep[FORM_ITEMS] )
       aItem := aPaintRep[FORM_ITEMS,i]
-      IF !Empty(aItem[ITEM_PEN]) .AND. Valtype( aItem[ITEM_PEN] ) == "O"
+      IF !Empty(aItem[ITEM_PEN]) .AND. hb_IsObject(aItem[ITEM_PEN])
          aItem[ITEM_PEN]:Release()
       ENDIF
       IF !Empty(aItem[ITEM_FONT])
@@ -209,7 +209,7 @@ FUNCTION hwg_hwr_Close(aPaintRep)
 FUNCTION hwg_hwr_Print( aPaintRep, xPrn, lPreview )
 
    LOCAL oPrinter := IIf( xPrn == NIL, HPrinter():New(xPrn), ;
-      Iif( Valtype(xPrn) == "O", xPrn, HPrinter():New(xPrn) ) )
+      Iif( hb_IsObject(xPrn), xPrn, HPrinter():New(xPrn) ) )
    LOCAL aPrnCoors, prnXCoef, prnYCoef
    LOCAL iItem, aItem, nLineStartY := 0, nLineHeight := 0, nPHStart := 0
    LOCAL iPH := 0, iSL := 0, iEL := 0, iPF := 0, iEPF := 0, iDF := 0

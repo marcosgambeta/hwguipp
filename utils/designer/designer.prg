@@ -87,7 +87,7 @@ FUNCTION Main( p0, p1, p2 )
    IF !__mvExist( "cCurDir" )
       __mvPublic( "cCurDir" )
    ENDIF
-   IF ValType( cCurDir ) != "C"
+   IF !hb_IsChar(cCurDir)
       cCurDir := DIR_SEP + CurDir() + DIR_SEP
    ENDIF
    oDesigner:ds_mypath := cCurDir
@@ -97,7 +97,7 @@ FUNCTION Main( p0, p1, p2 )
    ENDIF
 
    PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT - 13
-   IF ValType( crossCursor ) != "N"
+   IF !hb_IsNumeric(crossCursor)
       crossCursor := hwg_Loadcursor( CURS_CROSS )
       horzCursor  := hwg_Loadcursor( CURS_SIZEV )
       vertCursor  := hwg_Loadcursor( CURS_SIZEH )

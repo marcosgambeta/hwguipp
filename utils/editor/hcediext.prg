@@ -649,13 +649,13 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdiExt
          aPointC[P_Y] := nl := ::aPointC[P_Y]
          aPointC[P_X] := ::aPointC[P_X]
          IF !Empty(nL)
-            IF Valtype( ::aStru[nL] ) != "A"
-               DO WHILE nl > 0 .AND. Valtype( ::aStru[--nL] ) != "A"
+            IF !hb_IsArray(::aStru[nL])
+               DO WHILE nl > 0 .AND. !hb_IsArray(::aStru[--nL])
                ENDDO
                aPointC[P_Y] := ::aPointC[P_Y] := nl
                aPointC[P_X] := ::aPointC[P_X] := 1 //Len( ::aText[nl] )
             ENDIF
-            IF Valtype( ::aStru[nL, 1,OB_TYPE] ) != "N"
+            IF !hb_IsNumeric(::aStru[nL, 1,OB_TYPE])
                IF ::aStru[nL, 1, 1] == "tr"
                   aTbl1 := aStruTbl := ::aStru[nL-::aStru[nL, 1,OB_TRNUM]+1, 1,OB_TBL]
                ELSEIF ::aStru[nL, 1, 1] == "img"
@@ -683,7 +683,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdiExt
             .OR. msg == WM_RBUTTONDOWN
          aStruTbl := NIL
          nL := Iif( ( nL := hced_Line4Pos( Self, hwg_HiWord( lParam ) ) ) > 0, ::aLines[nL,AL_LINE], 0 )
-         IF nL > 0 .AND. Valtype( ::aStru[nL, 1,OB_TYPE] ) != "N" .AND. ::aStru[nL, 1,OB_TYPE] == "tr"
+         IF nL > 0 .AND. !hb_IsNumeric(::aStru[nL, 1,OB_TYPE]) .AND. ::aStru[nL, 1,OB_TYPE] == "tr"
             aTbl2 := aStruTbl := ::aStru[nL-::aStru[nL, 1,OB_TRNUM]+1, 1,OB_TBL]
             IF msg == WM_MOUSEMOVE .AND. ::lMDown
                IF nlM1 != 0 .AND. nlM2 != 0 .AND. nL != nlM1                 
@@ -812,7 +812,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCEdiExt
             nL := nlM1; nlM1 := nlM2; nlM2 := nlM1
          ENDIF
          FOR nL := nlM1 TO nlM2
-            IF nL <= ::nTextLen .AND. Valtype( ::aStru[nL, 1,OB_TYPE] ) != "N" .AND. ::aStru[nL, 1,OB_TYPE] == "tr"
+            IF nL <= ::nTextLen .AND. !hb_IsNumeric(::aStru[nL, 1,OB_TYPE]) .AND. ::aStru[nL, 1,OB_TYPE] == "tr"
                ::aStru[nL, 1,OB_OPT] := 0
                lInv := .T.
             ENDIF
@@ -1774,7 +1774,7 @@ METHOD InsCol( nL, iTd ) CLASS HCEdiExt
 
    LOCAL aStruCols, nCols, nWidth, i, n
 
-   IF Empty(nL) .OR. Valtype( ::aStru[nL, 1, 1] ) != "C" .OR. ::aStru[nL, 1, 1] != "tr"
+   IF Empty(nL) .OR. !hb_IsChar(::aStru[nL, 1, 1]) .OR. ::aStru[nL, 1, 1] != "tr"
       RETURN .F.
    ENDIF
 
@@ -1819,7 +1819,7 @@ METHOD DelCol( nL, iTd ) CLASS HCEdiExt
 
    LOCAL aStruCols, nCols, nWidth, i, n
 
-   IF Empty(nL) .OR. Empty(iTd) .OR. Valtype( ::aStru[nL, 1, 1] ) != "C" .OR. ::aStru[nL, 1, 1] != "tr"
+   IF Empty(nL) .OR. Empty(iTd) .OR. !hb_IsChar(::aStru[nL, 1, 1]) .OR. ::aStru[nL, 1, 1] != "tr"
       RETURN .F.
    ENDIF
 
@@ -2594,7 +2594,7 @@ METHOD Find( cText, cId, cHRef, aStart, lCase, lRegex ) CLASS HCEdiExt
    IF !lCase
       cText := Lower(cText)
    ENDIF
-   lAll := Iif( aStart == NIL.OR.Valtype(aStart)!="L", .F., aStart )
+   lAll := Iif( aStart == NIL .OR. !hb_IsLogical(aStart), .F., aStart )
    IF lAll
       arr := {}
    ENDIF

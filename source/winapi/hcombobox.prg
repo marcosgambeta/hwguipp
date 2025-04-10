@@ -66,9 +66,9 @@ METHOD HComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHe
    ENDIF
 
    IF ::lText
-      ::xValue := IIf(vari == NIL .OR. ValType(vari) != "C", "", Trim(vari))
+      ::xValue := IIf(vari == NIL .OR. !hb_IsChar(vari), "", Trim(vari))
    ELSE
-      ::xValue := IIf(vari == NIL .OR. ValType(vari) != "N", 1, vari)
+      ::xValue := IIf(vari == NIL .OR. !hb_IsNumeric(vari), 1, vari)
    ENDIF
 
    IF hb_IsBlock(bSetGet)
@@ -112,9 +112,9 @@ METHOD HComboBox:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip)
 
    IF ::lText
-      ::xValue := IIf(vari == NIL .OR. ValType(vari) != "C", "", Trim(vari))
+      ::xValue := IIf(vari == NIL .OR. !hb_IsChar(vari), "", Trim(vari))
    ELSE
-      ::xValue := IIf(vari == NIL .OR. ValType(vari) != "N", 1, vari)
+      ::xValue := IIf(vari == NIL .OR. !hb_IsNumeric(vari), 1, vari)
    ENDIF
    ::bSetGet := bSetGet
    ::aItems := aItems
@@ -181,9 +181,9 @@ METHOD HComboBox:Refresh(xVal)
       ELSEIF hb_IsBlock(::bSetGet)
          vari := Eval(::bSetGet, NIL, Self)
          IF ::lText
-            ::xValue := IIf(vari == NIL .OR. ValType(vari) != "C", "", Trim(vari))
+            ::xValue := IIf(vari == NIL .OR. !hb_IsChar(vari), "", Trim(vari))
          ELSE
-            ::xValue := IIf(vari == NIL .OR. ValType(vari) != "N", 1, vari)
+            ::xValue := IIf(vari == NIL .OR. !hb_IsNumeric(vari), 1, vari)
          ENDIF
       ENDIF
 

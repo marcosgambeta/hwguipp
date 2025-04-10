@@ -97,7 +97,7 @@ STATIC FUNCTION onDestroy( oWnd )
    LOCAL lRes
 
    IF hb_IsBlock(oWnd:bDestroy)
-      IF ValType(lRes := Eval(oWnd:bDestroy, oWnd)) == "L" .AND. !lRes
+      IF hb_IsLogical(lRes := Eval(oWnd:bDestroy, oWnd)) .AND. !lRes
          RETURN .F.
       ENDIF
       oWnd:bDestroy := NIL

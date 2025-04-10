@@ -2016,7 +2016,7 @@ METHOD HBrowse:Edit(wParam, lParam)
    // hwg_WriteLog(oHCfont:PrintFont() )
 
    oColumn := ::aColumns[fipos]
-   IF ::bEnter == NIL .OR. (ValType(lRes := Eval(::bEnter, Self, fipos, ::nCurrent)) == "L" .AND. !lRes)
+   IF ::bEnter == NIL .OR. (hb_IsLogical(lRes := Eval(::bEnter, Self, fipos, ::nCurrent)) .AND. !lRes)
       IF !oColumn:lEditable
          RETURN NIL
       ENDIF

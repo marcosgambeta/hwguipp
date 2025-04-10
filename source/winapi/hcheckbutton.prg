@@ -46,7 +46,7 @@ METHOD HCheckButton:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::title := cCaption
-   ::lValue := IIf(vari == NIL .OR. ValType(vari) != "L", .F., vari)
+   ::lValue := IIf(vari == NIL .OR. !hb_IsLogical(vari), .F., vari)
    ::bSetGet := bSetGet
 
    ::Activate()
@@ -78,7 +78,7 @@ METHOD HCheckButton:Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   ::lValue := IIf(vari == NIL .OR. ValType(vari) != "L", .F., vari)
+   ::lValue := IIf(vari == NIL .OR. !hb_IsLogical(vari), .F., vari)
    ::bSetGet := bSetGet
 
    ::bClick := bClick
@@ -131,7 +131,7 @@ METHOD HCheckButton:Enable()
 METHOD HCheckButton:Value(lValue)
 
    IF lValue != NIL
-      IF ValType(lValue) != "L"
+      IF !hb_IsLogical(lValue)
          lValue := .F.
       ENDIF
       hwg_Sendmessage(::handle, BM_SETCHECK, IIf(lValue, 1, 0), 0)

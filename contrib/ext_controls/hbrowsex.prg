@@ -535,7 +535,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
       ENDIF
       //
       IF ::bOther != NIL
-         IF ValType( nRet := Eval(::bOther, Self, msg, wParam, lParam) ) != "N"
+         IF !hb_IsNumeric(nRet := Eval(::bOther, Self, msg, wParam, lParam))
             nRet := IIf(HB_ISLOGICAL(nRet) .AND. !nRet, 0, -1)
          ENDIF
          IF nRet >= 0
@@ -544,7 +544,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
       ENDIF
       IF msg == WM_THEMECHANGED
          IF ::Themed
-            IF ValType( ::hTheme ) == "P"
+            IF hb_IsPointer(::hTheme)
                hwg_closethemedata( ::htheme )
                ::hTheme := NIL
             ENDIF
@@ -588,7 +588,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
             nShiftAltCtrl := IIf(hwg_IsCtrlShift(.F., .T.), 1, 0)
             nShiftAltCtrl += IIf(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
             /*
-            IF ::bKeyDown != NIL .AND. ValType( ::bKeyDown ) == "B" .AND. wParam != VK_TAB .AND. wParam != VK_RETURN
+            IF ::bKeyDown != NIL .AND. hb_IsBlock(::bKeyDown) .AND. wParam != VK_TAB .AND. wParam != VK_RETURN
                IF Empty(nRet := Eval(::bKeyDown, Self, wParam, nShiftAltCtrl, msg)) .AND. nRet != NIL
                   RETURN 0
                ENDIF
@@ -657,7 +657,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
          wParam := hwg_PtrToUlong(wParam)
          /*IF ( ( hwg_Checkbit( lParam, 25 ) .AND. wParam != 111 ) .OR.  ( wParam > 111 .AND. wParam < 124 ) .OR. ;
                wParam = VK_TAB .OR. wParam = VK_RETURN )   .AND. ; */
-         IF ::bKeyDown != NIL .AND. ValType( ::bKeyDown ) == "B"
+         IF ::bKeyDown != NIL .AND. hb_IsBlock(::bKeyDown)
             nShiftAltCtrl := IIf(hwg_IsCtrlShift(.F., .T.), 1, 0)
             nShiftAltCtrl += IIf(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
             nShiftAltCtrl += IIf(wParam > 111, 4, nShiftAltCtrl)
@@ -832,7 +832,7 @@ METHOD HBrowseEx:onEvent( msg, wParam, lParam )
             Hwg_SetCursor( hwg_Loadcursor( IDC_ARROW ) )
          ENDIF
       ELSEIF msg == WM_DESTROY
-         IF ValType( ::hTheme ) == "P"
+         IF hb_IsPointer(::hTheme)
             hwg_closethemedata( ::htheme )
             ::hTheme := NIL
          ENDIF
@@ -1335,7 +1335,7 @@ METHOD HBrowseEx:Paint( lLostFocus )
    IF ( ::m_bFirstTime ) .AND. ::Themed
       ::m_bFirstTime := .F.
       IF ( hwg_Isthemedload() )
-         IF ValType( ::hTheme ) == "P"
+         IF hb_IsPointer(::hTheme)
             hwg_closethemedata( ::htheme )
          ENDIF
          IF ::WindowsManifest
@@ -2995,7 +2995,7 @@ METHOD HBrowseEx:onClick( )
       //::oParent:lSuspendMsgsHandling := .T.
       lRes := Eval(::bEnter, Self, ::fipos)
       //::oParent:lSuspendMsgsHandling := .F.
-      IF ValType( lRes ) != "L"
+      IF !hb_IsLogical(lRes)
          RETURN .T.
       ENDIF
    ENDIF
@@ -3089,7 +3089,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
             IF oColumn:aList != NIL  .AND. ( oColumn:bWhen = NIL .OR. Eval(oColumn:bWhen) )
                ::oEditDlg:brush := - 1
                ::oEditDlg:nHeight := ::height + 1 // * 5
-               IF ValType( ::varbuf ) == "N"
+               IF hb_IsNumeric(::varbuf)
                   nChoic := ::varbuf
                ELSE
                   ::varbuf := AllTrim(::varbuf)
@@ -3162,7 +3162,7 @@ METHOD HBrowseEx:Edit( wParam, lParam )
 
          IF ::oEditDlg:lResult
             IF oColumn:aList != NIL
-               IF ValType( ::varbuf ) == "N"
+               IF hb_IsNumeric(::varbuf)
                   ::varbuf := nChoic
                ELSE
                   ::varbuf := oColumn:aList[nChoic]
@@ -3307,7 +3307,7 @@ METHOD HBrowseEx:EditEvent( oCtrl, msg, wParam, lParam )
 METHOD HBrowseEx:onClickColumn( value, oGet, oBtn )
    LOCAL oColumn := ::aColumns[::fipos]
 
-   IF ValType( value ) = "D"
+   IF hb_IsDate(value)
       ::varbuf := value
       oGet:refresh()
       hwg_Postmessage( oBtn:handle, WM_KEYDOWN, VK_TAB, 0 )

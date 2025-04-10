@@ -283,7 +283,7 @@ METHOD PrintDos:Say(oProw, oPcol, oTexto, oPicture)
          oTexto := Str(oTexto)
       ENDIF
 
-   ELSEIF ValType(oTexto) == "D"
+   ELSEIF hb_IsDate(oTexto)
       oTexto := DToC(oTexto)
    ELSE
       IF !Empty(oPicture) .OR. oPicture != NIL

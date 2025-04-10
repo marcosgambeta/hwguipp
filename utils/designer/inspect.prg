@@ -393,7 +393,7 @@ FUNCTION InspUpdBrowse()
    IF oDesigner:oDlgInsp != NIL
       FOR i := 1 TO Len( aProp )
          value := iif( oCombo:value == 1, oCtrl:oParent:aProp[i, 2], oCtrl:aProp[i, 2] )
-         IF ValType( aProp[i, 2] ) != "O" .AND. ValType( aProp[i, 2] ) != "A" ;
+         IF !hb_IsObject(aProp[i, 2]) .AND. !hb_IsArray(aProp[i, 2]) ;
                .AND. ( aProp[i, 2] == NIL .OR. !( aProp[i, 2] == value ) )
             aProp[i, 2] := value
             lChg := .T.
