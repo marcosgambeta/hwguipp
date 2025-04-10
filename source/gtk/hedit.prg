@@ -550,7 +550,7 @@ STATIC FUNCTION INPUT( oEdit, cChar, nPos )
          IF nPos != 1
             RETURN NIL
          ENDIF
-         // ::minus := .t.
+         // ::minus := .T.
       ELSEIF !( cChar $ "0123456789" )
          RETURN NIL
       ENDIF

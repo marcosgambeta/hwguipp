@@ -165,7 +165,7 @@ Return NIL
 
 function OpenAbout
 Local oModDlg, oFontBtn, oFontDlg, oBrw
-Local aSample := { {.t.,"Line 1", 10}, {.t.,"Line 2", 22}, {.f.,"Line 3", 40} }
+Local aSample := { {.T.,"Line 1", 10}, {.T.,"Line 2", 22}, {.F.,"Line 3", 40} }
 Local oBmp, oIcon := HIcon():AddFile( ".." + cdirSep +  "image" + cdirSep + "exclmk_trsp.ico")   // PIM.ICO was deleted
 Local oSay
 

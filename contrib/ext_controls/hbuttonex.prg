@@ -411,7 +411,7 @@ METHOD HButtonEx:onEvent(msg, wParam, lParam)
             hwg_Invalidaterect(::handle, 0)
          ELSE
             hwg_Sendmessage(::handle, BM_SETSTATE, 1, 0)
-            //::m_bSent := .t.
+            //::m_bSent := .T.
          ENDIF
          // remove because repet click  2 times
          //hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)

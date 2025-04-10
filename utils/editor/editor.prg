@@ -1745,7 +1745,7 @@ STATIC FUNCTION InsUrl( nType )
 
    INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Insert URL"  ;
       AT 210, 10 SIZE 400, 190 FONT HWindow():GetMain():oFont ;
-      ON INIT {||Iif(nType == 2,oProto:Disable(),.t.)}
+      ON INIT {||Iif(nType == 2,oProto:Disable(),.T.)}
 
    IF nType == 2
       nref := Ascan( aProto, "goto" )

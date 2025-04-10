@@ -27,7 +27,7 @@ FUNCTION MAIN
 LOCAL  oFont
 PRIVATE oWndMain
 #ifndef __GTK__
-      hwg_Settooltipballoon(.t.)
+      hwg_Settooltipballoon(.T.)
 #endif
 *   Parameter            Font Name,Breite,Hoehe 
    oFont := HFont():Add("Courier", 0, -14)

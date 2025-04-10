@@ -57,7 +57,7 @@ function CreateChild(lClip)
    Local cMenu := ""
    Local bExit := {|oSelf|hwg_MsgInfo("Bye!", "Destroy message from " + oSelf:title)}
 
-   DEFAULT lClip := .f.
+   DEFAULT lClip := .F.
 
     /*
    oChild := HWindow():New(WND_CHILD , oIcon, 0x0000FF,NIL, 10, 10, 200, 100,cTitle,cMenu,NIL,NIL, ;
@@ -79,6 +79,6 @@ function CreateChild(lClip)
        hwg_MsgStop("Error trying to create object HWindow!")
    Endif
 
-   oChild:Activate(.t.)
+   oChild:Activate(.T.)
 
 return (NIL)

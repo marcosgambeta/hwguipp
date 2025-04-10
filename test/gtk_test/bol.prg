@@ -6,7 +6,7 @@
 REQUEST HB_CODEPAGE_UTF8
 
 function main()
-local cBol, nBol, txt, rg, ok:=.f.
+local cBol, nBol, txt, rg, ok:=.F.
 LOCAL oWinMain
 
 INIT WINDOW oWinMain
@@ -21,7 +21,7 @@ for rg=1 to nbol
     txt=trim(memoline(cBol, 600,rg))
     do case
        case at("Bol avec poignée pour Thermomix TM 31",txt) > 0
-            ok=.t.
+            ok=.T.
             rg+=13
             loop
        case at("délai de livraison",txt) > 0 .AND. ok

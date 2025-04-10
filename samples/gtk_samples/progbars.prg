@@ -35,13 +35,13 @@ Static oMain, oForm, oFont, oBar := NIL
 Function Main()
 // ============================================================================
 
-public isdemo:=.f.
+public isdemo:=.F.
 
         INIT WINDOW oMain MAIN TITLE "Progress Bar Sample" ;
         SIZE 300, 100 AT 0, 0
 
 /*
-  iif(!isdemo,(isdemo=.t.,Test("AutoInt")),"")
+  iif(!isdemo,(isdemo=.T.,Test("AutoInt")),"")
   causes 
   Warning W0027  Meaningless use of expression 'Logical'
 */
@@ -105,7 +105,7 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
                      * sudo apt install wmctrl
                      * Next advise no more possible, because after creating progbar, oCreate is hidden 
                      * Do not Create a second progress bar. Close recent Progbar before creating a new one.
-                case included == "ManInt" .OR. included == "AutoInt" 
+                case included == "ManInt" .OR. included == "AutoInt"
                      @ 150, 110 say "Testing ..." SIZE 200, 32
                      @ 150, 150 PROGRESSBAR oBar SIZE 100, 20 BARWIDTH 10 QUANTITY 100
                      @ 290, 395 BUTTON oCreate CAPTION "Create Bar" SIZE 85, 25 ;
@@ -130,7 +130,7 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
                 @ 540, 395 BUTTON "Close Bar" SIZE 75, 25 ;
                    ON CLICK {|| Iif(oBar == NIL,hwg_MsgStop(cMsgErr),(iif(Left(included, 4)== "Auto",oTimer:End(), ),RES_PROGBAR(oBar),oBar:hide(),n:=0,oCreate:show())) }
              endif
-             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| isdemo:=.f.,oForm:Close() }
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| isdemo:=.F.,oForm:Close() }
 
         ACTIVATE DIALOG oForm
         if Left(included, 4)== "Auto"

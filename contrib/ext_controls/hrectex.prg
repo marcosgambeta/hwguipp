@@ -124,7 +124,7 @@ METHOD HContainerEx:onEvent( msg, wParam, lParam )
          ELSEIF  wParam = VK_UP
             hwg_GetSkip( ::oparent, ::handle, -1 )
          ELSEIF wParam = VK_TAB
-            hwg_GetSkip( ::oParent, ::handle, iif( hwg_IsCtrlShift(.f., .t.), -1, 1) )
+            hwg_GetSkip( ::oParent, ::handle, iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
          ENDIF
          RETURN 0
       ELSEIF msg = WM_SYSKEYUP

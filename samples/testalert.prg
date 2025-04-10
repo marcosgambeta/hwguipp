@@ -89,7 +89,7 @@ procedure main()
         // This is not a clone! So you working with the static Alert object (a pointer to it, anyway)
     oAlert := hwg_GetDefaultAlert()
     oAlert:Title := "Better than MessageBox"
-    oAlert:Beep := .f.  // Quiet please
+    oAlert:Beep := .F.  // Quiet please
     oAlert:Icon := IDI_EXCLAMATION
     oAlert:FontSize := 18
     hwg_Alert("MessageBox can't do this, and quietly as well!")
@@ -103,11 +103,11 @@ procedure main()
 
     oAlert := hwg_GetDefaultAlert()
     oAlert:Title := ""
-    oAlert:Beep := .t.  // Noise again please
+    oAlert:Beep := .T.  // Noise again please
     oAlert:FontSize := 8
     oAlert:Time := 5
     oAlert:Icon := IDI_APPLICATION
-    oAlert:TitleIcon := .t.
+    oAlert:TitleIcon := .T.
     nResult := hwg_Alert("5s and we are done;but you can hit enter first!")
         // Remember to switch this off for new alerts
     oAlert:Time := 0
@@ -138,14 +138,14 @@ static procedure TestNonModalAlert()
     local oAlert1 := __objclone(hwg_GetDefaultAlert())
     local oAlert2 := __objclone(hwg_GetDefaultAlert())
 
-    oAlert1:Modal := .f.
+    oAlert1:Modal := .F.
     oAlert1:Time := 10
     nResult := oAlert1:Alert("Just returns zero and will disappear when:;program ends;or it's dismissed;or after 10s.;;;")
 
     Alert("Non Modal Dialog has returned immediately with a result of " + HB_ValToStr(nResult))
 
         // This will work too, it is a second non-modal dialog
-    oAlert2:Modal := .f.
+    oAlert2:Modal := .F.
     oAlert2:Time := 7
     oAlert2:Alert("This is the 2nd non-modal, timed dialog and will disappear when:;program ends;or it's dismissed;or after 7s.")
 

@@ -92,7 +92,7 @@ ON EXIT {||hwg_MsgInfo("Exit"),.T.}
 
 /*
 aDlg1:oParent:=oTab,aDlg2:oParent:=oTab,;
-aDlg1:Activate(.t.),      aDlg2:Activate(.t.), ;
+aDlg1:Activate(.T.),      aDlg2:Activate(.T.), ;
 aDlg2:hide(),    oTab:StartPage( "pagina1",aDlg1 ),    oTab:EndPage(), ;
 oTab:StartPage( "pagina2",aDlg2 ),    oTab:EndPage(),otab:changepage(1)
 
@@ -181,13 +181,13 @@ ind := 0
 
 for each n in aPage
    n:oParent := oTab
-   n:activate(.t.)
+   n:activate(.T.)
    ind := ind + 1 
    oTab:startpage(aTitle[ind],n)  // hb_enumindex()
    otab:endpage()
    n:oParent := NIL
 next
-return .t.
+return .T.
 */
 
 /*

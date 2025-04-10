@@ -221,7 +221,7 @@ METHOD HListBox:onEvent( msg, wParam, lParam )
    wParam := hwg_PtrToUlong(wParam)
    IF msg == WM_KEYDOWN
       IF wParam == VK_TAB //.AND. nType < WND_DLG_RESOURCE
-         hwg_GetSkip(::oParent, ::handle, NIL, IIf(hwg_IsCtrlShift(.f., .t.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, NIL, IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
       ENDIF
          IF hb_IsBlock(::bKeyDown)
          nEval := Eval(::bKeyDown, Self, wParam)
@@ -332,7 +332,7 @@ METHOD HListBox:onChange( oCtrl )
 
 METHOD HListBox:When( oCtrl )
 /*
-   LOCAL res := .t.
+   LOCAL res := .T.
    LOCAL nSkip
 
    HB_SYMBOL_UNUSED(oCtrl)

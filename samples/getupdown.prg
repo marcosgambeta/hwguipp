@@ -26,7 +26,7 @@ FUNCTION MAIN
     LOCAL n_Key1, n_Key2, o_Number, o_TAB_1, nValue, o_get
 
 #ifndef __GTK__
-      hwg_Settooltipballoon(.t.)
+      hwg_Settooltipballoon(.T.)
 #endif
     
     n_Key1 := 1

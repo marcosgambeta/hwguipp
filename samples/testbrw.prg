@@ -49,7 +49,7 @@ LOCAL oBmp
 Local oModDlg, oBrw1, oBrw2
 Local aSample1 := { {"Alex", 17, 2500}, {"Victor", 42, 2200}, {"John", 31, 1800}, ;
    {"Sebastian", 35, 2000}, {"Mike", 54, 2600}, {"Sardanapal", 22, 2350}, {"Sergey", 30, 2800}, {"Petr", 42, 2450} }
-Local aSample2 := { {.t.,"Line 1", 10}, {.t.,"Line 2", 22}, {.f.,"Line 3", 40} }
+Local aSample2 := { {.T.,"Line 1", 10}, {.T.,"Line 2", 22}, {.F.,"Line 3", 40} }
 Local cValTrue
 
    INIT DIALOG oModDlg TITLE "About" AT 190, 10 SIZE 600, 320

@@ -282,7 +282,7 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
       else
          oBmp:=HBitmap():AddResource(lBitmap)
       endif
-      Aadd(s__oBitmap, {.t., oBmp:Handle, cItem, nId})
+      Aadd(s__oBitmap, {.T., oBmp:Handle, cItem, nId})
    Else
       Aadd(s__oBitmap, {.F., "", cItem, nID})
    Endif

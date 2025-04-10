@@ -58,7 +58,7 @@ Function Contacts_DBF
                    { "name"      ,"c", 60, 0} }
 
    If !hb_vfexists("contacts.dbf")      
-      If dbcreate("contacts.dbf",aStructure,"DBFCDX",.t.,"ctc") //Create and open with shared mode
+      If dbcreate("contacts.dbf",aStructure,"DBFCDX",.T.,"ctc") //Create and open with shared mode
          index on field->name tag tgName
          ctc->( dbappend() )
          ctc->name := "JOSÉ DE ASSUMPÇÃO"
@@ -191,7 +191,7 @@ Local cSQL
       hwg_MsgStop("Please enter with a name")
       oName:SetFocus()
       hwg_edit_SetPos( oName:Handle, 0) //Set 1 position edit of get
-      return .t.        
+      return .T.        
    EndIf
 
    If lAdd 

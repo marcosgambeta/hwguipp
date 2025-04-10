@@ -25,7 +25,7 @@ INIT WINDOW oMain TITLE "Trying to update status bar" AT 200, 200 SIZE 100, 100
    add status oStatus to oMain
 
    oStatus:SetText(" Trying to update status bar")
-//   hwg_WriteStatus( oStatus,,"Trying to update status bar",.t.)
+//   hwg_WriteStatus( oStatus,,"Trying to update status bar",.T.)
 
    @ 100, 20 say "Click New to continue ..." SIZE 300, 25
 
@@ -48,7 +48,7 @@ INIT DIALOG oNewLang TITLE "Add or update a language" AT oMain:nLeft+200,oMain:n
 
 
    oStatus:SetText(" from NewLang()...")
-//   hwg_WriteStatus( oStatus,,"from NewLang()...",.t.)
+//   hwg_WriteStatus( oStatus,,"from NewLang()...",.T.)
 
    @ 10, 20 say "Click Create to continue ... and compare qout() value and status texte" SIZE 400, 25
 
@@ -78,7 +78,7 @@ Settimer(oNewLang,@oTimer)
 for rg=1 to len(array)
     qout(array[rg])
       oStatus:SetText(" From CreateLang()..."+array[rg])
-//     hwg_WriteStatus( oStatus,," bla bla ..."+array[rg] , .t. )
+//     hwg_WriteStatus( oStatus,," bla bla ..."+array[rg] , .T. )
     hwg_sleep(2000)
 next
 */

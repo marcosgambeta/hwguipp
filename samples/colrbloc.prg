@@ -101,13 +101,13 @@ INIT WINDOW oWinMain MAIN  ;
           MENUITEM "&Exit"              ACTION hwg_EndWindow()  // "&Sair"
       ENDMENU
       MENU TITLE "&Browse"
-         MENUITEM "&Database"           ACTION BrwDbs(.f.)
-         MENUITEM "Database &EDITABLE"  ACTION BrwDbs(.t.)
-         MENUITEM "Database &Zebra"     ACTION BrwDbs(.f., .T.)
+         MENUITEM "&Database"           ACTION BrwDbs(.F.)
+         MENUITEM "Database &EDITABLE"  ACTION BrwDbs(.T.)
+         MENUITEM "Database &Zebra"     ACTION BrwDbs(.F., .T.)
          SEPARATOR
-         MENUITEM "&Array"              ACTION BrwArr(.f.)
-         MENUITEM "Array E&DITABLE"     ACTION BrwArr(.t.)
-         MENUITEM "Array Ze&bra"        ACTION BrwArr(.f., .T.)
+         MENUITEM "&Array"              ACTION BrwArr(.F.)
+         MENUITEM "Array E&DITABLE"     ACTION BrwArr(.T.)
+         MENUITEM "Array Ze&bra"        ACTION BrwArr(.F., .T.)
       ENDMENU
    ENDMENU
 
