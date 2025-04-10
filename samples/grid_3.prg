@@ -94,7 +94,7 @@ Function OnDispInfo( o, x, y )
     Local result := "", i
     
     
-    if x > Lastrec() .and. ! lEof
+    if x > Lastrec() .AND. ! lEof
         res := PQexec(conn, "FETCH FORWARD 10 FROM cursor_1")
         
         if ! ISCHARACTER(res)

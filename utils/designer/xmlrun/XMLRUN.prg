@@ -256,7 +256,7 @@ RETURN TRUE
 
 
 FUNCTION rmatch(c,f)
- RETURN (ALLTRIM(c) == "" .or. UPPER(ALLTRIM(c))$UPPER(f))
+ RETURN (ALLTRIM(c) == "" .OR. UPPER(ALLTRIM(c))$UPPER(f))
 
 
 
@@ -342,7 +342,7 @@ function netuse(cDatabase, cAlias, lExclusive, nSeconds, cPassword)
    keyboard chr(255)
    inkey()
 
-   do while (lforever .or. nSeconds > 0) .and. lastkey() # K_ESC
+   do while (lforever .OR. nSeconds > 0) .AND. lastkey() # K_ESC
 
       if ! lfirstPass
 
@@ -389,7 +389,7 @@ function filelock(nSeconds)
       return .t.
    ENDIF
 
-   do while (lforever .or. nSeconds > 0) .and. lastkey() # K_ESC
+   do while (lforever .OR. nSeconds > 0) .AND. lastkey() # K_ESC
       if FLOCK()
          return .t.                     // LOCKED
       endif
@@ -418,7 +418,7 @@ function reclock(nSeconds)
    keyboard chr(255)
    inkey()
 
-   do while (lforever .or. nSeconds > 0) .and. lastkey() # K_ESC
+   do while (lforever .OR. nSeconds > 0) .AND. lastkey() # K_ESC
       if DBRLOCK(OldPos)
          return .t.                     // LOCKED
       endif
@@ -450,7 +450,7 @@ function addrec(nSeconds)
    keyboard chr(255)
    inkey()
 
-   do while (lforever .or. nSeconds > 0) .and. lastkey() # K_ESC
+   do while (lforever .OR. nSeconds > 0) .AND. lastkey() # K_ESC
 
       /*
       @ maxrow()-2, 00 clear
@@ -509,7 +509,7 @@ function Usr2infStr(g,lKosong) && usr to informix str
 
  *:minimum 6  &  max 9 char
 
- if ((nLen<6) .or. (nLen>9))
+ if ((nLen<6) .OR. (nLen>9))
      hwg_MsgStop("Pengisian Tanggal Belum Benar!!!")
      return .f.
  end
@@ -562,7 +562,7 @@ function Usr2infStr(g,lKosong) && usr to informix str
 	      yy := Left(dtos(date()), 2) + yy
 	   endif
 
-      if !hb_IsDate(ctod(dd+mm+yy)) .or. (ctod(dd+mm+yy) == ctod("  /  /  "))
+      if !hb_IsDate(ctod(dd+mm+yy)) .OR. (ctod(dd+mm+yy) == ctod("  /  /  "))
           hwg_MsgStop("Pengisian Tanggal Belum Benar!!!")
           return .f.
       else

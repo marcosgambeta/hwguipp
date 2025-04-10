@@ -250,7 +250,7 @@ FUNCTION SayRupiah(nAngka)
 STATIC FUNCTION tigades( mvc, n)    // created: 28 mei 1993
  LOCAL say := "", x1 := Left(mvc, 1), x2:=subs(mvc, 2, 1), x3:=right(mvc, 1)
 
- IF n == 4 .and. mvc == "001"
+ IF n == 4 .AND. mvc == "001"
     RETURN "se"
  ENDIF
  IF mvc == "000"

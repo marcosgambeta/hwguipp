@@ -182,7 +182,7 @@ Local aSelect:=hwg_SelectMultipleFiles("xBase Files ("+oFile+")", oFile )
 if len(aSelect) == 0
    return NIL
 endif
-if LEN(oBrow:aArray) == 1 .and. obrow:aArray[1] == ""
+if LEN(oBrow:aArray) == 1 .AND. obrow:aArray[1] == ""
    obrow:aArray := {}
 endif
 For i:=1 to Len(oBrow:aArray)
@@ -223,7 +223,7 @@ oMainPrg:SetText(Hwg_GetIni( "Config", "PrgMain" , , cFolderFile ))
 
 For i:=1 to 300
     oSel1:=Hwg_GetIni( "FilesPRG", Alltrim(Str(i)) , , cFolderFile )
-    if !empty(oSel1) //.or. oSel1#NIL
+    if !empty(oSel1) //.OR. oSel1#NIL
         AADD(oBr1, oSel1)
     EndIf
 Next
@@ -231,21 +231,21 @@ Next
   
 For i:=1 to 300
     oSel2:=Hwg_GetIni( "FilesC", Alltrim(Str(i)) , , cFolderFile )
-    if !empty(oSel2) //.or. oSel2#NIL
+    if !empty(oSel2) //.OR. oSel2#NIL
         AADD(oBr2, oSel2)
     EndIf
 Next
 
 For i:=1 to 300
     oSel3:=Hwg_GetIni( "FilesLIB", Alltrim(Str(i)) , , cFolderFile )
-    if !empty(oSel3) //.or. oSel3#NIL
+    if !empty(oSel3) //.OR. oSel3#NIL
         AADD(oBr3, oSel3)
     EndIf
 Next
 
 For i:=1 to 300
     oSel4:=Hwg_GetIni( "FilesRES", Alltrim(Str(i)) , , cFolderFile )
-    if !empty(oSel4) //.or. oSel4#NIL
+    if !empty(oSel4) //.OR. oSel4#NIL
         AADD(oBr4, oSel4)
     EndIf
 Next
@@ -436,7 +436,7 @@ For Each i in oBrowse1:aArray
       If File( cObjName  )
          FileStats( cObjName, @cObjFileAttr  , @nObjFileSize, @dObjCreateDate, @nObjCreateTime, @dObjChangeDate, @nObjChangeTime  )
          FileStats( cPrgName, @cPrgFileAttr  , @nPrgFileSize, @dPrgCreateDate, @nPrgCreateTime, @dPrgChangeDate, @nPrgChangeTime  )
-         If dObjChangeDate <= dPrgChangeDate .and.  nObjChangeTime <  nPrgChangeTime
+         If dObjChangeDate <= dPrgChangeDate .AND.  nObjChangeTime <  nPrgChangeTime
             lCompile := .T.
          EndIF   
       Else
@@ -453,7 +453,7 @@ For Each i in oBrowse1:aArray
   
          cErrText := Memoread(cLogErro) 
        
-         lEnd     := "C2006" $ cErrText .OR. "No code generated" $ cErrText .or. "Error E" $ cErrText .or. "Error F" $ cErrText
+         lEnd     := "C2006" $ cErrText .OR. "No code generated" $ cErrText .OR. "Error E" $ cErrText .OR. "Error F" $ cErrText
          If lEnd
             ErrorPreview( Memoread(cLogErro) )
             Return NIL

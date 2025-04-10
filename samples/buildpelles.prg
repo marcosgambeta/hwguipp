@@ -138,7 +138,7 @@ Local aSelect:=hwg_SelectMultipleFiles("xBase Files ("+oFile+")", oFile )
 if len(aSelect) == 0
    return NIL
 endif
-if LEN(oBrow:aArray) == 1 .and. obrow:aArray[1] == ""
+if LEN(oBrow:aArray) == 1 .AND. obrow:aArray[1] == ""
    obrow:aArray := {}
 endif
 For i:=1 to Len(oBrow:aArray)
@@ -182,7 +182,7 @@ oMainPrg:SetText(Hwg_GetIni( "Config", "PrgMain" , , oFolderFile ))
 
 For i:=1 to 300
     oSel1:=Hwg_GetIni( "FilesPRG", Alltrim(Str(i)) , , oFolderFile )
-    if !empty(oSel1) //.or. oSel1#NIL
+    if !empty(oSel1) //.OR. oSel1#NIL
         AADD(oBr1, oSel1)
     EndIf
 Next
@@ -190,21 +190,21 @@ Next
   
 For i:=1 to 300
     oSel2:=Hwg_GetIni( "FilesC", Alltrim(Str(i)) , , oFolderFile )
-    if !empty(oSel2) //.or. oSel2#NIL
+    if !empty(oSel2) //.OR. oSel2#NIL
         AADD(oBr2, oSel2)
     EndIf
 Next
 
 For i:=1 to 300
     oSel3:=Hwg_GetIni( "FilesLIB", Alltrim(Str(i)) , , oFolderFile )
-    if !empty(oSel3) //.or. oSel3#NIL
+    if !empty(oSel3) //.OR. oSel3#NIL
         AADD(oBr3, oSel3)
     EndIf
 Next
 
 For i:=1 to 300
     oSel4:=Hwg_GetIni( "FilesRES", Alltrim(Str(i)) , , oFolderFile )
-    if !empty(oSel4) //.or. oSel4#NIL
+    if !empty(oSel4) //.OR. oSel4#NIL
         AADD(oBr4, oSel4)
     EndIf
 Next

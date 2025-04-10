@@ -337,7 +337,7 @@ METHOD HListBox:When( oCtrl )
 
    HB_SYMBOL_UNUSED(oCtrl)
 
-    nSkip := IIf(hwg_Getkeystate( VK_UP ) < 0 .or. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1)
+    nSkip := IIf(hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1)
    IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, ::value, Self)
    ENDIF

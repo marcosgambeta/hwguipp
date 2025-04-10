@@ -97,7 +97,7 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
              ON EXIT {||Iif(oBar == NIL,.T.,(oBar:Close(),.T.))}
 
              do case
-                case included == NIL .or. included == "ManExt" .or.included == "AutoExt"
+                case included == NIL .OR. included == "ManExt" .OR.included == "AutoExt"
                      @ 290, 395 BUTTON oCreate CAPTION "Create Bar" SIZE 85, 25 ;
                         ON CLICK {|| oBar := HProgressBar():NewBox( "Testing ...",,,,, 20, 100 ),iif(included == "AutoExt",SetTimer(oForm,@oTimer),),oCreate:hide()}
                      * Attention !
@@ -105,7 +105,7 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
                      * sudo apt install wmctrl
                      * Next advise no more possible, because after creating progbar, oCreate is hidden 
                      * Do not Create a second progress bar. Close recent Progbar before creating a new one.
-                case included == "ManInt" .or. included == "AutoInt" 
+                case included == "ManInt" .OR. included == "AutoInt" 
                      @ 150, 110 say "Testing ..." SIZE 200, 32
                      @ 150, 150 PROGRESSBAR oBar SIZE 100, 20 BARWIDTH 10 QUANTITY 100
                      @ 290, 395 BUTTON oCreate CAPTION "Create Bar" SIZE 85, 25 ;

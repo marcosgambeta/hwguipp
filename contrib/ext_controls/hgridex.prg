@@ -250,7 +250,7 @@ METHOD HGridEx:Notify( lParam )
    LOCAL nCode := hwg_Getnotifycode( lParam )
    LOCAL Res, iSelect, oParent := hwg_GetParentForm(Self)
 
-   IF nCode == NM_CUSTOMDRAW .and. hwg_Getnotifycodefrom( lParam ) == ::Handle
+   IF nCode == NM_CUSTOMDRAW .AND. hwg_Getnotifycodefrom( lParam ) == ::Handle
       Res := hwg_Processcustu( ::handle, lParam, ::aColors )
       Hwg_SetDlgResult( oParent:Handle, Res )
       RETURN Res
@@ -268,7 +268,7 @@ METHOD HGridEx:Notify( lParam )
       RETURN 1
    ENDIF
 
-   IF nCode == LVN_COLUMNCLICK //.and. hwg_Getnotifycodefrom(lParam) == ::Handle
+   IF nCode == LVN_COLUMNCLICK //.AND. hwg_Getnotifycodefrom(lParam) == ::Handle
       IF Empty(::hsort)
          ::hSort := hwg_Listviewsortinfonew(lParam, NIL)
       ENDIF

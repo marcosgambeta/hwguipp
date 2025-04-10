@@ -195,7 +195,7 @@ Local bKeyDown := {|o,nKey|
          SEPARATOR
          MENUITEM "&Select all"+Chr(9)+"Ctrl+A" ACTION oEdit:onKeyDown( Asc("A"),,FCONTROL )
       ENDMENU
-      MENUITEM "&Parameters" ACTION Iif(!Empty(cParamString).and.Upper(Left(oEdit:Gettext(), 10))!="PARAMETERS",oEdit:InsText({1, 1},"Parameters "+cParamString+cNewLine),.F.)
+      MENUITEM "&Parameters" ACTION Iif(!Empty(cParamString).AND.Upper(Left(oEdit:Gettext(), 10))!="PARAMETERS",oEdit:InsText({1, 1},"Parameters "+cParamString+cNewLine),.F.)
       MENUITEM "&Exit" ACTION oDlg:Close()
    ENDMENU
 

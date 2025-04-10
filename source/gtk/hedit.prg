@@ -646,7 +646,7 @@ STATIC FUNCTION GetApplyKey( oEdit, cKey )
       cKey := Input( oEdit, cKey, nPos )
       IF cKey != NIL
          hwg_SetGetUpdated( oEdit )
-         IF SET( _SET_INSERT ) // .or. hwg_Hiword(x) != hwg_Loword(x)
+         IF SET( _SET_INSERT ) // .OR. hwg_Hiword(x) != hwg_Loword(x)
             IF oEdit:lPicComplex
                nGetLen := Len(oEdit:cPicMask)
                FOR nLen := 0 TO nGetLen

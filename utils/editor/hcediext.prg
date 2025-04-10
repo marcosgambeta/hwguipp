@@ -486,7 +486,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                   EXIT
                ENDIF
                cVal := Iif( (i:=Ascan(aAttr,{|a|a[1] == "align"})) == 0, NIL, aAttr[i, 2] )
-               nAlign := Iif( Empty(cVal).or.cVal == "left", 0, Iif(cVal == "right", 2, 1 ) )
+               nAlign := Iif( Empty(cVal).OR.cVal == "left", 0, Iif(cVal == "right", 2, 1 ) )
                cVal := Iif( (i:=Ascan(aAttr,{|a|a[1] == "src"})) == 0, "", aAttr[i, 2] )
                xVal := Iif( Empty(cVal) .OR. Left(cVal, 1) == "#", NIL, Iif( ::bImgLoad == NIL, HBitmap():AddFile(cVal), Eval(::bImgLoad,cVal) ) )
                IF !Empty(xVal)
@@ -590,7 +590,7 @@ METHOD SetText( xText, cPageIn, cPageOut, lCompact, lAdd, nFrom ) CLASS HCEdiExt
                ELSE
                   nLTable := n
                   cVal := Iif( (i:=Ascan(aAttr,{|a|a[1] == "align"})) == 0, NIL, aAttr[i, 2] )
-                  nAlign := Iif( Empty(cVal).or.cVal == "left", 0, Iif(cVal == "right", 2, 1 ) )
+                  nAlign := Iif( Empty(cVal).OR.cVal == "left", 0, Iif(cVal == "right", 2, 1 ) )
                   cVal := Iif( (i:=Ascan(aAttr,{|a|a[1] == "width"})) == 0, "", aAttr[i, 2] )
                   aStruTbl :=  { "tbl", {}, cClsName, ;
                      Iif( Right(cVal, 1) == "%",-Val(cVal),Val(cVal) ), nALign }
@@ -2215,8 +2215,8 @@ METHOD Save( cFileName, cpSou, lHtml, lCompact, xFrom, xTo, lEmbed ) CLASS HCEdi
          s += "<img" + Iif( !Empty(::aStru[i, 1,OB_CLS]), ' class="' + ::aStru[i, 1,OB_CLS] + '"', "" ) ;
             + ' src="' + cHref + '"' + ;
             Iif( !Empty(xTemp:=::aStru[i, 1,OB_IALIGN]), ' align="' + Iif( xTemp == 2, 'right"','center"' ), "" ) + ;
-            Iif( Len(::aStru[i, 1])>=OB_ID.and.!Empty(::aStru[i, 1,OB_ID]),' id="'+::aStru[i, 1,OB_ID]+'"',"" ) + ;
-            Iif( !lHtml.AND.Len(::aStru[i, 1])>=OB_ACCESS.and.!Empty(::aStru[i, 1,OB_ACCESS]),' access="'+hced_SaveAccInfo(::aStru[i, 1,OB_ACCESS])+'"',"" ) + ;
+            Iif( Len(::aStru[i, 1])>=OB_ID.AND.!Empty(::aStru[i, 1,OB_ID]),' id="'+::aStru[i, 1,OB_ID]+'"',"" ) + ;
+            Iif( !lHtml.AND.Len(::aStru[i, 1])>=OB_ACCESS.AND.!Empty(::aStru[i, 1,OB_ACCESS]),' access="'+hced_SaveAccInfo(::aStru[i, 1,OB_ACCESS])+'"',"" ) + ;
             ::SaveTag( "img", i ) + '/>' + cNewL
       ELSEIF ::aStru[i, 1,OB_TYPE] == "tr"
          IF nFrom > 1 .AND. aStruTbl == NIL
