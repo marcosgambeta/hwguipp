@@ -44,7 +44,7 @@ cImagepath := ".."+ cDirSep + "image" + cDirSep
 #endif
 
 cImageMain := cImagepath + "hwgui.bmp"
-IF .NOT. FILE(cImageMain)
+IF ! FILE(cImageMain)
  hwg_MsgStop("File not existing: " + cImageMain)
  QUIT
 ENDIF
@@ -83,7 +83,7 @@ FUNCTION Teste
 PARAMETERS cimgpfad
  LOCAL oModDlg, obg
    obg := NIL 
-   IF .NOT. FILE(cimgpfad + "astro.bmp")
+   IF ! FILE(cimgpfad + "astro.bmp")
     hwg_MsgStop("File " + cimgpfad + "astro.bmp" + " not found")
    ENDIF
 

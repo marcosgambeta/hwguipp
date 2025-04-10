@@ -34,7 +34,7 @@ nameimg := ".." + cs + "image" + cs + "astro.bmp"
 #endif
 */
 
-IF .NOT. FILE(nameimg)
+IF ! FILE(nameimg)
  hwg_MsgInfo("File >" + nameimg + "< not found", "Error")
 ENDIF
 

@@ -408,7 +408,7 @@ handle := FOPEN(cmemfname, 2)
  
 * Read loop
 anzbytes := 32
-DO WHILE ( anzbytes == 32 ) .AND. ( .NOT. leof )
+DO WHILE ( anzbytes == 32 ) .AND. ( ! leof )
 * Read MEM_REC 
 anzbytes := FREAD(handle,@Puffer, 32)
 * EOF reached ?
@@ -416,7 +416,7 @@ IF HB_FEOF(handle)
  leof := .T.
 ENDIF
 
-IF .NOT. leof
+IF ! leof
  
 aOutput := {} 
  
@@ -470,7 +470,7 @@ DO CASE
    ctemp := SUBSTR(Puffer, 1,ctsize)
    * Need to cut after NULL byte   
    FOR i := 1 TO LEN(ctemp)  && ctsize
-     IF .NOT. lstop
+     IF ! lstop
       IF SUBSTR(ctemp,i, 1) == CHR(0)
        ctemp :=  SUBSTR(ctemp, 1,i - 1)
        lstop := .T.
@@ -584,7 +584,7 @@ FOR iind := 1 TO nal && loop records
   ctemp := ainput [iind,iindr]
   lstop := .F.
    FOR i := 1 TO LEN(ctemp)
-     IF .NOT. lstop
+     IF ! lstop
       IF SUBSTR(ctemp,i, 2) == ": "
        ctemp :=  SUBSTR(ctemp,i + 2)
        lstop := .T.
@@ -632,7 +632,7 @@ ENDIF
 DELETE FILE (dateiname)
 
 * Open text file for output
- IF .NOT. FILE(dateiname)
+ IF ! FILE(dateiname)
    handle_a = FCREATE(dateiname, 0)  && FC_NORMAL
  ELSE
    handle_a = FOPEN(dateiname, 2)
@@ -648,7 +648,7 @@ DELETE FILE (dateiname)
  
  FOR iindr := 1 TO nalr   && loop memrec
   
- IF .NOT. WRITE_TEXT(handle_a, ;
+ IF ! WRITE_TEXT(handle_a, ;
     aerg [iind,iindr] )
     hwg_MsgStop("Write ERROR: " + dateiname, "File write Error")
     RETURN NIL
@@ -657,7 +657,7 @@ DELETE FILE (dateiname)
  NEXT && memrec
 
  * Blank line
- IF .NOT. WRITE_TEXT(handle_a, ;
+ IF ! WRITE_TEXT(handle_a, ;
     " " )
     hwg_MsgStop("Write ERROR: " + dateiname, "File write Error")
     RETURN NIL
@@ -702,7 +702,7 @@ ENDIF
 DELETE FILE (dateiname)
 
 * Open text file for output
- IF .NOT. FILE(dateiname)
+ IF ! FILE(dateiname)
    handle_a = FCREATE(dateiname, 0)  && FC_NORMAL
  ELSE
    handle_a = FOPEN(dateiname, 2)
@@ -743,7 +743,7 @@ DELETE FILE (dateiname)
 // NEXT && memrec
 
  * Blank line
- IF .NOT. WRITE_TEXT(handle_a, ;
+ IF ! WRITE_TEXT(handle_a, ;
     " " )
     hwg_MsgStop("Write ERROR: " + dateiname, "File write Error")
     RETURN NIL
@@ -788,7 +788,7 @@ FUNCTION WRITE_LINE(handle_a,dateiname, dat_text)
 IF dateiname == NIL
  dateiname := "<unknown>"
 ENDIF 
-IF .NOT. WRITE_TEXT(handle_a, ;
+IF ! WRITE_TEXT(handle_a, ;
     dat_text )
     hwg_MsgStop("Write ERROR: " + dateiname, "File write Error")
     RETURN .F.

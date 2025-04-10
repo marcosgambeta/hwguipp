@@ -76,7 +76,7 @@ LOCAL fname, hd, varbuf, ccdir
  hd := hwg_HEX_DUMP(varbuf, 2)
  MEMOWRIT(ccdir + "hexdump.txt",hd)
  
- IF .NOT. EMPTY(hd)
+ IF ! EMPTY(hd)
   hwg_MsgInfo("Hexdump of >" + fname + "< written to file" + Chr(10) + ">" + ccdir + "hexdump.txt<")
  ENDIF 
 

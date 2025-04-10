@@ -212,7 +212,7 @@ hwlabel_setO(oWinPrn)
 
 SET_SMA()
 
- DO WHILE .NOT. lEOF
+ DO WHILE ! lEOF
 
   cbuffer := hwlabel_filerln(hihandle)
   IF cbuffer == ""

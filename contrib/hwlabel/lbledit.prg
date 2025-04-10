@@ -184,14 +184,14 @@ IF PCOUNT() > 0
   // Add file extension ".LBL", if not exiting
   IF AT(".",lblname) == 0
 //    IF CLIPPER .OR. DBFAST
-    IF .NOT. LINUX
+    IF ! LINUX
       lblname := lblname + ".LBL"
     ELSE
       // UNIX/LINUX : lower case
       lblname := lblname + ".lbl"
     ENDIF
   ENDIF
-  IF .NOT. FILE(lblname)
+  IF ! FILE(lblname)
     // file does not exist
     ? "Error: file >" + lblname + "< does not exist"
     lblname := ""

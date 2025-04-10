@@ -351,7 +351,7 @@ FUNCTION CHECK_FILE ( cfi )
 * Check, if file exist,
 * otherwise terminate program
 ******************************
- IF .NOT. FILE( cfi )
+ IF ! FILE( cfi )
   hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 

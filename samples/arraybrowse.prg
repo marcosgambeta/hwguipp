@@ -135,7 +135,7 @@ LOCAL nlaeng , cGetfield , cOldget , agetty
  * Call edit window (GET)
  cGetfield := BrwArrayGetElem(oBrow,cGetfield)
  * Write back, if modified or not cancelled
- IF ( .NOT. EMPTY(cGetfield) ) .AND. ( cOldget != cGetfield )
+ IF ( ! EMPTY(cGetfield) ) .AND. ( cOldget != cGetfield )
   oBrow:aArray[oBrow:nCurrent] := { cGetfield }
   oBrow:lChanged := .T.
   oBrow:Refresh()
@@ -165,7 +165,7 @@ LOCAL oTotReg , i , nlaeng , cGetfield
  NEXT
  * Edit new element
   cGetfield := BrwArrayGetElem(oBrow,cGetfield)
-  IF .NOT. EMPTY(cGetfield)
+  IF ! EMPTY(cGetfield)
    * Add new item
    AADD(oTotReg,  { cGetfield }  )
    oBrow:aArray := oTotReg

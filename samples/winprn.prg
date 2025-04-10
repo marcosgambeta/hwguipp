@@ -686,35 +686,35 @@ LOCAL oLabel1, oCombobox1, oButton1, oButton2, oButton3 , nType , yofs, bcancel 
  nRetu   := 0
  
 aITEMS := {}
-IF .NOT. apItems == NIL
+IF ! apItems == NIL
  aITEMS := apItems
 ENDIF 
-IF .NOT. cpTitle == NIL
+IF ! cpTitle == NIL
  cTitle := cpTitle
 ENDIF
-IF .NOT. cpLabel == NIL
+IF ! cpLabel == NIL
  cLabel :=  cpLabel
 ENDIF
-IF .NOT. npOffset == NIL
+IF ! npOffset == NIL
  nOffset :=  npOffset
 ENDIF
-IF .NOT. cpOK == NIL
+IF ! cpOK == NIL
  cOK  :=  cpOK
 ENDIF
-IF .NOT. cpCancel == NIL
+IF ! cpCancel == NIL
  cCancel :=  cpCancel 
 ENDIF
-IF .NOT. cpHelp == NIL
+IF ! cpHelp == NIL
  cHelp :=  cpHelp
 ENDIF
-IF .NOT. cpHTopic == NIL
+IF ! cpHTopic == NIL
  cHTopic  := cpHTopic
 ENDIF
-IF .NOT. cpHVar == NIL
+IF ! cpHVar == NIL
  cHVar  := cpHVar
 ENDIF
 nType := 1
-IF .NOT. npreset == NIL
+IF ! npreset == NIL
  nType := npreset
 ENDIF
 
@@ -836,7 +836,7 @@ FUNCTION CHECK_FILE ( cfi )
 * Check, if file exist,
 * otherwise terminate program
 * --------------------------------------------
- IF .NOT. FILE( cfi )
+ IF ! FILE( cfi )
   hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 

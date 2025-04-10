@@ -592,7 +592,7 @@ LOCAL cfilename , mypath , lsucc
 // Old parameters modified ?
 // Then they must be saved before (or dismiss)
 IF hwlabel_mod()
-  IF .NOT. hwg_MsgYesNo(aMsg[55], aMsg[56])
+  IF ! hwg_MsgYesNo(aMsg[55], aMsg[56])
    * Cancel
    RETURN ""
   ENDIF
@@ -620,7 +620,7 @@ cfilename := hwg_Selectfile( aMsg[31] ,"*.lbl", mypath )
  lsucc := hwlabel__LBL_READ(cfilename,cCpLocWin,cCpLocLINUX,cCpLabel)
 // In case of error : set the label array with default values
 
-IF .NOT. lsucc
+IF ! lsucc
  hwg_MsgStop(aMsg[37], aMsg[1])       // Error loading lbl file
  cfilename := clblfile
  hwlabel_LBL_DEFAULTS()
@@ -663,7 +663,7 @@ IF lblname == hwlabel_str_nolabel()  // "<NO LABEL>"
    lblname := hwlabel_addextens(lblname,"lbl",.T.)
 #endif
 ELSE
-    IF .NOT. hwlabel_mod()
+    IF ! hwlabel_mod()
        hwg_MsgInfo(aMsg[46], aMsg[28])  //  28  = "Label Editor", 46 = "Nothing to save"
        RETURN hwlabel_str_nolabel()
     ENDIF
@@ -1100,7 +1100,7 @@ IF LEN(Pu) != 1034
 ENDIF
 
  IF FILE(dateiname)
-   IF .NOT. hwg_MsgYesNo(aMsg[43], dateiname)   // "File exists, overwrite ?"
+   IF ! hwg_MsgYesNo(aMsg[43], dateiname)   // "File exists, overwrite ?"
     RETURN .F.
    ENDIF
   ERASE &dateiname
@@ -1178,7 +1178,7 @@ FUNCTION hwlabel_newlbl()
 // ==============================================
 
  IF hwlabel_mod()
-  IF .NOT. hwg_MsgYesNo(aMsg[57], aMsg[58])
+  IF ! hwg_MsgYesNo(aMsg[57], aMsg[58])
   // Cancel
    RETURN ""
   ENDIF
@@ -1799,7 +1799,7 @@ ENDIF
    cCnt16 := PADR(cCnt16, 60)
 
 
-   IF .NOT. bCancel
+   IF ! bCancel
    // Store contents back
 
   c_INH1  := cCnt1
@@ -2783,35 +2783,35 @@ LOCAL oLabel1, oCombobox1, oButton1, oButton2, oButton3 , nType , yofs, bcancel 
  nRetu   := 0
 
 aITEMS := {}
-IF .NOT. apItems == NIL
+IF ! apItems == NIL
  aITEMS := apItems
 ENDIF
-IF .NOT. cpTitle == NIL
+IF ! cpTitle == NIL
  cTitle := cpTitle
 ENDIF
-IF .NOT. cpLabel == NIL
+IF ! cpLabel == NIL
  cLabel :=  cpLabel
 ENDIF
-IF .NOT. npOffset == NIL
+IF ! npOffset == NIL
  nOffset :=  npOffset
 ENDIF
-IF .NOT. cpOK == NIL
+IF ! cpOK == NIL
  cOK  :=  cpOK
 ENDIF
-IF .NOT. cpCancel == NIL
+IF ! cpCancel == NIL
  cCancel :=  cpCancel
 ENDIF
-IF .NOT. cpHelp == NIL
+IF ! cpHelp == NIL
  cHelp :=  cpHelp
 ENDIF
-IF .NOT. cpHTopic == NIL
+IF ! cpHTopic == NIL
  cHTopic  := cpHTopic
 ENDIF
-IF .NOT. cpHVar == NIL
+IF ! cpHVar == NIL
  cHVar  := cpHVar
 ENDIF
 nType := 1
-IF .NOT. npreset == NIL
+IF ! npreset == NIL
  nType := npreset
 ENDIF
 
@@ -2929,7 +2929,7 @@ IF FILE(dateiname)
   FCLOSE(handle)
 ENDIF
 
- IF .NOT. EMPTY(puffer)
+ IF ! EMPTY(puffer)
    clangdef := puffer
  ENDIF
 
@@ -2983,7 +2983,7 @@ IF cplang != NIL
 ENDIF
 
 // Write to file
- IF .NOT. FILE(dateiname)
+ IF ! FILE(dateiname)
    dat_handle := FCREATE(dateiname, 0)  // FC_NORMAL
  ELSE
    Erase &dateiname

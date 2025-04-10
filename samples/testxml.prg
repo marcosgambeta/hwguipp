@@ -190,7 +190,7 @@ Local oGet1, oGet2
          FOR i := 1 TO Len( oXmlNode:aItems )
             IF hb_IsChar(oXmlNode:aItems[i])
                // hwg_MsgInfo(oXmlNode:aItems[i] + "<>" + cInfo)
-               IF .NOT. (cInfo == oXmlNode:aItems[i] )
+               IF ! (cInfo == oXmlNode:aItems[i] )
                 /* IF cInfo != oXmlNode:aItems[i] not working correct ! */
                   oXmlNode:aItems[i] := cInfo
                   lIniChanged := .T.

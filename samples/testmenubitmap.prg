@@ -55,19 +55,19 @@ Private oMenu
  cbmpopen := cimagepath + "open_m.bmp"
  cbmplogo := cimagepath + "logo.bmp"
  * Check for existing bitmaps
- IF .NOT. FILE(cbmpexit)
+ IF ! FILE(cbmpexit)
   hwg_MsgStop("Error: File not exists: " + cbmpexit, "Bitmap error")
   bbmperror := .T.
  ENDIF
-  IF .NOT. FILE(cbmpnew)
+  IF ! FILE(cbmpnew)
   hwg_MsgStop("Error: File not exists: " + cbmpnew, "Bitmap error")
   bbmperror := .T.
  ENDIF
-  IF .NOT. FILE(cbmpopen)
+  IF ! FILE(cbmpopen)
   hwg_MsgStop("Error: File not exists: " + cbmpopen, "Bitmap error")
   bbmperror := .T.
  ENDIF
-  IF .NOT. FILE(cbmplogo)
+  IF ! FILE(cbmplogo)
   hwg_MsgStop("Error: File not exists: " + cbmplogo, "Bitmap error")
   bbmperror := .T.
  ENDIF

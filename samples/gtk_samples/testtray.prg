@@ -57,12 +57,12 @@ FUNCTION Main()
    oIcon1 := HIcon():AddFile(cimagedir + "hwgui_32x32.ico")
    oIcon2 := HIcon():AddFile(cimagedir + "cancel.ico")
    
-   IF .NOT. FILE(cimagedir + "hwgui_16x16.ico")
+   IF ! FILE(cimagedir + "hwgui_16x16.ico")
     hwg_MsgStop("Icon not found: " + cimagedir + "hwgui_32x32.ico")
     RETURN NIL
    ENDIF
    
-   IF .NOT. FILE(cimagedir + "cancel.ico")
+   IF ! FILE(cimagedir + "cancel.ico")
     hwg_MsgStop("Icon not found: " + cimagedir + "cancel.ico")
     RETURN NIL
    ENDIF

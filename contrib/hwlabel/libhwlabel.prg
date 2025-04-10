@@ -134,7 +134,7 @@ lsucc := .T.
  ENDIF
 
 // Open for overwrite
-IF .NOT. FILE(cfnam2)
+IF ! FILE(cfnam2)
    handle = FCREATE(cfnam2, 0)  // FC_NORMAL
  ELSE
    Erase &cfnam2
@@ -146,7 +146,7 @@ IF .NOT. FILE(cfnam2)
 
  lEOF := .F.
 
-DO WHILE .NOT. lEOF
+DO WHILE ! lEOF
 
   cbuffer := hwlabel_filerln(handler)
   IF cbuffer == ""
@@ -163,7 +163,7 @@ DO WHILE .NOT. lEOF
   cbuffer := hwlabel_translcp2(cbuffer, 0,cCpLocWin,cCpLocLINUX,cCpLabel)
   // Write line to output
   lsucc := hwlabel_Writeln(handle,cbuffer,cfnam2)
-    IF .NOT. lsucc
+    IF ! lsucc
     // Stop processiing in case of write error
        lEOF := .T.
     ENDIF // ! lsucc
@@ -207,11 +207,11 @@ FUNCTION hwlabel_filerln(handle)
  puffer := " "
  puffer2 := " "
 
-    DO WHILE ( anzbytes != 0 ) .AND. ( .NOT. bEOL )
+    DO WHILE ( anzbytes != 0 ) .AND. ( ! bEOL )
        anzbytes := FREAD(handle,@puffer, 1)  // Read 1 Byte
        IF anzbytes != 1
         // Last line may be without line ending
-         IF .NOT. EMPTY(cZeile)
+         IF ! EMPTY(cZeile)
          RETURN cZeile
         ELSE
          RETURN ""
@@ -219,7 +219,7 @@ FUNCTION hwlabel_filerln(handle)
        ENDIF
        // Detect MacOS: First appearance of CR alone
        // Erkennen von MacOS: erstes Auftreten von CR alleine
-       IF ( .NOT. bMacOS ) .AND. ( puffer == CHR(13) )
+       IF ( ! bMacOS ) .AND. ( puffer == CHR(13) )
        // Bereits Zeilenende erreicht
          bEOL := .T.
          // get actual file pointer
@@ -228,14 +228,14 @@ FUNCTION hwlabel_filerln(handle)
           anzbytes2 := FREAD(handle,@puffer2, 1)  // Read 1 byte /
          IF anzbytes2 != 1
           // Optional last line with line ending
-          IF .NOT. EMPTY(cZeile)
+          IF ! EMPTY(cZeile)
            RETURN cZeile
           ELSE
            RETURN ""
           ENDIF
          ENDIF
          // Line ending for Windows: must be LF (continue reading)
-         IF .NOT. ( puffer2 == CHR(10) )
+         IF ! ( puffer2 == CHR(10) )
            // Windows : ignore read character
            bMacOS := .T.
            // puffer := puffer2
@@ -293,7 +293,7 @@ FUNCTION hwlabel_Writeln(ha,s,dateiname)
 
 
   zs_s_rc := hwlabel_WRI_TXTDOS(ha,s)   // Windows/DOS line ending fixed
-   IF .NOT. zs_s_rc
+   IF ! zs_s_rc
      hwg_MsgStop("FATAL: File access error " + dateiname)
      RETURN .F.
    ENDIF
@@ -394,7 +394,7 @@ nvz := hwlabel_MAX(nvz1,nvz2)
 npos := RAT(".", cf)
 IF npos != 0
 // If . not found, return original file name, has no extension
- IF .NOT. ( nvz > npos)
+ IF ! ( nvz > npos)
   // The . is not in directory name below
   // Strip extension
   cf := SUBSTR(cf, 1,npos - 1)

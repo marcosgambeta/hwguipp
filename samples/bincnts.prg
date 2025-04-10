@@ -89,7 +89,7 @@ hwg_SetResContainer( cImageDir + "sample.bin" )
 
 
 * Is container open ?
-IF .NOT. hwg_GetResContainerOpen()
+IF ! hwg_GetResContainerOpen()
  hwg_MsgStop("Container is not open")
  QUIT
 ENDIF 
@@ -265,7 +265,7 @@ RETURN NIL
 
 FUNCTION CHECK_FILE ( cfi )
 * Check, if file exist, otherwise terminate program
- IF .NOT. FILE( cfi )
+ IF ! FILE( cfi )
   hwg_MsgStop("File >" + cfi + "< not found, program terminated", "File ERROR !")
   QUIT
  ENDIF 
