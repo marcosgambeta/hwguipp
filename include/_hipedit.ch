@@ -9,6 +9,7 @@
             [ ON GETFOCUS <bGfocus> ]      ;
             [ ON LOSTFOCUS <bLfocus> ]     ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oIp> := ] HIpEdit():New( <oWnd>,<nId>,<vari>,{|v| iif(v==Nil,<vari>,<vari>:=v)},<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>, <bGfocus>, <bLfocus> );
+    [<oIp> := ] __IIF(<.class.>, <classname>, HIpEdit)():New( <oWnd>,<nId>,<vari>,{|v| iif(v==Nil,<vari>,<vari>:=v)},<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>, <bGfocus>, <bLfocus> );
     [; hwg_SetCtrlName( <oIp>,<(oIp)> )]

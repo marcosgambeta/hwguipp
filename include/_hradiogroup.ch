@@ -17,7 +17,8 @@
              [ ON INIT <bInit> ]        ;
              [ ON SIZE <bSize> ]        ;
              [ STYLE <nStyle> ]         ;
-          => [<ogr> := ] HRadioGroup():NewRG( <oWnd>,<nId>,<nStyle>,<vari>,;
+             [ <class: CLASS> <classname> ]       ;
+          => [<ogr> := ] __IIF(<.class.>, <classname>, HRadioGroup)():NewRG( <oWnd>,<nId>,<nStyle>,<vari>,;
                   {|v|Iif(v==Nil,<vari>,<vari>:=v)},<nX>,<nY>,<nWidth>,<nHeight>,<caption>,<oFont>,;
                   <bInit>,<bSize>,<nColor>,<nBackColor> );;
 

@@ -13,8 +13,9 @@
             [<lEdit: EDITABLE>]        ;
             [ BITMAP <aBmp>  [<res: FROM RESOURCE>] [ BITCOUNT <nBC> ] ]  ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oTree> := ] HTree():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [<oTree> := ] __IIF(<.class.>, <classname>, HTree)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<oFont>,<bInit>,<bSize>,<nColor>,<nBackColor>,<aBmp>,<.res.>,<.lEdit.>,<bClick>,<nBC> );
     [; hwg_SetCtrlName( <oTree>,<(oTree)> )]
 

@@ -10,8 +10,9 @@
             [ ON SIZE <bSize> ]        ;
             [ ON CLICK <bClick> ]      ;
             [ ON DBLCLICK <bDblClick> ];
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oIco> := ] HSayIcon():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
+    [<oIco> := ] __IIF(<.class.>, <classname>, HSayIcon)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
         <nHeight>,<icon>,<.res.>,<bInit>,<bSize>,<cTooltip>,,<bClick>,<bDblClick> );
     [; hwg_SetCtrlName( <oIco>,<(oIco)> )]
 

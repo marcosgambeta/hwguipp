@@ -15,8 +15,9 @@
             [ ON GETFOCUS <bGfocus> ]  ;
             [ ON LOSTFOCUS <bLfocus> ] ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oUpd> := ] HUpDown():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [<oUpd> := ] __IIF(<.class.>, <classname>, HUpDown)():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
                     <nHeight>,<oFont>,<bInit>,<bSize>,<bDraw>,<bGfocus>,         ;
                     <bLfocus>,<cTooltip>,<nColor>,<nBackColor>,<nUpDWidth>,<nLower>,<nUpper> );
     [; hwg_SetCtrlName( <oUpd>,<(oUpd)> )]
@@ -37,8 +38,9 @@
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oUpd> := ] HUpDown():New( <oWnd>,<nId>,<vari>,               ;
+    [<oUpd> := ] __IIF(<.class.>, <classname>, HUpDown)():New( <oWnd>,<nId>,<vari>,               ;
                    {|v|Iif(v==Nil,<vari>,<vari>:=v)},              ;
                     <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>,,  ;
                     <bGfocus>,<bLfocus>,<cTooltip>,<nColor>,<nBackColor>, ;

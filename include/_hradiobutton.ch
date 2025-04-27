@@ -14,8 +14,9 @@
             [ ON CLICK <bClick> ]      ;
             [<lTransp: TRANSPARENT>]   ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oRadio> := ] HRadioButton():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>, ;
+    [<oRadio> := ] __IIF(<.class.>, <classname>, HRadioButton)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>, ;
          <nWidth>,<nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.> );
     [; hwg_SetCtrlName( <oRadio>,<(oRadio)> )]
 

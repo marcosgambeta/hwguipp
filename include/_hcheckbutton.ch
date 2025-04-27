@@ -17,8 +17,9 @@
             [ INIT <lInit> ]           ;
             [<lTransp: TRANSPARENT>]   ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oCheck> := ] HCheckButton():New( <oWnd>,<nId>,<lInit>,,<nStyle>,<nX>,<nY>, ;
+    [<oCheck> := ] __IIF(<.class.>, <classname>, HCheckButton)():New( <oWnd>,<nId>,<lInit>,,<nStyle>,<nX>,<nY>, ;
          <nWidth>,<nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<bGfocus>,<.lTransp.>,<bLfocus> );
     [; hwg_SetCtrlName( <oCheck>,<(oCheck)> )]
 
@@ -56,8 +57,9 @@
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON LOSTFOCUS <bLfocus> ] ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oCheck> := ] HCheckButton():New( <oWnd>,<nId>,<vari>,              ;
+    [<oCheck> := ] __IIF(<.class.>, <classname>, HCheckButton)():New( <oWnd>,<nId>,<vari>,              ;
                     {|v|Iif(v==Nil,<vari>,<vari>:=v)},                   ;
                     <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<caption>,<oFont>, ;
                     <bInit>,<bSize>,,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<bWhen>,<.lTransp.>,<bLfocus> );

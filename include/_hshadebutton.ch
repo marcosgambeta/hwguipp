@@ -22,8 +22,9 @@
                  [ COORDINATES  <xb>, <yb>, <widthb>, <heightb> ] ;
             ] ;
             [ STYLE <nStyle> ]      ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oShBtn> :=] HSHADEBUTTON():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [<oShBtn> :=] __IIF(<.class.>, <classname>, HSHADEBUTTON)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
           <nHeight>,<bInit>,<bSize>,<bPaint>, ;
           <bClick>,<.flat.>, ;
               <cText>,<nColor>,<font>,<xt>, <yt>, ;

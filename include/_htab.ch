@@ -14,8 +14,9 @@
             [ ON GETFOCUS <bGetFocus> ];
             [ ON LOSTFOCUS <bLostFocus>];
             [ BITMAP <aBmp>  [<res: FROM RESOURCE>] [ BITCOUNT <nBC> ] ]  ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oTab> := ] HTab():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [<oTab> := ] __IIF(<.class.>, <classname>, HTab)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<oFont>,<bInit>,<bSize>,<bDraw>,<aItems>,<bChange>, <aBmp>, <.res.>,<nBC>,;
              <bClick>, <bGetFocus>, <bLostFocus> );
     [; hwg_SetCtrlName( <oTab>,<(oTab)> )]

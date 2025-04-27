@@ -6,6 +6,7 @@
             [ SIZE <nWidth>, <nHeight> ] ;
             [ <lVert: VERTICAL> ] ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oTool> := ] HPager():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,<.lVert.>);
+    [<oTool> := ] __IIF(<.class.>, <classname>, HPager)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,<.lVert.>);
     [; hwg_SetCtrlName( <oTool>,<(oTool)> )]

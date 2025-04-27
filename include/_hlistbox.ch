@@ -22,8 +22,9 @@
              [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
              [ INIT <nInit> ]              ;
              [ STYLE <nStyle> ]            ;
+             [ <class: CLASS> <classname> ]       ;
           => ;
-          [<oListbox> := ] HListBox():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [<oListbox> := ] __IIF(<.class.>, <classname>, HListBox)():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>,<bChange>,<cTooltip>,;
              <nColor>,<nBackColor>, <bGfocus>,<bLfocus>,<bKeyDown>,<bDblClick>,<bOther> ) ;;
           [; hwg_SetCtrlName( <oListbox>,<(oListbox)> )]
@@ -65,8 +66,9 @@
              [ ON DBLCLICK <bDblClick> ];
              [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
              [ STYLE <nStyle> ]         ;
+             [ <class: CLASS> <classname> ]       ;
           => ;
-          [<oListbox> := ] HListBox():New( <oWnd>,<nId>,<vari>,;
+          [<oListbox> := ] __IIF(<.class.>, <classname>, HListBox)():New( <oWnd>,<nId>,<vari>,;
              {|v|Iif(v==Nil,<vari>,<vari>:=v)},;
              <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>, ;
              <bChange>,<cTooltip>,<nColor>,<nBackColor>,<bGFocus>,<bLFocus>,<bKeyDown>,<bDblClick>,<bOther>);;

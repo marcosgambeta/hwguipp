@@ -8,8 +8,9 @@
             [ SIZE <nWidth>,<nHeight> ]         ;
             [ BARWIDTH <maxpos> ]               ;
             [ QUANTITY <nRange> ]               ;
+            [ <class: CLASS> <classname> ]       ;
             =>                                  ;
-            <oPBar> :=  HProgressBar():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
+            <oPBar> :=  __IIF(<.class.>, <classname>, HProgressBar)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
                        <nHeight>,<maxpos>,<nRange> );
             [; hwg_SetCtrlName( <oPBar>,<(oPBar)> )]
 

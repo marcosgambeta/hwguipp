@@ -7,5 +7,6 @@
             [ TIME <otime> ]               ;
             [WIDTH <w>];
             [HEIGHT <h>];
+            [ <class: CLASS> <classname> ]       ;
           => ;
-   [ <osplash> := ] HSplash():Create(<oBitmap>,<otime>,<.res.>,<w>,<h>);
+   [ <osplash> := ] __IIF(<.class.>, <classname>, HSplash)():Create(<oBitmap>,<otime>,<.res.>,<w>,<h>);

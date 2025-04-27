@@ -21,8 +21,9 @@
                  [ COORDINATES  <xb>, <yb>, <widthb>, <heightb> ] ;
             ] ;
             [ <lCheck: CHECK> ]     ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oOwnBtn> :=] HOWNBUTTON():New( <oWnd>,<nId>,\{<aStyles>\},<nX>,<nY>,<nWidth>, ;
+    [<oOwnBtn> :=] __IIF(<.class.>, <classname>, HOWNBUTTON)():New( <oWnd>,<nId>,\{<aStyles>\},<nX>,<nY>,<nWidth>, ;
           <nHeight>,<bInit>,<bSize>,<bPaint>, ;
           <bClick>,<.flat.>, ;
               <cText>,<nColor>,<font>,<xt>, <yt>,<widtht>,<heightt>, ;

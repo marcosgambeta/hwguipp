@@ -22,8 +22,9 @@
              [ ON OTHER MESSAGES <bOther> ] ;
              [ ON EXIT <bExit> ]            ;
              [ HELPID <nHelpId> ]           ;
+             [ <class: CLASS> <classname> ]       ;
           => ;
-   <oDlg> := HDialog():New( Iif(<.res.>,WND_DLG_RESOURCE,WND_DLG_NORESOURCE), ;
+   <oDlg> := __IIF(<.class.>, <classname>, HDialog)():New( Iif(<.res.>,WND_DLG_RESOURCE,WND_DLG_NORESOURCE), ;
                    <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>,<oFont>,;
                    <bInit>,<bExit>,<bSize>, <bPaint>,<bGfocus>,<bLfocus>,;
                    <bOther>,<.lClipper.>,<oBmp>,<ico>,<.lExitOnEnter.>,<nHelpId>,<Resid>,<.lExitOnEsc.>,<nBackColor>,<.lnoClosable.> )

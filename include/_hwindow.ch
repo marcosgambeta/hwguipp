@@ -25,8 +25,9 @@
              [ ON EXIT <bExit> ]            ;
              [ HELP <cHelp> ]               ;
              [ HELPID <nHelpId> ]           ;
+             [ <class: CLASS> <classname> ]       ;
           => ;
-   <oWnd> := HMainWindow():New( Iif(<.lMdi.>,WND_MDI,WND_MAIN), ;
+   <oWnd> := __IIF(<.class.>, <classname>, HMainWindow)():New( Iif(<.lMdi.>,WND_MDI,WND_MAIN), ;
                    <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
                    <cMenu>,<nPos>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>,;
                    <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>,<nExclude> )
@@ -51,8 +52,9 @@
              [ ON EXIT <bExit> ]            ;
              [ HELP <cHelp> ]               ;
              [ HELPID <nHelpId> ]           ;
+             [ <class: CLASS> <classname> ]       ;
           => ;
-   <oWnd> := HMdiChildWindow():New( ;
+   <oWnd> := __IIF(<.class.>, <classname>, HMdiChildWindow)():New( ;
                    <ico>,,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
                    <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
                    <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
@@ -78,8 +80,9 @@
              [ ON EXIT <bExit> ]            ;
              [ HELP <cHelp> ]               ;
              [ HELPID <nHelpId> ]           ;
+             [ <class: CLASS> <classname> ]       ;
           => ;
-   <oWnd> := HChildWindow():New( ;
+   <oWnd> := __IIF(<.class.>, <classname>, HChildWindow)():New( ;
                    <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
                    <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
                    <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )

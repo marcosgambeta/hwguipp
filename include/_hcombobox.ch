@@ -19,8 +19,9 @@
             [ <text: TEXT> ]           ;
             [ DISPLAYCOUNT <nDisplay>] ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oCombo> := ] HComboBox():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [<oCombo> := ] __IIF(<.class.>, <classname>, HComboBox)():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
                   <nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>,<bChange>,<cTooltip>,;
                   <.edit.>,<.text.>,<bWhen>,<nColor>,<nBackColor>,<bValid>,<nDisplay> );
     [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
@@ -59,8 +60,9 @@
             [ VALID <bValid> ]         ;
             [ DISPLAYCOUNT <nDisplay>] ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oCombo> := ] HComboBox():New( <oWnd>,<nId>,<vari>,    ;
+    [<oCombo> := ] __IIF(<.class.>, <classname>, HComboBox)():New( <oWnd>,<nId>,<vari>,    ;
                     {|v|Iif(v==Nil,<vari>,<vari>:=v)},      ;
                     <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
                     <aItems>,<oFont>,<bInit>,<bSize>,,<bChange>,<cTooltip>, ;

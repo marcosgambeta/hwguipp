@@ -6,8 +6,9 @@
             [ SIZE <nWidth>, <nHeight> ] ;
             [ STYLE <nStyle> ]         ;
             [ ITEMS <aItems> ] ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oTool> := ] Htoolbar():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,,,<aItems>  );
+    [<oTool> := ] __IIF(<.class.>, <classname>, Htoolbar)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,,,<aItems>  );
     [; hwg_SetCtrlName( <oTool>,<(oTool)> )]
 
 #xcommand REDEFINE TOOLBAR  <oTool>    ;

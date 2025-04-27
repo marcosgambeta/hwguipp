@@ -13,8 +13,9 @@
             [ ON SIZE <bSize> ]        ;
             [ ON CLICK <bClick> ]      ;
             [ ON DBLCLICK <bDblClick> ];
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oBmp> := ] HSayBmp():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
+    [<oBmp> := ] __IIF(<.class.>, <classname>, HSayBmp)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
         <nHeight>,<bitmap>,<.res.>,<bInit>,<bSize>,<cTooltip>,<bClick>,<bDblClick>,<.lTransp.>,<nStretch>,<trcolor>,<nBackColor> );
     [; hwg_SetCtrlName( <oBmp>,<(oBmp)> )]
 

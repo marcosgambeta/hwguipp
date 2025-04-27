@@ -19,8 +19,9 @@
             [ VISITCOLOR <vcolor> ]    ;
             [ LINKCOLOR <lcolor> ]     ;
             [ HOVERCOLOR <hcolor> ]    ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oSay> := ] HStaticLink():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, ;
+    [<oSay> := ] __IIF(<.class.>, <classname>, HStaticLink)():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, ;
         <nHeight>, <caption>, <oFont>, <bInit>, <bSize>, <bDraw>, <cTooltip>, ;
         <nColor>, <nBackColor>, <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
     [; hwg_SetCtrlName( <oSay>,<(oSay)> )]

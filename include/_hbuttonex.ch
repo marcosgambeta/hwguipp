@@ -21,8 +21,9 @@
              [ <lnoTheme: NOTHEMES> ]   ;
              [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
              [ STYLE <nStyle> ]         ;
+             [ <class: CLASS> <classname> ]       ;
           => ;
-          [<oBut> := ] HButtonEx():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [<oBut> := ] __IIF(<.class.>, <classname>, HButtonEx)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<hbit>, ;
              <nBStyle>,<hIco>, <.lTransp.>,<bGfocus>,<nMargin>,<.lnoTheme.>, <bOther> );
           [; hwg_SetCtrlName( <oBut>,<(oBut)> )]

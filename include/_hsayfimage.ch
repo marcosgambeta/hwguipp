@@ -8,8 +8,9 @@
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ TYPE <ctype>     ]       ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oImage> := ] HSayFImage():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
+    [<oImage> := ] __IIF(<.class.>, <classname>, HSayFImage)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
         <nHeight>,<image>,<bInit>,<bSize>,<cTooltip>,<ctype> );
     [; hwg_SetCtrlName( <oImage>,<(oImage)> )]
 

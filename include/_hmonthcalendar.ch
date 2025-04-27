@@ -18,8 +18,9 @@ Added by Marcos Antonio Gambeta
             [ < weeknumbers : WEEKNUMBERS > ]          ;
             [ INIT <dInit> ]                           ;
             [ STYLE <nStyle> ]                         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oMonthCalendar> :=] HMonthCalendar():New( <oWnd>,<nId>,<dInit>,<nStyle>,;
+    [<oMonthCalendar> :=] __IIF(<.class.>, <classname>, HMonthCalendar)():New( <oWnd>,<nId>,<dInit>,<nStyle>,;
         <nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bChange>,<cTooltip>,;
         <.notoday.>,<.notodaycircle.>,<.weeknumbers.>);
     [; hwg_SetCtrlName( <oMonthCalendar>,<(oMonthCalendar)> )]

@@ -17,8 +17,9 @@
             [<lnoborder: NOBORDER>]    ;
             [<lPassword: PASSWORD>]    ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oEdit> := ] HEdit():New( <oWnd>,<nId>,<caption>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [<oEdit> := ] __IIF(<.class.>, <classname>, HEdit)():New( <oWnd>,<nId>,<caption>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
                     <nHeight>,<oFont>,<bInit>,<bSize>,<bGfocus>, ;
                     <bLfocus>,<cTooltip>,<nColor>,<nBackColor>,,<.lnoborder.>,,<.lPassword.>, <bKeyDown>, <bChange> );
     [; hwg_SetCtrlName( <oEdit>,<(oEdit)> )]
@@ -61,8 +62,9 @@
             [ MAXLENGTH <nMaxLength> ] ;
             [<lnoborder: NOBORDER>]    ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oEdit> := ] HEdit():New( <oWnd>,<nId>,<vari>,               ;
+    [<oEdit> := ] __IIF(<.class.>, <classname>, HEdit)():New( <oWnd>,<nId>,<vari>,               ;
                    {|v|Iif(v==Nil,<vari>,<vari>:=v)},             ;
                    <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>,  ;
                    <bGfocus>,<bLfocus>,<cTooltip>,<nColor>,<nBackColor>,<cPicture>,<.lnoborder.>,<nMaxLength>,<.lPassword.>,<bKeyDown>,<bChange> );

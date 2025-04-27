@@ -20,8 +20,9 @@
             [ < top : TOP > ]             ;
             [ < left : LEFT > ]           ;
             [ STYLE <nStyle> ]            ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oTrackBar> :=] HTrackBar():New( <oWnd>,<nId>,<nInit>,<nStyle>,<nX>,<nY>,      ;
+    [<oTrackBar> :=] __IIF(<.class.>, <classname>, HTrackBar)():New( <oWnd>,<nId>,<nInit>,<nStyle>,<nX>,<nY>,      ;
         <nWidth>,<nHeight>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<bChange>,<bDrag>,<nLow>,<nHigh>,<.vertical.>,;
         Iif(<.autoticks.>,1,Iif(<.noticks.>,16,0)), ;
         Iif(<.both.>,8,Iif(<.top.>.or.<.left.>,4,0)) );

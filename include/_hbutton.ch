@@ -13,8 +13,9 @@
             [ ON PAINT <bDraw> ]       ;
             [ ON CLICK <bClick> ]      ;
             [ STYLE <nStyle> ]         ;
+            [ <class: CLASS> <classname> ]       ;
           => ;
-    [ <oBut> := ] HButton():New(<oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>, <caption>, <oFont>, ;
+    [ <oBut> := ] __IIF(<.class.>, <classname>, HButton)():New(<oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>, <caption>, <oFont>, ;
        <bInit>, <bSize>, <bDraw>, <bClick>, <cTooltip>, <nColor>, <nBackColor>);
     [ ; hwg_SetCtrlName(<oBut>, <(oBut)>) ]
 
