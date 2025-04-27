@@ -13,6 +13,6 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oGroup> := ] __IIF(<.class.>, <classname>, HGroup)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [ <oGroup> := ] __IIF(<.class.>, <classname>, HGroup)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<nColor>,<nBackColor> );
     [; hwg_SetCtrlName( <oGroup>,<(oGroup)> )]

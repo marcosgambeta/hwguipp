@@ -8,14 +8,14 @@
             [ BACKCOLOR <nBackColor> ]     ;
             [ FONT <oFont> ]           ;
             [ TOOLTIP <cTooltip> ]       ;
-            [<lTransp: TRANSPARENT>]   ;
+            [ <lTransp: TRANSPARENT> ]   ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oSay> := ] __IIF(<.class.>, <classname>, HStatic)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [ <oSay> := ] __IIF(<.class.>, <classname>, HStatic)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
         <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.> );
     [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
 
@@ -24,13 +24,13 @@
             ID <nId>                   ;
             [ COLOR <nColor> ]          ;
             [ BACKCOLOR <nBackColor> ]     ;
-            [<lTransp: TRANSPARENT>]   ;
+            [ <lTransp: TRANSPARENT> ]   ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
             [ FONT <oFont> ]           ;
             [ TOOLTIP <cTooltip> ]       ;
           => ;
-    [<oSay> := ] HStatic():Redefine( <oWnd>,<nId>,<cCaption>, ;
+    [ <oSay> := ] HStatic():Redefine( <oWnd>,<nId>,<cCaption>, ;
         <oFont>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.> );
     [; hwg_SetCtrlName( <oSay>,<(oSay)> )]

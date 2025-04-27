@@ -13,14 +13,14 @@ Added by Marcos Antonio Gambeta
             [ TOOLTIP <cTooltip> ]                     ;
             [ ON INIT <bInit> ]                        ;
             [ ON CHANGE <bChange> ]                    ;
-            [ < notoday : NOTODAY > ]                  ;
-            [ < notodaycircle : NOTODAYCIRCLE > ]      ;
-            [ < weeknumbers : WEEKNUMBERS > ]          ;
+            [ <notoday: NOTODAY> ]                  ;
+            [ <notodaycircle: NOTODAYCIRCLE> ]      ;
+            [ <weeknumbers: WEEKNUMBERS> ]          ;
             [ INIT <dInit> ]                           ;
             [ STYLE <nStyle> ]                         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oMonthCalendar> :=] __IIF(<.class.>, <classname>, HMonthCalendar)():New( <oWnd>,<nId>,<dInit>,<nStyle>,;
+    [ <oMonthCalendar> := ] __IIF(<.class.>, <classname>, HMonthCalendar)():New( <oWnd>,<nId>,<dInit>,<nStyle>,;
         <nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bChange>,<cTooltip>,;
         <.notoday.>,<.notodaycircle.>,<.weeknumbers.>);
     [; hwg_SetCtrlName( <oMonthCalendar>,<(oMonthCalendar)> )]

@@ -24,7 +24,7 @@
              [ STYLE <nStyle> ]            ;
              [ <class: CLASS> <classname> ]       ;
           => ;
-          [<oListbox> := ] __IIF(<.class.>, <classname>, HListBox)():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [ <oListbox> := ] __IIF(<.class.>, <classname>, HListBox)():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>,<bChange>,<cTooltip>,;
              <nColor>,<nBackColor>, <bGfocus>,<bLfocus>,<bKeyDown>,<bDblClick>,<bOther> ) ;;
           [; hwg_SetCtrlName( <oListbox>,<(oListbox)> )]
@@ -44,7 +44,7 @@
              [ ON KEYDOWN <bKeyDown> ]     ;
              [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
           => ;
-          [<oListbox> := ] HListBox():Redefine( <oWnd>,<nId>,<nInit>,,<aItems>,<oFont>,<bInit>, ;
+          [ <oListbox> := ] HListBox():Redefine( <oWnd>,<nId>,<nInit>,,<aItems>,<oFont>,<bInit>, ;
              <bSize>,<bDraw>,<bChange>,<cTooltip>,<bGfocus>,<bLfocus>, <bKeyDown>,<bOther> ) ;;
           [; hwg_SetCtrlName( <oListbox>,<(oListbox)> )]
 
@@ -68,7 +68,7 @@
              [ STYLE <nStyle> ]         ;
              [ <class: CLASS> <classname> ]       ;
           => ;
-          [<oListbox> := ] __IIF(<.class.>, <classname>, HListBox)():New( <oWnd>,<nId>,<vari>,;
+          [ <oListbox> := ] __IIF(<.class.>, <classname>, HListBox)():New( <oWnd>,<nId>,<vari>,;
              {|v|Iif(v==Nil,<vari>,<vari>:=v)},;
              <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>, ;
              <bChange>,<cTooltip>,<nColor>,<nBackColor>,<bGFocus>,<bLFocus>,<bKeyDown>,<bDblClick>,<bOther>);;

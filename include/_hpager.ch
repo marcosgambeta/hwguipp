@@ -8,5 +8,5 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oTool> := ] __IIF(<.class.>, <classname>, HPager)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,<.lVert.>);
+    [ <oTool> := ] __IIF(<.class.>, <classname>, HPager)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,<.lVert.>);
     [; hwg_SetCtrlName( <oTool>,<(oTool)> )]

@@ -25,7 +25,7 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oBrw> :=] __IIF(<.class.>, <classname>, HBrowse)():New( Iif(<.lDb.>,BRW_DATABASE,Iif(<.lArr.>,BRW_ARRAY,0)),;
+    [ <oBrw> := ] __IIF(<.class.>, <classname>, HBrowse)():New( Iif(<.lDb.>,BRW_DATABASE,Iif(<.lArr.>,BRW_ARRAY,0)),;
         <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>, ;
         <bDraw>,<bEnter>,<bGfocus>,<bLfocus>,<.lNoVScr.>,<.lNoBord.>, <.lAppend.>,;
         <.lAutoedit.>, <bUpdate>, <bKeyDown>, <bPosChg>, <.lMulti.>, <bRClick> );
@@ -45,7 +45,7 @@
             [ ON LOSTFOCUS <bLfocus> ] ;
             [ FONT <oFont> ]           ;
           => ;
-    [<oBrw> :=] HBrowse():Redefine( Iif(<.lDb.>,BRW_DATABASE,Iif(<.lArr.>,BRW_ARRAY,Iif(<.lFlt.>,BRW_FILTER,0))),;
+    [ <oBrw> := ] HBrowse():Redefine( Iif(<.lDb.>,BRW_DATABASE,Iif(<.lArr.>,BRW_ARRAY,Iif(<.lFlt.>,BRW_FILTER,0))),;
         <oWnd>,<nId>,<oFont>,<bInit>,<bSize>,<bDraw>,<bEnter>,<bGfocus>,<bLfocus> );
     [; hwg_SetCtrlName( <oBrw>,<(oBrw)> )]
 
@@ -114,7 +114,7 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oBrw> :=] __IIF(<.class.>, <classname>, HBrwflt)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>, ;
+    [ <oBrw> := ] __IIF(<.class.>, <classname>, HBrwflt)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>, ;
         <bDraw>,<bEnter>,<bGfocus>,<bLfocus>,<.lNoVScr.>,<.lNoBord.>, <.lAppend.>,;
         <.lAutoedit.>, <bUpdate>, <bKeyDown>, <bPosChg>, <.lMulti.>, <.lDescend.>,;
         <bWhile>, <bFirst>, <bLast>, <bFor>, <bRClick> );

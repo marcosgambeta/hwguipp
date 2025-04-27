@@ -11,7 +11,7 @@
              [ BACKCOLOR <nBackColor> ]     ;
              [ FONT <oFont> ]           ;
              [ TOOLTIP <cTooltip> ]       ;
-             [<lTransp: TRANSPARENT>]   ;
+             [ <lTransp: TRANSPARENT> ]   ;
              [ ON INIT <bInit> ]        ;
              [ ON SIZE <bSize> ]        ;
              [ ON PAINT <bDraw> ]       ;
@@ -20,7 +20,7 @@
              [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
              [ STYLE <nStyle> ]         ;
           => ;
-          [<oSay> := ] HStaticEx():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [ <oSay> := ] HStaticEx():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<cTooltip>, ;
              <nColor>,<nBackColor>,<.lTransp.>,<bClick>,<bDblClick>,<bOther> );;
           [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
@@ -69,7 +69,7 @@
             [ BACKCOLOR <bkcolorn> ]     ;
             => <oGrid>:AddRow(\{<cHeader>,<n>,<nColor>,<bkcolor> [, <cHeadern>, <nn>,<colorn>,<bkcolorn> ]\})
 
-#xcommand @ <nX>, <nY>  CONTAINER [<oCnt>] [OF <oWnd>] ;
+#xcommand @ <nX>, <nY>  CONTAINER [ <oCnt> ] [OF <oWnd>] ;
              [ ID <nId> ]               ;
              [ SIZE <nWidth>, <nHeight> ] ;
              [ BACKSTYLE <nbackStyle>]    ;
@@ -85,7 +85,7 @@
              [ ON OTHERMESSAGES <bOther>  ] ;
              [ STYLE <ncStyle>]          ;
           =>  ;
-          [<oCnt> := ] HContainerEx():New(<oWnd>, <nId>,IIF(<.lTabStop.>,WS_TABSTOP,),;
+          [ <oCnt> := ] HContainerEx():New(<oWnd>, <nId>,IIF(<.lTabStop.>,WS_TABSTOP,),;
                <nX>, <nY>, <nWidth>, <nHeight>, <ncStyle>, <bSize>, <.lnoBorder.>,<bInit>,<nbackStyle>,<tcolor>,<nBackColor>,;
                <bLoad>,<bRefresh>,<bOther>);;
           [; hwg_SetCtrlName( <oCnt>,<(oCnt)> )]
@@ -97,17 +97,17 @@
              [ COLOR <nColor> ]          ;
              [ BACKCOLOR <nBackColor> ]     ;
              [ FONT <oFont> ]           ;
-             [<lTransp: TRANSPARENT>]   ;
+             [ <lTransp: TRANSPARENT> ]   ;
              [ ON INIT <bInit> ]        ;
              [ ON SIZE <bSize> ]        ;
              [ ON PAINT <bDraw> ]       ;
              [ STYLE <nStyle> ]         ;
           => ;
-          [<oGroup> := ] HGroupEx():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [ <oGroup> := ] HGroupEx():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<nColor>,<nBackColor>,<.lTransp.>);;
           [; hwg_SetCtrlName( <oGroup>,<(oGroup)> )]
 
-#xcommand ADD STATUSEX [<oStat>] [ TO <oWnd> ] ;
+#xcommand ADD STATUSEX [ <oStat> ] [ TO <oWnd> ] ;
              [ ID <nId> ]           ;
              [ HEIGHT <nHeight> ]   ;
              [ ON INIT <bInit> ]    ;
@@ -143,7 +143,7 @@
              [ CHECK <acheck> ]         ;
              [ IMAGES <aImages> ]       ;
           => ;
-          [<oCombo> := ] HCheckComboBox():New( <oWnd>,<nId>,<vari>,    ;
+          [ <oCombo> := ] HCheckComboBox():New( <oWnd>,<nId>,<vari>,    ;
              {|v|Iif(v==Nil,<vari>,<vari>:=v)},      ;
              <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
              <aItems>,<oFont>,,,,<bChange>,<cTooltip>, ;

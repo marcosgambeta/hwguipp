@@ -9,7 +9,7 @@
             [ SIZE <nWidth>, <nHeight> ] ;
             [ COLOR <nColor> ]          ;
             [ BACKCOLOR <nBackColor> ]     ;
-            [<lTransp: TRANSPARENT>]   ;
+            [ <lTransp: TRANSPARENT> ]   ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
@@ -21,7 +21,7 @@
             [ HOVERCOLOR <hcolor> ]    ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oSay> := ] __IIF(<.class.>, <classname>, HStaticLink)():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, ;
+    [ <oSay> := ] __IIF(<.class.>, <classname>, HStaticLink)():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, ;
         <nHeight>, <caption>, <oFont>, <bInit>, <bSize>, <bDraw>, <cTooltip>, ;
         <nColor>, <nBackColor>, <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
     [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
@@ -33,7 +33,7 @@
             LINK <cLink>               ;
             [ COLOR <nColor> ]          ;
             [ BACKCOLOR <nBackColor> ]     ;
-            [<lTransp: TRANSPARENT>]   ;
+            [ <lTransp: TRANSPARENT> ]   ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
@@ -43,7 +43,7 @@
             [ LINKCOLOR <lcolor> ]     ;
             [ HOVERCOLOR <hcolor> ]    ;
           => ;
-    [<oSay> := ] HStaticLink():Redefine( <oWnd>, <nId>, <cCaption>, ;
+    [ <oSay> := ] HStaticLink():Redefine( <oWnd>, <nId>, <cCaption>, ;
         <oFont>, <bInit>, <bSize>, <bDraw>, <cTooltip>, <nColor>, <nBackColor>,;
         <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
     [; hwg_SetCtrlName( <oSay>,<(oSay)> )]

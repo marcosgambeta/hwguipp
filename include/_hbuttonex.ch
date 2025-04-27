@@ -23,7 +23,7 @@
              [ STYLE <nStyle> ]         ;
              [ <class: CLASS> <classname> ]       ;
           => ;
-          [<oBut> := ] __IIF(<.class.>, <classname>, HButtonEx)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [ <oBut> := ] __IIF(<.class.>, <classname>, HButtonEx)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<hbit>, ;
              <nBStyle>,<hIco>, <.lTransp.>,<bGfocus>,<nMargin>,<.lnoTheme.>, <bOther> );
           [; hwg_SetCtrlName( <oBut>,<(oBut)> )]
@@ -50,7 +50,7 @@
             [ <lnoTheme: NOTHEMES> ]   ;
             [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
           => ;
-    [<oBut> := ] HButtonEx():Redefine( <oWnd>,<nId>,<oFont>,<bInit>,<bSize>,<bDraw>, ;
+    [ <oBut> := ] HButtonEx():Redefine( <oWnd>,<nId>,<oFont>,<bInit>,<bSize>,<bDraw>, ;
                     <bClick>,<cTooltip>,<nColor>,<nBackColor>,<cCaption>,<hbit>, ;
              <nBStyle>,<hIco>, <.lTransp.>,<bGfocus>,<nMargin>,<.lnoTheme.>, <bOther> ) ;
     [; hwg_SetCtrlName( <oBut>,<(oBut)> )]

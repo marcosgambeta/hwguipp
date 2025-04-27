@@ -24,6 +24,6 @@
             [ MAXPOS <mpos> ] ;
             [ RANGE <nRange> ] ;
           => ;
-    [<oBmp> := ] HProgressBar():Redefine( <oWnd>,<nId>,<mpos>,<nRange>, ;
+    [ <oBmp> := ] HProgressBar():Redefine( <oWnd>,<nId>,<mpos>,<nRange>, ;
         <bInit>,<bSize>,,<cTooltip> );
     [; hwg_SetCtrlName( <oBmp>,<(oBmp)> )]

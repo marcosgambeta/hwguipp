@@ -16,7 +16,7 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oPick> :=] __IIF(<.class.>, <classname>, HDatePicker)():New( <oWnd>,<nId>,<dInit>,,<nStyle>,<nX>,<nY>, ;
+    [ <oPick> := ] __IIF(<.class.>, <classname>, HDatePicker)():New( <oWnd>,<nId>,<dInit>,,<nStyle>,<nX>,<nY>, ;
         <nWidth>,<nHeight>,<oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<cTooltip>, ;
         <nColor>,<nBackColor> );
     [; hwg_SetCtrlName( <oPick>,<(oPick)> )]
@@ -38,7 +38,7 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oPick> :=] __IIF(<.class.>, <classname>, HDatePicker)():New( <oWnd>,<nId>,<vari>,    ;
+    [ <oPick> := ] __IIF(<.class.>, <classname>, HDatePicker)():New( <oWnd>,<nId>,<vari>,    ;
                     {|v|Iif(v==Nil,<vari>,<vari>:=v)},      ;
                     <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
                     <oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<cTooltip>,<nColor>,<nBackColor> );

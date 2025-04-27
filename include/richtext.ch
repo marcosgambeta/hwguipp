@@ -76,7 +76,7 @@
 // Page Setup:  Standard RTF file format defaults
 
 
-#xcommand DEFINE RTF [<oRTF>] ;
+#xcommand DEFINE RTF [ <oRTF> ] ;
       [ <filename: FILE, FILENAME> <cFileName> ] ;
       [ <fontname: FONTS, FONTNAMES> <aFontData,...> ] ;
       [ <fontfami: FONTFAMILY> <aFontFam,...> ] ;
@@ -340,7 +340,7 @@
       [ WIDTH <nWidth> ] ;
                 [ PATTERN <nPatron> ];
                 [ <lSombra:SOMBRA> ];
-                [ OFFSOMBRA < aSombra > ];
+                [ OFFSOMBRA <aSombra> ];
    => ;
       <oRTF>:Linea( <aInicio>, <aFinal>, ;
             <nxoffset>, <nyoffset>, <aSize>, <cTipo>, ;
@@ -383,7 +383,7 @@
          [ WIDTH <nWidth> ] ;
                    [ PATTERN <nPatron> ];
                    [ <lSombra:SOMBRA> ];
-                   [ OFFSOMBRA < aSombra > ];
+                   [ OFFSOMBRA <aSombra> ];
                [ FONTNUMBER <nFontNumber> ] ;
          [ FONTSIZE <nFontSize> ] ;
          [ APPEARANCE <cAppear> ] ;

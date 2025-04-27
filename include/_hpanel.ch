@@ -12,7 +12,7 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oPanel> :=] __IIF(<.class.>, <classname>, HPanel)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<bInit>,<bSize>,<bDraw>,<nBackColor>,<oStyle> );
+    [ <oPanel> := ] __IIF(<.class.>, <classname>, HPanel)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<bInit>,<bSize>,<bDraw>,<nBackColor>,<oStyle> );
     [; hwg_SetCtrlName( <oPanel>,<(oPanel)> )]
 
 #xcommand REDEFINE PANEL [ <oPanel> ]  ;
@@ -23,7 +23,7 @@
             [ ON PAINT <bDraw> ]       ;
             [ HEIGHT <nHeight> ]       ;
           => ;
-    [<oPanel> :=] HPanel():Redefine( <oWnd>,<nId>,<nHeight>,<bInit>,<bSize>,<bDraw> );
+    [ <oPanel> := ] HPanel():Redefine( <oWnd>,<nId>,<nHeight>,<bInit>,<bSize>,<bDraw> );
     [; hwg_SetCtrlName( <oPanel>,<(oPanel)> )]
 
 #xcommand ADD TOP PANEL [ <oPanel> ] TO <oWnd> ;
@@ -35,7 +35,7 @@
             [ ON PAINT <bDraw> ]       ;
             [ STYLE <nStyle> ]         ;
           => ;
-    [<oPanel> :=] HPanel():New( <oWnd>,<nId>,<nStyle>,0,0,<oWnd>:nWidth,<nHeight>,<bInit>,ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS,<bDraw>,<nBackColor>,<oStyle> );
+    [ <oPanel> := ] HPanel():New( <oWnd>,<nId>,<nStyle>,0,0,<oWnd>:nWidth,<nHeight>,<bInit>,ANCHOR_TOPABS+ANCHOR_LEFTABS+ANCHOR_RIGHTABS,<bDraw>,<nBackColor>,<oStyle> );
     [; hwg_SetCtrlName( <oPanel>,<(oPanel)> )]
 
 #xcommand ADD STATUS PANEL [ <oPanel> ] TO <oWnd> ;
@@ -48,7 +48,7 @@
             [ HSTYLE <oStyle> ]        ;
             [ PARTS <aparts,...> ]     ;
           => ;
-    [<oPanel> :=] HPanelSts():New( <oWnd>,<nId>,<nHeight>,<oFont>,<bInit>,<bDraw>,<nBackColor>,<oStyle>,\{<aparts>\} );
+    [ <oPanel> := ] HPanelSts():New( <oWnd>,<nId>,<nHeight>,<oFont>,<bInit>,<bDraw>,<nBackColor>,<oStyle>,\{<aparts>\} );
     [; hwg_SetCtrlName( <oPanel>,<(oPanel)> )]
 
 #xcommand ADD HEADER PANEL [ <oPanel> ] [ TO <oWnd> ] ;
@@ -65,6 +65,6 @@
             [ <lBtnMax: BTN_MAXIMIZE> ];
             [ <lBtnMin: BTN_MINIMIZE> ];
           => ;
-    [<oPanel> :=] HPanelHea():New( <oWnd>,<nId>,<nHeight>,<oFont>,<bInit>,<bDraw>, ;
+    [ <oPanel> := ] HPanelHea():New( <oWnd>,<nId>,<nHeight>,<oFont>,<bInit>,<bDraw>, ;
        <tcolor>,<nBackColor>,<oStyle>,<cText>,<xt>,<yt>,<.lBtnClose.>,<.lBtnMax.>,<.lBtnMin.> );
     [; hwg_SetCtrlName( <oPanel>,<(oPanel)> )]

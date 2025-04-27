@@ -8,7 +8,7 @@
             [ ITEMS <aItems> ] ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oTool> := ] __IIF(<.class.>, <classname>, Htoolbar)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,,,<aItems>  );
+    [ <oTool> := ] __IIF(<.class.>, <classname>, Htoolbar)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,,,,<aItems>  );
     [; hwg_SetCtrlName( <oTool>,<(oTool)> )]
 
 #xcommand REDEFINE TOOLBAR  <oTool>    ;
@@ -19,7 +19,7 @@
             [ ON PAINT <bDraw> ]       ;
             [ ITEM <aitem>];
           => ;
-    [<oTool> := ] Htoolbar():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,<aitem> );
+    [ <oTool> := ] Htoolbar():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,<aitem> );
     [; hwg_SetCtrlName( <oTool>,<(oTool)> )]
 
 #xcommand TOOLBUTTON  <O> ;

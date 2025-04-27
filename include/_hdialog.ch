@@ -1,7 +1,7 @@
 // NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
 
 #xcommand INIT DIALOG <oDlg>                ;
-             [<res: FROM RESOURCE> <Resid> ]         ;
+             [ <res: FROM RESOURCE> <Resid> ]         ;
              [ TITLE <cTitle> ]             ;
              [ AT <nX>, <nY> ]                ;
              [ SIZE <nWidth>, <nHeight> ]     ;
@@ -10,9 +10,9 @@
              [ STYLE <nStyle> ]             ;
              [ FONT <oFont> ]               ;
              [ <bclr: BACKCOLOR, COLOR> <nBackColor> ] ;
-             [<lClipper: CLIPPER>]          ;
-             [<lExitOnEnter: NOEXIT>]       ; //Modified By Sandro
-             [<lExitOnEsc: NOEXITESC>]      ; //Modified By Sandro
+             [ <lClipper: CLIPPER> ]          ;
+             [ <lExitOnEnter: NOEXIT> ]       ; //Modified By Sandro
+             [ <lExitOnEsc: NOEXITESC> ]      ; //Modified By Sandro
              [ <lnoClosable: NOCLOSABLE> ]  ;
              [ ON INIT <bInit> ]            ;
              [ ON SIZE <bSize> ]            ;
@@ -31,9 +31,9 @@
 
 #xcommand ACTIVATE DIALOG <oDlg>       ;
              [ <lNoModal: NOMODAL> ]   ;
-             [<lMaximized: MAXIMIZED>] ;
-             [<lMinimized: MINIMIZED>] ;
-             [<lCenter: CENTER>]       ;
+             [ <lMaximized: MAXIMIZED> ] ;
+             [ <lMinimized: MINIMIZED> ] ;
+             [ <lCenter: CENTER> ]       ;
              [ ON ACTIVATE <bInit> ]   ;
           => ;
           <oDlg>:Activate( <.lNoModal.>, <.lMaximized.>, <.lMinimized.>, <.lCenter.>, <bInit> )

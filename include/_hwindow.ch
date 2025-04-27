@@ -2,7 +2,7 @@
 
 #xcommand INIT WINDOW <oWnd>                ;
              [ MAIN ]                       ;
-             [<lMdi: MDI>]                  ;
+             [ <lMdi: MDI> ]                  ;
              [ APPNAME <appname> ]          ;
              [ TITLE <cTitle> ]             ;
              [ AT <nX>, <nY> ]                ;
@@ -88,10 +88,10 @@
                    <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
 
 #xcommand ACTIVATE WINDOW <oWnd> ;
-               [<lNoShow: NOSHOW>] ;
-               [<lMaximized: MAXIMIZED>] ;
-               [<lMinimized: MINIMIZED>] ;
-               [<lCenter: CENTER>]       ;
+               [ <lNoShow: NOSHOW> ] ;
+               [ <lMaximized: MAXIMIZED> ] ;
+               [ <lMinimized: MINIMIZED> ] ;
+               [ <lCenter: CENTER> ]       ;
                [ ON ACTIVATE <bInit> ]   ;
            => ;
       <oWnd>:Activate( !<.lNoShow.>, <.lMaximized.>, <.lMinimized.>, <.lCenter.>, <bInit> )

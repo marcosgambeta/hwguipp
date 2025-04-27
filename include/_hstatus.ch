@@ -1,6 +1,6 @@
 // NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
 
-#xcommand ADD STATUS [<oStat>] [ TO <oWnd> ] ;
+#xcommand ADD STATUS [ <oStat> ] [ TO <oWnd> ] ;
             [ ID <nId> ]           ;
             [ ON INIT <bInit> ]    ;
             [ ON SIZE <bSize> ]    ;
@@ -21,5 +21,5 @@
             [ ON PAINT <bDraw> ]       ;
             [ PARTS <bChange,...> ]    ;
           => ;
-    [<oSay> := ] HStatus():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,\{<bChange>\} ) ;
+    [ <oSay> := ] HStatus():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,\{<bChange>\} ) ;
     [; hwg_SetCtrlName( <oSay>,<(oSay)> )]

@@ -18,13 +18,13 @@
                  [ COLOR <nColor>] [ FONT <font> ] ;
                  [ COORDINATES  <xt>, <yt> ] ;
             ] ;
-            [ BITMAP <bmp>  [<res: FROM RESOURCE>] [<ltr: TRANSPARENT> [COLOR  <trcolor> ]] ;
+            [ BITMAP <bmp>  [ <res: FROM RESOURCE> ] [ <ltr: TRANSPARENT> [COLOR  <trcolor> ] ] ;
                  [ COORDINATES  <xb>, <yb>, <widthb>, <heightb> ] ;
             ] ;
             [ STYLE <nStyle> ]      ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oShBtn> :=] __IIF(<.class.>, <classname>, HSHADEBUTTON)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [ <oShBtn> := ] __IIF(<.class.>, <classname>, HSHADEBUTTON)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
           <nHeight>,<bInit>,<bSize>,<bPaint>, ;
           <bClick>,<.flat.>, ;
               <cText>,<nColor>,<font>,<xt>, <yt>, ;

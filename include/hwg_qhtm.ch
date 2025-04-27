@@ -16,7 +16,7 @@
              [ ON SUBMIT <bSubmit> ]     ;
              [ STYLE <nStyle> ]          ;
           => ;
-          [<oQhtm> :=] HQhtm():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>, ;
+          [ <oQhtm> := ] HQhtm():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>, ;
              <caption>,<bInit>,<bSize>,<bLink>,<bSubmit>,<fname>,<resname> )
 
 #xcommand REDEFINE QHTM [ <oQhtm> ]     ;
@@ -30,7 +30,7 @@
              [ ON CLICK <bLink> ]        ;
              [ ON SUBMIT <bSubmit> ]     ;
           => ;
-          [<oQhtm> :=] HQhtm():Redefine( <oWnd>,<nId>,<caption>, ;
+          [ <oQhtm> := ] HQhtm():Redefine( <oWnd>,<nId>,<caption>, ;
              <bInit>,<bSize>,<bLink>,,<bSubmit><fname>,<resname> )
 
 #xcommand @ <nX>, <nY> QHTMBUTTON [ <oBut> CAPTION ] <caption> ;
@@ -44,7 +44,7 @@
              [ ON CLICK <bClick> ]      ;
              [ STYLE <nStyle> ]         ;
           => ;
-          [<oBut> := ] HQhtmButton():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [ <oBut> := ] HQhtmButton():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bClick>,<cTooltip> )
 
 #xcommand REDEFINE QHTMBUTTON [ <oBut> CAPTION ] <caption> ;
@@ -56,7 +56,7 @@
              [ ON CLICK <bClick> ]      ;
              [ TOOLTIP <cTooltip> ]       ;
           => ;
-          [<oBut> := ] HQhtmButton():Redefine( <oWnd>,<nId>,<caption>,<oFont>,<bInit>,<bSize>, ;
+          [ <oBut> := ] HQhtmButton():Redefine( <oWnd>,<nId>,<caption>,<oFont>,<bInit>,<bSize>, ;
              <bClick>,<cTooltip> )
 
 #endif /* __HWG_QHTM_CH__ */

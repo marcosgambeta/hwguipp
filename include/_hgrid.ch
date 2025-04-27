@@ -57,5 +57,5 @@
             [ ON PAINT <bDraw> ]       ;
             [ ITEM <aitem>];
           => ;
-    [<oSay> := ] HGRIDex():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,<aitem> );
+    [ <oSay> := ] HGRIDex():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,<aitem> );
     [; hwg_SetCtrlName( <oSay>,<(oSay)> )]

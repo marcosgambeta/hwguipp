@@ -12,11 +12,11 @@
             [ ON SIZE <bSize> ]        ;
             [ ON PAINT <bDraw> ]       ;
             [ ON CLICK <bClick> ]      ;
-            [<lTransp: TRANSPARENT>]   ;
+            [ <lTransp: TRANSPARENT> ]   ;
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oRadio> := ] __IIF(<.class.>, <classname>, HRadioButton)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>, ;
+    [ <oRadio> := ] __IIF(<.class.>, <classname>, HRadioButton)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>, ;
          <nWidth>,<nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.> );
     [; hwg_SetCtrlName( <oRadio>,<(oRadio)> )]
 
@@ -32,6 +32,6 @@
             [ FONT <oFont> ]           ;
             [ TOOLTIP <cTooltip> ]       ;
           => ;
-    [<oRadio> := ] HRadioButton():Redefine( <oWnd>,<nId>,<oFont>,<bInit>,<bSize>, ;
+    [ <oRadio> := ] HRadioButton():Redefine( <oWnd>,<nId>,<oFont>,<bInit>,<bSize>, ;
           <bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor> );
     [; hwg_SetCtrlName( <oRadio>,<(oRadio)> )]

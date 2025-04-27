@@ -13,10 +13,10 @@
             [ ON CLICK <bClick> ]      ;
             [ ON GETFOCUS <bGetFocus> ];
             [ ON LOSTFOCUS <bLostFocus>];
-            [ BITMAP <aBmp>  [<res: FROM RESOURCE>] [ BITCOUNT <nBC> ] ]  ;
+            [ BITMAP <aBmp>  [ <res: FROM RESOURCE> ] [ BITCOUNT <nBC> ] ]  ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oTab> := ] __IIF(<.class.>, <classname>, HTab)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [ <oTab> := ] __IIF(<.class.>, <classname>, HTab)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<oFont>,<bInit>,<bSize>,<bDraw>,<aItems>,<bChange>, <aBmp>, <.res.>,<nBC>,;
              <bClick>, <bGetFocus>, <bLostFocus> );
     [; hwg_SetCtrlName( <oTab>,<(oTab)> )]
@@ -42,5 +42,5 @@
             [ COLOR <nColor> ]          ;
             [ BACKCOLOR <nBackColor> ]     ;
           => ;
-    [<oTab> := ] Htab():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, ,<nColor>,<nBackColor>, , );
+    [ <oTab> := ] Htab():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, ,<nColor>,<nBackColor>, , );
     [; hwg_SetCtrlName( <oTab>,<(oTab)> )]

@@ -1,7 +1,7 @@
 // NOTE: DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
 
 #xcommand @ <nX>, <nY> ICON [ <oIco> SHOW ] <icon> ;
-            [<res: FROM RESOURCE>]     ;
+            [ <res: FROM RESOURCE> ]     ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
             [ SIZE <nWidth>, <nHeight> ] ;
@@ -12,18 +12,18 @@
             [ ON DBLCLICK <bDblClick> ];
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oIco> := ] __IIF(<.class.>, <classname>, HSayIcon)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
+    [ <oIco> := ] __IIF(<.class.>, <classname>, HSayIcon)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
         <nHeight>,<icon>,<.res.>,<bInit>,<bSize>,<cTooltip>,,<bClick>,<bDblClick> );
     [; hwg_SetCtrlName( <oIco>,<(oIco)> )]
 
 #xcommand REDEFINE ICON [ <oIco> SHOW ] <icon> ;
-            [<res: FROM RESOURCE>]     ;
+            [ <res: FROM RESOURCE> ]     ;
             [ OF <oWnd> ]              ;
             ID <nId>                   ;
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ TOOLTIP <cTooltip> ]       ;
           => ;
-    [<oIco> := ] HSayIcon():Redefine( <oWnd>,<nId>,<icon>,<.res.>, ;
+    [ <oIco> := ] HSayIcon():Redefine( <oWnd>,<nId>,<icon>,<.res.>, ;
         <bInit>,<bSize>,<cTooltip> );
     [; hwg_SetCtrlName( <oIco>,<(oIco)> )]

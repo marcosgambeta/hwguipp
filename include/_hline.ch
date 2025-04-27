@@ -4,9 +4,9 @@
             [ LENGTH <length> ]        ;
             [ OF <oWnd> ]              ;
             [ ID <nId> ]               ;
-            [<lVert: VERTICAL>]        ;
+            [ <lVert: VERTICAL> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oLine> := ] __IIF(<.class.>, <classname>, HLine)():New( <oWnd>,<nId>,<.lVert.>,<nX>,<nY>,<length>,<bSize> );
+    [ <oLine> := ] __IIF(<.class.>, <classname>, HLine)():New( <oWnd>,<nId>,<.lVert.>,<nX>,<nY>,<length>,<bSize> );
     [; hwg_SetCtrlName( <oLine>,<(oLine)> )]

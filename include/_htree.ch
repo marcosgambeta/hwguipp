@@ -10,12 +10,12 @@
             [ ON INIT <bInit> ]        ;
             [ ON SIZE <bSize> ]        ;
             [ ON CLICK <bClick> ]      ;
-            [<lEdit: EDITABLE>]        ;
-            [ BITMAP <aBmp>  [<res: FROM RESOURCE>] [ BITCOUNT <nBC> ] ]  ;
+            [ <lEdit: EDITABLE> ]        ;
+            [ BITMAP <aBmp>  [ <res: FROM RESOURCE> ] [ BITCOUNT <nBC> ] ]  ;
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [<oTree> := ] __IIF(<.class.>, <classname>, HTree)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+    [ <oTree> := ] __IIF(<.class.>, <classname>, HTree)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<oFont>,<bInit>,<bSize>,<nColor>,<nBackColor>,<aBmp>,<.res.>,<.lEdit.>,<bClick>,<nBC> );
     [; hwg_SetCtrlName( <oTree>,<(oTree)> )]
 
@@ -26,4 +26,4 @@
             [ BITMAP <aBmp> ]                     ;
             [ ON CLICK <bClick> ]                 ;
           => ;
-    [<oNode> := ] <oTree>:AddNode( <cTitle>,<oPrev>,<oNext>,<bClick>,<aBmp> )
+    [ <oNode> := ] <oTree>:AddNode( <cTitle>,<oPrev>,<oNext>,<bClick>,<aBmp> )
