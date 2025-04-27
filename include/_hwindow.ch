@@ -97,25 +97,25 @@
       <oWnd>:Activate( !<.lNoShow.>, <.lMaximized.>, <.lMinimized.>, <.lCenter.>, <bInit> )
 
 #xcommand CENTER WINDOW <oWnd> ;
-	=>;
+   =>;
         <oWnd>:Center()
 
 #xcommand MAXIMIZE WINDOW <oWnd> ;
-	=>;
+   =>;
         <oWnd>:Maximize()
 
 #xcommand MINIMIZE WINDOW <oWnd> ;
-	=>;
+   =>;
         <oWnd>:Minimize()
 
 #xcommand RESTORE WINDOW <oWnd> ;
-	=>;
+   =>;
         <oWnd>:Restore()
 
 #xcommand SHOW WINDOW <oWnd> ;
-	=>;
+   =>;
         <oWnd>:Show()
 
 #xcommand HIDE WINDOW <oWnd> ;
-	=>;
+   =>;
         <oWnd>:Hide()

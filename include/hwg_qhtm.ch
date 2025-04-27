@@ -1,7 +1,7 @@
 #ifndef __HWG_QHTM_CH__
 #define __HWG_QHTM_CH__
 
-#define QHTMN_HYPERLINK		1
+#define QHTMN_HYPERLINK      1
 
 #xcommand @ <nX>, <nY> QHTM [ <oQhtm> ]    ;
              [ CAPTION  <caption> ]      ;

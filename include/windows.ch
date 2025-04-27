@@ -81,7 +81,7 @@
 #define WM_LBUTTONDBLCLK                515    // 0x0203
 #define WM_RBUTTONDOWN                  516    // 0x0204
 #define WM_RBUTTONUP                    517    // 0x0205
-#define WM_MBUTTONUP	                520    // 0x0208
+#define WM_MBUTTONUP                   520    // 0x0208
 #define WM_PARENTNOTIFY                 528    // 0x0210
 #define WM_MDICREATE                    544     // 0x0220
 #define WM_MDIDESTROY                   545     // 0x0221
@@ -519,7 +519,7 @@
 #define TCM_FIRST               4864     // Tab control messages
 #define TCM_SETIMAGELIST        4867     // (TCM_FIRST + 3)
 #define TCM_GETITEMCOUNT        4868     // (TCM_FIRST + 4)
-#define TCM_GETCURSEL           4875		 // TCM_FIRST + 11)
+#define TCM_GETCURSEL           4875       // TCM_FIRST + 11)
 #define TCM_SETCURSEL           4876     // (TCM_FIRST + 12)
 #define TCM_GETCURFOCUS         4911     // (TCM_FIRST + 47)
 #define TCM_SETCURFOCUS         4912     // (TCM_FIRST + 48)

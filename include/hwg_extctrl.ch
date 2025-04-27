@@ -148,7 +148,7 @@
              <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
              <aItems>,<oFont>,,,,<bChange>,<cTooltip>, ;
              <.edit.>,<.text.>,<bWhen>,<nColor>,<nBackColor>, ;
-						 <bValid>,<acheck>,<nDisplay>,<nhItem>,<ncWidth>, <aImages> );;
+                   <bValid>,<acheck>,<nDisplay>,<nhItem>,<ncWidth>, <aImages> );;
           [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
 
 #endif // HWG_EXTCTRL_CH
