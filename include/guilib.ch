@@ -75,7 +75,7 @@
 #ifdef __LINUX__
    /* for some ancient [x]Harbour versions which do not set __PLATFORM__UNIX */
    #ifndef __PLATFORM__UNIX
-      #define  __PLATFORM__UNIX
+      #define __PLATFORM__UNIX
    #endif
 #endif
 

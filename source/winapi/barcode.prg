@@ -9,7 +9,7 @@
 #include <hbclass.ch>
 #include "hwguipp.ch"
 
-//#DEFINE __DEVELOP__
+//#define __DEVELOP__
 
 #ifdef __DEVELOP__
 

@@ -9,7 +9,7 @@
 #include <hbclass.ch>
 #include "hwguipp.ch"
 
-#define  TIMER_FIRST_ID   33900
+#define TIMER_FIRST_ID   33900
 
 CLASS HTimer INHERIT HObject
 

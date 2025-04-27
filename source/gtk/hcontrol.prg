@@ -11,7 +11,7 @@
 
 REQUEST HWG_ENDWINDOW
 
-#define  CONTROL_FIRST_ID   34000
+#define CONTROL_FIRST_ID   34000
 
 Function hwg_SetCtrlName( oCtrl, cName )
    

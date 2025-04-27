@@ -8,7 +8,7 @@
 #include <hbclass.ch>
 #include "hwguipp.ch"
 
-#define  HILI_LEN       8
+#define HILI_LEN       8
 
 #define UNDO_LINE1      1
 #define UNDO_POS1       2

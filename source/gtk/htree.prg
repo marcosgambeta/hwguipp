@@ -21,9 +21,9 @@
  /* Moved to windows.ch */
  // #define HDM_GETITEMCOUNT    4608
 
-#define  CLR_WHITE      16777215
-#define  CLR_MGREEN      8421440
-#define  CLR_VDBLUE     10485760
+#define CLR_WHITE      16777215
+#define CLR_MGREEN      8421440
+#define CLR_VDBLUE     10485760
 
 STATIC s_crossCursor := NIL // TODO: not used
 STATIC s_arrowCursor := NIL // TODO: not used

@@ -12,8 +12,8 @@
 #include "hxml.ch"
 #include "designer.ch"
 
-#define  LEFT_INDENT   40
-#define  TOP_INDENT    30
+#define LEFT_INDENT   40
+#define TOP_INDENT    30
 
 Static aG := { "left","top","width","height","right","bottom" }
 

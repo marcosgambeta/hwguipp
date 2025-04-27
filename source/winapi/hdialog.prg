@@ -9,7 +9,7 @@
 #include <hbclass.ch>
 #include "hwguipp.ch"
 
-#define  WM_PSPNOTIFY         WM_USER+1010
+#define WM_PSPNOTIFY         WM_USER+1010
 
 STATIC s_aSheet := NIL
 
@@ -374,7 +374,7 @@ STATIC FUNCTION onEraseBk(oDlg, hDC)
 
    RETURN 0
 
-#define  FLAG_CHECK      2
+#define FLAG_CHECK      2
 
 FUNCTION onDlgCommand(oDlg, wParam, lParam)
 

@@ -9,7 +9,7 @@
 #include <hbclass.ch>
 #include "hwguipp.ch"
 
-#define  IPN_FIELDCHANGED   4294966436
+#define IPN_FIELDCHANGED   4294966436
 
 //- HIPedit
 

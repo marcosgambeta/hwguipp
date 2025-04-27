@@ -9,7 +9,7 @@
 #include "hwguipp.ch"
 #include <common.ch>
 
-#DEFINE TRANSPARENT 1
+#define TRANSPARENT 1
 
 //Contribution   Luis Fernando Basso
 

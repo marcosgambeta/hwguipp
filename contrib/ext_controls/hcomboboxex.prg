@@ -16,7 +16,7 @@
 #include "hwguipp.ch"
 #include <common.ch>
 
-#DEFINE CB_SHOWDROPDOWN             335
+#define CB_SHOWDROPDOWN             335
 #define CB_GETDROPPEDSTATE          343
 #define CB_FINDSTRINGEXACT          344
 #define CB_SETCUEBANNER             5891

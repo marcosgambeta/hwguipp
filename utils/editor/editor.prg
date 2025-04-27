@@ -113,17 +113,17 @@ REQUEST HB_CODEPAGE_DEWIN  && ----  "   -------------
 
 #define TROPT_SEL       1
 
-#define  CLR_BLACK          0
-#define  CLR_GRAY1    5592405  // #555555
-#define  CLR_GRAY2   11184810  // #AAAAAA
+#define CLR_BLACK          0
+#define CLR_GRAY1    5592405  // #555555
+#define CLR_GRAY2   11184810  // #AAAAAA
 
-#define  CLR_VDBLUE  10485760
-#define  CLR_LBLUE   16759929  // #79BCFF
-#define  CLR_LBLUE0  12164479  // #7F9DB9
-#define  CLR_LBLUE1  16773866  // #EAF2FF
-#define  CLR_LBLUE2  16770002  // #D2E3FF
-#define  CLR_LBLUE3  16772062  // #DEEBFF
-#define  CLR_LIGHT1  15132390
+#define CLR_VDBLUE  10485760
+#define CLR_LBLUE   16759929  // #79BCFF
+#define CLR_LBLUE0  12164479  // #7F9DB9
+#define CLR_LBLUE1  16773866  // #EAF2FF
+#define CLR_LBLUE2  16770002  // #D2E3FF
+#define CLR_LBLUE3  16772062  // #DEEBFF
+#define CLR_LIGHT1  15132390
 
 STATIC cNewLine := e"\r\n"
 STATIC cWebBrow

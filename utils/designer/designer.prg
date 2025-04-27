@@ -14,7 +14,7 @@
 
    // #include "extmodul.ch"
 
-#define  MAX_RECENT_FILES  5
+#define MAX_RECENT_FILES  5
 
 #ifdef __GTK__
    #include "gtk.ch"

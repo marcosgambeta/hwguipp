@@ -201,7 +201,7 @@ RETURN (xSay)
 
 // Indonesian Say Money
 
-#define  PECAHAN {"TRILIUN ","MILYAR ","JUTA ","RIBU ","RUPIAH"}
+#define PECAHAN {"TRILIUN ","MILYAR ","JUTA ","RIBU ","RUPIAH"}
 
 FUNCTION SayRupiah(nAngka)
 
