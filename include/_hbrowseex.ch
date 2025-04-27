@@ -33,7 +33,6 @@
              [ FOR <bFor> ]             ; // By Luiz Henrique dos Santos (luizhsantos@gmail.com)
              [ ON OTHER MESSAGES <bOther> ] ;
              [ ON OTHERMESSAGES <bOther>  ] ;
-             [ <class: CLASS> <classname> ] ;
              [ STYLE <nStyle> ]         ;
              [ <class: CLASS> <classname> ]       ;
           => ;
