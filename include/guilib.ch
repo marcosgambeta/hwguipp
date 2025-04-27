@@ -10,21 +10,21 @@
 #define HWG_BUILD               0
 /* ----- End of HWGUI version definition ----- */
 
-#define   WND_MAIN                1
-#define   WND_MDI                 2
+#define WND_MAIN                1
+#define WND_MDI                 2
 #define WND_MDICHILD            3
 #define WND_CHILD               4
-#define   WND_DLG_RESOURCE       10
-#define   WND_DLG_NORESOURCE     11
+#define WND_DLG_RESOURCE       10
+#define WND_DLG_NORESOURCE     11
 
 #define WND_NOTITLE            -1
 #define WND_NOSYSMENU          -2
 #define WND_NOSIZEBOX          -4
 
-#define   OBTN_INIT               0
-#define   OBTN_NORMAL             1
-#define   OBTN_MOUSOVER           2
-#define   OBTN_PRESSED            3
+#define OBTN_INIT               0
+#define OBTN_NORMAL             1
+#define OBTN_MOUSOVER           2
+#define OBTN_PRESSED            3
 
 #define SHS_NOISE               0
 #define SHS_DIAGSHADE           1
@@ -39,23 +39,23 @@
 #define PAL_DEFAULT             0
 #define PAL_METAL               1
 
-#define   BRW_ARRAY               1
-#define   BRW_DATABASE            2
+#define BRW_ARRAY               1
+#define BRW_DATABASE            2
 
-#define   PAINT_LINE_ALL          0
-#define   PAINT_LINE_BACK         1
-#define   PAINT_HEAD_ALL          2
-#define   PAINT_HEAD_BACK         3
-#define   PAINT_FOOT_ALL          4
-#define   PAINT_FOOT_BACK         5
-#define   PAINT_LINE_ITEM        11
-#define   PAINT_HEAD_ITEM        12
-#define   PAINT_FOOT_ITEM        13
-#define   PAINT_BACK              1
-#define   PAINT_ITEM             11
+#define PAINT_LINE_ALL          0
+#define PAINT_LINE_BACK         1
+#define PAINT_HEAD_ALL          2
+#define PAINT_HEAD_BACK         3
+#define PAINT_FOOT_ALL          4
+#define PAINT_FOOT_BACK         5
+#define PAINT_LINE_ITEM        11
+#define PAINT_HEAD_ITEM        12
+#define PAINT_FOOT_ITEM        13
+#define PAINT_BACK              1
+#define PAINT_ITEM             11
 
-#define   PAGE_FIRST              1
-#define   PAGE_LAST               2
+#define PAGE_FIRST              1
+#define PAGE_LAST               2
 
 #define ANCHOR_TOPLEFT         0   // Anchors control to the top and left borders of the container and does not change the distance between the top and left borders. (Default)
 #define ANCHOR_TOPABS          1   // Anchors control to top border of container and does not change the distance between the top border.
