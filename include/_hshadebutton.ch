@@ -24,10 +24,10 @@
             [ STYLE <nStyle> ]      ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [ <oShBtn> := ] __IIF(<.class.>, <classname>, HSHADEBUTTON)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [ <oShBtn> := ] __IIF(<.class.>, <classname>, HSHADEBUTTON)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
           <nHeight>,<bInit>,<bSize>,<bPaint>, ;
           <bClick>,<.flat.>, ;
-              <cText>,<nColor>,<font>,<xt>, <yt>, ;
-              <bmp>,<.res.>,<xb>,<yb>,<widthb>,<heightb>,<.ltr.>,<trcolor>, ;
-              <cTooltip>,!<.enable.>,<shadeID>,<palet>,<granul>,<highl>,<coloring>,<shcolor> );
-    [; hwg_SetCtrlName( <oShBtn>,<(oShBtn)> )]
+          <cText>,<nColor>,<font>,<xt>, <yt>, ;
+          <bmp>,<.res.>,<xb>,<yb>,<widthb>,<heightb>,<.ltr.>,<trcolor>, ;
+          <cTooltip>,!<.enable.>,<shadeID>,<palet>,<granul>,<highl>,<coloring>,<shcolor> );
+          [; hwg_SetCtrlName( <oShBtn>,<(oShBtn)> )]

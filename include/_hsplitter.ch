@@ -13,5 +13,5 @@
             [ LIMITS [ <nFrom> ][, <nTo> ] ]   ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [ <oSplit> := ] __IIF(<.class.>, <classname>, HSplitter)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>,<nHeight>,<bSize>,<bDraw>,<nColor>,<nBackColor>,<aLeft>,<aRight>,<nFrom>,<nTo>,<oStyle> );
-    [; hwg_SetCtrlName( <oSplit>,<(oSplit)> )]
+          [ <oSplit> := ] __IIF(<.class.>, <classname>, HSplitter)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>,<nHeight>,<bSize>,<bDraw>,<nColor>,<nBackColor>,<aLeft>,<aRight>,<nFrom>,<nTo>,<oStyle> );
+          [; hwg_SetCtrlName( <oSplit>,<(oSplit)> )]

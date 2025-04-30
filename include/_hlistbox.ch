@@ -45,7 +45,7 @@
              [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
           => ;
           [ <oListbox> := ] HListBox():Redefine( <oWnd>,<nId>,<nInit>,,<aItems>,<oFont>,<bInit>, ;
-             <bSize>,<bDraw>,<bChange>,<cTooltip>,<bGfocus>,<bLfocus>, <bKeyDown>,<bOther> ) ;;
+          <bSize>,<bDraw>,<bChange>,<cTooltip>,<bGfocus>,<bLfocus>, <bKeyDown>,<bOther> ) ;;
           [; hwg_SetCtrlName( <oListbox>,<(oListbox)> )]
 
 #xcommand @ <nX>, <nY> GET LISTBOX [ <oListbox> VAR ] <vari> ITEMS <aItems> ;
@@ -69,7 +69,7 @@
              [ <class: CLASS> <classname> ]       ;
           => ;
           [ <oListbox> := ] __IIF(<.class.>, <classname>, HListBox)():New( <oWnd>,<nId>,<vari>,;
-             {|v|Iif(v==Nil,<vari>,<vari>:=v)},;
-             <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>, ;
-             <bChange>,<cTooltip>,<nColor>,<nBackColor>,<bGFocus>,<bLFocus>,<bKeyDown>,<bDblClick>,<bOther>);;
+          {|v|Iif(v==Nil,<vari>,<vari>:=v)},;
+          <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>, ;
+          <bChange>,<cTooltip>,<nColor>,<nBackColor>,<bGFocus>,<bLFocus>,<bKeyDown>,<bDblClick>,<bOther>);;
           [; hwg_SetCtrlName( <oListbox>,<(oListbox)> )]

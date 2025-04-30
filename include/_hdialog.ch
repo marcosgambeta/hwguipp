@@ -24,10 +24,10 @@
              [ HELPID <nHelpId> ]           ;
              [ <class: CLASS> <classname> ]       ;
           => ;
-   <oDlg> := __IIF(<.class.>, <classname>, HDialog)():New( Iif(<.res.>,WND_DLG_RESOURCE,WND_DLG_NORESOURCE), ;
-                   <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>,<oFont>,;
-                   <bInit>,<bExit>,<bSize>, <bPaint>,<bGfocus>,<bLfocus>,;
-                   <bOther>,<.lClipper.>,<oBmp>,<ico>,<.lExitOnEnter.>,<nHelpId>,<Resid>,<.lExitOnEsc.>,<nBackColor>,<.lnoClosable.> )
+          <oDlg> := __IIF(<.class.>, <classname>, HDialog)():New( Iif(<.res.>,WND_DLG_RESOURCE,WND_DLG_NORESOURCE), ;
+          <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>,<oFont>,;
+          <bInit>,<bExit>,<bSize>, <bPaint>,<bGfocus>,<bLfocus>,;
+          <bOther>,<.lClipper.>,<oBmp>,<ico>,<.lExitOnEnter.>,<nHelpId>,<Resid>,<.lExitOnEsc.>,<nBackColor>,<.lnoClosable.> )
 
 #xcommand ACTIVATE DIALOG <oDlg>       ;
              [ <lNoModal: NOMODAL> ]   ;

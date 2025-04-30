@@ -21,10 +21,10 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [ <oCombo> := ] __IIF(<.class.>, <classname>, HComboBox)():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
-                  <nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>,<bChange>,<cTooltip>,;
-                  <.edit.>,<.text.>,<bWhen>,<nColor>,<nBackColor>,<bValid>,<nDisplay> );
-    [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
+          [ <oCombo> := ] __IIF(<.class.>, <classname>, HComboBox)():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          <nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>,<bChange>,<cTooltip>,;
+          <.edit.>,<.text.>,<bWhen>,<nColor>,<nBackColor>,<bValid>,<nDisplay> );
+          [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
 
 #xcommand REDEFINE COMBOBOX [ <oCombo> ITEMS ] <aItems> ;
             [ OF <oWnd> ]              ;
@@ -37,9 +37,9 @@
             [ FONT <oFont> ]           ;
             [ TOOLTIP <cTooltip> ]       ;
           => ;
-    [ <oCombo> := ] HComboBox():Redefine( <oWnd>,<nId>,<nInit>,,<aItems>,<oFont>,<bInit>, ;
-             <bSize>,<bDraw>,<bChange>,<cTooltip> );
-    [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
+          [ <oCombo> := ] HComboBox():Redefine( <oWnd>,<nId>,<nInit>,,<aItems>,<oFont>,<bInit>, ;
+          <bSize>,<bDraw>,<bChange>,<cTooltip> );
+          [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
 
 /* SAY ... GET system     */
 
@@ -62,12 +62,12 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [ <oCombo> := ] __IIF(<.class.>, <classname>, HComboBox)():New( <oWnd>,<nId>,<vari>,    ;
-                    {|v|Iif(v==Nil,<vari>,<vari>:=v)},      ;
-                    <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
-                    <aItems>,<oFont>,<bInit>,<bSize>,,<bChange>,<cTooltip>, ;
-                    <.edit.>,<.text.>,<bWhen>,<nColor>,<nBackColor>,<bValid>,<nDisplay> );
-    [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
+          [ <oCombo> := ] __IIF(<.class.>, <classname>, HComboBox)():New( <oWnd>,<nId>,<vari>,    ;
+          {|v|Iif(v==Nil,<vari>,<vari>:=v)},      ;
+          <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
+          <aItems>,<oFont>,<bInit>,<bSize>,,<bChange>,<cTooltip>, ;
+          <.edit.>,<.text.>,<bWhen>,<nColor>,<nBackColor>,<bValid>,<nDisplay> );
+          [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
 
 #xcommand REDEFINE GET COMBOBOX [ <oCombo> VAR ] <vari> ;
             ITEMS  <aItems>            ;
@@ -78,7 +78,7 @@
             [ TOOLTIP <cTooltip> ]       ;
             [ WHEN <bWhen> ]           ;
           => ;
-    [ <oCombo> := ] HComboBox():Redefine( <oWnd>,<nId>,<vari>, ;
-                    {|v|Iif(v==Nil,<vari>,<vari>:=v)},        ;
-                    <aItems>,<oFont>,,,,<bChange>,<cTooltip>, <bWhen> );
-    [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]
+          [ <oCombo> := ] HComboBox():Redefine( <oWnd>,<nId>,<vari>, ;
+          {|v|Iif(v==Nil,<vari>,<vari>:=v)},        ;
+          <aItems>,<oFont>,,,,<bChange>,<cTooltip>, <bWhen> );
+          [; hwg_SetCtrlName( <oCombo>,<(oCombo)> )]

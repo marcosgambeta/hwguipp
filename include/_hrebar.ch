@@ -7,15 +7,17 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [ <oTool> := ] __IIF(<.class.>, <classname>, HREBAR)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,);
-    [; hwg_SetCtrlName( <oTool>,<(oTool)> )]
+          [ <oTool> := ] __IIF(<.class.>, <classname>, HREBAR)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,,,,,,,,);
+          [; hwg_SetCtrlName( <oTool>,<(oTool)> )]
 
 #xcommand ADDBAND <hWnd> to <opage> ;
           [BACKCOLOR <b> ] [FORECOLOR <f>] ;
           [STYLE <nstyle>] [TEXT <t>] ;
-          => <opage>:ADDBARColor(<hWnd>,<f>,<b>,<t>,<nstyle>)
+          => ;
+          <opage>:ADDBARColor(<hWnd>,<f>,<b>,<t>,<nstyle>)
 
 #xcommand ADDBAND <hWnd> to <opage> ;
           [BITMAP <b> ]  ;
           [STYLE <nstyle>] [TEXT <t>] ;
-          => <opage>:ADDBARBITMAP(<hWnd>,<b>,<t>,<nstyle>)
+          => ;
+          <opage>:ADDBARBITMAP(<hWnd>,<b>,<t>,<nstyle>)

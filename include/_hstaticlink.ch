@@ -21,11 +21,10 @@
             [ HOVERCOLOR <hcolor> ]    ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [ <oSay> := ] __IIF(<.class.>, <classname>, HStaticLink)():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, ;
-        <nHeight>, <caption>, <oFont>, <bInit>, <bSize>, <bDraw>, <cTooltip>, ;
-        <nColor>, <nBackColor>, <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
-    [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
-
+          [ <oSay> := ] __IIF(<.class.>, <classname>, HStaticLink)():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, ;
+          <nHeight>, <caption>, <oFont>, <bInit>, <bSize>, <bDraw>, <cTooltip>, ;
+          <nColor>, <nBackColor>, <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
+          [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
 
 #xcommand REDEFINE SAY [ <oSay> CAPTION ] <cCaption>      ;
             [ OF <oWnd> ]              ;
@@ -43,7 +42,7 @@
             [ LINKCOLOR <lcolor> ]     ;
             [ HOVERCOLOR <hcolor> ]    ;
           => ;
-    [ <oSay> := ] HStaticLink():Redefine( <oWnd>, <nId>, <cCaption>, ;
-        <oFont>, <bInit>, <bSize>, <bDraw>, <cTooltip>, <nColor>, <nBackColor>,;
-        <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
-    [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
+          [ <oSay> := ] HStaticLink():Redefine( <oWnd>, <nId>, <cCaption>, ;
+          <oFont>, <bInit>, <bSize>, <bDraw>, <cTooltip>, <nColor>, <nBackColor>,;
+          <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor> );
+          [; hwg_SetCtrlName( <oSay>,<(oSay)> )]

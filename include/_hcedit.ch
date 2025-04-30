@@ -17,6 +17,6 @@
             [ STYLE <nStyle> ]         ;
             [ <class: CLASS> <classname> ]       ;
           => ;
-    [ <oTEdit> := ] __IIF(<.class.>, <classname>, HCEdit)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>, ;
-       <oFont>,<bInit>,<bSize>,<bDraw>,<nColor>,<nBackColor>,<bGfocus>,<bLfocus>, ;
-       <.lNoVScr.>,<.lNoBord.> )
+          [ <oTEdit> := ] __IIF(<.class.>, <classname>, HCEdit)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>, ;
+          <oFont>,<bInit>,<bSize>,<bDraw>,<nColor>,<nBackColor>,<bGfocus>,<bLfocus>, ;
+          <.lNoVScr.>,<.lNoBord.> )

@@ -27,10 +27,10 @@
              [ HELPID <nHelpId> ]           ;
              [ <class: CLASS> <classname> ]       ;
           => ;
-   <oWnd> := __IIF(<.class.>, <classname>, HMainWindow)():New( Iif(<.lMdi.>,WND_MDI,WND_MAIN), ;
-                   <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
-                   <cMenu>,<nPos>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>,;
-                   <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>,<nExclude> )
+          <oWnd> := __IIF(<.class.>, <classname>, HMainWindow)():New( Iif(<.lMdi.>,WND_MDI,WND_MAIN), ;
+          <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
+          <cMenu>,<nPos>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>,;
+          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>,<nExclude> )
 
 #xcommand INIT WINDOW <oWnd> MDICHILD       ;
              [ APPNAME <appname> ]          ;
@@ -54,10 +54,10 @@
              [ HELPID <nHelpId> ]           ;
              [ <class: CLASS> <classname> ]       ;
           => ;
-   <oWnd> := __IIF(<.class.>, <classname>, HMdiChildWindow)():New( ;
-                   <ico>,,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
-                   <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
-                   <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
+          <oWnd> := __IIF(<.class.>, <classname>, HMdiChildWindow)():New( ;
+          <ico>,,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
+          <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
+          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
 
 #xcommand INIT WINDOW <oWnd> CHILD          ;
              APPNAME <appname>              ;
@@ -82,10 +82,10 @@
              [ HELPID <nHelpId> ]           ;
              [ <class: CLASS> <classname> ]       ;
           => ;
-   <oWnd> := __IIF(<.class.>, <classname>, HChildWindow)():New( ;
-                   <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
-                   <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
-                   <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
+          <oWnd> := __IIF(<.class.>, <classname>, HChildWindow)():New( ;
+          <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
+          <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
+          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
 
 #xcommand ACTIVATE WINDOW <oWnd> ;
                [ <lNoShow: NOSHOW> ] ;
@@ -93,29 +93,29 @@
                [ <lMinimized: MINIMIZED> ] ;
                [ <lCenter: CENTER> ]       ;
                [ ON ACTIVATE <bInit> ]   ;
-           => ;
-      <oWnd>:Activate( !<.lNoShow.>, <.lMaximized.>, <.lMinimized.>, <.lCenter.>, <bInit> )
+          => ;
+          <oWnd>:Activate( !<.lNoShow.>, <.lMaximized.>, <.lMinimized.>, <.lCenter.>, <bInit> )
 
 #xcommand CENTER WINDOW <oWnd> ;
-   =>;
-        <oWnd>:Center()
+          =>;
+          <oWnd>:Center()
 
 #xcommand MAXIMIZE WINDOW <oWnd> ;
-   =>;
-        <oWnd>:Maximize()
+          =>;
+          <oWnd>:Maximize()
 
 #xcommand MINIMIZE WINDOW <oWnd> ;
-   =>;
-        <oWnd>:Minimize()
+          =>;
+          <oWnd>:Minimize()
 
 #xcommand RESTORE WINDOW <oWnd> ;
-   =>;
-        <oWnd>:Restore()
+          =>;
+          <oWnd>:Restore()
 
 #xcommand SHOW WINDOW <oWnd> ;
-   =>;
-        <oWnd>:Show()
+          =>;
+          <oWnd>:Show()
 
 #xcommand HIDE WINDOW <oWnd> ;
-   =>;
-        <oWnd>:Hide()
+          =>;
+          <oWnd>:Hide()

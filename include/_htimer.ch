@@ -4,5 +4,5 @@
              VALUE <value> ACTION <bAction> [ <lOnce: ONCE> ];
              [ <class: CLASS> <classname> ]       ;
           => ;
-    <oTimer> := __IIF(<.class.>, <classname>, HTimer)():New( <oWnd>, <id>, <value>, <bAction>, <.lOnce.> );
-    [; hwg_SetCtrlName( <oTimer>,<(oTimer)> )]
+          <oTimer> := __IIF(<.class.>, <classname>, HTimer)():New( <oWnd>, <id>, <value>, <bAction>, <.lOnce.> );
+          [; hwg_SetCtrlName( <oTimer>,<(oTimer)> )]
