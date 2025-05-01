@@ -275,7 +275,7 @@ FUNCTION C_APPEND()
    @  30, 348  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 190, 348 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
-   ACTIVATE DIALOG oDlg CENTER
+   ACTIVATE DIALOG oDlg CENTERED
 
    IF oDlg:lResult
 
@@ -468,7 +468,7 @@ FUNCTION C_COPY()
    @  50, 348  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 250, 348 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
-   ACTIVATE DIALOG oDlg CENTER
+   ACTIVATE DIALOG oDlg CENTERED
 
    IF oDlg:lResult
 

@@ -1949,7 +1949,7 @@ STATIC FUNCTION selectImage()
    @ 32, 210 BUTTON "Ok" ID IDOK SIZE 90, 32 ON SIZE ANCHOR_BOTTOMABS
    @ 276, 210 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS + ANCHOR_RIGHTABS
 
-   ACTIVATE DIALOG oDlg CENTER
+   ACTIVATE DIALOG oDlg CENTERED
 
    IF oDlg:lResult
       RETURN oBrw:nCurrent
@@ -2131,7 +2131,7 @@ STATIC FUNCTION Find()
    @  30, 220 BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T., hwg_EndDialog()}
    @ 270, 220 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
-   ACTIVATE DIALOG oDlg CENTER
+   ACTIVATE DIALOG oDlg CENTERED
 
    IF oDlg:lResult
       IF !Empty(aPointFound := oEdit:Find( cSearch,,,, lSeaCase, lSeaRegex ))
@@ -2479,7 +2479,7 @@ STATIC FUNCTION About()
    Atail(oDlg:aControls):aStyle := { oStyle1, oStyle2 }
    //Atail(oDlg:aControls):aRadius := { 8, 8, 8, 8 }
 
-   ACTIVATE DIALOG oDlg CENTER
+   ACTIVATE DIALOG oDlg CENTERED
 
    hced_Setfocus( oEdit:hEdit )
 

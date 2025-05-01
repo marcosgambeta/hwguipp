@@ -615,7 +615,7 @@ Local oDlg
 
    @ 10, 20 SAY "Wait, please ..." SIZE 140, 22
 
-   ACTIVATE DIALOG oDlg NOMODAL CENTER
+   ACTIVATE DIALOG oDlg NOMODAL CENTERED
 
 Return oDlg
 

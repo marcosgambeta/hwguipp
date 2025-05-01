@@ -47,5 +47,5 @@ INIT Dialog oDlg AT 0, 0 SIZE 500, 400 CLIPPER NOEXIT NOEXITESC
 @ 30, 10 BITMAP oSayMain SHOW nameimg OF oDlg SIZE 100, 90
 
 
-ACTIVATE Dialog oDlg center
+ACTIVATE Dialog oDlg CENTERED
 return NIL
