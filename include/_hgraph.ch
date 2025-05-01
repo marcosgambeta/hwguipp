@@ -12,6 +12,6 @@
             [ ON SIZE <bSize> ]                        ;
             [ <class: CLASS> <classname> ]             ;
           => ;
-          [ <oGraph> := ] __IIF(<.class.>, <classname>, HGraph)():New( <oWnd>,<nId>,<aData>,<nX>,<nY>,<nWidth>, ;
-          <nHeight>,<oFont>,<bSize>,<cTooltip>,<nColor>,<nBackColor> );
-          [; hwg_SetCtrlName( <oGraph>,<(oGraph)> )]
+          [ <oGraph> := ] __IIF(<.class.>, <classname>, HGraph)():New(<oWnd>,<nId>,<aData>,<nX>,<nY>,<nWidth>, ;
+          <nHeight>,<oFont>,<bSize>,<cTooltip>,<nColor>,<nBackColor>);
+          [; hwg_SetCtrlName(<oGraph>,<(oGraph)>)]

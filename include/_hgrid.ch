@@ -25,12 +25,12 @@
             [ STYLE <nStyle> ]             ;
             [ <class: CLASS> <classname> ] ;
           => ;
-          <oGrid> := __IIF(<.class.>, <classname>, HGrid)():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>,;
+          <oGrid> := __IIF(<.class.>, <classname>, HGrid)():New(<oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>,;
           <oFont>, <{bInit}>, <{bSize}>, <{bPaint}>, <{bEnter}>,;
           <{bGfocus}>, <{bLfocus}>, <.lNoScroll.>, <.lNoBord.>,;
           <{bKeyDown}>, <{bPosChg}>, <{bDispInfo}>, <nItemCount>,;
           <.lNoLines.>, <nColor>, <bkcolor>, <.lNoHeader.> ,<aBit>);
-          [; hwg_SetCtrlName( <oGrid>,<(oGrid)> )]
+          [; hwg_SetCtrlName(<oGrid>,<(oGrid)>)]
 
 #xcommand ADD COLUMN TO GRID <oGrid>    ;
             [ HEADER <cHeader> ]        ;
@@ -38,7 +38,7 @@
             [ JUSTIFY HEAD <nJusHead> ] ;
             [ BITMAP <n> ]              ;
           => ;
-          <oGrid>:AddColumn( <cHeader>, <nWidth>, <nJusHead> ,<n>)
+          <oGrid>:AddColumn(<cHeader>, <nWidth>, <nJusHead> ,<n>)
 
 #xcommand ADDROW TO GRID <oGrid>         ;
             [ HEADER <cHeader> ]         ;
@@ -56,7 +56,7 @@
             [ ON INIT <bInit> ]  ;
             [ ON SIZE <bSize> ]  ;
             [ ON PAINT <bDraw> ] ;
-            [ ITEM <aitem>]      ;
+            [ ITEM <aitem> ]     ;
           => ;
-          [ <oSay> := ] HGRIDex():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,<aitem> );
-          [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
+          [ <oSay> := ] HGRIDex():Redefine(<oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,<aitem>);
+          [; hwg_SetCtrlName(<oSay>,<(oSay)>)]

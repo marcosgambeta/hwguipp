@@ -28,12 +28,12 @@
             [ <lCheck: CHECK> ]                               ;
             [ <class: CLASS> <classname> ]                    ;
           => ;
-          [ <oOwnBtn> := ] __IIF(<.class.>, <classname>, HOWNBUTTON)():New( <oWnd>,<nId>,\{<aStyles>\},<nX>,<nY>,<nWidth>, ;
+          [ <oOwnBtn> := ] __IIF(<.class.>, <classname>, HOWNBUTTON)():New(<oWnd>,<nId>,\{<aStyles>\},<nX>,<nY>,<nWidth>, ;
           <nHeight>,<bInit>,<bSize>,<bPaint>, ;
           <bClick>,<.flat.>, ;
           <cText>,<nColor>,<font>,<xt>, <yt>,<widtht>,<heightt>, ;
-          <bmp>,<.res.>,<xb>,<yb>,<widthb>,<heightb>,<.ltr.>,<trcolor>, <cTooltip>,!<.enable.>,<.lCheck.>,<nBackColor> );
-          [; hwg_SetCtrlName( <oOwnBtn>,<(oOwnBtn)> )]
+          <bmp>,<.res.>,<xb>,<yb>,<widthb>,<heightb>,<.ltr.>,<trcolor>, <cTooltip>,!<.enable.>,<.lCheck.>,<nBackColor>);
+          [; hwg_SetCtrlName(<oOwnBtn>,<(oOwnBtn)>)]
 
 #xcommand REDEFINE OWNERBUTTON [ <oOwnBtn> ]                  ;
             [ OF <oWnd> ]                                     ;
@@ -56,9 +56,9 @@
             [ TOOLTIP <cTooltip> ]                            ;
             [ <enable: DISABLED> ]                            ;
           => ;
-          [ <oOwnBtn> := ] HOWNBUTTON():Redefine( <oWnd>,<nId>, ;
+          [ <oOwnBtn> := ] HOWNBUTTON():Redefine(<oWnd>,<nId>, ;
           <bInit>,<bSize>,<bPaint>, ;
           <bClick>,<.flat.>, ;
           <cText>,<nColor>,<font>,<xt>, <yt>,<widtht>,<heightt>, ;
           <bmp>,<.res.>,<xb>, <yb>,<widthb>,<heightb>,<.ltr.>, <cTooltip>, !<.enable.>);
-          [; hwg_SetCtrlName( <oOwnBtn>,<(oOwnBtn)> )]
+          [; hwg_SetCtrlName(<oOwnBtn>,<(oOwnBtn)>)]

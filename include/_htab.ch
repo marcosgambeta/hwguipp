@@ -19,14 +19,14 @@
             ]                                        ;
             [ <class: CLASS> <classname> ]           ;
           => ;
-          [ <oTab> := ] __IIF(<.class.>, <classname>, HTab)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [ <oTab> := ] __IIF(<.class.>, <classname>, HTab)():New(<oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
           <nHeight>,<oFont>,<bInit>,<bSize>,<bDraw>,<aItems>,<bChange>, <aBmp>, <.res.>,<nBC>,;
-          <bClick>, <bGetFocus>, <bLostFocus> );
-          [; hwg_SetCtrlName( <oTab>,<(oTab)> )]
+          <bClick>, <bGetFocus>, <bLostFocus>);
+          [; hwg_SetCtrlName(<oTab>,<(oTab)>)]
 
 #xcommand BEGIN PAGE <cname> OF <oTab> ;
           => ;
-          <oTab>:StartPage( <cname> )
+          <oTab>:StartPage(<cname>)
 
 #xcommand END PAGE OF <oTab> ;
           => ;
@@ -45,5 +45,5 @@
             [ COLOR <nColor> ]         ;
             [ BACKCOLOR <nBackColor> ] ;
           => ;
-          [ <oTab> := ] Htab():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, ,<nColor>,<nBackColor>, , );
-          [; hwg_SetCtrlName( <oTab>,<(oTab)> )]
+          [ <oTab> := ] Htab():Redefine(<oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, ,<nColor>,<nBackColor>, ,);
+          [; hwg_SetCtrlName(<oTab>,<(oTab)>)]

@@ -16,9 +16,9 @@
             [ STYLE <nStyle> ]                                    ;
             [ <class: CLASS> <classname> ]                        ;
           => ;
-          [ <oRadio> := ] __IIF(<.class.>, <classname>, HRadioButton)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>, ;
-          <nWidth>,<nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.> );
-          [; hwg_SetCtrlName( <oRadio>,<(oRadio)> )]
+          [ <oRadio> := ] __IIF(<.class.>, <classname>, HRadioButton)():New(<oWnd>,<nId>,<nStyle>,<nX>,<nY>, ;
+          <nWidth>,<nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.>);
+          [; hwg_SetCtrlName(<oRadio>,<(oRadio)>)]
 
 #xcommand REDEFINE RADIOBUTTON [ <oRadio> ] ;
             [ OF <oWnd> ]                   ;
@@ -32,6 +32,6 @@
             [ FONT <oFont> ]                ;
             [ TOOLTIP <cTooltip> ]          ;
           => ;
-          [ <oRadio> := ] HRadioButton():Redefine( <oWnd>,<nId>,<oFont>,<bInit>,<bSize>, ;
-          <bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor> );
-          [; hwg_SetCtrlName( <oRadio>,<(oRadio)> )]
+          [ <oRadio> := ] HRadioButton():Redefine(<oWnd>,<nId>,<oFont>,<bInit>,<bSize>, ;
+          <bDraw>,<bClick>,<cTooltip>,<nColor>,<nBackColor>);
+          [; hwg_SetCtrlName(<oRadio>,<(oRadio)>)]

@@ -10,9 +10,9 @@
             [ QUANTITY <nRange> ]          ;
             [ <class: CLASS> <classname> ] ;
           =>                               ;
-          <oPBar> :=  __IIF(<.class.>, <classname>, HProgressBar)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
-          <nHeight>,<maxpos>,<nRange> );
-          [; hwg_SetCtrlName( <oPBar>,<(oPBar)> )]
+          <oPBar> :=  __IIF(<.class.>, <classname>, HProgressBar)():New(<oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
+          <nHeight>,<maxpos>,<nRange>);
+          [; hwg_SetCtrlName(<oPBar>,<(oPBar)>)]
 
 #xcommand REDEFINE progress [ <oBmp> ] ;
             [ OF <oWnd> ]              ;
@@ -23,6 +23,6 @@
             [ MAXPOS <mpos> ]          ;
             [ RANGE <nRange> ]         ;
           => ;
-          [ <oBmp> := ] HProgressBar():Redefine( <oWnd>,<nId>,<mpos>,<nRange>, ;
-          <bInit>,<bSize>,,<cTooltip> );
-          [; hwg_SetCtrlName( <oBmp>,<(oBmp)> )]
+          [ <oBmp> := ] HProgressBar():Redefine(<oWnd>,<nId>,<mpos>,<nRange>, ;
+          <bInit>,<bSize>,,<cTooltip>);
+          [; hwg_SetCtrlName(<oBmp>,<(oBmp)>)]

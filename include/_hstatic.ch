@@ -15,9 +15,9 @@
             [ STYLE <nStyle> ]                          ;
             [ <class: CLASS> <classname> ]              ;
           => ;
-          [ <oSay> := ] __IIF(<.class.>, <classname>, HStatic)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
-          <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.> );
-          [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
+          [ <oSay> := ] __IIF(<.class.>, <classname>, HStatic)():New(<oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.>);
+          [; hwg_SetCtrlName(<oSay>,<(oSay)>)]
 
 #xcommand REDEFINE SAY [ <oSay> CAPTION ] <cCaption> ;
             [ OF <oWnd> ]                            ;
@@ -31,6 +31,6 @@
             [ FONT <oFont> ]                         ;
             [ TOOLTIP <cTooltip> ]                   ;
           => ;
-          [ <oSay> := ] HStatic():Redefine( <oWnd>,<nId>,<cCaption>, ;
-          <oFont>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.> );
-          [; hwg_SetCtrlName( <oSay>,<(oSay)> )]
+          [ <oSay> := ] HStatic():Redefine(<oWnd>,<nId>,<cCaption>, ;
+          <oFont>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<nColor>,<nBackColor>,<.lTransp.>);
+          [; hwg_SetCtrlName(<oSay>,<(oSay)>)]

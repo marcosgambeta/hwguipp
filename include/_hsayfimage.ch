@@ -10,9 +10,9 @@
             [ TYPE <ctype> ]                           ;
             [ <class: CLASS> <classname> ]             ;
           => ;
-          [ <oImage> := ] __IIF(<.class.>, <classname>, HSayFImage)():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
-          <nHeight>,<image>,<bInit>,<bSize>,<cTooltip>,<ctype> );
-          [; hwg_SetCtrlName( <oImage>,<(oImage)> )]
+          [ <oImage> := ] __IIF(<.class.>, <classname>, HSayFImage)():New(<oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
+          <nHeight>,<image>,<bInit>,<bSize>,<cTooltip>,<ctype>);
+          [; hwg_SetCtrlName(<oImage>,<(oImage)>)]
 
 #xcommand REDEFINE IMAGE [ <oImage> SHOW ] <image> ;
             [ OF <oWnd> ]                          ;
@@ -21,6 +21,6 @@
             [ ON SIZE <bSize> ]                    ;
             [ TOOLTIP <cTooltip> ]                 ;
           => ;
-          [ <oImage> := ] HSayFImage():Redefine( <oWnd>,<nId>,<image>, ;
-          <bInit>,<bSize>,<cTooltip> );
-          [; hwg_SetCtrlName( <oImage>,<(oImage)> )]
+          [ <oImage> := ] HSayFImage():Redefine(<oWnd>,<nId>,<image>, ;
+          <bInit>,<bSize>,<cTooltip>);
+          [; hwg_SetCtrlName(<oImage>,<(oImage)>)]

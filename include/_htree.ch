@@ -18,9 +18,9 @@
             [ STYLE <nStyle> ]             ;
             [ <class: CLASS> <classname> ] ;
           => ;
-          [ <oTree> := ] __IIF(<.class.>, <classname>, HTree)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
-          <nHeight>,<oFont>,<bInit>,<bSize>,<nColor>,<nBackColor>,<aBmp>,<.res.>,<.lEdit.>,<bClick>,<nBC> );
-          [; hwg_SetCtrlName( <oTree>,<(oTree)> )]
+          [ <oTree> := ] __IIF(<.class.>, <classname>, HTree)():New(<oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          <nHeight>,<oFont>,<bInit>,<bSize>,<nColor>,<nBackColor>,<aBmp>,<.res.>,<.lEdit.>,<bClick>,<nBC>);
+          [; hwg_SetCtrlName(<oTree>,<(oTree)>)]
 
 #xcommand INSERT NODE [ <oNode> CAPTION ] <cTitle> ;
             TO <oTree>                             ;
@@ -29,4 +29,4 @@
             [ BITMAP <aBmp> ]                      ;
             [ ON CLICK <bClick> ]                  ;
           => ;
-          [ <oNode> := ] <oTree>:AddNode( <cTitle>,<oPrev>,<oNext>,<bClick>,<aBmp> )
+          [ <oNode> := ] <oTree>:AddNode(<cTitle>,<oPrev>,<oNext>,<bClick>,<aBmp>)

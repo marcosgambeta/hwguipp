@@ -25,11 +25,11 @@
             [ STYLE <nStyle> ]             ;
             [ <class: CLASS> <classname> ] ;
           => ;
-          [ <oBrw> := ] __IIF(<.class.>, <classname>, HBrowse)():New( Iif(<.lDb.>,BRW_DATABASE,Iif(<.lArr.>,BRW_ARRAY,0)),;
+          [ <oBrw> := ] __IIF(<.class.>, <classname>, HBrowse)():New(IIf(<.lDb.>, BRW_DATABASE, IIf(<.lArr.>, BRW_ARRAY, 0)),;
           <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>, ;
           <bDraw>,<bEnter>,<bGfocus>,<bLfocus>,<.lNoVScr.>,<.lNoBord.>, <.lAppend.>,;
-          <.lAutoedit.>, <bUpdate>, <bKeyDown>, <bPosChg>, <.lMulti.>, <bRClick> );
-          [; hwg_SetCtrlName( <oBrw>,<(oBrw)> )]
+          <.lAutoedit.>, <bUpdate>, <bKeyDown>, <bPosChg>, <.lMulti.>, <bRClick>);
+          [; hwg_SetCtrlName(<oBrw>,<(oBrw)>)]
 
 #xcommand REDEFINE BROWSE [ <oBrw> ]   ;
             [ <lArr: ARRAY> ]          ;
@@ -45,9 +45,9 @@
             [ ON LOSTFOCUS <bLfocus> ] ;
             [ FONT <oFont> ]           ;
           => ;
-          [ <oBrw> := ] HBrowse():Redefine( Iif(<.lDb.>,BRW_DATABASE,Iif(<.lArr.>,BRW_ARRAY,Iif(<.lFlt.>,BRW_FILTER,0))),;
-          <oWnd>,<nId>,<oFont>,<bInit>,<bSize>,<bDraw>,<bEnter>,<bGfocus>,<bLfocus> );
-          [; hwg_SetCtrlName( <oBrw>,<(oBrw)> )]
+          [ <oBrw> := ] HBrowse():Redefine(IIf(<.lDb.>, BRW_DATABASE, IIf(<.lArr.>, BRW_ARRAY, IIf(<.lFlt.>, BRW_FILTER, 0))),;
+          <oWnd>,<nId>,<oFont>,<bInit>,<bSize>,<bDraw>,<bEnter>,<bGfocus>,<bLfocus>);
+          [; hwg_SetCtrlName(<oBrw>,<(oBrw)>)]
 
 #xcommand ADD COLUMN <block> TO <oBrw>  ;
             [ HEADER <cHeader> ]        ;
@@ -64,8 +64,8 @@
             [ COLORBLOCK <bClrBlck> ]   ;
             [ BHEADCLICK <bHeadClick> ] ;
           => ;
-          <oBrw>:AddColumn( HColumn():New( <cHeader>,<block>,<cType>,<nLen>,<nDec>,<.lEdit.>,;
-          <nJusHead>, <nJusLine>, <cPict>, <{bValid}>, <{bWhen}>, <aItem>, <{bClrBlck}>, <{bHeadClick}> ) )
+          <oBrw>:AddColumn(HColumn():New(<cHeader>,<block>,<cType>,<nLen>,<nDec>,<.lEdit.>,;
+          <nJusHead>, <nJusLine>, <cPict>, <{bValid}>, <{bWhen}>, <aItem>, <{bClrBlck}>, <{bHeadClick}>))
 
 #xcommand INSERT COLUMN <block> TO <oBrw> ;
             [ HEADER <cHeader> ]          ;
@@ -83,8 +83,8 @@
             [ COLORBLOCK <bClrBlck> ]     ;
             INTO <nPos>                   ;
           => ;
-          <oBrw>:InsColumn( HColumn():New( <cHeader>,<block>,<cType>,<nLen>,<nDec>,<.lEdit.>,;
-          <nJusHead>, <nJusLine>, <cPict>, <{bValid}>, <{bWhen}>, <aItem>, <oBmp>, <{bClrBlck}> ),<nPos> )
+          <oBrw>:InsColumn(HColumn():New(<cHeader>,<block>,<cType>,<nLen>,<nDec>,<.lEdit.>,;
+          <nJusHead>, <nJusLine>, <cPict>, <{bValid}>, <{bWhen}>, <aItem>, <oBmp>, <{bClrBlck}>),<nPos>)
 
 #xcommand @ <nX>, <nY> BROWSE [ <oBrw> ] FILTER ;
             [ OF <oWnd> ]                       ;
@@ -114,8 +114,8 @@
             [ STYLE <nStyle> ]                  ;
             [ <class: CLASS> <classname> ]      ;
           => ;
-          [ <oBrw> := ] __IIF(<.class.>, <classname>, HBrwflt)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>, ;
+          [ <oBrw> := ] __IIF(<.class.>, <classname>, HBrwflt)():New(<oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>, ;
           <bDraw>,<bEnter>,<bGfocus>,<bLfocus>,<.lNoVScr.>,<.lNoBord.>, <.lAppend.>,;
           <.lAutoedit.>, <bUpdate>, <bKeyDown>, <bPosChg>, <.lMulti.>, <.lDescend.>,;
-          <bWhile>, <bFirst>, <bLast>, <bFor>, <bRClick> );
-          [; hwg_SetCtrlName( <oBrw>,<(oBrw)> )]
+          <bWhile>, <bFirst>, <bLast>, <bFor>, <bRClick>);
+          [; hwg_SetCtrlName(<oBrw>,<(oBrw)>)]

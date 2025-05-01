@@ -27,10 +27,10 @@
             [ HELPID <nHelpId> ]                      ;
             [ <class: CLASS> <classname> ]            ;
           => ;
-          <oWnd> := __IIF(<.class.>, <classname>, HMainWindow)():New( Iif(<.lMdi.>,WND_MDI,WND_MAIN), ;
+          <oWnd> := __IIF(<.class.>, <classname>, HMainWindow)():New(IIf(<.lMdi.>, WND_MDI, WND_MAIN), ;
           <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
           <cMenu>,<nPos>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>,;
-          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>,<nExclude> )
+          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>,<nExclude>)
 
 #xcommand INIT WINDOW <oWnd> MDICHILD                 ;
             [ APPNAME <appname> ]                     ;
@@ -57,7 +57,7 @@
           <oWnd> := __IIF(<.class.>, <classname>, HMdiChildWindow)():New( ;
           <ico>,,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
           <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
-          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
+          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>)
 
 #xcommand INIT WINDOW <oWnd> CHILD                    ;
             APPNAME <appname>                         ;
@@ -85,7 +85,7 @@
           <oWnd> := __IIF(<.class.>, <classname>, HChildWindow)():New( ;
           <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
           <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
-          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor> )
+          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>)
 
 #xcommand ACTIVATE WINDOW <oWnd>        ;
             [ <lNoShow: NOSHOW> ]       ;
@@ -94,7 +94,7 @@
             [ <lCenter: CENTER> ]       ;
             [ ON ACTIVATE <bInit> ]     ;  
           => ;
-          <oWnd>:Activate( !<.lNoShow.>, <.lMaximized.>, <.lMinimized.>, <.lCenter.>, <bInit> )
+          <oWnd>:Activate(!<.lNoShow.>, <.lMaximized.>, <.lMinimized.>, <.lCenter.>, <bInit>)
 
 #xcommand CENTER WINDOW <oWnd> ;
           =>;

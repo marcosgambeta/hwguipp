@@ -13,15 +13,15 @@
             [ ON SIZE <bSize> ]                         ;
             [ ON GETFOCUS <bGfocus> ]                   ;
             [ ON LOSTFOCUS <bLfocus> ]                  ;
-            [ ON CHANGE <bChange>]                      ;
+            [ ON CHANGE <bChange> ]                     ;
             [                                           ;
               [ ON OTHER MESSAGES <bOther> ]            ;
-              [ ON OTHERMESSAGES <bOther>]              ;
+              [ ON OTHERMESSAGES <bOther> ]             ;
             ]                                           ;
             [ STYLE <nStyle> ]                          ;
             [ <class: CLASS> <classname> ]              ;
           => ;
-          [ <oEdit> := ] __IIF(<.class.>, <classname>, HRichEdit)():New( <oWnd>,<nId>,<vari>,<nStyle>,<nX>,<nY>,<nWidth>, ;
+          [ <oEdit> := ] __IIF(<.class.>, <classname>, HRichEdit)():New(<oWnd>,<nId>,<vari>,<nStyle>,<nX>,<nY>,<nWidth>, ;
           <nHeight>,<oFont>,<bInit>,<bSize>,<bGfocus>, ;
-          <bLfocus>,<cTooltip>,<nColor>,<nBackColor>,<bOther>,<.lallowtabs.>,<bChange> );
-          [; hwg_SetCtrlName( <oEdit>,<(oEdit)> )]
+          <bLfocus>,<cTooltip>,<nColor>,<nBackColor>,<bOther>,<.lallowtabs.>,<bChange>);
+          [; hwg_SetCtrlName(<oEdit>,<(oEdit)>)]

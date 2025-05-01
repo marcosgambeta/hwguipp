@@ -16,9 +16,9 @@
             [ STYLE <nStyle> ]                                 ;
             [ <class: CLASS> <classname> ]                     ;
           => ;
-          [ <oBut> := ] __IIF(<.class.>, <classname>, HNicebutton)():New( <oWnd>,<nId>,<nStyle>,<nStyleEx>,<nX>,<nY>,<nWidth>, ;
-          <nHeight>,<bInit>,<bClick>,<caption>,<cTooltip>,<r>,<g>,<b> );
-          [; hwg_SetCtrlName( <oBut>,<(oBut)> )]
+          [ <oBut> := ] __IIF(<.class.>, <classname>, HNicebutton)():New(<oWnd>,<nId>,<nStyle>,<nStyleEx>,<nX>,<nY>,<nWidth>, ;
+          <nHeight>,<bInit>,<bClick>,<caption>,<cTooltip>,<r>,<g>,<b>);
+          [; hwg_SetCtrlName(<oBut>,<(oBut)>)]
 
 #xcommand REDEFINE NICEBUTTON [ <oBut> CAPTION ] <caption> ;
             [ OF <oWnd> ]                                  ;
@@ -31,6 +31,6 @@
             [ GREEN <g> ]                                  ;
             [ BLUE <b> ]                                   ;
           => ;
-          [ <oBut> := ] HNicebutton():Redefine( <oWnd>,<nId>,<nStyleEx>, ;
-          <bInit>,<bClick>,<caption>,<cTooltip>,<r>,<g>,<b> );
-          [; hwg_SetCtrlName( <oBut>,<(oBut)> )]
+          [ <oBut> := ] HNicebutton():Redefine(<oWnd>,<nId>,<nStyleEx>, ;
+          <bInit>,<bClick>,<caption>,<cTooltip>,<r>,<g>,<b>);
+          [; hwg_SetCtrlName(<oBut>,<(oBut)>)]
