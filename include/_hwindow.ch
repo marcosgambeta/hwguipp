@@ -87,14 +87,14 @@
           <cMenu>, <oFont>, <bInit>, <bExit>, <bSize>, <bPaint>, ;
           <bGfocus>, <bLfocus>, <bOther>, <appname>, <oBmp>, <cHelp>, <nHelpId>, <nBackColor>)
 
-#xcommand ACTIVATE WINDOW <oWnd>        ;
-            [ <lNoShow: NOSHOW> ]       ;
-            [ <lMaximized: MAXIMIZED> ] ;
-            [ <lMinimized: MINIMIZED> ] ;
-            [ <lCenter: CENTER> ]       ;
-            [ ON ACTIVATE <bInit> ]     ;  
+#xcommand ACTIVATE WINDOW <oWnd>              ;
+            [ <lNoShow: NOSHOW> ]             ;
+            [ <lMaximized: MAXIMIZED> ]       ;
+            [ <lMinimized: MINIMIZED> ]       ;
+            [ <lCentered: CENTER, CENTERED> ] ;
+            [ ON ACTIVATE <bInit> ]           ;
           => ;
-          <oWnd>:Activate(!<.lNoShow.>, <.lMaximized.>, <.lMinimized.>, <.lCenter.>, <bInit>)
+          <oWnd>:Activate(!<.lNoShow.>, <.lMaximized.>, <.lMinimized.>, <.lCentered.>, <bInit>)
 
 #xcommand CENTER WINDOW <oWnd> ;
           =>;
