@@ -39,11 +39,11 @@
             [ <class: CLASS> <classname> ]   ;
           => ;
           [ <oBrw> := ] __IIF(<.class.>, <classname>, HBrowseEx)():New(IIf(<.lDb.>, BRW_DATABASE, IIf(<.lArr.>, BRW_ARRAY, 0)),;
-          <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>, ;
-          <bDraw>,<bEnter>,<bGfocus>,<bLfocus>,<.lNoVScr.>,<.lNoBord.>, <.lAppend.>,;
+          <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>, <oFont>, <bInit>, <bSize>, ;
+          <bDraw>, <bEnter>, <bGfocus>, <bLfocus>, <.lNoVScr.>, <.lNoBord.>, <.lAppend.>,;
           <.lAutoedit.>, <bUpdate>, <bKeyDown>, <bPosChg>, <.lMulti.>, <.lDescend.>,;
-          <bWhile>, <bFirst>, <bLast>, <bFor>, <bOther>, <nColor>, <nBackColor>, <bRClick>,<bChgrowcol>, <cTooltip>);;
-          [; hwg_SetCtrlName(<oBrw>,<(oBrw)>)]
+          <bWhile>, <bFirst>, <bLast>, <bFor>, <bOther>, <nColor>, <nBackColor>, <bRClick>, <bChgrowcol>, <cTooltip>) ;
+          [; hwg_SetCtrlName(<oBrw>, <(oBrw)>)]
 
 #xcommand ADD COLUMNEX <block> TO <oBrw>     ;
             [ HEADER <cHeader> ]             ;
@@ -63,7 +63,7 @@
             [ [ON] COLORBLOCK <bClrBlck> ]   ;
             [ [ON] BHEADCLICK <bHeadClick> ] ;
           => ;
-          <oBrw>:AddColumn(HColumnEx():New(<cHeader>,<block>,<cType>,<nLen>,<nDec>,<.lEdit.>,;
+          <oBrw>:AddColumn(HColumnEx():New(<cHeader>, <block>, <cType>, <nLen>, <nDec>, <.lEdit.>,;
           <nJusHead>, <nJusLine>, <cPict>, <{bValid}>, <{bWhen}>, <aItem>, <{bClrBlck}>, <{bHeadClick}>, <nColor>, <nBackColor>, <bClick>))
 
 #xcommand INSERT COLUMNEX <block> TO <oBrw> ;
@@ -82,5 +82,5 @@
             [ COLORBLOCK <bClrBlck> ]       ;
             INTO <nPos>                     ;
           => ;
-          <oBrw>:InsColumn(HColumnEx():New(<cHeader>,<block>,<cType>,<nLen>,<nDec>,<.lEdit.>,;
-          <nJusHead>, <nJusLine>, <cPict>, <{bValid}>, <{bWhen}>, <aItem>, <oBmp>, <{bClrBlck}>),<nPos>)
+          <oBrw>:InsColumn(HColumnEx():New(<cHeader>, <block>, <cType>, <nLen>, <nDec>, <.lEdit.>,;
+          <nJusHead>, <nJusLine>, <cPict>, <{bValid}>, <{bWhen}>, <aItem>, <oBmp>, <{bClrBlck}>), <nPos>)

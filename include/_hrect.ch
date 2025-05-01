@@ -7,5 +7,5 @@
             [ RECT_STYLE <nST> ]              ;
             [ <class: CLASS> <classname> ]    ;
           => ;
-          <oRect> := __IIF(<.class.>, <classname>, HRect)():New(<oWnd>,<X>,<Y>,<X2>,<Y2>, <.lPress.>, <nST>);
-          [; hwg_SetCtrlName(<oRect>,<(oRect)>)]
+          <oRect> := __IIF(<.class.>, <classname>, HRect)():New(<oWnd>, <X>, <Y>, <X2>, <Y2>, <.lPress.>, <nST>) ;
+          [; hwg_SetCtrlName(<oRect>, <(oRect)>)]

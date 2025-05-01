@@ -20,7 +20,7 @@ Added by Marcos Antonio Gambeta
             [ STYLE <nStyle> ]                            ;
             [ <class: CLASS> <classname> ]                ;
           => ;
-          [ <oMonthCalendar> := ] __IIF(<.class.>, <classname>, HMonthCalendar)():New(<oWnd>,<nId>,<dInit>,<nStyle>,;
-          <nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bChange>,<cTooltip>,;
-          <.notoday.>,<.notodaycircle.>,<.weeknumbers.>);
-          [; hwg_SetCtrlName(<oMonthCalendar>,<(oMonthCalendar)>)]
+          [ <oMonthCalendar> := ] __IIF(<.class.>, <classname>, HMonthCalendar)():New(<oWnd>, <nId>, <dInit>, <nStyle>,;
+          <nX>, <nY>, <nWidth>, <nHeight>, <oFont>, <bInit>, <bChange>, <cTooltip>,;
+          <.notoday.>, <.notodaycircle.>, <.weeknumbers.>) ;
+          [; hwg_SetCtrlName(<oMonthCalendar>, <(oMonthCalendar)>)]

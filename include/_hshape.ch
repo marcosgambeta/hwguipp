@@ -16,5 +16,5 @@
              [ <class: CLASS> <classname> ] ;
           => ;
           [ <oShape> := ] __IIF(<.class.>, <classname>, HShape)():New(<oWnd>, <nId>, <nX>, <nY>, <nWidth>, <nHeight>, ;
-          <nBorder>, <nCurvature>, <nbStyle>,<nfStyle>, <tcolor>, <nBackColor>, <bSize>,<bInit>,<nbackStyle>);
-          [; hwg_SetCtrlName(<oShape>,<(oShape)>)]
+          <nBorder>, <nCurvature>, <nbStyle>, <nfStyle>, <tcolor>, <nBackColor>, <bSize>, <bInit>, <nbackStyle>) ;
+          [; hwg_SetCtrlName(<oShape>, <(oShape)>)]

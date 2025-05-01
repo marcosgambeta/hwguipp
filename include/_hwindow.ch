@@ -28,9 +28,9 @@
             [ <class: CLASS> <classname> ]            ;
           => ;
           <oWnd> := __IIF(<.class.>, <classname>, HMainWindow)():New(IIf(<.lMdi.>, WND_MDI, WND_MAIN), ;
-          <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
-          <cMenu>,<nPos>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>,;
-          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>,<nExclude>)
+          <ico>, <clr>, <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>, <cTitle>, ;
+          <cMenu>, <nPos>, <oFont>, <bInit>, <bExit>, <bSize>, <bPaint>,;
+          <bGfocus>, <bLfocus>, <bOther>, <appname>, <oBmp>, <cHelp>, <nHelpId>, <nBackColor>, <nExclude>)
 
 #xcommand INIT WINDOW <oWnd> MDICHILD                 ;
             [ APPNAME <appname> ]                     ;
@@ -55,9 +55,9 @@
             [ <class: CLASS> <classname> ]            ;
           => ;
           <oWnd> := __IIF(<.class.>, <classname>, HMdiChildWindow)():New( ;
-          <ico>,,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
-          <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
-          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>)
+          <ico>, , <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>, <cTitle>, ;
+          <cMenu>, <oFont>, <bInit>, <bExit>, <bSize>, <bPaint>, ;
+          <bGfocus>, <bLfocus>, <bOther>, <appname>, <oBmp>, <cHelp>, <nHelpId>, <nBackColor>)
 
 #xcommand INIT WINDOW <oWnd> CHILD                    ;
             APPNAME <appname>                         ;
@@ -83,9 +83,9 @@
             [ <class: CLASS> <classname> ]            ;
           => ;
           <oWnd> := __IIF(<.class.>, <classname>, HChildWindow)():New( ;
-          <ico>,<clr>,<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<cTitle>, ;
-          <cMenu>,<oFont>,<bInit>,<bExit>,<bSize>,<bPaint>, ;
-          <bGfocus>,<bLfocus>,<bOther>,<appname>,<oBmp>,<cHelp>,<nHelpId>,<nBackColor>)
+          <ico>, <clr>, <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>, <cTitle>, ;
+          <cMenu>, <oFont>, <bInit>, <bExit>, <bSize>, <bPaint>, ;
+          <bGfocus>, <bLfocus>, <bOther>, <appname>, <oBmp>, <cHelp>, <nHelpId>, <nBackColor>)
 
 #xcommand ACTIVATE WINDOW <oWnd>        ;
             [ <lNoShow: NOSHOW> ]       ;

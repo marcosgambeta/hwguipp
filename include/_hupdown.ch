@@ -18,10 +18,10 @@
             [ STYLE <nStyle> ]                        ;
             [ <class: CLASS> <classname> ]            ;
           => ;
-          [ <oUpd> := ] __IIF(<.class.>, <classname>, HUpDown)():New(<oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
-          <nHeight>,<oFont>,<bInit>,<bSize>,<bDraw>,<bGfocus>,         ;
-          <bLfocus>,<cTooltip>,<nColor>,<nBackColor>,<nUpDWidth>,<nLower>,<nUpper>);
-          [; hwg_SetCtrlName(<oUpd>,<(oUpd)>)]
+          [ <oUpd> := ] __IIF(<.class.>, <classname>, HUpDown)():New(<oWnd>, <nId>, <nInit>, , <nStyle>, <nX>, <nY>, <nWidth>, ;
+          <nHeight>, <oFont>, <bInit>, <bSize>, <bDraw>, <bGfocus>,         ;
+          <bLfocus>, <cTooltip>, <nColor>, <nBackColor>, <nUpDWidth>, <nLower>, <nUpper>) ;
+          [; hwg_SetCtrlName(<oUpd>, <(oUpd)>)]
 
 /* SAY ... GET system     */
 
@@ -42,9 +42,9 @@
             [ STYLE <nStyle> ]                          ;
             [ <class: CLASS> <classname> ]              ;
           => ;
-          [ <oUpd> := ] __IIF(<.class.>, <classname>, HUpDown)():New(<oWnd>,<nId>,<vari>,               ;
+          [ <oUpd> := ] __IIF(<.class.>, <classname>, HUpDown)():New(<oWnd>, <nId>, <vari>,               ;
           {|v|IIf(v == NIL, <vari>, <vari> := v)},              ;
-          <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize>,,  ;
-          <bGfocus>,<bLfocus>,<cTooltip>,<nColor>,<nBackColor>, ;
-          <nUpDWidth>,<nLower>,<nUpper>);
-          [; hwg_SetCtrlName(<oUpd>,<(oUpd)>)]
+          <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>, <oFont>, <bInit>, <bSize>, ,  ;
+          <bGfocus>, <bLfocus>, <cTooltip>, <nColor>, <nBackColor>, ;
+          <nUpDWidth>, <nLower>, <nUpper>) ;
+          [; hwg_SetCtrlName(<oUpd>, <(oUpd)>)]

@@ -16,10 +16,10 @@
             [ STYLE <nStyle> ]                ;
             [ <class: CLASS> <classname> ]    ;
           => ;
-          [ <oPick> := ] __IIF(<.class.>, <classname>, HDatePicker)():New(<oWnd>,<nId>,<dInit>,,<nStyle>,<nX>,<nY>, ;
-          <nWidth>,<nHeight>,<oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<cTooltip>, ;
-          <nColor>,<nBackColor>);
-          [; hwg_SetCtrlName(<oPick>,<(oPick)>)]
+          [ <oPick> := ] __IIF(<.class.>, <classname>, HDatePicker)():New(<oWnd>, <nId>, <dInit>, , <nStyle>, <nX>, <nY>, ;
+          <nWidth>, <nHeight>, <oFont>, <bInit>, <bGfocus>, <bLfocus>, <bChange>, <cTooltip>, ;
+          <nColor>, <nBackColor>) ;
+          [; hwg_SetCtrlName(<oPick>, <(oPick)>)]
 
 /* SAY ... GET system     */
 
@@ -38,8 +38,8 @@
             [ STYLE <nStyle> ]                               ;
             [ <class: CLASS> <classname> ]                   ;
           => ;
-          [ <oPick> := ] __IIF(<.class.>, <classname>, HDatePicker)():New(<oWnd>,<nId>,<vari>,    ;
+          [ <oPick> := ] __IIF(<.class.>, <classname>, HDatePicker)():New(<oWnd>, <nId>, <vari>,    ;
           {|v|IIf(v == NIL, <vari>, <vari> := v)},      ;
-          <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
-          <oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<cTooltip>,<nColor>,<nBackColor>);
-          [; hwg_SetCtrlName(<oPick>,<(oPick)>)]
+          <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>,      ;
+          <oFont>, <bInit>, <bGfocus>, <bLfocus>, <bChange>, <cTooltip>, <nColor>, <nBackColor>) ;
+          [; hwg_SetCtrlName(<oPick>, <(oPick)>)]

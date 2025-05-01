@@ -21,9 +21,9 @@
              [ STYLE <nStyle> ]                            ;
              [ <class: CLASS> <classname> ]                ;
           => ;
-          [ <ogr> := ] __IIF(<.class.>, <classname>, HRadioGroup)():NewRG(<oWnd>,<nId>,<nStyle>,<vari>,;
-          {|v|IIf(v == NIL, <vari>, <vari> := v)},<nX>,<nY>,<nWidth>,<nHeight>,<caption>,<oFont>,;
-          <bInit>,<bSize>,<nColor>,<nBackColor>);;
+          [ <ogr> := ] __IIF(<.class.>, <classname>, HRadioGroup)():NewRG(<oWnd>, <nId>, <nStyle>, <vari>,;
+          {|v|IIf(v == NIL, <vari>, <vari> := v)}, <nX>, <nY>, <nWidth>, <nHeight>, <caption>, <oFont>,;
+          <bInit>, <bSize>, <nColor>, <nBackColor>)
 
 #xcommand END RADIOGROUP [ SELECTED <nSel> ] ;
           => ;

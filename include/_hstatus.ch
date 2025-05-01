@@ -9,9 +9,9 @@
             [ FONT <oFont> ]                   ;
             [ PARTS <aparts,...> ]             ;
           => ;
-          [ <oStat> := ] HStatus():New(<oWnd>,<nId>,<nStyle>,<oFont>,\{<aparts>\},<bInit>,;
-          <bSize>,<bDraw>);
-          [; hwg_SetCtrlName(<oStat>,<(oStat)>)]
+          [ <oStat> := ] HStatus():New(<oWnd>, <nId>, <nStyle>, <oFont>, \{<aparts>\}, <bInit>,;
+          <bSize>, <bDraw>) ;
+          [; hwg_SetCtrlName(<oStat>, <(oStat)>)]
 
 #xcommand REDEFINE STATUS <oSay>    ;
             [ OF <oWnd> ]           ;
@@ -21,5 +21,5 @@
             [ ON PAINT <bDraw> ]    ;
             [ PARTS <bChange,...> ] ;
           => ;
-          [ <oSay> := ] HStatus():Redefine(<oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,\{<bChange>\}) ;
-          [; hwg_SetCtrlName(<oSay>,<(oSay)>)]
+          [ <oSay> := ] HStatus():Redefine(<oWnd>, <nId>, , , <bInit>, <bSize>, <bDraw>, , , , , \{<bChange>\}) ;
+          [; hwg_SetCtrlName(<oSay>, <(oSay)>)]

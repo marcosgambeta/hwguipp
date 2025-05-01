@@ -28,7 +28,7 @@
             [ ACCELERATOR <flag>, <key> ]   ;
             [ <lDisabled: DISABLED> ]       ;
           => ;
-          Hwg_DefineMenuItem(<item>, <nId>, <{act}>, <.lDisabled.>, <flag>, <key>,,, .t.)
+          Hwg_DefineMenuItem(<item>, <nId>, <{act}>, <.lDisabled.>, <flag>, <key>, , , .t.)
 
 #xcommand MENUITEMBITMAP <oMain> ID <nId> BITMAP <bmp> [ <res: FROM RESOURCE> ] ;
           => ;

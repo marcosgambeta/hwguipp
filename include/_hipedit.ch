@@ -11,5 +11,5 @@
             [ STYLE <nStyle> ]                            ;
             [ <class: CLASS> <classname> ]                ;
           => ;
-          [ <oIp> := ] __IIF(<.class.>, <classname>, HIpEdit)():New(<oWnd>,<nId>,<vari>,{|v| IIf(v == NIL, <vari>, <vari> := v)},<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>, <bGfocus>, <bLfocus>);
-          [; hwg_SetCtrlName(<oIp>,<(oIp)>)]
+          [ <oIp> := ] __IIF(<.class.>, <classname>, HIpEdit)():New(<oWnd>, <nId>, <vari>, {|v| IIf(v == NIL, <vari>, <vari> := v)}, <nStyle>, <nX>, <nY>, <nWidth>, <nHeight>, <oFont>, <bGfocus>, <bLfocus>) ;
+          [; hwg_SetCtrlName(<oIp>, <(oIp)>)]

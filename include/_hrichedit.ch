@@ -21,7 +21,7 @@
             [ STYLE <nStyle> ]                          ;
             [ <class: CLASS> <classname> ]              ;
           => ;
-          [ <oEdit> := ] __IIF(<.class.>, <classname>, HRichEdit)():New(<oWnd>,<nId>,<vari>,<nStyle>,<nX>,<nY>,<nWidth>, ;
-          <nHeight>,<oFont>,<bInit>,<bSize>,<bGfocus>, ;
-          <bLfocus>,<cTooltip>,<nColor>,<nBackColor>,<bOther>,<.lallowtabs.>,<bChange>);
-          [; hwg_SetCtrlName(<oEdit>,<(oEdit)>)]
+          [ <oEdit> := ] __IIF(<.class.>, <classname>, HRichEdit)():New(<oWnd>, <nId>, <vari>, <nStyle>, <nX>, <nY>, <nWidth>, ;
+          <nHeight>, <oFont>, <bInit>, <bSize>, <bGfocus>, ;
+          <bLfocus>, <cTooltip>, <nColor>, <nBackColor>, <bOther>, <.lallowtabs.>, <bChange>) ;
+          [; hwg_SetCtrlName(<oEdit>, <(oEdit)>)]

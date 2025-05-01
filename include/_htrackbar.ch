@@ -22,8 +22,8 @@
             [ STYLE <nStyle> ]                  ;
             [ <class: CLASS> <classname> ]      ;
           => ;
-          [ <oTrackBar> := ] __IIF(<.class.>, <classname>, HTrackBar)():New(<oWnd>,<nId>,<nInit>,<nStyle>,<nX>,<nY>,      ;
-          <nWidth>,<nHeight>,<bInit>,<bSize>,<bDraw>,<cTooltip>,<bChange>,<bDrag>,<nLow>,<nHigh>,<.vertical.>,;
+          [ <oTrackBar> := ] __IIF(<.class.>, <classname>, HTrackBar)():New(<oWnd>, <nId>, <nInit>, <nStyle>, <nX>, <nY>,      ;
+          <nWidth>, <nHeight>, <bInit>, <bSize>, <bDraw>, <cTooltip>, <bChange>, <bDrag>, <nLow>, <nHigh>, <.vertical.>,;
           IIf(<.autoticks.>, 1, IIf(<.noticks.>, 16, 0)), ;
-          IIf(<.both.>, 8, IIf(<.top.> .OR. <.left.>, 4, 0)));
-          [; hwg_SetCtrlName(<oTrackBar>,<(oTrackBar)>)]
+          IIf(<.both.>, 8, IIf(<.top.> .OR. <.left.>, 4, 0))) ;
+          [; hwg_SetCtrlName(<oTrackBar>, <(oTrackBar)>)]
