@@ -51,7 +51,7 @@ LOCAL oGet
    ACTIVATE WINDOW oMainWindow MAXIMIZED
    oFont:Release()
 
-Return NIL
+RETURN NIL
 
 Function BuildTree( oMainWindow,oTree,oTab )
 Local oNode
@@ -65,18 +65,18 @@ Local oNode
 
    oTree:bExpand := {||.T.}
 
-Return NIL
+RETURN NIL
 
 Static Function NodeOut( n, oTab )
 
-Local cTitle := "Page " + str(len(oTab:aPages) + 1)
+Local cTitle := "Page " + Str(Len(oTab:aPages) + 1)
 
   oTab:StartPage( cTitle )
 
-  cTitle := "Pages " + str(len(oTab:aPages))
+  cTitle := "Pages " + Str(Len(oTab:aPages))
 
   @ 30, 60 SAY cTitle SIZE 100, 26
 
   oTab:EndPage()
 
-Return NIL
+RETURN NIL

@@ -39,7 +39,7 @@ Private oBmp2
          SEPARATOR
          MENUITEM "&Font" ACTION oFont:=HFont():Select(oFont)
          MENUITEM "&Color" ACTION (nColor:=Hwg_ChooseColor(nColor,.F.), ;
-                     hwg_MsgInfo(Iif(nColor != NIL, str(nColor), "--"), "Color value"))
+                     hwg_MsgInfo(IIf(nColor != NIL, Str(nColor), "--"), "Color value"))
          SEPARATOR
          MENUITEM "&Move Main Window" ACTION oMainWindow:Move(50, 60, 200, 300)
          MENUITEM "&Exit" ACTION hwg_EndWindow()
@@ -71,7 +71,7 @@ Local fname
 Local nId
 
 cdirSep := hwg_GetDirSep()
-mypath := cdirSep + CURDIR() + IIF( EMPTY(CURDIR()), "", cdirSep )
+mypath := cdirSep + CURDIR() + IIf( Empty(CURDIR()), "", cdirSep )
 
 #ifdef __GTK__
 fname := hwg_SelectFileEx(,,{{"Dbf Files","*.dbf"},{"All files","*"}} )
@@ -81,7 +81,7 @@ fname := hwg_Selectfile("Dbf Files" , "*.dbf", mypath )
 
    IF !Empty(fname)
    
-      mypath := cdirSep + CURDIR() + IIF( EMPTY(CURDIR()), "", cdirSep )
+      mypath := cdirSep + CURDIR() + IIf( Empty(CURDIR()), "", cdirSep )
       use &fname new
       nId := 111
 
@@ -110,13 +110,13 @@ fname := hwg_Selectfile("Dbf Files" , "*.dbf", mypath )
 
       ACTIVATE DIALOG oModDlg NOMODAL
    ENDIF
-Return NIL
+RETURN NIL
 
 Function FileClose(oDlg)
    Local oBrw := oDlg:FindControl( 111 )
    dbSelectArea( oBrw:alias )
    dbCloseArea()
-Return .T.
+RETURN .T.
 
 function printdos
 Local han := fcreate("LPT1", 0)
@@ -149,7 +149,7 @@ Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
 
    @ 20, 70 CHECKBOX "Check 1" SIZE 90, 20
    @ 20, 95 CHECKBOX "Check 2"  ;
-        SIZE 90, 20 COLOR Iif( nColor == NIL, 0x0000FF,nColor )
+        SIZE 90, 20 COLOR IIf( nColor == NIL, 0x0000FF,nColor )
 
    @ 160, 70 GROUPBOX "RadioGroup" SIZE 130, 75
 
@@ -183,7 +183,7 @@ Local cRes, aCombo := { "First","Second" }, oEdit, vard := "Monday"
    ACTIVATE DIALOG oModDlg
    oFont:Release()
 
-Return NIL
+RETURN NIL
 
 Function TestTab()
 
@@ -222,7 +222,7 @@ Local oPrinter, oFont
 
    INIT PRINTER oPrinter
    IF oPrinter == NIL      
-      Return NIL         
+      RETURN NIL         
    ENDIF            
                               
    oFont := oPrinter:AddFont( "sans", 10 )
@@ -243,4 +243,4 @@ Local oPrinter, oFont
    oPrinter:Preview()
    oPrinter:End()
 
-Return NIL
+RETURN NIL

@@ -96,7 +96,7 @@ ENDIF
 
    ACTIVATE WINDOW oDlg
 
-Return NIL
+RETURN NIL
 
 FUNCTION TestDialog()
 LOCAL oPanel , oDlg, al_DOKs

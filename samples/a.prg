@@ -49,7 +49,7 @@ Private nColor, oBmp2
          SEPARATOR
          MENUITEM "&Font" ACTION oFont:=HFont():Select(oFont)
          MENUITEM "&Color" ACTION (nColor:=Hwg_ChooseColor(nColor,.F.), ;
-                     hwg_MsgInfo(Iif(nColor != NIL, str(nColor), "--"), "Color value"))
+                     hwg_MsgInfo(IIf(nColor != NIL, Str(nColor), "--"), "Color value"))
          MENUITEM "&Test" ACTION test1()
          SEPARATOR
          MENUITEM "&Move Main Window" ACTION oMainWindow:Move(50, 60, 200, 300)
@@ -67,7 +67,7 @@ Private nColor, oBmp2
          MENUITEM "&Dialog from prg" ACTION DialogFromPrg()
          MENUITEM "&DOS print" ACTION PrintDos()
          // MENUITEM "&Windows print" ;
-         //      ACTION Iif( hwg_OpenReport("a.rpt","Simple"),hwg_PrintReport(,,.T.),.F.)
+         //      ACTION IIf( hwg_OpenReport("a.rpt","Simple"),hwg_PrintReport(,,.T.),.F.)
          MENUITEM "&Print Preview" ACTION PrnTest()
          MENUITEM "&Sending e-mail using Outlook" ACTION Sendemail("test@test.com")
          MENUITEM "&Command ProgressBar" ACTION TestProgres()
@@ -140,17 +140,17 @@ Local e5 := 10320.54
         PICTURE "@e 999,999,999.99"     ;
         SIZE 260, 25
 
-   @ 20, 190  BUTTON "Ok" SIZE 100, 32 ON CLICK {||( hwg_MsgInfo(e1 + chr(10) + chr(13) + ;
-               Dtoc(e2) + chr(10) + chr(13) + ;
-               Str(e3) + chr(10) + chr(13) +  ;
-               e4 + chr(10) + chr(13) +       ;
-               Str(e5) + chr(10) + chr(13)    ;
+   @ 20, 190  BUTTON "Ok" SIZE 100, 32 ON CLICK {||( hwg_MsgInfo(e1 + Chr(10) + Chr(13) + ;
+               Dtoc(e2) + Chr(10) + Chr(13) + ;
+               Str(e3) + Chr(10) + Chr(13) +  ;
+               e4 + Chr(10) + Chr(13) +       ;
+               Str(e5) + Chr(10) + Chr(13)    ;
                , "Results:") ,oChildWnd:Close() )}
    @ 180, 190 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||oChildWnd:Close()}
 
    oChildWnd:Activate()
 
-Return NIL
+RETURN NIL
 
 function NoExit()
 Local oDlg, oGet, vGet:="Dialog if no close in ENTER or EXIT"
@@ -161,7 +161,7 @@ Local oDlg, oGet, vGet:="Dialog if no close in ENTER or EXIT"
    @ 20, 190  BUTTON "Ok" SIZE 100, 32;
    ON CLICK {|| oDlg:Close()}
    oDlg:Activate()
-Return NIL
+RETURN NIL
 
 function OpenAbout
 Local oModDlg, oFontBtn, oFontDlg, oBrw
@@ -228,14 +228,14 @@ Local oSay
    ACTIVATE DIALOG oModDlg
    oIcon:Release()
 
-Return NIL
+RETURN NIL
 
 Static Function About2()
 
 LOCAL oModDlg
 
    IF oBmp2 == NIL
-      Return NIL
+      RETURN NIL
    ENDIF
 
    INIT DIALOG oModDlg TITLE "About2"   ;
@@ -245,23 +245,23 @@ LOCAL oModDlg
 
    ACTIVATE DIALOG oModDlg
 
-Return NIL
+RETURN NIL
 
 Static Function BrwKey( oBrw, key )
    IF key == 32
       oBrw:aArray[oBrw:nCurrent, 1] := !oBrw:aArray[oBrw:nCurrent, 1]
       oBrw:RefreshLine()
    ENDIF
-Return .T.
+RETURN .T.
 
 Function FileOpen
 Local oModDlg, oBrw
-Local mypath := cdirSep + CURDIR() + IIF( EMPTY(CURDIR()), "", cdirSep )
+Local mypath := cdirSep + CURDIR() + IIf( Empty(CURDIR()), "", cdirSep )
 Local fname := hwg_Selectfile( "xBase files( *.dbf )", "*.dbf", mypath )
 Local nId
 
    IF !Empty(fname)
-      mypath := cdirSep + CURDIR() + IIF( EMPTY(CURDIR()), "", cdirSep )
+      mypath := cdirSep + CURDIR() + IIf( Empty(CURDIR()), "", cdirSep )
       // use &fname new codepage RU866
       use &fname new
       nId := 111
@@ -290,13 +290,13 @@ Local nId
 
       ACTIVATE DIALOG oModDlg NOMODAL
    ENDIF
-Return NIL
+RETURN NIL
 
 Function FileClose(oDlg)
    Local oBrw := oDlg:FindControl( 111 )
    dbSelectArea( oBrw:alias )
    dbCloseArea()
-Return .T.
+RETURN .T.
 
 function printdos
 Local han := fcreate("LPT1", 0)
@@ -315,7 +315,7 @@ Local oPrinter, oFont
 
    INIT PRINTER oPrinter
    IF oPrinter == NIL
-      Return NIL
+      RETURN NIL
    ENDIF
 
    oFont := oPrinter:AddFont( "Times New Roman", 10 )
@@ -336,7 +336,7 @@ Local oPrinter, oFont
    oPrinter:Preview()
    oPrinter:End()
 
-Return NIL
+RETURN NIL
 
 Function DialogFromPrg( o )
 Local cTitle := "Dialog from prg", cText := "Input something"
@@ -358,7 +358,7 @@ LOCAL oTab
 
    @ 20, 70 CHECKBOX "Check 1" SIZE 90, 20
    @ 20, 95 CHECKBOX "Check 2"  ;
-        SIZE 90, 20 COLOR Iif( nColor == NIL, 0x0000FF,nColor )
+        SIZE 90, 20 COLOR IIf( nColor == NIL, 0x0000FF,nColor )
 
    @ 160, 70 GROUPBOX "RadioGroup" SIZE 130, 75
 
@@ -394,7 +394,7 @@ LOCAL oTab
    ACTIVATE DIALOG oModDlg
    oFont:Release()
 
-Return NIL
+RETURN NIL
 
 #define DTM_SETFORMAT       4101
 Static Function CreateC( oDlg )
@@ -404,7 +404,7 @@ Static lFirst := .F., o
       lFirst := .T.
    ENDIF
    hwg_Sendmessage( o:handle,DTM_SETFORMAT, 0,"dd':'MM':'yyyy" )
-Return NIL
+RETURN NIL
 
 Function Sendemail(endereco)
 hwg_Shellexecute("rundll32.exe", "open", ;
@@ -490,7 +490,7 @@ Do while ct<1001
    ostatus:step()
    ++ct
 EndDo
-Return NIL
+RETURN NIL
 
 
 function RRectangle()
@@ -515,16 +515,16 @@ Local hDC := hwg_Getdc(0), aMetr, oFont
    PREPARE FONT oFont NAME "Arial" WIDTH 0 HEIGHT -17
    hwg_Selectobject( hDC, oFont:handle )
    aMetr := hwg_Gettextmetric( hDC )
-   hwg_writelog( ltrim(str(aMetr[2])) +" "+ ltrim(str(aMetr[3])) )
+   hwg_writelog( LTrim(Str(aMetr[2])) +" "+ LTrim(Str(aMetr[3])) )
 
-   hwg_writelog( ltrim(str(hwg_Gettextsize(hDC,"          ")[1])) )
-   hwg_writelog( ltrim(str(hwg_Gettextsize(hDC,"1111111111")[1])) )
-   hwg_writelog( ltrim(str(hwg_Gettextsize(hDC,"aaaaaaaaaa")[1])) )
-   hwg_writelog( ltrim(str(hwg_Gettextsize(hDC,"AAAAAAAAAA")[1])) )
-   hwg_writelog( ltrim(str(hwg_Gettextsize(hDC,"WWWWWWWWWW")[1])) )
-   hwg_writelog( ltrim(str(hwg_Gettextsize(hDC,"bbbbbbbbbb")[1])) )
-   hwg_writelog( ltrim(str(hwg_Gettextsize(hDC,"RRRRRRRRRR")[1])) )
+   hwg_writelog( LTrim(Str(hwg_Gettextsize(hDC,"          ")[1])) )
+   hwg_writelog( LTrim(Str(hwg_Gettextsize(hDC,"1111111111")[1])) )
+   hwg_writelog( LTrim(Str(hwg_Gettextsize(hDC,"aaaaaaaaaa")[1])) )
+   hwg_writelog( LTrim(Str(hwg_Gettextsize(hDC,"AAAAAAAAAA")[1])) )
+   hwg_writelog( LTrim(Str(hwg_Gettextsize(hDC,"WWWWWWWWWW")[1])) )
+   hwg_writelog( LTrim(Str(hwg_Gettextsize(hDC,"bbbbbbbbbb")[1])) )
+   hwg_writelog( LTrim(Str(hwg_Gettextsize(hDC,"RRRRRRRRRR")[1])) )
 
    hwg_Releasedc( 0,hDC )
 
-Return NIL
+RETURN NIL

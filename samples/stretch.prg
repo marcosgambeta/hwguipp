@@ -50,11 +50,11 @@ oBmp := HBitmap():AddFile(cImageMain,,.F., 301, 160)
 nPosX := hwg_Getdesktopwidth() 
 nPosY := hwg_Getdesktopheight()
 
-lStretch := IIF( lStretch == NIL, lStretch := .T.,lStretch := .F.)
+lStretch := IIf( lStretch == NIL, lStretch := .T.,lStretch := .F.)
  
 * Display size of recent desktop, it is equal to the size of screen. 
 hwg_MsgInfo("X=" + Str(nPosX) + Chr(10) + "Y=" + Str(nPosY) + Chr(10) + ;
- "lStretch=" + IIF(lStretch, "True", "False"))
+ "lStretch=" + IIf(lStretch, "True", "False"))
 
 
 

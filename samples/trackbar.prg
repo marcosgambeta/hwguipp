@@ -40,15 +40,15 @@ Function Main ()
 
    ACTIVATE WINDOW oWnd
 
-   Return NIL
+   RETURN NIL
 
 //--------------------------------------------------------------------------//
 
 Function UpdateSay ()
 
-   oSay:SetText(str(oTB:Value))
+   oSay:SetText(Str(oTB:Value))
 
-   Return NIL
+   RETURN NIL
 
 //--------------------------------------------------------------------------//
 
@@ -71,15 +71,15 @@ Function Dlg1 ()
 
    ACTIVATE DIALOG oDlg1
 
-   Return NIL
+   RETURN NIL
 
 //--------------------------------------------------------------------------//
 
 Function UpdateSayDlg1 ()
 
-   oSayDlg1:SetText(str(oTB1:Value))
+   oSayDlg1:SetText(Str(oTB1:Value))
 
-   Return NIL
+   RETURN NIL
 
 //--------------------------------------------------------------------------//
 
@@ -103,15 +103,15 @@ Function Dlg2 ()
 
    ACTIVATE DIALOG oDlg2
 
-   Return NIL
+   RETURN NIL
 
 //--------------------------------------------------------------------------//
 
 Function UpdateSayDlg2 ()
 
-   oSayDlg2:SetText(str(oTB2:Value))
+   oSayDlg2:SetText(Str(oTB2:Value))
 
-   Return NIL
+   RETURN NIL
 
 //--------------------------------------------------------------------------//
 

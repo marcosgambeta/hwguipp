@@ -42,7 +42,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 Function OpenConfig
 Local aDlg1, aDlg2, aCombo := { "Aaaa","Bbbb" }
@@ -122,7 +122,7 @@ Local oFont
 /*
     oBrowse1:aColumns := {}
     oBrowse1:aArray := {}
-    oBrowse1:AddColumn(HColumn():New(, {|v, o|Iif(v != NIL, o:aArray[o:nCurrent] := v, o:aArray[o:nCurrent])}, "C", 100, 0))
+    oBrowse1:AddColumn(HColumn():New(, {|v, o|IIf(v != NIL, o:aArray[o:nCurrent] := v, o:aArray[o:nCurrent])}, "C", 100, 0))
     *- FIM DE oBrowse1
 */
 
@@ -137,7 +137,7 @@ Local oFont
 /*
     oBrowse2:aColumns := {}
     oBrowse2:aArray := {}
-    oBrowse2:AddColumn(HColumn():New(, {|v, o|Iif(v != NIL, o:aArray[o:nCurrent] := v, o:aArray[o:nCurrent])}, "C", 100, 0))
+    oBrowse2:AddColumn(HColumn():New(, {|v, o|IIf(v != NIL, o:aArray[o:nCurrent] := v, o:aArray[o:nCurrent])}, "C", 100, 0))
     *- FIM DE oBrowse2
 */
 
@@ -151,7 +151,7 @@ Local oFont
 //   activate dialog aDlg1
 //   activate dialog aDlg2
 
-Return NIL
+RETURN NIL
 
 /*
  Old Borland resource here as comment:

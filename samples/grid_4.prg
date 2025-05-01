@@ -42,7 +42,7 @@ Function Main()
 
         ACTIVATE WINDOW oMain
         
-Return NIL
+RETURN NIL
 
 Function Test()
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
@@ -63,7 +63,7 @@ Function Test()
              @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }                            
 
         ACTIVATE DIALOG oForm
-Return NIL
+RETURN NIL
 
 Function OnDispInfo( o, x, y )    
     Local result := ""
@@ -71,7 +71,7 @@ Function OnDispInfo( o, x, y )
     DBGoto(x)
     
     result := field->line
-Return result
+RETURN result
 
 Function FileOpen()
         Local fname
@@ -81,4 +81,4 @@ Function FileOpen()
         Zap
         APPEND FROM (fname) SDF
 
-Return Test()
+RETURN Test()

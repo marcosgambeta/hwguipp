@@ -42,7 +42,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 Function DlgGet
 LOCAL oBmp
@@ -86,14 +86,14 @@ Local cValTrue
        TEXT "Close" COLOR 0x0000FF
 
    ACTIVATE DIALOG oModDlg
-Return NIL
+RETURN NIL
 
 Static Function BrwKey( oBrw, key )
    IF key == 32
       oBrw:aArray[oBrw:nCurrent, 1] := !oBrw:aArray[oBrw:nCurrent, 1]
       oBrw:RefreshLine()
    ENDIF
-Return .T.
+RETURN .T.
 
 #ifdef __GTK__
 FUNCTION true_bmp()

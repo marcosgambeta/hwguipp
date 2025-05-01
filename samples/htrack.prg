@@ -35,7 +35,7 @@ Local oDlg, oTrack, oSay, oFont := HFont():Add("MS Sans Serif", 0, -13)
 Local bVolChange := {|o,n| 
       HB_SYMBOL_UNUSED(o)
       HB_SYMBOL_UNUSED(n)
-      oSay:SetText( Ltrim(Str(oTrack:value)) )
+      oSay:SetText( LTrim(Str(oTrack:value)) )
       RETURN .T.
    }
 
@@ -52,4 +52,4 @@ Local bVolChange := {|o,n|
    ACTIVATE DIALOG oDlg
    oFont:Release()
 
-Return NIL
+RETURN NIL

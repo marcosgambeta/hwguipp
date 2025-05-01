@@ -78,7 +78,7 @@ procedure main()
             { "Yes", "No", "Cancel" })))
         // By way of comparison to MessageBox which is what hwg_MsgYesNoCancel() calls
     hwg_Alert("Hwg_MsgYesNoCancel() returned " + ;
-            HB_ValToStr(Hwg_MsgYesNoCancel("'ello 'ello" + chr(10) + "How are you?" + chr(10) + "I am Hwg_MsgYesNoCancel()" + chr(10) + chr(10) + ;
+            HB_ValToStr(Hwg_MsgYesNoCancel("'ello 'ello" + Chr(10) + "How are you?" + Chr(10) + "I am Hwg_MsgYesNoCancel()" + Chr(10) + Chr(10) + ;
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", "Alert")))
 
     SetDefaultAlert("Error", , , IDI_ERROR, , SS_LEFT)

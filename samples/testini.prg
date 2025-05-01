@@ -29,11 +29,11 @@ Function Main
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 Function ReadIni()
 Local cIniFile:="HwGui.ini"
 hwg_MsgInfo(Hwg_GetIni("Config", "WallParer", , cIniFile))
 hwg_MsgInfo(Hwg_GetIni("Config", "DirHwGUima", , cIniFile))
 hwg_MsgInfo(Hwg_GetIni("Print", "Spoll", , cIniFile))
-Return NIL
+RETURN NIL

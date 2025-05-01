@@ -56,7 +56,7 @@ Function Main
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 * --------------------------------------------
 FUNCTION ShowR(ar,bdebug)
@@ -74,12 +74,12 @@ LOCAL j, co , d , t
   t := "Result Array"
  ENDIF
  co := ""
- IF LEN(ar) < 1
+ IF Len(ar) < 1
    hwg_MsgInfo("Result is empty", t)
    RETURN NIL
  ENDIF 
- FOR j := 1 TO LEN(ar)
-  co := co + ar[j] + CHR(10)
+ FOR j := 1 TO Len(ar)
+  co := co + ar[j] + Chr(10)
  NEXT
  hwg_MsgInfo(co, t)
 RETURN NIL
@@ -159,7 +159,7 @@ FUNCTION LSTBOX_ITEMTORI(olst1, olst2)
 * --------------------------------------------
  LOCAL nPosi, cIt , nNeu
    * Source listbox empty: nothing to do
-   IF EMPTY(olst1:aItems)
+   IF Empty(olst1:aItems)
     RETURN NIL
    ENDIF
    * Get selected item
@@ -176,7 +176,7 @@ FUNCTION LSTBOX_ITEMTORI(olst1, olst2)
    * refresh both
    olst1:Requery()
    olst2:Requery()
-   nNeu := LEN(olst2:aItems)
+   nNeu := Len(olst2:aItems)
    olst2:SetItem(nNeu)
    olst1:SetItem(1)
 RETURN NIL
@@ -186,7 +186,7 @@ FUNCTION LSTBOX_ITEMTOLI(olst1, olst2)
 * moves selected item to source listbox
 * --------------------------------------------
  LOCAL nPosi, cIt , nNeu
-   IF EMPTY(olst2:aItems)
+   IF Empty(olst2:aItems)
     RETURN NIL
    ENDIF
    nPosi := olst2:value
@@ -199,7 +199,7 @@ FUNCTION LSTBOX_ITEMTOLI(olst1, olst2)
    * refresh both
    olst2:Requery()
    olst1:Requery()
-   nNeu := LEN(olst1:aItems)
+   nNeu := Len(olst1:aItems)
    olst1:SetItem(nNeu)
    olst2:SetItem(1)
 RETURN NIL
@@ -237,8 +237,8 @@ FUNCTION LSTBOX_ITEMFIND(olst, cItem)
 * returns 0, if no match.
 * --------------------------------------------
 LOCAL i
- FOR i := 1 TO LEN(olst:aItems)
-  IF ALLTRIM(olst:aItems[i]) == ALLTRIM(cItem)
+ FOR i := 1 TO Len(olst:aItems)
+  IF AllTrim(olst:aItems[i]) == AllTrim(cItem)
    RETURN i
   ENDIF
  NEXT

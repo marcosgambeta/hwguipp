@@ -210,17 +210,17 @@ Local oWinPrn, i , j
 LOCAL ctest1
 * Block grafic chars (CP850), single line
 LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
-  cCross := CHR(197)
-  cvert  := CHR(196)  // Vertical line
-  chori  := CHR(179)  // Horizontal line
-  ctl    := CHR(218)  // Edge top left
-  ctr    := CHR(191)  // Edge top right
-  ctd    := CHR(194)  // T top down
-  clr    := CHR(195)  // T left right
-  crl    := CHR(180)  // T right left
-  cbo    := CHR(193)  // T bottom up
-  cbl    := CHR(192)  // Edge bottom left
-  cbr    := CHR(217)  // Edge bottom right
+  cCross := Chr(197)
+  cvert  := Chr(196)  // Vertical line
+  chori  := Chr(179)  // Horizontal line
+  ctl    := Chr(218)  // Edge top left
+  ctr    := Chr(191)  // Edge top right
+  ctd    := Chr(194)  // T top down
+  clr    := Chr(195)  // T left right
+  crl    := Chr(180)  // T right left
+  cbo    := Chr(193)  // T bottom up
+  cbl    := Chr(192)  // Edge bottom left
+  cbr    := Chr(217)  // Edge bottom right
 
 
   IF cname == NIL
@@ -286,17 +286,17 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
 */
    
 * Test German Umlaute and sharp "S"
-   ctest1 := CHR(142) + CHR(153) + CHR(154) + CHR(132) + CHR(148) + CHR(129) + CHR(225)
+   ctest1 := Chr(142) + Chr(153) + Chr(154) + Chr(132) + Chr(148) + Chr(129) + Chr(225)
 
  
   
   * print all chars over ASCII with decimal values
   FOR j := 128 TO 190
-   oWinPrn:PrintLine(ALLTRIM(STR(j)) + ": " + CHR(j) )
+   oWinPrn:PrintLine(AllTrim(Str(j)) + ": " + Chr(j) )
   NEXT
   oWinPrn:NextPage()
   FOR j := 191 TO 255
-   oWinPrn:PrintLine(ALLTRIM(STR(j)) + ": " + CHR(j) )
+   oWinPrn:PrintLine(AllTrim(Str(j)) + ": " + Chr(j) )
   NEXT
    oWinPrn:NextPage()
    
@@ -501,7 +501,7 @@ LOCAL cCross, cvert, chori, ctl, ctr, ctd, clr , crl, cbl, cbr, cbo
    
    oWinPrn:End()
 
-Return NIL
+RETURN NIL
 
 * ---------------------------------------------
 FUNCTION NLS_SetLang(cname,omain)
@@ -534,7 +534,7 @@ FUNCTION NLS_SetLang(cname,omain)
         cTitle := "Demo für Winprn-Klasse"
       ELSE
         * Windows
-        cTitle := "Demo f" + CHR(252) + "r Winprn-Klasse"
+        cTitle := "Demo f" + Chr(252) + "r Winprn-Klasse"
       ENDIF
       * Set title of main windows
       IF bmn
@@ -549,7 +549,7 @@ FUNCTION NLS_SetLang(cname,omain)
         cTitle := "Demo für Winprn-Klasse"
       ELSE
         * Windows
-        cTitle := "Demo f" + CHR(252) + "r Winprn-Klasse"
+        cTitle := "Demo f" + Chr(252) + "r Winprn-Klasse"
       ENDIF
   OTHERWISE    // Default EN/USA
      aMainMenu := { "&Exit", "&Quit" , "&Print" , "&Start printing" , "&Settings" , ;
@@ -578,7 +578,7 @@ LOCAL result, achrit, csel
   nchrs := result /* Position in COMBOBOX */
   csel := achrit[result] 
   * Get the number of printer char set before ":"
-  nPrCharset := VAL(SUBSTR(csel, 1,AT(":",csel) - 1 ) )
+  nPrCharset := Val(SubStr(csel, 1,AT(":",csel) - 1 ) )
   hwg_MsgInfo("Character Set is now: " + AllTrim(Str(nchrs)) + " Name: " + csel, "Printer Character Set")
  ENDIF
 RETURN NIL 
@@ -610,14 +610,14 @@ FUNCTION hwg_HPrinter_LangArray_DE()
     cEuro  := "€"
    ELSE
    * DEWIN
-    CAGUML := CHR(196)
-    COGUML := CHR(214)
-    CUGUML := CHR(220)
-    CAKUML := CHR(228)
-    COKUML := CHR(246)
-    CUKUML := CHR(252)
-    CSZUML := CHR(223)
-    cEuro  := CHR(128)
+    CAGUML := Chr(196)
+    COGUML := Chr(214)
+    CUGUML := Chr(220)
+    CAKUML := Chr(228)
+    COKUML := Chr(246)
+    CUKUML := Chr(252)
+    CSZUML := Chr(223)
+    cEuro  := Chr(128)
    ENDIF
 
 

@@ -24,7 +24,7 @@ Function Main()
                 ENDMENU
 
         ACTIVATE WINDOW oMain
-Return NIL
+RETURN NIL
 
 Function Test()
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
@@ -51,7 +51,7 @@ Function Test()
              
         ACTIVATE DIALOG oForm
                 
-Return NIL
+RETURN NIL
 
 Function OnKey( o, k )
 //    hwg_MsgInfo(Str(k))
@@ -66,5 +66,5 @@ Function OnClick( o )
 return NIL
 
 Function OnDispInfo( o, x, y )
-return "Row: " + ltrim(str(x)) + " Col: " + ltrim(str(y))
+return "Row: " + LTrim(Str(x)) + " Col: " + LTrim(Str(y))
 

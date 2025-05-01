@@ -285,10 +285,10 @@ FUNCTION CENT_OFF
 RETURN NIL
 
 FUNCTION N2STR(numb)
-RETURN ALLTRIM(STR(numb) )
+RETURN AllTrim(Str(numb) )
 
 FUNCTION TotF(btf)
-RETURN IIF(btf,"True","False")
+RETURN IIf(btf,"True","False")
 
 FUNCTION TstButt_Deact(obo)
       obo:Disable()
@@ -365,7 +365,7 @@ RETURN NIL
 
 FUNCTION Res_LeapYear(nyeart)
 LOCAL cRet  
- cRet := IIF(hwg_IsLeapYear(nyeart), "TRUE","FALSE") 
+ cRet := IIf(hwg_IsLeapYear(nyeart), "TRUE","FALSE") 
  hwg_MsgInfo("Result of Res_LeapYear(" + AllTrim(Str(nyeart)) + ")=" + cRet, "hwg_IsLeapYear()")
 RETURN NIL
 
@@ -381,7 +381,7 @@ RETURN fname
 FUNCTION Test_FileModTimeU()
 LOCAL fn, ctim
 fn := FILE_SEL()
-IF EMPTY(fn)
+IF Empty(fn)
  RETURN NIL
 ENDIF 
 ctim := hwg_FileModTimeU(fn)
@@ -392,7 +392,7 @@ RETURN NIL
 FUNCTION Test_FileModTime()
 LOCAL fn, ctim
 fn := FILE_SEL()
-IF EMPTY(fn)
+IF Empty(fn)
  RETURN NIL
 ENDIF 
 ctim := hwg_FileModTime(fn)

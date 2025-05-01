@@ -90,7 +90,7 @@ FUNCTION helptxt()
 * This sample especially for german special
 * characters (Umlaute)
 * ==============================================
-LOCAL lf := CHR(13) + CHR(10)
+LOCAL lf := Chr(13) + Chr(10)
 LOCAL aUmlaute
 LOCAL CAGUML, COGUML , CUGUML , CAKUML, COKUML , CUKUML , CSZUML , EURO
 aUmlaute := UML_GUI_INIT_DE()
@@ -129,14 +129,14 @@ CSZUML := "ß"  // SZ
 EURO   := "€"
 #else
 * Windows (WIN1252)
-CAGUML := CHR(196)  // AE
-COGUML := CHR(214)  // OE
-CUGUML := CHR(220)  // UE
-CAKUML := CHR(228)  // AE
-COKUML := CHR(246)  // OE
-CUKUML := CHR(252)  // UE
-CSZUML := CHR(223)  // SZ
-EURO   := CHR(128)
+CAGUML := Chr(196)  // AE
+COGUML := Chr(214)  // OE
+CUGUML := Chr(220)  // UE
+CAKUML := Chr(228)  // AE
+COKUML := Chr(246)  // OE
+CUKUML := Chr(252)  // UE
+CSZUML := Chr(223)  // SZ
+EURO   := Chr(128)
 #endif
 
 AADD(aUmlaute, CAGUML )  // AE

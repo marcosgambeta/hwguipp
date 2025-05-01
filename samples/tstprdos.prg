@@ -78,7 +78,7 @@ return NIL
 
 Function TestDosClass(oTest)
 
-If hwg_MsgYesNo("Printing PrintDos Class to " + Iif(oTest == NIL, "LPT1", oTest), "PrintDos Class Demo")
+If hwg_MsgYesNo("Printing PrintDos Class to " + IIf(oTest == NIL, "LPT1", oTest), "PrintDos Class Demo")
 
    oPrint:=Printdos():New(oTest)   //oTest=NIL LPT1  
    
@@ -87,7 +87,7 @@ If hwg_MsgYesNo("Printing PrintDos Class to " + Iif(oTest == NIL, "LPT1", oTest)
    oPrint:Say(10, 31, "LINE 10 COL 31")
    oPrint:Say(14, 21, "LINE 14 COL 21")
    oPrint:Say(30, 34, "LINE 30 COL 34")
-   oPrint:Say(oPrint:nProw, oPrint:nPCol, "LINE "+STR(oPrint:nProw)+ " COL "+STR(oPrint:nPcol))
+   oPrint:Say(oPrint:nProw, oPrint:nPCol, "LINE "+Str(oPrint:nProw)+ " COL "+Str(oPrint:nPcol))
    oPrint:Say(40, 24, "11222333000144","@r 99.999.999/9999-99") 
    oPrint:Say(oPrint:nProw+1, oPrint:nPcol,"Valor" )
    oPrint:Say(oPrint:nProw, oPrint:nPcol, 996659.8, "@E 999,999,999.99" )
@@ -108,12 +108,12 @@ If hwg_MsgYesNo("Printing PrintDos Class to " + Iif(oTest == NIL, "LPT1", oTest)
    
 Endif
 
-Return NIL
+RETURN NIL
 
 Function TestDosClipper(oTest)
 Local oPrinter
 
-If hwg_MsgYesNo("Printing style clipper to " + Iif(oTest == NIL, "LPT1", oTest), "PrintDos Class Demo")
+If hwg_MsgYesNo("Printing style clipper to " + IIf(oTest == NIL, "LPT1", oTest), "PrintDos Class Demo")
 
    SET PRINTER TO oTest OF oPrinter
 
@@ -122,7 +122,7 @@ If hwg_MsgYesNo("Printing style clipper to " + Iif(oTest == NIL, "LPT1", oTest),
    @ 10, 31 PSAY "LINE 10 COL 31" OF oPrinter
    @ 14, 21 PSAY "LINE 14 COL 21" OF oPrinter
    @ 30, 34 PSAY "LINE 30 COL 34" OF oPrinter
-   @ hwg_wProw(oPrinter), hwg_wPCol(oPrinter) PSAY "LINE "+STR(hwg_wProw(oPrinter))+ " COL "+STR(hwg_wPCol(oPrinter)) OF oPrinter
+   @ hwg_wProw(oPrinter), hwg_wPCol(oPrinter) PSAY "LINE "+Str(hwg_wProw(oPrinter))+ " COL "+Str(hwg_wPCol(oPrinter)) OF oPrinter
    @ 40, 24 PSAY "11222333000144" PICTURE "@r 99.999.999/9999-99"  OF oPrinter
    @ hwg_wProw(oPrinter)+1, hwg_wPCol(oPrinter) PSAY "Valor" OF oPrinter
    @ hwg_wProw(oPrinter), hwg_wPCol(oPrinter)   PSAY 996659.85 PICTURE "@E 999,999,999.99" OF oPrinter
@@ -143,7 +143,7 @@ If hwg_MsgYesNo("Printing style clipper to " + Iif(oTest == NIL, "LPT1", oTest),
 
 Endif
 
-Return NIL
+RETURN NIL
 
 FUNCTION OpenRel(oText)
 LOCAL oDlg
@@ -173,7 +173,7 @@ If hwg_MsgYesNo("Printing File " + oTest)
 
 EndIf
 
-Return NIL
+RETURN NIL
 
 Function TestGraphic()
 Local oPrint, oPrint1
@@ -212,7 +212,7 @@ oPrint1:=Printdos():New("GRAPHIC")
 oPrint1:txttoGraphic("Graphic.txt", -6,.T.) //Parameters Name graphic, Size, Preview
 
 oPrint1:End()
-Return NIL
+RETURN NIL
 
 Function TestPreview()
 Local oPrint, oPrint1
@@ -253,12 +253,12 @@ oPrint1:=Printdos():New("PREVIEW")
 oPrint1:Preview("Preview.txt")
 oPrint1:End()
 
-Return NIL
+RETURN NIL
 
 Function DeskJet(oTest)
 Local oPrinter
 
-If hwg_MsgYesNo("Printing InkJet/DeskJet " + Iif(oTest == NIL, "LPT1", oTest), "PrintDos Class Demo")
+If hwg_MsgYesNo("Printing InkJet/DeskJet " + IIf(oTest == NIL, "LPT1", oTest), "PrintDos Class Demo")
 
    SET PRINTER TO oTest OF oPrinter
    oPrinter:oPrintStyle:=3
@@ -269,7 +269,7 @@ If hwg_MsgYesNo("Printing InkJet/DeskJet " + Iif(oTest == NIL, "LPT1", oTest), "
    @ 10, 31 PSAY "LINE 10 COL 31" OF oPrinter
    @ 14, 21 PSAY "LINE 14 COL 21" OF oPrinter
    @ 30, 34 PSAY "LINE 30 COL 34" OF oPrinter
-   @ hwg_wProw(oPrinter), hwg_wPCol(oPrinter) PSAY "LINE "+STR(hwg_wProw(oPrinter))+ " COL "+STR(hwg_wPCol(oPrinter)) OF oPrinter
+   @ hwg_wProw(oPrinter), hwg_wPCol(oPrinter) PSAY "LINE "+Str(hwg_wProw(oPrinter))+ " COL "+Str(hwg_wPCol(oPrinter)) OF oPrinter
    oPrinter:Descompress()
    @ 40, 24 PSAY "11222333000144" PICTURE "@r 99.999.999/9999-99"  OF oPrinter
    @ hwg_wProw(oPrinter)+1, hwg_wPCol(oPrinter) PSAY "Valor" OF oPrinter

@@ -32,7 +32,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 FUNCTION DlgADO()
 
@@ -66,7 +66,7 @@ FUNCTION DlgADO()
    ACTIVATE DIALOG oModDlg
 
    cnSQL:Close()
-Return NIL
+RETURN NIL
 
 FUNCTION ADOSkipper( cnSQL, nSkip )
 
@@ -113,7 +113,7 @@ FUNCTION RecordsetADO()
          :Fields( "NAME" ):Value := "ADO_NAME_" + Replicate(cChar, 10) + Str(nCont, 6)
          :Fields( "ADRESS" ):Value := "ADO_ANDRESS_" + Replicate(cChar, 10) + Str(nCont, 6)
          :Update()
-         cChar := iif( cChar == "Z", "A", Chr(Asc(cChar) + 1) )
+         cChar := IIf( cChar == "Z", "A", Chr(Asc(cChar) + 1) )
       NEXT
       :MoveFirst()
    ENDWITH
@@ -138,7 +138,7 @@ FUNCTION DlgDBF()
 
    ACTIVATE DIALOG oModDlg
    close database
-Return NIL
+RETURN NIL
 
 // --- DBF ---
 FUNCTION CreateDbf( cName )

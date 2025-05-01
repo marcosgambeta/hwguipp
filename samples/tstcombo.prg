@@ -40,7 +40,7 @@ Function Main()
                 ENDMENU
 
         ACTIVATE WINDOW oMain
-Return NIL
+RETURN NIL
 
 Function Test()
         Local nCombo := 1
@@ -91,4 +91,4 @@ Function Test()
             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }
 
         ACTIVATE DIALOG oForm
-Return NIL
+RETURN NIL

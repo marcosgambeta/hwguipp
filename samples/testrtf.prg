@@ -41,16 +41,16 @@ LOCAL cTexto
 
    cOutFile := hwg_Savefile( "*.rtf","RTF files( *.rtf )","*.rtf" )
    IF Empty(cOutFile)
-      Return NIL
+      RETURN NIL
    ENDIF
    IF File( cOutFile ) .AND. !hwg_MsgYesNo("Recreate it ?", cOutFile + " already exists!")
-      Return NIL
+      RETURN NIL
    ENDIF
 
    //      Open the output file & set some defaults
 
 
-   cOutFile:=alltrim(cOutFile)
+   cOutFile:=AllTrim(cOutFile)
 
    oRtf := SetupRTF( cOutFile)
 

@@ -33,7 +33,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 Function DlgGet()
 Local oModDlg, oTimer // , oFont := HFont():Add("MS Sans Serif", 0, -13)
@@ -95,25 +95,25 @@ Private oSayT
 
    // hwg_WriteLog( "End" )
    IF oModDlg:lResult
-      hwg_MsgInfo(e1 + chr(10) + chr(13) +       ;
-               e6 + chr(10) + chr(13) +       ;
-               Dtoc(e2) + chr(10) + chr(13) + ;
-               Str(e3) + chr(10) + chr(13) +  ;
-               e4 + chr(10) + chr(13) +       ;
-               Str(e5) + chr(10) + chr(13) +  ;
-               e7 + chr(10) + chr(13)         ;
+      hwg_MsgInfo(e1 + Chr(10) + Chr(13) +       ;
+               e6 + Chr(10) + Chr(13) +       ;
+               Dtoc(e2) + Chr(10) + Chr(13) + ;
+               Str(e3) + Chr(10) + Chr(13) +  ;
+               e4 + Chr(10) + Chr(13) +       ;
+               Str(e5) + Chr(10) + Chr(13) +  ;
+               e7 + Chr(10) + Chr(13)         ;
                , "Results:")
    ENDIF
 
-Return NIL
+RETURN NIL
 
 Static Function SetTimer( oDlg,oTimer )
 
    SET TIMER oTimer OF oDlg VALUE 1000 ACTION {||TimerFunc()}
 //   hwg_WriteLog( valtype( oTimer ) )
-Return NIL
+RETURN NIL
 
 Static Function TimerFunc()
 
    oSayT:SetText( Time() )
-Return NIL
+RETURN NIL

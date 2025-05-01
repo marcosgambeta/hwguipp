@@ -21,15 +21,15 @@
 
   Little sample for creating and running a bash script
   from a prg:
-  ctxt="#!/bin/bash"+chr(10)+chr(10)+ ;
+  ctxt="#!/bin/bash"+Chr(10)+Chr(10)+ ;
            "echo -e ${gCya}"+_("Installing the yelp help of") +; 
-           "${gGre}hwmake${noColor}"+chr(10)+ ;
-           'echo ""'+chr(10)+ ;
-           "sudo mkdir /usr/share/help/fr/hwmake 2>/dev/null"+chr(10)+ ;
-           "sudo cp * /usr/share/help/"+Left(clanguage, 2)+"/hwmake"+chr(10)+ ;
-           'echo ""'+chr(10)+ ;
-           "echo -e ${gGre}"+_("Press a key to continue...")+"${nocolor}"+chr(10)+ ;
-           "read"+chr(10)
+           "${gGre}hwmake${noColor}"+Chr(10)+ ;
+           'echo ""'+Chr(10)+ ;
+           "sudo mkdir /usr/share/help/fr/hwmake 2>/dev/null"+Chr(10)+ ;
+           "sudo cp * /usr/share/help/"+Left(clanguage, 2)+"/hwmake"+Chr(10)+ ;
+           'echo ""'+Chr(10)+ ;
+           "echo -e ${gGre}"+_("Press a key to continue...")+"${nocolor}"+Chr(10)+ ;
+           "read"+Chr(10)
   hb_memowrit("../instyelp",ctxt)
   hb_run("sh -c 'chmod +x ../instyelp'")
   hb_run(cterminal+" -x "+cspath+"/Documentation/yelp/instyelp")

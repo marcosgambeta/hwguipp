@@ -135,7 +135,7 @@ LOCAL nlaeng , cGetfield , cOldget , agetty
  * Call edit window (GET)
  cGetfield := BrwArrayGetElem(oBrow,cGetfield)
  * Write back, if modified or not cancelled
- IF ( ! EMPTY(cGetfield) ) .AND. ( cOldget != cGetfield )
+ IF ( ! Empty(cGetfield) ) .AND. ( cOldget != cGetfield )
   oBrow:aArray[oBrow:nCurrent] := { cGetfield }
   oBrow:lChanged := .T.
   oBrow:Refresh()
@@ -154,18 +154,18 @@ LOCAL oTotReg , i , nlaeng , cGetfield
  cGetfield := SPACE(nlaeng)
 
 
- IF (oBrow:aArray == NIL) .OR. EMPTY(oBrow:aArray) 
- //   ( LEN(oBrow:aArray) == 1 .AND. oBrow:aArray[1] == "" ) 
+ IF (oBrow:aArray == NIL) .OR. Empty(oBrow:aArray) 
+ //   ( Len(oBrow:aArray) == 1 .AND. oBrow:aArray[1] == "" ) 
     oBrow:aArray := {}
  ENDIF
 
  * Copy browse array and get number of elements
- FOR i := 1 TO LEN(oBrow:aArray)
+ FOR i := 1 TO Len(oBrow:aArray)
    AADD(oTotReg, oBrow:aArray[i])  
  NEXT
  * Edit new element
   cGetfield := BrwArrayGetElem(oBrow,cGetfield)
-  IF ! EMPTY(cGetfield)
+  IF ! Empty(cGetfield)
    * Add new item
    AADD(oTotReg,  { cGetfield }  )
    oBrow:aArray := oTotReg
@@ -177,7 +177,7 @@ RETURN NIL
 FUNCTION BrwArrayDelElem(obrw)
 * Delete array element
 
-IF (obrw:aArray == NIL) .OR. EMPTY(obrw:aArray)
+IF (obrw:aArray == NIL) .OR. Empty(obrw:aArray)
  * Nothing to delete
  RETURN NIL
 ENDIF 
@@ -204,7 +204,7 @@ clgetf := cgetf
 
 
    @ 38, 12 SAY oLabel1 CAPTION "Record number:" SIZE 136, 22
-   @ 188, 12 SAY oLabel2 CAPTION ALLTRIM(STR(oBrow:nCurrent)) SIZE 155, 22
+   @ 188, 12 SAY oLabel2 CAPTION AllTrim(Str(oBrow:nCurrent)) SIZE 155, 22
    @ 38, 46 GET oGet1 VAR clgetf SIZE 534, 24 ;
         STYLE WS_BORDER
    @ 38, 100 BUTTON oButton1 CAPTION "Save" SIZE 80, 32 ;

@@ -44,7 +44,7 @@ Function Main()
 
         PQClose(conn)
         
-Return NIL
+RETURN NIL
 
 Function Test()
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
@@ -76,7 +76,7 @@ Function Test()
              
         ACTIVATE DIALOG oForm
                 
-Return NIL
+RETURN NIL
 
 Function OnKey( o, k )
 //    hwg_MsgInfo(Str(k))
@@ -122,7 +122,7 @@ Function OnDispInfo( o, x, y )
         dbgoto(x)
         
         if y == 1
-            result := str(code)
+            result := Str(code)
         elseif y == 2
             result := dtoc(creation)
         elseif y == 3
@@ -130,7 +130,7 @@ Function OnDispInfo( o, x, y )
         end            
     endif        
     
-Return result
+RETURN result
 
 Function CriaBase()
         IF File("trash.dbf")
@@ -159,7 +159,7 @@ Function CriaBase()
         PQclear(res)    
 
         For i := 1 to 100
-            res := PQexec(conn, "insert into test (code,creation,descr) values ("+ str(i) + ",'" + DtoC(date()+i) + "','test')")
+            res := PQexec(conn, "insert into test (code,creation,descr) values ("+ Str(i) + ",'" + DtoC(date()+i) + "','test')")
             PQclear(res)
         Next
         
@@ -184,10 +184,10 @@ Function MyVal(xValue, type)
             result := ""
         endif
     elseif type == "N"
-        result := val(xvalue)
+        result := Val(xvalue)
     elseif type == "C"
         result := xvalue
     elseif type == "D"
         result := CtoD(xvalue)    
     endif
-Return result
+RETURN result

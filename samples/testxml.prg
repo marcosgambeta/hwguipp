@@ -106,7 +106,7 @@ HB_LANGSELECT("DE")
 
    ACTIVATE WINDOW oMainWindow
 
-Return NIL
+RETURN NIL
 
 Function NewItem( nItem )
 Local oDlg, oItemFont, oFontNew
@@ -138,7 +138,7 @@ Local oGet1, oGet2
     cInfo := hwg_GET_Helper(cInfo,CINFOLEN)
    
 
-   INIT DIALOG oDlg TITLE Iif( nItem == 0,"New item","Change item" )  ;
+   INIT DIALOG oDlg TITLE IIf( nItem == 0,"New item","Change item" )  ;
    AT 210, 10 SIZE 700, 150 FONT oFont  // old SIZE 300, 150
 
    @ 20, 20 SAY "Name:" SIZE 60, 22
@@ -172,7 +172,7 @@ Local oGet1, oGet2
          oXmlNode := oXmlDoc:aItems[1]:Add( HXMLNode():New("item") )
          oXmlNode:SetAttribute( "name", cName )
          oXmlNode:Add( cInfo )
-         oXMLNode:Add( hwg_Font2XML( Iif( oFontNew != NIL,oFontNew,oFont ) ) )
+         oXMLNode:Add( hwg_Font2XML( IIf( oFontNew != NIL,oFontNew,oFont ) ) )
          lIniChanged := .T.
 
          aMenu := oMainWindow:menu[1, 1]
@@ -205,7 +205,7 @@ Local oGet1, oGet2
       ENDIF
    ENDIF
 
-Return NIL
+RETURN NIL
 
 Function FontFromXML( oXmlNode )
 Local width  := oXmlNode:GetAttribute( "width" )
@@ -236,35 +236,35 @@ Local under := oXmlNode:GetAttribute( "underline" )
   
   // default charset is NIL 
 
-Return HFont():Add(oXmlNode:GetAttribute("name"), width, height, weight, charset, ita, under)
+RETURN HFont():Add(oXmlNode:GetAttribute("name"), width, height, weight, charset, ita, under)
 
 Function hwg_Font2XML( oFont )
 Local aAttr := {}
 
    Aadd(aAttr, {"name", oFont:name})
-   Aadd(aAttr, {"width", Ltrim(Str(oFont:width, 5))})
-   Aadd(aAttr, {"height", Ltrim(Str(oFont:height, 5))})
+   Aadd(aAttr, {"width", LTrim(Str(oFont:width, 5))})
+   Aadd(aAttr, {"height", LTrim(Str(oFont:height, 5))})
    IF oFont:weight != 0
-      Aadd(aAttr, {"weight", Ltrim(Str(oFont:weight, 5))})
+      Aadd(aAttr, {"weight", LTrim(Str(oFont:weight, 5))})
    ENDIF
    IF oFont:charset != 0
-      Aadd(aAttr, {"charset", Ltrim(Str(oFont:charset, 5))})
+      Aadd(aAttr, {"charset", LTrim(Str(oFont:charset, 5))})
    ENDIF
    IF oFont:Italic != 0
-      Aadd(aAttr, {"italic", Ltrim(Str(oFont:Italic, 5))})
+      Aadd(aAttr, {"italic", LTrim(Str(oFont:Italic, 5))})
    ENDIF
    IF oFont:Underline != 0
-      Aadd(aAttr, {"underline", Ltrim(Str(oFont:Underline, 5))})
+      Aadd(aAttr, {"underline", LTrim(Str(oFont:Underline, 5))})
    ENDIF
    
-Return HXMLNode():New("font", HBXML_TYPE_SINGLE, aAttr)
+RETURN HXMLNode():New("font", HBXML_TYPE_SINGLE, aAttr)
 
 Function SaveOptions()
    IF lIniChanged
       oXmlDoc:Save( "testxml.xml" )
    ENDIF
    CLOSE ALL
-Return NIL
+RETURN NIL
 
 FUNCTION p_about
 #ifdef __GTK__

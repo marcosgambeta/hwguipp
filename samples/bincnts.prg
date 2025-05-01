@@ -243,8 +243,8 @@ ny1 := hwg_GetBitmapHeight( oastropng:handle )
   @ 60 , 150 BITMAP oastrobmp
 #endif
 
-hwg_MsgInfo("nx1=" + ALLTRIM(STR(nx1)) + " ny1=" + ALLTRIM(STR(ny1)) + CHR(10) + ;
-            "nx2=" + ALLTRIM(STR(nx2)) + " ny2=" + ALLTRIM(STR(ny2)))
+hwg_MsgInfo("nx1=" + AllTrim(Str(nx1)) + " ny1=" + AllTrim(Str(ny1)) + Chr(10) + ;
+            "nx2=" + AllTrim(Str(nx2)) + " ny2=" + AllTrim(Str(ny2)))
 
   
    oMainW:Activate()

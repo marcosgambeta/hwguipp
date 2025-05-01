@@ -62,7 +62,7 @@ Function Main
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 * --------------------------------------------
 FUNCTION ShowR(ar,bdebug)
@@ -80,12 +80,12 @@ LOCAL j, co , d , t
   t := "Result Array"
  ENDIF
  co := ""
- IF LEN(ar) < 1
+ IF Len(ar) < 1
    hwg_MsgInfo("Result is empty", t)
    RETURN NIL
  ENDIF 
- FOR j := 1 TO LEN(ar)
-  co := co + ar[j] + CHR(10)
+ FOR j := 1 TO Len(ar)
+  co := co + ar[j] + Chr(10)
  NEXT
  hwg_MsgInfo(co, t)
 RETURN NIL
@@ -184,7 +184,7 @@ FUNCTION browsBOX_procarray(aEin)
 * --------------------------------------------
 LOCAL iii, aret, cret
  aret := {}
- FOR iii := 1 TO LEN(aEin)
+ FOR iii := 1 TO Len(aEin)
   cret := aEin[iii , 1]
   AADD(aret,cret)
  NEXT
@@ -197,7 +197,7 @@ FUNCTION browsBOX_ITEMTORI(obrows1, obrows2)
 * --------------------------------------------
  LOCAL nPosi, cIt , aIt 
    * Source browse box empty: nothing to do
-   IF EMPTY(obrows1:aArray)
+   IF Empty(obrows1:aArray)
     RETURN NIL
    ENDIF
    * Get selected item
@@ -232,7 +232,7 @@ FUNCTION browsBOX_ITEMTOLI(obrows1, obrows2)
 * moves selected item to source browsbox
 * --------------------------------------------
  LOCAL nPosi, cIt , aIt 
-   IF EMPTY(obrows2:aArray)
+   IF Empty(obrows2:aArray)
     RETURN NIL
    ENDIF
    nPosi := obrows2:nCurrent
@@ -280,8 +280,8 @@ FUNCTION browsBOX_ITEMFIND(obrows, cItem)
 * --------------------------------------------
 LOCAL i
  //    hwg_MsgInfo(Str(Len(obrows:aArray)))
- FOR i := 1 TO LEN(obrows:aArray)
-  IF ALLTRIM(obrows:aArray[i, 1]) == ALLTRIM(cItem)
+ FOR i := 1 TO Len(obrows:aArray)
+  IF AllTrim(obrows:aArray[i, 1]) == AllTrim(cItem)
    RETURN i
   ENDIF
  NEXT
@@ -300,10 +300,10 @@ FUNCTION dbg(obr)
 * --------------------------------------------
  LOCAL i,m,s
 
-  m:= LEN(obr:aArray)
-  s:= ALLTRIM(STR(m)) + CHR(10)
+  m:= Len(obr:aArray)
+  s:= AllTrim(Str(m)) + Chr(10)
   FOR i := 1 TO m
-    s:=  s + obr:aArray[i , 1] + CHR(10) 
+    s:=  s + obr:aArray[i , 1] + Chr(10)
   NEXT
   IF m == 0
    s := s + "Empty Array"

@@ -38,7 +38,7 @@ LOCAL oMain
 
         ACTIVATE WINDOW oMain
         
-Return NIL
+RETURN NIL
 
 Function Test()
 
@@ -64,17 +64,17 @@ LOCAL oFont , mreturn
    ENDIF
  ENDIF
 
-Return NIL
+RETURN NIL
 
 Function FileOpen()
 
 
         fname := hwg_Selectfile( "Select File", "*.*")
 
-        IF EMPTY(fname)
+        IF Empty(fname)
          RETURN NIL
         ENDIF
     * Read file
     mmemofield := MemoRead(fname)
 
-Return Test()
+RETURN Test()

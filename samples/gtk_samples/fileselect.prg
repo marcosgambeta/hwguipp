@@ -72,7 +72,7 @@ FUNCTION Test1
 LOCAL fname
  fname := hwg_Selectfile(cloctext , clocmsk, cstartvz )
  * Check for cancel 
- IF EMPTY(fname)
+ IF Empty(fname)
   action_aborted()
   RETURN NIL
  ENDIF
@@ -84,7 +84,7 @@ LOCAL fname
 #ifdef __GTK__
  fname := hwg_SelectFileEx(,,{{ cloctext,clocmsk },{ clocallf ,"*"}} )
 * Check for cancel 
- IF EMPTY(fname)
+ IF Empty(fname)
   action_aborted()
   RETURN NIL  
  ENDIF
@@ -96,7 +96,7 @@ FUNCTION Test3
 LOCAL fname
  fname := hwg_SelectFolder("Select sample folder")
 * Check for cancel 
- IF EMPTY(fname)
+ IF Empty(fname)
   action_aborted()
   RETURN NIL
  ENDIF
@@ -108,7 +108,7 @@ LOCAL fname
 #ifndef __GTK__
  fname := hwg_SaveFile( "Enter name of new file","Test text file","*.txt",cstartvz,"Save File" )
  * Check for cancel 
- IF EMPTY(fname)
+ IF Empty(fname)
   action_aborted()
   RETURN NIL
  ENDIF

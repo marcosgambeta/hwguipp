@@ -73,7 +73,7 @@ Function Test
    y1 += 30
 
    @ 20,y1 BUTTON "hwg_MsgYesNo()" SIZE 180, 28 ;
-      ON CLICK {||oSay3:SetText( Iif( hwg_MsgYesNo("Do you like it?", "Tutorial"), "Yes","No" ) )}
+      ON CLICK {||oSay3:SetText( IIf( hwg_MsgYesNo("Do you like it?", "Tutorial"), "Yes","No" ) )}
 
    @ 230,y1 SAY oSay3 CAPTION "" SIZE 80, 24 COLOR 8404992
 
@@ -86,7 +86,7 @@ Function Test
 
 #ifndef __GTK__
    @ 20,y1 BUTTON "hwg_MsgNoYes()" SIZE 180, 28 ;
-      ON CLICK {||oSay4:SetText( Iif( hwg_MsgNoYes("Do you like it?", "Tutorial"), "Yes","No" ) )}
+      ON CLICK {||oSay4:SetText( IIf( hwg_MsgNoYes("Do you like it?", "Tutorial"), "Yes","No" ) )}
 
    @ 230,y1 SAY oSay4 CAPTION "" SIZE 80, 24 COLOR 8404992
 
@@ -99,7 +99,7 @@ Function Test
 #endif
 
    @ 20,y1 BUTTON "hwg_MsgYesNoCancel()" SIZE 180, 28 ;
-      ON CLICK {||oSay5:SetText( Ltrim(Str(hwg_MsgYesNoCancel("Do you like it?", "Tutorial"))) )}
+      ON CLICK {||oSay5:SetText( LTrim(Str(hwg_MsgYesNoCancel("Do you like it?", "Tutorial"))) )}
 
    @ 230,y1 SAY oSay5 CAPTION "" SIZE 80, 24 COLOR 8404992
 
@@ -112,14 +112,14 @@ Function Test
 
 
    @ 20,y1 BUTTON "hwg_MsgGet()" SIZE 180, 28 ;
-      ON CLICK {||oSay6:SetText( Iif( (cRes := hwg_MsgGet("Input something", "Tutorial")) == NIL, "", cRes ) )}
+      ON CLICK {||oSay6:SetText( IIf( (cRes := hwg_MsgGet("Input something", "Tutorial")) == NIL, "", cRes ) )}
 
    @ 230,y1 SAY oSay6 CAPTION "" SIZE 80, 24 COLOR 8404992
 
    y1 += 30
 
    @ 20,y1 BUTTON "hwg_WChoice()" SIZE 180, 28 ;
-      ON CLICK {||oSay7:SetText( Iif( (nChoic := hwg_WChoice(arr,"Tutorial",,,oFontC,,,,,"Ok","Cancel")) == 0, "", arr[nChoic] ) )}
+      ON CLICK {||oSay7:SetText( IIf( (nChoic := hwg_WChoice(arr,"Tutorial",,,oFontC,,,,,"Ok","Cancel")) == 0, "", arr[nChoic] ) )}
 
    @ 230,y1 SAY oSay7 CAPTION "" SIZE 80, 24 COLOR 8404992
 
@@ -130,4 +130,4 @@ Function Test
 
    ACTIVATE DIALOG oDlg
 
-Return NIL
+RETURN NIL

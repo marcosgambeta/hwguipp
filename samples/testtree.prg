@@ -17,7 +17,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 Function DlgGet
 Local oDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
@@ -53,7 +53,7 @@ Local oTree, oSplit, oSay, oPopup
    ACTIVATE DIALOG oDlg
    oFont:Release()
 
-Return NIL
+RETURN NIL
 
 Function BuildTree( oDlg,oTree,oSay )
 Local oNode
@@ -67,7 +67,7 @@ Local oNode
 
    oTree:bExpand := {||.T.}
 
-Return NIL
+RETURN NIL
 
 Static Function NodeOut( n, oSay )
 Local aText := { ;
@@ -84,21 +84,21 @@ Local aText := { ;
       oSay:SetText(aText[n])
    ENDIF
 
-Return NIL
+RETURN NIL
 
 Static Function TreeMenuShow( oTree, oPopup, oNode )
 
    oTree:Select( oNode )
    oPopup:Show( oTree:oParent )
 
-Return NIL
+RETURN NIL
 
 Static Function AddNode( oTree, nType )
 
    LOCAL cName, oTo
 
    IF !Empty(cName := hwg_MsgGet("Node name"))
-      oTo := Iif( oTree:oSelected:oParent == NIL, oTree, oTree:oSelected:oParent )
+      oTo := IIf( oTree:oSelected:oParent == NIL, oTree, oTree:oSelected:oParent )
       IF nType == 0
          INSERT NODE cName TO oTree:oSelected
       ELSEIF nType == 1
@@ -107,4 +107,4 @@ Static Function AddNode( oTree, nType )
          INSERT NODE cName TO oTo BEFORE oTree:oSelected
       ENDIF
    ENDIF
-Return NIL
+RETURN NIL

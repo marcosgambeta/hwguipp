@@ -14,7 +14,7 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 Function Teste
 Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
@@ -40,4 +40,4 @@ Local oList, oItems:={"Item01","Item02","Item03","Item04"}
 
    IF oModDlg:lResult
     ENDIF
-Return NIL
+RETURN NIL

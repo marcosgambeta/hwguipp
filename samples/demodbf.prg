@@ -127,7 +127,7 @@ Private oBotNew, oBotEdit,oBotRet, oBotNext, oBotSave, oBottop, oBotBott, oBotDe
 
    Tel_Ferramentas:Activate()
 
-Return NIL
+RETURN NIL
 *---------------------------------------------------------------------------------------
 Function OpenBotons
 *---------------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ oBotBott:Enable()
 oBotDelete:Enable()
 oBotClose:Enable()
 oBotPrint:Enable()
-Return NIL
+RETURN NIL
 *---------------------------------------------------------------------------------------
 Function CloseBotons
 *---------------------------------------------------------------------------------------
@@ -155,7 +155,7 @@ oBotBott:Disable()
 oBotDelete:Disable()
 oBotClose:Enable()
 oBotPrint:Disable()
-Return NIL
+RETURN NIL
 *---------------------------------------------------------------------------------------
 Function CreateGets()
 *---------------------------------------------------------------------------------------
@@ -175,7 +175,7 @@ Function CreateGets()
 @ 2, 160 Say "e_Mail" SIZE 50, 20
 @65, 160 Get Gt_e_Mail VAR oe_Mail PICTURE REPLICATE("X", 30)  STYLE WS_DISABLED SIZE 190, 20
 
-Return NIL
+RETURN NIL
 
 
 *---------------------------------------------------------------------------------------
@@ -184,7 +184,7 @@ Function EditRecord()
 CloseBotons()
 OpenGets()
 Gt_Name:Setfocus()
-Return NIL
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
 Function CreateVariable()
@@ -198,7 +198,7 @@ oe_Mail:=SPACE(30)
 GetRefresh()
 OpenGets()
 oOper:=1 //Operacao para Inclusao
-Return NIL
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
 Function GetRefresh()
@@ -210,7 +210,7 @@ Gt_Name:Refresh()
 Gt_Adress:Refresh()
 Gt_Fone:Refresh()
 Gt_e_Mail:Refresh()
-Return NIL
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
 Function GetVars()
@@ -221,7 +221,7 @@ oName    :=TabDbf->Name
 oAdress :=TabDbf->Adress
 oFone :=TabDbf->Fone
 oe_Mail :=TabDbf->e_Mail
-Return NIL
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
 Function SaveTab()
@@ -229,11 +229,11 @@ Function SaveTab()
 
 if oOper=1
    Select TabDbf
-   oCod:=StrZero(val(oCod), 3)
+   oCod:=StrZero(Val(oCod), 3)
    Seek oCod
    If Found()
       hwg_MsgInfo("Cod." + oCod + " no valid...", "Mensagem")
-      Return NIL
+      RETURN NIL
    Endif
    Append Blank
    TabDbf->Cod:=oCod
@@ -252,7 +252,7 @@ Else
 EndIf
 CloseGets()
 oOper:=1
-Return NIL
+RETURN NIL
 
 
 *---------------------------------------------------------------------------------------
@@ -271,7 +271,7 @@ Else
 Endif
 GetVars()
 GetRefresh()
-Return NIL
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
 Function DeleteRecord()
@@ -289,7 +289,7 @@ EndIf
 Go Bottom
 GetVars()
 GetRefresh()
-Return NIL
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
 Function OpenDbf()
@@ -315,7 +315,7 @@ If !File(vInd1)
 Else
    Set Index to (vInd1)
 EndIf
-Return NIL
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
 Function OpenGets
@@ -325,7 +325,7 @@ Gt_Name:Enable()
 Gt_Adress:Enable()
 Gt_Fone:Enable()
 Gt_e_Mail:Enable()
-Return NIL
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
 Function CloseGets
@@ -335,5 +335,5 @@ Gt_Name:Disable()
 Gt_Adress:Disable()
 Gt_Fone:Disable()
 Gt_e_Mail:Disable()
-Return NIL
+RETURN NIL
 

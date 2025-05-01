@@ -190,7 +190,7 @@ Private aGetsTab := { "","","","","","","","","","","","","","" }
 
    ACTIVATE WINDOW oMainWindow
 
-Return NIL
+RETURN NIL
 
 FUNCTION SHELL_EXEC()
 LOCAL hinst
@@ -215,7 +215,7 @@ Static lastTab := 1
    aGetsTab[lastTab] := hwg_Getedittext( oGet:oParent:handle,oGet:id )
    hwg_Setdlgitemtext( oGet:oParent:handle,oGet:id,aGetsTab[n] )
    lastTab := n
-Return NIL
+RETURN NIL
 #endif
 
 #ifndef __GTK__
@@ -233,5 +233,5 @@ Local oDlg1, oDlg2
 
    hwg_PropertySheet( hwg_Getactivewindow(), { oDlg1, oDlg2 }, "Sheet Example", 210, 10, 300, 300 )
 
-Return NIL
+RETURN NIL
 #endif

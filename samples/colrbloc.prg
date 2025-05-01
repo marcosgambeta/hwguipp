@@ -174,7 +174,7 @@ LOCAL nI , oDlg , oTbar1 , oLbl1 , oLbl2 , oBtn1
         STYLE WS_BORDER + ES_LEFT ;
         VALID {||GoToRec(oBrwDb, @nRec, nLast, "Dbs")}
 
-   @ 270, 7 SAY oLbl2 CAPTION " of  " + ALLTRIM(STR(nLast)) OF oTbar1 SIZE 70, 22
+   @ 270, 7 SAY oLbl2 CAPTION " of  " + AllTrim(Str(nLast)) OF oTbar1 SIZE 70, 22
 
    @ 215, 5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20, 20   ;
         BITMAP cImgNext ;// TRANSPARENT COORDINATES 0, 2, 0, 0 ; // Down.bmp
@@ -251,7 +251,7 @@ ELSEIF cType == "Array"
   oEdGoto:SetText(oBrw:nCurrent)
 END
 oBrw:Refresh()
-Return NIL
+RETURN NIL
 
 *************************************************
 STATIC FUNCTION GoToRec(oBrw, nRec, nLast, cType)
@@ -285,7 +285,7 @@ ELSEIF nKey == VK_RETURN
 
 END
 
-Return .T.
+RETURN .T.
 
 *************************
 STATIC FUNCTION CriaDbf()
@@ -321,7 +321,7 @@ LOCAL nIncrement := 10
         END
         FIELD->FIELD2 := "Field2 " + STRZERO(i, 4)
         FIELD->FIELD3 := DATE() + i
-        FIELD->FIELD4 := "jg" + CHR(231) + "pqy " + STRZERO(i, 23)  // 0xE7 = 231 &ccedil;
+        FIELD->FIELD4 := "jg" + Chr(231) + "pqy " + STRZERO(i, 23)  // 0xE7 = 231 &ccedil;
         FIELD->FIELD5 := STRZERO(i, 5)
   Next
 
@@ -336,7 +336,7 @@ LOCAL o_Obtn1, o_Obtn2, o_Obtn3, o_Obtn4
 LOCAL oTbar
 LOCAL nRec := 1
 LOCAL aArrayTst := Create_Array()
-LOCAL nLast := LEN(aArrayTst)
+LOCAL nLast := Len(aArrayTst)
 LOCAL nI , oDlg , oBtn1 , oLbl1 , oLbl2 , oTbar1
 
   lZebra := IF(lZebra == NIL, .F., lZebra)
@@ -383,7 +383,7 @@ LOCAL nI , oDlg , oBtn1 , oLbl1 , oLbl2 , oTbar1
         STYLE WS_BORDER + ES_LEFT ;
         VALID {||GoToRec(oBrwArr, @nRec, nLast, "Array")}
 
-   @ 270, 7 SAY oLbl2 CAPTION " of  " + ALLTRIM(STR(nLast)) OF oTbar1 SIZE 70, 22
+   @ 270, 7 SAY oLbl2 CAPTION " of  " + AllTrim(Str(nLast)) OF oTbar1 SIZE 70, 22
 
    @ 215, 5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20, 20   ;
         BITMAP cImgNext ;// TRANSPARENT COORDINATES 0, 2, 0, 0 ;  // Down.bmp
@@ -474,7 +474,7 @@ LOCAL aArray := {}
              n := i
        END
     END
-    AADD(aArray, { n, STRZERO(i, 4), DATE() + i, "jg" + CHR(231) + "pqy " + STRZERO(i, 23), STRZERO(i, 5)})
+    AADD(aArray, { n, STRZERO(i, 4), DATE() + i, "jg" + Chr(231) + "pqy " + STRZERO(i, 23), STRZERO(i, 5)})
   Next
 
 RETURN(aArray)
@@ -493,7 +493,7 @@ FUNCTION MsgD( cV1, cV2, cV3, cV4, cV5, cV6, cV7, cV8, cV9, cV10 )
        ELSEIF hb_IsBlock(HB_PVALUE(nI))
          cVar += "CODEBLOCK"
        ELSEIF hb_IsNumeric(HB_PVALUE(nI))
-         cVar += STR(HB_PVALUE(nI))
+         cVar += Str(HB_PVALUE(nI))
        ELSEIF hb_IsDate(HB_PVALUE(nI))
          cVar += DTOS(HB_PVALUE(nI))
        ELSEIF hb_IsLogical(HB_PVALUE(nI))
@@ -503,7 +503,7 @@ FUNCTION MsgD( cV1, cV2, cV3, cV4, cV5, cV6, cV7, cV8, cV9, cV10 )
        ENDIF
        cVar += "/"
    NEXT
-   hwg_MsgInfo(Left(cVar, LEN(cVar) - 1))
+   hwg_MsgInfo(Left(cVar, Len(cVar) - 1))
 RETURN NIL
 
 ******************************

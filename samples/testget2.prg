@@ -23,7 +23,7 @@ Private var1 := 10320.54
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 Function DlgGet(lColor)
 Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13), oTimer
@@ -99,17 +99,17 @@ Private oSayT
                   , "Results:")
    ENDIF
 
-Return NIL
+RETURN NIL
 
 Static Function hwg_Settimer( oDlg,oTimer )
 
    SET TIMER oTimer OF oDlg VALUE 1000 ACTION {||TimerFunc()}
-Return NIL
+RETURN NIL
 
 Static Function TimerFunc()
 
    oSayT:SetText( Time() )
-Return NIL
+RETURN NIL
 
 
 Function TestBallon
@@ -127,5 +127,5 @@ Function TestBallon
 
    ACTIVATE DIALOG oWnd
 
-   Return NIL
+   RETURN NIL
 

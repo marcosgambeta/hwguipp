@@ -49,9 +49,9 @@ Local oEdit, cUrl, oIE
 
     @ 5, 4 EDITBOX oEdit CAPTION "http://kresin.belgorod.su" OF oPanelTool SIZE 400, 24
     @ 405, 4 BUTTON "Go!" OF oPanelTool SIZE 30, 24 ;
-        ON CLICK {||Iif(!Empty(cUrl:=hwg_Getedittext(oEdit:oParent:handle,oEdit:id)),oIE:DisplayPage(cUrl),.T.)}
+        ON CLICK {||IIf(!Empty(cUrl:=hwg_Getedittext(oEdit:oParent:handle,oEdit:id)),oIE:DisplayPage(cUrl),.T.)}
     @ 435, 4 BUTTON "Search" OF oPanelTool SIZE 55, 24 ;
-        ON CLICK {||Iif(!Empty(cUrl:=hwg_Getedittext(oEdit:oParent:handle,oEdit:id)),FindInGoogle(cUrl,oIE,oEdit),.T.)}
+        ON CLICK {||IIf(!Empty(cUrl:=hwg_Getedittext(oEdit:oParent:handle,oEdit:id)),FindInGoogle(cUrl,oIE,oEdit),.T.)}
 
     @ 0, 34 PANEL oPanelIE SIZE 500, 366 ON SIZE {|o,x,y|o:Move(,,x,y-34)}
 
@@ -59,10 +59,10 @@ Local oEdit, cUrl, oIE
 
     ACTIVATE WINDOW oMainWnd
 
-Return NIL
+RETURN NIL
 
 Static Function OpenFile( oIE,oEdit )
-Local mypath := "\" + Curdir() + Iif( Empty(Curdir()), "", "\" )
+Local mypath := "\" + Curdir() + IIf( Empty(Curdir()), "", "\" )
 Local fname := hwg_Selectfile( "HTML files", "*.htm;*.html", mypath )
 
    IF !Empty(fname)
@@ -70,7 +70,7 @@ Local fname := hwg_Selectfile( "HTML files", "*.htm;*.html", mypath )
       oIE:DisplayPage( fname )
    ENDIF
 
-Return NIL
+RETURN NIL
 
 Static Function FindInGoogle( cQuery,oIE,oEdit )
 Local cUrl := "http://www.google.com/search?q=", cItem
@@ -83,4 +83,4 @@ Local cUrl := "http://www.google.com/search?q=", cItem
       oEdit:SetText( cUrl )
       oIE:DisplayPage( cUrl )
    ENDIF
-Return NIL
+RETURN NIL

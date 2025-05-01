@@ -48,7 +48,7 @@ Local oMainWindow
 
    ACTIVATE WINDOW oMainWindow
 
-Return NIL
+RETURN NIL
 
 
 FUNCTION DlgDPick()
@@ -95,4 +95,4 @@ daltdatum := d1
 
     hwg_MsgInfo(dtoc(d1))
 
-Return NIL
+RETURN NIL

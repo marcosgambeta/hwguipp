@@ -12,4 +12,4 @@ Local oForm := HFormTmpl():Read("example.xml")
 
  oForm:ShowMain()
 
-Return NIL
+RETURN NIL

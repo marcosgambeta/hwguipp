@@ -37,7 +37,7 @@ Function Main
 
    ACTIVATE WINDOW oWnd
 
-   Return NIL
+   RETURN NIL
 
 //================================================================//
 
@@ -66,7 +66,7 @@ Function Dlg1
 
    ACTIVATE DIALOG oDlg
 
-   Return NIL
+   RETURN NIL
 
 //================================================================//
 
@@ -91,7 +91,7 @@ Function Dlg2
 
    ACTIVATE DIALOG oDlg
 
-   Return NIL
+   RETURN NIL
 
 //================================================================//
 

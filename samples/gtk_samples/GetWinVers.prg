@@ -44,4 +44,4 @@ LOCAL nmin, nmaj, bwin, bwin7, bwin10
 RETURN NIL
 
 FUNCTION LOGICAL2STR(bl)
-RETURN IIF(bl,"True","False")
+RETURN IIf(bl,"True","False")

@@ -72,7 +72,7 @@ FUNCTION Test()
     FOR i := 1 TO 100
         APPEND BLANK
         REPLACE field_1 WITH i
-        REPLACE field_2 WITH "Test " + str(i)
+        REPLACE field_2 WITH "Test " + Str(i)
         REPLACE field_3 WITH mod(i, 10) == 0
         REPLACE field_4 WITH Date() + i
         REPLACE field_5 WITH "Memo Test"
@@ -142,11 +142,11 @@ FUNCTION GridEdit(cAlias, aFields, lAppend, bChange)
 
    // set the highest say and get
 
-   FOR i := 1 TO len(aFields)
+   FOR i := 1 TO Len(aFields)
 
       ASize(aFields[i], 12)
 
-      nSay := max(nSay, len(aFields[i, GET_LABEL]))
+      nSay := max(nSay, Len(aFields[i, GET_LABEL]))
 
       cType := Fieldtype(Fieldpos(aFields[i, GET_FIELD]))
 
@@ -162,7 +162,7 @@ FUNCTION GridEdit(cAlias, aFields, lAppend, bChange)
 
       ELSE
 
-         nLen := len(transform(Fieldget(FieldPos(aFields[i, GET_FIELD])), aFields[i, GET_PICT]))
+         nLen := Len(transform(Fieldget(FieldPos(aFields[i, GET_FIELD])), aFields[i, GET_PICT]))
 
       ENDIF
 
@@ -170,14 +170,14 @@ FUNCTION GridEdit(cAlias, aFields, lAppend, bChange)
 
       aFields[i, GET_LEN] := nLen
       aFields[i, GET_TYPE] := cType
-      aFields[i, GET_HEIGHT] := iif(cType == "M", 150, 25)
+      aFields[i, GET_HEIGHT] := IIf(cType == "M", 150, 25)
       aFields[i, GET_VALUE] := Fieldget(FieldPos(aFields[i, GET_FIELD]))
 
       nHeight += aFields[i, GET_HEIGHT]
 
    NEXT i
 
-   nHeight += 5 * len(aFields) + 15 + 30
+   nHeight += 5 * Len(aFields) + 15 + 30
    nRow := 10
    nCol := nSay * nGetSize
 
@@ -185,9 +185,9 @@ FUNCTION GridEdit(cAlias, aFields, lAppend, bChange)
       SIZE Min(hwg_Getdesktopwidth() - 50, (nSay + nGet) * nGetSize + nGetSize), Min(hwg_Getdesktopheight() - 28, nheight) ;
       FONT oFont STYLE DS_CENTER + WS_VISIBLE + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
 
-   FOR i := 1 TO len(aFields)
+   FOR i := 1 TO Len(aFields)
 
-      @ 10, nRow SAY aFields[i, GET_LABEL] SIZE len(aFields[i, GET_LABEL]) * nGetSize, 25
+      @ 10, nRow SAY aFields[i, GET_LABEL] SIZE Len(aFields[i, GET_LABEL]) * nGetSize, 25
 
       cType  := Fieldtype(Fieldpos(aFields[i, GET_FIELD]))
 
@@ -198,11 +198,11 @@ FUNCTION GridEdit(cAlias, aFields, lAppend, bChange)
             3000 + i, ;
             aFields[i, GET_VALUE], ;
             FieldBlock(aFields[i, GET_FIELD]), ;
-            IIF(!aFields[i, GET_EDIT], NIL, WS_DISABLED ), ;
+            IIf(!aFields[i, GET_EDIT], NIL, WS_DISABLED ), ;
             nCol, ;
             nRow, ;
             aFields[i, GET_LEN] * nGetSize, ;
-            min(150, len(aFields[i, GET_LIST]) * 25 + 25), ;
+            min(150, Len(aFields[i, GET_LIST]) * 25 + 25), ;
             aFields[i, GET_LIST], ;
             NIL, ;
             NIL, ;
@@ -218,7 +218,7 @@ FUNCTION GridEdit(cAlias, aFields, lAppend, bChange)
             3000 + i, ;
             aFields[i, GET_VALUE], ;
             FieldBlock(aFields[i, GET_FIELD]), ;
-            IIF(!aFields[i, GET_EDIT], NIL, WS_DISABLED ), ;
+            IIf(!aFields[i, GET_EDIT], NIL, WS_DISABLED ), ;
             nCol, ;
             nRow, ;
             aFields[i, GET_LEN] * nGetSize, ;
@@ -240,7 +240,7 @@ FUNCTION GridEdit(cAlias, aFields, lAppend, bChange)
             3000 + i, ;
             aFields[i, GET_VALUE], ;
             FieldBlock(aFields[i, GET_FIELD ]), ;
-            IIF(!aFields[i, GET_EDIT], NIL, WS_DISABLED ), ;
+            IIf(!aFields[i, GET_EDIT], NIL, WS_DISABLED ), ;
             nCol, ;
             nRow, ;
             aFields[i, GET_LEN] * nGetSize, ;
@@ -303,7 +303,7 @@ FUNCTION GridEdit(cAlias, aFields, lAppend, bChange)
       DELETE
    ELSE
       /* When canceled, reverte record to old information */
-      FOR i := 1 TO len(aFields)
+      FOR i := 1 TO Len(aFields)
          Fieldput(Fieldpos(aFields[i, GET_FIELD]), aFields[i, GET_VALUE])
       NEXT i
    ENDIF
@@ -335,10 +335,10 @@ STATIC FUNCTION __valid(value, oCtrl, aFields, bChange)
          ENDIF
       ENDIF
 
-      FOR i := 1 to len(aFields)
+      FOR i := 1 to Len(aFields)
          val := Fieldget(fieldpos(aFields[i, GET_FIELD]))
 
-         IF hb_IsDate(val) .AND. empty(val)
+         IF hb_IsDate(val) .AND. Empty(val)
             Fieldput(Fieldpos(aFields[i, GET_FIELD]), Date())
          ENDIF
 
@@ -360,9 +360,9 @@ STATIC FUNCTION OnDispInfo(oCtrl, nRow, nCol)
    DBGoto(nRow)
 
    SWITCH nCol
-   CASE 1 ; cResult := str(FIELD->field_1)           ; EXIT
+   CASE 1 ; cResult := Str(FIELD->field_1)           ; EXIT
    CASE 2 ; cResult := FIELD->field_2                ; EXIT
-   CASE 3 ; cResult := iif(FIELD->field_3, "Y", "N") ; EXIT
+   CASE 3 ; cResult := IIf(FIELD->field_3, "Y", "N") ; EXIT
    CASE 4 ; cResult := DtoC(FIELD->field_4)          ; EXIT
    CASE 5 ; cResult := MemoLine(FIELD->field_5, 100, 1)
    ENDSWITCH

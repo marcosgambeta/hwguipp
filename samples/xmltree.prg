@@ -15,7 +15,7 @@ Private oFont := HFont():Add("MS Sans Serif", 0, -13)
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return NIL
+RETURN NIL
 
 Function DlgGet
 Local oDlg
@@ -24,7 +24,7 @@ Local fname := hwg_Selectfile( "All files( *.* )", "*.*" )
 Local oSplit, oSay
 
    IF Empty(fname)
-      Return NIL
+      RETURN NIL
    ENDIF
 
    IF ( oXmlDoc := HXMLDoc():Read(fname) ) = NIL
@@ -55,7 +55,7 @@ Local oSplit, oSay
 
    ACTIVATE DIALOG oDlg NOMODAL
 
-Return NIL
+RETURN NIL
 
 Function BuildTree( oParent,aItems,oSay )
 Local oNode, i, j, alen := Len(aItems), cText
@@ -83,7 +83,7 @@ Local oNode, i, j, alen := Len(aItems), cText
       ENDIF
    NEXT
 
-Return NIL
+RETURN NIL
 
 Static Function NodeOut( o,oSay )
 
@@ -93,7 +93,7 @@ Static Function NodeOut( o,oSay )
       oSay:SetText(o:cargo)
    ENDIF
 
-Return NIL
+RETURN NIL
 
 #pragma BEGINDUMP
 

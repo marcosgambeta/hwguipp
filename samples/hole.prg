@@ -45,7 +45,7 @@ Public oAgent, oTimer
 
    ACTIVATE WINDOW oMainWindow
 
-Return NIL
+RETURN NIL
 
 Static Function SpeakIt( oEdit )
 // Local aTop := hwg_Clienttoscreen( oMainWindow:handle, 0, 0 )
@@ -57,27 +57,27 @@ Static Function SpeakIt( oEdit )
    oChar:Show(1)
    // oChar:Moveto( aTop[1]+20, aTop[2]+70 )
    oChar:Balloon:Style := 0
-   oChar:LanguageID := Iif( Asc(cText)>122,"&H0419","&H0409" )
+   oChar:LanguageID := IIf( Asc(cText)>122,"&H0419","&H0409" )
 
    IF SpeakLine()
       oReq := NIL
       oChar:Hide(1)
    ENDIF
 
-Return NIL
+RETURN NIL
 
 Static Function SpeakLine()
 Local cLine, lEnd := .F., cUpd := "10"
 
    IF (nPos := hb_At(".", cText, nPosOld)) == 0
-      cLine := Substr(cText, nPosOld)
+      cLine := SubStr(cText, nPosOld)
       lEnd := .T.
    ELSE
-      cLine := Substr(cText, nPosOld, nPos - nPosOld + 1)
+      cLine := SubStr(cText, nPosOld, nPos - nPosOld + 1)
       nPosOld := nPos + 1
    ENDIF
    IF !Empty(cLine)
-      // cUpd := Alltrim(hwg_Getedittext(oUpDown:oParent:handle, oUpDown:id))
+      // cUpd := AllTrim(hwg_Getedittext(oUpDown:oParent:handle, oUpDown:id))
       oReq := oChar:Speak( "\Spd="+cUpd+"\"+cLine )
       // hwg_writelog( "\Spd="+cUpd+"\"+cLine )
    ENDIF
@@ -85,7 +85,7 @@ Local cLine, lEnd := .F., cUpd := "10"
       oBtnSpeak:Enable()
    ENDIF
 
-Return lEnd
+RETURN lEnd
 
 Static Function SetPause()
 
@@ -96,7 +96,7 @@ Static Function SetPause()
    ENDIF
    lPause := !lPause
 
-Return NIL
+RETURN NIL
 
 Static Function TimerFunc()
 Local nReq
@@ -108,7 +108,7 @@ Local nReq
       ENDIF
    ENDIF
 
-Return NIL
+RETURN NIL
 
 EXIT PROCEDURE EXI
 
@@ -118,4 +118,4 @@ EXIT PROCEDURE EXI
    ENDIF
    oTimer:End()
 
-Return NIL
+RETURN NIL

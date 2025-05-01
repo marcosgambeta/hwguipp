@@ -40,7 +40,7 @@ Function Test
    
    ACTIVATE WINDOW oMain
   
-Return NIL
+RETURN NIL
 
 Function Contacts_DBF
    Local oDlg, oBrw, oTab, oFontDlg, oFontBrw //Controls of Dialog
@@ -88,7 +88,7 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts Via DBFCDX" AT 0, 0 size 1024, 5
 
    oBrw:Alias:="ctc"
 
-   Add Column {||iif(ctc->(Deleted()),"Yes","No" ) } to oBrw ;
+   Add Column {||IIf(ctc->(Deleted()),"Yes","No" ) } to oBrw ;
    Header "Del" Length 3
 
    Add Column FieldBlock("idcontact") to oBrw ;
@@ -121,7 +121,7 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts Via DBFCDX" AT 0, 0 size 1024, 5
 oDlg:Activate()
 
 ctc->( dbCloseArea() )
-Return NIL 
+RETURN NIL 
 
 Static Function MakeVars()
    nIdContact := 0 //Auto increment
@@ -187,7 +187,7 @@ Static function SaveContact(oDlg,lSQL)
 Local cSQL
    cName := oName:Value
 
-   If empty(cName)
+   If Empty(cName)
       hwg_MsgStop("Please enter with a name")
       oName:SetFocus()
       hwg_edit_SetPos( oName:Handle, 0) //Set 1 position edit of get
@@ -250,7 +250,7 @@ return .T.
 
 Static Function DelOnOff(oDlg)
    Local lSetDeleted := Set( _SET_DELETED )
-   iif(lSetDeleted, Set( _SET_DELETED, .F.), Set( _SET_DELETED, .T.) )
+   IIf(lSetDeleted, Set( _SET_DELETED, .F.), Set( _SET_DELETED, .T.) )
    oDlg:oBrw:Refresh()
 
 return .T.
@@ -292,7 +292,7 @@ Function Contacts_MariaDB
        EndIf
     EndIf
 
-    If empty(nTab) //make table contacts
+    If Empty(nTab) //make table contacts
        If rddInfo( RDDI_EXECUTE, "CREATE TABLE contacts ( idcontact MEDIUMINT NOT NULL AUTO_INCREMENT, NAME CHAR(60) NOT NULL, PRIMARY KEY (idcontact) )" )
           Hwg_MsgInfo("Table contacts create on MariaDB")
        Else 
@@ -318,7 +318,7 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts using SQLMIX and MariaDB" AT 0, 
 
    oBrw:Alias:="ctc"
 
-   Add Column {||iif(ctc->(Deleted()),"Yes","No" ) } to oBrw ;
+   Add Column {||IIf(ctc->(Deleted()),"Yes","No" ) } to oBrw ;
    Header "Del" Length 3
 
    Add Column FieldBlock("idcontact") to oBrw ;
@@ -353,4 +353,4 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Contacts using SQLMIX and MariaDB" AT 0, 
 oDlg:Activate()
 
 ctc->( dbCloseArea() )
-Return NIL
+RETURN NIL

@@ -41,7 +41,7 @@ public isdemo:=.F.
         SIZE 300, 100 AT 0, 0
 
 /*
-  iif(!isdemo,(isdemo=.T.,Test("AutoInt")),"")
+  IIf(!isdemo,(isdemo=.T.,Test("AutoInt")),"")
   causes 
   Warning W0027  Meaningless use of expression 'Logical'
 */
@@ -60,7 +60,7 @@ public isdemo:=.F.
 
         ACTIVATE WINDOW oMain // MAXIMIZED // DF7BE: Progbar is otherwise hidden.
 
-Return NIL
+RETURN NIL
 
 
 FUNCTION _ISDEMO(ctext)
@@ -84,7 +84,7 @@ progbars.prg(123) Warning W0027  Meaningless use of expression 'Logical'
 progbars.prg(127) Warning W0027  Meaningless use of expression 'String'
 progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
 
- use iif(<condition>,<action if true>, )
+ use IIf(<condition>,<action if true>, )
                                       ^ let empty
 */
 
@@ -94,12 +94,12 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
              FONT oFont ;
              AT 200, 200 SIZE 200, 200 ;
              STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU ;
-             ON EXIT {||Iif(oBar == NIL,.T.,(oBar:Close(),.T.))}
+             ON EXIT {||IIf(oBar == NIL,.T.,(oBar:Close(),.T.))}
 
              do case
                 case included == NIL .OR. included == "ManExt" .OR.included == "AutoExt"
                      @ 290, 395 BUTTON oCreate CAPTION "Create Bar" SIZE 85, 25 ;
-                        ON CLICK {|| oBar := HProgressBar():NewBox( "Testing ...",,,,, 20, 100 ),iif(included == "AutoExt",SetTimer(oForm,@oTimer),),oCreate:hide()}
+                        ON CLICK {|| oBar := HProgressBar():NewBox( "Testing ...",,,,, 20, 100 ),IIf(included == "AutoExt",SetTimer(oForm,@oTimer),),oCreate:hide()}
                      * Attention !
                      * To bypass the hidden toolbar, use wmctrl to place the toolbar on top ...
                      * sudo apt install wmctrl
@@ -109,7 +109,7 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
                      @ 150, 110 say "Testing ..." SIZE 200, 32
                      @ 150, 150 PROGRESSBAR oBar SIZE 100, 20 BARWIDTH 10 QUANTITY 100
                      @ 290, 395 BUTTON oCreate CAPTION "Create Bar" SIZE 85, 25 ;
-                       ON CLICK {||oBar:show(),oCreate:hide(),iif(included == "AutoInt",SetTimer(oForm,@oTimer),"")}
+                       ON CLICK {||oBar:show(),oCreate:hide(),IIf(included == "AutoInt",SetTimer(oForm,@oTimer),"")}
                      oCreate:hide()
                      if included == "AutoInt"
                         SetTimer(oForm,@oTimer)
@@ -117,18 +117,18 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
              endcase
 
              @ 380, 395 BUTTON "Step Bar" SIZE 75, 25 ;
-                ON CLICK {|| n+=100,Iif(oBar == NIL,hwg_MsgStop(cMsgErr),oBar:Set(,n/100)),hb_run("wmctrl -a 'Testing ...'"),iif(n/100 == 100,RES_PROGBAR ( obar ), ) }
+                ON CLICK {|| n+=100,IIf(oBar == NIL,hwg_MsgStop(cMsgErr),oBar:Set(,n/100)),hb_run("wmctrl -a 'Testing ...'"),IIf(n/100 == 100,RES_PROGBAR ( obar ), ) }
 
              @ 460, 395 BUTTON "Reset Bar" SIZE 75, 25 ;
-                ON CLICK {|| IIF(oBar == NIL , , RES_PROGBAR(oBar) ) , n:=0 }
-             // IIF(oBar == NIL , .T. , RES_PROGBAR(oBar) )
+                ON CLICK {|| IIf(oBar == NIL , , RES_PROGBAR(oBar) ) , n:=0 }
+             // IIf(oBar == NIL , .T. , RES_PROGBAR(oBar) )
 
              if right(included, 3) == "Ext"
                 @ 540, 395 BUTTON "Close Bar" SIZE 75, 25 ;
-                   ON CLICK {|| Iif(oBar == NIL,hwg_MsgStop(cMsgErr),(iif(Left(included, 4)== "Auto",oTimer:End(), ),oBar:close(),oBar:=NIL,n:=0,oCreate:show())) }
+                   ON CLICK {|| IIf(oBar == NIL,hwg_MsgStop(cMsgErr),(IIf(Left(included, 4)== "Auto",oTimer:End(), ),oBar:close(),oBar:=NIL,n:=0,oCreate:show())) }
              else
                 @ 540, 395 BUTTON "Close Bar" SIZE 75, 25 ;
-                   ON CLICK {|| Iif(oBar == NIL,hwg_MsgStop(cMsgErr),(iif(Left(included, 4)== "Auto",oTimer:End(), ),RES_PROGBAR(oBar),oBar:hide(),n:=0,oCreate:show())) }
+                   ON CLICK {|| IIf(oBar == NIL,hwg_MsgStop(cMsgErr),(IIf(Left(included, 4)== "Auto",oTimer:End(), ),RES_PROGBAR(oBar),oBar:hide(),n:=0,oCreate:show())) }
              endif
              @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| isdemo:=.F.,oForm:Close() }
 
@@ -137,7 +137,7 @@ progbars.prg(130) Warning W0027  Meaningless use of expression 'String'
            oTimer:End()
         endif
 
-Return NIL
+RETURN NIL
 
 
 // ============================================================================
@@ -158,7 +158,7 @@ Static Function SetTimer( oDlg,oTimer )
 
 SET TIMER oTimer OF oDlg VALUE 1000 ACTION {||TimerFunc()}
 
-Return NIL
+RETURN NIL
 
 // ============================================================================
 Static Function TimerFunc()
@@ -175,4 +175,4 @@ else
    endif
 endif   
 
-Return NIL
+RETURN NIL
