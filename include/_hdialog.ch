@@ -33,7 +33,7 @@
             [ <lNoModal: NOMODAL> ]                   ;
             [ <lMaximized: MAXIMIZED> ]               ;
             [ <lMinimized: MINIMIZED> ]               ;
-            [ <lCenter: CENTER> ]                     ;
+            [ <lCentered: CENTER, CENTERED> ]         ;
             [ ON ACTIVATE <bInit> ]                   ;
           => ;
-          <oDlg>:Activate(<.lNoModal.>, <.lMaximized.>, <.lMinimized.>, <.lCenter.>, <bInit>)
+          <oDlg>:Activate(<.lNoModal.>, <.lMaximized.>, <.lMinimized.>, <.lCentered.>, <bInit>)
