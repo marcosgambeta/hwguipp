@@ -12,17 +12,17 @@
 
 REQUEST HB_CODEPAGE_UTF8
 #define _( x ) hb_i18n_gettext(x)
-#xcommand TRY              => s_bError := errorBlock( {|oErr| break( oErr ) } ) ;;
+#xcommand TRY              => s_bError := errorBlock({|oErr|break(oErr)}) ;;
       BEGIN SEQUENCE
-#xcommand CATCH [<!oErr!>] => errorBlock( s_bError ) ;;
+#xcommand CATCH [<!oErr!>] => errorBlock(s_bError) ;;
       RECOVER [USING <oErr>] <- oErr -> ;;
-      ErrorBlock( s_bError )
+      ErrorBlock(s_bError)
 #command FINALLY           => ALWAYS
 MEMVAR inierror, delmarker
 
    // ============================================================================
 
-FUNCTION Hwg_GetIni( rubrique, param, defaut, inifile )
+FUNCTION Hwg_GetIni(rubrique, param, defaut, inifile)
 
    LOCAL hini
    LOCAL inivalue
@@ -59,7 +59,7 @@ FUNCTION Hwg_GetIni( rubrique, param, defaut, inifile )
 
    // ============================================================================
 
-FUNCTION Hwg_WriteIni( rubrique, param, value , inifile )
+FUNCTION Hwg_WriteIni(rubrique, param, value , inifile)
 
    LOCAL rg
    LOCAL rga

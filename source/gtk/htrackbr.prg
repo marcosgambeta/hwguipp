@@ -40,8 +40,8 @@ CLASS HTrack INHERIT HControl
    METHOD Init()
    METHOD Set( nSize, oStyleBar, oStyleSlider, lAxis, bPaint )
    METHOD Paint()
-   METHOD Drag( xPos, yPos )
-   METHOD Move( x1, y1, width, height )
+   METHOD Drag(xPos, yPos)
+   METHOD Move(x1, y1, width, height)
    METHOD Value ( xValue ) SETGET
 
 ENDCLASS
@@ -62,7 +62,7 @@ METHOD HTrack:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bPaint, color
    ::oStyleBar := oStyleBar
    ::oStyleSlider := oStyleSlider
    ::lAxis := ( lAxis == NIL .OR. lAxis )
-   ::oPen1 := HPen():Add( PS_SOLID, 1, color )
+   ::oPen1 := HPen():Add(PS_SOLID, 1, color)
 
    ::Activate()
 
@@ -81,7 +81,7 @@ METHOD HTrack:onEvent( msg, wParam, lParam )
 
    IF msg == WM_MOUSEMOVE
       IF ::lCaptured
-         ::Drag( hwg_Loword(lParam), hwg_Hiword(lParam) )
+         ::Drag(hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
 
    ELSEIF msg == WM_PAINT
@@ -95,7 +95,7 @@ METHOD HTrack:onEvent( msg, wParam, lParam )
 
    ELSEIF msg == WM_LBUTTONDOWN
       ::lCaptured := .T.
-      ::Drag( hwg_Loword(lParam), hwg_Hiword(lParam) )
+      ::Drag(hwg_Loword(lParam), hwg_Hiword(lParam))
 
    ELSEIF msg == WM_LBUTTONUP
       ::lCaptured := .F.
@@ -154,7 +154,7 @@ METHOD HTrack:Paint()
    LOCAL hDC := hwg_Getdc(::handle)
 
    IF ::tColor2 != NIL .AND. ::oPen2 == NIL
-      ::oPen2 := HPen():Add( PS_SOLID, 1, ::tColor2 )
+      ::oPen2 := HPen():Add(PS_SOLID, 1, ::tColor2)
    ENDIF
 
    IF hb_IsBlock(::bPaint)
@@ -214,7 +214,7 @@ METHOD HTrack:Paint()
 
    RETURN NIL
 
-METHOD HTrack:Drag( xPos, yPos )
+METHOD HTrack:Drag(xPos, yPos)
 
    LOCAL nCurr := ::nCurr
 
@@ -238,7 +238,7 @@ METHOD HTrack:Drag( xPos, yPos )
 
    RETURN NIL
 
-METHOD HTrack:Move( x1, y1, width, height )
+METHOD HTrack:Move(x1, y1, width, height)
 
    LOCAL xValue := (::nCurr - ::nFrom) / (::nTo - ::nFrom)
 
@@ -252,11 +252,11 @@ METHOD HTrack:Move( x1, y1, width, height )
       ::nCurr := xValue * (::nTo - ::nFrom) + ::nFrom
    ENDIF
 
-   ::Super:Move( x1, y1, width, height )
+   ::Super:Move(x1, y1, width, height)
 
    RETURN NIL
 
-METHOD HTrack:Value( xValue )
+METHOD HTrack:Value(xValue)
 
    IF xValue != NIL
       xValue := IIf(xValue < 0, 0, IIf(xValue > 1, 1, xValue))

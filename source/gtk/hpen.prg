@@ -19,13 +19,13 @@ CLASS HPen INHERIT HObject
    DATA color
    DATA nCounter INIT 1
 
-   METHOD Add( nStyle, nWidth, nColor )
+   METHOD Add(nStyle, nWidth, nColor)
    METHOD Get( nStyle, nWidth, nColor )
    METHOD RELEASE()
 
 ENDCLASS
 
-METHOD HPen:Add( nStyle, nWidth, nColor )
+METHOD HPen:Add(nStyle, nWidth, nColor)
    
    LOCAL i
 

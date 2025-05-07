@@ -32,7 +32,7 @@ FUNCTION hwg_isWindows()
  RETURN .T.
 #endif
 
-FUNCTION hwg_CompleteFullPath( cPath )
+FUNCTION hwg_CompleteFullPath(cPath)
 
    LOCAL cDirSep := hwg_GetDirSep()
 
@@ -41,14 +41,14 @@ FUNCTION hwg_CompleteFullPath( cPath )
   ENDIF
 RETURN cPath
 
-FUNCTION hwg_CreateTempfileName( cPrefix , cSuffix )
+FUNCTION hwg_CreateTempfileName(cPrefix , cSuffix)
 
    LOCAL cPre
    LOCAL cSuff
 
   cPre := IIF(cPrefix == NIL , "e" , cPrefix)
   cSuff := IIF(cSuffix == NIL , ".tmp" , cSuffix)
-  RETURN hwg_CompleteFullPath( hwg_GetTempDir() ) + cPre + Ltrim(Str(Int(Seconds()*100))) + cSuff
+  RETURN hwg_CompleteFullPath(hwg_GetTempDir()) + cPre + Ltrim(Str(Int(Seconds()*100))) + cSuff
 
 FUNCTION hwg_CurDrive
 #ifdef __PLATFORM__WINDOWS
@@ -536,10 +536,10 @@ RETURN varbuf
 
 // ===== Temperature conversions ==============
 
-FUNCTION hwg_TEMP_C2F( T )
+FUNCTION hwg_TEMP_C2F(T)
 RETURN (T * 1.8) + 32.0
 
-FUNCTION hwg_TEMP_C2K( T )
+FUNCTION hwg_TEMP_C2K(T)
 RETURN T + 273.15
 
 FUNCTION hwg_TEMP_C2RA(T)
@@ -548,10 +548,10 @@ RETURN (T * 1.8) + 32.0 + 459.67
 FUNCTION hwg_TEMP_C2R( T )
 RETURN T * 0.8
 
-FUNCTION hwg_TEMP_K2C( T )
+FUNCTION hwg_TEMP_K2C(T)
 RETURN T - 273.15
 
-FUNCTION hwg_TEMP_K2F( T )
+FUNCTION hwg_TEMP_K2F(T)
 RETURN (T * 1.8) - 459.67
 
 FUNCTION hwg_TEMP_K2RA(T)
@@ -560,10 +560,10 @@ RETURN T * 1.8
 FUNCTION hwg_TEMP_K2R( T )
 RETURN ( T - 273.15 ) * 0.8
 
-FUNCTION hwg_TEMP_F2C( T )
+FUNCTION hwg_TEMP_F2C(T)
 RETURN ( T - 32.0) / 1.8
 
-FUNCTION hwg_TEMP_F2K( T )
+FUNCTION hwg_TEMP_F2K(T)
 RETURN ( T + 459.67) / 1.8
 
 FUNCTION hwg_TEMP_F2RA(T)
@@ -572,25 +572,25 @@ RETURN T + 459.67
 FUNCTION hwg_TEMP_F2R( T )
 RETURN ( T - 32.0 ) / 2.25
 
-FUNCTION hwg_TEMP_RA2C( T )
+FUNCTION hwg_TEMP_RA2C(T)
 RETURN ( T - 32.0 - 459.67) / 1.8
 
-FUNCTION hwg_TEMP_RA2F( T )
+FUNCTION hwg_TEMP_RA2F(T)
 RETURN  T - 459.67
 
-FUNCTION hwg_TEMP_RA2K( T )
+FUNCTION hwg_TEMP_RA2K(T)
 RETURN T / 1.8
 
 FUNCTION hwg_TEMP_RA2R( T )
 RETURN ( T - 32.0 -459.67 ) / 2.25
 
-FUNCTION hwg_TEMP_R2C( T )
+FUNCTION hwg_TEMP_R2C(T)
 RETURN T * 1.25
 
-FUNCTION hwg_TEMP_R2F( T )
+FUNCTION hwg_TEMP_R2F(T)
 RETURN ( T * 2.25 ) + 32.0
 
-FUNCTION hwg_TEMP_R2K( T )
+FUNCTION hwg_TEMP_R2K(T)
 RETURN ( T * 1.25 ) + 273.15
 
 FUNCTION hwg_TEMP_R2RA(T)
@@ -602,10 +602,10 @@ RETURN ( T * 2.25 ) + 32.0 + 459.67
 
 // in / cm
 
-FUNCTION hwg_INCH2CM( I )
+FUNCTION hwg_INCH2CM(I)
 RETURN I * 2.54
 
-FUNCTION hwg_CM2INCH( cm )
+FUNCTION hwg_CM2INCH(cm)
 RETURN cm * 0.3937
 
 // feet / m
@@ -618,7 +618,7 @@ RETURN m * 3.2808
 
 // mile / km
 
-FUNCTION hwg_MILES2KM( mi )
+FUNCTION hwg_MILES2KM(mi)
 RETURN mi * 1.6093
 
 FUNCTION hwg_KM2MILES( km )
@@ -626,7 +626,7 @@ RETURN  km * 0.6214
 
 // sqin / sq cm
 
-FUNCTION hwg_SQIN2SQCM( sqin )
+FUNCTION hwg_SQIN2SQCM(sqin)
 RETURN sqin * 6.4516
 
 FUNCTION hwg_SQCM2SQIN( sqcm )
@@ -634,7 +634,7 @@ RETURN sqcm * 0.155
 
 // sqft / sq m
 
-FUNCTION hwg_SQFT2SQM( sqft )
+FUNCTION hwg_SQFT2SQM(sqft)
 RETURN sqft * 0.0929
 
 FUNCTION hwg_SQM2SQFT( sqm )
@@ -642,7 +642,7 @@ RETURN sqm * 10.7642
 
 // usoz / c.c. (Cubic cm)
 
-FUNCTION hwg_USOZ2CC( usoz )
+FUNCTION hwg_USOZ2CC(usoz)
 RETURN usoz * 29.574
 
 FUNCTION hwg_CC2USOZ( cc )
@@ -650,15 +650,15 @@ RETURN cc * 0.0338
 
 // usgal / liter
 
-FUNCTION hwg_USGAL2L( usgal )
+FUNCTION hwg_USGAL2L(usgal)
 RETURN usgal * 3.7854
 
-FUNCTION hwg_L2USGAL( l )
+FUNCTION hwg_L2USGAL(l)
 RETURN l * 0.2642
 
 // lb / kg
 
-FUNCTION  hwg_LB2KG( lb )
+FUNCTION  hwg_LB2KG(lb)
 RETURN lb * 0.4536
 
 FUNCTION hwg_KG2LB(kg)
@@ -787,7 +787,7 @@ FUNCTION hwg_MsgIsNIL(xpara, ctitle)
 
    LOCAL lrvalue
 
-lrvalue := hwg_Isnil( xpara )
+lrvalue := hwg_Isnil(xpara)
 
 IF ctitle == NIL
    IF lrvalue

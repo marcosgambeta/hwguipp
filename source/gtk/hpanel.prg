@@ -33,9 +33,9 @@ CLASS HPanel INHERIT HControl
    METHOD Init()
    METHOD DrawItems(hDC, aCoors)
    METHOD Paint()
-   METHOD Move( x1, y1, width, height )
+   METHOD Move(x1, y1, width, height)
    METHOD SetPaintCB(nId, block, cId)
-   METHOD Drag( xPos, yPos )
+   METHOD Drag(xPos, yPos)
 
 ENDCLASS
 
@@ -66,7 +66,7 @@ METHOD HPanel:onEvent( msg, wParam, lParam )
 
    IF msg == WM_MOUSEMOVE
       IF ::lDragWin .AND. ::lCaptured
-         ::Drag( hwg_Loword(lParam), hwg_Hiword(lParam) )
+         ::Drag(hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
    ELSEIF msg == WM_PAINT
       ::Paint()
@@ -150,7 +150,7 @@ METHOD HPanel:Paint()
 
    RETURN NIL
 
-METHOD HPanel:Move( x1, y1, width, height )
+METHOD HPanel:Move(x1, y1, width, height)
 
    LOCAL lMove := .F.
    LOCAL lSize := .F.
@@ -213,9 +213,9 @@ METHOD HPanel:SetPaintCB(nId, block, cId)
 
    RETURN NIL
 
-METHOD HPanel:Drag( xPos, yPos )
+METHOD HPanel:Drag(xPos, yPos)
 
-   LOCAL oWnd := hwg_getParentForm( Self )
+   LOCAL oWnd := hwg_getParentForm(Self)
 
    IF xPos > 32000
       xPos -= 65535
@@ -224,7 +224,7 @@ METHOD HPanel:Drag( xPos, yPos )
       yPos -= 65535
    ENDIF
    IF Abs( xPos - ::nOldX ) > 1 .OR. Abs( yPos - ::nOldY ) > 1
-      oWnd:Move( oWnd:nX + ( xPos - ::nOldX ), oWnd:nY + ( yPos - ::nOldY ) )
+      oWnd:Move(oWnd:nX + ( xPos - ::nOldX ), oWnd:nY + ( yPos - ::nOldY ))
    ENDIF
 
    RETURN NIL
@@ -425,18 +425,18 @@ METHOD HPanelHea:SetSysbtnColor( tColor, bColor )
    LOCAL oPen1
    LOCAL oPen2
 
-   oPen1 := HPen():Add( BS_SOLID, 2, tColor )
-   oPen2 := HPen():Add( BS_SOLID, 1, tColor )
+   oPen1 := HPen():Add(BS_SOLID, 2, tColor)
+   oPen2 := HPen():Add(BS_SOLID, 1, tColor)
 
-   IF !Empty(oBtn := ::FindControl( "btnclose" ))
+   IF !Empty(oBtn := ::FindControl("btnclose"))
       oBtn:SetColor( tColor, bColor )
       oBtn:oPen1 := oPen1; oBtn:oPen2 := oPen2
    ENDIF
-   IF !Empty(oBtn := ::FindControl( "btnmax" ))
+   IF !Empty(oBtn := ::FindControl("btnmax"))
       oBtn:SetColor( tColor, bColor )
       oBtn:oPen1 := oPen1; oBtn:oPen2 := oPen2
    ENDIF
-   IF !Empty(oBtn := ::FindControl( "btnmin" ))
+   IF !Empty(oBtn := ::FindControl("btnmin"))
       oBtn:SetColor( tColor, bColor )
       oBtn:oPen1 := oPen1; oBtn:oPen2 := oPen2
    ENDIF
@@ -500,21 +500,21 @@ METHOD HPanelHea:Paint()
       nBtnSize := Min( 24, ::nHeight )
       x1 := ::nWidth-nBtnSize-4
       y1 := Int((::nHeight-nBtnSize)/2)
-      IF !Empty(oBtn := ::FindControl( "btnclose" ))
+      IF !Empty(oBtn := ::FindControl("btnclose"))
          oBtn:oBitmap := HBitmap():AddWindow( Self, x1, y1, nBtnSize, nBtnSize )
-         oBtn:Move( x1, y1, nBtnSize, nBtnSize )
+         oBtn:Move(x1, y1, nBtnSize, nBtnSize)
          oBtn:Anchor := ANCHOR_RIGHTABS
          x1 -= nBtnSize
       ENDIF
-      IF !Empty(oBtn := ::FindControl( "btnmax" ))
+      IF !Empty(oBtn := ::FindControl("btnmax"))
          oBtn:oBitmap := HBitmap():AddWindow( Self, x1, y1, nBtnSize, nBtnSize )
-         oBtn:Move( x1, y1, nBtnSize, nBtnSize )
+         oBtn:Move(x1, y1, nBtnSize, nBtnSize)
          oBtn:Anchor := ANCHOR_RIGHTABS
          x1 -= nBtnSize
       ENDIF
-      IF !Empty(oBtn := ::FindControl( "btnmin" ))
+      IF !Empty(oBtn := ::FindControl("btnmin"))
          oBtn:oBitmap := HBitmap():AddWindow( Self, x1, y1, nBtnSize, nBtnSize )
-         oBtn:Move( x1, y1, nBtnSize, nBtnSize )
+         oBtn:Move(x1, y1, nBtnSize, nBtnSize)
          oBtn:Anchor := ANCHOR_RIGHTABS
       ENDIF
    ENDIF

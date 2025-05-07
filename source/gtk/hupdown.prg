@@ -29,8 +29,8 @@ CLASS HUpDown INHERIT HControl
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Refresh()
-   METHOD Value( nValue ) SETGET
-   METHOD SetRange( n1, n2 ) INLINE hwg_SetRangeUpdown(::handle, n1, n2)
+   METHOD Value(nValue) SETGET
+   METHOD SetRange(n1, n2) INLINE hwg_SetRangeUpdown(::handle, n1, n2)
 
 ENDCLASS
 
@@ -92,7 +92,7 @@ METHOD HUpDown:onEvent( msg, wParam, lParam )
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
-   //hwg_WriteLog( "UpDown: "+Str(msg, 10)+"|"+Str(wParam, 10)+"|"+Str(lParam, 10) )
+   //hwg_WriteLog("UpDown: "+Str(msg, 10)+"|"+Str(wParam, 10)+"|"+Str(lParam, 10))
    IF msg == WM_SETFOCUS
       IF ::bSetGet == NIL
          IF hb_IsBlock(::bGetFocus)
@@ -102,7 +102,7 @@ METHOD HUpDown:onEvent( msg, wParam, lParam )
          __When( Self )
       ENDIF
    ELSEIF msg == WM_KILLFOCUS
-      __Valid( Self )
+      __Valid(Self)
    ENDIF
    RETURN 0
 
@@ -123,7 +123,7 @@ METHOD HUpDown:Refresh()
 
    RETURN NIL
 
-METHOD HUpDown:Value( nValue )
+METHOD HUpDown:Value(nValue)
 
    IF nValue != NIL
       IF HB_ISNUMERIC(nValue)
@@ -148,7 +148,7 @@ STATIC FUNCTION __When( oCtrl )
 
    RETURN .T.
 
-STATIC FUNCTION __Valid( oCtrl )
+STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:nValue := hwg_GetUpDown( oCtrl:handle )
    IF hb_IsBlock(oCtrl:bSetGet)

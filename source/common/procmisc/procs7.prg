@@ -114,7 +114,7 @@ FUNCTION FilExten( fname )
 
    RETURN IIf(( i := RAt(".", fname) ) == 0, "", SubStr(fname, i + 1))
 
-FUNCTION FilePath( fname )
+FUNCTION FilePath(fname)
 
    LOCAL i
 
@@ -122,7 +122,7 @@ FUNCTION FilePath( fname )
       IIf(( i := RAt("/", fname) ) == 0, "", Left(fname, i)), ;
       Left(fname, i))
 
-FUNCTION CutPath( fname )
+FUNCTION CutPath(fname)
 
    LOCAL i
 
@@ -130,9 +130,9 @@ FUNCTION CutPath( fname )
       IIf(( i := RAt("/", fname) ) == 0, fname, SubStr(fname, i + 1)), ;
       SubStr(fname, i + 1))
 
-FUNCTION AddPath( fname, cPath )
+FUNCTION AddPath(fname, cPath)
 
-   IF Empty(FilePath( fname )) .AND. !Empty(cPath)
+   IF Empty(FilePath(fname)) .AND. !Empty(cPath)
       IF !( Right( cPath, 1 ) $ "\/" )
 #ifndef __PLATFORM__WINDOWS
          cPath += "/"
@@ -145,7 +145,7 @@ FUNCTION AddPath( fname, cPath )
 
    RETURN fname
 
-FUNCTION NextItem( stroka, lFirst, cSep )
+FUNCTION NextItem(stroka, lFirst, cSep)
 
    STATIC nPos
    LOCAL i, oldPos

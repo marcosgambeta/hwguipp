@@ -877,7 +877,7 @@ STATIC FUNCTION onCloseQuery(o)
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
-HB_FUNC_STATIC( HWINDOW_CENTER )
+HB_FUNC_STATIC(HWINDOW_CENTER)
 {
    auto window = static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"));
 
@@ -893,22 +893,22 @@ HB_FUNC_STATIC( HWINDOW_CENTER )
    SetWindowPos(window, HWND_TOP, (x - w) / 2, (y - h) / 2, 0, 0, SWP_NOSIZE + SWP_NOACTIVATE + SWP_FRAMECHANGED + SWP_NOSENDCHANGING);
 }
 
-HB_FUNC_STATIC( HWINDOW_RESTORE )
+HB_FUNC_STATIC(HWINDOW_RESTORE)
 {
    hb_retnl(static_cast<LONG>(SendMessage(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), WM_SYSCOMMAND, SC_RESTORE, 0)));
 }
 
-HB_FUNC_STATIC( HWINDOW_MAXIMIZE )
+HB_FUNC_STATIC(HWINDOW_MAXIMIZE)
 {
    hb_retnl(static_cast<LONG>(SendMessage(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), WM_SYSCOMMAND, SC_MAXIMIZE, 0)));
 }
 
-HB_FUNC_STATIC( HWINDOW_MINIMIZE )
+HB_FUNC_STATIC(HWINDOW_MINIMIZE)
 {
    hb_retnl(static_cast<LONG>(SendMessage(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), WM_SYSCOMMAND, SC_MINIMIZE, 0)));
 }
 
-HB_FUNC_STATIC( HWINDOW_CLOSE )
+HB_FUNC_STATIC(HWINDOW_CLOSE)
 {
    hb_retnl(static_cast<LONG>(SendMessage(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), WM_SYSCOMMAND, SC_CLOSE, 0)));
 }

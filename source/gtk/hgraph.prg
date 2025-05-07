@@ -45,7 +45,7 @@ CLASS HGraph INHERIT HControl
    METHOD onEvent( msg, wParam, lParam )
    METHOD CalcMinMax()
    METHOD Paint()
-   METHOD Rebuild( aValues, nType, nLineType, nPointSize )
+   METHOD Rebuild(aValues, nType, nLineType, nPointSize)
 
 ENDCLASS
 
@@ -188,15 +188,15 @@ METHOD HGraph:Paint()
    ENDIF
 
    IF ::oPenGrid == NIL
-      ::oPenGrid := HPen():Add( PS_SOLID, 1, ::colorGrid )
+      ::oPenGrid := HPen():Add(PS_SOLID, 1, ::colorGrid)
    ENDIF
    IF ::oPen == NIL
-      ::oPen := HPen():Add( PS_SOLID, 2, ::tcolor )
+      ::oPen := HPen():Add(PS_SOLID, 2, ::tcolor)
    ENDIF
    IF ::nGraphs > 1 .AND. HB_ISARRAY(::aColors) .AND. ::aPens == NIL
       ::aPens := Array( Len(::aColors) )
       FOR i := 1 TO Len(::aColors)
-         ::aPens[i] := HPen():Add( PS_SOLID, 2, ::aColors[i] )
+         ::aPens[i] := HPen():Add(PS_SOLID, 2, ::aColors[i])
       NEXT
    ENDIF
 
@@ -221,10 +221,10 @@ METHOD HGraph:Paint()
          l1 := ( HB_ISNUMERIC(::aValues[i, 1]) )
          IF ::nType == 1
             FOR j := 2 TO nLen
-               px1 := Round( x1 + ( IIf(l1, j-1, ::aValues[i, j - 1, 1]) - ::xmin ) / scaleX, 0 )
-               py1 := Round( y2 - ( IIf(l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2]) - ::ymin ) / scaleY, 0 )
-               px2 := Round( x1 + ( IIf(l1, j, ::aValues[i, j, 1]) - ::xmin ) / scaleX, 0 )
-               py2 := Round( y2 - ( IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin ) / scaleY, 0 )
+               px1 := Round(x1 + ( IIf(l1, j-1, ::aValues[i, j - 1, 1]) - ::xmin ) / scaleX, 0)
+               py1 := Round(y2 - ( IIf(l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2]) - ::ymin ) / scaleY, 0)
+               px2 := Round(x1 + ( IIf(l1, j, ::aValues[i, j, 1]) - ::xmin ) / scaleX, 0)
+               py2 := Round(y2 - ( IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin ) / scaleY, 0)
                IF px2 != px1
                   IF ::nLineType == 0
                      hwg_Rectangle(hDC, px1, py1, px1 + ::nPointSize - 1, py1 + ::nPointSize - 1)
@@ -241,11 +241,11 @@ METHOD HGraph:Paint()
             IF ::tbrush == NIL
                ::tbrush := HBrush():Add(::tcolor)
             ENDIF
-            nWidth := Round( ( x2 - x1 ) / ( nLen ), 0 )
+            nWidth := Round(( x2 - x1 ) / ( nLen ), 0)
             FOR j := 1 TO nLen
                IF IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) != NIL
-                  px1 := Round( x1 + nWidth * ( j - 1 ) + 1, 0 )
-                  py1 := Round( y2 - 2 - ( IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin ) / scaleY, 0 )
+                  px1 := Round(x1 + nWidth * ( j - 1 ) + 1, 0)
+                  py1 := Round(y2 - 2 - ( IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin ) / scaleY, 0)
                   hwg_Fillrect(hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle)
                ENDIF
             NEXT
@@ -267,7 +267,7 @@ METHOD HGraph:Paint()
       ENDIF
       hwg_Settextcolor(hDC, ::colorCoor)
       FOR i := 1 TO Len(::aSignY)
-         py1 := Round( y2 - 2 - (::aSignY[i, 1] - ::ymin) / scaleY, 0 )
+         py1 := Round(y2 - 2 - (::aSignY[i, 1] - ::ymin) / scaleY, 0)
          IF py1 > y1 .AND. py1 < y2
             hwg_Drawline(hDC, x0 - 4, py1, x0 + 1, py1)
             IF ::aSignY[i, 2] != NIL
@@ -304,7 +304,7 @@ METHOD HGraph:Paint()
 
    RETURN NIL
 
-METHOD HGraph:Rebuild( aValues, nType, nLineType, nPointSize )
+METHOD HGraph:Rebuild(aValues, nType, nLineType, nPointSize)
 
    ::aValues := aValues
    IF nType != NIL

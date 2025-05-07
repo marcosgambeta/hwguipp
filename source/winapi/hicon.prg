@@ -186,7 +186,7 @@ RETURN NIL
 #include <math.h>
 #include "incomp_pointer.hpp"
 
-HB_FUNC_STATIC( HICON_DRAW )
+HB_FUNC_STATIC(HICON_DRAW)
 {
    DrawIcon(hwg_par_HDC(1), hwg_par_int(2), hwg_par_int(3), static_cast<HICON>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")));
 }

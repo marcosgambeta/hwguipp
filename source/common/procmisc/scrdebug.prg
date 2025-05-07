@@ -20,7 +20,7 @@ STATIC s_aWatches := {}
 STATIC s_aScriptCurr
 STATIC s_nScriptSch := 0
 
-FUNCTION hwg_scrDebug( aScript, iscr )
+FUNCTION hwg_scrDebug(aScript, iscr)
 
    LOCAL nFirst, i
 
@@ -101,7 +101,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
 
       ACTIVATE DIALOG s_oDlgDebug NOMODAL
 
-      s_oDlgDebug:Move( ,,, 400 )
+      s_oDlgDebug:Move(,,, 400)
    ENDIF
 
    IF s_aScriptCurr[4] != aScript[4]
@@ -129,7 +129,7 @@ FUNCTION hwg_scrDebug( aScript, iscr )
       ENDIF
       IF s_nDebugMode < 2
          FOR i := 1 TO Len(s_aWatches)
-            CalcWatch( i )
+            CalcWatch(i)
          NEXT
          IF !Empty(s_aWatches)
             s_oBrwData:Refresh()
@@ -190,7 +190,7 @@ Local i
          Aadd(s_aBreakPoints[2], s_oBrwScript:nCurrent)
       ENDIF
    ELSE
-      Adel( s_aBreakPoints[2], i )
+      Adel(s_aBreakPoints[2], i)
       s_aBreakPoints[2,Len(s_aBreakPoints[2])] := 0
    ENDIF
    s_oBrwScript:Refresh()
@@ -204,25 +204,25 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
 #else
    IF !Empty(xRes := hwg_Getedittext( s_oEditExpr:oParent:handle, s_oEditExpr:id ))
 #endif
-      bOldError := ERRORBLOCK( {|e|MacroError(e)} )
+      bOldError := ERRORBLOCK({|e|MacroError(e)})
       BEGIN SEQUENCE
          bCodeblock := &( "{||" + xRes + "}" )
       RECOVER
          lRes := .F.
       END SEQUENCE
-      ERRORBLOCK( bOldError )
+      ERRORBLOCK(bOldError)
    ENDIF
 
    IF lRes
       IF Ascan( s_aWatches, {|s|s[1] == xRes} ) == 0
          Aadd(s_aWatches, {xRes, bCodeblock, NIL, NIL})
-         CalcWatch( Len(s_aWatches) )
+         CalcWatch(Len(s_aWatches))
       ENDIF
       IF s_oBrwData:nHeight < 20
-         s_oSplit:Move( , 56)
-         s_oBrwScript:Move( , 60,,s_oDlgDebug:nHeight-s_oSplit:nTop-s_oSplit:nHeight-64)
-         s_oBrwData:Move( ,,, 56 )
-         s_oDlgDebug:Move( ,,,s_oDlgDebug:nHeight+4 )
+         s_oSplit:Move(, 56)
+         s_oBrwScript:Move(, 60,,s_oDlgDebug:nHeight-s_oSplit:nTop-s_oSplit:nHeight-64)
+         s_oBrwData:Move(,,, 56)
+         s_oDlgDebug:Move(,,,s_oDlgDebug:nHeight+4)
       ENDIF
       s_oBrwData:Refresh()
    ELSE
@@ -230,19 +230,19 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
    ENDIF
 Return .T.
 
-Static Function CalcWatch( n )
+Static Function CalcWatch(n)
 Local xRes, bOldError, lRes := .T., cType
 
-   bOldError := ERRORBLOCK( {|e|MacroError(e)} )
+   bOldError := ERRORBLOCK({|e|MacroError(e)})
    BEGIN SEQUENCE
       xRes := Eval(s_aWatches[n, 2])
    RECOVER
       lRes := .F.
    END SEQUENCE
-   ERRORBLOCK( bOldError )
+   ERRORBLOCK(bOldError)
 
    IF lRes
-      IF ( cType := Valtype( xRes ) ) == "N"
+      IF ( cType := Valtype(xRes) ) == "N"
          s_aWatches[n, 4] := Ltrim(Str(xRes))
       ELSEIF cType == "D"
          s_aWatches[n, 4] := Dtoc(xRes)
@@ -269,17 +269,17 @@ Local xRes, bOldError, lRes := .T., cType
 #else
    IF !Empty(xRes := hwg_Getedittext( s_oEditExpr:oParent:handle, s_oEditExpr:id ))
 #endif
-      bOldError := ERRORBLOCK( {|e|MacroError(e)} )
+      bOldError := ERRORBLOCK({|e|MacroError(e)})
       BEGIN SEQUENCE
          xRes := &xRes
       RECOVER
          lRes := .F.
       END SEQUENCE
-      ERRORBLOCK( bOldError )
+      ERRORBLOCK(bOldError)
    ENDIF
 
    IF lRes
-      IF ( cType := Valtype( xRes ) ) == "N"
+      IF ( cType := Valtype(xRes) ) == "N"
          s_oEditRes:SetText( Ltrim(Str(xRes)) )
       ELSEIF cType == "D"
          s_oEditRes:SetText( Dtoc(xRes) )

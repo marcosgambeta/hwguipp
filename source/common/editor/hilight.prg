@@ -94,8 +94,8 @@ CLASS Hilight INHERIT HilightBase
    METHOD New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase)
    METHOD Set( oEdit )
    METHOD Do( oEdit, nLine, lCheck )
-   METHOD UpdSource( nLine ) INLINE (::nDopChecked := nLine - 1)
-   METHOD AddItem( nPos1, nPos2, nType )
+   METHOD UpdSource(nLine) INLINE (::nDopChecked := nLine - 1)
+   METHOD AddItem(nPos1, nPos2, nType)
 ENDCLASS
 
 METHOD Hilight:New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase)
@@ -109,7 +109,7 @@ Local oIni, oMod, oNode, i, nPos
          IF !Empty(oIni:aItems) .AND. oIni:aItems[1]:title == "hilight"
             oIni := oIni:aItems[1]
             FOR i := 1 TO Len(oIni:aItems)
-               IF oIni:aItems[i]:title == "module" .AND. oIni:aItems[i]:GetAttribute( "type" ) == cSection
+               IF oIni:aItems[i]:title == "module" .AND. oIni:aItems[i]:GetAttribute("type") == cSection
                   oMod := oIni:aItems[i]
                   EXIT
                ENDIF
@@ -134,7 +134,7 @@ Local oIni, oMod, oNode, i, nPos
                   ::cMcomm1 := Trim(Left(::cMcomm1,nPos - 1))
                ENDIF
             ELSEIF oNode:title == "case"
-               IF oNode:GetAttribute( "value" ) == "on"
+               IF oNode:GetAttribute("value") == "on"
                   ::lCase := .T.
                ENDIF
             ENDIF
@@ -214,7 +214,7 @@ Local nPos, nPos1, nPrev, cWord, c
       ::aDop := Array( Len(::oEdit:aText) )
       ::nDopChecked := 0
    ELSEIF Len(::aDop) < Len(aText)
-      ::aDop := ASize( ::aDop, Len(aText) )
+      ::aDop := ASize(::aDop, Len(aText))
    ENDIF
    IF ::nDopChecked < nLine - 1
       FOR i := ::nDopChecked + 1 TO nLine - 1
@@ -236,14 +236,14 @@ Local nPos, nPos1, nPrev, cWord, c
    IF lComm != NIL .AND. lComm
       IF ( nPos := At(::cMcomm2, cLine) ) == 0
          IF !lCheck
-            ::AddItem( 1, hced_Len(::oEdit,cLine), HILIGHT_COMM )
+            ::AddItem(1, hced_Len(::oEdit,cLine), HILIGHT_COMM)
          ENDIF
          ::lMultiComm := .T.
          ::aDop[nLine] := 1
          Return NIL
       ELSE
          IF !lCheck
-            ::AddItem( 1, nPos, HILIGHT_COMM )
+            ::AddItem(1, nPos, HILIGHT_COMM)
          ENDIF
          nPos += nLenM
       ENDIF
@@ -271,12 +271,12 @@ Local nPos, nPos1, nPrev, cWord, c
                nPos := hced_Len(::oEdit, cLine)
             ENDIF
             IF !lCheck
-               ::AddItem( nPos1, nPos, HILIGHT_QUOTE )
+               ::AddItem(nPos1, nPos, HILIGHT_QUOTE)
             ENDIF
 
          ELSEIF c == cs .AND. hced_Substr(::oEdit, cLine, nPos, nLenS) == ::cScomm
             IF !lCheck
-               ::AddItem( nPos, hced_Len(::oEdit, cLine), HILIGHT_COMM )
+               ::AddItem(nPos, hced_Len(::oEdit, cLine), HILIGHT_COMM)
             ENDIF
             nPos := hced_Len(::oEdit, cLine) + 1
             EXIT
@@ -289,7 +289,7 @@ Local nPos, nPos1, nPrev, cWord, c
                ::aDop[nLine] := 1
             ENDIF
             IF !lCheck
-               ::AddItem( nPos1, nPos, HILIGHT_COMM )
+               ::AddItem(nPos1, nPos, HILIGHT_COMM)
             ENDIF
             nPos += nLenM - 1
 
@@ -307,9 +307,9 @@ Local nPos, nPos1, nPrev, cWord, c
             //nPos --
             nPos := nPrev
             IF !Empty(::cCommands ) .AND. cWord $ ::cCommands
-               ::AddItem( nPos1, nPos, HILIGHT_KEYW )
+               ::AddItem(nPos1, nPos, HILIGHT_KEYW)
             ELSEIF !Empty(::cFuncs ) .AND. cWord $ ::cFuncs
-               ::AddItem( nPos1, nPos, HILIGHT_FUNC )
+               ::AddItem(nPos1, nPos, HILIGHT_FUNC)
             ENDIF
 
          ENDIF
@@ -323,7 +323,7 @@ Local nPos, nPos1, nPrev, cWord, c
    
 Return NIL
 
-METHOD Hilight:AddItem( nPos1, nPos2, nType )
+METHOD Hilight:AddItem(nPos1, nPos2, nType)
 
    IF ::nItems > MAX_ITEMS
       Return NIL

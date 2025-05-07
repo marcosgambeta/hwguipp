@@ -25,10 +25,10 @@ CLASS HTab INHERIT HControl
    METHOD Init()
    METHOD onEvent( msg, wParam, lParam )
    METHOD SetTab(n)
-   METHOD StartPage( cname )
+   METHOD StartPage(cname)
    METHOD EndPage()
-   METHOD GetActivePage( nFirst, nEnd )
-   METHOD DeletePage( nPage )
+   METHOD GetActivePage(nFirst, nEnd)
+   METHOD DeletePage(nPage)
 
    HIDDEN:
    DATA nActive INIT 0         // Active Page
@@ -109,7 +109,7 @@ METHOD HTab:SetTab(n)
 
    RETURN NIL
 
-METHOD HTab:StartPage( cname )
+METHOD HTab:StartPage(cname)
    
    LOCAL i
 
@@ -135,7 +135,7 @@ METHOD HTab:EndPage()
 
    RETURN NIL
 
-METHOD HTab:GetActivePage( nFirst, nEnd )
+METHOD HTab:GetActivePage(nFirst, nEnd)
    IF !Empty(::aPages)
       nFirst := ::aPages[::nActive, 1] + 1
       nEnd := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
@@ -146,7 +146,7 @@ METHOD HTab:GetActivePage( nFirst, nEnd )
 
    Return ::nActive
 
-METHOD HTab:DeletePage( nPage )
+METHOD HTab:DeletePage(nPage)
 
    LOCAL nFirst
    LOCAL nEnd

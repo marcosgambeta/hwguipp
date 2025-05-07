@@ -80,7 +80,7 @@ METHOD HProgressBar:NewBox( cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bEx
 
    ::id := ::NewId()
    ::Activate()
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
 
    RETURN Self
 

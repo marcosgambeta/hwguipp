@@ -56,13 +56,13 @@ CLASS HCustomWindow INHERIT HObject
    DATA HelpId INIT 0
    DATA nChildId INIT 34000
 
-   METHOD AddControl( oCtrl ) INLINE AAdd(::aControls, oCtrl)
-   METHOD DelControl( oCtrl )
+   METHOD AddControl(oCtrl) INLINE AAdd(::aControls, oCtrl)
+   METHOD DelControl(oCtrl)
    METHOD AddEvent( nEvent, nId, bAction ) INLINE AAdd(::aEvents, {nEvent, nId, bAction})
-   METHOD FindControl( nId, nHandle )
+   METHOD FindControl(nId, nHandle)
    METHOD Hide() INLINE (::lHide := .T., hwg_Hidewindow(::handle))
    METHOD Show() INLINE (::lHide := .F., hwg_Showwindow(::handle))
-   METHOD Move( x1, y1, width, height )
+   METHOD Move(x1, y1, width, height)
    METHOD Refresh()
    METHOD Setcolor( tcolor, bcolor, lRepaint )
    METHOD onEvent( msg, wParam, lParam )
@@ -71,7 +71,7 @@ CLASS HCustomWindow INHERIT HObject
 
 ENDCLASS
 
-METHOD HCustomWindow:FindControl( nId, nHandle )
+METHOD HCustomWindow:FindControl(nId, nHandle)
 
    LOCAL i
 
@@ -84,14 +84,14 @@ METHOD HCustomWindow:FindControl( nId, nHandle )
 
    RETURN IIf(i == 0, NIL, ::aControls[i])
 
-METHOD HCustomWindow:DelControl( oCtrl )
+METHOD HCustomWindow:DelControl(oCtrl)
 
    LOCAL id := oCtrl:id
    LOCAL h
    LOCAL i := Ascan(::aControls, {|o|o == oCtrl})
 
    IF oCtrl:ClassName() == "HPANEL"
-      hwg_Destroypanel( oCtrl:handle )
+      hwg_Destroypanel(oCtrl:handle)
    ELSE
       hwg_DestroyWindow( oCtrl:handle )
    ENDIF
@@ -122,10 +122,10 @@ METHOD HCustomWindow:DelControl( oCtrl )
 
    RETURN NIL
 
-METHOD HCustomWindow:Move( x1, y1, width, height )
+METHOD HCustomWindow:Move(x1, y1, width, height)
 
    hwg_Movewindow(::handle, x1, y1, width, height)
-   IF !__ObjHasMsg( Self, "AWINDOWS" )
+   IF !__ObjHasMsg(Self, "AWINDOWS")
       IF x1 != NIL
          ::nX := x1
       ENDIF
@@ -165,7 +165,7 @@ METHOD HCustomWindow:Setcolor( tcolor, bcolor, lRepaint )
       IF ::brush != NIL
          ::brush:Release()
       ENDIF
-      ::brush := HBrush():Add( bcolor )
+      ::brush := HBrush():Add(bcolor)
    ENDIF
 
    IF lRepaint != NIL .AND. lRepaint
@@ -178,7 +178,7 @@ METHOD HCustomWindow:onEvent( msg, wParam, lParam )
    
    LOCAL i
 
-   // hwg_WriteLog( "== "+::Classname()+Str(msg)+IIf(wParam != NIL,Str(wParam),"NIL")+IIf(lParam != NIL,Str(lParam),"NIL") )
+   // hwg_WriteLog("== "+::Classname()+Str(msg)+IIf(wParam != NIL,Str(wParam),"NIL")+IIf(lParam != NIL,Str(lParam),"NIL"))
    IF ( i := Ascan( s_aCustomEvents[1],msg ) ) != 0
       RETURN Eval(s_aCustomEvents[2,i], Self, wParam, lParam)
    ELSEIF hb_IsBlock(::bOther)
@@ -238,7 +238,7 @@ STATIC FUNCTION onDestroy( oWnd )
 
    RETURN 0
 
-STATIC FUNCTION onCommand( oWnd, wParam )
+STATIC FUNCTION onCommand(oWnd, wParam)
    
    LOCAL iItem
    LOCAL iParHigh := hwg_Hiword(wParam)
@@ -251,7 +251,7 @@ STATIC FUNCTION onCommand( oWnd, wParam )
 
    RETURN 1
 
-STATIC FUNCTION onSize( oWnd, wParam, lParam )
+STATIC FUNCTION onSize(oWnd, wParam, lParam)
    
    LOCAL aControls := oWnd:aControls
    LOCAL oItem
@@ -268,13 +268,13 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
             y := hwg_Hiword(lParam)
          ENDIF
          Eval(oItem:bSize, oItem, x, y)
-         onSize( oItem, oItem:nWidth, oItem:nHeight )
+         onSize(oItem, oItem:nWidth, oItem:nHeight)
       ENDIF
    NEXT
 
    RETURN 0
 
-FUNCTION hwg_onTrackScroll( oWnd, wParam, lParam )
+FUNCTION hwg_onTrackScroll(oWnd, wParam, lParam)
 
    LOCAL oCtrl := oWnd:FindControl(NIL, lParam)
    LOCAL msg
@@ -282,12 +282,12 @@ FUNCTION hwg_onTrackScroll( oWnd, wParam, lParam )
    IF oCtrl != NIL
       msg := hwg_Loword ( wParam )
       IF msg == TB_ENDTRACK
-         IF hb_IsBlock( oCtrl:bChange )
+         IF hb_IsBlock(oCtrl:bChange)
             Eval(oCtrl:bChange, oCtrl)
             RETURN 0
          ENDIF
       ELSEIF msg == TB_THUMBTRACK .OR. msg == TB_PAGEUP .OR. msg == TB_PAGEDOWN
-         IF hb_IsBlock( oCtrl:bThumbDrag )
+         IF hb_IsBlock(oCtrl:bThumbDrag)
             Eval(oCtrl:bThumbDrag, oCtrl)
             RETURN 0
          ENDIF
@@ -296,10 +296,10 @@ FUNCTION hwg_onTrackScroll( oWnd, wParam, lParam )
 
    RETURN 0
 
-FUNCTION hwg_GetItemByName( arr, cName )
+FUNCTION hwg_GetItemByName(arr, cName)
 
    LOCAL oItem
-   
+
    FOR EACH oItem IN arr
       IF !Empty(oItem:objname) .AND. oItem:objname == cName
          RETURN oItem

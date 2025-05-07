@@ -25,13 +25,13 @@ CLASS HTreeNode INHERIT HObject
    DATA bClick
 
    METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
-   METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages )
+   METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
    METHOD DELETE(lInternal)
    METHOD GetText() INLINE ::title
    METHOD SetText( cText ) INLINE ::title := cText
    METHOD getNodeIndex()
-   METHOD PrevNode( nNode, lSkip )
-   METHOD NextNode( nNode, lSkip )
+   METHOD PrevNode(nNode, lSkip)
+   METHOD NextNode(nNode, lSkip)
 
 ENDCLASS
 
@@ -48,7 +48,7 @@ METHOD HTreeNode:New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
 
    ::oTree := oTree
    ::oParent := oParent
-   ::nLevel := IIf(__ObjHasMsg( oParent, "NLEVEL" ), oParent:nLevel + 1, 1)
+   ::nLevel := IIf(__ObjHasMsg(oParent, "NLEVEL"), oParent:nLevel + 1, 1)
    ::bClick := bClick
    ::title := IIf(Empty(cTitle), "", cTitle)
    ::handle := ++ oTree:nNodeCount
@@ -96,14 +96,14 @@ METHOD HTreeNode:New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
 
    RETURN Self
 
-METHOD HTreeNode:AddNode( cTitle, oPrev, oNext, bClick, aImages )
+METHOD HTreeNode:AddNode(cTitle, oPrev, oNext, bClick, aImages)
    
    LOCAL oParent := Self
    LOCAL oNode := HTreeNode():New(::oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
 
    RETURN oNode
 
-METHOD HTreeNode:DELETE( lInternal )
+METHOD HTreeNode:DELETE(lInternal)
    
    LOCAL h := ::handle
    LOCAL j
@@ -113,15 +113,15 @@ METHOD HTreeNode:DELETE( lInternal )
    IF !Empty(::aItems)
       alen := Len(::aItems)
       FOR j := 1 TO alen
-         ::aItems[j]:Delete( .T. )
+         ::aItems[j]:Delete(.T.)
          ::aItems[j] := NIL
       NEXT
    ENDIF
    IF lInternal == NIL
       aItems := IIf(::oParent == NIL, ::oTree:aItems, ::oParent:aItems)
       j := AScan( aItems, {|o|o:handle == h} )
-      ADel( aItems, j )
-      ASize( aItems, Len(aItems) - 1 )
+      ADel(aItems, j)
+      ASize(aItems, Len(aItems) - 1)
    ENDIF
 
    RETURN NIL
@@ -139,7 +139,7 @@ METHOD HTreeNode:getNodeIndex()
 
    RETURN nNode
 
-METHOD HTreeNode:PrevNode( nNode, lSkip )
+METHOD HTreeNode:PrevNode(nNode, lSkip)
    
    LOCAL oNode
 
@@ -165,7 +165,7 @@ METHOD HTreeNode:PrevNode( nNode, lSkip )
 
    RETURN oNode
 
-METHOD HTreeNode:NextNode( nNode, lSkip )
+METHOD HTreeNode:NextNode(nNode, lSkip)
    
    LOCAL oNode
 
@@ -179,14 +179,14 @@ METHOD HTreeNode:NextNode( nNode, lSkip )
       oNode := ::oParent:aItems[++nNode]
    ELSEIF ::nLevel > 1
       nNode := ::oParent:getNodeIndex()
-      oNode := ::oParent:NextNode( @nNode, .T. )
+      oNode := ::oParent:NextNode(@nNode, .T.)
    ELSE
       RETURN NIL
    ENDIF
 
    RETURN oNode
 
-STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
+STATIC PROCEDURE ReleaseTree(aItems, lDelImages)
    
    LOCAL i
    LOCAL j
@@ -201,7 +201,7 @@ STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
             ENDIF
          NEXT
       ENDIF
-      ReleaseTree( aItems[i]:aItems, lDelImages )
+      ReleaseTree(aItems[i]:aItems, lDelImages)
    NEXT
 
    RETURN

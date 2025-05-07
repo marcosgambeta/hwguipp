@@ -21,7 +21,7 @@ CLASS HRadioButton INHERIT HControl
    METHOD onEvent( msg, wParam, lParam )
    METHOD SetText( value ) INLINE hwg_button_SetText(::handle, ::title := value)
    METHOD GetText() INLINE hwg_button_GetText(::handle)
-   METHOD Value( lValue ) SETGET
+   METHOD Value(lValue) SETGET
 
 ENDCLASS
 
@@ -50,7 +50,7 @@ METHOD HRadioButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCapti
    ::tcolor := tcolor
 
    ::Activate()
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
    ::bClick := bClick
    IF bClick != NIL .AND. (::oGroup == NIL .OR. ::oGroup:bSetGet == NIL)
       hwg_SetSignal(::handle, "released", WM_LBUTTONUP, 0, 0)
@@ -91,19 +91,19 @@ METHOD HRadioButton:onEvent( msg, wParam, lParam )
       IF ::oGroup:bSetGet == NIL
          Eval(::bClick, Self, ::oGroup:nValue)
       ELSE
-         __Valid( Self )
+         __Valid(Self)
       ENDIF
    ENDIF
 
    RETURN NIL
 
-METHOD HRadioButton:Value( lValue )
+METHOD HRadioButton:Value(lValue)
    IF lValue != NIL
       hwg_CheckButton(::handle, .T.)
    ENDIF
    RETURN hwg_isButtonChecked(::handle)
 
-STATIC FUNCTION __Valid( oCtrl )
+STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:oGroup:nValue := Ascan( oCtrl:oGroup:aButtons, {|o|o:id == oCtrl:id} )
    IF hb_IsBlock(oCtrl:oGroup:bSetGet)

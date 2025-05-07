@@ -101,7 +101,7 @@ FUNCTION hwg_dbg_New()
 
    s_cBuffer := Space(1024)
 
-   IF File( cDebugger+".info" ) .AND. ( s_handl1 := FOpen(cDebugger + ".info", FO_READ) ) != -1
+   IF File(cDebugger+".info") .AND. ( s_handl1 := FOpen(cDebugger + ".info", FO_READ) ) != -1
       i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
       IF i > 0
          arr := hb_aTokens( Left(s_cBuffer, i), ;
@@ -122,7 +122,7 @@ FUNCTION hwg_dbg_New()
       FClose(s_handl1)
    ENDIF
 
-   IF File( cFile + ".d1" ) .AND. File( cFile + ".d2" )
+   IF File(cFile + ".d1") .AND. File(cFile + ".d2")
 
       IF ( s_handl1 := FOpen(cFile + ".d1", FO_READ + FO_SHARED) ) != -1
          i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
@@ -141,7 +141,7 @@ FUNCTION hwg_dbg_New()
 
    IF !Empty(cDir)
       cDir += IIf(Right( cDir, 1 ) $ "\/", "", hb_PS())
-      IF File( cDir + cDebugger + ".d1" ) .AND. File( cDir + cDebugger + ".d2" )
+      IF File(cDir + cDebugger + ".d1") .AND. File(cDir + cDebugger + ".d2")
          IF ( s_handl1 := FOpen(cDir + cDebugger + ".d1", FO_READ + FO_SHARED) ) != -1
             i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
             IF ( i  > 0 ) .AND. ;
@@ -176,7 +176,7 @@ FUNCTION hwg_dbg_New()
    ENDIF
    // lRun := __dbgProcessRun( cExe, "-c" + cFile )
    hProcess := hb_processOpen(cExe + " -c" + cFile)
-   lRun := ( hProcess != -1 .AND. hb_processValue( hProcess, .F. ) == -1 )
+   lRun := ( hProcess != -1 .AND. hb_processValue(hProcess, .F.) == -1 )
 #else
    IF Empty(cExe)
       cExe := cDebugger
@@ -274,7 +274,7 @@ FUNCTION hwg_dbg_SetActiveLine(cPrgName, nLine, aStack, aVars, aWatch, nVarType)
       NEXT
    ENDIF
 
-   hwg_dbg_Send( "a"+Ltrim(Str(++s_nId2)), s  )
+   hwg_dbg_Send("a"+Ltrim(Str(++s_nId2)), s)
 
 RETURN NIL
 
@@ -391,7 +391,7 @@ FUNCTION hwg_dbg_Input(p1, p2, p3)
                ENDSWITCH
                EXIT
             ENDSWITCH
-            hwg_dbg_Send( "e"+Ltrim(Str(++s_nId2)) )
+            hwg_dbg_Send("e"+Ltrim(Str(++s_nId2)))
          ENDIF
       ENDIF
       hb_ReleaseCpu()
@@ -426,7 +426,7 @@ FUNCTION hwg_dbg_Answer(...)
          ENDIF
       ENDIF
    NEXT
-   hwg_dbg_Send( "b"+Ltrim(Str(s_nId1)), Left(s, Len(s) - 1) )
+   hwg_dbg_Send("b"+Ltrim(Str(s_nId1)), Left(s, Len(s) - 1))
 
 RETURN NIL
 
@@ -454,16 +454,16 @@ FUNCTION hwg_dbg_Quit()
    LOCAL cCode
    LOCAL bCode
 
-   IF Type( "hwg_endwindow()" ) == "UI"
+   IF Type("hwg_endwindow()") == "UI"
       cCode := "{||hwg_endwindow()"
-      IF Type( "hwg_Postquitmessage()" ) == "UI"
+      IF Type("hwg_Postquitmessage()") == "UI"
          cCode += ",hwg_Postquitmessage(),__Quit()}"
-      ELSEIF Type( "hwg_gtk_exit()" ) == "UI"
+      ELSEIF Type("hwg_gtk_exit()") == "UI"
          cCode += ",hwg_gtk_exit(),__Quit()}"
       ELSE
          cCode += ",__Quit()}"
       ENDIF
-   ELSEIF Type( "ReleaseAllWindows()" ) == "UI"
+   ELSEIF Type("ReleaseAllWindows()") == "UI"
       cCode := "{||ReleaseAllWindows()}"
    ELSE
       cCode := "{||__Quit()}"
@@ -475,7 +475,7 @@ RETURN Eval(bCode)
 
 STATIC FUNCTION Hex2Int(stroka)
 
-   LOCAL i := ASC( stroka )
+   LOCAL i := ASC(stroka)
    LOCAL res
 
    IF i > 64 .AND. i < 71
@@ -486,7 +486,7 @@ STATIC FUNCTION Hex2Int(stroka)
       RETURN 0
    ENDIF
 
-   i := ASC( SubStr(stroka, 2, 1) )
+   i := ASC(SubStr(stroka, 2, 1))
    IF i > 64 .AND. i < 71
       res += i - 55
    ELSEIF i > 47 .AND. i < 58
@@ -513,7 +513,7 @@ STATIC FUNCTION Str2Hex(stroka)
    LOCAL nLen := Len(stroka)
 
    FOR i := 1 to nLen
-      cRes += Int2Hex( Asc( Substr(stroka,i, 1) ) )
+      cRes += Int2Hex( Asc(Substr(stroka,i, 1)) )
    NEXT
 
 RETURN cRes
@@ -533,7 +533,7 @@ RETURN cRes
 
 EXIT PROCEDURE hwg_dbg_exit
 
-   hwg_dbg_Send( "quit" )
+   hwg_dbg_Send("quit")
    FClose(s_handl1)
    FClose(s_handl2)
 

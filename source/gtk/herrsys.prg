@@ -14,7 +14,7 @@ STATIC s_LogInitialPath := ""
 
 PROCEDURE hwg_ErrSys
 
-   ErrorBlock( {|oError|DefError(oError)} )
+   ErrorBlock({|oError|DefError(oError)})
    s_LogInitialPath := "/" + CurDir() + IIf(Empty(CurDir()), "", "/")
 
    RETURN
@@ -48,7 +48,7 @@ STATIC FUNCTION DefError( oError )
       RETURN .F.
    ENDIF
 
-   cMessage := hwg_ErrMsg( oError )
+   cMessage := hwg_ErrMsg(oError)
    IF !Empty(oError:osCode)
       cDOSError := "(DOS Error " + LTrim(Str(oError:osCode)) + ")"
    ENDIF
@@ -58,8 +58,8 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    n := 2
-   WHILE !Empty(ProcName( n ))
-      cMessage += Chr(13) + Chr(10) + "Called from " + ProcName( n ) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
+   WHILE !Empty(ProcName(n))
+      cMessage += Chr(13) + Chr(10) + "Called from " + ProcName(n) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
    ENDDO
 
    MemoWrit( s_LogInitialPath + "Error.log", cMessage )
@@ -70,7 +70,7 @@ STATIC FUNCTION DefError( oError )
 
    RETURN .F.
 
-FUNCTION hwg_ErrMsg( oError )
+FUNCTION hwg_ErrMsg(oError)
    
    LOCAL cMessage
 
@@ -106,12 +106,12 @@ FUNCTION hwg_ErrMsg( oError )
 
    RETURN cMessage
 
-FUNCTION hwg_WriteLog( cText, fname )
+FUNCTION hwg_WriteLog(cText, fname)
 
    LOCAL nHand
 
    fname := s_LogInitialPath + IIf(fname == NIL, "a.log", fname)
-   IF !File( fname )
+   IF !File(fname)
       nHand := FCreate(fname)
    ELSE
       nHand := FOpen(fname, 1)

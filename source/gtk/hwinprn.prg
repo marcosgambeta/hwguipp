@@ -103,17 +103,17 @@ CLASS HWinPrn
    METHOD New( cPrinter, cpFrom, cpTo, nFormType, nCharset )
    METHOD SetLanguage(apTooltips, apBootUser)
    METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset )
-   METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset )
+   METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset)
    METHOD SetDefaultMode()
-   METHOD StartDoc( lPreview, cMetaName , lprbutton )
+   METHOD StartDoc(lPreview, cMetaName , lprbutton)
    METHOD NextPage()
    METHOD NewLine()
-   METHOD PrintLine( cLine, lNewLine )
+   METHOD PrintLine(cLine, lNewLine)
    METHOD PrintBitmap( xBitmap, nAlign , cBitmapName  )  // cImageName
    METHOD PrintText( cText )
    METHOD SetX( nYvalue )
    METHOD SetY( nYvalue )
-   METHOD PutCode( cLine )  // cText
+   METHOD PutCode(cLine)  // cText
    METHOD EndDoc()
    METHOD END()
 
@@ -203,7 +203,7 @@ METHOD HWinPrn:InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLi
 
    RETURN NIL
 
-METHOD HWinPrn:SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset)
+METHOD HWinPrn:SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMax , nCharset)
 
 #ifdef __GTK__
    LOCAL cFont := "monospace"
@@ -251,7 +251,7 @@ METHOD HWinPrn:SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineM
       IF ::lCond
          nMode += 2
       ENDIF
-      //hwg_writelog( "nStdHeight: "+Ltrim(str(::nStdHeight))+"/"+Ltrim(str(nStdHeight))+" ::nLineMax: "+Ltrim(str(::nLineMax))+"  nStdLineW: "+Ltrim(str(nStdLineW)) )
+      //hwg_writelog("nStdHeight: "+Ltrim(str(::nStdHeight))+"/"+Ltrim(str(nStdHeight))+" ::nLineMax: "+Ltrim(str(::nLineMax))+"  nStdLineW: "+Ltrim(str(nStdLineW)))
 
       ::nLineHeight := ( nStdHeight / aKoef[nMode + 1] ) * ::oPrinter:nVRes
       ::nLined := ( 25.4 * ::oPrinter:nVRes ) / ::nLineInch - ::nLineHeight
@@ -265,7 +265,7 @@ METHOD HWinPrn:SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineM
       ::oFont := oFont
 
       ::oPrinter:SetFont(::oFont)
-      ::nCharW := ::oPrinter:GetTextWidth( "ABCDEFGHIJ", oFont ) / 10
+      ::nCharW := ::oPrinter:GetTextWidth("ABCDEFGHIJ", oFont) / 10
       ::lChanged := .F.
 
    ENDIF
@@ -301,11 +301,11 @@ METHOD HWinPrn:SetX( nYvalue )
 
 RETURN nYvalue
 
-METHOD HWinPrn:StartDoc( lPreview, cMetaName , lprbutton )
+METHOD HWinPrn:StartDoc(lPreview, cMetaName , lprbutton)
 * Set lprbutton to .F., if preview dialog not shows the print button
 
    ::lDocStart := .T.
-   ::oPrinter:StartDoc( lPreview, cMetaName , lprbutton )
+   ::oPrinter:StartDoc(lPreview, cMetaName , lprbutton)
    ::NextPage()
 
    RETURN NIL
@@ -387,13 +387,13 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
         New function OBMP2FILE2( cTmp , cImageName ) saves the bmp object
         correct to file.
       */
-      xBitmap:OBMP2FILE( cTmp , cImageName , "bmp" )
+      xBitmap:OBMP2FILE(cTmp , cImageName , "bmp")
       hBitmap := hwg_Openbitmap( cTmp , ::oPrinter:hDC )
       // hwg_MsgInfo(hb_valtostr(hBitmap))
       IF hb_ValToStr(hBitmap) == "0x00000000"
         RETURN NIL
       ENDIF
-      aBmpSize := hwg_Getbitmapsize( hBitmap )
+      aBmpSize := hwg_Getbitmapsize(hBitmap)
       cImageName := IIf(EMPTY (cBitmapName), xBitmap, cBitmapName)
       // FERASE(cTmp)
      ELSE
@@ -405,7 +405,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
       ENDIF
       cImageName := IIf(EMPTY (cBitmapName), xBitmap, cBitmapName)
       //  aBmpSize[1] := width(x) aBmpSize[2] = height(y)
-      aBmpSize := hwg_Getbitmapsize( hBitmap )
+      aBmpSize := hwg_Getbitmapsize(hBitmap)
    ENDIF
 
 /* Page size overflow  ? ==> next page */
@@ -421,10 +421,10 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
    ::y += ::nLineHeight + ::nLined
 
    IF nAlign == 1 .AND. ::x + aBmpSize[1] < ::oPrinter:nWidth
-     ::x += ROUND( (::oPrinter:nWidth - ::x - aBmpSize[1] ) / 2, 0)
+     ::x += ROUND((::oPrinter:nWidth - ::x - aBmpSize[1] ) / 2, 0)
   // HKrzak 2020-10-27
    ELSEIF nAlign == 2
-     ::x += ROUND( (::oPrinter:nWidth - ::x - aBmpSize[1]), 0)
+     ::x += ROUND((::oPrinter:nWidth - ::x - aBmpSize[1]), 0)
    ENDIF
    IF ::lFirstLine
       ::lFirstLine := .F.
@@ -452,7 +452,7 @@ METHOD HWinPrn:PrintBitmap( xBitmap, nAlign , cBitmapName )
 
 
 METHOD HWinPrn:NewLine()
-    ::PrintLine( "" , .T. )
+    ::PrintLine("" , .T.)
     ::SetX()
     ::y += ::nLineHeight
      IF ::y < 0
@@ -461,7 +461,7 @@ METHOD HWinPrn:NewLine()
    RETURN NIL
 
 
-METHOD HWinPrn:PrintLine( cLine, lNewLine )
+METHOD HWinPrn:PrintLine(cLine, lNewLine)
 
    LOCAL i
    LOCAL i0
@@ -520,7 +520,7 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
                ::PrintText( SubStr(cLine, i0, i - i0) )
                i0 := 0
             ENDIF
-            i += ::PutCode( SubStr(cLine, i) )
+            i += ::PutCode(SubStr(cLine, i))
             LOOP
          ELSEIF ( j := At(c, ::cPseudo) ) != 0
             IF i0 != 0
@@ -595,7 +595,7 @@ METHOD HWinPrn:PrintText( cText )
 
    RETURN NIL
 
-METHOD HWinPrn:PutCode( cLine )
+METHOD HWinPrn:PutCode(cLine)
 
    STATIC aCodes := {   ;
           { Chr(27) + "@", .F., .F., 6, .F., .F., .F. },  ;     /* Reset */
@@ -617,7 +617,7 @@ METHOD HWinPrn:PutCode( cLine )
    LOCAL c := Left(cLine, 1)
 
    IF !Empty(c) .AND. c < " "
-      IF Asc( c ) == 31
+      IF Asc(c) == 31
          ::InitValues(NIL, NIL, NIL, NIL, NIL, NIL, Asc(Substr(cLine, 2, 1)))
          RETURN 2
       ELSE

@@ -69,7 +69,7 @@ METHOD HBitmap:OBMP2FILE(cfilename, name)
 RETURN NIL    
 
 
-METHOD HBitmap:AddResource( name )
+METHOD HBitmap:AddResource(name)
 /*
  *  name : resource name in container, not file name.
  *  returns an object to bitmap, if resource successfully added
@@ -97,16 +97,16 @@ METHOD HBitmap:AddResource( name )
        // Store bmp in a temporary file
        // (otherwise the bmp is not loadable)
        // Load from temporary file
-       //  ::handle := hwg_OpenImage( i, .T. )
+       //  ::handle := hwg_OpenImage(i, .T.)
        // Ready for multi platform use
        hb_memowrit(cTmp := hwg_CreateTempfileName(), i)
-         ::handle := hwg_OpenImage( cTmp )
+         ::handle := hwg_OpenImage(cTmp)
       ENDIF
    ENDIF
    
    /*
    IF !Empty(s_oResCnt) .AND. !Empty(cVal := s_oResCnt:Get( name ))
-      IF !Empty(oBmp := ::AddString( name, cVal ))
+      IF !Empty(oBmp := ::AddString(name, cVal))
           RETURN oBmp
       ENDIF
    ENDIF
@@ -142,8 +142,8 @@ METHOD HBitmap:AddFile(name, HDC, lTransparent, nWidth, nHeight)
       ENDIF
    NEXT
 
-   name := AddPath( name, ::cPath )
-   ::handle := hwg_Openimage( name )
+   name := AddPath(name, ::cPath)
+   ::handle := hwg_Openimage(name)
    IF !Empty(::handle)
       ::name := name
       aBmpSize := hwg_Getbitmapsize(::handle)
@@ -156,7 +156,7 @@ METHOD HBitmap:AddFile(name, HDC, lTransparent, nWidth, nHeight)
 
    RETURN Self
 
-METHOD HBitmap:AddString( name, cVal )
+METHOD HBitmap:AddString(name, cVal)
 /*
   Add name to resource container (array ::aBitmaps)
   and add image to resource container.
@@ -177,7 +177,7 @@ METHOD HBitmap:AddString( name, cVal )
    NEXT
 
    /* Try to load image from file */
-   ::handle := hwg_Openimage( cVal  )  // 2nd parameter not .T. !
+   ::handle := hwg_Openimage(cVal)  // 2nd parameter not .T. !
    IF Empty(::handle)
       // Otherwise:
       // Write image from binary container into temporary file
@@ -186,7 +186,7 @@ METHOD HBitmap:AddString( name, cVal )
 //      hb_memowrit( cTmp := "/tmp/e" + Ltrim(Str(Int(Seconds()*100))), cVal )
 //      DF7BE: Ready for multi platform use
        hb_memowrit(cTmp := hwg_CreateTempfileName(), cVal)
-      ::handle := hwg_Openimage( cTmp )
+      ::handle := hwg_Openimage(cTmp)
       FErase(cTmp)
    ENDIF
    IF !Empty(::handle)
@@ -203,7 +203,7 @@ METHOD HBitmap:AddString( name, cVal )
 
    RETURN Self
 
-METHOD HBitmap:AddStandard( cId, nSize )
+METHOD HBitmap:AddStandard(cId, nSize)
    
    LOCAL i
    LOCAL aBmpSize
@@ -232,7 +232,7 @@ METHOD HBitmap:AddStandard( cId, nSize )
 METHOD HBitmap:AddWindow( oWnd, x1, y1, width, height )
    
    LOCAL aBmpSize
-   LOCAL handle := hwg_GetDrawing( oWnd:handle )
+   LOCAL handle := hwg_GetDrawing(oWnd:handle)
    // Variables not used
    // i
 
@@ -338,10 +338,10 @@ METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
        // Store icon in a temporary file
        // (otherwise the icon is not loadable)
        // Load from temporary file
-       //  ::handle := hwg_OpenImage( i, .T. )
+       //  ::handle := hwg_OpenImage(i, .T.)
        // Ready for multi platform use
        hb_memowrit(cTmp := hwg_CreateTempfileName(), i)
-         ::handle := hwg_OpenImage( cTmp )
+         ::handle := hwg_OpenImage(cTmp)
       ENDIF
    ENDIF
    IF Empty(::handle)
@@ -372,11 +372,11 @@ METHOD HIcon:AddFile(name, nWidth, nHeight)
       ENDIF
    NEXT
 
-   name := AddPath( name, ::cPath )
+   name := AddPath(name, ::cPath)
    IF Empty(hb_fNameExt( name ))
       name += ".png"
    ENDIF
-   ::handle := hwg_Openimage( name )
+   ::handle := hwg_Openimage(name)
    IF !Empty(::handle)
       ::name := name
       aBmpSize := hwg_Getbitmapsize(::handle)
@@ -430,7 +430,7 @@ METHOD HIcon:AddString(name, cVal, nWidth, nHeight)
    // DF7BE:
    // Write contents into temporary file
        hb_memowrit(cTmp := hwg_CreateTempfileName(), cVal)
-       ::handle := hwg_OpenImage( cTmp )
+       ::handle := hwg_OpenImage(cTmp)
        FERASE(cTmp)
    IF !Empty(::handle)
       ::name := name
@@ -465,14 +465,14 @@ METHOD HIcon:RELEASE()
 
    RETURN NIL
 
-FUNCTION hwg_aCompare( arr1, arr2 )
+FUNCTION hwg_aCompare(arr1, arr2)
 
    LOCAL i
    LOCAL nLen
 
    IF arr1 == NIL .AND. arr2 == NIL
       RETURN .T.
-   ELSEIF Valtype( arr1 ) == Valtype( arr2 ) .AND. HB_ISARRAY(arr1) ;
+   ELSEIF Valtype(arr1) == Valtype(arr2) .AND. HB_ISARRAY(arr1) ;
          .AND. ( nLen := Len(arr1) ) == Len(arr2)
       FOR i := 1 TO nLen
          IF !( Valtype(arr1[i]) == Valtype(arr2[i]) ) .OR. !( arr1[i] == arr2[i] )
@@ -492,13 +492,13 @@ FUNCTION hwg_BmpFromRes( cBmp )
 
    IF !Empty(s_oResCnt)
       IF !Empty(cBuff := s_oResCnt:Get( cBmp ))
-         handle := hwg_OpenImage( cBuff, .T. )
+         handle := hwg_OpenImage(cBuff, .T.)
          IF Empty(handle)
             // hb_memowrit( cTmp := "/tmp/e"+Ltrim(Str(Int(Seconds()*100))), cBuff )
             // DF7BE: Ready for multi platform use (also Windows cross development environment)
             hb_memowrit(cTmp := hwg_CreateTempfileName(), cBuff)
             // Load from temporary image file
-            handle := hwg_Openimage( cTmp )
+            handle := hwg_Openimage(cTmp)
             FErase(cTmp)
          ENDIF
      ENDIF

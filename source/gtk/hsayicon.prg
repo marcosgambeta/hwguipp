@@ -25,9 +25,9 @@ METHOD HSayIcon:New( oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bIni
       lRes := .F.
    ENDIF
    ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image), ;
-      HIcon():AddResource( Image , nWidth, nHeight ),  ;
+      HIcon():AddResource(Image , nWidth, nHeight),  ;
       IIf(HB_ISCHAR(Image),  ;
-      HIcon():AddFile( Image , nWidth, nHeight ), Image))
+      HIcon():AddFile(Image , nWidth, nHeight), Image))
    ::Activate()
 
    RETURN Self

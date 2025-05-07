@@ -66,10 +66,10 @@ CLASS HTree INHERIT HControl
    METHOD Init()
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
-   METHOD AddNode( cTitle, oPrev, oNext, bClick, aImages )
+   METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
    METHOD GetSelected() INLINE ::oSelected
-   //METHOD EditLabel( oNode ) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle)}
-   METHOD Expand( oNode ) BLOCK {|Self,o| o:lExpanded := .T., hwg_Redrawwindow(::area) }
+   //METHOD EditLabel(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle)}
+   METHOD Expand(oNode) BLOCK {|Self,o| o:lExpanded := .T., hwg_Redrawwindow(::area) }
    METHOD SELECT( oNode, lNoRedraw )
    METHOD Clean()
    METHOD Refresh()
@@ -78,11 +78,11 @@ CLASS HTree INHERIT HControl
    METHOD PaintNode(hDC, oNode, nNode, nLine)
    METHOD ButtonDown( lParam )
    METHOD ButtonUp( lParam )
-   METHOD ButtonDbl( lParam )
+   METHOD ButtonDbl(lParam)
    METHOD ButtonRDown( lParam )
    METHOD GoDown( n )
    METHOD GoUp( n )
-   METHOD MouseWheel( nKeys, nDelta )
+   METHOD MouseWheel(nKeys, nDelta)
    METHOD DoHScroll()
    METHOD DoVScroll()
 
@@ -118,8 +118,8 @@ METHOD HTree:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, ;
       NEXT
    ENDIF
 
-   ::oPenLine := HPen():Add( PS_DOT, 0.6, 7566195 )
-   ::oPenPlus := HPen():Add( PS_SOLID, 2, 0 )
+   ::oPenLine := HPen():Add(PS_DOT, 0.6, 7566195)
+   ::oPenPlus := HPen():Add(PS_SOLID, 2, 0)
 
    ::Activate()
 
@@ -136,7 +136,7 @@ METHOD HTree:Init()
 METHOD HTree:Activate()
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbrowse( Self )
+      ::handle := hwg_Createbrowse(Self)
       ::Init()
    ENDIF
 
@@ -170,7 +170,7 @@ METHOD HTree:onEvent( msg, wParam, lParam )
       ::DoHScroll()
 
    ELSEIF msg == WM_VSCROLL
-      ::DoVScroll( wParam )
+      ::DoVScroll(wParam)
 
    ELSEIF msg == WM_KEYUP
       IF wParam == GDK_Control_L .OR. wParam == GDK_Control_R
@@ -198,7 +198,7 @@ METHOD HTree:onEvent( msg, wParam, lParam )
       ::ButtonUp( lParam )
 
    ELSEIF msg == WM_LBUTTONDBLCLK
-      ::ButtonDbl( lParam )
+      ::ButtonDbl(lParam)
 
    ELSEIF msg == WM_RBUTTONDOWN
       ::ButtonRDown( lParam )
@@ -214,7 +214,7 @@ METHOD HTree:onEvent( msg, wParam, lParam )
 
    RETURN retValue
 
-METHOD HTree:AddNode( cTitle, oPrev, oNext, bClick, aImages )
+METHOD HTree:AddNode(cTitle, oPrev, oNext, bClick, aImages)
    
    LOCAL oNode := HTreeNode():New( Self, Self, oPrev, oNext, cTitle, bClick, aImages )
 
@@ -314,7 +314,7 @@ METHOD HTree:Paint()
 
       ::aScreen[nLine] := oNode
       ::PaintNode(hDC, oNode, nNode, nLine++)
-      IF nLine > ::rowCount() .OR. Empty(oNode := oNode:NextNode( @nNode ))
+      IF nLine > ::rowCount() .OR. Empty(oNode := oNode:NextNode(@nNode))
          EXIT
       ENDIF
    ENDDO
@@ -356,7 +356,7 @@ METHOD HTree:PaintNode(hDC, oNode, nNode, nLine)
       hBmp := IIf(::oSelected == oNode .AND. Len(::aImages) > 1, ::aImages[2], ::aImages[1])
    ENDIF
    IF !Empty(hBmp)
-      aBmpSize := hwg_Getbitmapsize( hBmp )
+      aBmpSize := hwg_Getbitmapsize(hBmp)
       hwg_Drawbitmap(hDC, hBmp, NIL, x1 + ::nIndent, y1, aBmpSize[1], aBmpSize[2])
    ENDIF
 
@@ -373,7 +373,7 @@ METHOD HTree:PaintNode(hDC, oNode, nNode, nLine)
 
    FOR i := oNode:nLevel - 1 TO 1 STEP - 1
       oNode := oNode:oParent
-      IF !( oNode == Atail( oNode:oParent:aItems ) )
+      IF !( oNode == Atail(oNode:oParent:aItems) )
          x1 := 10 + oNode:nLevel * ::nIndent
          hwg_Drawline(hDC, x1 + 5, y1, x1 + 5, y1 + ::height + 1)
       ENDIF
@@ -421,7 +421,7 @@ METHOD HTree:ButtonUp( lParam )
 
    RETURN 0
 
-METHOD HTree:ButtonDbl( lParam )
+METHOD HTree:ButtonDbl(lParam)
    
    LOCAL nLine := Int( hwg_Hiword(lParam) / (::height + 1) ) + 1
    LOCAL xm := hwg_Loword(lParam)
@@ -511,9 +511,9 @@ METHOD HTree:GoUp( n )
 
    RETURN 0
 
-METHOD HTree:MouseWheel( nKeys, nDelta )
+METHOD HTree:MouseWheel(nKeys, nDelta)
 
-   IF hb_bitand( nKeys, MK_MBUTTON ) != 0
+   IF hb_bitand(nKeys, MK_MBUTTON) != 0
       IF nDelta > 0
          ::GoUp(2)
       ELSE
@@ -577,7 +577,7 @@ METHOD HTree:End()
 
    RETURN NIL
 
-STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
+STATIC PROCEDURE ReleaseTree(aItems, lDelImages)
    
    LOCAL i
    LOCAL j
@@ -592,7 +592,7 @@ STATIC PROCEDURE ReleaseTree( aItems, lDelImages )
             ENDIF
          NEXT
       ENDIF
-      ReleaseTree( aItems[i]:aItems, lDelImages )
+      ReleaseTree(aItems[i]:aItems, lDelImages)
    NEXT
 
    RETURN

@@ -914,7 +914,7 @@ RETURN cBarra
 /*
 RICH_RECTANGLE(hDC, nLeft, nTop, nRight, nBottom) --> .T.|.F.
 */
-HB_FUNC_STATIC( RICH_RECTANGLE )
+HB_FUNC_STATIC(RICH_RECTANGLE)
 {
    hb_retl(Rectangle(hwg_par_HDC(1), hwg_par_int(2), hwg_par_int(3), hwg_par_int(4), hwg_par_int(5)));
 }
@@ -922,7 +922,7 @@ HB_FUNC_STATIC( RICH_RECTANGLE )
 /*
 RICH_CREATEPEN(nStyle, nWidth, nColor) --> hPen
 */
-HB_FUNC_STATIC( RICH_CREATEPEN )
+HB_FUNC_STATIC(RICH_CREATEPEN)
 {
    hb_retptr(CreatePen(hwg_par_int(1), hwg_par_int(2), hwg_par_COLORREF(3)));
 }
@@ -930,7 +930,7 @@ HB_FUNC_STATIC( RICH_CREATEPEN )
 /*
 RICH_SELECTOBJECT(hDC, hGdiObj) --> hGdiObj
 */
-HB_FUNC_STATIC( RICH_SELECTOBJECT )
+HB_FUNC_STATIC(RICH_SELECTOBJECT)
 {
    hb_retptr(SelectObject(hwg_par_HDC(1), hwg_par_HGDIOBJ(2)));
 }
@@ -938,7 +938,7 @@ HB_FUNC_STATIC( RICH_SELECTOBJECT )
 /*
 RICH_CREATESOLIDBRUSH(nColor) --> hBrush
 */
-HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
+HB_FUNC_STATIC(RICH_CREATESOLIDBRUSH)
 {
    hb_retptr(CreateSolidBrush(hwg_par_COLORREF(1)));
 }

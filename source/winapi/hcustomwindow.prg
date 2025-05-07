@@ -378,23 +378,23 @@ FUNCTION hwg_GetItemByName(arr, cName)
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
-HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
+HB_FUNC_STATIC(HCUSTOMWINDOW_MOVE)
 {
    auto self = hb_stackSelfItem();
 
-   if( HB_ISNUM(1) ) {
+   if (HB_ISNUM(1)) {
       hb_objDataPutNI(self, "_NX", hb_parni(1));
    }
 
-   if( HB_ISNUM(2) ) {
+   if (HB_ISNUM(2)) {
       hb_objDataPutNI(self, "_NY", hb_parni(2));
    }
 
-   if( HB_ISNUM(3) ) {
+   if (HB_ISNUM(3)) {
       hb_objDataPutNI(self, "_NWIDTH", hb_parni(3));
    }
 
-   if( HB_ISNUM(4) ) {
+   if (HB_ISNUM(4)) {
       hb_objDataPutNI(self, "_NHEIGHT", hb_parni(4));
    }
 
@@ -406,21 +406,21 @@ HB_FUNC_STATIC( HCUSTOMWINDOW_MOVE )
               TRUE);
 }
 
-HB_FUNC_STATIC( HCUSTOMWINDOW_HIDE )
+HB_FUNC_STATIC(HCUSTOMWINDOW_HIDE)
 {
    auto self = hb_stackSelfItem();
    hb_objDataPutL(self, "_LHIDE", true);
    ShowWindow(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")), SW_HIDE);
 }
 
-HB_FUNC_STATIC( HCUSTOMWINDOW_SHOW )
+HB_FUNC_STATIC(HCUSTOMWINDOW_SHOW)
 {
    auto self = hb_stackSelfItem();
    hb_objDataPutL(self, "_LHIDE", false);
    ShowWindow(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")), SW_SHOW);
 }
 
-HB_FUNC_STATIC( HCUSTOMWINDOW_REFRESH )
+HB_FUNC_STATIC(HCUSTOMWINDOW_REFRESH)
 {
    RedrawWindow(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_INTERNALPAINT | RDW_UPDATENOW);
 }

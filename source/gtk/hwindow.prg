@@ -15,7 +15,7 @@ REQUEST HWG_ENDWINDOW
 #define WM_NOTIFYICON         WM_USER+1000
 #define ID_NOTIFYICON           1
 
-FUNCTION hwg_onWndSize( oWnd, wParam, lParam )
+FUNCTION hwg_onWndSize(oWnd, wParam, lParam)
 
    LOCAL aCoors := hwg_Getwindowrect( oWnd:handle )
    // LOCAL w := hwg_Loword(lParam)
@@ -26,32 +26,32 @@ FUNCTION hwg_onWndSize( oWnd, wParam, lParam )
    IF oWnd:nWidth == w .AND. oWnd:nHeight == h
       RETURN 0
    ENDIF
-   //hwg_WriteLog( "OnSize: "+Str(oWnd:nWidth)+" "+Str(oWnd:nHeight)+" "+Str(w)+" "+Str(h)+" " + str(oWnd:nAdjust) )
+   //hwg_WriteLog("OnSize: "+Str(oWnd:nWidth)+" "+Str(oWnd:nHeight)+" "+Str(w)+" "+Str(h)+" " + str(oWnd:nAdjust))
    IF oWnd:nAdjust == 2
       oWnd:nAdjust := 0
    ELSEIF oWnd:nAdjust == 0
       hwg_onAnchor( oWnd, oWnd:nWidth, oWnd:nHeight, w, h )
    ENDIF
    oWnd:Super:onEvent( WM_SIZE, wParam, lParam )
-   //hwg_writelog( "on size "+str(oWnd:nheight)+"/"+str(hwg_Hiword(lParam)) )
+   //hwg_writelog("on size "+str(oWnd:nheight)+"/"+str(hwg_Hiword(lParam)))
    IF oWnd:nAdjust == 0
       oWnd:nWidth := w
       oWnd:nHeight := h
    ENDIF
-   IF hb_IsBlock( oWnd:bSize )
+   IF hb_IsBlock(oWnd:bSize)
       Eval(oWnd:bSize, oWnd, hwg_Loword(lParam), hwg_Hiword(lParam))
    ENDIF
 
    RETURN 0
 
-FUNCTION hwg_onMove( oWnd, wParam, lParam )
+FUNCTION hwg_onMove(oWnd, wParam, lParam)
 
    LOCAL apos := hwg_getwindowpos( oWnd:handle )
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
-   //hwg_WriteLog( "onMove: "+str(oWnd:nX)+" "+str(oWnd:nY)+" -> "+str(hwg_Loword(lParam))+str(hwg_Hiword(lParam))+" "+str(apos[1])+" "+str(apos[2]) )
+   //hwg_WriteLog("onMove: "+str(oWnd:nX)+" "+str(oWnd:nY)+" -> "+str(hwg_Loword(lParam))+str(hwg_Hiword(lParam))+" "+str(apos[1])+" "+str(apos[2]))
    oWnd:nX := apos[1] //hwg_Loword(lParam)
    oWnd:nY := apos[2] //hwg_Hiword(lParam)
 
@@ -102,14 +102,14 @@ STATIC FUNCTION onDestroy( oWnd )
       ENDIF
       oWnd:bDestroy := NIL
    ENDIF
-   IF __ObjHasMsg( oWnd, "HACCEL" ) .AND. oWnd:hAccel != NIL
-      hwg_Destroyacceleratortable( oWnd:hAccel )
+   IF __ObjHasMsg(oWnd, "HACCEL") .AND. oWnd:hAccel != NIL
+      hwg_Destroyacceleratortable(oWnd:hAccel)
    ENDIF
    IF ( i := Ascan( HTimer():aTimers,{|o|hwg_Isptreq(o:oParent:handle, oWnd:handle)} ) ) != 0
       HTimer():aTimers[i]:End()
    ENDIF
    oWnd:Super:onEvent( WM_DESTROY )
-   HWindow():DelItem( oWnd )
+   HWindow():DelItem(oWnd)
    //hwg_gtk_exit()
 
    RETURN .T.
@@ -140,8 +140,8 @@ CLASS HWindow INHERIT HCustomWindow
 
    METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, cAppName, oBmp, cHelp, nHelpId )
-   METHOD AddItem( oWnd )
-   METHOD DelItem( oWnd )
+   METHOD AddItem(oWnd)
+   METHOD DelItem(oWnd)
    METHOD FindWindow( hWnd )
    METHOD GetMain()
    METHOD EvalKeyList( nKey, nctrl )
@@ -150,7 +150,7 @@ CLASS HWindow INHERIT HCustomWindow
    METHOD Maximize() INLINE hwg_WindowMaximize(::handle)
    METHOD Minimize() INLINE hwg_WindowMinimize(::handle)
    METHOD CLOSE() INLINE IIf(!onDestroy( Self ), .F. , hwg_DestroyWindow(::handle))
-   METHOD SetTitle( cTitle ) INLINE hwg_Setwindowtext(::handle, ::title := cTitle)
+   METHOD SetTitle(cTitle) INLINE hwg_Setwindowtext(::handle, ::title := cTitle)
 
 ENDCLASS
 
@@ -186,7 +186,7 @@ METHOD HWindow:New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFon
    IF cAppName != NIL
       ::szAppName := cAppName
    ENDIF
-   IF hb_bitand( Abs(::style), DS_CENTER ) > 0
+   IF hb_bitand(Abs(::style), DS_CENTER ) > 0
       ::nX := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
       ::nY := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
    ENDIF
@@ -195,17 +195,17 @@ METHOD HWindow:New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFon
    END
    ::aOffset := Array(4)
    AFill(::aOffset, 0)
-   ::AddItem( Self )
+   ::AddItem(Self)
 
    RETURN Self
 
-METHOD HWindow:AddItem( oWnd )
+METHOD HWindow:AddItem(oWnd)
 
    AAdd(::aWindows, oWnd)
 
    RETURN NIL
 
-METHOD HWindow:DelItem( oWnd )
+METHOD HWindow:DelItem(oWnd)
 
    LOCAL i
 
@@ -233,7 +233,7 @@ METHOD HWindow:EvalKeyList( nKey, nctrl )
    LOCAL nPos
 
    nctrl := IIf(nctrl == 2, FCONTROL, IIf(nctrl == 1, FSHIFT, IIf(nctrl == 4,FALT, 0)))
-   //hwg_writelog( str(nKey)+"/"+str(nctrl) )
+   //hwg_writelog(str(nKey)+"/"+str(nctrl))
    IF !Empty(::KeyList)
       IF ( nPos := Ascan(::KeyList, {|a|a[1] == nctrl .AND. a[2] == nKey})) > 0
          Eval(::KeyList[nPos, 3], ::FindControl(NIL, hwg_Getfocus()))
@@ -270,7 +270,7 @@ CLASS HMainWindow INHERIT HWindow
    METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,   ;
       oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
       cAppName, oBmp, cHelp, nHelpId, bColor, nExclude )
-   METHOD Activate( lShow, lMaximize, lMinimize, lCentered, bActivate )
+   METHOD Activate(lShow, lMaximize, lMinimize, lCentered, bActivate)
    METHOD onEvent( msg, wParam, lParam )
    METHOD InitTray()
    METHOD DEICONIFY()
@@ -311,7 +311,7 @@ METHOD HMainWindow:New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, 
    RETURN Self
 
 /* Added: lMaximize, lMinimize, lCentered, bActivate */
-METHOD HMainWindow:Activate( lShow, lMaximize, lMinimize, lCentered, bActivate )
+METHOD HMainWindow:Activate(lShow, lMaximize, lMinimize, lCentered, bActivate)
 
    LOCAL aCoors
    LOCAL aRect
@@ -338,12 +338,12 @@ METHOD HMainWindow:Activate( lShow, lMaximize, lMinimize, lCentered, bActivate )
          IF aCoors[4] - aCoors[2] == aRect[4]
             ::nAdjust := 0
          ELSE
-            //hwg_writelog( str(::nheight)+"/"+str(aCoors[4]-aCoors[2])+"/"+str(arect[4]) )
+            //hwg_writelog(str(::nheight)+"/"+str(aCoors[4]-aCoors[2])+"/"+str(arect[4]))
             ::Move(NIL, NIL, ::nWidth + (aCoors[3] - aCoors[1] - aRect[3]), ::nHeight + (aCoors[4] - aCoors[2] - aRect[4]))
          ENDIF
       ENDIF
       ::lActivated := .T.
-      IF hb_IsBlock( bActivate )
+      IF hb_IsBlock(bActivate)
          ::bActivate := bActivate
       ENDIF
       IF hb_IsBlock(::bActivate)
@@ -366,12 +366,12 @@ METHOD HMainWindow:onEvent( msg, wParam, lParam )
 
    LOCAL i
 
-   // hwg_WriteLog( "On Event" + str(msg) + str(wParam) + str(lParam) )
+   // hwg_WriteLog("On Event" + str(msg) + str(wParam) + str(lParam))
    IF (i := Ascan(::aMessages[1], msg)) != 0
       RETURN Eval(::aMessages[2, i], Self, wParam, lParam)
    ELSE
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL
-         // hwg_onTrackScroll( Self,wParam,lParam )
+         // hwg_onTrackScroll(Self,wParam,lParam)
       ENDIF
       Return ::Super:onEvent( msg, wParam, lParam )
    ENDIF
@@ -413,11 +413,11 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    iParLow := hwg_Loword(wParam)
    IF oWnd:aEvents != NIL .AND. ( iItem := Ascan( oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow} ) ) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
-   ELSEIF HB_ISARRAY(oWnd:menu) .AND. ( aMenu := Hwg_FindMenuItem( oWnd:menu,iParLow,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF HB_ISARRAY(oWnd:menu) .AND. ( aMenu := Hwg_FindMenuItem(oWnd:menu,iParLow,@iCont) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval(aMenu[1, iCont, 1])
-   ELSEIF oWnd:oPopup != NIL .AND. ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu,wParam,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF oWnd:oPopup != NIL .AND. ( aMenu := Hwg_FindMenuItem(oWnd:oPopup:aMenu,wParam,@iCont) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval(aMenu[1, iCont, 1])
-   ELSEIF oWnd:oNotifyMenu != NIL .AND. ( aMenu := Hwg_FindMenuItem( oWnd:oNotifyMenu:aMenu,wParam,@iCont ) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF oWnd:oNotifyMenu != NIL .AND. ( aMenu := Hwg_FindMenuItem(oWnd:oNotifyMenu:aMenu,wParam,@iCont) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval(aMenu[1, iCont, 1])
    ENDIF
 

@@ -85,7 +85,7 @@ METHOD HTimer:End()
 
    RETURN NIL
 
-FUNCTION hwg_TimerProc( idTimer )
+FUNCTION hwg_TimerProc(idTimer)
 
    LOCAL i := Ascan( HTimer():aTimers, {|o|o:id == idTimer} )
    LOCAL b

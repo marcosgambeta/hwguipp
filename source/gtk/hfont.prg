@@ -24,17 +24,17 @@ CLASS HFont INHERIT HObject
    DATA StrikeOut
    DATA nCounter INIT 1
 
-   METHOD Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle, lLinux )
+   METHOD Add(fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle, lLinux)
    METHOD Select( oFont , cTitle )
    METHOD Props2Arr()
    METHOD PrintFont()
    METHOD Release()
-   METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight )
-   // METHOD AddC( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle )
+   METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight)
+   // METHOD AddC(fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle)
 
 ENDCLASS
 
-METHOD HFont:Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle, lLinux )
+METHOD HFont:Add(fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle, lLinux)
 
    LOCAL i
    LOCAL nlen := Len(::aFonts)
@@ -98,7 +98,7 @@ METHOD HFont:Select( oFont, cTitle )
       RETURN NIL
    ENDIF
 
-   Return ::Add( af[2], af[3], af[4], af[5], af[6], af[7], af[8], af[9], af[1], .T. )
+   Return ::Add(af[2], af[3], af[4], af[5], af[6], af[7], af[8], af[9], af[1], .T.)
 
 METHOD HFont:Release()
    

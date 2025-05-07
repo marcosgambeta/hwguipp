@@ -28,7 +28,7 @@ FUNCTION hwg_ColorC2N( cColor )
    ENDIF
    cColor := Trim(cColor)
    FOR i := 1 TO Len(cColor)
-      iValue := Asc( SubStr(cColor, i, 1) )
+      iValue := Asc(SubStr(cColor, i, 1))
       IF iValue < 58 .AND. iValue > 47
          iValue -= 48
       ELSEIF iValue >= 65 .AND. iValue <= 70
@@ -49,7 +49,7 @@ FUNCTION hwg_ColorC2N( cColor )
 
    RETURN res
 
-FUNCTION hwg_ColorN2C( nColor )
+FUNCTION hwg_ColorN2C(nColor)
 
    LOCAL s := ""
    LOCAL n1
@@ -57,8 +57,8 @@ FUNCTION hwg_ColorN2C( nColor )
    LOCAL i
 
    FOR i := 0 to 2
-      n1 := hb_BitAnd( hb_BitShift( nColor,-i*8-4 ), 15 )
-      n2 := hb_BitAnd( hb_BitShift( nColor,-i*8 ), 15 )
+      n1 := hb_BitAnd(hb_BitShift( nColor,-i*8-4 ), 15)
+      n2 := hb_BitAnd(hb_BitShift( nColor,-i*8 ), 15)
       s += Chr(IIf(n1 < 10, n1 + 48, n1 + 55)) + Chr(IIf(n2 < 10, n2 + 48, n2 + 55))
    NEXT
 
@@ -92,7 +92,7 @@ FUNCTION hwg_MsgGet(cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes)
       @ 20, 10 SAY cText SIZE 260, 22
    ENDIF
    @ 20, 35 GET cres SIZE 260, 26 STYLE WS_DLGFRAME + WS_TABSTOP + nStyle
-   Atail( oModDlg:aControls ):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
+   Atail(oModDlg:aControls):Anchor := ANCHOR_TOPABS + ANCHOR_LEFTABS + ANCHOR_RIGHTABS
 
    @ 20, 95 BUTTON "Ok" ID IDOK SIZE 100, 32 ON CLICK {||oModDlg:lResult := .T., hwg_EndDialog()} ON SIZE ANCHOR_BOTTOMABS
    @ 180, 95 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON CLICK {||hwg_EndDialog()} ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
@@ -108,7 +108,7 @@ FUNCTION hwg_MsgGet(cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes)
 
    RETURN cRes
 
-FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, cOk, cCancel )
+FUNCTION hwg_WChoice(arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, cOk, cCancel)
 
    LOCAL oDlg
    LOCAL oBrw
@@ -158,10 +158,10 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
       NEXT
    ENDIF
 
-   hDC := hwg_Getdc( HWindow():GetMain():handle )
+   hDC := hwg_Getdc(HWindow():GetMain():handle)
    hwg_Selectobject(hDC, ofont:handle)
    aMetr := hwg_Gettextmetric(hDC)
-   hwg_Releasedc( hwg_Getactivewindow(), hDC )
+   hwg_Releasedc(hwg_Getactivewindow(), hDC)
    height := ( aMetr[1] + 5 ) * aLen + 4 + addY
    screenh := hwg_Getdesktopheight()
    IF height > screenh * 2/3
@@ -173,7 +173,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, 
    INIT DIALOG oDlg TITLE cTitle AT nX, nY SIZE width, height FONT oFont
 
    @ 0, 0 BROWSE oBrw ARRAY SIZE width, height - addY FONT oFont STYLE WS_BORDER ;
-      ON SIZE {|o,x,y|o:Move( addX/2, 10, x - addX, y - addY )} ;
+      ON SIZE {|o,x,y|o:Move(addX/2, 10, x - addX, y - addY)} ;
       ON CLICK {|o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle)}
 
    IF HB_ISARRAY(arr[1])
@@ -257,7 +257,7 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
    IF hParent > 0
       IF ( i := Ascan( HDialog():aModalDialogs,{|o|o:handle == hParent} ) ) != 0
          RETURN HDialog():aModalDialogs[i]
-      ELSEIF ( oParent := HDialog():FindDialog( hParent ) ) != NIL
+      ELSEIF ( oParent := HDialog():FindDialog(hParent) ) != NIL
          RETURN oParent
       ELSEIF ( oParent := HWindow():FindWindow( hParent ) ) != NIL
          RETURN oParent
@@ -274,7 +274,7 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
 
    RETURN NIL
 
-FUNCTION hwg_FindSelf( hCtrl )
+FUNCTION hwg_FindSelf(hCtrl)
 
    LOCAL oParent
 
@@ -285,13 +285,13 @@ FUNCTION hwg_FindSelf( hCtrl )
 
    RETURN NIL
 
-FUNCTION hwg_getParentForm( o )
-   DO WHILE o:oParent != NIL .AND. !__ObjHasMsg( o, "GETLIST" )
+FUNCTION hwg_getParentForm(o)
+   DO WHILE o:oParent != NIL .AND. !__ObjHasMsg(o, "GETLIST")
       o := o:oParent
    ENDDO
    RETURN o
 
-FUNCTION HWG_ISWINDOWVISIBLE( handle )
+FUNCTION HWG_ISWINDOWVISIBLE(handle)
 
    LOCAL o := hwg_GetWindowObject( handle )
 

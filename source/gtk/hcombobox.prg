@@ -30,9 +30,9 @@ CLASS HComboBox INHERIT HControl
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
-   METHOD Refresh( xVal )
-   METHOD Setitem( nPos )
-   METHOD GetValue( nItem )
+   METHOD Refresh(xVal)
+   METHOD Setitem(nPos)
+   METHOD GetValue(nItem)
    METHOD Value ( xValue ) SETGET
    METHOD End()
 
@@ -118,7 +118,7 @@ METHOD HComboBox:onEvent( msg, wParam, lParam )
             Eval(::bLostFocus, IIf(HB_ISARRAY(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
          ENDIF
       ELSE
-         __Valid( Self )
+         __Valid(Self)
       ENDIF
 
    ELSEIF msg == CBN_SELCHANGE
@@ -154,7 +154,7 @@ METHOD HComboBox:Init()
 
    RETURN NIL
 
-METHOD HComboBox:Refresh( xVal )
+METHOD HComboBox:Refresh(xVal)
 
    LOCAL vari
 
@@ -182,7 +182,7 @@ METHOD HComboBox:Refresh( xVal )
 
    RETURN NIL
 
-METHOD HComboBox:SetItem( nPos )
+METHOD HComboBox:SetItem(nPos)
 
    IF ::lText
       ::xValue := IIf(HB_ISARRAY(::aItems[nPos]), ::aItems[nPos, 1], ::aItems[nPos])
@@ -202,7 +202,7 @@ METHOD HComboBox:SetItem( nPos )
 
    RETURN NIL
 
-METHOD HComboBox:GetValue( nItem )
+METHOD HComboBox:GetValue(nItem)
    
    LOCAL nPos := hwg_ComboGet(::handle)
    LOCAL vari := IIf(!Empty(::aItems) .AND. nPos > 0, IIf(HB_ISARRAY(::aItems[1]), ::aItems[nPos, 1], ::aItems[nPos]), "")
@@ -221,7 +221,7 @@ METHOD HComboBox:Value ( xValue )
       IF HB_ISCHAR(xValue)
          xValue := IIf(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
       ENDIF
-      ::SetItem( xValue )
+      ::SetItem(xValue)
 
       RETURN ::xValue
    ENDIF
@@ -235,7 +235,7 @@ METHOD HComboBox:End()
 
    RETURN NIL
 
-STATIC FUNCTION __Valid( oCtrl )
+STATIC FUNCTION __Valid(oCtrl)
 
    oCtrl:GetValue()
    IF hb_IsBlock(oCtrl:bValid)

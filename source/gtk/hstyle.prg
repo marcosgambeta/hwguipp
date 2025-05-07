@@ -57,7 +57,7 @@ METHOD HStyle:New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap )
    ::aCorners := aCorners
    ::oBitmap := oBitmap
    IF nBorder > 0
-      ::oPen := HPen():Add( BS_SOLID, nBorder, tColor )
+      ::oPen := HPen():Add(BS_SOLID, nBorder, tColor)
    ENDIF
 
    AAdd(::aStyles, Self)

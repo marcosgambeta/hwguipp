@@ -31,9 +31,9 @@ CLASS HSplitter INHERIT HControl
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
    METHOD Paint()
-   //METHOD Move( x1, y1, width, height )
-   METHOD Drag( xPos, yPos )
-   METHOD DragAll( xPos, yPos )
+   //METHOD Move(x1, y1, width, height)
+   METHOD Drag(xPos, yPos)
+   METHOD DragAll(xPos, yPos)
 
 ENDCLASS
 
@@ -74,9 +74,9 @@ METHOD HSplitter:onEvent( msg, wParam, lParam )
       Hwg_SetCursor(::hCursor, ::handle)
       IF ::lCaptured
          IF ::lRepaint
-            ::DragAll( hwg_Loword(lParam), hwg_Hiword(lParam) )
+            ::DragAll(hwg_Loword(lParam), hwg_Hiword(lParam))
          ELSE
-            ::Drag( hwg_Loword(lParam), hwg_Hiword(lParam) )
+            ::Drag(hwg_Loword(lParam), hwg_Hiword(lParam))
          ENDIF
       ENDIF
    ELSEIF msg == WM_PAINT
@@ -125,13 +125,13 @@ METHOD HSplitter:Paint()
 
    RETURN NIL
 /*
-METHOD HSplitter:Move( x1, y1, width, height )
+METHOD HSplitter:Move(x1, y1, width, height)
 
-   ::Super:Move( x1, y1, width, height, .T. )
+   ::Super:Move(x1, y1, width, height, .T.)
 
    RETURN NIL
 */
-METHOD HSplitter:Drag( xPos, yPos )
+METHOD HSplitter:Drag(xPos, yPos)
    
    LOCAL nFrom
    LOCAL nTo
@@ -158,7 +158,7 @@ METHOD HSplitter:Drag( xPos, yPos )
 
    RETURN NIL
 
-METHOD HSplitter:DragAll( xPos, yPos )
+METHOD HSplitter:DragAll(xPos, yPos)
    
    LOCAL i
    LOCAL oCtrl
@@ -167,7 +167,7 @@ METHOD HSplitter:DragAll( xPos, yPos )
    LOCAL hold
 
    IF xPos != NIL .OR. yPos != NIL
-      ::Drag( xPos, yPos )
+      ::Drag(xPos, yPos)
    ENDIF
    FOR i := 1 TO Len(::aRight)
       oCtrl := ::aRight[i]
@@ -175,7 +175,7 @@ METHOD HSplitter:DragAll( xPos, yPos )
       hold := oCtrl:nHeight
       IF ::lVertical
          nDiff := ::nX + ::nWidth - oCtrl:nX
-         oCtrl:Move( oCtrl:nX + nDiff, NIL, oCtrl:nWidth - nDiff )
+         oCtrl:Move(oCtrl:nX + nDiff, NIL, oCtrl:nWidth - nDiff)
       ELSE
          nDiff := ::nY + ::nHeight - oCtrl:nY
          oCtrl:Move(NIL, oCtrl:nY + nDiff, NIL, oCtrl:nHeight - nDiff)

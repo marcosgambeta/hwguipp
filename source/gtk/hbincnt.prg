@@ -50,13 +50,13 @@ CLASS HBinC
    METHOD Create(cName, n)
    METHOD Open(cName, lWr)
    METHOD Close()
-   METHOD Add( cObjName, cType, cVal )
-   METHOD Del( cObjName )
+   METHOD Add(cObjName, cType, cVal)
+   METHOD Del(cObjName)
    METHOD Pack()
    METHOD Exist( cObjName )
    METHOD Get( cObjName )
    METHOD GetPos( cObjName )
-   METHOD GetType( cObjName )
+   METHOD GetType(cObjName)
 
 ENDCLASS
 
@@ -104,12 +104,12 @@ METHOD HBinC:Open(cName, lWr)
       RETURN NIL
    ENDIF
 
-   ::nVerHigh := Asc( Substr(cBuf, 6, 1) )
-   ::nVerLow := Asc( Substr(cBuf, 7, 1) )
-   ::nItems := Asc( Substr(cBuf, 9, 1) ) * 256 + Asc( Substr(cBuf, 10, 1) )
-   ::nCntLen := Asc( Substr(cBuf, 11, 1) ) * 65536 + Asc( Substr(cBuf, 12, 1) ) * 256 + Asc( Substr(cBuf, 13, 1) )
-   ::nCntBlocks := Asc( Substr(cBuf, 14, 1) )
-   ::nPassLen := Asc( Substr(cBuf, 15, 1) )
+   ::nVerHigh := Asc(Substr(cBuf, 6, 1))
+   ::nVerLow := Asc(Substr(cBuf, 7, 1))
+   ::nItems := Asc(Substr(cBuf, 9, 1)) * 256 + Asc(Substr(cBuf, 10, 1))
+   ::nCntLen := Asc(Substr(cBuf, 11, 1)) * 65536 + Asc(Substr(cBuf, 12, 1)) * 256 + Asc(Substr(cBuf, 13, 1))
+   ::nCntBlocks := Asc(Substr(cBuf, 14, 1))
+   ::nPassLen := Asc(Substr(cBuf, 15, 1))
    ::nFileLen := FSeek(::handle, 0, FS_END)
 
    FSeek(::handle, HEAD_LEN + ::nPassLen, FS_SET)
@@ -118,14 +118,14 @@ METHOD HBinC:Open(cName, lWr)
 
    ::aObjects := Array(::nItems)
    FOR i := 1 TO ::nItems
-      nLen := Asc( Substr(cBuf, nAddr + 1) )
+      nLen := Asc(Substr(cBuf, nAddr + 1))
       arr := Array(5)
       arr[OBJ_NAME] := Substr(cBuf, nAddr + 2, nLen)
       arr[OBJ_TYPE] := Substr(cBuf, nAddr + nLen + 2, 4)
-      arr[OBJ_VAL] := Asc( Substr(cBuf, nAddr + nLen + 6, 1) ) * 16777216 + ;
-            Asc( Substr(cBuf, nAddr + nLen + 7, 1) ) * 65536 + Asc( Substr(cBuf, nAddr + nLen + 8, 1) ) * 256 + Asc( Substr(cBuf, nAddr + nLen + 9, 1) )
-      arr[OBJ_SIZE] := Asc( Substr(cBuf, nAddr + nLen + 10, 1) ) * 16777216 + ;
-            Asc( Substr(cBuf, nAddr + nLen + 11, 1) ) * 65536 + Asc( Substr(cBuf, nAddr + nLen + 12, 1) ) * 256 + Asc( Substr(cBuf, nAddr + nLen + 13, 1) )
+      arr[OBJ_VAL] := Asc(Substr(cBuf, nAddr + nLen + 6, 1)) * 16777216 + ;
+            Asc(Substr(cBuf, nAddr + nLen + 7, 1)) * 65536 + Asc(Substr(cBuf, nAddr + nLen + 8, 1)) * 256 + Asc(Substr(cBuf, nAddr + nLen + 9, 1))
+      arr[OBJ_SIZE] := Asc(Substr(cBuf, nAddr + nLen + 10, 1)) * 16777216 + ;
+            Asc(Substr(cBuf, nAddr + nLen + 11, 1)) * 65536 + Asc(Substr(cBuf, nAddr + nLen + 12, 1)) * 256 + Asc(Substr(cBuf, nAddr + nLen + 13, 1))
       arr[OBJ_ADDR] := nAddr
       ::aObjects[i] := arr
       nAddr += nLen + CNT_FIX_LEN
@@ -138,7 +138,7 @@ METHOD HBinC:Close()
    FClose(::handle)
    RETURN NIL
 
-METHOD HBinC:Add( cObjName, cType, cVal )
+METHOD HBinC:Add(cObjName, cType, cVal)
    
    LOCAL nAddress
    LOCAL nSize
@@ -185,7 +185,7 @@ METHOD HBinC:Add( cObjName, cType, cVal )
    RETURN .T.
 
 /* Removed: cType */
-METHOD HBinC:Del( cObjName )
+METHOD HBinC:Del(cObjName)
    
    LOCAL n
 
@@ -300,7 +300,7 @@ METHOD HBinC:GetPos( cObjName )
   RETURN Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})
   
   
-METHOD HBinC:GetType( cObjName )
+METHOD HBinC:GetType(cObjName)
 
    LOCAL n
    LOCAL crettype := ""

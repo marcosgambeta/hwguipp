@@ -247,12 +247,12 @@ FUNCTION hwg_SetCtrlName(oCtrl, cName)
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
-HB_FUNC_STATIC( HCONTROL_DISABLE )
+HB_FUNC_STATIC(HCONTROL_DISABLE)
 {
    EnableWindow(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), FALSE);
 }
 
-HB_FUNC_STATIC( HCONTROL_ENABLE )
+HB_FUNC_STATIC(HCONTROL_ENABLE)
 {
    EnableWindow(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")), TRUE);
 }

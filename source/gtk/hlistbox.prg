@@ -73,12 +73,12 @@ CLASS HListBox INHERIT HControl
    METHOD Init()
    METHOD Refresh()
    METHOD Requery()
-   METHOD Setitem( nPos )
+   METHOD Setitem(nPos)
    METHOD AddItems( p )
-   METHOD DeleteItem( nPos )
-   METHOD Valid( oCtrl )
+   METHOD DeleteItem(nPos)
+   METHOD Valid(oCtrl)
    METHOD When( oCtrl )
-   METHOD onChange( oCtrl )
+   METHOD onChange(oCtrl)
    METHOD onDblClick()
    METHOD Clear()
    METHOD onEvent( msg, wParam, lParam )
@@ -262,7 +262,7 @@ METHOD HListBox:Refresh()
   
    RETURN NIL
 
-METHOD HListBox:SetItem( nPos )
+METHOD HListBox:SetItem(nPos)
 
    ::value := nPos
 //   hwg_Sendmessage(::handle, LB_SETCURSEL, nPos - 1, 0)
@@ -294,7 +294,7 @@ METHOD HListBox:AddItems( p )
    RETURN Self
    
 
-METHOD HListBox:DeleteItem( nPos )
+METHOD HListBox:DeleteItem(nPos)
 
 //   IF hwg_Sendmessage(::handle, LB_DELETESTRING , nPos - 1, 0) >= 0 // <= LEN(ocombo:aitems)
       ADel(::Aitems, nPos)
@@ -318,14 +318,14 @@ METHOD HListBox:Clear()
    RETURN .T.
 
 
-METHOD HListBox:onChange( oCtrl )
+METHOD HListBox:onChange(oCtrl)
 /*
    LOCAL nPos
 
    HB_SYMBOL_UNUSED(oCtrl)
 
    nPos := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
-   ::SetItem( nPos )
+   ::SetItem(nPos)
 */
    RETURN NIL
 
@@ -337,7 +337,7 @@ METHOD HListBox:When( oCtrl )
 
    HB_SYMBOL_UNUSED(oCtrl)
 
-    nSkip := IIf(hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1)
+    nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1)
    IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, ::value, Self)
    ENDIF
@@ -350,14 +350,14 @@ METHOD HListBox:When( oCtrl )
  RETURN .F.   
 
 
-METHOD HListBox:Valid( oCtrl )
+METHOD HListBox:Valid(oCtrl)
 /*
    LOCAL res
    LOCAL oDlg
 
    HB_SYMBOL_UNUSED(oCtrl)
 
-   IF ( oDlg := hwg_GetParentForm( Self ) ) == NIL .OR. oDlg:nLastKey != 27
+   IF ( oDlg := hwg_GetParentForm(Self) ) == NIL .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
       IF hb_IsBlock(::bSetGet)
          Eval(::bSetGet, ::value, Self)
@@ -395,7 +395,7 @@ STATIC FUNCTION AddLItems (h,it)
     ENDIF  
     IF !Empty(it)
      FOR i := 1 TO LEN(it)
-       HWG_LISTBOXADDSTRING( h,it[i] )
+       HWG_LISTBOXADDSTRING(h,it[i])
      NEXT
     ENDIF
 RETURN NIL

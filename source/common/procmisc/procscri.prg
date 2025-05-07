@@ -72,9 +72,9 @@ LOCAL aFormCode, aFormName
             Aadd(aFormName, SUBSTR(stroka, i + 1))
          ELSEIF rejim == -1 .AND. Left(stroka, 9) == "#ENDBLOCK"
 #ifdef __PLATFORM__WINDOWS  // __WINDOWS__
-            i := hwg_WChoice( aFormName )
+            i := hwg_WChoice(aFormName)
 #else
-            i := FCHOICE( aFormName )
+            i := FCHOICE(aFormName)
 #endif
             IF i == 0
                FCLOSE(han)
@@ -241,7 +241,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
          scom := UPPER(SUBSTR(stroka, 1, IIf(poz1 != 0, poz1 - 1, 999)))
          DO CASE
          CASE scom == "PRIVATE" .OR. scom == "PARAMETERS" .OR. scom == "LOCAL"
-            IF LEN(rezArray[2]) == 0 .OR. ( i := VALTYPE( ATAIL( rezArray[2] ) ) ) == "C" ;
+            IF LEN(rezArray[2]) == 0 .OR. ( i := VALTYPE(ATAIL(rezArray[2])) ) == "C" ;
                     .OR. i == "A"
                IF Left(scom, 2) == "LO"
                   AADD(rezArray[2], " " + ALLTRIM(SUBSTR(stroka, 7)))
@@ -274,26 +274,26 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
             AADD(tmpArray, stroka)
             AADD(rezArray[2], .F.)
          CASE scom == "ELSEIF"
-            IF !Fou_If( rezArray, tmpArray, .T. )
+            IF !Fou_If(rezArray, tmpArray, .T.)
                s_nLastError := 3
                RETURN .F.
             ENDIF
             AADD(tmpArray, SUBSTR(stroka, 5))
             AADD(rezArray[2], .F.)
          CASE scom == "ELSE"
-            IF !Fou_If( rezArray, tmpArray, .T. )
+            IF !Fou_If(rezArray, tmpArray, .T.)
                s_nLastError := 1
                RETURN .F.
             ENDIF
             AADD(tmpArray, "IF .T.")
             AADD(rezArray[2], .F.)
          CASE scom == "ENDIF"
-            IF !Fou_If( rezArray, tmpArray, .F. )
+            IF !Fou_If(rezArray, tmpArray, .F.)
                s_nLastError := 1
                RETURN .F.
             ENDIF
          CASE scom == "RETURN"
-            bOldError := ERRORBLOCK( {|e|MacroError(1, e, stroka)} )
+            bOldError := ERRORBLOCK({|e|MacroError(1, e, stroka)})
             BEGIN SEQUENCE
                AADD(rezArray[2], &("{||EndScript(" + Ltrim(Substr(stroka, 7)) + ")}"))
             RECOVER
@@ -301,10 +301,10 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
                   WndOut()
                   FCLOSE(han)
                ENDIF
-               ERRORBLOCK( bOldError )
+               ERRORBLOCK(bOldError)
                RETURN .F.
             END SEQUENCE
-            ERRORBLOCK( bOldError )
+            ERRORBLOCK(bOldError)
             AADD(tmpArray, "")
          CASE scom == "FUNCTION"
             stroka := Ltrim(Substr(stroka, poz1 + 1))
@@ -318,7 +318,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
          CASE scom == "#ENDSCRIPT" .OR. Left(scom, 7) == "ENDFUNC"
             RETURN .T.
          OTHERWISE
-            bOldError := ERRORBLOCK( {|e|MacroError(1, e, stroka)} )
+            bOldError := ERRORBLOCK({|e|MacroError(1, e, stroka)})
             BEGIN SEQUENCE
                AADD(rezArray[2], &("{||" + ALLTRIM(stroka) + "}"))
             RECOVER
@@ -326,10 +326,10 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
                   WndOut()
                   FCLOSE(han)
                ENDIF
-               ERRORBLOCK( bOldError )
+               ERRORBLOCK(bOldError)
                RETURN .F.
             END SEQUENCE
-            ERRORBLOCK( bOldError )
+            ERRORBLOCK(bOldError)
             AADD(tmpArray, "")
          ENDCASE
          IF lDebug .AND. Len(rezArray[3]) < Len(rezArray[2])
@@ -348,18 +348,18 @@ Local n
 
    LOCAL cTitle
    IF nm == 1
-      stroka := hwg_ErrMsg( e ) + Chr(10)+Chr(13) + "in" + Chr(10)+Chr(13) + ;
+      stroka := hwg_ErrMsg(e) + Chr(10)+Chr(13) + "in" + Chr(10)+Chr(13) + ;
                       AllTrim(stroka)
       cTitle := "Script compiling error"
    ELSEIF nm == 2
-      stroka := hwg_ErrMsg( e )
+      stroka := hwg_ErrMsg(e)
       cTitle := "Script variables error"
    ELSEIF nm == 3
       n := 2
-      WHILE !Empty(ProcName( n ))
-        stroka += Chr(13)+Chr(10) + "Called from " + ProcName( n ) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
+      WHILE !Empty(ProcName(n))
+        stroka += Chr(13)+Chr(10) + "Called from " + ProcName(n) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
       ENDDO
-      stroka := hwg_ErrMsg( e )+ Chr(10)+Chr(13) + stroka
+      stroka := hwg_ErrMsg(e)+ Chr(10)+Chr(13) + stroka
       cTitle := "Script execution error"
    ENDIF
    stroka += Chr(13)+Chr(10) + Chr(13)+Chr(10) + "Continue ?"
@@ -373,10 +373,10 @@ Local n
    ELSEIF nm == 2
       Alert( "Script variables error" )
    ELSEIF nm == 3
-      stroka += ";" + hwg_ErrMsg( e )
+      stroka += ";" + hwg_ErrMsg(e)
       n := 2
-      WHILE !Empty(ProcName( n ))
-        stroka += ";Called from " + ProcName( n ) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
+      WHILE !Empty(ProcName(n))
+        stroka += ";Called from " + ProcName(n) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
       ENDDO
       Alert( "Script execution error:;"+stroka )
    ENDIF
@@ -385,7 +385,7 @@ Local n
    // Warning W0028  Unreachable code
 RETURN .T.
 
-STATIC FUNCTION Fou_If( rezArray, tmpArray, prju )
+STATIC FUNCTION Fou_If(rezArray, tmpArray, prju)
 
 LOCAL i, j, bOldError
 
@@ -399,15 +399,15 @@ LOCAL i, j, bOldError
    j := LEN(rezArray[2])
    FOR i := j TO 1 STEP - 1
       IF UPPER(Left(tmpArray[i], 2)) == "IF"
-         bOldError := ERRORBLOCK( {|e|MacroError(1, e, tmpArray[i])} )
+         bOldError := ERRORBLOCK({|e|MacroError(1, e, tmpArray[i])})
          BEGIN SEQUENCE
             rezArray[2, i] := &( "{||IIf(" + ALLTRIM(SUBSTR(tmpArray[i], 4)) + ;
                  ",.T.,iscr:=" + LTRIM(STR(j, 5)) + ")}" )
          RECOVER
-            ERRORBLOCK( bOldError )
+            ERRORBLOCK(bOldError)
             RETURN .F.
          END SEQUENCE
-         ERRORBLOCK( bOldError )
+         ERRORBLOCK(bOldError)
          tmpArray[i] := ""
          i --
          IF i > 0 .AND. tmpArray[i] == "JUMP"
@@ -436,16 +436,16 @@ LOCAL i, j, iloop := 0, bOldError
          iloop := i
       ENDIF
       IF !Empty(tmpArray[i]) .AND. (UPPER(Left(tmpArray[i], 8)) = "DO WHILE" .OR. UPPER(Left(tmpArray[i], 5)) = "WHILE")
-         bOldError := ERRORBLOCK( {|e|MacroError(1, e, tmpArray[i])} )
+         bOldError := ERRORBLOCK({|e|MacroError(1, e, tmpArray[i])})
          BEGIN SEQUENCE
             rezArray[i] = &("{||IIf(" + ALLTRIM(SUBSTR(tmpArray[i], ;
                  IIf(UPPER(Left(tmpArray[i], 1)) == "D", 10, 7))) + ;
                  ",.T.,iscr:=" + LTRIM(STR(j + 1, 5)) + ")}")
          RECOVER
-            ERRORBLOCK( bOldError )
+            ERRORBLOCK(bOldError)
             RETURN .F.
          END SEQUENCE
-         ERRORBLOCK( bOldError )
+         ERRORBLOCK(bOldError)
          tmpArray[i] := ""
          AADD(rezArray, &("{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}"))
          AADD(tmpArray, "")
@@ -468,7 +468,7 @@ LOCAL lSetDebugger := .F.
 MEMVAR iscr, bOldError, aScriptt, doscr_RetValue
 PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
 
-   IF Type( "aScriptt" ) != "A"
+   IF Type("aScriptt") != "A"
       PRIVATE aScriptt := aScript
    ENDIF
    IF aScript == NIL .OR. ( arlen := Len(aScript[2]) ) == 0
@@ -485,7 +485,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
          ELSE
             stroka := Substr(aScript[2, iscr], 2)
             lParam := ( Left(aScript[2, iscr], 1) == "/" )
-            bOldError := Errorblock( {|e|MacroError(2, e)} )
+            bOldError := Errorblock({|e|MacroError(2, e)})
             BEGIN SEQUENCE
                j := 1
                DO WHILE !Empty(varName := getNextVar( @stroka, @varValue ))
@@ -500,18 +500,18 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
                ENDDO
             RECOVER
                WndOut()
-               Errorblock( bOldError )
+               Errorblock(bOldError)
                RETURN .F.
             END SEQUENCE
-            Errorblock( bOldError )
+            Errorblock(bOldError)
          ENDIF
       ENDIF
       iscr ++
    ENDDO
    IF lDebug
-      bOldError := Errorblock( {|e|MacroError(3, e, aScript[3, iscr])} )
+      bOldError := Errorblock({|e|MacroError(3, e, aScript[3, iscr])})
    ELSE
-      bOldError := Errorblock( {|e|MacroError(3, e, LTrim(Str(iscr)))} )
+      bOldError := Errorblock({|e|MacroError(3, e, LTrim(Str(iscr)))})
    ENDIF
    BEGIN SEQUENCE
       IF lDebug .AND. s_lDebugger
@@ -519,7 +519,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
 #ifdef __PLATFORM__WINDOWS // __WINDOWS__
             IF s_lDebugger
                s_lDebugRun := .F.
-               hwg_scrDebug( aScript, iscr )
+               hwg_scrDebug(aScript, iscr)
                DO WHILE !s_lDebugRun
                   hwg_ProcessMessage()
                ENDDO
@@ -529,7 +529,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
             iscr ++
          ENDDO
 #ifdef __PLATFORM__WINDOWS // __WINDOWS__
-         hwg_scrDebug( aScript, 0 )
+         hwg_scrDebug(aScript, 0)
          IF lSetDebugger
             SetDebugger( .F. )
          ENDIF
@@ -542,20 +542,20 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
       ENDIF
    RECOVER
       WndOut()
-      Errorblock( bOldError )
+      Errorblock(bOldError)
 #ifdef __PLATFORM__WINDOWS // __WINDOWS__
       IF lDebug .AND. s_lDebugger
-         hwg_scrDebug( aScript, 0 )
+         hwg_scrDebug(aScript, 0)
       ENDIF
 #endif
       RETURN .F.
    END SEQUENCE
-   Errorblock( bOldError )
+   Errorblock(bOldError)
    WndOut()
 
 RETURN m->doscr_RetValue
 
-FUNCTION CallFunc( cProc, aParams, aScript )
+FUNCTION CallFunc(cProc, aParams, aScript)
 
 LOCAL i := 1, RetValue := NIL
 
@@ -584,7 +584,7 @@ FUNCTION CompileErr( nLine )
    nLine := s_numlin
 RETURN s_nLastError
 
-FUNCTION Codeblock( string )
+FUNCTION Codeblock(string)
 
    IF Left(string, 2) == "{|"
       Return &( string )
@@ -661,7 +661,7 @@ STATIC w__buf
          @ y1, x1, y2, x2 BOX ;
          CHR(218) + CHR(196) + CHR(191) + CHR(179) + CHR(217) + CHR(196) + CHR(192) + CHR(179) + CHR(32)
       ELSEIF noscroll == NIL
-         SCROLL( y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1 )
+         SCROLL(y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1)
       ENDIF
       @ y2 - 1, x1 + 2 SAY sout
       SETCOLOR( oldc )
@@ -679,7 +679,7 @@ LOCAL GetList := {}
    x2 := x1 + s_x__size
    oldc := SETCOLOR( "N/W" )
    IF LEN(sout) + IIf(spict = "@D", 8, LEN(spict)) > s_x__size - 3
-      SCROLL( y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1 )
+      SCROLL(y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1)
    ELSE
       x1 += LEN(sout) + 1
    ENDIF

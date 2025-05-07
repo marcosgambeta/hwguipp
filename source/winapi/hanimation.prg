@@ -133,7 +133,7 @@ METHOD HAnimation:Destroy()
 #include <commctrl.h>
 #include <hbapicls.hpp>
 
-HB_FUNC_STATIC( HANIMATION_PLAY )
+HB_FUNC_STATIC(HANIMATION_PLAY)
 {
   auto self = hb_stackSelfItem();
   UINT from = HB_ISNUM(1) ? hb_parni(1) : 0;
@@ -143,12 +143,12 @@ HB_FUNC_STATIC( HANIMATION_PLAY )
   hb_itemReturn(self);
 }
 
-HB_FUNC_STATIC( HANIMATION_ISPLAYING )
+HB_FUNC_STATIC(HANIMATION_ISPLAYING)
 {
   hb_retl(Animate_IsPlaying(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE"))));
 }
 
-HB_FUNC_STATIC( HANIMATION_SEEK )
+HB_FUNC_STATIC(HANIMATION_SEEK)
 {
   auto self = hb_stackSelfItem();
   UINT frame = HB_ISNUM(1) ? hb_parni(1) : 0;
@@ -156,19 +156,19 @@ HB_FUNC_STATIC( HANIMATION_SEEK )
   hb_itemReturn(self);
 }
 
-HB_FUNC_STATIC( HANIMATION_STOP )
+HB_FUNC_STATIC(HANIMATION_STOP)
 {
   auto self = hb_stackSelfItem();
   Animate_Stop(static_cast<HWND>(hb_objDataGetPtr(self, "HANDLE")));
   hb_itemReturn(self);
 }
 
-HB_FUNC_STATIC( HANIMATION_CLOSE )
+HB_FUNC_STATIC(HANIMATION_CLOSE)
 {
   Animate_Close(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")));
 }
 
-HB_FUNC_STATIC( HANIMATION_DESTROY )
+HB_FUNC_STATIC(HANIMATION_DESTROY)
 {
   DestroyWindow(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")));
 }
@@ -176,7 +176,7 @@ HB_FUNC_STATIC( HANIMATION_DESTROY )
 /*
 HWG_ANIMATE_CREATE(hParent, nId, nStyle, nX, nY, nWidth, nHeight) --> handle
 */
-HB_FUNC_STATIC( HWG_ANIMATE_CREATE )
+HB_FUNC_STATIC(HWG_ANIMATE_CREATE)
 {
   HWND hwnd = Animate_Create(hwg_par_HWND(1), hwg_par_UINT(2), hwg_par_DWORD(3), GetModuleHandle(nullptr));
   MoveWindow(hwnd, hwg_par_int(4), hwg_par_int(5), hwg_par_int(6), hwg_par_int(7), TRUE);
@@ -186,7 +186,7 @@ HB_FUNC_STATIC( HWG_ANIMATE_CREATE )
 /*
 HWG_ANIMATE_OPEN(HWND, cName) --> NIL
 */
-HB_FUNC_STATIC( HWG_ANIMATE_OPEN )
+HB_FUNC_STATIC(HWG_ANIMATE_OPEN)
 {
   void * hStr;
   Animate_Open(hwg_par_HWND(1), HB_PARSTR(2, &hStr, nullptr));
@@ -196,12 +196,12 @@ HB_FUNC_STATIC( HWG_ANIMATE_OPEN )
 /*
 HWG_ANIMATE_OPENEX(HWND, hInstance, cName|nName) --> NIL
 */
-HB_FUNC_STATIC( HWG_ANIMATE_OPENEX )
+HB_FUNC_STATIC(HWG_ANIMATE_OPENEX)
 {
   void * hResource;
   LPCTSTR lpResource = HB_PARSTR(3, &hResource, nullptr);
 
-  if( !lpResource && HB_ISNUM(3) ) {
+  if (!lpResource && HB_ISNUM(3)) {
     lpResource = MAKEINTRESOURCE(hb_parni(3));
   }
 

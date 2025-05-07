@@ -23,7 +23,7 @@ CLASS HBrush INHERIT HObject
 
 ENDCLASS
 
-METHOD HBrush:Add( nColor )
+METHOD HBrush:Add(nColor)
    
    LOCAL i
 
@@ -34,7 +34,7 @@ METHOD HBrush:Add( nColor )
       ENDIF
    NEXT
 
-   ::handle := hwg_Createsolidbrush( nColor )
+   ::handle := hwg_Createsolidbrush(nColor)
    ::color := nColor
    AAdd(::aBrushes, Self)
 

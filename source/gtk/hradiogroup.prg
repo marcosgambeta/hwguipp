@@ -41,8 +41,8 @@ METHOD HRadioGroup:New( vari, bSetGet )
 
    RETURN Self
 
-METHOD HRadioGroup:NewRg( oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, tcolor, bColor )
+METHOD HRadioGroup:NewRg(oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth, nHeight, ;
+      cCaption, oFont, bInit, bSize, tcolor, bColor)
 
    ::oGroupCurrent := Self
    ::aButtons := {}
@@ -75,7 +75,7 @@ METHOD HRadioGroup:EndGroup( nSelected )
 
    RETURN NIL
 
-METHOD HRadioGroup:Value( nValue )
+METHOD HRadioGroup:Value(nValue)
    
    LOCAL nLen
 

@@ -13,7 +13,7 @@ REQUEST HWG_ENDWINDOW
 
 #define CONTROL_FIRST_ID   34000
 
-Function hwg_SetCtrlName( oCtrl, cName )
+Function hwg_SetCtrlName(oCtrl, cName)
    
    LOCAL nPos
 
@@ -22,8 +22,8 @@ Function hwg_SetCtrlName( oCtrl, cName )
          cName := SubStr(cName, nPos + 1)
       ENDIF
       oCtrl:objName := Upper(cName)
-      IF __ObjHasMsg( oCtrl, "ODEFAULTPARENT" )
-         hwg_SetWidgetName( oCtrl:handle, oCtrl:objName )
+      IF __ObjHasMsg(oCtrl, "ODEFAULTPARENT")
+         hwg_SetWidgetName(oCtrl:handle, oCtrl:objName)
       ENDIF
    ENDIF
 
@@ -44,10 +44,10 @@ CLASS HControl INHERIT HCustomWindow
 
    METHOD Disable()
    METHOD Enable()
-   METHOD Enabled( lEnabled )
+   METHOD Enabled(lEnabled)
 
    METHOD Setfocus() INLINE hwg_SetFocus(::handle)
-   METHOD Move( x1, y1, width, height, lMoveParent )
+   METHOD Move(x1, y1, width, height, lMoveParent)
    METHOD onAnchor( x, y, w, h )
    METHOD End()
 
@@ -74,7 +74,7 @@ METHOD HControl:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bIn
    ::tColor := tColor
    ::bColor := bColor
 
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
 
    RETURN Self
 
@@ -102,8 +102,8 @@ METHOD HControl:INIT()
       ENDIF
       ::Setcolor(::tcolor, ::bcolor)
 
-      IF ( o := hwg_getParentForm( Self ) ) != NIL .AND. o:lActivated
-         hwg_ShowAll( o:handle )
+      IF ( o := hwg_getParentForm(Self) ) != NIL .AND. o:lActivated
+         hwg_ShowAll(o:handle)
          hwg_HideHidden( o )
       ENDIF
       ::lInit := .T.
@@ -121,7 +121,7 @@ METHOD HControl:Enable()
    hwg_Enablewindow(::handle, .T.)
 RETURN NIL
 
-METHOD HControl:Enabled( lEnabled )
+METHOD HControl:Enabled(lEnabled)
 
    IF lEnabled != NIL
       IF lEnabled
@@ -136,7 +136,7 @@ METHOD HControl:Enabled( lEnabled )
    RETURN hwg_Iswindowenabled(::handle)
 
 /* Added: lMoveParent */
-METHOD HControl:Move( x1, y1, width, height, lMoveParent )
+METHOD HControl:Move(x1, y1, width, height, lMoveParent)
    
    LOCAL lMove := .F.
    LOCAL lSize := .F.
@@ -275,7 +275,7 @@ METHOD HControl:onAnchor( x, y, w, h )
       y1 := y9
    ENDIF
    hwg_Invalidaterect(::oParent:handle, 1, ::nX, ::nY, ::nWidth, ::nHeight)
-   ::Move( x1, y1, w1, h1 )
+   ::Move(x1, y1, w1, h1)
    ::nX := x1
    ::nY := y1
    ::nWidth := w1

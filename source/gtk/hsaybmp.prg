@@ -45,9 +45,9 @@ METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit,
          lRes := .F.
       ENDIF
       ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image),     ;
-         HBitmap():AddResource( Image ), ;
+         HBitmap():AddResource(Image), ;
          IIf(HB_ISCHAR(Image),     ;
-         HBitmap():AddFile( Image ), Image))
+         HBitmap():AddFile(Image), Image))
       IF !Empty(::oImage)
          IF nWidth == NIL .OR. nHeight == NIL
             ::nWidth := ::oImage:nWidth
@@ -101,7 +101,7 @@ METHOD HSayBmp:Paint()
    ENDIF
    IF ::nBorder > 0
       IF ::oPen == NIL
-         ::oPen := HPen():Add( BS_SOLID, ::nBorder, ::tColor )
+         ::oPen := HPen():Add(BS_SOLID, ::nBorder, ::tColor)
       ENDIF
       hwg_Selectobject(hDC, ::oPen:handle)
       hwg_Rectangle(hDC, ::nOffsetH, ::nOffsetV, ::nOffsetH + ::nWidth - 1 - ::nBorder, ::nOffsetV + ::nHeight - 1 - ::nBorder)

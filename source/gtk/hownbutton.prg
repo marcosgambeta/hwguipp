@@ -46,7 +46,7 @@ CLASS HOwnButton INHERIT HControl
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
    METHOD Paint()
-   METHOD MouseMove( wParam, lParam )
+   METHOD MouseMove(wParam, lParam)
    METHOD MDown()
    METHOD MUp()
    METHOD Press() INLINE (::lPress := .T., ::MDown())
@@ -73,7 +73,7 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
    ::tcolor := IIf(color == NIL, 0, color)
    IF bColor != NIL
       ::bcolor := bcolor
-      ::brush := HBrush():Add( bcolor )
+      ::brush := HBrush():Add(bcolor)
    ENDIF
    ::xt := xt
    ::yt := yt
@@ -93,8 +93,8 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
       ELSE
          // otherwise load from file or resource container
          ::oBitmap := IIf(( lResour != NIL .AND. lResour ) .OR. HB_ISNUMERIC(bmp), ;
-            HBitmap():AddResource( bmp ), ;
-            HBitmap():AddFile( IIf(::cPath != NIL, ::cPath + bmp, bmp) ))
+            HBitmap():AddResource(bmp), ;
+            HBitmap():AddFile(IIf(::cPath != NIL, ::cPath + bmp, bmp)))
       ENDIF
       IF ::oBitmap != NIL .AND. lTr != NIL .AND. lTr
          ::lTransp := .T.
@@ -151,7 +151,7 @@ METHOD HOwnButton:onEvent( msg, wParam, lParam )
       ::MUp()
       hwg_Setfocus( h )
    ELSEIF msg == WM_MOUSEMOVE
-      ::MouseMove( wParam, lParam )
+      ::MouseMove(wParam, lParam)
    ELSEIF msg == WM_DESTROY
       ::End()
    ENDIF
@@ -267,9 +267,9 @@ METHOD HOwnButton:Paint()
 
    RETURN NIL
 
-METHOD HOwnButton:MouseMove( wParam, lParam )
+METHOD HOwnButton:MouseMove(wParam, lParam)
    
-   LOCAL lEnter := ( hb_bitand( wParam, 16 ) > 0 )
+   LOCAL lEnter := ( hb_bitand(wParam, 16 ) > 0)
    // Variables not used
    // LOCAL res := .F.
 
@@ -278,7 +278,7 @@ METHOD HOwnButton:MouseMove( wParam, lParam )
    IF ::state != OBTN_INIT
       IF !lEnter
          IF !Empty(::oTimer)
-            OwnBtnTimerProc( Self, 2 )
+            OwnBtnTimerProc(Self, 2)
             ::oTimer:End()
             ::oTimer := NIL
          ENDIF
@@ -302,7 +302,7 @@ METHOD HOwnButton:MDown()
       hwg_Redrawwindow(::handle)
       IF ::nPeriod > 0
          ::oTimer := HTimer():New( Self,, ::nPeriod, {|o|OwnBtnTimerProc(o, 1)} )
-         OwnBtnTimerProc( Self, 0 )
+         OwnBtnTimerProc(Self, 0)
       ENDIF
    ENDIF
 
@@ -322,7 +322,7 @@ METHOD HOwnButton:MUp()
          ENDIF
       ENDIF
       IF !Empty(::oTimer)
-         OwnBtnTimerProc( Self, 2 )
+         OwnBtnTimerProc(Self, 2)
          ::oTimer:End()
          ::oTimer := NIL
       ELSE
@@ -339,7 +339,7 @@ METHOD HOwnButton:SetTimer( nPeriod )
 
    IF nPeriod == NIL
       IF !Empty(::oTimer)
-         OwnBtnTimerProc( Self, 2 )
+         OwnBtnTimerProc(Self, 2)
          ::oTimer:End()
          ::oTimer := NIL
       ENDIF
@@ -390,7 +390,7 @@ METHOD HOwnButton:Disable()
 
    RETURN NIL
 
-STATIC FUNCTION OwnBtnTimerProc( oBtn, nType )
+STATIC FUNCTION OwnBtnTimerProc(oBtn, nType)
 
    IF hb_IsBlock(oBtn:bClick)
       Eval(oBtn:bClick, oBtn, nType)

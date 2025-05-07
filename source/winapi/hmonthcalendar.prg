@@ -189,7 +189,7 @@ RETURN HBitmap():AddString("Datepick_Button", hwg_cHex2Bin(;
 #include <hbapiitm.hpp>
 #include <hbdate.hpp>
 
-HB_FUNC( HWG_INITMONTHCALENDAR )
+HB_FUNC(HWG_INITMONTHCALENDAR)
 {
    RECT rc;
 
@@ -214,11 +214,11 @@ HB_FUNC( HWG_INITMONTHCALENDAR )
    hb_retptr(hMC);
 }
 
-HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file Control.c
+HB_FUNC(HWG_SETMONTHCALENDARDATE) // adaptation of hwg_Setdatepicker of file Control.c
 {
    auto pDate = hb_param(2, Harbour::Item::DATE);
 
-   if( pDate )
+   if (pDate)
    {
       SYSTEMTIME sysTime;
       int lYear, lMonth, lDay;
@@ -238,7 +238,7 @@ HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file C
    }
 }
 
-HB_FUNC( HWG_GETMONTHCALENDARDATE ) // adaptation of hwg_Getdatepicker of file Control.c
+HB_FUNC(HWG_GETMONTHCALENDARDATE) // adaptation of hwg_Getdatepicker of file Control.c
 {
    SYSTEMTIME st;
    char szDate[9];
