@@ -11,7 +11,7 @@
 #include "hwguipp.ch"
 
 REQUEST HB_CODEPAGE_UTF8
-#define _( x ) hb_i18n_gettext(x)
+#define _(x) hb_i18n_gettext(x)
 #xcommand TRY              => s_bError := errorBlock({|oErr|break(oErr)}) ;;
       BEGIN SEQUENCE
 #xcommand CATCH [<!oErr!>] => errorBlock(s_bError) ;;

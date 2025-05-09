@@ -18,7 +18,7 @@ Function hwg_SetCtrlName(oCtrl, cName)
    LOCAL nPos
 
    IF !Empty(cName) .AND. HB_ISCHAR(cName) .AND. !("[" $ cName)
-      IF ( nPos :=  RAt(":", cName) ) > 0 .OR. ( nPos :=  RAt(">", cName) ) > 0
+      IF (nPos :=  RAt(":", cName)) > 0 .OR. (nPos :=  RAt(">", cName)) > 0
          cName := SubStr(cName, nPos + 1)
       ENDIF
       oCtrl:objName := Upper(cName)
@@ -102,7 +102,7 @@ METHOD HControl:INIT()
       ENDIF
       ::Setcolor(::tcolor, ::bcolor)
 
-      IF ( o := hwg_getParentForm(Self) ) != NIL .AND. o:lActivated
+      IF (o := hwg_getParentForm(Self)) != NIL .AND. o:lActivated
          hwg_ShowAll(o:handle)
          hwg_HideHidden(o)
       ENDIF
@@ -203,8 +203,8 @@ METHOD HControl:onAnchor(x, y, w, h)
    nXincRelative :=  w / x
    nYincRelative :=  h / y
    //- calculo ABSOLUTE
-   nXincAbsolute := ( w - x )
-   nYincAbsolute := ( h - y )
+   nXincAbsolute := (w - x)
+   nYincAbsolute := (h - y)
 
    IF nAnchor >= ANCHOR_VERTFIX
       //- vertical fixed center

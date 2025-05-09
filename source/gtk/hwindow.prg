@@ -105,7 +105,7 @@ STATIC FUNCTION onDestroy(oWnd)
    IF __ObjHasMsg(oWnd, "HACCEL") .AND. oWnd:hAccel != NIL
       hwg_Destroyacceleratortable(oWnd:hAccel)
    ENDIF
-   IF ( i := Ascan(HTimer():aTimers,{|o|hwg_Isptreq(o:oParent:handle, oWnd:handle)}) ) != 0
+   IF (i := Ascan(HTimer():aTimers,{|o|hwg_Isptreq(o:oParent:handle, oWnd:handle)})) != 0
       HTimer():aTimers[i]:End()
    ENDIF
    oWnd:Super:onEvent(WM_DESTROY)
@@ -187,8 +187,8 @@ METHOD HWindow:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont
       ::szAppName := cAppName
    ENDIF
    IF hb_bitand(Abs(::style), DS_CENTER ) > 0
-      ::nX := Int(( hwg_Getdesktopwidth() - ::nWidth ) / 2)
-      ::nY := Int(( hwg_Getdesktopheight() - ::nHeight ) / 2)
+      ::nX := Int((hwg_Getdesktopwidth() - ::nWidth) / 2)
+      ::nY := Int((hwg_Getdesktopheight() - ::nHeight) / 2)
    ENDIF
    IF nHelpId != NIL
       ::HelpId := nHelpId
@@ -209,7 +209,7 @@ METHOD HWindow:DelItem(oWnd)
 
    LOCAL i
 
-   IF ( i := Ascan(::aWindows, {|o|o == oWnd}) ) > 0
+   IF (i := Ascan(::aWindows, {|o|o == oWnd})) > 0
       ADel(::aWindows, i)
       ASize(::aWindows, Len(::aWindows) - 1)
    ENDIF
@@ -235,7 +235,7 @@ METHOD HWindow:EvalKeyList(nKey, nctrl)
    nctrl := IIf(nctrl == 2, FCONTROL, IIf(nctrl == 1, FSHIFT, IIf(nctrl == 4,FALT, 0)))
    //hwg_writelog(str(nKey)+"/"+str(nctrl))
    IF !Empty(::KeyList)
-      IF ( nPos := Ascan(::KeyList, {|a|a[1] == nctrl .AND. a[2] == nKey})) > 0
+      IF (nPos := Ascan(::KeyList, {|a|a[1] == nctrl .AND. a[2] == nKey})) > 0
          Eval(::KeyList[nPos, 3], ::FindControl(NIL, hwg_Getfocus()))
       ENDIF
    ENDIF
@@ -287,7 +287,7 @@ METHOD HMainWindow:New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, c
    HB_SYMBOL_UNUSED(nPos)
    HB_SYMBOL_UNUSED(nExclude)
 
-   IIF ( oBmp == NIL , hbackground := NIL , hbackground := oBmp:handle )
+   IIf(oBmp == NIL, hbackground := NIL, hbackground := oBmp:handle)
 
    ::Super:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther,  ;
@@ -411,13 +411,13 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 
    iParHigh := hwg_Hiword(wParam)
    iParLow := hwg_Loword(wParam)
-   IF oWnd:aEvents != NIL .AND. ( iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
+   IF oWnd:aEvents != NIL .AND. (iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow})) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
-   ELSEIF HB_ISARRAY(oWnd:menu) .AND. ( aMenu := Hwg_FindMenuItem(oWnd:menu,iParLow,@iCont) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF HB_ISARRAY(oWnd:menu) .AND. (aMenu := Hwg_FindMenuItem(oWnd:menu,iParLow,@iCont)) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval(aMenu[1, iCont, 1])
-   ELSEIF oWnd:oPopup != NIL .AND. ( aMenu := Hwg_FindMenuItem(oWnd:oPopup:aMenu,wParam,@iCont) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF oWnd:oPopup != NIL .AND. (aMenu := Hwg_FindMenuItem(oWnd:oPopup:aMenu,wParam,@iCont)) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval(aMenu[1, iCont, 1])
-   ELSEIF oWnd:oNotifyMenu != NIL .AND. ( aMenu := Hwg_FindMenuItem(oWnd:oNotifyMenu:aMenu,wParam,@iCont) ) != NIL .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF oWnd:oNotifyMenu != NIL .AND. (aMenu := Hwg_FindMenuItem(oWnd:oNotifyMenu:aMenu,wParam,@iCont)) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval(aMenu[1, iCont, 1])
    ENDIF
 
@@ -437,5 +437,5 @@ STATIC FUNCTION onGetFocus(oDlg, w, l)
 
 // Prepare for future (if available on next GTK versions)
 // FUNCTION hwg_GTKShellnotifyicon(oIcon)
-//       hwg_ShellModifyIcon ( IIf(oIcon != NIL, oIcon:handle, NIL) )
+//       hwg_ShellModifyIcon(IIf(oIcon != NIL, oIcon:handle, NIL))
 //   RETURN NIL

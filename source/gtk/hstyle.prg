@@ -43,8 +43,8 @@ METHOD HStyle:New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap)
          ::aStyles[i]:nBorder == nBorder .AND. ;
          ::aStyles[i]:tColor == tColor .AND. ;
          ::aStyles[i]:nOrient == nOrient .AND. ;
-         ( (::aStyles[i]:oBitmap == NIL .AND. oBitmap == NIL) .OR. ;
-         (::aStyles[i]:oBitmap != NIL .AND. oBitmap != NIL .AND. ::aStyles[i]:oBitmap:name == oBitmap:name) )
+         ((::aStyles[i]:oBitmap == NIL .AND. oBitmap == NIL) .OR. ;
+         (::aStyles[i]:oBitmap != NIL .AND. oBitmap != NIL .AND. ::aStyles[i]:oBitmap:name == oBitmap:name))
 
          RETURN ::aStyles[i]
       ENDIF

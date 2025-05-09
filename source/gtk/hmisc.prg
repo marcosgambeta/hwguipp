@@ -16,14 +16,14 @@
 #include "hwguipp.ch"
 
 // ================================= *
-FUNCTION hwg_IsLeapYear ( nyear )
+FUNCTION hwg_IsLeapYear(nyear)
 // nyear : a year to check for leap year
 // returns:
 // .T. a leap year
 // ================================= *
-RETURN ( ( (nyear % 4)  == 0 );
-       .AND. ( ( nyear % 100 ) != 0 ) ;
-       .OR.  ( ( nyear % 400 ) == 0 ) )
+RETURN (((nyear % 4)  == 0);
+       .AND. ((nyear % 100) != 0) ;
+       .OR.  ((nyear % 400) == 0))
 
 FUNCTION hwg_isWindows()
 #ifndef __PLATFORM__WINDOWS
@@ -153,7 +153,7 @@ FOR ncount := 1 TO LEN(chexstr)
    ENDIF  // IF 0..9,A..F 
   NEXT
   // if odd, return error
-  IF ( nodd % 2 ) != 0
+  IF (nodd % 2) != 0
    RETURN ""
   ENDIF   
 RETURN cbin
@@ -338,7 +338,7 @@ FUNCTION hwg_EOLStyle
 #endif
 
 // ================================= *
-FUNCTION hwg_BaseName ( pFullpath )
+FUNCTION hwg_BaseName(pFullpath)
 // ================================= *
 
    LOCAL nPosifilna
@@ -367,7 +367,7 @@ FUNCTION hwg_BaseName ( pFullpath )
  RETURN ALLTRIM(cFilename)
 
 // ================================= *
-FUNCTION hwg_Dirname ( pFullpath )
+FUNCTION hwg_Dirname(pFullpath)
 // ================================= *
 
    LOCAL nPosidirna
@@ -414,7 +414,7 @@ FUNCTION hwg_Dirname ( pFullpath )
  RETURN sFilePath
 
 // ================================= *
-FUNCTION hwg_CleanPathname ( pSwithdbl )
+FUNCTION hwg_CleanPathname(pSwithdbl)
 // ================================= *
 
    LOCAL sSwithdbl
@@ -464,7 +464,7 @@ nlen2 := LEN(mmemo2)
 IF nlen1 != nlen2
  RETURN .F.
 ENDIF
-DO WHILE ( nnum <= nlen1 ) .AND. lende
+DO WHILE (nnum <= nlen1) .AND. lende
  IF SUBSTR(mmemo1,nnum, 1) != SUBSTR(mmemo2,nnum, 1)
    lende := .F.
  ENDIF
@@ -558,22 +558,22 @@ FUNCTION hwg_TEMP_K2RA(T)
 RETURN T * 1.8
 
 FUNCTION hwg_TEMP_K2R(T)
-RETURN ( T - 273.15 ) * 0.8
+RETURN (T - 273.15) * 0.8
 
 FUNCTION hwg_TEMP_F2C(T)
-RETURN ( T - 32.0) / 1.8
+RETURN (T - 32.0) / 1.8
 
 FUNCTION hwg_TEMP_F2K(T)
-RETURN ( T + 459.67) / 1.8
+RETURN (T + 459.67) / 1.8
 
 FUNCTION hwg_TEMP_F2RA(T)
 RETURN T + 459.67
 
 FUNCTION hwg_TEMP_F2R(T)
-RETURN ( T - 32.0 ) / 2.25
+RETURN (T - 32.0) / 2.25
 
 FUNCTION hwg_TEMP_RA2C(T)
-RETURN ( T - 32.0 - 459.67) / 1.8
+RETURN (T - 32.0 - 459.67) / 1.8
 
 FUNCTION hwg_TEMP_RA2F(T)
 RETURN  T - 459.67
@@ -582,19 +582,19 @@ FUNCTION hwg_TEMP_RA2K(T)
 RETURN T / 1.8
 
 FUNCTION hwg_TEMP_RA2R(T)
-RETURN ( T - 32.0 -459.67 ) / 2.25
+RETURN (T - 32.0 -459.67) / 2.25
 
 FUNCTION hwg_TEMP_R2C(T)
 RETURN T * 1.25
 
 FUNCTION hwg_TEMP_R2F(T)
-RETURN ( T * 2.25 ) + 32.0
+RETURN (T * 2.25) + 32.0
 
 FUNCTION hwg_TEMP_R2K(T)
-RETURN ( T * 1.25 ) + 273.15
+RETURN (T * 1.25) + 273.15
 
 FUNCTION hwg_TEMP_R2RA(T)
-RETURN ( T * 2.25 ) + 32.0 + 459.67
+RETURN (T * 2.25) + 32.0 + 459.67
 
 // ===== End of temperature conversions ==============
 
@@ -938,11 +938,11 @@ nday := DAY(dDate)
        nyear :=  nyear - 1
     ENDIF
 
-   ngreg :=  ( nyear / 400 ) - ( nyear / 100 ) + ( nyear / 4 )  // Gregorian calendar
+   ngreg :=  (nyear / 400) - (nyear / 100) + (nyear / 4)  // Gregorian calendar
 
 RETURN 2400000.5 + 365 * nyear - 679004 + ngreg ;
-           + INT(30.6001 * ( nmonth + 1 )) + nday + ( nhour / 24 ) ;
-           + ( nminutes / 1440 ) + ( nseconds / 86400 )
+           + INT(30.6001 * (nmonth + 1)) + nday + (nhour / 24) ;
+           + (nminutes / 1440) + (nseconds / 86400)
 
 
 // =================================
@@ -972,7 +972,7 @@ FUNCTION hwg_JulianDay2Date(z)
    LOCAL cday
 
  njoff := 4712                  // const year offset
- nFour := ( z + 13 ) / 1461     // 1461 = 3*365+366  period of 4 years  (valid 1901 ... 2099)
+ nFour := (z + 13) / 1461     // 1461 = 3*365+366  period of 4 years  (valid 1901 ... 2099)
  nRound_4 := INT(nFour)
  nYear := nRound_4 * 4
  nRound_4 := (nRound_4 * 1461) - 13
@@ -1003,7 +1003,7 @@ FUNCTION hwg_JulianDay2Date(z)
 
     d := d + 1;     // 0 .. 364 => 1 .. 365
 
-    IF ( nYear % 4 ) == 0   // Leap year 1901 ... 2099
+    IF (nYear % 4) == 0   // Leap year 1901 ... 2099
       sz := -1
     ELSE
       sz := 0
@@ -1090,7 +1090,7 @@ nhLocal := VAL(SUBSTR(TIME(), 1, 2))
 RETURN nhLocal - nhUTC
 
 FUNCTION hwg_Has_Win_Euro_Support()
-#if ( HB_VER_REVID - 0 ) >= 2002101634
+#if (HB_VER_REVID - 0) >= 2002101634
 RETURN .T.
 #else
 RETURN .F.

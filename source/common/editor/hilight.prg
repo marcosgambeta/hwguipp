@@ -129,7 +129,7 @@ Local oIni, oMod, oNode, i, nPos
                ::cScomm := AllTrim(oNode:aItems[1])
             ELSEIF oNode:title == "multi_line_comment"
                ::cMcomm1 := AllTrim(oNode:aItems[1])
-               IF ( nPos := At(" ", ::cMcomm1) ) > 0
+               IF (nPos := At(" ", ::cMcomm1)) > 0
                   ::cMcomm2 := Ltrim(Substr(::cMcomm1, nPos + 1))
                   ::cMcomm1 := Trim(Left(::cMcomm1,nPos - 1))
                ENDIF
@@ -152,7 +152,7 @@ Local oIni, oMod, oNode, i, nPos
       ENDIF
       IF !Empty(cMComm)
          ::cMcomm1 := AllTrim(cMcomm)
-         IF !Empty(::cMcomm1) .AND. ( nPos := At(" ", ::cMcomm1) ) > 0
+         IF !Empty(::cMcomm1) .AND. (nPos := At(" ", ::cMcomm1)) > 0
             ::cMcomm2 := Ltrim(Substr(::cMcomm1, nPos + 1))
             ::cMcomm1 := Trim(Left(::cMcomm1,nPos - 1))
          ENDIF
@@ -234,7 +234,7 @@ Local nPos, nPos1, nPrev, cWord, c
    ENDIF
 
    IF lComm != NIL .AND. lComm
-      IF ( nPos := At(::cMcomm2, cLine) ) == 0
+      IF (nPos := At(::cMcomm2, cLine)) == 0
          IF !lCheck
             ::AddItem(1, hced_Len(::oEdit,cLine), HILIGHT_COMM)
          ENDIF
@@ -264,10 +264,10 @@ Local nPos, nPos1, nPrev, cWord, c
          nPos++
       ENDDO
       DO WHILE nPos <= nLen
-         IF ( c := hced_Substr(::oEdit, cLine, nPos, 1) ) $ cQuotes .AND. ;
-            !( nLen - nPos > 1 .AND. Substr(cLine, nPos + 1, 1) == c .AND. Substr(cLine, nPos + 2, 1) == c )
+         IF (c := hced_Substr(::oEdit, cLine, nPos, 1)) $ cQuotes .AND. ;
+            !(nLen - nPos > 1 .AND. Substr(cLine, nPos + 1, 1) == c .AND. Substr(cLine, nPos + 2, 1) == c)
             nPos1 := nPos
-            IF ( nPos := hced_At(::oEdit, c, cLine, nPos1 + 1) ) == 0
+            IF (nPos := hced_At(::oEdit, c, cLine, nPos1 + 1)) == 0
                nPos := hced_Len(::oEdit, cLine)
             ENDIF
             IF !lCheck
@@ -283,7 +283,7 @@ Local nPos, nPos1, nPrev, cWord, c
 
          ELSEIF c == cm .AND. hced_Substr(::oEdit, cLine, nPos, nLenM) == ::cMcomm1
             nPos1 := nPos
-            IF ( nPos := hced_At(::oEdit, ::cMcomm2, cLine, nPos1 + 1) ) == 0
+            IF (nPos := hced_At(::oEdit, ::cMcomm2, cLine, nPos1 + 1)) == 0
                nPos := hced_Len(::oEdit, cLine)
                ::lMultiComm := .T.
                ::aDop[nLine] := 1
@@ -338,6 +338,6 @@ METHOD Hilight:AddItem(nPos1, nPos2, nType)
 Return NIL
 
 Static Function IsLetter(c)
-Return Len(c) > 1 .OR. ( c >= "A" .AND. c <= "Z" ) .OR. ( c >= "a" .AND. c <= "z" ) .OR. ;
+Return Len(c) > 1 .OR. (c >= "A" .AND. c <= "Z") .OR. (c >= "a" .AND. c <= "z") .OR. ;
       c == "_" .OR. Asc(c) >= 128
 

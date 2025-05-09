@@ -187,10 +187,10 @@ METHOD HSplitter:DragAll(xPos, yPos)
       wold := oCtrl:nWidth
       hold := oCtrl:nHeight
       IF ::lVertical
-         nDiff := ::nX - ( oCtrl:nX + oCtrl:nWidth )
+         nDiff := ::nX - (oCtrl:nX + oCtrl:nWidth)
          oCtrl:Move(NIL, NIL, oCtrl:nWidth + nDiff)
       ELSE
-         nDiff := ::nY - ( oCtrl:nY + oCtrl:nHeight )
+         nDiff := ::nY - (oCtrl:nY + oCtrl:nHeight)
          oCtrl:Move(NIL, NIL, NIL, oCtrl:nHeight + nDiff)
       ENDIF
       hwg_onAnchor(oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight)

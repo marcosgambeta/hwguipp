@@ -27,8 +27,8 @@ CLASS HUpDown INHERIT HControl
    METHOD Value(nValue) SETGET
    METHOD SetRange(n1, n2) INLINE hwg_SetRangeUpdown(::hUpDown, n1, n2)
    METHOD Refresh()
-   METHOD Hide() INLINE ( hwg_Hidewindow(::hUpDown), ::Super:Hide() )
-   METHOD Show() INLINE ( hwg_Showwindow(::hUpDown), ::Super:Show() )
+   METHOD Hide() INLINE (hwg_Hidewindow(::hUpDown), ::Super:Hide())
+   METHOD Show() INLINE (hwg_Showwindow(::hUpDown), ::Super:Show())
 
 ENDCLASS
 

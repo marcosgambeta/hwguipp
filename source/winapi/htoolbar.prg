@@ -226,7 +226,7 @@ METHOD hToolBar:CREATETOOL()
             // AAdd(aButton, HBitmap():AddResource(::aitem[n, 1]):handle)
             hImage := HBitmap():AddResource(::aitem[n, 1], LR_LOADTRANSPARENT + LR_LOADMAP3DCOLORS, NIL, ::nwSize, ::nhSize):handle
          ENDIF
-         IF ( img := Ascan(aButton, hImage) ) == 0
+         IF (img := Ascan(aButton, hImage)) == 0
             AAdd(aButton, hImage)
             img := Len(aButton)
          ENDIF
@@ -351,7 +351,7 @@ METHOD hToolBar:RESIZE(xIncrSize, lWidth, lHeight)
    
    LOCAL nSize
 
-   IF ::Anchor == 0 .OR. ( !lWidth .AND. !lHeight )
+   IF ::Anchor == 0 .OR. (!lWidth .AND. !lHeight)
       RETURN NIL
    ENDIF
    nSize := hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0)

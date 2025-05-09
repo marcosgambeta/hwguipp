@@ -86,7 +86,7 @@ METHOD HTreeNode:New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
    ELSE
       AAdd(aItems, NIL)
       h := oPrev:handle
-      IF ( i := AScan(aItems, {|o|o:handle == h}) ) == 0
+      IF (i := AScan(aItems, {|o|o:handle == h})) == 0
          aItems[Len(aItems)] := Self
       ELSE
          AIns(aItems, i + 1)

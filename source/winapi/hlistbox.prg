@@ -154,11 +154,11 @@ METHOD HListBox:onEvent(msg, wParam, lParam)
       ENDIF
       IF hb_IsBlock(::bKeyDown)
          nEval := Eval(::bKeyDown, Self, wParam)
-         IF (HB_ISLOGICAL(nEval) .AND. !nEval ) .OR. ( nEval != -1 .AND. nEval != NIL )
+         IF (HB_ISLOGICAL(nEval) .AND. !nEval ) .OR. (nEval != -1 .AND. nEval != NIL)
             RETURN 0
          ENDIF
       ENDIF
-   ELSEIF msg == WM_GETDLGCODE .AND. ( wParam == VK_RETURN .OR. wParam == VK_ESCAPE ) .AND. ::bKeyDown != NIL
+   ELSEIF msg == WM_GETDLGCODE .AND. (wParam == VK_RETURN .OR. wParam == VK_ESCAPE) .AND. ::bKeyDown != NIL
       RETURN DLGC_WANTALLKEYS  //DLGC_WANTARROWS + DLGC_WANTTAB + DLGC_WANTCHARS
    ENDIF
    RETURN -1
@@ -277,7 +277,7 @@ METHOD HListBox:Valid(oCtrl)
 
    HB_SYMBOL_UNUSED(oCtrl)
 
-   IF ( oDlg := hwg_GetParentForm(Self) ) == NIL .OR. oDlg:nLastKey != 27
+   IF (oDlg := hwg_GetParentForm(Self)) == NIL .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
       IF hb_IsBlock(::bSetGet)
          Eval(::bSetGet, ::value, Self)

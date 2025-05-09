@@ -142,7 +142,7 @@ METHOD HBitmap:AddFile(name, hDC, lTransparent, nWidth, nHeight)
    ENDIF
 
    FOR EACH i IN ::aBitmaps
-      IF i:name == cname .AND. ( nWidth == NIL .OR. nHeight == NIL )
+      IF i:name == cname .AND. (nWidth == NIL .OR. nHeight == NIL)
          i:nCounter++
          RETURN i
       ENDIF
@@ -156,7 +156,7 @@ METHOD HBitmap:AddFile(name, hDC, lTransparent, nWidth, nHeight)
       DirChange(cCurDir)
    ENDIF
 
-   IF Lower(Right(name, 4)) != ".bmp" .OR. ( nWidth == NIL .AND. nHeight == NIL .AND. lTransparent == NIL )
+   IF Lower(Right(name, 4)) != ".bmp" .OR. (nWidth == NIL .AND. nHeight == NIL .AND. lTransparent == NIL)
       IF Lower(Right(name, 4)) == ".bmp"
          ::handle := hwg_Openbitmap(name, hDC)
       ELSE

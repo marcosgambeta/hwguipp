@@ -39,7 +39,7 @@ CLASS HTrack INHERIT HControl
    METHOD Paint()
    METHOD Drag(xPos, yPos)
    METHOD Move(x1, y1, width, height)
-   METHOD Value ( xValue ) SETGET
+   METHOD Value(xValue) SETGET
 
 ENDCLASS
 
@@ -57,7 +57,7 @@ METHOD HTrack:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bPaint, color
    ::nCurr := ::nFrom
    ::oStyleBar := oStyleBar
    ::oStyleSlider := oStyleSlider
-   ::lAxis := ( lAxis == NIL .OR. lAxis )
+   ::lAxis := (lAxis == NIL .OR. lAxis)
    ::oPen1 := HPen():Add(PS_SOLID, 1, color)
 
    ::Activate()

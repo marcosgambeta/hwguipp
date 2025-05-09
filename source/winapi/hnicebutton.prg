@@ -287,8 +287,8 @@ METHOD HNiceButton:PAINT()
    y := Rct[2]
    w := Rct[3] - Rct[1]
    h := Rct[4] - Rct[2]
-   XCtr := ( Rct[1] + Rct[3] ) / 2
-   YCtr := ( Rct[2] + Rct[4] ) / 2
+   XCtr := (Rct[1] + Rct[3]) / 2
+   YCtr := (Rct[2] + Rct[4]) / 2
    T := hwg_Getwindowtext(::Handle)
    // **********************************
    //         Draw our control

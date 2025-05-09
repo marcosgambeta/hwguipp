@@ -667,7 +667,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    LOCAL i
    LOCAL aPage // := {}
    LOCAL oFont := HFont():Add("Times New Roman", 0, -13, 700)
-   LOCAL lTransp := ( aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
+   LOCAL lTransp := (aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10])
 
    // Variables not used
    // cBootUser3, cBootUser4
@@ -1038,7 +1038,7 @@ METHOD HPrinter:ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam)
    IF nWidth > x
       nPos := nPosHorz
       IF nPos > 0
-         nPos := ( nPos - 1 ) / 18
+         nPos := (nPos - 1) / 18
          ::xOffset := Round(nPos * (nWidth - x + 10), 0)
       ENDIF
    ELSE
@@ -1245,7 +1245,7 @@ METHOD HPrinter:PrintDlg(aTooltips)
          arrt := hb_aTokens(cpages, ",")
          FOR i := 1 TO Len(arrt)
             Aadd(arr, n1 := Val(Ltrim(arrt[i])))
-            IF ( nPos := At("-", arrt[i]) ) != 0
+            IF (nPos := At("-", arrt[i])) != 0
                n2 := Val(Ltrim(Substr(arrt[i], nPos + 1)))
                FOR j := n1+1 TO n2
                   Aadd(arr, j)
@@ -1300,13 +1300,13 @@ METHOD HPrinter:PrintScript(hDC, nPage, x1, y1, x2, y2)
    IF x1 == NIL
       nHResNew := ::nHRes
       nVResNew := ::nVRes
-      nHRes *= ( (nWidth/nHRes) / IIf(::lmm,::nWidth,::nWidth/::nHRes) )
-      nVRes *= ( (nHeight/nVRes) / IIf(::lmm,::nHeight,::nHeight/::nVRes) )
+      nHRes *= ((nWidth/nHRes) / IIf(::lmm,::nWidth,::nWidth/::nHRes))
+      nVRes *= ((nHeight/nVRes) / IIf(::lmm,::nHeight,::nHeight/::nVRes))
       xOff := 0
       yOff := 0
    ELSE
-      nHResNew := (x2-x1)/( nWidth/nHres )
-      nVResNew := (y2-y1)/( nHeight/nVres )
+      nHResNew := (x2-x1)/(nWidth/nHres)
+      nVResNew := (y2-y1)/(nHeight/nVres)
       xOff := x1
       yOff := y1
    ENDIF
@@ -1336,7 +1336,7 @@ METHOD HPrinter:PrintScript(hDC, nPage, x1, y1, x2, y2)
             nOpt := Val(hb_TokenPtr(arr[i], @nPos, ","))
             cTemp := SubStr(arr[i], nPos + 1)
 
-            IF ( j := Ascan(::aBitmaps, {|a|a[1] == cTemp}) ) == 0
+            IF (j := Ascan(::aBitmaps, {|a|a[1] == cTemp})) == 0
                hBitmap := hwg_Openbitmap(cTemp, hDC)
                Aadd(::aBitmaps, {cTemp, hBitmap, .F.})
             ELSE

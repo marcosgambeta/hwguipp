@@ -32,7 +32,7 @@ STATIC FUNCTION onDestroy(oDlg)
       oDlg:bDestroy := NIL
    ENDIF
 
-   IF ( i := Ascan(HTimer():aTimers,{|o|hwg_Isptreq(o:oParent:handle, oDlg:handle) }) ) != 0
+   IF (i := Ascan(HTimer():aTimers,{|o|hwg_Isptreq(o:oParent:handle, oDlg:handle) })) != 0
       HTimer():aTimers[i]:End()
    ENDIF
 
@@ -190,7 +190,7 @@ METHOD HDialog:onEvent(msg, wParam, lParam)
    
    LOCAL i
 
-   IF ( i := Ascan(s_aMessModalDlg, {|a|a[1] == msg}) ) != 0
+   IF (i := Ascan(s_aMessModalDlg, {|a|a[1] == msg})) != 0
       RETURN Eval(s_aMessModalDlg[i, 2], Self, wParam, lParam)
    ELSE
       Return ::Super:onEvent(msg, wParam, lParam)
@@ -301,11 +301,11 @@ FUNCTION hwg_DlgCommand(oDlg, wParam, lParam)
    ENDIF
 
    IF oDlg:aEvents != NIL .AND. ;
-         ( i := Ascan(oDlg:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
+         (i := Ascan(oDlg:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow})) > 0
       Eval(oDlg:aEvents[i, 3], oDlg, iParLow)
    ELSEIF iParHigh == 0 .AND. ( ;
-         ( iParLow == IDOK .AND. oDlg:FindControl(IDOK) != NIL ) .OR. ;
-         iParLow == IDCANCEL )
+         (iParLow == IDOK .AND. oDlg:FindControl(IDOK) != NIL) .OR. ;
+         iParLow == IDCANCEL)
       IF iParLow == IDOK
          oDlg:lResult := .T.
       ENDIF
@@ -314,11 +314,11 @@ FUNCTION hwg_DlgCommand(oDlg, wParam, lParam)
          hwg_EndDialog(oDlg:handle)
       ENDIF
    ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. HB_ISARRAY(oDlg:menu) .AND. ;
-         ( aMenu := Hwg_FindMenuItem(oDlg:menu,iParLow,@i) ) != NIL ;
+         (aMenu := Hwg_FindMenuItem(oDlg:menu,iParLow,@i)) != NIL ;
          .AND. aMenu[1, i, 1] != NIL
       Eval(aMenu[1, i, 1])
    ELSEIF __ObjHasMsg(oDlg, "OPOPUP") .AND. oDlg:oPopup != NIL .AND. ;
-         ( aMenu := Hwg_FindMenuItem(oDlg:oPopup:aMenu,wParam,@i) ) != NIL ;
+         (aMenu := Hwg_FindMenuItem(oDlg:oPopup:aMenu,wParam,@i)) != NIL ;
          .AND. aMenu[1, i, 1] != NIL
       Eval(aMenu[1, i, 1])
    ENDIF
@@ -353,7 +353,7 @@ FUNCTION hwg_EndDialog(handle)
    LOCAL oDlg
 
    IF handle == NIL
-      IF ( oDlg := Atail(HDialog():aModalDialogs) ) == NIL
+      IF (oDlg := Atail(HDialog():aModalDialogs)) == NIL
          RETURN NIL
       ENDIF
    ELSE
@@ -389,14 +389,14 @@ FUNCTION hwg_SetDlgKey(oDlg, nctrl, nkey, block, lGlobal)
 
    IF block == NIL
 
-      IF ( i := Ascan(aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey}) ) == 0
+      IF (i := Ascan(aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey})) == 0
          RETURN .F.
       ELSE
          ADel(aKeys, i)
          ASize(aKeys, Len(aKeys) - 1)
       ENDIF
    ELSE
-      IF ( i := Ascan(aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey}) ) == 0
+      IF (i := Ascan(aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey})) == 0
          AAdd(aKeys, {nctrl, nkey, block})
       ELSE
          aKeys[i, 3] := block

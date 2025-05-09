@@ -147,7 +147,7 @@ PROCEDURE __dbgEntry(nMode, uParam1, uParam2, uParam3, uParam4, uParam5)
       EXIT
 
    CASE HB_DBG_ACTIVATE
-      IF ( lStartup := ( t_oDebugger == NIL ) )
+      IF (lStartup := (t_oDebugger == NIL))
          t_oDebugger := HBDebugger():New()
          t_oDebugger:pInfo := uParam1
       ENDIF
@@ -341,7 +341,7 @@ METHOD HBDebugger:HandleEvent()
          EXIT
 
       CASE CMD_BDEL
-         IF ( nAt := AScan(::aBreakPoints, {|a|a[1] == p2 .AND. a[2] == p1}) ) == 0
+         IF (nAt := AScan(::aBreakPoints, {|a|a[1] == p2 .AND. a[2] == p1})) == 0
             hwg_dbg_Answer("err")
          ELSE
             ADel(::aBreakPoints, nAt)
@@ -583,7 +583,7 @@ METHOD HBDebugger:VarSetValue(aVar, uValue)
    OTHERWISE
       // Public or Private
       aVar[VAR_POS] := uValue
-      &( aVar[VAR_NAME] ) := uValue
+      &(aVar[VAR_NAME]) := uValue
 
    ENDSWITCH
 
@@ -747,7 +747,7 @@ STATIC FUNCTION SendAreas()
    LOCAL cName
 
    FOR n := 1 TO 512
-      IF ( ( n ) -> ( Used() ) )
+      IF ((n)->(Used()))
          arr1[++nAreas] := n
       ENDIF
    NEXT
@@ -802,7 +802,7 @@ STATIC FUNCTION SendRec(cAlias)
    IF Empty(cAlias) .OR.  i == 0
       RETURN { "0", "", "0" }
    ENDIF
-   af := ( cAlias ) -> ( dbStruct() )
+   af := (cAlias)->(dbStruct())
    nCount := Len(af)
    arr := Array(nCount * 4 + 3)
 
@@ -835,7 +835,7 @@ STATIC FUNCTION SendObject(cObjName)
    IF hb_IsObject(obj)
       aVars := __objGetMsgList(obj)
       aMethods := __objGetMethodList(obj)
-      arr := Array(( Len(aVars ) + Len(aMethods ) ) * 3 + 1)
+      arr := Array((Len(aVars) + Len(aMethods)) * 3 + 1)
       arr[1] := LTrim(Str(Len(aVars) + Len(aMethods)))
 
       FOR i := 1 TO Len(aVars)

@@ -45,19 +45,19 @@ FUNCTION hwg_scrDebug(aScript, iscr)
       s_oBmpCurr := HBitmap():AddStandard(OBM_RGARROWD)
       s_oBmpPoint:= HBitmap():AddStandard(OBM_CHECK)
 #endif
-      INIT DIALOG s_oDlgDebug TITLE ( "Script Debugger - " + aScript[1] ) AT 210, 10 SIZE 500, 300 ;
+      INIT DIALOG s_oDlgDebug TITLE ("Script Debugger - " + aScript[1]) AT 210, 10 SIZE 500, 300 ;
            FONT s_oDlgFont STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX ;
            ON EXIT {||dlgDebugClose()}
 
       MENU OF s_oDlgDebug
          MENUITEM "E&xit" ACTION s_oDlgDebug:Close()
-         MENUITEM "&Step" ACTION ( s_nDebugMode:=0,SetDebugRun() )
+         MENUITEM "&Step" ACTION (s_nDebugMode:=0,SetDebugRun())
          MENU TITLE "&Animate"
-            MENUITEM "&0.5 seconds" ACTION ( s_nAnimaTime:=0.5,s_nDebugMode:=1,SetDebugRun() )
-            MENUITEM "&1 seconds" ACTION ( s_nAnimaTime:=1,s_nDebugMode:=1,SetDebugRun() )
-            MENUITEM "&3 seconds" ACTION ( s_nAnimaTime:=3,s_nDebugMode:=1,SetDebugRun() )
+            MENUITEM "&0.5 seconds" ACTION (s_nAnimaTime:=0.5,s_nDebugMode:=1,SetDebugRun())
+            MENUITEM "&1 seconds" ACTION (s_nAnimaTime:=1,s_nDebugMode:=1,SetDebugRun())
+            MENUITEM "&3 seconds" ACTION (s_nAnimaTime:=3,s_nDebugMode:=1,SetDebugRun())
          ENDMENU
-         MENUITEM "&Run" ACTION ( s_nDebugMode:=2,SetDebugRun() )
+         MENUITEM "&Run" ACTION (s_nDebugMode:=2,SetDebugRun())
       ENDMENU
 
       @ 0, 0 BROWSE s_oBrwData ARRAY SIZE 500, 0 STYLE WS_BORDER + WS_VSCROLL ;
@@ -109,7 +109,7 @@ FUNCTION hwg_scrDebug(aScript, iscr)
          IF Ascan(s_aBreaks, {|a|a[1] == s_aBreakPoints[1]}) == 0
             Aadd(s_aBreaks, s_aBreakPoints)
          ENDIF
-         IF ( i := Ascan(s_aBreaks, {|a|a[1] == aScript[4]}) ) == 0
+         IF (i := Ascan(s_aBreaks, {|a|a[1] == aScript[4]})) == 0
             s_aBreakPoints := NIL
          ELSE
             s_aBreakPoints := s_aBreaks[i]
@@ -120,7 +120,7 @@ FUNCTION hwg_scrDebug(aScript, iscr)
    ENDIF
 
    s_oBrwScript:aArray := aScript[3]
-   IF ( s_i_scr := iscr ) == 0
+   IF (s_i_scr := iscr) == 0
       s_nDebugMode := 0
       s_oBrwScript:Top()
    ELSE
@@ -179,7 +179,7 @@ Local i
    IF s_aBreakPoints == NIL
       s_aBreakPoints := { s_aScriptCurr[4], {} }
    ENDIF
-   IF ( i := Ascan(s_aBreakPoints[2],s_oBrwScript:nCurrent) ) == 0
+   IF (i := Ascan(s_aBreakPoints[2],s_oBrwScript:nCurrent)) == 0
       FOR i := 1 TO Len(s_aBreakPoints[2])
          IF s_aBreakPoints[2,i] == 0
             s_aBreakPoints[2,i] := s_oBrwScript:nCurrent
@@ -206,7 +206,7 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
 #endif
       bOldError := ERRORBLOCK({|e|MacroError(e)})
       BEGIN SEQUENCE
-         bCodeblock := &( "{||" + xRes + "}" )
+         bCodeblock := &("{||" + xRes + "}")
       RECOVER
          lRes := .F.
       END SEQUENCE
@@ -242,7 +242,7 @@ Local xRes, bOldError, lRes := .T., cType
    ERRORBLOCK(bOldError)
 
    IF lRes
-      IF ( cType := Valtype(xRes) ) == "N"
+      IF (cType := Valtype(xRes)) == "N"
          s_aWatches[n, 4] := Ltrim(Str(xRes))
       ELSEIF cType == "D"
          s_aWatches[n, 4] := Dtoc(xRes)
@@ -279,7 +279,7 @@ Local xRes, bOldError, lRes := .T., cType
    ENDIF
 
    IF lRes
-      IF ( cType := Valtype(xRes) ) == "N"
+      IF (cType := Valtype(xRes)) == "N"
          s_oEditRes:SetText(Ltrim(Str(xRes)))
       ELSEIF cType == "D"
          s_oEditRes:SetText(Dtoc(xRes))

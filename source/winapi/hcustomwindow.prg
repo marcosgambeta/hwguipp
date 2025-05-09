@@ -231,8 +231,8 @@ STATIC FUNCTION onNotify(oWnd, wParam, lParam)
          nCode := hwg_Getnotifycode(lParam)
          IF nCode == EN_PROTECTED
             RETURN 1
-         ELSEIF oWnd:aNotify != NIL .AND. ( iItem := Ascan(oWnd:aNotify, {|a|a[1] == nCode .AND. a[2] == wParam}) ) > 0
-            IF ( res := Eval(oWnd:aNotify[iItem, 3], oWnd, wParam) ) != NIL
+         ELSEIF oWnd:aNotify != NIL .AND. (iItem := Ascan(oWnd:aNotify, {|a|a[1] == nCode .AND. a[2] == wParam})) > 0
+            IF (res := Eval(oWnd:aNotify[iItem, 3], oWnd, wParam)) != NIL
                RETURN res
             ENDIF
          ENDIF
@@ -297,7 +297,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 
    HB_SYMBOL_UNUSED(lParam)
 
-   IF oWnd:aEvents != NIL .AND. ( iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
+   IF oWnd:aEvents != NIL .AND. (iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow})) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ENDIF
 

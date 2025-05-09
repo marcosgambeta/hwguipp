@@ -224,7 +224,7 @@ METHOD HPanel:Drag(xPos, yPos)
       yPos -= 65535
    ENDIF
    IF Abs(xPos - ::nOldX) > 1 .OR. Abs(yPos - ::nOldY) > 1
-      oWnd:Move(oWnd:nX + ( xPos - ::nOldX ), oWnd:nY + ( yPos - ::nOldY ))
+      oWnd:Move(oWnd:nX + (xPos - ::nOldX), oWnd:nY + (yPos - ::nOldY))
    ENDIF
 
    RETURN NIL
@@ -294,7 +294,7 @@ METHOD HPanelStS:PaintText(hDC)
       ELSE
          x2 := x1 + ::aParts[i]
       ENDIF
-      nWidth -= ( x2 - x1 + 1 )
+      nWidth -= (x2 - x1 + 1)
       IF !Empty(::aText[i])
          hwg_Drawtext(hDC, ::aText[i], x1, 6, x2, ::nHeight - 2, DT_LEFT + DT_VCENTER)
       ENDIF

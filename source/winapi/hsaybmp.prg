@@ -47,7 +47,7 @@ METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit,
          lRes := .F.
       ENDIF
       ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image), HBitmap():AddResource(Image), IIf(HB_ISCHAR(Image), HBitmap():AddFile(Image), Image))
-      IF ::oImage != NIL .AND. ( nWidth == NIL .OR. nHeight == NIL )
+      IF ::oImage != NIL .AND. (nWidth == NIL .OR. nHeight == NIL)
          ::nWidth := ::oImage:nWidth
          ::nHeight := ::oImage:nHeight
          ::nStretch := 2

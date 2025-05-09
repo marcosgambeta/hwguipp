@@ -60,7 +60,7 @@ METHOD HRadioGroup:EndGroup(nSelected)
    
    LOCAL nLen
 
-   IF ::oGroupCurrent != NIL .AND. ( nLen := Len(::oGroupCurrent:aButtons) ) > 0
+   IF ::oGroupCurrent != NIL .AND. (nLen := Len(::oGroupCurrent:aButtons)) > 0
 
       nSelected := IIf(nSelected != NIL .AND. nSelected <= nLen .AND. nSelected > 0, nSelected, ::oGroupCurrent:nValue)
       IF nSelected != 0 .AND. nSelected <= nlen
@@ -84,7 +84,7 @@ METHOD HRadioGroup:Value(nValue)
    LOCAL nLen
 
    IF nValue != NIL
-      IF ( nLen := Len(::aButtons) ) > 0 .AND. nValue > 0 .AND. nValue <= nLen
+      IF (nLen := Len(::aButtons)) > 0 .AND. nValue > 0 .AND. nValue <= nLen
          hwg_Checkradiobutton(::aButtons[nlen]:oParent:handle, ::aButtons[1]:id, ::aButtons[nLen]:id, ::aButtons[nValue]:id)
          ::nValue := nValue
          IF hb_IsBlock(::bSetGet)

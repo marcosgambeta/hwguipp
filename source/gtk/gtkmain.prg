@@ -162,7 +162,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, c
    hwg_Selectobject(hDC, ofont:handle)
    aMetr := hwg_Gettextmetric(hDC)
    hwg_Releasedc(hwg_Getactivewindow(), hDC)
-   height := ( aMetr[1] + 5 ) * aLen + 4 + addY
+   height := (aMetr[1] + 5) * aLen + 4 + addY
    screenh := hwg_Getdesktopheight()
    IF height > screenh * 2/3
       height := Int(screenh * 2/3)
@@ -240,9 +240,9 @@ FUNCTION hwg_WriteStatus(oWnd, nPart, cText)
    LOCAL i
 
    aControls := oWnd:aControls
-   IF ( i := Ascan(aControls, {|o|o:ClassName() == "HSTATUS"}) ) > 0
+   IF (i := Ascan(aControls, {|o|o:ClassName() == "HSTATUS"})) > 0
       hwg_Writestatuswindow(aControls[i]:handle, 0, cText)
-   ELSEIF ( i := Ascan(aControls, {|o|o:ClassName() = "HPANELSTS"}) ) > 0
+   ELSEIF (i := Ascan(aControls, {|o|o:ClassName() = "HPANELSTS"})) > 0
       aControls[i]:Write(cText, nPart)
    ENDIF
 
@@ -255,11 +255,11 @@ FUNCTION hwg_FindParent(hCtrl, nLevel)
    LOCAL hParent := hwg_Getparent(hCtrl)
 
    IF hParent > 0
-      IF ( i := Ascan(HDialog():aModalDialogs,{|o|o:handle == hParent}) ) != 0
+      IF (i := Ascan(HDialog():aModalDialogs,{|o|o:handle == hParent})) != 0
          RETURN HDialog():aModalDialogs[i]
-      ELSEIF ( oParent := HDialog():FindDialog(hParent) ) != NIL
+      ELSEIF (oParent := HDialog():FindDialog(hParent)) != NIL
          RETURN oParent
-      ELSEIF ( oParent := HWindow():FindWindow(hParent) ) != NIL
+      ELSEIF (oParent := HWindow():FindWindow(hParent)) != NIL
          RETURN oParent
       ENDIF
    ENDIF
@@ -267,7 +267,7 @@ FUNCTION hwg_FindParent(hCtrl, nLevel)
       nLevel := 0
    ENDIF
    IF nLevel < 2
-      IF ( oParent := hwg_FindParent(hParent,nLevel + 1) ) != NIL
+      IF (oParent := hwg_FindParent(hParent,nLevel + 1)) != NIL
          RETURN oParent:FindControl(NIL, hParent)
       ENDIF
    ENDIF

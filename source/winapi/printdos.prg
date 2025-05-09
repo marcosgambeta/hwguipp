@@ -418,10 +418,10 @@ METHOD PrintDos:TxttoGraphic(fName, osize, oPreview)
          ENDIF
          IF osize < 0
             oPrinter:Say(stroka, 0, oCol, 2400, oCol + (-osize + 2), NIL, oFont)  //Added by  Por Fernando Athayde
-            oCol := oCol + ( - osize + 2 )   //Added by  Por Fernando Athayde
+            oCol := oCol + (-osize + 2)   //Added by  Por Fernando Athayde
          ELSE
             oPrinter:Say(stroka, 0, oCol, 2400, oCol + (osize + 2), NIL, oFont)  //Added by  Por Fernando Athayde
-            oCol := oCol + ( osize + 2 )   //Added by  Por Fernando Athayde
+            oCol := oCol + (osize + 2)   //Added by  Por Fernando Athayde
          ENDIF
 
          IF Left(stroka, 1) == Chr(12)

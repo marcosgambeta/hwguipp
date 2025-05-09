@@ -118,7 +118,7 @@ METHOD HProgressBar:SET(cTitle, nPos)
        assertion 'percentage >= 0 // percentage <= 1.0' failed
        if progbar reached end.
       */
-      IF ( nPos >= 0  ) .AND. (nPos <= 1 ) 
+      IF (nPos >= 0) .AND. (nPos <= 1)
        hwg_Setprogressbar(::handle, nPos)
       END
    ENDIF

@@ -92,7 +92,7 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
          ::oBitmap := bmp
       ELSE
          // otherwise load from file or resource container
-         ::oBitmap := IIf(( lResour != NIL .AND. lResour ) .OR. HB_ISNUMERIC(bmp), ;
+         ::oBitmap := IIf((lResour != NIL .AND. lResour) .OR. HB_ISNUMERIC(bmp), ;
             HBitmap():AddResource(bmp), ;
             HBitmap():AddFile(IIf(::cPath != NIL, ::cPath + bmp, bmp)))
       ENDIF
@@ -269,7 +269,7 @@ METHOD HOwnButton:Paint()
 
 METHOD HOwnButton:MouseMove(wParam, lParam)
    
-   LOCAL lEnter := ( hb_bitand(wParam, 16 ) > 0)
+   LOCAL lEnter := (hb_bitand(wParam, 16) > 0)
    // Variables not used
    // LOCAL res := .F.
 

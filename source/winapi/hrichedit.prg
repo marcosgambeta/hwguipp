@@ -119,7 +119,7 @@ METHOD HRichEdit:onEvent(msg, wParam, lParam)
    ELSEIF msg == WM_CHAR
       wParam := hwg_PtrToUlong(wParam)
       IF wParam == VK_TAB
-         IF ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
+         IF (hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs)
             RETURN 0
          ENDIF
       ENDIF
@@ -128,7 +128,7 @@ METHOD HRichEdit:onEvent(msg, wParam, lParam)
       ENDIF
    ELSEIF msg == WM_KEYDOWN
       wParam := hwg_PtrToUlong(wParam)
-      IF wParam == VK_TAB .AND. ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
+      IF wParam == VK_TAB .AND. (hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs)
          hwg_GetSkip(::oParent, ::handle, IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ELSEIF wParam == VK_TAB

@@ -179,7 +179,7 @@ METHOD HCustomWindow:onEvent(msg, wParam, lParam)
    LOCAL i
 
    // hwg_WriteLog("== "+::Classname()+Str(msg)+IIf(wParam != NIL,Str(wParam),"NIL")+IIf(lParam != NIL,Str(lParam),"NIL"))
-   IF ( i := Ascan(s_aCustomEvents[1],msg) ) != 0
+   IF (i := Ascan(s_aCustomEvents[1],msg)) != 0
       RETURN Eval(s_aCustomEvents[2,i], Self, wParam, lParam)
    ELSEIF hb_IsBlock(::bOther)
       RETURN Eval(::bOther, Self, msg, wParam, lParam)
@@ -245,7 +245,7 @@ STATIC FUNCTION onCommand(oWnd, wParam)
    LOCAL iParLow := hwg_Loword(wParam)
 
    IF oWnd:aEvents != NIL .AND. ;
-         ( iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
+         (iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow})) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ENDIF
 
@@ -280,7 +280,7 @@ FUNCTION hwg_onTrackScroll(oWnd, wParam, lParam)
    LOCAL msg
 
    IF oCtrl != NIL
-      msg := hwg_Loword ( wParam )
+      msg := hwg_Loword(wParam)
       IF msg == TB_ENDTRACK
          IF hb_IsBlock(oCtrl:bChange)
             Eval(oCtrl:bChange, oCtrl)

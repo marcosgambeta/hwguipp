@@ -48,7 +48,7 @@ FUNCTION Hwg_CreateMenu
    
    LOCAL hMenu
 
-   IF ( Empty(hMenu := hwg__CreateMenu()) )
+   IF (Empty(hMenu := hwg__CreateMenu()))
       RETURN NIL
    ENDIF
 
@@ -116,7 +116,7 @@ FUNCTION Hwg_FindMenuItem(aMenu, nId, nPos)
       IF aMenu[1, npos, 3] == nId
          RETURN aMenu
       ELSEIF HB_ISARRAY(aMenu[1, npos, 1])
-         IF ( aSubMenu := Hwg_FindMenuItem(aMenu[1, nPos] , nId, @nPos1) ) != NIL
+         IF (aSubMenu := Hwg_FindMenuItem(aMenu[1, nPos] , nId, @nPos1)) != NIL
             nPos := nPos1
             RETURN aSubMenu
          ENDIF
@@ -316,8 +316,8 @@ STATIC FUNCTION hwg_Createacceleratortable(oWnd)
    // LOCAL n
 
    FOR i := 1 TO Len(s__aAccel)
-      IF ( aSubMenu := Hwg_FindMenuItem(oWnd:menu, s__aAccel[i, 3], @nPos) ) != NIL
-         IF ( nKey := s__aAccel[i, 2] ) >= 65 .AND. nKey <= 90
+      IF (aSubMenu := Hwg_FindMenuItem(oWnd:menu, s__aAccel[i, 3], @nPos)) != NIL
+         IF (nKey := s__aAccel[i, 2]) >= 65 .AND. nKey <= 90
             nKey += 32
          ELSE
             nKey := hwg_gtk_convertkey(nKey)
@@ -343,11 +343,11 @@ STATIC FUNCTION GetMenuByHandle(hWnd)
          RETURN hWnd:amenu
       ENDIF
    ELSE
-      IF ( oDlg := HDialog():FindDialog(hWnd) ) != NIL
+      IF (oDlg := HDialog():FindDialog(hWnd)) != NIL
          aMenu := oDlg:menu
-      ELSEIF ( i := Ascan(HDialog():aModalDialogs,{|o|Valtype(o:handle) == Valtype(hwnd) .AND. o:handle == hWnd}) ) != 0
+      ELSEIF (i := Ascan(HDialog():aModalDialogs,{|o|Valtype(o:handle) == Valtype(hwnd) .AND. o:handle == hWnd})) != 0
          aMenu := HDialog():aModalDialogs[i]:menu
-      ELSEIF ( i := Ascan(HWindow():aWindows,{|o|Valtype(o:handle) == Valtype(hwnd) .AND. o:handle == hWnd}) ) != 0
+      ELSEIF (i := Ascan(HWindow():aWindows,{|o|Valtype(o:handle) == Valtype(hwnd) .AND. o:handle == hWnd})) != 0
          aMenu := HWindow():aWindows[i]:menu
       ENDIF
    ENDIF
@@ -365,7 +365,7 @@ FUNCTION hwg_CheckMenuItem(hWnd, nId, lValue)
 
    aMenu := GetMenuByHandle(hWnd)
    IF aMenu != NIL
-      IF ( aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos) ) != NIL
+      IF (aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos)) != NIL
          hwg__CheckMenuItem(aSubmenu[1,nPos, 5], lValue)
       ENDIF
    ENDIF
@@ -381,7 +381,7 @@ FUNCTION hwg_IsCheckedMenuItem(hWnd, nId)
 
    aMenu := GetMenuByHandle(hWnd)
    IF aMenu != NIL
-      IF ( aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos) ) != NIL
+      IF (aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos)) != NIL
          lRes := hwg__IsCheckedMenuItem(aSubmenu[1,nPos, 5])
       ENDIF
    ENDIF
@@ -396,7 +396,7 @@ FUNCTION hwg_EnableMenuItem(hWnd, nId, lValue)
 
    aMenu := GetMenuByHandle(hWnd)
    IF aMenu != NIL
-      IF ( aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos) ) != NIL
+      IF (aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos)) != NIL
          hwg__EnableMenuItem(aSubmenu[1,nPos, 5], lValue)
       ENDIF
    ENDIF
@@ -411,7 +411,7 @@ FUNCTION hwg_IsEnabledMenuItem(hWnd, nId)
 
    aMenu := GetMenuByHandle(hWnd)
    IF aMenu != NIL
-      IF ( aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos) ) != NIL
+      IF (aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos)) != NIL
          hwg__IsEnabledMenuItem(aSubmenu[1,nPos, 5])
       ENDIF
    ENDIF
@@ -430,7 +430,7 @@ FUNCTION hwg_SetMenuCaption(hWnd, nId, cText)
 
    aMenu := GetMenuByHandle(hWnd)
    IF aMenu != NIL
-      IF ( aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos) ) != NIL
+      IF (aSubMenu := Hwg_FindMenuItem(aMenu, nId, @nPos)) != NIL
          hwg__SetMenuCaption(aSubmenu[1,nPos, 5], cText)
       ENDIF
    ENDIF
@@ -442,7 +442,7 @@ FUNCTION hwg_DeleteMenuItem(oWnd, nId)
    LOCAL aSubMenu
    LOCAL nPos
 
-   IF ( aSubMenu := Hwg_FindMenuItem(oWnd:menu, nId, @nPos) ) != NIL
+   IF (aSubMenu := Hwg_FindMenuItem(oWnd:menu, nId, @nPos)) != NIL
       hwg__DeleteMenu(aSubmenu[1,nPos, 5], nId)
       ADel(aSubMenu[1], nPos)
       ASize(aSubMenu[1], Len(aSubMenu[1] ) - 1)
@@ -458,7 +458,7 @@ FUNCTION hwg_gtk_convertkey(nKey)
    IF nKey >= 65 .AND. nKey <= 90
       nKey += 32
 /*
-   ELSEIF ( n := Ascan(aKeysTable, {|a|a[1] == nKey}) ) > 0
+   ELSEIF (n := Ascan(aKeysTable, {|a|a[1] == nKey})) > 0
       nKey := aKeysTable[n, 2]
    ELSE
       nKey += 0xFF00

@@ -60,7 +60,7 @@ METHOD HToolButton:New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClic
    ::aMenu := amenu
    ::oParent := oParent
    __objAddData(::oParent, cName)
-   ::oParent:&( cName ) := Self
+   ::oParent:&(cName) := Self
 
    RETURN Self
 

@@ -115,7 +115,7 @@ FUNCTION Hwg_FindMenuItem(aMenu, nId, nPos)
       IF aMenu[1, nPos, 3] == nId
          RETURN aMenu
       ELSEIF Len(aMenu[1, nPos]) > 4
-         IF ( aSubMenu := Hwg_FindMenuItem(aMenu[1, nPos], nId, @nPos1) ) != NIL
+         IF (aSubMenu := Hwg_FindMenuItem(aMenu[1, nPos], nId, @nPos1)) != NIL
             nPos := nPos1
             RETURN aSubMenu
          ENDIF
@@ -335,7 +335,7 @@ FUNCTION hwg_DeleteMenuItem(oWnd, nId)
    LOCAL aSubMenu
    LOCAL nPos
 
-   IF ( aSubMenu := Hwg_FindMenuItem(oWnd:menu, nId, @nPos) ) != NIL
+   IF (aSubMenu := Hwg_FindMenuItem(oWnd:menu, nId, @nPos)) != NIL
       ADel(aSubMenu[1], nPos)
       ASize(aSubMenu[1], Len(aSubMenu[1]) - 1)
 

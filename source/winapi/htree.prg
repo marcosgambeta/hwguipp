@@ -51,17 +51,17 @@
 #define TVGN_CARET              9   // 0x0009
 #define TVGN_LASTVISIBLE       10   // 0x000A
 
-#define TVN_SELCHANGED       ( - 402 )
-#define TVN_ITEMEXPANDING    ( - 405 )
-#define TVN_BEGINLABELEDIT   ( - 410 )
-#define TVN_ENDLABELEDIT     ( - 411 )
+#define TVN_SELCHANGED       (-402)
+#define TVN_ITEMEXPANDING    (-405)
+#define TVN_BEGINLABELEDIT   (-410)
+#define TVN_ENDLABELEDIT     (-411)
 
-#define TVN_SELCHANGEDW       ( - 451 )
-#define TVN_ITEMEXPANDINGW    ( - 454 )
-#define TVN_BEGINLABELEDITW   ( - 459 )
-#define TVN_ENDLABELEDITW     ( - 460 )
+#define TVN_SELCHANGEDW       (-451)
+#define TVN_ITEMEXPANDINGW    (-454)
+#define TVN_BEGINLABELEDITW   (-459)
+#define TVN_ENDLABELEDITW     (-460)
 
-#define TVI_ROOT             ( - 65536 )
+#define TVI_ROOT             (-65536)
 
 #define TREE_GETNOTIFY_HANDLE       1
 #define TREE_GETNOTIFY_PARAM        2
@@ -112,7 +112,7 @@ METHOD HTreeNode:New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
    ELSE
       FOR i := 1 TO Len(aImages)
          cImage := Upper(aImages[i])
-         IF ( h := AScan(oTree:aImages, cImage) ) == 0
+         IF (h := AScan(oTree:aImages, cImage)) == 0
             AAdd(oTree:aImages, cImage)
             aImages[i] := IIf(oTree:Type, hwg_BmpFromRes(aImages[i]), hwg_Openbitmap(AddPath(aImages[i], HBitmap():cPath)))
             hwg_Imagelist_add(oTree:himl, aImages[i])
@@ -157,7 +157,7 @@ METHOD HTreeNode:New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
    ELSE
       AAdd(aItems, NIL)
       h := oPrev:handle
-      IF ( i := AScan(aItems, {|o|o:handle == h}) ) == 0
+      IF (i := AScan(aItems, {|o|o:handle == h})) == 0
          aItems[Len(aItems)] := Self
       ELSE
          AIns(aItems, i + 1)
@@ -211,7 +211,7 @@ METHOD HTreeNode:FindChild(h)
       IF aItems[i]:handle == h
          RETURN aItems[i]
       ELSEIF !Empty(aItems[i]:aItems)
-         IF ( oNode := aItems[i]:FindChild(h) ) != NIL
+         IF (oNode := aItems[i]:FindChild(h)) != NIL
             RETURN oNode
          ENDIF
       ENDIF
@@ -315,7 +315,7 @@ METHOD HTree:FindChild(h)
       IF aItems[i]:handle == h
          RETURN aItems[i]
       ELSEIF !Empty(aItems[i]:aItems)
-         IF ( oNode := aItems[i]:FindChild(h) ) != NIL
+         IF (oNode := aItems[i]:FindChild(h)) != NIL
             RETURN oNode
          ENDIF
       ENDIF
@@ -366,7 +366,7 @@ METHOD HTree:Notify(lParam)
          oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDITPARAM)
          IF HB_ISOBJECT(oItem)
             IF cText != oItem:GetText() .AND. ;
-               ( oItem:oTree:bItemChange == NIL .OR. Eval(oItem:oTree:bItemChange, oItem, cText) )
+               (oItem:oTree:bItemChange == NIL .OR. Eval(oItem:oTree:bItemChange, oItem, cText))
                hwg_Treesetitem(oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText)
             ENDIF
          ENDIF

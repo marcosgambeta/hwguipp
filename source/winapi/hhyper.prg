@@ -89,7 +89,7 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
       ::extStyle += WS_EX_TRANSPARENT
    ENDIF
 
-   IF ( n := hb_bitand(::style, SS_TYPEMASK) ) == SS_RIGHT
+   IF (n := hb_bitand(::style, SS_TYPEMASK)) == SS_RIGHT
       ::dwFlags := hb_bitor(DT_RIGHT, DT_WORDBREAK)
    ELSEIF n == SS_CENTER
       ::dwFlags := hb_bitor(SS_CENTER, DT_WORDBREAK)
@@ -98,7 +98,7 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
    ELSE
       ::dwFlags := hb_bitOr(DT_LEFT, DT_WORDBREAK)
    ENDIF
-   ::dwFlags  += ( DT_VCENTER + DT_END_ELLIPSIS )
+   ::dwFlags  += (DT_VCENTER + DT_END_ELLIPSIS)
 
    hwg_RegOwnBtn()
    ::Activate()

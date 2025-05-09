@@ -226,7 +226,7 @@ METHOD HBinC:Pack()
    ENDIF
 
    cTempName := ::cName + ".new"
-   IF ( handle := FCreate(cTempName) ) == -1
+   IF (handle := FCreate(cTempName)) == -1
       RETURN .F.
    ENDIF
 

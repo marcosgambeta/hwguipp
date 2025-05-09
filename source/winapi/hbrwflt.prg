@@ -117,7 +117,7 @@ STATIC FUNCTION FltSkip(oBrw, nLines, lDesc)
          ENDDO
       NEXT
    ELSEIF nLines < 0
-      FOR n := 1 TO ( nLines * ( - 1 ) )
+      FOR n := 1 TO (nLines * (-1))
          IF Eof()
             IF lDesc
                FltGoTop(oBrw)
@@ -140,7 +140,7 @@ STATIC FUNCTION FltGoTop(oBrw)
    IF oBrw:nFirstRecordFilter == 0
       Eval(oBrw:bFirst)
       IF !Eof()
-         WHILE !Eof() .AND. !( Eval(oBrw:bWhile) .AND. Eval(oBrw:bFor) )
+         WHILE !Eof() .AND. !(Eval(oBrw:bWhile) .AND. Eval(oBrw:bFor))
             dbSkip()
          ENDDO
          oBrw:nFirstRecordFilter := FltRecNo(oBrw)

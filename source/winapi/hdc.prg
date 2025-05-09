@@ -134,7 +134,7 @@ METHOD HDC:Savedc()
    
    LOCAL nRetVal := 0
 
-   IF ( !Empty(::m_hAttribDC) )
+   IF (!Empty(::m_hAttribDC))
       nRetVal := hwg_Savedc(::m_hAttribDC)
    ENDIF
    IF (::m_hDC != ::m_hAttribDC .AND. hwg_Savedc(::m_hDC) != 0)
@@ -151,7 +151,7 @@ METHOD HDC:Restoredc(nSavedDC)
    IF (::m_hDC != ::m_hAttribDC)
       bRetVal := hwg_Restoredc(::m_hDC, nSavedDC)
    ENDIF
-   IF ( !Empty(::m_hAttribDC) )
+   IF (!Empty(::m_hAttribDC))
       bRetVal := (bRetVal .AND. hwg_Restoredc(::m_hAttribDC, nSavedDC))
    ENDIF
    RETURN bRetVal

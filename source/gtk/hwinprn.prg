@@ -227,9 +227,9 @@ METHOD HWinPrn:SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMa
          ::cPrinterName := ::oPrinter:cPrinterName
          nPWidth := ::oPrinter:nWidth / ::oPrinter:nHRes - 10
 
-         IF ::nFormType == 9 .AND. ( nPWidth > 210 .OR. nPWidth < 190 )
+         IF ::nFormType == 9 .AND. (nPWidth > 210 .OR. nPWidth < 190)
             nPWidth := 200
-         ELSEIF ::nFormType == 8 .AND. ( nPWidth > 300 .OR. nPWidth < 280 )
+         ELSEIF ::nFormType == 8 .AND. (nPWidth > 300 .OR. nPWidth < 280)
             nPWidth := 290
          ENDIF
 
@@ -237,7 +237,7 @@ METHOD HWinPrn:SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMa
 
          nWidth := ::oPrinter:GetTextWidth(Replicate("A", IIf(::nFormType == 8, 113, 80)), oFont) / ::oPrinter:nHRes
          IF nWidth > nPWidth + 2 .OR. nWidth < nPWidth - 15
-            ::nStdHeight := ::nStdHeight * ( nPWidth / nWidth )
+            ::nStdHeight := ::nStdHeight * (nPWidth / nWidth)
          ENDIF
          oFont:Release()
       ENDIF
@@ -253,8 +253,8 @@ METHOD HWinPrn:SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMa
       ENDIF
       //hwg_writelog("nStdHeight: "+Ltrim(str(::nStdHeight))+"/"+Ltrim(str(nStdHeight))+" ::nLineMax: "+Ltrim(str(::nLineMax))+"  nStdLineW: "+Ltrim(str(nStdLineW)))
 
-      ::nLineHeight := ( nStdHeight / aKoef[nMode + 1] ) * ::oPrinter:nVRes
-      ::nLined := ( 25.4 * ::oPrinter:nVRes ) / ::nLineInch - ::nLineHeight
+      ::nLineHeight := (nStdHeight / aKoef[nMode + 1]) * ::oPrinter:nVRes
+      ::nLined := (25.4 * ::oPrinter:nVRes) / ::nLineInch - ::nLineHeight
 
       oFont := ::oPrinter:AddFont(cFont, ::nLineHeight, ::lBold, ::lItalic, ::lUnder, ::nCharset) // ::nCharset 204 = Russian
 
@@ -384,7 +384,7 @@ METHOD HWinPrn:PrintBitmap(xBitmap, nAlign , cBitmapName)
         Offsets / values
         26 / c4 0e
         2a / c4 0e = 3780 dec.
-        New function OBMP2FILE2( cTmp , cImageName ) saves the bmp object
+        New function OBMP2FILE2(cTmp , cImageName) saves the bmp object
         correct to file.
       */
       xBitmap:OBMP2FILE(cTmp , cImageName , "bmp")
@@ -515,14 +515,14 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
       i := 1
       i0 := 0
       DO WHILE i <= slen
-         IF ( c := SubStr(cLine, i, 1) ) < " "
+         IF (c := SubStr(cLine, i, 1)) < " "
             IF i0 != 0
                ::PrintText(SubStr(cLine, i0, i - i0))
                i0 := 0
             ENDIF
             i += ::PutCode(SubStr(cLine, i))
             LOOP
-         ELSEIF ( j := At(c, ::cPseudo) ) != 0
+         ELSEIF (j := At(c, ::cPseudo)) != 0
             IF i0 != 0
                ::PrintText(SubStr(cLine, i0, i - i0))
                i0 := 0
@@ -533,7 +533,7 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
                   i ++
                ENDDO
                ::oPrinter:Line(::x, ::y + (::nLineHeight / 2), ::x + (i - i0) * ::nCharW, ::y + (::nLineHeight / 2))
-               ::x += ( i - i0 ) * ::nCharW
+               ::x += (i - i0) * ::nCharW
                i0 := 0
                LOOP
             ELSE

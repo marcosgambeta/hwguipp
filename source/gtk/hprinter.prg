@@ -185,7 +185,7 @@ METHOD HPrinter:SetMode(nOrientation, nDuplex)
    
    LOCAL x
 
-   IF ( nOrientation == 1 .OR. nOrientation == 2 ) .AND. nOrientation != ::nOrient
+   IF (nOrientation == 1 .OR. nOrientation == 2) .AND. nOrientation != ::nOrient
       IF !::lBuffPrn
          hwg_Setprintermode(::hDC, nOrientation, IIf(Empty(nDuplex ), 0, nDuplex))
       ENDIF
@@ -336,12 +336,12 @@ METHOD HPrinter:Say(cString, x1, y1, x2, y2, nOpt, oFont)
          LTrim(Str(oFont:Underline)) + "," + s_crlf
    ENDIF
 
-   IF !Empty(nOpt) .AND. ( Hb_BitAnd(nOpt, DT_RIGHT) != 0 .OR. Hb_BitAnd(nOpt, DT_CENTER) != 0 ) .AND. Left(cString, 1) == " "
+   IF !Empty(nOpt) .AND. (Hb_BitAnd(nOpt, DT_RIGHT) != 0 .OR. Hb_BitAnd(nOpt, DT_CENTER) != 0) .AND. Left(cString, 1) == " "
       cString := LTrim(cString)
    ENDIF
    ::aPages[::nPage] += "txt," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
       LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + ;
-      IIf(nOpt == NIL, ",", LTrim(Str(nOpt )) + ",") + hb_StrToUtf8( cString, ::cdpIn ) + s_crlf
+      IIf(nOpt == NIL, ",", LTrim(Str(nOpt )) + ",") + hb_StrToUtf8(cString, ::cdpIn) + s_crlf
 
     // hwg_WriteLog("Printer:Txt " + "txt," + LTrim(Str(x1)) + "," + LTrim(Str(y1)) + "," + ;
     //  LTrim(Str(x2)) + "," + LTrim(Str(y2)) + "," + ;
@@ -497,7 +497,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
    LOCAL nLastPage := Len(::aPages)
    LOCAL aPage := {}
    LOCAL oFont := HFont():Add("Times New Roman", 0, -13, 700)
-   LOCAL lTransp := ( aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
+   LOCAL lTransp := (aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10])
    // Variables not used
    // LOCAL oTimer
    // LOCAL cmDialog, cBootUser3, cBootUser4
@@ -682,7 +682,7 @@ METHOD HPrinter:PaintDoc(oCanvas)
    hwg_Fillrect(hDC, 0, 0, aCoors[3], aCoors[4], ::oBrush1:handle)
    IF !Empty(::hMeta)
       nWidth := aCoors[3] - 20
-      IF ( nHeight := Int(nWidth * (::nHeight / ::nWidth)) ) > aCoors[4] - 20
+      IF (nHeight := Int(nWidth * (::nHeight / ::nWidth))) > aCoors[4] - 20
          nHeight := aCoors[4] - 20
          nWidth := Int(nHeight * (::nWidth / ::nHeight))
       ENDIF
@@ -700,17 +700,17 @@ METHOD HPrinter:PaintDoc(oCanvas)
             hwg_SetAdjOptions(oCanvas:hScrollH,, 11, 1, 1, 1)
          ENDIF
       ENDIF
-      ::x1 := IIf(aCoors[3] > nWidth, Int(( aCoors[3] - nWidth) / 2 ), 0)
-      ::y1 := IIf(aCoors[4] > nHeight, Int(( aCoors[4] - nHeight) / 2 ), 0)
+      ::x1 := IIf(aCoors[3] > nWidth, Int((aCoors[3] - nWidth) / 2), 0)
+      ::y1 := IIf(aCoors[4] > nHeight, Int((aCoors[4] - nHeight) / 2), 0)
       ::x2 := ::x1 + nWidth - 1
       ::y2 := ::y1 + nHeight - 1
       hwg_Fillrect(hDC, ::x1, ::y1, Min(::x1 + nWidth,aCoors[3]), Min(aCoors[4], ::y1 + nHeight), ::oBrush2:handle)
 
       IF oCanvas:nScrollV > 0 .AND. aCoors[4] < nHeight
-         nShiftV := - ( (nHeight-aCoors[4]) * oCanvas:nScrollV/10 )
+         nShiftV := - ((nHeight-aCoors[4]) * oCanvas:nScrollV/10)
       ENDIF
       IF oCanvas:nScrollH > 0 .AND. aCoors[3] < nWidth
-         nShiftH := - ( (nWidth-aCoors[3]) * oCanvas:nScrollH/10 )
+         nShiftH := - ((nWidth-aCoors[3]) * oCanvas:nScrollH/10)
       ENDIF
       IF nShiftH != 0 .OR. nShiftV != 0
          hwg_cairo_translate(hDC, nShiftH, nShiftV)
@@ -759,7 +759,7 @@ METHOD HPrinter:ChangePage(oCanvas, oSayPage, n, nPage)
    ELSE
       ::nCurrPage := nPage
    ENDIF
-   IF !( nCurrPage == ::nCurrPage )
+   IF !(nCurrPage == ::nCurrPage)
       IF !Empty(::hMeta)
          hwg_Deleteobject(::hMeta)
       ENDIF
@@ -947,8 +947,8 @@ STATIC FUNCTION MessProc(oPrinter, oPanel, lParam)
    xPos := hwg_Loword(lParam)
    yPos := hwg_Hiword(lParam)
 
-   nHRes := ( oPrinter:x2 - oPrinter:x1 ) / oPrinter:nWidth
-   nVRes := ( oPrinter:y2 - oPrinter:y1 ) / oPrinter:nHeight
+   nHRes := (oPrinter:x2 - oPrinter:x1) / oPrinter:nWidth
+   nVRes := (oPrinter:y2 - oPrinter:y1) / oPrinter:nHeight
 
    arr := hb_aTokens(oPrinter:aPages[nPage], s_crlf)
    FOR i := 1 TO Len(arr)
@@ -969,7 +969,7 @@ STATIC FUNCTION MessProc(oPrinter, oPanel, lParam)
       cl := hwg_SetAppLocale("UTF-8")
       cTemp := hwg_MsgGet("", , ES_AUTOHSCROLL, , , DS_CENTER, SubStr(arr[i], nPos + 1))
       hwg_SetAppLocale(cl)
-      IF !Empty(cTemp) .AND. !( cTemp == SubStr(arr[i], nPos + 1) )
+      IF !Empty(cTemp) .AND. !(cTemp == SubStr(arr[i], nPos + 1))
          oPrinter:aPages[nPage] := ""
          FOR j := 1 TO Len(arr)
             IF j != i

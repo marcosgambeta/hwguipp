@@ -47,9 +47,9 @@ FUNCTION hwg_FindParent(hCtrl, nLevel)
    IF !Empty(hParent)
       IF (i := Ascan(HDialog():aModalDialogs, {|o|o:handle == hParent})) != 0
          RETURN HDialog():aModalDialogs[i]
-      ELSEIF ( oParent := HDialog():FindDialog(hParent) ) != NIL
+      ELSEIF (oParent := HDialog():FindDialog(hParent)) != NIL
          RETURN oParent
-      ELSEIF ( oParent := HWindow():FindWindow(hParent) ) != NIL
+      ELSEIF (oParent := HWindow():FindWindow(hParent)) != NIL
          RETURN oParent
       ENDIF
    ENDIF
@@ -57,7 +57,7 @@ FUNCTION hwg_FindParent(hCtrl, nLevel)
       nLevel := 0
    ENDIF
    IF nLevel < 2
-      IF ( oParent := hwg_FindParent(hParent, nLevel + 1) ) != NIL
+      IF (oParent := hwg_FindParent(hParent, nLevel + 1)) != NIL
          RETURN oParent:FindControl(NIL, hParent)
       ENDIF
    ENDIF
@@ -237,7 +237,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    IF HB_ISCHAR(arr)
       lArray := .F.
       aLen := RecCount()
-      IF ( nField := FieldPos(arr) ) == 0
+      IF (nField := FieldPos(arr)) == 0
          RETURN 0
       ENDIF
       nLen := dbFieldInfo(3, nField)
@@ -260,7 +260,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    aArea := hwg_Getdevicearea(hDC)
    aRect := hwg_Getwindowrect(hwg_Getactivewindow())
    hwg_Releasedc(hwg_Getactivewindow(), hDC)
-   height := ( aMetr[1] + 5 ) * aLen + 4 + addY + 8
+   height := (aMetr[1] + 5) * aLen + 4 + addY + 8
    IF height > aArea[2] - aRect[2] - nTop - 60
       height := aArea[2] - aRect[2] - nTop - 60
    ENDIF
@@ -284,7 +284,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    oBrw:oFont := oFont
    oBrw:bSize := {|o, x, y|o:Move(NIL, NIL, x - addX, y - addY)}
    oBrw:bEnter := {|o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle)}
-   oBrw:bKeyDown := {| o, key | ( o ), IIf(key == 27, (hwg_EndDialog(oDlg:handle), .F.), .T.)}
+   oBrw:bKeyDown := {| o, key | (o), IIf(key == 27, (hwg_EndDialog(oDlg:handle), .F.), .T.)}
 
    oBrw:lDispHead := .F.
    IF clrT != NIL
@@ -392,7 +392,7 @@ FUNCTION Hwg_WriteIni(cSection, cEntry, cValue, cFile)
 
 RETURN (hwg_Writeprivateprofilestring(cSection, cEntry, cValue, cFile))
 
-FUNCTION hwg_SetHelpFileName ( cNewName )
+FUNCTION hwg_SetHelpFileName(cNewName)
 
    STATIC cName := ""
 

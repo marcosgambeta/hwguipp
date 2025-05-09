@@ -228,7 +228,7 @@ METHOD HTree:SELECT(oNode, lNoRedraw)
 
    ::oSelected := oNode
    DO WHILE oParent:nLevel > 1
-      ( oParent := oParent:oParent ):lExpanded := .T.
+      (oParent := oParent:oParent):lExpanded := .T.
    ENDDO
 
    IF hb_IsBlock(oNode:bClick)
@@ -302,7 +302,7 @@ METHOD HTree:Paint()
    // x2 := aCoors[3] - 2
    y2 := aCoors[4] - 2
 
-   ::rowCount := Int(( y2 - y1 ) / (::height + 1))
+   ::rowCount := Int((y2 - y1) / (::height + 1))
    IF Empty(::aScreen) .OR. Len(::aScreen) < ::rowCount
       ::aScreen := Array(::rowCount + 5)
    ENDIF
@@ -373,7 +373,7 @@ METHOD HTree:PaintNode(hDC, oNode, nNode, nLine)
 
    FOR i := oNode:nLevel - 1 TO 1 STEP - 1
       oNode := oNode:oParent
-      IF !( oNode == Atail(oNode:oParent:aItems) )
+      IF !(oNode == Atail(oNode:oParent:aItems))
          x1 := 10 + oNode:nLevel * ::nIndent
          hwg_Drawline(hDC, x1 + 5, y1, x1 + 5, y1 + ::height + 1)
       ENDIF

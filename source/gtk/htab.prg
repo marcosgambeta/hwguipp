@@ -158,7 +158,7 @@ METHOD HTab:DeletePage(nPage)
       ::DelControl(::aControls[i])
    NEXT
    FOR i := nPage + 1 TO Len(::aPages)
-      ::aPages[i, 1] -= ( nEnd-nFirst+1 )
+      ::aPages[i, 1] -= (nEnd-nFirst+1)
    NEXT
 
    hwg_Deletetab(::handle, nPage - 1)

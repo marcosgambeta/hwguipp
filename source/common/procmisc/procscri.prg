@@ -188,7 +188,7 @@ FUNCTION scr_GetFuncsList(strbuf)
 STATIC FUNCTION COMPILESCR(han, strbuf, poz, rezArray, scrSource)
 
 LOCAL scom, poz1, stroka, strfull := "", bOldError, i, tmpArray := {}
-Local cLine, lDebug := ( Len(rezArray) >= 3 )
+Local cLine, lDebug := (Len(rezArray) >= 3)
 
    DO WHILE .T.
       cLine := RDSTR(han, @strbuf, @poz, STR_BUFLEN)
@@ -241,7 +241,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
          scom := UPPER(SUBSTR(stroka, 1, IIf(poz1 != 0, poz1 - 1, 999)))
          DO CASE
          CASE scom == "PRIVATE" .OR. scom == "PARAMETERS" .OR. scom == "LOCAL"
-            IF LEN(rezArray[2]) == 0 .OR. ( i := VALTYPE(ATAIL(rezArray[2])) ) == "C" ;
+            IF LEN(rezArray[2]) == 0 .OR. (i := VALTYPE(ATAIL(rezArray[2]))) == "C" ;
                     .OR. i == "A"
                IF Left(scom, 2) == "LO"
                   AADD(rezArray[2], " " + ALLTRIM(SUBSTR(stroka, 7)))
@@ -255,7 +255,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
                s_nLastError := 1
                RETURN .F.
             ENDIF
-         CASE ( scom == "DO" .AND. UPPER(SUBSTR(stroka, 4, 5)) == "WHILE" ) ;
+         CASE (scom == "DO" .AND. UPPER(SUBSTR(stroka, 4, 5)) == "WHILE") ;
                 .OR. scom == "WHILE"
             AADD(tmpArray, stroka)
             AADD(rezArray[2], .F.)
@@ -401,8 +401,8 @@ LOCAL i, j, bOldError
       IF UPPER(Left(tmpArray[i], 2)) == "IF"
          bOldError := ERRORBLOCK({|e|MacroError(1, e, tmpArray[i])})
          BEGIN SEQUENCE
-            rezArray[2, i] := &( "{||IIf(" + ALLTRIM(SUBSTR(tmpArray[i], 4)) + ;
-                 ",.T.,iscr:=" + LTRIM(STR(j, 5)) + ")}" )
+            rezArray[2, i] := &("{||IIf(" + ALLTRIM(SUBSTR(tmpArray[i], 4)) + ;
+                 ",.T.,iscr:=" + LTRIM(STR(j, 5)) + ")}")
          RECOVER
             ERRORBLOCK(bOldError)
             RETURN .F.
@@ -411,7 +411,7 @@ LOCAL i, j, bOldError
          tmpArray[i] := ""
          i --
          IF i > 0 .AND. tmpArray[i] == "JUMP"
-            rezArray[2, i] := &( "{||iscr:=" + LTRIM(STR(IIf(prju, j - 1, j), 5)) + "}" )
+            rezArray[2, i] := &("{||iscr:=" + LTRIM(STR(IIf(prju, j - 1, j), 5)) + "}")
             tmpArray[i] := ""
          ENDIF
          RETURN .T.
@@ -429,7 +429,7 @@ LOCAL i, j, iloop := 0, bOldError
    j := LEN(rezArray)
    FOR i := j TO 1 STEP - 1
       IF !Empty(tmpArray[i]) .AND. Left(tmpArray[i], 4) == "EXIT"
-         rezArray[i] = &( "{||iscr:=" + LTRIM(STR(j + 1, 5)) + "}" )
+         rezArray[i] = &("{||iscr:=" + LTRIM(STR(j + 1, 5)) + "}")
          tmpArray[i] := ""
       ENDIF
       IF !Empty(tmpArray[i]) .AND. Left(tmpArray[i], 4) == "LOOP"
@@ -450,7 +450,7 @@ LOCAL i, j, iloop := 0, bOldError
          AADD(rezArray, &("{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}"))
          AADD(tmpArray, "")
          IF iloop > 0
-            rezArray[iloop] = &( "{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}" )
+            rezArray[iloop] = &("{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}")
             tmpArray[iloop] := ""
          ENDIF
          RETURN .T.
@@ -471,10 +471,10 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
    IF Type("aScriptt") != "A"
       PRIVATE aScriptt := aScript
    ENDIF
-   IF aScript == NIL .OR. ( arlen := Len(aScript[2]) ) == 0
+   IF aScript == NIL .OR. (arlen := Len(aScript[2])) == 0
       RETURN .T.
    ENDIF
-   lDebug := ( Len(aScript) >= 3 )
+   lDebug := (Len(aScript) >= 3)
    DO WHILE !hb_IsBlock(aScript[2, iscr])
       IF HB_ISCHAR(aScript[2, iscr])
          IF Left(aScript[2, iscr], 1) == "#"
@@ -484,7 +484,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
             ENDIF
          ELSE
             stroka := Substr(aScript[2, iscr], 2)
-            lParam := ( Left(aScript[2, iscr], 1) == "/" )
+            lParam := (Left(aScript[2, iscr], 1) == "/")
             bOldError := Errorblock({|e|MacroError(2, e)})
             BEGIN SEQUENCE
                j := 1
@@ -587,7 +587,7 @@ RETURN s_nLastError
 FUNCTION Codeblock(string)
 
    IF Left(string, 2) == "{|"
-      Return &( string )
+      Return &(string)
    ENDIF
 RETURN &("{||"+string+"}")
 

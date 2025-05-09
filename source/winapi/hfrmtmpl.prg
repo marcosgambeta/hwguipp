@@ -89,7 +89,7 @@ METHOD HCtrlTmpl:F(nId)
    FOR i := 1 TO nLen
       IF aControls[i]:nId == nId
          RETURN aControls[i]
-      ELSEIF !Empty(aControls[i]:aControls) .AND. ( o := aControls[i]:F(nId) ) != NIL
+      ELSEIF !Empty(aControls[i]:aControls) .AND. (o := aControls[i]:F(nId)) != NIL
          RETURN o
       ENDIF
    NEXT
@@ -158,7 +158,7 @@ METHOD HFormTmpl:Read(fname, cId)
    LOCAL cPre
    LOCAL cName
 
-   /* IF cId != NIL .AND. ( o := HFormTmpl():Find(cId) ) != NIL
+   /* IF cId != NIL .AND. (o := HFormTmpl():Find(cId)) != NIL
       Return o
    ENDIF */
 
@@ -204,7 +204,7 @@ METHOD HFormTmpl:Read(fname, cId)
             ENDIF
          NEXT
       ELSEIF aItems[i]:title == "method"
-         IF ( cName := Lower(aItems[i]:GetAttribute("name")) ) == "common"
+         IF (cName := Lower(aItems[i]:GetAttribute("name"))) == "common"
             arr := scr_GetFuncsList(aItems[i]:aItems[1]:aItems[1])
             FOR j := 1 TO Len(arr)
                cPre := "#xtranslate " + arr[j] + ;
@@ -420,10 +420,10 @@ METHOD HFormTmpl:Show(nMode, p1, p2, p3)
    ENDIF
 
    ::oActive := oDlg := ::oDlg
-   ::oDlg:bDestroy := &( "{|o|hwg_hfrm_Exit(o," + Ltrim(Str(::id)) + ")}" )
+   ::oDlg:bDestroy := &("{|o|hwg_hfrm_Exit(o," + Ltrim(Str(::id)) + ")}")
 
    FOR i := 1 TO Len(::aMethods)
-      IF ( cType := ValType(::aMethods[i, 2]) ) == "B"
+      IF (cType := ValType(::aMethods[i, 2])) == "B"
          block := ::aMethods[i, 2]
       ELSEIF cType == "A"
          block := ::aMethods[i, 2, 1]
@@ -475,7 +475,7 @@ METHOD HFormTmpl:Show(nMode, p1, p2, p3)
       ENDIF
    NEXT
 
-   IF ::lDebug .AND. ( i := HWindow():GetMain() ) != NIL
+   IF ::lDebug .AND. (i := HWindow():GetMain()) != NIL
       hwg_Setfocus(i:handle)
    ENDIF
 
@@ -614,12 +614,12 @@ FUNCTION hwg_ParseMethod(cMethod)
    LOCAL nPos2
    LOCAL cLine
 
-   IF ( nPos1 := At(Chr(10), cMethod) ) == 0
+   IF (nPos1 := At(Chr(10), cMethod)) == 0
       AAdd(arr, AllTrim(cMethod))
    ELSE
       AAdd(arr, AllTrim(Left(cMethod, nPos1 - 1)))
       DO WHILE .T.
-         IF ( nPos2 := hb_At(Chr(10 ), cMethod, nPos1 + 1) ) == 0
+         IF (nPos2 := hb_At(Chr(10 ), cMethod, nPos1 + 1)) == 0
             cLine := AllTrim(SubStr(cMethod, nPos1 + 1))
          ELSE
             cLine := AllTrim(SubStr(cMethod,nPos1 + 1, nPos2 - nPos1 - 1))
@@ -668,7 +668,7 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
       cCode := IIf(Lower(Left(arr[1], 6)) == "return", LTrim(SubStr(arr[1], 8)), arr[1])
       bOldError := ErrorBlock({|e|CompileErr(e, cCode)})
       BEGIN SEQUENCE
-         bRes := &( "{||" + ppScript(cCode) + "}" )
+         bRes := &("{||" + ppScript(cCode) + "}")
       END SEQUENCE
       ErrorBlock(bOldError)
       RETURN bRes
@@ -732,7 +732,7 @@ STATIC FUNCTION ReadCtrl(oCtrlDesc, oContainer, oForm)
          FOR j := 1 TO Len(aItems[i]:aItems)
             o := aItems[i]:aItems[j]
             IF o:title == "property"
-               IF ( cName := Lower(o:GetAttribute("name")) ) == "varname"
+               IF (cName := Lower(o:GetAttribute("name"))) == "varname"
                   AAdd(oForm:aVars, Lower(hwg_hfrm_GetProperty(o:aItems[1])))
                ELSEIF cName == "name"
                   AAdd(oForm:aNames, hwg_hfrm_GetProperty(o:aItems[1]))
@@ -799,10 +799,10 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
 
    /* Declaring of variables, which are in the appropriate 'New()' function */
    stroka := s_aCtrls[nCtrl]
-   IF ( i := At("New(", stroka) ) != 0
+   IF (i := At("New(", stroka)) != 0
       i += 4
       DO WHILE .T.
-         IF ( j := hb_At(",", stroka, i) ) != 0 .OR. ( j := hb_At(")", stroka, i) ) != 0
+         IF (j := hb_At(",", stroka, i)) != 0 .OR. (j := hb_At(")", stroka, i)) != 0
             IF j - i > 0 .AND. !IsDigit(SubStr(stroka, i, 1))
                varname := SubStr(stroka, i, j - i)
                __mvPrivate(varname)
@@ -902,7 +902,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
 
          IF cPName == "varname"
             cVarName := xProperty
-            bSetGet := &( "{|v|IIf(v==NIL,HFormTmpl():F("+LTrim(Str(oForm:id))+"):" + xProperty + ",HFormTmpl():F("+LTrim(Str(oForm:id))+"):" + xProperty + ":=v)}" )
+            bSetGet := &("{|v|IIf(v==NIL,HFormTmpl():F("+LTrim(Str(oForm:id))+"):" + xProperty + ",HFormTmpl():F("+LTrim(Str(oForm:id))+"):" + xProperty + ":=v)}")
             IF __objSendMsg(oForm, xProperty) == NIL
                __objSendMsg(oForm, "_" + xProperty, xInitValue)
             ELSEIF cInitName != NIL
@@ -915,7 +915,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    NEXT
 
    FOR i := 1 TO Len(oCtrlTmpl:aMethods)
-      IF ( cType := ValType(oCtrlTmpl:aMethods[i, 2]) ) == "B"
+      IF (cType := ValType(oCtrlTmpl:aMethods[i, 2])) == "B"
          __mvPut(oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2])
       ELSEIF cType == "A"
          __mvPut(oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2, 1])
@@ -924,12 +924,12 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
 
    IF oCtrlTmpl:cClass == "combobox"
 #ifndef __GTK__
-      IF ( Ascan(oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"}) ) > 0
+      IF (Ascan(oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"})) > 0
    /* 
     Warning W0032  Variable 'I' is assigned but not used in function 'CREATECTRL(874)'
     1700
     but "i" is really common used
-       IF ( i := Ascan(oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"}) ) > 0
+       IF (i := Ascan(oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"})) > 0
    */
          nHeight := nHeight * nMaxLines
       ELSE
@@ -1059,7 +1059,7 @@ FUNCTION hwg_hfrm_FontFromXML(oXmlNode, lReport)
       width := Val(width)
    ENDIF
    IF height != NIL
-      IF !Empty(lReport) .AND. ( i := At("M", height) ) != 0
+      IF !Empty(lReport) .AND. (i := At("M", height)) != 0
          IF Empty(s_nVertRes)
             hDC := hwg_Getdc(hWnd := hwg_Getactivewindow())
             aMetr := hwg_Getdevicearea(hDC)
@@ -1183,7 +1183,7 @@ FUNCTION hwg_hfrm_GetProperty(xProp)
       IF c == "["
          xProp := SubStr(xProp, 2, Len(Trim(xProp)) - 2)
       ELSEIF c == "."
-         xProp := ( SubStr(xProp, 2, 1) == "T" )
+         xProp := (SubStr(xProp, 2, 1) == "T")
       ELSEIF c == "{"
          xProp := hwg_hfrm_Str2Arr(xProp)
       ELSE
@@ -1260,7 +1260,7 @@ METHOD HRepTmpl:READ(fname, cId)
    LOCAL cPre
    LOCAL cName
 
-   IF cId != NIL .AND. ( o := HRepTmpl():Find(cId) ) != NIL
+   IF cId != NIL .AND. (o := HRepTmpl():Find(cId)) != NIL
       RETURN o
    ENDIF
 
@@ -1386,7 +1386,7 @@ METHOD HRepTmpl:PRINT(printer, lPreview, p1, p2, p3, p4, p5)
 #else
    xTemp := hwg_GetDeviceArea(oPrinter:hDCPrn)
 #endif
-   ::nKoefPix := ( ( xTemp[1]/xTemp[3] + xTemp[2]/xTemp[4] ) / 2 ) / 3.8
+   ::nKoefPix := ((xTemp[1] / xTemp[3] + xTemp[2] / xTemp[4]) / 2) / 3.8
    oPrinter:SetMode(nOrientation, nDuplex)
    ::nKoefX := oPrinter:nWidth / nPWidth
    ::nKoefY := oPrinter:nHeight / nPHeight
@@ -1420,7 +1420,7 @@ METHOD HRepTmpl:PRINT(printer, lPreview, p1, p2, p3, p4, p5)
 
    oPrinter:EndDoc()
    ::ReleaseObj(::aControls)
-   IF ( aMethod := aGetSecond(::aMethods, "onrepexit") ) != NIL
+   IF (aMethod := aGetSecond(::aMethods, "onrepexit")) != NIL
       DoScript(aMethod)
    ENDIF
    IF lPreview != NIL .AND. lPreview
@@ -1490,13 +1490,13 @@ METHOD HRepTmpl:PrintAsPage(printer, nPageType, lPreview, p1, p2, p3, p4, p5)
 #else
    xTemp := hwg_Getdevicearea(oPrinter:hDCPrn)
 #endif
-   ::nKoefPix := ( ( xTemp[1]/xTemp[3] + xTemp[2]/xTemp[4] ) / 2 ) / 3.8
+   ::nKoefPix := ((xTemp[1] / xTemp[3] + xTemp[2] / xTemp[4]) / 2) / 3.8
    IF !Empty(nPageType) .AND. nPageType == PAGE_FIRST
       oPrinter:SetMode(nOrientation, nDuplex)
    ENDIF
    ::nKoefX := oPrinter:nWidth / nPWidth
    ::nKoefY := oPrinter:nHeight / nPHeight
-   IF ( aMethod := aGetSecond(::aMethods, "onrepinit") ) != NIL
+   IF (aMethod := aGetSecond(::aMethods, "onrepinit")) != NIL
       DoScript(aMethod, {p1, p2, p3, p4, p5})
    ENDIF
    IF xProperty != NIL
@@ -1530,7 +1530,7 @@ METHOD HRepTmpl:PrintAsPage(printer, nPageType, lPreview, p1, p2, p3, p4, p5)
       oPrinter:EndDoc()
    ENDIF
    ::ReleaseObj(::aControls)
-   IF ( aMethod := aGetSecond(::aMethods, "onrepexit") ) != NIL
+   IF (aMethod := aGetSecond(::aMethods, "onrepexit")) != NIL
       DoScript(aMethod)
    ENDIF
 
@@ -1575,10 +1575,10 @@ METHOD HRepTmpl:PrintItem(oItem)
       ENDIF
    ENDIF
    IF !__mvExist("LSKIPITEM") .OR. !lSkipItem
-      IF ( aMethod := aGetSecond(oItem:aMethods, "onbegin") ) != NIL
+      IF (aMethod := aGetSecond(oItem:aMethods, "onbegin")) != NIL
          DoScript(aMethod, {oItem})
       ENDIF
-      IF ( aMethod := aGetSecond(oItem:aMethods, "condition") ) != NIL
+      IF (aMethod := aGetSecond(oItem:aMethods, "condition")) != NIL
          lRes := DoScript(aMethod)
          IF !lRes .AND. oItem:cClass == "area"
             ::nAOffSet += Val(aGetSecond(oItem:aProp, "geometry")[4]) * ::nKoefY
@@ -1596,7 +1596,7 @@ METHOD HRepTmpl:PrintItem(oItem)
       IF oItem:cClass == "area"
          oItem:y2 := y2
          // hwg_WriteLog("Area: " + cText + " " + IIf(::lNextPage, "T", "F"))
-         IF ( xProperty := aGetSecond(oItem:aProp, "varoffset") ) == NIL ;
+         IF (xProperty := aGetSecond(oItem:aProp, "varoffset")) == NIL ;
                .OR. !xProperty
             ::nTOffset := ::nAOffSet := 0
          ENDIF
@@ -1621,7 +1621,7 @@ METHOD HRepTmpl:PrintItem(oItem)
                   EXIT
                ELSE
                   ::nTOffset := ::ny - y
-                  IF ( aMethod := aGetSecond(oItem:aMethods, "onnextline") ) != NIL
+                  IF (aMethod := aGetSecond(oItem:aMethods, "onnextline")) != NIL
                      DoScript(aMethod)
                   ENDIF
                ENDIF
@@ -1658,12 +1658,12 @@ METHOD HRepTmpl:PrintItem(oItem)
       ENDIF
 
       IF oItem:lPen .AND. oItem:oPen == NIL
-         IF ( xProperty := aGetSecond(oItem:aProp, "pentype") ) != NIL
+         IF (xProperty := aGetSecond(oItem:aProp, "pentype")) != NIL
             nPenType := Ascan(s_aPenType, xProperty) - 1
          ELSE
             nPenType := 0
          ENDIF
-         IF ( xProperty := aGetSecond(oItem:aProp, "penwidth") ) != NIL
+         IF (xProperty := aGetSecond(oItem:aProp, "penwidth")) != NIL
             nPenWidth := Round(xProperty * ::nKoefPix, 0)
          ELSE
             nPenWidth := Round(::nKoefPix, 0)
@@ -1675,47 +1675,47 @@ METHOD HRepTmpl:PrintItem(oItem)
 #endif
       ENDIF
       IF oItem:cClass == "label"
-         IF ( aMethod := aGetSecond(oItem:aMethods, "expression") ) != NIL
+         IF (aMethod := aGetSecond(oItem:aMethods, "expression")) != NIL
             cText := DoScript(aMethod)
          ELSE
             cText := aGetSecond(oItem:aProp, "caption")
          ENDIF
          IF HB_ISCHAR(cText)
-            IF ( xProperty := aGetSecond(oItem:aProp, "border") ) != NIL .AND. xProperty
+            IF (xProperty := aGetSecond(oItem:aProp, "border")) != NIL .AND. xProperty
                ::oPrinter:Box(x, y, x2, y2, oItem:oPen)
                x += 0.5
                y += 0.5
             ENDIF
-            IF ( xProperty := aGetSecond(oItem:aProp, "justify") ) == NIL
+            IF (xProperty := aGetSecond(oItem:aProp, "justify")) == NIL
                nJustify := 0
             ELSE
                nJustify := Ascan(s_aJustify, xProperty) - 1
             ENDIF
             IF oItem:obj == NIL
-               IF ( xProperty := aGetSecond(oItem:aProp, "font") ) != NIL
+               IF (xProperty := aGetSecond(oItem:aProp, "font")) != NIL
                   oItem:obj := hrep_FontFromxml(::oPrinter, xProperty, ::nKoefY, aGetSecond(oItem:aProp, "fonth") )
                ENDIF
             ENDIF
             hwg_Settransparentmode(::oPrinter:hDC, .T.)
-            IF ( xProperty := aGetSecond(oItem:aProp, "multiline") ) != NIL .AND. xProperty
+            IF (xProperty := aGetSecond(oItem:aProp, "multiline")) != NIL .AND. xProperty
                nLen := i := 1
-               DO WHILE ( i := hb_At(";", cText, i) ) > 0
+               DO WHILE (i := hb_At(";", cText, i)) > 0
                   i++
                   nLen++
                ENDDO
-               dy := ( y2 - y ) / nLen
+               dy := (y2 - y) / nLen
                nFirst := i := 1
                ny := y
-               DO WHILE ( i := hb_At(";", cText, i) ) > 0
+               DO WHILE (i := hb_At(";", cText, i)) > 0
                   ::oPrinter:Say(SubStr(cText, nFirst, i - nFirst), x, ny, x2, ny + dy, nJustify, oItem:obj)
                   i++
                   nFirst := i
                   ny += dy
                ENDDO
                ::oPrinter:Say(SubStr(cText, nFirst, Len(cText ) - nFirst + 1), x, ny, x2, ny + dy, nJustify, oItem:obj)
-            ELSEIF ( xProperty := aGetSecond(oItem:aProp, "inrect") ) != NIL .AND. xProperty
+            ELSEIF (xProperty := aGetSecond(oItem:aProp, "inrect")) != NIL .AND. xProperty
                nLen := Len(cText)
-               nw := ( x2 - x )/nLen - 1
+               nw := (x2 - x) / nLen - 1
                x1 := x
                FOR i := 1 TO nLen
                   ::oPrinter:Box(x1, y, x1 + nw, y2, oItem:oPen)
@@ -1734,7 +1734,7 @@ METHOD HRepTmpl:PrintItem(oItem)
       ELSEIF oItem:cClass == "hline"
          ::oPrinter:Line(x, y, x2, y, oItem:oPen)
       ELSEIF oItem:cClass == "bitmap"
-         IF oItem:obj == NIL .AND. ( !::oPrinter:lPreview .OR. ::oPrinter:lUseMeta )
+         IF oItem:obj == NIL .AND. (!::oPrinter:lPreview .OR. ::oPrinter:lUseMeta)
             oItem:obj := hwg_Openbitmap(aGetSecond(oItem:aProp, "bitmap"), ::oPrinter:hDC)
          ENDIF
          ::oPrinter:Bitmap(x, y, x2, y2, NIL, oItem:obj, aGetSecond(oItem:aProp, "bitmap"))
@@ -1742,7 +1742,7 @@ METHOD HRepTmpl:PrintItem(oItem)
       ::ny := Max(::ny, y2 + ::nAOffSet)
    ENDIF
 
-   IF ( aMethod := aGetSecond(oItem:aMethods, "onend") ) != NIL
+   IF (aMethod := aGetSecond(oItem:aMethods, "onend")) != NIL
       DoScript(aMethod)
    ENDIF
 
@@ -1824,9 +1824,9 @@ STATIC FUNCTION ReadRepItem(oCtrlDesc, oContainer)
          ReadRepItem(aItems[i], IIf(oCtrl:cClass == "area", oCtrl, oContainer))
       ENDIF
    NEXT
-   IF oCtrl:cClass $ "box.vline.hline" .OR. ( oCtrl:cClass == "label" .AND. ( ;
-         ( ( xProperty := aGetSecond(oCtrl:aProp, "border") ) != NIL .AND. xProperty ) ;
-         .OR. ( ( xProperty := aGetSecond(oCtrl:aProp, "inrect") ) != NIL .AND. xProperty ) ) )
+   IF oCtrl:cClass $ "box.vline.hline" .OR. (oCtrl:cClass == "label" .AND. ( ;
+         ((xProperty := aGetSecond(oCtrl:aProp, "border")) != NIL .AND. xProperty) ;
+         .OR. ((xProperty := aGetSecond(oCtrl:aProp, "inrect")) != NIL .AND. xProperty)))
       oCtrl:lPen := .T.
    ENDIF
 
@@ -1866,14 +1866,14 @@ STATIC FUNCTION hrep_FontFromXML(oPrinter, oXmlNode, nKoeff, nFontH)
    LOCAL i
 
    IF HB_ISARRAY(HRepTmpl():aFontTable)
-      IF ( i := Ascan(HRepTmpl():aFontTable,{|a|Lower(a[1]) == Lower(name)}) ) != 0
+      IF (i := Ascan(HRepTmpl():aFontTable,{|a|Lower(a[1]) == Lower(name)})) != 0
          name := HRepTmpl():aFontTable[i, 2]
       ENDIF
    ENDIF
 
    IF !Empty(nFontH)
       height := nFontH * nKoeff
-   ELSEIF ( nPos := At("M", height) ) != 0
+   ELSEIF (nPos := At("M", height)) != 0
       height := - Round(Val(SubStr(height, nPos + 1)) * nKoeff, 0)
    ELSE
       height := Val(height) * nKoeff

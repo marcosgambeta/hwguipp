@@ -125,7 +125,7 @@ METHOD HLenta:onEvent(msg, wParam, lParam)
             ENDIF
             nPos := IIf(::lVertical, yPos - y1, xPos - y1)
             IF nPos > 0
-               IF ( nPos := Int(nPos / ::nItemSize) + ::nFirst) > Len(::aItems)
+               IF (nPos := Int(nPos / ::nItemSize) + ::nFirst) > Len(::aItems)
                   nPos := 0
                ENDIF
                lRedraw := (::nOver != nPos)
@@ -191,15 +191,15 @@ METHOD HLenta:Paint()
    LOCAL nW := IIf(::lVertical, ::nWidth, ::nHeight)
    LOCAL nLength := IIf(::lVertical, ::nHeight, ::nWidth)
    LOCAL aItemStyle := ::aItemStyle
-   LOCAL lStyleOver := ( Len(aItemStyle)>2.AND.aItemStyle[3] != NIL )
-   LOCAL lStyleSele := ( Len(aItemStyle)>1.AND.aItemStyle[2] != NIL )
+   LOCAL lStyleOver := (Len(aItemStyle)>2.AND.aItemStyle[3] != NIL)
+   LOCAL lStyleSele := (Len(aItemStyle)>1.AND.aItemStyle[2] != NIL)
 
    IF hb_IsBlock(::bPaint)
       Eval(::bPaint, Self, hDC)
    ELSE
 
       IF !Empty(::aItems)
-         l1 := ( HB_ISARRAY(::aItems[1]) )
+         l1 := (HB_ISARRAY(::aItems[1]))
          IF ::oFont != NIL
             hwg_Selectobject(hDC, ::oFont:handle)
          ENDIF
@@ -215,7 +215,7 @@ METHOD HLenta:Paint()
             ENDIF
          ENDIF
          i := 1
-         DO WHILE y1 + nItemSize <= nLength .AND. ( nCurr := i + ::nFirst - 1 ) <= Len(::aItems)
+         DO WHILE y1 + nItemSize <= nLength .AND. (nCurr := i + ::nFirst - 1) <= Len(::aItems)
             oStyle := IIf(nCurr == ::nSelected .AND. lStyleSele, aItemStyle[2], IIf(nCurr == ::nOver .AND. lStyleOver, aItemStyle[3], aItemStyle[1]))
             cText := IIf(l1, ::aItems[nCurr, 1], ::aItems[nCurr])
             IF lVertical

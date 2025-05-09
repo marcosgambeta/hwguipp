@@ -33,7 +33,7 @@ CLASS HComboBox INHERIT HControl
    METHOD Refresh(xVal)
    METHOD Setitem(nPos)
    METHOD GetValue(nItem)
-   METHOD Value ( xValue ) SETGET
+   METHOD Value(xValue) SETGET
    METHOD End()
 
 ENDCLASS
@@ -215,7 +215,7 @@ METHOD HComboBox:GetValue(nItem)
 
    RETURN IIf(l .AND. nItem != NIL, IIf(nItem > 0 .AND. nItem <= Len(::aItems[nPos] ), ::aItems[nPos,nItem], NIL), ::xValue)
 
-METHOD HComboBox:Value ( xValue )
+METHOD HComboBox:Value(xValue)
 
    IF xValue != NIL
       IF HB_ISCHAR(xValue)

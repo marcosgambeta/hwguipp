@@ -42,7 +42,7 @@ METHOD HFont:Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdw
 
    FOR i := 1 TO nlen
       IF ::aFonts[i]:name == fontName .AND.             ;
-            ( ( Empty(::aFonts[i]:width) .AND. Empty(nWidth) ) ;
+            ((Empty(::aFonts[i]:width) .AND. Empty(nWidth)) ;
             .OR. ::aFonts[i]:width == nWidth ) .AND.    ;
             ::aFonts[i]:height == nHeight .AND.         ;
             ::aFonts[i]:weight == fnWeight .AND.        ;

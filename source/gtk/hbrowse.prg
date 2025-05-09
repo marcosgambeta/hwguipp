@@ -394,7 +394,7 @@ METHOD HBrowse:onEvent(msg, wParam, lParam)
             IF ::nCtrlPress == 0
                ::nCtrlPress := wParam
             ENDIF
-         ELSEIF ( wParam >= 48 .AND. wParam <= 90 .OR. wParam >= 96 .AND. wParam <= 111 ) .AND. ::lAutoEdit
+         ELSEIF (wParam >= 48 .AND. wParam <= 90 .OR. wParam >= 96 .AND. wParam <= 111) .AND. ::lAutoEdit
             ::Edit(wParam, lParam)
          ENDIF
          retValue := 1
@@ -649,7 +649,7 @@ METHOD HBrowse:Rebuild(hDC)
             ENDIF
          NEXT
       ELSE
-         xSize := Round(( nColLen ) * arr[2], 0)
+         xSize := Round((nColLen) * arr[2], 0)
       ENDIF
 
       IF oColumn:length < 0
@@ -816,7 +816,7 @@ METHOD HBrowse:Paint()
       ::Edit()
    ENDIF
 
-   IF ::lInFocus .AND. ::oGet == NIL .AND. ( ( tmp := hwg_Getfocus() ) == ::oParent:handle .OR. ;
+   IF ::lInFocus .AND. ::oGet == NIL .AND. ((tmp := hwg_Getfocus()) == ::oParent:handle .OR. ;
          ::oParent:FindControl(NIL, tmp) != NIL )
       hwg_Setfocus(::area)
    ENDIF
@@ -858,7 +858,7 @@ METHOD HBrowse:DrawHeader(hDC, nColumn, x1, y1, x2, y2)
       FOR nLine := 1 TO ::nHeadRows
          cNWSE := hb_tokenGet(@cStr, nLine, ";")
          ya := y1 + nHeight * nLine + ::aHeadPadding[2] + IIf(nLine == ::nHeadRows, ::aHeadPadding[4], 0)
-         yb := y1 + nHeight * ( nLine - 1 ) + IIf(nLine == 1, 0, ::aHeadPadding[2])
+         yb := y1 + nHeight * (nLine - 1) + IIf(nLine == 1, 0, ::aHeadPadding[2])
          IF At("S", cNWSE) != 0
             hwg_Drawline(hDC, x1, ya, x2, ya)
          ENDIF
@@ -880,7 +880,7 @@ METHOD HBrowse:DrawHeader(hDC, nColumn, x1, y1, x2, y2)
       FOR nLine := 1 TO Len(oColumn:heading)
          IF !Empty(oColumn:heading[nLine])
             hwg_Drawtext(hDC, oColumn:heading[nLine], x1 + 1 + ::aHeadPadding[1], ;
-               y1 + nHeight * ( nLine - 1 ) + 1 + ::aHeadPadding[2], x2 - ::aHeadPadding[3], ;
+               y1 + nHeight * (nLine - 1) + 1 + ::aHeadPadding[2], x2 - ::aHeadPadding[3], ;
                y1 + nHeight * nLine + ::aHeadPadding[2], ;
                oColumn:nJusHead  + IIf(oColumn:lSpandHead, DT_NOCLIP, 0))
          ENDIF
@@ -1012,7 +1012,7 @@ METHOD HBrowse:FooterOut(hDC)
                FOR nLine := 1 TO Len(oColumn:footing)
                   IF !Empty(oColumn:footing[nLine])
                      hwg_Drawtext(hDC, oColumn:footing[nLine], ;
-                        x + ::aHeadPadding[1], y1 + ( nLine - 1 ) * (::height + 1) + 1, ;
+                        x + ::aHeadPadding[1], y1 + (nLine - 1) * (::height + 1) + 1, ;
                         x2 - ::aHeadPadding[3], ::y1 + nLine * (::height + 1), ;
                         oColumn:nJusLin + IIf(oColumn:lSpandFoot, DT_NOCLIP, 0))
                   ENDIF
@@ -1117,7 +1117,7 @@ METHOD HBrowse:LineOut(nstroka, vybfld, hDC, lSelected, lClear)
 
          aCB := oColumn:aPaintCB
          x2 := x + xSize - IIf(::lSep3d, 2, 1)
-         y1 := ::y1 + (::height + 1) * ( nstroka - 1 ) + 1
+         y1 := ::y1 + (::height + 1) * (nstroka - 1) + 1
          y2 := ::y1 + (::height + 1) * nstroka
          IF hb_IsBlock(block := hwg_getPaintCB(aCB, PAINT_LINE_ALL))
             Eval(block, oColumn, hDC, x, y1, x2, y2, nCol)
@@ -1252,7 +1252,7 @@ STATIC FUNCTION LINERIGHT(oBrw, lRefresh)
       IF lRefresh == NIL .OR. lRefresh
          IF oBrw:nLeftCol == oldLeft
             oBrw:lRefrLinesOnly := .T.
-            hwg_Invalidaterect(oBrw:area, 0, oBrw:x1, oBrw:y1 + ( oBrw:height + 1 ) * oBrw:rowPosOld - oBrw:height, oBrw:x2, oBrw:y1 + ( oBrw:height + 1 ) * ( oBrw:rowPos ))
+            hwg_Invalidaterect(oBrw:area, 0, oBrw:x1, oBrw:y1 + (oBrw:height + 1) * oBrw:rowPosOld - oBrw:height, oBrw:x2, oBrw:y1 + (oBrw:height + 1) * (oBrw:rowPos))
          ELSE
             hwg_Invalidaterect(oBrw:area, 0)
          ENDIF
@@ -1274,7 +1274,7 @@ STATIC FUNCTION LINELEFT(oBrw, lRefresh)
    IF oBrw:lEditable
       oBrw:colpos --
    ENDIF
-   IF oBrw:nLeftCol > oBrw:freeze + 1 .AND. ( !oBrw:lEditable .OR. oBrw:colpos < oBrw:freeze + 1 )
+   IF oBrw:nLeftCol > oBrw:freeze + 1 .AND. (!oBrw:lEditable .OR. oBrw:colpos < oBrw:freeze + 1)
       oBrw:nLeftCol --
       IF !oBrw:lEditable .OR. oBrw:colpos < oBrw:freeze + 1
          oBrw:colpos := oBrw:freeze + 1
@@ -1294,7 +1294,7 @@ STATIC FUNCTION LINELEFT(oBrw, lRefresh)
       IF lRefresh == NIL .OR. lRefresh
          IF oBrw:nLeftCol == oldLeft
             oBrw:lRefrLinesOnly := .T.
-            hwg_Invalidaterect(oBrw:area, 0, oBrw:x1, oBrw:y1 + ( oBrw:height + 1 ) * oBrw:rowPosOld - oBrw:height, oBrw:x2, oBrw:y1 + ( oBrw:height + 1 ) * ( oBrw:rowPos ))
+            hwg_Invalidaterect(oBrw:area, 0, oBrw:x1, oBrw:y1 + (oBrw:height + 1) * oBrw:rowPosOld - oBrw:height, oBrw:x2, oBrw:y1 + (oBrw:height + 1) * (oBrw:rowPos))
          ELSE
             hwg_Invalidaterect(oBrw:area, 0)
          ENDIF
@@ -1875,7 +1875,7 @@ METHOD HBrowse:Edit(wParam, lParam)
          IF Dbinfo(DBI_ISREADONLY)
             RETURN NIL
          ENDIF
-         ::varbuf := (::alias) -> ( Eval(oColumn:block, , Self, fipos) )
+         ::varbuf := (::alias)->(Eval(oColumn:block, , Self, fipos))
       ELSE
          ::varbuf := Eval(oColumn:block, , Self, fipos)
       ENDIF
@@ -2030,8 +2030,8 @@ STATIC FUNCTION VldBrwEdit(oBrw, fipos , bmemo)
       IF oBrw:lAppMode
          oBrw:lAppMode := .F.
          IF oBrw:type == BRW_DATABASE
-            ( oBrw:alias ) -> ( dbAppend() )
-            ( oBrw:alias ) -> ( Eval(oColumn:block, oBrw:varbuf, oBrw, fipos) )
+            (oBrw:alias)->(dbAppend())
+            (oBrw:alias)->(Eval(oColumn:block, oBrw:varbuf, oBrw, fipos))
             UNLOCK
          ELSE
             IF HB_ISARRAY(oBrw:aArray[1])
@@ -2051,12 +2051,12 @@ STATIC FUNCTION VldBrwEdit(oBrw, fipos , bmemo)
          oBrw:lAppended := .T.
          oBrw:Refresh()
       ELSE
-         IF ( nRec := Eval(oBrw:bRecno, oBrw) ) != oBrw:nGetRec
+         IF (nRec := Eval(oBrw:bRecno, oBrw)) != oBrw:nGetRec
             Eval(oBrw:bGoTo, oBrw, oBrw:nGetRec)
          ENDIF
          IF oBrw:type == BRW_DATABASE
-            IF ( oBrw:alias ) -> ( RLock() )
-               ( oBrw:alias ) -> ( Eval(oColumn:block, oBrw:varbuf, oBrw, fipos) )
+            IF (oBrw:alias)->(RLock())
+               (oBrw:alias)->(Eval(oColumn:block, oBrw:varbuf, oBrw, fipos))
             ELSE
             /* Can't lock the record! */
                hwg_MsgStop(cErrMsgRecLock)
@@ -2073,7 +2073,7 @@ STATIC FUNCTION VldBrwEdit(oBrw, fipos , bmemo)
 
    oBrw:Refresh()
    // Execute block after changes are made
-   IF ( !bESCkey ) .AND. hb_IsBlock(oBrw:bUpdate)
+   IF (!bESCkey) .AND. hb_IsBlock(oBrw:bUpdate)
       Eval(oBrw:bUpdate, oBrw, fipos)
    ENDIF
    IF bmemo
@@ -2119,7 +2119,7 @@ STATIC FUNCTION FldStr(oBrw, numf)
       // pict := oBrw:aColumns[numf]:picture  // Double assigned
 
       IF oBrw:type == BRW_DATABASE
-         vartmp := ( oBrw:alias ) -> ( Eval(oBrw:aColumns[numf]:block, , oBrw, numf) )
+         vartmp := (oBrw:alias)->(Eval(oBrw:aColumns[numf]:block, , oBrw, numf))
       ELSE
          vartmp := Eval(oBrw:aColumns[numf]:block, , oBrw, numf)
       ENDIF
@@ -2128,7 +2128,7 @@ STATIC FUNCTION FldStr(oBrw, numf)
       IF pict != NIL
          cRes := Transform(vartmp, pict)
       ELSE
-         type := ( oBrw:aColumns[numf] ):type
+         type := (oBrw:aColumns[numf]):type
          IF type == "U" .AND. vartmp != NIL
             type := ValType(vartmp)
          ENDIF
@@ -2247,7 +2247,7 @@ FUNCTION hwg_VScrollPos(oBrw, nType, lEof, nPos)
       IF nType > 0 .AND. lEof
          Eval(oBrw:bSkip, oBrw, -1)
       ENDIF
-      nPos := Round(( maxPos/(oBrw:nRecords - 1 ) ) * ( Eval(oBrw:bRecnoLog, oBrw) - 1 ), 0)
+      nPos := Round((maxPos/(oBrw:nRecords - 1)) * (Eval(oBrw:bRecnoLog, oBrw) - 1), 0)
       IF hwg_SetAdjOptions(oBrw:hScrollV, nPos)
           obrw:lSetAdj := .T.
       ENDIF
@@ -2255,7 +2255,7 @@ FUNCTION hwg_VScrollPos(oBrw, nType, lEof, nPos)
       oBrw:nScrollV := nPos
    ELSE
       oldRecno := Eval(oBrw:bRecnoLog, oBrw)
-      newRecno := Round(( oBrw:nRecords - 1 ) * nPos/ maxPos + 1, 0)
+      newRecno := Round((oBrw:nRecords - 1) * nPos/ maxPos + 1, 0)
       IF newRecno <= 0
          newRecno := 1
       ELSEIF newRecno > oBrw:nRecords
@@ -2264,7 +2264,7 @@ FUNCTION hwg_VScrollPos(oBrw, nType, lEof, nPos)
       IF newRecno != oldRecno
          Eval(oBrw:bSkip, oBrw, newRecno - oldRecno)
          IF oBrw:rowCount - oBrw:rowPos > oBrw:nRecords - newRecno
-            oBrw:rowPos := oBrw:rowCount - ( oBrw:nRecords - newRecno )
+            oBrw:rowPos := oBrw:rowCount - (oBrw:nRecords - newRecno)
          ENDIF
          IF oBrw:rowPos > newRecno
             oBrw:rowPos := newRecno
@@ -2283,7 +2283,7 @@ STATIC FUNCTION CountToken(cStr, nMaxLen, nCount)
 
    nMaxLen := nCount := 0
    IF HB_ISCHAR(cStr)
-      IF ( ";" $ cStr )
+      IF (";" $ cStr)
          cStr := hb_aTokens(cStr, ";")
       ELSE
          nMaxLen := Len(cStr)

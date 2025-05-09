@@ -46,7 +46,7 @@ CLASS HEdit INHERIT HControl
    METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bGfocus, bLfocus, ctooltip, tcolor, bcolor, cPicture, nMaxLength)
    METHOD SetGet(value) INLINE Eval(::bSetGet, value, self)
    METHOD Refresh()
-   METHOD Value ( xValue ) SETGET
+   METHOD Value(xValue) SETGET
    METHOD SelStart(nStart) SETGET
    METHOD SelLength(nLength) SETGET
    METHOD ParsePict(cPicture, vari)
@@ -152,7 +152,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
    // Not used variables
    // nctrl, cKeyb
 
-   IF hb_IsBlock(::bOther) .AND. ( nPos := Eval(::bOther, Self, msg, wParam, lParam) ) != - 1
+   IF hb_IsBlock(::bOther) .AND. (nPos := Eval(::bOther, Self, msg, wParam, lParam)) != - 1
       RETURN nPos
    ENDIF
    wParam := hwg_PtrToUlong(wParam)
@@ -187,7 +187,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
             RETURN GetApplyKey(Self, hwg_Chr(wParam))
 
          CASE WM_KEYDOWN
-            IF hb_IsBlock(::bKeyDown) .AND. ( nPos := Eval(::bKeyDown, Self, wParam, lParam) ) != -1
+            IF hb_IsBlock(::bKeyDown) .AND. (nPos := Eval(::bKeyDown, Self, wParam, lParam)) != -1
                RETURN nPos
             ENDIF
             SWITCH wParam
@@ -242,7 +242,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
                //****   Paulo Flecha
                IF Asc(SubStr(hwg_Getkeyboardstate(), VK_SHIFT + 1, 1)) >= 128
                   IF !hwg_GetSkip(oParent, ::handle, -1) // First Get
-                     nextHandle := hwg_Getnextdlgtabitem ( (oParent := hwg_getParentForm(Self)):handle, ::handle, .T. )
+                     nextHandle := hwg_Getnextdlgtabitem ((oParent := hwg_getParentForm(Self)):handle, ::handle, .T.)
                      IF oParent:Classname() == "HDIALOG"
                         hwg_Postmessage(oParent:handle, WM_NEXTDLGCTL, nextHandle, 1)
                      ELSE
@@ -251,7 +251,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
                   ENDIF
                ELSE
                   IF !hwg_GetSkip(oParent, ::handle, 1) // Last Get
-                     nextHandle := hwg_Getnextdlgtabitem ( (oParent := hwg_getParentForm(Self)):handle, ::handle, .F. )
+                     nextHandle := hwg_Getnextdlgtabitem ((oParent := hwg_getParentForm(Self)):handle, ::handle, .F.)
                      IF oParent:Classname() == "HDIALOG"
                         hwg_Postmessage(oParent:handle, WM_NEXTDLGCTL, nextHandle, 1)
                      ELSE
@@ -307,7 +307,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
          /* Added by Sauli */
       ELSE
          IF msg == WM_KEYDOWN
-            IF hb_IsBlock(::bKeyDown) .AND. ( nPos := Eval(::bKeyDown, Self, wParam, lParam) ) != -1
+            IF hb_IsBlock(::bKeyDown) .AND. (nPos := Eval(::bKeyDown, Self, wParam, lParam)) != -1
                RETURN nPos
             ENDIF
 
@@ -330,7 +330,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
       ENDIF
       //******  Tab  MULTILINE - Paulo Flecha
       IF msg == WM_KEYDOWN
-         IF hb_IsBlock(::bKeyDown) .AND. ( nPos := Eval(::bKeyDown, Self, wParam, lParam) ) != -1
+         IF hb_IsBlock(::bKeyDown) .AND. (nPos := Eval(::bKeyDown, Self, wParam, lParam)) != -1
             RETURN nPos
          ENDIF
          IF wParam == VK_ESCAPE .AND. !__ObjHasMsg(::oParent, "GETLIST")
@@ -339,12 +339,12 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
          IF wParam == VK_TAB     // Tab
             IF Asc(SubStr(hwg_Getkeyboardstate(), VK_SHIFT + 1, 1)) >= 128
                IF !hwg_GetSkip(oParent, ::handle, -1) // First Get
-                  nextHandle := hwg_Getnextdlgtabitem ( hwg_getParentForm(Self):handle, ::handle, .T. )
+                  nextHandle := hwg_Getnextdlgtabitem(hwg_getParentForm(Self):handle, ::handle, .T.)
                   hwg_Postmessage(hwg_getParentForm(Self):handle, WM_NEXTDLGCTL, nextHandle, 1)
                ENDIF
             ELSE
                IF !hwg_GetSkip(oParent, ::handle, 1) // Last Get
-                  nextHandle := hwg_Getnextdlgtabitem ( hwg_getParentForm(Self):handle, ::handle, .F. )
+                  nextHandle := hwg_Getnextdlgtabitem(hwg_getParentForm(Self):handle, ::handle, .F.)
                   hwg_Postmessage(hwg_getParentForm(Self):handle, WM_NEXTDLGCTL, nextHandle, 1)
                ENDIF
             ENDIF
@@ -357,7 +357,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
    SWITCH msg
    CASE WM_KEYUP
    CASE WM_SYSKEYUP
-      IF hb_IsBlock(::bKeyUp) .AND. ( nPos := Eval(::bKeyUp, Self, msg, wParam, lParam) ) != -1
+      IF hb_IsBlock(::bKeyUp) .AND. (nPos := Eval(::bKeyUp, Self, msg, wParam, lParam)) != -1
          RETURN nPos
       ENDIF
       EXIT
@@ -542,7 +542,7 @@ METHOD HEdit:ParsePict(cPicture, vari)
          ::cPicMask := StrTran(Dtoc(CToD(Space(8))), " ", "9")
       ELSEIF ::cType == "N"
          vari := Str(vari)
-         IF ( nAt := At(".", vari) ) > 0
+         IF (nAt := At(".", vari)) > 0
             ::cPicMask := Replicate("9", nAt - 1) + "." + Replicate("9", Len(vari) - nAt)
          ELSE
             ::cPicMask := Replicate("9", Len(vari))
@@ -715,19 +715,19 @@ STATIC FUNCTION INPUT(oEdit, cChar, nPos)
          IF nPos != 1
             RETURN NIL
          ENDIF
-      ELSEIF !( cChar $ "0123456789" )
+      ELSEIF !(cChar $ "0123456789")
          RETURN NIL
       ENDIF
       EXIT
 
    CASE "D"
-      IF !( cChar $ "0123456789" )
+      IF !(cChar $ "0123456789")
          RETURN NIL
       ENDIF
       EXIT
 
    CASE "L"
-      IF !( Upper(cChar) $ "YNTF" )
+      IF !(Upper(cChar) $ "YNTF")
          RETURN NIL
       ENDIF
       EXIT
@@ -816,7 +816,7 @@ STATIC FUNCTION GetApplyKey(oEdit, cKey)
 
       IF oEdit:cType == "N" .AND. oEdit:lFirst
          nGetLen := Len(oEdit:cPicMask)
-         IF ( nPos := At(".", oEdit:cPicMask) ) == 0
+         IF (nPos := At(".", oEdit:cPicMask)) == 0
             oEdit:title := Space(nGetLen)
          ELSE
             oEdit:title := Space(nPos - 1) + "." + Space(nGetLen - nPos)
@@ -905,7 +905,7 @@ STATIC FUNCTION __When(oCtrl)
       ENDIF
    ENDIF
    IF res .AND. !Empty(oCtrl:cPicMask)
-      DO WHILE !( Substr(oCtrl:cPicMask, ++n, 1) $ "ANX9#LY!$*.," )
+      DO WHILE !(Substr(oCtrl:cPicMask, ++n, 1) $ "ANX9#LY!$*.,")
       ENDDO
       IF n > 1
          hwg_Sendmessage(oCtrl:handle, EM_SETSEL, n - 1, n - 1)
@@ -921,7 +921,7 @@ STATIC FUNCTION __valid(oCtrl)
    LOCAL nLen
 
    IF hb_IsBlock(oCtrl:bSetGet)
-      IF ( oDlg := hwg_getParentForm(oCtrl) ) == NIL .OR. oDlg:nLastKey != 27
+      IF (oDlg := hwg_getParentForm(oCtrl)) == NIL .OR. oDlg:nLastKey != 27
          vari := UnTransform(oCtrl, hwg_Getedittext(oCtrl:oParent:handle, oCtrl:id))
          oCtrl:title := vari
          IF oCtrl:cType == "D"
@@ -984,7 +984,7 @@ STATIC FUNCTION Untransform(oEdit, cBuffer)
       xValue := cBuffer
       EXIT
    CASE "N"
-      minus := ( Left(LTrim(cBuffer), 1) == "-" )
+      minus := (Left(LTrim(cBuffer), 1) == "-")
       cBuffer := Space(FirstEditable(oEdit) - 1) + SubStr(cBuffer, FirstEditable(oEdit), LastEditable(oEdit) - FirstEditable(oEdit) + 1 )
       IF "D" $ oEdit:cPicFunc
          FOR nFor := FirstEditable(oEdit) TO LastEditable(oEdit)
@@ -1124,26 +1124,26 @@ FUNCTION hwg_GetSkip(oParent, hCtrl, nSkip, lClipper)
    DO WHILE oParent != NIL .AND. !__ObjHasMsg(oParent, "GETLIST")
       oParent := oParent:oParent
    ENDDO
-   IF oParent == NIL .OR. ( lClipper != NIL .AND. lClipper .AND. !oParent:lClipper )
+   IF oParent == NIL .OR. (lClipper != NIL .AND. lClipper .AND. !oParent:lClipper)
       RETURN .F.
    ENDIF
    IF hCtrl == NIL
       i := 0
    ENDIF
-   IF hCtrl == NIL .OR. ( i := Ascan(oParent:Getlist, {|o|o:handle == hCtrl}) ) != 0
+   IF hCtrl == NIL .OR. (i := Ascan(oParent:Getlist, {|o|o:handle == hCtrl})) != 0
       IF i > 0 .AND. __ObjHasMsg(oParent:Getlist[i], "LFIRST")
          oParent:Getlist[i]:lFirst := .T.
       ENDIF
       IF nSkip > 0
          aLen := Len(oParent:Getlist)
-         DO WHILE ( i := i + nSkip ) <= aLen
+         DO WHILE (i := i + nSkip) <= aLen
             IF !oParent:Getlist[i]:lHide .AND. hwg_Iswindowenabled(oParent:Getlist[i]:Handle) // Now tab and enter goes trhow the check, combo, etc...
                hwg_Setfocus(oParent:Getlist[i]:handle)
                RETURN .T.
             ENDIF
          ENDDO
       ELSE
-         DO WHILE ( i := i + nSkip ) > 0
+         DO WHILE (i := i + nSkip) > 0
             IF !oParent:Getlist[i]:lHide .AND. hwg_Iswindowenabled(oParent:Getlist[i]:Handle)
                hwg_Setfocus(oParent:Getlist[i]:handle)
                RETURN .T.
@@ -1157,7 +1157,7 @@ FUNCTION hwg_GetSkip(oParent, hCtrl, nSkip, lClipper)
 FUNCTION hwg_SetGetUpdated(o)
 
    o:lChanged := .T.
-   IF ( o := hwg_getParentForm(o) ) != NIL
+   IF (o := hwg_getParentForm(o)) != NIL
       o:lUpdated := .T.
    ENDIF
 

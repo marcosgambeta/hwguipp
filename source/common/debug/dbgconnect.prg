@@ -101,20 +101,20 @@ FUNCTION hwg_dbg_New()
 
    s_cBuffer := Space(1024)
 
-   IF File(cDebugger+".info") .AND. ( s_handl1 := FOpen(cDebugger + ".info", FO_READ) ) != -1
+   IF File(cDebugger+".info") .AND. (s_handl1 := FOpen(cDebugger + ".info", FO_READ)) != -1
       i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
       IF i > 0
          arr := hb_aTokens(Left(s_cBuffer, i), ;
                IIf(hb_At(Chr(13), s_cBuffer, 1, i) > 0, Chr(13)+Chr(10), Chr(10)))
          FOR i := 1 TO Len(arr)
-            IF ( nPos := At("=", arr[i]) ) > 0
+            IF (nPos := At("=", arr[i])) > 0
                cCmd := Lower(Trim(Left(arr[i], nPos - 1)))
                IF cCmd == "dir"
                   cDir := Ltrim(Substr(arr[i], nPos + 1))
                ELSEIF cCmd == "debugger"
                   cExe := Ltrim(Substr(arr[i], nPos + 1))
                ELSEIF cCmd == "runatstart"
-                  __Dbg():lRunAtStartup := ( Lower(Alltrim(Substr(arr[i], nPos + 1))) == "on" )
+                  __Dbg():lRunAtStartup := (Lower(Alltrim(Substr(arr[i], nPos + 1))) == "on")
                ENDIF
             ENDIF
          NEXT
@@ -124,9 +124,9 @@ FUNCTION hwg_dbg_New()
 
    IF File(cFile + ".d1") .AND. File(cFile + ".d2")
 
-      IF ( s_handl1 := FOpen(cFile + ".d1", FO_READ + FO_SHARED) ) != -1
+      IF (s_handl1 := FOpen(cFile + ".d1", FO_READ + FO_SHARED)) != -1
          i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
-         IF ( i > 0 ) .AND. ;
+         IF (i > 0) .AND. ;
                Left(s_cBuffer, 4) == "init"
             s_handl2 := FOpen(cFile + ".d2", FO_READWRITE + FO_SHARED)
             IF s_handl2 != -1
@@ -142,9 +142,9 @@ FUNCTION hwg_dbg_New()
    IF !Empty(cDir)
       cDir += IIf(Right(cDir, 1) $ "\/", "", hb_PS())
       IF File(cDir + cDebugger + ".d1") .AND. File(cDir + cDebugger + ".d2")
-         IF ( s_handl1 := FOpen(cDir + cDebugger + ".d1", FO_READ + FO_SHARED) ) != -1
+         IF (s_handl1 := FOpen(cDir + cDebugger + ".d1", FO_READ + FO_SHARED)) != -1
             i := FRead(s_handl1, @s_cBuffer, Len(s_cBuffer))
-            IF ( i  > 0 ) .AND. ;
+            IF (i  > 0) .AND. ;
                   Left(s_cBuffer, 4) == "init"
                s_handl2 := FOpen(cDir + cDebugger + ".d2", FO_READWRITE + FO_SHARED)
                IF s_handl2 != -1
@@ -158,8 +158,8 @@ FUNCTION hwg_dbg_New()
    ENDIF
 
    cFile := IIf(!Empty(cDir), cDir, hb_dirTemp()) + ;
-         IIf(( i := Rat("\", cFile) ) == 0, ;
-         IIf(( i := Rat("/", cFile) ) == 0, cFile, Substr(cFile, i + 1)), ;
+         IIf((i := Rat("\", cFile)) == 0, ;
+         IIf((i := Rat("/", cFile)) == 0, cFile, Substr(cFile, i + 1)), ;
          Substr(cFile, i + 1))
 
    Ferase(cFile + ".d1")
@@ -176,13 +176,13 @@ FUNCTION hwg_dbg_New()
    ENDIF
    // lRun := __dbgProcessRun(cExe, "-c" + cFile)
    hProcess := hb_processOpen(cExe + " -c" + cFile)
-   lRun := ( hProcess != -1 .AND. hb_processValue(hProcess, .F.) == -1 )
+   lRun := (hProcess != -1 .AND. hb_processValue(hProcess, .F.) == -1)
 #else
    IF Empty(cExe)
       cExe := cDebugger
    ENDIF
    hProcess := hb_processOpen(cExe + ' -c"' + cFile + '"')
-   lRun := ( hProcess  > 0 )
+   lRun := (hProcess > 0)
 #endif
    IF !lRun
       hwg_dbg_Alert(cExe + " isn't available...")
@@ -205,10 +205,10 @@ STATIC FUNCTION hwg_dbg_Read()
    LOCAL arr
 
    FSeek(s_handl1, 0, 0)
-   DO WHILE ( n := Fread(s_handl1, @s_cBuffer, Len(s_cBuffer)) ) > 0
+   DO WHILE (n := Fread(s_handl1, @s_cBuffer, Len(s_cBuffer))) > 0
       s += Left(s_cBuffer, n)
-      IF ( n := At(",!", s) ) > 0
-         IF ( arr := hb_aTokens(Left(s, n + 1), ",") ) != NIL .AND. Len(arr) > 2 .AND. arr[1] == arr[Len(arr)-1]
+      IF (n := At(",!", s)) > 0
+         IF (arr := hb_aTokens(Left(s, n + 1), ",")) != NIL .AND. Len(arr) > 2 .AND. arr[1] == arr[Len(arr)-1]
             RETURN arr
          ELSE
             EXIT
@@ -301,7 +301,7 @@ FUNCTION hwg_dbg_Input(p1, p2, p3)
    DO WHILE .T.
 
       IF !Empty(arr := hwg_dbg_Read())
-         IF ( n := Val(arr[1]) ) > s_nId1 .AND. arr[Len(arr)] == "!"
+         IF (n := Val(arr[1])) > s_nId1 .AND. arr[Len(arr)] == "!"
             s_nId1 := n
             SWITCH arr[2]
             CASE "cmd"
@@ -414,7 +414,7 @@ FUNCTION hwg_dbg_Answer(...)
 
    FOR i := 1 TO Len(arr)
       IF HB_ISARRAY(arr[i])
-         lConvert := ( i > 1 .AND. HB_ISCHAR(arr[i-1]) .AND. Left(arr[i - 1], 5) == "value" )
+         lConvert := (i > 1 .AND. HB_ISCHAR(arr[i-1]) .AND. Left(arr[i - 1], 5) == "value")
          FOR j := 1 TO Len(arr[i])
             s += IIf(j>1.AND.lConvert, Str2Hex(arr[i,j]), arr[i,j]) + ","
          NEXT
@@ -469,7 +469,7 @@ FUNCTION hwg_dbg_Quit()
       cCode := "{||__Quit()}"
    ENDIF
 
-   bCode := &( cCode )
+   bCode := &(cCode)
 
 RETURN Eval(bCode)
 
@@ -479,9 +479,9 @@ STATIC FUNCTION Hex2Int(stroka)
    LOCAL res
 
    IF i > 64 .AND. i < 71
-      res := ( i - 55 ) * 16
+      res := (i - 55) * 16
    ELSEIF i > 47 .AND. i < 58
-      res := ( i - 48 ) * 16
+      res := (i - 48) * 16
    ELSE
       RETURN 0
    ENDIF

@@ -103,7 +103,7 @@ METHOD HGraph:CalcMinMax()
    ENDIF
    FOR i := 1 TO ::nGraphs
       nLen := Len(::aValues[i])
-      l1 := ( HB_ISNUMERIC(::aValues[i, 1]) )
+      l1 := (HB_ISNUMERIC(::aValues[i, 1]))
       IF ::nType == 1
          FOR j := 1 TO nLen
             IF l1
@@ -200,7 +200,7 @@ METHOD HGraph:Paint()
       NEXT
    ENDIF
 
-   x0 := x1 + ( 0 - ::xmin ) / scaleX
+   x0 := x1 + (0 - ::xmin) / scaleX
    y0 := IIf(::lPositive, y2, y2 - (0 - ::ymin) / scaleY)
 
    hwg_Fillrect(hDC, 0, 0, ::nWidth, ::nHeight, ::brush:handle)
@@ -218,13 +218,13 @@ METHOD HGraph:Paint()
             hwg_Selectobject(hDC, ::aPens[i]:handle)
          ENDIF
          nLen := Len(::aValues[i])
-         l1 := ( HB_ISNUMERIC(::aValues[i, 1]) )
+         l1 := (HB_ISNUMERIC(::aValues[i, 1]))
          IF ::nType == 1
             FOR j := 2 TO nLen
-               px1 := Round(x1 + ( IIf(l1, j-1, ::aValues[i, j - 1, 1]) - ::xmin ) / scaleX, 0)
-               py1 := Round(y2 - ( IIf(l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2]) - ::ymin ) / scaleY, 0)
-               px2 := Round(x1 + ( IIf(l1, j, ::aValues[i, j, 1]) - ::xmin ) / scaleX, 0)
-               py2 := Round(y2 - ( IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin ) / scaleY, 0)
+               px1 := Round(x1 + (IIf(l1, j-1, ::aValues[i, j - 1, 1]) - ::xmin) / scaleX, 0)
+               py1 := Round(y2 - (IIf(l1, ::aValues[i, j - 1], ::aValues[i, j - 1, 2]) - ::ymin) / scaleY, 0)
+               px2 := Round(x1 + (IIf(l1, j, ::aValues[i, j, 1]) - ::xmin) / scaleX, 0)
+               py2 := Round(y2 - (IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin) / scaleY, 0)
                IF px2 != px1
                   IF ::nLineType == 0
                      hwg_Rectangle(hDC, px1, py1, px1 + ::nPointSize - 1, py1 + ::nPointSize - 1)
@@ -241,11 +241,11 @@ METHOD HGraph:Paint()
             IF ::tbrush == NIL
                ::tbrush := HBrush():Add(::tcolor)
             ENDIF
-            nWidth := Round(( x2 - x1 ) / ( nLen ), 0)
+            nWidth := Round((x2 - x1) / (nLen), 0)
             FOR j := 1 TO nLen
                IF IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) != NIL
-                  px1 := Round(x1 + nWidth * ( j - 1 ) + 1, 0)
-                  py1 := Round(y2 - 2 - ( IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin ) / scaleY, 0)
+                  px1 := Round(x1 + nWidth * (j - 1) + 1, 0)
+                  py1 := Round(y2 - 2 - (IIf(l1, ::aValues[i, j], ::aValues[i, j, 2]) - ::ymin) / scaleY, 0)
                   hwg_Fillrect(hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle)
                ENDIF
             NEXT
