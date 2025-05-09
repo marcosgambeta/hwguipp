@@ -51,7 +51,7 @@ FUNCTION Hwg_CreateMenu
       RETURN NIL
    ENDIF
 
-   RETURN { {}, NIL, NIL, hMenu }
+   RETURN {{}, NIL, NIL, hMenu}
 
 FUNCTION Hwg_SetMenu(oWnd, aMenu)
 
@@ -95,10 +95,10 @@ FUNCTION Hwg_AddMenuItem(aMenu, cItem, nMenuId, lSubMenu, bItem, nPos)
       AAdd(aMenu[1], NIL)
       AIns(aMenu[1], nPos)
       IF Empty(lSubMenu)
-         aMenu[1, nPos] := { bItem, cItem, nMenuId, 0 }
+         aMenu[1, nPos] := {bItem, cItem, nMenuId, 0}
          
       ELSE
-         aMenu[1, nPos] := { {}, cItem, nMenuId, 0, hSubMenu }
+         aMenu[1, nPos] := {{}, cItem, nMenuId, 0, hSubMenu}
       ENDIF
       RETURN aMenu[1, nPos]
    ENDIF
@@ -143,7 +143,7 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
       ELSE
          hMenu := hwg__CreatePopupMenu()
       ENDIF
-      aMenu := { aMenuInit, NIL, NIL, NIL, hMenu }
+      aMenu := {aMenuInit, NIL, NIL, NIL, hMenu}
    ELSE
       hMenu := aMenuInit[5]
       nPos := Len(aMenuInit[1])
@@ -314,13 +314,13 @@ FUNCTION Hwg_InsertBitmapMenu(aMenu, nId, lBitmap, oResource)
 STATIC FUNCTION SearchPosBitmap(nPos_Id)
 
    LOCAL nPos := 1
-   LOCAL lBmp := { .F., "" }
+   LOCAL lBmp := {.F., ""}
 
    IF s__oBitmap != NIL
       DO WHILE nPos <= Len(s__oBitmap)
 
          IF s__oBitmap[nPos][4] == nPos_Id
-            lBmp := { s__oBitmap[nPos][1], s__oBitmap[nPos][2], s__oBitmap[nPos][3] }
+            lBmp := {s__oBitmap[nPos][1], s__oBitmap[nPos][2], s__oBitmap[nPos][3]}
          ENDIF
 
          nPos++

@@ -7,15 +7,14 @@
 //
 
 #ifndef G_CONSOLE_MODE
-STATIC s_aClass := { "label", "button", "checkbox",       ;
+STATIC s_aClass := {"label", "button", "checkbox",       ;
       "radiobutton", "editbox", "group", "radiogroup",  ;
       "bitmap", "icon", "richedit", "datepicker",       ;
       "updown", "combobox", "line", "toolbar",          ;
       "toolbartop", "toolbarbot", "ownerbutton",        ;
       "browse", "splitter", "monthcalendar", "trackbar",;
       "page", "tree", "status", "link", "menu",         ;
-      "animation"     ;
-      }
+      "animation"}
 STATIC s_aCtrls := { ;
       "HStatic():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,ctooltip,TextColor,BackColor,lTransp)", ;
       "HButton():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,onClick,ctooltip,TextColor,BackColor)",  ;
@@ -44,8 +43,7 @@ STATIC s_aCtrls := { ;
       "HStatus():New(oPrnt,nId,nStyle,oFont,aParts,onInit,onSize)", ;
       "HStaticLink():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,ctooltip,TextColor,BackColor,lTransp,cLink,vColor,lColor,hColor)", ;
       ".F.", ;
-      "HAnimation():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,Filename,AutoPlay,Center,Transparent)" ;
-      }
+      "HAnimation():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,Filename,AutoPlay,Center,Transparent)"}
 #endif
 
 #include <hbclass.ch>
@@ -55,8 +53,8 @@ STATIC s_aCtrls := { ;
 
 #define CONTROL_FIRST_ID   34000
 
-STATIC s_aPenType := { "SOLID", "DASH", "DOT", "DASHDOT", "DASHDOTDOT" }
-STATIC s_aJustify := { "Left", "Center", "Right" }
+STATIC s_aPenType := {"SOLID", "DASH", "DOT", "DASHDOT", "DASHDOTDOT"}
+STATIC s_aJustify := {"Left", "Center", "Right"}
 
 #ifndef G_CONSOLE_MODE
 REQUEST HSTATIC, HBUTTON, HCHECKBUTTON, HRADIOBUTTON, HEDIT, HGROUP, HSAYBMP, HSAYICON
@@ -1372,7 +1370,7 @@ METHOD HRepTmpl:PRINT(printer, lPreview, p1, p2, p3, p4, p5)
    ::nKoefX := oPrinter:nWidth / (nPWidth + 12)
    ::nKoefY := oPrinter:nHeight / (nPHeight + 12)
    IF (aMethod := aGetSecond(::aMethods, "onrepinit")) != NIL
-      DoScript(aMethod, { p1, p2, p3, p4, p5 })
+      DoScript(aMethod, {p1, p2, p3, p4, p5})
    ENDIF
    IF xProperty != NIL
       oFont := hrep_FontFromxml(oPrinter, xProperty, ::nKoefY, aGetSecond(::aProp, "fonth"))
@@ -1488,7 +1486,7 @@ METHOD HRepTmpl:PrintAsPage(printer, nPageType, lPreview, p1, p2, p3, p4, p5)
    ::nKoefX := oPrinter:nWidth / nPWidth
    ::nKoefY := oPrinter:nHeight / nPHeight
    IF (aMethod := aGetSecond(::aMethods, "onrepinit")) != NIL
-      DoScript(aMethod, { p1, p2, p3, p4, p5 })
+      DoScript(aMethod, {p1, p2, p3, p4, p5})
    ENDIF
    IF xProperty != NIL
       oFont := hrep_FontFromxml(oPrinter, xProperty, ::nKoefY, aGetSecond(::aProp, "fonth"))
@@ -1573,7 +1571,7 @@ METHOD HRepTmpl:PrintItem(oItem)
    ENDIF
    IF !__mvExist("LSKIPITEM") .OR. !lSkipItem
       IF (aMethod := aGetSecond(oItem:aMethods,"onbegin")) != NIL
-         DoScript(aMethod, { oItem })
+         DoScript(aMethod, {oItem})
       ENDIF
       IF (aMethod := aGetSecond(oItem:aMethods,"condition")) != NIL
          lRes := DoScript(aMethod)

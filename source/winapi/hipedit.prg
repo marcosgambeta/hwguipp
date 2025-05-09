@@ -42,7 +42,7 @@ METHOD HIPedit:New(oWndParent, nId, aValue, bSetGet, nStyle, nX, nY, nWidth, nHe
    ::title := ""
 
    ::bSetGet := bSetGet
-   DEFAULT aValue := { 0, 0, 0, 0 }
+   DEFAULT aValue := {0, 0, 0, 0}
    ::aValue := aValue
    ::bGetFocus := bGetFocus
    ::bKillFocus := bKillFocus
@@ -94,7 +94,7 @@ METHOD HIPedit:Value(aValue)
 
 METHOD HIPedit:Clear()
    hwg_Clearipaddress(::handle)
-   ::aValue := { 0, 0, 0, 0 }
+   ::aValue := {0, 0, 0, 0}
    RETURN (::aValue)
 
 

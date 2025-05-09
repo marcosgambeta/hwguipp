@@ -64,7 +64,7 @@ FUNCTION getNextVar(stroka, varValue)
 
 FUNCTION FIND_Z(stroka, symb)
 
-   LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0, 0 }
+   LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := {0, 0, 0, 0, 0, 0, 0, 0}
 
    symb := IIf(symb == NIL, ",", symb)
    DO WHILE .T.

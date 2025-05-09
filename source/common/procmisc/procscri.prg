@@ -98,7 +98,7 @@ RETURN aScr
 FUNCTION RdScript(scrSource, strbuf, poz, lppNoInit, cTitle)
 
 LOCAL han
-LOCAL rezArray := IIf(s_lDebugInfo, { "", {}, {} }, { "", {} })
+LOCAL rezArray := IIf(s_lDebugInfo, {"", {}, {}}, {"", {}})
 
    IF lppNoInit == NIL
       lppNoInit := .F.

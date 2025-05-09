@@ -258,7 +258,7 @@ METHOD HPanelStS:New(oWndParent, nId, nHeight, oFont, bInit, bPaint, bcolor, oSt
    IF !Empty(aParts)
       ::aParts := aParts
    ELSE
-      ::aParts := { 0 }
+      ::aParts := {0}
    ENDIF
    ::aText := Array(Len(::aParts))
    AFill(::aText, "")
@@ -320,7 +320,7 @@ METHOD HPanelStS:Paint()
       aCoors := hwg_Getclientrect(::handle)
       Eval(block, Self, hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4])
    ELSEIF Empty(::oStyle)
-      ::oStyle := HStyle():New({ ::bColor }, 1, NIL, 0.4, 0)
+      ::oStyle := HStyle():New({::bColor}, 1, NIL, 0.4, 0)
    ENDIF
    ::oStyle:Draw(hDC, 0, 0, ::nWidth, ::nHeight)
    ::PaintText(hDC)

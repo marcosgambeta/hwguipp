@@ -70,7 +70,7 @@ FUNCTION hwg_ColorN2RGB(nColor, nr, ng, nb)
    ng := Int(nColor/256) % 256
    nb := Int(nColor/65536)
 
-   RETURN { nr, ng, nb }
+   RETURN {nr, ng, nb}
 
 FUNCTION hwg_MsgGet(cTitle, cText, nStyle, nX, nY, nDlgStyle, cRes)
 

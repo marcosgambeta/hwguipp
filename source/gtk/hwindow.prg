@@ -257,9 +257,7 @@ CLASS HMainWindow INHERIT HWindow
       {|o, w, l|hwg_onMove(o, w, l)},       ;
       {|o, w, l|hwg_onWndSize(o, w, l)},    ;
       {|o|hwg_ReleaseAllWindows(o:handle)}, ;
-      {|o|onDestroy(o)}                 ;
-      } ;
-      }
+      {|o|onDestroy(o)}}}
 
    DATA nMenuPos
    DATA oNotifyIcon

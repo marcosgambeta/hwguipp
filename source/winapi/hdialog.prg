@@ -544,7 +544,7 @@ FUNCTION hwg_PropertySheet(hParentWindow, aPages, cTitle, x1, y1, width, height,
          aTemplates[i] := hwg_Createdlgtemplate(aPages[i], x1, y1, width, height, WS_CHILD + WS_VISIBLE + WS_BORDER)
          aHandles[i] := hwg__createpropertysheetpage(aPages[i], aTemplates[i])
       ENDIF
-      s_aSheet[i] := { aHandles[i], aPages[i] }
+      s_aSheet[i] := {aHandles[i], aPages[i]}
    NEXT
    hSheet := hwg__propertysheet(hParentWindow, aHandles, Len(aHandles), cTitle, lModeless, lNoApply, lWizard)
    FOR i := 1 TO Len(aPages)

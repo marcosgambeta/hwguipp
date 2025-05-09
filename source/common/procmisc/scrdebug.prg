@@ -80,7 +80,7 @@ FUNCTION hwg_scrDebug(aScript, iscr)
       s_oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),IIf(o:nCurrent == s_i_scr,">",IIf(s_aBreakPoints != NIL.AND.Ascan(s_aBreakPoints[2],s_oBrwScript:nCurrent)!=0,"*"," "))},"C", 1, 0))
 #else
       s_oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),IIf(o:nCurrent == s_i_scr, 1,IIf(s_aBreakPoints != NIL.AND.Ascan(s_aBreakPoints[2],s_oBrwScript:nCurrent)!=0, 2, 0))},"N", 1, 0))
-      s_oBrwScript:aColumns[1]:aBitmaps := { { {|n|n == 1},s_oBmpCurr },{ {|n|n == 2},s_oBmpPoint } }
+      s_oBrwScript:aColumns[1]:aBitmaps := {{{|n|n == 1},s_oBmpCurr},{{|n|n == 2},s_oBmpPoint}}
 #endif
       s_oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),Left(o:aArray[o:nCurrent], 4)},"C", 4, 0))
       s_oBrwScript:AddColumn(HColumn():New("",{|v,o|HB_SYMBOL_UNUSED(v),Substr(o:aArray[o:nCurrent], 6)},"C", 80, 0))
@@ -177,7 +177,7 @@ Static Function AddBreakPoint
 Local i
 
    IF s_aBreakPoints == NIL
-      s_aBreakPoints := { s_aScriptCurr[4], {} }
+      s_aBreakPoints := {s_aScriptCurr[4], {}}
    ENDIF
    IF (i := Ascan(s_aBreakPoints[2],s_oBrwScript:nCurrent)) == 0
       FOR i := 1 TO Len(s_aBreakPoints[2])

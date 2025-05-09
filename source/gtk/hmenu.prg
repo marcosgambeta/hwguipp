@@ -16,11 +16,11 @@
 
 STATIC s__aMenuDef, s__oWnd, s__aAccel, s__nLevel, s__Id, s__oMenu, s__oBitmap, s__lContext, s_hLast
 /*
-STATIC aKeysTable := { { VK_F1,GDK_F1 }, { VK_F2,GDK_F2 }, { VK_F3,GDK_F3 }, ;
-      { VK_F4, GDK_F4 }, { VK_F5, GDK_F5 }, { VK_F6, GDK_F6 }, { VK_F7, GDK_F7 }, ;
-      { VK_F8, GDK_F8 }, { VK_F9, GDK_F9 }, { VK_F10, GDK_F10 }, { VK_F11, GDK_F11 }, ;
-      { VK_F12, GDK_F12 }, { VK_HOME, GDK_Home }, { VK_LEFT, GDK_Left }, { VK_END, GDK_End }, ;
-      { VK_RIGHT, GDK_Right }, { VK_DOWN, GDK_Down }, { VK_UP, GDK_Up } }
+STATIC aKeysTable := {{VK_F1,GDK_F1}, {VK_F2,GDK_F2}, {VK_F3,GDK_F3}, ;
+      {VK_F4, GDK_F4}, {VK_F5, GDK_F5}, {VK_F6, GDK_F6}, {VK_F7, GDK_F7}, ;
+      {VK_F8, GDK_F8}, {VK_F9, GDK_F9}, {VK_F10, GDK_F10}, {VK_F11, GDK_F11}, ;
+      {VK_F12, GDK_F12}, {VK_HOME, GDK_Home}, {VK_LEFT, GDK_Left}, {VK_END, GDK_End}, ;
+      {VK_RIGHT, GDK_Right}, {VK_DOWN, GDK_Down}, {VK_UP, GDK_Up}}
 */
 CLASS HMenu INHERIT HObject
 
@@ -52,7 +52,7 @@ FUNCTION Hwg_CreateMenu
       RETURN NIL
    ENDIF
 
-   RETURN { {}, NIL, NIL, hMenu }
+   RETURN {{}, NIL, NIL, hMenu}
 
 FUNCTION Hwg_SetMenu(oWnd, aMenu)
 
@@ -97,9 +97,9 @@ FUNCTION Hwg_AddMenuItem(aMenu, cItem, nMenuId, lSubMenu, bItem, nPos, hWnd)
       AAdd(aMenu[1], NIL)
       AIns(aMenu[1], nPos)
       IF Empty(lSubmenu)
-         aMenu[1, nPos] := { bItem, cItem, nMenuId, 0, hSubMenu }
+         aMenu[1, nPos] := {bItem, cItem, nMenuId, 0, hSubMenu}
       ELSE
-         aMenu[1, nPos] := { {}, cItem, nMenuId, 0, hSubMenu }
+         aMenu[1, nPos] := {{}, cItem, nMenuId, 0, hSubMenu}
       ENDIF
       RETURN aMenu[1, nPos]
    ENDIF
@@ -146,7 +146,7 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
       ELSE
          hMenu := hwg__CreatePopupMenu()
       ENDIF
-      aMenu := { aMenuInit, NIL, NIL, NIL, hMenu }
+      aMenu := {aMenuInit, NIL, NIL, NIL, hMenu}
    ELSE
       hMenu := aMenuInit[5]
       nPos := Len(aMenuInit[1])

@@ -79,11 +79,11 @@ ENDCLASS
 
 METHOD PrintDos:New(oPorta)
 
-   LOCAL oDouble := { oMATRIXDOUBLE, oINKJETDOUBLE, oLASER10CPI }
-   LOCAL oNormal := { oMATRIXNORMAL, oINKJETNORMAL, oLASER12CPI }
-   LOCAL oCompress := { oMATRIXCOMPRESS, oINKJETCOMPRESS, oLASER18CPI }
-   LOCAL oBold := { oMATRIXBOLD, oINKJETBOLD, oLASERBOLD }       //Added by  por Fernando Athayde
-   LOCAL oUnBold := { oMATRIXUNBOLD, oINKJETUNBOLD, oLASERUNBOLD }       //Added by  por Fernando Athayde
+   LOCAL oDouble := {oMATRIXDOUBLE, oINKJETDOUBLE, oLASER10CPI}
+   LOCAL oNormal := {oMATRIXNORMAL, oINKJETNORMAL, oLASER12CPI}
+   LOCAL oCompress := {oMATRIXCOMPRESS, oINKJETCOMPRESS, oLASER18CPI}
+   LOCAL oBold := {oMATRIXBOLD, oINKJETBOLD, oLASERBOLD}       //Added by  por Fernando Athayde
+   LOCAL oUnBold := {oMATRIXUNBOLD, oINKJETUNBOLD, oLASERUNBOLD}       //Added by  por Fernando Athayde
    LOCAL oPtrSetup
    LOCAL oPtrName
 
@@ -456,7 +456,7 @@ METHOD PrintDos:Preview(fName, cTitle)
    LOCAL oPage := 1
    LOCAL nPage := 1
    LOCAL oFont := HFont():Add("Courier New", 0, -13)
-   LOCAL oText := { "" }
+   LOCAL oText := {""}
    LOCAL oDlg
    LOCAL oColor1
    LOCAL oColor2

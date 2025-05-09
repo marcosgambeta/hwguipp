@@ -80,7 +80,7 @@
 #define CSTACK_STATICS          6  // an array with static variables
 
 /* Information structure stored in aCallStack[n][CSTACK_LOCALS]
-   { cLocalName, nLocalIndex, "Local", ProcName(1), nLevel } */
+   {cLocalName, nLocalIndex, "Local", ProcName(1), nLevel} */
 #define VAR_NAME                1
 #define VAR_POS                 2
 #define VAR_TYPE                3
@@ -482,7 +482,7 @@ METHOD HBDebugger:LoadCallStack()
          // a procedure with debug info
          ::aProcStack[i - nDebugLevel + 1] := ::aCallStack[nPos]
       ELSE
-         ::aProcStack[i - nDebugLevel + 1] := { , ProcName(i) + "(" + hb_ntos(ProcLine(i)) + ")", , nLevel, , }
+         ::aProcStack[i - nDebugLevel + 1] := {, ProcName(i) + "(" + hb_ntos(ProcLine(i)) + ")", , nLevel, ,}
       ENDIF
    NEXT
 
@@ -800,7 +800,7 @@ STATIC FUNCTION SendRec(cAlias)
    ENDIF
    i := Select(cAlias)
    IF Empty(cAlias) .OR.  i == 0
-      RETURN { "0", "", "0" }
+      RETURN {"0", "", "0"}
    ENDIF
    af := (cAlias)->(dbStruct())
    nCount := Len(af)
@@ -855,7 +855,7 @@ STATIC FUNCTION SendObject(cObjName)
       NEXT
 
    ELSE
-      RETURN { "0" }
+      RETURN {"0"}
    ENDIF
 
 RETURN arr
@@ -886,7 +886,7 @@ STATIC FUNCTION SendArray(cArrName, nFirst, nCount)
          ENDIF
       NEXT
    ELSE
-      RETURN { "0", "0", "0" }
+      RETURN {"0", "0", "0"}
    ENDIF
 
 RETURN arr

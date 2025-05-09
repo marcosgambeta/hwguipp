@@ -136,7 +136,7 @@ CLASS HCEdit INHERIT HControl
    DATA aWrap, nLinesAll
    DATA nDocFormat INIT 0
    DATA nDocOrient INIT 0
-   DATA aDocMargins INIT { 10, 10, 10, 10 }
+   DATA aDocMargins INIT {10, 10, 10, 10}
    DATA nKoeffScr
 
    DATA lShowNumbers INIT .F.
@@ -1060,7 +1060,7 @@ METHOD HCEdit:SetText(xText, cPageIn, cPageOut)
    ::nLines := ::nShiftL := 0
 
    IF Empty(xText)
-      ::aText := { "" }
+      ::aText := {""}
    ELSEIF hb_IsArray(xText)
       ::aText := xText
    ELSE
@@ -2477,7 +2477,7 @@ METHOD HCEdit:Undo(nLine1, nPos1, nLine2, nPos2, nOper, cText)
    ENDIF
    IF PCount() >= 5
       IF nUndo == 0
-         ::aUndo := { { nLine1, nPos1, nLine2, nPos2, nOper, IIf(nOper>1,cText,NIL) } }
+         ::aUndo := {{nLine1, nPos1, nLine2, nPos2, nOper, IIf(nOper>1,cText,NIL)}}
          RETURN NIL
       ELSE
          IF       ::aUndo[nUndo, UNDO_OPER] == nOper ;
@@ -2504,7 +2504,7 @@ METHOD HCEdit:Undo(nLine1, nPos1, nLine2, nPos2, nOper, cText)
                Aadd(::aUndo, NIL)
                nUndo ++
             ENDIF
-            ::aUndo[nUndo] := { nLine1, nPos1, nLine2, nPos2, nOper, IIf(nOper>1,cText,NIL) }
+            ::aUndo[nUndo] := {nLine1, nPos1, nLine2, nPos2, nOper, IIf(nOper>1,cText,NIL)}
          ENDIF
       ENDIF
    ELSEIF PCount() == 0 .AND. nUndo > 0

@@ -158,8 +158,8 @@ CLASS HBrowse INHERIT HControl
    DATA sepColor INIT 12632256               // Separators color
    DATA oPenSep, oPenHdr, oPen3d
    DATA lSep3d INIT .F.
-   DATA aPadding INIT { 4, 2, 4, 2 }
-   DATA aHeadPadding INIT { 4, 0, 4, 0 }
+   DATA aPadding INIT {4, 2, 4, 2}
+   DATA aHeadPadding INIT {4, 0, 4, 0}
    DATA lInFocus INIT .F.                    // Set focus in :Paint()
    DATA varbuf                                 // Used on Edit()
    DATA tcolorSel, bcolorSel, brushSel, htbColor, httColor // Hilite Text Back Color
@@ -2311,7 +2311,7 @@ FUNCTION hwg_getPaintCB(arr, nId)
                RETURN arr[i, 3]
             ELSE
                IF aRes == NIL
-                  aRes := { arr[i, 3] }
+                  aRes := {arr[i, 3]}
                ELSE
                   AAdd(aRes, arr[i, 3])
                ENDIF

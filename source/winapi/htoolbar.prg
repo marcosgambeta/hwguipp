@@ -342,7 +342,7 @@ METHOD hToolBar:AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, 
    IF !::lResource
       AAdd(::aItem, {nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, oButton})
    ELSE
-      ::aItem[nIndex] := { nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, oButton }
+      ::aItem[nIndex] := {nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, oButton}
    ENDIF
 
    RETURN oButton

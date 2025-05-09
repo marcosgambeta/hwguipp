@@ -15,8 +15,7 @@ STATIC s_crlf := e"\r\n"
 
 CLASS HPrinter INHERIT HObject
 
-   CLASS VAR aPaper INIT { { "A3", 297, 420 }, { "A4", 210, 297 }, { "A5", 148, 210 }, ;
-      { "A6", 105, 148 } }
+   CLASS VAR aPaper INIT {{"A3", 297, 420}, {"A4", 210, 297}, {"A5", 148, 210}, {"A6", 105, 148}}
 
    DATA hDCPrn INIT 0
    DATA hDC

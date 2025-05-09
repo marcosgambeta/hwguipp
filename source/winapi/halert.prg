@@ -79,7 +79,7 @@ CLASS HAlert
    PROTECT nFontSize AS NUMERIC INIT 8
    PROTECT nCharSet AS NUMERIC INIT 0
    PROTECT nIcon AS NUMERIC INIT IDI_INFORMATION           // Feel free to use your own
-   PROTECT acOptions AS ARRAY INIT { "OK" }
+   PROTECT acOptions AS ARRAY INIT {"OK"}
    PROTECT abOptionActions                                 // Can be NIL, so no types
    PROTECT nAlign AS NUMERIC INIT SS_CENTER                // MessageBox is SS_LEFT
    PROTECT lModal AS LOGIC INIT .T.
@@ -217,7 +217,7 @@ METHOD HAlert:ResetVars()
    ::FontSize := 8
    ::nCharSet := 0
    ::Icon := IDI_INFORMATION        // Feel free to use your own
-   ::Options := { "OK" }
+   ::Options := {"OK"}
    ::OptionActions := NIL
    ::Align := SS_CENTER             // MessageBox is actually SS_LEFT
    ::Modal := .T.

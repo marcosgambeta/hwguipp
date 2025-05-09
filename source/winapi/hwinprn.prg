@@ -211,7 +211,7 @@ METHOD HWinPrn:SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMa
 #else
    LOCAL cFont := "Lucida Console"
 #endif
-   LOCAL aKoef := { 1, 1.22, 1.71, 2 }
+   LOCAL aKoef := {1, 1.22, 1.71, 2}
    LOCAL nMode := 0
    LOCAL oFont
    LOCAL nWidth
@@ -574,21 +574,21 @@ METHOD HWinPrn:PrintText(cText)
 
 METHOD HWinPrn:PutCode(cLine)
    
-   STATIC aCodes := {   ;
-          { Chr(27) + "@", .F., .F., 6, .F., .F., .F. }, ;     /* Reset */
-          { Chr(27) + "M", .T., NIL, NIL, NIL, NIL, NIL }, ;     /* Elite */
-          { Chr(15), NIL, .T., NIL, NIL, NIL, NIL }, ;     /* Cond */
-          { Chr(18), NIL, .F., NIL, NIL, NIL, NIL }, ;     /* Cancel Cond */
-          { Chr(27) + "0", NIL, NIL, 8, NIL, NIL, NIL }, ;     /* 8 lines per inch */
-          { Chr(27) + "2", NIL, NIL, 6, NIL, NIL, NIL }, ;     /* 6 lines per inch ( standard ) */
-          { Chr(27) + "-1", NIL, NIL, NIL, NIL, NIL, .T. }, ;     /* underline */
-          { Chr(27) + "-0", NIL, NIL, NIL, NIL, NIL, .F. }, ;     /* cancel underline */
-          { Chr(27) + "4", NIL, NIL, NIL, NIL, .T., NIL }, ;     /* italic */
-          { Chr(27) + "5", NIL, NIL, NIL, NIL, .F., NIL }, ;     /* cancel italic */
-          { Chr(27) + "G", NIL, NIL, NIL, .T., NIL, NIL }, ;     /* bold */
-          { Chr(27) + "H", NIL, NIL, NIL, .F., NIL, NIL } ;     /* cancel bold */
+   STATIC aCodes := { ;
+          {Chr(27) + "@", .F., .F., 6, .F., .F., .F.}, ;     /* Reset */
+          {Chr(27) + "M", .T., NIL, NIL, NIL, NIL, NIL}, ;     /* Elite */
+          {Chr(15), NIL, .T., NIL, NIL, NIL, NIL}, ;     /* Cond */
+          {Chr(18), NIL, .F., NIL, NIL, NIL, NIL}, ;     /* Cancel Cond */
+          {Chr(27) + "0", NIL, NIL, 8, NIL, NIL, NIL}, ;     /* 8 lines per inch */
+          {Chr(27) + "2", NIL, NIL, 6, NIL, NIL, NIL}, ;     /* 6 lines per inch ( standard ) */
+          {Chr(27) + "-1", NIL, NIL, NIL, NIL, NIL, .T.}, ;     /* underline */
+          {Chr(27) + "-0", NIL, NIL, NIL, NIL, NIL, .F.}, ;     /* cancel underline */
+          {Chr(27) + "4", NIL, NIL, NIL, NIL, .T., NIL}, ;     /* italic */
+          {Chr(27) + "5", NIL, NIL, NIL, NIL, .F., NIL}, ;     /* cancel italic */
+          {Chr(27) + "G", NIL, NIL, NIL, .T., NIL, NIL}, ;     /* bold */
+          {Chr(27) + "H", NIL, NIL, NIL, .F., NIL, NIL} ;     /* cancel bold */
         }
-   
+
    LOCAL i
    LOCAL sLen := Len(aCodes)
    LOCAL c := Left(cLine, 1)
