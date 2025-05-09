@@ -33,15 +33,15 @@ CLASS HStaticLink FROM HSTATIC
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
    METHOD Activate()
    METHOD Init()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD GoToLinkUrl(csLink)
    METHOD SetLinkUrl(csUrl)
    METHOD GetLinkUrl()
-   METHOD SetVisitedColor( sVisitedColor )
-   METHOD SetHoverColor( cHoverColor )
+   METHOD SetVisitedColor(sVisitedColor)
+   METHOD SetHoverColor(cHoverColor)
    METHOD SetFireChild(lFlag) INLINE ::m_bFireChild := lFlag
    METHOD OnClicked()
-   METHOD SetLinkColor( sLinkColor )
+   METHOD SetLinkColor(sLinkColor)
    METHOD Paint()
    METHOD OnMouseMove(wParam)
 
@@ -54,14 +54,14 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp)
 
-   DEFAULT vColor TO hwg_ColorRgb2N( 5, 34, 143 )
-   DEFAULT lColor TO hwg_ColorRgb2N( 0, 0, 255 )
-   DEFAULT hColor TO hwg_ColorRgb2N( 255, 0, 0 )
+   DEFAULT vColor TO hwg_ColorRgb2N(5, 34, 143)
+   DEFAULT lColor TO hwg_ColorRgb2N(0, 0, 255)
+   DEFAULT hColor TO hwg_ColorRgb2N(255, 0, 0)
    ::m_csUrl := cLink
    ::m_sHoverColor := hColor
    ::m_sLinkColor := lColor
    ::m_sVisitedColor := vColor
-   ::m_hHyperCursor := hwg_Loadcursor( GDK_HAND2 )
+   ::m_hHyperCursor := hwg_Loadcursor(GDK_HAND2)
 
    ::state := LBL_INIT
    ::title := IIf(cCaption == NIL, "", cCaption)
@@ -81,13 +81,13 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
    ENDIF
 
    IF (n := hb_bitand(::style, SS_TYPEMASK)) == SS_RIGHT
-      ::dwFlags := hb_bitor( DT_RIGHT, DT_WORDBREAK )
+      ::dwFlags := hb_bitor(DT_RIGHT, DT_WORDBREAK)
    ELSEIF n == SS_CENTER
-      ::dwFlags := hb_bitor( SS_CENTER, DT_WORDBREAK )
+      ::dwFlags := hb_bitor(SS_CENTER, DT_WORDBREAK)
    ELSEIF n == SS_LEFTNOWORDWRAP
       ::dwFlags := DT_LEFT
    ELSE
-      ::dwFlags := hb_bitor( DT_LEFT, DT_WORDBREAK )
+      ::dwFlags := hb_bitor(DT_LEFT, DT_WORDBREAK)
    ENDIF
 
    ::Activate()
@@ -112,7 +112,7 @@ METHOD HStaticLink:Init()
 
    RETURN NIL
 
-METHOD HStaticLink:onEvent( msg, wParam, lParam )
+METHOD HStaticLink:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(lParam)
 
@@ -144,13 +144,13 @@ METHOD HStaticLink:GetLinkUrl()
 
    RETURN ::m_csUrl
 
-METHOD HStaticLink:SetVisitedColor( sVisitedColor )
+METHOD HStaticLink:SetVisitedColor(sVisitedColor)
 
    ::m_sVisitedColor := sVisitedColor
 
    RETURN NIL
 
-METHOD HStaticLink:SetHoverColor( cHoverColor )
+METHOD HStaticLink:SetHoverColor(cHoverColor)
 
    ::m_sHoverColor := cHoverColor
 
@@ -171,7 +171,7 @@ METHOD HStaticLink:OnClicked()
 
    RETURN NIL
 
-METHOD HStaticLink:SetLinkColor( sLinkColor )
+METHOD HStaticLink:SetLinkColor(sLinkColor)
 
    ::m_sLinkColor := sLinkColor
 

@@ -16,7 +16,7 @@ FUNCTION hwg_EndWindow()
 
    RETURN NIL
 
-FUNCTION hwg_ColorC2N( cColor )
+FUNCTION hwg_ColorC2N(cColor)
 
    LOCAL i
    LOCAL res := 0
@@ -57,8 +57,8 @@ FUNCTION hwg_ColorN2C(nColor)
    LOCAL i
 
    FOR i := 0 to 2
-      n1 := hb_BitAnd(hb_BitShift( nColor,-i*8-4 ), 15)
-      n2 := hb_BitAnd(hb_BitShift( nColor,-i*8 ), 15)
+      n1 := hb_BitAnd(hb_BitShift(nColor,-i*8-4), 15)
+      n2 := hb_BitAnd(hb_BitShift(nColor,-i*8), 15)
       s += Chr(IIf(n1 < 10, n1 + 48, n1 + 55)) + Chr(IIf(n2 < 10, n2 + 48, n2 + 55))
    NEXT
 
@@ -67,8 +67,8 @@ FUNCTION hwg_ColorN2C(nColor)
 FUNCTION hwg_ColorN2RGB(nColor, nr, ng, nb)
 
    nr := nColor % 256
-   ng := Int( nColor/256 ) % 256
-   nb := Int( nColor/65536 )
+   ng := Int(nColor/256) % 256
+   nb := Int(nColor/65536)
 
    RETURN { nr, ng, nb }
 
@@ -150,11 +150,11 @@ FUNCTION hwg_WChoice(arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, c
 
    IF HB_ISARRAY(arr[1])
       FOR i := 1 TO aLen
-         nLen := Max( nLen, Len(arr[i, 1]) )
+         nLen := Max(nLen, Len(arr[i, 1]))
       NEXT
    ELSE
       FOR i := 1 TO aLen
-         nLen := Max( nLen, Len(arr[i]) )
+         nLen := Max(nLen, Len(arr[i]))
       NEXT
    ENDIF
 
@@ -165,10 +165,10 @@ FUNCTION hwg_WChoice(arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, c
    height := ( aMetr[1] + 5 ) * aLen + 4 + addY
    screenh := hwg_Getdesktopheight()
    IF height > screenh * 2/3
-      height := Int( screenh * 2/3 )
+      height := Int(screenh * 2/3)
       addX := addY := 0
    ENDIF
-   width := Max( minWidth, aMetr[2] * 2 * nLen + addX )
+   width := Max(minWidth, aMetr[2] * 2 * nLen + addX)
 
    INIT DIALOG oDlg TITLE cTitle AT nX, nY SIZE width, height FONT oFont
 
@@ -181,7 +181,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, c
    ELSE
       oBrw:AddColumn(HColumn():New(NIL, {|value, o|HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent]}, "C", nLen))
    ENDIF
-   hwg_CREATEARLIST( oBrw, arr )
+   hwg_CREATEARLIST(oBrw, arr)
    oBrw:lDispHead := .F.
    IF clrT != NIL
       oBrw:tcolor := clrT
@@ -197,7 +197,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, c
    ENDIF
 
    IF cOk != NIL
-      x1 := Int( width/2 ) - IIf(cCancel != NIL, 90, 40)
+      x1 := Int(width/2) - IIf(cCancel != NIL, 90, 40)
       @ x1, height - 36 BUTTON cOk SIZE 80, 30 ;
             ON CLICK {||nChoice := oBrw:nCurrent, hwg_EndDialog(oDlg:handle)} ;
             ON SIZE ANCHOR_BOTTOMABS
@@ -215,13 +215,13 @@ FUNCTION hwg_WChoice(arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, c
 
    RETURN nChoice
 
-FUNCTION hwg_RefreshAllGets( oDlg )
+FUNCTION hwg_RefreshAllGets(oDlg)
 
    AEval(oDlg:GetList, {|o|o:Refresh()})
 
    RETURN NIL
 
-FUNCTION HWG_Version( n )
+FUNCTION HWG_Version(n)
 
    IF !Empty(n)
       SWITCH n
@@ -234,32 +234,32 @@ FUNCTION HWG_Version( n )
 
    RETURN "HWGUI++ " + HWG_VERSION // + " Build " + LTrim(Str(HWG_BUILD))
 
-FUNCTION hwg_WriteStatus( oWnd, nPart, cText )
+FUNCTION hwg_WriteStatus(oWnd, nPart, cText)
 
    LOCAL aControls
    LOCAL i
 
    aControls := oWnd:aControls
-   IF ( i := Ascan( aControls, {|o|o:ClassName() == "HSTATUS"} ) ) > 0
-      hwg_Writestatuswindow( aControls[i]:handle, 0, cText )
-   ELSEIF ( i := Ascan( aControls, {|o|o:ClassName() = "HPANELSTS"} ) ) > 0
+   IF ( i := Ascan(aControls, {|o|o:ClassName() == "HSTATUS"}) ) > 0
+      hwg_Writestatuswindow(aControls[i]:handle, 0, cText)
+   ELSEIF ( i := Ascan(aControls, {|o|o:ClassName() = "HPANELSTS"}) ) > 0
       aControls[i]:Write(cText, nPart)
    ENDIF
 
    RETURN NIL
 
-FUNCTION hwg_FindParent( hCtrl, nLevel )
+FUNCTION hwg_FindParent(hCtrl, nLevel)
 
    LOCAL i
    LOCAL oParent
-   LOCAL hParent := hwg_Getparent( hCtrl )
+   LOCAL hParent := hwg_Getparent(hCtrl)
 
    IF hParent > 0
-      IF ( i := Ascan( HDialog():aModalDialogs,{|o|o:handle == hParent} ) ) != 0
+      IF ( i := Ascan(HDialog():aModalDialogs,{|o|o:handle == hParent}) ) != 0
          RETURN HDialog():aModalDialogs[i]
       ELSEIF ( oParent := HDialog():FindDialog(hParent) ) != NIL
          RETURN oParent
-      ELSEIF ( oParent := HWindow():FindWindow( hParent ) ) != NIL
+      ELSEIF ( oParent := HWindow():FindWindow(hParent) ) != NIL
          RETURN oParent
       ENDIF
    ENDIF
@@ -267,7 +267,7 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
       nLevel := 0
    ENDIF
    IF nLevel < 2
-      IF ( oParent := hwg_FindParent( hParent,nLevel + 1 ) ) != NIL
+      IF ( oParent := hwg_FindParent(hParent,nLevel + 1) ) != NIL
          RETURN oParent:FindControl(NIL, hParent)
       ENDIF
    ENDIF
@@ -278,7 +278,7 @@ FUNCTION hwg_FindSelf(hCtrl)
 
    LOCAL oParent
 
-   oParent := hwg_FindParent( hCtrl )
+   oParent := hwg_FindParent(hCtrl)
    IF oParent != NIL
       RETURN oParent:FindControl(NIL, hCtrl)
    ENDIF
@@ -293,7 +293,7 @@ FUNCTION hwg_getParentForm(o)
 
 FUNCTION HWG_ISWINDOWVISIBLE(handle)
 
-   LOCAL o := hwg_GetWindowObject( handle )
+   LOCAL o := hwg_GetWindowObject(handle)
 
    IF o != NIL .AND. o:lHide
       RETURN .F.

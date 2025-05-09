@@ -97,9 +97,9 @@ FUNCTION Hwg_WriteIni(rubrique, param, value , inifile)
          newcontent += txt + Chr(10)
       ENDCASE
    next
-   IF Right( newcontent, 2 ) == Chr(10) + Chr(10)
+   IF Right(newcontent, 2) == Chr(10) + Chr(10)
       newcontent := Left(newcontent, Len(newcontent) - 2)
    ENDIF
-   hb_memowrit( inifile, newcontent, .F. )
+   hb_memowrit(inifile, newcontent, .F.)
 
    RETURN NIL

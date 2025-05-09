@@ -23,7 +23,7 @@ CLASS HTab INHERIT HControl
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus)
    METHOD Activate()
    METHOD Init()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD SetTab(n)
    METHOD StartPage(cname)
    METHOD EndPage()
@@ -35,8 +35,8 @@ CLASS HTab INHERIT HControl
 
 ENDCLASS
 
-METHOD HTab:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus  )
+METHOD HTab:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
+      oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus)
 
    // Variables not used
    // LOCAL i, aBmpSize
@@ -45,8 +45,8 @@ METHOD HTab:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, ;
    HB_SYMBOL_UNUSED(lResour)
    HB_SYMBOL_UNUSED(nBC)
 
-   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint )
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
+      bSize, bPaint)
 
    ::title := ""
    ::oFont := IIf(oFont == NIL, ::oParent:oFont, oFont)
@@ -90,7 +90,7 @@ METHOD HTab:Init()
 
    RETURN NIL
 
-METHOD HTab:onEvent( msg, wParam, lParam )
+METHOD HTab:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(lParam)
 

@@ -17,15 +17,15 @@ CLASS HButton INHERIT HControl
 
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
-   METHOD SetText( value ) INLINE hwg_button_SetText(::handle, ::title := value)
+   METHOD onEvent(msg, wParam, lParam)
+   METHOD SetText(value) INLINE hwg_button_SetText(::handle, ::title := value)
    METHOD GetText() INLINE hwg_button_GetText(::handle)
 
 ENDCLASS
 
 METHOD HButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor)
 
-   nStyle := hb_bitor( IIf(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON )
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, IIf(nWidth == NIL, 90, nWidth), IIf(nHeight == NIL, 30, nHeight), oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
 
    ::title := cCaption
@@ -51,7 +51,7 @@ METHOD HButton:Activate()
 
    RETURN NIL
 
-METHOD HButton:onEvent( msg, wParam, lParam )
+METHOD HButton:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)

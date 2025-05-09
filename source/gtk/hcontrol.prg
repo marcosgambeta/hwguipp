@@ -48,7 +48,7 @@ CLASS HControl INHERIT HCustomWindow
 
    METHOD Setfocus() INLINE hwg_SetFocus(::handle)
    METHOD Move(x1, y1, width, height, lMoveParent)
-   METHOD onAnchor( x, y, w, h )
+   METHOD onAnchor(x, y, w, h)
    METHOD End()
 
 ENDCLASS
@@ -57,7 +57,7 @@ METHOD HControl:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bIn
 
    ::oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
    ::id := IIf(nId == NIL, ::NewId(), nId)
-   ::style := hb_bitor( IIf(nStyle == NIL, 0,nStyle ), WS_VISIBLE + WS_CHILD)
+   ::style := hb_bitor(IIf(nStyle == NIL, 0,nStyle ), WS_VISIBLE + WS_CHILD)
    ::oFont := oFont
    ::nX := nX
    ::nY := nY
@@ -104,7 +104,7 @@ METHOD HControl:INIT()
 
       IF ( o := hwg_getParentForm(Self) ) != NIL .AND. o:lActivated
          hwg_ShowAll(o:handle)
-         hwg_HideHidden( o )
+         hwg_HideHidden(o)
       ENDIF
       ::lInit := .T.
    ENDIF
@@ -173,7 +173,7 @@ METHOD HControl:End()
 
    RETURN NIL
 
-METHOD HControl:onAnchor( x, y, w, h )
+METHOD HControl:onAnchor(x, y, w, h)
    
    LOCAL nAnchor
    LOCAL nXincRelative
@@ -209,54 +209,54 @@ METHOD HControl:onAnchor( x, y, w, h )
    IF nAnchor >= ANCHOR_VERTFIX
       //- vertical fixed center
       nAnchor := nAnchor - ANCHOR_VERTFIX
-      y1 := y9 + Int( ( h - y ) * ( ( y9 + h9 / 2 ) / y ) )
+      y1 := y9 + Int((h - y) * ((y9 + h9 / 2) / y))
    ENDIF
    IF nAnchor >= ANCHOR_HORFIX
       //- horizontal fixed center
       nAnchor := nAnchor - ANCHOR_HORFIX
-      x1 := x9 + Int( ( w - x ) * ( ( x9 + w9 / 2 ) / x ) )
+      x1 := x9 + Int((w - x) * ((x9 + w9 / 2) / x))
    ENDIF
    IF nAnchor >= ANCHOR_RIGHTREL
       // relative - RIGHT RELATIVE
       nAnchor := nAnchor - ANCHOR_RIGHTREL
-      x1 := w - Int( ( x - x9 - w9 ) * nXincRelative ) - w9
+      x1 := w - Int((x - x9 - w9) * nXincRelative) - w9
    ENDIF
    IF nAnchor >= ANCHOR_BOTTOMREL
       // relative - BOTTOM RELATIVE
       nAnchor := nAnchor - ANCHOR_BOTTOMREL
-      y1 := h - Int( ( y - y9 - h9 ) * nYincRelative ) - h9
+      y1 := h - Int((y - y9 - h9) * nYincRelative) - h9
    ENDIF
    IF nAnchor >= ANCHOR_LEFTREL
       // relative - LEFT RELATIVE
       nAnchor := nAnchor - ANCHOR_LEFTREL
       IF x1 != x9
-         w1 := x1 - ( Int( x9 * nXincRelative ) ) + w9
+         w1 := x1 - (Int(x9 * nXincRelative)) + w9
       ENDIF
-      x1 := Int( x9 * nXincRelative )
+      x1 := Int(x9 * nXincRelative)
    ENDIF
    IF nAnchor >= ANCHOR_TOPREL
       // relative  - TOP RELATIVE
       nAnchor := nAnchor - ANCHOR_TOPREL
       IF y1 != y9
-         h1 := y1 - ( Int( y9 * nYincRelative ) ) + h9
+         h1 := y1 - (Int(y9 * nYincRelative)) + h9
       ENDIF
-      y1 := Int( y9 * nYincRelative )
+      y1 := Int(y9 * nYincRelative)
    ENDIF
    IF nAnchor >= ANCHOR_RIGHTABS
       // Absolute - RIGHT ABSOLUTE
       nAnchor := nAnchor - ANCHOR_RIGHTABS
       IF x1 != x9
-         w1 := x1 - ( x9 +  Int( nXincAbsolute ) ) + w9
+         w1 := x1 - (x9 +  Int(nXincAbsolute)) + w9
       ENDIF
-      x1 := x9 +  Int( nXincAbsolute )
+      x1 := x9 +  Int(nXincAbsolute)
    ENDIF
    IF nAnchor >= ANCHOR_BOTTOMABS
       // Absolute - BOTTOM ABSOLUTE
       nAnchor := nAnchor - ANCHOR_BOTTOMABS
       IF y1 != y9
-         h1 := y1 - ( y9 +  Int( nYincAbsolute ) ) + h9
+         h1 := y1 - (y9 +  Int(nYincAbsolute)) + h9
       ENDIF
-      y1 := y9 +  Int( nYincAbsolute )
+      y1 := y9 +  Int(nYincAbsolute)
    ENDIF
    IF nAnchor >= ANCHOR_LEFTABS
       // Absolute - LEFT ABSOLUTE

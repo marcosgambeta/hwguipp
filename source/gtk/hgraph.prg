@@ -42,7 +42,7 @@ CLASS HGraph INHERIT HControl
 
    METHOD New(oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD CalcMinMax()
    METHOD Paint()
    METHOD Rebuild(aValues, nType, nLineType, nPointSize)
@@ -51,9 +51,9 @@ ENDCLASS
 
 METHOD HGraph:New(oWndParent, nId, aValues, nX, nY, nWidth, nHeight, oFont, bSize, ctooltip, tcolor, bcolor)
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont, NIL, ;
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nX, nY, nWidth, nHeight, oFont, NIL, ;
       bSize, {|o, lpdis|o:Paint(lpdis)}, ctooltip, ;
-      IIf(tcolor == NIL, 0xFFFFFF, tcolor), IIf(bcolor == NIL, 0, bcolor) )
+      IIf(tcolor == NIL, 0xFFFFFF, tcolor), IIf(bcolor == NIL, 0, bcolor))
 
    ::aValues := aValues
    ::nType := 1
@@ -73,7 +73,7 @@ METHOD HGraph:Activate()
 
    RETURN NIL
 
-METHOD HGraph:onEvent( msg, wParam, lParam )
+METHOD HGraph:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
@@ -194,7 +194,7 @@ METHOD HGraph:Paint()
       ::oPen := HPen():Add(PS_SOLID, 2, ::tcolor)
    ENDIF
    IF ::nGraphs > 1 .AND. HB_ISARRAY(::aColors) .AND. ::aPens == NIL
-      ::aPens := Array( Len(::aColors) )
+      ::aPens := Array(Len(::aColors))
       FOR i := 1 TO Len(::aColors)
          ::aPens[i] := HPen():Add(PS_SOLID, 2, ::aColors[i])
       NEXT

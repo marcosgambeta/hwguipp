@@ -92,7 +92,7 @@ METHOD HBitmap:AddResource(name)
 
    // s_oResCnt (Static Memvar) is object of HBinC class
    IF !Empty(s_oResCnt)
-      IF !Empty(i := s_oResCnt:Get( name ))
+      IF !Empty(i := s_oResCnt:Get(name))
        // DF7BE:
        // Store bmp in a temporary file
        // (otherwise the bmp is not loadable)
@@ -105,7 +105,7 @@ METHOD HBitmap:AddResource(name)
    ENDIF
    
    /*
-   IF !Empty(s_oResCnt) .AND. !Empty(cVal := s_oResCnt:Get( name ))
+   IF !Empty(s_oResCnt) .AND. !Empty(cVal := s_oResCnt:Get(name))
       IF !Empty(oBmp := ::AddString(name, cVal))
           RETURN oBmp
       ENDIF
@@ -183,7 +183,7 @@ METHOD HBitmap:AddString(name, cVal)
       // Write image from binary container into temporary file
       // (as a bitmap file)
 
-//      hb_memowrit( cTmp := "/tmp/e" + Ltrim(Str(Int(Seconds()*100))), cVal )
+//      hb_memowrit(cTmp := "/tmp/e" + Ltrim(Str(Int(Seconds()*100))), cVal)
 //      DF7BE: Ready for multi platform use
        hb_memowrit(cTmp := hwg_CreateTempfileName(), cVal)
       ::handle := hwg_Openimage(cTmp)
@@ -217,7 +217,7 @@ METHOD HBitmap:AddStandard(cId, nSize)
       ENDIF
    NEXT
 
-   ::handle := hwg_StockBitmap( cId, nSize )
+   ::handle := hwg_StockBitmap(cId, nSize)
    IF Empty(::handle)
       RETURN NIL
    ENDIF
@@ -229,7 +229,7 @@ METHOD HBitmap:AddStandard(cId, nSize)
 
    RETURN Self
 
-METHOD HBitmap:AddWindow( oWnd, x1, y1, width, height )
+METHOD HBitmap:AddWindow(oWnd, x1, y1, width, height)
    
    LOCAL aBmpSize
    LOCAL handle := hwg_GetDrawing(oWnd:handle)
@@ -239,7 +239,7 @@ METHOD HBitmap:AddWindow( oWnd, x1, y1, width, height )
    IF x1 == NIL .OR. y1 == NIL
       x1 := 0; y1 := 0; width := oWnd:nWidth - 1; height := oWnd:nHeight - 1
    ENDIF
-   ::handle := hwg_Window2Bitmap( IIf(Empty(handle),oWnd:handle,handle),x1,y1,width,height )
+   ::handle := hwg_Window2Bitmap(IIf(Empty(handle),oWnd:handle,handle),x1,y1,width,height)
    ::name := LTrim(hb_valToStr(oWnd:handle))
    aBmpSize := hwg_Getbitmapsize(::handle)
    ::nWidth := aBmpSize[1]
@@ -333,7 +333,7 @@ METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
    NEXT
    // s_oResCnt (Static Memvar) is object of HBinC class
    IF !Empty(s_oResCnt)
-      IF !Empty(i := s_oResCnt:Get( name ))
+      IF !Empty(i := s_oResCnt:Get(name))
        // DF7BE:
        // Store icon in a temporary file
        // (otherwise the icon is not loadable)
@@ -373,7 +373,7 @@ METHOD HIcon:AddFile(name, nWidth, nHeight)
    NEXT
 
    name := AddPath(name, ::cPath)
-   IF Empty(hb_fNameExt( name ))
+   IF Empty(hb_fNameExt(name))
       name += ".png"
    ENDIF
    ::handle := hwg_Openimage(name)
@@ -484,17 +484,17 @@ FUNCTION hwg_aCompare(arr1, arr2)
 
    RETURN .F.
 
-FUNCTION hwg_BmpFromRes( cBmp )
+FUNCTION hwg_BmpFromRes(cBmp)
 
    LOCAL handle
    LOCAL cBuff
    LOCAL cTmp
 
    IF !Empty(s_oResCnt)
-      IF !Empty(cBuff := s_oResCnt:Get( cBmp ))
+      IF !Empty(cBuff := s_oResCnt:Get(cBmp))
          handle := hwg_OpenImage(cBuff, .T.)
          IF Empty(handle)
-            // hb_memowrit( cTmp := "/tmp/e"+Ltrim(Str(Int(Seconds()*100))), cBuff )
+            // hb_memowrit(cTmp := "/tmp/e"+Ltrim(Str(Int(Seconds()*100))), cBuff)
             // DF7BE: Ready for multi platform use (also Windows cross development environment)
             hb_memowrit(cTmp := hwg_CreateTempfileName(), cBuff)
             // Load from temporary image file
@@ -517,7 +517,7 @@ FUNCTION hwg_BmpFromRes( cBmp )
  OBJ_ADDR      5
 */
 
-FUNCTION hwg_SetResContainer( cName )
+FUNCTION hwg_SetResContainer(cName)
 // Returns .T., if container is opened successfully
 
    IF Empty(cName)
@@ -560,7 +560,7 @@ FUNCTION hwg_ExtractResContItem2file(cfilename,cname)
 
 n := hwg_ResContItemPosition(cname)
 IF n > 0
-    hb_MemoWrit( cfilename, s_oResCnt:Get( s_oResCnt:aObjects[n, 1] ) )
+    hb_MemoWrit(cfilename, s_oResCnt:Get(s_oResCnt:aObjects[n, 1]))
     RETURN .T.
 ENDIF
 RETURN .F.
@@ -589,7 +589,7 @@ FUNCTION hwg_ResContItemPosition(cname)
    LOCAL i := 0
 
 IF hwg_GetResContainerOpen()
- i := s_oResCnt:GetPos( cname )
+ i := s_oResCnt:GetPos(cname)
 ENDIF
 RETURN i
 

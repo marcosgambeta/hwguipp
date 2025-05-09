@@ -58,14 +58,14 @@ CLASS HCustomWindow INHERIT HObject
 
    METHOD AddControl(oCtrl) INLINE AAdd(::aControls, oCtrl)
    METHOD DelControl(oCtrl)
-   METHOD AddEvent( nEvent, nId, bAction ) INLINE AAdd(::aEvents, {nEvent, nId, bAction})
+   METHOD AddEvent(nEvent, nId, bAction) INLINE AAdd(::aEvents, {nEvent, nId, bAction})
    METHOD FindControl(nId, nHandle)
    METHOD Hide() INLINE (::lHide := .T., hwg_Hidewindow(::handle))
    METHOD Show() INLINE (::lHide := .F., hwg_Showwindow(::handle))
    METHOD Move(x1, y1, width, height)
    METHOD Refresh()
-   METHOD Setcolor( tcolor, bcolor, lRepaint )
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD Setcolor(tcolor, bcolor, lRepaint)
+   METHOD onEvent(msg, wParam, lParam)
    METHOD End()
    ERROR HANDLER OnError()
 
@@ -93,7 +93,7 @@ METHOD HCustomWindow:DelControl(oCtrl)
    IF oCtrl:ClassName() == "HPANEL"
       hwg_Destroypanel(oCtrl:handle)
    ELSE
-      hwg_DestroyWindow( oCtrl:handle )
+      hwg_DestroyWindow(oCtrl:handle)
    ENDIF
    IF i != 0
       ADel(::aControls, i)
@@ -148,7 +148,7 @@ METHOD HCustomWindow:Refresh()
 
    RETURN NIL
 
-METHOD HCustomWindow:Setcolor( tcolor, bcolor, lRepaint )
+METHOD HCustomWindow:Setcolor(tcolor, bcolor, lRepaint)
 
    IF tcolor != NIL
       ::tcolor := tcolor
@@ -174,12 +174,12 @@ METHOD HCustomWindow:Setcolor( tcolor, bcolor, lRepaint )
 
    RETURN NIL
 
-METHOD HCustomWindow:onEvent( msg, wParam, lParam )
+METHOD HCustomWindow:onEvent(msg, wParam, lParam)
    
    LOCAL i
 
    // hwg_WriteLog("== "+::Classname()+Str(msg)+IIf(wParam != NIL,Str(wParam),"NIL")+IIf(lParam != NIL,Str(lParam),"NIL"))
-   IF ( i := Ascan( s_aCustomEvents[1],msg ) ) != 0
+   IF ( i := Ascan(s_aCustomEvents[1],msg) ) != 0
       RETURN Eval(s_aCustomEvents[2,i], Self, wParam, lParam)
    ELSEIF hb_IsBlock(::bOther)
       RETURN Eval(::bOther, Self, msg, wParam, lParam)
@@ -232,7 +232,7 @@ METHOD HCustomWindow:OnError()
 
    RETURN NIL
 
-STATIC FUNCTION onDestroy( oWnd )
+STATIC FUNCTION onDestroy(oWnd)
 
    oWnd:End()
 
@@ -245,7 +245,7 @@ STATIC FUNCTION onCommand(oWnd, wParam)
    LOCAL iParLow := hwg_Loword(wParam)
 
    IF oWnd:aEvents != NIL .AND. ;
-         ( iItem := Ascan( oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow} ) ) > 0
+         ( iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ENDIF
 

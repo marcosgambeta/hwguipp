@@ -43,14 +43,14 @@ CLASS HOwnButton INHERIT HControl
    METHOD New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, bSize, bPaint, bClick, lflat, cText, color, font, xt, yt, widtht, heightt, ;
       bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, cTooltip, lEnabled, lCheck, bColor)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
    METHOD Paint()
    METHOD MouseMove(wParam, lParam)
    METHOD MDown()
    METHOD MUp()
    METHOD Press() INLINE (::lPress := .T., ::MDown())
-   METHOD SetTimer( nPeriod )
+   METHOD SetTimer(nPeriod)
    METHOD RELEASE()
    METHOD End()
    METHOD Enable()
@@ -125,7 +125,7 @@ METHOD HOwnButton:Activate()
 
    RETURN NIL
 
-METHOD HOwnButton:onEvent( msg, wParam, lParam )
+METHOD HOwnButton:onEvent(msg, wParam, lParam)
 
    STATIC h
 
@@ -149,7 +149,7 @@ METHOD HOwnButton:onEvent( msg, wParam, lParam )
 
    ELSEIF msg == WM_LBUTTONUP
       ::MUp()
-      hwg_Setfocus( h )
+      hwg_Setfocus(h)
    ELSEIF msg == WM_MOUSEMOVE
       ::MouseMove(wParam, lParam)
    ELSEIF msg == WM_DESTROY
@@ -301,7 +301,7 @@ METHOD HOwnButton:MDown()
       ::state := OBTN_PRESSED
       hwg_Redrawwindow(::handle)
       IF ::nPeriod > 0
-         ::oTimer := HTimer():New( Self,, ::nPeriod, {|o|OwnBtnTimerProc(o, 1)} )
+         ::oTimer := HTimer():New(Self,, ::nPeriod, {|o|OwnBtnTimerProc(o, 1)})
          OwnBtnTimerProc(Self, 0)
       ENDIF
    ENDIF
@@ -335,7 +335,7 @@ METHOD HOwnButton:MUp()
 
    RETURN NIL
 
-METHOD HOwnButton:SetTimer( nPeriod )
+METHOD HOwnButton:SetTimer(nPeriod)
 
    IF nPeriod == NIL
       IF !Empty(::oTimer)

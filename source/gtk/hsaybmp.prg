@@ -22,9 +22,9 @@ CLASS HSayBmp INHERIT HSayImage
 
    METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit, bSize, ctoolt, bClick, bDblClick, lTransp, nStretch, trcolor, bColor)
    METHOD INIT
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Paint()
-   METHOD ReplaceBitmap( Image, lRes )
+   METHOD ReplaceBitmap(Image, lRes)
    METHOD Refresh() INLINE hwg_Redrawwindow(::handle)
 
 ENDCLASS
@@ -70,7 +70,7 @@ METHOD HSayBmp:INIT()
 
    RETURN NIL
 
-METHOD HSayBmp:onEvent( msg, wParam, lParam )
+METHOD HSayBmp:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
@@ -110,7 +110,7 @@ METHOD HSayBmp:Paint()
 
    RETURN NIL
 
-METHOD HSayBmp:ReplaceBitmap( Image, lRes )
+METHOD HSayBmp:ReplaceBitmap(Image, lRes)
 
    IF ::oImage != NIL
       ::oImage:Release()

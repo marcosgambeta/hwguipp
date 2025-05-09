@@ -28,7 +28,7 @@ CLASS HComboBox INHERIT HControl
 
    METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, cToolt, lEdit, lText, bGFocus, tcolor, bcolor, bValid)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
    METHOD Refresh(xVal)
    METHOD Setitem(nPos)
@@ -47,8 +47,8 @@ METHOD HComboBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHe
       lText := .F.
    ENDIF
 
-   nStyle := hb_bitor( IIf(nStyle == NIL, 0, nStyle), IIf(lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST) + WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor )
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), IIf(lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST) + WS_TABSTOP)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctoolt, tcolor, bcolor)
 
    ::lEdit := lEdit
    ::lText := lText
@@ -95,7 +95,7 @@ METHOD HComboBox:Activate()
 
    RETURN NIL
 
-METHOD HComboBox:onEvent( msg, wParam, lParam )
+METHOD HComboBox:onEvent(msg, wParam, lParam)
 
    LOCAL i
 
@@ -109,7 +109,7 @@ METHOD HComboBox:onEvent( msg, wParam, lParam )
             Eval(::bGetFocus, IIf(HB_ISARRAY(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
          ENDIF
       ELSE
-         __When( Self )
+         __When(Self)
       ENDIF
    ELSEIF msg == EN_KILLFOCUS
       IF ::bSetGet == NIL
@@ -240,21 +240,21 @@ STATIC FUNCTION __Valid(oCtrl)
    oCtrl:GetValue()
    IF hb_IsBlock(oCtrl:bValid)
       IF !Eval(oCtrl:bValid, oCtrl)
-         hwg_Setfocus( oCtrl:handle )
+         hwg_Setfocus(oCtrl:handle)
          RETURN .F.
       ENDIF
    ENDIF
 
    RETURN .T.
 
-STATIC FUNCTION __When( oCtrl )
+STATIC FUNCTION __When(oCtrl)
    
    LOCAL res
 
    IF hb_IsBlock(oCtrl:bGetFocus)
       res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, , oCtrl), oCtrl)
       IF !res
-         hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )
+         hwg_GetSkip(oCtrl:oParent, oCtrl:handle, 1)
       ENDIF
       RETURN res
    ENDIF

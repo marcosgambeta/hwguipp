@@ -20,7 +20,7 @@ CLASS HPen INHERIT HObject
    DATA nCounter INIT 1
 
    METHOD Add(nStyle, nWidth, nColor)
-   METHOD Get( nStyle, nWidth, nColor )
+   METHOD Get(nStyle, nWidth, nColor)
    METHOD RELEASE()
 
 ENDCLASS
@@ -46,7 +46,7 @@ METHOD HPen:Add(nStyle, nWidth, nColor)
       ENDIF
    NEXT
 
-   ::handle := hwg_Createpen( nStyle, nWidth, nColor )
+   ::handle := hwg_Createpen(nStyle, nWidth, nColor)
    ::style := nStyle
    ::width := nWidth
    ::color := nColor
@@ -54,7 +54,7 @@ METHOD HPen:Add(nStyle, nWidth, nColor)
 
    RETURN Self
 
-METHOD HPen:Get( nStyle, nWidth, nColor )
+METHOD HPen:Get(nStyle, nWidth, nColor)
    
    LOCAL i
 

@@ -13,20 +13,20 @@ CLASS HStatic INHERIT HControl
 
    CLASS VAR winclass INIT "STATIC"
 
-   METHOD New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctoolt, tcolor, bcolor, lTransp )
+   METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
+      bSize, bPaint, ctoolt, tcolor, bcolor, lTransp)
    METHOD Activate()
    METHOD Init()
-   METHOD SetText( value ) INLINE hwg_static_SetText(::handle, ::title := value)
+   METHOD SetText(value) INLINE hwg_static_SetText(::handle, ::title := value)
    METHOD GetText() INLINE hwg_static_GetText(::handle)
 
 ENDCLASS
 
-METHOD HStatic:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctoolt, tcolor, bcolor, lTransp )
+METHOD HStatic:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, ;
+      bSize, bPaint, ctoolt, tcolor, bcolor, lTransp)
 
-   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint, ctoolt, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
+      bSize, bPaint, ctoolt, tcolor, bcolor)
 
    ::title := cCaption
    IF lTransp != NIL .AND. lTransp

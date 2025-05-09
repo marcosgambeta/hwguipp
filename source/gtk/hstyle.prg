@@ -22,12 +22,12 @@ CLASS HStyle INHERIT HObject
    DATA oPen
    DATA aCorners
 
-   METHOD New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap )
+   METHOD New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap)
    METHOD Draw(hDC, nLeft, nTop, nRight, nBottom)
 
 ENDCLASS
 
-METHOD HStyle:New( aColors, nOrient, aCorners, nBorder, tColor, oBitmap )
+METHOD HStyle:New(aColors, nOrient, aCorners, nBorder, tColor, oBitmap)
 
    LOCAL i
    LOCAL nlen := Len(::aStyles)

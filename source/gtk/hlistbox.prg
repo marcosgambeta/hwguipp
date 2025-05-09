@@ -74,21 +74,21 @@ CLASS HListBox INHERIT HControl
    METHOD Refresh()
    METHOD Requery()
    METHOD Setitem(nPos)
-   METHOD AddItems( p )
+   METHOD AddItems(p)
    METHOD DeleteItem(nPos)
    METHOD Valid(oCtrl)
-   METHOD When( oCtrl )
+   METHOD When(oCtrl)
    METHOD onChange(oCtrl)
    METHOD onDblClick()
    METHOD Clear()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
 
 ENDCLASS
 
 METHOD HListBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, aItems, oFont, bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther)
 
    // removed: + LBS_DISABLENOSCROLL + LBS_NOTIFY  + LBS_NOINTEGRALHEIGHT
-   nStyle := hb_bitor( IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP + WS_VSCROLL + WS_BORDER )
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP + WS_VSCROLL + WS_BORDER)
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, cTooltip, tColor, bcolor)
 
    ::value := IIf(vari == NIL .OR. !hb_IsNumeric(vari), 0, vari)
@@ -123,21 +123,21 @@ METHOD HListBox:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHei
 /*
    IF bSetGet != NIL
       IF bGFocus != NIL
-         ::oParent:AddEvent( LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))} )
+         ::oParent:AddEvent(LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))})
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))} )
+      ::oParent:AddEvent(LBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))})
       ::bValid := {|o|::Valid(o)}
    ELSE
       IF bGFocus != NIL
-         ::oParent:AddEvent( LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))} )
+         ::oParent:AddEvent(LBN_SETFOCUS, ::id, {|o, id|::When(o:FindControl(id))})
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))} )
+      ::oParent:AddEvent(LBN_KILLFOCUS, ::id, {|o, id|::Valid(o:FindControl(id))})
    ENDIF
    IF bChange != NIL .OR. bSetGet != NIL
-      ::oParent:AddEvent( LBN_SELCHANGE, ::id, {|o, id|::onChange(o:FindControl(id))} )
+      ::oParent:AddEvent(LBN_SELCHANGE, ::id, {|o, id|::onChange(o:FindControl(id))})
    ENDIF
    IF bDblclick != NIL
-      ::oParent:AddEvent( LBN_DBLCLK, ::id, {|| ::onDblClick() } )
+      ::oParent:AddEvent(LBN_DBLCLK, ::id, {|| ::onDblClick() })
    ENDIF
 */
    RETURN Self
@@ -177,7 +177,7 @@ METHOD HListBox:Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, b
 
    IF bSetGet != NIL
       ::bChangeSel := bChange
-      ::oParent:AddEvent( LBN_SELCHANGE, Self, {|o, id|::Valid(o:FindControl(id))}, "onChange" )
+      ::oParent:AddEvent(LBN_SELCHANGE, Self, {|o, id|::Valid(o:FindControl(id))}, "onChange")
    ENDIF
    RETURN Self
 */
@@ -208,7 +208,7 @@ METHOD HListBox:Init()
    ENDIF
    RETURN NIL
 
-METHOD HListBox:onEvent( msg, wParam, lParam )
+METHOD HListBox:onEvent(msg, wParam, lParam)
 
 /*
    LOCAL nEval
@@ -286,7 +286,7 @@ METHOD HListBox:onDblClick()
    RETURN NIL
    
 
-METHOD HListBox:AddItems( p )
+METHOD HListBox:AddItems(p)
 
    AAdd(::aItems, p)
    hwg_Listboxaddstring(::handle, p)
@@ -330,7 +330,7 @@ METHOD HListBox:onChange(oCtrl)
    RETURN NIL
 
 
-METHOD HListBox:When( oCtrl )
+METHOD HListBox:When(oCtrl)
 /*
    LOCAL res := .T.
    LOCAL nSkip
@@ -368,7 +368,7 @@ METHOD HListBox:Valid(oCtrl)
       IF hb_IsBlock(::bLostFocus)
          res := Eval(::bLostFocus, ::value, Self)
          IF !res
-            ::Setfocus( .T. ) // (::handle)
+            ::Setfocus(.T.) // (::handle)
             IF oDlg != NIL
                oDlg:nLastKey := 0
             ENDIF

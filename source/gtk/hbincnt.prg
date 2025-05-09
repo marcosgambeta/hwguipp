@@ -53,9 +53,9 @@ CLASS HBinC
    METHOD Add(cObjName, cType, cVal)
    METHOD Del(cObjName)
    METHOD Pack()
-   METHOD Exist( cObjName )
-   METHOD Get( cObjName )
-   METHOD GetPos( cObjName )
+   METHOD Exist(cObjName)
+   METHOD Get(cObjName)
+   METHOD GetPos(cObjName)
    METHOD GetType(cObjName)
 
 ENDCLASS
@@ -75,7 +75,7 @@ METHOD HBinC:Create(cName, n)
    ::nVerHigh := VER_HIGH
    ::nVerLow := VER_LOW
    ::nItems := ::nCntLen := ::nPassLen := 0
-   ::nCntBlocks := IIf(n <= 18, 1, 2 + Int( (n-18)/21 ))
+   ::nCntBlocks := IIf(n <= 18, 1, 2 + Int((n-18)/21))
    ::nFileLen := ::nCntBlocks*2048
    ::aObjects := {}
 
@@ -150,7 +150,7 @@ METHOD HBinC:Add(cObjName, cType, cVal)
       RETURN .F.
    ENDIF
    cObjName := Lower(cObjName)
-   cType := Padr( Lower(Left(cType, 4)), 4 )
+   cType := Padr(Lower(Left(cType, 4)), 4)
    IF Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName}) > 0
       RETURN .F.
    ENDIF
@@ -272,7 +272,7 @@ METHOD HBinC:Pack()
 
    RETURN .T.
 
-METHOD HBinC:Get( cObjName )
+METHOD HBinC:Get(cObjName)
    
    LOCAL n
    LOCAL cBuf
@@ -288,12 +288,12 @@ METHOD HBinC:Get( cObjName )
 
    RETURN cBuf
 
-METHOD HBinC:Exist( cObjName )
+METHOD HBinC:Exist(cObjName)
 
    cObjName := Lower(cObjName)
    RETURN (Ascan(::aObjects, {|a|a[OBJ_NAME] == cObjName})) != 0
 
-METHOD HBinC:GetPos( cObjName )
+METHOD HBinC:GetPos(cObjName)
 
   cObjName := Lower(cObjName)
   

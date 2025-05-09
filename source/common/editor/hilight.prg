@@ -92,8 +92,8 @@ CLASS Hilight INHERIT HilightBase
    DATA aDop, nDopChecked
 
    METHOD New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase)
-   METHOD Set( oEdit )
-   METHOD Do( oEdit, nLine, lCheck )
+   METHOD Set(oEdit)
+   METHOD Do(oEdit, nLine, lCheck)
    METHOD UpdSource(nLine) INLINE (::nDopChecked := nLine - 1)
    METHOD AddItem(nPos1, nPos2, nType)
 ENDCLASS
@@ -101,7 +101,7 @@ ENDCLASS
 METHOD Hilight:New(cFile, cSection, cCommands, cFuncs, cSComm, cMComm, lCase)
 Local oIni, oMod, oNode, i, nPos
 
-   ::aLineStru := Array( 20, 3 )
+   ::aLineStru := Array(20, 3)
 
    IF !Empty(cFile)
       IF HB_ISCHAR(cFile)
@@ -172,7 +172,7 @@ Local oIni, oMod, oNode, i, nPos
 
 Return Self
 
-METHOD Hilight:Set( oEdit )
+METHOD Hilight:Set(oEdit)
 Local oHili := Hilight():New()
 
    oHili:cCommands := ::cCommands
@@ -189,7 +189,7 @@ Return oHili
  *  lCheck - if .T., checks for multiline comments only
  */
 /* Added: oEdit */
-METHOD Hilight:Do( oEdit, nLine, lCheck )
+METHOD Hilight:Do(oEdit, nLine, lCheck)
 Local aText, cLine, nLen, nLenS, nLenM, i, lComm
 Local cs, cm
 Local nPos, nPos1, nPrev, cWord, c
@@ -211,14 +211,14 @@ Local nPos, nPos1, nPrev, cWord, c
    nLen := hced_Len(::oEdit, cLine)
 
    IF Empty(::aDop)
-      ::aDop := Array( Len(::oEdit:aText) )
+      ::aDop := Array(Len(::oEdit:aText))
       ::nDopChecked := 0
    ELSEIF Len(::aDop) < Len(aText)
       ::aDop := ASize(::aDop, Len(aText))
    ENDIF
    IF ::nDopChecked < nLine - 1
       FOR i := ::nDopChecked + 1 TO nLine - 1
-         ::Do( aText, i, .T. )
+         ::Do(aText, i, .T.)
          ::aDop[i] := IIf(::lMultiComm, 1, 0)
       NEXT
    ENDIF
@@ -293,15 +293,15 @@ Local nPos, nPos1, nPrev, cWord, c
             ENDIF
             nPos += nLenM - 1
 
-         ELSEIF !lCheck .AND. IsLetter( c )
+         ELSEIF !lCheck .AND. IsLetter(c)
             nPos1 := nPos
             //nPos ++
             nPrev := nPos
-            nPos := hced_NextPos( ::oEdit, cLine, nPos )
-            DO WHILE IsLetter( hced_Substr(::oEdit, cLine, nPos, 1) )
+            nPos := hced_NextPos(::oEdit, cLine, nPos)
+            DO WHILE IsLetter(hced_Substr(::oEdit, cLine, nPos, 1))
                 //nPos++
                 nPrev := nPos
-                nPos := hced_NextPos( ::oEdit, cLine, nPos )
+                nPos := hced_NextPos(::oEdit, cLine, nPos)
             ENDDO
             cWord := " " + IIf(::lCase, hced_Substr(::oEdit, cLine, nPos1, nPos - nPos1), Lower(hced_Substr(::oEdit, cLine, nPos1, nPos - nPos1))) + " "
             //nPos --
@@ -314,7 +314,7 @@ Local nPos, nPos1, nPrev, cWord, c
 
          ENDIF
          //nPos ++
-         nPos := hced_NextPos( ::oEdit, cLine, nPos )
+         nPos := hced_NextPos(::oEdit, cLine, nPos)
       ENDDO
    ENDDO
    IF !lCheck
@@ -337,7 +337,7 @@ METHOD Hilight:AddItem(nPos1, nPos2, nType)
    
 Return NIL
 
-Static Function IsLetter( c )
+Static Function IsLetter(c)
 Return Len(c) > 1 .OR. ( c >= "A" .AND. c <= "Z" ) .OR. ( c >= "a" .AND. c <= "z" ) .OR. ;
       c == "_" .OR. Asc(c) >= 128
 

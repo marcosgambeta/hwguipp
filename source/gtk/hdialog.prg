@@ -20,7 +20,7 @@ STATIC s_aMessModalDlg := { ;
       { WM_SETFOCUS, {|o, w, l|onGetFocus(o, w, l)} }         ;
       }
 
-STATIC FUNCTION onDestroy( oDlg )
+STATIC FUNCTION onDestroy(oDlg)
 
    LOCAL i
    LOCAL lRes
@@ -32,11 +32,11 @@ STATIC FUNCTION onDestroy( oDlg )
       oDlg:bDestroy := NIL
    ENDIF
 
-   IF ( i := Ascan( HTimer():aTimers,{|o|hwg_Isptreq(o:oParent:handle, oDlg:handle) } ) ) != 0
+   IF ( i := Ascan(HTimer():aTimers,{|o|hwg_Isptreq(o:oParent:handle, oDlg:handle) }) ) != 0
       HTimer():aTimers[i]:End()
    ENDIF
 
-   oDlg:Super:onEvent( WM_DESTROY )
+   oDlg:Super:onEvent(WM_DESTROY)
    HDialog():DelItem(oDlg, .T.)
    IF oDlg:lModal
       hwg_gtk_exit()
@@ -65,7 +65,7 @@ CLASS HDialog INHERIT HWindow
 
    METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, xResourceID, lExitOnEsc, bColor)
    METHOD Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD AddItem(oWnd, lModal)
    METHOD DelItem(oWnd, lModal)
    METHOD FindDialog(hWnd)
@@ -89,7 +89,7 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
    ::nY := IIf(y == NIL, 0, y)
    ::nX := IIf(x == NIL, 0, x)
    ::nWidth := IIf(width == NIL, 0, width)
-   ::nHeight := IIf(height == NIL, 0, Abs( height ))
+   ::nHeight := IIf(height == NIL, 0, Abs(height))
    IF ::nWidth < 0
       ::nWidth := Abs(::nWidth)
       ::nAdjust := 1
@@ -107,8 +107,8 @@ METHOD HDialog:New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bEx
    ::lExitOnEsc := IIf(lExitOnEsc == NIL, .T., !lExitOnEsc)
 
    IF ::style > 0 .AND. hb_bitand(::style, DS_CENTER) > 0
-      ::nX := Int( ( hwg_Getdesktopwidth() - ::nWidth ) / 2 )
-      ::nY := Int( ( hwg_Getdesktopheight() - ::nHeight ) / 2 )
+      ::nX := Int((hwg_Getdesktopwidth() - ::nWidth) / 2)
+      ::nY := Int((hwg_Getdesktopheight() - ::nHeight) / 2)
    ENDIF
    ::handle := Hwg_CreateDlg(Self)
 
@@ -122,7 +122,7 @@ METHOD HDialog:Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
    LOCAL aCoors
    LOCAL aRect
 
-   hwg_CreateGetList( Self )
+   hwg_CreateGetList(Self)
 
    IF lNoModal == NIL
       lNoModal := .F.
@@ -180,20 +180,20 @@ METHOD HDialog:Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
       Eval(::bActivate, Self)
    ENDIF
 
-   hwg_HideHidden( Self )
+   hwg_HideHidden(Self)
 
    hwg_ActivateDialog(::handle, lNoModal)
 
    RETURN NIL
 
-METHOD HDialog:onEvent( msg, wParam, lParam )
+METHOD HDialog:onEvent(msg, wParam, lParam)
    
    LOCAL i
 
-   IF ( i := Ascan( s_aMessModalDlg, {|a|a[1] == msg} ) ) != 0
+   IF ( i := Ascan(s_aMessModalDlg, {|a|a[1] == msg}) ) != 0
       RETURN Eval(s_aMessModalDlg[i, 2], Self, wParam, lParam)
    ELSE
-      Return ::Super:onEvent( msg, wParam, lParam )
+      Return ::Super:onEvent(msg, wParam, lParam)
    ENDIF
 
    RETURN 0
@@ -224,7 +224,7 @@ METHOD HDialog:DelItem(oWnd, lModal)
 
 METHOD HDialog:FindDialog(hWnd)
 
-   RETURN hwg_Getwindowobject( hWnd )
+   RETURN hwg_Getwindowobject(hWnd)
 
 METHOD HDialog:GetActive()
    
@@ -243,13 +243,13 @@ STATIC FUNCTION InitModalDlg(oDlg)
 
    // hwg_WriteLog(str(oDlg:handle)+" "+oDlg:title)
    IF HB_ISARRAY(oDlg:menu)
-      hwg__SetMenu( oDlg:handle, oDlg:menu[5] )
+      hwg__SetMenu(oDlg:handle, oDlg:menu[5])
    ENDIF
    IF oDlg:Title != NIL
-      hwg_Setwindowtext( oDlg:Handle, oDlg:Title )
+      hwg_Setwindowtext(oDlg:Handle, oDlg:Title)
    ENDIF
    IF oDlg:bColor != NIL
-      hwg_SetBgColor( oDlg:handle, oDlg:bColor )
+      hwg_SetBgColor(oDlg:handle, oDlg:bColor)
    ENDIF
    IF hb_IsBlock(oDlg:bInit)
       Eval(oDlg:bInit, oDlg)
@@ -287,7 +287,7 @@ FUNCTION hwg_DlgCommand(oDlg, wParam, lParam)
             ENDIF
          ENDIF
          IF oDlg:lClipper
-            IF !hwg_GetSkip( oDlg, hCtrl, 1 )
+            IF !hwg_GetSkip(oDlg, hCtrl, 1)
                IF oDlg:lExitOnEnter
                   oDlg:lResult := .T.
                   hwg_EndDialog(oDlg:handle)
@@ -301,7 +301,7 @@ FUNCTION hwg_DlgCommand(oDlg, wParam, lParam)
    ENDIF
 
    IF oDlg:aEvents != NIL .AND. ;
-         ( i := Ascan( oDlg:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow} ) ) > 0
+         ( i := Ascan(oDlg:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow}) ) > 0
       Eval(oDlg:aEvents[i, 3], oDlg, iParLow)
    ELSEIF iParHigh == 0 .AND. ( ;
          ( iParLow == IDOK .AND. oDlg:FindControl(IDOK) != NIL ) .OR. ;
@@ -325,7 +325,7 @@ FUNCTION hwg_DlgCommand(oDlg, wParam, lParam)
 
    RETURN 1
 
-STATIC FUNCTION onGetFocus( oDlg, w, l )
+STATIC FUNCTION onGetFocus(oDlg, w, l)
 
    HB_SYMBOL_UNUSED(w)
    HB_SYMBOL_UNUSED(l)
@@ -357,16 +357,16 @@ FUNCTION hwg_EndDialog(handle)
          RETURN NIL
       ENDIF
    ELSE
-      oDlg := hwg_Getwindowobject( handle )
+      oDlg := hwg_Getwindowobject(handle)
    ENDIF
 
-   IF !onDestroy( oDlg )
+   IF !onDestroy(oDlg)
       RETURN .F.
    ENDIF
 
-   RETURN  hwg_DestroyWindow( oDlg:handle )
+   RETURN  hwg_DestroyWindow(oDlg:handle)
 
-FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block, lGlobal )
+FUNCTION hwg_SetDlgKey(oDlg, nctrl, nkey, block, lGlobal)
 
    LOCAL i
    LOCAL aKeys
@@ -389,14 +389,14 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block, lGlobal )
 
    IF block == NIL
 
-      IF ( i := Ascan( aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey} ) ) == 0
+      IF ( i := Ascan(aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey}) ) == 0
          RETURN .F.
       ELSE
          ADel(aKeys, i)
          ASize(aKeys, Len(aKeys) - 1)
       ENDIF
    ELSE
-      IF ( i := Ascan( aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey} ) ) == 0
+      IF ( i := Ascan(aKeys,{|a|a[1] == nctrl .AND. a[2] == nkey}) ) == 0
          AAdd(aKeys, {nctrl, nkey, block})
       ELSE
          aKeys[i, 3] := block

@@ -15,17 +15,17 @@ CLASS HStatus INHERIT HControl
 
    DATA aParts
 
-   METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint )
+   METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint)
    METHOD Activate()
    METHOD Init()
-   METHOD SetText( t ) INLINE  hwg_WriteStatus(::oParent, NIL, t)
+   METHOD SetText(t) INLINE  hwg_WriteStatus(::oParent, NIL, t)
 
 ENDCLASS
 
-METHOD HStatus:New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint )
+METHOD HStatus:New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint)
 
-   nStyle := hb_bitor( IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS )
-   ::Super:New( oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS)
+   ::Super:New(oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, bSize, bPaint)
 
    ::aParts := aParts
    ::Activate()

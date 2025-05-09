@@ -19,7 +19,7 @@ PROCEDURE hwg_ErrSys
 
    RETURN
 
-STATIC FUNCTION DefError( oError )
+STATIC FUNCTION DefError(oError)
    
    LOCAL cMessage
    LOCAL cDOSError
@@ -37,14 +37,14 @@ STATIC FUNCTION DefError( oError )
    IF oError:genCode == EG_OPEN .AND. ;
          oError:osCode == 32 .AND. ;
          oError:canDefault
-      NetErr( .T. )
+      NetErr(.T.)
       RETURN .F.
    ENDIF
 
    // Set NetErr() if there was a lock error on dbAppend()
    IF oError:genCode == EG_APPENDLOCK .AND. ;
          oError:canDefault
-      NetErr( .T. )
+      NetErr(.T.)
       RETURN .F.
    ENDIF
 
@@ -62,9 +62,9 @@ STATIC FUNCTION DefError( oError )
       cMessage += Chr(13) + Chr(10) + "Called from " + ProcName(n) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
    ENDDO
 
-   MemoWrit( s_LogInitialPath + "Error.log", cMessage )
+   MemoWrit(s_LogInitialPath + "Error.log", cMessage)
    hwg_ReleaseTimers()
-   ErrorPreview( cMessage )
+   ErrorPreview(cMessage)
    hwg_gtk_exit()
    QUIT
 
@@ -78,21 +78,21 @@ FUNCTION hwg_ErrMsg(oError)
    cMessage := IIf(oError:severity > ES_WARNING, "Error", "Warning") + " "
 
    // add subsystem name if available
-   IF ISCHARACTER( oError:subsystem )
+   IF ISCHARACTER(oError:subsystem)
       cMessage += oError:subsystem()
    ELSE
       cMessage += "???"
    ENDIF
 
    // add subsystem's error code if available
-   IF ISNUMBER( oError:subCode )
+   IF ISNUMBER(oError:subCode)
       cMessage += "/" + LTrim(Str(oError:subCode))
    ELSE
       cMessage += "/???"
    ENDIF
 
    // add error description if available
-   IF ISCHARACTER( oError:description )
+   IF ISCHARACTER(oError:description)
       cMessage += "  " + oError:description
    ENDIF
 
@@ -122,7 +122,7 @@ FUNCTION hwg_WriteLog(cText, fname)
 
    RETURN NIL
 
-STATIC FUNCTION ErrorPreview( cMess )
+STATIC FUNCTION ErrorPreview(cMess)
    
    LOCAL oDlg
    LOCAL oEdit

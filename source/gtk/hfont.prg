@@ -25,7 +25,7 @@ CLASS HFont INHERIT HObject
    DATA nCounter INIT 1
 
    METHOD Add(fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle, lLinux)
-   METHOD Select( oFont , cTitle )
+   METHOD Select(oFont , cTitle)
    METHOD Props2Arr()
    METHOD PrintFont()
    METHOD Release()
@@ -39,7 +39,7 @@ METHOD HFont:Add(fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fd
    LOCAL i
    LOCAL nlen := Len(::aFonts)
 
-   nHeight := IIf(nHeight == NIL, 13, Abs( nHeight ))
+   nHeight := IIf(nHeight == NIL, 13, Abs(nHeight))
    IF lLinux == NIL .OR. !lLinux
       nHeight -= 3
    ENDIF
@@ -63,14 +63,14 @@ METHOD HFont:Add(fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fd
 
          ::aFonts[i]:nCounter ++
          IF nHandle != NIL
-            hwg_Deleteobject( nHandle )
+            hwg_Deleteobject(nHandle)
          ENDIF
          Return ::aFonts[i]
       ENDIF
    NEXT
 
    IF nHandle == NIL
-      ::handle := hwg_Createfont( fontName, nWidth, nHeight * 1024 , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut )
+      ::handle := hwg_Createfont(fontName, nWidth, nHeight * 1024 , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut)
    ELSE
       ::handle := nHandle
       nHeight := nHeight / 1024
@@ -90,9 +90,9 @@ METHOD HFont:Add(fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fd
    RETURN Self
 
 /* Added: cTitle */
-METHOD HFont:Select( oFont, cTitle )
+METHOD HFont:Select(oFont, cTitle)
    
-   LOCAL af := hwg_Selectfont( oFont, cTitle )
+   LOCAL af := hwg_Selectfont(oFont, cTitle)
 
    IF !hb_IsArray(af)
       RETURN NIL

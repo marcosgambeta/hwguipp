@@ -44,7 +44,7 @@ METHOD HSayImage:Activate()
 
    RETURN NIL
 
-FUNCTION hwg_GetBitmapHeight( handle )
+FUNCTION hwg_GetBitmapHeight(handle)
 
    LOCAL aBmpSize
 

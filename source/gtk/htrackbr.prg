@@ -36,9 +36,9 @@ CLASS HTrack INHERIT HControl
 
    METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bPaint, color, bcolor, nSize, oStyleBar, oStyleSlider, lAxis)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
-   METHOD Set( nSize, oStyleBar, oStyleSlider, lAxis, bPaint )
+   METHOD Set(nSize, oStyleBar, oStyleSlider, lAxis, bPaint)
    METHOD Paint()
    METHOD Drag(xPos, yPos)
    METHOD Move(x1, y1, width, height)
@@ -75,7 +75,7 @@ METHOD HTrack:Activate()
    ENDIF
    RETURN NIL
 
-METHOD HTrack:onEvent( msg, wParam, lParam )
+METHOD HTrack:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
 
@@ -89,7 +89,7 @@ METHOD HTrack:onEvent( msg, wParam, lParam )
 
    ELSEIF msg == WM_ERASEBKGND
       IF ::brush != NIL
-         hwg_Fillrect( wParam, 0, 0, ::nWidth, ::nHeight, ::brush:handle )
+         hwg_Fillrect(wParam, 0, 0, ::nWidth, ::nHeight, ::brush:handle)
          RETURN 1
       ENDIF
 
@@ -119,7 +119,7 @@ METHOD HTrack:Init()
 
    RETURN NIL
 
-METHOD HTrack:Set( nSize, oStyleBar, oStyleSlider, lAxis, bPaint )
+METHOD HTrack:Set(nSize, oStyleBar, oStyleSlider, lAxis, bPaint)
 
    LOCAL xValue := (::nCurr - ::nFrom) / (::nTo - ::nFrom)
 
@@ -171,7 +171,7 @@ METHOD HTrack:Paint()
       hwg_Selectobject(hDC, ::oPen1:handle)
       IF ::lVertical
          x1 := Int(::nWidth/2)
-         nw := Min( nHalf, x1 - 2 )
+         nw := Min(nHalf, x1 - 2)
          //IF ::nCurr + nHalf < ::nFrom
          IF ::lAxis .AND. ::nCurr - nHalf > ::nFrom
             //hwg_Drawline(hDC, x1, ::nTo, x1, ::nCurr + nHalf)
@@ -192,7 +192,7 @@ METHOD HTrack:Paint()
          ENDIF
       ELSE
          y1 := Int(::nHeight/2)
-         nw := Min( nHalf, x1 - 2 )
+         nw := Min(nHalf, x1 - 2)
          IF ::lAxis .AND. ::nCurr - nHalf > ::nFrom
             hwg_Drawline(hDC, ::nFrom, y1, ::nCurr - nHalf, y1)
          ENDIF

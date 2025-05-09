@@ -28,7 +28,7 @@ CLASS HSplitter INHERIT HControl
 
    METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
    METHOD Paint()
    //METHOD Move(x1, y1, width, height)
@@ -40,7 +40,7 @@ ENDCLASS
 /* bPaint ==> bDraw */
 METHOD HSplitter:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, nTo, oStyle)
 
-   ::Super:New( oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, bDraw, NIL, IIf(color == NIL, 0, color), bcolor )
+   ::Super:New(oWndParent, nId, WS_CHILD + WS_VISIBLE + SS_OWNERDRAW, nX, nY, nWidth, nHeight, NIL, NIL, bSize, bDraw, NIL, IIf(color == NIL, 0, color), bcolor)
 
    ::title := ""
    ::aLeft := IIf(aLeft == NIL, {}, aLeft)
@@ -63,13 +63,13 @@ METHOD HSplitter:Activate()
 
    RETURN NIL
 
-METHOD HSplitter:onEvent( msg, wParam, lParam )
+METHOD HSplitter:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
 
    IF msg == WM_MOUSEMOVE
       IF ::hCursor == NIL
-         ::hCursor := hwg_Loadcursor( GDK_SIZING )
+         ::hCursor := hwg_Loadcursor(GDK_SIZING)
       ENDIF
       Hwg_SetCursor(::hCursor, ::handle)
       IF ::lCaptured
@@ -180,7 +180,7 @@ METHOD HSplitter:DragAll(xPos, yPos)
          nDiff := ::nY + ::nHeight - oCtrl:nY
          oCtrl:Move(NIL, oCtrl:nY + nDiff, NIL, oCtrl:nHeight - nDiff)
       ENDIF
-      hwg_onAnchor( oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight )
+      hwg_onAnchor(oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight)
    NEXT
    FOR i := 1 TO Len(::aLeft)
       oCtrl := ::aLeft[i]
@@ -193,7 +193,7 @@ METHOD HSplitter:DragAll(xPos, yPos)
          nDiff := ::nY - ( oCtrl:nY + oCtrl:nHeight )
          oCtrl:Move(NIL, NIL, NIL, oCtrl:nHeight + nDiff)
       ENDIF
-      hwg_onAnchor( oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight )
+      hwg_onAnchor(oCtrl, wold, hold, oCtrl:nWidth, oCtrl:nHeight)
    NEXT
    ::lMoved := .F.
 

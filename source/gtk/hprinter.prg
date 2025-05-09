@@ -65,26 +65,26 @@ CLASS HPrinter INHERIT HObject
    // HWINPRN, HRepTmpl , ...
    // For more details see inline comments in sample program "nlsdemo.prg"
 
-   METHOD New( cPrinter, lmm, nFormType )
+   METHOD New(cPrinter, lmm, nFormType)
    // FUNCTION hwg_HPrinter_LangArray_EN()
    METHOD DefaultLang()
    METHOD SetMode(nOrientation, nDuplex)
    METHOD Recalc(x1, y1, x2, y2)
-   METHOD AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset )
-   METHOD SetFont( oFont )
-   METHOD AddPen( nWidth, style, color )
-   METHOD SetPen( nWidth, style, color )
+   METHOD AddFont(fontName, nHeight , lBold, lItalic, lUnderline, nCharset)
+   METHOD SetFont(oFont)
+   METHOD AddPen(nWidth, style, color)
+   METHOD SetPen(nWidth, style, color)
    METHOD StartDoc(lPreview, cScriptFile, lprbutton)
    METHOD EndDoc()
    METHOD StartPage()
    METHOD EndPage()
    METHOD End()
-   METHOD Box( x1, y1, x2, y2, oPen )
+   METHOD Box(x1, y1, x2, y2, oPen)
    METHOD Line(x1, y1, x2, y2, oPen)
-   METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont )
-   METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap, cImageName )
-   METHOD LoadScript( cScriptFile )
-   METHOD SaveScript( cScriptFile )
+   METHOD Say(cString, x1, y1, x2, y2, nOpt, oFont)
+   METHOD Bitmap(x1, y1, x2, y2, nOpt, hBitmap, cImageName)
+   METHOD LoadScript(cScriptFile)
+   METHOD SaveScript(cScriptFile)
    METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser)
    METHOD PaintDoc(oCanvas)
    METHOD PrintDoc()
@@ -128,7 +128,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 
 RETURN aTooltips
 
-METHOD HPrinter:New( cPrinter, lmm, nFormType )
+METHOD HPrinter:New(cPrinter, lmm, nFormType)
 
    LOCAL aPrnCoors
 
@@ -150,7 +150,7 @@ METHOD HPrinter:New( cPrinter, lmm, nFormType )
       ::hDC := hwg_Getdc(hwg_Getactivewindow())
       ::cPrinterName := ""
    ELSE
-      ::hDC := Hwg_OpenPrinter( cPrinter, nFormType )
+      ::hDC := Hwg_OpenPrinter(cPrinter, nFormType)
       ::cPrinterName := cPrinter
    ENDIF
 
@@ -212,7 +212,7 @@ METHOD HPrinter:Recalc(x1, y1, x2, y2)
    RETURN NIL
 
 /* Added: , nCharset */   
-METHOD HPrinter:AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset )
+METHOD HPrinter:AddFont(fontName, nHeight , lBold, lItalic, lUnderline, nCharset)
    
    LOCAL oFont
    
@@ -227,7 +227,7 @@ METHOD HPrinter:AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharse
 
    RETURN oFont
 
-METHOD HPrinter:SetFont( oFont )
+METHOD HPrinter:SetFont(oFont)
    
    LOCAL oFontOld := ::oFont
 
@@ -235,7 +235,7 @@ METHOD HPrinter:SetFont( oFont )
 
    RETURN oFontOld
 
-METHOD HPrinter:AddPen( nWidth, style, color )
+METHOD HPrinter:AddPen(nWidth, style, color)
    
    LOCAL oPen
 
@@ -246,7 +246,7 @@ METHOD HPrinter:AddPen( nWidth, style, color )
 
    RETURN oPen
 
-METHOD HPrinter:SetPen( nWidth, style, color )
+METHOD HPrinter:SetPen(nWidth, style, color)
    
    LOCAL oPenOld := ::oPen
 
@@ -267,7 +267,7 @@ METHOD HPrinter:End()
 
    RETURN NIL
 
-METHOD HPrinter:Box( x1, y1, x2, y2, oPen )
+METHOD HPrinter:Box(x1, y1, x2, y2, oPen)
 
    IF oPen == NIL
       oPen := ::oPen
@@ -317,7 +317,7 @@ METHOD HPrinter:Line(x1, y1, x2, y2, oPen)
 
    RETURN NIL
 
-METHOD HPrinter:Say( cString, x1, y1, x2, y2, nOpt, oFont )
+METHOD HPrinter:Say(cString, x1, y1, x2, y2, nOpt, oFont)
 
    IF y2 > ::nHeight
       RETURN NIL
@@ -349,7 +349,7 @@ METHOD HPrinter:Say( cString, x1, y1, x2, y2, nOpt, oFont )
   
    RETURN NIL
 
-METHOD HPrinter:Bitmap( x1, y1, x2, y2, nOpt, hBitmap, cImageName )
+METHOD HPrinter:Bitmap(x1, y1, x2, y2, nOpt, hBitmap, cImageName)
 
    HB_SYMBOL_UNUSED(hBitmap)
 
@@ -412,19 +412,19 @@ METHOD HPrinter:EndPage()
 
    RETURN NIL
 
-METHOD HPrinter:LoadScript( cScriptFile )
+METHOD HPrinter:LoadScript(cScriptFile)
    
    LOCAL arr
    LOCAL i
    LOCAL s
 
-   IF Empty(cScriptFile) .OR. Empty(arr := hb_aTokens( MemoRead(cScriptFile), s_crlf ))
+   IF Empty(cScriptFile) .OR. Empty(arr := hb_aTokens(MemoRead(cScriptFile), s_crlf))
       RETURN .F.
    ENDIF
    ::cScriptFile := cScriptFile
    ::aPages := {}
 
-   ::aJob := hb_aTokens( arr[1], "," )
+   ::aJob := hb_aTokens(arr[1], ",")
 
    FOR i := 1 TO Len(arr)
       IF Left(arr[i], 4) == "page"
@@ -442,7 +442,7 @@ METHOD HPrinter:LoadScript( cScriptFile )
 
    RETURN !Empty(::aPages)
 
-METHOD HPrinter:SaveScript( cScriptFile )
+METHOD HPrinter:SaveScript(cScriptFile)
 
    LOCAL han
    LOCAL i
@@ -474,7 +474,7 @@ METHOD HPrinter:SaveScript( cScriptFile )
 
 #define TOOL_SIDE_WIDTH  88
 
-METHOD HPrinter:Preview( cTitle, aBitmaps, aTooltips, aBootUser )
+METHOD HPrinter:Preview(cTitle, aBitmaps, aTooltips, aBootUser)
 
 /*
 aBootUser[1] : oBtn:bClick
@@ -676,15 +676,15 @@ METHOD HPrinter:PaintDoc(oCanvas)
    LOCAL nShiftH := 0
 
    pps := hwg_Definepaintstru()
-   hDC := hwg_Beginpaint( oCanvas:handle, pps )
-   aCoors := hwg_Getclientrect( oCanvas:handle )
+   hDC := hwg_Beginpaint(oCanvas:handle, pps)
+   aCoors := hwg_Getclientrect(oCanvas:handle)
 
    hwg_Fillrect(hDC, 0, 0, aCoors[3], aCoors[4], ::oBrush1:handle)
    IF !Empty(::hMeta)
       nWidth := aCoors[3] - 20
-      IF ( nHeight := Int( nWidth * (::nHeight / ::nWidth) ) ) > aCoors[4] - 20
+      IF ( nHeight := Int(nWidth * (::nHeight / ::nWidth)) ) > aCoors[4] - 20
          nHeight := aCoors[4] - 20
-         nWidth := Int( nHeight * (::nWidth / ::nHeight) )
+         nWidth := Int(nHeight * (::nWidth / ::nHeight))
       ENDIF
       IF ::nZoom > 0
          nZoom := 1 + 0.25 * ::nZoom
@@ -693,15 +693,15 @@ METHOD HPrinter:PaintDoc(oCanvas)
       ELSE
          IF oCanvas:nScrollV != 0
             oCanvas:nScrollV := 0
-            hwg_SetAdjOptions( oCanvas:hScrollV,, 11, 1, 1, 1 )
+            hwg_SetAdjOptions(oCanvas:hScrollV,, 11, 1, 1, 1)
          ENDIF
          IF oCanvas:nScrollH != 0
             oCanvas:nScrollH := 0
-            hwg_SetAdjOptions( oCanvas:hScrollH,, 11, 1, 1, 1 )
+            hwg_SetAdjOptions(oCanvas:hScrollH,, 11, 1, 1, 1)
          ENDIF
       ENDIF
-      ::x1 := IIf(aCoors[3] > nWidth, Int( ( aCoors[3] - nWidth ) / 2 ), 0)
-      ::y1 := IIf(aCoors[4] > nHeight, Int( ( aCoors[4] - nHeight ) / 2 ), 0)
+      ::x1 := IIf(aCoors[3] > nWidth, Int(( aCoors[3] - nWidth) / 2 ), 0)
+      ::y1 := IIf(aCoors[4] > nHeight, Int(( aCoors[4] - nHeight) / 2 ), 0)
       ::x2 := ::x1 + nWidth - 1
       ::y2 := ::y1 + nHeight - 1
       hwg_Fillrect(hDC, ::x1, ::y1, Min(::x1 + nWidth,aCoors[3]), Min(aCoors[4], ::y1 + nHeight), ::oBrush2:handle)
@@ -719,7 +719,7 @@ METHOD HPrinter:PaintDoc(oCanvas)
       hwg_Drawbitmap(hDC, ::hMeta, NIL, ::x1, ::y1, nWidth, nHeight)
    ENDIF
 
-   hwg_Endpaint( oCanvas:handle, pps )
+   hwg_Endpaint(oCanvas:handle, pps)
 
    RETURN NIL
 
@@ -768,7 +768,7 @@ METHOD HPrinter:ChangePage(oCanvas, oSayPage, n, nPage)
       ::hMeta := hwg_Openimage(cMetaName)
       FErase(cMetaName)
       IF !Empty(oCanvas)
-         hwg_Redrawwindow( oCanvas:handle )
+         hwg_Redrawwindow(oCanvas:handle)
       ENDIF
    ENDIF
 
@@ -800,7 +800,7 @@ METHOD HGP_Font:Add(fontName, nHeight , fnWeight, fdwItalic, fdwUnderline)
    LOCAL i
    LOCAL nlen := Len(::aFonts)
 
-   nHeight := IIf(nHeight == NIL, 13, Abs( nHeight ))
+   nHeight := IIf(nHeight == NIL, 13, Abs(nHeight))
    nHeight -= 1
    fnWeight := IIf(fnWeight == NIL, 0, fnWeight)
    fdwItalic := IIf(fdwItalic == NIL, 0, fdwItalic)
@@ -912,17 +912,17 @@ METHOD HGP_Pen:RELEASE()
 
    RETURN NIL
 
-STATIC FUNCTION FScrollV( oCanvas )
+STATIC FUNCTION FScrollV(oCanvas)
 
    oCanvas:nScrollV := hwg_getAdjValue(oCanvas:hScrollV)
-   hwg_Redrawwindow( oCanvas:handle )
+   hwg_Redrawwindow(oCanvas:handle)
 
    RETURN NIL
 
 STATIC FUNCTION FScrollH(oCanvas)
 
    oCanvas:nScrollH := hwg_getAdjValue(oCanvas:hScrollH)
-   hwg_Redrawwindow( oCanvas:handle )
+   hwg_Redrawwindow(oCanvas:handle)
 
    RETURN NIL
 
@@ -950,10 +950,10 @@ STATIC FUNCTION MessProc(oPrinter, oPanel, lParam)
    nHRes := ( oPrinter:x2 - oPrinter:x1 ) / oPrinter:nWidth
    nVRes := ( oPrinter:y2 - oPrinter:y1 ) / oPrinter:nHeight
 
-   arr := hb_aTokens( oPrinter:aPages[nPage], s_crlf )
+   arr := hb_aTokens(oPrinter:aPages[nPage], s_crlf)
    FOR i := 1 TO Len(arr)
       nPos := 0
-      IF hb_TokenPtr( arr[i], @nPos, "," ) == "txt"
+      IF hb_TokenPtr(arr[i], @nPos, ",") == "txt"
          x1 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nHRes / IIf(oPrinter:lmm, oPrinter:nHRes, 1), 0) + oPrinter:x1
          y1 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nVRes / IIf(oPrinter:lmm, oPrinter:nVRes, 1), 0) + oPrinter:y1
          x2 := Round(Val(hb_TokenPtr(arr[i], @nPos, ",")) * nHRes / IIf(oPrinter:lmm, oPrinter:nHRes, 1), 0) + oPrinter:x1
@@ -964,7 +964,7 @@ STATIC FUNCTION MessProc(oPrinter, oPanel, lParam)
       ENDIF
    NEXT
    IF i <= Len(arr)
-      hb_TokenPtr( arr[i], @nPos, "," )
+      hb_TokenPtr(arr[i], @nPos, ",")
 
       cl := hwg_SetAppLocale("UTF-8")
       cTemp := hwg_MsgGet("", , ES_AUTOHSCROLL, , , DS_CENTER, SubStr(arr[i], nPos + 1))
@@ -978,7 +978,7 @@ STATIC FUNCTION MessProc(oPrinter, oPanel, lParam)
                oPrinter:aPages[nPage] += Left(arr[j], nPos) + cTemp + s_crlf
             ENDIF
          NEXT
-         hwg_Redrawwindow( oPanel:handle )
+         hwg_Redrawwindow(oPanel:handle)
       ENDIF
    ENDIF
 

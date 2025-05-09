@@ -24,18 +24,18 @@ CLASS HTreeNode INHERIT HObject
    DATA aItems INIT {}
    DATA bClick
 
-   METHOD New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
+   METHOD New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
    METHOD AddNode(cTitle, oPrev, oNext, bClick, aImages)
    METHOD DELETE(lInternal)
    METHOD GetText() INLINE ::title
-   METHOD SetText( cText ) INLINE ::title := cText
+   METHOD SetText(cText) INLINE ::title := cText
    METHOD getNodeIndex()
    METHOD PrevNode(nNode, lSkip)
    METHOD NextNode(nNode, lSkip)
 
 ENDCLASS
 
-METHOD HTreeNode:New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
+METHOD HTreeNode:New(oTree, oParent, oPrev, oNext, cTitle, bClick, aImages)
 
    LOCAL aItems
    LOCAL i
@@ -81,15 +81,15 @@ METHOD HTreeNode:New( oTree, oParent, oPrev, oNext, cTitle, bClick, aImages )
       AAdd(aItems, Self)
    ELSEIF nPos == 1
       AAdd(aItems, NIL)
-      AIns( aItems, 1 )
+      AIns(aItems, 1)
       aItems[1] := Self
    ELSE
       AAdd(aItems, NIL)
       h := oPrev:handle
-      IF ( i := AScan( aItems, {|o|o:handle == h} ) ) == 0
+      IF ( i := AScan(aItems, {|o|o:handle == h}) ) == 0
          aItems[Len(aItems)] := Self
       ELSE
-         AIns( aItems, i + 1 )
+         AIns(aItems, i + 1)
          aItems[i + 1] := Self
       ENDIF
    ENDIF
@@ -119,7 +119,7 @@ METHOD HTreeNode:DELETE(lInternal)
    ENDIF
    IF lInternal == NIL
       aItems := IIf(::oParent == NIL, ::oTree:aItems, ::oParent:aItems)
-      j := AScan( aItems, {|o|o:handle == h} )
+      j := AScan(aItems, {|o|o:handle == h})
       ADel(aItems, j)
       ASize(aItems, Len(aItems) - 1)
    ENDIF
@@ -196,7 +196,7 @@ STATIC PROCEDURE ReleaseTree(aItems, lDelImages)
       IF lDelImages .AND. !Empty(aItems[i]:aImages)
          FOR j := 1 TO Len(aItems[i]:aImages)
             IF aItems[i]:aImages[j] != NIL
-               hwg_Deleteobject( aItems[i]:aImages[j] )
+               hwg_Deleteobject(aItems[i]:aImages[j])
                aItems[i]:aImages[j] := NIL
             ENDIF
          NEXT

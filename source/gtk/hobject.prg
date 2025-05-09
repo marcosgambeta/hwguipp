@@ -31,7 +31,7 @@ INIT PROCEDURE HWGINIT
    hwg_gtk_init()
    Hwg_InitProc()
    hwg_ErrSys()
-   SET( _SET_INSERT, .T. )
+   SET(_SET_INSERT, .T.)
 
    RETURN
 

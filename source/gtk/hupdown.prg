@@ -27,20 +27,20 @@ CLASS HUpDown INHERIT HControl
 
    METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctoolt, tcolor, bcolor, nUpDWidth, nLower, nUpper)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Refresh()
    METHOD Value(nValue) SETGET
    METHOD SetRange(n1, n2) INLINE hwg_SetRangeUpdown(::handle, n1, n2)
 
 ENDCLASS
 
-METHOD HUpDown:New( oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
+METHOD HUpDown:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctoolt, tcolor, bcolor,   ;
-      nUpDWidth, nLower, nUpper )
+      nUpDWidth, nLower, nUpper)
 
-   nStyle := hb_bitor( IIf(nStyle == NIL, 0,nStyle), WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint, ctoolt, tcolor, bcolor )
+   nStyle := hb_bitor(IIf(nStyle == NIL, 0,nStyle), WS_TABSTOP)
+   ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, ;
+      bSize, bPaint, ctoolt, tcolor, bcolor)
 
    IF Empty(vari)
       vari := 0
@@ -83,7 +83,7 @@ METHOD HUpDown:Activate()
 
    RETURN NIL
 
-METHOD HUpDown:onEvent( msg, wParam, lParam )
+METHOD HUpDown:onEvent(msg, wParam, lParam)
 
    // Variables not used
    // LOCAL oParent := ::oParent
@@ -99,7 +99,7 @@ METHOD HUpDown:onEvent( msg, wParam, lParam )
             Eval(::bGetFocus, ::nValue := hwg_GetUpDown(::handle), Self)
          ENDIF
       ELSE
-         __When( Self )
+         __When(Self)
       ENDIF
    ELSEIF msg == WM_KILLFOCUS
       __Valid(Self)
@@ -139,7 +139,7 @@ METHOD HUpDown:Value(nValue)
 
    RETURN ::nValue
 
-STATIC FUNCTION __When( oCtrl )
+STATIC FUNCTION __When(oCtrl)
 
    oCtrl:Refresh()
    IF hb_IsBlock(oCtrl:bGetFocus)
@@ -150,13 +150,13 @@ STATIC FUNCTION __When( oCtrl )
 
 STATIC FUNCTION __Valid(oCtrl)
 
-   oCtrl:nValue := hwg_GetUpDown( oCtrl:handle )
+   oCtrl:nValue := hwg_GetUpDown(oCtrl:handle)
    IF hb_IsBlock(oCtrl:bSetGet)
       Eval(oCtrl:bSetGet, oCtrl:nValue)
    ENDIF
    IF hb_IsBlock(oCtrl:bLostFocus) .AND. !Eval(oCtrl:bLostFocus, oCtrl:nValue, oCtrl) .OR. ;
          oCtrl:nValue > oCtrl:nUpper .OR. oCtrl:nValue < oCtrl:nLower
-      hwg_Setfocus( oCtrl:handle )
+      hwg_Setfocus(oCtrl:handle)
    ENDIF
 
    RETURN .T.

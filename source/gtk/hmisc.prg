@@ -545,7 +545,7 @@ RETURN T + 273.15
 FUNCTION hwg_TEMP_C2RA(T)
 RETURN (T * 1.8) + 32.0 + 459.67
 
-FUNCTION hwg_TEMP_C2R( T )
+FUNCTION hwg_TEMP_C2R(T)
 RETURN T * 0.8
 
 FUNCTION hwg_TEMP_K2C(T)
@@ -557,7 +557,7 @@ RETURN (T * 1.8) - 459.67
 FUNCTION hwg_TEMP_K2RA(T)
 RETURN T * 1.8
 
-FUNCTION hwg_TEMP_K2R( T )
+FUNCTION hwg_TEMP_K2R(T)
 RETURN ( T - 273.15 ) * 0.8
 
 FUNCTION hwg_TEMP_F2C(T)
@@ -569,7 +569,7 @@ RETURN ( T + 459.67) / 1.8
 FUNCTION hwg_TEMP_F2RA(T)
 RETURN T + 459.67
 
-FUNCTION hwg_TEMP_F2R( T )
+FUNCTION hwg_TEMP_F2R(T)
 RETURN ( T - 32.0 ) / 2.25
 
 FUNCTION hwg_TEMP_RA2C(T)
@@ -581,7 +581,7 @@ RETURN  T - 459.67
 FUNCTION hwg_TEMP_RA2K(T)
 RETURN T / 1.8
 
-FUNCTION hwg_TEMP_RA2R( T )
+FUNCTION hwg_TEMP_RA2R(T)
 RETURN ( T - 32.0 -459.67 ) / 2.25
 
 FUNCTION hwg_TEMP_R2C(T)
@@ -610,10 +610,10 @@ RETURN cm * 0.3937
 
 // feet / m
 
-FUNCTION  hwg_FT2METER( ft )
+FUNCTION  hwg_FT2METER(ft)
 RETURN ft * 0.3048
 
-FUNCTION hwg_METER2FT( m )
+FUNCTION hwg_METER2FT(m)
 RETURN m * 3.2808
 
 // mile / km
@@ -621,7 +621,7 @@ RETURN m * 3.2808
 FUNCTION hwg_MILES2KM(mi)
 RETURN mi * 1.6093
 
-FUNCTION hwg_KM2MILES( km )
+FUNCTION hwg_KM2MILES(km)
 RETURN  km * 0.6214
 
 // sqin / sq cm
@@ -629,7 +629,7 @@ RETURN  km * 0.6214
 FUNCTION hwg_SQIN2SQCM(sqin)
 RETURN sqin * 6.4516
 
-FUNCTION hwg_SQCM2SQIN( sqcm )
+FUNCTION hwg_SQCM2SQIN(sqcm)
 RETURN sqcm * 0.155
 
 // sqft / sq m
@@ -637,7 +637,7 @@ RETURN sqcm * 0.155
 FUNCTION hwg_SQFT2SQM(sqft)
 RETURN sqft * 0.0929
 
-FUNCTION hwg_SQM2SQFT( sqm )
+FUNCTION hwg_SQM2SQFT(sqm)
 RETURN sqm * 10.7642
 
 // usoz / c.c. (Cubic cm)
@@ -645,7 +645,7 @@ RETURN sqm * 10.7642
 FUNCTION hwg_USOZ2CC(usoz)
 RETURN usoz * 29.574
 
-FUNCTION hwg_CC2USOZ( cc )
+FUNCTION hwg_CC2USOZ(cc)
 RETURN cc * 0.0338
 
 // usgal / liter
@@ -666,10 +666,10 @@ RETURN kg * 2.2046
 
 // oz / g
 
-FUNCTION hwg_OZ2GR( oz )
+FUNCTION hwg_OZ2GR(oz)
 RETURN oz * 28.35
 
-FUNCTION hwg_GR2OZ( gr )
+FUNCTION hwg_GR2OZ(gr)
 RETURN gr * 0.0353
 
 // Nautical mile / km

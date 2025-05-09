@@ -18,8 +18,8 @@ CLASS HRadioButton INHERIT HControl
 
    METHOD New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ctoolt, tcolor, bcolor)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
-   METHOD SetText( value ) INLINE hwg_button_SetText(::handle, ::title := value)
+   METHOD onEvent(msg, wParam, lParam)
+   METHOD SetText(value) INLINE hwg_button_SetText(::handle, ::title := value)
    METHOD GetText() INLINE hwg_button_GetText(::handle)
    METHOD Value(lValue) SETGET
 
@@ -82,7 +82,7 @@ METHOD HRadioButton:Activate()
 
    RETURN NIL
 
-METHOD HRadioButton:onEvent( msg, wParam, lParam )
+METHOD HRadioButton:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
@@ -105,7 +105,7 @@ METHOD HRadioButton:Value(lValue)
 
 STATIC FUNCTION __Valid(oCtrl)
 
-   oCtrl:oGroup:nValue := Ascan( oCtrl:oGroup:aButtons, {|o|o:id == oCtrl:id} )
+   oCtrl:oGroup:nValue := Ascan(oCtrl:oGroup:aButtons, {|o|o:id == oCtrl:id})
    IF hb_IsBlock(oCtrl:oGroup:bSetGet)
       Eval(oCtrl:oGroup:bSetGet, oCtrl:oGroup:nValue)
    ENDIF

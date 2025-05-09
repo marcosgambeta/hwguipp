@@ -27,7 +27,7 @@ CLASS HRadioGroup INHERIT HObject
 
 ENDCLASS
 
-METHOD HRadioGroup:New( vari, bSetGet )
+METHOD HRadioGroup:New(vari, bSetGet)
 
    ::oGroupCurrent := Self
    ::aButtons := {}
@@ -47,8 +47,8 @@ METHOD HRadioGroup:NewRg(oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth,
    ::oGroupCurrent := Self
    ::aButtons := {}
 
-   ::oHGroup := HGroup():New( oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, ;
-      oFont, bInit, bSize, NIL, tcolor, bColor )
+   ::oHGroup := HGroup():New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, ;
+      oFont, bInit, bSize, NIL, tcolor, bColor)
 
    IF vari != NIL
       IF HB_ISNUMERIC(vari)
@@ -59,7 +59,7 @@ METHOD HRadioGroup:NewRg(oWndParent, nId, nStyle, vari, bSetGet, nX, nY, nWidth,
 
    RETURN Self
 
-METHOD HRadioGroup:EndGroup( nSelected )
+METHOD HRadioGroup:EndGroup(nSelected)
    
    LOCAL nLen
 

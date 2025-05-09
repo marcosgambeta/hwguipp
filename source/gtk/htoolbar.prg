@@ -36,7 +36,7 @@ CLASS HToolBar INHERIT HControl
    METHOD INIT()
    METHOD REFRESH()
    METHOD AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu) // a,s,d,f,g,h
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD EnableAllButtons()
    METHOD DisableAllButtons()
    METHOD EnableButtons(n)
@@ -139,7 +139,7 @@ METHOD hToolBar:AddButton(nBitIp,nId,bState,bStyle,cText,bClick,c,aMenu)
    AAdd(::aItem, {nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, 0})
 RETURN Self
 
-METHOD hToolBar:onEvent( msg, wParam, lParam )
+METHOD hToolBar:onEvent(msg, wParam, lParam)
 
    LOCAL nPos
 
@@ -167,7 +167,7 @@ METHOD hToolBar:EnableAllButtons()
    LOCAL xItem
 
    For Each xItem in ::aItem
-      hwg_Enablewindow( xItem[11], .T. )
+      hwg_Enablewindow(xItem[11], .T.)
    Next
 RETURN Self
 
@@ -176,7 +176,7 @@ METHOD hToolBar:DisableAllButtons()
    LOCAL xItem
 
    For Each xItem in ::aItem
-      hwg_Enablewindow( xItem[11], .F. )
+      hwg_Enablewindow(xItem[11], .F.)
    Next
 RETURN Self
 

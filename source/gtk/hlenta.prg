@@ -39,7 +39,7 @@ CLASS VAR winclass INIT "PANEL"
 
    METHOD New(oWndParent, nId, nX, nY, nWidth, nHeight, oFont, bSize, bPaint, bClick, color, bcolor, aItems, nItemSize, aItemStyle)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
    METHOD Paint()
    METHOD Drag(xPos, yPos)
@@ -94,7 +94,7 @@ METHOD HLenta:Init()
 
    RETURN NIL
 
-METHOD HLenta:onEvent( msg, wParam, lParam )
+METHOD HLenta:onEvent(msg, wParam, lParam)
 
    LOCAL xPos
    LOCAL yPos
@@ -123,7 +123,7 @@ METHOD HLenta:onEvent( msg, wParam, lParam )
             ENDIF
             nPos := IIf(::lVertical, yPos - y1, xPos - y1)
             IF nPos > 0
-               IF ( nPos := Int( nPos / ::nItemSize ) + ::nFirst ) > Len(::aItems)
+               IF ( nPos := Int(nPos / ::nItemSize) + ::nFirst ) > Len(::aItems)
                   nPos := 0
                ENDIF
                lRedraw := (::nOver != nPos)
@@ -242,7 +242,7 @@ METHOD HLenta:Paint()
          ENDIF
          IF ::lDrawNext
             hwg_Selectobject(hDC, ::oPen:handle)
-            i := Int( nw/2 )
+            i := Int(nw/2)
             IF ::nShift > 0
                IF lVertical
                   hwg_Rectangle(hDC, i - 1, 1, i, 2)
@@ -291,8 +291,8 @@ METHOD HLenta:Drag(xPos, yPos)
       ::xPos := xPos; ::yPos := yPos
       IF ::nShift < 0
          ::nShift := 0
-      ELSEIF ::nShift + nLength > Int( nKolItems * ::nItemSize ) + 2
-         ::nShift := Max( 0, Int( nKolItems * ::nItemSize ) - nLength + 2 )
+      ELSEIF ::nShift + nLength > Int(nKolItems * ::nItemSize) + 2
+         ::nShift := Max(0, Int(nKolItems * ::nItemSize) - nLength + 2)
       ENDIF
       ::nFirst := Int(::nShift / ::nItemSize)
       ::nFirst += IIf(::nShift > ::nFirst * ::nItemSize, 2, 1)

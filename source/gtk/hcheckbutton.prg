@@ -20,9 +20,9 @@ CLASS HCheckButton INHERIT HControl
    METHOD Activate()
    METHOD Disable()
    METHOD Init()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Refresh()
-   METHOD SetText( value ) INLINE hwg_button_SetText(::handle, ::title := value)
+   METHOD SetText(value) INLINE hwg_button_SetText(::handle, ::title := value)
    METHOD GetText() INLINE hwg_button_GetText(::handle)
    METHOD Value(lValue) SETGET
 
@@ -85,7 +85,7 @@ METHOD HCheckButton:Init()
 
    RETURN NIL
 
-METHOD HCheckButton:onEvent( msg, wParam, lParam )
+METHOD HCheckButton:onEvent(msg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
@@ -93,7 +93,7 @@ METHOD HCheckButton:onEvent( msg, wParam, lParam )
    IF msg == WM_LBUTTONUP
       __Valid(Self)
    ELSEIF msg == BN_SETFOCUS
-      __When( Self )
+      __When(Self)
    ENDIF
 
    RETURN NIL
@@ -137,12 +137,12 @@ STATIC FUNCTION __Valid(oCtrl)
       Eval(oCtrl:bSetGet, oCtrl:lValue, oCtrl)
    ENDIF
    IF hb_IsBlock(oCtrl:bLostFocus) .AND. hb_IsLogical(res := Eval(oCtrl:bLostFocus, oCtrl, oCtrl:lValue)) .AND. !res
-      hwg_Setfocus( oCtrl:handle )
+      hwg_Setfocus(oCtrl:handle)
    ENDIF
 
    RETURN .T.
 
-STATIC FUNCTION __When( oCtrl )
+STATIC FUNCTION __When(oCtrl)
    
    LOCAL res
 
@@ -151,7 +151,7 @@ STATIC FUNCTION __When( oCtrl )
    IF hb_IsBlock(oCtrl:bGetFocus)
       res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, , oCtrl), oCtrl)
       IF HB_ISLOGICAL(res) .AND. !res
-         hwg_GetSkip( oCtrl:oParent, oCtrl:handle, 1 )
+         hwg_GetSkip(oCtrl:oParent, oCtrl:handle, 1)
       ENDIF
       RETURN res
    ENDIF

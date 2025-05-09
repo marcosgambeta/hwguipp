@@ -33,7 +33,7 @@ CLASS HTimer INHERIT HObject
 
 ENDCLASS
 
-METHOD HTimer:New( oParent, nId, value, bAction, lOnce )
+METHOD HTimer:New(oParent, nId, value, bAction, lOnce)
 
    ::oParent := IIf(oParent == NIL, HWindow():GetMain(), oParent)
    IF nId == NIL
@@ -87,7 +87,7 @@ METHOD HTimer:End()
 
 FUNCTION hwg_TimerProc(idTimer)
 
-   LOCAL i := Ascan( HTimer():aTimers, {|o|o:id == idTimer} )
+   LOCAL i := Ascan(HTimer():aTimers, {|o|o:id == idTimer})
    LOCAL b
    LOCAL oParent
 
@@ -110,7 +110,7 @@ FUNCTION hwg_ReleaseTimers()
 
    For i := 1 TO Len(HTimer():aTimers)
       oTimer := HTimer():aTimers[i]
-      hwg_KillTimer( oTimer:tag )
+      hwg_KillTimer(oTimer:tag)
    NEXT
 
    RETURN NIL

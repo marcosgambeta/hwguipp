@@ -35,7 +35,7 @@ FUNCTION RDSTR(han, strbuf, poz, buflen)
    ENDIF
    poz ++
    poz1 := Len(stro)
-   IF poz1 > 2 .AND. Right( stro, 1 ) $ Chr(13) + Chr(10)
+   IF poz1 > 2 .AND. Right(stro, 1) $ Chr(13) + Chr(10)
       IF SubStr(stro, poz1 - 1, 1) $ Chr(13) + Chr(10)
          poz1 --
       ENDIF
@@ -44,17 +44,17 @@ FUNCTION RDSTR(han, strbuf, poz, buflen)
 
    RETURN stro
 
-FUNCTION getNextVar( stroka, varValue )
+FUNCTION getNextVar(stroka, varValue)
 
    LOCAL varName, iPosEnd, iPos3
 
    IF Empty(stroka)
       RETURN ""
    ELSE
-      IF ( iPosEnd := Find_Z( stroka ) ) == 0
-         iPosEnd := IIf(Right( stroka, 1 ) = ";", Len(stroka), Len(stroka) + 1)
+      IF ( iPosEnd := Find_Z(stroka) ) == 0
+         iPosEnd := IIf(Right(stroka, 1) = ";", Len(stroka), Len(stroka) + 1)
       ENDIF
-      ipos3 := Find_Z( Left(stroka, iPosEnd - 1), ":" )
+      ipos3 := Find_Z(Left(stroka, iPosEnd - 1), ":")
       varName := RTrim(LTrim(Left(stroka, IIf(ipos3 == 0, iPosEnd, iPos3) - 1)))
       varValue := IIf(iPos3 != 0, LTrim(SubStr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), NIL)
       stroka := SubStr(stroka, iPosEnd + 1)
@@ -62,7 +62,7 @@ FUNCTION getNextVar( stroka, varValue )
 
    RETURN varName
 
-FUNCTION FIND_Z( stroka, symb )
+FUNCTION FIND_Z(stroka, symb)
 
    LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0, 0 }
 
@@ -102,13 +102,13 @@ FUNCTION Fchoice()
 
 #endif
 
-FUNCTION CutExten( fname )
+FUNCTION CutExten(fname)
 
    LOCAL i
 
    RETURN IIf(( i := RAt(".", fname) ) == 0, fname, SubStr(fname, 1, i - 1))
 
-FUNCTION FilExten( fname )
+FUNCTION FilExten(fname)
 
    LOCAL i
 
@@ -133,7 +133,7 @@ FUNCTION CutPath(fname)
 FUNCTION AddPath(fname, cPath)
 
    IF Empty(FilePath(fname)) .AND. !Empty(cPath)
-      IF !( Right( cPath, 1 ) $ "\/" )
+      IF !( Right(cPath, 1) $ "\/" )
 #ifndef __PLATFORM__WINDOWS
          cPath += "/"
 #else
