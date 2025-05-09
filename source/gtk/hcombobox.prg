@@ -106,7 +106,7 @@ METHOD HComboBox:onEvent(msg, wParam, lParam)
       IF ::bSetGet == NIL
          IF hb_IsBlock(::bGetFocus)
             i := hwg_ComboGet(::handle)
-            Eval(::bGetFocus, IIf(HB_ISARRAY(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
+            Eval(::bGetFocus, IIf(hb_IsArray(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
          ENDIF
       ELSE
          __When(Self)
@@ -115,7 +115,7 @@ METHOD HComboBox:onEvent(msg, wParam, lParam)
       IF ::bSetGet == NIL
          IF hb_IsBlock(::bLostFocus)
             i := hwg_ComboGet(::handle)
-            Eval(::bLostFocus, IIf(HB_ISARRAY(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
+            Eval(::bLostFocus, IIf(hb_IsArray(::aItems[1]), ::aItems[i, 1], ::aItems[i]), Self)
          ENDIF
       ELSE
          __Valid(Self)
@@ -140,7 +140,7 @@ METHOD HComboBox:Init()
          hwg_ComboSetArray(::handle, ::aItems)
          IF Empty(::xValue)
             IF ::lText
-               ::xValue := IIf(HB_ISARRAY(::aItems[1]), ::aItems[1, 1], ::aItems[1])
+               ::xValue := IIf(hb_IsArray(::aItems[1]), ::aItems[1, 1], ::aItems[1])
             ELSE
                ::xValue := 1
             ENDIF
@@ -185,7 +185,7 @@ METHOD HComboBox:Refresh(xVal)
 METHOD HComboBox:SetItem(nPos)
 
    IF ::lText
-      ::xValue := IIf(HB_ISARRAY(::aItems[nPos]), ::aItems[nPos, 1], ::aItems[nPos])
+      ::xValue := IIf(hb_IsArray(::aItems[nPos]), ::aItems[nPos, 1], ::aItems[nPos])
    ELSE
       ::xValue := nPos
    ENDIF
@@ -205,8 +205,8 @@ METHOD HComboBox:SetItem(nPos)
 METHOD HComboBox:GetValue(nItem)
    
    LOCAL nPos := hwg_ComboGet(::handle)
-   LOCAL vari := IIf(!Empty(::aItems) .AND. nPos > 0, IIf(HB_ISARRAY(::aItems[1]), ::aItems[nPos, 1], ::aItems[nPos]), "")
-   LOCAL l := nPos > 0 .AND. HB_ISARRAY(::aItems[nPos])
+   LOCAL vari := IIf(!Empty(::aItems) .AND. nPos > 0, IIf(hb_IsArray(::aItems[1]), ::aItems[nPos, 1], ::aItems[nPos]), "")
+   LOCAL l := nPos > 0 .AND. hb_IsArray(::aItems[nPos])
 
    ::xValue := IIf(::lText, vari, nPos)
    IF hb_IsBlock(::bSetGet)
@@ -218,8 +218,8 @@ METHOD HComboBox:GetValue(nItem)
 METHOD HComboBox:Value(xValue)
 
    IF xValue != NIL
-      IF HB_ISCHAR(xValue)
-         xValue := IIf(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
+      IF hb_IsChar(xValue)
+         xValue := IIf(hb_IsArray(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
       ENDIF
       ::SetItem(xValue)
 

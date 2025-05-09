@@ -44,7 +44,7 @@ METHOD HTimer:New(oParent, nId, value, bAction, lOnce)
    ENDIF
    ::Id := nId
 
-   ::value := IIf(HB_ISNUMERIC(value), value, 1000)
+   ::value := IIf(hb_IsNumeric(value), value, 1000)
    ::bAction := bAction
    ::lOnce := !Empty(lOnce)
 

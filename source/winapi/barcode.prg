@@ -426,13 +426,13 @@ METHOD Barcode:InitCode128(cMode)
    LOCAL nCount := 0
 
    // Errors
-   IF !HB_ISCHAR(cCode)
+   IF !hb_IsChar(cCode)
       hwg_MsgInfo("Barcode Code 128 requires a character value.")
       RETURN NIL
    ENDIF
 
    IF !Empty(cMode)
-      IF HB_ISCHAR(cMode) .AND. Upper(cMode) $ "ABC"
+      IF hb_IsChar(cMode) .AND. Upper(cMode) $ "ABC"
          cMode := Upper(cMode)
       ELSE
          hwg_MsgInfo("Code 128 modes are A, B o C. Character values.")

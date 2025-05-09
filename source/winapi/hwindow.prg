@@ -570,7 +570,7 @@ METHOD HChildWindow:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, 
                cAppName, oBmp, cHelp, nHelpId, bColor)
    ::oParent := HWindow():GetMain()
 
-   IF HB_ISOBJECT(::oParent)
+   IF hb_IsObject(::oParent)
       ::handle := Hwg_InitChildWindow(Self, ::szAppName, cTitle, cMenu, IIf(oIcon != NIL, oIcon:handle, NIL), ;
          IIf(oBmp != NIL, -1, IIf(::brush != NIL, ::brush:handle, clr)), nStyle, ::nX, ::nY, ::nWidth, ::nHeight, ::oParent:handle)
    ELSE
@@ -705,7 +705,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    iParLow := hwg_Loword(wParam)
    IF oWnd:aEvents != NIL .AND. (iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow})) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
-   ELSEIF HB_ISARRAY(oWnd:menu) .AND. (aMenu := Hwg_FindMenuItem(oWnd:menu, iParLow, @iCont)) != NIL
+   ELSEIF hb_IsArray(oWnd:menu) .AND. (aMenu := Hwg_FindMenuItem(oWnd:menu, iParLow, @iCont)) != NIL
       IF hb_bitand(aMenu[1, iCont, 4], FLAG_CHECK) > 0
          hwg_Checkmenuitem(NIL, aMenu[1, iCont, 3], !hwg_Ischeckedmenuitem(NIL, aMenu[1, iCont, 3]))
       ENDIF
@@ -753,7 +753,7 @@ STATIC FUNCTION onSysCommand(oWnd, wParam)
    CASE SC_CLOSE
       IF hb_IsBlock(oWnd:bDestroy)
          i := Eval(oWnd:bDestroy, oWnd)
-         i := IIf(HB_ISLOGICAL(i), i, .T.)
+         i := IIf(hb_IsLogical(i), i, .T.)
          IF !i
             RETURN 0
          ENDIF
@@ -780,7 +780,7 @@ STATIC FUNCTION onEndSession(oWnd)
 
    IF hb_IsBlock(oWnd:bDestroy)
       i := Eval(oWnd:bDestroy, oWnd)
-      i := IIf(HB_ISLOGICAL(i), i, .T.)
+      i := IIf(hb_IsLogical(i), i, .T.)
       IF !i
          RETURN 0
       ENDIF

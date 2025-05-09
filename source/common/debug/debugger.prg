@@ -262,7 +262,7 @@ METHOD HBDebugger:GetExprValue(xExpr, lValid)
       ENDIF
    RECOVER USING oErr
       xResult := oErr:operation + ": " + oErr:description
-      IF HB_ISARRAY(oErr:args)
+      IF hb_IsArray(oErr:args)
          xResult += "; arguments:"
          AEval(oErr:args, {|x|xResult += " " + AllTrim(__dbgValToStr(x))})
       ENDIF
@@ -870,7 +870,7 @@ STATIC FUNCTION SendArray(cArrName, nFirst, nCount)
    // xValue
 
    arrFrom := t_oDebugger:GetExprValue(cArrName)
-   IF HB_ISARRAY(arrFrom)
+   IF hb_IsArray(arrFrom)
       IF Len(arrFrom) < nFirst + nCount - 1
          nCount := Len(arrFrom) - nFirst + 1
       ENDIF

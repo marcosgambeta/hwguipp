@@ -225,7 +225,7 @@ METHOD HListBox:onEvent(msg, wParam, lParam)
       ENDIF
          IF hb_IsBlock(::bKeyDown)
          nEval := Eval(::bKeyDown, Self, wParam)
-         IF (HB_ISLOGICAL(nEval) .AND. !nEval ) .OR. (nEval != -1 .AND. nEval != NIL)
+         IF (hb_IsLogical(nEval) .AND. !nEval ) .OR. (nEval != -1 .AND. nEval != NIL)
             RETURN 0
          ENDIF
       ENDIF

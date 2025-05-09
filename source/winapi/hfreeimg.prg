@@ -120,7 +120,7 @@ ENDCLASS
 METHOD HSayFImage:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, bSize, ctooltip, cType)
 
    IF Image != NIL
-      ::oImage := IIf(HB_ISCHAR(Image), IIf(cType != NIL, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image)), Image)
+      ::oImage := IIf(hb_IsChar(Image), IIf(cType != NIL, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image)), Image)
       IF nWidth == NIL
          nWidth := ::oImage:nWidth
          nHeight := ::oImage:nHeight
@@ -137,7 +137,7 @@ METHOD HSayFImage:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bIni
 
 METHOD HSayFImage:Redefine(oWndParent, nId, Image, bInit, bSize, ctooltip)
 
-   ::oImage := IIf(HB_ISCHAR(Image), HFreeImage():AddFile(Image), Image)
+   ::oImage := IIf(hb_IsChar(Image), HFreeImage():AddFile(Image), Image)
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    // ::classname:= "HSAYFIMAGE"
@@ -151,7 +151,7 @@ METHOD HSayFImage:ReplaceImage(Image, cType)
    IF ::oImage != NIL
       ::oImage:Release()
    ENDIF
-   ::oImage := IIf(HB_ISCHAR(Image), IIf(cType != NIL, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image)), Image)
+   ::oImage := IIf(hb_IsChar(Image), IIf(cType != NIL, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image)), Image)
 
    RETURN NIL
 

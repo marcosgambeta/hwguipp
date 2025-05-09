@@ -55,7 +55,7 @@
 FUNCTION RDINI(fname, prm1, prm2, prm3, prm4)
 
 LOCAL han, stroka, strfull, kolstr, poz1, vname, prblo, lTruncAr
-LOCAL lWinIni := (HB_ISARRAY(prm1))
+LOCAL lWinIni := (hb_IsArray(prm1))
 LOCAL strbuf := Space(STR_BUFLEN), poz := STR_BUFLEN+1
 LOCAL iniDbf := (Upper(FilExten(fname)) == "DBF")
 

@@ -148,7 +148,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, c
       addY += 36
    ENDIF
 
-   IF HB_ISARRAY(arr[1])
+   IF hb_IsArray(arr[1])
       FOR i := 1 TO aLen
          nLen := Max(nLen, Len(arr[i, 1]))
       NEXT
@@ -176,7 +176,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nX, nY, oFont, clrT, clrB, clrTSel, clrBSel, c
       ON SIZE {|o,x,y|o:Move(addX/2, 10, x - addX, y - addY)} ;
       ON CLICK {|o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle)}
 
-   IF HB_ISARRAY(arr[1])
+   IF hb_IsArray(arr[1])
       oBrw:AddColumn(HColumn():New(NIL, {|value, o|HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent, 1]}, "C", nLen))
    ELSE
       oBrw:AddColumn(HColumn():New(NIL, {|value, o|HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent]}, "C", nLen))

@@ -24,7 +24,7 @@ FUNCTION hwg_InitControls(oWnd, lNoActivate)
             pArray[i]:Activate()
             pArray[i]:lInit := lInit
          ENDIF
-         IF IIf(HB_ISPOINTER(pArray[i]:handle), hwg_PtrToUlong(pArray[i]:handle), pArray[i]:handle) <= 0
+         IF IIf(hb_IsPointer(pArray[i]:handle), hwg_PtrToUlong(pArray[i]:handle), pArray[i]:handle) <= 0
          //IF Empty(pArray[i]:handle) .OR. hwg_isPtrneg1(pArray[i]:handle)
             pArray[i]:handle := hwg_Getdlgitem(oWnd:handle, pArray[i]:id)
             // writelog("InitControl2" + str(pArray[i]:handle) + "/" + pArray[i]:classname)
@@ -234,7 +234,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       addY += 36
    ENDIF
 
-   IF HB_ISCHAR(arr)
+   IF hb_IsChar(arr)
       lArray := .F.
       aLen := RecCount()
       IF (nField := FieldPos(arr)) == 0
@@ -243,7 +243,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       nLen := dbFieldInfo(3, nField)
    ELSE
       aLen := Len(arr)
-      IF HB_ISARRAY(arr[1])
+      IF hb_IsArray(arr[1])
          FOR i := 1 TO aLen
             nLen := Max(nLen, Len(arr[i, 1]))
          NEXT
@@ -271,7 +271,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    IF lArray
       @ addX/2, 10 BROWSE oBrw ARRAY SIZE width - addX, height - addY
       oBrw:aArray := arr
-      IF HB_ISARRAY(arr[1])
+      IF hb_IsArray(arr[1])
          oBrw:AddColumn(HColumn():New(NIL, {|value, o|(value), o:aArray[o:nCurrent, 1]}, "C", nLen))
       ELSE
          oBrw:AddColumn(HColumn():New(NIL, {|value, o|(value), o:aArray[o:nCurrent]}, "C", nLen))

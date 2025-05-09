@@ -519,7 +519,7 @@ METHOD HBrowse:AddColumn(oColumn)
    LOCAL n
    LOCAL arr
 
-   IF HB_ISARRAY(oColumn)
+   IF hb_IsArray(oColumn)
       arr := oColumn
       n := Len(arr)
       oColumn := HColumn():New(IIf(n > 0, arr[1], NIL), IIf(n > 1, arr[2], NIL), ;
@@ -536,7 +536,7 @@ METHOD HBrowse:InsColumn(oColumn, nPos)
    LOCAL n
    LOCAL arr
 
-   IF HB_ISARRAY(oColumn)
+   IF hb_IsArray(oColumn)
       arr := oColumn
       n := Len(arr)
       oColumn := HColumn():New(IIf(n > 0, arr[1], NIL), IIf(n > 1, arr[2], NIL), ;
@@ -719,7 +719,7 @@ METHOD HBrowse:Rebuild(hDC)
       IF oColumn:aBitmaps != NIL
          xSize := 0
          FOR j := 1 TO Len(oColumn:aBitmaps)
-            IF HB_ISOBJECT(oColumn:aBitmaps[j, 2])
+            IF hb_IsObject(oColumn:aBitmaps[j, 2])
                xSize := Max(xSize, oColumn:aBitmaps[j, 2]:nWidth + 2)
                ::minHeight := Max(::minHeight, oColumn:aBitmaps[j, 2]:nHeight)
             ENDIF
@@ -987,7 +987,7 @@ METHOD HBrowse:DrawHeader(hDC, nColumn, x1, y1, x2, y2)
       NEXT nLine
    ENDIF
    hwg_Settransparentmode(hDC, .T.)
-   IF HB_ISCHAR(oColumn:heading)
+   IF hb_IsChar(oColumn:heading)
       hwg_Drawtext(hDC, oColumn:heading, x1 + 1 + ::aHeadPadding[1], ;
          y1 + 1 + ::aHeadPadding[2], x2 - ::aHeadPadding[3], ;
          y1 + nHeight + ::aHeadPadding[2], oColumn:nJusHead)
@@ -1123,7 +1123,7 @@ METHOD HBrowse:FooterOut(hDC)
 
          IF oColumn:footing != NIL
             hwg_Settransparentmode(hDC, .T.)
-            IF HB_ISCHAR(oColumn:footing)
+            IF hb_IsChar(oColumn:footing)
                hwg_Drawtext(hDC, oColumn:footing, ;
                   x + ::aHeadPadding[1], y1 + ::aHeadPadding[2], ;
                   x2 - ::aHeadPadding[3], y2 - ::aHeadPadding[4], oColumn:nJusHead + IIf(oColumn:lSpandFoot, DT_NOCLIP, 0))
@@ -2080,7 +2080,7 @@ METHOD HBrowse:Edit(wParam, lParam)
             oModDlg:brush := - 1
             oModDlg:nHeight := ::height * 5
 
-            IF HB_ISNUMERIC(::varbuf)
+            IF hb_IsNumeric(::varbuf)
                nChoic := ::varbuf
             ELSE
                ::varbuf := AllTrim(::varbuf)
@@ -2164,7 +2164,7 @@ METHOD HBrowse:Edit(wParam, lParam)
 
          IF oModDlg:lResult
             IF oColumn:aList != NIL
-               IF HB_ISNUMERIC(::varbuf)
+               IF hb_IsNumeric(::varbuf)
                   ::varbuf := nChoic
                ELSE
                   ::varbuf := oColumn:aList[nChoic]
@@ -2177,7 +2177,7 @@ METHOD HBrowse:Edit(wParam, lParam)
                   (::alias)->(Eval(oColumn:block, ::varbuf, Self, fipos))
                   UNLOCK
                ELSE
-                  IF HB_ISARRAY(::aArray[1])
+                  IF hb_IsArray(::aArray[1])
                      AAdd(::aArray, Array(Len(::aArray[1])))
                      FOR fif := 2 TO Len((::aArray[1]))
                         ::aArray[Len(::aArray),fif] := IIf(::aColumns[fif]:type == "D", CToD(Space(8)), IIf(::aColumns[fif]:type == "N", 0, ""))
@@ -2350,7 +2350,7 @@ FUNCTION hwg_CREATEARLIST(oBrw, arr)
    oBrw:aArray := arr
    IF Len(oBrw:aColumns) == 0
       // oBrw:aColumns := {}
-      IF HB_ISARRAY(arr[1])
+      IF hb_IsArray(arr[1])
          FOR i := 1 TO Len(arr[1])
             oBrw:AddColumn({, hwg_ColumnArBlock()})
          NEXT i
@@ -2490,7 +2490,7 @@ FUNCTION hwg_ColumnArBlock()
 STATIC FUNCTION CountToken(cStr, nMaxLen, nCount)
 
    nMaxLen := nCount := 0
-   IF HB_ISCHAR(cStr)
+   IF hb_IsChar(cStr)
       IF (";" $ cStr)
          cStr := hb_aTokens(cStr, ";")
       ELSE
@@ -2498,7 +2498,7 @@ STATIC FUNCTION CountToken(cStr, nMaxLen, nCount)
          nCount := 1
       ENDIF
    ENDIF
-   IF HB_ISARRAY(cStr)
+   IF hb_IsArray(cStr)
       AEval(cStr, {|s|nMaxLen := Max(nMaxLen, Len(s))})
       nCount := Len(cStr)
    ENDIF

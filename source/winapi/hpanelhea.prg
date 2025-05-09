@@ -136,8 +136,8 @@ METHOD HPanelHea:PaintText(hDC)
    LOCAL y1
    LOCAL oldTColor
 
-   IF HB_ISCHAR(::title)
-      IF HB_ISOBJECT(::oFont)
+   IF hb_IsChar(::title)
+      IF hb_IsObject(::oFont)
          hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
       hwg_Settransparentmode(hDC, .T.)

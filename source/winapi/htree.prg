@@ -343,7 +343,7 @@ METHOD HTree:Notify(lParam)
    CASE TVN_SELCHANGED
    CASE TVN_SELCHANGEDW
       oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_PARAM)
-      IF HB_ISOBJECT(oItem)
+      IF hb_IsObject(oItem)
          oItem:oTree:oSelected := oItem
          IF !oItem:oTree:lEmpty
             IF hb_IsBlock(oItem:bClick)
@@ -364,7 +364,7 @@ METHOD HTree:Notify(lParam)
    CASE TVN_ENDLABELEDITW
       IF !Empty(cText := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDIT))
          oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDITPARAM)
-         IF HB_ISOBJECT(oItem)
+         IF hb_IsObject(oItem)
             IF cText != oItem:GetText() .AND. ;
                (oItem:oTree:bItemChange == NIL .OR. Eval(oItem:oTree:bItemChange, oItem, cText))
                hwg_Treesetitem(oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText)
@@ -376,7 +376,7 @@ METHOD HTree:Notify(lParam)
    CASE TVN_ITEMEXPANDING
    CASE TVN_ITEMEXPANDINGW
       oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_PARAM)
-      IF HB_ISOBJECT(oItem)
+      IF hb_IsObject(oItem)
          IF hb_IsBlock(::bExpand) // TODO: check '::bExpand' and execute 'oItem:oTree:bExpand' ?
             RETURN IIf(Eval(oItem:oTree:bExpand, oItem, hwg_Checkbit(hwg_Treegetnotify(lParam, TREE_GETNOTIFY_ACTION), TVE_EXPAND)), 0, 1)
          ENDIF

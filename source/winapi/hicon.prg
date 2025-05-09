@@ -49,7 +49,7 @@ METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
       lOEM := .F.
    ENDIF
    // hwg_writelog("HIcon:AddResource " + Str(nWidth) + "/" + str(nHeight))
-   IF HB_ISNUMERIC(name)
+   IF hb_IsNumeric(name)
       name := LTrim(Str(name))
       lPreDefined := .T.
    ENDIF

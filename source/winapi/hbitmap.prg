@@ -70,7 +70,7 @@ METHOD HBitmap:AddResource(name, nFlags, lOEM, nWidth, nHeight)
    IF lOEM == NIL
       lOEM := .F.
    ENDIF
-   IF HB_ISNUMERIC(name)
+   IF hb_IsNumeric(name)
       name := LTrim(Str(name))
       lPreDefined := .T.
    ENDIF

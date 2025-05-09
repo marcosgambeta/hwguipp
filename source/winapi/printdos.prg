@@ -275,7 +275,7 @@ METHOD PrintDos:NewLine()
 METHOD PrintDos:Say(oProw, oPcol, oTexto, oPicture)
 
    // tracelog(oProw, oPcol, oTexto, oPicture)
-   IF HB_ISNUMERIC(oTexto)
+   IF hb_IsNumeric(oTexto)
 
       IF !Empty(oPicture) .OR. oPicture != NIL
          oTexto := Transform(oTexto, oPicture)

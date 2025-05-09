@@ -113,7 +113,7 @@ LOCAL rezArray := IIf(s_lDebugInfo, { "", {}, {} }, { "", {} })
    IF scrSource == NIL
       han := NIL
       poz := 1
-   ELSEIF HB_ISCHAR(scrSource)
+   ELSEIF hb_IsChar(scrSource)
       strbuf := Space(STR_BUFLEN)
       poz := STR_BUFLEN + 1
       IF DEF_CH_SEP $ scrSource
@@ -127,7 +127,7 @@ LOCAL rezArray := IIf(s_lDebugInfo, { "", {}, {} }, { "", {} })
       IF !lppNoInit
          ppScript(,.T.)
       ENDIF
-      IF HB_ISCHAR(scrSource)
+      IF hb_IsChar(scrSource)
          WndOut("Compiling ...")
          WndOut("")
       ENDIF
@@ -135,7 +135,7 @@ LOCAL rezArray := IIf(s_lDebugInfo, { "", {}, {} }, { "", {} })
       IF !CompileScr(han, @strbuf, @poz, rezArray, scrSource)
          rezArray := NIL
       ENDIF
-      IF scrSource != NIL .AND. HB_ISCHAR(scrSource)
+      IF scrSource != NIL .AND. hb_IsChar(scrSource)
          WndOut()
          Fclose(han)
       ENDIF
@@ -297,7 +297,7 @@ Local cLine, lDebug := (Len(rezArray) >= 3)
             BEGIN SEQUENCE
                AADD(rezArray[2], &("{||EndScript(" + Ltrim(Substr(stroka, 7)) + ")}"))
             RECOVER
-               IF scrSource != NIL .AND. HB_ISCHAR(scrSource)
+               IF scrSource != NIL .AND. hb_IsChar(scrSource)
                   WndOut()
                   FCLOSE(han)
                ENDIF
@@ -322,7 +322,7 @@ Local cLine, lDebug := (Len(rezArray) >= 3)
             BEGIN SEQUENCE
                AADD(rezArray[2], &("{||" + ALLTRIM(stroka) + "}"))
             RECOVER
-               IF scrSource != NIL .AND. HB_ISCHAR(scrSource)
+               IF scrSource != NIL .AND. hb_IsChar(scrSource)
                   WndOut()
                   FCLOSE(han)
                ENDIF
@@ -476,7 +476,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := NIL
    ENDIF
    lDebug := (Len(aScript) >= 3)
    DO WHILE !hb_IsBlock(aScript[2, iscr])
-      IF HB_ISCHAR(aScript[2, iscr])
+      IF hb_IsChar(aScript[2, iscr])
          IF Left(aScript[2, iscr], 1) == "#"
             IF !s_lDebugger
                // lSetDebugger := .T.
@@ -563,7 +563,7 @@ LOCAL i := 1, RetValue := NIL
       aScript := m->aScriptt
    ENDIF
    cProc := Upper(cProc)
-   DO WHILE i <= Len(aScript[2]) .AND. HB_ISARRAY(aScript[2, i])
+   DO WHILE i <= Len(aScript[2]) .AND. hb_IsArray(aScript[2, i])
       IF aScript[2, i, 1] == cProc
          RetValue := DoScript(aScript[2, i], aParams)
          EXIT

@@ -279,9 +279,9 @@ METHOD HCEdit:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, 
    ::DefaultLang()
 
    //::lVScroll := (lNoVScroll == NIL .OR. !lNoVScroll)
-   IF HB_ISNUMERIC(lNoVScroll)
+   IF hb_IsNumeric(lNoVScroll)
       ::nTrackWidth := lNoVScroll
-   ELSEIF HB_ISLOGICAL(lNoVScroll) .AND. lNoVScroll
+   ELSEIF hb_IsLogical(lNoVScroll) .AND. lNoVScroll
       ::nTrackWidth := 0
    ELSE
       ::nTrackWidth := HTRACK_DEF_WIDTH
@@ -1061,7 +1061,7 @@ METHOD HCEdit:SetText(xText, cPageIn, cPageOut)
 
    IF Empty(xText)
       ::aText := { "" }
-   ELSEIF HB_ISARRAY(xText)
+   ELSEIF hb_IsArray(xText)
       ::aText := xText
    ELSE
       IF (nPos := At(Chr(10), xText)) == 0
@@ -2695,7 +2695,7 @@ METHOD HCEdit:PrintLine(oPrinter, yPos, nL)
 
 METHOD HCEdit:Move(x1, y1, width, height)
 
-   LOCAL nw := IIf(Empty(::oTrack).OR.::oTrack:lHide, 0, IIf(HB_ISNUMERIC(::oTrack), ::oTrack, ::oTrack:nWidth))
+   LOCAL nw := IIf(Empty(::oTrack).OR.::oTrack:lHide, 0, IIf(hb_IsNumeric(::oTrack), ::oTrack, ::oTrack:nWidth))
 
    //hwg_writelog("1> "+IIf(x1 == NIL, "nil", str(x1)) + " " + IIf(width == NIL, "nil", str(width)) + " " + str(nw) + " " + str(::nWidth))
    ::Super:Move(x1, y1, IIf(!Empty(width), width - nw, width), height)

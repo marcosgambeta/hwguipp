@@ -150,7 +150,7 @@ STATIC FUNCTION __When(oCtrl)
 
    IF hb_IsBlock(oCtrl:bGetFocus)
       res := Eval(oCtrl:bGetFocus, Eval(oCtrl:bSetGet, , oCtrl), oCtrl)
-      IF HB_ISLOGICAL(res) .AND. !res
+      IF hb_IsLogical(res) .AND. !res
          hwg_GetSkip(oCtrl:oParent, oCtrl:handle, 1)
       ENDIF
       RETURN res

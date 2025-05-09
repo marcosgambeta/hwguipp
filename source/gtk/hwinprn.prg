@@ -370,7 +370,7 @@ METHOD HWinPrn:PrintBitmap(xBitmap, nAlign , cBitmapName)
 
    cTmp := hwg_CreateTempfileName(NIL, ".bmp")
 
-   // IF hb_isChar(xBitmap) // does not work on GTK
+   // IF hb_IsChar(xBitmap) // does not work on GTK
      // from file
      IF !hb_fileexists(xBitmap)
       // xBitmap is a bitmap object
@@ -479,7 +479,7 @@ METHOD HWinPrn:PrintLine(cLine, lNewLine)
 
 // HKrzak.Start 2020-10-25
 // Bug Ticket #64
-IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
+IF cLine != NIL .AND. hb_IsNumeric(cLine)
      ::y += ::nLineHeight * cLine
      IF ::y < 0
        ::y := 0
@@ -498,7 +498,7 @@ IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
 
 // HKrzak.Start 2020-10-25
 // Bug Ticket #64
-   IF cLine != NIL .AND. HB_ISNUMERIC(cLine)
+   IF cLine != NIL .AND. hb_IsNumeric(cLine)
      RETURN NIL
    ENDIF
 // HKrzak.End

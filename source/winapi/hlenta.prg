@@ -199,7 +199,7 @@ METHOD HLenta:Paint()
    ELSE
 
       IF !Empty(::aItems)
-         l1 := (HB_ISARRAY(::aItems[1]))
+         l1 := (hb_IsArray(::aItems[1]))
          IF ::oFont != NIL
             hwg_Selectobject(hDC, ::oFont:handle)
          ENDIF

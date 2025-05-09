@@ -103,7 +103,7 @@ METHOD HUpDown:Init()
 METHOD HUpDown:Value(nValue)
 
    IF nValue != NIL
-      IF HB_ISNUMERIC(nValue)
+      IF hb_IsNumeric(nValue)
          hwg_SetUpdown(::hUpDown, nValue)
          ::nValue := nValue
          IF hb_IsBlock(::bSetGet)

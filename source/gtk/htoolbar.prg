@@ -54,7 +54,7 @@ METHOD hToolBar:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, 
    ::Super:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    ::aItem := aItem
-   ::lVertical := IIF(lVertical != NIL .AND. HB_ISLOGICAL(lVertical), lVertical, ::lVertical)
+   ::lVertical := IIF(lVertical != NIL .AND. hb_IsLogical(lVertical), lVertical, ::lVertical)
 
    ::Activate()
 
@@ -88,17 +88,17 @@ METHOD hToolBar:INIT()
       ::Super:Init()
       For n := 1 TO len(::aItem)
 
-         if HB_ISNUMERIC(::aItem[n, 1])
+         if hb_IsNumeric(::aItem[n, 1])
             IF !Empty(::aItem[n, 1])
                AAdd(aButton, ::aItem[n , 1])
             ENDIF
-         elseif HB_ISCHAR(::aItem[n, 1])
+         elseif hb_IsChar(::aItem[n, 1])
             if ".ico" $ lower(::aItem[n, 1]) //if ".ico" in lower(::aItem[n, 1])
                oImage:=hIcon():AddFile(::aItem[n, 1])
             else
                oImage:=hBitmap():AddFile(::aItem[n, 1])
             endif
-            if HB_ISOBJECT(oImage)
+            if hb_IsObject(oImage)
                aadd(aButton,Oimage:handle)
                ::aItem[n, 1] := Oimage:handle
             endif

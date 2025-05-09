@@ -144,17 +144,17 @@ METHOD HComboBox:Init()
       IF !Empty(::aItems)
          IF Empty(::xValue)
             IF ::lText
-               ::xValue := IIf(HB_ISARRAY(::aItems[1]), ::aItems[1, 1], ::aItems[1])
+               ::xValue := IIf(hb_IsArray(::aItems[1]), ::aItems[1, 1], ::aItems[1])
             ELSE
                ::xValue := 1
             ENDIF
          ENDIF
          hwg_Sendmessage(::handle, CB_RESETCONTENT, 0, 0)
          FOR i := 1 TO Len(::aItems)
-            hwg_Comboaddstring(::handle, IIf(HB_ISARRAY(::aItems[i]), ::aItems[i, 1], ::aItems[i]))
+            hwg_Comboaddstring(::handle, IIf(hb_IsArray(::aItems[i]), ::aItems[i, 1], ::aItems[i]))
          NEXT
          IF ::lText
-            i := IIf(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
+            i := IIf(hb_IsArray(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
             hwg_Combosetstring(::handle, i)
          ELSE
             hwg_Combosetstring(::handle, ::xValue)
@@ -190,11 +190,11 @@ METHOD HComboBox:Refresh(xVal)
       hwg_Sendmessage(::handle, CB_RESETCONTENT, 0, 0)
 
       FOR i := 1 TO Len(::aItems)
-         hwg_Comboaddstring(::handle, IIf(HB_ISARRAY(::aItems[i]), ::aItems[i, 1], ::aItems[i]))
+         hwg_Comboaddstring(::handle, IIf(hb_IsArray(::aItems[i]), ::aItems[i, 1], ::aItems[i]))
       NEXT
 
       IF ::lText
-         i := IIf(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
+         i := IIf(hb_IsArray(::aItems[1]), AScan(::aItems, {|a|a[1] == ::xValue}), hb_AScan(::aItems, ::xValue, NIL, NIL, .T.))
          hwg_Combosetstring(::handle, i)
       ELSE
          hwg_Combosetstring(::handle, ::xValue)
@@ -207,7 +207,7 @@ METHOD HComboBox:Refresh(xVal)
 METHOD HComboBox:SetItem(nPos)
 
    IF ::lText
-      ::xValue := IIf(HB_ISARRAY(::aItems[nPos]), ::aItems[nPos, 1], ::aItems[nPos])
+      ::xValue := IIf(hb_IsArray(::aItems[nPos]), ::aItems[nPos, 1], ::aItems[nPos])
    ELSE
       ::xValue := nPos
    ENDIF
@@ -234,7 +234,7 @@ METHOD HComboBox:GetValue(nItem)
    ELSE
       nPos := hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0) + 1
       IF nPos > 0 .AND. nPos <= Len(::aItems)
-         l := HB_ISARRAY(::aItems[nPos])
+         l := hb_IsArray(::aItems[nPos])
          ::xValue := IIf(::lText, IIf(l, ::aItems[nPos, 1], ::aItems[nPos]), nPos)
       ENDIF
    ENDIF
@@ -247,8 +247,8 @@ METHOD HComboBox:GetValue(nItem)
 METHOD HComboBox:Value(xValue)
 
    IF xValue != NIL
-      IF HB_ISCHAR(xValue)
-         xValue := IIf(HB_ISARRAY(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
+      IF hb_IsChar(xValue)
+         xValue := IIf(hb_IsArray(::aItems[1]), AScan(::aItems, {|a|a[1] == xValue}), hb_AScan(::aItems, xValue, NIL, NIL, .T.))
       ENDIF
       ::SetItem(xValue)
 
@@ -278,7 +278,7 @@ STATIC FUNCTION __Valid(oCtrl)
          IF oCtrl:lEdit
             oCtrl:xValue := oCtrl:GetText()
          ELSE
-            oCtrl:xValue := IIf(oCtrl:lText, IIf(HB_ISARRAY(oCtrl:aItems[nPos]), oCtrl:aItems[nPos, 1], oCtrl:aItems[nPos]), nPos)
+            oCtrl:xValue := IIf(oCtrl:lText, IIf(hb_IsArray(oCtrl:aItems[nPos]), oCtrl:aItems[nPos, 1], oCtrl:aItems[nPos]), nPos)
          ENDIF
          IF hb_IsBlock(oCtrl:bSetGet)
             Eval(oCtrl:bSetGet, oCtrl:xValue, oCtrl)

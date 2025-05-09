@@ -47,7 +47,7 @@ METHOD HTimer:Interval(n)
 
    LOCAL nOld := ::value
 
-   IF HB_ISNUMERIC(n)
+   IF hb_IsNumeric(n)
       IF n == 0
          ::End()
       ELSE

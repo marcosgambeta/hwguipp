@@ -93,11 +93,11 @@ METHOD HOwnButton:New(oWndParent, nId, aStyles, nX, nY, nWidth, nHeight, bInit, 
       ::lCheck := lCheck
    ENDIF
    IF bmp != NIL
-      IF HB_ISOBJECT(bmp)
+      IF hb_IsObject(bmp)
          // Valid bitmap object
          ::oBitmap := bmp
       ELSE
-         ::oBitmap := IIf((lResour != NIL .AND. lResour) .OR. HB_ISNUMERIC(bmp), HBitmap():AddResource(bmp), HBitmap():AddFile(IIf(::cPath != NIL, ::cPath + bmp, bmp)))
+         ::oBitmap := IIf((lResour != NIL .AND. lResour) .OR. hb_IsNumeric(bmp), HBitmap():AddResource(bmp), HBitmap():AddFile(IIf(::cPath != NIL, ::cPath + bmp, bmp)))
       ENDIF
    ENDIF
    ::xb := xb
@@ -237,7 +237,7 @@ METHOD HOwnButton:Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat,
    ENDIF
 
    IF bmp != NIL
-      IF HB_ISOBJECT(bmp)
+      IF hb_IsObject(bmp)
          ::oBitmap := bmp
       ELSE
          ::oBitmap := IIf(lResour, HBitmap():AddResource(bmp), HBitmap():AddFile(bmp))
@@ -340,8 +340,8 @@ METHOD HOwnButton:DrawItems(hDC)
       ENDIF
    ENDIF
 
-   IF HB_ISCHAR(::title)
-      IF HB_ISOBJECT(::oFont)
+   IF hb_IsChar(::title)
+      IF hb_IsObject(::oFont)
          hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
       IF ::lEnabled
@@ -374,7 +374,7 @@ METHOD HOwnButton:MouseMove(wParam, lParam)
       //hwg_writelog("mm-2 " + str(xpos) + "/" + str(ypos))
       IF xPos > ::nWidth .OR. yPos > ::nHeight
          hwg_Releasecapture()
-         IF HB_ISOBJECT(::oTimer)
+         IF hb_IsObject(::oTimer)
             OwnBtnTimerProc(Self, 2)
             ::oTimer:End()
             ::oTimer := NIL
@@ -423,7 +423,7 @@ METHOD HOwnButton:MUp()
             ::Press()
          ENDIF
       ENDIF
-      IF HB_ISOBJECT(::oTimer)
+      IF hb_IsObject(::oTimer)
          hwg_Releasecapture()
          OwnBtnTimerProc(Self, 2)
          ::oTimer:End()
@@ -442,7 +442,7 @@ METHOD HOwnButton:MUp()
 METHOD HOwnButton:SetTimer(nPeriod)
 
    IF nPeriod == NIL
-      IF HB_ISOBJECT(::oTimer)
+      IF hb_IsObject(::oTimer)
          OwnBtnTimerProc(Self, 2)
          ::oTimer:End()
          ::oTimer := NIL
@@ -466,11 +466,11 @@ METHOD HOwnButton:End()
 
    ::Super:End()
    ::oFont := NIL
-   IF HB_ISOBJECT(::oBitmap)
+   IF hb_IsObject(::oBitmap)
       ::oBitmap:Release()
       ::oBitmap := NIL
    ENDIF
-   IF HB_ISOBJECT(::oTimer)
+   IF hb_IsObject(::oTimer)
       ::oTimer:End()
       ::oTimer := NIL
    ENDIF

@@ -306,7 +306,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
    HB_SYMBOL_UNUSED(wParam)
    HB_SYMBOL_UNUSED(lParam)
 
-   IF HB_ISARRAY(oDlg:menu)
+   IF hb_IsArray(oDlg:menu)
       hwg__SetMenu(oDlg:handle, oDlg:menu[5])
    ENDIF
    hwg_InitControls(oDlg, .T.)
@@ -429,7 +429,7 @@ FUNCTION onDlgCommand(oDlg, wParam, lParam)
       IF oDlg:lExitOnEsc .OR. hwg_Getkeystate(VK_ESCAPE) >= 0
          hwg_EndDialog(oDlg:handle)
       ENDIF
-   ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. HB_ISARRAY(oDlg:menu) .AND. (aMenu := Hwg_FindMenuItem(oDlg:menu, iParLow, @i)) != NIL
+   ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. hb_IsArray(oDlg:menu) .AND. (aMenu := Hwg_FindMenuItem(oDlg:menu, iParLow, @i)) != NIL
       IF hb_bitand(aMenu[1, i, 4], FLAG_CHECK) > 0
          hwg_Checkmenuitem(NIL, aMenu[1, i, 3], !hwg_Ischeckedmenuitem(NIL, aMenu[1, i, 3]))
       ENDIF
@@ -511,7 +511,7 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
    CASE PSN_APPLY
       IF hb_IsBlock(oDlg:bDestroy)
          res := Eval(oDlg:bDestroy, oDlg)
-         res := IIf(HB_ISLOGICAL(res), res, .T.)
+         res := IIf(hb_IsLogical(res), res, .T.)
       ENDIF
       // 'res' should be 0(Ok) or 2
       Hwg_SetDlgResult(oDlg:handle, IIf(res, 0, 2))

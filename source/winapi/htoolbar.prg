@@ -73,7 +73,7 @@ METHOD hToolBar:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, btnWidth, 
    nWidth  -= IIf(hb_bitand(nStyle, WS_DLGFRAME + WS_BORDER) > 0, 2, 0)
 
    ::lTransp := IIf(lTransp != NIL, lTransp, .F.)
-   ::lVertical := IIf(lVertical != NIL .AND. HB_ISLOGICAL(lVertical), lVertical, ::lVertical)
+   ::lVertical := IIf(lVertical != NIL .AND. hb_IsLogical(lVertical), lVertical, ::lVertical)
    IF ::lTransp  .OR. ::lVertical
       nStyle += IIf(::lTransp, TBSTYLE_TRANSPARENT, IIf(::lVertical, CCS_VERT, 0))
    ENDIF
@@ -199,7 +199,7 @@ METHOD hToolBar:CREATETOOL()
       IF hb_IsBlock(::aItem[n, 7])
          //::oParent:AddEvent(BN_CLICKED, ::aItem[n, 2], ::aItem[n, 7])
       ENDIF
-      IF HB_ISARRAY(::aItem[n, 9])
+      IF hb_IsArray(::aItem[n, 9])
          ::aItem[n, 10] := hwg__CreatePopupMenu()
          ::aItem[n, 11]:hMenu := ::aItem[n, 10]
          aTemp := ::aItem[n, 9]
@@ -215,8 +215,8 @@ METHOD hToolBar:CREATETOOL()
       ENDIF
       nDrop := Max(nDrop, IIf(hb_bitand(::aItem[n, 4], BTNS_WHOLEDROPDOWN) != 0, 0, IIf(hb_bitand(::aItem[n, 4], BTNS_DROPDOWN) != 0, 8, 0)))
 
-      IF HB_ISCHAR(::aItem[n, 1]) .OR. ::aItem[n, 1] > 1
-         IF HB_ISCHAR(::aItem[n, 1]) .AND. At(".", ::aitem[n, 1]) != 0
+      IF hb_IsChar(::aItem[n, 1]) .OR. ::aItem[n, 1] > 1
+         IF hb_IsChar(::aItem[n, 1]) .AND. At(".", ::aitem[n, 1]) != 0
             IF !File(::aitem[n, 1])
                LOOP
             ENDIF

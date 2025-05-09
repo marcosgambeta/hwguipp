@@ -74,7 +74,7 @@ METHOD HEdit:New(oWndParent, nId, vari, bSetGet, nStyle, nX, nY, nWidth, nHeight
    ENDIF
 
    ::ParsePict(cPicture, vari)
-   IF Empty(::nMaxLength) .AND. !Empty(::bSetGet) .AND. HB_ISCHAR(vari)
+   IF Empty(::nMaxLength) .AND. !Empty(::bSetGet) .AND. hb_IsChar(vari)
       ::nMaxLength := Len(vari)
    ENDIF
    IF nMaxLength != NIL
@@ -1014,7 +1014,7 @@ FUNCTION hwg_SetColorinFocus(lDef, tColor, bColor)
       IF bColor != NIL
          lDef:bColorinFocus := bColor
       ENDIF
-   ELSEIF HB_ISLOGICAL(lDef)
+   ELSEIF hb_IsLogical(lDef)
       s_lColorinFocus := lDef
       IF tColor != NIL
          s_tColorinFocus := tColor

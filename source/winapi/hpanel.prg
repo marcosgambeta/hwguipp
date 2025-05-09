@@ -96,7 +96,7 @@ METHOD HPanel:onEvent(msg, wParam, lParam)
 
    CASE WM_ERASEBKGND
       IF ::brush != NIL
-         IF HB_ISOBJECT(::brush)
+         IF hb_IsObject(::brush)
             hwg_Fillrect(wParam, 0, 0, ::nWidth, ::nHeight, ::brush:handle)
          ENDIF
          RETURN 1
@@ -104,13 +104,13 @@ METHOD HPanel:onEvent(msg, wParam, lParam)
       EXIT
 
    CASE WM_SIZE
-      IF HB_ISOBJECT(::oEmbedded)
+      IF hb_IsObject(::oEmbedded)
          ::oEmbedded:Resize(hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
       EXIT
 
    CASE WM_DESTROY
-      IF HB_ISOBJECT(::oEmbedded)
+      IF hb_IsObject(::oEmbedded)
          ::oEmbedded:END()
       ENDIF
       ::Super:onEvent(WM_DESTROY)

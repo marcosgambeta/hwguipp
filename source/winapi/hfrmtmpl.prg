@@ -969,7 +969,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
       oCtrl:cargo := cVarName
    ENDIF
 
-   IF !Empty(cCtrlName) .AND. HB_ISOBJECT(oCtrl)
+   IF !Empty(cCtrlName) .AND. hb_IsObject(oCtrl)
       __mvPut(cCtrlName, oCtrl)
       hwg_SetCtrlName(oCtrl, cCtrlName)
    ENDIF
@@ -1178,7 +1178,7 @@ FUNCTION hwg_hfrm_GetProperty(xProp)
 
    LOCAL c
 
-   IF HB_ISCHAR(xProp)
+   IF hb_IsChar(xProp)
       c := Left(xProp, 1)
       IF c == "["
          xProp := SubStr(xProp, 2, Len(Trim(xProp)) - 2)
@@ -1328,7 +1328,7 @@ METHOD HRepTmpl:READ(fname, cId)
 
 METHOD HRepTmpl:PRINT(printer, lPreview, p1, p2, p3, p4, p5)
    
-   LOCAL oPrinter := IIf(printer != NIL, IIf(HB_ISOBJECT(printer), printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
+   LOCAL oPrinter := IIf(printer != NIL, IIf(hb_IsObject(printer), printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
    LOCAL i
    LOCAL j
    LOCAL aMethod
@@ -1432,7 +1432,7 @@ METHOD HRepTmpl:PRINT(printer, lPreview, p1, p2, p3, p4, p5)
 
 METHOD HRepTmpl:PrintAsPage(printer, nPageType, lPreview, p1, p2, p3, p4, p5)
    
-   LOCAL oPrinter := IIf(printer != NIL, IIf(HB_ISOBJECT(printer), printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
+   LOCAL oPrinter := IIf(printer != NIL, IIf(hb_IsObject(printer), printer, HPrinter():New(printer, .T.)), HPrinter():New(NIL, .T.))
    LOCAL i
    LOCAL j
    LOCAL aMethod
@@ -1680,7 +1680,7 @@ METHOD HRepTmpl:PrintItem(oItem)
          ELSE
             cText := aGetSecond(oItem:aProp, "caption")
          ENDIF
-         IF HB_ISCHAR(cText)
+         IF hb_IsChar(cText)
             IF (xProperty := aGetSecond(oItem:aProp, "border")) != NIL .AND. xProperty
                ::oPrinter:Box(x, y, x2, y2, oItem:oPen)
                x += 0.5
@@ -1865,7 +1865,7 @@ STATIC FUNCTION hrep_FontFromXML(oPrinter, oXmlNode, nKoeff, nFontH)
    LOCAL name := oXmlNode:GetAttribute("name")
    LOCAL i
 
-   IF HB_ISARRAY(HRepTmpl():aFontTable)
+   IF hb_IsArray(HRepTmpl():aFontTable)
       IF (i := Ascan(HRepTmpl():aFontTable,{|a|Lower(a[1]) == Lower(name)})) != 0
          name := HRepTmpl():aFontTable[i, 2]
       ENDIF

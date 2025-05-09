@@ -413,7 +413,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    iParLow := hwg_Loword(wParam)
    IF oWnd:aEvents != NIL .AND. (iItem := Ascan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow})) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
-   ELSEIF HB_ISARRAY(oWnd:menu) .AND. (aMenu := Hwg_FindMenuItem(oWnd:menu,iParLow,@iCont)) != NIL .AND. aMenu[1, iCont, 1] != NIL
+   ELSEIF hb_IsArray(oWnd:menu) .AND. (aMenu := Hwg_FindMenuItem(oWnd:menu,iParLow,@iCont)) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval(aMenu[1, iCont, 1])
    ELSEIF oWnd:oPopup != NIL .AND. (aMenu := Hwg_FindMenuItem(oWnd:oPopup:aMenu,wParam,@iCont)) != NIL .AND. aMenu[1, iCont, 1] != NIL
       Eval(aMenu[1, iCont, 1])

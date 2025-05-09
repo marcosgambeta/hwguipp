@@ -79,9 +79,9 @@ FUNCTION Hwg_WriteIni(rubrique, param, value , inifile)
       CASE At("[", txt) > 0
          myrubrique := IIf("[" + rubrique + "]" == txt, .T. , .F.)
          newcontent += txt + Chr(10)
-      CASE At(param, txt) > 0 .AND. myrubrique .AND. HB_ISCHAR(value)
+      CASE At(param, txt) > 0 .AND. myrubrique .AND. hb_IsChar(value)
          newcontent += param + "=" + value + Chr(10)
-      CASE HB_ISARRAY(value) .AND. myrubrique
+      CASE hb_IsArray(value) .AND. myrubrique
          DO WHILE Len(Trim(MemoLine(inicontent, 150,rg))) > 0
             rg ++
          ENDDO

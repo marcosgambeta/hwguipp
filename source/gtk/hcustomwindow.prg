@@ -75,7 +75,7 @@ METHOD HCustomWindow:FindControl(nId, nHandle)
 
    LOCAL i
 
-   IF HB_ISCHAR(nId)
+   IF hb_IsChar(nId)
       nId := Upper(nId)
       RETURN hwg_GetItemByName(::aControls, nId)
    ELSE

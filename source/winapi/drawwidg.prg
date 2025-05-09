@@ -18,7 +18,7 @@ FUNCTION hwg_aCompare(arr1, arr2)
 
    IF arr1 == NIL .AND. arr2 == NIL
       RETURN .T.
-   ELSEIF Valtype(arr1) == Valtype(arr2) .AND. HB_ISARRAY(arr1) .AND. (nLen := Len(arr1)) == Len(arr2)
+   ELSEIF Valtype(arr1) == Valtype(arr2) .AND. hb_IsArray(arr1) .AND. (nLen := Len(arr1)) == Len(arr2)
       FOR i := 1 TO nLen
          IF !(Valtype(arr1[i]) == Valtype(arr2[i])) .OR. !(arr1[i] == arr2[i])
             RETURN .F.

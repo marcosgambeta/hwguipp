@@ -43,7 +43,7 @@ METHOD HStatic:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaption, o
    ENDIF
 
    // Enabling style for tooltips
-   IF HB_ISCHAR(cTooltip)
+   IF hb_IsChar(cTooltip)
       IF nStyle == NIL
          nStyle := SS_NOTIFY
       ELSE
@@ -70,7 +70,7 @@ METHOD HStatic:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, 
    ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
 
    // Enabling style for tooltips
-   IF HB_ISCHAR(cTooltip)
+   IF hb_IsChar(cTooltip)
       ::Style := SS_NOTIFY
    ENDIF
 

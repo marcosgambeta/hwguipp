@@ -444,7 +444,7 @@ METHOD HBrowse:AddColumn(oColumn)
    LOCAL n
    LOCAL arr
 
-   IF HB_ISARRAY(oColumn)
+   IF hb_IsArray(oColumn)
       arr := oColumn
       n := Len(arr)
       oColumn := HColumn():New(IIf(n > 0, arr[1], NIL), IIf(n > 1, arr[2], NIL), IIf(n > 2, arr[3], NIL), IIf(n > 3, arr[4], NIL), IIf(n > 4, arr[5], NIL), IIf(n > 5, arr[6], NIL))
@@ -874,7 +874,7 @@ METHOD HBrowse:DrawHeader(hDC, nColumn, x1, y1, x2, y2)
       NEXT
    ENDIF
 
-   IF HB_ISCHAR(oColumn:heading)
+   IF hb_IsChar(oColumn:heading)
       hwg_Drawtext(hDC, oColumn:heading, x1 + 1 + ::aHeadPadding[1], y1 + 1 + ::aHeadPadding[2], x2 + 1 + ::aHeadPadding[3], y1 + nHeight + ::aHeadPadding[2], oColumn:nJusHead)
    ELSE
       FOR nLine := 1 TO Len(oColumn:heading)
@@ -1004,7 +1004,7 @@ METHOD HBrowse:FooterOut(hDC)
 
          IF oColumn:footing != NIL
             hwg_Settransparentmode(hDC, .T.)
-            IF HB_ISCHAR(oColumn:footing)
+            IF hb_IsChar(oColumn:footing)
                hwg_Drawtext(hDC, oColumn:footing, ;
                   x + ::aHeadPadding[1], y1 + ::aHeadPadding[2], ;
                   x2 - ::aHeadPadding[3], y2 - ::aHeadPadding[4], oColumn:nJusLin + IIf(oColumn:lSpandFoot, DT_NOCLIP, 0))
@@ -2034,7 +2034,7 @@ STATIC FUNCTION VldBrwEdit(oBrw, fipos , bmemo)
             (oBrw:alias)->(Eval(oColumn:block, oBrw:varbuf, oBrw, fipos))
             UNLOCK
          ELSE
-            IF HB_ISARRAY(oBrw:aArray[1])
+            IF hb_IsArray(oBrw:aArray[1])
                AAdd(oBrw:aArray, Array(Len(oBrw:aArray[1])))
                FOR fif := 2 TO Len(oBrw:aArray[1])
                   oBrw:aArray[Len(oBrw:aArray),fif] := IIf(oBrw:aColumns[fif]:type == "D", CToD(Space(8)), IIf(oBrw:aColumns[fif]:type == "N", 0, ""))
@@ -2191,7 +2191,7 @@ FUNCTION hwg_CREATEARLIST(oBrw, arr)
    oBrw:aArray := arr
    IF Len(oBrw:aColumns) == 0
       // oBrw:aColumns := {}
-      IF HB_ISARRAY(arr[1])
+      IF hb_IsArray(arr[1])
          FOR i := 1 TO Len(arr[1])
             oBrw:AddColumn(HColumn():New(NIL, hwg_ColumnArBlock()))
          NEXT
@@ -2282,7 +2282,7 @@ FUNCTION hwg_ColumnArBlock()
 STATIC FUNCTION CountToken(cStr, nMaxLen, nCount)
 
    nMaxLen := nCount := 0
-   IF HB_ISCHAR(cStr)
+   IF hb_IsChar(cStr)
       IF (";" $ cStr)
          cStr := hb_aTokens(cStr, ";")
       ELSE
@@ -2290,7 +2290,7 @@ STATIC FUNCTION CountToken(cStr, nMaxLen, nCount)
          nCount := 1
       ENDIF
    ENDIF
-   IF HB_ISARRAY(cStr)
+   IF hb_IsArray(cStr)
       AEval(cStr, {|s|nMaxLen := Max(nMaxLen, Len(s))})
       nCount := Len(cStr)
    ENDIF

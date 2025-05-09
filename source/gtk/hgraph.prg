@@ -103,7 +103,7 @@ METHOD HGraph:CalcMinMax()
    ENDIF
    FOR i := 1 TO ::nGraphs
       nLen := Len(::aValues[i])
-      l1 := (HB_ISNUMERIC(::aValues[i, 1]))
+      l1 := (hb_IsNumeric(::aValues[i, 1]))
       IF ::nType == 1
          FOR j := 1 TO nLen
             IF l1
@@ -193,7 +193,7 @@ METHOD HGraph:Paint()
    IF ::oPen == NIL
       ::oPen := HPen():Add(PS_SOLID, 2, ::tcolor)
    ENDIF
-   IF ::nGraphs > 1 .AND. HB_ISARRAY(::aColors) .AND. ::aPens == NIL
+   IF ::nGraphs > 1 .AND. hb_IsArray(::aColors) .AND. ::aPens == NIL
       ::aPens := Array(Len(::aColors))
       FOR i := 1 TO Len(::aColors)
          ::aPens[i] := HPen():Add(PS_SOLID, 2, ::aColors[i])
@@ -218,7 +218,7 @@ METHOD HGraph:Paint()
             hwg_Selectobject(hDC, ::aPens[i]:handle)
          ENDIF
          nLen := Len(::aValues[i])
-         l1 := (HB_ISNUMERIC(::aValues[i, 1]))
+         l1 := (hb_IsNumeric(::aValues[i, 1]))
          IF ::nType == 1
             FOR j := 2 TO nLen
                px1 := Round(x1 + (IIf(l1, j-1, ::aValues[i, j - 1, 1]) - ::xmin) / scaleX, 0)
@@ -271,7 +271,7 @@ METHOD HGraph:Paint()
          IF py1 > y1 .AND. py1 < y2
             hwg_Drawline(hDC, x0 - 4, py1, x0 + 1, py1)
             IF ::aSignY[i, 2] != NIL
-               hwg_Drawtext(hDC, IIf(HB_ISCHAR(::aSignY[i, 2]), ::aSignY[i, 2], Ltrim(Str(::aSignY[i, 2]))), 0, py1 - 8, x0 - 4, py1 + 8, DT_RIGHT)
+               hwg_Drawtext(hDC, IIf(hb_IsChar(::aSignY[i, 2]), ::aSignY[i, 2], Ltrim(Str(::aSignY[i, 2]))), 0, py1 - 8, x0 - 4, py1 + 8, DT_RIGHT)
                IF ::lGridY
                   hwg_Drawline(hDC, x0 + 1, py1, x2, py1)
                ENDIF
@@ -288,7 +288,7 @@ METHOD HGraph:Paint()
          px1 := Round(x1 + (::aSignX[i, 1] - ::xmin) / scaleX + IIf(::nType == 2 .AND. ::lGridXMid, nWidth / 2, 0), 0)
          hwg_Drawline(hDC, px1, y0 + 4, px1, y0 - 1)
          IF ::aSignX[i, 2] != NIL
-            hwg_Drawtext(hDC, IIf(HB_ISCHAR(::aSignX[i, 2]), ::aSignX[i, 2], Ltrim(Str(::aSignX[i, 2]))), px1 - 40, y0 + 4, px1 + 40, y0 + 20, DT_CENTER)
+            hwg_Drawtext(hDC, IIf(hb_IsChar(::aSignX[i, 2]), ::aSignX[i, 2], Ltrim(Str(::aSignX[i, 2]))), px1 - 40, y0 + 4, px1 + 40, y0 + 20, DT_CENTER)
             IF ::lGridX
                hwg_Drawline(hDC, px1, y0 - 1, px1, y1)
             ENDIF

@@ -40,7 +40,7 @@ METHOD HRadioButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCapti
    ::nWidth := nWidth
    ::nHeight := nHeight
    ::bInit := bInit
-   IF HB_ISNUMERIC(bSize)
+   IF hb_IsNumeric(bSize)
       ::Anchor := bSize
    ELSE
       ::bSize := bSize

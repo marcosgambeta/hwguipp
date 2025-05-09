@@ -1149,7 +1149,7 @@ FUNCTION hwg_hfrm_GetProperty(xProp)
 
    LOCAL c
 
-   IF HB_ISCHAR(xProp)
+   IF hb_IsChar(xProp)
       c := Left(xProp, 1)
       IF c == "["
          xProp := SubStr(xProp, 2, Len(Trim(xProp)) - 2)
@@ -1678,7 +1678,7 @@ METHOD HRepTmpl:PrintItem(oItem)
          ELSE
             cText := aGetSecond(oItem:aProp, "caption")
          ENDIF
-         IF HB_ISCHAR(cText)
+         IF hb_IsChar(cText)
             IF (xProperty := aGetSecond(oItem:aProp,"border")) != NIL ;
                   .AND. xProperty
                ::oPrinter:Box(x, y, x2, y2, oItem:oPen)
@@ -1870,7 +1870,7 @@ STATIC FUNCTION hrep_FontFromXML(oPrinter, oXmlNode, nKoeff, nFontH)
    LOCAL name := oXmlNode:GetAttribute("name")
    LOCAL i
 
-   IF HB_ISARRAY(HRepTmpl():aFontTable)
+   IF hb_IsArray(HRepTmpl():aFontTable)
       IF (i := Ascan(HRepTmpl():aFontTable,{|a|Lower(a[1]) == Lower(name)})) != 0
          name := HRepTmpl():aFontTable[i, 2]
       ENDIF

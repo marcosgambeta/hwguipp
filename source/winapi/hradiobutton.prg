@@ -42,7 +42,7 @@ METHOD HRadioButton:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCapti
    ::nWidth := nWidth
    ::nHeight := nHeight
    ::bInit := bInit
-   IF HB_ISNUMERIC(bSize)
+   IF hb_IsNumeric(bSize)
       ::Anchor := bSize
    ELSE
       ::bSize := bSize
@@ -89,7 +89,7 @@ METHOD HRadioButton:Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClic
    ::style := ::nX := ::nY := ::nWidth := ::nHeight := 0
    ::oFont := oFont
    ::bInit := bInit
-   IF HB_ISNUMERIC(bSize)
+   IF hb_IsNumeric(bSize)
       ::Anchor := bSize
    ELSE
       ::bSize := bSize

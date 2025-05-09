@@ -148,19 +148,19 @@ METHOD HPrinter:New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lPropri
 
    ::DefaultLang()
 
-   IF HB_ISNUMERIC(nFormType)
+   IF hb_IsNumeric(nFormType)
       // A3 - DMPAPER_A3, A4 - DMPAPER_A4
       ::FormType := nFormType
    ELSE
       nFormType := DMPAPER_A4
    ENDIF
-   IF HB_ISNUMERIC(nBin)
+   IF hb_IsNumeric(nBin)
       ::BinNumber := nBin
    ENDIF
-   IF HB_ISLOGICAL(lLandScape)
+   IF hb_IsLogical(lLandScape)
       ::nOrient := IIf(lLandScape, 2, 1)
    ENDIF
-   IF HB_ISNUMERIC(nCopies)
+   IF hb_IsNumeric(nCopies)
       IF nCopies > 0
          ::Copies := nCopies
       ENDIF
@@ -1166,7 +1166,7 @@ METHOD HPrinter:PrintDoc(nPage)
                Hwg_EndPage(::hDCPrn)
             ENDIF
          NEXT
-      ELSEIF HB_ISARRAY(nPage)
+      ELSEIF hb_IsArray(nPage)
          arr := nPage
          FOR nPage := 1 TO Len(arr)
             IF ::lUseMeta

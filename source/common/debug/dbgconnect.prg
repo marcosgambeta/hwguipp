@@ -413,8 +413,8 @@ FUNCTION hwg_dbg_Answer(...)
    ENDIF
 
    FOR i := 1 TO Len(arr)
-      IF HB_ISARRAY(arr[i])
-         lConvert := (i > 1 .AND. HB_ISCHAR(arr[i-1]) .AND. Left(arr[i - 1], 5) == "value")
+      IF hb_IsArray(arr[i])
+         lConvert := (i > 1 .AND. hb_IsChar(arr[i-1]) .AND. Left(arr[i - 1], 5) == "value")
          FOR j := 1 TO Len(arr[i])
             s += IIf(j>1.AND.lConvert, Str2Hex(arr[i,j]), arr[i,j]) + ","
          NEXT

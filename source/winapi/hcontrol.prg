@@ -41,7 +41,7 @@ METHOD HControl:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, oFont, bIn
    ::nWidth := nWidth
    ::nHeight := nHeight
    ::bInit := bInit
-   IF HB_ISNUMERIC(bSize)
+   IF hb_IsNumeric(bSize)
       ::Anchor := bSize
    ELSE
       ::bSize := bSize
@@ -222,7 +222,7 @@ FUNCTION hwg_SetCtrlName(oCtrl, cName)
 
    LOCAL nPos
 
-   IF !Empty(cName) .AND. HB_ISSTRING(cName) .AND. !("[" $ cName)
+   IF !Empty(cName) .AND. hb_IsString(cName) .AND. !("[" $ cName)
       IF (nPos :=  RAt(":", cName)) > 0 .OR. (nPos :=  RAt(">", cName)) > 0
          cName := SubStr(cName, nPos + 1)
       ENDIF
