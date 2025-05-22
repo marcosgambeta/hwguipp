@@ -23,8 +23,8 @@ static LRESULT CALLBACK s_DlgProc(HWND, UINT, WPARAM, LPARAM);
 static LRESULT CALLBACK s_PSPProc(HWND, UINT, WPARAM, LPARAM);
 static LRESULT CALLBACK s_PSPProcRelease(HWND, UINT, LPPROPSHEETPAGE);
 
-#define WND_DLG_RESOURCE 10
-#define WND_DLG_NORESOURCE 11
+//#define WND_DLG_RESOURCE 10 // defined in guilib.hpp
+//#define WND_DLG_NORESOURCE 11 // defined in guilib.hpp
 
 HWND *aDialogs = nullptr;
 static auto s_nDialogs = 0;
