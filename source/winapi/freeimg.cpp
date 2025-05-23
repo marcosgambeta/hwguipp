@@ -1,9 +1,9 @@
-/*
- * FreeImage wrappers for Harbour/HwGUI
- *
- * Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// FreeImage wrappers for Harbour/HwGUI
+//
+// Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hwingui.hpp"
 #include <hbapiitm.hpp>
@@ -238,9 +238,8 @@ HB_FUNC(HWG_FI_LOAD)
   }
 }
 
-/* 24/03/2006 - <maurilio.longo@libero.it>
-                As the original freeimage's fi_Load() that has the filetype as first parameter
-*/
+// 24/03/2006 - <maurilio.longo@libero.it>
+//              As the original freeimage's fi_Load() that has the filetype as first parameter
 HB_FUNC(HWG_FI_LOADTYPE)
 {
   pLoad = reinterpret_cast<FREEIMAGE_LOAD>(s_getFunction(reinterpret_cast<FARPROC>(pLoad), "_FreeImage_Load@12"));
@@ -274,9 +273,8 @@ HB_FUNC(HWG_FI_SAVE)
   }
 }
 
-/* 24/03/2006 - <maurilio.longo@libero.it>
-                As the original freeimage's fi_Save() that has the filetype as first parameter
-*/
+// 24/03/2006 - <maurilio.longo@libero.it>
+//              As the original freeimage's fi_Save() that has the filetype as first parameter
 HB_FUNC(HWG_FI_SAVETYPE)
 {
   pSave = reinterpret_cast<FREEIMAGE_SAVE>(s_getFunction(reinterpret_cast<FARPROC>(pSave), "_FreeImage_Save@16"));
@@ -343,9 +341,8 @@ HB_FUNC(HWG_FI_2BITMAP)
   ReleaseDC(0, hDC);
 }
 
-/* 24/02/2005 - <maurilio.longo@libero.it>
-  from internet, possibly code from win32 sdk
-*/
+// 24/02/2005 - <maurilio.longo@libero.it>
+// from internet, possibly code from win32 sdk
 static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 {
   // Make sure bits per pixel is valid
@@ -389,11 +386,11 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
   // table, and the bits
   DWORD dwBytesPerLine = (((wBitCount * dwWidth) + 31) / 32 * 4); // Number of bytes per scanline
 
-  /*  only 24 bit DIBs supported */
+  //  only 24 bit DIBs supported
   DWORD dwLen = bi.biSize + 0 /* PaletteSize((LPSTR)&bi) */ + (dwBytesPerLine * dwHeight); // size of memory block
 
-  /* 24/02/2005 - <maurilio.longo@libero.it>
-     needed to copy bits afterward */
+  // 24/02/2005 - <maurilio.longo@libero.it>
+  // needed to copy bits afterward
   bi.biSizeImage = dwBytesPerLine * dwHeight;
 
   // alloc memory block to store our bitmap
@@ -424,9 +421,8 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 #define FI_RGBA_GREEN_MASK 0x0000FF00
 #define FI_RGBA_BLUE_MASK 0x000000FF
 
-/* 24/02/2005 - <maurilio.longo@libero.it>
-    Converts a FIBITMAP into a DIB, works OK only for 24bpp images, though
-*/
+// 24/02/2005 - <maurilio.longo@libero.it>
+//  Converts a FIBITMAP into a DIB, works OK only for 24bpp images, though
 HB_FUNC(HWG_FI_FI2DIB)
 {
   FIBITMAP *dib = hwg_par_FIBITMAP(1);
@@ -448,7 +444,7 @@ HB_FUNC(HWG_FI_FI2DIB)
 
   if (hdib)
   {
-    /* int scan_width = pGetPitch(dib); unused */
+    // int scan_width = pGetPitch(dib); unused
     LPBITMAPINFO lpbi = static_cast<LPBITMAPINFO>(GlobalLock(hdib));
     memcpy(static_cast<LPBYTE>(reinterpret_cast<BYTE *>(lpbi)) + lpbi->bmiHeader.biSize, pGetbits(dib),
            lpbi->bmiHeader.biSizeImage);
@@ -461,9 +457,8 @@ HB_FUNC(HWG_FI_FI2DIB)
   }
 }
 
-/* 24/02/2005 - <maurilio.longo@libero.it>
-  This comes straight from freeimage fipWinImage::copyToHandle()
-*/
+// 24/02/2005 - <maurilio.longo@libero.it>
+// This comes straight from freeimage fipWinImage::copyToHandle()
 static void SET_FREEIMAGE_MARKER(BITMAPINFOHEADER *bmih, FIBITMAP *dib)
 {
   pGetImageType = reinterpret_cast<FREEIMAGE_GETIMAGETYPE>(
@@ -622,7 +617,7 @@ HB_FUNC(HWG_FI_BMP2FI)
   hb_retnl(0);
 }
 
-/* Next three from EZTwain.c ( http://www.twain.org ) */
+// Next three from EZTwain.c ( http://www.twain.org )
 static int ColorCount(int bpp)
 {
   return 0xFFF & (1 << bpp);
@@ -659,9 +654,8 @@ static LPBYTE DibBits(LPBITMAPINFOHEADER lpdib)
   return lpBits;
 } // end DibBits
 
-/* 19/05/2005 - <maurilio.longo@libero.it>
-  Convert a windows DIB into a FIBITMAP
-*/
+// 19/05/2005 - <maurilio.longo@libero.it>
+// Convert a windows DIB into a FIBITMAP
 HB_FUNC(HWG_FI_DIB2FI)
 {
   auto hdib = reinterpret_cast<HANDLE>(hb_parnl(1));
@@ -686,7 +680,7 @@ HB_FUNC(HWG_FI_DIB2FI)
       dib = pConvertFromRawBits(DibBits(lpbi), lpbi->biWidth, lpbi->biHeight, pitch, lpbi->biBitCount, FI_RGBA_RED_MASK,
                                 FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK, hb_parl(2));
 
-      /* I can't print it with FI_DRAW, though, and I don't know why */
+      // I can't print it with FI_DRAW, though, and I don't know why
       if (pGetBPP(dib) <= 8)
       {
         // Convert palette entries
@@ -724,7 +718,7 @@ HB_FUNC(HWG_FI_RESCALE)
                     : 0);
 }
 
-/* Channel is an enumerated type from freeimage.h passed as second parameter */
+// Channel is an enumerated type from freeimage.h passed as second parameter
 HB_FUNC(HWG_FI_REMOVECHANNEL)
 {
   FIBITMAP *dib = hwg_par_FIBITMAP(1);
@@ -754,9 +748,7 @@ HB_FUNC(HWG_FI_REMOVECHANNEL)
   }
 }
 
-/*
- * Set of functions for loading the image from memory
- */
+// Set of functions for loading the image from memory
 
 unsigned DLL_CALLCONV _ReadProc(void *buffer, unsigned size, unsigned count, fi_handle handle)
 {
@@ -783,7 +775,7 @@ unsigned DLL_CALLCONV _WriteProc(void *buffer, unsigned size, unsigned count, fi
 
 int DLL_CALLCONV _SeekProc(fi_handle handle, long offset, int origin)
 {
-  /* assert(origin != SEEK_END); */
+  // assert(origin != SEEK_END);
 
   g_load_address = ((origin == SEEK_SET) ? static_cast<BYTE *>(handle) : static_cast<BYTE *>(g_load_address)) + offset;
   return 0;
@@ -791,7 +783,7 @@ int DLL_CALLCONV _SeekProc(fi_handle handle, long offset, int origin)
 
 long DLL_CALLCONV _TellProc(fi_handle handle)
 {
-  /* assert(static_cast<long int>(handle) >= static_cast<long int>(g_load_address)); */
+  // assert(static_cast<long int>(handle) >= static_cast<long int>(g_load_address));
 
   return (reinterpret_cast<long int>(g_load_address) - reinterpret_cast<long int>(handle));
 }
@@ -901,9 +893,7 @@ HB_FUNC(HWG_FI_SETDOTSPERMETERY)
   hb_ret();
 }
 
-/*
-HWG_FI_ALLOCATE(nX, nY, nDepth) --> numerical
-*/
+// HWG_FI_ALLOCATE(nX, nY, nDepth) --> numerical
 HB_FUNC(HWG_FI_ALLOCATE)
 {
   pAllocate = reinterpret_cast<FREEIMAGE_ALLOCATE>(
@@ -912,9 +902,7 @@ HB_FUNC(HWG_FI_ALLOCATE)
   hb_retnl(reinterpret_cast<ULONG>(pAllocate(hb_parnl(1), hb_parnl(2), hb_parnl(3), 0, 0, 0)));
 }
 
-/*
-HWG_FI_PASTE(nDes, nSrc, nTop, nLeft, nAlpha) --> logical
-*/
+// HWG_FI_PASTE(nDes, nSrc, nTop, nLeft, nAlpha) --> logical
 HB_FUNC(HWG_FI_PASTE)
 {
   pPaste = reinterpret_cast<FREEIMAGE_PASTE>(s_getFunction(reinterpret_cast<FARPROC>(pPaste), "_FreeImage_Paste@20"));
@@ -922,9 +910,7 @@ HB_FUNC(HWG_FI_PASTE)
   hb_retl(pPaste(hwg_par_FIBITMAP(1), hwg_par_FIBITMAP(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)));
 }
 
-/*
-HWG_FI_COPY(nDib, nLeft, nTop, nRight, nBottom) --> numeric
-*/
+// HWG_FI_COPY(nDib, nLeft, nTop, nRight, nBottom) --> numeric
 HB_FUNC(HWG_FI_COPY)
 {
   pCopy = reinterpret_cast<FREEIMAGE_COPY>(s_getFunction(reinterpret_cast<FARPROC>(pCopy), "_FreeImage_Copy@20"));
@@ -932,7 +918,7 @@ HB_FUNC(HWG_FI_COPY)
   hb_retnl(reinterpret_cast<ULONG>(pCopy(hwg_par_FIBITMAP(1), hb_parnl(2), hb_parnl(3), hb_parnl(4), hb_parnl(5))));
 }
 
-/* just a test, should receive a RGBQUAD structure, a xharbour array */
+// just a test, should receive a RGBQUAD structure, a xharbour array
 HB_FUNC(HWG_FI_SETBACKGROUNDCOLOR)
 {
   RGBQUAD rgbquad = {255, 255, 255, 255};
@@ -1016,7 +1002,6 @@ HB_FUNC(HWG_FI_SETPIXELINDEX)
   hb_retl(pSetPixelIndex(hwg_par_FIBITMAP(1), hb_parni(2), hb_parni(3), &value));
 }
 
-/* todo
-typedef BOOL ( WINAPI *FREEIMAGE_GETPIXELCOLOR )(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
-typedef BOOL ( WINAPI *FREEIMAGE_SETPIXELCOLOR )(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
-*/
+// TODO:
+// typedef BOOL ( WINAPI *FREEIMAGE_GETPIXELCOLOR )(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
+// typedef BOOL ( WINAPI *FREEIMAGE_SETPIXELCOLOR )(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);

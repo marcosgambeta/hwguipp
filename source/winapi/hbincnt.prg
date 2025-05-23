@@ -10,15 +10,14 @@
 #include <fileio.ch>
 #include "hwguipp.ch"
 
-/* Data structure:
- * Header: "hwgbc" ver(2b) reserve(1b)  N items  Contents Len  Contents blocks  Pass Length Pass info
- *         ---------------------------  -------  ------------  ---------------  ----------- ---------
- *                    8b                 2b          3b             1b               1b      1 - 64b
- * Contents item:
- *         Name Length    Name     Type   Address   Size  Flags
- *         -----------  ---------  ----   -------   ----  -----
- *             1 b       1 - 32b    4b      4b       4b     2b
- */
+// Data structure:
+// Header: "hwgbc" ver(2b) reserve(1b)  N items  Contents Len  Contents blocks  Pass Length Pass info
+//         ---------------------------  -------  ------------  ---------------  ----------- ---------
+//                    8b                 2b          3b             1b               1b      1 - 64b
+// Contents item:
+//         Name Length    Name     Type   Address   Size  Flags
+//         -----------  ---------  ----   -------   ----  -----
+//*             1 b       1 - 32b    4b      4b       4b     2b
 
 #define VER_HIGH   1
 #define VER_LOW       0

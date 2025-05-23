@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level dialog boxes functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level dialog boxes functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 // #define OEMRESOURCE
 #include "hwingui.hpp"
@@ -48,9 +48,8 @@ HB_FUNC(HWG_DIALOGBOX)
   hb_strfree(hResource);
 }
 
-/*  Creates modeless dialog
-    CreateDialog(hParentWindow, aDialog)
-*/
+// Creates modeless dialog
+// CreateDialog(hParentWindow, aDialog)
 HB_FUNC(HWG_CREATEDIALOG)
 {
   auto pObject = hb_param(2, Harbour::Item::OBJECT);
@@ -72,33 +71,25 @@ HB_FUNC(HWG_CREATEDIALOG)
   hb_retptr(hDlg);
 }
 
-/*
-HWG__ENDDIALOG(hWnd) --> NIL
-*/
+// HWG__ENDDIALOG(hWnd) --> NIL
 HB_FUNC(HWG__ENDDIALOG)
 {
   EndDialog(hwg_par_HWND(1), TRUE);
 }
 
-/*
-HWG_GETDLGITEM(hWnd, nID) --> hWnd
-*/
+// HWG_GETDLGITEM(hWnd, nID) --> hWnd
 HB_FUNC(HWG_GETDLGITEM)
 {
   hb_retptr(GetDlgItem(hwg_par_HWND(1), hwg_par_int(2)));
 }
 
-/*
-HWG_GETDLGCTRLID(hWnd) --> nID
-*/
+// HWG_GETDLGCTRLID(hWnd) --> nID
 HB_FUNC(HWG_GETDLGCTRLID)
 {
   hb_retni(GetDlgCtrlID(hwg_par_HWND(1)));
 }
 
-/*
-HWG_SETDLGITEMTEXT(hWnd, nID, cText) --> NIL
-*/
+// HWG_SETDLGITEMTEXT(hWnd, nID, cText) --> NIL
 HB_FUNC(HWG_SETDLGITEMTEXT)
 {
   void *hText;
@@ -106,18 +97,14 @@ HB_FUNC(HWG_SETDLGITEMTEXT)
   hb_strfree(hText);
 }
 
-/*
-HWG_SETDLGITEMINT(hWnd, nID, nInt, lSigned) --> NIL
-*/
+// HWG_SETDLGITEMINT(hWnd, nID, nInt, lSigned) --> NIL
 HB_FUNC(HWG_SETDLGITEMINT)
 {
   SetDlgItemInt(hwg_par_HWND(1), hwg_par_int(2), hwg_par_UINT(3),
                 (hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4)) ? FALSE : TRUE);
 }
 
-/*
-HWG_GETDLGITEMTEXT(hWnd, nID, nMaxSize) --> cText
-*/
+// HWG_GETDLGITEMTEXT(hWnd, nID, nMaxSize) --> cText
 HB_FUNC(HWG_GETDLGITEMTEXT)
 {
   USHORT uiLen = hwg_par_int(3);
@@ -127,9 +114,7 @@ HB_FUNC(HWG_GETDLGITEMTEXT)
   hb_xfree(lpText);
 }
 
-/*
-HWG_GETEDITTEXT(hWnd, nID) --> cText
-*/
+// HWG_GETEDITTEXT(hWnd, nID) --> cText
 HB_FUNC(HWG_GETEDITTEXT)
 {
   auto hDlg = hwg_par_HWND(1);
@@ -141,25 +126,19 @@ HB_FUNC(HWG_GETEDITTEXT)
   hb_xfree(lpText);
 }
 
-/*
-HWG_CHECKDLGBUTTON(hWnd, nID, lState) --> NIL
-*/
+// HWG_CHECKDLGBUTTON(hWnd, nID, lState) --> NIL
 HB_FUNC(HWG_CHECKDLGBUTTON)
 {
   CheckDlgButton(hwg_par_HWND(1), hwg_par_int(2), (hb_parl(3)) ? BST_CHECKED : BST_UNCHECKED);
 }
 
-/*
-HWG_CHECKRADIOBUTTON(hWnd, nIDFirstButton, nIDLastButton, nIDCheckButton) --> NIL
-*/
+// HWG_CHECKRADIOBUTTON(hWnd, nIDFirstButton, nIDLastButton, nIDCheckButton) --> NIL
 HB_FUNC(HWG_CHECKRADIOBUTTON)
 {
   CheckRadioButton(hwg_par_HWND(1), hwg_par_int(2), hwg_par_int(3), hwg_par_int(4));
 }
 
-/*
-HWG_ISDLGBUTTONCHECKED(hWnd, nID) --> logical
-*/
+// HWG_ISDLGBUTTONCHECKED(hWnd, nID) --> logical
 HB_FUNC(HWG_ISDLGBUTTONCHECKED)
 {
   hb_retl(IsDlgButtonChecked(hwg_par_HWND(1), hwg_par_int(2)) == BST_CHECKED);
@@ -218,7 +197,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
   y1 = (y1 * 8) / baseunitY;
   dheight = (dheight * 8) / baseunitY;
 
-  /* clear styles which needs different dialog template */
+  // clear styles which needs different dialog template
   ulStyle &= ~(DS_SETFONT | DS_SHELLFONT);
 
   auto pControls = hb_itemNew(GETOBJECTVAR(pObj, "ACONTROLS"));
@@ -235,7 +214,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
     lTemplateSize += s_nWideStringLen(GETOBJECTVAR(pControl, "TITLE"));
     lTemplateSize += lTemplateSize & 1;
   }
-  lTemplateSize += 2; /* 2 to keep DWORD boundary block size */
+  lTemplateSize += 2; // 2 to keep DWORD boundary block size
 
   hgbl = GlobalAlloc(GMEM_ZEROINIT, lTemplateSize * sizeof(WORD));
   if (!hgbl)
@@ -330,9 +309,7 @@ HB_FUNC(HWG_RELEASEDLGTEMPLATE)
   s_ReleaseDlgTemplate(reinterpret_cast<LPDLGTEMPLATE>(hb_parnl(1)));
 }
 
-/*
- *  _CreatePropertySheetPage(aDlg, x1, y1, nWidth, nHeight, nStyle) --> hPage
- */
+// _CreatePropertySheetPage(aDlg, x1, y1, nWidth, nHeight, nStyle) --> hPage
 HB_FUNC(HWG__CREATEPROPERTYSHEETPAGE)
 {
   PROPSHEETPAGE psp{};
@@ -400,9 +377,7 @@ HB_FUNC(HWG__CREATEPROPERTYSHEETPAGE)
   hb_strfree(hTitle);
 }
 
-/*
- * _PropertySheet(hWndParent, aPageHandles, nPageHandles, cTitle, [lModeless], [lNoApply], [lWizard]) --> hPropertySheet
- */
+// _PropertySheet(hWndParent, aPageHandles, nPageHandles, cTitle, [lModeless], [lNoApply], [lWizard]) --> hPropertySheet
 HB_FUNC(HWG__PROPERTYSHEET)
 {
   auto pArr = hb_param(2, Harbour::Item::ARRAY);
@@ -450,9 +425,7 @@ HB_FUNC(HWG__PROPERTYSHEET)
   hb_strfree(hCaption);
 }
 
-/* Hwg_CreateDlgIndirect(hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle)
- */
-
+// Hwg_CreateDlgIndirect(hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle)
 HB_FUNC(HWG_CREATEDLGINDIRECT)
 {
   LPDLGTEMPLATE pdlgtemplate;
@@ -482,9 +455,7 @@ HB_FUNC(HWG_CREATEDLGINDIRECT)
   }
 }
 
-/*
-Hwg_DlgBoxIndirect(hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle)
-*/
+// Hwg_DlgBoxIndirect(hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle)
 HB_FUNC(HWG_DLGBOXINDIRECT)
 {
   auto pObject = hb_param(2, Harbour::Item::OBJECT);

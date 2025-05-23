@@ -1,13 +1,13 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HGrid class
- *
- * Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- * Copyright 2004 Rodrigo Moreno <rodrigo_moreno@yahoo.com>
- *
- * Extended function Copyright 2006 Luiz Rafael Culik Guimaraes <luiz@xharbour.com.br>
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HGrid class
+//
+// Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+// Copyright 2004 Rodrigo Moreno <rodrigo_moreno@yahoo.com>
+//
+// Extended function Copyright 2006 Luiz Rafael Culik Guimaraes <luiz@xharbour.com.br>
+//
 
 #include "hwingui.hpp"
 #include <commctrl.h>
@@ -408,7 +408,7 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
 
 HB_FUNC(HWG_PROCESSCUSTU)
 {
-  /* auto hWnd = hwg_par_HWND(1); */
+  // auto hWnd = hwg_par_HWND(1);
   auto lParam = reinterpret_cast<LPARAM>(hb_parptr(2));
   auto pColor = hb_param(3, Harbour::Item::ARRAY);
 

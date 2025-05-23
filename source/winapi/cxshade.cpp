@@ -1,13 +1,13 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level functions for special drawing effects
- *
- * Based on an article of Davide Pizzolato "CxShadeButton",
- * published on http://www.codeproject.com
- *
- * Copyright 2006 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level functions for special drawing effects
+//
+// Based on an article of Davide Pizzolato "CxShadeButton",
+// published on http://www.codeproject.com
+//
+// Copyright 2006 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "guilib.hpp"
 #include <windows.h>
@@ -426,7 +426,7 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
         }
       }
     }
-    /*
+#if 0
     // paint the focus rect
     if( (state & STATE_FOCUS) && (pshade->m_FocusRectMargin > 0) ) {
        InflateRect(&r,-pshade->m_FocusRectMargin, -pshade->m_FocusRectMargin);
@@ -435,7 +435,7 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
        cxdib_Draw(&(pshade->m_dv), pDC, r.left, 1+r.top);
        cxdib_Draw(&(pshade->m_dv), pDC, r.right, 1+r.top);
     }
-    */
+#endif
   }
 
   // copy in the real world
@@ -713,9 +713,7 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
   cxdib_Clone(&(pshade->m_dDown), &(pshade->m_dOver));
 }
 
-/*
-HWG_SHADE_NEW(nLeft, nTop, nRight, nBottom, lFlat) --> pShade
-*/
+// HWG_SHADE_NEW(nLeft, nTop, nRight, nBottom, lFlat) --> pShade
 HB_FUNC(HWG_SHADE_NEW)
 {
   RECT rect;
@@ -724,17 +722,13 @@ HB_FUNC(HWG_SHADE_NEW)
   hb_retptr(pshade);
 }
 
-/*
-HWG_SHADE_RELEASE(pShade)
-*/
+// HWG_SHADE_RELEASE(pShade)
 HB_FUNC(HWG_SHADE_RELEASE)
 {
   cxshade_Release(static_cast<PCXSHADE>(hb_parptr(1)));
 }
 
-/*
-HWG_SHADE_SET(pshade, shadeID, palette, granularity, highlight, coloring, color, nLeft, nTop, nRight, nBottom) --> NIL
-*/
+// HWG_SHADE_SET(pshade, shadeID, palette, granularity, highlight, coloring, color, nLeft, nTop, nRight, nBottom) --> NIL
 HB_FUNC(HWG_SHADE_SET)
 {
   auto pshade = static_cast<PCXSHADE>(hb_parptr(1));
@@ -754,9 +748,7 @@ HB_FUNC(HWG_SHADE_SET)
   cxshade_SetShade(pshade, shadeID, palette, granularity, highlight, coloring, color, HB_ISNIL(8) ? nullptr : &rect);
 }
 
-/*
-HWG_SHADE_DRAW(pshade, hDC, nState) --> NIL
-*/
+// HWG_SHADE_DRAW(pshade, hDC, nState) --> NIL
 HB_FUNC(HWG_SHADE_DRAW)
 {
   cxshade_Draw(static_cast<PCXSHADE>(hb_parptr(1)), hwg_par_HDC(2), hb_parni(3));

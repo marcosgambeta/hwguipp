@@ -44,19 +44,15 @@ FUNCTION hwg_BmpFromRes(cBmp)
 
 RETURN handle
 
-/*
-Functions for Binary Container handling
-List of array elements:
-OBJ_NAME      1
-OBJ_TYPE      2
-OBJ_VAL       3
-OBJ_SIZE      4
-OBJ_ADDR      5
-*/
+// Functions for Binary Container handling
+// List of array elements:
+// OBJ_NAME      1
+// OBJ_TYPE      2
+// OBJ_VAL       3
+// OBJ_SIZE      4
+// OBJ_ADDR      5
 
-/*
-Returns .T., if container is opened successfully
-*/
+// Returns .T., if container is opened successfully
 FUNCTION hwg_SetResContainer(cName)
 
    IF Empty(cName)
@@ -72,9 +68,7 @@ FUNCTION hwg_SetResContainer(cName)
 
 RETURN .T.
 
-/*
-Returns .T., if a container is open
-*/
+// Returns .T., if a container is open
 FUNCTION hwg_GetResContainerOpen()
 
    IF !Empty(s_oResCnt)
@@ -83,11 +77,9 @@ FUNCTION hwg_GetResContainerOpen()
 
 RETURN .F.
 
-/*
-Returns the object of opened container,
-otherwise NIL
-(because the object variable is static)
-*/
+// Returns the object of opened container,
+// otherwise NIL
+// (because the object variable is static)
 FUNCTION hwg_GetResContainer()
 
    IF !Empty(s_oResCnt)
@@ -96,14 +88,12 @@ FUNCTION hwg_GetResContainer()
 
 RETURN NIL
 
-/*
-Extracts an item with name cname of an opened
-container to file cfilename
-(get file extension with function
-hwg_ExtractResContItemType() before)
-Returns .T., if success, otherwise .F.
-for example if no match.
-*/
+// Extracts an item with name cname of an opened
+// container to file cfilename
+// (get file extension with function
+// hwg_ExtractResContItemType() before)
+// Returns .T., if success, otherwise .F.
+// for example if no match.
 FUNCTION hwg_ExtractResContItem2file(cfilename,cname)
 
    LOCAL n
@@ -117,13 +107,11 @@ FUNCTION hwg_ExtractResContItem2file(cfilename,cname)
 
 RETURN .F.
 
-/*
-Extracts the type of item with name cname of an opened
-container
-Returns the type (bmp,png,ico,jpg)
-as a string.
-Empty string "", of container not open or no match
-*/
+// Extracts the type of item with name cname of an opened
+// container
+// Returns the type (bmp,png,ico,jpg)
+// as a string.
+// Empty string "", of container not open or no match
 FUNCTION hwg_ExtractResContItemType(cname)
 
    LOCAL cItemType := ""
@@ -134,12 +122,10 @@ FUNCTION hwg_ExtractResContItemType(cname)
 
 RETURN cItemType
 
-/*
-Extracts the position number of item with name cname of an opened
-container
-Returns the position name of item in the container,
-0, if no match or container not open.
-*/
+// Extracts the position number of item with name cname of an opened
+// container
+// Returns the position name of item in the container,
+// 0, if no match or container not open.
 FUNCTION hwg_ResContItemPosition(cname)
 
    LOCAL i := 0
@@ -150,28 +136,26 @@ FUNCTION hwg_ResContItemPosition(cname)
 
 RETURN i
 
-/*
-Creates a temporary file from a bitmap object
-Avoids trouble with imcompatibility of image displays.
-Almost needed for binary container.
-objBitmap : object from resource container (from HBitmap class)
-cname     : resource name of object
-cfextn    : file extension, for example "bmp" (Default)
-Returns:
-The temporary file name,
-empty string, if error occured.
-Don't forget to delete the temporary file after usage.
-LOCAL ctmpbmpf
-ctmpbmpf := hwg_Bitmap2tmpfile(obitmap, "sample", "bmp")
-hwg_MsgInfo(ctmpbmpf, "Temporary image file")
-IF !Empty(ctmpbmpf)
- ...
-ENDIF
-ERASE &ctmpbmpf
-
-Read more about the usage of this function in the documentation
-of the Binary Container Manager in the utils/bincnt directory.
-*/
+// Creates a temporary file from a bitmap object
+// Avoids trouble with imcompatibility of image displays.
+// Almost needed for binary container.
+// objBitmap : object from resource container (from HBitmap class)
+// cname     : resource name of object
+// cfextn    : file extension, for example "bmp" (Default)
+// Returns:
+// The temporary file name,
+// empty string, if error occured.
+// Don't forget to delete the temporary file after usage.
+// LOCAL ctmpbmpf
+// ctmpbmpf := hwg_Bitmap2tmpfile(obitmap, "sample", "bmp")
+// hwg_MsgInfo(ctmpbmpf, "Temporary image file")
+// IF !Empty(ctmpbmpf)
+//  ...
+// ENDIF
+// ERASE &ctmpbmpf
+//
+// Read more about the usage of this function in the documentation
+// of the Binary Container Manager in the utils/bincnt directory.
 FUNCTION hwg_Bitmap2tmpfile(objBitmap, cname, cfextn)
 
    LOCAL ctmpfilename
@@ -218,10 +202,8 @@ EXIT PROCEDURE CleanDrawWidg
 
 RETURN
 
-/*
-DF7BE: only needed for WinAPI, on GTK/LINUX charset is UTF-8 forever.
-All other attributes are not modified.
-*/
+// DF7BE: only needed for WinAPI, on GTK/LINUX charset is UTF-8 forever.
+// All other attributes are not modified.
 FUNCTION hwg_FontSetCharset(oFont, nCharSet)
 
    LOCAL oItem

@@ -33,30 +33,27 @@
 // linking the HWGUI library code into it.
 // $END_LICENSE$
 
-/*
- * An attempt to replicate the Clipper Alert() in the style of Windows MessageBox(). I have not studied
- * Alert() very carefully (or MessageBox() for that matter). It is nice to just call alert("hello") and
- * you get what you expect from Clipper.
- *
- * Not thread safe without your own objects - that is oAlert:Alert() is ok, alert() is not.
- *
- * Nice (and completely optional) add ons are:
- *      Timer (in s not ms)
- *      Non-modal (only one at a time though)
- *      Timer and non-modal
- *      Left or Centered text (or something else if you like)
- *      Can display no active buttons, modal with timer - no esc, alt-f4
- *      Can display no active buttons, non-modal and remove later for short processing jobs
- *      Optional beep and choice of beep
- *      Icon can be displayed in title bar and task bar
- *      Close button and esc can be disabled - must use a button
- *
- * *If* you use a non-modal alert you must call ReleaseDefaultAlert() at the end of your app,
- * actually if you don't, nothing bad will happen, but it isn't neat.
- *
- * If you have a timer with an ID of 1899, you won't be happy!
- *
- */
+// An attempt to replicate the Clipper Alert() in the style of Windows MessageBox(). I have not studied
+// Alert() very carefully (or MessageBox() for that matter). It is nice to just call alert("hello") and
+// you get what you expect from Clipper.
+//
+// Not thread safe without your own objects - that is oAlert:Alert() is ok, alert() is not.
+//
+// Nice (and completely optional) add ons are:
+//      Timer (in s not ms)
+//      Non-modal (only one at a time though)
+//      Timer and non-modal
+//      Left or Centered text (or something else if you like)
+//      Can display no active buttons, modal with timer - no esc, alt-f4
+//      Can display no active buttons, non-modal and remove later for short processing jobs
+//      Optional beep and choice of beep
+//      Icon can be displayed in title bar and task bar
+//      Close button and esc can be disabled - must use a button
+//
+// *If* you use a non-modal alert you must call ReleaseDefaultAlert() at the end of your app,
+// actually if you don't, nothing bad will happen, but it isn't neat.
+//
+// If you have a timer with an ID of 1899, you won't be happy!
 
 #include <hbclass.ch>
 #include <common.ch>
@@ -453,7 +450,7 @@ FUNCTION hwg_ReleaseDefaultAlert()
 
 RETURN NIL
 
-/* Utility functions */
+// Utility functions
 
 STATIC FUNCTION StringToArray(cString, cDelimiter)
 
@@ -471,11 +468,9 @@ STATIC FUNCTION StringToArray(cString, cDelimiter)
 RETURN aStrings
 
 FUNCTION HWG_Alert_CenterWindow(hWnd)
-/*
- Zentriert ein Kind-Fenster inmitten des Vater Fensters,
- als Antwort auf eine WM_INITDIALOG Nachricht.
- hWnd: Handle des Kind-Fensters.
-*/
+// Zentriert ein Kind-Fenster inmitten des Vater Fensters,
+// als Antwort auf eine WM_INITDIALOG Nachricht.
+// hWnd: Handle des Kind-Fensters.
 
    LOCAL hWndParent   // handle to the Parent Window
    LOCAL nCWidth      // Width of Child Window

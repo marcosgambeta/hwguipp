@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level text functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level text functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define OEMRESOURCE
 
@@ -244,47 +244,37 @@ HB_FUNC(HWG_GETCLIENTAREA)
   hb_itemRelease(aMetr);
 }
 
-/*
-HWG_SETTEXTCOLOR(hDC, nColor) --> numeric
-*/
+// HWG_SETTEXTCOLOR(hDC, nColor) --> numeric
 HB_FUNC(HWG_SETTEXTCOLOR)
 {
   hb_retnl(static_cast<LONG>(SetTextColor(hwg_par_HDC(1), hwg_par_COLORREF(2))));
 }
 
-/*
-HWG_SETBKCOLOR(hDC, nColor) --> numeric
-*/
+// HWG_SETBKCOLOR(hDC, nColor) --> numeric
 HB_FUNC(HWG_SETBKCOLOR)
 {
   hb_retnl(static_cast<LONG>(SetBkColor(hwg_par_HDC(1), hwg_par_COLORREF(2))));
 }
 
-/*
-HWG_SETTRANSPARENTMODE(hDC, lPar) --> logical
-*/
+// HWG_SETTRANSPARENTMODE(hDC, lPar) --> logical
 HB_FUNC(HWG_SETTRANSPARENTMODE)
 {
   hb_retl(SetBkMode(hwg_par_HDC(1), hb_parl(2) ? TRANSPARENT : OPAQUE) == TRANSPARENT);
 }
 
-/*
-HWG_GETTEXTCOLOR(hDC) --> numeric
-*/
+// HWG_GETTEXTCOLOR(hDC) --> numeric
 HB_FUNC(HWG_GETTEXTCOLOR)
 {
   hb_retnl(static_cast<LONG>(GetTextColor(hwg_par_HDC(1))));
 }
 
-/*
-HWG_GETBKCOLOR(hDC) --> numeric
-*/
+// HWG_GETBKCOLOR(hDC) --> numeric
 HB_FUNC(HWG_GETBKCOLOR)
 {
   hb_retnl(static_cast<LONG>(GetBkColor(hwg_par_HDC(1))));
 }
 
-/*
+#if 0
 HB_FUNC( HWG_GETTEXTSIZE )
 {
    auto hdc = GetDC(hwg_par_HWND(1));
@@ -310,11 +300,9 @@ HB_FUNC( HWG_GETTEXTSIZE )
    hb_itemReturn(aMetr);
    hb_itemRelease(aMetr);
 }
-*/
+#endif
 
-/*
-HWG_EXTTEXTOUT(hDC, nX, nY, nLeft, nTop, nRight, nBottom) --> NIL
-*/
+// HWG_EXTTEXTOUT(hDC, nX, nY, nLeft, nTop, nRight, nBottom) --> NIL
 HB_FUNC(HWG_EXTTEXTOUT)
 {
   RECT rc;
@@ -339,9 +327,7 @@ HB_FUNC(HWG_EXTTEXTOUT)
   hb_strfree(hText);
 }
 
-/*
-HWG_WRITESTATUSWINDOW(hWnd, nPar2, cString) --> NIL
-*/
+// HWG_WRITESTATUSWINDOW(hWnd, nPar2, cString) --> NIL
 HB_FUNC(HWG_WRITESTATUSWINDOW)
 {
   void *hString;
@@ -349,17 +335,13 @@ HB_FUNC(HWG_WRITESTATUSWINDOW)
   hb_strfree(hString);
 }
 
-/*
-HWG_WINDOWFROMDC(hDC) --> hWnd
-*/
+// HWG_WINDOWFROMDC(hDC) --> hWnd
 HB_FUNC(HWG_WINDOWFROMDC)
 {
   hb_retptr(WindowFromDC(hwg_par_HDC(1)));
 }
 
-/*
-CreateFont(fontName, nWidth, hHeight [,fnWeight] [,fdwCharSet], [,fdwItalic] [,fdwUnderline] [,fdwStrikeOut])
-*/
+// CreateFont(fontName, nWidth, hHeight [,fnWeight] [,fdwCharSet], [,fdwItalic] [,fdwUnderline] [,fdwStrikeOut])
 HB_FUNC(HWG_CREATEFONT)
 {
   HFONT hFont;
@@ -389,9 +371,7 @@ HB_FUNC(HWG_CREATEFONT)
   hb_retptr(hFont);
 }
 
-/*
- * SetCtrlFont(hWnd, ctrlId, hFont)
- */
+// SetCtrlFont(hWnd, ctrlId, hFont)
 HB_FUNC(HWG_SETCTRLFONT)
 {
   SendDlgItemMessage(hwg_par_HWND(1), hb_parni(2), WM_SETFONT, reinterpret_cast<WPARAM>(hb_parptr(3)), 0L);
@@ -402,9 +382,7 @@ HB_FUNC(HWG_CREATERECTRGN)
   hb_retptr(CreateRectRgn(hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4)));
 }
 
-/*
-HWG_CREATERECTRGNINDIRECT(NIL, nLeft, nTop, nRight, nBottom) -> hRgn
-*/
+// HWG_CREATERECTRGNINDIRECT(NIL, nLeft, nTop, nRight, nBottom) -> hRgn
 HB_FUNC(HWG_CREATERECTRGNINDIRECT)
 {
   RECT rc;

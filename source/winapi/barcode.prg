@@ -911,33 +911,25 @@ RETURN cBarra
 
 #include "hwingui.hpp"
 
-/*
-RICH_RECTANGLE(hDC, nLeft, nTop, nRight, nBottom) --> .T.|.F.
-*/
+// RICH_RECTANGLE(hDC, nLeft, nTop, nRight, nBottom) --> .T.|.F.
 HB_FUNC_STATIC(RICH_RECTANGLE)
 {
    hb_retl(Rectangle(hwg_par_HDC(1), hwg_par_int(2), hwg_par_int(3), hwg_par_int(4), hwg_par_int(5)));
 }
 
-/*
-RICH_CREATEPEN(nStyle, nWidth, nColor) --> hPen
-*/
+// RICH_CREATEPEN(nStyle, nWidth, nColor) --> hPen
 HB_FUNC_STATIC(RICH_CREATEPEN)
 {
    hb_retptr(CreatePen(hwg_par_int(1), hwg_par_int(2), hwg_par_COLORREF(3)));
 }
 
-/*
-RICH_SELECTOBJECT(hDC, hGdiObj) --> hGdiObj
-*/
+// RICH_SELECTOBJECT(hDC, hGdiObj) --> hGdiObj
 HB_FUNC_STATIC(RICH_SELECTOBJECT)
 {
    hb_retptr(SelectObject(hwg_par_HDC(1), hwg_par_HGDIOBJ(2)));
 }
 
-/*
-RICH_CREATESOLIDBRUSH(nColor) --> hBrush
-*/
+// RICH_CREATESOLIDBRUSH(nColor) --> hBrush
 HB_FUNC_STATIC(RICH_CREATESOLIDBRUSH)
 {
    hb_retptr(CreateSolidBrush(hwg_par_COLORREF(1)));

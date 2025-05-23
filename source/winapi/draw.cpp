@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level painting functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level painting functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #if !defined(_HB_API_INTERNAL_)
 #define _HB_API_INTERNAL_
@@ -32,7 +32,7 @@ extern "C"
 #else
 // STDAPI OleLoadPicture(LPSTREAM,LONG,BOOL,REFIID,PVOID*);
 #endif
-#endif /* __BORLANDC__ */
+#endif // __BORLANDC__
 
 #ifdef __cplusplus
 #ifdef CINTERFACE
@@ -234,12 +234,10 @@ HB_FUNC(HWG_FILLRECT)
                            : reinterpret_cast<HBRUSH>(hb_parnl(6))); // TODO: é realmente preciso checar o tipo ?
 }
 
-/*
- * hwg_Arc( hDC, xc, yc, radius, iAngleStart, iAngleEnd )
- * Draws an arc with a center in xc, yc, with a radius from an angle
- * iAngleStart to iAngleEnd. Angles are passed in degrees.
- * 0 corresponds to the standard X axis, drawing direction is clockwise.
- */
+// hwg_Arc( hDC, xc, yc, radius, iAngleStart, iAngleEnd )
+// Draws an arc with a center in xc, yc, with a radius from an angle
+// iAngleStart to iAngleEnd. Angles are passed in degrees.
+// 0 corresponds to the standard X axis, drawing direction is clockwise.
 HB_FUNC(HWG_ARC)
 {
   auto hDC = hwg_par_HDC(1);
@@ -256,9 +254,7 @@ HB_FUNC(HWG_ARC)
   AngleArc(hDC, xc, yc, static_cast<DWORD>(radius), static_cast<FLOAT>(iAngle2), static_cast<FLOAT>(iAngle1));
 }
 
-/*
- * hwg_RoundRect(hDC, x1, y1, x2, y2, iRadiusH [, iRadiusV])
- */
+// hwg_RoundRect(hDC, x1, y1, x2, y2, iRadiusH [, iRadiusV])
 HB_FUNC(HWG_ROUNDRECT)
 {
   auto iWidth = hb_parni(6);
@@ -325,9 +321,7 @@ HB_FUNC(HWG_DRAWBUTTON)
   }
 }
 
-/*
- * DrawEdge(hDC,x1,y1,x2,y2,nFlag,nBorder)
- */
+// DrawEdge(hDC,x1,y1,x2,y2,nFlag,nBorder)
 HB_FUNC(HWG_DRAWEDGE)
 {
   RECT rc;
@@ -393,9 +387,7 @@ HB_FUNC(HWG_LOADBITMAP)
   }
 }
 
-/*
- * Window2Bitmap(hWnd)
- */
+// Window2Bitmap(hWnd)
 HB_FUNC(HWG_WINDOW2BITMAP)
 {
   auto hWnd = hwg_par_HWND(1);
@@ -416,13 +408,13 @@ HB_FUNC(HWG_WINDOW2BITMAP)
     height = rc.bottom - rc.top;
   }
 
-  /*
+#if 0
   if( lFull ) {
      GetWindowRect(hWnd, &rc);
   } else {
      GetClientRect(hWnd, &rc);
   }
-  */
+#endif
 
   HBITMAP hBitmap = CreateCompatibleBitmap(hDC, width, height);
   SelectObject(hDCmem, hBitmap);
@@ -434,9 +426,7 @@ HB_FUNC(HWG_WINDOW2BITMAP)
   hb_retptr(hBitmap);
 }
 
-/*
- * DrawBitmap(hDC, hBitmap, style, x, y, width, height)
- */
+// DrawBitmap(hDC, hBitmap, style, x, y, width, height)
 HB_FUNC(HWG_DRAWBITMAP)
 {
   auto hDC = hwg_par_HDC(1);
@@ -463,9 +453,7 @@ HB_FUNC(HWG_DRAWBITMAP)
   DeleteDC(hDCmem);
 }
 
-/*
- * DrawTransparentBitmap(hDC, hBitmap, x, y [,trColor])
- */
+// DrawTransparentBitmap(hDC, hBitmap, x, y [,trColor])
 HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
 {
   auto hDC = hwg_par_HDC(1);
@@ -494,25 +482,25 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
   SetBkColor(dcImage, trColor);
   if (nWidthDest && (nWidthDest != bitmap.bmWidth || nHeightDest != bitmap.bmHeight))
   {
-    /*
+#if 0
        BitBlt(dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCCOPY);
        SetStretchBltMode(hDC, COLORONCOLOR);
        StretchBlt(hDC, 0, 0, nWidthDest, nHeightDest, dcImage, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCINVERT);
        StretchBlt(hDC, 0, 0, nWidthDest, nHeightDest, dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCAND);
        StretchBlt(hDC, 0, 0, nWidthDest, nHeightDest, dcImage, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCINVERT);
-     */
+#endif
     SetStretchBltMode(hDC, COLORONCOLOR);
     TransparentBmp(hDC, x, y, nWidthDest, nHeightDest, dcImage, bitmap.bmWidth, bitmap.bmHeight, trColor);
   }
   else
   {
-    /*
+#if 0
        BitBlt(dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCCOPY);
        // Do the work - True Mask method - cool if not actual display
        BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCINVERT);
        BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcTrans, 0, 0, SRCAND);
        BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCINVERT);
-     */
+#endif
     TransparentBmp(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, bitmap.bmWidth, bitmap.bmHeight, trColor);
   }
   // Restore settings
@@ -526,9 +514,7 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
   DeleteDC(dcTrans);
 }
 
-/*
-SpreadBitmap(hDC, hBitmap [, nLeft, nTop, nRight, nBottom])
-*/
+// SpreadBitmap(hDC, hBitmap [, nLeft, nTop, nRight, nBottom])
 HB_FUNC(HWG_SPREADBITMAP)
 {
   auto hDC = hwg_par_HDC(1);
@@ -570,9 +556,7 @@ HB_FUNC(HWG_SPREADBITMAP)
   DeleteDC(hDCmem);
 }
 
-/*
-CenterBitmap(hDC, hWnd, hBitmap, style, brush)
-*/
+// CenterBitmap(hDC, hWnd, hBitmap, style, brush)
 HB_FUNC(HWG_CENTERBITMAP)
 {
   auto hDC = hwg_par_HDC(1);
@@ -645,11 +629,9 @@ HB_FUNC(HWG_GETICONSIZE)
   hb_itemRelease(aMetr);
 }
 
-/*
-  hwg_Openbitmap(cBitmap, hDC)
-  cBitmap : File name of bitmap
-  hDC     : Printer device handle
-*/
+// hwg_Openbitmap(cBitmap, hDC)
+// cBitmap : File name of bitmap
+// hDC     : Printer device handle
 HB_FUNC(HWG_OPENBITMAP)
 {
   BITMAPFILEHEADER bmfh;
@@ -668,18 +650,18 @@ HB_FUNC(HWG_OPENBITMAP)
     hb_retptr(nullptr);
     return;
   }
-  /* Retrieve the BITMAPFILEHEADER structure. */
+  // Retrieve the BITMAPFILEHEADER structure.
   ReadFile(hfbm, &bmfh, sizeof(BITMAPFILEHEADER), &dwRead, nullptr);
 
-  /* Retrieve the BITMAPFILEHEADER structure. */
+  // Retrieve the BITMAPFILEHEADER structure.
   ReadFile(hfbm, &bmih, sizeof(BITMAPINFOHEADER), &dwRead, nullptr);
 
-  /* Allocate memory for the BITMAPINFO structure. */
+  // Allocate memory for the BITMAPINFO structure.
 
   HGLOBAL hmem1 = GlobalAlloc(GHND, sizeof(BITMAPINFOHEADER) + ((1 << bmih.biBitCount) * sizeof(RGBQUAD)));
   auto lpbmi = static_cast<LPBITMAPINFO>(GlobalLock(hmem1));
 
-  /*  Load BITMAPINFOHEADER into the BITMAPINFO  structure. */
+  // Load BITMAPINFOHEADER into the BITMAPINFO  structure.
   lpbmi->bmiHeader.biSize = bmih.biSize;
   lpbmi->bmiHeader.biWidth = bmih.biWidth;
   lpbmi->bmiHeader.biHeight = bmih.biHeight;
@@ -693,9 +675,8 @@ HB_FUNC(HWG_OPENBITMAP)
   lpbmi->bmiHeader.biClrUsed = bmih.biClrUsed;
   lpbmi->bmiHeader.biClrImportant = bmih.biClrImportant;
 
-  /*  Retrieve the color table.
-   * 1 << bmih.biBitCount == 2 ^ bmih.biBitCount
-   */
+  //  Retrieve the color table.
+  // 1 << bmih.biBitCount == 2 ^ bmih.biBitCount
   switch (bmih.biBitCount)
   {
   case 1:
@@ -716,11 +697,11 @@ HB_FUNC(HWG_OPENBITMAP)
     break;
   }
 
-  /* Allocate memory for the required number of  bytes. */
+  // Allocate memory for the required number of  bytes.
   HGLOBAL hmem2 = GlobalAlloc(GHND, (bmfh.bfSize - bmfh.bfOffBits));
   lpvBits = GlobalLock(hmem2);
 
-  /* Retrieve the bitmap data. */
+  // Retrieve the bitmap data.
 
   ReadFile(hfbm, lpvBits, (bmfh.bfSize - bmfh.bfOffBits), &dwRead, nullptr);
 
@@ -729,7 +710,7 @@ HB_FUNC(HWG_OPENBITMAP)
     hDC = GetDC(nullptr);
   }
 
-  /* Create a bitmap from the data stored in the .BMP file.  */
+  // Create a bitmap from the data stored in the .BMP file.
   hbm = CreateDIBitmap(hDC, &bmih, CBM_INIT, lpvBits, lpbmi, DIB_RGB_COLORS);
 
   if (hb_pcount() < 2 || HB_ISNIL(2))
@@ -737,7 +718,7 @@ HB_FUNC(HWG_OPENBITMAP)
     ReleaseDC(0, hDC);
   }
 
-  /* Unlock the global memory objects and close the .BMP file. */
+  // Unlock the global memory objects and close the .BMP file.
   GlobalUnlock(hmem1);
   GlobalUnlock(hmem2);
   GlobalFree(hmem1);
@@ -747,9 +728,7 @@ HB_FUNC(HWG_OPENBITMAP)
   hb_retptr(hbm);
 }
 
-/*
- *  hwg_SaveBitMap(cfilename, hBitmap)
- */
+// hwg_SaveBitMap(cfilename, hBitmap)
 HB_FUNC(HWG_SAVEBITMAP)
 {
   auto hBitmap = hwg_par_HBITMAP(2);
@@ -866,57 +845,43 @@ HB_FUNC(HWG_GETSYSCOLORBRUSH)
   hb_retptr(GetSysColorBrush(hb_parni(1)));
 }
 
-/*
-HWG_CREATEPEN(nStyle, nWidth, nColor) --> hPen
-*/
+// HWG_CREATEPEN(nStyle, nWidth, nColor) --> hPen
 HB_FUNC(HWG_CREATEPEN)
 {
   hb_retptr(CreatePen(hb_parni(1), hb_parni(2), hwg_par_COLORREF(3)));
 }
 
-/*
-HWG_CREATESOLIDBRUSH(nColor) --> hBrush
-*/
+// HWG_CREATESOLIDBRUSH(nColor) --> hBrush
 HB_FUNC(HWG_CREATESOLIDBRUSH)
 {
   hb_retptr(CreateSolidBrush(hwg_par_COLORREF(1)));
 }
 
-/*
-HWG_CREATEHATCHBRUSH(nPar1, nColor) --> nBrush
-*/
+// HWG_CREATEHATCHBRUSH(nPar1, nColor) --> nBrush
 HB_FUNC(HWG_CREATEHATCHBRUSH)
 {
   hb_retptr(CreateHatchBrush(hb_parni(1), hwg_par_COLORREF(2)));
 }
 
-/*
-HWG_SELECTOBJECT(hDC, hGdiObj) --> hObject
-*/
+// HWG_SELECTOBJECT(hDC, hGdiObj) --> hObject
 HB_FUNC(HWG_SELECTOBJECT)
 {
   hb_retptr(SelectObject(hwg_par_HDC(1), hwg_par_HGDIOBJ(2)));
 }
 
-/*
-HWG_DELETEOBJECT(hGdiObj) --> NIL
-*/
+// HWG_DELETEOBJECT(hGdiObj) --> NIL
 HB_FUNC(HWG_DELETEOBJECT)
 {
   DeleteObject(hwg_par_HGDIOBJ(1));
 }
 
-/*
-HWG_GETDC(hWnd) --> hDC
-*/
+// HWG_GETDC(hWnd) --> hDC
 HB_FUNC(HWG_GETDC)
 {
   hb_retptr(GetDC(hwg_par_HWND(1)));
 }
 
-/*
-HWG_RELEASEDC(hWnd, hDC) --> handle
-*/
+// HWG_RELEASEDC(hWnd, hDC) --> handle
 HB_FUNC(HWG_RELEASEDC)
 {
   hb_retptr(reinterpret_cast<void *>(ReleaseDC(hwg_par_HWND(1), hwg_par_HDC(2))));
@@ -967,9 +932,7 @@ HB_FUNC(HWG_GETDRAWITEMINFO)
   hb_itemRelease(aMetr);
 }
 
-/*
- * DrawGrayBitmap(hDC, hBitmap, x, y)
- */
+// DrawGrayBitmap(hDC, hBitmap, x, y)
 HB_FUNC(HWG_DRAWGRAYBITMAP)
 {
   auto hDC = hwg_par_HDC(1);
@@ -1225,9 +1188,7 @@ HB_FUNC(HWG_FRAMERECT)
   hb_retni(FrameRect(hwg_par_HDC(1), &pRect, hwg_par_HBRUSH(3)));
 }
 
-/*
-HWG_DRAWFRAMECONTROL(HDC, aRect, nType, nState) --> .T.|.F.
-*/
+// HWG_DRAWFRAMECONTROL(HDC, aRect, nType, nState) --> .T.|.F.
 HB_FUNC(HWG_DRAWFRAMECONTROL)
 {
   RECT pRect;
@@ -1240,9 +1201,7 @@ HB_FUNC(HWG_DRAWFRAMECONTROL)
   hb_retl(DrawFrameControl(hwg_par_HDC(1), &pRect, hwg_par_UINT(3), hwg_par_UINT(4)));
 }
 
-/*
-HWG_OFFSETRECT(aRect, nX, nY) --> .T.|.F.
-*/
+// HWG_OFFSETRECT(aRect, nX, nY) --> .T.|.F.
 HB_FUNC(HWG_OFFSETRECT)
 {
   RECT pRect;
@@ -1259,9 +1218,7 @@ HB_FUNC(HWG_OFFSETRECT)
   hb_storvni(pRect.bottom, 1, 4);
 }
 
-/*
-HWG_DRAWFOCUSRECT(HDC, aRect) --> .T.|.F.
-*/
+// HWG_DRAWFOCUSRECT(HDC, aRect) --> .T.|.F.
 HB_FUNC(HWG_DRAWFOCUSRECT)
 {
   RECT pRect;
@@ -1285,9 +1242,7 @@ BOOL Array2Point(PHB_ITEM aPoint, POINT *pt)
   return FALSE;
 }
 
-/*
-HWG_PTINRECT(aRect, aPoint) --> .T.|.F.
-*/
+// HWG_PTINRECT(aRect, aPoint) --> .T.|.F.
 HB_FUNC(HWG_PTINRECT)
 {
   POINT pt;
@@ -1325,9 +1280,7 @@ HB_FUNC(HWG_GETMEASUREITEMINFO)
   hb_itemRelease(aMetr);
 }
 
-/*
-HWG_COPYRECT(aRect) --> aRect
-*/
+// HWG_COPYRECT(aRect) --> aRect
 HB_FUNC(HWG_COPYRECT)
 {
   RECT p;
@@ -1335,9 +1288,7 @@ HB_FUNC(HWG_COPYRECT)
   hb_itemRelease(hb_itemReturn(Rect2Array(&p)));
 }
 
-/*
-HWG_GETWINDOWDC(hWnd) --> hDC
-*/
+// HWG_GETWINDOWDC(hWnd) --> hDC
 HB_FUNC(HWG_GETWINDOWDC)
 {
   hb_retptr(GetWindowDC(hwg_par_HWND(1)));
@@ -1355,31 +1306,29 @@ HB_FUNC(HWG_MODIFYSTYLE)
 
 #define SECTORS_NUM 100
 
-/*
- * hwg_drawGradient(hDC, x1, y1, x2, y2, int type, array colors, array stops, array radiuses)
- * This function draws rectangle with rounded corners and fill it with gradient pattern.
- * hDC - handle of device context;
- * x1 and y1 - coordinates of upper left corner;
- * x2 and y2 - coordinates of bottom right corner;
- * type - the type of gradient filling:
- *    1 - vertical and down;
- *    2 - vertical and up;
- *    3 - horizontal and to the right;
- *    4 - horizontal and to the left;
- *    5 - diagonal right-up;
- *    6 - diagonal left-down;
- *    7 - diagonal right-down;
- *    8 - diagonal left-up;
- *    9 - radial gradient;
- * colors - our colors (maximum - 16 colors), a color can be represented as 0xBBGGRR;
- * stops - fractions on interval [0;1] that correspond to the colors,
- * a stop determines the position where the corresponding color reaches its maximum;
- * radiuses - for our rounded corners:
- *    first  - for upper left;
- *    second - for upper right;
- *    third  - for bottom right;
- *    fourth - for bottom left;
- */
+// hwg_drawGradient(hDC, x1, y1, x2, y2, int type, array colors, array stops, array radiuses)
+// This function draws rectangle with rounded corners and fill it with gradient pattern.
+// hDC - handle of device context;
+// x1 and y1 - coordinates of upper left corner;
+// x2 and y2 - coordinates of bottom right corner;
+// type - the type of gradient filling:
+//    1 - vertical and down;
+//    2 - vertical and up;
+//    3 - horizontal and to the right;
+//    4 - horizontal and to the left;
+//    5 - diagonal right-up;
+//    6 - diagonal left-down;
+//    7 - diagonal right-down;
+//    8 - diagonal left-up;
+//    9 - radial gradient;
+// colors - our colors (maximum - 16 colors), a color can be represented as 0xBBGGRR;
+// stops - fractions on interval [0;1] that correspond to the colors,
+// a stop determines the position where the corresponding color reaches its maximum;
+// radiuses - for our rounded corners:
+//    first  - for upper left;
+//    second - for upper right;
+//    third  - for bottom right;
+//    fourth - for bottom left;
 HB_FUNC(HWG_DRAWGRADIENT)
 {
   auto hDC = hwg_par_HDC(1);

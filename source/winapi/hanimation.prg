@@ -173,9 +173,7 @@ HB_FUNC_STATIC(HANIMATION_DESTROY)
   DestroyWindow(static_cast<HWND>(hb_objDataGetPtr(hb_stackSelfItem(), "HANDLE")));
 }
 
-/*
-HWG_ANIMATE_CREATE(hParent, nId, nStyle, nX, nY, nWidth, nHeight) --> handle
-*/
+// HWG_ANIMATE_CREATE(hParent, nId, nStyle, nX, nY, nWidth, nHeight) --> handle
 HB_FUNC_STATIC(HWG_ANIMATE_CREATE)
 {
   HWND hwnd = Animate_Create(hwg_par_HWND(1), hwg_par_UINT(2), hwg_par_DWORD(3), GetModuleHandle(nullptr));
@@ -183,9 +181,7 @@ HB_FUNC_STATIC(HWG_ANIMATE_CREATE)
   hb_retptr(hwnd);
 }
 
-/*
-HWG_ANIMATE_OPEN(HWND, cName) --> NIL
-*/
+// HWG_ANIMATE_OPEN(HWND, cName) --> NIL
 HB_FUNC_STATIC(HWG_ANIMATE_OPEN)
 {
   void * hStr;
@@ -193,9 +189,7 @@ HB_FUNC_STATIC(HWG_ANIMATE_OPEN)
   hb_strfree(hStr);
 }
 
-/*
-HWG_ANIMATE_OPENEX(HWND, hInstance, cName|nName) --> NIL
-*/
+// HWG_ANIMATE_OPENEX(HWND, hInstance, cName|nName) --> NIL
 HB_FUNC_STATIC(HWG_ANIMATE_OPENEX)
 {
   void * hResource;

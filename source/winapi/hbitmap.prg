@@ -34,9 +34,7 @@ CLASS HBitmap INHERIT HObject
 
 ENDCLASS
 
-/*
- Stores a bitmap in a file from object
-*/
+// Stores a bitmap in a file from object
 METHOD HBitmap:OBMP2FILE(cfilename, name)
 
    LOCAL i

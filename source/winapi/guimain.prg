@@ -419,7 +419,7 @@ FUNCTION hwg_SelectMultipleFiles(cDescr, cTip, cIniDir, cTitle)
    LOCAL cItem
    LOCAL nAt
    LOCAL cChar
-   LOCAL i /* cRet */
+   LOCAL i // cRet
    LOCAL hWnd := 0
    LOCAL nFlags := ""
    LOCAL cPath
