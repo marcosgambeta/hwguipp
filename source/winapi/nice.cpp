@@ -1,10 +1,9 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- *
- *
- * Copyright 2003 Luiz Rafael Culik Guimaraes <culikr@brtrubo.com>
- * www - http://sites.uol.com.br/culikr/
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+//
+// Copyright 2003 Luiz Rafael Culik Guimaraes <culikr@brtrubo.com>
+// www - http://sites.uol.com.br/culikr/
+//
 
 #include "hwingui.hpp"
 #include <commctrl.h>
@@ -118,13 +117,13 @@ LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
   if ((pSymTest = hb_dynsymFind("HWG_NICEBUTTPROC")) != nullptr)
   {
     hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
-    hb_vmPushNil(); /* places NIL at self */
-    // hb_vmPushLong(static_cast<LONG>(hWnd));   /* pushes parameters on to the hvm stack */
+    hb_vmPushNil(); // places NIL at self
+    // hb_vmPushLong(static_cast<LONG>(hWnd));   // pushes parameters on to the hvm stack
     hb_vmPushPointer(hWnd);
     hb_vmPushLong(static_cast<LONG>(message));
     hb_vmPushLong(static_cast<LONG>(wParam));
     hb_vmPushLong(static_cast<LONG>(lParam));
-    hb_vmDo(4); /* where iArgCount is the number of pushed parameters */
+    hb_vmDo(4); // where iArgCount is the number of pushed parameters
     long int res = hb_parl(-1);
     if (res)
     {

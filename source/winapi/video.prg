@@ -30,7 +30,7 @@ ENDCLASS
 
 //----------------------------------------------------------------------------//
 
-/*  removed: bWhen, bValid */
+// removed: bWhen, bValid
 METHOD TVideo:New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid)
 
    DEFAULT nWidth TO 200, nHeight TO 200, cFileName TO "", lNoBorder TO .F.

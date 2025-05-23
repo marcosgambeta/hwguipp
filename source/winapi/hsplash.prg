@@ -9,27 +9,24 @@
 #include <hbclass.ch>
 #include "hwguipp.ch"
 
-/* ---- Bugfixing MinGW64 by DF7BE:
-With call
-gcc -Wall -O3 -c -Iinclude -IC:\harbour64\core-master/include -o obj/hsplash.o obj/hsplash.c
-the gcc ended immediately without any error messages nor creating object output file:
-The make systems say:
-mingw32-make.exe: Interrupt/Exception caught (code = 0xc0000005, addr = 0x00007FFDD11C0BC4)
-Need to add #include "hwingui.hpp" at the BEGINNING of the generated c file.
-That not possible.
-Build HWGUI only with command:
-  hbmk2 hwgui.hbp procmisc.hbp hbxml.hbp hwgdebug.hbp
-*/
+// ---- Bugfixing MinGW64 by DF7BE:
+// With call
+// gcc -Wall -O3 -c -Iinclude -IC:\harbour64\core-master/include -o obj/hsplash.o obj/hsplash.c
+// the gcc ended immediately without any error messages nor creating object output file:
+// The make systems say:
+// mingw32-make.exe: Interrupt/Exception caught (code = 0xc0000005, addr = 0x00007FFDD11C0BC4)
+// Need to add #include "hwingui.hpp" at the BEGINNING of the generated c file.
+// That not possible.
+// Build HWGUI only with command:
+//   hbmk2 hwgui.hbp procmisc.hbp hbxml.hbp hwgdebug.hbp
 
-/*
+#if 0
 #pragma BEGINDUMP
-
 
 #include "hwingui.hpp"
 
 #pragma ENDDUMP
-*/
-
+#endif
 
 
 CLASS HSplash

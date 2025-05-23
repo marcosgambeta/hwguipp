@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level media functions
- *
- * Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level media functions
+//
+// Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hwingui.hpp"
 #include <commctrl.h>
@@ -12,9 +12,7 @@
 #include <hbvm.hpp>
 #include <hbstack.hpp>
 
-/*
- *  PlaySound(cName, lSync, lLoop)
- */
+// PlaySound(cName, lSync, lLoop)
 HB_FUNC(HWG_PLAYSOUND)
 {
   void *hSound;
@@ -59,11 +57,9 @@ HB_FUNC(HWG_MCISENDSTRING)
   hb_strfree(hCommand);
 }
 
-/* Functions bellow for play video's and wav's*/
+// Functions bellow for play video's and wav's
 
-/*
-HWG_MCISENDCOMMAND(nDeviceID, nCommandMessage, nFlags, cPar4) --> numeric
-*/
+// HWG_MCISENDCOMMAND(nDeviceID, nCommandMessage, nFlags, cPar4) --> numeric
 HB_FUNC(HWG_MCISENDCOMMAND)
 {
   hb_retnl(mciSendCommand(hb_parni(1), hb_parni(2), hb_parnl(3), reinterpret_cast<DWORD_PTR>(hb_parc(4))));
@@ -97,9 +93,7 @@ HB_FUNC(HWG_NMCIOPEN)
   hb_strfree(hName);
 }
 
-/*
-HWG_NMCIPLAY(nDeviceID, nFrom, nTo) --> numeric
-*/
+// HWG_NMCIPLAY(nDeviceID, nFrom, nTo) --> numeric
 HB_FUNC(HWG_NMCIPLAY)
 {
   MCI_PLAY_PARMS mciPlayParms{};

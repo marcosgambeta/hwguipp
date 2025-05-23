@@ -20,10 +20,10 @@ CLASS HTimer INHERIT HObject
    DATA lOnce INIT .F.
    DATA oParent
    DATA bAction
-   /*
+#if 0
    ACCESS Interval INLINE ::value
    ASSIGN Interval(x) INLINE ::value := x, IIf(x == 0, ::End(), hwg_SetTimer(::oParent:handle, ::id, x))
-   */
+#endif
    METHOD Interval(n) SETGET
    METHOD New(oParent, nId, value, bAction, lOnce)
    METHOD End()

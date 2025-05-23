@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * Registry handling functions
- *
- * Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// Registry handling functions
+//
+// Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+///
 
 #define HB_OS_WIN_32_USED
 
@@ -20,10 +20,7 @@
 #include "incomp_pointer.hpp"
 #include <hbwinuni.hpp>
 
-/*
- * Regcreatekey(handle, cKeyName) --> handle
- */
-
+// Regcreatekey(handle, cKeyName) --> handle
 HB_FUNC(HWG_REGCREATEKEY)
 {
   void *str;
@@ -42,10 +39,7 @@ HB_FUNC(HWG_REGCREATEKEY)
   hb_strfree(str);
 }
 
-/*
- * RegOpenKey(handle, cKeyName) --> handle
- */
-
+// RegOpenKey(handle, cKeyName) --> handle
 HB_FUNC(HWG_REGOPENKEY)
 {
   void *str;
@@ -63,19 +57,13 @@ HB_FUNC(HWG_REGOPENKEY)
   hb_strfree(str);
 }
 
-/*
- * RegCloseKey(handle)
- */
-
+// RegCloseKey(handle)
 HB_FUNC(HWG_REGCLOSEKEY)
 {
   RegCloseKey((HKEY)hb_parnl(1));
 }
 
-/*
- * RegSetString(handle, cKeyName, cKeyValue) --> 0 (Success) or -1 (Error)
- */
-
+// RegSetString(handle, cKeyName, cKeyValue) --> 0 (Success) or -1 (Error)
 HB_FUNC(HWG_REGSETSTRING)
 {
   void *str;

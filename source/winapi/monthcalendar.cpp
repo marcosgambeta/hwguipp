@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HMonthCalendar class
- *
- * Copyright 2004 Marcos Antonio Gambeta <marcos_gambeta@hotmail.com>
- * www - http://geocities.yahoo.com.br/marcosgambeta/
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HMonthCalendar class
+//
+// Copyright 2004 Marcos Antonio Gambeta <marcos_gambeta@hotmail.com>
+// www - http://geocities.yahoo.com.br/marcosgambeta/
+//
 
 #define _WIN32_IE 0x0500
 #define HB_OS_WIN_32_USED

@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * Miscellaneous functions
- *
- * Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// Miscellaneous functions
+//
+// Copyright 2003 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define HB_MEM_NUM_LEN 8
 
@@ -152,18 +152,14 @@ HB_FUNC(HWG_HIWORD)
   hb_retni((int)(((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) >> 16) & 0xFFFF));
 }
 
-/*
-HWG_BITOR(nValue1, nValue2) --> numeric
-*/
-HB_FUNC(HWG_BITOR) /* DEPRECATED: use hb_bitor */
+// HWG_BITOR(nValue1, nValue2) --> numeric
+HB_FUNC(HWG_BITOR) // DEPRECATED: use hb_bitor
 {
   hb_retnl((hb_parnl(1) | hb_parnl(2)));
 }
 
-/*
-HWG_BITAND(nValue1, nValue2) --> numeric
-*/
-HB_FUNC(HWG_BITAND) /* DEPRECATED: use hb_bitand */
+// HWG_BITAND(nValue1, nValue2) --> numeric
+HB_FUNC(HWG_BITAND) // DEPRECATED: use hb_bitand
 {
   hb_retnl(hb_parnl(1) & hb_parnl(2));
 }
@@ -344,11 +340,8 @@ HB_FUNC(HWG_ACTIVATEKEYBOARDLAYOUT)
   hb_strfree(hLayout);
 }
 
-/*
- * Pts2Pix(nPoints [,hDC]) --> nPixels
- * Conversion from points to pixels, provided by Vic McClung.
- */
-
+// Pts2Pix(nPoints [,hDC]) --> nPixels
+// Conversion from points to pixels, provided by Vic McClung.
 HB_FUNC(HWG_PTS2PIX)
 {
 
@@ -372,7 +365,7 @@ HB_FUNC(HWG_PTS2PIX)
   }
 }
 
-/* Functions Contributed  By Luiz Rafael Culik Guimaraes (culikr@uol.com.br) */
+// Functions Contributed  By Luiz Rafael Culik Guimaraes (culikr@uol.com.br)
 
 HB_FUNC(HWG_GETWINDOWSDIR)
 {
@@ -403,9 +396,7 @@ HB_FUNC(HWG_POSTQUITMESSAGE)
   PostQuitMessage(hb_parni(1));
 }
 
-/*
-Contributed by Rodrigo Moreno rodrigo_moreno@yahoo.com base upon code minigui
-*/
+// Contributed by Rodrigo Moreno rodrigo_moreno@yahoo.com base upon code minigui
 
 HB_FUNC(HWG_SHELLABOUT)
 {
@@ -515,8 +506,7 @@ HB_FUNC(HWG_KEYB_EVENT)
   }
 }
 
-/* SetScrollInfo( hWnd, nType, nRedraw, nPos, nPage, nmax )
- */
+// SetScrollInfo( hWnd, nType, nRedraw, nPos, nPage, nmax )
 HB_FUNC(HWG_SETSCROLLINFO)
 {
   SCROLLINFO si;
@@ -572,35 +562,27 @@ HB_FUNC(HWG_SETSCROLLRANGE)
   hb_retl(SetScrollRange(hwg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5)));
 }
 
-/*
-HWG_GETSCROLLPOS(hWnd, nFlags) --> numeric
-hWnd = handle of window with scroll bar
-nFlags = scroll bar flags
-*/
+// HWG_GETSCROLLPOS(hWnd, nFlags) --> numeric
+// hWnd = handle of window with scroll bar
+// nFlags = scroll bar flags
 HB_FUNC(HWG_GETSCROLLPOS)
 {
   hb_retni(GetScrollPos(hwg_par_HWND(1), hb_parni(2)));
 }
 
-/*
-HWG_SETSCROLLPOS(hWnd, nPar2, lPar3) --> NIL
-*/
+// HWG_SETSCROLLPOS(hWnd, nPar2, lPar3) --> NIL
 HB_FUNC(HWG_SETSCROLLPOS)
 {
   SetScrollPos(hwg_par_HWND(1), hb_parni(2), hb_parni(3), TRUE);
 }
 
-/*
-HWG_SHOWSCROLLBAR(hWnd, nPar2, lPar3) --> NIL
-*/
+// HWG_SHOWSCROLLBAR(hWnd, nPar2, lPar3) --> NIL
 HB_FUNC(HWG_SHOWSCROLLBAR)
 {
   ShowScrollBar(hwg_par_HWND(1), hb_parni(2), hb_parl(3));
 }
 
-/*
-HWG_SCROLLWINDOW(hWnd, nPar2, nPar3) --> NIL
-*/
+// HWG_SCROLLWINDOW(hWnd, nPar2, nPar3) --> NIL
 HB_FUNC(HWG_SCROLLWINDOW)
 {
   ScrollWindow(hwg_par_HWND(1), hb_parni(2), hb_parni(3), nullptr, nullptr);
@@ -621,7 +603,7 @@ HB_FUNC(HWG_ISSCROLLLOCKACTIVE)
   hb_retl(GetKeyState(VK_SCROLL));
 }
 
-/* Added By Sandro Freire sandrorrfreire_nospam_yahoo.com.br*/
+// Added By Sandro Freire sandrorrfreire_nospam_yahoo.com.br
 
 HB_FUNC(HWG_CREATEDIRECTORY)
 {
@@ -665,7 +647,7 @@ HB_FUNC(HWG_SETFILEATTRIBUTES)
   hb_strfree(hStr);
 }
 
-/* Add by Richard Roesnadi (based on What32) */
+// Add by Richard Roesnadi (based on What32)
 // GETCOMPUTERNAME([@nLengthChar]) -> cComputerName
 HB_FUNC(HWG_GETCOMPUTERNAME)
 {
@@ -816,7 +798,7 @@ HB_FUNC(HWG_COLORRGB2N)
   hb_retnl(hb_parni(1) + hb_parni(2) * 256 + hb_parni(3) * 65536);
 }
 
-/*
+#if 0
 #include <windows.h>
 #include <stdio.h>
 #include <tchar.h>
@@ -854,11 +836,9 @@ HB_FUNC( HWG_PROCESSRUN )
     CloseHandle(pi.hThread);
     hb_retc("Ok");
 }
-*/
+#endif
 
-/*
-HWG_PROCESSRUN(cmdline) --> NIL|"Ok"
-*/
+// HWG_PROCESSRUN(cmdline) --> NIL|"Ok"
 HB_FUNC(HWG_PROCESSRUN)
 {
   SECURITY_ATTRIBUTES sa{};
@@ -1141,20 +1121,18 @@ HB_FUNC(HWG_ALERT_GETWINDOW)
   hb_retptr(static_cast<HWND>(GetWindow(static_cast<HWND>(hb_parptr(1)), hwg_par_UINT(2))));
 }
 
-/*
- * ============================================
- * FUNCTION hwg_STOD
- * Extra implementation of STOD(),
- * it is a Clipper tools function.
- * For compatibilty purposes.
- * Parameter 1: Date String
- * in ANSI-Format YYYYMMDD.
- * Result value is independant from
- * SET DATE and SET CENTURY settings.
- * Sample Call:
- * ddate := hwg_STOD("20201108")
- * ============================================
- */
+// ============================================
+// FUNCTION hwg_STOD
+// Extra implementation of STOD(),
+// it is a Clipper tools function.
+// For compatibilty purposes.
+// Parameter 1: Date String
+// in ANSI-Format YYYYMMDD.
+// Result value is independant from
+// SET DATE and SET CENTURY settings.
+// Sample Call:
+// ddate := hwg_STOD("20201108")
+// ============================================
 
 HB_FUNC(HWG_STOD)
 {
@@ -1164,8 +1142,8 @@ HB_FUNC(HWG_STOD)
 }
 
 int hwg_hexbin(int cha)
-/* converts single hex char to int, returns -1, if not in range
-   returns 0 - 15 (dec), only a half byte */
+// converts single hex char to int, returns -1, if not in range
+// returns 0 - 15 (dec), only a half byte
 {
   char gross;
   int o;
@@ -1173,52 +1151,52 @@ int hwg_hexbin(int cha)
   gross = toupper(cha);
   switch (gross)
   {
-  case 48: /* 0 */
+  case 48: // 0
     o = 0;
     break;
-  case 49: /* 1 */
+  case 49: // 1
     o = 1;
     break;
-  case 50: /* 2 */
+  case 50: // 2
     o = 2;
     break;
-  case 51: /* 3 */
+  case 51: // 3
     o = 3;
     break;
-  case 52: /* 4 */
+  case 52: // 4
     o = 4;
     break;
-  case 53: /* 5 */
+  case 53: // 5
     o = 5;
     break;
-  case 54: /* 6 */
+  case 54: // 6
     o = 6;
     break;
-  case 55: /* 7 */
+  case 55: // 7
     o = 7;
     break;
-  case 56: /* 8 */
+  case 56: // 8
     o = 8;
     break;
-  case 57: /* 9 */
+  case 57: // 9
     o = 9;
     break;
-  case 65: /* A */
+  case 65: // A
     o = 10;
     break;
-  case 66: /* B */
+  case 66: // B
     o = 11;
     break;
-  case 67: /* C */
+  case 67: // C
     o = 12;
     break;
-  case 68: /* D */
+  case 68: // D
     o = 13;
     break;
-  case 69: /* E */
+  case 69: // E
     o = 14;
     break;
-  case 70: /* F */
+  case 70: // F
     o = 15;
     break;
   default:
@@ -1227,26 +1205,23 @@ int hwg_hexbin(int cha)
   return o;
 }
 
-/*
-   hwg_Bin2DC(cbin,nlen,ndec)
-*/
-
+// hwg_Bin2DC(cbin,nlen,ndec)
 HB_FUNC(HWG_BIN2DC)
 {
 
   double pbyNumber;
   int i;
   unsigned char o;
-  unsigned char bu[8];     /* Buffer with binary contents of double value */
-  unsigned char szHex[17]; /* The hex string from parameter 1 + null byte*/
+  unsigned char bu[8];     // Buffer with binary contents of double value
+  unsigned char szHex[17]; // The hex string from parameter 1 + null byte
 
   int p;
-  int c;  /* char with int value hex from hex */
-  int od; /* odd even sign / gerade - ungerade */
+  int c;  // char with int value hex from hex
+  int od; // odd even sign / gerade - ungerade
 
-  /* For Borland C the variables must declare extra */
+  // For Borland C the variables must declare extra
 
-  /* init vars */
+  // init vars
 
   pbyNumber = 0;
 
@@ -1290,17 +1265,17 @@ HB_FUNC(HWG_BIN2DC)
 
   // hwg_writelog(nullptr,szHex);
 
-  /* Convert hex to bin */
+  // Convert hex to bin
 
   for (i = 0; i < 16; i++)
   {
 
     c = hwg_hexbin(szHex[i]);
-    /* ignore, if not in 0 ... 1, A ... F */
+    // ignore, if not in 0 ... 1, A ... F
     if (c != -1)
     {
-      /* must be a pair of char,
-         other values between the pairs of hex values are ignored */
+      // must be a pair of char,
+      // other values between the pairs of hex values are ignored
       if (od == 1)
       {
         od = 0;
@@ -1309,20 +1284,20 @@ HB_FUNC(HWG_BIN2DC)
       {
         od = 1;
       }
-      /* 1. Halbbyte zwischenspeichern / Store first half byte */
+      // 1. Halbbyte zwischenspeichern / Store first half byte
       if (od == 1)
       {
         p = c;
       }
       else
       {
-        /* 2. Halbbyte verarbeiten, ganzes Byte ausspeichern
-            / Process second half byte and store full byte */
+        // 2. Halbbyte verarbeiten, ganzes Byte ausspeichern
+        //  / Process second half byte and store full byte
         p = (p * 16) + c;
         o = (unsigned char)p;
         bu[i / 2] = o;
 
-        /* Display some debug info */
+        // Display some debug info
         //             printf("i=%d ", i);
         //             printf("%d ", p);
         //             printf("%s", " ");
@@ -1336,18 +1311,18 @@ HB_FUNC(HWG_BIN2DC)
 
   // hwg_writelog(nullptr,szHex);
 
-  /* Convert buffer to double */
+  // Convert buffer to double
 
   memcpy(&pbyNumber, bu, sizeof(pbyNumber));
 
-  /* Return double value as type N */
+  // Return double value as type N
 
   hb_retndlen(pbyNumber, uiWidth, uiDec);
 }
 
 static void GetFileMtimeU(const char *filePath)
 {
-  /* Format: YYYYMMDD-HH:MM:SS  for example: 20211204-20:05:42 l= 17 + NULL byte */
+  // Format: YYYYMMDD-HH:MM:SS  for example: 20211204-20:05:42 l= 17 + NULL byte
   struct stat attrib;
   char date[18];
   stat(filePath, &attrib);
@@ -1358,7 +1333,7 @@ static void GetFileMtimeU(const char *filePath)
 
 static void GetFileMtime(const char *filePath)
 {
-  /* Format: YYYYMMDD-HH:MM:SS  for example: 20211204-20:05:42 l= 17 + NULL byte */
+  // Format: YYYYMMDD-HH:MM:SS  for example: 20211204-20:05:42 l= 17 + NULL byte
   struct stat attrib;
   char date[18];
   stat(filePath, &attrib);

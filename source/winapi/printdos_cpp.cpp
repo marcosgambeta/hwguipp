@@ -1,16 +1,13 @@
-/*
- * CLASS PrintDos
- *
- * Copyright (c) Sandro Freire <sandrorrfreire@yahoo.com.br>
- * for HwGUI By Alexander Kresin
- *
- */
+//
+// CLASS PrintDos
+//
+// Copyright (c) Sandro Freire <sandrorrfreire@yahoo.com.br>
+// for HwGUI By Alexander Kresin
+//
 
-/*
-   txtfile.c
-   AFILLTEXT(cFile) -> aArray
-   NTXTLINE(cFile)  -> nLines
-*/
+// txtfile.c
+// AFILLTEXT(cFile) -> aArray
+// NTXTLINE(cFile)  -> nLines
 
 #include <hbapi.hpp>
 #include <hbapiitm.hpp>

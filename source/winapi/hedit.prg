@@ -304,7 +304,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
 
          ENDSWITCH
 
-         /* Added by Sauli */
+         // Added by Sauli
       ELSE
          IF msg == WM_KEYDOWN
             IF hb_IsBlock(::bKeyDown) .AND. (nPos := Eval(::bKeyDown, Self, wParam, lParam)) != -1
@@ -317,7 +317,7 @@ METHOD HEdit:onEvent(msg, wParam, lParam)
                RETURN 0
             ENDIF
          ENDIF
-         /* Sauli */
+         // Sauli
       ENDIF
 
    ELSE

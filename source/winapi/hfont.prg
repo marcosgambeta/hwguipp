@@ -127,7 +127,7 @@ METHOD HFont:RELEASE()
 
    RETURN NIL
 
-/* DF7BE: For debugging purposes */
+// DF7BE: For debugging purposes
 METHOD HFont:PrintFont()
 //        fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
 // Type:  C         N       N         N         N           N          N             N
@@ -157,12 +157,10 @@ RETURN "Font Name=" + fontName + " Width=" + ALLTRIM(STR(nWidth)) + " Height=" +
        " StrikeOut=" + ALLTRIM(STR(fdwStrikeOut))
 
 
-/*
-  Returns an array with font properties (for creating a copy of a font entry)
-  Copy sample
-   apffrarr := oFont1:Props2Arr()
-   oFont2 := HFont():Add(apffrarr[1], apffrarr[2], apffrarr[3], apffrarr[4], apffrarr[5], apffrarr[6], apffrarr[7], apffrarr[8])
- */
+// Returns an array with font properties (for creating a copy of a font entry)
+// Copy sample
+//  apffrarr := oFont1:Props2Arr()
+//  oFont2 := HFont():Add(apffrarr[1], apffrarr[2], apffrarr[3], apffrarr[4], apffrarr[5], apffrarr[6], apffrarr[7], apffrarr[8])
 METHOD HFont:Props2Arr()
 //        fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut
 //        1         2       3         4         5           6          7             8

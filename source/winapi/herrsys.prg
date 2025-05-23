@@ -113,11 +113,11 @@ FUNCTION hwg_ErrMsg(oError)
       cMessage += ": " + oError:operation
    ENDCASE
 
-   /*
+#if 0
    IF !Empty(oError:Args)
       cMessage += "Arguments: " + ValToPrgExp(oError:Args)
    ENDIF
-   */
+#endif
 
    RETURN cMessage
 

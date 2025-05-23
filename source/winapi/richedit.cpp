@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level richedit control functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level richedit control functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define _RICHEDIT_VER 0x0200
 
@@ -63,10 +63,8 @@ HB_FUNC(HWG_CREATERICHEDIT)
   hb_retptr(hCtrl);
 }
 
-/*
- * re_SetCharFormat(hCtrl, n1, n2, nColor, cName, nHeight, lBold, lItalic,
-           lUnderline, nCharset, lSuperScript/lSubscript(.T./.F.), lProtected)
- */
+// re_SetCharFormat(hCtrl, n1, n2, nColor, cName, nHeight, lBold, lItalic,
+//         lUnderline, nCharset, lSuperScript/lSubscript(.T./.F.), lProtected)
 HB_FUNC(HWG_RE_SETCHARFORMAT)
 {
   auto hCtrl = hwg_par_HWND(1);
@@ -148,7 +146,7 @@ HB_FUNC(HWG_RE_SETCHARFORMAT)
   }
   else
   {
-    /*   Set new selection   */
+    // Set new selection
     chrNew.cpMin = hb_parnl(2) - 1;
     chrNew.cpMax = hb_parnl(3) - 1;
     SendMessage(hCtrl, EM_EXSETSEL, 0, reinterpret_cast<LPARAM>(&chrNew));
@@ -213,14 +211,12 @@ HB_FUNC(HWG_RE_SETCHARFORMAT)
     SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION, reinterpret_cast<LPARAM>(&cf));
   }
 
-  /*   Restore selection   */
+  // Restore selection
   SendMessage(hCtrl, EM_EXSETSEL, 0, reinterpret_cast<LPARAM>(&chrOld));
   SendMessage(hCtrl, EM_HIDESELECTION, 0, 0);
 }
 
-/*
- * re_SetDefault(hCtrl, nColor, cName, nHeight, lBold, lItalic, lUnderline, nCharset)
- */
+// re_SetDefault(hCtrl, nColor, cName, nHeight, lBold, lItalic, lUnderline, nCharset)
 HB_FUNC(HWG_RE_SETDEFAULT)
 {
   auto hCtrl = hwg_par_HWND(1);
@@ -269,9 +265,7 @@ HB_FUNC(HWG_RE_SETDEFAULT)
   SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_ALL, reinterpret_cast<LPARAM>(&cf));
 }
 
-/*
- * re_CharFromPos(hEdit, xPos, yPos) --> nPos
- */
+// re_CharFromPos(hEdit, xPos, yPos) --> nPos
 HB_FUNC(HWG_RE_CHARFROMPOS)
 {
   auto hCtrl = hwg_par_HWND(1);
@@ -286,9 +280,7 @@ HB_FUNC(HWG_RE_CHARFROMPOS)
   hb_retnl(ul);
 }
 
-/*
- * re_GetTextRange(hEdit, n1, n2)
- */
+// re_GetTextRange(hEdit, n1, n2)
 HB_FUNC(HWG_RE_GETTEXTRANGE)
 {
   auto hCtrl = hwg_par_HWND(1);
@@ -304,9 +296,7 @@ HB_FUNC(HWG_RE_GETTEXTRANGE)
   hb_xfree(tr.lpstrText);
 }
 
-/*
- * re_GetLine(hEdit, nLine)
- */
+// re_GetLine(hEdit, nLine)
 HB_FUNC(HWG_RE_GETLINE)
 {
   auto hCtrl = hwg_par_HWND(1);
@@ -328,9 +318,7 @@ HB_FUNC(HWG_RE_INSERTTEXT)
   hb_strfree(hString);
 }
 
-/*
- * re_FindText(hEdit, cFind, nStart, bCase, bWholeWord, bSearchUp)
- */
+// re_FindText(hEdit, cFind, nStart, bCase, bWholeWord, bSearchUp)
 HB_FUNC(HWG_RE_FINDTEXT)
 {
   auto hCtrl = hwg_par_HWND(1);

@@ -105,7 +105,7 @@ METHOD HStaticLink:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, cCaptio
 
    RETURN Self
 
-/* added: cCaption */
+// added: cCaption
 METHOD HStaticLink:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
 
    LOCAL oPrevFont

@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level controls functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level controls functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define HB_OS_WIN_32_USED
 
@@ -17,7 +17,7 @@
 #include <hbvm.hpp>
 #include <hbdate.hpp>
 #include <hbtrace.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
@@ -25,9 +25,7 @@ LRESULT APIENTRY StaticSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
 
 static WNDPROC wpOrigStaticProc;
 
-/*
-   CreateStatic(hParentWyndow, nControlID, nStyle, x, y, nWidth, nHeight)
-*/
+// CreateStatic(hParentWyndow, nControlID, nStyle, x, y, nWidth, nHeight)
 HB_FUNC(HWG_CREATESTATIC)
 {
   ULONG ulStyle = hb_parnl(3);
@@ -37,7 +35,7 @@ HB_FUNC(HWG_CREATESTATIC)
                      hwg_par_int(5), hwg_par_int(6), hwg_par_int(7), hwg_par_HWND(1),
                      reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);
 
-  /*
+#if 0
      if( hb_pcount() > 7 ) {
         void * hStr;
         LPCTSTR lpText = HB_PARSTR(8, &hStr, nullptr);
@@ -46,7 +44,7 @@ HB_FUNC(HWG_CREATESTATIC)
         }
         hb_strfree(hStr);
      }
-   */
+#endif
 
   hb_retptr(hWndCtrl);
 }

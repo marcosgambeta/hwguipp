@@ -67,12 +67,10 @@ FUNCTION Hwg_SetMenu(oWnd, aMenu)
 
    RETURN .T.
 
-/*
- *  AddMenuItem(aMenu, cItem, nMenuId, lSubMenu, [bItem] [, nPos]) --> aMenuItem
- *
- *  If nPos is omitted, the function adds menu item to the end of menu,
- *  else it inserts menu item in nPos position.
- */
+// AddMenuItem(aMenu, cItem, nMenuId, lSubMenu, [bItem] [, nPos]) --> aMenuItem
+//
+// If nPos is omitted, the function adds menu item to the end of menu,
+// else it inserts menu item in nPos position.
 FUNCTION Hwg_AddMenuItem(aMenu, cItem, nMenuId, lSubMenu, bItem, nPos)
    
    LOCAL hSubMenu
@@ -148,7 +146,7 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
       hMenu := aMenuInit[5]
       nPos := Len(aMenuInit[1])
       aMenu := aMenuInit[1, nPosParent]
-      /* This code just for sure menu runtime hfrmtmpl.prg is enable */
+      // This code just for sure menu runtime hfrmtmpl.prg is enable
       IIf(hb_IsLogical(aMenu[4]), aMenu[4] := .F., NIL)
       hMenu := hwg__AddMenuItem(hMenu, aMenu[2], nPos + 1, .T., aMenu[3], aMenu[4], .T.)
       IF Len(aMenu) < 5
@@ -164,7 +162,7 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
          hwg_BuildMenu(aMenu, NIL, NIL, nPos)
       ELSE
          IF aMenu[1, nPos, 1] == NIL .OR. aMenu[1, nPos, 2] != NIL
-            /* This code just for sure menu runtime hfrmtmpl.prg is enable */
+            // This code just for sure menu runtime hfrmtmpl.prg is enable
             IIf(hb_IsLogical(aMenu[1, nPos, 4]), aMenu[1, nPos, 4] := .F., NIL)
             hwg__AddMenuItem(hMenu, aMenu[1, nPos, 2], nPos, .T., aMenu[1, nPos, 3], aMenu[1, nPos, 4], .F.)
             oBmp := SearchPosBitmap(aMenu[1, nPos, 3])

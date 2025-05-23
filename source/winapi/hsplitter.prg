@@ -39,7 +39,7 @@ ENDCLASS
 
 //-------------------------------------------------------------------------------------------------------------------//
 
-/* bPaint ==> bDraw */
+// bPaint ==> bDraw
 METHOD HSplitter:New(oWndParent, nId, nX, nY, nWidth, nHeight, bSize, bDraw, color, bcolor, aLeft, aRight, nFrom, ;
    nTo, oStyle)
 

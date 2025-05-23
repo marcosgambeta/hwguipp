@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * Shell API wrappers
- *
- * Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// Shell API wrappers
+//
+// Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hwingui.hpp"
 #include <shlobj.h>
@@ -42,10 +42,7 @@ static int(CALLBACK BrowseCallbackProc)(HWND hwnd, UINT uMsg, LPARAM lParam, LPA
   return 0; // The function should always return 0.
 }
 
-/*
- *  SelectFolder(cTitle)
- */
-
+// SelectFolder(cTitle)
 HB_FUNC(HWG_SELECTFOLDER)
 {
   BROWSEINFO bi;
@@ -81,10 +78,7 @@ HB_FUNC(HWG_SELECTFOLDER)
   hb_strfree(hFolderName);
 }
 
-/*
- *  ShellNotifyIcon(lAdd, hWnd, hIcon, cTooltip)
- */
-
+// ShellNotifyIcon(lAdd, hWnd, hIcon, cTooltip)
 HB_FUNC(HWG_SHELLNOTIFYICON)
 {
   NOTIFYICONDATA tnid{};
@@ -107,10 +101,7 @@ HB_FUNC(HWG_SHELLNOTIFYICON)
   }
 }
 
-/*
- *  ShellModifyIcon(hWnd, hIcon, cTooltip)
- */
-
+// ShellModifyIcon(hWnd, hIcon, cTooltip)
 HB_FUNC(HWG_SHELLMODIFYICON)
 {
   NOTIFYICONDATA tnid{};
@@ -131,9 +122,7 @@ HB_FUNC(HWG_SHELLMODIFYICON)
   Shell_NotifyIcon(NIM_MODIFY, &tnid);
 }
 
-/*
- * ShellExecute(cFile, cOperation, cParams, cDir, nFlag)
- */
+// ShellExecute(cFile, cOperation, cParams, cDir, nFlag)
 HB_FUNC(HWG_SHELLEXECUTE)
 {
 #if defined(HB_OS_WIN_CE)

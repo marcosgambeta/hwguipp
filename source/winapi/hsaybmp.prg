@@ -57,7 +57,7 @@ METHOD HSayBmp:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit,
 
    RETURN Self
 
-/* Image ==> xImage */   
+// Image ==> xImage
 METHOD HSayBmp:Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp)
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)

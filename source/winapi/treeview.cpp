@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level controls functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level controls functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define HB_OS_WIN_32_USED
 
@@ -17,7 +17,7 @@
 #include <hbvm.hpp>
 #include <hbdate.hpp>
 #include <hbtrace.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
@@ -25,9 +25,7 @@ LRESULT APIENTRY TreeViewSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARA
 
 static WNDPROC wpOrigTreeViewProc;
 
-/*
-HWG_CREATETREE(hParent, nControlId, nStyle, nX, nY, nWidth, nHeight) --> nCtrl
-*/
+// HWG_CREATETREE(hParent, nControlId, nStyle, nX, nY, nWidth, nHeight) --> nCtrl
 HB_FUNC(HWG_CREATETREE)
 {
   auto hCtrl =
@@ -113,17 +111,19 @@ HB_FUNC(HWG_TREEADDNODE)
   hb_strfree(hStr);
 }
 
-/*
+#if 0
 HB_FUNC( HWG_TREEDELNODE )
 {
    hb_parl(TreeView_DeleteItem(hwg_par_HWND(1), static_cast<HTREEITEM>(hb_parptr(2))));
 }
+#endif
 
+#if 0
 HB_FUNC( HWG_TREEDELALLNODES )
 {
    TreeView_DeleteAllItems(hwg_par_HWND(1));
 }
-*/
+#endif
 
 HB_FUNC(HWG_TREEGETSELECTED)
 {
@@ -140,7 +140,7 @@ HB_FUNC(HWG_TREEGETSELECTED)
   }
 }
 
-/*
+#if 0
 HB_FUNC( HWG_TREENODEHASCHILDREN )
 {
    TV_ITEM TreeItem{};
@@ -151,7 +151,7 @@ HB_FUNC( HWG_TREENODEHASCHILDREN )
    SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, static_cast<LPARAM>(&TreeItem));
    hb_retni(TreeItem.cChildren);
 }
-*/
+#endif
 
 HB_FUNC(HWG_TREEGETNODETEXT)
 {
@@ -239,9 +239,7 @@ HB_FUNC(HWG_TREEGETNOTIFY)
   }
 }
 
-/*
- * Tree_Hittest(hTree, x, y) --> oNode
- */
+// Tree_Hittest(hTree, x, y) --> oNode
 HB_FUNC(HWG_TREEHITTEST)
 {
   TV_HITTESTINFO ht;

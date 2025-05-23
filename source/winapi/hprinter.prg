@@ -105,12 +105,12 @@ CLASS HPrinter INHERIT HObject
 ENDCLASS
 
 FUNCTION hwg_HPrinter_LangArray_EN()
-/* Returns array with captions for titles and controls of print preview dialog
-  in default language english.
-  Use this code snippet as template to set to your own desired language. */
-  
+// Returns array with captions for titles and controls of print preview dialog
+// in default language english.
+// Use this code snippet as template to set to your own desired language.
+
   LOCAL aTooltips
-  
+
   aTooltips := {}
 
   /* 1  */ AAdd(aTooltips,"Exit Preview")
@@ -644,15 +644,13 @@ METHOD HPrinter:ReleaseMeta()
 
 METHOD HPrinter:Preview(cTitle, aBitmaps, aTooltips, aBootUser)
 
-/*
-aBootUser[1] : oBtn:bClick
-aBootUser[2] : AddResource(Bitmap)
-aBootUser[3] : "User Button", Tooltip ==> cBootUser3
-aBootUser[4] : "User Button"          ==> cBootUser4
-
-Default values in array aTooltips see 
-FUNCTION hwg_HPrinter_LangArray_EN()
-*/
+// aBootUser[1] : oBtn:bClick
+// aBootUser[2] : AddResource(Bitmap)
+// aBootUser[3] : "User Button", Tooltip ==> cBootUser3
+// aBootUser[4] : "User Button"          ==> cBootUser4
+//
+// Default values in array aTooltips see
+// FUNCTION hwg_HPrinter_LangArray_EN()
 
    LOCAL cmExit
    LOCAL cmPrint
@@ -685,7 +683,7 @@ FUNCTION hwg_HPrinter_LangArray_EN()
 //   cBootUser4 := "User Button"
    cmTitle := "Print preview - " + ::cPrinterName
 
-   /* Parameter cTitle preferred */
+   // Parameter cTitle preferred
    IF cTitle == NIL
     cTitle := cmTitle
     IF aTooltips != NIL
@@ -882,9 +880,7 @@ METHOD HPrinter:ChangePage(oCanvas, oSayPage, n, nPage)
 
 
 
-/***
- nZoom: zoom factor: -1 or 1, NIL if scroll message
-*/
+// nZoom: zoom factor: -1 or 1, NIL if scroll message
 
 METHOD HPrinter:ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam)
 

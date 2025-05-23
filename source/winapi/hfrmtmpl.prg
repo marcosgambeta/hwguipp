@@ -156,9 +156,11 @@ METHOD HFormTmpl:Read(fname, cId)
    LOCAL cPre
    LOCAL cName
 
-   /* IF cId != NIL .AND. (o := HFormTmpl():Find(cId)) != NIL
+#if 0
+   IF cId != NIL .AND. (o := HFormTmpl():Find(cId)) != NIL
       Return o
-   ENDIF */
+   ENDIF
+#endif
 
    IF Left(fname, 5) == "<?xml"
       oDoc := HXMLDoc():ReadString(fname)
@@ -795,7 +797,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
       RETURN NIL
    ENDIF
 
-   /* Declaring of variables, which are in the appropriate 'New()' function */
+   // Declaring of variables, which are in the appropriate 'New()' function
    stroka := s_aCtrls[nCtrl]
    IF (i := At("New(", stroka)) != 0
       i += 4
@@ -923,12 +925,10 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    IF oCtrlTmpl:cClass == "combobox"
 #ifndef __GTK__
       IF (Ascan(oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"})) > 0
-   /* 
-    Warning W0032  Variable 'I' is assigned but not used in function 'CREATECTRL(874)'
-    1700
-    but "i" is really common used
-       IF (i := Ascan(oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"})) > 0
-   */
+   // Warning W0032  Variable 'I' is assigned but not used in function 'CREATECTRL(874)'
+   // 1700
+   // but "i" is really common used
+   //    IF (i := Ascan(oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"})) > 0
          nHeight := nHeight * nMaxLines
       ELSE
          nHeight := nHeight * 4

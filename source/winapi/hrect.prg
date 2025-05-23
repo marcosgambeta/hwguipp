@@ -133,7 +133,7 @@ ENDCLASS
 
 METHOD HShape:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, nbStyle, nfStyle, tcolor, bcolor, bSize, bInit)
 
-   /* Variable Self is reserved and cannot be overwritten ! */
+   // Variable Self is reserved and cannot be overwritten !
    LOCAL oSelf
 
    nBorder := IIf(nBorder == NIL, 1, nBorder)
@@ -141,7 +141,7 @@ METHOD HShape:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurva
    nfStyle := IIf(nfStyle == NIL, BS_TRANSPARENT, nfStyle)
    nCurvature := nCurvature
 
-   /* old : Self := ... */
+   // old : Self := ...
    oSelf := HDrawShape():New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bcolor, NIL, NIL, nBorder, nCurvature, nbStyle, nfStyle, bInit)
 
    RETURN oSelf
@@ -191,7 +191,7 @@ CLASS HDrawShape INHERIT HControl
 
 ENDCLASS
 
-/* nStyle ==> ncStyle, removed: bClick, bDblClick */
+// nStyle ==> ncStyle, removed: bClick, bDblClick
 METHOD HDrawShape:New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle, ;
            lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit)
 

@@ -80,7 +80,7 @@ METHOD HRadioButton:Activate()
 
    RETURN NIL
 
-/* Parameter lInit was removed a long time ago */
+// Parameter lInit was removed a long time ago
 METHOD HRadioButton:Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor)
 
    ::oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)

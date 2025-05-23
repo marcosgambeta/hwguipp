@@ -189,14 +189,14 @@ METHOD HDialog:Activate(lNoModal, lMaximized, lMinimized, lCentered, bActivate)
       CASE SW_SHOWMAXIMIZED ; ::Maximize() ; EXIT
       CASE 16               ; ::Center()
       ENDSWITCH
-      /*
+#if 0
       IF ::nAdjust == 1
          ::nAdjust := 2
          aCoors := hwg_Getwindowrect(::handle)
          aRect := hwg_GetClientRect(::handle)
          ::Move(NIL, NIL, ::nWidth + (aCoors[3] - aCoors[1] - (aRect[3] - aRect[1])), ::nHeight + (aCoors[4] - aCoors[2] - (aRect[4] - aRect[2])))
       ENDIF
-      */
+#endif
       IF hb_IsBlock(::bActivate)
          Eval(::bActivate, Self)
          ::bActivate := NIL
@@ -335,7 +335,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
       ENDIF
    ENDIF
 
-/*
+#if 0
    IF oDlg:nAdjust == 1
       oDlg:nAdjust := 2
       aCoors := hwg_Getwindowrect(oDlg:handle)
@@ -343,7 +343,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
       hwg_writelog(str(oDlg:nHeight) + "/" + str(aCoors[4] - aCoors[2]) + "/" + str(aRect[4]))
       oDlg:Move(NIL, NIL, oDlg:nWidth + (aCoors[3] - aCoors[1] - aRect[3]), oDlg:nHeight + (aCoors[4] - aCoors[2] - aRect[4]))
    ELSE
-*/
+#endif
       aCoors := hwg_Getwindowrect(oDlg:handle)
       oDlg:nWidth := aCoors[3] - aCoors[1]
       oDlg:nHeight := aCoors[4] - aCoors[2]

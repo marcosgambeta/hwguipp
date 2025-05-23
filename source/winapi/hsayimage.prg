@@ -40,7 +40,7 @@ METHOD HSayImage:New(oWndParent, nId, nStyle, nX, nY, nWidth, nHeight, bInit, bS
 
    RETURN Self
 
-/* Parameters bClick, bDblClick were removed a long time ago */
+// Parameters bClick, bDblClick were removed a long time ago
 METHOD HSayImage:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, NIL, bInit, bSize, NIL, ctooltip)

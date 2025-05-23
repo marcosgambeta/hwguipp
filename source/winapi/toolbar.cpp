@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level controls functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level controls functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define HB_OS_WIN_32_USED
 
@@ -17,7 +17,7 @@
 #include <hbvm.hpp>
 #include <hbdate.hpp>
 #include <hbtrace.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
@@ -58,9 +58,7 @@ typedef struct tagNMTBGETINFOTIPW
 
 #endif
 
-/*
-HWG_CREATETOOLBAR(hWndParent, nID, nStyle, nX, nY, nWidth, nHeight, nExStyle) --> hToolBar
-*/
+// HWG_CREATETOOLBAR(hWndParent, nID, nStyle, nX, nY, nWidth, nHeight, nExStyle) --> hToolBar
 HB_FUNC(HWG_CREATETOOLBAR)
 {
   ULONG ulStyle = hb_parnl(3);
@@ -76,15 +74,12 @@ HB_FUNC(HWG_CREATETOOLBAR)
   hb_retptr(hWndCtrl);
 }
 
-/*
-   hwg_Toolbaraddbuttons(handle, aItem, nLen)
-   nLen : Set to Len(aItem )
-*/
-
+// hwg_Toolbaraddbuttons(handle, aItem, nLen)
+// nLen : Set to Len(aItem )
 HB_FUNC(HWG_TOOLBARADDBUTTONS)
 {
   auto hWndCtrl = hwg_par_HWND(1);
-  /* auto hToolTip = hwg_par_HWND(4); */
+  // auto hToolTip = hwg_par_HWND(4);
   auto pArray = hb_param(2, Harbour::Item::ARRAY);
   auto iButtons = hb_parni(3);
   auto tb = static_cast<struct _TBBUTTON *>(hb_xgrab(iButtons * sizeof(TBBUTTON)));
@@ -184,7 +179,7 @@ HB_FUNC(HWG_TOOLBAR_SETDISPINFO)
     HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->szText, HB_SIZEOFARRAY(pDispInfo->szText));
     pDispInfo->szText[HB_SIZEOFARRAY(pDispInfo->szText) - 1] = 0;
 #if 0
-      /* is it necessary? */
+      // is it necessary?
       if( !pDispInfo->hinst ) {
          pDispInfo->lpszText = pDispInfo->szText;
       }

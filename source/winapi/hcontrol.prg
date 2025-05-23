@@ -243,7 +243,7 @@ FUNCTION hwg_SetCtrlName(oCtrl, cName)
 #include <hbvm.hpp>
 #include <hbstack.hpp>
 #include <hbapicls.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 

@@ -70,10 +70,8 @@ METHOD HProgressBar:Redefine(oWndParent, nId, maxPos, nRange, bInit, bSize, bPai
 
    RETURN Self
 
-/*
-  Former definition was:
-  METHOD NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, bInit, bSize, bPaint, ctooltip)
-*/
+// Former definition was:
+// METHOD NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, bInit, bSize, bPaint, ctooltip)
 
 METHOD HProgressBar:NewBox(cTitle, nX, nY, nWidth, nHeight, maxPos, nRange, bExit, lPercent)
 

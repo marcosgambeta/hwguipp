@@ -1,12 +1,12 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HList class
- *
- * Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- * Listbox class and accompanying code added Feb 22nd, 2004 by
- * Vic McClung
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HList class
+//
+// Copyright 2002 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+// Listbox class and accompanying code added Feb 22nd, 2004 by
+// Vic McClung
+//
 
 #include "hwingui.hpp"
 #if defined(__MINGW32__) || defined(__MINGW64__)
@@ -29,9 +29,7 @@ HB_FUNC(HWG_LISTBOXSETSTRING)
   SendMessage(hwg_par_HWND(1), LB_SETCURSEL, hwg_par_WPARAM(2) - 1, 0);
 }
 
-/*
-   CreateListbox(hParentWIndow, nListboxID, nStyle, x, y, nWidth, nHeight)
-*/
+// CreateListbox(hParentWIndow, nListboxID, nStyle, x, y, nWidth, nHeight)
 HB_FUNC(HWG_CREATELISTBOX)
 {
   auto hListbox =

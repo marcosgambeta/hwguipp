@@ -108,7 +108,8 @@ METHOD HTab:Init()
    ENDIF
 
    RETURN NIL
-/*
+
+#if 0
 METHOD HTab:onEvent(msg, wParam, lParam)
 
    LOCAL iParHigh
@@ -126,7 +127,8 @@ METHOD HTab:onEvent(msg, wParam, lParam)
    ENDIF
 
    Return -1
-*/
+#endif
+
 METHOD HTab:SetTab(n)
 
    hwg_Sendmessage(::handle, TCM_SETCURFOCUS, n - 1, 0)
@@ -325,7 +327,7 @@ METHOD HTab:Notify(lParam)
 
    Return - 1
 
-/* aItem and cCaption added */
+// aItem and cCaption added
 METHOD HTab:Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
 
    HB_SYMBOL_UNUSED(cCaption)

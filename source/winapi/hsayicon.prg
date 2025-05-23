@@ -40,7 +40,7 @@ METHOD HSayIcon:New(oWndParent, nId, nX, nY, nWidth, nHeight, Image, lRes, bInit
    RETURN Self
 
 
-/* Image ==> xImage */   
+// Image ==> xImage
 METHOD HSayIcon:Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip)
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)

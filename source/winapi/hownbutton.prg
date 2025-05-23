@@ -159,7 +159,7 @@ METHOD HOwnButton:onEvent(msg, wParam, lParam)
       EXIT
 
    CASE WM_LBUTTONDBLCLK
-      /* Asmith 2017-06-06 workaround for touch terminals */
+      // Asmith 2017-06-06 workaround for touch terminals
       IF hb_IsBlock(::bClick) .AND. Empty(::oTimer)
          Eval(::bClick, Self, 0)
       ENDIF

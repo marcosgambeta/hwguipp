@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C++ level print functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C++ level print functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define OEMRESOURCE
 
@@ -15,9 +15,7 @@
 #include <hbstack.hpp>
 #include "incomp_pointer.hpp"
 
-/*
-HWG_OPENPRINTER(cDevice) --> HDC
-*/
+// HWG_OPENPRINTER(cDevice) --> HDC
 HB_FUNC(HWG_OPENPRINTER)
 {
   void *hText;
@@ -25,9 +23,7 @@ HB_FUNC(HWG_OPENPRINTER)
   hb_strfree(hText);
 }
 
-/*
-HWG_OPENDEFAULTPRINTER() --> HDC
-*/
+// HWG_OPENDEFAULTPRINTER() --> HDC
 HB_FUNC(HWG_OPENDEFAULTPRINTER)
 {
   DWORD dwNeeded, dwReturned;
@@ -44,9 +40,7 @@ HB_FUNC(HWG_OPENDEFAULTPRINTER)
   hb_retptr(hDC);
 }
 
-/*
-HWG_GETDEFAULTPRINTER() --> defaultPrinter
-*/
+// HWG_GETDEFAULTPRINTER() --> defaultPrinter
 HB_FUNC(HWG_GETDEFAULTPRINTER)
 {
   TCHAR PrinterDefault[256] = {0};
@@ -56,9 +50,7 @@ HB_FUNC(HWG_GETDEFAULTPRINTER)
   HB_RETSTR(PrinterDefault);
 }
 
-/*
-HWG_GETPRINTERS() --> array
-*/
+// HWG_GETPRINTERS() --> array
 HB_FUNC(HWG_GETPRINTERS)
 {
   PBYTE pBuffer = nullptr;
@@ -103,9 +95,7 @@ HB_FUNC(HWG_GETPRINTERS)
   }
 }
 
-/*
-HWG_SETPRINTERMODE(printerName, HANDLE, orientation, duplex) --> NIL
-*/
+// HWG_SETPRINTERMODE(printerName, HANDLE, orientation, duplex) --> NIL
 HB_FUNC(HWG_SETPRINTERMODE)
 {
   void *hPrinterName;
@@ -119,14 +109,14 @@ HB_FUNC(HWG_SETPRINTERMODE)
 
   if (hPrinter != nullptr)
   {
-    /* Determine the size of DEVMODE structure */
+    // Determine the size of DEVMODE structure
     long int nSize = DocumentProperties(nullptr, hPrinter, const_cast<LPTSTR>(lpPrinterName), nullptr, nullptr, 0);
     auto pdm = static_cast<PDEVMODE>(GlobalAlloc(GPTR, nSize));
 
-    /* Get the printer mode */
+    // Get the printer mode
     DocumentProperties(nullptr, hPrinter, const_cast<LPTSTR>(lpPrinterName), pdm, nullptr, DM_OUT_BUFFER);
 
-    /* Changing of values */
+    // Changing of values
     if (!HB_ISNIL(3))
     {
       pdm->dmOrientation = hb_parni(3);
@@ -150,17 +140,13 @@ HB_FUNC(HWG_SETPRINTERMODE)
   hb_strfree(hPrinterName);
 }
 
-/*
-HWG_CLOSEPRINTER(HANDLE) --> NIL
-*/
+// HWG_CLOSEPRINTER(HANDLE) --> NIL
 HB_FUNC(HWG_CLOSEPRINTER)
 {
   ClosePrinter(static_cast<HANDLE>(hb_parptr(1)));
 }
 
-/*
-HWG_STARTDOC(HDC) --> numeric
-*/
+// HWG_STARTDOC(HDC) --> numeric
 HB_FUNC(HWG_STARTDOC)
 {
   void *hText;
@@ -174,50 +160,38 @@ HB_FUNC(HWG_STARTDOC)
   hb_strfree(hText);
 }
 
-/*
-HWG_ENDDOC(HDC) --> numeric
-*/
+// HWG_ENDDOC(HDC) --> numeric
 HB_FUNC(HWG_ENDDOC)
 {
   hb_retnl(static_cast<LONG>(EndDoc(hwg_par_HDC(1))));
 }
 
-/*
-HWG_ABORTDOC(HDC) --> NIL
-*/
+// HWG_ABORTDOC(HDC) --> NIL
 HB_FUNC(HWG_ABORTDOC)
 {
   AbortDoc(hwg_par_HDC(1));
 }
 
-/*
-HWG_STARTPAGE(HDC) --> numeric
-*/
+// HWG_STARTPAGE(HDC) --> numeric
 HB_FUNC(HWG_STARTPAGE)
 {
   hb_retnl(static_cast<LONG>(StartPage(hwg_par_HDC(1))));
 }
 
-/*
-HWG_ENDPAGE(HDC) --> numeric
-*/
+// HWG_ENDPAGE(HDC) --> numeric
 HB_FUNC(HWG_ENDPAGE)
 {
   hb_retnl(static_cast<LONG>(EndPage(hwg_par_HDC(1))));
 }
 
-/*
- * HORZRES	Width, in pixels, of the screen.
- * VERTRES	Height, in raster lines, of the screen.
- * HORZSIZE	Width, in millimeters, of the physical screen.
- * VERTSIZE	Height, in millimeters, of the physical screen.
- * LOGPIXELSX	Number of pixels per logical inch along the screen width.
- * LOGPIXELSY	Number of pixels per logical inch along the screen height.
- */
+// HORZRES      Width, in pixels, of the screen.
+// VERTRES      Height, in raster lines, of the screen.
+// HORZSIZE     Width, in millimeters, of the physical screen.
+// VERTSIZE     Height, in millimeters, of the physical screen.
+// LOGPIXELSX   Number of pixels per logical inch along the screen width.
+// LOGPIXELSY   Number of pixels per logical inch along the screen height.
 
-/*
-HWG_GETDEVICEAREA() --> array
-*/
+// HWG_GETDEVICEAREA() --> array
 HB_FUNC(HWG_GETDEVICEAREA)
 {
   auto hDC = hwg_par_HDC(1);
@@ -271,9 +245,7 @@ HB_FUNC(HWG_GETDEVICEAREA)
   hb_itemRelease(aMetr);
 }
 
-/*
-HWG_CREATEENHMETAFILE(HWND, fileName) --> HDC
-*/
+// HWG_CREATEENHMETAFILE(HWND, fileName) --> HDC
 HB_FUNC(HWG_CREATEENHMETAFILE)
 {
   auto hWnd = hwg_par_HWND(1);
@@ -289,10 +261,8 @@ HB_FUNC(HWG_CREATEENHMETAFILE)
   RECT rc;
   GetClientRect(hWnd, &rc); // Retrieve the coordinates of the client rectangle, in pixels.
 
-  /*
-   * Convert client coordinates to .01-mm units. Use iWidthMM, iWidthPels, iHeightMM, and
-   * iHeightPels to determine the number of .01-millimeter units per pixel in the x- and y-directions.
-   */
+  // Convert client coordinates to .01-mm units. Use iWidthMM, iWidthPels, iHeightMM, and
+  // iHeightPels to determine the number of .01-millimeter units per pixel in the x- and y-directions.
 
   rc.left = (rc.left * iWidthMM * 100) / iWidthPels;
   rc.top = (rc.top * iHeightMM * 100) / iHeightPels;
@@ -305,31 +275,26 @@ HB_FUNC(HWG_CREATEENHMETAFILE)
   hb_strfree(hFileName);
 }
 
-/*
-HWG_CREATEMETAFILE(HDC, fileName) --> HDC
-*/
+// HWG_CREATEMETAFILE(HDC, fileName) --> HDC
 HB_FUNC(HWG_CREATEMETAFILE)
 {
   auto hDCref = hwg_par_HDC(1);
   void *hFileName;
 
-  /* Determine the picture frame dimensions.
-   * iWidthMM is the display width in millimeters.
-   * iHeightMM is the display height in millimeters.
-   * iWidthPels is the display width in pixels.
-   * iHeightPels is the display height in pixels
-   */
+  // Determine the picture frame dimensions.
+  // iWidthMM is the display width in millimeters.
+  // iHeightMM is the display height in millimeters.
+  // iWidthPels is the display width in pixels.
+  // iHeightPels is the display height in pixels
 
   int iWidthMM = GetDeviceCaps(hDCref, HORZSIZE);
   int iHeightMM = GetDeviceCaps(hDCref, VERTSIZE);
 
-  /*
-   * Convert client coordinates to .01-mm units.
-   * Use iWidthMM, iWidthPels, iHeightMM, and
-   * iHeightPels to determine the number of
-   * .01-millimeter units per pixel in the x-
-   *  and y-directions.
-   */
+  // Convert client coordinates to .01-mm units.
+  // Use iWidthMM, iWidthPels, iHeightMM, and
+  // iHeightPels to determine the number of
+  // .01-millimeter units per pixel in the x-
+  //  and y-directions.
 
   RECT rc{0, 0, iWidthMM * 100, iHeightMM * 100};
 
@@ -338,25 +303,19 @@ HB_FUNC(HWG_CREATEMETAFILE)
   hb_strfree(hFileName);
 }
 
-/*
-HWG_CLOSEENHMETAFILE(HDC) --> HANDLE
-*/
+// HWG_CLOSEENHMETAFILE(HDC) --> HANDLE
 HB_FUNC(HWG_CLOSEENHMETAFILE)
 {
   hb_retptr(CloseEnhMetaFile(hwg_par_HDC(1)));
 }
 
-/*
-HWG_DELETEENHMETAFILE(HENHMETAFILE) --> HANDLE
-*/
+// HWG_DELETEENHMETAFILE(HENHMETAFILE) --> HANDLE
 HB_FUNC(HWG_DELETEENHMETAFILE)
 {
   hb_retptr(reinterpret_cast<void *>(static_cast<LONG>(DeleteEnhMetaFile(static_cast<HENHMETAFILE>(hb_parptr(1))))));
 }
 
-/*
-HWG_PLAYENHMETAFILE(HDC, HENHMETAFILE, left, top, right, bottom) --> numeric
-*/
+// HWG_PLAYENHMETAFILE(HDC, HENHMETAFILE, left, top, right, bottom) --> numeric
 HB_FUNC(HWG_PLAYENHMETAFILE)
 {
   auto hDC = hwg_par_HDC(1);
@@ -377,9 +336,7 @@ HB_FUNC(HWG_PLAYENHMETAFILE)
   hb_retnl(static_cast<LONG>(PlayEnhMetaFile(hDC, static_cast<HENHMETAFILE>(hb_parptr(2)), &rc)));
 }
 
-/*
-HWG_PRINTENHMETAFILE(HDC, HENHMETAFILE) --> numeric
-*/
+// HWG_PRINTENHMETAFILE(HDC, HENHMETAFILE) --> numeric
 HB_FUNC(HWG_PRINTENHMETAFILE)
 {
   auto hDC = hwg_par_HDC(1);
@@ -392,10 +349,7 @@ HB_FUNC(HWG_PRINTENHMETAFILE)
   EndPage(hDC);
 }
 
-/*
-HWG_SETDOCUMENTPROPERTIES(HDC, printerName, formName|paperSize, orientation, copies, defaultSource, duplex,
-printQuality, paperLength, paperWidth) -->
-*/
+// HWG_SETDOCUMENTPROPERTIES(HDC, printerName, formName|paperSize, orientation, copies, defaultSource, duplex, printQuality, paperLength, paperWidth) -->
 HB_FUNC(HWG_SETDOCUMENTPROPERTIES)
 {
   auto Result = false;

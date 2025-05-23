@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level messages functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level messages functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #include "hwingui.hpp"
 #include <commctrl.h>
@@ -66,22 +66,20 @@ HB_FUNC(HWG_MSGBEEP)
   MessageBeep((hb_pcount() == 0) ? static_cast<LONG>(0xFFFFFFFF) : hb_parnl(1));
 }
 
-/*
- Function hwg_MsgTemp()
- (Not for HWGUI applications, only for debugging)
-
- This function displays some compiler constants
- in a Messagebox "DialogBaseUnits".
-
- Table: Constants and header file with declaration (MinGW), default value and remarks:
-
-  CP_ACP                   winnls.h     0
-  WS_OVERLAPPEDWINDOW      winuser.h    0xcf0000
-  NM_FIRST                 commctrl.h   0
-
-  The function MultiByteToWideChar(UINT,DWORD,LPCSTR,int,LPWSTR,int)
-  converts LPCSTR to LPWSTR strings.
-*/
+// Function hwg_MsgTemp()
+// (Not for HWGUI applications, only for debugging)
+//
+// This function displays some compiler constants
+// in a Messagebox "DialogBaseUnits".
+//
+// Table: Constants and header file with declaration (MinGW), default value and remarks:
+//
+//  CP_ACP                   winnls.h     0
+//  WS_OVERLAPPEDWINDOW      winuser.h    0xcf0000
+//  NM_FIRST                 commctrl.h   0
+//
+//  The function MultiByteToWideChar(UINT,DWORD,LPCSTR,int,LPWSTR,int)
+//  converts LPCSTR to LPWSTR strings.
 
 HB_FUNC(HWG_MSGTEMP)
 {

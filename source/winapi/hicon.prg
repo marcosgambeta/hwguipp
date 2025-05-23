@@ -82,10 +82,9 @@ METHOD HIcon:AddResource(name, nWidth, nHeight, nFlags, lOEM)
 
 RETURN Self
 
-/* Added by DF7BE
-name : Name of resource
-cVal : Binary contents of *.ico file
-*/
+// Added by DF7BE
+// name : Name of resource
+// cVal : Binary contents of *.ico file
 METHOD HIcon:AddString(name, cVal, nWidth, nHeight)
 
    LOCAL cTmp //, oreturn

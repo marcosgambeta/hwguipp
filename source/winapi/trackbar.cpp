@@ -1,13 +1,13 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * HTrackBar class
- *
- * Copyright 2004 Marcos Antonio Gambeta <marcos_gambeta@hotmail.com>
- * www - http://geocities.yahoo.com.br/marcosgambeta/
- *
- * HTrack class
- * Copyright 2021 Alexander S.Kresin <alex@kresin.ru>
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// HTrackBar class
+//
+// Copyright 2004 Marcos Antonio Gambeta <marcos_gambeta@hotmail.com>
+// www - http://geocities.yahoo.com.br/marcosgambeta/
+//
+// HTrack class
+// Copyright 2021 Alexander S.Kresin <alex@kresin.ru>
+//
 
 #define _WIN32_IE 0x0500
 #define HB_OS_WIN_32_USED

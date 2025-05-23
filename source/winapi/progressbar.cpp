@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level controls functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level controls functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define HB_OS_WIN_32_USED
 
@@ -17,13 +17,11 @@
 #include <hbvm.hpp>
 #include <hbdate.hpp>
 #include <hbtrace.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
-/*
-HWG_CREATEPROGRESSBAR(hParentWindow, nRange, ...)
-*/
+// HWG_CREATEPROGRESSBAR(hParentWindow, nRange, ...)
 HB_FUNC(HWG_CREATEPROGRESSBAR)
 {
   auto hParentWindow = hwg_par_HWND(1);
@@ -59,26 +57,20 @@ HB_FUNC(HWG_CREATEPROGRESSBAR)
   hb_retptr(hPBar);
 }
 
-/*
-   UpdateProgressBar(hPBar)
-*/
+// UpdateProgressBar(hPBar)
 HB_FUNC(HWG_UPDATEPROGRESSBAR)
 {
   SendMessage(hwg_par_HWND(1), PBM_STEPIT, 0, 0);
 }
 
-/*
-   ResetProgressBar(hPBar)
-   Added by DF7BE
-*/
+// ResetProgressBar(hPBar)
+// Added by DF7BE
 HB_FUNC(HWG_RESETPROGRESSBAR)
 {
   SendMessage(hwg_par_HWND(1), PBM_SETPOS, 0, 0);
 }
 
-/*
-   SetProgressBar(hPBar, nPercent)
-*/
+// SetProgressBar(hPBar, nPercent)
 HB_FUNC(HWG_SETPROGRESSBAR)
 {
   SendMessage(hwg_par_HWND(1), PBM_SETPOS, hwg_par_WPARAM(2), 0);

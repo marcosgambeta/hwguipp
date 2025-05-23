@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level controls functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level controls functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define HB_OS_WIN_32_USED
 
@@ -17,7 +17,7 @@
 #include <hbvm.hpp>
 #include <hbdate.hpp>
 #include <hbtrace.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
@@ -28,9 +28,7 @@
 static HWND s_hWndTT = nullptr;
 static auto s_lToolTipBalloon = false;
 
-/*
-HWG_ADDTOOLTIP(HWND, cText) --> .T.|.F.
-*/
+// HWG_ADDTOOLTIP(HWND, cText) --> .T.|.F.
 HB_FUNC(HWG_ADDTOOLTIP)
 {
   auto hWnd = hwg_par_HWND(1);
@@ -66,9 +64,7 @@ HB_FUNC(HWG_ADDTOOLTIP)
   hb_strfree(hStr);
 }
 
-/*
-HWG_DELTOOLTIP(HWND) --> NIL
-*/
+// HWG_DELTOOLTIP(HWND) --> NIL
 HB_FUNC(HWG_DELTOOLTIP)
 {
   auto hWnd = hwg_par_HWND(1);
@@ -86,9 +82,7 @@ HB_FUNC(HWG_DELTOOLTIP)
   }
 }
 
-/*
-HWG_SETTOOLTIPTITLE(HWND, cTitle) --> .T.|.F.
-*/
+// HWG_SETTOOLTIPTITLE(HWND, cTitle) --> .T.|.F.
 HB_FUNC(HWG_SETTOOLTIPTITLE)
 {
   auto hWnd = hwg_par_HWND(1);
@@ -111,26 +105,20 @@ HB_FUNC(HWG_SETTOOLTIPTITLE)
   }
 }
 
-/*
-HWG_GETTOOLTIPHANDLE() --> pointer
-*/
+// HWG_GETTOOLTIPHANDLE() --> pointer
 HB_FUNC(HWG_GETTOOLTIPHANDLE)
 {
   hb_retptr(s_hWndTT);
 }
 
-/*
-HWG_SETTOOLTIPBALLOON(lToolTipBalloon) --> NIL
-*/
+// HWG_SETTOOLTIPBALLOON(lToolTipBalloon) --> NIL
 HB_FUNC(HWG_SETTOOLTIPBALLOON)
 {
   s_lToolTipBalloon = hb_parl(1);
   s_hWndTT = nullptr;
 }
 
-/*
-HWG_GETTOOLTIPBALLOON() --> .T.|.F.
-*/
+// HWG_GETTOOLTIPBALLOON() --> .T.|.F.
 HB_FUNC(HWG_GETTOOLTIPBALLOON)
 {
   hb_retl(s_lToolTipBalloon);

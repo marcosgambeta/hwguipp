@@ -6,15 +6,13 @@
 //
 //
 
-/*
-TODO: 1) In line edit
-         The better way is using hwg_Listview_hittest to determine the item and subitem position
-      2) Imagelist
-         The way is using the hwg_Listview_setimagelist
-      3) Checkbox
-         The way is using the NM_CUSTOMDRAW and hwg_Drawframecontrol()
-
-*/
+// TODO: 1) In line edit
+//          The better way is using hwg_Listview_hittest to determine the item and subitem position
+//       2) Imagelist
+//          The way is using the hwg_Listview_setimagelist
+//       3) Checkbox
+//          The way is using the NM_CUSTOMDRAW and hwg_Drawframecontrol()
+//
 
 #include <hbclass.ch>
 #include <common.ch>
@@ -264,7 +262,7 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam) // TODO: nao utilizada - remover ?
 #include <hbvm.hpp>
 #include <hbstack.hpp>
 #include <hbapicls.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 

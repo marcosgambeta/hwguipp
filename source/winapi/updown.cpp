@@ -1,10 +1,10 @@
-/*
- * HWGUI - Harbour Win32 GUI library source code:
- * C level controls functions
- *
- * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- * www - http://www.kresin.ru
- */
+//
+// HWGUI - Harbour Win32 GUI library source code:
+// C level controls functions
+//
+// Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+// www - http://www.kresin.ru
+//
 
 #define HB_OS_WIN_32_USED
 
@@ -17,7 +17,7 @@
 #include <hbvm.hpp>
 #include <hbdate.hpp>
 #include <hbtrace.hpp>
-/* Suppress compiler warnings */
+// Suppress compiler warnings
 #include "incomp_pointer.hpp"
 #include "warnings.hpp"
 
@@ -25,9 +25,7 @@ LRESULT APIENTRY UpDownSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
 
 static WNDPROC wpOrigUpDownProc;
 
-/*
-HWG_CREATEUPDOWNCONTROL(hParent, nID, nStyle, nX, nY, nWidth, nHeight, hBuddy, nUpper, nLower, nPos) --> hUpDown
-*/
+// HWG_CREATEUPDOWNCONTROL(hParent, nID, nStyle, nX, nY, nWidth, nHeight, hBuddy, nUpper, nLower, nPos) --> hUpDown
 HB_FUNC(HWG_CREATEUPDOWNCONTROL) // TODO: CreateUpDownControl is obsolet
 {
   hb_retptr(CreateUpDownControl(WS_CHILD | WS_BORDER | WS_VISIBLE | hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),

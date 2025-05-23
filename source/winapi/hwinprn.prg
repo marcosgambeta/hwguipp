@@ -18,46 +18,41 @@
 //   (Ticket #64, TNX HKrzak)
 //
 
-/*
-  Some notes how to explain the work flow of the
-  HWINPRN class:
-  Every method adding lines or settings into the document to print  
-  collect records in an Array aPages[] initialized by method New() of HPRINTER class.
-  These methods are for example:
-  SetMode(), PrintLine(), PrintBitmap(), NextPage().
-  When running method End() of HWINPRN class to close the print job,
-  all collected records in the array
-  are written in a script file with default filename "temp_a2.ps". 
-  This script builds the complete layout of the printing job in background.
-  After this, the layout is diplayed in the print preview dialog, the last step
-  is send the data to the printer device.
-
-  Sample for the page 7 created by sample program "winprn.prg":
-   page,7,px,p
-   fnt,monospace,12.2410,400,0,0,
-   txt,14.16,-0.3156,589,11.6812,,From file >hwgui.bmp<
-   img,14.16,11.6812,315.16,171.6812,,../../image/hwgui.bmp
-   txt,14.16,183.6780,589,195.6749,,astro from hex value via temporary file
-   img,14.16,195.6749,121.16,285.6749,,/tmp/e5950039.bmp
-   img,248.16,297.6717,355.16,387.6717,,/tmp/e5950039.bmp
-   img,482.16,399.6685,589.16,489.6685,,/tmp/e5950039.bmp
-   txt,14.16,501.6654,589,513.6622,,--------------------
-
-   The record secription (not valid for all types):
-   <type>,<x1>,<y1>,<x2>,<y2>,nOpt,<value> CRLF
-
-   The layout is generated in function hwg_gp_Print() in hprinter.prg.
-   This function is implemented in wprint.c using
-   the features of the Cairo graphic library.
-   Function draw_page() interprets the values of the array and
-   builds the pixbuffer for one page.
-
-
-*/
+// Some notes how to explain the work flow of the
+// HWINPRN class:
+// Every method adding lines or settings into the document to print
+// collect records in an Array aPages[] initialized by method New() of HPRINTER class.
+// These methods are for example:
+// SetMode(), PrintLine(), PrintBitmap(), NextPage().
+// When running method End() of HWINPRN class to close the print job,
+// all collected records in the array
+// are written in a script file with default filename "temp_a2.ps".
+// This script builds the complete layout of the printing job in background.
+// After this, the layout is diplayed in the print preview dialog, the last step
+// is send the data to the printer device.
+//
+// Sample for the page 7 created by sample program "winprn.prg":
+//  page,7,px,p
+//  fnt,monospace,12.2410,400,0,0,
+//  txt,14.16,-0.3156,589,11.6812,,From file >hwgui.bmp<
+//  img,14.16,11.6812,315.16,171.6812,,../../image/hwgui.bmp
+//  txt,14.16,183.6780,589,195.6749,,astro from hex value via temporary file
+//  img,14.16,195.6749,121.16,285.6749,,/tmp/e5950039.bmp
+//  img,248.16,297.6717,355.16,387.6717,,/tmp/e5950039.bmp
+//  img,482.16,399.6685,589.16,489.6685,,/tmp/e5950039.bmp
+//  txt,14.16,501.6654,589,513.6622,,--------------------
+//
+//  The record secription (not valid for all types):
+//  <type>,<x1>,<y1>,<x2>,<y2>,nOpt,<value> CRLF
+//
+//  The layout is generated in function hwg_gp_Print() in hprinter.prg.
+//  This function is implemented in wprint.c using
+//  the features of the Cairo graphic library.
+//  Function draw_page() interprets the values of the array and
+//  builds the pixbuffer for one page.
 
 #include <hbclass.ch>
 #include "hwguipp.ch"
-
 
 #define STD_HEIGHT      4
 
@@ -168,7 +163,7 @@ METHOD HWinPrn:SetLanguage(apTooltips, apBootUser)
    IF apTooltips != NIL
       ::aTooltips := apTooltips
    ENDIF
-/* Activate, if necessary */
+// Activate, if necessary
 //   IF apBootUser != NIL
 //      ::aBootUser := apBootUser
 //   ENDIF
@@ -273,11 +268,9 @@ METHOD HWinPrn:SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder, nLineMa
 
    RETURN NIL
 
-/*
-  Added by DF7BE:
-  Should act like a "printer reset"
-  (Set back to default values).
-*/
+// Added by DF7BE:
+// Should act like a "printer reset"
+// (Set back to default values).
 METHOD HWinPrn:SetDefaultMode()
 
    ::SetMode(.F., .F., 6, .F., .F., .F., 0, 0)
@@ -341,17 +334,15 @@ METHOD HWinPrn:NextPage()
 
    RETURN NIL
 
-   
-/*
-   DF7BE:
-   Recovered from r2536 2016-06-16
-   added support for bitmap object
 
-   xBitmap     : Name and path to bitmap file
-                 or bitmap object variable
-   nAlign      : 0 - left, 1 - center, 2 - right, default = 0
-   cBitmapName  : Name of resource, if xBitmap is bitmap object
- */
+// DF7BE:
+// Recovered from r2536 2016-06-16
+// added support for bitmap object
+//
+// xBitmap     : Name and path to bitmap file
+//               or bitmap object variable
+// nAlign      : 0 - left, 1 - center, 2 - right, default = 0
+// cBitmapName  : Name of resource, if xBitmap is bitmap object
 METHOD HWinPrn:PrintBitmap(xBitmap, nAlign, cBitmapName)
 
    LOCAL i
@@ -396,7 +387,7 @@ METHOD HWinPrn:PrintBitmap(xBitmap, nAlign, cBitmapName)
      FERASE(cTmp)
    ENDIF
    
-/* Page size overflow  ? ==> next page */
+// Page size overflow  ? ==> next page
 #ifdef __GTK__
    IF ::y + aBmpSize[2] + ::nLined > ::oPrinter:nHeight
 #else
@@ -575,18 +566,18 @@ METHOD HWinPrn:PrintText(cText)
 METHOD HWinPrn:PutCode(cLine)
    
    STATIC aCodes := { ;
-          {Chr(27) + "@", .F., .F., 6, .F., .F., .F.}, ;     /* Reset */
-          {Chr(27) + "M", .T., NIL, NIL, NIL, NIL, NIL}, ;     /* Elite */
-          {Chr(15), NIL, .T., NIL, NIL, NIL, NIL}, ;     /* Cond */
-          {Chr(18), NIL, .F., NIL, NIL, NIL, NIL}, ;     /* Cancel Cond */
-          {Chr(27) + "0", NIL, NIL, 8, NIL, NIL, NIL}, ;     /* 8 lines per inch */
-          {Chr(27) + "2", NIL, NIL, 6, NIL, NIL, NIL}, ;     /* 6 lines per inch ( standard ) */
-          {Chr(27) + "-1", NIL, NIL, NIL, NIL, NIL, .T.}, ;     /* underline */
-          {Chr(27) + "-0", NIL, NIL, NIL, NIL, NIL, .F.}, ;     /* cancel underline */
-          {Chr(27) + "4", NIL, NIL, NIL, NIL, .T., NIL}, ;     /* italic */
-          {Chr(27) + "5", NIL, NIL, NIL, NIL, .F., NIL}, ;     /* cancel italic */
-          {Chr(27) + "G", NIL, NIL, NIL, .T., NIL, NIL}, ;     /* bold */
-          {Chr(27) + "H", NIL, NIL, NIL, .F., NIL, NIL} ;     /* cancel bold */
+          {Chr(27) + "@", .F., .F., 6, .F., .F., .F.}, ;     // Reset
+          {Chr(27) + "M", .T., NIL, NIL, NIL, NIL, NIL}, ;     // Elite
+          {Chr(15), NIL, .T., NIL, NIL, NIL, NIL}, ;     // Cond
+          {Chr(18), NIL, .F., NIL, NIL, NIL, NIL}, ;     // Cancel Cond
+          {Chr(27) + "0", NIL, NIL, 8, NIL, NIL, NIL}, ;     // 8 lines per inch
+          {Chr(27) + "2", NIL, NIL, 6, NIL, NIL, NIL}, ;     // 6 lines per inch ( standard )
+          {Chr(27) + "-1", NIL, NIL, NIL, NIL, NIL, .T.}, ;     // underline
+          {Chr(27) + "-0", NIL, NIL, NIL, NIL, NIL, .F.}, ;     // cancel underline
+          {Chr(27) + "4", NIL, NIL, NIL, NIL, .T., NIL}, ;     // italic
+          {Chr(27) + "5", NIL, NIL, NIL, NIL, .F., NIL}, ;     // cancel italic
+          {Chr(27) + "G", NIL, NIL, NIL, .T., NIL, NIL}, ;     // bold
+          {Chr(27) + "H", NIL, NIL, NIL, .F., NIL, NIL} ;     // cancel bold
         }
 
    LOCAL i

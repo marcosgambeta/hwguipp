@@ -37,9 +37,7 @@
 
 REQUEST DBGOTOP, DBGOTO, DBGOBOTTOM, DBSKIP, RECCOUNT, RECNO, EOF, BOF
 
-/*
- * Scroll Bar Constants
- */
+// Scroll Bar Constants
 #ifndef SB_HORZ
 #define SB_HORZ             0
 #define SB_VERT             1
@@ -47,10 +45,10 @@ REQUEST DBGOTOP, DBGOTO, DBGOBOTTOM, DBSKIP, RECCOUNT, RECNO, EOF, BOF
 #define SB_BOTH             3
 #endif
 
- /* Moved to windows.ch */
+ // Moved to windows.ch
  // #define HDM_GETITEMCOUNT    4608
 
-   // #define DLGC_WANTALLKEYS    0x0004      /* Control wants all keys */
+   // #define DLGC_WANTALLKEYS    0x0004      // Control wants all keys
 
 STATIC s_ColSizeCursor := 0
 STATIC s_arrowCursor := 0
@@ -1475,9 +1473,8 @@ METHOD HBrowse:DoHScroll(wParam)
 
    IF ::nLeftCol != oldLeft .OR. ::colpos != oldpos
 
-      /* Move scrollbar thumb if ::bHScrollPos has not been called, since, in this case,
-         movement of scrollbar thumb is done by that codeblock
-      */
+      // Move scrollbar thumb if ::bHScrollPos has not been called, since, in this case,
+      // movement of scrollbar thumb is done by that codeblock
       IF lMoveThumb
 
          fif := IIf(::lEditable, ::colpos + ::nLeftCol - 1, ::nLeftCol)
@@ -1997,9 +1994,9 @@ METHOD HBrowse:Edit(wParam, lParam)
    fipos := ::colpos + ::nLeftCol - 1 - ::freeze
 
    IF ::oFont != NIL
-      /* Preset charset for displaying special characters of other languages
-         for example Russian ::nHCCharset = 204
-         default is 0 */
+      // Preset charset for displaying special characters of other languages
+      // for example Russian ::nHCCharset = 204
+      // default is 0
      // ::nHCCharset := 15 // IBM 858 With Euro currency sign
 
      nchrs := ::nHCCharset
@@ -2087,11 +2084,10 @@ METHOD HBrowse:Edit(wParam, lParam)
                nChoic := Ascan(oColumn:aList, ::varbuf)
             ENDIF
 
-            /* 21/09/2005 - <maurilio.longo@libero.it>
-                            The combobox needs to use a font smaller than the one used
-                            by the browser or it will be taller than the browse row that
-                            has to contain it.
-            */
+            // 21/09/2005 - <maurilio.longo@libero.it>
+            //              The combobox needs to use a font smaller than the one used
+            //              by the browser or it will be taller than the browse row that
+            //              has to contain it.
             oComboFont := IIf(::oFont == NIL, HFont():Add("MS Sans Serif", 0, -8), HFont():Add(::oFont:name, ::oFont:width, ::oFont:height + 2))
 
             @ 0, 0 GET COMBOBOX oCombo VAR nChoic ITEMS oColumn:aList SIZE nWidth, ::height * 5 FONT oComboFont
@@ -2118,10 +2114,9 @@ METHOD HBrowse:Edit(wParam, lParam)
                 mvarbuff := ::varbuf  // DF7BE: inter variable avoids crash at store
 //               @ 10, 10 GET oGet1 SIZE oModDlg:nWidth - 20, 240 FONT ::oFont Style WS_VSCROLL + WS_HSCROLL + ES_MULTILINE VALID oColumn:bValid
 
-               /* DF7BE 2020-12-02:
-                  Prepare for correct display of Euro currency sign in Memo edit
-                  by using charset 0 (ISO8859-15)
-                */
+               // DF7BE 2020-12-02:
+               // Prepare for correct display of Euro currency sign in Memo edit
+               // by using charset 0 (ISO8859-15)
                @ 10, 10 HCEDIT oEdit SIZE oModDlg:nWidth - 20, 240 FONT oHCfont // ::oFont
 
                // ::varbuf ==> mvarbuff, oGet1 ==> oEdit (DF7BE)
@@ -2198,7 +2193,7 @@ METHOD HBrowse:Edit(wParam, lParam)
                   IF (::alias)->(RLock())
                      (::alias)->(Eval(oColumn:block, ::varbuf, Self, fipos))
                   ELSE
-                     hwg_Msgstop(::cTextLockRec) /* Can't lock the record! */
+                     hwg_Msgstop(::cTextLockRec) // Can't lock the record!
                   ENDIF
                ELSE
                   Eval(oColumn:block, ::varbuf, Self, fipos)
@@ -2209,10 +2204,10 @@ METHOD HBrowse:Edit(wParam, lParam)
                ::RefreshLine()
             ENDIF
 
-            /* Execute block after changes are made */
+            // Execute block after changes are made
             IF hb_IsBlock(::bUpdate)
                Eval(::bUpdate, Self, fipos)
-            END
+            ENDIF
 
          ELSEIF ::lAppMode
             ::lAppMode := .F.
