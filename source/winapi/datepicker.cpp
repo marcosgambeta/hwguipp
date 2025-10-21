@@ -41,8 +41,7 @@ HB_FUNC(HWG_SETDATEPICKER)
   ULONG ulLen;
   long lSeconds = 0;
 
-  if (pDate)
-  {
+  if (pDate) {
     SYSTEMTIME sysTime, st;
     int lYear, lMonth, lDay;
     int lHour, lMinute;
@@ -50,21 +49,16 @@ HB_FUNC(HWG_SETDATEPICKER)
     int lSecond;
 
     hb_dateDecode(hb_itemGetDL(pDate), &lYear, &lMonth, &lDay);
-    if (hb_pcount() < 3)
-    {
+    if (hb_pcount() < 3) {
       GetLocalTime(&st);
       lHour = st.wHour;
       lMinute = st.wMinute;
       lSecond = st.wSecond;
-    }
-    else
-    {
+    } else {
       auto szTime = hb_parc(3);
-      if (szTime)
-      {
+      if (szTime) {
         ulLen = strlen(szTime);
-        if (ulLen >= 4)
-        {
+        if (ulLen >= 4) {
           lSeconds = static_cast<LONG>(hb_strVal(szTime, 2)) * 3600 * 1000 +
                      static_cast<LONG>(hb_strVal(szTime + 2, 2)) * 60 * 1000 +
                      static_cast<LONG>(hb_strVal(szTime + 4, ulLen - 4) * 1000);
@@ -98,12 +92,9 @@ HB_FUNC(HWG_GETDATEPICKER)
   WPARAM wParam = (hb_pcount() > 1) ? hb_parnl(2) : GDT_VALID;
 
   iret = SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME, wParam, reinterpret_cast<LPARAM>(&st));
-  if (wParam == GDT_VALID)
-  {
+  if (wParam == GDT_VALID) {
     hb_retd(st.wYear, st.wMonth, st.wDay);
-  }
-  else
-  {
+  } else {
     hb_retni(iret);
   }
 }
@@ -118,13 +109,11 @@ LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message, WPARAM wParam, 
 {
   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-  if (!pSym_onEvent)
-  {
+  if (!pSym_onEvent) {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
   }
 
-  if (pSym_onEvent && pObject)
-  {
+  if (pSym_onEvent && pObject) {
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
     hb_vmPush(pObject);
     hb_vmPushLong(static_cast<LONG>(message));
@@ -133,25 +122,17 @@ LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message, WPARAM wParam, 
     hb_vmPushPointer(reinterpret_cast<void *>(wParam));
     hb_vmPushPointer(reinterpret_cast<void *>(lParam));
     hb_vmSend(3);
-    if (HB_ISPOINTER(-1))
-    {
+    if (HB_ISPOINTER(-1)) {
       return reinterpret_cast<LRESULT>(hb_parptr(-1));
-    }
-    else
-    {
+    } else {
       long int res = hb_parnl(-1);
-      if (res == -1)
-      {
+      if (res == -1) {
         return (CallWindowProc(wpOrigDatePickerProc, hWnd, message, wParam, lParam));
-      }
-      else
-      {
+      } else {
         return res;
       }
     }
-  }
-  else
-  {
+  } else {
     return (CallWindowProc(wpOrigDatePickerProc, hWnd, message, wParam, lParam));
   }
 }

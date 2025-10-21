@@ -58,12 +58,9 @@ HB_FUNC(HWG_REGCLOSEKEY)
 {
   auto hwHandle = static_cast<HKEY>(hb_parnl(1));
 
-  if (RegCloseKey(hwHandle) == ERROR_SUCCESS)
-  {
+  if (RegCloseKey(hwHandle) == ERROR_SUCCESS) {
     hb_retnl(ERROR_SUCCESS);
-  }
-  else
-  {
+  } else {
     hb_retnl(-1);
   }
 }
@@ -77,12 +74,9 @@ HB_FUNC(HWG_REGOPENKEYEX)
 
   LONG lError = RegOpenKeyEx(static_cast<HKEY>(hwKey), lpValue, 0, KEY_ALL_ACCESS, &phwHandle);
 
-  if (lError > 0)
-  {
+  if (lError > 0) {
     hb_retni(-1);
-  }
-  else
-  {
+  } else {
     hb_stornl(PtrToLong(phwHandle), 5);
     hb_retni(0);
   }
@@ -100,16 +94,12 @@ HB_FUNC(HWG_REGQUERYVALUEEX)
 
   LONG lError = RegQueryValueEx(hwKey, lpValue, nullptr, &lpType, nullptr, &lpcbData);
 
-  if (lError == ERROR_SUCCESS)
-  {
+  if (lError == ERROR_SUCCESS) {
     auto lpData = static_cast<BYTE *>(memset(hb_xgrab(lpcbData + 1), 0, lpcbData + 1));
     lError = RegQueryValueEx(hwKey, lpValue, nullptr, &lpType, lpData, &lpcbData);
-    if (lError > 0)
-    {
+    if (lError > 0) {
       hb_retni(-1);
-    }
-    else
-    {
+    } else {
       hb_storc(static_cast<char *>(lpData), 5);
       hb_retni(0);
     }
@@ -132,8 +122,7 @@ HB_FUNC(HWG_REGENUMKEYEX)
   long nErr =
       RegEnumKeyEx(static_cast<HKEY>(hb_parnl(1)), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
 
-  if (nErr == ERROR_SUCCESS)
-  {
+  if (nErr == ERROR_SUCCESS) {
     HB_STORSTR(Buffer, 3);
     hb_stornl(static_cast<long>(dwBuffSize), 4);
     HB_STORSTR(Class, 6);
@@ -162,8 +151,7 @@ HB_FUNC(HWG_REGCREATEKEY)
 
   LONG nErr = RegCreateKey(static_cast<HKEY>(hb_parnl(1)), HB_PARSTRDEF(2, &hValue, nullptr), &hKey);
 
-  if (nErr == ERROR_SUCCESS)
-  {
+  if (nErr == ERROR_SUCCESS) {
     hb_stornl(PtrToLong(hKey), 3);
   }
 
@@ -171,7 +159,8 @@ HB_FUNC(HWG_REGCREATEKEY)
   hb_strfree(hValue);
 }
 
-// RegCreateKeyEx(nKey, cSubKey, NIL, cClass, nOptions, nSamDesired, cSecurityAttributes, nHkResult, nDisposition) --> numeric
+// RegCreateKeyEx(nKey, cSubKey, NIL, cClass, nOptions, nSamDesired, cSecurityAttributes, nHkResult, nDisposition) -->
+// numeric
 HB_FUNC(HWG_REGCREATEKEYEX)
 {
   HKEY hkResult;
@@ -179,17 +168,15 @@ HB_FUNC(HWG_REGCREATEKEYEX)
   SECURITY_ATTRIBUTES *sa = nullptr;
   void *hValue, *hClass;
 
-  if (HB_ISCHAR(7))
-  {
+  if (HB_ISCHAR(7)) {
     sa = static_cast<SECURITY_ATTRIBUTES *>(hb_parc(7));
   }
 
   LONG nErr = RegCreateKeyEx(static_cast<HKEY>(hb_parnl(1)), HB_PARSTRDEF(2, &hValue, nullptr), static_cast<DWORD>(0),
-                             static_cast<LPTSTR>(HB_PARSTRDEF(4, &hClass, nullptr)), hwg_par_DWORD(5),
-                             hwg_par_DWORD(6), sa, &hkResult, &dwDisposition);
+                             static_cast<LPTSTR>(HB_PARSTRDEF(4, &hClass, nullptr)), hwg_par_DWORD(5), hwg_par_DWORD(6),
+                             sa, &hkResult, &dwDisposition);
 
-  if (nErr == ERROR_SUCCESS)
-  {
+  if (nErr == ERROR_SUCCESS) {
     hb_stornl(static_cast<LONG>(hkResult), 8);
     hb_stornl(static_cast<LONG>(dwDisposition), 9);
   }

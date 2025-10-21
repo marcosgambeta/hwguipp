@@ -72,13 +72,10 @@ HB_FUNC(HWG_FINDRESOURCE)
 
   hb_strfree(hString);
 
-  if (IS_INTRESOURCE(iName))
-  {
+  if (IS_INTRESOURCE(iName)) {
     hHRSRC = FindResource(static_cast<HMODULE>(hModule), MAKEINTRESOURCE(iName), MAKEINTRESOURCE(iType));
     hb_retptr(hHRSRC);
-  }
-  else
-  {
+  } else {
     hb_retptr(0);
   }
 }

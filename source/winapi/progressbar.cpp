@@ -30,16 +30,13 @@ HB_FUNC(HWG_CREATEPROGRESSBAR)
   int cyVScroll = GetSystemMetrics(SM_CYVSCROLL);
   int x1, y1, nwidth, nheight;
 
-  if (hb_pcount() > 2)
-  {
+  if (hb_pcount() > 2) {
     ulStyle = hb_parnl(3);
     x1 = hb_parni(4);
     y1 = hb_parni(5);
     nwidth = hb_parni(6);
     nheight = hb_pcount() > 6 && !HB_ISNIL(7) ? hb_parni(7) : cyVScroll;
-  }
-  else
-  {
+  } else {
     GetClientRect(hParentWindow, &rcClient);
     ulStyle = 0;
     x1 = rcClient.left;

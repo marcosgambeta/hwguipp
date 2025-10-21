@@ -77,16 +77,13 @@ void TransparentBmp(HDC hDC, int x, int y, int nWidthDest, int nHeightDest, HDC 
 
 BOOL Array2Rect(PHB_ITEM aRect, RECT *rc)
 {
-  if (HB_IS_ARRAY(aRect) && hb_arrayLen(aRect) == 4)
-  {
+  if (HB_IS_ARRAY(aRect) && hb_arrayLen(aRect) == 4) {
     rc->left = hb_arrayGetNL(aRect, 1);
     rc->top = hb_arrayGetNL(aRect, 2);
     rc->right = hb_arrayGetNL(aRect, 3);
     rc->bottom = hb_arrayGetNL(aRect, 4);
     return TRUE;
-  }
-  else
-  {
+  } else {
     rc->left = rc->top = rc->right = rc->bottom = 0;
   }
   return FALSE;
@@ -143,8 +140,7 @@ HB_FUNC(HWG_INVALIDATERECT)
 {
   RECT rc;
 
-  if (hb_pcount() > 2)
-  {
+  if (hb_pcount() > 2) {
     rc.left = hb_parni(3);
     rc.top = hb_parni(4);
     rc.right = hb_parni(5);
@@ -213,10 +209,8 @@ HB_FUNC(HWG_DRAWGRID)
   int n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
   COLORREF lColor = (HB_ISNIL(7)) ? 0 : hwg_par_COLORREF(7);
 
-  for (int i = x1 + n; i < x2; i += n)
-  {
-    for (int j = y1 + n; j < y2; j += n)
-    {
+  for (int i = x1 + n; i < x2; i += n) {
+    for (int j = y1 + n; j < y2; j += n) {
       SetPixel(hDC, i, j, lColor);
     }
   }
@@ -266,8 +260,7 @@ HB_FUNC(HWG_REDRAWWINDOW)
 {
   RECT rc;
 
-  if (hb_pcount() > 3)
-  {
+  if (hb_pcount() > 3) {
     int x = (hb_pcount() > 3 && !HB_ISNIL(3)) ? hb_parni(3) : 0;
     int y = (hb_pcount() >= 4 && !HB_ISNIL(4)) ? hb_parni(4) : 0;
     int w = (hb_pcount() >= 5 && !HB_ISNIL(5)) ? hb_parni(5) : 0;
@@ -292,12 +285,9 @@ HB_FUNC(HWG_DRAWBUTTON)
   rc.right = hb_parni(4);
   rc.bottom = hb_parni(5);
 
-  if (iType == 0)
-  {
+  if (iType == 0) {
     FillRect(hDC, &rc, reinterpret_cast<HBRUSH>(COLOR_3DFACE + 1));
-  }
-  else
-  {
+  } else {
     FillRect(hDC, &rc, reinterpret_cast<HBRUSH>(((iType & 2) ? COLOR_3DSHADOW : COLOR_3DHILIGHT) + 1));
     rc.left++;
     rc.top++;
@@ -308,8 +298,7 @@ HB_FUNC(HWG_DRAWBUTTON)
                                       1));
     rc.right--;
     rc.bottom--;
-    if (iType & 4)
-    {
+    if (iType & 4) {
       FillRect(hDC, &rc, reinterpret_cast<HBRUSH>(((iType & 2) ? COLOR_3DSHADOW : COLOR_3DLIGHT) + 1));
       rc.left++;
       rc.top++;
@@ -338,12 +327,9 @@ HB_FUNC(HWG_DRAWEDGE)
 
 HB_FUNC(HWG_LOADICON)
 {
-  if (HB_ISNUM(1))
-  {
+  if (HB_ISNUM(1)) {
     hb_retptr(LoadIcon(nullptr, MAKEINTRESOURCE(hb_parni(1))));
-  }
-  else
-  {
+  } else {
     void *hString;
     hb_retptr(LoadIcon(GetModuleHandle(nullptr), HB_PARSTR(1, &hString, nullptr)));
     hb_strfree(hString);
@@ -368,19 +354,13 @@ HB_FUNC(HWG_LOADIMAGE)
 
 HB_FUNC(HWG_LOADBITMAP)
 {
-  if (HB_ISNUM(1))
-  {
-    if (!HB_ISNIL(2) && hb_parl(2))
-    {
+  if (HB_ISNUM(1)) {
+    if (!HB_ISNIL(2) && hb_parl(2)) {
       hb_retptr(LoadBitmap(nullptr, MAKEINTRESOURCE(hb_parni(1))));
-    }
-    else
-    {
+    } else {
       hb_retptr(LoadBitmap(GetModuleHandle(nullptr), MAKEINTRESOURCE(hb_parni(1))));
     }
-  }
-  else
-  {
+  } else {
     void *hString;
     hb_retptr(LoadBitmap(GetModuleHandle(nullptr), HB_PARSTR(1, &hString, nullptr)));
     hb_strfree(hString);
@@ -401,8 +381,7 @@ HB_FUNC(HWG_WINDOW2BITMAP)
   int height = HB_ISNUM(5) ? hb_parni(5) : 0;
   RECT rc;
 
-  if (width == 0 || height == 0)
-  {
+  if (width == 0 || height == 0) {
     GetWindowRect(hWnd, &rc);
     width = rc.right - rc.left;
     height = rc.bottom - rc.top;
@@ -439,14 +418,11 @@ HB_FUNC(HWG_DRAWBITMAP)
 
   SelectObject(hDCmem, hBitmap);
   GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
-  if (nWidthDest && (nWidthDest != bitmap.bmWidth || nHeightDest != bitmap.bmHeight))
-  {
+  if (nWidthDest && (nWidthDest != bitmap.bmWidth || nHeightDest != bitmap.bmHeight)) {
     SetStretchBltMode(hDC, COLORONCOLOR);
     StretchBlt(hDC, hb_parni(4), hb_parni(5), nWidthDest, nHeightDest, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight,
                dwraster);
-  }
-  else
-  {
+  } else {
     BitBlt(hDC, hb_parni(4), hb_parni(5), bitmap.bmWidth, bitmap.bmHeight, hDCmem, 0, 0, dwraster);
   }
 
@@ -480,8 +456,7 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
   auto pOldBitmapTrans = static_cast<HBITMAP>(SelectObject(dcTrans, bitmapTrans));
   // Build mask based on transparent colour
   SetBkColor(dcImage, trColor);
-  if (nWidthDest && (nWidthDest != bitmap.bmWidth || nHeightDest != bitmap.bmHeight))
-  {
+  if (nWidthDest && (nWidthDest != bitmap.bmWidth || nHeightDest != bitmap.bmHeight)) {
 #if 0
        BitBlt(dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCCOPY);
        SetStretchBltMode(hDC, COLORONCOLOR);
@@ -491,9 +466,7 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
 #endif
     SetStretchBltMode(hDC, COLORONCOLOR);
     TransparentBmp(hDC, x, y, nWidthDest, nHeightDest, dcImage, bitmap.bmWidth, bitmap.bmHeight, trColor);
-  }
-  else
-  {
+  } else {
 #if 0
        BitBlt(dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0, SRCCOPY);
        // Do the work - True Mask method - cool if not actual display
@@ -534,17 +507,14 @@ HB_FUNC(HWG_SPREADBITMAP)
 
   SelectObject(hDCmem, hBitmap);
   GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
-  if (rc.left == 0 && rc.right == 0)
-  {
+  if (rc.left == 0 && rc.right == 0) {
     GetClientRect(WindowFromDC(hDC), &rc);
   }
 
   nLeft = rc.left;
-  while (rc.top < rc.bottom)
-  {
+  while (rc.top < rc.bottom) {
     nHeight = (rc.bottom - rc.top >= bitmap.bmHeight) ? bitmap.bmHeight : rc.bottom - rc.top;
-    while (rc.left < rc.right)
-    {
+    while (rc.left < rc.right) {
       nWidth = (rc.right - rc.left >= bitmap.bmWidth) ? bitmap.bmWidth : rc.right - rc.left;
       BitBlt(hDC, rc.left, rc.top, nWidth, nHeight, hDCmem, 0, 0, SRCCOPY);
       rc.left += bitmap.bmWidth;
@@ -645,8 +615,7 @@ HB_FUNC(HWG_OPENBITMAP)
   HANDLE hfbm = CreateFile(HB_PARSTR(1, &hString, nullptr), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
                            FILE_ATTRIBUTE_READONLY, nullptr);
   hb_strfree(hString);
-  if ((reinterpret_cast<long int>(hfbm)) <= 0)
-  {
+  if ((reinterpret_cast<long int>(hfbm)) <= 0) {
     hb_retptr(nullptr);
     return;
   }
@@ -677,8 +646,7 @@ HB_FUNC(HWG_OPENBITMAP)
 
   //  Retrieve the color table.
   // 1 << bmih.biBitCount == 2 ^ bmih.biBitCount
-  switch (bmih.biBitCount)
-  {
+  switch (bmih.biBitCount) {
   case 1:
   case 4:
   case 8:
@@ -687,8 +655,7 @@ HB_FUNC(HWG_OPENBITMAP)
 
   case 16:
   case 32:
-    if (bmih.biCompression == BI_BITFIELDS)
-    {
+    if (bmih.biCompression == BI_BITFIELDS) {
       ReadFile(hfbm, lpbmi->bmiColors, (3 * sizeof(RGBQUAD)), &dwRead, nullptr);
     }
     break;
@@ -705,16 +672,14 @@ HB_FUNC(HWG_OPENBITMAP)
 
   ReadFile(hfbm, lpvBits, (bmfh.bfSize - bmfh.bfOffBits), &dwRead, nullptr);
 
-  if (!hDC)
-  {
+  if (!hDC) {
     hDC = GetDC(nullptr);
   }
 
   // Create a bitmap from the data stored in the .BMP file.
   hbm = CreateDIBitmap(hDC, &bmih, CBM_INIT, lpvBits, lpbmi, DIB_RGB_COLORS);
 
-  if (hb_pcount() < 2 || HB_ISNIL(2))
-  {
+  if (hb_pcount() < 2 || HB_ISNIL(2)) {
     ReleaseDC(0, hDC);
   }
 
@@ -750,20 +715,13 @@ HB_FUNC(HWG_SAVEBITMAP)
   int iBits = GetDeviceCaps(hDC, BITSPIXEL) * GetDeviceCaps(hDC, PLANES);
   DeleteDC(hDC);
 
-  if (iBits <= 1)
-  {
+  if (iBits <= 1) {
     wBitCount = 1;
-  }
-  else if (iBits <= 4)
-  {
+  } else if (iBits <= 4) {
     wBitCount = 4;
-  }
-  else if (iBits <= 8)
-  {
+  } else if (iBits <= 8) {
     wBitCount = 8;
-  }
-  else
-  {
+  } else {
     wBitCount = 24;
   }
 
@@ -785,8 +743,7 @@ HB_FUNC(HWG_SAVEBITMAP)
   *lpbi = bi;
 
   hPal = GetStockObject(DEFAULT_PALETTE);
-  if (hPal)
-  {
+  if (hPal) {
     hDC = GetDC(nullptr);
     hOldPal2 = SelectPalette(hDC, static_cast<HPALETTE>(hPal), FALSE);
     RealizePalette(hDC);
@@ -796,8 +753,7 @@ HB_FUNC(HWG_SAVEBITMAP)
             reinterpret_cast<LPSTR>(lpbi) + sizeof(BITMAPINFOHEADER) + dwPaletteSize,
             reinterpret_cast<BITMAPINFO *>(lpbi), DIB_RGB_COLORS);
 
-  if (hOldPal2)
-  {
+  if (hOldPal2) {
     SelectPalette(hDC, static_cast<HPALETTE>(hOldPal2), TRUE);
     RealizePalette(hDC);
     ReleaseDC(nullptr, hDC);
@@ -807,8 +763,7 @@ HB_FUNC(HWG_SAVEBITMAP)
                   FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
   hb_strfree(hString);
 
-  if (fh == INVALID_HANDLE_VALUE)
-  {
+  if (fh == INVALID_HANDLE_VALUE) {
     hb_retl(false);
     return;
   }
@@ -984,22 +939,17 @@ HB_FUNC(HWG_OPENIMAGE)
   IStream *pStream;
   HGLOBAL hG;
 
-  if (bString)
-  {
+  if (bString) {
     iFileSize = hb_parclen(1);
     hG = GlobalAlloc(GPTR, iFileSize);
-    if (!hG)
-    {
+    if (!hG) {
       hb_retptr(0);
       return;
     }
     memcpy(static_cast<void *>(hG), static_cast<void *>(const_cast<char *>(cFileName)), iFileSize);
-  }
-  else
-  {
+  } else {
     fp = fopen(cFileName, "rb");
-    if (!fp)
-    {
+    if (!fp) {
       hb_retptr(0);
       return;
     }
@@ -1007,8 +957,7 @@ HB_FUNC(HWG_OPENIMAGE)
     fseek(fp, 0, SEEK_END);
     iFileSize = ftell(fp);
     hG = GlobalAlloc(GPTR, iFileSize);
-    if (!hG)
-    {
+    if (!hG) {
       fclose(fp);
       hb_retptr(0);
       return;
@@ -1020,8 +969,7 @@ HB_FUNC(HWG_OPENIMAGE)
 
   CreateStreamOnHGlobal(hG, 0, &pStream);
 
-  if (!pStream)
-  {
+  if (!pStream) {
     GlobalFree(hG);
     hb_retptr(0);
     return;
@@ -1037,14 +985,12 @@ HB_FUNC(HWG_OPENIMAGE)
 
   GlobalFree(hG);
 
-  if (!pPic)
-  {
+  if (!pPic) {
     hb_retptr(0);
     return;
   }
 
-  if (iType == IMAGE_BITMAP)
-  {
+  if (iType == IMAGE_BITMAP) {
     HBITMAP hBitmap = 0;
 #if defined(__cplusplus)
     pPic->get_Handle(reinterpret_cast<OLE_HANDLE *>(&hBitmap));
@@ -1053,9 +999,7 @@ HB_FUNC(HWG_OPENIMAGE)
 #endif
 
     hb_retptr(CopyImage(hBitmap, IMAGE_BITMAP, 0, 0, LR_COPYRETURNORG));
-  }
-  else if (iType == IMAGE_ICON)
-  {
+  } else if (iType == IMAGE_ICON) {
     HICON hIcon = 0;
 #if defined(__cplusplus)
     pPic->get_Handle(reinterpret_cast<OLE_HANDLE *>(&hIcon));
@@ -1064,9 +1008,7 @@ HB_FUNC(HWG_OPENIMAGE)
 #endif
 
     hb_retptr(CopyImage(hIcon, IMAGE_ICON, 0, 0, 0));
-  }
-  else
-  {
+  } else {
     HCURSOR hCur = 0;
 #if defined(__cplusplus)
     pPic->get_Handle(reinterpret_cast<OLE_HANDLE *>(&hCur));
@@ -1164,8 +1106,7 @@ HB_FUNC(HWG_INFLATERECT)
   auto x = hb_parni(2);
   auto y = hb_parni(3);
 
-  if (HB_ISARRAY(1))
-  {
+  if (HB_ISARRAY(1)) {
     Array2Rect(hb_param(1, Harbour::Item::ARRAY), &pRect);
   }
   hb_retl(InflateRect(&pRect, x, y));
@@ -1180,8 +1121,7 @@ HB_FUNC(HWG_FRAMERECT)
 {
   RECT pRect;
 
-  if (HB_ISARRAY(2))
-  {
+  if (HB_ISARRAY(2)) {
     Array2Rect(hb_param(2, Harbour::Item::ARRAY), &pRect);
   }
 
@@ -1193,8 +1133,7 @@ HB_FUNC(HWG_DRAWFRAMECONTROL)
 {
   RECT pRect;
 
-  if (HB_ISARRAY(2))
-  {
+  if (HB_ISARRAY(2)) {
     Array2Rect(hb_param(2, Harbour::Item::ARRAY), &pRect);
   }
 
@@ -1206,8 +1145,7 @@ HB_FUNC(HWG_OFFSETRECT)
 {
   RECT pRect;
 
-  if (HB_ISARRAY(1))
-  {
+  if (HB_ISARRAY(1)) {
     Array2Rect(hb_param(1, Harbour::Item::ARRAY), &pRect);
   }
 
@@ -1223,8 +1161,7 @@ HB_FUNC(HWG_DRAWFOCUSRECT)
 {
   RECT pRect;
 
-  if (HB_ISARRAY(2))
-  {
+  if (HB_ISARRAY(2)) {
     Array2Rect(hb_param(2, Harbour::Item::ARRAY), &pRect);
   }
 
@@ -1233,8 +1170,7 @@ HB_FUNC(HWG_DRAWFOCUSRECT)
 
 BOOL Array2Point(PHB_ITEM aPoint, POINT *pt)
 {
-  if (HB_IS_ARRAY(aPoint) && hb_arrayLen(aPoint) == 2)
-  {
+  if (HB_IS_ARRAY(aPoint) && hb_arrayLen(aPoint) == 2) {
     pt->x = hb_arrayGetNL(aPoint, 1);
     pt->y = hb_arrayGetNL(aPoint, 2);
     return TRUE;
@@ -1369,19 +1305,16 @@ HB_FUNC(HWG_DRAWGRADIENT)
   int convert[4][2] = {{-1, 1}, {1, 1}, {1, -1}, {-1, -1}};
   long x, y;
 
-  if (!pArrColor || (user_colors_num = hb_arrayLen(pArrColor)) == 0)
-  {
+  if (!pArrColor || (user_colors_num = hb_arrayLen(pArrColor)) == 0) {
     return;
   }
 
-  if (user_colors_num >= 2)
-  {
+  if (user_colors_num >= 2) {
     colors_num = (user_colors_num <= GRADIENT_MAX_COLORS) ? user_colors_num : GRADIENT_MAX_COLORS;
     user_stops_num = pArrStop ? hb_arrayLen(pArrStop) : 0;
 
     type = (type >= 1 && type <= 9) ? type : 1;
-    switch (type)
-    {
+    switch (type) {
     case 1:
     case 2:
       isV = 1;
@@ -1403,47 +1336,33 @@ HB_FUNC(HWG_DRAWGRADIENT)
       gr_radius = sqrt(pow(static_cast<long double>(x2 - x1), 2) + pow(static_cast<long double>(y2 - y1), 2)) / 2;
     }
     // calculate stops and colors for our gradient
-    for (auto i = 0; i < colors_num; i++)
-    {
+    for (auto i = 0; i < colors_num; i++) {
       stop = (i < user_stops_num) ? hb_arrayGetND(pArrStop, i + 1) : 1. / (colors_num - 1) * i;
-      if (isV)
-      {
+      if (isV) {
         coord_stop = floor(stop * (y2 - y1 + 1) + 0.5);
-        if (type == 1)
-        {
+        if (type == 1) {
           stop_y[i] = y1 + coord_stop;
-        }
-        else
-        {
+        } else {
           stop_y[colors_num - 1 - i] = y2 + 1 - coord_stop;
         }
       }
-      if (isH)
-      {
+      if (isH) {
         coord_stop = floor(stop * (x2 - x1 + 1) + 0.5);
-        if (type == 3)
-        {
+        if (type == 3) {
           stop_x[i] = x1 + coord_stop;
-        }
-        else
-        {
+        } else {
           stop_x[colors_num - 1 - i] = x2 + 1 - coord_stop;
         }
       }
-      if (isD)
-      {
+      if (isD) {
         coord_stop = floor(stop * 2 * (x2 - x1 + 1) + 0.5);
-        if (type == 5 || type == 7)
-        {
+        if (type == 5 || type == 7) {
           stop_x[i] = 2 * x1 - x2 - 1 + coord_stop;
-        }
-        else
-        {
+        } else {
           stop_x[colors_num - 1 - i] = x2 + 1 - coord_stop;
         }
       }
-      if (isR)
-      {
+      if (isR) {
         stop_x[i] = floor(stop * gr_radius + 0.5);
       }
 
@@ -1458,8 +1377,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
     // create the memory device context that compatable to our main device.
     hDC_mem = CreateCompatibleDC(hDC);
 
-    if (type >= 1 && type <= 4)
-    { // horizontal and vertical gradients
+    if (type >= 1 && type <= 4) { // horizontal and vertical gradients
       // We create a bitmap that compatable to our main device
       // and attach it to the memory device context.
       bmp = static_cast<HBITMAP>(CreateCompatibleBitmap(hDC, x2 + 1, y2 + 1));
@@ -1470,8 +1388,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
       // (for a rectangle two vertices need to be defined: upper-left and lower-right).
       // 2. Array of GRADIENT_RECT structures that
       // reference the TRIVERTEX vertices.
-      for (int i = 1; i < colors_num; i++)
-      {
+      for (int i = 1; i < colors_num; i++) {
         vertex[(i - 1) * 2].x = isH ? stop_x[i - 1] : x1;
         vertex[(i - 1) * 2].y = isV ? stop_y[i - 1] : y1;
         vertex[(i - 1) * 2].Red = static_cast<COLOR16>(red[i - 1] * 256);
@@ -1496,18 +1413,14 @@ HB_FUNC(HWG_DRAWGRADIENT)
       GradientFill(hDC_mem, vertex, (colors_num - 1) * 2, gRect, (colors_num - 1), fill_type);
 
       // shifts of edges
-      if ((isV && stop_y[0] > y1) || (isH && stop_x[0] > x1))
-      {
+      if ((isV && stop_y[0] > y1) || (isH && stop_x[0] > x1)) {
         hPen = CreatePen(PS_SOLID, 1, RGB(red[0], green[0], blue[0]));
         hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
         hBrush = CreateSolidBrush(RGB(red[0], green[0], blue[0]));
         SelectObject(hDC_mem, hBrush);
-        if (isV)
-        {
+        if (isV) {
           Rectangle(hDC_mem, x1, y1, x2 + 1, stop_y[0]);
-        }
-        else
-        {
+        } else {
           Rectangle(hDC_mem, x1, y1, stop_x[0], y2 + 1);
         }
 
@@ -1515,18 +1428,14 @@ HB_FUNC(HWG_DRAWGRADIENT)
         DeleteObject(hPen);
         DeleteObject(hBrush);
       }
-      if ((isV && stop_y[colors_num - 1] < y2 + 1) || (isH && stop_x[colors_num - 1] < x2 + 1))
-      {
+      if ((isV && stop_y[colors_num - 1] < y2 + 1) || (isH && stop_x[colors_num - 1] < x2 + 1)) {
         hPen = CreatePen(PS_SOLID, 1, RGB(red[colors_num - 1], green[colors_num - 1], blue[colors_num - 1]));
         hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
         hBrush = CreateSolidBrush(RGB(red[colors_num - 1], green[colors_num - 1], blue[colors_num - 1]));
         SelectObject(hDC_mem, hBrush);
-        if (isV)
-        {
+        if (isV) {
           Rectangle(hDC_mem, x1, stop_y[colors_num - 1], x2 + 1, y2 + 1);
-        }
-        else
-        {
+        } else {
           Rectangle(hDC_mem, stop_x[colors_num - 1], y1, x2 + 1, y2 + 1);
         }
 
@@ -1536,26 +1445,22 @@ HB_FUNC(HWG_DRAWGRADIENT)
       }
 
     } // end horizontal and vertical gradients
-    else if (type >= 5 && type <= 8)
-    { // diagonal gradients
+    else if (type >= 5 && type <= 8) { // diagonal gradients
       // We create a bitmap that compatable to our main device
       // and attach it to the memory device context.
       bmp = static_cast<HBITMAP>(CreateCompatibleBitmap(hDC, 2 * x2 - x1 + 2, y2 + 1));
       SelectObject(hDC_mem, bmp);
 
-      if (type == 5 || type == 6)
-      {
+      if (type == 5 || type == 6) {
         is_5_6 = 1;
       }
 
-      for (int i = 1; i < colors_num; i++)
-      {
+      for (int i = 1; i < colors_num; i++) {
         section_len = stop_x[i] - stop_x[i - 1];
         red_step = static_cast<double>(red[i] - red[i - 1]) / section_len;
         green_step = static_cast<double>(green[i] - green[i - 1]) / section_len;
         blue_step = static_cast<double>(blue[i] - blue[i - 1]) / section_len;
-        for (j = stop_x[i - 1], k = 0; j <= stop_x[i]; j++, k++)
-        {
+        for (j = stop_x[i - 1], k = 0; j <= stop_x[i]; j++, k++) {
           cur_red = floor(red[i - 1] + k * red_step + 0.5);
           cur_green = floor(green[i - 1] + k * green_step + 0.5);
           cur_blue = floor(blue[i - 1] + k * blue_step + 0.5);
@@ -1573,8 +1478,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
       }
 
       // shifts of edges
-      if (stop_x[0] > 2 * x1 - x2 - 1)
-      { // on the left
+      if (stop_x[0] > 2 * x1 - x2 - 1) { // on the left
         hPen = CreatePen(PS_SOLID, 1, RGB(red[0], green[0], blue[0]));
         hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
         hBrush = CreateSolidBrush(RGB(red[0], green[0], blue[0]));
@@ -1595,8 +1499,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
         DeleteObject(hPen);
         DeleteObject(hBrush);
       }
-      if (stop_x[colors_num - 1] < x2)
-      { // on the right
+      if (stop_x[colors_num - 1] < x2) { // on the right
         hPen = CreatePen(PS_SOLID, 1, RGB(red[colors_num - 1], green[colors_num - 1], blue[colors_num - 1]));
         hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
         hBrush = CreateSolidBrush(RGB(red[colors_num - 1], green[colors_num - 1], blue[colors_num - 1]));
@@ -1619,16 +1522,14 @@ HB_FUNC(HWG_DRAWGRADIENT)
       }
 
     } // end diagonal gradients
-    else if (type == 9)
-    { // radial gradients
+    else if (type == 9) { // radial gradients
       // We create a bitmap that compatable to our main device
       // and attach it to the memory device context.
       bmp = static_cast<HBITMAP>(CreateCompatibleBitmap(hDC, x2 + 1, y2 + 1));
       SelectObject(hDC_mem, bmp);
 
       // shifts of edge
-      if (stop_x[colors_num - 1] < gr_radius)
-      {
+      if (stop_x[colors_num - 1] < gr_radius) {
         hPen = CreatePen(PS_SOLID, 1, RGB(red[colors_num - 1], green[colors_num - 1], blue[colors_num - 1]));
         hPenOld = static_cast<HPEN>(SelectObject(hDC_mem, hPen));
         hBrush = CreateSolidBrush(RGB(red[colors_num - 1], green[colors_num - 1], blue[colors_num - 1]));
@@ -1641,14 +1542,12 @@ HB_FUNC(HWG_DRAWGRADIENT)
         DeleteObject(hBrush);
       }
 
-      for (int i = colors_num - 1; i > 0; i--)
-      {
+      for (int i = colors_num - 1; i > 0; i--) {
         section_len = stop_x[i] - stop_x[i - 1];
         red_step = static_cast<double>(red[i - 1] - red[i]) / section_len;
         green_step = static_cast<double>(green[i - 1] - green[i]) / section_len;
         blue_step = static_cast<double>(blue[i - 1] - blue[i]) / section_len;
-        for (j = stop_x[i], k = 0; j >= stop_x[i - 1]; j--, k++)
-        {
+        for (j = stop_x[i], k = 0; j >= stop_x[i - 1]; j--, k++) {
           cur_red = floor(red[i] + k * red_step + 0.5);
           cur_green = floor(green[i] + k * green_step + 0.5);
           cur_blue = floor(blue[i] + k * blue_step + 0.5);
@@ -1672,8 +1571,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
   // We draw polygon that looks like rectangle with rounded corners.
   // WinAPI allows to fill this figure with brush.
   user_radiuses_num = pArrRadius ? hb_arrayLen(pArrRadius) : 0;
-  for (auto i = 0; i < 4; i++)
-  {
+  for (auto i = 0; i < 4; i++) {
     radius[i] = (i < user_radiuses_num) ? hb_arrayGetNI(pArrRadius, i + 1) : 0;
     radius[i] = (radius[i] >= 0) ? radius[i] : 0;
   }
@@ -1687,19 +1585,14 @@ HB_FUNC(HWG_DRAWGRADIENT)
   center[3].x = x1 + radius[3];
   center[3].y = y2 - radius[3];
 
-  for (auto i = 0; i < 4; i++)
-  {
-    if (radius[i] == 0)
-    {
+  for (auto i = 0; i < 4; i++) {
+    if (radius[i] == 0) {
       // This is not rounded corner.
       polygon[polygon_len].x = center[i].x;
       polygon[polygon_len].y = center[i].y;
       polygon_len++;
-    }
-    else
-    {
-      if (i == 0 || radius[i] != radius[i - 1])
-      {
+    } else {
+      if (i == 0 || radius[i] != radius[i - 1]) {
         // The radius is greater than zero, so we draw a quarter circle.
         // The drawing uses the principle of Bresenham's circle algorithm
         // for finding in the group of pixels the nearest pixel to a circle.
@@ -1716,8 +1609,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
 
         angle = -M_PI_2;
         angle_step = M_PI_2 / SECTORS_NUM;
-        for (j = 1; j < SECTORS_NUM; j++)
-        {
+        for (j = 1; j < SECTORS_NUM; j++) {
           angle += angle_step;
           coord_x = cos(angle) * radius[i];
           coord_y = sin(angle) * radius[i];
@@ -1731,13 +1623,11 @@ HB_FUNC(HWG_DRAWGRADIENT)
           candidates[3].x = ceil(coord_x);
           candidates[3].y = ceil(coord_y);
           min_delta = 1000000;
-          for (k = 0; k < 4; k++)
-          {
+          for (k = 0; k < 4; k++) {
             delta = abs(static_cast<long>(pow(static_cast<long double>(candidates[k].x), 2) +
                                           pow(static_cast<long double>(candidates[k].y), 2) -
                                           pow(static_cast<long double>(radius[i]), 2)));
-            if (delta < min_delta)
-            {
+            if (delta < min_delta) {
               nearest_coord = k;
               min_delta = delta;
             }
@@ -1751,12 +1641,10 @@ HB_FUNC(HWG_DRAWGRADIENT)
       cycle_start = (i % 2 == 0) ? SECTORS_NUM : 0;
       cycle_stop = (i % 2 == 0) ? -1 : SECTORS_NUM + 1;
       cycle_step = (i % 2 == 0) ? -1 : 1;
-      for (j = cycle_start; j != cycle_stop; j += cycle_step)
-      {
+      for (j = cycle_start; j != cycle_stop; j += cycle_step) {
         x = convert[i][0] * coords[j].x + center[i].x;
         y = convert[i][1] * coords[j].y + center[i].y;
-        if (polygon_len == 0 || x != polygon[polygon_len - 1].x || y != polygon[polygon_len - 1].y)
-        {
+        if (polygon_len == 0 || x != polygon[polygon_len - 1].x || y != polygon[polygon_len - 1].y) {
           polygon[polygon_len].x = x;
           polygon[polygon_len].y = y;
           polygon_len++;
@@ -1766,13 +1654,10 @@ HB_FUNC(HWG_DRAWGRADIENT)
   }
 
   // We draw polygon and fill it with brush
-  if (user_colors_num >= 2)
-  {
+  if (user_colors_num >= 2) {
     hPen = CreatePen(PS_NULL, 1, RGB(0, 0, 0));
     hBrush = CreatePatternBrush(bmp);
-  }
-  else
-  {
+  } else {
     color = hb_arrayGetNL(pArrColor, 1);
     hPen = CreatePen(PS_SOLID, 1, color);
     hBrush = CreateSolidBrush(color);
@@ -1782,19 +1667,16 @@ HB_FUNC(HWG_DRAWGRADIENT)
   SelectObject(hDC, hBrush);
   Polygon(hDC, polygon, polygon_len);
 
-  if (user_colors_num >= 2)
-  {
+  if (user_colors_num >= 2) {
     // In WinAPI rightmost column and bottommost row of pixels are ignored while filling polygon
     // with "PS_NULL" border, so we draw additional figures to complete our glory.
     Rectangle(hDC, x2, y1 + radius[1], x2 + 2, y2 - radius[2] + 2);
     Rectangle(hDC, x1 + radius[3], y2, x2 - radius[2] + 2, y2 + 2);
 
-    if (bmp)
-    {
+    if (bmp) {
       DeleteObject(bmp);
     }
-    if (hDC_mem)
-    {
+    if (hDC_mem) {
       DeleteDC(hDC_mem);
     }
   }

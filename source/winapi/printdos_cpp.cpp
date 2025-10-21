@@ -30,25 +30,19 @@ static int file_read(FILE *stream, char *string)
 
   memset(string, ' ', LINE_MAX);
 
-  for (;;)
-  {
+  for (;;) {
     ch = fgetc(stream);
 
-    if ((ch == '\n') || (ch == EOF) || (ch == 26))
-    {
+    if ((ch == '\n') || (ch == EOF) || (ch == 26)) {
       string[cnbr] = '\0';
       return (ch == '\n' || cnbr);
-    }
-    else
-    {
-      if (cnbr < LINE_MAX && ch != '\r')
-      {
+    } else {
+      if (cnbr < LINE_MAX && ch != '\r') {
         string[cnbr++] = (char)ch;
       }
     }
 
-    if (cnbr >= LINE_MAX)
-    {
+    if (cnbr >= LINE_MAX) {
       string[LINE_MAX] = '\0';
       return (1);
     }
@@ -62,22 +56,19 @@ HB_FUNC(AFILLTEXT)
   auto pArray = hb_itemNew(nullptr);
   auto pTemp = hb_itemNew(nullptr);
 
-  if (!pSrc)
-  {
+  if (!pSrc) {
     hb_reta(0);
     return;
   }
 
-  if (strlen(pSrc) == 0)
-  {
+  if (strlen(pSrc) == 0) {
     hb_reta(0);
     return;
   }
 
   FILE *inFile = fopen(pSrc, "r");
 
-  if (!inFile)
-  {
+  if (!inFile) {
     hb_reta(0);
     return;
   }
@@ -85,8 +76,7 @@ HB_FUNC(AFILLTEXT)
   auto string = static_cast<char *>(hb_xgrab(LINE_MAX + 1));
   hb_arrayNew(pArray, 0);
 
-  while (file_read(inFile, string))
-  {
+  while (file_read(inFile, string)) {
     hb_arrayAddForward(pArray, hb_itemPutC(pTemp, string));
   }
 
@@ -100,8 +90,7 @@ HB_FUNC(HWG_WIN_ANSITOOEM)
 {
   auto pString = hb_param(1, Harbour::Item::STRING);
 
-  if (pString)
-  {
+  if (pString) {
     int nLen = (int)hb_itemGetCLen(pString);
     auto pszSrc = hb_itemGetCPtr(pString);
 
@@ -117,9 +106,7 @@ HB_FUNC(HWG_WIN_ANSITOOEM)
 
     hb_xfree(pszWide);
     hb_retclen_buffer(pszDst, nLen);
-  }
-  else
-  {
+  } else {
     hb_retc_null();
   }
 }

@@ -28,12 +28,9 @@ HB_FUNC(HWG_REGCREATEKEY)
   DWORD dwDisposition;
 
   if (RegCreateKeyEx(reinterpret_cast<HKEY>(hb_parnl(1)), HB_PARSTR(2, &str, nullptr), 0, nullptr, 0, KEY_ALL_ACCESS,
-                     nullptr, &hkResult, &dwDisposition) == ERROR_SUCCESS)
-  {
+                     nullptr, &hkResult, &dwDisposition) == ERROR_SUCCESS) {
     hb_retnl(reinterpret_cast<ULONG>(hkResult));
-  }
-  else
-  {
+  } else {
     hb_retnl(-1);
   }
   hb_strfree(str);
@@ -46,12 +43,9 @@ HB_FUNC(HWG_REGOPENKEY)
   HKEY hkResult = nullptr;
 
   if (RegOpenKeyEx(reinterpret_cast<HKEY>(hb_parnl(1)), HB_PARSTR(2, &str, nullptr), 0, KEY_ALL_ACCESS, &hkResult) ==
-      ERROR_SUCCESS)
-  {
+      ERROR_SUCCESS) {
     hb_retnl(reinterpret_cast<ULONG>(hkResult));
-  }
-  else
-  {
+  } else {
     hb_retnl(-1);
   }
   hb_strfree(str);
@@ -69,12 +63,9 @@ HB_FUNC(HWG_REGSETSTRING)
   void *str;
 
   if (RegSetValueEx(reinterpret_cast<HKEY>(hb_parnl(1)), HB_PARSTR(2, &str, nullptr), 0, REG_SZ, (BYTE *)hb_parc(3),
-                    hb_parclen(3) + 1) == ERROR_SUCCESS)
-  {
+                    hb_parclen(3) + 1) == ERROR_SUCCESS) {
     hb_retnl(0);
-  }
-  else
-  {
+  } else {
     hb_retnl(-1);
   }
 
@@ -86,12 +77,9 @@ HB_FUNC(HWG_REGSETBINARY)
   void *str;
 
   if (RegSetValueEx(reinterpret_cast<HKEY>(hb_parnl(1)), HB_PARSTR(2, &str, nullptr), 0, REG_BINARY, (BYTE *)hb_parc(3),
-                    hb_parclen(3) + 1) == ERROR_SUCCESS)
-  {
+                    hb_parclen(3) + 1) == ERROR_SUCCESS) {
     hb_retnl(0);
-  }
-  else
-  {
+  } else {
     hb_retnl(-1);
   }
 
@@ -107,27 +95,20 @@ HB_FUNC(HWG_REGGETVALUE)
   DWORD lpcbData;
   int length;
 
-  if (RegQueryValueEx(hKey, lpValueName, nullptr, nullptr, nullptr, &lpcbData) == ERROR_SUCCESS)
-  {
+  if (RegQueryValueEx(hKey, lpValueName, nullptr, nullptr, nullptr, &lpcbData) == ERROR_SUCCESS) {
     length = (int)lpcbData;
     lpData = static_cast<LPBYTE>(hb_xgrab(length + 1));
-    if (RegQueryValueEx(hKey, lpValueName, nullptr, &lpType, lpData, &lpcbData) == ERROR_SUCCESS)
-    {
+    if (RegQueryValueEx(hKey, lpValueName, nullptr, &lpType, lpData, &lpcbData) == ERROR_SUCCESS) {
       hb_retclen((char *)lpData,
                  (lpType == REG_SZ || lpType == REG_MULTI_SZ || lpType == REG_EXPAND_SZ) ? length - 1 : length);
-      if (hb_pcount() > 2)
-      {
+      if (hb_pcount() > 2) {
         hb_stornl(static_cast<LONG>(lpType), 3);
       }
-    }
-    else
-    {
+    } else {
       hb_ret();
     }
     hb_xfree(lpData);
-  }
-  else
-  {
+  } else {
     hb_ret();
   }
 }

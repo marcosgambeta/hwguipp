@@ -43,13 +43,11 @@ HB_FUNC(HWG_LISTVIEW_CREATE)
 {
   int style = LVS_SHOWSELALWAYS | hb_parni(7);
 
-  if (hb_parl(8))
-  {
+  if (hb_parl(8)) {
     style = style | LVS_NOCOLUMNHEADER;
   }
 
-  if (hb_parl(9))
-  {
+  if (hb_parl(9)) {
     style = style | LVS_NOSCROLL;
   }
 
@@ -64,8 +62,7 @@ HB_FUNC(HWG_LISTVIEW_INIT)
 {
   auto style = 0;
 
-  if (!hb_parl(3))
-  {
+  if (!hb_parl(3)) {
     style = style | LVS_EX_GRIDLINES;
   }
 
@@ -91,13 +88,10 @@ HB_FUNC(HWG_LISTVIEW_ADDCOLUMN)
   COL.pszText = const_cast<LPTSTR>(HB_PARSTRDEF(4, &hText, nullptr));
   COL.iSubItem = hb_parni(2) - 1;
   COL.fmt = hb_parni(5);
-  if (iImage > 0)
-  {
+  if (iImage > 0) {
     COL.mask = COL.mask | LVCF_IMAGE;
     COL.iImage = hb_parni(2) - 1;
-  }
-  else
-  {
+  } else {
     COL.iImage = -1;
   }
 
@@ -151,15 +145,13 @@ HB_FUNC(HWG_LISTVIEW_SETDISPINFO)
 {
   auto pDispInfo = static_cast<LV_DISPINFO *>(hb_parptr(1));
 
-  if (pDispInfo->item.mask & LVIF_TEXT)
-  {
+  if (pDispInfo->item.mask & LVIF_TEXT) {
     HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->item.pszText, pDispInfo->item.cchTextMax);
     pDispInfo->item.pszText[pDispInfo->item.cchTextMax - 1] = 0;
   }
   // it seems these lines below are not strictly necessary for text cells
   // since we don't get a LVIF_STATE message !
-  if (pDispInfo->item.iSubItem == 0)
-  {
+  if (pDispInfo->item.iSubItem == 0) {
     pDispInfo->item.state = 2;
   }
 }
@@ -210,14 +202,11 @@ HB_FUNC(HWG_LISTVIEW_HITTEST)
 
   ListView_SubItemHitTest(hwg_par_HWND(1), &lvhti);
 
-  if (lvhti.flags & LVHT_ONITEM)
-  {
+  if (lvhti.flags & LVHT_ONITEM) {
     hb_reta(2);
     hb_storvni(lvhti.iItem + 1, -1, 1);
     hb_storvni(lvhti.iSubItem + 1, -1, 2);
-  }
-  else
-  {
+  } else {
     hb_reta(2);
     hb_storvni(0, -1, 1);
     hb_storvni(0, -1, 2);
@@ -247,8 +236,7 @@ HB_FUNC(HWG_LISTVIEW_SETVIEW)
   DWORD dwStyle = GetWindowLongPtr(hWndListView, GWL_STYLE);
 
   // Only set the window style if the view bits have changed.
-  if ((dwStyle & LVS_TYPEMASK) != dwView)
-  {
+  if ((dwStyle & LVS_TYPEMASK) != dwView) {
     SetWindowLongPtr(hWndListView, GWL_STYLE, (dwStyle & ~LVS_TYPEMASK) | dwView);
     //  RedrawWindow(hwg_par_HWND(1), nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
     //  RDW_UPDATENOW);
@@ -264,12 +252,9 @@ HB_FUNC(HWG_LISTVIEW_ADDCOLUMNEX)
   LVCOLUMN lvcolumn{};
   int iResult;
 
-  if (iImage > 0)
-  {
+  if (iImage > 0) {
     lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_IMAGE | LVCF_WIDTH;
-  }
-  else
-  {
+  } else {
     lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_WIDTH;
   }
 
@@ -280,12 +265,9 @@ HB_FUNC(HWG_LISTVIEW_ADDCOLUMNEX)
   lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
   if (SendMessage(static_cast<HWND>(hwndListView), LVM_INSERTCOLUMN, static_cast<WPARAM>(static_cast<int>(lCol)),
-                  reinterpret_cast<LPARAM>(&lvcolumn)) == -1)
-  {
+                  reinterpret_cast<LPARAM>(&lvcolumn)) == -1) {
     iResult = 0;
-  }
-  else
-  {
+  } else {
     iResult = 1;
   }
 
@@ -310,12 +292,9 @@ HB_FUNC(HWG_LISTVIEW_INSERTITEMEX)
 
   GetClientRect(hwndListView, &rect);
 
-  if (iBitMap >= 0)
-  {
+  if (iBitMap >= 0) {
     lvi.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
-  }
-  else
-  {
+  } else {
     lvi.mask = LVIF_TEXT | LVIF_STATE;
   }
 
@@ -326,26 +305,19 @@ HB_FUNC(HWG_LISTVIEW_INSERTITEMEX)
   lvi.iItem = lLin;
   lvi.iSubItem = lCol;
 
-  switch (iSubItemYesNo)
-  {
+  switch (iSubItemYesNo) {
   case 0:
-    if (SendMessage(hwndListView, LVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&lvi)) == -1)
-    {
+    if (SendMessage(hwndListView, LVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&lvi)) == -1) {
       iResult = 0;
-    }
-    else
-    {
+    } else {
       iResult = 1;
     }
     break;
 
   case 1:
-    if (SendMessage(hwndListView, LVM_SETITEM, 0, reinterpret_cast<LPARAM>(&lvi)) == FALSE)
-    {
+    if (SendMessage(hwndListView, LVM_SETITEM, 0, reinterpret_cast<LPARAM>(&lvi)) == FALSE) {
       iResult = 0;
-    }
-    else
-    {
+    } else {
       iResult = 1;
     }
     break;
@@ -384,8 +356,7 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pArray)
   auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
   PHB_ITEM pColor;
 
-  switch (lplvcd->nmcd.dwDrawStage)
-  {
+  switch (lplvcd->nmcd.dwDrawStage) {
   case CDDS_PREPAINT: {
     return CDRF_NOTIFYITEMDRAW;
   }
@@ -429,12 +400,9 @@ HB_FUNC(HWG_LISTVIEWGETITEM)
   Item.pszText = Buffer;
   Item.cchTextMax = HB_SIZEOFARRAY(Buffer);
 
-  if (ListView_GetItem(hList, &Item))
-  {
+  if (ListView_GetItem(hList, &Item)) {
     HB_RETSTR(Buffer);
-  }
-  else
-  {
+  } else {
     hb_retc(nullptr);
   }
 }
@@ -454,8 +422,7 @@ int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
   ListView_GetItemText(pListControl, lParam2, nColumnNo, szB, HB_SIZEOFARRAY(szB));
 
   rc = lstrcmp(szA, szB);
-  if (!nAscendingSortOrder)
-  {
+  if (!nAscendingSortOrder) {
     rc = -rc;
   }
 
@@ -467,15 +434,13 @@ HB_FUNC(HWG_LISTVIEWSORTINFONEW)
   // auto p = static_cast<PSORTINFO>(hb_xgrab(sizeof(SortInfo)));
   // LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) hb_parnl(1);
 
-  if (HB_ISPOINTER(2))
-  {
+  if (HB_ISPOINTER(2)) {
     return;
   }
 
   auto p = static_cast<PSORTINFO>(hb_xgrab(sizeof(SortInfo)));
 
-  if (p)
-  {
+  if (p) {
     p->pListControl = nullptr;
     p->nColumnNo = -1;
     p->nAscendingSortOrder = FALSE;
@@ -488,8 +453,7 @@ HB_FUNC(HWG_LISTVIEWSORTINFOFREE)
 {
   auto p = static_cast<PSORTINFO>(hb_parptr(3));
 
-  if (p)
-  {
+  if (p) {
     hb_xfree(p);
   }
 }
@@ -499,12 +463,9 @@ HB_FUNC(HWG_LISTVIEWSORT)
   auto p = static_cast<PSORTINFO>(hb_parptr(3));
   auto phdNotify = static_cast<LPNMLISTVIEW>(hb_parptr(2));
 
-  if (phdNotify->iSubItem == p->nColumnNo)
-  {
+  if (phdNotify->iSubItem == p->nColumnNo) {
     p->nAscendingSortOrder = !p->nAscendingSortOrder;
-  }
-  else
-  {
+  } else {
     p->nAscendingSortOrder = TRUE;
   }
 

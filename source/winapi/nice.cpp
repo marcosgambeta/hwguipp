@@ -114,8 +114,7 @@ void Gradient(HDC hdc, int x, int y, int w, int h, int color1, int color2, int n
 LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   PHB_DYNS pSymTest;
-  if ((pSymTest = hb_dynsymFind("HWG_NICEBUTTPROC")) != nullptr)
-  {
+  if ((pSymTest = hb_dynsymFind("HWG_NICEBUTTPROC")) != nullptr) {
     hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
     hb_vmPushNil(); // places NIL at self
     // hb_vmPushLong(static_cast<LONG>(hWnd));   // pushes parameters on to the hvm stack
@@ -125,17 +124,12 @@ LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
     hb_vmPushLong(static_cast<LONG>(lParam));
     hb_vmDo(4); // where iArgCount is the number of pushed parameters
     long int res = hb_parl(-1);
-    if (res)
-    {
+    if (res) {
       return 0;
-    }
-    else
-    {
+    } else {
       return (DefWindowProc(hWnd, message, wParam, lParam));
     }
-  }
-  else
-  {
+  } else {
     return (DefWindowProc(hWnd, message, wParam, lParam));
   }
 }
@@ -157,8 +151,7 @@ HB_FUNC(HWG_REGNICE)
   static LPCTSTR s_szAppName = TEXT("NICEBUTT");
   static BOOL s_bRegistered = 0;
 
-  if (!s_bRegistered)
-  {
+  if (!s_bRegistered) {
     WNDCLASS wc;
 
     wc.style = CS_HREDRAW | CS_VREDRAW | CS_GLOBALCLASS;

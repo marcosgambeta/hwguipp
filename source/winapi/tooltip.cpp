@@ -35,19 +35,16 @@ HB_FUNC(HWG_ADDTOOLTIP)
   auto iStyle = 0;
   void *hStr;
 
-  if (s_lToolTipBalloon)
-  {
+  if (s_lToolTipBalloon) {
     iStyle = TTS_BALLOON;
   }
 
-  if (!s_hWndTT)
-  {
+  if (!s_hWndTT) {
     s_hWndTT =
         CreateWindowEx(0, TOOLTIPS_CLASS, nullptr, WS_POPUP | TTS_ALWAYSTIP | iStyle, CW_USEDEFAULT, CW_USEDEFAULT,
                        CW_USEDEFAULT, CW_USEDEFAULT, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
   }
-  if (!s_hWndTT)
-  {
+  if (!s_hWndTT) {
     hb_retl(false);
     return;
   }
@@ -69,8 +66,7 @@ HB_FUNC(HWG_DELTOOLTIP)
 {
   auto hWnd = hwg_par_HWND(1);
 
-  if (s_hWndTT)
-  {
+  if (s_hWndTT) {
     TOOLINFO ti{};
     ti.cbSize = sizeof(TOOLINFO);
     ti.uFlags = TTF_IDISHWND;
@@ -87,8 +83,7 @@ HB_FUNC(HWG_SETTOOLTIPTITLE)
 {
   auto hWnd = hwg_par_HWND(1);
 
-  if (s_hWndTT)
-  {
+  if (s_hWndTT) {
     void *hStr;
 
     TOOLINFO ti{};

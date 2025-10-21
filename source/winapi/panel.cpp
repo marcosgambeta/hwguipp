@@ -36,8 +36,7 @@ HB_FUNC(HWG_REGPANEL)
 {
   static auto bRegistered = false;
 
-  if (!bRegistered)
-  {
+  if (!bRegistered) {
     WNDCLASS wndclass;
 
     wndclass.style = CS_OWNDC | CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;

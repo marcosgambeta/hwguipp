@@ -94,16 +94,12 @@ HB_FUNC(HWG_TOOLBARADDBUTTONS)
 
   SendMessage(hWndCtrl, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0L);
 
-  for (ULONG ulCount = 0; (ulCount < hb_arrayLen(pArray)); ulCount++)
-  {
+  for (ULONG ulCount = 0; (ulCount < hb_arrayLen(pArray)); ulCount++) {
     pTemp = hb_arrayGetItemPtr(pArray, ulCount + 1);
     ulID = hb_arrayGetNI(pTemp, 1);
-    if (hb_arrayGetNI(pTemp, 4) == TBSTYLE_SEP)
-    {
+    if (hb_arrayGetNI(pTemp, 4) == TBSTYLE_SEP) {
       tb[ulCount].iBitmap = 8;
-    }
-    else
-    {
+    } else {
       tb[ulCount].iBitmap = ulID - 1; // ulID > 0 ? static_cast<int>(ulCount) : -1;
     }
     tb[ulCount].idCommand = hb_arrayGetNI(pTemp, 2);
@@ -138,12 +134,9 @@ HB_FUNC(HWG_TOOLBAR_LOADIMAGE)
   TBADDBITMAP tbab;
 
   tbab.hInst = nullptr;
-  if (HB_ISPOINTER(2))
-  {
+  if (HB_ISPOINTER(2)) {
     tbab.nID = reinterpret_cast<UINT_PTR>(hb_parptr(2));
-  }
-  else
-  {
+  } else {
     tbab.nID = static_cast<UINT_PTR>(hb_parni(2));
   }
 
@@ -174,8 +167,7 @@ HB_FUNC(HWG_TOOLBAR_SETDISPINFO)
   // auto pDispInfo = static_cast<LPTOOLTIPTEXT>(hb_parptr(1));
   auto pDispInfo = static_cast<LPNMTTDISPINFO>(hb_parptr(1));
 
-  if (pDispInfo)
-  {
+  if (pDispInfo) {
     HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->szText, HB_SIZEOFARRAY(pDispInfo->szText));
     pDispInfo->szText[HB_SIZEOFARRAY(pDispInfo->szText) - 1] = 0;
 #if 0
@@ -198,8 +190,7 @@ HB_FUNC(HWG_TOOLBAR_GETDISPINFOID)
 HB_FUNC(HWG_TOOLBAR_GETINFOTIP)
 {
   auto pDispInfo = static_cast<LPNMTBGETINFOTIP>(hb_parptr(1));
-  if (pDispInfo && pDispInfo->cchTextMax > 0)
-  {
+  if (pDispInfo && pDispInfo->cchTextMax > 0) {
     HB_ITEMCOPYSTR(hb_param(2, Harbour::Item::ANY), pDispInfo->pszText, pDispInfo->cchTextMax);
     pDispInfo->pszText[pDispInfo->cchTextMax - 1] = 0;
   }

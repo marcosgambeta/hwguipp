@@ -59,13 +59,11 @@ LRESULT APIENTRY StaticSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
 {
   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-  if (!pSym_onEvent)
-  {
+  if (!pSym_onEvent) {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
   }
 
-  if (pSym_onEvent && pObject)
-  {
+  if (pSym_onEvent && pObject) {
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
     hb_vmPush(pObject);
     hb_vmPushLong(static_cast<LONG>(message));
@@ -74,25 +72,17 @@ LRESULT APIENTRY StaticSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
     hb_vmPushPointer(reinterpret_cast<void *>(wParam));
     hb_vmPushPointer(reinterpret_cast<void *>(lParam));
     hb_vmSend(3);
-    if (HB_ISPOINTER(-1))
-    {
+    if (HB_ISPOINTER(-1)) {
       return reinterpret_cast<LRESULT>(hb_parptr(-1));
-    }
-    else
-    {
+    } else {
       long int res = hb_parnl(-1);
-      if (res == -1)
-      {
+      if (res == -1) {
         return (CallWindowProc(wpOrigStaticProc, hWnd, message, wParam, lParam));
-      }
-      else
-      {
+      } else {
         return res;
       }
     }
-  }
-  else
-  {
+  } else {
     return (CallWindowProc(wpOrigStaticProc, hWnd, message, wParam, lParam));
   }
 }

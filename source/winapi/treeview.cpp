@@ -33,12 +33,10 @@ HB_FUNC(HWG_CREATETREE)
                      hwg_par_int(5), hwg_par_int(6), hwg_par_int(7), hwg_par_HWND(1),
                      reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);
 
-  if (!HB_ISNIL(8))
-  {
+  if (!HB_ISNIL(8)) {
     SendMessage(hCtrl, TVM_SETTEXTCOLOR, 0, hwg_par_LPARAM(8));
   }
-  if (!HB_ISNIL(9))
-  {
+  if (!HB_ISNIL(9)) {
     SendMessage(hCtrl, TVM_SETBKCOLOR, 0, hwg_par_LPARAM(9));
   }
 
@@ -60,12 +58,10 @@ HB_FUNC(HWG_TREEADDNODE)
   tvi.mask = TVIF_TEXT | TVIF_PARAM;
   tvi.pszText = const_cast<LPTSTR>(HB_PARSTR(6, &hStr, nullptr));
   tvi.lParam = reinterpret_cast<LPARAM>(hb_itemNew(pObject));
-  if (hb_pcount() > 6 && !HB_ISNIL(7))
-  {
+  if (hb_pcount() > 6 && !HB_ISNIL(7)) {
     tvi.iImage = hb_parni(7);
     tvi.mask |= TVIF_IMAGE;
-    if (hb_pcount() > 7 && !HB_ISNIL(8))
-    {
+    if (hb_pcount() > 7 && !HB_ISNIL(8)) {
       tvi.iSelectedImage = hb_parni(8);
       tvi.mask |= TVIF_SELECTEDIMAGE;
     }
@@ -79,8 +75,7 @@ HB_FUNC(HWG_TREEADDNODE)
 
   is.hParent = (HB_ISNIL(3) ? nullptr : static_cast<HTREEITEM>(hb_parptr(3)));
 
-  switch (nPos)
-  {
+  switch (nPos) {
   case 0:
     is.hInsertAfter = static_cast<HTREEITEM>(hb_parptr(4));
     break;
@@ -93,17 +88,13 @@ HB_FUNC(HWG_TREEADDNODE)
 
   hb_retptr(reinterpret_cast<void *>(SendMessage(hwg_par_HWND(2), TVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&is))));
 
-  if (tvi.mask & TVIF_IMAGE)
-  {
-    if (tvi.iImage)
-    {
+  if (tvi.mask & TVIF_IMAGE) {
+    if (tvi.iImage) {
       DeleteObject(reinterpret_cast<HGDIOBJ>(static_cast<UINT_PTR>(tvi.iImage)));
     }
   }
-  if (tvi.mask & TVIF_SELECTEDIMAGE)
-  {
-    if (tvi.iSelectedImage)
-    {
+  if (tvi.mask & TVIF_SELECTEDIMAGE) {
+    if (tvi.iSelectedImage) {
       DeleteObject(reinterpret_cast<HGDIOBJ>(static_cast<UINT_PTR>(tvi.iSelectedImage)));
     }
   }
@@ -132,8 +123,7 @@ HB_FUNC(HWG_TREEGETSELECTED)
   TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
   TreeItem.hItem = TreeView_GetSelection(hwg_par_HWND(1));
 
-  if (TreeItem.hItem)
-  {
+  if (TreeItem.hItem) {
     SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&TreeItem));
     auto oNode = reinterpret_cast<PHB_ITEM>(TreeItem.lParam);
     hb_itemReturn(oNode);
@@ -179,8 +169,7 @@ HB_FUNC(HWG_TREESETITEM)
   TreeItem.mask = TVIF_HANDLE;
   TreeItem.hItem = static_cast<HTREEITEM>(hb_parptr(2));
 
-  switch (iType)
-  {
+  switch (iType) {
   case TREE_SETITEM_TEXT:
     TreeItem.mask |= TVIF_TEXT;
     TreeItem.pszText = const_cast<LPTSTR>(HB_PARSTR(4, &hStr, nullptr));
@@ -207,8 +196,7 @@ HB_FUNC(HWG_TREEGETNOTIFY)
 {
   auto iType = hb_parni(2);
 
-  switch (iType)
-  {
+  switch (iType) {
   case TREE_GETNOTIFY_HANDLE: {
     hb_retptr(static_cast<HTREEITEM>((static_cast<NM_TREEVIEW *>(hb_parptr(1)))->itemNew.hItem));
     break;
@@ -245,21 +233,17 @@ HB_FUNC(HWG_TREEHITTEST)
   TV_HITTESTINFO ht;
   auto hTree = hwg_par_HWND(1);
 
-  if (hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3))
-  {
+  if (hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3)) {
     ht.pt.x = hb_parni(2);
     ht.pt.y = hb_parni(3);
-  }
-  else
-  {
+  } else {
     GetCursorPos(&(ht.pt));
     ScreenToClient(hTree, &(ht.pt));
   }
 
   SendMessage(hTree, TVM_HITTEST, 0, reinterpret_cast<LPARAM>(&ht));
 
-  if (ht.hItem)
-  {
+  if (ht.hItem) {
     TV_ITEM TreeItem{};
 
     TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
@@ -268,13 +252,10 @@ HB_FUNC(HWG_TREEHITTEST)
     SendMessage(hTree, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&TreeItem));
     auto oNode = reinterpret_cast<PHB_ITEM>(TreeItem.lParam);
     hb_itemReturn(oNode);
-    if (hb_pcount() > 3)
-    {
+    if (hb_pcount() > 3) {
       hb_storni(static_cast<int>(ht.flags), 4);
     }
-  }
-  else
-  {
+  } else {
     hb_ret();
   }
 }
@@ -286,8 +267,7 @@ HB_FUNC(HWG_TREERELEASENODE)
   TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
   TreeItem.hItem = static_cast<HTREEITEM>(hb_parptr(2));
 
-  if (TreeItem.hItem)
-  {
+  if (TreeItem.hItem) {
     SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&TreeItem));
     hb_itemRelease(reinterpret_cast<PHB_ITEM>(TreeItem.lParam));
     TreeItem.lParam = 0;
@@ -305,13 +285,11 @@ LRESULT APIENTRY TreeViewSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LP
 {
   auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-  if (!pSym_onEvent)
-  {
+  if (!pSym_onEvent) {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
   }
 
-  if (pSym_onEvent && pObject)
-  {
+  if (pSym_onEvent && pObject) {
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
     hb_vmPush(pObject);
     hb_vmPushLong(static_cast<LONG>(message));
@@ -320,25 +298,17 @@ LRESULT APIENTRY TreeViewSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LP
     hb_vmPushPointer(reinterpret_cast<void *>(wParam));
     hb_vmPushPointer(reinterpret_cast<void *>(lParam));
     hb_vmSend(3);
-    if (HB_ISPOINTER(-1))
-    {
+    if (HB_ISPOINTER(-1)) {
       return reinterpret_cast<LRESULT>(hb_parptr(-1));
-    }
-    else
-    {
+    } else {
       long int res = hb_parnl(-1);
-      if (res == -1)
-      {
+      if (res == -1) {
         return (CallWindowProc(wpOrigTreeViewProc, hWnd, message, wParam, lParam));
-      }
-      else
-      {
+      } else {
         return res;
       }
     }
-  }
-  else
-  {
+  } else {
     return (CallWindowProc(wpOrigTreeViewProc, hWnd, message, wParam, lParam));
   }
 }

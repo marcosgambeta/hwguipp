@@ -22,7 +22,7 @@ using FREEIMAGE_LOAD = FIBITMAP *(WINAPI *)(FREE_IMAGE_FORMAT fif, const char *f
 using FREEIMAGE_SAVE = BOOL(WINAPI *)(FREE_IMAGE_FORMAT fif, FIBITMAP *dib, const char *filename, int flags);
 using FREEIMAGE_ALLOCATE = FIBITMAP *(WINAPI *)(int width, int height, int bpp, unsigned red_mask, unsigned green_mask,
                                                 unsigned blue_mask);
-using FREEIMAGE_CONVERTFROMRAWBITS = FIBITMAP *(WINAPI *)(BYTE *bits, int width, int height, int pitch, unsigned bpp,
+using FREEIMAGE_CONVERTFROMRAWBITS = FIBITMAP *(WINAPI *)(BYTE * bits, int width, int height, int pitch, unsigned bpp,
                                                           unsigned red_mask, unsigned green_mask, unsigned blue_mask,
                                                           BOOL topdown);
 using FREEIMAGE_CONVERTTORAWBITS = void(WINAPI *)(BYTE *bits, FIBITMAP *dib, int pitch, unsigned bpp, unsigned red_mask,
@@ -46,30 +46,30 @@ using FREEIMAGE_UNLOAD = void(WINAPI *)(FIBITMAP *dib);
 using FREEIMAGE_GETFIFFROMFILENAME = FREE_IMAGE_FORMAT(WINAPI *)(const char *filename);
 using FREEIMAGE_GETWIDTH = ULONG(WINAPI *)(FIBITMAP *dib);
 using FREEIMAGE_GETHEIGHT = ULONG(WINAPI *)(FIBITMAP *dib);
-using FREEIMAGE_GETBITS = BYTE *(WINAPI *)(FIBITMAP *dib);
-using FREEIMAGE_GETINFO = BITMAPINFO *(WINAPI *)(FIBITMAP *dib);
-using FREEIMAGE_GETINFOHEADER = BITMAPINFOHEADER *(WINAPI *)(FIBITMAP *dib);
-using FREEIMAGE_RESCALE = FIBITMAP *(WINAPI *)(FIBITMAP *dib, int dst_width, int dst_height, FREE_IMAGE_FILTER filter);
-using FREEIMAGE_GETPALETTE = RGBQUAD *(WINAPI *)(FIBITMAP *dib);
+using FREEIMAGE_GETBITS = BYTE *(WINAPI *)(FIBITMAP * dib);
+using FREEIMAGE_GETINFO = BITMAPINFO *(WINAPI *)(FIBITMAP * dib);
+using FREEIMAGE_GETINFOHEADER = BITMAPINFOHEADER *(WINAPI *)(FIBITMAP * dib);
+using FREEIMAGE_RESCALE = FIBITMAP *(WINAPI *)(FIBITMAP * dib, int dst_width, int dst_height, FREE_IMAGE_FILTER filter);
+using FREEIMAGE_GETPALETTE = RGBQUAD *(WINAPI *)(FIBITMAP * dib);
 using FREEIMAGE_GETBPP = ULONG(WINAPI *)(FIBITMAP *dib);
 using FREEIMAGE_SETCHANNEL = BOOL(WINAPI *)(FIBITMAP *dib, FIBITMAP *dib8, FREE_IMAGE_COLOR_CHANNEL channel);
-using FREEIMAGE_GETSCANLINE = BYTE *(WINAPI *)(FIBITMAP *dib, int scanline);
+using FREEIMAGE_GETSCANLINE = BYTE *(WINAPI *)(FIBITMAP * dib, int scanline);
 using FREEIMAGE_GETPITCH = unsigned(WINAPI *)(FIBITMAP *dib);
 using FREEIMAGE_GETIMAGETYPE = short(WINAPI *)(FIBITMAP *dib);
 using FREEIMAGE_GETCOLORSUSED = unsigned(WINAPI *)(FIBITMAP *dib);
-using FREEIMAGE_ROTATECLASSIC = FIBITMAP *(WINAPI *)(FIBITMAP *dib, double angle);
+using FREEIMAGE_ROTATECLASSIC = FIBITMAP *(WINAPI *)(FIBITMAP * dib, double angle);
 using FREEIMAGE_GETDOTSPERMETERX = unsigned(WINAPI *)(FIBITMAP *dib);
 using FREEIMAGE_GETDOTSPERMETERY = unsigned(WINAPI *)(FIBITMAP *dib);
 using FREEIMAGE_SETDOTSPERMETERX = void(WINAPI *)(FIBITMAP *dib, unsigned res);
 using FREEIMAGE_SETDOTSPERMETERY = void(WINAPI *)(FIBITMAP *dib, unsigned res);
 using FREEIMAGE_PASTE = BOOL(WINAPI *)(FIBITMAP *dst, FIBITMAP *src, int left, int top, int alpha);
-using FREEIMAGE_COPY = FIBITMAP *(WINAPI *)(FIBITMAP *dib, int left, int top, int right, int bottom);
+using FREEIMAGE_COPY = FIBITMAP *(WINAPI *)(FIBITMAP * dib, int left, int top, int right, int bottom);
 using FREEIMAGE_SETBACKGROUNDCOLOR = BOOL(WINAPI *)(FIBITMAP *dib, RGBQUAD *bkcolor);
 using FREEIMAGE_INVERT = BOOL(WINAPI *)(FIBITMAP *dib);
-using FREEIMAGE_CONVERTTO8BITS = FIBITMAP *(WINAPI *)(FIBITMAP *dib);
-using FREEIMAGE_CONVERTTOGREYSCALE = FIBITMAP *(WINAPI *)(FIBITMAP *dib);
+using FREEIMAGE_CONVERTTO8BITS = FIBITMAP *(WINAPI *)(FIBITMAP * dib);
+using FREEIMAGE_CONVERTTOGREYSCALE = FIBITMAP *(WINAPI *)(FIBITMAP * dib);
 using FREEIMAGE_FLIPVERTICAL = BOOL(WINAPI *)(FIBITMAP *dib);
-using FREEIMAGE_THRESHOLD = FIBITMAP *(WINAPI *)(FIBITMAP *dib, BYTE T);
+using FREEIMAGE_THRESHOLD = FIBITMAP *(WINAPI *)(FIBITMAP * dib, BYTE T);
 using FREEIMAGE_GETPIXELINDEX = BOOL(WINAPI *)(FIBITMAP *dib, unsigned x, unsigned y, BYTE *value);
 using FREEIMAGE_GETPIXELCOLOR = BOOL(WINAPI *)(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
 using FREEIMAGE_SETPIXELINDEX = BOOL(WINAPI *)(FIBITMAP *dib, unsigned x, unsigned y, BYTE *value);
@@ -121,11 +121,9 @@ fi_handle g_load_address;
 
 BOOL s_freeImgInit(void)
 {
-  if (!hFreeImageDll)
-  {
+  if (!hFreeImageDll) {
     hFreeImageDll = LoadLibrary(TEXT("FreeImage.dll"));
-    if (!hFreeImageDll)
-    {
+    if (!hFreeImageDll) {
       MessageBox(GetActiveWindow(), TEXT("Library not loaded"), TEXT("FreeImage.dll"), MB_OK | MB_ICONSTOP);
       return 0;
     }
@@ -135,19 +133,13 @@ BOOL s_freeImgInit(void)
 
 static FARPROC s_getFunction(FARPROC h, LPCSTR funcname)
 {
-  if (!h)
-  {
-    if (!hFreeImageDll && !s_freeImgInit())
-    {
+  if (!h) {
+    if (!hFreeImageDll && !s_freeImgInit()) {
       return nullptr;
-    }
-    else
-    {
+    } else {
       return GetProcAddress(hFreeImageDll, funcname);
     }
-  }
-  else
-  {
+  } else {
     return h;
   }
 }
@@ -159,8 +151,7 @@ HB_FUNC(HWG_FI_INIT)
 
 HB_FUNC(HWG_FI_END)
 {
-  if (hFreeImageDll)
-  {
+  if (hFreeImageDll) {
     FreeLibrary(hFreeImageDll);
     hFreeImageDll = nullptr;
     pLoad = nullptr;
@@ -215,8 +206,7 @@ HB_FUNC(HWG_FI_UNLOAD)
   pUnload =
       reinterpret_cast<FREEIMAGE_UNLOAD>(s_getFunction(reinterpret_cast<FARPROC>(pUnload), "_FreeImage_Unload@4"));
 
-  if (pUnload)
-  {
+  if (pUnload) {
     pUnload(hwg_par_FIBITMAP(1));
   }
 }
@@ -227,13 +217,10 @@ HB_FUNC(HWG_FI_LOAD)
   pGetfiffromfile = reinterpret_cast<FREEIMAGE_GETFIFFROMFILENAME>(
       s_getFunction(reinterpret_cast<FARPROC>(pGetfiffromfile), "_FreeImage_GetFIFFromFilename@4"));
 
-  if (pGetfiffromfile && pLoad)
-  {
+  if (pGetfiffromfile && pLoad) {
     auto name = hb_parc(1);
     hb_retnl(reinterpret_cast<ULONG>(pLoad(pGetfiffromfile(name), name, (hb_pcount() > 1) ? hb_parni(2) : 0)));
-  }
-  else
-  {
+  } else {
     hb_retnl(0);
   }
 }
@@ -244,14 +231,11 @@ HB_FUNC(HWG_FI_LOADTYPE)
 {
   pLoad = reinterpret_cast<FREEIMAGE_LOAD>(s_getFunction(reinterpret_cast<FARPROC>(pLoad), "_FreeImage_Load@12"));
 
-  if (pLoad)
-  {
+  if (pLoad) {
     auto name = hb_parc(2);
     hb_retnl(reinterpret_cast<ULONG>(
         pLoad(static_cast<enum FREE_IMAGE_FORMAT>(hb_parni(1)), name, (hb_pcount() > 2) ? hb_parni(3) : 0)));
-  }
-  else
-  {
+  } else {
     hb_retnl(0);
   }
 }
@@ -262,13 +246,10 @@ HB_FUNC(HWG_FI_SAVE)
   pGetfiffromfile = reinterpret_cast<FREEIMAGE_GETFIFFROMFILENAME>(
       s_getFunction(reinterpret_cast<FARPROC>(pGetfiffromfile), "_FreeImage_GetFIFFromFilename@4"));
 
-  if (pGetfiffromfile && pSave)
-  {
+  if (pGetfiffromfile && pSave) {
     auto name = hb_parc(2);
     hb_retl(pSave(pGetfiffromfile(name), hwg_par_FIBITMAP(1), name, (hb_pcount() > 2) ? hb_parni(3) : 0));
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -279,14 +260,11 @@ HB_FUNC(HWG_FI_SAVETYPE)
 {
   pSave = reinterpret_cast<FREEIMAGE_SAVE>(s_getFunction(reinterpret_cast<FARPROC>(pSave), "_FreeImage_Save@16"));
 
-  if (pSave)
-  {
+  if (pSave) {
     auto name = hb_parc(3);
     hb_retl(pSave(static_cast<FREE_IMAGE_FORMAT>(hb_parni(1)), hwg_par_FIBITMAP(2), name,
                   (hb_pcount() > 3) ? hb_parni(4) : 0));
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -346,24 +324,15 @@ HB_FUNC(HWG_FI_2BITMAP)
 static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 {
   // Make sure bits per pixel is valid
-  if (wBitCount <= 1)
-  {
+  if (wBitCount <= 1) {
     wBitCount = 1;
-  }
-  else if (wBitCount <= 4)
-  {
+  } else if (wBitCount <= 4) {
     wBitCount = 4;
-  }
-  else if (wBitCount <= 8)
-  {
+  } else if (wBitCount <= 8) {
     wBitCount = 8;
-  }
-  else if (wBitCount <= 24)
-  {
+  } else if (wBitCount <= 24) {
     wBitCount = 24;
-  }
-  else
-  {
+  } else {
     wBitCount = 4; // set default value to 4 if parameter is bogus
   }
 
@@ -397,8 +366,7 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
   HANDLE hDIB = GlobalAlloc(GHND, dwLen);
 
   // major bummer if we couldn't get memory block
-  if (!hDIB)
-  {
+  if (!hDIB) {
     return nullptr;
   }
 
@@ -442,17 +410,14 @@ HB_FUNC(HWG_FI_FI2DIB)
   hdib =
       CreateDIB(static_cast<WORD>(pGetwidth(dib)), static_cast<WORD>(pGetheight(dib)), static_cast<WORD>(pGetBPP(dib)));
 
-  if (hdib)
-  {
+  if (hdib) {
     // int scan_width = pGetPitch(dib); unused
     LPBITMAPINFO lpbi = static_cast<LPBITMAPINFO>(GlobalLock(hdib));
     memcpy(static_cast<LPBYTE>(reinterpret_cast<BYTE *>(lpbi)) + lpbi->bmiHeader.biSize, pGetbits(dib),
            lpbi->bmiHeader.biSizeImage);
     GlobalUnlock(hdib);
     hb_retnl(reinterpret_cast<LONG>(hdib));
-  }
-  else
-  {
+  } else {
     hb_retnl(0);
   }
 }
@@ -495,8 +460,7 @@ HB_FUNC(HWG_FI_FI2DIBEX)
   pGetImageType = reinterpret_cast<FREEIMAGE_GETIMAGETYPE>(
       s_getFunction(reinterpret_cast<FARPROC>(pGetImageType), "_FreeImage_GetImageType@4"));
 
-  if (_dib)
-  {
+  if (_dib) {
     // Get equivalent DIB size
     long dib_size = sizeof(BITMAPINFOHEADER);
     BYTE *bits;
@@ -518,8 +482,7 @@ HB_FUNC(HWG_FI_FI2DIBEX)
     bih = pGetinfoHead(_dib);
     memcpy(p_dib, bih, sizeof(BITMAPINFOHEADER));
 
-    if (pGetImageType(_dib) != 1 /*FIT_BITMAP */)
-    {
+    if (pGetImageType(_dib) != 1 /*FIT_BITMAP */) {
       // this hack is used to store the bitmap type in the biCompression member of the BITMAPINFOHEADER
       SET_FREEIMAGE_MARKER(reinterpret_cast<BITMAPINFOHEADER *>(p_dib), _dib);
     }
@@ -550,13 +513,10 @@ HB_FUNC(HWG_FI_DRAW)
   // char cres[40];
   // BOOL l;
 
-  if (hb_pcount() > 6 && !HB_ISNIL(7))
-  {
+  if (hb_pcount() > 6 && !HB_ISNIL(7)) {
     nDestWidth = hb_parni(7);
     nDestHeight = hb_parni(8);
-  }
-  else
-  {
+  } else {
     nDestWidth = nWidth;
     nDestHeight = nHeight;
   }
@@ -576,8 +536,7 @@ HB_FUNC(HWG_FI_DRAW)
   pGetinfo =
       reinterpret_cast<FREEIMAGE_GETINFO>(s_getFunction(reinterpret_cast<FARPROC>(pGetinfo), "_FreeImage_GetInfo@4"));
 
-  if (pGetbits && pGetinfo)
-  {
+  if (pGetbits && pGetinfo) {
     SetStretchBltMode(hDC, COLORONCOLOR);
     StretchDIBits(hDC, pp[0].x, pp[0].y, pp[1].x - pp[0].x, pp[1].y - pp[0].y, 0, 0, nWidth, nHeight, pGetbits(dib),
                   pGetinfo(dib), DIB_RGB_COLORS, SRCCOPY);
@@ -588,8 +547,7 @@ HB_FUNC(HWG_FI_BMP2FI)
 {
   auto hbmp = hwg_par_HBITMAP(1);
 
-  if (hbmp)
-  {
+  if (hbmp) {
     FIBITMAP *dib;
     BITMAP bm;
 
@@ -602,8 +560,7 @@ HB_FUNC(HWG_FI_BMP2FI)
     pGetheight = reinterpret_cast<FREEIMAGE_GETHEIGHT>(
         s_getFunction(reinterpret_cast<FARPROC>(pGetheight), "_FreeImage_GetHeight@4"));
 
-    if (pAllocate && pGetbits && pGetinfo && pGetheight)
-    {
+    if (pAllocate && pGetbits && pGetinfo && pGetheight) {
       auto hDC = GetDC(nullptr);
 
       GetObject(hbmp, sizeof(BITMAP), static_cast<LPVOID>(&bm));
@@ -625,17 +582,12 @@ static int ColorCount(int bpp)
 
 static int BmiColorCount(LPBITMAPINFOHEADER lpbi)
 {
-  if (lpbi->biSize == sizeof(BITMAPCOREHEADER))
-  {
+  if (lpbi->biSize == sizeof(BITMAPCOREHEADER)) {
     auto lpbc = reinterpret_cast<LPBITMAPCOREHEADER>(lpbi);
     return 1 << lpbc->bcBitCount;
-  }
-  else if (lpbi->biClrUsed == 0)
-  {
+  } else if (lpbi->biClrUsed == 0) {
     return ColorCount(lpbi->biBitCount);
-  }
-  else
-  {
+  } else {
     return static_cast<int>(lpbi->biClrUsed);
   }
 } // BmiColorCount
@@ -660,8 +612,7 @@ HB_FUNC(HWG_FI_DIB2FI)
 {
   auto hdib = reinterpret_cast<HANDLE>(hb_parnl(1));
 
-  if (hdib)
-  {
+  if (hdib) {
     FIBITMAP *dib;
     auto lpbi = static_cast<LPBITMAPINFOHEADER>(GlobalLock(hdib));
 
@@ -672,8 +623,7 @@ HB_FUNC(HWG_FI_DIB2FI)
     pGetBPP =
         reinterpret_cast<FREEIMAGE_GETBPP>(s_getFunction(reinterpret_cast<FARPROC>(pGetBPP), "_FreeImage_GetBPP@4"));
 
-    if (pConvertFromRawBits && lpbi)
-    {
+    if (pConvertFromRawBits && lpbi) {
       // int pitch = (((( lpbi->biWidth * lpbi->biBitCount) + 31) &~31) >> 3);
       int pitch = ((((lpbi->biBitCount * lpbi->biWidth) + 31) / 32) * 4);
 
@@ -681,14 +631,12 @@ HB_FUNC(HWG_FI_DIB2FI)
                                 FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK, hb_parl(2));
 
       // I can't print it with FI_DRAW, though, and I don't know why
-      if (pGetBPP(dib) <= 8)
-      {
+      if (pGetBPP(dib) <= 8) {
         // Convert palette entries
         RGBQUAD *pal = pGetPalette(dib);
         auto dibpal = reinterpret_cast<RGBQUAD *>(reinterpret_cast<LPBYTE>(lpbi) + lpbi->biSize);
 
-        for (auto i = 0; i < BmiColorCount(lpbi); i++)
-        {
+        for (auto i = 0; i < BmiColorCount(lpbi); i++) {
           pal[i].rgbRed = dibpal[i].rgbRed;
           pal[i].rgbGreen = dibpal[i].rgbGreen;
           pal[i].rgbBlue = dibpal[i].rgbBlue;
@@ -699,9 +647,7 @@ HB_FUNC(HWG_FI_DIB2FI)
       GlobalUnlock(hdib);
       hb_retnl(reinterpret_cast<LONG>(dib));
       return;
-    }
-    else
-    {
+    } else {
       GlobalUnlock(hdib);
     }
   }
@@ -737,13 +683,10 @@ HB_FUNC(HWG_FI_REMOVECHANNEL)
 
   dib8 = pAllocate(pGetwidth(dib), pGetheight(dib), 8, 0, 0, 0);
 
-  if (dib8)
-  {
+  if (dib8) {
     hb_retl(pSetChannel(dib, dib8, static_cast<FREE_IMAGE_COLOR_CHANNEL>(hb_parni(2))));
     pUnload(dib8);
-  }
-  else
-  {
+  } else {
     hb_retl(false);
   }
 }
@@ -755,8 +698,7 @@ unsigned DLL_CALLCONV _ReadProc(void *buffer, unsigned size, unsigned count, fi_
   auto tmp = static_cast<BYTE *>(buffer);
   HB_SYMBOL_UNUSED(handle);
 
-  for (unsigned u = 0; u < count; u++)
-  {
+  for (unsigned u = 0; u < count; u++) {
     memcpy(tmp, g_load_address, size);
     g_load_address = static_cast<BYTE *>(g_load_address) + size;
     tmp += size;
@@ -793,8 +735,7 @@ HB_FUNC(HWG_FI_LOADFROMMEM)
   pLoadFromHandle = reinterpret_cast<FREEIMAGE_LOADFROMHANDLE>(
       s_getFunction(reinterpret_cast<FARPROC>(pLoadFromHandle), "_FreeImage_LoadFromHandle@16"));
 
-  if (pLoadFromHandle)
-  {
+  if (pLoadFromHandle) {
     auto image = hb_parc(1);
     FREE_IMAGE_FORMAT fif;
     FreeImageIO io;
@@ -805,40 +746,26 @@ HB_FUNC(HWG_FI_LOADFROMMEM)
     io.seek_proc = _SeekProc;
 
     auto cType = hb_parc(2);
-    if (cType)
-    {
-      if (!hb_stricmp(cType, "jpg"))
-      {
+    if (cType) {
+      if (!hb_stricmp(cType, "jpg")) {
         fif = FIF_JPEG;
-      }
-      else if (!hb_stricmp(cType, "bmp"))
-      {
+      } else if (!hb_stricmp(cType, "bmp")) {
         fif = FIF_BMP;
-      }
-      else if (!hb_stricmp(cType, "png"))
-      {
+      } else if (!hb_stricmp(cType, "png")) {
         fif = FIF_PNG;
-      }
-      else if (!hb_stricmp(cType, "tiff"))
-      {
+      } else if (!hb_stricmp(cType, "tiff")) {
         fif = FIF_TIFF;
-      }
-      else
-      {
+      } else {
         fif = FIF_UNKNOWN;
       }
-    }
-    else
-    {
+    } else {
       fif = FIF_UNKNOWN;
     }
 
     g_load_address = static_cast<fi_handle>(const_cast<char *>(image));
     hb_retnl(reinterpret_cast<LONG>(pLoadFromHandle(fif, &io, static_cast<fi_handle>(const_cast<char *>(image)),
                                                     (hb_pcount() > 2) ? hb_parni(3) : 0)));
-  }
-  else
-  {
+  } else {
     hb_retnl(0);
   }
 }
@@ -872,8 +799,7 @@ HB_FUNC(HWG_FI_SETDOTSPERMETERX)
   pSetDotsPerMeterX = reinterpret_cast<FREEIMAGE_SETDOTSPERMETERX>(
       s_getFunction(reinterpret_cast<FARPROC>(pSetDotsPerMeterX), "_FreeImage_SetDotsPerMeterX@8"));
 
-  if (pSetDotsPerMeterX)
-  {
+  if (pSetDotsPerMeterX) {
     pSetDotsPerMeterX(hwg_par_FIBITMAP(1), hb_parnl(2));
   }
 
@@ -885,8 +811,7 @@ HB_FUNC(HWG_FI_SETDOTSPERMETERY)
   pSetDotsPerMeterY = reinterpret_cast<FREEIMAGE_SETDOTSPERMETERY>(
       s_getFunction(reinterpret_cast<FARPROC>(pSetDotsPerMeterY), "_FreeImage_SetDotsPerMeterY@8"));
 
-  if (pSetDotsPerMeterY)
-  {
+  if (pSetDotsPerMeterY) {
     pSetDotsPerMeterY(hwg_par_FIBITMAP(1), hb_parnl(2));
   }
 
@@ -985,8 +910,7 @@ HB_FUNC(HWG_FI_GETPIXELINDEX)
 
   BOOL lRes = pGetPixelIndex(hwg_par_FIBITMAP(1), hb_parni(2), hb_parni(3), &value);
 
-  if (lRes)
-  {
+  if (lRes) {
     hb_stornl(static_cast<ULONG>(value), 4);
   }
 
