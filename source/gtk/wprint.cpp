@@ -31,24 +31,18 @@ static gchar szAppLocale[] = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
 gchar *hwg_convert_to_utf8(const char *szText)
 {
-  if (*szAppLocale)
-  {
+  if (*szAppLocale) {
     return g_convert(szText, -1, "UTF-8", szAppLocale, nullptr, nullptr, nullptr);
-  }
-  else
-  {
+  } else {
     return g_locale_to_utf8(szText, -1, nullptr, nullptr, nullptr);
   }
 }
 
 gchar *hwg_convert_from_utf8(const char *szText)
 {
-  if (*szAppLocale)
-  {
+  if (*szAppLocale) {
     return g_convert(szText, -1, szAppLocale, "UTF-8", nullptr, nullptr, nullptr);
-  }
-  else
-  {
+  } else {
     return g_locale_from_utf8(szText, -1, nullptr, nullptr, nullptr);
   }
 }
@@ -77,8 +71,7 @@ PHWGUI_PRINT hwg_openprinter(int iFormType)
   GtkPaperSize *pSize = gtk_paper_size_new((iFormType == 8) ? GTK_PAPER_NAME_A3 : GTK_PAPER_NAME_A4);
 
 #ifdef G_CONSOLE_MODE
-  if (!bGtypeInit)
-  {
+  if (!bGtypeInit) {
     g_type_init();
     bGtypeInit = 1;
   }
@@ -106,8 +99,7 @@ HB_FUNC(HWG_GETPRINTERS)
   HB_FHANDLE hInput = hb_fsOpen("/etc/printcap", FO_READ);
   PHB_ITEM aMetr = nullptr, temp;
 
-  if (hInput != -1)
-  {
+  if (hInput != -1) {
     HB_ULONG ulLen = hb_fsSeek(hInput, 0, FS_END);
     unsigned char *ptr, *ptr1;
 
@@ -117,61 +109,46 @@ HB_FUNC(HWG_GETPRINTERS)
     cBuffer[ulLen] = '\0';
 
     ptr = cBuffer;
-    while (1)
-    {
-      while (*ptr && (*ptr == ' ' || *ptr == 0x9 || *ptr == 0x0a))
-      {
+    while (1) {
+      while (*ptr && (*ptr == ' ' || *ptr == 0x9 || *ptr == 0x0a)) {
         ptr++;
       }
-      if (*ptr)
-      {
-        if (*ptr == '#')
-        {
-          while (*ptr && *ptr != 0x0a)
-          {
+      if (*ptr) {
+        if (*ptr == '#') {
+          while (*ptr && *ptr != 0x0a) {
             ptr++;
           }
-          if (*ptr)
-          {
+          if (*ptr) {
             ptr++;
           }
           continue;
         }
-        if (!aMetr)
-        {
+        if (!aMetr) {
           aMetr = hb_itemArrayNew(0);
         }
         ptr1 = ptr;
-        while (*ptr && *ptr != 0x0a && *ptr != '|')
-        {
+        while (*ptr && *ptr != 0x0a && *ptr != '|') {
           ptr++;
         }
         temp = hb_itemPutCL(nullptr, reinterpret_cast<char *>(ptr1), ptr - ptr1);
         hb_arrayAdd(aMetr, temp);
         hb_itemRelease(temp);
-        while (*ptr && *ptr != 0x0a)
-        {
+        while (*ptr && *ptr != 0x0a) {
           ptr++;
         }
-        if (*ptr)
-        {
+        if (*ptr) {
           ptr++;
         }
-      }
-      else
-      {
+      } else {
         break;
       }
     }
     hb_xfree(cBuffer);
   }
-  if (aMetr)
-  {
+  if (aMetr) {
     hb_itemReturn(aMetr);
     hb_itemRelease(aMetr);
-  }
-  else
-  {
+  } else {
     hb_ret();
   }
 }
@@ -186,8 +163,7 @@ HB_FUNC(HWG_SETPRINTERMODE)
 
   gtk_page_setup_set_orientation(print->page_setup,
                                  (hb_parni(2) == 1) ? GTK_PAGE_ORIENTATION_PORTRAIT : GTK_PAGE_ORIENTATION_LANDSCAPE);
-  if (HB_ISNUM(3))
-  {
+  if (HB_ISNUM(3)) {
     auto iDuplex = hb_parni(3);
     print->duplex = (iDuplex < 2) ? 0 : ((iDuplex == 2) ? GTK_PRINT_DUPLEX_VERTICAL : GTK_PRINT_DUPLEX_HORIZONTAL);
   }
@@ -198,8 +174,7 @@ HB_FUNC(HWG_CLOSEPRINTER)
   auto print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
 
   g_object_unref(G_OBJECT(print->page_setup));
-  if (print->cName)
-  {
+  if (print->cName) {
     hb_xfree(print->cName);
   }
   hb_xfree(print);
@@ -233,10 +208,8 @@ static void draw_page(cairo_t *cr, const char *cpage)
   cairo_set_source_rgb(cr, 0, 0, 0);
 
   ptr = const_cast<char *>(cpage);
-  while (*ptr)
-  {
-    if (!strncmp(ptr, "txt", 3))
-    {
+  while (*ptr) {
+    if (!strncmp(ptr, "txt", 3)) {
       x1 = atof(ptr + 4);
       ptr = strchr(ptr + 4, ',');
       ptr++;
@@ -258,25 +231,17 @@ static void draw_page(cairo_t *cr, const char *cpage)
       cBuf[ptre - ptr] = '\0';
 
       cairo_text_extents(cr, cBuf, &exten);
-      if (exten.height < (y2 - y1))
-      {
-        if (iOpt & DT_VCENTER)
-        {
+      if (exten.height < (y2 - y1)) {
+        if (iOpt & DT_VCENTER) {
           y2 = y2 - (y2 - y1 - exten.height) / 2;
-        }
-        else if (!(iOpt & DT_BOTTOM))
-        {
+        } else if (!(iOpt & DT_BOTTOM)) {
           y2 = y1 + 1 + exten.height;
         }
       }
-      if (exten.width < (x2 - x1))
-      {
-        if (iOpt & DT_RIGHT)
-        {
+      if (exten.width < (x2 - x1)) {
+        if (iOpt & DT_RIGHT) {
           x1 = x2 - exten.width - 1;
-        }
-        else if (iOpt & DT_CENTER)
-        {
+        } else if (iOpt & DT_CENTER) {
           x1 += (x2 - x1 - exten.width) / 2;
         }
       }
@@ -284,9 +249,7 @@ static void draw_page(cairo_t *cr, const char *cpage)
       cairo_show_text(cr, cBuf);
 
       iPathExist = 1;
-    }
-    else if (!strncmp(ptr, "lin", 3))
-    {
+    } else if (!strncmp(ptr, "lin", 3)) {
       x1 = atof(ptr + 4);
       ptr = strchr(ptr + 4, ',');
       ptr++;
@@ -304,9 +267,7 @@ static void draw_page(cairo_t *cr, const char *cpage)
       cairo_move_to(cr, static_cast<gdouble>(x1), static_cast<gdouble>(y1));
       cairo_line_to(cr, static_cast<gdouble>(x2), static_cast<gdouble>(y2));
       iPathExist = 1;
-    }
-    else if (!strncmp(ptr, "box", 3))
-    {
+    } else if (!strncmp(ptr, "box", 3)) {
       x1 = atof(ptr + 4);
       ptr = strchr(ptr + 4, ',');
       ptr++;
@@ -321,11 +282,8 @@ static void draw_page(cairo_t *cr, const char *cpage)
       cairo_rectangle(cr, static_cast<gdouble>(x1), static_cast<gdouble>(y1), static_cast<gdouble>(x2 - x1 + 1),
                       static_cast<gdouble>(y2 - y1 + 1));
       iPathExist = 1;
-    }
-    else if (!strncmp(ptr, "fnt", 3))
-    {
-      if (iPathExist)
-      {
+    } else if (!strncmp(ptr, "fnt", 3)) {
+      if (iPathExist) {
         cairo_stroke(cr);
         iPathExist = 0;
       }
@@ -346,9 +304,7 @@ static void draw_page(cairo_t *cr, const char *cpage)
 
       cairo_select_font_face(cr, cBuf, i2, i1);
       cairo_set_font_size(cr, x1);
-    }
-    else if (!strncmp(ptr, "pen", 3))
-    {
+    } else if (!strncmp(ptr, "pen", 3)) {
       x1 = atof(ptr + 4);
       ptr = strchr(ptr + 4, ',');
       ptr++;
@@ -357,28 +313,22 @@ static void draw_page(cairo_t *cr, const char *cpage)
       ptr++;
       li = atol(ptr);
 
-      if (iPathExist)
-      {
+      if (iPathExist) {
         cairo_stroke(cr);
         iPathExist = 0;
       }
 
       cairo_set_line_width(cr, static_cast<gdouble>((i1 > 0) ? 0.5 : x1));
-      if (i1 > 0)
-      {
+      if (i1 > 0) {
         static const double dashed[] = {2.0, 2.0};
         cairo_set_dash(cr, dashed, 2, 0);
-      }
-      else
-      {
+      } else {
         cairo_set_dash(cr, nullptr, 0, 0);
       }
 
       long2rgb(li, &y1, &x2, &y2);
       cairo_set_source_rgb(cr, y1, x2, y2);
-    }
-    else if (!strncmp(ptr, "img", 3))
-    {
+    } else if (!strncmp(ptr, "img", 3)) {
       x1 = atof(ptr + 4);
       ptr = strchr(ptr + 4, ',');
       ptr++;
@@ -399,15 +349,13 @@ static void draw_page(cairo_t *cr, const char *cpage)
       memcpy(cBuf, ptr, ptre - ptr);
       cBuf[ptre - ptr] = '\0';
 
-      if (iPathExist)
-      {
+      if (iPathExist) {
         cairo_stroke(cr);
         iPathExist = 0;
       }
 
       pixbuf = gdk_pixbuf_new_from_file(cBuf, nullptr);
-      if (pixbuf)
-      {
+      if (pixbuf) {
         pixbuf = gdk_pixbuf_scale_simple(pixbuf, x2 - x1 - 1, y2 - y1 - 1, GDK_INTERP_HYPER);
         gdk_cairo_set_source_pixbuf(cr, pixbuf, x1, y1);
         cairo_paint(cr);
@@ -415,17 +363,14 @@ static void draw_page(cairo_t *cr, const char *cpage)
       }
     }
 
-    while (*ptr != '\r')
-    {
+    while (*ptr != '\r') {
       ptr++;
     }
-    while (*ptr == '\r' || *ptr == '\n')
-    {
+    while (*ptr == '\r' || *ptr == '\n') {
       ptr++;
     }
   }
-  if (iPathExist)
-  {
+  if (iPathExist) {
     cairo_stroke(cr);
     iPathExist = 0;
   }
@@ -441,12 +386,10 @@ static void print_page(GtkPrintOperation *operation, GtkPrintContext *context, g
   cr = gtk_print_context_get_cairo_context(context);
   draw_page(cr, cpage);
 
-  if (hb_arrayLen(ppages) >= static_cast<unsigned int>(page_nr) + 2)
-  {
+  if (hb_arrayLen(ppages) >= static_cast<unsigned int>(page_nr) + 2) {
     page_setup = gtk_print_context_get_page_setup(context);
     ptr = const_cast<char *>(hb_arrayGetCPtr(ppages, page_nr + 2));
-    if (!strncmp(ptr, "page", 4))
-    {
+    if (!strncmp(ptr, "page", 4)) {
       ptr = strchr(ptr + 5, ',');
       ptr += 4;
       gtk_page_setup_set_orientation(page_setup,
@@ -469,12 +412,9 @@ static int print_time(GtkWidget *widget)
   char buf[48];
   gint x = 240 + (print->count % 100);
 
-  if (print->count >= 9999)
-  {
+  if (print->count >= 9999) {
     x = 240;
-  }
-  else
-  {
+  } else {
 #if defined(__RUSSIAN__)
     sprintf(buf, "Печатаем %d сек.", print->count);
 #else
@@ -485,21 +425,17 @@ static int print_time(GtkWidget *widget)
   gtk_window_resize(GTK_WINDOW(widget), x, 180);
   print->count++;
 
-  if (print->count > 10000)
-  {
+  if (print->count > 10000) {
     gtk_widget_destroy(widget);
     return 0;
-  }
-  else
-  {
+  } else {
     return 1;
   }
 }
 
 static void print_run(GtkWidget *widget)
 {
-  if (!g_object_get_data(static_cast<GObject *>(widget), "flag"))
-  {
+  if (!g_object_get_data(static_cast<GObject *>(widget), "flag")) {
     auto operation = static_cast<GtkPrintOperation *>(g_object_get_data(static_cast<GObject *>(widget), "oper"));
     auto print = static_cast<PHWGUI_PRINT>(g_object_get_data(static_cast<GObject *>(widget), "print"));
     GtkPrintSettings *settings = gtk_print_settings_new();
@@ -509,14 +445,11 @@ static void print_run(GtkWidget *widget)
 
     g_object_set_data(static_cast<GObject *>(widget), "flag", static_cast<gpointer>(1));
 
-    if ((print->cName && *(print->cName)) || print->duplex)
-    {
-      if (print->cName && *(print->cName))
-      {
+    if ((print->cName && *(print->cName)) || print->duplex) {
+      if (print->cName && *(print->cName)) {
         gtk_print_settings_set_printer(settings, static_cast<gchar *>(print->cName));
       }
-      if (print->duplex)
-      {
+      if (print->duplex) {
         gtk_print_settings_set_duplex(settings, print->duplex);
       }
       gtk_print_operation_set_print_settings(operation, settings);
@@ -591,22 +524,19 @@ HB_FUNC(HWG_GP_PRINT)
   auto iOper = hb_parni(4);
   int iPage = HB_ISNIL(6) ? 0 : hb_parni(6);
 
-  if (print->cName)
-  {
+  if (print->cName) {
     hb_xfree(print->cName);
   }
   print->cName = nullptr;
 
-  if (HB_ISCHAR(5))
-  {
+  if (HB_ISCHAR(5)) {
     int iLen = hb_parclen(5);
     print->cName = static_cast<char *>(hb_xgrab(iLen + 1));
     memcpy(print->cName, hb_parc(5), iLen);
     print->cName[iLen] = '\0';
   }
 
-  if (!iOper)
-  {
+  if (!iOper) {
     GtkPrintOperation *operation = gtk_print_operation_new();
     GtkPrintSettings *settings = nullptr;
 
@@ -617,8 +547,7 @@ HB_FUNC(HWG_GP_PRINT)
 #ifdef G_CONSOLE_MODE
     print_init(operation, print);
 #else
-    if (print->duplex)
-    {
+    if (print->duplex) {
       settings = gtk_print_settings_new();
       gtk_print_settings_set_duplex(settings, print->duplex);
       gtk_print_operation_set_print_settings(operation, settings);
@@ -626,14 +555,11 @@ HB_FUNC(HWG_GP_PRINT)
     gtk_print_operation_run(operation,
                             (print->cName) ? GTK_PRINT_OPERATION_ACTION_PRINT : GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
                             nullptr, nullptr);
-    if (settings)
-    {
+    if (settings) {
       g_object_unref(settings);
     }
 #endif
-  }
-  else if (iOper == 1)
-  {
+  } else if (iOper == 1) {
     GtkPrintOperation *operation = gtk_print_operation_new();
 
     gtk_print_operation_set_default_page_setup(operation, print->page_setup);
@@ -642,17 +568,12 @@ HB_FUNC(HWG_GP_PRINT)
     g_signal_connect(operation, "draw-page", G_CALLBACK(print_page), hb_param(2, Harbour::Item::ARRAY));
 
     gtk_print_operation_run(operation, GTK_PRINT_OPERATION_ACTION_EXPORT, nullptr, nullptr);
-  }
-  else if (iOper == 2 || iOper == 4)
-  {
+  } else if (iOper == 2 || iOper == 4) {
     cairo_surface_t *surface;
-    if (iOper == 2)
-    {
+    if (iOper == 2) {
       surface = cairo_ps_surface_create(print->cName, gtk_page_setup_get_page_width(print->page_setup, GTK_UNIT_POINTS),
                                         gtk_page_setup_get_page_height(print->page_setup, GTK_UNIT_POINTS));
-    }
-    else
-    {
+    } else {
       surface =
           cairo_svg_surface_create(print->cName, gtk_page_setup_get_page_width(print->page_setup, GTK_UNIT_POINTS),
                                    gtk_page_setup_get_page_height(print->page_setup, GTK_UNIT_POINTS));
@@ -660,38 +581,28 @@ HB_FUNC(HWG_GP_PRINT)
 
     cairo_t *cr = cairo_create(surface);
 
-    if (iPage > 0)
-    {
+    if (iPage > 0) {
       i = iPages = iPage;
-    }
-    else
-    {
+    } else {
       i = 1;
     }
-    for (; i <= iPages; i++)
-    {
+    for (; i <= iPages; i++) {
       draw_page(cr, const_cast<char *>(hb_arrayGetCPtr(hb_param(2, Harbour::Item::ARRAY), i)));
       cairo_show_page(cr);
     }
 
     cairo_destroy(cr);
     cairo_surface_destroy(surface);
-  }
-  else if (iOper == 3)
-  {
+  } else if (iOper == 3) {
     int iLen = hb_parclen(5);
     char sfile[256];
 
-    if (iPage > 0)
-    {
+    if (iPage > 0) {
       i = iPages = iPage;
-    }
-    else
-    {
+    } else {
       i = 1;
     }
-    for (; i <= iPages; i++)
-    {
+    for (; i <= iPages; i++) {
       cairo_surface_t *surface = cairo_image_surface_create(
           CAIRO_FORMAT_ARGB32, gtk_page_setup_get_page_width(print->page_setup, GTK_UNIT_POINTS),
           gtk_page_setup_get_page_height(print->page_setup, GTK_UNIT_POINTS));
@@ -699,8 +610,7 @@ HB_FUNC(HWG_GP_PRINT)
       draw_page(cr, const_cast<char *>(hb_arrayGetCPtr(hb_param(2, Harbour::Item::ARRAY), i)));
       memcpy(sfile, print->cName, iLen);
       sfile[iLen] = '\0';
-      if (i > 1 && iPage == 0)
-      {
+      if (i > 1 && iPage == 0) {
         sprintf(sfile + iLen - 4, "_%d%s", i, ".png");
       }
       cairo_surface_write_to_png(surface, sfile);

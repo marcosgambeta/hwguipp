@@ -77,8 +77,7 @@ HB_FUNC(HWG_ALPHA2PIXBUF)
   GdkPixbuf *handle;
   long int nColor = hb_parnl(2);
 
-  if (obj && obj->handle && obj->trcolor != nColor)
-  {
+  if (obj && obj->handle && obj->trcolor != nColor) {
     handle = alpha2pixbuf(obj->handle, nColor);
     g_object_unref(reinterpret_cast<GObject *>(obj->handle));
     obj->handle = handle;
@@ -91,15 +90,12 @@ HB_FUNC(HWG_INVALIDATERECT)
   auto widget = static_cast<GtkWidget *>(hb_parptr(1));
   int x1, y1, x2, y2;
 
-  if (hb_pcount() > 2)
-  {
+  if (hb_pcount() > 2) {
     x1 = hb_parni(3);
     y1 = hb_parni(4);
     x2 = hb_parni(5);
     y2 = hb_parni(6);
-  }
-  else
-  {
+  } else {
     GtkAllocation alloc;
     gtk_widget_get_allocation(widget, &alloc);
 
@@ -184,10 +180,8 @@ HB_FUNC(HWG_DRAWGRID)
   unsigned int uiColor = (HB_ISNIL(7)) ? 0 : static_cast<unsigned int>(hb_parnl(7));
 
   hwg_setcolor(hDC->cr, uiColor);
-  for (int i = x1 + n; i < x2; i += n)
-  {
-    for (int j = y1 + n; j < y2; j += n)
-    {
+  for (int i = x1 + n; i < x2; i += n) {
+    for (int j = y1 + n; j < y2; j += n) {
       cairo_rectangle(hDC->cr, static_cast<gdouble>(i), static_cast<gdouble>(j), 1, 1);
     }
   }
@@ -256,15 +250,12 @@ HB_FUNC(HWG_DRAWBUTTON)
   unsigned int iType = hb_parni(6);
   GtkStyle *style = gtk_widget_get_style(hDC->widget);
 
-  if (iType == 0)
-  {
+  if (iType == 0) {
     hwg_setcolor(hDC->cr, hwg_gdk_color(style->bg));
     cairo_rectangle(hDC->cr, static_cast<gdouble>(left), static_cast<gdouble>(top),
                     static_cast<gdouble>(right - left + 1), static_cast<gdouble>(bottom - top + 1));
     cairo_fill(hDC->cr);
-  }
-  else
-  {
+  } else {
     hwg_setcolor(hDC->cr, hwg_gdk_color((iType & 2) ? style->mid : style->light));
     cairo_rectangle(hDC->cr, static_cast<gdouble>(left), static_cast<gdouble>(top),
                     static_cast<gdouble>(right - left + 1), static_cast<gdouble>(bottom - top + 1));
@@ -281,8 +272,7 @@ HB_FUNC(HWG_DRAWBUTTON)
     bottom--;
     right--;
     bottom--;
-    if (iType & 4)
-    {
+    if (iType & 4) {
       hwg_setcolor(hDC->cr, hwg_gdk_color((iType & 2) ? style->mid : style->light));
       cairo_rectangle(hDC->cr, static_cast<gdouble>(left), static_cast<gdouble>(top),
                       static_cast<gdouble>(right - left + 1), static_cast<gdouble>(bottom - top + 1));
@@ -325,8 +315,7 @@ void hwg_gtk_drawedge(PHWGUI_HDC hDC, int left, int top, int right, int bottom, 
   bottom--;
   right--;
   bottom--;
-  if (iType & 4)
-  {
+  if (iType & 4) {
     hwg_setcolor(hDC->cr, hwg_gdk_color((iType & 2) ? style->mid : style->light));
     cairo_rectangle(hDC->cr, static_cast<gdouble>(left), static_cast<gdouble>(top),
                     static_cast<gdouble>(right - left + 1), static_cast<gdouble>(bottom - top + 1));
@@ -384,8 +373,7 @@ HB_FUNC(HWG_WINDOW2BITMAP)
   pixbuf = gdk_pixbuf_get_from_window(gtk_widget_get_window(hCtrl), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5));
 #endif
 
-  if (pixbuf)
-  {
+  if (pixbuf) {
     auto hpix = static_cast<PHWGUI_PIXBUF>(hb_xgrab(sizeof(HWGUI_PIXBUF)));
     hpix->type = HWGUI_OBJECT_PIXBUF;
     hpix->handle = pixbuf;
@@ -409,13 +397,10 @@ HB_FUNC(HWG_DRAWBITMAP)
   gint destWidth = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : srcWidth;
   gint destHeight = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : srcHeight;
 
-  if (srcWidth == destWidth && srcHeight == destHeight)
-  {
+  if (srcWidth == destWidth && srcHeight == destHeight) {
     gdk_cairo_set_source_pixbuf(hDC->cr, obj->handle, x, y);
     cairo_paint(hDC->cr);
-  }
-  else
-  {
+  } else {
     pixbuf = gdk_pixbuf_scale_simple(obj->handle, destWidth, destHeight, GDK_INTERP_HYPER);
     gdk_cairo_set_source_pixbuf(hDC->cr, pixbuf, x, y);
     cairo_paint(hDC->cr);
@@ -439,21 +424,17 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
   gint destWidth = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : srcWidth;
   gint destHeight = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : srcHeight;
 
-  if (obj->trcolor != nColor)
-  {
+  if (obj->trcolor != nColor) {
     pixbuf = alpha2pixbuf(obj->handle, nColor);
     g_object_unref(reinterpret_cast<GObject *>(obj->handle));
     obj->handle = pixbuf;
     obj->trcolor = nColor;
   }
 
-  if (srcWidth == destWidth && srcHeight == destHeight)
-  {
+  if (srcWidth == destWidth && srcHeight == destHeight) {
     gdk_cairo_set_source_pixbuf(hDC->cr, obj->handle, x, y);
     cairo_paint(hDC->cr);
-  }
-  else
-  {
+  } else {
     pixbuf = gdk_pixbuf_scale_simple(obj->handle, destWidth, destHeight, GDK_INTERP_HYPER);
     gdk_cairo_set_source_pixbuf(hDC->cr, pixbuf, x, y);
     cairo_paint(hDC->cr);
@@ -473,8 +454,7 @@ HB_FUNC(HWG_SPREADBITMAP)
   int nRight = (HB_ISNUM(5)) ? hb_parni(5) : 0;
   int nBottom = (HB_ISNUM(6)) ? hb_parni(6) : 0;
 
-  if (nLeft == 0 && nRight == 0)
-  {
+  if (nLeft == 0 && nRight == 0) {
     GtkAllocation alloc;
     gtk_widget_get_allocation(widget, &alloc);
 
@@ -491,11 +471,9 @@ HB_FUNC(HWG_SPREADBITMAP)
 
   nWidth = gdk_pixbuf_get_width(obj->handle);
   nHeight = gdk_pixbuf_get_height(obj->handle);
-  while (y1 < y2)
-  {
+  while (y1 < y2) {
     nh = (y2 - y1 >= nHeight) ? nHeight : y2 - y1;
-    while (x1 < x2)
-    {
+    while (x1 < x2) {
       nw = (x2 - x1 >= nWidth) ? nWidth : x2 - x1;
       gdk_pixbuf_copy_area(static_cast<const GdkPixbuf *>(obj->handle), 0, 0, nw, nh, pixbuf, x1, y1);
       x1 += nWidth;
@@ -536,8 +514,7 @@ HB_FUNC(HWG_OPENBITMAP)
 {
   GdkPixbuf *handle = gdk_pixbuf_new_from_file(hb_parc(1), nullptr);
 
-  if (handle)
-  {
+  if (handle) {
     auto hpix = static_cast<PHWGUI_PIXBUF>(hb_xgrab(sizeof(HWGUI_PIXBUF)));
     hpix->type = HWGUI_OBJECT_PIXBUF;
     hpix->handle = handle;
@@ -566,23 +543,19 @@ HB_FUNC(HWG_OPENIMAGE)
   short int iString = (HB_ISNIL(2)) ? 0 : hb_parl(2);
   GdkPixbuf *handle;
 
-  if (iString)
-  {
+  if (iString) {
     /* Load image from GDK pixbuffer */
     auto buf = reinterpret_cast<guint8 *>(const_cast<char *>(hb_parc(1)));
     GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
 
     gdk_pixbuf_loader_write(loader, buf, hb_parclen(1), nullptr);
     handle = gdk_pixbuf_loader_get_pixbuf(loader);
-  }
-  else
-  {
+  } else {
     /* Load image from file */
     handle = gdk_pixbuf_new_from_file(hb_parc(1), nullptr);
   }
 
-  if (handle)
-  {
+  if (handle) {
     auto hpix = static_cast<PHWGUI_PIXBUF>(hb_xgrab(sizeof(HWGUI_PIXBUF)));
     hpix->type = HWGUI_OBJECT_PIXBUF;
     hpix->handle = handle;
@@ -597,13 +570,10 @@ HB_FUNC(HWG_DRAWICON)
 
 HB_FUNC(HWG_GETSYSCOLOR)
 {
-  if (hMainWindow)
-  {
+  if (hMainWindow) {
     GdkColor color = gtk_widget_get_style(hMainWindow)->bg[GTK_STATE_NORMAL];
     hb_retnl(hwg_gdk_color(&color));
-  }
-  else
-  {
+  } else {
     hb_retnl(0);
   }
 }
@@ -632,34 +602,24 @@ HB_FUNC(HWG_SELECTOBJECT)
 {
   auto obj = static_cast<HWGUI_HDC_OBJECT *>(hb_parptr(2));
 
-  if (obj)
-  {
+  if (obj) {
     auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
 
-    if (obj->type == HWGUI_OBJECT_PEN)
-    {
+    if (obj->type == HWGUI_OBJECT_PEN) {
       hwg_setcolor(hDC->cr, (reinterpret_cast<PHWGUI_PEN>(obj))->color);
       cairo_set_line_width(hDC->cr, (reinterpret_cast<PHWGUI_PEN>(obj))->width);
-      if ((reinterpret_cast<PHWGUI_PEN>(obj))->style == PS_SOLID)
-      {
+      if ((reinterpret_cast<PHWGUI_PEN>(obj))->style == PS_SOLID) {
         cairo_set_dash(hDC->cr, nullptr, 0, 0);
-      }
-      else
-      {
+      } else {
         static const double dashed[] = {2.0, 2.0};
         cairo_set_dash(hDC->cr, dashed, 2, 0);
       }
-    }
-    else if (obj->type == HWGUI_OBJECT_BRUSH)
-    {
+    } else if (obj->type == HWGUI_OBJECT_BRUSH) {
       hwg_setcolor(hDC->cr, (reinterpret_cast<PHWGUI_BRUSH>(obj))->color);
-    }
-    else if (obj->type == HWGUI_OBJECT_FONT)
-    {
+    } else if (obj->type == HWGUI_OBJECT_FONT) {
       hDC->hFont = (reinterpret_cast<PHWGUI_FONT>(obj))->hFont;
       pango_layout_set_font_description(hDC->layout, hDC->hFont);
-      if ((reinterpret_cast<PHWGUI_FONT>(obj))->attrs)
-      {
+      if ((reinterpret_cast<PHWGUI_FONT>(obj))->attrs) {
         pango_layout_set_attributes(hDC->layout, (reinterpret_cast<PHWGUI_FONT>(obj))->attrs);
       }
     }
@@ -671,22 +631,15 @@ HB_FUNC(HWG_DELETEOBJECT)
 {
   auto obj = static_cast<HWGUI_HDC_OBJECT *>(hb_parptr(1));
 
-  if (obj->type == HWGUI_OBJECT_PEN)
-  {
+  if (obj->type == HWGUI_OBJECT_PEN) {
     hb_xfree(obj);
-  }
-  else if (obj->type == HWGUI_OBJECT_BRUSH)
-  {
+  } else if (obj->type == HWGUI_OBJECT_BRUSH) {
     hb_xfree(obj);
-  }
-  else if (obj->type == HWGUI_OBJECT_FONT)
-  {
+  } else if (obj->type == HWGUI_OBJECT_FONT) {
     pango_font_description_free((reinterpret_cast<PHWGUI_FONT>(obj))->hFont);
     pango_attr_list_unref((reinterpret_cast<PHWGUI_FONT>(obj))->attrs);
     hb_xfree(obj);
-  }
-  else if (obj->type == HWGUI_OBJECT_PIXBUF)
-  {
+  } else if (obj->type == HWGUI_OBJECT_PIXBUF) {
     g_object_unref(reinterpret_cast<GObject *>(reinterpret_cast<PHWGUI_PIXBUF>(obj)->handle));
     hb_xfree(obj);
   }
@@ -724,8 +677,7 @@ HB_FUNC(HWG_ENDPAINT)
   auto pps = static_cast<PHWGUI_PPS>(hb_parptr(2));
   PHWGUI_HDC hDC = pps->hDC;
 
-  if (hDC->layout)
-  {
+  if (hDC->layout) {
     g_object_unref(reinterpret_cast<GObject *>(hDC->layout));
   }
   hb_xfree(hDC);
@@ -753,13 +705,11 @@ HB_FUNC(HWG_RELEASEDC)
 {
   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(2));
 
-  if (hDC->layout)
-  {
+  if (hDC->layout) {
     g_object_unref(reinterpret_cast<GObject *>(hDC->layout));
   }
 
-  if (hDC->surface)
-  {
+  if (hDC->surface) {
     cairo_surface_destroy(hDC->surface);
   }
   cairo_destroy(hDC->cr);
@@ -830,8 +780,7 @@ HB_FUNC(HWG_GETCLIENTAREA)
   auto aMetr = hb_itemArrayNew(4);
   GtkAllocation alloc;
 
-  if (getFixedBox(reinterpret_cast<GObject *>(widget)))
-  {
+  if (getFixedBox(reinterpret_cast<GObject *>(widget))) {
     widget = reinterpret_cast<GtkWidget *>(getFixedBox(reinterpret_cast<GObject *>(widget)));
   }
 
@@ -849,8 +798,7 @@ HB_FUNC(HWG_GETCLIENTRECT)
   auto aMetr = hb_itemArrayNew(4);
   GtkAllocation alloc;
 
-  if (getFixedBox(reinterpret_cast<GObject *>(widget)))
-  {
+  if (getFixedBox(reinterpret_cast<GObject *>(widget))) {
     widget = reinterpret_cast<GtkWidget *>(getFixedBox(reinterpret_cast<GObject *>(widget)));
   }
 
@@ -910,21 +858,16 @@ HB_FUNC(HWG_DRAWGRADIENT)
   gint radius[4], max_r;
   gint user_radiuses_num;
 
-  if (!pArrColor || (user_colors_num = hb_arrayLen(pArrColor)) == 0)
-  {
+  if (!pArrColor || (user_colors_num = hb_arrayLen(pArrColor)) == 0) {
     return;
   }
 
-  if (user_colors_num == 1)
-  {
+  if (user_colors_num == 1) {
     hwg_setcolor(hDC->cr, hb_arrayGetNL(pArrColor, 1));
-  }
-  else
-  {
+  } else {
     // type of gradient
     type = (type >= 1 && type <= 9) ? type : 1;
-    switch (type)
-    {
+    switch (type) {
     case 1:
       // vertical and down
       pat = cairo_pattern_create_linear(x1, y1, x1, y2);
@@ -969,8 +912,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
     colors_num = user_colors_num;
     user_stops_num = (pArrStop) ? hb_arrayLen(pArrStop) : 0;
 
-    for (gint i = 0; i < colors_num; i++)
-    {
+    for (gint i = 0; i < colors_num; i++) {
       color = (i < user_colors_num) ? hb_arrayGetNL(pArrColor, i + 1) : 0xFFFFFF * i;
       hwg_prepare_cairo_colors(color, &r, &g, &b);
       stop = (i < user_stops_num) ? hb_arrayGetND(pArrStop, i + 1)
@@ -979,14 +921,12 @@ HB_FUNC(HWG_DRAWGRADIENT)
     }
   }
 
-  if (pArrRadius)
-  {
+  if (pArrRadius) {
     user_radiuses_num = hb_arrayLen(pArrRadius);
     max_r = (x2 - x1 + 1 > y2 - y1 + 1) ? y2 - y1 + 1 : x2 - x1 + 1;
     max_r /= 2;
 
-    for (gint i = 0; i < 4; i++)
-    {
+    for (gint i = 0; i < 4; i++) {
       radius[i] = (i < user_radiuses_num) ? hb_arrayGetNI(pArrRadius, i + 1) : 0;
       radius[i] = (radius[i] >= 0) ? radius[i] : 0;
       radius[i] = (radius[i] <= max_r) ? radius[i] : max_r;
@@ -997,20 +937,16 @@ HB_FUNC(HWG_DRAWGRADIENT)
     cairo_arc(hDC->cr, x2 - radius[2], y2 - radius[2], radius[2], 0, M_PI / 2);
     cairo_arc(hDC->cr, x1 + radius[3], y2 - radius[3], radius[3], M_PI / 2, M_PI);
     cairo_close_path(hDC->cr);
-  }
-  else
-  {
+  } else {
     cairo_rectangle(hDC->cr, x1, y1, x2 - x1 + 1, y2 - y1 + 1);
   }
 
-  if (user_colors_num > 1)
-  {
+  if (user_colors_num > 1) {
     cairo_set_source(hDC->cr, pat);
   }
   cairo_fill(hDC->cr);
 
-  if (user_colors_num > 1)
-  {
+  if (user_colors_num > 1) {
     cairo_pattern_destroy(pat);
   }
 }
@@ -1065,8 +1001,7 @@ HB_FUNC(HWG__DRAWCHECKBTN)
 
   cairo_rectangle(hDC->cr, x1, y1, nHeight, nHeight);
 
-  if (iSet)
-  {
+  if (iSet) {
     cairo_move_to(hDC->cr, x1 + 2, y1 + nHeight / 2);
     cairo_line_to(hDC->cr, x1 + nHeight / 2, y1 + nHeight - 2);
     cairo_line_to(hDC->cr, x1 + nHeight - 1, y1);
@@ -1074,8 +1009,7 @@ HB_FUNC(HWG__DRAWCHECKBTN)
 
   cairo_stroke(hDC->cr);
 
-  if (cTitle)
-  {
+  if (cTitle) {
     gcTitle = hwg_convert_to_utf8(cTitle);
     pango_layout_set_text(hDC->layout, gcTitle, -1);
     cairo_move_to(hDC->cr, x1 + nHeight + 4, y1 - 2);
@@ -1109,14 +1043,12 @@ HB_FUNC(HWG__DRAWRADIOBTN)
   cairo_arc(hDC->cr, x1 + nHeight / 2, y1 + nHeight / 2, nHeight / 2, 0, 6.28);
   cairo_stroke(hDC->cr);
 
-  if (iSet)
-  {
+  if (iSet) {
     cairo_arc(hDC->cr, x1 + nHeight / 2, y1 + nHeight / 2, nHeight / 2 - 3, 0, 6.28);
     cairo_fill(hDC->cr);
   }
 
-  if (cTitle)
-  {
+  if (cTitle) {
     gcTitle = hwg_convert_to_utf8(cTitle);
     pango_layout_set_text(hDC->layout, gcTitle, -1);
     cairo_move_to(hDC->cr, x1 + nHeight + 4, y1 - 2);

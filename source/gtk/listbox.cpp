@@ -124,8 +124,7 @@ HB_FUNC(HWG_CREATELISTBOX)
 
   /* Set listbox sizes */
 
-  if (hlistbox)
-  {
+  if (hlistbox) {
     gtk_fixed_put(GTK_FIXED(hlistbox), hlistbox, hb_parni(4), hb_parni(5)); /* x, y */
   }
 

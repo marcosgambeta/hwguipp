@@ -69,13 +69,11 @@ gboolean cb_delete_event(GtkWidget *widget, gchar *data)
   HB_SYMBOL_UNUSED(data);
   gObject = g_object_get_data(reinterpret_cast<GObject *>(widget), "obj");
 
-  if (!pSym_onEvent)
-  {
+  if (!pSym_onEvent) {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
   }
 
-  if (pSym_onEvent && gObject)
-  {
+  if (pSym_onEvent && gObject) {
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
     hb_vmPush(static_cast<PHB_ITEM>(gObject));
     hb_vmPushLong(2);
@@ -120,11 +118,9 @@ HB_FUNC(HWG_INITMAINWINDOW)
 
   /* Background style*/
   style = gtk_style_new();
-  if (szBackFile)
-  {
+  if (szBackFile) {
     gdk_pixbuf_render_pixmap_and_mask(szBackFile->handle, &background, nullptr, 0);
-    if (!background)
-    {
+    if (!background) {
       g_error("%s\n", "Error loading background image");
     }
     style->bg_pixmap[0] = background;
@@ -169,13 +165,11 @@ HB_FUNC(HWG_INITMAINWINDOW)
      DF7BE:
      gtk_window_set_icon() does not work
   */
-  if (szFile)
-  {
+  if (szFile) {
     gtk_window_set_default_icon(szFile->handle);
   }
   /* Set Background */
-  if (szBackFile)
-  {
+  if (szBackFile) {
     gtk_widget_set_style(GTK_WIDGET(hWnd), GTK_STYLE(style));
   }
 
@@ -200,22 +194,18 @@ HB_FUNC(HWG_CREATEDLG)
   PHWGUI_PIXBUF szBackFile = nullptr;
 
   /* Icon */
-  if (!HB_IS_NIL(pIcon))
-  {
+  if (!HB_IS_NIL(pIcon)) {
     szFile = static_cast<PHWGUI_PIXBUF>(hb_itemGetPtr(GetObjectVar(pIcon, "HANDLE")));
   }
   /* Background image */
-  if (!HB_IS_NIL(pBmp))
-  {
+  if (!HB_IS_NIL(pBmp)) {
     szBackFile = static_cast<PHWGUI_PIXBUF>(hb_itemGetPtr(GetObjectVar(pBmp, "HANDLE")));
   }
   /* Background style*/
   style = gtk_style_new();
-  if (szBackFile)
-  {
+  if (szBackFile) {
     gdk_pixbuf_render_pixmap_and_mask(szBackFile->handle, &background, nullptr, 0);
-    if (!background)
-    {
+    if (!background) {
       g_error("%s\n", "Error loading background image");
     }
     style->bg_pixmap[0] = background;
@@ -223,8 +213,7 @@ HB_FUNC(HWG_CREATEDLG)
 
   auto hWnd = static_cast<GtkWidget *>(gtk_window_new(GTK_WINDOW_TOPLEVEL));
 
-  if (szFile)
-  {
+  if (szFile) {
     gtk_window_set_icon(GTK_WINDOW(hWnd), szFile->handle);
   }
 
@@ -261,8 +250,7 @@ HB_FUNC(HWG_CREATEDLG)
   // g_signal_connect(hWnd, "size-allocate", G_CALLBACK(cb_signal_size), nullptr);
 
   /* Set Background */
-  if (szBackFile)
-  {
+  if (szBackFile) {
     gtk_widget_set_style(GTK_WIDGET(hWnd), GTK_STYLE(style));
   }
 
@@ -292,8 +280,7 @@ HB_FUNC(HWG_ACTIVATEMAINWINDOW)
 HB_FUNC(HWG_ACTIVATEDIALOG)
 {
   // gtk_widget_show_all(static_cast<GtkWidget*>(hb_parptr(1)));
-  if (HB_ISNIL(2) || !hb_parl(2))
-  {
+  if (HB_ISNIL(2) || !hb_parl(2)) {
     gtk_main();
   }
 }
@@ -322,13 +309,11 @@ gint cb_signal_size(GtkWidget *widget, GtkAllocation *allocation, gpointer data)
   // gpointer gObject = g_object_get_data(static_cast<GObject*>(widget), "obj");
   HB_SYMBOL_UNUSED(data);
 
-  if (!pSym_onEvent)
-  {
+  if (!pSym_onEvent) {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
   }
 
-  if (pSym_onEvent && gObject)
-  {
+  if (pSym_onEvent && gObject) {
     HB_LONG p3 = (static_cast<HB_ULONG>(allocation->width) & 0xFFFF) |
                  ((static_cast<HB_ULONG>(allocation->height) << 16) & 0xFFFF0000);
 
@@ -348,15 +333,11 @@ void cb_signal(GtkWidget *widget, gchar *data)
   HB_LONG p1, p2, p3;
 
   sscanf(static_cast<char *>(data), "%ld %ld %ld", &p1, &p2, &p3);
-  if (!p1)
-  {
+  if (!p1) {
     p1 = 273;
-    if (p3)
-    {
+    if (p3) {
       widget = reinterpret_cast<GtkWidget *>(p3);
-    }
-    else
-    {
+    } else {
       widget = hMainWindow;
     }
     p3 = 0;
@@ -364,13 +345,11 @@ void cb_signal(GtkWidget *widget, gchar *data)
 
   gObject = g_object_get_data(reinterpret_cast<GObject *>(widget), "obj");
 
-  if (!pSym_onEvent)
-  {
+  if (!pSym_onEvent) {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
   }
 
-  if (pSym_onEvent && gObject)
-  {
+  if (pSym_onEvent && gObject) {
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
     hb_vmPush(static_cast<PHB_ITEM>(gObject));
     hb_vmPushLong(p1);
@@ -383,12 +362,10 @@ void cb_signal(GtkWidget *widget, gchar *data)
 
 static HB_LONG ToKey(HB_LONG a, HB_LONG b)
 {
-  switch (a)
-  {
+  switch (a) {
   case GDK_KEY_asciitilde:
   case GDK_KEY_dead_tilde:
-    switch (b)
-    {
+    switch (b) {
     case GDK_KEY_A:
       return static_cast<HB_LONG>(GDK_KEY_Atilde);
     case GDK_KEY_a:
@@ -405,8 +382,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
     break;
   case GDK_KEY_asciicircum:
   case GDK_KEY_dead_circumflex:
-    switch (b)
-    {
+    switch (b) {
     case GDK_KEY_A:
       return static_cast<HB_LONG>(GDK_KEY_Acircumflex);
     case GDK_KEY_a:
@@ -449,8 +425,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
     break;
   case GDK_KEY_grave:
   case GDK_KEY_dead_grave:
-    switch (b)
-    {
+    switch (b) {
     case GDK_KEY_A:
       return static_cast<HB_LONG>(GDK_KEY_Agrave);
     case GDK_KEY_a:
@@ -479,8 +454,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
     break;
   case GDK_KEY_acute:
   case GDK_KEY_dead_acute:
-    switch (b)
-    {
+    switch (b) {
     case GDK_KEY_A:
       return static_cast<HB_LONG>(GDK_KEY_Aacute);
     case GDK_KEY_a:
@@ -533,8 +507,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
     break;
   case GDK_KEY_diaeresis:
   case GDK_KEY_dead_diaeresis:
-    switch (b)
-    {
+    switch (b) {
     case GDK_KEY_A:
       return static_cast<HB_LONG>(GDK_KEY_Adiaeresis);
     case GDK_KEY_a:
@@ -573,20 +546,17 @@ static gint cb_event(GtkWidget *widget, GdkEvent *event, gchar *data)
   // gchar * tmpbuf;
   // gchar * res = nullptr;
 
-  if (!pSym_onEvent)
-  {
+  if (!pSym_onEvent) {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
   }
 
   // if( !gObject ) {
   //    gObject = g_object_get_data(static_cast<GObject*>(widget->parent->parent), "obj");
   // }
-  if (pSym_onEvent && gObject)
-  {
+  if (pSym_onEvent && gObject) {
     HB_LONG p1, p2, p3;
 
-    switch (event->type)
-    {
+    switch (event->type) {
     case GDK_KEY_PRESS:
     case GDK_KEY_RELEASE: {
       /*
@@ -602,15 +572,11 @@ static gint cb_event(GtkWidget *widget, GdkEvent *event, gchar *data)
       p2 = (reinterpret_cast<GdkEventKey *>(event))->keyval;
       if (p2 == GDK_KEY_asciitilde || p2 == GDK_KEY_asciicircum || p2 == GDK_KEY_grave || p2 == GDK_KEY_acute ||
           p2 == GDK_KEY_diaeresis || p2 == GDK_KEY_dead_acute || p2 == GDK_KEY_dead_tilde ||
-          p2 == GDK_KEY_dead_circumflex || p2 == GDK_KEY_dead_grave || p2 == GDK_KEY_dead_diaeresis)
-      {
+          p2 == GDK_KEY_dead_circumflex || p2 == GDK_KEY_dead_grave || p2 == GDK_KEY_dead_diaeresis) {
         prevp2 = p2;
         p2 = -1;
-      }
-      else
-      {
-        if (prevp2 != -1)
-        {
+      } else {
+        if (prevp2 != -1) {
           p2 = ToKey(prevp2, static_cast<HB_LONG>(p2));
           // uchar = gdk_keyval_to_unicode(p2);
           prevp2 = -1;
@@ -634,14 +600,11 @@ static gint cb_event(GtkWidget *widget, GdkEvent *event, gchar *data)
     case GDK_BUTTON_PRESS:
     case GDK_2BUTTON_PRESS:
     case GDK_BUTTON_RELEASE: {
-      if ((reinterpret_cast<GdkEventButton *>(event))->button == 3)
-      {
+      if ((reinterpret_cast<GdkEventButton *>(event))->button == 3) {
         p1 = (event->type == GDK_BUTTON_PRESS)
                  ? WM_RBUTTONDOWN
                  : ((event->type == GDK_BUTTON_RELEASE) ? WM_RBUTTONUP : WM_LBUTTONDBLCLK);
-      }
-      else
-      {
+      } else {
         p1 = (event->type == GDK_BUTTON_PRESS)
                  ? WM_LBUTTONDOWN
                  : ((event->type == GDK_BUTTON_RELEASE) ? WM_LBUTTONUP : WM_LBUTTONDBLCLK);
@@ -663,12 +626,9 @@ static gint cb_event(GtkWidget *widget, GdkEvent *event, gchar *data)
       gtk_widget_get_allocation(widget, &alloc);
       p2 = 0;
       if (alloc.width != (reinterpret_cast<GdkEventConfigure *>(event))->width ||
-          alloc.height != (reinterpret_cast<GdkEventConfigure *>(event))->height)
-      {
+          alloc.height != (reinterpret_cast<GdkEventConfigure *>(event))->height) {
         return 0;
-      }
-      else
-      {
+      } else {
         p1 = WM_MOVE;
         p3 = ((reinterpret_cast<GdkEventConfigure *>(event))->x & 0xFFFF) |
              (((reinterpret_cast<GdkEventConfigure *>(event))->y << 16) & 0xFFFF0000);
@@ -745,8 +705,7 @@ void all_signal_connect(gpointer hWnd)
 {
   char buf[20] = {0};
 
-  for (auto i = 0; i < NUMBER_OF_SIGNALS; i++)
-  {
+  for (auto i = 0; i < NUMBER_OF_SIGNALS; i++) {
     sprintf(buf, "%d 0 0", aSignals[i].msg);
     g_signal_connect(hWnd, aSignals[i].cName, G_CALLBACK(cb_signal), g_strdup(buf));
   }
@@ -757,16 +716,13 @@ GtkWidget *GetActiveWindow(void)
   GList *pL = gtk_window_list_toplevels(), *pList;
 
   pList = pL;
-  while (pList)
-  {
-    if (gtk_window_is_active(pList->data))
-    {
+  while (pList) {
+    if (gtk_window_is_active(pList->data)) {
       break;
     }
     pList = g_list_next(pList);
   }
-  if (!pList)
-  {
+  if (!pList) {
     pList = pL;
   }
 
@@ -787,16 +743,12 @@ void SetWindowObject(GtkWidget *hWnd, PHB_ITEM pObject)
 {
   gpointer gObject = g_object_get_data(reinterpret_cast<GObject *>(hWnd), "obj");
 
-  if (gObject)
-  {
+  if (gObject) {
     hb_itemRelease(static_cast<PHB_ITEM>(gObject));
   }
-  if (pObject)
-  {
+  if (pObject) {
     g_object_set_data(reinterpret_cast<GObject *>(hWnd), "obj", static_cast<gpointer>(hb_itemNew(pObject)));
-  }
-  else
-  {
+  } else {
     g_object_set_data(reinterpret_cast<GObject *>(hWnd), "obj", static_cast<gpointer>(nullptr));
   }
 }
@@ -805,12 +757,9 @@ HB_FUNC(HWG_GETWINDOWOBJECT)
 {
   gpointer dwNewLong = g_object_get_data(static_cast<GObject *>(hb_parptr(1)), "obj");
 
-  if (dwNewLong)
-  {
+  if (dwNewLong) {
     hb_itemReturn(static_cast<PHB_ITEM>(dwNewLong));
-  }
-  else
-  {
+  } else {
     hb_ret();
   }
 }
@@ -849,12 +798,10 @@ HB_FUNC(HWG_MOVEWINDOW)
 {
   auto hWnd = static_cast<GtkWidget *>(hb_parptr(1));
 
-  if (!HB_ISNIL(2) || !HB_ISNIL(3))
-  {
+  if (!HB_ISNIL(2) || !HB_ISNIL(3)) {
     gtk_window_move(GTK_WINDOW(hWnd), hb_parni(2), hb_parni(3));
   }
-  if (!HB_ISNIL(4) || !HB_ISNIL(5))
-  {
+  if (!HB_ISNIL(4) || !HB_ISNIL(5)) {
     gtk_window_resize(GTK_WINDOW(hWnd), hb_parni(4), hb_parni(5));
   }
 }
@@ -903,13 +850,10 @@ HB_FUNC(HWG_RELEASEOBJECT)
   auto hWnd = static_cast<GObject *>(hb_parptr(1));
   gpointer dwNewLong = g_object_get_data(hWnd, "obj");
 
-  if (dwNewLong)
-  {
+  if (dwNewLong) {
     hb_itemRelease(static_cast<PHB_ITEM>(dwNewLong));
     g_object_set_data(hWnd, "obj", static_cast<gpointer>(nullptr));
-  }
-  else
-  {
+  } else {
     hb_ret();
   }
 }
@@ -919,14 +863,10 @@ HB_FUNC(HWG_SETFOCUS)
   auto hObj = static_cast<GObject *>(hb_parptr(1));
   GtkWidget *handle = gtk_window_get_focus(gtk_window_list_toplevels()->data);
 
-  if (hObj)
-  {
-    if (g_object_get_data(hObj, "window"))
-    {
+  if (hObj) {
+    if (g_object_get_data(hObj, "window")) {
       gtk_window_present(static_cast<GtkWindow *>(hb_parptr(1)));
-    }
-    else
-    {
+    } else {
       gtk_widget_grab_focus(static_cast<GtkWidget *>(hb_parptr(1)));
     }
   }
@@ -947,8 +887,7 @@ HB_FUNC(HWG_DESTROYWINDOW)
 void hwg_set_modal(GtkWindow *hDlg, GtkWindow *hParent)
 {
   gtk_window_set_modal(hDlg, 1);
-  if (hParent)
-  {
+  if (hParent) {
     gtk_window_set_transient_for(hDlg, hParent);
   }
 }
@@ -999,24 +938,18 @@ HB_FUNC(HWG_GETWINDOWPOS)
 
 gchar *hwg_convert_to_utf8(const char *szText)
 {
-  if (*szAppLocale)
-  {
+  if (*szAppLocale) {
     return g_convert(szText, -1, "UTF-8", szAppLocale, nullptr, nullptr, nullptr);
-  }
-  else
-  {
+  } else {
     return g_locale_to_utf8(szText, -1, nullptr, nullptr, nullptr);
   }
 }
 
 gchar *hwg_convert_from_utf8(const char *szText)
 {
-  if (*szAppLocale)
-  {
+  if (*szAppLocale) {
     return g_convert(szText, -1, szAppLocale, "UTF-8", nullptr, nullptr, nullptr);
-  }
-  else
-  {
+  } else {
     return g_locale_from_utf8(szText, -1, nullptr, nullptr, nullptr);
   }
 }
@@ -1050,16 +983,13 @@ static gint snooper(GtkWidget *grab_widget, GdkEventKey *event, gpointer func_da
   GtkWidget *window = GetActiveWindow();
 
   HB_SYMBOL_UNUSED(func_data);
-  if (window && event->type == GDK_KEY_RELEASE)
-  {
+  if (window && event->type == GDK_KEY_RELEASE) {
     auto pObject = static_cast<PHB_ITEM>(g_object_get_data(reinterpret_cast<GObject *>(window), "obj"));
-    if (!pSym_keylist)
-    {
+    if (!pSym_keylist) {
       pSym_keylist = hb_dynsymFindName("EVALKEYLIST");
     }
 
-    if (pObject && pSym_keylist && hb_objHasMessage(pObject, pSym_keylist))
-    {
+    if (pObject && pSym_keylist && hb_objHasMessage(pObject, pSym_keylist)) {
       HB_LONG p2;
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_keylist));
       hb_vmPush(pObject);

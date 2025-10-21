@@ -90,8 +90,7 @@ HB_FUNC(HWG_SELECTFONT)
   fontseldlg = gtk_font_selection_dialog_new(cTitle);
   // GTK_FONT_SELECTION(GTK_FONT_SELECTION_DIALOG(fontseldlg)->fontsel);
 
-  if (hb_pcount() > 0 && !HB_ISNIL(1))
-  {
+  if (hb_pcount() > 0 && !HB_ISNIL(1)) {
     auto pObj = hb_param(1, Harbour::Item::OBJECT);
     auto ptr = hb_itemGetCPtr(GetObjectVar(pObj, "NAME"));
     auto height = hb_itemGetNI(GetObjectVar(pObj, "HEIGHT"));
@@ -143,8 +142,7 @@ HB_FUNC(HWG_SELECTFILE)
   const char *cTitle = (hb_pcount() > 3 && HB_ISCHAR(4)) ? hb_parc(4) : "Select a file";
   char *cDir = (hb_pcount() > 2 && HB_ISCHAR(3)) ? const_cast<char *>(hb_parc(3)) : nullptr;
 
-  if (cDir)
-  {
+  if (cDir) {
     hb_fsChDir(cDir);
   }
   file_selector = gtk_file_selection_new(cTitle);
@@ -157,8 +155,7 @@ HB_FUNC(HWG_SELECTFILE)
   g_signal_connect_swapped(G_OBJECT(GTK_FILE_SELECTION(file_selector)->cancel_button), "clicked",
                            G_CALLBACK(cancel_filedlg), static_cast<gpointer>(file_selector));
 
-  if (cMask)
-  {
+  if (cMask) {
     gtk_file_selection_complete(reinterpret_cast<GtkFileSelection *>(file_selector), cMask);
   }
 
@@ -184,8 +181,7 @@ static void selefile_preview(GtkFileChooser *file_chooser, gpointer data)
   g_free(filename);
 
   gtk_image_set_from_pixbuf(GTK_IMAGE(preview), pixbuf);
-  if (pixbuf)
-  {
+  if (pixbuf) {
     g_object_unref(pixbuf);
   }
 
@@ -209,27 +205,21 @@ HB_FUNC(HWG_SELECTFILE)
       gtk_file_chooser_dialog_new(cTitle, static_cast<GtkWindow *>(GetActiveWindow()), GTK_FILE_CHOOSER_ACTION_OPEN,
                                   "gtk-cancel", GTK_RESPONSE_CANCEL, "gtk-open", GTK_RESPONSE_ACCEPT, nullptr);
 
-  if (pArrMsk)
-  {
+  if (pArrMsk) {
     iLen = hb_arrayLen(pArrMsk);
     iLenTip = (pArrTip) ? hb_arrayLen(pArrTip) : 0;
-    for (int i = 1; i <= iLen; i++)
-    {
+    for (int i = 1; i <= iLen; i++) {
       GtkFileFilter *filtro = gtk_file_filter_new();
       gtk_file_filter_add_pattern(filtro, hb_arrayGetC(pArrMsk, i));
-      if (iLenTip >= i)
-      {
+      if (iLenTip >= i) {
         gtk_file_filter_set_name(filtro, hb_arrayGetC(pArrTip, i));
       }
       gtk_file_chooser_add_filter(static_cast<GtkFileChooser *>(selector_archivo), filtro);
     }
-  }
-  else if (cMsk)
-  {
+  } else if (cMsk) {
     GtkFileFilter *filtro = gtk_file_filter_new();
     gtk_file_filter_add_pattern(filtro, cMsk);
-    if (cTip)
-    {
+    if (cTip) {
       gtk_file_filter_set_name(filtro, cTip);
     }
     gtk_file_chooser_add_filter(static_cast<GtkFileChooser *>(selector_archivo), filtro);
@@ -243,8 +233,7 @@ HB_FUNC(HWG_SELECTFILE)
   g_signal_connect(selector_archivo, "update-preview", G_CALLBACK(selefile_preview), preview);
 
   resultado = gtk_dialog_run(GTK_DIALOG(selector_archivo));
-  switch (resultado)
-  {
+  switch (resultado) {
   case GTK_RESPONSE_ACCEPT:
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(selector_archivo));
     hb_retc(filename);
@@ -290,8 +279,7 @@ HB_FUNC(HWG_CHOOSECOLOR)
   colorsel = GTK_COLOR_SELECTION(
       gtk_color_selection_dialog_get_color_selection(reinterpret_cast<GtkColorSelectionDialog *>(colorseldlg)));
 
-  if (hb_pcount() > 0 && !HB_ISNIL(1))
-  {
+  if (hb_pcount() > 0 && !HB_ISNIL(1)) {
     auto ulColor = static_cast<HB_ULONG>(hb_parnl(1));
     GdkColor color;
     hwg_parse_color(ulColor, &color);
@@ -316,8 +304,7 @@ HB_FUNC(HWG_CHOOSECOLOR)
   */
   response = gtk_dialog_run(GTK_DIALOG(colorseldlg));
 
-  if (response == GTK_RESPONSE_OK)
-  {
+  if (response == GTK_RESPONSE_OK) {
     gtk_color_selection_get_current_color(colorsel, &color);
     hb_retnl(static_cast<HB_ULONG>((color.red >> 8) + (color.green & 0xff00) + ((color.blue & 0xff00) << 8)));
   }
@@ -340,8 +327,7 @@ static void actualiza_preview(GtkFileChooser *file_chooser, gpointer data)
   g_free(filename);
 
   gtk_image_set_from_pixbuf(GTK_IMAGE(preview), pixbuf);
-  if (pixbuf)
-  {
+  if (pixbuf) {
     g_object_unref(pixbuf);
   }
 
@@ -371,22 +357,16 @@ HB_FUNC(HWG_SELECTFILEEX)
   // Opciones de los filtros
   // -----------------------
 
-  if (pArray)
-  {
+  if (pArray) {
     iLen = hb_arrayLen(pArray);
-    for (int i = 1; i <= iLen; i++)
-    {
+    for (int i = 1; i <= iLen; i++) {
       GtkFileFilter *filtro = gtk_file_filter_new();
       pArr1 = hb_arrayGetItemPtr(pArray, i);
       iLen1 = hb_arrayLen(pArr1);
-      for (int j = 1; j <= iLen1; j++)
-      {
-        if (j == 1)
-        {
+      for (int j = 1; j <= iLen1; j++) {
+        if (j == 1) {
           gtk_file_filter_set_name(filtro, hb_arrayGetC(pArr1, j));
-        }
-        else
-        {
+        } else {
           gtk_file_filter_add_pattern(filtro, hb_arrayGetC(pArr1, j));
         }
       }
@@ -399,8 +379,7 @@ HB_FUNC(HWG_SELECTFILEEX)
   // ---------------------
 
   gtk_file_chooser_set_current_folder(reinterpret_cast<GtkFileChooser *>(selector_archivo), cDir);
-  if (bMulti)
-  {
+  if (bMulti) {
     gtk_file_chooser_set_select_multiple(reinterpret_cast<GtkFileChooser *>(selector_archivo), 1);
   }
 
@@ -418,29 +397,23 @@ HB_FUNC(HWG_SELECTFILEEX)
   // ----------------------
 
   resultado = gtk_dialog_run(GTK_DIALOG(selector_archivo));
-  switch (resultado)
-  {
+  switch (resultado) {
   case GTK_RESPONSE_ACCEPT:
-    if (bMulti)
-    {
+    if (bMulti) {
       GSList *gsli = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(selector_archivo));
-      if (gsli && gsli->data)
-      {
+      if (gsli && gsli->data) {
         GSList *pgs = gsli;
         guint uiLen = g_slist_length(gsli);
         auto i1 = 0;
         auto aFiles = hb_itemArrayNew(uiLen);
-        while (pgs)
-        {
+        while (pgs) {
           hb_arraySetC(aFiles, ++i1, static_cast<char *>(pgs->data));
           pgs = pgs->next;
         }
         hb_itemReturnRelease(aFiles);
         g_slist_free(gsli);
       }
-    }
-    else
-    {
+    } else {
       filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(selector_archivo));
       hb_retc(filename);
       g_free(filename);
@@ -478,8 +451,7 @@ HB_FUNC(HWG_SELECTFOLDER)
   // ----------------------
 
   resultado = gtk_dialog_run(GTK_DIALOG(selector_archivo));
-  switch (resultado)
-  {
+  switch (resultado) {
   case GTK_RESPONSE_ACCEPT:
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(selector_archivo));
     hb_retc(filename);

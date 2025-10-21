@@ -49,17 +49,13 @@ void hwg_writelog(const char *sFile, const char *sTraceMsg, ...)
 {
   FILE *hFile;
 
-  if (sFile == nullptr)
-  {
+  if (sFile == nullptr) {
     hFile = hb_fopen("ac.log", "a");
-  }
-  else
-  {
+  } else {
     hFile = hb_fopen(sFile, "a");
   }
 
-  if (hFile)
-  {
+  if (hFile) {
     va_list ap;
     va_start(ap, sTraceMsg);
     vfprintf(hFile, sTraceMsg, ap);
@@ -82,8 +78,7 @@ HB_FUNC(HWG_RELEASECAPTURE)
 
 HB_FUNC(HWG_COPYSTRINGTOCLIPBOARD)
 {
-  if (!clipboard)
-  {
+  if (!clipboard) {
     clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   }
 
@@ -94,18 +89,14 @@ HB_FUNC(HWG_COPYSTRINGTOCLIPBOARD)
 HB_FUNC(HWG_GETCLIPBOARDTEXT)
 {
   gchar *sText;
-  if (!clipboard)
-  {
+  if (!clipboard) {
     clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   }
 
-  if (gtk_clipboard_wait_is_text_available(clipboard))
-  {
+  if (gtk_clipboard_wait_is_text_available(clipboard)) {
     sText = gtk_clipboard_wait_for_text(clipboard);
     hb_retc(sText);
-  }
-  else
-  {
+  } else {
     hb_retc("");
   }
 }
@@ -116,16 +107,13 @@ HB_FUNC(HWG_GETKEYBOARDSTATE)
   HB_ULONG ulState = hb_parnl(1);
 
   memset(lpbKeyState, 0, 255);
-  if (ulState & 1)
-  {
+  if (ulState & 1) {
     lpbKeyState[0x10] = 0x80; // Shift
   }
-  if (ulState & 2)
-  {
+  if (ulState & 2) {
     lpbKeyState[0x11] = 0x80; // Ctrl
   }
-  if (ulState & 4)
-  {
+  if (ulState & 4) {
     lpbKeyState[0x12] = 0x80; // Alt
   }
 
@@ -165,12 +153,9 @@ HB_FUNC(HWG_BITANDINVERSE)
 
 HB_FUNC(HWG_SETBIT)
 {
-  if (hb_pcount() < 3 || hb_parni(3))
-  {
+  if (hb_pcount() < 3 || hb_parni(3)) {
     hb_retnl(hb_parnl(1) | (1 << (hb_parni(2) - 1)));
-  }
-  else
-  {
+  } else {
     hb_retnl(hb_parnl(1) & ~(1 << (hb_parni(2) - 1)));
   }
 }
@@ -270,8 +255,7 @@ HB_FUNC(HWG_COLORRGB2N)
 
 HB_FUNC(HWG_SLEEP)
 {
-  if (hb_parinfo(1))
-  {
+  if (hb_parinfo(1)) {
     usleep(hb_parnl(1) * 1000);
   }
 }
@@ -287,30 +271,25 @@ HB_FUNC(HWG_RUNCONSOLEAPP)
   char buf[CHUNK_LEN];
   int bytes_read, iOutExist = 0, iExitCode;
 
-  if (!cmd_file)
-  {
+  if (!cmd_file) {
     hb_retni(-1);
     return;
   }
 
-  if (!HB_ISNIL(2))
-  {
+  if (!HB_ISNIL(2)) {
     hOut = fopen(hb_parc(2), "w");
     iOutExist = 1;
   }
 
-  do
-  {
+  do {
     bytes_read = fread(buf, sizeof(char), CHUNK_LEN, cmd_file);
-    if (iOutExist)
-    {
+    if (iOutExist) {
       fwrite(buf, 1, bytes_read, hOut);
     }
   } while (bytes_read == CHUNK_LEN);
 
   iExitCode = pclose(cmd_file);
-  if (iOutExist)
-  {
+  if (iOutExist) {
     fclose(hOut);
   }
 
@@ -399,8 +378,7 @@ HB_FUNC(HWG_GETTEMPDIR)
   HB_RETSTR(szBuffer);
 #else
   char const *tempdirname = getenv("TMPDIR");
-  if (tempdirname == nullptr)
-  {
+  if (tempdirname == nullptr) {
     tempdirname = "/tmp";
   }
   hb_retc(tempdirname);
@@ -460,8 +438,7 @@ int hwg_hexbin(int cha)
   int o;
 
   gross = toupper(cha);
-  switch (gross)
-  {
+  switch (gross) {
   case 48: /* 0 */
     o = 0;
     break;
@@ -572,29 +549,21 @@ HB_FUNC(HWG_BIN2DC)
 
   /* Convert hex to bin */
 
-  for (int i = 0; i < 16; i++)
-  {
+  for (int i = 0; i < 16; i++) {
     c = hwg_hexbin(szHex[i]);
     /* ignore, if not in 0 ... 1, A ... F */
-    if (c != -1)
-    {
+    if (c != -1) {
       /* must be a pair of char,
       other values between the pairs of hex values are ignored */
-      if (od == 1)
-      {
+      if (od == 1) {
         od = 0;
-      }
-      else
-      {
+      } else {
         od = 1;
       }
       /* 1. Halbbyte zwischenspeichern / Store first half byte */
-      if (od == 1)
-      {
+      if (od == 1) {
         p = c;
-      }
-      else
-      {
+      } else {
         /* 2. Halbbyte verarbeiten, ganzes Byte ausspeichern
             / Process second half byte and store full byte */
         p = (p * 16) + c;
